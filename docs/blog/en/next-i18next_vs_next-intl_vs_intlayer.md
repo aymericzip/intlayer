@@ -812,12 +812,12 @@ export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "en";
 
 export function localizedPath(locale: string, path: string) {
-  return locale === defaultLocale ? path : `/${locale}${path}`;
+  return locale === defaultLocale ? path : "/" + locale + path;
 }
 
 const ORIGIN = "https://example.com";
 export function abs(locale: string, path: string) {
-  return `${ORIGIN}${localizedPath(locale, path)}`;
+  return ORIGIN + localizedPath(locale, path);
 }
 ```
 
@@ -833,8 +833,9 @@ export async function generateMetadata({
   const { locale } = params;
 
   // Dynamically import the correct JSON file
-  const messages = (await import(`@/../public/locales/${locale}/about.json`))
-    .default;
+  const messages = (
+    await import("@/../public/locales/" + locale + "/about.json")
+  ).default;
 
   const languages = Object.fromEntries(
     locales.map((locale) => [locale, localizedPath(locale, "/about")])
@@ -897,7 +898,7 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: ["/"], disallow },
     host: ORIGIN,
-    sitemap: `${ORIGIN}/sitemap.xml`,
+    sitemap: ORIGIN + "/sitemap.xml",
   };
 }
 ```
@@ -911,7 +912,7 @@ import { locales, defaultLocale } from "@/i18n";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 function localizedPath(locale: string, path: string) {
-  return locale === defaultLocale ? path : `/${locale}${path}`;
+  return locale === defaultLocale ? path : "/" + locale + path;
 }
 
 export async function generateMetadata({
@@ -924,7 +925,7 @@ export async function generateMetadata({
 
   const url = "/about";
   const languages = Object.fromEntries(
-    locales.map((l) => [l, localizedPath(l, url)])
+    locales.map((locale) => [locale, localizedPath(locale, url)])
   );
 
   return {
@@ -947,7 +948,7 @@ import { locales, defaultLocale } from "@/i18n";
 const origin = "https://example.com";
 
 const formatterLocalizedPath = (locale: string, path: string) =>
-  locale === defaultLocale ? `${origin}${path}` : `${origin}/${locale}${path}`;
+  locale === defaultLocale ? origin + path : origin + "/" + locale + path;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const aboutLanguages = Object.fromEntries(
@@ -975,7 +976,7 @@ const withAllLocales = (path: string) => [
   path,
   ...locales
     .filter((locale) => locale !== defaultLocale)
-    .map((locale) => `/${locale}${path}`),
+    .map((locale) => "/" + locale + path),
 ];
 
 export default function robots(): MetadataRoute.Robots {
@@ -987,7 +988,7 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: ["/"], disallow },
     host: origin,
-    sitemap: `${origin}/sitemap.xml`,
+    sitemap: origin + "/sitemap.xml",
   };
 }
 ```
@@ -1049,14 +1050,13 @@ const robots = (): MetadataRoute.Robots => ({
     disallow: getAllMultilingualUrls(["/dashboard"]),
   },
   host: "https://example.com",
-  sitemap: `https://example.com/sitemap.xml`,
+  sitemap: "https://example.com/sitemap.xml",
 });
 
 export default robots;
 ```
 
   </TabItem>
-  
 </Tab>
 
 > Intlayer provides a `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
