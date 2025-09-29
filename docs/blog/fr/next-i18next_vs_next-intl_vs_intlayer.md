@@ -195,7 +195,7 @@ Voici un exemple de l'impact de l'optimisation de la taille du bundle en utilisa
 - **Génère des types stricts** à partir de votre contenu. **Autocomplétion IDE** et **erreurs à la compilation** détectent les fautes de frappe et les clés manquantes avant le déploiement.
 
   </Column>
-<Columns>
+</Columns>
 
 **Pourquoi c’est important :** Un typage fort déplace les erreurs vers la **gauche** (CI/build) au lieu de la **droite** (exécution).
 

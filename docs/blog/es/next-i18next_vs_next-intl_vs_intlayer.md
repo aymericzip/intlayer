@@ -195,7 +195,7 @@ Aquí un ejemplo del impacto de la optimización del tamaño del paquete usando 
 - **Genera tipos estrictos** a partir de tu contenido. La **autocompletación del IDE** y los **errores en tiempo de compilación** detectan errores tipográficos y claves faltantes antes del despliegue.
 
   </Column>
-<Columns>
+</Columns>
 
 **Por qué es importante:** La tipificación fuerte desplaza los fallos hacia la **izquierda** (CI/compilación) en lugar de hacia la **derecha** (tiempo de ejecución).
 

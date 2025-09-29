@@ -203,7 +203,7 @@ Hier ein Beispiel für die Auswirkung der Bundle-Größenoptimierung mit `intlay
 - **Erzeugt strenge Typen** aus Ihrem Inhalt. **IDE-Autovervollständigung** und **Kompilierzeit-Fehler** erkennen Tippfehler und fehlende Schlüssel vor der Bereitstellung.
 
   </Column>
-<Columns>
+</Columns>
 
 **Warum das wichtig ist:** Starke Typisierung verschiebt Fehler **nach links** (CI/Build) statt **nach rechts** (Laufzeit).
 

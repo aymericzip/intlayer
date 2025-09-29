@@ -195,7 +195,7 @@ Aqui está um exemplo do impacto da otimização do tamanho do bundle usando `in
 - **Gera tipos estritos** a partir do seu conteúdo. **Autocompletação na IDE** e **erros em tempo de compilação** detectam erros de digitação e chaves ausentes antes do deploy.
 
   </Column>
-<Columns>
+</Columns>
 
 **Por que isso importa:** Tipagem forte desloca falhas para a **esquerda** (CI/build) em vez da **direita** (tempo de execução).
 

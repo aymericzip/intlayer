@@ -203,7 +203,7 @@ Ecco un esempio dell'impatto dell'ottimizzazione della dimensione del bundle uti
 - **Genera tipi rigorosi** dal tuo contenuto. **Completamento automatico nell’IDE** e **errori a tempo di compilazione** individuano errori di battitura e chiavi mancanti prima del deploy.
 
   </Column>
-<Columns>
+</Columns>
 
 **Perché è importante:** La tipizzazione forte sposta i fallimenti a sinistra (CI/build) invece che a destra (runtime).
 

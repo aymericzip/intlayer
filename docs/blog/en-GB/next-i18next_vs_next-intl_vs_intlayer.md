@@ -195,7 +195,7 @@ Here is an example of the impact of bundle size optimisation using `intlayer` in
 - **Generates strict types** from your content. **IDE autocompletion** and **compile-time errors** catch typos and missing keys before deployment.
 
   </Column>
-<Columns>
+</Columns>
 
 **Why it matters:** Strong typing shifts failures **left** (CI/build) instead of **right** (runtime).
 
@@ -224,7 +224,7 @@ Here is an example of the impact of bundle size optimisation using `intlayer` in
 - **Generates strict types** from your content. **IDE autocompletion** and **compile-time errors** catch typos and missing keys before deployment.
 
   </Column>
-<Columns>
+</Columns>
 
 **Why it matters:** Strong typing shifts failures **left** (CI/build) instead of **right** (runtime).
 

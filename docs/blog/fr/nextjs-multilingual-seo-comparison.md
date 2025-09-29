@@ -1,12 +1,12 @@
 ---
 createdAt: 2025-09-28
 updatedAt: 2025-09-28
-title: SEO and i18n in Next.js
-description: Learn how to set up multilingual SEO in your Next.js app using next-intl, next-i18next, and Intlayer.
+title: SEO et i18n dans Next.js
+description: Apprenez à configurer le SEO multilingue dans votre application Next.js en utilisant next-intl, next-i18next et Intlayer.
 keywords:
   - Intlayer
   - SEO
-  - Internationalization
+  - Internationalisation
   - Next.js
   - i18n
   - JavaScript
@@ -19,51 +19,52 @@ slugs:
   - nextjs
 ---
 
-# SEO and i18n in Next.js: Translating is not enough
+# SEO et i18n dans Next.js : Traduire ne suffit pas
 
-When developers think about internationalization (i18n), the first reflex is often: *translate the content*. But people usually forget that the main goal of internationalization is to make your website more visible to the world.
-If your multilingual Next.js app doesn’t tell search engines how to crawl and understand your different language versions, most of your effort may go unnoticed.  
+Lorsque les développeurs pensent à l'internationalisation (i18n), le premier réflexe est souvent : _traduire le contenu_. Mais on oublie généralement que l'objectif principal de l'internationalisation est de rendre votre site web plus visible dans le monde.
+Si votre application Next.js multilingue n'indique pas aux moteurs de recherche comment explorer et comprendre vos différentes versions linguistiques, la plupart de vos efforts risquent de passer inaperçus.
 
-In this blog, we’ll explore **why i18n is an SEO superpower** and how to implement it correctly in Next.js with `next-intl`, `next-i18next`, and `Intlayer`.
-
----
-
-## Why SEO and i18n 
-
-Adding languages isn’t just about UX. It’s also a powerful lever for **organic visibility**. Here’s why:
-
-1. **Better discoverability:** Search engines index localized versions and rank them for users searching in their native language.  
-2. **Avoid duplicate content:** Proper canonical and alternate tags tell crawlers which page belongs to which locale.  
-3. **Better UX:** Visitors land on the right version of your site immediately.  
-4. **Competitive advantage:** Few sites implement multilingual SEO well which means you can stand out.  
+Dans ce blog, nous allons explorer **pourquoi l'i18n est une superpuissance du SEO** et comment l'implémenter correctement dans Next.js avec `next-intl`, `next-i18next` et `Intlayer`.
 
 ---
 
-## Best Practices for Multilingual SEO in Next.js
+## Pourquoi le SEO et l'i18n
 
-Here’s a checklist every multilingual app should implement:  
+Ajouter des langues ne concerne pas seulement l'expérience utilisateur (UX). C'est aussi un levier puissant pour la **visibilité organique**. Voici pourquoi :
 
-- **Set `hreflang` meta tags in `<head>`**  
-  Helps Google understand which versions exist for each language.  
-
-- **List all translated pages in `sitemap.xml`**  
-  Use the `xhtml` schema so crawlers can find alternates easily.  
-
-- **Exclude private/localized routes in `robots.txt`**  
-  e.g. don’t let `/dashboard`, `/fr/dashboard`, `/es/dashboard` be indexed.  
-
-- **Use localized links**  
-  Example: `<a href="/fr/about">À propos</a>` instead of linking to the default `/about`.  
-
-These are simple steps — but skipping them can cost you visibility.  
+1. **Meilleure découvrabilité :** Les moteurs de recherche indexent les versions localisées et les classent pour les utilisateurs recherchant dans leur langue maternelle.
+2. **Éviter le contenu dupliqué :** Les balises canoniques et alternates appropriées indiquent aux crawlers quelle page appartient à quelle locale.
+3. **Meilleure UX :** Les visiteurs arrivent immédiatement sur la bonne version de votre site.
+4. **Avantage concurrentiel :** Peu de sites mettent en œuvre correctement le SEO multilingue, ce qui signifie que vous pouvez vous démarquer.
 
 ---
 
-## Implementation Examples
+## Meilleures pratiques pour le SEO multilingue dans Next.js
 
- Developers often forget to properly reference their pages across locales so let’s look at how this works in practice with different libraries.
-  
+Voici une liste de contrôle que toute application multilingue devrait mettre en œuvre :
+
+- **Définir les balises méta `hreflang` dans `<head>`**  
+  Aide Google à comprendre quelles versions existent pour chaque langue.
+
+- **Lister toutes les pages traduites dans `sitemap.xml`**  
+  Utilisez le schéma `xhtml` pour que les crawlers puissent facilement trouver les alternatives.
+
+- **Exclure les routes privées/localisées dans `robots.txt`**  
+  Par exemple, ne pas laisser `/dashboard`, `/fr/dashboard`, `/es/dashboard` être indexés.
+
+- **Utiliser des liens localisés**  
+  Exemple : `<a href="/fr/about">À propos</a>` au lieu de lier vers la version par défaut `/about`.
+
+Ce sont des étapes simples — mais les ignorer peut vous coûter en visibilité.
+
+---
+
+## Exemples d'implémentation
+
+Les développeurs oublient souvent de référencer correctement leurs pages selon les locales, voyons donc comment cela fonctionne en pratique avec différentes bibliothèques.
+
 ### **next-intl**
+
 <Tabs>
   <TabItem label="next-intl">
 
@@ -72,6 +73,7 @@ import type { Metadata } from "next";
 import { locales, defaultLocale } from "@/i18n";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
+// Fonction pour obtenir le chemin localisé selon la locale
 function localizedPath(locale: string, path: string) {
   return locale === defaultLocale ? path : `/${locale}${path}`;
 }
@@ -82,6 +84,7 @@ export async function generateMetadata({
   params: { locale: string };
 }): Promise<Metadata> {
   const { locale } = params;
+  // Récupère les traductions pour la locale et le namespace "about"
   const t = await getTranslations({ locale, namespace: "about" });
 
   const url = "/about";
@@ -99,7 +102,7 @@ export async function generateMetadata({
   };
 }
 
-// ... Rest of the page code
+// ... Reste du code de la page
 ```
 
 ```tsx fileName="src/app/sitemap.ts"
@@ -120,7 +123,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: formatterLocalizedPath(defaultLocale, "/about"),
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "mensuel",
       priority: 0.7,
       alternates: { languages: aboutLanguages },
     },
@@ -151,7 +154,9 @@ export default function robots(): MetadataRoute.Robots {
   };
 }
 ```
+
 ### **next-i18next**
+
   </TabItem>
   <TabItem label="next-i18next">
 
@@ -160,12 +165,12 @@ export const locales = ["en", "fr"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "en";
 
-/** Prefix path with locale unless it's the default locale */
+/** Préfixer le chemin avec la locale sauf si c'est la locale par défaut */
 export function localizedPath(locale: string, path: string) {
   return locale === defaultLocale ? path : `/${locale}${path}`;
 }
 
-/** Absolute URL helper */
+/** Helper pour URL absolue */
 const ORIGIN = "https://example.com";
 export function abs(locale: string, path: string) {
   return `${ORIGIN}${localizedPath(locale, path)}`;
@@ -183,7 +188,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = params;
 
-  // Dynamically import the correct JSON file
+  // Importer dynamiquement le fichier JSON correct
   const messages = (await import(`@/../public/locales/${locale}/about.json`))
     .default;
 
@@ -202,7 +207,7 @@ export async function generateMetadata({
 }
 
 export default async function AboutPage() {
-  return <h1>About</h1>;
+  return <h1>À propos</h1>;
 }
 ```
 
@@ -218,9 +223,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: abs(defaultLocale, "/about"),
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-      alternates: { languages },
+      changeFrequency: "monthly", // fréquence de changement
+      priority: 0.7, // priorité du sitemap
+      alternates: { languages }, // langues alternatives
     },
   ];
 }
@@ -252,7 +257,9 @@ export default function robots(): MetadataRoute.Robots {
   };
 }
 ```
+
 ### **Intlayer**
+
   </TabItem>
   <TabItem label="intlayer">
 
@@ -269,13 +276,13 @@ export const generateMetadata = async ({
   const metadata = getIntlayer("page-metadata", locale);
 
   /**
-   * Generates an object containing all url for each locale.
+   * Génère un objet contenant toutes les URL pour chaque locale.
    *
-   * Example:
+   * Exemple :
    * ```ts
    *  getMultilingualUrls('/about');
    *
-   *  // Returns
+   *  // Retourne
    *  // {
    *  //   en: '/about',
    *  //   fr: '/fr/about',
@@ -294,7 +301,7 @@ export const generateMetadata = async ({
   };
 };
 
-// ... Rest of the page code
+// ... Reste du code de la page
 ````
 
 ```tsx fileName="src/app/sitemap.ts"
@@ -331,26 +338,26 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-> Intlayer provides a `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
+> Intlayer fournit une fonction `getMultilingualUrls` pour générer des URLs multilingues pour votre sitemap.
 
   </TabItem>
 </Tabs>
 
 ---
-## Conclusion 
 
-Getting i18n right in Next.js isn’t just about translating text, it’s about making sure search engines and users know exactly which version of your content to serve. 
-Setting up hreflang, sitemaps, and robots rules is what turns translations into real SEO value.
+## Conclusion
 
-While next-intl and next-i18next give you solid ways to wire this up, they usually require a lot of manual setup to keep things consistent across locales.
+Bien gérer l’i18n dans Next.js ne consiste pas seulement à traduire du texte, mais à s’assurer que les moteurs de recherche et les utilisateurs savent exactement quelle version de votre contenu afficher.
+Configurer hreflang, les sitemaps et les règles robots est ce qui transforme les traductions en une véritable valeur SEO.
 
-This is where Intlayer really shines:
+Alors que next-intl et next-i18next offrent des moyens solides pour mettre cela en place, ils nécessitent généralement beaucoup de configuration manuelle pour maintenir la cohérence entre les locales.
 
-It comes with built-in helpers like getMultilingualUrls, making hreflang, sitemap, and robots integration almost effortless.
+C’est là que Intlayer brille vraiment :
 
-Metadata stays centralized instead of scattered across JSON files or custom utilities.
+Il est livré avec des helpers intégrés comme getMultilingualUrls, rendant l’intégration de hreflang, sitemap et robots presque sans effort.
 
-It’s designed for Next.js from the ground up, so you spend less time debugging config and more time shipping.
+Les métadonnées restent centralisées au lieu d’être dispersées dans des fichiers JSON ou des utilitaires personnalisés.
 
-If your goal is not just to translate but to scale multilingual SEO without friction, Intlayer gives you the cleanest, most future-proof setup.
-  
+Il est conçu pour Next.js dès le départ, vous passez donc moins de temps à déboguer la configuration et plus de temps à déployer.
+
+Si votre objectif n’est pas seulement de traduire, mais de faire évoluer le SEO multilingue sans friction, Intlayer vous offre la configuration la plus propre et la plus pérenne.

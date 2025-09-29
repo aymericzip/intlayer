@@ -195,7 +195,7 @@ Here an example of the impact of bundle size optimization using `intlayer` in a 
 - **Generates strict types** from your content. **IDE autocompletion** and **compile-time errors** catch typos and missing keys before deploy.
 
   </Column>
-<Columns>
+</Columns>
 
 **Why it matters:** Strong typing shifts failures **left** (CI/build) instead of **right** (runtime).
 
