@@ -40,6 +40,12 @@ export const userSchema = new Schema<UserSchema>(
       },
       required: false,
     },
+    role: {
+      type: String,
+      enum: ['admin', 'user'],
+      default: 'user',
+      required: false,
+    },
   },
   {
     timestamps: true,
