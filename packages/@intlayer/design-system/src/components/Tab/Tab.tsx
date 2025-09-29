@@ -142,7 +142,7 @@ const TabComponent = ({
         {...props}
       >
         {/* Tab Headers */}
-        <div className="sticky top-36 z-10 flex gap-3 p-3 bg-background/70 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur shadow-sm">
+        <div className="sticky top-36 z-10 flex gap-3 p-3 bg-background/70 backdrop-blur">
           <TabSelector
             selectedChoice={currentTabValue}
             tabs={tabItems.map((child) => {
