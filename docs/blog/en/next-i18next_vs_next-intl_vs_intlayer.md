@@ -326,40 +326,6 @@ Large organizations often rely on Translation Management Systems (TMS) like **Cr
 
 > Note: `next-intl` and `i18next` also accepts TypeScript catalogs. If your team stores messages in `.ts` files or decentralizes them by feature, you can face similar TMS friction. However, many `next-intl` setups remain centralized in a `locales/` folder, which is a bit easier to refactor to JSON for TMS.
 
-## And the winner is…
-
-It’s not simple. Each option has trade-offs. Here’s how I see it:
-
-<Columns>
-  <Column>
-
-**next-intl**
-
-- simplest, lightweight, fewer decisions forced on you. If you want a **minimal** solution, you’re comfortable with centralized catalogs, and your app is **small to mid-size**.
-
-  </Column>
-  <Column>
-
-**next-i18next**
-
-- mature, full of features, lots of community plugins, but higher setup cost. If you need **i18next’s plugin ecosystem** (e.g., advanced ICU rules via plugins) and your team already knows i18next, accepting **more configuration** for flexibility.
-
-  </Column>
-  <Column>
-
-**Intlayer**
-
-- built for modern Next.js, with modular content, type safety, tooling, and less boilerplate. If you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling - especially for **Next.js App Router**, design-systems and **large, modular codebases**.
-
-  </Column>
-</Columns>
-
-If you prefer minimal setup and accept some manual wiring, next-intl is a good pick. If you need all the features and don't mind complexity, next-i18next works. But if you want a modern, scalable, modular solution with built tools, Intlayer aims to give you that out of the box.
-
-> **Alternative for enterprise teams**: If you need a well-proven solution that works perfectly with established localization platforms like **Crowdin**, **Phrase**, or other professional translation management systems, consider **next-intl** or **next-i18next** for their mature ecosystem and proven integrations.
-
-> **Future roadmap**: Intlayer also plans to develop plugins that work on top of **i18next** and **next-intl** solutions. This will give you the advantages of Intlayer for automation, syntax, and content management while keeping the security and stability provided by these established solutions in your application code.
-
 ## Developer Experience
 
 This part makes a deep comparison between the three solutions. Rather than considering simple cases, as described in the 'getting started' documentation for each solution, we will consider a real use case, more similar to a real project.
@@ -1212,6 +1178,40 @@ export default robots;
 ---
 
 ---
+
+## And the winner is…
+
+It’s not simple. Each option has trade-offs. Here’s how I see it:
+
+<Columns>
+  <Column>
+
+**next-intl**
+
+- simplest, lightweight, fewer decisions forced on you. If you want a **minimal** solution, you’re comfortable with centralized catalogs, and your app is **small to mid-size**.
+
+  </Column>
+  <Column>
+
+**next-i18next**
+
+- mature, full of features, lots of community plugins, but higher setup cost. If you need **i18next’s plugin ecosystem** (e.g., advanced ICU rules via plugins) and your team already knows i18next, accepting **more configuration** for flexibility.
+
+  </Column>
+  <Column>
+
+**Intlayer**
+
+- built for modern Next.js, with modular content, type safety, tooling, and less boilerplate. If you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling - especially for **Next.js App Router**, design-systems and **large, modular codebases**.
+
+  </Column>
+</Columns>
+
+If you prefer minimal setup and accept some manual wiring, next-intl is a good pick. If you need all the features and don't mind complexity, next-i18next works. But if you want a modern, scalable, modular solution with built tools, Intlayer aims to give you that out of the box.
+
+> **Alternative for enterprise teams**: If you need a well-proven solution that works perfectly with established localization platforms like **Crowdin**, **Phrase**, or other professional translation management systems, consider **next-intl** or **next-i18next** for their mature ecosystem and proven integrations.
+
+> **Future roadmap**: Intlayer also plans to develop plugins that work on top of **i18next** and **next-intl** solutions. This will give you the advantages of Intlayer for automation, syntax, and content management while keeping the security and stability provided by these established solutions in your application code.
 
 ## GitHub STARs
 
