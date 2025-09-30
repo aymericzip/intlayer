@@ -113,8 +113,7 @@
     "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "fast-glob": "^3.3.3",
-    "intlayer": "workspace:*",
-    "react": ">=16.0.0"
+    "intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

@@ -1631,9 +1631,6 @@ importers:
       intlayer:
         specifier: workspace:*
         version: link:../../intlayer
-      react:
-        specifier: ^19.1.1
-        version: 19.1.1
       simple-git:
         specifier: ^3.28.0
         version: 3.28.0
@@ -2946,12 +2943,6 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.90.2
         version: 5.90.2(react@19.1.1)
-      '@types/compression':
-        specifier: ^1.8.1
-        version: 1.8.1
-      '@types/cookie-parser':
-        specifier: ^1.4.9
-        version: 1.4.9(@types/express@5.0.3)
       '@types/node':
         specifier: ^24.5.2
         version: 24.5.2
@@ -3013,6 +3004,12 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.13
         version: 4.1.13(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1))
+      '@types/compression':
+        specifier: ^1.8.1
+        version: 1.8.1
+      '@types/cookie-parser':
+        specifier: ^1.4.9
+        version: 1.4.9(@types/express@5.0.3)
       '@types/cors':
         specifier: ^2.8.19
         version: 2.8.19

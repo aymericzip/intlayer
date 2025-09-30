@@ -112,6 +112,8 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.13",
+    "@types/compression": "^1.8.1",
+    "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/react": "^19.1.13",
@@ -139,8 +141,6 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "@types/compression": "^1.8.1",
-    "@types/cookie-parser": "^1.4.9",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.21",
     "intlayer": "workspace:*",

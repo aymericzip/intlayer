@@ -107,6 +107,11 @@
     "@intlayer/core": "workspace:*",
     "intlayer": "workspace:*"
   },
+  "peerDependenciesMeta": {
+    "intlayer": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": ">=14.18"
   },

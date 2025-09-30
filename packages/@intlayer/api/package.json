@@ -96,6 +96,14 @@
     "@intlayer/config": "workspace:*",
     "intlayer-editor": "workspace:*"
   },
+  "peerDependenciesMeta": {
+    "@intlayer/backend": {
+      "optional": true
+    },
+    "intlayer-editor": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": ">=14.18"
   },
