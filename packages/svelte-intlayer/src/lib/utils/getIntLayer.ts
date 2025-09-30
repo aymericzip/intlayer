@@ -2,7 +2,7 @@ import type { LocalesValues } from '@intlayer/config/client';
 import { DictionaryKeys, getIntlayer as getIntlayerCore, type Plugins } from '@intlayer/core';
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
-import { DeepTransformContent } from './plugins';
+import { DeepTransformContent } from '@intlayer/core';
 // import {
 //   type DeepTransformContent,
 //   intlayerNodePlugins,
