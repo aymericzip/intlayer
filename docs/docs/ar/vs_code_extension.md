@@ -23,7 +23,7 @@ slugs:
 
 [**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) هو الملحق الرسمي لـ Visual Studio Code الخاص بـ **Intlayer**، مصمم لتحسين تجربة المطور عند العمل مع المحتوى المحلي في مشاريعك.
 
-![ملحق Intlayer لـ VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+![ملحق Intlayer لـ VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif?raw=true)
 
 رابط الملحق: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
 

@@ -23,7 +23,7 @@ slugs:
 
 [**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) ist die offizielle Visual Studio Code Erweiterung für **Intlayer**, die entwickelt wurde, um die Entwicklererfahrung beim Arbeiten mit lokalisierten Inhalten in Ihren Projekten zu verbessern.
 
-![Intlayer VS Code Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+![Intlayer VS Code Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif?raw=true)
 
 Erweiterungslink: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
 

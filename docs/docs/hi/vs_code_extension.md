@@ -23,7 +23,7 @@ slugs:
 
 [**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) **Intlayer** के लिए आधिकारिक विजुअल स्टूडियो कोड एक्सटेंशन है, जिसे आपके प्रोजेक्ट्स में स्थानीयकृत सामग्री के साथ काम करते समय डेवलपर अनुभव को बेहतर बनाने के लिए डिज़ाइन किया गया है।
 
-![Intlayer VS कोड एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+![Intlayer VS कोड एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif?raw=true)
 
 एक्सटेंशन लिंक: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
 

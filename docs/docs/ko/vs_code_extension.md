@@ -23,7 +23,7 @@ slugs:
 
 [**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)는 프로젝트에서 현지화된 콘텐츠 작업 시 개발자 경험을 향상시키기 위해 설계된 **Intlayer**의 공식 Visual Studio Code 확장입니다.
 
-![Intlayer VS 코드 확장](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+![Intlayer VS 코드 확장](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif?raw=true)
 
 확장 링크: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
 

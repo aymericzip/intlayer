@@ -23,7 +23,7 @@ slugs:
 
 [**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension), projelerinizde yerelleştirilmiş içeriklerle çalışırken geliştirici deneyimini iyileştirmek için tasarlanmış **Intlayer**'ın resmi Visual Studio Code eklentisidir.
 
-![Intlayer VS Code Eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+![Intlayer VS Code Eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif?raw=true)
 
 Eklenti bağlantısı: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
 
