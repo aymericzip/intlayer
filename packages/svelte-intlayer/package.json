@@ -1,9 +1,6 @@
 {
 	"name": "svelte-intlayer",
-<<<<<<< HEAD
-  "version": "6.1.5",
-=======
-	"version": "0.0.1",
+	"version": "6.1.5",
 	"description": "Easily internationalize i18n your Svelte applications with type-safe multilingual content management.",
 	"keywords": [
 		"intlayer",
@@ -39,7 +36,6 @@
 			"url": "https://github.com/victorbuikemdev"
 		}
 	],
->>>>>>> a847cfa8e (chore: update to package.json)
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run prepack",
@@ -95,7 +91,7 @@
 		"eslint-plugin-svelte": "^3.0.0",
 		"globals": "^16.0.0",
 		"prettier": "^3.4.2",
-		"prettier-plugin-svelte": "^3.3.3",
+		"prettier-plugin-svelte": "^3.4.0",
 		"publint": "^0.3.2",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
