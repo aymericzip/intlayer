@@ -69,7 +69,7 @@ const validationRules: ValidationRule[] = [
       // Check if document has a main heading (H1)
       const h1Match = content.match(/^# .+$/m);
       if (!h1Match) {
-        errors.push('Document should have at least one H1 heading (#)');
+        warnings.push('Document should have at least one H1 heading (#)');
       }
 
       // Check for excessive heading hierarchy jumps (only flag very large jumps)

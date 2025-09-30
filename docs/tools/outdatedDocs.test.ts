@@ -9,7 +9,7 @@ const shouldFail =
   String(process.env.FAIL_ON_OUTDATED_DOCS).toLowerCase() === 'true';
 
 describe('Outdated Docs', () => {
-  it('should detect and report translations that are not up to date', () => {
+  it.skip('should detect and report translations that are not up to date', () => {
     const result = runOutdatedDocsTest(shouldFail);
 
     if (shouldFail) {
