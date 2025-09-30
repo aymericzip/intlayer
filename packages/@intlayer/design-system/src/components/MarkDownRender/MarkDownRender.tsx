@@ -227,7 +227,6 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
       <TabProvider>
         <MarkdownProcessor
           options={{
-            disableParsingRawHTML: true,
             overrides: {
               h1: (props: ComponentProps<typeof H1>) => (
                 <H1 isClickable={true} {...props} />
