@@ -676,7 +676,7 @@ Prendiamo un esempio di un componente client che rende un contatore.
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "next-i18next";
 
-export default function ClientComponentExample() {
+const ClientComponentExample = () => {
   const { t, i18n } = useTranslation("about");
   const [count, setCount] = useState(0);
 
@@ -694,7 +694,7 @@ export default function ClientComponentExample() {
       </button>
     </div>
   );
-}
+};
 ```
 
 > Non dimenticare di aggiungere il namespace "about" nelle serverSideTranslations della pagina  
@@ -731,7 +731,7 @@ export default function ClientComponentExample() {
 import React, { useState } from "react";
 import { useTranslations, useFormatter } from "next-intl";
 
-export default function ClientComponentExample() {
+const ClientComponentExample = () => {
   // Ambito direttamente sull'oggetto annidato
   const t = useTranslations("about.counter");
   const format = useFormatter();
@@ -748,7 +748,7 @@ export default function ClientComponentExample() {
       </button>
     </div>
   );
-}
+};
 ```
 
 > Non dimenticare di aggiungere il messaggio "about" nel messaggio client della pagina
@@ -780,7 +780,7 @@ export default counterContent;
 import React, { useState } from "react";
 import { useNumber, useIntlayer } from "next-intlayer";
 
-export default function ClientComponentExample() {
+const ClientComponentExample = () => {
   const [count, setCount] = useState(0);
   const { label, increment } = useIntlayer("counter"); // restituisce stringhe
   const { number } = useNumber();
@@ -793,7 +793,7 @@ export default function ClientComponentExample() {
       </button>
     </div>
   );
-}
+};
 ```
 
   </TabItem>

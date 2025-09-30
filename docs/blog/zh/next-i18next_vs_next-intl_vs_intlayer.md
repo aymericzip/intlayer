@@ -676,7 +676,7 @@ export default LandingPage;
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "next-i18next";
 
-export default function ClientComponentExample() {
+const ClientComponentExample = () => {
   const { t, i18n } = useTranslation("about");
   const [count, setCount] = useState(0);
 
@@ -694,7 +694,7 @@ export default function ClientComponentExample() {
       </button>
     </div>
   );
-}
+};
 ```
 
 > 别忘了在页面的 serverSideTranslations 中添加 "about" 命名空间  
@@ -731,7 +731,7 @@ export default function ClientComponentExample() {
 import React, { useState } from "react";
 import { useTranslations, useFormatter } from "next-intl";
 
-export default function ClientComponentExample() {
+const ClientComponentExample = () => {
   // 直接作用于嵌套对象的作用域
   const t = useTranslations("about.counter");
   const format = useFormatter();
@@ -748,7 +748,7 @@ export default function ClientComponentExample() {
       </button>
     </div>
   );
-}
+};
 ```
 
 > 不要忘记在页面客户端消息中添加 "about" 消息
@@ -780,7 +780,7 @@ export default counterContent;
 import React, { useState } from "react";
 import { useNumber, useIntlayer } from "next-intlayer";
 
-export default function ClientComponentExample() {
+const ClientComponentExample = () => {
   const [count, setCount] = useState(0);
   const { label, increment } = useIntlayer("counter"); // 返回字符串
   const { number } = useNumber();
@@ -793,7 +793,7 @@ export default function ClientComponentExample() {
       </button>
     </div>
   );
-}
+};
 ```
 
   </TabItem>

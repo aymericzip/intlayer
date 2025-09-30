@@ -668,7 +668,7 @@ export default LandingPage;
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "next-i18next";
 
-export default function ClientComponentExample() {
+const ClientComponentExample = () => {
   const { t, i18n } = useTranslation("about");
   const [count, setCount] = useState(0);
 
@@ -686,7 +686,7 @@ export default function ClientComponentExample() {
       </button>
     </div>
   );
-}
+};
 ```
 
 > 페이지 serverSideTranslations에 "about" 네임스페이스를 추가하는 것을 잊지 마세요  
@@ -723,7 +723,7 @@ export default function ClientComponentExample() {
 import React, { useState } from "react";
 import { useTranslations, useFormatter } from "next-intl";
 
-export default function ClientComponentExample() {
+const ClientComponentExample = () => {
   // 중첩된 객체에 직접 범위 지정
   const t = useTranslations("about.counter");
   const format = useFormatter();
@@ -740,7 +740,7 @@ export default function ClientComponentExample() {
       </button>
     </div>
   );
-}
+};
 ```
 
 > 페이지 클라이언트 메시지에 "about" 메시지를 추가하는 것을 잊지 마세요
@@ -772,7 +772,7 @@ export default counterContent;
 import React, { useState } from "react";
 import { useNumber, useIntlayer } from "next-intlayer";
 
-export default function ClientComponentExample() {
+const ClientComponentExample = () => {
   const [count, setCount] = useState(0);
   const { label, increment } = useIntlayer("counter"); // 문자열을 반환합니다
   const { number } = useNumber();
@@ -785,7 +785,7 @@ export default function ClientComponentExample() {
       </button>
     </div>
   );
-}
+};
 ```
 
   </TabItem>
