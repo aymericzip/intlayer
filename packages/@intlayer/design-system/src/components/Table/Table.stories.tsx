@@ -1,377 +1,880 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
+import { useState } from 'react';
 import { Table } from './Table';
 
+/**
+ * ## Table Component
+ *
+ * The Table component provides an enhanced table experience with modal expansion
+ * and collapsible content capabilities. Perfect for displaying tabular data with
+ * responsive behavior and enhanced user experience.
+ *
+ * ### Key Features
+ * - **Modal Expansion**: Click the diagonal arrow to view tables in full-screen modal
+ * - **Collapsible Content**: Use `isRollable` prop for space-saving collapsed tables
+ * - **Responsive Design**: Handles large tables gracefully with proper overflow
+ * - **Accessibility**: Maintains proper table semantics and keyboard navigation
+ * - **Flexible Styling**: Supports all HTML table attributes and custom CSS classes
+ *
+ * ### Accessibility Features
+ * - Proper table semantics with thead, tbody structure
+ * - Supports scope attributes for column headers
+ * - Keyboard navigation for modal controls
+ * - Screen reader compatibility with table structure
+ *
+ * ### Best Practices
+ * - Use semantic HTML table structure (thead, tbody, tfoot)
+ * - Provide clear column headers with scope attributes
+ * - Consider pagination for very large datasets
+ * - Use consistent styling patterns across similar tables
+ * - Enable `isRollable` for tables that might need space management
+ */
 const meta: Meta<typeof Table> = {
   title: 'Components/Table',
   component: Table,
-  tags: ['autodocs'],
-  argTypes: {
-    className: {
-      description: 'Additional CSS classes for styling',
-      control: 'text',
-    },
-  },
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component:
-          'A responsive table component that automatically handles large content with a collapsible view and modal expansion option.',
+          'A comprehensive table component with modal expansion and collapsible content capabilities for displaying tabular data effectively.',
+      },
+    },
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    isRollable: {
+      control: 'boolean',
+      description: 'Whether the table content can be collapsed/expanded',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    className: {
+      control: 'text',
+      description: 'Additional CSS classes for custom styling',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    children: {
+      control: false,
+      description: 'Table content including thead, tbody, tfoot elements',
+      table: {
+        type: { summary: 'ReactNode' },
       },
     },
   },
 } satisfies Meta<typeof Table>;
 
 export default meta;
+type Story = StoryObj<typeof Table>;
 
-const Template: StoryObj<typeof Table> = {
-  args: {
-    className: '',
-  },
-};
+/**
+ * ## Basic Examples
+ *
+ * These stories demonstrate the core functionality and common usage patterns.
+ */
 
-export const Default = Template;
-
-export const BasicTable: StoryObj<typeof Table> = {
-  args: {
-    ...Template.args,
-    children: (
-      <>
+/**
+ * ### Simple Data Table
+ *
+ * A basic table with user data demonstrating standard table structure and styling.
+ */
+export const Default: Story = {
+  render: () => (
+    <div className="max-w-4xl">
+      <Table>
         <thead>
-          <tr className="border-b border-gray-200 dark:border-gray-700">
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
+          <tr className="border-b border-gray-200 bg-gray-50">
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
               Name
             </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
               Email
             </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
               Role
             </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
               Status
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
-            <td className="px-4 py-2 text-gray-900 dark:text-gray-100">
+        <tbody className="bg-white divide-y divide-gray-200">
+          <tr className="hover:bg-gray-50 transition-colors">
+            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
               John Doe
             </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               john@example.com
             </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-              Admin
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              Administrator
             </td>
-            <td className="px-4 py-2">
-              <span className="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+            <td className="px-6 py-4 whitespace-nowrap">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                 Active
               </span>
             </td>
           </tr>
-          <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
-            <td className="px-4 py-2 text-gray-900 dark:text-gray-100">
+          <tr className="hover:bg-gray-50 transition-colors">
+            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
               Jane Smith
             </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               jane@example.com
             </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">User</td>
-            <td className="px-4 py-2">
-              <span className="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              Editor
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                 Pending
               </span>
             </td>
           </tr>
-          <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
-            <td className="px-4 py-2 text-gray-900 dark:text-gray-100">
+          <tr className="hover:bg-gray-50 transition-colors">
+            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
               Bob Johnson
             </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               bob@example.com
             </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-              Editor
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              Viewer
             </td>
-            <td className="px-4 py-2">
-              <span className="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                Active
+            <td className="px-6 py-4 whitespace-nowrap">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                Inactive
               </span>
             </td>
           </tr>
         </tbody>
-      </>
-    ),
+      </Table>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const table = canvas.getByRole('table');
+
+    // Verify table structure
+    await expect(table).toBeInTheDocument();
+    await expect(canvas.getAllByRole('columnheader')).toHaveLength(4);
+    await expect(canvas.getAllByRole('row')).toHaveLength(4); // 1 header + 3 data rows
+
+    // Test modal expansion button
+    const modalButton = canvas.getByLabelText('Move');
+    await expect(modalButton).toBeInTheDocument();
+    await userEvent.click(modalButton);
+
+    // Modal should be open (though we can't easily test modal content in this context)
   },
 };
 
-export const LargeTable: StoryObj<typeof Table> = {
-  args: {
-    ...Template.args,
-    children: (
-      <>
-        <thead>
-          <tr className="border-b border-gray-200 dark:border-gray-700">
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              ID
-            </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
+/**
+ * ## Advanced Features
+ *
+ * Stories demonstrating advanced functionality and real-world usage scenarios.
+ */
+
+/**
+ * ### Product Inventory Table
+ *
+ * A comprehensive product table with sorting, filtering, and interactive elements.
+ */
+export const ProductInventory: Story = {
+  render: () => {
+    const [sortColumn, setSortColumn] = useState<string>('name');
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+    const [filterCategory, setFilterCategory] = useState<string>('all');
+
+    const products = [
+      {
+        id: 1,
+        name: 'Laptop Pro',
+        category: 'Electronics',
+        price: 1299,
+        stock: 45,
+        rating: 4.8,
+      },
+      {
+        id: 2,
+        name: 'Wireless Mouse',
+        category: 'Electronics',
+        price: 29,
+        stock: 120,
+        rating: 4.5,
+      },
+      {
+        id: 3,
+        name: 'Standing Desk',
+        category: 'Furniture',
+        price: 399,
+        stock: 15,
+        rating: 4.6,
+      },
+      {
+        id: 4,
+        name: 'Coffee Maker',
+        category: 'Appliances',
+        price: 89,
+        stock: 67,
+        rating: 4.2,
+      },
+      {
+        id: 5,
+        name: 'Ergonomic Chair',
+        category: 'Furniture',
+        price: 249,
+        stock: 8,
+        rating: 4.7,
+      },
+      {
+        id: 6,
+        name: 'Bluetooth Speaker',
+        category: 'Electronics',
+        price: 79,
+        stock: 34,
+        rating: 4.4,
+      },
+    ];
+
+    const categories = ['all', ...new Set(products.map((p) => p.category))];
+
+    const filteredProducts =
+      filterCategory === 'all'
+        ? products
+        : products.filter((p) => p.category === filterCategory);
+
+    const sortedProducts = [...filteredProducts].sort((a, b) => {
+      const aVal = a[sortColumn as keyof typeof a];
+      const bVal = b[sortColumn as keyof typeof b];
+      const multiplier = sortDirection === 'asc' ? 1 : -1;
+      return aVal > bVal ? multiplier : -multiplier;
+    });
+
+    const handleSort = (column: string) => {
+      if (sortColumn === column) {
+        setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+      } else {
+        setSortColumn(column);
+        setSortDirection('asc');
+      }
+    };
+
+    const getStockStatus = (stock: number) => {
+      if (stock <= 10)
+        return { text: 'Low Stock', color: 'bg-red-100 text-red-800' };
+      if (stock <= 50)
+        return { text: 'Medium', color: 'bg-yellow-100 text-yellow-800' };
+      return { text: 'In Stock', color: 'bg-green-100 text-green-800' };
+    };
+
+    return (
+      <div className="max-w-6xl space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold">Product Inventory</h3>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <label htmlFor="category-filter" className="text-sm font-medium">
+                Filter:
+              </label>
+              <select
+                id="category-filter"
+                value={filterCategory}
+                onChange={(e) => setFilterCategory(e.target.value)}
+                className="text-sm border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category === 'all' ? 'All Categories' : category}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="text-sm text-gray-500">
+              {sortedProducts.length} products
+            </div>
+          </div>
+        </div>
+
+        <Table className="border border-gray-200 rounded-lg overflow-hidden">
+          <thead className="bg-gray-50">
+            <tr>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                onClick={() => handleSort('name')}
+              >
+                <div className="flex items-center gap-1">
+                  Product Name
+                  {sortColumn === 'name' && (
+                    <span className="text-gray-400">
+                      {sortDirection === 'asc' ? '↑' : '↓'}
+                    </span>
+                  )}
+                </div>
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Category
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                onClick={() => handleSort('price')}
+              >
+                <div className="flex items-center gap-1">
+                  Price
+                  {sortColumn === 'price' && (
+                    <span className="text-gray-400">
+                      {sortDirection === 'asc' ? '↑' : '↓'}
+                    </span>
+                  )}
+                </div>
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                onClick={() => handleSort('stock')}
+              >
+                <div className="flex items-center gap-1">
+                  Stock
+                  {sortColumn === 'stock' && (
+                    <span className="text-gray-400">
+                      {sortDirection === 'asc' ? '↑' : '↓'}
+                    </span>
+                  )}
+                </div>
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                onClick={() => handleSort('rating')}
+              >
+                <div className="flex items-center gap-1">
+                  Rating
+                  {sortColumn === 'rating' && (
+                    <span className="text-gray-400">
+                      {sortDirection === 'asc' ? '↑' : '↓'}
+                    </span>
+                  )}
+                </div>
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {sortedProducts.map((product) => {
+              const stockStatus = getStockStatus(product.stock);
+              return (
+                <tr
+                  key={product.id}
+                  className="hover:bg-gray-50 transition-colors"
+                >
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm font-medium text-gray-900">
+                      {product.name}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      ID: #{product.id}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {product.category}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    ${product.price.toLocaleString()}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-gray-900">
+                        {product.stock}
+                      </span>
+                      <span
+                        className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${stockStatus.color}`}
+                      >
+                        {stockStatus.text}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <div className="flex items-center gap-1">
+                      <span>{product.rating}</span>
+                      <span className="text-yellow-400">
+                        {'★'.repeat(Math.floor(product.rating))}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                    <button className="text-blue-600 hover:text-blue-900">
+                      Edit
+                    </button>
+                    <button className="text-red-600 hover:text-red-900">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Test sorting functionality
+    const nameHeader = canvas.getByText('Product Name');
+    await userEvent.click(nameHeader);
+
+    // Test filtering
+    const filterSelect = canvas.getByLabelText('Filter:');
+    await userEvent.selectOptions(filterSelect, 'Electronics');
+
+    // Verify filtered results
+    await expect(canvas.getByText('Laptop Pro')).toBeInTheDocument();
+  },
+};
+
+/**
+ * ### Financial Report Table
+ *
+ * A financial data table with formatted numbers and trend indicators.
+ */
+export const FinancialReport: Story = {
+  render: () => {
+    const financialData = [
+      {
+        period: 'Q1 2024',
+        revenue: 2450000,
+        expenses: 1980000,
+        profit: 470000,
+        growth: 12.5,
+      },
+      {
+        period: 'Q2 2024',
+        revenue: 2780000,
+        expenses: 2100000,
+        profit: 680000,
+        growth: 13.5,
+      },
+      {
+        period: 'Q3 2024',
+        revenue: 3120000,
+        expenses: 2350000,
+        profit: 770000,
+        growth: 18.2,
+      },
+      {
+        period: 'Q4 2024',
+        revenue: 3450000,
+        expenses: 2680000,
+        profit: 770000,
+        growth: 15.8,
+      },
+    ];
+
+    const formatCurrency = (amount: number) => {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(amount);
+    };
+
+    const getGrowthColor = (growth: number) => {
+      if (growth > 15) return 'text-green-600';
+      if (growth > 10) return 'text-blue-600';
+      if (growth > 5) return 'text-yellow-600';
+      return 'text-red-600';
+    };
+
+    return (
+      <div className="max-w-5xl space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold">Quarterly Financial Report</h3>
+          <div className="text-sm text-gray-500">Fiscal Year 2024</div>
+        </div>
+
+        <Table className="border border-gray-300 rounded-lg overflow-hidden shadow-sm">
+          <thead>
+            <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
+              <th
+                scope="col"
+                className="px-8 py-4 text-left text-sm font-bold text-gray-700 uppercase tracking-wider"
+              >
+                Period
+              </th>
+              <th
+                scope="col"
+                className="px-8 py-4 text-right text-sm font-bold text-gray-700 uppercase tracking-wider"
+              >
+                Revenue
+              </th>
+              <th
+                scope="col"
+                className="px-8 py-4 text-right text-sm font-bold text-gray-700 uppercase tracking-wider"
+              >
+                Expenses
+              </th>
+              <th
+                scope="col"
+                className="px-8 py-4 text-right text-sm font-bold text-gray-700 uppercase tracking-wider"
+              >
+                Net Profit
+              </th>
+              <th
+                scope="col"
+                className="px-8 py-4 text-right text-sm font-bold text-gray-700 uppercase tracking-wider"
+              >
+                Growth Rate
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white">
+            {financialData.map((quarter, index) => (
+              <tr
+                key={quarter.period}
+                className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50 transition-colors border-b border-gray-200`}
+              >
+                <td className="px-8 py-6 whitespace-nowrap">
+                  <div className="text-sm font-bold text-gray-900">
+                    {quarter.period}
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    Quarter {index + 1}
+                  </div>
+                </td>
+                <td className="px-8 py-6 whitespace-nowrap text-right">
+                  <div className="text-lg font-bold text-gray-900">
+                    {formatCurrency(quarter.revenue)}
+                  </div>
+                  <div className="text-xs text-gray-500">Total Revenue</div>
+                </td>
+                <td className="px-8 py-6 whitespace-nowrap text-right">
+                  <div className="text-lg font-medium text-red-600">
+                    {formatCurrency(quarter.expenses)}
+                  </div>
+                  <div className="text-xs text-gray-500">Operating Costs</div>
+                </td>
+                <td className="px-8 py-6 whitespace-nowrap text-right">
+                  <div className="text-lg font-bold text-green-600">
+                    {formatCurrency(quarter.profit)}
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    Margin:{' '}
+                    {((quarter.profit / quarter.revenue) * 100).toFixed(1)}%
+                  </div>
+                </td>
+                <td className="px-8 py-6 whitespace-nowrap text-right">
+                  <div
+                    className={`text-lg font-bold ${getGrowthColor(quarter.growth)}`}
+                  >
+                    +{quarter.growth}%
+                  </div>
+                  <div className="flex items-center justify-end gap-1">
+                    <span
+                      className={`text-lg ${getGrowthColor(quarter.growth)}`}
+                    >
+                      {quarter.growth > 10
+                        ? '↗️'
+                        : quarter.growth > 5
+                          ? '→'
+                          : '↘️'}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      vs prev quarter
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot className="bg-gray-800 text-white">
+            <tr>
+              <td className="px-8 py-4 text-sm font-bold">TOTAL</td>
+              <td className="px-8 py-4 text-right text-lg font-bold">
+                {formatCurrency(
+                  financialData.reduce((sum, q) => sum + q.revenue, 0)
+                )}
+              </td>
+              <td className="px-8 py-4 text-right text-lg font-bold">
+                {formatCurrency(
+                  financialData.reduce((sum, q) => sum + q.expenses, 0)
+                )}
+              </td>
+              <td className="px-8 py-4 text-right text-lg font-bold text-green-400">
+                {formatCurrency(
+                  financialData.reduce((sum, q) => sum + q.profit, 0)
+                )}
+              </td>
+              <td className="px-8 py-4 text-right text-lg font-bold">
+                {(
+                  financialData.reduce((sum, q) => sum + q.growth, 0) /
+                  financialData.length
+                ).toFixed(1)}
+                %
+              </td>
+            </tr>
+          </tfoot>
+        </Table>
+
+        <div className="flex items-center gap-6 text-sm text-gray-600">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-green-600 rounded"></div>
+            <span>High Growth ({'>'}15%)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-blue-600 rounded"></div>
+            <span>Good Growth (10-15%)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-yellow-600 rounded"></div>
+            <span>Moderate Growth (5-10%)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-red-600 rounded"></div>
+            <span>Low Growth ({'<'}5%)</span>
+          </div>
+        </div>
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify financial data is displayed
+    await expect(canvas.getByText('Q1 2024')).toBeInTheDocument();
+    await expect(canvas.getByText('$2,450,000')).toBeInTheDocument();
+
+    // Check total row
+    await expect(canvas.getByText('TOTAL')).toBeInTheDocument();
+  },
+};
+
+/**
+ * ## Special Cases
+ *
+ * Stories demonstrating edge cases and special scenarios.
+ */
+
+/**
+ * ### Collapsible Large Table
+ *
+ * A large table with collapsible content to save space.
+ */
+export const CollapsibleLargeTable: Story = {
+  render: () => {
+    const employees = Array.from({ length: 25 }, (_, i) => ({
+      id: i + 1,
+      name: `Employee ${i + 1}`,
+      email: `employee${i + 1}@company.com`,
+      department: ['Engineering', 'Marketing', 'Sales', 'HR', 'Finance'][i % 5],
+      position: ['Manager', 'Senior', 'Junior', 'Lead', 'Director'][i % 5],
+      salary: 50000 + i * 2000,
+      startDate: new Date(2020 + (i % 5), i % 12, (i % 28) + 1),
+      status: ['Active', 'On Leave', 'Inactive'][i % 3],
+    }));
+
+    return (
+      <div className="max-w-7xl space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold">Employee Directory</h3>
+          <div className="text-sm text-gray-500">
+            {employees.length} employees • Click to expand/collapse
+          </div>
+        </div>
+
+        <Table isRollable className="border border-gray-200 rounded-lg">
+          <thead className="bg-gray-50">
+            <tr>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                ID
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Employee
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Department
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Position
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Salary
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Start Date
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {employees.map((employee) => (
+              <tr key={employee.id} className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  #{employee.id.toString().padStart(3, '0')}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">
+                    {employee.name}
+                  </div>
+                  <div className="text-sm text-gray-500">{employee.email}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {employee.department}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {employee.position}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  ${employee.salary.toLocaleString()}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {employee.startDate.toLocaleDateString()}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      employee.status === 'Active'
+                        ? 'bg-green-100 text-green-800'
+                        : employee.status === 'On Leave'
+                          ? 'bg-yellow-100 text-yellow-800'
+                          : 'bg-red-100 text-red-800'
+                    }`}
+                  >
+                    {employee.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify large table is present
+    const rows = canvas.getAllByRole('row');
+    await expect(rows.length).toBeGreaterThan(20); // Header + data rows
+
+    // Test that modal expansion button works
+    const modalButton = canvas.getByLabelText('Move');
+    await expect(modalButton).toBeInTheDocument();
+  },
+};
+
+/**
+ * ### Empty State Table
+ *
+ * A table showing empty state with appropriate messaging.
+ */
+export const EmptyState: Story = {
+  render: () => (
+    <div className="max-w-4xl">
+      <Table className="border border-gray-200 rounded-lg">
+        <thead className="bg-gray-50">
+          <tr>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
               Name
             </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
               Email
             </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              Department
-            </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              Position
-            </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              Salary
-            </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              Start Date
-            </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
               Status
             </th>
           </tr>
         </thead>
-        <tbody>
-          {Array.from({ length: 20 }, (_, i) => (
-            <tr
-              key={i}
-              className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800"
-            >
-              <td className="px-4 py-2 text-gray-900 dark:text-gray-100">
-                #{i + 1}
-              </td>
-              <td className="px-4 py-2 text-gray-900 dark:text-gray-100">
-                Employee {i + 1}
-              </td>
-              <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-                employee{i + 1}@company.com
-              </td>
-              <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-                {['Engineering', 'Marketing', 'Sales', 'HR', 'Finance'][i % 5]}
-              </td>
-              <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-                {
-                  [
-                    'Developer',
-                    'Manager',
-                    'Analyst',
-                    'Coordinator',
-                    'Specialist',
-                  ][i % 5]
-                }
-              </td>
-              <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-                ${(50000 + i * 2000).toLocaleString()}
-              </td>
-              <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-                {new Date(
-                  2020 + (i % 4),
-                  i % 12,
-                  (i % 28) + 1
-                ).toLocaleDateString()}
-              </td>
-              <td className="px-4 py-2">
-                <span
-                  className={`inline-flex items-center px-2 py-1 text-xs font-medium rounded-full ${
-                    i % 3 === 0
-                      ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                      : i % 3 === 1
-                        ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                        : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                  }`}
-                >
-                  {i % 3 === 0
-                    ? 'Active'
-                    : i % 3 === 1
-                      ? 'Pending'
-                      : 'Inactive'}
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </>
-    ),
-  },
-};
-
-export const DataTable: StoryObj<typeof Table> = {
-  args: {
-    ...Template.args,
-    children: (
-      <>
-        <thead>
-          <tr className="border-b border-gray-200 dark:border-gray-700">
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              Product
-            </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              Category
-            </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              Price
-            </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              Stock
-            </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              Rating
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
-            <td className="px-4 py-2 text-gray-900 dark:text-gray-100">
-              Laptop Pro
-            </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-              Electronics
-            </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-              $1,299
-            </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">45</td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-              ⭐⭐⭐⭐⭐
-            </td>
-          </tr>
-          <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
-            <td className="px-4 py-2 text-gray-900 dark:text-gray-100">
-              Wireless Headphones
-            </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-              Audio
-            </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">$199</td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">120</td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-              ⭐⭐⭐⭐
-            </td>
-          </tr>
-          <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
-            <td className="px-4 py-2 text-gray-900 dark:text-gray-100">
-              Smart Watch
-            </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-              Wearables
-            </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">$399</td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">78</td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-              ⭐⭐⭐⭐⭐
-            </td>
-          </tr>
-          <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
-            <td className="px-4 py-2 text-gray-900 dark:text-gray-100">
-              Coffee Maker
-            </td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Home</td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">$89</td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">156</td>
-            <td className="px-4 py-2 text-gray-600 dark:text-gray-400">
-              ⭐⭐⭐
-            </td>
-          </tr>
-        </tbody>
-      </>
-    ),
-  },
-};
-
-export const CustomStyling: StoryObj<typeof Table> = {
-  args: {
-    ...Template.args,
-    className:
-      'border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden',
-    children: (
-      <>
-        <thead>
-          <tr className="bg-gray-100 dark:bg-gray-800">
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-              Name
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-              Title
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-              Email
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-              Role
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
-          <tr className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-150">
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
-              John Doe
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-              Senior Developer
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-              john@example.com
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-              Admin
-            </td>
-          </tr>
-          <tr className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-150">
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
-              Jane Smith
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-              Product Manager
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-              jane@example.com
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-              User
-            </td>
-          </tr>
-        </tbody>
-      </>
-    ),
-  },
-};
-
-export const EmptyTable: StoryObj<typeof Table> = {
-  args: {
-    ...Template.args,
-    children: (
-      <>
-        <thead>
-          <tr className="border-b border-gray-200 dark:border-gray-700">
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              Name
-            </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              Email
-            </th>
-            <th className="px-4 py-2 text-left font-medium text-gray-900 dark:text-gray-100">
-              Role
-            </th>
-          </tr>
-        </thead>
-        <tbody>
+        <tbody className="bg-white">
           <tr>
-            <td
-              colSpan={3}
-              className="px-4 py-8 text-center text-gray-500 dark:text-gray-400"
-            >
-              No data available
+            <td colSpan={3} className="px-6 py-16 text-center">
+              <div className="space-y-4">
+                <div className="text-6xl text-gray-300">📋</div>
+                <div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    No data available
+                  </h3>
+                  <p className="text-gray-500 text-sm mb-6">
+                    There are currently no items to display in this table.
+                    <br />
+                    Try adjusting your filters or adding some data.
+                  </p>
+                  <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Add New Item
+                  </button>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
-      </>
-    ),
+      </Table>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify empty state message
+    await expect(canvas.getByText('No data available')).toBeInTheDocument();
+    await expect(canvas.getByText('Add New Item')).toBeInTheDocument();
   },
 };

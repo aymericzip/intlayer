@@ -1,18 +1,76 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
+import { cva, type VariantProps } from 'class-variance-authority';
 import { ChevronRightIcon } from 'lucide-react';
-import { Fragment, type FC, type HTMLAttributes } from 'react';
+import { Fragment, type FC, type HTMLAttributes, type ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 import { Button, ButtonVariant, type ButtonProps } from '../Button';
-import { Link, LinkColor, type LinkProps } from '../Link';
+import { Link, LinkColor } from '../Link';
 
+/**
+ * Props for LinkLink sub-component that renders breadcrumb items as links
+ */
 type LinkLinkProps = {
+  /**
+   * Position of the breadcrumb item in the list (1-based index)
+   */
   position: number;
+  /**
+   * Locale for internationalization
+   */
   locale?: Locales;
-} & Omit<LinkProps, 'label'>;
+  /**
+   * URL to navigate to
+   */
+  href?: string;
+  /**
+   * Link color
+   */
+  color?: LinkColor;
+  /**
+   * Click handler
+   */
+  onClick?: () => void;
+  /**
+   * Children content
+   */
+  children?: string;
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+} & Omit<
+  HTMLAttributes<HTMLAnchorElement>,
+  'href' | 'onClick' | 'color' | 'children' | 'className'
+>;
 
+/**
+ * Breadcrumb variant styles using class-variance-authority
+ */
+const breadcrumbVariants = cva('flex flex-row flex-wrap items-center text-sm', {
+  variants: {
+    size: {
+      small: 'gap-1 text-xs',
+      medium: 'gap-2 text-sm',
+      large: 'gap-3 text-base',
+    },
+    spacing: {
+      compact: 'gap-1',
+      normal: 'gap-2',
+      loose: 'gap-4',
+    },
+  },
+  defaultVariants: {
+    size: 'medium',
+    spacing: 'normal',
+  },
+});
+
+/**
+ * LinkLink sub-component for breadcrumb items that navigate to other pages
+ */
 const LinkLink: FC<LinkLinkProps> = ({
   href,
   lang,
@@ -21,6 +79,7 @@ const LinkLink: FC<LinkLinkProps> = ({
   color,
   position,
   locale,
+  className,
   ...props
 }) => {
   const { linkLabel } = useIntlayer('breadcrumb');
@@ -36,6 +95,14 @@ const LinkLink: FC<LinkLinkProps> = ({
         isExternalLink={false}
         itemScope
         itemType="https://schema.org/WebPage"
+        className={cn(
+          'inline-flex items-center transition-all duration-200',
+          'hover:text-primary-600 focus:text-primary-600',
+          'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-sm',
+          'hover:underline focus:underline',
+          'hover:scale-[1.02] active:scale-[0.98]',
+          className
+        )}
         {...props}
         label={`${linkLabel} ${children}`}
         itemID={href}
@@ -47,16 +114,29 @@ const LinkLink: FC<LinkLinkProps> = ({
   );
 };
 
+/**
+ * Props for ButtonLink sub-component that renders breadcrumb items as interactive buttons
+ */
 type ButtonButtonProps = {
+  /**
+   * Text content for the breadcrumb button
+   */
   children: string;
+  /**
+   * Position of the breadcrumb item in the list (1-based index)
+   */
   position: number;
 } & Omit<ButtonProps, 'children' | 'label'>;
 
+/**
+ * ButtonLink sub-component for breadcrumb items with click handlers
+ */
 const ButtonLink: FC<ButtonButtonProps> = ({
   children: text,
   onClick,
   color,
   position,
+  className,
   ...props
 }) => {
   const { linkLabel } = useIntlayer('breadcrumb');
@@ -69,6 +149,15 @@ const ButtonLink: FC<ButtonButtonProps> = ({
         label={`${linkLabel} ${text}`}
         color={color}
         itemProp="item"
+        className={cn(
+          'inline-flex items-center transition-all duration-200',
+          'hover:text-primary-600 focus:text-primary-600',
+          'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-sm',
+          'hover:underline focus:underline',
+          'hover:scale-[1.02] active:scale-[0.98]',
+          'cursor-pointer hover:bg-primary-50 active:bg-primary-100',
+          className
+        )}
         {...props}
       >
         <span itemProp="name">{text}</span>
@@ -78,13 +167,33 @@ const ButtonLink: FC<ButtonButtonProps> = ({
   );
 };
 
+/**
+ * Props for Span sub-component that renders static breadcrumb text
+ */
 type SpanProps = {
+  /**
+   * Text content for the static breadcrumb item
+   */
   children: string;
+  /**
+   * Position of the breadcrumb item in the list (1-based index)
+   */
   position: number;
 } & HTMLAttributes<HTMLSpanElement>;
 
-const Span: FC<SpanProps> = ({ children, position, ...props }) => (
-  <span itemProp="item">
+/**
+ * Span sub-component for static breadcrumb text items
+ */
+const Span: FC<SpanProps> = ({ children, position, className, ...props }) => (
+  <span
+    itemProp="item"
+    className={cn(
+      'inline-flex items-center',
+      'text-neutral-700 font-medium',
+      'transition-colors duration-200',
+      className
+    )}
+  >
     <span itemProp="name" {...props}>
       {children}
     </span>
@@ -92,104 +201,233 @@ const Span: FC<SpanProps> = ({ children, position, ...props }) => (
   </span>
 );
 
+/**
+ * Detailed breadcrumb link configuration with optional href or onClick
+ */
 type DetailedBreadcrumbLink = {
+  /**
+   * URL to navigate to when the breadcrumb item is clicked
+   */
   href?: string;
+  /**
+   * Text content to display for this breadcrumb item
+   */
   text: string;
+  /**
+   * Custom click handler function for interactive breadcrumb items
+   */
   onClick?: () => void;
 };
+
+/**
+ * Union type representing different breadcrumb item configurations:
+ * - string: Simple text breadcrumb item
+ * - DetailedBreadcrumbLink: Object with href, text, and/or onClick properties
+ */
 export type BreadcrumbLink = string | DetailedBreadcrumbLink;
 
 export type BreadcrumbProps = {
+  /**
+   * Array of breadcrumb items
+   */
   links: BreadcrumbLink[];
-  color?: `${LinkColor}` | LinkColor;
+  /**
+   * Color scheme for breadcrumb links
+   * @default LinkColor.TEXT
+   */
+  color?: LinkColor;
+  /**
+   * Locale for internationalization
+   */
   locale?: Locales;
+  /**
+   * Element type for ARIA current attribute
+   * @default 'page'
+   */
   elementType?: 'page' | 'location';
-} & HTMLAttributes<HTMLOListElement>;
+  /**
+   * Custom separator between breadcrumb items
+   * @default ChevronRightIcon
+   */
+  separator?: ReactNode;
+  /**
+   * ARIA label for breadcrumb navigation
+   * @default 'breadcrumb'
+   */
+  ariaLabel?: string;
+  /**
+   * Whether to include structured data markup
+   * @default true
+   */
+  includeStructuredData?: boolean;
+  /**
+   * Maximum number of breadcrumb items to show before truncation
+   */
+  maxItems?: number;
+} & VariantProps<typeof breadcrumbVariants> &
+  HTMLAttributes<HTMLOListElement>;
 
+/**
+ * Breadcrumb component providing navigational context with accessibility features
+ *
+ * Features:
+ * - Supports links, buttons, and static text elements
+ * - Full keyboard navigation support
+ * - ARIA attributes for screen readers
+ * - Schema.org structured data for SEO
+ * - Customizable separators and styling
+ * - Internationalization support
+ * - Responsive design variants
+ *
+ * @example
+ * ```tsx
+ * <Breadcrumb
+ *   links={[
+ *     'Home',
+ *     { href: '/products', text: 'Products' },
+ *     { onClick: handleCategory, text: 'Electronics' },
+ *     'Smartphones'
+ *   ]}
+ *   size="medium"
+ *   ariaLabel="Product navigation"
+ * />
+ * ```
+ */
 export const Breadcrumb: FC<BreadcrumbProps> = ({
   links,
   className,
   color = LinkColor.TEXT,
   locale,
   elementType = 'page',
+  separator = <ChevronRightIcon size={10} />,
+  ariaLabel = 'breadcrumb',
+  includeStructuredData = true,
+  maxItems,
+  size,
+  spacing,
   ...props
-}) => (
-  <nav aria-label="breadcrumb">
-    <ol
-      className={cn(
-        'flex flex-row flex-wrap items-center gap-2 text-sm',
-        className
-      )}
-      itemScope
-      itemType="http://schema.org/BreadcrumbList"
-      {...props}
-    >
-      {links.map((link, index) => {
-        const isLastLink = index === links.length - 1;
-        const isLink =
-          typeof link === 'object' && typeof link.href === 'string';
-        const isButton =
-          typeof link === 'object' && typeof link.onClick === 'function';
-        const isActive = index === links.length - 1;
-        const ariaCurrent = isActive ? elementType : undefined;
+}) => {
+  const displayLinks =
+    maxItems && links.length > maxItems
+      ? [...links.slice(0, 1), '...', ...links.slice(-(maxItems - 2))]
+      : links;
 
-        const text = (link as DetailedBreadcrumbLink).text ?? link;
+  return (
+    <nav aria-label={ariaLabel} role="navigation">
+      <ol
+        className={cn(breadcrumbVariants({ size, spacing }), className)}
+        {...(includeStructuredData && {
+          itemScope: true,
+          itemType: 'http://schema.org/BreadcrumbList',
+        })}
+        {...props}
+      >
+        {displayLinks.map((link, index) => {
+          const isLastLink = index === displayLinks.length - 1;
+          const isLink =
+            typeof link === 'object' && typeof link.href === 'string';
+          const isButton =
+            typeof link === 'object' && typeof link.onClick === 'function';
+          const isActive = index === displayLinks.length - 1;
+          const ariaCurrent = isActive ? elementType : undefined;
+          const isTruncated = link === '...';
 
-        let section = (
-          <Span key={text} position={index + 1} aria-current={ariaCurrent}>
-            {text}
-          </Span>
-        );
+          const text = (link as DetailedBreadcrumbLink).text ?? link;
 
-        if (isLink) {
-          section = (
-            <LinkLink
+          if (isTruncated) {
+            return (
+              <Fragment key={`truncated-${index}`}>
+                <li className="flex items-center" aria-hidden="true">
+                  <span className="text-neutral-500">…</span>
+                </li>
+                {!isLastLink && (
+                  <li aria-hidden="true" className="flex items-center">
+                    {separator}
+                  </li>
+                )}
+              </Fragment>
+            );
+          }
+
+          let section = (
+            <Span
               key={text}
-              href={link.href!}
-              color={color}
               position={index + 1}
-              locale={locale}
               aria-current={ariaCurrent}
+              className={cn(
+                'transition-colors duration-200',
+                isActive && 'text-neutral-900'
+              )}
             >
               {text}
-            </LinkLink>
+            </Span>
           );
-        } else if (isButton) {
-          section = (
-            <ButtonLink
+
+          if (isLink) {
+            section = (
+              <LinkLink
+                key={text}
+                href={link.href!}
+                color={color}
+                position={index + 1}
+                locale={locale}
+                aria-current={ariaCurrent}
+                className={cn(
+                  'transition-colors duration-200 hover:text-primary-600 focus:text-primary-600',
+                  'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 rounded-sm',
+                  isActive && 'text-neutral-900 cursor-default'
+                )}
+              >
+                {text}
+              </LinkLink>
+            );
+          } else if (isButton) {
+            section = (
+              <ButtonLink
+                key={text}
+                onClick={link.onClick!}
+                color={color}
+                position={index + 1}
+                aria-current={ariaCurrent}
+                className={cn(
+                  'transition-colors duration-200 hover:text-primary-600 focus:text-primary-600',
+                  'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 rounded-sm',
+                  isActive && 'text-neutral-900 cursor-default'
+                )}
+              >
+                {text}
+              </ButtonLink>
+            );
+          }
+
+          const listElement = (
+            <li
+              {...(includeStructuredData && {
+                itemProp: 'itemListElement',
+                itemScope: true,
+                itemType: 'https://schema.org/ListItem',
+              })}
               key={text}
-              onClick={link.onClick!}
-              color={color}
-              position={index + 1}
-              aria-current={ariaCurrent}
+              className="flex items-center"
             >
-              {text}
-            </ButtonLink>
+              {section}
+            </li>
           );
-        }
 
-        const listElement = (
-          <li
-            itemProp="itemListElement"
-            itemScope
-            itemType="https://schema.org/ListItem"
-            key={text}
-          >
-            {section}
-          </li>
-        );
+          if (isLastLink) {
+            return listElement;
+          }
 
-        if (isLastLink) {
-          return listElement;
-        }
-
-        return (
-          <Fragment key={text}>
-            {listElement}
-            <ChevronRightIcon size={10} />
-          </Fragment>
-        );
-      })}
-    </ol>
-  </nav>
-);
+          return (
+            <Fragment key={text}>
+              {listElement}
+              <li aria-hidden="true" className="flex items-center">
+                {separator}
+              </li>
+            </Fragment>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+};

@@ -9,6 +9,28 @@ import {
   AutoSizedTextArea,
 } from './AutoSizeTextArea';
 
+/**
+ * Custom hook for debouncing values to prevent excessive API calls.
+ *
+ * Delays updating the returned value until the input value has stopped changing
+ * for the specified delay period.
+ *
+ * @param value - The value to debounce
+ * @param delay - Delay in milliseconds before updating the debounced value
+ * @returns The debounced value that only updates after the delay period
+ *
+ * @example
+ * ```tsx
+ * const [searchTerm, setSearchTerm] = useState('');
+ * const debouncedSearchTerm = useDebounce(searchTerm, 300);
+ *
+ * useEffect(() => {
+ *   if (debouncedSearchTerm) {
+ *     performSearch(debouncedSearchTerm);
+ *   }
+ * }, [debouncedSearchTerm]);
+ * ```
+ */
 export const useDebounce = <T,>(value: T, delay: number): T => {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
@@ -24,11 +46,134 @@ export const useDebounce = <T,>(value: T, delay: number): T => {
   return debouncedValue;
 };
 
+/**
+ * Props for the AutocompleteTextArea component.
+ *
+ * Extends AutoSizedTextAreaProps with AI-powered autocomplete functionality.
+ *
+ * @example
+ * ```tsx
+ * // AI-powered autocomplete textarea
+ * <AutoCompleteTextarea
+ *   placeholder="Start typing for AI suggestions..."
+ *   isActive={true}
+ *   autoSize={true}
+ *   maxRows={10}
+ * />
+ *
+ * // Manual suggestion mode
+ * <AutoCompleteTextarea
+ *   value={content}
+ *   onChange={handleChange}
+ *   suggestion="Consider adding more details about..."
+ *   isActive={false}
+ * />
+ *
+ * // Disabled autocomplete for sensitive content
+ * <AutoCompleteTextarea
+ *   placeholder="Private notes (no AI assistance)"
+ *   isActive={false}
+ *   autoSize={true}
+ * />
+ * ```
+ */
 export type AutocompleteTextAreaProps = AutoSizedTextAreaProps & {
+  /** Whether AI autocomplete is active and should fetch suggestions */
   isActive?: boolean;
+  /** Manual suggestion text to display (overrides AI suggestions) */
   suggestion?: string;
 };
 
+/**
+ * AutoCompleteTextarea Component
+ *
+ * An intelligent textarea that provides AI-powered autocomplete suggestions as users type,
+ * combining auto-sizing functionality with contextual text completion.
+ *
+ * ## Features
+ * - **AI-Powered Suggestions**: Context-aware autocomplete using configured AI models
+ * - **Debounced API Calls**: Efficient suggestion fetching with 200ms debounce
+ * - **Visual Suggestions**: Inline preview of suggested completions
+ * - **Keyboard Navigation**: Tab key to accept suggestions
+ * - **Context Analysis**: Uses surrounding text for better suggestions
+ * - **Auto-Sizing**: Inherits all AutoSizedTextArea capabilities
+ * - **Performance Optimized**: Smart caching and minimal re-renders
+ *
+ * ## Technical Implementation
+ * - **Debounce Strategy**: 200ms delay before fetching suggestions
+ * - **Context Window**: 5 lines before/after cursor for context
+ * - **Minimum Trigger**: Requires 3+ characters before suggesting
+ * - **Position Tracking**: Ghost layer for accurate suggestion positioning
+ * - **Cursor Management**: Tracks cursor position during suggestion fetch
+ *
+ * ## AI Integration
+ * - Uses configured AI model (OpenAI, Anthropic, etc.)
+ * - Sends context-aware prompts for relevant suggestions
+ * - Respects temperature and model settings from configuration
+ * - Handles API errors gracefully without interrupting user flow
+ *
+ * ## Use Cases
+ * - **Content Creation**: Blog posts, articles, documentation
+ * - **Code Comments**: Intelligent code documentation assistance
+ * - **Email Composition**: Professional email writing assistance
+ * - **Creative Writing**: Story and narrative completion
+ * - **Technical Documentation**: API docs, README files
+ * - **Social Media**: Post creation with engagement optimization
+ *
+ * @example
+ * ```tsx
+ * // Blog writing assistant
+ * const [blogPost, setBlogPost] = useState('');
+ * const [isAiEnabled, setIsAiEnabled] = useState(true);
+ *
+ * <div className="space-y-4">
+ *   <div className="flex items-center gap-2">
+ *     <Switch
+ *       checked={isAiEnabled}
+ *       onChange={setIsAiEnabled}
+ *     />
+ *     <label>AI Writing Assistant</label>
+ *   </div>
+ *
+ *   <AutoCompleteTextarea
+ *     value={blogPost}
+ *     onChange={(e) => setBlogPost(e.target.value)}
+ *     placeholder="Start writing your blog post..."
+ *     isActive={isAiEnabled}
+ *     autoSize={true}
+ *     maxRows={15}
+ *     className="min-h-[200px] font-serif text-lg leading-relaxed"
+ *   />
+ * </div>
+ *
+ * // Code documentation assistant
+ * <AutoCompleteTextarea
+ *   value={docComment}
+ *   onChange={handleDocChange}
+ *   placeholder="/** Describe this function... *\/"
+ *   isActive={true}
+ *   autoSize={true}
+ *   maxRows={8}
+ *   className="font-mono text-sm"
+ * />
+ *
+ * // Email composition with templates
+ * <AutoCompleteTextarea
+ *   defaultValue="Dear "
+ *   placeholder="AI will help complete your email..."
+ *   isActive={true}
+ *   autoSize={true}
+ *   maxRows={12}
+ *   variant={InputVariant.DEFAULT}
+ * />
+ * ```
+ *
+ * ## Accessibility
+ * - Ghost layer is properly hidden from screen readers
+ * - Maintains focus management during suggestion acceptance
+ * - Preserves keyboard navigation patterns
+ * - Respects reduced motion preferences
+ */
 export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
   isActive = true,
   suggestion: suggestionProp,

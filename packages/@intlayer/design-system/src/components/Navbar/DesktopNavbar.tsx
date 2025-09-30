@@ -4,13 +4,91 @@ import type { ReactElement, ReactNode } from 'react';
 
 import { type TabProps, TabSelector, TabSelectorColor } from '../TabSelector';
 
+/**
+ * Props for the DesktopNavbar component
+ * @template T - The tab props type extending TabProps
+ */
 type DesktopNavbarProps<T extends TabProps> = {
+  /** Logo component or element displayed on the left side */
   logo: ReactNode;
+  /** Array of navigation sections as tab elements */
   sections: ReactElement<T>[];
+  /** Right-aligned items (e.g., user menu, search, settings) */
   rightItems?: ReactNode;
+  /** Currently selected tab key for highlighting active state */
   selectedChoice: T['key'];
 };
 
+/**
+ * Desktop Navigation Bar Component
+ *
+ * A horizontal navigation bar optimized for desktop and tablet viewports.
+ * Features a sticky header with backdrop blur, left-aligned logo, center navigation tabs,
+ * and right-aligned utility items.
+ *
+ * Features:
+ * - Sticky positioning with z-index layering (z-50)
+ * - Semi-transparent backdrop with blur effect for modern glass-morphism design
+ * - Responsive spacing that adapts across screen sizes
+ * - Horizontal scrollable tabs for overflow content
+ * - Left-to-right layout: Logo → Navigation → Utility Items
+ * - Integrated with TabSelector for consistent tab behavior
+ *
+ * Layout Structure:
+ * ```
+ * [Logo] -------- [Nav Tab 1] [Nav Tab 2] [Nav Tab 3] -------- [Right Items]
+ * ```
+ *
+ * Responsive Behavior:
+ * - Base: 2vw margin-left, 3-unit gap between tabs
+ * - Large (≥1024px): 5vw margin-left, 3-unit gap between tabs
+ * - Extra Large (≥1280px): 10vw margin-left, 6-unit gap between tabs
+ * - Right items: 2-unit gap on mobile, 4-unit gap on medium screens
+ *
+ * Styling Features:
+ * - Semi-transparent card background (`bg-card/80`)
+ * - Subtle shadow with controlled blur (`shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)]`)
+ * - Backdrop blur effect for content behind navbar
+ * - Horizontal overflow scrolling for tab content
+ *
+ * @example
+ * Basic usage:
+ * ```tsx
+ * const navigationTabs = [
+ *   { key: 'home', label: 'Home', href: '/' },
+ *   { key: 'products', label: 'Products', href: '/products' },
+ *   { key: 'about', label: 'About', href: '/about' }
+ * ];
+ *
+ * <DesktopNavbar
+ *   logo={<CompanyLogo />}
+ *   sections={navigationTabs}
+ *   selectedChoice="home"
+ *   rightItems={<UserProfileMenu />}
+ * />
+ * ```
+ *
+ * @example
+ * With multiple right items:
+ * ```tsx
+ * <DesktopNavbar
+ *   logo={<Logo />}
+ *   sections={navSections}
+ *   selectedChoice={currentPage}
+ *   rightItems={
+ *     <>
+ *       <SearchButton />
+ *       <NotificationBell />
+ *       <UserMenu />
+ *     </>
+ *   }
+ * />
+ * ```
+ *
+ * @template T - Tab properties type extending TabProps for type safety
+ * @param props - DesktopNavbar component props
+ * @returns Horizontal desktop navigation JSX element
+ */
 export const DesktopNavbar = <T extends TabProps>({
   logo,
   sections,
