@@ -165,9 +165,9 @@ In the case of `next-intl` and `next-i18next`, the library requires loading the 
 
 Here is an example of the impact of bundle size optimisation using `intlayer` in a vite + react application:
 
-| Optimised bundle                                                                             | Bundle not optimised                                                                                            |
-| -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| ![optimised bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png) | ![no optimised bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png) |
+| Optimised bundle                                                                                      | Bundle not optimised                                                                                                     |
+| ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| ![optimised bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![no optimised bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
 
 ---
 

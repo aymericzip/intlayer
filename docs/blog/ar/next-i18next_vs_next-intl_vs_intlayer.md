@@ -165,9 +165,9 @@ slugs:
 
 فيما يلي مثال على تأثير تحسين حجم الحزمة باستخدام `intlayer` في تطبيق vite + react:
 
-| الحزمة المحسنة                                                                         | الحزمة غير المحسنة                                                                                         |
-| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| ![حزمة محسنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png) | ![حزمة غير محسنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png) |
+| الحزمة المحسنة                                                                                  | الحزمة غير المحسنة                                                                                                  |
+| ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| ![حزمة محسنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![حزمة غير محسنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
 
 ---
 

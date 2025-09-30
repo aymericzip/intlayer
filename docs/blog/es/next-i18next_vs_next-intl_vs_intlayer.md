@@ -165,9 +165,9 @@ En el caso de `next-intl` y `next-i18next`, la biblioteca requiere cargar el JSO
 
 Aquí un ejemplo del impacto de la optimización del tamaño del paquete usando `intlayer` en una aplicación vite + react:
 
-| Paquete optimizado                                                                             | Paquete no optimizado                                                                                             |
-| ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| ![paquete optimizado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png) | ![paquete no optimizado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png) |
+| Paquete optimizado                                                                                      | Paquete no optimizado                                                                                                      |
+| ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| ![paquete optimizado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![paquete no optimizado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
 
 ---
 

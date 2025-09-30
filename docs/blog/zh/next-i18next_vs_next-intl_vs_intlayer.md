@@ -173,9 +173,9 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 
 下面是使用 `intlayer` 在 vite + react 应用中进行包大小优化的影响示例：
 
-| 优化后的包                                                                             | 未优化的包                                                                                             |
-| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| ![优化后的包](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png) | ![未优化的包](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png) |
+| 优化后的包                                                                                      | 未优化的包                                                                                                      |
+| ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| ![优化后的包](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![未优化的包](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
 
 ---
 

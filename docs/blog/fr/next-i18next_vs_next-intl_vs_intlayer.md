@@ -165,9 +165,9 @@ Dans le cas de `next-intl` et `next-i18next`, la bibliothèque nécessite de cha
 
 Voici un exemple de l'impact de l'optimisation de la taille du bundle en utilisant `intlayer` dans une application vite + react :
 
-| Bundle optimisé                                                                             | Bundle non optimisé                                                                                             |
-| ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| ![bundle optimisé](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png) | ![bundle non optimisé](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png) |
+| Bundle optimisé                                                                                      | Bundle non optimisé                                                                                                      |
+| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| ![bundle optimisé](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![bundle non optimisé](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
 
 ---
 
