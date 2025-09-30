@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-17
-updatedAt: 2025-09-22
+updatedAt: 2025-09-30
 title: Estensione Ufficiale per VS Code
-description: Scopri come utilizzare l'estensione Intlayer in VS Code per migliorare il tuo flusso di lavoro di sviluppo. Naviga rapidamente tra contenuti localizzati e gestisci i tuoi dizionari in modo efficiente.
+description: Scopri come utilizzare l'estensione Intlayer in VS Code per migliorare il tuo flusso di lavoro di sviluppo. Naviga rapidamente tra i contenuti localizzati e gestisci i tuoi dizionari in modo efficiente.
 keywords:
   - Estensione VS Code
   - Intlayer
@@ -29,90 +29,34 @@ Link all'estensione: [https://marketplace.visualstudio.com/items?itemName=Intlay
 
 ## Funzionalità
 
-### Navigazione Istantanea
+![Riempi dizionari](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
-**Supporto Vai alla Definizione** – Usa `⌘ + Click` (Mac) o `Ctrl + Click` (Windows/Linux) su una chiave `useIntlayer` per aprire immediatamente il file di contenuto corrispondente.  
-**Integrazione Perfetta** – Funziona senza problemi con i progetti **react-intlayer** e **next-intlayer**.  
-**Supporto Multilingue** – Supporta contenuti localizzati in diverse lingue.  
-**Integrazione con VS Code** – Si integra fluidamente con la navigazione e la palette dei comandi di VS Code.
+- **Navigazione Istantanea** – Passa rapidamente al file di contenuto corretto cliccando su una chiave `useIntlayer`.
+- **Riempi Dizionari** – Riempi i dizionari con i contenuti del tuo progetto.
 
-### Comandi per la Gestione dei Dizionari
+![Elenca comandi](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
 
-Gestisci i tuoi dizionari di contenuti direttamente da VS Code:
+- **Accesso facile ai comandi Intlayer** – Costruisci, invia, scarica, riempi, testa i dizionari di contenuti con facilità.
 
-- **Costruisci Dizionari** – Genera file di contenuto basati sulla struttura del tuo progetto.
-- **Carica Dizionari** – Carica l'ultimo contenuto del dizionario nel tuo repository.
-- **Scarica Dizionari** – Sincronizza l'ultimo contenuto del dizionario dal tuo repository al tuo ambiente locale.
-- **Riempi Dizionari** – Popola i dizionari con contenuti dal tuo progetto.
-- **Testa Dizionari** – Identifica traduzioni mancanti o incomplete.
+![Crea file di contenuto](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
 
-### Generatore di Dichiarazioni di Contenuto
+- **Generatore di dichiarazioni di contenuto** – Crea file di contenuto del dizionario in vari formati (`.ts`, `.esm`, `.cjs`, `.json`).
 
-Genera facilmente file di dizionario strutturati in diversi formati:
+![Test dizionari](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
-Se stai lavorando su un componente, genererà per te il file `.content.{ts,tsx,js,jsx,mjs,cjs,json}`.
+- **Test dizionari** – Testa i dizionari per traduzioni mancanti.
 
-Esempio di componente:
+![Ricostruisci dizionario](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
-```tsx fileName="src/components/MyComponent/index.tsx"
-const MyComponent = () => {
-  const { myTranslatedContent } = useIntlayer("my-component");
+- **Mantieni i tuoi dizionari aggiornati** – Mantieni i tuoi dizionari aggiornati con i contenuti più recenti del tuo progetto.
 
-  return <span>{myTranslatedContent}</span>;
-};
-```
+![Scheda Intlayer (Barra attività)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
 
-File generato in formato TypeScript:
+- **Scheda Intlayer (Barra attività)** – Naviga e cerca nei dizionari da una scheda laterale dedicata con barra degli strumenti e azioni contestuali (Costruisci, Scarica, Invia, Riempi, Aggiorna, Testa, Crea file).
 
-```tsx fileName="src/components/MyComponent/index.content.ts"
-import { t, type Dictionary } from "intlayer";
+## Uso
 
-const componentContent = {
-  key: "my-component",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-export default componentContent;
-```
-
-Formati disponibili:
-
-- **TypeScript (`.ts`)**
-- **Modulo ES (`.esm`)**
-- **CommonJS (`.cjs`)**
-- **JSON (`.json`)**
-
-### Scheda Intlayer (Barra delle Attività)
-
-Apri la scheda Intlayer cliccando sull'icona Intlayer nella barra delle attività di VS Code. Contiene due viste:
-
-- **Ricerca**: Una barra di ricerca live per filtrare rapidamente i dizionari e i loro contenuti. La digitazione aggiorna i risultati istantaneamente.
-- **Dizionari**: Una vista ad albero dei tuoi ambienti/progetti, delle chiavi del dizionario e dei file che contribuiscono con voci. Puoi:
-  - Cliccare su un file per aprirlo nell'editor.
-  - Usare la barra degli strumenti per eseguire azioni: Build, Pull, Push, Fill, Refresh, Test e Create Dictionary File.
-  - Usare il menu contestuale per azioni specifiche dell'elemento:
-    - Su un dizionario: Pull o Push
-    - Su un file: Fill Dictionary
-  - Quando cambi editor, l'albero rivelerà il file corrispondente se appartiene a un dizionario.
-
-## Installazione
-
-Puoi installare **Intlayer** direttamente dal Marketplace di VS Code:
-
-1. Apri **VS Code**.
-2. Vai al **Marketplace delle Estensioni**.
-3. Cerca **"Intlayer"**.
-4. Clicca su **Installa**.
-
-## Utilizzo
-
-### Navigazione Rapida
+### Navigazione rapida
 
 1. Apri un progetto che utilizza **react-intlayer**.
 2. Individua una chiamata a `useIntlayer()`, come:
@@ -122,62 +66,57 @@ Puoi installare **Intlayer** direttamente dal Marketplace di VS Code:
    ```
 
 3. **Command-click** (`⌘+Click` su macOS) o **Ctrl+Click** (su Windows/Linux) sulla chiave (ad esempio, `"app"`).
-4. VS Code aprirà automaticamente il file del dizionario corrispondente, ad esempio `src/app.content.ts`.
+4. VS Code aprirà automaticamente il file dizionario corrispondente, ad esempio, `src/app.content.ts`.
 
-### Gestione dei Dizionari di Contenuto
-
-### Scheda Intlayer (Barra delle Attività)
+### Scheda Intlayer (Barra attività)
 
 Usa la scheda laterale per navigare e gestire i dizionari:
 
-- Apri l'icona Intlayer nella Barra delle Attività.
-- In **Ricerca**, digita per filtrare dizionari e voci in tempo reale.
-- In **Dizionari**, esplora ambienti, dizionari e file. Usa la barra degli strumenti per Costruire, Scaricare, Caricare, Riempire, Aggiornare, Testare e Creare File Dizionario. Clic destro per azioni contestuali (Scarica/Carica sui dizionari, Riempi sui file). Il file attualmente aperto nell’editor si rivela automaticamente nell’albero quando applicabile.
+- Apri l'icona Intlayer nella Barra attività.
+- In **Cerca**, digita per filtrare dizionari e voci in tempo reale.
+- In **Dizionari**, esplora ambienti, dizionari e file. Usa la barra degli strumenti per Costruisci, Scarica, Invia, Riempi, Aggiorna, Testa e Crea file dizionario. Clic destro per azioni contestuali (Scarica/Invia sui dizionari, Riempi sui file). Il file attualmente aperto nell'editor si evidenzia automaticamente nell'albero quando applicabile.
 
-#### Costruire Dizionari
+### Accesso ai comandi
 
-Genera tutti i file di contenuto dei dizionari con:
+Puoi accedere ai comandi dalla **Command Palette**.
 
 ```sh
 Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 ```
 
-Cerca **Costruisci Dizionari** ed esegui il comando.
+- **Costruisci Dizionari**
+- **Invia Dizionari**
+- **Scarica Dizionari**
+- **Riempi Dizionari**
+- **Testa Dizionari**
+- **Crea File Dizionario**
 
-#### Caricare Dizionari
+### Caricamento delle Variabili d'Ambiente
 
-Carica l’ultimo contenuto dei dizionari:
+Intlayer consiglia di memorizzare le chiavi API AI, così come l'ID client e il segreto di Intlayer, nelle variabili d'ambiente.
 
-1. Apri la **Palette dei Comandi**.
-2. Cerca **Carica Dizionari**.
-3. Seleziona i dizionari da caricare e conferma.
+L'estensione può caricare le variabili d'ambiente dal tuo workspace per eseguire i comandi Intlayer con il contesto corretto.
 
-#### Scaricare Dizionari
+- **Ordine di caricamento (per priorità)**: `.env.<env>.local` → `.env.<env>` → `.env.local` → `.env`
+- **Non distruttivo**: i valori esistenti in `process.env` non vengono sovrascritti.
+- **Ambito**: i file vengono risolti dalla directory base configurata (predefinita alla radice del workspace).
 
-Sincronizza l’ultimo contenuto del dizionario:
+#### Selezione dell'ambiente attivo
 
-1. Apri la **Palette dei Comandi**.
-2. Cerca **Scarica Dizionari**.
-3. Scegli i dizionari da scaricare.
+- **Palette dei Comandi**: apri la palette ed esegui `Intlayer: Select Environment`, quindi scegli l'ambiente (ad esempio, `development`, `staging`, `production`). L'estensione tenterà di caricare il primo file disponibile nella lista di priorità sopra indicata e mostrerà una notifica come “Caricato env da .env.<env>.local”.
+- **Impostazioni**: vai su `Impostazioni → Estensioni → Intlayer`, e imposta:
+  - **Ambiente**: il nome dell'ambiente usato per risolvere i file `.env.<env>*`.
+  - (Opzionale) **File Env**: un percorso esplicito a un file `.env`. Quando fornito, ha la precedenza sulla lista dedotta.
 
-#### Riempire Dizionari
+#### Monorepo e directory personalizzate
 
-Riempi i dizionari con contenuti dal tuo progetto:
-
-1. Apri la **Palette dei Comandi**.
-2. Cerca **Riempi Dizionari**.
-3. Esegui il comando per popolare i dizionari.
-
-#### Testare Dizionari
-
-Valida i dizionari e trova le traduzioni mancanti:
-
-1. Apri la **Palette dei Comandi**.
-2. Cerca **Testa Dizionari**.
-3. Rivedi i problemi segnalati e correggili se necessario.
+Se i tuoi file `.env` si trovano al di fuori della radice dello spazio di lavoro, imposta la **Directory Base** in `Impostazioni → Estensioni → Intlayer`. Il loader cercherà i file `.env` relativi a quella directory.
 
 ## Cronologia Documentazione
 
-| Versione | Data       | Modifiche         |
-| -------- | ---------- | ----------------- |
-| 5.5.10   | 2025-06-29 | Inizio cronologia |
+| Versione | Data       | Modifiche                           |
+| -------- | ---------- | ----------------------------------- |
+| 6.1.5    | 2025-09-30 | Aggiunta gif demo                   |
+| 6.1.0    | 2025-09-24 | Aggiunta sezione selezione ambiente |
+| 6.0.0    | 2025-09-22 | Comandi Intlayer Tab / Fill & Test  |
+| 5.5.10   | 2025-06-29 | Inizializzazione cronologia         |

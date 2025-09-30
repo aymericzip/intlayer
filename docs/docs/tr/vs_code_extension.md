@@ -1,10 +1,10 @@
 ---
 createdAt: 2025-03-17
-updatedAt: 2025-09-22
-title: Resmi VS Code Uzantısı
-description: Geliştirme iş akışınızı geliştirmek için VS Code'da Intlayer uzantısını nasıl kullanacağınızı öğrenin. Yerelleştirilmiş içerikler arasında hızlıca gezin ve sözlüklerinizi verimli bir şekilde yönetin.
+updatedAt: 2025-09-30
+title: Resmi VS Code Eklentisi
+description: Geliştirme iş akışınızı geliştirmek için VS Code'da Intlayer eklentisinin nasıl kullanılacağını öğrenin. Yerelleştirilmiş içerikler arasında hızlıca gezin ve sözlüklerinizi verimli bir şekilde yönetin.
 keywords:
-  - VS Code Uzantısı
+  - VS Code Eklentisi
   - Intlayer
   - Yerelleştirme
   - Geliştirme Araçları
@@ -17,105 +17,49 @@ slugs:
   - vs-code-extension
 ---
 
-# Resmi VS Code Uzantısı
+# Resmi VS Code Eklentisi
 
 ## Genel Bakış
 
-[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension), projelerinizde yerelleştirilmiş içeriklerle çalışırken geliştirici deneyimini iyileştirmek için tasarlanmış **Intlayer**'ın resmi Visual Studio Code uzantısıdır.
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension), projelerinizde yerelleştirilmiş içeriklerle çalışırken geliştirici deneyimini iyileştirmek için tasarlanmış **Intlayer**'ın resmi Visual Studio Code eklentisidir.
 
-![Intlayer VS Code Uzantısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+![Intlayer VS Code Eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 
-Uzantı bağlantısı: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
+Eklenti bağlantısı: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
 
 ## Özellikler
 
-### Anında Gezinme
+![Sözlükleri doldur](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
-**Tanıma Git Desteği** – `useIntlayer` anahtarında `⌘ + Tıklama` (Mac) veya `Ctrl + Tıklama` (Windows/Linux) kullanarak ilgili içerik dosyasını anında açın.  
-**Sorunsuz Entegrasyon** – **react-intlayer** ve **next-intlayer** projeleriyle sorunsuz çalışır.  
-**Çok Dilli Destek** – Farklı dillerde yerelleştirilmiş içerikleri destekler.  
-**VS Code Entegrasyonu** – VS Code’un gezinme ve komut paleti ile sorunsuz entegre olur.
+- **Anında Gezinme** – `useIntlayer` anahtarına tıkladığınızda doğru içerik dosyasına hızlıca atlayın.
+- **Sözlükleri Doldur** – Projenizden içeriklerle sözlükleri doldurun.
 
-### Sözlük Yönetim Komutları
+![Komutları listele](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
 
-İçerik sözlüklerinizi doğrudan VS Code’dan yönetin:
+- **Intlayer Komutlarına Kolay Erişim** – İçerik sözlüklerini kolayca oluşturun, gönderin, çekin, doldurun ve test edin.
 
-- **Sözlükleri Oluştur** – Proje yapınıza göre içerik dosyaları oluşturur.
-- **Sözlükleri Gönder** – En son sözlük içeriğini deponuza yükler.
-- **Sözlükleri Çek** – En son sözlük içeriğini deponuzdan yerel ortamınıza senkronize eder.
-- **Sözlükleri Doldur** – Sözlükleri projenizden içerik ile doldurur.
-- **Sözlükleri Test Et** – Eksik veya tamamlanmamış çevirileri tespit eder.
+![İçerik dosyası oluştur](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
 
-### İçerik Beyanı Oluşturucu
+- **İçerik Beyanı Oluşturucu** – Sözlük içerik dosyalarını çeşitli formatlarda oluşturun (`.ts`, `.esm`, `.cjs`, `.json`).
 
-Farklı formatlarda yapılandırılmış sözlük dosyalarını kolayca oluşturun:
+![Sözlükleri test et](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
-Eğer şu anda bir bileşen üzerinde çalışıyorsanız, sizin için `.content.{ts,tsx,js,jsx,mjs,cjs,json}` dosyasını oluşturacaktır.
+- **Sözlükleri Test Et** – Eksik çeviriler için sözlükleri test edin.
 
-Bileşen örneği:
+![Sözlüğü yeniden oluştur](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
-```tsx fileName="src/components/MyComponent/index.tsx"
-const MyComponent = () => {
-  const { myTranslatedContent } = useIntlayer("my-component");
+- **Sözlüklerinizi güncel tutun** – Projenizden en son içeriklerle sözlüklerinizi güncel tutun.
 
-  return <span>{myTranslatedContent}</span>;
-};
-```
+![Intlayer Sekmesi (Aktivite Çubuğu)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
 
-TypeScript formatında oluşturulan dosya:
-
-```tsx fileName="src/components/MyComponent/index.content.ts"
-import { t, type Dictionary } from "intlayer";
-
-const componentContent = {
-  key: "my-component",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-export default componentContent;
-```
-
-Mevcut formatlar:
-
-- **TypeScript (`.ts`)**
-- **ES Modülü (`.esm`)**
-- **CommonJS (`.cjs`)**
-- **JSON (`.json`)**
-
-### Intlayer Sekmesi (Aktivite Çubuğu)
-
-VS Code Aktivite Çubuğundaki Intlayer simgesine tıklayarak Intlayer sekmesini açın. Bu sekme iki görünüm içerir:
-
-- **Arama**: Sözlükleri ve içeriklerini hızlıca filtrelemek için canlı bir arama çubuğu. Yazdıkça sonuçlar anında güncellenir.
-- **Sözlükler**: Ortamlarınız/projeleriniz, sözlük anahtarları ve giriş sağlayan dosyaların ağaç görünümü. Şunları yapabilirsiniz:
-  - Bir dosyaya tıklayarak düzenleyicide açabilirsiniz.
-  - Araç çubuğunu kullanarak şu işlemleri yapabilirsiniz: Derle (Build), Çek (Pull), Gönder (Push), Doldur (Fill), Yenile (Refresh), Test Et (Test) ve Sözlük Dosyası Oluştur (Create Dictionary File).
-  - Öğeye özel işlemler için bağlam menüsünü kullanabilirsiniz:
-    - Bir sözlük üzerinde: Çek (Pull) veya Gönder (Push)
-    - Bir dosya üzerinde: Sözlüğü Doldur (Fill Dictionary)
-  - Düzenleyiciler arasında geçiş yaptığınızda, dosya bir sözlüğe aitse ağaç görünümü ilgili dosyayı gösterecektir.
-
-## Kurulum
-
-**Intlayer**'ı doğrudan VS Code Marketplace'ten yükleyebilirsiniz:
-
-1. **VS Code**'u açın.
-2. **Extensions Marketplace**'e gidin.
-3. **"Intlayer"** için arama yapın.
-4. **Install** (Yükle) butonuna tıklayın.
+- **Intlayer Sekmesi (Aktivite Çubuğu)** – Araç çubuğu ve bağlam eylemleri (Oluştur, Çek, Gönder, Doldur, Yenile, Test Et, Dosya Oluştur) ile özel bir yan sekmeden sözlükleri göz atın ve arayın.
 
 ## Kullanım
 
-### Hızlı Gezinme
+### Hızlı Navigasyon
 
 1. **react-intlayer** kullanan bir projeyi açın.
-2. `useIntlayer()` çağrısını bulun, örneğin:
+2. Şu gibi bir `useIntlayer()` çağrısı bulun:
 
    ```tsx
    const content = useIntlayer("app");
@@ -124,60 +68,55 @@ VS Code Aktivite Çubuğundaki Intlayer simgesine tıklayarak Intlayer sekmesini
 3. Anahtar üzerinde **Command-click** (`⌘+Click` macOS'ta) veya **Ctrl+Click** (Windows/Linux'ta) yapın (örneğin, `"app"`).
 4. VS Code otomatik olarak ilgili sözlük dosyasını açacaktır, örneğin `src/app.content.ts`.
 
-### İçerik Sözlüklerini Yönetme
+### Intlayer Sekmesi (Aktivite Çubuğu)
 
-### Intlayer Sekmesi (Activity Bar)
+Yan sekmeyi kullanarak sözlüklerde gezinin ve yönetin:
 
-Sözlükleri gözden geçirmek ve yönetmek için yan sekmeyi kullanın:
-
-- Activity Bar'daki Intlayer simgesini açın.
+- Aktivite Çubuğunda Intlayer simgesini açın.
 - **Arama** bölümünde, sözlükleri ve girdileri gerçek zamanlı olarak filtrelemek için yazın.
-- **Sözlükler** bölümünde, ortamları, sözlükleri ve dosyaları gezinin. Araç çubuğunu Kullanarak Oluştur, Çek, Gönder, Doldur, Yenile, Test Et ve Sözlük Dosyası Oluştur işlemlerini yapabilirsiniz. Bağlam menüsü için sağ tıklayın (sözlüklerde Çek/Gönder, dosyalarda Doldur). Geçerli düzenleyici dosyası, uygun olduğunda ağaçta otomatik olarak gösterilir.
+- **Sözlükler** bölümünde, ortamları, sözlükleri ve dosyaları göz atın. Araç çubuğunu kullanarak Oluştur, Çek, Gönder, Doldur, Yenile, Test Et ve Sözlük Dosyası Oluştur işlemlerini yapabilirsiniz. Bağlam eylemleri için sağ tıklayın (sözlüklerde Çek/Gönder, dosyalarda Doldur). Geçerli düzenleyici dosyası uygun olduğunda ağaçta otomatik olarak gösterilir.
 
-#### Sözlükleri Oluşturma
+### Komutlara Erişim
 
-Tüm sözlük içerik dosyalarını oluşturmak için:
+Komutlara **Komut Paleti** üzerinden erişebilirsiniz.
 
 ```sh
 Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 ```
 
-**Sözlükleri Oluştur** komutunu arayın ve çalıştırın.
+- **Sözlükleri Oluştur**
+- **Sözlükleri Gönder**
+- **Sözlükleri Çek**
+- **Sözlükleri Doldur**
+- **Sözlükleri Test Et**
+- **Sözlük Dosyası Oluştur**
 
-#### Sözlükleri Gönderme
+### Ortam Değişkenlerini Yükleme
 
-En son sözlük içeriğini yüklemek için:
+Intlayer, AI API anahtarlarınızı ve ayrıca Intlayer istemci kimliği ile gizli anahtarınızı ortam değişkenlerinde saklamanızı önerir.
 
-1. **Komut Paletini** açın.
-2. **Sözlükleri Gönder** araması yapın.
-3. Göndermek istediğiniz sözlükleri seçin ve onaylayın.
+Eklenti, Intlayer komutlarını doğru bağlamda çalıştırmak için çalışma alanınızdan ortam değişkenlerini yükleyebilir.
 
-#### Sözlükleri Çekme
+- **Yükleme sırası (öncelik sırasına göre)**: `.env.<env>.local` → `.env.<env>` → `.env.local` → `.env`
+- **Yıkıcı olmayan**: mevcut `process.env` değerleri üzerine yazılmaz.
+- **Kapsam**: dosyalar, yapılandırılmış temel dizinden çözülür (varsayılan olarak çalışma alanı kökü).
 
-En son sözlük içeriğini senkronize edin:
+#### Aktif ortamı seçme
 
-1. **Komut Paletini** açın.
-2. **Sözlükleri Çek** araması yapın.
-3. Çekmek istediğiniz sözlükleri seçin.
+- **Komut Paleti**: paleti açın ve `Intlayer: Select Environment` komutunu çalıştırın, ardından ortamı seçin (örneğin, `development`, `staging`, `production`). Eklenti, yukarıdaki öncelik listesinde bulunan ilk uygun dosyayı yüklemeye çalışacak ve “.env.<env>.local dosyasından ortam yüklendi” gibi bir bildirim gösterecektir.
+- **Ayarlar**: `Ayarlar → Eklentiler → Intlayer` yolunu izleyin ve şunları ayarlayın:
+  - **Ortam**: `.env.<env>*` dosyalarını çözümlemek için kullanılan ortam adı.
+  - (İsteğe bağlı) **Env Dosyası**: açıkça belirtilmiş bir `.env` dosyası yolu. Sağlandığında, çıkarılan listedeki dosyalardan öncelikli olarak kullanılır.
 
-#### Sözlükleri Doldurma
+#### Monorepo ve özel dizinler
 
-Sözlükleri projenizden gelen içerikle doldurun:
-
-1. **Komut Paletini** açın.
-2. **Sözlükleri Doldur** araması yapın.
-3. Sözlükleri doldurmak için komutu çalıştırın.
-
-#### Sözlükleri Test Etme
-
-Sözlükleri doğrulayın ve eksik çevirileri bulun:
-
-1. **Komut Paletini** açın.
-2. **Sözlükleri Test Et** araması yapın.
-3. Raporlanan sorunları inceleyin ve gerektiği şekilde düzeltin.
+Eğer `.env` dosyalarınız çalışma alanı kökünün dışında bulunuyorsa, `Ayarlar → Eklentiler → Intlayer` yolunda **Temel Dizin**i ayarlayın. Yükleyici, `.env` dosyalarını bu dizine göre arayacaktır.
 
 ## Doküman Geçmişi
 
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
+| Sürüm  | Tarih      | Değişiklikler                              |
+| ------ | ---------- | ------------------------------------------ |
+| 6.1.5  | 2025-09-30 | Demo gif eklendi                           |
+| 6.1.0  | 2025-09-24 | Ortam seçimi bölümü eklendi                |
+| 6.0.0  | 2025-09-22 | Intlayer Sekmesi / Doldur & Test komutları |
+| 5.5.10 | 2025-06-29 | Başlangıç geçmişi                          |

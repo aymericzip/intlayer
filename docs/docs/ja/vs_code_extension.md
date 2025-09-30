@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-17
-updatedAt: 2025-09-22
+updatedAt: 2025-09-30
 title: 公式 VS Code 拡張機能
-description: VS Code で Intlayer 拡張機能を使用して開発ワークフローを強化する方法を学びます。ローカライズされたコンテンツ間を素早くナビゲートし、辞書を効率的に管理できます。
+description: VS Code で Intlayer 拡張機能を使用して開発ワークフローを強化する方法を学びます。ローカライズされたコンテンツ間を素早く移動し、辞書を効率的に管理できます。
 keywords:
   - VS Code 拡張機能
   - Intlayer
@@ -29,155 +29,94 @@ slugs:
 
 ## 機能
 
-### インスタントナビゲーション
+![辞書を埋める](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
-**定義へ移動サポート** – `useIntlayer` キー上で `⌘ + クリック`（Mac）または `Ctrl + クリック`（Windows/Linux）を使用して、対応するコンテンツファイルを即座に開きます。  
-**シームレスな統合** – **react-intlayer** および **next-intlayer** プロジェクトとスムーズに連携します。  
-**多言語サポート** – 複数の言語にわたるローカライズされたコンテンツをサポートします。  
-**VS Code 統合** – VS Code のナビゲーションおよびコマンドパレットとスムーズに統合されます。
-
-### 辞書管理コマンド
-
-VS Code から直接コンテンツ辞書を管理します：
-
-- **辞書のビルド** – プロジェクト構造に基づいてコンテンツファイルを生成します。
-- **辞書のプッシュ** – 最新の辞書コンテンツをリポジトリにアップロードします。
-- **辞書のプル** – リポジトリから最新の辞書コンテンツをローカル環境に同期します。
+- **インスタントナビゲーション** – `useIntlayer` キーをクリックすると、正しいコンテンツファイルに素早くジャンプします。
 - **辞書の埋め込み** – プロジェクトのコンテンツで辞書を埋めます。
-- **辞書のテスト** – 欠落または不完全な翻訳を特定します。
 
-### コンテンツ宣言ジェネレーター
+![コマンド一覧](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
 
-異なるフォーマットで構造化された辞書ファイルを簡単に生成します：
+- **Intlayerコマンドへの簡単アクセス** – コンテンツ辞書のビルド、プッシュ、プル、埋め込み、テストを簡単に行えます。
 
-現在コンポーネントを作業している場合、そのコンポーネント用の `.content.{ts,tsx,js,jsx,mjs,cjs,json}` ファイルを生成します。
+![コンテンツファイル作成](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
 
-コンポーネントの例：
+- **コンテンツ宣言ジェネレーター** – さまざまな形式（`.ts`、`.esm`、`.cjs`、`.json`）で辞書コンテンツファイルを作成します。
 
-```tsx fileName="src/components/MyComponent/index.tsx"
-const MyComponent = () => {
-  const { myTranslatedContent } = useIntlayer("my-component");
+![辞書のテスト](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
-  return <span>{myTranslatedContent}</span>;
-};
-```
+- **辞書のテスト** – 翻訳漏れがないか辞書をテストします。
 
-TypeScript形式で生成されたファイル：
+![辞書の再構築](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
-```tsx fileName="src/components/MyComponent/index.content.ts"
-import { t, type Dictionary } from "intlayer";
+- **辞書を最新の状態に保つ** – プロジェクトの最新コンテンツで辞書を常に最新の状態に保ちます。
 
-const componentContent = {
-  key: "my-component",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
+![Intlayer タブ（アクティビティバー）](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
 
-export default componentContent;
-```
-
-利用可能なフォーマット：
-
-- **TypeScript (`.ts`)**
-- **ESモジュール (`.esm`)**
-- **CommonJS (`.cjs`)**
-- **JSON (`.json`)**
-
-### Intlayerタブ（アクティビティバー）
-
-VS CodeのアクティビティバーにあるIntlayerアイコンをクリックしてIntlayerタブを開きます。タブには2つのビューがあります：
-
-- **検索**：辞書とその内容を素早くフィルタリングできるライブ検索バー。入力すると結果が即座に更新されます。
-- **辞書**：環境やプロジェクト、辞書キー、エントリを含むファイルのツリービュー。以下の操作が可能です：
-  - ファイルをクリックしてエディタで開く。
-  - ツールバーを使って以下のアクションを実行：ビルド、プル、プッシュ、フィル、リフレッシュ、テスト、辞書ファイルの作成。
-  - コンテキストメニューでアイテム固有のアクションを実行：
-    - 辞書上で：プルまたはプッシュ
-    - ファイル上で：辞書のフィル
-  - エディタを切り替えると、そのファイルが辞書に属している場合はツリーが該当ファイルを表示します。
-
-## インストール
-
-**Intlayer**はVS Codeマーケットプレイスから直接インストールできます。
-
-1. **VS Code**を開きます。
-2. **拡張機能マーケットプレイス**に移動します。
-3. **「Intlayer」**を検索します。
-4. **インストール**をクリックします。
+- **Intlayer タブ（アクティビティバー）** – 専用のサイドタブからツールバーやコンテキストアクション（ビルド、プル、プッシュ、フィル、リフレッシュ、テスト、ファイル作成）を使って辞書を閲覧・検索できます。
 
 ## 使い方
 
 ### クイックナビゲーション
 
-1. **react-intlayer**を使用しているプロジェクトを開きます。
-2. `useIntlayer()`の呼び出しを見つけます。例えば：
+1. **react-intlayer** を使用しているプロジェクトを開きます。
+2. 次のような `useIntlayer()` の呼び出しを見つけます。
 
    ```tsx
    const content = useIntlayer("app");
    ```
 
-3. キー（例: `"app"`）を**Commandクリック**（macOSの場合は`⌘+クリック`）、または**Ctrlクリック**（Windows/Linuxの場合）します。
-4. VS Codeが自動的に対応する辞書ファイル（例: `src/app.content.ts`）を開きます。
+3. キー（例: `"app"`）を **Command-click**（macOSでは `⌘+Click`）、または **Ctrl+Click**（Windows/Linuxの場合）します。
+4. VS Code は対応する辞書ファイル（例: `src/app.content.ts`）を自動的に開きます。
 
-### コンテンツ辞書の管理
-
-### Intlayerタブ（アクティビティバー）
+### Intlayer タブ（アクティビティバー）
 
 サイドタブを使って辞書を閲覧・管理します：
 
-- アクティビティバーのIntlayerアイコンを開きます。
-- **検索** では、辞書とエントリをリアルタイムでフィルタリングするために入力します。
-- **辞書** では、環境、辞書、ファイルを閲覧できます。ツールバーを使って、ビルド、プル、プッシュ、フィル、リフレッシュ、テスト、辞書ファイルの作成を行います。右クリックでコンテキストアクション（辞書のプル/プッシュ、ファイルのフィル）を利用できます。現在のエディタファイルは該当する場合、自動的にツリーで表示されます。
+- アクティビティバーの Intlayer アイコンを開きます。
+- **検索** でリアルタイムに辞書やエントリをフィルタリングします。
+- **辞書** では環境、辞書、ファイルを閲覧します。ツールバーからはビルド、プル、プッシュ、フィル、リフレッシュ、テスト、辞書ファイルの作成が可能です。右クリックでコンテキストアクション（辞書のプル/プッシュ、ファイルのフィル）を利用できます。現在のエディタファイルは該当する場合、ツリー内で自動的に表示されます。
 
-#### 辞書のビルド
+### コマンドへのアクセス
 
-すべての辞書コンテンツファイルを生成するには：
+コマンドは **コマンドパレット** からアクセスできます。
 
 ```sh
 Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 ```
 
-**Build Dictionaries** を検索してコマンドを実行します。
+- **辞書をビルド**
+- **辞書をプッシュ**
+- **辞書をプル**
+- **辞書を埋める**
+- **辞書をテスト**
+- **辞書ファイルを作成**
 
-#### 辞書のプッシュ
+### 環境変数の読み込み
 
-最新の辞書コンテンツをアップロードするには：
+Intlayer は、AI APIキーや Intlayer クライアントIDおよびシークレットを環境変数に保存することを推奨します。
 
-1. **コマンドパレット** を開きます。
-2. **Push Dictionaries** を検索します。
-3. プッシュする辞書を選択して確認します。
+拡張機能は、ワークスペースから環境変数を読み込み、適切なコンテキストで Intlayer コマンドを実行できます。
 
-#### 辞書のプル
+- **読み込み順（優先度順）**: `.env.<env>.local` → `.env.<env>` → `.env.local` → `.env`
+- **非破壊的**: 既存の `process.env` の値は上書きされません。
+- **スコープ**: ファイルは設定されたベースディレクトリ（デフォルトはワークスペースのルート）から解決されます。
 
-- 最新の辞書コンテンツを同期します：
+#### アクティブ環境の選択
 
-1. **コマンドパレット**を開きます。
-2. **Pull Dictionaries** を検索します。
-3. プルする辞書を選択します。
+- **コマンドパレット**: パレットを開き、`Intlayer: Select Environment` を実行して環境（例：`development`、`staging`、`production`）を選択します。拡張機能は上記の優先リストで最初に見つかったファイルを読み込み、「Loaded env from .env.<env>.local」のような通知を表示します。
+- **設定**: `設定 → 拡張機能 → Intlayer` に移動し、以下を設定します：
+  - **Environment**: `.env.<env>*` ファイルを解決するために使用される環境名。
+  - （オプション）**Env File**: 明示的な `.env` ファイルへのパス。指定された場合、推測されたリストより優先されます。
 
-#### 辞書の内容を埋める
+#### モノレポおよびカスタムディレクトリ
 
-プロジェクトの内容で辞書を埋めます：
-
-1. **コマンドパレット**を開きます。
-2. **Fill Dictionaries** を検索します。
-3. コマンドを実行して辞書を埋めます。
-
-#### 辞書のテスト
-
-辞書を検証し、翻訳漏れを見つけます：
-
-1. **コマンドパレット**を開きます。
-2. **Test Dictionaries** を検索します。
-3. 報告された問題を確認し、必要に応じて修正します。
+ワークスペースのルート外に `.env` ファイルがある場合は、`設定 → 拡張機能 → Intlayer` で **ベースディレクトリ** を設定してください。ローダーはそのディレクトリを基準に `.env` ファイルを探します。
 
 ## ドキュメント履歴
 
-| バージョン | 日付       | 変更内容     |
-| ---------- | ---------- | ------------ |
-| 5.5.10     | 2025-06-29 | 履歴の初期化 |
+| バージョン | 日付       | 変更内容                               |
+| ---------- | ---------- | -------------------------------------- |
+| 6.1.5      | 2025-09-30 | デモGIFを追加                          |
+| 6.1.0      | 2025-09-24 | 環境選択セクションを追加               |
+| 6.0.0      | 2025-09-22 | Intlayerタブ / Fill & Testコマンド追加 |
+| 5.5.10     | 2025-06-29 | 履歴を初期化                           |

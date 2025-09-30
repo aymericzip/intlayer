@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-17
-updatedAt: 2025-09-22
+updatedAt: 2025-09-30
 title: Official VS Code Extension
 description: Learn how to use the Intlayer extension in VS Code to enhance your development workflow. Quickly navigate between localized content and manage your dictionaries efficiently.
 keywords:
@@ -29,86 +29,30 @@ Extension link: [https://marketplace.visualstudio.com/items?itemName=Intlayer.in
 
 ## Features
 
-### Instant Navigation
+![Fill dictionaries](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
-**Go to Definition Support** – Use `⌘ + Click` (Mac) or `Ctrl + Click` (Windows/Linux) on a `useIntlayer` key to open the corresponding content file instantly.  
-**Seamless Integration** – Works effortlessly with **react-intlayer** and **next-intlayer** projects.  
-**Multi-language Support** – Supports localized content across different languages.  
-**VS Code Integration** – Smoothly integrates with VS Code’s navigation and command palette.
+- **Instant Navigation** – Quickly jump to the correct content file when clicking on a `useIntlayer` key.
+- **Fill Dictionaries** – Fill dictionaries with content from your project.
 
-### Dictionary Management Commands
+![List commands](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
 
-Manage your content dictionaries directly from VS Code:
+- **Easy access to Intlayer Commands** – Build, push, pull, fill, test content dictionaries with ease.
 
-- **Build Dictionaries** – Generate content files based on your project structure.
-- **Push Dictionaries** – Upload the latest dictionary content to your repository.
-- **Pull Dictionaries** – Sync the latest dictionary content from your repository to your local environment.
-- **Fill Dictionaries** – Populate dictionaries with content from your project.
-- **Test Dictionaries** – Identify missing or incomplete translations.
+![Create content file](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
 
-### Content Declaration Generator
+- **Content Declaration Generator** – Create dictionary content files in various formats (`.ts`, `.esm`, `.cjs`, `.json`).
 
-Easily generate structured dictionary files in different formats:
+![Test dictionaties](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
-If you're currently working on a component, it will generate the `.content.{ts,tsx,js,jsx,mjs,cjs,json}` file for you.
+- **Test Dictionaries** – Test dictionaries for missing translations.
 
-Example of component:
+![Rebuild dictionary](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
-```tsx fileName="src/components/MyComponent/index.tsx"
-const MyComponent = () => {
-  const { myTranslatedContent } = useIntlayer("my-component");
+- **Keep your dictionaries up to date** – Keep your dictionaries up to date with the latest content from your project.
 
-  return <span>{myTranslatedContent}</span>;
-};
-```
+![Intlayer Tab (Activity Bar)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
 
-Generated file in TypeScript format:
-
-```tsx fileName="src/components/MyComponent/index.content.ts"
-import { t, type Dictionary } from "intlayer";
-
-const componentContent = {
-  key: "my-component",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-export default componentContent;
-```
-
-Available formats:
-
-- **TypeScript (`.ts`)**
-- **ES Module (`.esm`)**
-- **CommonJS (`.cjs`)**
-- **JSON (`.json`)**
-
-### Intlayer Tab (Activity Bar)
-
-Open the Intlayer tab by clicking the Intlayer icon in the VS Code Activity Bar. It contains two views:
-
-- **Search**: A live search bar to quickly filter dictionaries and their content. Typing updates the results instantly.
-- **Dictionaries**: A tree view of your environments/projects, dictionary keys, and the files contributing entries. You can:
-  - Click a file to open it in the editor.
-  - Use the toolbar to run actions: Build, Pull, Push, Fill, Refresh, Test, and Create Dictionary File.
-  - Use the context menu for item‑specific actions:
-    - On a dictionary: Pull or Push
-    - On a file: Fill Dictionary
-  - When you switch editors, the tree will reveal the matching file if it belongs to a dictionary.
-
-## Installation
-
-You can install **Intlayer** directly from the VS Code Marketplace:
-
-1. Open **VS Code**.
-2. Go to the **Extensions Marketplace**.
-3. Search for **"Intlayer"**.
-4. Click **Install**.
+- **Intlayer Tab (Activity Bar)** – Browse and search dictionaries from a dedicated side tab with toolbar and context actions (Build, Pull, Push, Fill, Refresh, Test, Create File).
 
 ## Usage
 
@@ -124,8 +68,6 @@ You can install **Intlayer** directly from the VS Code Marketplace:
 3. **Command-click** (`⌘+Click` on macOS) or **Ctrl+Click** (on Windows/Linux) on the key (e.g., `"app"`).
 4. VS Code will automatically open the corresponding dictionary file, e.g., `src/app.content.ts`.
 
-### Managing Content Dictionaries
-
 ### Intlayer Tab (Activity Bar)
 
 Use the side tab to browse and manage dictionaries:
@@ -134,47 +76,20 @@ Use the side tab to browse and manage dictionaries:
 - In **Search**, type to filter dictionaries and entries in real time.
 - In **Dictionaries**, browse environments, dictionaries, and files. Use the toolbar for Build, Pull, Push, Fill, Refresh, Test, and Create Dictionary File. Right‑click for context actions (Pull/Push on dictionaries, Fill on files). The current editor file auto‑reveals in the tree when applicable.
 
-#### Building Dictionaries
+### Accessing the commands
 
-Generate all dictionary content files with:
+You can access the commands from the **Command Palette**.
 
 ```sh
 Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 ```
 
-Search for **Build Dictionaries** and execute the command.
-
-#### Pushing Dictionaries
-
-Upload the latest dictionary content:
-
-1. Open the **Command Palette**.
-2. Search for **Push Dictionaries**.
-3. Select the dictionaries to push and confirm.
-
-#### Pulling Dictionaries
-
-Sync the latest dictionary content:
-
-1. Open the **Command Palette**.
-2. Search for **Pull Dictionaries**.
-3. Choose the dictionaries to pull.
-
-#### Filling Dictionaries
-
-Fill dictionaries with content from your project:
-
-1. Open the **Command Palette**.
-2. Search for **Fill Dictionaries**.
-3. Run the command to populate dictionaries.
-
-#### Testing Dictionaries
-
-Validate dictionaries and find missing translations:
-
-1. Open the **Command Palette**.
-2. Search for **Test Dictionaries**.
-3. Review the reported issues and fix as needed.
+- **Build Dictionaries**
+- **Push Dictionaries**
+- **Pull Dictionaries**
+- **Fill Dictionaries**
+- **Test Dictionaries**
+- **Create Dictionary File**
 
 ### Loading Environment Variables
 
@@ -197,16 +112,11 @@ The extension can load environment variables from your workspace to run Intlayer
 
 If your `.env` files live outside the workspace root, set the **Base Directory** in `Settings → Extensions → Intlayer`. The loader will look for `.env` files relative to that directory.
 
-#### Notes
-
-- The extension loads the first matching file and keeps any existing variables intact.
-- You’ll see an info message each time a file is successfully loaded.
-- If no candidate file is found, commands still run with your current environment variables.
-
 ## Doc History
 
 | Version | Date       | Changes                             |
 | ------- | ---------- | ----------------------------------- |
+| 6.1.5   | 2025-09-30 | Add demo gif                        |
 | 6.1.0   | 2025-09-24 | Added environment selection section |
 | 6.0.0   | 2025-09-22 | Intlayer Tab / Fill & Test commands |
 | 5.5.10  | 2025-06-29 | Init history                        |

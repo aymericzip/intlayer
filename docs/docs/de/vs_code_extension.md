@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-17
-updatedAt: 2025-09-22
+updatedAt: 2025-09-30
 title: Offizielle VS Code Erweiterung
 description: Erfahren Sie, wie Sie die Intlayer-Erweiterung in VS Code verwenden, um Ihren Entwicklungsworkflow zu verbessern. Navigieren Sie schnell zwischen lokalisierten Inhalten und verwalten Sie Ihre Wörterbücher effizient.
 keywords:
@@ -21,7 +21,7 @@ slugs:
 
 ## Übersicht
 
-[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) ist die offizielle Visual Studio Code Erweiterung für **Intlayer**, die darauf ausgelegt ist, die Entwicklererfahrung beim Arbeiten mit lokalisierten Inhalten in Ihren Projekten zu verbessern.
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) ist die offizielle Visual Studio Code Erweiterung für **Intlayer**, die entwickelt wurde, um die Entwicklererfahrung beim Arbeiten mit lokalisierten Inhalten in Ihren Projekten zu verbessern.
 
 ![Intlayer VS Code Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 
@@ -29,86 +29,30 @@ Erweiterungslink: [https://marketplace.visualstudio.com/items?itemName=Intlayer.
 
 ## Funktionen
 
-### Sofortige Navigation
+![Wörterbücher füllen](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
-**Unterstützung für "Gehe zu Definition"** – Verwenden Sie `⌘ + Klick` (Mac) oder `Ctrl + Klick` (Windows/Linux) auf einem `useIntlayer`-Schlüssel, um die entsprechende Inhaltsdatei sofort zu öffnen.  
-**Nahtlose Integration** – Funktioniert mühelos mit **react-intlayer** und **next-intlayer** Projekten.  
-**Mehrsprachige Unterstützung** – Unterstützt lokalisierte Inhalte in verschiedenen Sprachen.  
-**VS Code Integration** – Integriert sich reibungslos in die Navigation und die Befehlspalette von VS Code.
-
-### Befehle zur Verwaltung von Wörterbüchern
-
-Verwalten Sie Ihre Inhaltswörterbücher direkt aus VS Code:
-
-- **Wörterbücher erstellen** – Generieren Sie Inhaltsdateien basierend auf Ihrer Projektstruktur.
-- **Wörterbücher hochladen** – Laden Sie die neuesten Wörterbuchinhalte in Ihr Repository hoch.
-- **Wörterbücher herunterladen** – Synchronisieren Sie die neuesten Wörterbuchinhalte aus Ihrem Repository mit Ihrer lokalen Umgebung.
+- **Sofortige Navigation** – Schneller Sprung zur richtigen Inhaltsdatei beim Klicken auf einen `useIntlayer`-Schlüssel.
 - **Wörterbücher füllen** – Füllen Sie Wörterbücher mit Inhalten aus Ihrem Projekt.
-- **Wörterbücher testen** – Erkennen Sie fehlende oder unvollständige Übersetzungen.
 
-### Generator für Inhaltsdeklarationen
+![Befehle auflisten](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
 
-Erstellen Sie einfach strukturierte Wörterbuchdateien in verschiedenen Formaten:
+- **Einfacher Zugriff auf Intlayer-Befehle** – Erstellen, pushen, pullen, füllen und testen Sie Inhaltswörterbücher mühelos.
 
-Wenn Sie gerade an einer Komponente arbeiten, wird die Datei `.content.{ts,tsx,js,jsx,mjs,cjs,json}` für Sie generiert.
+![Inhaltsdatei erstellen](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
 
-Beispiel einer Komponente:
+- **Generator für Inhaltsdeklarationen** – Erstellen Sie Wörterbuch-Inhaltsdateien in verschiedenen Formaten (`.ts`, `.esm`, `.cjs`, `.json`).
 
-```tsx fileName="src/components/MyComponent/index.tsx"
-const MyComponent = () => {
-  const { myTranslatedContent } = useIntlayer("my-component");
+![Wörterbücher testen](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
-  return <span>{myTranslatedContent}</span>;
-};
-```
+- **Wörterbücher testen** – Testen Sie Wörterbücher auf fehlende Übersetzungen.
 
-Generierte Datei im TypeScript-Format:
+![Wörterbuch neu aufbauen](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
-```tsx fileName="src/components/MyComponent/index.content.ts"
-import { t, type Dictionary } from "intlayer";
+- **Halten Sie Ihre Wörterbücher aktuell** – Halten Sie Ihre Wörterbücher mit den neuesten Inhalten aus Ihrem Projekt auf dem neuesten Stand.
 
-const componentContent = {
-  key: "my-component",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
+![Intlayer-Tab (Aktivitätsleiste)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
 
-export default componentContent;
-```
-
-Verfügbare Formate:
-
-- **TypeScript (`.ts`)**
-- **ES Modul (`.esm`)**
-- **CommonJS (`.cjs`)**
-- **JSON (`.json`)**
-
-### Intlayer-Tab (Aktivitätsleiste)
-
-Öffnen Sie den Intlayer-Tab, indem Sie auf das Intlayer-Symbol in der VS Code-Aktivitätsleiste klicken. Er enthält zwei Ansichten:
-
-- **Suche**: Eine Live-Suchleiste, um Wörterbücher und deren Inhalte schnell zu filtern. Das Tippen aktualisiert die Ergebnisse sofort.
-- **Wörterbücher**: Eine Baumansicht Ihrer Umgebungen/Projekte, Wörterbuchschlüssel und der Dateien, die Einträge beitragen. Sie können:
-  - Auf eine Datei klicken, um sie im Editor zu öffnen.
-  - Die Symbolleiste verwenden, um Aktionen auszuführen: Build, Pull, Push, Fill, Refresh, Test und Create Dictionary File.
-  - Das Kontextmenü für spezifische Aktionen verwenden:
-    - Auf einem Wörterbuch: Pull oder Push
-    - Auf einer Datei: Wörterbuch füllen
-  - Beim Wechseln der Editoren zeigt der Baum die passende Datei an, wenn sie zu einem Wörterbuch gehört.
-
-## Installation
-
-Sie können **Intlayer** direkt aus dem VS Code Marketplace installieren:
-
-1. Öffnen Sie **VS Code**.
-2. Gehen Sie zum **Extensions Marketplace**.
-3. Suchen Sie nach **"Intlayer"**.
-4. Klicken Sie auf **Installieren**.
+- **Intlayer-Tab (Aktivitätsleiste)** – Durchsuchen und durchsuchen Sie Wörterbücher über einen dedizierten Seiten-Tab mit Symbolleiste und Kontextaktionen (Build, Pull, Push, Fill, Refresh, Test, Create File).
 
 ## Verwendung
 
@@ -121,63 +65,58 @@ Sie können **Intlayer** direkt aus dem VS Code Marketplace installieren:
    const content = useIntlayer("app");
    ```
 
-3. **Command-Klick** (`⌘+Klick` auf macOS) oder **Strg-Klick** (unter Windows/Linux) auf den Schlüssel (z. B. `"app"`).
+3. **Befehl-Klick** (`⌘+Klick` auf macOS) oder **Strg-Klick** (auf Windows/Linux) auf den Schlüssel (z. B. `"app"`).
 4. VS Code öffnet automatisch die entsprechende Wörterbuchdatei, z. B. `src/app.content.ts`.
-
-### Verwaltung von Inhaltswörterbüchern
 
 ### Intlayer-Tab (Aktivitätsleiste)
 
-Verwenden Sie den seitlichen Tab, um Wörterbücher zu durchsuchen und zu verwalten:
+Verwenden Sie den Seiten-Tab, um Wörterbücher zu durchsuchen und zu verwalten:
 
 - Öffnen Sie das Intlayer-Symbol in der Aktivitätsleiste.
 - Geben Sie in **Suche** ein, um Wörterbücher und Einträge in Echtzeit zu filtern.
-- Durchsuchen Sie in **Wörterbücher** Umgebungen, Wörterbücher und Dateien. Verwenden Sie die Symbolleiste für Erstellen, Abrufen, Hochladen, Füllen, Aktualisieren, Testen und Wörterbuchdatei erstellen. Rechtsklicken Sie für Kontextaktionen (Abrufen/Hochladen bei Wörterbüchern, Füllen bei Dateien). Die aktuelle Editor-Datei wird im Baum automatisch angezeigt, wenn zutreffend.
+- Durchsuchen Sie in **Wörterbücher** Umgebungen, Wörterbücher und Dateien. Verwenden Sie die Symbolleiste für Erstellen, Abrufen, Senden, Füllen, Aktualisieren, Testen und Wörterbuchdatei erstellen. Rechtsklick für Kontextaktionen (Abrufen/Senden bei Wörterbüchern, Füllen bei Dateien). Die aktuelle Editor-Datei wird bei Bedarf automatisch im Baum angezeigt.
 
-#### Wörterbücher erstellen
+### Zugriff auf die Befehle
 
-Generieren Sie alle Wörterbuch-Inhaltsdateien mit:
+Sie können auf die Befehle über die **Befehlspalette** zugreifen.
 
 ```sh
 Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 ```
 
-Suchen Sie nach **Wörterbücher erstellen** und führen Sie den Befehl aus.
+- **Wörterbücher erstellen**
+- **Wörterbücher hochladen**
+- **Wörterbücher herunterladen**
+- **Wörterbücher füllen**
+- **Wörterbücher testen**
+- **Wörterbuchdatei erstellen**
 
-#### Wörterbücher hochladen
+### Laden von Umgebungsvariablen
 
-Laden Sie den neuesten Wörterbuchinhalt hoch:
+Intlayer empfiehlt, Ihre AI-API-Schlüssel sowie die Intlayer-Client-ID und das Secret in Umgebungsvariablen zu speichern.
 
-1. Öffnen Sie die **Befehls-Palette**.
-2. Suchen Sie nach **Wörterbücher hochladen**.
-3. Wählen Sie die hochzuladenden Wörterbücher aus und bestätigen Sie.
+Die Erweiterung kann Umgebungsvariablen aus Ihrem Arbeitsbereich laden, um Intlayer-Befehle im richtigen Kontext auszuführen.
 
-#### Wörterbücher abrufen
+- **Ladereihenfolge (nach Priorität)**: `.env.<env>.local` → `.env.<env>` → `.env.local` → `.env`
+- **Nicht destruktiv**: vorhandene `process.env`-Werte werden nicht überschrieben.
+- **Geltungsbereich**: Dateien werden vom konfigurierten Basisverzeichnis aus aufgelöst (standardmäßig das Stammverzeichnis des Arbeitsbereichs).
 
-Synchronisieren Sie die neuesten Wörterbuchinhalte:
+#### Auswahl der aktiven Umgebung
 
-1. Öffnen Sie die **Befehls-Palette**.
-2. Suchen Sie nach **Wörterbücher abrufen**.
-3. Wählen Sie die Wörterbücher aus, die abgerufen werden sollen.
+- **Befehls-Palette**: Öffnen Sie die Palette und führen Sie `Intlayer: Select Environment` aus, wählen Sie dann die Umgebung aus (z. B. `development`, `staging`, `production`). Die Erweiterung versucht, die erste verfügbare Datei in der oben genannten Prioritätsliste zu laden und zeigt eine Benachrichtigung wie „Env geladen von .env.<env>.local“ an.
+- **Einstellungen**: Gehen Sie zu `Einstellungen → Erweiterungen → Intlayer` und setzen Sie:
+  - **Umgebung**: der Umgebungsname, der zur Auflösung von `.env.<env>*` Dateien verwendet wird.
+  - (Optional) **Env-Datei**: ein expliziter Pfad zu einer `.env`-Datei. Wenn angegeben, hat dieser Vorrang vor der ermittelten Liste.
 
-#### Wörterbücher füllen
+#### Monorepos und benutzerdefinierte Verzeichnisse
 
-Füllen Sie Wörterbücher mit Inhalten aus Ihrem Projekt:
+Wenn sich Ihre `.env`-Dateien außerhalb des Arbeitsbereichs-Stammverzeichnisses befinden, legen Sie das **Basisverzeichnis** unter `Einstellungen → Erweiterungen → Intlayer` fest. Der Loader sucht dann nach `.env`-Dateien relativ zu diesem Verzeichnis.
 
-1. Öffnen Sie die **Befehls-Palette**.
-2. Suchen Sie nach **Wörterbücher füllen**.
-3. Führen Sie den Befehl aus, um die Wörterbücher zu befüllen.
+## Dokumentationshistorie
 
-#### Wörterbücher testen
-
-Validieren Sie Wörterbücher und finden Sie fehlende Übersetzungen:
-
-1. Öffnen Sie die **Befehls-Palette**.
-2. Suchen Sie nach **Wörterbücher testen**.
-3. Überprüfen Sie die gemeldeten Probleme und beheben Sie diese bei Bedarf.
-
-## Dokumentationsverlauf
-
-| Version | Datum      | Änderungen        |
-| ------- | ---------- | ----------------- |
-| 5.5.10  | 2025-06-29 | Verlauf initiiert |
+| Version | Datum      | Änderungen                                    |
+| ------- | ---------- | --------------------------------------------- |
+| 6.1.5   | 2025-09-30 | Demo-GIF hinzugefügt                          |
+| 6.1.0   | 2025-09-24 | Abschnitt zur Umgebungs-Auswahl hinzugefügt   |
+| 6.0.0   | 2025-09-22 | Intlayer-Tab / Befehle zum Ausfüllen & Testen |
+| 5.5.10  | 2025-06-29 | Historie initialisiert                        |

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-17
-updatedAt: 2025-09-22
+updatedAt: 2025-09-30
 title: 官方 VS Code 扩展
-description: 学习如何在 VS Code 中使用 Intlayer 扩展来提升您的开发工作流程。快速在本地化内容之间导航并高效管理您的字典。
+description: 学习如何在 VS Code 中使用 Intlayer 扩展以提升您的开发工作流程。快速在本地化内容之间导航并高效管理您的词典。
 keywords:
   - VS Code 扩展
   - Intlayer
@@ -25,90 +25,34 @@ slugs:
 
 ![Intlayer VS Code 扩展](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 
-扩展链接：[https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
+扩展链接: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
 
 ## 功能
 
-### 即时导航
+![填充词典](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
-**支持“转到定义”** – 在 `useIntlayer` 键上使用 `⌘ + 点击`（Mac）或 `Ctrl + 点击`（Windows/Linux）即可立即打开对应的内容文件。  
-**无缝集成** – 与 **react-intlayer** 和 **next-intlayer** 项目完美配合。  
-**多语言支持** – 支持不同语言的本地化内容。  
-**VS Code 集成** – 与 VS Code 的导航和命令面板无缝集成。
-
-### 词典管理命令
-
-直接在 VS Code 中管理您的内容词典：
-
-- **构建词典** – 根据您的项目结构生成内容文件。
-- **推送词典** – 将最新的词典内容上传到您的代码仓库。
-- **拉取词典** – 从代码仓库同步最新的词典内容到本地环境。
+- **即时导航** – 点击 `useIntlayer` 键时，快速跳转到正确的内容文件。
 - **填充词典** – 使用项目中的内容填充词典。
-- **测试词典** – 识别缺失或不完整的翻译。
 
-### 内容声明生成器
+![列出命令](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_list_commands.gif?raw=true)
 
-轻松生成不同格式的结构化词典文件：
+- **轻松访问 Intlayer 命令** – 轻松构建、推送、拉取、填充和测试内容词典。
 
-如果您当前正在开发一个组件，它会为您生成 `.content.{ts,tsx,js,jsx,mjs,cjs,json}` 文件。
+![创建内容文件](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_create_content_file.gif?raw=true)
 
-组件示例：
+- **内容声明生成器** – 以多种格式创建词典内容文件（`.ts`、`.esm`、`.cjs`、`.json`）。
 
-```tsx fileName="src/components/MyComponent/index.tsx"
-const MyComponent = () => {
-  const { myTranslatedContent } = useIntlayer("my-component");
+![测试词典](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_test_missing_dictionary.gif?raw=true)
 
-  return <span>{myTranslatedContent}</span>;
-};
-```
+- **测试词典** – 测试词典中缺失的翻译。
 
-生成的 TypeScript 格式文件：
+![重建词典](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_rebuild_dictionary.gif?raw=true)
 
-```tsx fileName="src/components/MyComponent/index.content.ts"
-import { t, type Dictionary } from "intlayer";
+- **保持词典最新** – 使您的词典内容保持与项目最新内容同步。
 
-const componentContent = {
-  key: "my-component",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
+![Intlayer 侧边栏标签 (活动栏)](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_search_dictionary.gif?raw=true)
 
-export default componentContent;
-```
-
-可用格式：
-
-- **TypeScript (`.ts`)**
-- **ES 模块 (`.esm`)**
-- **CommonJS (`.cjs`)**
-- **JSON (`.json`)**
-
-### Intlayer 选项卡（活动栏）
-
-通过点击 VS Code 活动栏中的 Intlayer 图标打开 Intlayer 选项卡。它包含两个视图：
-
-- **搜索**：一个实时搜索栏，用于快速筛选字典及其内容。输入时结果会即时更新。
-- **字典**：一个树状视图，显示您的环境/项目、字典键以及贡献条目的文件。您可以：
-  - 点击文件以在编辑器中打开它。
-  - 使用工具栏执行操作：构建、拉取、推送、填充、刷新、测试和创建字典文件。
-  - 使用上下文菜单执行特定项目操作：
-    - 在字典上：拉取或推送
-    - 在文件上：填充字典
-  - 当您切换编辑器时，如果文件属于某个字典，树状视图会自动展开显示该文件。
-
-## 安装
-
-您可以直接从 VS Code 市场安装 **Intlayer**：
-
-1. 打开 **VS Code**。
-2. 进入 **扩展市场**。
-3. 搜索 **"Intlayer"**。
-4. 点击 **安装**。
+- **Intlayer 侧边栏标签 (活动栏)** – 通过专用侧边标签浏览和搜索词典，带有工具栏和上下文操作（构建、拉取、推送、填充、刷新、测试、创建文件）。
 
 ## 使用方法
 
@@ -121,63 +65,65 @@ export default componentContent;
    const content = useIntlayer("app");
    ```
 
-3. 在键（例如 `"app"`）上执行 **Command+点击**（macOS 上为 `⌘+点击`）或 **Ctrl+点击**（Windows/Linux 上）。
+3. **命令点击**（macOS 上为 `⌘+点击`，Windows/Linux 上为 **Ctrl+点击**）键（例如 `"app"`）。
 4. VS Code 会自动打开对应的字典文件，例如 `src/app.content.ts`。
-
-### 管理内容字典
 
 ### Intlayer 侧边栏（活动栏）
 
 使用侧边栏浏览和管理字典：
 
 - 打开活动栏中的 Intlayer 图标。
-- 在**搜索**中，输入内容以实时过滤词典和条目。
-- 在**词典**中，浏览环境、词典和文件。使用工具栏进行构建、拉取、推送、填充、刷新、测试和创建词典文件。右键点击可进行上下文操作（对词典执行拉取/推送，对文件执行填充）。当前编辑器文件在适用时会自动在树视图中显示。
+- 在 **搜索** 中输入内容，实时过滤字典和条目。
+- 在 **字典** 中浏览环境、字典和文件。使用工具栏进行构建（Build）、拉取（Pull）、推送（Push）、填充（Fill）、刷新（Refresh）、测试（Test）和创建字典文件。右键点击可进行上下文操作（字典上的拉取/推送，文件上的填充）。当前编辑器文件在适用时会自动在树中高亮显示。
 
-#### 构建词典
+### 访问命令
 
-生成所有词典内容文件：
+你可以通过 **命令面板** 访问这些命令。
 
 ```sh
 Cmd + Shift + P（macOS）/ Ctrl + Shift + P（Windows/Linux）
 ```
 
-搜索**构建词典**并执行该命令。
+- **构建字典**
+- **推送字典**
+- **拉取字典**
+- **填充字典**
+- **测试字典**
+- **创建字典文件**
 
-#### 推送词典
+### 加载环境变量
 
-上传最新的词典内容：
+Intlayer 建议将您的 AI API 密钥，以及 Intlayer 客户端 ID 和密钥存储在环境变量中。
 
-1. 打开**命令面板**。
-2. 搜索**推送词典**。
-3. 选择要推送的词典并确认。
+该扩展可以从您的工作区加载环境变量，以便在正确的上下文中运行 Intlayer 命令。
 
-#### 拉取词典
+- **加载顺序（优先级）**：`.env.<env>.local` → `.env.<env>` → `.env.local` → `.env`
+- **非破坏性**：不会覆盖已有的 `process.env` 值。
+- **作用域**：文件从配置的基础目录解析（默认为工作区根目录）。
 
-同步最新的词典内容：
+#### 选择活动环境
 
-1. 打开 **命令面板**。
-2. 搜索 **拉取词典（Pull Dictionaries）**。
-3. 选择要拉取的词典。
+- **命令面板**：打开命令面板并运行 `Intlayer: Select Environment`，然后选择环境（例如，`development`、`staging`、`production`）。扩展将尝试加载上述优先级列表中第一个可用的文件，并显示类似“已从 .env.<env>.local 加载环境”的通知。
+- **设置**：进入 `设置 → 扩展 → Intlayer`，并设置：
+  - **环境**：用于解析 `.env.<env>*` 文件的环境名称。
+  - （可选）**环境文件**：显式指定一个 `.env` 文件路径。提供后，该路径优先于推断的列表。
 
-#### 填充词典
+#### Monorepos 和自定义目录
 
-使用项目中的内容填充词典：
+- **命令面板**：打开命令面板并运行 `Intlayer: Select Environment`，然后选择环境（例如，`development`、`staging`、`production`）。扩展将尝试加载上述优先列表中的第一个可用文件，并显示类似“已从 .env.<env>.local 加载环境”的通知。
+- **设置**：进入 `设置 → 扩展 → Intlayer`，并设置：
+  - **环境**：用于解析 `.env.<env>*` 文件的环境名称。
+  - （可选）**Env 文件**：显式指定一个 `.env` 文件路径。提供后，该路径优先于推断的列表。
 
-1. 打开 **命令面板**。
-2. 搜索 **填充词典（Fill Dictionaries）**。
-3. 运行命令以填充词典。
+#### 多包仓库和自定义目录
 
-#### 测试词典
-
-验证词典并查找缺失的翻译：
-
-1. 打开 **命令面板**。
-2. 搜索 **测试词典（Test Dictionaries）**。
-3. 查看报告的问题并进行修复。
+如果你的 `.env` 文件位于工作区根目录之外，请在 `设置 → 扩展 → Intlayer` 中设置 **基础目录**。加载器将相对于该目录查找 `.env` 文件。
 
 ## 文档历史
 
-| 版本   | 日期       | 变更           |
-| ------ | ---------- | -------------- |
-| 5.5.10 | 2025-06-29 | 初始化历史记录 |
+| 版本   | 日期       | 变更内容                         |
+| ------ | ---------- | -------------------------------- |
+| 6.1.5  | 2025-09-30 | 添加演示动图                     |
+| 6.1.0  | 2025-09-24 | 新增环境选择章节                 |
+| 6.0.0  | 2025-09-22 | Intlayer 标签页 / 填充与测试命令 |
+| 5.5.10 | 2025-06-29 | 初始化历史                       |
