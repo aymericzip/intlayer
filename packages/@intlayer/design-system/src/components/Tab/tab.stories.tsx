@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
-import { Tab, TabItem } from './Tab';
+import { Tab } from './Tab';
 
 /**
  * ## Tab Component
@@ -62,7 +62,7 @@ const meta: Meta<typeof Tab> = {
     },
     children: {
       control: false,
-      description: 'TabItem components that define the tabs and their content',
+      description: 'Tab.Item components that define the tabs and their content',
       table: {
         type: { summary: 'ReactNode' },
       },
@@ -92,7 +92,7 @@ export const Default: Story = {
   render: () => (
     <div className="w-96">
       <Tab defaultTab="overview">
-        <TabItem label="Overview" value="overview">
+        <Tab.Item label="Overview" value="overview">
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Project Overview</h3>
             <p className="text-gray-600">
@@ -111,8 +111,8 @@ export const Default: Story = {
               </p>
             </div>
           </div>
-        </TabItem>
-        <TabItem label="Documentation" value="docs">
+        </Tab.Item>
+        <Tab.Item label="Documentation" value="docs">
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Documentation</h3>
             <p className="text-gray-600">
@@ -129,14 +129,14 @@ export const Default: Story = {
             </div>
             <code className="block bg-gray-900 text-green-400 p-3 rounded text-xs overflow-x-auto">
               {`<Tab defaultTab="getting-started">
-  <TabItem label="Getting Started" value="getting-started">
+  <Tab.Item label="Getting Started" value="getting-started">
     Your content here
-  </TabItem>
+  </Tab.Item>
 </Tab>`}
             </code>
           </div>
-        </TabItem>
-        <TabItem label="Settings" value="settings">
+        </Tab.Item>
+        <Tab.Item label="Settings" value="settings">
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Configuration Settings</h3>
             <p className="text-gray-600">
@@ -157,7 +157,7 @@ export const Default: Story = {
               </div>
             </div>
           </div>
-        </TabItem>
+        </Tab.Item>
       </Tab>
     </div>
   ),
@@ -230,7 +230,7 @@ export const Bordered: Story = {
   render: () => (
     <div className="w-96">
       <Tab variant="bordered" defaultTab="dashboard">
-        <TabItem label="📊 Dashboard" value="dashboard">
+        <Tab.Item label="📊 Dashboard" value="dashboard">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Analytics Dashboard</h4>
             <div className="grid grid-cols-2 gap-4">
@@ -248,8 +248,8 @@ export const Bordered: Story = {
               for primary navigation interfaces.
             </p>
           </div>
-        </TabItem>
-        <TabItem label="📈 Analytics" value="analytics">
+        </Tab.Item>
+        <Tab.Item label="📈 Analytics" value="analytics">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Performance Analytics</h4>
             <div className="space-y-3">
@@ -267,8 +267,8 @@ export const Bordered: Story = {
               </div>
             </div>
           </div>
-        </TabItem>
-        <TabItem label="⚙️ Reports" value="reports">
+        </Tab.Item>
+        <Tab.Item label="⚙️ Reports" value="reports">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Generated Reports</h4>
             <div className="space-y-2">
@@ -296,7 +296,7 @@ export const Bordered: Story = {
               </div>
             </div>
           </div>
-        </TabItem>
+        </Tab.Item>
       </Tab>
     </div>
   ),
@@ -320,7 +320,7 @@ export const Ghost: Story = {
   render: () => (
     <div className="w-96">
       <Tab variant="ghost" defaultTab="editor">
-        <TabItem label="✏️ Editor" value="editor">
+        <Tab.Item label="✏️ Editor" value="editor">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Content Editor</h4>
             <div className="border border-gray-200 rounded-lg p-4 min-h-[120px] bg-white">
@@ -338,8 +338,8 @@ export const Ghost: Story = {
               <span className="bg-gray-100 px-2 py-1 rounded">Link</span>
             </div>
           </div>
-        </TabItem>
-        <TabItem label="👁️ Preview" value="preview">
+        </Tab.Item>
+        <Tab.Item label="👁️ Preview" value="preview">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Content Preview</h4>
             <div className="border border-gray-200 rounded-lg p-4 min-h-[120px] bg-gray-50">
@@ -355,8 +355,8 @@ export const Ghost: Story = {
               Preview mode • Last updated: 2 minutes ago
             </div>
           </div>
-        </TabItem>
-        <TabItem label="📱 Mobile" value="mobile">
+        </Tab.Item>
+        <Tab.Item label="📱 Mobile" value="mobile">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Mobile Preview</h4>
             <div className="border-2 border-gray-300 rounded-lg p-2 bg-gray-100 max-w-[200px] mx-auto">
@@ -369,7 +369,7 @@ export const Ghost: Story = {
               </div>
             </div>
           </div>
-        </TabItem>
+        </Tab.Item>
       </Tab>
     </div>
   ),
@@ -406,7 +406,7 @@ export const SettingsPanel: Story = {
     return (
       <div className="w-[500px]">
         <Tab defaultTab="general" variant="default">
-          <TabItem label="General" value="general">
+          <Tab.Item label="General" value="general">
             <div className="space-y-6">
               <div>
                 <h4 className="font-semibold text-lg mb-4">General Settings</h4>
@@ -468,9 +468,9 @@ export const SettingsPanel: Story = {
                 </div>
               </div>
             </div>
-          </TabItem>
+          </Tab.Item>
 
-          <TabItem label="Security" value="security">
+          <Tab.Item label="Security" value="security">
             <div className="space-y-6">
               <div>
                 <h4 className="font-semibold text-lg mb-4">
@@ -514,9 +514,9 @@ export const SettingsPanel: Story = {
                 </div>
               </div>
             </div>
-          </TabItem>
+          </Tab.Item>
 
-          <TabItem label="Privacy" value="privacy">
+          <Tab.Item label="Privacy" value="privacy">
             <div className="space-y-6">
               <div>
                 <h4 className="font-semibold text-lg mb-4">Privacy Settings</h4>
@@ -558,9 +558,9 @@ export const SettingsPanel: Story = {
                 </div>
               </div>
             </div>
-          </TabItem>
+          </Tab.Item>
 
-          <TabItem label="Advanced" value="advanced" disabled>
+          <Tab.Item label="Advanced" value="advanced" disabled>
             <div className="space-y-4">
               <h4 className="font-semibold text-lg">Advanced Settings</h4>
               <div className="text-center py-8 text-gray-500">
@@ -571,7 +571,7 @@ export const SettingsPanel: Story = {
                 </p>
               </div>
             </div>
-          </TabItem>
+          </Tab.Item>
         </Tab>
       </div>
     );
@@ -612,7 +612,7 @@ export const ContentManagementSystem: Story = {
     return (
       <div className="w-[600px]">
         <Tab defaultTab="content" variant="ghost">
-          <TabItem label="📝 Content" value="content">
+          <Tab.Item label="📝 Content" value="content">
             <div className="space-y-4">
               <div className="flex items-center justify-between mb-4">
                 <h4 className="font-semibold text-lg">Article Editor</h4>
@@ -670,9 +670,9 @@ Let's dive deeper into each of these concepts...`}
                 </div>
               </div>
             </div>
-          </TabItem>
+          </Tab.Item>
 
-          <TabItem label="🏷️ Metadata" value="metadata">
+          <Tab.Item label="🏷️ Metadata" value="metadata">
             <div className="space-y-6">
               <h4 className="font-semibold text-lg">Article Metadata</h4>
 
@@ -737,9 +737,9 @@ Let's dive deeper into each of these concepts...`}
                 </div>
               </div>
             </div>
-          </TabItem>
+          </Tab.Item>
 
-          <TabItem label="👁️ Preview" value="preview">
+          <Tab.Item label="👁️ Preview" value="preview">
             <div className="space-y-4">
               <h4 className="font-semibold text-lg">Article Preview</h4>
 
@@ -790,7 +790,7 @@ Let's dive deeper into each of these concepts...`}
                 </div>
               </div>
             </div>
-          </TabItem>
+          </Tab.Item>
         </Tab>
       </div>
     );
