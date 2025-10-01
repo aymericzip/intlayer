@@ -802,6 +802,7 @@ export const buildConfigurationFields = (
     log: logConfig,
     ai: aiConfig,
     build: buildConfig,
+    plugins: customConfiguration?.plugins,
   };
 
   return storedConfiguration;

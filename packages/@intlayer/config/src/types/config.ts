@@ -440,6 +440,11 @@ export type CustomIntlayerConfig = {
    * Custom build configuration
    */
   build?: Partial<BuildConfig>;
+
+  /**
+   * Custom plugins configuration
+   */
+  plugins?: PluginConfig[];
 };
 
 /**
@@ -480,6 +485,11 @@ export type IntlayerConfig = {
    * Build configuration
    */
   build: BuildConfig;
+
+  /**
+   * Plugins configuration
+   */
+  plugins?: PluginConfig[];
 };
 
 /**
@@ -715,4 +725,11 @@ export type LogConfig = {
   info?: typeof console.info;
   warn?: typeof console.warn;
   debug?: typeof console.debug;
+};
+
+export type PluginConfig = {
+  /**
+   * Name of the plugin
+   */
+  name: string;
 };
