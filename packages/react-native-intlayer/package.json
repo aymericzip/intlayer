@@ -98,7 +98,7 @@
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.2.1",
     "eslint": "^9.36.0",
-    "expo": "^52.0.37",
+    "expo": "^54.0.12",
     "metro-resolver": "^0.82.0",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
@@ -111,7 +111,7 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "expo": "^52.0.37",
+    "expo": "^54.0.12",
     "metro-resolver": "^0.82.0"
   },
   "engines": {
