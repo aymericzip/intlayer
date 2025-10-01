@@ -1326,7 +1326,7 @@ export default robots;
 
 ---
 
-#### Middleware for locale routing
+### Middleware for locale routing
 
 <Tab defaultTab="next-intl" group='techno'>
   <TabItem label="next-i18next" value="next-i18next">

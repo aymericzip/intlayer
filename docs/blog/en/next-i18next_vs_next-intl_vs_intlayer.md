@@ -1338,9 +1338,7 @@ export default robots;
 
 > Intlayer provides a `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
 
----
-
-#### Middleware for locale routing
+### Middleware for locale routing
 
 <Tab defaultTab="next-intl" group='techno'>
   <TabItem label="next-i18next" value="next-i18next">
