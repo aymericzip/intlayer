@@ -1,9 +1,11 @@
 import type { IntlayerConfig } from '@intlayer/config';
 import { mkdir } from 'fs/promises';
 import { join } from 'path';
-import { writeJsonIfChanged } from '../writeJsonIfChanged';
 
-export const writeConfiguration = async (configuration: IntlayerConfig) => {
+export const writeConfiguration = async (
+  configuration: IntlayerConfig,
+  format: 'cjs' | 'esm' = 'esm'
+) => {
   const { content } = configuration;
   const { configDir } = content;
 
@@ -13,5 +15,21 @@ export const writeConfiguration = async (configuration: IntlayerConfig) => {
 
   const configFilePath = join(configDir, 'configuration.json');
 
-  await writeJsonIfChanged(configFilePath, configuration);
+  const extension = format === 'cjs' ? 'cjs' : 'mjs';
+
+  const content = generateDictionaryEntryPoint(
+    localedDictionariesPathsRecord,
+    format,
+    configuration
+  );
+
+  await writeFileIfChanged(
+    resolve(dynamicDictionariesDir, `${key}.${extension}`),
+    content
+  ).catch((err) => {
+    console.error(
+      `Error creating dynamic ${colorizePath(resolve(dynamicDictionariesDir, `${key}.${extension}`))}:`,
+      err
+    );
+  });
 };

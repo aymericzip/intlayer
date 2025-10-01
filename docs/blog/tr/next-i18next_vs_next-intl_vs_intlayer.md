@@ -19,6 +19,8 @@ slugs:
 
 # next-i18next VS next-intl VS intlayer | Next.js Uluslararasılaştırma (i18n)
 
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+
 Bu rehber, **Next.js** için yaygın olarak kullanılan üç i18n seçeneğini karşılaştırır: **next-intl**, **next-i18next** ve **Intlayer**.
 **Next.js 13+ App Router**'a (React Server Components ile) odaklanıyoruz ve şunları değerlendiriyoruz:
 

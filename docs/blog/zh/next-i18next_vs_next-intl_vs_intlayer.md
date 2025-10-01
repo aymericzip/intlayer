@@ -19,6 +19,8 @@ slugs:
 
 # next-i18next VS next-intl VS intlayer | Next.js 国际化 (i18n)
 
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+
 让我们来看看 Next.js 的三种 i18n 方案：next-i18next、next-intl 和 Intlayer 之间的相似点和差异。
 
 这不是一个完整的教程，而是一个帮助你选择的比较。

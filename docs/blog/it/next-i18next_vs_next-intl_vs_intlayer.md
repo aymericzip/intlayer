@@ -19,6 +19,8 @@ slugs:
 
 # next-i18next VS next-intl VS intlayer | Internazionalizzazione (i18n) in Next.js
 
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+
 Diamo un'occhiata alle somiglianze e differenze tra tre opzioni i18n per Next.js: next-i18next, next-intl e Intlayer.
 
 Questo non è un tutorial completo. È un confronto per aiutarti a scegliere.
