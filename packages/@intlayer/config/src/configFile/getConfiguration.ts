@@ -26,12 +26,17 @@ export type GetConfigurationOptions = {
 
 const BASE_DIR_PATH = process.cwd();
 
+export type GetConfigurationAndFilePathResult = {
+  configuration: IntlayerConfig;
+  configurationFilePath: string | undefined;
+};
+
 /**
  * Get the configuration for the intlayer by reading the configuration file (e.g. intlayer.config.js)
  */
-export const getConfiguration = (
+export const getConfigurationAndFilePath = (
   options?: GetConfigurationOptions
-): IntlayerConfig => {
+): GetConfigurationAndFilePathResult => {
   const mergedOptions = {
     baseDir: BASE_DIR_PATH,
     ...options,
@@ -82,8 +87,23 @@ export const getConfiguration = (
     );
   }
 
-  return merge(storedConfiguration, options?.override ?? {}) as IntlayerConfig;
+  const configuration = merge(
+    storedConfiguration,
+    options?.override ?? {}
+  ) as IntlayerConfig;
+
+  return {
+    configuration,
+    configurationFilePath: storedConfigurationFilePath,
+  };
 };
+
+/**
+ * Get the configuration for the intlayer by reading the configuration file (e.g. intlayer.config.js)
+ */
+export const getConfiguration = (
+  options?: GetConfigurationOptions
+): IntlayerConfig => getConfigurationAndFilePath(options).configuration;
 
 const logConfigFileResult = (
   numCustomConfiguration?: number,

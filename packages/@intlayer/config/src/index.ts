@@ -1,8 +1,12 @@
 export { getAlias } from './alias';
+export { bundleJSFile } from './bundleJSFile';
 export {
   getConfiguration,
+  getConfigurationAndFilePath,
+  type GetConfigurationAndFilePathResult,
   type GetConfigurationOptions,
 } from './configFile/getConfiguration';
+export { searchConfigurationFile } from './configFile/searchConfigurationFile';
 export { getSandBoxContext } from './getSandboxContext';
 export { getEnvFilePath, loadEnvFile } from './loadEnvFile';
 export { loadExternalFile } from './loadExternalFile';
