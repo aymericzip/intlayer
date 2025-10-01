@@ -111,8 +111,8 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "expo": "^54.0.12",
-    "metro-resolver": "^0.82.0"
+    "expo": ">=52",
+    "metro-resolver": ">=0.80"
   },
   "engines": {
     "node": ">=14.18"
