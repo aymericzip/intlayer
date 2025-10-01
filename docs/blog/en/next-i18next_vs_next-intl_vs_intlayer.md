@@ -165,6 +165,8 @@ How the library handles fallbacks is also important. Let's consider that the app
 
 In the case of `next-intl` and `next-i18next`, the library requires loading the JSON related to the current locale, but also to the fallback locale. Thus, considering that all content has been translated, each page will load 100% unnecessary content. **In comparison, `intlayer` processes the fallback at dictionary build time. Thus, each page will load only the content used.**
 
+> Note: To optimize the bundle using `intlayer`, you need to set the `importMode: 'dynamic'` option in your `intlayer.config.ts` file. And ensure the plugin `@intlayer/babel` / `@intlayer/swc` is installed (installed by default using `vite-intlayer`).
+
 Here an example of the impact of bundle size optimization using `intlayer` in a vite + react application:
 
 | Optimized bundle                                                                                      | Bundle not optimized                                                                                                     |
