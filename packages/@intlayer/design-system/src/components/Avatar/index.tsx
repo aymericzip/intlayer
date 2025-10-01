@@ -1,7 +1,6 @@
 import { User } from 'lucide-react';
 import type { ComponentProps, FC, HTMLAttributes } from 'react';
 import { forwardRef, useMemo } from 'react';
-import { getCapitals } from '../../utils/capitalize';
 import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
 
@@ -36,6 +35,23 @@ const sizeVariants = {
   lg: 'size-12',
   xl: 'size-16',
 } as const;
+
+/**
+ * @description Gets the capital letters from a name.
+ * @param name - The name to extract capitals from.
+ * @param separator - The separator to split the name (default is an empty string, which splits by each character).
+ * @returns {string[]} An array of capital letters from the name.
+ */
+export const getCapitals = (name: string, separator = ' '): string[] => {
+  if (!name) return [];
+
+  const parts =
+    separator === ' '
+      ? name.trim().split(/\s+/) // handle multiple spaces
+      : name.split(separator);
+
+  return parts.filter(Boolean).map((word) => word.charAt(0).toUpperCase());
+};
 
 /**
  * Container component that renders either a button or div based on interactivity
@@ -107,10 +123,7 @@ export const Avatar: FC<AvatarProps> = ({
 }) => {
   const isImageDefined = Boolean(src);
   const isNameDefined = Boolean((fullname ?? '').length > 0);
-  const capitals = useMemo(
-    () => (fullname ? getCapitals(fullname) : undefined),
-    [fullname]
-  );
+  const capitals = fullname ? getCapitals(fullname) : undefined;
 
   // Display logic
   const displayLoader = isLoading;
