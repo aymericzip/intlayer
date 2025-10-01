@@ -86,6 +86,9 @@
     "yarn": "please-use-pnpm"
   },
   "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ],
     "overrides": {
       "nanostores": "npm:nanostores-cjs@0.7.1",
       "react": "^19.1.1",
