@@ -1,27 +1,18 @@
-import { getConfiguration } from '@intlayer/config';
+import { getAlias, getConfiguration } from '@intlayer/config';
 import { IntlayerPlugin } from '@intlayer/webpack'; // adjust path if needed
 import merge from 'deepmerge';
-import { join, relative, resolve } from 'path';
+import { resolve } from 'path';
 import type { Configuration as WebpackConfig } from 'webpack';
 
 export const mergeConfig = (baseConfig: WebpackConfig): WebpackConfig => {
   const intlayerConfig = getConfiguration();
 
-  // Format all configuration values as environment variables
-  const { mainDir, configDir, baseDir } = intlayerConfig.content;
-
-  const dictionariesPath = join(mainDir, 'dictionaries.mjs');
-  const relativeDictionariesPath = relative(baseDir, dictionariesPath);
-
-  const configurationPath = join(configDir, 'configuration.json');
-  const relativeConfigurationPath = relative(baseDir, configurationPath);
-
   const config = {
     resolve: {
-      alias: {
-        '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-        '@intlayer/config/built': resolve(relativeConfigurationPath),
-      },
+      alias: getAlias({
+        configuration: intlayerConfig,
+        formatter: (value: string) => resolve(value), // get absolute path
+      }),
     },
     externals: {
       esbuild: 'esbuild',

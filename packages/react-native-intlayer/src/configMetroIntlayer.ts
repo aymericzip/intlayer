@@ -1,9 +1,8 @@
+import { prepareIntlayer } from '@intlayer/chokidar';
+import { getAlias, getConfiguration } from '@intlayer/config';
 import { getDefaultConfig } from 'expo/metro-config';
-import { getConfiguration } from '@intlayer/config';
-import { join } from 'path';
 import { resolve } from 'metro-resolver';
 import { exclusionList } from './exclusionList';
-import { prepareIntlayer } from '@intlayer/chokidar';
 
 type MetroConfig = ReturnType<typeof getDefaultConfig>;
 
@@ -26,10 +25,10 @@ export const configMetroIntlayer = async (
 
   await prepareIntlayer(intlayerConfig);
 
-  const { mainDir, configDir } = intlayerConfig.content;
-
-  const dictionariesPath = join(mainDir, 'dictionaries.cjs');
-  const configurationPath = join(configDir, 'configuration.json');
+  const alias = getAlias({
+    configuration: intlayerConfig,
+    formatter: (value: string) => require.resolve(value), // get absolute path
+  });
 
   const config = {
     ...baseConfig,
@@ -37,22 +36,23 @@ export const configMetroIntlayer = async (
     resolver: {
       ...baseConfig.resolver,
       resolveRequest: (context, moduleName, platform) => {
-        if (moduleName === '@intlayer/dictionaries-entry') {
+        if (Object.keys(alias).includes(moduleName)) {
           return {
-            filePath: require.resolve(dictionariesPath),
+            filePath: alias[moduleName as keyof typeof alias],
             type: 'sourceFile',
           };
-        } else if (moduleName === '@intlayer/config/built') {
-          return {
-            filePath: require.resolve(configurationPath),
-            type: 'sourceFile',
-          };
-        } else if (moduleName === '@intlayer/config/client') {
+        }
+
+        // Because metro does not resolve subodules, we need to resolve the path manually
+        if (moduleName === '@intlayer/config/client') {
           return {
             filePath: require.resolve('@intlayer/config/client'),
             type: 'sourceFile',
           };
-        } else if (moduleName.startsWith('@intlayer/core/file')) {
+        }
+
+        // Because metro does not resolve subodules, we need to resolve the path manually
+        if (moduleName.startsWith('@intlayer/core/file')) {
           // Force React Native to use the correct transpiled version
           return {
             filePath: require.resolve(

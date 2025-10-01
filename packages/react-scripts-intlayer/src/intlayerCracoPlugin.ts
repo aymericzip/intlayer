@@ -10,7 +10,6 @@ import type {
 } from '@craco/types';
 import { ESMxCJSRequire, getAlias, getConfiguration } from '@intlayer/config';
 import { IntlayerPlugin as IntlayerWebpackPlugin } from '@intlayer/webpack';
-import { join, relative } from 'path';
 import type { Configuration as WebpackConfig } from 'webpack';
 
 // Get Intlayer configuration
@@ -50,14 +49,6 @@ export const overrideWebpackConfig = ({
 export const overrideCracoConfig = ({
   cracoConfig,
 }: CracoConfigOverride): CracoConfig => {
-  const { mainDir, baseDir, configDir } = intlayerConfig.content;
-
-  const dictionariesPath = join(mainDir, 'dictionaries.mjs');
-  const relativeDictionariesPath = relative(baseDir, dictionariesPath);
-
-  const configurationPath = join(configDir, 'configuration.json');
-  const relativeConfigurationPath = relative(baseDir, configurationPath);
-
   return {
     ...cracoConfig,
     webpack: {
@@ -90,7 +81,6 @@ export const overrideCracoConfig = ({
         ...cracoConfig.webpack?.alias,
         ...getAlias({
           configuration: intlayerConfig,
-          formatter: (value: string) => resolve(value),
         }),
       },
     },
