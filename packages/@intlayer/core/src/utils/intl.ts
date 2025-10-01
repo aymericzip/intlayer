@@ -71,8 +71,25 @@ const createCachedConstructor = <T extends new (...args: any[]) => any>(
     ) {
       if (process.env.NODE_ENV === 'development') {
         console.warn(
-          `Intl.DisplayNames is not supported; falling back to raw locale (${locales}). ` +
-            `Consider adding a polyfill as https://formatjs.io/docs/polyfills/intl-displaynames/`
+          [
+            `// Intl.DisplayNames is not supported; falling back to raw locale (${locales}). `,
+            `// Consider adding a polyfill as https://formatjs.io/docs/polyfills/intl-displaynames/`,
+            ``,
+            `import 'intl';`,
+            `import '@formatjs/intl-getcanonicallocales/polyfill';`,
+            `import '@formatjs/intl-locale/polyfill';`,
+            `import '@formatjs/intl-pluralrules/polyfill';`,
+            `import '@formatjs/intl-displaynames/polyfill';`,
+            `import '@formatjs/intl-listformat/polyfill';`,
+            `import '@formatjs/intl-numberformat/polyfill';`,
+            `import '@formatjs/intl-relativetimeformat/polyfill';`,
+            `import '@formatjs/intl-datetimeformat/polyfill';`,
+            ``,
+            `// Optionally add locale data`,
+            `import '@formatjs/intl-pluralrules/locale-data/fr';`,
+            `import '@formatjs/intl-numberformat/locale-data/fr';`,
+            `import '@formatjs/intl-datetimeformat/locale-data/fr';`,
+          ].join('\n')
         );
       }
       return locales as any;
