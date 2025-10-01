@@ -778,12 +778,13 @@ export const useAutocomplete = () => {
  * Search
  */
 
-export const useSearchDoc = (params?: SearchDocUtilParams) => {
+export const useSearchDoc = (params: SearchDocUtilParams) => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useQuery({
     queryKey: ['search', params],
     queryFn: () => intlayerOAuth.search.searchDoc(params),
+    enabled: (params?.input?.length ?? 0) > 3,
   });
 };
 
