@@ -27,7 +27,6 @@ export const configMetroIntlayer = async (
 
   const alias = getAlias({
     configuration: intlayerConfig,
-    formatter: (value: string) => require.resolve(value), // get absolute path
   });
 
   const config = {
