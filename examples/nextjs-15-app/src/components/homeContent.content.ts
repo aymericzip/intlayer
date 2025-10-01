@@ -11,7 +11,7 @@ const homeContent = {
     }),
     saveAndSeeChanges: t({
       en: 'Save and see your changes.',
-      // fr: 'Enregistrez et voyez vos modifications.',
+      fr: 'Enregistrez et voyez vos modifications.',
       es: 'Guarde y vea sus cambios.',
     }),
     deployNow: t({
