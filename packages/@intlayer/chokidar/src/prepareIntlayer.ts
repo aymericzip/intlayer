@@ -34,6 +34,23 @@ export const prepareIntlayer = async (
     cleanOutputDir(configuration);
   }
 
+  await writeConfiguration(configuration);
+
+  const configurationWrittenTime = Date.now();
+
+  appLogger(
+    [
+      'Configuration written',
+      colorize(
+        `(${configurationWrittenTime - preparationStartMs}ms)`,
+        ANSIColors.GREY_DARK
+      ),
+    ],
+    {
+      isVerbose: true,
+    }
+  );
+
   const files: string[] = listDictionaries(configuration);
 
   const dictionaries = await loadDictionaries(
@@ -50,8 +67,8 @@ export const prepareIntlayer = async (
       colorize(
         [
           dictionaries.remoteDictionaries.length > 0
-            ? ` (Total: ${dictionariesLoadedTime - preparationStartMs}ms - Local: ${dictionaries.time.localDictionaries}ms - Remote: ${dictionaries.time.remoteDictionaries}ms)`
-            : `(${dictionariesLoadedTime - preparationStartMs}ms)`,
+            ? ` (Total: ${dictionariesLoadedTime - configurationWrittenTime}ms - Local: ${dictionaries.time.localDictionaries}ms - Remote: ${dictionaries.time.remoteDictionaries}ms)`
+            : `(${dictionariesLoadedTime - configurationWrittenTime}ms)`,
         ].join(''),
         ANSIColors.GREY_DARK
       ),
@@ -100,23 +117,6 @@ export const prepareIntlayer = async (
       'Module augmentation built',
       colorize(
         `(${moduleAugmentationBuiltTime - dictionariesBuiltTime}ms)`,
-        ANSIColors.GREY_DARK
-      ),
-    ],
-    {
-      isVerbose: true,
-    }
-  );
-
-  await writeConfiguration(configuration);
-
-  const configurationWrittenTime = Date.now();
-
-  appLogger(
-    [
-      'Configuration written',
-      colorize(
-        `(${configurationWrittenTime - moduleAugmentationBuiltTime}ms)`,
         ANSIColors.GREY_DARK
       ),
     ],
