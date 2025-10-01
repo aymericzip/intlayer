@@ -1,16 +1,16 @@
-import deepmerge from 'deepmerge';
-import { readFile } from 'fs/promises';
 import {
   cond,
-  type Dictionary,
+  Dictionary,
   enu,
   gender,
   insert,
-  file as intFile,
   md,
   nest,
   t,
-} from 'intlayer';
+} from '@intlayer/core';
+import { file as intFile } from '@intlayer/core/file';
+import deepmerge from 'deepmerge';
+import { readFile } from 'fs/promises';
 import { dirname, resolve } from 'path';
 import { describe, expect, it } from 'vitest';
 import { transformJSFile } from './transformJSFile';

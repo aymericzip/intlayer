@@ -108,5 +108,13 @@
     "raw-loader": "^4.0.2",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2"
+  },
+  "peerDependencies": {
+    "@intlayer/backend": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@intlayer/backend": {
+      "optional": true
+    }
   }
 }

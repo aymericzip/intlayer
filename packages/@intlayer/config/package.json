@@ -115,9 +115,6 @@
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
   },
-  "peerDependencies": {
-    "intlayer": "workspace:*"
-  },
   "engines": {
     "node": ">=14.18"
   },

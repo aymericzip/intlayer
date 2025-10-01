@@ -112,8 +112,7 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "fast-glob": "^3.3.3",
-    "intlayer": "workspace:*"
+    "fast-glob": "^3.3.3"
   },
   "engines": {
     "node": ">=14.18"

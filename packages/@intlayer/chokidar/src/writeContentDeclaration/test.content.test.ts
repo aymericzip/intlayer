@@ -2,13 +2,13 @@ import {
   cond,
   Dictionary,
   enu,
-  file,
   gender,
   insert,
   md,
   nest,
   t,
-} from 'intlayer';
+} from '@intlayer/core';
+import { file } from '@intlayer/core/file';
 
 const content: Dictionary = {
   key: 'test',
