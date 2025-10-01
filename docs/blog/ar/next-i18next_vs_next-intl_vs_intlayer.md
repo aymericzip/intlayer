@@ -340,25 +340,25 @@ slugs:
 
 ```bash
 .
-├── public
-│   └── locales
-│       ├── en
-│       │  ├── home.json
-│       │  └── navbar.json
-│       ├── fr
-│       │  ├── home.json
-│       │  └── navbar.json
-│       └── es
-│          ├── home.json
-│          └── navbar.json
-├── next-i18next.config.js
+├── i18n.config.ts
 └── src
-    ├── middleware.ts
+    ├── locales
+    │   ├── en
+    │   │  ├── common.json
+    │   │  └── about.json
+    │   └── fr
+    │      ├── common.json
+    │      └── about.json
     ├── app
-    │   └── home.tsx
+    │   ├── i18n
+    │   │   └── server.ts
+    │   └── [locale]
+    │       ├── layout.tsx
+    │       └── about.tsx
     └── components
-        └── Navbar
-            └── index.tsx
+        ├── I18nProvider.tsx
+        ├── ClientComponent.tsx
+        └── ServerComponent.tsx
 ```
 
   </TabItem>
@@ -366,6 +366,7 @@ slugs:
 
 ```bash
 .
+├── i18n.ts
 ├── locales
 │   ├── en
 │   │  ├── home.json
@@ -376,18 +377,20 @@ slugs:
 │   └── es
 │      ├── home.json
 │      └── navbar.json
-├── i18n.ts
 └── src
     ├── middleware.ts
     ├── app
-    │   └── home.tsx
+    │   ├── i18n
+    │   │   └── server.ts
+    │   └── [locale]
+    │       └── home.tsx
     └── components
         └── Navbar
             └── index.tsx
 ```
 
   </TabItem>
-<TabItem label="intlayer" value="intlayer">
+  <TabItem label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -395,9 +398,11 @@ slugs:
 └── src
     ├── middleware.ts
     ├── app
-    │   └── home
-    │       └── index.tsx
-    │       └── index.content.ts
+    │   └── [locale]
+    │       ├── layout.tsx
+    │       └── home
+    │           ├── index.tsx
+    │           └── index.content.ts
     └── components
         └── Navbar
             ├── index.tsx
@@ -420,155 +425,294 @@ slugs:
 <Tab defaultTab="next-intl" group='techno'>
   <TabItem label="next-i18next" value="next-i18next">
 
-```tsx fileName="next-i18next.config.js"
-module.exports = {
-  i18n: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
-  },
-};
-```
+```ts fileName="i18n.config.ts"
+export const locales = ["en", "fr"] as const;
+export type Locale = (typeof locales)[number];
 
-```tsx fileName="src/app/_app.tsx"
-import { appWithTranslation } from "next-i18next";
+export const defaultLocale: Locale = "en";
 
-const MyApp = ({ Component, pageProps }) => <Component {...pageProps} />;
+export const rtlLocales = ["ar", "he", "fa", "ur"] as const;
+export const isRtl = (locale: string) =>
+  (rtlLocales as readonly string[]).includes(locale);
 
-export default appWithTranslation(MyApp);
-```
-
-```tsx fileName="src/app/[locale]/about/page.tsx"
-import type { GetStaticProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useTranslation } from "next-i18next";
-import { I18nextProvider, initReactI18next } from "react-i18next";
-import { createInstance } from "i18next";
-import { ClientComponent, ServerComponent } from "@components";
-
-export default function HomePage({ locale }: { locale: string }) {
-  // أعلن صراحة عن مساحة الأسماء المستخدمة من قبل هذا المكون
-  const resources = await loadMessagesFor(locale); // محملك (JSON، إلخ)
-
-  const i18n = createInstance();
-  i18n.use(initReactI18next).init({
-    lng: locale,
-    fallbackLng: "en",
-    resources,
-    ns: ["common", "about"],
-    defaultNS: "common",
-    interpolation: { escapeValue: false },
-  });
-
-  const { t } = useTranslation("about");
-
-  return (
-    <I18nextProvider i18n={i18n}>
-      <main>
-        <h1>{t("title")}</h1>
-        <ClientComponent />
-        <ServerComponent />
-      </main>
-    </I18nextProvider>
-  );
+export function localizedPath(locale: string, path: string) {
+  return locale === defaultLocale ? path : "/" + locale + path;
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  // قم بتحميل مساحات الأسماء الضرورية فقط لهذه الصفحة
-  return {
-    props: {
-      ...(await serverSideTranslations(locale ?? "en", ["common", "about"])),
-    },
-  };
+const ORIGIN = "https://example.com";
+export function abs(locale: string, path: string) {
+  return ORIGIN + localizedPath(locale, path);
+}
+```
+
+```ts fileName="src/app/i18n/server.ts"
+import { createInstance } from "i18next";
+import { initReactI18next } from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { defaultLocale } from "@/i18n.config";
+
+// Load JSON resources from src/locales/<locale>/<namespace>.json
+const backend = resourcesToBackend(
+  (locale: string, namespace: string) =>
+    import(`../../locales/${locale}/${namespace}.json`)
+);
+
+export async function initI18next(
+  locale: string,
+  namespaces: string[] = ["common"]
+) {
+  const i18n = createInstance();
+  await i18n
+    .use(initReactI18next)
+    .use(backend)
+    .init({
+      lng: locale,
+      fallbackLng: defaultLocale,
+      ns: namespaces,
+      defaultNS: "common",
+      interpolation: { escapeValue: false },
+      react: { useSuspense: false },
+    });
+  return i18n;
+}
+```
+
+```tsx fileName="src/components/I18nProvider.tsx"
+"use client";
+
+import * as React from "react";
+import { I18nextProvider } from "react-i18next";
+import { createInstance } from "i18next";
+import { initReactI18next } from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { defaultLocale } from "@/i18n.config";
+
+const backend = resourcesToBackend(
+  (locale: string, namespace: string) =>
+    import(`../../locales/${locale}/${namespace}.json`)
+);
+
+type Props = {
+  locale: string;
+  namespaces?: string[];
+  resources?: Record<string, any>; // { ns: bundle }
+  children: React.ReactNode;
 };
+
+export default function I18nProvider({
+  locale,
+  namespaces = ["common"],
+  resources,
+  children,
+}: Props) {
+  const [i18n] = React.useState(() => {
+    const i = createInstance();
+
+    i.use(initReactI18next)
+      .use(backend)
+      .init({
+        lng: locale,
+        fallbackLng: defaultLocale,
+        ns: namespaces,
+        resources: resources ? { [locale]: resources } : undefined,
+        defaultNS: "common",
+        interpolation: { escapeValue: false },
+        react: { useSuspense: false },
+      });
+
+    return i;
+  });
+
+  return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;
+}
+```
+
+```tsx fileName="src/app/[locale]/layout.tsx"
+import type { ReactNode } from "react";
+import { locales, defaultLocale, isRtl, type Locale } from "@/i18n.config";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default function LocaleLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: { locale: string };
+}) {
+  const locale: Locale = (locales as readonly string[]).includes(params.locale)
+    ? (params.locale as any)
+    : defaultLocale;
+
+  const dir = isRtl(locale) ? "rtl" : "ltr";
+
+  return (
+    <html lang={locale} dir={dir}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+```tsx fileName="src/app/[locale]/about.tsx"
+import I18nProvider from "@/components/I18nProvider";
+import { initI18next } from "@/app/i18n/server";
+import type { Locale } from "@/i18n.config";
+import ClientComponent from "@/components/ClientComponent";
+import ServerComponent from "@/components/ServerComponent";
+
+// Force static rendering for the page
+export const dynamic = "force-static";
+
+export default async function AboutPage({
+  params: { locale },
+}: {
+  params: { locale: Locale };
+}) {
+  const namespaces = ["common", "about"] as const;
+
+  const i18n = await initI18next(locale, [...namespaces]);
+  const tAbout = i18n.getFixedT(locale, "about");
+
+  return (
+    <I18nProvider locale={locale} namespaces={[...namespaces]}>
+      <main>
+        <h1>{tAbout("title")}</h1>
+
+        <ClientComponent />
+        <ServerComponent t={tAbout} locale={locale} count={0} />
+      </main>
+    </I18nProvider>
+  );
+}
 ```
 
   </TabItem>
    <TabItem label="next-intl" value="next-intl">
 
-```tsx fileName="i18n.ts"
+```tsx fileName="src/i18n.ts"
 import { getRequestConfig } from "next-intl/server";
 import { notFound } from "next/navigation";
 
-// يمكن استيرادها من إعداد مشترك
-const locales = ["en", "fr", "es"];
+export const locales = ["en", "fr", "es"] as const;
+export const defaultLocale = "en" as const;
+
+async function loadMessages(locale: string) {
+  // Load only the namespaces your layout/pages need
+  const [common, about] = await Promise.all([
+    import(`../locales/${locale}/common.json`).then((m) => m.default),
+    import(`../locales/${locale}/about.json`).then((m) => m.default),
+  ]);
+
+  return { common, about } as const;
+}
 
 export default getRequestConfig(async ({ locale }) => {
-  // تحقق من أن معامل `locale` الوارد صالح
   if (!locales.includes(locale as any)) notFound();
 
   return {
-    messages: (await import(`../messages/${locale}.json`)).default,
+    messages: await loadMessages(locale),
   };
 });
 ```
 
-```tsx fileName="src/app/[locale]/about/layout.tsx"
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages, unstable_setRequestLocale } from "next-intl/server";
-import pick from "lodash/pick";
+```tsx fileName="src/app/[locale]/layout.tsx"
+import type { ReactNode } from "react";
+import { locales } from "@/i18n";
+import {
+  getLocaleDirection,
+  unstable_setRequestLocale,
+} from "next-intl/server";
+
+export const dynamic = "force-static";
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export default async function LocaleLayout({
   children,
   params,
 }: {
-  children: React.ReactNode;
-  params: { locale: string };
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = await params;
 
-  // تعيين اللغة النشطة للطلب لهذا العرض على الخادم (RSC)
+  // Set the active request locale for this server render (RSC)
   unstable_setRequestLocale(locale);
 
-  // يتم تحميل الرسائل على جانب الخادم عبر src/i18n/request.ts
-  // (انظر وثائق next-intl). هنا ندفع فقط جزءًا فرعيًا إلى العميل
-  // اللازم لمكونات العميل (تحسين الحمولة).
-  const messages = await getMessages();
-  const clientMessages = pick(messages, ["common", "about"]);
+  const dir = getLocaleDirection(locale);
 
   return (
-    <html lang={locale}>
-      <body>
-        <NextIntlClientProvider locale={locale} messages={clientMessages}>
-          {children}
-        </NextIntlClientProvider>
-      </body>
+    <html lang={locale} dir={dir}>
+      <body>{children}</body>
     </html>
   );
 }
 ```
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
-import { getTranslations } from "next-intl/server";
-import { ClientComponent, ServerComponent } from "@components";
+import { getTranslations, getMessages, getFormatter } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
+import pick from "lodash/pick";
+import ServerComponent from "@/components/ServerComponent";
+import ClientComponentExample from "@/components/ClientComponentExample";
 
-export default async function LandingPage({
+export const dynamic = "force-static";
+
+export default async function AboutPage({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  // تحميل صارم على جانب الخادم فقط (غير مفعّل على العميل)
-  const t = await getTranslations("about");
+  const { locale } = await params;
+
+  // Messages are loaded server-side. Push only what's needed to the client.
+  const messages = await getMessages();
+  const clientMessages = pick(messages, ["common", "about"]);
+
+  // Strictly server-side translations/formatting
+  const tAbout = await getTranslations("about");
+  const tCounter = await getTranslations("about.counter");
+  const format = await getFormatter();
+
+  const initialFormattedCount = format.number(0);
 
   return (
-    <main>
-      <h1>{t("title")}</h1>
-      <ClientComponent />
-      <ServerComponent />
-    </main>
+    <NextIntlClientProvider locale={locale} messages={clientMessages}>
+      <main>
+        <h1>{tAbout("title")}</h1>
+        <ClientComponentExample />
+        <ServerComponent
+          formattedCount={initialFormattedCount}
+          label={tCounter("label")}
+          increment={tCounter("increment")}
+        />
+      </main>
+    </NextIntlClientProvider>
   );
 }
 ```
 
   </TabItem>
-<TabItem label="intlayer" value="intlayer">
+  <TabItem label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
-export default {
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
 };
+
+export default config;
 ```
 
 ```tsx fileName="src/app/[locale]/layout.tsx"
@@ -581,14 +725,16 @@ import {
 
 export const dynamic = "force-static";
 
-const LandingLayout: NextLayoutIntlayer = async ({ children, params }) => {
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
 
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <IntlayerClientProvider locale={locale}>
-        {children}
-      </IntlayerClientProvider>
+      <body>
+        <IntlayerClientProvider locale={locale}>
+          {children}
+        </IntlayerClientProvider>
+      </body>
     </html>
   );
 };
@@ -640,10 +786,12 @@ export default LandingPage;
 <Tab defaultTab="next-intl" group='techno'>
   <TabItem label="next-i18next" value="next-i18next">
 
-**الترجمات (يجب أن تكون JSON حقيقية في `public/locales/...`)**
+**الترجمات (one JSON per namespace under `src/locales/...`)**
 
-```json fileName="public/locales/en/about.json"
+```json fileName="src/locales/en/about.json"
 {
+  "title": "About",
+  "description": "About page description",
   "counter": {
     "label": "Counter",
     "increment": "Increment"
@@ -651,28 +799,29 @@ export default LandingPage;
 }
 ```
 
-```json fileName="public/locales/fr/about.json"
+```json fileName="src/locales/fr/about.json"
 {
+  "title": "À propos",
+  "description": "Description de la page À propos",
   "counter": {
-    "label": "عداد",
-    "increment": "زيادة"
+    "label": "Compteur",
+    "increment": "Incrémenter"
   }
 }
 ```
 
-**مكون العميل**
+**مكون العميل (loads only the required namespace)**
 
-```tsx fileName="src/components/ClientComponentExample.tsx"
+```tsx fileName="src/components/ClientComponent.tsx"
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { useTranslation } from "next-i18next";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-const ClientComponentExample = () => {
+const ClientComponent = () => {
   const { t, i18n } = useTranslation("about");
   const [count, setCount] = useState(0);
 
-  // next-i18next لا يوفر useNumber؛ استخدم Intl.NumberFormat
   const numberFormat = new Intl.NumberFormat(i18n.language);
 
   return (
@@ -680,22 +829,24 @@ const ClientComponentExample = () => {
       <p>{numberFormat.format(count)}</p>
       <button
         aria-label={t("counter.label")}
-        onClick={() => setCount((count) => count + 1)}
+        onClick={() => setCount((c) => c + 1)}
       >
         {t("counter.increment")}
       </button>
     </div>
   );
 };
+
+export default ClientComponent;
 ```
 
-> لا تنسَ إضافة مساحة الأسماء "about" في serverSideTranslations للصفحة  
-> نستخدم هنا إصدار React 19.x.x، ولكن للإصدارات الأقدم، ستحتاج إلى استخدام useMemo لتخزين نسخة من المُنسق لأنه دالة ثقيلة
+> Ensure the page/provider includes only the namespaces you need (e.g. `about`).
+> If you use React < 19, memoize heavy formatters like `Intl.NumberFormat`.
 
   </TabItem>
   <TabItem label="next-intl" value="next-intl">
 
-**الترجمات (تم إعادة استخدام الشكل؛ قم بتحميلها في رسائل next-intl كما تفضل)**
+**الترجمات (shape reused; load them into next-intl messages as you prefer)**
 
 ```json fileName="locales/en/about.json"
 {
@@ -743,7 +894,7 @@ const ClientComponentExample = () => {
 };
 ```
 
-> لا تنسَ إضافة رسالة "about" في رسالة العميل للصفحة
+> Don't forget to add "about" message on the page client message
 
   </TabItem>
   <TabItem label="intlayer" value="intlayer">
@@ -756,8 +907,8 @@ import { t, type Dictionary } from "intlayer";
 const counterContent = {
   key: "counter",
   content: {
-    label: t({ ar: "عداد", en: "Counter", fr: "Compteur" }),
-    increment: t({ ar: "زيادة", en: "Increment", fr: "Incrémenter" }),
+    label: t({ en: "Counter", fr: "Compteur" }),
+    increment: t({ en: "Increment", fr: "Incrémenter" }),
   },
 } satisfies Dictionary;
 
@@ -774,7 +925,7 @@ import { useNumber, useIntlayer } from "next-intlayer";
 
 const ClientComponentExample = () => {
   const [count, setCount] = useState(0);
-  const { label, increment } = useIntlayer("counter"); // يعيد سلاسل نصية
+  const { label, increment } = useIntlayer("counter"); // returns strings
   const { number } = useNumber();
 
   return (
@@ -802,30 +953,28 @@ const ClientComponentExample = () => {
   - احتفظ ببنية متداخلة (`about.counter.label`) وحدد نطاق الخطاف الخاص بك وفقًا لذلك (`useTranslation("about")` + `t("counter.label")` أو `useTranslations("about.counter")` + `t("label")`).
 
 - **مواقع الملفات**
-  - **next-i18next** يتوقع JSON في `public/locales/{lng}/{ns}.json`.
-  - **next-intl** مرن؛ يمكنك تحميل الرسائل كيفما تريد.
-  - **Intlayer** يخزن المحتوى في قواميس TS/JS ويحلها حسب المفتاح.
+  - **next-i18next** expects JSON in `public/locales/{lng}/{ns}.json`.
+  - **next-intl** is flexible; load messages however you configure.
+  - **Intlayer** stores content in TS/JS dictionaries and resolves by key.
 
 ---
 
 ### الاستخدام في مكون الخادم
 
-سوف نأخذ حالة مكون واجهة مستخدم. هذا المكون هو مكون خادم، ويجب أن يكون قادرًا على الإدراج كطفل لمكون عميل. (صفحة (مكون خادم) -> مكون عميل -> مكون خادم). بما أن هذا المكون يمكن إدراجه كطفل لمكون عميل، فلا يمكن أن يكون غير متزامن (async).
+We will take the case of a UI component. This component is a server component, and should be able to be inserted as a child of a client component. (page (server component) -> client component -> server component). As this component can be inserted as a child of a client component, it cannot be async.
 
 <Tab defaultTab="next-intl" group='techno'>
   <TabItem label="next-i18next" value="next-i18next">
 
-```tsx fileName="src/pages/about.tsx"
-import type { GetStaticProps } from "next";
-import { useTranslation } from "next-i18next";
-
+```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
+  t: (key: string) => string;
+  locale: string;
   count: number;
 };
 
-const ServerComponent = ({ count }: ServerComponentProps) => {
-  const { t, i18n } = useTranslation("about");
-  const formatted = new Intl.NumberFormat(i18n.language).format(count);
+const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
+  const formatted = new Intl.NumberFormat(locale).format(count);
 
   return (
     <div>
@@ -834,35 +983,43 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
     </div>
   );
 };
-```
 
-> بما أن مكون الخادم لا يمكن أن يكون غير متزامن (async)، يجب عليك تمرير الترجمات ودالة التنسيق كخصائص (props).
+export default ServerComponent;
+```
 
   </TabItem>
   <TabItem label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
-  count: number;
-  t: (key: string) => string;
+  formattedCount: string;
+  label: string;
+  increment: string;
 };
 
-const ServerComponent = ({ t, count }: ServerComponentProps) => {
-  const formatted = new Intl.NumberFormat(i18n.language).format(count);
-
+const ServerComponent = ({
+  formattedCount,
+  label,
+  increment,
+}: ServerComponentProps) => {
   return (
     <div>
-      <p>{formatted}</p>
-      <button aria-label={t("label")}>{t("increment")}</button>
+      <p>{formattedCount}</p>
+      <button aria-label={label}>{increment}</button>
     </div>
   );
 };
+
+export default ServerComponent;
 ```
 
-> بما أن مكون الخادم لا يمكن أن يكون غير متزامن، تحتاج إلى تمرير الترجمات ودالة التنسيق كخصائص.
+> As the server component cannot be async, you need to pass the translations and formatter function as props.
 >
+> In your page / layout:
+>
+> - `import { getTranslations, getFormatter } from "next-intl/server";`
 > - `const t = await getTranslations("about.counter");`
-> - `const format = await getFormatter();`
+> - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
   </TabItem>
   <TabItem label="intlayer" value="intlayer">
@@ -870,7 +1027,11 @@ const ServerComponent = ({ t, count }: ServerComponentProps) => {
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
 
-const ServerComponent = ({ count }: { count: number }) => {
+type ServerComponentProps = {
+  count: number;
+};
+
+const ServerComponent = ({ count }: ServerComponentProps) => {
   const { label, increment } = useIntlayer("counter");
   const { number } = useNumber();
 
@@ -886,24 +1047,24 @@ const ServerComponent = ({ count }: { count: number }) => {
   </TabItem>
 </Tab>
 
-> تعرض Intlayer خطافات **آمنة للخادم** عبر `next-intlayer/server`. للعمل، يستخدم كل من `useIntlayer` و `useNumber` صيغة تشبه الخطافات، مشابهة لخطافات العميل، لكنها تعتمد في الأساس على سياق الخادم (`IntlayerServerProvider`).
+> Intlayer exposes **server-safe** hooks via `next-intlayer/server`. To work, `useIntlayer` and `useNumber` use hooks-like syntax, similar to the client hooks, but depend under the hood on the server context (`IntlayerServerProvider`).
 
 ### البيانات الوصفية / خريطة الموقع / روبوتات البحث
 
 ترجمة المحتوى أمر رائع. لكن الناس عادةً ما ينسون أن الهدف الرئيسي من التدويل هو جعل موقعك الإلكتروني أكثر ظهورًا للعالم. التدويل هو رافعة مذهلة لتحسين ظهور موقعك الإلكتروني.
 
-إليك قائمة بالممارسات الجيدة المتعلقة بتحسين محركات البحث متعددة اللغات (SEO).
+Here's a list of good practices regarding multilingual SEO.
 
-- تعيين علامات hreflang الوصفية داخل وسم `<head>`
-  > يساعد هذا محركات البحث على فهم اللغات المتاحة في الصفحة
-- قم بإدراج جميع ترجمات الصفحات في ملف sitemap.xml باستخدام مخطط XML `http://www.w3.org/1999/xhtml`
+- set hreflang meta tags in the `<head>` tag
+  > It helps search engines to understand what languages are available on the page
+- list all pages translations in the sitemap.xml using `http://www.w3.org/1999/xhtml` XML schema
   >
-- لا تنسَ استبعاد الصفحات ذات البادئة من ملف robots.txt (مثل `/dashboard`، و `/fr/dashboard`، و `/es/dashboard`)
+- do not forget to exclude prefixed pages from the robots.txt (e.g. `/dashboard`, and `/fr/dashboard`, `/es/dashboard`)
   >
-- استخدم مكون Link مخصص لإعادة التوجيه إلى الصفحة الأكثر تخصيصًا للغة (مثلًا بالفرنسية `<a href="/fr/about">A propos</a>`)
+- use custom Link component to redirect to the most localized page (e.g. in french `<a href="/fr/about">A propos</a>` )
   >
 
-غالبًا ما ينسى المطورون الإشارة بشكل صحيح إلى صفحاتهم عبر اللغات المختلفة.
+Developers often forget to properly reference their pages across locales.
 
 <Tab defaultTab="next-intl" group='techno'>
  
@@ -935,10 +1096,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = params;
 
-  // استيراد ملف JSON الصحيح بشكل ديناميكي
-  const messages = (
-    await import("@/../public/locales/" + locale + "/about.json")
-  ).default;
+  // Import the correct JSON bundle from src/locales
+  const messages = (await import("@/locales/" + locale + "/about.json"))
+    .default;
 
   const languages = Object.fromEntries(
     locales.map((locale) => [locale, localizedPath(locale, "/about")])
@@ -955,7 +1115,7 @@ export async function generateMetadata({
 }
 
 export default async function AboutPage() {
-  return <h1>حول</h1>;
+  return <h1>About</h1>;
 }
 ```
 
@@ -971,7 +1131,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: abs(defaultLocale, "/about"),
       lastModified: new Date(),
-      changeFrequency: "شهري",
+      changeFrequency: "monthly",
       priority: 0.7,
       alternates: { languages },
     },
@@ -1041,7 +1201,7 @@ export async function generateMetadata({
   };
 }
 
-// ... بقية كود الصفحة
+// ... Rest of the page code
 ```
 
 ```tsx fileName="src/app/sitemap.ts"
@@ -1122,7 +1282,7 @@ export const generateMetadata = async ({
   };
 };
 
-// ... بقية كود الصفحة
+// ... Rest of the page code
 ```
 
 ```tsx fileName="src/app/sitemap.ts"
@@ -1143,16 +1303,14 @@ const sitemap = (): MetadataRoute.Sitemap => [
 import { getMultilingualUrls } from "intlayer";
 import type { MetadataRoute } from "next";
 
-// دالة لجلب جميع الروابط متعددة اللغات من قائمة الروابط
 const getAllMultilingualUrls = (urls: string[]) =>
   urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
 
-// إعدادات ملف robots.txt مع قواعد السماح والمنع للزواحف
 const robots = (): MetadataRoute.Robots => ({
   rules: {
     userAgent: "*",
     allow: ["/"],
-    disallow: getAllMultilingualUrls(["/dashboard"]), // منع الوصول إلى لوحة التحكم بجميع اللغات
+    disallow: getAllMultilingualUrls(["/dashboard"]),
   },
   host: "https://example.com",
   sitemap: "https://example.com/sitemap.xml",
@@ -1164,9 +1322,82 @@ export default robots;
   </TabItem>
 </Tab>
 
-> توفر Intlayer دالة `getMultilingualUrls` لتوليد روابط متعددة اللغات لخريطة موقعك.
+> Intlayer provides a `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
 
 ---
+
+#### Middleware for locale routing
+
+<Tab defaultTab="next-intl" group='techno'>
+  <TabItem label="next-i18next" value="next-i18next">
+
+Add a middleware to handle locale detection and routing:
+
+```ts fileName="src/middleware.ts"
+import { NextResponse, type NextRequest } from "next/server";
+import { defaultLocale, locales } from "@/i18n.config";
+
+const PUBLIC_FILE = /\.[^/]+$/; // exclude files with extensions
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/static") ||
+    PUBLIC_FILE.test(pathname)
+  ) {
+    return;
+  }
+
+  const hasLocale = locales.some(
+    (l) => pathname === "/" + l || pathname.startsWith("/" + l + "/")
+  );
+  if (!hasLocale) {
+    const locale = defaultLocale;
+    const url = request.nextUrl.clone();
+    url.pathname = "/" + locale + (pathname === "/" ? "" : pathname);
+    return NextResponse.redirect(url);
+  }
+}
+
+export const config = {
+  matcher: [
+    // Match all paths except the ones starting with these and files with an extension
+    "/((?!api|_next|static|.*\\..*).*)",
+  ],
+};
+```
+
+  </TabItem>
+  <TabItem label="next-intl" value="next-intl">
+
+Add a middleware to handle locale detection and routing:
+
+```ts fileName="src/middleware.ts"
+import createMiddleware from "next-intl/middleware";
+import { locales, defaultLocale } from "@/i18n";
+
+export default createMiddleware({
+  locales: [...locales],
+  defaultLocale,
+  localeDetection: true,
+});
+
+export const config = {
+  // Skip API, Next internals and static assets
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
+};
+```
+
+  </TabItem>
+  <TabItem label="intlayer" value="intlayer">
+
+Intlayer provides built-in middleware handling through the `next-intlayer` package configuration.
+
+  </TabItem>
+</Tab>
 
 ---
 

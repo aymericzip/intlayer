@@ -342,25 +342,25 @@ La estructura de la aplicación es importante para asegurar un buen mantenimient
 
 ```bash
 .
-├── public
-│   └── locales
-│       ├── en
-│       │  ├── home.json
-│       │  └── navbar.json
-│       ├── fr
-│       │  ├── home.json
-│       │  └── navbar.json
-│       └── es
-│          ├── home.json
-│          └── navbar.json
-├── next-i18next.config.js
+├── i18n.config.ts
 └── src
-    ├── middleware.ts
+    ├── locales
+    │   ├── en
+    │   │  ├── common.json
+    │   │  └── about.json
+    │   └── fr
+    │      ├── common.json
+    │      └── about.json
     ├── app
-    │   └── home.tsx
+    │   ├── i18n
+    │   │   └── server.ts
+    │   └── [locale]
+    │       ├── layout.tsx
+    │       └── about.tsx
     └── components
-        └── Navbar
-            └── index.tsx
+        ├── I18nProvider.tsx
+        ├── ClientComponent.tsx
+        └── ServerComponent.tsx
 ```
 
   </TabItem>
@@ -368,6 +368,7 @@ La estructura de la aplicación es importante para asegurar un buen mantenimient
 
 ```bash
 .
+├── i18n.ts
 ├── locales
 │   ├── en
 │   │  ├── home.json
@@ -378,11 +379,13 @@ La estructura de la aplicación es importante para asegurar un buen mantenimient
 │   └── es
 │      ├── home.json
 │      └── navbar.json
-├── i18n.ts
 └── src
     ├── middleware.ts
     ├── app
-    │   └── home.tsx
+    │   ├── i18n
+    │   │   └── server.ts
+    │   └── [locale]
+    │       └── home.tsx
     └── components
         └── Navbar
             └── index.tsx
@@ -397,9 +400,11 @@ La estructura de la aplicación es importante para asegurar un buen mantenimient
 └── src
     ├── middleware.ts
     ├── app
-    │   └── home
-    │       └── index.tsx
-    │       └── index.content.ts
+    │   └── [locale]
+    │       ├── layout.tsx
+    │       └── home
+    │           ├── index.tsx
+    │           └── index.content.ts
     └── components
         └── Navbar
             ├── index.tsx
@@ -422,66 +427,170 @@ Cómo la biblioteca maneja la carga de contenido es importante.
 <Tab defaultTab="next-intl" group='techno'>
   <TabItem label="next-i18next" value="next-i18next">
 
-```tsx fileName="next-i18next.config.js"
-module.exports = {
-  i18n: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
-  },
-};
-```
+```ts fileName="i18n.config.ts"
+export const locales = ["en", "fr"] as const;
+export type Locale = (typeof locales)[number];
 
-```tsx fileName="src/app/_app.tsx"
-import { appWithTranslation } from "next-i18next";
+export const defaultLocale: Locale = "en";
 
-const MyApp = ({ Component, pageProps }) => <Component {...pageProps} />;
+export const rtlLocales = ["ar", "he", "fa", "ur"] as const;
+export const isRtl = (locale: string) =>
+  (rtlLocales as readonly string[]).includes(locale);
 
-export default appWithTranslation(MyApp);
-```
-
-```tsx fileName="src/app/[locale]/about/page.tsx"
-import type { GetStaticProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useTranslation } from "next-i18next";
-import { I18nextProvider, initReactI18next } from "react-i18next";
-import { createInstance } from "i18next";
-import { ClientComponent, ServerComponent } from "@components";
-
-export default function HomePage({ locale }: { locale: string }) {
-  // Declare explícitamente el namespace utilizado por este componente
-  const resources = await loadMessagesFor(locale); // tu cargador (JSON, etc.)
-
-  const i18n = createInstance();
-  i18n.use(initReactI18next).init({
-    lng: locale,
-    fallbackLng: "en",
-    resources,
-    ns: ["common", "about"],
-    defaultNS: "common",
-    interpolation: { escapeValue: false },
-  });
-
-  const { t } = useTranslation("about");
-
-  return (
-    <I18nextProvider i18n={i18n}>
-      <main>
-        <h1>{t("title")}</h1>
-        <ClientComponent />
-        <ServerComponent />
-      </main>
-    </I18nextProvider>
-  );
+export function localizedPath(locale: string, path: string) {
+  return locale === defaultLocale ? path : "/" + locale + path;
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  // Solo precargar los namespaces necesarios para ESTA página
-  return {
-    props: {
-      ...(await serverSideTranslations(locale ?? "en", ["common", "about"])),
-    },
-  };
+const ORIGIN = "https://example.com";
+export function abs(locale: string, path: string) {
+  return ORIGIN + localizedPath(locale, path);
+}
+```
+
+```ts fileName="src/app/i18n/server.ts"
+import { createInstance } from "i18next";
+import { initReactI18next } from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { defaultLocale } from "@/i18n.config";
+
+// Load JSON resources from src/locales/<locale>/<namespace>.json
+const backend = resourcesToBackend(
+  (locale: string, namespace: string) =>
+    import(`../../locales/${locale}/${namespace}.json`)
+);
+
+export async function initI18next(
+  locale: string,
+  namespaces: string[] = ["common"]
+) {
+  const i18n = createInstance();
+  await i18n
+    .use(initReactI18next)
+    .use(backend)
+    .init({
+      lng: locale,
+      fallbackLng: defaultLocale,
+      ns: namespaces,
+      defaultNS: "common",
+      interpolation: { escapeValue: false },
+      react: { useSuspense: false },
+    });
+  return i18n;
+}
+```
+
+```tsx fileName="src/components/I18nProvider.tsx"
+"use client";
+
+import * as React from "react";
+import { I18nextProvider } from "react-i18next";
+import { createInstance } from "i18next";
+import { initReactI18next } from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { defaultLocale } from "@/i18n.config";
+
+const backend = resourcesToBackend(
+  (locale: string, namespace: string) =>
+    import(`../../locales/${locale}/${namespace}.json`)
+);
+
+type Props = {
+  locale: string;
+  namespaces?: string[];
+  resources?: Record<string, any>; // { ns: bundle }
+  children: React.ReactNode;
 };
+
+export default function I18nProvider({
+  locale,
+  namespaces = ["common"],
+  resources,
+  children,
+}: Props) {
+  const [i18n] = React.useState(() => {
+    const i = createInstance();
+
+    i.use(initReactI18next)
+      .use(backend)
+      .init({
+        lng: locale,
+        fallbackLng: defaultLocale,
+        ns: namespaces,
+        resources: resources ? { [locale]: resources } : undefined,
+        defaultNS: "common",
+        interpolation: { escapeValue: false },
+        react: { useSuspense: false },
+      });
+
+    return i;
+  });
+
+  return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;
+}
+```
+
+```tsx fileName="src/app/[locale]/layout.tsx"
+import type { ReactNode } from "react";
+import { locales, defaultLocale, isRtl, type Locale } from "@/i18n.config";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default function LocaleLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: { locale: string };
+}) {
+  const locale: Locale = (locales as readonly string[]).includes(params.locale)
+    ? (params.locale as any)
+    : defaultLocale;
+
+  const dir = isRtl(locale) ? "rtl" : "ltr";
+
+  return (
+    <html lang={locale} dir={dir}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+```tsx fileName="src/app/[locale]/about.tsx"
+import I18nProvider from "@/components/I18nProvider";
+import { initI18next } from "@/app/i18n/server";
+import type { Locale } from "@/i18n.config";
+import ClientComponent from "@/components/ClientComponent";
+import ServerComponent from "@/components/ServerComponent";
+
+// Force static rendering for the page
+export const dynamic = "force-static";
+
+export default async function AboutPage({
+  params: { locale },
+}: {
+  params: { locale: Locale };
+}) {
+  const namespaces = ["common", "about"] as const;
+
+  const i18n = await initI18next(locale, [...namespaces]);
+  const tAbout = i18n.getFixedT(locale, "about");
+
+  return (
+    <I18nProvider locale={locale} namespaces={[...namespaces]}>
+      <main>
+        <h1>{tAbout("title")}</h1>
+
+        <ClientComponent />
+        <ServerComponent t={tAbout} locale={locale} count={0} />
+      </main>
+    </I18nProvider>
+  );
+}
 ```
 
   </TabItem>
@@ -527,8 +636,10 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   const clientMessages = pick(messages, ["common", "about"]);
 
+  const rtlLocales = ["ar", "he", "fa", "ur"];
+
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={rtlLocales.includes(locale) ? "rtl" : "ltr"}>
       <body>
         <NextIntlClientProvider locale={locale} messages={clientMessages}>
           {children}
@@ -845,10 +956,11 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 type ServerComponentProps = {
   count: number;
   t: (key: string) => string;
+  formatter: Intl.NumberFormat;
 };
 
-const ServerComponent = ({ t, count }: ServerComponentProps) => {
-  const formatted = new Intl.NumberFormat(i18n.language).format(count);
+const ServerComponent = ({ t, count, formatter }: ServerComponentProps) => {
+  const formatted = formatter.format(count);
 
   return (
     <div>
@@ -862,7 +974,7 @@ const ServerComponent = ({ t, count }: ServerComponentProps) => {
 > Como el componente del servidor no puede ser async, necesitas pasar las traducciones y la función formateadora como props.
 >
 > - `const t = await getTranslations("about.counter");`
-> - `const format = await getFormatter();`
+> - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
   </TabItem>
   <TabItem label="intlayer" value="intlayer">

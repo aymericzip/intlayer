@@ -350,25 +350,25 @@ Next.jsは国際化されたルーティング（例：ロケールセグメン�
 
 ```bash
 .
-├── public
-│   └── locales
-│       ├── en
-│       │  ├── home.json
-│       │  └── navbar.json
-│       ├── fr
-│       │  ├── home.json
-│       │  └── navbar.json
-│       └── es
-│          ├── home.json
-│          └── navbar.json
-├── next-i18next.config.js
+├── i18n.config.ts
 └── src
-    ├── middleware.ts
+    ├── locales
+    │   ├── en
+    │   │  ├── common.json
+    │   │  └── about.json
+    │   └── fr
+    │      ├── common.json
+    │      └── about.json
     ├── app
-    │   └── home.tsx
+    │   ├── i18n
+    │   │   └── server.ts
+    │   └── [locale]
+    │       ├── layout.tsx
+    │       └── about.tsx
     └── components
-        └── Navbar
-            └── index.tsx
+        ├── I18nProvider.tsx
+        ├── ClientComponent.tsx
+        └── ServerComponent.tsx
 ```
 
   </TabItem>
@@ -376,6 +376,7 @@ Next.jsは国際化されたルーティング（例：ロケールセグメン�
 
 ```bash
 .
+├── i18n.ts
 ├── locales
 │   ├── en
 │   │  ├── home.json
@@ -386,11 +387,13 @@ Next.jsは国際化されたルーティング（例：ロケールセグメン�
 │   └── es
 │      ├── home.json
 │      └── navbar.json
-├── i18n.ts
 └── src
     ├── middleware.ts
     ├── app
-    │   └── home.tsx
+    │   ├── i18n
+    │   │   └── server.ts
+    │   └── [locale]
+    │       └── home.tsx
     └── components
         └── Navbar
             └── index.tsx
@@ -405,9 +408,11 @@ Next.jsは国際化されたルーティング（例：ロケールセグメン�
 └── src
     ├── middleware.ts
     ├── app
-    │   └── home
-    │       └── index.tsx
-    │       └── index.content.ts
+    │   └── [locale]
+    │       ├── layout.tsx
+    │       └── home
+    │           ├── index.tsx
+    │           └── index.content.ts
     └── components
         └── Navbar
             ├── index.tsx
@@ -535,8 +540,10 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   const clientMessages = pick(messages, ["common", "about"]);
 
+  const rtlLocales = ["ar", "he", "fa", "ur"];
+
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={rtlLocales.includes(locale) ? "rtl" : "ltr"}>
       <body>
         <NextIntlClientProvider locale={locale} messages={clientMessages}>
           {children}
@@ -853,10 +860,11 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 type ServerComponentProps = {
   count: number;
   t: (key: string) => string;
+  formatter: Intl.NumberFormat;
 };
 
-const ServerComponent = ({ t, count }: ServerComponentProps) => {
-  const formatted = new Intl.NumberFormat(i18n.language).format(count);
+const ServerComponent = ({ t, count, formatter }: ServerComponentProps) => {
+  const formatted = formatter.format(count);
 
   return (
     <div>
@@ -870,7 +878,7 @@ const ServerComponent = ({ t, count }: ServerComponentProps) => {
 > サーバーコンポーネントは非同期にできないため、翻訳関数とフォーマッター関数をプロパティとして渡す必要があります。
 >
 > - `const t = await getTranslations("about.counter");`
-> - `const format = await getFormatter();`
+> - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
   </TabItem>
   <TabItem label="intlayer" value="intlayer">

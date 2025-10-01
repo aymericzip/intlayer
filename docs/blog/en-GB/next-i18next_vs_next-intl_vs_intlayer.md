@@ -371,25 +371,25 @@ The app structure is important to ensure good maintainability of your codebase.
 
 ```bash
 .
-├── public
-│   └── locales
-│       ├── en
-│       │  ├── home.json
-│       │  └── navbar.json
-│       ├── fr
-│       │  ├── home.json
-│       │  └── navbar.json
-│       └── es
-│          ├── home.json
-│          └── navbar.json
-├── next-i18next.config.js
+├── i18n.config.ts
 └── src
-    ├── middleware.ts
+    ├── locales
+    │   ├── en
+    │   │  ├── common.json
+    │   │  └── about.json
+    │   └── fr
+    │      ├── common.json
+    │      └── about.json
     ├── app
-    │   └── home.tsx
+    │   ├── i18n
+    │   │   └── server.ts
+    │   └── [locale]
+    │       ├── layout.tsx
+    │       └── about.tsx
     └── components
-        └── Navbar
-            └── index.tsx
+        ├── I18nProvider.tsx
+        ├── ClientComponent.tsx
+        └── ServerComponent.tsx
 ```
 
   </TabItem>
@@ -397,6 +397,7 @@ The app structure is important to ensure good maintainability of your codebase.
 
 ```bash
 .
+├── i18n.ts
 ├── locales
 │   ├── en
 │   │  ├── home.json
@@ -407,11 +408,13 @@ The app structure is important to ensure good maintainability of your codebase.
 │   └── es
 │      ├── home.json
 │      └── navbar.json
-├── i18n.ts
 └── src
     ├── middleware.ts
     ├── app
-    │   └── home.tsx
+    │   ├── i18n
+    │   │   └── server.ts
+    │   └── [locale]
+    │       └── home.tsx
     └── components
         └── Navbar
             └── index.tsx
@@ -426,9 +429,11 @@ The app structure is important to ensure good maintainability of your codebase.
 └── src
     ├── middleware.ts
     ├── app
-    │   └── home
-    │       └── index.tsx
-    │       └── index.content.ts
+    │   └── [locale]
+    │       ├── layout.tsx
+    │       └── home
+    │           ├── index.tsx
+    │           └── index.content.ts
     └── components
         └── Navbar
             ├── index.tsx
@@ -556,8 +561,10 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   const clientMessages = pick(messages, ["common", "about"]);
 
+  const rtlLocales = ["ar", "he", "fa", "ur"];
+
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={rtlLocales.includes(locale) ? "rtl" : "ltr"}>
       <body>
         <NextIntlClientProvider locale={locale} messages={clientMessages}>
           {children}
@@ -874,10 +881,11 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 type ServerComponentProps = {
   count: number;
   t: (key: string) => string;
+  formatter: Intl.NumberFormat;
 };
 
-const ServerComponent = ({ t, count }: ServerComponentProps) => {
-  const formatted = new Intl.NumberFormat(i18n.language).format(count);
+const ServerComponent = ({ t, count, formatter }: ServerComponentProps) => {
+  const formatted = formatter.format(count);
 
   return (
     <div>
@@ -891,7 +899,7 @@ const ServerComponent = ({ t, count }: ServerComponentProps) => {
 > As the server component cannot be async, you need to pass the translations and formatter function as props.
 >
 > - `const t = await getTranslations("about.counter");`
-> - `const format = await getFormatter();`
+> - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
   </TabItem>
   <TabItem label="intlayer" value="intlayer">
