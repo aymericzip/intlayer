@@ -1,6 +1,6 @@
 {
   "name": "intlayer-editor",
-  "version": "6.1.5",
+  "version": "6.1.6-canary.0",
   "private": false,
   "description": "Integrate the Intlayer visual editor into your Intlayer projects, enabling CMS-like content management with multilingual support.",
   "keywords": [
