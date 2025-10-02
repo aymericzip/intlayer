@@ -21,6 +21,7 @@ COPY \
     --exclude=packages/pnext-intlayer \
     --exclude=packages/angular-intlayer \
     --exclude=packages/nuxt-intlayer \
+    --exclude=packages/astro-intlayer \
     --exclude=packages/next-intlayer \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \

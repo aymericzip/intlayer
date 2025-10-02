@@ -1,0 +1,22 @@
+{
+  "name": "astro-react-app",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "astro": "astro",
+    "build": "astro build",
+    "dev": "astro dev",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.6",
+    "@tailwindcss/vite": "^4.1.13",
+    "@types/canvas-confetti": "^1.9.0",
+    "astro": "^5.14.1",
+    "astro-intlayer": "workspace:*",
+    "canvas-confetti": "^1.9.3",
+    "intlayer": "workspace:*",
+    "react-intlayer": "workspace:*",
+    "tailwindcss": "^4.1.13"
+  }
+}

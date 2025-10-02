@@ -60,6 +60,7 @@ COPY \
     --exclude=packages/angular-intlayer \
     --exclude=packages/vite-intlayer \
     --exclude=packages/nuxt-intlayer \
+    --exclude=packages/astro-intlayer \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/intlayer-editor \
