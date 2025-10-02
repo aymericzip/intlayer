@@ -1,6 +1,6 @@
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
+import type { Locales, LocalesValues } from '@intlayer/config/client';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ChevronRightIcon } from 'lucide-react';
 import { Fragment, type FC, type HTMLAttributes, type ReactNode } from 'react';
@@ -28,7 +28,7 @@ type LinkLinkProps = {
   /**
    * Link color
    */
-  color?: LinkColor;
+  color?: LinkColor | `${LinkColor}`;
   /**
    * Click handler
    */
@@ -95,14 +95,6 @@ const LinkLink: FC<LinkLinkProps> = ({
         isExternalLink={false}
         itemScope
         itemType="https://schema.org/WebPage"
-        className={cn(
-          'inline-flex items-center transition-all duration-200',
-          'hover:text-primary-600 focus:text-primary-600',
-          'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-sm',
-          'hover:underline focus:underline',
-          'hover:scale-[1.02] active:scale-[0.98]',
-          className
-        )}
         {...props}
         label={`${linkLabel} ${children}`}
         itemID={href}
@@ -149,15 +141,6 @@ const ButtonLink: FC<ButtonButtonProps> = ({
         label={`${linkLabel} ${text}`}
         color={color}
         itemProp="item"
-        className={cn(
-          'inline-flex items-center transition-all duration-200',
-          'hover:text-primary-600 focus:text-primary-600',
-          'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-sm',
-          'hover:underline focus:underline',
-          'hover:scale-[1.02] active:scale-[0.98]',
-          'cursor-pointer hover:bg-primary-50 active:bg-primary-100',
-          className
-        )}
         {...props}
       >
         <span itemProp="name">{text}</span>
@@ -235,11 +218,11 @@ export type BreadcrumbProps = {
    * Color scheme for breadcrumb links
    * @default LinkColor.TEXT
    */
-  color?: LinkColor;
+  color?: LinkColor | `${LinkColor}`;
   /**
    * Locale for internationalization
    */
-  locale?: Locales;
+  locale?: LocalesValues;
   /**
    * Element type for ARIA current attribute
    * @default 'page'
@@ -372,11 +355,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
                 position={index + 1}
                 locale={locale}
                 aria-current={ariaCurrent}
-                className={cn(
-                  'transition-colors duration-200 hover:text-primary-600 focus:text-primary-600',
-                  'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 rounded-sm',
-                  isActive && 'text-neutral-900 cursor-default'
-                )}
+                className={cn(isActive && 'text-neutral-900 cursor-default')}
               >
                 {text}
               </LinkLink>
@@ -389,11 +368,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
                 color={color}
                 position={index + 1}
                 aria-current={ariaCurrent}
-                className={cn(
-                  'transition-colors duration-200 hover:text-primary-600 focus:text-primary-600',
-                  'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 rounded-sm',
-                  isActive && 'text-neutral-900 cursor-default'
-                )}
+                className={cn(isActive && 'text-neutral-900 cursor-default')}
               >
                 {text}
               </ButtonLink>
