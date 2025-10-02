@@ -1445,7 +1445,23 @@ const Link = ({ href, children, ...props }) => {
 
 By integrating this `Link` component across your application, you maintain a coherent and language-aware user experience while also benefitting from improved SEO and usability.
 
-### (Optional) Step 12: Optmize your bundle size
+### (Optional) Step 12: Get the current locale in Server Actions
+
+If you need the active locale inside a Server Action (e.g., to localize emails or run locale-aware logic), call `getLocale` from `next-intlayer/server`:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // Do something with the locale
+};
+```
+
+### (Optional) Step 13: Optmize your bundle size
 
 When using `next-intlayer`, dictionaries are included in the bundle for every page by default. To optimize bundle size, Intlayer provides an optional SWC plugin that intelligently replace `useIntlayer` calls using macros. This ensures dictionaries are only included in bundles for pages that actually use them.
 
@@ -1537,6 +1553,7 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 | Version | Date       | Changes                                                         |
 | ------- | ---------- | --------------------------------------------------------------- |
+| 5.6.6   | 2025-10-02 | Added docs for `getLocale` function on server actions           |
 | 5.6.2   | 2025-09-23 | Added docs for watch dictionaries changes on Turbopack          |
 | 5.6.2   | 2025-09-22 | Added docs for `multipleMiddlewares` helper                     |
 | 5.6.0   | 2025-07-06 | Transform `withIntlayer()` function to a promise based function |
