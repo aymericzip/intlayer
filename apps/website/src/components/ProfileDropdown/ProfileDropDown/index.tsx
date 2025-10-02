@@ -15,7 +15,7 @@ export const ProfileDropDown: FC<ProfileDropDownProps> = ({
   ...props
 }) => (
   <DropDown identifier={DROPDOWN_IDENTIFIER}>
-    <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER}>
+    <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER} className="p-0 m-0">
       <Avatar {...props} />
     </DropDown.Trigger>
     <DropDown.Panel

@@ -66,7 +66,7 @@ export const Navbar: FC = () => {
         </Link>
       }
       selectedChoice={getCleanTabSelector(pathWithoutLocale)}
-      desktopSections={Object.values(sections).map(
+      desktopSections={(Object.values(sections) as { id: any; url: any; label: any; title: any; }[]).map(
         ({ id, url, label, title }) => (
           <Link
             id={id?.value}
@@ -82,7 +82,7 @@ export const Navbar: FC = () => {
           </Link>
         )
       )}
-      mobileTopSections={Object.values(sections).map(
+      mobileTopSections={(Object.values(sections) as { id: any; url: any; label: any; title: any; }[]).map(
         ({ id, url, label, title }) => (
           <Link
             id={id?.value}
@@ -140,7 +140,7 @@ export const Navbar: FC = () => {
         </div>
       }
       rightItemsMobile={
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           <LocaleSwitcher panelProps={{ className: '-left-16' }} />
           <SwitchThemeSwitcher />
           {isAuthenticated && (
@@ -177,7 +177,9 @@ export const Navbar: FC = () => {
               className="group-hover/github:fill-text-opposite mr-1"
             />
           </Link>
-          <ProfileDropDown />
+          <div className="flex items-center">
+            <ProfileDropDown />
+          </div>
         </>
       }
     />
