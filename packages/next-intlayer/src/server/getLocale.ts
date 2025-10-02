@@ -4,7 +4,7 @@ import { localeDetector } from '@intlayer/core';
 import { headers } from 'next/headers';
 
 // Helper function to extract locale from referer URL
-export const getLocaleFromHeaders = async (): Promise<Locales> => {
+export const getLocale = async (): Promise<Locales> => {
   const { defaultLocale } = configuration.internationalization;
   const { headerName } = configuration.middleware;
 
