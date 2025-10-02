@@ -3341,10 +3341,16 @@ importers:
       '@intlayer/core':
         specifier: workspace:*
         version: link:../@intlayer/core
+      react-intlayer:
+        specifier: workspace:*
+        version: link:../react-intlayer
     devDependencies:
       '@types/node':
         specifier: ^24.5.2
         version: 24.5.2
+      '@types/react':
+        specifier: '>=18.0.0'
+        version: 19.1.13
       '@typescript-eslint/parser':
         specifier: ^8.44.1
         version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
@@ -3375,6 +3381,9 @@ importers:
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
+      react:
+        specifier: ^19.1.1
+        version: 19.1.1
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1

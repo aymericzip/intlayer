@@ -5,6 +5,7 @@
   "exclude": ["**/*.test.*"],
   "compilerOptions": {
     "outDir": "dist/types",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "types": ["react", "node"]
   }
 }

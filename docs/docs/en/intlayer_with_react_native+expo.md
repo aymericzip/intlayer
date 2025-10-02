@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-06-29
+updatedAt: 2025-10-02
 title: Translate your React Native and Expo website (i18n)
 description: Discover how to make your React Native and Expo website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -653,8 +653,37 @@ Enjoy building your **React Native** apps with fully powered i18n through **Intl
 
 ---
 
+### Debug
+
+React Native can be less stable than React Web, so pay extra attention to version alignment.
+
+Intlayer primarily targets the Web Intl API; on React Native you must include the appropriate polyfills.
+
+Checklist:
+
+- Use the latest versions of `intlayer`, `react-intlayer`, and `react-native-intlayer`.
+- Enable the Intlayer polyfill.
+- If you use `getLocaleName` or other Intl-API-based utilities, import these polyfills early (for example in `index.js` or `App.tsx`):
+
+```ts
+import "intl";
+import "@formatjs/intl-getcanonicallocales/polyfill";
+import "@formatjs/intl-locale/polyfill";
+import "@formatjs/intl-pluralrules/polyfill";
+import "@formatjs/intl-displaynames/polyfill";
+import "@formatjs/intl-listformat/polyfill";
+import "@formatjs/intl-numberformat/polyfill";
+import "@formatjs/intl-relativetimeformat/polyfill";
+import "@formatjs/intl-datetimeformat/polyfill";
+```
+
+- Verify your Metro configuration (resolver aliases, asset plugins, `tsconfig` paths) if modules fail to resolve.
+
+---
+
 ## Doc History
 
-| Version | Date       | Changes      |
-| ------- | ---------- | ------------ |
-| 5.5.10  | 2025-06-29 | Init history |
+| Version | Date       | Changes           |
+| ------- | ---------- | ----------------- |
+| 6.1.6   | 2025-10-02 | Add debug section |
+| 5.5.10  | 2025-06-29 | Init history      |
