@@ -1461,6 +1461,15 @@ export const myServerAction = async () => {
 };
 ```
 
+> The `getLocale` function follows a cascading strategy to determine the user's locale:
+>
+> 1. First, it checks the request headers for a locale value that may have been set by the middleware
+> 2. If no locale is found in headers, it looks for a locale stored in cookies
+> 3. If no cookie is found, it attempts to detect the user's preferred language from their browser settings
+> 4. As a last resort, it falls back to the application's configured default locale
+>
+> This ensures the most appropriate locale is selected based on available context.
+
 ### (Optional) Step 13: Optmize your bundle size
 
 When using `next-intlayer`, dictionaries are included in the bundle for every page by default. To optimize bundle size, Intlayer provides an optional SWC plugin that intelligently replace `useIntlayer` calls using macros. This ensures dictionaries are only included in bundles for pages that actually use them.
