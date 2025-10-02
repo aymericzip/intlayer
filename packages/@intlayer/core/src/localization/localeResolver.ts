@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
+import type { Locales, LocalesValues } from '@intlayer/config/client';
 
 /**
  * Resolves the most specific locale from a user-provided list,
@@ -10,7 +10,7 @@ export const localeResolver = (
   locales: LocalesValues[] = configuration.internationalization.locales,
   defaultLocale: LocalesValues = configuration.internationalization
     .defaultLocale
-): LocalesValues => {
+): Locales => {
   // Ensure we can handle both a single locale or an array of locales uniformly
   const requestedLocales = [selectedLocale].flat();
 
@@ -27,7 +27,7 @@ export const localeResolver = (
         (loc) => normalize(loc) === normalizedRequested
       );
       if (exactMatch) {
-        return exactMatch;
+        return exactMatch as Locales;
       }
 
       // 2) Attempt partial match on language subtag
@@ -38,7 +38,7 @@ export const localeResolver = (
         (loc) => normalize(loc).split('-')[0] === requestedLang
       );
       if (partialMatch) {
-        return partialMatch;
+        return partialMatch as Locales;
       }
     }
   } catch (_error) {
@@ -46,5 +46,5 @@ export const localeResolver = (
   }
 
   // If no match was found, return the default
-  return defaultLocale;
+  return defaultLocale as Locales;
 };

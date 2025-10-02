@@ -10,4 +10,5 @@ export {
   useLoadDynamic,
   useLocale,
 } from 'react-intlayer/server';
+export { getLocaleFromHeaders } from './getLocaleFromHeaders';
 export { withIntlayer } from './withIntlayer';

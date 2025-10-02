@@ -1,4 +1,4 @@
-import { LocalesValues, type Locales } from '@intlayer/config/client';
+import { type Locales } from '@intlayer/config/client';
 import Negotiator from 'negotiator';
 import { localeResolver } from './localeResolver';
 
@@ -11,7 +11,7 @@ export const localeDetector = (
   headers: Record<string, string | undefined>,
   locales?: Locales[],
   defaultLocale?: Locales
-): LocalesValues => {
+): Locales => {
   const languages = new Negotiator({ headers }).languages();
 
   return localeResolver(languages as Locales[], locales, defaultLocale);
