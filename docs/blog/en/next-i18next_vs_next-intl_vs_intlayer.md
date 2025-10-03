@@ -180,16 +180,16 @@ Here an example of the impact of bundle size optimization using `intlayer` in a 
 <Columns>
   <Column>
 
-**next-intl**
+**next-i18next**
 
-- Solid TypeScript support, but **keys aren’t strictly typed by default**; you’ll maintain safety patterns manually.
+- Base typings for hooks. **strict key typing requires extra tooling/config**.
 
   </Column>
   <Column>
 
-**next-i18next**
+**next-intl**
 
-- Base typings for hooks; **strict key typing requires extra tooling/config**.
+- Solid TypeScript support, but **keys aren’t strictly typed by default**. you’ll maintain safety patterns manually.
 
   </Column>
   <Column>
@@ -210,16 +210,16 @@ Here an example of the impact of bundle size optimization using `intlayer` in a 
 <Columns>
   <Column>
 
-**next-intl**
+**next-i18next**
 
-- Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
+- Relies on **runtime fallbacks**. Build doesn’t fail.
 
   </Column>
   <Column>
 
-**next-i18next**
+**next-intl**
 
-- Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
+- Relies on **runtime fallbacks**. Build doesn’t fail.
 
   </Column>
   <Column>
@@ -231,7 +231,7 @@ Here an example of the impact of bundle size optimization using `intlayer` in a 
   </Column>
 </Columns>
 
-**Why it matters:** Catching gaps during build prevents “mystery strings” in production and aligns with strict release gates.
+**Why it matters:** Catching gaps during build prevents 'undefined' strings in production.
 
 ---
 
@@ -240,28 +240,30 @@ Here an example of the impact of bundle size optimization using `intlayer` in a 
 <Columns>
   <Column>
 
-**next-intl**
+**next-i18next**
 
-- Works with **Next.js localized routing** on the App Router.
+- Allows localized routing. But middleware is not built-in.
 
   </Column>
   <Column>
 
-**next-i18next**
+**next-intl**
 
-- Works with **Next.js localized routing** on the App Router.
+- Allows localized routing.
+- Provides middleware.
 
   </Column>
   <Column>
 
 **intlayer**
 
-- All of the above, plus **i18n middleware** (locale detection via headers/cookies) and **helpers** to generate localized URLs and `<link rel="alternate" hreflang="…">` tags.
+- Allows localized routing.
+- Provides middleware.
 
   </Column>
 </Columns>
 
-**Why it matters:** Fewer custom glue layers; **consistent UX** and **clean SEO** across locales.
+**Why it matters:** Helps for SEO and discovery, as well as user experience.
 
 ---
 
@@ -270,58 +272,33 @@ Here an example of the impact of bundle size optimization using `intlayer` in a 
 <Columns>
   <Column>
 
-**next-intl**
+**next-i18next**
 
-- Supports Next.js 13+. Often requires passing t-functions/formatters through component trees in hybrid setups.
+- Support page and layout server components.
+- Do not provide synchronous API for children server components.
 
   </Column>
   <Column>
 
-**next-i18next**
+**next-intl**
 
-- Supports Next.js 13+. Similar constraints with passing translation utilities across boundaries.
+- Support page and layout server components.
+- Do not provide synchronous API for children server components.
 
   </Column>
   <Column>
 
 **intlayer**
 
-- Supports Next.js 13+ and smooths the **server/client boundary** with a consistent API and RSC-oriented providers, avoiding shuttling formatters or t-functions.
+- Support page and layout server components.
+- Provide synchronous API for children server components.
 
   </Column>
 </Columns>
 
-**Why it matters:** Cleaner mental model and fewer edge cases in hybrid trees.
+**Why it matters:** Server component suport is a key feature of Next.js 13+, helping for performance. Passing props the locale or the `t` function from the parent to the child server components make your components less reusable.
 
 ---
-
-## DX, tooling & maintenance
-
-<Columns>
-  <Column>
-
-**next-intl**
-
-- Commonly paired with external localization platforms and editorial workflows.
-
-  </Column>
-  <Column>
-
-**next-i18next**
-
-- Commonly paired with external localization platforms and editorial workflows.
-
-  </Column>
-  <Column>
-
-**intlayer**
-
-- Ships a **free Visual Editor** and **optional CMS** (Git-friendly or externalized), plus a **VSCode extension** and **AI-assisted translations** using your own provider keys.
-
-  </Column>
-</Columns>
-
-**Why it matters:** Lowers ops cost and shortens the loop between developers and content authors.
 
 ## Integration with localization platforms (TMS)
 
@@ -341,6 +318,8 @@ Large organizations often rely on Translation Management Systems (TMS) like **Cr
   - Intlayer provides alternatives: **AI‑assisted translations** (using your own provider keys), a **Visual Editor/CMS**, and **CLI/CI** workflows to catch and prefill gaps.
 
 > Note: `next-intl` and `i18next` also accepts TypeScript catalogs. If your team stores messages in `.ts` files or decentralizes them by feature, you can face similar TMS friction. However, many `next-intl` setups remain centralized in a `locales/` folder, which is a bit easier to refactor to JSON for TMS.
+
+---
 
 ## Developer Experience
 
@@ -1008,20 +987,24 @@ export default ServerComponent;
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
-  formattedCount: string;
-  label: string;
-  increment: string;
+  t: (key: string) => string;
+  locale: string;
+  count: number;
+  formatter: Intl.NumberFormat;
 };
 
 const ServerComponent = ({
-  formattedCount,
-  label,
-  increment,
+  t,
+  locale,
+  count,
+  formatter,
 }: ServerComponentProps) => {
+  const formatted = formatter.format(count);
+
   return (
     <div>
-      <p>{formattedCount}</p>
-      <button aria-label={label}>{increment}</button>
+      <p>{formatted}</p>
+      <button aria-label={t("counter.label")}>{t("counter.increment")}</button>
     </div>
   );
 };
@@ -1105,12 +1088,16 @@ export function abs(locale: string, path: string) {
 import type { Metadata } from "next";
 import { locales, defaultLocale, localizedPath } from "@/i18n.config";
 
-export async function generateMetadata({
+type GenerateMetadataParams = {
+  params: Promise<{
+    locale: string;
+  }>;
+};
+
+export const generateMetadata = async ({
   params,
-}: {
-  params: { locale: string };
-}): Promise<Metadata> {
-  const { locale } = params;
+}: GenerateMetadataParams): Promise<Metadata> => {
+  const { locale } = await params;
 
   // Import the correct JSON bundle from src/locales
   const messages = (await import("@/locales/" + locale + "/about.json"))
@@ -1128,7 +1115,7 @@ export async function generateMetadata({
       languages: { ...languages, "x-default": "/about" },
     },
   };
-}
+};
 
 export default async function AboutPage() {
   return <h1>About</h1>;
@@ -1139,7 +1126,7 @@ export default async function AboutPage() {
 import type { MetadataRoute } from "next";
 import { locales, defaultLocale, abs } from "@/i18n.config";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const sitemap = (): MetadataRoute.Sitemap => {
   const languages = Object.fromEntries(
     locales.map((locale) => [locale, abs(locale, "/about")])
   );
@@ -1152,7 +1139,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages },
     },
   ];
-}
+};
 ```
 
 ```ts fileName="src/app/robots.ts"
@@ -1168,7 +1155,7 @@ const expandAllLocales = (path: string) => [
     .map((locale) => localizedPath(locale, path)),
 ];
 
-export default function robots(): MetadataRoute.Robots {
+export const robots = (): MetadataRoute.Robots => {
   const disallow = [
     ...expandAllLocales("/dashboard"),
     ...expandAllLocales("/admin"),
@@ -1179,7 +1166,7 @@ export default function robots(): MetadataRoute.Robots {
     host: ORIGIN,
     sitemap: ORIGIN + "/sitemap.xml",
   };
-}
+};
 ```
 
   </TabItem>
@@ -1190,16 +1177,20 @@ import type { Metadata } from "next";
 import { locales, defaultLocale } from "@/i18n";
 import { getTranslations } from "next-intl/server";
 
-function localizedPath(locale: string, path: string) {
+const localizedPath = (locale: string, path: string) => {
   return locale === defaultLocale ? path : "/" + locale + path;
-}
+};
 
-export async function generateMetadata({
+type GenerateMetadataParams = {
+  params: Promise<{
+    locale: string;
+  }>;
+};
+
+export const generateMetadata = async ({
   params,
-}: {
-  params: { locale: string };
-}): Promise<Metadata> {
-  const { locale } = params;
+}: GenerateMetadataParams): Promise<Metadata> => {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "about" });
 
   const url = "/about";
@@ -1215,7 +1206,7 @@ export async function generateMetadata({
       languages: { ...languages, "x-default": url },
     },
   };
-}
+};
 
 // ... Rest of the page code
 ```
@@ -1229,7 +1220,7 @@ const origin = "https://example.com";
 const formatterLocalizedPath = (locale: string, path: string) =>
   locale === defaultLocale ? origin + path : origin + "/" + locale + path;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const sitemap = (): MetadataRoute.Sitemap => {
   const aboutLanguages = Object.fromEntries(
     locales.map((l) => [l, formatterLocalizedPath(l, "/about")])
   );
@@ -1243,7 +1234,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages: aboutLanguages },
     },
   ];
-}
+};
 ```
 
 ```tsx fileName="src/app/robots.ts"
@@ -1258,7 +1249,7 @@ const withAllLocales = (path: string) => [
     .map((locale) => "/" + locale + path),
 ];
 
-export default function robots(): MetadataRoute.Robots {
+export const robots = (): MetadataRoute.Robots => {
   const disallow = [
     ...withAllLocales("/dashboard"),
     ...withAllLocales("/admin"),
@@ -1269,7 +1260,7 @@ export default function robots(): MetadataRoute.Robots {
     host: origin,
     sitemap: origin + "/sitemap.xml",
   };
-}
+};
 ```
 
   </TabItem>
