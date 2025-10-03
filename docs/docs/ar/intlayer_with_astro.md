@@ -138,6 +138,7 @@ export default appContent;
 يمكنك استهلاك القواميس مباشرة في ملفات `.astro` باستخدام الأدوات الأساسية التي تصدرها `intlayer`.
 
 ```astro fileName="src/pages/index.astro"
+<!-- astro -->
 ---
 import { getIntlayer } from "intlayer";
 import appContent from "../app.content";
@@ -162,6 +163,7 @@ const { title } = getIntlayer('app');
 قم بإنشاء جزء مسار ديناميكي لخدمة الصفحات المحلية، على سبيل المثال `src/pages/[locale]/index.astro`:
 
 ```astro fileName="src/pages/[locale]/index.astro"
+<!-- astro -->
 ---
 import { getIntlayer } from "intlayer";
 

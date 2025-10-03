@@ -138,6 +138,7 @@ export default appContent;
 `intlayer`에서 내보내는 핵심 헬퍼를 사용하여 `.astro` 파일에서 사전을 직접 사용할 수 있습니다.
 
 ```astro fileName="src/pages/index.astro"
+<!-- astro -->
 ---
 import { getIntlayer } from "intlayer";
 import appContent from "../app.content";
@@ -162,6 +163,7 @@ const { title } = getIntlayer('app');
 지역화된 페이지를 제공하기 위해 동적 라우트 세그먼트를 생성합니다. 예를 들어 `src/pages/[locale]/index.astro`:
 
 ```astro fileName="src/pages/[locale]/index.astro"
+<!-- astro -->
 ---
 import { getIntlayer } from "intlayer";
 

@@ -138,6 +138,7 @@ export default appContent;
 Sözlükleri, `intlayer` tarafından dışa aktarılan temel yardımcıları kullanarak doğrudan `.astro` dosyalarında tüketebilirsiniz.
 
 ```astro fileName="src/pages/index.astro"
+<!-- astro -->
 ---
 import { getIntlayer } from "intlayer";
 import appContent from "../app.content";
@@ -162,6 +163,7 @@ const { title } = getIntlayer('app');
 Yerelleştirilmiş sayfalar sunmak için dinamik bir rota segmenti oluşturun, örneğin `src/pages/[locale]/index.astro`:
 
 ```astro fileName="src/pages/[locale]/index.astro"
+<!-- astro -->
 ---
 import { getIntlayer } from "intlayer";
 

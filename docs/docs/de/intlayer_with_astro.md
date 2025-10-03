@@ -138,6 +138,7 @@ export default appContent;
 Sie können Wörterbücher direkt in `.astro`-Dateien mit den von `intlayer` exportierten Kern-Hilfsfunktionen verwenden.
 
 ```astro fileName="src/pages/index.astro"
+<!-- astro -->
 ---
 import { getIntlayer } from "intlayer";
 import appContent from "../app.content";
@@ -162,6 +163,7 @@ const { title } = getIntlayer('app');
 Erstellen Sie ein dynamisches Routensegment, um lokalisierte Seiten bereitzustellen, zum Beispiel `src/pages/[locale]/index.astro`:
 
 ```astro fileName="src/pages/[locale]/index.astro"
+<!-- astro -->
 ---
 import { getIntlayer } from "intlayer";
 

@@ -138,6 +138,7 @@ export default appContent;
 您可以直接在 `.astro` 文件中使用 `intlayer` 导出的核心辅助函数来消费字典。
 
 ```astro fileName="src/pages/index.astro"
+<!-- astro -->
 ---
 import { getIntlayer } from "intlayer";
 import appContent from "../app.content";
@@ -162,6 +163,7 @@ const { title } = getIntlayer('app');
 创建一个动态路由段来服务本地化页面，例如 `src/pages/[locale]/index.astro`：
 
 ```astro fileName="src/pages/[locale]/index.astro"
+<!-- astro -->
 ---
 import { getIntlayer } from "intlayer";
 

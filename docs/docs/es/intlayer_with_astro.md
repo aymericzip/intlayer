@@ -138,6 +138,7 @@ export default appContent;
 Puedes consumir diccionarios directamente en archivos `.astro` usando los helpers principales exportados por `intlayer`.
 
 ```astro fileName="src/pages/index.astro"
+<!-- astro -->
 ---
 import { getIntlayer } from "intlayer";
 import appContent from "../app.content";
@@ -162,6 +163,7 @@ const { title } = getIntlayer('app');
 Crea un segmento de ruta dinámica para servir páginas localizadas, por ejemplo `src/pages/[locale]/index.astro`:
 
 ```astro fileName="src/pages/[locale]/index.astro"
+<!-- astro -->
 ---
 import { getIntlayer } from "intlayer";
 
