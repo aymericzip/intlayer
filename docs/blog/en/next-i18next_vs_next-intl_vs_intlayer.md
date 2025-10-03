@@ -37,7 +37,7 @@ We focus on **Next.js 13+ App Router** (with **React Server Components**) and ev
 
 > **tl;dr**: All three can localize a Next.js app. If you want **component-scoped content**, **strict TypeScript types**, **build-time missing-key checks**, **tree-shaken dictionaries**, and **first-class App Router + SEO helpers**, **Intlayer** is the most complete, modern choice.
 
-> One confusion often made by developers is to think that `next-intl` is the Next.js version of `react-intl`. It's not—`next-intl` is maintained by [Amann](https://github.com/amannn), while `react-intl` is maintained by [FormatJS](https://github.com/formatjs/formatjs).
+> One confusion often made by developers is to think that `next-intl` is the Next.js version of `react-intl`. It's not, `next-intl` is maintained by [Amann](https://github.com/amannn), while `react-intl` is maintained by [FormatJS](https://github.com/formatjs/formatjs).
 
 ---
 
