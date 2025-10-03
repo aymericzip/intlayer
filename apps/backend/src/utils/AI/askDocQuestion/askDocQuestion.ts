@@ -1,8 +1,8 @@
+import { getMarkdownMetadata } from '@intlayer/core';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import { streamText } from 'ai';
 import dotenv from 'dotenv';
 import { readFileSync, writeFileSync } from 'fs';
-import { getMarkdownMetadata } from 'intlayer';
 import { OpenAI } from 'openai';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
