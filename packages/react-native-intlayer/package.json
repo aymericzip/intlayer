@@ -87,7 +87,8 @@
   "dependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*"
+    "@intlayer/core": "workspace:*",
+    "react-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.5.2",
