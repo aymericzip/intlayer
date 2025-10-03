@@ -494,11 +494,15 @@ const docDataContent: any = {
                 './docs/en/intlayer_with_react_router_v7.md'
               ),
             },
-            'tanstack-start': {
-              title: 'Tanstack Start',
-              default: getDocMetadata('./docs/en/intlayer_with_tanstack.md'),
-            },
           },
+        },
+        'tanstack-start': {
+          title: 'Tanstack Start',
+          default: getDocMetadata('./docs/en/intlayer_with_tanstack.md'),
+        },
+        astro: {
+          title: 'Astro',
+          default: getDocMetadata('./docs/en/intlayer_with_astro.md'),
         },
         'create-react-app': {
           title: 'React CRA',

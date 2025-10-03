@@ -101,6 +101,7 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "astro": ">=4.0.0",
     "vite-intlayer": "workspace:*"
   },
   "engines": {

@@ -95,13 +95,12 @@ Add the intlayer plugin into your configuration:
 
 ```typescript fileName="vite.config.ts"
 import { reactRouter } from "@react-router/dev/vite";
-import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [tailwindcss(), reactRouter(), tsconfigPaths(), intlayer()],
+  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
 });
 ```
 
