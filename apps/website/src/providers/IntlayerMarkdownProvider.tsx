@@ -13,7 +13,9 @@ export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
       <MarkdownRenderer
         options={{
           overrides: {
-            a: (props: ComponentProps<typeof Link>) => <Link {...props} />,
+            a: (props: ComponentProps<typeof Link>) => (
+              <Link color="neutral" underlined={true} {...props} />
+            ),
           },
         }}
       >

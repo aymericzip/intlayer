@@ -1,6 +1,5 @@
 'use client';
 
-import configuration from '@intlayer/config/built';
 import { getLocalizedUrl } from '@intlayer/core';
 import {
   checkIsExternalLink,
@@ -39,12 +38,6 @@ export const Link: FC<LinkProps> = (props) => {
 
   const target = isExternalLink ? '_blank' : '_self';
 
-  const hrefLang = locale
-    ? locale === configuration.internationalization.defaultLocale
-      ? 'x-default'
-      : locale
-    : undefined;
-
   const href =
     locale && hrefProp && !isExternalLink
       ? getLocalizedUrl(hrefProp, locale)
@@ -54,7 +47,6 @@ export const Link: FC<LinkProps> = (props) => {
     <NextLink
       prefetch={prefetch}
       href={href}
-      hrefLang={hrefLang}
       aria-label={label}
       rel={rel}
       target={target}
