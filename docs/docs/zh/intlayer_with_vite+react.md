@@ -1003,38 +1003,38 @@ const App = () => (
 );
 ```
 
-同时，您还可以使用 `intlayerMiddlewarePlugin` 为您的应用程序添加服务器端路由。该插件将根据 URL 自动检测当前语言环境并设置相应的语言环境 Cookie。如果未指定语言环境，插件将根据用户浏览器的语言偏好确定最合适的语言环境。如果未检测到任何语言环境，它将重定向到默认语言环境。
+同时，您还可以使用 `intlayerMiddleware` 为您的应用程序添加服务器端路由。该插件将根据 URL 自动检测当前语言环境并设置相应的语言环境 Cookie。如果未指定语言环境，插件将根据用户浏览器的语言偏好确定最合适的语言环境。如果未检测到任何语言环境，它将重定向到默认语言环境。
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayer, intlayerMiddleware } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerMiddlewarePlugin()],
+  plugins: [react(), intlayer(), intlayerMiddleware()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayer, intlayerMiddleware } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerMiddlewarePlugin()],
+  plugins: [react(), intlayer(), intlayerMiddleware()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const react = require("@vitejs/plugin-react-swc");
-const { intlayer, intlayerMiddlewarePlugin } = require("vite-intlayer");
+const { intlayer, intlayerMiddleware } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [react(), intlayer(), intlayerMiddlewarePlugin()],
+  plugins: [react(), intlayer(), intlayerMiddleware()],
 });
 ```
 

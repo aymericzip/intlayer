@@ -144,16 +144,11 @@ export default [
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import { intlayerMiddlewarePlugin, intlayer } from "vite-intlayer";
+import { intlayerMiddleware, intlayer } from "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [
-    reactRouter(),
-    tsconfigPaths(),
-    intlayer(),
-    intlayerMiddlewarePlugin(),
-  ],
+  plugins: [reactRouter(), tsconfigPaths(), intlayer(), intlayerMiddleware()],
 });
 ```
 
@@ -272,7 +267,6 @@ export default function LocalizedLink({ to, ...props }: RouterLinkProps) {
 #### صفحة إعادة التوجيه الجذرية
 
 ```tsx fileName="app/routes/page.tsx" codeFormat="typescript"
-// app/routes/page.tsx
 import { useLocale } from "react-intlayer";
 import { Navigate } from "react-router";
 

@@ -1046,38 +1046,38 @@ const App = () => (
 module.exports = App;
 ```
 
-並行して、`intlayerMiddlewarePlugin` を使用してアプリケーションにサーバーサイドルーティングを追加することもできます。このプラグインはURLに基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザの言語設定に基づいて最適なロケールを判別します。ロケールが検出されない場合は、デフォルトのロケールにリダイレクトします。
+並行して、`intlayerMiddleware` を使用してアプリケーションにサーバーサイドルーティングを追加することもできます。このプラグインはURLに基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザの言語設定に基づいて最適なロケールを判別します。ロケールが検出されない場合は、デフォルトのロケールにリダイレクトします。
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
-import { intlayer, intlayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayer, intlayerMiddleware } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [preact(), intlayer(), intlayerMiddlewarePlugin()],
+  plugins: [preact(), intlayer(), intlayerMiddleware()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
-import { intlayer, intlayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayer, intlayerMiddleware } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [preact(), intlayer(), intlayerMiddlewarePlugin()],
+  plugins: [preact(), intlayer(), intlayerMiddleware()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const preact = require("@preact/preset-vite");
-const { intlayer, intlayerMiddlewarePlugin } = require("vite-intlayer");
+const { intlayer, intlayerMiddleware } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [preact(), intlayer(), intlayerMiddlewarePlugin()],
+  plugins: [preact(), intlayer(), intlayerMiddleware()],
 });
 ```
 

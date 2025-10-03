@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2025-09-04
+updatedAt: 2025-10-03
 title: Getting Started with Intlayer in React Router v7
 description: Learn how to add internationalization (i18n) to your React Router v7 application using Intlayer. Follow this comprehensive guide to make your app multilingual with locale-aware routing.
 keywords:
@@ -17,8 +17,7 @@ slugs:
   - environment
   - vite-and-react
   - react-router-v7
-applicationTemplate: https://github.com/AydinTheFirst/react-router-intlayer
-author: AydinTheFirst
+applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7
 ---
 
 # Getting Started Internationalizing (i18n) with Intlayer and React Router v7
@@ -75,10 +74,7 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   internationalization: {
     defaultLocale: Locales.ENGLISH,
-    locales: [Locales.ENGLISH, Locales.TURKISH],
-  },
-  middleware: {
-    prefixDefault: true, // Always prefix default locale in URLs
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -92,10 +88,7 @@ import { Locales } from "intlayer";
 const config = {
   internationalization: {
     defaultLocale: Locales.ENGLISH,
-    locales: [Locales.ENGLISH, Locales.TURKISH],
-  },
-  middleware: {
-    prefixDefault: true,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -109,10 +102,7 @@ const { Locales } = require("intlayer");
 const config = {
   internationalization: {
     defaultLocale: Locales.ENGLISH,
-    locales: [Locales.ENGLISH, Locales.TURKISH],
-  },
-  middleware: {
-    prefixDefault: true,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -121,43 +111,37 @@ module.exports = config;
 
 > Through this configuration file, you can set up localized URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
-### Step 3: Configure React Router v7 Routes
-
-Set up your routing configuration with locale-aware routes:
-
-```typescript fileName="app/routes.ts" codeFormat="typescript"
-import { layout, route, type RouteConfig } from "@react-router/dev/routes";
-
-export default [
-  layout("routes/layout.tsx", [
-    route("/", "routes/page.tsx"), // Root page - redirects to locale
-    route("/:lang", "routes/[lang]/page.tsx"), // Localized home page
-    route("/:lang/about", "routes/[lang]/about/page.tsx"), // Localized about page
-  ]),
-] satisfies RouteConfig;
-```
-
-### Step 4: Integrate Intlayer in Your Vite Configuration
+### Step 3: Integrate Intlayer in Your Vite Configuration
 
 Add the intlayer plugin into your configuration:
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts"
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import { intlayerMiddlewarePlugin, intlayer } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [
-    reactRouter(),
-    tsconfigPaths(),
-    intlayer(),
-    intlayerMiddlewarePlugin(),
-  ],
+  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
 });
 ```
 
 > The `intlayer()` Vite plugin is used to integrate Intlayer with Vite. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the Vite application. Additionally, it provides aliases to optimize performance.
+
+### Step 4: Configure React Router v7 Routes
+
+Set up your routing configuration with locale-aware routes:
+
+```typescript fileName="app/routes.ts"
+import { layout, route, type RouteConfig } from "@react-router/dev/routes";
+
+export default [
+  layout("routes/layout.tsx", [
+    route("/:lang?", "routes/page.tsx"), // Localized home page
+    route("/:lang/about", "routes/about/page.tsx"), // Localized about page
+  ]),
+] satisfies RouteConfig;
+```
 
 ### Step 5: Create Layout Components
 
@@ -165,14 +149,17 @@ Set up your root layout and locale-specific layouts:
 
 #### Root Layout
 
-```tsx fileName="app/routes/layout.tsx" codeFormat="typescript"
-// app/routes/layout.tsx
-import { Outlet } from "react-router";
+```tsx fileName="app/routes/layout.tsx"
 import { IntlayerProvider } from "react-intlayer";
+import { Outlet } from "react-router";
 
-export default function RootLayout() {
+import type { Route } from "./+types/layout";
+
+export default function RootLayout({ params }: Route.ComponentProps) {
+  const { locale } = params;
+
   return (
-    <IntlayerProvider>
+    <IntlayerProvider locale={locale}>
       <Outlet />
     </IntlayerProvider>
   );
@@ -191,19 +178,23 @@ const pageContent = {
   content: {
     title: t({
       en: "Welcome to React Router v7 + Intlayer",
-      tr: "React Router v7 + Intlayer'a Hoş Geldiniz",
+      es: "Bienvenido a React Router v7 + Intlayer",
+      fr: "Bienvenue sur React Router v7 + Intlayer",
     }),
     description: t({
       en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
-      tr: "React Router v7 ve Intlayer kullanarak kolayca çok dilli uygulamalar geliştirin.",
+      es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
+      fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
     }),
     aboutLink: t({
       en: "Learn About Us",
-      tr: "Hakkımızda Öğrenin",
+      es: "Aprender Sobre Nosotros",
+      fr: "En savoir plus sur nous",
     }),
     homeLink: t({
       en: "Home",
-      tr: "Ana Sayfa",
+      es: "Inicio",
+      fr: "Accueil",
     }),
   },
 } satisfies Dictionary;
@@ -219,96 +210,82 @@ export default pageContent;
 
 Create a `LocalizedLink` component for locale-aware navigation:
 
-```tsx fileName="app/components/localized-link.tsx" codeFormat="typescript"
-// app/components/localized-link.tsx
-import { getLocalizedUrl } from "intlayer";
+```tsx fileName="app/components/localized-link.tsx"
+import type { FC } from "react";
+
+import { getLocalizedUrl, type LocalesValues } from "intlayer";
 import { useLocale } from "react-intlayer";
-import React from "react";
-import { Link, useLocation } from "react-router";
+import { Link, type LinkProps, type To } from "react-router";
 
-type RouterLinkProps = React.ComponentProps<typeof Link>;
+const isExternalLink = (to: string) => /^(https?:)?\/\//.test(to);
 
-export default function LocalizedLink({ to, ...props }: RouterLinkProps) {
-  const { locale } = useLocale();
-  const location = useLocation();
-
-  const isExternal = (path: string) =>
-    /^([a-z][a-z0-9+.-]*:)?\/\//i.test(path) || path.startsWith("mailto:");
-
+export const locacalizeTo = (to: To, locale: LocalesValues): To => {
   if (typeof to === "string") {
-    if (to.startsWith("/") && !isExternal(to)) {
-      return <Link to={getLocalizedUrl(to, locale)} {...props} />;
+    if (isExternalLink(to)) {
+      return to;
     }
-    return <Link to={to} {...props} />;
+
+    return getLocalizedUrl(to, locale);
   }
 
-  if (to && typeof to === "object") {
-    const pathname = (to as { pathname?: string }).pathname;
-    if (pathname && pathname.startsWith("/") && !isExternal(pathname)) {
-      return (
-        <Link
-          to={{ ...to, pathname: getLocalizedUrl(pathname, locale) }}
-          {...props}
-        />
-      );
-    }
-    return <Link to={to} {...props} />;
+  if (isExternalLink(to.pathname ?? "")) {
+    return to;
   }
 
-  return (
-    <Link
-      to={getLocalizedUrl(location.pathname + location.search, locale)}
-      {...props}
-    />
-  );
-}
+  return {
+    ...to,
+    pathname: getLocalizedUrl(to.pathname ?? "", locale),
+  };
+};
+
+export const LocalizedLink: FC<LinkProps> = (props) => {
+  const { locale } = useLocale();
+
+  return <Link {...props} to={locacalizeTo(props.to, locale)} />;
+};
+```
+
+In the case you want to navigate to the localized routes, you can use the `useLocalizedNavigate` hook:
+
+```tsx fileName="app/hooks/useLocalizedNavigate.ts"
+import { useLocale } from "react-intlayer";
+import { type NavigateOptions, type To, useNavigate } from "react-router";
+
+import { locacalizeTo } from "~/components/localized-link";
+
+export const useLocalizedNavigate = () => {
+  const navigate = useNavigate();
+  const { locale } = useLocale();
+
+  const localizedNavigate = (to: To, options?: NavigateOptions) => {
+    const localedTo = locacalizeTo(to, locale);
+
+    navigate(localedTo, options);
+  };
+
+  return localizedNavigate;
+};
 ```
 
 ### Step 8: Utilize Intlayer in Your Pages
 
 Access your content dictionaries throughout your application:
 
-#### Root Redirect Page
-
-```tsx fileName="app/routes/page.tsx" codeFormat="typescript"
-// app/routes/page.tsx
-import { useLocale } from "react-intlayer";
-import { Navigate } from "react-router";
-
-export default function Page() {
-  const { locale } = useLocale();
-
-  return <Navigate replace to={locale} />;
-}
-```
-
 #### Localized Home Page
 
-```tsx fileName="app/routes/[lang]/page.tsx" codeFormat="typescript"
+```tsx fileName="app/routes/[lang]/page.tsx"
 import { useIntlayer } from "react-intlayer";
-import LocalizedLink from "~/components/localized-link";
+import { LocalizedLink } from "~/components/localized-link";
 
 export default function Page() {
-  const content = useIntlayer("page");
+  const { title, description, aboutLink } = useIntlayer("page");
 
   return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-      <nav style={{ marginTop: "2rem" }}>
-        <LocalizedLink
-          to="/about"
-          style={{
-            display: "inline-block",
-            padding: "0.5rem 1rem",
-            backgroundColor: "#007bff",
-            color: "white",
-            textDecoration: "none",
-            borderRadius: "4px",
-          }}
-        >
-          {content.aboutLink}
-        </LocalizedLink>
+    <div>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <nav>
+        <LocalizedLink to="/about">{aboutLink}</LocalizedLink>
       </nav>
     </div>
   );
@@ -321,43 +298,58 @@ export default function Page() {
 
 Create a component to allow users to change languages:
 
-```tsx fileName="app/components/locale-switcher.tsx" codeFormat="typescript"
-import { getLocalizedUrl, getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
-import { useLocation, useNavigate } from "react-router";
+```tsx fileName="app/components/locale-switcher.tsx"
+import type { FC } from "react";
 
-export default function LocaleSwitcher() {
-  const { locale, availableLocales, setLocale } = useLocale();
-  const location = useLocation();
-  const navigate = useNavigate();
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getLocalizedUrl,
+  getPathWithoutLocale,
+} from "intlayer";
+import { setLocaleCookie, useIntlayer, useLocale } from "react-intlayer";
+import { Link, useLocation } from "react-router";
 
-  const handleLocaleChange = (newLocale: string) => {
-    const localizedUrl = getLocalizedUrl(
-      location.pathname + location.search,
-      newLocale
-    );
-    setLocale(newLocale);
-    navigate(localizedUrl);
-  };
+export const LocaleSwitcher: FC = () => {
+  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
+  const { pathname } = useLocation();
+
+  const { availableLocales, locale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
 
   return (
-    <div style={{ margin: "1rem 0" }}>
-      <label htmlFor="locale-select">Choose Language: </label>
-      <select
-        id="locale-select"
-        value={locale}
-        onChange={(e) => handleLocaleChange(e.target.value)}
-        style={{ padding: "0.25rem", marginLeft: "0.5rem" }}
-      >
-        {availableLocales.map((availableLocale) => (
-          <option key={availableLocale} value={availableLocale}>
-            {getLocaleName(availableLocale)}
-          </option>
-        ))}
-      </select>
-    </div>
+    <ol>
+      {availableLocales.map((localeItem) => (
+        <li key={localeItem}>
+          <Link
+            aria-current={localeItem === locale ? "page" : undefined}
+            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeItem)}`}
+            onClick={() => setLocaleCookie(localeItem)}
+            to={getLocalizedUrl(pathWithoutLocale, localeItem)}
+          >
+            <span>
+              {/* Locale - e.g. FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* Language in its own Locale - e.g. Français */}
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+              {/* Language in current Locale - e.g. Francés with current locale set to Locales.SPANISH */}
+              {getLocaleName(localeItem)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* Language in English - e.g. French */}
+              {getLocaleName(localeItem, Locales.ENGLISH)}
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ol>
   );
-}
+};
 ```
 
 > To Learn more about the `useLocale` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md).
@@ -366,8 +358,7 @@ export default function LocaleSwitcher() {
 
 Create a hook to manage HTML lang and dir attributes:
 
-```tsx fileName="app/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
-// app/hooks/useI18nHTMLAttributes.tsx
+```tsx fileName="app/hooks/useI18nHTMLAttributes.tsx"
 import { getHTMLTextDir } from "intlayer";
 import { useEffect } from "react";
 import { useLocale } from "react-intlayer";
@@ -384,8 +375,7 @@ export const useI18nHTMLAttributes = () => {
 
 Then use it in your root component:
 
-```tsx fileName="app/root.tsx" codeFormat="typescript"
-// app/routes/layout.tsx
+```tsx fileName="app/routes/layout.tsx"
 import { Outlet } from "react-router";
 import { IntlayerProvider } from "react-intlayer";
 
@@ -402,35 +392,26 @@ export default function RootLayout() {
 }
 ```
 
-### Step 11: Build and Run Your Application
+### Step 11: Add middleware (Optional)
 
-Build the content dictionaries and run your application:
+You can also use the `intlayerMiddleware` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
 
-```bash packageManager="npm"
-# Build Intlayer dictionaries
-npm run intlayer:build
+> Note that to use the `intlayerMiddleware` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
 
-# Start development server
-npm run dev
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { intlayer, intlayerMiddleware } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react(), intlayer(), intlayerMiddleware()],
+});
 ```
 
-```bash packageManager="pnpm"
-# Build Intlayer dictionaries
-pnpm intlayer:build
+---
 
-# Start development server
-pnpm dev
-```
-
-```bash packageManager="yarn"
-# Build Intlayer dictionaries
-yarn intlayer:build
-
-# Start development server
-yarn dev
-```
-
-### Step 12: Configure TypeScript (Optional)
+## Configure TypeScript
 
 Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
 
@@ -438,9 +419,7 @@ Ensure your TypeScript configuration includes the autogenerated types:
 
 ```json5 fileName="tsconfig.json"
 {
-  compilerOptions: {
-    // ... your existing TypeScript configurations
-  },
+  // ... your existing configurations
   include: [
     // ... your existing includes
     ".intlayer/**/*.ts", // Include the auto-generated types
@@ -448,7 +427,9 @@ Ensure your TypeScript configuration includes the autogenerated types:
 }
 ```
 
-### Git Configuration
+---
+
+## Git Configuration
 
 It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
 
@@ -460,35 +441,6 @@ To do this, you can add the following instructions to your `.gitignore` file:
 ```
 
 ---
-
-## Production Deployment
-
-When deploying your application:
-
-1. **Build your application:**
-
-   ```bash
-   npm run build
-   ```
-
-2. **Build Intlayer dictionaries:**
-
-   ```bash
-   npm run intlayer:build
-   ```
-
-3. **Move `vite-intlayer` to dependencies** if using middleware in production:
-   ```bash
-   npm install vite-intlayer --save
-   ```
-
-Your application will now support:
-
-- **URL Structure**: `/en`, `/en/about`, `/tr`, `/tr/about`
-- **Automatic locale detection** based on browser preferences
-- **Locale-aware routing** with React Router v7
-- **TypeScript support** with auto-generated types
-- **Server-side rendering** with proper locale handling
 
 ## VS Code Extension
 
@@ -526,6 +478,7 @@ This comprehensive guide provides everything you need to integrate Intlayer with
 
 ## Doc History
 
-| Version | Date      | Changes                   |
-| ------- | --------- | ------------------------- |
-| 5.8.2   | 2025-09-4 | Added for React Router v7 |
+| Version | Date       | Changes                   |
+| ------- | ---------- | ------------------------- |
+| 6.1.5   | 2025-10-03 | Updated doc               |
+| 5.8.2   | 2025-09-4  | Added for React Router v7 |

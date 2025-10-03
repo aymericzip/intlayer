@@ -1004,40 +1004,40 @@ const App = () => (
 );
 ```
 
-Paralel olarak, uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerMiddlewarePlugin`'i de kullanabilirsiniz. Bu eklenti, URL'ye göre geçerli yerel ayarı otomatik olarak algılar ve uygun yerel ayar çerezini ayarlar. Hiç yerel ayar belirtilmezse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirler. Hiç yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirir.
+Paralel olarak, uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerMiddleware`'i de kullanabilirsiniz. Bu eklenti, URL'ye göre geçerli yerel ayarı otomatik olarak algılar ve uygun yerel ayar çerezini ayarlar. Hiç yerel ayar belirtilmezse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirler. Hiç yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirir.
 
-> Not: Üretimde `intlayerMiddlewarePlugin`'i kullanmak için `vite-intlayer` paketini `devDependencies`'den `dependencies`'e taşımalısınız.
+> Not: Üretimde `intlayerMiddleware`'i kullanmak için `vite-intlayer` paketini `devDependencies`'den `dependencies`'e taşımalısınız.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayer, intlayerMiddleware } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerMiddlewarePlugin()],
+  plugins: [react(), intlayer(), intlayerMiddleware()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayer, intlayerMiddleware } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerMiddlewarePlugin()],
+  plugins: [react(), intlayer(), intlayerMiddleware()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const react = "@vitejs/plugin-react-swc";
-const { intlayer, intlayerMiddlewarePlugin } = require("vite-intlayer");
+const { intlayer, intlayerMiddleware } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [react(), intlayer(), intlayerMiddlewarePlugin()],
+  plugins: [react(), intlayer(), intlayerMiddleware()],
 });
 ```
 

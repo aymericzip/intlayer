@@ -53,17 +53,17 @@ Sehen Sie ein Beispiel, wie Sie die Plugins in Ihre Vite-Konfiguration einbinden
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayer, intlayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayer, intlayerMiddleware } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayer(), intlayerMiddlewarePlugin()],
+  plugins: [intlayer(), intlayerMiddleware()],
 });
 ```
 
 > Das `intlayer()` Vite-Plugin wird verwendet, um Intlayer in Vite zu integrieren. Es sorgt für den Aufbau von Inhaltsdeklarationsdateien und überwacht diese im Entwicklungsmodus. Es definiert Intlayer-Umgebungsvariablen innerhalb der Vite-Anwendung. Zusätzlich stellt es Aliase bereit, um die Leistung zu optimieren.
 
-> Das `intlayerMiddlewarePlugin()` fügt Ihrer Anwendung serverseitiges Routing hinzu. Dieses Plugin erkennt automatisch die aktuelle Sprache basierend auf der URL und setzt das entsprechende Sprach-Cookie. Wenn keine Sprache angegeben ist, bestimmt das Plugin die am besten geeignete Sprache basierend auf den Spracheinstellungen des Browsers des Benutzers. Wenn keine Sprache erkannt wird, erfolgt eine Weiterleitung zur Standardsprache.
+> Das `intlayerMiddleware()` fügt Ihrer Anwendung serverseitiges Routing hinzu. Dieses Plugin erkennt automatisch die aktuelle Sprache basierend auf der URL und setzt das entsprechende Sprach-Cookie. Wenn keine Sprache angegeben ist, bestimmt das Plugin die am besten geeignete Sprache basierend auf den Spracheinstellungen des Browsers des Benutzers. Wenn keine Sprache erkannt wird, erfolgt eine Weiterleitung zur Standardsprache.
 
 ## Beherrschen der Internationalisierung Ihrer Vite-Anwendung
 

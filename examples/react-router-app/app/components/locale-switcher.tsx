@@ -1,40 +1,48 @@
+import type { FC } from 'react';
+
 import {
   getHTMLTextDir,
   getLocaleName,
   getLocalizedUrl,
-  Locales,
-} from "intlayer";
-import { useLocale } from "react-intlayer";
-import { useLocation } from "react-router";
+  getPathWithoutLocale,
+} from 'intlayer';
+import { setLocaleCookie, useIntlayer, useLocale } from 'react-intlayer';
+import { Link, useLocation } from 'react-router';
 
-export default function LocaleSwitcher() {
-  const { pathname, search } = useLocation();
+export const LocaleSwitcher: FC = () => {
+  const { localeSwitcherLabel } = useIntlayer('locale-switcher');
+  const { pathname } = useLocation();
 
-  const { availableLocales, locale, setLocale } = useLocale({
-    onLocaleChange: (newLocale) => {
-      const pathWithLocale = getLocalizedUrl(pathname + search, newLocale);
-      location.replace(pathWithLocale);
-    },
-  });
+  const { availableLocales, locale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
 
   return (
-    <select
-      aria-label="Select language"
-      onChange={(e) => setLocale(e.target.value)}
-      value={locale}
-    >
-      {availableLocales.map((localeItem) => (
-        <option
-          dir={getHTMLTextDir(localeItem)}
-          key={localeItem}
-          lang={localeItem}
-          value={localeItem}
-        >
-          {/* Example: Français (French) */}
-          {getLocaleName(localeItem, locale)} (
-          {getLocaleName(localeItem, Locales.ENGLISH)})
-        </option>
+    <ol className="divide-text/20 divide-y divide-dashed overflow-y-auto p-1 absolute top-10 right-10">
+      {availableLocales.map((localeEl) => (
+        <li className="py-1 pr-1.5" key={localeEl}>
+          <Link
+            aria-current={localeEl === locale ? 'page' : undefined}
+            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
+            onClick={() => setLocaleCookie(localeEl)}
+            to={getLocalizedUrl(pathWithoutLocale, localeEl)}
+          >
+            <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
+              <div className="flex flex-col text-nowrap">
+                <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
+                  {getLocaleName(localeEl)}
+                </span>
+                <span className="text-neutral text-xs">
+                  {getLocaleName(localeEl, localeEl)}
+                </span>
+              </div>
+              <span className="text-neutral text-sm text-nowrap">
+                {localeEl.toUpperCase()}
+              </span>
+            </div>
+          </Link>
+        </li>
       ))}
-    </select>
+    </ol>
   );
-}
+};

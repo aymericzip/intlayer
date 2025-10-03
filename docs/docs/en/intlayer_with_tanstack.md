@@ -140,16 +140,11 @@ Add the intlayer plugin into your configuration:
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import { intlayerMiddlewarePlugin, intlayer } from "vite-intlayer";
+import { intlayerMiddleware, intlayer } from "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [
-    reactRouter(),
-    tsconfigPaths(),
-    intlayer(),
-    intlayerMiddlewarePlugin(),
-  ],
+  plugins: [reactRouter(), tsconfigPaths(), intlayer(), intlayerMiddleware()],
 });
 ```
 

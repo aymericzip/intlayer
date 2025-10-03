@@ -1,17 +1,19 @@
-import { type Dictionary, t } from "intlayer";
+import { type Dictionary, t } from 'intlayer';
 
 const metaContent = {
   content: {
     description: t({
-      en: "This is the about page description.",
-      tr: "Bu, hakkında sayfasının açıklamasıdır.",
+      en: 'This is the about page description.',
+      es: 'Esta es la descripción de la página de about.',
+      fr: 'Ceci est la description de la page about.',
     }),
     title: t({
-      en: "About",
-      tr: "Hakkında",
+      en: 'About',
+      es: 'About',
+      fr: 'About',
     }),
   },
-  key: "about-meta",
+  key: 'about-meta',
 } satisfies Dictionary;
 
 export default metaContent;

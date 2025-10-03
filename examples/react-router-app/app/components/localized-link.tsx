@@ -1,22 +1,32 @@
-import { getLocalizedUrl } from "intlayer";
-import { useLocale } from "react-intlayer";
-// eslint-disable-next-line no-restricted-imports
-import { Link, type LinkProps } from "react-router";
+import type { FC } from 'react';
 
-type LocalizedLinkProps = {
-  to: string;
-} & Omit<LinkProps, "to">;
+import { getLocalizedUrl, type LocalesValues } from 'intlayer';
+import { useLocale } from 'react-intlayer';
+import { Link, type LinkProps, type To } from 'react-router';
 
-export default function LocalizedLink(props: LocalizedLinkProps) {
+const isExternalLink = (to: string) => /^(https?:)?\/\//.test(to);
+
+export const locacalizeTo = (to: To, locale: LocalesValues): To => {
+  if (typeof to === 'string') {
+    if (isExternalLink(to)) {
+      return to;
+    }
+
+    return getLocalizedUrl(to, locale);
+  }
+
+  if (isExternalLink(to.pathname ?? '')) {
+    return to;
+  }
+
+  return {
+    ...to,
+    pathname: getLocalizedUrl(to.pathname ?? '', locale),
+  };
+};
+
+export const LocalizedLink: FC<LinkProps> = (props) => {
   const { locale } = useLocale();
 
-  const isExternal = (to: string) => {
-    return /^(https?:)?\/\//.test(to);
-  };
-
-  const to = isExternal(props.to)
-    ? props.to
-    : getLocalizedUrl(props.to, locale);
-
-  return <Link {...props} to={to as LinkProps["to"]} />;
-}
+  return <Link {...props} to={locacalizeTo(props.to, locale)} />;
+};
