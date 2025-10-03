@@ -26,6 +26,7 @@ type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
   onClickDictionaryList?: () => void;
   onDelete?: () => void;
+  onSave?: () => void;
   isDarkMode?: boolean;
   mode: ('local' | 'remote')[];
 };
@@ -43,6 +44,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   isDarkMode,
   mode,
   onDelete,
+  onSave,
 }) => {
   const config = useConfiguration();
   const [editorView, setEditorView] = useState<EditorViewType>(
@@ -133,6 +135,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
             setFocusedContent(null);
             onDelete?.();
           }}
+          onSave={onSave}
         />
       </div>
     </LocaleSwitcherContentProvider>

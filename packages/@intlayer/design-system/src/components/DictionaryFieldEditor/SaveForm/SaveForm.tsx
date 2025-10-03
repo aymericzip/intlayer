@@ -35,6 +35,7 @@ type DictionaryDetailsProps = {
   dictionary: Dictionary;
   mode: ('local' | 'remote')[];
   onDelete?: () => void;
+  onSave?: () => void;
 } & DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
 
 export const SaveForm: FC<DictionaryDetailsProps> = ({
@@ -42,6 +43,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   mode,
   className,
   onDelete,
+  onSave,
   ...props
 }) => {
   const [isFormatAlertModalOpen, setIsFormatAlertModalOpen] = useState(false);
@@ -90,6 +92,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         onSuccess: () => {
           setLocaleDictionary(editedContent?.[dictionary.localId!]);
           restoreEditedContent(dictionary.localId!);
+          onSave?.();
         },
       }
     );
@@ -108,6 +111,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         if (res) {
           setLocaleDictionary(editedContent?.[dictionary.localId!]);
           restoreEditedContent(dictionary.localId!);
+          onSave?.();
         }
       },
     });

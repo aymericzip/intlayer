@@ -90,6 +90,9 @@ export const DictionaryEditionDrawerContent: FC<
               setEditionModalOpen(false);
               handleOnBack();
             }}
+            onSave={() => {
+              setEditionModalOpen(false);
+            }}
           />
         </div>
       </Modal>
