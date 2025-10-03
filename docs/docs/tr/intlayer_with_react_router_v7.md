@@ -1,8 +1,8 @@
 ---
-createdAt: 2025-09-07
-updatedAt: 2025-09-07
+createdAt: 2025-09-04
+updatedAt: 2025-10-03
 title: React Router v7'de Intlayer ile Başlarken
-description: Intlayer kullanarak React Router v7 uygulamanıza uluslararasılaştırma (i18n) eklemeyi öğrenin. Yerel ayar bilincine sahip yönlendirme ile uygulamanızı çok dilli hale getirmek için bu kapsamlı kılavuzu takip edin.
+description: React Router v7 uygulamanıza Intlayer kullanarak uluslararasılaştırmayı (i18n) nasıl ekleyeceğinizi öğrenin. Uygulamanızı yerel dil farkındalıklı yönlendirme ile çok dilli hale getirmek için bu kapsamlı rehberi takip edin.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -17,13 +17,12 @@ slugs:
   - environment
   - vite-and-react
   - react-router-v7
-applicationTemplate: https://github.com/AydinTheFirst/react-router-intlayer
-author: AydinTheFirst
+applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7
 ---
 
-# Intlayer ve React Router v7 ile uluslararasılaştırma (i18n) başlangıç kılavuzu
+# Intlayer ve React Router v7 ile Uluslararasılaştırmaya (i18n) Başlarken
 
-Bu kılavuz, React Router v7 projelerinde yerel ayar bilincine sahip yönlendirme, TypeScript desteği ve modern geliştirme uygulamaları ile **Intlayer**'ı sorunsuz bir şekilde entegre etmeyi gösterir.
+Bu rehber, React Router v7 projelerinde yerel dil farkındalıklı yönlendirme, TypeScript desteği ve modern geliştirme uygulamaları ile sorunsuz uluslararasılaştırma için **Intlayer**'ın nasıl entegre edileceğini gösterir.
 
 ## Intlayer Nedir?
 
@@ -31,19 +30,19 @@ Bu kılavuz, React Router v7 projelerinde yerel ayar bilincine sahip yönlendirm
 
 Intlayer ile şunları yapabilirsiniz:
 
-- **Bileşen düzeyinde bildirimsel sözlükler kullanarak çevirileri kolayca yönetin**.
-- **Meta verileri, rotaları ve içeriği dinamik olarak yerelleştirin**.
-- **Otomatik tamamlama ve hata algılama ile TypeScript desteği sağlayın**.
-- **Dinamik yerel algılama ve anahtarlama gibi gelişmiş özelliklerden yararlanın**.
-- **React Router v7'nin yapılandırma tabanlı yönlendirme sistemi ile yerel ayar bilincine sahip yönlendirmeyi etkinleştirin**.
+- **Bileşen seviyesinde bildirimsel sözlükler kullanarak çevirileri kolayca yönetmek.**
+- **Meta verileri, yönlendirmeleri ve içeriği dinamik olarak yerelleştirmek.**
+- **Otomatik oluşturulan tiplerle TypeScript desteğini sağlamak, otomatik tamamlama ve hata tespitini geliştirmek.**
+- **Dinamik yerel dil algılama ve değiştirme gibi gelişmiş özelliklerden faydalanmak.**
+- **React Router v7'nin yapılandırma tabanlı yönlendirme sistemi ile yerel dil farkındalıklı yönlendirmeyi etkinleştirin.**
 
 ---
 
-## React Router v7 Uygulamasında Intlayer Kurulumu Adım Adım Kılavuzu
+## React Router v7 Uygulamasında Intlayer Kurulumu İçin Adım Adım Rehber
 
-### Adım 1: Bağımlılıkları Kurma
+### Adım 1: Bağımlılıkları Yükleyin
 
-Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri kurun:
+Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri yükleyin:
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -57,15 +56,15 @@ pnpm add vite-intlayer --save-dev
 
 - **intlayer**
 
-  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md), derleme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) için uluslararasılaştırma araçları sağlayan çekirdek paket.
+- Uluslararasılaştırma araçlarını yapılandırma yönetimi, çeviri, [içerik beyanı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/get_started.md), transpile etme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md) için sağlayan temel paket.
 
 - **react-intlayer**
-  Intlayer'ı React uygulaması ile entegre eden paket. React uluslararasılaştırması için bağlam sağlayıcıları ve kancalar sağlar.
+  Intlayer'ı React uygulamasıyla entegre eden paket. React uluslararasılaştırması için bağlam sağlayıcıları ve kancalar sunar.
 
 - **vite-intlayer**
-  [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile Intlayer'ı entegre etmek için Vite eklentisini içerir, ayrıca kullanıcının tercih ettiği yerel ayarı algılamak, çerezleri yönetmek ve URL yönlendirmesini işlemek için middleware içerir.
+  Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için Vite eklentisini, ayrıca kullanıcının tercih ettiği yerel dili algılamak, çerezleri yönetmek ve URL yönlendirmesini işlemek için ara yazılımı içerir.
 
-### Adım 2: Projenizi Yapılandırma
+### Adım 2: Projenizin Yapılandırması
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
@@ -75,10 +74,7 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   internationalization: {
     defaultLocale: Locales.ENGLISH,
-    locales: [Locales.ENGLISH, Locales.TURKISH],
-  },
-  middleware: {
-    prefixDefault: true, // URL'lerde her zaman varsayılan yerel ayarı önekle
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -92,10 +88,7 @@ import { Locales } from "intlayer";
 const config = {
   internationalization: {
     defaultLocale: Locales.ENGLISH,
-    locales: [Locales.ENGLISH, Locales.TURKISH],
-  },
-  middleware: {
-    prefixDefault: true,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -109,65 +102,64 @@ const { Locales } = require("intlayer");
 const config = {
   internationalization: {
     defaultLocale: Locales.ENGLISH,
-    locales: [Locales.ENGLISH, Locales.TURKISH],
-  },
-  middleware: {
-    prefixDefault: true,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
 module.exports = config;
 ```
 
-> Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'ler, middleware yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı, konsolda Intlayer günlüklerinin devre dışı bırakılması ve daha fazlasını ayarlayabilirsiniz. Kullanılabilir parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
+> Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'leri, ara yazılım yönlendirmesini, çerez isimlerini, içerik bildirimlerinizin konumunu ve uzantısını ayarlayabilir, Intlayer günlüklerini konsolda devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakınız.
 
-### Adım 3: React Router v7 Rotalarını Yapılandırma
+### Adım 3: Intlayer'ı Vite Yapılandırmanıza Entegre Edin
 
-Yerel ayar bilincine sahip rotalarla yönlendirme yapılandırmanızı ayarlayın:
+Yapılandırmanıza intlayer eklentisini ekleyin:
 
-```typescript fileName="app/routes.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import tsconfigPaths from "vite-tsconfig-paths";
+
+export default defineConfig({
+  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+});
+```
+
+> `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve geliştirme modunda bunları izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca, performansı optimize etmek için takma adlar sağlar.
+
+### Adım 4: React Router v7 Rotalarını Yapılandırma
+
+Yerel dil farkındalığı olan rotalarla yönlendirme yapılandırmanızı ayarlayın:
+
+```typescript fileName="app/routes.ts"
 import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 
 export default [
   layout("routes/layout.tsx", [
-    route("/", "routes/page.tsx"), // Kök sayfa - yerel ayara yönlendirir
-    route("/:lang", "routes/[lang]/page.tsx"), // Yerelleştirilmiş ana sayfa
-    route("/:lang/about", "routes/[lang]/about/page.tsx"), // Yerelleştirilmiş hakkımızda sayfası
+    route("/:lang?", "routes/page.tsx"), // Yerelleştirilmiş ana sayfa
+    route("/:lang/about", "routes/about/page.tsx"), // Yerelleştirilmiş hakkında sayfası
   ]),
 ] satisfies RouteConfig;
 ```
 
-### Adım 4: Vite Yapılandırmanızda Intlayer'ı Entegre Etme
+### Adım 5: Layout Bileşenleri Oluşturun
 
-Intlayer eklentisini yapılandırmanıza ekleyin:
+Kök layout ve dil bazlı layout'larınızı ayarlayın:
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
-import { reactRouter } from "@react-router/dev/vite";
-import { defineConfig } from "vite";
-import { intlayerMiddleware, intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
+#### Kök Layout
 
-export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer(), intlayerMiddleware()],
-});
-```
-
-> `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve bunları geliştirme modunda izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca, performansı optimize etmek için takma adlar sağlar.
-
-### Adım 5: Düzen Bileşenleri Oluşturma
-
-Kök düzeninizi ve yerel ayar özel düzenlerinizi ayarlayın:
-
-#### Kök Düzen
-
-```tsx fileName="app/routes/layout.tsx" codeFormat="typescript"
-// app/routes/layout.tsx
-import { Outlet } from "react-router";
+```tsx fileName="app/routes/layout.tsx"
 import { IntlayerProvider } from "react-intlayer";
+import { Outlet } from "react-router";
 
-export default function RootLayout() {
+import type { Route } from "./+types/layout";
+
+export default function RootLayout({ params }: Route.ComponentProps) {
+  const { locale } = params;
+
   return (
-    <IntlayerProvider>
+    <IntlayerProvider locale={locale}>
       <Outlet />
     </IntlayerProvider>
   );
@@ -186,19 +178,23 @@ const pageContent = {
   content: {
     title: t({
       en: "Welcome to React Router v7 + Intlayer",
-      tr: "React Router v7 + Intlayer'a Hoş Geldiniz",
+      es: "Bienvenido a React Router v7 + Intlayer",
+      fr: "Bienvenue sur React Router v7 + Intlayer",
     }),
     description: t({
       en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
-      tr: "React Router v7 ve Intlayer kullanarak kolayca çok dilli uygulamalar geliştirin.",
+      es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
+      fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
     }),
     aboutLink: t({
-      en: "Learn About Us",
-      tr: "Hakkımızda Öğrenin",
+      en: "Hakkımızda Öğrenin",
+      es: "Aprender Sobre Nosotros",
+      fr: "En savoir plus sur nous",
     }),
     homeLink: t({
-      en: "Home",
-      tr: "Ana Sayfa",
+      en: "Ana Sayfa",
+      es: "Inicio",
+      fr: "Accueil",
     }),
   },
 } satisfies Dictionary;
@@ -206,162 +202,165 @@ const pageContent = {
 export default pageContent;
 ```
 
-> İçerik bildirimleriniz, `contentDir` dizinine dahil edildiği sürece uygulamanızın herhangi bir yerinde tanımlanabilir (varsayılan olarak, `./app`). Ve içerik bildirim dosyası uzantısıyla eşleşmelidir (varsayılan olarak, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> İçerik bildirimleriniz, uygulamanızda `contentDir` dizinine (varsayılan olarak `./app`) dahil edildiği sürece herhangi bir yerde tanımlanabilir. Ve içerik bildirim dosya uzantısıyla eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> Daha fazla detay için [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md) bakın.
+> Daha fazla detay için [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/get_started.md) bakınız.
 
-### Adım 7: Yerel Ayar Bilincine Sahip Bileşenler Oluşturma
+### Adım 7: Yerel Duyarlı Bileşenler Oluşturun
 
-Yerel ayar bilincine sahip navigasyon için bir `LocalizedLink` bileşeni oluşturun:
+Yerel duyarlı gezinme için bir `LocalizedLink` bileşeni oluşturun:
 
-```tsx fileName="app/components/localized-link.tsx" codeFormat="typescript"
-// app/components/localized-link.tsx
-import { getLocalizedUrl } from "intlayer";
+```tsx fileName="app/components/localized-link.tsx"
+import type { FC } from "react";
+
+import { getLocalizedUrl, type LocalesValues } from "intlayer";
 import { useLocale } from "react-intlayer";
-import React from "react";
-import { Link, useLocation } from "react-router";
+import { Link, type LinkProps, type To } from "react-router";
 
-type RouterLinkProps = React.ComponentProps<typeof Link>;
+const isExternalLink = (to: string) => /^(https?:)?\/\//.test(to);
 
-export default function LocalizedLink({ to, ...props }: RouterLinkProps) {
-  const { locale } = useLocale();
-  const location = useLocation();
-
-  const isExternal = (path: string) =>
-    /^([a-z][a-z0-9+.-]*:)?\/\//i.test(path) || path.startsWith("mailto:");
-
+// Belirtilen locale göre URL'yi yerelleştirir
+export const locacalizeTo = (to: To, locale: LocalesValues): To => {
   if (typeof to === "string") {
-    if (to.startsWith("/") && !isExternal(to)) {
-      return <Link to={getLocalizedUrl(to, locale)} {...props} />;
+    if (isExternalLink(to)) {
+      return to;
     }
-    return <Link to={to} {...props} />;
+
+    return getLocalizedUrl(to, locale);
   }
 
-  if (to && typeof to === "object") {
-    const pathname = (to as { pathname?: string }).pathname;
-    if (pathname && pathname.startsWith("/") && !isExternal(pathname)) {
-      return (
-        <Link
-          to={{ ...to, pathname: getLocalizedUrl(pathname, locale) }}
-          {...props}
-        />
-      );
-    }
-    return <Link to={to} {...props} />;
+  if (isExternalLink(to.pathname ?? "")) {
+    return to;
   }
 
-  return (
-    <Link
-      to={getLocalizedUrl(location.pathname + location.search, locale)}
-      {...props}
-    />
-  );
-}
+  return {
+    ...to,
+    pathname: getLocalizedUrl(to.pathname ?? "", locale),
+  };
+};
+
+// Yerelleştirilmiş link bileşeni
+export const LocalizedLink: FC<LinkProps> = (props) => {
+  const { locale } = useLocale();
+
+  return <Link {...props} to={locacalizeTo(props.to, locale)} />;
+};
+```
+
+Yerelleştirilmiş rotalara gitmek istediğiniz durumlarda, `useLocalizedNavigate` kancasını kullanabilirsiniz:
+
+```tsx fileName="app/hooks/useLocalizedNavigate.ts"
+import { useLocale } from "intlayer";
+import { type NavigateOptions, type To, useNavigate } from "react-router";
+
+import { locacalizeTo } from "~/components/localized-link";
+
+export const useLocalizedNavigate = () => {
+  const navigate = useNavigate();
+  const { locale } = useLocale();
+
+  const localizedNavigate = (to: To, options?: NavigateOptions) => {
+    const localedTo = locacalizeTo(to, locale);
+
+    navigate(localedTo, options);
+  };
+
+  return localizedNavigate;
+};
 ```
 
 ### Adım 8: Sayfalarınızda Intlayer'ı Kullanın
 
 Uygulamanız boyunca içerik sözlüklerinize erişin:
 
-#### Kök Yönlendirme Sayfası
-
-```tsx fileName="app/routes/page.tsx" codeFormat="typescript"
-import { useLocale } from "react-intlayer";
-import { Navigate } from "react-router";
-
-export default function Page() {
-  const { locale } = useLocale();
-
-  return <Navigate replace to={locale} />;
-}
-```
-
 #### Yerelleştirilmiş Ana Sayfa
 
-```tsx fileName="app/routes/[lang]/page.tsx" codeFormat="typescript"
+```tsx fileName="app/routes/[lang]/page.tsx"
 import { useIntlayer } from "react-intlayer";
-import LocalizedLink from "~/components/localized-link";
+import { LocalizedLink } from "~/components/localized-link";
 
 export default function Page() {
-  const content = useIntlayer("page");
+  const { title, description, aboutLink } = useIntlayer("page");
 
   return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-      <nav style={{ marginTop: "2rem" }}>
-        <LocalizedLink
-          to="/about"
-          style={{
-            display: "inline-block",
-            padding: "0.5rem 1rem",
-            backgroundColor: "#007bff",
-            color: "white",
-            textDecoration: "none",
-            borderRadius: "4px",
-          }}
-        >
-          {content.aboutLink}
-        </LocalizedLink>
+    <div>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <nav>
+        <LocalizedLink to="/about">{aboutLink}</LocalizedLink>
       </nav>
     </div>
   );
 }
 ```
 
-> `useIntlayer` kancası hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md) bakın.
+> `useIntlayer` kancası hakkında daha fazla bilgi edinmek için [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md) bakabilirsiniz.
 
-### Adım 9: Yerel Ayar Anahtarlama Bileşeni Oluşturma
+### Adım 9: Bir Dil Değiştirici Bileşeni Oluşturun
 
 Kullanıcıların dilleri değiştirmesine izin veren bir bileşen oluşturun:
 
-```tsx fileName="app/components/locale-switcher.tsx" codeFormat="typescript"
-import { getLocalizedUrl, getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
-import { useLocation, useNavigate } from "react-router";
+```tsx fileName="app/components/locale-switcher.tsx"
+import type { FC } from "react";
 
-export default function LocaleSwitcher() {
-  const { locale, availableLocales, setLocale } = useLocale();
-  const location = useLocation();
-  const navigate = useNavigate();
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getLocalizedUrl,
+  getPathWithoutLocale,
+} from "intlayer";
+import { setLocaleCookie, useIntlayer, useLocale } from "react-intlayer";
+import { Link, useLocation } from "react-router";
 
-  const handleLocaleChange = (newLocale: string) => {
-    const localizedUrl = getLocalizedUrl(
-      location.pathname + location.search,
-      newLocale
-    );
-    setLocale(newLocale);
-    navigate(localizedUrl);
-  };
+export const LocaleSwitcher: FC = () => {
+  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
+  const { pathname } = useLocation();
+
+  const { availableLocales, locale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
 
   return (
-    <div style={{ margin: "1rem 0" }}>
-      <label htmlFor="locale-select">Dil Seçin: </label>
-      <select
-        id="locale-select"
-        value={locale}
-        onChange={(e) => handleLocaleChange(e.target.value)}
-        style={{ padding: "0.25rem", marginLeft: "0.5rem" }}
-      >
-        {availableLocales.map((availableLocale) => (
-          <option key={availableLocale} value={availableLocale}>
-            {getLocaleName(availableLocale)}
-          </option>
-        ))}
-      </select>
-    </div>
+    <ol>
+      {availableLocales.map((localeItem) => (
+        <li key={localeItem}>
+          <Link
+            aria-current={localeItem === locale ? "sayfa" : undefined}
+            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeItem)}`}
+            onClick={() => setLocaleCookie(localeItem)}
+            to={getLocalizedUrl(pathWithoutLocale, localeItem)}
+          >
+            <span>
+              {/* Yerel - örn. FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* Dil kendi yerelinde - örn. Français */}
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+              {/* Mevcut yerelde dil - örn. Locales.SPANISH olarak ayarlanmış mevcut yerelle Francés */}
+              {getLocaleName(localeItem)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* İngilizce dilinde - örn. French */}
+              {getLocaleName(localeItem, Locales.ENGLISH)}
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ol>
   );
-}
+};
 ```
 
-> `useLocale` kancası hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) bakın.
+> `useLocale` hook'u hakkında daha fazla bilgi edinmek için [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md) bakınız.
 
-### Adım 10: HTML Özellikleri Yönetimini Ekleyin (İsteğe Bağlı)
+### Adım 10: HTML Öznitelikleri Yönetimi Ekleme (İsteğe Bağlı)
 
-HTML lang ve dir özelliklerini yönetmek için bir kanca oluşturun:
+HTML lang ve dir özniteliklerini yönetmek için bir hook oluşturun:
 
-```tsx fileName="app/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
-// app/hooks/useI18nHTMLAttributes.tsx
+```tsx fileName="app/hooks/useI18nHTMLAttributes.tsx"
 import { getHTMLTextDir } from "intlayer";
 import { useEffect } from "react";
 import { useLocale } from "react-intlayer";
@@ -378,15 +377,14 @@ export const useI18nHTMLAttributes = () => {
 
 Ardından kök bileşeninizde kullanın:
 
-```tsx fileName="app/root.tsx" codeFormat="typescript"
-// app/routes/layout.tsx
+```tsx fileName="app/routes/layout.tsx"
 import { Outlet } from "react-router";
 import { IntlayerProvider } from "react-intlayer";
 
-import { useI18nHTMLAttributes } from "app/hooks/useI18nHTMLAttributes"; // kancayı içe aktarın
+import { useI18nHTMLAttributes } from "app/hooks/useI18nHTMLAttributes"; // hook'u içe aktar
 
 export default function RootLayout() {
-  useI18nHTMLAttributes(); // kancayı çağırın
+  useI18nHTMLAttributes(); // hook'u çağır
 
   return (
     <IntlayerProvider>
@@ -396,114 +394,76 @@ export default function RootLayout() {
 }
 ```
 
-### Adım 11: Uygulamanızı Oluşturun ve Çalıştırın
+### Adım 11: Middleware ekleyin (İsteğe bağlı)
 
-İçerik sözlüklerini oluşturun ve uygulamanızı çalıştırın:
+Ayrıca uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerMiddleware` kullanabilirsiniz. Bu eklenti, URL'ye göre geçerli yerel ayarı otomatik olarak algılar ve uygun yerel ayar çerezini ayarlar. Hiçbir yerel ayar belirtilmemişse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirler. Hiçbir yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirme yapar.
 
-```bash packageManager="npm"
-# Intlayer sözlüklerini oluşturun
-npm run intlayer:build
+> Üretimde `intlayerMiddleware` kullanmak için, `vite-intlayer` paketini `devDependencies`'den `dependencies`'e geçirmeniz gerektiğini unutmayın.
 
-# Geliştirme sunucusunu başlatın
-npm run dev
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { intlayer, intlayerMiddleware } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react(), intlayer(), intlayerMiddleware()],
+});
 ```
 
-```bash packageManager="pnpm"
-# Intlayer sözlüklerini oluşturun
-pnpm intlayer:build
+---
 
-# Geliştirme sunucusunu başlatın
-pnpm dev
-```
+## TypeScript'i Yapılandırma
 
-```bash packageManager="yarn"
-# Intlayer sözlüklerini oluşturun
-yarn intlayer:build
+Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
 
-# Geliştirme sunucusunu başlatın
-yarn dev
-```
-
-### Adım 12: TypeScript Yapılandırma (İsteğe Bağlı)
-
-Intlayer, TypeScript'ten faydalanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletmesi kullanır.
-
-TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun:
+TypeScript yapılandırmanızın otomatik oluşturulan türleri içerdiğinden emin olun:
 
 ```json5 fileName="tsconfig.json"
 {
-  compilerOptions: {
-    // ... mevcut TypeScript yapılandırmalarınız
-  },
+  // ... mevcut yapılandırmalarınız
   include: [
     // ... mevcut dahil ettikleriniz
-    ".intlayer/**/*.ts", // Otomatik olarak oluşturulan türleri dahil edin
+    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil et
   ],
 }
 ```
 
-### Git Yapılandırma
+---
 
-Intlayer tarafından oluşturulan dosyaları yok saymanız önerilir. Bu, onları Git deponuza göndermekten kaçınmanıza olanak tanır.
+## Git Yapılandırması
 
-Bunu yapmak için, `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
+Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu, bu dosyaların Git deposuna eklenmesini önlemenizi sağlar.
+
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
 
 ```plaintext fileName=".gitignore"
-# Intlayer tarafından oluşturulan dosyaları yok say
+# Intlayer tarafından oluşturulan dosyaları göz ardı et
 .intlayer
 ```
 
 ---
 
-## Üretim Dağıtımı
+## VS Code Eklentisi
 
-Uygulamanızı dağıtırken:
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyebilirsiniz.
 
-1. **Uygulamanızı oluşturun:**
+[VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-   ```bash
-   npm run build
-   ```
+Bu eklenti şunları sağlar:
 
-2. **Intlayer sözlüklerini oluşturun:**
+- Çeviri anahtarları için **Otomatik Tamamlama**.
+- Eksik çeviriler için **Gerçek Zamanlı Hata Tespiti**.
+- Çevrilmiş içeriğin **Satır İçi Önizlemeleri**.
+- Çevirileri kolayca oluşturup güncellemek için **Hızlı İşlemler**.
 
-   ```bash
-   npm run intlayer:build
-   ```
-
-3. **Üretimde middleware kullanıyorsanız `vite-intlayer`'ı bağımlılıklara taşıyın:**
-   ```bash
-   npm install vite-intlayer --save
-   ```
-
-Uygulamanız artık şunları destekleyecek:
-
-- **URL Yapısı**: `/en`, `/en/about`, `/tr`, `/tr/about`
-- **Tarayıcı tercihlerine göre otomatik yerel ayar algılama**
-- **React Router v7 ile yerel ayar bilincine sahip yönlendirme**
-- **Otomatik olarak oluşturulan türlerle TypeScript desteği**
-- **Uygun yerel ayar yönetimi ile sunucu tarafı işleme**
-
-## VS Code Uzantısı
-
-Intlayer ile geliştirme deneyiminizi geliştirmek için, resmi **Intlayer VS Code Uzantısı**'nı kurabilirsiniz.
-
-[VS Code Marketplace'ten Kurun](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Bu uzantı şunları sağlar:
-
-- **Çeviri anahtarları için otomatik tamamlama**.
-- **Eksik çeviriler için gerçek zamanlı hata algılama**.
-- **Çevrilmiş içeriğin satır içi önizlemeleri**.
-- **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
-
-Uzantının nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
+Eklentinin nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakabilirsiniz.
 
 ---
 
-## Daha Fazla İlerleyin
+## Daha İleri Gitmek İçin
 
-Daha fazla ilerlemek için, [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak harici hale getirebilirsiniz.
+Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.
 
 ---
 
@@ -511,15 +471,16 @@ Daha fazla ilerlemek için, [görsel düzenleyiciyi](https://github.com/aymericz
 
 - [Intlayer Dokümantasyonu](https://intlayer.org)
 - [React Router v7 Dokümantasyonu](https://reactrouter.com/)
-- [useIntlayer kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md)
-- [useLocale kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
-- [İçerik Bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md)
-- [Yapılandırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md)
+- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md)
+- [İçerik Beyanı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/get_started.md)
+- [Yapılandırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
-Bu kapsamlı kılavuz, React Router v7 ile Intlayer'ı yerel ayar bilincine sahip yönlendirme ve TypeScript desteği ile tamamen uluslararasılaştırılmış bir uygulama için entegre etmek için ihtiyacınız olan her şeyi sağlar.
+Bu kapsamlı rehber, Intlayer'ı React Router v7 ile tam uluslararasılaştırılmış, yerel farkındalıklı yönlendirme ve TypeScript desteği olan bir uygulama için entegre etmeniz gereken her şeyi sağlar.
 
-## Dokümantasyon Geçmişi
+## Doküman Geçmişi
 
-| Sürüm | Tarih     | Değişiklikler                |
-| ----- | --------- | ---------------------------- |
-| 5.8.2 | 2025-09-4 | React Router v7 için eklendi |
+| Sürüm | Tarih      | Değişiklikler                |
+| ----- | ---------- | ---------------------------- |
+| 6.1.5 | 2025-10-03 | Doküman güncellendi          |
+| 5.8.2 | 2025-09-4  | React Router v7 için eklendi |
