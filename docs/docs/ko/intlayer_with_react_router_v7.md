@@ -139,7 +139,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // 지역화된 홈 페이지
-    route("/:lang/about", "routes/about/page.tsx"), // 지역화된 소개 페이지
+    route("/:lang?/about", "routes/about/page.tsx"), // 지역화된 소개 페이지
   ]),
 ] satisfies RouteConfig;
 ```

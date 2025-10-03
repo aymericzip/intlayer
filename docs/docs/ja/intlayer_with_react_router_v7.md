@@ -139,7 +139,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // ローカライズされたホームページ
-    route("/:lang/about", "routes/about/page.tsx"), // ローカライズされたアバウトページ
+    route("/:lang?/about", "routes/about/page.tsx"), // ローカライズされたアバウトページ
   ]),
 ] satisfies RouteConfig;
 ```
@@ -485,4 +485,4 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 | バージョン | 日付       | 変更内容                |
 | ---------- | ---------- | ----------------------- |
 | 6.1.5      | 2025-10-03 | ドキュメント更新        |
-| 5.8.2      | 2025-09-4  | React Router v7対応追加 |
+| 5.8.2      | 2025-09-04 | React Router v7対応追加 |

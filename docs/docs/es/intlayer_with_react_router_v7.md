@@ -141,7 +141,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // Página de inicio localizada
-    route("/:lang/about", "routes/about/page.tsx"), // Página "acerca de" localizada
+    route("/:lang?/about", "routes/about/page.tsx"), // Página "acerca de" localizada
   ]),
 ] satisfies RouteConfig;
 ```
@@ -486,4 +486,4 @@ Esta guía completa proporciona todo lo que necesitas para integrar Intlayer con
 | Versión | Fecha      | Cambios                      |
 | ------- | ---------- | ---------------------------- |
 | 6.1.5   | 2025-10-03 | Documento actualizado        |
-| 5.8.2   | 2025-09-4  | Añadido para React Router v7 |
+| 5.8.2   | 2025-09-04 | Añadido para React Router v7 |

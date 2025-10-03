@@ -88,7 +88,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // Localized home page
-    route("/:lang/about", "routes/about/page.tsx"), // Localized about page
+    route("/:lang?/about", "routes/about/page.tsx"), // Localized about page
   ]),
 ] satisfies RouteConfig;
 ```

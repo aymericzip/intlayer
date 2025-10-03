@@ -140,7 +140,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // Pagina iniziale localizzata
-    route("/:lang/about", "routes/about/page.tsx"), // Pagina "about" localizzata
+    route("/:lang?/about", "routes/about/page.tsx"), // Pagina "about" localizzata
   ]),
 ] satisfies RouteConfig;
 ```
@@ -485,4 +485,4 @@ Questa guida completa fornisce tutto il necessario per integrare Intlayer con Re
 | Versione | Data       | Modifiche                    |
 | -------- | ---------- | ---------------------------- |
 | 6.1.5    | 2025-10-03 | Documentazione aggiornata    |
-| 5.8.2    | 2025-09-4  | Aggiunto per React Router v7 |
+| 5.8.2    | 2025-09-04 | Aggiunto per React Router v7 |

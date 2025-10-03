@@ -138,7 +138,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // Yerelleştirilmiş ana sayfa
-    route("/:lang/about", "routes/about/page.tsx"), // Yerelleştirilmiş hakkında sayfası
+    route("/:lang?/about", "routes/about/page.tsx"), // Yerelleştirilmiş hakkında sayfası
   ]),
 ] satisfies RouteConfig;
 ```
@@ -483,4 +483,4 @@ Bu kapsamlı rehber, Intlayer'ı React Router v7 ile tam uluslararasılaştırı
 | Sürüm | Tarih      | Değişiklikler                |
 | ----- | ---------- | ---------------------------- |
 | 6.1.5 | 2025-10-03 | Doküman güncellendi          |
-| 5.8.2 | 2025-09-4  | React Router v7 için eklendi |
+| 5.8.2 | 2025-09-04 | React Router v7 için eklendi |

@@ -140,7 +140,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // Локализованная главная страница
-    route("/:lang/about", "routes/about/page.tsx"), // Локализованная страница "О нас"
+    route("/:lang?/about", "routes/about/page.tsx"), // Локализованная страница "О нас"
   ]),
 ] satisfies RouteConfig;
 ```
@@ -485,4 +485,4 @@ Intlayer использует расширение модулей (module augmen
 | Версия | Дата       | Изменения                     |
 | ------ | ---------- | ----------------------------- |
 | 6.1.5  | 2025-10-03 | Обновлена документация        |
-| 5.8.2  | 2025-09-4  | Добавлено для React Router v7 |
+| 5.8.2  | 2025-09-04 | Добавлено для React Router v7 |
