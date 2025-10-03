@@ -1,7 +1,7 @@
 import { Locales } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { localeDetector } from '@intlayer/core';
-import { cookies, headers } from 'next/headers';
+import { cookies, headers } from 'next/headers.js';
 
 // Helper function to extract locale from referer URL
 export const getLocale = async (): Promise<Locales> => {
