@@ -92,9 +92,9 @@ export const SearchView: FC<{
   const [currentSearchQuery, setCurrentSearchQuery] = useState<string | null>(
     searchQuery
   );
-  const { data: searchDocData, isPending } = useSearchDoc(
-    currentSearchQuery ? { input: currentSearchQuery } : undefined
-  );
+  const { data: searchDocData, isFetching } = useSearchDoc({
+    input: currentSearchQuery ?? '',
+  });
 
   const { noContentText, searchInput } = useIntlayer('doc-search-view');
 
@@ -176,7 +176,7 @@ export const SearchView: FC<{
   }, [isOpen]);
 
   const isNoResult =
-    !isPending &&
+    !isFetching &&
     results.length === 0 &&
     inputRef.current &&
     inputRef.current?.value !== '';
@@ -209,7 +209,7 @@ export const SearchView: FC<{
             ))}
           </ul>
         )}
-        <Loader isLoading={isPending} />
+        <Loader isLoading={isFetching} />
       </div>
     </div>
   );
