@@ -105,7 +105,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                             </OptionalLink>
                           }
                           label={key2}
-                          isOpen={isActive}
+                          isOpen={isActive ? true : undefined}
                           className="!py-0 !pl-0"
                         >
                           <div className="pl-3 text-sm">
