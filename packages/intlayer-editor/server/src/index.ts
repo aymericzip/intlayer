@@ -10,7 +10,7 @@ import { intlayer } from 'express-intlayer';
 import helmet from 'helmet';
 import mime from 'mime';
 import { existsSync, lstatSync, readFileSync } from 'node:fs';
-import path, { dirname, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -75,7 +75,7 @@ const startServer = async (app: Express) => {
 
   // For single-page applications, redirect all unmatched routes to index.html
   app.get(/(.*)/, (req, res) => {
-    const requestedPath = path.join(clientDistPath, req.url); // Full path of the requested file
+    const requestedPath = join(clientDistPath, req.url); // Full path of the requested file
 
     if (existsSync(requestedPath) && lstatSync(requestedPath).isFile()) {
       // If the requested file exists, determine its MIME type and serve it
