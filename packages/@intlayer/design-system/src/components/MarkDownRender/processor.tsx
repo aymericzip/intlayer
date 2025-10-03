@@ -2221,15 +2221,21 @@ export const compiler = (
         };
       },
       _render(node, _output, state = {}) {
-        return (
-          <a
-            key={state.key}
-            href={sanitize(node.target, 'a', 'href') ?? undefined}
-            title={node.title}
-          >
-            {_output(node.children, state)}
-          </a>
-        );
+        const renderedChildren = _output(node.children, state);
+        const overrideComponent = getTag('a', options.overrides ?? {});
+
+        const props = {
+          key: state.key,
+          href: sanitize(node.target, 'a', 'href') ?? undefined,
+          title: node.title,
+          children: renderedChildren,
+        } as Record<string, any>;
+
+        if (typeof overrideComponent === 'function') {
+          return overrideComponent(props);
+        }
+
+        return h('a', props, renderedChildren);
       },
     },
 
