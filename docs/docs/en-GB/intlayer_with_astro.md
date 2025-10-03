@@ -137,7 +137,7 @@ export default appContent;
 
 You can consume dictionaries directly in `.astro` files using the core helpers exported by `intlayer`.
 
-```tsx fileName="src/pages/index.astro"
+```astro fileName="src/pages/index.astro"
 ---
 import { getIntlayer } from "intlayer";
 import appContent from "../app.content";
@@ -161,7 +161,7 @@ const { title } = getIntlayer('app');
 
 Create a dynamic route segment to serve localised pages, for example `src/pages/[locale]/index.astro`:
 
-```tsx fileName="src/pages/[locale]/index.astro"
+```astro fileName="src/pages/[locale]/index.astro"
 ---
 import { getIntlayer } from "intlayer";
 

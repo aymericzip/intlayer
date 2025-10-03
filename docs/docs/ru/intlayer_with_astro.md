@@ -137,7 +137,7 @@ export default appContent;
 
 Вы можете использовать словари напрямую в файлах `.astro`, используя основные помощники, экспортируемые `intlayer`.
 
-```tsx fileName="src/pages/index.astro"
+```astro fileName="src/pages/index.astro"
 ---
 import { getIntlayer } from "intlayer";
 import appContent from "../app.content";
@@ -161,7 +161,7 @@ const { title } = getIntlayer('app');
 
 Создайте динамический сегмент маршрута для обслуживания локализованных страниц, например `src/pages/[locale]/index.astro`:
 
-```tsx fileName="src/pages/[locale]/index.astro"
+```astro fileName="src/pages/[locale]/index.astro"
 ---
 import { getIntlayer } from "intlayer";
 

@@ -137,7 +137,7 @@ export default appContent;
 
 `intlayer` からエクスポートされるコアヘルパーを使って、`.astro` ファイル内で辞書を直接利用できます。
 
-```tsx fileName="src/pages/index.astro"
+```astro fileName="src/pages/index.astro"
 ---
 import { getIntlayer } from "intlayer";
 import appContent from "../app.content";
@@ -161,7 +161,7 @@ const { title } = getIntlayer('app');
 
 ローカライズされたページを提供するために、動的なルートセグメントを作成します。例えば `src/pages/[locale]/index.astro` のようにします。
 
-```tsx fileName="src/pages/[locale]/index.astro"
+```astro fileName="src/pages/[locale]/index.astro"
 ---
 import { getIntlayer } from "intlayer";
 

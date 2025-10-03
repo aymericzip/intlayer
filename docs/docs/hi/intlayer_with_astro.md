@@ -137,7 +137,7 @@ export default appContent;
 
 आप सीधे `.astro` फ़ाइलों में `intlayer` द्वारा निर्यात किए गए कोर हेल्पर्स का उपयोग करके शब्दकोशों का उपयोग कर सकते हैं।
 
-```tsx fileName="src/pages/index.astro"
+```astro fileName="src/pages/index.astro"
 ---
 import { getIntlayer } from "intlayer";
 import appContent from "../app.content";
@@ -161,7 +161,7 @@ const { title } = getIntlayer('app');
 
 स्थानीयकृत पृष्ठों की सेवा के लिए एक डायनामिक रूट सेगमेंट बनाएं, उदाहरण के लिए `src/pages/[locale]/index.astro`:
 
-```tsx fileName="src/pages/[locale]/index.astro"
+```astro fileName="src/pages/[locale]/index.astro"
 ---
 import { getIntlayer } from "intlayer";
 
