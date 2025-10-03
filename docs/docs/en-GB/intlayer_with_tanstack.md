@@ -15,7 +15,6 @@ keywords:
 slugs:
   - doc
   - environment
-  - vite-and-react
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 ---

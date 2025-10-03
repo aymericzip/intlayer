@@ -189,6 +189,20 @@ const nextConfig = {
       headers: defaultHeaders,
     },
   ],
+  async redirects() {
+    return [
+      {
+        source: '/doc/environment/vite-and-react/tanstack-start',
+        destination: '/doc/environment/tanstack-start',
+        permanent: true,
+      },
+      {
+        source: '/:locale/doc/environment/vite-and-react/tanstack-start',
+        destination: '/:locale/doc/environment/tanstack-start',
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return {
       beforeFiles: [
