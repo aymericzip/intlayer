@@ -1497,9 +1497,9 @@ yarn add @intlayer/swc --save-dev
 
 Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать ваш код более надёжным.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 Убедитесь, что ваша конфигурация TypeScript включает автоматически сгенерированные типы.
 

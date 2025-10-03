@@ -1018,9 +1018,10 @@ module.exports = App;
 
 يستخدم Intlayer توسيع الوحدة للاستفادة من TypeScript وجعل قاعدة الكود الخاصة بك أقوى.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
 تأكد من أن إعدادات TypeScript الخاصة بك تتضمن الأنواع التي يتم إنشاؤها تلقائيًا.
 
 ```json5 fileName="tsconfig.json"

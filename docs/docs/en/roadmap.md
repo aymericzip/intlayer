@@ -32,7 +32,7 @@ Intlayer is a content management and internationalization solution designed to s
 
 > Resources:
 >
-> - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md)
+> - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 
 ### 2. Internationalization
 

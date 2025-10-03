@@ -1062,9 +1062,9 @@ const { myMarkdownContent } = useIntlayer("my-component");
 
 Intlayer uses module augmentation to leverage the benefits of TypeScript and strengthen your codebase.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 Ensure your TypeScript configuration includes the auto-generated types.
 

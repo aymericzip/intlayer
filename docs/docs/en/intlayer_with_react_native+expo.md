@@ -309,7 +309,7 @@ module.exports = appContent;
 }
 ```
 
-> For details on content declarations, see [Intlayer’s content docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md).
+> For details on content declarations, see [Intlayer’s content docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
 ---
 

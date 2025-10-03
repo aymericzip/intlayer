@@ -219,9 +219,9 @@ Per impostazione predefinita, `express-intlayer` interpreterà l'intestazione `A
 
 `express-intlayer` sfrutta le potenti capacità di TypeScript per migliorare il processo di internazionalizzazione. Il typing statico di TypeScript garantisce che ogni chiave di traduzione sia considerata, riducendo il rischio di traduzioni mancanti e migliorando la manutenibilità.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 Assicurati che i tipi generati automaticamente (di default in ./types/intlayer.d.ts) siano inclusi nel tuo file tsconfig.json.
 

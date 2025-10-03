@@ -40,7 +40,7 @@ pnpm add intlayer-cli -g
 
 ## intlayer-cli paketi
 
-`intlayer-cli` paketi [intlayer bildirimlerinizi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md) sözlüklere dönüştürmeyi amaçlar.
+`intlayer-cli` paketi [intlayer bildirimlerinizi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) sözlüklere dönüştürmeyi amaçlar.
 
 Bu paket tüm intlayer dosyalarını dönüştürecek, örneğin `src/**/*.content.{ts|js|mjs|cjs|json}`. [Intlayer bildirim dosyalarınızı nasıl bildireceğinizi görün](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 

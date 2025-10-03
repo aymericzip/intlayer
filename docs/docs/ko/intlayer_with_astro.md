@@ -189,9 +189,9 @@ Astro 통합은 개발 중에 지역 인식 라우팅과 환경 정의를 돕는
 
 Intlayer는 TypeScript의 이점을 활용하고 코드베이스를 더 강력하게 만들기 위해 모듈 확장을 사용합니다.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 TypeScript 설정에 자동 생성된 타입이 포함되어 있는지 확인하세요.
 

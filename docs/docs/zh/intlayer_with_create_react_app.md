@@ -1195,9 +1195,10 @@ module.exports = App;
 
 Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库更强大。
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
 确保您的 TypeScript 配置包含自动生成的类型。
 
 ```json5 fileName="tsconfig.json"

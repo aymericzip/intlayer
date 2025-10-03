@@ -55,7 +55,7 @@ yarn add intlayer angular-intlayer @intlayer/webpack
 
 - **intlayer**
 
-  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md), transpilasyon ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) için uluslararasılaştırma araçları sağlayan temel paket.
+  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), transpilasyon ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) için uluslararasılaştırma araçları sağlayan temel paket.
 
 - **angular-intlayer**
   Intlayer'ı Angular uygulamasıyla entegre eden paket. Angular uluslararasılaştırması için bağlam sağlayıcıları ve hook'lar sağlar.
@@ -283,7 +283,7 @@ export default appContent;
 
 > İçerik bildirimleriniz uygulamanızda herhangi bir yerde tanımlanabilir, yeter ki `contentDir` dizinine dahil edilsinler (varsayılan olarak `./src`). Ve içerik bildirim dosyası uzantısıyla eşleşsinler (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> Daha fazla detay için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md) bakın.
+> Daha fazla detay için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
 
 ### Adım 5: Kodunuzda Intlayer'ı Kullanın
 
@@ -637,9 +637,9 @@ Daha karmaşık senaryolar için, HTML'yi güvenli bir şekilde oluşturmak üze
 
 Intlayer, kod tabanınızı daha güçlü hale getirmek için modül genişletmesi kullanır ve TypeScript avantajlarından yararlanır.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 TypeScript yapılandırmanızın otomatik oluşturulan türleri içerdiğinden emin olun.
 

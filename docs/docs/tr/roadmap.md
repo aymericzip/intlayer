@@ -32,7 +32,7 @@ Intlayer, uygulamalarınızda içeriği bildirme, yönetme ve güncelleme şekli
 
 > Kaynaklar:
 >
-> - [İçerik Bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md)
+> - [İçerik Bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 
 ### 2. Uluslararasılaştırma
 

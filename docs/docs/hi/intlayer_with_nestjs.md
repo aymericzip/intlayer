@@ -220,9 +220,9 @@ export default config;
 
 `express-intlayer` अंतर्राष्ट्रीयकरण प्रक्रिया को बेहतर बनाने के लिए TypeScript की मजबूत क्षमताओं का उपयोग करता है। TypeScript की स्थैतिक टाइपिंग यह सुनिश्चित करती है कि हर अनुवाद कुंजी का ध्यान रखा जाए, जिससे अनुवादों के छूटने का जोखिम कम होता है और रखरखाव में सुधार होता है।
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 सुनिश्चित करें कि स्वचालित रूप से उत्पन्न प्रकार (डिफ़ॉल्ट रूप से ./types/intlayer.d.ts में) आपके tsconfig.json फ़ाइल में शामिल हैं।
 

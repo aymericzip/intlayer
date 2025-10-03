@@ -74,7 +74,7 @@ const MyComponent = () => {
 
 This hook will manage the locale detection for you and will return the content for the current locale. Using this hook, you will also be able to interpret markdown, manage pluralization, and more.
 
-> To see all the features of Intlayer, you can read the [dictionary documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md).
+> To see all the features of Intlayer, you can read the [dictionary documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
 ## Distant content
 

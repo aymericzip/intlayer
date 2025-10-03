@@ -56,7 +56,7 @@ pnpm add vite-intlayer --save-dev
 
 - **intlayer**
 
-  The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
+  The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
 
 - **react-intlayer**
   The package that integrates Intlayer with React application. It provides context providers and hooks for React internationalization.
@@ -204,7 +204,7 @@ export default pageContent;
 
 > Your content declarations can be defined anywhere in your application as soon they are included into the `contentDir` directory (by default, `./app`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md).
+> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
 ### Step 7: Create Locale-Aware Components
 
@@ -471,7 +471,7 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 - [React Router v7 Documentation](https://reactrouter.com/)
 - [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md)
 - [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
-- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md)
+- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 - [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 for a fully internationalized application with locale-aware routing and TypeScript support.

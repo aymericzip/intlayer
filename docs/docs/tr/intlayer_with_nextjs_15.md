@@ -60,7 +60,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md), derleme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) için uluslararasılaştırma araçları sağlayan çekirdek paket.
+  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), derleme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) için uluslararasılaştırma araçları sağlayan çekirdek paket.
 
 - **next-intlayer**
 
@@ -380,7 +380,7 @@ module.exports = pageContent;
 
 > İçerik bildirimleriniz, varsayılan olarak `./src` olan `contentDir` dizinine dahil olduğu sürece uygulamanızın herhangi bir yerinde tanımlanabilir. Ve içerik bildirim dosyası uzantısı (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`) ile eşleşmelidir.
 
-> Daha fazla detay için [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md) bakın.
+> Daha fazla detay için [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
 
 ### Adım 6: Kodunuzda İçeriği Kullanın
 
@@ -1452,9 +1452,9 @@ yarn add @intlayer/swc --save-dev
 
 Intlayer, TypeScript'ten faydalanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletmesi kullanır.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun.
 

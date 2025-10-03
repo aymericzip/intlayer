@@ -40,7 +40,7 @@ pnpm add intlayer-cli -g
 
 ## intlayer-cli पैकेज
 
-`intlayer-cli` पैकेज आपके [intlayer घोषणाओं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md) को शब्दकोशों में ट्रांसपाइल करने का उद्देश्य रखता है।
+`intlayer-cli` पैकेज आपके [intlayer घोषणाओं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) को शब्दकोशों में ट्रांसपाइल करने का उद्देश्य रखता है।
 
 यह पैकेज सभी intlayer फाइलों को ट्रांसपाइल करेगा, जैसे कि `src/**/*.content.{ts|js|mjs|cjs|json}`। [देखें कि अपने Intlayer घोषणा फाइलों को कैसे घोषित करें](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)।
 
@@ -367,7 +367,6 @@ npx intlayer doc translate
   > उदाहरण: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
 
 - **`--skip-if-modified-before [skipIfModifiedBefore]`**: यदि फ़ाइल दिए गए समय से पहले संशोधित की गई है तो उसे छोड़ दें।
-
   - यह एक निश्चित समय हो सकता है जैसे "2025-12-05" (स्ट्रिंग या Date)
   - यह एक सापेक्ष समय हो सकता है मिलीसेकंड में `1 * 60 * 60 * 1000` (1 घंटा)
   - यह विकल्प `fs.stat` मेथड का उपयोग करके फ़ाइल के अपडेट समय की जांच करता है। इसलिए यह Git या अन्य टूल्स से प्रभावित हो सकता है जो फ़ाइल को संशोधित करते हैं।
@@ -375,7 +374,6 @@ npx intlayer doc translate
   > उदाहरण: `npx intlayer doc translate --skip-if-modified-before "2025-12-05"`
 
 - **`--skip-if-modified-after [skipIfModifiedAfter]`**: यदि फ़ाइल दिए गए समय के भीतर संशोधित की गई है तो उसे छोड़ दें।
-
   - यह एक निश्चित समय हो सकता है जैसे "2025-12-05" (स्ट्रिंग या Date)
   - यह एक सापेक्ष समय हो सकता है मिलीसेकंड में `1 * 60 * 60 * 1000` (1 घंटा)
   - यह विकल्प `fs.stat` मेथड का उपयोग करके फ़ाइल के अपडेट समय की जांच करता है। इसलिए यह Git या अन्य उपकरणों से प्रभावित हो सकता है जो फ़ाइल को संशोधित करते हैं।
@@ -426,7 +424,6 @@ npx intlayer doc translate
 **कस्टम निर्देश विकल्प:**
 
 - **`--custom-instructions [customInstructions]`**: प्रॉम्प्ट में जोड़े गए कस्टम निर्देश। फॉर्मेटिंग, URL अनुवाद आदि के संबंध में विशिष्ट नियम लागू करने के लिए उपयोगी।
-
   - यह एक निश्चित समय हो सकता है जैसे "2025-12-05" (स्ट्रिंग या डेट)
   - यह एक सापेक्ष समय हो सकता है मिलीसेकंड में `1 * 60 * 60 * 1000` (1 घंटा)
   - यह विकल्प `fs.stat` मेथड का उपयोग करके फ़ाइल के अपडेट समय की जांच करता है। इसलिए यह Git या अन्य टूल्स से प्रभावित हो सकता है जो फ़ाइल को संशोधित करते हैं।

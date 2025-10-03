@@ -368,9 +368,9 @@ module.exports = config;
 
 `express-intlayer`는 국제화 과정을 향상시키기 위해 TypeScript의 강력한 기능을 활용합니다. TypeScript의 정적 타이핑은 모든 번역 키가 포함되도록 보장하여 누락된 번역의 위험을 줄이고 유지보수성을 향상시킵니다.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 자동 생성된 타입들(기본적으로 ./types/intlayer.d.ts 위치)을 tsconfig.json 파일에 포함했는지 확인하세요.
 

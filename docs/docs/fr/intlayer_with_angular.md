@@ -648,9 +648,9 @@ Pour des scénarios plus complexes, vous pouvez créer un pipe pour rendre le HT
 
 Intlayer utilise l'augmentation de module pour bénéficier de TypeScript et renforcer votre base de code.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 Assurez-vous que votre configuration TypeScript inclut les types générés automatiquement.
 

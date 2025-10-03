@@ -1159,9 +1159,10 @@ Al aplicar estos cambios, tu aplicación:
 
 Intlayer utiliza la ampliación de módulos para obtener beneficios de TypeScript y fortalecer tu base de código.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
 Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerados.
 
 ```json5 fileName="tsconfig.json"
