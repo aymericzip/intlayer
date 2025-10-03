@@ -182,7 +182,7 @@ export default function RootLayout() {
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
-```tsx fileName="app/routes/[lang]/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="app/routes/[lang]/page.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {

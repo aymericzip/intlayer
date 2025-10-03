@@ -17,7 +17,7 @@ slugs:
   - environment
   - vite-and-react
   - react-router-v7
-applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7
+applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 ---
 
 # Intlayer ve React Router v7 ile Uluslararasılaştırmaya (i18n) Başlarken
@@ -170,7 +170,7 @@ export default function RootLayout({ params }: Route.ComponentProps) {
 
 Çevirileri depolamak için içerik bildirimlerinizi oluşturun ve yönetin:
 
-```tsx fileName="app/routes/[lang]/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="app/routes/[lang]/page.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {

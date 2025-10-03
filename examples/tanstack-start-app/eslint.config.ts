@@ -11,19 +11,4 @@ export default defineConfig(
   tseslint.configs.strict,
   tseslint.configs.stylistic,
   perfectionist.configs['recommended-alphabetical'],
-  {
-    rules: {
-      'no-restricted-imports': [
-        'error',
-        {
-          paths: [
-            {
-              importNames: ['Link', 'useNavigate'],
-              name: '@tanstack/react-router',
-            },
-          ],
-        },
-      ],
-    },
-  },
 );

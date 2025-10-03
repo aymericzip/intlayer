@@ -1,13 +1,10 @@
 import type { FC } from 'react';
 
-import {
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-  getPathWithoutLocale,
-} from 'intlayer';
+import { useLocation } from '@tanstack/react-router';
+import { getHTMLTextDir, getLocaleName, getPathWithoutLocale } from 'intlayer';
 import { setLocaleCookie, useIntlayer, useLocale } from 'react-intlayer';
-import { Link, useLocation } from '@tanstack/react-router';
+
+import { LocalizedLink, To } from './localized-link';
 
 export const LocaleSwitcher: FC = () => {
   const { localeSwitcherLabel } = useIntlayer('locale-switcher');
@@ -21,11 +18,12 @@ export const LocaleSwitcher: FC = () => {
     <ol className="divide-text/20 divide-y divide-dashed overflow-y-auto p-1 absolute top-10 right-10">
       {availableLocales.map((localeEl) => (
         <li className="py-1 pr-1.5" key={localeEl}>
-          <Link
+          <LocalizedLink
             aria-current={localeEl === locale ? 'page' : undefined}
             aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
             onClick={() => setLocaleCookie(localeEl)}
-            to={getLocalizedUrl(pathWithoutLocale, localeEl)}
+            params={{ locale: localeEl }}
+            to={pathWithoutLocale as To}
           >
             <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
               <div className="flex flex-col text-nowrap">
@@ -40,7 +38,7 @@ export const LocaleSwitcher: FC = () => {
                 {localeEl.toUpperCase()}
               </span>
             </div>
-          </Link>
+          </LocalizedLink>
         </li>
       ))}
     </ol>
