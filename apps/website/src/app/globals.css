@@ -37,7 +37,7 @@
   animation-name: infiniteScroll;
   animation-duration: 85s;
   animation-iteration-count: infinite;
-  animation-timing-function: linear;
+  animation-timing-function: linexar;
 }
 
 .horizontal-loop-2 {
