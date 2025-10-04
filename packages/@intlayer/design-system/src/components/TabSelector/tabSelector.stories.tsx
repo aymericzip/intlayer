@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { TabSelector, TabSelectorColor } from '.';
 import { Button, ButtonVariant } from '../Button';
+import { TabSelector, TabSelectorColor } from '.';
 
 const meta: Meta<typeof TabSelector> = {
   title: 'Components/TabSelector',

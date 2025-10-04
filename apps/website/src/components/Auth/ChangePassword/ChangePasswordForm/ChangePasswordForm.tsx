@@ -3,8 +3,8 @@ import { useUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import {
-  useChangePasswordSchema,
   type ChangePassword,
+  useChangePasswordSchema,
 } from './useChangePasswordSchema';
 
 type ChangePasswordFormProps = {

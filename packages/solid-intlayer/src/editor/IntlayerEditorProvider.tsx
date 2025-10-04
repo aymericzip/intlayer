@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { type Component, type ParentProps } from 'solid-js';
+import type { Component, ParentProps } from 'solid-js';
 import {
   EditorProvider,
   useCrossURLPathSetter,

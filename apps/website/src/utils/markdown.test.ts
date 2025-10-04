@@ -117,7 +117,7 @@ describe('formatRegExp', () => {
     'https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_react_native+expo.md';
 
   const result =
-    'https:\/\/github.com\/aymericzip\/intlayer\/blob\/main\/docs\/docs\/fr\/intlayer_with_react_native\+expo\.md';
+    'https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_react_native+expo.md';
 
   expect(formatRegExp(entry).exec(result)?.length).toEqual(1);
 });

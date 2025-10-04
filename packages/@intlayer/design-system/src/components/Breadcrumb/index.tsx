@@ -3,10 +3,10 @@
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ChevronRightIcon } from 'lucide-react';
-import { Fragment, type FC, type HTMLAttributes, type ReactNode } from 'react';
+import { type FC, Fragment, type HTMLAttributes, type ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../utils/cn';
-import { Button, ButtonVariant, type ButtonProps } from '../Button';
+import { Button, type ButtonProps, ButtonVariant } from '../Button';
 import { Link, LinkColor } from '../Link';
 
 /**

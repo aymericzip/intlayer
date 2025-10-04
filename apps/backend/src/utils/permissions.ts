@@ -1,9 +1,9 @@
-import { Dictionary, DictionaryAPI } from '@/types/dictionary.types';
-import { Organization, OrganizationAPI } from '@/types/organization.types';
-import { Project, ProjectAPI } from '@/types/project.types';
-import { SessionContext } from '@/types/session.types';
-import { Tag, TagAPI } from '@/types/tag.types';
-import { User, UserAPI } from '@/types/user.types';
+import type { Dictionary, DictionaryAPI } from '@/types/dictionary.types';
+import type { Organization, OrganizationAPI } from '@/types/organization.types';
+import type { Project, ProjectAPI } from '@/types/project.types';
+import type { SessionContext } from '@/types/session.types';
+import type { Tag, TagAPI } from '@/types/tag.types';
+import type { User, UserAPI } from '@/types/user.types';
 
 /**
  * A named grouping of privileges (e.g. `"org_admin"`).

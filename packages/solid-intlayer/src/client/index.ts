@@ -3,8 +3,8 @@ export {
   IntlayerClientContext,
   IntlayerProvider,
   IntlayerProviderContent,
-  useIntlayerContext,
   type IntlayerProviderProps,
+  useIntlayerContext,
 } from './IntlayerProvider';
 export { t } from './t';
 export { useDictionary } from './useDictionary';

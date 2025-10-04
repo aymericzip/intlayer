@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, HTMLAttributes, MouseEventHandler } from 'preact/compat';
+import type { FC, HTMLAttributes, MouseEventHandler } from 'preact/compat';
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 
 const DEFAULT_PRESS_DETECT_DURATION = 250;

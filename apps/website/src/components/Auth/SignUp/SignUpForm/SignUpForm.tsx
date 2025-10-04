@@ -2,8 +2,8 @@
 
 import { Form, useForm } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import { RefObject, type FC } from 'react';
-import { useSignUpSchema, type SignUp } from './useSignUpSchema';
+import type { FC, RefObject } from 'react';
+import { type SignUp, useSignUpSchema } from './useSignUpSchema';
 
 type SignUpFormProps = {
   onSubmitSuccess: (data: SignUp) => Promise<void> | void;

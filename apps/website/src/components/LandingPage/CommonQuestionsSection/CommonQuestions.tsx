@@ -3,8 +3,8 @@
 import { Link } from '@components/Link/Link';
 import { Container, MaxHeightSmoother } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
-import { useIntlayer, type IntlayerNode } from 'next-intlayer';
-import { useEffect, useState, type FC } from 'react';
+import { type IntlayerNode, useIntlayer } from 'next-intlayer';
+import { type FC, useEffect, useState } from 'react';
 
 const QuestionItem: FC<{
   question: IntlayerNode;

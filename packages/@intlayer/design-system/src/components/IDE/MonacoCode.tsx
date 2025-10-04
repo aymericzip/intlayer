@@ -1,6 +1,6 @@
 'use client';
 
-import { type OnChange, type OnMount, Editor } from '@monaco-editor/react';
+import { Editor, type OnChange, type OnMount } from '@monaco-editor/react';
 import { type FC, useMemo, useRef, useState } from 'react';
 import { cn } from '../../utils/cn';
 import { CopyButton } from '../CopyButton';

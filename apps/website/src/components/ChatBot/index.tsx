@@ -1,6 +1,5 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system';
 import {
@@ -8,8 +7,9 @@ import {
   usePersistedStore,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid'; // if you prefer a UUID library
+import { PagesRoutes } from '@/Routes';
 import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
 import {

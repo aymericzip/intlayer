@@ -1,4 +1,4 @@
-import { Plans, Period } from '@components/PricingPage/data.content';
+import { Period, Plans } from '@components/PricingPage/data.content';
 
 const pricing = {
   [Period.Monthly]: {

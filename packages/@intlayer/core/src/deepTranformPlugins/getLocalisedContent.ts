@@ -1,10 +1,10 @@
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 import { deepTransformNode } from '../interpreter/getContent/deepTransform';
 import {
-  translationPlugin,
   type DeepTransformContent,
   type NodeProps,
   type Plugins,
+  translationPlugin,
 } from '../interpreter/getContent/plugins';
 import type { ContentNode } from '../types';
 

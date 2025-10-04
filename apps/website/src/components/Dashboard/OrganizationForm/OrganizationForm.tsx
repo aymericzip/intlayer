@@ -4,7 +4,7 @@ import { Button, Container, Loader, Modal } from '@intlayer/design-system';
 import { useAuth, useGetOrganizations } from '@intlayer/design-system/hooks';
 import { Trash } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { Suspense, useState, type FC } from 'react';
+import { type FC, Suspense, useState } from 'react';
 import { DeleteOrganizationModal } from './DeleteOrganizationModal';
 import { MembersForm } from './Members/MembersForm';
 import { NoOrganizationView } from './NoOrganizationView';

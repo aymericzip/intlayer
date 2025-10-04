@@ -5,7 +5,7 @@ import {
   type SwitchSelectorChoices,
 } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import { useState, type FC } from 'react';
+import { type FC, useState } from 'react';
 import { DemoCodeSandbox } from './DemoCodeSandbox';
 import { DemoYoutube } from './DemoYoutube';
 

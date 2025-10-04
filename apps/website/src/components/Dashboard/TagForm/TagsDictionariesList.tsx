@@ -1,13 +1,13 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { Button, Loader } from '@intlayer/design-system';
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionaryActions } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
+import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 type TagsDictionariesListProps = {
   tagKey: string;

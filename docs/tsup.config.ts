@@ -1,5 +1,5 @@
 import { commonOptions } from '@utils/tsup-config';
-import { type Options, defineConfig } from 'tsup';
+import { defineConfig, type Options } from 'tsup';
 
 const option: Options[] = [
   {

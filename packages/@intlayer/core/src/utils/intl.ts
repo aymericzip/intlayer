@@ -28,7 +28,9 @@ import { Locales, type LocalesValues } from '@intlayer/config/client';
 // The "capital‑letter" heuristic is 100 % accurate today and keeps the
 // mapping short‑lived, so we don't have to manually list every constructor.
 type IntlConstructors = {
-  [K in keyof typeof Intl as (typeof Intl)[K] extends new (...args: any) => any
+  [K in keyof typeof Intl as (typeof Intl)[K] extends new (
+    ...args: any
+  ) => any
     ? K
     : never]: (typeof Intl)[K];
 };
@@ -38,9 +40,16 @@ type ReplaceLocaleWithLocalesValues<T> = T extends new (
   locales: any,
   options?: infer Options
 ) => infer Instance
-  ? new (locales?: LocalesValues, options?: Options) => Instance
-  : T extends new (locales: any) => infer Instance
-    ? new (locales?: LocalesValues) => Instance
+  ? new (
+      locales?: LocalesValues,
+      options?: Options
+    ) => Instance
+  : T extends new (
+        locales: any
+      ) => infer Instance
+    ? new (
+        locales?: LocalesValues
+      ) => Instance
     : T;
 
 // Wrapped Intl type with LocalesValues

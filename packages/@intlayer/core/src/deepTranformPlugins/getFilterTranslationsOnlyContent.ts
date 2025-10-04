@@ -2,13 +2,13 @@ import configuration from '@intlayer/config/built';
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 import { getTranslation } from '../interpreter';
 import { deepTransformNode } from '../interpreter/getContent/deepTransform';
-import {
-  type DeepTransformContent,
-  type NodeProps,
-  type Plugins,
+import type {
+  DeepTransformContent,
+  NodeProps,
+  Plugins,
 } from '../interpreter/getContent/plugins';
-import { TranslationContent } from '../transpiler';
-import { KeyPath, NodeType, type ContentNode } from '../types';
+import type { TranslationContent } from '../transpiler';
+import { type ContentNode, type KeyPath, NodeType } from '../types';
 
 /**
  * Helper function to check if a node or its children contain translation nodes

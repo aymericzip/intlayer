@@ -1,12 +1,12 @@
-@import 'tailwindcss';
-@import '@intlayer/design-system/css';
+@import "tailwindcss";
+@import "@intlayer/design-system/css";
 @config '@intlayer/design-system/tailwind-config';
 
 @source "./**/*.{ts,tsx}";
 @source "../../../@intlayer/design-system/src/**/*.{ts,tsx}";
 
 html {
-  font-family: 'Figtree';
+  font-family: "Figtree";
 }
 
 #root {
@@ -17,7 +17,8 @@ html {
 }
 
 @font-face {
-  font-family: 'Figtree';
+  font-family: "Figtree";
   src:
-    local('Figtree-VariableFont'), url('./assets/fonts/Figtree-VariableFont.ttf');
+    local("Figtree-VariableFont"),
+    url("./assets/fonts/Figtree-VariableFont.ttf");
 }

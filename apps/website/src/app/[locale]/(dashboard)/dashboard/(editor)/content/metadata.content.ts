@@ -1,5 +1,5 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { type Dictionary, t } from 'intlayer';
+import type { Metadata } from 'next';
 
 const metadataContent = {
   key: 'content-dashboard-metadata',

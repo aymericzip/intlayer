@@ -4,8 +4,8 @@ import { Loader } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
-import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import dynamic from 'next/dynamic';
+import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import {
   type FC,
   type PropsWithChildren,
@@ -92,8 +92,9 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
               ? '3rem'
               : `${
                   (2 / 3) *
-                    (radius * Math.sin(angle) * 2 +
-                      2 / (absIndexDiff / 5 + 1)) +
+                    (
+                      radius * Math.sin(angle) * 2 + 2 / (absIndexDiff / 5 + 1)
+                    ) +
                   3
                 }rem`,
             opacity: absIndexDiff > 2 ? 0 : absIndexDiff > 1 ? 0.5 : 1,

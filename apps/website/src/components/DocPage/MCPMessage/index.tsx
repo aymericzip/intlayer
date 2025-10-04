@@ -1,8 +1,8 @@
-import { PagesRoutes } from '@/Routes';
 import { Link } from '@components/Link/Link';
 import { Popover } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer/server';
-import { FC } from 'react';
+import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { McpLogo } from './McpLogo';
 
 export const MCPMessage: FC = () => {

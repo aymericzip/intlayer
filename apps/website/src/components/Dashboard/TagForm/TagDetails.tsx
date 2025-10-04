@@ -6,9 +6,9 @@ import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { TagEditionForm } from './TagEditionForm';
 import { TagsDictionariesList } from './TagsDictionariesList';
-import { PagesRoutes } from '@/Routes';
 
 type TagDetailsProps = {
   tagKey: string;

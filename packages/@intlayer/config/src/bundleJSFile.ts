@@ -1,4 +1,4 @@
-import { build, BuildOptions } from 'esbuild';
+import { type BuildOptions, build } from 'esbuild';
 
 const commonBuildOptions = {
   bundle: true,

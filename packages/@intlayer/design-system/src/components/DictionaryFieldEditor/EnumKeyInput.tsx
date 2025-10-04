@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState, type FC } from 'react';
+import { type FC, useEffect, useMemo, useState } from 'react';
 import { Input } from '../Input';
 import { Select } from '../Select';
 

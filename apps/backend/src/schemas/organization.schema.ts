@@ -1,10 +1,10 @@
-import { OrganizationSchema } from '@/types/organization.types';
 import {
   MEMBERS_MIN_LENGTH,
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
 } from '@utils/validation/validateOrganization';
 import { Schema } from 'mongoose';
+import type { OrganizationSchema } from '@/types/organization.types';
 import { planSchema } from './plans.schema';
 
 export const organizationSchema = new Schema<OrganizationSchema>(

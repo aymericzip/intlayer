@@ -1,8 +1,8 @@
 import type { LocalesValues } from '@intlayer/config/client';
 import type { DictionaryKeys } from '@intlayer/core';
-import { createMemo, useContext } from 'solid-js';
-// @ts-ignore intlayer declared for module augmentation
+// @ts-expect-error intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
+import { createMemo, useContext } from 'solid-js';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';

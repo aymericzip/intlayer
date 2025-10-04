@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectorRef,
+  type ChangeDetectorRef,
   Component,
   computed,
-  ElementRef,
+  type ElementRef,
   EventEmitter,
   HostListener,
   Input,
-  OnDestroy,
-  OnInit,
+  type OnDestroy,
+  type OnInit,
   Output,
   signal,
   ViewChild,

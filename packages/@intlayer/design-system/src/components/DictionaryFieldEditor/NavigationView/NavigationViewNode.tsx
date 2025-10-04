@@ -1,13 +1,13 @@
 import configuration from '@intlayer/config/built';
 
 import {
+  type ContentNode,
   getContentNodeByKeyPath,
   getEmptyNode,
   getNodeType,
   isSameKeyPath,
-  NodeType,
-  type ContentNode,
   type KeyPath,
+  NodeType,
 } from '@intlayer/core';
 import {
   useEditedContentActions,

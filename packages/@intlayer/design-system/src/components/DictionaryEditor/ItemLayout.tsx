@@ -1,4 +1,4 @@
-import type { ReactNode, FC, HTMLAttributes } from 'react';
+import type { FC, HTMLAttributes, ReactNode } from 'react';
 import { cn } from '../../utils/cn';
 import { Accordion } from '../Accordion';
 

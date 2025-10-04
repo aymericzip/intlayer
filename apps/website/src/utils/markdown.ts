@@ -1,9 +1,9 @@
-import { DocMetadata } from '@intlayer/docs';
+import type { DocMetadata } from '@intlayer/docs';
 import {
   getIntlayer,
   getLocalizedUrl,
+  type LocalesValues,
   localeMap,
-  LocalesValues,
 } from 'intlayer';
 
 // ---------------------------------------------------------------------------

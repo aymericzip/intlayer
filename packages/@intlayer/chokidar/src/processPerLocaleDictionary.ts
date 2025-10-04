@@ -1,4 +1,9 @@
-import { deepTransformNode, Plugins, t, type Dictionary } from '@intlayer/core';
+import {
+  type Dictionary,
+  deepTransformNode,
+  type Plugins,
+  t,
+} from '@intlayer/core';
 
 /**
  *

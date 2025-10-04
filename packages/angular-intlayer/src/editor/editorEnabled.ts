@@ -1,4 +1,10 @@
-import { computed, effect, Injector, signal, Signal } from '@angular/core';
+import {
+  computed,
+  effect,
+  type Injector,
+  type Signal,
+  signal,
+} from '@angular/core';
 import { MessageKey } from '@intlayer/editor';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';

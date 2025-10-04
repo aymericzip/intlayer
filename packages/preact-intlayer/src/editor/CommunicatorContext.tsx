@@ -3,8 +3,8 @@
 import configuration from '@intlayer/config/built';
 
 import {
-  createContext,
   type ComponentChildren,
+  createContext,
   type FunctionComponent,
 } from 'preact';
 import { useContext, useMemo, useRef } from 'preact/hooks';

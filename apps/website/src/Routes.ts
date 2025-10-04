@@ -41,7 +41,7 @@ export enum PagesRoutes {
 
   Blog = '/blog/search/',
   Blog_Search = '/blog/search',
-  'Blog_What_is_i18n' = '/blog/what-is-internationalization',
+  Blog_What_is_i18n = '/blog/what-is-internationalization',
 
   PrivacyPolicy = '/privacy-notice',
   TermsOfService = '/terms-of-service',

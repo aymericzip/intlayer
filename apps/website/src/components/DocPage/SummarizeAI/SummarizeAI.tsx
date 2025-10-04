@@ -3,7 +3,7 @@
 import { Link, Popover } from '@intlayer/design-system';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { AntropicLogo } from './AntropicLogo';
 import { ChatGPTLogo } from './ChatGPTLogo';
 import { DeepSeekLogo } from './DeepSeekLogo';

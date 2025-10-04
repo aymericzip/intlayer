@@ -3,14 +3,14 @@
 import { getLocalizedUrl } from '@intlayer/core';
 import {
   checkIsExternalLink,
-  linkVariants,
   type LinkProps as LinkUIProps,
+  linkVariants,
 } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { ExternalLink } from 'lucide-react';
-import { useLocale } from 'next-intlayer';
 import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
-import { type FC } from 'react';
+import { useLocale } from 'next-intlayer';
+import type { FC } from 'react';
 
 export type LinkProps = LinkUIProps & NextLinkProps;
 

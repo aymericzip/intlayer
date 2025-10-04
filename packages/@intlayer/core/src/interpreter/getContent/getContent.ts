@@ -4,14 +4,14 @@ import type { ContentNode } from '../../types';
 import { deepTransformNode } from './deepTransform';
 import {
   conditionPlugin,
+  type DeepTransformContent,
   enumerationPlugin,
   filePlugin,
   insertionPlugin,
-  nestedPlugin,
-  translationPlugin,
-  type DeepTransformContent,
   type NodeProps,
+  nestedPlugin,
   type Plugins,
+  translationPlugin,
 } from './plugins';
 
 /**

@@ -1,6 +1,6 @@
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
-// @ts-ignore express-intlayer not build yet
-import { t, type LanguageContent } from 'express-intlayer';
+// @ts-expect-error express-intlayer not build yet
+import { type LanguageContent, t } from 'express-intlayer';
 import { type ErrorCodes, errorData } from './errorCodes';
 
 /**

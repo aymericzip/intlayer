@@ -1,8 +1,8 @@
+import { Schema } from 'mongoose';
 import type {
   DictionarySchema,
   VersionedContentEl,
 } from '@/types/dictionary.types';
-import { Schema } from 'mongoose';
 
 const versionedContentElSchema = new Schema<VersionedContentEl>(
   {

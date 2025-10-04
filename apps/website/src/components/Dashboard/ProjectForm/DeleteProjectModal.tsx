@@ -1,11 +1,11 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { Form, Modal } from '@intlayer/design-system';
 import { useDeleteProject } from '@intlayer/design-system/hooks';
-import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
+import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 type DeleteProjectModalProps = {
   isOpen: boolean;

@@ -12,7 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import { cn } from '@utils/cn';
 import { X } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 
 const VISIBLE_START_TIME = 3000;
 const MINIATURIZING_END_TIME = 6000;

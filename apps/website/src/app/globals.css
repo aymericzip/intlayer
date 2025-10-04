@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import '@intlayer/design-system/css';
+@import "tailwindcss";
+@import "@intlayer/design-system/css";
 @config '@intlayer/design-system/tailwind-config';
 
 @source "../src/**/*.{ts,tsx}";

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
-import { EditableFieldTextArea } from '.';
 import { InputVariant } from '../Input';
+import { EditableFieldTextArea } from '.';
 
 /**
  * EditableField TextArea Component Stories

@@ -12,8 +12,8 @@ import type { BlogMetadata, DocMetadata } from '@intlayer/docs';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { getIntlayer } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import { useSearchParams } from 'next/navigation';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useEffect, useRef, useState } from 'react';
 
 // Convert the documentation into an array of objects for Fuse.js
@@ -131,7 +131,7 @@ export const SearchView: FC<{
   // Handle backend search results
   useEffect(() => {
     if (searchDocData && searchDocData.data && currentSearchQuery) {
-      let backendResults: DocMetadata[] = searchDocData.data
+      const backendResults: DocMetadata[] = searchDocData.data
         .map((docKey: string) => filesData.find((doc) => doc.docKey === docKey))
         .filter((doc: DocMetadata | undefined): doc is DocMetadata =>
           Boolean(doc)

@@ -1,11 +1,11 @@
-import { PagesRoutes } from '@/Routes';
 import {
   Breadcrumb,
   type BreadcrumbLink,
   type BreadcrumbProps,
 } from '@intlayer/design-system';
-import { type LocalesValues, getLocalizedUrl } from 'intlayer';
+import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import { type FC, useMemo } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { getBlogSubSection } from './blogData';
 import type { Section } from './types';
 

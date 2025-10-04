@@ -1,3 +1,7 @@
+import { ProjectModel } from '@models/project.model';
+import { GenericError } from '@utils/errors';
+import { randomBytes } from 'crypto';
+import type { Types } from 'mongoose';
 import type {
   AccessKeyData,
   OAuth2Access,
@@ -5,10 +9,6 @@ import type {
   Project,
 } from '@/types/project.types';
 import type { User } from '@/types/user.types';
-import { ProjectModel } from '@models/project.model';
-import { GenericError } from '@utils/errors';
-import { randomBytes } from 'crypto';
-import type { Types } from 'mongoose';
 import { getProjectById } from './project.service';
 
 /**

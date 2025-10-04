@@ -1,16 +1,16 @@
 'use client';
 
-import { type Locales } from '@intlayer/config/client';
+import type { Locales } from '@intlayer/config/client';
 import { Container } from '@intlayer/design-system';
 import {
-  FileContent,
+  type FileContent,
   MessageKey,
   useCrossFrameState,
   useDictionariesRecordActions,
 } from '@intlayer/editor-react';
 import unmergedDictionaries from '@intlayer/unmerged-dictionaries-entry';
 import { useTheme } from 'next-themes';
-import { useEffect, type FC, type PropsWithChildren } from 'react';
+import { type FC, type PropsWithChildren, useEffect } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
 import { DictionaryListDrawer } from './DictionaryListDrawer';
 import { LongPressMessage } from './LongPressMessage';

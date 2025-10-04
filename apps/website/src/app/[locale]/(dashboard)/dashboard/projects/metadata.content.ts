@@ -1,5 +1,5 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { type Dictionary, t } from 'intlayer';
+import type { Metadata } from 'next';
 
 const metadataContent = {
   key: 'project-dashboard-metadata',
@@ -103,14 +103,7 @@ const metadataContent = {
         'Colaboração',
         'Gestão de projetos',
       ],
-      hi: [
-        'परियोजना',
-        'सेटिंग्स',
-        'कॉन्फ़िगरेशन',
-        'टीम',
-        'सहयोग',
-        'परियोजना प्रबंधन',
-      ],
+      hi: ['परियोजना', 'सेटिंग्स', 'कॉन्फ़िगरेशन', 'टीम', 'सहयोग', 'परियोजना प्रबंधन'],
       ar: [
         'المشروع',
         'الإعدادات',

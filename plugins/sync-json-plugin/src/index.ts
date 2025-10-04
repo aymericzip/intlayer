@@ -1,12 +1,12 @@
+import { isAbsolute, resolve } from 'node:path';
 import {
   ESMxCJSRequire,
   type IntlayerConfig,
   type Locales,
   type Plugin,
 } from '@intlayer/config';
-import { type Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import fg from 'fast-glob';
-import { isAbsolute, resolve } from 'node:path';
 
 type JSONContent = Record<string, any>;
 
@@ -137,7 +137,7 @@ const listMessages = (
     cwd: baseDir,
   });
 
-  let result: MessagesRecord = {} as MessagesRecord;
+  const result: MessagesRecord = {} as MessagesRecord;
 
   for (const file of files) {
     const { key, locale } = extractKeyAndLocaleFromPath(
@@ -178,8 +178,8 @@ const loadMessagePathMap = (
     messages = source;
   }
 
-  const dictionariesPathMap: DictionariesMap = Object.entries(messages)
-    .map(([locale, keysRecord]) =>
+  const dictionariesPathMap: DictionariesMap = Object.entries(messages).flatMap(
+    ([locale, keysRecord]) =>
       Object.entries(keysRecord).map(
         ([key, path]) =>
           ({
@@ -188,8 +188,7 @@ const loadMessagePathMap = (
             key,
           }) as DictionariesMap[number]
       )
-    )
-    .flat();
+  );
 
   return dictionariesPathMap;
 };

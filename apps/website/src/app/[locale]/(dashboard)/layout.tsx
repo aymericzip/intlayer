@@ -1,14 +1,14 @@
-import { PagesRoutes } from '@/Routes';
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { getServerSession } from '@components/Auth/getServerSession';
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
-import { Session } from '@intlayer/backend';
+import type { Session } from '@intlayer/backend';
 import { PageLayout } from '@layouts/PageLayout';
-import { type LocalesValues } from 'intlayer';
+import type { LocalesValues } from 'intlayer';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC, PropsWithChildren } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 export { generateMetadata } from './metadata';
 

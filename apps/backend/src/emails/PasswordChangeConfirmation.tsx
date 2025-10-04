@@ -8,8 +8,8 @@ import {
   Img,
   Preview,
   Section,
-  Text,
   Tailwind,
+  Text,
 } from '@react-email/components';
 
 export type PasswordChangeConfirmationEmailProps = {

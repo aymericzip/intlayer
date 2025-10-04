@@ -1,5 +1,5 @@
 import { cn } from '@utils/cn';
-import { type LocalesValues, getHTMLTextDir } from 'intlayer';
+import { getHTMLTextDir, type LocalesValues } from 'intlayer';
 import { Figtree } from 'next/font/google';
 import type { FC, PropsWithChildren } from 'react';
 

@@ -2,7 +2,7 @@
 
 import { AutoCompleteTextarea, Container } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, useState, type FC } from 'react';
+import { type FC, useEffect, useState } from 'react';
 
 const getTextContent = (text: string, textProgress: number) => {
   // Pleat text of 3 characters

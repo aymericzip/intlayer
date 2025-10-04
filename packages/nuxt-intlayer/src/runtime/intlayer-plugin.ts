@@ -1,8 +1,9 @@
 // @ts-nocheck -- Nuxt runtime types are provided at application level
+
+import type { Locales } from '@intlayer/config';
+import { createIntlayerClient, installIntlayer } from 'vue-intlayer';
 import { defineNuxtPlugin } from '#app';
 import { useRoute } from '#imports';
-import { Locales } from '@intlayer/config';
-import { createIntlayerClient, installIntlayer } from 'vue-intlayer';
 
 /**
  * Nuxt client plugin injected by `nuxt-intlayer` module.

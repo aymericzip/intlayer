@@ -2,9 +2,9 @@
 
 import { Form, useForm } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import { RefObject, type FC } from 'react';
+import type { FC, RefObject } from 'react';
 import { ExternalsLoginButtons } from '../../ExternalsLoginButtons';
-import { useSignInSchema, type SignIn } from './useSignInSchema';
+import { type SignIn, useSignInSchema } from './useSignInSchema';
 
 type SignInFormProps = {
   defaultEmail?: string;

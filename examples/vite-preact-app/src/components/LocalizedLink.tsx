@@ -1,8 +1,8 @@
 import { getLocalizedUrl } from 'intlayer';
 import type { JSX } from 'preact';
+import { forwardRef } from 'preact/compat';
 import { useLocale } from 'preact-intlayer';
 import { useLocation } from 'preact-iso';
-import { forwardRef } from 'preact/compat';
 
 export interface LocalizedLinkProps
   extends JSX.HTMLAttributes<HTMLAnchorElement> {

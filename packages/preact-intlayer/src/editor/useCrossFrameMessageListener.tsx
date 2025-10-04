@@ -1,6 +1,6 @@
 'use client';
 
-import { type MessageKey, compareUrls } from '@intlayer/editor';
+import { compareUrls, type MessageKey } from '@intlayer/editor';
 import { useEffect } from 'preact/hooks';
 import { useCommunicator } from './CommunicatorContext';
 

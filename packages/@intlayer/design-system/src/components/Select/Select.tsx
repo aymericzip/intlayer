@@ -7,7 +7,7 @@ import {
   ChevronsUpDown,
   ChevronUpIcon,
 } from 'lucide-react';
-import { type ComponentProps, type FC } from 'react';
+import type { ComponentProps, FC } from 'react';
 import { cn } from '../../utils/cn';
 
 /**

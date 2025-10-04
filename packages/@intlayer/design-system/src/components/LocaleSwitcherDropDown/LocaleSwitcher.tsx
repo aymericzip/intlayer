@@ -4,7 +4,7 @@ import { Locales } from '@intlayer/config/client';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { MoveVertical } from 'lucide-react';
-import { useCallback, useMemo, useRef, useState, type FC } from 'react';
+import { type FC, useCallback, useMemo, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Button, ButtonColor, ButtonTextAlign, ButtonVariant } from '../Button';
 import { Container } from '../Container';

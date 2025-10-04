@@ -1,14 +1,14 @@
-import type { Organization } from '@/types/organization.types';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as emailService from '@services/email.service';
 import * as subscriptionService from '@services/subscription.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { retrievePlanInformation } from '@utils/plan';
-import { type ResponseData, formatResponse } from '@utils/responseData';
+import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { Request } from 'express';
 import { t } from 'express-intlayer';
 import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
+import type { Organization } from '@/types/organization.types';
 
 export type GetPricingBody = {
   priceIds: string[];

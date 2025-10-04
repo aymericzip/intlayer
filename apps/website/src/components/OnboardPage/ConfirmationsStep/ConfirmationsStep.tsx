@@ -1,10 +1,10 @@
-import { PagesRoutes } from '@/Routes';
 import { Button, H2 } from '@intlayer/design-system';
 import { useUser } from '@intlayer/design-system/hooks';
 import { Check } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
+import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';

@@ -35,7 +35,6 @@ interface CategoryConfig {
   entryFilePath: string;
 }
 
-
 /* -------------------------------------------------------------------------- */
 /*                               CONFIGURATION                                */
 /* -------------------------------------------------------------------------- */
@@ -134,8 +133,6 @@ const generate = async () => {
 
     /* --------------------------- format with prettier -------------------------- */
     try {
-  
-
       const currentContent = await readFile(cfg.entryFilePath, 'utf-8');
 
       // If the file is different from the formatted version, write the formatted version

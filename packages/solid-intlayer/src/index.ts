@@ -9,6 +9,7 @@ export {
   IntlayerClientContext,
   IntlayerProvider,
   IntlayerProviderContent,
+  type IntlayerProviderProps,
   localeCookie,
   setLocaleCookie,
   t,
@@ -21,7 +22,6 @@ export {
   useLocale,
   useLocaleBase,
   useLocaleCookie,
-  type IntlayerProviderProps,
 } from './client/index';
-export { type IntlayerNode } from './IntlayerNode';
+export type { IntlayerNode } from './IntlayerNode';
 export { MarkdownProvider } from './markdown/index';

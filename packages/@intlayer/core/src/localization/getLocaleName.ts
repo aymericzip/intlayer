@@ -6,7 +6,7 @@ export const getLocaleName = (
   targetLocale: LocalesValues = displayLocale
 ): string => {
   // new Intl.DisplayNames() is fairly heavy: under the hood every call parses CLDR data and builds a resolver table. In your LocaleSwitcher it’s invoked:
-  let displayNames = new Intl.DisplayNames(targetLocale, {
+  const displayNames = new Intl.DisplayNames(targetLocale, {
     type: 'language',
   });
 

@@ -1,9 +1,9 @@
 import {
-  createContext,
-  JSXElement,
-  useContext,
   type Component,
+  createContext,
+  type JSXElement,
   type ParentProps,
+  useContext,
 } from 'solid-js';
 
 type MarkdownProviderValue = {

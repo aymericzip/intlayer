@@ -97,9 +97,9 @@ export const getFileMetadata = async <
   docKey: keyof F,
   locale: LocalesValues = defaultLocale as LocalesValues
 ): Promise<R> => {
-    const file = await getFile(files, docKey, locale);
+  const file = await getFile(files, docKey, locale);
 
-    return formatMetadata(docKey as string, file, locale) as R;
+  return formatMetadata(docKey as string, file, locale) as R;
 };
 
 export const getFileMetadataRecord = async <

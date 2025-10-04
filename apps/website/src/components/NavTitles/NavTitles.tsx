@@ -2,7 +2,7 @@
 
 import { Link } from '@components/Link/Link';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { useEffect, useRef, useState, type FC } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 
 type NavTitles2Props = {
   title2: HTMLElement[];

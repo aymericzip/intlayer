@@ -1,5 +1,5 @@
 import { logger } from '@logger';
-import { CorsOptions } from 'cors';
+import type { CorsOptions } from 'cors';
 
 const whitelist = [process.env.CLIENT_URL!];
 

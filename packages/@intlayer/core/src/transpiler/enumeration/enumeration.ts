@@ -1,7 +1,7 @@
 import {
-  type TypedNodeModel,
   formatNodeType,
   NodeType,
+  type TypedNodeModel,
 } from '../../types/index';
 
 type Positive = number | `${number}`;

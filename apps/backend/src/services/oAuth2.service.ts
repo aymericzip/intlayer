@@ -1,12 +1,3 @@
-import type { OAuth2Token } from '@/types/oAuth2.types';
-import type { Organization } from '@/types/organization.types';
-import type {
-  OAuth2Access,
-  OAuth2AccessContext,
-  Project,
-  ProjectDocument,
-} from '@/types/project.types';
-import type { User, UserAPI, UserDocument } from '@/types/user.types';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
 import { ProjectModel } from '@models/project.model';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
@@ -16,8 +7,17 @@ import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { getTokenExpireAt } from '@utils/oAuth2';
 import { randomBytes } from 'crypto';
-import { Types } from 'mongoose';
+import type { Types } from 'mongoose';
 import type { Callback, Client } from 'oauth2-server';
+import type { OAuth2Token } from '@/types/oAuth2.types';
+import type { Organization } from '@/types/organization.types';
+import type {
+  OAuth2Access,
+  OAuth2AccessContext,
+  Project,
+  ProjectDocument,
+} from '@/types/project.types';
+import type { User, UserAPI, UserDocument } from '@/types/user.types';
 import type { Token } from '../schemas/oAuth2.schema';
 import { getOrganizationById } from './organization.service';
 import { getUserById } from './user.service';
@@ -358,7 +358,7 @@ export const getOAuth2AccessTokenContext = async (
 
   const { project, grants } = result;
 
-  let organization = await getOrganizationById(project.organizationId);
+  const organization = await getOrganizationById(project.organizationId);
 
   return {
     accessToken: token.accessToken,

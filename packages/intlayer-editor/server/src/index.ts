@@ -1,3 +1,6 @@
+import { existsSync, lstatSync, readFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { getConfiguration, getEnvFilePath } from '@intlayer/config';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
@@ -9,9 +12,6 @@ import express, { type Express } from 'express';
 import { intlayer } from 'express-intlayer';
 import helmet from 'helmet';
 import mime from 'mime';
-import { existsSync, lstatSync, readFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

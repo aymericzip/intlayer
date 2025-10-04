@@ -1,4 +1,4 @@
-import { Code, Timer, ListTree, DollarSign, Type, Pencil } from 'lucide-react';
+import { Code, DollarSign, ListTree, Pencil, Timer, Type } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import { AnimatedDiv } from './AnimatedDiv';

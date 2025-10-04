@@ -1,4 +1,4 @@
-import { IInterpreterPluginAngular } from './plugins';
+import type { IInterpreterPluginAngular } from './plugins';
 
 declare module '@intlayer/core' {
   interface IInterpreterPlugin<T, S> extends IInterpreterPluginAngular<T> {}

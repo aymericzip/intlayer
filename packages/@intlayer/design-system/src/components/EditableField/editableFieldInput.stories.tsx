@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
-import { EditableFieldInput } from '.';
 import { InputSize, InputVariant } from '../Input';
+import { EditableFieldInput } from '.';
 
 /**
  * EditableField Input Component Stories

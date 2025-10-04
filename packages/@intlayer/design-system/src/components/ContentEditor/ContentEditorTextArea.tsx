@@ -10,7 +10,7 @@ import {
 } from 'react';
 import { useUser } from '../../hooks/useUser';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
-import { type AutoSizedTextAreaProps, AutoCompleteTextarea } from '../TextArea';
+import { AutoCompleteTextarea, type AutoSizedTextAreaProps } from '../TextArea';
 
 /** Props for the ContentEditorTextArea component */
 export type ContentEditorTextAreaProps = {

@@ -1,14 +1,14 @@
 import {
-  Html,
-  Head,
-  Preview,
-  Tailwind,
   Body,
-  Section,
-  Img,
-  Heading,
-  Container,
   Button,
+  Container,
+  Head,
+  Heading,
+  Html,
+  Img,
+  Preview,
+  Section,
+  Tailwind,
   Text,
 } from '@react-email/components';
 

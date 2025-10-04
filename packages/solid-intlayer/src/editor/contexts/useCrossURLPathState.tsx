@@ -1,8 +1,8 @@
 import { MessageKey } from '@intlayer/editor';
 import { onCleanup, onMount } from 'solid-js';
 import {
-  useCrossFrameState,
   type CrossFrameStateOptions,
+  useCrossFrameState,
 } from './useCrossFrameState';
 
 export const useCrossURLPathState = (

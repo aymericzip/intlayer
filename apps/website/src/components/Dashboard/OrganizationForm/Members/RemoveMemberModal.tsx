@@ -11,7 +11,7 @@ import {
   useUpdateOrganizationMembers,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, type FC } from 'react';
+import { type FC, useEffect } from 'react';
 
 type RemoveMemberModalProps = {
   organization: OrganizationAPI | undefined | null;

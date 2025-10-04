@@ -1,6 +1,5 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { NoOrganizationView } from '@components/Dashboard/OrganizationForm/NoOrganizationView';
 import { OrganizationCreationForm } from '@components/Dashboard/OrganizationForm/OrganizationCreationForm';
 import { OrganizationList } from '@components/Dashboard/OrganizationForm/OrganizationList';
@@ -11,15 +10,16 @@ import {
   useGetOrganizations,
   useSelectOrganization,
 } from '@intlayer/design-system/hooks';
-import { useIntlayer } from 'next-intlayer';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, type FC } from 'react';
+import { useIntlayer } from 'next-intlayer';
+import { type FC, useState } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
 import {
-  useSetUpOrganizationSchema,
   type SetUpOrganization,
+  useSetUpOrganizationSchema,
 } from './useSetUpOrganizationSchema';
 
 const OrganizationFormContent: FC<{

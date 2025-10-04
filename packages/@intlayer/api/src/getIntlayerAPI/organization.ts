@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
-import { fetcher, type FetcherOptions } from '../fetcher';
+import { type FetcherOptions, fetcher } from '../fetcher';
 import type {
   AddOrganizationBody,
   AddOrganizationMemberBody,

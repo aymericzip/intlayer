@@ -1,10 +1,3 @@
-import type {
-  ProjectAPI,
-  ProjectConfiguration,
-  ProjectCreationData,
-  ProjectData,
-} from '@/types/project.types';
-import type { User } from '@/types/user.types';
 import { logger } from '@logger';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { SessionModel } from '@models/session.model';
@@ -28,7 +21,14 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import { Types } from 'mongoose';
+import type { Types } from 'mongoose';
+import type {
+  ProjectAPI,
+  ProjectConfiguration,
+  ProjectCreationData,
+  ProjectData,
+} from '@/types/project.types';
+import type { User } from '@/types/user.types';
 
 export type GetProjectsParams = FiltersAndPagination<ProjectFiltersParams>;
 export type GetProjectsResult = PaginatedResponse<ProjectAPI>;

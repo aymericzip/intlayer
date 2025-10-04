@@ -17,7 +17,7 @@ import {
   useFocusDictionaryActions,
 } from '@intlayer/editor-react';
 import { Plus, Trash } from 'lucide-react';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { camelCaseToSentence } from '../../../utils/camelCase';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../../Button';

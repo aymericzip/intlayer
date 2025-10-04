@@ -5,8 +5,8 @@ import { useAuth, useUpdateOrganization } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import {
-  useOrganizationSchema,
   type OrganizationFormData,
+  useOrganizationSchema,
 } from './useOrganizationFormSchema';
 
 export const OrganizationEditionForm: FC = () => {

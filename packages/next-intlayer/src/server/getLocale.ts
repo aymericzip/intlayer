@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/config';
+import type { Locales } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { localeDetector } from '@intlayer/core';
 import { cookies, headers } from 'next/headers.js';

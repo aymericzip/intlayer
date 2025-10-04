@@ -1,10 +1,10 @@
-import type { Routes } from '@/types/Routes';
 import {
   getNewsletterStatus,
   subscribeToNewsletter,
   unsubscribeFromNewsletter,
 } from '@controllers/newsletter.controller';
 import { Router } from 'express';
+import type { Routes } from '@/types/Routes';
 
 export const newsletterRouter: Router = Router();
 

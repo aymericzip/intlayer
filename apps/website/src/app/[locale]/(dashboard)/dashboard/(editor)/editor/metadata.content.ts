@@ -1,5 +1,5 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { type Dictionary, t } from 'intlayer';
+import type { Metadata } from 'next';
 
 const metadataContent = {
   key: 'editor-dashboard-metadata',
@@ -95,13 +95,7 @@ const metadataContent = {
         'Editor',
         'Painel',
       ],
-      hi: [
-        'CMS',
-        'सामग्री प्रबंधन सिस्टम',
-        'व्हिडिओ एडिटर',
-        'एडिटर',
-        'डैशबोर्ड',
-      ],
+      hi: ['CMS', 'सामग्री प्रबंधन सिस्टम', 'व्हिडिओ एडिटर', 'एडिटर', 'डैशबोर्ड'],
       ar: ['CMS', 'نظام إدارة المحتوى', 'محرر الفيديو', 'محرر', 'لوحة القيادة'],
       ru: [
         'CMS',

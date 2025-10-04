@@ -1,5 +1,5 @@
+import { type Dictionary, t } from 'intlayer';
 import { ExternalLinks, PagesRoutes } from '@/Routes';
-import { t, type Dictionary } from 'intlayer';
 
 type SectionsContent = {
   sections: {

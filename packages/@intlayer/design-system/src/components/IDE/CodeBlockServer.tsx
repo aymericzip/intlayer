@@ -1,12 +1,12 @@
 import {
-  transformerNotationDiff,
-  transformerNotationHighlight,
-  transformerNotationWordHighlight,
-  transformerNotationErrorLevel,
   transformerMetaHighlight,
   transformerMetaWordHighlight,
+  transformerNotationDiff,
+  transformerNotationErrorLevel,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
 } from '@shikijs/transformers';
-import { type HTMLAttributes, Suspense, type FC } from 'react';
+import { type FC, type HTMLAttributes, Suspense } from 'react';
 import {
   type BundledLanguage,
   type BundledTheme,

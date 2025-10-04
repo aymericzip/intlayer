@@ -8,7 +8,7 @@ import {
 } from '@radix-ui/react-dialog';
 import { Command as CommandPrimitive } from 'cmdk';
 import { Search } from 'lucide-react';
-import { type ComponentProps, type FC, type HTMLAttributes } from 'react';
+import type { ComponentProps, FC, HTMLAttributes } from 'react';
 import { cn } from '../../utils/cn';
 
 export const CommandRoot: FC<ComponentProps<typeof CommandPrimitive>> = ({

@@ -1,2 +1,2 @@
-export * from './markdown';
 export * from './getMarkdownMetadata';
+export * from './markdown';

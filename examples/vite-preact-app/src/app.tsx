@@ -1,13 +1,13 @@
 import type { FunctionalComponent } from 'preact';
-import { useIntlayer } from 'preact-intlayer';
 import { Suspense } from 'preact/compat';
 import { useState } from 'preact/hooks';
+import { useIntlayer } from 'preact-intlayer';
 import './app.css';
+import viteLogo from '/vite.svg';
 import preactLogo from './assets/preact.svg';
 import { LocaleSwitcher } from './components/LocaleSwitcher';
 import { useI18nHTMLAttributes } from './hooks/useI18nHTMLAttributes';
 import { LocaleRouter } from './Router';
-import viteLogo from '/vite.svg';
 
 const AppContent: FunctionalComponent = () => {
   useI18nHTMLAttributes();
@@ -17,10 +17,10 @@ const AppContent: FunctionalComponent = () => {
   return (
     <div className="flex flex-col items-center gap-6 w-xl">
       <div class="flex justify-evenly w-full my-5">
-        <a href="https://vitejs.dev" target="_blank">
+        <a href="https://vitejs.dev" target="_blank" rel="noopener">
           <img src={viteLogo} class="h-28" alt={content.viteLogo.value} />
         </a>
-        <a href="https://preactjs.com" target="_blank">
+        <a href="https://preactjs.com" target="_blank" rel="noopener">
           <img
             src={preactLogo}
             class="h-28 preact"

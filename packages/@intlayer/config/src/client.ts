@@ -20,5 +20,5 @@ export type {
   PatternsContentConfig,
   ResultDirDerivedConfig,
 } from './types/config';
-export { Locales } from './types/locales';
 export type { LocalesValues } from './types/locales';
+export { Locales } from './types/locales';

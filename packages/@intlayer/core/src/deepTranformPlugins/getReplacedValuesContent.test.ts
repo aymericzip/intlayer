@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ContentNode, NodeType } from '../types';
+import { type ContentNode, NodeType } from '../types';
 import { getReplacedValuesContent } from './getReplacedValuesContent';
 
 describe('getReplacedValuesContent', () => {
@@ -382,7 +382,8 @@ describe('getReplacedValuesContent', () => {
     const testData = {
       myInsertion: {
         nodeType: NodeType.Insertion,
-        [NodeType.Insertion]: 'Hello, my name is {{name}} and I am {{age}} years old!',
+        [NodeType.Insertion]:
+          'Hello, my name is {{name}} and I am {{age}} years old!',
         fields: ['name', 'age'],
       },
       regularString: 'Just a regular string',

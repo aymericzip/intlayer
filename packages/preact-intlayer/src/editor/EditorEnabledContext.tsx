@@ -3,14 +3,14 @@
 import { MessageKey } from '@intlayer/editor';
 import {
   createContext,
-  useContext,
   type FC,
   type PropsWithChildren,
+  useContext,
 } from 'preact/compat';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 import {
-  useCrossFrameState,
   type CrossFrameStateOptions,
+  useCrossFrameState,
 } from './useCrossFrameState';
 
 export type EditorEnabledStateProps = {

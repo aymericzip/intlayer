@@ -2,7 +2,7 @@
 
 import { Loader } from '@intlayer/design-system';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
-import { type FC, type PropsWithChildren, type RefObject } from 'react';
+import type { FC, PropsWithChildren, RefObject } from 'react';
 import { useIntlayerConfig } from '../../hooks/useIntlayerConfig';
 
 /**

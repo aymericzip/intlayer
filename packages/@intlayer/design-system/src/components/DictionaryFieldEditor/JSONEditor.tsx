@@ -1,6 +1,6 @@
 import type { Dictionary } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
-import { useMemo, type FC } from 'react';
+import { type FC, useMemo } from 'react';
 import { Container } from '../Container';
 import { MonacoCode } from '../IDE/MonacoCode';
 

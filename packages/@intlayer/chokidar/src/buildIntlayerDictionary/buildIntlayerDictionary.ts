@@ -2,7 +2,7 @@ import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import {
-  LocalizedDictionaryOutput,
+  type LocalizedDictionaryOutput,
   writeDynamicDictionary,
 } from './writeDynamicDictionary';
 import { writeFetchDictionary } from './writeFetchDictionary';
@@ -20,7 +20,7 @@ export const buildDictionary = async (
 ) => {
   const { importMode } = configuration.build;
 
-  let unmergedDictionariesToUpdate: Dictionary[] = [
+  const unmergedDictionariesToUpdate: Dictionary[] = [
     ...localDictionariesEntries,
   ];
 

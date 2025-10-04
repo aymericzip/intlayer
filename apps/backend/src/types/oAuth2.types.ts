@@ -1,4 +1,4 @@
-import { Document, Model } from 'mongoose';
+import type { Document, Model } from 'mongoose';
 import type { Token } from 'oauth2-server';
 import type { OrganizationAPI } from './organization.types';
 import type { ProjectAPI } from './project.types';

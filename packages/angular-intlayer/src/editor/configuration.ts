@@ -1,6 +1,6 @@
 import { DestroyRef, inject } from '@angular/core';
 import configuration from '@intlayer/config/built';
-import { IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/config/client';
 import { MessageKey } from '@intlayer/editor';
 import { useCrossFrameState } from './useCrossFrameState';
 

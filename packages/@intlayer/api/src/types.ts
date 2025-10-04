@@ -4,8 +4,6 @@
  * the backend and intlayer-editor are not built yet.
  */
 export type {
-  AIOptions,
-  AIProvider,
   AddDictionaryBody,
   AddDictionaryResult,
   AddNewAccessKeyBody,
@@ -18,6 +16,8 @@ export type {
   AddProjectResult,
   AddTagBody,
   AddTagResult,
+  AIOptions,
+  AIProvider,
   AskDocQuestionResult,
   AskResetPasswordBody,
   AskResetPasswordResult,

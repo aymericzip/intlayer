@@ -1,7 +1,7 @@
 import { colorizeKey, getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { type Dictionary, getNodeType } from '@intlayer/core';
-import merge, { Options } from 'deepmerge';
+import merge, { type Options } from 'deepmerge';
 import { orderDictionaries } from './orderDictionaries';
 
 const checkTypesMatch = (

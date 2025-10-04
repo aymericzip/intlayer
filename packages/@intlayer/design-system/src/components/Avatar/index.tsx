@@ -47,7 +47,9 @@ export const getCapitals = (name: string, separator = ' '): string[] => {
 
   const parts =
     separator === ' '
-      ? name.trim().split(/\s+/) // handle multiple spaces
+      ? name
+          .trim()
+          .split(/\s+/) // handle multiple spaces
       : name.split(separator);
 
   return parts.filter(Boolean).map((word) => word.charAt(0).toUpperCase());

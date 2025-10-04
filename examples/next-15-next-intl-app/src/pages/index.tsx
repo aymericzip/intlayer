@@ -1,6 +1,6 @@
 import LocaleSwitcher from 'components/LocaleSwitcher';
 import PageLayout from 'components/PageLayout';
-import { GetStaticPropsContext } from 'next';
+import type { GetStaticPropsContext } from 'next';
 import { useTranslations } from 'next-intl';
 
 export default function Index() {

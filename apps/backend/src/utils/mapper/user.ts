@@ -1,5 +1,5 @@
-import type { User, UserAPI } from '@/types/user.types';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
+import type { User, UserAPI } from '@/types/user.types';
 
 /**
  * Formats a user for API response. Removes sensitive information and adds role.

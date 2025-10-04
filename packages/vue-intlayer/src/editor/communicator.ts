@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { v4 as uuid } from 'uuid';
-import { App, inject, reactive } from 'vue';
+import { type App, inject, reactive } from 'vue';
 
 /**
  * Interface defining a cross-frame communicator

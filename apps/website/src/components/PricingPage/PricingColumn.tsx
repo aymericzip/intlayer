@@ -7,7 +7,7 @@ import {
 } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { Check } from 'lucide-react';
-import { type FC, type ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 type PricingColumnProps = {
   title: ReactNode;

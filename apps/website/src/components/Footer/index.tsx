@@ -1,6 +1,6 @@
 'use client';
 
-import { Footer as UIFooter, type LinkGroup } from '@intlayer/design-system';
+import { type LinkGroup, Footer as UIFooter } from '@intlayer/design-system';
 import { getLocalizedUrl } from 'intlayer';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';

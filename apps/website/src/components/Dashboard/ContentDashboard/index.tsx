@@ -1,11 +1,11 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { DictionaryFieldEditor, Loader } from '@intlayer/design-system';
 import { useGetDictionary } from '@intlayer/design-system/hooks';
-import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
-import { Suspense, type FC } from 'react';
+import { useTheme } from 'next-themes';
+import { type FC, Suspense } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { EditorConfigurationProvider } from './ConfigurationProvider';
 
 type ContentDashboardContentProps = {

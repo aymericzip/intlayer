@@ -1,6 +1,6 @@
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { getLocaleName, Locales, type LocalesValues } from 'intlayer';
-import { useMemo, useState, useCallback } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 type MultilingualAvailableLocales = {
   locale: LocalesValues;

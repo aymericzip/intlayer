@@ -45,7 +45,7 @@ const markdown = <Content = unknown>(content: Content): MarkdownContent => {
   const metadata = async () => {
     const awaitedContent = await awaitContent(content);
 
-    // @ts-ignore Type instantiation is excessively deep and possibly infinite.
+    // @ts-expect-error Type instantiation is excessively deep and possibly infinite.
     const flatContent = getContent(awaitedContent, {
       dictionaryKey: '',
       keyPath: [],

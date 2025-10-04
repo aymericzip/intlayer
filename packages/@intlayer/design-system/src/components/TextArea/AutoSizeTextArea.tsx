@@ -8,7 +8,7 @@ import {
   useRef,
 } from 'react';
 import { cn } from '../../utils/cn';
-import { type TextAreaProps, TextArea } from './TextArea';
+import { TextArea, type TextAreaProps } from './TextArea';
 
 /**
  * Props for the AutoSizedTextArea component.

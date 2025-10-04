@@ -1,10 +1,10 @@
-import type { Routes } from '@/types/Routes';
 import {
   cancelSubscription,
   getPricing,
   getSubscription,
 } from '@controllers/stripe.controller';
 import { Router } from 'express';
+import type { Routes } from '@/types/Routes';
 
 export const stripeRouter: Router = Router();
 

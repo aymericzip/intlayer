@@ -1,7 +1,7 @@
 'use client';
 
 import { Loader } from '@intlayer/design-system';
-import { useEffect, useRef, useState, type FC } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 
 export const DemoCodeSandbox: FC = () => {
   const [isVisible, setIsVisible] = useState(false);

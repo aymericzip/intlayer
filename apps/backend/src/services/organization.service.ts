@@ -1,10 +1,3 @@
-import type {
-  Organization,
-  OrganizationAPI,
-  OrganizationCreationData,
-  OrganizationDocument,
-} from '@/types/organization.types';
-import type { Plan, PlanDocument } from '@/types/plan.types';
 import { OrganizationModel } from '@models/organization.model';
 import { GenericError } from '@utils/errors';
 import type { OrganizationFilters } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
@@ -13,6 +6,13 @@ import {
   validateOrganization,
 } from '@utils/validation/validateOrganization';
 import type { Types } from 'mongoose';
+import type {
+  Organization,
+  OrganizationAPI,
+  OrganizationCreationData,
+  OrganizationDocument,
+} from '@/types/organization.types';
+import type { Plan, PlanDocument } from '@/types/plan.types';
 
 /**
  * Finds organizations based on filters and pagination options.

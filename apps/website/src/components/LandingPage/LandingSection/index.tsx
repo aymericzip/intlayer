@@ -1,8 +1,6 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { Link } from '@components/Link/Link';
-
 import {
   LinkColor,
   LinkVariant,
@@ -15,12 +13,11 @@ import { motion } from 'framer-motion';
 import packageJSON from 'intlayer/package.json' with { type: 'json' };
 import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useState, type FC } from 'react';
+import { type FC, useState } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { TechLogos } from './TechLogos';
 
 const SHOW_WHATS_NEW = true;
-
-
 
 export const LandingSection: FC = () => {
   const {
@@ -37,7 +34,9 @@ export const LandingSection: FC = () => {
 
   const [copied, setCopied] = useState(false);
 
-  function copyToClipboard(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+  function copyToClipboard(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void {
     navigator.clipboard.writeText('npm install intlayer').then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
@@ -107,8 +106,7 @@ export const LandingSection: FC = () => {
             {description}
           </motion.p>
 
-
-         {/* Bloc de code copiable */}
+          {/* Bloc de code copiable */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -116,18 +114,17 @@ export const LandingSection: FC = () => {
             className="w-full max-w-2xl mx-auto mb-6 lg:mb-10"
           >
             <div className="bg-neutral-900 text-neutral-100 rounded-2xl p-4 font-mono text-sm relative shadow-md">
-             
               <div className="flex items-center justify-between">
                 <code className="truncate">npm install intlayer</code>
                 <button
                   onClick={copyToClipboard}
                   className="ml-3 px-3 py-1 rounded-md bg-neutral-800 hover:bg-neutral-700 text-xs font-medium text-neutral-300 transition"
                 >
-                 {copied ? (
-        <Check className="w-4 h-4 text-green-400" />
-      ) : (
-        <Copy className="w-4 h-4" />
-      )}
+                  {copied ? (
+                    <Check className="w-4 h-4 text-green-400" />
+                  ) : (
+                    <Copy className="w-4 h-4" />
+                  )}
                 </button>
               </div>
             </div>
@@ -152,7 +149,9 @@ export const LandingSection: FC = () => {
                 {/* <span className="block">
                 <Github width={20} height={20} />
               </span> */}
-                <span className="block text-sm sm:text-lg ">{supportButton}</span>
+                <span className="block text-sm sm:text-lg ">
+                  {supportButton}
+                </span>
               </span>
             </Link>
 
@@ -164,8 +163,10 @@ export const LandingSection: FC = () => {
               className="hover:scale-105 px-4 py-2 rounded-full"
             >
               <span className="flex items-center justify-center gap-2">
-                <span className="block text-sm sm:text-lg  ">{getStartedButton}</span>
-                <ArrowRight width={15} height={15}/>
+                <span className="block text-sm sm:text-lg  ">
+                  {getStartedButton}
+                </span>
+                <ArrowRight width={15} height={15} />
               </span>
             </Link>
           </motion.div>

@@ -1,6 +1,7 @@
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
+
 export { generateMetadata } from './metadata';
 
 const NotFountPageContent: FC = () => {

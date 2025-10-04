@@ -1,5 +1,5 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { type Dictionary, t } from 'intlayer';
+import type { Metadata } from 'next';
 
 const metadataContent = {
   key: 'change-password-metadata',
@@ -97,13 +97,7 @@ const metadataContent = {
         'React',
         'JavaScript',
       ],
-      hi: [
-        'पासवर्ड बदलें',
-        'खाते की सुरक्षा',
-        'Intlayer',
-        'React',
-        'JavaScript',
-      ],
+      hi: ['पासवर्ड बदलें', 'खाते की सुरक्षा', 'Intlayer', 'React', 'JavaScript'],
       ar: [
         'تغيير كلمة المرور',
         'أمان الحساب',

@@ -1,5 +1,5 @@
-import { useIntlayer } from 'next-intlayer/server';
 import Script from 'next/script';
+import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 
 export const ProductHeader: FC = () => {

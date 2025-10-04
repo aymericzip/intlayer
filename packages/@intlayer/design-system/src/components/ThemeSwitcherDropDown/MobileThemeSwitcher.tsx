@@ -1,7 +1,7 @@
 'use client';
 
-import { Moon, Sun, CircleDashed } from 'lucide-react';
-import { useState, type FC } from 'react';
+import { CircleDashed, Moon, Sun } from 'lucide-react';
+import { type FC, useState } from 'react';
 import { cn } from '../../utils/cn';
 import { Modes } from './types';
 

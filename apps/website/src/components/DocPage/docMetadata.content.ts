@@ -1,5 +1,5 @@
 import { getDocMetadataRecord } from '@intlayer/docs';
-import { localeRecord, t, type Dictionary } from 'intlayer';
+import { type Dictionary, localeRecord, t } from 'intlayer';
 
 const getDocMetadata = () =>
   t(

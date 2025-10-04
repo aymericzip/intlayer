@@ -1,5 +1,5 @@
 import type { BlogKey, BlogMetadata } from '@intlayer/docs';
-import { Locales, LocalesValues, getIntlayer } from 'intlayer';
+import { getIntlayer, Locales, type LocalesValues } from 'intlayer';
 import type { CategorizedBlogData, Section } from './types';
 
 export const getBlogData = (

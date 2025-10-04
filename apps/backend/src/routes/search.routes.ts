@@ -1,6 +1,6 @@
-import type { Routes } from '@/types/Routes';
 import { searchDocUtil } from '@controllers/search.controller';
 import { Router } from 'express';
+import type { Routes } from '@/types/Routes';
 
 export const searchRouter: Router = Router();
 

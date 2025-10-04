@@ -1,16 +1,16 @@
 import {
-  KeyPath,
-  NodeType,
-  getMarkdownMetadata,
   type DeepTransformContent as DeepTransformContentCore,
+  getMarkdownMetadata,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  type KeyPath,
   type MarkdownContent,
+  NodeType,
   type Plugins,
 } from '@intlayer/core';
 import type { ReactNode } from 'react';
-import { renderIntlayerNode, type IntlayerNode } from './IntlayerNode';
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
+import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { MarkdownMetadataRenderer, MarkdownRenderer } from './markdown';
 import { renderReactElement } from './reactElement/renderReactElement';
 

@@ -1,7 +1,7 @@
 'use client';
 
-import { useIntlayer } from 'next-intlayer';
 import Image from 'next/image';
+import { useIntlayer } from 'next-intlayer';
 
 export const HomeContent = () => {
   const {

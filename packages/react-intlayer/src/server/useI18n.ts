@@ -4,10 +4,10 @@ import type {
   GetSubPath,
   ValidDotPathsFor,
 } from '@intlayer/core';
-import type { DeepTransformContent } from '../plugins';
-// @ts-ignore intlayer declared for module augmentation
+// @ts-expect-error intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import { getIntlayer } from '../getIntlayer';
+import type { DeepTransformContent } from '../plugins';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 

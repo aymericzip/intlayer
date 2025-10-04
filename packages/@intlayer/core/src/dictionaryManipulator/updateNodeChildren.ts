@@ -1,4 +1,4 @@
-import { type ContentNode, type TypedNode, NodeType } from '../types';
+import { type ContentNode, NodeType, type TypedNode } from '../types';
 
 export const updateNodeChildren = <
   T extends ContentNode,

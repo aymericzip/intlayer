@@ -1,13 +1,13 @@
 'use client';
 
 import {
-  useEffect,
-  useRef,
-  useState,
   type CSSProperties,
   type PointerEvent,
   type PointerEventHandler,
   type RefObject,
+  useEffect,
+  useRef,
+  useState,
 } from 'react';
 
 export type HorizontalSwipeConfig = {

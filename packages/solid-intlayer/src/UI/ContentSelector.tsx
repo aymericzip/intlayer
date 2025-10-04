@@ -1,9 +1,9 @@
 import {
+  type Component,
   createEffect,
   createSignal,
-  onCleanup,
-  type Component,
   type JSX,
+  onCleanup,
 } from 'solid-js';
 
 const DEFAULT_PRESS_DETECT_DURATION = 250;

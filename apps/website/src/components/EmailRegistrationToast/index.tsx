@@ -1,6 +1,6 @@
 'use client';
 
-import { type EmailsList } from '@intlayer/backend';
+import type { EmailsList } from '@intlayer/backend';
 import { Container, Form, useForm } from '@intlayer/design-system';
 import {
   usePersistedStore,
@@ -10,8 +10,8 @@ import {
 import { cn } from '@utils/cn';
 import { Mail, X } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { FC, useEffect, useState } from 'react';
-import { EmailSchemaValue, useEmailSchema } from './useEmailSchema';
+import { type FC, useEffect, useState } from 'react';
+import { type EmailSchemaValue, useEmailSchema } from './useEmailSchema';
 
 const MIN_VISITS_TO_SHOW = 3;
 const VISIT_TIMEOUT = 6 * 60 * 60 * 1000; // 6 hours

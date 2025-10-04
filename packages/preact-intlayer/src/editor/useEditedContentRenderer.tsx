@@ -1,8 +1,8 @@
 'use client';
 
-import { Locales } from '@intlayer/config/client';
+import type { Locales } from '@intlayer/config/client';
 import { getContent, type KeyPath } from '@intlayer/core';
-import { FC } from 'preact/compat';
+import type { FC } from 'preact/compat';
 import { useEditedContentActions } from './EditedContentContext';
 
 type EditedContentRendererProps = {

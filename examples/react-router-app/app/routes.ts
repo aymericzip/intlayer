@@ -1,4 +1,4 @@
-import { layout, route, type RouteConfig } from '@react-router/dev/routes';
+import { layout, type RouteConfig, route } from '@react-router/dev/routes';
 
 const routes: RouteConfig = [
   layout('routes/layout.tsx', [

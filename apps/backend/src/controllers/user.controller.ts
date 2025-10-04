@@ -1,4 +1,3 @@
-import type { User, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { sendEmail } from '@services/email.service';
@@ -17,6 +16,7 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
+import type { User, UserAPI } from '@/types/user.types';
 
 export type CreateUserBody = { email: string; password?: string };
 export type CreateUserResult = ResponseData<UserAPI>;

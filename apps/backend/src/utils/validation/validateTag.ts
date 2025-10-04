@@ -1,6 +1,6 @@
 import { getOrganizationById } from '@services/organization.service';
-import { validateString } from './validateString';
 import type { Tag } from '@/types/tag.types';
+import { validateString } from './validateString';
 
 export type TagFields = (keyof Tag)[];
 

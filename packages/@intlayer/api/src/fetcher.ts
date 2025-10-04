@@ -123,7 +123,7 @@ export const fetcher = async <T>(
 
   // Initialize query parameters string and request body string
   let paramsString = '';
-  let bodyString: string | undefined = undefined;
+  let bodyString: string | undefined;
 
   // Extract other options excluding 'body', 'params', and 'headers'
   const otherOptions = options.map(

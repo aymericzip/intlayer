@@ -1,11 +1,11 @@
 import type { KeyPath } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
 import {
-  createContext,
-  useContext,
   type Component,
+  createContext,
   type ParentProps,
   type Setter,
+  useContext,
 } from 'solid-js';
 import { useCrossFrameState } from './useCrossFrameState';
 

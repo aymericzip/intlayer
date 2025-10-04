@@ -1,9 +1,9 @@
 import {
-  writeContentDeclaration as writeContentDeclarationEditor,
   type DictionaryStatus,
+  writeContentDeclaration as writeContentDeclarationEditor,
 } from '@intlayer/chokidar';
 import { getConfiguration } from '@intlayer/config';
-import { type Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import unmergedDictionaries from '@intlayer/unmerged-dictionaries-entry';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';

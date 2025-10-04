@@ -3,7 +3,7 @@ import {
   getNodeChildren,
   getNodeType,
   NodeType,
-  TypedNode,
+  type TypedNode,
 } from '@intlayer/core';
 
 export const getIsEditableSection = (section: ContentNode): boolean => {

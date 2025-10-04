@@ -2,18 +2,18 @@
 
 import { ChevronDown } from 'lucide-react';
 import {
-  useCallback,
-  useState,
   type FC,
   type KeyboardEvent,
   type ReactNode,
+  useCallback,
+  useState,
 } from 'react';
 import { cn } from '../../utils/cn';
 import {
   Button,
   ButtonColor,
-  ButtonVariant,
   type ButtonProps,
+  ButtonVariant,
 } from '../Button';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 

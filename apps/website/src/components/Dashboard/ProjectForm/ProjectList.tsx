@@ -1,12 +1,12 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import type { ProjectAPI } from '@intlayer/backend';
 import { Button } from '@intlayer/design-system';
 import { useSelectProject } from '@intlayer/design-system/hooks';
-import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
+import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 type ProjectListProps = {
   projects: ProjectAPI[];

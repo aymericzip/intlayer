@@ -1,8 +1,6 @@
 // /* eslint-disable */
 import 'intlayer';
 
-export {};
-
 declare module 'intlayer' {
   interface IntlayerDictionaryTypesConnector {}
 

@@ -7,7 +7,7 @@ import {
   useFocusDictionaryActions,
 } from '@intlayer/editor-react';
 import { ArrowLeft } from 'lucide-react';
-import { useEffect, useState, type FC } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Button, ButtonColor, ButtonVariant } from '../Button';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';

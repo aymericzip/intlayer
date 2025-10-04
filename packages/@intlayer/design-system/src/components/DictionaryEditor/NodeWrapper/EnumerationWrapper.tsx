@@ -1,11 +1,11 @@
 import {
+  type ContentNode,
+  type EnumerationContent,
   type KeyPath,
   NodeType,
-  type EnumerationContent,
-  type ContentNode,
 } from '@intlayer/core';
 import type { FC } from 'react';
-import { NodeWrapper, traceKeys, type NodeWrapperProps } from './index';
+import { NodeWrapper, type NodeWrapperProps, traceKeys } from './index';
 
 type EnumerationWrapperProps = Omit<NodeWrapperProps, 'section'> & {
   section: EnumerationContent<ContentNode>;

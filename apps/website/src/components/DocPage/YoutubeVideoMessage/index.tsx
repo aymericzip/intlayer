@@ -1,7 +1,7 @@
 import { Link } from '@components/Link/Link';
 import { Popover, YoutubeLogo } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer/server';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 type YoutubeVideoMessageProps = {
   youtubeVideoUrl: string;

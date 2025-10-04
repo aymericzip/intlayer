@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useAddDictionary, useGetProjects } from '../../../hooks/reactQuery';
 import { useAuth } from '../../../hooks/useAuth';
@@ -8,8 +8,8 @@ import { ButtonColor } from '../../Button';
 import { Form, useForm } from '../../Form';
 import { MultiSelect } from '../../Select';
 import {
-  useDictionarySchema,
   type DictionaryFormData,
+  useDictionarySchema,
 } from './useDictionaryFormSchema';
 
 type DictionaryCreationFormProps = {

@@ -1,4 +1,3 @@
-import type { User, UserAPI, UserDocument } from '@/types/user.types';
 import { UserModel } from '@models/user.model';
 import { GenericError } from '@utils/errors';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
@@ -8,6 +7,7 @@ import {
   validateUser,
 } from '@utils/validation/validateUser';
 import type { Types } from 'mongoose';
+import type { User, UserAPI, UserDocument } from '@/types/user.types';
 
 /**
  * Creates a new user with password in the database and hashes the password.

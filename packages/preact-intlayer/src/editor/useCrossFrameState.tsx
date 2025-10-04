@@ -1,8 +1,13 @@
 'use client';
 
-import { type MessageKey } from '@intlayer/editor';
-import { SetStateAction } from 'preact/compat';
-import { Dispatch, useEffect, useState, type StateUpdater } from 'preact/hooks';
+import type { MessageKey } from '@intlayer/editor';
+import type { SetStateAction } from 'preact/compat';
+import {
+  type Dispatch,
+  type StateUpdater,
+  useEffect,
+  useState,
+} from 'preact/hooks';
 import { useCommunicator } from './CommunicatorContext';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 

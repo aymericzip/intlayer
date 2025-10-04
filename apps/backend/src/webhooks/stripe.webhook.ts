@@ -1,4 +1,3 @@
-import type { Plan } from '@/types/plan.types';
 import { logger } from '@logger';
 import * as emailService from '@services/email.service';
 import { getOrganizationById } from '@services/organization.service';
@@ -12,6 +11,7 @@ import { GenericError } from '@utils/errors';
 import type { Request, Response } from 'express';
 import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
+import type { Plan } from '@/types/plan.types';
 
 type SubscriptionMetadata = {
   locale: Locales; // Localization setting (e.g., 'en', 'fr', 'es')

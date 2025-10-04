@@ -1,10 +1,10 @@
 import {
-  getMarkdownMetadata,
-  KeyPath,
-  MarkdownContent,
-  NodeType,
   type DeepTransformContent as DeepTransformContentCore,
+  getMarkdownMetadata,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  type KeyPath,
+  type MarkdownContent,
+  NodeType,
   type Plugins,
 } from '@intlayer/core';
 import { h } from 'vue';

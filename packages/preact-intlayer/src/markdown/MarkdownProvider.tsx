@@ -2,10 +2,10 @@
 
 import {
   createContext,
-  useContext,
   type FC,
   type PropsWithChildren,
   type ReactNode,
+  useContext,
 } from 'preact/compat';
 
 type MarkdownContextValue = {

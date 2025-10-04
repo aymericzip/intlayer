@@ -1,6 +1,5 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { Button, Container, DropDown, Modal } from '@intlayer/design-system';
 import {
   useAuth,
@@ -9,9 +8,10 @@ import {
   useUnselectProject,
 } from '@intlayer/design-system/hooks';
 import { ChevronsUpDown } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
-import { useState, type ComponentProps, type FC } from 'react';
+import { useIntlayer } from 'next-intlayer';
+import { type ComponentProps, type FC, useState } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { ProjectCreationForm } from '../ProjectForm/ProjectCreationForm';
 
 type ProjectDropdownProps = Partial<ComponentProps<typeof DropDown.Panel>> & {

@@ -1,6 +1,6 @@
 'use client';
 
-import {
+import type {
   GetCheckoutSessionBody,
   GetDictionariesKeysResult,
   GetDictionariesParams,
@@ -16,14 +16,14 @@ import {
 } from '@intlayer/backend';
 import { useConfiguration } from '@intlayer/editor-react';
 import {
-  QueryKey,
+  type QueryKey,
+  type UseQueryOptions,
+  type UseQueryResult,
   useMutation,
   useQuery,
   useQueryClient,
-  UseQueryOptions,
-  UseQueryResult,
 } from '@tanstack/react-query';
-import { getAuthAPI } from './auth';
+import type { getAuthAPI } from './auth';
 import { useAuth } from './useAuth';
 import { useIntlayerAuth, useIntlayerOAuth } from './useIntlayerAPI';
 

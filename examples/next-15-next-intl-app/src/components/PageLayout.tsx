@@ -1,6 +1,6 @@
-import { useTranslations } from 'next-intl';
 import Head from 'next/head';
-import { ReactNode } from 'react';
+import { useTranslations } from 'next-intl';
+import type { ReactNode } from 'react';
 
 type Props = {
   children?: ReactNode;

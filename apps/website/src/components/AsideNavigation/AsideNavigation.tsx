@@ -13,7 +13,7 @@ import {
 import { cn } from '@utils/cn';
 import { ArrowRightToLine, MoveDiagonal } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useState, type FC } from 'react';
+import { type FC, useState } from 'react';
 
 export const AsideNavigation: FC = (props) => {
   const { title, collapseButton } = useIntlayer('aside-navigation');

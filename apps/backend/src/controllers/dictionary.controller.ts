@@ -1,10 +1,3 @@
-import type {
-  Dictionary,
-  DictionaryAPI,
-  DictionaryCreationData,
-  DictionaryData,
-  VersionedContent,
-} from '@/types/dictionary.types';
 import * as eventListener from '@controllers/eventListener.controller';
 import type {
   ContentNode,
@@ -30,6 +23,13 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
+import type {
+  Dictionary,
+  DictionaryAPI,
+  DictionaryCreationData,
+  DictionaryData,
+  VersionedContent,
+} from '@/types/dictionary.types';
 
 export type GetDictionariesParams =
   FiltersAndPagination<DictionaryFiltersParams>;

@@ -1,4 +1,4 @@
-import { Injector } from '@angular/core';
+import type { Injector } from '@angular/core';
 import configuration from '@intlayer/config/built';
 import { installCommunicator } from './communicator';
 import { installDictionariesRecord } from './dictionariesRecord';

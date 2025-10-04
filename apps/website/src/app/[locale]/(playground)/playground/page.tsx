@@ -1,4 +1,3 @@
-import { PagesRoutes } from '@/Routes';
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { Editor } from '@components/Dashboard/Editor';
 import baseConfiguration from '@intlayer/config/built';
@@ -6,6 +5,7 @@ import { ConfigurationProvider } from '@intlayer/editor-react';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 export { generateMetadata } from './metadata';
 

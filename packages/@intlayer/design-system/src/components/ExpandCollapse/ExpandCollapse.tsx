@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';

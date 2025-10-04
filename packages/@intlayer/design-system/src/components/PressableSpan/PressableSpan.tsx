@@ -1,13 +1,13 @@
 'use client';
 
 import {
+  type FC,
+  type HTMLAttributes,
+  type MouseEventHandler,
   useCallback,
   useEffect,
   useRef,
   useState,
-  type FC,
-  type HTMLAttributes,
-  type MouseEventHandler,
 } from 'react';
 import { cn } from '../../utils/cn';
 

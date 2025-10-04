@@ -1,9 +1,9 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import {
-  type DetailedHTMLProps,
-  type FC,
-  type HTMLAttributes,
-  type PropsWithChildren,
+import type {
+  DetailedHTMLProps,
+  FC,
+  HTMLAttributes,
+  PropsWithChildren,
 } from 'react';
 import { cn } from '../../utils/cn';
 

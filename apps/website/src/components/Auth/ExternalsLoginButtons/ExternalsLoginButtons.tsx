@@ -3,7 +3,7 @@
 import { Button } from '@intlayer/design-system';
 import { getAuthAPI, useUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, type FC } from 'react';
+import { type FC, useEffect } from 'react';
 import { GithubLogo } from './assets/GithubLogo';
 import { GoogleLogo } from './assets/GoogleLogo';
 

@@ -1,8 +1,8 @@
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 import {
+  deepTransformNode,
   type NodeProps,
   type Plugins,
-  deepTransformNode,
 } from '../interpreter';
 import { type ContentNode, NodeType } from '../types';
 

@@ -1,5 +1,5 @@
-import { signal, Signal } from '@angular/core';
-import { type MessageKey } from '@intlayer/editor';
+import { type Signal, signal } from '@angular/core';
+import type { MessageKey } from '@intlayer/editor';
 import { useCommunicator } from './communicator';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 

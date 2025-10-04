@@ -1,8 +1,8 @@
 import {
   configuration,
   getPathWithoutLocale,
-  localeFlatMap,
   type Locales,
+  localeFlatMap,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';

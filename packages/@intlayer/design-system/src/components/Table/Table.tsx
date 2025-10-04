@@ -1,7 +1,7 @@
 'use client';
 
 import { MoveDiagonal } from 'lucide-react';
-import { HTMLAttributes, useState, type FC } from 'react';
+import { type FC, type HTMLAttributes, useState } from 'react';
 import { cn } from '../../utils/cn';
 import { Button } from '../Button';
 import { ExpandCollapse } from '../ExpandCollapse';

@@ -1,7 +1,7 @@
-import { LocalesValues } from '@intlayer/config';
+import type { LocalesValues } from '@intlayer/config';
 import {
   defaultLocale,
-  FileMetadata,
+  type FileMetadata,
   getFile,
   getFileBySlug,
   getFileMetadata,

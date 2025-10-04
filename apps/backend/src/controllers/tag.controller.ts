@@ -1,10 +1,3 @@
-import type {
-  Tag,
-  TagAPI,
-  TagCreationData,
-  TagData,
-  TagSchema,
-} from '@/types/tag.types';
 import { logger } from '@logger';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as tagService from '@services/tag.service';
@@ -25,6 +18,13 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
+import type {
+  Tag,
+  TagAPI,
+  TagCreationData,
+  TagData,
+  TagSchema,
+} from '@/types/tag.types';
 
 export type GetTagsParams = FiltersAndPagination<TagFiltersParams>;
 export type GetTagsResult = PaginatedResponse<TagAPI>;

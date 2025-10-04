@@ -1,4 +1,4 @@
-import { type ComponentProps, type FC, type ReactNode } from 'react';
+import type { ComponentProps, FC, ReactNode } from 'react';
 import { Checkbox } from '../../Input';
 import { FormElement, type FormElementProps } from './FormElement';
 

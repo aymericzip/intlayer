@@ -1,17 +1,17 @@
 import {
   type Component,
-  type JSX,
-  type ParentProps,
   createEffect,
   createSignal,
+  type JSX,
+  type ParentProps,
 } from 'solid-js';
 import {
-  type CommunicatorProviderProps,
   CommunicatorProvider,
+  type CommunicatorProviderProps,
 } from './CommunicatorContext';
 import {
-  type ConfigurationProviderProps,
   ConfigurationProvider,
+  type ConfigurationProviderProps,
 } from './ConfigurationContext';
 import { DictionariesRecordProvider } from './DictionariesRecordContext';
 import {

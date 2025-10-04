@@ -1,5 +1,5 @@
+import { type Dictionary, t } from 'intlayer';
 import { PagesRoutes } from '@/Routes';
-import { t, type Dictionary } from 'intlayer';
 
 const docNavTitlesContent = {
   key: 'common-questions',

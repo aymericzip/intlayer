@@ -1,2 +1,2 @@
-export * from './insertion';
 export * from './getInsertionValues';
+export * from './insertion';

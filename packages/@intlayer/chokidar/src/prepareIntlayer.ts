@@ -1,10 +1,10 @@
 import {
   ANSIColors,
-  ESMxCJSRequire,
-  type IntlayerConfig,
   colorize,
+  ESMxCJSRequire,
   getAppLogger,
   getConfiguration,
+  type IntlayerConfig,
 } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json' with { type: 'json' };
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';

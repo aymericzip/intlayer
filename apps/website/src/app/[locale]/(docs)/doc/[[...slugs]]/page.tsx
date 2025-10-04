@@ -1,18 +1,18 @@
-import { PagesRoutes } from '@/Routes';
-import { getPreviousNextDocMetadata } from '@components/DocPage/docData';
 import { DocHeader } from '@components/DocPage/DocHeader/DocHeader';
 import {
   DocPageNavigation,
-  DocPageNavigationProps,
+  type DocPageNavigationProps,
 } from '@components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
-import { DocKey, getDoc, getDocMetadataBySlug } from '@intlayer/docs';
+import { getPreviousNextDocMetadata } from '@components/DocPage/docData';
+import { type DocKey, getDoc, getDocMetadataBySlug } from '@intlayer/docs';
 import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import { urlRenamer } from '@utils/markdown';
 import { getLocalizedUrl } from 'intlayer';
-import { type LocalPromiseParams } from 'next-intlayer';
-import { IntlayerServerProvider } from 'next-intlayer/server';
 import { redirect } from 'next/navigation';
+import type { LocalPromiseParams } from 'next-intlayer';
+import { IntlayerServerProvider } from 'next-intlayer/server';
+import { PagesRoutes } from '@/Routes';
 import type { DocProps } from './layout';
 
 const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {

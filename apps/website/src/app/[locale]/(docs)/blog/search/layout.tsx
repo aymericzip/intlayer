@@ -1,5 +1,6 @@
 import { BlogPageLayout } from '@components/BlogPage/BlogPageLayout';
-import { type NextLayoutIntlayer } from 'next-intlayer';
+import type { NextLayoutIntlayer } from 'next-intlayer';
+
 export { generateMetadata } from './metadata';
 
 const BlogLayout: NextLayoutIntlayer = async ({ children, params }) => {

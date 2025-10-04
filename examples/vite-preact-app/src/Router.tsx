@@ -1,8 +1,8 @@
-import { type Locales, configuration, getPathWithoutLocale } from 'intlayer';
-import { ComponentChildren, FunctionalComponent } from 'preact';
+import { configuration, getPathWithoutLocale, type Locales } from 'intlayer';
+import type { ComponentChildren, FunctionalComponent } from 'preact';
+import { useEffect } from 'preact/hooks';
 import { IntlayerProvider } from 'preact-intlayer';
 import { LocationProvider, useLocation } from 'preact-iso';
-import { useEffect } from 'preact/hooks';
 
 const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;

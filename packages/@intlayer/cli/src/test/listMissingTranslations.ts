@@ -1,7 +1,7 @@
 import {
-  GetConfigurationOptions,
-  type Locales,
+  type GetConfigurationOptions,
   getConfiguration,
+  type Locales,
 } from '@intlayer/config';
 import {
   type ContentNode,

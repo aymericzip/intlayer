@@ -1,8 +1,8 @@
 import {
-  type IntlayerConfig,
   getConfiguration as getApplicationConfiguration,
+  type IntlayerConfig,
 } from '@intlayer/config';
-import { type ResponseData, formatResponse } from '@utils/responseData';
+import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 
 export type GetConfigurationResult = ResponseData<IntlayerConfig>;

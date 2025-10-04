@@ -1,12 +1,12 @@
 'use client';
 
 import { Check, X } from 'lucide-react';
-import { useState, type ChangeEventHandler, type FC } from 'react';
+import { type ChangeEventHandler, type FC, useState } from 'react';
 import { cn } from '../../utils/cn';
 import { InputVariant } from '../Input';
 import {
   AutoSizedTextArea,
-  AutoSizedTextAreaProps,
+  type AutoSizedTextAreaProps,
 } from '../TextArea/AutoSizeTextArea';
 
 /** Props for the ContentEditor component */

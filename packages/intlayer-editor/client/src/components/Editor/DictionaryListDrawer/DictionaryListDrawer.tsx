@@ -1,6 +1,6 @@
 'use client';
 
-import { type Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import {
   Button,
   RightDrawer,
@@ -12,7 +12,7 @@ import {
   useFocusDictionary,
 } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { getDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
 import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier';

@@ -7,7 +7,7 @@ import {
   useEditorEnabled,
   useIframeClickInterceptor,
 } from '@intlayer/editor-react';
-import { type FC, type PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 
 const IntlayerEditorHooksEnabled: FC = () => {
   /**

@@ -1,7 +1,7 @@
 'use client';
 
 import { DestroyRef, inject } from '@angular/core';
-import { type MessageKey, compareUrls } from '@intlayer/editor';
+import { compareUrls, type MessageKey } from '@intlayer/editor';
 import { useCommunicator } from './communicator';
 
 // ---------- module-level singletons ----------

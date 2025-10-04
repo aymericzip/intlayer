@@ -3,17 +3,17 @@
 import {
   type FC,
   type PropsWithChildren,
-  ReactNode,
+  type ReactNode,
   useEffect,
   useState,
 } from 'preact/compat';
 import {
-  type CommunicatorProviderProps,
   CommunicatorProvider,
+  type CommunicatorProviderProps,
 } from './CommunicatorContext';
 import {
-  type ConfigurationProviderProps,
   ConfigurationProvider,
+  type ConfigurationProviderProps,
 } from './ConfigurationContext';
 import { DictionariesRecordProvider } from './DictionariesRecordContext';
 import {

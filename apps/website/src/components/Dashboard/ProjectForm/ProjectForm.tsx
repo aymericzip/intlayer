@@ -4,7 +4,7 @@ import { Button, Container, Loader, Modal } from '@intlayer/design-system';
 import { useGetProjects, useSession } from '@intlayer/design-system/hooks';
 import { Plus, Trash } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { Suspense, useState, type FC } from 'react';
+import { type FC, Suspense, useState } from 'react';
 import { AccessKeyForm } from './AccessKey/AccessKeyForm';
 import { ConfigDetails } from './Config/ConfigDetails';
 import { DeleteProjectModal } from './DeleteProjectModal';

@@ -1,4 +1,3 @@
-import type { Routes } from '@/types/Routes';
 import {
   addDictionary,
   deleteDictionary,
@@ -10,6 +9,7 @@ import {
   updateDictionary,
 } from '@controllers/dictionary.controller';
 import { Router } from 'express';
+import type { Routes } from '@/types/Routes';
 
 export const dictionaryRouter: Router = Router();
 

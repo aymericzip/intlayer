@@ -1,4 +1,4 @@
-import { type LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
 import { date } from '@intlayer/core';
 import { IntlayerServerContext } from '../IntlayerServerProvider';
 import { getServerContext } from '../serverContext';

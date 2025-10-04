@@ -1,5 +1,5 @@
-import type { Dictionary } from '@/types/dictionary.types';
 import { findProjects } from '@services/project.service';
+import type { Dictionary } from '@/types/dictionary.types';
 import { validateArray } from './validateArray';
 
 export type DictionaryFields = (keyof Dictionary)[];

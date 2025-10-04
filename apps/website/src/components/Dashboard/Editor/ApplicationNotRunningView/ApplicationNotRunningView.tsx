@@ -1,8 +1,8 @@
-import { PagesRoutes } from '@/Routes';
 import { Link } from '@components/Link/Link';
 import { Container, H3 } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import { type FC } from 'react';
+import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 export const ApplicationNotRunningView: FC = () => {
   const { title, description, tips, documentationLink } = useIntlayer(

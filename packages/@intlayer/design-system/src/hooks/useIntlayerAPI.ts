@@ -1,11 +1,11 @@
 import {
-  getIntlayerAPI,
   type FetcherOptions,
+  getIntlayerAPI,
   type IntlayerAPI,
 } from '@intlayer/api';
-import { type IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/config/client';
 import { useConfiguration } from '@intlayer/editor-react';
-import { getAuthAPI, type AuthAPI } from './auth';
+import { type AuthAPI, getAuthAPI } from './auth';
 import { useAuth } from './useAuth';
 
 type UseIntlayerAuthProps = {

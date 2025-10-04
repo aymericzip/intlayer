@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { type LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
 import { Intl as CachedIntl } from '../utils/intl';
 
 type RelativeTimeUnit = Intl.RelativeTimeFormatUnit;

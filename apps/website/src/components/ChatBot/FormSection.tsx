@@ -2,10 +2,10 @@ import { Form, useForm } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { ArrowUp, Eraser } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useCallback, type FC, type ReactNode } from 'react';
+import { type FC, type ReactNode, useCallback } from 'react';
 import {
-  useFormSectionSchema,
   type FormSectionSchemaData,
+  useFormSectionSchema,
 } from './useFormSectionSchema';
 
 type FormSectionProps = {

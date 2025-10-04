@@ -1,7 +1,7 @@
-import { PagesRoutes } from '@/Routes';
 import { getDictionary, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
-import { type Metadata } from 'next';
-import { type LocalPromiseParams } from 'next-intlayer';
+import type { Metadata } from 'next';
+import type { LocalPromiseParams } from 'next-intlayer';
+import { PagesRoutes } from '@/Routes';
 import metadataContent from './metadata.content';
 
 export const generateMetadata = async ({

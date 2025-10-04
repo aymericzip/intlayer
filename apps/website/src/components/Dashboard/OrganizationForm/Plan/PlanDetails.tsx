@@ -1,11 +1,11 @@
-import { PagesRoutes } from '@/Routes';
 import type { PlanAPI } from '@intlayer/backend';
 import { Button, Form, H3, Modal, Tag } from '@intlayer/design-system';
 import { useAuth, useCancelSubscription } from '@intlayer/design-system/hooks';
 import { ChevronsUp, CircleX, RotateCcw } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
-import { useState, type FC } from 'react';
+import { useIntlayer } from 'next-intlayer';
+import { type FC, useState } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 type PlanDetailsProps = {};
 

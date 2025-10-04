@@ -1,5 +1,5 @@
 import { syncJSON } from '@intlayer/sync-json-plugin';
-import { Locales, type IntlayerConfig } from 'intlayer';
+import { type IntlayerConfig, Locales } from 'intlayer';
 
 export const locales = [Locales.ENGLISH, Locales.GERMAN];
 

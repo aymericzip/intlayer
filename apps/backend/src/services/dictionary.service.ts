@@ -1,19 +1,19 @@
-import type {
-  Dictionary,
-  DictionaryData,
-  DictionaryDocument,
-} from '@/types/dictionary.types';
-import type { Project } from '@/types/project.types';
 import { DictionaryModel } from '@models/dictionary.model';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import type { DictionaryFilters } from '@utils/filtersAndPagination/getDictionaryFiltersAndPagination';
 import { removeObjectKeys } from '@utils/removeObjectKeys';
 import {
-  validateDictionary,
   type DictionaryFields,
+  validateDictionary,
 } from '@utils/validation/validateDictionary';
 import { Types } from 'mongoose';
+import type {
+  Dictionary,
+  DictionaryData,
+  DictionaryDocument,
+} from '@/types/dictionary.types';
+import type { Project } from '@/types/project.types';
 
 /**
  * Finds dictionaries based on filters and pagination options.

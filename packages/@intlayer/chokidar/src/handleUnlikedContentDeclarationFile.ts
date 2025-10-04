@@ -1,4 +1,4 @@
-import { type IntlayerConfig, getAppLogger } from '@intlayer/config';
+import { getAppLogger, type IntlayerConfig } from '@intlayer/config';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
 import { createTypes } from './createType';

@@ -13,13 +13,13 @@ import {
 import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionary } from '@intlayer/editor-react';
 import { Pencil } from 'lucide-react';
-import { useCallback, useState, type FC } from 'react';
+import { type FC, useCallback, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
+  type FileContent as FileContentWithDictionaryPath,
   getDrawerIdentifier,
   useDictionaryEditionDrawer,
-  type FileContent as FileContentWithDictionaryPath,
 } from './useDictionaryEditionDrawer';
 
 type DictionaryEditionDrawerContentProps = {

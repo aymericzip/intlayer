@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { type NodeProps } from '@intlayer/core';
+import type { NodeProps } from '@intlayer/core';
 import { ContentSelectorWrapperComponent } from './ContentSelectorWrapper.component';
 import { EditedContentRendererComponent } from './EditedContentRenderer.component';
 

@@ -1,4 +1,4 @@
-import { t, type Dictionary } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 
 const landingSectionContent = {
   key: 'landing-section',
@@ -87,7 +87,7 @@ const landingSectionContent = {
       en: 'Define translations next to components, with full type safety.Invite editors through an optional CMS when needed. Every contribution genuinely appreciated.',
       'en-GB':
         'Define translations next to components, with full type safety.Invite editors through an optional CMS when needed. Every contribution genuinely appreciated.',
-      fr: "Définissez les traductions au niveau des composants, avec typage strict. Invitez des éditeurs via un CMS optionnel si besoin. Chaque contribution est appréciée.",
+      fr: 'Définissez les traductions au niveau des composants, avec typage strict. Invitez des éditeurs via un CMS optionnel si besoin. Chaque contribution est appréciée.',
       es: 'Define traducciones junto a los componentes, con una seguridad de tipo completa. Invita a los editores a través de un CMS opcional cuando sea necesario. Cada contribución es genuinamente apreciada.',
       de: 'Definieren Sie Übersetzungen neben Komponenten mit vollständiger Typsicherheit. Laden Sie bei Bedarf Redakteure über ein optionales CMS ein. Jeder Beitrag wird aufrichtig geschätzt.',
       ja: 'コンポーネントの隣に翻訳を定義し、完全な型安全性を確保します。必要に応じてオプションのCMSを通じて編集者を招待します。すべての貢献に心から感謝します。',

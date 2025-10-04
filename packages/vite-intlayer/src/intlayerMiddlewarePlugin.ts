@@ -2,7 +2,7 @@ import { getConfiguration, type Locales } from '@intlayer/config';
 import { localeDetector } from '@intlayer/core';
 import type { IncomingMessage, ServerResponse } from 'http';
 import { parse } from 'url';
-/* @ts-ignore - Vite types error */
+/* @ts-expect-error - Vite types error */
 import type { Connect, Plugin } from 'vite';
 
 // Grab all the config you need.

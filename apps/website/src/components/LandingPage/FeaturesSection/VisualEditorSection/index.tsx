@@ -1,8 +1,8 @@
-import type { FC } from 'react';
-import { useIntlayer } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
 import { Link } from '@intlayer/design-system';
 import { CircleArrowRight } from 'lucide-react';
+import { useIntlayer } from 'next-intlayer';
+import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 export const VisualEditorSection: FC = () => {
   const { description, gotToPlaygroundButton } = useIntlayer(

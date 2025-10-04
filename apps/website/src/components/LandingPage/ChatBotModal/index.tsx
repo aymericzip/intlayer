@@ -3,7 +3,7 @@
 import { Button, Loader, Modal } from '@intlayer/design-system';
 import { Bot } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { lazy, Suspense, useState, type FC } from 'react';
+import { type FC, lazy, Suspense, useState } from 'react';
 
 const ChatBot = lazy(() =>
   import('@components/ChatBot').then((module) => ({ default: module.ChatBot }))

@@ -1,6 +1,6 @@
 'use client';
 
-import { type NodeProps, isSameKeyPath } from '@intlayer/core';
+import { isSameKeyPath, type NodeProps } from '@intlayer/core';
 import {
   MessageKey,
   useCommunicator,

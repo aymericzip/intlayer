@@ -1,4 +1,4 @@
-// @ts-ignore @intlayer/backend is not build yet
+// @ts-expect-error @intlayer/backend is not build yet
 import {
   ANSIColors,
   colon,
@@ -34,7 +34,7 @@ let loadDictionariesStatus: DictionariesStatus[] = [];
 const logger = new DictionariesLogger();
 
 const setLoadDictionariesStatus = (statuses: DictionariesStatus[]) => {
-  let updated: DictionariesStatus[] = [...loadDictionariesStatus];
+  const updated: DictionariesStatus[] = [...loadDictionariesStatus];
 
   for (const incoming of statuses) {
     const idx = updated.findIndex(

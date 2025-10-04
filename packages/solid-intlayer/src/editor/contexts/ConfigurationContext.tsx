@@ -1,9 +1,9 @@
-import { type IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/config/client';
 import { MessageKey } from '@intlayer/editor';
 import {
   type Component,
-  type ParentProps,
   createContext,
+  type ParentProps,
   useContext,
 } from 'solid-js';
 import { useCrossFrameState } from './useCrossFrameState';

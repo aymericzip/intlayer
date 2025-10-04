@@ -1,4 +1,4 @@
-import { type MessageKey, compareUrls } from '@intlayer/editor';
+import { compareUrls, type MessageKey } from '@intlayer/editor';
 import { onCleanup, onMount } from 'solid-js';
 import { useCommunicator } from './CommunicatorContext';
 

@@ -13,9 +13,9 @@ import {
 } from '@intlayer/design-system';
 import { useUser } from '@intlayer/design-system/hooks';
 import { StarIcon } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 
 const SwitchThemeSwitcher = dynamic(

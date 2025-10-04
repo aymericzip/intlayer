@@ -1,10 +1,10 @@
 export { getAlias } from './alias';
 export { bundleJSFile } from './bundleJSFile';
 export {
-  getConfiguration,
-  getConfigurationAndFilePath,
   type GetConfigurationAndFilePathResult,
   type GetConfigurationOptions,
+  getConfiguration,
+  getConfigurationAndFilePath,
 } from './configFile/getConfiguration';
 export { searchConfigurationFile } from './configFile/searchConfigurationFile';
 export { getSandBoxContext } from './getSandboxContext';
@@ -20,12 +20,12 @@ export {
   colorizeNumber,
   colorizePath,
   getAppLogger,
+  type Logger,
   logger,
   removeColor,
   spinnerFrames,
   v,
   x,
-  type Logger,
 } from './logger';
 export { retryManager } from './retryManager';
 export type {
@@ -43,8 +43,8 @@ export type {
   ServerSetCookieRule,
   StrictMode,
 } from './types/config';
-export { Locales } from './types/locales';
 export type { LocalesValues } from './types/locales';
+export { Locales } from './types/locales';
 export type { Plugin } from './types/plugin';
 export { clearModuleCache } from './utils/clearModuleCache';
 export { ESMxCJSRequire, isESModule } from './utils/ESMxCJSHelpers';

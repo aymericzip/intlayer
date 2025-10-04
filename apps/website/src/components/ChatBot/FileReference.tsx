@@ -1,6 +1,6 @@
 import { Link, Tag } from '@intlayer/design-system';
 import { File } from 'lucide-react';
-import { IntlayerNode, useIntlayer } from 'next-intlayer';
+import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 
 const FileReferenceTag: FC<{

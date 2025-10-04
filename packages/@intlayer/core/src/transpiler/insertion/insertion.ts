@@ -37,7 +37,7 @@ const insertion = <Content = unknown>(
       return getInsertionValues(content);
     }
 
-    let stringContent = undefined;
+    let stringContent;
 
     if (typeof content === 'function') {
       stringContent = content();

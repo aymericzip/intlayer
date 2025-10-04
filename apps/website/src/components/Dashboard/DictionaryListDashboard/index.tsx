@@ -1,6 +1,5 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import {
   Button,
   Container,
@@ -12,9 +11,10 @@ import {
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionaryActions } from '@intlayer/editor-react';
 import { ChevronRight, Plus } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
-import { Suspense, useState, type FC } from 'react';
+import { useIntlayer } from 'next-intlayer';
+import { type FC, Suspense, useState } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 export const DictionaryListDashboardContent: FC = () => {
   const { setFocusedContent } = useFocusDictionaryActions();

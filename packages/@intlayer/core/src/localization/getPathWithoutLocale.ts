@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { type Locales, type LocalesValues } from '@intlayer/config/client';
+import type { Locales, LocalesValues } from '@intlayer/config/client';
 
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 

@@ -1,9 +1,9 @@
 'use client';
 
 import { getHTMLTextDir, getLocaleName, getLocalizedUrl } from 'intlayer';
-import { useIntlayer, useLocale, useLocaleCookie } from 'next-intlayer';
 import Link from 'next/link';
-import { useRef, useState, type FC } from 'react';
+import { useIntlayer, useLocale, useLocaleCookie } from 'next-intlayer';
+import { type FC, useRef, useState } from 'react';
 import { useLocaleSearch } from './useLocaleSearch';
 
 export const LocaleSwitcher: FC = () => {

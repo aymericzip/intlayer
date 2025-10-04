@@ -1,8 +1,8 @@
 import { getIntlayerAPIProxy } from '@intlayer/api';
-// @ts-ignore: @intlayer/backend is not built yet
+// @ts-expect-error: @intlayer/backend is not built yet
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
-import { type IntlayerConfig, getAppLogger } from '@intlayer/config/client';
+import { getAppLogger, type IntlayerConfig } from '@intlayer/config/client';
 import { EventSource } from 'eventsource';
 
 export type IntlayerMessageEvent = MessageEvent;
@@ -169,7 +169,7 @@ export class IntlayerEventListener {
     }
 
     this.reconnectAttempts++;
-    const delay = this.reconnectDelay * Math.pow(2, this.reconnectAttempts - 1); // Exponential backoff
+    const delay = this.reconnectDelay * 2 ** (this.reconnectAttempts - 1); // Exponential backoff
 
     this.appLogger(
       `Scheduling reconnection attempt ${this.reconnectAttempts}/${this.maxReconnectAttempts} in ${delay}ms`

@@ -1,4 +1,3 @@
-import type { Routes } from '@/types/Routes';
 import {
   askDocQuestion,
   auditContentDeclaration,
@@ -11,6 +10,7 @@ import {
 } from '@controllers/ai.controller';
 import { unauthenticatedChatBotLimiter } from '@utils/rateLimiter';
 import { Router } from 'express';
+import type { Routes } from '@/types/Routes';
 
 export const aiRouter: Router = Router();
 

@@ -4,11 +4,11 @@ import type { KeyPath } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
 import {
   createContext,
-  useContext,
   type Dispatch,
   type FC,
   type PropsWithChildren,
   type SetStateAction,
+  useContext,
 } from 'preact/compat';
 import { useCrossFrameState } from './useCrossFrameState';
 

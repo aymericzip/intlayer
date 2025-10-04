@@ -1,5 +1,5 @@
 import { deepTransformNode, type Plugins } from '../interpreter';
-import { type Dictionary } from '../types';
+import type { Dictionary } from '../types';
 
 const passTypedNodePlugin: Plugins = {
   id: 'pass-typed-node-plugin',

@@ -1,5 +1,8 @@
-import { DocKey, getDocMetadata as getDocMetadataCore } from '@intlayer/docs';
-import { localeRecord, t, type Dictionary } from 'intlayer';
+import {
+  type DocKey,
+  getDocMetadata as getDocMetadataCore,
+} from '@intlayer/docs';
+import { type Dictionary, localeRecord, t } from 'intlayer';
 
 const getDocMetadata = (doc: DocKey) =>
   t(localeRecord(async ({ locale }) => await getDocMetadataCore(doc, locale)));

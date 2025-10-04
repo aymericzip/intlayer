@@ -1,4 +1,4 @@
-import { type FC, type HTMLAttributes } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 import type { BundledLanguage } from 'shiki';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';

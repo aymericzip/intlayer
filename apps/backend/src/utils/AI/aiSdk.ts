@@ -1,16 +1,16 @@
-import { anthropic, createAnthropic } from '@ai-sdk/anthropic';
-import { createDeepSeek, deepseek } from '@ai-sdk/deepseek';
-import { createGoogleGenerativeAI, google } from '@ai-sdk/google';
-import { createMistral, mistral } from '@ai-sdk/mistral';
-import { createOpenAI, openai } from '@ai-sdk/openai';
-import {
+import { type anthropic, createAnthropic } from '@ai-sdk/anthropic';
+import { createDeepSeek, type deepseek } from '@ai-sdk/deepseek';
+import { createGoogleGenerativeAI, type google } from '@ai-sdk/google';
+import { createMistral, type mistral } from '@ai-sdk/mistral';
+import { createOpenAI, type openai } from '@ai-sdk/openai';
+import type {
   AssistantModelMessage,
   generateText,
   SystemModelMessage,
   ToolModelMessage,
   UserModelMessage,
 } from 'ai';
-import { Response } from 'express';
+import type { Response } from 'express';
 
 type AnthropicModel = Parameters<typeof anthropic>[0];
 type DeepSeekModel = Parameters<typeof deepseek>[0];
@@ -101,7 +101,7 @@ const getModel = (
   defaultModel?: Model
 ): Model => {
   // Set default models based on provider
-  let fallBackModel: Model = defaultModel ?? 'chatgpt-4o-latest';
+  const fallBackModel: Model = defaultModel ?? 'chatgpt-4o-latest';
 
   switch (provider) {
     case AIProvider.OPENAI:
@@ -126,7 +126,7 @@ const getModel = (
     return userModel!;
   }
 
-  if (Boolean(userModel)) {
+  if (userModel) {
     throw new Error(
       'The user should use his own API key to use a custom model'
     );

@@ -1,4 +1,9 @@
-import { AnchorHTMLAttributes, DetailedHTMLProps, FC, ReactNode } from 'react';
+import type {
+  AnchorHTMLAttributes,
+  DetailedHTMLProps,
+  FC,
+  ReactNode,
+} from 'react';
 import { DiscordLogo } from './DiscordLogo';
 import { FacebookLogo } from './FacebookLogo';
 import { InstagramLogo } from './InstagramLogo';

@@ -1,4 +1,4 @@
-import { Injectable, InjectionToken, signal, Signal } from '@angular/core';
+import { Injectable, InjectionToken, type Signal, signal } from '@angular/core';
 import configuration from '@intlayer/config/built';
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 

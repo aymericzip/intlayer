@@ -4,7 +4,7 @@ import { Form, useForm } from '@intlayer/design-system';
 import { useAddTag } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { useTagSchema, type TagFormData } from './useTagFormSchema';
+import { type TagFormData, useTagSchema } from './useTagFormSchema';
 
 type TagCreationFormProps = {
   onTagCreated?: () => void;

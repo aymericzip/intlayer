@@ -3,11 +3,11 @@
 import type { LocalesValues } from 'intlayer';
 import {
   createContext,
-  useContext,
   type Dispatch,
+  type FC,
   type PropsWithChildren,
   type SetStateAction,
-  type FC,
+  useContext,
 } from 'react';
 import { useLocale } from 'react-intlayer';
 import { usePersistedStore } from '../../hooks';

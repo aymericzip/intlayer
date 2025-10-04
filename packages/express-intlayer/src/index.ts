@@ -4,8 +4,8 @@ import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
   getTranslation,
-  localeDetector,
   type LanguageContent,
+  localeDetector,
 } from '@intlayer/core';
 import { createNamespace } from 'cls-hooked';
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
@@ -143,4 +143,4 @@ export const getDictionary: typeof getDictionaryFunction = (...args) => {
   return appNamespace.get('getDictionary')(...args);
 };
 
-export { LanguageContent };
+export type { LanguageContent };

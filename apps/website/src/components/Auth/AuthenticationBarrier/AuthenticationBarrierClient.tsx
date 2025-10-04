@@ -1,13 +1,13 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { Loader } from '@intlayer/design-system';
 import { useSession } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
-import { useEffect, type FC } from 'react';
+import { type FC, useEffect } from 'react';
+import { PagesRoutes } from '@/Routes';
 import {
+  type AuthenticationBarrierProps,
   accessValidation,
-  AuthenticationBarrierProps,
 } from './accessValidation';
 
 type AuthenticationBarrierPropsCliet = Omit<

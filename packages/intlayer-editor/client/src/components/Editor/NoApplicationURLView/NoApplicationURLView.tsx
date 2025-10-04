@@ -1,5 +1,5 @@
 import { H3, Link } from '@intlayer/design-system';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
 export const NoApplicationURLView: FC = () => {

@@ -1,8 +1,8 @@
 import { runParallel, watch } from '@intlayer/chokidar';
 import {
+  type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
-  type GetConfigurationOptions,
 } from '@intlayer/config';
 
 type WatchOptions = {

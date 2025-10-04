@@ -1,12 +1,12 @@
 'use client';
 
 import React, {
+  type FC,
+  type PropsWithChildren,
   useCallback,
   useEffect,
   useRef,
   useState,
-  type FC,
-  type PropsWithChildren,
 } from 'react';
 import { cn } from '../../utils/cn';
 

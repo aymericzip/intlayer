@@ -1,6 +1,5 @@
-import type { FC } from 'react';
-
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
+import type { FC } from 'react';
 import { useLocale } from 'react-intlayer';
 import { Link, type LinkProps, type To } from 'react-router';
 

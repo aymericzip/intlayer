@@ -1,6 +1,5 @@
 import { logger } from '@logger';
-import type { NextFunction, Request } from 'express';
-import { Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 
 export const logAPIRequestURL = (
   req: Request,

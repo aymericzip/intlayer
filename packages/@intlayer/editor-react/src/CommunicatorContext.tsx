@@ -4,11 +4,11 @@ import configuration from '@intlayer/config/built';
 
 import {
   createContext,
+  type FC,
+  type PropsWithChildren,
   useContext,
   useMemo,
   useRef,
-  type FC,
-  type PropsWithChildren,
 } from 'react';
 import { v4 as uuid } from 'uuid'; // if you prefer a UUID library
 

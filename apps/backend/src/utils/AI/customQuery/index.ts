@@ -1,6 +1,6 @@
 import { logger } from '@logger';
 import { generateText } from 'ai';
-import { AIConfig, AIOptions, Messages } from '../aiSdk';
+import type { AIConfig, AIOptions, Messages } from '../aiSdk';
 
 export type CustomQueryOptions = {
   messages: Messages;
