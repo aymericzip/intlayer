@@ -4,7 +4,7 @@ import { Locales } from '@intlayer/config';
 import { logger } from '@logger';
 import { formatPaginatedResponse, formatResponse } from '@utils/responseData';
 import type { Response } from 'express';
-// @ts-expect-error express-intlayer not build yet
+// @ts-ignore express-intlayer not build yet
 import type { LanguageContent } from 'express-intlayer';
 import { t } from 'express-intlayer';
 import type { UserAPI } from '@/types/user.types';

@@ -62,7 +62,7 @@ const Template: StoryObj<typeof TabSelector> = {
           onTabClick={(key) => {
             setSelected(key);
             // Call the provided callback if any
-            // @ts-expect-error Storybook args can include callbacks without strict typing here
+            // @ts-ignore Storybook args can include callbacks without strict typing here
             args.onTabClick?.(key);
           }}
         />

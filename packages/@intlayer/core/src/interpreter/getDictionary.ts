@@ -26,7 +26,7 @@ export const getDictionary = <
     plugins,
   };
 
-  // @ts-expect-error Type instantiation is excessively deep and possibly infinite
+  // @ts-ignore Type instantiation is excessively deep and possibly infinite
   return getContent(
     dictionary.content,
     props,

@@ -1,4 +1,4 @@
-// @ts-expect-error @intlayer/backend is not build yet
+// @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';

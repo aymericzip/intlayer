@@ -1,4 +1,4 @@
-// @ts-expect-error intlayer declared for module augmentation
+// @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type { ValidDotPathsFor } from '../transpiler';
 import type { DictionaryKeys, GetSubPath } from '../types';

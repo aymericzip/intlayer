@@ -5,7 +5,7 @@ import {
   getConfiguration,
   type IntlayerConfig,
 } from '@intlayer/config';
-/** @ts-expect-error remove error Module '"chokidar"' has no exported member 'ChokidarOptions'. */
+/** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions'. */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 import { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
@@ -29,7 +29,7 @@ export const watch = (options?: WatchOptions) => {
   const { watch: isWatchMode, watchedFilesPatternWithPath } =
     configuration.content;
 
-  /** @ts-expect-error remove error Expected 0-1 arguments, but got 2. */
+  /** @ts-ignore remove error Expected 0-1 arguments, but got 2. */
   return chokidarWatch(watchedFilesPatternWithPath, {
     persistent: isWatchMode, // Make the watcher persistent
     ignoreInitial: true, // Process existing files

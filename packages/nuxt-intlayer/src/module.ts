@@ -5,7 +5,7 @@ import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { NuxtModule } from '@nuxt/schema';
 import { intlayerMiddleware, intlayerPrune } from 'vite-intlayer';
 
-// @ts-expect-error fix instantiation is excessively deep and possibly infinite
+// @ts-ignore fix instantiation is excessively deep and possibly infinite
 export const module: NuxtModule = defineNuxtModule({
   meta: {
     name: 'nuxt-intlayer',

@@ -1,7 +1,7 @@
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
 
-// @ts-expect-error intlayer declared for module augmentation
+// @ts-ignore intlayer declared for module augmentation
 import type { IConfigLocales } from 'intlayer';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 import { getPathWithoutLocale } from './getPathWithoutLocale';

@@ -1690,7 +1690,7 @@ export const compiler = (
    * h() JSX pragma; this allows the override functionality to be
    * automatically applied
    */
-  // @ts-expect-error
+  // @ts-ignore
   const rules: Rules = {
     [RuleType.blockQuote]: {
       _qualify: ['>'],

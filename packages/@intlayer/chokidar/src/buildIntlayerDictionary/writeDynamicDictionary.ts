@@ -110,7 +110,7 @@ export const writeDynamicDictionary = async (
         const localizedDictionary = {
           ...dictionaryEntry.dictionary,
           locale,
-          // @ts-expect-error Type instantiation is excessively deep and possibly infinite
+          // @ts-ignore Type instantiation is excessively deep and possibly infinite
           content: getLocalisedContent(
             JSON.parse(JSON.stringify(dictionaryEntry.dictionary.content)),
             locale,

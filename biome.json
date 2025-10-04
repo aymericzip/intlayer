@@ -38,7 +38,8 @@
           }
         },
         "noExplicitAny": "off",
-        "noArrayIndexKey": "warn"
+        "noArrayIndexKey": "warn",
+        "noTsIgnore": "off"
       },
       "complexity": {
         "noBannedTypes": "error",

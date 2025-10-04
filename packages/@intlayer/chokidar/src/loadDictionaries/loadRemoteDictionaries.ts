@@ -1,5 +1,5 @@
 import { getIntlayerAPIProxy } from '@intlayer/api';
-// @ts-expect-error @intlayer/backend is not build yet
+// @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';

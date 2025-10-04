@@ -1,5 +1,5 @@
 import { getIntlayerAPIProxy } from '@intlayer/api';
-// @ts-expect-error: @intlayer/backend is not built yet
+// @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
 import { getAppLogger, type IntlayerConfig } from '@intlayer/config/client';

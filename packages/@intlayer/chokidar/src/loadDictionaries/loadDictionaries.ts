@@ -1,4 +1,4 @@
-// @ts-expect-error @intlayer/backend is not build yet
+// @ts-ignore @intlayer/backend is not build yet
 import {
   ANSIColors,
   colon,

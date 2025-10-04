@@ -3,7 +3,7 @@ import {
   getIntlayer as getIntlayerCore,
   type Plugins,
 } from '@intlayer/core';
-// @ts-expect-error intlayer declared for module augmentation
+// @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector, LocalesValues } from 'intlayer';
 import {
   type DeepTransformContent,
