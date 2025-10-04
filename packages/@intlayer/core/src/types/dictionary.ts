@@ -276,7 +276,7 @@ export type Dictionary<ContentType = undefined, FetchableNode = false> = {
    *
    * Indicates the location of the dictionary.
    */
-  location?: 'distant' | 'locale';
+  location?: 'distant' | 'locale' | 'plugin';
   /**
    * The content of the dictionary.
    *

@@ -35,4 +35,5 @@ export const packageBuildOrder = [
   'packages/lynx-intlayer',
   'packages/@intlayer/design-system',
   'packages/intlayer-editor',
+  'plugins/sync-json-plugin',
 ];

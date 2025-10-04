@@ -1,4 +1,3 @@
-import configuration from '@intlayer/config/built';
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 import { deepTransformNode } from '../interpreter/getContent/deepTransform';
 import {
@@ -22,7 +21,7 @@ export const getLocalisedContent = <
   L extends LocalesValues = Locales,
 >(
   node: T,
-  locale: L = configuration?.internationalization.defaultLocale as L,
+  locale: L,
   nodeProps: NodeProps,
   fallback?: LocalesValues // fallback mean that if field is not translated, it will use the default locale
 ) => {

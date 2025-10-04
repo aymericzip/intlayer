@@ -163,15 +163,34 @@ export const loadDictionaries = async (
 ): Promise<{
   localDictionaries: Dictionary[];
   remoteDictionaries: Dictionary[];
+  pluginDictionaries: Dictionary[];
   time: {
     localDictionaries: number;
     remoteDictionaries: number;
   };
 }> => {
+  const { plugins } = configuration;
   const loadDictionariesStartTime = Date.now();
   const appLogger = getAppLogger(configuration);
 
   appLogger('Dictionaries:', { isVerbose: true });
+
+  // Load additional dictionaries via plugins (e.g., ICU JSON ingestion)
+  const loadPluginDictionariesPromise = (plugins ?? []).map(async (plugin) => {
+    try {
+      const res = await plugin.loadDictionaries?.({
+        configuration,
+        projectRequire,
+      });
+      return (res as Dictionary[] | undefined) ?? [];
+    } catch {
+      return [];
+    }
+  });
+
+  const pluginDictionaries: Dictionary[] = (
+    await Promise.all(loadPluginDictionariesPromise)
+  ).flat();
 
   const files = Array.isArray(contentDeclarationsPaths)
     ? contentDeclarationsPaths
@@ -231,6 +250,7 @@ export const loadDictionaries = async (
   return {
     localDictionaries: filteredLocalDictionaries,
     remoteDictionaries,
+    pluginDictionaries,
     time: {
       localDictionaries: localDictionariesTime - loadDictionariesStartTime,
       remoteDictionaries: remoteDictionariesTime - localDictionariesTime,

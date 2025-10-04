@@ -45,6 +45,7 @@ export type {
 } from './types/config';
 export { Locales } from './types/locales';
 export type { LocalesValues } from './types/locales';
+export type { Plugin } from './types/plugin';
 export { clearModuleCache } from './utils/clearModuleCache';
 export { ESMxCJSRequire, isESModule } from './utils/ESMxCJSHelpers';
 export { getExtension } from './utils/getExtension';
