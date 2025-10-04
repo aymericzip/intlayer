@@ -25,6 +25,9 @@ dictionaries
 # eslint
 .eslintcache
 
+# biome
+.biome
+
 # service-worker
 sw.js
 workbox-*.js

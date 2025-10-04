@@ -6,8 +6,6 @@
     "build": "craco build",
     "build:original": "react-scripts build",
     "build:script": "react-scripts-intlayer build",
-    "lint": "eslint . --cache",
-    "lint:fix": "eslint . --cache --fix",
     "start": "react-scripts-intlayer start",
     "start:customCracoConfig": "craco start",
     "start:editor": "npx intlayer-editor start",
@@ -25,12 +23,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
     ]
   },
   "dependencies": {
@@ -56,9 +48,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.8",
-    "eslint": "^8.57.1",
     "intlayer-editor": "workspace:*",
-    "prettier": "^3.6.2",
     "tailwindcss": "^4.0.8"
   }
 }

@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/cognitive-complexity */
 type ElementType = 'string' | 'number' | 'boolean' | 'object' | 'array';
 type ElementValidator<T> = (value: T) => boolean | string[];
 

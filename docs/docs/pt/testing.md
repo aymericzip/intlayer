@@ -81,7 +81,6 @@ test("não possui locais obrigatórios faltando", () => {
   const result = listMissingTranslations();
 
   if (result.missingRequiredLocales.length > 0) {
-    // eslint-disable-next-line no-console
     console.log(result.missingTranslations);
   }
 

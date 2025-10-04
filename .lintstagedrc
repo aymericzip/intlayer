@@ -1,4 +1,3 @@
 {
-  "*.{js,jsx,ts,tsx}": ["prettier --write", "eslint --fix --cache"],
-  "*.{json,md,yml,yaml}": ["prettier --write"]
+  "*.{js,jsx,ts,tsx,json,md,yml,yaml}": ["biome check --write"]
 }

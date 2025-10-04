@@ -81,7 +81,6 @@ test("没有缺失的必需语言环境", () => {
   const result = listMissingTranslations();
 
   if (result.missingRequiredLocales.length > 0) {
-    // eslint-disable-next-line no-console
     console.log(result.missingTranslations);
   }
 
