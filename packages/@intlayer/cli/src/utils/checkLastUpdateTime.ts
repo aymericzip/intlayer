@@ -1,4 +1,4 @@
-import { statSync } from 'fs';
+import { statSync } from 'node:fs';
 
 /**
  * Returns the last modification date of a file.

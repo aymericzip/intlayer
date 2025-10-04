@@ -1,4 +1,4 @@
-import { createRequire } from 'module';
+import { createRequire } from 'node:module';
 
 export const isESModule = typeof import.meta.url === 'string';
 

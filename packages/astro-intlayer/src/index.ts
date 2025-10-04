@@ -1,7 +1,7 @@
+import { join, resolve } from 'node:path';
 import { prepareIntlayer, runOnce, watch } from '@intlayer/chokidar';
 import { getAlias, getConfiguration } from '@intlayer/config';
-import { AstroIntegration } from 'astro';
-import { join, resolve } from 'path';
+import type { AstroIntegration } from 'astro';
 import {
   intlayerPrune,
   intlayerMiddleware as viteIntlayerMiddlewarePlugin,

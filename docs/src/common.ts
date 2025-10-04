@@ -1,6 +1,6 @@
-import { Locales, LocalesValues } from '@intlayer/config';
+import { join } from 'node:path';
+import { Locales, type LocalesValues } from '@intlayer/config';
 import { getLocalizedUrl, getMarkdownMetadata } from '@intlayer/core';
-import { join } from 'path';
 
 export const defaultLocale = Locales.ENGLISH;
 
@@ -97,13 +97,9 @@ export const getFileMetadata = async <
   docKey: keyof F,
   locale: LocalesValues = defaultLocale as LocalesValues
 ): Promise<R> => {
-  try {
     const file = await getFile(files, docKey, locale);
 
     return formatMetadata(docKey as string, file, locale) as R;
-  } catch (error) {
-    throw error;
-  }
 };
 
 export const getFileMetadataRecord = async <

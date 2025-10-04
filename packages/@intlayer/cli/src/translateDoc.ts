@@ -1,9 +1,13 @@
-import { AIOptions } from '@intlayer/api';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
+import { dirname, join, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import type { AIOptions } from '@intlayer/api';
 import {
   formatLocale,
   formatPath,
+  type ListGitFilesOptions,
   listGitFiles,
-  ListGitFilesOptions,
   parallelize,
 } from '@intlayer/chokidar';
 import {
@@ -11,18 +15,14 @@ import {
   colon,
   colorize,
   colorizeNumber,
+  type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
-  GetConfigurationOptions,
-  IntlayerConfig,
-  Locales,
+  type IntlayerConfig,
+  type Locales,
   retryManager,
 } from '@intlayer/config';
 import fg from 'fast-glob';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { readFile } from 'fs/promises';
-import { dirname, join, relative } from 'path';
-import { fileURLToPath } from 'url';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAccess';
 import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
@@ -106,7 +106,7 @@ export const translateFile = async (
       const fileToTranslateCurrentChunk = chunk.content;
 
       // Make the actual translation call
-      let chunkTranslation = await retryManager(async () => {
+      const chunkTranslation = await retryManager(async () => {
         const result = await chunkInference(
           [
             { role: 'system', content: basePrompt },

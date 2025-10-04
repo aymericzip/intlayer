@@ -1,9 +1,9 @@
+import { join, resolve } from 'node:path';
 import { prepareIntlayer, runOnce, watch } from '@intlayer/chokidar';
-import intlayerConfig from '@intlayer/config/built';
-import { join, resolve } from 'path';
-// @ts-ignore - Fix error Module '"vite"' has no exported member
+// @ts-expect-error - Fix error Module '"vite"' has no exported member
 import { getAlias, getAppLogger } from '@intlayer/config';
-import { type PluginOption } from 'vite';
+import intlayerConfig from '@intlayer/config/built';
+import type { PluginOption } from 'vite';
 import { intlayerPrune } from './intlayerPrunePlugin';
 
 /**

@@ -1,6 +1,6 @@
-import { type IntlayerConfig, Locales } from '@intlayer/config';
-import { type AutoFill } from '@intlayer/core';
-import { extname } from 'path';
+import { extname } from 'node:path';
+import type { IntlayerConfig, Locales } from '@intlayer/config';
+import type { AutoFill } from '@intlayer/core';
 import { formatAutoFilledFilePath } from './formatAutoFilledFilePath';
 
 export type AutoFillData = {
@@ -20,7 +20,7 @@ export const formatAutoFillData = (
 
   const baseDir = configuration.content.baseDir;
 
-  if (!Boolean(autoFillField)) return outputContentDeclarationFile;
+  if (!autoFillField) return outputContentDeclarationFile;
 
   if (autoFillField === true) {
     // wanted jsonFilePath: /..../src/components/home/index.content.json

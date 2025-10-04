@@ -1,9 +1,13 @@
-import { AIOptions } from '@intlayer/api'; // OAuth handled by API proxy
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
+import { dirname, join, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import type { AIOptions } from '@intlayer/api'; // OAuth handled by API proxy
 import {
   formatLocale,
   formatPath,
+  type ListGitFilesOptions,
   listGitFiles,
-  ListGitFilesOptions,
   listGitLines,
   parallelize,
 } from '@intlayer/chokidar';
@@ -12,18 +16,14 @@ import {
   colon,
   colorize,
   colorizeNumber,
+  type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
-  GetConfigurationOptions,
   Locales,
   retryManager,
 } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
 import fg from 'fast-glob';
-import { mkdirSync, writeFileSync } from 'fs';
-import { readFile } from 'fs/promises';
-import { dirname, join, relative } from 'path';
-import { fileURLToPath } from 'url';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAccess';
 import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
@@ -146,7 +146,7 @@ export const reviewFile = async (
           `///chunksEnd///`;
 
         // Make the actual translation call
-        let reviewedChunkResult = await retryManager(async () => {
+        const reviewedChunkResult = await retryManager(async () => {
           const result = await chunkInference(
             [
               { role: 'system', content: basePrompt },
@@ -209,7 +209,7 @@ export const reviewFile = async (
           `///chunksEnd///`;
 
         // Make the actual translation call
-        let reviewedChunkResult = await retryManager(async () => {
+        const reviewedChunkResult = await retryManager(async () => {
           const result = await chunkInference(
             [
               { role: 'system', content: basePrompt },
@@ -362,7 +362,7 @@ export const reviewDoc = async ({
         return;
       }
 
-      let changedLines: number[] | undefined = undefined;
+      let changedLines: number[] | undefined;
       // FIXED: Enable git optimization that was previously commented out
       if (gitOptions) {
         const gitChangedLines = await listGitLines(

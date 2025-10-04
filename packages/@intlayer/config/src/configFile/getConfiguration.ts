@@ -1,5 +1,5 @@
+import { relative } from 'node:path';
 import merge from 'deepmerge';
-import { relative } from 'path';
 import { logger } from '../logger';
 import type {
   CustomIntlayerConfig,

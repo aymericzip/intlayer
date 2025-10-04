@@ -1,4 +1,4 @@
-import { statSync } from 'fs';
+import { statSync } from 'node:fs';
 
 const SKIP_RANGE_OF_LAST_UPDATE_TIME: number = 0; //2 * 60 * 60 * 1000; // 2 hours
 

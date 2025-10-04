@@ -6,19 +6,19 @@
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import {
   clearModuleCache,
   ESMxCJSRequire,
   getConfiguration,
   type IntlayerConfig,
 } from '@intlayer/config';
-import { existsSync } from 'fs';
-import {
+import type {
   Dictionary,
   IntlayerDictionaryTypesConnector,
   LanguageContent,
 } from 'intlayer';
-import { join } from 'path';
 
 export const getRemoteDictionaries = (
   configuration: IntlayerConfig = getConfiguration(),

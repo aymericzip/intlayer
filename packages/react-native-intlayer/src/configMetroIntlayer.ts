@@ -1,8 +1,8 @@
+import { resolve as pathResolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar';
 import { getAlias, getConfiguration } from '@intlayer/config';
 import { getDefaultConfig } from 'expo/metro-config';
 import { resolve } from 'metro-resolver';
-import { resolve as pathResolve } from 'path';
 import { exclusionList } from './exclusionList';
 
 type MetroConfig = ReturnType<typeof getDefaultConfig>;

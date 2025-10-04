@@ -1,6 +1,6 @@
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import fg from 'fast-glob';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
 import { EXCLUDED_GLOB_PATTEN } from './markdownFormatting';
 
 const extractSlugsFromFrontmatter = (content: string): string[] | null => {

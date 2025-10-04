@@ -1,5 +1,5 @@
+import { readFileSync } from 'node:fs';
 import { ESMxCJSRequire } from '@intlayer/config';
-import { readFileSync } from 'fs';
 
 export const getNextVersion = () => {
   try {

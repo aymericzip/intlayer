@@ -16,9 +16,9 @@
 import { spawn } from 'child_process';
 import Enquirer from 'enquirer';
 import fg from 'fast-glob';
-import fs from 'fs';
+import fs from 'node:fs';
 import minimist from 'minimist';
-import path from 'path';
+import path from 'node:path';
 
 const args = minimist(process.argv.slice(2));
 // Defaults to 'dev' if not provided

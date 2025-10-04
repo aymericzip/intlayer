@@ -1,18 +1,18 @@
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { colorizePath, x } from '@intlayer/config';
 import {
-  deepTransformNode,
-  NodeType,
   type Dictionary,
+  deepTransformNode,
   type FileContent,
   type FileContentConstructor,
   type InsertionContent,
   type InsertionContentConstructor,
   type MarkdownContent,
   type MarkdownContentConstructor,
+  NodeType,
   type Plugins,
 } from '@intlayer/core';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { join } from 'path';
 
 /**
  * Write file plugin

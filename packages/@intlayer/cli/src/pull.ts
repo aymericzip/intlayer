@@ -1,19 +1,19 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
+  type DictionaryStatus,
   parallelize,
   writeContentDeclaration,
-  type DictionaryStatus,
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
   ESMxCJSRequire,
+  type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
-  GetConfigurationOptions,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { existsSync } from 'fs';
-import { join } from 'path';
 import { PullLogger, type PullStatus } from './push/pullLog';
 import { checkCMSAuth } from './utils/checkAccess';
 

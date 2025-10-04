@@ -1,5 +1,5 @@
-import { mkdir, stat, unlink, writeFile } from 'fs/promises';
-import { dirname } from 'path';
+import { mkdir, stat, unlink, writeFile } from 'node:fs/promises';
+import { dirname } from 'node:path';
 
 /**
  * Ensures a callback function runs only once within a specified time window across multiple processes.

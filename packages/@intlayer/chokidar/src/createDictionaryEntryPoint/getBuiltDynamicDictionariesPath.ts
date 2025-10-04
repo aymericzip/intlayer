@@ -1,6 +1,6 @@
+import { existsSync, mkdirSync } from 'node:fs';
 import { getConfiguration, normalizePath } from '@intlayer/config';
 import fg from 'fast-glob';
-import { existsSync, mkdirSync } from 'fs';
 
 /**
  * This function generates a list of dictionaries in the main directory

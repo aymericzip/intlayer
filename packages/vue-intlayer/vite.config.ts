@@ -1,7 +1,7 @@
+import { extname, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import vue from '@vitejs/plugin-vue';
 import fg from 'fast-glob';
-import { fileURLToPath } from 'node:url';
-import { extname, relative } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 

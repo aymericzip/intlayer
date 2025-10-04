@@ -32,7 +32,16 @@
         "useSingleVarDeclarator": "error"
       },
       "suspicious": {
-        "noConsole": "warn",
+        "noConsole": {
+          "options": {
+            "allow": [
+              "assert",
+              "error",
+              "info",
+              "warn"
+            ]
+          }
+        },
         "noExplicitAny": "off",
         "noArrayIndexKey": "warn"
       },

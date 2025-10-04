@@ -1,11 +1,11 @@
+import { resolve } from 'node:path';
 import { prepareIntlayer, watch } from '@intlayer/chokidar';
 import { getAlias, getConfiguration } from '@intlayer/config';
 import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { NuxtModule } from '@nuxt/schema';
-import { resolve } from 'path';
 import { intlayerMiddleware, intlayerPrune } from 'vite-intlayer';
 
-// @ts-ignore fix instantiation is excessively deep and possibly infinite
+// @ts-expect-error fix instantiation is excessively deep and possibly infinite
 export const module: NuxtModule = defineNuxtModule({
   meta: {
     name: 'nuxt-intlayer',

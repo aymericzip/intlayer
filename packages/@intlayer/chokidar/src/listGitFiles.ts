@@ -1,7 +1,7 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
-import { readFileSync } from 'fs';
-import { join } from 'path';
 import simpleGit from 'simple-git';
 
 export type DiffMode = 'gitDiff' | 'uncommitted' | 'unpushed' | 'untracked';

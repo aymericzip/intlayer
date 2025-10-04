@@ -3,8 +3,8 @@
 
 import { runParallel } from '@intlayer/chokidar';
 import { exec } from 'child_process';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // Get the current file's directory
 const __filename = fileURLToPath(import.meta.url);

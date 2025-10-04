@@ -1,6 +1,8 @@
-import { spawn } from 'child_process';
+import { dirname as pathDirname, resolve as pathResolve } from 'node:path';
+import { createRequire } from
+'node:module;
+
 import { createRequire } from 'module';
-import { dirname as pathDirname, resolve as pathResolve } from 'path';
 
 type StartEditorOptions = {
   env?: string;

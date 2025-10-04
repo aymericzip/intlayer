@@ -1,12 +1,12 @@
+import { mkdir } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { colorizePath, getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { mkdir } from 'fs/promises';
-import { resolve } from 'path';
 import { mergeDictionaries } from '../mergeDictionaries';
 import { processPerLocaleDictionary } from '../processPerLocaleDictionary';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
-import { UnmergedDictionaryOutput } from './writeUnmergedDictionary';
+import type { UnmergedDictionaryOutput } from './writeUnmergedDictionary';
 
 export type MergedDictionaryResult = {
   dictionaryPath: string;

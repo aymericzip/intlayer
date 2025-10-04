@@ -1,6 +1,6 @@
+import { mkdir } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { getConfiguration } from '@intlayer/config';
-import { mkdir } from 'fs/promises';
-import { resolve } from 'path';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import { generateDictionaryListContent } from './generateDictionaryListContent';

@@ -1,11 +1,11 @@
+import { mkdir, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import {
   ESMxCJSRequire,
   getConfiguration,
-  IntlayerConfig,
+  type IntlayerConfig,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { mkdir, writeFile } from 'fs/promises';
-import { resolve } from 'path';
 import { parallelize } from '../utils/parallelize';
 
 const requireUncached = (module: string) => {

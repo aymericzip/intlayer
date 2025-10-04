@@ -1,6 +1,6 @@
+import { relative } from 'node:path';
 import { ANSIColors, getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
-import { relative } from 'path';
 
 export const formatCode = async (filePath: string, code: string) => {
   const appLogger = getAppLogger(configuration);

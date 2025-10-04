@@ -1,6 +1,6 @@
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import fg from 'fast-glob';
-import { existsSync, readFileSync } from 'fs';
-import { join } from 'path';
 import { locales } from '../intlayer.config';
 import { EXCLUDED_GLOB_PATTEN } from './markdownFormatting';
 

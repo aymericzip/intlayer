@@ -1,7 +1,7 @@
-import { Locales, getConfiguration, normalizePath } from '@intlayer/config';
+import { mkdir } from 'node:fs/promises';
+import { basename, extname, join, relative } from 'node:path';
+import { getConfiguration, Locales, normalizePath } from '@intlayer/config';
 import fg from 'fast-glob';
-import { mkdir } from 'fs/promises';
-import { basename, extname, join, relative } from 'path';
 import { getFileHash } from '../utils/getFileHash';
 import { kebabCaseToCamelCase } from '../utils/kebabCaseToCamelCase';
 import { writeFileIfChanged } from '../writeFileIfChanged';

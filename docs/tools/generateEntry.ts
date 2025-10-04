@@ -14,11 +14,10 @@
  *  and must therefore be 100 % deterministic.
  * ------------------------------------------------------------------------- */
 
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { dirname } from 'node:path';
 import { localeMap } from '@intlayer/core';
 import fg from 'fast-glob';
-import { mkdir, readFile, writeFile } from 'fs/promises';
-import { dirname } from 'path';
-import prettier from 'prettier';
 import { locales } from '../intlayer.config';
 
 /* -------------------------------------------------------------------------- */
@@ -36,7 +35,6 @@ interface CategoryConfig {
   entryFilePath: string;
 }
 
-const rootDir = process.cwd();
 
 /* -------------------------------------------------------------------------- */
 /*                               CONFIGURATION                                */
@@ -80,20 +78,20 @@ const buildEntryContent = (
   const header = [
     `/* AUTO-GENERATED – DO NOT EDIT */`,
     `/* REGENERATE USING \`pnpm prepare\` */`,
+    `import { existsSync } from 'node:fs';`,
+    `import { readFile } from 'node:fs/promises';`,
+    `import { dirname, join } from 'node:path';`,
+    `import { fileURLToPath } from 'node:url';`,
     `import type { LocalesValues } from '@intlayer/config';`,
-    `import { existsSync } from 'fs';`,
-    `import { readFile } from 'fs/promises';`,
-    `import { dirname, join } from 'path';`,
-    `import { fileURLToPath } from 'url';`,
     ``,
     `const isESModule = typeof import.meta.url === 'string';`,
     `const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;`,
     ``,
     `const readLocale = (relativeAfterLocale: string, locale: LocalesValues): Promise<string> => {`,
-    `  const target = join(dir, '../../../${dir}/' + locale + '/' + relativeAfterLocale);`,
+    `  const target = join(dir, \`../../../${dir}/\${locale}/\${relativeAfterLocale}\`);`,
     `  if (!existsSync(target)) {`,
-    `    console.error('File not found: ' + target);`,
-    `    return readFile(join(dir, '../../../${dir}/en/' + relativeAfterLocale), 'utf8');`,
+    `    console.error(\`File not found: \${target}\`);`,
+    `    return readFile(join(dir, \`../../../${dir}/en/\${relativeAfterLocale}\`), 'utf8');`,
     `  }`,
     `  return readFile(target, 'utf8');`,
     `};`,
@@ -108,14 +106,14 @@ const buildEntryContent = (
 
       const localeList = localeMap(
         ({ locale }) =>
-          `'${locale}': readLocale('${relativeAfterLocale}', '${locale}')`,
+          `\n    '${locale}': readLocale('${relativeAfterLocale}', '${locale}')`,
         locales
       );
-      return `  '${file}': {${localeList.join(',')}} as unknown as Record<LocalesValues, Promise<string>>,`;
+      return `  '${file}': {${localeList.join(',')}\n  } as unknown as Record<LocalesValues, Promise<string>>,`;
     })
-    .join('');
+    .join('\n');
 
-  const footer = `} as const;\n`;
+  const footer = `\n} as const;\n`;
   return header + lines + footer;
 };
 
@@ -136,23 +134,13 @@ const generate = async () => {
 
     /* --------------------------- format with prettier -------------------------- */
     try {
-      // Resolve Prettier configuration for the target file to ensure the
-      // generated artefacts follow the workspace formatting rules.
-      const resolvedPrettierConfig = await prettier.resolveConfig(
-        cfg.entryFilePath
-      );
-
-      const formatted = await prettier.format(entryContent, {
-        ...resolvedPrettierConfig,
-        parser: 'typescript',
-        filepath: cfg.entryFilePath,
-      });
+  
 
       const currentContent = await readFile(cfg.entryFilePath, 'utf-8');
 
       // If the file is different from the formatted version, write the formatted version
-      if (formatted !== currentContent) {
-        await writeFile(cfg.entryFilePath, formatted, 'utf-8');
+      if (entryContent !== currentContent) {
+        await writeFile(cfg.entryFilePath, entryContent, 'utf-8');
         console.log(`✨ Formatted ${cfg.entryFilePath}`);
       }
     } catch (error) {

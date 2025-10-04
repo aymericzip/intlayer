@@ -1,5 +1,5 @@
+import { existsSync, rmSync } from 'node:fs';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
-import { existsSync, rmSync } from 'fs';
 
 export const cleanOutputDir = (configuration = getConfiguration()) => {
   const {
