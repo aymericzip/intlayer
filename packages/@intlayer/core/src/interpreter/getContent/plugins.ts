@@ -373,8 +373,7 @@ type CheckApplyPlugin<
   T,
   K extends keyof IInterpreterPlugin<T, S>,
   S,
-> = // Test if the key is a key of S.
-K extends keyof S
+> = K extends keyof S // Test if the key is a key of S.
   ? // Test if the key of S is true. Then the plugin can be applied.
     S[K] extends true
     ? // Test if the key of S exist
@@ -402,8 +401,7 @@ type Traverse<T, S> =
 export type DeepTransformContent<
   T,
   S = IInterpreterPluginState,
-> = // Check if there is a plugin for T:
-CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S>, S> extends never
+> = CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S>, S> extends never // Check if there is a plugin for T:
   ? // No plugin was found, so try to transform T recursively:
     Traverse<T, S>
   : // A plugin was found – use the plugin’s transformation.
