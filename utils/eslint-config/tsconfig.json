@@ -4,11 +4,13 @@
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "strict": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "incremental": true,
     "allowJs": true,
     "esModuleInterop": true,
-    "checkJs": true
+    "checkJs": true,
+    "noEmit": true,
+    "types": ["node"]
   },
   "exclude": ["node_modules", "dist", "build"],
   "include": [

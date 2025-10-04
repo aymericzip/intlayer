@@ -3,9 +3,7 @@ import tsEslint from 'typescript-eslint';
 
 /** @type {import('eslint').Linter.Config[]} */
 const config = [
-  // @ts-expect-error: Type not compatible
   ...tsEslint.configs.recommended,
-  // @ts-expect-error: Type not compatible
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.d.ts'],
     rules: {
@@ -37,24 +35,20 @@ const config = [
 
   {
     files: ['**/*.d.ts'],
-    // @ts-expect-error: Type not compatible
     languageOptions: {
       globals: {
         ...globals.browser,
         ...globals.node,
       },
-
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
           globalReturn: false,
         },
         ecmaVersion: 'latest',
-        project: ['tsconfig.json'],
+        projectService: true,
         sourceType: 'module',
       },
-      ecmaVersion: 'latest',
-      sourceType: 'script',
     },
 
     rules: {

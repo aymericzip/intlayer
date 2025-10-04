@@ -1,3 +1,4 @@
-declare module 'prettier-plugin-packagejson';
-declare module 'prettier-plugin-tailwindcss';
-declare module 'prettier-plugin-organize-imports';
+declare module '../prettier.base.config.js' {
+  const config: import('prettier').Config;
+  export = config;
+}

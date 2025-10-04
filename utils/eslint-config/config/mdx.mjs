@@ -1,7 +1,7 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,17 +11,9 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
-/** @type {import('eslint').Linter.Config} */
-const subConfig = {
-  files: ['**/*.mdx'],
-
-  rules: {
-    '@typescript-eslint/consistent-type-exports': 'off',
-  },
-};
-
 /** @type {import('eslint').Linter.Config[]} */
 const config = [
+  // @ts-expect-error - Type incompatibility between ESLint versions
   ...compat
     .extends(
       'plugin:mdx/recommended',
@@ -31,7 +23,13 @@ const config = [
       ...config,
       files: ['**/*.mdx'],
     })),
-  subConfig,
+  // @ts-expect-error - Type incompatibility between ESLint versions
+  {
+    files: ['**/*.mdx'],
+    rules: {
+      '@typescript-eslint/consistent-type-exports': 'off',
+    },
+  },
 ];
 
 export default config;

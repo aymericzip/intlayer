@@ -1,62 +1,61 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { fixupConfigRules } from '@eslint/compat';
-import { FlatCompat } from '@eslint/eslintrc';
-import js from '@eslint/js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
-
-/** @type {import('eslint').Linter.Config} */
-const subConfig = {
-  files: ['**/*.{jsx,tsx}'],
-
-  rules: {
-    'react/no-unknown-property': [
-      'error',
-      {
-        ignore: ['css'],
-      },
-    ],
-
-    'react/no-unescaped-entities': [
-      'error',
-      {
-        forbid: ['>'],
-      },
-    ],
-
-    'react/prop-types': 'off',
-    'react/react-in-jsx-scope': 'off',
-    'react-hooks/exhaustive-deps': 'off',
-  },
-};
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
 
 /** @type {import('eslint').Linter.Config[]} */
 const config = [
   {
+    files: ['**/*.{jsx,tsx}'],
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+      'jsx-a11y': jsxA11y,
+    },
     settings: {
       react: {
         version: 'detect',
       },
     },
+    rules: {
+      // React rules
+      'react/no-unknown-property': [
+        'error',
+        {
+          ignore: ['css'],
+        },
+      ],
+      'react/no-unescaped-entities': [
+        'error',
+        {
+          forbid: ['>'],
+        },
+      ],
+      'react/prop-types': 'off',
+      'react/react-in-jsx-scope': 'off',
+
+      // React Hooks rules
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'off',
+
+      // JSX A11y rules
+      'jsx-a11y/alt-text': 'error',
+      'jsx-a11y/anchor-has-content': 'error',
+      'jsx-a11y/anchor-is-valid': 'error',
+      'jsx-a11y/aria-props': 'error',
+      'jsx-a11y/aria-proptypes': 'error',
+      'jsx-a11y/aria-unsupported-elements': 'error',
+      'jsx-a11y/click-events-have-key-events': 'error',
+      'jsx-a11y/heading-has-content': 'error',
+      'jsx-a11y/html-has-lang': 'error',
+      'jsx-a11y/img-redundant-alt': 'error',
+      'jsx-a11y/no-access-key': 'error',
+      'jsx-a11y/no-redundant-roles': 'error',
+      'jsx-a11y/role-has-required-aria-props': 'error',
+      'jsx-a11y/role-supports-aria-props': 'error',
+      'jsx-a11y/scope': 'error',
+      'jsx-a11y/tabindex-no-positive': 'error',
+    },
   },
-  ...fixupConfigRules(
-    compat.extends(
-      'plugin:react/recommended',
-      'plugin:react-hooks/recommended',
-      'plugin:jsx-a11y/recommended'
-    )
-  ).map((config) => ({
-    ...config,
-    files: ['**/*.{jsx,tsx}'],
-  })),
-  subConfig,
 ];
 
 export default config;

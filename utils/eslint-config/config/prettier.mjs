@@ -1,4 +1,5 @@
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+// @ts-ignore - Type declaration issue
 import prettierConfig from '../prettier.base.config.js';
 
 /** @type {import('eslint').Linter.Config} */
