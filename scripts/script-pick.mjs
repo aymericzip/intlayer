@@ -13,7 +13,7 @@
  * @module CommandExecutor
  */
 
-import { spawn } from 'child_process';
+import { spawn } from 'node:child_process';
 import Enquirer from 'enquirer';
 import fg from 'fast-glob';
 import fs from 'node:fs';

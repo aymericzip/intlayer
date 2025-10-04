@@ -64,8 +64,8 @@ const extractKeyAndLocaleFromPath = (
   let key: string | undefined;
 
   if (match?.groups) {
-    locale = match.groups['locale'] as Locales | undefined;
-    key = (match.groups['key'] as string | undefined) ?? 'index';
+    locale = match.groups.locale as Locales | undefined;
+    key = (match.groups.key as string | undefined) ?? 'index';
   }
 
   return {
@@ -216,12 +216,12 @@ export const syncJSON = (options: ICUPluginOptions) =>
 
       return dictionaries;
     },
-    afterBuild: async ({ dictionaries, configuration }) => {
-      const dictionariesMap = loadMessagePathMap(options.source, configuration);
-      for (const { locale, path, key } of dictionariesMap) {
-        const updatedDictionary = dictionaries.mergedDictionaries[key];
-        // console.log(locale);
-        // await writeFile(path, presetOutputContent.content);
-      }
-    },
+    // afterBuild: async ({ dictionaries, configuration }) => {
+    //   const dictionariesMap = loadMessagePathMap(options.source, configuration);
+    //   for (const { locale, path, key } of dictionariesMap) {
+    //     const updatedDictionary = dictionaries.mergedDictionaries[key];
+    //     // console.log(locale);
+    //     // await writeFile(path, presetOutputContent.content);
+    //   }
+    // },
   }) as Plugin;
