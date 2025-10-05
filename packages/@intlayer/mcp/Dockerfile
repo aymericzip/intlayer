@@ -33,6 +33,7 @@ COPY \
     --exclude=packages/intlayer-editor \
     --exclude=docs/assets \
     --exclude=examples \
+    --exclude=plugins \
     --exclude=apps/website \
     . .
 

@@ -28,6 +28,7 @@ COPY \
     --exclude=packages/intlayer-editor \
     --exclude=docs/assets \
     --exclude=apps/website \
+    --exclude=plugins \
     --exclude=examples \
     . .
 

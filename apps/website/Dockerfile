@@ -66,6 +66,7 @@ COPY \
     --exclude=packages/intlayer-editor \
     --exclude=docs/assets \
     --exclude=examples \
+    --exclude=plugins \
     . .
 
 # Installer toutes les dépendances (dev + prod) (frozen for reproducible builds)
