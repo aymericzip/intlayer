@@ -185,6 +185,7 @@ const configurationOptionKeys: (keyof ConfigurationOptions)[] = [
 const extractConfigOptions = (
   options: ConfigurationOptions
 ): GetConfigurationOptions | undefined => {
+  const configuration = getConfiguration(options);
   const filteredOptions = extractKeysFromOptions(
     options,
     configurationOptionKeys
@@ -198,8 +199,9 @@ const extractConfigOptions = (
 
   const { baseDir, env, envFile, verbose, prefix } = options;
 
+  const addPrefix: boolean = Boolean((options as any).with); // Hack to add the prefix when the command is run in parallel
   const log = {
-    prefix: prefix ?? '', // Should not consider the prefix set in the intlayer configuration file
+    prefix: (prefix ?? addPrefix) ? configuration.log.prefix : '', // Should not consider the prefix set in the intlayer configuration file
     verbose: verbose ?? true,
   };
 
