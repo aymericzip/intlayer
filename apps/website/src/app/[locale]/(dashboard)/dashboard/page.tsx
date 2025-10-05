@@ -46,7 +46,7 @@ const DashboardPage: NextPageIntlayer<{ session?: Session }> = async ({
         })
       : Promise.resolve(),
 
-    sessionServer?.organization && sessionServer?.project
+    sessionServer?.organization
       ? queryClient.prefetchQuery({
           queryKey: ['tags', undefined],
           queryFn: () => api.tag.getTags(undefined),
