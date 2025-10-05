@@ -405,7 +405,7 @@ export const auditTag = async (
 
 export type AskDocQuestionBody = {
   messages: ChatCompletionRequestMessage[];
-  discutionId: string;
+  discussionId: string;
 };
 export type AskDocQuestionResult =
   ResponseData<askDocQuestionUtil.AskDocQuestionResult>;
@@ -414,7 +414,7 @@ export const askDocQuestion = async (
   req: Request<undefined, undefined, AskDocQuestionBody>,
   res: ResponseWithSession<AskDocQuestionResult>
 ) => {
-  const { messages, discutionId } = req.body;
+  const { messages, discussionId } = req.body;
   const { user, project, organization } = res.locals;
 
   let aiConfig: AIConfig;
@@ -459,10 +459,10 @@ export const askDocQuestion = async (
 
         // 3. Persist discussion while the client already has all chunks
         await DiscussionModel.findOneAndUpdate(
-          { discutionId },
+          { discussionId },
           {
             $set: {
-              discutionId,
+              discussionId,
               userId: user?.id,
               projectId: project?.id,
               organizationId: organization?.id,

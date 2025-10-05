@@ -55,8 +55,8 @@ type ChatBotProps = {
   stateReloaderTrigger?: any;
 };
 
-type DiscutionStore = {
-  discutionId: string;
+type DiscussionStore = {
+  discussionId: string;
   storedPrompt: ChatCompletionRequestMessage[];
   relatedFiles: string[];
 };
@@ -78,30 +78,30 @@ export const ChatBot: FC<ChatBotProps> = ({
     content: firstMessageContent.content.value,
   };
 
-  const [discution, setDiscution, loadDiscution] = usePersistedStore<
-    DiscutionStore | undefined
-  >('chat-bot-discution-store');
+  const [discussion, setDiscussion, loadDiscussion] = usePersistedStore<
+    DiscussionStore | undefined
+  >('chat-bot-discussion-store');
 
   const handleAskNewQuestion = (newQuestion: string) => {
     setCurrentResponse('');
-    setDiscution(
-      (discution) =>
+    setDiscussion(
+      (discussion) =>
         ({
-          ...discution,
-          discutionId: discution?.discutionId ?? uuid(),
+          ...discussion,
+          discussionId: discussion?.discussionId ?? uuid(),
           storedPrompt: [
-            ...(discution?.storedPrompt ?? []),
+            ...(discussion?.storedPrompt ?? []),
             {
               role: 'user' as const,
               content: newQuestion,
               timestamp: new Date(),
             },
           ],
-        }) as DiscutionStore
+        }) as DiscussionStore
     );
 
     const newMessages: ChatCompletionRequestMessage[] = [
-      ...(discution?.storedPrompt ?? []),
+      ...(discussion?.storedPrompt ?? []),
       {
         role: 'user' as const,
         content: newQuestion,
@@ -111,7 +111,7 @@ export const ChatBot: FC<ChatBotProps> = ({
     askDocQuestion(
       {
         messages: newMessages,
-        discutionId: discution?.discutionId ?? '',
+        discussionId: discussion?.discussionId ?? '',
         onMessage: (chunk: string) =>
           setCurrentResponse((prev) => prev + chunk),
         onDone: (response: AskDocQuestionResult) => {
@@ -122,31 +122,31 @@ export const ChatBot: FC<ChatBotProps> = ({
             return;
           }
 
-          setDiscution(
-            (discution) =>
+          setDiscussion(
+            (discussion) =>
               ({
-                ...discution,
+                ...discussion,
                 storedPrompt: [
-                  ...(discution?.storedPrompt ?? []),
+                  ...(discussion?.storedPrompt ?? []),
                   {
                     role: 'assistant' as const,
                     content: responseData.response,
                     timestamp: new Date(),
                   },
                 ],
-              }) as DiscutionStore
+              }) as DiscussionStore
           );
-          setDiscution(
-            (discution) =>
+          setDiscussion(
+            (discussion) =>
               ({
-                ...discution,
+                ...discussion,
                 relatedFiles: [
                   ...new Set([
-                    ...(discution?.relatedFiles ?? []),
+                    ...(discussion?.relatedFiles ?? []),
                     ...(responseData.relatedFiles ?? []),
                   ]),
                 ],
-              }) as DiscutionStore
+              }) as DiscussionStore
           );
           setCurrentResponse('');
         },
@@ -156,7 +156,7 @@ export const ChatBot: FC<ChatBotProps> = ({
           setHasReachedRateLimit(false);
         },
         onError: (errorMessage) => {
-          let error;
+          let error: any;
 
           // If json is valid, parse it
           try {
@@ -167,7 +167,7 @@ export const ChatBot: FC<ChatBotProps> = ({
             } else {
               error = JSON.parse(errorMessage as any);
             }
-          } catch (e) {
+          } catch (_e) {
             // If json is not valid, set error to the original errorMessage
 
             error = errorMessage;
@@ -175,6 +175,7 @@ export const ChatBot: FC<ChatBotProps> = ({
 
           // render toast for each error if there is more than one
           // otherwise render the toast with the error message
+          // biome-ignore lint/complexity/noFlatMapIdentity: <Match the case if error is an array>
           [error]
             .flatMap((error) => error)
             .forEach((error) => {
@@ -188,9 +189,9 @@ export const ChatBot: FC<ChatBotProps> = ({
   };
 
   const handleClear = () => {
-    setDiscution((discution) => ({
-      ...discution,
-      discutionId: uuid(),
+    setDiscussion((discussion) => ({
+      ...discussion,
+      discussionId: uuid(),
       storedPrompt: [],
       relatedFiles: [],
     }));
@@ -200,13 +201,13 @@ export const ChatBot: FC<ChatBotProps> = ({
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
-      loadDiscution();
+      loadDiscussion();
       return;
     }
 
     if (typeof stateReloaderTrigger === 'undefined') return;
 
-    loadDiscution();
+    loadDiscussion();
   }, [stateReloaderTrigger]);
 
   return (
@@ -216,7 +217,7 @@ export const ChatBot: FC<ChatBotProps> = ({
           <MessagesList
             storedPrompt={[
               firstMessage,
-              ...(discution?.storedPrompt ?? []),
+              ...(discussion?.storedPrompt ?? []),
               ...(currentResponse
                 ? [{ role: 'assistant' as const, content: currentResponse }]
                 : []),
@@ -227,7 +228,7 @@ export const ChatBot: FC<ChatBotProps> = ({
       </div>
       <div className="w-full flex-1">
         {displayRelatedFiles && (
-          <FileReference relatedFiles={discution?.relatedFiles ?? []} />
+          <FileReference relatedFiles={discussion?.relatedFiles ?? []} />
         )}
         {hasReachedRateLimit && (
           <Container
@@ -252,7 +253,7 @@ export const ChatBot: FC<ChatBotProps> = ({
         <FormSection
           askNewQuestion={handleAskNewQuestion}
           clear={handleClear}
-          nbMessages={(discution?.storedPrompt ?? []).length}
+          nbMessages={(discussion?.storedPrompt ?? []).length}
           additionalButtons={additionalButtons}
         />
       </div>

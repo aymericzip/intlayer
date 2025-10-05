@@ -3,7 +3,7 @@ import type { DiscussionSchema } from '@/types/discussion.types';
 
 export const discussionSchema = new Schema<DiscussionSchema>(
   {
-    discutionId: {
+    discussionId: {
       type: String,
       required: true,
       unique: true,

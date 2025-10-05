@@ -22,7 +22,7 @@ import type {
 
 export type AskDocQuestionBody = {
   messages: ChatCompletionRequestMessage[];
-  discutionId: string;
+  discussionId: string;
   onMessage?: (chunk: string) => void;
   onDone?: (response: AskDocQuestionResult) => void;
 };
