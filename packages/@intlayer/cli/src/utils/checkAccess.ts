@@ -41,11 +41,7 @@ export const checkAIAccess = async (
   configuration: IntlayerConfig,
   aiOptions?: AIOptions
 ): Promise<boolean> => {
-  const appLogger = getAppLogger(configuration, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(configuration);
 
   const hasCMSAuth =
     configuration.editor.clientId && configuration.editor.clientSecret;

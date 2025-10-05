@@ -1,3 +1,4 @@
+import { join } from 'node:path';
 import {
   ANSIColors,
   colorize,
@@ -14,140 +15,178 @@ import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createD
 import { createModuleAugmentation, createTypes } from './createType/index';
 import { listDictionaries } from './listDictionariesPath';
 import { loadDictionaries } from './loadDictionaries/loadDictionaries';
+import { runOnce } from './utils/runOnce';
 import { writeConfiguration } from './writeConfiguration';
+
+type PrepareIntlayerOptions = {
+  projectRequire?: NodeJS.Require;
+  clean?: boolean;
+  format?: ('cjs' | 'esm')[];
+  forceRun?: boolean;
+};
+
+const DEFAULT_PREPARE_INTLAYER_OPTIONS = {
+  projectRequire: ESMxCJSRequire,
+  clean: false,
+  format: ['cjs', 'esm'],
+  forceRun: false,
+} satisfies PrepareIntlayerOptions;
 
 export const prepareIntlayer = async (
   configuration: IntlayerConfig = getConfiguration(),
-  projectRequire = ESMxCJSRequire,
-  clean = false,
-  format: ('cjs' | 'esm')[] = ['cjs', 'esm']
+  options?: PrepareIntlayerOptions
 ) => {
-  const { plugins } = configuration;
-
+  const { projectRequire, clean, format, forceRun } = {
+    ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
+    ...(options ?? {}),
+  };
   const appLogger = getAppLogger(configuration);
-  const preparationStartMs = Date.now();
 
-  appLogger([
-    'Preparing Intlayer',
-    colorize(`(v${packageJson.version})`, ANSIColors.GREY_DARK),
-  ]);
-
-  if (clean) {
-    cleanOutputDir(configuration);
-  }
-
-  await writeConfiguration(configuration);
-
-  const configurationWrittenTime = Date.now();
-
-  appLogger(
-    [
-      'Configuration written',
-      colorize(
-        `(${configurationWrittenTime - preparationStartMs}ms)`,
-        ANSIColors.GREY_DARK
-      ),
-    ],
-    {
-      isVerbose: true,
-    }
+  const sentinelPath = join(
+    configuration.content.mainDir,
+    '../',
+    'cache',
+    'intlayer-prepared.lock'
   );
 
-  const files: string[] = listDictionaries(configuration);
+  // Skip preparation if it has already been done recently
+  await runOnce(
+    sentinelPath,
+    async () => {
+      const { plugins } = configuration;
 
-  const dictionaries = await loadDictionaries(
-    files,
-    configuration,
-    projectRequire
-  );
+      const preparationStartMs = Date.now();
 
-  const dictionariesLoadedTime = Date.now();
+      appLogger([
+        'Preparing Intlayer',
+        colorize(`(v${packageJson.version})`, ANSIColors.GREY_DARK),
+      ]);
 
-  appLogger(
-    [
-      'Content loaded',
-      colorize(
+      if (clean) {
+        cleanOutputDir(configuration);
+      }
+
+      await writeConfiguration(configuration);
+
+      const configurationWrittenTime = Date.now();
+
+      appLogger(
         [
-          dictionaries.remoteDictionaries.length > 0
-            ? ` (Total: ${dictionariesLoadedTime - configurationWrittenTime}ms - Local: ${dictionaries.time.localDictionaries}ms - Remote: ${dictionaries.time.remoteDictionaries}ms)`
-            : `(${dictionariesLoadedTime - configurationWrittenTime}ms)`,
-        ].join(''),
-        ANSIColors.GREY_DARK
-      ),
-    ],
-    {
-      isVerbose: true,
-    }
+          'Configuration written',
+          colorize(
+            `(${configurationWrittenTime - preparationStartMs}ms)`,
+            ANSIColors.GREY_DARK
+          ),
+        ],
+        {
+          isVerbose: true,
+        }
+      );
+
+      const files: string[] = listDictionaries(configuration);
+
+      const dictionaries = await loadDictionaries(
+        files,
+        configuration,
+        projectRequire
+      );
+
+      const dictionariesLoadedTime = Date.now();
+
+      appLogger(
+        [
+          'Content loaded',
+          colorize(
+            [
+              dictionaries.remoteDictionaries.length > 0
+                ? ` (Total: ${dictionariesLoadedTime - configurationWrittenTime}ms - Local: ${dictionaries.time.localDictionaries}ms - Remote: ${dictionaries.time.remoteDictionaries}ms)`
+                : `(${dictionariesLoadedTime - configurationWrittenTime}ms)`,
+            ].join(''),
+            ANSIColors.GREY_DARK
+          ),
+        ],
+        {
+          isVerbose: true,
+        }
+      );
+
+      // Build local dictionaries
+      const dictionariesOutput = await buildDictionary(
+        [
+          ...dictionaries.localDictionaries,
+          ...dictionaries.remoteDictionaries,
+          ...dictionaries.pluginDictionaries,
+        ],
+        configuration,
+        format,
+        false
+      );
+
+      // Write remote dictionaries
+      // Used as cache for next fetch
+      await writeRemoteDictionary(
+        dictionaries.remoteDictionaries,
+        configuration
+      );
+
+      const dictionariesPaths = Object.values(
+        dictionariesOutput?.mergedDictionaries ?? {}
+      ).map((dictionary) => dictionary.dictionaryPath);
+
+      await createTypes(dictionariesPaths);
+
+      await createDictionaryEntryPoint(configuration);
+
+      const dictionariesBuiltTime = Date.now();
+
+      appLogger([
+        'Dictionaries built',
+        colorize(
+          `(${dictionariesBuiltTime - preparationStartMs}ms)`,
+          ANSIColors.GREY_DARK
+        ),
+      ]);
+
+      await createModuleAugmentation(configuration);
+
+      const moduleAugmentationBuiltTime = Date.now();
+
+      appLogger(
+        [
+          'Module augmentation built',
+          colorize(
+            `(${moduleAugmentationBuiltTime - dictionariesBuiltTime}ms)`,
+            ANSIColors.GREY_DARK
+          ),
+        ],
+        {
+          isVerbose: true,
+        }
+      );
+
+      // Plugin transformation
+      // Allow plugins to post-process the final build output (e.g., write back ICU JSON)
+      for await (const plugin of plugins ?? []) {
+        const { unmergedDictionaries, mergedDictionaries } = dictionariesOutput;
+
+        await plugin.afterBuild?.({
+          dictionaries: {
+            unmergedDictionaries,
+            mergedDictionaries,
+          },
+          configuration,
+        });
+      }
+
+      const preparationElapsedMs = Date.now() - preparationStartMs;
+      appLogger(
+        [`Done`, colorize(`${preparationElapsedMs}ms`, ANSIColors.GREEN)],
+        {
+          level: 'info',
+          isVerbose: true,
+        }
+      );
+    },
+    { onIsCached: () => appLogger('Intlayer prepared'), forceRun }
   );
-
-  // Build local dictionaries
-  const dictionariesOutput = await buildDictionary(
-    [
-      ...dictionaries.localDictionaries,
-      ...dictionaries.remoteDictionaries,
-      ...dictionaries.pluginDictionaries,
-    ],
-    configuration,
-    format,
-    false
-  );
-
-  // Write remote dictionaries
-  // Used as cache for next fetch
-  await writeRemoteDictionary(dictionaries.remoteDictionaries, configuration);
-
-  const dictionariesPaths = Object.values(
-    dictionariesOutput?.mergedDictionaries ?? {}
-  ).map((dictionary) => dictionary.dictionaryPath);
-
-  await createTypes(dictionariesPaths);
-
-  await createDictionaryEntryPoint(configuration);
-
-  const dictionariesBuiltTime = Date.now();
-
-  appLogger([
-    'Dictionaries built',
-    colorize(
-      `(${dictionariesBuiltTime - preparationStartMs}ms)`,
-      ANSIColors.GREY_DARK
-    ),
-  ]);
-
-  await createModuleAugmentation(configuration);
-
-  const moduleAugmentationBuiltTime = Date.now();
-
-  appLogger(
-    [
-      'Module augmentation built',
-      colorize(
-        `(${moduleAugmentationBuiltTime - dictionariesBuiltTime}ms)`,
-        ANSIColors.GREY_DARK
-      ),
-    ],
-    {
-      isVerbose: true,
-    }
-  );
-
-  // Plugin transformation
-  // Allow plugins to post-process the final build output (e.g., write back ICU JSON)
-  for await (const plugin of plugins ?? []) {
-    const { unmergedDictionaries, mergedDictionaries } = dictionariesOutput;
-
-    await plugin.afterBuild?.({
-      dictionaries: {
-        unmergedDictionaries,
-        mergedDictionaries,
-      },
-      configuration,
-    });
-  }
-
-  const preparationElapsedMs = Date.now() - preparationStartMs;
-  appLogger([`Done`, colorize(`${preparationElapsedMs}ms`, ANSIColors.GREEN)], {
-    level: 'info',
-    isVerbose: true,
-  });
 };

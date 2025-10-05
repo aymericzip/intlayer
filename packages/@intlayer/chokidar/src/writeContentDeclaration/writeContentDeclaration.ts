@@ -1,49 +1,138 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
 import { getConfiguration } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/config/client';
-import type { Dictionary } from '@intlayer/core';
+import type { IntlayerConfig, LocalesValues } from '@intlayer/config/client';
+import {
+  type ContentNode,
+  type Dictionary,
+  getFilteredLocalesContent,
+  getLocalizedContent,
+} from '@intlayer/core';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import deepEqual from 'deep-equal';
-import { prepareContentDeclaration } from '../prepareContentDeclaration';
+import {
+  type Extension,
+  getFormatFromExtension,
+} from '../utils/getFormatFromExtension';
 import type { DictionaryStatus } from './dictionaryStatus';
+import { processContentDeclarationContent } from './processContentDeclarationContent';
+
 import { writeJSFile } from './writeJSFile';
 
-const DEFAULT_NEW_DICTIONARY_PATH = 'intlayer-dictionaries';
+const formatContentDeclaration = async (
+  dictionary: Dictionary,
+  configuration: IntlayerConfig,
+  localeList?: LocalesValues[]
+) => {
+  /**
+   * Clean Markdown, Insertion, File, etc. node metadata
+   */
 
-const formatContentDeclaration = async (dictionary: Dictionary) => {
-  // Clean Markdown, Insertion, File, etc. node metadata
-  const preparedContentDeclaration =
-    await prepareContentDeclaration(dictionary);
+  const processedDictionary =
+    await processContentDeclarationContent(dictionary);
 
-  // Remove the filePath from the dictionary and set $schema
-  const { filePath, $schema, ...dictionaryWithoutPath } =
-    preparedContentDeclaration;
+  let content = processedDictionary.content;
 
-  const formattedContentDeclaration = {
-    $schema: 'https://intlayer.org/schema.json',
-    ...dictionaryWithoutPath,
+  /**
+   * Filter locales content
+   */
+
+  if (dictionary.locale) {
+    content = getLocalizedContent(
+      processedDictionary.content as unknown as ContentNode,
+      dictionary.locale,
+      {
+        dictionaryKey: dictionary.key,
+        keyPath: [],
+      }
+    );
+  } else if (localeList) {
+    content = getFilteredLocalesContent(
+      processedDictionary.content as unknown as ContentNode,
+      localeList,
+      { dictionaryKey: dictionary.key, keyPath: [] }
+    );
+  }
+
+  let pluginFormatResult: Dictionary = {
+    ...dictionary,
+    content,
   };
 
-  return formattedContentDeclaration;
+  /**
+   * Format the dictionary with the plugins
+   */
+
+  for await (const plugin of configuration.plugins ?? []) {
+    if (plugin.formatOutput) {
+      const formattedResult = await plugin.formatOutput?.({
+        dictionary: pluginFormatResult as Dictionary,
+        configuration,
+      });
+
+      if (formattedResult) {
+        pluginFormatResult = formattedResult as Dictionary;
+      }
+    }
+  }
+
+  const isDictionaryFormat =
+    pluginFormatResult.content && pluginFormatResult.key;
+
+  if (!isDictionaryFormat) return pluginFormatResult;
+
+  const result: Dictionary = {
+    key: dictionary.key,
+    content,
+    locale: dictionary.locale,
+    autoFill: dictionary.autoFill,
+    autoFilled: dictionary.autoFilled,
+    tags: dictionary.tags,
+    title: dictionary.title,
+    description: dictionary.description,
+    priority: dictionary.priority,
+  };
+
+  /**
+   * Add $schema to the dictionary
+   */
+  const extension = (
+    dictionary.filePath ? extname(dictionary.filePath) : '.json'
+  ) as Extension;
+  const format = getFormatFromExtension(extension);
+
+  if (
+    format === 'json' &&
+    pluginFormatResult.content &&
+    pluginFormatResult.key
+  ) {
+    result['$schema'] = 'https://intlayer.org/schema.json';
+  }
+
+  return result;
 };
+
+type WriteContentDeclarationOptions = {
+  newDictionariesPath?: string;
+  localeList?: LocalesValues[];
+};
+
+const defaultOptions = {
+  newDictionariesPath: 'intlayer-dictionaries',
+} satisfies WriteContentDeclarationOptions;
 
 export const writeContentDeclaration = async (
   dictionary: Dictionary,
-  config: IntlayerConfig = getConfiguration(),
-  newDictionariesPath?: string
+  configuration: IntlayerConfig = getConfiguration(),
+  options?: WriteContentDeclarationOptions
 ): Promise<{ status: DictionaryStatus; path: string }> => {
-  const { content } = config;
+  const { content } = configuration;
   const { baseDir } = content;
+  const { newDictionariesPath, localeList } = { ...defaultOptions, ...options };
 
-  const newDictionaryRelativeLocationPath =
-    newDictionariesPath ?? DEFAULT_NEW_DICTIONARY_PATH;
-  const newDictionaryLocationPath = join(
-    baseDir,
-    newDictionaryRelativeLocationPath
-  );
+  const newDictionaryLocationPath = join(baseDir, newDictionariesPath);
 
-  const unmergedDictionariesRecord = getUnmergedDictionaries(config);
+  const unmergedDictionariesRecord = getUnmergedDictionaries(configuration);
   const unmergedDictionaries = unmergedDictionariesRecord[
     dictionary.key
   ] as Dictionary[];
@@ -52,11 +141,14 @@ export const writeContentDeclaration = async (
     (el) => el.localId === dictionary.localId
   );
 
-  const formattedContentDeclaration =
-    await formatContentDeclaration(dictionary);
+  const formattedContentDeclaration = await formatContentDeclaration(
+    dictionary,
+    configuration,
+    localeList
+  );
 
   if (existingDictionary && dictionary.filePath) {
-    const filePath = join(config.content.baseDir, dictionary.filePath);
+    const filePath = join(configuration.content.baseDir, dictionary.filePath);
 
     // Compare existing dictionary with distant dictionary
     const isSameFile = deepEqual(existingDictionary, dictionary);
@@ -72,7 +164,7 @@ export const writeContentDeclaration = async (
     await writeFileWithDirectories(
       filePath,
       formattedContentDeclaration,
-      config
+      configuration
     );
 
     return { status: 'updated', path: filePath };
@@ -87,7 +179,7 @@ export const writeContentDeclaration = async (
   await writeFileWithDirectories(
     contentDeclarationPath,
     formattedContentDeclaration,
-    config
+    configuration
   );
 
   return {
@@ -98,7 +190,7 @@ export const writeContentDeclaration = async (
 
 const writeFileWithDirectories = async (
   filePath: string,
-  data: string | Buffer,
+  dictionary: Dictionary,
   configuration: IntlayerConfig
 ): Promise<void> => {
   // Extract the directory from the file path
@@ -117,13 +209,13 @@ const writeFileWithDirectories = async (
   }
 
   if (extension === '.json') {
-    const jsonDictionary = JSON.stringify(data, null, 2);
+    const jsonDictionary = JSON.stringify(dictionary, null, 2);
 
     // Write the file
-    await writeFile(filePath, jsonDictionary);
+    await writeFile(filePath, `${jsonDictionary}\n`); // Add a new line at the end of the file to avoid formatting issues with VSCode
 
     return;
   }
 
-  await writeJSFile(filePath, data as unknown as Dictionary, configuration);
+  await writeJSFile(filePath, dictionary, configuration);
 };

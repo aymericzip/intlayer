@@ -1,4 +1,4 @@
-import { formatLocale, formatPath } from '@intlayer/chokidar';
+import { formatLocale, formatPath, prepareIntlayer } from '@intlayer/chokidar';
 import {
   ANSIColors,
   colon,
@@ -15,9 +15,10 @@ export { listMissingTranslations };
 
 type ListMissingTranslationsOptions = {
   configOptions?: GetConfigurationOptions;
+  build?: boolean;
 };
 
-export const testMissingTranslations = (
+export const testMissingTranslations = async (
   options?: ListMissingTranslationsOptions
 ) => {
   const config = getConfiguration(options?.configOptions);
@@ -28,6 +29,12 @@ export const testMissingTranslations = (
       prefix: '',
     },
   });
+
+  if (options?.build === true) {
+    await prepareIntlayer(config, { forceRun: true });
+  } else if (typeof options?.build === 'undefined') {
+    await prepareIntlayer(config);
+  }
 
   const result = listMissingTranslations(undefined, options?.configOptions);
 

@@ -1,9 +1,10 @@
 import { writeFile } from 'node:fs/promises';
-import { isAbsolute, resolve } from 'node:path';
+import { isAbsolute, join, relative, resolve } from 'node:path';
 import {
   ESMxCJSRequire,
   type IntlayerConfig,
   type Locales,
+  type LocalesValues,
   type Plugin,
 } from '@intlayer/config';
 import {
@@ -15,23 +16,12 @@ import fg from 'fast-glob';
 
 type JSONContent = Record<string, any>;
 
-const transformICUToIntlayer = (
-  key: string,
-  locale: Locales,
-  json: JSONContent
-): Dictionary => ({
-  key,
-  locale,
-  location: 'plugin',
-  content: json,
-});
-
 type Builder = ({
   key,
   locale,
 }: {
   key: string;
-  locale: Locales | string;
+  locale: LocalesValues | (string & {});
 }) => string;
 
 type MessagesRecord = Record<Locales, Record<Dictionary['key'], FilePath>>;
@@ -79,51 +69,6 @@ const extractKeyAndLocaleFromPath = (
   };
 };
 
-/**
- * Example return 1:
- * ```json
- * {
- *   en: {
- *     index: '/Users/user/Documents/myProject/messages/en.json',
- *   },
- *   de: {
- *     index: '/Users/user/Documents/myProject/messages/de.json',
- *   },
- * }
- * ```
- *
- * Example return 2:
- *
- * ```json
- * {
- *   en: {
- *     navbar: '/Users/user/Documents/myProject/messages/en/navbar.json',
- *     footer: '/Users/user/Documents/myProject/messages/en/footer.json',
- *     homePage: '/Users/user/Documents/myProject/messages/en/homePage.json',
- *   },
- *   de: {
- *     navbar: '/Users/user/Documents/myProject/messages/de/navbar.json',
- *     footer: '/Users/user/Documents/myProject/messages/de/footer.json',
- *     homePage: '/Users/user/Documents/myProject/messages/de/homePage.json',
- *   },
- * }
- * ```
- *
- * Example return 4:
- *
- * ```json
- * {
- *   en: {
- *     index: '/Users/user/Documents/myProject/en/locales.json',
- *     homePage: '/Users/user/Documents/myProject/en/locales/homePage.json',
- *   },
- *   de: {
- *     index: '/Users/user/Documents/myProject/de/locales.json',
- *     homePage: '/Users/user/Documents/myProject/de/locales/homePage.json',
- *   },
- * }
- * ```
- */
 const listMessages = (
   builder: Builder,
   configuration: IntlayerConfig
@@ -165,41 +110,58 @@ const listMessages = (
 
 type FilePath = string;
 
-type ICUPluginOptions = {
-  source: MessagesRecord | Builder;
-};
-
 type DictionariesMap = { path: string; locale: Locales; key: string }[];
 
 const loadMessagePathMap = (
   source: MessagesRecord | Builder,
   configuration: IntlayerConfig
 ) => {
-  let messages: MessagesRecord;
-
-  if (typeof source === 'function') {
-    messages = listMessages(source as Builder, configuration);
-  } else {
-    messages = source;
-  }
+  const messages: MessagesRecord = listMessages(
+    source as Builder,
+    configuration
+  );
 
   const dictionariesPathMap: DictionariesMap = Object.entries(messages).flatMap(
     ([locale, keysRecord]) =>
-      Object.entries(keysRecord).map(
-        ([key, path]) =>
-          ({
-            path,
-            locale,
-            key,
-          }) as DictionariesMap[number]
-      )
+      Object.entries(keysRecord).map(([key, path]) => {
+        const absolutePath = isAbsolute(path)
+          ? path
+          : resolve(configuration.content.baseDir, path);
+
+        return {
+          path: absolutePath,
+          locale,
+          key,
+        } as DictionariesMap[number];
+      })
   );
 
   return dictionariesPathMap;
 };
 
-export const syncJSON = (options: ICUPluginOptions) =>
-  ({
+type SyncJSONPluginOptions = {
+  /**
+   * The source of the plugin.
+   * Is a function to build the source from the key and locale.
+   *
+   * ```ts
+   * syncJSON({
+   *   source: ({ key, locale }) => `./messages/${locale}/${key}.json`
+   * })
+   * ```
+   */
+  source: Builder;
+  /**
+   * Because Intlayer transform the JSON files into Dictionary, we need to identify the plugin in the dictionary.
+   * Used to identify the plugin in the dictionary.
+   */
+  location?: string;
+};
+
+export const syncJSON = (options: SyncJSONPluginOptions) => {
+  const { location } = { location: 'plugin', ...options };
+
+  return {
     name: 'sync-json',
 
     loadDictionaries: async ({
@@ -211,12 +173,37 @@ export const syncJSON = (options: ICUPluginOptions) =>
         configuration
       );
 
+      let autoFill: string = options.source({
+        key: '{{key}}',
+        locale: '{{locale}}',
+      });
+
+      if (autoFill && !isAbsolute(autoFill)) {
+        autoFill = join(configuration.content.baseDir, autoFill);
+      }
+
       const dictionaries: Dictionary[] = [];
 
       for (const { locale, path, key } of dictionariesMap) {
         const json: JSONContent = projectRequire(path as string);
 
-        dictionaries.push(transformICUToIntlayer(key, locale as Locales, json));
+        const filePath = relative(configuration.content.baseDir, path);
+
+        const dictionary: Dictionary = {
+          key,
+          locale,
+          autoFill,
+          localId: `${key}::${location}::${filePath}`,
+          location: location as Dictionary['location'],
+          autoFilled:
+            locale !== configuration.internationalization.defaultLocale
+              ? true
+              : undefined,
+          content: json,
+          filePath,
+        };
+
+        dictionaries.push(dictionary);
       }
 
       return dictionaries;
@@ -226,9 +213,6 @@ export const syncJSON = (options: ICUPluginOptions) =>
       for (const { locale, path, key } of dictionariesMap) {
         const updatedDictionary =
           dictionaries.mergedDictionaries[key].dictionary;
-        // console.log(locale);
-
-        console.log(dictionaries.mergedDictionaries[key]);
 
         const localizedContent = getLocalizedContent(
           updatedDictionary.content as unknown as ContentNode,
@@ -238,11 +222,30 @@ export const syncJSON = (options: ICUPluginOptions) =>
             keyPath: [],
           }
         );
+
+        const jsonContent = JSON.stringify(localizedContent, null, 2);
+
         await writeFile(
           path,
-          JSON.stringify(localizedContent, null, 2),
+          `${jsonContent}\n`, // Add a new line at the end of the file to avoid formatting issues with VSCode
           'utf-8'
         );
       }
     },
-  }) as Plugin;
+    formatOutput: ({ dictionary }) => {
+      if (!dictionary.filePath || !dictionary.locale) return dictionary;
+
+      const builderPath = options.source({
+        key: dictionary.key,
+        locale: dictionary.locale,
+      });
+
+      if (resolve(builderPath) === resolve(dictionary.filePath)) {
+        console.log('is the same');
+        return dictionary.content;
+      }
+
+      return dictionary;
+    },
+  } as Plugin;
+};

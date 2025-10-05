@@ -37,4 +37,18 @@ export const handleAdditionalContentDeclarationFile = async (
   appLogger('Module augmentation built', {
     isVerbose: true,
   });
+
+  // Plugin transformation
+  // Allow plugins to post-process the final build output (e.g., write back ICU JSON)
+  for await (const plugin of config.plugins ?? []) {
+    const { unmergedDictionaries, mergedDictionaries } = dictionariesOutput;
+
+    await plugin.afterBuild?.({
+      dictionaries: {
+        unmergedDictionaries,
+        mergedDictionaries,
+      },
+      configuration: config,
+    });
+  }
 };

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-09-26
+updatedAt: 2025-10-05
 title: CLI
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -186,6 +186,10 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
   > Example: `npx intlayer dictionary push --keep-locale-dictionary`
 
+**Preparation options:**
+
+- **`--build`**: Build the dictionaries before pushing to ensure the content is up to date. True will force the build, false will skip the build, undefined will allow using the cache of the build.
+
 **Log options:**
 
 - **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
@@ -336,6 +340,10 @@ This command analyzes your content declaration files for potential issues such a
 
   > Example: `npx intlayer fill --base-dir ./src`
 
+**Preparation options:**
+
+- **`--build`**: Build the dictionaries before pushing to ensure the content is up to date. True will force the build, false will skip the build, undefined will allow using the cache of the build.
+
 **Log options:**
 
 - **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
@@ -381,6 +389,10 @@ Total missing required locales: 0
 - **`--base-dir`**: Specify the base directory for the project.
 
   > Example: `npx intlayer content test --base-dir ./src --env-file .env.production.local`
+
+**Preparation options:**
+
+- **`--build`**: Build the dictionaries before pushing to ensure the content is up to date. True will force the build, false will skip the build, undefined will allow using the cache of the build.
 
 **Log options:**
 
@@ -725,6 +737,7 @@ npx clear-npx-cache
 
 | Version | Date       | Changes                                         |
 | ------- | ---------- | ----------------------------------------------- |
+| 6.1.3   | 2025-10-05 | Add build option to commands                    |
 | 6.1.2   | 2025-09-26 | Add version command                             |
 | 6.1.0   | 2025-09-26 | Set verbose option to default to true using CLI |
 | 6.1.0   | 2025-09-23 | Add watch command and with option               |

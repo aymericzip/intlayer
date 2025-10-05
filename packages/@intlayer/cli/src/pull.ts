@@ -35,11 +35,7 @@ type DictionariesStatus = {
  * with progress indicators and concurrency control.
  */
 export const pull = async (options?: PullOptions): Promise<void> => {
-  const appLogger = getAppLogger(options?.configOptions?.override, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(options?.configOptions?.override);
 
   try {
     const config = getConfiguration(options?.configOptions);
@@ -197,7 +193,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
         const { status } = await writeContentDeclaration(
           sourceDictionary,
           config,
-          options?.newDictionariesPath
+          options
         );
 
         statusObj.status = status;

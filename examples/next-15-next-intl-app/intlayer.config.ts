@@ -10,6 +10,10 @@ const config: IntlayerConfig = {
     locales,
     defaultLocale,
   },
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY,
+  },
+
   plugins: [
     syncJSON({
       source: ({ locale }) => `./messages/${locale}.json`,

@@ -10,13 +10,7 @@ import {
   type IntlayerConfig,
   type Locales,
 } from '@intlayer/config';
-import {
-  type AutoFill,
-  type ContentNode,
-  type Dictionary,
-  getFilteredLocalesContent,
-  getLocalizedContent,
-} from '@intlayer/core';
+import type { AutoFill, Dictionary } from '@intlayer/core';
 import { type AutoFillData, formatAutoFillData } from './formatAutoFillData';
 
 export const autoFill = async (
@@ -27,11 +21,7 @@ export const autoFill = async (
   parentLocales: Locales[],
   configuration: IntlayerConfig
 ) => {
-  const appLogger = getAppLogger(configuration, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(configuration);
   const localeList: Locales[] = (
     outputLocales ?? configuration.internationalization.locales
   ).filter((locale) => !parentLocales?.includes(locale));
@@ -54,61 +44,47 @@ export const autoFill = async (
   );
 
   for await (const output of autoFillData) {
-    const reducedDictionary = reduceDictionaryContent(
+    if (!output.filePath) {
+      appLogger(
+        `No file path found for auto filled content declaration for '${colorizeKey(fullDictionary.key)}'`,
+        {
+          level: 'error',
+        }
+      );
+      continue;
+    }
+
+    const reducedDictionaryContent = reduceDictionaryContent(
       fullDictionary,
       contentDeclarationFile
     );
 
+    // write file
+    await writeContentDeclaration({
+      ...fullDictionary,
+      autoFill: undefined,
+      autoFilled: true,
+      locale: output.isPerLocale ? output.localeList[0] : undefined,
+      content: reducedDictionaryContent.content,
+      filePath: output.filePath,
+    });
+
     if (output.isPerLocale) {
       const sourceLocale = output.localeList[0];
 
-      const sourceLocaleContent = getLocalizedContent(
-        reducedDictionary as unknown as ContentNode,
-        sourceLocale,
-        { dictionaryKey: reducedDictionary.key, keyPath: [] }
+      appLogger(
+        `Auto filled per-locale content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)} for locale ${formatLocale(sourceLocale)}`,
+        {
+          level: 'info',
+        }
       );
-
-      await writeContentDeclaration({
-        ...fullDictionary,
-        locale: sourceLocale,
-        autoFilled: true,
-        autoFill: undefined,
-        content: sourceLocaleContent.content,
-        filePath: output.filePath,
-      });
-
-      if (output.filePath) {
-        appLogger(
-          `Auto filled per-locale content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)} for locale ${formatLocale(sourceLocale)}`,
-          {
-            level: 'info',
-          }
-        );
-      }
     } else {
-      const content = getFilteredLocalesContent(
-        reducedDictionary.content as unknown as ContentNode,
-        output.localeList,
-        { dictionaryKey: reducedDictionary.key, keyPath: [] }
+      appLogger(
+        `Auto filled content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)}`,
+        {
+          level: 'info',
+        }
       );
-
-      // write file
-      await writeContentDeclaration({
-        ...fullDictionary,
-        autoFilled: true,
-        autoFill: undefined,
-        content,
-        filePath: output.filePath,
-      });
-
-      if (output.filePath) {
-        appLogger(
-          `Auto filled content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)}`,
-          {
-            level: 'info',
-          }
-        );
-      }
     }
   }
 };

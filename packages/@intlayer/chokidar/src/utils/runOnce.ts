@@ -1,13 +1,36 @@
 import { mkdir, stat, unlink, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 
+type RunOnceOptions = {
+  /**
+   * The function to execute when the sentinel is not found or is older than the cache timeout.
+   */
+  onIsCached?: () => void | Promise<void>;
+  /**
+   * The time window in milliseconds during which the sentinel is considered valid.
+   *
+   * @default 60000 = 1 minute
+   */
+  cacheTimeoutMs?: number;
+  /**
+   * If true, the callback will always run. If undefined, the callback will run only if the sentinel is older than the cache timeout.
+   *
+   * @default false
+   */
+  forceRun?: boolean;
+};
+
+const DEFAULT_RUN_ONCE_OPTIONS = {
+  cacheTimeoutMs: 60 * 1000, // 1 minute in milliseconds,
+} satisfies RunOnceOptions;
+
 /**
  * Ensures a callback function runs only once within a specified time window across multiple processes.
  * Uses a sentinel file to coordinate execution and prevent duplicate work.
  *
  * @param sentinelFilePath - Path to the sentinel file used for coordination
  * @param callback - The function to execute (should be async)
- * @param cacheTimeoutMs - Time window in milliseconds during which the sentinel is considered valid (default: 60000ms = 1 minute)
+ * @param options - The options for the runOnce function
  *
  * @example
  * ```typescript
@@ -26,11 +49,13 @@ import { dirname } from 'node:path';
 export const runOnce = async (
   sentinelFilePath: string,
   callback: () => void | Promise<void>,
-  onIsCached?: () => void | Promise<void>,
-  cacheTimeoutMs: number = 60 * 1000 // 1 minute in milliseconds
+  options?: RunOnceOptions
 ) => {
+  const { onIsCached, cacheTimeoutMs, forceRun } = {
+    ...DEFAULT_RUN_ONCE_OPTIONS,
+    ...(options ?? {}),
+  };
   const currentTimestamp = Date.now();
-  const timeoutDuration = cacheTimeoutMs;
 
   try {
     // Check if sentinel file exists and get its stats
@@ -38,7 +63,7 @@ export const runOnce = async (
     const sentinelAge = currentTimestamp - sentinelStats.mtime.getTime();
 
     // If sentinel is older than the timeout, delete it and rebuild
-    if (sentinelAge > timeoutDuration) {
+    if (sentinelAge > cacheTimeoutMs || forceRun) {
       await unlink(sentinelFilePath);
       // Fall through to create new sentinel and rebuild
     } else {

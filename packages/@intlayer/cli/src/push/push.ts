@@ -7,6 +7,7 @@ import {
   type ListGitFilesOptions,
   listGitFiles,
   parallelize,
+  prepareIntlayer,
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
@@ -25,6 +26,7 @@ type PushOptions = {
   dictionaries?: string[];
   gitOptions?: ListGitFilesOptions;
   configOptions?: GetConfigurationOptions;
+  build?: boolean;
 };
 
 type DictionariesStatus = {
@@ -44,6 +46,12 @@ export const push = async (options?: PushOptions): Promise<void> => {
       prefix: '',
     },
   });
+
+  if (options?.build === true) {
+    await prepareIntlayer(config, { forceRun: true });
+  } else if (typeof options?.build === 'undefined') {
+    await prepareIntlayer(config);
+  }
 
   try {
     const hasCMSAuth = await checkCMSAuth(config);

@@ -16,7 +16,7 @@ export { isInvalidDictionary } from './filterInvalidDictionaries';
 export { getContentDeclarationFileTemplate } from './getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 export { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 export { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
-export { handleUnlikedContentDeclarationFile } from './handleUnlikedContentDeclarationFile';
+export { handleUnlinkedContentDeclarationFile as handleUnlikedContentDeclarationFile } from './handleUnlikedContentDeclarationFile';
 export { listDictionaries } from './listDictionariesPath';
 export {
   type DiffMode,
@@ -32,7 +32,6 @@ export {
   loadRemoteDictionaries,
 } from './loadDictionaries';
 export { mergeDictionaries } from './mergeDictionaries';
-export { prepareContentDeclaration } from './prepareContentDeclaration';
 export { prepareIntlayer } from './prepareIntlayer';
 export { processPerLocaleDictionary } from './processPerLocaleDictionary';
 export { reduceDictionaryContent } from './reduceDictionaryContent/reduceDictionaryContent';
@@ -61,3 +60,4 @@ export {
   writeContentDeclaration,
   writeJSFile,
 } from './writeContentDeclaration';
+export { processContentDeclaration as prepareContentDeclaration } from './writeContentDeclaration/processContentDeclarationContent';

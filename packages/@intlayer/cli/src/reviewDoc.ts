@@ -52,11 +52,7 @@ export const reviewFile = async (
 ) => {
   try {
     const configuration = getConfiguration(configOptions);
-    const appLogger = getAppLogger(configuration, {
-      config: {
-        prefix: '',
-      },
-    });
+    const appLogger = getAppLogger(configuration);
 
     const basedFileContent = await readFile(baseFilePath, 'utf-8');
     const fileToReviewContent = await readFile(outputFilePath, 'utf-8');
@@ -294,11 +290,7 @@ export const reviewDoc = async ({
   gitOptions,
 }: ReviewDocOptions) => {
   const configuration = getConfiguration(configOptions);
-  const appLogger = getAppLogger(configuration, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(configuration);
 
   const hasCMSAuth = await checkAIAccess(configuration, aiOptions);
 

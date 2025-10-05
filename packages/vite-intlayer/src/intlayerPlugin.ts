@@ -1,8 +1,8 @@
-import { join, resolve } from 'node:path';
-import { prepareIntlayer, runOnce, watch } from '@intlayer/chokidar';
-// @ts-ignore - Fix error Module '"vite"' has no exported member
-import { getAlias, getAppLogger } from '@intlayer/config';
+import { resolve } from 'node:path';
+import { prepareIntlayer, watch } from '@intlayer/chokidar';
+import { getAlias } from '@intlayer/config';
 import intlayerConfig from '@intlayer/config/built';
+// @ts-ignore - Fix error Module '"vite"' has no exported member
 import type { PluginOption } from 'vite';
 import { intlayerPrune } from './intlayerPrunePlugin';
 
@@ -21,7 +21,6 @@ import { intlayerPrune } from './intlayerPrunePlugin';
 export const intlayerPlugin = (): PluginOption => {
   const { watch: isWatchMode } = intlayerConfig.content;
   const { optimize } = intlayerConfig.build;
-  const appLogger = getAppLogger(intlayerConfig);
 
   const plugins: PluginOption[] = [
     {
@@ -63,20 +62,8 @@ export const intlayerPlugin = (): PluginOption => {
       },
 
       buildStart: async () => {
-        const sentinelPath = join(
-          intlayerConfig.content.baseDir,
-          '.intlayer',
-          'cache',
-          'intlayer-prepared.lock'
-        );
-
         // Code to run when Vite build starts
-        // Only call prepareIntlayer once per server startup
-        await runOnce(
-          sentinelPath,
-          async () => await prepareIntlayer(intlayerConfig),
-          () => appLogger('Intlayer prepared')
-        );
+        await prepareIntlayer(intlayerConfig);
       },
     },
   ];

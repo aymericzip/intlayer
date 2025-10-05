@@ -21,9 +21,9 @@ export type GetTargetDictionaryOptions = {
 };
 
 export const getTargetUnmergedDictionaries = async (
-  options: GetTargetDictionaryOptions
+  options?: GetTargetDictionaryOptions
 ): Promise<Dictionary[]> => {
-  const configuration = getConfiguration(options.configOptions);
+  const configuration = getConfiguration(options?.configOptions);
 
   const { baseDir } = configuration.content;
 
@@ -31,8 +31,8 @@ export const getTargetUnmergedDictionaries = async (
   let result = Object.values(unmergedDictionariesRecord).flat();
 
   // 1. if filePath not defined, list all content declaration files based on unmerged dictionaries list
-  if (typeof options.file !== 'undefined') {
-    const fileArray = ensureArray(options.file);
+  if (typeof options?.file !== 'undefined') {
+    const fileArray = ensureArray(options?.file);
     const relativeFilePaths = fileArray.map((file) =>
       file.startsWith('/') ? relative(baseDir, file) : join('./', file)
     );
@@ -45,29 +45,29 @@ export const getTargetUnmergedDictionaries = async (
     );
   }
 
-  if (typeof options.keys !== 'undefined') {
+  if (typeof options?.keys !== 'undefined') {
     result = result.filter((dict) =>
-      ensureArray(options.keys)?.includes(dict.key)
+      ensureArray(options?.keys)?.includes(dict.key)
     );
   }
 
-  if (typeof options.excludedKeys !== 'undefined') {
+  if (typeof options?.excludedKeys !== 'undefined') {
     result = result.filter(
-      (dict) => !ensureArray(options.excludedKeys)?.includes(dict.key)
+      (dict) => !ensureArray(options?.excludedKeys)?.includes(dict.key)
     );
   }
 
-  if (typeof options.pathFilter !== 'undefined') {
+  if (typeof options?.pathFilter !== 'undefined') {
     result = result.filter((dict) =>
-      ensureArray(options.pathFilter)?.includes(dict.filePath ?? '')
+      ensureArray(options?.pathFilter)?.includes(dict.filePath ?? '')
     );
   }
 
-  if (typeof options.filter !== 'undefined') {
-    result = result.filter(options.filter);
+  if (typeof options?.filter !== 'undefined') {
+    result = result.filter(options?.filter);
   }
 
-  const gitOptions = options.gitOptions;
+  const gitOptions = options?.gitOptions;
   if (gitOptions) {
     const gitChangedFiles = await listGitFiles(gitOptions);
 

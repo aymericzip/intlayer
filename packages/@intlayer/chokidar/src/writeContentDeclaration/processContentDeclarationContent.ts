@@ -36,7 +36,7 @@ const writeFilePlugin: Plugins = {
 
     // Write the file to the file system
     try {
-      const abolsuteFilePath = join(process.cwd(), filePath);
+      const absoluteFilePath = join(process.cwd(), filePath);
 
       // Create the file directory if it doesn't exist
       const fileDirectory = join(process.cwd(), filePath);
@@ -49,7 +49,7 @@ const writeFilePlugin: Plugins = {
       }
 
       // Write the file
-      writeFileSync(abolsuteFilePath, fileContent);
+      writeFileSync(absoluteFilePath, fileContent);
     } catch (error) {
       throw new Error(
         `${x} Error writing file to ${colorizePath(filePath)}: ${error}`
@@ -69,7 +69,7 @@ const writeFilePlugin: Plugins = {
  * Markdown file plugin
  */
 
-const mardownFilePlugin: Plugins = {
+const markdownFilePlugin: Plugins = {
   id: 'markdown-file-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Markdown,
@@ -101,9 +101,11 @@ const insertionFilePlugin: Plugins = {
   },
 };
 
-export const prepareContentDeclaration = async (dictionary: Dictionary) =>
+export const processContentDeclarationContent = async (
+  dictionary: Dictionary
+) =>
   deepTransformNode(dictionary, {
     dictionaryKey: dictionary.key,
     keyPath: [],
-    plugins: [writeFilePlugin, mardownFilePlugin, insertionFilePlugin],
+    plugins: [writeFilePlugin, markdownFilePlugin, insertionFilePlugin],
   });

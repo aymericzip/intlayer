@@ -71,8 +71,9 @@ const getPruneConfig = (
   runOnce(
     join(baseDir, '.intlayer', 'cache', 'intlayer-prune-plugin-enabled.lock'),
     () => logger('Intlayer prune plugin is enabled'),
-    undefined,
-    1000 * 10 // 10 seconds
+    {
+      cacheTimeoutMs: 1000 * 10, // 10 seconds
+    }
   );
 
   const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
@@ -170,23 +171,10 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
   const intlayerConfig = getConfiguration();
   const { isDevCommand, isBuildCommand } = getCommandsEvent();
-  const appLogger = getAppLogger(intlayerConfig);
-
-  const sentinelPath = join(
-    intlayerConfig.content.baseDir,
-    '.intlayer',
-    'cache',
-    'intlayer-prepared.lock'
-  );
 
   // Only call prepareIntlayer during `dev` or `build` (not during `start`)
-
   if (isBuildCommand || isDevCommand) {
-    await runOnce(
-      sentinelPath,
-      async () => await prepareIntlayer(intlayerConfig),
-      () => appLogger('Intlayer prepared')
-    );
+    await prepareIntlayer(intlayerConfig);
   }
 
   // Only provide turbo-specific config if user explicitly sets it

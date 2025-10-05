@@ -1,6 +1,7 @@
 import { relative } from 'node:path';
 import { type AIOptions, getIntlayerAPIProxy } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
+  extractErrorMessage,
   formatLocale,
   formatPath,
   type ListGitFilesOptions,
@@ -54,26 +55,31 @@ export type FillOptions = {
 /**
  * Fill translations based on the provided options.
  */
-export const fill = async (options: FillOptions): Promise<void> => {
-  const configuration = getConfiguration(options.configOptions);
-  const appLogger = getAppLogger(configuration, {
-    config: {
-      prefix: '',
+export const fill = async (options?: FillOptions): Promise<void> => {
+  const configuration = getConfiguration({
+    override: {
+      log: {
+        prefix: '',
+      },
     },
+    ...options?.configOptions,
   });
+  const appLogger = getAppLogger(configuration);
 
-  if (options.build) {
+  if (options?.build === true) {
+    await prepareIntlayer(configuration, { forceRun: true });
+  } else if (typeof options?.build === 'undefined') {
     await prepareIntlayer(configuration);
   }
 
   const { defaultLocale, locales } = configuration.internationalization;
-  const mode = options.mode ?? 'complete';
-  const baseLocale = options.sourceLocale ?? defaultLocale;
+  const mode = options?.mode ?? 'complete';
+  const baseLocale = options?.sourceLocale ?? defaultLocale;
   const outputLocales = (
-    options.outputLocales ? ensureArray(options.outputLocales) : locales
+    options?.outputLocales ? ensureArray(options.outputLocales) : locales
   ).filter((locale) => locale !== baseLocale);
 
-  const hasAIAccess = await checkAIAccess(configuration, options.aiOptions);
+  const hasAIAccess = await checkAIAccess(configuration, options?.aiOptions);
 
   if (!hasAIAccess) return;
 
@@ -253,7 +259,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
           entryLocale: task.sourceLocale,
           outputLocale: task.targetLocale,
           mode,
-          aiOptions: options.aiOptions,
+          aiOptions: options?.aiOptions,
         });
 
         if (!translationResult.data?.fileContent) {
@@ -277,9 +283,10 @@ export const fill = async (options: FillOptions): Promise<void> => {
           result: processedPerLocaleDictionary,
         } as const;
       } catch (error) {
+        const errorMessage = extractErrorMessage(error);
+
         appLogger(
-          `${task.dictionaryPreset}${task.localePreset} ${colorize('Error filling', ANSIColors.RED)}: ` +
-            error,
+          `${task.dictionaryPreset}${task.localePreset} ${colorize('Error filling:', ANSIColors.RED)} ${colorize(errorMessage, ANSIColors.GREY_DARK)}`,
           {
             level: 'error',
           }
@@ -287,7 +294,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
         return { key: task.dictionaryKey, result: null } as const;
       }
     },
-    options.nbConcurrentTranslations ?? NB_CONCURRENT_TRANSLATIONS
+    options?.nbConcurrentTranslations ?? NB_CONCURRENT_TRANSLATIONS
   );
 
   const resultsByDictionary = new Map<string, Dictionary[]>();
@@ -357,7 +364,13 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     const reducedResult = reduceDictionaryContent(mergedResults, formattedDict);
 
-    if (formattedDict.autoFill || configuration.content.autoFill) {
+    const isAutoFillEnabled =
+      formattedDict.autoFill || configuration.content.autoFill;
+    const isAutoFillPerLocale =
+      typeof formattedDict.locale === 'undefined' ||
+      formattedDict.locale === sourceLocale;
+
+    if (isAutoFillEnabled && isAutoFillPerLocale) {
       await autoFill(
         mergedResults,
         targetUnmergedDictionary,
@@ -369,8 +382,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
     } else {
       await writeContentDeclaration(
         { ...formattedDict, content: reducedResult.content },
-        configuration,
-        formattedDict.filePath
+        configuration
       );
 
       if (formattedDict.filePath) {

@@ -1267,9 +1267,9 @@ export const errorData = {
       es: 'Acceso denegado',
     },
     message: {
-      en: 'Invalid Access keys. Access keys should be defined to use AI features. See https://intlayer.org/doc/concept/editor. Alternatively, you can add your own openAI API key in the settings.',
-      fr: "Clées d'accès invalides. Les clés d'accès doivent être définies pour utiliser les fonctionnalités AI. Voir https://intlayer.org/doc/concept/editor. Alternativement, vous pouvez ajouter votre propre clé API openAI dans les paramètres.",
-      es: 'Claves de acceso no válidas. Las claves de acceso deben definirse para usar funciones AI. Ver https://intlayer.org/doc/concept/editor. Alternativamente, puede agregar su propia clave API openAI en la configuración.',
+      en: 'Invalid Access keys. Access keys should be defined to use AI features. See https://intlayer.org/doc/concept/editor. Alternatively, you can add your own OpenAI API key in the settings.',
+      fr: "Clées d'accès invalides. Les clés d'accès doivent être définies pour utiliser les fonctionnalités AI. Voir https://intlayer.org/doc/concept/editor. Alternativement, vous pouvez ajouter votre propre clé API OpenAI dans les paramètres.",
+      es: 'Claves de acceso no válidas. Las claves de acceso deben definirse para usar funciones AI. Ver https://intlayer.org/doc/concept/editor. Alternativamente, puede agregar su propia clave API OpenAI en la configuración.',
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },

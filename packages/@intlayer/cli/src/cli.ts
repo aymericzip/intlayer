@@ -2,7 +2,7 @@ import { dirname as pathDirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { AIOptions as BaseAIOptions } from '@intlayer/api';
 import type { GetConfigurationOptions } from '@intlayer/config';
-import configuration from '@intlayer/config/built';
+import { getConfiguration } from '@intlayer/config';
 import { Command } from 'commander';
 import type {
   DiffMode,
@@ -73,7 +73,9 @@ const extractKeysFromOptions = (options: object, keys: string[]) =>
  * Helper functions to apply common options to commands
  */
 const applyOptions = (command: Command, options: string[][]) => {
-  options.forEach(([flag, description]) => command.option(flag, description));
+  options.forEach(([flag, description]) => {
+    command.option(flag, description);
+  });
   return command;
 };
 
@@ -96,6 +98,8 @@ const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
     applicationContext,
     customPrompt,
   } = options;
+
+  const configuration = getConfiguration();
 
   return removeUndefined({
     apiKey: apiKey ?? configuration.ai?.apiKey,
@@ -383,6 +387,10 @@ export const setAPI = (): Command => {
         '--keepLocaleDictionary',
         '[alias] Keep the local dictionaries after pushing',
       ],
+      [
+        '--build [build]',
+        'Build the dictionaries before pushing to ensure the content is up to date. True will force the build, false will skip the build, undefined will allow using the cache of the build',
+      ],
     ],
   };
 
@@ -471,7 +479,11 @@ export const setAPI = (): Command => {
 
   const testProgram = contentProgram
     .command('test')
-    .description('Test if there are missing translations');
+    .description('Test if there are missing translations')
+    .option(
+      '--build [build]',
+      'Build the dictionaries before testing to ensure the content is up to date. True will force the build, false will skip the build, undefined will allow using the cache of the build'
+    );
 
   applyConfigOptions(testProgram);
   testProgram.action((options) => {
@@ -506,7 +518,7 @@ export const setAPI = (): Command => {
     )
     .option(
       '--build [build]',
-      'Build the dictionaries before filling to ensure the content is up to date'
+      'Build the dictionaries before filling to ensure the content is up to date. True will force the build, false will skip the build, undefined will allow using the cache of the build'
     );
 
   applyConfigOptions(fillProgram);

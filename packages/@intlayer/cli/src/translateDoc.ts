@@ -201,11 +201,7 @@ export const translateDoc = async ({
   gitOptions,
 }: TranslateDocOptions) => {
   const configuration = getConfiguration(configOptions);
-  const appLogger = getAppLogger(configuration, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(configuration);
 
   if (nbSimultaneousFileProcessed && nbSimultaneousFileProcessed > 10) {
     appLogger(

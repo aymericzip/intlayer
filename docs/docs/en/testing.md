@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-09-20
+updatedAt: 2025-10-05
 title: Testing your content
 description: Discover how to test your content with Intlayer.
 keywords:
@@ -44,6 +44,7 @@ Useful flags:
 - `--base-dir [path]`: set the app base directory for resolution.
 - `--verbose`: show verbose logs.
 - `--prefix [label]`: prefix log lines.
+- `--build [build]`: build the dictionaries before testing to ensure the content is up to date. True will force the build, false will skip the build, undefined will allow using the cache of the build.
 
 Note: the CLI prints a detailed report but does not exit non‑zero on failures. For CI gating, add a unit test (below) that asserts zero missing required locales.
 
@@ -59,8 +60,8 @@ import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
 
 describe("translations", () => {
-  it("has no missing required locales", () => {
-    const result = listMissingTranslations();
+  it("has no missing required locales", async () => {
+    const result = await listMissingTranslations();
 
     if (result.missingRequiredLocales.length > 0) {
       // Helpful when the test fails locally or in CI
@@ -77,8 +78,8 @@ Jest equivalent:
 ```ts fileName=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
-test("has no missing required locales", () => {
-  const result = listMissingTranslations();
+test("has no missing required locales", async () => {
+  const result = await listMissingTranslations();
 
   if (result.missingRequiredLocales.length > 0) {
     // Helpful when the test fails locally or in CI
@@ -195,6 +196,7 @@ npx intlayer content test --verbose
 
 ## Doc History
 
-| Version | Date       | Changes                 |
-| ------- | ---------- | ----------------------- |
-| 6.0.0   | 2025-09-20 | Introduction of testing |
+| Version | Date       | Changes                              |
+| ------- | ---------- | ------------------------------------ |
+| 6.0.1   | 2025-10-05 | Make test async and add build option |
+| 6.0.0   | 2025-09-20 | Introduction of testing              |

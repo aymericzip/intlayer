@@ -9,7 +9,7 @@ import {
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 import { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
-import { handleUnlikedContentDeclarationFile } from './handleUnlikedContentDeclarationFile';
+import { handleUnlinkedContentDeclarationFile } from './handleUnlikedContentDeclarationFile';
 import { prepareIntlayer } from './prepareIntlayer';
 
 const recentlyAddedFiles = new Set<string>();
@@ -63,7 +63,7 @@ export const watch = (options?: WatchOptions) => {
           return;
         }
 
-        await handleUnlikedContentDeclarationFile(filePath, configuration);
+        await handleUnlinkedContentDeclarationFile(filePath, configuration);
       }, 300); // Allow time for unlink to trigger if it's a move
     })
     .on('error', async (error) => {
@@ -83,7 +83,7 @@ export const buildAndWatchIntlayer = async (options?: WatchOptions) => {
     options?.configuration ?? getConfiguration(options?.configOptions);
 
   if (!options?.skipPrepare) {
-    await prepareIntlayer(configuration);
+    await prepareIntlayer(configuration, { forceRun: true });
   }
 
   if (configuration.content.watch || options?.persistent) {

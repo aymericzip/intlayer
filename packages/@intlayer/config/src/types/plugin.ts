@@ -1,4 +1,5 @@
 import type { IntlayerConfig } from './config';
+import type { LocalesValues } from './locales';
 
 /**
  * This is a temporary type to avoid cross-package type coupling.
@@ -7,7 +8,10 @@ import type { IntlayerConfig } from './config';
  */
 interface PluginDictionary {
   key: string;
+  locale?: LocalesValues;
+  location?: string;
   content: unknown;
+  filePath?: string;
 }
 
 export type UnmergedDictionaryResult = {
@@ -59,4 +63,13 @@ export type Plugin = {
     };
     configuration: IntlayerConfig;
   }) => Promise<void> | void;
+
+  /**
+   * Optional hook called after dictionaries have been formatted.
+   * Implementations can transform the final content before it is written to the output.
+   */
+  formatOutput?: (args: {
+    dictionary: PluginDictionary;
+    configuration: IntlayerConfig;
+  }) => Promise<PluginDictionary> | PluginDictionary;
 };
