@@ -14,6 +14,7 @@
  *  and must therefore be 100 % deterministic.
  * ------------------------------------------------------------------------- */
 
+import { spawn } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { localeMap } from '@intlayer/core';
@@ -69,6 +70,62 @@ const categories: CategoryConfig[] = [
 /* -------------------------------------------------------------------------- */
 /*                      HELPERS – ENTRY FILES GENERATION                      */
 /* -------------------------------------------------------------------------- */
+
+/**
+ * Format content using Biome CLI. Falls back to the original content if Biome
+ * is unavailable or formatting fails for any reason.
+ */
+const formatWithBiome = async (
+  content: string,
+  filePathForConfig: string
+): Promise<string> => {
+  try {
+    const child = spawn(
+      'biome',
+      ['format', '--stdin-file-path', filePathForConfig],
+      {
+        stdio: ['pipe', 'pipe', 'pipe'],
+      }
+    );
+
+    let stdout = '';
+    let stderr = '';
+
+    if (child.stdout) {
+      child.stdout.setEncoding('utf8');
+      child.stdout.on('data', (chunk) => {
+        stdout += chunk as string;
+      });
+    }
+
+    if (child.stderr) {
+      child.stderr.setEncoding('utf8');
+      child.stderr.on('data', (chunk) => {
+        stderr += chunk as string;
+      });
+    }
+
+    const completion = new Promise<string>((resolve, reject) => {
+      child.on('error', reject);
+      child.on('close', (code) => {
+        if (code === 0) {
+          resolve(stdout);
+        } else {
+          reject(new Error(stderr || `biome exited with code ${code}`));
+        }
+      });
+    });
+
+    if (child.stdin) {
+      child.stdin.write(content);
+      child.stdin.end();
+    }
+
+    return await completion;
+  } catch {
+    return content;
+  }
+};
 
 const buildEntryContent = (
   { constName, dir }: CategoryConfig,
@@ -131,17 +188,22 @@ const generate = async () => {
     const entryContent = buildEntryContent(cfg, englishFiles);
     await mkdir(dirname(cfg.entryFilePath), { recursive: true });
 
-    /* --------------------------- format with prettier -------------------------- */
+    /* ----------------------------- format with Biome ----------------------------- */
+    const formattedEntryContent = await formatWithBiome(
+      entryContent,
+      cfg.entryFilePath
+    );
+
     try {
       const currentContent = await readFile(cfg.entryFilePath, 'utf-8');
-
-      // If the file is different from the formatted version, write the formatted version
-      if (entryContent !== currentContent) {
-        await writeFile(cfg.entryFilePath, entryContent, 'utf-8');
-        console.log(`✨ Formatted ${cfg.entryFilePath}`);
+      if (currentContent !== formattedEntryContent) {
+        await writeFile(cfg.entryFilePath, formattedEntryContent, 'utf-8');
+        console.log(`✍️ Updated ${cfg.entryFilePath}`);
       }
-    } catch (error) {
-      console.warn(`⚠️ Failed to format ${cfg.entryFilePath}:`, error);
+    } catch {
+      // No existing file – write it
+      await writeFile(cfg.entryFilePath, formattedEntryContent, 'utf-8');
+      console.log(`✍️ Created ${cfg.entryFilePath}`);
     }
   }
 
