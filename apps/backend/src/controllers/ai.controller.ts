@@ -1,16 +1,13 @@
-import { DiscussionModel } from '@/models/discussion.model';
-import type { Dictionary } from '@/types/dictionary.types';
-import type { Tag } from '@/types/tag.types';
-import { type KeyPath } from '@intlayer/core';
+import type { KeyPath } from '@intlayer/core';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';
 import { getTagsByKeys } from '@services/tag.service';
 import {
-  AIConfig,
-  getAIConfig,
+  type AIConfig,
   type AIOptions,
   type ChatCompletionRequestMessage,
+  getAIConfig,
 } from '@utils/AI/aiSdk';
 import * as askDocQuestionUtil from '@utils/AI/askDocQuestion/askDocQuestion';
 import * as auditContentDeclarationUtil from '@utils/AI/auditDictionary';
@@ -20,10 +17,13 @@ import * as auditTagUtil from '@utils/AI/auditTag';
 import * as autocompleteUtil from '@utils/AI/autocomplete';
 import * as customQueryUtil from '@utils/AI/customQuery';
 import * as translateJSONUtil from '@utils/AI/translateJSON';
-import { ErrorHandler, type AppError } from '@utils/errors';
+import { type AppError, ErrorHandler } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import type { Locales } from 'intlayer';
+import { DiscussionModel } from '@/models/discussion.model';
+import type { Dictionary } from '@/types/dictionary.types';
+import type { Tag } from '@/types/tag.types';
 
 type ReplaceAIConfigByOptions<T> = Omit<T, 'aiConfig'> & {
   aiOptions?: AIOptions;

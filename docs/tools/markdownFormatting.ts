@@ -1,6 +1,6 @@
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import fg from 'fast-glob';
-import { existsSync, readFileSync } from 'fs';
-import { join } from 'path';
 
 // Import the same DOC_PATTERN from translate.ts for consistency
 const DOC_PATTERN: string[] = ['./**/*.md'];

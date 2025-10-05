@@ -8,7 +8,7 @@ import type {
   DictionaryKeys,
   LanguageContent,
 } from '@intlayer/core';
-import { INTLAYER_TOKEN, IntlayerProvider } from './installIntlayer';
+import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
 import { useLoadDynamic } from './useLoadDynamic';
 

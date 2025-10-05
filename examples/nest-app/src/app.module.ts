@@ -1,7 +1,11 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  type MiddlewareConsumer,
+  Module,
+  type NestModule,
+} from '@nestjs/common';
+import { intlayer } from 'express-intlayer';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { intlayer } from 'express-intlayer';
 
 @Module({
   imports: [],

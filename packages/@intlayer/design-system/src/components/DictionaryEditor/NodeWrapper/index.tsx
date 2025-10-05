@@ -2,20 +2,20 @@
 
 import type { Locales } from '@intlayer/config/client';
 import {
-  getContentNodeByKeyPath,
-  getNodeType,
-  NodeType,
   type ConditionContent,
   type ContentNode,
   type Dictionary,
   type EnumerationContent,
   type FileContent,
+  getContentNodeByKeyPath,
+  getNodeType,
   type InsertionContent,
   type KeyPath,
   type MarkdownContent,
+  NodeType,
   type TranslationContent,
 } from '@intlayer/core';
-import { ReactNode, type FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { ArrayWrapper } from './ArrayWrapper';
 import { ConditionWrapper } from './ConditionWrapper';
 import { EnumerationWrapper } from './EnumerationWrapper';

@@ -14,7 +14,7 @@ import {
 } from '@intlayer/design-system/hooks';
 import { KeyRound, RefreshCcw, Trash } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useState, type FC } from 'react';
+import { type FC, useState } from 'react';
 import { AccessKeyCreationForm } from './AccessKeyCreationForm';
 import { getAccessKeySchema } from './AccessKeyFormSchema';
 

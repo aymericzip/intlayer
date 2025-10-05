@@ -1,11 +1,11 @@
 import {
   buildAndWatchIntlayer,
-  runParallel,
   type ParallelHandle,
+  runParallel,
 } from '@intlayer/chokidar';
 import {
-  getConfiguration,
   type GetConfigurationOptions,
+  getConfiguration,
 } from '@intlayer/config';
 
 type BuildOptions = {

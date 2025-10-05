@@ -148,28 +148,25 @@ module.exports = (async () => {
 
 ## Adım 4: Intlayer Sağlayıcısını Ekleyin
 
-Kullanıcı dilini uygulamanız boyunca senkronize tutmak için, kök bileşenizi `react-intlayer`'dan `IntlayerProvider` bileşeniyle sarmalamanız gerekir.
+Uygulamanız genelinde kullanıcı dilini senkronize tutmak için, kök bileşeninizi `react-intlayer-native`'den gelen `IntlayerProvider` bileşeni ile sarmanız gerekir.
 
-Ayrıca, Intlayer'ın düzgün çalışmasını sağlamak için `index.js` dosyanıza `intlayerPolyfill` fonksiyonunu eklemeniz gerekir.
+> `react-intlayer` yerine `react-native-intlayer`'dan gelen sağlayıcıyı kullandığınızdan emin olun. `react-native-intlayer`'dan gelen dışa aktarım, web API'si için polyfill'leri içerir.
 
 ```tsx fileName="app/_layout.tsx" codeFormat="typescript"
 import { Stack } from "expo-router";
 import { getLocales } from "expo-localization";
-import { IntlayerProviderContent } from "react-intlayer";
-import { intlayerPolyfill } from "react-native-intlayer";
+import { IntlayerProvider } from "react-native-intlayer";
 import { type FC } from "react";
-
-intlayerPolyfill();
 
 const getDeviceLocale = () => getLocales()[0]?.languageTag;
 
 const RootLayout: FC = () => {
   return (
-    <IntlayerProviderContent defaultLocale={getDeviceLocale()}>
+    <IntlayerProvider defaultLocale={getDeviceLocale()}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
-    </IntlayerProviderContent>
+    </IntlayerProvider>
   );
 };
 
@@ -179,20 +176,17 @@ export default RootLayout;
 ```jsx fileName="app/_layout.mjx" codeFormat="esm"
 import { Stack } from "expo-router";
 import { getLocales } from "expo-localization";
-import { IntlayerProviderContent } from "react-intlayer";
-import { intlayerPolyfill } from "react-native-intlayer";
-
-intlayerPolyfill();
+import { IntlayerProvider } from "react-native-intlayer";
 
 const getDeviceLocale = () => getLocales()[0]?.languageTag;
 
 const RootLayout = () => {
   return (
-    <IntlayerProviderContent defaultLocale={getDeviceLocale()}>
+    <IntlayerProvider defaultLocale={getDeviceLocale()}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
-    </IntlayerProviderContent>
+    </IntlayerProvider>
   );
 };
 
@@ -202,20 +196,17 @@ export default RootLayout;
 ```jsx fileName="app/_layout.cjx" codeFormat="commonjs"
 const { Stack } = require("expo-router");
 const { getLocales } = require("expo-localization");
-const { IntlayerProviderContent } = require("react-intlayer");
-const { intlayerPolyfill } = require("react-native-intlayer");
-
-intlayerPolyfill();
+const { IntlayerProvider } = require("react-native-intlayer");
 
 const getDeviceLocale = () => getLocales()[0]?.languageTag;
 
 const RootLayout = () => {
   return (
-    <IntlayerProviderContent defaultLocale={getDeviceLocale()}>
+    <IntlayerProvider defaultLocale={getDeviceLocale()}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
-    </IntlayerProviderContent>
+    </IntlayerProvider>
   );
 };
 
@@ -316,7 +307,7 @@ module.exports = appContent;
 }
 ```
 
-> İçerik bildirimleri hakkında detaylar için [Intlayer'ın içerik dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md) bakın.
+> İçerik bildirimleri hakkında detaylar için [Intlayer'ın içerik dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
 
 ---
 

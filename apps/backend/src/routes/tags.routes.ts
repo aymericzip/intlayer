@@ -1,4 +1,3 @@
-import type { Routes } from '@/types/Routes';
 import {
   addTag,
   deleteTag,
@@ -6,6 +5,7 @@ import {
   updateTag,
 } from '@controllers/tag.controller';
 import { Router } from 'express';
+import type { Routes } from '@/types/Routes';
 
 export const tagRouter: Router = Router();
 

@@ -1,10 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { LucideIcon } from 'lucide-react';
-import {
-  type ButtonHTMLAttributes,
-  type DetailedHTMLProps,
-  type FC,
-} from 'react';
+import type { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
 import { Loader } from '../Loader';
 
 /**

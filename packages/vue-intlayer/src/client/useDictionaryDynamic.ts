@@ -6,7 +6,7 @@ import type {
   LanguageContent,
 } from '@intlayer/core';
 import { computed, inject } from 'vue';
-import { INTLAYER_SYMBOL, IntlayerProvider } from './installIntlayer';
+import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
 import { useLoadDynamic } from './useLoadDynamic';
 

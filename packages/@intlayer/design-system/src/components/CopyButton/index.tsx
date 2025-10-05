@@ -1,12 +1,12 @@
 'use client';
 
 import { CopyCheckIcon, CopyIcon } from 'lucide-react';
-import { useEffect, useState, type FC } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
   Button,
   ButtonColor,
-  ButtonProps,
+  type ButtonProps,
   ButtonSize,
   ButtonVariant,
 } from '../Button';

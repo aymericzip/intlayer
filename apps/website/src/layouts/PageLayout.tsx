@@ -1,5 +1,5 @@
-import { AppProviders, type AppProvidersProps } from '@/providers/AppProviders';
 import type { FC } from 'react';
+import { AppProviders, type AppProvidersProps } from '@/providers/AppProviders';
 import { FirstConsultationProvider } from './FirstConsultationProvider';
 import {
   PageContentLayout,

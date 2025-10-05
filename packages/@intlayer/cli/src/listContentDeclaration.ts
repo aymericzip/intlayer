@@ -1,14 +1,14 @@
+import { relative } from 'node:path';
 import { formatPath } from '@intlayer/chokidar';
 import {
   colon,
   colorizeKey,
   colorizeNumber,
+  type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
-  type GetConfigurationOptions,
 } from '@intlayer/config';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
-import { relative } from 'path';
 
 type ListContentDeclarationOptions = {
   configOptions?: GetConfigurationOptions;

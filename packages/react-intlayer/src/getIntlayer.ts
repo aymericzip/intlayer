@@ -1,7 +1,7 @@
 import {
   type DictionaryKeys,
-  type Plugins,
   getIntlayer as getIntlayerCore,
+  type Plugins,
 } from '@intlayer/core';
 import type { IntlayerDictionaryTypesConnector, LocalesValues } from 'intlayer';
 import {

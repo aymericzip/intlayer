@@ -2,10 +2,16 @@
 
 import { Form, useForm } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import { RefObject, useEffect, useState, type FC, type ReactNode } from 'react';
 import {
-  useAskResetPasswordSchema,
+  type FC,
+  type ReactNode,
+  type RefObject,
+  useEffect,
+  useState,
+} from 'react';
+import {
   type AskResetPassword,
+  useAskResetPasswordSchema,
 } from './useAskResetPasswordSchema';
 
 type AskResetPasswordFormProps = {

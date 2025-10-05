@@ -2,7 +2,7 @@
 
 import type { Dictionary } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { NodeView } from './StructureView/StructureView';
 
 type NodeEditorProps = {

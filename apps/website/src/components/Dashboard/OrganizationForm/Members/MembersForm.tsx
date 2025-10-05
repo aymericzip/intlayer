@@ -16,7 +16,7 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Plus, X } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, useState, type FC } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { RemoveMemberModal } from './RemoveMemberModal';
 import { useOrganizationMembersSchema } from './useMembersFormSchema';
 import { useOrganizationNewMembersSchema } from './useNewMembersFormSchema';

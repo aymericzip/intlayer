@@ -1,12 +1,12 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { Link } from '@components/Link/Link';
 import { LinkColor, LinkVariant } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, HTMLAttributes } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
   className,

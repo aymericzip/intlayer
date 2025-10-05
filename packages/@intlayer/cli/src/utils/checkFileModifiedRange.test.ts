@@ -4,8 +4,8 @@ import {
   describe,
   expect,
   it,
-  vi,
   type Mock,
+  vi,
 } from 'vitest';
 
 // We are testing the public helper. The helper itself internally relies on

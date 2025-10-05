@@ -1,10 +1,10 @@
+import { mkdir } from 'node:fs/promises';
+import { relative, resolve } from 'node:path';
 import {
   colorizePath,
   getConfiguration,
   normalizePath,
 } from '@intlayer/config';
-import { mkdir } from 'fs/promises';
-import { relative, resolve } from 'path';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import type {
@@ -75,7 +75,7 @@ export const writeFetchDictionary = async (
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(fetchDictionariesDir), { recursive: true });
 
-  let resultDictionariesPaths: LocalizedDictionaryOutput = {};
+  const resultDictionariesPaths: LocalizedDictionaryOutput = {};
 
   // Write entry points for each dictionary in parallel
   await parallelize(

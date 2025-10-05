@@ -1,10 +1,10 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { useLogin } from '@intlayer/design-system/hooks';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useRef, type FC } from 'react';
-import { SignInForm as SignInFormUI, type SignIn } from './SignInForm/index';
+import { type FC, useRef } from 'react';
+import { PagesRoutes } from '@/Routes';
+import { type SignIn, SignInForm as SignInFormUI } from './SignInForm/index';
 
 export const SignInForm: FC<{
   callbackUrl?: string;

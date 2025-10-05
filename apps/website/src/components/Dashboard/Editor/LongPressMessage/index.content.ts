@@ -1,4 +1,4 @@
-import { insert, t, type Dictionary } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const longPressMessageContent = {
   key: 'long-press-message',

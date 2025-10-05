@@ -65,7 +65,7 @@ Depending on whether you're working on client-side or server-side components in 
 
 It's crucial that all content keys are defined within content declaration files to prevent runtime errors and ensure type safety. This approach also facilitates TypeScript integration for compile-time validation.
 
-Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md).
+Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
 ## Example Usage in Next.js
 

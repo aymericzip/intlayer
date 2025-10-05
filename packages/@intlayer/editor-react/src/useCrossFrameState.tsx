@@ -1,7 +1,7 @@
 'use client';
 
-import { type MessageKey } from '@intlayer/editor';
-import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
+import type { MessageKey } from '@intlayer/editor';
+import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
 import { useCommunicator } from './CommunicatorContext';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 

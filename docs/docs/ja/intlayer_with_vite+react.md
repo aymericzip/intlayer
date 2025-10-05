@@ -1605,9 +1605,9 @@ Link.displayName = "Link";
 
 Intlayer はモジュール拡張を利用して TypeScript の利点を活かし、コードベースをより強固にします。
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 TypeScript の設定に自動生成された型が含まれていることを確認してください。
 
@@ -1619,9 +1619,9 @@ TypeScript の設定に自動生成された型が含まれていることを確
 
 Intlayerはモジュール拡張を利用してTypeScriptの利点を活かし、コードベースをより堅牢にします。
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 TypeScriptの設定に自動生成された型を含めることを確認してください。
 

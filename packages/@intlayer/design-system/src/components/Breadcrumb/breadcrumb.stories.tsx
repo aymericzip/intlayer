@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
-import { Breadcrumb } from '.';
 import { ButtonColor } from '../Button';
 import { LinkColor } from '../Link';
+import { Breadcrumb } from '.';
 
 /**
  * Breadcrumb Component Stories

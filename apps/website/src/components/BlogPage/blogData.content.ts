@@ -1,8 +1,8 @@
 import {
-  getBlogMetadata as getBlogMetadataCore,
   type BlogKey,
+  getBlogMetadata as getBlogMetadataCore,
 } from '@intlayer/docs';
-import { localeRecord, t, type Dictionary } from 'intlayer';
+import { type Dictionary, localeRecord, t } from 'intlayer';
 
 const getBlogMetadata = (blog: BlogKey) =>
   t(

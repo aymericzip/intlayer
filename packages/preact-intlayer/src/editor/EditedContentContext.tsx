@@ -1,25 +1,25 @@
 'use client';
 
 import {
-  editDictionaryByKeyPath,
-  getContentNodeByKeyPath,
-  renameContentNodeByKeyPath,
   type ContentNode,
   type Dictionary,
+  editDictionaryByKeyPath,
+  getContentNodeByKeyPath,
   type KeyPath,
+  renameContentNodeByKeyPath,
 } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
 import {
   createContext,
-  useContext,
   type Dispatch,
   type FC,
   type PropsWithChildren,
   type SetStateAction,
+  useContext,
 } from 'preact/compat';
 import {
-  useDictionariesRecord,
   type DictionaryContent,
+  useDictionariesRecord,
 } from './DictionariesRecordContext';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 import { useCrossFrameState } from './useCrossFrameState';

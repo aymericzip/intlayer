@@ -2,11 +2,11 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
+  type HTMLAttributes,
+  type ReactNode,
   useEffect,
   useRef,
   useState,
-  type HTMLAttributes,
-  type ReactNode,
 } from 'react';
 import { useItemSelector } from '../../hooks';
 import { cn } from '../../utils/cn';

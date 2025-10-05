@@ -1,4 +1,5 @@
 import type { Locales } from './locales';
+import type { Plugin } from './plugin';
 
 export type StrictMode = 'strict' | 'inclusive' | 'loose';
 
@@ -444,7 +445,7 @@ export type CustomIntlayerConfig = {
   /**
    * Custom plugins configuration
    */
-  plugins?: PluginConfig[];
+  plugins?: Plugin[];
 };
 
 /**
@@ -489,7 +490,7 @@ export type IntlayerConfig = {
   /**
    * Plugins configuration
    */
-  plugins?: PluginConfig[];
+  plugins?: Plugin[];
 };
 
 /**
@@ -725,11 +726,4 @@ export type LogConfig = {
   info?: typeof console.info;
   warn?: typeof console.warn;
   debug?: typeof console.debug;
-};
-
-export type PluginConfig = {
-  /**
-   * Name of the plugin
-   */
-  name: string;
 };

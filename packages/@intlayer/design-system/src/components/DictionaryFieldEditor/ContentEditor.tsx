@@ -1,8 +1,8 @@
 'use client';
 
-import { getContentNodeByKeyPath, type Dictionary } from '@intlayer/core';
+import { type Dictionary, getContentNodeByKeyPath } from '@intlayer/core';
 import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
-import { useEffect, type FC } from 'react';
+import { type FC, useEffect } from 'react';
 import { Container } from '../Container';
 import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';
 import { TextEditorContainer } from './ContentEditorView/TextEditor';

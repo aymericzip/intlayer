@@ -1,5 +1,5 @@
-import type { Dictionary, DictionaryAPI } from '@/types/dictionary.types';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
+import type { Dictionary, DictionaryAPI } from '@/types/dictionary.types';
 
 /**
  * Maps a dictionary to an API response.
@@ -15,7 +15,7 @@ export const mapDictionaryToAPI = (
 ): DictionaryAPI => {
   const dictionaryObject = ensureMongoDocumentToObject<Dictionary>(dictionary);
 
-  let versionList = [...(dictionaryObject.content.keys() ?? [])];
+  const versionList = [...(dictionaryObject.content.keys() ?? [])];
   let returnedVersion = version;
 
   if (!returnedVersion) {

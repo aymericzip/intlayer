@@ -5,7 +5,7 @@ import { Form, useForm } from '@intlayer/design-system';
 import { useAddProject, useSelectProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { useProjectSchema, type ProjectFormData } from './useProjectFormSchema';
+import { type ProjectFormData, useProjectSchema } from './useProjectFormSchema';
 
 type ProjectCreationFormProps = {
   onProjectCreated?: (project: ProjectAPI) => void;

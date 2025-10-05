@@ -4,14 +4,14 @@
  * from Khan Academy.
  */
 import {
+  type CSSProperties,
   cloneElement,
   createElement,
-  CSSProperties,
-  FC,
-  HTMLAttributes,
-  JSX,
-  Key,
-  ReactNode,
+  type FC,
+  type HTMLAttributes,
+  type JSX,
+  type Key,
+  type ReactNode,
 } from 'react';
 
 /**
@@ -302,7 +302,7 @@ const LINK_AUTOLINK_R = /^<([^ >]+:\/[^ >]+)>/;
 const CAPTURE_LETTER_AFTER_HYPHEN = /-([a-z])?/gi;
 const NP_TABLE_R =
   /^(\|.*)\n(?: *(\|? *[-:]+ *\|[-| :]*)\n((?:.*\|.*\n)*))?\n?/;
-const PARAGRAPH_R = /^[^\n]+(?:  \n|\n{2,})/;
+const PARAGRAPH_R = /^[^\n]+(?: {2}\n|\n{2,})/;
 const REFERENCE_IMAGE_OR_LINK = /^\[([^\]]*)\]:\s+<?([^\s>]+)>?\s*("([^"]*)")?/;
 const REFERENCE_IMAGE_R = /^!\[([^\]]*)\] ?\[([^\]]*)\]/;
 const REFERENCE_LINK_R = /^\[([^\]]*)\] ?\[([^\]]*)\]/;
@@ -366,7 +366,7 @@ const UNESCAPE_R = /\\([^0-9A-Za-z\s])/g;
  * Always take the first character, then eagerly take text until a double space
  * (potential line break) or some markdown-like punctuation is reached.
  */
-const TEXT_PLAIN_R = /^[\s\S](?:(?!  \n|[0-9]\.|http)[^=*_~\-\n:<`\\\[!])*/;
+const TEXT_PLAIN_R = /^[\s\S](?:(?! {2}\n|[0-9]\.|http)[^=*_~\-\n:<`\\[!])*/;
 
 const TRIM_STARTING_NEWLINES = /^\n+/;
 
@@ -693,7 +693,7 @@ const parseTableRow = (
 
   state.inTable = true;
 
-  let cells: ParserResult[][] = [[]];
+  const cells: ParserResult[][] = [[]];
   let acc = '';
 
   const flush = (): void => {
@@ -2221,15 +2221,21 @@ export const compiler = (
         };
       },
       _render(node, _output, state = {}) {
-        return (
-          <a
-            key={state.key}
-            href={sanitize(node.target, 'a', 'href') ?? undefined}
-            title={node.title}
-          >
-            {_output(node.children, state)}
-          </a>
-        );
+        const renderedChildren = _output(node.children, state);
+        const overrideComponent = getTag('a', options.overrides ?? {});
+
+        const props = {
+          key: state.key,
+          href: sanitize(node.target, 'a', 'href') ?? undefined,
+          title: node.title,
+          children: renderedChildren,
+        } as Record<string, any>;
+
+        if (typeof overrideComponent === 'function') {
+          return overrideComponent(props);
+        }
+
+        return h('a', props, renderedChildren);
       },
     },
 
@@ -2279,7 +2285,7 @@ export const compiler = (
       _match: inlineRegex(LINK_AUTOLINK_MAILTO_R),
       _order: Priority.MAX,
       _parse(capture /*, parse, state*/) {
-        let address = capture[1];
+        const address = capture[1];
         let target = capture[1];
 
         // Check for a `mailto:` already existing in the link:

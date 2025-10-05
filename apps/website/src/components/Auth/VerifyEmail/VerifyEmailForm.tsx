@@ -5,7 +5,7 @@ import { Button, Form, H3, Loader, useForm } from '@intlayer/design-system';
 import { useUser } from '@intlayer/design-system/hooks';
 import { Check } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, useState, type FC } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { getVerifyEmailSchema, type VerifyEmail } from './VerifyEmailSchema';
 
 type VerifyEmailFormProps = {

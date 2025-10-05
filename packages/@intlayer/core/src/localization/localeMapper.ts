@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { Locales, LocalesValues } from '@intlayer/config/client';
+import type { Locales, LocalesValues } from '@intlayer/config/client';
 
 export type LocaleData = {
   locale: LocalesValues;

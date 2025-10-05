@@ -1,7 +1,7 @@
-import { Dictionary, NodeType } from '@intlayer/core';
+import { type Dictionary, NodeType } from '@intlayer/core';
 import {
   Node,
-  ObjectLiteralExpression,
+  type ObjectLiteralExpression,
   Project,
   SyntaxKind,
   ts,

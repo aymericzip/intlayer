@@ -5,7 +5,7 @@ import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { getRemoteDictionaries } from '@intlayer/remote-dictionaries-entry';
 import { fetchDistantDictionaries } from '../fetchDistantDictionaries';
-import { DictionariesStatus } from '../loadDictionaries/loadDictionaries';
+import type { DictionariesStatus } from '../loadDictionaries/loadDictionaries';
 import { sortAlphabetically } from '../utils/sortAlphabetically';
 
 export const formatDistantDictionaries = (

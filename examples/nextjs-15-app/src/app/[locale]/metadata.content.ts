@@ -1,5 +1,5 @@
 import { type Dictionary, t } from 'intlayer';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 const metadataContent = {
   key: 'page-metadata',

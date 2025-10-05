@@ -1,4 +1,4 @@
-import { Locales, type CustomIntlayerConfig } from '@intlayer/config';
+import { type CustomIntlayerConfig, Locales } from '@intlayer/config';
 
 export const locales = [
   Locales.ENGLISH,

@@ -15,10 +15,8 @@ keywords:
 slugs:
   - doc
   - environment
-  - vite-and-react
   - tanstack-start
-applicationTemplate: https://github.com/AydinTheFirst/tanstack-start-intlayer
-author: AydinTheFirst
+applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 ---
 
 # Começando a Internacionalizar (i18n) com Intlayer e Tanstack Start
@@ -27,15 +25,15 @@ Este guia demonstra como integrar o **Intlayer** para uma internacionalização 
 
 ## O que é o Intlayer?
 
-**Intlayer** é uma biblioteca inovadora e open-source de internacionalização (i18n) projetada para simplificar o suporte multilíngue em aplicações web modernas.
+**Intlayer** é uma biblioteca inovadora e de código aberto para internacionalização (i18n) projetada para simplificar o suporte multilíngue em aplicações web modernas.
 
 Com o Intlayer, você pode:
 
 - **Gerenciar traduções facilmente** usando dicionários declarativos no nível do componente.
 - **Localizar dinamicamente metadados**, rotas e conteúdo.
 - **Garantir suporte a TypeScript** com tipos gerados automaticamente, melhorando o autocompletar e a detecção de erros.
-- **Beneficiar-se de recursos avançados**, como detecção e troca dinâmica de locale.
-- **Habilitar roteamento sensível ao locale** com o sistema de roteamento baseado em arquivos do Tanstack Start.
+- **Aproveitar recursos avançados**, como detecção e troca dinâmica de locale.
+- **Ativar roteamento sensível ao locale** com o sistema de roteamento baseado em arquivos do Tanstack Start.
 
 ---
 
@@ -43,7 +41,7 @@ Com o Intlayer, você pode:
 
 ### Passo 1: Criar o Projeto
 
-Comece criando um novo projeto TanStack Start seguindo o guia [Start new project](https://tanstack.com/start/latest/docs/framework/react/quick-start) no site do TanStack Start.
+Comece criando um novo projeto TanStack Start seguindo o guia [Iniciar novo projeto](https://tanstack.com/start/latest/docs/framework/react/quick-start) no site do TanStack Start.
 
 ### Passo 2: Instalar os Pacotes do Intlayer
 
@@ -69,13 +67,13 @@ pnpm add vite-intlayer --save-dev
   O pacote que integra o Intlayer com aplicações React. Ele fornece provedores de contexto e hooks para internacionalização em React.
 
 - **vite-intlayer**
-  Inclui o plugin Vite para integrar o Intlayer com o [empacotador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), além de middleware para detectar o locale preferido do usuário, gerenciar cookies e lidar com redirecionamento de URL.
+  Inclui o plugin Vite para integrar o Intlayer com o [empacotador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), assim como middleware para detectar o locale preferido do usuário, gerenciar cookies e lidar com redirecionamento de URLs.
 
 ### Passo 3: Configuração do seu projeto
 
 Crie um arquivo de configuração para configurar os idiomas da sua aplicação:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
 
 import { Locales } from "intlayer";
@@ -83,54 +81,11 @@ import { Locales } from "intlayer";
 const config: IntlayerConfig = {
   internationalization: {
     defaultLocale: Locales.ENGLISH,
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Seus outros idiomas
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH,
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Seus outros idiomas
-    ],
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH,
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Seus outros idiomas
-    ],
-  },
-};
-
-module.exports = config;
 ```
 
 > Através deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento de middleware, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desabilitar logs do Intlayer no console, e muito mais. Para uma lista completa dos parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
@@ -139,29 +94,27 @@ module.exports = config;
 
 Adicione o plugin intlayer na sua configuração:
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts"
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import { intlayerMiddleware, intlayer } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer(), intlayerMiddleware()],
+  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
 });
 ```
 
-> O plugin `intlayer()` do Vite é usado para integrar o Intlayer com o Vite. Ele garante a construção dos arquivos de declaração de conteúdo e os monitora no modo de desenvolvimento. Define as variáveis de ambiente do Intlayer dentro da aplicação Vite. Além disso, fornece aliases para otimizar o desempenho.
+> O plugin `intlayer()` para Vite é usado para integrar o Intlayer com o Vite. Ele garante a construção dos arquivos de declaração de conteúdo e os monitora no modo de desenvolvimento. Define as variáveis de ambiente do Intlayer dentro da aplicação Vite. Além disso, fornece aliases para otimizar o desempenho.
 
 ### Passo 5: Crie Componentes de Layout
 
-Configure seu layout raiz e layouts específicos por localidade:
+Configure seu layout raiz e layouts específicos para cada localidade:
 
 #### Layout Raiz
 
-```tsx fileName="src/routes/{-$locale}/route.tsx" codeFormat="typescript"
-// src/routes/{-$locale}/route.tsx
+```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
-import { configuration } from "intlayer";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
@@ -171,10 +124,11 @@ export const Route = createFileRoute("/{-$locale}")({
 });
 
 function LayoutComponent() {
+  const { defaultLocale } = useLocale();
   const { locale } = Route.useParams();
 
   return (
-    <IntlayerProvider locale={locale}>
+    <IntlayerProvider locale={defaultLocale}>
       <Outlet />
     </IntlayerProvider>
   );
@@ -185,7 +139,7 @@ function LayoutComponent() {
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
-```tsx fileName="src/contents/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/contents/page.content.ts"
 import type { Dictionary } from "intlayer";
 
 import { t } from "intlayer";
@@ -194,30 +148,31 @@ const appContent = {
   content: {
     links: {
       about: t({
+        pt: "Sobre",
         en: "About",
         es: "Acerca de",
         fr: "À propos",
       }),
       home: t({
+        pt: "Início",
         en: "Home",
         es: "Inicio",
         fr: "Accueil",
-        pt: "Início",
       }),
     },
     meta: {
       description: t({
+        pt: "Este é um exemplo de uso do Intlayer com TanStack Router",
         en: "This is an example of using Intlayer with TanStack Router",
         es: "Este es un ejemplo de uso de Intlayer con TanStack Router",
         fr: "Ceci est un exemple d'utilisation d'Intlayer avec TanStack Router",
-        pt: "Este é um exemplo de uso do Intlayer com TanStack Router",
       }),
     },
     title: t({
+      pt: "Bem-vindo ao Intlayer + TanStack Router",
       en: "Welcome to Intlayer + TanStack Router",
       es: "Bienvenido a Intlayer + TanStack Router",
       fr: "Bienvenue à Intlayer + TanStack Router",
-      pt: "Bem-vindo ao Intlayer + TanStack Router",
     }),
   },
   key: "app",
@@ -230,63 +185,103 @@ export default appContent;
 
 > Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
 
-### Passo 7: Criar Componentes e Hooks Sensíveis ao Locale
+### Passo 7: Crie Componentes e Hooks Sensíveis ao Locale
 
 Crie um componente `LocalizedLink` para navegação sensível ao locale:
 
-```tsx fileName="src/components/localized-link.tsx" codeFormat="typescript"
-// src/components/localized-link.tsx
-// eslint-disable-next-line no-restricted-imports
-import { Link, type LinkProps } from "@tanstack/react-router";
-import { getLocalizedUrl } from "intlayer";
+```tsx fileName="src/components/localized-link.tsx"
+import type { FC } from "react";
+
+import { Link, type LinkComponentProps } from "@tanstack/react-router";
 import { useLocale } from "react-intlayer";
+
+export const LOCALE_ROUTE = "{-$locale}" as const;
+
+// Utilitário principal
+export type RemoveLocaleParam<T> = T extends string
+  ? RemoveLocaleFromString<T>
+  : T;
+
+export type To = RemoveLocaleParam<LinkComponentProps["to"]>;
+
+type CollapseDoubleSlashes<S extends string> =
+  S extends `${infer H}//${infer T}` ? CollapseDoubleSlashes<`${H}/${T}`> : S;
 
 type LocalizedLinkProps = {
-  to: string;
-} & Omit<LinkProps, "to">;
+  to?: To;
+} & Omit<LinkComponentProps, "to">;
 
-export function LocalizedLink(props: LocalizedLinkProps) {
+// Auxiliares
+type RemoveAll<
+  S extends string,
+  Sub extends string,
+> = S extends `${infer H}${Sub}${infer T}` ? RemoveAll<`${H}${T}`, Sub> : S;
+
+type RemoveLocaleFromString<S extends string> = CollapseDoubleSlashes<
+  RemoveAll<S, typeof LOCALE_ROUTE>
+>;
+
+export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
   const { locale } = useLocale();
 
-  const isExternal = (to: string) => {
-    return /^(https?:)?\/\//.test(to);
-  };
-
-  const to = isExternal(props.to)
-    ? props.to
-    : getLocalizedUrl(props.to, locale);
-
-  return <Link {...props} to={to as LinkProps["to"]} />;
-}
+  return (
+    <Link
+      {...props}
+      params={{
+        locale,
+        ...(typeof props?.params === "object" ? props?.params : {}),
+      }}
+      to={`/${LOCALE_ROUTE}${props.to}` as LinkComponentProps["to"]}
+    />
+  );
+};
 ```
 
-Crie um hook `useLocalizedNavigate` para navegação programática:
+Este componente tem dois objetivos:
 
-```tsx fileName="src/hooks/useLocalizedNavigate.tsx" codeFormat="typescript"
-// src/hooks/useLocalizedNavigate.tsx
-// eslint-disable-next-line no-restricted-imports
-import { NavigateOptions, useNavigate } from "@tanstack/react-router";
-import { getLocalizedUrl } from "intlayer";
+- Remover o prefixo `{-$locale}` desnecessário da URL.
+- Injetar o parâmetro de locale na URL para garantir que o usuário seja redirecionado diretamente para a rota localizada.
+
+Então, podemos criar um hook `useLocalizedNavigate` para navegação programática:
+
+```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
 import { useLocale } from "react-intlayer";
-
-type LocalizedNavigateOptions = {
-  to: string;
-} & Omit<NavigateOptions, "to">;
+import { useNavigate } from "@tanstack/react-router";
+import { LOCALE_ROUTE } from "@/components/localized-link";
+import type { FileRouteTypes } from "@/routeTree.gen";
 
 export const useLocalizedNavigate = () => {
   const navigate = useNavigate();
+
   const { locale } = useLocale();
 
-  const isExternal = (to: string) => {
-    return /^(https?:)?\/\//.test(to);
-  };
+  type StripLocalePrefix<T extends string> = T extends
+    | `/${typeof LOCALE_ROUTE}`
+    | `/${typeof LOCALE_ROUTE}/`
+    ? "/"
+    : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
+      ? `/${Rest}`
+      : never;
 
-  const localizedNavigate = (options: LocalizedNavigateOptions) => {
-    const to = isExternal(options.to)
-      ? options.to
-      : getLocalizedUrl(options.to, locale);
+  type LocalizedTo = StripLocalePrefix<FileRouteTypes["to"]>;
 
-    navigate({ ...options, to: to as NavigateOptions["to"] });
+  interface LocalizedNavigate {
+    (to: LocalizedTo): ReturnType<typeof navigate>;
+    (
+      opts: { to: LocalizedTo } & Record<string, unknown>
+    ): ReturnType<typeof navigate>;
+  }
+
+  const localizedNavigate: LocalizedNavigate = (args: any) => {
+    if (typeof args === "string") {
+      return navigate({ to: `/${LOCALE_ROUTE}${args}`, params: { locale } });
+    }
+
+    const { to, ...rest } = args;
+
+    const localedTo = `/${LOCALE_ROUTE}${to}` as any;
+
+    return navigate({ to: localedTo, params: { locale, ...rest } as any });
   };
 
   return localizedNavigate;
@@ -297,23 +292,9 @@ export const useLocalizedNavigate = () => {
 
 Acesse seus dicionários de conteúdo em toda a sua aplicação:
 
-#### Página de Redirecionamento Raiz
-
-```tsx fileName="src/routes/page.tsx" codeFormat="typescript"
-// src/routes/page.tsx
-import { useLocale } from "react-intlayer";
-import { Navigate } from "react-router";
-
-export default function Page() {
-  const { locale } = useLocale();
-
-  return <Navigate replace to={locale} />;
-}
-```
-
 #### Página Inicial Localizada
 
-```tsx fileName="src/routes/{-$locale}/index.tsx" codeFormat="typescript"
+```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
 import { getIntlayer } from "intlayer";
 import { useIntlayer } from "react-intlayer";
@@ -342,16 +323,15 @@ function RouteComponent() {
   const navigate = useLocalizedNavigate();
 
   return (
-    <div className="grid place-items-center h-screen">
-      <div className="flex flex-col gap-4 items-center text-center">
+    <div>
+      <div>
         {content.title}
         <LocaleSwitcher />
-        <div className="flex gap-4">
-          <a href="/">Índice</a>
+        <div>
           <LocalizedLink to="/">{content.links.home}</LocalizedLink>
           <LocalizedLink to="/about">{content.links.about}</LocalizedLink>
         </div>
-        <div className="flex gap-4">
+        <div>
           <button onClick={() => navigate({ to: "/" })}>
             {content.links.home}
           </button>
@@ -371,48 +351,56 @@ function RouteComponent() {
 
 Crie um componente para permitir que os usuários mudem de idioma:
 
-```tsx fileName="src/components/locale-switcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/locale-switcher.tsx"
+import type { FC } from "react";
+
 import { useLocation } from "@tanstack/react-router";
-import {
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-  Locales,
-} from "intlayer";
-import { useIntlayer, useLocale } from "react-intlayer";
+import { getHTMLTextDir, getLocaleName, getPathWithoutLocale } from "intlayer";
+import { setLocaleCookie, useIntlayer, useLocale } from "react-intlayer";
 
-export default function LocaleSwitcher() {
-  const { pathname, searchStr } = useLocation();
-  const content = useIntlayer("locale-switcher");
+import { LocalizedLink, To } from "./localized-link";
 
-  const { availableLocales, locale, setLocale } = useLocale({
-    onLocaleChange: (newLocale) => {
-      const pathWithLocale = getLocalizedUrl(pathname + searchStr, newLocale);
-      location.replace(pathWithLocale);
-    },
-  });
+export const LocaleSwitcher: FC = () => {
+  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
+  const { pathname } = useLocation();
+
+  const { availableLocales, locale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
 
   return (
-    <select
-      aria-label={content.label.toString()}
-      onChange={(e) => setLocale(e.target.value)}
-      value={locale}
-    >
-      {availableLocales.map((localeItem) => (
-        <option
-          dir={getHTMLTextDir(localeItem)}
-          key={localeItem}
-          lang={localeItem}
-          value={localeItem}
-        >
-          {/* Exemplo: Français (Francês) */}
-          {getLocaleName(localeItem, locale)} (
-          {getLocaleName(localeItem, Locales.ENGLISH)})
-        </option>
+    <ol>
+      {availableLocales.map((localeEl) => (
+        <li key={localeEl}>
+          <LocalizedLink
+            aria-current={localeEl === locale ? "page" : undefined}
+            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
+            onClick={() => setLocaleCookie(localeEl)}
+            params={{ locale: localeEl }}
+            to={pathWithoutLocale as To}
+          >
+            <span>
+              {/* Local - ex. FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* Idioma na sua própria Localização - ex. Français */}
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+              {/* Idioma na Localização atual - ex. Francés com a localização atual definida para Locales.SPANISH */}
+              {getLocaleName(localeItem)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* Idioma em Inglês - ex. French */}
+              {getLocaleName(localeItem, Locales.ENGLISH)}
+            </span>
+          </LocalizedLink>
+        </li>
       ))}
-    </select>
+    </ol>
   );
-}
+};
 ```
 
 > Para saber mais sobre o hook `useLocale`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md).
@@ -421,7 +409,7 @@ export default function LocaleSwitcher() {
 
 Crie um hook para gerenciar os atributos lang e dir do HTML:
 
-```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
+```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx"
 // src/hooks/useI18nHTMLAttributes.tsx
 import { getHTMLTextDir } from "intlayer";
 import { useEffect } from "react";
@@ -439,9 +427,8 @@ export const useI18nHTMLAttributes = () => {
 
 Então use-o no seu componente raiz:
 
-```tsx fileName="src/routes/{-$locale}/index.tsx" codeFormat="typescript"
+```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
-import { configuration } from "intlayer";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // importar o hook
@@ -451,69 +438,70 @@ export const Route = createFileRoute("/{-$locale}")({
 });
 
 function LayoutComponent() {
-  useI18nHTMLAttributes(); // adicione esta linha
+  useI18nHTMLAttributes(); // adicionar esta linha
 
+  const { defaultLocale } = useLocale();
   const { locale } = Route.useParams();
 
   return (
-    <IntlayerProvider locale={locale}>
+    <IntlayerProvider locale={locale ?? defaultLocale}>
       <Outlet />
     </IntlayerProvider>
   );
 }
 ```
 
-### Passo 11: Construir e Executar Sua Aplicação
+---
 
-Construa os dicionários de conteúdo e execute sua aplicação:
+### Passo 11: Adicionar middleware (Opcional)
 
-```bash packageManager="npm"
-# Construir os dicionários do Intlayer
-npm run intlayer:build
+Você também pode usar o `intlayerMiddleware` para adicionar roteamento do lado do servidor à sua aplicação. Este plugin detectará automaticamente o idioma atual com base na URL e definirá o cookie de idioma apropriado. Se nenhum idioma for especificado, o plugin determinará o idioma mais adequado com base nas preferências de idioma do navegador do usuário. Se nenhum idioma for detectado, ele redirecionará para o idioma padrão.
 
-# Iniciar o servidor de desenvolvimento
-npm run dev
+> Observe que, para usar o `intlayerMiddleware` em produção, você precisa mover o pacote `vite-intlayer` de `devDependencies` para `dependencies`.
+
+```typescript {3,7} fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "vite";
+import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import tsconfigPaths from "vite-tsconfig-paths";
+
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+    reactRouter(),
+    tsconfigPaths(),
+    intlayer(),
+    intlayerMiddleware(),
+  ],
+});
 ```
 
-```bash packageManager="pnpm"
-# Construir os dicionários do Intlayer
-pnpm intlayer:build
-
-# Iniciar o servidor de desenvolvimento
-pnpm dev
-```
-
-```bash packageManager="yarn"
-# Construir os dicionários do Intlayer
-yarn intlayer:build
-
-# Iniciar o servidor de desenvolvimento
-yarn dev
-```
+---
 
 ### Passo 12: Configurar o TypeScript (Opcional)
 
-Intlayer usa a ampliação de módulos para obter os benefícios do TypeScript e tornar sua base de código mais robusta.
+O Intlayer utiliza a ampliação de módulos para aproveitar os benefícios do TypeScript e fortalecer sua base de código.
 
 Certifique-se de que sua configuração do TypeScript inclua os tipos gerados automaticamente:
 
 ```json5 fileName="tsconfig.json"
 {
-  compilerOptions: {
-    // ... suas configurações existentes do TypeScript
-  },
+  // ... suas configurações existentes
   include: [
     // ... seus includes existentes
-    ".intlayer/**/*.ts", // Inclua os tipos gerados automaticamente
+    ".intlayer/**/*.ts", // Incluir os tipos gerados automaticamente
   ],
 }
 ```
 
+---
+
 ### Configuração do Git
 
-É recomendado ignorar os arquivos gerados pelo Intlayer. Isso permite que você evite comitar esses arquivos no seu repositório Git.
+É recomendado ignorar os arquivos gerados pelo Intlayer. Isso permite evitar que eles sejam comitados no seu repositório Git.
 
-Para isso, você pode adicionar as seguintes instruções no seu arquivo `.gitignore`:
+Para isso, você pode adicionar as seguintes instruções ao seu arquivo `.gitignore`:
 
 ```plaintext fileName=".gitignore"
 # Ignorar os arquivos gerados pelo Intlayer
@@ -522,67 +510,9 @@ Para isso, você pode adicionar as seguintes instruções no seu arquivo `.gitig
 
 ---
 
-### Passo 13: Criar Redirecionamento (Opcional)
-
-```typescript fileName="src/routes/{-$locale}/rotue.tsx" codeFormat="typescript"
-function LayoutComponent() {
-  useI18nHTMLAttributes();
-
-  const { locale } = Route.useParams();
-  const { locale: selectedLocale } = useLocale();
-  const { defaultLocale } = configuration.internationalization;
-  const { prefixDefault } = configuration.middleware;
-
-  // Redireciona para o locale padrão se nenhum locale estiver presente na URL quando prefixDefault for verdadeiro
-  if (selectedLocale === defaultLocale && !locale && prefixDefault) {
-    return <Navigate replace to={defaultLocale} />;
-  }
-
-  // Redireciona para o locale selecionado se o locale na URL não corresponder ao locale selecionado
-  if (selectedLocale !== defaultLocale && !locale) {
-    return <Navigate replace to={selectedLocale} />;
-  }
-
-  return (
-    <IntlayerProvider locale={locale}>
-      <Outlet />
-    </IntlayerProvider>
-  );
-}
-```
-
-## Implantação em Produção
-
-Ao implantar sua aplicação:
-
-1. **Compile sua aplicação:**
-
-   ```bash
-   npm run build
-   ```
-
-2. **Compile os dicionários do Intlayer:**
-
-   ```bash
-   npm run intlayer:build
-   ```
-
-3. **Mova `vite-intlayer` para as dependências** se estiver usando middleware em produção:
-   ```bash
-   npm install vite-intlayer --save
-   ```
-
-Sua aplicação agora suportará:
-
-- **Estrutura de URL**: `/en`, `/en/about`, `/tr`, `/tr/about`
-- **Detecção automática de localidade** baseada nas preferências do navegador
-- **Roteamento consciente da localidade** com Tanstack Start
-- **Suporte a TypeScript** com tipos gerados automaticamente
-- **Renderização no servidor** com tratamento adequado da localidade
-
 ## Extensão VS Code
 
-Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a extensão oficial **Intlayer VS Code Extension**.
+Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a **Extensão oficial Intlayer para VS Code**.
 
 [Instalar no VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
@@ -593,13 +523,13 @@ Esta extensão oferece:
 - **Visualizações inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da extensão Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ---
 
 ## Ir Além
 
-Para ir mais longe, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
+Para ir além, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
 
 ---
 
@@ -608,7 +538,7 @@ Para ir mais longe, você pode implementar o [editor visual](https://github.com/
 - [Documentação do Intlayer](https://intlayer.org)
 - [Documentação do Tanstack Start](https://reactrouter.com/)
 - [Hook useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useIntlayer.md)
-- [Hook useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md)
+- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md)
 - [Declaração de Conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md)
 - [Configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
 

@@ -4,11 +4,11 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import {
   Children,
   createContext,
-  isValidElement,
-  useState,
   type HTMLAttributes,
+  isValidElement,
   type ReactElement,
   type ReactNode,
+  useState,
 } from 'react';
 import { useHorizontalSwipe } from '../../hooks';
 import { cn } from '../../utils/cn';

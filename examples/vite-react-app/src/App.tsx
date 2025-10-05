@@ -1,10 +1,10 @@
-import { FC, useState } from 'react';
+import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import './App.css';
+import viteLogo from '/vite.svg';
 import reactLogo from './assets/react.svg';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
 import { LocaleRouter } from './Router';
-import viteLogo from '/vite.svg';
 
 const AppContent: FC = () => {
   const [count, setCount] = useState(0);
@@ -13,10 +13,10 @@ const AppContent: FC = () => {
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
+        <a href="https://vitejs.dev" target="_blank" rel="noopener">
           <img src={viteLogo} className="logo" alt={content.viteLogo.value} />
         </a>
-        <a href="https://react.dev" target="_blank">
+        <a href="https://react.dev" target="_blank" rel="noopener">
           <img
             src={reactLogo}
             className="logo react"

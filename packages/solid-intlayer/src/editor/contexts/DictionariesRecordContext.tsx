@@ -1,12 +1,12 @@
 import type { Dictionary } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
 import {
+  type Component,
   createContext,
   createMemo,
-  useContext,
-  type Component,
   type ParentProps,
   type Setter,
+  useContext,
 } from 'solid-js';
 import { useCrossFrameState } from './useCrossFrameState';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type MutableRefObject } from 'react';
+import { type MutableRefObject, useEffect, useState } from 'react';
 
 type StyleState = {
   left: number;

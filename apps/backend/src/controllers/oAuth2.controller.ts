@@ -1,12 +1,12 @@
-import type { OAuth2Token } from '@/types/oAuth2.types';
 import type { RequestWithOAuth2Information } from '@middlewares/oAuth2.middleware';
 import { type AppError, ErrorHandler } from '@utils/errors';
-import { type ResponseData, formatResponse } from '@utils/responseData';
+import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 import {
   Request as OAuthRequest,
   Response as OAuthResponse,
 } from 'oauth2-server';
+import type { OAuth2Token } from '@/types/oAuth2.types';
 
 export type GetOAuth2TokenBody = {
   grant_type: 'client_credentials';

@@ -1,19 +1,19 @@
 import type { LocalesValues } from '@intlayer/config/client';
-import { type Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import {
   computed,
   inject,
   isRef,
   reactive,
   ref,
+  type ToRefs,
   toRefs,
   toValue,
   watch,
-  type ToRefs,
 } from 'vue';
 import { getDictionary } from '../getDictionary';
-import { DeepTransformContent } from '../plugins';
-import { INTLAYER_SYMBOL, IntlayerProvider } from './installIntlayer';
+import type { DeepTransformContent } from '../plugins';
+import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
 
 export const useDictionary = <T extends Dictionary>(
   dictionary: T,

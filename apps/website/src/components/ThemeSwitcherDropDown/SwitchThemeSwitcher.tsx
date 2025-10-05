@@ -7,7 +7,7 @@ import {
 } from '@intlayer/design-system';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 export const SwitchThemeSwitcher: FC = () => {
   const { resolvedTheme, setTheme } = useTheme();

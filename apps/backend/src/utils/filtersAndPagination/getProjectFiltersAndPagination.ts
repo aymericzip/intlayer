@@ -1,7 +1,7 @@
-import type { Project } from '@/types/project.types';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
+import type { Project } from '@/types/project.types';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,

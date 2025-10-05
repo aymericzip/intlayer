@@ -1,9 +1,3 @@
-import type {
-  Project,
-  ProjectAPI,
-  ProjectData,
-  ProjectDocument,
-} from '@/types/project.types';
 import { ProjectModel } from '@models/project.model';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
@@ -14,6 +8,12 @@ import {
   validateProject,
 } from '@utils/validation/validateProject';
 import type { Types } from 'mongoose';
+import type {
+  Project,
+  ProjectAPI,
+  ProjectData,
+  ProjectDocument,
+} from '@/types/project.types';
 
 /**
  * Finds projects based on filters and pagination options.

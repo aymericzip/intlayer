@@ -1,0 +1,5 @@
+/node_modules
+/.next/
+/.intlayer/
+.DS_Store
+tsconfig.tsbuildinfo

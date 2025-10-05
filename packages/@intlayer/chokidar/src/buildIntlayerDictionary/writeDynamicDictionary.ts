@@ -1,16 +1,16 @@
+import { mkdir } from 'node:fs/promises';
+import { relative, resolve } from 'node:path';
 import {
   colorizePath,
   getConfiguration,
-  Locales,
+  type Locales,
   normalizePath,
 } from '@intlayer/config';
-import { getLocalisedContent, type Dictionary } from '@intlayer/core';
-import { mkdir } from 'fs/promises';
-import { relative, resolve } from 'path';
+import { type Dictionary, getLocalisedContent } from '@intlayer/core';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
-import { MergedDictionaryOutput } from './writeMergedDictionary';
+import type { MergedDictionaryOutput } from './writeMergedDictionary';
 
 export type DictionaryResult = {
   dictionaryPath: string;
@@ -94,7 +94,7 @@ export const writeDynamicDictionary = async (
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(dynamicDictionariesDir), { recursive: true });
 
-  let resultDictionariesPaths: LocalizedDictionaryOutput = {};
+  const resultDictionariesPaths: LocalizedDictionaryOutput = {};
 
   // Merge dictionaries with the same key and write to dictionariesDir
   await parallelize(
@@ -104,7 +104,7 @@ export const writeDynamicDictionary = async (
     async ([key, dictionaryEntry]) => {
       if (key === 'undefined') return;
 
-      let localedDictionariesPathsRecord: LocalizedDictionaryResult = {};
+      const localedDictionariesPathsRecord: LocalizedDictionaryResult = {};
 
       await parallelize(locales, async (locale) => {
         const localizedDictionary = {

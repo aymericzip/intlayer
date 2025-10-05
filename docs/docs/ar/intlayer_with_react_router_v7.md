@@ -17,7 +17,7 @@ slugs:
   - environment
   - vite-and-react
   - react-router-v7
-applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7
+applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 ---
 
 # البدء بالتدويل (i18n) مع Intlayer و React Router v7
@@ -139,7 +139,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // الصفحة الرئيسية المحلية
-    route("/:lang/about", "routes/about/page.tsx"), // صفحة حول المحلية
+    route("/:lang?/about", "routes/about/page.tsx"), // صفحة حول المحلية
   ]),
 ] satisfies RouteConfig;
 ```
@@ -171,7 +171,7 @@ export default function RootLayout({ params }: Route.ComponentProps) {
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
-```tsx fileName="app/routes/[lang]/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="app/routes/[lang]/page.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
@@ -484,4 +484,4 @@ export default defineConfig({
 | الإصدار | التاريخ    | التغييرات                |
 | ------- | ---------- | ------------------------ |
 | 6.1.5   | 2025-10-03 | تحديث الوثيقة            |
-| 5.8.2   | 2025-09-4  | أضيف دعم React Router v7 |
+| 5.8.2   | 2025-09-04 | أضيف دعم React Router v7 |

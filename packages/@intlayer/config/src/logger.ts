@@ -1,5 +1,5 @@
 import type { CustomIntlayerConfig } from './types/config';
-import { Locales } from './types/locales';
+import type { Locales } from './types/locales';
 
 export type Details = {
   isVerbose?: boolean;
@@ -13,9 +13,7 @@ export const logger: Logger = (content, details) => {
   const isVerbose = details?.isVerbose ?? false;
   const mode = details?.config?.mode ?? 'default';
   const level = details?.level ?? 'info';
-  const prefix = Boolean(details?.config?.prefix)
-    ? details?.config?.prefix
-    : undefined;
+  const prefix = details?.config?.prefix ? details?.config?.prefix : undefined;
   const log = details?.config?.log ?? console.log;
   const info = details?.config?.info ?? console.info;
   const warn = details?.config?.warn ?? console.warn;

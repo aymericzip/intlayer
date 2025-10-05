@@ -1,10 +1,10 @@
-import { RenameId } from '@utils/mongoDB/types';
-import { Permission, Roles } from '@utils/permissions';
+import type { RenameId } from '@utils/mongoDB/types';
+import type { Permission, Roles } from '@utils/permissions';
 import type { Session as BetterAuthSession, OmitId } from 'better-auth';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
-import { Organization, OrganizationAPI } from './organization.types';
-import { Project, ProjectAPI } from './project.types';
-import { User, UserAPI } from './user.types';
+import type { Organization, OrganizationAPI } from './organization.types';
+import type { Project, ProjectAPI } from './project.types';
+import type { User, UserAPI } from './user.types';
 
 export type SessionData = OmitId<BetterAuthSession> & {
   id: Types.ObjectId;

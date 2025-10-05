@@ -1,6 +1,6 @@
 import type { FC, HTMLAttributes } from 'react';
 import { cn } from '../../utils/cn';
-import { Button, ButtonProps } from '../Button';
+import { Button, type ButtonProps } from '../Button';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 /**

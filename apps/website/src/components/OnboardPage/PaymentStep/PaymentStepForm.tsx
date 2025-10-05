@@ -1,4 +1,3 @@
-import { PagesRoutes } from '@/Routes';
 import type { Period, Plans } from '@components/PricingPage/data.content';
 import {
   Button,
@@ -17,11 +16,12 @@ import {
 } from '@stripe/react-stripe-js';
 import { type Appearance, loadStripe } from '@stripe/stripe-js';
 import { Check, ShoppingCart } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { type FC, type FormEvent, useState } from 'react';
 import type Stripe from 'stripe';
+import { PagesRoutes } from '@/Routes';
 import { retrievePriceId } from '../retrievePriceId';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';

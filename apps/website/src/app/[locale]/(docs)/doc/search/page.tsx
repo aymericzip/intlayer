@@ -3,7 +3,7 @@ import { Container, H1, Loader } from '@intlayer/design-system';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import { FC, Suspense } from 'react';
+import { type FC, Suspense } from 'react';
 
 const DocumentationSearchPageContent: FC = () => {
   const { title } = useIntlayer('doc-search-page');

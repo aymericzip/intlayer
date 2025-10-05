@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
-import { AutoSizedTextArea } from '.';
 import { InputVariant } from '../Input';
+import { AutoSizedTextArea } from '.';
 
 /**
  * ## AutoSizedTextArea Component

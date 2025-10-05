@@ -1,4 +1,4 @@
-import { ChunkLineResult, chunkText } from './calculateChunks';
+import { type ChunkLineResult, chunkText } from './calculateChunks';
 import { splitTextByLines } from './splitTextByLine';
 
 export interface ChunkMapping {

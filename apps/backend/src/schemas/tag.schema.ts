@@ -1,4 +1,3 @@
-import type { TagSchema } from '@/types/tag.types';
 import {
   KEY_MAX_LENGTH,
   KEY_MIN_LENGTH,
@@ -6,6 +5,7 @@ import {
   NAME_MIN_LENGTH,
 } from '@utils/validation/validateTag';
 import { Schema } from 'mongoose';
+import type { TagSchema } from '@/types/tag.types';
 
 export const tagSchema = new Schema<TagSchema>(
   {

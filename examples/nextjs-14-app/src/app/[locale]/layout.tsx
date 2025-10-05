@@ -1,4 +1,4 @@
-import { getHTMLTextDir, type IConfigLocales, getTranslation } from 'intlayer';
+import { getHTMLTextDir, getTranslation, type IConfigLocales } from 'intlayer';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';

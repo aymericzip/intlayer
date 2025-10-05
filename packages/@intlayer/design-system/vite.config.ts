@@ -1,8 +1,8 @@
+import { extname, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import fg from 'fast-glob';
-import { fileURLToPath } from 'node:url';
-import { extname, relative } from 'path';
 import preserveDirectives from 'rollup-preserve-directives';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';

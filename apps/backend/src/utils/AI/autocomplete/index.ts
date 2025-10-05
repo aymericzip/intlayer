@@ -1,9 +1,9 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { logger } from '@logger';
 import { generateText } from 'ai';
-import { readFileSync } from 'fs';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
-import { AIConfig, AIOptions, AIProvider } from '../aiSdk';
+import { type AIConfig, type AIOptions, AIProvider } from '../aiSdk';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

@@ -1,5 +1,5 @@
-import { existsSync, readFileSync } from 'fs';
-import { dirname, resolve } from 'path';
+import { existsSync, readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 
 type PackageJSON = {
   name?: string;

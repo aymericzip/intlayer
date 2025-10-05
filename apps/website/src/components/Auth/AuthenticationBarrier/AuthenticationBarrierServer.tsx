@@ -1,9 +1,9 @@
-import { PagesRoutes } from '@/Routes';
 import { redirect } from 'next/navigation';
-import { type FC } from 'react';
+import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 import {
+  type AuthenticationBarrierProps,
   accessValidation,
-  AuthenticationBarrierProps,
 } from './accessValidation';
 
 type AuthenticationBarrierServerProps = Omit<

@@ -1,4 +1,4 @@
-import { effect, Injector, signal, Signal } from '@angular/core';
+import { effect, type Injector, type Signal, signal } from '@angular/core';
 import type { ContentNode, Dictionary, KeyPath } from '@intlayer/core';
 import { getContentNodeByKeyPath } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';

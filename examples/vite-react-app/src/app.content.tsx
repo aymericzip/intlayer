@@ -1,5 +1,5 @@
-import { file, gender, insert, md, t, type Dictionary } from 'intlayer';
-import { ReactNode } from 'react';
+import { type Dictionary, file, gender, insert, md, t } from 'intlayer';
+import type { ReactNode } from 'react';
 
 const appContent = {
   key: 'app',

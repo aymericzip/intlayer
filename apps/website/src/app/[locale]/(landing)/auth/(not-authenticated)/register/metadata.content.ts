@@ -1,5 +1,5 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { type Dictionary, t } from 'intlayer';
+import type { Metadata } from 'next';
 
 const metadataContent = {
   key: 'register-metadata',
@@ -98,14 +98,7 @@ const metadataContent = {
         'React',
         'JavaScript',
       ],
-      hi: [
-        'रजिस्टर करें',
-        'खाता बनाएं',
-        'Intlayer',
-        'खाता',
-        'React',
-        'JavaScript',
-      ],
+      hi: ['रजिस्टर करें', 'खाता बनाएं', 'Intlayer', 'खाता', 'React', 'JavaScript'],
       ar: ['تسجيل', 'إنشاء حساب', 'Intlayer', 'حساب', 'React', 'JavaScript'],
       ru: [
         'Регистрация',

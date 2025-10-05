@@ -55,7 +55,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md), derleme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) için uluslararasılaştırma araçları sağlayan çekirdek paket.
+  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), derleme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) için uluslararasılaştırma araçları sağlayan çekirdek paket.
 
 - **next-intlayer**
 
@@ -424,7 +424,7 @@ module.exports = homeContent;
 }
 ```
 
-İçerik bildirim hakkında daha fazla bilgi için [içerik bildirim kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md) bakın.
+İçerik bildirim hakkında daha fazla bilgi için [içerik bildirim kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
 
 ### Adım 7: Kodunuzda İçeriği Kullanın
 
@@ -1422,9 +1422,9 @@ yarn add @intlayer/swc --save-dev
 
 Intlayer, TypeScript'ten faydalanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletmesi kullanır.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun.
 
@@ -1467,7 +1467,7 @@ Uzantının nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer 
 ## Ek Kaynaklar
 
 - **Intlayer Dokümantasyonu:** [GitHub Deposu](https://github.com/aymericzip/intlayer)
-- **Sözlük Kılavuzu:** [Sözlük](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md)
+- **Sözlük Kılavuzu:** [Sözlük](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 - **Yapılandırma Dokümantasyonu:** [Yapılandırma Kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
 Bu kılavuzu takip ederek, Sayfa Yönlendirici kullanarak Next.js uygulamanızda Intlayer'ı etkili bir şekilde entegre edebilir, web projeleriniz için sağlam ve ölçeklenebilir uluslararasılaştırma desteği sağlayabilirsiniz.

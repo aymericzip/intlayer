@@ -1,16 +1,16 @@
+import { readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { getMarkdownMetadata } from '@intlayer/core';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import { streamText } from 'ai';
 import dotenv from 'dotenv';
-import { readFileSync, writeFileSync } from 'fs';
-import { getMarkdownMetadata } from 'intlayer';
 import { OpenAI } from 'openai';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
 import {
-  AIConfig,
-  AIOptions,
+  type AIConfig,
+  type AIOptions,
   AIProvider,
-  ChatCompletionRequestMessage,
+  type ChatCompletionRequestMessage,
 } from '../aiSdk';
 import embeddingsList from './embeddings.json' with { type: 'json' };
 

@@ -1,7 +1,7 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { packageBuildOptions } from '@utils/tsup-config';
-import { dirname } from 'path';
 import { defineConfig } from 'tsup';
-import { fileURLToPath } from 'url';
 
 const dir = __dirname ? __dirname : dirname(fileURLToPath(import.meta.url));
 

@@ -1,4 +1,4 @@
-import { effectScope, type EffectScope } from 'vue';
+import { type EffectScope, effectScope } from 'vue';
 
 type AnyFn = (...args: any[]) => any;
 

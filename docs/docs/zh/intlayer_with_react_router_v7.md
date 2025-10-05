@@ -17,7 +17,7 @@ slugs:
   - environment
   - vite-and-react
   - react-router-v7
-applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7
+applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 ---
 
 # 使用 Intlayer 和 React Router v7 开始国际化（i18n）
@@ -141,7 +141,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // 本地化主页
-    route("/:lang/about", "routes/about/page.tsx"), // 本地化关于页面
+    route("/:lang?/about", "routes/about/page.tsx"), // 本地化关于页面
   ]),
 ] satisfies RouteConfig;
 ```
@@ -173,7 +173,7 @@ export default function RootLayout({ params }: Route.ComponentProps) {
 
 创建并管理您的内容声明以存储翻译：
 
-```tsx fileName="app/routes/[lang]/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="app/routes/[lang]/page.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
@@ -484,4 +484,4 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 | 版本  | 日期       | 变更内容                  |
 | ----- | ---------- | ------------------------- |
 | 6.1.5 | 2025-10-03 | 更新文档                  |
-| 5.8.2 | 2025-09-4  | 添加 React Router v7 支持 |
+| 5.8.2 | 2025-09-04 | 添加 React Router v7 支持 |

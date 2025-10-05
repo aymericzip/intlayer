@@ -1,5 +1,5 @@
-import type { LocalesValues } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
+import type { LocalesValues } from '@intlayer/config/client';
 
 // @ts-ignore intlayer declared for module augmentation
 import type { IConfigLocales } from 'intlayer';

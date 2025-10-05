@@ -1,10 +1,10 @@
+import { mkdir, writeFile } from 'node:fs/promises';
+import { dirname, extname, join } from 'node:path';
 import { getConfiguration } from '@intlayer/config';
-import { type IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import deepEqual from 'deep-equal';
-import { mkdir, writeFile } from 'fs/promises';
-import { dirname, extname, join } from 'path';
 import { prepareContentDeclaration } from '../prepareContentDeclaration';
 import type { DictionaryStatus } from './dictionaryStatus';
 import { writeJSFile } from './writeJSFile';

@@ -1,7 +1,7 @@
 import type { ContentNode, Dictionary, KeyPath } from '@intlayer/core';
 import { getContentNodeByKeyPath } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
-import { App, inject, readonly, Ref, ref, watch } from 'vue';
+import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';
 

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, computed, signal } from '@angular/core';
+import { Component, computed, Input, signal } from '@angular/core';
 import type { Locales } from '@intlayer/config/client';
-import { ContentNode, getContent, type KeyPath } from '@intlayer/core';
+import { type ContentNode, getContent, type KeyPath } from '@intlayer/core';
 import { useEditedContentRenderer } from './useEditedContentRenderer';
 
 export interface EditedContentRendererProps {

@@ -3,6 +3,7 @@
 import { Check, X as RemoveIcon } from 'lucide-react';
 import {
   type ComponentProps,
+  createContext,
   type Dispatch,
   type FC,
   type HTMLAttributes,
@@ -12,7 +13,6 @@ import {
   type RefObject,
   type SetStateAction,
   type SyntheticEvent,
-  createContext,
   useCallback,
   useContext,
   useEffect,
@@ -224,7 +224,7 @@ type MultiSelectProps = ComponentProps<typeof CommandRoot> & {
 const MultiSelectRoot: FC<MultiSelectProps> = ({
   values: valuesProp,
   defaultValues,
-  onValueChange: onValueChange,
+  onValueChange,
   loop = false,
   className,
   children,

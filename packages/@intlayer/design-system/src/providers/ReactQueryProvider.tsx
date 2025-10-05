@@ -1,14 +1,14 @@
 'use client';
 
 import {
+  type DefaultOptions,
   MutationCache,
   QueryClient,
   QueryClientProvider,
-  QueryKey,
-  UseMutationOptions,
-  type DefaultOptions,
+  type QueryKey,
+  type UseMutationOptions,
 } from '@tanstack/react-query';
-import { type FC, type PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import { useToast } from '../components/Toaster';
 
 const defaultQueryOptions: DefaultOptions = {

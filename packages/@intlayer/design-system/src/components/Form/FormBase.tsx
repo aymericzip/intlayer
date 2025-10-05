@@ -1,12 +1,12 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { type HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 import {
   FormProvider,
-  useForm as useFormReactHookForm,
   type FormProviderProps,
   type UseFormProps,
+  useForm as useFormReactHookForm,
 } from 'react-hook-form';
 import type { ZodObject, z } from 'zod/v4';
 import { cn } from '../../utils/cn';

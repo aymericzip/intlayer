@@ -1,6 +1,6 @@
 import {
-  type AvatarProps,
   Avatar,
+  type AvatarProps,
   Container,
   DropDown,
 } from '@intlayer/design-system';

@@ -1,4 +1,4 @@
-import { Locales, type IntlayerConfig } from 'intlayer';
+import { type IntlayerConfig, Locales } from 'intlayer';
 
 const config: IntlayerConfig = {
   internationalization: {

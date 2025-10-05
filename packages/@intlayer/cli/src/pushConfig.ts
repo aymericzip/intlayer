@@ -1,8 +1,8 @@
 import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
+  type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
-  type GetConfigurationOptions,
 } from '@intlayer/config';
 import { checkCMSAuth } from './utils/checkAccess';
 

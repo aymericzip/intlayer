@@ -17,7 +17,7 @@ slugs:
   - environment
   - vite-and-react
   - react-router-v7
-applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7
+applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 ---
 
 # Prise en main de l'internationalisation (i18n) avec Intlayer et React Router v7
@@ -141,7 +141,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // Page d'accueil localisée
-    route("/:lang/about", "routes/about/page.tsx"), // Page À propos localisée
+    route("/:lang?/about", "routes/about/page.tsx"), // Page À propos localisée
   ]),
 ] satisfies RouteConfig;
 ```
@@ -173,7 +173,7 @@ export default function RootLayout({ params }: Route.ComponentProps) {
 
 Créez et gérez vos déclarations de contenu pour stocker les traductions :
 
-```tsx fileName="app/routes/[lang]/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="app/routes/[lang]/page.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
@@ -486,4 +486,4 @@ Ce guide complet vous fournit tout ce dont vous avez besoin pour intégrer Intla
 | Version | Date       | Modifications              |
 | ------- | ---------- | -------------------------- |
 | 6.1.5   | 2025-10-03 | Documentation mise à jour  |
-| 5.8.2   | 2025-09-4  | Ajout pour React Router v7 |
+| 5.8.2   | 2025-09-04 | Ajout pour React Router v7 |

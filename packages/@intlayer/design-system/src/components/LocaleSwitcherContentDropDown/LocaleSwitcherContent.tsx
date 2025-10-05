@@ -4,7 +4,7 @@ import { Locales, type LocalesValues } from '@intlayer/config/client';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { Check, Globe, MoveVertical } from 'lucide-react';
-import { useCallback, useMemo, useRef, useState, type FC } from 'react';
+import { type FC, useCallback, useMemo, useRef, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { usePersistedStore } from '../../hooks';
 import {

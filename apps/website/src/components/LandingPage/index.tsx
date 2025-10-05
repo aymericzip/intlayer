@@ -1,4 +1,3 @@
-
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { CommonQuestionsSection } from '@components/LandingPage/CommonQuestionsSection/CommonQuestions';
 import { Loader } from '@intlayer/design-system';

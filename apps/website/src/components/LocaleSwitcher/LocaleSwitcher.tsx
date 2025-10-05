@@ -10,7 +10,7 @@ import {
 } from '@intlayer/design-system';
 import { MoveVertical } from 'lucide-react';
 import { useIntlayer, useLocale, useLocaleCookie } from 'next-intlayer';
-import { useRef, type FC } from 'react';
+import { type FC, useRef } from 'react';
 import { useLocaleSearch } from './useLocaleSearch';
 
 export type LocaleSwitcherProps = {

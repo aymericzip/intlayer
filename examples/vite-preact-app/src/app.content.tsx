@@ -1,5 +1,5 @@
-import { md, t, type Dictionary } from 'intlayer';
-import { type ComponentChildren } from 'preact';
+import { type Dictionary, md, t } from 'intlayer';
+import type { ComponentChildren } from 'preact';
 
 const appContent = {
   key: 'app',

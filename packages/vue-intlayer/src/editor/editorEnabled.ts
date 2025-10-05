@@ -1,13 +1,13 @@
 import configuration from '@intlayer/config/built';
 import { MessageKey } from '@intlayer/editor';
 import {
-  App,
+  type App,
   computed,
   inject,
   nextTick,
   onMounted,
+  type Ref,
   ref,
-  Ref,
   watch,
 } from 'vue';
 import { createSharedComposable } from './createSharedComposable';

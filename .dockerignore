@@ -56,6 +56,8 @@ examples/
 .lintstagedrc
 eslint.config.*
 commitlint.config.*
+biome.json
+.biome
 
 # TypeScript and build configs at root (packages have their own)
 tsconfig.json

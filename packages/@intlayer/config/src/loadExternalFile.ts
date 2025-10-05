@@ -1,8 +1,8 @@
-import { buildSync, type BuildOptions, type BuildResult } from 'esbuild';
-import { dirname } from 'path';
+import { dirname } from 'node:path';
+import { type BuildOptions, type BuildResult, buildSync } from 'esbuild';
 import { runInNewContext } from 'vm';
 import { getSandBoxContext } from './getSandboxContext';
-import { LoadEnvFileOptions } from './loadEnvFile';
+import type { LoadEnvFileOptions } from './loadEnvFile';
 import { logger } from './logger';
 import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
 
@@ -42,7 +42,7 @@ export const loadExternalFile = (
   projectRequire?: NodeJS.Require,
   additionalEnvVars?: Record<string, string>
 ): any | undefined => {
-  let fileContent: any | undefined = undefined;
+  let fileContent: any | undefined;
 
   const fileExtension = filePath.split('.').pop() ?? '';
 

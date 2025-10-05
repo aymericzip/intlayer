@@ -5,15 +5,15 @@ import { cn } from '@utils/cn';
 import {
   getHTMLTextDir,
   getLocaleName,
-  localeList,
   type Locales,
+  localeList,
 } from 'intlayer';
 import {
-  useEffect,
-  useState,
   type FC,
   type HTMLAttributes,
   type PropsWithChildren,
+  useEffect,
+  useState,
 } from 'react';
 
 const shuffleArray = (array: string[], limit?: number) => {

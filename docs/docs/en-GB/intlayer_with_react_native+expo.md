@@ -148,28 +148,25 @@ module.exports = (async () => {
 
 ## Step 4: Add the Intlayer provider
 
-To keep the user language synchronised across your application, you need to wrap your root component with the `IntlayerProvider` component from `react-intlayer`.
+To keep synchronized the user language across your application, you need to wrap your root component with the `IntlayerProvider` component from `react-intlayer-native`.
 
-Additionally, you need to add the `intlayerPolyfill` function to your `index.js` file to ensure that Intlayer functions correctly.
+> Make sure to use the provider from `react-native-intlayer` instead of `react-intlayer`. The export from `react-native-intlayer` includes polyfills for the web API.
 
 ```tsx fileName="app/_layout.tsx" codeFormat="typescript"
 import { Stack } from "expo-router";
 import { getLocales } from "expo-localization";
-import { IntlayerProviderContent } from "react-intlayer";
-import { intlayerPolyfill } from "react-native-intlayer";
+import { IntlayerProvider } from "react-native-intlayer";
 import { type FC } from "react";
-
-intlayerPolyfill();
 
 const getDeviceLocale = () => getLocales()[0]?.languageTag;
 
 const RootLayout: FC = () => {
   return (
-    <IntlayerProviderContent defaultLocale={getDeviceLocale()}>
+    <IntlayerProvider defaultLocale={getDeviceLocale()}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
-    </IntlayerProviderContent>
+    </IntlayerProvider>
   );
 };
 
@@ -179,20 +176,17 @@ export default RootLayout;
 ```jsx fileName="app/_layout.mjx" codeFormat="esm"
 import { Stack } from "expo-router";
 import { getLocales } from "expo-localization";
-import { IntlayerProviderContent } from "react-intlayer";
-import { intlayerPolyfill } from "react-native-intlayer";
-
-intlayerPolyfill();
+import { IntlayerProvider } from "react-native-intlayer";
 
 const getDeviceLocale = () => getLocales()[0]?.languageTag;
 
 const RootLayout = () => {
   return (
-    <IntlayerProviderContent defaultLocale={getDeviceLocale()}>
+    <IntlayerProvider defaultLocale={getDeviceLocale()}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
-    </IntlayerProviderContent>
+    </IntlayerProvider>
   );
 };
 
@@ -202,21 +196,18 @@ export default RootLayout;
 ```jsx fileName="app/_layout.cjx" codeFormat="commonjs"
 const { Stack } = require("expo-router");
 const { getLocales } = require("expo-localization");
-const { IntlayerProviderContent } = require("react-intlayer");
-const { intlayerPolyfill } = require("react-native-intlayer");
-
-intlayerPolyfill();
+const { IntlayerProvider } = require("react-native-intlayer");
 
 // Function to get the device's locale
 const getDeviceLocale = () => getLocales()[0]?.languageTag;
 
 const RootLayout = () => {
   return (
-    <IntlayerProviderContent defaultLocale={getDeviceLocale()}>
+    <IntlayerProvider defaultLocale={getDeviceLocale()}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
-    </IntlayerProviderContent>
+    </IntlayerProvider>
   );
 };
 

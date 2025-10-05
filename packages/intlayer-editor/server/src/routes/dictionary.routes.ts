@@ -1,10 +1,10 @@
-import type { Routes } from '@/types/Routes';
 import {
   getDictionaries,
   writeContentDeclaration,
 } from '@controllers/dictionary.controller';
 import { getConfiguration } from '@intlayer/config';
 import { Router } from 'express';
+import type { Routes } from '@/types/Routes';
 
 export const dictionaryRouter: Router = Router();
 

@@ -1,8 +1,8 @@
+import { dirname, join, relative } from 'node:path';
 import type { NodePath, PluginObj, PluginPass } from '@babel/core';
 import * as t from '@babel/types';
 import { getFileHash } from '@intlayer/chokidar';
 import { normalizePath } from '@intlayer/config';
-import { dirname, join, relative } from 'node:path';
 
 /* ────────────────────────────────────────── constants ───────────────────── */
 

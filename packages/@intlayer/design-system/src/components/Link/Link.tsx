@@ -1,13 +1,8 @@
-import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
 import { getLocalizedUrl } from '@intlayer/core';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ExternalLink } from 'lucide-react';
-import {
-  type AnchorHTMLAttributes,
-  type DetailedHTMLProps,
-  type FC,
-} from 'react';
+import type { AnchorHTMLAttributes, DetailedHTMLProps, FC } from 'react';
 import { cn } from '../../utils/cn';
 
 /**
@@ -293,7 +288,6 @@ export const Link: FC<LinkProps> = (props) => {
     href: hrefProp,
     ...otherProps
   } = props;
-  const { internationalization } = configuration;
 
   const isExternalLink = checkIsExternalLink(props);
   const isChildrenString = typeof children === 'string';
@@ -301,12 +295,6 @@ export const Link: FC<LinkProps> = (props) => {
   const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
 
   const target = isExternalLink ? '_blank' : '_self';
-
-  const hrefLang = locale
-    ? locale === internationalization.defaultLocale
-      ? 'x-default'
-      : locale
-    : undefined;
 
   const href =
     locale && hrefProp && !isExternalLink
@@ -316,7 +304,6 @@ export const Link: FC<LinkProps> = (props) => {
   return (
     <a
       href={href}
-      hrefLang={hrefLang}
       aria-label={label}
       rel={rel}
       target={target}

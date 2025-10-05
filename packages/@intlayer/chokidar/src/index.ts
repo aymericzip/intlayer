@@ -19,11 +19,11 @@ export { handleContentDeclarationFileChange } from './handleContentDeclarationFi
 export { handleUnlikedContentDeclarationFile } from './handleUnlikedContentDeclarationFile';
 export { listDictionaries } from './listDictionariesPath';
 export {
-  listGitFiles,
-  listGitLines,
   type DiffMode,
   type ListGitFilesOptions,
   type ListGitLinesOptions,
+  listGitFiles,
+  listGitLines,
 } from './listGitFiles';
 export {
   loadContentDeclarations,
@@ -41,23 +41,23 @@ export { formatLocale, formatPath } from './utils/formatter';
 export { getExtension } from './utils/getExtention';
 export { getFileHash } from './utils/getFileHash';
 export {
-  getExtensionFromFormat,
-  getFormatFromExtension,
   type Extension,
   type Format,
+  getExtensionFromFormat,
+  getFormatFromExtension,
 } from './utils/getFormatFromExtension';
 export { kebabCaseToCamelCase } from './utils/kebabCaseToCamelCase';
 export { parallelize } from './utils/parallelize';
 export { resolveObjectPromises } from './utils/resolveObjectPromises';
 export { runOnce } from './utils/runOnce';
-export { runParallel, type ParallelHandle } from './utils/runParallel';
+export { type ParallelHandle, runParallel } from './utils/runParallel';
 export { sortAlphabetically } from './utils/sortAlphabetically';
 export { buildAndWatchIntlayer, watch } from './watcher';
 export {
+  type DictionaryStatus,
   detectExportedComponentName,
   formatCode,
   transformJSFile,
   writeContentDeclaration,
   writeJSFile,
-  type DictionaryStatus,
 } from './writeContentDeclaration';

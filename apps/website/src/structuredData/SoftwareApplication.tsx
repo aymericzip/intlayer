@@ -1,6 +1,6 @@
-import { useIntlayer } from 'next-intlayer/server';
 import Script from 'next/script';
-import { type FC } from 'react';
+import { useIntlayer } from 'next-intlayer/server';
+import type { FC } from 'react';
 import packageJson from '../../../../package.json' with { type: 'json' };
 
 export const SoftwareApplicationHeader: FC = () => {

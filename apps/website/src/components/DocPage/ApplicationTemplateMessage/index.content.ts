@@ -1,4 +1,4 @@
-import { t, type Dictionary } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 
 const applicationTemplateMessageContent = {
   key: 'application-template-message',

@@ -1,16 +1,16 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { ExternalsLoginButtons } from '@components/Auth/ExternalsLoginButtons';
 import { Form, H2, useForm } from '@intlayer/design-system';
 import { useUser } from '@intlayer/design-system/hooks';
-import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
-import { type FC } from 'react';
+import { useIntlayer } from 'next-intlayer';
+import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
-import { useRegisterSchema, type Register } from './useRegisterSchema';
+import { type Register, useRegisterSchema } from './useRegisterSchema';
 
 export const RegisterStepForm: FC = () => {
   const { user } = useUser();

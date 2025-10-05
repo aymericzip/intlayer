@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { App } from 'vue';
+import type { App } from 'vue';
 import { installCommunicator } from './communicator';
 import { installDictionariesRecord } from './dictionariesRecord';
 import { installEditedContent } from './editedContent';

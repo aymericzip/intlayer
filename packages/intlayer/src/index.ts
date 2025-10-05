@@ -1,4 +1,4 @@
-import { type CustomIntlayerConfig as IntlayerConfig } from '@intlayer/config/client';
+import type { CustomIntlayerConfig as IntlayerConfig } from '@intlayer/config/client';
 import type { Dictionary as DictionaryCore } from '@intlayer/core';
 
 type Dictionary<T = undefined> = DictionaryCore<T, true>;
@@ -14,6 +14,7 @@ export type { DeclarationContent, Dictionary };
  * Rexport using named import because πof Tsup bug in CJS
  */
 import configuration from '@intlayer/config/built';
+
 /**
  * @deprecated Use `import { configuration } from 'intlayer'` instead.
  */
@@ -21,9 +22,10 @@ const getConfiguration = () => configuration;
 
 // Reexport here for CJS compatibility
 // Fix ReferenceError: Cannot access 'xxx' before initialization
-export { configuration, getConfiguration, IntlayerConfig };
+export { configuration, getConfiguration, type IntlayerConfig };
 
 export {
+  type ContentNode,
   compact,
   cond,
   currency,
@@ -52,8 +54,9 @@ export {
    * @deprecated Use `getTranslation` instead.
    */
   getTranslation as getTranslationContent,
-  insert,
   Intl,
+  insert,
+  type LanguageContent,
   localeFlatMap,
   localeList,
   localeMap,
@@ -65,7 +68,5 @@ export {
   relativeTime,
   t,
   units,
-  type ContentNode,
-  type LanguageContent,
 } from '@intlayer/core';
 export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser

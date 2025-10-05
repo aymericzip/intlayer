@@ -1,5 +1,5 @@
-import { Locales } from '@intlayer/config';
-import { basename, dirname, join } from 'path';
+import { basename, dirname, join } from 'node:path';
+import type { Locales } from '@intlayer/config';
 
 const transformUriToAbsolutePath = (
   uri: string,

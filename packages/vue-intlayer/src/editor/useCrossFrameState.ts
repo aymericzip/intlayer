@@ -1,5 +1,5 @@
-import { type MessageKey } from '@intlayer/editor';
-import { Ref, getCurrentInstance, ref } from 'vue';
+import type { MessageKey } from '@intlayer/editor';
+import { getCurrentInstance, type Ref, ref } from 'vue';
 import { useCommunicator } from './communicator';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 

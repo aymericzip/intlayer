@@ -1,8 +1,9 @@
-import { AIOptions, getIntlayerAPIProxy } from '@intlayer/api'; // Importing only getAiAPI for now
+import { relative } from 'node:path';
+import { type AIOptions, getIntlayerAPIProxy } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
   formatLocale,
   formatPath,
-  ListGitFilesOptions,
+  type ListGitFilesOptions,
   mergeDictionaries,
   parallelize,
   prepareIntlayer,
@@ -18,7 +19,7 @@ import {
   colorizePath,
   getAppLogger,
   getConfiguration,
-  Locales,
+  type Locales,
 } from '@intlayer/config';
 import {
   type ContentNode,
@@ -28,10 +29,9 @@ import {
   getMissingLocalesContent,
 } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import { relative } from 'path';
 import {
   ensureArray,
-  GetTargetDictionaryOptions,
+  type GetTargetDictionaryOptions,
   getTargetUnmergedDictionaries,
 } from '../getTargetDictionary';
 import { checkAIAccess } from '../utils/checkAccess';

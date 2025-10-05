@@ -1,17 +1,17 @@
+import { dirname as pathDirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { AIOptions as BaseAIOptions } from '@intlayer/api';
 import type { GetConfigurationOptions } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { Command } from 'commander';
-import { dirname as pathDirname } from 'path';
-import { fileURLToPath } from 'url';
-import {
+import type {
   DiffMode,
   ListGitFilesOptions,
 } from '../../chokidar/dist/types/listGitFiles';
 import { build } from './build';
 import { getConfig } from './config';
 import { startEditor } from './editor';
-import { fill, FillOptions } from './fill/fill';
+import { type FillOptions, fill } from './fill/fill';
 import { listContentDeclaration } from './listContentDeclaration';
 import { liveSync } from './liveSync';
 import { pull } from './pull';

@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { getIntlayer } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 
-import LocaleSwitcher from '@/components/locale-switcher';
+import { LocaleSwitcher } from '@/components/locale-switcher';
 import { LocalizedLink } from '@/components/localized-link';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 
@@ -31,7 +31,6 @@ function RouteComponent() {
         {content.title}
         <LocaleSwitcher />
         <div className="flex gap-4">
-          <a href="/">Index</a>
           <LocalizedLink to="/">{content.links.home}</LocalizedLink>
           <LocalizedLink to="/about">{content.links.about}</LocalizedLink>
         </div>

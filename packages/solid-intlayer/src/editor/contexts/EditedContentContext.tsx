@@ -1,21 +1,21 @@
 import {
-  editDictionaryByKeyPath,
-  getContentNodeByKeyPath,
-  renameContentNodeByKeyPath,
   type ContentNode,
   type Dictionary,
+  editDictionaryByKeyPath,
+  getContentNodeByKeyPath,
   type KeyPath,
+  renameContentNodeByKeyPath,
 } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
 import {
-  createContext,
-  useContext,
   type Component,
+  createContext,
   type ParentProps,
+  useContext,
 } from 'solid-js';
 import {
-  useDictionariesRecord,
   type DictionaryContent,
+  useDictionariesRecord,
 } from './DictionariesRecordContext';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 import { useCrossFrameState } from './useCrossFrameState';

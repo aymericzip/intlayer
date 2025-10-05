@@ -2,7 +2,7 @@
 
 import { IDE } from '@intlayer/design-system';
 import { useTheme } from 'next-themes';
-import { useMemo, type FC } from 'react';
+import { type FC, useMemo } from 'react';
 
 import clientComponent from './content/client-component.md';
 import clientComponentContent from './content/client-content.md';

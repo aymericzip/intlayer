@@ -17,7 +17,7 @@ slugs:
   - environment
   - vite-and-react
   - react-router-v7
-applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7
+applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 ---
 
 # Erste Schritte mit der Internationalisierung (i18n) mit Intlayer und React Router v7
@@ -140,7 +140,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // Lokalisierte Startseite
-    route("/:lang/about", "routes/about/page.tsx"), // Lokalisierte Über-Seite
+    route("/:lang?/about", "routes/about/page.tsx"), // Lokalisierte Über-Seite
   ]),
 ] satisfies RouteConfig;
 ```
@@ -172,7 +172,7 @@ export default function RootLayout({ params }: Route.ComponentProps) {
 
 Erstellen und verwalten Sie Ihre Inhaltsdeklarationen, um Übersetzungen zu speichern:
 
-```tsx fileName="app/routes/[lang]/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="app/routes/[lang]/page.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
@@ -485,4 +485,4 @@ Dieser umfassende Leitfaden bietet alles, was Sie benötigen, um Intlayer mit Re
 | Version | Datum      | Änderungen                      |
 | ------- | ---------- | ------------------------------- |
 | 6.1.5   | 2025-10-03 | Dokumentation aktualisiert      |
-| 5.8.2   | 2025-09-4  | Hinzugefügt für React Router v7 |
+| 5.8.2   | 2025-09-04 | Hinzugefügt für React Router v7 |

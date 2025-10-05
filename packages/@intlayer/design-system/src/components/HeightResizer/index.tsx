@@ -1,14 +1,15 @@
 'use client';
 
-import React, {
-  DetailedHTMLProps,
-  HTMLAttributes,
+import type React from 'react';
+import {
+  type DetailedHTMLProps,
+  type FC,
+  type HTMLAttributes,
+  type PropsWithChildren,
   useCallback,
   useEffect,
   useRef,
   useState,
-  type FC,
-  type PropsWithChildren,
 } from 'react';
 import { cn } from '../../utils/cn';
 

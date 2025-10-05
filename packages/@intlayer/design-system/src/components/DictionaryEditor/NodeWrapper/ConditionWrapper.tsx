@@ -1,11 +1,11 @@
 import {
-  type KeyPath,
-  NodeType,
   type ConditionContent,
   type ContentNode,
+  type KeyPath,
+  NodeType,
 } from '@intlayer/core';
 import type { FC } from 'react';
-import { NodeWrapper, traceKeys, type NodeWrapperProps } from './index';
+import { NodeWrapper, type NodeWrapperProps, traceKeys } from './index';
 
 type ConditionWrapperProps = Omit<NodeWrapperProps, 'section'> & {
   section: ConditionContent<ContentNode>;

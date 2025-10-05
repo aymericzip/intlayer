@@ -1,4 +1,4 @@
-import { type Locales } from '@intlayer/config/client';
+import type { Locales } from '@intlayer/config/client';
 import Negotiator from 'negotiator';
 import { localeResolver } from './localeResolver';
 

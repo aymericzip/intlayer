@@ -1,5 +1,5 @@
-import type { Project, ProjectAPI } from '@/types/project.types';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
+import type { Project, ProjectAPI } from '@/types/project.types';
 
 /**
  * Maps a project to an API response.

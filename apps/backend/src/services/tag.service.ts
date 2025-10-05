@@ -1,10 +1,10 @@
-import type { Organization } from '@/types/organization.types';
-import type { Tag, TagData, TagDocument } from '@/types/tag.types';
 import { TagModel } from '@models/tag.model';
 import { GenericError } from '@utils/errors';
 import type { TagFilters } from '@utils/filtersAndPagination/getTagFiltersAndPagination';
 import { type TagFields, validateTag } from '@utils/validation/validateTag';
 import type { Types } from 'mongoose';
+import type { Organization } from '@/types/organization.types';
+import type { Tag, TagData, TagDocument } from '@/types/tag.types';
 
 /**
  * Finds tags based on filters and pagination options.

@@ -2,7 +2,7 @@ import { getIntlayerAPIProxy } from '@intlayer/api';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getAppLogger, getConfiguration, x } from '@intlayer/config';
-import { DictionariesStatus } from './loadDictionaries';
+import type { DictionariesStatus } from './loadDictionaries';
 import { parallelize } from './utils/parallelize';
 
 type FetchDistantDictionariesOptions = {
@@ -77,7 +77,7 @@ export const fetchDistantDictionaries = async (
     );
 
     return filteredResult;
-  } catch (error) {
+  } catch (_error) {
     appLogger(`${x} Failed to fetch distant dictionaries`, { level: 'error' });
     return [];
   }

@@ -1,11 +1,11 @@
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 import {
-  Dictionary,
-  Plugins,
+  type Dictionary,
   getDictionary as getDictionaryCore,
+  type Plugins,
 } from '@intlayer/core';
 import {
-  DeepTransformContent,
+  type DeepTransformContent,
   intlayerNodePlugins,
   markdownPlugin,
   svelteNodePlugins,

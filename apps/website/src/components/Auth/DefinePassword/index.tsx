@@ -1,14 +1,14 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { Button, useToast } from '@intlayer/design-system';
 import { useResetPassword } from '@intlayer/design-system/hooks';
 import { Check } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { DefinePasswordForm as DefinePasswordFormUI } from './DefinePasswordForm';
-import { type DefinePassword } from './DefinePasswordForm/useDefinePasswordSchema';
+import type { DefinePassword } from './DefinePasswordForm/useDefinePasswordSchema';
 
 type DefinePasswordFormProps = {
   callbackUrl?: string;

@@ -1,10 +1,10 @@
-import { PagesRoutes } from '@/Routes';
 import { getQueryParams } from '@utils/queryMiddleware';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
-import { type FC } from 'react';
+import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { AuthenticationBarrierClient } from './AuthenticationBarrierClient';
 import { AuthenticationBarrierServer } from './AuthenticationBarrierServer';
-import { AuthenticationBarrierProps as AuthenticationBarrierPropsBoth } from './accessValidation';
+import type { AuthenticationBarrierProps as AuthenticationBarrierPropsBoth } from './accessValidation';
 
 type AuthenticationBarrierProps = Omit<
   AuthenticationBarrierPropsBoth,

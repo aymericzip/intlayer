@@ -46,7 +46,6 @@ const stripFrontmatter = (markdown: string): string => {
       if (!inMetadataBlock) {
         // Begin metadata block
         inMetadataBlock = true;
-        continue;
       } else {
         // End of metadata block
         endOfMetadataIndex = i;

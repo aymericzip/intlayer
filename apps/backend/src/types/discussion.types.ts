@@ -1,5 +1,5 @@
-import { RenameId } from '@utils/mongoDB/types';
-import { Document, Model, Types } from 'mongoose';
+import type { RenameId } from '@utils/mongoDB/types';
+import type { Document, Model, Types } from 'mongoose';
 
 export interface Message {
   role: 'user' | 'assistant' | 'system';

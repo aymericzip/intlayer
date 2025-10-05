@@ -1224,9 +1224,9 @@ Integrando questo componente `Link` in tutta la tua applicazione, mantieni un'es
 
 Intlayer utilizza l'augmentazione dei moduli per ottenere i vantaggi di TypeScript e rendere il tuo codice più robusto.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 Assicurati che la configurazione di TypeScript includa i tipi autogenerati.
 

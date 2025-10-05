@@ -1,8 +1,8 @@
 import {
-  isSameKeyPath,
-  NodeType,
   type ContentNode,
+  isSameKeyPath,
   type KeyPath,
+  NodeType,
 } from '@intlayer/core';
 import type { FC } from 'react';
 import { ItemLayout } from '../ItemLayout';

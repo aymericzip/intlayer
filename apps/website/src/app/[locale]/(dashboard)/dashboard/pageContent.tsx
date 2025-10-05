@@ -1,10 +1,10 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { Loader } from '@intlayer/design-system';
-import { useAuth, type Session } from '@intlayer/design-system/hooks';
+import { type Session, useAuth } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
-import { useEffect, type FC } from 'react';
+import { type FC, useEffect } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 export const DashboardPageContent: FC<{ sessionServer?: Session }> = ({
   sessionServer,

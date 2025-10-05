@@ -1,5 +1,6 @@
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
-import { type NextLayoutIntlayer } from 'next-intlayer';
+import type { NextLayoutIntlayer } from 'next-intlayer';
+
 export { generateMetadata } from './metadata';
 
 const DocLayout: NextLayoutIntlayer = async ({ children, params }) => {

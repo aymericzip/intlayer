@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { createReadStream } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
-import { Readable } from 'node:stream';
+import type { Readable } from 'node:stream';
 
 const hashFile = async (path: string) => {
   const h = createHash('sha256');

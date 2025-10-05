@@ -1,7 +1,7 @@
 'use client';
 
 import { MoveVertical } from 'lucide-react';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
   Button,

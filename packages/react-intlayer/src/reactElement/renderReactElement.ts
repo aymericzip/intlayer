@@ -1,4 +1,4 @@
-import { type ReactElement, type ReactNode, createElement } from 'react';
+import { createElement, type ReactElement, type ReactNode } from 'react';
 
 // This function recursively creates React elements from a given JSON-like structure
 export const renderReactElement = (element: ReactElement<any>) => {

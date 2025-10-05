@@ -1,5 +1,5 @@
-import type { DiscussionSchema } from '@/types/discussion.types';
 import { Schema } from 'mongoose';
+import type { DiscussionSchema } from '@/types/discussion.types';
 
 export const discussionSchema = new Schema<DiscussionSchema>(
   {

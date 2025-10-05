@@ -1,5 +1,6 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
-import { type NextLayoutIntlayer } from 'next-intlayer';
+import type { NextLayoutIntlayer } from 'next-intlayer';
+
 export { generateMetadata } from './metadata';
 
 const DocChatLayout: NextLayoutIntlayer = ({ children }) => (

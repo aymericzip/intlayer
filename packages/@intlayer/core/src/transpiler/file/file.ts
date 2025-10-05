@@ -1,7 +1,7 @@
+import { existsSync, readFileSync } from 'node:fs';
+import { relative, resolve } from 'node:path';
 import { colorizePath, getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
-import { existsSync, readFileSync } from 'fs';
-import { relative, resolve } from 'path';
 import {
   formatNodeType,
   NodeType,

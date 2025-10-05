@@ -1,6 +1,6 @@
-import { PagesRoutes } from '@/Routes';
 import { getMultilingualUrls } from 'intlayer';
 import type { MetadataRoute } from 'next';
+import { PagesRoutes } from '@/Routes';
 
 const getAllUrls = (urls: string[]) =>
   urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);

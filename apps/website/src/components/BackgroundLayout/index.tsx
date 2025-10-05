@@ -1,5 +1,5 @@
 import { GridPattern } from '@intlayer/design-system';
-import { type FC, type PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 
 export const BackgroundLayout: FC<
   PropsWithChildren<{ hasSpotlight?: boolean }>

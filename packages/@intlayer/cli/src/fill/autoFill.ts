@@ -8,7 +8,7 @@ import {
   colorizeKey,
   getAppLogger,
   type IntlayerConfig,
-  Locales,
+  type Locales,
 } from '@intlayer/config';
 import {
   type AutoFill,
@@ -17,7 +17,7 @@ import {
   getFilteredLocalesContent,
   getLocalisedContent,
 } from '@intlayer/core';
-import { AutoFillData, formatAutoFillData } from './formatAutoFillData';
+import { type AutoFillData, formatAutoFillData } from './formatAutoFillData';
 
 export const autoFill = async (
   fullDictionary: Dictionary,
@@ -32,7 +32,7 @@ export const autoFill = async (
       prefix: '',
     },
   });
-  let localeList: Locales[] = (
+  const localeList: Locales[] = (
     outputLocales ?? configuration.internationalization.locales
   ).filter((locale) => !parentLocales?.includes(locale));
 

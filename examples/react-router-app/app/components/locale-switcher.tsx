@@ -1,11 +1,10 @@
-import type { FC } from 'react';
-
 import {
   getHTMLTextDir,
   getLocaleName,
   getLocalizedUrl,
   getPathWithoutLocale,
 } from 'intlayer';
+import type { FC } from 'react';
 import { setLocaleCookie, useIntlayer, useLocale } from 'react-intlayer';
 import { Link, useLocation } from 'react-router';
 

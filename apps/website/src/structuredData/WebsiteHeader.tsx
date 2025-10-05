@@ -1,6 +1,6 @@
 import { getConfiguration } from 'intlayer';
-import { useIntlayer } from 'next-intlayer/server';
 import Script from 'next/script';
+import { useIntlayer } from 'next-intlayer/server';
 
 export const WebsiteHeader = () => {
   const { keywords } = useIntlayer('website-structured-data');

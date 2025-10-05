@@ -1,3 +1,3 @@
 export * from './Code';
-export * from './IDE';
 export * from './FileList';
+export * from './IDE';

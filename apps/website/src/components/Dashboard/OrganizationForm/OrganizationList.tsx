@@ -1,11 +1,11 @@
-import { PagesRoutes } from '@/Routes';
 import type { OrganizationAPI } from '@intlayer/backend';
 import { Button, Modal } from '@intlayer/design-system';
 import { useSelectOrganization } from '@intlayer/design-system/hooks';
 import { Plus } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
-import { useState, type FC } from 'react';
+import { useIntlayer } from 'next-intlayer';
+import { type FC, useState } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { OrganizationCreationForm } from './OrganizationCreationForm';
 
 type OrganizationListProps = {

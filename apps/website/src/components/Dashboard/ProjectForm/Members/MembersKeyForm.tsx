@@ -14,10 +14,10 @@ import {
   useUpdateProjectMembers,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { useState, type FC } from 'react';
+import { type FC, useState } from 'react';
 import {
-  useProjectMembersSchema,
   type ProjectMembersFormData,
+  useProjectMembersSchema,
 } from './useMembersFormSchema';
 
 const getUserNames = (users: UserAPI[], id: UserAPI['id'] | string): string => {

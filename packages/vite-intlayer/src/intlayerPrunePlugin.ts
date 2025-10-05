@@ -1,10 +1,11 @@
 // @ts-ignore - Fix error Module '"vite"' has no exported member
+
+import { join } from 'node:path';
 import { intlayerBabelPlugin } from '@intlayer/babel';
-import { ESMxCJSRequire, IntlayerConfig } from '@intlayer/config';
+import { ESMxCJSRequire, type IntlayerConfig } from '@intlayer/config';
 import dictionaries from '@intlayer/dictionaries-entry';
 import fg from 'fast-glob';
-import { join } from 'path';
-import { type PluginOption } from 'vite';
+import type { PluginOption } from 'vite';
 
 export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
   const { optimize, importMode, traversePattern } = intlayerConfig.build;

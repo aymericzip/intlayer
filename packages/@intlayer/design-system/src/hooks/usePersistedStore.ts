@@ -1,12 +1,12 @@
 'use client';
 
 import {
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
   useState,
-  type Dispatch,
-  type SetStateAction,
 } from 'react';
 
 export const usePersistedStore = <S>(

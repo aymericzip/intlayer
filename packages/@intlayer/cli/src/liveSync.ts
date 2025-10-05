@@ -1,10 +1,10 @@
-import { IntlayerEventListener } from './IntlayerEventListener';
+import { createServer } from 'node:http';
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import {
   buildDictionary,
-  runParallel,
   type ParallelHandle,
+  runParallel,
 } from '@intlayer/chokidar';
 import type { IntlayerConfig } from '@intlayer/config';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
@@ -12,7 +12,7 @@ import packageJson from '@intlayer/config/package.json';
 import { getLocalisedContent } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
-import { createServer } from 'http';
+import { IntlayerEventListener } from './IntlayerEventListener';
 
 type LiveSyncOptions = {
   with?: string | string[];

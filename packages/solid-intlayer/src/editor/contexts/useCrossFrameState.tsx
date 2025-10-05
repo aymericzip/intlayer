@@ -1,5 +1,5 @@
-import { type MessageKey } from '@intlayer/editor';
-import { createEffect, createSignal, type Accessor } from 'solid-js';
+import type { MessageKey } from '@intlayer/editor';
+import { type Accessor, createEffect, createSignal } from 'solid-js';
 import { useCommunicator } from './CommunicatorContext';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 

@@ -1,22 +1,22 @@
 import type { LocalesValues } from '@intlayer/config/client';
-import { DictionaryKeys } from '@intlayer/core';
+import type { DictionaryKeys } from '@intlayer/core';
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import {
   computed,
   inject,
   isRef,
+  type MaybeRefOrGetter,
   reactive,
   ref,
+  type ToRefs,
   toRefs,
   toValue,
   watch,
-  type MaybeRefOrGetter,
-  type ToRefs,
 } from 'vue';
 import { getIntlayer } from '../getIntlayer';
-import { DeepTransformContent } from '../plugins';
-import { INTLAYER_SYMBOL, IntlayerProvider } from './installIntlayer';
+import type { DeepTransformContent } from '../plugins';
+import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
 
 export const isUpdatableNode = (
   val: unknown

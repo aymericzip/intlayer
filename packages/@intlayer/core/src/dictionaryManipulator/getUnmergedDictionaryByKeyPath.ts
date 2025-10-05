@@ -1,5 +1,5 @@
 import unmergedDictionary from '@intlayer/unmerged-dictionaries-entry';
-import { type KeyPath } from '../types';
+import type { KeyPath } from '../types';
 import { getContentNodeByKeyPath } from './getContentNodeByKeyPath';
 
 export const getUnmergedDictionaryByKeyPath = (

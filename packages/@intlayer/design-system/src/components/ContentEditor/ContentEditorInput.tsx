@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
-import { type InputProps, Input, InputVariant } from '../Input';
+import { Input, type InputProps, InputVariant } from '../Input';
 
 /** Props for the ContentEditorInput component */
 export type ContentEditorInputProps = {

@@ -1,4 +1,4 @@
-import { Injector } from '@angular/core';
+import type { Injector } from '@angular/core';
 import configuration from '@intlayer/config/built';
 import { v4 as uuid } from 'uuid';
 

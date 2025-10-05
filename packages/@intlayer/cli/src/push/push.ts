@@ -1,20 +1,20 @@
+import * as fsPromises from 'node:fs/promises';
+import { join } from 'node:path';
 import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
   formatPath,
+  type ListGitFilesOptions,
   listGitFiles,
-  ListGitFilesOptions,
   parallelize,
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
+  type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
-  GetConfigurationOptions,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import * as fsPromises from 'fs/promises';
-import { join } from 'path';
 import * as readline from 'readline';
 import { PushLogger, type PushStatus } from '../pushLog';
 import { checkCMSAuth } from '../utils/checkAccess';

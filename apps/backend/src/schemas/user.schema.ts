@@ -1,10 +1,10 @@
-import type { UserSchema } from '@/types/user.types';
 import {
   NAMES_MAX_LENGTH,
   NAMES_MIN_LENGTH,
 } from '@utils/validation/validateUser';
 import { Schema } from 'mongoose';
 import validator from 'validator';
+import type { UserSchema } from '@/types/user.types';
 
 export const userSchema = new Schema<UserSchema>(
   {

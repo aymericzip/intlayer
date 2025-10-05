@@ -1,4 +1,4 @@
-import { t, type Dictionary } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 
 const projectConfigDetailsContent = {
   key: 'project-config-detail',

@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
-import { BundledLanguage } from 'shiki';
+import type { BundledLanguage } from 'shiki';
 import { MarkdownProcessor } from '../MarkDownRender/processor';
 import { Code } from './Code';
 

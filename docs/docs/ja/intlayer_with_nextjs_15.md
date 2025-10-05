@@ -1483,9 +1483,9 @@ yarn add @intlayer/swc --save-dev
 
 Intlayer はモジュール拡張を使用して TypeScript の利点を活かし、コードベースをより強固にします。
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 TypeScript の設定に自動生成された型を含めていることを確認してください。
 

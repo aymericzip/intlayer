@@ -1,7 +1,7 @@
 import type { Locales } from '@intlayer/config/client';
 import { MessageKey } from '@intlayer/editor';
 import { inject, watch } from 'vue';
-import { INTLAYER_SYMBOL, IntlayerProvider } from '../client';
+import { INTLAYER_SYMBOL, type IntlayerProvider } from '../client';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';
 

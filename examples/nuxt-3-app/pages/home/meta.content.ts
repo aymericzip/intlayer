@@ -1,4 +1,4 @@
-import { t, type Dictionary } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 import type { useSeoMeta } from 'nuxt/app';
 
 const homeMetaContent = {

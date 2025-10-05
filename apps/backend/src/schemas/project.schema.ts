@@ -1,8 +1,3 @@
-import type {
-  OAuth2Access,
-  Project,
-  ProjectSchema,
-} from '@/types/project.types';
 import { Locales } from '@intlayer/config';
 import type { RenameId } from '@utils/mongoDB/types';
 import {
@@ -11,6 +6,11 @@ import {
   NAME_MIN_LENGTH,
 } from '@utils/validation/validateProject';
 import { Schema } from 'mongoose';
+import type {
+  OAuth2Access,
+  Project,
+  ProjectSchema,
+} from '@/types/project.types';
 
 // Define the oAuth2Access subdocument schema with timestamps
 const oAuth2AccessSchema = new Schema<RenameId<OAuth2Access>>(

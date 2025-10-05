@@ -1,9 +1,3 @@
-import type {
-  Organization,
-  OrganizationAPI,
-  OrganizationCreationData,
-} from '@/types/organization.types';
-import type { User, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { SessionModel } from '@models/session.model';
@@ -11,7 +5,7 @@ import { sendEmail } from '@services/email.service';
 import * as organizationService from '@services/organization.service';
 import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
-import { ErrorHandler, type AppError } from '@utils/errors';
+import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getOrganizationFiltersAndPagination,
@@ -19,8 +13,8 @@ import {
   type OrganizationFiltersParams,
 } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import {
-  mapOrganizationToAPI,
   mapOrganizationsToAPI,
+  mapOrganizationToAPI,
 } from '@utils/mapper/organization';
 import { hasPermission } from '@utils/permissions';
 import { getPlanDetails } from '@utils/plan';
@@ -32,8 +26,14 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import { Types } from 'mongoose';
+import type { Types } from 'mongoose';
 import { Stripe } from 'stripe';
+import type {
+  Organization,
+  OrganizationAPI,
+  OrganizationCreationData,
+} from '@/types/organization.types';
+import type { User, UserAPI } from '@/types/user.types';
 
 export type GetOrganizationsParams =
   FiltersAndPagination<OrganizationFiltersParams>;

@@ -1,5 +1,5 @@
 import type { LinkGroup } from '@intlayer/design-system';
-import { t, type Dictionary } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 import { ExternalLinks, PagesRoutes } from '../../Routes';
 
 type FooterContent = {

@@ -1,5 +1,5 @@
-import { existsSync } from 'fs';
-import { resolve } from 'path';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { logger } from '../logger';
 
 const EXTENSION = ['ts', 'js', 'json', 'cjs', 'mjs', ''];
@@ -31,7 +31,7 @@ type SearchConfigurationFileResult = {
 export const searchConfigurationFile = (
   configFilePath: string = process.cwd()
 ): SearchConfigurationFileResult => {
-  let configurationFilePath: string | undefined = undefined;
+  let configurationFilePath: string | undefined;
   let numCustomConfiguration = 0;
 
   for (const fileName of configurationFiles) {
@@ -40,7 +40,6 @@ export const searchConfigurationFile = (
 
       // Check if the file exists
       if (!existsSync(filePath)) {
-        continue;
       } else {
         numCustomConfiguration += 1;
 
@@ -51,8 +50,6 @@ export const searchConfigurationFile = (
     } catch (error) {
       // Return "Cannot use import statement outside a module"
       logger(`${fileName}: ${error as string}`, { level: 'error' });
-
-      continue;
     }
   }
 

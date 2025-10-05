@@ -1,5 +1,5 @@
 import type { LocalesValues } from '@intlayer/config/client';
-import { type DictionaryKeys } from '@intlayer/core';
+import type { DictionaryKeys } from '@intlayer/core';
 import { getIntlayer } from '../getIntlayer';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';

@@ -1,7 +1,7 @@
 import { Form, H2, useForm } from '@intlayer/design-system';
 import { useRegister, useUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';

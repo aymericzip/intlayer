@@ -2,8 +2,8 @@ import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { IntlayerProvider } from '@providers/IntlayerProvider';
 import { getHTMLTextDir, getIntlayer } from 'intlayer';
 import type { Metadata } from 'next';
-import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
 import localFont from 'next/font/local';
+import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
 
 export { generateStaticParams } from 'next-intlayer';
 

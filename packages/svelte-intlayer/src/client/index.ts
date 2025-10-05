@@ -1,18 +1,15 @@
 // Export all client-side functionality for Svelte applications
 
+// Locale management
+export { getBrowserLocale } from './getBrowserLocale';
+// Context and providers
+export { getIntlayerContext, setIntlayerContext } from './intlayerContext';
+// Type exports
+export type { IntlayerStoreType } from './intlayerStore';
+export { intlayerStore } from './intlayerStore';
 // Core hooks
 export { useDictionary } from './useDictionary';
 export { useDictionaryAsync } from './useDictionaryAsync';
 export { useDictionaryDynamic } from './useDictionaryDynamic';
 export { useIntlayer } from './useIntlayer';
-
-// Context and providers
-export { getIntlayerContext, setIntlayerContext } from './intlayerContext';
-export { intlayerStore } from './intlayerStore';
-
-// Locale management
-export { getBrowserLocale } from './getBrowserLocale';
 export { useLocale } from './useLocale';
-
-// Type exports
-export type { IntlayerStoreType } from './intlayerStore';

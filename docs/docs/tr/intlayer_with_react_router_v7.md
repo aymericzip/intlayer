@@ -17,7 +17,7 @@ slugs:
   - environment
   - vite-and-react
   - react-router-v7
-applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7
+applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 ---
 
 # Intlayer ve React Router v7 ile Uluslararasılaştırmaya (i18n) Başlarken
@@ -138,7 +138,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // Yerelleştirilmiş ana sayfa
-    route("/:lang/about", "routes/about/page.tsx"), // Yerelleştirilmiş hakkında sayfası
+    route("/:lang?/about", "routes/about/page.tsx"), // Yerelleştirilmiş hakkında sayfası
   ]),
 ] satisfies RouteConfig;
 ```
@@ -170,7 +170,7 @@ export default function RootLayout({ params }: Route.ComponentProps) {
 
 Çevirileri depolamak için içerik bildirimlerinizi oluşturun ve yönetin:
 
-```tsx fileName="app/routes/[lang]/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="app/routes/[lang]/page.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
@@ -483,4 +483,4 @@ Bu kapsamlı rehber, Intlayer'ı React Router v7 ile tam uluslararasılaştırı
 | Sürüm | Tarih      | Değişiklikler                |
 | ----- | ---------- | ---------------------------- |
 | 6.1.5 | 2025-10-03 | Doküman güncellendi          |
-| 5.8.2 | 2025-09-4  | React Router v7 için eklendi |
+| 5.8.2 | 2025-09-04 | React Router v7 için eklendi |

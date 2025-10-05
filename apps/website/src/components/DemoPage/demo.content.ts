@@ -1,4 +1,4 @@
-import { file, md, t, type Dictionary } from 'intlayer';
+import { type Dictionary, file, md, t } from 'intlayer';
 
 const demoContent = {
   key: 'demo-page',

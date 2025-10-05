@@ -1,4 +1,4 @@
-import type { HTMLAttributes, FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 
 export type UnrollablePanelTriggerProps = HTMLAttributes<HTMLButtonElement> & {
   identifier: string;

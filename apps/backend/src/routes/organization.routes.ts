@@ -1,4 +1,3 @@
-import type { Routes } from '@/types/Routes';
 import {
   addOrganization,
   addOrganizationMember,
@@ -10,6 +9,7 @@ import {
   updateOrganizationMembers,
 } from '@controllers/organization.controller';
 import { Router } from 'express';
+import type { Routes } from '@/types/Routes';
 
 export const organizationRouter: Router = Router();
 

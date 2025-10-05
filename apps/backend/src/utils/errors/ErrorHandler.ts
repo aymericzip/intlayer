@@ -1,6 +1,5 @@
 // Import required modules and types from their respective locations.
-import type { UserAPI } from '@/types/user.types';
-import { HttpStatusCodes } from '@/utils/httpStatusCodes';
+
 import { Locales } from '@intlayer/config';
 import { logger } from '@logger';
 import { formatPaginatedResponse, formatResponse } from '@utils/responseData';
@@ -8,8 +7,10 @@ import type { Response } from 'express';
 // @ts-ignore express-intlayer not build yet
 import type { LanguageContent } from 'express-intlayer';
 import { t } from 'express-intlayer';
-import { type ErrorCodes, errorData } from './errorCodes';
+import type { UserAPI } from '@/types/user.types';
+import { HttpStatusCodes } from '@/utils/httpStatusCodes';
 import type { AppError } from './ErrorsClass';
+import { type ErrorCodes, errorData } from './errorCodes';
 
 // Define a class named 'ErrorHandler' to encapsulate error handling logic.
 export class ErrorHandler {
@@ -31,7 +32,7 @@ export class ErrorHandler {
     const status = statusCode ?? error.statusCode; // Use the provided status code or default to the one in errorData.
 
     // Delegate to a more customizable error response handler.
-    this.handleCustomErrorResponse(
+    ErrorHandler.handleCustomErrorResponse(
       res,
       errorKey,
       error.title,
@@ -56,7 +57,7 @@ export class ErrorHandler {
     isPaginatedResponse: boolean = false
   ) {
     if (!error.isAppError) {
-      this.handleCustomErrorResponse(
+      ErrorHandler.handleCustomErrorResponse(
         res,
         error.errorKey ?? 'UNKNOWN_ERROR',
         'Error',
@@ -69,7 +70,7 @@ export class ErrorHandler {
 
     const isMultilingual = error.isMultilingual ?? false;
     // Delegate to a more customizable error response handler.
-    this.handleCustomErrorResponse(
+    ErrorHandler.handleCustomErrorResponse(
       res,
       error.errorKey,
       isMultilingual ? error.multilingualTitle : error.title,

@@ -1,4 +1,9 @@
-import { inject, Injectable, InjectionToken, TemplateRef } from '@angular/core';
+import {
+  Injectable,
+  InjectionToken,
+  inject,
+  type TemplateRef,
+} from '@angular/core';
 
 export const INTLAYER_MARKDOWN_TOKEN =
   new InjectionToken<IntlayerMarkdownProvider>('intlayerMarkdown');

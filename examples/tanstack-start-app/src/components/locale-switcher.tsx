@@ -1,41 +1,45 @@
 import { useLocation } from '@tanstack/react-router';
-import {
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-  Locales,
-} from 'intlayer';
-import { useIntlayer, useLocale } from 'react-intlayer';
+import { getHTMLTextDir, getLocaleName, getPathWithoutLocale } from 'intlayer';
+import type { FC } from 'react';
+import { setLocaleCookie, useIntlayer, useLocale } from 'react-intlayer';
 
-export default function LocaleSwitcher() {
-  const { pathname, searchStr } = useLocation();
-  const content = useIntlayer('locale-switcher');
+import { LocalizedLink, type To } from './localized-link';
 
-  const { availableLocales, locale, setLocale } = useLocale({
-    onLocaleChange: (newLocale) => {
-      const pathWithLocale = getLocalizedUrl(pathname + searchStr, newLocale);
-      location.replace(pathWithLocale);
-    },
-  });
+export const LocaleSwitcher: FC = () => {
+  const { localeSwitcherLabel } = useIntlayer('locale-switcher');
+  const { pathname } = useLocation();
+
+  const { availableLocales, locale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
 
   return (
-    <select
-      aria-label={content.label.toString()}
-      onChange={(e) => setLocale(e.target.value)}
-      value={locale}
-    >
-      {availableLocales.map((localeItem) => (
-        <option
-          dir={getHTMLTextDir(localeItem)}
-          key={localeItem}
-          lang={localeItem}
-          value={localeItem}
-        >
-          {/* Example: Français (French) */}
-          {getLocaleName(localeItem, locale)} (
-          {getLocaleName(localeItem, Locales.ENGLISH)})
-        </option>
+    <ol className="divide-text/20 divide-y divide-dashed overflow-y-auto p-1 absolute top-10 right-10">
+      {availableLocales.map((localeEl) => (
+        <li className="py-1 pr-1.5" key={localeEl}>
+          <LocalizedLink
+            aria-current={localeEl === locale ? 'page' : undefined}
+            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
+            onClick={() => setLocaleCookie(localeEl)}
+            params={{ locale: localeEl }}
+            to={pathWithoutLocale as To}
+          >
+            <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
+              <div className="flex flex-col text-nowrap">
+                <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
+                  {getLocaleName(localeEl)}
+                </span>
+                <span className="text-neutral text-xs">
+                  {getLocaleName(localeEl, localeEl)}
+                </span>
+              </div>
+              <span className="text-neutral text-sm text-nowrap">
+                {localeEl.toUpperCase()}
+              </span>
+            </div>
+          </LocalizedLink>
+        </li>
       ))}
-    </select>
+    </ol>
   );
-}
+};

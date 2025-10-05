@@ -1,6 +1,6 @@
+import { PagesRoutes } from '@/Routes';
 import { Period, Plans } from '../PricingPage/data.content';
 import { Steps } from './steps';
-import { PagesRoutes } from '@/Routes';
 
 type Args = {
   plan?: Plans;
@@ -38,7 +38,7 @@ export const formatOnboardUrl = ({
 
   // Loop through the additional params and add them
   for (const key in otherParams) {
-    if (otherParams.hasOwnProperty(key)) {
+    if (Object.hasOwn(otherParams, key)) {
       queryParams.push(
         `${encodeURIComponent(key)}=${encodeURIComponent(otherParams[key])}`
       );

@@ -9,9 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root';
-import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route';
-import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index';
 import { Route as Char123LocaleChar125AboutIndexRouteImport } from './routes/{-$locale}/about/index';
+import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index';
+import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route';
 
 const Char123LocaleChar125RouteRoute =
   Char123LocaleChar125RouteRouteImport.update({
@@ -98,7 +98,7 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
 
 const Char123LocaleChar125RouteRouteWithChildren =
   Char123LocaleChar125RouteRoute._addFileChildren(
-    Char123LocaleChar125RouteRouteChildren,
+    Char123LocaleChar125RouteRouteChildren
   );
 
 const rootRouteChildren: RootRouteChildren = {
@@ -107,3 +107,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>();
+
+import type { createStart } from '@tanstack/react-start';
+import type { getRouter } from './router.tsx';
+
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
+  }
+}

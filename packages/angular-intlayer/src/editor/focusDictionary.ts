@@ -1,4 +1,4 @@
-import { effect, Injector, signal, Signal } from '@angular/core';
+import { effect, type Injector, type Signal, signal } from '@angular/core';
 import type { KeyPath } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
 import { createSharedComposable } from './createSharedComposable';

@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "6.1.6-canary.0",
+  "version": "6.1.6",
   "private": true,
   "description": "Intlayer Website include the landing page and the documentation of the intlayer project.",
   "keywords": [
@@ -41,8 +41,6 @@
     "dev:webpack": "next dev",
     "editor": "intlayer-editor start",
     "generate-pwa-assets": "pwa-asset-generator --preset minimal ../../packages/@intlayer/design-system/src/components/Logo/logo_circle_wite.svg ./public/assets/",
-    "lint": "next lint",
-    "lint:fix": "next lint . --fix",
     "prepare": "husky",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
@@ -99,11 +97,8 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.2.1",
-    "eslint": "^9.36.0",
-    "eslint-config-next": "15.5.4",
     "next-pwa": "^5.6.0",
     "postcss": "^8.5.4",
-    "prettier": "^3.6.2",
     "pwa-asset-generator": "^8.0.5",
     "raw-loader": "^4.0.2",
     "tailwindcss": "^4.1.13",

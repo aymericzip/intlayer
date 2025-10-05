@@ -3,8 +3,8 @@
 import { Form, H3, useForm } from '@intlayer/design-system';
 import { useAuth, useUpdateProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, type FC } from 'react';
-import { useProjectSchema, type ProjectFormData } from './useProjectFormSchema';
+import { type FC, useEffect } from 'react';
+import { type ProjectFormData, useProjectSchema } from './useProjectFormSchema';
 
 export const ProjectEditionForm: FC = () => {
   const { session } = useAuth();

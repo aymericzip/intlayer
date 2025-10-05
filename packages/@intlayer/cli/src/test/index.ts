@@ -5,9 +5,9 @@ import {
   colorize,
   colorizeKey,
   colorizeNumber,
+  type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
-  GetConfigurationOptions,
 } from '@intlayer/config';
 import { listMissingTranslations } from './listMissingTranslations';
 

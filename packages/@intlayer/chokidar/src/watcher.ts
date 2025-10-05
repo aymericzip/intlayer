@@ -1,12 +1,12 @@
+import { basename } from 'node:path';
 import {
-  GetConfigurationOptions,
-  type IntlayerConfig,
+  type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
+  type IntlayerConfig,
 } from '@intlayer/config';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions'. */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
-import { basename } from 'path';
 import { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 import { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
 import { handleUnlikedContentDeclarationFile } from './handleUnlikedContentDeclarationFile';

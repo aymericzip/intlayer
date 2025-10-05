@@ -1,12 +1,12 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import type { UserAPI } from '@intlayer/backend';
 import { useRegister } from '@intlayer/design-system/hooks';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useRef, useState, type FC } from 'react';
+import { type FC, useRef, useState } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { VerifyEmailForm as VerifyEmailFormUI } from '../VerifyEmail';
-import { SignUp } from './SignUpForm';
+import type { SignUp } from './SignUpForm';
 import { SignUpForm as SignUpFormUI } from './SignUpForm/SignUpForm';
 
 type SignUpFormProps = {

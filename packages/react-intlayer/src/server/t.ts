@@ -1,5 +1,5 @@
 import type { LocalesValues } from '@intlayer/config/client';
-import { type LanguageContent, getTranslation } from '@intlayer/core';
+import { getTranslation, type LanguageContent } from '@intlayer/core';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 

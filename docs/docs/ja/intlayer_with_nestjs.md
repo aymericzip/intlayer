@@ -219,9 +219,9 @@ export default config;
 
 `express-intlayer` は、国際化プロセスを強化するために TypeScript の強力な機能を活用しています。TypeScript の静的型付けにより、すべての翻訳キーが確実に管理され、翻訳漏れのリスクを減らし、保守性を向上させます。
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 自動生成される型定義ファイル（デフォルトでは ./types/intlayer.d.ts）が tsconfig.json ファイルに含まれていることを確認してください。
 

@@ -135,7 +135,7 @@ export default [
   layout("routes/layout.tsx", [
     route("/", "routes/page.tsx"), // Página raiz - redireciona para o idioma
     route("/:lang", "routes/[lang]/page.tsx"), // Página inicial localizada
-    route("/:lang/about", "routes/[lang]/about/page.tsx"), // Página sobre localizada
+    route("/:lang?/about", "routes/[lang]/about/page.tsx"), // Página sobre localizada
   ]),
 ] satisfies RouteConfig;
 ```
@@ -182,7 +182,7 @@ export default function RootLayout() {
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
-```tsx fileName="app/routes/[lang]/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="app/routes/[lang]/page.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
@@ -524,6 +524,6 @@ Este guia abrangente fornece tudo o que você precisa para integrar o Intlayer c
 
 ## Histórico da Documentação
 
-| Versão | Data      | Alterações                      |
-| ------ | --------- | ------------------------------- |
-| 5.8.2  | 2025-09-4 | Adicionado para React Router v7 |
+| Versão | Data       | Alterações                      |
+| ------ | ---------- | ------------------------------- |
+| 5.8.2  | 2025-09-04 | Adicionado para React Router v7 |

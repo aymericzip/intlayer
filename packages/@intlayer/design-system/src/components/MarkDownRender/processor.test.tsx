@@ -83,6 +83,38 @@ describe('processer', () => {
       expect(result.props.children[2].props.children[0]).toBe('Third item');
     });
 
+    test('compiles lists containing links', () => {
+      const markdown = [
+        '- Visit [Intlayer](https://intlayer.org)',
+        '- Visit [Google](https://google.com)',
+        '- Visit [Docs](https://example.com/docs)',
+      ].join('\n');
+      const result = compiler(markdown);
+
+      expect(result).toBeDefined();
+      expect(result.type).toBe('ul');
+      expect(Array.isArray(result.props.children)).toBe(true);
+      expect(result.props.children).toHaveLength(3);
+
+      const firstLi = result.props.children[0];
+      expect(firstLi.type).toBe('li');
+      const firstAnchor = Array.isArray(firstLi.props.children)
+        ? firstLi.props.children.find((c: any) => c && c.type === 'a')
+        : firstLi.props.children;
+      expect(firstAnchor.type).toBe('a');
+      expect(firstAnchor.props.href).toBe('https://intlayer.org');
+      expect(firstAnchor.props.children).toEqual(['Intlayer']);
+
+      const thirdLi = result.props.children[2];
+      expect(thirdLi.type).toBe('li');
+      const thirdChildren = thirdLi.props.children as any[];
+      expect(Array.isArray(thirdChildren)).toBe(true);
+      const thirdAnchor = thirdChildren.find((c: any) => c && c.type === 'a');
+      expect(Boolean(thirdAnchor)).toBe(true);
+      expect(thirdAnchor.props.href).toBe('https://example.com/docs');
+      expect(thirdAnchor.props.children).toEqual(['Docs']);
+    });
+
     test('compiles links', () => {
       const markdown = '[Google](https://google.com)';
       const result = compiler(markdown);
@@ -90,6 +122,47 @@ describe('processer', () => {
       expect(result).toBeDefined();
       expect(result.type).toBe('a');
       expect(result.props.href).toBe('https://google.com');
+      expect(result.props.children).toEqual(['Google']);
+    });
+
+    test('compiles links with overrides', () => {
+      const markdown = '[Google](https://google.com)';
+      const options = {
+        overrides: {
+          a: (props: any) => (
+            <a
+              data-testid="overridden-link"
+              target="_blank"
+              rel="noreferrer"
+              {...props}
+            />
+          ),
+        },
+      };
+
+      const result = compiler(markdown, options);
+
+      //       stdout | src/components/MarkDownRender/processor.test.tsx > processer > compiler > compiles links with overrides
+      // {
+      //   '$$typeof': Symbol(react.transitional.element),
+      //   type: 'a',
+      //   key: '0',
+      //   props: {
+      //     href: 'https://google.com',
+      //     title: undefined,
+      //     children: [ 'Google' ]
+      //   },
+      //   _owner: null,
+      //   _store: {}
+      // }
+      console.log(result);
+
+      expect(result).toBeDefined();
+      expect(result.type).toBe('a');
+      expect(result.props['data-testid']).toBe('overridden-link');
+      expect(result.props.href).toBe('https://google.com');
+      expect(result.props.target).toBe('_blank');
+      expect(result.props.rel).toBe('noreferrer');
       expect(result.props.children).toEqual(['Google']);
     });
 

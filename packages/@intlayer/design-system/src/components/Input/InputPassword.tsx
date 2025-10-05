@@ -1,7 +1,7 @@
 'use client';
 
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
-import { type FC, useState, type MouseEventHandler } from 'react';
+import { type FC, type MouseEventHandler, useState } from 'react';
 import { Input, type InputProps } from './Input';
 
 type InputPasswordProps = Omit<InputProps, 'type'>;

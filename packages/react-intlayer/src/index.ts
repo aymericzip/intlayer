@@ -10,8 +10,8 @@ export {
   IntlayerClientContext,
   IntlayerProvider,
   IntlayerProviderContent,
-  useIntlayerContext,
   type IntlayerProviderProps,
+  useIntlayerContext,
 } from './client/IntlayerProvider';
 export { t } from './client/t';
 export { useDictionary } from './client/useDictionary';
@@ -28,5 +28,5 @@ export {
   useLocaleCookie,
 } from './client/useLocaleCookie';
 
-export { type IntlayerNode } from './IntlayerNode';
+export type { IntlayerNode } from './IntlayerNode';
 export { MarkdownProvider } from './markdown/index';

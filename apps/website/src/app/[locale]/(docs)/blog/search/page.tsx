@@ -4,7 +4,7 @@ import { getBlogMetadataBySlug, getDocMetadataBySlug } from '@intlayer/docs';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import { FC, Suspense } from 'react';
+import { type FC, Suspense } from 'react';
 
 const BlogSearchPageContent: FC = () => {
   const { title } = useIntlayer('blog-search-page');

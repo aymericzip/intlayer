@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
-import { AutoCompleteTextarea } from '.';
 import { InputVariant } from '../Input';
+import { AutoCompleteTextarea } from '.';
 
 const mockQueryClient = new QueryClient({
   defaultOptions: {

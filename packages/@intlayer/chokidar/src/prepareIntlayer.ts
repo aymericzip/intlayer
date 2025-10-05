@@ -1,10 +1,10 @@
 import {
   ANSIColors,
-  ESMxCJSRequire,
-  type IntlayerConfig,
   colorize,
+  ESMxCJSRequire,
   getAppLogger,
   getConfiguration,
+  type IntlayerConfig,
 } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json' with { type: 'json' };
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
@@ -22,6 +22,8 @@ export const prepareIntlayer = async (
   clean = false,
   format: ('cjs' | 'esm')[] = ['cjs', 'esm']
 ) => {
+  const { plugins } = configuration;
+
   const appLogger = getAppLogger(configuration);
   const preparationStartMs = Date.now();
 
@@ -80,7 +82,11 @@ export const prepareIntlayer = async (
 
   // Build local dictionaries
   const dictionariesOutput = await buildDictionary(
-    [...dictionaries.localDictionaries, ...dictionaries.remoteDictionaries],
+    [
+      ...dictionaries.localDictionaries,
+      ...dictionaries.remoteDictionaries,
+      ...dictionaries.pluginDictionaries,
+    ],
     configuration,
     format,
     false
@@ -124,6 +130,20 @@ export const prepareIntlayer = async (
       isVerbose: true,
     }
   );
+
+  // Plugin transformation
+  // Allow plugins to post-process the final build output (e.g., write back ICU JSON)
+  for await (const plugin of plugins ?? []) {
+    const { unmergedDictionaries, mergedDictionaries } = dictionariesOutput;
+
+    await plugin.afterBuild?.({
+      dictionaries: {
+        unmergedDictionaries,
+        mergedDictionaries,
+      },
+      configuration,
+    });
+  }
 
   const preparationElapsedMs = Date.now() - preparationStartMs;
   appLogger([`Done`, colorize(`${preparationElapsedMs}ms`, ANSIColors.GREEN)], {

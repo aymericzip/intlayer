@@ -1,4 +1,3 @@
-import type { EmailsList, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as userService from '@services/user.service';
@@ -8,6 +7,7 @@ import { hasPermission } from '@utils/permissions';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
+import type { EmailsList, UserAPI } from '@/types/user.types';
 
 export type NewsletterSubscriptionBody = {
   email: string;

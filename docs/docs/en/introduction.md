@@ -152,7 +152,7 @@ Intlayer offers a variety of features tailored to meet the needs of modern web d
 
 Organize your multilingual content close to your code to keep everything consistent and maintainable.
 
-- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md)**  
+- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)**  
   Learn the basics of declaring your content in Intlayer.
 
 - **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)**  

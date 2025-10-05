@@ -1,5 +1,5 @@
-import { useIntlayer } from 'next-intlayer/server';
 import Script from 'next/script';
+import { useIntlayer } from 'next-intlayer/server';
 
 type DocHeaderProps = {
   creativeWorkName: string;

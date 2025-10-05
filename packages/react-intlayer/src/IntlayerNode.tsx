@@ -1,9 +1,9 @@
 import type { NodeProps } from '@intlayer/core';
 import {
+  isValidElement,
   type PropsWithChildren,
   type ReactElement,
   type ReactNode,
-  isValidElement,
 } from 'react';
 
 export type IntlayerNode<

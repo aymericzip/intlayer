@@ -1,4 +1,4 @@
-import { type IntlayerConfig } from '@intlayer/config';
+import type { IntlayerConfig } from '@intlayer/config';
 import {
   colorizeKey,
   colorizePath,

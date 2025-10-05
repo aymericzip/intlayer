@@ -1,7 +1,7 @@
 import {
   formatNodeType,
-  NodeType,
   type LanguageContent,
+  NodeType,
   type TypedNodeModel,
 } from '../../types/index';
 

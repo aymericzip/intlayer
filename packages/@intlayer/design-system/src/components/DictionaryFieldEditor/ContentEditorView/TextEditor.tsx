@@ -6,20 +6,20 @@ import {
   type ContentNode,
   type Dictionary,
   type EnumerationContent,
-  type KeyPath,
-  type MarkdownContent,
-  type TranslationContent,
-  FileContent,
-  GenderContent,
+  type FileContent,
+  type GenderContent,
   getEmptyNode,
   getLocaleName,
   getNodeType,
-  InsertionContent,
+  type InsertionContent,
+  type KeyPath,
+  type MarkdownContent,
   NodeType,
+  type TranslationContent,
 } from '@intlayer/core';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
-import { type FC, Fragment, ReactNode, useState } from 'react';
+import { type FC, Fragment, type ReactNode, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { useAuditContentDeclarationField } from '../../../hooks';
 import { renameKey } from '../../../utils/object';
@@ -32,22 +32,22 @@ import {
 } from '../../Button';
 import { Container } from '../../Container';
 import {
-  type ContentEditorInputProps as ContentEditorInputPropsBase,
   ContentEditorInput as ContentEditorInputBase,
+  type ContentEditorInputProps as ContentEditorInputPropsBase,
 } from '../../ContentEditor/ContentEditorInput';
 import {
-  type ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
   ContentEditorTextArea as ContentEditorTextAreaBase,
+  type ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
 } from '../../ContentEditor/ContentEditorTextArea';
 import { InputVariant } from '../../Input';
 import { Label } from '../../Label';
 import { useLocaleSwitcherContent } from '../../LocaleSwitcherContentDropDown';
 import { MarkdownRenderer } from '../../MarkDownRender';
 import {
-  type SwitchSelectorChoices,
-  type SwitchSelectorProps,
   SwitchSelector,
+  type SwitchSelectorChoices,
   SwitchSelectorColor,
+  type SwitchSelectorProps,
   SwitchSelectorSize,
 } from '../../SwitchSelector';
 import { EnumKeyInput } from '../EnumKeyInput';

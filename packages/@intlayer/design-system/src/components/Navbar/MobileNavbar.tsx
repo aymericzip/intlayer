@@ -1,7 +1,7 @@
 'use client';
 
 import { m, type Variants } from 'framer-motion';
-import { useRef, useState, type ReactElement, type ReactNode } from 'react';
+import { type ReactElement, type ReactNode, useRef, useState } from 'react';
 import { useScrollBlockage, useScrollDetection } from '../../hooks';
 import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';

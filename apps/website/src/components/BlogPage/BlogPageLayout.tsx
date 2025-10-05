@@ -1,10 +1,10 @@
 import { AsideNavigation } from '@components/AsideNavigation/AsideNavigation';
 import { BackgroundLayout } from '@components/BackgroundLayout';
-import { type LocalesValues } from 'intlayer';
-import { type FC, type ReactNode } from 'react';
+import type { LocalesValues } from 'intlayer';
+import type { FC, ReactNode } from 'react';
 import { BlogBreadCrumb } from './BlogBreadCrumb';
-import { getBlogData } from './blogData';
 import { BlogNavList } from './BlogNavList';
+import { getBlogData } from './blogData';
 
 type BlogPageLayoutProps = {
   children?: ReactNode;

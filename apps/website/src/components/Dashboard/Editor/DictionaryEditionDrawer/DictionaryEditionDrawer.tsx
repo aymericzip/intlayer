@@ -13,12 +13,12 @@ import {
 import { useFocusDictionary } from '@intlayer/editor-react';
 import { Pencil } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useState, type FC } from 'react';
+import { type FC, useState } from 'react';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
+  type FileContent as FileContentWithDictionaryPath,
   getDrawerIdentifier,
   useDictionaryEditionDrawer,
-  type FileContent as FileContentWithDictionaryPath,
 } from './useDictionaryEditionDrawer';
 
 type DictionaryEditionDrawerContentProps = {
@@ -86,6 +86,9 @@ export const DictionaryEditionDrawerContent: FC<
             onDelete={() => {
               setEditionModalOpen(false);
               handleOnBack();
+            }}
+            onSave={() => {
+              setEditionModalOpen(false);
             }}
           />
         </div>

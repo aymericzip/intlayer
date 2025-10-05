@@ -3,8 +3,8 @@
 import { MessageKey } from '@intlayer/editor';
 import { useEffect } from 'react';
 import {
-  useCrossFrameState,
   type CrossFrameStateOptions,
+  useCrossFrameState,
 } from './useCrossFrameState';
 
 export const useCrossURLPathState = (

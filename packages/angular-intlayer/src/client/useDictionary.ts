@@ -1,9 +1,9 @@
 import { computed, inject } from '@angular/core';
 import type { LocalesValues } from '@intlayer/config/client';
-import { type Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import { getDictionary } from '../getDictionary';
-import { DeepTransformContent } from '../plugins';
-import { INTLAYER_TOKEN, IntlayerProvider } from './installIntlayer';
+import type { DeepTransformContent } from '../plugins';
+import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 
 export const useDictionary = <T extends Dictionary>(
   dictionary: T,

@@ -1,5 +1,5 @@
 import { isSameKeyPath, type NodeProps } from '@intlayer/core';
-import { createMemo, type Component, type JSX } from 'solid-js';
+import { type Component, createMemo, type JSX } from 'solid-js';
 import { useIntlayerContext } from '../client';
 import { ContentSelector } from '../UI/ContentSelector';
 import { useEditorEnabled, useFocusDictionary } from './contexts';

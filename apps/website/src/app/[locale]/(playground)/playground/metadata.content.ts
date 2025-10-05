@@ -1,5 +1,5 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { type Dictionary, t } from 'intlayer';
+import type { Metadata } from 'next';
 
 const metadataContent = {
   key: 'playground-metadata',
@@ -24,13 +24,13 @@ const metadataContent = {
       en: 'Test the Intlayer visual editor by interacting with the website.',
       'en-GB':
         'Test the Intlayer visual editor by interacting with the website.',
-      fr: 'Testez l\éditeur visuel Intlayer en interagissant avec le site Web.',
+      fr: 'Testez léditeur visuel Intlayer en interagissant avec le site Web.',
       es: 'Pruebe el editor visual de Intlayer interactuando con el sitio web.',
       de: 'Testen Sie den Intlayer-visuellen Editor, indem Sie mit dem Website interagieren.',
       ja: 'Intlayer ビジュアルエディタをウェブサイトとの相互作用でテストします。',
       ko: 'Intlayer 시각 편집기를 웹사이트와 상호 작용하여 테스트합니다.',
       zh: '通过与网站进行互动来测试 Intlayer 视觉编辑器。',
-      it: 'Testa l\editor visuale di Intlayer interagendo con il sito web.',
+      it: 'Testa leditor visuale di Intlayer interagendo con il sito web.',
       pt: 'Teste o editor visual do Intlayer interagindo com o site.',
       hi: 'वेबसाइट के साथ इन्टलैयार व्हिडिओ एडिटर का अनुकूलता को प्रयोग करके जाँच करें।',
       ar: 'اختبار محرر الفيديو لـ Intlayer عن طريق التفاعل مع الموقع.',
@@ -96,13 +96,7 @@ const metadataContent = {
         'Editor',
         'Painel',
       ],
-      hi: [
-        'CMS',
-        'सामग्री प्रबंधन सिस्टम',
-        'व्हिडिओ एडिटर',
-        'एडिटर',
-        'डैशबोर्ड',
-      ],
+      hi: ['CMS', 'सामग्री प्रबंधन सिस्टम', 'व्हिडिओ एडिटर', 'एडिटर', 'डैशबोर्ड'],
       ar: ['CMS', 'نظام إدارة المحتوى', 'محرر الفيديو', 'محرر', 'لوحة القيادة'],
       ru: [
         'CMS',

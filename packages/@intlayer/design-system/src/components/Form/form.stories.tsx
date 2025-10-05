@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { z } from 'zod';
-import { Form, useForm } from '.';
 import { Select } from '../Select';
+import { Form, useForm } from '.';
 
 type FormStoryArgs = {
   autoComplete: boolean;

@@ -1,13 +1,13 @@
 'use client';
 
 import {
+  type FC,
+  type HTMLAttributes,
+  type MouseEventHandler,
   useCallback,
   useEffect,
   useRef,
   useState,
-  type FC,
-  type HTMLAttributes,
-  type MouseEventHandler,
 } from 'react';
 
 const DEFAULT_PRESS_DETECT_DURATION = 250;

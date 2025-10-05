@@ -1,7 +1,7 @@
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
 import { computed, inject } from 'vue';
-import { INTLAYER_SYMBOL, IntlayerProvider } from './installIntlayer';
+import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
 import { useLocaleCookie } from './useLocaleCookie';
 
 type useLocaleProps = {

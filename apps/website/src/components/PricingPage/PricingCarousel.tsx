@@ -2,20 +2,20 @@
 
 import { formatOnboardUrl } from '@components/OnboardPage/formatOnboardUrl';
 import { Steps } from '@components/OnboardPage/steps';
-import { GetPricingResult } from '@intlayer/backend';
+import type { GetPricingResult } from '@intlayer/backend';
 import { useGetPricing, useUser } from '@intlayer/design-system/hooks';
-import { useIntlayer } from 'next-intlayer';
 import { useSearchParams } from 'next/navigation';
+import { useIntlayer } from 'next-intlayer';
 import React, {
-  useEffect,
-  useRef,
-  useState,
   type FC,
   type HTMLAttributes,
   type MouseEventHandler,
   type TouchEventHandler,
+  useEffect,
+  useRef,
+  useState,
 } from 'react';
-import { Plans, type Period } from './data.content';
+import { type Period, Plans } from './data.content';
 import { PricingColumn } from './PricingColumn';
 
 type PricingCarouselProps = HTMLAttributes<HTMLDivElement> & {

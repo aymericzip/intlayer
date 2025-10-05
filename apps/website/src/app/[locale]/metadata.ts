@@ -1,6 +1,6 @@
 import { getDictionary, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata, Viewport } from 'next';
-import { type LocalPromiseParams } from 'next-intlayer';
+import type { LocalPromiseParams } from 'next-intlayer';
 import metadataContent from './metadata.content';
 
 export const generateMetadata = async ({

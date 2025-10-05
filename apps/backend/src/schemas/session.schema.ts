@@ -1,5 +1,5 @@
-import { SessionSchema } from '@/types/session.types';
 import { Schema } from 'mongoose';
+import type { SessionSchema } from '@/types/session.types';
 
 export const sessionSchema = new Schema<SessionSchema>(
   {

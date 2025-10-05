@@ -1,5 +1,5 @@
 import { build } from '@intlayer/cli';
-import { Locales, LogConfig } from '@intlayer/config';
+import { Locales, type LogConfig } from '@intlayer/config';
 import { getDoc, getDocBySlug, getDocMetadataRecord } from '@intlayer/docs';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';

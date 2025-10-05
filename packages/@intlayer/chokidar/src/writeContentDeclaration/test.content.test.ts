@@ -1,6 +1,6 @@
 import {
   cond,
-  Dictionary,
+  type Dictionary,
   enu,
   gender,
   insert,

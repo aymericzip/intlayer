@@ -1,5 +1,5 @@
-import type { Project, ProjectAPI } from '@/types/project.types';
 import { getOrganizationById } from '@services/organization.service';
+import type { Project, ProjectAPI } from '@/types/project.types';
 import { validateArray } from './validateArray';
 import { validateString } from './validateString';
 

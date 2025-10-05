@@ -1,4 +1,4 @@
-import { type IntlayerConfig, getConfiguration } from '@intlayer/config';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config';
 
 export const getExtension = (
   configuration: IntlayerConfig = getConfiguration(),

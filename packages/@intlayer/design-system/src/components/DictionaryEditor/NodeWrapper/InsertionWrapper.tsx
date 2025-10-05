@@ -1,8 +1,8 @@
 import {
-  NodeType,
   type ContentNode,
   type InsertionContent,
   type KeyPath,
+  NodeType,
 } from '@intlayer/core';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps } from './index';

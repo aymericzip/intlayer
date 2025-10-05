@@ -4,3 +4,4 @@ packages:
   - './packages/**/*'
   - './utils/*'
   - './examples/*'
+  - './plugins/*'

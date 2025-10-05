@@ -1,7 +1,7 @@
-import { PagesRoutes } from '@/Routes';
 import { Link } from '@components/Link/Link';
 import { cn } from '@utils/cn';
 import type { FC, SVGProps } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { ExpressLogo } from '../AvailableTechnoSection/Express';
 import { LynxLogo } from '../AvailableTechnoSection/Lynx';
 import { NestJSLogo } from '../AvailableTechnoSection/NestJS';
@@ -12,6 +12,7 @@ import { ReactLogo } from '../AvailableTechnoSection/Reactjs';
 import { TanstackLogo } from '../AvailableTechnoSection/Tanstack';
 import { ViteLogo } from '../AvailableTechnoSection/Vitejs';
 import { VuejsLogo } from '../AvailableTechnoSection/Vuejs';
+
 // import { SolidLogo } from '../AvailableTechnoSection/Solid';
 // import { AngularLogo } from '../AvailableTechnoSection/Angular';
 // import { SolidLogo } from '../AvailableTechnoSection/Solid';

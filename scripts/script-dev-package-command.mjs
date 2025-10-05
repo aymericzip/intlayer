@@ -16,7 +16,7 @@
  * @module FileWatcher
  */
 
-import { spawnSync } from 'child_process';
+import { spawnSync } from 'node:child_process';
 import chokidar from 'chokidar';
 import minimist from 'minimist';
 import process from 'process';

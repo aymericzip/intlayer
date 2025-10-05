@@ -5,7 +5,8 @@ import {
   saveToken,
   verifyScope,
 } from '@services/oAuth2.service';
-import OAuth2Server, { AuthenticateOptions } from 'oauth2-server';
+import type OAuth2Server from 'oauth2-server';
+import type { AuthenticateOptions } from 'oauth2-server';
 
 export const ACCESS_TOKEN_EXPIRES_IN = 60 * 60 * 2; // 2 hour
 

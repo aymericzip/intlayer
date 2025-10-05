@@ -1,7 +1,7 @@
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { getServerSession } from '@components/Auth/getServerSession';
 import { LanguageBackground } from '@components/LandingPage/LanguageSection';
-import { NextLayoutIntlayer } from 'next-intlayer';
+import type { NextLayoutIntlayer } from 'next-intlayer';
 
 // Required to revalidate session after user login/logout
 export const revalidate = 0;

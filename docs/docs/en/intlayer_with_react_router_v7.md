@@ -17,7 +17,7 @@ slugs:
   - environment
   - vite-and-react
   - react-router-v7
-applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7
+applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 ---
 
 # Getting Started Internationalizing (i18n) with Intlayer and React Router v7
@@ -56,7 +56,7 @@ pnpm add vite-intlayer --save-dev
 
 - **intlayer**
 
-  The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
+  The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
 
 - **react-intlayer**
   The package that integrates Intlayer with React application. It provides context providers and hooks for React internationalization.
@@ -138,7 +138,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // Localized home page
-    route("/:lang/about", "routes/about/page.tsx"), // Localized about page
+    route("/:lang?/about", "routes/about/page.tsx"), // Localized about page
   ]),
 ] satisfies RouteConfig;
 ```
@@ -170,7 +170,7 @@ export default function RootLayout({ params }: Route.ComponentProps) {
 
 Create and manage your content declarations to store translations:
 
-```tsx fileName="app/routes/[lang]/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="app/routes/[lang]/page.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
@@ -204,7 +204,7 @@ export default pageContent;
 
 > Your content declarations can be defined anywhere in your application as soon they are included into the `contentDir` directory (by default, `./app`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md).
+> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
 ### Step 7: Create Locale-Aware Components
 
@@ -471,7 +471,7 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 - [React Router v7 Documentation](https://reactrouter.com/)
 - [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md)
 - [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
-- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md)
+- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 - [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 for a fully internationalized application with locale-aware routing and TypeScript support.
@@ -481,4 +481,4 @@ This comprehensive guide provides everything you need to integrate Intlayer with
 | Version | Date       | Changes                   |
 | ------- | ---------- | ------------------------- |
 | 6.1.5   | 2025-10-03 | Updated doc               |
-| 5.8.2   | 2025-09-4  | Added for React Router v7 |
+| 5.8.2   | 2025-09-04 | Added for React Router v7 |

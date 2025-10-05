@@ -1,7 +1,7 @@
 'use client';
 
+import type { FC, PropsWithChildren } from 'react';
 import { useFirstConsultation } from '@/hooks/useFirstConsultation';
-import { FC, PropsWithChildren } from 'react';
 
 export const FirstConsultationProvider: FC<PropsWithChildren> = ({
   children,

@@ -1,6 +1,5 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { OptionalLink } from '@components/DocPage/DocNavList';
 import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
 import {
@@ -14,7 +13,8 @@ import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { ArrowLeftToLine } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useState, type FC } from 'react';
+import { type FC, useState } from 'react';
+import { PagesRoutes } from '@/Routes';
 import type { Section } from './types';
 
 type BlogNavListProps = {

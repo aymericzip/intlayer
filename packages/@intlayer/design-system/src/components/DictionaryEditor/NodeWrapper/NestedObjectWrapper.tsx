@@ -1,12 +1,12 @@
 import {
-  type KeyPath,
-  isSameKeyPath,
   type ContentNode,
+  isSameKeyPath,
+  type KeyPath,
   NodeType,
 } from '@intlayer/core';
 import type { FC } from 'react';
 import { ItemLayout } from '../ItemLayout';
-import { NodeWrapper, traceKeys, type NodeWrapperProps } from './index';
+import { NodeWrapper, type NodeWrapperProps, traceKeys } from './index';
 
 type NestedObjectWrapperProps = Omit<NodeWrapperProps, 'section'> & {
   section: Record<string, ContentNode>;

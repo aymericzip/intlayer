@@ -74,7 +74,7 @@ const MyComponent = () => {
 
 Bu kanca yerel ayar algılamayı sizin için yönetecek ve mevcut yerel ayar için içeriği döndürecektir. Bu kancayı kullanarak, markdown'ı yorumlayabilir, çoğullaştırmayı yönetebilir ve daha fazlasını yapabilirsiniz.
 
-> Intlayer'ın tüm özelliklerini görmek için [sözlük dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md) okuyabilirsiniz.
+> Intlayer'ın tüm özelliklerini görmek için [sözlük dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) okuyabilirsiniz.
 
 ## Uzak içerik
 

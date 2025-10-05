@@ -1,6 +1,6 @@
-import { join, relative } from 'path';
+import { join, relative } from 'node:path';
 import { getConfiguration } from './configFile/getConfiguration';
-import { IntlayerConfig } from './types/config';
+import type { IntlayerConfig } from './types/config';
 import { getExtension } from './utils/getExtension';
 import { normalizePath } from './utils/normalizePath';
 

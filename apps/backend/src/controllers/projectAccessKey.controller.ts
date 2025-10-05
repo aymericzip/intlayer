@@ -1,12 +1,12 @@
-import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { sendEmail } from '@services/email.service';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { hasPermission, intersectPermissions } from '@utils/permissions';
-import { type ResponseData, formatResponse } from '@utils/responseData';
+import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
+import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
 
 export type AddNewAccessKeyBody = AccessKeyData;
 export type AddNewAccessKeyResponse = ResponseData<OAuth2Access>;

@@ -1,8 +1,8 @@
 'use client';
 
 import { CircleDashed, Moon, Sun } from 'lucide-react';
-import { useState, type FC } from 'react';
-import { Button, ButtonVariant, type ButtonProps } from '../Button';
+import { type FC, useState } from 'react';
+import { Button, type ButtonProps, ButtonVariant } from '../Button';
 import { Container } from '../Container';
 import { DropDown } from '../DropDown';
 import { Modes } from './types';

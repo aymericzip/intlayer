@@ -1,6 +1,6 @@
 'use client';
 
-import { type ComponentProps, type FC } from 'react';
+import type { ComponentProps, FC } from 'react';
 import { cn } from '../../utils/cn';
 import { Label } from '../Label';
 import { useFormField } from './FormField';

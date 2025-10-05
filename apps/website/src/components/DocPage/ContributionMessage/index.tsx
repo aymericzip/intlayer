@@ -2,7 +2,7 @@ import { Link } from '@components/Link/Link';
 import { Popover } from '@intlayer/design-system';
 import { Edit } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer/server';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 export const ContributionMessage: FC<{ githubUrl: string }> = ({
   githubUrl,

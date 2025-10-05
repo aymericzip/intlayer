@@ -1,7 +1,7 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-import { type ComponentChildren, type FunctionComponent } from 'preact';
+import type { ComponentChildren, FunctionComponent } from 'preact';
 import { useEditorEnabled } from './EditorEnabledContext';
 import { EditorProvider } from './EditorProvider';
 import { useCrossURLPathSetter } from './useCrossURLPathState';

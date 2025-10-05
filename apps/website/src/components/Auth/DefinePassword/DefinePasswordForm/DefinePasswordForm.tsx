@@ -2,7 +2,7 @@ import { Form, useForm } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import {
-  DefinePassword,
+  type DefinePassword,
   useDefinePasswordSchema,
 } from './useDefinePasswordSchema';
 

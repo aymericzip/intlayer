@@ -1,5 +1,5 @@
 import type { LocalesValues } from '@intlayer/config/client';
-import { derived, writable, type Readable, type Writable } from 'svelte/store';
+import { derived, type Readable, type Writable, writable } from 'svelte/store';
 
 export interface IntlayerStoreType {
   locale: LocalesValues;

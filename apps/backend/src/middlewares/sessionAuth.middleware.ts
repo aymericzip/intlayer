@@ -1,7 +1,7 @@
-import { Session } from '@/types/session.types';
-import { formatSession, type Auth } from '@utils/auth/getAuth';
+import { type Auth, formatSession } from '@utils/auth/getAuth';
 import { fromNodeHeaders } from 'better-auth/node';
 import type { NextFunction, Request, Response } from 'express';
+import type { Session } from '@/types/session.types';
 
 export type ResponseWithSession<
   ResBody = any,

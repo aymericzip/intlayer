@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { type Locales } from '@intlayer/config/client';
+import type { Locales } from '@intlayer/config/client';
 
 import {
   type NextFetchEvent,

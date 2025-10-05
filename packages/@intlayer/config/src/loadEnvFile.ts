@@ -1,5 +1,5 @@
+import { existsSync } from 'node:fs';
 import dotenv from 'dotenv';
-import { existsSync } from 'fs';
 
 const DEFAULT_ENV = process.env.NODE_ENV ?? 'development';
 

@@ -1,10 +1,10 @@
 /* AUTO-GENERATED – DO NOT EDIT */
 /* REGENERATE USING `pnpm prepare` */
+import { existsSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { LocalesValues } from '@intlayer/config';
-import { existsSync } from 'fs';
-import { readFile } from 'fs/promises';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
 
 const isESModule = typeof import.meta.url === 'string';
 const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;
@@ -15,12 +15,12 @@ const readLocale = (
 ): Promise<string> => {
   const target = join(
     dir,
-    '../../../frequent_questions/' + locale + '/' + relativeAfterLocale
+    `../../../frequent_questions/${locale}/${relativeAfterLocale}`
   );
   if (!existsSync(target)) {
-    console.error('File not found: ' + target);
+    console.error(`File not found: ${target}`);
     return readFile(
-      join(dir, '../../../frequent_questions/en/' + relativeAfterLocale),
+      join(dir, `../../../frequent_questions/en/${relativeAfterLocale}`),
       'utf8'
     );
   }

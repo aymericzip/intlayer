@@ -1,6 +1,6 @@
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 import type { Dictionary } from '../types';
-import type { Plugins, NodeProps, DeepTransformContent } from './getContent';
+import type { DeepTransformContent, NodeProps, Plugins } from './getContent';
 import { getContent } from './getContent/getContent';
 
 /**

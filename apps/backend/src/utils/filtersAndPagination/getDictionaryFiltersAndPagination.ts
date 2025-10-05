@@ -1,7 +1,7 @@
-import type { Dictionary } from '@/types/dictionary.types';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
+import type { Dictionary } from '@/types/dictionary.types';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,

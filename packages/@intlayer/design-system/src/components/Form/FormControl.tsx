@@ -1,7 +1,7 @@
 'use client';
 
 import { Slot } from '@radix-ui/react-slot';
-import type { FC, ComponentProps } from 'react';
+import type { ComponentProps, FC } from 'react';
 import { useFormField } from './FormField';
 
 export const FormControl: FC<ComponentProps<typeof Slot>> = (props) => {

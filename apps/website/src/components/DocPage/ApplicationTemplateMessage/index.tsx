@@ -2,7 +2,7 @@ import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
 import { Popover } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer/server';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 type ApplicationTemplateMessageProps = {
   applicationTemplateUrl: string;

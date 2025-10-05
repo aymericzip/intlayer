@@ -1,11 +1,11 @@
 'use client';
 
-import { type IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/config/client';
 import { MessageKey } from '@intlayer/editor';
 import {
+  createContext,
   type FC,
   type PropsWithChildren,
-  createContext,
   useContext,
 } from 'react';
 import { useCrossFrameState } from './useCrossFrameState';

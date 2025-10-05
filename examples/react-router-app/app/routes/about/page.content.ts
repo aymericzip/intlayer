@@ -7,11 +7,6 @@ const appContent = {
       es: 'Acerca de',
       fr: 'À propos',
     }),
-    home: t({
-      en: 'Home',
-      es: 'Inicio',
-      fr: 'Accueil',
-    }),
   },
   key: 'about',
 } satisfies Dictionary;

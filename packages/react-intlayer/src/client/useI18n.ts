@@ -6,10 +6,10 @@ import type {
   GetSubPath,
   ValidDotPathsFor,
 } from '@intlayer/core';
-import type { DeepTransformContent } from '../plugins';
 // @ts-ignore intlayer declared for module augmentation
 import { getIntlayer, type IntlayerDictionaryTypesConnector } from 'intlayer';
 import { useContext, useMemo } from 'react';
+import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
@@ -40,7 +40,7 @@ export const useI18n = <T extends DictionaryKeys>(
   );
 
   // Get the dictionary content for the namespace
-  let dictionaryContent: DeepTransformContent<
+  const dictionaryContent: DeepTransformContent<
     IntlayerDictionaryTypesConnector[T]['content']
   > = useMemo(
     () => getIntlayer(namespace, localeTarget),

@@ -1,7 +1,7 @@
-import type { Tag } from '@/types/tag.types';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
+import type { Tag } from '@/types/tag.types';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,

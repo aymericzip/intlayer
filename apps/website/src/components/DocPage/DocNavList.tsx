@@ -1,6 +1,5 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
 import { Link } from '@components/Link/Link';
 import {
@@ -14,7 +13,8 @@ import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { ArrowLeftToLine, Bot } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useState, type ComponentProps, type FC } from 'react';
+import { type ComponentProps, type FC, useState } from 'react';
+import { PagesRoutes } from '@/Routes';
 import type { Section } from './types';
 
 type OptionalLinkProps = ComponentProps<typeof Link>;

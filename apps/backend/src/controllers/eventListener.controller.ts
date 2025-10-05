@@ -1,7 +1,7 @@
-import type { DictionaryAPI } from '@/types/dictionary.types';
 import { logger } from '@logger';
 import { ErrorHandler } from '@utils/errors';
 import type { Request, Response } from 'express';
+import type { DictionaryAPI } from '@/types/dictionary.types';
 
 export type Object = 'DICTIONARY';
 export type Status = 'ADDED' | 'UPDATED' | 'DELETED' | 'CREATED';

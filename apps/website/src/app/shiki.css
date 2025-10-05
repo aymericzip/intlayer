@@ -14,7 +14,7 @@
   --shiki-highlighted-word-border-color: rgba(169, 169, 169, 0.5);
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --shiki-line-number-color: rgba(209, 209, 209, 0.3);
   --shiki-highlighted-background-color: rgba(209, 209, 209, 0.1);
 
@@ -76,11 +76,11 @@ code .diff::before {
   text-align: right;
 }
 code .diff.add::before {
-  content: '+';
+  content: "+";
   color: var(--shiki-diff-add-sign-color);
 }
 code .diff.remove::before {
-  content: '-';
+  content: "-";
   color: var(--shiki-diff-remove-sign-color);
 }
 

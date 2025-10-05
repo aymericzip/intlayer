@@ -1,4 +1,3 @@
-import type { Routes } from '@/types/Routes';
 import {
   createUser,
   getUserByEmail,
@@ -8,6 +7,7 @@ import {
   verifyEmailStatusSSE,
 } from '@controllers/user.controller';
 import { Router } from 'express';
+import type { Routes } from '@/types/Routes';
 
 export const userRouter: Router = Router();
 

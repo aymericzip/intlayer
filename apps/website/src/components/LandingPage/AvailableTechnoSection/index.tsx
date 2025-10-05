@@ -1,12 +1,11 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { Link } from '@components/Link/Link';
 import { useDevice, useScreenWidth } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import {
+  type MotionValue,
   motion,
-  MotionValue,
   useMotionValueEvent,
   useScroll,
   useTransform,
@@ -14,6 +13,7 @@ import {
 import { useIntlayer } from 'next-intlayer';
 import type { CSSProperties, FC, SVGProps } from 'react';
 import { useRef, useState } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { AngularLogo } from './Angular';
 import { NextJSLogo } from './Nextjs';
 import { NuxtLogo } from './Nuxt';

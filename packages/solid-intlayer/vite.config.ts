@@ -1,6 +1,6 @@
-import fg from 'fast-glob';
+import { extname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { extname, relative } from 'path';
+import fg from 'fast-glob';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import solidPlugin from 'vite-plugin-solid';

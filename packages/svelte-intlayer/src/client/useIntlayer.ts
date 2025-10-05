@@ -1,10 +1,10 @@
 import type { LocalesValues } from '@intlayer/config/client';
 import type { DictionaryKeys } from '@intlayer/core';
-import { derived, type Readable } from 'svelte/store';
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
+import { derived, type Readable } from 'svelte/store';
 import { getIntlayer } from '../getIntlayer';
-import { DeepTransformContent } from '../plugins';
+import type { DeepTransformContent } from '../plugins';
 import { getIntlayerContext } from './intlayerContext';
 import { intlayerStore } from './intlayerStore';
 

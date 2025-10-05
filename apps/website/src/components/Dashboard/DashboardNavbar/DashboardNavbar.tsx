@@ -1,14 +1,14 @@
 'use client';
 
-import { type ExternalLinks, PagesRoutes } from '@/Routes';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
 import { Container, Logo, TabSelector } from '@intlayer/design-system';
 import { useDevice, useSession } from '@intlayer/design-system/hooks';
-import { useLocale } from 'next-intlayer';
 import dynamic from 'next/dynamic';
-import { type FC, type ReactNode } from 'react';
+import { useLocale } from 'next-intlayer';
+import type { FC, ReactNode } from 'react';
+import { type ExternalLinks, PagesRoutes } from '@/Routes';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
 

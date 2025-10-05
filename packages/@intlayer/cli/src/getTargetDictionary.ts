@@ -1,8 +1,11 @@
-import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
-import { getConfiguration, GetConfigurationOptions } from '@intlayer/config';
-import { Dictionary } from '@intlayer/core';
+import { join, relative } from 'node:path';
+import { type ListGitFilesOptions, listGitFiles } from '@intlayer/chokidar';
+import {
+  type GetConfigurationOptions,
+  getConfiguration,
+} from '@intlayer/config';
+import type { Dictionary } from '@intlayer/core';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
-import { join, relative } from 'path';
 
 export const ensureArray = <T>(value: T | T[]): T[] => [value].flat() as T[];
 

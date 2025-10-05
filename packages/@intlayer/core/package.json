@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/core",
-  "version": "6.1.6-canary.0",
+  "version": "6.1.6",
   "private": false,
   "description": "Includes core Intlayer functions like translation, dictionary, and utility functions shared across multiple packages.",
   "keywords": [
@@ -57,51 +57,6 @@
       "require": "./dist/cjs/transpiler/file/fileBrowser.cjs",
       "import": "./dist/esm/transpiler/file/fileBrowser.mjs"
     },
-    "./compact": {
-      "types": "./dist/types/formatters/compact.d.ts",
-      "import": "./dist/esm/formatters/compact.mjs",
-      "require": "./dist/cjs/formatters/compact.cjs"
-    },
-    "./currency": {
-      "types": "./dist/types/formatters/currency.d.ts",
-      "import": "./dist/esm/formatters/currency.mjs",
-      "require": "./dist/cjs/formatters/currency.cjs"
-    },
-    "./date": {
-      "types": "./dist/types/formatters/date.d.ts",
-      "import": "./dist/esm/formatters/date.mjs",
-      "require": "./dist/cjs/formatters/date.cjs"
-    },
-    "./relativeTime": {
-      "types": "./dist/types/formatters/relativeTime.d.ts",
-      "import": "./dist/esm/formatters/relativeTime.mjs",
-      "require": "./dist/cjs/formatters/relativeTime.cjs"
-    },
-    "./number": {
-      "types": "./dist/types/formatters/number.d.ts",
-      "import": "./dist/esm/formatters/number.mjs",
-      "require": "./dist/cjs/formatters/number.cjs"
-    },
-    "./units": {
-      "types": "./dist/types/formatters/units.d.ts",
-      "import": "./dist/esm/formatters/units.mjs",
-      "require": "./dist/cjs/formatters/units.cjs"
-    },
-    "./list": {
-      "types": "./dist/types/formatters/list.d.ts",
-      "import": "./dist/esm/formatters/list.mjs",
-      "require": "./dist/cjs/formatters/list.cjs"
-    },
-    "./percentage": {
-      "types": "./dist/types/formatters/percentage.d.ts",
-      "import": "./dist/esm/formatters/percentage.mjs",
-      "require": "./dist/cjs/formatters/percentage.cjs"
-    },
-    "./intl": {
-      "types": "./dist/types/utils/intl.d.ts",
-      "import": "./dist/esm/utils/intl.mjs",
-      "require": "./dist/cjs/utils/intl.cjs"
-    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -117,33 +72,6 @@
       ],
       "file/browser": [
         "./dist/types/transpiler/file/file.d.ts"
-      ],
-      "compact": [
-        "./dist/types/formatters/compact.d.ts"
-      ],
-      "currency": [
-        "./dist/types/formatters/currency.d.ts"
-      ],
-      "date": [
-        "./dist/types/formatters/date.d.ts"
-      ],
-      "relativeTime": [
-        "./dist/types/formatters/relativeTime.d.ts"
-      ],
-      "number": [
-        "./dist/types/formatters/number.d.ts"
-      ],
-      "units": [
-        "./dist/types/formatters/units.d.ts"
-      ],
-      "list": [
-        "./dist/types/formatters/list.d.ts"
-      ],
-      "percentage": [
-        "./dist/types/formatters/percentage.d.ts"
-      ],
-      "intl": [
-        "./dist/types/utils/intl.d.ts"
       ],
       "package.json": [
         "./package.json"
@@ -161,10 +89,10 @@
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",
     "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
-    "lint": "eslint . --cache",
-    "lint:fix": "eslint . --cache --fix",
-    "prettier": "prettier . --check",
-    "prettier:fix": "prettier . --write",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "format": "biome format . --check",
+    "format:fix": "biome format --write .",
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
     "prepublish": "cp -f ../../../README.md ./README.md",
     "test": "vitest run",
@@ -181,14 +109,10 @@
   "devDependencies": {
     "@types/negotiator": "^0.6.3",
     "@types/node": "^24.5.2",
-    "@typescript-eslint/parser": "^8.44.1",
-    "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.2.1",
-    "eslint": "^9.36.0",
-    "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",

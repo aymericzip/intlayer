@@ -1024,9 +1024,9 @@ const { myMarkdownContent } = useIntlayer("my-component");
 
 Intlayerはモジュール拡張を利用して、TypeScriptの利点を活かし、コードベースをより強固にします。
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 TypeScriptの設定に自動生成された型定義が含まれていることを確認してください。
 

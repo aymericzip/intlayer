@@ -4,7 +4,7 @@ import {
   validateOAuth2AccessToken,
 } from '@services/oAuth2.service';
 import { formatSession } from '@utils/auth/getAuth';
-import { AppError, ErrorHandler } from '@utils/errors';
+import { type AppError, ErrorHandler } from '@utils/errors';
 import { authenticateOptions, getAuthModel } from '@utils/oAuth2';
 import type { NextFunction, Request, Response } from 'express';
 import OAuth2Server, {

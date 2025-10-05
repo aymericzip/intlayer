@@ -1,12 +1,12 @@
 'use client';
 
-import { PagesRoutes } from '@/Routes';
 import { useAskResetPassword } from '@intlayer/design-system/hooks';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useRef, type FC } from 'react';
+import { type FC, useRef } from 'react';
+import { PagesRoutes } from '@/Routes';
 import {
-  AskResetPasswordForm as ResetPasswordFormUI,
   type AskResetPassword,
+  AskResetPasswordForm as ResetPasswordFormUI,
 } from './AskResetPasswordForm';
 
 type AskResetPasswordFormProps = {

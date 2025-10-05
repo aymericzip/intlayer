@@ -10,13 +10,20 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.6",
+    "@astrojs/react": "^4.4.0",
+    "@astrojs/vue": "^5.1.1",
     "@tailwindcss/vite": "^4.1.13",
     "@types/canvas-confetti": "^1.9.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
     "astro": "^5.14.1",
     "astro-intlayer": "workspace:*",
     "canvas-confetti": "^1.9.3",
     "intlayer": "workspace:*",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-intlayer": "workspace:*",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.13",
+    "vue": "^3.5.22"
   }
 }

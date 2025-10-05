@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
-import { type InputProps } from '../Input';
+import type { InputProps } from '../Input';
 import { ContentEditor, ContentEditorInput } from './';
 
 /**

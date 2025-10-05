@@ -1,5 +1,6 @@
 export {
   IntlayerClientContext,
+  type IntlayerNode,
   MarkdownProvider,
   t,
   useDictionary,
@@ -9,13 +10,12 @@ export {
   useIntlayer,
   useLoadDynamic,
   useLocaleCookie,
-  type IntlayerNode,
 } from 'react-intlayer';
 export {
   IntlayerClientProvider,
+  type IntlayerClientProviderProps,
   useLocale,
   useLocalePageRouter,
-  type IntlayerClientProviderProps,
 } from './client/index';
 export { generateStaticParams } from './generateStaticParams';
 export type {

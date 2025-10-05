@@ -6,9 +6,9 @@ import type { LocalesValues } from '@intlayer/config/client';
 import { localeResolver } from '@intlayer/core';
 import { MessageKey, useCrossFrameState } from '@intlayer/editor-react';
 import {
+  createContext,
   type FC,
   type PropsWithChildren,
-  createContext,
   useContext,
 } from 'react';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';

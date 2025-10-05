@@ -5,8 +5,8 @@ import {
 } from 'solid-intlayer';
 import { createSignal } from 'solid-js';
 import './App.css';
-import solidLogo from './assets/solid.svg';
 import viteLogo from '/vite.svg';
+import solidLogo from './assets/solid.svg';
 
 const AppContent = () => {
   const [count, setCount] = createSignal(0);
@@ -23,10 +23,10 @@ const AppContent = () => {
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
+        <a href="https://vite.dev" target="_blank" rel="noopener">
           <img src={viteLogo} class="logo" alt={viteLogoLabel.value} />
         </a>
-        <a href="https://solidjs.com" target="_blank">
+        <a href="https://solidjs.com" target="_blank" rel="noopener">
           <img src={solidLogo} class="logo solid" alt={solidLogoLabel.value} />
         </a>
       </div>

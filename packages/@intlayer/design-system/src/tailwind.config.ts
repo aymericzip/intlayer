@@ -1,14 +1,16 @@
-import path from 'path';
+// biome-ignore lint/style/useNodejsImportProtocol: <build failed without this>
+import { dirname, relative } from 'path';
+// biome-ignore lint/style/useNodejsImportProtocol: <build failed without this>
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
-const __dirname = path.dirname(__filename); // get the name of the directory
+const __dirname = dirname(__filename); // get the name of the directory
 
 const getTailwindConfig = () => {
   const originAbsolutePath = process.cwd();
   const localePath = __dirname;
 
-  let relativePath = path.relative(originAbsolutePath, localePath);
+  let relativePath = relative(originAbsolutePath, localePath);
 
   if (!relativePath) {
     relativePath = '.';

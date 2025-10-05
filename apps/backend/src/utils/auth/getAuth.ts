@@ -1,11 +1,3 @@
-import type { OrganizationAPI } from '@/types/organization.types';
-import type { ProjectAPI } from '@/types/project.types';
-import type {
-  Session,
-  SessionContext,
-  SessionDataApi,
-} from '@/types/session.types';
-import type { User, UserAPI } from '@/types/user.types';
 import { sendVerificationUpdate } from '@controllers/user.controller';
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
@@ -21,11 +13,19 @@ import {
   getSessionRoles,
   intersectPermissions,
 } from '@utils/permissions';
-import { betterAuth, OmitId } from 'better-auth';
+import { betterAuth, type OmitId } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
 import { customSession } from 'better-auth/plugins';
 import type { MongoClient } from 'mongodb';
+import type { OrganizationAPI } from '@/types/organization.types';
+import type { ProjectAPI } from '@/types/project.types';
+import type {
+  Session,
+  SessionContext,
+  SessionDataApi,
+} from '@/types/session.types';
+import type { User, UserAPI } from '@/types/user.types';
 
 export type Auth = ReturnType<typeof betterAuth>;
 

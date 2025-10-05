@@ -1,16 +1,16 @@
+import { existsSync } from 'node:fs';
+import { readFile, writeFile } from 'node:fs/promises';
+import { extname } from 'node:path';
 import {
   getAppLogger,
   getConfiguration,
-  IntlayerConfig,
+  type IntlayerConfig,
   logger,
 } from '@intlayer/config';
-import { Dictionary } from '@intlayer/core';
-import { existsSync } from 'fs';
-import { readFile, writeFile } from 'fs/promises';
-import { extname } from 'path';
+import type { Dictionary } from '@intlayer/core';
 import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 import {
-  Extension,
+  type Extension,
   getFormatFromExtension,
 } from '../utils/getFormatFromExtension';
 import { formatCode } from './formatCode';
@@ -34,7 +34,7 @@ export const writeJSFile = async (
   if (!existsSync(filePath)) {
     const fileExtension = extname(filePath) as Extension;
 
-    let format = getFormatFromExtension(fileExtension);
+    const format = getFormatFromExtension(fileExtension);
 
     appLogger('File does not exist, creating it', {
       isVerbose: true,

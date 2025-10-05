@@ -2,7 +2,7 @@ import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/Au
 import { getServerSession } from '@components/Auth/getServerSession';
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { LanguageBackground } from '@components/LandingPage/LanguageSection';
-import { NextLayoutIntlayer } from 'next-intlayer';
+import type { NextLayoutIntlayer } from 'next-intlayer';
 
 // Required to revalidate session after user login/logout
 export const revalidate = 0;

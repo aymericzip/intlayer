@@ -1,5 +1,5 @@
-import { type Session } from '@intlayer/backend';
-import { ReactNode } from 'react';
+import type { Session } from '@intlayer/backend';
+import type { ReactNode } from 'react';
 
 export const accessValidation = (
   accessRule: AuthenticationBarrierProps['accessRule'],

@@ -1,4 +1,4 @@
-import { cond, t, type Dictionary } from 'intlayer';
+import { cond, type Dictionary, t } from 'intlayer';
 
 const expandCollapseContent = {
   key: 'expand-collapse',

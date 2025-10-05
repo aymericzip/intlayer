@@ -1,18 +1,18 @@
-import { PagesRoutes } from '@/Routes';
-import { getPreviousNextBlogData } from '@components/BlogPage/blogData';
 import { BlogRender } from '@components/BlogPage/BlogRender';
+import { getPreviousNextBlogData } from '@components/BlogPage/blogData';
 import { DocHeader } from '@components/DocPage/DocHeader/DocHeader';
 import {
   DocPageNavigation,
-  DocPageNavigationProps,
+  type DocPageNavigationProps,
 } from '@components/DocPage/DocPageNavigation/DocPageNavigation';
-import { BlogKey, getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
+import { type BlogKey, getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
 import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import { urlRenamer } from '@utils/markdown';
 import { getLocalizedUrl } from 'intlayer';
-import { type LocalPromiseParams } from 'next-intlayer';
-import { IntlayerServerProvider } from 'next-intlayer/server';
 import { redirect } from 'next/navigation';
+import type { LocalPromiseParams } from 'next-intlayer';
+import { IntlayerServerProvider } from 'next-intlayer/server';
+import { PagesRoutes } from '@/Routes';
 import type { BlogProps } from './layout';
 
 const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {

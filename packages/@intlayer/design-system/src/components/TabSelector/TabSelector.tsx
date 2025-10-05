@@ -3,9 +3,9 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
   cloneElement,
-  useRef,
   type HTMLAttributes,
   type ReactElement,
+  useRef,
 } from 'react';
 import { useItemSelector } from '../../hooks';
 import { cn } from '../../utils/cn';

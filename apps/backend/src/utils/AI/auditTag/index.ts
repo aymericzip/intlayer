@@ -1,11 +1,11 @@
-import type { Dictionary } from '@/types/dictionary.types';
-import type { Tag } from '@/types/tag.types';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { logger } from '@logger';
 import { generateText } from 'ai';
-import { readFileSync } from 'fs';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
-import { AIConfig, AIOptions } from '../aiSdk';
+import type { Dictionary } from '@/types/dictionary.types';
+import type { Tag } from '@/types/tag.types';
+import type { AIConfig, AIOptions } from '../aiSdk';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

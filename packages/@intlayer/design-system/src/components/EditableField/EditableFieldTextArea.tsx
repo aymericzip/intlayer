@@ -1,6 +1,6 @@
 'use client';
 
-import { useImperativeHandle, useRef, type FC, type Ref } from 'react';
+import { type FC, type Ref, useImperativeHandle, useRef } from 'react';
 import { AutoSizedTextArea, type AutoSizedTextAreaProps } from '../TextArea';
 import { EditableFieldLayout } from './EditableFieldLayout';
 

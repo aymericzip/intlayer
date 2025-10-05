@@ -1,4 +1,4 @@
-import { IInterpreterPluginSvelte } from './plugins';
+import type { IInterpreterPluginSvelte } from './plugins';
 
 declare module '@intlayer/core' {
   interface IInterpreterPlugin<T, S> extends IInterpreterPluginSvelte<T> {}

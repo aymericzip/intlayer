@@ -1,10 +1,10 @@
 export type {
   LocalParams,
-  Next14PageIntlayer,
-  Next15PageIntlayer,
-  NextPageIntlayer,
-  Next14LayoutIntlayer,
-  Next15LayoutIntlayer,
-  NextLayoutIntlayer,
   LocalPromiseParams,
+  Next14LayoutIntlayer,
+  Next14PageIntlayer,
+  Next15LayoutIntlayer,
+  Next15PageIntlayer,
+  NextLayoutIntlayer,
+  NextPageIntlayer,
 } from './NextPage';

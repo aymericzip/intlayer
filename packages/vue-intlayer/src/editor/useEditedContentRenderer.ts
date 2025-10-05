@@ -1,5 +1,5 @@
-import { type KeyPath } from '@intlayer/core';
-import { computed, inject, type ComputedRef } from 'vue';
+import type { KeyPath } from '@intlayer/core';
+import { type ComputedRef, computed, inject } from 'vue';
 import { createSharedComposable } from './createSharedComposable';
 
 export interface EditedContentActions {

@@ -1,8 +1,8 @@
 import type { LocalesValues } from '@intlayer/config/client';
-import { type Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import { derived, type Readable } from 'svelte/store';
 import { getDictionary } from '../getDictionary';
-import { DeepTransformContent } from '../plugins';
+import type { DeepTransformContent } from '../plugins';
 import { getIntlayerContext } from './intlayerContext';
 import { intlayerStore } from './intlayerStore';
 

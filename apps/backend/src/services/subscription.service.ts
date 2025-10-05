@@ -1,9 +1,9 @@
-import type { Organization } from '@/types/organization.types';
-import type { Plan } from '@/types/plan.types';
 import { logger } from '@logger';
 import { GenericError } from '@utils/errors';
 import { retrievePlanInformation } from '@utils/plan';
 import Stripe from 'stripe';
+import type { Organization } from '@/types/organization.types';
+import type { Plan } from '@/types/plan.types';
 import { sendEmail } from './email.service';
 import { getOrganizationById, updatePlan } from './organization.service';
 import { getUserById } from './user.service';

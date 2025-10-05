@@ -34,7 +34,7 @@ export const parseYaml = <T = any>(input: string): T | null => {
 
   // Fix arrays with unquoted items (e.g., [content, anotherContent])
   normalizedInput = normalizedInput.replace(
-    /\[([^\[\]]+?)\]/g,
+    /\[([^[\]]+?)\]/g,
     (_match, arrayContent) => {
       const newContent = (arrayContent as string)
         .split(',')

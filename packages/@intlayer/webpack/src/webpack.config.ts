@@ -1,5 +1,5 @@
+import { join } from 'node:path';
 import { getConfiguration } from '@intlayer/config';
-import { join } from 'path';
 import type { Configuration as WebPackConfiguration } from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import { getEntries } from './getEntries';

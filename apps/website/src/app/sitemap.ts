@@ -1,4 +1,3 @@
-import { PagesRoutes } from '@/Routes';
 import {
   getBlogMetadataBySlug,
   getDocMetadataBySlug,
@@ -6,6 +5,7 @@ import {
 } from '@intlayer/docs';
 import { getMultilingualUrls } from 'intlayer';
 import type { MetadataRoute } from 'next';
+import { PagesRoutes } from '@/Routes';
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const docs = await getDocMetadataBySlug([]);

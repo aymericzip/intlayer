@@ -1,10 +1,10 @@
 /* AUTO-GENERATED – DO NOT EDIT */
 /* REGENERATE USING `pnpm prepare` */
+import { existsSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { LocalesValues } from '@intlayer/config';
-import { existsSync } from 'fs';
-import { readFile } from 'fs/promises';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
 
 const isESModule = typeof import.meta.url === 'string';
 const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;
@@ -13,14 +13,11 @@ const readLocale = (
   relativeAfterLocale: string,
   locale: LocalesValues
 ): Promise<string> => {
-  const target = join(
-    dir,
-    '../../../docs/' + locale + '/' + relativeAfterLocale
-  );
+  const target = join(dir, `../../../docs/${locale}/${relativeAfterLocale}`);
   if (!existsSync(target)) {
-    console.error('File not found: ' + target);
+    console.error(`File not found: ${target}`);
     return readFile(
-      join(dir, '../../../docs/en/' + relativeAfterLocale),
+      join(dir, `../../../docs/en/${relativeAfterLocale}`),
       'utf8'
     );
   }
@@ -379,6 +376,22 @@ export const docsEntry = {
     it: readLocale('intlayer_with_angular.md', 'it'),
     hi: readLocale('intlayer_with_angular.md', 'hi'),
     tr: readLocale('intlayer_with_angular.md', 'tr'),
+  } as unknown as Record<LocalesValues, Promise<string>>,
+  './docs/en/intlayer_with_astro.md': {
+    en: readLocale('intlayer_with_astro.md', 'en'),
+    fr: readLocale('intlayer_with_astro.md', 'fr'),
+    ru: readLocale('intlayer_with_astro.md', 'ru'),
+    ja: readLocale('intlayer_with_astro.md', 'ja'),
+    ko: readLocale('intlayer_with_astro.md', 'ko'),
+    zh: readLocale('intlayer_with_astro.md', 'zh'),
+    es: readLocale('intlayer_with_astro.md', 'es'),
+    de: readLocale('intlayer_with_astro.md', 'de'),
+    ar: readLocale('intlayer_with_astro.md', 'ar'),
+    pt: readLocale('intlayer_with_astro.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_astro.md', 'en-GB'),
+    it: readLocale('intlayer_with_astro.md', 'it'),
+    hi: readLocale('intlayer_with_astro.md', 'hi'),
+    tr: readLocale('intlayer_with_astro.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_create_react_app.md': {
     en: readLocale('intlayer_with_create_react_app.md', 'en'),

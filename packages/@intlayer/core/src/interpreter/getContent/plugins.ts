@@ -250,9 +250,11 @@ export const insertionPlugin: Plugins = {
           ],
         });
 
-        return (values: {
-          [K in InsertionContent['fields'][number]]: string | number;
-        }) => {
+        return (
+          values: {
+            [K in InsertionContent['fields'][number]]: string | number;
+          }
+        ) => {
           const children = getInsertion(transformedResult, values);
 
           return deepTransformNode(children, {
@@ -367,18 +369,20 @@ export type IInterpreterPluginState = {
 /**
  * Utility type to check if a plugin can be applied to a node.
  */
-type CheckApplyPlugin<T, K extends keyof IInterpreterPlugin<T, S>, S> =
-  // Test if the key is a key of S.
-  K extends keyof S
-    ? // Test if the key of S is true. Then the plugin can be applied.
-      S[K] extends true
-      ? // Test if the key of S exist
-        IInterpreterPlugin<T, S>[K] extends never
-        ? never
-        : // Test if the plugin condition is true (if it's not, the plugin is skipped for this node)
-          IInterpreterPlugin<T, S>[K]
-      : never
-    : never;
+type CheckApplyPlugin<
+  T,
+  K extends keyof IInterpreterPlugin<T, S>,
+  S,
+> = K extends keyof S // Test if the key is a key of S.
+  ? // Test if the key of S is true. Then the plugin can be applied.
+    S[K] extends true
+    ? // Test if the key of S exist
+      IInterpreterPlugin<T, S>[K] extends never
+      ? never
+      : // Test if the plugin condition is true (if it's not, the plugin is skipped for this node)
+        IInterpreterPlugin<T, S>[K]
+    : never
+  : never;
 
 /**
  * Traverse recursively through an object or array, applying each plugin as needed.
@@ -394,10 +398,11 @@ type Traverse<T, S> =
 /**
  * Traverse recursively through an object or array, applying each plugin as needed.
  */
-export type DeepTransformContent<T, S = IInterpreterPluginState> =
-  // Check if there is a plugin for T:
-  CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S>, S> extends never
-    ? // No plugin was found, so try to transform T recursively:
-      Traverse<T, S>
-    : // A plugin was found – use the plugin’s transformation.
-      IInterpreterPlugin<T, S>[keyof IInterpreterPlugin<T, S>];
+export type DeepTransformContent<
+  T,
+  S = IInterpreterPluginState,
+> = CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S>, S> extends never // Check if there is a plugin for T:
+  ? // No plugin was found, so try to transform T recursively:
+    Traverse<T, S>
+  : // A plugin was found – use the plugin’s transformation.
+    IInterpreterPlugin<T, S>[keyof IInterpreterPlugin<T, S>];

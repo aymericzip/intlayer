@@ -1,7 +1,7 @@
 import type { IntlayerConfig } from '@intlayer/config';
-import { RenameId } from '@utils/mongoDB/types';
+import type { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
-import { Token } from 'oauth2-server';
+import type { Token } from 'oauth2-server';
 import type { Organization, OrganizationAPI } from './organization.types';
 import type { User, UserAPI } from './user.types';
 

@@ -1,11 +1,11 @@
+import { mkdir } from 'node:fs/promises';
+import { relative, resolve } from 'node:path';
 import {
   ESMxCJSRequire,
   getConfiguration,
   type IntlayerConfig,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { mkdir } from 'fs/promises';
-import { relative, resolve } from 'path';
 import { loadContentDeclarations } from './loadContentDeclaration';
 
 export const loadLocalDictionaries = async (

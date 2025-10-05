@@ -17,7 +17,7 @@ slugs:
   - environment
   - vite-and-react
   - react-router-v7
-applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7
+applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 ---
 
 # Intlayer와 React Router v7로 시작하는 국제화(i18n)
@@ -139,7 +139,7 @@ import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 export default [
   layout("routes/layout.tsx", [
     route("/:lang?", "routes/page.tsx"), // 지역화된 홈 페이지
-    route("/:lang/about", "routes/about/page.tsx"), // 지역화된 소개 페이지
+    route("/:lang?/about", "routes/about/page.tsx"), // 지역화된 소개 페이지
   ]),
 ] satisfies RouteConfig;
 ```
@@ -171,7 +171,7 @@ export default function RootLayout({ params }: Route.ComponentProps) {
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요:
 
-```tsx fileName="app/routes/[lang]/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="app/routes/[lang]/page.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {

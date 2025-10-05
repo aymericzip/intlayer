@@ -1,6 +1,8 @@
-import vue from '@vitejs/plugin-vue';
+import { fileURLToPath } from 'node:url';
+import { createRequire } from
+'node:module
+
 import { createRequire } from 'module';
-import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 import { intlayer, intlayerMiddleware } from 'vite-intlayer';
 

@@ -2,9 +2,9 @@ import type { NodeProps } from '@intlayer/core';
 import {
   type ComponentChildren,
   Fragment,
-  type VNode,
   h,
   isValidElement,
+  type VNode,
 } from 'preact';
 
 export type IntlayerNode<

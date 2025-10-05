@@ -1,4 +1,4 @@
-import { inject, VNodeChild, type App } from 'vue';
+import { type App, inject, type VNodeChild } from 'vue';
 
 export const INTLAYER_MARKDOWN_SYMBOL = Symbol('intlayerMarkdown');
 

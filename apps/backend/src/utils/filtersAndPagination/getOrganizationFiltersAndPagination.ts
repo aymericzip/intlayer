@@ -1,7 +1,7 @@
-import type { Organization } from '@/types/organization.types';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
+import type { Organization } from '@/types/organization.types';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,

@@ -4,10 +4,10 @@ import type { LocalesValues } from '@intlayer/config/client';
 import { localeResolver } from '@intlayer/core';
 import {
   type Component,
-  type ParentProps,
   createContext,
   createEffect,
   createSignal,
+  type ParentProps,
   useContext,
 } from 'solid-js';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';

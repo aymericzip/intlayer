@@ -1,10 +1,11 @@
+import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
   ESMxCJSRequire,
   getAlias,
   getAppLogger,
   getConfiguration,
-  IntlayerConfig,
+  type IntlayerConfig,
   normalizePath,
 } from '@intlayer/config';
 import dictionaries from '@intlayer/dictionaries-entry';
@@ -13,7 +14,6 @@ import merge from 'deepmerge';
 import fg from 'fast-glob';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
-import { join, relative, resolve } from 'path';
 import { compareVersions } from './compareVersion';
 import { getNextVersion } from './getNextVertion';
 

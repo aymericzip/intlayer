@@ -1,8 +1,8 @@
 'use client';
 
 import {
-  type ThemeProviderProps,
   ThemeProvider as NextThemesProvider,
+  type ThemeProviderProps,
 } from 'next-themes';
 import type { FC } from 'react';
 

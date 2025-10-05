@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronRight } from 'lucide-react';
-import { useState, type FC } from 'react';
+import { type FC, useState } from 'react';
 import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 import { createFileTree, type FilePath } from './createFileTree';

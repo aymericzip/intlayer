@@ -1,4 +1,4 @@
-import { insert, md, t, type Dictionary } from 'intlayer';
+import { type Dictionary, insert, md, t } from 'intlayer';
 
 const appContent = {
   key: 'app',

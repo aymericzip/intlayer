@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
-import { LanguageContent, type Dictionary } from '@intlayer/core';
+import type { Dictionary, LanguageContent } from '@intlayer/core';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 import { useDictionary } from './useDictionary';

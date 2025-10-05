@@ -1,6 +1,6 @@
 import { getHTMLTextDir } from 'intlayer';
-import { useLocale } from 'preact-intlayer';
 import { useEffect } from 'preact/hooks';
+import { useLocale } from 'preact-intlayer';
 
 /**
  * Updates the HTML <html> element's `lang` and `dir` attributes based on the current locale.

@@ -1,7 +1,7 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 import { intlayer } from 'vite-intlayer';
 

@@ -1,22 +1,44 @@
-// eslint-disable-next-line no-restricted-imports
-import { Link, type LinkProps } from '@tanstack/react-router';
-import { getLocalizedUrl } from 'intlayer';
+import { Link, type LinkComponentProps } from '@tanstack/react-router';
+import type { FC } from 'react';
 import { useLocale } from 'react-intlayer';
 
-type LocalizedLinkProps = {
-  to: string;
-} & Omit<LinkProps, 'to'>;
+export const LOCALE_ROUTE = '{-$locale}' as const;
 
-export function LocalizedLink(props: LocalizedLinkProps) {
+// Main utility
+export type RemoveLocaleParam<T> = T extends string
+  ? RemoveLocaleFromString<T>
+  : T;
+
+export type To = RemoveLocaleParam<LinkComponentProps['to']>;
+
+type CollapseDoubleSlashes<S extends string> =
+  S extends `${infer H}//${infer T}` ? CollapseDoubleSlashes<`${H}/${T}`> : S;
+
+type LocalizedLinkProps = {
+  to?: To;
+} & Omit<LinkComponentProps, 'to'>;
+
+// Helpers
+type RemoveAll<
+  S extends string,
+  Sub extends string,
+> = S extends `${infer H}${Sub}${infer T}` ? RemoveAll<`${H}${T}`, Sub> : S;
+
+type RemoveLocaleFromString<S extends string> = CollapseDoubleSlashes<
+  RemoveAll<S, typeof LOCALE_ROUTE>
+>;
+
+export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
   const { locale } = useLocale();
 
-  const isExternal = (to: string) => {
-    return /^(https?:)?\/\//.test(to);
-  };
-
-  const to = isExternal(props.to)
-    ? props.to
-    : getLocalizedUrl(props.to, locale);
-
-  return <Link {...props} to={to as LinkProps['to']} />;
-}
+  return (
+    <Link
+      {...props}
+      params={{
+        locale,
+        ...(typeof props?.params === 'object' ? props?.params : {}),
+      }}
+      to={`/${LOCALE_ROUTE}${props.to}` as LinkComponentProps['to']}
+    />
+  );
+};

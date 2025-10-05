@@ -1,7 +1,7 @@
 // ORIGINALLY FROM CLOUDFLARE WRANGLER:
 // https://github.com/cloudflare/wrangler2/blob/main/.github/changeset-version.js
 
-import { exec } from 'child_process';
+import { exec } from 'node:child_process';
 import { promisify } from 'util';
 
 const execAsync = promisify(exec);

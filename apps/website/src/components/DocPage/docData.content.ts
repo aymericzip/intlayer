@@ -1,5 +1,8 @@
-import { DocKey, getDocMetadata as getDocMetadataCore } from '@intlayer/docs';
-import { localeRecord, t, type Dictionary } from 'intlayer';
+import {
+  type DocKey,
+  getDocMetadata as getDocMetadataCore,
+} from '@intlayer/docs';
+import { type Dictionary, localeRecord, t } from 'intlayer';
 
 const getDocMetadata = (doc: DocKey) =>
   t(localeRecord(async ({ locale }) => await getDocMetadataCore(doc, locale)));
@@ -494,11 +497,15 @@ const docDataContent: any = {
                 './docs/en/intlayer_with_react_router_v7.md'
               ),
             },
-            'tanstack-start': {
-              title: 'Tanstack Start',
-              default: getDocMetadata('./docs/en/intlayer_with_tanstack.md'),
-            },
           },
+        },
+        'tanstack-start': {
+          title: 'Tanstack Start',
+          default: getDocMetadata('./docs/en/intlayer_with_tanstack.md'),
+        },
+        astro: {
+          title: 'Astro',
+          default: getDocMetadata('./docs/en/intlayer_with_astro.md'),
         },
         'create-react-app': {
           title: 'React CRA',

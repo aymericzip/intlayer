@@ -1,5 +1,5 @@
 import type { FC, PropsWithChildren } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 export const AppRouter: FC<PropsWithChildren> = ({ children }) => (
   <Router>

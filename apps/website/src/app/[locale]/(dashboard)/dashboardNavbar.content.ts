@@ -1,7 +1,7 @@
-import { PagesRoutes } from '@/Routes';
 import type { DashboardFooterProps } from '@components/Dashboard/DashboardFooter';
 import type { NavbarProps } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
-import { t, type Dictionary } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
+import { PagesRoutes } from '@/Routes';
 
 type Content = {
   navbarLinks: NavbarProps['links'];

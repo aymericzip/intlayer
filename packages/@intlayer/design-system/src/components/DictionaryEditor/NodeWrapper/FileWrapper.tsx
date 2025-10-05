@@ -1,8 +1,8 @@
 import {
-  getContentNodeByKeyPath,
-  NodeType,
   type FileContent,
+  getContentNodeByKeyPath,
   type KeyPath,
+  NodeType,
 } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
 import type { FC } from 'react';

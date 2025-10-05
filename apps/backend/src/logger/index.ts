@@ -1,4 +1,4 @@
-import { transports, createLogger, format } from 'winston';
+import { createLogger, format, transports } from 'winston';
 
 export const logger = createLogger({
   format: format.combine(

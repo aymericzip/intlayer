@@ -1,367 +1,423 @@
 ---
-createdAt: 2025-09-07
-updatedAt: 2025-09-07
-title: TanStack Start'ta Intlayer ile Başlarken (React)
-description: Intlayer kullanarak TanStack Start uygulamanıza i18n ekleyin-bileşen düzeyinde sözlükler, yerelleştirilmiş URL'ler ve SEO dostu meta veriler.
+createdAt: 2025-09-09
+updatedAt: 2025-09-09
+title: Tanstack Start'ta Intlayer ile Başlarken
+description: Tanstack Start uygulamanıza Intlayer kullanarak uluslararasılaştırma (i18n) nasıl eklenir öğrenin. Uygulamanızı yerel dil yönlendirmesi ile çok dilli hale getirmek için bu kapsamlı rehberi takip edin.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
   - Intlayer
-  - TanStack Start
-  - TanStack Router
+  - Tanstack Start
   - React
   - i18n
-  - JavaScript
+  - TypeScript
+  - Yerel Dil Yönlendirmesi
 slugs:
   - doc
   - environment
-  - vite-and-react
   - tanstack-start
-applicationTemplate: https://github.com/AydinTheFirst/tanstack-start-intlayer
-author: AydinTheFirst
+applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 ---
 
-# Intlayer ve TanStack Start (React) ile uluslararasılaştırma (i18n) başlangıç kılavuzu
+# Intlayer ve Tanstack Start ile Uluslararasılaştırmaya (i18n) Başlarken
+
+Bu rehber, Tanstack Start projelerinde yerel dil yönlendirmesi, TypeScript desteği ve modern geliştirme uygulamalarıyla sorunsuz uluslararasılaştırma için **Intlayer**'ın nasıl entegre edileceğini göstermektedir.
 
 ## Intlayer Nedir?
 
-**Intlayer**, React uygulamaları için açık kaynaklı bir i18n araç takımıdır. Size şunları sağlar:
+**Intlayer**, modern web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir.
 
-- **TypeScript güvenliği ile bileşen yerel sözlükleri**.
-- **Dinamik meta veriler ve rotalar** (SEO hazır).
-- **Çalışma zamanı yerel ayar anahtarlaması** (ve yerel ayarları algılamak/kalıcı hale getirmek için yardımcılar).
-- **Yapı zamanı dönüşümleri + dev DX için Vite eklentisi**.
+Intlayer ile şunları yapabilirsiniz:
 
-Bu kılavuz, **TanStack Start** projesine Intlayer'ı nasıl bağlayacağınızı gösterir (Vite'i altında kullanan ve yönlendirme/SSR için TanStack Router kullanan).
+- **Bileşen seviyesinde bildirisel sözlükler kullanarak çevirileri kolayca yönetin.**
+- **Meta verileri, yönlendirmeleri ve içeriği dinamik olarak yerelleştirin.**
+- **Otomatik oluşturulan tiplerle TypeScript desteğini sağlayarak otomatik tamamlama ve hata tespitini geliştirin.**
+- **Dinamik yerel dil algılama ve değiştirme gibi gelişmiş özelliklerden faydalanın.**
+- **Tanstack Start'ın dosya tabanlı yönlendirme sistemi ile yerel dil farkındalıklı yönlendirmeyi etkinleştirin.**
 
 ---
 
-## Adım 1: Bağımlılıkları Kurma
+## Tanstack Start Uygulamasında Intlayer Kurulumu için Adım Adım Rehber
 
-```bash
-# npm
-npm i intlayer react-intlayer
-npm i -D vite-intlayer
+### Adım 1: Proje Oluşturma
 
-# pnpm
-pnpm add intlayer react-intlayer
-pnpm add -D vite-intlayer
+TanStack Start web sitesindeki [Yeni proje başlatma](https://tanstack.com/start/latest/docs/framework/react/quick-start) rehberini takip ederek yeni bir TanStack Start projesi oluşturun.
 
-# yarn
-yarn add intlayer react-intlayer
-yarn add -D vite-intlayer
+### Adım 2: Intlayer Paketlerini Yükleyin
+
+Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri yükleyin:
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install vite-intlayer --save-dev
 ```
 
-- **intlayer**: çekirdek (yapılandırma, sözlükler, CLI/dönüşümler).
-- **react-intlayer**: React için `<IntlayerProvider>` + kancalar.
-- **vite-intlayer**: Vite eklentisi, ayrıca yerel ayar algılama/yönlendirmeler için isteğe bağlı middleware (dev & SSR/önizlemede çalışır; üretim SSR için `dependencies`'a taşıyın).
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add vite-intlayer --save-dev
+```
 
----
+- **intlayer**
 
-## Adım 2: Intlayer'ı Yapılandırma
+- **intlayer**
 
-Proje kökünüzde `intlayer.config.ts` oluşturun:
+  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/get_started.md), dönüştürme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md) için uluslararasılaştırma araçları sağlayan temel paket.
 
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
+- **react-intlayer**
+  Intlayer'ı React uygulamasıyla entegre eden paket. React uluslararasılaştırması için bağlam sağlayıcıları ve kancalar sunar.
+
+- **vite-intlayer**
+  Intlayer'ı [Vite paketleyicisi](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için Vite eklentisini içerir; ayrıca kullanıcının tercih ettiği yereli algılayan, çerezleri yöneten ve URL yönlendirmesini ele alan ara yazılımı da kapsar.
+
+### Adım 3: Projenizin Yapılandırılması
+
+Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+import { Locales } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
-  // Ayrıca ayarlayabilirsiniz: contentDir, contentFileExtensions, middleware seçenekleri, vb.
 };
 
 export default config;
 ```
 
-CommonJS/ESM varyantları, `cjs`/`mjs`'yi tercih ederseniz orijinal dokümanınızla aynıdır.
+> Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'ler, ara yazılım yönlendirmesi, çerez isimleri, içerik bildirimlerinizin konumu ve uzantısı, Intlayer günlüklerini konsolda devre dışı bırakma ve daha fazlasını ayarlayabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakınız.
 
-> Tam yapılandırma referansı: Intlayer'ın yapılandırma dokümantasyonuna bakın.
+### Adım 4: Intlayer'ı Vite Yapılandırmanıza Entegre Edin
 
----
+Yapılandırmanıza intlayer eklentisini ekleyin:
 
-## Adım 3: Vite Eklentisini Ekleyin (ve isteğe bağlı middleware)
-
-**TanStack Start Vite kullanır**, bu yüzden Intlayer'ın eklenti(leri)ni `vite.config.ts`'nize ekleyin:
-
-```ts fileName="vite.config.ts"
+```typescript fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    intlayer(),
-    // Yerel ayar algılama, çerezler ve yönlendirmeler için isteğe bağlı ancak önerilen:
-    intlayerMiddleware(),
-  ],
+  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
 });
 ```
 
-> SSR dağıtırsanız, middleware'in üretimde çalışması için `vite-intlayer`'ı `dependencies`'a taşıyın.
+> `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve geliştirme modunda bunları izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca performansı optimize etmek için takma adlar sağlar.
 
----
+### Adım 5: Düzen Bileşenleri Oluşturun
 
-## Adım 4: İçeriğinizi Bildirin
+Kök düzeninizi ve yerel dile özgü düzenlerinizi ayarlayın:
 
-Sözlüklerinizi `./src` altında herhangi bir yere yerleştirin (varsayılan `contentDir`). Örnek:
+#### Kök Düzen
 
-```tsx fileName="src/app.content.tsx"
-import { t, type Dictionary } from "intlayer";
-import type { ReactNode } from "react";
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { IntlayerProvider, useLocale } from "react-intlayer";
+
+import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
+
+export const Route = createFileRoute("/{-$locale}")({
+  component: LayoutComponent,
+});
+
+function LayoutComponent() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    <IntlayerProvider locale={defaultLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
+}
+```
+
+### Adım 6: İçeriğinizi Bildirin
+
+Çevirileri depolamak için içerik bildirimlerinizi oluşturun ve yönetin:
+
+```tsx fileName="src/contents/page.content.ts"
+import type { Dictionary } from "intlayer";
+
+import { t } from "intlayer";
 
 const appContent = {
-  key: "app",
   content: {
-    viteLogo: t({ en: "Vite logo", fr: "Logo Vite", es: "Logo Vite" }),
-    reactLogo: t({ en: "React logo", fr: "Logo React", es: "Logo React" }),
+    links: {
+      about: t({
+        tr: "Hakkında",
+        en: "About",
+        es: "Acerca de",
+        fr: "À propos",
+      }),
+      home: t({
+        tr: "Ana Sayfa",
+        en: "Home",
+        es: "Inicio",
+        fr: "Accueil",
+      }),
+    },
+    meta: {
+      description: t({
+        tr: "Bu, Intlayer'ın TanStack Router ile kullanımına bir örnektir",
+        en: "This is an example of using Intlayer with TanStack Router",
+        es: "Este es un ejemplo de uso de Intlayer con TanStack Router",
+        fr: "Ceci est un exemple d'utilisation d'Intlayer avec TanStack Router",
+      }),
+    },
     title: t({
-      en: "TanStack Start + React",
-      fr: "TanStack Start + React",
-      es: "TanStack Start + React",
-    }),
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-    edit: t<ReactNode>({
-      en: (
-        <>
-          Edit <code>src/routes/index.tsx</code> and save to test HMR
-        </>
-      ),
-      fr: (
-        <>
-          Éditez <code>src/routes/index.tsx</code> et enregistrez pour tester
-          HMR
-        </>
-      ),
-      es: (
-        <>
-          Edita <code>src/routes/index.tsx</code> y guarda para probar HMR
-        </>
-      ),
-    }),
-    readTheDocs: t({
-      en: "Click the logos to learn more",
-      fr: "Cliquez sur les logos pour en savoir plus",
-      es: "Haz clic en los logotipos para saber más",
+      tr: "Intlayer + TanStack Router'a Hoş Geldiniz",
+      en: "Welcome to Intlayer + TanStack Router",
+      es: "Bienvenido a Intlayer + TanStack Router",
+      fr: "Bienvenue à Intlayer + TanStack Router",
     }),
   },
+  key: "app",
 } satisfies Dictionary;
 
 export default appContent;
 ```
 
-JSON/ESM/CJS varyantları orijinal dokümanınızla aynı şekilde çalışır.
+> İçerik bildirimleriniz, uygulamanızda herhangi bir yerde tanımlanabilir, yeter ki `contentDir` dizinine dahil edilsin (varsayılan olarak, `./app`). Ve içerik bildirim dosya uzantısıyla eşleşmelidir (varsayılan olarak, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> TSX içeriği? Kurulumunuz gerektiriyorsa `import React from "react"`'ı unutmayın.
+> Daha fazla ayrıntı için, [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/get_started.md) bakınız.
 
----
+### Adım 7: Yerel Dili Algılayan Bileşenler ve Hook'lar Oluşturun
 
-## Adım 5: TanStack Start'ı Intlayer ile Sarmalayın
+Yerel dil algılayan gezinme için bir `LocalizedLink` bileşeni oluşturun:
 
-TanStack Start ile, sağlayıcıları ayarlamak için **kök rota** doğru yerdir.
+```tsx fileName="src/components/localized-link.tsx"
+import type { FC } from "react";
 
-```tsx fileName="src/routes/__root.tsx"
-import {
-  Outlet,
-  createRootRoute,
-  Link as RouterLink,
-} from "@tanstack/react-router";
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
+import { Link, type LinkComponentProps } from "@tanstack/react-router";
+import { useLocale } from "react-intlayer";
 
-function AppShell() {
-  // Üst düzeyde bir sözlük kullanma örneği:
+export const LOCALE_ROUTE = "{-$locale}" as const;
+
+// Ana yardımcı
+export type RemoveLocaleParam<T> = T extends string
+  ? RemoveLocaleFromString<T>
+  : T;
+
+export type To = RemoveLocaleParam<LinkComponentProps["to"]>;
+
+type CollapseDoubleSlashes<S extends string> =
+  S extends `${infer H}//${infer T}` ? CollapseDoubleSlashes<`${H}/${T}`> : S;
+
+type LocalizedLinkProps = {
+  to?: To;
+} & Omit<LinkComponentProps, "to">;
+
+// Yardımcılar
+type RemoveAll<
+  S extends string,
+  Sub extends string,
+> = S extends `${infer H}${Sub}${infer T}` ? RemoveAll<`${H}${T}`, Sub> : S;
+
+type RemoveLocaleFromString<S extends string> = CollapseDoubleSlashes<
+  RemoveAll<S, typeof LOCALE_ROUTE>
+>;
+
+export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
+  const { locale } = useLocale();
+
+  return (
+    <Link
+      {...props}
+      params={{
+        locale,
+        ...(typeof props?.params === "object" ? props?.params : {}),
+      }}
+      to={`/${LOCALE_ROUTE}${props.to}` as LinkComponentProps["to"]}
+    />
+  );
+};
+```
+
+Bu bileşenin iki amacı vardır:
+
+- URL'den gereksiz `{-$locale}` önekini kaldırmak.
+- Kullanıcının doğrudan yerelleştirilmiş rotaya yönlendirilmesini sağlamak için URL'ye locale parametresini enjekte etmek.
+
+Daha sonra programatik gezinme için bir `useLocalizedNavigate` kancası oluşturabiliriz:
+
+```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
+import { useLocale } from "react-intlayer";
+import { useNavigate } from "@tanstack/react-router";
+import { LOCALE_ROUTE } from "@/components/localized-link";
+import type { FileRouteTypes } from "@/routeTree.gen";
+
+export const useLocalizedNavigate = () => {
+  const navigate = useNavigate();
+
+  const { locale } = useLocale();
+
+  type StripLocalePrefix<T extends string> = T extends
+    | `/${typeof LOCALE_ROUTE}`
+    | `/${typeof LOCALE_ROUTE}/`
+    ? "/"
+    : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
+      ? `/${Rest}`
+      : never;
+
+  type LocalizedTo = StripLocalePrefix<FileRouteTypes["to"]>;
+
+  interface LocalizedNavigate {
+    (to: LocalizedTo): ReturnType<typeof navigate>;
+    (
+      opts: { to: LocalizedTo } & Record<string, unknown>
+    ): ReturnType<typeof navigate>;
+  }
+
+  const localizedNavigate: LocalizedNavigate = (args: any) => {
+    if (typeof args === "string") {
+      return navigate({ to: `/${LOCALE_ROUTE}${args}`, params: { locale } });
+    }
+
+    const { to, ...rest } = args;
+
+    const localedTo = `/${LOCALE_ROUTE}${to}` as any;
+
+    return navigate({ to: localedTo, params: { locale, ...rest } as any });
+  };
+
+  return localizedNavigate;
+};
+```
+
+### Adım 8: Sayfalarınızda Intlayer'ı Kullanın
+
+Uygulamanız genelinde içerik sözlüklerinize erişin:
+
+#### Yerelleştirilmiş Ana Sayfa
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import { getIntlayer } from "intlayer";
+import { useIntlayer } from "react-intlayer";
+
+import LocaleSwitcher from "@/components/locale-switcher";
+import { LocalizedLink } from "@/components/localized-link";
+import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const metaContent = getIntlayer("app", locale);
+
+    return {
+      meta: [
+        { title: metaContent.title },
+        { content: metaContent.meta.description, name: "description" },
+      ],
+    };
+  },
+});
+
+function RouteComponent() {
   const content = useIntlayer("app");
+  const navigate = useLocalizedNavigate();
 
   return (
     <div>
-      <nav className="flex gap-3 p-3">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-      <main className="p-6">
-        <h1>{content.title}</h1>
-        <Outlet />
-      </main>
-    </div>
-  );
-}
-
-export const Route = createRootRoute({
-  component: () => (
-    <IntlayerProvider>
-      <AppShell />
-    </IntlayerProvider>
-  ),
-});
-```
-
-Ardından içeriğinizi sayfalarda kullanın:
-
-```tsx fileName="src/routes/index.tsx"
-import { createFileRoute } from "@tanstack/react-router";
-import { useIntlayer } from "react-intlayer";
-import reactLogo from "../assets/react.svg";
-
-export const Route = createFileRoute("/")({
-  component: () => {
-    const content = useIntlayer("app");
-    return (
-      <>
-        <button>{content.count}0</button>
-        <p>{content.edit}</p>
-        <img
-          src={reactLogo}
-          alt={content.reactLogo.value}
-          width={48}
-          height={48}
-        />
-        <p className="opacity-70">{content.readTheDocs}</p>
-      </>
-    );
-  },
-});
-```
-
-> Dize nitelikleri (`alt`, `title`, `aria-label`, …) `.value` gerektirir:
->
-> ```jsx
-> <img alt={c.reactLogo.value} />
-> ```
-
----
-
-## (İsteğe Bağlı) Adım 6: Yerel Ayar Anahtarlaması (İstemci)
-
-```tsx fileName="src/components/LocaleSwitcher.tsx"
-import { Locales } from "intlayer";
-import { useLocale } from "react-intlayer";
-
-export function LocaleSwitcher() {
-  const { setLocale } = useLocale();
-  return (
-    <div className="flex gap-2">
-      <button onClick={() => setLocale(Locales.ENGLISH)}>English</button>
-      <button onClick={() => setLocale(Locales.FRENCH)}>Français</button>
-      <button onClick={() => setLocale(Locales.SPANISH)}>Español</button>
+      <div>
+        {content.title}
+        <LocaleSwitcher />
+        <div>
+          <LocalizedLink to="/">{content.links.home}</LocalizedLink>
+          <LocalizedLink to="/about">{content.links.about}</LocalizedLink>
+        </div>
+        <div>
+          <button onClick={() => navigate({ to: "/" })}>
+            {content.links.home}
+          </button>
+          <button onClick={() => navigate({ to: "/about" })}>
+            {content.links.about}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
 ```
 
----
+> `useIntlayer` kancasını daha fazla öğrenmek için, [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md) bakınız.
 
-## (İsteğe Bağlı) Adım 7: Yerelleştirilmiş Yönlendirme (SEO dostu URL'ler)
+### Adım 9: Bir Dil Değiştirici (Locale Switcher) Bileşeni Oluşturun
 
-TanStack Start ile **iki iyi kalıp** vardır. Birini seçin.
+Kullanıcıların dilleri değiştirmesine izin veren bir bileşen oluşturun:
 
-URL'lerinizin `/:locale/...` olması için dinamik segment klasörü `src/routes/$locale/` oluşturun. `$locale` düzeninde, `params.locale`'ı doğrulayın, `<IntlayerProvider locale=...>` ayarlayın ve `<Outlet />` işleyin. Bu yaklaşım basittir, ancak geri kalan rotalarınızı `$locale` altına monte edeceksiniz ve varsayılan yerel ayarı öneki istemiyorsanız ekstra öneksiz bir ağaca ihtiyacınız olacak.
+```tsx fileName="src/components/locale-switcher.tsx"
+import type { FC } from "react";
 
----
+import { useLocation } from "@tanstack/react-router";
+import { getHTMLTextDir, getLocaleName, getPathWithoutLocale } from "intlayer";
+import { setLocaleCookie, useIntlayer, useLocale } from "react-intlayer";
 
-## (İsteğe Bağlı) Adım 8: Yerel ayar değiştirirken URL'yi güncelleyin
+import { LocalizedLink, To } from "./localized-link";
 
-A Kalıbı (basepath) ile, yerel ayarları değiştirmek **farklı bir basepath'e** gezinmek anlamına gelir:
+export const LocaleSwitcher: FC = () => {
+  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
+  const { pathname } = useLocation();
 
-```tsx fileName="src/components/LocaleSwitcherNavigate.tsx"
-import { useRouter } from "@tanstack/react-router";
-import { Locales, getLocalizedUrl } from "intlayer";
-import { useLocale } from "react-intlayer";
+  const { availableLocales, locale } = useLocale();
 
-export function LocaleSwitcherNavigate() {
-  const router = useRouter();
-  const { locale, setLocale } = useLocale();
-
-  const change = async (next: Locales) => {
-    if (next === locale) return;
-    const nextPath = getLocalizedUrl(
-      window.location.pathname + window.location.search,
-      next
-    );
-    await router.navigate({ to: nextPath }); // geçmişi korur
-    setLocale(next);
-  };
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
 
   return (
-    <div className="flex gap-2">
-      <button onClick={() => change(Locales.ENGLISH)}>English</button>
-      <button onClick={() => change(Locales.FRENCH)}>Français</button>
-      <button onClick={() => change(Locales.SPANISH)}>Español</button>
-    </div>
+    <ol>
+      {availableLocales.map((localeEl) => (
+        <li key={localeEl}>
+          <LocalizedLink
+            aria-current={localeEl === locale ? "sayfa" : undefined}
+            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
+            onClick={() => setLocaleCookie(localeEl)}
+            params={{ locale: localeEl }}
+            to={pathWithoutLocale as To}
+          >
+            <span>
+              {/* Dil Kodu - örn. FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* Dil kendi yerelinde - örn. Français */}
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+              {/* Dil mevcut yerelde - örn. Francés, mevcut yerel Locales.SPANISH olarak ayarlanmış */}
+              {getLocaleName(localeItem)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* Dil İngilizce olarak - örn. French */}
+              {getLocaleName(localeItem, Locales.ENGLISH)}
+            </span>
+          </LocalizedLink>
+        </li>
+      ))}
+    </ol>
   );
-}
+};
 ```
 
----
+> `useLocale` hook'u hakkında daha fazla bilgi edinmek için [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md) bakınız.
 
-## (İsteğe Bağlı) Adım 9: `<html lang>` ve `dir` (TanStack Start Document)
+### Adım 10: HTML Özniteliklerinin Yönetimini Ekleme (İsteğe Bağlı)
 
-TanStack Start, özelleştirebileceğiniz bir **Document** (kök HTML kabuğu) sunar. Erişilebilirlik/SEO için `lang` ve `dir` ayarlayın:
+HTML lang ve dir özniteliklerini yönetmek için bir hook oluşturun:
 
-```tsx fileName="src/routes/__root.tsx" {4,15}
-import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-
-import Header from "../components/Header";
-
-import { IntlayerProvider } from "react-intlayer";
-import appCss from "../styles.css?url";
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      {
-        charSet: "utf-8",
-      },
-      {
-        name: "viewport",
-        content: "width=device-width, initial-scale=1",
-      },
-      {
-        title: "TanStack Start Starter",
-      },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-    ],
-  }),
-
-  shellComponent: RootDocument,
-});
-
-function RootDocument({ children }: { children: React.ReactNode }) {
-  return (
-    <IntlayerProvider>
-      <html lang="en">
-        <head>
-          <HeadContent />
-        </head>
-        <body>
-          <Header />
-          {children}
-          <TanStackRouterDevtools />
-          <Scripts />
-        </body>
-      </html>
-    </IntlayerProvider>
-  );
-}
-```
-
-İstemci tarafı düzeltme için, küçük kancanızı da koruyabilirsiniz:
-
-```tsx fileName="src/hooks/useI18nHTMLAttributes.ts"
+```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx"
+// src/hooks/useI18nHTMLAttributes.tsx
+import { getHTMLTextDir } from "intlayer";
 import { useEffect } from "react";
 import { useLocale } from "react-intlayer";
-import { getHTMLTextDir } from "intlayer";
 
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
+
   useEffect(() => {
     document.documentElement.lang = locale;
     document.documentElement.dir = getHTMLTextDir(locale);
@@ -369,87 +425,128 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
----
+Sonra bunu kök bileşeninizde kullanın:
 
-## (İsteğe Bağlı) Adım 10: Yerelleştirilmiş Bağlantı bileşeni
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { IntlayerProvider, useLocale } from "react-intlayer";
 
-TanStack Router bir `<Link/>` sağlar, ancak dahili URL'leri otomatik olarak önekeleştiren düz bir `<a>`'ya ihtiyacınız olursa:
+import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // hook'u içe aktar
 
-```tsx fileName="src/components/Link.tsx"
-import { getLocalizedUrl } from "intlayer";
-import {
-  forwardRef,
-  type AnchorHTMLAttributes,
-  type DetailedHTMLProps,
-} from "react";
-import { useLocale } from "react-intlayer";
+export const Route = createFileRoute("/{-$locale}")({
+  component: LayoutComponent,
+});
 
-export interface LinkProps
-  extends DetailedHTMLProps<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {}
+function LayoutComponent() {
+  useI18nHTMLAttributes(); // bu satırı ekle
 
-const isExternal = (href?: string) => /^https?:\/\//.test(href ?? "");
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
 
-export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ href, children, ...props }, ref) => {
-    const { locale } = useLocale();
-    const hrefI18n =
-      href && !isExternal(href) ? getLocalizedUrl(href, locale) : href;
-    return (
-      <a href={hrefI18n} ref={ref} {...props}>
-        {children}
-      </a>
-    );
-  }
-);
-Link.displayName = "Link";
-```
-
-> A Kalıbını (basepath) kullanırsanız, TanStack'ın `<Link to="/about" />` zaten `basepath` aracılığıyla `/fr/about`'a çözümlenir, bu yüzden özel bir bağlantı isteğe bağlıdır.
-
----
-
-## TypeScript
-
-Intlayer'ın oluşturulan türlerini dahil edin:
-
-```json5 fileName="tsconfig.json"
-{
-  "include": ["src", ".intlayer/**/*.ts"],
+  return (
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
 }
 ```
 
 ---
 
-## Git
+### Adım 11: Middleware Ekleme (İsteğe Bağlı)
 
-Intlayer'ın oluşturulan eserlerini yok sayın:
+Uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerMiddleware`'i de kullanabilirsiniz. Bu eklenti, URL'ye göre mevcut yerel ayarı otomatik olarak algılar ve uygun yerel ayar çerezini ayarlar. Hiçbir yerel ayar belirtilmemişse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirler. Hiçbir yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirme yapar.
 
-```gitignore
+> Üretimde `intlayerMiddleware` kullanmak için, `vite-intlayer` paketini `devDependencies`'den `dependencies`'e geçirmeniz gerektiğini unutmayın.
+
+```typescript {3,7} fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "vite";
+import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import tsconfigPaths from "vite-tsconfig-paths";
+
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+    reactRouter(),
+    tsconfigPaths(),
+    intlayer(),
+    intlayerMiddleware(),
+  ],
+});
+```
+
+---
+
+### Adım 12: TypeScript Yapılandırması (İsteğe Bağlı)
+
+Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
+
+TypeScript yapılandırmanızın otomatik oluşturulan türleri içerdiğinden emin olun:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... mevcut yapılandırmalarınız
+  include: [
+    // ... mevcut dahil ettikleriniz
+    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil et
+  ],
+}
+```
+
+---
+
+### Git Yapılandırması
+
+Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu, bu dosyaların Git deposuna eklenmesini önlemenizi sağlar.
+
+Bunu yapmak için, `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
+
+```plaintext fileName=".gitignore"
+# Intlayer tarafından oluşturulan dosyaları yoksay
 .intlayer
 ```
 
 ---
 
-## VS Code Uzantısı
+## VS Code Eklentisi
 
-- **Intlayer VS Code Uzantısı** → otomatik tamamlama, hatalar, satır içi önizlemeler, hızlı eylemler.
-  Marketplace: `intlayer.intlayer-vs-code-extension`
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyebilirsiniz.
+
+[VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Bu eklenti şunları sağlar:
+
+- Çeviri anahtarları için **Otomatik tamamlama**.
+- Eksik çeviriler için **Gerçek zamanlı hata tespiti**.
+- Çevrilmiş içeriğin **Satır içi önizlemeleri**.
+- Çevirileri kolayca oluşturup güncellemek için **Hızlı işlemler**.
+
+Bu eklentinin nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakabilirsiniz.
 
 ---
 
-## Daha Fazla İlerleyin
+## Daha İleri Gitmek
 
-- Görsel Düzenleyici
-- CMS modu
-- Kenarda yerel ayar algılama / adaptörler
+Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.
 
 ---
+
+## Dokümantasyon Referansları
+
+- [Intlayer Dokümantasyonu](https://intlayer.org)
+- [Tanstack Start Dokümantasyonu](https://reactrouter.com/)
+- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md)
+- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md)
+- [İçerik Beyanı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/get_started.md)
+- [Yapılandırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+
+Bu kapsamlı rehber, Intlayer'ı Tanstack Start ile tam uluslararasılaştırılmış, yerel farkındalıklı yönlendirme ve TypeScript desteğine sahip bir uygulama için entegre etmeniz gereken her şeyi sağlar.
 
 ## Dokümantasyon Geçmişi
 
-| Sürüm | Tarih      | Değişiklikler                     |
-| ----- | ---------- | --------------------------------- |
-| 1.0.0 | 2025-08-11 | TanStack Start uyarlaması eklendi |
+| Sürüm | Tarih      | Değişiklikler               |
+| ----- | ---------- | --------------------------- |
+| 6.5.2 | 2025-10-03 | Doküman güncellemesi        |
+| 5.8.1 | 2025-09-09 | Tanstack Start için eklendi |

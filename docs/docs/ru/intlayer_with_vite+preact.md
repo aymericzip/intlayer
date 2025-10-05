@@ -1635,9 +1635,9 @@ module.exports = { LocalizedLink, checkIsExternalLink };
 
 Intlayer использует расширение модулей (module augmentation), чтобы получить преимущества TypeScript и сделать вашу кодовую базу более надежной.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 Убедитесь, что ваша конфигурация TypeScript включает автоматически сгенерированные типы.
 

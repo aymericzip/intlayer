@@ -1174,9 +1174,10 @@ module.exports = App;
 
 Intlayerはモジュール拡張を使用してTypeScriptの利点を活用し、コードベースを強化します。
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
 自動生成された型を含めるようにTypeScriptの設定を確認してください。
 
 ```json5 fileName="tsconfig.json"

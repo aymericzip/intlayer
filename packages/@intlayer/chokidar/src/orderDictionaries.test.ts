@@ -57,7 +57,7 @@ describe('orderDictionaries', () => {
     const distant2 = createMockDictionary('test4', 'distant', 'distant-2');
 
     const dictionaries = [local1, distant1, local2, distant2];
-    
+
     // Create a custom configuration for this test
     const customConfig = {
       editor: {
@@ -69,7 +69,7 @@ describe('orderDictionaries', () => {
       log: {},
       build: {},
     } as any;
-    
+
     const result = orderDictionaries(dictionaries, customConfig);
 
     expect(result).toEqual([distant1, distant2, local1, local2]);
@@ -94,7 +94,7 @@ describe('orderDictionaries', () => {
     const distant3 = createMockDictionary('test4', 'distant', 'distant-3');
 
     const dictionaries = [local1, distant3, distant1, distant2];
-    
+
     // Create a custom configuration for this test
     const customConfig = {
       editor: {
@@ -106,7 +106,7 @@ describe('orderDictionaries', () => {
       log: {},
       build: {},
     } as any;
-    
+
     const result = orderDictionaries(dictionaries, customConfig);
 
     expect(result).toEqual([distant3, distant1, distant2, local1]);
@@ -176,7 +176,7 @@ describe('orderDictionaries', () => {
     const local2 = createMockDictionary('test4', 'locale', 'local-3');
 
     const dictionaries = [local1, undefinedLocation, distant1, local2];
-    
+
     // Create a custom configuration for this test
     const customConfig = {
       editor: {
@@ -188,7 +188,7 @@ describe('orderDictionaries', () => {
       log: {},
       build: {},
     } as any;
-    
+
     const result = orderDictionaries(dictionaries, customConfig);
 
     expect(result).toEqual([distant1, local1, undefinedLocation, local2]);

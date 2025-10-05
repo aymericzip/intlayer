@@ -1,18 +1,18 @@
+import { relative } from 'node:path';
 import {
   ESMxCJSRequire,
   getConfiguration,
-  IntlayerConfig,
+  type IntlayerConfig,
   loadExternalFile,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { relative } from 'path';
 import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
 import {
   filterInvalidDictionaries,
   isInvalidDictionary,
 } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
-import { DictionariesStatus } from './loadDictionaries';
+import type { DictionariesStatus } from './loadDictionaries';
 
 export const formatLocalDictionaries = (
   dictionariesRecord: Record<string, Dictionary>,

@@ -1,16 +1,16 @@
 import configuration from '@intlayer/config/built';
 
 import {
+  type Component,
   createContext,
   createMemo,
-  useContext,
-  type Component,
   type ParentProps,
+  useContext,
 } from 'solid-js';
 
 // Simple UUID generator to replace the uuid dependency
 const generateId = () => {
-  return 'xxxx-xxxx-4xxx-yxxx'.replace(/[xy]/g, function (c) {
+  return 'xxxx-xxxx-4xxx-yxxx'.replace(/[xy]/g, (c) => {
     const r = (Math.random() * 16) | 0;
     const v = c == 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);

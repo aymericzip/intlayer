@@ -81,7 +81,7 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
       return client.requestPasswordReset(...args);
     };
 
-  // @ts-expect-error - resetPassword is not typed
+  // @ts-ignore - resetPassword is not typed
   const resetPassword: AuthClient['resetPassword'] = async (...args) => {
     const client = getAuthClient();
     return client.resetPassword(...args);
@@ -114,7 +114,7 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     return client.changeEmail(...args);
   };
 
-  // @ts-expect-error - deleteUser is not typed
+  // @ts-ignore - deleteUser is not typed
   const deleteUser: AuthClient['deleteUser'] = async (...args) => {
     const client = getAuthClient();
     return client.deleteUser(...args);

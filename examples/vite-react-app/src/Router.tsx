@@ -1,6 +1,6 @@
 // Importing necessary dependencies and functions
-import { Locales, configuration, getPathWithoutLocale } from 'intlayer'; // Utility functions and types from 'intlayer'
-import { FC, PropsWithChildren } from 'react'; // React types for functional components and props
+import { configuration, getPathWithoutLocale, type Locales } from 'intlayer'; // Utility functions and types from 'intlayer'
+import type { FC, PropsWithChildren } from 'react'; // React types for functional components and props
 import { IntlayerProvider } from 'react-intlayer'; // Provider for internationalization context
 import {
   BrowserRouter,

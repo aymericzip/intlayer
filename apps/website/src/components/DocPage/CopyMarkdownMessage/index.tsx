@@ -1,6 +1,6 @@
 import { CopyButton, Popover } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer/server';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 type CopyMarkdownMessageProps = {
   markdownContent: string;

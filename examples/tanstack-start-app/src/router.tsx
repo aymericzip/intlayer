@@ -12,14 +12,12 @@ export const createRouter = () => {
   });
 };
 
-/**
- * TODO: Enable this if you want type safety for the router instance
- */
-/* 
+// Exported for TanStack Start SSR integration
+export const getRouter = () => createRouter();
+
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
   interface Register {
     router: ReturnType<typeof createRouter>;
   }
 }
- */

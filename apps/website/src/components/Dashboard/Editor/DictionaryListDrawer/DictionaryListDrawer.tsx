@@ -13,7 +13,7 @@ import {
 } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { getDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
 import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier';
 

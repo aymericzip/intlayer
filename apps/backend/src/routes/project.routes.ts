@@ -1,4 +1,3 @@
-import type { Routes } from '@/types/Routes';
 import {
   addProject,
   deleteProject,
@@ -15,6 +14,7 @@ import {
   refreshAccessKey,
 } from '@controllers/projectAccessKey.controller';
 import { Router } from 'express';
+import type { Routes } from '@/types/Routes';
 
 export const projectRouter: Router = Router();
 

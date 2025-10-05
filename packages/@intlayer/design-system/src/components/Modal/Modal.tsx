@@ -3,7 +3,7 @@
 import { cva } from 'class-variance-authority';
 import { motion as m } from 'framer-motion';
 import { X } from 'lucide-react';
-import { ReactNode, type FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetElementOrWindow, useScrollBlockage } from '../../hooks/index';
 import { cn } from '../../utils/cn';

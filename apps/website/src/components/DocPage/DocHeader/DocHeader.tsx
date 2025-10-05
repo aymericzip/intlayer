@@ -1,8 +1,8 @@
 import { Container } from '@intlayer/design-system';
-import { DocMetadata } from '@intlayer/docs';
-import { LocalesValues } from 'intlayer';
+import type { DocMetadata } from '@intlayer/docs';
+import type { LocalesValues } from 'intlayer';
 import { useIntlayer } from 'next-intlayer/server';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { ApplicationTemplateMessage } from '../ApplicationTemplateMessage';
 import { ContributionMessage } from '../ContributionMessage';
 import { CopyMarkdownMessage } from '../CopyMarkdownMessage';

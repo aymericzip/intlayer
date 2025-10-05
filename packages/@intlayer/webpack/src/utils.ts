@@ -1,7 +1,7 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { isESModule } from '@intlayer/config';
 import crypto from 'crypto-js';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
 /**
  * Set the __dirname global variable to make the config work in both ESM and CJS environments

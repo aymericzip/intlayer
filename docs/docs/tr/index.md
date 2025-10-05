@@ -51,7 +51,7 @@ Intlayer, uygulamanızı çevirmek için esnek, modern bir yaklaşım sunar. Bel
 
 Çok dilli içeriğinizi kodunuzun yakınında organize edin, böylece her şey tutarlı ve sürdürülebilir kalır.
 
-- **[Başlarken](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md)**  
+- **[Başlarken](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)**  
   Intlayer'da içeriğinizi bildirmenin temellerini öğrenin.
 
 - **[Çeviri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)**  

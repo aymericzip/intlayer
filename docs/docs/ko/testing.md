@@ -81,7 +81,6 @@ test("필수 로케일이 누락되지 않음", () => {
   const result = listMissingTranslations();
 
   if (result.missingRequiredLocales.length > 0) {
-    // eslint-disable-next-line no-console
     console.log(result.missingTranslations);
   }
 

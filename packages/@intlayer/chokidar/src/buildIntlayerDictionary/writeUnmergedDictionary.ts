@@ -1,7 +1,7 @@
+import { mkdir } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { colorizePath, getConfiguration, x } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { mkdir } from 'fs/promises';
-import { resolve } from 'path';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { orderDictionaries } from '../orderDictionaries';
 import { parallelize } from '../utils/parallelize';
