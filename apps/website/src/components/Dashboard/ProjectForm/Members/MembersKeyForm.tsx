@@ -1,6 +1,10 @@
 'use client';
 
-import type { UpdateProjectMembersBody, UserAPI } from '@intlayer/backend';
+import type {
+  GetUsersResult,
+  UpdateProjectMembersBody,
+  UserAPI,
+} from '@intlayer/backend';
 import {
   Form,
   H3,
@@ -38,21 +42,15 @@ export const MembersForm: FC = () => {
   const { title, addMembersButton, membersSelect, adminsSelect } = useIntlayer(
     'project-members-form'
   );
-  const [users, setUsers] = useState<UserAPI[]>([]);
   const { mutate: updateProjectMembers } = useUpdateProjectMembers();
-  const { isPending: isLoadingUsers } = useGetUsers(
-    {
-      ids: project?.membersIds ?? [],
-    },
-    {
-      onSuccess: (response) => {
-        setUsers(response.data);
-      },
-    }
-  );
+  const { isPending: isLoadingUsers, data: usersData } = useGetUsers({
+    ids: project?.membersIds ?? [],
+  });
+  const users = (usersData as GetUsersResult)?.data ?? [];
+
   const isProjectAdmin = session?.roles.includes('project_admin');
 
-  const onSubmitSuccess = async (data: ProjectMembersFormData) => {
+  const onSubmitSuccess = (data: ProjectMembersFormData) => {
     const formattedData: UpdateProjectMembersBody = {
       membersIds: data.membersIds.map((el) => ({
         userId: el,
@@ -60,7 +58,7 @@ export const MembersForm: FC = () => {
       })),
     };
 
-    await updateProjectMembers(formattedData);
+    updateProjectMembers(formattedData);
   };
 
   return (
