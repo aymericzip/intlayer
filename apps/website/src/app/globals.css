@@ -42,7 +42,7 @@
 
 .horizontal-loop-2 {
   animation-name: infiniteScrollInverse;
-  animation-duration: 85s;
+  animation-duration: 45s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
@@ -59,4 +59,4 @@
   animation-duration: 3s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
-}
+} 

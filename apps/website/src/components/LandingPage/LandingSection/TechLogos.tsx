@@ -81,7 +81,7 @@ const LogoItem: FC<{
   <Link href={route} label={label} color="custom">
     <Logo
       className={cn(
-        'size-12 sm:size-14 md:size-16 lg:size-18 opacity-70 hover:opacity-100 transition-opacity duration-200',
+        'size-12 sm:size-14 md:size-16 lg:size-18 opacity-70 hover:opacity-100 transition-opacity duration-200 flex-shrink-0',
         className
       )}
     />
@@ -89,13 +89,17 @@ const LogoItem: FC<{
 );
 
 export const TechLogos: FC = () => (
-  <div className="my-10  w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_170px,_black_calc(100%-170px),transparent_100%)]">
-    <div className="relative w-[300vw] gap-[0.15rem] whitespace-nowrap flex items-center justify-evenly horizontal-loop-4">
+  <div className="mt-6  w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_170px,_black_calc(100%-170px),transparent_100%)]">
+    <div className="inline-flex items-center horizontal-loop-4 whitespace-nowrap">
       {logos.map((logo, index) => (
-        <LogoItem {...logo} key={`${logo.key}-${index}-1`} label={logo.key} />
+        <div key={`${logo.key}-${index}-1`} className="mx-6 sm:mx-12 md:mx-16">
+          <LogoItem {...logo} label={logo.key} key={`${logo.key}-${index}-1`} />
+        </div>
       ))}
       {logos.map((logo, index) => (
-        <LogoItem {...logo} key={`${logo.key}-${index}-2`} label={logo.key} />
+        <div key={`${logo.key}-${index}-1`} className="mx-6 sm:mx-12 md:mx-16">
+          <LogoItem {...logo} label={logo.key} key={`${logo.key}-${index}-2`} />
+        </div>
       ))}
     </div>
   </div>

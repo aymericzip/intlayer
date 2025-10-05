@@ -26,9 +26,8 @@ const shuffleArray = (array: string[], limit?: number) => {
 };
 
 const LocalCard: FC<{ locale: string }> = ({ locale, ...props }) => (
-  <li
-    key={locale}
-    className="group z-10 mx-8 list-none transition-transform duration-300 hover:scale-105"
+  <div
+    className="group z-10 mx-8 inline-flex shrink-0 transition-transform duration-300 hover:scale-105"
     {...props}
   >
     <Container roundedSize="xl">
@@ -49,7 +48,7 @@ const LocalCard: FC<{ locale: string }> = ({ locale, ...props }) => (
         </span>
       </div>
     </Container>
-  </li>
+  </div>
 );
 
 const LocalCardList: FC<{ localeList: string[]; className?: string }> = ({
@@ -57,17 +56,20 @@ const LocalCardList: FC<{ localeList: string[]; className?: string }> = ({
   className,
   ...props
 }) => (
-  <li className={cn('list-none', className)} {...props}>
-    <ul className="flex size-full items-center justify-start">
-      {localeList.map((locale) => (
-        <LocalCard key={locale} locale={locale} />
+  <div className="relative flex w-full overflow-hidden" {...props}>
+    <div
+      className={cn('inline-flex shrink-0 will-change-transform', className)}
+    >
+      {/* First set of cards */}
+      {localeList.map((locale, idx) => (
+        <LocalCard key={`${locale}-first-${idx}`} locale={locale} />
       ))}
-
-      {localeList.map((locale) => (
-        <LocalCard key={locale} locale={locale} />
+      {/* Duplicate set for seamless loop */}
+      {localeList.map((locale, idx) => (
+        <LocalCard key={`${locale}-second-${idx}`} locale={locale} />
       ))}
-    </ul>
-  </li>
+    </div>
+  </div>
 );
 
 const NUM_OF_LOCALES = 15;
@@ -96,12 +98,12 @@ export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
       )}
       {...props}
     >
-      <ul className="relative grid size-full gap-5 overflow-hidden whitespace-nowrap py-3">
+      <div className="relative flex w-full flex-col gap-5 py-3">
         <LocalCardList localeList={firstPart} className="horizontal-loop-1" />
         <LocalCardList localeList={secondPart} className="horizontal-loop-2" />
         <LocalCardList localeList={thirdPart} className="horizontal-loop-1" />
         <LocalCardList localeList={fourthPart} className="horizontal-loop-2" />
-      </ul>
+      </div>
     </section>
   );
 };
