@@ -49,7 +49,7 @@ const useToastEvents = () => {
       return error;
     })();
 
-    [parsed].flat().forEach((err: any) =>
+    [parsed].flat().forEach((err: any) => {
       toast({
         title: formatErrorCode(
           (process.env.NODE_ENV === 'production' ? err?.title : err?.code) ??
@@ -57,8 +57,8 @@ const useToastEvents = () => {
         ),
         description: err?.message ?? String(err ?? 'An error occurred'),
         variant: 'error',
-      })
-    );
+      });
+    });
   };
 
   const onSuccess: MutationCache['config']['onSuccess'] = (data: any) => {

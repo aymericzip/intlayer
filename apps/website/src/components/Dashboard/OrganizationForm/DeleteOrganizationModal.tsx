@@ -18,19 +18,22 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
   onDelete,
   isOpen,
 }) => {
-  const { deleteOrganization, isLoading: isDeleting } = useDeleteOrganization();
+  const { mutate: deleteOrganization, isPending: isDeleting } =
+    useDeleteOrganization();
   const { confirmButton, cancelButton, description, title } = useIntlayer(
     'delete-organization-modal'
   );
   const router = useRouter();
 
-  const handleDelete = async () => {
-    await deleteOrganization().then((response) => {
-      if (response.data) {
-        onDelete?.();
-        onClose?.();
-        router.push(PagesRoutes.Dashboard_Organization);
-      }
+  const handleDelete = () => {
+    deleteOrganization(undefined, {
+      onSuccess: (response) => {
+        if (response.data) {
+          onDelete?.();
+          onClose?.();
+          router.push(PagesRoutes.Dashboard_Organization);
+        }
+      },
     });
   };
 
