@@ -1,3 +1,6 @@
 {
-  "*.{js,jsx,ts,tsx,json,md,yml,yaml}": ["biome check --write"]
+  "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,yml,yaml}": [
+      "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
+    ],
+  "*.{md,mdx}": ["prettier --write"]
 }
