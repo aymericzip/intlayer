@@ -60,4 +60,4 @@ export {
   writeContentDeclaration,
   writeJSFile,
 } from './writeContentDeclaration';
-export { processContentDeclaration as prepareContentDeclaration } from './writeContentDeclaration/processContentDeclarationContent';
+export { processContentDeclarationContent } from './writeContentDeclaration/processContentDeclarationContent';
