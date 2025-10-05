@@ -21,5 +21,6 @@ export const useDictionaryAsync = async <T extends Dictionary>(
 
   const dictionary = await (dictionaryPromise as any)[localeTarget]?.();
 
+  // @ts-ignore Type instantiation is excessively deep and possibly infinite
   return useDictionary(dictionary, localeTarget) as any;
 };
