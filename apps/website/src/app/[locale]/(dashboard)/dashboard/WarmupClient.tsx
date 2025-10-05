@@ -6,6 +6,7 @@ import {
   useGetOrganizations,
   useGetProjects,
   useGetTags,
+  useGetUsers,
 } from '@intlayer/design-system/hooks';
 import type { FC } from 'react';
 
@@ -17,6 +18,7 @@ export const WarmupClient: FC = () => {
   useGetTags();
   useGetDictionaries();
   useGetDictionariesKeys();
+  useGetUsers();
 
   return null;
 };

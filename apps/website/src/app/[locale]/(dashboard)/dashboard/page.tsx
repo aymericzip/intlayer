@@ -52,6 +52,13 @@ const DashboardPage: NextPageIntlayer<{ session?: Session }> = async ({
           queryFn: () => api.tag.getTags(undefined),
         })
       : Promise.resolve(),
+
+    sessionServer?.organization
+      ? queryClient.prefetchQuery({
+          queryKey: ['users', undefined],
+          queryFn: () => api.user.getUsers(undefined),
+        })
+      : Promise.resolve(),
   ]);
 
   const dehydratedState = dehydrate(queryClient);
