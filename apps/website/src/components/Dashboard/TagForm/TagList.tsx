@@ -12,13 +12,13 @@ import { TagCreationForm } from './TagCreationForm';
 export const TagList: FC = () => {
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const { noTagView, createTagButton, tagList } = useIntlayer('tag-list');
-  const { data: tagResponse, isPending } = useGetTags();
+  const { data: tagResponse, isFetching } = useGetTags();
   const router = useRouter();
 
   const tags = tagResponse?.data ?? [];
 
   return (
-    <Loader isLoading={isPending}>
+    <Loader isLoading={!tagResponse && isFetching}>
       <Container
         roundedSize="xl"
         className="flex w-full max-w-[400px] flex-col justify-center gap-2 p-6"

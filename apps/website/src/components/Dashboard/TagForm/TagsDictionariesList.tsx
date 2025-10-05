@@ -30,15 +30,13 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
   const router = useRouter();
   const { setFocusedContent } = useFocusDictionaryActions();
   const { dictionaryLinkLabel } = useIntlayer('tags-dictionaries-list');
-  const { data, isPending } = useGetDictionaries({
-    args: {
-      tags: [tagKey],
-    },
+  const { data, isFetching } = useGetDictionaries({
+    tags: [tagKey],
   });
 
   return (
     <div className="flex flex-col gap-2">
-      <Loader isLoading={isPending}>
+      <Loader isLoading={!data && isFetching}>
         {data?.data?.map((dictionary) => (
           <Button
             key={String(dictionary.key)}

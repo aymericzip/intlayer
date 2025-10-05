@@ -21,7 +21,7 @@ export const ProjectFormContent: FC = () => {
   const { project } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
-  const { data: projects, isPending, isSuccess } = useGetProjects();
+  const { data: projects, isSuccess } = useGetProjects();
   const { noAdminMessage, createProjectButton, deleteProjectButton } =
     useIntlayer('project-form');
 
@@ -113,7 +113,7 @@ export const ProjectFormContent: FC = () => {
     );
   }
 
-  if (isSuccess && !isPending) {
+  if (isSuccess) {
     return (
       <Container roundedSize="xl" className="flex justify-center p-6">
         <Modal
