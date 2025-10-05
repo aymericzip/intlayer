@@ -239,12 +239,12 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
         locale: dictionary.locale,
       });
 
-      if (resolve(builderPath) === resolve(dictionary.filePath)) {
-        console.log('is the same');
-        return dictionary.content;
+      // It's not one of the JSON that we synchronize, don't modify it
+      if (resolve(builderPath) !== resolve(dictionary.filePath)) {
+        return dictionary;
       }
 
-      return dictionary;
+      return dictionary.content;
     },
   } as Plugin;
 };
