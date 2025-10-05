@@ -74,7 +74,7 @@ const tableVariants = cva('w-full border-collapse', {
       lg: 'border-spacing-4',
     },
     layout: {
-      auto: '',
+      auto: 'table-auto',
       fixed: 'table-fixed',
     },
   },
