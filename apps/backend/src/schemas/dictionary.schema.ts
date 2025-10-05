@@ -63,16 +63,22 @@ export const dictionarySchema = new Schema<DictionarySchema>(
     toJSON: {
       virtuals: true, // keep the automatic `id` getter
       versionKey: false, // drop __v
-      transform(doc, ret: any) {
-        ret.id = ret._id.toString(); // convert _id to id
-        delete ret._id; // remove _id
+      transform(_doc, ret: any) {
+        const { _id, ...rest } = ret;
+        return {
+          ...rest,
+          id: _id.toString(),
+        };
       },
     },
     toObject: {
       virtuals: true,
-      transform(doc, ret: any) {
-        ret.id = ret._id; // convert _id to id
-        delete ret._id; // remove _id
+      transform(_doc, ret: any) {
+        const { _id, ...rest } = ret;
+        return {
+          ...rest,
+          id: _id.toString(),
+        };
       },
     },
   }
