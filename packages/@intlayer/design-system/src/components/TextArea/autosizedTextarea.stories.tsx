@@ -138,7 +138,7 @@ export const Default: Story = {
           className="w-full"
         />
 
-        <div className="text-sm text-gray-600">
+        <div className="text-gray-600 text-sm">
           Start typing to see the textarea grow automatically. It will shrink
           back when you delete content.
         </div>
@@ -177,9 +177,9 @@ export const Default: Story = {
 export const RowLimits: Story = {
   render: () => (
     <div className="w-full max-w-3xl space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
-          <label className="block text-sm font-medium mb-2">3 Row Limit</label>
+          <label className="mb-2 block font-medium text-sm">3 Row Limit</label>
           <AutoSizedTextArea
             placeholder="I'll grow up to 3 lines..."
             autoSize={true}
@@ -187,13 +187,13 @@ export const RowLimits: Story = {
             defaultValue="Line 1\nLine 2\nLine 3\nLine 4 (this will cause scrolling)"
             className="w-full"
           />
-          <div className="text-xs text-gray-500 mt-1">
+          <div className="mt-1 text-gray-500 text-xs">
             Scrolls after 3 lines
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">8 Row Limit</label>
+          <label className="mb-2 block font-medium text-sm">8 Row Limit</label>
           <AutoSizedTextArea
             placeholder="I can grow up to 8 lines..."
             autoSize={true}
@@ -201,17 +201,17 @@ export const RowLimits: Story = {
             defaultValue="This textarea has more room to grow.\n\nYou can add several lines before it starts scrolling.\n\nTry adding more content to see the scrolling behavior."
             className="w-full"
           />
-          <div className="text-xs text-gray-500 mt-1">
+          <div className="mt-1 text-gray-500 text-xs">
             More generous height allowance
           </div>
         </div>
       </div>
 
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-        <div className="text-sm font-medium text-yellow-800 mb-2">
+      <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
+        <div className="mb-2 font-medium text-sm text-yellow-800">
           💡 Row Limit Tips
         </div>
-        <ul className="text-sm text-yellow-700 space-y-1">
+        <ul className="space-y-1 text-sm text-yellow-700">
           <li>
             • Use lower limits (2-4 rows) for compact interfaces like chat
           </li>
@@ -292,30 +292,30 @@ export const ChatInterface: Story = {
     };
 
     return (
-      <div className="w-full max-w-md mx-auto bg-white border border-gray-300 rounded-lg overflow-hidden">
+      <div className="mx-auto w-full max-w-md overflow-hidden rounded-lg border border-gray-300 bg-white">
         {/* Chat Header */}
-        <div className="bg-blue-600 text-white p-4">
+        <div className="bg-blue-600 p-4 text-white">
           <h3 className="font-semibold">Chat with Alex</h3>
           <div className="text-sm opacity-90">Online</div>
         </div>
 
         {/* Messages */}
-        <div className="h-80 overflow-y-auto p-4 space-y-3 bg-gray-50">
+        <div className="h-80 space-y-3 overflow-y-auto bg-gray-50 p-4">
           {messages.map((msg) => (
             <div
               key={msg.id}
               className={`flex ${msg.sender === 'you' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-xs px-4 py-2 rounded-2xl ${
+                className={`max-w-xs rounded-2xl px-4 py-2 ${
                   msg.sender === 'you'
-                    ? 'bg-blue-600 text-white rounded-br-md'
-                    : 'bg-white text-gray-800 border border-gray-200 rounded-bl-md'
+                    ? 'rounded-br-md bg-blue-600 text-white'
+                    : 'rounded-bl-md border border-gray-200 bg-white text-gray-800'
                 }`}
               >
                 <div>{msg.text}</div>
                 <div
-                  className={`text-xs mt-1 ${
+                  className={`mt-1 text-xs ${
                     msg.sender === 'you' ? 'text-blue-100' : 'text-gray-500'
                   }`}
                 >
@@ -327,8 +327,8 @@ export const ChatInterface: Story = {
         </div>
 
         {/* Input Area */}
-        <div className="border-t border-gray-200 p-4 bg-white">
-          <div className="flex gap-2 items-end">
+        <div className="border-gray-200 border-t bg-white p-4">
+          <div className="flex items-end gap-2">
             <div className="flex-1">
               <AutoSizedTextArea
                 value={message}
@@ -345,17 +345,17 @@ export const ChatInterface: Story = {
             <button
               onClick={sendMessage}
               disabled={!message.trim()}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              className={`rounded-lg px-4 py-2 font-medium transition-colors ${
                 message.trim()
                   ? 'bg-blue-600 text-white hover:bg-blue-700'
-                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'cursor-not-allowed bg-gray-200 text-gray-400'
               }`}
             >
               Send
             </button>
           </div>
 
-          <div className="text-xs text-gray-500 mt-1">
+          <div className="mt-1 text-gray-500 text-xs">
             Press Enter to send, Shift+Enter for new line
           </div>
         </div>
@@ -420,16 +420,16 @@ export const NoteTaking: Story = {
     return (
       <div className="w-full max-w-4xl space-y-4">
         {/* Toolbar */}
-        <div className="flex items-center justify-between bg-white border border-gray-200 rounded-lg p-4">
+        <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4">
           <div className="flex items-center gap-4">
             <h3 className="font-semibold text-gray-900">Note Editor</h3>
-            <div className="text-sm text-gray-500">
+            <div className="text-gray-500 text-sm">
               {wordCount} words • {charCount} characters
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="text-sm text-gray-500">
+            <div className="text-gray-500 text-sm">
               {saveStatus === 'saved' && lastSaved && (
                 <>Saved {lastSaved.toLocaleTimeString()}</>
               )}
@@ -440,9 +440,9 @@ export const NoteTaking: Story = {
             <button
               onClick={saveNote}
               disabled={saveStatus === 'saved' || saveStatus === 'saving'}
-              className={`px-4 py-2 rounded-md font-medium transition-colors ${
+              className={`rounded-md px-4 py-2 font-medium transition-colors ${
                 saveStatus === 'saved' || saveStatus === 'saving'
-                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  ? 'cursor-not-allowed bg-gray-200 text-gray-500'
                   : 'bg-blue-600 text-white hover:bg-blue-700'
               }`}
             >
@@ -452,21 +452,21 @@ export const NoteTaking: Story = {
         </div>
 
         {/* Editor */}
-        <div className="bg-white border border-gray-200 rounded-lg p-6">
+        <div className="rounded-lg border border-gray-200 bg-white p-6">
           <AutoSizedTextArea
             value={note}
             onChange={handleChange}
             placeholder="Start writing your notes..."
             autoSize={true}
             maxRows={25}
-            className="w-full min-h-[300px] font-mono text-sm leading-relaxed border-0 resize-none focus:ring-0 focus:outline-none"
+            className="min-h-[300px] w-full resize-none border-0 font-mono text-sm leading-relaxed focus:outline-none focus:ring-0"
             variant={InputVariant.INVISIBLE}
           />
         </div>
 
         {/* Footer */}
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+          <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-3">
             <div>
               <strong>Auto-sizing:</strong> Enabled
             </div>
@@ -500,9 +500,9 @@ export const NoteTaking: Story = {
 export const DisabledAutoSizing: Story = {
   render: () => (
     <div className="w-full max-w-2xl space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="mb-2 block font-medium text-sm">
             Auto-sizing Enabled
           </label>
           <AutoSizedTextArea
@@ -511,13 +511,13 @@ export const DisabledAutoSizing: Story = {
             maxRows={5}
             className="w-full"
           />
-          <div className="text-xs text-gray-500 mt-1">
+          <div className="mt-1 text-gray-500 text-xs">
             Height adjusts automatically
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="mb-2 block font-medium text-sm">
             Auto-sizing Disabled
           </label>
           <AutoSizedTextArea
@@ -526,17 +526,17 @@ export const DisabledAutoSizing: Story = {
             rows={4}
             className="w-full"
           />
-          <div className="text-xs text-gray-500 mt-1">
+          <div className="mt-1 text-gray-500 text-xs">
             Fixed height, user can resize manually
           </div>
         </div>
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <div className="text-sm font-medium text-blue-900 mb-2">
+      <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+        <div className="mb-2 font-medium text-blue-900 text-sm">
           When to Disable Auto-sizing
         </div>
-        <ul className="text-sm text-blue-800 space-y-1">
+        <ul className="space-y-1 text-blue-800 text-sm">
           <li>• When you need consistent layout heights</li>
           <li>• For forms with strict spacing requirements</li>
           <li>• When users need manual resize control</li>

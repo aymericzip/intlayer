@@ -23,10 +23,10 @@ export const TagList: FC = () => {
         roundedSize="xl"
         className="flex w-full max-w-[400px] flex-col justify-center gap-2 p-6"
       >
-        <H2 className="mb-6 mt-2">{tagList.title}</H2>
+        <H2 className="mt-2 mb-6">{tagList.title}</H2>
 
         {tags.length === 0 && (
-          <span className="text-neutral text-sm m-auto">{noTagView.title}</span>
+          <span className="m-auto text-neutral text-sm">{noTagView.title}</span>
         )}
         {tags.map((tag) => (
           <Button
@@ -45,7 +45,7 @@ export const TagList: FC = () => {
               )}
               {tag.key && <span>{tag.key}</span>}
               {tag.description && (
-                <span className="text-neutral line-clamp-2 text-wrap">
+                <span className="line-clamp-2 text-wrap text-neutral">
                   {tag.description}
                 </span>
               )}
@@ -56,7 +56,7 @@ export const TagList: FC = () => {
           label={createTagButton.ariaLabel.value}
           IconRight={Plus}
           variant="default"
-          className="ml-auto mt-12"
+          className="mt-12 ml-auto"
           color="text"
           onClick={() => setIsCreationModalOpen(true)}
         >

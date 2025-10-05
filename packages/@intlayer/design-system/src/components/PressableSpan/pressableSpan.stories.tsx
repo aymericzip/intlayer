@@ -145,12 +145,12 @@ export const Default: Story = {
 export const PressDurations: Story = {
   render: () => (
     <div className="space-y-4">
-      <div className="text-sm text-gray-600 mb-4">
+      <div className="mb-4 text-gray-600 text-sm">
         Try long pressing each span with different durations:
       </div>
       <div className="space-y-2">
         <div className="flex items-center gap-4">
-          <span className="w-16 text-sm text-gray-500">200ms:</span>
+          <span className="w-16 text-gray-500 text-sm">200ms:</span>
           <PressableSpan
             pressDuration={200}
             onPress={() => alert('Quick press (200ms)!')}
@@ -159,7 +159,7 @@ export const PressDurations: Story = {
           </PressableSpan>
         </div>
         <div className="flex items-center gap-4">
-          <span className="w-16 text-sm text-gray-500">400ms:</span>
+          <span className="w-16 text-gray-500 text-sm">400ms:</span>
           <PressableSpan
             pressDuration={400}
             onPress={() => alert('Standard press (400ms)!')}
@@ -168,7 +168,7 @@ export const PressDurations: Story = {
           </PressableSpan>
         </div>
         <div className="flex items-center gap-4">
-          <span className="w-16 text-sm text-gray-500">800ms:</span>
+          <span className="w-16 text-gray-500 text-sm">800ms:</span>
           <PressableSpan
             pressDuration={800}
             onPress={() => alert('Slow press (800ms)!')}
@@ -232,14 +232,14 @@ export const ControlledState: Story = {
         <div className="flex gap-2">
           <button
             data-testid="select-button"
-            className="px-3 py-1 bg-blue-500 text-white rounded text-sm"
+            className="rounded bg-blue-500 px-3 py-1 text-sm text-white"
             onClick={() => setIsSelected(true)}
           >
             Select Externally
           </button>
           <button
             data-testid="deselect-button"
-            className="px-3 py-1 bg-red-500 text-white rounded text-sm"
+            className="rounded bg-red-500 px-3 py-1 text-sm text-white"
             onClick={() => setIsSelected(false)}
           >
             Deselect Externally
@@ -293,16 +293,16 @@ export const ClickOutsideDetection: Story = {
     const [outsideClickCount, setOutsideClickCount] = useState(0);
 
     return (
-      <div className="space-y-6 p-4 border border-gray-200 rounded">
+      <div className="space-y-6 rounded border border-gray-200 p-4">
         <div className="space-y-2">
-          <p className="text-sm text-gray-600">
+          <p className="text-gray-600 text-sm">
             Long press the span below, then click anywhere outside to trigger
             deselection:
           </p>
           <PressableSpan
             onPress={() => setSelectionCount((prev) => prev + 1)}
             onClickOutside={() => setOutsideClickCount((prev) => prev + 1)}
-            className="bg-blue-50 px-2 py-1 rounded"
+            className="rounded bg-blue-50 px-2 py-1"
           >
             Long press me, then click outside
           </PressableSpan>
@@ -317,8 +317,8 @@ export const ClickOutsideDetection: Story = {
           </div>
         </div>
 
-        <div className="p-4 bg-gray-50 rounded">
-          <p className="text-sm text-gray-500">
+        <div className="rounded bg-gray-50 p-4">
+          <p className="text-gray-500 text-sm">
             Click anywhere in this area to trigger "click outside" behavior
           </p>
         </div>
@@ -363,26 +363,26 @@ export const KeyboardNavigation: Story = {
       <div className="space-y-6">
         <div className="space-y-2">
           <h3 className="font-medium">Keyboard Instructions:</h3>
-          <ul className="text-sm text-gray-600 space-y-1">
+          <ul className="space-y-1 text-gray-600 text-sm">
             <li>
               •{' '}
-              <kbd className="px-1 py-0.5 bg-gray-100 rounded text-xs">Tab</kbd>{' '}
+              <kbd className="rounded bg-gray-100 px-1 py-0.5 text-xs">Tab</kbd>{' '}
               - Focus the span
             </li>
             <li>
               •{' '}
-              <kbd className="px-1 py-0.5 bg-gray-100 rounded text-xs">
+              <kbd className="rounded bg-gray-100 px-1 py-0.5 text-xs">
                 Enter
               </kbd>{' '}
               or{' '}
-              <kbd className="px-1 py-0.5 bg-gray-100 rounded text-xs">
+              <kbd className="rounded bg-gray-100 px-1 py-0.5 text-xs">
                 Space
               </kbd>{' '}
               - Activate selection
             </li>
             <li>
               •{' '}
-              <kbd className="px-1 py-0.5 bg-gray-100 rounded text-xs">
+              <kbd className="rounded bg-gray-100 px-1 py-0.5 text-xs">
                 Escape
               </kbd>{' '}
               - Deselect
@@ -394,7 +394,7 @@ export const KeyboardNavigation: Story = {
           <PressableSpan
             onPress={() => addAction('Activated via keyboard')}
             onClickOutside={() => addAction('Deselected via keyboard')}
-            className="border border-gray-300 px-3 py-2 rounded"
+            className="rounded border border-gray-300 px-3 py-2"
           >
             Focus me and use keyboard
           </PressableSpan>
@@ -402,15 +402,15 @@ export const KeyboardNavigation: Story = {
           <PressableSpan
             onPress={() => addAction('Second span activated')}
             onClickOutside={() => addAction('Second span deselected')}
-            className="border border-gray-300 px-3 py-2 rounded"
+            className="rounded border border-gray-300 px-3 py-2"
           >
             Another focusable span
           </PressableSpan>
         </div>
 
         <div className="space-y-1">
-          <h4 className="text-sm font-medium">Recent Actions:</h4>
-          <div className="text-xs text-gray-600 space-y-1">
+          <h4 className="font-medium text-sm">Recent Actions:</h4>
+          <div className="space-y-1 text-gray-600 text-xs">
             {keyboardActions.length === 0 ? (
               <div>No actions yet - try using the keyboard!</div>
             ) : (
@@ -454,12 +454,12 @@ export const ARIAAttributes: Story = {
     <div className="space-y-6">
       <div className="space-y-4">
         <div>
-          <h3 className="text-sm font-medium mb-2">Default ARIA Attributes</h3>
+          <h3 className="mb-2 font-medium text-sm">Default ARIA Attributes</h3>
           <PressableSpan onPress={() => {}}>Basic pressable span</PressableSpan>
         </div>
 
         <div>
-          <h3 className="text-sm font-medium mb-2">Custom ARIA Label</h3>
+          <h3 className="mb-2 font-medium text-sm">Custom ARIA Label</h3>
           <PressableSpan
             onPress={() => {}}
             aria-label="Edit this content by long pressing"
@@ -469,19 +469,19 @@ export const ARIAAttributes: Story = {
         </div>
 
         <div>
-          <h3 className="text-sm font-medium mb-2">With Description</h3>
+          <h3 className="mb-2 font-medium text-sm">With Description</h3>
           <div>
             <PressableSpan onPress={() => {}} aria-describedby="help-text">
               Content with help text
             </PressableSpan>
-            <div id="help-text" className="text-xs text-gray-500 mt-1">
+            <div id="help-text" className="mt-1 text-gray-500 text-xs">
               Long press to enter edit mode, click outside to exit
             </div>
           </div>
         </div>
       </div>
 
-      <div className="text-sm text-gray-600 p-4 bg-blue-50 rounded">
+      <div className="rounded bg-blue-50 p-4 text-gray-600 text-sm">
         <strong>Screen Reader Testing:</strong> All spans have proper
         role="button" and aria-pressed attributes that update based on selection
         state.
@@ -553,14 +553,14 @@ export const InlineTextEditor: Story = {
     };
 
     return (
-      <div className="space-y-6 max-w-2xl">
+      <div className="max-w-2xl space-y-6">
         <div className="space-y-4">
           <div>
-            <h2 className="text-lg font-bold mb-2">
+            <h2 className="mb-2 font-bold text-lg">
               {editingKey === 'title' ? (
                 <input
                   autoFocus
-                  className="w-full border border-blue-300 rounded px-2 py-1"
+                  className="w-full rounded border border-blue-300 px-2 py-1"
                   defaultValue={editableTexts.title}
                   onBlur={(e) => handleSave('title', e.target.value)}
                   onKeyDown={(e) => {
@@ -573,7 +573,7 @@ export const InlineTextEditor: Story = {
                 <PressableSpan
                   onPress={() => handleEdit('title')}
                   onClickOutside={handleCancel}
-                  className="hover:bg-gray-50 transition-colors"
+                  className="transition-colors hover:bg-gray-50"
                 >
                   {editableTexts.title}
                 </PressableSpan>
@@ -582,11 +582,11 @@ export const InlineTextEditor: Story = {
           </div>
 
           <div>
-            <p className="text-gray-700 mb-2">
+            <p className="mb-2 text-gray-700">
               {editingKey === 'description' ? (
                 <textarea
                   autoFocus
-                  className="w-full border border-blue-300 rounded px-2 py-1 min-h-[60px]"
+                  className="min-h-[60px] w-full rounded border border-blue-300 px-2 py-1"
                   defaultValue={editableTexts.description}
                   onBlur={(e) => handleSave('description', e.target.value)}
                   onKeyDown={(e) => {
@@ -599,7 +599,7 @@ export const InlineTextEditor: Story = {
                 <PressableSpan
                   onPress={() => handleEdit('description')}
                   onClickOutside={handleCancel}
-                  className="hover:bg-gray-50 transition-colors block"
+                  className="block transition-colors hover:bg-gray-50"
                 >
                   {editableTexts.description}
                 </PressableSpan>
@@ -607,11 +607,11 @@ export const InlineTextEditor: Story = {
             </p>
           </div>
 
-          <div className="text-sm text-blue-600">
+          <div className="text-blue-600 text-sm">
             {editingKey === 'note' ? (
               <input
                 autoFocus
-                className="w-full border border-blue-300 rounded px-2 py-1"
+                className="w-full rounded border border-blue-300 px-2 py-1"
                 defaultValue={editableTexts.note}
                 onBlur={(e) => handleSave('note', e.target.value)}
                 onKeyDown={(e) => {
@@ -624,7 +624,7 @@ export const InlineTextEditor: Story = {
               <PressableSpan
                 onPress={() => handleEdit('note')}
                 onClickOutside={handleCancel}
-                className="hover:bg-blue-50 transition-colors"
+                className="transition-colors hover:bg-blue-50"
               >
                 {editableTexts.note}
               </PressableSpan>
@@ -632,7 +632,7 @@ export const InlineTextEditor: Story = {
           </div>
         </div>
 
-        <div className="text-xs text-gray-500 p-3 bg-gray-50 rounded">
+        <div className="rounded bg-gray-50 p-3 text-gray-500 text-xs">
           <strong>Instructions:</strong> Long press any text to edit it. Press
           Enter to save, Escape to cancel, or click outside to save changes.
         </div>
@@ -688,8 +688,8 @@ export const TouchFriendlyMobile: Story = {
     ];
 
     return (
-      <div className="space-y-4 max-w-sm mx-auto">
-        <div className="text-center text-sm text-gray-600 mb-4">
+      <div className="mx-auto max-w-sm space-y-4">
+        <div className="mb-4 text-center text-gray-600 text-sm">
           Long press cards to select them
         </div>
 
@@ -702,7 +702,7 @@ export const TouchFriendlyMobile: Story = {
             onClickOutside={() =>
               setSelectedItems((prev) => prev.filter((id) => id !== item.id))
             }
-            className={`block p-4 border-2 rounded-lg transition-all ${
+            className={`block rounded-lg border-2 p-4 transition-all ${
               selectedItems.includes(item.id)
                 ? 'border-blue-500 bg-blue-50'
                 : 'border-gray-200 hover:border-gray-300'
@@ -710,12 +710,12 @@ export const TouchFriendlyMobile: Story = {
           >
             <div className="space-y-1">
               <h3 className="font-medium text-gray-900">{item.title}</h3>
-              <p className="text-sm text-gray-600">{item.description}</p>
+              <p className="text-gray-600 text-sm">{item.description}</p>
             </div>
           </PressableSpan>
         ))}
 
-        <div className="text-center text-xs text-gray-500">
+        <div className="text-center text-gray-500 text-xs">
           Selected: {selectedItems.length} item
           {selectedItems.length !== 1 ? 's' : ''}
         </div>

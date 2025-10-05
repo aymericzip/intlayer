@@ -22,7 +22,7 @@ export const ContributionMessage: FC<{ githubUrl: string }> = ({
       </Link>
       <Popover.Detail
         identifier="contribute"
-        className="flex flex-1 flex-col gap-2 min-w-64 p-3 text-sm"
+        className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-sm"
         xAlign="end"
       >
         <strong>{contribution.title}</strong>

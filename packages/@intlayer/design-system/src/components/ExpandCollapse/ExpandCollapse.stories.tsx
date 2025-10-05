@@ -240,8 +240,8 @@ export const Default: Story = {
     children: LONG_TEXT_CONTENT,
   },
   render: (args) => (
-    <div className="p-4 max-w-2xl">
-      <h3 className="text-lg font-semibold mb-4">Article Content</h3>
+    <div className="max-w-2xl p-4">
+      <h3 className="mb-4 font-semibold text-lg">Article Content</h3>
       <ExpandCollapse {...args} />
     </div>
   ),
@@ -281,8 +281,8 @@ export const ShortContent: Story = {
       "This is short content that doesn't exceed the minimum height threshold, so no expand/collapse functionality is needed.",
   },
   render: (args) => (
-    <div className="p-4 max-w-2xl">
-      <h3 className="text-lg font-semibold mb-4">Short Article</h3>
+    <div className="max-w-2xl p-4">
+      <h3 className="mb-4 font-semibold text-lg">Short Article</h3>
       <ExpandCollapse {...args} />
     </div>
   ),
@@ -312,8 +312,8 @@ export const DisabledRollable: Story = {
     children: LONG_TEXT_CONTENT,
   },
   render: (args) => (
-    <div className="p-4 max-w-2xl">
-      <h3 className="text-lg font-semibold mb-4">Full Content (No Collapse)</h3>
+    <div className="max-w-2xl p-4">
+      <h3 className="mb-4 font-semibold text-lg">Full Content (No Collapse)</h3>
       <ExpandCollapse {...args} />
     </div>
   ),
@@ -351,8 +351,8 @@ export const LowHeightThreshold: Story = {
       'This is moderate content that will trigger collapse functionality with a low height threshold. The component becomes very sensitive to content length and will show the toggle button even for relatively short content.',
   },
   render: (args) => (
-    <div className="p-4 max-w-2xl">
-      <h3 className="text-lg font-semibold mb-4">
+    <div className="max-w-2xl p-4">
+      <h3 className="mb-4 font-semibold text-lg">
         Sensitive Threshold (100px)
       </h3>
       <ExpandCollapse {...args} />
@@ -382,8 +382,8 @@ export const HighHeightThreshold: Story = {
     children: LONG_TEXT_CONTENT,
   },
   render: (args) => (
-    <div className="p-4 max-w-2xl">
-      <h3 className="text-lg font-semibold mb-4">High Threshold (800px)</h3>
+    <div className="max-w-2xl p-4">
+      <h3 className="mb-4 font-semibold text-lg">High Threshold (800px)</h3>
       <ExpandCollapse {...args} />
     </div>
   ),
@@ -421,14 +421,14 @@ export const CodeBlockContent: Story = {
     isRollable: true,
     minHeight: 300,
     children: (
-      <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
+      <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100 text-sm">
         <code>{CODE_EXAMPLE_CONTENT}</code>
       </pre>
     ),
   },
   render: (args) => (
-    <div className="p-4 max-w-4xl">
-      <h3 className="text-lg font-semibold mb-4">Code Example</h3>
+    <div className="max-w-4xl p-4">
+      <h3 className="mb-4 font-semibold text-lg">Code Example</h3>
       <ExpandCollapse {...args} />
     </div>
   ),
@@ -461,8 +461,8 @@ export const MixedContent: Story = {
     minHeight: 250,
   },
   render: (args) => (
-    <div className="p-4 max-w-2xl">
-      <h3 className="text-lg font-semibold mb-4">Mixed Content Article</h3>
+    <div className="max-w-2xl p-4">
+      <h3 className="mb-4 font-semibold text-lg">Mixed Content Article</h3>
       <ExpandCollapse {...args}>
         <div className="space-y-4">
           <p className="text-gray-700">
@@ -470,8 +470,8 @@ export const MixedContent: Story = {
             interactive elements.
           </p>
 
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <h4 className="font-semibold text-blue-900 mb-2">Important Note</h4>
+          <div className="rounded-lg bg-blue-50 p-4">
+            <h4 className="mb-2 font-semibold text-blue-900">Important Note</h4>
             <p className="text-blue-800">
               This is a highlighted section within the collapsible content.
             </p>
@@ -483,9 +483,9 @@ export const MixedContent: Story = {
             nec, ultricies sed, dolor.
           </p>
 
-          <div className="border border-gray-200 p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">Code Example</h4>
-            <pre className="bg-gray-100 p-2 rounded text-sm overflow-x-auto">
+          <div className="rounded-lg border border-gray-200 p-4">
+            <h4 className="mb-2 font-semibold">Code Example</h4>
+            <pre className="overflow-x-auto rounded bg-gray-100 p-2 text-sm">
               <code>const example = "This is code within mixed content";</code>
             </pre>
           </div>
@@ -496,7 +496,7 @@ export const MixedContent: Story = {
             example.
           </p>
 
-          <ul className="list-disc list-inside text-gray-700 space-y-1">
+          <ul className="list-inside list-disc space-y-1 text-gray-700">
             <li>List item one with important information</li>
             <li>List item two with additional details</li>
             <li>List item three for completeness</li>
@@ -543,8 +543,8 @@ export const CustomStyling: Story = {
     children: LONG_TEXT_CONTENT,
   },
   render: (args) => (
-    <div className="p-4 max-w-2xl">
-      <h3 className="text-lg font-semibold mb-4">Custom Styled Container</h3>
+    <div className="max-w-2xl p-4">
+      <h3 className="mb-4 font-semibold text-lg">Custom Styled Container</h3>
       <ExpandCollapse {...args} />
     </div>
   ),
@@ -584,23 +584,23 @@ export const KeyboardNavigation: Story = {
       'Content for keyboard navigation testing. This content should be long enough to trigger the expand/collapse functionality and test the keyboard accessibility of the toggle button.',
   },
   render: (args) => (
-    <div className="p-4 max-w-2xl space-y-4">
-      <div className="text-sm text-gray-600 p-3 bg-blue-50 rounded-lg">
-        <p className="font-medium mb-1">Keyboard Navigation Test:</p>
-        <ul className="text-xs space-y-1">
+    <div className="max-w-2xl space-y-4 p-4">
+      <div className="rounded-lg bg-blue-50 p-3 text-gray-600 text-sm">
+        <p className="mb-1 font-medium">Keyboard Navigation Test:</p>
+        <ul className="space-y-1 text-xs">
           <li>• Tab: Navigate to toggle button</li>
           <li>• Enter/Space: Activate expand/collapse</li>
           <li>• Focus indicators should be clearly visible</li>
         </ul>
       </div>
 
-      <button className="px-3 py-2 bg-gray-200 rounded">
+      <button className="rounded bg-gray-200 px-3 py-2">
         Before ExpandCollapse
       </button>
 
       <ExpandCollapse {...args} />
 
-      <button className="px-3 py-2 bg-gray-200 rounded">
+      <button className="rounded bg-gray-200 px-3 py-2">
         After ExpandCollapse
       </button>
     </div>
@@ -645,14 +645,14 @@ export const DocumentationArticle: Story = {
     minHeight: 400,
   },
   render: (args) => (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="mx-auto max-w-4xl p-6">
       <article className="prose prose-gray max-w-none">
-        <h1 className="text-2xl font-bold mb-6">React Hooks Guide</h1>
+        <h1 className="mb-6 font-bold text-2xl">React Hooks Guide</h1>
 
         <ExpandCollapse {...args}>
           <div className="space-y-6">
             <section>
-              <h2 className="text-xl font-semibold mb-3">Introduction</h2>
+              <h2 className="mb-3 font-semibold text-xl">Introduction</h2>
               <p>
                 React Hooks are functions that let you "hook into" React state
                 and lifecycle features from function components. They were
@@ -662,26 +662,26 @@ export const DocumentationArticle: Story = {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-3">Basic Hooks</h2>
+              <h2 className="mb-3 font-semibold text-xl">Basic Hooks</h2>
 
-              <h3 className="text-lg font-medium mb-2">useState</h3>
+              <h3 className="mb-2 font-medium text-lg">useState</h3>
               <p className="mb-4">
                 The useState Hook lets you add state to function components. It
                 returns a stateful value and a function to update it.
               </p>
 
-              <pre className="bg-gray-100 p-4 rounded-lg mb-4 overflow-x-auto">
+              <pre className="mb-4 overflow-x-auto rounded-lg bg-gray-100 p-4">
                 <code>{`const [count, setCount] = useState(0);`}</code>
               </pre>
 
-              <h3 className="text-lg font-medium mb-2">useEffect</h3>
+              <h3 className="mb-2 font-medium text-lg">useEffect</h3>
               <p className="mb-4">
                 The useEffect Hook lets you perform side effects in function
                 components. It serves the same purpose as componentDidMount,
                 componentDidUpdate, and componentWillUnmount combined.
               </p>
 
-              <pre className="bg-gray-100 p-4 rounded-lg mb-4 overflow-x-auto">
+              <pre className="mb-4 overflow-x-auto rounded-lg bg-gray-100 p-4">
                 <code>{`useEffect(() => {
   document.title = \`You clicked \${count} times\`;
 }, [count]);`}</code>
@@ -689,21 +689,21 @@ export const DocumentationArticle: Story = {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-3">Advanced Hooks</h2>
+              <h2 className="mb-3 font-semibold text-xl">Advanced Hooks</h2>
 
-              <h3 className="text-lg font-medium mb-2">useContext</h3>
+              <h3 className="mb-2 font-medium text-lg">useContext</h3>
               <p className="mb-4">
                 useContext lets you subscribe to React context without
                 introducing nesting.
               </p>
 
-              <h3 className="text-lg font-medium mb-2">useReducer</h3>
+              <h3 className="mb-2 font-medium text-lg">useReducer</h3>
               <p className="mb-4">
                 useReducer is usually preferable to useState when you have
                 complex state logic that involves multiple sub-values.
               </p>
 
-              <h3 className="text-lg font-medium mb-2">
+              <h3 className="mb-2 font-medium text-lg">
                 useCallback and useMemo
               </h3>
               <p className="mb-4">
@@ -713,8 +713,8 @@ export const DocumentationArticle: Story = {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-3">Best Practices</h2>
-              <ul className="list-disc list-inside space-y-2">
+              <h2 className="mb-3 font-semibold text-xl">Best Practices</h2>
+              <ul className="list-inside list-disc space-y-2">
                 <li>Only call Hooks at the top level of your React function</li>
                 <li>
                   Don't call Hooks inside loops, conditions, or nested functions
@@ -765,14 +765,14 @@ export const FAQSection: Story = {
     minHeight: 200,
   },
   render: (args) => (
-    <div className="max-w-3xl mx-auto p-6">
-      <h2 className="text-xl font-bold mb-6">Frequently Asked Questions</h2>
+    <div className="mx-auto max-w-3xl p-6">
+      <h2 className="mb-6 font-bold text-xl">Frequently Asked Questions</h2>
 
       <div className="space-y-4">
-        <div className="border border-gray-200 rounded-lg p-4">
-          <h3 className="font-semibold mb-3">How does ExpandCollapse work?</h3>
+        <div className="rounded-lg border border-gray-200 p-4">
+          <h3 className="mb-3 font-semibold">How does ExpandCollapse work?</h3>
           <ExpandCollapse {...args}>
-            <div className="text-gray-700 space-y-3">
+            <div className="space-y-3 text-gray-700">
               <p>
                 The ExpandCollapse component works by first measuring the actual
                 height of its content when it mounts. It then compares this
@@ -805,12 +805,12 @@ export const FAQSection: Story = {
           </ExpandCollapse>
         </div>
 
-        <div className="border border-gray-200 rounded-lg p-4">
-          <h3 className="font-semibold mb-3">
+        <div className="rounded-lg border border-gray-200 p-4">
+          <h3 className="mb-3 font-semibold">
             When should I use this component?
           </h3>
           <ExpandCollapse minHeight={150} isRollable={true}>
-            <div className="text-gray-700 space-y-3">
+            <div className="space-y-3 text-gray-700">
               <p>
                 Use ExpandCollapse when you have content that might vary
                 significantly in length and you want to maintain a clean,

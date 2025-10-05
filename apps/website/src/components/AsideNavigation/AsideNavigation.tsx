@@ -40,11 +40,11 @@ export const AsideNavigation: FC = (props) => {
           >
             <div className="relative flex flex-col items-center pt-2">
               <MaxWidthSmoother isHidden={isHidden}>
-                <div className="flex flex-row gap-5 justify-center items-center h-5 w-full">
-                  <SocialNetworks className="w-3.5 h-full flex justify-center items-center" />
+                <div className="flex h-5 w-full flex-row items-center justify-center gap-5">
+                  <SocialNetworks className="flex h-full w-3.5 items-center justify-center" />
                 </div>
               </MaxWidthSmoother>
-              <div className="relative flex flex-row items-center pt-2 w-full">
+              <div className="relative flex w-full flex-row items-center pt-2">
                 <Button
                   Icon={ArrowRightToLine}
                   size="icon-md"
@@ -60,11 +60,11 @@ export const AsideNavigation: FC = (props) => {
                 <MaxWidthSmoother isHidden={isHidden}>
                   <h2 className="ml-3 text-nowrap font-bold">{title}</h2>
                 </MaxWidthSmoother>
-                <div className="from-card/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
+                <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b from-card/90 backdrop-blur" />
               </div>
             </div>
           </Container>
-          <div className="flex flex-1 md:sticky max-h-[calc(100vh-8rem)] h-screen md:top-28 md:pt-0 w-full">
+          <div className="flex h-screen max-h-[calc(100vh-8rem)] w-full flex-1 md:sticky md:top-28 md:pt-0">
             <MaxWidthSmoother isHidden={isHidden}>
               <div className="pl-5">
                 <NavTitles />

@@ -29,7 +29,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
   const { docButton } = useIntlayer('blog-nav-list');
 
   return (
-    <nav className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pb-20 pt-8">
+    <nav className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pt-8 pb-20">
       {Object.keys(blogData).map((key1) => {
         const section1Data = blogData[key1];
         const sectionDefault = section1Data.default;
@@ -48,7 +48,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
             </OptionalLink>
 
             {subSections && Object.keys(subSections).length > 0 && (
-              <ul className="border-neutral mt-4 flex flex-col gap-4 border-l-[0.5px] p-1 text-base">
+              <ul className="mt-4 flex flex-col gap-4 border-neutral border-l-[0.5px] p-1 text-base">
                 {Object.keys(subSections).map((key2) => {
                   const section2Data = subSections[key2];
                   const sectionDefault = section2Data.default;
@@ -78,7 +78,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           <div className="pl-3 text-sm">
                             {subSections2 &&
                               Object.keys(subSections2).length > 0 && (
-                                <div className="text-neutral hover:text-text flex flex-col items-start gap-2 p-1 transition-colors">
+                                <div className="flex flex-col items-start gap-2 p-1 text-neutral transition-colors hover:text-text">
                                   {Object.keys(subSections2).map((key3) => {
                                     const section3Data = subSections2[key3];
 
@@ -108,7 +108,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                       ) : (
                         <OptionalLink
                           href={sectionDefault?.relativeUrl ?? ''}
-                          className="hover:text-text block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors"
+                          className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
                           label={key2}
                           isActive={isActive}
                         >
@@ -142,7 +142,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
 
   return (
     <ClickOutsideDiv
-      className="left-0 top-0 z-10 flex h-full justify-end max-md:fixed"
+      className="top-0 left-0 z-10 flex h-full justify-end max-md:fixed"
       onClickOutSide={() => {
         if (isMobile) {
           setIsHidden(true);
@@ -176,7 +176,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
                 ])}
                 onClick={() => setIsHidden((isHidden) => !isHidden)}
               />
-              <div className="from-card/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
+              <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b from-card/90 backdrop-blur" />
             </div>
           </Container>
 

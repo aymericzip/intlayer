@@ -254,15 +254,15 @@ export const SizeVariants: Story = {
     <div className="flex items-center gap-4">
       <div className="flex flex-col items-center gap-2">
         <Avatar size="sm" src={getAvatarImageUrl()} fullname="Small Avatar" />
-        <span className="text-xs text-gray-600">Small</span>
+        <span className="text-gray-600 text-xs">Small</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <Avatar size="md" src={getAvatarImageUrl()} fullname="Medium Avatar" />
-        <span className="text-xs text-gray-600">Medium</span>
+        <span className="text-gray-600 text-xs">Medium</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <Avatar size="lg" src={getAvatarImageUrl()} fullname="Large Avatar" />
-        <span className="text-xs text-gray-600">Large</span>
+        <span className="text-gray-600 text-xs">Large</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <Avatar
@@ -270,7 +270,7 @@ export const SizeVariants: Story = {
           src={getAvatarImageUrl()}
           fullname="Extra Large Avatar"
         />
-        <span className="text-xs text-gray-600">Extra Large</span>
+        <span className="text-gray-600 text-xs">Extra Large</span>
       </div>
     </div>
   ),
@@ -338,19 +338,19 @@ export const ContentStates: Story = {
     <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
       <div className="flex flex-col items-center gap-2">
         <Avatar src={getAvatarImageUrl()} fullname="Image User" />
-        <span className="text-sm text-center">With Image</span>
+        <span className="text-center text-sm">With Image</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <Avatar fullname="Initials User" />
-        <span className="text-sm text-center">Initials Only</span>
+        <span className="text-center text-sm">Initials Only</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <Avatar isLoading fullname="Loading User" />
-        <span className="text-sm text-center">Loading State</span>
+        <span className="text-center text-sm">Loading State</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <Avatar />
-        <span className="text-sm text-center">Default Icon</span>
+        <span className="text-center text-sm">Default Icon</span>
       </div>
     </div>
   ),
@@ -389,7 +389,7 @@ export const UserGallery: Story = {
           src={user.img}
           fullname={user.name}
           onClick={() => console.log(`Clicked on ${user.name}`)}
-          className="hover:scale-110 transition-transform duration-200"
+          className="transition-transform duration-200 hover:scale-110"
         />
       ))}
     </div>
@@ -422,24 +422,24 @@ export const UserGallery: Story = {
 export const ThemeVariations: Story = {
   render: () => (
     <div className="grid grid-cols-1 gap-8">
-      <div className="bg-white p-6 rounded-lg">
-        <h3 className="mb-4 text-lg font-semibold">Light Theme</h3>
+      <div className="rounded-lg bg-white p-6">
+        <h3 className="mb-4 font-semibold text-lg">Light Theme</h3>
         <div className="flex gap-4">
           <Avatar src={getAvatarImageUrl()} fullname="Light Theme User" />
           <Avatar fullname="Light Initials" />
           <Avatar isLoading />
         </div>
       </div>
-      <div className="bg-gray-900 p-6 rounded-lg">
-        <h3 className="mb-4 text-lg font-semibold text-white">Dark Theme</h3>
+      <div className="rounded-lg bg-gray-900 p-6">
+        <h3 className="mb-4 font-semibold text-lg text-white">Dark Theme</h3>
         <div className="flex gap-4">
           <Avatar src={getAvatarImageUrl()} fullname="Dark Theme User" />
           <Avatar fullname="Dark Initials" />
           <Avatar isLoading />
         </div>
       </div>
-      <div className="bg-blue-50 p-6 rounded-lg">
-        <h3 className="mb-4 text-lg font-semibold text-blue-900">
+      <div className="rounded-lg bg-blue-50 p-6">
+        <h3 className="mb-4 font-semibold text-blue-900 text-lg">
           Colored Background
         </h3>
         <div className="flex gap-4">

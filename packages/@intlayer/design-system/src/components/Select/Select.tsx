@@ -60,8 +60,8 @@ const SelectTrigger: FC<
 > = ({ validationStyleEnabled = false, className, children, ...props }) => (
   <SelectPrimitive.Trigger
     className={cn(
-      'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring focus:outline-hidden flex w-full items-center justify-between whitespace-nowrap rounded-md border px-3 py-2 text-sm focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-      'bg-input-background text-input-text w-full select-text resize-none rounded-xl border-2 px-2 py-1 text-sm shadow-none outline-0 transition-all',
+      'flex w-full items-center justify-between whitespace-nowrap rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+      'w-full select-text resize-none rounded-xl border-2 bg-input-background px-2 py-1 text-input-text text-sm shadow-none outline-0 transition-all',
       'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
       'aria-[invalid=true]:border-error',
       validationStyleEnabled && 'valid:border-success invalid:border-error',
@@ -149,10 +149,10 @@ export const SelectContent: FC<
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       className={cn(
-        'bg-input-background text-input-text w-full select-text resize-none rounded-xl border-2 p-1 text-sm shadow-none outline-0 transition-all',
-        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-96 min-w-[8rem] overflow-hidden border shadow-md',
+        'w-full select-text resize-none rounded-xl border-2 bg-input-background p-1 text-input-text text-sm shadow-none outline-0 transition-all',
+        'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-96 min-w-[8rem] overflow-hidden border shadow-md data-[state=closed]:animate-out data-[state=open]:animate-in',
         position === 'popper' &&
-          'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
+          'data-[side=left]:-translate-x-1 data-[side=top]:-translate-y-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1',
         className
       )}
       position={position}
@@ -198,7 +198,7 @@ export const SelectLabel: FC<ComponentProps<typeof SelectPrimitive.Label>> = ({
   ...props
 }) => (
   <SelectPrimitive.Label
-    className={cn('px-1 py-0.5 text-sm font-semibold', className)}
+    className={cn('px-1 py-0.5 font-semibold text-sm', className)}
     {...props}
   />
 );
@@ -226,7 +226,7 @@ const SelectItem: FC<ComponentProps<typeof SelectPrimitive.Item>> = ({
 }) => (
   <SelectPrimitive.Item
     className={cn(
-      'focus:bg-neutral/10 outline-hidden relative flex w-full cursor-pointer select-none items-center rounded-lg py-1.5 pl-2 pr-8 text-sm data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'relative flex w-full cursor-pointer select-none items-center rounded-lg py-1.5 pr-8 pl-2 text-sm outline-hidden focus:bg-neutral/10 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className
     )}
     {...props}

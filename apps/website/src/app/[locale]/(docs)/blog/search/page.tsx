@@ -10,7 +10,7 @@ const BlogSearchPageContent: FC = () => {
   const { title } = useIntlayer('blog-search-page');
   return (
     <>
-      <H1 className="text-4xl font-bold">{title}</H1>
+      <H1 className="font-bold text-4xl">{title}</H1>
       <div className="flex size-full flex-1 flex-col items-baseline gap-10 p-10 md:mt-[10vh]">
         <Container className="mx-auto w-full max-w-4xl p-10" roundedSize="2xl">
           <Suspense fallback={<Loader />}>

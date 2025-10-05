@@ -19,7 +19,7 @@ export const LongPressMessage: FC<LongPressMessageProps> = (props) => {
   return (
     <div
       className={cn(
-        'bg-neutral/30 py-1 px-3 rounded-2xl font-bold text-text text-sm transition-opacity duration-100',
+        'rounded-2xl bg-neutral/30 px-3 py-1 font-bold text-sm text-text transition-opacity duration-100',
         props?.dictionaryKey ? 'opacity-100' : 'opacity-0'
       )}
     >

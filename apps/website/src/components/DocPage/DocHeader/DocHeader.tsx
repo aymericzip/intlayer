@@ -33,30 +33,30 @@ export const DocHeader: FC<DocHeaderProps> = ({
 
   return (
     <>
-      <header className="mt-5 z-10 flex flex-col gap-2 px-4 py-2 mx-auto text-xs">
+      <header className="z-10 mx-auto mt-5 flex flex-col gap-2 px-4 py-2 text-xs">
         {author && (
           <span className="block">
-            {authorLabel}: <span className="text-neutral ml-2">{author}</span>
+            {authorLabel}: <span className="ml-2 text-neutral">{author}</span>
           </span>
         )}
-        <div className="flex flex-row gap-4 justify-between w-full py-2">
+        <div className="flex w-full flex-row justify-between gap-4 py-2">
           {createdAt && (
             <span className="block">
               {creationLabel}:
-              <span className="text-neutral ml-2">{createdAt}</span>
+              <span className="ml-2 text-neutral">{createdAt}</span>
             </span>
           )}
           {updatedAt && (
             <span className="block">
               {lastUpdateLabel}:
-              <span className="text-neutral ml-2">{updatedAt}</span>
+              <span className="ml-2 text-neutral">{updatedAt}</span>
             </span>
           )}
         </div>
       </header>
-      <Container className="sticky top-20 mt-5 z-5 flex flex-col gap-2 px-4 py-2 mx-auto">
-        <div className="flex flex-row gap-4 w-full justify-between">
-          <div className="flex flex-row gap-4 w-full justify-start items-center">
+      <Container className="sticky top-20 z-5 mx-auto mt-5 flex flex-col gap-2 px-4 py-2">
+        <div className="flex w-full flex-row justify-between gap-4">
+          <div className="flex w-full flex-row items-center justify-start gap-4">
             {applicationTemplate && (
               <ApplicationTemplateMessage
                 applicationTemplateUrl={applicationTemplate.replace(
@@ -74,7 +74,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
 
             <MCPMessage />
           </div>
-          <div className="flex flex-row gap-4 w-full justify-end items-center">
+          <div className="flex w-full flex-row items-center justify-end gap-4">
             <TranslatedContentMessage pageUrl={relativeUrl} />
 
             <ContributionMessage

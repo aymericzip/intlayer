@@ -84,7 +84,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
     >
       <AutoSizedTextArea
         className={cn(
-          'break-word outline-hidden m-3 inline w-full bg-transparent',
+          'break-word m-3 inline w-full bg-transparent outline-hidden',
           isEditing ? 'cursor-text' : 'cursor-pointer'
         )}
         onChange={handleOnContentChange}
@@ -104,7 +104,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
           aria-label="Edit actions"
         >
           <Check
-            className="cursor-pointer hover:scale-110 text-green-600"
+            className="cursor-pointer text-green-600 hover:scale-110"
             size={16}
             onClick={handleValid}
             role="button"
@@ -118,7 +118,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
             }}
           />
           <X
-            className="cursor-pointer hover:scale-110 text-red-600"
+            className="cursor-pointer text-red-600 hover:scale-110"
             size={16}
             onClick={handleCancel}
             role="button"

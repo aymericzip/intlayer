@@ -20,7 +20,7 @@ export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
     <div
       // className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center ${className || ''}`}
       className={cn(
-        'flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center',
+        'flex flex-col justify-center gap-3 sm:flex-row sm:gap-4',
         className
       )}
       {...props}
@@ -29,7 +29,7 @@ export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
         href="https://github.com/aymericzip/intlayer"
         variant={LinkVariant.BUTTON}
         label={supportButton.value}
-        className="hover:scale-105 px-4 py-2 rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-transparent hover:bg-transparent"
+        className="rounded-full border-2 border-neutral-300 bg-transparent px-4 py-2 hover:scale-105 hover:bg-transparent dark:border-neutral-600"
         isExternalLink
       >
         <span className="flex items-center justify-center gap-2 text-black dark:text-white">
@@ -41,7 +41,7 @@ export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
         variant={LinkVariant.BUTTON}
         color={LinkColor.CUSTOM}
         label={getStartedButton.value}
-        className="hover:scale-105 px-4 py-2 rounded-full"
+        className="rounded-full px-4 py-2 hover:scale-105"
       >
         <span className="flex items-center justify-center gap-2">
           <span className="text-lg">{getStartedButton}</span>

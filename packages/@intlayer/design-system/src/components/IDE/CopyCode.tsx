@@ -18,7 +18,7 @@ export const CopyCode: FC<CopyCodeProps> = ({ code }) => {
 
       <Popover.Detail
         identifier="copy"
-        className="flex flex-col gap-3 p-3 min-w-64 text-sm"
+        className="flex min-w-64 flex-col gap-3 p-3 text-sm"
         xAlign={PopoverXAlign.END}
       >
         <strong>{title}</strong>

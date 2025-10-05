@@ -43,7 +43,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
     <Form
       schema={DictionarySchema}
       onSubmitSuccess={onSubmitSuccess}
-      className="w-full max-w-[400px] m-auto"
+      className="m-auto w-full max-w-[400px]"
       {...form}
     >
       <Form.Input
@@ -77,7 +77,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
       </Form.MultiSelect>
 
       <Form.Button
-        className="ml-auto mt-12"
+        className="mt-12 ml-auto"
         type="submit"
         color={ButtonColor.TEXT}
         isLoading={isSubmitting || isPending}

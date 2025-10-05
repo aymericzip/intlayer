@@ -118,8 +118,8 @@ export const AllHeadingLevels: Story = {
       <H4>H4 - Minor Section Header</H4>
       <H5>H5 - Detailed Subsection Header</H5>
 
-      <div className="mt-8 p-4 bg-gray-50 rounded-lg text-sm text-gray-600">
-        <p className="font-medium mb-2">Visual Hierarchy:</p>
+      <div className="mt-8 rounded-lg bg-gray-50 p-4 text-gray-600 text-sm">
+        <p className="mb-2 font-medium">Visual Hierarchy:</p>
         <p>
           Each heading level has progressively smaller font size and appropriate
           spacing for content organization.
@@ -196,9 +196,9 @@ export const H1Primary: Story = {
 export const ClickableHeadersWithAnchors: Story = {
   render: () => (
     <div className="space-y-8 p-6">
-      <div className="text-sm text-gray-600 mb-6 p-4 bg-blue-50 rounded-lg">
-        <p className="font-medium mb-2">How to use anchor links:</p>
-        <ol className="list-decimal list-inside space-y-1">
+      <div className="mb-6 rounded-lg bg-blue-50 p-4 text-gray-600 text-sm">
+        <p className="mb-2 font-medium">How to use anchor links:</p>
+        <ol className="list-inside list-decimal space-y-1">
           <li>Hover over any heading to see the # symbol appear</li>
           <li>Click the # symbol to copy the section URL to clipboard</li>
           <li>The page will scroll smoothly to the section</li>
@@ -259,7 +259,7 @@ export const ClickableHeadersWithAnchors: Story = {
 export const NonClickableHeaders: Story = {
   render: () => (
     <div className="space-y-6 p-6">
-      <div className="text-sm text-gray-600 mb-6 p-4 bg-gray-50 rounded-lg">
+      <div className="mb-6 rounded-lg bg-gray-50 p-4 text-gray-600 text-sm">
         <p>
           These headers have anchor functionality disabled and behave as regular
           headings.
@@ -308,25 +308,25 @@ export const NonClickableHeaders: Story = {
 export const CustomStyledHeaders: Story = {
   render: () => (
     <div className="space-y-8 p-6">
-      <H1 className="text-blue-600 border-b-2 border-blue-200 pb-2">
+      <H1 className="border-blue-200 border-b-2 pb-2 text-blue-600">
         Custom Styled H1
       </H1>
 
-      <H2 isClickable className="text-green-600 bg-green-50 p-4 rounded-lg">
+      <H2 isClickable className="rounded-lg bg-green-50 p-4 text-green-600">
         Green Background H2 with Anchor
       </H2>
 
-      <H3 isClickable className="text-purple-600 italic font-light">
+      <H3 isClickable className="font-light text-purple-600 italic">
         Italic Purple H3 with Anchor
       </H3>
 
-      <H4 isClickable className="text-red-600 uppercase tracking-wider text-sm">
+      <H4 isClickable className="text-red-600 text-sm uppercase tracking-wider">
         Uppercase H4 with Anchor
       </H4>
 
       <H5
         isClickable
-        className="text-gray-800 bg-yellow-100 inline-block px-3 py-1 rounded-full"
+        className="inline-block rounded-full bg-yellow-100 px-3 py-1 text-gray-800"
       >
         Badge Style H5 with Anchor
       </H5>
@@ -363,7 +363,7 @@ export const CustomStyledHeaders: Story = {
  */
 export const HeadingHierarchy: Story = {
   render: () => (
-    <article className="max-w-4xl mx-auto p-6">
+    <article className="mx-auto max-w-4xl p-6">
       <H1>Complete Guide to Web Accessibility</H1>
 
       <H2 isClickable>Introduction to Accessibility</H2>
@@ -446,8 +446,8 @@ export const HeadingHierarchy: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-6 p-6">
-      <div className="text-sm text-gray-600 mb-6 p-4 bg-blue-50 rounded-lg">
-        <p className="font-medium mb-2">Keyboard Navigation Test:</p>
+      <div className="mb-6 rounded-lg bg-blue-50 p-4 text-gray-600 text-sm">
+        <p className="mb-2 font-medium">Keyboard Navigation Test:</p>
         <p>
           While anchor links are primarily mouse-focused, the headings maintain
           full keyboard accessibility for navigation and screen reader support.
@@ -504,16 +504,16 @@ export const KeyboardNavigation: Story = {
  */
 export const DocumentationPage: Story = {
   render: () => (
-    <div className="max-w-4xl mx-auto p-6">
-      <header className="mb-8 pb-6 border-b border-gray-200">
+    <div className="mx-auto max-w-4xl p-6">
+      <header className="mb-8 border-gray-200 border-b pb-6">
         <H1>API Documentation</H1>
-        <p className="text-gray-600 mt-2">
+        <p className="mt-2 text-gray-600">
           Complete reference for the Intlayer Design System API
         </p>
       </header>
 
-      <nav className="mb-8 p-4 bg-gray-50 rounded-lg">
-        <h2 className="text-lg font-semibold mb-3">Table of Contents</h2>
+      <nav className="mb-8 rounded-lg bg-gray-50 p-4">
+        <h2 className="mb-3 font-semibold text-lg">Table of Contents</h2>
         <ul className="space-y-1 text-sm">
           <li>
             <a
@@ -526,7 +526,7 @@ export const DocumentationPage: Story = {
           <li>
             <a
               href="#installation"
-              className="text-blue-600 hover:underline ml-4"
+              className="ml-4 text-blue-600 hover:underline"
             >
               Installation
             </a>
@@ -534,7 +534,7 @@ export const DocumentationPage: Story = {
           <li>
             <a
               href="#basic-usage"
-              className="text-blue-600 hover:underline ml-4"
+              className="ml-4 text-blue-600 hover:underline"
             >
               Basic Usage
             </a>
@@ -547,13 +547,13 @@ export const DocumentationPage: Story = {
           <li>
             <a
               href="#components"
-              className="text-blue-600 hover:underline ml-4"
+              className="ml-4 text-blue-600 hover:underline"
             >
               Components
             </a>
           </li>
           <li>
-            <a href="#hooks" className="text-blue-600 hover:underline ml-4">
+            <a href="#hooks" className="ml-4 text-blue-600 hover:underline">
               Hooks
             </a>
           </li>
@@ -574,13 +574,13 @@ export const DocumentationPage: Story = {
 
         <H3 isClickable>Installation</H3>
         <p>Install the package using your preferred package manager:</p>
-        <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+        <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100">
           <code>npm install @intlayer/design-system</code>
         </pre>
 
         <H3 isClickable>Basic Usage</H3>
         <p>Import and use components in your React application:</p>
-        <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+        <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100">
           <code>{`import { Button, Label } from '@intlayer/design-system';
 
 function App() {
@@ -665,20 +665,20 @@ function App() {
  */
 export const BlogArticle: Story = {
   render: () => (
-    <article className="max-w-3xl mx-auto p-6">
+    <article className="mx-auto max-w-3xl p-6">
       <header className="mb-8">
         <H1>Building Accessible React Components</H1>
-        <div className="text-gray-600 text-sm mt-2 mb-4">
+        <div className="mt-2 mb-4 text-gray-600 text-sm">
           Published by Jane Developer
         </div>
-        <div className="flex gap-2 mb-4">
-          <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+        <div className="mb-4 flex gap-2">
+          <span className="rounded bg-blue-100 px-2 py-1 text-blue-800 text-xs">
             React
           </span>
-          <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">
+          <span className="rounded bg-green-100 px-2 py-1 text-green-800 text-xs">
             Accessibility
           </span>
-          <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">
+          <span className="rounded bg-purple-100 px-2 py-1 text-purple-800 text-xs">
             Web Development
           </span>
         </div>

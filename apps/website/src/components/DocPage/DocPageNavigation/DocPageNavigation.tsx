@@ -21,14 +21,14 @@ export const DocPageNavigation: FC<DocPageNavigationProps> = ({
   const { goToNextSection, goToPreviousSection } = useIntlayer('doc-page');
 
   return (
-    <div className="flex flex-row flex-wrap justify-between gap-3 text-sm px-10 mt-3">
+    <div className="mt-3 flex flex-row flex-wrap justify-between gap-3 px-10 text-sm">
       {prevDoc && (
-        <Container className="flex-1 max-w-1/2">
+        <Container className="max-w-1/2 flex-1">
           <Link
             href={prevDoc?.url}
             label={goToPreviousSection.label.value}
             color="text"
-            className="ml-auto w-full flex flex-row justify-start items-center break-words whitespace-normal gap-2 px-2 py-5 text-nowrap rounded-lg h-auto flex-1"
+            className="ml-auto flex h-auto w-full flex-1 flex-row items-center justify-start gap-2 whitespace-normal text-nowrap break-words rounded-lg px-2 py-5"
           >
             <ChevronLeft className="size-5" />
             {prevDoc?.title}
@@ -36,12 +36,12 @@ export const DocPageNavigation: FC<DocPageNavigationProps> = ({
         </Container>
       )}
       {nextDoc && (
-        <Container className="flex-1 max-w-1/2 ml-auto">
+        <Container className="ml-auto max-w-1/2 flex-1">
           <Link
             href={nextDoc?.url}
             label={goToNextSection.label.value}
             color="text"
-            className="w-full flex flex-row justify-end items-center break-words whitespace-normal gap-2 px-2 py-5 text-nowrap rounded-lg h-auto flex-1"
+            className="flex h-auto w-full flex-1 flex-row items-center justify-end gap-2 whitespace-normal text-nowrap break-words rounded-lg px-2 py-5"
           >
             {nextDoc?.title}
             <ChevronRight className="size-5" />

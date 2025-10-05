@@ -165,19 +165,19 @@ export const Controlled: Story = {
           </Select>
         </div>
 
-        <div className="text-sm text-gray-600">
+        <div className="text-gray-600 text-sm">
           Selected value: <strong>{value || 'None'}</strong>
         </div>
 
         <div className="flex gap-2">
           <button
-            className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
+            className="rounded bg-blue-500 px-2 py-1 text-white text-xs"
             onClick={() => setValue('en')}
           >
             Set English
           </button>
           <button
-            className="text-xs bg-gray-500 text-white px-2 py-1 rounded"
+            className="rounded bg-gray-500 px-2 py-1 text-white text-xs"
             onClick={() => setValue('')}
           >
             Clear
@@ -267,10 +267,10 @@ export const ValidationStates: Story = {
     const isInvalid = showValidation && !isValid;
 
     return (
-      <form className="space-y-6 w-80">
+      <form className="w-80 space-y-6">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="mb-2 block font-medium text-sm">
               Country (Required) *
             </label>
             <Select value={country} onValueChange={setCountry} required>
@@ -299,26 +299,26 @@ export const ValidationStates: Story = {
             </Select>
 
             {isInvalid && (
-              <p className="text-red-500 text-xs mt-1">
+              <p className="mt-1 text-red-500 text-xs">
                 Please select a country
               </p>
             )}
             {isValid && showValidation && (
-              <p className="text-green-500 text-xs mt-1">Valid selection ✓</p>
+              <p className="mt-1 text-green-500 text-xs">Valid selection ✓</p>
             )}
           </div>
 
           <div className="flex gap-3">
             <button
               type="button"
-              className="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600"
+              className="rounded bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-600"
               onClick={() => setShowValidation(true)}
             >
               Validate Form
             </button>
             <button
               type="button"
-              className="bg-gray-500 text-white px-4 py-2 rounded text-sm hover:bg-gray-600"
+              className="rounded bg-gray-500 px-4 py-2 text-sm text-white hover:bg-gray-600"
               onClick={() => {
                 setCountry('');
                 setShowValidation(false);
@@ -328,7 +328,7 @@ export const ValidationStates: Story = {
             </button>
           </div>
 
-          <div className="text-sm space-y-1">
+          <div className="space-y-1 text-sm">
             <div>
               Selected: <strong>{country || 'None'}</strong>
             </div>
@@ -364,9 +364,9 @@ export const ValidationStates: Story = {
  */
 export const Disabled: Story = {
   render: () => (
-    <div className="space-y-4 w-80">
+    <div className="w-80 space-y-4">
       <div>
-        <label className="block text-sm font-medium mb-2">
+        <label className="mb-2 block font-medium text-sm">
           Available Options
         </label>
         <Select defaultValue="option2">
@@ -382,7 +382,7 @@ export const Disabled: Story = {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2 text-gray-500">
+        <label className="mb-2 block font-medium text-gray-500 text-sm">
           Disabled Selection
         </label>
         <Select disabled>

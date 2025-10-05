@@ -27,6 +27,6 @@ export const PageContentLayout: FC<PageContentLayoutProps> = ({
       {children}
     </main>
 
-    <div className="flex-0 flex w-full flex-col">{footer ?? <Footer />}</div>
+    <div className="flex w-full flex-0 flex-col">{footer ?? <Footer />}</div>
   </>
 );

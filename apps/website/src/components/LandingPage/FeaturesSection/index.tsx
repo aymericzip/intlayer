@@ -43,7 +43,7 @@ const SectionDescription: FC<PropsWithChildren<SectionItemProps>> = ({
   isActive,
 }) => (
   <motion.p
-    className="text-neutral flex size-full items-center justify-center px-16 text-sm md:pr-0 lg:pr-16"
+    className="flex size-full items-center justify-center px-16 text-neutral text-sm md:pr-0 lg:pr-16"
     initial={{ x: '-100%', opacity: 0 }}
     animate={{ x: isActive ? '0%' : '-100%', opacity: isActive ? 1 : 0 }}
     transition={{ duration: 0.5, ease: 'easeInOut', delay: isActive ? 0.5 : 0 }}
@@ -82,7 +82,7 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
       return (
         <motion.h3
           key={section.id.value}
-          className="text-neutral aria-selected:text-text absolute left-3 top-1/4 inline text-xl font-bold leading-snug drop-shadow-sm"
+          className="absolute top-1/4 left-3 inline font-bold text-neutral text-xl leading-snug drop-shadow-sm aria-selected:text-text"
           animate={{
             // Convert polar coords to Cartesian (rem units)
             translateX: isActive
@@ -207,12 +207,12 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
       ref={containerRef}
     >
       {/* Sticky container */}
-      <div className="sticky left-0 top-0 mb-[70vh] h-[30vh] w-full">
+      <div className="sticky top-0 left-0 mb-[70vh] h-[30vh] w-full">
         {/* Progress Bar */}
-        <div className="absolute left-10 top-20 flex h-3/5 w-[2px] md:top-[20vh]">
-          <div className="bg-neutral/20 size-full rounded-full">
+        <div className="absolute top-20 left-10 flex h-3/5 w-[2px] md:top-[20vh]">
+          <div className="size-full rounded-full bg-neutral/20">
             <div
-              className="bg-text w-full"
+              className="w-full bg-text"
               style={{ height: `${progress * 100}%` }}
             />
           </div>
@@ -221,7 +221,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
         {/* Titles */}
         <div
           role="tablist"
-          className="top-15 absolute left-0 z-30 size-full md:top-[15vh] md:w-0 md:text-nowrap"
+          className="absolute top-15 left-0 z-30 size-full md:top-[15vh] md:w-0 md:text-nowrap"
         >
           <Titles
             sections={sections}
@@ -234,7 +234,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
         {sections.map((section, index) => (
           <div
             className={cn(
-              'absolute right-0 top-[50vh] z-0 h-[50vh] w-full overflow-hidden md:top-0 md:h-screen md:w-2/3',
+              'absolute top-[50vh] right-0 z-0 h-[50vh] w-full overflow-hidden md:top-0 md:h-screen md:w-2/3',
               index === activeIndex && 'z-20'
             )}
             key={section.id.value}
@@ -249,7 +249,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
         {sections.map((section, index) => (
           <div
             className={cn(
-              'max-md:bg-background absolute left-0 top-[37vh] z-0 h-[20vh] w-full overflow-hidden md:top-[50vh] md:h-[50vh] md:w-1/3',
+              'absolute top-[37vh] left-0 z-0 h-[20vh] w-full overflow-hidden max-md:bg-background md:top-[50vh] md:h-[50vh] md:w-1/3',
               index === activeIndex && 'z-10'
             )}
             key={section.id.value}

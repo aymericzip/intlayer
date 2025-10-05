@@ -98,7 +98,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
 
   return (
     <div
-      className="border-text text-text rounded-xl border transition-colors"
+      className="rounded-xl border border-text text-text transition-colors"
       aria-label={localeSwitcherLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
@@ -131,7 +131,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                 ref={inputRef}
               />
             </div>
-            <ol className="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+            <ol className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
               {results.map(
                 ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
                   <li className="px-1.5 py-1" key={localeItem}>

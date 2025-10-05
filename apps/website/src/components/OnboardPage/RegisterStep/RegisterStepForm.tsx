@@ -64,7 +64,7 @@ export const RegisterStepForm: FC = () => {
           />
         </div>
 
-        <span className="text-neutral m-auto mt-3 flex w-full items-center justify-center text-center align-middle text-xs">
+        <span className="m-auto mt-3 flex w-full items-center justify-center text-center align-middle text-neutral text-xs">
           {loginLink.message}
           <Form.Button
             variant="link"

@@ -25,13 +25,13 @@ const TabContext = createContext<TabContextType | undefined>(undefined);
 
 // Tab container variants
 const tabContainerVariant = cva(
-  'relative w-full bg-background/2 border border-neutral/20 rounded-lg shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur',
+  'relative w-full rounded-lg border border-neutral/20 bg-background/2 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur',
   {
     variants: {
       variant: {
         default: '',
         bordered: 'border-2',
-        ghost: 'border-0 shadow-none bg-transparent',
+        ghost: 'border-0 bg-transparent shadow-none',
       },
     },
     defaultVariants: {
@@ -142,7 +142,7 @@ const TabComponent = ({
         {...props}
       >
         {/* Tab Headers */}
-        <div className="sticky top-36 z-10 flex gap-3 p-3 bg-background/70 backdrop-blur">
+        <div className="sticky top-36 z-10 flex gap-3 bg-background/70 p-3 backdrop-blur">
           <TabSelector
             selectedChoice={currentTabValue}
             tabs={tabItems.map((child) => {
@@ -153,7 +153,7 @@ const TabComponent = ({
                 <button
                   key={value}
                   className={cn(
-                    'px-4 text-sm font-medium rounded-md transition-colors cursor-pointer focus:outline-none py-1',
+                    'cursor-pointer rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none',
                     !isActive && 'text-neutral/70'
                   )}
                   data-active={isActive}
@@ -175,7 +175,7 @@ const TabComponent = ({
         {/* Tab Content */}
         {/* Clipper: no overflow; uses clip-path */}
         <div
-          className="relative w-full min-w-0 overflow-x-clip [clip-path:inset(0)] [-webkit-clip-path:inset(0)]"
+          className="relative w-full min-w-0 overflow-x-clip [-webkit-clip-path:inset(0)] [clip-path:inset(0)]"
           {...containerProps}
         >
           {/* Track */}
@@ -211,7 +211,7 @@ const TabComponent = ({
                     !isActive && 'pointer-events-none opacity-0' // prevent offscreen interaction
                   )}
                 >
-                  <div className="w-full min-w-0 flex flex-col gap-6 items-stretch">
+                  <div className="flex w-full min-w-0 flex-col items-stretch gap-6">
                     {children}
                   </div>
                 </div>

@@ -26,8 +26,8 @@ function RouteComponent() {
   const navigate = useLocalizedNavigate();
 
   return (
-    <div className="grid place-items-center h-screen">
-      <div className="flex flex-col gap-4 items-center text-center">
+    <div className="grid h-screen place-items-center">
+      <div className="flex flex-col items-center gap-4 text-center">
         {content.title}
         <LocaleSwitcher />
         <div className="flex gap-4">

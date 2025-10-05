@@ -87,7 +87,7 @@ const LogoItem: FC<LogoItemProps> = ({
       <Link href={route} color="custom" label={label}>
         <Logo
           className={cn(
-            'size-14 hover:scale-110 transition-transform duration-200',
+            'size-14 transition-transform duration-200 hover:scale-110',
             isFloating && 'animate-float',
             logoClassName
           )}
@@ -224,8 +224,8 @@ export const AvailableTechnoSection: FC = () => {
       ref={containerRef}
       className="z-10 flex w-full flex-col items-center justify-center"
     >
-      <h2 className="text-neutral-500 mb-3 text-lg">{availableOn}</h2>
-      <motion.div className="mt-[30px] grid justify-items-center grid-cols-3  w-2/3 h-76 gap-0 p-0 sm:w-1/3">
+      <h2 className="mb-3 text-lg text-neutral-500">{availableOn}</h2>
+      <motion.div className="mt-[30px] grid h-76 w-2/3 grid-cols-3 justify-items-center gap-0 p-0 sm:w-1/3">
         {logos.map((logoConfig, index) => (
           <LogoItem
             key={index}
@@ -240,8 +240,8 @@ export const AvailableTechnoSection: FC = () => {
         ))}
       </motion.div>
 
-      <h2 className="text-neutral-500 mb-3 text-lg mt-5">{comingSoon}</h2>
-      <motion.div className="mt-[30px] grid justify-items-center grid-cols-3 w-2/3 h-56 gap-0 p-0 sm:w-1/3">
+      <h2 className="mt-5 mb-3 text-lg text-neutral-500">{comingSoon}</h2>
+      <motion.div className="mt-[30px] grid h-56 w-2/3 grid-cols-3 justify-items-center gap-0 p-0 sm:w-1/3">
         {comingSoonData.map((logoConfig, index) => (
           <LogoItem
             key={index}

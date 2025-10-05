@@ -172,7 +172,7 @@ const Span: FC<SpanProps> = ({ children, position, className, ...props }) => (
     itemProp="item"
     className={cn(
       'inline-flex items-center',
-      'text-neutral-700 font-medium',
+      'font-medium text-neutral-700',
       'transition-colors duration-200',
       className
     )}
@@ -355,7 +355,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
                 position={index + 1}
                 locale={locale}
                 aria-current={ariaCurrent}
-                className={cn(isActive && 'text-neutral-900 cursor-default')}
+                className={cn(isActive && 'cursor-default text-neutral-900')}
               >
                 {text}
               </LinkLink>
@@ -368,7 +368,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
                 color={color}
                 position={index + 1}
                 aria-current={ariaCurrent}
-                className={cn(isActive && 'text-neutral-900 cursor-default')}
+                className={cn(isActive && 'cursor-default text-neutral-900')}
               >
                 {text}
               </ButtonLink>

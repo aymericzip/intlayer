@@ -19,12 +19,12 @@ export const LocaleSwitcher: FC = () => {
 
   return (
     <div
-      className="relative rounded-xl p-2 w-auto"
+      className="relative w-auto rounded-xl p-2"
       aria-label={localeSwitcherLabel.value}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between cursor-pointer"
+        className="flex w-full cursor-pointer items-center justify-between"
         aria-expanded={isOpen}
       >
         <span className="px-2">{getLocaleName(locale)}</span>
@@ -32,7 +32,7 @@ export const LocaleSwitcher: FC = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-1 min-w-60 rounded-xl bg-neutral-900 shadow-lg z-10">
+        <div className="absolute top-full right-0 z-10 mt-1 min-w-60 rounded-xl bg-neutral-900 shadow-lg">
           <div className="p-3">
             <input
               type="search"
@@ -42,16 +42,16 @@ export const LocaleSwitcher: FC = () => {
                 handleSearch(e.target.value)
               }
               ref={inputRef}
-              className="w-full border rounded p-2"
+              className="w-full rounded border p-2"
             />
           </div>
-          <ul className="divide-y max-h-[80vh] overflow-y-auto backdrop-blur opacity-80">
+          <ul className="max-h-[80vh] divide-y overflow-y-auto opacity-80 backdrop-blur">
             {searchResults.map(
               ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
                 <li key={localeItem} className="p-1">
                   <Link
                     href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-                    className={`w-full flex flex-row items-center justify-between gap-3 text-left p-2 rounded-xl ${
+                    className={`flex w-full flex-row items-center justify-between gap-3 rounded-xl p-2 text-left ${
                       locale === localeItem
                         ? 'bg-neutral-800'
                         : 'cursor-pointer hover:bg-neutral-800'

@@ -318,12 +318,12 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
           <span className="align-text-top text-transparent">{text}</span>
         )}
         {suggestionProp && (
-          <span className="text-neutral align-text-top">{suggestionProp}</span>
+          <span className="align-text-top text-neutral">{suggestionProp}</span>
         )}
       </div>
       {suggestion && suggestionPosition && (
         <div
-          className="pointer-events-none text-neutral whitespace-pre-wrap break-words text-base leading-[1.45rem] md:text-sm md:leading-[1.23rem]"
+          className="pointer-events-none whitespace-pre-wrap break-words text-base text-neutral leading-[1.45rem] md:text-sm md:leading-[1.23rem]"
           style={{
             position: 'absolute',
             left: suggestionPosition.left,

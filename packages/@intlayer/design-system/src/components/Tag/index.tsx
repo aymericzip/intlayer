@@ -177,7 +177,7 @@ export enum TagBackground {
   WITH = 'with',
 }
 
-const containerVariants = cva('backdrop-blur w-fit', {
+const containerVariants = cva('w-fit backdrop-blur', {
   variants: {
     roundedSize: {
       [`${TagRoundedSize.NONE}`]: 'rounded-none',
@@ -190,22 +190,22 @@ const containerVariants = cva('backdrop-blur w-fit', {
       [`${TagRoundedSize.FULL}`]: 'rounded-full',
     },
     color: {
-      [`${TagColor.SUCCESS}`]: 'bg-success/10 border-success text-success ',
-      [`${TagColor.ERROR}`]: 'bg-error/10 border-error text-error',
-      [`${TagColor.WARNING}`]: 'bg-warning/10 border-warning text-warning',
-      [`${TagColor.NEUTRAL}`]: 'bg-neutral/10 /10 border-neutral text-neutral ',
-      [`${TagColor.TEXT}`]: 'bg-text/10  border-text  text-text',
+      [`${TagColor.SUCCESS}`]: 'border-success bg-success/10 text-success',
+      [`${TagColor.ERROR}`]: 'border-error bg-error/10 text-error',
+      [`${TagColor.WARNING}`]: 'border-warning bg-warning/10 text-warning',
+      [`${TagColor.NEUTRAL}`]: '/10 border-neutral bg-neutral/10 text-neutral',
+      [`${TagColor.TEXT}`]: 'border-text bg-text/10 text-text',
     },
     size: {
-      [`${TagSize.XS}`]: 'py-0.5 px-2 text-xs border-[1.2px]',
-      [`${TagSize.SM}`]: 'py-0.5 px-2 text-sm border-[1.5px]',
-      [`${TagSize.MD}`]: 'py-1 px-2 text-base border-2',
-      [`${TagSize.LG}`]: 'py-2 px-3 text-lg border-2',
-      [`${TagSize.XL}`]: 'py-4 px-5 text-xl border-2',
+      [`${TagSize.XS}`]: 'border-[1.2px] px-2 py-0.5 text-xs',
+      [`${TagSize.SM}`]: 'border-[1.5px] px-2 py-0.5 text-sm',
+      [`${TagSize.MD}`]: 'border-2 px-2 py-1 text-base',
+      [`${TagSize.LG}`]: 'border-2 px-3 py-2 text-lg',
+      [`${TagSize.XL}`]: 'border-2 px-5 py-4 text-xl',
     },
     border: {
       [`${TagBorder.NONE}`]: 'border-none',
-      [`${TagBorder.WITH}`]: 'border-text  border-[1.5px]',
+      [`${TagBorder.WITH}`]: 'border-[1.5px] border-text',
     },
     background: {
       [`${TagBackground.NONE}`]: 'bg-none',

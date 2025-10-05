@@ -123,7 +123,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const Default: Story = {
   render: () => (
-    <div className="w-96 border rounded-lg shadow-lg">
+    <div className="w-96 rounded-lg border shadow-lg">
       <CommandRoot>
         <Command.Input placeholder="Type a command or search..." />
         <Command.List>
@@ -205,7 +205,7 @@ export const DialogMode: Story = {
       <div>
         <button
           onClick={() => setOpen(true)}
-          className="px-4 py-2 bg-blue-500 text-white rounded border"
+          className="rounded border bg-blue-500 px-4 py-2 text-white"
         >
           Trigger Command Palette (Dialog)
         </button>
@@ -282,15 +282,15 @@ export const DialogMode: Story = {
  */
 export const EmptyState: Story = {
   render: () => (
-    <div className="w-96 border rounded-lg shadow-lg">
+    <div className="w-96 rounded-lg border shadow-lg">
       <CommandRoot>
         <Command.Input placeholder="Search for something that doesn't exist..." />
         <Command.List>
           <Command.Empty>
-            <div className="text-center py-6">
-              <Search className="mx-auto h-8 w-8 text-gray-400 mb-2" />
-              <p className="text-sm text-gray-500">No commands found.</p>
-              <p className="text-xs text-gray-400 mt-1">
+            <div className="py-6 text-center">
+              <Search className="mx-auto mb-2 h-8 w-8 text-gray-400" />
+              <p className="text-gray-500 text-sm">No commands found.</p>
+              <p className="mt-1 text-gray-400 text-xs">
                 Try searching for calendar, settings, or profile.
               </p>
             </div>
@@ -340,7 +340,7 @@ export const EmptyState: Story = {
  */
 export const SimpleList: Story = {
   render: () => (
-    <div className="w-80 border rounded-lg shadow-lg">
+    <div className="w-80 rounded-lg border shadow-lg">
       <CommandRoot>
         <Command.Input placeholder="Search commands..." />
         <Command.List>
@@ -380,7 +380,7 @@ export const SimpleList: Story = {
  */
 export const WithShortcuts: Story = {
   render: () => (
-    <div className="w-96 border rounded-lg shadow-lg">
+    <div className="w-96 rounded-lg border shadow-lg">
       <CommandRoot>
         <Command.Input placeholder="Type a command..." />
         <Command.List>
@@ -467,7 +467,7 @@ export const WithShortcuts: Story = {
  */
 export const AccessibilityTest: Story = {
   render: () => (
-    <div className="w-96 border rounded-lg shadow-lg">
+    <div className="w-96 rounded-lg border shadow-lg">
       <CommandRoot>
         <Command.Input
           placeholder="Search commands..."
@@ -600,14 +600,14 @@ export const InteractiveSearch: Story = {
     );
 
     return (
-      <div className="w-96 border rounded-lg shadow-lg">
+      <div className="w-96 rounded-lg border shadow-lg">
         <CommandRoot>
           <Command.Input placeholder="Search from 10 commands..." />
           <Command.List>
             <Command.Empty>
-              <div className="text-center py-6">
-                <Search className="mx-auto h-6 w-6 text-gray-400 mb-2" />
-                <p className="text-sm text-gray-500">No matching commands</p>
+              <div className="py-6 text-center">
+                <Search className="mx-auto mb-2 h-6 w-6 text-gray-400" />
+                <p className="text-gray-500 text-sm">No matching commands</p>
               </div>
             </Command.Empty>
 

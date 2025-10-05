@@ -23,7 +23,7 @@ export const ProfilePanel: FC = () => {
   return (
     <div className="flex flex-col gap-5">
       {user?.name && (
-        <span className="whitespace-nowrap text-lg font-bold">{user.name}</span>
+        <span className="whitespace-nowrap font-bold text-lg">{user.name}</span>
       )}
       {user?.email && (
         <span className="whitespace-nowrap text-base">{user.email}</span>

@@ -15,7 +15,7 @@ export const CopyMarkdownMessage: FC<CopyMarkdownMessageProps> = ({
       <CopyButton content={markdownContent} size="icon-md" className="p-2" />
       <Popover.Detail
         identifier="copy"
-        className="flex flex-col gap-3 p-3 min-w-64 text-sm"
+        className="flex min-w-64 flex-col gap-3 p-3 text-sm"
         xAlign="end"
       >
         <strong>{title}</strong>

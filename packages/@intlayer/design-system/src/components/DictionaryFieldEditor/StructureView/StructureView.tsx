@@ -121,7 +121,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
             )
           }
         />
-        <div className="ml-10 mt-6">
+        <div className="mt-6 ml-10">
           <StructureView
             keyPath={keyPath}
             section={section}
@@ -210,7 +210,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
               />
             </div>
 
-            <span className="text-neutral ml-3 text-sm">
+            <span className="ml-3 text-neutral text-sm">
               ( {camelCaseToSentence(sectionKey)} )
             </span>
           </div>

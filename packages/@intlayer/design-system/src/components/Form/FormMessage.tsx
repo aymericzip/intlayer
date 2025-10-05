@@ -16,7 +16,7 @@ export const FormMessage: FC<HTMLAttributes<HTMLParagraphElement>> = ({
 
   return (
     <p
-      className="text-error text-xs font-medium"
+      className="font-medium text-error text-xs"
       role="alert"
       id={formMessageId}
       {...props}

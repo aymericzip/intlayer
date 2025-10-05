@@ -190,7 +190,7 @@ export const MobileNavbar = <T extends TabProps>({
       >
         <MaxHeightSmoother isHidden={!isUnrolled}>
           <m.div
-            className="text-text flex w-full flex-col pb-[20%] pt-10 text-lg tracking-wide"
+            className="flex w-full flex-col pt-10 pb-[20%] text-lg text-text tracking-wide"
             onClick={() => setIsUnrolled(false)}
             animate={isUnrolled ? 'open' : 'closed'}
             variants={navVariants}

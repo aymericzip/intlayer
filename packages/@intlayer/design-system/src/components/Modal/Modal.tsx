@@ -65,7 +65,7 @@ type ModalProps = {
  * Defines responsive sizing and scrollable content for modal containers
  */
 const modalVariants = cva(
-  'cursor-default overflow-auto py-3 shadow-sm justify-center',
+  'cursor-default justify-center overflow-auto py-3 shadow-sm',
   {
     variants: {
       size: {
@@ -182,7 +182,7 @@ export const Modal: FC<ModalProps> = ({
 
   return createPortal(
     <m.div
-      className="bg-background/40 /40 invisible fixed left-0 top-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-auto backdrop-blur"
+      className="invisible fixed top-0 left-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-auto bg-background/40 backdrop-blur"
       animate={isOpen ? 'visible' : 'invisible'}
       variants={{
         visible: {
@@ -230,7 +230,7 @@ export const Modal: FC<ModalProps> = ({
             )}
           >
             {hasTitle && (
-              <H3 className="ml-4 flex items-center justify-center text-lg font-bold">
+              <H3 className="ml-4 flex items-center justify-center font-bold text-lg">
                 {title}
               </H3>
             )}

@@ -119,7 +119,7 @@ export const Default: Story = {
       <input
         id={args.htmlFor}
         type="email"
-        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         placeholder="Enter your email"
       />
     </div>
@@ -158,7 +158,7 @@ export const RequiredField: Story = {
         id={args.htmlFor}
         type="password"
         required
-        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         placeholder="Enter your password"
       />
     </div>
@@ -201,7 +201,7 @@ export const DisabledField: Story = {
         id={args.htmlFor}
         type="text"
         disabled
-        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
+        className="w-full cursor-not-allowed rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
         placeholder="This field is disabled"
       />
     </div>
@@ -240,7 +240,7 @@ export const CustomStyling: Story = {
       <input
         id={args.htmlFor}
         type="text"
-        className="w-full px-3 py-2 border border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full rounded-md border border-blue-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         placeholder="Custom styled input"
       />
     </div>
@@ -276,14 +276,14 @@ export const CustomStyling: Story = {
  */
 export const DifferentFormControls: Story = {
   render: () => (
-    <div className="space-y-6 max-w-md">
+    <div className="max-w-md space-y-6">
       {/* Text Input */}
       <div className="space-y-2">
         <Label htmlFor="text-input">Full Name</Label>
         <input
           id="text-input"
           type="text"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your full name"
         />
       </div>
@@ -297,7 +297,7 @@ export const DifferentFormControls: Story = {
           id="email-input"
           type="email"
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your email"
         />
       </div>
@@ -307,7 +307,7 @@ export const DifferentFormControls: Story = {
         <Label htmlFor="select-input">Country</Label>
         <select
           id="select-input"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select a country</option>
           <option value="us">United States</option>
@@ -322,7 +322,7 @@ export const DifferentFormControls: Story = {
         <textarea
           id="textarea-input"
           rows={4}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 resize-vertical"
+          className="resize-vertical w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your message"
         />
       </div>
@@ -332,7 +332,7 @@ export const DifferentFormControls: Story = {
         <input
           id="checkbox-input"
           type="checkbox"
-          className="w-4 h-4 text-blue-600 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+          className="h-4 w-4 rounded border border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
         />
         <Label htmlFor="checkbox-input">
           I agree to the terms and conditions
@@ -341,7 +341,7 @@ export const DifferentFormControls: Story = {
 
       {/* Radio Buttons */}
       <div className="space-y-2">
-        <div className="text-sm font-medium">Preferred Contact Method</div>
+        <div className="font-medium text-sm">Preferred Contact Method</div>
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
             <input
@@ -349,7 +349,7 @@ export const DifferentFormControls: Story = {
               type="radio"
               name="contact"
               value="email"
-              className="w-4 h-4 text-blue-600 border border-gray-300 focus:ring-2 focus:ring-blue-500"
+              className="h-4 w-4 border border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
             />
             <Label htmlFor="contact-email">Email</Label>
           </div>
@@ -359,7 +359,7 @@ export const DifferentFormControls: Story = {
               type="radio"
               name="contact"
               value="phone"
-              className="w-4 h-4 text-blue-600 border border-gray-300 focus:ring-2 focus:ring-blue-500"
+              className="h-4 w-4 border border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
             />
             <Label htmlFor="contact-phone">Phone</Label>
           </div>
@@ -409,8 +409,8 @@ export const DifferentFormControls: Story = {
  */
 export const ScreenReaderSupport: Story = {
   render: () => (
-    <div className="space-y-6 max-w-md">
-      <div className="text-sm text-gray-600 mb-4">
+    <div className="max-w-md space-y-6">
+      <div className="mb-4 text-gray-600 text-sm">
         This form demonstrates proper label-control relationships for screen
         readers. Each label is properly associated with its control.
       </div>
@@ -425,10 +425,10 @@ export const ScreenReaderSupport: Story = {
             type="text"
             required
             aria-describedby="username-help"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your username"
           />
-          <div id="username-help" className="text-xs text-gray-500">
+          <div id="username-help" className="text-gray-500 text-xs">
             Username must be at least 3 characters long
           </div>
         </div>
@@ -442,10 +442,10 @@ export const ScreenReaderSupport: Story = {
             type="password"
             required
             aria-describedby="password-help"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
             placeholder="Enter a strong password"
           />
-          <div id="password-help" className="text-xs text-gray-500">
+          <div id="password-help" className="text-gray-500 text-xs">
             Password must contain at least 8 characters, including uppercase,
             lowercase, and numbers
           </div>
@@ -457,10 +457,10 @@ export const ScreenReaderSupport: Story = {
             id="phone-number"
             type="tel"
             aria-describedby="phone-help"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
             placeholder="(555) 123-4567"
           />
-          <div id="phone-help" className="text-xs text-gray-500">
+          <div id="phone-help" className="text-gray-500 text-xs">
             Optional. Format: (555) 123-4567
           </div>
         </div>
@@ -504,8 +504,8 @@ export const ScreenReaderSupport: Story = {
  */
 export const KeyboardNavigation: Story = {
   render: () => (
-    <form className="space-y-4 max-w-md">
-      <div className="text-sm text-gray-600 mb-4">
+    <form className="max-w-md space-y-4">
+      <div className="mb-4 text-gray-600 text-sm">
         Use Tab to navigate between fields. Click any label to focus its
         associated input.
       </div>
@@ -518,7 +518,7 @@ export const KeyboardNavigation: Story = {
           id="first-name"
           type="text"
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -530,7 +530,7 @@ export const KeyboardNavigation: Story = {
           id="last-name"
           type="text"
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -539,7 +539,7 @@ export const KeyboardNavigation: Story = {
         <input
           id="email-nav"
           type="email"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -547,14 +547,14 @@ export const KeyboardNavigation: Story = {
         <input
           id="newsletter"
           type="checkbox"
-          className="w-4 h-4 text-blue-600 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+          className="h-4 w-4 rounded border border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
         />
         <Label htmlFor="newsletter">Subscribe to newsletter</Label>
       </div>
 
       <button
         type="submit"
-        className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-500"
+        className="w-full rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-500"
       >
         Submit
       </button>
@@ -603,8 +603,8 @@ export const KeyboardNavigation: Story = {
  */
 export const RegistrationForm: Story = {
   render: () => (
-    <div className="max-w-md mx-auto p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
-      <h2 className="text-2xl font-bold mb-6">Create Account</h2>
+    <div className="mx-auto max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <h2 className="mb-6 font-bold text-2xl">Create Account</h2>
 
       <form className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
@@ -616,7 +616,7 @@ export const RegistrationForm: Story = {
               id="reg-first-name"
               type="text"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="space-y-2">
@@ -627,7 +627,7 @@ export const RegistrationForm: Story = {
               id="reg-last-name"
               type="text"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
             />
           </div>
         </div>
@@ -640,7 +640,7 @@ export const RegistrationForm: Story = {
             id="reg-email"
             type="email"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
             placeholder="you@example.com"
           />
         </div>
@@ -653,7 +653,7 @@ export const RegistrationForm: Story = {
             id="reg-password"
             type="password"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -665,7 +665,7 @@ export const RegistrationForm: Story = {
             id="reg-confirm-password"
             type="password"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -674,7 +674,7 @@ export const RegistrationForm: Story = {
           <input
             id="reg-phone"
             type="tel"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
             placeholder="(555) 123-4567"
           />
         </div>
@@ -684,7 +684,7 @@ export const RegistrationForm: Story = {
             id="reg-terms"
             type="checkbox"
             required
-            className="w-4 h-4 mt-1 text-blue-600 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+            className="mt-1 h-4 w-4 rounded border border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
           />
           <Label
             htmlFor="reg-terms"
@@ -706,7 +706,7 @@ export const RegistrationForm: Story = {
           <input
             id="reg-newsletter"
             type="checkbox"
-            className="w-4 h-4 text-blue-600 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+            className="h-4 w-4 rounded border border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
           />
           <Label htmlFor="reg-newsletter" className="text-sm">
             Subscribe to our newsletter for updates and promotions
@@ -715,7 +715,7 @@ export const RegistrationForm: Story = {
 
         <button
           type="submit"
-          className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 font-medium"
+          className="w-full rounded-md bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
           Create Account
         </button>

@@ -46,7 +46,7 @@ export const BlogBreadCrumb: FC<BlogBreadCrumbProps> = ({
   return (
     <Breadcrumb
       links={breadcrumbsLinks}
-      className="ml-10 mt-12"
+      className="mt-12 ml-10"
       locale={locale}
       {...props}
     />

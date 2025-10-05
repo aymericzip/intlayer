@@ -12,7 +12,7 @@ export const checkboxVariants = cva('', {
       default: [
         'pointer rounded border-2 bg-input-background text-input-text shadow-none outline-0 transition-all',
         'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
-        'checked:bg-checkbox-checked checked:border-checkbox-checked-border',
+        'checked:border-checkbox-checked-border checked:bg-checkbox-checked',
         'disabled:opacity-50',
       ],
     },
@@ -109,7 +109,7 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
   return label ? (
     <label
       htmlFor={id ?? name}
-      className="flex items-center gap-x-4 font-medium text-sm cursor-pointer"
+      className="flex cursor-pointer items-center gap-x-4 font-medium text-sm"
     >
       <Input id={id ?? name} {...props} />
       {label}

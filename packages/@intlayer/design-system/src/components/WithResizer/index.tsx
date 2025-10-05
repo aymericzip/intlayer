@@ -230,8 +230,8 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       className={cn(
         minWidth && `max-w-[${maxWidth}px]`,
         maxWidth && `min-w-[${minWidth}px]`,
-        'relative h-full w-full max-w-[80%] cursor-ew-resize border-r-[2px] border-neutral-200 transition dark:border-neutral-950',
-        'after:absolute after:right-0 after:top-1/2 after:block after:h-10 after:w-2 after:-translate-y-1/2 after:translate-x-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
+        'relative h-full w-full max-w-[80%] cursor-ew-resize border-neutral-200 border-r-[2px] transition dark:border-neutral-950',
+        'after:-translate-y-1/2 after:absolute after:top-1/2 after:right-0 after:block after:h-10 after:w-2 after:translate-x-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
         'active:border-neutral-400 active:after:bg-neutral-400 dark:active:border-neutral-600 active:dark:after:bg-neutral-600'
       )}
       style={{
@@ -248,7 +248,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       tabIndex={0}
     >
       <div
-        className="absolute left-0 top-0 size-full cursor-default overflow-hidden"
+        className="absolute top-0 left-0 size-full cursor-default overflow-hidden"
         onMouseDown={(e) => e.stopPropagation()}
         onTouchStart={(e) => e.stopPropagation()}
       >

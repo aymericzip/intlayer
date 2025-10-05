@@ -134,8 +134,8 @@ export const Default: Story = {
     );
 
     return (
-      <div className="max-w-md p-4 border border-gray-200 rounded-lg">
-        <h3 className="text-sm font-medium mb-2">Editable Content</h3>
+      <div className="max-w-md rounded-lg border border-gray-200 p-4">
+        <h3 className="mb-2 font-medium text-sm">Editable Content</h3>
         <ContentEditor
           onContentChange={setContent}
           placeholder="Enter your content here..."
@@ -188,8 +188,8 @@ It can handle multiple paragraphs and will automatically adjust its height as yo
 You can use Ctrl+Enter to save your changes or press Escape to cancel and revert to the original content.`);
 
     return (
-      <div className="max-w-lg p-4 border border-gray-200 rounded-lg">
-        <h3 className="text-sm font-medium mb-2">Long Content Editor</h3>
+      <div className="max-w-lg rounded-lg border border-gray-200 p-4">
+        <h3 className="mb-2 font-medium text-sm">Long Content Editor</h3>
         <ContentEditor
           onContentChange={setContent}
           placeholder="Enter your long-form content here..."
@@ -225,25 +225,25 @@ export const KeyboardShortcuts: Story = {
     );
 
     return (
-      <div className="max-w-md p-4 border border-gray-200 rounded-lg">
-        <h3 className="text-sm font-medium mb-2">Keyboard Shortcuts</h3>
-        <div className="text-xs text-gray-600 mb-3 space-y-1">
+      <div className="max-w-md rounded-lg border border-gray-200 p-4">
+        <h3 className="mb-2 font-medium text-sm">Keyboard Shortcuts</h3>
+        <div className="mb-3 space-y-1 text-gray-600 text-xs">
           <div>
             •{' '}
-            <kbd className="px-1 py-0.5 bg-gray-100 rounded text-xs">
+            <kbd className="rounded bg-gray-100 px-1 py-0.5 text-xs">
               Ctrl+Enter
             </kbd>{' '}
             - Save changes
           </div>
           <div>
             •{' '}
-            <kbd className="px-1 py-0.5 bg-gray-100 rounded text-xs">
+            <kbd className="rounded bg-gray-100 px-1 py-0.5 text-xs">
               Escape
             </kbd>{' '}
             - Cancel changes
           </div>
           <div>
-            • <kbd className="px-1 py-0.5 bg-gray-100 rounded text-xs">Tab</kbd>{' '}
+            • <kbd className="rounded bg-gray-100 px-1 py-0.5 text-xs">Tab</kbd>{' '}
             - Navigate to buttons
           </div>
         </div>
@@ -291,8 +291,8 @@ export const InputDefault: Story = {
     const [value, setValue] = useState('Editable input value');
 
     return (
-      <div className="max-w-md p-4 border border-gray-200 rounded-lg">
-        <h3 className="text-sm font-medium mb-2">Editable Input</h3>
+      <div className="max-w-md rounded-lg border border-gray-200 p-4">
+        <h3 className="mb-2 font-medium text-sm">Editable Input</h3>
         <ContentEditorInput
           onContentChange={(content) => setValue(String(content || ''))}
           placeholder="Enter text here..."
@@ -341,9 +341,9 @@ export const InputWithValidation: Story = {
     };
 
     return (
-      <div className="max-w-md p-4 border border-gray-200 rounded-lg">
-        <h3 className="text-sm font-medium mb-2">Input with Validation</h3>
-        <p className="text-xs text-gray-600 mb-3">
+      <div className="max-w-md rounded-lg border border-gray-200 p-4">
+        <h3 className="mb-2 font-medium text-sm">Input with Validation</h3>
+        <p className="mb-3 text-gray-600 text-xs">
           Only alphanumeric characters allowed
         </p>
         <ContentEditorInput
@@ -421,8 +421,8 @@ export const InputWithAdditionalButtons: Story = {
     );
 
     return (
-      <div className="max-w-md p-4 border border-gray-200 rounded-lg">
-        <h3 className="text-sm font-medium mb-2">Input with Actions</h3>
+      <div className="max-w-md rounded-lg border border-gray-200 p-4">
+        <h3 className="mb-2 font-medium text-sm">Input with Actions</h3>
         <ContentEditorInput
           onContentChange={(content) => setValue(String(content || ''))}
           additionalButtons={additionalButtons}
@@ -468,8 +468,8 @@ export const InputDisabled: Story = {
     const [value, setValue] = useState('This input is disabled');
 
     return (
-      <div className="max-w-md p-4 border border-gray-200 rounded-lg">
-        <h3 className="text-sm font-medium mb-2">Disabled Input</h3>
+      <div className="max-w-md rounded-lg border border-gray-200 p-4">
+        <h3 className="mb-2 font-medium text-sm">Disabled Input</h3>
         <ContentEditorInput
           onContentChange={(content) => setValue(String(content || ''))}
           disabled
@@ -509,9 +509,9 @@ export const AccessibilityDemo: Story = {
     const [inputValue, setInputValue] = useState('Accessible input value');
 
     return (
-      <div className="space-y-6 max-w-lg">
-        <div className="p-4 border border-gray-200 rounded-lg">
-          <h3 className="text-sm font-medium mb-2">
+      <div className="max-w-lg space-y-6">
+        <div className="rounded-lg border border-gray-200 p-4">
+          <h3 className="mb-2 font-medium text-sm">
             ContentEditor Accessibility
           </h3>
           <ContentEditor
@@ -521,13 +521,13 @@ export const AccessibilityDemo: Story = {
           >
             {textValue}
           </ContentEditor>
-          <div id="text-editor-help" className="text-xs text-gray-500 mt-1">
+          <div id="text-editor-help" className="mt-1 text-gray-500 text-xs">
             Use Ctrl+Enter to save or Escape to cancel
           </div>
         </div>
 
-        <div className="p-4 border border-gray-200 rounded-lg">
-          <h3 className="text-sm font-medium mb-2">
+        <div className="rounded-lg border border-gray-200 p-4">
+          <h3 className="mb-2 font-medium text-sm">
             ContentEditorInput Accessibility
           </h3>
           <ContentEditorInput
@@ -541,7 +541,7 @@ export const AccessibilityDemo: Story = {
           >
             {inputValue}
           </ContentEditorInput>
-          <div id="input-editor-help" className="text-xs text-gray-500 mt-1">
+          <div id="input-editor-help" className="mt-1 text-gray-500 text-xs">
             Minimum 3 characters required. Press Enter to save or Escape to
             cancel.
           </div>
@@ -727,16 +727,16 @@ export const CommentSystem: Story = {
     };
 
     return (
-      <div className="space-y-4 max-w-2xl">
-        <h3 className="text-lg font-semibold">Comments</h3>
+      <div className="max-w-2xl space-y-4">
+        <h3 className="font-semibold text-lg">Comments</h3>
         {comments.map((comment) => (
           <div
             key={comment.id}
-            className="border border-gray-200 rounded-lg p-4"
+            className="rounded-lg border border-gray-200 p-4"
           >
-            <div className="flex items-center gap-2 mb-2">
+            <div className="mb-2 flex items-center gap-2">
               <div className="font-medium">{comment.author}</div>
-              <div className="text-sm text-gray-500">{comment.timestamp}</div>
+              <div className="text-gray-500 text-sm">{comment.timestamp}</div>
             </div>
             <ContentEditor
               onContentChange={(content) => updateComment(comment.id, content)}

@@ -22,18 +22,18 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
   const blogData = getBlogData(locale);
 
   return (
-    <div className="max-w-screen flex flex-1 border-b-[0.5px] max-md:flex-col">
+    <div className="flex max-w-screen flex-1 border-b-[0.5px] max-md:flex-col">
       <BackgroundLayout>
         <aside className="flex-none">
           <BlogNavList blogData={blogData} activeSections={activeSections} />
         </aside>
         <div className="flex flex-1 flex-row">
           <article
-            className="relative m-auto mb-24 h-full w-auto max-w-5xl flex-1 grow px-4 md:px-10 max-md:pl-16"
+            className="relative m-auto mb-24 h-full w-auto max-w-5xl flex-1 grow px-4 max-md:pl-16 md:px-10"
             id="content"
           >
             <BlogBreadCrumb
-              className="ml-10 mt-12"
+              className="mt-12 ml-10"
               activeSections={activeSections}
               blogData={blogData}
               locale={locale}

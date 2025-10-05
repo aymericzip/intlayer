@@ -161,7 +161,7 @@ export const DifferentSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <div className="text-center">
-        <div className="mb-2 text-sm font-medium">Extra Small</div>
+        <div className="mb-2 font-medium text-sm">Extra Small</div>
         <CopyButton
           content="Extra small copy button"
           size={ButtonSize.ICON_SM}
@@ -169,7 +169,7 @@ export const DifferentSizes: Story = {
         />
       </div>
       <div className="text-center">
-        <div className="mb-2 text-sm font-medium">Medium</div>
+        <div className="mb-2 font-medium text-sm">Medium</div>
         <CopyButton
           content="Medium copy button"
           size={ButtonSize.ICON_MD}
@@ -177,7 +177,7 @@ export const DifferentSizes: Story = {
         />
       </div>
       <div className="text-center">
-        <div className="mb-2 text-sm font-medium">Large</div>
+        <div className="mb-2 font-medium text-sm">Large</div>
         <CopyButton
           content="Large copy button"
           size={ButtonSize.ICON_LG}
@@ -185,7 +185,7 @@ export const DifferentSizes: Story = {
         />
       </div>
       <div className="text-center">
-        <div className="mb-2 text-sm font-medium">Extra Large</div>
+        <div className="mb-2 font-medium text-sm">Extra Large</div>
         <CopyButton
           content="Extra large copy button"
           size={ButtonSize.ICON_XL}
@@ -218,8 +218,8 @@ export const ButtonVariants: Story = {
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-6">
         <div className="space-y-3">
-          <h3 className="text-sm font-medium">Light Variants</h3>
-          <div className="flex items-center gap-3 p-4 bg-white border rounded-lg">
+          <h3 className="font-medium text-sm">Light Variants</h3>
+          <div className="flex items-center gap-3 rounded-lg border bg-white p-4">
             <CopyButton
               content="Default variant"
               variant={ButtonVariant.DEFAULT}
@@ -239,8 +239,8 @@ export const ButtonVariants: Story = {
         </div>
 
         <div className="space-y-3">
-          <h3 className="text-sm font-medium">Dark Background</h3>
-          <div className="flex items-center gap-3 p-4 bg-gray-900 rounded-lg">
+          <h3 className="font-medium text-sm">Dark Background</h3>
+          <div className="flex items-center gap-3 rounded-lg bg-gray-900 p-4">
             <CopyButton
               content="Default on dark"
               variant={ButtonVariant.DEFAULT}
@@ -322,9 +322,9 @@ export const CopyFeedbackDemo: Story = {
 
     return (
       <div className="space-y-6">
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-          <h3 className="font-medium mb-2">Copy Activity Monitor</h3>
-          <div className="text-sm space-y-1">
+        <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+          <h3 className="mb-2 font-medium">Copy Activity Monitor</h3>
+          <div className="space-y-1 text-sm">
             <div>
               Total copies: <strong>{copyCount}</strong>
             </div>
@@ -343,13 +343,13 @@ export const CopyFeedbackDemo: Story = {
           {copyItems.map((item, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50"
+              className="flex items-center justify-between rounded-lg border border-gray-200 p-3 hover:bg-gray-50"
             >
-              <div className="flex-1 mr-4">
-                <div className="font-medium text-sm text-gray-900 mb-1">
+              <div className="mr-4 flex-1">
+                <div className="mb-1 font-medium text-gray-900 text-sm">
                   {item.label}
                 </div>
-                <div className="text-xs text-gray-600 font-mono bg-gray-100 p-2 rounded break-all">
+                <div className="break-all rounded bg-gray-100 p-2 font-mono text-gray-600 text-xs">
                   {item.content}
                 </div>
               </div>
@@ -364,7 +364,7 @@ export const CopyFeedbackDemo: Story = {
           ))}
         </div>
 
-        <div className="text-xs text-gray-500 p-3 bg-gray-50 rounded">
+        <div className="rounded bg-gray-50 p-3 text-gray-500 text-xs">
           <strong>Note:</strong> Click any copy button to see the feedback
           animation. The icon will briefly change to a check mark and the
           activity monitor will update.
@@ -400,32 +400,32 @@ export const DisabledState: Story = {
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-6">
         <div>
-          <h3 className="text-sm font-medium mb-3">Normal State</h3>
+          <h3 className="mb-3 font-medium text-sm">Normal State</h3>
           <div className="flex items-center gap-3">
             <CopyButton
               content="This can be copied"
               label="Copy available content"
             />
-            <span className="text-sm text-gray-600">Ready to copy</span>
+            <span className="text-gray-600 text-sm">Ready to copy</span>
           </div>
         </div>
 
         <div>
-          <h3 className="text-sm font-medium mb-3">Disabled State</h3>
+          <h3 className="mb-3 font-medium text-sm">Disabled State</h3>
           <div className="flex items-center gap-3">
             <CopyButton
               content="This cannot be copied"
               label="Copy unavailable (disabled)"
               disabled
             />
-            <span className="text-sm text-gray-500">Copy not available</span>
+            <span className="text-gray-500 text-sm">Copy not available</span>
           </div>
         </div>
       </div>
 
-      <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
-        <h4 className="font-medium mb-2">Use Cases for Disabled State:</h4>
-        <ul className="text-sm space-y-1">
+      <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
+        <h4 className="mb-2 font-medium">Use Cases for Disabled State:</h4>
+        <ul className="space-y-1 text-sm">
           <li>• Content is loading or not yet available</li>
           <li>• User lacks permission to copy sensitive information</li>
           <li>• Copy functionality is temporarily unavailable</li>
@@ -484,30 +484,30 @@ export const KeyboardNavigation: Story = {
 
     return (
       <div className="space-y-6">
-        <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-          <h3 className="font-medium mb-2">Keyboard Instructions:</h3>
-          <ul className="text-sm space-y-1">
+        <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
+          <h3 className="mb-2 font-medium">Keyboard Instructions:</h3>
+          <ul className="space-y-1 text-sm">
             <li>
               •{' '}
-              <kbd className="px-2 py-1 bg-white rounded shadow text-xs">
+              <kbd className="rounded bg-white px-2 py-1 text-xs shadow">
                 Tab
               </kbd>{' '}
               - Navigate between copy buttons
             </li>
             <li>
               •{' '}
-              <kbd className="px-2 py-1 bg-white rounded shadow text-xs">
+              <kbd className="rounded bg-white px-2 py-1 text-xs shadow">
                 Enter
               </kbd>{' '}
               or{' '}
-              <kbd className="px-2 py-1 bg-white rounded shadow text-xs">
+              <kbd className="rounded bg-white px-2 py-1 text-xs shadow">
                 Space
               </kbd>{' '}
               - Trigger copy action
             </li>
             <li>
               •{' '}
-              <kbd className="px-2 py-1 bg-white rounded shadow text-xs">
+              <kbd className="rounded bg-white px-2 py-1 text-xs shadow">
                 Shift+Tab
               </kbd>{' '}
               - Navigate backwards
@@ -519,11 +519,11 @@ export const KeyboardNavigation: Story = {
           {copyItems.map((content, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-3 border border-gray-300 rounded-lg"
+              className="flex items-center justify-between rounded-lg border border-gray-300 p-3"
             >
               <div className="flex-1">
                 <div className="font-medium text-sm">{content}</div>
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="mt-1 text-gray-500 text-xs">
                   Use keyboard to focus and copy this content
                 </div>
               </div>
@@ -537,9 +537,9 @@ export const KeyboardNavigation: Story = {
           ))}
         </div>
 
-        <div className="bg-gray-50 p-3 rounded-lg">
-          <h4 className="text-sm font-medium mb-2">Keyboard Action Log:</h4>
-          <div className="text-xs text-gray-600 space-y-1 max-h-24 overflow-y-auto">
+        <div className="rounded-lg bg-gray-50 p-3">
+          <h4 className="mb-2 font-medium text-sm">Keyboard Action Log:</h4>
+          <div className="max-h-24 space-y-1 overflow-y-auto text-gray-600 text-xs">
             {keyboardActions.length === 0 ? (
               <div>Use keyboard to interact with copy buttons above</div>
             ) : (
@@ -585,30 +585,30 @@ export const ScreenReaderSupport: Story = {
     <div className="space-y-6">
       <div className="space-y-4">
         <div>
-          <h3 className="text-sm font-medium mb-2">Standard Copy Button</h3>
+          <h3 className="mb-2 font-medium text-sm">Standard Copy Button</h3>
           <CopyButton
             content="Standard content to copy"
             label="Copy standard content to clipboard"
           />
-          <div className="text-xs text-gray-500 mt-1">
+          <div className="mt-1 text-gray-500 text-xs">
             Screen reader announces: "Copy standard content to clipboard,
             button"
           </div>
         </div>
 
         <div>
-          <h3 className="text-sm font-medium mb-2">Context-Specific Label</h3>
+          <h3 className="mb-2 font-medium text-sm">Context-Specific Label</h3>
           <CopyButton
             content="https://api.example.com/v1/users"
             label="Copy API endpoint URL"
           />
-          <div className="text-xs text-gray-500 mt-1">
+          <div className="mt-1 text-gray-500 text-xs">
             Screen reader announces: "Copy API endpoint URL, button"
           </div>
         </div>
 
         <div>
-          <h3 className="text-sm font-medium mb-2">
+          <h3 className="mb-2 font-medium text-sm">
             With Additional Description
           </h3>
           <div>
@@ -617,14 +617,14 @@ export const ScreenReaderSupport: Story = {
               label="Copy API key"
               aria-describedby="api-key-help"
             />
-            <div id="api-key-help" className="text-xs text-gray-500 mt-1">
+            <div id="api-key-help" className="mt-1 text-gray-500 text-xs">
               Keep this API key secure and do not share it publicly
             </div>
           </div>
         </div>
       </div>
 
-      <div className="text-sm text-gray-600 p-4 bg-blue-50 rounded">
+      <div className="rounded bg-blue-50 p-4 text-gray-600 text-sm">
         <strong>Screen Reader Features:</strong>
         <ul className="mt-2 space-y-1">
           <li>• Dynamic label updates when copy succeeds/fails</li>
@@ -674,9 +674,9 @@ export const CodeDocumentation: Story = {
     <div className="space-y-6">
       <div className="space-y-4">
         <div>
-          <h3 className="text-lg font-semibold mb-2">Installation</h3>
+          <h3 className="mb-2 font-semibold text-lg">Installation</h3>
           <div className="relative">
-            <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+            <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100">
               <code>npm install @intlayer/design-system</code>
             </pre>
             <CopyButton
@@ -689,9 +689,9 @@ export const CodeDocumentation: Story = {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold mb-2">Basic Usage</h3>
+          <h3 className="mb-2 font-semibold text-lg">Basic Usage</h3>
           <div className="relative">
-            <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+            <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100">
               <code>{`import { CopyButton } from '@intlayer/design-system';
 
 function MyComponent() {
@@ -722,9 +722,9 @@ function MyComponent() {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold mb-2">Configuration</h3>
+          <h3 className="mb-2 font-semibold text-lg">Configuration</h3>
           <div className="relative">
-            <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+            <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100">
               <code>{`{
   "name": "@intlayer/design-system",
   "version": "1.0.0",
@@ -802,12 +802,12 @@ export const APIReferenceInterface: Story = {
 
     return (
       <div className="space-y-6">
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-          <h3 className="font-medium mb-2">API Reference</h3>
-          <div className="text-sm text-gray-600">
+        <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+          <h3 className="mb-2 font-medium">API Reference</h3>
+          <div className="text-gray-600 text-sm">
             Copy endpoints and curl examples for quick testing.
             {copiedEndpoint && (
-              <div className="mt-2 text-green-600 font-medium">
+              <div className="mt-2 font-medium text-green-600">
                 ✓ Copied: {copiedEndpoint}
               </div>
             )}
@@ -818,13 +818,13 @@ export const APIReferenceInterface: Story = {
           {endpoints.map((endpoint, index) => (
             <div
               key={index}
-              className="border border-gray-200 rounded-lg overflow-hidden"
+              className="overflow-hidden rounded-lg border border-gray-200"
             >
-              <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
+              <div className="border-gray-200 border-b bg-gray-50 px-4 py-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <span
-                      className={`px-2 py-1 rounded text-xs font-medium ${
+                      className={`rounded px-2 py-1 font-medium text-xs ${
                         endpoint.method === 'GET'
                           ? 'bg-green-100 text-green-700'
                           : endpoint.method === 'POST'
@@ -834,7 +834,7 @@ export const APIReferenceInterface: Story = {
                     >
                       {endpoint.method}
                     </span>
-                    <code className="text-sm font-mono">{endpoint.path}</code>
+                    <code className="font-mono text-sm">{endpoint.path}</code>
                   </div>
                   <CopyButton
                     content={`https://api.example.com${endpoint.path}`}
@@ -843,14 +843,14 @@ export const APIReferenceInterface: Story = {
                     onClick={() => setCopiedEndpoint(endpoint.path)}
                   />
                 </div>
-                <div className="text-sm text-gray-600 mt-1">
+                <div className="mt-1 text-gray-600 text-sm">
                   {endpoint.description}
                 </div>
               </div>
 
               <div className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-sm font-medium">cURL Example</h4>
+                <div className="mb-2 flex items-center justify-between">
+                  <h4 className="font-medium text-sm">cURL Example</h4>
                   <CopyButton
                     content={endpoint.example}
                     label="Copy cURL example"
@@ -858,7 +858,7 @@ export const APIReferenceInterface: Story = {
                     onClick={() => setCopiedEndpoint(endpoint.example)}
                   />
                 </div>
-                <pre className="bg-gray-900 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                <pre className="overflow-x-auto rounded bg-gray-900 p-3 text-gray-100 text-sm">
                   <code>{endpoint.example}</code>
                 </pre>
               </div>

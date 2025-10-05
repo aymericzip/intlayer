@@ -51,19 +51,19 @@ type Story = StoryObj<typeof MaxHeightSmoother>;
 
 // Sample content for demonstrations
 const sampleContent = (
-  <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg">
-    <h3 className="text-lg font-semibold text-gray-800 mb-3">
+  <div className="rounded-lg bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <h3 className="mb-3 font-semibold text-gray-800 text-lg">
       Expandable Content
     </h3>
-    <p className="text-gray-600 mb-2">
+    <p className="mb-2 text-gray-600">
       This is the beginning of the content that might be quite long and needs to
       be progressively disclosed.
     </p>
-    <p className="text-gray-600 mb-2">
+    <p className="mb-2 text-gray-600">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua.
     </p>
-    <p className="text-gray-600 mb-2">
+    <p className="mb-2 text-gray-600">
       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
       aliquip ex ea commodo consequat.
     </p>
@@ -75,9 +75,9 @@ const sampleContent = (
 );
 
 const longArticle = (
-  <article className="p-6 bg-white rounded-lg shadow-sm">
+  <article className="rounded-lg bg-white p-6 shadow-sm">
     <header className="mb-4">
-      <h2 className="text-2xl font-bold text-gray-900 mb-2">
+      <h2 className="mb-2 font-bold text-2xl text-gray-900">
         Understanding MaxHeightSmoother
       </h2>
       <p className="text-gray-600 text-sm">
@@ -286,15 +286,15 @@ export const HoverAndFocus: Story = {
     isFocusable: true,
     minHeight: 80,
     children: (
-      <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
-        <h3 className="text-lg font-semibold text-purple-800 mb-2">
+      <div className="rounded-lg border border-purple-200 bg-gradient-to-r from-purple-50 to-pink-50 p-4">
+        <h3 className="mb-2 font-semibold text-lg text-purple-800">
           Interactive Card
         </h3>
-        <p className="text-purple-700 mb-2">
+        <p className="mb-2 text-purple-700">
           This card expands on both hover and keyboard focus, making it
           accessible to all users.
         </p>
-        <p className="text-purple-600 mb-2">
+        <p className="mb-2 text-purple-600">
           Try hovering with your mouse or tabbing to focus with your keyboard.
         </p>
         <p className="text-purple-600">
@@ -344,8 +344,8 @@ export const ArticlePreview: Story = {
 
 export const FAQSection: Story = {
   render: () => (
-    <div className="max-w-2xl mx-auto space-y-4">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+    <div className="mx-auto max-w-2xl space-y-4">
+      <h2 className="mb-6 font-bold text-2xl text-gray-900">
         Frequently Asked Questions
       </h2>
 
@@ -371,10 +371,10 @@ export const FAQSection: Story = {
           isFocusable={true}
           isOverable={true}
           minHeight={60}
-          className="border border-gray-200 rounded-lg"
+          className="rounded-lg border border-gray-200"
         >
           <div className="p-4">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="mb-2 font-semibold text-gray-900 text-lg">
               {faq.question}
             </h3>
             <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
@@ -396,7 +396,7 @@ export const FAQSection: Story = {
 
 export const DashboardWidgets: Story = {
   render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {[
         {
           title: 'Revenue',
@@ -439,13 +439,13 @@ export const DashboardWidgets: Story = {
           key={index}
           isOverable={true}
           minHeight={120}
-          className="bg-white rounded-lg transition-shadow animate-shadow"
+          className="animate-shadow rounded-lg bg-white transition-shadow"
         >
           <div className="p-6">
-            <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-2">
+            <h3 className="mb-2 font-medium text-gray-500 text-sm uppercase tracking-wide">
               {widget.title}
             </h3>
-            <div className="text-3xl font-bold text-gray-900 mb-4">
+            <div className="mb-4 font-bold text-3xl text-gray-900">
               {widget.preview}
             </div>
             <p className="text-gray-600 text-sm leading-relaxed">
@@ -476,14 +476,14 @@ export const CustomStyling: Story = {
       'bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200 rounded-xl shadow-lg hover:shadow-xl transition-shadow',
     children: (
       <div className="p-6">
-        <h3 className="text-xl font-bold text-orange-800 mb-3">
+        <h3 className="mb-3 font-bold text-orange-800 text-xl">
           🎨 Custom Styled Card
         </h3>
-        <p className="text-orange-700 mb-2">
+        <p className="mb-2 text-orange-700">
           This example demonstrates how you can apply custom styling to the
           MaxHeightSmoother.
         </p>
-        <p className="text-orange-600 mb-2">
+        <p className="mb-2 text-orange-600">
           The gradient background, custom borders, and shadow effects create an
           engaging visual experience.
         </p>
@@ -509,11 +509,11 @@ export const AccessibilityDemo: Story = {
     isFocusable: true,
     'aria-label': 'Expandable accessibility information',
     children: (
-      <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-        <h3 className="text-lg font-semibold text-green-800 mb-2">
+      <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+        <h3 className="mb-2 font-semibold text-green-800 text-lg">
           ♿ Accessibility Features
         </h3>
-        <ul className="text-green-700 space-y-1">
+        <ul className="space-y-1 text-green-700">
           <li>• Keyboard navigation with Tab key</li>
           <li>• Screen reader support with proper ARIA attributes</li>
           <li>• Focus indicators for visual feedback</li>
@@ -570,12 +570,12 @@ export const LargeContent: Story = {
     isOverable: true,
     minHeight: 150,
     children: (
-      <div className="p-6 bg-blue-50 rounded-lg">
-        <h3 className="text-xl font-bold text-blue-800 mb-4">
+      <div className="rounded-lg bg-blue-50 p-6">
+        <h3 className="mb-4 font-bold text-blue-800 text-xl">
           Large Content Example
         </h3>
         {Array.from({ length: 20 }, (_, i) => (
-          <p key={i} className="text-blue-700 mb-2">
+          <p key={i} className="mb-2 text-blue-700">
             Paragraph {i + 1}: This is a lot of content to test how the
             MaxHeightSmoother handles large amounts of text and maintains smooth
             animations even with extensive content.
@@ -605,13 +605,13 @@ export const DynamicContent: Story = {
             onClick={() =>
               setItems((prev) => [...prev, `Item ${prev.length + 1}`])
             }
-            className="bg-blue-600 text-white px-4 py-2 rounded mr-2 hover:bg-blue-700"
+            className="mr-2 rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
           >
             Add Item
           </button>
           <button
             onClick={() => setItems((prev) => prev.slice(0, -1))}
-            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+            className="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700"
             disabled={items.length === 0}
           >
             Remove Item
@@ -622,10 +622,10 @@ export const DynamicContent: Story = {
           {...args}
           isOverable={true}
           minHeight={80}
-          className="bg-gray-50 border rounded-lg"
+          className="rounded-lg border bg-gray-50"
         >
           <div className="p-4">
-            <h3 className="font-semibold mb-2">
+            <h3 className="mb-2 font-semibold">
               Dynamic List ({items.length} items)
             </h3>
             <ul className="space-y-1">

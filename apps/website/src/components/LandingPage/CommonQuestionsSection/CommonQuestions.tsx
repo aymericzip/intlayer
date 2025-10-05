@@ -50,7 +50,7 @@ const QuestionItem: FC<{
             numberOfColumns === 3 && 'w-[25vw]'
           )}
         >
-          <h3 className="text-wrap pb-4 text-base font-bold" itemProp="name">
+          <h3 className="text-wrap pb-4 font-bold text-base" itemProp="name">
             {question}
           </h3>
 

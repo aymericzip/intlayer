@@ -27,7 +27,7 @@ export const StepLayout: FC<StepLayoutProps> = ({
   return (
     <>
       {children}
-      <div className="flex w-full flex-col gap-2 pb-3 pt-10">
+      <div className="flex w-full flex-col gap-2 pt-10 pb-3">
         <div className="flex w-full gap-4">
           {onGoToPreviousStep && (
             <Form.Button

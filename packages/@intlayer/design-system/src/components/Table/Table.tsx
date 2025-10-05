@@ -219,7 +219,7 @@ export const Table: FC<TableProps> = ({ className, isRollable, ...props }) => {
       >
         <table
           className={cn(
-            'max-w-full overflow-x-auto table-auto text-left min-w-full bg-background',
+            'min-w-full max-w-full table-auto overflow-x-auto bg-background text-left',
             className
           )}
           {...props}
@@ -236,7 +236,7 @@ export const Table: FC<TableProps> = ({ className, isRollable, ...props }) => {
           <div className="grid">
             <table
               className={cn(
-                'max-w-full table-auto text-left min-w-full',
+                'min-w-full max-w-full table-auto text-left',
                 className
               )}
               {...props}

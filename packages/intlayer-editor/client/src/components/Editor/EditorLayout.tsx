@@ -44,9 +44,9 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   }, [unmergedDictionaries]);
 
   return (
-    <div className="bg-card relative size-full p-3">
+    <div className="relative size-full bg-card p-3">
       {children}
-      <div className="absolute bottom-2 right-2">
+      <div className="absolute right-2 bottom-2">
         <LongPressMessage {...hoveredContent} />
       </div>
       <DictionaryEditionDrawerController locale={currentLocale} />

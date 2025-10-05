@@ -71,7 +71,7 @@ export const Code: FC<CodeCompProps> = ({
       >
         {showHeader && (
           <>
-            <div className="bg-card/50 text-neutral grid w-full grid-cols-[1fr_auto] items-center justify-between rounded-t-xl py-1.5 pl-4 pr-12 text-xs">
+            <div className="grid w-full grid-cols-[1fr_auto] items-center justify-between rounded-t-xl bg-card/50 py-1.5 pr-12 pl-4 text-neutral text-xs">
               <span className="truncate">{fileName ?? language}</span>
               <div className="flex items-center gap-2">
                 {packageManager && <PackageManagerSelector />}
@@ -84,7 +84,7 @@ export const Code: FC<CodeCompProps> = ({
             <div className="sticky top-46 z-20">
               <div
                 className={cn(
-                  'absolute bottom-0 right-2 flex h-7 items-center',
+                  'absolute right-2 bottom-0 flex h-7 items-center',
                   hadSelectInHeader && 'h-11'
                 )}
               >
@@ -96,7 +96,7 @@ export const Code: FC<CodeCompProps> = ({
         <ExpandCollapse
           minHeight={MIN_HEIGHT}
           isRollable={isRollable}
-          className="p-2 overflow-x-auto"
+          className="overflow-x-auto p-2"
         >
           <CodeBlock lang={language} isDarkMode={isDarkMode}>
             {code}

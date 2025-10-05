@@ -137,7 +137,7 @@ export const Default: Story = {
           </MultiSelect.Content>
         </MultiSelect>
 
-        <div className="mt-4 text-sm text-gray-600">
+        <div className="mt-4 text-gray-600 text-sm">
           Selected: <strong>{values.length}</strong> framework
           {values.length !== 1 ? 's' : ''}
         </div>

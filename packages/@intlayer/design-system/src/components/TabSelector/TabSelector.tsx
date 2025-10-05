@@ -28,7 +28,7 @@ const tabSelectorVariant = cva(
         primary: 'border-primary text-primary',
         secondary: 'border-secondary text-secondary',
         destructive: 'border-destructive bg-destructive text-destructive',
-        neutral: 'border-neutral text-neutral ',
+        neutral: 'border-neutral text-neutral',
         light: 'border-white text-white',
         dark: 'border-neutral-800 text-neutral-800',
         text: 'border-text text-text',

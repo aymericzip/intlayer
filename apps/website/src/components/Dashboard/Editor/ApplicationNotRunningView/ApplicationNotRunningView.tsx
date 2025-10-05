@@ -10,14 +10,14 @@ export const ApplicationNotRunningView: FC = () => {
   );
 
   return (
-    <div className="flex flex-1 justify-center items-center">
-      <Container className="flex flex-col text-sm gap-2 px-8 pt-2 pb-4 rounded-2xl max-w-xl">
+    <div className="flex flex-1 items-center justify-center">
+      <Container className="flex max-w-xl flex-col gap-2 rounded-2xl px-8 pt-2 pb-4 text-sm">
         <H3 className="mb-4 text-lg">{title}</H3>
-        <p className="text-neutral block mb-4">{description}</p>
+        <p className="mb-4 block text-neutral">{description}</p>
 
         <div className="mb-4">
-          <h4 className="font-semibold mb-2">Tips:</h4>
-          <ul className="list-disc list-inside space-y-2 pl-3">
+          <h4 className="mb-2 font-semibold">Tips:</h4>
+          <ul className="list-inside list-disc space-y-2 pl-3">
             {tips.map((tip, index) => (
               <li key={index} className="text-neutral">
                 {tip}

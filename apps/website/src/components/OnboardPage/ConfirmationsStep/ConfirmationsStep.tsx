@@ -30,7 +30,7 @@ export const ConfirmationsStep: FC = () => {
           <span className="text-neutral text-sm">
             {confirmation.description}
           </span>
-          <div className="bg-success/30 m-auto aspect-square rounded-full p-5">
+          <div className="m-auto aspect-square rounded-full bg-success/30 p-5">
             <Check className="text-success" size={50} />
           </div>
         </div>

@@ -227,7 +227,7 @@ export const Default: Story = {
  */
 export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-wrap gap-4 items-center">
+    <div className="flex flex-wrap items-center gap-4">
       <Button
         variant={ButtonVariant.DEFAULT}
         label="Default button"
@@ -311,7 +311,7 @@ export const AllVariants: Story = {
  */
 export const SizeVariations: Story = {
   render: () => (
-    <div className="flex flex-wrap gap-4 items-center">
+    <div className="flex flex-wrap items-center gap-4">
       <Button
         size={ButtonSize.ICON_LG}
         label="Extra small button"
@@ -372,10 +372,10 @@ export const SizeVariations: Story = {
  */
 export const ColorThemes: Story = {
   render: () => (
-    <div className="grid grid-cols-2 gap-4 max-w-2xl">
+    <div className="grid max-w-2xl grid-cols-2 gap-4">
       {Object.values(ButtonColor).map((color) => (
         <div key={color} className="space-y-2">
-          <h4 className="text-sm font-medium capitalize">
+          <h4 className="font-medium text-sm capitalize">
             {color.replace('_', ' ')}
           </h4>
           <div className="flex gap-2">
@@ -701,12 +701,12 @@ export const FullWidthButton: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="max-w-md mx-auto p-4 border border-gray-200 rounded-lg">
+      <div className="mx-auto max-w-md rounded-lg border border-gray-200 p-4">
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Email</label>
+          <label className="mb-2 block font-medium text-sm">Email</label>
           <input
             type="email"
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full rounded border border-gray-300 p-2"
             placeholder="Enter your email"
           />
         </div>
@@ -741,7 +741,7 @@ export const FullWidthButton: Story = {
  */
 export const TextAlignment: Story = {
   render: () => (
-    <div className="space-y-4 max-w-md">
+    <div className="max-w-md space-y-4">
       <Button
         isFullWidth
         textAlign={ButtonTextAlign.LEFT}
@@ -796,7 +796,7 @@ export const TextAlignment: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-4">
-      <div className="text-sm text-gray-600 mb-4">
+      <div className="mb-4 text-gray-600 text-sm">
         Use Tab to navigate between buttons, Enter or Space to activate them.
       </div>
       <div className="flex flex-wrap gap-4">
@@ -862,7 +862,7 @@ export const ARIAAttributes: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-sm font-medium mb-2">Dropdown Button</h3>
+        <h3 className="mb-2 font-medium text-sm">Dropdown Button</h3>
         <Button
           label="Open menu options"
           color={ButtonColor.PRIMARY}
@@ -875,7 +875,7 @@ export const ARIAAttributes: Story = {
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-2">Toggle Button</h3>
+        <h3 className="mb-2 font-medium text-sm">Toggle Button</h3>
         <Button
           label="Toggle favorite status"
           variant={ButtonVariant.OUTLINE}
@@ -888,7 +888,7 @@ export const ARIAAttributes: Story = {
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-2">Button with Description</h3>
+        <h3 className="mb-2 font-medium text-sm">Button with Description</h3>
         <div>
           <Button
             label="Delete selected items"
@@ -898,7 +898,7 @@ export const ARIAAttributes: Story = {
           >
             Delete
           </Button>
-          <div id="delete-help" className="text-xs text-gray-500 mt-1">
+          <div id="delete-help" className="mt-1 text-gray-500 text-xs">
             This action cannot be undone
           </div>
         </div>
@@ -950,7 +950,7 @@ export const ARIAAttributes: Story = {
 export const FormButtons: Story = {
   render: () => (
     <form
-      className="max-w-md space-y-4 p-4 border border-gray-200 rounded-lg"
+      className="max-w-md space-y-4 rounded-lg border border-gray-200 p-4"
       onSubmit={(e) => {
         e.preventDefault();
         alert('Form submitted');
@@ -961,25 +961,25 @@ export const FormButtons: Story = {
       }}
     >
       <div>
-        <label htmlFor="name" className="block text-sm font-medium mb-2">
+        <label htmlFor="name" className="mb-2 block font-medium text-sm">
           Name
         </label>
         <input
           id="name"
           type="text"
-          className="w-full p-2 border border-gray-300 rounded"
+          className="w-full rounded border border-gray-300 p-2"
           placeholder="Enter your name"
         />
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium mb-2">
+        <label htmlFor="email" className="mb-2 block font-medium text-sm">
           Email
         </label>
         <input
           id="email"
           type="email"
-          className="w-full p-2 border border-gray-300 rounded"
+          className="w-full rounded border border-gray-300 p-2"
           placeholder="Enter your email"
         />
       </div>

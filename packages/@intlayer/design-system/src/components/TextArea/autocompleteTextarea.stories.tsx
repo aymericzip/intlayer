@@ -164,17 +164,17 @@ export const Default: Story = {
             {...args}
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="w-full min-h-[120px]"
+            className="min-h-[120px] w-full"
           />
 
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <div className="text-sm font-medium text-blue-900 mb-2">
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+            <div className="mb-2 font-medium text-blue-900 text-sm">
               💡 How to Use
             </div>
-            <ul className="text-sm text-blue-800 space-y-1">
+            <ul className="space-y-1 text-blue-800 text-sm">
               <li>• Start typing to see AI-powered suggestions appear</li>
               <li>
-                • Press <kbd className="bg-white px-1 rounded border">Tab</kbd>{' '}
+                • Press <kbd className="rounded border bg-white px-1">Tab</kbd>{' '}
                 to accept suggestions
               </li>
               <li>• Suggestions appear after typing 3+ characters</li>
@@ -226,9 +226,9 @@ export const ManualSuggestions: Story = {
     return (
       <ReactQueryProvider>
         <div className="w-full max-w-3xl space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="mb-2 block font-medium text-sm">
                 Content with Manual Suggestion
               </label>
               <AutoCompleteTextarea
@@ -243,25 +243,25 @@ export const ManualSuggestions: Story = {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="mb-2 block font-medium text-sm">
                 Suggestion Controls
               </label>
               <div className="space-y-3">
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">
+                  <label className="mb-1 block text-gray-600 text-xs">
                     Current Suggestion
                   </label>
                   <input
                     type="text"
                     value={manualSuggestion}
                     onChange={(e) => setManualSuggestion(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                    className="w-full rounded border border-gray-300 px-3 py-2 text-sm"
                     placeholder="Enter suggestion text..."
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs text-gray-600 mb-2">
+                  <label className="mb-2 block text-gray-600 text-xs">
                     Quick Suggestions
                   </label>
                   <div className="space-y-1">
@@ -269,7 +269,7 @@ export const ManualSuggestions: Story = {
                       <button
                         key={index}
                         onClick={() => setManualSuggestion(suggestion)}
-                        className="block w-full text-left px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded"
+                        className="block w-full rounded bg-gray-100 px-2 py-1 text-left text-xs hover:bg-gray-200"
                       >
                         {suggestion}
                       </button>
@@ -279,7 +279,7 @@ export const ManualSuggestions: Story = {
 
                 <button
                   onClick={() => setManualSuggestion('')}
-                  className="w-full px-3 py-2 bg-red-100 text-red-700 rounded text-sm hover:bg-red-200"
+                  className="w-full rounded bg-red-100 px-3 py-2 text-red-700 text-sm hover:bg-red-200"
                 >
                   Clear Suggestion
                 </button>
@@ -287,11 +287,11 @@ export const ManualSuggestions: Story = {
             </div>
           </div>
 
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-            <div className="text-sm font-medium text-gray-700 mb-2">
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <div className="mb-2 font-medium text-gray-700 text-sm">
               Manual Suggestion Mode
             </div>
-            <p className="text-sm text-gray-600">
+            <p className="text-gray-600 text-sm">
               When <code>isActive={false}</code> and <code>suggestion</code>{' '}
               prop is provided, the component displays manual suggestions
               instead of AI-generated ones. This is useful for testing, demos,
@@ -345,11 +345,11 @@ export const ContentCreation: Story = {
       <ReactQueryProvider>
         <div className="w-full max-w-4xl space-y-6">
           {/* Editor Header */}
-          <div className="bg-white border border-gray-200 rounded-lg p-4">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="rounded-lg border border-gray-200 bg-white p-4">
+            <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
               <div>
-                <h3 className="text-lg font-semibold">AI Blog Post Editor</h3>
-                <div className="text-sm text-gray-600">
+                <h3 className="font-semibold text-lg">AI Blog Post Editor</h3>
+                <div className="text-gray-600 text-sm">
                   {wordCount} words • ~{estimatedReadTime} min read
                 </div>
               </div>
@@ -370,7 +370,7 @@ export const ContentCreation: Story = {
                     <select
                       value={aiModel}
                       onChange={(e) => setAiModel(e.target.value)}
-                      className="text-sm border border-gray-300 rounded px-2 py-1"
+                      className="rounded border border-gray-300 px-2 py-1 text-sm"
                     >
                       <option value="gpt-4">GPT-4</option>
                       <option value="gpt-3.5-turbo">GPT-3.5</option>
@@ -399,9 +399,9 @@ export const ContentCreation: Story = {
           </div>
 
           {/* Editor */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-            <div className="border-b border-gray-200 px-4 py-2 bg-gray-50">
-              <div className="text-sm text-gray-600 flex items-center gap-4">
+          <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
+            <div className="border-gray-200 border-b bg-gray-50 px-4 py-2">
+              <div className="flex items-center gap-4 text-gray-600 text-sm">
                 <span>
                   Status:{' '}
                   {isAiEnabled ? (
@@ -423,18 +423,18 @@ export const ContentCreation: Story = {
                 placeholder="Start writing your blog post..."
                 autoSize={true}
                 maxRows={20}
-                className="w-full min-h-[400px] font-serif text-base leading-relaxed resize-none border-0 focus:ring-0 focus:outline-none"
+                className="min-h-[400px] w-full resize-none border-0 font-serif text-base leading-relaxed focus:outline-none focus:ring-0"
                 variant={InputVariant.INVISIBLE}
               />
             </div>
           </div>
 
           {/* Writing Tips */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <div className="text-sm font-medium text-blue-900 mb-2">
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+            <div className="mb-2 font-medium text-blue-900 text-sm">
               ✍️ AI Writing Tips
             </div>
-            <ul className="text-sm text-blue-800 space-y-1">
+            <ul className="space-y-1 text-blue-800 text-sm">
               <li>• Start sentences to get completion suggestions</li>
               <li>• Write topic headers for section suggestions</li>
               <li>
@@ -485,9 +485,9 @@ export const CodeDocumentation: Story = {
     return (
       <ReactQueryProvider>
         <div className="w-full max-w-3xl space-y-6">
-          <div className="bg-white border border-gray-200 rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold">
+          <div className="rounded-lg border border-gray-200 bg-white p-6">
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="font-semibold text-lg">
                 Code Documentation Assistant
               </h3>
               <label className="flex items-center gap-2">
@@ -503,7 +503,7 @@ export const CodeDocumentation: Story = {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-2">
+                <label className="mb-2 block font-medium text-sm">
                   JSDoc Comment
                 </label>
                 <AutoCompleteTextarea
@@ -513,14 +513,14 @@ export const CodeDocumentation: Story = {
                   placeholder="Start writing JSDoc comment..."
                   autoSize={true}
                   maxRows={15}
-                  className="w-full font-mono text-sm border-2 border-gray-300 rounded-lg p-3"
+                  className="w-full rounded-lg border-2 border-gray-300 p-3 font-mono text-sm"
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div className="bg-gray-50 border border-gray-200 rounded p-3">
-                  <div className="font-medium mb-2">Common JSDoc Tags</div>
-                  <div className="space-y-1 text-xs text-gray-600">
+              <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-2">
+                <div className="rounded border border-gray-200 bg-gray-50 p-3">
+                  <div className="mb-2 font-medium">Common JSDoc Tags</div>
+                  <div className="space-y-1 text-gray-600 text-xs">
                     <div>
                       <code>@param</code> - Function parameters
                     </div>
@@ -539,9 +539,9 @@ export const CodeDocumentation: Story = {
                   </div>
                 </div>
 
-                <div className="bg-green-50 border border-green-200 rounded p-3">
-                  <div className="font-medium mb-2">AI Assistance Benefits</div>
-                  <div className="space-y-1 text-xs text-green-700">
+                <div className="rounded border border-green-200 bg-green-50 p-3">
+                  <div className="mb-2 font-medium">AI Assistance Benefits</div>
+                  <div className="space-y-1 text-green-700 text-xs">
                     <div>• Parameter type inference</div>
                     <div>• Return type suggestions</div>
                     <div>• Example code generation</div>
@@ -553,11 +553,11 @@ export const CodeDocumentation: Story = {
             </div>
           </div>
 
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-            <div className="text-sm font-medium text-yellow-800 mb-2">
+          <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
+            <div className="mb-2 font-medium text-sm text-yellow-800">
               💡 Documentation Tips
             </div>
-            <ul className="text-sm text-yellow-700 space-y-1">
+            <ul className="space-y-1 text-sm text-yellow-700">
               <li>
                 • Start with function purpose, then add parameter descriptions
               </li>
@@ -619,11 +619,11 @@ export const EmailAssistant: Story = {
       <ReactQueryProvider>
         <div className="w-full max-w-4xl space-y-6">
           {/* Email Header */}
-          <div className="bg-white border border-gray-200 rounded-lg p-4">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="rounded-lg border border-gray-200 bg-white p-4">
+            <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
               <div>
-                <h3 className="text-lg font-semibold">AI Email Assistant</h3>
-                <div className="text-sm text-gray-600">{wordCount} words</div>
+                <h3 className="font-semibold text-lg">AI Email Assistant</h3>
+                <div className="text-gray-600 text-sm">{wordCount} words</div>
               </div>
 
               <div className="flex items-center gap-4">
@@ -642,7 +642,7 @@ export const EmailAssistant: Story = {
                   <select
                     value={tone}
                     onChange={(e) => setTone(e.target.value)}
-                    className="text-sm border border-gray-300 rounded px-2 py-1"
+                    className="rounded border border-gray-300 px-2 py-1 text-sm"
                   >
                     {tones.map((t) => (
                       <option key={t.value} value={t.value}>
@@ -656,12 +656,12 @@ export const EmailAssistant: Story = {
           </div>
 
           {/* Email Composer */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-            <div className="border-b border-gray-200 px-4 py-3 bg-gray-50">
+          <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
+            <div className="border-gray-200 border-b bg-gray-50 px-4 py-3">
               <div className="flex items-center gap-4 text-sm">
                 <span className="text-gray-600">Status:</span>
                 <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  className={`rounded-full px-2 py-1 font-medium text-xs ${
                     isAiEnabled
                       ? 'bg-green-100 text-green-800'
                       : 'bg-gray-100 text-gray-600'
@@ -672,7 +672,7 @@ export const EmailAssistant: Story = {
 
                 <span className="text-gray-600">Tone:</span>
                 <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium bg-${getToneColor(tone)}-100 text-${getToneColor(tone)}-800`}
+                  className={`rounded-full px-2 py-1 font-medium text-xs bg-${getToneColor(tone)}-100 text-${getToneColor(tone)}-800`}
                 >
                   {tones.find((t) => t.value === tone)?.label}
                 </span>
@@ -687,23 +687,23 @@ export const EmailAssistant: Story = {
                 placeholder="Compose your email..."
                 autoSize={true}
                 maxRows={15}
-                className="w-full min-h-[300px] text-base leading-relaxed resize-none border-0 focus:ring-0 focus:outline-none"
+                className="min-h-[300px] w-full resize-none border-0 text-base leading-relaxed focus:outline-none focus:ring-0"
                 variant={InputVariant.INVISIBLE}
               />
             </div>
 
-            <div className="border-t border-gray-200 px-6 py-4 bg-gray-50">
-              <div className="flex justify-between items-center">
-                <div className="text-sm text-gray-600">
+            <div className="border-gray-200 border-t bg-gray-50 px-6 py-4">
+              <div className="flex items-center justify-between">
+                <div className="text-gray-600 text-sm">
                   Press Tab to accept AI suggestions • Shift+Enter for line
                   breaks
                 </div>
 
                 <div className="flex gap-2">
-                  <button className="px-4 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-100">
+                  <button className="rounded border border-gray-300 px-4 py-2 text-gray-600 hover:bg-gray-100">
                     Save Draft
                   </button>
-                  <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                  <button className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
                     Send Email
                   </button>
                 </div>
@@ -712,11 +712,11 @@ export const EmailAssistant: Story = {
           </div>
 
           {/* Email Tips */}
-          <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
-            <div className="text-sm font-medium text-indigo-900 mb-2">
+          <div className="rounded-lg border border-indigo-200 bg-indigo-50 p-4">
+            <div className="mb-2 font-medium text-indigo-900 text-sm">
               📧 Email Writing Tips
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-indigo-800">
+            <div className="grid grid-cols-1 gap-4 text-indigo-800 text-sm md:grid-cols-2">
               <ul className="space-y-1">
                 <li>• Start with clear subject line</li>
                 <li>• Use appropriate greeting for relationship</li>

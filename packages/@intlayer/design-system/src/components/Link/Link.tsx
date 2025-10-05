@@ -81,9 +81,9 @@ export const linkVariants = cva(
         [`${LinkVariant.INVISIBLE_LINK}`]:
           'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0',
         [`${LinkVariant.BUTTON}`]:
-          'rounded-lg bg-current *:text-text-opposite min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
+          'flex min-h-8 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-current px-6 font-medium text-sm transition *:text-text-opposite focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 max-md:py-2',
         [`${LinkVariant.BUTTON_OUTLINED}`]:
-          'rounded-lg border-[1.5px] hover:bg-current/30 min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
+          'flex min-h-8 items-center justify-center gap-2 whitespace-nowrap rounded-lg border-[1.5px] px-6 font-medium text-sm transition hover:bg-current/30 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 max-md:py-2',
         [`${LinkVariant.HOVERABLE}`]:
           'block rounded-lg border-none bg-current/0 transition hover:bg-current/20 aria-[current]:bg-current/5',
       },

@@ -99,7 +99,7 @@ export const SummarizeAI: FC<SummarizeAIProps> = ({ url }) => {
       </Link>
       <Popover.Detail
         identifier="summarize"
-        className="flex flex-col gap-3 p-3 min-w-50 text-sm"
+        className="flex min-w-50 flex-col gap-3 p-3 text-sm"
       >
         <strong>{title}</strong>
 
@@ -110,7 +110,7 @@ export const SummarizeAI: FC<SummarizeAIProps> = ({ url }) => {
             label={summarizeLabel({ provider: provider.name }).value}
             variant="hoverable"
             color="text"
-            className="flex flex-row gap-4 items-center p-3"
+            className="flex flex-row items-center gap-4 p-3"
             onClick={() => setSelectedProviderName(provider.name)}
           >
             {provider.icon}

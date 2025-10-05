@@ -109,7 +109,7 @@ export const Navbar: FC = () => {
             GitHub
             <StarIcon
               width={18}
-              className="group-hover/github:fill-text mr-1"
+              className="mr-1 group-hover/github:fill-text"
             />
           </Link>
 
@@ -119,7 +119,7 @@ export const Navbar: FC = () => {
               color="text"
               label={logoutContent.label.value}
               onClick={handleLogOut}
-              className="!rounded-2xl leading-6 text-center font-medium"
+              className="!rounded-2xl text-center font-medium leading-6"
               size="md"
             >
               {logoutContent.title}
@@ -130,7 +130,7 @@ export const Navbar: FC = () => {
               href={login.url.value}
               variant="button"
               color="text"
-              className="!rounded-2xl leading-6 text-center font-medium"
+              className="!rounded-2xl text-center font-medium leading-6"
             >
               {login.title}
             </Link>
@@ -159,7 +159,7 @@ export const Navbar: FC = () => {
             href={discord.url.value}
             target="_blank"
             rel="noopener noreferrer nofollow"
-            className="border-text border-[1.5px] flex cursor-pointer items-center gap-2 rounded-full p-1.5 hover:bg-text/10"
+            className="flex cursor-pointer items-center gap-2 rounded-full border-[1.5px] border-text p-1.5 hover:bg-text/10"
           >
             <DiscordLogo width={20} />
           </a>
@@ -172,7 +172,7 @@ export const Navbar: FC = () => {
             <GithubLogo width={25} />
             <StarIcon
               width={18}
-              className="group-hover/github:fill-text-opposite mr-1"
+              className="mr-1 group-hover/github:fill-text-opposite"
             />
           </Link>
           <div className="-m-1.5">

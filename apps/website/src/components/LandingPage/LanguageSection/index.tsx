@@ -110,7 +110,7 @@ export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
 
 export const LanguageBackground: FC<PropsWithChildren> = ({ children }) => (
   <>
-    <div className="absolute left-0 top-0 -z-0 flex size-full items-center justify-center">
+    <div className="-z-0 absolute top-0 left-0 flex size-full items-center justify-center">
       <LanguageSection className="mt-[30%]" />
     </div>
     {children}

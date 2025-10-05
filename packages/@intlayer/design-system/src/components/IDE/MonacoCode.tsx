@@ -103,7 +103,7 @@ export const MonacoCode: FC<CodeCompProps> = ({
       {showCopyButton && (
         <div className="sticky top-5 z-10">
           <div
-            className={cn('absolute bottom-0 right-2 flex h-7 items-center')}
+            className={cn('absolute right-2 bottom-0 flex h-7 items-center')}
           >
             <CopyButton content={children} />
           </div>

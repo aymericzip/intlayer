@@ -34,7 +34,7 @@ const AppContent: FC = () => {
         <p>{content.edit}</p>
       </div>
       <p className="read-the-docs">{content.readTheDocs}</p>
-      <div className="absolute bottom-5 right-5 z-50">
+      <div className="absolute right-5 bottom-5 z-50">
         <LocaleSwitcher />
       </div>
     </>

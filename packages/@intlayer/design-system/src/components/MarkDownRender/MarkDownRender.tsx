@@ -251,7 +251,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                   Partial<CodeCompAttributes> & { children: string }
               ) =>
                 !props.className ? (
-                  <strong className="bg-card/60 rounded p-1 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
+                  <strong className="rounded bg-card/60 p-1 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
                     {props.children}
                   </strong>
                 ) : (
@@ -273,7 +273,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               }: ComponentPropsWithoutRef<'blockquote'>) => (
                 <blockquote
                   className={cn(
-                    'border-card text-neutral mt-5 flex flex-col gap-3 border-l-4 pl-5',
+                    'mt-5 flex flex-col gap-3 border-card border-l-4 pl-5 text-neutral',
                     className
                   )}
                   {...props}
@@ -282,7 +282,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               ul: ({ className, ...props }: ComponentPropsWithoutRef<'ul'>) => (
                 <ul
                   className={cn(
-                    'mt-5 flex flex-col gap-3 pl-5 list-disc',
+                    'mt-5 flex list-disc flex-col gap-3 pl-5',
                     className
                   )}
                   {...props}
@@ -291,7 +291,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               ol: ({ className, ...props }: ComponentPropsWithoutRef<'ol'>) => (
                 <ol
                   className={cn(
-                    'mt-5 flex flex-col gap-3 pl-5 list-decimal',
+                    'mt-5 flex list-decimal flex-col gap-3 pl-5',
                     className
                   )}
                   {...props}
@@ -305,7 +305,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                   {...props}
                   loading="lazy"
                   className={cn(
-                    'max-w-full max-h-[80vh] rounded-md',
+                    'max-h-[80vh] max-w-full rounded-md',
                     className
                   )}
                   src={`${props.src}?raw=true`}
@@ -328,7 +328,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               th: ({ className, ...props }: ComponentPropsWithoutRef<'th'>) => (
                 <th
                   className={cn(
-                    'border-neutral bg-neutral/10 border-b p-4',
+                    'border-neutral border-b bg-neutral/10 p-4',
                     className
                   )}
                   {...props}
@@ -336,14 +336,14 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               ),
               tr: ({ className, ...props }: ComponentPropsWithoutRef<'tr'>) => (
                 <tr
-                  className={cn('hover:bg-neutral/10 hover:/10', className)}
+                  className={cn('hover:/10 hover:bg-neutral/10', className)}
                   {...props}
                 />
               ),
               td: ({ className, ...props }: ComponentPropsWithoutRef<'td'>) => (
                 <td
                   className={cn(
-                    'border-b border-neutral-500/50 p-4',
+                    'border-neutral-500/50 border-b p-4',
                     className
                   )}
                   {...props}
@@ -351,7 +351,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               ),
               hr: ({ className, ...props }: ComponentPropsWithoutRef<'hr'>) => (
                 <hr
-                  className={cn('mt-16 mx-6 text-neutral', className)}
+                  className={cn('mx-6 mt-16 text-neutral', className)}
                   {...props}
                 />
               ),
@@ -366,7 +366,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                 ...props
               }: ComponentPropsWithoutRef<'div'>) => (
                 <div
-                  className={cn('flex max-md:flex-col gap-4', className)}
+                  className={cn('flex gap-4 max-md:flex-col', className)}
                   {...props}
                 />
               ),

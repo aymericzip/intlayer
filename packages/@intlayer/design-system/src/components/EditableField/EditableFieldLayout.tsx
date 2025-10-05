@@ -137,7 +137,7 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
           color={ButtonColor.TEXT}
           variant={ButtonVariant.HOVERABLE}
           size={ButtonSize.ICON_SM}
-          className="invisible !text-current group-hover/editable-field:visible"
+          className="!text-current invisible group-hover/editable-field:visible"
           disabled={isDisabled}
           onClick={(e) => {
             e.stopPropagation();

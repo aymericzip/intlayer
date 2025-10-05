@@ -88,7 +88,7 @@ export const VerifyEmailStepForm: FC = () => {
         <H2>{verifyEmail.title}</H2>
         <span className="text-neutral text-sm">{verifyEmail.description}</span>
         <Loader isLoading={!isEmailVerified}>
-          <div className="bg-success/30 m-auto aspect-square rounded-full p-5">
+          <div className="m-auto aspect-square rounded-full bg-success/30 p-5">
             <Check className="text-success" size={50} />
           </div>
         </Loader>

@@ -229,7 +229,7 @@ export const PressableSpan: FC<PressableSpanProps> = ({
   return (
     <span
       className={cn(
-        'inline cursor-pointer select-none rounded-md outline outline-2 outline-offset-4 outline-transparent transition-all delay-100 duration-200',
+        'inline cursor-pointer select-none rounded-md outline outline-2 outline-transparent outline-offset-4 transition-all delay-100 duration-200',
         isCurrentlySelecting ? 'outline-inherit' : 'hover:outline-inherit'
       )}
       role="button"

@@ -21,7 +21,7 @@ export const MCPMessage: FC = () => {
       </Link>
       <Popover.Detail
         identifier="mcp"
-        className="flex flex-col gap-3 p-3 min-w-64 text-sm"
+        className="flex min-w-64 flex-col gap-3 p-3 text-sm"
       >
         <strong>{title}</strong>
         <p className="text-neutral">{description}</p>
@@ -29,7 +29,7 @@ export const MCPMessage: FC = () => {
           href={PagesRoutes.Doc_MCP}
           label={link.label.value}
           color="text"
-          className="flex flex-row gap-2 items-center p-3"
+          className="flex flex-row items-center gap-2 p-3"
         >
           {link.test}
         </Link>

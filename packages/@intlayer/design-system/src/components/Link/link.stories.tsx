@@ -215,7 +215,7 @@ export const External: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div className="space-y-4">
-      <div className="flex flex-wrap gap-4 items-center">
+      <div className="flex flex-wrap items-center gap-4">
         <Link
           href="/default"
           variant={LinkVariant.DEFAULT}
@@ -282,12 +282,12 @@ export const AllVariants: Story = {
  */
 export const ColorThemes: Story = {
   render: () => (
-    <div className="grid grid-cols-2 gap-4 max-w-2xl">
+    <div className="grid max-w-2xl grid-cols-2 gap-4">
       {Object.values(LinkColor)
         .filter((color) => color !== LinkColor.CUSTOM)
         .map((color) => (
           <div key={color} className="space-y-2">
-            <h4 className="text-sm font-medium capitalize">
+            <h4 className="font-medium text-sm capitalize">
               {color.replace('_', ' ')}
             </h4>
             <div className="flex gap-3">
@@ -431,7 +431,7 @@ export const UnderlineVariations: Story = {
  */
 export const NavigationMenu: Story = {
   render: () => (
-    <nav className="bg-gray-50 p-4 rounded-lg">
+    <nav className="rounded-lg bg-gray-50 p-4">
       <div className="flex space-x-6">
         <Link
           href="/"
@@ -441,7 +441,7 @@ export const NavigationMenu: Story = {
           isActive={true}
           className="px-3 py-2"
         >
-          <Home className="w-4 h-4 inline mr-2" />
+          <Home className="mr-2 inline h-4 w-4" />
           Home
         </Link>
         <Link
@@ -460,7 +460,7 @@ export const NavigationMenu: Story = {
           label="Go to user profile"
           className="px-3 py-2"
         >
-          <User className="w-4 h-4 inline mr-2" />
+          <User className="mr-2 inline h-4 w-4" />
           Profile
         </Link>
         <Link
@@ -470,7 +470,7 @@ export const NavigationMenu: Story = {
           label="Go to settings page"
           className="px-3 py-2"
         >
-          <Settings className="w-4 h-4 inline mr-2" />
+          <Settings className="mr-2 inline h-4 w-4" />
           Settings
         </Link>
       </div>
@@ -503,9 +503,9 @@ export const NavigationMenu: Story = {
  */
 export const CallToAction: Story = {
   render: () => (
-    <div className="space-y-6 p-6 bg-gray-50 rounded-lg max-w-md">
-      <div className="text-center space-y-4">
-        <h3 className="text-xl font-semibold">Ready to Get Started?</h3>
+    <div className="max-w-md space-y-6 rounded-lg bg-gray-50 p-6">
+      <div className="space-y-4 text-center">
+        <h3 className="font-semibold text-xl">Ready to Get Started?</h3>
         <p className="text-gray-600">
           Join thousands of users who trust our platform for their projects.
         </p>
@@ -571,10 +571,10 @@ export const CallToAction: Story = {
  */
 export const FooterLinks: Story = {
   render: () => (
-    <footer className="bg-gray-900 text-white p-6 rounded-lg">
+    <footer className="rounded-lg bg-gray-900 p-6 text-white">
       <div className="grid grid-cols-3 gap-6">
         <div>
-          <h4 className="font-semibold mb-3">Company</h4>
+          <h4 className="mb-3 font-semibold">Company</h4>
           <div className="space-y-2">
             <Link
               href="/about"
@@ -607,7 +607,7 @@ export const FooterLinks: Story = {
         </div>
 
         <div>
-          <h4 className="font-semibold mb-3">Resources</h4>
+          <h4 className="mb-3 font-semibold">Resources</h4>
           <div className="space-y-2">
             <Link
               href="/docs"
@@ -640,7 +640,7 @@ export const FooterLinks: Story = {
         </div>
 
         <div>
-          <h4 className="font-semibold mb-3">Legal</h4>
+          <h4 className="mb-3 font-semibold">Legal</h4>
           <div className="space-y-2">
             <Link
               href="/privacy"
@@ -699,7 +699,7 @@ export const FooterLinks: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-4">
-      <div className="text-sm text-gray-600 mb-4">
+      <div className="mb-4 text-gray-600 text-sm">
         Use Tab to navigate between links, Enter to activate them.
       </div>
       <div className="space-y-3">
@@ -774,14 +774,14 @@ export const KeyboardNavigation: Story = {
 export const ScreenReaderSupport: Story = {
   render: () => (
     <div className="space-y-6">
-      <div className="text-sm text-gray-700 mb-4">
+      <div className="mb-4 text-gray-700 text-sm">
         Screen readers will announce link purposes, external link warnings, and
         current page status appropriately.
       </div>
 
       <div className="space-y-4">
         <div>
-          <h4 className="font-medium mb-2">Internal Navigation</h4>
+          <h4 className="mb-2 font-medium">Internal Navigation</h4>
           <Link
             href="/dashboard"
             label="Navigate to user dashboard to manage account settings"
@@ -792,7 +792,7 @@ export const ScreenReaderSupport: Story = {
         </div>
 
         <div>
-          <h4 className="font-medium mb-2">External Resource</h4>
+          <h4 className="mb-2 font-medium">External Resource</h4>
           <Link
             href="https://developer.mozilla.org"
             label="Visit MDN Web Docs - opens in new window"
@@ -803,7 +803,7 @@ export const ScreenReaderSupport: Story = {
         </div>
 
         <div>
-          <h4 className="font-medium mb-2">Current Page Indicator</h4>
+          <h4 className="mb-2 font-medium">Current Page Indicator</h4>
           <Link
             href="/accessibility"
             label="Accessibility guide - you are currently on this page"
@@ -815,7 +815,7 @@ export const ScreenReaderSupport: Story = {
         </div>
 
         <div>
-          <h4 className="font-medium mb-2">Action Links</h4>
+          <h4 className="mb-2 font-medium">Action Links</h4>
           <div className="flex gap-3">
             <Link
               href="/download"

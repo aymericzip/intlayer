@@ -35,18 +35,18 @@ export const AIABTestingSection: FC = () => {
             size={TagSize.SM}
             border={TagBorder.WITH}
             color={TagColor.NEUTRAL}
-            className="mb-6 border text-text rounded-full text-sm font-medium"
+            className="mb-6 rounded-full border font-medium text-sm text-text"
           >
             {betaTag}
           </Tag>
 
           {/* Main Title */}
-          <h2 className="mb-6 text-4xl font-normal leading-tight text-text sm:text-5xl md:text-6xl lg:text-7xl max-w-5xl">
+          <h2 className="mb-6 max-w-5xl font-normal text-4xl text-text leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
             {title}
           </h2>
 
           {/* Description */}
-          <p className="mb-10 text-lg leading-relaxed text-neutral max-w-4xl sm:text-xl md:text-xl">
+          <p className="mb-10 max-w-4xl text-lg text-neutral leading-relaxed sm:text-xl md:text-xl">
             {description}
           </p>
 
@@ -65,7 +65,7 @@ export const AIABTestingSection: FC = () => {
               variant={LinkVariant.BUTTON}
               color={LinkColor.CUSTOM}
               label={ctaButton.label.value}
-              className="hover:scale-105 px-4 py-2 rounded-full"
+              className="rounded-full px-4 py-2 hover:scale-105"
             >
               <span className="flex items-center gap-2">
                 <span className="block text-lg">{ctaButton.text}</span>

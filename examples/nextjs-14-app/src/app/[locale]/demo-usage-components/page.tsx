@@ -20,12 +20,12 @@ const PageDemoUsageComponents: Next14PageIntlayer = ({
          *   IntlayerClientProvider can be set in any parent component, including the layout
          */}
         <IntlayerClientProvider locale={locale}>
-          <main className="size-screen m-auto flex max-w-xl flex-col items-center justify-center gap-8 p-20">
+          <main className="m-auto flex size-screen max-w-xl flex-col items-center justify-center gap-8 p-20">
             <ClientComponentExample />
             <ServerComponentExample />
             <NestedServerComponentExample />
           </main>
-          <div className="absolute bottom-5 right-5 z-50">
+          <div className="absolute right-5 bottom-5 z-50">
             <LocaleSwitcher />
           </div>
         </IntlayerClientProvider>

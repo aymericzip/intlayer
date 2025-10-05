@@ -14,7 +14,7 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
     <button
       aria-label="language switcher"
       data-mode="system"
-      className="focus:outline-hidden my-1 w-full cursor-pointer rounded-lg p-2 text-left hover:bg-white/10 focus:bg-white/10 disabled:text-white/25"
+      className="my-1 w-full cursor-pointer rounded-lg p-2 text-left hover:bg-white/10 focus:bg-white/10 focus:outline-hidden disabled:text-white/25"
       {...props}
     >
       {children}
@@ -46,7 +46,7 @@ export const LocaleSwitcher: FC = () => {
     >
       <MaxHeightSmoother>
         <div className="separator min-w-[100px] items-end divide-y divide-dashed p-1">
-          <h2 className={`mb-3 text-xl font-semibold`}>{content.title} </h2>
+          <h2 className={`mb-3 font-semibold text-xl`}>{content.title} </h2>
 
           {availableLocales.map((lang) => (
             <ButtonItem

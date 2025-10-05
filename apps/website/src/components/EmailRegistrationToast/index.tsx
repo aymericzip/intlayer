@@ -148,12 +148,12 @@ export const EmailRegistrationToast: FC = () => {
   return (
     <Container
       className={cn([
-        'border-text group fixed bottom-5 right-0 translate-x-0 z-[100] mx-8 border-[2px] py-6 px-8 transition-all duration-500',
+        'group fixed right-0 bottom-5 z-[100] mx-8 translate-x-0 border-[2px] border-text px-8 py-6 transition-all duration-500',
         !isVisible && 'translate-x-[120%]',
       ])}
       roundedSize="2xl"
     >
-      <div className="flex gap-6 rounded-lg items-center">
+      <div className="flex items-center gap-6 rounded-lg">
         <Mail className="size-6" />
         <Form
           schema={EmailSchema}
@@ -161,7 +161,7 @@ export const EmailRegistrationToast: FC = () => {
           autoComplete
           {...form}
         >
-          <span className="text-sm font-medium">{content.value}</span>
+          <span className="font-medium text-sm">{content.value}</span>
           {!isAuthenticated && (
             <Form.Input
               name="email"
@@ -190,7 +190,7 @@ export const EmailRegistrationToast: FC = () => {
           onClick={handleClose}
           color="text"
           variant="hoverable"
-          className="!absolute right-2 top-2 cursor-pointer"
+          className="!absolute top-2 right-2 cursor-pointer"
           size="icon-md"
         />
       </div>

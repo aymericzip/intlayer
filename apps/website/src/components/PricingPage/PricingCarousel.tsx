@@ -295,7 +295,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
     >
       {plans.map((plan, index) => (
         <div
-          className={`absolute left-1/2 -translate-x-1/2 transition duration-300 ease-in-out${setColumnStyle(
+          className={`-translate-x-1/2 absolute left-1/2 transition duration-300 ease-in-out${setColumnStyle(
             index,
             displayedPlanIndex
           )}`}

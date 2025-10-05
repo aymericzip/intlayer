@@ -120,7 +120,7 @@ export const LoadingToLoaded: Story = {
     isLoading: true,
     children: (
       <div className="p-6 text-center">
-        <h2 className="text-xl font-bold mb-2">Data Loaded Successfully!</h2>
+        <h2 className="mb-2 font-bold text-xl">Data Loaded Successfully!</h2>
         <p className="text-gray-600">
           This content appears when loading completes.
         </p>
@@ -202,19 +202,19 @@ export const WithRichContent: Story = {
   args: {
     isLoading: false,
     children: (
-      <div className="p-8 max-w-md mx-auto">
+      <div className="mx-auto max-w-md p-8">
         <div className="mb-4">
-          <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mb-3">
+          <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-500">
             <span className="text-white text-xl">✓</span>
           </div>
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="font-semibold text-gray-900 text-lg">
             Profile Updated
           </h3>
           <p className="text-gray-600">
             Your profile information has been successfully saved.
           </p>
         </div>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+        <button className="rounded bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700">
           Continue
         </button>
       </div>
@@ -235,7 +235,7 @@ export const WithList: Story = {
     isLoading: false,
     children: (
       <div className="p-4">
-        <h3 className="text-lg font-semibold mb-4">Recent Activities</h3>
+        <h3 className="mb-4 font-semibold text-lg">Recent Activities</h3>
         <ul className="space-y-3">
           {[
             'Profile updated successfully',
@@ -244,7 +244,7 @@ export const WithList: Story = {
             'Backup completed',
           ].map((item, index) => (
             <li key={index} className="flex items-center space-x-2">
-              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+              <span className="h-2 w-2 rounded-full bg-green-500"></span>
               <span>{item}</span>
             </li>
           ))}
@@ -267,8 +267,8 @@ export const SimulatedLoading: Story = {
   args: {
     isLoading: true,
     children: (
-      <div className="text-center p-6">
-        <h2 className="text-xl font-bold text-green-600 mb-2">
+      <div className="p-6 text-center">
+        <h2 className="mb-2 font-bold text-green-600 text-xl">
           ✅ Loading Complete!
         </h2>
         <p className="text-gray-600">
@@ -347,27 +347,27 @@ export const AccessibilityTest: Story = {
 // Real-world Usage Examples
 export const DataTableLoading: Story = {
   render: (args) => (
-    <div className="border rounded-lg overflow-hidden">
-      <div className="bg-gray-50 px-6 py-4 border-b">
-        <h3 className="text-lg font-semibold">User Management</h3>
+    <div className="overflow-hidden rounded-lg border">
+      <div className="border-b bg-gray-50 px-6 py-4">
+        <h3 className="font-semibold text-lg">User Management</h3>
       </div>
       <Loader {...args} className="min-h-[300px]" isLoading={args.isLoading}>
         <div className="p-0">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider">
                   Name
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider">
                   Email
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider">
                   Role
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 bg-white">
               {[
                 { name: 'John Doe', email: 'john@example.com', role: 'Admin' },
                 { name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
@@ -378,13 +378,13 @@ export const DataTableLoading: Story = {
                 },
               ].map((user, index) => (
                 <tr key={index}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-sm">
                     {user.name}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
                     {user.email}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
                     {user.role}
                   </td>
                 </tr>
@@ -410,14 +410,14 @@ export const DataTableLoading: Story = {
 
 export const FormSubmission: Story = {
   render: (args) => (
-    <div className="max-w-md mx-auto bg-white p-6 rounded-lg border">
-      <h3 className="text-lg font-semibold mb-4">Contact Form</h3>
+    <div className="mx-auto max-w-md rounded-lg border bg-white p-6">
+      <h3 className="mb-4 font-semibold text-lg">Contact Form</h3>
       <Loader {...args} className="min-h-[200px]">
-        <div className="text-center p-6">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-green-600 text-2xl">✓</span>
+        <div className="p-6 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+            <span className="text-2xl text-green-600">✓</span>
           </div>
-          <h4 className="text-lg font-semibold text-gray-900 mb-2">
+          <h4 className="mb-2 font-semibold text-gray-900 text-lg">
             Message Sent!
           </h4>
           <p className="text-gray-600">

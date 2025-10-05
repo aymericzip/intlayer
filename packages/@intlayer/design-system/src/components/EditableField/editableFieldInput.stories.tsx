@@ -203,7 +203,7 @@ export const InputVariants: Story = {
   render: () => (
     <div className="space-y-6 p-4">
       <div>
-        <h3 className="text-sm font-medium mb-2">Default Variant</h3>
+        <h3 className="mb-2 font-medium text-sm">Default Variant</h3>
         <EditableFieldInput
           defaultValue="Default styled input"
           variant={InputVariant.DEFAULT}
@@ -213,7 +213,7 @@ export const InputVariants: Story = {
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-2">Invisible Variant</h3>
+        <h3 className="mb-2 font-medium text-sm">Invisible Variant</h3>
         <EditableFieldInput
           defaultValue="Invisible styled input"
           variant={InputVariant.INVISIBLE}
@@ -223,7 +223,7 @@ export const InputVariants: Story = {
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-2">Default Variant</h3>
+        <h3 className="mb-2 font-medium text-sm">Default Variant</h3>
         <EditableFieldInput
           defaultValue="Default styled input with borders"
           variant={InputVariant.DEFAULT}
@@ -258,7 +258,7 @@ export const SizeVariations: Story = {
   render: () => (
     <div className="space-y-4 p-4">
       <div>
-        <h4 className="text-sm font-medium mb-2">Medium (Default)</h4>
+        <h4 className="mb-2 font-medium text-sm">Medium (Default)</h4>
         <EditableFieldInput
           defaultValue="Medium input text"
           onSave={(value) => console.log('Medium saved:', value)}
@@ -266,7 +266,7 @@ export const SizeVariations: Story = {
       </div>
 
       <div>
-        <h4 className="text-sm font-medium mb-2">Large</h4>
+        <h4 className="mb-2 font-medium text-sm">Large</h4>
         <EditableFieldInput
           defaultValue="Large input text"
           onSave={(value) => console.log('Large saved:', value)}
@@ -423,7 +423,7 @@ export const EmailInputType: Story = {
   },
   render: (args) => (
     <div className="p-4">
-      <label className="block text-sm font-medium mb-2">Email Address</label>
+      <label className="mb-2 block font-medium text-sm">Email Address</label>
       <EditableFieldInput
         {...args}
         onSave={(value) => console.log('Email saved:', value)}
@@ -458,7 +458,7 @@ export const RequiredField: Story = {
   },
   render: (args) => (
     <div className="p-4">
-      <label className="block text-sm font-medium mb-2">
+      <label className="mb-2 block font-medium text-sm">
         Required Field <span className="text-red-500">*</span>
       </label>
       <EditableFieldInput
@@ -493,9 +493,9 @@ export const RequiredField: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-4 p-4">
-      <div className="text-sm text-gray-600 mb-4 p-3 bg-blue-50 rounded-lg">
-        <p className="font-medium mb-1">Keyboard Navigation Test:</p>
-        <ul className="text-xs space-y-1">
+      <div className="mb-4 rounded-lg bg-blue-50 p-3 text-gray-600 text-sm">
+        <p className="mb-1 font-medium">Keyboard Navigation Test:</p>
+        <ul className="space-y-1 text-xs">
           <li>• Tab: Navigate between fields</li>
           <li>• Tab in edit mode: Navigate to save/cancel buttons</li>
         </ul>
@@ -548,12 +548,12 @@ export const KeyboardNavigation: Story = {
  */
 export const UserProfileForm: Story = {
   render: () => (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg border border-gray-200">
-      <h2 className="text-lg font-semibold mb-6">User Profile</h2>
+    <div className="mx-auto max-w-md rounded-lg border border-gray-200 bg-white p-6">
+      <h2 className="mb-6 font-semibold text-lg">User Profile</h2>
 
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="mb-1 block font-medium text-gray-700 text-sm">
             Full Name
           </label>
           <EditableFieldInput
@@ -564,7 +564,7 @@ export const UserProfileForm: Story = {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="mb-1 block font-medium text-gray-700 text-sm">
             Email Address
           </label>
           <EditableFieldInput
@@ -577,7 +577,7 @@ export const UserProfileForm: Story = {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="mb-1 block font-medium text-gray-700 text-sm">
             Job Title
           </label>
           <EditableFieldInput
@@ -588,7 +588,7 @@ export const UserProfileForm: Story = {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="mb-1 block font-medium text-gray-700 text-sm">
             Phone Number
           </label>
           <EditableFieldInput
@@ -630,24 +630,24 @@ export const UserProfileForm: Story = {
 export const ContentManagementTable: Story = {
   render: () => (
     <div className="p-6">
-      <h3 className="text-lg font-medium mb-4">Content Management</h3>
+      <h3 className="mb-4 font-medium text-lg">Content Management</h3>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-200 rounded-lg">
+        <table className="min-w-full rounded-lg border border-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
+              <th className="px-4 py-3 text-left font-medium text-gray-700 text-sm">
                 Title
               </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
+              <th className="px-4 py-3 text-left font-medium text-gray-700 text-sm">
                 Author
               </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
+              <th className="px-4 py-3 text-left font-medium text-gray-700 text-sm">
                 Status
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="divide-y divide-gray-200 bg-white">
             <tr>
               <td className="px-4 py-3">
                 <EditableFieldInput

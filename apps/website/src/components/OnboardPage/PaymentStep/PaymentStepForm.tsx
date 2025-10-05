@@ -47,7 +47,7 @@ const PaymentDetails: FC<PaymentDetailsProps> = ({ plan, period, invoice }) => {
         {title}
       </H3>
       <div className="mb-6 flex flex-col justify-center gap-3">
-        <span className="relative m-auto text-center text-4xl font-bold">
+        <span className="relative m-auto text-center font-bold text-4xl">
           <span itemProp="price" className="hidden">
             {total.toFixed(2)}
           </span>
@@ -60,8 +60,8 @@ const PaymentDetails: FC<PaymentDetailsProps> = ({ plan, period, invoice }) => {
           </span>
 
           {hasDiscount && (
-            <span className="text-neutral top-1/5 scale-80 absolute left-full m-auto text-center text-2xl font-bold">
-              <span className="bg-neutral absolute left-0 top-1/2 h-[2px] w-full" />
+            <span className="absolute top-1/5 left-full m-auto scale-80 text-center font-bold text-2xl text-neutral">
+              <span className="absolute top-1/2 left-0 h-[2px] w-full bg-neutral" />
 
               <span itemProp="price" className="hidden">
                 {subtotal.toFixed(2)}
@@ -78,7 +78,7 @@ const PaymentDetails: FC<PaymentDetailsProps> = ({ plan, period, invoice }) => {
         </span>
 
         <span
-          className="text-neutral text-center text-lg"
+          className="text-center text-lg text-neutral"
           itemProp="priceValidUntil"
         >
           {periodContent[period]}
@@ -86,7 +86,7 @@ const PaymentDetails: FC<PaymentDetailsProps> = ({ plan, period, invoice }) => {
       </div>
 
       <span
-        className="text-neutral justify-center text-xs"
+        className="justify-center text-neutral text-xs"
         itemProp="description"
       >
         {description}
@@ -192,7 +192,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
 
         {isPlanValid ? (
           <>
-            <div className="bg-success/30 m-auto aspect-square rounded-full p-5">
+            <div className="m-auto aspect-square rounded-full bg-success/30 p-5">
               <Check className="text-success" size={50} />
             </div>
             <span className="text-center text-base">
@@ -261,7 +261,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
 
   return (
     <>
-      <H2 className="mb-4 mt-0">{title}</H2>
+      <H2 className="mt-0 mb-4">{title}</H2>
       <Loader isLoading={isLoading}>
         {!priceId && <span>{incorrectProductMessage}</span>}
         {clientSecret ? (
@@ -276,7 +276,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
           </Elements>
         ) : (
           <Container
-            className="text-error gap-6 p-6 text-sm"
+            className="gap-6 p-6 text-error text-sm"
             background="none"
             border
             roundedSize="xl"

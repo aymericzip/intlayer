@@ -70,7 +70,7 @@ export const Globe: FC = memo(() => {
   }, [isDarkMode, r]);
 
   return (
-    <div className="aspect-1 relative m-auto w-full max-w-xl">
+    <div className="relative m-auto aspect-1 w-full max-w-xl">
       <canvas
         ref={canvasRef}
         onPointerDown={(e) => {

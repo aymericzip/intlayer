@@ -32,10 +32,10 @@ export const DictionaryListDashboardContent: FC = () => {
       roundedSize="xl"
       className="flex w-full max-w-[400px] flex-col justify-center gap-2 p-6"
     >
-      <H2 className="mb-6 mt-2">{dictionaryList.title}</H2>
+      <H2 className="mt-2 mb-6">{dictionaryList.title}</H2>
 
       {data?.data?.length === 0 && (
-        <span className="text-neutral text-sm m-auto">
+        <span className="m-auto text-neutral text-sm">
           {noDictionaryView.title}
         </span>
       )}
@@ -61,7 +61,7 @@ export const DictionaryListDashboardContent: FC = () => {
             )}
             {dictionary.key && <span>{dictionary.key}</span>}
             {dictionary.description && (
-              <span className="text-neutral line-clamp-2 text-wrap">
+              <span className="line-clamp-2 text-wrap text-neutral">
                 {dictionary.description}
               </span>
             )}
@@ -72,7 +72,7 @@ export const DictionaryListDashboardContent: FC = () => {
         label={createDictionaryButton.ariaLabel.value}
         IconRight={Plus}
         variant="default"
-        className="ml-auto mt-12"
+        className="mt-12 ml-auto"
         color="text"
         onClick={() => setIsCreationModalOpen(true)}
       >

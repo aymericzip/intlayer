@@ -125,7 +125,7 @@ export const Default: Story = {
     <div className="space-y-4">
       <SwitchSelector defaultValue={false} />
 
-      <div className="text-sm text-gray-600">
+      <div className="text-gray-600 text-sm">
         Default boolean toggle with smooth indicator animation
       </div>
     </div>
@@ -157,7 +157,7 @@ export const ThemeSelector: Story = {
     return (
       <div className="space-y-6">
         <div>
-          <label className="block text-sm font-medium mb-3">Choose Theme</label>
+          <label className="mb-3 block font-medium text-sm">Choose Theme</label>
           <SwitchSelector
             choices={[
               { content: '☀️ Light', value: 'light' },
@@ -171,12 +171,12 @@ export const ThemeSelector: Story = {
           />
         </div>
 
-        <div className="p-4 bg-gray-50 rounded-lg">
+        <div className="rounded-lg bg-gray-50 p-4">
           <div className="text-sm">
             <div>
               Current theme: <strong>{theme}</strong>
             </div>
-            <div className="text-gray-600 mt-1">
+            <div className="mt-1 text-gray-600">
               {theme === 'light' && '☀️ Using light theme with bright colors'}
               {theme === 'dark' && '🌙 Using dark theme with muted colors'}
               {theme === 'system' && '⚙️ Following system preference'}
@@ -213,7 +213,7 @@ export const SizeComparison: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-sm font-medium mb-3">Small Size</h3>
+        <h3 className="mb-3 font-medium text-sm">Small Size</h3>
         <SwitchSelector
           choices={[
             { content: 'List', value: 'list' },
@@ -227,7 +227,7 @@ export const SizeComparison: Story = {
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-3">Medium Size (Default)</h3>
+        <h3 className="mb-3 font-medium text-sm">Medium Size (Default)</h3>
         <SwitchSelector
           choices={[
             { content: 'List', value: 'list' },
@@ -241,7 +241,7 @@ export const SizeComparison: Story = {
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-3">Large Size</h3>
+        <h3 className="mb-3 font-medium text-sm">Large Size</h3>
         <SwitchSelector
           choices={[
             { content: 'List', value: 'list' },
@@ -274,7 +274,7 @@ export const ColorThemes: Story = {
     <div className="space-y-4">
       {Object.values(SwitchSelectorColor).map((color) => (
         <div key={color} className="flex items-center gap-4">
-          <div className="w-20 text-sm font-medium capitalize">{color}</div>
+          <div className="w-20 font-medium text-sm capitalize">{color}</div>
           <SwitchSelector
             choices={[
               { content: 'Draft', value: 'draft' },
@@ -365,7 +365,7 @@ export const StatusManagement: Story = {
     return (
       <div className="max-w-md space-y-6">
         <div>
-          <label className="block text-sm font-medium mb-3">
+          <label className="mb-3 block font-medium text-sm">
             Article Status
           </label>
           <SwitchSelector
@@ -382,7 +382,7 @@ export const StatusManagement: Story = {
           />
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
+        <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-4">
           <div className="flex items-center gap-2">
             <span className="text-lg">{statusInfo.icon}</span>
             <span className="font-medium capitalize">{status}</span>
@@ -392,12 +392,12 @@ export const StatusManagement: Story = {
             {statusInfo.description}
           </p>
 
-          <div className="text-xs text-gray-500 pt-2 border-t border-gray-100">
+          <div className="border-gray-100 border-t pt-2 text-gray-500 text-xs">
             Status changes: <strong>{changeCount}</strong>
           </div>
         </div>
 
-        <div className="text-xs text-gray-500 space-y-1">
+        <div className="space-y-1 text-gray-500 text-xs">
           <div>💡 Tips:</div>
           <div>• Move through draft → review → published workflow</div>
           <div>• Archive old content to keep workspace clean</div>
@@ -446,12 +446,12 @@ export const ViewModeController: Story = {
       <div className="max-w-lg space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-sm font-medium">Display Mode</h3>
-            <p className="text-xs text-gray-600">
+            <h3 className="font-medium text-sm">Display Mode</h3>
+            <p className="text-gray-600 text-xs">
               Choose how to view your items
             </p>
           </div>
-          <div className="text-xs text-gray-500">{itemCount} items</div>
+          <div className="text-gray-500 text-xs">{itemCount} items</div>
         </div>
 
         <SwitchSelector
@@ -466,19 +466,19 @@ export const ViewModeController: Story = {
           size={SwitchSelectorSize.MD}
         />
 
-        <div className="bg-gray-50 rounded-lg p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+        <div className="rounded-lg bg-gray-50 p-4">
+          <div className="mb-2 flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-blue-500"></div>
             <span className="font-medium capitalize">{viewMode} View</span>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-gray-600 text-sm">
             {getModeDescription(viewMode)}
           </p>
         </div>
 
         {/* Mock content display */}
-        <div className="border border-gray-200 rounded-lg p-4">
-          <div className="text-xs text-gray-500 mb-3">
+        <div className="rounded-lg border border-gray-200 p-4">
+          <div className="mb-3 text-gray-500 text-xs">
             Preview ({viewMode} mode)
           </div>
           <div
@@ -493,35 +493,35 @@ export const ViewModeController: Story = {
             {[1, 2, 3, 4, 5, 6].map((item) => (
               <div
                 key={item}
-                className={`bg-white border border-gray-200 rounded ${
+                className={`rounded border border-gray-200 bg-white ${
                   viewMode === 'list'
-                    ? 'p-2 flex items-center gap-2'
+                    ? 'flex items-center gap-2 p-2'
                     : viewMode === 'grid'
-                      ? 'p-2 aspect-square'
-                      : 'p-3 aspect-[3/2]'
+                      ? 'aspect-square p-2'
+                      : 'aspect-[3/2] p-3'
                 }`}
               >
                 <div
-                  className={`bg-gray-300 rounded ${
+                  className={`rounded bg-gray-300 ${
                     viewMode === 'list'
-                      ? 'w-8 h-8'
+                      ? 'h-8 w-8'
                       : viewMode === 'grid'
-                        ? 'w-full h-6'
-                        : 'w-full h-8'
+                        ? 'h-6 w-full'
+                        : 'h-8 w-full'
                   }`}
                 />
                 {viewMode !== 'list' && (
                   <div className="mt-2 space-y-1">
-                    <div className="bg-gray-200 h-3 rounded" />
+                    <div className="h-3 rounded bg-gray-200" />
                     {viewMode === 'card' && (
-                      <div className="bg-gray-100 h-2 rounded" />
+                      <div className="h-2 rounded bg-gray-100" />
                     )}
                   </div>
                 )}
                 {viewMode === 'list' && (
                   <div className="flex-1 space-y-1">
-                    <div className="bg-gray-200 h-3 rounded" />
-                    <div className="bg-gray-100 h-2 rounded w-2/3" />
+                    <div className="h-3 rounded bg-gray-200" />
+                    <div className="h-2 w-2/3 rounded bg-gray-100" />
                   </div>
                 )}
               </div>

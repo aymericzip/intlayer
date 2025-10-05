@@ -20,7 +20,7 @@ export const LocaleSwitcher: FunctionComponent = () => {
 
   return (
     <div aria-label={content.langSwitcherLabel.value}>
-      <div className="separator flex gap-4 min-w-[100px] mt-10 items-end divide-y divide-dashed p-1">
+      <div className="separator mt-10 flex min-w-[100px] items-end gap-4 divide-y divide-dashed p-1">
         {availableLocales.map((lang) => (
           <button
             key={lang}
@@ -28,7 +28,7 @@ export const LocaleSwitcher: FunctionComponent = () => {
             aria-label={`${content.langButtonLabel} ${lang}`}
             data-mode="system"
             disabled={!(availableLocales ?? []).includes(lang)}
-            className="focus:outline-hidden w-full cursor-pointer text-center rounded-lg p-2 hover:bg-white/10 focus:bg-white/10 disabled:text-white/25"
+            className="w-full cursor-pointer rounded-lg p-2 text-center hover:bg-white/10 focus:bg-white/10 focus:outline-hidden disabled:text-white/25"
           >
             {getLocaleName(lang)}
           </button>

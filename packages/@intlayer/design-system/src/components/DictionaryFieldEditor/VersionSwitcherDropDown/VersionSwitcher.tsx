@@ -32,7 +32,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
 
   return (
     <div
-      className="border-text text-text rounded-xl border transition-colors"
+      className="rounded-xl border border-text text-text transition-colors"
       aria-label={versionListLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
@@ -47,7 +47,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
           identifier={DROPDOWN_IDENTIFIER}
           isOverable
           isFocusable
-          className="left-auto right-0"
+          className="right-0 left-auto"
           {...panelProps}
         >
           <Container
@@ -60,7 +60,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
             borderColor="text"
             aria-label={versionSwitcherLabel.value}
           >
-            <ol className="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+            <ol className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
               {versions.reverse().map((version) => (
                 <li className="px-1.5 py-1" key={version}>
                   <Button
@@ -73,7 +73,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
                     textAlign={ButtonTextAlign.LEFT}
                     size={ButtonSize.SM}
                   >
-                    <div className="text-neutral flex flex-1 flex-row items-center justify-between gap-3 px-2 py-1 text-sm">
+                    <div className="flex flex-1 flex-row items-center justify-between gap-3 px-2 py-1 text-neutral text-sm">
                       {version}
                     </div>
                   </Button>

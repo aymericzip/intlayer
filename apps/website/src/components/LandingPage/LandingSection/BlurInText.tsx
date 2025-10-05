@@ -31,7 +31,7 @@ export const BlurInText: FC<BlurInTextProps> = ({
       transition={{ duration }}
       variants={combinedVariants}
       className={cn(
-        'font-display text-center text-4xl font-bold tracking-[-0.02em] text-white drop-shadow-sm md:text-7xl md:leading-[5rem]',
+        'text-center font-bold font-display text-4xl text-white tracking-[-0.02em] drop-shadow-sm md:text-7xl md:leading-[5rem]',
         className
       )}
     >

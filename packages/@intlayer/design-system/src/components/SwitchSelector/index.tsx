@@ -114,7 +114,7 @@ export enum SwitchSelectorColor {
 }
 
 const switchSelectorVariant = cva(
-  'flex flex-row gap-2 rounded-full w-fit border-[1.5px] p-[1.5px]',
+  'flex w-fit flex-row gap-2 rounded-full border-[1.5px] p-[1.5px]',
   {
     variants: {
       color: {
@@ -122,7 +122,7 @@ const switchSelectorVariant = cva(
         [SwitchSelectorColor.SECONDARY]: 'border-secondary text-secondary',
         [SwitchSelectorColor.DESTRUCTIVE]:
           'border-destructive bg-destructive text-destructive',
-        [SwitchSelectorColor.NEUTRAL]: 'border-neutral text-neutral ',
+        [SwitchSelectorColor.NEUTRAL]: 'border-neutral text-neutral',
         [SwitchSelectorColor.LIGHT]: 'border-white text-white',
         [SwitchSelectorColor.DARK]: 'border-neutral-800 text-neutral-800',
         [SwitchSelectorColor.TEXT]: 'border-text text-text',
@@ -149,11 +149,11 @@ export enum SwitchSelectorSize {
 }
 
 const choiceVariant = cva(
-  'z-1 w-full flex-1 text-sm font-medium transition-all duration-300 ease-in-out cursor-pointer aria-selected:cursor-default aria-selected:text-text-opposite motion-reduce:transition-none',
+  'z-1 w-full flex-1 cursor-pointer font-medium text-sm transition-all duration-300 ease-in-out aria-selected:cursor-default aria-selected:text-text-opposite motion-reduce:transition-none',
   {
     variants: {
       size: {
-        [SwitchSelectorSize.SM]: 'py-1 px-2 text-xs',
+        [SwitchSelectorSize.SM]: 'px-2 py-1 text-xs',
         [SwitchSelectorSize.MD]: 'p-2 text-sm',
         [SwitchSelectorSize.LG]: 'p-4 text-base',
       },
@@ -173,7 +173,7 @@ const indicatorVariant = cva(
         [SwitchSelectorColor.SECONDARY]: 'bg-secondary aria-selected:text-text',
         [SwitchSelectorColor.DESTRUCTIVE]:
           'bg-destructive aria-selected:text-text',
-        [SwitchSelectorColor.NEUTRAL]: 'bg-neutral aria-selected:text-white ',
+        [SwitchSelectorColor.NEUTRAL]: 'bg-neutral aria-selected:text-white',
         [SwitchSelectorColor.LIGHT]: 'bg-white aria-selected:text-black',
         [SwitchSelectorColor.DARK]: 'bg-neutral-800 aria-selected:text-white',
         [SwitchSelectorColor.TEXT]: 'bg-text aria-selected:text-text-opposite',

@@ -25,7 +25,7 @@ export const YoutubeVideoMessage: FC<YoutubeVideoMessageProps> = ({
       </Link>
       <Popover.Detail
         identifier="mcp"
-        className="flex flex-col gap-3 p-3 min-w-64 text-sm"
+        className="flex min-w-64 flex-col gap-3 p-3 text-sm"
       >
         <strong>{title}</strong>
         <p className="text-neutral">{description}</p>

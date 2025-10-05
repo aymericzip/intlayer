@@ -162,7 +162,7 @@ export const CodeSnippet: Story = {
   args: {
     text: 'npm install @intlayer/design-system',
     children: (
-      <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono">
+      <code className="rounded bg-gray-100 px-2 py-1 font-mono text-sm">
         npm install @intlayer/design-system
       </code>
     ),
@@ -270,19 +270,19 @@ export const CopyFeedbackDemo: Story = {
 
     return (
       <div className="space-y-4">
-        <div className="text-sm text-gray-600 mb-4">
+        <div className="mb-4 text-gray-600 text-sm">
           Total copies: {copyCount}
         </div>
         <div className="grid grid-cols-2 gap-4">
           {sampleTexts.map(({ label, content }) => (
-            <div key={label} className="p-3 border border-gray-200 rounded-lg">
-              <h4 className="text-sm font-medium mb-2">{label}</h4>
+            <div key={label} className="rounded-lg border border-gray-200 p-3">
+              <h4 className="mb-2 font-medium text-sm">{label}</h4>
               <CopyToClipboard
                 text={content}
                 onCopySuccess={() => setCopyCount((prev) => prev + 1)}
-                className="w-full inline-flex items-center"
+                className="inline-flex w-full items-center"
               >
-                <div className="bg-gray-50 p-2 rounded text-xs font-mono break-all">
+                <div className="break-all rounded bg-gray-50 p-2 font-mono text-xs">
                   {content}
                 </div>
               </CopyToClipboard>
@@ -320,20 +320,20 @@ export const EmptyContentHandling: Story = {
   render: () => (
     <div className="space-y-4">
       <div>
-        <h4 className="text-sm font-medium mb-2">Empty String</h4>
+        <h4 className="mb-2 font-medium text-sm">Empty String</h4>
         <CopyToClipboard
           text=""
-          className="border border-gray-300 p-2 rounded inline-flex items-center"
+          className="inline-flex items-center rounded border border-gray-300 p-2"
         >
           <span className="text-gray-500 italic">Nothing to copy</span>
         </CopyToClipboard>
       </div>
 
       <div>
-        <h4 className="text-sm font-medium mb-2">Whitespace Only</h4>
+        <h4 className="mb-2 font-medium text-sm">Whitespace Only</h4>
         <CopyToClipboard
           text="   "
-          className="border border-gray-300 p-2 rounded inline-flex items-center"
+          className="inline-flex items-center rounded border border-gray-300 p-2"
         >
           <span className="text-gray-500 italic">Whitespace content</span>
         </CopyToClipboard>
@@ -366,28 +366,28 @@ export const EmptyContentHandling: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-4">
-      <div className="text-sm text-gray-600 mb-4">
+      <div className="mb-4 text-gray-600 text-sm">
         Use Tab to navigate, Enter or Space to copy. Focus indicators should be
         clearly visible.
       </div>
       <div className="flex flex-wrap gap-4">
         <CopyToClipboard
           text="First item to copy"
-          className="p-2 border border-gray-300 rounded inline-flex items-center"
+          className="inline-flex items-center rounded border border-gray-300 p-2"
         >
           <span>First Copy Button</span>
         </CopyToClipboard>
 
         <CopyToClipboard
           text="Second item to copy"
-          className="p-2 border border-gray-300 rounded inline-flex items-center"
+          className="inline-flex items-center rounded border border-gray-300 p-2"
         >
           <span>Second Copy Button</span>
         </CopyToClipboard>
 
         <CopyToClipboard
           text="Third item to copy"
-          className="p-2 border border-gray-300 rounded inline-flex items-center"
+          className="inline-flex items-center rounded border border-gray-300 p-2"
         >
           <span>Third Copy Button</span>
         </CopyToClipboard>
@@ -432,39 +432,39 @@ export const ScreenReaderSupport: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-sm font-medium mb-2">Default Labels</h3>
+        <h3 className="mb-2 font-medium text-sm">Default Labels</h3>
         <CopyToClipboard
           text="Default behavior"
-          className="p-2 border border-gray-300 rounded inline-flex items-center"
+          className="inline-flex items-center rounded border border-gray-300 p-2"
         >
           <span>Copy with Default Labels</span>
         </CopyToClipboard>
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-2">Custom Labels</h3>
+        <h3 className="mb-2 font-medium text-sm">Custom Labels</h3>
         <CopyToClipboard
           text="Custom labels example"
           aria-label="Copy example text to your clipboard"
           aria-copied-label="Example text successfully copied to clipboard"
-          className="p-2 border border-gray-300 rounded inline-flex items-center"
+          className="inline-flex items-center rounded border border-gray-300 p-2"
         >
           <span>Copy with Custom Labels</span>
         </CopyToClipboard>
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-2">Contextual Labels</h3>
-        <div className="bg-gray-50 p-4 rounded">
-          <h4 className="font-medium mb-2">Installation Instructions</h4>
-          <p className="text-sm text-gray-600 mb-3">
+        <h3 className="mb-2 font-medium text-sm">Contextual Labels</h3>
+        <div className="rounded bg-gray-50 p-4">
+          <h4 className="mb-2 font-medium">Installation Instructions</h4>
+          <p className="mb-3 text-gray-600 text-sm">
             Run this command in your terminal to install the package:
           </p>
           <CopyToClipboard
             text="npm install @intlayer/design-system"
             aria-label="Copy installation command to clipboard"
             aria-copied-label="Installation command copied to clipboard"
-            className="bg-gray-900 text-white p-3 rounded font-mono text-sm inline-flex items-center"
+            className="inline-flex items-center rounded bg-gray-900 p-3 font-mono text-sm text-white"
           >
             npm install @intlayer/design-system
           </CopyToClipboard>
@@ -508,22 +508,22 @@ export const ScreenReaderSupport: Story = {
  */
 export const DocumentationInterface: Story = {
   render: () => (
-    <div className="max-w-4xl mx-auto space-y-8">
-      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-        <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
-          <h3 className="text-lg font-semibold">API Reference</h3>
+    <div className="mx-auto max-w-4xl space-y-8">
+      <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
+        <div className="border-gray-200 border-b bg-gray-50 px-4 py-2">
+          <h3 className="font-semibold text-lg">API Reference</h3>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="space-y-6 p-6">
           {/* API Endpoint */}
           <div>
-            <h4 className="text-md font-medium mb-2">Base URL</h4>
+            <h4 className="mb-2 font-medium text-md">Base URL</h4>
             <CopyToClipboard
               text="https://api.intlayer.org/v1"
-              className="bg-blue-50 border border-blue-200 rounded p-3 block inline-flex items-center"
+              className="block inline-flex items-center rounded border border-blue-200 bg-blue-50 p-3"
               aria-label="Copy API base URL to clipboard"
             >
-              <code className="text-blue-800 font-mono">
+              <code className="font-mono text-blue-800">
                 https://api.intlayer.org/v1
               </code>
             </CopyToClipboard>
@@ -531,7 +531,7 @@ export const DocumentationInterface: Story = {
 
           {/* Code Example */}
           <div>
-            <h4 className="text-md font-medium mb-2">Example Request</h4>
+            <h4 className="mb-2 font-medium text-md">Example Request</h4>
             <CopyToClipboard
               text={`fetch('https://api.intlayer.org/v1/translations', {
   method: 'GET',
@@ -540,7 +540,7 @@ export const DocumentationInterface: Story = {
     'Content-Type': 'application/json'
   }
 })`}
-              className="bg-gray-900 text-gray-100 p-4 rounded block overflow-x-auto inline-flex items-center"
+              className="block inline-flex items-center overflow-x-auto rounded bg-gray-900 p-4 text-gray-100"
               aria-label="Copy example fetch request to clipboard"
             >
               <pre className="text-sm">
@@ -557,7 +557,7 @@ export const DocumentationInterface: Story = {
 
           {/* Configuration */}
           <div>
-            <h4 className="text-md font-medium mb-2">Configuration</h4>
+            <h4 className="mb-2 font-medium text-md">Configuration</h4>
             <CopyToClipboard
               text={`{
   "internationalization": {
@@ -568,10 +568,10 @@ export const DocumentationInterface: Story = {
     }
   }
 }`}
-              className="bg-green-50 border border-green-200 rounded p-4 block inline-flex items-center"
+              className="block inline-flex items-center rounded border border-green-200 bg-green-50 p-4"
               aria-label="Copy configuration JSON to clipboard"
             >
-              <pre className="text-sm text-green-800">
+              <pre className="text-green-800 text-sm">
                 {`{
   "internationalization": {
     "locales": ["en", "fr", "es"],
@@ -616,25 +616,25 @@ export const DocumentationInterface: Story = {
  */
 export const ContactInformationCard: Story = {
   render: () => (
-    <div className="max-w-md mx-auto bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 h-24"></div>
+    <div className="mx-auto max-w-md overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+      <div className="h-24 bg-gradient-to-r from-blue-600 to-purple-600"></div>
 
       <div className="relative px-6 pb-6">
-        <div className="relative -mt-12 mb-4">
-          <div className="w-24 h-24 bg-white rounded-full border-4 border-white shadow-sm flex items-center justify-center">
-            <span className="text-2xl font-bold text-gray-600">JD</span>
+        <div className="-mt-12 relative mb-4">
+          <div className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-white shadow-sm">
+            <span className="font-bold text-2xl text-gray-600">JD</span>
           </div>
         </div>
 
-        <h2 className="text-xl font-bold text-gray-900 mb-1">John Doe</h2>
-        <p className="text-gray-600 mb-4">Senior Developer</p>
+        <h2 className="mb-1 font-bold text-gray-900 text-xl">John Doe</h2>
+        <p className="mb-4 text-gray-600">Senior Developer</p>
 
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-500">Email</span>
+            <span className="text-gray-500 text-sm">Email</span>
             <CopyToClipboard
               text="john.doe@intlayer.org"
-              className="text-blue-600 hover:bg-blue-50 rounded px-2 py-1 inline-flex items-center"
+              className="inline-flex items-center rounded px-2 py-1 text-blue-600 hover:bg-blue-50"
               aria-label="Copy email address to clipboard"
             >
               john.doe@intlayer.org
@@ -642,10 +642,10 @@ export const ContactInformationCard: Story = {
           </div>
 
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-500">Phone</span>
+            <span className="text-gray-500 text-sm">Phone</span>
             <CopyToClipboard
               text="+1 (555) 123-4567"
-              className="text-blue-600 hover:bg-blue-50 rounded px-2 py-1 inline-flex items-center"
+              className="inline-flex items-center rounded px-2 py-1 text-blue-600 hover:bg-blue-50"
               aria-label="Copy phone number to clipboard"
             >
               +1 (555) 123-4567
@@ -653,10 +653,10 @@ export const ContactInformationCard: Story = {
           </div>
 
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-500">LinkedIn</span>
+            <span className="text-gray-500 text-sm">LinkedIn</span>
             <CopyToClipboard
               text="https://linkedin.com/in/johndoe"
-              className="text-blue-600 hover:bg-blue-50 rounded px-2 py-1 inline-flex items-center"
+              className="inline-flex items-center rounded px-2 py-1 text-blue-600 hover:bg-blue-50"
               aria-label="Copy LinkedIn profile URL to clipboard"
             >
               linkedin.com/in/johndoe
@@ -664,10 +664,10 @@ export const ContactInformationCard: Story = {
           </div>
 
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-500">GitHub</span>
+            <span className="text-gray-500 text-sm">GitHub</span>
             <CopyToClipboard
               text="https://github.com/johndoe"
-              className="text-blue-600 hover:bg-blue-50 rounded px-2 py-1 inline-flex items-center"
+              className="inline-flex items-center rounded px-2 py-1 text-blue-600 hover:bg-blue-50"
               aria-label="Copy GitHub profile URL to clipboard"
             >
               github.com/johndoe

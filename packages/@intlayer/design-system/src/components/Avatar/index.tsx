@@ -179,7 +179,7 @@ export const Avatar: FC<AvatarProps> = ({
     <Container
       isClickable={isClickable}
       className={cn(
-        `border-text border-[1.5px] rounded-full p-[1.5px]`,
+        `rounded-full border-[1.5px] border-text p-[1.5px]`,
         sizeClass,
         isClickable &&
           `cursor-pointer hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`,
@@ -194,7 +194,7 @@ export const Avatar: FC<AvatarProps> = ({
       {...props}
     >
       <div className="relative flex size-full flex-row items-center justify-center">
-        <div className="bg-text text-text-opposite absolute left-0 top-0 flex size-full flex-col items-center justify-center rounded-full">
+        <div className="absolute top-0 left-0 flex size-full flex-col items-center justify-center rounded-full bg-text text-text-opposite">
           {displayLoader && (
             <Loader className="w-3/4" aria-label="Loading user avatar" />
           )}
@@ -213,7 +213,7 @@ export const Avatar: FC<AvatarProps> = ({
 
           {displayInitials && (
             <div
-              className="flex size-full items-center justify-center gap-[0.1rem] text-sm font-bold max-md:py-1"
+              className="flex size-full items-center justify-center gap-[0.1rem] font-bold text-sm max-md:py-1"
               aria-label={`Initials for ${fullname}`}
             >
               {capitals?.map((capital, index) => (

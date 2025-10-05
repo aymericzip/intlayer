@@ -242,7 +242,7 @@ const Detail: FC<DetailProps> = ({
     aria-labelledby={`unrollable-panel-button-${identifier}`}
     id={`unrollable-panel-${identifier}`}
     className={cn(
-      'absolute z-[1000] min-w-full ring-neutral ring-1 rounded-md',
+      'absolute z-[1000] min-w-full rounded-md ring-1 ring-neutral',
 
       /* Positioning */
       xAlign === 'start' && 'left-0',
@@ -252,7 +252,7 @@ const Detail: FC<DetailProps> = ({
 
       /* Arrow indicator */
       displayArrow &&
-        'before:absolute before:z-[999] before:content-[""] before:w-0 before:h-0',
+        'before:absolute before:z-[999] before:h-0 before:w-0 before:content-[""]',
 
       /* Horizontal positioning */
       displayArrow && xAlign === 'start' && 'before:left-2',
@@ -261,16 +261,16 @@ const Detail: FC<DetailProps> = ({
       /* Arrow pointing up (when popover is below trigger) */
       displayArrow &&
         yAlign === 'bellow' &&
-        'before:-top-[10px] before:border-l-[10px] before:border-l-transparent before:border-r-[10px] before:border-r-transparent before:border-b-[10px] before:border-b-neutral',
+        'before:-top-[10px] before:border-r-[10px] before:border-r-transparent before:border-b-[10px] before:border-b-neutral before:border-l-[10px] before:border-l-transparent',
 
       /* Arrow pointing down (when popover is above trigger) */
       displayArrow &&
         yAlign === 'above' &&
-        'before:-bottom-[10px] before:border-l-[10px] before:border-l-transparent before:border-r-[10px] before:border-r-transparent before:border-t-[10px] before:border-t-neutral',
+        'before:-bottom-[10px] before:border-t-[10px] before:border-t-neutral before:border-r-[10px] before:border-r-transparent before:border-l-[10px] before:border-l-transparent',
 
       /* Visibility management */
-      'overflow-x-visible transition-all duration-400 ease-in-out opacity-0',
-      isHidden !== false ? 'invisible' : 'delay-800 visible opacity-100',
+      'overflow-x-visible opacity-0 transition-all duration-400 ease-in-out',
+      isHidden !== false ? 'invisible' : 'visible opacity-100 delay-800',
       isOverable &&
         'group-hover/popover:visible group-hover/popover:opacity-100 group-hover/popover:delay-800',
       isFocusable &&

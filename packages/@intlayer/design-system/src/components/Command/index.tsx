@@ -29,7 +29,7 @@ type CommandDialogProps = DialogProps;
 const CommandDialog: FC<CommandDialogProps> = ({ children, ...props }) => (
   <Dialog {...props}>
     <DialogContent className="overflow-hidden p-0">
-      <CommandRoot className="[&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:size-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]_svg]:size-5">
+      <CommandRoot className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:size-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]_svg]:size-5">
         {children}
       </CommandRoot>
     </DialogContent>
@@ -44,7 +44,7 @@ const CommandInput: FC<ComponentProps<typeof CommandPrimitive.Input>> = ({
     <Search className="mr-2 size-4 shrink-0 opacity-50" />
     <CommandPrimitive.Input
       className={cn(
-        'placeholder:text-muted-foreground outline-hidden flex w-full rounded-md bg-transparent text-sm disabled:cursor-not-allowed disabled:opacity-50',
+        'flex w-full rounded-md bg-transparent text-sm outline-hidden placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
       {...props}
@@ -72,7 +72,7 @@ const CommandGroup: FC<ComponentProps<typeof CommandPrimitive.Group>> = ({
 }) => (
   <CommandPrimitive.Group
     className={cn(
-      'text-foreground [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium',
+      'overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:text-xs',
       className
     )}
     {...props}
@@ -83,7 +83,7 @@ const CommandSeparator: FC<
   ComponentProps<typeof CommandPrimitive.Separator>
 > = ({ className, ...props }) => (
   <CommandPrimitive.Separator
-    className={cn('bg-border -mx-1 h-px', className)}
+    className={cn('-mx-1 h-px bg-border', className)}
     {...props}
   />
 );
@@ -94,7 +94,7 @@ const CommandItem: FC<ComponentProps<typeof CommandPrimitive.Item>> = ({
 }) => (
   <CommandPrimitive.Item
     className={cn(
-      'data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground outline-hidden relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
+      'relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-hidden data-[disabled=true]:pointer-events-none data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-[disabled=true]:opacity-50',
       className
     )}
     {...props}
@@ -108,7 +108,7 @@ const CommandShortcut = ({
   return (
     <span
       className={cn(
-        'text-muted-foreground ml-auto text-xs tracking-widest',
+        'ml-auto text-muted-foreground text-xs tracking-widest',
         className
       )}
       {...props}

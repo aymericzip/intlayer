@@ -19,10 +19,10 @@ export default function Page() {
   const { greeting } = useIntlayer('page');
 
   return (
-    <div className="grid place-items-center h-screen">
+    <div className="grid h-screen place-items-center">
       <Navbar />
-      <div className="flex flex-col gap-3 items-center">
-        <h1 className="text-3xl font-bold underline">{greeting}</h1>
+      <div className="flex flex-col items-center gap-3">
+        <h1 className="font-bold text-3xl underline">{greeting}</h1>
         <LocaleSwitcher />
       </div>
     </div>

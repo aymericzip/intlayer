@@ -80,7 +80,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
       <div className="relative flex flex-col gap-2">
         <H3 className="mb-5">{title}</H3>
 
-        <div className="absolute right-0 top-0 flex flex-row gap-2">
+        <div className="absolute top-0 right-0 flex flex-row gap-2">
           <Tag color={getTypeTagColor(plan)} size="xs" border="none">
             {plan?.type ?? 'FREE'}
           </Tag>

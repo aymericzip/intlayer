@@ -4,23 +4,23 @@ import React from 'react';
 import { Accordion, type AccordionProps } from './Accordion';
 
 const SampleContent = () => (
-  <div className="p-4 space-y-2">
+  <div className="space-y-2 p-4">
     <p>This is the accordion content that can be expanded and collapsed.</p>
     <p>It supports rich content including:</p>
-    <ul className="list-disc ml-4">
+    <ul className="ml-4 list-disc">
       <li>Lists</li>
       <li>Links</li>
       <li>Images</li>
       <li>Other components</li>
     </ul>
-    <button type="button" className="px-3 py-1 bg-blue-500 text-white rounded">
+    <button type="button" className="rounded bg-blue-500 px-3 py-1 text-white">
       Interactive Button
     </button>
   </div>
 );
 
 const LongContentComponent = () => (
-  <div className="p-4 space-y-4">
+  <div className="space-y-4 p-4">
     {Array.from({ length: 10 }, (_, i) => (
       <p key={i}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
@@ -229,7 +229,7 @@ export const RichContent: Story = {
     header: 'Rich Content Accordion',
     children: (
       <div className="p-4">
-        <h3 className="text-lg font-bold mb-2">Rich Content Example</h3>
+        <h3 className="mb-2 font-bold text-lg">Rich Content Example</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <img
@@ -249,10 +249,10 @@ export const RichContent: Story = {
           </div>
         </div>
         <div className="mt-4 space-x-2">
-          <button className="px-3 py-1 bg-green-500 text-white rounded">
+          <button className="rounded bg-green-500 px-3 py-1 text-white">
             Primary
           </button>
-          <button className="px-3 py-1 bg-gray-500 text-white rounded">
+          <button className="rounded bg-gray-500 px-3 py-1 text-white">
             Secondary
           </button>
         </div>
@@ -329,7 +329,7 @@ export const InteractionTest: Story = {
         <p>This story demonstrates the accordion's interactive behavior.</p>
         <button
           data-testid="inner-button"
-          className="px-3 py-1 bg-purple-500 text-white rounded"
+          className="rounded bg-purple-500 px-3 py-1 text-white"
         >
           Inner Button
         </button>
@@ -355,17 +355,17 @@ export const ControlledMode: Story = {
         <div className="flex gap-2">
           <button
             onClick={() => setIsOpen(true)}
-            className="px-3 py-1 bg-green-500 text-white rounded"
+            className="rounded bg-green-500 px-3 py-1 text-white"
           >
             Open Accordion
           </button>
           <button
             onClick={() => setIsOpen(false)}
-            className="px-3 py-1 bg-red-500 text-white rounded"
+            className="rounded bg-red-500 px-3 py-1 text-white"
           >
             Close Accordion
           </button>
-          <span className="px-3 py-1 bg-gray-200 rounded">
+          <span className="rounded bg-gray-200 px-3 py-1">
             State: {isOpen ? 'Open' : 'Closed'}
           </span>
         </div>
@@ -429,16 +429,16 @@ export const ResponsiveDesign: Story = {
     header: 'Responsive Accordion',
     children: (
       <div className="p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="p-3 bg-gray-100 rounded">Mobile View</div>
-          <div className="p-3 bg-gray-100 rounded hidden md:block">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="rounded bg-gray-100 p-3">Mobile View</div>
+          <div className="hidden rounded bg-gray-100 p-3 md:block">
             Tablet View
           </div>
-          <div className="p-3 bg-gray-100 rounded hidden lg:block">
+          <div className="hidden rounded bg-gray-100 p-3 lg:block">
             Desktop View
           </div>
         </div>
-        <p className="mt-4 text-sm text-gray-600">
+        <p className="mt-4 text-gray-600 text-sm">
           This content adapts to different screen sizes. Try changing the
           viewport in the toolbar above.
         </p>
@@ -462,12 +462,12 @@ export const PerformanceTest: Story = {
   args: {
     header: 'Performance Test (100 Items)',
     children: (
-      <div className="p-4 max-h-96 overflow-y-auto">
+      <div className="max-h-96 overflow-y-auto p-4">
         <div className="space-y-2">
           {Array.from({ length: 100 }, (_, i) => (
             <div
               key={i}
-              className="p-2 bg-gray-100 rounded flex justify-between"
+              className="flex justify-between rounded bg-gray-100 p-2"
             >
               <span>Item {i + 1}</span>
               <button className="text-blue-500 hover:text-blue-700">

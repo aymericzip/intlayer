@@ -24,7 +24,7 @@ export const NoOrganizationView: FC<NoOrganizationViewProps> = ({
   return (
     <div className="flex size-full max-w-[400px] flex-1 flex-col items-center justify-center gap-3">
       <H3>{createOrganizationTitle}</H3>
-      <span className="text-neutral mb-3 text-sm">
+      <span className="mb-3 text-neutral text-sm">
         {createOrganizationDescription}
       </span>
       <Button

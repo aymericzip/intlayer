@@ -147,7 +147,7 @@ export const Spotlight: FC<SpotlightProps> = ({
 }) => (
   <svg
     className={cn(
-      'animate-spotlight size-screen pointer-events-none absolute opacity-0',
+      'pointer-events-none absolute size-screen animate-spotlight opacity-0',
       className
     )}
     xmlns="http://www.w3.org/2000/svg"

@@ -121,7 +121,7 @@ export const Default: Story = {
     <div className="flex justify-center p-8">
       <DropDown {...args}>
         <DropDown.Trigger identifier={args.identifier}>
-          <div className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+          <div className="flex items-center gap-2 rounded bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600">
             <Menu size={16} />
             <span>Hover Menu</span>
             <ChevronDown size={16} />
@@ -130,20 +130,20 @@ export const Default: Story = {
         <DropDown.Panel
           identifier={args.identifier}
           isOverable
-          className="bg-white border border-gray-200 rounded-lg shadow-lg"
+          className="rounded-lg border border-gray-200 bg-white shadow-lg"
         >
           <div className="p-2">
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+            <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Profile
             </div>
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+            <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Settings
             </div>
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+            <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Help
             </div>
             <hr className="my-1 border-gray-200" />
-            <div className="px-3 py-2 text-red-600 hover:bg-red-50 rounded cursor-pointer">
+            <div className="cursor-pointer rounded px-3 py-2 text-red-600 hover:bg-red-50">
               Sign Out
             </div>
           </div>
@@ -190,7 +190,7 @@ export const FocusAccessible: Story = {
     <div className="flex justify-center p-8">
       <DropDown {...args}>
         <DropDown.Trigger identifier={args.identifier}>
-          <div className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:ring-2 focus:ring-green-300 transition-colors">
+          <div className="flex items-center gap-2 rounded bg-green-500 px-4 py-2 text-white transition-colors hover:bg-green-600 focus:ring-2 focus:ring-green-300">
             <User size={16} />
             <span>Focus to Open</span>
             <ChevronDown size={16} />
@@ -199,16 +199,16 @@ export const FocusAccessible: Story = {
         <DropDown.Panel
           identifier={args.identifier}
           isFocusable
-          className="bg-white border border-gray-200 rounded-lg shadow-lg"
+          className="rounded-lg border border-gray-200 bg-white shadow-lg"
         >
           <div className="p-2">
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+            <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Account Settings
             </div>
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+            <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Billing
             </div>
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+            <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Privacy
             </div>
           </div>
@@ -247,19 +247,19 @@ export const ControlledDropdown: Story = {
         <div className="flex gap-2">
           <button
             onClick={() => setIsOpen(true)}
-            className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+            className="rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
           >
             Open
           </button>
           <button
             onClick={() => setIsOpen(false)}
-            className="px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600"
+            className="rounded bg-gray-500 px-3 py-1 text-sm text-white hover:bg-gray-600"
           >
             Close
           </button>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="px-3 py-1 bg-purple-500 text-white rounded text-sm hover:bg-purple-600"
+            className="rounded bg-purple-500 px-3 py-1 text-sm text-white hover:bg-purple-600"
           >
             Toggle
           </button>
@@ -267,7 +267,7 @@ export const ControlledDropdown: Story = {
 
         <DropDown identifier="controlled-dropdown" className="w-48">
           <DropDown.Trigger identifier="controlled-dropdown">
-            <div className="flex items-center gap-2 px-4 py-2 bg-purple-500 text-white rounded">
+            <div className="flex items-center gap-2 rounded bg-purple-500 px-4 py-2 text-white">
               <Settings size={16} />
               <span>Controlled Menu</span>
               <ChevronDown
@@ -279,16 +279,16 @@ export const ControlledDropdown: Story = {
           <DropDown.Panel
             identifier="controlled-dropdown"
             isHidden={!isOpen}
-            className="bg-white border border-gray-200 rounded-lg shadow-lg"
+            className="rounded-lg border border-gray-200 bg-white shadow-lg"
           >
             <div className="p-2">
               <div className="px-3 py-2 text-gray-700">
                 Status: {isOpen ? 'Open' : 'Closed'}
               </div>
-              <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+              <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                 Option 1
               </div>
-              <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+              <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                 Option 2
               </div>
             </div>
@@ -333,11 +333,11 @@ export const ControlledDropdown: Story = {
  */
 export const AlignmentOptions: Story = {
   render: () => (
-    <div className="flex justify-between items-start p-8 gap-4">
+    <div className="flex items-start justify-between gap-4 p-8">
       {/* Start Aligned */}
       <DropDown identifier="start-aligned" className="w-48">
         <DropDown.Trigger identifier="start-aligned">
-          <div className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+          <div className="flex items-center gap-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
             <span>Start Aligned</span>
             <ChevronDown size={16} />
           </div>
@@ -346,16 +346,16 @@ export const AlignmentOptions: Story = {
           identifier="start-aligned"
           isOverable
           align={DropDownAlign.START}
-          className="bg-white border border-gray-200 rounded-lg shadow-lg"
+          className="rounded-lg border border-gray-200 bg-white shadow-lg"
         >
-          <div className="p-3 min-w-48">
-            <div className="text-sm text-gray-600 mb-2">
+          <div className="min-w-48 p-3">
+            <div className="mb-2 text-gray-600 text-sm">
               Start aligned panel
             </div>
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">
+            <div className="rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Option 1
             </div>
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">
+            <div className="rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Option 2
             </div>
           </div>
@@ -365,7 +365,7 @@ export const AlignmentOptions: Story = {
       {/* End Aligned */}
       <DropDown identifier="end-aligned" className="w-48">
         <DropDown.Trigger identifier="end-aligned">
-          <div className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+          <div className="flex items-center gap-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">
             <span>End Aligned</span>
             <ChevronDown size={16} />
           </div>
@@ -374,14 +374,14 @@ export const AlignmentOptions: Story = {
           identifier="end-aligned"
           isOverable
           align={DropDownAlign.END}
-          className="bg-white border border-gray-200 rounded-lg shadow-lg"
+          className="rounded-lg border border-gray-200 bg-white shadow-lg"
         >
-          <div className="p-3 min-w-48">
-            <div className="text-sm text-gray-600 mb-2">End aligned panel</div>
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">
+          <div className="min-w-48 p-3">
+            <div className="mb-2 text-gray-600 text-sm">End aligned panel</div>
+            <div className="rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Option A
             </div>
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">
+            <div className="rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Option B
             </div>
           </div>
@@ -423,7 +423,7 @@ export const CombinedInteractions: Story = {
     <div className="flex justify-center p-8">
       <DropDown {...args}>
         <DropDown.Trigger identifier={args.identifier}>
-          <div className="flex items-center gap-2 px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-300 transition-all">
+          <div className="flex items-center gap-2 rounded bg-indigo-500 px-4 py-2 text-white transition-all hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-300">
             <User size={16} />
             <span>Hover or Focus</span>
             <ChevronDown size={16} />
@@ -433,23 +433,23 @@ export const CombinedInteractions: Story = {
           identifier={args.identifier}
           isOverable
           isFocusable
-          className="bg-white border border-gray-200 rounded-lg shadow-lg"
+          className="rounded-lg border border-gray-200 bg-white shadow-lg"
         >
           <div className="p-2">
-            <div className="px-3 py-2 text-gray-700 font-medium border-b border-gray-100 mb-1">
+            <div className="mb-1 border-gray-100 border-b px-3 py-2 font-medium text-gray-700">
               User Account
             </div>
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+            <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               View Profile
             </div>
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+            <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Edit Profile
             </div>
-            <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+            <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Account Settings
             </div>
             <hr className="my-1 border-gray-200" />
-            <div className="px-3 py-2 text-red-600 hover:bg-red-50 rounded cursor-pointer">
+            <div className="cursor-pointer rounded px-3 py-2 text-red-600 hover:bg-red-50">
               Log Out
             </div>
           </div>
@@ -497,7 +497,7 @@ export const CombinedInteractions: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-4 p-8">
-      <div className="text-sm text-gray-600 mb-4">
+      <div className="mb-4 text-gray-600 text-sm">
         Use Tab to navigate between dropdowns, Enter or Space to activate them.
         Focus should show the dropdown content automatically.
       </div>
@@ -505,38 +505,38 @@ export const KeyboardNavigation: Story = {
       <div className="flex flex-wrap gap-4">
         <DropDown identifier="kbd-nav-1" className="w-32">
           <DropDown.Trigger identifier="kbd-nav-1">
-            <div className="px-3 py-2 bg-blue-500 text-white rounded text-sm focus:ring-2 focus:ring-blue-300">
+            <div className="rounded bg-blue-500 px-3 py-2 text-sm text-white focus:ring-2 focus:ring-blue-300">
               Menu 1
             </div>
           </DropDown.Trigger>
           <DropDown.Panel
             identifier="kbd-nav-1"
             isFocusable
-            className="bg-white border border-gray-200 rounded shadow-lg"
+            className="rounded border border-gray-200 bg-white shadow-lg"
           >
             <div className="p-2 text-sm">
-              <div className="px-2 py-1 hover:bg-gray-100 rounded">Item 1</div>
-              <div className="px-2 py-1 hover:bg-gray-100 rounded">Item 2</div>
+              <div className="rounded px-2 py-1 hover:bg-gray-100">Item 1</div>
+              <div className="rounded px-2 py-1 hover:bg-gray-100">Item 2</div>
             </div>
           </DropDown.Panel>
         </DropDown>
 
         <DropDown identifier="kbd-nav-2" className="w-32">
           <DropDown.Trigger identifier="kbd-nav-2">
-            <div className="px-3 py-2 bg-green-500 text-white rounded text-sm focus:ring-2 focus:ring-green-300">
+            <div className="rounded bg-green-500 px-3 py-2 text-sm text-white focus:ring-2 focus:ring-green-300">
               Menu 2
             </div>
           </DropDown.Trigger>
           <DropDown.Panel
             identifier="kbd-nav-2"
             isFocusable
-            className="bg-white border border-gray-200 rounded shadow-lg"
+            className="rounded border border-gray-200 bg-white shadow-lg"
           >
             <div className="p-2 text-sm">
-              <div className="px-2 py-1 hover:bg-gray-100 rounded">
+              <div className="rounded px-2 py-1 hover:bg-gray-100">
                 Action A
               </div>
-              <div className="px-2 py-1 hover:bg-gray-100 rounded">
+              <div className="rounded px-2 py-1 hover:bg-gray-100">
                 Action B
               </div>
             </div>
@@ -545,20 +545,20 @@ export const KeyboardNavigation: Story = {
 
         <DropDown identifier="kbd-nav-3" className="w-32">
           <DropDown.Trigger identifier="kbd-nav-3">
-            <div className="px-3 py-2 bg-purple-500 text-white rounded text-sm focus:ring-2 focus:ring-purple-300">
+            <div className="rounded bg-purple-500 px-3 py-2 text-sm text-white focus:ring-2 focus:ring-purple-300">
               Menu 3
             </div>
           </DropDown.Trigger>
           <DropDown.Panel
             identifier="kbd-nav-3"
             isFocusable
-            className="bg-white border border-gray-200 rounded shadow-lg"
+            className="rounded border border-gray-200 bg-white shadow-lg"
           >
             <div className="p-2 text-sm">
-              <div className="px-2 py-1 hover:bg-gray-100 rounded">
+              <div className="rounded px-2 py-1 hover:bg-gray-100">
                 Option X
               </div>
-              <div className="px-2 py-1 hover:bg-gray-100 rounded">
+              <div className="rounded px-2 py-1 hover:bg-gray-100">
                 Option Y
               </div>
             </div>
@@ -601,7 +601,7 @@ export const KeyboardNavigation: Story = {
 export const ARIAAttributes: Story = {
   render: () => (
     <div className="space-y-6 p-8">
-      <div className="text-sm text-gray-600 mb-4">
+      <div className="mb-4 text-gray-600 text-sm">
         Each dropdown has proper ARIA attributes for screen reader
         compatibility. Inspect the DOM to see aria-haspopup, aria-controls,
         aria-labelledby, etc.
@@ -610,7 +610,7 @@ export const ARIAAttributes: Story = {
       <div className="space-y-4">
         <DropDown identifier="aria-menu" className="w-48">
           <DropDown.Trigger identifier="aria-menu" label="User account menu">
-            <div className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            <div className="flex items-center gap-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
               <User size={16} />
               <span>Account Menu</span>
               <ChevronDown size={16} />
@@ -619,13 +619,13 @@ export const ARIAAttributes: Story = {
           <DropDown.Panel
             identifier="aria-menu"
             isFocusable
-            className="bg-white border border-gray-200 rounded-lg shadow-lg"
+            className="rounded-lg border border-gray-200 bg-white shadow-lg"
           >
             <div className="p-2">
-              <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">
+              <div className="rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                 Profile
               </div>
-              <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">
+              <div className="rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                 Settings
               </div>
             </div>
@@ -637,7 +637,7 @@ export const ARIAAttributes: Story = {
             identifier="aria-actions"
             label="Available actions menu"
           >
-            <div className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+            <div className="flex items-center gap-2 rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600">
               <Settings size={16} />
               <span>Actions</span>
               <ChevronDown size={16} />
@@ -646,13 +646,13 @@ export const ARIAAttributes: Story = {
           <DropDown.Panel
             identifier="aria-actions"
             isOverable
-            className="bg-white border border-gray-200 rounded-lg shadow-lg"
+            className="rounded-lg border border-gray-200 bg-white shadow-lg"
           >
             <div className="p-2">
-              <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">
+              <div className="rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                 Edit
               </div>
-              <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">
+              <div className="rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                 Delete
               </div>
             </div>
@@ -697,12 +697,12 @@ export const ARIAAttributes: Story = {
  */
 export const NavigationMenu: Story = {
   render: () => (
-    <div className="bg-gray-50 min-h-24">
-      <nav className="bg-white border-b border-gray-200 px-6 py-3">
+    <div className="min-h-24 bg-gray-50">
+      <nav className="border-gray-200 border-b bg-white px-6 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <div className="font-bold text-xl text-gray-900">Brand</div>
-            <div className="hidden md:flex items-center gap-4">
+            <div className="font-bold text-gray-900 text-xl">Brand</div>
+            <div className="hidden items-center gap-4 md:flex">
               <a href="#" className="text-gray-700 hover:text-gray-900">
                 Home
               </a>
@@ -717,8 +717,8 @@ export const NavigationMenu: Story = {
 
           <DropDown identifier="user-nav" className="relative">
             <DropDown.Trigger identifier="user-nav">
-              <div className="flex items-center gap-2 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+              <div className="flex items-center gap-2 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 font-medium text-sm text-white">
                   JD
                 </div>
                 <span className="hidden sm:block">John Doe</span>
@@ -730,23 +730,23 @@ export const NavigationMenu: Story = {
               isOverable
               isFocusable
               align={DropDownAlign.END}
-              className="bg-white border border-gray-200 rounded-lg shadow-lg min-w-48"
+              className="min-w-48 rounded-lg border border-gray-200 bg-white shadow-lg"
             >
               <div className="p-2">
-                <div className="px-3 py-2 border-b border-gray-100 mb-1">
+                <div className="mb-1 border-gray-100 border-b px-3 py-2">
                   <div className="font-medium text-gray-900">John Doe</div>
-                  <div className="text-sm text-gray-500">john@example.com</div>
+                  <div className="text-gray-500 text-sm">john@example.com</div>
                 </div>
-                <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer flex items-center gap-2">
+                <div className="flex cursor-pointer items-center gap-2 rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   <User size={16} />
                   Profile
                 </div>
-                <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer flex items-center gap-2">
+                <div className="flex cursor-pointer items-center gap-2 rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   <Settings size={16} />
                   Settings
                 </div>
                 <hr className="my-1 border-gray-200" />
-                <div className="px-3 py-2 text-red-600 hover:bg-red-50 rounded cursor-pointer">
+                <div className="cursor-pointer rounded px-3 py-2 text-red-600 hover:bg-red-50">
                   Sign Out
                 </div>
               </div>
@@ -780,14 +780,14 @@ export const NavigationMenu: Story = {
 export const ContextMenu: Story = {
   render: () => (
     <div className="p-8">
-      <div className="bg-gray-100 border border-gray-300 rounded-lg p-6 relative">
-        <h3 className="text-lg font-medium mb-2">Document.pdf</h3>
-        <p className="text-gray-600 text-sm mb-4">Last modified: 2 hours ago</p>
+      <div className="relative rounded-lg border border-gray-300 bg-gray-100 p-6">
+        <h3 className="mb-2 font-medium text-lg">Document.pdf</h3>
+        <p className="mb-4 text-gray-600 text-sm">Last modified: 2 hours ago</p>
 
         <div className="absolute top-2 right-2">
           <DropDown identifier="context-menu">
             <DropDown.Trigger identifier="context-menu">
-              <div className="p-2 text-gray-500 hover:bg-gray-200 rounded-lg transition-colors">
+              <div className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-200">
                 <Menu size={16} />
               </div>
             </DropDown.Trigger>
@@ -796,35 +796,35 @@ export const ContextMenu: Story = {
               isOverable
               isFocusable
               align={DropDownAlign.END}
-              className="bg-white border border-gray-200 rounded-lg shadow-lg min-w-48"
+              className="min-w-48 rounded-lg border border-gray-200 bg-white shadow-lg"
             >
               <div className="p-1">
-                <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer flex items-center justify-between">
+                <div className="flex cursor-pointer items-center justify-between rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   <span>Open</span>
-                  <span className="text-xs text-gray-400">⌘O</span>
+                  <span className="text-gray-400 text-xs">⌘O</span>
                 </div>
-                <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer flex items-center justify-between">
+                <div className="flex cursor-pointer items-center justify-between rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   <span>Download</span>
-                  <span className="text-xs text-gray-400">⌘D</span>
+                  <span className="text-gray-400 text-xs">⌘D</span>
                 </div>
-                <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer flex items-center justify-between">
+                <div className="flex cursor-pointer items-center justify-between rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   <span>Rename</span>
-                  <span className="text-xs text-gray-400">F2</span>
+                  <span className="text-gray-400 text-xs">F2</span>
                 </div>
-                <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+                <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   Make a copy
                 </div>
                 <hr className="my-1 border-gray-200" />
-                <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+                <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   Share
                 </div>
-                <div className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+                <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   Move to folder
                 </div>
                 <hr className="my-1 border-gray-200" />
-                <div className="px-3 py-2 text-red-600 hover:bg-red-50 rounded cursor-pointer flex items-center justify-between">
+                <div className="flex cursor-pointer items-center justify-between rounded px-3 py-2 text-red-600 hover:bg-red-50">
                   <span>Delete</span>
-                  <span className="text-xs text-red-400">⌫</span>
+                  <span className="text-red-400 text-xs">⌫</span>
                 </div>
               </div>
             </DropDown.Panel>

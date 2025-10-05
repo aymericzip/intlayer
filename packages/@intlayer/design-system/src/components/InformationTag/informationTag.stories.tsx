@@ -230,7 +230,7 @@ export const FormFieldContext: Story = {
     <div className="space-y-2">
       <label
         htmlFor="email-input"
-        className="block text-sm font-medium text-gray-700"
+        className="block font-medium text-gray-700 text-sm"
       >
         Email Address
       </label>
@@ -238,7 +238,7 @@ export const FormFieldContext: Story = {
         id="email-input"
         type="email"
         placeholder="your@email.com"
-        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        className="block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
       />
       <InformationTag {...args} />
     </div>
@@ -258,8 +258,8 @@ export const FormFieldContext: Story = {
 
 export const StatusIndicator: Story = {
   render: (args) => (
-    <div className="p-4 bg-gray-50 rounded-lg">
-      <h3 className="text-lg font-semibold mb-2">Document Status</h3>
+    <div className="rounded-lg bg-gray-50 p-4">
+      <h3 className="mb-2 font-semibold text-lg">Document Status</h3>
       <div className="space-y-1">
         <div className="text-green-600">✓ Saved</div>
         <InformationTag {...args} />
@@ -282,9 +282,9 @@ export const StatusIndicator: Story = {
 
 export const FeatureAnnouncement: Story = {
   render: (args) => (
-    <div className="p-4 border-l-4 border-blue-500 bg-blue-50">
+    <div className="border-blue-500 border-l-4 bg-blue-50 p-4">
       <h4 className="font-medium text-blue-800">New Feature Available</h4>
-      <p className="text-blue-700 mt-1">
+      <p className="mt-1 text-blue-700">
         Try our new keyboard shortcuts for faster navigation.
       </p>
       <InformationTag {...args} />

@@ -9,11 +9,11 @@ const Item: FC<{
   description: ReactNode;
 }> = ({ index, title, description }) => (
   <AnimatedDiv key={title.value} className="flex gap-10">
-    <span className="flex size-12 shrink-0 items-center justify-center rounded-full border-4 border-lime-300 text-xl font-black text-lime-800 dark:border-lime-900 dark:text-lime-600">
+    <span className="flex size-12 shrink-0 items-center justify-center rounded-full border-4 border-lime-300 font-black text-lime-800 text-xl dark:border-lime-900 dark:text-lime-600">
       <span>{index + 1}</span>
     </span>
     <div>
-      <h3 className="mb-2 text-lg font-semibold">{title}</h3>
+      <h3 className="mb-2 font-semibold text-lg">{title}</h3>
       <p className="text-neutral text-sm leading-7">{description}</p>
     </div>
   </AnimatedDiv>
@@ -24,8 +24,8 @@ export const DemoPage: FC = () => {
 
   return (
     <div className="m-auto flex w-full max-w-3xl flex-col p-8 sm:p-12 md:size-full md:p-10">
-      <h1 className="mb-3 mt-14 text-4xl font-bold">{title}</h1>
-      <div className="text-md text-neutral py-10">{landingParagraph}</div>
+      <h1 className="mt-14 mb-3 font-bold text-4xl">{title}</h1>
+      <div className="py-10 text-md text-neutral">{landingParagraph}</div>
       <div className="relative mx-auto my-10 flex max-w-[700px] flex-col gap-28">
         <Item
           index={0}

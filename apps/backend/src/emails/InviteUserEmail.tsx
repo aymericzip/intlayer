@@ -41,7 +41,7 @@ export const InviteUserEmailEN = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -51,14 +51,14 @@ export const InviteUserEmailEN = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
               Join <strong>{organizationName}</strong> on{' '}
               <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               Hello {username},
             </Text>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               <strong>{invitedByUsername}</strong> (
               <Link
                 href={`mailto:${invitedByEmail}`}
@@ -72,23 +72,23 @@ export const InviteUserEmailEN = ({
 
             <Section className="my-[32px] text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
                 href={inviteLink}
               >
                 Join the team
               </Button>
             </Section>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               or copy and paste this URL into your browser:
             </Text>
             <Link
               href={inviteLink}
-              className="text-[#8a8a8a] no-underline text-[10px]"
+              className="text-[#8a8a8a] text-[10px] no-underline"
             >
               {inviteLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
-            <Text className="text-[12px] leading-[24px] text-[#666666]">
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
               This invitation was intended for{' '}
               <span className="text-black">{username}</span>. This invite was
               sent from <span className="text-black">{inviteFromIp}</span>{' '}
@@ -126,7 +126,7 @@ export const InviteUserEmailFR = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -136,14 +136,14 @@ export const InviteUserEmailFR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
               Rejoignez <strong>{organizationName}</strong> sur{' '}
               <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               Bonjour {username},
             </Text>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               <strong>{invitedByUsername}</strong> (
               <Link
                 href={`mailto:${invitedByEmail}`}
@@ -156,23 +156,23 @@ export const InviteUserEmailFR = ({
             </Text>
             <Section className="my-[32px] text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
                 href={inviteLink}
               >
                 Rejoindre l'équipe
               </Button>
             </Section>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               ou copiez et collez cette URL dans votre navigateur :{' '}
             </Text>
             <Link
               href={inviteLink}
-              className="text-[#8a8a8a] no-underline text-[10px]"
+              className="text-[#8a8a8a] text-[10px] no-underline"
             >
               {inviteLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
-            <Text className="text-[12px] leading-[24px] text-[#666666]">
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
               Cette invitation était destinée à{' '}
               <span className="text-black">{username}</span>. Cette invitation a
               été envoyée depuis{' '}
@@ -211,7 +211,7 @@ export const InviteUserEmailES = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -221,14 +221,14 @@ export const InviteUserEmailES = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
               Únete a <strong>{organizationName}</strong> en{' '}
               <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               Hola {username},
             </Text>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               <strong>{invitedByUsername}</strong> (
               <Link
                 href={`mailto:${invitedByEmail}`}
@@ -241,23 +241,23 @@ export const InviteUserEmailES = ({
             </Text>
             <Section className="my-[32px] text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
                 href={inviteLink}
               >
                 Unirse al equipo
               </Button>
             </Section>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               o copia y pega esta URL en tu navegador:{' '}
             </Text>
             <Link
               href={inviteLink}
-              className="text-[#8a8a8a] no-underline text-[10px]"
+              className="text-[#8a8a8a] text-[10px] no-underline"
             >
               {inviteLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
-            <Text className="text-[12px] leading-[24px] text-[#666666]">
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
               Esta invitación estaba destinada para{' '}
               <span className="text-black">{username}</span>. Esta invitación
               fue enviada desde{' '}

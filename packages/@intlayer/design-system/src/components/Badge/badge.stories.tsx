@@ -195,7 +195,7 @@ export const VariantShowcase: Story = {
     <div className="space-y-4">
       {Object.values(BadgeVariant).map((variant) => (
         <div key={variant} className="flex flex-wrap gap-2">
-          <span className="w-20 text-sm font-medium capitalize">
+          <span className="w-20 font-medium text-sm capitalize">
             {variant}:
           </span>
           {Object.values(BadgeColor)
@@ -235,7 +235,7 @@ export const SizeVariations: Story = {
           <Badge size={size} color={BadgeColor.PRIMARY}>
             {size.charAt(0).toUpperCase() + size.slice(1)}
           </Badge>
-          <span className="text-xs text-gray-600 capitalize">{size}</span>
+          <span className="text-gray-600 text-xs capitalize">{size}</span>
         </div>
       ))}
     </div>
@@ -326,15 +326,15 @@ export const DismissibleBadge: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 border-none text-white">
+      <Badge className="border-none bg-gradient-to-r from-purple-500 to-pink-500 text-white">
         Gradient
       </Badge>
-      <Badge className="bg-yellow-100 text-yellow-800 border-yellow-300">
+      <Badge className="border-yellow-300 bg-yellow-100 text-yellow-800">
         Custom Color
       </Badge>
       <Badge
         variant={BadgeVariant.OUTLINE}
-        className="border-dashed border-blue-400 text-blue-600"
+        className="border-blue-400 border-dashed text-blue-600"
       >
         Dashed Border
       </Badge>

@@ -54,12 +54,12 @@ export const AllVariants: Story = {
     const { toast } = useToast();
 
     return (
-      <div className="w-full max-w-2xl mx-auto bg-white rounded-lg border p-6">
+      <div className="mx-auto w-full max-w-2xl rounded-lg border bg-white p-6">
         <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Toast Variants</h2>
+          <h2 className="mb-2 font-semibold text-xl">Toast Variants</h2>
         </div>
         <div className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <Button
               label="Show default notification"
               onClick={() =>
@@ -105,7 +105,7 @@ export const AllVariants: Story = {
             </Button>
           </div>
 
-          <div className="text-sm text-gray-600 mt-4">
+          <div className="mt-4 text-gray-600 text-sm">
             Click any button to see the corresponding toast variant. Each
             variant has distinct styling to communicate the appropriate message
             tone.
@@ -172,7 +172,7 @@ export const WithActions: Story = {
               onClick={() => simulateUpload()}
               color="white"
             >
-              <RefreshCw className="w-4 h-4 mr-2" />
+              <RefreshCw className="mr-2 h-4 w-4" />
               Retry
             </ToastAction>
           ),
@@ -214,12 +214,12 @@ export const WithActions: Story = {
     };
 
     return (
-      <div className="w-full max-w-2xl mx-auto bg-white rounded-lg border p-6">
+      <div className="mx-auto w-full max-w-2xl rounded-lg border bg-white p-6">
         <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Interactive Actions</h2>
+          <h2 className="mb-2 font-semibold text-xl">Interactive Actions</h2>
         </div>
         <div className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <Button
               label="Upload a file and see retry action on failure"
               onClick={simulateUpload}
@@ -242,9 +242,9 @@ export const WithActions: Story = {
             </Button>
           </div>
 
-          <div className="text-sm text-gray-600 mt-4">
+          <div className="mt-4 text-gray-600 text-sm">
             <strong>Actions Demo:</strong>
-            <ul className="list-disc list-inside mt-2 space-y-1">
+            <ul className="mt-2 list-inside list-disc space-y-1">
               <li>
                 <strong>Upload:</strong> Shows retry action on failure
               </li>
@@ -331,7 +331,7 @@ export const RealWorldScenarios: Story = {
             altText="Retry connection"
             onClick={() => simulateNetworkError()}
           >
-            <RefreshCw className="w-4 h-4 mr-2" />
+            <RefreshCw className="mr-2 h-4 w-4" />
             Retry
           </ToastAction>
         ),
@@ -339,29 +339,29 @@ export const RealWorldScenarios: Story = {
     };
 
     return (
-      <div className="w-full max-w-2xl mx-auto bg-white rounded-lg border p-6">
+      <div className="mx-auto w-full max-w-2xl rounded-lg border bg-white p-6">
         <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Real-World Scenarios</h2>
+          <h2 className="mb-2 font-semibold text-xl">Real-World Scenarios</h2>
         </div>
         <div className="space-y-6">
           {/* Form Example */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Form Validation</h3>
+            <h3 className="font-medium text-lg">Form Validation</h3>
             <form onSubmit={handleFormSubmit} className="space-y-3">
               <div>
-                <label className="block text-sm font-medium mb-1">Name *</label>
+                <label className="mb-1 block font-medium text-sm">Name *</label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, name: e.target.value }))
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2"
                   placeholder="Enter your name"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label className="mb-1 block font-medium text-sm">
                   Email *
                 </label>
                 <input
@@ -370,7 +370,7 @@ export const RealWorldScenarios: Story = {
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, email: e.target.value }))
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2"
                   placeholder="Enter your email"
                 />
               </div>
@@ -387,7 +387,7 @@ export const RealWorldScenarios: Story = {
 
           {/* Error Scenarios */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Error Handling</h3>
+            <h3 className="font-medium text-lg">Error Handling</h3>
             <Button
               label="Simulate network connection error"
               onClick={simulateNetworkError}

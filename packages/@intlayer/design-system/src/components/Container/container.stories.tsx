@@ -194,7 +194,7 @@ export const Default: Story = {
  */
 export const AllRoundedSizes: Story = {
   render: () => (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
       {Object.values(ContainerRoundedSize).map((size) => (
         <Container
           key={size}
@@ -205,7 +205,7 @@ export const AllRoundedSizes: Story = {
           borderColor={ContainerBorderColor.PRIMARY}
           className="text-center"
         >
-          <div className="text-sm font-medium">{size}</div>
+          <div className="font-medium text-sm">{size}</div>
           <div className="text-xs opacity-70">rounded-{size}</div>
         </Container>
       ))}
@@ -234,8 +234,8 @@ export const AllRoundedSizes: Story = {
  */
 export const TransparencyLevels: Story = {
   render: () => (
-    <div className="relative p-8 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg">
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <div className="relative rounded-lg bg-gradient-to-br from-blue-100 to-purple-100 p-8">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
         {Object.values(ContainerTransparency).map((transparency) => (
           <Container
             key={transparency}
@@ -246,7 +246,7 @@ export const TransparencyLevels: Story = {
             borderColor={ContainerBorderColor.NEUTRAL}
             className="text-center"
           >
-            <div className="text-sm font-medium">{transparency}</div>
+            <div className="font-medium text-sm">{transparency}</div>
             <div className="text-xs opacity-70">
               {transparency === ContainerTransparency.NONE
                 ? 'Solid'
@@ -288,7 +288,7 @@ export const PaddingVariations: Story = {
           borderColor={ContainerBorderColor.TEXT}
           className="w-fit"
         >
-          <div className="bg-blue-100 rounded text-sm">
+          <div className="rounded bg-blue-100 text-sm">
             Padding: {padding} - This content shows the padding size
           </div>
         </Container>
@@ -321,7 +321,7 @@ export const GapBetweenChildren: Story = {
     <div className="space-y-6">
       {Object.values(ContainerGap).map((gap) => (
         <div key={gap}>
-          <h3 className="text-sm font-medium mb-2">Gap: {gap}</h3>
+          <h3 className="mb-2 font-medium text-sm">Gap: {gap}</h3>
           <Container
             gap={gap}
             padding={ContainerPadding.MD}
@@ -330,9 +330,9 @@ export const GapBetweenChildren: Story = {
             border
             borderColor={ContainerBorderColor.NEUTRAL}
           >
-            <div className="bg-blue-100 p-2 rounded">Item 1</div>
-            <div className="bg-green-100 p-2 rounded">Item 2</div>
-            <div className="bg-yellow-100 p-2 rounded">Item 3</div>
+            <div className="rounded bg-blue-100 p-2">Item 1</div>
+            <div className="rounded bg-green-100 p-2">Item 2</div>
+            <div className="rounded bg-yellow-100 p-2">Item 3</div>
           </Container>
         </div>
       ))}
@@ -364,10 +364,10 @@ export const GapBetweenChildren: Story = {
  */
 export const SeparatorOptions: Story = {
   render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       {Object.values(ContainerSeparator).map((separator) => (
         <div key={separator}>
-          <h3 className="text-sm font-medium mb-2">Separator: {separator}</h3>
+          <h3 className="mb-2 font-medium text-sm">Separator: {separator}</h3>
           <Container
             separator={separator}
             padding={ContainerPadding.MD}
@@ -409,7 +409,7 @@ export const SeparatorOptions: Story = {
  */
 export const BorderColors: Story = {
   render: () => (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
       {Object.values(ContainerBorderColor).map((color) => (
         <Container
           key={color}
@@ -420,7 +420,7 @@ export const BorderColors: Story = {
           roundedSize={ContainerRoundedSize.MD}
           className="text-center"
         >
-          <div className="text-sm font-medium capitalize">
+          <div className="font-medium text-sm capitalize">
             {color.replace('_', ' ')}
           </div>
           <div className="text-xs opacity-70">border-{color}</div>
@@ -463,8 +463,8 @@ export const BackgroundStates: Story = {
           border
           borderColor={ContainerBorderColor.NEUTRAL}
         >
-          <div className="text-sm font-medium">Background: {background}</div>
-          <div className="text-xs opacity-70 mt-1">
+          <div className="font-medium text-sm">Background: {background}</div>
+          <div className="mt-1 text-xs opacity-70">
             {background === ContainerBackground.HOVERABLE
               ? 'Hover over this container to see the effect'
               : background === ContainerBackground.WITH
@@ -509,7 +509,7 @@ export const ARIAAttributes: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-sm font-medium mb-2">Container with Label</h3>
+        <h3 className="mb-2 font-medium text-sm">Container with Label</h3>
         <Container
           aria-label="User profile information"
           role="region"
@@ -524,7 +524,7 @@ export const ARIAAttributes: Story = {
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-2">Container with Description</h3>
+        <h3 className="mb-2 font-medium text-sm">Container with Description</h3>
         <Container
           aria-labelledby="settings-title"
           aria-describedby="settings-help"
@@ -538,14 +538,14 @@ export const ARIAAttributes: Story = {
           <div id="settings-title" className="font-medium">
             Settings Panel
           </div>
-          <div id="settings-help" className="text-xs text-gray-600 mt-1">
+          <div id="settings-help" className="mt-1 text-gray-600 text-xs">
             Configure your application preferences here
           </div>
         </Container>
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-2">Main Content Section</h3>
+        <h3 className="mb-2 font-medium text-sm">Main Content Section</h3>
         <Container
           role="main"
           aria-label="Primary content area"
@@ -602,7 +602,7 @@ export const ARIAAttributes: Story = {
  */
 export const CardComponents: Story = {
   render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       <Container
         padding={ContainerPadding.LG}
         transparency={ContainerTransparency.NONE}
@@ -614,13 +614,13 @@ export const CardComponents: Story = {
         role="article"
         aria-labelledby="card-1-title"
       >
-        <div id="card-1-title" className="text-lg font-bold">
+        <div id="card-1-title" className="font-bold text-lg">
           Product Card
         </div>
         <div className="text-sm opacity-70">
           A sample product card with hover effects
         </div>
-        <div className="text-xs text-blue-600">Learn more →</div>
+        <div className="text-blue-600 text-xs">Learn more →</div>
       </Container>
 
       <Container
@@ -633,7 +633,7 @@ export const CardComponents: Story = {
         role="article"
         aria-labelledby="card-2-title"
       >
-        <div id="card-2-title" className="text-lg font-bold text-green-700">
+        <div id="card-2-title" className="font-bold text-green-700 text-lg">
           Success Story
         </div>
         <div className="text-sm">
@@ -651,7 +651,7 @@ export const CardComponents: Story = {
         role="article"
         aria-labelledby="card-3-title"
       >
-        <div id="card-3-title" className="text-lg font-bold text-red-700">
+        <div id="card-3-title" className="font-bold text-lg text-red-700">
           Alert Card
         </div>
         <div className="text-sm">
@@ -691,34 +691,34 @@ export const FormContainer: Story = {
       role="form"
       aria-labelledby="form-title"
     >
-      <div id="form-title" className="text-xl font-bold">
+      <div id="form-title" className="font-bold text-xl">
         User Information
       </div>
 
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Name</label>
+          <label className="mb-1 block font-medium text-sm">Name</label>
           <input
             type="text"
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full rounded border border-gray-300 p-2"
             placeholder="Enter your name"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Email</label>
+          <label className="mb-1 block font-medium text-sm">Email</label>
           <input
             type="email"
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full rounded border border-gray-300 p-2"
             placeholder="Enter your email"
           />
         </div>
       </div>
 
       <div className="flex gap-4">
-        <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+        <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
           Save
         </button>
-        <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">
+        <button className="rounded border border-gray-300 px-4 py-2 hover:bg-gray-50">
           Cancel
         </button>
       </div>

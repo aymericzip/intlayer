@@ -131,7 +131,7 @@ export const ProductHunt: FC = () => {
   return (
     <Container
       className={cn([
-        'border-text group fixed bottom-5 left-5 z-[100] mr-5 border-[2px] p-2 transition-all duration-500',
+        'group fixed bottom-5 left-5 z-[100] mr-5 border-[2px] border-text p-2 transition-all duration-500',
         'hover:translate-x-0 hover:translate-y-0 hover:scale-100',
         isMiniaturizable && '-translate-x-1/4 translate-y-1/4 scale-50',
         !isVisible && '!-translate-x-[120%]',
@@ -161,7 +161,7 @@ export const ProductHunt: FC = () => {
           </div>
           <MaxWidthSmoother
             isHidden={isMiniaturizable}
-            className="max-md:grid-cols-[1fr]! group-hover:grid-cols-[1fr]"
+            className="group-hover:grid-cols-[1fr] max-md:grid-cols-[1fr]!"
           >
             <div className="flex w-72 flex-col gap-2 overflow-hidden rounded-lg">
               <strong className="text-xl uppercase">{title}</strong>
@@ -181,7 +181,7 @@ export const ProductHunt: FC = () => {
         }}
         color="text"
         variant="hoverable"
-        className="!absolute right-2 top-2 cursor-pointer"
+        className="!absolute top-2 right-2 cursor-pointer"
         size="icon-md"
       />
     </Container>

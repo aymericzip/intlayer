@@ -147,7 +147,7 @@ export const Default: Story = {
     <div className="w-full max-w-md space-y-3">
       <TextArea {...args} />
 
-      <div className="text-sm text-gray-600">
+      <div className="text-gray-600 text-sm">
         Standard textarea with default styling, perfect for most form
         applications.
       </div>
@@ -176,10 +176,10 @@ export const SizeVariations: Story = {
   render: () => (
     <div className="w-full max-w-4xl space-y-8">
       <div>
-        <h4 className="text-lg font-semibold mb-4">Different Sizes</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h4 className="mb-4 font-semibold text-lg">Different Sizes</h4>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="mb-2 block font-medium text-sm">
               Compact (2 rows)
             </label>
             <TextArea
@@ -190,7 +190,7 @@ export const SizeVariations: Story = {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="mb-2 block font-medium text-sm">
               Standard (4 rows)
             </label>
             <TextArea
@@ -201,7 +201,7 @@ export const SizeVariations: Story = {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="mb-2 block font-medium text-sm">
               Large (8 rows)
             </label>
             <TextArea
@@ -212,7 +212,7 @@ export const SizeVariations: Story = {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="mb-2 block font-medium text-sm">
               Fixed Width (40 cols)
             </label>
             <TextArea
@@ -225,7 +225,7 @@ export const SizeVariations: Story = {
         </div>
       </div>
 
-      <div className="text-xs text-gray-500 max-w-2xl">
+      <div className="max-w-2xl text-gray-500 text-xs">
         Choose appropriate sizes based on expected content length. Use `cols`
         for fixed-width layouts like code editors, and `rows` for content
         height.
@@ -260,9 +260,9 @@ export const SizeVariations: Story = {
 export const StyleVariants: Story = {
   render: () => (
     <div className="w-full max-w-3xl space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
-          <label className="block text-sm font-medium mb-2">Default</label>
+          <label className="mb-2 block font-medium text-sm">Default</label>
           <TextArea
             placeholder="Default styling with borders..."
             variant={InputVariant.DEFAULT}
@@ -271,7 +271,7 @@ export const StyleVariants: Story = {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Invisible</label>
+          <label className="mb-2 block font-medium text-sm">Invisible</label>
           <TextArea
             placeholder="Minimal styling, no borders..."
             variant={InputVariant.INVISIBLE}
@@ -281,11 +281,11 @@ export const StyleVariants: Story = {
         </div>
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <div className="text-sm font-medium text-blue-900 mb-2">
+      <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+        <div className="mb-2 font-medium text-blue-900 text-sm">
           Variant Usage Guide
         </div>
-        <ul className="text-sm text-blue-800 space-y-1">
+        <ul className="space-y-1 text-blue-800 text-sm">
           <li>
             • <strong>Default:</strong> Standard form fields with clear
             boundaries
@@ -329,7 +329,7 @@ export const ValidationStates: Story = {
     <div className="w-full max-w-2xl space-y-6">
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-2">Valid Input</label>
+          <label className="mb-2 block font-medium text-sm">Valid Input</label>
           <TextArea
             defaultValue="This is a valid message that meets all requirements."
             validationStyleEnabled={true}
@@ -337,13 +337,13 @@ export const ValidationStates: Story = {
             rows={3}
             className="w-full"
           />
-          <div className="text-sm text-green-600 mt-1">
+          <div className="mt-1 text-green-600 text-sm">
             ✓ Message looks good!
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="mb-2 block font-medium text-sm">
             Invalid Input
           </label>
           <TextArea
@@ -353,13 +353,13 @@ export const ValidationStates: Story = {
             rows={3}
             className="w-full"
           />
-          <div className="text-sm text-red-600 mt-1">
+          <div className="mt-1 text-red-600 text-sm">
             ✗ Message must be at least 20 characters long.
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="mb-2 block font-medium text-sm">
             With Character Limit
           </label>
           <TextArea
@@ -368,7 +368,7 @@ export const ValidationStates: Story = {
             rows={3}
             className="w-full"
           />
-          <div className="text-sm text-gray-500 mt-1">
+          <div className="mt-1 text-gray-500 text-sm">
             Characters remaining will be shown as you type.
           </div>
         </div>
@@ -437,7 +437,7 @@ export const InteractiveFormField: Story = {
         <div className="space-y-2">
           <label
             htmlFor="feedback-message"
-            className="block text-sm font-semibold text-gray-700"
+            className="block font-semibold text-gray-700 text-sm"
           >
             Your Feedback
           </label>
@@ -455,7 +455,7 @@ export const InteractiveFormField: Story = {
             className="w-full"
           />
 
-          <div className="flex justify-between items-center text-sm">
+          <div className="flex items-center justify-between text-sm">
             <div>
               {error ? (
                 <span id="feedback-error" className="text-red-600" role="alert">
@@ -471,7 +471,7 @@ export const InteractiveFormField: Story = {
             <span
               className={`text-sm ${
                 remainingChars < 20
-                  ? 'text-red-500 font-medium'
+                  ? 'font-medium text-red-500'
                   : 'text-gray-400'
               }`}
             >
@@ -483,20 +483,20 @@ export const InteractiveFormField: Story = {
         <button
           onClick={handleSubmit}
           disabled={!isValid}
-          className={`w-full py-2 px-4 rounded-md font-medium transition-colors ${
+          className={`w-full rounded-md px-4 py-2 font-medium transition-colors ${
             isValid
               ? 'bg-blue-600 text-white hover:bg-blue-700'
-              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              : 'cursor-not-allowed bg-gray-300 text-gray-500'
           }`}
         >
           Submit Feedback
         </button>
 
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-          <div className="text-xs font-medium text-gray-700 mb-1">
+        <div className="rounded-lg border border-gray-200 bg-gray-50 p-3">
+          <div className="mb-1 font-medium text-gray-700 text-xs">
             Form State
           </div>
-          <div className="text-xs text-gray-600 space-y-1">
+          <div className="space-y-1 text-gray-600 text-xs">
             <div>
               Characters: {message.length}/{maxLength}
             </div>
@@ -590,13 +590,13 @@ export const CommentSystem: Story = {
 
     return (
       <div className="w-full max-w-2xl space-y-6">
-        <div className="bg-white border border-gray-200 rounded-lg p-6">
-          <h3 className="text-lg font-semibold mb-4">
+        <div className="rounded-lg border border-gray-200 bg-white p-6">
+          <h3 className="mb-4 font-semibold text-lg">
             Comments ({comments.length})
           </h3>
 
           {/* New Comment Form */}
-          <div className="space-y-3 mb-6">
+          <div className="mb-6 space-y-3">
             <TextArea
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
@@ -605,14 +605,14 @@ export const CommentSystem: Story = {
               className="w-full"
               maxLength={500}
             />
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-500">
+            <div className="flex items-center justify-between">
+              <span className="text-gray-500 text-sm">
                 {500 - newComment.length} characters remaining
               </span>
               <button
                 onClick={addComment}
                 disabled={newComment.trim().length < 3}
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300"
               >
                 Post Comment
               </button>
@@ -622,20 +622,20 @@ export const CommentSystem: Story = {
           {/* Comments List */}
           <div className="space-y-4">
             {comments.map((comment) => (
-              <div key={comment.id} className="border-l-2 border-gray-200 pl-4">
+              <div key={comment.id} className="border-gray-200 border-l-2 pl-4">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <span className="font-medium text-gray-900">
                       {comment.author}
                     </span>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-gray-500 text-sm">
                       {comment.timestamp}
                     </span>
                   </div>
                   <p className="text-gray-700">{comment.content}</p>
                   <button
                     onClick={() => setReplyingTo(comment.id)}
-                    className="text-sm text-blue-600 hover:text-blue-800"
+                    className="text-blue-600 text-sm hover:text-blue-800"
                   >
                     Reply
                   </button>
@@ -647,13 +647,13 @@ export const CommentSystem: Story = {
                     {comment.replies.map((reply) => (
                       <div
                         key={reply.id}
-                        className="border-l border-gray-100 pl-3 py-2"
+                        className="border-gray-100 border-l py-2 pl-3"
                       >
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="mb-1 flex items-center gap-2">
                           <span className="font-medium text-gray-900 text-sm">
                             {reply.author}
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-gray-500 text-xs">
                             {reply.timestamp}
                           </span>
                         </div>
@@ -678,7 +678,7 @@ export const CommentSystem: Story = {
                       <button
                         onClick={() => addReply(comment.id)}
                         disabled={replyContent.trim().length < 3}
-                        className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-300"
+                        className="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700 disabled:bg-gray-300"
                       >
                         Reply
                       </button>
@@ -687,7 +687,7 @@ export const CommentSystem: Story = {
                           setReplyingTo(null);
                           setReplyContent('');
                         }}
-                        className="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-50"
+                        className="rounded border border-gray-300 px-3 py-1 text-gray-600 text-sm hover:bg-gray-50"
                       >
                         Cancel
                       </button>

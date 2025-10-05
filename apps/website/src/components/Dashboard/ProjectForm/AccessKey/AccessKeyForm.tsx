@@ -93,15 +93,15 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
       </Modal>
       <div
         key={String(accessKey.id)}
-        className="border-text flex rounded-lg border-2 p-3"
+        className="flex rounded-lg border-2 border-text p-3"
       >
         <div className="flex items-center justify-center p-5">
           <KeyRound className="size-5" size={16} />
         </div>
         <div className="flex flex-col gap-4">
-          <span className="text-base font-bold">{accessKey.name}</span>
+          <span className="font-bold text-base">{accessKey.name}</span>
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold">{labels.clientId}</span>
+            <span className="font-bold text-sm">{labels.clientId}</span>
             <CopyToClipboard
               text={accessKey.clientId}
               className="break-all text-xs"
@@ -110,7 +110,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
             </CopyToClipboard>
           </div>
           <div className="flex flex-col gap-1">
-            <span className="text-wrap text-sm font-bold">
+            <span className="text-wrap font-bold text-sm">
               {labels.clientSecret}
             </span>
             {accessKey.clientSecret.endsWith('*') ? (
@@ -127,11 +127,11 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
             )}
           </div>
           <div>
-            <label className="text-wrap text-sm font-bold">
+            <label className="text-wrap font-bold text-sm">
               {rights.title}
             </label>
 
-            <span className="text-neutral block text-wrap break-all text-xs">
+            <span className="block text-wrap break-all text-neutral text-xs">
               <span className="font-bold">{rights.organization}</span>
               {accessKey?.grants?.includes('organization:read')
                 ? rights.read
@@ -143,7 +143,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
                 ? rights.admin
                 : '-'}
             </span>
-            <span className="text-neutral block text-wrap break-all text-xs">
+            <span className="block text-wrap break-all text-neutral text-xs">
               <span className="font-bold">{rights.project}</span>
               {accessKey?.grants?.includes('project:read') ? rights.read : '- '}
               {accessKey?.grants?.includes('project:write')
@@ -153,7 +153,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
                 ? rights.admin
                 : '-'}
             </span>
-            <span className="text-neutral block text-wrap break-all text-xs">
+            <span className="block text-wrap break-all text-neutral text-xs">
               <span className="font-bold">{rights.dictionary}</span>
               {accessKey?.grants?.includes('dictionary:read')
                 ? rights.read
@@ -167,16 +167,16 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
             </span>
           </div>
           <div className="flex gap-3">
-            <div className="text-neutral flex flex-1 flex-col gap-1">
-              <label className="text-wrap text-sm font-bold">
+            <div className="flex flex-1 flex-col gap-1 text-neutral">
+              <label className="text-wrap font-bold text-sm">
                 {labels.addedOn}
               </label>
               <span className="break-all text-xs">
                 {new Date(accessKey.createdAt).toLocaleDateString()}
               </span>
             </div>
-            <div className="text-neutral flex flex-1 flex-col gap-1">
-              <label className="text-wrap text-sm font-bold">
+            <div className="flex flex-1 flex-col gap-1 text-neutral">
+              <label className="text-wrap font-bold text-sm">
                 {labels.expireOn}
               </label>
               <span className="break-all text-xs">
@@ -271,16 +271,16 @@ export const AccessKeyForm: FC = () => {
           <AccessKeyItem key={String(accessKey.id)} value={accessKey} />
         ))}
         {nbAccessKeys === 0 ? (
-          <span className="mb-6 text-center text-sm text-neutral">
+          <span className="mb-6 text-center text-neutral text-sm">
             {noAccessKeys}
           </span>
         ) : (
           <>
-            <blockquote className="border-card text-neutral mb-6 flex flex-col gap-3 border-l-4 pl-5">
+            <blockquote className="mb-6 flex flex-col gap-3 border-card border-l-4 pl-5 text-neutral">
               <ul className="">
                 {tuto.map((el) => (
                   <li key={el.value}>
-                    <span className="text-neutral text-center text-sm">
+                    <span className="text-center text-neutral text-sm">
                       {el}
                     </span>
                   </li>

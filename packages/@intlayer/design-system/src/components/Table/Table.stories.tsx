@@ -88,78 +88,78 @@ export const Default: Story = {
     <div className="max-w-4xl">
       <Table>
         <thead>
-          <tr className="border-b border-gray-200 bg-gray-50">
+          <tr className="border-gray-200 border-b bg-gray-50">
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Name
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Email
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Role
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Status
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          <tr className="hover:bg-gray-50 transition-colors">
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+        <tbody className="divide-y divide-gray-200 bg-white">
+          <tr className="transition-colors hover:bg-gray-50">
+            <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-sm">
               John Doe
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
               john@example.com
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
               Administrator
             </td>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            <td className="whitespace-nowrap px-6 py-4">
+              <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 font-medium text-green-800 text-xs">
                 Active
               </span>
             </td>
           </tr>
-          <tr className="hover:bg-gray-50 transition-colors">
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+          <tr className="transition-colors hover:bg-gray-50">
+            <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-sm">
               Jane Smith
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
               jane@example.com
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
               Editor
             </td>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+            <td className="whitespace-nowrap px-6 py-4">
+              <span className="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 font-medium text-xs text-yellow-800">
                 Pending
               </span>
             </td>
           </tr>
-          <tr className="hover:bg-gray-50 transition-colors">
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+          <tr className="transition-colors hover:bg-gray-50">
+            <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-sm">
               Bob Johnson
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
               bob@example.com
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
               Viewer
             </td>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+            <td className="whitespace-nowrap px-6 py-4">
+              <span className="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 font-medium text-red-800 text-xs">
                 Inactive
               </span>
             </td>
@@ -288,17 +288,17 @@ export const ProductInventory: Story = {
     return (
       <div className="max-w-6xl space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold">Product Inventory</h3>
+          <h3 className="font-semibold text-lg">Product Inventory</h3>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <label htmlFor="category-filter" className="text-sm font-medium">
+              <label htmlFor="category-filter" className="font-medium text-sm">
                 Filter:
               </label>
               <select
                 id="category-filter"
                 value={filterCategory}
                 onChange={(e) => setFilterCategory(e.target.value)}
-                className="text-sm border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="rounded-lg border border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 {categories.map((category) => (
                   <option key={category} value={category}>
@@ -307,18 +307,18 @@ export const ProductInventory: Story = {
                 ))}
               </select>
             </div>
-            <div className="text-sm text-gray-500">
+            <div className="text-gray-500 text-sm">
               {sortedProducts.length} products
             </div>
           </div>
         </div>
 
-        <Table className="border border-gray-200 rounded-lg overflow-hidden">
+        <Table className="overflow-hidden rounded-lg border border-gray-200">
           <thead className="bg-gray-50">
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                className="cursor-pointer px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
                 onClick={() => handleSort('name')}
               >
                 <div className="flex items-center gap-1">
@@ -332,13 +332,13 @@ export const ProductInventory: Story = {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
               >
                 Category
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                className="cursor-pointer px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
                 onClick={() => handleSort('price')}
               >
                 <div className="flex items-center gap-1">
@@ -352,7 +352,7 @@ export const ProductInventory: Story = {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                className="cursor-pointer px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
                 onClick={() => handleSort('stock')}
               >
                 <div className="flex items-center gap-1">
@@ -366,7 +366,7 @@ export const ProductInventory: Story = {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                className="cursor-pointer px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
                 onClick={() => handleSort('rating')}
               >
                 <div className="flex items-center gap-1">
@@ -380,47 +380,47 @@ export const ProductInventory: Story = {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
               >
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="divide-y divide-gray-200 bg-white">
             {sortedProducts.map((product) => {
               const stockStatus = getStockStatus(product.stock);
               return (
                 <tr
                   key={product.id}
-                  className="hover:bg-gray-50 transition-colors"
+                  className="transition-colors hover:bg-gray-50"
                 >
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">
+                  <td className="whitespace-nowrap px-6 py-4">
+                    <div className="font-medium text-gray-900 text-sm">
                       {product.name}
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-gray-500 text-sm">
                       ID: #{product.id}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
                     {product.category}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-sm">
                     ${product.price.toLocaleString()}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="whitespace-nowrap px-6 py-4">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-gray-900">
+                      <span className="text-gray-900 text-sm">
                         {product.stock}
                       </span>
                       <span
-                        className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${stockStatus.color}`}
+                        className={`inline-flex items-center rounded-full px-2 py-1 font-medium text-xs ${stockStatus.color}`}
                       >
                         {stockStatus.text}
                       </span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="whitespace-nowrap px-6 py-4 text-gray-900 text-sm">
                     <div className="flex items-center gap-1">
                       <span>{product.rating}</span>
                       <span className="text-yellow-400">
@@ -428,7 +428,7 @@ export const ProductInventory: Story = {
                       </span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                  <td className="space-x-2 whitespace-nowrap px-6 py-4 font-medium text-sm">
                     <button className="text-blue-600 hover:text-blue-900">
                       Edit
                     </button>
@@ -517,40 +517,40 @@ export const FinancialReport: Story = {
     return (
       <div className="max-w-5xl space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold">Quarterly Financial Report</h3>
-          <div className="text-sm text-gray-500">Fiscal Year 2024</div>
+          <h3 className="font-semibold text-lg">Quarterly Financial Report</h3>
+          <div className="text-gray-500 text-sm">Fiscal Year 2024</div>
         </div>
 
-        <Table className="border border-gray-300 rounded-lg overflow-hidden shadow-sm">
+        <Table className="overflow-hidden rounded-lg border border-gray-300 shadow-sm">
           <thead>
             <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
               <th
                 scope="col"
-                className="px-8 py-4 text-left text-sm font-bold text-gray-700 uppercase tracking-wider"
+                className="px-8 py-4 text-left font-bold text-gray-700 text-sm uppercase tracking-wider"
               >
                 Period
               </th>
               <th
                 scope="col"
-                className="px-8 py-4 text-right text-sm font-bold text-gray-700 uppercase tracking-wider"
+                className="px-8 py-4 text-right font-bold text-gray-700 text-sm uppercase tracking-wider"
               >
                 Revenue
               </th>
               <th
                 scope="col"
-                className="px-8 py-4 text-right text-sm font-bold text-gray-700 uppercase tracking-wider"
+                className="px-8 py-4 text-right font-bold text-gray-700 text-sm uppercase tracking-wider"
               >
                 Expenses
               </th>
               <th
                 scope="col"
-                className="px-8 py-4 text-right text-sm font-bold text-gray-700 uppercase tracking-wider"
+                className="px-8 py-4 text-right font-bold text-gray-700 text-sm uppercase tracking-wider"
               >
                 Net Profit
               </th>
               <th
                 scope="col"
-                className="px-8 py-4 text-right text-sm font-bold text-gray-700 uppercase tracking-wider"
+                className="px-8 py-4 text-right font-bold text-gray-700 text-sm uppercase tracking-wider"
               >
                 Growth Rate
               </th>
@@ -560,40 +560,40 @@ export const FinancialReport: Story = {
             {financialData.map((quarter, index) => (
               <tr
                 key={quarter.period}
-                className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50 transition-colors border-b border-gray-200`}
+                className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} border-gray-200 border-b transition-colors hover:bg-blue-50`}
               >
-                <td className="px-8 py-6 whitespace-nowrap">
-                  <div className="text-sm font-bold text-gray-900">
+                <td className="whitespace-nowrap px-8 py-6">
+                  <div className="font-bold text-gray-900 text-sm">
                     {quarter.period}
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-gray-500 text-xs">
                     Quarter {index + 1}
                   </div>
                 </td>
-                <td className="px-8 py-6 whitespace-nowrap text-right">
-                  <div className="text-lg font-bold text-gray-900">
+                <td className="whitespace-nowrap px-8 py-6 text-right">
+                  <div className="font-bold text-gray-900 text-lg">
                     {formatCurrency(quarter.revenue)}
                   </div>
-                  <div className="text-xs text-gray-500">Total Revenue</div>
+                  <div className="text-gray-500 text-xs">Total Revenue</div>
                 </td>
-                <td className="px-8 py-6 whitespace-nowrap text-right">
-                  <div className="text-lg font-medium text-red-600">
+                <td className="whitespace-nowrap px-8 py-6 text-right">
+                  <div className="font-medium text-lg text-red-600">
                     {formatCurrency(quarter.expenses)}
                   </div>
-                  <div className="text-xs text-gray-500">Operating Costs</div>
+                  <div className="text-gray-500 text-xs">Operating Costs</div>
                 </td>
-                <td className="px-8 py-6 whitespace-nowrap text-right">
-                  <div className="text-lg font-bold text-green-600">
+                <td className="whitespace-nowrap px-8 py-6 text-right">
+                  <div className="font-bold text-green-600 text-lg">
                     {formatCurrency(quarter.profit)}
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-gray-500 text-xs">
                     Margin:{' '}
                     {((quarter.profit / quarter.revenue) * 100).toFixed(1)}%
                   </div>
                 </td>
-                <td className="px-8 py-6 whitespace-nowrap text-right">
+                <td className="whitespace-nowrap px-8 py-6 text-right">
                   <div
-                    className={`text-lg font-bold ${getGrowthColor(quarter.growth)}`}
+                    className={`font-bold text-lg ${getGrowthColor(quarter.growth)}`}
                   >
                     +{quarter.growth}%
                   </div>
@@ -607,7 +607,7 @@ export const FinancialReport: Story = {
                           ? '→'
                           : '↘️'}
                     </span>
-                    <span className="text-xs text-gray-500">
+                    <span className="text-gray-500 text-xs">
                       vs prev quarter
                     </span>
                   </div>
@@ -617,23 +617,23 @@ export const FinancialReport: Story = {
           </tbody>
           <tfoot className="bg-gray-800 text-white">
             <tr>
-              <td className="px-8 py-4 text-sm font-bold">TOTAL</td>
-              <td className="px-8 py-4 text-right text-lg font-bold">
+              <td className="px-8 py-4 font-bold text-sm">TOTAL</td>
+              <td className="px-8 py-4 text-right font-bold text-lg">
                 {formatCurrency(
                   financialData.reduce((sum, q) => sum + q.revenue, 0)
                 )}
               </td>
-              <td className="px-8 py-4 text-right text-lg font-bold">
+              <td className="px-8 py-4 text-right font-bold text-lg">
                 {formatCurrency(
                   financialData.reduce((sum, q) => sum + q.expenses, 0)
                 )}
               </td>
-              <td className="px-8 py-4 text-right text-lg font-bold text-green-400">
+              <td className="px-8 py-4 text-right font-bold text-green-400 text-lg">
                 {formatCurrency(
                   financialData.reduce((sum, q) => sum + q.profit, 0)
                 )}
               </td>
-              <td className="px-8 py-4 text-right text-lg font-bold">
+              <td className="px-8 py-4 text-right font-bold text-lg">
                 {(
                   financialData.reduce((sum, q) => sum + q.growth, 0) /
                   financialData.length
@@ -644,21 +644,21 @@ export const FinancialReport: Story = {
           </tfoot>
         </Table>
 
-        <div className="flex items-center gap-6 text-sm text-gray-600">
+        <div className="flex items-center gap-6 text-gray-600 text-sm">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-green-600 rounded"></div>
+            <div className="h-3 w-3 rounded bg-green-600"></div>
             <span>High Growth ({'>'}15%)</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-blue-600 rounded"></div>
+            <div className="h-3 w-3 rounded bg-blue-600"></div>
             <span>Good Growth (10-15%)</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-yellow-600 rounded"></div>
+            <div className="h-3 w-3 rounded bg-yellow-600"></div>
             <span>Moderate Growth (5-10%)</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-red-600 rounded"></div>
+            <div className="h-3 w-3 rounded bg-red-600"></div>
             <span>Low Growth ({'<'}5%)</span>
           </div>
         </div>
@@ -704,86 +704,86 @@ export const CollapsibleLargeTable: Story = {
     return (
       <div className="max-w-7xl space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold">Employee Directory</h3>
-          <div className="text-sm text-gray-500">
+          <h3 className="font-semibold text-lg">Employee Directory</h3>
+          <div className="text-gray-500 text-sm">
             {employees.length} employees • Click to expand/collapse
           </div>
         </div>
 
-        <Table isRollable className="border border-gray-200 rounded-lg">
+        <Table isRollable className="rounded-lg border border-gray-200">
           <thead className="bg-gray-50">
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
               >
                 ID
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
               >
                 Employee
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
               >
                 Department
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
               >
                 Position
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
               >
                 Salary
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
               >
                 Start Date
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase"
               >
                 Status
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="divide-y divide-gray-200 bg-white">
             {employees.map((employee) => (
               <tr key={employee.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="whitespace-nowrap px-6 py-4 text-gray-900 text-sm">
                   #{employee.id.toString().padStart(3, '0')}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">
+                <td className="whitespace-nowrap px-6 py-4">
+                  <div className="font-medium text-gray-900 text-sm">
                     {employee.name}
                   </div>
-                  <div className="text-sm text-gray-500">{employee.email}</div>
+                  <div className="text-gray-500 text-sm">{employee.email}</div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
                   {employee.department}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
                   {employee.position}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-sm">
                   ${employee.salary.toLocaleString()}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
                   {employee.startDate.toLocaleDateString()}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="whitespace-nowrap px-6 py-4">
                   <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-medium text-xs ${
                       employee.status === 'Active'
                         ? 'bg-green-100 text-green-800'
                         : employee.status === 'On Leave'
@@ -822,24 +822,24 @@ export const CollapsibleLargeTable: Story = {
 export const EmptyState: Story = {
   render: () => (
     <div className="max-w-4xl">
-      <Table className="border border-gray-200 rounded-lg">
+      <Table className="rounded-lg border border-gray-200">
         <thead className="bg-gray-50">
           <tr>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Name
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Email
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-6 py-3 text-left font-medium text-gray-500 text-xs uppercase tracking-wider"
             >
               Status
             </th>
@@ -851,15 +851,15 @@ export const EmptyState: Story = {
               <div className="space-y-4">
                 <div className="text-6xl text-gray-300">📋</div>
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <h3 className="mb-2 font-medium text-gray-900 text-lg">
                     No data available
                   </h3>
-                  <p className="text-gray-500 text-sm mb-6">
+                  <p className="mb-6 text-gray-500 text-sm">
                     There are currently no items to display in this table.
                     <br />
                     Try adjusting your filters or adding some data.
                   </p>
-                  <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <button className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 font-medium text-sm text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     Add New Item
                   </button>
                 </div>

@@ -51,7 +51,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
         className="size-full flex-1 flex-col items-center justify-center overflow-hidden"
       >
         {children}
-        <div className="absolute bottom-2 right-2">
+        <div className="absolute right-2 bottom-2">
           <LongPressMessage {...hoveredContent} />
         </div>
       </Container>

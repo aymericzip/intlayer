@@ -5,7 +5,7 @@ export const inputVariants = cva('', {
   variants: {
     variant: {
       default: [
-        'w-full select-text resize-none rounded-xl border-2 bg-input-background text-base md:text-sm text-input-text shadow-none outline-0 transition-all',
+        'w-full select-text resize-none rounded-xl border-2 bg-input-background text-base text-input-text shadow-none outline-0 transition-all md:text-sm',
         'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
         'aria-[invalid=true]:border-error',
         'disabled:opacity-50',
@@ -15,7 +15,7 @@ export const inputVariants = cva('', {
       ],
     },
     size: {
-      md: 'px-2 md:py-1 py-3',
+      md: 'px-2 py-3 md:py-1',
       lg: 'p-4 md:py-2',
     },
     validationStyleEnabled: {

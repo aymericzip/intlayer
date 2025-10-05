@@ -71,7 +71,7 @@ export const SignInForm: FC<SignInFormProps> = ({
         </div>
 
         <Form.Button
-          className="ml-auto mt-2 block"
+          className="mt-2 ml-auto block"
           variant="link"
           label={forgotPasswordLink.ariaLabel.value}
           color="text"
@@ -98,7 +98,7 @@ export const SignInForm: FC<SignInFormProps> = ({
           {loginButton.text}
         </Form.Button>
 
-        <span className="text-neutral m-auto mt-3 flex w-full items-center justify-center text-xs">
+        <span className="m-auto mt-3 flex w-full items-center justify-center text-neutral text-xs">
           {signUpLink.message}
           <Form.Button
             variant="link"

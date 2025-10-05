@@ -67,7 +67,7 @@ export const DotPatternCustom: StoryObj<typeof DotPattern> = {
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center">
             <H3 className="text-lg">Dense Small Dots</H3>
-            <p className="text-sm text-neutral-600">
+            <p className="text-neutral-600 text-sm">
               12x12px grid, 0.5px radius, primary color
             </p>
           </div>
@@ -87,7 +87,7 @@ export const DotPatternCustom: StoryObj<typeof DotPattern> = {
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center">
             <H3 className="text-lg">Large Centered Dots</H3>
-            <p className="text-sm text-neutral-600">
+            <p className="text-neutral-600 text-sm">
               32x32px grid, 2px radius, centered positioning
             </p>
           </div>
@@ -107,7 +107,7 @@ export const DotPatternCustom: StoryObj<typeof DotPattern> = {
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center">
             <H3 className="text-lg">Offset Pattern</H3>
-            <p className="text-sm text-neutral-600">
+            <p className="text-neutral-600 text-sm">
               10px offset, creates diamond-like arrangement
             </p>
           </div>
@@ -168,7 +168,7 @@ export const GridPatternVariations: StoryObj<typeof GridPattern> = {
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center">
             <H3 className="text-lg">Fine Dashed Grid</H3>
-            <p className="text-sm text-neutral-600">
+            <p className="text-neutral-600 text-sm">
               20px cells with dashed lines
             </p>
           </div>
@@ -181,7 +181,7 @@ export const GridPatternVariations: StoryObj<typeof GridPattern> = {
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center">
             <H3 className="text-lg">Large Grid</H3>
-            <p className="text-sm text-neutral-600">
+            <p className="text-neutral-600 text-sm">
               60px cells for spacious layouts
             </p>
           </div>
@@ -215,7 +215,7 @@ export const GridPatternVariations: StoryObj<typeof GridPattern> = {
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center">
             <H3 className="text-lg">Grid with Highlights</H3>
-            <p className="text-sm text-neutral-600">
+            <p className="text-neutral-600 text-sm">
               Data visualization with emphasized squares
             </p>
           </div>
@@ -270,7 +270,7 @@ export const SpotlightVariations: StoryObj<typeof Spotlight> = {
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center text-white">
             <H3 className="text-lg text-white">Blue Spotlight</H3>
-            <p className="text-sm text-blue-200">
+            <p className="text-blue-200 text-sm">
               Custom blue color with higher opacity
             </p>
           </div>
@@ -289,7 +289,7 @@ export const SpotlightVariations: StoryObj<typeof Spotlight> = {
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center text-white">
             <H3 className="text-lg text-white">Purple Spotlight</H3>
-            <p className="text-sm text-pink-200">Custom position and color</p>
+            <p className="text-pink-200 text-sm">Custom position and color</p>
           </div>
         </Container>
       </div>
@@ -313,7 +313,7 @@ export const SpotlightVariations: StoryObj<typeof Spotlight> = {
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center text-white">
             <H3 className="text-lg text-white">Multiple Spotlights</H3>
-            <p className="text-sm text-slate-300">Layered lighting effects</p>
+            <p className="text-slate-300 text-sm">Layered lighting effects</p>
           </div>
         </Container>
       </div>
@@ -348,7 +348,7 @@ export const CombinedPatterns: StoryObj = {
         <Spotlight fill="#8b5cf6" opacity={0.3} className="animate-pulse" />
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center text-white">
-            <H3 className="text-2xl font-bold text-white">
+            <H3 className="font-bold text-2xl text-white">
               Modern Hero Section
             </H3>
             <p className="mt-2 text-purple-200">
@@ -421,12 +421,12 @@ export const PatternPlayground: StoryObj = {
 
       {/* Light Theme Examples */}
       <div>
-        <h4 className="mb-4 text-lg font-semibold">Light Theme Patterns</h4>
+        <h4 className="mb-4 font-semibold text-lg">Light Theme Patterns</h4>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div className="relative h-32 overflow-hidden rounded-lg border bg-white">
             <DotPattern className="fill-slate-400/20" />
             <div className="relative z-10 flex h-full items-center justify-center">
-              <span className="text-sm font-medium">Subtle Dots</span>
+              <span className="font-medium text-sm">Subtle Dots</span>
             </div>
           </div>
 
@@ -437,7 +437,7 @@ export const PatternPlayground: StoryObj = {
               className="stroke-slate-300/30"
             />
             <div className="relative z-10 flex h-full items-center justify-center">
-              <span className="text-sm font-medium">Clean Grid</span>
+              <span className="font-medium text-sm">Clean Grid</span>
             </div>
           </div>
 
@@ -451,7 +451,7 @@ export const PatternPlayground: StoryObj = {
               className="fill-blue-500/20 stroke-blue-500/30"
             />
             <div className="relative z-10 flex h-full items-center justify-center">
-              <span className="text-sm font-medium">Data Grid</span>
+              <span className="font-medium text-sm">Data Grid</span>
             </div>
           </div>
         </div>
@@ -459,7 +459,7 @@ export const PatternPlayground: StoryObj = {
 
       {/* Dark Theme Examples */}
       <div>
-        <h4 className="mb-4 text-lg font-semibold">Dark Theme Patterns</h4>
+        <h4 className="mb-4 font-semibold text-lg">Dark Theme Patterns</h4>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="relative h-40 overflow-hidden rounded-lg bg-slate-900">
             <DotPattern
@@ -469,7 +469,7 @@ export const PatternPlayground: StoryObj = {
             />
             <Spotlight fill="#10b981" opacity={0.2} className="animate-pulse" />
             <div className="relative z-10 flex h-full items-center justify-center">
-              <span className="text-sm font-medium text-white">
+              <span className="font-medium text-sm text-white">
                 Emerald Glow
               </span>
             </div>
@@ -484,7 +484,7 @@ export const PatternPlayground: StoryObj = {
               className="animate-pulse delay-700"
             />
             <div className="relative z-10 flex h-full items-center justify-center">
-              <span className="text-sm font-medium text-white">
+              <span className="font-medium text-sm text-white">
                 Violet Focus
               </span>
             </div>

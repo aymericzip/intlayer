@@ -295,7 +295,7 @@ export const SizeVariants: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-sm font-medium text-gray-900 mb-2">Small</h3>
+        <h3 className="mb-2 font-medium text-gray-900 text-sm">Small</h3>
         <Breadcrumb
           links={['Home', 'Library', 'Documents']}
           size="small"
@@ -303,7 +303,7 @@ export const SizeVariants: Story = {
         />
       </div>
       <div>
-        <h3 className="text-sm font-medium text-gray-900 mb-2">
+        <h3 className="mb-2 font-medium text-gray-900 text-sm">
           Medium (Default)
         </h3>
         <Breadcrumb
@@ -313,7 +313,7 @@ export const SizeVariants: Story = {
         />
       </div>
       <div>
-        <h3 className="text-sm font-medium text-gray-900 mb-2">Large</h3>
+        <h3 className="mb-2 font-medium text-gray-900 text-sm">Large</h3>
         <Breadcrumb
           links={['Home', 'Library', 'Documents']}
           size="large"
@@ -338,7 +338,7 @@ export const SpacingVariants: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-sm font-medium text-gray-900 mb-2">Compact</h3>
+        <h3 className="mb-2 font-medium text-gray-900 text-sm">Compact</h3>
         <Breadcrumb
           links={['Home', 'Library', 'Documents']}
           spacing="compact"
@@ -346,7 +346,7 @@ export const SpacingVariants: Story = {
         />
       </div>
       <div>
-        <h3 className="text-sm font-medium text-gray-900 mb-2">
+        <h3 className="mb-2 font-medium text-gray-900 text-sm">
           Normal (Default)
         </h3>
         <Breadcrumb
@@ -356,7 +356,7 @@ export const SpacingVariants: Story = {
         />
       </div>
       <div>
-        <h3 className="text-sm font-medium text-gray-900 mb-2">Loose</h3>
+        <h3 className="mb-2 font-medium text-gray-900 text-sm">Loose</h3>
         <Breadcrumb
           links={['Home', 'Library', 'Documents']}
           spacing="loose"
@@ -421,7 +421,7 @@ export const WithTruncation: Story = {
 export const CustomSeparator: Story = {
   args: {
     links: ['Home', 'Library', 'Books', 'Science Fiction'],
-    separator: <span className="text-gray-400 mx-2">→</span>,
+    separator: <span className="mx-2 text-gray-400">→</span>,
     ariaLabel: 'Custom separator navigation',
   },
   parameters: {

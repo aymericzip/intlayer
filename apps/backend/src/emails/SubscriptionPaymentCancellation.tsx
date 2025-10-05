@@ -36,7 +36,7 @@ export const SubscriptionPaymentCancellationEN = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -46,23 +46,23 @@ export const SubscriptionPaymentCancellationEN = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
               Subscription Canceled
             </Heading>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               Hello {username},
             </Text>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               We’re sorry to see you go! Your subscription to the{' '}
               <strong>{planName}</strong> plan has been canceled. You will still
               have access until <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               Organization: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-[32px] text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
                 href={reactivateLink}
               >
                 Reactivate Your Subscription
@@ -90,7 +90,7 @@ export const SubscriptionPaymentCancellationFR = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -100,23 +100,23 @@ export const SubscriptionPaymentCancellationFR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
               Abonnement Annulé
             </Heading>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               Bonjour {username},
             </Text>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               Nous sommes désolés de vous voir partir ! Votre abonnement au plan{' '}
               <strong>{planName}</strong> a été annulé. Vous aurez toujours
               accès jusqu'au <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               Organisation : <strong>{organizationName}</strong>
             </Text>
             <Section className="my-[32px] text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
                 href={reactivateLink}
               >
                 Réactiver votre abonnement
@@ -144,7 +144,7 @@ export const SubscriptionPaymentCancellationES = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -154,23 +154,23 @@ export const SubscriptionPaymentCancellationES = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
               Suscripción Cancelada
             </Heading>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               Hola {username},
             </Text>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               Lamentamos verte partir. Tu suscripción al plan{' '}
               <strong>{planName}</strong> ha sido cancelada. Tendrás acceso
               hasta <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-[14px] leading-[24px] text-black">
+            <Text className="text-[14px] text-black leading-[24px]">
               Organización : <strong>{organizationName}</strong>
             </Text>
             <Section className="my-[32px] text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
                 href={reactivateLink}
               >
                 Reactivar tu suscripción

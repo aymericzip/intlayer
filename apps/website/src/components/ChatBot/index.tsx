@@ -231,7 +231,7 @@ export const ChatBot: FC<ChatBotProps> = ({
         )}
         {hasReachedRateLimit && (
           <Container
-            className="text-center text-sm max-w-md mt-3 gap-4 flex flex-col mx-auto"
+            className="mx-auto mt-3 flex max-w-md flex-col gap-4 text-center text-sm"
             borderColor="neutral"
             border
             roundedSize="xl"

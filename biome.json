@@ -70,7 +70,13 @@
         "useValidLang": "error"
       },
       "nursery": {
-        "useSortedClasses": "warn"
+        "useSortedClasses": {
+          "level": "warn",
+          "fix": "safe",
+          "options": {
+            "functions": ["cva", "cn", "clsx"]
+          }
+        }
       }
     }
   },

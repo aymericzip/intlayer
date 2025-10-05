@@ -188,7 +188,7 @@ export const WithJSXTitles: Story = {
         ],
       },
       {
-        title: <span className="text-blue-600 font-bold">Company</span>,
+        title: <span className="font-bold text-blue-600">Company</span>,
         links: [
           { href: '/about', text: 'About Us', label: 'About the company' },
           {

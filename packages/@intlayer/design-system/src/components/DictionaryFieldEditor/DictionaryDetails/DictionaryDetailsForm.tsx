@@ -101,7 +101,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       background="none"
       border
       roundedSize="2xl"
-      className="w-full px-5 pb-3 pt-5"
+      className="w-full px-5 pt-5 pb-3"
     >
       <Form
         className="flex w-full flex-col gap-8"

@@ -95,12 +95,12 @@ export const DesktopNavbar = <T extends TabProps>({
   rightItems,
   selectedChoice,
 }: DesktopNavbarProps<T>) => (
-  <nav className="bg-card/80 sticky top-0 z-50 flex w-full items-center px-4 py-3 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
+  <nav className="sticky top-0 z-50 flex w-full items-center bg-card/80 px-4 py-3 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
     {logo}
 
     <TabSelector
       selectedChoice={selectedChoice}
-      className="text-neutral ml-[2vw] gap-3 overflow-x-auto tracking-wide lg:ml-[5vw] lg:gap-3 xl:ml-[10vw] xl:gap-6"
+      className="ml-[2vw] gap-3 overflow-x-auto text-neutral tracking-wide lg:ml-[5vw] lg:gap-3 xl:ml-[10vw] xl:gap-6"
       tabs={sections}
       hoverable
       color={TabSelectorColor.TEXT}

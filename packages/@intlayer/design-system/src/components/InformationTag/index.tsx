@@ -83,7 +83,7 @@ export const InformationTag: FC<CopiedTextInformationProps> = ({
   children,
   ...props
 }) => (
-  <i className={cn('text-xs text-neutral-400', className)} {...props}>
+  <i className={cn('text-neutral-400 text-xs', className)} {...props}>
     ⓘ {children}
   </i>
 );

@@ -18,7 +18,7 @@ const NoDictionaryView: FC = () => {
 
   return (
     <div className="m-auto flex max-w-[400px] flex-col justify-center gap-2 p-6">
-      <strong className="text-lg font-bold">{noDictionaryView.title}</strong>
+      <strong className="font-bold text-lg">{noDictionaryView.title}</strong>
       <p className="text-neutral text-sm">{noDictionaryView.description}</p>
     </div>
   );
@@ -63,7 +63,7 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
               )}
               {dictionary.key && <span>{dictionary.key}</span>}
               {dictionary.description && (
-                <span className="text-neutral line-clamp-2 text-wrap">
+                <span className="line-clamp-2 text-wrap text-neutral">
                   {dictionary.description}
                 </span>
               )}

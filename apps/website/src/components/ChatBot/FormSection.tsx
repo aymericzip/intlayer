@@ -67,7 +67,7 @@ export const FormSection: FC<FormSectionProps> = ({
           }
         }
       />
-      <div className="ml-auto flex items-center gap-2 max-md:w-full justify-between">
+      <div className="ml-auto flex items-center justify-between gap-2 max-md:w-full">
         {additionalButtons}
 
         <Form.Button

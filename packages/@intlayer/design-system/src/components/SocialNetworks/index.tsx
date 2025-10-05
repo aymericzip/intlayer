@@ -16,42 +16,42 @@ import { YoutubeLogo } from './YoutubeLogo';
 const socialNetworks = [
   {
     href: 'https://discord.gg/7uxamYVeCk',
-    component: <DiscordLogo className="max-w-full max-h-full h-auto" />,
+    component: <DiscordLogo className="h-auto max-h-full max-w-full" />,
     label: 'Discord',
   },
   {
     href: 'https://www.producthunt.com/posts/intlayer?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-intlayer',
-    component: <ProductHuntLogo className="max-w-full max-h-full h-auto" />,
+    component: <ProductHuntLogo className="h-auto max-h-full max-w-full" />,
     label: 'Product Hunt',
   },
   {
     href: 'https://x.com/Intlayer183096',
-    component: <XLogo className="max-w-full max-h-full h-auto" />,
+    component: <XLogo className="h-auto max-h-full max-w-full" />,
     label: 'X',
   },
   {
     href: 'https://www.youtube.com/@intlayer',
-    component: <YoutubeLogo className="max-w-full max-h-full h-auto" />,
+    component: <YoutubeLogo className="h-auto max-h-full max-w-full" />,
     label: 'YouTube',
   },
   {
     href: 'https://www.linkedin.com/company/intlayerorg',
-    component: <LinkedInLogo className="max-w-full max-h-full h-auto" />,
+    component: <LinkedInLogo className="h-auto max-h-full max-w-full" />,
     label: 'LinkedIn',
   },
   {
     href: 'https://www.tiktok.com/@intlayer',
-    component: <TiktokLogo className="max-w-full max-h-full h-auto" />,
+    component: <TiktokLogo className="h-auto max-h-full max-w-full" />,
     label: 'TikTok',
   },
   {
     href: 'https://www.instagram.com/intlayer/',
-    component: <InstagramLogo className="max-w-full max-h-full h-auto" />,
+    component: <InstagramLogo className="h-auto max-h-full max-w-full" />,
     label: 'Instagram',
   },
   {
     href: 'https://www.facebook.com/intlayer',
-    component: <FacebookLogo className="max-w-full max-h-full h-auto" />,
+    component: <FacebookLogo className="h-auto max-h-full max-w-full" />,
     label: 'Facebook',
   },
 ];
@@ -81,7 +81,7 @@ const DefaultRenderItem: FC<DefaultRenderItemProps> = ({
     key={href}
     href={href}
     aria-label={label}
-    className="max-w-4 max-h-4"
+    className="max-h-4 max-w-4"
     {...iconProps}
   >
     {component}

@@ -428,8 +428,8 @@ const MultiSelectTrigger: FC<
     <div
       className={cn(
         'flex w-full flex-col gap-3 rounded-lg p-1 py-2',
-        'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring focus:outline-hidden flex w-full items-center justify-between whitespace-nowrap border px-3 py-2 text-sm focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-        'bg-input-background text-input-text w-full select-text resize-none rounded-xl border-2 px-2 py-1 text-sm shadow-none outline-0 transition-all',
+        'flex w-full items-center justify-between whitespace-nowrap border border-input px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+        'w-full select-text resize-none rounded-xl border-2 bg-input-background px-2 py-1 text-input-text text-sm shadow-none outline-0 transition-all',
         'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
         'aria-[invalid=true]:border-error',
         validationStyleEnabled && 'valid:border-success invalid:border-error',
@@ -444,7 +444,7 @@ const MultiSelectTrigger: FC<
               key={item}
               className={cn(
                 'flex items-center gap-1 rounded-xl px-1',
-                activeIndex === index && 'ring-muted-foreground ring-2'
+                activeIndex === index && 'ring-2 ring-muted-foreground'
               )}
               color={BadgeColor.TEXT}
             >
@@ -493,7 +493,7 @@ const MultiSelectInput: FC<ComponentProps<typeof Command.Input>> = ({
       onFocus={() => setOpen(true)}
       onClick={() => setActiveIndex(-1)}
       className={cn(
-        'outline-hidden ml-2 flex-1 cursor-pointer',
+        'ml-2 flex-1 cursor-pointer outline-hidden',
         className,
         activeIndex !== -1 && 'caret-transparent'
       )}
@@ -511,7 +511,7 @@ const MultiSelectContent: FC<HTMLAttributes<HTMLDivElement>> = ({
 const MultiSelectList: typeof Command.List = ({ className, children }) => (
   <Command.List
     className={cn(
-      'border-muted bg-input-background absolute top-0 z-10 flex w-full flex-col gap-2 rounded-lg border p-2 shadow-md transition-colors',
+      'absolute top-0 z-10 flex w-full flex-col gap-2 rounded-lg border border-muted bg-input-background p-2 shadow-md transition-colors',
       className
     )}
   >

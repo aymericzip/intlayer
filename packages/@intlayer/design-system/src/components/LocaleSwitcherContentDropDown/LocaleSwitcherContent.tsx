@@ -133,7 +133,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
 
   return (
     <div
-      className="border-text text-text rounded-xl border transition-colors"
+      className="rounded-xl border border-text text-text transition-colors"
       aria-label={localeSwitcherLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
@@ -150,7 +150,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
           identifier={DROPDOWN_IDENTIFIER}
           isOverable
           isFocusable
-          className="left-auto right-0"
+          className="right-0 left-auto"
           {...panelProps}
         >
           <Container
@@ -196,7 +196,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                     ref={inputRef}
                   />
                 </div>
-                <ol className="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+                <ol className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
                   {results.map(
                     ({
                       locale: localeItem,

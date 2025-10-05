@@ -94,18 +94,18 @@ export const Default: Story = {
       <Tab defaultTab="overview">
         <Tab.Item label="Overview" value="overview">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Project Overview</h3>
+            <h3 className="font-semibold text-lg">Project Overview</h3>
             <p className="text-gray-600">
               This is the main overview section containing general information
               about your project or application.
             </p>
-            <ul className="list-disc list-inside space-y-2 text-sm">
+            <ul className="list-inside list-disc space-y-2 text-sm">
               <li>Feature 1: Advanced functionality</li>
               <li>Feature 2: User-friendly interface</li>
               <li>Feature 3: Robust performance</li>
             </ul>
-            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-              <p className="text-blue-800 font-medium">💡 Pro Tip</p>
+            <div className="rounded-lg border border-blue-200 bg-blue-50 p-3">
+              <p className="font-medium text-blue-800">💡 Pro Tip</p>
               <p className="text-blue-700 text-sm">
                 Use tabs to organize related content and improve navigation.
               </p>
@@ -114,20 +114,20 @@ export const Default: Story = {
         </Tab.Item>
         <Tab.Item label="Documentation" value="docs">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Documentation</h3>
+            <h3 className="font-semibold text-lg">Documentation</h3>
             <p className="text-gray-600">
               Comprehensive documentation and guides for effective usage.
             </p>
-            <div className="bg-gray-50 p-4 rounded-lg border">
-              <h4 className="font-medium mb-2">Getting Started</h4>
-              <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600">
+            <div className="rounded-lg border bg-gray-50 p-4">
+              <h4 className="mb-2 font-medium">Getting Started</h4>
+              <ol className="list-inside list-decimal space-y-1 text-gray-600 text-sm">
                 <li>Install the required dependencies</li>
                 <li>Configure your environment</li>
                 <li>Import the Tab components</li>
                 <li>Define your tab structure</li>
               </ol>
             </div>
-            <code className="block bg-gray-900 text-green-400 p-3 rounded text-xs overflow-x-auto">
+            <code className="block overflow-x-auto rounded bg-gray-900 p-3 text-green-400 text-xs">
               {`<Tab defaultTab="getting-started">
   <Tab.Item label="Getting Started" value="getting-started">
     Your content here
@@ -138,20 +138,20 @@ export const Default: Story = {
         </Tab.Item>
         <Tab.Item label="Settings" value="settings">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Configuration Settings</h3>
+            <h3 className="font-semibold text-lg">Configuration Settings</h3>
             <p className="text-gray-600">
               Customize and configure various aspects of the application.
             </p>
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between rounded-lg bg-gray-50 p-3">
                 <span className="font-medium">Enable notifications</span>
                 <span className="text-green-600">✓ Enabled</span>
               </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between rounded-lg bg-gray-50 p-3">
                 <span className="font-medium">Auto-save</span>
                 <span className="text-green-600">✓ Enabled</span>
               </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between rounded-lg bg-gray-50 p-3">
                 <span className="font-medium">Dark mode</span>
                 <span className="text-gray-500">○ Disabled</span>
               </div>
@@ -234,13 +234,13 @@ export const Bordered: Story = {
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Analytics Dashboard</h4>
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <div className="text-2xl font-bold text-blue-600">1,234</div>
-                <div className="text-sm text-blue-800">Total Users</div>
+              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+                <div className="font-bold text-2xl text-blue-600">1,234</div>
+                <div className="text-blue-800 text-sm">Total Users</div>
               </div>
-              <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                <div className="text-2xl font-bold text-green-600">89%</div>
-                <div className="text-sm text-green-800">Success Rate</div>
+              <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+                <div className="font-bold text-2xl text-green-600">89%</div>
+                <div className="text-green-800 text-sm">Success Rate</div>
               </div>
             </div>
             <p className="text-gray-600">
@@ -253,15 +253,15 @@ export const Bordered: Story = {
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Performance Analytics</h4>
             <div className="space-y-3">
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between rounded-lg bg-gray-50 p-3">
                 <span>Page Views</span>
                 <span className="font-semibold">5,678</span>
               </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between rounded-lg bg-gray-50 p-3">
                 <span>Bounce Rate</span>
                 <span className="font-semibold text-orange-600">23.4%</span>
               </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between rounded-lg bg-gray-50 p-3">
                 <span>Avg. Session</span>
                 <span className="font-semibold text-green-600">4m 32s</span>
               </div>
@@ -272,25 +272,25 @@ export const Bordered: Story = {
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Generated Reports</h4>
             <div className="space-y-2">
-              <div className="flex justify-between items-center p-3 border rounded-lg hover:bg-gray-50">
+              <div className="flex items-center justify-between rounded-lg border p-3 hover:bg-gray-50">
                 <div>
                   <div className="font-medium">Monthly Report</div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-gray-500 text-sm">
                     Generated 2 days ago
                   </div>
                 </div>
-                <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                <button className="font-medium text-blue-600 text-sm hover:text-blue-800">
                   Download
                 </button>
               </div>
-              <div className="flex justify-between items-center p-3 border rounded-lg hover:bg-gray-50">
+              <div className="flex items-center justify-between rounded-lg border p-3 hover:bg-gray-50">
                 <div>
                   <div className="font-medium">Weekly Summary</div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-gray-500 text-sm">
                     Generated 1 week ago
                   </div>
                 </div>
-                <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                <button className="font-medium text-blue-600 text-sm hover:text-blue-800">
                   Download
                 </button>
               </div>
@@ -323,8 +323,8 @@ export const Ghost: Story = {
         <Tab.Item label="✏️ Editor" value="editor">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Content Editor</h4>
-            <div className="border border-gray-200 rounded-lg p-4 min-h-[120px] bg-white">
-              <div className="text-gray-400 text-sm mb-2">
+            <div className="min-h-[120px] rounded-lg border border-gray-200 bg-white p-4">
+              <div className="mb-2 text-gray-400 text-sm">
                 Start typing your content...
               </div>
               <div className="text-gray-800">
@@ -333,16 +333,16 @@ export const Ghost: Story = {
               </div>
             </div>
             <div className="flex gap-2 text-xs">
-              <span className="bg-gray-100 px-2 py-1 rounded">Bold</span>
-              <span className="bg-gray-100 px-2 py-1 rounded">Italic</span>
-              <span className="bg-gray-100 px-2 py-1 rounded">Link</span>
+              <span className="rounded bg-gray-100 px-2 py-1">Bold</span>
+              <span className="rounded bg-gray-100 px-2 py-1">Italic</span>
+              <span className="rounded bg-gray-100 px-2 py-1">Link</span>
             </div>
           </div>
         </Tab.Item>
         <Tab.Item label="👁️ Preview" value="preview">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Content Preview</h4>
-            <div className="border border-gray-200 rounded-lg p-4 min-h-[120px] bg-gray-50">
+            <div className="min-h-[120px] rounded-lg border border-gray-200 bg-gray-50 p-4">
               <div className="prose prose-sm">
                 <p>
                   This is how your content will appear to users. The ghost
@@ -351,7 +351,7 @@ export const Ghost: Story = {
                 </p>
               </div>
             </div>
-            <div className="text-xs text-gray-500">
+            <div className="text-gray-500 text-xs">
               Preview mode • Last updated: 2 minutes ago
             </div>
           </div>
@@ -359,10 +359,10 @@ export const Ghost: Story = {
         <Tab.Item label="📱 Mobile" value="mobile">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Mobile Preview</h4>
-            <div className="border-2 border-gray-300 rounded-lg p-2 bg-gray-100 max-w-[200px] mx-auto">
-              <div className="bg-white rounded p-3 min-h-[150px]">
-                <div className="text-xs font-medium mb-2">Mobile View</div>
-                <div className="text-xs text-gray-600 leading-relaxed">
+            <div className="mx-auto max-w-[200px] rounded-lg border-2 border-gray-300 bg-gray-100 p-2">
+              <div className="min-h-[150px] rounded bg-white p-3">
+                <div className="mb-2 font-medium text-xs">Mobile View</div>
+                <div className="text-gray-600 text-xs leading-relaxed">
                   Your content optimized for mobile devices. The ghost variant
                   maintains clean aesthetics across all screen sizes.
                 </div>
@@ -409,23 +409,23 @@ export const SettingsPanel: Story = {
           <Tab.Item label="General" value="general">
             <div className="space-y-6">
               <div>
-                <h4 className="font-semibold text-lg mb-4">General Settings</h4>
+                <h4 className="mb-4 font-semibold text-lg">General Settings</h4>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="font-medium">Enable Notifications</div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-gray-500 text-sm">
                         Receive alerts and updates
                       </div>
                     </div>
                     <button
-                      className={`relative w-11 h-6 rounded-full transition-colors ${
+                      className={`relative h-6 w-11 rounded-full transition-colors ${
                         notifications ? 'bg-blue-600' : 'bg-gray-300'
                       }`}
                       onClick={() => setNotifications(!notifications)}
                     >
                       <div
-                        className={`absolute w-4 h-4 bg-white rounded-full top-1 transition-transform ${
+                        className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-transform ${
                           notifications ? 'translate-x-6' : 'translate-x-1'
                         }`}
                       />
@@ -435,18 +435,18 @@ export const SettingsPanel: Story = {
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="font-medium">Auto-Save</div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-gray-500 text-sm">
                         Automatically save changes
                       </div>
                     </div>
                     <button
-                      className={`relative w-11 h-6 rounded-full transition-colors ${
+                      className={`relative h-6 w-11 rounded-full transition-colors ${
                         autoSave ? 'bg-blue-600' : 'bg-gray-300'
                       }`}
                       onClick={() => setAutoSave(!autoSave)}
                     >
                       <div
-                        className={`absolute w-4 h-4 bg-white rounded-full top-1 transition-transform ${
+                        className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-transform ${
                           autoSave ? 'translate-x-6' : 'translate-x-1'
                         }`}
                       />
@@ -454,11 +454,11 @@ export const SettingsPanel: Story = {
                   </div>
 
                   <div>
-                    <div className="font-medium mb-2">Theme</div>
+                    <div className="mb-2 font-medium">Theme</div>
                     <select
                       value={theme}
                       onChange={(e) => setTheme(e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="light">Light</option>
                       <option value="dark">Dark</option>
@@ -473,40 +473,40 @@ export const SettingsPanel: Story = {
           <Tab.Item label="Security" value="security">
             <div className="space-y-6">
               <div>
-                <h4 className="font-semibold text-lg mb-4">
+                <h4 className="mb-4 font-semibold text-lg">
                   Security Settings
                 </h4>
                 <div className="space-y-4">
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+                    <div className="mb-2 flex items-center gap-2">
+                      <div className="h-3 w-3 rounded-full bg-green-500"></div>
                       <span className="font-medium text-green-800">
                         Two-Factor Authentication
                       </span>
                     </div>
-                    <p className="text-sm text-green-700">
+                    <p className="text-green-700 text-sm">
                       Your account is protected with 2FA
                     </p>
                   </div>
 
                   <div className="space-y-3">
-                    <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                    <button className="w-full rounded-lg border border-gray-200 p-3 text-left hover:bg-gray-50">
                       <div className="font-medium">Change Password</div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-gray-500 text-sm">
                         Update your account password
                       </div>
                     </button>
 
-                    <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                    <button className="w-full rounded-lg border border-gray-200 p-3 text-left hover:bg-gray-50">
                       <div className="font-medium">Login Sessions</div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-gray-500 text-sm">
                         Manage active sessions
                       </div>
                     </button>
 
-                    <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                    <button className="w-full rounded-lg border border-gray-200 p-3 text-left hover:bg-gray-50">
                       <div className="font-medium">API Keys</div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-gray-500 text-sm">
                         Manage API access keys
                       </div>
                     </button>
@@ -519,13 +519,13 @@ export const SettingsPanel: Story = {
           <Tab.Item label="Privacy" value="privacy">
             <div className="space-y-6">
               <div>
-                <h4 className="font-semibold text-lg mb-4">Privacy Settings</h4>
+                <h4 className="mb-4 font-semibold text-lg">Privacy Settings</h4>
                 <div className="space-y-4">
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <h5 className="font-medium text-blue-800 mb-2">
+                  <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+                    <h5 className="mb-2 font-medium text-blue-800">
                       Data Collection
                     </h5>
-                    <p className="text-sm text-blue-700 mb-3">
+                    <p className="mb-3 text-blue-700 text-sm">
                       We collect minimal data to improve your experience
                     </p>
                     <div className="space-y-2">
@@ -552,7 +552,7 @@ export const SettingsPanel: Story = {
                     </div>
                   </div>
 
-                  <button className="w-full bg-red-50 border border-red-200 text-red-800 p-3 rounded-lg hover:bg-red-100 font-medium">
+                  <button className="w-full rounded-lg border border-red-200 bg-red-50 p-3 font-medium text-red-800 hover:bg-red-100">
                     Request Data Deletion
                   </button>
                 </div>
@@ -563,7 +563,7 @@ export const SettingsPanel: Story = {
           <Tab.Item label="Advanced" value="advanced" disabled>
             <div className="space-y-4">
               <h4 className="font-semibold text-lg">Advanced Settings</h4>
-              <div className="text-center py-8 text-gray-500">
+              <div className="py-8 text-center text-gray-500">
                 <p className="text-lg">🔒</p>
                 <p>Advanced settings require administrator access</p>
                 <p className="text-sm">
@@ -614,9 +614,9 @@ export const ContentManagementSystem: Story = {
         <Tab defaultTab="content" variant="ghost">
           <Tab.Item label="📝 Content" value="content">
             <div className="space-y-4">
-              <div className="flex items-center justify-between mb-4">
+              <div className="mb-4 flex items-center justify-between">
                 <h4 className="font-semibold text-lg">Article Editor</h4>
-                <div className="flex items-center gap-4 text-sm text-gray-500">
+                <div className="flex items-center gap-4 text-gray-500 text-sm">
                   <span>{wordCount} words</span>
                   <span>•</span>
                   <span>Last saved: {lastSaved}</span>
@@ -628,7 +628,7 @@ export const ContentManagementSystem: Story = {
                   type="text"
                   placeholder="Article title..."
                   defaultValue="Getting Started with React Components"
-                  className="w-full text-xl font-semibold border-none outline-none focus:ring-0 p-0"
+                  className="w-full border-none p-0 font-semibold text-xl outline-none focus:ring-0"
                 />
 
                 <textarea
@@ -645,7 +645,7 @@ In this guide, we'll explore how to create effective React components that are b
 4. **Performance Optimization**: Techniques for optimizing component performance
 
 Let's dive deeper into each of these concepts...`}
-                  className="w-full min-h-[300px] border border-gray-200 rounded-lg p-4 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="min-h-[300px] w-full resize-none rounded-lg border border-gray-200 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onChange={(e) => {
                     const words = e.target.value.trim().split(/\s+/).length;
                     setWordCount(words);
@@ -655,16 +655,16 @@ Let's dive deeper into each of these concepts...`}
                 />
 
                 <div className="flex gap-2">
-                  <button className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg">
+                  <button className="rounded-lg bg-gray-100 px-3 py-1 text-xs hover:bg-gray-200">
                     Bold
                   </button>
-                  <button className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg">
+                  <button className="rounded-lg bg-gray-100 px-3 py-1 text-xs hover:bg-gray-200">
                     Italic
                   </button>
-                  <button className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg">
+                  <button className="rounded-lg bg-gray-100 px-3 py-1 text-xs hover:bg-gray-200">
                     Link
                   </button>
-                  <button className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg">
+                  <button className="rounded-lg bg-gray-100 px-3 py-1 text-xs hover:bg-gray-200">
                     Image
                   </button>
                 </div>
@@ -678,10 +678,10 @@ Let's dive deeper into each of these concepts...`}
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">
+                  <label className="mb-1 block font-medium text-sm">
                     Category
                   </label>
-                  <select className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <select className="w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option>Web Development</option>
                     <option>React</option>
                     <option>JavaScript</option>
@@ -690,10 +690,10 @@ Let's dive deeper into each of these concepts...`}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1">
+                  <label className="mb-1 block font-medium text-sm">
                     Status
                   </label>
-                  <select className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <select className="w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option>Draft</option>
                     <option>In Review</option>
                     <option>Published</option>
@@ -703,36 +703,36 @@ Let's dive deeper into each of these concepts...`}
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Tags</label>
-                <div className="flex gap-2 mb-2">
-                  <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-lg">
+                <label className="mb-1 block font-medium text-sm">Tags</label>
+                <div className="mb-2 flex gap-2">
+                  <span className="rounded-lg bg-blue-100 px-2 py-1 text-blue-800 text-xs">
                     react
                   </span>
-                  <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-lg">
+                  <span className="rounded-lg bg-blue-100 px-2 py-1 text-blue-800 text-xs">
                     components
                   </span>
-                  <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-lg">
+                  <span className="rounded-lg bg-blue-100 px-2 py-1 text-blue-800 text-xs">
                     tutorial
                   </span>
                 </div>
                 <input
                   type="text"
                   placeholder="Add tags (comma separated)"
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label className="mb-1 block font-medium text-sm">
                   SEO Description
                 </label>
                 <textarea
                   placeholder="Brief description for search engines..."
                   defaultValue="Learn how to build effective React components with best practices, patterns, and optimization techniques in this comprehensive guide."
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 h-20 resize-none"
+                  className="h-20 w-full resize-none rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   maxLength={160}
                 />
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="mt-1 text-gray-500 text-xs">
                   160 characters max
                 </div>
               </div>
@@ -743,9 +743,9 @@ Let's dive deeper into each of these concepts...`}
             <div className="space-y-4">
               <h4 className="font-semibold text-lg">Article Preview</h4>
 
-              <div className="border border-gray-200 rounded-lg p-6 bg-white">
+              <div className="rounded-lg border border-gray-200 bg-white p-6">
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <div className="flex items-center gap-2 text-gray-500 text-xs">
                     <span>Web Development</span>
                     <span>•</span>
                     <span>5 min read</span>
@@ -753,18 +753,18 @@ Let's dive deeper into each of these concepts...`}
                     <span>Published 2 hours ago</span>
                   </div>
 
-                  <h1 className="text-2xl font-bold">
+                  <h1 className="font-bold text-2xl">
                     Getting Started with React Components
                   </h1>
 
                   <div className="flex gap-2">
-                    <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded">
+                    <span className="rounded bg-blue-100 px-2 py-1 text-blue-800 text-xs">
                       react
                     </span>
-                    <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded">
+                    <span className="rounded bg-blue-100 px-2 py-1 text-blue-800 text-xs">
                       components
                     </span>
-                    <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded">
+                    <span className="rounded bg-blue-100 px-2 py-1 text-blue-800 text-xs">
                       tutorial
                     </span>
                   </div>
@@ -777,11 +777,11 @@ Let's dive deeper into each of these concepts...`}
                     </p>
                   </div>
 
-                  <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
-                    <div className="text-sm text-gray-600">
+                  <div className="flex items-center justify-between border-gray-200 border-t pt-4">
+                    <div className="text-gray-600 text-sm">
                       By <span className="font-medium">John Developer</span>
                     </div>
-                    <div className="flex gap-3 text-sm text-gray-500">
+                    <div className="flex gap-3 text-gray-500 text-sm">
                       <span>👍 24 likes</span>
                       <span>💬 8 comments</span>
                       <span>🔗 Share</span>

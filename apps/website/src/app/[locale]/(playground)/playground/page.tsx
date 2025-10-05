@@ -29,7 +29,7 @@ const PlaygroundContent: FC = () => {
       <h1 className="border-neutral border-b-[0.5px] p-10 text-3xl">{title}</h1>
       <div className="relative flex size-full flex-1 flex-col">
         <BackgroundLayout />
-        <p className="text-neutral m-auto my-3 max-w-3xl px-10 text-sm">
+        <p className="m-auto my-3 max-w-3xl px-10 text-neutral text-sm">
           {description}
         </p>
         <div className="relative flex size-full flex-1 flex-col items-center px-10 pb-5">

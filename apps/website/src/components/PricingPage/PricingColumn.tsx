@@ -54,7 +54,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
     </H2>
     <div className="flex flex-col justify-center">
       <Loader isLoading={isPriceLoading}>
-        <span className="relative m-auto text-center text-6xl font-bold">
+        <span className="relative m-auto text-center font-bold text-6xl">
           <span itemProp="price" className="hidden">
             {totalPrice.toFixed(2)}
           </span>
@@ -67,8 +67,8 @@ export const PricingColumn: FC<PricingColumnProps> = ({
           </span>
 
           {totalPrice !== basePrice && (
-            <span className="text-neutral absolute left-full top-0 m-auto scale-90 text-center text-2xl font-bold">
-              <span className="bg-neutral absolute left-0 top-1/2 h-[2px] w-full" />
+            <span className="absolute top-0 left-full m-auto scale-90 text-center font-bold text-2xl text-neutral">
+              <span className="absolute top-1/2 left-0 h-[2px] w-full bg-neutral" />
 
               <span itemProp="price" className="hidden">
                 {basePrice.toFixed(2)}
@@ -85,7 +85,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
         </span>
       </Loader>
       <span
-        className="text-neutral text-center text-xl"
+        className="text-center text-neutral text-xl"
         itemProp="billingPeriod"
       >
         {period} {/* This can be 'monthly' or 'yearly' */}
@@ -102,7 +102,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
       {callToActionText}
     </Link>
     <span
-      className="text-neutral justify-center text-sm leading-7"
+      className="justify-center text-neutral text-sm leading-7"
       itemProp="description"
     >
       {description}

@@ -50,7 +50,7 @@ export const DictionaryEditionDrawerContent: FC<
 
   if (!dictionaryKey)
     return (
-      <span className="mx-auto my-10 text-sm text-neutral">
+      <span className="mx-auto my-10 text-neutral text-sm">
         {noDictionaryFocused}
       </span>
     );
@@ -62,7 +62,7 @@ export const DictionaryEditionDrawerContent: FC<
 
   if (!dictionary)
     return (
-      <span className="mx-auto my-10 text-sm text-neutral">
+      <span className="mx-auto my-10 text-neutral text-sm">
         {focusedDictionaryNotFound}
       </span>
     );
@@ -94,7 +94,7 @@ export const DictionaryEditionDrawerContent: FC<
         </div>
       </Modal>
 
-      <div className="border-text/20 /20 mb-5 flex w-full border-b border-dashed px-3 pb-2">
+      <div className="/20 mb-5 flex w-full border-text/20 border-b border-dashed px-3 pb-2">
         <h3 className="w-full text-center text-lg">
           {dictionary.title ? dictionary.title : dictionary.key}
         </h3>

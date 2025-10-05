@@ -79,9 +79,9 @@ export const Label: FC<LabelProps> = ({
 }) => (
   <label
     className={cn(
-      'text-sm font-medium leading-none select-none',
+      'select-none font-medium text-sm leading-none',
       'peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
-      disabled && 'cursor-not-allowed opacity-70 text-muted-foreground',
+      disabled && 'cursor-not-allowed text-muted-foreground opacity-70',
       className
     )}
     htmlFor={htmlFor}
@@ -90,7 +90,7 @@ export const Label: FC<LabelProps> = ({
     {children}
     {required && (
       <span
-        className="text-destructive ml-1"
+        className="ml-1 text-destructive"
         aria-label="required"
         title="This field is required"
       >

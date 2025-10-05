@@ -127,7 +127,7 @@ export const DotPattern: FC<DotPatternProps> = ({
   <svg
     aria-hidden="true"
     className={cn(
-      'fill-neutral/30 pointer-events-none absolute inset-0 h-full w-full',
+      'pointer-events-none absolute inset-0 h-full w-full fill-neutral/30',
       className
     )}
     {...props}
