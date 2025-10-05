@@ -1401,6 +1401,20 @@ export const config = {
 
 Intlayer provides built-in middleware handling through the `next-intlayer` package configuration.
 
+```ts fileName="src/middleware.ts"
+import { intlayerMiddleware } from 'next-intlayer/middleware';
+
+export const middleware = intlayerMiddleware()
+
+// applies this middleware only to files in the app directory
+export const config = {
+  matcher:
+    "/((?!api|_next|static|.*\\..*).*)",
+};
+```
+
+The set up of the middleware centralized in the `intlayer.config.ts` file.
+
   </TabItem>
 </Tab>
 
