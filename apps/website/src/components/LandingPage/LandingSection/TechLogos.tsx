@@ -91,12 +91,12 @@ export const TechLogos: FC = () => (
   <div className="mt-6  w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_170px,_black_calc(100%-170px),transparent_100%)]">
     <div className="inline-flex items-center horizontal-loop-4 whitespace-nowrap">
       {logos.map((logo, index) => (
-        <div key={`${logo.key}-${index}-1`} className="mx-4 sm:mx-8 md:mx-12">
+        <div key={`${logo.key}-${index}-1`} className="mx-6 sm:mx-12 md:mx-16">
           <LogoItem {...logo} label={logo.key} key={`${logo.key}-${index}-1`} />
         </div>
       ))}
       {logos.map((logo, index) => (
-        <div key={`${logo.key}-${index}-2`} className="mx-4 sm:mx-8 md:mx-12">
+        <div key={`${logo.key}-${index}-1`} className="mx-6 sm:mx-12 md:mx-16">
           <LogoItem {...logo} label={logo.key} key={`${logo.key}-${index}-2`} />
         </div>
       ))}
