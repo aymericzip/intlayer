@@ -72,7 +72,7 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
   ) as GoNextStepType;
 
   type GoPreviousStepType = Step['getPreviousStep'] extends undefined
-    ? () => void | undefined
+    ? () => undefined
     : () => void;
 
   const goPreviousStep: GoPreviousStepType = (

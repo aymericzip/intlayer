@@ -9,7 +9,7 @@ import crypto from 'crypto-js';
 export const defineDirname = () => {
   const filename = isESModule
     ? fileURLToPath(import.meta.url)
-    : require('url').pathToFileURL(__filename).toString();
+    : require('node:url').pathToFileURL(__filename).toString();
 
   globalThis.__filename = globalThis.__filename ?? filename;
   globalThis.__dirname = globalThis.__dirname ?? path.dirname(__filename);

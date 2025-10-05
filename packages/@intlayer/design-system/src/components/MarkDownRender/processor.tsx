@@ -512,7 +512,7 @@ const generateListRule = (
 
         // And then we construct a regex to "unindent" the subsequent
         // lines of the items by that amount:
-        const spaceRegex = new RegExp('^ {1,' + space + '}', 'gm');
+        const spaceRegex = new RegExp(`^ {1,${space}}`, 'gm');
 
         // Before processing the item, we need a couple things
         const content = item
@@ -553,7 +553,7 @@ const generateListRule = (
         let adjustedContent;
         if (thisItemIsAParagraph) {
           state.inline = false;
-          adjustedContent = trimEnd(content) + '\n\n';
+          adjustedContent = `${trimEnd(content)}\n\n`;
         } else {
           state.inline = true;
           adjustedContent = trimEnd(content);
@@ -608,7 +608,7 @@ const LINK_INSIDE =
 const LINK_HREF_AND_TITLE =
   '\\s*<?((?:\\([^)]*\\)|[^\\s\\\\]|\\\\.)*?)>?(?:\\s+[\'"]([\\s\\S]*?)[\'"])?\\s*';
 const LINK_R = new RegExp(
-  '^\\[(' + LINK_INSIDE + ')\\]\\(' + LINK_HREF_AND_TITLE + '\\)'
+  `^\\[(${LINK_INSIDE})\\]\\(${LINK_HREF_AND_TITLE}\\)`
 );
 const IMAGE_R = /^!\[(.*?)\]\( *((?:\([^)]*\)|[^() ])*) *"?([^)"]*)?"?\)/;
 
@@ -1043,10 +1043,8 @@ const parserFor = (
   if (process.env.NODE_ENV !== 'production') {
     ruleList.forEach((type) => {
       const order = rules[type]._order;
-      if (typeof order !== 'number' || !isFinite(order)) {
-        console.warn(
-          'intlayer: Invalid order for rule `' + type + '`: ' + order
-        );
+      if (typeof order !== 'number' || !Number.isFinite(order)) {
+        console.warn(`intlayer: Invalid order for rule \`${type}\`: ${order}`);
       }
     });
   }
@@ -1084,7 +1082,7 @@ const parserFor = (
             );
           }
 
-          if (capture && capture[0]) {
+          if (capture?.[0]) {
             source = source.substring(capture[0].length);
 
             const ruleParseStart = performance.now();
@@ -1196,7 +1194,7 @@ export const sanitizer = (input: string): string | null => {
 
       return null;
     }
-  } catch (e) {
+  } catch (_e) {
     if (process.env.NODE_ENV !== 'production') {
       console.warn(
         'Input could not be decoded due to malformed syntax or characters, it will not be rendered.',
@@ -1492,7 +1490,7 @@ export const compiler = (
 
     // parseCaptureInline expects the inner content to be at index 2
     // because index 1 is the delimiter for text formatting syntaxes
-    return [match, , captured] as RegExpMatchArray;
+    return [match, undefined, captured] as RegExpMatchArray;
   };
 
   // JSX custom pragma
@@ -1725,8 +1723,7 @@ export const compiler = (
         } as Record<string, unknown>;
 
         if (node.alert) {
-          props.className =
-            'markdown-alert-' + slug(node.alert.toLowerCase(), slugify);
+          props.className = `markdown-alert-${slug(node.alert.toLowerCase(), slugify)}`;
 
           node.children.unshift({
             attrs: {},
@@ -2290,7 +2287,7 @@ export const compiler = (
 
         // Check for a `mailto:` already existing in the link:
         if (!AUTOLINK_MAILTO_CHECK_R.test(target)) {
-          target = 'mailto:' + target;
+          target = `mailto:${target}`;
         }
 
         return {

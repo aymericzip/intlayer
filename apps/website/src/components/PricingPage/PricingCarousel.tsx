@@ -339,7 +339,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
         >
           <PricingColumn
             unit="$"
-            period={period['monthly'].value}
+            period={period.monthly.value}
             isPriceLoading={isLoading}
             totalPrice={getPrice(
               pricingData?.data?.[

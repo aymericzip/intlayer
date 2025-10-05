@@ -89,7 +89,7 @@ export async function GET(request: Request, context: RouteContext) {
         'Content-Type': 'text/markdown; charset=utf-8',
       },
     });
-  } catch (error) {
+  } catch (_error) {
     return new Response('Internal Server Error', { status: 500 });
   }
 }

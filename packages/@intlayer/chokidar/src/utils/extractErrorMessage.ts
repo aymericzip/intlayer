@@ -17,7 +17,7 @@ export const extractErrorMessage = (error: unknown): string => {
     const t = text.trim();
     if (/Unexpected token/i.test(t) && /not valid JSON/i.test(t)) {
       const quoted = t.match(/"([^"]+)"/);
-      if (quoted && quoted[1]) return quoted[1];
+      if (quoted?.[1]) return quoted[1];
       // Fallback: drop the leading parser error description
       const afterColon = t.split(':').slice(1).join(':').trim();
       if (afterColon) return afterColon;

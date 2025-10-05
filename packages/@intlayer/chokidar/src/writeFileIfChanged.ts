@@ -1,23 +1,23 @@
-import { createHash } from 'node:crypto';
-import { createReadStream } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
-import type { Readable } from 'node:stream';
+// import { createHash } from 'node:crypto';
+// import { createReadStream } from 'node:fs';
+// import type { Readable } from 'node:stream';
 
-const hashFile = async (path: string) => {
-  const h = createHash('sha256');
-  const rs = createReadStream(path);
-  rs.on('data', (chunk) => h.update(chunk));
-  await new Promise<void>((res, rej) => {
-    rs.on('end', () => res());
-    rs.on('error', rej);
-  });
-  return h.digest('hex');
-};
+// const hashFile = async (path: string) => {
+//   const h = createHash('sha256');
+//   const rs = createReadStream(path);
+//   rs.on('data', (chunk) => h.update(chunk));
+//   await new Promise<void>((res, rej) => {
+//     rs.on('end', () => res());
+//     rs.on('error', rej);
+//   });
+//   return h.digest('hex');
+// };
 
-const isReadableStream = (value: unknown): value is Readable =>
-  !!value &&
-  typeof value === 'object' &&
-  typeof (value as any).pipe === 'function';
+// const isReadableStream = (value: unknown): value is Readable =>
+//   !!value &&
+//   typeof value === 'object' &&
+//   typeof (value as any).pipe === 'function';
 
 export const writeFileIfChanged = async (
   path: string,

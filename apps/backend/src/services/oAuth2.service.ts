@@ -1,3 +1,4 @@
+import { randomBytes } from 'node:crypto';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
 import { ProjectModel } from '@models/project.model';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
@@ -6,7 +7,6 @@ import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { getTokenExpireAt } from '@utils/oAuth2';
-import { randomBytes } from 'crypto';
 import type { Types } from 'mongoose';
 import type { Callback, Client } from 'oauth2-server';
 import type { OAuth2Token } from '@/types/oAuth2.types';
@@ -335,7 +335,7 @@ export const validateOAuth2AccessToken = async (
     }
 
     return ensureMongoDocumentToObject(token);
-  } catch (error) {
+  } catch (_error) {
     throw new GenericError('INVALID_ACCESS_TOKEN');
   }
 };

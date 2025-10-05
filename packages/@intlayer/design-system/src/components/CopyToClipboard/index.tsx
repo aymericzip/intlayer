@@ -100,7 +100,7 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
     try {
       setCopyError(null);
 
-      if (navigator.clipboard && navigator.clipboard.writeText) {
+      if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(text);
       } else {
         // Fallback for older browsers

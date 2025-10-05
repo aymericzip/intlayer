@@ -23,7 +23,7 @@ export const useDictionaryAsync = async <T extends Dictionary>(
       configuration?.internationalization.defaultLocale
   );
 
-  const dictionary = await dictionaryPromise[localeTarget.value]!();
+  const dictionary = await dictionaryPromise[localeTarget.value]?.();
 
   return useDictionary(dictionary, localeTarget as any);
 };

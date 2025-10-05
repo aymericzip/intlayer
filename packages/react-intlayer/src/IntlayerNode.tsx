@@ -8,7 +8,7 @@ import {
 
 export type IntlayerNode<
   T = NodeProps['children'],
-  AdditionalProps = {},
+  AdditionalProps = Record<string, never>,
 > = ReactNode & {
   value: T;
 } & AdditionalProps;

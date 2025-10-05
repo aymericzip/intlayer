@@ -75,7 +75,7 @@ export const installCommunicator = (
 export const useCommunicator = (): Communicator => {
   try {
     return inject(INTLAYER_COMMUNICATOR_SYMBOL, defaultValue);
-  } catch (error) {
+  } catch (_error) {
     console.warn(
       'useCommunicator: inject can only be used in setup(). Returning default communicator.'
     );

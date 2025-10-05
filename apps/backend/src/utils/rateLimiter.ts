@@ -26,7 +26,7 @@ export const ipLimiter: (
 
     ErrorHandler.handleGenericErrorResponse(res, 'RATE_LIMIT_EXCEEDED', {
       limit: `${limit} per minute`,
-      retryAfter: Math.ceil((resetTime!.getTime() - Date.now()) / 1000),
+      retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
       remaining,
     });
   },
@@ -55,7 +55,7 @@ export const unauthenticatedChatBotLimiter: (
       'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED',
       {
         limit: `${limit} per hour`,
-        retryAfter: Math.ceil((resetTime!.getTime() - Date.now()) / 1000),
+        retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
         remaining,
       }
     );

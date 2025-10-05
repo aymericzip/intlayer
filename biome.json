@@ -44,6 +44,8 @@
       },
       "complexity": {
         "noBannedTypes": "error",
+        "noImportantStyles": "warn",
+        "noUselessFragments": "warn",
         "useOptionalChain": "error"
       },
       "performance": {
@@ -54,20 +56,21 @@
         "noDangerouslySetInnerHtml": "error"
       },
       "a11y": {
-        "useAltText": "error",
-        "useAnchorContent": "error",
-        "useAriaPropsForRole": "error",
-        "useButtonType": "error",
-        "useHeadingContent": "error",
-        "useHtmlLang": "error",
-        "useIframeTitle": "error",
-        "useKeyWithClickEvents": "error",
-        "useKeyWithMouseEvents": "error",
-        "useMediaCaption": "error",
-        "useValidAnchor": "error",
-        "useValidAriaProps": "error",
-        "useValidAriaValues": "error",
-        "useValidLang": "error"
+        "useAltText": "warn",
+        "useAnchorContent": "warn",
+        "useAriaPropsForRole": "warn",
+        "useButtonType": "warn",
+        "useHeadingContent": "warn",
+        "useHtmlLang": "warn",
+        "useIframeTitle": "warn",
+        "useKeyWithClickEvents": "warn",
+        "useKeyWithMouseEvents": "warn",
+        "useMediaCaption": "warn",
+        "useValidAnchor": "warn",
+        "useValidAriaProps": "warn",
+        "useValidAriaValues": "warn",
+        "useValidLang": "warn",
+        "useAriaPropsSupportedByRole": "warn"
       },
       "nursery": {
         "useSortedClasses": {

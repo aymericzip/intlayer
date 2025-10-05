@@ -55,7 +55,7 @@ export const intlayerPlugin = (): PluginOption => {
         return config;
       },
 
-      configureServer: async (server) => {
+      configureServer: async (_server) => {
         if (intlayerConfig.content.watch) {
           // Start watching (assuming watch is also async)
           watch({ configuration: intlayerConfig });

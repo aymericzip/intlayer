@@ -17,7 +17,11 @@ export const renderReactElement = (element: ReactElement<any>) => {
       // Create the children elements recursively, if any
       Object.keys(children ?? {}).forEach((key) => {
         childrenResult.push(
-          renderReactElement((children ?? {})[key as keyof typeof children])
+          renderReactElement(
+            children?.[
+              key as keyof typeof children
+            ] as unknown as ReactElement<any>
+          )
         );
       });
 

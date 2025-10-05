@@ -1,4 +1,4 @@
-import type { Context } from 'vm';
+import type { Context } from 'node:vm';
 import { type LoadEnvFileOptions, loadEnvFile } from './loadEnvFile';
 import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
 
@@ -14,7 +14,7 @@ export const getSandBoxContext = (
     additionalGlobalVar = {
       React: projectRequire('react'),
     };
-  } catch (err) {
+  } catch (_err) {
     // React is not installed, so we don't inject it
   }
 

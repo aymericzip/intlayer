@@ -30,7 +30,7 @@ const getIsSwcPluginAvailable = () => {
   try {
     ESMxCJSRequire.resolve('@intlayer/swc');
     return true;
-  } catch (e) {
+  } catch (_e) {
     return false;
   }
 };

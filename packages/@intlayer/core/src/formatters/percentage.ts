@@ -17,7 +17,7 @@ export const percentage = (
 
   // Normalize: if user passes 10, treat it as 10% instead of 1000%
   if (numericValue > 1) {
-    numericValue = numericValue / 100;
+    numericValue /= 100;
   }
 
   const formatter = new CachedIntl.NumberFormat(

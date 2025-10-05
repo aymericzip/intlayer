@@ -75,7 +75,7 @@ type ServerContext<T> = FC<PropsWithChildren<{ value?: T }>> & {
  * Throws if called within a client component environment.
  * Useful to help prevent mistakes.
  */
-const throwInClient = (): void | never => {
+const throwInClient = (): undefined | never => {
   // If window.document is defined we're in a client component
   if (typeof window !== 'undefined') {
     throw new Error(`createServerContext only works in Server Components`);

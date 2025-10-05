@@ -59,7 +59,7 @@ export const intlayerNodePlugins: Plugins = {
 export const markdownPlugin: Plugins = {
   id: 'markdown-plugin',
   canHandle: (node) => typeof node === 'string',
-  transform: (node, props) => {
+  transform: (node, _props) => {
     // Basic markdown handling - can be extended with proper markdown parser
     return node;
   },

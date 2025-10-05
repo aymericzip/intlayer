@@ -9,7 +9,7 @@ const DropDownTrigger: FC<UnrollablePanelTriggerProps> = ({
   ...props
 }) => (
   <button
-    className={`group/unrollable-panel relative cursor-pointer` + className}
+    className={`group/unrollable-panel relative cursor-pointer ${className}`}
     aria-label={`Open panel ${identifier}`}
     id={`unrollable-panel-button-${identifier}`}
     aria-haspopup
@@ -36,11 +36,11 @@ export const DropDown: UnrollablePanelType = ({
   >
     <MaxHeightSmoother
       className={
-        'overflow-x-hidden' + isOverable
+        `overflow-x-hidden${isOverable}`
           ? `group-hover/unrollable-panel:grid-rows-[1fr] group-hover/unrollable-panel:overflow-x-auto`
-          : '' + isFocusable
+          : `${isFocusable}`
             ? `group-focus/unrollable-panel:grid-rows-[1fr] group-focus/unrollable-panel:overflow-x-auto`
-            : '' + className
+            : `${className}`
       }
       {...props}
     >

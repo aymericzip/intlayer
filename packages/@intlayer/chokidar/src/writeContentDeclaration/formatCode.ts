@@ -8,7 +8,7 @@ export const formatCode = async (filePath: string, code: string) => {
   let prettier: any;
   try {
     prettier = require('prettier');
-  } catch (error) {
+  } catch (_error) {
     // Prettier is not installed, continue without it
   }
 

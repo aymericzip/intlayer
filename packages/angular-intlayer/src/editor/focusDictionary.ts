@@ -51,8 +51,8 @@ export const createFocusDictionaryClient = () => {
 /**
  * Helper to install the focus dictionary into the injector
  */
-export const installFocusDictionary = (injector: Injector) => {
-  const client = createFocusDictionaryClient();
+export const installFocusDictionary = (_injector: Injector) => {
+  const _client = createFocusDictionaryClient();
 
   // Angular doesn't have a direct equivalent to Vue's app.provide
   // The client is stored as a singleton and accessed via createFocusDictionaryClient

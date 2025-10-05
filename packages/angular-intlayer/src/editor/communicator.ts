@@ -36,7 +36,7 @@ const defaultValue: Communicator = {
  */
 let instance: Communicator | null = null;
 
-const INTLAYER_COMMUNICATOR_SYMBOL = Symbol('Communicator');
+const _INTLAYER_COMMUNICATOR_SYMBOL = Symbol('Communicator');
 
 /**
  * Creates a communicator client
@@ -60,10 +60,10 @@ export const createCommunicator = (
  * Helper to install the Intlayer communicator into the injector
  */
 export const installCommunicator = (
-  injector: Injector,
+  _injector: Injector,
   options: CommunicatorOptions = { postMessage: () => null }
 ) => {
-  const client = createCommunicator(options);
+  const _client = createCommunicator(options);
 
   // Angular doesn't have a direct equivalent to Vue's app.provide
   // The client is stored as a singleton and accessed via createCommunicator
@@ -77,7 +77,7 @@ export const useCommunicator = (): Communicator => {
   try {
     const communicator = createCommunicator();
     return communicator || defaultValue;
-  } catch (error) {
+  } catch (_error) {
     console.warn(
       'useCommunicator: Error accessing communicator. Returning default communicator.'
     );

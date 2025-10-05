@@ -16,7 +16,7 @@ export const getDocSubSection = (
       current = current[
         key as keyof typeof current
       ] as unknown as CategorizedDocMetadata; // Navigate deeper
-    } else if (current.subSections && current.subSections[key]) {
+    } else if (current.subSections?.[key]) {
       current = current.subSections[key] as CategorizedDocMetadata; // Navigate deeper
     } else {
       return undefined; // If key is not found, return an empty string

@@ -35,7 +35,7 @@ export const LandingSection: FC = () => {
   const [copied, setCopied] = useState(false);
 
   function copyToClipboard(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    _event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void {
     navigator.clipboard.writeText('npm install intlayer').then(() => {
       setCopied(true);

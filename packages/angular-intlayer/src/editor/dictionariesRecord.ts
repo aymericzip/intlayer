@@ -45,8 +45,8 @@ export const createDictionaryRecordClient = () => {
 /**
  * Helper to install the provider into the injector
  */
-export const installDictionariesRecord = (injector: Injector) => {
-  const client = createDictionaryRecordClient();
+export const installDictionariesRecord = (_injector: Injector) => {
+  const _client = createDictionaryRecordClient();
 
   // Angular doesn't have a direct equivalent to Vue's app.provide
   // The client is stored as a singleton and accessed via createDictionaryRecordClient

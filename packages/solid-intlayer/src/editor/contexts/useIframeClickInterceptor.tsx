@@ -14,7 +14,7 @@ export const useIframeClickInterceptor = () => {
   );
 
   onMount(() => {
-    const handleClick = (event: MouseEvent) => {
+    const handleClick = (_event: MouseEvent) => {
       // Send click event to the parent frame
       postClickEvent();
     };

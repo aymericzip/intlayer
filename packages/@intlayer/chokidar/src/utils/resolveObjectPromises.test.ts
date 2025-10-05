@@ -1,11 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { resolveObjectPromises } from './resolveObjectPromises';
 
-// Helper to extract keys order of an object
-const getKeysInOrder = (obj: Record<string, unknown>): string[] => {
-  return Object.keys(obj);
-};
-
 const delay = async (ms: number) => {
   await new Promise((resolve) => setTimeout(resolve, ms));
 };

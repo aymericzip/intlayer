@@ -254,7 +254,7 @@ describe('parseYaml', () => {
     });
 
     it('should preserve number precision', () => {
-      expect(parseYaml('3.14159265359')).toBe(3.14159265359);
+      expect(parseYaml('3.14159265359')).toBe(Math.PI);
       expect(parseYaml('0.1')).toBe(0.1);
       expect(parseYaml('1e5')).toBe(100000);
     });

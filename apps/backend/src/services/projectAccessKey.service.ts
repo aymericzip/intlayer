@@ -1,6 +1,6 @@
+import { randomBytes } from 'node:crypto';
 import { ProjectModel } from '@models/project.model';
 import { GenericError } from '@utils/errors';
-import { randomBytes } from 'crypto';
 import type { Types } from 'mongoose';
 import type {
   AccessKeyData,

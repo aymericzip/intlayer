@@ -1,4 +1,4 @@
-import { TextDecoder, TextEncoder } from 'util';
+import { TextDecoder, TextEncoder } from 'node:util';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Polyfill TextEncoder/TextDecoder for Node versions < 19

@@ -8,13 +8,6 @@ export type CrossFrameStateOptions = {
   receive?: boolean;
 };
 
-type SetStateAction<S> = S | ((prevState: S) => S);
-
-const resolveState = <S,>(state?: SetStateAction<S>, prevState?: S): S =>
-  typeof state === 'function'
-    ? (state as (prevState?: S) => S)(prevState)
-    : (state as S);
-
 /**
  * Configuration options for `useCrossFrameState`.
  * @typedef {Object} CrossFrameStateOptions
@@ -45,22 +38,6 @@ export const useCrossFrameState = <S,>(
   const { postMessage, senderId } = useCommunicator();
 
   const { emit, receive } = options ?? { emit: true, receive: true };
-
-  const handleStateChange = (state?: SetStateAction<S>, prevState?: S) => {
-    // Initialize state from the provided initial value, if defined
-    const resolvedState: S = resolveState(state, prevState);
-
-    // Emit the initial state if `emit` is enabled and initial state is defined
-    if (
-      emit &&
-      typeof postMessage === 'function' &&
-      typeof resolvedState !== 'undefined'
-    ) {
-      postMessage({ type: `${key}/post`, data: resolvedState, senderId });
-    }
-
-    return resolvedState;
-  };
 
   const [state, setState] = createSignal<S>(
     typeof initialState === 'function'
@@ -124,8 +101,7 @@ export const useCrossFrameState = <S,>(
   useCrossFrameMessageListener<S>(
     `${key}/get`,
     // Only activate the state listener if the `emit` option is true
-    emit ? onGetMessage : undefined,
-    () => state() // Revalidate the listener if the state changes
+    emit ? onGetMessage : undefined
   );
 
   createEffect(() => {

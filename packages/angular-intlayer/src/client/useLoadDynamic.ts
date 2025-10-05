@@ -28,7 +28,7 @@ export const useLoadDynamic = <T extends Record<string, any>>(
     cache.set(key, p);
   } else {
     // If it's already in flight (or done), hook into it so that the container still updates
-    cache.get(key)!.then((real) => {
+    cache.get(key)?.then((real) => {
       container.set(real);
     });
   }

@@ -336,7 +336,7 @@ export const getSessionRoles = ({
 
   const isOrganizationAdmin = organization.adminsIds
     ?.map(String)
-    .includes(String(user!.id));
+    .includes(String(user?.id));
 
   if (isOrganizationAdmin) {
     roles.push('org_admin');
@@ -344,7 +344,7 @@ export const getSessionRoles = ({
 
   const isOrganizationMember = organization.membersIds
     ?.map(String)
-    .includes(String(user!.id));
+    .includes(String(user?.id));
 
   if (isOrganizationMember) {
     roles.push('org_user');
@@ -356,7 +356,7 @@ export const getSessionRoles = ({
 
   const isProjectAdmin = project.adminsIds
     ?.map(String)
-    .includes(String(user!.id));
+    .includes(String(user?.id));
 
   if (isProjectAdmin) {
     roles.push('project_admin');
@@ -364,7 +364,7 @@ export const getSessionRoles = ({
 
   const isProjectMember = project?.membersIds
     ?.map(String)
-    .includes(String(user!.id));
+    .includes(String(user?.id));
 
   if (isProjectMember) {
     roles.push('project_user');

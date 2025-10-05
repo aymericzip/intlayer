@@ -31,21 +31,21 @@ type PlanDetails = {
 };
 
 const planDetails: Record<Plan['type'], PlanDetails> = {
-  ['FREE']: {
+  FREE: {
     numberOfOrganizationUsers: 1,
     numberOfProjects: 1,
     totalStorage: 100, // 100 MB
     SeoAI: false,
     contentAI: false,
   },
-  ['PREMIUM']: {
+  PREMIUM: {
     numberOfOrganizationUsers: 20,
     numberOfProjects: 10,
     totalStorage: 500, // 500 MB
     SeoAI: false,
     contentAI: true,
   },
-  ['ENTERPRISE']: {
+  ENTERPRISE: {
     numberOfOrganizationUsers: undefined,
     numberOfProjects: undefined,
     totalStorage: undefined,
@@ -56,7 +56,7 @@ const planDetails: Record<Plan['type'], PlanDetails> = {
 
 export const getPlanDetails = (plan?: Plan): PlanDetails => {
   if (plan?.status !== 'active') {
-    return planDetails['FREE'];
+    return planDetails.FREE;
   }
 
   return planDetails[plan.type];

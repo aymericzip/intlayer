@@ -67,7 +67,7 @@ export const watch = (options?: WatchOptions) => {
       }, 300); // Allow time for unlink to trigger if it's a move
     })
     .on('error', async (error) => {
-      appLogger('Watcher error: ' + error, {
+      appLogger(`Watcher error: ${error}`, {
         level: 'error',
       });
 

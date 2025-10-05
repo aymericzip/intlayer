@@ -52,7 +52,7 @@ const insertion = <Content = unknown>(
 
     try {
       return getInsertionValues(JSON.stringify(content));
-    } catch (e) {
+    } catch (_e) {
       return [];
     }
   };

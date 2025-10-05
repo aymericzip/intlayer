@@ -45,7 +45,7 @@ export const getGender = <Content>(
   // Default or error handling if no keys match
   return (
     genderContent[genderEntry as keyof typeof genderContent] ??
-    genderContent['fallback'] ??
+    genderContent.fallback ??
     (genderContent[fallbackState] as Content)
   );
 };

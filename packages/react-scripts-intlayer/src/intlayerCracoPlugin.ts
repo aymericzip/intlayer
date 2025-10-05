@@ -29,10 +29,10 @@ export const overrideWebpackConfig = ({
       : {}),
     esbuild: 'esbuild', // keep only esbuild external
   };
-  delete webpackConfig.externals.module;
-  delete webpackConfig.externals.fs;
-  delete webpackConfig.externals.path;
-  delete webpackConfig.externals.vm;
+  webpackConfig.externals.module = undefined;
+  webpackConfig.externals.fs = undefined;
+  webpackConfig.externals.path = undefined;
+  webpackConfig.externals.vm = undefined;
 
   // 2) Properly push node-loader rule instead of overwriting.
   webpackConfig.module.rules.push({

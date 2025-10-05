@@ -1,6 +1,6 @@
 import { dirname } from 'node:path';
+import { runInNewContext } from 'node:vm';
 import { type BuildOptions, type BuildResult, buildSync } from 'esbuild';
-import { runInNewContext } from 'vm';
 import { getSandBoxContext } from './getSandboxContext';
 import type { LoadEnvFileOptions } from './loadEnvFile';
 import { logger } from './logger';

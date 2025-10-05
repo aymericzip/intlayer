@@ -39,8 +39,8 @@ export const liveSync = async (options?: LiveSyncOptions) => {
 
   let parallelProcess: ParallelHandle | null = null;
   let eventListener: IntlayerEventListener | null = null;
-  let isHotReloadConnected = false;
-  let connectionStatus = 'disconnected'; // 'connected', 'connecting', 'reconnecting', 'disconnected', 'error'
+  let _isHotReloadConnected = false;
+  let _connectionStatus = 'disconnected'; // 'connected', 'connecting', 'reconnecting', 'disconnected', 'error'
 
   // Start the parallel process if provided
   if (options?.with) {
@@ -55,18 +55,18 @@ export const liveSync = async (options?: LiveSyncOptions) => {
     configuration.editor.clientSecret
   ) {
     eventListener = new IntlayerEventListener(configuration);
-    connectionStatus = 'connecting';
+    _connectionStatus = 'connecting';
 
     // Set up connection callbacks
     eventListener.onConnectionOpen = () => {
-      connectionStatus = 'connected';
-      isHotReloadConnected = true;
+      _connectionStatus = 'connected';
+      _isHotReloadConnected = true;
       appLogger('Live sync connection established');
     };
 
     eventListener.onConnectionError = (error) => {
-      connectionStatus = 'error';
-      isHotReloadConnected = false;
+      _connectionStatus = 'error';
+      _isHotReloadConnected = false;
       const errorEvent = error as any;
       appLogger(
         `Live sync connection error: ${errorEvent.message ?? 'Unknown error'}`,
@@ -86,7 +86,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
             level: 'info',
           }
         );
-        connectionStatus = 'reconnecting';
+        _connectionStatus = 'reconnecting';
       }
     };
 
@@ -101,8 +101,8 @@ export const liveSync = async (options?: LiveSyncOptions) => {
     try {
       await eventListener.initialize();
     } catch (error) {
-      connectionStatus = 'error';
-      isHotReloadConnected = false;
+      _connectionStatus = 'error';
+      _isHotReloadConnected = false;
       appLogger('Failed to initialize IntlayerEventListener:', {
         level: 'error',
       });

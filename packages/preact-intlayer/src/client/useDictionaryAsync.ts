@@ -30,7 +30,7 @@ export const useDictionaryAsync = async <T extends Dictionary>(
     async () =>
       (await dictionaryPromise[
         localeTarget as keyof typeof dictionaryPromise
-      ]!()) as T,
+      ]?.()) as T,
     [dictionaryPromise, localeTarget]
   );
 

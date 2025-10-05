@@ -68,7 +68,7 @@ export const getMarkdownMetadata = <T extends Record<string, any>>(
           } else {
             try {
               (metadata as Record<string, any>)[key] = parseYaml(value);
-            } catch (e) {
+            } catch (_e) {
               (metadata as Record<string, any>)[key] = value;
             }
           }
@@ -77,7 +77,7 @@ export const getMarkdownMetadata = <T extends Record<string, any>>(
     }
 
     return metadata;
-  } catch (e) {
+  } catch (_e) {
     const result: T = {} as T;
     return result;
   }

@@ -114,11 +114,7 @@ export const writeContentDeclaration = async (
           fr: 'Déclaration de contenu écrite',
           es: 'Declaración de contenido escrita',
         }),
-        description: t({
-          en: 'Content declaration written successfully',
-          fr: 'Déclaration de contenu écrite avec succès',
-          es: 'Declaración de contenido escrita con éxito',
-        }),
+        description,
       }
     );
 

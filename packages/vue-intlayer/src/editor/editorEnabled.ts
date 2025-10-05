@@ -103,7 +103,7 @@ export const useEditorEnabled = createSharedComposable(() => {
   // Set up the watch immediately so it catches initial and all subsequent changes
   watch(
     () => client.isInIframe.value && client.settingEnabled.value,
-    (value) => {
+    (_value) => {
       getEditorEnabled();
     },
     { immediate: true }

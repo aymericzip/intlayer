@@ -21,7 +21,7 @@ type EditedContentClient = {
  */
 let instance: EditedContentClient | null = null;
 
-const INTLAYER_EDITED_CONTENT_SYMBOL = Symbol('EditedContent');
+const _INTLAYER_EDITED_CONTENT_SYMBOL = Symbol('EditedContent');
 
 /**
  * Creates an edited content client
@@ -53,8 +53,8 @@ export const createEditedContentClient = () => {
 /**
  * Helper to install the edited content into the injector
  */
-export const installEditedContent = (injector: Injector) => {
-  const client = createEditedContentClient();
+export const installEditedContent = (_injector: Injector) => {
+  const _client = createEditedContentClient();
 
   // Angular doesn't have a direct equivalent to Vue's app.provide
   // The client is stored as a singleton and accessed via createEditedContentClient

@@ -46,10 +46,6 @@ const STATIC_IMPORT_FUNCTION = {
   useIntlayer: 'useDictionary',
 } as const;
 
-const FETCH_IMPORT_FUNCTION = {
-  useIntlayer: 'useDictionaryDynamic',
-} as const;
-
 const DYNAMIC_IMPORT_FUNCTION = {
   useIntlayer: 'useDictionaryDynamic',
 } as const;
@@ -458,11 +454,11 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
 
         if (perCallMode === 'live') {
           // Use fetch dictionaries entry (live mode for selected keys)
-          let dynamicIdent = state._newDynamicImports!.get(key);
+          let dynamicIdent = state._newDynamicImports?.get(key);
           if (!dynamicIdent) {
             const hash = getFileHash(key);
             dynamicIdent = t.identifier(`_${hash}_fetch`);
-            state._newDynamicImports!.set(key, dynamicIdent);
+            state._newDynamicImports?.set(key, dynamicIdent);
           }
           ident = dynamicIdent;
 
@@ -473,12 +469,12 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
           ];
         } else if (perCallMode === 'dynamic') {
           // Use dynamic dictionaries entry
-          let dynamicIdent = state._newDynamicImports!.get(key);
+          let dynamicIdent = state._newDynamicImports?.get(key);
           if (!dynamicIdent) {
             // Create a unique identifier for dynamic imports by appending a suffix
             const hash = getFileHash(key);
             dynamicIdent = t.identifier(`_${hash}_dyn`);
-            state._newDynamicImports!.set(key, dynamicIdent);
+            state._newDynamicImports?.set(key, dynamicIdent);
           }
           ident = dynamicIdent;
 
@@ -489,10 +485,10 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
           ];
         } else {
           // Use static imports for getIntlayer or useIntlayer when not using dynamic helpers
-          let staticIdent = state._newStaticImports!.get(key);
+          let staticIdent = state._newStaticImports?.get(key);
           if (!staticIdent) {
             staticIdent = makeIdent(key);
-            state._newStaticImports!.set(key, staticIdent);
+            state._newStaticImports?.set(key, staticIdent);
           }
           ident = staticIdent;
 

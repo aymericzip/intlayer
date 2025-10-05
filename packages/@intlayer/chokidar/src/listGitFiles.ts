@@ -13,7 +13,7 @@ const getGitRootDir = async (): Promise<string | null> => {
     return rootDir.trim();
   } catch (error) {
     const appLogger = getAppLogger(configuration);
-    appLogger('Error getting git root directory:' + error, {
+    appLogger(`Error getting git root directory: ${error}`, {
       level: 'error',
     });
     return null;

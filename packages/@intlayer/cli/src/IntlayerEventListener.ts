@@ -122,7 +122,7 @@ export class IntlayerEventListener {
 
       this.eventSource.onmessage = (event) => this.handleMessage(event);
       this.eventSource.onerror = (event) => this.handleError(event);
-    } catch (error) {
+    } catch (_error) {
       this.appLogger('Failed to establish EventSource connection:', {
         level: 'error',
       });

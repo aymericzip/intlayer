@@ -9,7 +9,7 @@ export const parseYaml = <T = any>(input: string): T | null => {
   // If it's a simple unquoted string (not an array or object), return it as-is
   if (!trimmedInput.startsWith('[') && !trimmedInput.startsWith('{')) {
     // Check if it's a number
-    if (!isNaN(Number(trimmedInput))) {
+    if (!Number.isNaN(Number(trimmedInput))) {
       return JSON.parse(trimmedInput) as T;
     }
     // Check if it's already a quoted string
@@ -43,7 +43,7 @@ export const parseYaml = <T = any>(input: string): T | null => {
           // If already quoted or is a valid number, return as is.
           if (
             (trimmed.startsWith('"') && trimmed.endsWith('"')) ||
-            !isNaN(Number(trimmed))
+            !Number.isNaN(Number(trimmed))
           ) {
             return trimmed;
           }

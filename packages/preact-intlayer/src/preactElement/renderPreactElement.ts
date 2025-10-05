@@ -18,7 +18,9 @@ export const renderPreactElement = (element: VNode<any>) => {
       // Create the children elements recursively, if any
       Object.keys(children ?? {}).forEach((key) => {
         childrenResult.push(
-          renderPreactElement((children ?? {})[key as keyof typeof children])
+          renderPreactElement(
+            children?.[key as keyof typeof children] as unknown as VNode<any>
+          )
         );
       });
 

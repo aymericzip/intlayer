@@ -60,7 +60,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
           </span>
           <span>{totalPrice.toFixed(2).split('.')[0]}</span>
           <span className="text-3xl">
-            {'.' + totalPrice.toFixed(2).split('.')[1]}
+            {`.${totalPrice.toFixed(2).split('.')[1]}`}
           </span>
           <span className="text-xl" itemProp="priceCurrency">
             {unit}
@@ -75,7 +75,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
               </span>
               <span>{basePrice.toFixed(2).split('.')[0]}</span>
               <span className="text-xl">
-                {'.' + basePrice.toFixed(2).split('.')[1]}
+                {`.${basePrice.toFixed(2).split('.')[1]}`}
               </span>
               <span className="text-base" itemProp="priceCurrency">
                 $

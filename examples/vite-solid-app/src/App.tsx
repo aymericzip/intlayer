@@ -9,7 +9,7 @@ import viteLogo from '/vite.svg';
 import solidLogo from './assets/solid.svg';
 
 const AppContent = () => {
-  const [count, setCount] = createSignal(0);
+  const [_count, setCount] = createSignal(0);
   const content = useIntlayer('app');
   const {
     viteAndVue,

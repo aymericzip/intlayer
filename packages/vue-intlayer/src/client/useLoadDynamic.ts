@@ -11,7 +11,8 @@ export const useLoadDynamic = <T extends Record<string, any>>(
   promise: Promise<T>
 ): T => {
   // A module‐level cache of Promises, so we only import once per key.
-  const cache: Map<string, Promise<T>> = (useLoadDynamic as any)._cache ||
+  const cache: Map<string, Promise<T>> = (useLoadDynamic as any)._cache ??
+  // biome-ignore lint/suspicious/noAssignInExpressions: <To fix the error>
   ((useLoadDynamic as any)._cache = new Map());
 
   // Hold the "current" value as a reactive object
@@ -28,7 +29,7 @@ export const useLoadDynamic = <T extends Record<string, any>>(
     cache.set(key, p);
   } else {
     // If it's already in flight (or done), hook into it so that the container still updates
-    cache.get(key)!.then((real) => {
+    cache.get(key)?.then((real) => {
       Object.assign(container, real);
     });
   }

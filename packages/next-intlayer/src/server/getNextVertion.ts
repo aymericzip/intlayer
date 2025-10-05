@@ -8,7 +8,7 @@ export const getNextVersion = () => {
     const nextPkg = JSON.parse(readFileSync(nextConfigPath, 'utf-8'));
 
     return nextPkg.version;
-  } catch (e) {
+  } catch (_e) {
     return undefined;
   }
 };

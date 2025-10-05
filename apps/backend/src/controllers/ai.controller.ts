@@ -48,7 +48,7 @@ export const customQuery = async (
       defaultOptions: customQueryUtil.aiDefaultOptions,
       accessType: ['registered_user', 'apiKey'],
     });
-  } catch (error) {
+  } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
   }
@@ -101,7 +101,7 @@ export const translateJSON = async (
       defaultOptions: translateJSONUtil.aiDefaultOptions,
       accessType: ['registered_user', 'apiKey'],
     });
-  } catch (error) {
+  } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
   }
@@ -168,7 +168,7 @@ export const auditContentDeclaration = async (
       defaultOptions: auditContentDeclarationUtil.aiDefaultOptions,
       accessType: ['registered_user', 'apiKey'],
     });
-  } catch (error) {
+  } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
   }
@@ -237,7 +237,7 @@ export const auditContentDeclarationField = async (
       defaultOptions: auditContentDeclarationFieldUtil.aiDefaultOptions,
       accessType: ['registered_user', 'apiKey'],
     });
-  } catch (error) {
+  } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
   }
@@ -302,7 +302,7 @@ export const auditContentDeclarationMetadata = async (
       defaultOptions: auditContentDeclarationMetadataUtil.aiDefaultOptions,
       accessType: ['registered_user', 'apiKey'],
     });
-  } catch (error) {
+  } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
   }
@@ -367,7 +367,7 @@ export const auditTag = async (
       defaultOptions: auditTagUtil.aiDefaultOptions,
       accessType: ['registered_user', 'apiKey'],
     });
-  } catch (error) {
+  } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
   }
@@ -424,7 +424,7 @@ export const askDocQuestion = async (
       defaultOptions: askDocQuestionUtil.aiDefaultOptions,
       accessType: ['public'],
     });
-  } catch (error) {
+  } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
   }
@@ -527,7 +527,7 @@ export const autocomplete = async (
         defaultOptions: autocompleteUtil.aiDefaultOptions,
         accessType: ['public'],
       });
-    } catch (error) {
+    } catch (_error) {
       ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
       return;
     }

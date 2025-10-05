@@ -381,7 +381,7 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
               <TextEditorContainer
                 section={
                   content[condKey as keyof typeof content] ??
-                  getEmptyNode(content['true'])
+                  getEmptyNode(content.true)
                 }
                 keyPath={[
                   ...keyPath,
@@ -421,7 +421,7 @@ const GenderTextEditor: FC<TextEditorProps> = ({
               <TextEditorContainer
                 section={
                   content[condKey as keyof typeof content] ??
-                  getEmptyNode(content['male'])
+                  getEmptyNode(content.male)
                 }
                 keyPath={[
                   ...keyPath,

@@ -65,7 +65,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     if (options?.dictionaries) {
       distantDictionariesUpdateTimeStamp = Object.fromEntries(
         Object.entries(distantDictionariesUpdateTimeStamp).filter(([key]) =>
-          options.dictionaries!.includes(key)
+          options.dictionaries?.includes(key)
         )
       );
     }

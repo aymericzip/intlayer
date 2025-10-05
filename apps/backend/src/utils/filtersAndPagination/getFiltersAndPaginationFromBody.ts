@@ -43,13 +43,13 @@ export const getFiltersAndPaginationFromBody = <T extends Filters>(
     } = query;
 
     if (typeof pageSizeRequest === 'string') {
-      pageSize = parseInt(pageSizeRequest);
+      pageSize = parseInt(pageSizeRequest, 10);
     } else if (typeof pageSizeRequest === 'number') {
       pageSize = pageSizeRequest;
     }
 
     if (typeof pageRequest === 'string') {
-      page = parseInt(pageRequest);
+      page = parseInt(pageRequest, 10);
     } else if (typeof pageRequest === 'number') {
       page = pageRequest;
     }

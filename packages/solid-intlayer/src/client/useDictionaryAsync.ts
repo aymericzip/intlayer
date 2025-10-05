@@ -19,7 +19,8 @@ export const useDictionaryAsync = async <T extends Dictionary>(
   const localeTarget = locale ?? currentLocale() ?? defaultLocale;
 
   const dictionary =
-    await dictionaryPromise[localeTarget as keyof typeof dictionaryPromise]!();
+    await dictionaryPromise[localeTarget as keyof typeof dictionaryPromise]?.();
 
-  return useDictionary(dictionary, localeTarget);
+  // biome-ignore lint/style/noNonNullAssertion: <Dictionary can be null>
+  return useDictionary(dictionary!, localeTarget);
 };

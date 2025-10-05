@@ -88,7 +88,7 @@ export const editDictionaryByKeyPath = (
     if (keyObj.type === NodeType.File) {
       lastKeys = ['content'];
 
-      currentValue = currentValue['content'];
+      currentValue = currentValue.content;
     }
 
     if (keyObj.type) {

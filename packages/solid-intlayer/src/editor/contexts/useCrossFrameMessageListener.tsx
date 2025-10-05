@@ -20,8 +20,7 @@ import { useCommunicator } from './CommunicatorContext';
  */
 export const useCrossFrameMessageListener = <S,>(
   key: `${MessageKey}` | `${MessageKey}/post` | `${MessageKey}/get`,
-  onEventTriggered?: (data: S) => void,
-  revalidator?: any
+  onEventTriggered?: (data: S) => void
 ) => {
   const communicator = useCommunicator();
 

@@ -102,14 +102,6 @@ describe('fixChunkStartEndChars', () => {
     const aiGeneratedResult =
       '\n' + '\n' + '### 2. **Vérifiez si la commande est enregistrée**\n';
 
-    // The current result is this one, but it's wrong because the \n are missing
-    const fixedResultError =
-      '```### 2. **Vérifiez si la commande est enregistrée**\n';
-
-    // The correct result should be this one, with the \n at the beginning
-    const fixedResultSuccess =
-      '```\n' + '\n' + '### 2. **Vérifiez si la commande est enregistrée**\n';
-
     const fixed = fixChunkStartEndChars(aiGeneratedResult, baseChunk);
 
     // Check if it start by '```\n' + '\n' + '### 2.'

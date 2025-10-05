@@ -290,7 +290,7 @@ export const searchChunkReference = async (
 
   const orderedDocKeys = new Set(selection.map((chunk) => chunk.fileKey));
 
-  const orderedVectorStore = vectorStore.sort((a, b) =>
+  const orderedVectorStore = vectorStore.sort((a, _b) =>
     orderedDocKeys.has(a.fileKey) ? -1 : 1
   );
 

@@ -49,7 +49,7 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
     if (organization?.membersIds) {
       const membersIds = organization.membersIds;
 
-      getUsers();
+      getUsers({ ids: membersIds });
     }
   }, [getUsers, organization]);
 

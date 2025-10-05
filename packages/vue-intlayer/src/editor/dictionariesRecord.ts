@@ -1,15 +1,7 @@
 import type { Dictionary } from '@intlayer/core';
 import dictionaries from '@intlayer/dictionaries-entry';
 import { MessageKey } from '@intlayer/editor';
-import {
-  type App,
-  type InjectionKey,
-  inject,
-  type Ref,
-  readonly,
-  ref,
-  watch,
-} from 'vue';
+import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';
 
@@ -29,9 +21,6 @@ type DictionariesRecordClient = {
   setLocaleDictionaries: (newValue: DictionaryContent) => void;
   setLocaleDictionary: (d: Dictionary) => void;
 };
-
-const Key: InjectionKey<DictionariesRecordClient> =
-  Symbol('DictionariesRecord');
 
 export const createDictionaryRecordClient = () => {
   if (instance) return instance;

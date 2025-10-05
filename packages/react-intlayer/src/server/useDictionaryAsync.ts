@@ -19,7 +19,7 @@ export const useDictionaryAsync = async <T extends Dictionary>(
     getServerContext<LocalesValues>(IntlayerServerContext) ??
     configuration?.internationalization.defaultLocale;
 
-  const dictionary = await dictionaryPromise[localeTarget]!();
+  const dictionary = await (dictionaryPromise as any)[localeTarget]?.();
 
   return useDictionary(dictionary, localeTarget) as any;
 };

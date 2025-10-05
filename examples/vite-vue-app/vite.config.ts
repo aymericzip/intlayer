@@ -1,8 +1,5 @@
+import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
-import { createRequire } from
-'node:module
-
-import { createRequire } from 'module';
 import { defineConfig } from 'vite';
 import { intlayer, intlayerMiddleware } from 'vite-intlayer';
 

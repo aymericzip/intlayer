@@ -1,6 +1,5 @@
 import { getContent } from '../../interpreter/getContent/getContent';
 import {
-  ContentNode,
   formatNodeType,
   NodeType,
   type TypedNodeModel,
@@ -12,7 +11,7 @@ export type MarkdownContentConstructor<
   Content = unknown,
 > = TypedNodeModel<NodeType.Markdown, Content, T>;
 
-export type MarkdownContent<Content = unknown> = MarkdownContentConstructor<{
+export type MarkdownContent<_Content = unknown> = MarkdownContentConstructor<{
   metadata?: Record<string, any>;
 }>;
 

@@ -59,7 +59,7 @@ const toLanguageName = (locale: string): string => {
 const parseDate = (value: string | null): Date | null => {
   if (!value) return null;
   const d = new Date(value);
-  return isNaN(d.getTime()) ? null : d;
+  return Number.isNaN(d.getTime()) ? null : d;
 };
 
 const getLocalizedPath = (
@@ -154,7 +154,7 @@ export const runOutdatedDocsTest = (
           entries: [],
         });
       }
-      grouped.get(d.englishFile)!.entries.push({
+      grouped.get(d.englishFile)?.entries.push({
         locale: d.locale,
         localizedFile: d.localizedFile,
         localizedUpdatedAt: d.localizedUpdatedAt,

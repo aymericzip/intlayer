@@ -157,7 +157,7 @@ const buildInsertionInitializer = (content: unknown): string | undefined => {
   if (typeof content === 'string') return `insert(${JSON.stringify(content)})`;
   if (isTranslationNode(content)) {
     const translations: Record<string, unknown> =
-      (content as any).translation ?? (content as any)['translation'] ?? {};
+      (content as any).translation ?? (content as any).translation ?? {};
     const allStrings = Object.values(translations).every(
       (v) => typeof v === 'string'
     );
@@ -474,7 +474,7 @@ const serializeValue = (value: unknown): string | undefined => {
   if (value === null) return 'null';
   if (isTranslationNode(value)) {
     const translations: Record<string, unknown> =
-      (value as any).translation ?? (value as any)['translation'] ?? {};
+      (value as any).translation ?? (value as any).translation ?? {};
     const allStrings = Object.values(translations).every(
       (v) => typeof v === 'string'
     );
@@ -748,7 +748,7 @@ export const transformJSFile = async (
       // Handle translation nodes: { nodeType: 'translation', translation: { ... } }
       if (isTranslationNode(value)) {
         const translations: Record<string, unknown> =
-          (value as any).translation ?? (value as any)['translation'] ?? {};
+          (value as any).translation ?? (value as any).translation ?? {};
 
         // Only handle translation nodes where all values are plain strings
         const allStrings = Object.values(translations).every(

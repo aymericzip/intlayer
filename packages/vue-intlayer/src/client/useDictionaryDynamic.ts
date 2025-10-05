@@ -34,7 +34,7 @@ export const useDictionaryDynamic = <
 
   const dictionary = useLoadDynamic<T>(
     `${String(key)}.${localeTarget.value}`,
-    dictionaryPromise[localeTarget.value]!()
+    dictionaryPromise[localeTarget.value]?.()
   ) as T;
 
   return useDictionary(dictionary, localeTarget as any);

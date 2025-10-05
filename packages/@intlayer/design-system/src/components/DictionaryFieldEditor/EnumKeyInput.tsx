@@ -7,10 +7,10 @@ import { Select } from '../Select';
 const extractInitialState = (
   value: string | number
 ): { comparator: string | undefined; numberValue: string | undefined } => {
-  let comparator;
-  let numberValue;
+  let comparator: string | undefined;
+  let numberValue: string | undefined;
 
-  if (typeof value === 'number' || !isNaN(Number(value))) {
+  if (typeof value === 'number' || !Number.isNaN(Number(value))) {
     // If value is a number or numeric string, set comparator to '=' and numberValue accordingly
     comparator = '=';
     numberValue = value.toString();

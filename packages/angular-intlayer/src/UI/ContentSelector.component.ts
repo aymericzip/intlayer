@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  type ChangeDetectorRef,
   Component,
   computed,
   type ElementRef,
@@ -64,8 +63,6 @@ export class ContentSelectorComponent implements OnInit, OnDestroy {
     // This would need to be determined differently or simplified
     return true; // Simplified for now
   });
-
-  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.isSelectingState.set(this.isSelecting ?? false);

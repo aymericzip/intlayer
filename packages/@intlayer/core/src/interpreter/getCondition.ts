@@ -34,7 +34,7 @@ export const getCondition = <Content>(
   // Default or error handling if no keys match
   return (
     conditionContent[`${state}` as keyof typeof conditionContent] ??
-    conditionContent['fallback'] ??
+    conditionContent.fallback ??
     (conditionContent[fallbackState] as Content)
   );
 };

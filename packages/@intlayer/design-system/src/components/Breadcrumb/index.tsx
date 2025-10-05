@@ -296,7 +296,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
       : links;
 
   return (
-    <nav aria-label={ariaLabel} role="navigation">
+    <nav aria-label={ariaLabel}>
       <ol
         className={cn(breadcrumbVariants({ size, spacing }), className)}
         {...(includeStructuredData && {

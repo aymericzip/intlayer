@@ -135,8 +135,7 @@ export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
     const minHeight = LINE_HEIGHT + LINE_PADDING;
 
     // Set the new height
-    textAreaStyle.height =
-      Math.max(Math.min(scrollHeight, maxHeight), minHeight) + 'px';
+    textAreaStyle.height = `${Math.max(Math.min(scrollHeight, maxHeight), minHeight)}px`;
   };
 
   useEffect(() => {

@@ -145,19 +145,19 @@ const scrollToHash = (id: string) => {
  * @returns Whether the after pseudo-element was clicked
  */
 const afterClick = (parentElem: Element, e: MouseEvent<HTMLHeadingElement>) => {
-  const parentLeft = parentElem.getBoundingClientRect().left,
-    parentTop = parentElem.getBoundingClientRect().top;
+  const parentLeft = parentElem.getBoundingClientRect().left;
+  const parentTop = parentElem.getBoundingClientRect().top;
 
   const after = window.getComputedStyle(parentElem, ':after');
 
-  const afterStart = parentLeft + parseInt(after.getPropertyValue('left'), 10),
-    afterEnd = afterStart + parseInt(after.width, 10);
+  const afterStart = parentLeft + parseInt(after.getPropertyValue('left'), 10);
+  const afterEnd = afterStart + parseInt(after.width, 10);
 
-  const afterYStart = parentTop + parseInt(after.getPropertyValue('top'), 10),
-    afterYEnd = afterYStart + parseInt(after.height, 10);
+  const afterYStart = parentTop + parseInt(after.getPropertyValue('top'), 10);
+  const afterYEnd = afterYStart + parseInt(after.height, 10);
 
-  const mouseX = e.clientX,
-    mouseY = e.clientY;
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
 
   const isAfterClicked: boolean =
     mouseX >= afterStart &&

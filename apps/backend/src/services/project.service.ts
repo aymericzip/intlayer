@@ -72,7 +72,7 @@ export const createProject = async (
   project: ProjectData
 ): Promise<ProjectDocument> => {
   if ((project as Partial<Project>).oAuth2Access) {
-    delete (project as Partial<Project>).oAuth2Access;
+    (project as Partial<Project>).oAuth2Access = undefined;
   }
 
   const errors = await validateProject(project, ['name']);

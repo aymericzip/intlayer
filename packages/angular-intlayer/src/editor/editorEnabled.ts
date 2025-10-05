@@ -23,7 +23,7 @@ export type EditorEnabledStateProps = {
  */
 let instance: EditorEnabledStateProps | null = null;
 
-const INTLAYER_EDITOR_ENABLED_SYMBOL = Symbol('EditorEnabled');
+const _INTLAYER_EDITOR_ENABLED_SYMBOL = Symbol('EditorEnabled');
 
 /**
  * Creates an editor wrapperEnabled client
@@ -49,8 +49,8 @@ export const createEditorEnabledClient = () => {
 /**
  * Helper to install the editor wrapperEnabled state into the injector
  */
-export const installEditorEnabled = (injector: Injector) => {
-  const client = createEditorEnabledClient();
+export const installEditorEnabled = (_injector: Injector) => {
+  const _client = createEditorEnabledClient();
 
   // Angular doesn't have a direct equivalent to Vue's app.provide
   // The client is stored as a singleton and accessed via createEditorEnabledClient

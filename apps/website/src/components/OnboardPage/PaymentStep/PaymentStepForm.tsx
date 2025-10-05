@@ -53,7 +53,7 @@ const PaymentDetails: FC<PaymentDetailsProps> = ({ plan, period, invoice }) => {
           </span>
           <span>{total.toFixed(2).split('.')[0]}</span>
           <span className="text-2xl">
-            {'.' + total.toFixed(2).split('.')[1]}
+            {`.${total.toFixed(2).split('.')[1]}`}
           </span>
           <span className="text-lg" itemProp="priceCurrency">
             $
@@ -68,7 +68,7 @@ const PaymentDetails: FC<PaymentDetailsProps> = ({ plan, period, invoice }) => {
               </span>
               <span>{subtotal.toFixed(2).split('.')[0]}</span>
               <span className="text-xl">
-                {'.' + subtotal.toFixed(2).split('.')[1]}
+                {`.${subtotal.toFixed(2).split('.')[1]}`}
               </span>
               <span className="text-base" itemProp="priceCurrency">
                 $

@@ -1324,9 +1324,9 @@ describe('processer', () => {
       const firstPre = Array.isArray(firstChildren)
         ? firstChildren.find((c: any) => c && c.type === 'pre')
         : firstChildren;
-      expect(firstPre && firstPre.type).toBe('pre');
+      expect(firstPre?.type).toBe('pre');
       const firstCode = firstPre.props.children;
-      expect(firstCode && firstCode.type).toBe('code');
+      expect(firstCode?.type).toBe('code');
       expect(firstCode.props.className).toContain('lang-tsx');
       // The displayed content must not include the language token ("tsx\n")
       expect(String(firstCode.props.children).startsWith('tsx\n')).toBe(false);
@@ -1336,9 +1336,9 @@ describe('processer', () => {
       const secondPre = Array.isArray(secondChildren)
         ? secondChildren.find((c: any) => c && c.type === 'pre')
         : secondChildren;
-      expect(secondPre && secondPre.type).toBe('pre');
+      expect(secondPre?.type).toBe('pre');
       const secondCode = secondPre.props.children;
-      expect(secondCode && secondCode.type).toBe('code');
+      expect(secondCode?.type).toBe('code');
       expect(secondCode.props.className).toContain('lang-tsx');
       expect(String(secondCode.props.children).startsWith('tsx\n')).toBe(false);
     });
@@ -1414,9 +1414,9 @@ describe('processer', () => {
       const first = tabItems[0];
       const pre = first.props.children.find((c: any) => c && c.type === 'pre');
 
-      expect(pre && pre.type).toBe('pre');
+      expect(pre?.type).toBe('pre');
       const code = pre.props.children;
-      expect(code && code.type).toBe('code');
+      expect(code?.type).toBe('code');
       expect(code.props.className).toContain('lang-tsx');
       expect(String(code.props.children).startsWith('tsx\n')).toBe(false);
       // ensure backtick characters are preserved in the rendered text

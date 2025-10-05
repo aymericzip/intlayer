@@ -16,7 +16,7 @@ export const renderSolidElement = (element: JSX.Element) => {
       // Create the children elements recursively, if any
       Object.keys(children ?? {}).forEach((key) => {
         childrenResult.push(
-          renderSolidElement((children ?? {})[key as keyof typeof children])
+          renderSolidElement(children?.[key as keyof typeof children])
         );
       });
 

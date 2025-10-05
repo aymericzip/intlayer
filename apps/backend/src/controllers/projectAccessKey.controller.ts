@@ -202,7 +202,7 @@ export const refreshAccessKey = async (
       'project:write'
     )({
       ...res.locals,
-      targetProjectIds: [project!.id],
+      targetProjectIds: [project?.id],
     })
   ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
@@ -212,8 +212,8 @@ export const refreshAccessKey = async (
   try {
     const newAccessKey = await projectAccessKeyService.refreshAccessKey(
       clientId,
-      project!.id,
-      user!.id
+      project?.id,
+      user?.id
     );
 
     const responseData = formatResponse<OAuth2Access>({

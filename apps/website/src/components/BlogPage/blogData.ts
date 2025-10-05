@@ -19,7 +19,7 @@ export const getBlogSubSection = (
   for (const key of sectionKey) {
     if (current[key as keyof typeof current]) {
       current = current[key as keyof typeof current] as CategorizedBlogData; // Navigate deeper
-    } else if (current.subSections && current.subSections[key]) {
+    } else if (current.subSections?.[key]) {
       current = current.subSections[key] as CategorizedBlogData; // Navigate deeper
     } else {
       break; // If key is not found, return an empty string

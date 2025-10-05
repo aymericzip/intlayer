@@ -130,7 +130,7 @@ export const SearchView: FC<{
 
   // Handle backend search results
   useEffect(() => {
-    if (searchDocData && searchDocData.data && currentSearchQuery) {
+    if (searchDocData?.data && currentSearchQuery) {
       const backendResults: DocMetadata[] = searchDocData.data
         .map((docKey: string) => filesData.find((doc) => doc.docKey === docKey))
         .filter((doc: DocMetadata | undefined): doc is DocMetadata =>

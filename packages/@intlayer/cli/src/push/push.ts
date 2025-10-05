@@ -1,5 +1,6 @@
 import * as fsPromises from 'node:fs/promises';
 import { join } from 'node:path';
+import * as readline from 'node:readline';
 import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
   formatPath,
@@ -15,7 +16,6 @@ import {
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import * as readline from 'readline';
 import { PushLogger, type PushStatus } from '../pushLog';
 import { checkCMSAuth } from '../utils/checkAccess';
 
@@ -75,7 +75,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
       // Filter the dictionaries from the provided list of IDs
       dictionaries = dictionaries.filter((dictionary) =>
-        options.dictionaries!.includes(dictionary.key)
+        options.dictionaries?.includes(dictionary.key)
       );
     }
 

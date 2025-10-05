@@ -54,7 +54,7 @@ router.post(POST_ENDPOINT, async (req: Request, res: Response) => {
   // the sessionId will be atomically set as query parameter.
   const sessionId = req.query.sessionId;
 
-  if (typeof sessionId != 'string') {
+  if (typeof sessionId !== 'string') {
     res.status(400).send({ messages: 'Bad session id.' });
     return;
   }

@@ -75,7 +75,7 @@ const validationRules: ValidationRule[] = [
       // Check for excessive heading hierarchy jumps (only flag very large jumps)
       const headings = content.match(/^#{1,6} .+$/gm) || [];
       let prevLevel = 0;
-      headings.forEach((heading, index) => {
+      headings.forEach((heading, _index) => {
         const level = heading.match(/^#+/)?.[0].length || 0;
         // Only flag jumps that are 3+ levels (e.g., H1 to H4, H2 to H5, etc.)
         // This allows common patterns like H1->H3 or H2->H4
@@ -149,7 +149,7 @@ const validationRules: ValidationRule[] = [
 
       const lines = content.split('\n');
       let inList = false;
-      let listIndentLevel = 0;
+      let _listIndentLevel = 0;
 
       lines.forEach((line) => {
         const listMatch = line.match(/^(\s*)([-*+]|\d+\.)\s/);
@@ -157,7 +157,7 @@ const validationRules: ValidationRule[] = [
           const indent = listMatch[1].length;
           if (!inList) {
             inList = true;
-            listIndentLevel = indent;
+            _listIndentLevel = indent;
           }
         } else if (inList && line.trim() === '') {
           // Empty line in list is OK

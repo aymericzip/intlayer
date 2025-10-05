@@ -44,8 +44,6 @@ export const useGetEditedContentState = <S,>(
     onEventTriggered
   );
 
-type SetStateAction<T> = T | ((prevState?: T) => T);
-
 type EditedContentActionsContextType = {
   setEditedContentState: (
     editedContent: Record<Dictionary['key'], Dictionary>
@@ -84,11 +82,6 @@ type EditedContentActionsContextType = {
 const EditedContentActionsContext = createContext<
   EditedContentActionsContextType | undefined
 >(undefined);
-
-const resolveState = <S,>(state?: SetStateAction<S>, prevState?: S): S =>
-  typeof state === 'function'
-    ? (state as (prevState?: S) => S)(prevState)
-    : (state as S);
 
 export const EditedContentProvider: Component<ParentProps> = (props) => {
   const { localeDictionaries } = useDictionariesRecord();

@@ -1,4 +1,4 @@
-import { type FC, type SVGProps, useId } from 'react';
+import type { FC, SVGProps } from 'react';
 
 import { cn } from '../../utils/cn';
 
