@@ -7,14 +7,18 @@ import {
 } from './PageContentLayout';
 import { RootHTMLLayout } from './RootHTMLLayout';
 
-type PageLayoutProps = AppProvidersProps & PageContentLayoutProps;
+type PageLayoutProps = AppProvidersProps &
+  PageContentLayoutProps & {
+    className?: string;
+  };
 
 export const PageLayout: FC<PageLayoutProps> = ({
   locale,
   children,
+  className,
   ...props
 }) => (
-  <RootHTMLLayout locale={locale}>
+  <RootHTMLLayout locale={locale} className={className}>
     <AppProviders locale={locale}>
       <PageContentLayout {...props}>
         <FirstConsultationProvider>{children}</FirstConsultationProvider>

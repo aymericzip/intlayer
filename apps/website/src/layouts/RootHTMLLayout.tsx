@@ -1,15 +1,20 @@
 import { cn } from '@utils/cn';
 import { getHTMLTextDir, type LocalesValues } from 'intlayer';
-import { Figtree } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import type { FC, PropsWithChildren } from 'react';
 
 export type LocalParams = PropsWithChildren<{
   locale?: LocalesValues;
+  className?: string;
 }>;
 
-const figtree = Figtree({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] });
 
-export const RootHTMLLayout: FC<LocalParams> = ({ children, locale }) => (
+export const RootHTMLLayout: FC<LocalParams> = ({
+  children,
+  className,
+  locale,
+}) => (
   <html lang={locale} dir={getHTMLTextDir(locale)} suppressHydrationWarning>
     <head>
       {/* Preconnect and DNS Prefetch for Google Tag Manager */}
@@ -30,8 +35,9 @@ export const RootHTMLLayout: FC<LocalParams> = ({ children, locale }) => (
     </head>
     <body
       className={cn(
-        figtree.className,
-        'relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition'
+        inter.className,
+        'relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition',
+        className
       )}
     >
       {children}
