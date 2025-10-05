@@ -22,7 +22,8 @@
       "recommended": true,
       "correctness": {
         "noUnusedVariables": "warn",
-        "useExhaustiveDependencies": "off"
+        "useExhaustiveDependencies": "off",
+        "useUniqueElementIds": "off"
       },
       "style": {
         "noNonNullAssertion": "warn",

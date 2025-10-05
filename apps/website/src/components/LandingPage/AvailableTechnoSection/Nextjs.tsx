@@ -9,6 +9,8 @@ export const NextJSLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
     preserveAspectRatio="xMidYMid"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label="Nextjs logo"
     {...props}
   >
     <path

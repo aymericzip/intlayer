@@ -2,6 +2,8 @@ import type { FC, SVGProps } from 'react';
 
 export const GrokLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
+    role="img"
+    aria-label="Grok logo"
     fill="currentColor"
     fillRule="evenodd"
     height="1em"

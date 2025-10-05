@@ -3,6 +3,8 @@ import type { FC, SVGProps } from 'react';
 export const YoutubeLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     fill="currentColor"
+    role="img"
+    aria-label="Youtube logo"
     width="800px"
     height="800px"
     viewBox="0 0 32 32"

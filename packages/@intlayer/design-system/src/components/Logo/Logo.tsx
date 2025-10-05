@@ -12,6 +12,8 @@ export const Logo: FC<LogoBaseProps> = ({ bgColor, ...props }) => (
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMidYMid"
+    role="img"
+    aria-label="Intlayer logo"
     {...props}
   >
     <path

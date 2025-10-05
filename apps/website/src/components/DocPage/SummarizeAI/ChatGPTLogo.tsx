@@ -2,6 +2,8 @@ import type { FC, SVGProps } from 'react';
 
 export const ChatGPTLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
+    role="img"
+    aria-label="ChatGPT logo"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 320 320"
     fill="currentColor"

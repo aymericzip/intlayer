@@ -3,6 +3,8 @@ import type { FC, SVGProps } from 'react';
 export const PerplexityLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="400"
+    role="img"
+    aria-label="Perplexity logo"
     height="400"
     viewBox="0 0 400 400"
     fill="none"

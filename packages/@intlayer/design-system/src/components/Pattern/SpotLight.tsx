@@ -153,6 +153,8 @@ export const Spotlight: FC<SpotlightProps> = ({
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 3787 2842"
     fill="none"
+    role="img"
+    aria-label="Spotlight"
     {...props}
   >
     <g filter="url(#filter)" transform="scale (-1, 1)">

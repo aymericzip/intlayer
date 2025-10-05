@@ -6,6 +6,8 @@ export const InstagramLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
     height="800px"
     viewBox="0 0 20 20"
     xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label="Instagram logo"
     {...props}
   >
     <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">

@@ -5,6 +5,8 @@ export const ReactLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMidYMid"
     viewBox="175.7 78 490.6 436.9"
+    role="img"
+    aria-label="React logo"
     {...props}
   >
     <g fill="#61dafb">

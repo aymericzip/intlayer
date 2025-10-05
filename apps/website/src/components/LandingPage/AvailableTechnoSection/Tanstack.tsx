@@ -7,6 +7,8 @@ export const TanstackLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
     width="663"
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"
+    role="img"
+    aria-label="Tanstack logo"
     {...props}
   >
     <path

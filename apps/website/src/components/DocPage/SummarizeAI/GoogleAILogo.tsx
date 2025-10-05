@@ -2,8 +2,9 @@ import type { FC, SVGProps } from 'react';
 
 export const GoogleAILogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
+    role="img"
+    aria-label="Google AI logo"
     viewBox="0 0 1024 1024"
-    version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"
     {...props}

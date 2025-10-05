@@ -3,6 +3,8 @@ import type { FC, SVGProps } from 'react';
 export const AngularLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label="Angular logo"
     version="1.1"
     preserveAspectRatio="xMidYMid"
     viewBox="20 20 210 210"

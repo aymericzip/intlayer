@@ -4,8 +4,9 @@ export const VuejsLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMidYMid"
-    version="1.1"
     viewBox="0 0 261.76 226.69"
+    role="img"
+    aria-label="Vuejs logo"
     {...props}
   >
     <g transform="matrix(1.3333 0 0 -1.3333 -76.311 313.34)">

@@ -3,6 +3,8 @@ import type { FC, SVGProps } from 'react';
 export const MistralLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     fill="currentColor"
+    role="img"
+    aria-label="Mistral logo"
     fillRule="evenodd"
     height="1em"
     viewBox="0 0 24 24"

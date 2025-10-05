@@ -3,9 +3,9 @@ import type { FC, SVGProps } from 'react';
 export const SvelteLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    id="logosandtypes_com"
-    data-name="logosandtypes com"
     viewBox="10 10 130 130"
+    role="img"
+    aria-label="Svelte logo"
     {...props}
   >
     <path

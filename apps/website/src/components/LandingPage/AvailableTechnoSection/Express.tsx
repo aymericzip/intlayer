@@ -9,6 +9,8 @@ export const ExpressLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
     imageRendering="optimizeQuality"
     fillRule="evenodd"
     clipRule="evenodd"
+    role="img"
+    aria-label="Express logo"
     fill="currentColor"
     {...props}
   >

@@ -6,6 +6,8 @@ export const NestJSLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
     height="966"
     viewBox="0 0 264.58333 255.58751"
     width="1000"
+    role="img"
+    aria-label="NestJS logo"
     {...props}
   >
     <path

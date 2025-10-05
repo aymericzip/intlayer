@@ -68,6 +68,8 @@ export const Spinner = ({ className, strokeWidth = 4 }: SpinnerProps) => (
     height="44"
     viewBox="0 0 44 44"
     stroke="currentColor"
+    role="img"
+    aria-label="Spinner"
     className={cn('size-full', className)}
   >
     <g fill="none" fillRule="evenodd" strokeWidth={strokeWidth}>

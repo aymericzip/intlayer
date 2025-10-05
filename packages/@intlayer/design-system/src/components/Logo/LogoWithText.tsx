@@ -8,6 +8,8 @@ export const LogoWithText: FC<SVGProps<SVGSVGElement>> = (props) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMidYMid"
+    role="img"
+    aria-label="Intlayer logo"
     {...props}
   >
     <path

@@ -7,6 +7,8 @@ export const DiscordLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
     height="auto"
     viewBox="0 0 71 80"
     fill="none"
+    role="img"
+    aria-label="Discord logo"
     {...props}
   >
     <path

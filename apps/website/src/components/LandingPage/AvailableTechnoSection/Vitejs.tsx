@@ -6,6 +6,8 @@ export const ViteLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
     preserveAspectRatio="xMidYMid"
     viewBox="0 0 410 404"
     fill="none"
+    role="img"
+    aria-label="Vite logo"
     {...props}
   >
     <path

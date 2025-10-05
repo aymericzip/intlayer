@@ -166,7 +166,13 @@ export const GridPattern: FC<GridPatternProps> = ({
     </defs>
     <rect width="100%" height="100%" strokeWidth={0} fill={`url(#${id})`} />
     {squares && (
-      <svg x={x} y={y} className="overflow-visible">
+      <svg
+        x={x}
+        y={y}
+        className="overflow-visible"
+        role="img"
+        aria-label="Grid pattern"
+      >
         {squares.map(([x, y]) => (
           <rect
             strokeWidth="0"
