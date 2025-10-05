@@ -46,7 +46,7 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalisedContent,
+  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,
@@ -256,14 +256,14 @@ const content = getContent(
 - **nodeProps**: Properties for the transformation context
 - **locale**: Optional locale (defaults to configured default locale)
 
-### `getLocalisedContent(node, locale, nodeProps, fallback?)`
+### `getLocalizedContent(node, locale, nodeProps, fallback?)`
 
 Transforms a content node with only the translation plugin:
 
 ```ts
-import { getLocalisedContent } from "intlayer";
+import { getLocalizedContent } from "intlayer";
 
-const content = getLocalisedContent(
+const content = getLocalizedContent(
   contentNode,
   "fr",
   { dictionaryKey: "common" },
@@ -507,7 +507,7 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalisedContent,
+  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,

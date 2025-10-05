@@ -25,7 +25,7 @@ import {
   type ContentNode,
   type Dictionary,
   getFilterTranslationsOnlyContent,
-  getLocalisedContent,
+  getLocalizedContent,
   getMissingLocalesContent,
 } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
@@ -239,7 +239,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
         { dictionaryKey: task.dictionaryKey, keyPath: [] }
       );
 
-      const presetOutputContent = getLocalisedContent(
+      const presetOutputContent = getLocalizedContent(
         mainDictionaryToProcess as unknown as ContentNode,
         task.targetLocale,
         { dictionaryKey: task.dictionaryKey, keyPath: [] }
@@ -343,7 +343,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
     let formattedDict = targetUnmergedDictionary;
 
     if (formattedDict.locale) {
-      const presetOutputContent = getLocalisedContent(
+      const presetOutputContent = getLocalizedContent(
         mainDictionaryToProcess as unknown as ContentNode,
         formattedDict.locale,
         { dictionaryKey, keyPath: [] }

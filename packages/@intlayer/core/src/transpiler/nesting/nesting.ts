@@ -1,5 +1,3 @@
-// @ts-ignore intlayer declared for module augmentation
-import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type { DeepTransformContent } from '../../interpreter';
 import type { DictionaryKeys } from '../../types/dictionary';
 import {
@@ -7,6 +5,7 @@ import {
   NodeType,
   type TypedNodeModel,
 } from '../../types/index';
+import type { IntlayerDictionaryTypesConnector } from '../../types/intlayer';
 
 /**
  * Recursively builds dot-notation strings for all valid paths in T.

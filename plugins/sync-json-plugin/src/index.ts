@@ -1,3 +1,4 @@
+import { writeFile } from 'node:fs/promises';
 import { isAbsolute, resolve } from 'node:path';
 import {
   ESMxCJSRequire,
@@ -5,7 +6,11 @@ import {
   type Locales,
   type Plugin,
 } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
+import {
+  type ContentNode,
+  type Dictionary,
+  getLocalizedContent,
+} from '@intlayer/core';
 import fg from 'fast-glob';
 
 type JSONContent = Record<string, any>;
@@ -216,12 +221,28 @@ export const syncJSON = (options: ICUPluginOptions) =>
 
       return dictionaries;
     },
-    // afterBuild: async ({ dictionaries, configuration }) => {
-    //   const dictionariesMap = loadMessagePathMap(options.source, configuration);
-    //   for (const { locale, path, key } of dictionariesMap) {
-    //     const updatedDictionary = dictionaries.mergedDictionaries[key];
-    //     // console.log(locale);
-    //     // await writeFile(path, presetOutputContent.content);
-    //   }
-    // },
+    afterBuild: async ({ dictionaries, configuration }) => {
+      const dictionariesMap = loadMessagePathMap(options.source, configuration);
+      for (const { locale, path, key } of dictionariesMap) {
+        const updatedDictionary =
+          dictionaries.mergedDictionaries[key].dictionary;
+        // console.log(locale);
+
+        console.log(dictionaries.mergedDictionaries[key]);
+
+        const localizedContent = getLocalizedContent(
+          updatedDictionary.content as unknown as ContentNode,
+          locale,
+          {
+            dictionaryKey: key,
+            keyPath: [],
+          }
+        );
+        await writeFile(
+          path,
+          JSON.stringify(localizedContent, null, 2),
+          'utf-8'
+        );
+      }
+    },
   }) as Plugin;

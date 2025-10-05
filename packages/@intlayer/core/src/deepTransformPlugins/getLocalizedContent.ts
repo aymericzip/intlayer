@@ -16,7 +16,7 @@ import type { ContentNode } from '../types';
  * @param node The node to transform.
  * @param locale The locale to use if your transformers need it (e.g. for translations).
  */
-export const getLocalisedContent = <
+export const getLocalizedContent = <
   T extends ContentNode,
   L extends LocalesValues = Locales,
 >(

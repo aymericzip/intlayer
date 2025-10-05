@@ -9,7 +9,7 @@ import {
 import type { IntlayerConfig } from '@intlayer/config';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json';
-import { getLocalisedContent } from '@intlayer/core';
+import { getLocalizedContent } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { IntlayerEventListener } from './IntlayerEventListener';
@@ -158,7 +158,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
         const dictionary = dictionaries[key] ?? null;
 
         if (locale) {
-          const sourceLocaleContent = getLocalisedContent(dictionary, locale, {
+          const sourceLocaleContent = getLocalizedContent(dictionary, locale, {
             dictionaryKey: key,
             keyPath: [],
           });

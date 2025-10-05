@@ -6,7 +6,7 @@ import {
   type Locales,
   normalizePath,
 } from '@intlayer/config';
-import { type Dictionary, getLocalisedContent } from '@intlayer/core';
+import { type Dictionary, getLocalizedContent } from '@intlayer/core';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
@@ -111,7 +111,7 @@ export const writeDynamicDictionary = async (
           ...dictionaryEntry.dictionary,
           locale,
           // @ts-ignore Type instantiation is excessively deep and possibly infinite
-          content: getLocalisedContent(
+          content: getLocalizedContent(
             JSON.parse(JSON.stringify(dictionaryEntry.dictionary.content)),
             locale,
             { dictionaryKey: key, keyPath: [] },

@@ -15,7 +15,7 @@ import {
   type ContentNode,
   type Dictionary,
   getFilteredLocalesContent,
-  getLocalisedContent,
+  getLocalizedContent,
 } from '@intlayer/core';
 import { type AutoFillData, formatAutoFillData } from './formatAutoFillData';
 
@@ -62,7 +62,7 @@ export const autoFill = async (
     if (output.isPerLocale) {
       const sourceLocale = output.localeList[0];
 
-      const sourceLocaleContent = getLocalisedContent(
+      const sourceLocaleContent = getLocalizedContent(
         reducedDictionary as unknown as ContentNode,
         sourceLocale,
         { dictionaryKey: reducedDictionary.key, keyPath: [] }

@@ -46,7 +46,7 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalisedContent,
+  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,
@@ -256,14 +256,14 @@ const content = getContent(
 - **nodeProps**: Свойства для контекста преобразования
 - **locale**: Необязательная локаль (по умолчанию используется настроенная локаль по умолчанию)
 
-### `getLocalisedContent(node, locale, nodeProps, fallback?)`
+### `getLocalizedContent(node, locale, nodeProps, fallback?)`
 
 Преобразует узел контента, используя только плагин перевода:
 
 ```ts
-import { getLocalisedContent } from "intlayer";
+import { getLocalizedContent } from "intlayer";
 
-const content = getLocalisedContent(
+const content = getLocalizedContent(
   contentNode,
   "fr",
   { dictionaryKey: "common" },
@@ -507,7 +507,7 @@ list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 /// getLocalizedUrl,
 /// getHTMLTextDir,
 /// getContent,
-/// getLocalisedContent,
+/// getLocalizedContent,
 /// getTranslation,
 /// getIntlayer,
 /// getIntlayerAsync,

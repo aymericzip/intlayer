@@ -3,7 +3,7 @@
  * Reexport the intlayer module with the module augmentation because of typescript error
  */
 
-export {
+export type {
   IConfigLocales,
   IntlayerDictionaryTypesConnector,
   LanguageContent,
