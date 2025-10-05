@@ -72,7 +72,7 @@ const secureHeaders = {
         'data:',
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
       ],
-      frameSrc: ["'self'", '*.youtube.com', '*.github.dev', '*.stripe.com'],
+      frameSrc: ["'self'", '*.youtube.com', 'github.dev', '*.stripe.com'],
       frameAncestors: ["'self'", 'intlayer.org', 'localhost:*'],
       manifestSrc: ["'self'"],
       childSrc: ["'self'", '*.googletagmanager.com'],
