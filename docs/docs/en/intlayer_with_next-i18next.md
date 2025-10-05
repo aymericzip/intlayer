@@ -18,6 +18,8 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-template
 ---
 
+# Internationalizing (i18n) with next-i18next to make your Next.js 15 app multilingual
+
 ### Who this guide is for
 
 - **Junior**: Follow the exact steps and copy the code blocks. You’ll get a working multilingual app.

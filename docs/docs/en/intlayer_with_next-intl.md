@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-intl-template
 ---
 
-# Getting Started internationalizing (i18n) a Next.js 15 app with next-intl
+# Internationalizing (i18n) with next-intl to make your Next.js 15 app multilingual
 
 This guide walks you through next-intl best practices in a Next.js 15 (App Router) app, and shows how to layer Intlayer on top for robust translation management and automation.
 
