@@ -7,11 +7,7 @@ import {
   type LocalesValues,
   type Plugin,
 } from '@intlayer/config';
-import {
-  type ContentNode,
-  type Dictionary,
-  getLocalizedContent,
-} from '@intlayer/core';
+import type { ContentNode, Dictionary } from '@intlayer/core';
 import fg from 'fast-glob';
 
 type JSONContent = Record<string, any>;
@@ -213,6 +209,9 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
       for (const { locale, path, key } of dictionariesMap) {
         const updatedDictionary =
           dictionaries.mergedDictionaries[key].dictionary;
+
+        // Dynamic import to avoid circular dependency as core package import config, that load esbuild, that load the config file, that load the plugin
+        const { getLocalizedContent } = await import('@intlayer/core');
 
         const localizedContent = getLocalizedContent(
           updatedDictionary.content as unknown as ContentNode,
