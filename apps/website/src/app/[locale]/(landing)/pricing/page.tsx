@@ -18,6 +18,17 @@ const priceIds = [
 ];
 
 const getPricingData = async () => {
+  if (
+    // Throw an error if the pricing data is not fetched and the stripe publishable key is set
+    typeof process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY !== 'string' ||
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY.length === 0
+  ) {
+    console.log(
+      'NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY not set - Skipping pricing data fetch'
+    );
+    return;
+  }
+
   const pricingDataResponse = await getStripeAPI().getPricing({
     priceIds,
   });
@@ -26,8 +37,6 @@ const getPricingData = async () => {
 
   if (
     // Throw an error if the pricing data is not fetched and the stripe publishable key is set
-    typeof process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY === 'string' &&
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY.length > 0 &&
     !pricingData
   ) {
     throw new Error('Failed to fetch pricing data');
