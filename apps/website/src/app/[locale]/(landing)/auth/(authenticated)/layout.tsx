@@ -4,6 +4,8 @@ import type { NextLayoutIntlayer } from 'next-intlayer';
 import { getSessionData } from '@/utils/getSessionData';
 
 // Required to revalidate session after user login/logout
+export const runtime = 'nodejs'; // ensure Node runtime
+export const dynamic = 'force-dynamic'; // make sure request cookies are read
 export const revalidate = 0;
 export const fetchCache = 'force-no-store';
 
