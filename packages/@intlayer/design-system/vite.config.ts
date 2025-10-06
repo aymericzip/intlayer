@@ -17,7 +17,7 @@ export default defineConfig(() => ({
     }),
     dts({
       entryRoot: 'src',
-      exclude: ['**/*.stories.*', '**/*.test.*'],
+      exclude: ['**/*.stories.*', '**/*.test.*', '**/*.content.tsx'],
       beforeWriteFile: (filePath, content) => ({
         filePath: filePath.replace(`${packageJson.name}/src/`, ''),
         content,
@@ -43,7 +43,7 @@ export default defineConfig(() => ({
         fg
           .sync('src/**/*.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}', {
             ignore: [
-              'src/**/*.{stories,test,specs}.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}',
+              'src/**/*.{stories,test,specs,content}.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}',
             ],
           })
           .map((file) => [
