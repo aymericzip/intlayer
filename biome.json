@@ -26,7 +26,7 @@
         "useUniqueElementIds": "off"
       },
       "style": {
-        "noNonNullAssertion": "warn",
+        "noNonNullAssertion": "off",
         "useConst": "error",
         "useTemplate": "error",
         "useShorthandAssign": "error",
@@ -43,9 +43,9 @@
         "noTsIgnore": "off"
       },
       "complexity": {
-        "noBannedTypes": "warn",
+        "noBannedTypes": "off",
         "noImportantStyles": "warn",
-        "noUselessFragments": "warn",
+        "noUselessFragments": "off",
         "useOptionalChain": "error"
       },
       "performance": {
