@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-10-03
-title: البدء مع Intlayer في Astro
+title: كيفية ترجمة تطبيق Astro – دليل i18n 2025
 description: تعلّم كيفية إضافة التدويل (i18n) إلى تطبيق Vite و React الخاص بك باستخدام Intlayer. اتبع هذا الدليل لجعل تطبيقك متعدد اللغات.
 keywords:
   - التدويل
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 ---
 
-# البدء في التدويل (i18n) مع Intlayer و Astro
+# ترجم Astro باستخدام Intlayer | التدويل (i18n)
 
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-astro-template) على GitHub.
 

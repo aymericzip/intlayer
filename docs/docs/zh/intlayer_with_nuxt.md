@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
-title: 翻译您的 Nuxt 和 Vue 网站（i18n）
+title: 如何翻译您的Nuxt and Vue应用 – i18n指南 2025
 description: 了解如何使您的 Nuxt 和 Vue 网站支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
 ---
 
-# 使用 Intlayer 和 Nuxt 开始国际化（i18n）
+# 使用Intlayer翻译您的Nuxt and Vue | 国际化(i18n)
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-nuxt-template)。
 

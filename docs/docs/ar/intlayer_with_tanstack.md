@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
-title: البدء مع Intlayer في Tanstack Start
+title: كيفية ترجمة تطبيق Tanstack Start – دليل i18n 2025
 description: تعلّم كيفية إضافة التدويل (i18n) إلى تطبيق Tanstack Start الخاص بك باستخدام Intlayer. اتبع هذا الدليل الشامل لجعل تطبيقك متعدد اللغات مع توجيه يعتمد على اللغة.
 keywords:
   - التدويل
@@ -19,7 +19,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 ---
 
-# البدء بالتدويل (i18n) باستخدام Intlayer و Tanstack Start
+# ترجم Tanstack Start باستخدام Intlayer | التدويل (i18n)
 
 يوضح هذا الدليل كيفية دمج **Intlayer** لتحقيق تدويل سلس في مشاريع Tanstack Start مع توجيه يعتمد على اللغة، ودعم TypeScript، وممارسات تطوير حديثة.
 

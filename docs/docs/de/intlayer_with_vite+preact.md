@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Übersetzen Sie Ihre Vite- und Preact-Website (i18n)
+title: Wie Sie Ihre Vite and Preact übersetzen – i18n-Leitfaden 2025
 description: Entdecken Sie, wie Sie Ihre Vite- und Preact-Website mehrsprachig gestalten. Folgen Sie der Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 ---
 
-# Erste Schritte zur Internationalisierung (i18n) mit Intlayer, Vite und Preact
+# Übersetzen Sie Ihre Vite and Preact mit Intlayer | Internationalisierung (i18n)
 
 > Dieses Paket befindet sich in der Entwicklung. Weitere Informationen finden Sie im [Issue](https://github.com/aymericzip/intlayer/issues/118). Zeigen Sie Ihr Interesse an Intlayer für Preact, indem Sie das Issue liken.
 

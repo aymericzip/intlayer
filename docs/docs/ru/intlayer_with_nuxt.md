@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
-title: Перевод вашего сайта на Nuxt и Vue (i18n)
+title: Как перевести ваше Nuxt and Vue – руководство i18n 2025
 description: Узнайте, как сделать ваш сайт на Nuxt и Vue многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
 ---
 
-# Начало работы с интернационализацией (i18n) с Intlayer и Nuxt
+# Переведите ваш Nuxt and Vue с Intlayer | Интернационализация (i18n)
 
 Смотрите [Шаблон приложения](https://github.com/aymericzip/intlayer-nuxt-template) на GitHub.
 

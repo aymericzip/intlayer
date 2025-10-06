@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Vite と Preact のウェブサイトを翻訳する（i18n）
+title: Vite and Preactアプリを翻訳する方法 – i18nガイド 2025
 description: Vite と Preact のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
 keywords:
   - 国際化
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 ---
 
-# Intlayer と Vite と Preact で国際化（i18n）を始める
+# IntlayerでVite and Preactを翻訳する | 国際化（i18n）
 
 > このパッケージは開発中です。詳細は[issue](https://github.com/aymericzip/intlayer/issues/118)をご覧ください。Intlayer for Preact に関心がある場合は、issue に「いいね」をして興味を示してください。
 

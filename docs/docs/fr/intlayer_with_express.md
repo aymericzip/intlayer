@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Traduire votre Express backend (i18n)
+title: Comment traduire votre Express backend – guide i18n 2025
 description: Découvrez comment rendre votre backend vite multilingue. Suivez la documentation pour l’internationaliser (i18n) et le traduire.
 keywords:
   - Internationalisation
@@ -16,7 +16,7 @@ slugs:
   - express
 ---
 
-# Démarrage avec l'internationalisation (i18n) avec Intlayer et Express
+# Traduire votre Express backend avec Intlayer | Internationalisation (i18n)
 
 `express-intlayer` est un middleware puissant d'internationalisation (i18n) pour les applications Express, conçu pour rendre vos services backend accessibles mondialement en fournissant des réponses localisées basées sur les préférences du client.
 

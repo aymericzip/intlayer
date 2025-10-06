@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
-title: 在 Tanstack Start 中使用 Intlayer 入门
+title: 如何翻译您的Tanstack Start应用 – i18n指南 2025
 description: 学习如何使用 Intlayer 为您的 Tanstack Start 应用添加国际化 (i18n)。按照本综合指南，使您的应用支持多语言并具备基于区域设置的路由功能。
 keywords:
   - 国际化
@@ -19,7 +19,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 ---
 
-# 使用 Intlayer 和 Tanstack Start 开始国际化 (i18n)
+# 使用Intlayer翻译您的Tanstack Start | 国际化(i18n)
 
 本指南演示如何在 Tanstack Start 项目中集成 **Intlayer**，实现无缝国际化，支持基于区域设置的路由、TypeScript 支持以及现代开发实践。
 

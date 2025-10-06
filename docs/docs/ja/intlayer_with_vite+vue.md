@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Vite と Vue のウェブサイトを翻訳する（i18n）
+title: Vite and Vueアプリを翻訳する方法 – i18nガイド 2025
 description: Vite と Vue のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
 keywords:
   - 国際化
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
 ---
 
-# Intlayer と Vite と Vue で国際化（i18n）を始める
+# IntlayerでVite and Vueを翻訳する | 国際化（i18n）
 
 GitHub の [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-vite-vue-template) を参照してください。
 

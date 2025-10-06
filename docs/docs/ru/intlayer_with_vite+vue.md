@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Перевод вашего сайта на Vite и Vue (i18n)
+title: Как перевести ваше Vite and Vue – руководство i18n 2025
 description: Узнайте, как сделать ваш сайт на Vite и Vue многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
 ---
 
-# Начало работы с интернационализацией (i18n) с Intlayer, Vite и Vue
+# Переведите ваш Vite and Vue с Intlayer | Интернационализация (i18n)
 
 Смотрите [Шаблон приложения](https://github.com/aymericzip/intlayer-vite-vue-template) на GitHub.
 

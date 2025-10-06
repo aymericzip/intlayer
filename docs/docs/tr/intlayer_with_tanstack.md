@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
-title: Tanstack Start'ta Intlayer ile Başlarken
+title: Tanstack Start uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Tanstack Start uygulamanıza Intlayer kullanarak uluslararasılaştırma (i18n) nasıl eklenir öğrenin. Uygulamanızı yerel dil yönlendirmesi ile çok dilli hale getirmek için bu kapsamlı rehberi takip edin.
 keywords:
   - Uluslararasılaştırma
@@ -19,7 +19,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 ---
 
-# Intlayer ve Tanstack Start ile Uluslararasılaştırmaya (i18n) Başlarken
+# Intlayer ile Tanstack Start çevirin | Uluslararasılaştırma (i18n)
 
 Bu rehber, Tanstack Start projelerinde yerel dil yönlendirmesi, TypeScript desteği ve modern geliştirme uygulamalarıyla sorunsuz uluslararasılaştırma için **Intlayer**'ın nasıl entegre edileceğini göstermektedir.
 

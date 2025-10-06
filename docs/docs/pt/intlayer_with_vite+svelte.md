@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Traduza seu site Vite e Svelte (i18n)
+title: Como traduzir seu Vite and Svelte – guia i18n 2025
 description: Descubra como tornar seu site Vite e Svelte multilíngue. Siga a documentação para internacionalizar (i18n) e traduzir.
 keywords:
   - Internacionalização
@@ -17,7 +17,7 @@ slugs:
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 ---
 
-# Começando a Internacionalizar (i18n) com Intlayer, Vite e Svelte
+# Traduza seu Vite and Svelte com Intlayer | Internacionalização (i18n)
 
 > Este pacote está em desenvolvimento. Veja a [issue](https://github.com/aymericzip/intlayer/issues/114) para mais informações. Demonstre seu interesse pelo Intlayer para Svelte curtindo a issue
 

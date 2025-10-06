@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: Vite ve Svelte web sitenizi çevirin (i18n)
+title: Vite and Svelte uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Vite ve Svelte web sitenizi çok dilli hale getirmeyi öğrenin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) ve çevirisini yapın.
 keywords:
   - Uluslararasılaştırma
@@ -17,7 +17,7 @@ slugs:
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 ---
 
-# Intlayer ve Vite ve Svelte ile Uluslararasılaştırma Başlangıç Kılavuzu (i18n)
+# Intlayer ile Vite and Svelte çevirin | Uluslararasılaştırma (i18n)
 
 > Bu paket geliştirme aşamasındadır. Daha fazla bilgi için [soruna](https://github.com/aymericzip/intlayer/issues/114) bakın. Sorunu beğenerek Svelte için Intlayer'a olan ilginizi gösterin
 

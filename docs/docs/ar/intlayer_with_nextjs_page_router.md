@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
 updatedAt: 2025-06-29
-title: ترجمة موقعك باستخدام Next.js و Page Router (i18n)
+title: كيفية ترجمة تطبيق Next.js and Page Router – دليل i18n 2025
 description: اكتشف كيفية جعل موقعك الذي يستخدم Next.js و Page Router متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل
@@ -18,7 +18,7 @@ slugs:
   - next-with-page-router
 ---
 
-# البدء في التدويل (i18n) مع Intlayer و Next.js باستخدام Page Router
+# ترجم Next.js and Page Router باستخدام Intlayer | التدويل (i18n)
 
 ## ما هو Intlayer؟
 

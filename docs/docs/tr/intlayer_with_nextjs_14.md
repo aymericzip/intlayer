@@ -1,5 +1,5 @@
 ---
-title: Intlayer ile Next.js 14
+title: Next.js 14 and App Router uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Next.js 14 ile Intlayer entegrasyonu. Next.js 14 uygulamanızda çok dilli içerik yönetimi için Intlayer'ı nasıl kuracağınızı ve kullanacağınızı öğrenin.
 keywords:
   - nextjs
@@ -16,7 +16,7 @@ slugs:
   - 14
 ---
 
-# Intlayer ile Next.js 14
+# Intlayer ile Next.js 14 and App Router çevirin | Uluslararasılaştırma (i18n)
 
 Bu kılavuz, Next.js 14 uygulamanızda Intlayer'ı nasıl kuracağınızı ve kullanacağınızı adım adım açıklar. Intlayer, Next.js 14 ile sorunsuz bir şekilde entegre olur ve çok dilli içerik yönetimi sağlar.
 

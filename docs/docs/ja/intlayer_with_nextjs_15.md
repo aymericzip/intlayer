@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
-title: Next.js 15 ウェブサイトの翻訳（i18n）
+title: Next.js 15アプリを翻訳する方法 – i18nガイド 2025
 description: Next.js 15 ウェブサイトを多言語対応にする方法をご紹介します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
 keywords:
   - 国際化
@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 ---
 
-# Intlayer と Next.js 15 App Router を使った国際化（i18n）入門
+# IntlayerでNext.js 15を翻訳する | 国際化（i18n）
 
 <iframe title="Next.jsに最適なi18nソリューション？Intlayerを発見" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: 翻译您的 Vite 和 Preact 网站（国际化 i18n）
+title: 如何翻译您的Vite and Preact应用 – i18n指南 2025
 description: 了解如何使您的 Vite 和 Preact 网站支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 ---
 
-# 使用 Intlayer、Vite 和 Preact 开始国际化（i18n）
+# 使用Intlayer翻译您的Vite and Preact | 国际化(i18n)
 
 > 该包正在开发中。有关更多信息，请参见[问题](https://github.com/aymericzip/intlayer/issues/118)。通过点赞该问题，表达您对 Intlayer for Preact 的兴趣。
 

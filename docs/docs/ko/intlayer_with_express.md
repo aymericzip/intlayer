@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Express 백엔드를 번역하십시오 (i18n)
+title: Express backend 앱 번역하는 방법 – i18n 가이드 2025
 description: vite 백엔드를 다국어로 만드는 방법을 알아보세요. 국제화(i18n)하고 번역하려면 문서를 따르세요.
 keywords:
   - 국제화
@@ -16,7 +16,7 @@ slugs:
   - express
 ---
 
-# Intlayer 및 Express로 국제화(i18n) 시작하기
+# Intlayer로 Express backend 번역하기 | 국제화(i18n)
 
 `express-intlayer`는 Express 애플리케이션을 위한 강력한 국제화(i18n) 미들웨어로, 클라이언트의 선호도에 따라 로컬화된 응답을 제공하여 백엔드 서비스를 전 세계적으로 접근 가능하게 만듭니다.
 

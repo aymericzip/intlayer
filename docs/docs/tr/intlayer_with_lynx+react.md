@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: Lynx ve React mobil uygulamanızı çevirin (i18n)
+title: Lynx and React mobile app uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Lynx ve React mobil uygulamanızı çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
 keywords:
   - Uluslararasılaştırma
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 ---
 
-# Intlayer ve Lynx ve React ile Uluslararasılaştırma (i18n) Başlarken
+# Intlayer ile Lynx and React mobile app çevirin | Uluslararasılaştırma (i18n)
 
 GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-lynx-template)'na bakın.
 

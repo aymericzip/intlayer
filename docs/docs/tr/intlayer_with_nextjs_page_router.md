@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: Next.js ve Sayfa Yönlendirici web sitenizi çevirin (i18n)
+title: Next.js and Page Router uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Next.js Sayfa Yönlendirici kullanarak web sitenizi çok dilli hale getirmeyi öğrenin. Next.js uygulamanızda uluslararasılaştırma (i18n) ve çeviri yapmak için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma
@@ -18,7 +18,7 @@ slugs:
   - next-with-page-router
 ---
 
-# Intlayer ve Next.js Sayfa Yönlendirici ile uluslararasılaştırma (i18n) başlangıç kılavuzu
+# Intlayer ile Next.js and Page Router çevirin | Uluslararasılaştırma (i18n)
 
 ## Intlayer Nedir?
 

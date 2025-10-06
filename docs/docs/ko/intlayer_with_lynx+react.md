@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2025-06-29
-title: Lynx와 React의 모바일 앱을 번역하십시오 (i18n)
+title: Lynx and React mobile app 앱 번역하는 방법 – i18n 가이드 2025
 description: Lynx와 React를 사용하여 Page Router 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n)하고 번역하려면 문서를 따르세요.
 keywords:
   - 국제화
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 ---
 
-# Intlayer와 Lynx 및 React를 사용한 국제화(i18n) 시작하기
+# Intlayer로 Lynx and React mobile app 번역하기 | 국제화(i18n)
 
 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-lynx-template)을 GitHub에서 확인하세요.
 

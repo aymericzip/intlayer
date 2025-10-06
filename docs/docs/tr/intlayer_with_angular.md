@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: Angular web sitenizi çevirin (i18n)
+title: Angular uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Angular web sitenizi çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
 keywords:
   - Uluslararasılaştırma
@@ -16,7 +16,7 @@ slugs:
 # applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 ---
 
-# Angular'da Uluslararasılaştırma (i18n) ile Başlarken - Intlayer Kullanarak
+# Intlayer ile Angular çevirin | Uluslararasılaştırma (i18n)
 
 > Bu paket geliştirme aşamasındadır. Daha fazla bilgi için [soruna](https://github.com/aymericzip/intlayer/issues/116) bakın. Sorunu beğenerek Angular için Intlayer'a olan ilginizi gösterin
 

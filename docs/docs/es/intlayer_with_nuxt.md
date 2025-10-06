@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
-title: Traduce tu sitio web Nuxt y Vue (i18n)
+title: Cómo traducir tu Nuxt and Vue – guía i18n 2025
 description: Descubre cómo hacer tu sitio web Nuxt y Vue multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:
   - Internacionalización
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
 ---
 
-# Comenzando con la internacionalización (i18n) usando Intlayer y Nuxt
+# Traduce tu Nuxt and Vue con Intlayer | Internacionalización (i18n)
 
 Consulta la [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-nuxt-template) en GitHub.
 

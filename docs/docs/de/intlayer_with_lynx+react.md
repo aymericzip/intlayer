@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2025-06-29
-title: Übersetzen Sie Ihre Lynx- und React-Mobile-App (i18n)
+title: Wie Sie Ihre Lynx and React mobile app übersetzen – i18n-Leitfaden 2025
 description: Entdecken Sie, wie Sie Ihre Lynx- und React-Mobile-App mehrsprachig gestalten können. Befolgen Sie die Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 ---
 
-# Erste Schritte mit der Internationalisierung (i18n) mit Intlayer, Lynx und React
+# Übersetzen Sie Ihre Lynx and React mobile app mit Intlayer | Internationalisierung (i18n)
 
 Siehe [Application Template](https://github.com/aymericzip/intlayer-lynx-template) auf GitHub.
 

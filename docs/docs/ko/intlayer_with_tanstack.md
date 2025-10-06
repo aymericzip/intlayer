@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
-title: Tanstack Start에서 Intlayer로 시작하는 국제화(i18n)
+title: Tanstack Start 앱 번역하는 방법 – i18n 가이드 2025
 description: Intlayer를 사용하여 Tanstack Start 애플리케이션에 국제화(i18n)를 추가하는 방법을 배우세요. 로케일 인식 라우팅으로 앱을 다국어 지원으로 만드는 종합 가이드를 따르세요.
 keywords:
   - 국제화
@@ -19,7 +19,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 ---
 
-# Intlayer와 Tanstack Start로 시작하는 국제화(i18n)
+# Intlayer로 Tanstack Start 번역하기 | 국제화(i18n)
 
 이 가이드는 로케일 인식 라우팅, TypeScript 지원 및 최신 개발 방식을 갖춘 Tanstack Start 프로젝트에서 **Intlayer**를 통합하여 원활한 국제화(i18n)를 구현하는 방법을 보여줍니다.
 

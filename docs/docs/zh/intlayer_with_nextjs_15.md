@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
-title: 翻译您的 Next.js 15 网站（国际化 i18n）
+title: 如何翻译您的Next.js 15应用 – i18n指南 2025
 description: 了解如何使您的 Next.js 15 网站支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化
@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 ---
 
-# 使用 Intlayer 和 Next.js 15 应用路由器开始国际化（i18n）
+# 使用Intlayer翻译您的Next.js 15 | 国际化(i18n)
 
 <iframe title="Next.js 最佳国际化解决方案？探索 Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 

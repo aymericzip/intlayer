@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
-title: ترجمة خلفية Nest الخاصة بك (i18n)
+title: كيفية ترجمة تطبيق Nest backend – دليل i18n 2025
 description: اكتشف كيفية جعل خلفية vite الخاصة بك متعددة اللغات. اتبع الوثائق لتدويل (i18n) وترجمتها.
 keywords:
   - التدويل
@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
 author: AydinTheFirst
 ---
 
-# البدء في التدويل (i18n) مع Intlayer و NestJS
+# ترجم Nest backend باستخدام Intlayer | التدويل (i18n)
 
 `express-intlayer` هو وسيط قوي للتدويل (i18n) لتطبيقات Express، مصمم لجعل خدمات الخلفية الخاصة بك متاحة عالميًا من خلال تقديم استجابات محلية بناءً على تفضيلات العميل. نظرًا لأن NestJS مبني على Express، يمكنك دمج `express-intlayer` بسلاسة في تطبيقات NestJS الخاصة بك للتعامل مع المحتوى متعدد اللغات بفعالية.
 

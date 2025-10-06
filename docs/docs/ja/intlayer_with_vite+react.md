@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2024-03-07
-title: Vite + ReactでのIntlayerの使い始め
+title: Vite and Reactアプリを翻訳する方法 – i18nガイド 2025
 description: Intlayerを使ってViteとReactアプリケーションに国際化（i18n）を追加する方法を学びます。このガイドに従ってアプリを多言語対応にしましょう。
 keywords:
   - 国際化
@@ -1642,7 +1642,7 @@ Intlayerによって生成されたファイルはGitリポジトリにコミッ
 これを行うには、`.gitignore`ファイルに以下の指示を追加してください。
 
 ```plaintext
-# Intlayerによって生成されたファイルを無視する
+# IntlayerでVite and Reactを翻訳する | 国際化（i18n）
 .intlayer
 ```
 

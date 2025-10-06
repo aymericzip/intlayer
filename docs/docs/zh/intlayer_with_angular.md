@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: 翻译你的Angular网站 (i18n)
+title: 如何翻译您的Angular应用 – i18n指南 2025
 description: 了解如何使您的Angular网站实现多语言支持。按照文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化
@@ -16,7 +16,7 @@ slugs:
 # applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 ---
 
-# 使用 Intlayer 在 Angular 中开始国际化 (i18n)
+# 使用Intlayer翻译您的Angular | 国际化(i18n)
 
 > 本包仍在开发中。更多信息请参见[issue](https://github.com/aymericzip/intlayer/issues/116)。通过点赞该 issue 来表达您对 Angular 版 Intlayer 的兴趣
 

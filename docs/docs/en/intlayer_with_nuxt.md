@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
-title: Translate your Nuxt and Vue website (i18n)
+title: How to translate your Nuxt and Vue app – i18n guide 2025
 description: Discover how to make your Nuxt and Vue website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
   - Internationalization
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
 ---
 
-# Getting Started Internationalizing (i18n) with Intlayer and Nuxt
+# Translate your Nuxt and Vue website using Intlayer | Internationalization (i18n)
 
 See [Application Template](https://github.com/aymericzip/intlayer-nuxt-template) on GitHub.
 

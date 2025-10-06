@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
-title: Перевод вашего сайта на React Native и Expo (i18n)
+title: Как перевести ваше React Native and Expo – руководство i18n 2025
 description: Узнайте, как сделать ваш сайт на React Native и Expo многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 ---
 
-# Начало работы с интернационализацией (i18n) с Intlayer и React Native
+# Переведите ваш React Native and Expo с Intlayer | Интернационализация (i18n)
 
 Смотрите [Шаблон приложения](https://github.com/aymericzip/intlayer-react-native-template) на GitHub.
 

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
-title: ترجمة موقعك الإلكتروني Next.js 15 (i18n)
+title: كيفية ترجمة تطبيق Next.js 15 – دليل i18n 2025
 description: اكتشف كيفية جعل موقعك الإلكتروني Next.js 15 متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل
@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 ---
 
-# البدء في التدويل (i18n) باستخدام Intlayer و Next.js 15 App Router
+# ترجم Next.js 15 باستخدام Intlayer | التدويل (i18n)
 
 <iframe title="أفضل حل للتدويل في Next.js؟ اكتشف Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 

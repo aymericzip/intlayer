@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Angular 웹사이트 번역하기 (i18n)
+title: Angular 앱 번역하는 방법 – i18n 가이드 2025
 description: Angular 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역을 위한 문서를 따라가세요.
 keywords:
   - 국제화
@@ -16,7 +16,7 @@ slugs:
 # applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 ---
 
-# Intlayer를 사용한 Angular 국제화(i18n) 시작하기
+# Intlayer로 Angular 번역하기 | 국제화(i18n)
 
 > 이 패키지는 개발 중입니다. 자세한 내용은 [이슈](https://github.com/aymericzip/intlayer/issues/116)를 참고하세요. Angular용 Intlayer에 관심이 있다면 이 이슈에 좋아요를 눌러주세요.
 

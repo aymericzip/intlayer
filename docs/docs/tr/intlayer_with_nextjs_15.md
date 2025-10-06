@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: Next.js 15 web sitenizi çevirin (i18n)
+title: Next.js 15 uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Next.js 15 web sitenizi çok dilli hale getirmeyi öğrenin. Next.js 15 uygulamanızda uluslararasılaştırma (i18n) ve çeviri yapmak için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma
@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 ---
 
-# Intlayer ve Next.js 15 App Router ile uluslararasılaştırma (i18n) başlangıç kılavuzu
+# Intlayer ile Next.js 15 çevirin | Uluslararasılaştırma (i18n)
 
 <iframe title="Next.js için en iyi i18n çözümü mü? Intlayer'ı keşfedin" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 

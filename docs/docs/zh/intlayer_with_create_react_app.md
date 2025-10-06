@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: 翻译你的Create React App (CRA)网站 (i18n)
+title: 如何翻译您的Create React App应用 – i18n指南 2025
 description: 了解如何使您的 Create React App (CRA) 网站实现多语言。请遵循文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 ---
 
-# 开始使用 Intlayer 和 React Create App 进行国际化 (i18n)
+# 使用Intlayer翻译您的Create React App | 国际化(i18n)
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-react-cra-template)。
 

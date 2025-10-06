@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2024-03-07
-title: Erste Schritte mit Intlayer in Vite + React
+title: Wie Sie Ihre Vite and React übersetzen – i18n-Leitfaden 2025
 description: Erfahren Sie, wie Sie Internationalisierung (i18n) zu Ihrer Vite- und React-Anwendung mit Intlayer hinzufügen. Folgen Sie dieser Anleitung, um Ihre App mehrsprachig zu machen.
 keywords:
   - Internationalisierung
@@ -1638,7 +1638,7 @@ Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. Dadurch v
 Fügen Sie dazu folgende Anweisungen in Ihre `.gitignore`-Datei ein:
 
 ```plaintext
-# Ignoriere die von Intlayer generierten Dateien
+# Übersetzen Sie Ihre Vite and React mit Intlayer | Internationalisierung (i18n)
 .intlayer
 ```
 

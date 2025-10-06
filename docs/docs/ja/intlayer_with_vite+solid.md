@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Vite と Solid のウェブサイトを翻訳する（i18n）
+title: Vite and Solidアプリを翻訳する方法 – i18nガイド 2025
 description: Vite と Solid のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のドキュメントに従ってください。
 keywords:
   - 国際化
@@ -17,7 +17,7 @@ slugs:
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 ---
 
-# Intlayer と Vite と Solid で国際化（i18n）を始める
+# IntlayerでVite and Solidを翻訳する | 国際化（i18n）
 
 > このパッケージは開発中です。詳細は[issue](https://github.com/aymericzip/intlayer/issues/117)をご覧ください。Solid向けIntlayerに関心がある場合は、issueに「いいね」をして応援してください。
 

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
-title: Translate your React Native and Expo website (i18n)
+title: How to translate your React Native app – i18n guide 2025
 description: Discover how to make your React Native and Expo website multilingual. Follow the documentation to internationalise (i18n) and translate it.
 keywords:
   - Internationalisation

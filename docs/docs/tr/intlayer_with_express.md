@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: Express arka ucunuzu çevirin (i18n)
+title: Express backend uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Vite arka ucunuzu çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
 keywords:
   - Uluslararasılaştırma
@@ -16,7 +16,7 @@ slugs:
   - express
 ---
 
-# Intlayer ve Express ile Uluslararasılaştırma (i18n) Başlarken
+# Intlayer ile Express backend çevirin | Uluslararasılaştırma (i18n)
 
 `express-intlayer`, Express uygulamaları için güçlü bir uluslararasılaştırma (i18n) ara yazılımıdır ve istemcinin tercihlerine göre yerelleştirilmiş yanıtlar sağlayarak arka uç hizmetlerinizi küresel olarak erişilebilir hale getirmek için tasarlanmıştır.
 

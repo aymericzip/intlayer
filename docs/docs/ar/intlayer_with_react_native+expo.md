@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
-title: ترجمة موقع React Native و Expo الخاص بك (i18n)
+title: كيفية ترجمة تطبيق React Native and Expo – دليل i18n 2025
 description: اكتشف كيفية جعل موقع React Native و Expo الخاص بك متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 ---
 
-# البدء في التدويل (i18n) مع Intlayer و React Native
+# ترجم React Native and Expo باستخدام Intlayer | التدويل (i18n)
 
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-react-native-template) على GitHub.
 

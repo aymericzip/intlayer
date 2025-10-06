@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2024-03-07
-title: Vite + React에서 Intlayer 시작하기
+title: Vite and React 앱 번역하는 방법 – i18n 가이드 2025
 description: Intlayer를 사용하여 Vite 및 React 애플리케이션에 국제화(i18n)를 추가하는 방법을 배우세요. 이 가이드를 따라 앱을 다국어로 만드세요.
 keywords:
   - 국제화
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
 
-# Intlayer와 Vite 및 React로 국제화(i18n) 시작하기
+# Intlayer로 Vite 및 React 번역하기 | 국제화(i18n)
 
 <iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
@@ -1594,7 +1594,7 @@ Intlayer가 생성한 파일들은 Git 저장소에 커밋하지 않도록 무�
 이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
 
 ```plaintext
-# Intlayer가 생성한 파일 무시
+# Intlayer로 Vite and React 번역하기 | 국제화(i18n)
 .intlayer
 ```
 

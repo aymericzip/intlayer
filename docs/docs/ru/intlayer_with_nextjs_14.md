@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
-title: Переведите свой сайт Next.js 14 и App Router
+title: Как перевести ваше Next.js 14 and App Router – руководство i18n 2025
 description: Узнайте, как сделать ваш сайт на Next.js 14 App Router многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 ---
 
-# Начало работы с интернационализацией (i18n) с Intlayer и Next.js 14 с App Router
+# Переведите ваш Next.js 14 and App Router с Intlayer | Интернационализация (i18n)
 
 Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-next-14-template) на GitHub.
 

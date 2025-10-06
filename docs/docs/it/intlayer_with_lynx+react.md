@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2025-06-29
-title: Traduci il tuo app mobile Lynx e React (i18n)
+title: Come tradurre la tua Lynx and React mobile app – guida i18n 2025
 description: Scopri come rendere il tuo sito web che utilizza Lynx e React multilingue. Segui la documentazione per internazionalizzare (i18n) e tradurlo.
 keywords:
   - Internazionalizzazione
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 ---
 
-# Iniziare con l'Internazionalizzazione (i18n) con Intlayer, Lynx e React
+# Traduci la tua Lynx and React mobile app con Intlayer | Internazionalizzazione (i18n)
 
 Consulta [Application Template](https://github.com/aymericzip/intlayer-lynx-template) su GitHub.
 

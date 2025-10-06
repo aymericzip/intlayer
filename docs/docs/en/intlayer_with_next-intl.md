@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2025-10-05
-title: Translate your Next.js 15 using next-intl (i18n)
+title: How to translate your Next.js 15 using next-intl – i18n guide 2025
 description: Discover how to make your Next.js 15 App Router website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
   - Internationalization
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-intl-template
 ---
 
-# Internationalizing (i18n) with next-intl to make your Next.js 15 app multilingual
+# Translate your Next.js 15 using next-intl website using Intlayer | Internationalization (i18n)
 
 This guide walks you through next-intl best practices in a Next.js 15 (App Router) app, and shows how to layer Intlayer on top for robust translation management and automation.
 

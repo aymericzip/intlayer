@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
-title: Traduce tu sitio web Next.js 15 (i18n)
+title: Cómo traducir tu Next.js 15 – guía i18n 2025
 description: Descubre cómo hacer tu sitio web Next.js 15 multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:
   - Internacionalización
@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 ---
 
-# Comenzando con la internacionalización (i18n) usando Intlayer y Next.js 15 App Router
+# Traduce tu Next.js 15 con Intlayer | Internacionalización (i18n)
 
 <iframe title="¿La mejor solución i18n para Next.js? Descubre Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 

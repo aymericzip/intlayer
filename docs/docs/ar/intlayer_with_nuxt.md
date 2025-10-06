@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
-title: ترجمة موقعك على Nuxt و Vue (i18n)
+title: كيفية ترجمة تطبيق Nuxt and Vue – دليل i18n 2025
 description: اكتشف كيفية جعل موقعك على Nuxt و Vue متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
 ---
 
-# البدء في التدويل (i18n) باستخدام Intlayer و Nuxt
+# ترجم Nuxt and Vue باستخدام Intlayer | التدويل (i18n)
 
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-nuxt-template) على GitHub.
 

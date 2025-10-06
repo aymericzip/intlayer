@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Traduci il tuo sito Vite e Vue (i18n)
+title: Come tradurre la tua Vite and Vue – guida i18n 2025
 description: Scopri come rendere il tuo sito Vite e Vue multilingue. Segui la documentazione per internazionalizzare (i18n) e tradurlo.
 keywords:
   - Internazionalizzazione
@@ -16,7 +16,7 @@ slugs:
   - vite-and-vue
 ---
 
-# Iniziare con l'internazionalizzazione (i18n) usando Intlayer con Vite e Vue
+# Traduci la tua Vite and Vue con Intlayer | Internazionalizzazione (i18n)
 
 Consulta il [Template dell'Applicazione](https://github.com/aymericzip/intlayer-vite-vue-template) su GitHub.
 

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-10-02
-title: Translate your React Native and Expo website (i18n)
+title: How to translate your React Native and Expo app – i18n guide 2025
 description: Discover how to make your React Native and Expo website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
   - Internationalization
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 ---
 
-# Getting Started Internationalizing (i18n) with Intlayer and React Native
+# Translate your React Native and Expo website using Intlayer | Internationalization (i18n)
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-native-template) on GitHub.
 

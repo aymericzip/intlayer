@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: Vite ve Preact web sitenizi çevirin (i18n)
+title: Vite and Preact uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Vite ve Preact web sitenizi çok dilli hale getirmeyi öğrenin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
 keywords:
   - Uluslararasılaştırma
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 ---
 
-# Intlayer ve Vite ve Preact ile uluslararasılaştırma (i18n) başlangıç kılavuzu
+# Intlayer ile Vite and Preact çevirin | Uluslararasılaştırma (i18n)
 
 > Bu paket geliştirme aşamasındadır. Daha fazla bilgi için [sorunu](https://github.com/aymericzip/intlayer/issues/118) inceleyin. Preact için Intlayer'a ilgi göstermek için sorunu beğenin
 

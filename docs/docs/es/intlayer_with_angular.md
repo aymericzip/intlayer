@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Traduce tu sitio web Angular (i18n)
+title: Cómo traducir tu Angular – guía i18n 2025
 description: Descubre cómo hacer que tu sitio web con Angular sea multilingüe. Sigue la documentación para internacionalizarlo (i18n) y traducirlo.
 keywords:
   - Internacionalización
@@ -16,7 +16,7 @@ slugs:
 # applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 ---
 
-# Primeros pasos con la internacionalización (i18n) en Angular usando Intlayer
+# Traduce tu Angular con Intlayer | Internacionalización (i18n)
 
 > Este paquete está en desarrollo. Consulta el [issue](https://github.com/aymericzip/intlayer/issues/116) para más información. Muestra tu interés en Intlayer para Angular dando like al issue
 

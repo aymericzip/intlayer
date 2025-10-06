@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2025-06-29
-title: 翻译你的Lynx和React移动应用 (i18n)
+title: 如何翻译您的Lynx and React mobile app应用 – i18n指南 2025
 description: 了解如何使您的使用 Lynx 和 React 的移动应用实现多语言。请遵循文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 ---
 
-# 开始使用 Intlayer 和 Lynx 以及 React 进行国际化 (i18n)
+# 使用Intlayer翻译您的Lynx and React mobile app | 国际化(i18n)
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-lynx-template)。
 

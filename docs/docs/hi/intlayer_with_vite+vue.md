@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: अपनी Vite और Vue वेबसाइट का अनुवाद करें (i18n)
+title: अपना Vite and Vue ऐप कैसे अनुवाद करें – i18n गाइड 2025
 description: जानें कि अपनी Vite और Vue वेबसाइट को बहुभाषी कैसे बनाएं। अंतरराष्ट्रीयकरण (i18n) और अनुवाद के लिए दस्तावेज़ का पालन करें।
 keywords:
   - अंतरराष्ट्रीयकरण
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
 ---
 
-# Intlayer और Vite और Vue के साथ अंतरराष्ट्रीयकरण (i18n) शुरू करना
+# Intlayer के साथ अपना Vite and Vue अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
 
 GitHub पर [एप्लिकेशन टेम्पलेट](https://github.com/aymericzip/intlayer-vite-vue-template) देखें।
 

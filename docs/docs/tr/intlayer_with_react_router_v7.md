@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2025-10-03
-title: React Router v7'de Intlayer ile Başlarken
+title: React Router v7 uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: React Router v7 uygulamanıza Intlayer kullanarak uluslararasılaştırmayı (i18n) nasıl ekleyeceğinizi öğrenin. Uygulamanızı yerel dil farkındalıklı yönlendirme ile çok dilli hale getirmek için bu kapsamlı rehberi takip edin.
 keywords:
   - Uluslararasılaştırma
@@ -20,7 +20,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 ---
 
-# Intlayer ve React Router v7 ile Uluslararasılaştırmaya (i18n) Başlarken
+# Intlayer ile React Router v7 çevirin | Uluslararasılaştırma (i18n)
 
 Bu rehber, React Router v7 projelerinde yerel dil farkındalıklı yönlendirme, TypeScript desteği ve modern geliştirme uygulamaları ile sorunsuz uluslararasılaştırma için **Intlayer**'ın nasıl entegre edileceğini gösterir.
 

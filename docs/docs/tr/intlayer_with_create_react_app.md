@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: Create React App (CRA) web sitenizi çevirin (i18n)
+title: Create React App uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Create React App (CRA) web sitenizi çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
 keywords:
   - Uluslararasılaştırma
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 ---
 
-# Intlayer ile React Create App'ta Uluslararasılaştırma (i18n) Başlarken
+# Intlayer ile Create React App çevirin | Uluslararasılaştırma (i18n)
 
 GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-react-cra-template)'na bakın.
 

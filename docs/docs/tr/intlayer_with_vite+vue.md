@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: Vite ve Vue web sitenizi çevirin (i18n)
+title: Vite and Vue uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Vite ve Vue web sitenizi çok dilli hale getirmeyi öğrenin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) ve çevirisini yapın.
 keywords:
   - Uluslararasılaştırma
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
 ---
 
-# Intlayer ve Vite ve Vue ile Uluslararasılaştırma Başlangıç Kılavuzu (i18n)
+# Intlayer ile Vite and Vue çevirin | Uluslararasılaştırma (i18n)
 
 GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-vite-vue-template)'na bakın.
 

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Translate your Angular website (i18n)
+title: How to translate your Angular app – i18n guide 2025
 description: Discover how to make your Angular website multilingual. Follow the documentation to internationalise (i18n) and translate it.
 keywords:
   - Internationalization

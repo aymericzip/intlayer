@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2025-10-03
-title: Getting Started with Intlayer in React Router v7
+title: How to translate your React Router v7 app – i18n guide 2025
 description: Learn how to add internationalisation (i18n) to your React Router v7 application using Intlayer. Follow this comprehensive guide to make your app multilingual with locale-aware routing.
 keywords:
   - Internationalisation

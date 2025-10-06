@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Traduce tu sitio web con Vite y Solid (i18n)
+title: Cómo traducir tu Vite and Solid – guía i18n 2025
 description: Descubre cómo hacer tu sitio web con Vite y Solid multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:
   - Internacionalización
@@ -17,7 +17,7 @@ slugs:
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 ---
 
-# Comenzando con la internacionalización (i18n) usando Intlayer, Vite y Solid
+# Traduce tu Vite and Solid con Intlayer | Internacionalización (i18n)
 
 > Este paquete está en desarrollo. Consulta el [issue](https://github.com/aymericzip/intlayer/issues/117) para más información. Muestra tu interés en Intlayer para Solid dando like al issue
 

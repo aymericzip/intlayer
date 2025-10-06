@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2025-10-03
-title: Comenzando con Intlayer en React Router v7
+title: Cómo traducir tu React Router v7 – guía i18n 2025
 description: Aprende cómo agregar internacionalización (i18n) a tu aplicación React Router v7 usando Intlayer. Sigue esta guía completa para hacer tu aplicación multilingüe con enrutamiento consciente del locale.
 keywords:
   - Internacionalización
@@ -20,7 +20,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 ---
 
-# Comenzando a internacionalizar (i18n) con Intlayer y React Router v7
+# Traduce tu React Router v7 con Intlayer | Internacionalización (i18n)
 
 Esta guía demuestra cómo integrar **Intlayer** para una internacionalización fluida en proyectos con React Router v7, con enrutamiento consciente del locale, soporte para TypeScript y prácticas modernas de desarrollo.
 

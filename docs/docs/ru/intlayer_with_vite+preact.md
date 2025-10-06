@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Перевод вашего сайта на Vite и Preact (i18n)
+title: Как перевести ваше Vite and Preact – руководство i18n 2025
 description: Узнайте, как сделать ваш сайт на Vite и Preact многоязычным. Следуйте документации по интернационализации (i18n) и переводу.
 keywords:
   - Интернационализация
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 ---
 
-# Начало работы с интернационализацией (i18n) с Intlayer, Vite и Preact
+# Переведите ваш Vite and Preact с Intlayer | Интернационализация (i18n)
 
 > Этот пакет находится в разработке. Подробнее смотрите в [issue](https://github.com/aymericzip/intlayer/issues/118). Покажите свой интерес к Intlayer для Preact, поставив лайк этому issue.
 

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Vite 및 Svelte 웹사이트 번역하기 (i18n)
+title: Vite and Svelte 앱 번역하는 방법 – i18n 가이드 2025
 description: Vite 및 Svelte 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역을 위한 문서를 따라가세요.
 keywords:
   - 국제화
@@ -17,7 +17,7 @@ slugs:
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 ---
 
-# Intlayer와 Vite, Svelte로 국제화(i18n) 시작하기
+# Intlayer로 Vite and Svelte 번역하기 | 국제화(i18n)
 
 > 이 패키지는 개발 중입니다. 자세한 내용은 [이슈](https://github.com/aymericzip/intlayer/issues/114)를 참조하세요. 이슈에 좋아요를 눌러 Svelte용 Intlayer에 대한 관심을 표현해 주세요.
 

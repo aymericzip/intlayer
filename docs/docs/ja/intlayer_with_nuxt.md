@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
-title: Nuxt と Vue のウェブサイトを翻訳する（i18n）
+title: Nuxt and Vueアプリを翻訳する方法 – i18nガイド 2025
 description: Nuxt と Vue のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
 keywords:
   - 国際化
@@ -17,7 +17,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
 ---
 
-# Intlayer と Nuxt で国際化（i18n）を始める
+# IntlayerでNuxt and Vueを翻訳する | 国際化（i18n）
 
 GitHub の [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-nuxt-template) を参照してください。
 

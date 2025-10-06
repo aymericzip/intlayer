@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
-title: Tanstack Start में Intlayer के साथ शुरुआत करना
+title: अपना Tanstack Start ऐप कैसे अनुवाद करें – i18n गाइड 2025
 description: जानें कि अपने Tanstack Start एप्लिकेशन में Intlayer का उपयोग करके अंतरराष्ट्रीयकरण (i18n) कैसे जोड़ें। इस व्यापक गाइड का पालन करें ताकि आपका ऐप बहुभाषी और लोकल-आधारित रूटिंग के साथ हो।
 keywords:
   - अंतरराष्ट्रीयकरण
@@ -19,7 +19,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 ---
 
-# Intlayer और Tanstack Start के साथ अंतरराष्ट्रीयकरण (i18n) शुरू करना
+# Intlayer के साथ अपना Tanstack Start अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
 
 यह गाइड दिखाता है कि कैसे **Intlayer** को Tanstack Start प्रोजेक्ट्स में सहज अंतरराष्ट्रीयकरण के लिए एकीकृत किया जाए, जिसमें लोकल-आधारित रूटिंग, TypeScript समर्थन, और आधुनिक विकास प्रथाएँ शामिल हैं।
 

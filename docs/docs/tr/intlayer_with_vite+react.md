@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: Vite + React'ta Intlayer ile Başlarken
+title: Vite and React uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Intlayer kullanarak Vite ve React uygulamanıza i18n eklemeyi öğrenin. Bu kılavuzu takip ederek uygulamanızı çok dilli hale getirin.
 keywords:
   - Uluslararasılaştırma
@@ -19,7 +19,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 ---
 
-# Vite ve React ile Intlayer kullanarak uluslararasılaştırma (i18n) başlangıç kılavuzu
+# Intlayer ile Vite and React çevirin | Uluslararasılaştırma (i18n)
 
 <iframe title="Vite ve React için en iyi i18n çözümü? Intlayer'ı keşfedin" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 

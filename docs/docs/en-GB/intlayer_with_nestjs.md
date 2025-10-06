@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
-title: Translate your Nest backend (i18n)
+title: How to translate your Nest backend – i18n guide 2025
 description: Discover how to make your vite backend multilingual. Follow the documentation to internationalise (i18n) and translate it.
 keywords:
   - Internationalisation

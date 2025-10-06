@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
 updatedAt: 2025-06-29
-title: Traduci il tuo sito Next.js con Page Router (i18n)
+title: Come tradurre la tua Next.js and Page Router – guida i18n 2025
 description: Scopri come rendere multilingue il tuo sito Next.js che utilizza Page Router. Segui la documentazione per internazionalizzare (i18n) e tradurlo.
 keywords:
   - Internazionalizzazione
@@ -18,7 +18,7 @@ slugs:
   - next-with-page-router
 ---
 
-# Iniziare con l'internazionalizzazione (i18n) usando Intlayer e Next.js con Page Router
+# Traduci la tua Next.js and Page Router con Intlayer | Internazionalizzazione (i18n)
 
 ## Cos'è Intlayer?
 

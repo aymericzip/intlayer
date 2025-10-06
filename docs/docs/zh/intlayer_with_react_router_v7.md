@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2025-10-03
-title: 在 React Router v7 中使用 Intlayer 入门
+title: 如何翻译您的React Router v7应用 – i18n指南 2025
 description: 学习如何使用 Intlayer 为您的 React Router v7 应用添加国际化（i18n）。按照本综合指南，使您的应用支持多语言和基于区域的路由。
 keywords:
   - 国际化
@@ -20,7 +20,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 ---
 
-# 使用 Intlayer 和 React Router v7 开始国际化（i18n）
+# 使用Intlayer翻译您的React Router v7 | 国际化(i18n)
 
 本指南演示了如何在 React Router v7 项目中集成 **Intlayer**，实现无缝国际化，支持基于区域的路由、TypeScript 支持以及现代开发实践。
 

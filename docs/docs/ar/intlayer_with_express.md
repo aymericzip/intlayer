@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: ترجم موقعك الإلكتروني Express (i18n)
+title: كيفية ترجمة تطبيق Express backend – دليل i18n 2025
 description: اكتشف كيفية جعل الواجهة الخلفية لـ vite متعددة اللغات. اتبع الوثائق لتدويل (i18n) وترجمتها.
 keywords:
   - دولية
@@ -16,7 +16,7 @@ slugs:
   - express
 ---
 
-# البدء في التدويل (i18n) باستخدام Intlayer و Express
+# ترجم Express backend باستخدام Intlayer | التدويل (i18n)
 
 `express-intlayer` هو وسيط قوي للتدويل (i18n) لتطبيقات Express، مصمم لجعل خدماتك الخلفية متاحة عالميًا من خلال توفير استجابات محلية بناءً على تفضيلات العميل.
 

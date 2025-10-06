@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Translate your Angular website (i18n)
+title: How to translate your Angular app – i18n guide 2025
 description: Discover how to make your Angular website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
   - Internationalization
@@ -16,7 +16,7 @@ slugs:
 # applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 ---
 
-# Getting Started with Internationalization (i18n) in Angular using Intlayer
+# Translate your Angular website using Intlayer | Internationalization (i18n)
 
 > This package is in development. See the [issue](https://github.com/aymericzip/intlayer/issues/116) for more information. Show your interest in Intlayer for Angular by liking the issue
 

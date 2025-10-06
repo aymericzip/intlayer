@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Übersetzen Sie Ihre Create React App (CRA)-Website (i18n)
+title: Wie Sie Ihre Create React App übersetzen – i18n-Leitfaden 2025
 description: Entdecken Sie, wie Sie Ihre Create React App (CRA)-Website mehrsprachig gestalten können. Befolgen Sie die Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 ---
 
-# Erste Schritte mit der Internationalisierung (i18n) mit Intlayer und React Create App
+# Übersetzen Sie Ihre Create React App mit Intlayer | Internationalisierung (i18n)
 
 Siehe [i18n-react-create-app](https://github.com/aymericzip/intlayer-react-cra-template) für eine vollständige Demonstration.
 

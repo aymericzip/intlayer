@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-10-03
-title: Astro에서 Intlayer 시작하기
+title: Astro 앱 번역하는 방법 – i18n 가이드 2025
 description: Intlayer를 사용하여 Vite 및 React 애플리케이션에 국제화(i18n)를 추가하는 방법을 배우세요. 이 가이드를 따라 앱을 다국어로 만드세요.
 keywords:
   - 국제화
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 ---
 
-# Intlayer와 Astro로 국제화(i18n) 시작하기
+# Intlayer로 Astro 번역하기 | 국제화(i18n)
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-astro-template)을 참조하세요.
 

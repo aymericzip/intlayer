@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Create React App (CRA)의 웹사이트를 번역하십시오 (i18n)
+title: Create React App 앱 번역하는 방법 – i18n 가이드 2025
 description: Create React App (CRA) 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n)하고 번역하려면 문서를 따르세요.
 keywords:
   - 국제화
@@ -18,7 +18,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 ---
 
-# Intlayer와 React Create App으로 국제화(i18n) 시작하기
+# Intlayer로 Create React App 번역하기 | 국제화(i18n)
 
 [Application Template](https://github.com/aymericzip/intlayer-react-cra-template) 참조.
 

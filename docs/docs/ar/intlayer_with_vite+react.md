@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2024-03-07
-title: البدء مع Intlayer في Vite + React
+title: كيفية ترجمة تطبيق Vite and React – دليل i18n 2025
 description: تعلّم كيفية إضافة التدويل (i18n) إلى تطبيق Vite و React الخاص بك باستخدام Intlayer. اتبع هذا الدليل لجعل تطبيقك متعدد اللغات.
 keywords:
   - التدويل
@@ -1597,7 +1597,7 @@ Link.displayName = "Link";
 للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
 
 ```plaintext
-# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
+# ترجم Vite and React باستخدام Intlayer | التدويل (i18n)
 .intlayer
 ```
 

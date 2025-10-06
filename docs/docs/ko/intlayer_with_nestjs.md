@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
-title: Nest 백엔드 번역하기 (i18n)
+title: Nest backend 앱 번역하는 방법 – i18n 가이드 2025
 description: Vite 백엔드를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역을 위한 문서를 따라가세요.
 keywords:
   - 국제화
@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
 author: AydinTheFirst
 ---
 
-# Intlayer와 NestJS로 국제화(i18n) 시작하기
+# Intlayer로 Nest backend 번역하기 | 국제화(i18n)
 
 `express-intlayer`는 Express 애플리케이션을 위한 강력한 국제화(i18n) 미들웨어로, 클라이언트의 선호도에 따라 현지화된 응답을 제공하여 백엔드 서비스를 전 세계적으로 접근 가능하게 만듭니다. NestJS는 Express 위에 구축되었기 때문에, `express-intlayer`를 NestJS 애플리케이션에 원활하게 통합하여 다국어 콘텐츠를 효과적으로 처리할 수 있습니다.
 

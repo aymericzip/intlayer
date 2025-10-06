@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2024-03-07
-title: 在 Vite + React 中使用 Intlayer 入门
+title: 如何翻译您的Vite and React应用 – i18n指南 2025
 description: 学习如何使用 Intlayer 为您的 Vite 和 React 应用添加国际化 (i18n)。按照本指南使您的应用支持多语言。
 keywords:
   - 国际化
@@ -1642,7 +1642,7 @@ Intlayer 使用模块增强（module augmentation）来利用 TypeScript 的优�
 为此，您可以在 `.gitignore` 文件中添加以下指令：
 
 ```plaintext
-# 忽略 Intlayer 生成的文件
+# 使用Intlayer翻译您的Vite and React | 国际化(i18n)
 .intlayer
 ```
 

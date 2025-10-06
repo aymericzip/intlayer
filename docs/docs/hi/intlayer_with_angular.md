@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Angular के वेबसाइट को अनुवाद करें (i18n)
+title: अपना Angular ऐप कैसे अनुवाद करें – i18n गाइड 2025
 description: जानें कि Angular की वेबसाइट को बहुभाषी कैसे बनाएं। इसे अंतर्राष्ट्रीय (i18n) और अनुवादित करने के लिए प्रलेखन का पालन करें।
 keywords:
   - अंतर्राष्ट्रीयकरण
@@ -16,7 +16,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 ---
 
-# Intlayer का उपयोग करके Angular में अंतर्राष्ट्रीयकरण (i18n) शुरू करना
+# Intlayer के साथ अपना Angular अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
 
 > यह पैकेज विकासाधीन है। अधिक जानकारी के लिए [issue](https://github.com/aymericzip/intlayer/issues/116) देखें। Angular के लिए Intlayer में अपनी रुचि दिखाने के लिए इस issue को लाइक करें।
 

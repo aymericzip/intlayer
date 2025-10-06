@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
-title: Prise en main d'Intlayer avec Tanstack Start
+title: Comment traduire votre Tanstack Start – guide i18n 2025
 description: Apprenez à ajouter l'internationalisation (i18n) à votre application Tanstack Start en utilisant Intlayer. Suivez ce guide complet pour rendre votre application multilingue avec un routage sensible à la locale.
 keywords:
   - Internationalisation
@@ -19,7 +19,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 ---
 
-# Prise en main de l'internationalisation (i18n) avec Intlayer et Tanstack Start
+# Traduire votre Tanstack Start avec Intlayer | Internationalisation (i18n)
 
 Ce guide montre comment intégrer **Intlayer** pour une internationalisation fluide dans les projets Tanstack Start avec un routage sensible à la locale, la prise en charge de TypeScript et des pratiques de développement modernes.
 

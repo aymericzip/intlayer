@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: ترجمة موقعك باستخدام Vite و Svelte (i18n)
+title: كيفية ترجمة تطبيق Vite and Svelte – دليل i18n 2025
 description: اكتشف كيفية جعل موقعك باستخدام Vite و Svelte متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل
@@ -17,7 +17,7 @@ slugs:
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 ---
 
-# البدء في التدويل (i18n) باستخدام Intlayer و Vite و Svelte
+# ترجم Vite and Svelte باستخدام Intlayer | التدويل (i18n)
 
 > هذه الحزمة قيد التطوير. راجع [المشكلة](https://github.com/aymericzip/intlayer/issues/114) لمزيد من المعلومات. أظهر اهتمامك بـ Intlayer لـ Svelte من خلال الإعجاب بالمشكلة
 

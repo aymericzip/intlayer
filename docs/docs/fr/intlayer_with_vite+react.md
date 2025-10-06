@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2024-03-07
-title: Prise en main d'Intlayer avec Vite + React
+title: Comment traduire votre Vite and React – guide i18n 2025
 description: Apprenez à ajouter l'internationalisation (i18n) à votre application Vite et React en utilisant Intlayer. Suivez ce guide pour rendre votre application multilingue.
 keywords:
   - Internationalisation
@@ -1616,7 +1616,6 @@ Il est recommandé d'ignorer les fichiers générés par Intlayer. Cela vous per
 Pour ce faire, vous pouvez ajouter les instructions suivantes dans votre fichier `.gitignore` :
 
 ```plaintext
-# Ignorer les fichiers générés par Intlayer
 .intlayer
 ```
 

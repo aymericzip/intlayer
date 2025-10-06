@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: ترجم موقعك الإلكتروني Angular (i18n)
+title: كيفية ترجمة تطبيق Angular – دليل i18n 2025
 description: اكتشف كيفية جعل موقعك الإلكتروني باستخدام Angular متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
 keywords:
   - التدويل
@@ -16,7 +16,7 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 ---
 
-# البدء مع التدويل (i18n) في Angular باستخدام Intlayer
+# ترجم Angular باستخدام Intlayer | التدويل (i18n)
 
 > هذه الحزمة قيد التطوير. راجع [المشكلة](https://github.com/aymericzip/intlayer/issues/116) لمزيد من المعلومات. أظهر اهتمامك بـ Intlayer لـ Angular من خلال الإعجاب بالمشكلة
 
