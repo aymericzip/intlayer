@@ -5,6 +5,7 @@ import {
   cloneElement,
   type HTMLAttributes,
   type ReactElement,
+  useEffect,
   useRef,
 } from 'react';
 import { useItemSelector } from '../../hooks';
@@ -98,11 +99,15 @@ export const TabSelector = <T extends TabProps>({
 }: TabSelectorProps<T>) => {
   const optionsRefs = useRef<HTMLElement[]>([]);
   const indicatorRef = useRef<HTMLDivElement | null>(null);
-  const { choiceIndicatorPosition } = useItemSelector(
+  const { choiceIndicatorPosition, calculatePosition } = useItemSelector(
     optionsRefs,
     undefined,
     hoverable
   );
+
+  useEffect(() => {
+    calculatePosition();
+  }, [selectedChoice, tabs]);
 
   return (
     <div

@@ -23,36 +23,36 @@ export const useItemSelector = (
 
   const itemsLength = optionsRefs.current.length;
 
+  const calculatePosition = () => {
+    let targetElement: HTMLElement | null = null;
+
+    if (hoveredItem) {
+      targetElement = hoveredItem;
+    } else {
+      targetElement = optionsRefs.current.find(selector) ?? null;
+    }
+
+    if (!targetElement) {
+      setChoiceIndicatorPosition((prev) => ({
+        left: 0,
+        width: 0,
+        ...prev,
+        opacity: 0,
+      }));
+      return;
+    }
+
+    const left = targetElement.offsetLeft;
+    const width = targetElement.offsetWidth;
+
+    setChoiceIndicatorPosition({
+      left,
+      width,
+      opacity: 1,
+    });
+  };
+
   useEffect(() => {
-    const calculatePosition = () => {
-      let targetElement: HTMLElement | null = null;
-
-      if (hoveredItem) {
-        targetElement = hoveredItem;
-      } else {
-        targetElement = optionsRefs.current.find(selector) ?? null;
-      }
-
-      if (!targetElement) {
-        setChoiceIndicatorPosition((prev) => ({
-          left: 0,
-          width: 0,
-          ...prev,
-          opacity: 0,
-        }));
-        return;
-      }
-
-      const left = targetElement.offsetLeft;
-      const width = targetElement.offsetWidth;
-
-      setChoiceIndicatorPosition({
-        left,
-        width,
-        opacity: 1,
-      });
-    };
-
     calculatePosition();
 
     // Event listeners for window events
@@ -152,5 +152,5 @@ export const useItemSelector = (
     };
   }, [optionsRefs, selector, hoveredItem, itemsLength]);
 
-  return { choiceIndicatorPosition };
+  return { choiceIndicatorPosition, calculatePosition };
 };
