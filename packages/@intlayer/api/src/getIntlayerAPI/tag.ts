@@ -41,6 +41,7 @@ export const getTagAPI = (
       authAPIOptions,
       otherOptions,
       {
+        cache: 'no-store',
         params: filters,
       }
     );

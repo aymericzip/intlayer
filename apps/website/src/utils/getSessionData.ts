@@ -18,6 +18,7 @@ export const getSessionData = async (): Promise<{
       .getAuthClient()
       .getSession({
         fetchOptions: {
+          cache: 'no-store',
           headers: {
             cookie: cookieHeader,
           },

@@ -47,6 +47,7 @@ export const getDictionaryAPI = (
       authAPIOptions,
       otherOptions,
       {
+        cache: 'no-store',
         params: filters,
       }
     );
@@ -58,7 +59,10 @@ export const getDictionaryAPI = (
     await fetcher<GetDictionariesKeysResult>(
       `${PROJECT_API_ROUTE}/keys`,
       authAPIOptions,
-      otherOptions
+      otherOptions,
+      {
+        cache: 'no-store',
+      }
     );
 
   /**
@@ -70,7 +74,10 @@ export const getDictionaryAPI = (
     await fetcher<GetDictionariesUpdateTimestampResult>(
       `${PROJECT_API_ROUTE}/update`,
       authAPIOptions,
-      otherOptions
+      otherOptions,
+      {
+        cache: 'no-store',
+      }
     );
 
   /**

@@ -46,6 +46,7 @@ export const getUserAPI = (
       authAPIOptions,
       otherOptions,
       {
+        cache: 'no-store',
         params: filters,
       }
     );
@@ -62,7 +63,10 @@ export const getUserAPI = (
     await fetcher<GetUserByIdResult>(
       `${USER_API_ROUTE}/${userId}`,
       authAPIOptions,
-      otherOptions
+      otherOptions,
+      {
+        cache: 'no-store',
+      }
     );
 
   /**
@@ -77,7 +81,10 @@ export const getUserAPI = (
     await fetcher<GetUserByEmailResult>(
       `${USER_API_ROUTE}/email/${email}`,
       authAPIOptions,
-      otherOptions
+      otherOptions,
+      {
+        cache: 'no-store',
+      }
     );
 
   /**
@@ -93,7 +100,10 @@ export const getUserAPI = (
     await fetcher<GetUserByAccountResult>(
       `${USER_API_ROUTE}/account/${provider}/${providerAccountId}`,
       authAPIOptions,
-      otherOptions
+      otherOptions,
+      {
+        cache: 'no-store',
+      }
     );
 
   /**

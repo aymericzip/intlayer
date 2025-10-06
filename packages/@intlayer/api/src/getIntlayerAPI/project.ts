@@ -52,6 +52,7 @@ export const getProjectAPI = (
       authAPIOptions,
       otherOptions,
       {
+        cache: 'no-store',
         params: filters,
       }
     );

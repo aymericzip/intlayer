@@ -48,6 +48,7 @@ export const getOrganizationAPI = (
       authAPIOptions,
       otherOptions,
       {
+        cache: 'no-store',
         params: filters,
       }
     );
