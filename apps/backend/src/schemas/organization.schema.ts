@@ -56,7 +56,7 @@ export const organizationSchema = new Schema<OrganizationSchema>(
         const { _id, ...rest } = ret;
         return {
           ...rest,
-          id: _id.toString(),
+          id: _id,
         };
       },
     },

@@ -66,7 +66,7 @@ export const planSchema = new Schema<PlanSchema>(
         const { _id, ...rest } = ret;
         return {
           ...rest,
-          id: _id.toString(),
+          id: _id,
         };
       },
     },

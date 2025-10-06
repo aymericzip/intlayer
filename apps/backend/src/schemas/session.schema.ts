@@ -34,7 +34,7 @@ export const sessionSchema = new Schema<SessionSchema>(
         const { _id, ...rest } = ret;
         return {
           ...rest,
-          id: _id.toString(),
+          id: _id,
         };
       },
     },

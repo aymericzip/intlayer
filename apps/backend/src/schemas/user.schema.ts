@@ -67,7 +67,7 @@ export const userSchema = new Schema<UserSchema>(
         const { _id, ...rest } = ret;
         return {
           ...rest,
-          id: _id.toString(),
+          id: _id,
         };
       },
     },

@@ -69,7 +69,7 @@ export const discussionSchema = new Schema<DiscussionSchema>(
         const { _id, ...rest } = ret;
         return {
           ...rest,
-          id: _id.toString(),
+          id: _id,
         };
       },
     },

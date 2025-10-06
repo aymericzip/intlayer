@@ -77,7 +77,7 @@ export const dictionarySchema = new Schema<DictionarySchema>(
         const { _id, ...rest } = ret;
         return {
           ...rest,
-          id: _id.toString(),
+          id: _id,
         };
       },
     },

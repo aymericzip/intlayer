@@ -47,7 +47,7 @@ export const accessTokenSchema = new Schema<Token>(
         const { _id, ...rest } = ret;
         return {
           ...rest,
-          id: _id.toString(),
+          id: _id,
         };
       },
     },
