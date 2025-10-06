@@ -273,7 +273,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               }: ComponentPropsWithoutRef<'blockquote'>) => (
                 <blockquote
                   className={cn(
-                    'mt-5 flex flex-col gap-3 border-card border-l-4 pl-5 text-neutral',
+                    'mt-5 gap-3 border-card border-l-4 pl-5 text-neutral',
                     className
                   )}
                   {...props}
