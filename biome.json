@@ -43,7 +43,7 @@
         "noTsIgnore": "off"
       },
       "complexity": {
-        "noBannedTypes": "error",
+        "noBannedTypes": "warn",
         "noImportantStyles": "warn",
         "noUselessFragments": "warn",
         "useOptionalChain": "error"

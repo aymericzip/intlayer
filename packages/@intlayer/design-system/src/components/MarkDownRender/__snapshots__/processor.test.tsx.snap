@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`handles a holistic example 1`] = `
+"<div><h2 id="misc">Miscellaneous</h2><h3 id="autolink">Automatic Links</h3><p>Markdown supports a shortcut style for creating "automatic" links for URLs and email addresses: simply surround the URL or email address with angle brackets. What this means is that if you want to show the actual text of a URL or email address, and also have it be a clickable link, you can do this:</p>
+<pre><code class="lang-plaintext">&lt;http://example.com/&gt;</code></pre><p>Markdown will turn this into:</p>
+<pre><code class="lang-plaintext">&lt;a href="http://example.com/"&gt;http://example.com/&lt;/a&gt;</code></pre><p>Automatic links for email addresses work similarly, except that
+Markdown will also perform a bit of randomized decimal and hex
+entity-encoding to help obscure your address from address-harvesting
+spambots. For example, Markdown will turn this:</p>
+<pre><code class="lang-plaintext">&lt;address@example.com&gt;</code></pre><p>into something like this:</p>
+<pre><code class="lang-plaintext">&lt;a href="&amp;#x6D;&amp;#x61;i&amp;#x6C;&amp;#x74;&amp;#x6F;:&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;
+&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;&amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;
+&amp;#109;"&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
+&amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;</code></pre><p>which will render in a browser as a clickable link to "address@example.com".</p>
+<p>(This sort of entity-encoding trick will indeed fool many, if not
+most, address-harvesting bots, but it definitely won't fool all of
+them. It's better than nothing, but an address published in this way
+will probably eventually start receiving spam.)</p>
+<h3 id="backslash">Backslash Escapes</h3><p>Markdown allows you to use backslash escapes to generate literal
+characters which would otherwise have special meaning in Markdown's
+formatting syntax. For example, if you wanted to surround a word
+with literal asterisks (instead of an HTML <code>&lt;em&gt;</code> tag), you can use
+backslashes before the asterisks, like this:</p>
+<pre><code class="lang-plaintext">*literal asterisks*</code></pre><p>Markdown provides backslash escapes for the following characters:</p>
+<pre><code class="lang-plaintext">\\   backslash
+\`   backtick
+*   asterisk
+_   underscore
+{}  curly braces
+[]  square brackets
+()  parentheses
+#   hash mark
++    plus sign
+-    minus sign (hyphen)
+.   dot
+!   exclamation mark</code></pre></div>"
+`;

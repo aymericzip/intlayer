@@ -1,7 +1,7 @@
 /**
- * it's a fork of
- * [simple-markdown v0.2.2](https://github.com/Khan/simple-markdown)
- * from Khan Academy.
+ * it's a fork
+ * [markdown-to-jsx v7.7.14](https://github.com/quantizor/markdown-to-jsx) from quantizor
+ * [simple-markdown v0.2.2](https://github.com/Khan/simple-markdown) from Khan Academy.
  */
 import {
   type CSSProperties,
@@ -44,7 +44,7 @@ export const RuleType = {
   /** emits a `link` 'node', does not render directly */
   linkBareUrlDetector: '17',
   /** emits a `link` 'node', does not render directly */
-  linkMailtoDetector: '18',
+  // linkMailtoDetector: '18',
   newlineCoalescer: '19',
   orderedList: '20',
   paragraph: '21',
@@ -63,7 +63,9 @@ export const RuleType = {
 } as const;
 
 if (process.env.NODE_ENV === 'test') {
-  Object.keys(RuleType).forEach((key) => ((RuleType as any)[key] = key));
+  Object.keys(RuleType).forEach((key) => {
+    (RuleType as any)[key] = key;
+  });
 }
 
 type RuleType = (typeof RuleType)[keyof typeof RuleType];
@@ -196,13 +198,13 @@ const ATTR_EXTRACTOR_R =
 
 /** TODO: Write explainers for each of these */
 
-const AUTOLINK_MAILTO_CHECK_R = /mailto:/i;
+// const AUTOLINK_MAILTO_CHECK_R = /mailto:/i; // Unused variable
 const BLOCK_END_R = /\n{2,}$/;
 const BLOCKQUOTE_R = /^(\s*>[\s\S]*?)(?=\n\n|$)/;
 const BLOCKQUOTE_TRIM_LEFT_MULTILINE_R = /^ *> ?/gm;
 const BLOCKQUOTE_ALERT_R = /^(?:\[!([^\]]*)\]\n)?([\s\S]*)/;
 const BREAK_LINE_R = /^ {2,}\n/;
-const BREAK_THEMATIC_R = /^(?:( *[-*_])){3,} *(?:\n *)+\n/;
+const BREAK_THEMATIC_R = /^(?:([-*_])( *\1){2,}) *(?:\n *)+\n/;
 const CODE_BLOCK_FENCED_R =
   /^(?: {1,3})?(`{3,}|~{3,}) *(\S+)? *([^\n]*?)?\n([\s\S]*?)(?:\1\n?|$)/;
 const CODE_BLOCK_R = /^(?: {4}[^\n]+\n*)+(?:\n *)+\n?/;
@@ -251,7 +253,7 @@ const GFM_TASK_R = /^\s*?\[(x|\s)\]/;
 const HEADING_R = /^ *(#{1,6}) *([^\n]+?)(?: +#*)?(?:\n *)*(?:\n|$)/;
 const HEADING_ATX_COMPLIANT_R =
   /^ *(#{1,6}) +([^\n]+?)(?: +#*)?(?:\n *)*(?:\n|$)/;
-const HEADING_SETEXT_R = /^([^\n]+)\n *(=|-){3,} *\n/;
+const HEADING_SETEXT_R = /^([^\n]+)\n *(=|-)\2{2,} *\n/;
 
 /**
  * Explanation:
@@ -297,8 +299,7 @@ const CUSTOM_COMPONENT_R =
 
 const INTERPOLATION_R = /^\{.*\}$/;
 const LINK_AUTOLINK_BARE_URL_R = /^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/;
-const LINK_AUTOLINK_MAILTO_R = /^<([^ >]+@[^ >]+)>/;
-const LINK_AUTOLINK_R = /^<([^ >]+:\/[^ >]+)>/;
+const LINK_AUTOLINK_R = /^<([^ >]+[:@/][^ >]+)>/;
 const CAPTURE_LETTER_AFTER_HYPHEN = /-([a-z])?/gi;
 const NP_TABLE_R =
   /^(\|.*)\n(?: *(\|? *[-:]+ *\|[-| :]*)\n((?:.*\|.*\n)*))?\n?/;
@@ -313,6 +314,15 @@ const TABLE_CENTER_ALIGN = /^ *:-+: *$/;
 const TABLE_LEFT_ALIGN = /^ *:-+ *$/;
 const TABLE_RIGHT_ALIGN = /^ *-+: *$/;
 
+const some = (regexes: RegExp[], input: string) => {
+  for (let i = 0; i < regexes.length; i++) {
+    if (regexes[i].test(input)) {
+      return true;
+    }
+  }
+  return false;
+};
+
 /**
  * Ensure there's at least one more instance of the delimiter later
  * in the current sequence.
@@ -325,7 +335,7 @@ const LOOKAHEAD = (double: number) => `(?=[\\s\\S]+?\\1${double ? '\\1' : ''})`;
  * and therefore miss content that should have been included.
  */
 const INLINE_SKIP_R =
-  '((?:\\[.*?\\][([].*?[)\\]]|<.*?>(?:.*?<.*?>)?|`.*?`|\\\\\\1|[\\s\\S])+?)';
+  '((?:\\[.*?\\][([].*?[)\\]]|<.*?>(?:.*?<.*?>)?|`.*?`|\\\\[^\\s]|[\\s\\S])+?)';
 
 /**
  * Detect a sequence like **foo** or __foo__. Note that bold has a higher priority
@@ -550,7 +560,7 @@ const generateListRule = (
 
         // Parse inline if we're in a tight list, or block if we're in
         // a loose list.
-        let adjustedContent;
+        let adjustedContent: string;
         if (thisItemIsAParagraph) {
           state.inline = false;
           adjustedContent = `${trimEnd(content)}\n\n`;
@@ -595,7 +605,9 @@ const generateListRule = (
           start={node.type === RuleType.orderedList ? node.start : undefined}
         >
           {node.items.map((item, i) => {
-            return <li key={i}>{_output(item, state)}</li>;
+            return (
+              <li key={`item-${i}-${Math.random()}`}>{_output(item, state)}</li>
+            );
           })}
         </Tag>
       );
@@ -754,9 +766,9 @@ const parseTableCells = (
   const start = performance.now();
   const rowsText = source.trim().split('\n');
 
-  const result = rowsText.map((rowText) => {
-    return parseTableRow(rowText, parse, state, true);
-  });
+  const result = rowsText.map((rowText) =>
+    parseTableRow(rowText, parse, state, true)
+  );
 
   const duration = performance.now() - start;
   if (duration > 1) {
@@ -983,10 +995,10 @@ const attributeValueToJSXPropValue = (
       {} as Record<string, any>
     );
   } else if (ATTRIBUTES_TO_SANITIZE.indexOf(key) !== -1) {
-    return sanitizeUrlFn(unescape(value), tag, key);
+    return sanitizeUrlFn(unescapeString(value), tag, key);
   } else if (value.match(INTERPOLATION_R)) {
     // return as a string and let the consumer decide what to do with it
-    value = unescape(value.slice(1, value.length - 1));
+    value = unescapeString(value.slice(1, value.length - 1));
   }
 
   if (value === 'true') {
@@ -1057,15 +1069,15 @@ const parserFor = (
 
   const nestedParse = (source: string, state: State = {}): ParserResult[] => {
     const parseStart = performance.now();
-    var result: ParserResult[] = [];
+    const result: ParserResult[] = [];
     state.prevCapture = state.prevCapture || '';
 
     if (source.trim()) {
       while (source) {
-        var i = 0;
+        let i = 0;
         while (i < ruleList.length) {
-          var ruleType = ruleList[i];
-          var rule = rules[ruleType as keyof typeof rules];
+          const ruleType = ruleList[i];
+          const rule = rules[ruleType as keyof typeof rules];
 
           if (rule._qualify && !qualifies(source, state, rule._qualify)) {
             i++;
@@ -1073,7 +1085,7 @@ const parserFor = (
           }
 
           const matchStart = performance.now();
-          var capture = rule._match(source, state);
+          const capture = rule._match(source, state);
           const matchDuration = performance.now() - matchStart;
 
           if (matchDuration > 1) {
@@ -1135,10 +1147,12 @@ const parserFor = (
  * Marks a matcher function as eligible for being run inside an inline context;
  * allows us to do a little less work in the nested parser.
  */
-const allowInline = <T extends Function & { inline?: 0 | 1 }>(fn: T): T => {
-  fn.inline = 1;
+const allowInline = <T extends (...args: any[]) => any>(
+  fn: T
+): T & { inline: 1 } => {
+  (fn as any).inline = 1;
 
-  return fn;
+  return fn as T & { inline: 1 };
 };
 
 // Creates a match function for an inline scoped or simple element from a regex
@@ -1211,7 +1225,7 @@ export const sanitizer = (input: string): string | null => {
   return input;
 };
 
-const unescape = (rawString: string): string =>
+const unescapeString = (rawString: string): string =>
   rawString ? rawString.replace(UNESCAPE_R, '$1') : rawString;
 
 /**
@@ -1297,7 +1311,7 @@ const parseCaptureInline: Parser<{
   };
 };
 
-const captureNothing = (): {} => ({});
+const captureNothing = (): Record<string, never> => ({});
 
 const renderNothing = (): null => null;
 
@@ -1451,7 +1465,8 @@ export const compiler = (
     const syntaxes = options.disableParsingRawHTML
       ? [...NON_PARAGRAPH_BLOCK_SYNTAXES, PARAGRAPH_R, CUSTOM_COMPONENT_R]
       : BLOCK_SYNTAXES;
-    return syntaxes.some((r) => r.test(slice));
+
+    return some(syntaxes, slice);
   };
 
   const matchParagraph = (
@@ -1468,21 +1483,29 @@ export const compiler = (
       return null;
     }
 
-    let match = '';
+    let start = 0;
 
-    source.split('\n').every((line) => {
-      line += '\n';
+    while (true) {
+      const newlineIndex = source.indexOf('\n', start);
 
-      // bail out on first sign of non-paragraph block
-      if (NON_PARAGRAPH_BLOCK_SYNTAXES.some((regex) => regex.test(line))) {
-        return false;
+      // Extract the line including the newline
+      const line = source.slice(
+        start,
+        newlineIndex === -1 ? undefined : newlineIndex + 1
+      );
+      if (some(NON_PARAGRAPH_BLOCK_SYNTAXES, line)) {
+        break;
+      }
+      // Stop if line has no content (empty line)
+      if (newlineIndex === -1 || !line.trim()) {
+        break;
       }
 
-      match += line;
+      start = newlineIndex + 1;
+    }
 
-      return !!line.trim();
-    });
-
+    // Capture everything we advanced over
+    const match = source.slice(0, start);
     const captured = trimEnd(match);
     if (captured === '') {
       return null;
@@ -1507,14 +1530,22 @@ export const compiler = (
       {}
     ) as Record<string, any>;
 
+    const className = cx(props?.className, overrideProps.className);
+
+    const mergedProps = {
+      ...props,
+      ...overrideProps,
+      ...(className && { className }),
+    };
+
+    const component = getTag(tag, options.overrides ?? {});
+
+    // Always delegate to React's createElement so that special props like `key`
+    // are handled by React and are not passed through user props objects.
     return createElementFn(
-      getTag(tag, options.overrides ?? {}) as any,
-      {
-        ...props,
-        ...overrideProps,
-        className: cx(props?.className, overrideProps.className) ?? undefined,
-      },
-      ...children
+      component as any,
+      mergedProps,
+      ...(children.length === 1 ? [children[0]] : children)
     );
   };
 
@@ -1531,7 +1562,10 @@ export const compiler = (
        * should not contain any block-level markdown like newlines, lists, headings,
        * thematic breaks, blockquotes, tables, etc
        */
-      inline = SHOULD_RENDER_AS_BLOCK_R.test(result) === false;
+      // Ignore leading blank lines when deciding inline vs block, so inputs like
+      // "\n**bold**" are still treated as inline content.
+      const leadingNewlinesTrimmed = result.replace(TRIM_STARTING_NEWLINES, '');
+      inline = SHOULD_RENDER_AS_BLOCK_R.test(leadingNewlinesTrimmed) === false;
     }
 
     const arr = emitter(
@@ -1542,7 +1576,8 @@ export const compiler = (
         {
           inline,
         }
-      )
+      ),
+      { inline }
     ) as unknown as any[];
 
     while (
@@ -1563,7 +1598,7 @@ export const compiler = (
     }
 
     const wrapper = options.wrapper ?? (inline ? 'span' : 'div');
-    let jsx;
+    let jsx: ReactNode | ReactNode[] | null;
 
     if (arr.length > 1 || options.forceWrapper) {
       jsx = arr;
@@ -1578,7 +1613,22 @@ export const compiler = (
             `compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`
           );
         }
-        return <span key="outer">{jsx}</span>;
+        // If we're in block context but ended up with a single text node,
+        // apply paragraph override props to the fallback span so users can
+        // still style what would otherwise be a paragraph.
+        const spanProps: Record<string, any> = { key: 'outer' };
+        if (!inline && options.overrides) {
+          const pOverrideProps = get(options.overrides, 'p.props', {});
+          if (pOverrideProps && typeof pOverrideProps === 'object') {
+            const mergedClassName = cx(
+              spanProps.className,
+              pOverrideProps.className
+            );
+            Object.assign(spanProps, pOverrideProps);
+            if (mergedClassName) spanProps.className = mergedClassName;
+          }
+        }
+        return createElementFn('span', spanProps, jsx) as JSX.Element;
       } else {
         const duration = performance.now() - start;
         if (duration > 1) {
@@ -1629,12 +1679,13 @@ export const compiler = (
         // bail out, not supported
         if (mappedKey === 'ref') return map;
 
-        const normalizedValue = (map[mappedKey] = attributeValueToJSXPropValue(
+        const normalizedValue = attributeValueToJSXPropValue(
           tag,
           key,
           value,
           sanitize
-        ));
+        );
+        map[mappedKey] = normalizedValue;
 
         if (
           typeof normalizedValue === 'string' &&
@@ -1694,7 +1745,7 @@ export const compiler = (
       _qualify: ['>'],
       _match: blockRegex(BLOCKQUOTE_R),
       _order: Priority.HIGH,
-      _parse(capture, parse, state) {
+      _parse(capture: RegExpMatchArray, parse: NestedParser, state: State) {
         const start = performance.now();
         const matchAlert = capture[0]
           .replace(BLOCKQUOTE_TRIM_LEFT_MULTILINE_R, '')
@@ -1716,7 +1767,7 @@ export const compiler = (
 
         return result;
       },
-      _render(node, _output, state = {}) {
+      _render(node: BlockQuoteNode, _output: RuleOutput, state: State = {}) {
         const start = performance.now();
         const props = {
           key: state?.key,
@@ -1752,24 +1803,22 @@ export const compiler = (
     },
 
     [RuleType.breakLine]: {
+      _qualify: ['  '],
       _match: anyScopeRegex(BREAK_LINE_R),
       _order: Priority.HIGH,
       _parse: captureNothing,
-      _render(_, __, state = {}) {
-        return <br key={state.key} />;
+      _render(_: BreakLineNode, __: RuleOutput, state: State = {}) {
+        return h('br', { key: state.key });
       },
     },
 
     [RuleType.breakThematic]: {
-      _qualify: (source) => {
-        const char = source[0];
-        return char === '-' || char === '*' || char === '_';
-      },
+      _qualify: ['--', '__', '**', '- ', '* ', '_ '],
       _match: blockRegex(BREAK_THEMATIC_R),
       _order: Priority.HIGH,
       _parse: captureNothing,
-      _render(_, __, state = {}) {
-        return <hr key={state.key} />;
+      _render(_: BreakThematicNode, __: RuleOutput, state: State = {}) {
+        return h('hr', { key: state.key });
       },
     },
 
@@ -1777,15 +1826,15 @@ export const compiler = (
       _qualify: ['    '],
       _match: blockRegex(CODE_BLOCK_R),
       _order: Priority.MAX,
-      _parse(capture /*, parse, state*/) {
+      _parse(capture: RegExpMatchArray /*, parse, state*/) {
         return {
           type: RuleType.codeBlock,
           lang: undefined,
-          text: unescape(trimEnd(capture[0].replace(/^ {4}/gm, ''))),
+          text: unescapeString(trimEnd(capture[0].replace(/^ {4}/gm, ''))),
         };
       },
 
-      _render(node, _output, state = {}) {
+      _render(node: CodeBlockNode, _output: RuleOutput, state: State = {}) {
         const start = performance.now();
         const attrs = { ...((node as any).attrs ?? {}) } as Record<string, any>;
         const langClass = node.lang ? `lang-${node.lang}` : 'lang-plaintext';
@@ -1815,7 +1864,7 @@ export const compiler = (
       _qualify: ['```', '~~~'],
       _match: blockRegex(CODE_BLOCK_FENCED_R),
       _order: Priority.MAX,
-      _parse(capture /*, _parse, state*/) {
+      _parse(capture: RegExpMatchArray /*, _parse, state*/) {
         const rawText = capture[4];
         // Always preserve real newlines so code blocks render with correct block formatting
         const text = rawText;
@@ -1833,12 +1882,12 @@ export const compiler = (
       _qualify: ['`'],
       _match: simpleInlineRegex(CODE_INLINE_R),
       _order: Priority.LOW,
-      _parse(capture /*, parse, state*/) {
+      _parse(capture: RegExpMatchArray /*, parse, state*/) {
         return {
-          text: unescape(capture[2]),
+          text: unescapeString(capture[2]),
         };
       },
-      _render(node, _output, state = {}) {
+      _render(node: CodeInlineNode, _output: RuleOutput, state: State = {}) {
         const start = performance.now();
         const result = h('code', { key: state.key }, (node as any).text);
 
@@ -1903,14 +1952,12 @@ export const compiler = (
         };
       },
       _render(node, _output, state = {}) {
-        return (
-          <input
-            checked={node.completed}
-            key={state.key}
-            readOnly
-            type="checkbox"
-          />
-        );
+        return h('input', {
+          checked: node.completed,
+          key: state.key,
+          readOnly: true,
+          type: 'checkbox',
+        });
       },
     } as Rule<{ completed: boolean }>,
 
@@ -1920,7 +1967,7 @@ export const compiler = (
         options.enforceAtxHeadings ? HEADING_ATX_COMPLIANT_R : HEADING_R
       ),
       _order: Priority.HIGH,
-      _parse(capture, parse, state) {
+      _parse(capture: RegExpMatchArray, parse: NestedParser, state: State) {
         const start = performance.now();
         const result = {
           children: parseInline(parse, capture[2], state),
@@ -1937,10 +1984,10 @@ export const compiler = (
 
         return result;
       },
-      _render(node, _output, state = {}) {
+      _render(node: HeadingNode, _output: RuleOutput, state: State = {}) {
         const start = performance.now();
         const result = h(
-          `h${node.level}`,
+          `h${node.level}` as keyof JSX.IntrinsicElements,
           { id: node.id, key: state.key },
           _output(node.children, state)
         );
@@ -1957,6 +2004,14 @@ export const compiler = (
     },
 
     [RuleType.headingSetext]: {
+      _qualify: (source) => {
+        const nlIndex = source.indexOf('\n');
+        return (
+          nlIndex > 0 &&
+          nlIndex < source.length - 1 &&
+          (source[nlIndex + 1] === '=' || source[nlIndex + 1] === '-')
+        );
+      },
       _match: blockRegex(HEADING_SETEXT_R),
       _order: Priority.MAX,
       _parse(capture, parse, state) {
@@ -1984,7 +2039,7 @@ export const compiler = (
        */
       _match: anyScopeRegex(HTML_BLOCK_ELEMENT_R),
       _order: Priority.HIGH,
-      _parse(capture, parse, state) {
+      _parse(capture: RegExpMatchArray, parse: NestedParser, state: State) {
         const m = capture[3].match(
           HTML_LEFT_TRIM_AMOUNT_R
         ) as RegExpMatchArray | null;
@@ -2036,7 +2091,7 @@ export const compiler = (
 
         return ast;
       },
-      _render(node, _output, state = {}) {
+      _render(node: HTMLNode, _output: RuleOutput, state: State = {}) {
         const start = performance.now();
         const result = h(
           node.tag as HTMLTags,
@@ -2109,7 +2164,7 @@ export const compiler = (
       },
       _match: blockRegex(CUSTOM_COMPONENT_R),
       _order: Priority.MAX,
-      _parse(capture, parse, state) {
+      _parse(capture: RegExpMatchArray, parse: NestedParser, state: State) {
         const m = capture[3].match(
           HTML_LEFT_TRIM_AMOUNT_R
         ) as RegExpMatchArray | null;
@@ -2152,7 +2207,11 @@ export const compiler = (
 
         return ast;
       },
-      _render(node, _output, state = {}) {
+      _render(
+        node: CustomComponentNode,
+        _output: RuleOutput,
+        state: State = {}
+      ) {
         // Use the custom component from overrides if available
         const customComponent = getTag(node.tag, options.overrides ?? {});
 
@@ -2183,22 +2242,24 @@ export const compiler = (
       _qualify: ['!['],
       _match: simpleInlineRegex(IMAGE_R),
       _order: Priority.HIGH,
-      _parse(capture /*, parse, state*/) {
+      _parse(capture: RegExpMatchArray /*, parse, state*/) {
         return {
-          alt: unescape(capture[1]),
-          target: unescape(capture[2]),
-          title: unescape(capture[3]),
+          alt: unescapeString(capture[1]),
+          target: unescapeString(capture[2]),
+          title: unescapeString(capture[3]),
         };
       },
-      _render(node, _output, state = {}) {
-        return (
-          <img
-            key={state.key}
-            alt={node.alt ?? undefined}
-            title={node.title ?? undefined}
-            src={sanitize(node.target, 'img', 'src') ?? undefined}
-          />
-        );
+      _render(
+        node: { alt?: string; target: string; title?: string },
+        _output: RuleOutput,
+        state: State = {}
+      ) {
+        return h('img', {
+          key: state.key,
+          alt: node.alt ?? undefined,
+          title: node.title ?? undefined,
+          src: sanitize(node.target, 'img', 'src') ?? undefined,
+        });
       },
     } as Rule<{
       alt?: string;
@@ -2213,26 +2274,20 @@ export const compiler = (
       _parse(capture, parse, state) {
         return {
           children: parseSimpleInline(parse, capture[1], state),
-          target: unescape(capture[2]),
-          title: unescape(capture[3]),
+          target: unescapeString(capture[2]),
+          title: unescapeString(capture[3]),
         };
       },
-      _render(node, _output, state = {}) {
-        const renderedChildren = _output(node.children, state);
-        const overrideComponent = getTag('a', options.overrides ?? {});
-
-        const props = {
-          key: state.key,
-          href: sanitize(node.target, 'a', 'href') ?? undefined,
-          title: node.title,
-          children: renderedChildren,
-        } as Record<string, any>;
-
-        if (typeof overrideComponent === 'function') {
-          return overrideComponent(props);
-        }
-
-        return h('a', props, renderedChildren);
+      _render(node, output, state = {}) {
+        return h(
+          'a',
+          {
+            key: state.key,
+            href: sanitize(node.target, 'a', 'href') ?? undefined,
+            title: node.title,
+          },
+          output(node.children, state ?? {})
+        );
       },
     },
 
@@ -2242,14 +2297,26 @@ export const compiler = (
       _match: inlineRegex(LINK_AUTOLINK_R),
       _order: Priority.MAX,
       _parse(capture /*, parse, state*/) {
+        let target = capture[1];
+        let isEmail = false;
+
+        if (
+          target.indexOf('@') !== -1 &&
+          // emails don't have protocols in them
+          target.indexOf('//') === -1
+        ) {
+          isEmail = true;
+          target = target.replace('mailto:', '');
+        }
+
         return {
           children: [
             {
-              text: capture[1],
+              text: target,
               type: RuleType.text,
             },
           ],
-          target: capture[1],
+          target: isEmail ? `mailto:${target}` : target,
           type: RuleType.link,
         };
       },
@@ -2277,32 +2344,6 @@ export const compiler = (
       },
     },
 
-    [RuleType.linkMailtoDetector]: {
-      _qualify: ['<'],
-      _match: inlineRegex(LINK_AUTOLINK_MAILTO_R),
-      _order: Priority.MAX,
-      _parse(capture /*, parse, state*/) {
-        const address = capture[1];
-        let target = capture[1];
-
-        // Check for a `mailto:` already existing in the link:
-        if (!AUTOLINK_MAILTO_CHECK_R.test(target)) {
-          target = `mailto:${target}`;
-        }
-
-        return {
-          children: [
-            {
-              text: address.replace('mailto:', ''),
-              type: RuleType.text,
-            },
-          ],
-          target: target,
-          type: RuleType.link,
-        };
-      },
-    },
-
     [RuleType.orderedList]: generateListRule(
       ORDERED,
       (tag: string, props: Record<string, any>, ...children: any[]) =>
@@ -2316,6 +2357,7 @@ export const compiler = (
     ) as Rule<UnorderedListNode>,
 
     [RuleType.newlineCoalescer]: {
+      _qualify: ['\n'],
       _match: blockRegex(CONSECUTIVE_NEWLINE_R),
       _order: Priority.LOW,
       _parse: captureNothing,
@@ -2340,7 +2382,11 @@ export const compiler = (
       },
       _render(node, _output, state = {}) {
         const start = performance.now();
-        const result = <p key={state.key}>{_output(node.children, state)}</p>;
+        const result = h(
+          'p',
+          { key: state.key },
+          _output(node.children, state)
+        );
 
         const duration = performance.now() - start;
         if (duration > 1) {
@@ -2374,7 +2420,7 @@ export const compiler = (
       _order: Priority.MAX,
       _parse(capture) {
         return {
-          alt: capture[1] ? unescape(capture[1]) : undefined,
+          alt: capture[1] ? unescapeString(capture[1]) : undefined,
           ref: capture[2],
         };
       },
@@ -2420,7 +2466,7 @@ export const compiler = (
       _qualify: ['|'],
       _match: blockRegex(NP_TABLE_R),
       _order: Priority.HIGH,
-      _parse(capture, parse, state) {
+      _parse(capture: RegExpMatchArray, parse: NestedParser, state: State) {
         const start = performance.now();
         const result = parseTable(capture, parse, state);
         const duration = performance.now() - start;
@@ -2431,7 +2477,11 @@ export const compiler = (
         }
         return result;
       },
-      _render(node, _output, state = {}) {
+      _render(
+        node: TableNode | ParagraphNode,
+        _output: RuleOutput,
+        state: State = {}
+      ) {
         const start = performance.now();
         const table = node as TableNode;
         const result = h(
@@ -2488,14 +2538,15 @@ export const compiler = (
       // We break on any symbol characters so that this grammar
       // is easy to extend without needing to modify this regex
       _match: allowInline((source, _state) => {
-        let ret;
-        if (startsWith(source, ':')) ret = SHORTCODE_R.exec(source);
-        if (ret) return ret;
+        if (startsWith(source, ':')) {
+          const ret = SHORTCODE_R.exec(source);
+          if (ret) return ret;
+        }
 
         return TEXT_PLAIN_R.exec(source);
       }),
       _order: Priority.MIN,
-      _parse(capture) {
+      _parse(capture: RegExpMatchArray) {
         const text = capture[0];
         return {
           text:
@@ -2503,11 +2554,12 @@ export const compiler = (
               ? text
               : text.replace(
                   HTML_CHAR_CODE_R,
-                  (full, inner) => options.namedCodesToUnicode?.[inner] ?? full
+                  (full: string, inner: string) =>
+                    options.namedCodesToUnicode?.[inner] ?? full
                 ),
         };
       },
-      _render(node) {
+      _render(node: TextNode) {
         return node.text;
       },
     },
@@ -2516,17 +2568,19 @@ export const compiler = (
       _qualify: ['**', '__'],
       _match: simpleInlineRegex(TEXT_BOLD_R),
       _order: Priority.MED,
-      _parse(capture, parse, state) {
+      _parse(capture: RegExpMatchArray, parse: NestedParser, state: State) {
         return {
           // capture[1] -> the syntax control character
           // capture[2] -> inner content
           children: parse(capture[2], state),
         };
       },
-      _render(node, _output, state = {}) {
+      _render(node: BoldTextNode, _output: RuleOutput, state: State = {}) {
         const start = performance.now();
-        const result = (
-          <strong key={state.key}>{_output(node.children, state)}</strong>
+        const result = h(
+          'strong',
+          { key: state.key },
+          _output(node.children, state)
         );
 
         const duration = performance.now() - start;
@@ -2547,16 +2601,20 @@ export const compiler = (
       },
       _match: simpleInlineRegex(TEXT_EMPHASIZED_R),
       _order: Priority.LOW,
-      _parse(capture, parse, state) {
+      _parse(capture: RegExpMatchArray, parse: NestedParser, state: State) {
         return {
           // capture[1] -> opening * or _
           // capture[2] -> inner content
           children: parse(capture[2], state),
         };
       },
-      _render(node, _output, state = {}) {
+      _render(node: ItalicTextNode, _output: RuleOutput, state: State = {}) {
         const start = performance.now();
-        const result = <em key={state.key}>{_output(node.children, state)}</em>;
+        const result = h(
+          'em',
+          { key: state.key },
+          _output(node.children, state)
+        );
 
         const duration = performance.now() - start;
         if (duration > 1) {
@@ -2577,7 +2635,7 @@ export const compiler = (
       // regardless of how this grammar is extended.
       _match: simpleInlineRegex(TEXT_ESCAPED_R),
       _order: Priority.HIGH,
-      _parse(capture /*, parse, state*/) {
+      _parse(capture: RegExpMatchArray /*, parse, state*/) {
         return {
           text: capture[1],
           type: RuleType.text,
@@ -2590,8 +2648,8 @@ export const compiler = (
       _match: simpleInlineRegex(TEXT_MARKED_R),
       _order: Priority.LOW,
       _parse: parseCaptureInline,
-      _render(node, _output, state = {}) {
-        return <mark key={state.key}>{_output(node.children, state)}</mark>;
+      _render(node: MarkedTextNode, _output: RuleOutput, state: State = {}) {
+        return h('mark', { key: state.key }, _output(node.children, state));
       },
     },
 
@@ -2600,8 +2658,12 @@ export const compiler = (
       _match: simpleInlineRegex(TEXT_STRIKETHROUGHED_R),
       _order: Priority.LOW,
       _parse: parseCaptureInline,
-      _render(node, _output, state = {}) {
-        return <del key={state.key}>{_output(node.children, state)}</del>;
+      _render(
+        node: StrikethroughTextNode,
+        _output: RuleOutput,
+        state: State = {}
+      ) {
+        return h('del', { key: state.key }, _output(node.children, state));
       },
     },
   };
@@ -2649,7 +2711,10 @@ export const compiler = (
   }
 
   const parser = parserFor(rules);
-  const emitter: Function = reactFor(createRenderer(rules, options.renderRule));
+  const emitter: (
+    ast: ParserResult | ParserResult[],
+    state: State
+  ) => ReactNode[] = reactFor(createRenderer(rules, options.renderRule));
 
   const jsx = compile(markdown);
 
@@ -2662,9 +2727,9 @@ export const compiler = (
             <div id={slug(def.identifier, slugify)} key={def.identifier}>
               {def.identifier}
               {
-                emitter(
-                  parser(def.footnote, { inline: true })
-                ) as unknown as ReactNode
+                emitter(parser(def.footnote, { inline: true }), {
+                  inline: true,
+                }) as unknown as ReactNode
               }
             </div>
           ))}
@@ -2816,7 +2881,7 @@ type LinkBareURLNode = {
 };
 
 type LinkMailtoNode = {
-  type: typeof RuleType.linkMailtoDetector;
+  type: typeof RuleType.linkAngleBraceStyleDetector;
 };
 
 type OrderedListNode = {
@@ -3012,7 +3077,7 @@ type Rules = {
 type Override =
   | RequireAtLeastOne<{
       component: any;
-      props: Object;
+      props: Record<string, any>;
     }>
   | any;
 
