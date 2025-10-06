@@ -131,7 +131,6 @@ export const Popover: PopoverType = ({
 }) => (
   <div
     className={cn('group/popover relative flex cursor-pointer', className)}
-    aria-label={`Popover ${identifier}`}
     id={`unrollable-panel-button-${identifier}`}
     aria-haspopup
     {...props}
@@ -238,6 +237,7 @@ const Detail: FC<DetailProps> = ({
 }) => (
   <Container
     transparency="sm"
+    role="group"
     aria-hidden={isHidden}
     aria-labelledby={`unrollable-panel-button-${identifier}`}
     id={`unrollable-panel-${identifier}`}
