@@ -1,6 +1,6 @@
 'use client';
 
-import { type MutableRefObject, useEffect, useState } from 'react';
+import { type RefObject, useEffect, useState } from 'react';
 
 type StyleState = {
   left: number;
@@ -12,7 +12,7 @@ const selectorDefault = (option: HTMLElement) =>
   option?.getAttribute('aria-selected') === 'true';
 
 export const useItemSelector = (
-  optionsRefs: MutableRefObject<HTMLElement[]>,
+  optionsRefs: RefObject<HTMLElement[]>,
   selector: (option: HTMLElement, index: number) => boolean = selectorDefault,
   isHoverable = false
 ) => {
@@ -135,10 +135,14 @@ export const useItemSelector = (
       window.removeEventListener('DOMContentLoaded', calculatePosition);
 
       // Disconnect MutationObservers
-      mutationObservers.forEach((observer) => observer.disconnect());
+      mutationObservers.forEach((observer) => {
+        observer.disconnect();
+      });
 
       // Disconnect ResizeObservers
-      resizeObservers.forEach((observer) => observer.disconnect());
+      resizeObservers.forEach((observer) => {
+        observer.disconnect();
+      });
 
       // Remove hover event listeners
       optionsRefs.current.forEach((option) => {

@@ -1,14 +1,14 @@
 'use client';
 
 import type { IntlayerConfig } from '@intlayer/config';
-import { useAuth } from '@intlayer/design-system/hooks';
+import { useSession } from '@intlayer/design-system/hooks';
 import { ConfigurationProvider } from '@intlayer/editor-react';
 import type { FC, PropsWithChildren } from 'react';
 
 export const EditorConfigurationProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
-  const { session } = useAuth();
+  const { session } = useSession();
   const project = session?.project;
 
   return (

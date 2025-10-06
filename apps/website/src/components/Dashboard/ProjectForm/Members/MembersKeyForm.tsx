@@ -13,12 +13,12 @@ import {
   useForm,
 } from '@intlayer/design-system';
 import {
-  useAuth,
   useGetUsers,
+  useSession,
   useUpdateProjectMembers,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
 import {
   type ProjectMembersFormData,
   useProjectMembersSchema,
@@ -30,7 +30,7 @@ const getUserNames = (users: UserAPI[], id: UserAPI['id'] | string): string => {
 };
 
 export const MembersForm: FC = () => {
-  const { session } = useAuth();
+  const { session } = useSession();
   const { organization, project } = session ?? {};
   const MembersFormSchema = useProjectMembersSchema();
   const { form, isSubmitting } = useForm(MembersFormSchema, {

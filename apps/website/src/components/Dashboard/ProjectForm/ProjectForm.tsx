@@ -16,12 +16,13 @@ import { ProjectList } from './ProjectList';
 
 export const ProjectFormContent: FC = () => {
   const { session } = useSession();
+
   const isProjectAdmin = session?.roles?.includes('project_admin');
 
   const { project } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
-  const { data: projects, isSuccess } = useGetProjects();
+  const { data: projects, isSuccess, isPending } = useGetProjects();
   const { noAdminMessage, createProjectButton, deleteProjectButton } =
     useIntlayer('project-form');
 
@@ -130,7 +131,13 @@ export const ProjectFormContent: FC = () => {
     );
   }
 
-  return <Loader />;
+  if (isPending) {
+    return <Loader />;
+  }
+
+  return (
+    <NoProjectView onClickCreateProject={() => setIsCreationModalOpen(true)} />
+  );
 };
 
 export const ProjectForm: FC = () => (

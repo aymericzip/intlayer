@@ -1,7 +1,7 @@
 'use client';
 
 import type { IntlayerConfig } from '@intlayer/config/client';
-import { useAuth } from '@intlayer/design-system/hooks';
+import { useSession } from '@intlayer/design-system/hooks';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
 import {
   type FC,
@@ -27,7 +27,7 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   iframeRef,
   configuration,
 }) => {
-  const { session } = useAuth();
+  const { session } = useSession();
   const intlayerConfig =
     configuration ?? (session?.project?.configuration as IntlayerConfig);
   const applicationURL = intlayerConfig?.editor.applicationURL;

@@ -1,9 +1,17 @@
-import type { Session } from '@intlayer/backend';
+import type { SessionAPI } from '@intlayer/backend';
 import type { ReactNode } from 'react';
 
+type AccessRule =
+  | 'public'
+  | 'authenticated'
+  | 'admin'
+  | 'none-authenticated'
+  | 'organization-required'
+  | 'project-required';
+
 export const accessValidation = (
-  accessRule: AuthenticationBarrierProps['accessRule'],
-  session: Session | null,
+  accessRule: AccessRule | AccessRule[],
+  session: SessionAPI | null,
   redirectionFunction: (redirectionRoute: string) => void,
   redirectionRoute: string,
   isEnabled?: boolean
@@ -14,29 +22,37 @@ export const accessValidation = (
 
   if (
     !session?.user &&
-    (accessRule === 'authenticated' || accessRule === 'admin')
+    (accessRule?.includes('authenticated') || accessRule?.includes('admin'))
   ) {
     redirectionFunction(redirectionRoute);
   }
 
-  if (session?.user && accessRule === 'none-authenticated') {
+  if (session?.user && accessRule?.includes('none-authenticated')) {
     redirectionFunction(redirectionRoute);
   }
 
   if (
     session?.user &&
-    accessRule === 'admin' &&
+    accessRule?.includes('admin') &&
     !session.user?.role?.includes('admin')
   ) {
+    redirectionFunction(redirectionRoute);
+  }
+
+  if (!session?.organization && accessRule?.includes('organization-required')) {
+    redirectionFunction(redirectionRoute);
+  }
+
+  if (!session?.project && accessRule?.includes('project-required')) {
     redirectionFunction(redirectionRoute);
   }
 };
 
 export type AuthenticationBarrierProps = {
   children?: ReactNode;
-  accessRule?: 'public' | 'authenticated' | 'admin' | 'none-authenticated';
+  accessRule: AccessRule | AccessRule[];
   redirectionRoute?: string;
-  session?: Session | null;
+  session?: SessionAPI | null;
   sessionToken?: string;
   /**
    * Function to replace for a nextjs redirection

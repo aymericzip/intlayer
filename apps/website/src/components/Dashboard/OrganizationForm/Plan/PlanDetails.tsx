@@ -1,6 +1,9 @@
 import type { PlanAPI } from '@intlayer/backend';
 import { Button, Form, H3, Modal, Tag } from '@intlayer/design-system';
-import { useAuth, useCancelSubscription } from '@intlayer/design-system/hooks';
+import {
+  useCancelSubscription,
+  useSession,
+} from '@intlayer/design-system/hooks';
 import { ChevronsUp, CircleX, RotateCcw } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
@@ -35,7 +38,7 @@ const getTypeTagColor = (plan?: PlanAPI) => {
 };
 
 export const PlanDetails: FC<PlanDetailsProps> = () => {
-  const { session } = useAuth();
+  const { session } = useSession();
   const { title, upgradeButton, renewButton, cancelButton, cancelModal } =
     useIntlayer('organization-plan');
   const { mutate: cancelSubscription, isPending: isDeleting } =

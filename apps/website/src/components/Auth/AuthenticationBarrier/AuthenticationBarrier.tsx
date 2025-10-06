@@ -29,7 +29,6 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = async ({
     <AuthenticationBarrierServer
       {...props}
       redirectionRoute={localizedRedirectionURL}
-      isEnabled={false} // TODO: remove this. Make infinite redirection loop
     >
       <AuthenticationBarrierClient
         {...props}

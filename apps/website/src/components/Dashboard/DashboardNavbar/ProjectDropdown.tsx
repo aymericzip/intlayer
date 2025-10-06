@@ -2,16 +2,14 @@
 
 import { Button, Container, DropDown, Modal } from '@intlayer/design-system';
 import {
-  useAuth,
   useGetProjects,
   useSelectProject,
+  useSession,
   useUnselectProject,
 } from '@intlayer/design-system/hooks';
 import { ChevronsUpDown } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type ComponentProps, type FC, useState } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { ProjectCreationForm } from '../ProjectForm/ProjectCreationForm';
 
 type ProjectDropdownProps = Partial<ComponentProps<typeof DropDown.Panel>> & {
@@ -19,7 +17,8 @@ type ProjectDropdownProps = Partial<ComponentProps<typeof DropDown.Panel>> & {
 };
 
 export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
-  const { session } = useAuth();
+  const { session } = useSession();
+
   const { data: projects } = useGetProjects();
   const { mutate: selectProject, isPending: isSelectProjectLoading } =
     useSelectProject();
@@ -27,7 +26,6 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
     useUnselectProject();
   const { project } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const router = useRouter();
   const {
     projectTrigger,
     projectLogout,
@@ -37,19 +35,11 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
   } = useIntlayer('dashboard-navbar');
 
   const handleUnselectProject = async () => {
-    unselectProject(undefined, {
-      onSuccess: () => {
-        router.push(PagesRoutes.Dashboard_Projects);
-      },
-    });
+    unselectProject(undefined);
   };
 
   const handleSelectProject = (projectId: string) => {
-    selectProject(projectId, {
-      onSuccess: () => {
-        router.push(PagesRoutes.Dashboard_Content);
-      },
-    });
+    selectProject(projectId);
   };
 
   const otherProjects = (projects?.data ?? []).filter(

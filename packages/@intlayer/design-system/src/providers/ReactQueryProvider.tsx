@@ -8,15 +8,20 @@ import {
   type QueryKey,
   type UseMutationOptions,
 } from '@tanstack/react-query';
-import type { FC, PropsWithChildren } from 'react';
+import { type FC, type PropsWithChildren, useRef } from 'react';
 import { useToast } from '../components/Toaster';
 
 const defaultQueryOptions: DefaultOptions = {
   queries: {
     retry: 1,
-    refetchOnWindowFocus: false,
     staleTime: 0,
-    gcTime: 1000 * 60 * 10, // 10 minutes
+    // Give the cache a little breathing room across route transitions:
+    gcTime: 5 * 60 * 1000, // e.g. 5 minutes
+    // You likely want to refetch on mount if data is stale (default is true).
+    // Remove your overrides or force it:
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   },
   mutations: {
     retry: 0,
@@ -29,6 +34,7 @@ declare module '@tanstack/react-query' {
       onSuccess?: UseMutationOptions['onSuccess'];
       onError?: UseMutationOptions['onError'];
       invalidateQueries?: QueryKey[];
+      resetQueries?: QueryKey[];
     };
   }
 }
@@ -88,27 +94,41 @@ const useToastEvents = () => {
 
 export const ReactQueryProvider: FC<PropsWithChildren> = ({ children }) => {
   const { onError, onSuccess } = useToastEvents();
+  const clientRef = useRef<QueryClient>(null);
 
-  const mutationCache = new MutationCache({
-    onSuccess,
-    onError,
-    onSettled: (_data, _error, _variables, _context, mutation) => {
-      if (mutation.meta?.invalidateQueries) {
-        mutation.meta.invalidateQueries.forEach((queryKey) => {
-          queryClient.invalidateQueries({
-            queryKey,
+  if (!clientRef.current) {
+    const mutationCache = new MutationCache({
+      onSuccess,
+      onError,
+      onSettled: (_data, _error, _variables, _context, mutation) => {
+        if (mutation.meta?.invalidateQueries) {
+          mutation.meta.invalidateQueries.forEach((queryKey) => {
+            queryClient.invalidateQueries({
+              queryKey,
+            });
           });
-        });
-      }
-    },
-  });
+        }
 
-  const queryClient = new QueryClient({
-    defaultOptions: defaultQueryOptions,
-    mutationCache,
-  });
+        if (mutation.meta?.resetQueries) {
+          mutation.meta.resetQueries.forEach((queryKey) => {
+            queryClient.resetQueries({
+              queryKey,
+            });
+          });
+        }
+      },
+    });
+
+    const queryClient = new QueryClient({
+      defaultOptions: defaultQueryOptions,
+      mutationCache,
+    });
+    clientRef.current = queryClient;
+  }
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={clientRef.current}>
+      {children}
+    </QueryClientProvider>
   );
 };

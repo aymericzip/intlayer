@@ -6,9 +6,9 @@ import { OrganizationList } from '@components/Dashboard/OrganizationForm/Organiz
 import type { OrganizationAPI } from '@intlayer/backend';
 import { Form, H2, Loader, Modal, useForm } from '@intlayer/design-system';
 import {
-  useAuth,
   useGetOrganizations,
   useSelectOrganization,
+  useSession,
 } from '@intlayer/design-system/hooks';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
@@ -61,7 +61,7 @@ const OrganizationFormContent: FC<{
 
 export const SetupOrganizationStepForm: FC = () => {
   const SetUpOrganizationSchema = useSetUpOrganizationSchema();
-  const { session } = useAuth();
+  const { session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Container, Loader, Modal } from '@intlayer/design-system';
-import { useAuth, useGetOrganizations } from '@intlayer/design-system/hooks';
+import { useGetOrganizations, useSession } from '@intlayer/design-system/hooks';
 import { Trash } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, Suspense, useState } from 'react';
@@ -14,7 +14,7 @@ import { OrganizationList } from './OrganizationList';
 import { PlanDetails } from './Plan/PlanDetails';
 
 const OrganizationFormContent: FC = () => {
-  const { session } = useAuth();
+  const { session } = useSession();
   const { organization } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);

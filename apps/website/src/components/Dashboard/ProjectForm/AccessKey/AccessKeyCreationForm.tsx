@@ -1,6 +1,6 @@
 import type { AddNewAccessKeyResponse } from '@intlayer/backend';
 import { Form, useForm } from '@intlayer/design-system';
-import { useAddNewAccessKey, useAuth } from '@intlayer/design-system/hooks';
+import { useAddNewAccessKey, useSession } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import {
@@ -30,12 +30,9 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
   onAccessKeyCreated,
 }) => {
   /** ------------------------------------------------------------------ hooks */
-  const { session } = useAuth();
+  const { session } = useSession();
 
-  // Don’t render the form until the session (and its permissions) is loaded
-  if (!session) return null;
-
-  const permissions = session.permissions ?? [];
+  const permissions = session?.permissions ?? [];
   const { mutate: addNewAccessKey, isPending } = useAddNewAccessKey();
   const { nameInput, expiresAtInput, rights, createAccessKeyButton } =
     useIntlayer('access-key-creation-form');
@@ -49,6 +46,9 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
   const { form, isSubmitting } = useForm(AccessKeyCreationSchema, {
     defaultValues,
   });
+
+  // Don’t render the form until the session (and its permissions) is loaded
+  if (!session) return null;
 
   /** -------------------------------------------------------- form handlers */
   const onSubmitSuccess = (data: AccessKeyFormCreationData) => {

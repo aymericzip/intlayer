@@ -106,14 +106,22 @@ export const useAppQuery = <
 
 export const useLogin = () => {
   const intlayerAuth = useIntlayerAuth();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['login'],
     mutationFn: (
       ...args: Parameters<ReturnType<typeof getAuthAPI>['signInEmail']>
     ) => intlayerAuth.signInEmail(...args),
-    meta: {
-      invalidateQueries: [['session']],
+    onSuccess: (data) => {
+      const session = queryClient.getQueryData(['session']);
+
+      if (session && data.data?.user) {
+        queryClient.setQueryData(['session'], {
+          ...session,
+          user: data.data.user,
+        });
+      }
     },
   });
 };
@@ -138,7 +146,7 @@ export const useRegister = () => {
       ...args: Parameters<ReturnType<typeof getAuthAPI>['signUpEmail']>
     ) => intlayerAuth.signUpEmail(...args),
     meta: {
-      invalidateQueries: [['session']],
+      resetQueries: [['session']],
     },
   });
 };
@@ -152,7 +160,7 @@ export const useLogout = () => {
       ...args: Parameters<ReturnType<typeof getAuthAPI>['signOut']>
     ) => intlayerAuth.signOut(...args),
     meta: {
-      invalidateQueries: [
+      resetQueries: [
         ['session'],
         ['users'],
         ['organizations'],
@@ -339,13 +347,13 @@ export const useDeleteOrganization = () => {
 
 export const useSelectOrganization = () => {
   const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['session-organizations'],
     mutationFn: intlayerOAuth.organization.selectOrganization,
     meta: {
       invalidateQueries: [
-        ['session'],
         ['organizations'],
         ['projects'],
         ['dictionaries'],
@@ -354,18 +362,28 @@ export const useSelectOrganization = () => {
         ['users'],
       ],
     },
+    onSuccess: (data) => {
+      const session = queryClient.getQueryData(['session']);
+
+      if (session) {
+        queryClient.setQueryData(['session'], {
+          ...session,
+          organization: data.data,
+        });
+      }
+    },
   });
 };
 
 export const useUnselectOrganization = () => {
   const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['session-organizations'],
     mutationFn: intlayerOAuth.organization.unselectOrganization,
     meta: {
-      invalidateQueries: [
-        ['session'],
+      resetQueries: [
         ['organizations'],
         ['projects'],
         ['dictionaries'],
@@ -373,6 +391,17 @@ export const useUnselectOrganization = () => {
         ['subscription'],
         ['users'],
       ],
+    },
+    onSuccess: () => {
+      const session = queryClient.getQueryData(['session']);
+
+      if (session) {
+        queryClient.setQueryData(['session'], {
+          ...session,
+          organization: null,
+          project: null,
+        });
+      }
     },
   });
 };
@@ -443,6 +472,7 @@ export const useDeleteProject = () => {
 
 export const useSelectProject = () => {
   const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['session-projects'],
@@ -454,27 +484,46 @@ export const useSelectProject = () => {
         ['tags'],
         ['subscription'],
         ['users'],
-        ['session'],
       ],
+    },
+    onSuccess: (data) => {
+      const session = queryClient.getQueryData(['session']);
+
+      if (session) {
+        queryClient.setQueryData(['session'], {
+          ...session,
+          project: data.data,
+        });
+      }
     },
   });
 };
 
 export const useUnselectProject = () => {
   const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['session-projects'],
     mutationFn: intlayerOAuth.project.unselectProject,
     meta: {
-      invalidateQueries: [
+      resetQueries: [
         ['projects'],
         ['dictionaries'],
         ['tags'],
         ['subscription'],
         ['users'],
-        ['session'],
       ],
+    },
+    onSuccess: () => {
+      const session = queryClient.getQueryData(['session']);
+
+      if (session) {
+        queryClient.setQueryData(['session'], {
+          ...session,
+          project: null,
+        });
+      }
     },
   });
 };

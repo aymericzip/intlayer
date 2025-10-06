@@ -10,7 +10,7 @@ import {
   useGetProjects,
   useGetTags,
 } from '../../../hooks';
-import { useAuth } from '../../../hooks/useAuth';
+import { useSession } from '../../../hooks/useAuth';
 import { ButtonColor, ButtonVariant } from '../../Button';
 import { Container } from '../../Container';
 import { Form, useForm } from '../../Form';
@@ -25,7 +25,7 @@ type DictionaryDetailsProps = {
 export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   dictionary,
 }) => {
-  const { session } = useAuth();
+  const { session } = useSession();
   const { project } = session ?? {};
   const { data: projects, isLoading: isLoadingProjects } = useGetProjects();
   const { data: tags } = useGetTags();

@@ -10,7 +10,7 @@ import {
   accessValidation,
 } from './accessValidation';
 
-type AuthenticationBarrierPropsCliet = Omit<
+type AuthenticationBarrierPropsClient = Omit<
   AuthenticationBarrierProps,
   'sessionToken' | 'redirectionFunction'
 > & {
@@ -18,7 +18,7 @@ type AuthenticationBarrierPropsCliet = Omit<
 };
 
 export const AuthenticationBarrierClient: FC<
-  AuthenticationBarrierPropsCliet
+  AuthenticationBarrierPropsClient
 > = ({
   children,
   redirectionRoute = PagesRoutes.Home,

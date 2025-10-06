@@ -2,20 +2,18 @@
 
 import { Button, Container, DropDown, Modal } from '@intlayer/design-system';
 import {
-  useAuth,
   useGetOrganizations,
   useSelectOrganization,
+  useSession,
   useUnselectOrganization,
 } from '@intlayer/design-system/hooks';
 import { ChevronsUpDown } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { OrganizationCreationForm } from '../OrganizationForm/OrganizationCreationForm';
 
 export const OrganizationDropdown: FC = () => {
-  const { session } = useAuth();
+  const { session } = useSession();
   const { data: organizations } = useGetOrganizations();
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const { mutate: selectOrganization, isPending: isSelectOrganizationLoading } =
@@ -33,22 +31,13 @@ export const OrganizationDropdown: FC = () => {
   } = useIntlayer('dashboard-navbar');
 
   const { organization } = session ?? {};
-  const router = useRouter();
 
   const handleUnselectOrganization = async () => {
-    unselectOrganization(undefined, {
-      onSuccess: () => {
-        router.push(PagesRoutes.Dashboard_Organization);
-      },
-    });
+    unselectOrganization(undefined);
   };
 
   const handleSelectOrganization = (organizationId: string) => {
-    selectOrganization(organizationId, {
-      onSuccess: () => {
-        router.push(PagesRoutes.Dashboard_Projects);
-      },
-    });
+    selectOrganization(organizationId);
   };
 
   const otherOrganizations = (organizations?.data ?? []).filter(

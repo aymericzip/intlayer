@@ -8,9 +8,9 @@ import {
   useForm,
 } from '@intlayer/design-system';
 import {
-  useAuth,
   useDeleteAccessKey,
   useRefreshAccessKey,
+  useSession,
 } from '@intlayer/design-system/hooks';
 import { KeyRound, RefreshCcw, Trash } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
@@ -127,9 +127,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
             )}
           </div>
           <div>
-            <label className="text-wrap font-bold text-sm">
-              {rights.title}
-            </label>
+            <span className="text-wrap font-bold text-sm">{rights.title}</span>
 
             <span className="block text-wrap break-all text-neutral text-xs">
               <span className="font-bold">{rights.organization}</span>
@@ -168,17 +166,17 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
           </div>
           <div className="flex gap-3">
             <div className="flex flex-1 flex-col gap-1 text-neutral">
-              <label className="text-wrap font-bold text-sm">
+              <span className="text-wrap font-bold text-sm">
                 {labels.addedOn}
-              </label>
+              </span>
               <span className="break-all text-xs">
                 {new Date(accessKey.createdAt).toLocaleDateString()}
               </span>
             </div>
             <div className="flex flex-1 flex-col gap-1 text-neutral">
-              <label className="text-wrap font-bold text-sm">
+              <span className="text-wrap font-bold text-sm">
                 {labels.expireOn}
-              </label>
+              </span>
               <span className="break-all text-xs">
                 {accessKey.expiresAt
                   ? new Date(accessKey.expiresAt).toLocaleDateString()
@@ -222,7 +220,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
 };
 
 export const AccessKeyForm: FC = () => {
-  const { session } = useAuth();
+  const { session } = useSession();
   const { project } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const AccessKeyFormSchema = getAccessKeySchema();
@@ -266,7 +264,6 @@ export const AccessKeyForm: FC = () => {
       >
         <H3 className="mb-8"> {title}</H3>
         <span className="text-neutral text-sm">{description}</span>
-        <Form.Label>{title}</Form.Label>
         {project?.oAuth2Access.map((accessKey) => (
           <AccessKeyItem key={String(accessKey.id)} value={accessKey} />
         ))}

@@ -7,7 +7,7 @@ import {
   Label,
   Loader,
 } from '@intlayer/design-system';
-import { useAuth, useGetSubscription } from '@intlayer/design-system/hooks';
+import { useGetSubscription, useSession } from '@intlayer/design-system/hooks';
 import {
   Elements,
   PaymentElement,
@@ -108,7 +108,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isPaymentElementReady, setIsPaymentElementReady] = useState(false);
   const router = useRouter();
-  const { session } = useAuth();
+  const { session } = useSession();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -241,14 +241,14 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
   const promoCode = params.get('promoCode') ?? undefined;
   const priceId = retrievePriceId(plan, period);
 
+  const { data, isLoading } = useGetSubscription({
+    priceId: priceId!,
+    promoCode,
+  });
+
   if (!priceId) {
     return <>Error</>;
   }
-
-  const { data, isLoading } = useGetSubscription({
-    priceId,
-    promoCode,
-  });
 
   const invoice = data?.data?.subscription?.latest_invoice as Stripe.Invoice & {
     confirmation_secret?: { client_secret: string };

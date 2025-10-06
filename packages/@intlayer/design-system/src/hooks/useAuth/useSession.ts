@@ -25,13 +25,12 @@ export const useSession = (
       return result.data as unknown as SessionAPI;
     },
     staleTime: 0,
-    gcTime: 0,
-    enabled: !sessionProp,
+    // Give the cache a little breathing room across route transitions:
+    gcTime: 5 * 60 * 1000, // e.g. 5 minutes
+    refetchOnMount: 'always',
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
     refetchOnReconnect: false,
-    refetchInterval: false,
-    refetchIntervalInBackground: false,
+    enabled: !sessionProp,
   });
 
   const session = data ?? (isFetched ? null : undefined);

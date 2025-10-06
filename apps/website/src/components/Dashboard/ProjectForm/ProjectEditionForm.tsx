@@ -1,13 +1,13 @@
 'use client';
 
 import { Form, H3, useForm } from '@intlayer/design-system';
-import { useAuth, useUpdateProject } from '@intlayer/design-system/hooks';
+import { useSession, useUpdateProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import { type ProjectFormData, useProjectSchema } from './useProjectFormSchema';
 
 export const ProjectEditionForm: FC = () => {
-  const { session } = useAuth();
+  const { session } = useSession();
   const isProjectAdmin = session?.roles?.includes('project_admin');
   const { project } = session ?? {};
   const ProjectSchema = useProjectSchema();

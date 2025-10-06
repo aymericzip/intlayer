@@ -5,6 +5,7 @@ import { createAuthClient } from 'better-auth/client';
 type AuthClient = ReturnType<typeof createAuthClient>;
 
 export interface AuthAPI {
+  getAuthClient: () => AuthClient;
   signInEmail: AuthClient['signIn']['email'];
   signUpEmail: AuthClient['signUp']['email'];
   signOut: AuthClient['signOut'];
@@ -178,6 +179,7 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
   };
 
   return {
+    getAuthClient,
     signInEmail,
     signUpEmail,
     signOut,

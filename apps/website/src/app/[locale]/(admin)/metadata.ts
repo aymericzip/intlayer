@@ -8,7 +8,7 @@ export const generateMetadata = async ({
 }: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
   const { title, description, keywords } = getIntlayer(
-    'dashboard-metadata',
+    'admin-metadata',
     locale
   );
 

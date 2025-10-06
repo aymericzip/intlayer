@@ -3,7 +3,7 @@
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useAddDictionary, useGetProjects } from '../../../hooks/reactQuery';
-import { useAuth } from '../../../hooks/useAuth';
+import { useSession } from '../../../hooks/useAuth';
 import { ButtonColor } from '../../Button';
 import { Form, useForm } from '../../Form';
 import { MultiSelect } from '../../Select';
@@ -19,7 +19,7 @@ type DictionaryCreationFormProps = {
 export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
   onDictionaryCreated,
 }) => {
-  const { session } = useAuth();
+  const { session } = useSession();
   const { project } = session ?? {};
   const { mutate: addDictionary, isPending } = useAddDictionary();
   const { data: projectsData } = useGetProjects();

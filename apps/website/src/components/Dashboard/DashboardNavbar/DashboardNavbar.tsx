@@ -74,7 +74,10 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
     .filter((el) => !shouldHaveProjectRoutes.includes(el.url) || !!project);
 
   return (
-    <Container className="z-50 flex flex-col gap-3 p-4" roundedSize="none">
+    <Container
+      className="fixed z-50 flex w-full flex-col gap-3 p-4"
+      roundedSize="none"
+    >
       <div className="flex justify-between">
         <div className="flex w-auto items-center gap-4">
           <Link href={PagesRoutes.Home} label="Dashboard" color="text">
