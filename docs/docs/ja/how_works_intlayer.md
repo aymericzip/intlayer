@@ -87,7 +87,7 @@ CMSを使用して外部化された辞書の場合、Intlayerは基本的なフ
 
 Intlayerは、視覚的にコンテンツを編集できるビジュアルエディタも提供しています。この[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)は、外部の`intlayer-editor`パッケージで利用可能です。
 
-![ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 - サーバーは、クライアントからのリクエストを受け取り、`dictionaries`やクライアント側でアクセス可能にするための設定など、アプリケーションのコンテンツを取得するシンプルなExpressアプリケーションです。
 - 一方、クライアントは視覚的なインターフェースを使ってコンテンツとやり取りするためのReactアプリケーションです。

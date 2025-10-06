@@ -24,7 +24,7 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 
 L'Éditeur Visuel Intlayer est un outil qui enveloppe votre site web pour interagir avec vos fichiers de déclaration de contenu à l'aide d'un éditeur visuel.
 
-![Interface de l'Éditeur Visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![Interface de l'Éditeur Visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 Le package `intlayer-editor` est basé sur Intlayer et est disponible pour les applications JavaScript, telles que React (Create React App), Vite + React, et Next.js.
 
@@ -257,7 +257,6 @@ Si vous rencontrez des problèmes avec l'éditeur visuel, vérifiez les points s
 - L'éditeur visuel et l'application sont en cours d'exécution.
 
 - La [configuration de l'éditeur](https://intlayer.org/doc/concept/configuration#editor-configuration) est correctement définie dans votre fichier de configuration Intlayer.
-
   - Champs obligatoires :
     - L'URL de l'application doit correspondre à celle que vous avez définie dans la configuration de l'éditeur (`applicationURL`).
 

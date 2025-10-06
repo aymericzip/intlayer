@@ -24,7 +24,7 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 
 Intlayer Visual Editor は、ビジュアルエディターを使用してコンテンツ宣言ファイルと対話するためにウェブサイトをラップするツールです。
 
-![Intlayer Visual Editor インターフェース](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![Intlayer Visual Editor インターフェース](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 `intlayer-editor` パッケージは Intlayer に基づいており、React (Create React App)、Vite + React、Next.js などの JavaScript アプリケーションで利用可能です。
 
@@ -262,7 +262,6 @@ pnpm intlayer-editor start -e development
 - ビジュアルエディタとアプリケーションが実行中である。
 
 - Intlayer 設定ファイルで [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) 設定が正しく設定されている。
-
   - 必須フィールド:
     - アプリケーション URL はエディタ設定 (`applicationURL`) に設定したものと一致する必要があります。
 

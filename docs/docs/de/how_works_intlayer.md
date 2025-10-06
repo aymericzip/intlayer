@@ -45,12 +45,10 @@ Der Build-Schritt kann auf drei Arten durchgeführt werden:
 - Verwendung von App-Plugins wie dem [`vite-intlayer`-Paket](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/index.md) oder deren Äquivalenten für [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/index.md). Wenn Sie eines dieser Plugins verwenden, wird Intlayer Ihre Wörterbücher automatisch erstellen, wenn Sie Ihre Anwendung starten (dev) oder bauen (prod).
 
 1. Deklaration von Inhaltsdateien
-
    - Inhaltsdateien können in verschiedenen Formaten definiert werden, wie TypeScript, ECMAScript, CommonJS oder JSON.
    - Inhaltsdateien können überall im Projekt definiert werden, was eine bessere Wartung und Skalierbarkeit ermöglicht. Es ist wichtig, die Dateierweiterungskonventionen für Inhaltsdateien zu beachten. Diese Erweiterung ist standardmäßig `*.content.{js|cjs|mjs|ts|tsx|json}`, kann jedoch in der [Konfigurationsdatei](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) geändert werden.
 
 2. Generierung von `Wörterbüchern`
-
    - Wörterbücher werden aus Inhaltsdateien generiert. Standardmäßig werden Intlayer-Wörterbücher im Verzeichnis `.intlayer/dictionaries` des Projekts generiert.
    - Diese Wörterbücher werden in verschiedenen Formaten generiert, um alle Anforderungen zu erfüllen und die Leistung der Anwendung zu optimieren.
 
@@ -89,7 +87,7 @@ Für externalisierte Wörterbücher, die das CMS verwenden, führt Intlayer eine
 
 Intlayer bietet auch einen visuellen Editor, mit dem Sie Ihre Inhalte visuell bearbeiten können. Dieser [visuelle Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) ist im externen Paket `intlayer-editor` verfügbar.
 
-![visueller Editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![visueller Editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 - Der Server ist eine einfache Express-Anwendung, die Anfragen vom Client entgegennimmt und den Inhalt Ihrer Anwendung, wie die `dictionaries` und die Konfiguration, abruft, um sie auf der Client-Seite zugänglich zu machen.
 - Der Client hingegen ist eine React-Anwendung, die verwendet wird, um mit Ihren Inhalten über eine visuelle Oberfläche zu interagieren.

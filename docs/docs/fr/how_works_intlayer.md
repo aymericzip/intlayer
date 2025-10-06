@@ -89,7 +89,7 @@ Pour les dictionnaires externalisés utilisant le CMS, Intlayer effectue une op�
 
 Intlayer fournit également un éditeur visuel pour vous permettre d'éditer votre contenu de manière visuelle. Cet [éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) est disponible dans le package externe `intlayer-editor`.
 
-![éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 - Le serveur est une simple application Express qui écoute les requêtes du client et récupère le contenu de votre application, tels que les `dictionaries` et la configuration pour le rendre accessible côté client.
 - D'autre part, le client est une application React utilisée pour interagir avec votre contenu via une interface visuelle.

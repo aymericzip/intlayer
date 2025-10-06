@@ -24,7 +24,7 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 
 Intlayer Visual Editor - это инструмент, который оборачивает ваш веб-сайт для взаимодействия с файлами декларации контента с использованием визуального редактора.
 
-![Интерфейс Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![Интерфейс Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 Пакет `intlayer-editor` основан на Intlayer и доступен для JavaScript-приложений, таких как React (Create React App), Vite + React и Next.js.
 

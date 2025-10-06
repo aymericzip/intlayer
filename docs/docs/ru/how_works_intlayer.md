@@ -87,7 +87,7 @@ Intlayer позволяет объявлять контент локально, 
 
 Intlayer также предоставляет визуальный редактор, позволяющий редактировать ваш контент визуально. Этот [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) доступен в отдельном пакете `intlayer-editor`.
 
-![визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 - Сервер - это простое приложение на Express, которое прослушивает запросы от клиента и получает контент вашего приложения, такой как `dictionaries` и конфигурация, чтобы сделать его доступным на стороне клиента.
 - С другой стороны, клиент - это приложение на React, которое используется для взаимодействия с вашим контентом через визуальный интерфейс.

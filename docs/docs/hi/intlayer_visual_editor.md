@@ -24,7 +24,7 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 
 Intlayer विजुअल एडिटर एक उपकरण है जो आपके वेबसाइट को विजुअल एडिटर का उपयोग करके आपकी सामग्री घोषणा फ़ाइलों के साथ इंटरैक्ट करने के लिए रैप करेगा।
 
-![Intlayer विजुअल एडिटर इंटरफ़ेस](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![Intlayer विजुअल एडिटर इंटरफ़ेस](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 `intlayer-editor` पैकेज Intlayer पर आधारित है और यह जावास्क्रिप्ट एप्लिकेशन जैसे React (Create React App), Vite + React, और Next.js के लिए उपलब्ध है।
 
@@ -257,7 +257,6 @@ pnpm intlayer-editor start -e development
 - विजुअल एडिटर और एप्लिकेशन चल रहे हैं।
 
 - Intlayer कॉन्फ़िगरेशन फ़ाइल में [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) कॉन्फ़िगरेशन सही ढंग से सेट हैं।
-
   - आवश्यक फ़ील्ड:
     - एप्लिकेशन URL को एडिटर कॉन्फ़िगरेशन (`applicationURL`) में सेट किए गए URL से मेल खाना चाहिए।
 

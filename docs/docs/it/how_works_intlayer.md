@@ -87,7 +87,7 @@ Per i dizionari esternalizzati che utilizzano il CMS, Intlayer esegue una sempli
 
 Intlayer fornisce anche un editor visivo per consentirti di modificare i tuoi contenuti in modo visivo. Questo [editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) è disponibile nel pacchetto esterno `intlayer-editor`.
 
-![editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 - Il server è una semplice applicazione Express che ascolta le richieste dal client e recupera il contenuto della tua applicazione, come i `dictionaries` e la configurazione per renderli accessibili dal lato client.
 - D'altra parte, il client è un'applicazione React che viene utilizzata per interagire con i tuoi contenuti tramite un'interfaccia visiva.

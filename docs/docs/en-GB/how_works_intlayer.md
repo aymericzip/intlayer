@@ -87,7 +87,7 @@ For externalised dictionaries using the CMS, Intlayer performs a basic fetch ope
 
 Intlayer also provides a visual editor to allow you to edit your content in a visual way. This [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) is available in the external `intlayer-editor` package.
 
-![visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 - The server is a simple Express application that listens to requests from the client and retrieves the content of your application, such as the `dictionaries` and the configuration to make it accessible on the client side.
 - On the other hand, the client is a React application that is used to interact with your content using a visual interface.

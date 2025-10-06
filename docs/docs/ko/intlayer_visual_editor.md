@@ -24,7 +24,7 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 
 Intlayer Visual Editor는 시각적 편집기를 사용하여 콘텐츠 선언 파일과 상호작용할 수 있도록 웹사이트를 래핑하는 도구입니다.
 
-![Intlayer Visual Editor Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![Intlayer Visual Editor Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 `intlayer-editor` 패키지는 Intlayer를 기반으로 하며, React (Create React App), Vite + React, Next.js와 같은 JavaScript 애플리케이션에서 사용할 수 있습니다.
 
@@ -259,7 +259,6 @@ pnpm intlayer-editor start -e development
 - 시각적 편집기와 애플리케이션이 실행 중인지 확인하세요.
 
 - Intlayer 구성 파일에서 [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) 구성이 올바르게 설정되었는지 확인하세요.
-
   - 필수 필드:
     - 애플리케이션 URL은 편집기 구성(`applicationURL`)에 설정한 URL과 일치해야 합니다.
 

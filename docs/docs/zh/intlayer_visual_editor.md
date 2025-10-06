@@ -24,7 +24,7 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 
 Intlayer 可视化编辑器是一种工具，可以将您的网站包装起来，通过可视化编辑器与您的内容声明文件进行交互。
 
-![Intlayer 可视化编辑器界面](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![Intlayer 可视化编辑器界面](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 `intlayer-editor` 包基于 Intlayer，可用于 JavaScript 应用程序，例如 React (Create React App)、Vite + React 和 Next.js。
 
@@ -257,7 +257,6 @@ pnpm intlayer-editor start -e development
 - 可视化编辑器和应用程序是否正在运行。
 
 - [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) 配置是否正确设置在您的 Intlayer 配置文件中。
-
   - 必需字段：
     - 应用程序 URL 应与您在编辑器配置中设置的 URL (`applicationURL`) 匹配。
 

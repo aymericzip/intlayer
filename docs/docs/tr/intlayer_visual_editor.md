@@ -24,7 +24,7 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 
 Intlayer Görsel Düzenleyici, web sitenizi bir iframe içine sararak içerik bildirim dosyalarınızla görsel düzenleyici kullanarak etkileşim kurmanıza olanak tanıyan bir araçtır.
 
-![Intlayer Görsel Düzenleyici Arayüzü](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![Intlayer Görsel Düzenleyici Arayüzü](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 `intlayer-editor` paketi Intlayer'a dayanır ve JavaScript uygulamaları için kullanılabilir, örneğin React (Create React App), Vite + React ve Next.js.
 

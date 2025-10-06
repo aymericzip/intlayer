@@ -87,7 +87,7 @@ CMS का उपयोग करके बाहरी डिक्शनरी
 
 Intlayer एक दृश्य संपादक भी प्रदान करता है जो आपको अपनी सामग्री को दृश्य तरीके से संपादित करने की अनुमति देता है। यह [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) बाहरी `intlayer-editor` पैकेज में उपलब्ध है।
 
-![विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 - सर्वर एक सरल Express एप्लिकेशन है जो क्लाइंट से अनुरोध सुनता है और आपकी एप्लिकेशन की सामग्री, जैसे कि `dictionaries` और कॉन्फ़िगरेशन, को पुनः प्राप्त करता है ताकि इसे क्लाइंट साइड पर सुलभ बनाया जा सके।
 - दूसरी ओर, क्लाइंट एक React एप्लिकेशन है जिसका उपयोग दृश्य इंटरफ़ेस के माध्यम से आपकी सामग्री के साथ इंटरैक्ट करने के लिए किया जाता है।

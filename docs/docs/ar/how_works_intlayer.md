@@ -87,7 +87,7 @@ const MyComponent = () => {
 
 يوفر Intlayer أيضًا محررًا مرئيًا يتيح لك تعديل المحتوى الخاص بك بطريقة مرئية. هذا [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) متاح في الحزمة الخارجية `intlayer-editor`.
 
-![المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 - الخادم هو تطبيق Express بسيط يستمع إلى الطلبات من العميل ويسترجع محتوى تطبيقك، مثل `dictionaries` والتكوين لجعله متاحًا على جانب العميل.
 - من ناحية أخرى، العميل هو تطبيق React يُستخدم للتفاعل مع المحتوى الخاص بك باستخدام واجهة مرئية.

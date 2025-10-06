@@ -88,7 +88,7 @@ CMS'yi kullanarak dışa aktarılan sözlükler için, Intlayer uzak sözlükler
 
 Intlayer ayrıca içeriğinizi görsel bir şekilde düzenlemenize izin veren bir görsel düzenleyici sağlar. Bu [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) harici `intlayer-editor` paketinde mevcuttur.
 
-![visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 - Sunucu, istemciden gelen isteklere yanıt veren ve uygulamanızın içeriğini, `sözlükleri` ve konfigürasyonu istemci tarafında erişilebilir hale getirmek için alan basit bir Express uygulamasıdır.
 - Öte yandan, istemci, içeriğinizle görsel bir arayüz kullanarak etkileşim kurmak için kullanılan bir React uygulamasıdır.

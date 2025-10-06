@@ -87,7 +87,7 @@ CMS를 사용하는 외부 사전의 경우, Intlayer는 원격 사전을 가져
 
 Intlayer는 콘텐츠를 시각적으로 편집할 수 있는 시각적 편집기도 제공합니다. 이 [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)는 외부 `intlayer-editor` 패키지에서 사용할 수 있습니다.
 
-![시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 - 서버는 클라이언트의 요청을 수신하고 애플리케이션의 `dictionaries`와 같은 콘텐츠 및 구성을 가져와 클라이언트 측에서 접근할 수 있도록 하는 간단한 Express 애플리케이션입니다.
 - 반면 클라이언트는 시각적 인터페이스를 사용하여 콘텐츠와 상호작용하는 데 사용되는 React 애플리케이션입니다.

@@ -88,7 +88,7 @@ Para dicionários externalizados usando o CMS, o Intlayer realiza uma operação
 
 O Intlayer também fornece um editor visual para permitir que você edite seu conteúdo de forma visual. Este [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) está disponível no pacote externo `intlayer-editor`.
 
-![editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 - O servidor é uma aplicação simples em Express que escuta requisições do cliente e recupera o conteúdo da sua aplicação, como os `dictionaries` e a configuração para torná-los acessíveis no lado do cliente.
 - Por outro lado, o cliente é uma aplicação React que é usada para interagir com seu conteúdo usando uma interface visual.

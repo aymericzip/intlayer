@@ -58,7 +58,7 @@
 
 **The `intlayer-editor` package** allows you to interact with your Intlayer content declaration files using a visual editor.
 
-![Intlayer Visual Editor Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![Intlayer Visual Editor Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 ## Installation
 

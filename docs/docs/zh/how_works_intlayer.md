@@ -88,7 +88,7 @@ Intlayer 允许您在本地声明内容，然后将其导出到 CMS，以便您�
 
 Intlayer 还提供了一个可视化编辑器，允许您以可视化的方式编辑内容。此 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 可在外部 `intlayer-editor` 包中使用。
 
-![可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 - 服务器是一个简单的 Express 应用程序，监听来自客户端的请求并检索您的应用内容，例如 `dictionaries` 和配置，以便在客户端访问。
 - 另一方面，客户端是一个 React 应用程序，用于通过可视化界面与您的内容交互。

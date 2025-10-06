@@ -24,7 +24,7 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 
 محرر Intlayer البصري هو أداة تقوم بتغليف موقعك الإلكتروني للتفاعل مع ملفات إعلان المحتوى الخاصة بك باستخدام محرر بصري.
 
-![واجهة محرر Intlayer البصري](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![واجهة محرر Intlayer البصري](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true)
 
 حزمة `intlayer-editor` مبنية على Intlayer ومتاحة لتطبيقات JavaScript، مثل React (Create React App)، Vite + React، و Next.js.
 
