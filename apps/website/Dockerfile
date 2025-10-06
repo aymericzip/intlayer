@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.7-labs
+# syntax=docker/dockerfile:1.19.0
 
 FROM node:24-alpine AS builder
 
@@ -64,6 +64,7 @@ COPY \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/intlayer-editor \
+    --exclude=packages/@intlayer/design-system/*.stories.* \
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=plugins \

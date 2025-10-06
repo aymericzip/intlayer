@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.7-labs
+# syntax=docker/dockerfile:1.19.0
 
 FROM node:24-alpine AS builder
 
@@ -34,7 +34,6 @@ COPY \
     --exclude=packages/intlayer-editor \
     --exclude=docs/assets \
     --exclude=examples \
-    --exclude=plugins \
     --exclude=apps/website \
     . .
 
