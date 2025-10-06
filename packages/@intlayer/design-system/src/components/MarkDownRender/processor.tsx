@@ -1753,9 +1753,18 @@ export const compiler = (
         const alert = matchAlert?.[1];
         const content = matchAlert?.[2] ?? '';
 
+        // Use inline parsing for single-line blockquotes to allow inline
+        // syntaxes like links to be recognized. For multi-line content,
+        // fall back to block parsing so paragraphs and other blocks render
+        // correctly inside the blockquote.
+        const hasNewline = content.indexOf('\n') !== -1;
+        const children = hasNewline
+          ? parseBlock(parse, content, state)
+          : parseInline(parse, content, state);
+
         const result = {
           alert,
-          children: parse(content, state),
+          children,
         };
 
         const duration = performance.now() - start;

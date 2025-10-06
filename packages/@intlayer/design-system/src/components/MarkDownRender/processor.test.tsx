@@ -415,6 +415,22 @@ describe('misc block level elements', () => {
       `"<blockquote class="markdown-alert-note"><header>NOTE</header>Something important, perhaps?</blockquote>"`
     );
   });
+
+  it('should handle a link in a blockquotes', () => {
+    renderFn(compiler('> Here is a link: [More info](https://example.com)'));
+
+    expect(container.innerHTML).toMatchInlineSnapshot(
+      `"<blockquote>Here is a link: <a href="https://example.com">More info</a></blockquote>"`
+    );
+  });
+
+  it('should handle an image in a blockquotes', () => {
+    renderFn(compiler('> ![Alt text](https://example.com/image.png)'));
+
+    expect(container.innerHTML).toMatchInlineSnapshot(
+      `"<blockquote><img alt="Alt text" src="https://example.com/image.png"></blockquote>"`
+    );
+  });
 });
 
 describe('headings', () => {
