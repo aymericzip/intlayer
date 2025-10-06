@@ -1,8 +1,8 @@
 import { SignInForm } from '@components/Auth/SignIn';
-import { Container } from '@intlayer/design-system';
+import { Container, Loader } from '@intlayer/design-system';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
+import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
 
@@ -24,7 +24,9 @@ const SignInPageContent: FC = () => {
             <span className="text-neutral text-xs">{description}</span>
           </div>
 
-          <SignInForm />
+          <Suspense fallback={<Loader />}>
+            <SignInForm />
+          </Suspense>
         </Container>
       </div>
     </>

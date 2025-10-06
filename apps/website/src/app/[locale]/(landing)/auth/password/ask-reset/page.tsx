@@ -1,8 +1,8 @@
 import { AskResetPasswordForm } from '@components/Auth/AskResetPassword';
-import { Container } from '@intlayer/design-system';
+import { Container, Loader } from '@intlayer/design-system';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
+import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
 
@@ -23,8 +23,9 @@ const ResetPasswordPageContent: FC = () => {
             <h2 className="font-extrabold">{title2}</h2>
             <span className="text-neutral text-xs">{description}</span>
           </div>
-
-          <AskResetPasswordForm />
+          <Suspense fallback={<Loader />}>
+            <AskResetPasswordForm />
+          </Suspense>
         </Container>
       </div>
     </>
