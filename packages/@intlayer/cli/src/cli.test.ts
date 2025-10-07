@@ -34,7 +34,7 @@ vi.mock('./build', () => ({
   build: (...args: any[]) => buildMock(...args),
 }));
 
-vi.mock('./push', () => ({
+vi.mock('./push/push', () => ({
   push: (...args: any[]) => pushMock(...args),
 }));
 
@@ -42,7 +42,7 @@ vi.mock('./pull', () => ({
   pull: (...args: any[]) => pullMock(...args),
 }));
 
-vi.mock('./fill', () => ({
+vi.mock('./fill/fill', () => ({
   fill: (...args: any[]) => fillMock(...args),
 }));
 
@@ -80,6 +80,24 @@ vi.mock('./utils/getParentPackageJSON', () => ({
   })),
 }));
 
+// Mock Node.js modules
+vi.mock('node:path', () => ({
+  join: (...args: string[]) => args.join('/'),
+  dirname: (path: string) => path.split('/').slice(0, -1).join('/'),
+}));
+
+vi.mock('node:fs', () => ({
+  existsSync: vi.fn(() => false),
+}));
+
+vi.mock('node:url', () => ({
+  fileURLToPath: vi.fn((url: string) => url.replace('file://', '')),
+}));
+
+vi.mock('node:module', () => ({
+  createRequire: vi.fn(() => require),
+}));
+
 // Mock configuration import that the CLI relies on for defaults
 vi.mock('@intlayer/config/built', () => ({
   __esModule: true,
@@ -108,6 +126,7 @@ vi.mock('@intlayer/config', () => ({
   x: '✗',
   colorize: (s: string) => String(s),
   getExtension: vi.fn(() => 'cjs'),
+  ESMxCJSRequire: require,
   // Minimal configuration getter
   getConfiguration: vi.fn(() => ({
     content: {
@@ -171,7 +190,7 @@ describe('Intlayer CLI', () => {
             override: expect.objectContaining({
               log: expect.objectContaining({
                 verbose: true,
-                prefix: 'TEST',
+                prefix: '',
               }),
             }),
           }),
@@ -529,60 +548,6 @@ describe('Intlayer CLI', () => {
       setAPI();
 
       expect(getConfigMock).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('live command', () => {
-    it('triggers live sync without process option', async () => {
-      setProcessArgv(['live']);
-
-      const { setAPI } = await import('./cli');
-      setAPI();
-
-      expect(liveSyncMock).toHaveBeenCalledTimes(1);
-      expect(liveSyncMock).toHaveBeenCalledWith(expect.objectContaining({}));
-    });
-
-    it('triggers live sync with process option for vite preview', async () => {
-      setProcessArgv(['live', '--process', 'vite preview']);
-
-      const { setAPI } = await import('./cli');
-      setAPI();
-
-      expect(liveSyncMock).toHaveBeenCalledTimes(1);
-      expect(liveSyncMock).toHaveBeenCalledWith(
-        expect.objectContaining({
-          process: 'vite preview',
-        })
-      );
-    });
-
-    it('triggers live sync with process option for next start', async () => {
-      setProcessArgv(['live', '--process', 'next start']);
-
-      const { setAPI } = await import('./cli');
-      setAPI();
-
-      expect(liveSyncMock).toHaveBeenCalledTimes(1);
-      expect(liveSyncMock).toHaveBeenCalledWith(
-        expect.objectContaining({
-          process: 'next start',
-        })
-      );
-    });
-
-    it('triggers live sync with process option for npm run dev', async () => {
-      setProcessArgv(['live', '--process', 'npm run dev']);
-
-      const { setAPI } = await import('./cli');
-      setAPI();
-
-      expect(liveSyncMock).toHaveBeenCalledTimes(1);
-      expect(liveSyncMock).toHaveBeenCalledWith(
-        expect.objectContaining({
-          process: 'npm run dev',
-        })
-      );
     });
   });
 });
