@@ -5,7 +5,7 @@ import defaultConfiguration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
 import { useConfiguration } from '@intlayer/editor-react';
 import { useQuery } from '@tanstack/react-query';
-import { getAuthAPI } from '../auth';
+import { getAuthAPI } from '../../libs/auth';
 import { useQueryClient } from '../reactQuery';
 
 export const useSession = (

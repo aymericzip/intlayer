@@ -23,7 +23,7 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import type { getAuthAPI } from './auth';
+import type { getAuthAPI } from '../libs/auth';
 import { useAuth } from './useAuth';
 import { useIntlayerAuth, useIntlayerOAuth } from './useIntlayerAPI';
 
