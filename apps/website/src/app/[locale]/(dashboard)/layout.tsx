@@ -38,53 +38,53 @@ const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
     label: el.label.value,
   }));
 
-  const queryClient = new QueryClient();
+  // const queryClient = new QueryClient();
 
-  const { session } = await getSessionData();
+  // const { session } = await getSessionData();
 
-  if (session) {
-    const api = await getServerIntlayerAPI();
+  // if (session) {
+  //   const api = await getServerIntlayerAPI();
 
-    // Prefetch in parallel based on session context
-    await Promise.all([
-      queryClient.prefetchQuery({
-        queryKey: ['session'],
-        queryFn: () => session,
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ['organizations', undefined],
-        queryFn: async () => await api.organization.getOrganizations(),
-      }),
-      session?.organization
-        ? queryClient.prefetchQuery({
-            queryKey: ['projects', undefined],
-            queryFn: async () => await api.project.getProjects(),
-          })
-        : Promise.resolve(),
-      session?.organization && session?.project
-        ? queryClient.prefetchQuery({
-            queryKey: ['dictionaries', undefined],
-            queryFn: async () => await api.dictionary.getDictionaries(),
-          })
-        : Promise.resolve(),
+  //   // Prefetch in parallel based on session context
+  //   await Promise.all([
+  //     queryClient.prefetchQuery({
+  //       queryKey: ['session'],
+  //       queryFn: () => session,
+  //     }),
+  //     queryClient.prefetchQuery({
+  //       queryKey: ['organizations', undefined],
+  //       queryFn: async () => await api.organization.getOrganizations(),
+  //     }),
+  //     session?.organization
+  //       ? queryClient.prefetchQuery({
+  //           queryKey: ['projects', undefined],
+  //           queryFn: async () => await api.project.getProjects(),
+  //         })
+  //       : Promise.resolve(),
+  //     session?.organization && session?.project
+  //       ? queryClient.prefetchQuery({
+  //           queryKey: ['dictionaries', undefined],
+  //           queryFn: async () => await api.dictionary.getDictionaries(),
+  //         })
+  //       : Promise.resolve(),
 
-      session?.organization
-        ? queryClient.prefetchQuery({
-            queryKey: ['tags', undefined],
-            queryFn: async () => await api.tag.getTags(),
-          })
-        : Promise.resolve(),
+  //     session?.organization
+  //       ? queryClient.prefetchQuery({
+  //           queryKey: ['tags', undefined],
+  //           queryFn: async () => await api.tag.getTags(),
+  //         })
+  //       : Promise.resolve(),
 
-      session?.organization
-        ? queryClient.prefetchQuery({
-            queryKey: ['users', undefined],
-            queryFn: async () => await api.user.getUsers(),
-          })
-        : Promise.resolve(),
-    ]);
-  }
+  //     session?.organization
+  //       ? queryClient.prefetchQuery({
+  //           queryKey: ['users', undefined],
+  //           queryFn: async () => await api.user.getUsers(),
+  //         })
+  //       : Promise.resolve(),
+  //   ]);
+  // }
 
-  const dehydratedState = dehydrate(queryClient);
+  // const dehydratedState = dehydrate(queryClient);
 
   return (
     <PageLayout
@@ -93,17 +93,17 @@ const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
       footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
       mainClassName="mt-32 border-red-500"
     >
-      <HydrationBoundary state={dehydratedState}>
-        <AuthenticationBarrier
-          accessRule="authenticated"
-          redirectionRoute={`${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(PagesRoutes.Dashboard)}`}
-          // session={session} // Don't preset the session on the client side to avoid infinite re-renders
-          locale={locale}
-        >
-          <WarmupClient />
-          {children}
-        </AuthenticationBarrier>
-      </HydrationBoundary>
+      {/* <HydrationBoundary state={dehydratedState}> */}
+      <AuthenticationBarrier
+        accessRule="authenticated"
+        redirectionRoute={`${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(PagesRoutes.Dashboard)}`}
+        // session={session} // Don't preset the session on the client side to avoid infinite re-renders
+        locale={locale}
+      >
+        <WarmupClient />
+        {children}
+      </AuthenticationBarrier>
+      {/* </HydrationBoundary> */}
     </PageLayout>
   );
 };

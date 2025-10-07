@@ -37,57 +37,59 @@ const AdminLayoutContent: FC<
 
 const AdminLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
-  const { session } = await getSessionData();
+  // const { session } = await getSessionData();
 
-  const queryClient = new QueryClient();
+  // const queryClient = new QueryClient();
 
-  if (session) {
-    const api = await getServerIntlayerAPI();
+  // if (session) {
+  //   const api = await getServerIntlayerAPI();
 
-    // Prefetch in parallel based on session context
-    await Promise.all([
-      queryClient.prefetchQuery({
-        queryKey: ['session'],
-        queryFn: () => session,
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ['organizations', undefined],
-        queryFn: async () => await api.organization.getOrganizations(),
-      }),
-      session?.organization
-        ? queryClient.prefetchQuery({
-            queryKey: ['projects', undefined],
-            queryFn: async () => await api.project.getProjects(),
-          })
-        : Promise.resolve(),
-      session?.organization && session?.project
-        ? queryClient.prefetchQuery({
-            queryKey: ['dictionaries', undefined],
-            queryFn: async () => await api.dictionary.getDictionaries(),
-          })
-        : Promise.resolve(),
+  //   // Prefetch in parallel based on session context
+  //   await Promise.all([
+  //     queryClient.prefetchQuery({
+  //       queryKey: ['session'],
+  //       queryFn: () => session,
+  //     }),
+  //     queryClient.prefetchQuery({
+  //       queryKey: ['organizations', undefined],
+  //       queryFn: async () => await api.organization.getOrganizations(),
+  //     }),
+  //     session?.organization
+  //       ? queryClient.prefetchQuery({
+  //           queryKey: ['projects', undefined],
+  //           queryFn: async () => await api.project.getProjects(),
+  //         })
+  //       : Promise.resolve(),
+  //     session?.organization && session?.project
+  //       ? queryClient.prefetchQuery({
+  //           queryKey: ['dictionaries', undefined],
+  //           queryFn: async () => await api.dictionary.getDictionaries(),
+  //         })
+  //       : Promise.resolve(),
 
-      session?.organization
-        ? queryClient.prefetchQuery({
-            queryKey: ['tags', undefined],
-            queryFn: async () => await api.tag.getTags(),
-          })
-        : Promise.resolve(),
+  //     session?.organization
+  //       ? queryClient.prefetchQuery({
+  //           queryKey: ['tags', undefined],
+  //           queryFn: async () => await api.tag.getTags(),
+  //         })
+  //       : Promise.resolve(),
 
-      session?.organization
-        ? queryClient.prefetchQuery({
-            queryKey: ['users', undefined],
-            queryFn: async () => await api.user.getUsers(),
-          })
-        : Promise.resolve(),
-    ]);
-  }
+  //     session?.organization
+  //       ? queryClient.prefetchQuery({
+  //           queryKey: ['users', undefined],
+  //           queryFn: async () => await api.user.getUsers(),
+  //         })
+  //       : Promise.resolve(),
+  //   ]);
+  // }
 
-  const dehydratedState = dehydrate(queryClient);
+  // const dehydratedState = dehydrate(queryClient);
 
   return (
     <AdminLayoutContent locale={locale} session={session}>
-      <HydrationBoundary state={dehydratedState}>{children}</HydrationBoundary>
+      {/* <HydrationBoundary state={dehydratedState}> */}
+      {children}
+      {/* </HydrationBoundary> */}
     </AdminLayoutContent>
   );
 };
