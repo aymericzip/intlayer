@@ -30,7 +30,7 @@ const hasTranslationNodes = (node: any): boolean => {
 };
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
-export const filterTranslationsOnlyPlugin = (
+export const filterMissingTranslationsOnlyPlugin = (
   localeToCheck: LocalesValues
 ): Plugins => ({
   id: 'filter-missing-translations-only-plugin',
@@ -198,7 +198,7 @@ export const getFilterMissingTranslationsContent = <
   nodeProps: NodeProps
 ) => {
   const plugins: Plugins[] = [
-    filterTranslationsOnlyPlugin(localeToCheck),
+    filterMissingTranslationsOnlyPlugin(localeToCheck),
     ...(nodeProps.plugins ?? []),
   ];
 
