@@ -10,7 +10,7 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <WebsiteHeader />
+      <WebsiteHeader key={locale} />
       <SoftwareApplicationHeader />
       <ProductHeader />
       <LandingPageContent />
