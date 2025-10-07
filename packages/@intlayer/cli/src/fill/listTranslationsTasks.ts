@@ -97,6 +97,11 @@ export const listTranslationsTasks = (
       continue;
     }
 
+    /**
+     * In 'complete' mode, filter only the missing locales to translate
+     *
+     * Skip the dictionary if there are no missing locales to translate
+     */
     let outputLocalesList: Locales[] = outputLocales;
 
     if (mode === 'complete') {

@@ -22,7 +22,6 @@ import {
   type ContentNode,
   type Dictionary,
   getLocalizedContent,
-  getMissingLocalesContent,
 } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import {
@@ -35,7 +34,7 @@ import {
   listTranslationsTasks,
   type TranslationTask,
 } from './listTranslationsTasks';
-import { translateJson } from './translateJson';
+import { translateDictionary } from './translateDictionary';
 import { writeAutoFill } from './writeAutoFill';
 
 const NB_CONCURRENT_TRANSLATIONS = 8;
@@ -123,7 +122,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
   const translationResults = await parallelize(
     translationTasks,
     async (task) =>
-      translateJson(
+      translateDictionary(
         task,
         dictionariesRecord,
         maxLocaleLength,
@@ -158,29 +157,15 @@ export const fill = async (options?: FillOptions): Promise<void> => {
       continue;
     }
 
-    let outputLocalesList: Locales[] = outputLocales;
-
-    if (mode === 'complete') {
-      const missingLocales = getMissingLocalesContent(
-        mainDictionaryToProcess as unknown as ContentNode,
-        outputLocales,
-        {
-          dictionaryKey: mainDictionaryToProcess.key,
-          keyPath: [],
-          plugins: [],
-        }
-      );
-
-      outputLocalesList = missingLocales;
-    }
-
-    if (outputLocalesList.length === 0) {
-      continue;
-    }
-
     const perLocaleResults = resultsByDictionary.get(dictionaryKey) ?? [];
 
-    const dictionaryToMerge =
+    /**
+     * Merge the new translations with the base content
+     *
+     * In 'review' mode, consider the new translations over the base content declaration
+     * In 'complete' mode, consider the base content declaration over the new translations
+     */
+    const dictionaryToMerge: Dictionary[] =
       mode === 'review'
         ? [...perLocaleResults, mainDictionaryToProcess]
         : [mainDictionaryToProcess, ...perLocaleResults];
@@ -208,7 +193,10 @@ export const fill = async (options?: FillOptions): Promise<void> => {
     /**
      * In the case two dictionaries have the same key, reducing the content allows to keep the base dictionary structure without inserting new fields
      */
-    const reducedResult = reduceDictionaryContent(mergedResults, formattedDict);
+    const reducedResult: Dictionary = reduceDictionaryContent(
+      mergedResults,
+      formattedDict
+    );
 
     /**
      * Check if auto fill is enabled
@@ -220,6 +208,10 @@ export const fill = async (options?: FillOptions): Promise<void> => {
       formattedDict.locale === sourceLocale;
 
     if (isAutoFillEnabled && isAutoFillPerLocale) {
+      const localeList = resultsByDictionary
+        .get(dictionaryKey)
+        ?.map((result) => result.locale) as Locales[];
+
       /**
        * Write auto filled dictionary
        */
@@ -227,7 +219,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
         mergedResults,
         targetUnmergedDictionary,
         formattedDict.autoFill ?? configuration.content.autoFill,
-        outputLocalesList,
+        localeList,
         [sourceLocale],
         configuration
       );

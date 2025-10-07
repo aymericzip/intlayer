@@ -27,7 +27,7 @@ type Patch = SetPatch | StrAppendPatch;
 
 type RootType = 'object' | 'array';
 
-type JsonChunk = {
+export type JsonChunk = {
   schemaVersion: 1;
   index: number;
   total: number;
