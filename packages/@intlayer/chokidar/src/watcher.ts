@@ -9,7 +9,7 @@ import {
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 import { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
-import { handleUnlinkedContentDeclarationFile } from './handleUnlikedContentDeclarationFile';
+import { handleUnlinkedContentDeclarationFile } from './handleUnlinkedContentDeclarationFile';
 import { prepareIntlayer } from './prepareIntlayer';
 
 const recentlyAddedFiles = new Set<string>();

@@ -16,7 +16,7 @@ export { isInvalidDictionary } from './filterInvalidDictionaries';
 export { getContentDeclarationFileTemplate } from './getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 export { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 export { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
-export { handleUnlinkedContentDeclarationFile as handleUnlikedContentDeclarationFile } from './handleUnlikedContentDeclarationFile';
+export { handleUnlinkedContentDeclarationFile } from './handleUnlinkedContentDeclarationFile';
 export { listDictionaries } from './listDictionariesPath';
 export {
   type DiffMode,
