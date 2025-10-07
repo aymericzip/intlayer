@@ -80,7 +80,7 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
             <Logo
               className="size-6"
               style={{
-                transform: `translateY(${Math.min(scrollY, 48)}px) scale(${1 - Math.min(scrollY, 48) / 200})`,
+                transform: `translateY(${Math.min(scrollY, 52)}px) scale(${1 - Math.min(scrollY, 48) / 200})`,
               }}
             />
           </Link>

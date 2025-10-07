@@ -62,7 +62,7 @@ type TabProps = HTMLAttributes<HTMLElement> & {
   key: string | number;
 };
 
-type TabSelectorProps<T extends TabProps> = {
+export type TabSelectorProps<T extends TabProps> = {
   tabs: ReactElement<T>[];
   selectedChoice: T['key'];
   onTabClick?: (choice: T['key']) => void;

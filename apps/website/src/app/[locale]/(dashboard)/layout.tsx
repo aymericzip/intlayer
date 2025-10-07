@@ -91,7 +91,6 @@ const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
       locale={locale}
       navbar={<DashboardNavbar links={formattedNavbarLinks} />}
       footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
-      mainClassName="mt-32 border-red-500"
     >
       {/* <HydrationBoundary state={dehydratedState}> */}
       <AuthenticationBarrier
