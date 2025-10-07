@@ -1,0 +1,329 @@
+# Comprehensive YAML Fixture for Testing
+# This file contains various YAML structures to test the parseYaml function
+
+# Basic scalar values
+title: "Getting Started with Intlayer"
+description: Learn how to internationalize your React applications
+version: 1.0.0
+published: true
+date: 2023-12-01
+author: John Doe
+email: john@example.com
+
+# Numeric values
+count: 42
+price: 29.99
+temperature: -5.5
+scientific: 1.23e-4
+hex_color: "#FF5733"
+binary: 0b1010
+
+# Boolean values
+featured: true
+archived: false
+enabled: yes
+disabled: no
+
+# Null and special values
+metadata: null
+config_status: undefined
+status: NaN
+infinity: Infinity
+negative_infinity: -Infinity
+
+# Arrays
+tags: [tutorial, getting-started, i18n, react]
+categories: 
+  - Web Development
+  - Internationalization
+  - React
+  - JavaScript
+
+# Nested objects
+seo:
+  title: "Intlayer Tutorial"
+  description: "Learn internationalization with Intlayer"
+  keywords: [i18n, react, tutorial, intlayer]
+  canonical: "https://example.com/tutorial"
+
+# Complex nested structure
+config:
+  database:
+    host: localhost
+    port: 5432
+    name: myapp
+    credentials:
+      username: admin
+      password: secret123
+      ssl: true
+  
+  features:
+    enabled: [authentication, analytics, logging]
+    disabled: [beta-features, experimental]
+    
+  api:
+    base_url: "https://api.example.com"
+    version: "v2"
+    endpoints:
+      - "/users"
+      - "/posts"
+      - "/comments"
+    rate_limit: 1000
+    timeout: 30000
+
+# Multi-line strings
+description_long: |
+  This is a comprehensive tutorial that covers
+  all aspects of internationalization using
+  the Intlayer framework. You'll learn how to
+  set up your project, configure locales,
+  and implement translation features.
+
+# Inline arrays and objects
+quick_config: {theme: dark, language: en, notifications: true}
+short_tags: [react, i18n, tutorial]
+
+# Special characters and edge cases
+special_chars: "Hello @world! #hashtag $money €euro"
+unicode: "Hello 世界 🌍"
+path: "/home/user/documents/file.txt"
+url: "https://example.com:8080/api/v1/users?page=1&limit=10"
+email_list: [user1@example.com, user2@example.com, admin@company.org]
+
+# Mixed data types in arrays
+mixed_array: [string, 123, true, null, {nested: object}, [sub, array]]
+
+# Complex nested arrays
+matrix: 
+  - [1, 2, 3]
+  - [4, 5, 6]
+  - [7, 8, 9]
+
+# Environment-specific configurations
+environments:
+  development:
+    debug: true
+    log_level: verbose
+    database_url: "postgres://localhost:5432/dev"
+    
+  staging:
+    debug: false
+    log_level: info
+    database_url: "postgres://staging:5432/staging"
+    
+  production:
+    debug: false
+    log_level: error
+    database_url: "postgres://prod:5432/production"
+
+# Internationalization settings
+i18n:
+  default_locale: en
+  supported_locales: [en, es, fr, de, zh, ja]
+  fallback_locale: en
+  currency: USD
+  date_format: "YYYY-MM-DD"
+  time_format: "HH:mm:ss"
+  
+  translations:
+    en:
+      hello: "Hello"
+      goodbye: "Goodbye"
+      welcome: "Welcome to our app"
+    es:
+      hello: "Hola"
+      goodbye: "Adiós"
+      welcome: "Bienvenido a nuestra aplicación"
+    fr:
+      hello: "Bonjour"
+      goodbye: "Au revoir"
+      welcome: "Bienvenue dans notre application"
+
+# API documentation structure
+api_docs:
+  version: "2.1.0"
+  base_path: "/api/v2"
+  info:
+    title: "Intlayer API"
+    description: "RESTful API for Intlayer internationalization service"
+    contact:
+      name: "API Support"
+      email: "support@intlayer.com"
+      url: "https://intlayer.com/support"
+    license:
+      name: "MIT"
+      url: "https://opensource.org/licenses/MIT"
+  
+  servers:
+    - url: "https://api.intlayer.com"
+      description: "Production server"
+    - url: "https://staging-api.intlayer.com"
+      description: "Staging server"
+    - url: "http://localhost:3000"
+      description: "Development server"
+  
+  paths:
+    "/users":
+      get:
+        summary: "Get all users"
+        parameters:
+          - name: "page"
+            in: "query"
+            type: "integer"
+            default: 1
+          - name: "limit"
+            in: "query"
+            type: "integer"
+            default: 10
+        responses:
+          200:
+            description: "Successful response"
+            content:
+              application/json:
+                schema:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      id:
+                        type: "integer"
+                      name:
+                        type: "string"
+                      email:
+                        type: "string"
+                      created_at:
+                        type: "string"
+                        format: "date-time"
+
+# Performance and monitoring
+monitoring:
+  metrics:
+    enabled: true
+    interval: 60000
+    endpoints:
+      - "/metrics"
+      - "/health"
+      - "/status"
+  
+  alerts:
+    cpu_threshold: 80
+    memory_threshold: 90
+    disk_threshold: 85
+    email_notifications: true
+    slack_webhook: "https://hooks.slack.com/services/..."
+  
+  logging:
+    level: info
+    format: json
+    destinations:
+      - console
+      - file
+      - syslog
+    retention_days: 30
+
+# Security configuration
+security:
+  authentication:
+    method: jwt
+    secret: "your-secret-key"
+    expires_in: "24h"
+    refresh_expires_in: "7d"
+  
+  cors:
+    enabled: true
+    origins: ["https://intlayer.com", "https://app.intlayer.com"]
+    methods: [GET, POST, PUT, DELETE, OPTIONS]
+    headers: [Content-Type, Authorization]
+  
+  rate_limiting:
+    enabled: true
+    window_ms: 900000
+    max_requests: 100
+    skip_successful: false
+    skip_failed: false
+
+# Feature flags
+features:
+  new_dashboard: false
+  beta_features: true
+  experimental_api: false
+  dark_mode: true
+  notifications: true
+  analytics: false
+  
+  rollout:
+    percentage: 25
+    user_groups: [beta_users, premium_users]
+    regions: [us, eu, asia]
+
+# Dependencies and versions
+dependencies:
+  react: "^18.0.0"
+  react-dom: "^18.0.0"
+  next: "^14.0.0"
+  typescript: "^5.0.0"
+  intlayer: "^1.0.0"
+  
+  dev_dependencies:
+    vitest: "^1.0.0"
+    eslint: "^8.0.0"
+    prettier: "^3.0.0"
+    typescript: "^5.0.0"
+
+# Build and deployment
+build:
+  target: "es2020"
+  minify: true
+  sourcemap: true
+  bundle_analyzer: false
+  
+  optimization:
+    treeshaking: true
+    code_splitting: true
+    lazy_loading: true
+  
+  output:
+    directory: "dist"
+    public_path: "/static/"
+    filename: "[name].[contenthash].js"
+
+# Testing configuration
+testing:
+  framework: vitest
+  environment: jsdom
+  coverage:
+    enabled: true
+    threshold: 80
+    reporters: [text, html, lcov]
+  
+  test_patterns:
+    - "**/*.test.ts"
+    - "**/*.test.tsx"
+    - "**/*.spec.ts"
+    - "**/*.spec.tsx"
+  
+  mock_data:
+    users: [{id: 1, name: "Test User", email: "test@example.com"}]
+    posts: [{id: 1, title: "Test Post", content: "Test content"}]
+
+# Documentation
+documentation:
+  format: markdown
+  output: "docs/"
+  include_examples: true
+  generate_api_docs: true
+  
+  sections:
+    - getting_started
+    - api_reference
+    - examples
+    - troubleshooting
+    - contributing
+  
+  languages:
+    - en
+    - es
+    - fr
+    - de
+
+# End of comprehensive YAML fixture
