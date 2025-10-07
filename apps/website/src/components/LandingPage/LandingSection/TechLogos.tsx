@@ -2,6 +2,7 @@ import { Link } from '@components/Link/Link';
 import { cn } from '@utils/cn';
 import type { FC, SVGProps } from 'react';
 import { PagesRoutes } from '@/Routes';
+import { AstroLogo } from '../AvailableTechnoSection/Astro';
 import { ExpressLogo } from '../AvailableTechnoSection/Express';
 import { LynxLogo } from '../AvailableTechnoSection/Lynx';
 import { NestJSLogo } from '../AvailableTechnoSection/NestJS';
@@ -66,7 +67,7 @@ const logos = [
     key: 'lynx',
     route: PagesRoutes.Doc_Intlayer_with_Lynx_and_React,
   },
-  // { Logo: AstroLogo, key: 'astro' , route: PagesRoutes.Doc_Environment_Astro },
+  { Logo: AstroLogo, key: 'astro', route: PagesRoutes.Doc_Environment_Astro },
   // { Logo: AngularLogo, key: 'angular', route: PagesRoutes.Doc_Environment_Angular },
   // { Logo: SvelteLogo, key: 'svelte', route: PagesRoutes.Doc_Environment_ViteAndSvelte },
   // { Logo: SolidLogo, key: 'solid', route: PagesRoutes.Doc_Environment_ViteAndSolid },
