@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { AppProviders, type AppProvidersProps } from '@/providers/AppProviders';
+import { IntlayerProvider } from '@/providers/IntlayerProvider';
 import { FirstConsultationProvider } from './FirstConsultationProvider';
 import {
   PageContentLayout,
@@ -21,10 +22,10 @@ export const PageLayout: FC<PageLayoutProps> = ({
   ...props
 }) => (
   <RootHTMLLayout locale={locale} className={className}>
-    <AppProviders locale={locale}>
+    <IntlayerProvider locale={locale}>
       <PageContentLayout {...props} className={mainClassName}>
         <FirstConsultationProvider>{children}</FirstConsultationProvider>
       </PageContentLayout>
-    </AppProviders>
+    </IntlayerProvider>
   </RootHTMLLayout>
 );
