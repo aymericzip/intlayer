@@ -394,7 +394,7 @@ describe('misc block level elements', () => {
     renderFn(compiler('> Line 1\nLine 2\n>Line 3'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<blockquote><p>Line 1\nLine 2\nLine 3\n</p>\n</blockquote>"
+      "<blockquote><p>Line 1\nLine 2\nLine 3</p>\n</blockquote>"
     `);
   });
 
