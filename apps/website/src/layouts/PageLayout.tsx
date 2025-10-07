@@ -1,5 +1,6 @@
 import { IntlayerClientProvider } from 'next-intlayer';
 import type { IntlayerServerProviderProps } from 'next-intlayer/server';
+import { ThemeProvider } from 'next-themes';
 import type { FC } from 'react';
 import { IntlayerMarkdownProvider } from '@/providers/IntlayerMarkdownProvider';
 import {
@@ -24,9 +25,11 @@ export const PageLayout: FC<PageLayoutProps> = ({
   <IntlayerClientProvider locale={locale}>
     <IntlayerMarkdownProvider>
       <RootHTMLLayout locale={locale} className={className}>
-        <PageContentLayout {...props} className={mainClassName}>
-          {children}
-        </PageContentLayout>
+        <ThemeProvider>
+          <PageContentLayout {...props} className={mainClassName}>
+            {children}
+          </PageContentLayout>
+        </ThemeProvider>
       </RootHTMLLayout>
     </IntlayerMarkdownProvider>
   </IntlayerClientProvider>
