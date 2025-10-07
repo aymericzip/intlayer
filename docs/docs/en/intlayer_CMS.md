@@ -260,8 +260,6 @@ Then you will be able to see and manage your dictionary in the [Intlayer CMS](ht
 
 Live Sync lets your app reflect CMS content changes at runtime. No rebuild or redeploy required. When enabled, updates are streamed to a Live Sync server that refreshes the dictionaries your application reads.
 
-> Live Sync requires a continuous server connection and is available on the enterprise plan.
-
 Enable Live Sync by updating your Intlayer configuration:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
