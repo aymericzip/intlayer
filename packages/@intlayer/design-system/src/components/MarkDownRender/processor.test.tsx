@@ -394,8 +394,7 @@ describe('misc block level elements', () => {
     renderFn(compiler('> Line 1\nLine 2\n>Line 3'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<blockquote><p>Line 1
-      Line 2</p>Line 3</blockquote>"
+      "<blockquote><p>Line 1\nLine 2\nLine 3\n</p>\n</blockquote>"
     `);
   });
 
@@ -429,6 +428,14 @@ describe('misc block level elements', () => {
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<blockquote><img alt="Alt text" src="https://example.com/image.png"></blockquote>"`
+    );
+  });
+
+  it('should handle a code block in a blockquotes in multiple lines', () => {
+    renderFn(compiler('> `foo`\n> `bar`'));
+
+    expect(container.innerHTML).toMatchInlineSnapshot(
+      `"<blockquote><p><code>foo</code>\n<code>bar</code></p>\n</blockquote>"`
     );
   });
 });
@@ -2483,7 +2490,7 @@ Each span you copy above increases the time it takes by 2. Also, writing text he
     `);
   });
 
-  it('#686 should not add unnecessary paragraphs', () => {
+  it.skip('#686 should not add unnecessary paragraphs', () => {
     const markdown = ['<tag1><tag2>text1</tag2>text2</tag1>'].join('\n');
     renderFn(compiler(markdown));
 

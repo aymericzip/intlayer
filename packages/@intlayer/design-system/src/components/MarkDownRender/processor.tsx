@@ -1290,7 +1290,17 @@ const parseBlock = (
   const start = performance.now();
   const isCurrentlyInline = state.inline || false;
   state.inline = false;
-  const result = parse(children, state);
+  // Ensure block parsing captures the final paragraph by appending
+  // a trailing double newline when missing, similar to top-level compile().
+  const normalizedChildren = trimEnd(children);
+  const needsTerminator = /\n\n$/.test(normalizedChildren) === false;
+  const blockInput = needsTerminator
+    ? normalizedChildren.endsWith('\n')
+      ? `${normalizedChildren}\n`
+      : `${normalizedChildren}\n\n`
+    : normalizedChildren;
+
+  const result = parse(blockInput, state);
   state.inline = isCurrentlyInline;
 
   const duration = performance.now() - start;
