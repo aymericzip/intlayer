@@ -5,6 +5,7 @@ export const commonOptions = {
   entry: [
     'src/**/*',
     '!src/**/*.test.*',
+    '!src/**/_*',
     '!src/**/*.spec.*',
     '!src/**/__tests__/**',
   ],

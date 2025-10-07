@@ -183,7 +183,9 @@ const generate = async () => {
   for (const cfg of categories) {
     /* ----------------------------- entry file ------------------------------ */
     const englishPattern = `./${cfg.dir}/en/**/*.md`;
-    const englishFiles = fg.sync(englishPattern);
+    const englishFiles = fg.sync(englishPattern, {
+      ignore: ['**/_*'],
+    });
 
     const entryContent = buildEntryContent(cfg, englishFiles);
     await mkdir(dirname(cfg.entryFilePath), { recursive: true });
