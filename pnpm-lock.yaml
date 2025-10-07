@@ -1607,13 +1607,7 @@ importers:
       intlayer:
         specifier: workspace:*
         version: link:../../intlayer
-      negotiator:
-        specifier: ^1.0.0
-        version: 1.0.0
     devDependencies:
-      '@types/negotiator':
-        specifier: ^0.6.3
-        version: 0.6.4
       '@types/node':
         specifier: ^24.5.2
         version: 24.7.0
@@ -9905,9 +9899,6 @@ packages:
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
-
-  '@types/negotiator@0.6.4':
-    resolution: {integrity: sha512-elf6BsTq+AkyNsb2h5cGNst2Mc7dPliVoAPm1fXglC/BM3f2pFA40BaSSv3E5lyHteEawVKLP+8TwiY1DMNb3A==}
 
   '@types/next-pwa@5.6.9':
     resolution: {integrity: sha512-KcymH+MtFYB5KVKIOH1DMqd0wUb8VLCxzHtsaRQQ7S8sGOaTH24Lo2vGZf6/0Ok9e+xWCKhqsSt6cgDJTk91Iw==}
@@ -30195,8 +30186,6 @@ snapshots:
       minimatch: 10.0.3
 
   '@types/ms@2.1.0': {}
-
-  '@types/negotiator@0.6.4': {}
 
   '@types/next-pwa@5.6.9(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(@types/babel__core@7.20.5)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.85.0)':
     dependencies:
