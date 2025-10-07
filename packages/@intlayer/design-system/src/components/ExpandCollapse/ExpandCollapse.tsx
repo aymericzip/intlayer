@@ -108,7 +108,7 @@ export const ExpandCollapse: FC<ExpandCollapseProps> = ({
     <MaxHeightSmoother
       isHidden={isCollapsed}
       minHeight={minHeight}
-      className="w-full overflow-y-hidden overflow-x-scroll"
+      className="w-full overflow-x-auto overflow-y-hidden"
     >
       <div className={cn('grid w-full', className)} ref={codeContainerRef}>
         {children}
