@@ -647,6 +647,15 @@ export type ResultDirDerivedConfig = {
    * Specifies the derived path for the configuration files relative to the result directory.
    */
   configDir: string;
+
+  /**
+   * Directory where the cache files are stored, relative to the result directory
+   *
+   * Default: .intlayer/cache
+   *
+   * Specifies the derived path for the cache files relative to the result directory.
+   */
+  cacheDir: string;
 };
 
 /**
