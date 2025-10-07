@@ -4,8 +4,17 @@ import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
 import { Logo } from '@intlayer/design-system';
 import type { LocalesValues } from 'intlayer';
+import dynamic from 'next/dynamic';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
+
+const SwitchThemeSwitcher = dynamic(
+  () =>
+    import('@components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
+      (mod) => mod.SwitchThemeSwitcher
+    ),
+  { ssr: false }
+);
 
 export type DashboardFooterLink = {
   href: string;
@@ -43,6 +52,9 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
             {link.text}
           </Link>
         ))}
+      </div>
+      <div className="scale-75">
+        <SwitchThemeSwitcher />
       </div>
     </footer>
   );

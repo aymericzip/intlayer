@@ -4,21 +4,16 @@ import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
 import { Container, Logo, TabSelector } from '@intlayer/design-system';
-import { useDevice, useSession } from '@intlayer/design-system/hooks';
-import dynamic from 'next/dynamic';
+import {
+  useDevice,
+  useScrollY,
+  useSession,
+} from '@intlayer/design-system/hooks';
 import { useLocale } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
 import { type ExternalLinks, PagesRoutes } from '@/Routes';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
-
-const SwitchThemeSwitcher = dynamic(
-  () =>
-    import('@components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
-      (mod) => mod.SwitchThemeSwitcher
-    ),
-  { ssr: false }
-);
 
 export type NavbarProps = {
   links: {
@@ -66,6 +61,7 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const { session } = useSession();
   const { organization, project } = session ?? {};
   const { isMobile } = useDevice('sm');
+  const scrollY = useScrollY();
 
   const filteredLinks = links
     .filter(
@@ -75,14 +71,20 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
 
   return (
     <Container
-      className="fixed z-50 flex w-full flex-col gap-3 p-4"
+      className="-top-16 sticky z-50 flex w-full flex-col gap-3 p-4"
       roundedSize="none"
     >
       <div className="flex justify-between">
         <div className="flex w-auto items-center gap-4">
           <Link href={PagesRoutes.Home} label="Dashboard" color="text">
-            <Logo className="size-6" />
+            <Logo
+              className="size-6"
+              style={{
+                transform: `translateY(${Math.min(scrollY, 48)}px) scale(${1 - Math.min(scrollY, 48) / 200})`,
+              }}
+            />
           </Link>
+
           {!isMobile && (
             <div className="flex w-auto items-center gap-4">
               {organization && (
@@ -102,7 +104,6 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
         </div>
         <div className="flex items-center gap-4">
           <LocaleSwitcher panelProps={{ className: '-left-16' }} />
-          <SwitchThemeSwitcher />
           <ProfileDropDown />
         </div>
       </div>
@@ -117,8 +118,12 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
           )}
         </div>
       )}
-
-      <div className="max-3 flex w-full items-center gap-8 overflow-x-auto max-sm:pb-4">
+      <div
+        className="max-3 flex w-full items-center gap-8 overflow-x-auto max-sm:pb-4"
+        style={{
+          transform: `translateX(${Math.min(scrollY, 40)}px)`,
+        }}
+      >
         <TabSelector
           selectedChoice={getCleanTabSelector(pathWithoutLocale)}
           tabs={filteredLinks.map(({ url, label, title }) => (
