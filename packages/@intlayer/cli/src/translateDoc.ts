@@ -6,6 +6,7 @@ import type { AIOptions } from '@intlayer/api';
 import {
   formatLocale,
   formatPath,
+  getChunk,
   type ListGitFilesOptions,
   listGitFiles,
   parallelize,
@@ -28,7 +29,6 @@ import { checkAIAccess } from './utils/checkAccess';
 import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
 import { chunkInference } from './utils/chunkInference';
 import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
-import { getChunk } from './utils/getChunk';
 import { getOutputFilePath } from './utils/getOutputFilePath';
 
 const isESModule = typeof import.meta.url === 'string';

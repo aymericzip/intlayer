@@ -1,7 +1,10 @@
 import { type AIOptions, getIntlayerAPIProxy } from '@intlayer/api';
 import {
+  assembleJSON,
+  chunkJSON,
   extractErrorMessage,
   formatLocale,
+  type JsonChunk,
   processPerLocaleDictionary,
 } from '@intlayer/chokidar';
 import {
@@ -18,7 +21,6 @@ import {
   getFilterTranslationsOnlyContent,
   getLocalizedContent,
 } from '@intlayer/core';
-import { assembleJSON, chunkJSON, type JsonChunk } from '../utils/chunkJSON';
 import type { TranslationTask } from './listTranslationsTasks';
 
 export const translateDictionary = async (

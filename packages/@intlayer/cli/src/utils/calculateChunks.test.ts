@@ -1,8 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { getChunk } from '@intlayer/chokidar';
 import { describe, expect, it } from 'vitest';
 import { chunkText } from './calculateChunks';
-import { getChunk } from './getChunk';
 
 // Sample multiline string reused across test cases
 const sampleText = [
