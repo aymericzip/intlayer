@@ -1,7 +1,8 @@
 'use client';
 
 import { Button } from '@intlayer/design-system';
-import { getAuthAPI, useUser } from '@intlayer/design-system/hooks';
+import { useUser } from '@intlayer/design-system/hooks';
+import { getAuthAPI } from '@intlayer/design-system/libs';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import { GithubLogo } from './assets/GithubLogo';

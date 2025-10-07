@@ -16,34 +16,42 @@ export const accessValidation = (
   redirectionRoute: string,
   isEnabled?: boolean
 ) => {
+  const accessRuleArray: AccessRule[] = Array.isArray(accessRule)
+    ? accessRule
+    : [accessRule];
+
   if (isEnabled === false) {
     return;
   }
 
   if (
     !session?.user &&
-    (accessRule?.includes('authenticated') || accessRule?.includes('admin'))
+    (accessRuleArray?.includes('authenticated') ||
+      accessRuleArray?.includes('admin'))
   ) {
     redirectionFunction(redirectionRoute);
   }
 
-  if (session?.user && accessRule?.includes('none-authenticated')) {
+  if (session?.user && accessRuleArray?.includes('none-authenticated')) {
     redirectionFunction(redirectionRoute);
   }
 
   if (
     session?.user &&
-    accessRule?.includes('admin') &&
+    accessRuleArray?.includes('admin') &&
     !session.user?.role?.includes('admin')
   ) {
     redirectionFunction(redirectionRoute);
   }
 
-  if (!session?.organization && accessRule?.includes('organization-required')) {
+  if (
+    !session?.organization &&
+    accessRuleArray?.includes('organization-required')
+  ) {
     redirectionFunction(redirectionRoute);
   }
 
-  if (!session?.project && accessRule?.includes('project-required')) {
+  if (!session?.project && accessRuleArray?.includes('project-required')) {
     redirectionFunction(redirectionRoute);
   }
 };
