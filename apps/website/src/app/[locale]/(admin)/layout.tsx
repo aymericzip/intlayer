@@ -26,7 +26,7 @@ const AdminLayoutContent: FC<
       <AuthenticationBarrier
         accessRule="admin"
         redirectionRoute={`${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(PagesRoutes.Dashboard)}`}
-        session={session}
+        // session={session} // Don't preset the session on the client side to avoid infinite re-renders
         locale={locale}
       >
         {children}
