@@ -38,6 +38,30 @@ const FormFieldElement = <T extends ElementType>({
 }: FormFieldElementProps<T>) => {
   const { error } = useFormField();
 
+  // Ensure controlled inputs and merge onChange with RHF controller
+  const {
+    value: fieldValue,
+    onChange: fieldOnChange,
+    ...fieldRest
+  } = (field as unknown as {
+    value: unknown;
+    onChange: (...args: unknown[]) => void;
+  }) ?? {};
+
+  const propsAny = props as unknown as {
+    value?: unknown;
+    onChange?: (...args: unknown[]) => void;
+    children?: unknown;
+  };
+
+  const mergedValue =
+    propsAny.value !== undefined ? propsAny.value : (fieldValue ?? '');
+
+  const mergedOnChange = (...args: unknown[]) => {
+    if (typeof fieldOnChange === 'function') fieldOnChange(...args);
+    if (typeof propsAny.onChange === 'function') propsAny.onChange(...args);
+  };
+
   return (
     <FormItemLayout
       htmlFor={name}
@@ -48,7 +72,16 @@ const FormFieldElement = <T extends ElementType>({
       showErrorMessage={showErrorMessage}
       aria-invalid={!!error}
     >
-      <Element data-testid="element" id={name} {...field} {...props}>
+      <Element
+        data-testid="element"
+        id={name}
+        {...fieldRest}
+        {...props}
+        // Force controlled value to avoid uncontrolled-to-controlled warnings
+        value={mergedValue as never}
+        // Merge onChange so RHF stays in sync while allowing custom handlers
+        onChange={mergedOnChange as never}
+      >
         {props.children}
       </Element>
     </FormItemLayout>
