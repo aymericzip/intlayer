@@ -10,7 +10,7 @@ import {
 } from '@intlayer/design-system';
 import { MoveVertical } from 'lucide-react';
 import { useIntlayer, useLocale, useLocaleCookie } from 'next-intlayer';
-import { type FC, useEffect, useRef, useState } from 'react';
+import { type FC, useRef } from 'react';
 import { useLocaleSearch } from './useLocaleSearch';
 
 export type LocaleSwitcherProps = {
@@ -39,18 +39,16 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
     availableLocales,
     locale
   );
-  const [openedByClick, setOpenedByClick] = useState(false);
 
   if (locale) {
     localeName = fullLocaleName ? getLocaleName(locale) : locale.toUpperCase();
   }
 
-  useEffect(() => {
-    if (openedByClick && inputRef.current) {
+  const handleFocusInput = () => {
+    if (inputRef.current) {
       inputRef.current.focus();
-      setOpenedByClick(false);
     }
-  }, [openedByClick]);
+  };
 
   return (
     <div
@@ -62,7 +60,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           identifier={DROPDOWN_IDENTIFIER}
           size="sm"
           className="!px-0"
-          onClick={() => setOpenedByClick(true)}
+          onClick={handleFocusInput}
         >
           <div className="flex w-full items-center justify-between text-text">
             <div className="text-nowrap px-2 text-base">{localeName}</div>
