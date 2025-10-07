@@ -8,19 +8,23 @@ import {
   useMemo,
 } from 'react';
 
-export const FormItem: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
-  const id = useId();
+export const FormItem: FC<HTMLAttributes<HTMLDivElement>> = ({
+  id: idProp,
+  ...props
+}) => {
+  const generatedId = useId();
+  const stableId = idProp ?? generatedId;
 
   const memoValue = useMemo(
     () => ({
-      id,
+      id: stableId,
     }),
-    [id]
+    [stableId]
   );
 
   return (
     <FormItemContext value={memoValue}>
-      <div className="flex flex-col gap-2 p-2" {...props} />
+      <div className="flex flex-col gap-2 p-2" id={stableId} {...props} />
     </FormItemContext>
   );
 };
