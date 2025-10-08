@@ -47,6 +47,7 @@ const logos = [
     key: 'vite',
     route: PagesRoutes.Doc_Environment_ViteAndReact,
   },
+  { Logo: AstroLogo, key: 'astro', route: PagesRoutes.Doc_Environment_Astro },
   {
     Logo: TanstackLogo,
     key: 'tanstack',
@@ -67,7 +68,6 @@ const logos = [
     key: 'lynx',
     route: PagesRoutes.Doc_Intlayer_with_Lynx_and_React,
   },
-  { Logo: AstroLogo, key: 'astro', route: PagesRoutes.Doc_Environment_Astro },
   // { Logo: AngularLogo, key: 'angular', route: PagesRoutes.Doc_Environment_Angular },
   // { Logo: SvelteLogo, key: 'svelte', route: PagesRoutes.Doc_Environment_ViteAndSvelte },
   // { Logo: SolidLogo, key: 'solid', route: PagesRoutes.Doc_Environment_ViteAndSolid },
