@@ -7,6 +7,7 @@ import { ApplicationTemplateMessage } from '../ApplicationTemplateMessage';
 import { ContributionMessage } from '../ContributionMessage';
 import { CopyMarkdownMessage } from '../CopyMarkdownMessage';
 import { MCPMessage } from '../MCPMessage';
+import { OutdatedTranslationMessage } from '../OutdatedTranslationMessage';
 import { SummarizeAI } from '../SummarizeAI/SummarizeAI';
 import { TranslatedContentMessage } from '../TranslatedContentMessage';
 import { YoutubeVideoMessage } from '../YoutubeVideoMessage';
@@ -14,6 +15,8 @@ import { YoutubeVideoMessage } from '../YoutubeVideoMessage';
 type DocHeaderProps = DocMetadata & {
   locale: LocalesValues;
   markdownContent: string;
+  defaultLocale: LocalesValues;
+  baseUpdatedAt?: string;
 };
 
 export const DocHeader: FC<DocHeaderProps> = ({
@@ -27,9 +30,18 @@ export const DocHeader: FC<DocHeaderProps> = ({
   locale,
   youtubeVideo,
   applicationTemplate,
+  docKey,
+  baseUpdatedAt,
+  defaultLocale,
 }) => {
   const { authorLabel, creationLabel, lastUpdateLabel } =
     useIntlayer('doc-header');
+
+  const isOutdated = Boolean(
+    baseUpdatedAt &&
+      updatedAt &&
+      new Date(baseUpdatedAt).getTime() > new Date(updatedAt).getTime()
+  );
 
   return (
     <>
@@ -75,6 +87,13 @@ export const DocHeader: FC<DocHeaderProps> = ({
             <MCPMessage />
           </div>
           <div className="flex w-full flex-row items-center justify-end gap-4">
+            {isOutdated && (
+              <OutdatedTranslationMessage
+                pageUrl={relativeUrl}
+                baseUpdatedAt={baseUpdatedAt as string}
+                defaultLocale={defaultLocale}
+              />
+            )}
             <TranslatedContentMessage pageUrl={relativeUrl} />
 
             <ContributionMessage

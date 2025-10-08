@@ -5,7 +5,13 @@ import {
 } from '@components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { getPreviousNextDocMetadata } from '@components/DocPage/docData';
-import { type DocKey, getDoc, getDocMetadataBySlug } from '@intlayer/docs';
+import configuration from '@intlayer/config/built';
+import {
+  type DocKey,
+  getDoc,
+  getDocMetadata,
+  getDocMetadataBySlug,
+} from '@intlayer/docs';
 import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import { urlRenamer } from '@utils/markdown';
 import { getLocalizedUrl } from 'intlayer';
@@ -52,6 +58,14 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
       }
     : undefined;
 
+  const defaultLocale = configuration.internationalization.defaultLocale;
+
+  const baseUpdatedAt =
+    defaultLocale === locale
+      ? docData.updatedAt
+      : (await getDocMetadata(docData.docKey as DocKey, defaultLocale as any))
+          ?.updatedAt;
+
   return (
     <IntlayerServerProvider locale={locale}>
       <CreativeWorkHeader
@@ -63,7 +77,13 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
         datePublished={new Date(docData.createdAt)}
         url={docData.url}
       />
-      <DocHeader {...docData} markdownContent={docContent} locale={locale} />
+      <DocHeader
+        {...docData}
+        markdownContent={docContent}
+        locale={locale}
+        defaultLocale={defaultLocale as any}
+        baseUpdatedAt={baseUpdatedAt}
+      />
 
       <DocumentationRender>{docContent}</DocumentationRender>
       <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />
