@@ -146,7 +146,7 @@ const buildEntryContent = (
     `const readLocale = (relativeAfterLocale: string, locale: LocalesValues): Promise<string> => {`,
     `  const target = join(dir, \`../../../${dir}/\${locale}/\${relativeAfterLocale}\`);`,
     `  if (!existsSync(target)) {`,
-    `    console.error(\`File not found: \${target}\`);`,
+    `    console.error(\`[docs] File not found: \${target}\`);`,
     `    return readFile(join(dir, \`../../../${dir}/en/\${relativeAfterLocale}\`), 'utf8');`,
     `  }`,
     `  return readFile(target, 'utf8');`,

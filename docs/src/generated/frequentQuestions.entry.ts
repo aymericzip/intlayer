@@ -18,7 +18,7 @@ const readLocale = (
     `../../../frequent_questions/${locale}/${relativeAfterLocale}`
   );
   if (!existsSync(target)) {
-    console.error(`File not found: ${target}`);
+    console.error(`[docs] File not found: ${target}`);
     return readFile(
       join(dir, `../../../frequent_questions/en/${relativeAfterLocale}`),
       'utf8'

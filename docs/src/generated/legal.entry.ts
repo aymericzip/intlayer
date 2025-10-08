@@ -15,7 +15,7 @@ const readLocale = (
 ): Promise<string> => {
   const target = join(dir, `../../../legal/${locale}/${relativeAfterLocale}`);
   if (!existsSync(target)) {
-    console.error(`File not found: ${target}`);
+    console.error(`[docs] File not found: ${target}`);
     return readFile(
       join(dir, `../../../legal/en/${relativeAfterLocale}`),
       'utf8'
