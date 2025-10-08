@@ -1,0 +1,78 @@
+import { type Dictionary, t } from 'intlayer';
+
+const outdatedTranslationMessage: Dictionary = {
+  key: 'outdated-translation-message',
+  content: {
+    message: {
+      before: t({
+        en: 'This doc is out of date, the base version has been updated on',
+        'en-GB':
+          'This doc is out of date, the base version has been updated on',
+        fr: "Ce document n'est pas à jour, la version de base a été mise à jour le",
+        ar: 'هذه الوثيقة غير محدثة، تم تحديث النسخة الأساسية في',
+        de: 'Dieses Dokument ist veraltet, die Basisversion wurde aktualisiert am',
+        es: 'Este documento está desactualizado, la versión base se actualizó el',
+        it: 'Questo documento non è aggiornato, la versione base è stata aggiornata il',
+        ja: 'このドキュメントは古く、ベース版は次の日付に更新されました:',
+        ko: '이 문서는 오래되었습니다. 기본 버전이 다음 날짜에 업데이트되었습니다:',
+        pt: 'Este documento está desatualizado, a versão base foi atualizada em',
+        ru: 'Этот документ устарел, базовая версия была обновлена',
+        zh: '此文档已过期，基础版本已在以下日期更新',
+        hi: 'यह दस्तावेज़ पुराना है, आधार संस्करण को इस तिथि पर अपडेट किया गया है',
+        tr: 'Bu belge güncel değil, temel sürüm şu tarihte güncellendi',
+      }),
+      after: t({
+        en: '.',
+        'en-GB': '.',
+        fr: '.',
+        ar: '.',
+        de: '.',
+        es: '.',
+        it: '.',
+        ja: '.',
+        ko: '.',
+        pt: '.',
+        ru: '.',
+        zh: '.',
+        hi: '.',
+        tr: '.',
+      }),
+    },
+    link: {
+      label: t({
+        en: 'Go to English doc',
+        'en-GB': 'Go to English doc',
+        fr: 'Aller à la doc anglaise',
+        ar: 'الانتقال إلى الوثيقة الإنجليزية',
+        de: 'Zur englischen Doku gehen',
+        es: 'Ir a la documentación en inglés',
+        it: 'Vai alla documentazione in inglese',
+        ja: '英語のドキュメントへ',
+        ko: '영문 문서로 이동',
+        pt: 'Ir para a documentação em inglês',
+        ru: 'Перейти к английской документации',
+        zh: '前往英文文档',
+        hi: 'अंग्रेजी दस्तावेज़ पर जाएँ',
+        tr: 'İngilizce dökümana git',
+      }),
+      content: t({
+        en: 'Go to English doc',
+        'en-GB': 'Go to English doc',
+        fr: 'Aller à la doc anglaise',
+        ar: 'الانتقال إلى الوثيقة الإنجليزية',
+        de: 'Zur englischen Doku gehen',
+        es: 'Ir a la documentación en inglés',
+        it: 'Vai alla documentazione in inglese',
+        ja: '英語のドキュメントへ',
+        ko: '영문 문서로 이동',
+        pt: 'Ir para a documentação em inglês',
+        ru: 'Перейти к английской документации',
+        zh: '前往英文文档',
+        hi: 'अंग्रेजी दस्तावेज़ पर जाएँ',
+        tr: 'İngilizce dökümana git',
+      }),
+    },
+  },
+};
+
+export default outdatedTranslationMessage;
