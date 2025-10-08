@@ -1,7 +1,5 @@
-import configuration from '@intlayer/config/built';
 import { Container } from '@intlayer/design-system';
 import type { DocMetadata } from '@intlayer/docs';
-import { getDocMetadata } from '@intlayer/docs';
 import type { LocalesValues } from 'intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
@@ -17,9 +15,11 @@ import { YoutubeVideoMessage } from '../YoutubeVideoMessage';
 type DocHeaderProps = DocMetadata & {
   locale: LocalesValues;
   markdownContent: string;
+  defaultLocale: LocalesValues;
+  baseUpdatedAt?: string;
 };
 
-export const DocHeader: FC<DocHeaderProps> = async ({
+export const DocHeader: FC<DocHeaderProps> = ({
   author,
   updatedAt,
   createdAt,
@@ -31,28 +31,17 @@ export const DocHeader: FC<DocHeaderProps> = async ({
   youtubeVideo,
   applicationTemplate,
   docKey,
+  baseUpdatedAt,
+  defaultLocale,
 }) => {
   const { authorLabel, creationLabel, lastUpdateLabel } =
     useIntlayer('doc-header');
 
-  const defaultLocale = configuration.internationalization
-    .defaultLocale as LocalesValues;
-
-  let isOutdated = false;
-  let baseUpdatedAt: string | undefined;
-
-  try {
-    if (docKey) {
-      const baseMetadata = await getDocMetadata(docKey as any, defaultLocale);
-      baseUpdatedAt = baseMetadata?.updatedAt;
-
-      if (baseUpdatedAt && updatedAt) {
-        const baseDate = new Date(baseUpdatedAt).getTime();
-        const currentDate = new Date(updatedAt).getTime();
-        isOutdated = baseDate > currentDate && locale !== defaultLocale;
-      }
-    }
-  } catch {}
+  const isOutdated = Boolean(
+    baseUpdatedAt &&
+      updatedAt &&
+      new Date(baseUpdatedAt).getTime() > new Date(updatedAt).getTime()
+  );
 
   return (
     <>
