@@ -13,7 +13,7 @@ import {
 import type { AutoFill, Dictionary } from '@intlayer/core';
 import { type AutoFillData, formatAutoFillData } from './formatAutoFillData';
 
-export const autoFill = async (
+export const writeAutoFill = async (
   fullDictionary: Dictionary,
   contentDeclarationFile: Dictionary,
   autoFillOptions: AutoFill,

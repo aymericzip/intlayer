@@ -54,6 +54,7 @@ const shouldHaveOrganizationRoutes = [
 const shouldHaveProjectRoutes = [
   PagesRoutes.Dashboard_Editor,
   PagesRoutes.Dashboard_Content,
+  PagesRoutes.Dashboard_Tags,
 ] as string[];
 
 export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {

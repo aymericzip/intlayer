@@ -1,13 +1,15 @@
+import { IntlayerClientProvider } from 'next-intlayer';
+import type { IntlayerServerProviderProps } from 'next-intlayer/server';
+import { ThemeProvider } from 'next-themes';
 import type { FC } from 'react';
-import { AppProviders, type AppProvidersProps } from '@/providers/AppProviders';
-import { FirstConsultationProvider } from './FirstConsultationProvider';
+import { IntlayerMarkdownProvider } from '@/providers/IntlayerMarkdownProvider';
 import {
   PageContentLayout,
   type PageContentLayoutProps,
 } from './PageContentLayout';
 import { RootHTMLLayout } from './RootHTMLLayout';
 
-type PageLayoutProps = AppProvidersProps &
+type PageLayoutProps = IntlayerServerProviderProps &
   PageContentLayoutProps & {
     className?: string;
     mainClassName?: string;
@@ -20,11 +22,15 @@ export const PageLayout: FC<PageLayoutProps> = ({
   mainClassName,
   ...props
 }) => (
-  <RootHTMLLayout locale={locale} className={className}>
-    <AppProviders locale={locale}>
-      <PageContentLayout {...props} className={mainClassName}>
-        <FirstConsultationProvider>{children}</FirstConsultationProvider>
-      </PageContentLayout>
-    </AppProviders>
-  </RootHTMLLayout>
+  <IntlayerClientProvider locale={locale}>
+    <IntlayerMarkdownProvider>
+      <RootHTMLLayout locale={locale} className={className}>
+        <ThemeProvider>
+          <PageContentLayout {...props} className={mainClassName}>
+            {children}
+          </PageContentLayout>
+        </ThemeProvider>
+      </RootHTMLLayout>
+    </IntlayerMarkdownProvider>
+  </IntlayerClientProvider>
 );

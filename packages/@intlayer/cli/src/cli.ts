@@ -635,6 +635,7 @@ export const setAPI = (): Command => {
     );
 
   applyOptions(liveCmd, liveOptions);
+  applyConfigOptions(liveCmd);
 
   liveCmd.action((options) => liveSync(options));
 

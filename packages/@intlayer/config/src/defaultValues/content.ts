@@ -44,4 +44,6 @@ export const REACT_INTL_MESSAGES_DIR = 'intl_messages';
 
 export const CONFIG_DIR = '.intlayer/config';
 
+export const CACHE_DIR = '.intlayer/cache';
+
 export const WATCH = process.env.NODE_ENV === 'development';

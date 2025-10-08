@@ -6,6 +6,7 @@ import {
   TRAVERSE_PATTERN,
 } from '../defaultValues/build';
 import {
+  CACHE_DIR,
   CONFIG_DIR,
   CONTENT_DIR,
   DICTIONARIES_DIR,
@@ -458,6 +459,16 @@ const buildContentFields = (
       notDerivedContentConfig.baseDir,
 
       customConfiguration?.configDir ?? CONFIG_DIR
+    ),
+
+    /**
+     * Directory where the cache files are stored, relative to the result directory
+     *
+     * Default: .intlayer/cache
+     */
+    cacheDir: join(
+      notDerivedContentConfig.baseDir,
+      customConfiguration?.cacheDir ?? CACHE_DIR
     ),
   };
 

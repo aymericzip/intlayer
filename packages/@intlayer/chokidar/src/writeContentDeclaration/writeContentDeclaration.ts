@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
 import { getConfiguration } from '@intlayer/config';
 import type { IntlayerConfig, LocalesValues } from '@intlayer/config/client';
@@ -218,4 +218,8 @@ const writeFileWithDirectories = async (
   }
 
   await writeJSFile(filePath, dictionary, configuration);
+
+  // remove the cache as content has changed
+  // Will force a new preparation of the intlayer on next build
+  await rm(configuration.content.cacheDir, { recursive: true });
 };

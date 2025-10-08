@@ -2,6 +2,7 @@
   "name": "astro-react-app",
   "version": "0.0.1",
   "type": "module",
+  "private": true,
   "scripts": {
     "astro": "astro",
     "build": "astro build",

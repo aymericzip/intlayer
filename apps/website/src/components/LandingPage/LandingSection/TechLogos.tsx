@@ -2,6 +2,7 @@ import { Link } from '@components/Link/Link';
 import { cn } from '@utils/cn';
 import type { FC, SVGProps } from 'react';
 import { PagesRoutes } from '@/Routes';
+import { AstroLogo } from '../AvailableTechnoSection/Astro';
 import { ExpressLogo } from '../AvailableTechnoSection/Express';
 import { LynxLogo } from '../AvailableTechnoSection/Lynx';
 import { NestJSLogo } from '../AvailableTechnoSection/NestJS';
@@ -15,17 +16,26 @@ import { VuejsLogo } from '../AvailableTechnoSection/Vuejs';
 
 // import { SolidLogo } from '../AvailableTechnoSection/Solid';
 // import { AngularLogo } from '../AvailableTechnoSection/Angular';
-// import { SolidLogo } from '../AvailableTechnoSection/Solid';
 // import { SvelteLogo } from '../AvailableTechnoSection/Svelte';
 
 // Animated Technology logos
 const logos = [
-  { Logo: ReactLogo, key: 'react', route: PagesRoutes.Doc_Environment_CRA },
+  {
+    Logo: ExpressLogo,
+    key: 'express',
+    route: PagesRoutes.Doc_Environment_Express,
+  },
+  {
+    Logo: NestJSLogo,
+    key: 'nestjs',
+    route: PagesRoutes.Doc_Environment_NestJS,
+  },
   {
     Logo: NextJSLogo,
     key: 'nextjs',
     route: PagesRoutes.Doc_Environment_NextJS_15,
   },
+  { Logo: ReactLogo, key: 'react', route: PagesRoutes.Doc_Environment_CRA },
   {
     Logo: PreactLogo,
     key: 'preact',
@@ -46,27 +56,17 @@ const logos = [
     key: 'vite',
     route: PagesRoutes.Doc_Environment_ViteAndReact,
   },
+  { Logo: AstroLogo, key: 'astro', route: PagesRoutes.Doc_Environment_Astro },
   {
     Logo: TanstackLogo,
     key: 'tanstack',
     route: PagesRoutes.Doc_Environment_Tanstack,
   },
   {
-    Logo: ExpressLogo,
-    key: 'express',
-    route: PagesRoutes.Doc_Environment_Express,
-  },
-  {
-    Logo: NestJSLogo,
-    key: 'nestjs',
-    route: PagesRoutes.Doc_Environment_NestJS,
-  },
-  {
     Logo: LynxLogo,
     key: 'lynx',
     route: PagesRoutes.Doc_Intlayer_with_Lynx_and_React,
   },
-  // { Logo: AstroLogo, key: 'astro' , route: PagesRoutes.Doc_Environment_Astro },
   // { Logo: AngularLogo, key: 'angular', route: PagesRoutes.Doc_Environment_Angular },
   // { Logo: SvelteLogo, key: 'svelte', route: PagesRoutes.Doc_Environment_ViteAndSvelte },
   // { Logo: SolidLogo, key: 'solid', route: PagesRoutes.Doc_Environment_ViteAndSolid },

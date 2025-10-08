@@ -105,26 +105,27 @@ const buttonVariants = cva(
       },
       color: {
         [`${ButtonColor.PRIMARY}`]:
-          'text-primary *:text-text-light focus:ring-primary-500',
+          'text-primary *:text-text-light focus:ring-primary-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-primary-500/50',
         [`${ButtonColor.SECONDARY}`]:
-          'text-secondary *:text-text-light focus:ring-secondary-500',
+          'text-secondary *:text-text-light focus:ring-secondary-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-secondary-500/50',
         [`${ButtonColor.DESTRUCTIVE}`]:
-          'text-destructive *:text-text-light focus:ring-destructive-500',
+          'text-destructive *:text-text-light focus:ring-destructive-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-destructive-500/50',
         [`${ButtonColor.NEUTRAL}`]:
-          'text-neutral *:text-text-light focus:ring-neutral-500',
+          'text-neutral *:text-text-light focus:ring-neutral-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-neutral-500/50',
         [`${ButtonColor.LIGHT}`]:
-          'text-white *:text-text-light focus:ring-white/50',
+          'text-white *:text-text-light focus:ring-white/50 aria-[selected=true]:ring-6 aria-[selected=true]:ring-white/50',
         [`${ButtonColor.DARK}`]:
-          'text-neutral-800 *:text-text-light focus:ring-neutral-800/50',
+          'text-neutral-800 *:text-text-light focus:ring-neutral-800/50 aria-[selected=true]:ring-6 aria-[selected=true]:ring-neutral-800/50',
         [`${ButtonColor.TEXT}`]:
-          'text-text *:text-text-opposite focus:ring-neutral-500',
+          'text-text *:text-text-opposite focus:ring-neutral-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-neutral-500/50',
         [`${ButtonColor.TEXT_INVERSE}`]:
-          'text-text-opposite *:text-text focus:ring-neutral-500',
+          'text-text-opposite *:text-text focus:ring-neutral-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-neutral-500/50',
         [`${ButtonColor.ERROR}`]:
-          'text-error *:text-text-light focus:ring-error/50',
+          'text-error *:text-text-light focus:ring-error/50 aria-[selected=true]:ring-6 aria-[selected=true]:ring-error/50',
         [`${ButtonColor.SUCCESS}`]:
-          'text-success *:text-text-light focus:ring-success/50',
-        [`${ButtonColor.CUSTOM}`]: 'focus:ring-primary-500',
+          'text-success *:text-text-light focus:ring-success/50 aria-[selected=true]:ring-6 aria-[selected=true]:ring-success/50',
+        [`${ButtonColor.CUSTOM}`]:
+          'focus:ring-primary-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-primary-500/50',
       },
       variant: {
         [`${ButtonVariant.DEFAULT}`]:
@@ -219,6 +220,11 @@ export type ButtonProps = DetailedHTMLProps<
     isActive?: boolean;
 
     /**
+     * Marks the button as selected
+     */
+    isSelected?: boolean;
+
+    /**
      * Makes the button span the full width of its container
      */
     isFullWidth?: boolean;
@@ -300,6 +306,7 @@ export const Button: FC<ButtonProps> = ({
   iconClassName,
   isLoading = false,
   isActive = false,
+  isSelected = false,
   isFullWidth = false,
   textAlign,
   disabled,
@@ -310,6 +317,7 @@ export const Button: FC<ButtonProps> = ({
   'aria-expanded': ariaExpanded,
   'aria-haspopup': ariaHasPopup,
   'aria-pressed': ariaPressed,
+
   ...props
 }) => {
   const isLink =
@@ -326,6 +334,7 @@ export const Button: FC<ButtonProps> = ({
     'aria-busy': isLoading,
     'aria-current': (isActive ? 'page' : undefined) as 'page' | undefined,
     'aria-disabled': disabled || isLoading,
+    'aria-selected': isSelected,
   };
 
   return (

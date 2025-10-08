@@ -13,6 +13,7 @@ const DOC_PATTERN: string[] = [
   './docs/en/**/configuration.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
+  '**/_*',
   '**/node_modules/**',
   '**/dist/**',
   '**/src/**',

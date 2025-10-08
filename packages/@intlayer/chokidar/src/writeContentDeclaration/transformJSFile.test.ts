@@ -18,18 +18,22 @@ import { transformJSFile } from './transformJSFile';
 // Compute absolute path to the test content file
 const testFilePath = resolve(
   process.cwd(),
-  'src/writeContentDeclaration/test.content.test.ts'
+  'src/writeContentDeclaration/_test.content.ts'
 );
 
 // Inject globals required by `file()` before importing the content module
 (globalThis as any).intlayer_file_path = testFilePath;
 (globalThis as any).intlayer_file_dir = dirname(testFilePath);
 
+// Also set them as global variables for direct access
+(global as any).intlayer_file_path = testFilePath;
+(global as any).intlayer_file_dir = dirname(testFilePath);
+
 // Read the file contents as string for the transform
 const initialFileContentString = await readFile(testFilePath, 'utf-8');
 
 // Import after globals are set so `file()` can resolve paths
-const { default: initialFileContent } = await import('./test.content.test');
+const { default: initialFileContent } = await import('./_test.content');
 
 describe('transformJSFile', () => {
   it('should not change the file if the dictionary is the same', async () => {
