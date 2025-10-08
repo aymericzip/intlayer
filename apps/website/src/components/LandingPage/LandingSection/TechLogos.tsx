@@ -16,17 +16,26 @@ import { VuejsLogo } from '../AvailableTechnoSection/Vuejs';
 
 // import { SolidLogo } from '../AvailableTechnoSection/Solid';
 // import { AngularLogo } from '../AvailableTechnoSection/Angular';
-// import { SolidLogo } from '../AvailableTechnoSection/Solid';
 // import { SvelteLogo } from '../AvailableTechnoSection/Svelte';
 
 // Animated Technology logos
 const logos = [
-  { Logo: ReactLogo, key: 'react', route: PagesRoutes.Doc_Environment_CRA },
+  {
+    Logo: ExpressLogo,
+    key: 'express',
+    route: PagesRoutes.Doc_Environment_Express,
+  },
+  {
+    Logo: NestJSLogo,
+    key: 'nestjs',
+    route: PagesRoutes.Doc_Environment_NestJS,
+  },
   {
     Logo: NextJSLogo,
     key: 'nextjs',
     route: PagesRoutes.Doc_Environment_NextJS_15,
   },
+  { Logo: ReactLogo, key: 'react', route: PagesRoutes.Doc_Environment_CRA },
   {
     Logo: PreactLogo,
     key: 'preact',
@@ -52,16 +61,6 @@ const logos = [
     Logo: TanstackLogo,
     key: 'tanstack',
     route: PagesRoutes.Doc_Environment_Tanstack,
-  },
-  {
-    Logo: ExpressLogo,
-    key: 'express',
-    route: PagesRoutes.Doc_Environment_Express,
-  },
-  {
-    Logo: NestJSLogo,
-    key: 'nestjs',
-    route: PagesRoutes.Doc_Environment_NestJS,
   },
   {
     Logo: LynxLogo,
