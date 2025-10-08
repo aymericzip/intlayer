@@ -46,7 +46,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,
@@ -255,26 +254,6 @@ const content = getContent(
 - **node**: Il nodo di contenuto da trasformare
 - **nodeProps**: Proprietà per il contesto di trasformazione
 - **locale**: Localizzazione opzionale (predefinita alla localizzazione predefinita configurata)
-
-### `getLocalizedContent(node, locale, nodeProps, fallback?)`
-
-Trasforma un nodo di contenuto utilizzando solo il plugin di traduzione:
-
-```ts
-import { getLocalizedContent } from "intlayer";
-
-const content = getLocalizedContent(
-  contentNode,
-  "fr",
-  { dictionaryKey: "common" },
-  true // fallback alla localizzazione predefinita se la traduzione manca
-);
-```
-
-- **node**: Il nodo di contenuto da trasformare
-- **locale**: La localizzazione da usare per la traduzione
-- **nodeProps**: Proprietà per il contesto di trasformazione
-- **fallback**: Se effettuare il fallback alla lingua predefinita (default è false)
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -507,7 +486,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,

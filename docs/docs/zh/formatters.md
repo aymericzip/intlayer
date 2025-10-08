@@ -46,7 +46,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,
@@ -255,26 +254,6 @@ const content = getContent(
 - **node**：要转换的内容节点
 - **nodeProps**：转换上下文的属性
 - **locale**：可选的语言环境（默认为配置的默认语言环境）
-
-### `getLocalizedContent(node, locale, nodeProps, fallback?)`
-
-仅使用翻译插件转换内容节点：
-
-```ts
-import { getLocalizedContent } from "intlayer";
-
-const content = getLocalizedContent(
-  contentNode,
-  "fr",
-  { dictionaryKey: "common" },
-  true // 如果缺少翻译则回退到默认语言环境
-);
-```
-
-- **node**：要转换的内容节点
-- **locale**：用于翻译的语言环境
-- **nodeProps**：转换上下文的属性
-- **fallback**：是否回退到默认语言环境（默认为 false）
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -507,7 +486,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,

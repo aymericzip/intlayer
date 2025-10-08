@@ -46,7 +46,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,
@@ -255,26 +254,6 @@ const content = getContent(
 - **node**: 変換するコンテンツノード
 - **nodeProps**: 変換コンテキストのプロパティ
 - **locale**: オプションのロケール（デフォルトは設定されたデフォルトロケール）
-
-### `getLocalizedContent(node, locale, nodeProps, fallback?)`
-
-翻訳プラグインのみを使ってコンテンツノードを変換します：
-
-```ts
-import { getLocalizedContent } from "intlayer";
-
-const content = getLocalizedContent(
-  contentNode,
-  "fr",
-  { dictionaryKey: "common" },
-  true // 翻訳がない場合はデフォルトロケールにフォールバック
-);
-```
-
-- **node**: 変換するコンテンツノード
-- **locale**: 翻訳に使用するロケール
-- **nodeProps**: 変換コンテキストのプロパティ
-- **fallback**: デフォルトロケールにフォールバックするかどうか（デフォルトは false）
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -507,7 +486,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,

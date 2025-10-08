@@ -46,7 +46,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,
@@ -260,26 +259,6 @@ const content = getContent(
 - **node**: परिवर्तित करने के लिए सामग्री नोड
 - **nodeProps**: रूपांतरण संदर्भ के लिए गुण
 - **locale**: वैकल्पिक लोकल (डिफ़ॉल्ट रूप से कॉन्फ़िगर किए गए डिफ़ॉल्ट लोकल)
-
-### `getLocalizedContent(node, locale, nodeProps, fallback?)`
-
-केवल अनुवाद प्लगइन के साथ सामग्री नोड को परिवर्तित करता है:
-
-```ts
-import { getLocalizedContent } from "intlayer";
-
-const content = getLocalizedContent(
-  contentNode,
-  "fr",
-  { dictionaryKey: "common" },
-  true // यदि अनुवाद गायब हो तो डिफ़ॉल्ट लोकल पर वापस जाएं
-);
-```
-
-- **node**: परिवर्तित करने के लिए सामग्री नोड
-- **locale**: अनुवाद के लिए उपयोग किया जाने वाला लोकल
-- **nodeProps**: रूपांतरण संदर्भ के लिए गुण
-- **fallback**: क्या डिफ़ॉल्ट लोकल पर वापस जाना है (डिफ़ॉल्ट रूप से false)
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -512,7 +491,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,

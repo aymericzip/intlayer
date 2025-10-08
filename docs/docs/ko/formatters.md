@@ -46,7 +46,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,
@@ -255,26 +254,6 @@ const content = getContent(
 - **node**: 변환할 콘텐츠 노드
 - **nodeProps**: 변환 컨텍스트를 위한 속성
 - **locale**: 선택적 로케일 (기본값은 구성된 기본 로케일)
-
-### `getLocalizedContent(node, locale, nodeProps, fallback?)`
-
-번역 플러그인만 사용하여 콘텐츠 노드를 변환합니다:
-
-```ts
-import { getLocalizedContent } from "intlayer";
-
-const content = getLocalizedContent(
-  contentNode,
-  "fr",
-  { dictionaryKey: "common" },
-  true // 번역이 없을 경우 기본 로케일로 대체
-);
-```
-
-- **node**: 변환할 콘텐츠 노드
-- **locale**: 번역에 사용할 로케일
-- **nodeProps**: 변환 컨텍스트를 위한 속성
-- **fallback**: 기본 로케일로 대체할지 여부 (기본값은 false)
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -507,7 +486,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,

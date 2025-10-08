@@ -46,7 +46,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,
@@ -255,26 +254,6 @@ const content = getContent(
 - **node**: Dönüştürülecek içerik düğümü
 - **nodeProps**: Dönüşüm bağlamı için özellikler
 - **locale**: İsteğe bağlı yerel ayar (varsayılan olarak yapılandırılmış varsayılan yerel ayar)
-
-### `getLocalizedContent(node, locale, nodeProps, fallback?)`
-
-Bir içerik düğümünü sadece çeviri eklentisiyle dönüştürür:
-
-```ts
-import { getLocalizedContent } from "intlayer";
-
-const content = getLocalizedContent(
-  contentNode,
-  "fr",
-  { dictionaryKey: "common" },
-  true // çeviri eksikse varsayılan yerel ayara geri dön
-);
-```
-
-- **node**: Dönüştürülecek içerik düğümü
-- **locale**: Çeviri için kullanılacak yerel ayar
-- **nodeProps**: Dönüşüm bağlamı için özellikler
-- **fallback**: Varsayılan yerel ayara geri dönülüp dönülmeyeceği (varsayılan olarak false)
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -507,7 +486,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,

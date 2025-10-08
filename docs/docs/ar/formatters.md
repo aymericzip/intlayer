@@ -46,7 +46,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,
@@ -255,26 +254,6 @@ const content = getContent(
 - **node**: عقدة المحتوى التي سيتم تحويلها
 - **nodeProps**: خصائص سياق التحويل
 - **locale**: اللغة الاختيارية (افتراضيًا إلى اللغة الافتراضية المُعدة)
-
-### `getLocalizedContent(node, locale, nodeProps, fallback?)`
-
-يقوم بتحويل عقدة المحتوى باستخدام إضافة الترجمة فقط:
-
-```ts
-import { getLocalizedContent } from "intlayer";
-
-const content = getLocalizedContent(
-  contentNode,
-  "fr",
-  { dictionaryKey: "common" },
-  true // الرجوع إلى اللغة الافتراضية إذا لم تتوفر الترجمة
-);
-```
-
-- **node**: عقدة المحتوى التي سيتم تحويلها
-- **locale**: اللغة المستخدمة للترجمة
-- **nodeProps**: خصائص سياق التحويل
-- **fallback**: ما إذا كان يجب الرجوع إلى اللغة الافتراضية (الافتراضي هو false)
 
 ### `getTranslation(languageContent, locale?, fallback?)`
 
@@ -507,7 +486,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,

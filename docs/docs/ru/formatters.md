@@ -46,7 +46,6 @@ import {
   getLocalizedUrl,
   getHTMLTextDir,
   getContent,
-  getLocalizedContent,
   getTranslation,
   getIntlayer,
   getIntlayerAsync,
@@ -256,26 +255,6 @@ const content = getContent(
 - **nodeProps**: Свойства для контекста преобразования
 - **locale**: Необязательная локаль (по умолчанию используется настроенная локаль по умолчанию)
 
-### `getLocalizedContent(node, locale, nodeProps, fallback?)`
-
-Преобразует узел контента, используя только плагин перевода:
-
-```ts
-import { getLocalizedContent } from "intlayer";
-
-const content = getLocalizedContent(
-  contentNode,
-  "fr",
-  { dictionaryKey: "common" },
-  true // возврат к локали по умолчанию, если перевод отсутствует
-);
-```
-
-- **node**: Узел контента для преобразования
-- **locale**: Локаль, используемая для перевода
-- **nodeProps**: Свойства для контекста преобразования
-- **fallback**: Использовать ли резервный вариант с локалью по умолчанию (по умолчанию false)
-
 ### `getTranslation(languageContent, locale?, fallback?)`
 
 Извлекает контент для конкретной локали из объекта с языковым содержимым:
@@ -477,45 +456,6 @@ list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 ```
 
-## Заметки
-
-/// Все вспомогательные функции принимают входные данные в виде `string`; они внутренне приводятся к числам или датам.
-/// Локаль по умолчанию берется из вашей настройки `internationalization.defaultLocale`, если не указана явно.
-/// Эти утилиты являются тонкими обертками; для расширенного форматирования используйте стандартные опции `Intl`.
-///
-/// ## Точки входа и реэкспорты (`@index.ts`)
-///
-/// Форматтеры находятся в основном пакете и реэкспортируются из пакетов более высокого уровня для удобства импорта в разных средах выполнения:
-///
-/// Примеры:
-///
-/// ```ts
-/// // Код приложения (рекомендуется)
-/// import {
-/// number,
-/// currency,
-/// date,
-/// relativeTime,
-/// units,
-/// compact,
-/// list,
-/// Intl,
-/// getLocaleName,
-/// getLocaleLang,
-/// getLocaleFromPath,
-/// getPathWithoutLocale,
-/// getLocalizedUrl,
-/// getHTMLTextDir,
-/// getContent,
-/// getLocalizedContent,
-/// getTranslation,
-/// getIntlayer,
-/// getIntlayerAsync,
-///
-} from "intlayer";
-
-````
-
 ### React
 
 Клиентские компоненты:
@@ -566,7 +506,7 @@ const MyComponent = () => {
     </div>
   );
 };
-````
+```
 
 Серверные компоненты (или React Server runtime):
 
