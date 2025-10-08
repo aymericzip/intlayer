@@ -1,33 +1,57 @@
-import { colorizeKey, getAppLogger } from '@intlayer/config';
+import {
+  colorizeKey,
+  colorizeLocales,
+  getAppLogger,
+  type Locales,
+} from '@intlayer/config';
 import configuration from '@intlayer/config/built';
-import { type Dictionary, getNodeType } from '@intlayer/core';
+import {
+  type Dictionary,
+  getNodeType,
+  getPerLocaleDictionary,
+  type LocalDictionaryId,
+  t,
+} from '@intlayer/core';
 import merge, { type Options } from 'deepmerge';
 import { orderDictionaries } from './orderDictionaries';
 
 const checkTypesMatch = (
   obj1: any,
   obj2: any,
+  obj2LocalId: LocalDictionaryId | undefined,
   dictionaryKey: string,
-  path: string[] = []
+  path: string[] = [],
+  locale: Locales
 ): void => {
   const appLogger = getAppLogger(configuration);
-  const type1 = getNodeType(obj1);
-  const type2 = getNodeType(obj2);
+  const type1 = getNodeType(obj1.object);
+  const type2 = getNodeType(obj2.object);
 
   if (type1 !== type2) {
     appLogger(
-      `Error: Dictionary ${colorizeKey(dictionaryKey)} has a multiple content files with type mismatch at path "${path.join('.')}": Cannot merge ${type1} with ${type2}`,
+      [
+        `Error: Dictionary ${colorizeKey(dictionaryKey)} ${colorizeLocales(locale)} has a multiple content files with type mismatch at path "${path.join('.')}": Cannot merge ${type1} with ${type2} while merging ${obj2LocalId}`,
+      ],
       {
         level: 'error',
       }
     );
+
+    console.dir({ obj1, obj2 }, { depth: null, colors: true });
   }
 
   if (type1 === 'object' && obj1 && obj2) {
     const allKeys = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
     for (const key of allKeys) {
       if (key in obj1 && key in obj2) {
-        checkTypesMatch(obj1[key], obj2[key], dictionaryKey, [...path, key]);
+        checkTypesMatch(
+          obj1[key],
+          obj2[key],
+          obj2LocalId,
+          dictionaryKey,
+          [...path, key],
+          locale
+        );
       }
     }
   }
@@ -103,26 +127,28 @@ const arrayMerge = (destinationArray: any[], sourceArray: any[]): any[] => {
   return result;
 };
 
-export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
-  // Order dictionaries based on priority strategy
-  const orderedDictionaries = orderDictionaries(dictionaries, configuration);
-
-  let mergedContent: Dictionary['content'] = orderedDictionaries[0].content;
+export const mergeSameLocaleDictionaries = (
+  dictionaries: Dictionary[],
+  locale: Locales
+): Dictionary['content'] => {
+  let mergedContent: Dictionary['content'] = dictionaries[0].content;
 
   // Configure deepmerge options with custom array merge strategy
   const mergeOptions: Options = {
     arrayMerge,
   };
 
-  for (let i = 1; i < orderedDictionaries.length; i++) {
-    const currentDictionary = orderedDictionaries[i];
+  for (let i = 1; i < dictionaries.length; i++) {
+    const currentDictionary = dictionaries[i];
 
     // Check types before merging
     checkTypesMatch(
       mergedContent,
       currentDictionary.content,
+      currentDictionary.localId,
       currentDictionary.key,
-      []
+      [],
+      locale
     );
 
     mergedContent = merge(
@@ -132,11 +158,53 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
     );
   }
 
+  return mergedContent;
+};
+
+export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
+  // Order dictionaries based on priority strategy
+  const orderedDictionaries = orderDictionaries(dictionaries, configuration);
+
+  // First iterate per locale to avoid merge conflicts between per locale field and multi locale field
+  const { locales, defaultLocale } = configuration.internationalization;
+
+  const perLocaleDictionariesContent: Record<Locales, Dictionary['content']> =
+    locales.reduce(
+      (acc, locale) => {
+        const perLocaleDictionaries: Dictionary[] = orderedDictionaries.map(
+          (dictionary) => {
+            // Parse to remove react Symbol
+            const parsedDictionary = JSON.parse(JSON.stringify(dictionary));
+
+            return getPerLocaleDictionary(
+              parsedDictionary,
+              locale,
+              defaultLocale
+            );
+          }
+        );
+
+        // @ts-ignore Type instantiation is excessively deep and possibly infinite
+        acc[locale] = mergeSameLocaleDictionaries(
+          perLocaleDictionaries,
+          locale
+        );
+        return acc;
+      },
+      {} as Record<Locales, Dictionary['content']>
+    );
+
+  const localIds = Array.from(
+    new Set<LocalDictionaryId>(
+      dictionaries.filter((dict) => dict.localId).map((dict) => dict.localId!)
+    )
+  );
+
+  // @ts-ignore Type instantiation is excessively deep and possibly infinite
   return {
-    key: orderedDictionaries[0].key,
-    content: mergedContent,
-    localIds: dictionaries
-      .filter((dict) => dict.localId)
-      .map((dict) => dict.localId!),
+    ...dictionaries[0],
+    locale: undefined,
+    content: t(perLocaleDictionariesContent),
+    localIds,
   };
 };

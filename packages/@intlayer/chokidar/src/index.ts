@@ -33,13 +33,17 @@ export {
 } from './loadDictionaries';
 export { mergeDictionaries } from './mergeDictionaries';
 export { prepareIntlayer } from './prepareIntlayer';
-export { processPerLocaleDictionary } from './processPerLocaleDictionary';
 export { reduceDictionaryContent } from './reduceDictionaryContent/reduceDictionaryContent';
-export { assembleJSON, chunkJSON, type JsonChunk } from './utils/chunkJSON';
+export {
+  assembleJSON,
+  chunkJSON,
+  type JSONObject,
+  type JsonChunk,
+} from './utils/chunkJSON';
 export { extractErrorMessage } from './utils/extractErrorMessage';
 export { formatLocale, formatPath } from './utils/formatter';
 export { getChunk } from './utils/getChunk';
-export { getExtension } from './utils/getExtention';
+export { getExtension } from './utils/getExtension';
 export { getFileHash } from './utils/getFileHash';
 export {
   type Extension,

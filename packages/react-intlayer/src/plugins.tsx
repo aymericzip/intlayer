@@ -65,7 +65,7 @@ export const reactNodePlugins: Plugins = {
   id: 'react-node-plugin',
   canHandle: (node) =>
     typeof node === 'object' &&
-    typeof node.props !== 'undefined' &&
+    typeof node?.props !== 'undefined' &&
     typeof node.key !== 'undefined',
 
   transform: (

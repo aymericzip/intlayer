@@ -3,7 +3,6 @@ import { resolve } from 'node:path';
 import { colorizePath, getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { mergeDictionaries } from '../mergeDictionaries';
-import { processPerLocaleDictionary } from '../processPerLocaleDictionary';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 import type { UnmergedDictionaryOutput } from './writeUnmergedDictionary';
@@ -50,11 +49,9 @@ export const writeMergedDictionaries = async (
         ];
       }
 
-      const multiLocaleDictionaries = dictionariesEntry.dictionaries.map(
-        (dictionary) => processPerLocaleDictionary(dictionary)
+      const mergedDictionary = mergeDictionaries(
+        dictionariesEntry.dictionaries
       );
-
-      const mergedDictionary = mergeDictionaries(multiLocaleDictionaries);
 
       const outputFileName = `${key}.json`;
       const resultFilePath = resolve(dictionariesDir, outputFileName);

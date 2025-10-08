@@ -6,7 +6,7 @@ import {
   type Plugins,
   translationPlugin,
 } from '../interpreter/getContent/plugins';
-import type { ContentNode } from '../types';
+import type { ContentNode, Dictionary } from '../types';
 
 /**
  * Transforms a node in a single pass, applying each plugin as needed.
@@ -35,3 +35,26 @@ export const getLocalizedContent = <
     plugins,
   }) as DeepTransformContent<T>;
 };
+
+export const getPerLocaleDictionary = <
+  T extends Dictionary,
+  L extends LocalesValues = Locales,
+>(
+  dictionary: T,
+  locale: L,
+  fallback?: LocalesValues
+) => ({
+  ...dictionary,
+  locale,
+  // @ts-ignore Type instantiation is excessively deep and possibly infinite
+  content: getLocalizedContent(
+    dictionary.content,
+    locale,
+    {
+      dictionaryKey: dictionary.key,
+      keyPath: [],
+      plugins: [],
+    },
+    fallback
+  ) as any as DeepTransformContent<T['content']>,
+});

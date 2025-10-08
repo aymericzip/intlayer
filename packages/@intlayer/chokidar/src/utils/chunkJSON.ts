@@ -10,9 +10,11 @@ import { getChunk } from './getChunk';
 
 type JSONPrimitive = string | number | boolean | null;
 type JSONValue = JSONPrimitive | JSONObject | JSONArray;
-interface JSONObject {
+
+export type JSONObject = {
   [k: string]: JSONValue;
-}
+};
+
 type JSONArray = JSONValue[];
 
 type Path = Array<string | number>;

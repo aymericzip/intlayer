@@ -6,7 +6,7 @@ import {
   type Locales,
   normalizePath,
 } from '@intlayer/config';
-import { type Dictionary, getLocalizedContent } from '@intlayer/core';
+import { type Dictionary, getPerLocaleDictionary } from '@intlayer/core';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
@@ -104,20 +104,14 @@ export const writeDynamicDictionary = async (
     async ([key, dictionaryEntry]) => {
       if (key === 'undefined') return;
 
-      const localedDictionariesPathsRecord: LocalizedDictionaryResult = {};
+      const localizedDictionariesPathsRecord: LocalizedDictionaryResult = {};
 
       await parallelize(locales, async (locale) => {
-        const localizedDictionary = {
-          ...dictionaryEntry.dictionary,
+        const localizedDictionary = getPerLocaleDictionary(
+          dictionaryEntry.dictionary,
           locale,
-          // @ts-ignore Type instantiation is excessively deep and possibly infinite
-          content: getLocalizedContent(
-            JSON.parse(JSON.stringify(dictionaryEntry.dictionary.content)),
-            locale,
-            { dictionaryKey: key, keyPath: [] },
-            defaultLocale
-          ) as any,
-        };
+          defaultLocale
+        );
 
         const outputFileName = `${key}.${locale}.json`;
         const resultFilePath = resolve(dynamicDictionariesDir, outputFileName);
@@ -129,18 +123,19 @@ export const writeDynamicDictionary = async (
           }
         );
 
-        localedDictionariesPathsRecord[locale] = {
+        // @ts-ignore Type instantiation is excessively deep and possibly infinite
+        localizedDictionariesPathsRecord[locale] = {
           dictionaryPath: resultFilePath,
           dictionary: localizedDictionary,
         };
       });
 
-      resultDictionariesPaths[key] = localedDictionariesPathsRecord;
+      resultDictionariesPaths[key] = localizedDictionariesPathsRecord;
 
       await parallelize(formats, async (format) => {
         const extension = format === 'cjs' ? 'cjs' : 'mjs';
         const content = generateDictionaryEntryPoint(
-          localedDictionariesPathsRecord,
+          localizedDictionariesPathsRecord,
           format,
           configuration
         );

@@ -205,7 +205,8 @@ const validateConcurrency = (concurrency: number): void => {
 
 export const parallelize = async <T, R>(
   items: T[],
-  callback: (item: T) => Promise<R>,
+  callback: (item: T) => Promise<R> = async (item) =>
+    item as unknown as Promise<R>,
   parallelLimit: number = 10
 ): Promise<R[]> => {
   const limit = pLimit(parallelLimit);
