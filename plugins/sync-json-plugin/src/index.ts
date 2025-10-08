@@ -1,5 +1,6 @@
-import { writeFile } from 'node:fs/promises';
-import { isAbsolute, join, relative, resolve } from 'node:path';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
+import { parallelize } from '@intlayer/chokidar';
 import {
   ESMxCJSRequire,
   type IntlayerConfig,
@@ -147,15 +148,47 @@ type SyncJSONPluginOptions = {
    * ```
    */
   source: Builder;
+
   /**
    * Because Intlayer transform the JSON files into Dictionary, we need to identify the plugin in the dictionary.
    * Used to identify the plugin in the dictionary.
+   *
+   * In the case you have multiple plugins, you can use this to identify the plugin in the dictionary.
+   *
+   * ```ts
+   * const config ={
+   *   plugins: [
+   *     syncJSON({
+   *       source: ({ key, locale }) => `./resources/${locale}/${key}.json`
+   *       location: 'plugin-i18next',
+   *     }),
+   *     syncJSON({
+   *       source: ({ key, locale }) => `./messages/${locale}/${key}.json`
+   *       location: 'plugin-next-intl',
+   *     }),
+   *   ]
+   * }
+   * ```
    */
   location?: string;
+
+  /**
+   * The priority of the dictionaries created by the plugin.
+   *
+   * In the case of conflicts with remote dictionaries, or .content files, the dictionary with the highest priority will override the other dictionaries.
+   *
+   * Default is -1. (.content file priority is 0)
+   *
+   */
+  priority?: number;
 };
 
 export const syncJSON = (options: SyncJSONPluginOptions) => {
-  const { location } = { location: 'plugin', ...options };
+  const { location, priority } = {
+    location: 'plugin',
+    priority: 0,
+    ...options,
+  };
 
   return {
     name: 'sync-json',
@@ -197,6 +230,7 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
               : undefined,
           content: json,
           filePath,
+          priority,
         };
 
         dictionaries.push(dictionary);
@@ -205,16 +239,38 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
       return dictionaries;
     },
     afterBuild: async ({ dictionaries, configuration }) => {
-      const dictionariesMap = loadMessagePathMap(options.source, configuration);
-      for (const { locale, path, key } of dictionariesMap) {
-        const updatedDictionary =
-          dictionaries.mergedDictionaries[key].dictionary;
+      // Dynamic import to avoid circular dependency as core package import config, that load esbuild, that load the config file, that load the plugin
+      const { getLocalizedContent } = await import('@intlayer/core');
 
-        // Dynamic import to avoid circular dependency as core package import config, that load esbuild, that load the config file, that load the plugin
-        const { getLocalizedContent } = await import('@intlayer/core');
+      const locales = configuration.internationalization.locales;
+
+      type RecordList = {
+        key: string;
+        dictionary: Dictionary;
+        locale: Locales;
+      };
+
+      const recordList: RecordList[] = Object.entries(
+        dictionaries.mergedDictionaries
+      ).flatMap(([key, dictionary]) =>
+        locales.map((locale) => ({
+          key,
+          dictionary: dictionary.dictionary as Dictionary,
+          locale,
+        }))
+      );
+
+      await parallelize(recordList, async ({ key, dictionary, locale }) => {
+        const builderPath = options.source({
+          key,
+          locale,
+        });
+
+        // Remove function, Symbol, etc. as it can be written as JSON
+        const flatContent = JSON.parse(JSON.stringify(dictionary.content));
 
         const localizedContent = getLocalizedContent(
-          updatedDictionary.content as unknown as ContentNode,
+          flatContent as unknown as ContentNode,
           locale,
           {
             dictionaryKey: key,
@@ -222,14 +278,17 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
           }
         );
 
-        const jsonContent = JSON.stringify(localizedContent, null, 2);
+        // Ensure directory exists before writing the file
+        await mkdir(dirname(builderPath), { recursive: true });
+
+        const stringContent = JSON.stringify(localizedContent, null, 2);
 
         await writeFile(
-          path,
-          `${jsonContent}\n`, // Add a new line at the end of the file to avoid formatting issues with VSCode
+          builderPath,
+          `${stringContent}\n`, // Add a new line at the end of the file to avoid formatting issues with VSCode
           'utf-8'
         );
-      }
+      });
     },
     formatOutput: ({ dictionary }) => {
       if (!dictionary.filePath || !dictionary.locale) return dictionary;

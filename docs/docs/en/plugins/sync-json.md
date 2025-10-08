@@ -97,8 +97,65 @@ API:
 syncJSON({
   source: ({ key, locale }) => string, // required
   location?: string, // optional label, default: "plugin"
+  priority?: number, // optional priority for conflict resolution, default: 0
 });
 ```
+
+## Multiple JSON sources and priority
+
+You can add multiple `syncJSON` plugins to synchronize different JSON sources. This is useful when you have multiple i18n libraries or different JSON structures in your project.
+
+### Priority system
+
+When multiple plugins target the same dictionary key, the `priority` parameter determines which plugin takes precedence:
+
+- Higher priority numbers win over lower ones
+- Default priority of `.content` files is `0`
+- Default priority of plugins content files is `-1`
+- Plugins with the same priority are processed in the order they appear in the configuration
+
+```ts fileName="intlayer.config.ts"
+import { defineConfig, Locales } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
+
+export default defineConfig({
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  plugins: [
+    // Primary JSON source (highest priority)
+    syncJSON({
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+      location: "main-translations",
+      priority: 10,
+    }),
+
+    // Fallback JSON source (lower priority)
+    syncJSON({
+      source: ({ locale }) => `./fallback-locales/${locale}.json`,
+      location: "fallback-translations",
+      priority: 5,
+    }),
+
+    // Legacy JSON source (lowest priority)
+    syncJSON({
+      source: ({ locale }) => `/my/other/app/legacy/${locale}/messages.json`,
+      location: "legacy-translations",
+      priority: 1,
+    }),
+  ],
+});
+```
+
+### Conflict resolution
+
+When the same translation key exists in multiple JSON sources:
+
+1. The plugin with the highest priority determines the final value
+2. Lower priority sources are used as fallbacks for missing keys
+3. This allows you to maintain legacy translations while gradually migrating to new structures
 
 ## Integrations
 
@@ -158,46 +215,17 @@ plugins: [
 ];
 ```
 
-### Others
+## CLI
 
-- next-translate / nuxt-i18n: map to their folder conventions (per‑locale/per‑namespace JSON).
-- LinguiJS / Polyglot.js / Solid‑i18next / svelte‑i18n: point the builder to wherever those tools read JSON from. This plugin synchronizes JSON; advanced formats (PO/ICU/catalog binaries) are out of scope for now.
+The synchronized JSON files will be considered as other `.content` files. That means, all intlayer commands will be available for the synchronized JSON files. Including:
 
-## CLI and CI features
+- `intlayer content test` to test if there are missing translations
+- `intlayer content list` to list the synchronized JSON files
+- `intlayer content fill` to fill the missing translations
+- `intlayer content push` to push the synchronized JSON files
+- `intlayer content pull` to pull the synchronized JSON files
 
-Test for missing translations in CI:
-
-```bash
-npx intlayer content test --build
-```
-
-Auto‑fill only what is missing (default behavior skips existing translations):
-
-```bash
-npx intlayer fill
-```
-
-Translate with your own provider/model/API key:
-
-```bash
-# OpenAI example
-OPENAI_API_KEY=sk-... npx intlayer fill --provider openai --model gpt-4o-mini
-
-# Anthropic example
-ANTHROPIC_API_KEY=sk-... npx intlayer fill --provider anthropic --model claude-3-5-sonnet
-
-# Mistral / DeepSeek examples
-MISTRAL_API_KEY=sk-... npx intlayer fill --provider mistral --model mistral-small
-DEEPSEEK_API_KEY=sk-... npx intlayer fill --provider deepseek --model deepseek-chat
-```
-
-Only translate what changed (use Git diff filters):
-
-```bash
-npx intlayer fill --git-diff --git-diff-base origin/main --git-diff-current HEAD
-```
-
-More options: providers, temperature, locale filters, file/path filters. See `docs/en/intlayer_cli.md`.
+See [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) for more details.
 
 ## Limitations (current)
 
