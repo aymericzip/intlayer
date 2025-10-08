@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-26
+updatedAt: 2025-09-16
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customise Intlayer to your needs.
 keywords:

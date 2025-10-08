@@ -35,7 +35,6 @@ export const DocHeader: FC<DocHeaderProps> = async ({
   const { authorLabel, creationLabel, lastUpdateLabel } =
     useIntlayer('doc-header');
 
-  // Determine if current locale doc is out of date compared to default locale
   const defaultLocale = configuration.internationalization
     .defaultLocale as LocalesValues;
 
@@ -53,9 +52,7 @@ export const DocHeader: FC<DocHeaderProps> = async ({
         isOutdated = baseDate > currentDate && locale !== defaultLocale;
       }
     }
-  } catch {
-    // Silently ignore comparison errors; no warning shown
-  }
+  } catch {}
 
   return (
     <>
