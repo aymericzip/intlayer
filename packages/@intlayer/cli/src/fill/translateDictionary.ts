@@ -5,7 +5,6 @@ import {
   extractErrorMessage,
   formatLocale,
   type JsonChunk,
-  processPerLocaleDictionary,
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
@@ -116,15 +115,13 @@ export const translateDictionary = async (
 
     const reconciliateChunks = assembleJSON(translationsResults as JsonChunk[]);
 
-    const processedPerLocaleDictionary = processPerLocaleDictionary({
-      ...dictionaryToProcess,
-      content: reconciliateChunks,
-      locale: task.targetLocale,
-    });
-
     return {
       key: task.dictionaryKey,
-      result: processedPerLocaleDictionary,
+      result: {
+        ...dictionaryToProcess,
+        content: reconciliateChunks,
+        locale: task.targetLocale,
+      },
     } as const;
   } catch (error) {
     const errorMessage = extractErrorMessage(error);
