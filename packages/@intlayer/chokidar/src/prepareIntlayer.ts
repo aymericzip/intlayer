@@ -23,6 +23,7 @@ type PrepareIntlayerOptions = {
   clean?: boolean;
   format?: ('cjs' | 'esm')[];
   forceRun?: boolean;
+  onIsCached?: () => void | Promise<void>;
 };
 
 const DEFAULT_PREPARE_INTLAYER_OPTIONS = {
@@ -36,7 +37,7 @@ export const prepareIntlayer = async (
   configuration: IntlayerConfig = getConfiguration(),
   options?: PrepareIntlayerOptions
 ) => {
-  const { projectRequire, clean, format, forceRun } = {
+  const { projectRequire, clean, format, forceRun, onIsCached } = {
     ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
     ...(options ?? {}),
   };
@@ -185,6 +186,6 @@ export const prepareIntlayer = async (
         }
       );
     },
-    { onIsCached: () => appLogger('Intlayer prepared'), forceRun }
+    { forceRun, onIsCached }
   );
 };
