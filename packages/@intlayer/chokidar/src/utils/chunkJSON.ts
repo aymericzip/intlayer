@@ -6,6 +6,8 @@
  * - Protects against circular structures (JSON can't serialize those anyway).
  */
 
+import { getChunk } from './getChunk';
+
 type JSONPrimitive = string | number | boolean | null;
 type JSONValue = JSONPrimitive | JSONObject | JSONArray;
 interface JSONObject {
@@ -82,8 +84,6 @@ const pathKey = (path: Path): string => {
   // stable key for grouping string parts
   return JSON.stringify(path);
 };
-
-import { getChunk } from './getChunk';
 
 /**
  * Split a string into parts using getChunk with a charLength budget per part.
