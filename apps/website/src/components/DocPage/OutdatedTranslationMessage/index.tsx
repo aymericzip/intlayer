@@ -10,21 +10,18 @@ import type { FC } from 'react';
 type OutdatedTranslationMessageProps = {
   pageUrl: string;
   baseUpdatedAt: string;
-  defaultLocale: string;
 };
 
 export const OutdatedTranslationMessage: FC<
   OutdatedTranslationMessageProps
-> = ({ pageUrl, baseUpdatedAt, defaultLocale }) => {
+> = ({ pageUrl, baseUpdatedAt }) => {
   const { setLocaleCookie } = useLocaleCookie();
-  const { locale } = useLocale();
-  const { message, link } = (useIntlayer as any)(
-    'outdated-translation-message'
-  ) as any;
+  const { locale, defaultLocale } = useLocale();
+  const { message, link } = useIntlayer('outdated-translation-message');
 
-  if (locale === (defaultLocale as any)) return <></>;
+  if (locale === defaultLocale) return <></>;
 
-  const localizedUrl = getLocalizedUrl(pageUrl, defaultLocale as any);
+  const localizedUrl = getLocalizedUrl(pageUrl, defaultLocale);
 
   return (
     <Popover identifier="outdated-translation">
@@ -42,10 +39,10 @@ export const OutdatedTranslationMessage: FC<
         </p>
         <Link
           href={localizedUrl}
-          locale={defaultLocale as any}
+          locale={defaultLocale}
           label={link.label.value}
           color="text"
-          onClick={() => setLocaleCookie(defaultLocale as any)}
+          onClick={() => setLocaleCookie(defaultLocale)}
         >
           {link.content}
         </Link>

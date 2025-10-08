@@ -1,7 +1,6 @@
 import { Container } from '@intlayer/design-system';
 import type { DocMetadata } from '@intlayer/docs';
-import type { LocalesValues } from 'intlayer';
-import { useIntlayer } from 'next-intlayer/server';
+import { useIntlayer, useLocale } from 'next-intlayer/server';
 import type { FC } from 'react';
 import { ApplicationTemplateMessage } from '../ApplicationTemplateMessage';
 import { ContributionMessage } from '../ContributionMessage';
@@ -13,9 +12,7 @@ import { TranslatedContentMessage } from '../TranslatedContentMessage';
 import { YoutubeVideoMessage } from '../YoutubeVideoMessage';
 
 type DocHeaderProps = DocMetadata & {
-  locale: LocalesValues;
   markdownContent: string;
-  defaultLocale: LocalesValues;
   baseUpdatedAt?: string;
 };
 
@@ -27,13 +24,11 @@ export const DocHeader: FC<DocHeaderProps> = ({
   relativeUrl,
   markdownContent,
   githubUrl,
-  locale,
   youtubeVideo,
   applicationTemplate,
-  docKey,
   baseUpdatedAt,
-  defaultLocale,
 }) => {
+  const { locale } = useLocale();
   const { authorLabel, creationLabel, lastUpdateLabel } =
     useIntlayer('doc-header');
 
@@ -91,7 +86,6 @@ export const DocHeader: FC<DocHeaderProps> = ({
               <OutdatedTranslationMessage
                 pageUrl={relativeUrl}
                 baseUpdatedAt={baseUpdatedAt as string}
-                defaultLocale={defaultLocale}
               />
             )}
             <TranslatedContentMessage pageUrl={relativeUrl} />

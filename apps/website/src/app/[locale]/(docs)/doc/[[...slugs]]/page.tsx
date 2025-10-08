@@ -5,7 +5,6 @@ import {
 } from '@components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { getPreviousNextDocMetadata } from '@components/DocPage/docData';
-import configuration from '@intlayer/config/built';
 import {
   type DocKey,
   getDoc,
@@ -40,6 +39,7 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
     docData.docKey as DocKey,
     locale
   );
+  const defaultDocData = await getDocMetadata(docData.docKey as DocKey);
 
   const file = await getDoc(docData?.docKey as DocKey, locale);
 
@@ -58,14 +58,6 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
       }
     : undefined;
 
-  const defaultLocale = configuration.internationalization.defaultLocale;
-
-  const baseUpdatedAt =
-    defaultLocale === locale
-      ? docData.updatedAt
-      : (await getDocMetadata(docData.docKey as DocKey, defaultLocale as any))
-          ?.updatedAt;
-
   return (
     <IntlayerServerProvider locale={locale}>
       <CreativeWorkHeader
@@ -80,9 +72,7 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
       <DocHeader
         {...docData}
         markdownContent={docContent}
-        locale={locale}
-        defaultLocale={defaultLocale as any}
-        baseUpdatedAt={baseUpdatedAt}
+        baseUpdatedAt={defaultDocData.updatedAt}
       />
 
       <DocumentationRender>{docContent}</DocumentationRender>
