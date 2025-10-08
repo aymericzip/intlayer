@@ -111,6 +111,14 @@
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
   },
+  "peerDependencies": {
+    "react": ">=16.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": ">=14.18"
   },

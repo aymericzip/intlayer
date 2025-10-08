@@ -72,6 +72,7 @@
   "dependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/chokidar": "workspace:*",
     "fast-glob": "^3.3.3"
   },
   "devDependencies": {
