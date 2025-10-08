@@ -58,16 +58,13 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
       }
     : undefined;
 
-  // Prepare default-locale metadata for out-of-date check
   const defaultLocale = configuration.internationalization.defaultLocale;
-  let baseUpdatedAt: string | undefined;
-  try {
-    const baseMeta = await getDocMetadata(
-      docData.docKey as DocKey,
-      defaultLocale as any
-    );
-    baseUpdatedAt = baseMeta?.updatedAt;
-  } catch {}
+
+  const baseUpdatedAt =
+    defaultLocale === locale
+      ? docData.updatedAt
+      : (await getDocMetadata(docData.docKey as DocKey, defaultLocale as any))
+          ?.updatedAt;
 
   return (
     <IntlayerServerProvider locale={locale}>
