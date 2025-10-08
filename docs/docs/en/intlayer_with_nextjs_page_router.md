@@ -139,6 +139,7 @@ export default withIntlayer(nextConfig);
 ```
 
 > The `withIntlayer()` Next.js plugin is used to integrate Intlayer with Next.js. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the [Webpack](https://webpack.js.org/) or [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) environments. Additionally, it provides aliases to optimize performance and ensures compatibility with server components.
+
 > The `withIntlayer()` Next.js plugin is a promise based function.
 
 ### Step 4: Configure Middleware for Locale Detection
