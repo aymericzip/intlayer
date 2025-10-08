@@ -1,4 +1,5 @@
 export * from './getFilteredLocalesContent';
+export * from './getFilterMissingTranslationsContent';
 export * from './getFilterTranslationsOnlyContent';
 export * from './getLocalizedContent';
 export * from './getMaskContent';

@@ -116,8 +116,9 @@ export const ExpandCollapse: FC<ExpandCollapseProps> = ({
       <button
         className={cn(
           'absolute right-0 bottom-0 flex w-full cursor-pointer items-center justify-center rounded-t-2xl bg-gradient-to-t from-card/80 to-transparent px-3 py-0.5 text-md text-neutral-700 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur transition-all duration-300 hover:py-1 dark:text-neutral-400',
-          !isCollapsed && 'w-auto'
+          isCollapsed ? 'w-full' : 'w-32'
         )}
+        type="button"
         onClick={() => setIsCollapsed((prev) => !prev)}
       >
         {expandCollapseContent(isCollapsed)}

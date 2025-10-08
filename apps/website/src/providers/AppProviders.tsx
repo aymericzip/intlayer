@@ -2,29 +2,21 @@ import { ServiceWorkerSubscriber } from '@components/ServiceWorker/ServiceWorker
 import { Toaster } from '@intlayer/design-system';
 import { ReactQueryProvider } from '@intlayer/design-system/providers';
 import { GoogleTagManager } from '@next/third-parties/google';
-import type { IntlayerClientProviderProps } from 'next-intlayer';
-import type { FC } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import { AnimatePresenceProvider } from './AnimatePresenceProvider';
-import { IntlayerProvider } from './IntlayerProvider';
-import { ThemeProvider } from './ThemeProvider';
+import { FirstConsultationProvider } from './FirstConsultationProvider';
 
-export type AppProvidersProps = IntlayerClientProviderProps;
-
-export const AppProviders: FC<AppProvidersProps> = ({ children, locale }) => (
-  <IntlayerProvider locale={locale}>
-    <ThemeProvider>
-      <AnimatePresenceProvider>
-        <ServiceWorkerSubscriber />
-        <ReactQueryProvider>
-          <Toaster />
-          {process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID && (
-            <GoogleTagManager
-              gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}
-            />
-          )}
-          {children}
-        </ReactQueryProvider>
-      </AnimatePresenceProvider>
-    </ThemeProvider>
-  </IntlayerProvider>
+export const AppProviders: FC<PropsWithChildren> = ({ children }) => (
+  <AnimatePresenceProvider>
+    <ServiceWorkerSubscriber />
+    <ReactQueryProvider>
+      <Toaster />
+      {process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID && (
+        <GoogleTagManager
+          gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}
+        />
+      )}
+      <FirstConsultationProvider>{children}</FirstConsultationProvider>
+    </ReactQueryProvider>
+  </AnimatePresenceProvider>
 );

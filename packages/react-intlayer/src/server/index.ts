@@ -1,6 +1,7 @@
 export {
   IntlayerServerContext as IntlayerServer,
   IntlayerServerProvider,
+  type IntlayerServerProviderProps,
   locale,
 } from './IntlayerServerProvider';
 export { t } from './t';

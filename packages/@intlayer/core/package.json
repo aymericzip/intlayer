@@ -103,11 +103,9 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "negotiator": "^1.0.0"
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*"
   },
   "devDependencies": {
-    "@types/negotiator": "^0.6.3",
     "@types/node": "^24.5.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

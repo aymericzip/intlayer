@@ -23,16 +23,7 @@ export const intlayer = (): AstroIntegration =>
         const { optimize } = configuration.build;
 
         // Prepare once per process start to ensure generated entries exist
-        const sentinelPath = join(
-          configuration.content.baseDir,
-          '.intlayer',
-          'cache',
-          'intlayer-prepared.lock'
-        );
-        await runOnce(
-          sentinelPath,
-          async () => await prepareIntlayer(configuration)
-        );
+        await prepareIntlayer(configuration);
 
         updateConfig({
           vite: {

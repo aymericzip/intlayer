@@ -25,7 +25,9 @@ export const getLocale = async (): Promise<Locales> => {
   // 3 - Try to pick the locale selected using the browser language preference
   const negotiatorHeaders: Record<string, string> = {};
 
-  headersList.forEach((value, key) => (negotiatorHeaders[key] = value));
+  headersList.forEach((value, key) => {
+    negotiatorHeaders[key] = value;
+  });
 
   const userFallbackLocale = localeDetector(negotiatorHeaders);
 

@@ -10,7 +10,9 @@ import type { NextRequest } from 'next/server.js';
 export const localeDetector = (request: NextRequest): LocalesValues => {
   const negotiatorHeaders: Record<string, string> = {};
 
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
+  request.headers.forEach((value, key) => {
+    negotiatorHeaders[key] = value;
+  });
 
   const locale = localeDetectorCore(negotiatorHeaders);
 

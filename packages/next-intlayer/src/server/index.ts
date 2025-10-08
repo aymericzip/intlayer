@@ -1,6 +1,7 @@
 export {
   IntlayerServer,
   IntlayerServerProvider,
+  type IntlayerServerProviderProps,
   locale,
   t,
   useDictionary,

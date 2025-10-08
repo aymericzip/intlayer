@@ -44,6 +44,12 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
     localeName = fullLocaleName ? getLocaleName(locale) : locale.toUpperCase();
   }
 
+  const handleFocusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
   return (
     <div
       className="rounded-xl border border-text text-text transition-colors"
@@ -54,6 +60,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           identifier={DROPDOWN_IDENTIFIER}
           size="sm"
           className="!px-0"
+          onClick={handleFocusInput}
         >
           <div className="flex w-full items-center justify-between text-text">
             <div className="text-nowrap px-2 text-base">{localeName}</div>

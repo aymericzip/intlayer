@@ -6,7 +6,7 @@ import {
   type ParallelHandle,
   runParallel,
 } from '@intlayer/chokidar';
-import type { IntlayerConfig } from '@intlayer/config';
+import type { GetConfigurationOptions, IntlayerConfig } from '@intlayer/config';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json';
 import { getLocalizedContent } from '@intlayer/core';
@@ -16,6 +16,7 @@ import { IntlayerEventListener } from './IntlayerEventListener';
 
 type LiveSyncOptions = {
   with?: string | string[];
+  configOptions?: GetConfigurationOptions;
 };
 
 const writeDictionary = async (
@@ -28,13 +29,7 @@ const writeDictionary = async (
 };
 
 export const liveSync = async (options?: LiveSyncOptions) => {
-  const configuration = getConfiguration({
-    override: {
-      log: {
-        prefix: '',
-      },
-    },
-  });
+  const configuration = getConfiguration(options?.configOptions);
   const appLogger = getAppLogger(configuration);
 
   const { liveSyncPort, liveSyncURL } = configuration.editor;

@@ -15,6 +15,7 @@ const DOC_PATTERN: string[] = [
   // './legal/en/**/*.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
+  '**/_*',
   '**/node_modules/**',
   '**/dist/**',
   '**/src/**',

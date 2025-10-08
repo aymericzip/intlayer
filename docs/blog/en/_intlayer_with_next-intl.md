@@ -29,11 +29,11 @@ As mentioned previously, you must optimize how each JSON file is imported into y
 How the library handles content loading is important.
 
 ```tsx fileName="src/i18n.ts"
-import { getRequestConfig } from 'next-intl/server';
-import { notFound } from 'next/navigation';
+import { getRequestConfig } from "next-intl/server";
+import { notFound } from "next/navigation";
 
-export const locales = ['en', 'fr', 'es'] as const;
-export const defaultLocale = 'en' as const;
+export const locales = ["en", "fr", "es"] as const;
+export const defaultLocale = "en" as const;
 
 async function loadMessages(locale: string) {
   // Load only the namespaces your layout/pages need
@@ -55,12 +55,12 @@ export default getRequestConfig(async ({ locale }) => {
 ```
 
 ```tsx fileName="src/app/[locale]/layout.tsx"
-import type { ReactNode } from 'react';
-import { locales } from '@/i18n';
+import type { ReactNode } from "react";
+import { locales } from "@/i18n";
 import {
   getLocaleDirection,
   unstable_setRequestLocale,
-} from 'next-intl/server';
+} from "next-intl/server";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -89,11 +89,11 @@ export default function LocaleLayout({
 ```
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
-import { getTranslations, getMessages, getFormatter } from 'next-intl/server';
-import { NextIntlClientProvider } from 'next-intl';
-import pick from 'lodash/pick';
-import ServerComponent from '@/components/ServerComponent';
-import ClientComponentExample from '@/components/ClientComponentExample';
+import { getTranslations, getMessages, getFormatter } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
+import pick from "lodash/pick";
+import ServerComponent from "@/components/ServerComponent";
+import ClientComponentExample from "@/components/ClientComponentExample";
 
 export default async function AboutPage({
   params,
@@ -104,11 +104,11 @@ export default async function AboutPage({
 
   // Messages are loaded server-side. Push only what's needed to the client.
   const messages = await getMessages();
-  const clientMessages = pick(messages, ['common', 'about']);
+  const clientMessages = pick(messages, ["common", "about"]);
 
   // Strictly server-side translations/formatting
-  const tAbout = await getTranslations('about');
-  const tCounter = await getTranslations('about.counter');
+  const tAbout = await getTranslations("about");
+  const tCounter = await getTranslations("about.counter");
   const format = await getFormatter();
 
   const initialFormattedCount = format.number(0);
@@ -116,12 +116,12 @@ export default async function AboutPage({
   return (
     <NextIntlClientProvider locale={locale} messages={clientMessages}>
       <main>
-        <h1>{tAbout('title')}</h1>
+        <h1>{tAbout("title")}</h1>
         <ClientComponentExample />
         <ServerComponent
           formattedCount={initialFormattedCount}
-          label={tCounter('label')}
-          increment={tCounter('increment')}
+          label={tCounter("label")}
+          increment={tCounter("increment")}
         />
       </main>
     </NextIntlClientProvider>
@@ -156,14 +156,14 @@ Let's take an example of a client component rendering a counter.
 **Client component**
 
 ```tsx fileName="src/components/ClientComponentExample.tsx"
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useTranslations, useFormatter } from 'next-intl';
+import React, { useState } from "react";
+import { useTranslations, useFormatter } from "next-intl";
 
 const ClientComponentExample = () => {
   // Scope directly to the nested object
-  const t = useTranslations('about.counter');
+  const t = useTranslations("about.counter");
   const format = useFormatter();
   const [count, setCount] = useState(0);
 
@@ -171,10 +171,10 @@ const ClientComponentExample = () => {
     <div>
       <p>{format.number(count)}</p>
       <button
-        aria-label={t('label')}
+        aria-label={t("label")}
         onClick={() => setCount((count) => count + 1)}
       >
-        {t('increment')}
+        {t("increment")}
       </button>
     </div>
   );
@@ -201,7 +201,7 @@ const ServerComponent = ({ t, count, formatter }: ServerComponentProps) => {
   return (
     <div>
       <p>{formatted}</p>
-      <button aria-label={t('label')}>{t('increment')}</button>
+      <button aria-label={t("label")}>{t("increment")}</button>
     </div>
   );
 };
@@ -216,12 +216,12 @@ const ServerComponent = ({ t, count, formatter }: ServerComponentProps) => {
 > - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
-import type { Metadata } from 'next';
-import { locales, defaultLocale } from '@/i18n';
-import { getTranslations } from 'next-intl/server';
+import type { Metadata } from "next";
+import { locales, defaultLocale } from "@/i18n";
+import { getTranslations } from "next-intl/server";
 
 function localizedPath(locale: string, path: string) {
-  return locale === defaultLocale ? path : '/' + locale + path;
+  return locale === defaultLocale ? path : "/" + locale + path;
 }
 
 export async function generateMetadata({
@@ -230,19 +230,19 @@ export async function generateMetadata({
   params: { locale: string };
 }): Promise<Metadata> {
   const { locale } = params;
-  const t = await getTranslations({ locale, namespace: 'about' });
+  const t = await getTranslations({ locale, namespace: "about" });
 
-  const url = '/about';
+  const url = "/about";
   const languages = Object.fromEntries(
     locales.map((locale) => [locale, localizedPath(locale, url)])
   );
 
   return {
-    title: t('title'),
-    description: t('description'),
+    title: t("title"),
+    description: t("description"),
     alternates: {
       canonical: localizedPath(locale, url),
-      languages: { ...languages, 'x-default': url },
+      languages: { ...languages, "x-default": url },
     },
   };
 }
@@ -251,24 +251,24 @@ export async function generateMetadata({
 ```
 
 ```tsx fileName="src/app/sitemap.ts"
-import type { MetadataRoute } from 'next';
-import { locales, defaultLocale } from '@/i18n';
+import type { MetadataRoute } from "next";
+import { locales, defaultLocale } from "@/i18n";
 
-const origin = 'https://example.com';
+const origin = "https://example.com";
 
 const formatterLocalizedPath = (locale: string, path: string) =>
-  locale === defaultLocale ? origin + path : origin + '/' + locale + path;
+  locale === defaultLocale ? origin + path : origin + "/" + locale + path;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const aboutLanguages = Object.fromEntries(
-    locales.map((l) => [l, formatterLocalizedPath(l, '/about')])
+    locales.map((l) => [l, formatterLocalizedPath(l, "/about")])
   );
 
   return [
     {
-      url: formatterLocalizedPath(defaultLocale, '/about'),
+      url: formatterLocalizedPath(defaultLocale, "/about"),
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: "monthly",
       priority: 0.7,
       alternates: { languages: aboutLanguages },
     },
@@ -277,27 +277,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
 ```
 
 ```tsx fileName="src/app/robots.ts"
-import type { MetadataRoute } from 'next';
-import { locales, defaultLocale } from '@/i18n';
+import type { MetadataRoute } from "next";
+import { locales, defaultLocale } from "@/i18n";
 
-const origin = 'https://example.com';
+const origin = "https://example.com";
 const withAllLocales = (path: string) => [
   path,
   ...locales
     .filter((locale) => locale !== defaultLocale)
-    .map((locale) => '/' + locale + path),
+    .map((locale) => "/" + locale + path),
 ];
 
 export default function robots(): MetadataRoute.Robots {
   const disallow = [
-    ...withAllLocales('/dashboard'),
-    ...withAllLocales('/admin'),
+    ...withAllLocales("/dashboard"),
+    ...withAllLocales("/admin"),
   ];
 
   return {
-    rules: { userAgent: '*', allow: ['/'], disallow },
+    rules: { userAgent: "*", allow: ["/"], disallow },
     host: origin,
-    sitemap: origin + '/sitemap.xml',
+    sitemap: origin + "/sitemap.xml",
   };
 }
 ```
@@ -307,8 +307,8 @@ export default function robots(): MetadataRoute.Robots {
 Add a middleware to handle locale detection and routing:
 
 ```ts fileName="src/middleware.ts"
-import createMiddleware from 'next-intl/middleware';
-import { locales, defaultLocale } from '@/i18n';
+import createMiddleware from "next-intl/middleware";
+import { locales, defaultLocale } from "@/i18n";
 
 export default createMiddleware({
   locales: [...locales],
@@ -318,7 +318,7 @@ export default createMiddleware({
 
 export const config = {
   // Skip API, Next internals and static assets
-  matcher: ['/((?!api|_next|.*\\..*).*)'],
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
 };
 ```
 

@@ -32,7 +32,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
         </aside>
         <div className="flex flex-1 flex-row">
           <article
-            className="relative m-auto mb-24 h-full w-auto max-w-6xl flex-1 grow overflow-auto px-4 max-md:pl-16 md:px-10"
+            className="relative m-auto mb-24 h-full w-auto max-w-6xl flex-1 grow px-4 max-md:pl-16 md:px-10"
             id="content"
           >
             {displayBreadCrumb && (

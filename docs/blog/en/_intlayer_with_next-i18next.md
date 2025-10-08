@@ -22,30 +22,30 @@
 ```
 
 ```ts fileName="i18n.config.ts"
-export const locales = ['en', 'fr'] as const;
+export const locales = ["en", "fr"] as const;
 export type Locale = (typeof locales)[number];
 
-export const defaultLocale: Locale = 'en';
+export const defaultLocale: Locale = "en";
 
-export const rtlLocales = ['ar', 'he', 'fa', 'ur'] as const;
+export const rtlLocales = ["ar", "he", "fa", "ur"] as const;
 export const isRtl = (locale: string) =>
   (rtlLocales as readonly string[]).includes(locale);
 
 export function localizedPath(locale: string, path: string) {
-  return locale === defaultLocale ? path : '/' + locale + path;
+  return locale === defaultLocale ? path : "/" + locale + path;
 }
 
-const ORIGIN = 'https://example.com';
+const ORIGIN = "https://example.com";
 export function abs(locale: string, path: string) {
   return ORIGIN + localizedPath(locale, path);
 }
 ```
 
 ```ts fileName="src/app/i18n/server.ts"
-import { createInstance } from 'i18next';
-import { initReactI18next } from 'react-i18next/initReactI18next';
-import resourcesToBackend from 'i18next-resources-to-backend';
-import { defaultLocale } from '@/i18n.config';
+import { createInstance } from "i18next";
+import { initReactI18next } from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { defaultLocale } from "@/i18n.config";
 
 // Load JSON resources from src/locales/<locale>/<namespace>.json
 const backend = resourcesToBackend(
@@ -55,7 +55,7 @@ const backend = resourcesToBackend(
 
 export async function initI18next(
   locale: string,
-  namespaces: string[] = ['common']
+  namespaces: string[] = ["common"]
 ) {
   const i18n = createInstance();
   await i18n
@@ -65,7 +65,7 @@ export async function initI18next(
       lng: locale,
       fallbackLng: defaultLocale,
       ns: namespaces,
-      defaultNS: 'common',
+      defaultNS: "common",
       interpolation: { escapeValue: false },
       react: { useSuspense: false },
     });
@@ -74,14 +74,14 @@ export async function initI18next(
 ```
 
 ```tsx fileName="src/components/I18nProvider.tsx"
-'use client';
+"use client";
 
-import * as React from 'react';
-import { I18nextProvider } from 'react-i18next';
-import { createInstance } from 'i18next';
-import { initReactI18next } from 'react-i18next/initReactI18next';
-import resourcesToBackend from 'i18next-resources-to-backend';
-import { defaultLocale } from '@/i18n.config';
+import * as React from "react";
+import { I18nextProvider } from "react-i18next";
+import { createInstance } from "i18next";
+import { initReactI18next } from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { defaultLocale } from "@/i18n.config";
 
 const backend = resourcesToBackend(
   (locale: string, namespace: string) =>
@@ -97,7 +97,7 @@ type Props = {
 
 export default function I18nProvider({
   locale,
-  namespaces = ['common'],
+  namespaces = ["common"],
   resources,
   children,
 }: Props) {
@@ -111,7 +111,7 @@ export default function I18nProvider({
         fallbackLng: defaultLocale,
         ns: namespaces,
         resources: resources ? { [locale]: resources } : undefined,
-        defaultNS: 'common',
+        defaultNS: "common",
         interpolation: { escapeValue: false },
         react: { useSuspense: false },
       });
@@ -124,8 +124,8 @@ export default function I18nProvider({
 ```
 
 ```tsx fileName="src/app/[locale]/layout.tsx"
-import type { ReactNode } from 'react';
-import { locales, defaultLocale, isRtl, type Locale } from '@/i18n.config';
+import type { ReactNode } from "react";
+import { locales, defaultLocale, isRtl, type Locale } from "@/i18n.config";
 
 export const dynamicParams = false;
 
@@ -144,7 +144,7 @@ export default function LocaleLayout({
     ? (params.locale as any)
     : defaultLocale;
 
-  const dir = isRtl(locale) ? 'rtl' : 'ltr';
+  const dir = isRtl(locale) ? "rtl" : "ltr";
 
   return (
     <html lang={locale} dir={dir}>
@@ -155,26 +155,26 @@ export default function LocaleLayout({
 ```
 
 ```tsx fileName="src/app/[locale]/about.tsx"
-import I18nProvider from '@/components/I18nProvider';
-import { initI18next } from '@/app/i18n/server';
-import type { Locale } from '@/i18n.config';
-import ClientComponent from '@/components/ClientComponent';
-import ServerComponent from '@/components/ServerComponent';
+import I18nProvider from "@/components/I18nProvider";
+import { initI18next } from "@/app/i18n/server";
+import type { Locale } from "@/i18n.config";
+import ClientComponent from "@/components/ClientComponent";
+import ServerComponent from "@/components/ServerComponent";
 
 export default async function AboutPage({
   params: { locale },
 }: {
   params: { locale: Locale };
 }) {
-  const namespaces = ['common', 'about'] as const;
+  const namespaces = ["common", "about"] as const;
 
   const i18n = await initI18next(locale, [...namespaces]);
-  const tAbout = i18n.getFixedT(locale, 'about');
+  const tAbout = i18n.getFixedT(locale, "about");
 
   return (
     <I18nProvider locale={locale} namespaces={[...namespaces]}>
       <main>
-        <h1>{tAbout('title')}</h1>
+        <h1>{tAbout("title")}</h1>
 
         <ClientComponent />
         <ServerComponent t={tAbout} locale={locale} count={0} />
@@ -211,13 +211,13 @@ export default async function AboutPage({
 **Client component (loads only the required namespace)**
 
 ```tsx fileName="src/components/ClientComponent.tsx"
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const ClientComponent = () => {
-  const { t, i18n } = useTranslation('about');
+  const { t, i18n } = useTranslation("about");
   const [count, setCount] = useState(0);
 
   const numberFormat = new Intl.NumberFormat(i18n.language);
@@ -226,10 +226,10 @@ const ClientComponent = () => {
     <div>
       <p>{numberFormat.format(count)}</p>
       <button
-        aria-label={t('counter.label')}
+        aria-label={t("counter.label")}
         onClick={() => setCount((c) => c + 1)}
       >
-        {t('counter.increment')}
+        {t("counter.increment")}
       </button>
     </div>
   );
@@ -260,7 +260,7 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
   return (
     <div>
       <p>{formatted}</p>
-      <button aria-label={t('counter.label')}>{t('counter.increment')}</button>
+      <button aria-label={t("counter.label")}>{t("counter.increment")}</button>
     </div>
   );
 };
@@ -286,24 +286,24 @@ Here's a list of good practices regarding multilingual SEO.
 Developers often forget to properly reference their pages across locales.
 
 ```ts fileName="i18n.config.ts"
-export const locales = ['en', 'fr'] as const;
+export const locales = ["en", "fr"] as const;
 export type Locale = (typeof locales)[number];
-export const defaultLocale: Locale = 'en';
-export const rtlLocales = ['ar', 'he', 'fa', 'ur'] as const;
+export const defaultLocale: Locale = "en";
+export const rtlLocales = ["ar", "he", "fa", "ur"] as const;
 export const isRtl = (locale: string) =>
   (rtlLocales as readonly string[]).includes(locale);
 export function localizedPath(locale: string, path: string) {
-  return locale === defaultLocale ? path : '/' + locale + path;
+  return locale === defaultLocale ? path : "/" + locale + path;
 }
-const ORIGIN = 'https://example.com';
+const ORIGIN = "https://example.com";
 export function abs(locale: string, path: string) {
   return ORIGIN + localizedPath(locale, path);
 }
 ```
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
-import type { Metadata } from 'next';
-import { locales, defaultLocale, localizedPath } from '@/i18n.config';
+import type { Metadata } from "next";
+import { locales, defaultLocale, localizedPath } from "@/i18n.config";
 
 export async function generateMetadata({
   params,
@@ -313,19 +313,19 @@ export async function generateMetadata({
   const { locale } = params;
 
   // Import the correct JSON bundle from src/locales
-  const messages = (await import('@/locales/' + locale + '/about.json'))
+  const messages = (await import("@/locales/" + locale + "/about.json"))
     .default;
 
   const languages = Object.fromEntries(
-    locales.map((locale) => [locale, localizedPath(locale, '/about')])
+    locales.map((locale) => [locale, localizedPath(locale, "/about")])
   );
 
   return {
     title: messages.title,
     description: messages.description,
     alternates: {
-      canonical: localizedPath(locale, '/about'),
-      languages: { ...languages, 'x-default': '/about' },
+      canonical: localizedPath(locale, "/about"),
+      languages: { ...languages, "x-default": "/about" },
     },
   };
 }
@@ -336,19 +336,19 @@ export default async function AboutPage() {
 ```
 
 ```ts fileName="src/app/sitemap.ts"
-import type { MetadataRoute } from 'next';
-import { locales, defaultLocale, abs } from '@/i18n.config';
+import type { MetadataRoute } from "next";
+import { locales, defaultLocale, abs } from "@/i18n.config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const languages = Object.fromEntries(
-    locales.map((locale) => [locale, abs(locale, '/about')])
+    locales.map((locale) => [locale, abs(locale, "/about")])
   );
 
   return [
     {
-      url: abs(defaultLocale, '/about'),
+      url: abs(defaultLocale, "/about"),
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: "monthly",
       priority: 0.7,
       alternates: { languages },
     },
@@ -357,10 +357,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 ```
 
 ```ts fileName="src/app/robots.ts"
-import type { MetadataRoute } from 'next';
-import { locales, defaultLocale, localizedPath } from '@/i18n.config';
+import type { MetadataRoute } from "next";
+import { locales, defaultLocale, localizedPath } from "@/i18n.config";
 
-const ORIGIN = 'https://example.com';
+const ORIGIN = "https://example.com";
 
 const expandAllLocales = (path: string) => [
   localizedPath(defaultLocale, path),
@@ -371,14 +371,14 @@ const expandAllLocales = (path: string) => [
 
 export default function robots(): MetadataRoute.Robots {
   const disallow = [
-    ...expandAllLocales('/dashboard'),
-    ...expandAllLocales('/admin'),
+    ...expandAllLocales("/dashboard"),
+    ...expandAllLocales("/admin"),
   ];
 
   return {
-    rules: { userAgent: '*', allow: ['/'], disallow },
+    rules: { userAgent: "*", allow: ["/"], disallow },
     host: ORIGIN,
-    sitemap: ORIGIN + '/sitemap.xml',
+    sitemap: ORIGIN + "/sitemap.xml",
   };
 }
 ```
@@ -390,8 +390,8 @@ export default function robots(): MetadataRoute.Robots {
 Add a middleware to handle locale detection and routing:
 
 ```ts fileName="src/middleware.ts"
-import { NextResponse, type NextRequest } from 'next/server';
-import { defaultLocale, locales } from '@/i18n.config';
+import { NextResponse, type NextRequest } from "next/server";
+import { defaultLocale, locales } from "@/i18n.config";
 
 const PUBLIC_FILE = /\.[^/]+$/; // exclude files with extensions
 
@@ -399,9 +399,9 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/api') ||
-    pathname.startsWith('/static') ||
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/static") ||
     PUBLIC_FILE.test(pathname)
   ) {
     return;
@@ -409,12 +409,12 @@ export function middleware(request: NextRequest) {
 
   const hasLocale = locales.some(
     (locale) =>
-      pathname === '/' + locale || pathname.startsWith('/' + locale + '/')
+      pathname === "/" + locale || pathname.startsWith("/" + locale + "/")
   );
   if (!hasLocale) {
     const locale = defaultLocale;
     const url = request.nextUrl.clone();
-    url.pathname = '/' + locale + (pathname === '/' ? '' : pathname);
+    url.pathname = "/" + locale + (pathname === "/" ? "" : pathname);
     return NextResponse.redirect(url);
   }
 }
@@ -422,7 +422,7 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     // Match all paths except the ones starting with these and files with an extension
-    '/((?!api|_next|static|.*\\..*).*)',
+    "/((?!api|_next|static|.*\\..*).*)",
   ],
 };
 ```

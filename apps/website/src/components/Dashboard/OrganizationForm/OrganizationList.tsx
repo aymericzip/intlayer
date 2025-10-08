@@ -1,6 +1,7 @@
 import type { OrganizationAPI } from '@intlayer/backend';
 import { Button, Modal } from '@intlayer/design-system';
 import { useSelectOrganization } from '@intlayer/design-system/hooks';
+import { cn } from '@utils/cn';
 import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
@@ -59,6 +60,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
               onClick={() => handleSelectOrganization(organization.id)}
               label={selectButton.ariaLabel.value}
               color="text"
+              isSelected={selectedOrganizationId === organization.id}
               className="mt-auto"
             >
               {String(selectedOrganizationId) === String(organization.id)
