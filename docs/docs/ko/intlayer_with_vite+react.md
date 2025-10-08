@@ -17,6 +17,7 @@ slugs:
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+---
 
 # Intlayer로 Vite 및 React 번역하기 | 국제화(i18n)
 

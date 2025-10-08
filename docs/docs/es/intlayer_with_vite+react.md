@@ -17,6 +17,7 @@ slugs:
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+---
 
 # Comenzando con la internacionalización (i18n) usando Intlayer en Vite y React
 
