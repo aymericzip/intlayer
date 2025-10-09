@@ -249,6 +249,16 @@ export const useGetUsers = (
   });
 };
 
+export const useGetUserById = (userId: string) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['users', userId],
+    queryFn: () => intlayerOAuth.user.getUserById(userId),
+    requireUser: true,
+  });
+};
+
 export const useCreateUser = () => {
   const intlayerAuth = useIntlayerOAuth();
 
@@ -273,6 +283,9 @@ export const useDeleteUser = () => {
   return useMutation({
     mutationKey: ['users'],
     mutationFn: intlayerOAuth.user.deleteUser,
+    meta: {
+      invalidateQueries: [['users']],
+    },
   });
 };
 
@@ -315,6 +328,29 @@ export const useUpdateOrganizationMembers = () => {
   return useMutation({
     mutationKey: ['organizations'],
     mutationFn: intlayerOAuth.organization.updateOrganizationMembers,
+    meta: {
+      invalidateQueries: [['organizations'], ['users']],
+    },
+  });
+};
+
+export const useUpdateOrganizationMembersById = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['organizations'],
+    mutationFn: ({
+      organizationId,
+      ...body
+    }: {
+      organizationId: string;
+      membersIds: string[];
+      adminsIds?: string[];
+    }) =>
+      intlayerOAuth.organization.updateOrganizationMembersById(
+        organizationId,
+        body
+      ),
     meta: {
       invalidateQueries: [['organizations'], ['users']],
     },

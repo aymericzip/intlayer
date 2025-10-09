@@ -63,6 +63,7 @@
     "@stripe/react-stripe-js": "^3.10.0",
     "@stripe/stripe-js": "^7.6.1",
     "@tanstack/react-query": "^5.90.2",
+    "@tanstack/react-table": "^8.21.3",
     "clsx": "^2.1.1",
     "cobe": "^0.6.4",
     "deepmerge": "^4.3.1",

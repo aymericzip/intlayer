@@ -60,6 +60,13 @@ export enum PagesRoutes {
 
   Admin = '/admin',
   Admin_Users = '/admin/users',
+  Admin_Users_Id = '/admin/users/:id',
+  Admin_Organizations = '/admin/organizations',
+  Admin_Organizations_Id = '/admin/organizations/:id',
+  Admin_Projects = '/admin/projects',
+  Admin_Projects_Id = '/admin/projects/:id',
+  Admin_Dashboard = '/admin/dashboard',
+  Admin_Management = '/admin/management',
 }
 
 export enum ExternalLinks {

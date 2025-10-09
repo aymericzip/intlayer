@@ -10,6 +10,13 @@ import {
 export type UserFiltersParam = {
   ids?: string | string[];
   firstName?: string;
+  lastName?: string;
+  email?: string;
+  emailVerified?: string;
+  role?: string;
+  search?: string;
+  sortBy?: string;
+  sortOrder?: string;
 };
 export type UserFilters = RootFilterQuery<User>;
 
@@ -25,9 +32,20 @@ export const getUserFiltersAndPagination = (
     getFiltersAndPaginationFromBody<UserFiltersParam>(req);
 
   let filters = {};
+  let sortOptions = {};
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { firstName, ids } = filtersRequest;
+    const {
+      firstName,
+      lastName,
+      email,
+      emailVerified,
+      role,
+      search,
+      sortBy,
+      sortOrder,
+      ids,
+    } = filtersRequest;
 
     filters = {};
 
@@ -38,7 +56,41 @@ export const getUserFiltersAndPagination = (
     if (firstName) {
       filters = { ...filters, firstName: new RegExp(firstName, 'i') };
     }
+
+    if (lastName) {
+      filters = { ...filters, lastName: new RegExp(lastName, 'i') };
+    }
+
+    if (email) {
+      filters = { ...filters, email: new RegExp(email, 'i') };
+    }
+
+    if (emailVerified !== undefined) {
+      const isVerified = emailVerified === 'true';
+      filters = { ...filters, emailVerified: isVerified };
+    }
+
+    if (role) {
+      filters = { ...filters, role };
+    }
+
+    if (search) {
+      const searchRegex = new RegExp(search, 'i');
+      filters = {
+        ...filters,
+        $or: [
+          { firstName: searchRegex },
+          { lastName: searchRegex },
+          { email: searchRegex },
+          { name: searchRegex },
+        ],
+      };
+    }
+
+    if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
+      sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
+    }
   }
 
-  return { filters, ...pagination };
+  return { filters, sortOptions, ...pagination };
 };

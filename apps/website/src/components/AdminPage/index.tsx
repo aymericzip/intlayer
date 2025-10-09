@@ -1,1 +1,2 @@
-export * from './UserAdminPage';
+export * from './AdminUsers/UserAdminDetailPage';
+export * from './AdminUsers/UserAdminPage';

@@ -1,5 +1,6 @@
 import {
   createUser,
+  deleteUser,
   getUserByEmail,
   getUserById,
   getUsers,
@@ -42,6 +43,11 @@ export const getUserRoutes = () =>
       url: ({ email }: { email: string }) => `${baseURL()}/email/${email}`,
       method: 'GET',
     },
+    deleteUser: {
+      urlModel: '/:userId',
+      url: ({ userId }: { userId: string }) => `${baseURL()}/${userId}`,
+      method: 'DELETE',
+    },
     verifyEmailStatusSSE: {
       urlModel: '/verify-email-status/:userId',
       url: ({ userId }: { userId: string }) =>
@@ -55,6 +61,7 @@ userRouter.put(getUserRoutes().updateUser.urlModel, updateUser);
 userRouter.post(getUserRoutes().createUser.urlModel, createUser);
 userRouter.get(getUserRoutes().getUserById.urlModel, getUserById);
 userRouter.get(getUserRoutes().getUserByEmail.urlModel, getUserByEmail);
+userRouter.delete(getUserRoutes().deleteUser.urlModel, deleteUser);
 userRouter.get(
   getUserRoutes().verifyEmailStatusSSE.urlModel,
   verifyEmailStatusSSE

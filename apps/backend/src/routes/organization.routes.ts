@@ -7,6 +7,7 @@ import {
   unselectOrganization,
   updateOrganization,
   updateOrganizationMembers,
+  updateOrganizationMembersById,
 } from '@controllers/organization.controller';
 import { Router } from 'express';
 import type { Routes } from '@/types/Routes';
@@ -38,6 +39,12 @@ export const getOrganizationRoutes = () =>
     updateOrganizationMembers: {
       urlModel: '/members',
       url: `${baseURL()}/members`,
+      method: 'PUT',
+    },
+    updateOrganizationMembersById: {
+      urlModel: '/:organizationId/members',
+      url: ({ organizationId }: { organizationId: string }) =>
+        `${baseURL()}/${organizationId}/members`,
       method: 'PUT',
     },
     addOrganizationMember: {
@@ -79,6 +86,10 @@ organizationRouter.put(
 organizationRouter.put(
   getOrganizationRoutes().updateOrganizationMembers.urlModel,
   updateOrganizationMembers
+);
+organizationRouter.put(
+  getOrganizationRoutes().updateOrganizationMembersById.urlModel,
+  updateOrganizationMembersById
 );
 organizationRouter.post(
   getOrganizationRoutes().addOrganizationMember.urlModel,
