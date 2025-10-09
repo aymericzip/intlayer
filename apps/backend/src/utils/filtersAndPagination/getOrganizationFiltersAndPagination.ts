@@ -1,3 +1,4 @@
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
@@ -28,10 +29,12 @@ export type OrganizationFilters = RootFilterQuery<Organization>;
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getOrganizationFiltersAndPagination = (
-  req: Request<FiltersAndPagination<OrganizationFiltersParams>>
+  req: Request<FiltersAndPagination<OrganizationFiltersParams>>,
+  res: ResponseWithSession
 ) => {
   const { filters: filtersRequest, ...pagination } =
     getFiltersAndPaginationFromBody<OrganizationFiltersParams>(req);
+  const { roles, user } = res.locals;
 
   let filters: OrganizationFilters = {};
 
@@ -42,6 +45,11 @@ export const getOrganizationFiltersAndPagination = (
 
     if (ids) {
       filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
+    }
+
+    // Non-admins can only see organizations they are members of
+    if (!roles.includes('admin')) {
+      filters = { ...filters, membersIds: { $in: [user?.id] } };
     }
 
     if (name) {

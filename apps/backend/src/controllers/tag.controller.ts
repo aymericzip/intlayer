@@ -39,7 +39,7 @@ export const getTags = async (
 ): Promise<void> => {
   const { user, organization, roles } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
-    getTagFiltersAndPagination(req);
+    getTagFiltersAndPagination(req, res);
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -51,13 +51,8 @@ export const getTags = async (
     return;
   }
 
-  const restrictedFilter: TagFilters = {
-    ...filters,
-    organizationId: String(organization.id),
-  };
-
   try {
-    const tags = await tagService.findTags(restrictedFilter, skip, pageSize);
+    const tags = await tagService.findTags(filters, skip, pageSize);
 
     if (
       !hasPermission(

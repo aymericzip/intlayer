@@ -1,3 +1,4 @@
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
@@ -21,10 +22,12 @@ export type TagFilters = RootFilterQuery<Tag>;
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getTagFiltersAndPagination = (
-  req: Request<FiltersAndPagination<TagFiltersParams>>
+  req: Request<FiltersAndPagination<TagFiltersParams>>,
+  res: ResponseWithSession
 ) => {
   const { filters: filtersRequest, ...pagination } =
     getFiltersAndPaginationFromBody<TagFiltersParams>(req);
+  const { roles, organization } = res.locals;
 
   let filters: TagFilters = {};
 
@@ -47,6 +50,10 @@ export const getTagFiltersAndPagination = (
 
     if (organizationId) {
       filters = { ...filters, organizationId };
+    }
+
+    if (!roles.includes('admin')) {
+      filters = { ...filters, organizationId: organization?.id };
     }
   }
 

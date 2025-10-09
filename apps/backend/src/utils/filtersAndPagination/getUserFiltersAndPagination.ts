@@ -1,3 +1,5 @@
+import type { GetUsersResult } from '@controllers/user.controller';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
@@ -27,10 +29,12 @@ export type UserFilters = RootFilterQuery<User>;
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getUserFiltersAndPagination = (
-  req: Request<FiltersAndPagination<UserFiltersParam>>
+  req: Request<FiltersAndPagination<UserFiltersParam>>,
+  res: ResponseWithSession<GetUsersResult>
 ) => {
   const { filters: filtersRequest, ...pagination } =
     getFiltersAndPaginationFromBody<UserFiltersParam>(req);
+  const { roles, organization } = res.locals;
 
   let filters = {};
   let sortOptions = {};
@@ -60,6 +64,10 @@ export const getUserFiltersAndPagination = (
         ...filters,
         organizationId: { $in: ensureArrayQueryFilter(organizationId) },
       };
+    }
+
+    if (!roles.includes('admin')) {
+      filters = { ...filters, organizationId: organization?.id };
     }
 
     if (firstName) {

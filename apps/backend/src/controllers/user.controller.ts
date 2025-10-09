@@ -1,7 +1,6 @@
 import { logger } from '@logger';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { sendEmail } from '@services/email.service';
-import * as organizationService from '@services/organization.service';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
@@ -92,7 +91,7 @@ export const getUsers = async (
   }
 
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
-    getUserFiltersAndPagination(req);
+    getUserFiltersAndPagination(req, res);
 
   try {
     const users = await userService.findUsers(

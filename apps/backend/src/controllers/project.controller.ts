@@ -43,7 +43,7 @@ export const getProjects = async (
 ): Promise<void> => {
   const { user, organization, roles } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
-    getProjectFiltersAndPagination(req);
+    getProjectFiltersAndPagination(req, res);
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -55,18 +55,8 @@ export const getProjects = async (
     return;
   }
 
-  const restrictedFilter: ProjectFilters = {
-    ...filters,
-    membersIds: { $in: [...(filters.membersIds ?? []), String(user.id)] },
-    organizationId: String(organization.id),
-  };
-
   try {
-    const projects = await projectService.findProjects(
-      restrictedFilter,
-      skip,
-      pageSize
-    );
+    const projects = await projectService.findProjects(filters, skip, pageSize);
 
     if (
       !hasPermission(

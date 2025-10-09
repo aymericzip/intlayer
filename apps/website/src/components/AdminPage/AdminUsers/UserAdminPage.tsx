@@ -302,6 +302,26 @@ export const UsersAdminPageContent: FC = () => {
                       </div>
                     </div>
                   </th>
+                  <th
+                    className="cursor-pointer select-none px-4 py-3 text-left font-medium text-neutral-900 hover:text-neutral-600 dark:text-neutral-100"
+                    onClick={() => handleSort('updatedAt')}
+                  >
+                    <div className="group flex items-center gap-2">
+                      {tableHeaders.updatedAt.value}
+                      <div
+                        className={cn(
+                          'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+                          sortBy === 'updatedAt' && 'opacity-100'
+                        )}
+                      >
+                        {sortOrder === 'asc' ? (
+                          <ChevronUp className="h-3 w-3" />
+                        ) : (
+                          <ChevronDown className="h-3 w-3" />
+                        )}
+                      </div>
+                    </div>
+                  </th>
                   <th className="px-4 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100">
                     {tableHeaders.actions.value}
                   </th>
@@ -437,6 +457,7 @@ export const UsersAdminPageContent: FC = () => {
                   showFirstLast={true}
                   showPrevNext={true}
                   maxVisiblePages={5}
+                  color="text"
                 />
               </div>
             </div>

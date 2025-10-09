@@ -45,7 +45,7 @@ export const getDictionaries = async (
 ): Promise<void> => {
   const { user, project, roles } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
-    getDictionaryFiltersAndPagination(req);
+    getDictionaryFiltersAndPagination(req, res);
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');

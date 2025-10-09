@@ -1,4 +1,6 @@
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
+import { organization } from 'better-auth/plugins';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
 import type { Project } from '@/types/project.types';
@@ -21,10 +23,12 @@ export type ProjectFilters = RootFilterQuery<Project>;
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getProjectFiltersAndPagination = (
-  req: Request<FiltersAndPagination<ProjectFiltersParams>>
+  req: Request<FiltersAndPagination<ProjectFiltersParams>>,
+  res: ResponseWithSession
 ) => {
   const { filters: filtersRequest, ...pagination } =
     getFiltersAndPaginationFromBody<ProjectFiltersParams>(req);
+  const { roles, organization } = res.locals;
 
   let filters: ProjectFilters = {};
 
@@ -43,6 +47,9 @@ export const getProjectFiltersAndPagination = (
 
     if (organizationId) {
       filters = { ...filters, organizationId };
+    }
+    if (!roles.includes('admin')) {
+      filters = { ...filters, organizationId: organization?.id };
     }
 
     if (membersIds) {

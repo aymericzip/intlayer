@@ -1,3 +1,4 @@
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
@@ -32,10 +33,12 @@ export type DictionaryFilters = RootFilterQuery<Dictionary>;
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getDictionaryFiltersAndPagination = (
-  req: Request<FiltersAndPagination<DictionaryFiltersParams>>
+  req: Request<FiltersAndPagination<DictionaryFiltersParams>>,
+  res: ResponseWithSession
 ) => {
   const { filters: filtersRequest, ...pagination } =
     getFiltersAndPaginationFromBody<DictionaryFiltersParams>(req);
+  const { roles, organization } = res.locals;
 
   let filters: DictionaryFilters = {};
 
@@ -84,6 +87,9 @@ export const getDictionaryFiltersAndPagination = (
         ...filters,
         organizationIds: { $in: ensureArrayQueryFilter(organizationIds) },
       };
+    }
+    if (!roles.includes('admin')) {
+      filters = { ...filters, organizationId: organization?.id };
     }
 
     if (userId) {

@@ -49,21 +49,16 @@ export const getOrganizations = async (
 ) => {
   const { user, roles } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
-    getOrganizationFiltersAndPagination(req);
+    getOrganizationFiltersAndPagination(req, res);
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
-  const restrictedFilter: OrganizationFilters = {
-    ...filters,
-    membersIds: { $in: [...(filters?.membersIds ?? []), String(user.id)] },
-  };
-
   try {
     const organizations = await organizationService.findOrganizations(
-      restrictedFilter,
+      filters,
       skip,
       pageSize
     );
