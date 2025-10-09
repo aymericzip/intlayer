@@ -36,6 +36,7 @@ const userAdminPageContent = {
         ru: 'Имя',
         tr: 'İsim',
       }),
+      id: 'ID',
       email: t({
         en: 'Email',
         fr: 'Email',

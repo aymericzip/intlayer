@@ -1,7 +1,11 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import type { UserAPI } from '@intlayer/api';
+import type {
+  GetOrganizationsResult,
+  GetUsersResult,
+  UserAPI,
+} from '@intlayer/backend';
 import {
   Avatar,
   Badge,
@@ -13,7 +17,6 @@ import {
   Pagination,
   Select,
   Table,
-  toast,
 } from '@intlayer/design-system';
 import {
   useGetOrganizations,
@@ -30,23 +33,26 @@ export const UsersAdminPageContent: FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const urlPage = parseInt(searchParams.get('page') || '1', 10);
-  const urlPageSize = parseInt(searchParams.get('pageSize') || '10', 10);
+  type SortOrder = 'asc' | 'desc';
+
+  const urlPage = parseInt(searchParams.get('page') ?? '1', 10);
+  const urlPageSize = parseInt(searchParams.get('pageSize') ?? '10', 10);
   const [currentPage, setCurrentPage] = useState(urlPage);
   const [itemsPerPage, setItemsPerPage] = useState(urlPageSize);
   const [searchQuery, setSearchQuery] = useState(
-    searchParams.get('search') || ''
+    searchParams.get('search') ?? ''
   );
-  const [sortBy, setSortBy] = useState(searchParams.get('sortBy') || '');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>(
-    (searchParams.get('sortOrder') as 'asc' | 'desc') || 'asc'
+  const [sortBy, setSortBy] = useState(searchParams.get('sortBy') ?? '');
+  const [sortOrder, setSortOrder] = useState<SortOrder>(
+    (searchParams.get('sortOrder') as SortOrder) ?? 'asc'
   );
   const [organizationFilter, setOrganizationFilter] = useState(
-    searchParams.get('organizationId') || 'all'
+    searchParams.get('organizationId') ?? 'all'
   );
 
-  const { data: organizationsResponse } = useGetOrganizations() as any;
-  const organizations = organizationsResponse?.data ?? [];
+  const { data: organizationsData } = useGetOrganizations();
+  const organizations =
+    (organizationsData as GetOrganizationsResult | undefined)?.data ?? [];
 
   const usersQuery = useGetUsers({
     page: currentPage.toString(),
@@ -56,10 +62,10 @@ export const UsersAdminPageContent: FC = () => {
     ...(sortOrder && { sortOrder }),
     ...(organizationFilter &&
       organizationFilter !== 'all' && { organizationId: organizationFilter }),
-  }) as any;
+  });
 
   const {
-    data: usersResponse,
+    data: usersData,
     isLoading: isLoadingUsers,
     error,
     refetch,
@@ -81,51 +87,46 @@ export const UsersAdminPageContent: FC = () => {
 
   const { helpers } = useIntlayer('admin-pages');
 
+  const usersResponse = usersData as GetUsersResult | undefined;
   const users = usersResponse?.data ?? [];
   const totalItems = usersResponse?.total_items ?? users.length;
   const totalPages = usersResponse?.total_pages ?? 1;
 
+  const pushParams = (updates: Record<string, string | null>) => {
+    const params = new URLSearchParams(searchParams.toString());
+    for (const [key, value] of Object.entries(updates)) {
+      if (value === null) params.delete(key);
+      else params.set(key, value);
+    }
+    router.push(`?${params.toString()}`);
+  };
+
   const handleSort = (field: string) => {
-    const newSortOrder =
+    const newSortOrder: SortOrder =
       sortBy === field && sortOrder === 'asc' ? 'desc' : 'asc';
     setSortBy(field);
     setSortOrder(newSortOrder);
 
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('sortBy', field);
-    params.set('sortOrder', newSortOrder);
-    params.set('page', '1');
-    router.push(`?${params.toString()}`);
+    pushParams({ sortBy: field, sortOrder: newSortOrder, page: '1' });
   };
 
   const handleSearch = (value: string) => {
     setSearchQuery(value);
-    const params = new URLSearchParams(searchParams.toString());
-    if (value) {
-      params.set('search', value);
-    } else {
-      params.delete('search');
-    }
-    params.set('page', '1');
-    router.push(`?${params.toString()}`);
+    pushParams({ search: value || null, page: '1' });
   };
 
   const handleOrganizationFilter = (value: string) => {
     setOrganizationFilter(value);
-    const params = new URLSearchParams(searchParams.toString());
-    if (value && value !== 'all') {
-      params.set('organizationId', value);
-    } else {
-      params.delete('organizationId');
-    }
-    params.set('page', '1');
-    router.push(`?${params.toString()}`);
+    pushParams({
+      organizationId: value && value !== 'all' ? value : null,
+      page: '1',
+    });
   };
 
   useEffect(() => {
-    const urlPageFromParams = parseInt(searchParams.get('page') || '1', 10);
+    const urlPageFromParams = parseInt(searchParams.get('page') ?? '1', 10);
     const urlPageSizeFromParams = parseInt(
-      searchParams.get('pageSize') || '10',
+      searchParams.get('pageSize') ?? '10',
       10
     );
 
@@ -138,9 +139,7 @@ export const UsersAdminPageContent: FC = () => {
   }, [searchParams, currentPage, itemsPerPage]);
 
   const handlePageChange = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('page', page.toString());
-    router.push(`?${params.toString()}`);
+    pushParams({ page: page.toString() });
 
     setCurrentPage(page);
     refetch();
@@ -148,10 +147,7 @@ export const UsersAdminPageContent: FC = () => {
 
   const handlePageSizeChange = (newPageSize: string) => {
     const size = parseInt(newPageSize, 10);
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('pageSize', size.toString());
-    params.set('page', '1');
-    router.push(`?${params.toString()}`);
+    pushParams({ pageSize: size.toString(), page: '1' });
 
     setItemsPerPage(size);
     setCurrentPage(1);
@@ -162,7 +158,8 @@ export const UsersAdminPageContent: FC = () => {
     return (
       <div className="p-6">
         <div className="text-red-500">
-          {errorMessages.loadingError}: {error.message}
+          {errorMessages.loadingError}:{' '}
+          {error instanceof Error ? error.message : String(error)}
         </div>
       </div>
     );
@@ -191,7 +188,7 @@ export const UsersAdminPageContent: FC = () => {
           </div>
           <div className="flex gap-2">
             <Select
-              value={organizationFilter || 'all'}
+              value={organizationFilter ?? 'all'}
               onValueChange={handleOrganizationFilter}
             >
               <Select.Trigger className="w-[200px]">
@@ -232,6 +229,26 @@ export const UsersAdminPageContent: FC = () => {
                         className={cn(
                           'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
                           sortBy === 'name' && 'opacity-100'
+                        )}
+                      >
+                        {sortOrder === 'asc' ? (
+                          <ChevronUp className="h-3 w-3" />
+                        ) : (
+                          <ChevronDown className="h-3 w-3" />
+                        )}
+                      </div>
+                    </div>
+                  </th>
+                  <th
+                    className="cursor-pointer select-none px-4 py-3 text-left font-medium text-neutral-900 hover:text-neutral-600 dark:text-neutral-100"
+                    onClick={() => handleSort('id')}
+                  >
+                    <div className="group flex items-center gap-2">
+                      {tableHeaders.id.value}
+                      <div
+                        className={cn(
+                          'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+                          sortBy === 'id' && 'opacity-100'
                         )}
                       >
                         {sortOrder === 'asc' ? (
@@ -339,35 +356,45 @@ export const UsersAdminPageContent: FC = () => {
                           isLoggedIn={true}
                           isLoading={false}
                           className="shrink-0"
-                          fullname={user.email}
+                          src={user.image ?? undefined}
+                          fullname={user.name}
                         />
                         <div className="ml-3">
-                          <Link
-                            href={PagesRoutes.Admin_Users_Id.replace(
-                              ':id',
-                              user.id
-                            )}
-                            label={user.name ?? user.email}
-                            className="font-medium text-blue-600 text-sm hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-                          >
-                            {user.name ?? user.email}
-                          </Link>
-                          <CopyToClipboard
-                            onCopySuccess={() => {
-                              toast({
-                                title: successMessages.idCopied.value,
-                                variant: 'success',
-                              });
-                            }}
-                            text={user.id}
-                            className="break-all text-xs"
-                          />
+                          {user.name ? (
+                            <Link
+                              href={PagesRoutes.Admin_Users_Id.replace(
+                                ':id',
+                                user.id
+                              )}
+                              label={user.name ?? '-'}
+                              color="text"
+                            >
+                              <CopyToClipboard text={user.name}>
+                                {user.name}
+                              </CopyToClipboard>
+                            </Link>
+                          ) : (
+                            '-'
+                          )}
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center">
+                        <div className="ml-3">
+                          <CopyToClipboard text={user.id}>
+                            <span className="font-mono text-sm">
+                              ...{user.id.slice(-5)}
+                            </span>
+                          </CopyToClipboard>
                         </div>
                       </div>
                     </td>
                     <td className="px-4 py-3">
                       <div className="text-neutral-900 text-sm dark:text-neutral-100">
-                        {user.email}
+                        <CopyToClipboard text={user.email}>
+                          {user.email}
+                        </CopyToClipboard>
                       </div>
                     </td>
                     <td className="px-4 py-3">
@@ -375,7 +402,7 @@ export const UsersAdminPageContent: FC = () => {
                         variant={BadgeVariant.OUTLINE}
                         color={
                           user.emailVerified
-                            ? BadgeColor.PRIMARY
+                            ? BadgeColor.TEXT
                             : BadgeColor.DESTRUCTIVE
                         }
                       >
@@ -392,6 +419,13 @@ export const UsersAdminPageContent: FC = () => {
                       </div>
                     </td>
                     <td className="px-4 py-3">
+                      <div className="text-neutral-500 text-sm dark:text-neutral-400">
+                        {user.updatedAt
+                          ? new Date(user.updatedAt).toLocaleDateString()
+                          : noData.value}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3">
                       <div className="flex space-x-2">
                         <Link
                           href={PagesRoutes.Admin_Users_Id.replace(
@@ -399,7 +433,7 @@ export const UsersAdminPageContent: FC = () => {
                             user.id
                           )}
                           label={actions.edit.value}
-                          className="text-blue-600 text-sm hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                          color="text"
                         >
                           {actions.edit.value}
                         </Link>
