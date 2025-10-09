@@ -185,7 +185,7 @@ export const chunkJSON = (
   maxChars: number
 ): JsonChunk[] => {
   if (!isObject(value) && !Array.isArray(value)) {
-    throw new Error('Root must be an object or array.');
+    throw new Error('Root must be an object or array.', value);
   }
   if (maxChars < 50) {
     // You can lower this if you truly need; recommended to keep some envelope headroom.

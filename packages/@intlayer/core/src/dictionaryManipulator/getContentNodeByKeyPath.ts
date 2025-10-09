@@ -15,7 +15,7 @@ export const getContentNodeByKeyPath = (
       keyObj.type === NodeType.Condition ||
       keyObj.type === NodeType.Enumeration
     ) {
-      currentValue = currentValue?.[keyObj.type][keyObj.key];
+      currentValue = currentValue?.[keyObj.type]?.[keyObj.key];
     } else if (
       keyObj.type === NodeType.Markdown ||
       keyObj.type === NodeType.Insertion ||

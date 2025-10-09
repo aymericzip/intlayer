@@ -1,6 +1,7 @@
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
+import type { IntlayerConfig, Locales } from '@intlayer/config/client';
+import { normalizeDictionaries } from '@intlayer/core';
 import { Container } from '@intlayer/design-system';
 import {
   type FileContent,
@@ -15,7 +16,12 @@ import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
 import { DictionaryListDrawer } from './DictionaryListDrawer';
 import { LongPressMessage } from './LongPressMessage';
 
-export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
+type EditorLayoutProps = PropsWithChildren<{ configuration: IntlayerConfig }>;
+
+export const EditorLayout: FC<EditorLayoutProps> = ({
+  children,
+  configuration,
+}) => {
   const { resolvedTheme } = useTheme();
   const [hoveredContent] = useCrossFrameState<FileContent | null>(
     MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED,
@@ -35,7 +41,9 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     const dictionariesList = Object.fromEntries(
       Object.values(unmergedDictionaries)
-        .flat()
+        .flatMap((dictionaries) =>
+          normalizeDictionaries(dictionaries, configuration)
+        )
         .map((dictionary) => [dictionary.localId, dictionary])
     );
 

@@ -52,7 +52,9 @@ export const renameContentNodeByKeyPath = (
         }
       }
       // Replace the contents of parentValue with newParentValue
-      Object.keys(parentValue).forEach((key) => delete parentValue[key]);
+      Object.keys(parentValue).forEach((key) => {
+        delete parentValue[key];
+      });
       Object.assign(parentValue, newParentValue);
     }
   }

@@ -10,13 +10,6 @@ import { getBuiltFetchDictionariesPath } from './getBuiltFetchDictionariesPath';
 import { getBuiltRemoteDictionariesPath } from './getBuiltRemoteDictionariesPath';
 import { getBuiltUnmergedDictionariesPath } from './getBuiltUnmergedDictionariesPath';
 
-const filterDictionaries = (paths: string[], keys?: string[]) => {
-  if (!keys) return paths;
-  return paths.filter((path) =>
-    keys.some((key) => path.endsWith(`${key}.json`))
-  );
-};
-
 const writeDictionaryFiles = async (
   paths: string[],
   fileName: string,
@@ -45,7 +38,6 @@ const writeDictionaryFiles = async (
  */
 export const createDictionaryEntryPoint = async (
   configuration = getConfiguration(),
-  dictionariesKeys?: string[],
   formats?: ('cjs' | 'esm')[]
 ) => {
   const outputFormats = formats ?? configuration.build.outputFormat;
@@ -53,29 +45,21 @@ export const createDictionaryEntryPoint = async (
 
   await mkdir(mainDir, { recursive: true });
 
-  const remoteDictionariesPath = getBuiltRemoteDictionariesPath(configuration);
-  const dictionariesPath = filterDictionaries(
-    getBuiltDictionariesPath(configuration),
-    dictionariesKeys
-  );
-  const unmergedDictionariesPath =
-    getBuiltUnmergedDictionariesPath(configuration);
-
   const writeOperations = [
     ...outputFormats.map((format) => ({
-      paths: remoteDictionariesPath,
+      paths: getBuiltRemoteDictionariesPath(configuration),
       functionName: 'getRemoteDictionaries',
       fileName: 'remote_dictionaries' as const,
       format,
     })),
     ...outputFormats.map((format) => ({
-      paths: dictionariesPath,
+      paths: getBuiltDictionariesPath(configuration),
       functionName: 'getDictionaries',
       fileName: 'dictionaries' as const,
       format,
     })),
     ...outputFormats.map((format) => ({
-      paths: unmergedDictionariesPath,
+      paths: getBuiltUnmergedDictionariesPath(configuration),
       functionName: 'getUnmergedDictionaries',
       fileName: 'unmerged_dictionaries' as const,
       format,

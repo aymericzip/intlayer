@@ -221,5 +221,11 @@ const writeFileWithDirectories = async (
 
   // remove the cache as content has changed
   // Will force a new preparation of the intlayer on next build
-  await rm(configuration.content.cacheDir, { recursive: true });
+  try {
+    await rm(configuration.content.cacheDir, { recursive: true });
+  } catch (error) {
+    if ((error as any).code !== 'ENOENT') {
+      throw error;
+    }
+  }
 };

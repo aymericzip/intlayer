@@ -7,7 +7,7 @@ import { EditorProvider } from './EditorProvider';
 import { IframeController } from './IframeController';
 
 type EditorProps = {
-  configuration?: IntlayerConfig;
+  configuration: IntlayerConfig;
 };
 
 export const Editor: FC<EditorProps> = ({ configuration }) => {
@@ -15,7 +15,7 @@ export const Editor: FC<EditorProps> = ({ configuration }) => {
 
   return (
     <EditorProvider iframeRef={iframeRef} configuration={configuration}>
-      <EditorLayout>
+      <EditorLayout configuration={configuration}>
         <IframeController iframeRef={iframeRef} />
       </EditorLayout>
     </EditorProvider>

@@ -16,6 +16,7 @@ import {
   FILE_EXTENSIONS,
   MAIN_DIR,
   MODULE_AUGMENTATION_DIR,
+  NORMALIZED_DICTIONARIES_DIR,
   REMOTE_DICTIONARIES_DIR,
   TYPES_DIR,
   UNMERGED_DICTIONARIES_DIR,
@@ -62,7 +63,6 @@ import type {
   LogFunctions,
   MiddlewareConfig,
   PatternsContentConfig,
-  ResultDirDerivedConfig,
 } from '../types/config';
 import { normalizePath } from '../utils/normalizePath';
 
@@ -292,25 +292,6 @@ const buildContentFields = (
     ),
 
     /**
-     * Directory where the result will be stored
-     *
-     * Relative to the base directory of the project
-     *
-     * Default: .intlayer/dictionary
-     *
-     * Example: '.intlayer'
-     *
-     * Note:
-     * - Can be changed to a custom directory to externalize the intlayer application from the project
-     * - If the result is not at the base directory level, update the dictionariesDirName field instead
-     */
-    dictionariesDir: join(
-      notDerivedContentConfig.baseDir,
-
-      customConfiguration?.dictionariesDir ?? DICTIONARIES_DIR
-    ),
-
-    /**
      * Directory where the module augmentation will be stored
      *
      * Module augmentation allow better IDE suggestions and type checking
@@ -331,9 +312,7 @@ const buildContentFields = (
 
       customConfiguration?.moduleAugmentationDir ?? MODULE_AUGMENTATION_DIR
     ),
-  };
 
-  const dictionariesDirDerivedConfiguration: ResultDirDerivedConfig = {
     /**
      * Directory where the unmerged dictionaries will be stored
      *
@@ -500,14 +479,13 @@ const buildContentFields = (
      * Default: '.intlayer/dictionary/**\/*.json'
      */
     outputFilesPatternWithPath: `${normalizePath(
-      dictionariesDirDerivedConfiguration.dictionariesDir
+      baseDirDerivedConfiguration.dictionariesDir
     )}/**/*.json`,
   };
 
   return {
     ...notDerivedContentConfig,
     ...baseDirDerivedConfiguration,
-    ...dictionariesDirDerivedConfiguration,
     ...patternsConfiguration,
   };
 };

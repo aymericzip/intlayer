@@ -1,5 +1,5 @@
-import type { Dictionary } from '@intlayer/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { Dictionary } from '../types/dictionary';
 import { orderDictionaries } from './orderDictionaries';
 
 // Mock the configuration

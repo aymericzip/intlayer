@@ -1,5 +1,6 @@
-import { type KeyPath, NodeType } from '../types';
 import type { ContentNode } from '../types/dictionary';
+import type { KeyPath } from '../types/keyPath';
+import { NodeType } from '../types/nodeType';
 
 type LastKeyType = string | number;
 
@@ -93,8 +94,6 @@ export const editDictionaryByKeyPath = (
 
     if (keyObj.type) {
       // No treated TypedNode
-
-      currentValue = currentValue;
     }
 
     // Only update the value when processing the last key in the keyPath.

@@ -1,8 +1,11 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath, getConfiguration } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
-import { mergeDictionaries } from '../mergeDictionaries';
+import {
+  type Dictionary,
+  mergeDictionaries,
+  normalizeDictionaries,
+} from '@intlayer/core';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 import type { UnmergedDictionaryOutput } from './writeUnmergedDictionary';
@@ -49,9 +52,12 @@ export const writeMergedDictionaries = async (
         ];
       }
 
-      const mergedDictionary = mergeDictionaries(
-        dictionariesEntry.dictionaries
+      const normalizedDictionaries = normalizeDictionaries(
+        dictionariesEntry.dictionaries,
+        configuration
       );
+
+      const mergedDictionary = mergeDictionaries(normalizedDictionaries);
 
       const outputFileName = `${key}.json`;
       const resultFilePath = resolve(dictionariesDir, outputFileName);

@@ -101,6 +101,7 @@
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
+    "deepmerge": "^4.3.1",
     "@intlayer/config": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*"

@@ -31,7 +31,6 @@ export {
   loadLocalDictionaries,
   loadRemoteDictionaries,
 } from './loadDictionaries';
-export { mergeDictionaries } from './mergeDictionaries';
 export { prepareIntlayer } from './prepareIntlayer';
 export { reduceDictionaryContent } from './reduceDictionaryContent/reduceDictionaryContent';
 export {

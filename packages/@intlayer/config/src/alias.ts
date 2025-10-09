@@ -24,7 +24,7 @@ export const getAlias = ({
    */
   const dictionariesPath = join(mainDir, `dictionaries.${extension}`);
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
-  const normalizedDictionariesPath = formatter(
+  const fixedDictionariesPath = formatter(
     normalizePath(relativeDictionariesPath)
   );
 
@@ -39,7 +39,7 @@ export const getAlias = ({
     baseDir,
     unmergedDictionariesPath
   );
-  const normalizedUnmergedDictionariesPath = formatter(
+  const fixedUnmergedDictionariesPath = formatter(
     normalizePath(relativeUnmergedDictionariesPath)
   );
 
@@ -54,7 +54,7 @@ export const getAlias = ({
     baseDir,
     remoteDictionariesPath
   );
-  const normalizedRemoteDictionariesPath = formatter(
+  const fixedRemoteDictionariesPath = formatter(
     normalizePath(relativeRemoteDictionariesPath)
   );
 
@@ -69,7 +69,7 @@ export const getAlias = ({
     baseDir,
     dynamicDictionariesPath
   );
-  const normalizedDynamicDictionariesPath = formatter(
+  const fixedDynamicDictionariesPath = formatter(
     normalizePath(relativeDynamicDictionariesPath)
   );
 
@@ -84,7 +84,7 @@ export const getAlias = ({
     baseDir,
     fetchDictionariesPath
   );
-  const normalizedFetchDictionariesPath = formatter(
+  const fixedFetchDictionariesPath = formatter(
     normalizePath(relativeFetchDictionariesPath)
   );
 
@@ -93,16 +93,16 @@ export const getAlias = ({
    */
   const configurationPath = join(configDir, `configuration.json`);
   const relativeConfigurationPath = relative(baseDir, configurationPath);
-  const normalizedConfigurationPath = formatter(
+  const fixedConfigurationPath = formatter(
     normalizePath(relativeConfigurationPath)
   );
 
   return {
-    '@intlayer/dictionaries-entry': normalizedDictionariesPath,
-    '@intlayer/unmerged-dictionaries-entry': normalizedUnmergedDictionariesPath,
-    '@intlayer/remote-dictionaries-entry': normalizedRemoteDictionariesPath,
-    '@intlayer/dynamic-dictionaries-entry': normalizedDynamicDictionariesPath,
-    '@intlayer/fetch-dictionaries-entry': normalizedFetchDictionariesPath,
-    '@intlayer/config/built': normalizedConfigurationPath,
+    '@intlayer/dictionaries-entry': fixedDictionariesPath,
+    '@intlayer/unmerged-dictionaries-entry': fixedUnmergedDictionariesPath,
+    '@intlayer/remote-dictionaries-entry': fixedRemoteDictionariesPath,
+    '@intlayer/dynamic-dictionaries-entry': fixedDynamicDictionariesPath,
+    '@intlayer/fetch-dictionaries-entry': fixedFetchDictionariesPath,
+    '@intlayer/config/built': fixedConfigurationPath,
   };
 };

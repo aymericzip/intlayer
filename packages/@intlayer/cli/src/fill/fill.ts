@@ -3,7 +3,6 @@ import {
   formatLocale,
   formatPath,
   type ListGitFilesOptions,
-  mergeDictionaries,
   parallelize,
   prepareIntlayer,
   reduceDictionaryContent,
@@ -22,6 +21,7 @@ import {
   type ContentNode,
   type Dictionary,
   getLocalizedContent,
+  mergeDictionaries,
 } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import {
