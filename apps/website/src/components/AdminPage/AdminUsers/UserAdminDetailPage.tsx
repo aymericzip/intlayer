@@ -28,16 +28,6 @@ import { type FC, useEffect, useMemo, useState } from 'react';
 import { PagesRoutes } from '@/Routes';
 import { useUserEditSchema } from './useUserEditSchema';
 
-const AVAILABLE_ROLES = [
-  'user',
-  'admin',
-  'org_admin',
-  'org_user',
-  'project_admin',
-  'project_user',
-  'project_reviewer',
-] as const;
-
 export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
   const router = useRouter();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -50,7 +40,6 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
   const { data: organizationsResponse } = useGetOrganizations() as any;
   const organizations = organizationsResponse?.data ?? [];
 
-  const { availableLocales } = useLocale();
   const deleteUserMutation = useDeleteUser();
   const updateUserMutation = useUpdateUser();
   const updateOrganizationMembersByIdMutation =
@@ -66,7 +55,6 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
     errorMessages,
     deleteSection,
     successMessages,
-    roleLabels,
   } = useIntlayer('user-detail-page');
 
   const user: UserAPI | undefined = userResponse?.data ?? undefined;
@@ -294,48 +282,6 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
                   placeholder={formLabels.emailPlaceholder.value}
                   isRequired
                 />
-
-                <Form.Select
-                  name="role"
-                  label={formLabels.role.value}
-                  value={user.role}
-                  placeholder={formLabels.rolePlaceholder.value}
-                  isRequired
-                >
-                  <Select.Trigger>
-                    <Select.Value
-                      placeholder={formLabels.rolePlaceholder.value}
-                    />
-                  </Select.Trigger>
-                  <Select.Content>
-                    {AVAILABLE_ROLES.map((role) => (
-                      <Select.Item key={role} value={role}>
-                        {roleLabels[role]?.value ?? role}
-                      </Select.Item>
-                    ))}
-                  </Select.Content>
-                </Form.Select>
-
-                <Form.Select
-                  name="lang"
-                  label={formLabels.language.value}
-                  value={user.lang}
-                  placeholder={formLabels.languagePlaceholder.value}
-                  isRequired
-                >
-                  <Select.Trigger>
-                    <Select.Value
-                      placeholder={formLabels.languagePlaceholder.value}
-                    />
-                  </Select.Trigger>
-                  <Select.Content>
-                    {availableLocales.map((language) => (
-                      <Select.Item key={language} value={language}>
-                        {language}
-                      </Select.Item>
-                    ))}
-                  </Select.Content>
-                </Form.Select>
 
                 <Form.MultiSelect
                   name="organizationIds"
