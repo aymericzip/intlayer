@@ -328,6 +328,19 @@ const buildContentFields = (
     ),
 
     /**
+     * Directory where the normalized dictionaries will be stored
+     *
+     * Relative to the result directory
+     *
+     * Default: '.intlayer/normalized_dictionary'
+     */
+    normalizedDictionariesDir: join(
+      notDerivedContentConfig.baseDir,
+      customConfiguration?.normalizedDictionariesDir ??
+        NORMALIZED_DICTIONARIES_DIR
+    ),
+
+    /**
      * Directory where the remote dictionaries will be stored
      *
      * Relative to the result directory

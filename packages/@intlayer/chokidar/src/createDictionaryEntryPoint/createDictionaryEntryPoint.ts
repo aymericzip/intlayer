@@ -7,6 +7,7 @@ import { generateDictionaryListContent } from './generateDictionaryListContent';
 import { getBuiltDictionariesPath } from './getBuiltDictionariesPath';
 import { getBuiltDynamicDictionariesPath } from './getBuiltDynamicDictionariesPath';
 import { getBuiltFetchDictionariesPath } from './getBuiltFetchDictionariesPath';
+import { getBuiltNormalizedDictionariesPath } from './getBuiltNormalizedDictionariesPath';
 import { getBuiltRemoteDictionariesPath } from './getBuiltRemoteDictionariesPath';
 import { getBuiltUnmergedDictionariesPath } from './getBuiltUnmergedDictionariesPath';
 
@@ -62,6 +63,12 @@ export const createDictionaryEntryPoint = async (
       paths: getBuiltUnmergedDictionariesPath(configuration),
       functionName: 'getUnmergedDictionaries',
       fileName: 'unmerged_dictionaries' as const,
+      format,
+    })),
+    ...outputFormats.map((format) => ({
+      paths: getBuiltNormalizedDictionariesPath(configuration),
+      functionName: 'getNormalizedDictionaries',
+      fileName: 'normalized_dictionaries' as const,
       format,
     })),
     ...outputFormats.map((format) => ({

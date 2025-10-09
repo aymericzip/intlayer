@@ -80,6 +80,7 @@ export const translateDictionary = async (
     { dictionaryKey: task.dictionaryKey, keyPath: [] }
   );
 
+  console.log('sourceLocaleContent', sourceLocaleContent);
   const chunkedJsonContent: JsonChunk[] = chunkJSON(
     sourceLocaleContent.content,
     1000

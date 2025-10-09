@@ -572,6 +572,15 @@ export type BaseDerivedConfig = {
   unmergedDictionariesDir: string;
 
   /**
+   * Directory where the normalized dictionaries are stored, relative to the result directory
+   *
+   * Default: .intlayer/normalized_dictionary
+   *
+   * Specifies the derived path for normalized dictionaries relative to the result directory.
+   */
+  normalizedDictionariesDir: string;
+
+  /**
    * Directory where remote dictionaries are stored, relative to the result directory
    *
    * Default: .intlayer/remote_dictionary
