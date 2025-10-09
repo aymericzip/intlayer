@@ -84,7 +84,7 @@ export const getUsers = async (
   res: ResponseWithSession<GetUsersResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization, roles } = res.locals;
+  const { user, roles } = res.locals;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -95,38 +95,8 @@ export const getUsers = async (
     getUserFiltersAndPagination(req);
 
   try {
-    const isAdmin = roles.includes('admin');
-    const organizationIdFilter = req.query.organizationId as string | undefined;
-
-    let queryFilters = filters;
-
-    // If organizationId filter is provided, fetch that organization's members
-    if (isAdmin) {
-      // If no organizationId filter and user is not admin, filter by current organization
-      if (!organization) {
-        ErrorHandler.handleGenericErrorResponse(
-          res,
-          'ORGANIZATION_NOT_DEFINED'
-        );
-        return;
-      }
-      queryFilters = {
-        $and: [filters, { _id: { $in: organization.membersIds } }],
-      };
-    } else if (organizationIdFilter) {
-      const targetOrganization =
-        await organizationService.getOrganizationById(organizationIdFilter);
-      if (!targetOrganization) {
-        ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
-        return;
-      }
-      queryFilters = {
-        $and: [filters, { _id: { $in: targetOrganization.membersIds } }],
-      };
-    }
-
     const users = await userService.findUsers(
-      queryFilters,
+      filters,
       skip,
       pageSize,
       sortOptions
@@ -145,7 +115,7 @@ export const getUsers = async (
       return;
     }
 
-    const totalItems = await userService.countUsers(queryFilters);
+    const totalItems = await userService.countUsers(filters);
 
     const formattedUsers = mapUsersToAPI(users);
 

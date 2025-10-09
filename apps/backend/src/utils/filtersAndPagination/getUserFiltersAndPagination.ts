@@ -9,6 +9,7 @@ import {
 
 export type UserFiltersParam = {
   ids?: string | string[];
+  organizationId?: string | string[];
   firstName?: string;
   lastName?: string;
   email?: string;
@@ -41,6 +42,7 @@ export const getUserFiltersAndPagination = (
       email,
       emailVerified,
       role,
+      organizationId,
       search,
       sortBy,
       sortOrder,
@@ -51,6 +53,13 @@ export const getUserFiltersAndPagination = (
 
     if (ids) {
       filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
+    }
+
+    if (organizationId) {
+      filters = {
+        ...filters,
+        organizationId: { $in: ensureArrayQueryFilter(organizationId) },
+      };
     }
 
     if (firstName) {
