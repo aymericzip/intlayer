@@ -2,6 +2,7 @@ export * from './Accordion';
 export * from './Avatar';
 export * from './Badge';
 export * from './Breadcrumb';
+export * from './Browser';
 export * from './Button';
 export * from './ClickOutsideDiv';
 export * from './CollapsibleTable';
