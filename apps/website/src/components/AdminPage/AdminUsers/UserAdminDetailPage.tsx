@@ -1,4 +1,5 @@
 'use client';
+
 import type { UserAPI } from '@intlayer/backend';
 import {
   Avatar,
@@ -22,7 +23,7 @@ import {
 } from '@intlayer/design-system/hooks';
 import { AlertTriangle, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useEffect, useMemo, useState } from 'react';
 import { PagesRoutes } from '@/Routes';
 import { useUserEditSchema } from './useUserEditSchema';
@@ -49,6 +50,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
   const { data: organizationsResponse } = useGetOrganizations() as any;
   const organizations = organizationsResponse?.data ?? [];
 
+  const { availableLocales } = useLocale();
   const deleteUserMutation = useDeleteUser();
   const updateUserMutation = useUpdateUser();
   const updateOrganizationMembersByIdMutation =
@@ -83,10 +85,10 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
       setInitialOrganizationIds(currentOrganizationIds);
 
       form.reset({
-        name: user.name || '',
-        email: user.email || '',
-        role: user.role || 'user',
-        lang: user.lang || 'en',
+        name: user.name ?? '-',
+        email: user.email ?? '-',
+        role: user.role ?? 'user',
+        lang: user.lang ?? 'en',
         organizationIds: currentOrganizationIds,
       });
     }
@@ -96,7 +98,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
     if (!user) return;
 
     try {
-      const newOrgIds = data.organizationIds || [];
+      const newOrgIds = data.organizationIds ?? [];
       const orgsToAdd = newOrgIds.filter(
         (id: string) => !initialOrganizationIds.includes(id)
       );
@@ -137,12 +139,12 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
       for (const orgId of orgsToAdd) {
         const org = organizations.find((o: any) => o.id === orgId);
         if (org) {
-          const updatedMemberIds = [...(org.membersIds || []), user.id];
+          const updatedMemberIds = [...(org.membersIds ?? []), user.id];
 
           await updateOrganizationMembersByIdMutation.mutateAsync({
             organizationId: org.id,
             membersIds: updatedMemberIds,
-            adminsIds: org.adminsIds || [],
+            adminsIds: org.adminsIds ?? [],
           });
         }
       }
@@ -154,14 +156,14 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
             (id: string) => id !== user.id
           );
           const updatedAdminIds =
-            org.adminsIds?.filter((id: string) => id !== user.id) || [];
+            org.adminsIds?.filter((id: string) => id !== user.id) ?? [];
           await updateOrganizationMembersByIdMutation.mutateAsync({
             organizationId: org.id,
             membersIds: updatedMemberIds,
             adminsIds:
               updatedAdminIds.length > 0
                 ? updatedAdminIds
-                : org.adminsIds || [],
+                : (org.adminsIds ?? []),
           });
         }
       }
@@ -207,7 +209,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
 
   const getOrganizationName = (value: string) => {
     const organization = organizations.find((org: any) => org.id === value);
-    return organization?.name || '';
+    return organization?.name ?? '';
   };
 
   const isLastMemberInOrg = (orgId: string): boolean => {
@@ -246,7 +248,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
               />
               <div className="flex-1">
                 <h2 className="font-semibold text-neutral-900 text-xl dark:text-neutral-100">
-                  {user.name || user.email}
+                  {user.name ?? user.email}
                 </h2>
                 <p className="text-neutral-600 dark:text-neutral-400">
                   {user.email}
@@ -256,7 +258,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
                   variant={BadgeVariant.OUTLINE}
                   color={
                     user.emailVerified
-                      ? BadgeColor.PRIMARY
+                      ? BadgeColor.TEXT
                       : BadgeColor.DESTRUCTIVE
                   }
                 >
@@ -308,7 +310,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
                   <Select.Content>
                     {AVAILABLE_ROLES.map((role) => (
                       <Select.Item key={role} value={role}>
-                        {roleLabels[role]?.value || role}
+                        {roleLabels[role]?.value ?? role}
                       </Select.Item>
                     ))}
                   </Select.Content>
@@ -327,19 +329,11 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
                     />
                   </Select.Trigger>
                   <Select.Content>
-                    <Select.Item value="en">English</Select.Item>
-                    <Select.Item value="fr">Français</Select.Item>
-                    <Select.Item value="es">Español</Select.Item>
-                    <Select.Item value="de">Deutsch</Select.Item>
-                    <Select.Item value="ja">日本語</Select.Item>
-                    <Select.Item value="ko">한국어</Select.Item>
-                    <Select.Item value="zh">中文</Select.Item>
-                    <Select.Item value="it">Italiano</Select.Item>
-                    <Select.Item value="pt">Português</Select.Item>
-                    <Select.Item value="hi">हिन्दी</Select.Item>
-                    <Select.Item value="ar">العربية</Select.Item>
-                    <Select.Item value="ru">Русский</Select.Item>
-                    <Select.Item value="tr">Türkçe</Select.Item>
+                    {availableLocales.map((language) => (
+                      <Select.Item key={language} value={language}>
+                        {language}
+                      </Select.Item>
+                    ))}
                   </Select.Content>
                 </Form.Select>
 
@@ -433,7 +427,8 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
                 onClick={() => setIsDeleteModalOpen(true)}
                 disabled={deleteUserMutation.isPending}
                 Icon={Trash2}
-                color="destructive"
+                variant="outline"
+                color="error"
               >
                 {deleteSection.button.value}
               </Form.Button>
@@ -470,7 +465,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
               label={deleteSection.cancelButton.value}
               onClick={() => setIsDeleteModalOpen(false)}
               disabled={deleteUserMutation.isPending}
-              color="secondary"
+              color="error"
             >
               {deleteSection.cancelButton.value}
             </Form.Button>
@@ -479,7 +474,6 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
               onClick={handleDeleteUser}
               isLoading={deleteUserMutation.isPending}
               Icon={Trash2}
-              color="destructive"
             >
               {deleteSection.confirmButton.value}
             </Form.Button>
