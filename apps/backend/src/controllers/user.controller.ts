@@ -95,23 +95,13 @@ export const getUsers = async (
     getUserFiltersAndPagination(req);
 
   try {
-    const isAdmin = user.role === 'admin';
+    const isAdmin = roles.includes('admin');
     const organizationIdFilter = req.query.organizationId as string | undefined;
 
     let queryFilters = filters;
 
     // If organizationId filter is provided, fetch that organization's members
-    if (organizationIdFilter) {
-      const targetOrganization =
-        await organizationService.getOrganizationById(organizationIdFilter);
-      if (!targetOrganization) {
-        ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
-        return;
-      }
-      queryFilters = {
-        $and: [filters, { _id: { $in: targetOrganization.membersIds } }],
-      };
-    } else if (!isAdmin) {
+    if (isAdmin) {
       // If no organizationId filter and user is not admin, filter by current organization
       if (!organization) {
         ErrorHandler.handleGenericErrorResponse(
@@ -122,6 +112,16 @@ export const getUsers = async (
       }
       queryFilters = {
         $and: [filters, { _id: { $in: organization.membersIds } }],
+      };
+    } else if (organizationIdFilter) {
+      const targetOrganization =
+        await organizationService.getOrganizationById(organizationIdFilter);
+      if (!targetOrganization) {
+        ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+        return;
+      }
+      queryFilters = {
+        $and: [filters, { _id: { $in: targetOrganization.membersIds } }],
       };
     }
 
@@ -369,7 +369,6 @@ export const deleteUser = async (
 
     res.json(responseData);
   } catch (error) {
-    console.log(error);
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }

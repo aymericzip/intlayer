@@ -26,8 +26,8 @@ const AdminLayoutContent: FC<
   return (
     <PageLayout navbar={false} footer={false} locale={locale}>
       <AuthenticationBarrier
-        accessRule="admin"
-        redirectionRoute={`${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(PagesRoutes.Dashboard)}`}
+        accessRule="authenticated"
+        redirectionRoute={`${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(PagesRoutes.Admin_Users)}`}
         session={session as SessionAPI}
         locale={locale}
       >

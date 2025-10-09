@@ -45,8 +45,7 @@ export const UsersAdminPageContent: FC = () => {
     searchParams.get('organizationId') || 'all'
   );
 
-  const { data: organizationsResponse, isLoading: isLoadingOrganizations } =
-    useGetOrganizations() as any;
+  const { data: organizationsResponse } = useGetOrganizations() as any;
   const organizations = organizationsResponse?.data ?? [];
 
   const usersQuery = useGetUsers({
@@ -334,7 +333,7 @@ export const UsersAdminPageContent: FC = () => {
                             {user.name ?? user.email}
                           </Link>
                           <CopyToClipboard
-                            onSuccess={() => {
+                            onCopySuccess={() => {
                               toast({
                                 title: successMessages.idCopied.value,
                                 variant: 'success',
