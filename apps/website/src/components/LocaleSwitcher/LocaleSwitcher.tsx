@@ -9,7 +9,7 @@ import {
   type PanelProps,
 } from '@intlayer/design-system';
 import { MoveVertical } from 'lucide-react';
-import { useIntlayer, useLocale, useLocaleCookie } from 'next-intlayer';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useRef } from 'react';
 import { useLocaleSearch } from './useLocaleSearch';
 
@@ -33,8 +33,8 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   } = useIntlayer('locale-switcher');
   let localeName = defaultLocaleName.value as string;
   const inputRef = useRef<HTMLInputElement>(null);
-  const { locale, pathWithoutLocale, availableLocales } = useLocale();
-  const { setLocaleCookie } = useLocaleCookie();
+  const { locale, pathWithoutLocale, availableLocales, setLocale } =
+    useLocale();
   const { searchResults, handleSearch } = useLocaleSearch(
     availableLocales,
     locale
@@ -101,7 +101,8 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                       isActive={locale === localeItem}
                       variant="hoverable"
                       color="text"
-                      onClick={() => setLocaleCookie(localeItem)}
+                      replace // Will ensure that the "go back" browser button will redirect to the previous page
+                      onClick={() => setLocale(localeItem)}
                     >
                       <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
                         <div className="flex flex-col text-nowrap">

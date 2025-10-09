@@ -6,8 +6,12 @@ import { usePathname, useRouter } from 'next/navigation.js';
 import { useCallback, useMemo } from 'react';
 import { useLocale as useLocaleReact } from 'react-intlayer';
 
-export const useLocale = () => {
-  const { push, refresh } = useRouter();
+type UseLocaleProps = {
+  onChange?: 'replace' | 'push' | ((locale: LocalesValues) => void);
+};
+
+export const useLocale = ({ onChange }: UseLocaleProps = {}) => {
+  const { replace, push } = useRouter();
   const pathname = usePathname();
   const pathWithoutLocale = useMemo(
     () => getPathWithoutLocale(pathname),
@@ -16,13 +20,23 @@ export const useLocale = () => {
 
   const redirectionFunction = useCallback(
     (locale: LocalesValues) => {
+      if (!onChange) return;
+
+      if (typeof onChange === 'function') {
+        onChange(locale);
+        return;
+      }
+
       const pathWithLocale = getLocalizedUrl(pathWithoutLocale, locale);
 
-      push(pathWithLocale);
-
-      return refresh();
+      if (onChange === 'replace') {
+        replace(pathWithLocale);
+      }
+      if (onChange === 'push') {
+        push(pathWithLocale);
+      }
     },
-    [refresh, pathWithoutLocale]
+    [replace, push, pathWithoutLocale, onChange]
   );
 
   const reactLocaleHook = useLocaleReact({

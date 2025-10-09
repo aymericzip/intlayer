@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-09-23
+updatedAt: 2025-10-09
 title: How to translate your Next.js 15 app – i18n guide 2025
 description: Discover how to make your Next.js 15 website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -1132,8 +1132,8 @@ import { useLocale } from "next-intlayer";
 import Link from "next/link";
 
 export const LocaleSwitcher: FC = () => {
-  const { locale, pathWithoutLocale, availableLocales } = useLocale();
-  const { setLocaleCookie } = useLocaleCookie();
+  const { locale, pathWithoutLocale, availableLocales, setLocale } =
+    useLocale();
 
   return (
     <div>
@@ -1142,10 +1142,10 @@ export const LocaleSwitcher: FC = () => {
         {availableLocales.map((localeItem) => (
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocaleCookie(localeItem)}
+            onClick={() => setLocale(localeItem)}
+            replace // Will ensure that the "go back" browser button will redirect to the previous page
           >
             <span>
               {/* Locale - e.g. FR */}
@@ -1184,8 +1184,8 @@ import { useLocale } from "next-intlayer";
 import Link from "next/link";
 
 export const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales } = useLocale();
-  const { setLocaleCookie } = useLocaleCookie();
+  const { locale, pathWithoutLocale, availableLocales, setLocale } =
+    useLocale();
 
   return (
     <div>
@@ -1194,10 +1194,10 @@ export const LocaleSwitcher = () => {
         {availableLocales.map((localeItem) => (
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocaleCookie(localeItem)}
+            onClick={() => setLocale(localeItem)}
+            replace // Will ensure that the "go back" browser button will redirect to the previous page
           >
             <span>
               {/* Locale - e.g. FR */}
@@ -1236,7 +1236,8 @@ const { useLocale } = require("next-intlayer");
 const Link = require("next/link");
 
 export const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales } = useLocale();
+  const { locale, pathWithoutLocale, availableLocales, setLocale } =
+    useLocale();
 
   return (
     <div>
@@ -1245,10 +1246,10 @@ export const LocaleSwitcher = () => {
         {availableLocales.map((localeItem) => (
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocaleCookie(localeItem)}
+            onClick={() => setLocale(localeItem)}
+            replace // Will ensure that the "go back" browser button will redirect to the previous page
           >
             <span>
               {/* Locale - e.g. FR */}
@@ -1274,11 +1275,11 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-> An alternative way is to use the `setLocale` function provided by the `useLocale` hook. This function will not allow prefetching the page and will reload the page.
+> An alternative way is to use the `setLocale` function provided by the `useLocale` hook. This function will not allow prefetching the page. See the [`useLocale` hook documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useLocale.md) for more details.
 
-> In this case, without redirection using `router.push`, only your server-side code will change the locale of the content.
+> You can also set a function in the `onLocaleChange` option to trigger a custom function when the locale changes.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -1563,6 +1564,7 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 | Version | Date       | Changes                                                         |
 | ------- | ---------- | --------------------------------------------------------------- |
+| 6.2.0   | 2025-10-09 | Added docs for `useLocale` hook with `onLocaleChange` option    |
 | 5.6.6   | 2025-10-02 | Added docs for `getLocale` function on server actions           |
 | 5.6.2   | 2025-09-23 | Added docs for watch dictionaries changes on Turbopack          |
 | 5.6.2   | 2025-09-22 | Added docs for `multipleMiddlewares` helper                     |

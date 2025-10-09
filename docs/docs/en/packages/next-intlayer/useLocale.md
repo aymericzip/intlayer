@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2025-10-09
 title: useLocale Hook Documentation | next-intlayer
 description: See how to use the useLocale hook for next-intlayer package
 keywords:
@@ -112,7 +112,39 @@ const LocaleSwitcher = () => {
 };
 ```
 
-## Parameters and Return Values
+## Parameters
+
+The `useLocale` hook accepts the following parameters:
+
+- **`onLocaleChange`**: A string that determines how the URL should be updated when the locale changes. It can be `"replace"`, `"push"` or `"none"`.
+
+  > Let's take an example:
+  >
+  > 1. You are on `/fr/home`
+  > 2. You navigate to `/fr/about`
+  > 3. You switch to `/es/about`
+  > 4. You click the browser's "back" button
+  >
+  > The behavior will differ based on the `onLocaleChange` value:
+  >
+  > - `undefined`: (default) Only updates the locale in the client context, and set the cookie, without changing the URL.
+  >   -> The "back" button will go to `/fr/home`
+  > - `"replace"`: Replaces the current URL with the new localized URL, and set the cookie.
+  >   -> The "back" button will go to `/es/home`
+  > - `"push"`: Adds the new localized URL to browser history, and set the cookie.
+  >   -> The "back" button will go to `/fr/about`
+  > - `(locale) => void`: Set the cookie and trigger a custom function that will be called when the locale changes.
+  >
+  >   The `undefined` option is the default behavior as we recommend to use the `Link` component to navigate to the new locale.
+  >   Example:
+  >
+  >   ```tsx
+  >   <Link href="/es/about" replace>
+  >     About
+  >   </Link>
+  >   ```
+
+## Return Values
 
 When you invoke the `useLocale` hook, it returns an object containing the following properties:
 
@@ -128,6 +160,7 @@ The `useLocale` hook from `next-intlayer` is a crucial tool for managing locales
 
 ## Doc History
 
-| Version | Date       | Changes      |
-| ------- | ---------- | ------------ |
-| 5.5.10  | 2025-06-29 | Init history |
+| Version | Date       | Changes                                                      |
+| ------- | ---------- | ------------------------------------------------------------ |
+| 6.2.0   | 2025-10-09 | Added docs for `useLocale` hook with `onLocaleChange` option |
+| 5.5.10  | 2025-06-29 | Init history                                                 |
