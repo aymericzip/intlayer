@@ -29,9 +29,6 @@ export {
 } from './logger';
 export { retryManager } from './retryManager';
 export type {
-  BaseContentConfig,
-  BaseDerivedConfig,
-  ContentConfig,
   CustomIntlayerConfig,
   InternationalizationConfig,
   IntlayerConfig,
@@ -39,7 +36,6 @@ export type {
   LogFunctions,
   MiddlewareConfig,
   PatternsContentConfig,
-  ResultDirDerivedConfig,
   ServerSetCookieRule,
   StrictMode,
 } from './types/config';

@@ -30,6 +30,8 @@ export const REMOTE_DICTIONARIES_DIR = '.intlayer/remote_dictionary';
 
 export const UNMERGED_DICTIONARIES_DIR = '.intlayer/unmerged_dictionary';
 
+export const NORMALIZED_DICTIONARIES_DIR = '.intlayer/normalized_dictionary';
+
 export const DYNAMIC_DICTIONARIES_DIR = '.intlayer/dynamic_dictionary';
 
 export const FETCH_DICTIONARIES_DIR = '.intlayer/fetch_dictionary';

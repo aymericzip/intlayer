@@ -554,15 +554,6 @@ export type BaseDerivedConfig = {
   contentDir: string[];
 
   /**
-   * Directory where the results are stored, relative to the base directory
-   *
-   * Default: .intlayer/dictionary
-   *
-   * Derived results directory based on the base configuration.
-   */
-  dictionariesDir: string;
-
-  /**
    * Directory for module augmentation, relative to the base directory
    *
    * Default: .intlayer/types
@@ -570,12 +561,7 @@ export type BaseDerivedConfig = {
    * Defines the derived path for module augmentation.
    */
   moduleAugmentationDir: string;
-};
 
-/**
- * Configuration derived based on the result directory
- */
-export type ResultDirDerivedConfig = {
   /**
    * Directory where unmerged dictionaries are stored, relative to the result directory
    *
@@ -584,6 +570,15 @@ export type ResultDirDerivedConfig = {
    * Specifies the derived path for unmerged dictionaries relative to the result directory.
    */
   unmergedDictionariesDir: string;
+
+  /**
+   * Directory where the normalized dictionaries are stored, relative to the result directory
+   *
+   * Default: .intlayer/normalized_dictionary
+   *
+   * Specifies the derived path for normalized dictionaries relative to the result directory.
+   */
+  normalizedDictionariesDir: string;
 
   /**
    * Directory where remote dictionaries are stored, relative to the result directory
@@ -696,7 +691,6 @@ export type PatternsContentConfig = {
  */
 export type ContentConfig = BaseContentConfig &
   BaseDerivedConfig &
-  ResultDirDerivedConfig &
   PatternsContentConfig;
 
 export type LogFunctions = {

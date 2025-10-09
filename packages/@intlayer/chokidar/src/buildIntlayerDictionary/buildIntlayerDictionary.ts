@@ -7,6 +7,7 @@ import {
 } from './writeDynamicDictionary';
 import { writeFetchDictionary } from './writeFetchDictionary';
 import { writeMergedDictionaries } from './writeMergedDictionary';
+import { writeNormalizedDictionaries } from './writeNormalizedDictionary';
 import { writeUnmergedDictionaries } from './writeUnmergedDictionary';
 
 /**
@@ -51,8 +52,13 @@ export const buildDictionary = async (
     configuration
   );
 
-  const mergedDictionaries = await writeMergedDictionaries(
+  const normalizedDictionaries = await writeNormalizedDictionaries(
     unmergedDictionaries,
+    configuration
+  );
+
+  const mergedDictionaries = await writeMergedDictionaries(
+    normalizedDictionaries,
     configuration
   );
 
@@ -78,6 +84,7 @@ export const buildDictionary = async (
 
   return {
     unmergedDictionaries,
+    normalizedDictionaries,
     mergedDictionaries,
     dynamicDictionaries,
     fetchDictionaries,
