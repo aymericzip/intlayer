@@ -158,7 +158,7 @@ export const addOrganization = async (
   res: ResponseWithSession<AddOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, roles } = res.locals;
+  const { user } = res.locals;
   const organization = req.body;
 
   if (!organization) {
@@ -446,7 +446,6 @@ export const updateOrganizationMembers = async (
 
     const updatedOrganization =
       await organizationService.updateOrganizationById(organization.id, {
-        ...organization,
         membersIds: existingUsers.map((user) => user.id),
         adminsIds: existingAdmins.map((user) => user.id),
       });
@@ -461,6 +460,112 @@ export const updateOrganizationMembers = async (
         en: 'Your organization has been updated successfully',
         fr: 'Votre organisation a été mise à jour avec succès',
         es: 'Su organización ha sido actualizada con éxito',
+      }),
+      data: mapOrganizationToAPI(updatedOrganization),
+    });
+
+    res.json(responseData);
+    return;
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
+
+export type UpdateOrganizationMembersByIdParams = { organizationId: string };
+export type UpdateOrganizationMembersByIdBody = Partial<{
+  membersIds: (User | UserAPI)['id'][];
+  adminsIds: (User | UserAPI)['id'][];
+}>;
+export type UpdateOrganizationMembersByIdResult = ResponseData<OrganizationAPI>;
+
+/**
+ * Admin-only: Update members of any organization by ID
+ */
+export const updateOrganizationMembersById = async (
+  req: Request<
+    UpdateOrganizationMembersByIdParams,
+    any,
+    UpdateOrganizationMembersByIdBody
+  >,
+  res: ResponseWithSession<UpdateOrganizationMembersByIdResult>,
+  _next: NextFunction
+): Promise<void> => {
+  const { user } = res.locals;
+  const { organizationId } = req.params;
+  const { membersIds, adminsIds } = req.body;
+
+  if (!user) {
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
+  }
+
+  if (user.role !== 'admin') {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
+  }
+
+  if (!membersIds) {
+    ErrorHandler.handleGenericErrorResponse(res, 'INVALID_REQUEST_BODY');
+    return;
+  }
+
+  if (membersIds?.length === 0) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'ORGANIZATION_MUST_HAVE_MEMBER'
+    );
+    return;
+  }
+
+  try {
+    const targetOrganization =
+      await organizationService.getOrganizationById(organizationId);
+
+    if (!targetOrganization) {
+      ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+      return;
+    }
+
+    const existingUsers = await userService.getUsersByIds(membersIds);
+
+    if (!existingUsers) {
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      return;
+    }
+
+    const finalAdminsIds =
+      adminsIds && adminsIds.length > 0
+        ? adminsIds
+        : targetOrganization.adminsIds;
+    const existingAdmins = finalAdminsIds
+      ? await userService.getUsersByIds(finalAdminsIds)
+      : [];
+
+    if (!existingAdmins || existingAdmins.length === 0) {
+      ErrorHandler.handleGenericErrorResponse(
+        res,
+        'ORGANIZATION_MUST_HAVE_ADMIN'
+      );
+      return;
+    }
+
+    const updatedOrganization =
+      await organizationService.updateOrganizationById(targetOrganization.id, {
+        membersIds: existingUsers.map((user) => user.id),
+        adminsIds: existingAdmins.map((user) => user.id),
+      });
+
+    const responseData = formatResponse<OrganizationAPI>({
+      message: t({
+        en: 'Organization members updated successfully',
+        fr: "Membres de l'organisation mis à jour avec succès",
+        es: 'Miembros de la organización actualizados con éxito',
+      }),
+      description: t({
+        en: 'Organization members have been updated successfully',
+        fr: "Les membres de l'organisation ont été mis à jour avec succès",
+        es: 'Los miembros de la organización han sido actualizados con éxito',
       }),
       data: mapOrganizationToAPI(updatedOrganization),
     });

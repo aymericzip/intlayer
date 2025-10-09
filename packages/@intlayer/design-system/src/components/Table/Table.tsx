@@ -56,6 +56,7 @@ import { Modal, ModalSize } from '../Modal';
  */
 type TableProps = HTMLAttributes<HTMLTableElement> & {
   isRollable?: boolean;
+  displayModal?: boolean;
 };
 
 /**
@@ -195,24 +196,31 @@ type TableProps = HTMLAttributes<HTMLTableElement> & {
  * @see {@link Modal} - Component used for full-screen table view
  * @see {@link Button} - Component used for the modal trigger button
  */
-export const Table: FC<TableProps> = ({ className, isRollable, ...props }) => {
+export const Table: FC<TableProps> = ({
+  className,
+  isRollable,
+  displayModal,
+  ...props
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="relative">
-      <div className="sticky top-48 z-10">
-        <div className="absolute top-4 right-2">
-          <Button
-            variant="hoverable"
-            size="icon-md"
-            onClick={() => {
-              setIsModalOpen(true);
-            }}
-            label="Move"
-            Icon={MoveDiagonal}
-          />
+      {displayModal && (
+        <div className="sticky top-48 z-10">
+          <div className="absolute top-4 right-2">
+            <Button
+              variant="hoverable"
+              size="icon-md"
+              onClick={() => {
+                setIsModalOpen(true);
+              }}
+              label="Move"
+              Icon={MoveDiagonal}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <ExpandCollapse
         isRollable={isRollable}
         className="max-w-full overflow-x-auto"

@@ -93,14 +93,22 @@ export const getUsersByIds = async (
  * @param filters - MongoDB filter query.
  * @param skip - Number of documents to skip.
  * @param limit - Number of documents to limit.
+ * @param sortOptions - Sorting options.
  * @returns List of users matching the filters.
  */
 export const findUsers = async (
   filters: UserFilters,
   skip: number,
-  limit: number
+  limit: number,
+  sortOptions?: Record<string, 1 | -1>
 ): Promise<UserDocument[]> => {
-  return await UserModel.find(filters).skip(skip).limit(limit);
+  let query = UserModel.find(filters).skip(skip).limit(limit);
+
+  if (sortOptions && Object.keys(sortOptions).length > 0) {
+    query = query.sort(sortOptions);
+  }
+
+  return await query;
 };
 
 /**

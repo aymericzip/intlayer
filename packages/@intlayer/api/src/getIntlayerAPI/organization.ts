@@ -122,6 +122,26 @@ export const getOrganizationAPI = (
     );
 
   /**
+   * Admin-only: Update members of any organization by ID
+   * @param organizationId - Organization ID
+   * @param body - Updated organization members data.
+   */
+  const updateOrganizationMembersById = async (
+    organizationId: string,
+    body: UpdateOrganizationMembersBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    fetcher<UpdateOrganizationMembersResult>(
+      `${ORGANIZATION_API_ROUTE}/${organizationId}/members`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'PUT',
+        body,
+      }
+    );
+
+  /**
    * Add member to the organization in the database.
    * @param body - Updated organization members data.
    */
@@ -191,6 +211,7 @@ export const getOrganizationAPI = (
     addOrganizationMember,
     updateOrganization,
     updateOrganizationMembers,
+    updateOrganizationMembersById,
     deleteOrganization,
     selectOrganization,
     unselectOrganization,

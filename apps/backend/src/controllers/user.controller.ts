@@ -1,11 +1,14 @@
 import { logger } from '@logger';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { sendEmail } from '@services/email.service';
+import * as organizationService from '@services/organization.service';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
-import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
-import type { UserFiltersParam } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
+import {
+  getUserFiltersAndPagination,
+  type UserFiltersParam,
+} from '@utils/filtersAndPagination/getUserFiltersAndPagination';
 import { mapUsersToAPI, mapUserToAPI } from '@utils/mapper/user';
 import { hasPermission } from '@utils/permissions';
 import {
@@ -88,19 +91,45 @@ export const getUsers = async (
     return;
   }
 
-  if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
-  }
-
-  const { filters, pageSize, skip, page, getNumberOfPages } =
-    getOrganizationFiltersAndPagination(req);
+  const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
+    getUserFiltersAndPagination(req);
 
   try {
+    const isAdmin = user.role === 'admin';
+    const organizationIdFilter = req.query.organizationId as string | undefined;
+
+    let queryFilters = filters;
+
+    // If organizationId filter is provided, fetch that organization's members
+    if (organizationIdFilter) {
+      const targetOrganization =
+        await organizationService.getOrganizationById(organizationIdFilter);
+      if (!targetOrganization) {
+        ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+        return;
+      }
+      queryFilters = {
+        $and: [filters, { _id: { $in: targetOrganization.membersIds } }],
+      };
+    } else if (!isAdmin) {
+      // If no organizationId filter and user is not admin, filter by current organization
+      if (!organization) {
+        ErrorHandler.handleGenericErrorResponse(
+          res,
+          'ORGANIZATION_NOT_DEFINED'
+        );
+        return;
+      }
+      queryFilters = {
+        $and: [filters, { _id: { $in: organization.membersIds } }],
+      };
+    }
+
     const users = await userService.findUsers(
-      { $and: [filters, { _id: { $in: organization.membersIds } }] },
+      queryFilters,
       skip,
-      pageSize
+      pageSize,
+      sortOptions
     );
 
     if (
@@ -116,7 +145,7 @@ export const getUsers = async (
       return;
     }
 
-    const totalItems = await userService.countUsers(filters);
+    const totalItems = await userService.countUsers(queryFilters);
 
     const formattedUsers = mapUsersToAPI(users);
 
@@ -340,6 +369,7 @@ export const deleteUser = async (
 
     res.json(responseData);
   } catch (error) {
+    console.log(error);
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
