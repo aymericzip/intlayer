@@ -73,24 +73,6 @@ const tagListContent = {
         tr: 'Etiket oluşturmak için tıklayın',
       }),
     },
-    tagList: {
-      title: t({
-        en: 'Tags list',
-        fr: 'Liste des tags',
-        es: 'Lista de tags',
-        'en-GB': 'Tags list',
-        de: 'Tags-Liste',
-        ja: 'タグリスト',
-        ko: '태그 목록',
-        zh: '标签列表',
-        it: 'Elenco dei tag',
-        pt: 'Lista de tags',
-        hi: 'टैग सूची',
-        ar: 'قائمة الوسوم',
-        ru: 'Список тегов',
-        tr: 'Etiket listesi',
-      }),
-    },
   },
 } satisfies Dictionary;
 

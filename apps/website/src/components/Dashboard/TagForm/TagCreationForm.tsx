@@ -12,19 +12,18 @@ type TagCreationFormProps = {
 
 export const TagCreationForm: FC<TagCreationFormProps> = ({ onTagCreated }) => {
   const TagSchema = useTagSchema();
-  const { addTag, isPending } = useAddTag();
+  const { mutate: addTag, isPending } = useAddTag();
   const { form, isSubmitting } = useForm(TagSchema);
   const { nameInput, createTagButton } = useIntlayer('tag-form');
 
-  const onSubmitSuccess: (data: TagFormData) => Promise<void> = async (
-    data
-  ) => {
-    await addTag(data).then((response) => {
-      if (response.data) {
-        onTagCreated?.();
-      }
+  const onSubmitSuccess: (data: TagFormData) => Promise<void> = async (data) =>
+    addTag(data, {
+      onSuccess: (response) => {
+        if (response.data) {
+          onTagCreated?.();
+        }
+      },
     });
-  };
 
   return (
     <Form
