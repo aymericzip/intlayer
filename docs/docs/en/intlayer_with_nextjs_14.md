@@ -203,7 +203,10 @@ Remove everything from `RootLayout` and replace it with the following code:
 import type { PropsWithChildren, FC } from "react";
 import "./globals.css";
 
-const RootLayout: FC<PropsWithChildren> = ({ children }) => children;
+const RootLayout: FC<PropsWithChildren> = ({ children }) => (
+  // You can still wrap the children with other providers, Like `next-themes`, `react-query`, `framer-motion`, etc.
+  <>{children}</>
+);
 
 export default RootLayout;
 ```
@@ -211,7 +214,10 @@ export default RootLayout;
 ```jsx fileName="src/app/layout.mjx" codeFormat="esm"
 import "./globals.css";
 
-const RootLayout = ({ children }) => children;
+const RootLayout = ({ children }) => (
+  // You can still wrap the children with other providers, Like `next-themes`, `react-query`, `framer-motion`, etc.
+  <>{children}</>
+);
 
 export default RootLayout;
 ```
@@ -219,7 +225,10 @@ export default RootLayout;
 ```jsx fileName="src/app/layout.csx" codeFormat="commonjs"
 require("./globals.css");
 
-const RootLayout = ({ children }) => children;
+const RootLayout = ({ children }) => (
+  // You can still wrap the children with other providers, Like `next-themes`, `react-query`, `framer-motion`, etc.
+  <>{children}</>
+);
 
 module.exports = {
   default: RootLayout,
