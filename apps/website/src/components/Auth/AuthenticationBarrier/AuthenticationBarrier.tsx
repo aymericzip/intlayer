@@ -32,7 +32,7 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = async ({
     <AuthenticationBarrierServer
       {...props}
       redirectionRoute={localizedRedirectionURL}
-      // isEnabled={false} // We disable the barrier on the server side to avoid infinite re-renders
+      isEnabled={false} // We disable the barrier on the server side to avoid infinite re-renders
     >
       <AuthenticationBarrierClient
         {...props}
