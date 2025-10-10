@@ -274,7 +274,7 @@ export const ShowingResultsNumberItems: FC<ShowingResultsNumberItemsProps> = ({
   const { showingResults } = useIntlayer('pagination');
   const number = useNumber();
 
-  const start: number = (currentPage - 1) * pageSize + 1;
+  const start: number = Math.max(totalItems, (currentPage - 1) * pageSize + 1);
   const end: number = Math.min(currentPage * pageSize, totalItems);
 
   return (
