@@ -459,7 +459,7 @@ export const RequiredField: Story = {
   render: (args) => (
     <div className="p-4">
       <label className="mb-2 block font-medium text-sm">
-        Required Field <span className="text-red-500">*</span>
+        Required Field <span className="text-error">*</span>
       </label>
       <EditableFieldInput
         {...args}

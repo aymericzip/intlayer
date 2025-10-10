@@ -45,7 +45,7 @@ export const getDictionaryFiltersAndPagination = (
 ) => {
   const { filters: filtersRequest, ...pagination } =
     getFiltersAndPaginationFromBody<DictionaryFiltersParams>(req);
-  const { roles, organization } = res.locals;
+  const { roles, project } = res.locals;
 
   let filters: DictionaryFilters = {};
   let sortOptions: Record<string, 1 | -1> = { createdAt: -1 };
@@ -59,8 +59,6 @@ export const getDictionaryFiltersAndPagination = (
       ids,
       projectId,
       projectIds,
-      organizationId,
-      organizationIds,
       userId,
       userIds,
       creatorId,
@@ -90,18 +88,9 @@ export const getDictionaryFiltersAndPagination = (
       };
     }
 
-    if (organizationId) {
-      filters = { ...filters, organizationIds: organizationId };
-    }
 
-    if (organizationIds) {
-      filters = {
-        ...filters,
-        organizationIds: { $in: ensureArrayQueryFilter(organizationIds) },
-      };
-    }
     if (!(roles.includes('admin') && fetchAll === 'true')) {
-      filters = { ...filters, organizationId: organization?.id };
+      filters = { ...filters, projectIds: { $in: project?.id } };
     }
 
     if (userId) {

@@ -112,13 +112,14 @@ export const ProjectList: FC = () => {
         {createProjectButton.text}
       </Button>
 
-      <div className="flex flex-col items-end gap-4">
-        <ShowingResultsNumberItems
-          currentPage={currentPage}
-          pageSize={itemsPerPage}
-          totalItems={totalItems}
-        />
-
+      <div className="flex w-full flex-row items-end gap-4 justify-between">
+        <div className="flex flex-col gap-4">
+          <ShowingResultsNumberItems
+            currentPage={currentPage}
+            pageSize={itemsPerPage}
+            totalItems={totalItems}
+          />
+        </div>
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
@@ -126,10 +127,6 @@ export const ProjectList: FC = () => {
             setCurrentPage(page);
             refetch();
           }}
-          showFirstLast={true}
-          showPrevNext={true}
-          maxVisiblePages={5}
-          color="text"
         />
       </div>
 

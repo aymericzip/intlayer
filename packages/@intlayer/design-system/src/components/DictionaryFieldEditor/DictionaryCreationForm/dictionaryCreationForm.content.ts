@@ -110,25 +110,6 @@ export const dictionaryFormContent = {
       }),
     },
 
-    dictionaryList: {
-      title: t({
-        en: 'Dictionary list',
-        'en-GB': 'Dictionary list',
-        fr: 'Liste des dictionnaires',
-        es: 'Lista de diccionarios',
-        de: 'Wörterbuchliste',
-        ja: '辞書リスト',
-        ko: '사전 목록',
-        zh: '字典列表',
-        it: 'Elenco dei dizionari',
-        pt: 'Lista de dicionários',
-        hi: 'शब्दकोश सूची',
-        ar: 'قائمة القاموس',
-        ru: 'Список словарей',
-        tr: 'Sözlük listesi',
-      }),
-    },
-
     createDictionaryTitle: t({
       en: 'No dictionary',
       'en-GB': 'No dictionary',

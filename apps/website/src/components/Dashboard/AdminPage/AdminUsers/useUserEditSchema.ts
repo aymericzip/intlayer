@@ -2,7 +2,7 @@ import { useIntlayer } from 'next-intlayer';
 import { z } from 'zod/v4';
 
 export const useUserEditSchema = () => {
-  const { formValidation } = useIntlayer('user-detail-page');
+  const { formValidation } = useIntlayer('user-edit-form');
 
   return z.object({
     name: z

@@ -35,8 +35,6 @@ export const ProjectsAdminPageContent: FC = () => {
     sortOrder: { type: 'string', fallbackValue: 'asc' },
   });
 
-  const currentPage = params.page as number;
-  const itemsPerPage = params.pageSize as number;
 
   const { setSearch, search } = useSearch({});
 
@@ -57,8 +55,11 @@ export const ProjectsAdminPageContent: FC = () => {
 
   const projectsResponse = data as GetProjectsResult | undefined;
   const projects = projectsResponse?.data ?? [];
-  const totalPages = projectsResponse?.total_pages ?? 1;
+  const totalPages: number = projectsResponse?.total_pages ?? 1;
+  const currentPage: number = params.page;
+  const itemsPerPage: number = params.pageSize;
 
+  
   const sorting: SortingState = params.sortBy
     ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
     : [];
@@ -238,7 +239,7 @@ export const ProjectsAdminPageContent: FC = () => {
   if (error) {
     return (
       <div className="p-6">
-        <div className="text-red-500">
+        <div className="text-error">
           {errorMessages.loadingError}:{' '}
           {error instanceof Error ? error.message : String(error)}
         </div>

@@ -51,8 +51,6 @@ export const UsersAdminPageContent: FC = () => {
     organizationId: { type: 'string', fallbackValue: 'all' },
   });
 
-  const currentPage = params.page as number;
-  const itemsPerPage = params.pageSize as number;
 
   const { setSearch, search } = useSearch({});
 
@@ -86,8 +84,12 @@ export const UsersAdminPageContent: FC = () => {
 
   const usersResponse = usersData as GetUsersResult | undefined;
   const users = usersResponse?.data ?? [];
-  const totalItems = usersResponse?.total_items ?? 0;
-  const totalPages = usersResponse?.total_pages ?? 1;
+  
+  const totalPages: number = usersData?.total_pages ?? 1;
+  const totalItems: number = usersData?.total_items ?? 0;
+  const currentPage: number = params.page;
+  const itemsPerPage: number = params.pageSize;
+
 
   const sorting: SortingState = params.sortBy
     ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
@@ -370,7 +372,7 @@ export const UsersAdminPageContent: FC = () => {
   if (error) {
     return (
       <div className="p-6">
-        <div className="text-red-500">
+        <div className="text-error">
           {errorMessages.loadingError}:{' '}
           {error instanceof Error ? error.message : String(error)}
         </div>
@@ -475,31 +477,23 @@ export const UsersAdminPageContent: FC = () => {
               </tbody>
             </Table>
 
-            <div className="flex flex-col items-center justify-between gap-4 pt-4 sm:flex-row">
-              <div className="flex flex-col items-start gap-2">
+            <div className="flex w-full flex-row items-end gap-4 justify-between">
+              <div className="flex flex-col gap-4">
                 <ShowingResultsNumberItems
                   currentPage={currentPage}
                   pageSize={itemsPerPage}
                   totalItems={totalItems}
                 />
-                <div className="flex items-center gap-2">
-                  <NumberItemsSelector
-                    value={itemsPerPage.toString()}
-                    onValueChange={handlePageSizeChange}
-                  />
-                </div>
-              </div>
-              <div className="flex justify-center">
-                <Pagination
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  onPageChange={handlePageChange}
-                  showFirstLast={true}
-                  showPrevNext={true}
-                  maxVisiblePages={5}
-                  color="text"
+                <NumberItemsSelector
+                  value={itemsPerPage.toString()}
+                  onValueChange={handlePageSizeChange}
                 />
               </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
             </div>
           </div>
         )}

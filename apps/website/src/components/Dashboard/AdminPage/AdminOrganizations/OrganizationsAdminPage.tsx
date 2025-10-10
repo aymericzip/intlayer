@@ -39,9 +39,6 @@ export const OrganizationsAdminPageContent: FC = () => {
     sortOrder: { type: 'string', fallbackValue: 'asc' },
   });
 
-  const currentPage = params.page as number;
-  const itemsPerPage = params.pageSize as number;
-
   const { setSearch, search } = useSearch({});
 
   const organizationsQuery = useGetOrganizations({
@@ -56,8 +53,12 @@ export const OrganizationsAdminPageContent: FC = () => {
 
   const organizationsResponse = data as GetOrganizationsResult | undefined;
   const organizations = organizationsResponse?.data ?? [];
-  const totalPages = organizationsResponse?.total_pages ?? 1;
-  const totalItems = organizationsResponse?.total_items ?? 0;
+  
+  const totalPages: number = organizationsResponse?.total_pages ?? 1;
+  const totalItems: number = organizationsResponse?.total_items ?? 0;
+  const currentPage: number = params.page;
+  const itemsPerPage: number = params.pageSize;
+
 
   const sorting: SortingState = params.sortBy
     ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
@@ -243,7 +244,7 @@ export const OrganizationsAdminPageContent: FC = () => {
   if (error) {
     return (
       <div className="p-6">
-        <div className="text-red-500">
+        <div className="text-error">
           {errorMessages.loadingError}:{' '}
           {error instanceof Error ? error.message : String(error)}
         </div>
@@ -332,31 +333,23 @@ export const OrganizationsAdminPageContent: FC = () => {
               </tbody>
             </Table>
 
-            <ShowingResultsNumberItems
-              currentPage={currentPage}
-              pageSize={itemsPerPage}
-              totalItems={totalItems}
-            />
-
-            <NumberItemsSelector
-              value={itemsPerPage.toString()}
-              onValueChange={handlePageSizeChange}
-            />
-
-            <div className="flex flex-col items-center justify-between gap-4 pt-4 sm:flex-row">
-              <div className="flex justify-center">
-                <Pagination
+            <div className="flex w-full flex-row items-end gap-4 justify-between">
+              <div className="flex flex-col gap-4">
+                <ShowingResultsNumberItems
                   currentPage={currentPage}
-                  totalPages={totalPages}
-                  onPageChange={handlePageChange}
-                  showFirstLast={true}
-                  showPrevNext={true}
-                  maxVisiblePages={5}
-                  color="text"
+                  pageSize={itemsPerPage}
+                  totalItems={totalItems}
+                />
+                <NumberItemsSelector
+                  value={itemsPerPage.toString()}
+                  onValueChange={handlePageSizeChange}
                 />
               </div>
-
-              <div />
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
             </div>
           </div>
         )}
