@@ -15,6 +15,13 @@ export const paginationVariants = cva(
         md: 'gap-2',
         lg: 'gap-3',
       },
+      color: {
+        text: 'background-text',
+        primary: 'background-primary',
+        secondary: 'background-secondary',
+        neutral: 'background-neutral',
+        destructive: 'background-destructive',
+      },
       variant: {
         default: '',
         bordered: 'rounded-lg border border-border p-2',
@@ -100,6 +107,14 @@ const generatePageNumbers = (
   return pages;
 };
 
+const getButtonSize = (size?: PaginationSize | `${PaginationSize}` | null) => {
+  return size === PaginationSize.SM
+    ? ButtonSize.ICON_SM
+    : size === PaginationSize.LG
+      ? ButtonSize.ICON_LG
+      : ButtonSize.ICON_MD;
+};
+
 export const Pagination: FC<PaginationProps> = ({
   currentPage,
   totalPages,
@@ -110,26 +125,21 @@ export const Pagination: FC<PaginationProps> = ({
   disabled = false,
   size = PaginationSize.MD,
   variant = PaginationVariant.DEFAULT,
+  color = ButtonColor.TEXT,
   className,
   ...props
 }) => {
-  const pageNumbers = useMemo(
-    () => generatePageNumbers(currentPage, totalPages, maxVisiblePages),
-    [currentPage, totalPages, maxVisiblePages]
+  const pageNumbers = generatePageNumbers(
+    currentPage,
+    totalPages,
+    maxVisiblePages
   );
 
-  const buttonSize =
-    size === 'sm'
-      ? ButtonSize.ICON_SM
-      : size === 'lg'
-        ? ButtonSize.ICON_LG
-        : ButtonSize.ICON_MD;
+  const buttonSize = getButtonSize(size);
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages;
 
-  if (totalPages <= 1) {
-    return null;
-  }
+  if (totalPages <= 1) return null;
 
   const handlePageChange = (page: number) => {
     if (!disabled && page >= 1 && page <= totalPages && page !== currentPage) {
@@ -174,7 +184,7 @@ export const Pagination: FC<PaginationProps> = ({
               key={page}
               variant={isActive ? ButtonVariant.DEFAULT : ButtonVariant.OUTLINE}
               size={buttonSize}
-              color={isActive ? ButtonColor.PRIMARY : ButtonColor.TEXT}
+              color={ButtonColor.TEXT}
               onClick={() => handlePageChange(page)}
               disabled={disabled}
               label={`Go to page ${page}`}
