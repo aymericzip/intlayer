@@ -3,22 +3,6 @@ import { type Dictionary, t } from 'intlayer';
 const adminSidebarContent = {
   key: 'admin-sidebar',
   content: {
-    title: t({
-      en: 'Admin Panel',
-      fr: "Panneau d'administration",
-      es: 'Panel de administración',
-      'en-GB': 'Admin Panel',
-      de: 'Admin-Panel',
-      ja: '管理パネル',
-      ko: '관리 패널',
-      zh: '管理面板',
-      it: 'Pannello di amministrazione',
-      pt: 'Painel de administração',
-      hi: 'एडमिन पैनल',
-      ar: 'لوحة الإدارة',
-      ru: 'Панель администратора',
-      tr: 'Yönetici Paneli',
-    }),
     collapseButton: {
       label: t({
         en: 'Collapse sidebar',
@@ -37,40 +21,7 @@ const adminSidebarContent = {
         tr: 'Kenar çubuğunu daralt',
       }),
     },
-    search: {
-      placeholder: t({
-        en: 'Search...',
-        fr: 'Rechercher...',
-        es: 'Buscar...',
-        'en-GB': 'Search...',
-        de: 'Suchen...',
-        ja: '検索...',
-        ko: '검색...',
-        zh: '搜索...',
-        it: 'Cerca...',
-        pt: 'Pesquisar...',
-        hi: 'खोजें...',
-        ar: 'بحث...',
-        ru: 'Поиск...',
-        tr: 'Ara...',
-      }),
-      label: t({
-        en: 'Search in admin panel',
-        fr: "Rechercher dans le panneau d'administration",
-        es: 'Buscar en el panel de administración',
-        'en-GB': 'Search in admin panel',
-        de: 'Im Admin-Panel suchen',
-        ja: '管理パネルで検索',
-        ko: '관리 패널에서 검색',
-        zh: '在管理面板中搜索',
-        it: 'Cerca nel pannello di amministrazione',
-        pt: 'Pesquisar no painel de administração',
-        hi: 'एडमिन पैनल में खोजें',
-        ar: 'البحث في لوحة الإدارة',
-        ru: 'Поиск в панели администратора',
-        tr: 'Yönetici panelinde ara',
-      }),
-    },
+
     navigation: {
       dashboard: {
         label: t({

@@ -23,7 +23,7 @@ import {
 } from '@intlayer/design-system/hooks';
 import { AlertTriangle, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useIntlayer, useLocale } from 'next-intlayer';
+import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useMemo, useState } from 'react';
 import { PagesRoutes } from '@/Routes';
 import { useUserEditSchema } from './useUserEditSchema';
@@ -37,7 +37,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
 
   const { data: userResponse, isLoading, error } = useGetUserById(userId);
 
-  const { data: organizationsResponse } = useGetOrganizations() as any;
+  const { data: organizationsResponse } = useGetOrganizations();
   const organizations = organizationsResponse?.data ?? [];
 
   const deleteUserMutation = useDeleteUser();
@@ -110,7 +110,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
       if (invalidRemovals.length > 0) {
         toast({
           title: errorMessages.cannotRemoveLastMember.value,
-          description: `${errorMessages.organizationsWithOneUser.value}: ${invalidRemovals.join(', ')}`,
+          description: `${errorMessages.organizationsWithOneUser}: ${invalidRemovals.join(', ')}`,
           variant: 'error',
         });
         return;
@@ -209,7 +209,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
     return (
       <div className="p-6">
         <div className="text-red-500">
-          {errorMessages.loadingError.value}:{' '}
+          {errorMessages.loadingError}:{' '}
           {(error as Error)?.message ?? 'Unknown error'}
         </div>
       </div>
@@ -220,7 +220,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
     <div>
       <div className="mb-6">
         <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-          {title.value}
+          {title}
         </h1>
       </div>
 
@@ -251,15 +251,15 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
                   }
                 >
                   {user.emailVerified
-                    ? statusLabels.verified.value
-                    : statusLabels.pending.value}
+                    ? statusLabels.verified
+                    : statusLabels.pending}
                 </Badge>
               </div>
             </div>
 
             <div className="rounded-lg border border-neutral-200 bg-card p-6 dark:border-neutral-700">
               <h3 className="mb-6 font-semibold text-lg text-neutral-900 dark:text-neutral-100">
-                {formLabels.title.value}
+                {formLabels.title}
               </h3>
 
               <Form
@@ -270,7 +270,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
               >
                 <Form.Input
                   name="name"
-                  label={formLabels.name.value}
+                  label={formLabels.name}
                   placeholder={formLabels.namePlaceholder.value}
                   isRequired
                 />
@@ -278,7 +278,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
                 <Form.Input
                   name="email"
                   type="email"
-                  label={formLabels.email.value}
+                  label={formLabels.email}
                   placeholder={formLabels.emailPlaceholder.value}
                   isRequired
                 />
@@ -310,7 +310,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
                                   color={BadgeColor.DESTRUCTIVE}
                                   className="ml-2 text-xs"
                                 >
-                                  {formLabels.lastMember.value}
+                                  {formLabels.lastMember}
                                 </Badge>
                               )}
                             </div>
@@ -324,7 +324,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
                 <div className="grid grid-cols-1 gap-4 border-neutral-200 border-t pt-4 md:col-span-2 md:grid-cols-2 dark:border-neutral-700">
                   <div>
                     <div className="mb-1 block font-medium text-neutral-600 text-sm dark:text-neutral-400">
-                      {formLabels.createdAt.value}
+                      {formLabels.createdAt}
                     </div>
                     <p className="text-neutral-900 dark:text-neutral-100">
                       {user.createdAt
@@ -334,7 +334,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
                   </div>
                   <div>
                     <div className="mb-1 block font-medium text-neutral-600 text-sm dark:text-neutral-400">
-                      {formLabels.updatedAt.value}
+                      {formLabels.updatedAt}
                     </div>
                     <p className="text-neutral-900 dark:text-neutral-100">
                       {user.updatedAt
@@ -355,7 +355,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
                   color="text"
                   className="md:col-span-2"
                 >
-                  {formLabels.updateButton.value}
+                  {formLabels.updateButton}
                 </Form.Button>
               </Form>
             </div>
@@ -363,10 +363,10 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
             <div className="rounded-lg border-2 border-red-200 bg-red-50 p-6 dark:border-red-900 dark:bg-red-950/20">
               <h3 className="mb-2 flex items-center gap-2 font-semibold text-lg text-red-900 dark:text-red-100">
                 <AlertTriangle className="h-5 w-5" />
-                {deleteSection.title.value}
+                {deleteSection.title}
               </h3>
               <p className="mb-4 text-red-700 text-sm dark:text-red-300">
-                {deleteSection.description.value}
+                {deleteSection.description}
               </p>
               <Form.Button
                 label={deleteSection.button.value}
@@ -376,7 +376,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
                 variant="outline"
                 color="error"
               >
-                {deleteSection.button.value}
+                {deleteSection.button}
               </Form.Button>
             </div>
           </div>
@@ -399,10 +399,10 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
             <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-600 dark:text-red-400" />
             <div className="flex-1">
               <p className="font-medium text-red-900 text-sm dark:text-red-100">
-                {deleteSection.modalWarning.value}
+                {deleteSection.modalWarning}
               </p>
               <p className="mt-1 text-red-700 text-sm dark:text-red-300">
-                {deleteSection.modalDescription.value}
+                {deleteSection.modalDescription}
               </p>
             </div>
           </div>
@@ -413,7 +413,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
               disabled={deleteUserMutation.isPending}
               color="error"
             >
-              {deleteSection.cancelButton.value}
+              {deleteSection.cancelButton}
             </Form.Button>
             <Form.Button
               label={deleteSection.confirmButton.value}
@@ -421,7 +421,7 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
               isLoading={deleteUserMutation.isPending}
               Icon={Trash2}
             >
-              {deleteSection.confirmButton.value}
+              {deleteSection.confirmButton}
             </Form.Button>
           </div>
         </div>

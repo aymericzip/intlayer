@@ -3,25 +3,10 @@
 import { Link } from '@components/Link/Link';
 import type {
   GetOrganizationsResult,
-  GetUsersResult,
-  UserAPI,
+  OrganizationAPI,
 } from '@intlayer/backend';
-import {
-  Avatar,
-  Badge,
-  BadgeColor,
-  BadgeVariant,
-  CopyToClipboard,
-  Input,
-  Loader,
-  Pagination,
-  Select,
-  Table,
-} from '@intlayer/design-system';
-import {
-  useGetOrganizations,
-  useGetUsers,
-} from '@intlayer/design-system/hooks';
+import { Input, Loader, Pagination, Table } from '@intlayer/design-system';
+import { useGetOrganizations } from '@intlayer/design-system/hooks';
 import {
   type ColumnDef,
   flexRender,
@@ -36,7 +21,7 @@ import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useMemo, useState } from 'react';
 import { PagesRoutes } from '@/Routes';
 
-export const UsersAdminPageContent: FC = () => {
+export const OrganizationsAdminPageContent: FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -53,53 +38,24 @@ export const UsersAdminPageContent: FC = () => {
   const [sortOrder, setSortOrder] = useState<SortOrder>(
     (searchParams.get('sortOrder') as SortOrder) ?? 'asc'
   );
-  const [organizationFilter, setOrganizationFilter] = useState(
-    searchParams.get('organizationId') ?? 'all'
-  );
 
-  const { data: organizationsData } = useGetOrganizations({
-    fetchAll: 'true',
-  });
-  const organizations =
-    (organizationsData as GetOrganizationsResult | undefined)?.data ?? [];
-
-  const usersQuery = useGetUsers({
+  const organizationsQuery = useGetOrganizations({
     page: currentPage.toString(),
     pageSize: itemsPerPage.toString(),
-    fetchAll: 'true', // For admin users, will fetch all users without filtering by organization
+    fetchAll: 'true',
     ...(searchQuery && { search: searchQuery }),
     ...(sortBy && { sortBy }),
     ...(sortOrder && { sortOrder }),
-    ...(organizationFilter &&
-      organizationFilter !== 'all' && { organizationId: organizationFilter }),
-  });
+  } as any);
 
-  const {
-    data: usersData,
-    isLoading: isLoadingUsers,
-    error,
-    refetch,
-  } = usersQuery;
+  const { data, isLoading, error, refetch } = organizationsQuery;
+  const { title, tableHeaders, noData, errorMessages, searchPlaceholder } =
+    useIntlayer('organization-admin-page');
 
-  const {
-    title,
-    tableHeaders,
-    statusLabels,
-    actions,
-    noUsersMessage,
-    errorMessages,
-    searchPlaceholder,
-    filterPlaceholder,
-    allStatuses,
-    noData,
-  } = useIntlayer('user-admin-page');
-
-  const { helpers } = useIntlayer('admin-pages');
-
-  const usersResponse = usersData as GetUsersResult | undefined;
-  const users = usersResponse?.data ?? [];
-  const totalItems = usersResponse?.total_items ?? users.length;
-  const totalPages = usersResponse?.total_pages ?? 1;
+  const organizationsResponse = data as GetOrganizationsResult | undefined;
+  const organizations = organizationsResponse?.data ?? [];
+  const totalItems = organizationsResponse?.total_items ?? organizations.length;
+  const totalPages = organizationsResponse?.total_pages ?? 1;
 
   const pushParams = (updates: Record<string, string | null>) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -115,13 +71,13 @@ export const UsersAdminPageContent: FC = () => {
     [sortBy, sortOrder]
   );
 
-  const columns: ColumnDef<UserAPI>[] = [
+  const columns: ColumnDef<OrganizationAPI>[] = [
     {
       accessorKey: 'name',
       enableSorting: true,
       header: ({ column }) => (
         <div className="group flex items-center gap-2">
-          {tableHeaders.name}
+          {tableHeaders.name.value}
           <div
             className={cn(
               'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
@@ -137,26 +93,20 @@ export const UsersAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const user = row.original as UserAPI;
+        const organization = row.original as OrganizationAPI;
         return (
           <div className="flex items-center">
-            <Avatar
-              isLoggedIn={true}
-              isLoading={false}
-              className="shrink-0"
-              src={user.image ?? undefined}
-              fullname={user.name}
-            />
             <div className="ml-3">
-              {user.name ? (
+              {organization.name ? (
                 <Link
-                  href={PagesRoutes.Admin_Users_Id.replace(':id', user.id)}
-                  label={user.name ?? '-'}
+                  href={PagesRoutes.Admin_Organizations_Id.replace(
+                    ':id',
+                    organization.id
+                  )}
+                  label={organization.name}
                   color="text"
                 >
-                  <CopyToClipboard text={user.name}>
-                    {user.name}
-                  </CopyToClipboard>
+                  {organization.name}
                 </Link>
               ) : (
                 '-'
@@ -171,7 +121,7 @@ export const UsersAdminPageContent: FC = () => {
       enableSorting: true,
       header: ({ column }) => (
         <div className="group flex items-center gap-2">
-          {tableHeaders.id.value}
+          {tableHeaders.id}
           <div
             className={cn(
               'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
@@ -187,80 +137,12 @@ export const UsersAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const user = row.original as UserAPI;
+        const organization = row.original as OrganizationAPI;
         return (
-          <div className="flex items-center">
-            <div className="ml-3">
-              <CopyToClipboard text={user.id}>
-                <span className="font-mono text-sm">
-                  ...{user.id.slice(-5)}
-                </span>
-              </CopyToClipboard>
-            </div>
+          <div className="ml-3 font-mono text-sm">
+            ...
+            {organization.id.slice(-5)}
           </div>
-        );
-      },
-    },
-    {
-      accessorKey: 'email',
-      enableSorting: true,
-      header: ({ column }) => (
-        <div className="group flex items-center gap-2">
-          {tableHeaders.email}
-          <div
-            className={cn(
-              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
-              column.getIsSorted() && 'opacity-100'
-            )}
-          >
-            {column.getIsSorted() === 'asc' ? (
-              <ChevronUp className="h-3 w-3" />
-            ) : column.getIsSorted() === 'desc' ? (
-              <ChevronDown className="h-3 w-3" />
-            ) : null}
-          </div>
-        </div>
-      ),
-      cell: ({ row }) => {
-        const user = row.original as UserAPI;
-        return (
-          <div className="text-neutral-900 text-sm dark:text-neutral-100">
-            <CopyToClipboard text={user.email}>{user.email}</CopyToClipboard>
-          </div>
-        );
-      },
-    },
-    {
-      accessorKey: 'emailVerified',
-      enableSorting: true,
-      header: ({ column }) => (
-        <div className="group flex items-center gap-2">
-          {tableHeaders.status}
-          <div
-            className={cn(
-              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
-              column.getIsSorted() && 'opacity-100'
-            )}
-          >
-            {column.getIsSorted() === 'asc' ? (
-              <ChevronUp className="h-3 w-3" />
-            ) : column.getIsSorted() === 'desc' ? (
-              <ChevronDown className="h-3 w-3" />
-            ) : null}
-          </div>
-        </div>
-      ),
-      cell: ({ row }) => {
-        const user = row.original as UserAPI;
-        return (
-          <Badge
-            variant={BadgeVariant.OUTLINE}
-            color={
-              user.emailVerified ? BadgeColor.TEXT : BadgeColor.DESTRUCTIVE
-            }
-          >
-            {user.emailVerified ? statusLabels.verified : statusLabels.pending}
-          </Badge>
         );
       },
     },
@@ -269,7 +151,7 @@ export const UsersAdminPageContent: FC = () => {
       enableSorting: true,
       header: ({ column }) => (
         <div className="group flex items-center gap-2">
-          {tableHeaders.createdAt}
+          {tableHeaders.createdAt.value}
           <div
             className={cn(
               'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
@@ -285,12 +167,12 @@ export const UsersAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const user = row.original as UserAPI;
+        const organization = row.original as OrganizationAPI;
         return (
           <div className="text-neutral-500 text-sm dark:text-neutral-400">
-            {user.createdAt
-              ? new Date(user.createdAt).toLocaleDateString()
-              : noData}
+            {organization.createdAt
+              ? new Date(organization.createdAt).toLocaleDateString()
+              : noData.value}
           </div>
         );
       },
@@ -316,31 +198,12 @@ export const UsersAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const user = row.original as UserAPI;
+        const organization = row.original as OrganizationAPI;
         return (
           <div className="text-neutral-500 text-sm dark:text-neutral-400">
-            {user.updatedAt
-              ? new Date(user.updatedAt).toLocaleDateString()
+            {organization.updatedAt
+              ? new Date(organization.updatedAt).toLocaleDateString()
               : noData}
-          </div>
-        );
-      },
-    },
-    {
-      id: 'actions',
-      enableSorting: false,
-      header: () => tableHeaders.actions,
-      cell: ({ row }) => {
-        const user = row.original as UserAPI;
-        return (
-          <div className="flex space-x-2">
-            <Link
-              href={PagesRoutes.Admin_Users_Id.replace(':id', user.id)}
-              label={actions.edit.value}
-              color="text"
-            >
-              {actions.edit}
-            </Link>
           </div>
         );
       },
@@ -348,7 +211,7 @@ export const UsersAdminPageContent: FC = () => {
   ];
 
   const table = useReactTable({
-    data: users,
+    data: organizations,
     columns,
     state: { sorting },
     manualSorting: true,
@@ -375,14 +238,6 @@ export const UsersAdminPageContent: FC = () => {
     pushParams({ search: value ?? null, page: '1' });
   };
 
-  const handleOrganizationFilter = (value: string) => {
-    setOrganizationFilter(value);
-    pushParams({
-      organizationId: value && value !== 'all' ? value : null,
-      page: '1',
-    });
-  };
-
   useEffect(() => {
     const urlPageFromParams = parseInt(searchParams.get('page') ?? '1', 10);
     const urlPageSizeFromParams = parseInt(
@@ -400,17 +255,7 @@ export const UsersAdminPageContent: FC = () => {
 
   const handlePageChange = (page: number) => {
     pushParams({ page: page.toString() });
-
     setCurrentPage(page);
-    refetch();
-  };
-
-  const handlePageSizeChange = (newPageSize: string) => {
-    const size = parseInt(newPageSize, 10);
-    pushParams({ pageSize: size.toString(), page: '1' });
-
-    setItemsPerPage(size);
-    setCurrentPage(1);
     refetch();
   };
 
@@ -446,32 +291,14 @@ export const UsersAdminPageContent: FC = () => {
               />
             </div>
           </div>
-          <div className="flex gap-2">
-            <Select
-              value={organizationFilter ?? 'all'}
-              onValueChange={handleOrganizationFilter}
-            >
-              <Select.Trigger className="w-[200px]">
-                <Select.Value placeholder={filterPlaceholder} />
-              </Select.Trigger>
-              <Select.Content>
-                <Select.Item value="all">{allStatuses}</Select.Item>
-                {organizations.map((org: any) => (
-                  <Select.Item key={org.id} value={org.id}>
-                    {org.name}
-                  </Select.Item>
-                ))}
-              </Select.Content>
-            </Select>
-          </div>
         </div>
       </div>
 
-      <Loader isLoading={isLoadingUsers}>
-        {users.length === 0 ? (
+      <Loader isLoading={isLoading}>
+        {organizations.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">
-              {noUsersMessage}
+              {noData.value}
             </p>
           </div>
         ) : (
@@ -528,42 +355,6 @@ export const UsersAdminPageContent: FC = () => {
             </Table>
 
             <div className="flex flex-col items-center justify-between gap-4 pt-4 sm:flex-row">
-              <div className="flex flex-col items-start gap-2">
-                <div className="text-neutral-600 text-sm dark:text-neutral-400">
-                  {helpers.showingResults.value
-                    .replace(
-                      '{start}',
-                      ((currentPage - 1) * itemsPerPage + 1).toString()
-                    )
-                    .replace(
-                      '{end}',
-                      Math.min(
-                        currentPage * itemsPerPage,
-                        totalItems
-                      ).toString()
-                    )
-                    .replace('{total}', totalItems.toString())}
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-neutral-600 text-sm dark:text-neutral-400">
-                    {helpers.perPage.value}
-                  </span>
-                  <Select
-                    value={itemsPerPage.toString()}
-                    onValueChange={handlePageSizeChange}
-                  >
-                    <Select.Trigger className="w-20">
-                      <Select.Value placeholder={helpers.selectPageSize} />
-                    </Select.Trigger>
-                    <Select.Content>
-                      <Select.Item value="5">5</Select.Item>
-                      <Select.Item value="10">10</Select.Item>
-                      <Select.Item value="20">20</Select.Item>
-                      <Select.Item value="50">50</Select.Item>
-                    </Select.Content>
-                  </Select>
-                </div>
-              </div>
               <div className="flex justify-center">
                 <Pagination
                   currentPage={currentPage}
@@ -575,6 +366,7 @@ export const UsersAdminPageContent: FC = () => {
                   color="text"
                 />
               </div>
+              <div />
             </div>
           </div>
         )}
@@ -582,3 +374,5 @@ export const UsersAdminPageContent: FC = () => {
     </div>
   );
 };
+
+export default OrganizationsAdminPageContent;

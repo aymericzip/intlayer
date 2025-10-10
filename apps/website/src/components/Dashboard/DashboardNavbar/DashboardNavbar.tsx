@@ -57,10 +57,12 @@ const shouldHaveProjectRoutes = [
   PagesRoutes.Dashboard_Tags,
 ] as string[];
 
+const shouldHaveAdminRoutes = [PagesRoutes.Admin] as string[];
+
 export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const { pathWithoutLocale } = useLocale();
   const { session } = useSession();
-  const { organization, project } = session ?? {};
+  const { organization, project, roles } = session ?? {};
   const { isMobile } = useDevice('sm');
   const scrollY = useScrollY();
 
@@ -68,7 +70,11 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
     .filter(
       (el) => !shouldHaveOrganizationRoutes.includes(el.url) || !!organization
     )
-    .filter((el) => !shouldHaveProjectRoutes.includes(el.url) || !!project);
+    .filter((el) => !shouldHaveProjectRoutes.includes(el.url) || !!project)
+    .filter(
+      (el) =>
+        !shouldHaveAdminRoutes.includes(el.url) || roles?.includes('admin')
+    );
 
   return (
     <Container
