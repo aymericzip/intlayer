@@ -35,7 +35,6 @@ export const ProjectsAdminPageContent: FC = () => {
     sortOrder: { type: 'string', fallbackValue: 'asc' },
   });
 
-
   const { setSearch, search } = useSearch({});
 
   const projectsQuery = useGetProjects(
@@ -49,7 +48,7 @@ export const ProjectsAdminPageContent: FC = () => {
     }
   );
 
-  const { data, isLoading, error } = projectsQuery;
+  const { data, error, isPending } = projectsQuery;
   const { title, tableHeaders, noData, errorMessages, searchPlaceholder } =
     useIntlayer('project-admin-page');
 
@@ -59,7 +58,6 @@ export const ProjectsAdminPageContent: FC = () => {
   const currentPage: number = params.page;
   const itemsPerPage: number = params.pageSize;
 
-  
   const sorting: SortingState = params.sortBy
     ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
     : [];
@@ -262,7 +260,7 @@ export const ProjectsAdminPageContent: FC = () => {
         className="max-w-md pl-10"
       />
 
-      <Loader isLoading={isLoading}>
+      <Loader isLoading={isPending}>
         {projects.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">{noData}</p>
@@ -319,28 +317,27 @@ export const ProjectsAdminPageContent: FC = () => {
                 ))}
               </tbody>
             </Table>
-
-            <NumberItemsSelector
-              value={itemsPerPage.toString()}
-              onValueChange={handlePageSizeChange}
-            />
-
-            <div className="flex flex-col items-center justify-between gap-4 pt-4 sm:flex-row">
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={(page) => setParam('page', page)}
-                showFirstLast={true}
-                showPrevNext={true}
-                maxVisiblePages={5}
-                color="text"
-              />
-
-              <div />
-            </div>
           </div>
         )}
       </Loader>
+      <NumberItemsSelector
+        value={itemsPerPage.toString()}
+        onValueChange={handlePageSizeChange}
+      />
+
+      <div className="flex flex-col items-center justify-between gap-4 pt-4 sm:flex-row">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(page) => setParam('page', page)}
+          showFirstLast={true}
+          showPrevNext={true}
+          maxVisiblePages={5}
+          color="text"
+        />
+
+        <div />
+      </div>
     </div>
   );
 };

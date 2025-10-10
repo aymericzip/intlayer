@@ -33,7 +33,7 @@ export const TagList: FC = () => {
 
   const {
     data: tagResponse,
-    isFetching,
+    isPending,
     refetch,
   } = useGetTags({
     ...params,
@@ -75,7 +75,7 @@ export const TagList: FC = () => {
           roundedSize="xl"
           className="m-auto flex w-full max-w-[400px] flex-col justify-center gap-2 p-6"
         >
-          <Loader isLoading={isFetching}>
+          <Loader isLoading={isPending}>
             {tags.length === 0 && (
               <span className="m-auto text-neutral text-sm">
                 {noTagView.title}

@@ -1,5 +1,6 @@
 'use client';
 
+import type { Dictionary } from '@intlayer/core';
 import {
   Button,
   Container,
@@ -17,16 +18,15 @@ import { ChevronRight, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, Suspense, useState } from 'react';
-import { PagesRoutes } from '@/Routes';
-import { Dictionary } from '@intlayer/core';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { PagesRoutes } from '@/Routes';
 
 const getStableId = (dictionary: Dictionary) => {
   const id =
-    (dictionary.localIds?.map((localId) => localId)?.join('-')) ??
-    (dictionary.localId) ??
-    (dictionary.id) ??
-    (dictionary.key);
+    dictionary.localIds?.map((localId) => localId)?.join('-') ??
+    dictionary.localId ??
+    dictionary.id ??
+    dictionary.key;
 
   return String(id);
 };
@@ -46,14 +46,15 @@ export const DictionaryListDashboardContent: FC = () => {
     sortOrder: { type: 'string', fallbackValue: 'asc' },
   });
 
-  const { noDictionaryView, createDictionaryButton,  } =
-    useIntlayer('dictionary-form') as any;
+  const { noDictionaryView, createDictionaryButton } = useIntlayer(
+    'dictionary-form'
+  ) as any;
   const { data, isPending, refetch } = useGetDictionaries({
     search,
     ...params,
   });
   const router = useRouter();
-  
+
   const totalPages: number = data?.total_pages ?? 1;
   const totalItems: number = data?.total_items ?? 0;
   const currentPage: number = params.page;
@@ -66,13 +67,13 @@ export const DictionaryListDashboardContent: FC = () => {
 
   const handlePageSizeChange = (newPageSize: string) => {
     const size = parseInt(newPageSize, 10);
- 
+
     setParams({ pageSize: size, page: 1 });
     refetch();
   };
 
   return (
-    <div className="flex flex-1 flex-col size-full gap-10 pt-10 px-10">
+    <div className="flex size-full flex-1 flex-col gap-10 px-10 pt-10">
       <SearchInput
         placeholder={searchPlaceholder.value}
         onChange={(e) => setSearch(e.target.value)}
@@ -81,7 +82,7 @@ export const DictionaryListDashboardContent: FC = () => {
       <div className="flex-1">
         <Container
           roundedSize="xl"
-          className="flex w-full max-w-[400px] m-auto flex-col justify-center gap-2 p-6"
+          className="m-auto flex w-full max-w-[400px] flex-col justify-center gap-2 p-6"
         >
           <Loader isLoading={isPending}>
             {data?.data?.length === 0 && (
@@ -146,7 +147,7 @@ export const DictionaryListDashboardContent: FC = () => {
         </Container>
       </div>
 
-      <div className="flex w-full flex-row items-end gap-4 justify-between">
+      <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
         <div className="flex flex-col gap-4">
           <ShowingResultsNumberItems
             currentPage={currentPage}

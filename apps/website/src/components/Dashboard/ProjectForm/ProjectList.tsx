@@ -112,7 +112,7 @@ export const ProjectList: FC = () => {
         {createProjectButton.text}
       </Button>
 
-      <div className="flex w-full flex-row items-end gap-4 justify-between">
+      <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
         <div className="flex flex-col gap-4">
           <ShowingResultsNumberItems
             currentPage={currentPage}

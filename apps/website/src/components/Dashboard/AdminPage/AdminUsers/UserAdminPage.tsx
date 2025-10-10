@@ -51,7 +51,6 @@ export const UsersAdminPageContent: FC = () => {
     organizationId: { type: 'string', fallbackValue: 'all' },
   });
 
-
   const { setSearch, search } = useSearch({});
 
   const { data: organizationsData } = useGetOrganizations({
@@ -67,7 +66,7 @@ export const UsersAdminPageContent: FC = () => {
     ...(params.organizationId === 'all' && { organizationId: undefined }),
   });
 
-  const { data: usersData, isLoading: isLoadingUsers, error } = usersQuery;
+  const { data: usersData, error, isPending } = usersQuery;
 
   const {
     title,
@@ -84,12 +83,11 @@ export const UsersAdminPageContent: FC = () => {
 
   const usersResponse = usersData as GetUsersResult | undefined;
   const users = usersResponse?.data ?? [];
-  
+
   const totalPages: number = usersData?.total_pages ?? 1;
   const totalItems: number = usersData?.total_items ?? 0;
   const currentPage: number = params.page;
   const itemsPerPage: number = params.pageSize;
-
 
   const sorting: SortingState = params.sortBy
     ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
@@ -417,7 +415,7 @@ export const UsersAdminPageContent: FC = () => {
         </div>
       </div>
 
-      <Loader isLoading={isLoadingUsers}>
+      <Loader isLoading={isPending}>
         {users.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">
@@ -476,28 +474,27 @@ export const UsersAdminPageContent: FC = () => {
                 ))}
               </tbody>
             </Table>
-
-            <div className="flex w-full flex-row items-end gap-4 justify-between">
-              <div className="flex flex-col gap-4">
-                <ShowingResultsNumberItems
-                  currentPage={currentPage}
-                  pageSize={itemsPerPage}
-                  totalItems={totalItems}
-                />
-                <NumberItemsSelector
-                  value={itemsPerPage.toString()}
-                  onValueChange={handlePageSizeChange}
-                />
-              </div>
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-              />
-            </div>
           </div>
         )}
       </Loader>
+      <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
+        <div className="flex flex-col gap-4">
+          <ShowingResultsNumberItems
+            currentPage={currentPage}
+            pageSize={itemsPerPage}
+            totalItems={totalItems}
+          />
+          <NumberItemsSelector
+            value={itemsPerPage.toString()}
+            onValueChange={handlePageSizeChange}
+          />
+        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };
