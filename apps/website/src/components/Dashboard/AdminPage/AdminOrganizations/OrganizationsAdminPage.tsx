@@ -1,9 +1,19 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import type { GetProjectsResult, ProjectAPI } from '@intlayer/backend';
-import { Input, Loader, Pagination, Table } from '@intlayer/design-system';
-import { useGetProjects } from '@intlayer/design-system/hooks';
+import type {
+  GetOrganizationsResult,
+  OrganizationAPI,
+} from '@intlayer/backend';
+import {
+  Loader,
+  NumberItemsSelector,
+  Pagination,
+  SearchInput,
+  ShowingResultsNumberItems,
+  Table,
+} from '@intlayer/design-system';
+import { useGetOrganizations, useSearch } from '@intlayer/design-system/hooks';
 import {
   type ColumnDef,
   flexRender,
@@ -13,68 +23,53 @@ import {
 } from '@tanstack/react-table';
 import { cn } from '@utils/cn';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useEffect, useMemo, useState } from 'react';
+import { type FC, useEffect } from 'react';
+import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { PagesRoutes } from '@/Routes';
 
-export const ProjectsAdminPageContent: FC = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
+export const OrganizationsAdminPageContent: FC = () => {
   type SortOrder = 'asc' | 'desc';
 
-  const urlPage = parseInt(searchParams.get('page') ?? '1', 10);
-  const urlPageSize = parseInt(searchParams.get('pageSize') ?? '10', 10);
-  const [currentPage, setCurrentPage] = useState(urlPage);
-  const [itemsPerPage, setItemsPerPage] = useState(urlPageSize);
-  const [searchQuery, setSearchQuery] = useState(
-    searchParams.get('search') ?? ''
-  );
-  const [sortBy, setSortBy] = useState(searchParams.get('sortBy') ?? '');
-  const [sortOrder, setSortOrder] = useState<SortOrder>(
-    (searchParams.get('sortOrder') as SortOrder) ?? 'asc'
-  );
-
-  const projectsQuery = useGetProjects({
-    page: currentPage.toString(),
-    pageSize: itemsPerPage.toString(),
-    fetchAll: 'true',
-    ...(searchQuery && { search: searchQuery }),
-    ...(sortBy && { sortBy }),
-    ...(sortOrder && { sortOrder }),
+  const { params, setParam, setParams } = useSearchParamState({
+    page: { type: 'number', fallbackValue: 1 },
+    pageSize: { type: 'number', fallbackValue: 10 },
+    search: { type: 'string', fallbackValue: undefined },
+    sortBy: { type: 'string', fallbackValue: undefined },
+    sortOrder: { type: 'string', fallbackValue: 'asc' },
   });
 
-  const { data, isLoading, error, refetch } = projectsQuery;
+  const currentPage = params.page as number;
+  const itemsPerPage = params.pageSize as number;
+
+  const { setSearch, search } = useSearch({});
+
+  const organizationsQuery = useGetOrganizations({
+    fetchAll: 'true',
+    ...(search && { search }),
+    ...params,
+  });
+
+  const { data, isLoading, error } = organizationsQuery;
   const { title, tableHeaders, noData, errorMessages, searchPlaceholder } =
-    useIntlayer('project-admin-page');
+    useIntlayer('organization-admin-page');
 
-  const projectsResponse = data as GetProjectsResult | undefined;
-  const projects = projectsResponse?.data ?? [];
-  const totalItems = projectsResponse?.total_items ?? projects.length;
-  const totalPages = projectsResponse?.total_pages ?? 1;
+  const organizationsResponse = data as GetOrganizationsResult | undefined;
+  const organizations = organizationsResponse?.data ?? [];
+  const totalPages = organizationsResponse?.total_pages ?? 1;
+  const totalItems = organizationsResponse?.total_items ?? 0;
 
-  const pushParams = (updates: Record<string, string | null>) => {
-    const params = new URLSearchParams(searchParams.toString());
-    for (const [key, value] of Object.entries(updates)) {
-      if (value === null) params.delete(key);
-      else params.set(key, value);
-    }
-    router.push(`?${params.toString()}`);
-  };
+  const sorting: SortingState = params.sortBy
+    ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
+    : [];
 
-  const sorting = useMemo<SortingState>(
-    () => (sortBy ? [{ id: sortBy, desc: sortOrder === 'desc' }] : []),
-    [sortBy, sortOrder]
-  );
-
-  const columns: ColumnDef<ProjectAPI>[] = [
+  const columns: ColumnDef<OrganizationAPI>[] = [
     {
       accessorKey: 'name',
       enableSorting: true,
       header: ({ column }) => (
         <div className="group flex items-center gap-2">
-          {tableHeaders.name}
+          {tableHeaders.name.value}
           <div
             className={cn(
               'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
@@ -90,20 +85,20 @@ export const ProjectsAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const project = row.original as ProjectAPI;
+        const organization = row.original as OrganizationAPI;
         return (
           <div className="flex items-center">
             <div className="ml-3">
-              {project.name ? (
+              {organization.name ? (
                 <Link
-                  href={PagesRoutes.Admin_Projects_Id.replace(
+                  href={PagesRoutes.Admin_Organizations_Id.replace(
                     ':id',
-                    project.id
+                    organization.id
                   )}
-                  label={project.name}
+                  label={organization.name}
                   color="text"
                 >
-                  {project.name}
+                  {organization.name}
                 </Link>
               ) : (
                 '-'
@@ -134,10 +129,11 @@ export const ProjectsAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const project = row.original as ProjectAPI;
+        const organization = row.original as OrganizationAPI;
         return (
           <div className="ml-3 font-mono text-sm">
-            ...{project.id.slice(-5)}
+            ...
+            {organization.id.slice(-5)}
           </div>
         );
       },
@@ -147,7 +143,7 @@ export const ProjectsAdminPageContent: FC = () => {
       enableSorting: true,
       header: ({ column }) => (
         <div className="group flex items-center gap-2">
-          {tableHeaders.createdAt}
+          {tableHeaders.createdAt.value}
           <div
             className={cn(
               'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
@@ -163,12 +159,12 @@ export const ProjectsAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const project = row.original as ProjectAPI;
+        const organization = row.original as OrganizationAPI;
         return (
           <div className="text-neutral-500 text-sm dark:text-neutral-400">
-            {project.createdAt
-              ? new Date(project.createdAt).toLocaleDateString()
-              : noData}
+            {organization.createdAt
+              ? new Date(organization.createdAt).toLocaleDateString()
+              : noData.value}
           </div>
         );
       },
@@ -194,11 +190,11 @@ export const ProjectsAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const project = row.original as ProjectAPI;
+        const organization = row.original as OrganizationAPI;
         return (
           <div className="text-neutral-500 text-sm dark:text-neutral-400">
-            {project.updatedAt
-              ? new Date(project.updatedAt).toLocaleDateString()
+            {organization.updatedAt
+              ? new Date(organization.updatedAt).toLocaleDateString()
               : noData}
           </div>
         );
@@ -207,7 +203,7 @@ export const ProjectsAdminPageContent: FC = () => {
   ];
 
   const table = useReactTable({
-    data: projects,
+    data: organizations,
     columns,
     state: { sorting },
     manualSorting: true,
@@ -217,50 +213,31 @@ export const ProjectsAdminPageContent: FC = () => {
         const s = next[0];
         const field = s.id;
         const order: SortOrder = s.desc ? 'desc' : 'asc';
-        setSortBy(field);
-        setSortOrder(order);
-        pushParams({ sortBy: field, sortOrder: order, page: '1' });
+        setParams({ sortBy: field, sortOrder: order, page: 1 });
       } else {
-        setSortBy('');
-        setSortOrder('asc');
-        pushParams({ sortBy: null, sortOrder: null, page: '1' });
+        setParams({ sortBy: '', sortOrder: 'asc', page: 1 });
       }
     },
     getCoreRowModel: getCoreRowModel(),
   });
 
   const handleSearch = (value: string) => {
-    setSearchQuery(value);
-    pushParams({ search: value ?? null, page: '1' });
+    setSearch(value);
+    setParams({ search: value, page: 1 });
   };
 
+  // Keep the input's search value in sync with URL param
   useEffect(() => {
-    const urlPageFromParams = parseInt(searchParams.get('page') ?? '1', 10);
-    const urlPageSizeFromParams = parseInt(
-      searchParams.get('pageSize') ?? '10',
-      10
-    );
-
-    if (urlPageFromParams !== currentPage) {
-      setCurrentPage(urlPageFromParams);
-    }
-    if (urlPageSizeFromParams !== itemsPerPage) {
-      setItemsPerPage(urlPageSizeFromParams);
-    }
-  }, [searchParams, currentPage, itemsPerPage]);
+    setSearch((params.search as string) ?? '');
+  }, [params.search, setSearch]);
 
   const handlePageChange = (page: number) => {
-    pushParams({ page: page.toString() });
-    setCurrentPage(page);
-    refetch();
+    setParam('page', page);
   };
 
   const handlePageSizeChange = (newPageSize: string) => {
     const size = parseInt(newPageSize, 10);
-    pushParams({ pageSize: size.toString(), page: '1' });
-    setItemsPerPage(size);
-    setCurrentPage(1);
-    refetch();
+    setParams({ pageSize: size, page: 1 });
   };
 
   if (error) {
@@ -284,28 +261,27 @@ export const ProjectsAdminPageContent: FC = () => {
 
       <div className="mb-4 space-y-4">
         <div className="flex flex-col gap-4 sm:flex-row">
-          <div className="flex-1">
-            <div className="relative">
-              <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder={searchPlaceholder.value}
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-                className="max-w-md pl-10"
-              />
-            </div>
+          <div className="relative flex-1">
+            <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground" />
+            <SearchInput
+              placeholder={searchPlaceholder.value}
+              onChange={(e) => handleSearch(e.target.value)}
+              className="max-w-md pl-10"
+            />
           </div>
         </div>
       </div>
 
       <Loader isLoading={isLoading}>
-        {projects.length === 0 ? (
+        {organizations.length === 0 ? (
           <div className="py-12 text-center">
-            <p className="text-neutral-500 dark:text-neutral-400">{noData}</p>
+            <p className="text-neutral-500 dark:text-neutral-400">
+              {noData.value}
+            </p>
           </div>
         ) : (
           <div className="space-y-4">
-            <Table isRollable={false} displayModal={false} className="w-full">
+            <Table className="w-full">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr
@@ -356,6 +332,17 @@ export const ProjectsAdminPageContent: FC = () => {
               </tbody>
             </Table>
 
+            <ShowingResultsNumberItems
+              currentPage={currentPage}
+              pageSize={itemsPerPage}
+              totalItems={totalItems}
+            />
+
+            <NumberItemsSelector
+              value={itemsPerPage.toString()}
+              onValueChange={handlePageSizeChange}
+            />
+
             <div className="flex flex-col items-center justify-between gap-4 pt-4 sm:flex-row">
               <div className="flex justify-center">
                 <Pagination
@@ -368,6 +355,7 @@ export const ProjectsAdminPageContent: FC = () => {
                   color="text"
                 />
               </div>
+
               <div />
             </div>
           </div>
@@ -377,4 +365,4 @@ export const ProjectsAdminPageContent: FC = () => {
   );
 };
 
-export default ProjectsAdminPageContent;
+export default OrganizationsAdminPageContent;

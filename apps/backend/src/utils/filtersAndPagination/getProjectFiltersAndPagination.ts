@@ -1,6 +1,5 @@
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
-import { organization } from 'better-auth/plugins';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
 import type { Project } from '@/types/project.types';
@@ -73,6 +72,7 @@ export const getProjectFiltersAndPagination = (
     if (organizationId) {
       filters = { ...filters, organizationId };
     }
+
     if (!(roles.includes('admin') && fetchAll === 'true')) {
       filters = { ...filters, organizationId: organization?.id };
     }

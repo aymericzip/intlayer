@@ -1,16 +1,14 @@
 'use client';
 
-import { Button, Container, Loader, Modal } from '@intlayer/design-system';
+import { Button, Container, Loader } from '@intlayer/design-system';
 import { useGetProjects, useSession } from '@intlayer/design-system/hooks';
-import { Plus, Trash } from 'lucide-react';
+import { Trash } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, Suspense, useState } from 'react';
 import { AccessKeyForm } from './AccessKey/AccessKeyForm';
 import { ConfigDetails } from './Config/ConfigDetails';
 import { DeleteProjectModal } from './DeleteProjectModal';
 import { MembersForm } from './Members/MembersKeyForm';
-import { NoProjectView } from './NoProjectView';
-import { ProjectCreationForm } from './ProjectCreationForm';
 import { ProjectEditionForm } from './ProjectEditionForm';
 import { ProjectList } from './ProjectList';
 
@@ -20,11 +18,9 @@ export const ProjectFormContent: FC = () => {
   const isProjectAdmin = session?.roles?.includes('project_admin');
 
   const { project } = session ?? {};
-  const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
-  const { data: projects, isSuccess, isPending } = useGetProjects();
-  const { noAdminMessage, createProjectButton, deleteProjectButton } =
-    useIntlayer('project-form');
+  const { isSuccess } = useGetProjects();
+  const { noAdminMessage, deleteProjectButton } = useIntlayer('project-form');
 
   if (project) {
     return (
@@ -87,57 +83,11 @@ export const ProjectFormContent: FC = () => {
     );
   }
 
-  if ((projects?.data ?? []).length > 0) {
-    return (
-      <div className="flex w-full max-w-[350px] flex-col gap-6">
-        <Modal
-          isOpen={isCreationModalOpen}
-          onClose={() => setIsCreationModalOpen(false)}
-        >
-          <ProjectCreationForm
-            onProjectCreated={() => setIsCreationModalOpen(false)}
-          />
-        </Modal>
-        <ProjectList projects={projects?.data ?? []} />
-        <Button
-          type="submit"
-          color="text"
-          label={createProjectButton.ariaLabel.value}
-          isFullWidth
-          variant="outline"
-          onClick={() => setIsCreationModalOpen(true)}
-          Icon={Plus}
-        >
-          {createProjectButton.text}
-        </Button>
-      </div>
-    );
-  }
-
   if (isSuccess) {
-    return (
-      <Container roundedSize="xl" className="flex justify-center p-6">
-        <Modal
-          isOpen={isCreationModalOpen}
-          onClose={() => setIsCreationModalOpen(false)}
-        >
-          <ProjectCreationForm />
-        </Modal>
-
-        <NoProjectView
-          onClickCreateProject={() => setIsCreationModalOpen(true)}
-        />
-      </Container>
-    );
+    return <ProjectList />;
   }
 
-  if (isPending) {
-    return <Loader />;
-  }
-
-  return (
-    <NoProjectView onClickCreateProject={() => setIsCreationModalOpen(true)} />
-  );
+  return <Loader />;
 };
 
 export const ProjectForm: FC = () => (

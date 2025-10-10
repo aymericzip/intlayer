@@ -7,7 +7,6 @@ import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getProjectFiltersAndPagination,
-  type ProjectFilters,
   type ProjectFiltersParams,
 } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
 import { mapProjectsToAPI, mapProjectToAPI } from '@utils/mapper/project';
@@ -50,7 +49,7 @@ export const getProjects = async (
     return;
   }
 
-  if (!organization) {
+  if (!organization && !roles.includes('admin')) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
@@ -582,7 +581,7 @@ export const selectProject = async (
   _next: NextFunction
 ) => {
   const { projectId } = req.params;
-  const { session, roles } = res.locals;
+  const { session } = res.locals;
 
   if (!projectId) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_ID_NOT_FOUND');

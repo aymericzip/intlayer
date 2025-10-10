@@ -1,4 +1,4 @@
-import { ProjectAdminDetailPage } from '@components/AdminPage/AdminProjects/ProjectAdminDetailPage';
+import { ProjectAdminDetailPage } from '@components/Dashboard/AdminPage/AdminProjects/ProjectAdminDetailPage';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
 

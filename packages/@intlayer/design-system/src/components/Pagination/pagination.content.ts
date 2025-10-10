@@ -1,8 +1,58 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const paginationContent = {
   key: 'pagination',
   content: {
+    numberItemsSelector: t({
+      en: 'Items per page',
+      fr: 'Eléments par page',
+      es: 'Items por página',
+      'en-GB': 'Items per page',
+      de: 'Items pro Seite',
+      ja: 'ページあたりのアイテム数',
+      ko: '페이지당 아이템 수',
+      zh: '每页项目数',
+      it: 'Elementi per pagina',
+      pt: 'Itens por página',
+      hi: 'पृष्ठ पर आइटम्स',
+      ar: 'عدد العناصر لكل صفحة',
+      ru: 'Элементов на странице',
+      tr: 'Sayfa başına öğe',
+    }),
+    showingResults: insert(
+      t({
+        en: 'Showing {{start}} to {{end}} of {{total}} results',
+        fr: 'Afficher {{start}} à {{end}} de {{total}} résultats',
+        es: 'Mostrando {{start}} a {{end}} de {{total}} resultados',
+        'en-GB': 'Showing {{start}} to {{end}} of {{total}} results',
+        de: 'Zeigt {{start}} bis {{end}} von {{total}} Ergebnissen',
+        ja: '{{start}} から {{end}} までの {{total}} 件の結果を表示',
+        ko: '{{start}} 에서 {{end}} 까지의 {{total}} 개 결과 표시',
+        zh: '显示第 {{start}} 到 {{end}} 项，共 {{total}} 个结果',
+        it: 'Mostrando {{start}} a {{end}} di {{total}} risultati',
+        pt: 'Mostrando {{start}} a {{end}} de {{total}} resultados',
+        hi: '{{start}} से {{end}} तक के {{total}} परिणाम दिखा रहे हैं',
+        ar: 'عرض {{start}} إلى {{end}} من {{total}} نتائج',
+        ru: 'Показано {{start}}-{{end}} из {{total}} результатов',
+        tr: '{{start}} から {{end}} までの {{total}} 件の結果を表示',
+      })
+    ),
+    selectPageSize: t({
+      en: 'Select page size',
+      fr: 'Sélectionner la taille de la page',
+      es: 'Seleccionar tamaño de página',
+      'en-GB': 'Select page size',
+      de: 'Seitegröße auswählen',
+      ja: 'ページサイズを選択',
+      ko: '페이지 크기 선택',
+      zh: '选择页面大小',
+      it: 'Seleziona una dimensione di pagina',
+      pt: 'Selecionar um tamanho de página',
+      hi: 'पृष्ठ आकार चुनें',
+      ar: 'اختر حجم الصفحة',
+      ru: 'Выберите размер страницы',
+      tr: 'Sayfa boyutunu seç',
+    }),
     goToNextPage: t({
       en: 'Go to next page',
       fr: 'Aller à la page suivante',

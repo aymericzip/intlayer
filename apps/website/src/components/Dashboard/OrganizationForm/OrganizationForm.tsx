@@ -70,7 +70,7 @@ const OrganizationFormContent: FC = () => {
   }
 
   if ((organizations?.data ?? []).length > 0) {
-    return <OrganizationList organizations={organizations?.data ?? []} />;
+    return <OrganizationList />;
   }
 
   if (isSuccess && !isPending) {

@@ -91,8 +91,8 @@ export const useAppQuery = <
   });
 
   const result = useQuery({
-    ...rest,
     enabled: (rest as any).enabled === false ? false : enable,
+    ...rest,
   } as any);
 
   return result as unknown as UseQueryResult<TData, TError>;
@@ -237,7 +237,7 @@ export const useGetUserByAccount = () => {
 
 export const useGetUsers = (
   filters?: GetUsersParams,
-  options?: UseQueryOptions
+  options?: Partial<UseQueryOptions>
 ) => {
   const intlayerOAuth = useIntlayerOAuth();
 
@@ -446,7 +446,10 @@ export const useUnselectOrganization = () => {
  * Project
  */
 
-export const useGetProjects = (filters?: GetProjectsParams) => {
+export const useGetProjects = (
+  filters?: GetProjectsParams,
+  options?: Partial<UseQueryOptions>
+) => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
@@ -455,6 +458,7 @@ export const useGetProjects = (filters?: GetProjectsParams) => {
       intlayerOAuth.project.getProjects(filters, { signal }),
     requireUser: true,
     requireOrganization: true,
+    ...options,
   });
 };
 
@@ -604,7 +608,10 @@ export const useRefreshAccessKey = () => {
  * Dictionary
  */
 
-export const useGetDictionaries = (filters?: GetDictionariesParams) => {
+export const useGetDictionaries = (
+  filters?: GetDictionariesParams,
+  options?: Partial<UseQueryOptions>
+) => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
@@ -614,6 +621,7 @@ export const useGetDictionaries = (filters?: GetDictionariesParams) => {
     requireUser: true,
     requireOrganization: true,
     requireProject: true,
+    ...options,
   });
 };
 
@@ -634,7 +642,8 @@ export const useGetDictionariesKeys = (
 
 export const useGetDictionary = (
   dictionaryKey: GetDictionaryParams['dictionaryKey'],
-  version?: GetDictionaryQuery['version']
+  version?: GetDictionaryQuery['version'],
+  options?: Partial<UseQueryOptions>
 ) => {
   const intlayerOAuth = useIntlayerOAuth();
 
@@ -647,6 +656,7 @@ export const useGetDictionary = (
     requireUser: true,
     requireOrganization: true,
     requireProject: true,
+    ...options,
   });
 };
 
@@ -702,7 +712,10 @@ export const useDeleteDictionary = () => {
  * Tag
  */
 
-export const useGetTags = (filters?: GetTagsParams) => {
+export const useGetTags = (
+  filters?: GetTagsParams,
+  options?: Partial<UseQueryOptions>
+) => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
@@ -711,6 +724,7 @@ export const useGetTags = (filters?: GetTagsParams) => {
     requireUser: true,
     requireOrganization: true,
     requireProject: true,
+    ...options,
   });
 };
 
@@ -768,7 +782,10 @@ export const useGetPricing = (
   });
 };
 
-export const useGetSubscription = (body: GetCheckoutSessionBody) => {
+export const useGetSubscription = (
+  body: GetCheckoutSessionBody,
+  options?: Partial<UseQueryOptions>
+) => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
@@ -777,6 +794,7 @@ export const useGetSubscription = (body: GetCheckoutSessionBody) => {
       intlayerOAuth.stripe.getSubscription(body, { signal }),
     requireUser: true,
     requireOrganization: true,
+    ...options,
   });
 };
 

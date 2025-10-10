@@ -1,4 +1,4 @@
-import { OrganizationsAdminPageContent } from '@components/AdminPage/AdminOrganizations/OrganizationsAdminPage';
+import { OrganizationsAdminPageContent } from '@components/Dashboard/AdminPage/AdminOrganizations/OrganizationsAdminPage';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
 

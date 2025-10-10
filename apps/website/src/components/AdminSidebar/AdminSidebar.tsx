@@ -1,23 +1,12 @@
 'use client';
 
-import {
-  Button,
-  ClickOutsideDiv,
-  Container,
-  Input,
-  MaxWidthSmoother,
-} from '@intlayer/design-system';
-import { useDevice } from '@intlayer/design-system/hooks';
+import { Button, Container, MaxWidthSmoother } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import {
   ArrowLeftToLine,
   ArrowRightFromLine,
   Building2,
-  ChevronDown,
-  ChevronUp,
   FolderOpen,
-  LayoutDashboard,
-  Search,
   Users,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -73,39 +62,41 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ className }) => {
         roundedSize="none"
         transparency="none"
       >
-        <Button
-          Icon={isCollapsed ? ArrowRightFromLine : ArrowLeftToLine}
-          size="icon-md"
-          variant="hoverable"
-          className="mb-10 ml-auto p-3"
-          color="text"
-          label={collapseButton.label.value}
-          onClick={() => {
-            setIsCollapsed(!isCollapsed);
-          }}
-        />
+        <div className="sticky top-32">
+          <div className="mb-10 flex w-full justify-end">
+            <Button
+              Icon={isCollapsed ? ArrowRightFromLine : ArrowLeftToLine}
+              size="icon-md"
+              variant="hoverable"
+              className="p-3"
+              color="text"
+              label={collapseButton.label.value}
+              onClick={() => setIsCollapsed((prev) => !prev)}
+            />
+          </div>
 
-        <nav className="flex-1 overflow-y-auto">
-          <ul className="flex flex-col gap-2">
-            {navigationItems.map((item) => (
-              <li key={item.key}>
-                <Link
-                  href={item.href}
-                  className={cn(
-                    'flex items-center rounded-lg px-3 py-2 transition-colors hover:bg-current/10',
-                    isActiveRoute(item.href) && 'bg-current/10'
-                  )}
-                  aria-label={item.label}
-                >
-                  <item.icon className="size-4" />
-                  <MaxWidthSmoother isHidden={isCollapsed}>
-                    <span className="ml-3">{item.title}</span>
-                  </MaxWidthSmoother>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+          <nav className="flex-1 overflow-y-auto">
+            <ul className="flex flex-col gap-2">
+              {navigationItems.map((item) => (
+                <li key={item.key}>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      'flex items-center rounded-lg px-3 py-2 transition-colors hover:bg-current/10',
+                      isActiveRoute(item.href) && 'bg-current/10'
+                    )}
+                    aria-label={item.label}
+                  >
+                    <item.icon className="size-4" />
+                    <MaxWidthSmoother isHidden={isCollapsed}>
+                      <span className="ml-3">{item.title}</span>
+                    </MaxWidthSmoother>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </Container>
     </aside>
   );

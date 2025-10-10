@@ -12,4 +12,5 @@ export * from './useScreenWidth';
 export * from './useScrollBlockage';
 export * from './useScrollDetection';
 export * from './useScrollY';
+export * from './useSearch';
 export * from './useUser';

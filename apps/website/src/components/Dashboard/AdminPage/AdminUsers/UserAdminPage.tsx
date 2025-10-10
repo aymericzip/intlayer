@@ -12,15 +12,18 @@ import {
   BadgeColor,
   BadgeVariant,
   CopyToClipboard,
-  Input,
   Loader,
+  NumberItemsSelector,
   Pagination,
+  SearchInput,
   Select,
+  ShowingResultsNumberItems,
   Table,
 } from '@intlayer/design-system';
 import {
   useGetOrganizations,
   useGetUsers,
+  useSearch,
 } from '@intlayer/design-system/hooks';
 import {
   type ColumnDef,
@@ -30,32 +33,28 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { cn } from '@utils/cn';
-import { ChevronDown, ChevronUp, Search } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useEffect, useMemo, useState } from 'react';
+import { type FC, useEffect } from 'react';
+import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { PagesRoutes } from '@/Routes';
 
 export const UsersAdminPageContent: FC = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
   type SortOrder = 'asc' | 'desc';
 
-  const urlPage = parseInt(searchParams.get('page') ?? '1', 10);
-  const urlPageSize = parseInt(searchParams.get('pageSize') ?? '10', 10);
-  const [currentPage, setCurrentPage] = useState(urlPage);
-  const [itemsPerPage, setItemsPerPage] = useState(urlPageSize);
-  const [searchQuery, setSearchQuery] = useState(
-    searchParams.get('search') ?? ''
-  );
-  const [sortBy, setSortBy] = useState(searchParams.get('sortBy') ?? '');
-  const [sortOrder, setSortOrder] = useState<SortOrder>(
-    (searchParams.get('sortOrder') as SortOrder) ?? 'asc'
-  );
-  const [organizationFilter, setOrganizationFilter] = useState(
-    searchParams.get('organizationId') ?? 'all'
-  );
+  const { params, setParam, setParams } = useSearchParamState({
+    page: { type: 'number', fallbackValue: 1 },
+    pageSize: { type: 'number', fallbackValue: 10 },
+    search: { type: 'string', fallbackValue: undefined },
+    sortBy: { type: 'string', fallbackValue: undefined },
+    sortOrder: { type: 'string', fallbackValue: 'asc' },
+    organizationId: { type: 'string', fallbackValue: 'all' },
+  });
+
+  const currentPage = params.page as number;
+  const itemsPerPage = params.pageSize as number;
+
+  const { setSearch, search } = useSearch({});
 
   const { data: organizationsData } = useGetOrganizations({
     fetchAll: 'true',
@@ -64,22 +63,13 @@ export const UsersAdminPageContent: FC = () => {
     (organizationsData as GetOrganizationsResult | undefined)?.data ?? [];
 
   const usersQuery = useGetUsers({
-    page: currentPage.toString(),
-    pageSize: itemsPerPage.toString(),
-    fetchAll: 'true', // For admin users, will fetch all users without filtering by organization
-    ...(searchQuery && { search: searchQuery }),
-    ...(sortBy && { sortBy }),
-    ...(sortOrder && { sortOrder }),
-    ...(organizationFilter &&
-      organizationFilter !== 'all' && { organizationId: organizationFilter }),
+    fetchAll: 'true',
+    ...(search && { search }),
+    ...params,
+    ...(params.organizationId === 'all' && { organizationId: undefined }),
   });
 
-  const {
-    data: usersData,
-    isLoading: isLoadingUsers,
-    error,
-    refetch,
-  } = usersQuery;
+  const { data: usersData, isLoading: isLoadingUsers, error } = usersQuery;
 
   const {
     title,
@@ -94,26 +84,14 @@ export const UsersAdminPageContent: FC = () => {
     noData,
   } = useIntlayer('user-admin-page');
 
-  const { helpers } = useIntlayer('admin-pages');
-
   const usersResponse = usersData as GetUsersResult | undefined;
   const users = usersResponse?.data ?? [];
-  const totalItems = usersResponse?.total_items ?? users.length;
+  const totalItems = usersResponse?.total_items ?? 0;
   const totalPages = usersResponse?.total_pages ?? 1;
 
-  const pushParams = (updates: Record<string, string | null>) => {
-    const params = new URLSearchParams(searchParams.toString());
-    for (const [key, value] of Object.entries(updates)) {
-      if (value === null) params.delete(key);
-      else params.set(key, value);
-    }
-    router.push(`?${params.toString()}`);
-  };
-
-  const sorting = useMemo<SortingState>(
-    () => (sortBy ? [{ id: sortBy, desc: sortOrder === 'desc' }] : []),
-    [sortBy, sortOrder]
-  );
+  const sorting: SortingState = params.sortBy
+    ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
+    : [];
 
   const columns: ColumnDef<UserAPI>[] = [
     {
@@ -256,7 +234,7 @@ export const UsersAdminPageContent: FC = () => {
           <Badge
             variant={BadgeVariant.OUTLINE}
             color={
-              user.emailVerified ? BadgeColor.TEXT : BadgeColor.DESTRUCTIVE
+              user.emailVerified ? BadgeColor.SUCCESS : BadgeColor.DESTRUCTIVE
             }
           >
             {user.emailVerified ? statusLabels.verified : statusLabels.pending}
@@ -358,60 +336,35 @@ export const UsersAdminPageContent: FC = () => {
         const s = next[0];
         const field = s.id;
         const order: SortOrder = s.desc ? 'desc' : 'asc';
-        setSortBy(field);
-        setSortOrder(order);
-        pushParams({ sortBy: field, sortOrder: order, page: '1' });
+        setParams({ sortBy: field, sortOrder: order, page: 1 });
       } else {
-        setSortBy('');
-        setSortOrder('asc');
-        pushParams({ sortBy: null, sortOrder: null, page: '1' });
+        setParams({ sortBy: '', sortOrder: 'asc', page: 1 });
       }
     },
     getCoreRowModel: getCoreRowModel(),
   });
 
   const handleSearch = (value: string) => {
-    setSearchQuery(value);
-    pushParams({ search: value ?? null, page: '1' });
+    setSearch(value);
+    setParams({ search: value, page: 1 });
   };
 
   const handleOrganizationFilter = (value: string) => {
-    setOrganizationFilter(value);
-    pushParams({
-      organizationId: value && value !== 'all' ? value : null,
-      page: '1',
-    });
+    setParams({ organizationId: value, page: 1 });
   };
 
+  // Keep the input's search value in sync with URL param
   useEffect(() => {
-    const urlPageFromParams = parseInt(searchParams.get('page') ?? '1', 10);
-    const urlPageSizeFromParams = parseInt(
-      searchParams.get('pageSize') ?? '10',
-      10
-    );
-
-    if (urlPageFromParams !== currentPage) {
-      setCurrentPage(urlPageFromParams);
-    }
-    if (urlPageSizeFromParams !== itemsPerPage) {
-      setItemsPerPage(urlPageSizeFromParams);
-    }
-  }, [searchParams, currentPage, itemsPerPage]);
+    setSearch((params.search as string) ?? '');
+  }, [params.search, setSearch]);
 
   const handlePageChange = (page: number) => {
-    pushParams({ page: page.toString() });
-
-    setCurrentPage(page);
-    refetch();
+    setParam('page', page);
   };
 
   const handlePageSizeChange = (newPageSize: string) => {
     const size = parseInt(newPageSize, 10);
-    pushParams({ pageSize: size.toString(), page: '1' });
-
-    setItemsPerPage(size);
-    setCurrentPage(1);
-    refetch();
+    setParams({ pageSize: size, page: 1 });
   };
 
   if (error) {
@@ -435,20 +388,15 @@ export const UsersAdminPageContent: FC = () => {
 
       <div className="mb-4 space-y-4">
         <div className="flex flex-col gap-4 sm:flex-row">
-          <div className="flex-1">
-            <div className="relative">
-              <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder={searchPlaceholder.value}
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-                className="max-w-md pl-10"
-              />
-            </div>
-          </div>
+          <SearchInput
+            placeholder={searchPlaceholder.value}
+            onChange={(e) => handleSearch(e.target.value)}
+            className="max-w-md pl-10"
+          />
+
           <div className="flex gap-2">
             <Select
-              value={organizationFilter ?? 'all'}
+              value={(params.organizationId as string) ?? 'all'}
               onValueChange={handleOrganizationFilter}
             >
               <Select.Trigger className="w-[200px]">
@@ -476,7 +424,7 @@ export const UsersAdminPageContent: FC = () => {
           </div>
         ) : (
           <div className="space-y-4">
-            <Table isRollable={false} displayModal={false} className="w-full">
+            <Table className="w-full">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr
@@ -529,39 +477,16 @@ export const UsersAdminPageContent: FC = () => {
 
             <div className="flex flex-col items-center justify-between gap-4 pt-4 sm:flex-row">
               <div className="flex flex-col items-start gap-2">
-                <div className="text-neutral-600 text-sm dark:text-neutral-400">
-                  {helpers.showingResults.value
-                    .replace(
-                      '{start}',
-                      ((currentPage - 1) * itemsPerPage + 1).toString()
-                    )
-                    .replace(
-                      '{end}',
-                      Math.min(
-                        currentPage * itemsPerPage,
-                        totalItems
-                      ).toString()
-                    )
-                    .replace('{total}', totalItems.toString())}
-                </div>
+                <ShowingResultsNumberItems
+                  currentPage={currentPage}
+                  pageSize={itemsPerPage}
+                  totalItems={totalItems}
+                />
                 <div className="flex items-center gap-2">
-                  <span className="text-neutral-600 text-sm dark:text-neutral-400">
-                    {helpers.perPage.value}
-                  </span>
-                  <Select
+                  <NumberItemsSelector
                     value={itemsPerPage.toString()}
                     onValueChange={handlePageSizeChange}
-                  >
-                    <Select.Trigger className="w-20">
-                      <Select.Value placeholder={helpers.selectPageSize} />
-                    </Select.Trigger>
-                    <Select.Content>
-                      <Select.Item value="5">5</Select.Item>
-                      <Select.Item value="10">10</Select.Item>
-                      <Select.Item value="20">20</Select.Item>
-                      <Select.Item value="50">50</Select.Item>
-                    </Select.Content>
-                  </Select>
+                  />
                 </div>
               </div>
               <div className="flex justify-center">

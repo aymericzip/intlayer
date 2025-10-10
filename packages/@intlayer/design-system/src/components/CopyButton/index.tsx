@@ -141,7 +141,6 @@ export const CopyButton: FC<CopyButtonProps> = ({ content, ...props }) => {
       aria-describedby={
         copied ? 'copy-success' : error ? 'copy-error' : undefined
       }
-      className={`${props.className || ''} ${error ? 'text-red-500' : copied ? 'text-green-500' : ''}`}
     />
   );
 };

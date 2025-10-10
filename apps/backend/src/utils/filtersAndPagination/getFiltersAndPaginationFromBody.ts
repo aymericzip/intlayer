@@ -8,8 +8,8 @@ type Filters = Record<string, string | string[] | ObjectId | ObjectId[]>;
 
 export type FiltersAndPagination<T extends Filters> =
   | ({
-      page?: string;
-      pageSize?: string;
+      page?: string | number;
+      pageSize?: string | number;
     } & T)
   | undefined;
 

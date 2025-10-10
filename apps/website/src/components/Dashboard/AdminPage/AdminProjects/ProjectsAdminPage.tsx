@@ -1,12 +1,15 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import type {
-  GetOrganizationsResult,
-  OrganizationAPI,
-} from '@intlayer/backend';
-import { Input, Loader, Pagination, Table } from '@intlayer/design-system';
-import { useGetOrganizations } from '@intlayer/design-system/hooks';
+import type { GetProjectsResult, ProjectAPI } from '@intlayer/backend';
+import {
+  Loader,
+  NumberItemsSelector,
+  Pagination,
+  SearchInput,
+  Table,
+} from '@intlayer/design-system';
+import { useGetProjects, useSearch } from '@intlayer/design-system/hooks';
 import {
   type ColumnDef,
   flexRender,
@@ -15,69 +18,58 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { cn } from '@utils/cn';
-import { ChevronDown, ChevronUp, Search } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useEffect, useMemo, useState } from 'react';
+import { type FC, useEffect } from 'react';
+import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { PagesRoutes } from '@/Routes';
 
-export const OrganizationsAdminPageContent: FC = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+type SortOrder = 'asc' | 'desc';
 
-  type SortOrder = 'asc' | 'desc';
+export const ProjectsAdminPageContent: FC = () => {
+  const { params, setParam, setParams } = useSearchParamState({
+    page: { type: 'number', fallbackValue: 1 },
+    pageSize: { type: 'number', fallbackValue: 10 },
+    search: { type: 'string' },
+    sortBy: { type: 'string' },
+    sortOrder: { type: 'string', fallbackValue: 'asc' },
+  });
 
-  const urlPage = parseInt(searchParams.get('page') ?? '1', 10);
-  const urlPageSize = parseInt(searchParams.get('pageSize') ?? '10', 10);
-  const [currentPage, setCurrentPage] = useState(urlPage);
-  const [itemsPerPage, setItemsPerPage] = useState(urlPageSize);
-  const [searchQuery, setSearchQuery] = useState(
-    searchParams.get('search') ?? ''
-  );
-  const [sortBy, setSortBy] = useState(searchParams.get('sortBy') ?? '');
-  const [sortOrder, setSortOrder] = useState<SortOrder>(
-    (searchParams.get('sortOrder') as SortOrder) ?? 'asc'
-  );
+  const currentPage = params.page as number;
+  const itemsPerPage = params.pageSize as number;
 
-  const organizationsQuery = useGetOrganizations({
-    page: currentPage.toString(),
-    pageSize: itemsPerPage.toString(),
-    fetchAll: 'true',
-    ...(searchQuery && { search: searchQuery }),
-    ...(sortBy && { sortBy }),
-    ...(sortOrder && { sortOrder }),
-  } as any);
+  const { setSearch, search } = useSearch({});
 
-  const { data, isLoading, error, refetch } = organizationsQuery;
-  const { title, tableHeaders, noData, errorMessages, searchPlaceholder } =
-    useIntlayer('organization-admin-page');
-
-  const organizationsResponse = data as GetOrganizationsResult | undefined;
-  const organizations = organizationsResponse?.data ?? [];
-  const totalItems = organizationsResponse?.total_items ?? organizations.length;
-  const totalPages = organizationsResponse?.total_pages ?? 1;
-
-  const pushParams = (updates: Record<string, string | null>) => {
-    const params = new URLSearchParams(searchParams.toString());
-    for (const [key, value] of Object.entries(updates)) {
-      if (value === null) params.delete(key);
-      else params.set(key, value);
+  const projectsQuery = useGetProjects(
+    {
+      fetchAll: 'true',
+      ...(search && { search }),
+      ...params,
+    },
+    {
+      enabled: true, // Because need organization by default to fetch projects, no need organization for admin users
     }
-    router.push(`?${params.toString()}`);
-  };
-
-  const sorting = useMemo<SortingState>(
-    () => (sortBy ? [{ id: sortBy, desc: sortOrder === 'desc' }] : []),
-    [sortBy, sortOrder]
   );
 
-  const columns: ColumnDef<OrganizationAPI>[] = [
+  const { data, isLoading, error } = projectsQuery;
+  const { title, tableHeaders, noData, errorMessages, searchPlaceholder } =
+    useIntlayer('project-admin-page');
+
+  const projectsResponse = data as GetProjectsResult | undefined;
+  const projects = projectsResponse?.data ?? [];
+  const totalPages = projectsResponse?.total_pages ?? 1;
+
+  const sorting: SortingState = params.sortBy
+    ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
+    : [];
+
+  const columns: ColumnDef<ProjectAPI>[] = [
     {
       accessorKey: 'name',
       enableSorting: true,
       header: ({ column }) => (
         <div className="group flex items-center gap-2">
-          {tableHeaders.name.value}
+          {tableHeaders.name}
           <div
             className={cn(
               'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
@@ -93,20 +85,20 @@ export const OrganizationsAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const organization = row.original as OrganizationAPI;
+        const project = row.original as ProjectAPI;
         return (
           <div className="flex items-center">
             <div className="ml-3">
-              {organization.name ? (
+              {project.name ? (
                 <Link
-                  href={PagesRoutes.Admin_Organizations_Id.replace(
+                  href={PagesRoutes.Admin_Projects_Id.replace(
                     ':id',
-                    organization.id
+                    project.id
                   )}
-                  label={organization.name}
+                  label={project.name}
                   color="text"
                 >
-                  {organization.name}
+                  {project.name}
                 </Link>
               ) : (
                 '-'
@@ -137,11 +129,10 @@ export const OrganizationsAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const organization = row.original as OrganizationAPI;
+        const project = row.original as ProjectAPI;
         return (
           <div className="ml-3 font-mono text-sm">
-            ...
-            {organization.id.slice(-5)}
+            ...{project.id.slice(-5)}
           </div>
         );
       },
@@ -151,7 +142,7 @@ export const OrganizationsAdminPageContent: FC = () => {
       enableSorting: true,
       header: ({ column }) => (
         <div className="group flex items-center gap-2">
-          {tableHeaders.createdAt.value}
+          {tableHeaders.createdAt}
           <div
             className={cn(
               'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
@@ -167,12 +158,12 @@ export const OrganizationsAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const organization = row.original as OrganizationAPI;
+        const project = row.original as ProjectAPI;
         return (
           <div className="text-neutral-500 text-sm dark:text-neutral-400">
-            {organization.createdAt
-              ? new Date(organization.createdAt).toLocaleDateString()
-              : noData.value}
+            {project.createdAt
+              ? new Date(project.createdAt).toLocaleDateString()
+              : noData}
           </div>
         );
       },
@@ -198,11 +189,11 @@ export const OrganizationsAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const organization = row.original as OrganizationAPI;
+        const project = row.original as ProjectAPI;
         return (
           <div className="text-neutral-500 text-sm dark:text-neutral-400">
-            {organization.updatedAt
-              ? new Date(organization.updatedAt).toLocaleDateString()
+            {project.updatedAt
+              ? new Date(project.updatedAt).toLocaleDateString()
               : noData}
           </div>
         );
@@ -211,7 +202,7 @@ export const OrganizationsAdminPageContent: FC = () => {
   ];
 
   const table = useReactTable({
-    data: organizations,
+    data: projects,
     columns,
     state: { sorting },
     manualSorting: true,
@@ -221,42 +212,27 @@ export const OrganizationsAdminPageContent: FC = () => {
         const s = next[0];
         const field = s.id;
         const order: SortOrder = s.desc ? 'desc' : 'asc';
-        setSortBy(field);
-        setSortOrder(order);
-        pushParams({ sortBy: field, sortOrder: order, page: '1' });
+        setParams({ sortBy: field, sortOrder: order, page: 1 });
       } else {
-        setSortBy('');
-        setSortOrder('asc');
-        pushParams({ sortBy: null, sortOrder: null, page: '1' });
+        setParams({ sortBy: '', sortOrder: 'asc', page: 1 });
       }
     },
     getCoreRowModel: getCoreRowModel(),
   });
 
   const handleSearch = (value: string) => {
-    setSearchQuery(value);
-    pushParams({ search: value ?? null, page: '1' });
+    setSearch(value);
+    setParams({ search: value, page: 1 });
   };
 
+  // Keep the input's search value in sync with URL param
   useEffect(() => {
-    const urlPageFromParams = parseInt(searchParams.get('page') ?? '1', 10);
-    const urlPageSizeFromParams = parseInt(
-      searchParams.get('pageSize') ?? '10',
-      10
-    );
+    setSearch((params.search as string) ?? '');
+  }, [params.search, setSearch]);
 
-    if (urlPageFromParams !== currentPage) {
-      setCurrentPage(urlPageFromParams);
-    }
-    if (urlPageSizeFromParams !== itemsPerPage) {
-      setItemsPerPage(urlPageSizeFromParams);
-    }
-  }, [searchParams, currentPage, itemsPerPage]);
-
-  const handlePageChange = (page: number) => {
-    pushParams({ page: page.toString() });
-    setCurrentPage(page);
-    refetch();
+  const handlePageSizeChange = (newPageSize: string) => {
+    const size = parseInt(newPageSize, 10);
+    setParams({ pageSize: size, page: 1 });
   };
 
   if (error) {
@@ -278,32 +254,21 @@ export const OrganizationsAdminPageContent: FC = () => {
         </h1>
       </div>
 
-      <div className="mb-4 space-y-4">
-        <div className="flex flex-col gap-4 sm:flex-row">
-          <div className="flex-1">
-            <div className="relative">
-              <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder={searchPlaceholder.value}
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-                className="max-w-md pl-10"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <SearchInput
+        type="search"
+        placeholder={searchPlaceholder.value}
+        onChange={(e) => handleSearch(e.target.value)}
+        className="max-w-md pl-10"
+      />
 
       <Loader isLoading={isLoading}>
-        {organizations.length === 0 ? (
+        {projects.length === 0 ? (
           <div className="py-12 text-center">
-            <p className="text-neutral-500 dark:text-neutral-400">
-              {noData.value}
-            </p>
+            <p className="text-neutral-500 dark:text-neutral-400">{noData}</p>
           </div>
         ) : (
           <div className="space-y-4">
-            <Table isRollable={false} displayModal={false} className="w-full">
+            <Table className="w-full">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr
@@ -354,18 +319,22 @@ export const OrganizationsAdminPageContent: FC = () => {
               </tbody>
             </Table>
 
+            <NumberItemsSelector
+              value={itemsPerPage.toString()}
+              onValueChange={handlePageSizeChange}
+            />
+
             <div className="flex flex-col items-center justify-between gap-4 pt-4 sm:flex-row">
-              <div className="flex justify-center">
-                <Pagination
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  onPageChange={handlePageChange}
-                  showFirstLast={true}
-                  showPrevNext={true}
-                  maxVisiblePages={5}
-                  color="text"
-                />
-              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={(page) => setParam('page', page)}
+                showFirstLast={true}
+                showPrevNext={true}
+                maxVisiblePages={5}
+                color="text"
+              />
+
               <div />
             </div>
           </div>
@@ -375,4 +344,4 @@ export const OrganizationsAdminPageContent: FC = () => {
   );
 };
 
-export default OrganizationsAdminPageContent;
+export default ProjectsAdminPageContent;

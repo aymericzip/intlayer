@@ -10,6 +10,8 @@ export enum BadgeColor {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
   DESTRUCTIVE = 'destructive',
+  SUCCESS = 'success',
+  ERROR = 'error',
   NEUTRAL = 'neutral',
   LIGHT = 'light',
   DARK = 'dark',
@@ -53,6 +55,10 @@ export const badgeVariants = cva(
           'border-secondary bg-secondary text-secondary hover:bg-secondary-300',
         [BadgeColor.DESTRUCTIVE]:
           'border-destructive bg-destructive text-destructive hover:bg-destructive-500',
+        [BadgeColor.SUCCESS]:
+          'border-success bg-success text-success hover:bg-success-500',
+        [BadgeColor.ERROR]:
+          'border-error bg-error text-error hover:bg-error-500',
         [BadgeColor.NEUTRAL]:
           'border-neutral bg-neutral text-neutral hover:bg-neutral-600',
         [BadgeColor.LIGHT]:
@@ -197,7 +203,13 @@ export const Badge: React.FC<BadgeProps> = ({
           onClick={handleDismiss}
           aria-label={`Remove ${children} badge`}
         >
-          <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+          <svg
+            className="size-3"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-label="Remove badge"
+          >
+            <title>Remove badge</title>
             <path
               fillRule="evenodd"
               d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"

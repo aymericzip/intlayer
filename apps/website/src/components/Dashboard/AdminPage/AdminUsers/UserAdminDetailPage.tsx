@@ -10,7 +10,6 @@ import {
   Loader,
   Modal,
   MultiSelect,
-  Select,
   toast,
   useForm,
 } from '@intlayer/design-system';
@@ -394,8 +393,8 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
         onClose={() => setIsDeleteModalOpen(false)}
         title={deleteSection.modalTitle.value}
       >
-        <div className="space-y-4 px-4">
-          <div className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900 dark:bg-red-950/20">
+        <div className="flex flex-col gap-8 px-3 pt-4">
+          <div className="flex items-start gap-3 rounded-lg px-4">
             <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-600 dark:text-red-400" />
             <div className="flex-1">
               <p className="font-medium text-red-900 text-sm dark:text-red-100">
@@ -411,7 +410,8 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
               label={deleteSection.cancelButton.value}
               onClick={() => setIsDeleteModalOpen(false)}
               disabled={deleteUserMutation.isPending}
-              color="error"
+              variant="outline"
+              color="text"
             >
               {deleteSection.cancelButton}
             </Form.Button>
@@ -420,6 +420,8 @@ export const UserAdminDetailPage: FC<{ userId: string }> = ({ userId }) => {
               onClick={handleDeleteUser}
               isLoading={deleteUserMutation.isPending}
               Icon={Trash2}
+              variant="outline"
+              color="error"
             >
               {deleteSection.confirmButton}
             </Form.Button>

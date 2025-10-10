@@ -148,7 +148,7 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
   return (
     <span
       className={cn(
-        'inline-flex gap-2 rounded-md p-0.5 hover:cursor-pointer hover:bg-neutral/10',
+        'inline-flex items-center gap-2 rounded-md p-0.5 hover:cursor-pointer hover:bg-neutral/10',
         className
       )}
       onClick={handleCopy}
