@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { relative, resolve } from 'node:path';
 import { colorizePath, getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
@@ -57,7 +57,25 @@ export const file = (path: string): FileContent => {
   let content: string;
 
   if (existsSync(filePath)) {
-    content = readFileSync(filePath, 'utf8');
+    try {
+      const stats = statSync(filePath);
+
+      if (stats.isFile()) {
+        content = readFileSync(filePath, 'utf8');
+      } else {
+        appLogger(
+          `Path is not a file: ${colorizePath(relative(configuration.content.baseDir, filePath))}`,
+          { level: 'warn' }
+        );
+        content = `File not found`;
+      }
+    } catch {
+      appLogger(
+        `Unable to read path: ${colorizePath(relative(configuration.content.baseDir, filePath))}`,
+        { level: 'warn' }
+      );
+      content = `File not found`;
+    }
   } else {
     appLogger(
       `File not found: ${colorizePath(relative(configuration.content.baseDir, filePath))}`,
