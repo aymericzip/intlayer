@@ -22,11 +22,18 @@ import {
   useGetOrganizations,
   useGetUsers,
 } from '@intlayer/design-system/hooks';
+import {
+  type ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  type SortingState,
+  useReactTable,
+} from '@tanstack/react-table';
 import { cn } from '@utils/cn';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useMemo, useState } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 export const UsersAdminPageContent: FC = () => {
@@ -50,7 +57,9 @@ export const UsersAdminPageContent: FC = () => {
     searchParams.get('organizationId') ?? 'all'
   );
 
-  const { data: organizationsData } = useGetOrganizations();
+  const { data: organizationsData } = useGetOrganizations({
+    fetchAll: 'true',
+  });
   const organizations =
     (organizationsData as GetOrganizationsResult | undefined)?.data ?? [];
 
@@ -79,7 +88,6 @@ export const UsersAdminPageContent: FC = () => {
     actions,
     noUsersMessage,
     errorMessages,
-    successMessages,
     searchPlaceholder,
     filterPlaceholder,
     allStatuses,
@@ -102,18 +110,271 @@ export const UsersAdminPageContent: FC = () => {
     router.push(`?${params.toString()}`);
   };
 
-  const handleSort = (field: string) => {
-    const newSortOrder: SortOrder =
-      sortBy === field && sortOrder === 'asc' ? 'desc' : 'asc';
-    setSortBy(field);
-    setSortOrder(newSortOrder);
+  const sorting = useMemo<SortingState>(
+    () => (sortBy ? [{ id: sortBy, desc: sortOrder === 'desc' }] : []),
+    [sortBy, sortOrder]
+  );
 
-    pushParams({ sortBy: field, sortOrder: newSortOrder, page: '1' });
-  };
+  const columns: ColumnDef<UserAPI>[] = [
+    {
+      accessorKey: 'name',
+      enableSorting: true,
+      header: ({ column }) => (
+        <div className="group flex items-center gap-2">
+          {tableHeaders.name.value}
+          <div
+            className={cn(
+              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+              column.getIsSorted() && 'opacity-100'
+            )}
+          >
+            {column.getIsSorted() === 'asc' ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : column.getIsSorted() === 'desc' ? (
+              <ChevronDown className="h-3 w-3" />
+            ) : null}
+          </div>
+        </div>
+      ),
+      cell: ({ row }) => {
+        const user = row.original as UserAPI;
+        return (
+          <div className="flex items-center">
+            <Avatar
+              isLoggedIn={true}
+              isLoading={false}
+              className="shrink-0"
+              src={user.image ?? undefined}
+              fullname={user.name}
+            />
+            <div className="ml-3">
+              {user.name ? (
+                <Link
+                  href={PagesRoutes.Admin_Users_Id.replace(':id', user.id)}
+                  label={user.name ?? '-'}
+                  color="text"
+                >
+                  <CopyToClipboard text={user.name}>
+                    {user.name}
+                  </CopyToClipboard>
+                </Link>
+              ) : (
+                '-'
+              )}
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: 'id',
+      enableSorting: true,
+      header: ({ column }) => (
+        <div className="group flex items-center gap-2">
+          {tableHeaders.id.value}
+          <div
+            className={cn(
+              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+              column.getIsSorted() && 'opacity-100'
+            )}
+          >
+            {column.getIsSorted() === 'asc' ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : column.getIsSorted() === 'desc' ? (
+              <ChevronDown className="h-3 w-3" />
+            ) : null}
+          </div>
+        </div>
+      ),
+      cell: ({ row }) => {
+        const user = row.original as UserAPI;
+        return (
+          <div className="flex items-center">
+            <div className="ml-3">
+              <CopyToClipboard text={user.id}>
+                <span className="font-mono text-sm">
+                  ...{user.id.slice(-5)}
+                </span>
+              </CopyToClipboard>
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: 'email',
+      enableSorting: true,
+      header: ({ column }) => (
+        <div className="group flex items-center gap-2">
+          {tableHeaders.email.value}
+          <div
+            className={cn(
+              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+              column.getIsSorted() && 'opacity-100'
+            )}
+          >
+            {column.getIsSorted() === 'asc' ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : column.getIsSorted() === 'desc' ? (
+              <ChevronDown className="h-3 w-3" />
+            ) : null}
+          </div>
+        </div>
+      ),
+      cell: ({ row }) => {
+        const user = row.original as UserAPI;
+        return (
+          <div className="text-neutral-900 text-sm dark:text-neutral-100">
+            <CopyToClipboard text={user.email}>{user.email}</CopyToClipboard>
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: 'emailVerified',
+      enableSorting: true,
+      header: ({ column }) => (
+        <div className="group flex items-center gap-2">
+          {tableHeaders.status.value}
+          <div
+            className={cn(
+              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+              column.getIsSorted() && 'opacity-100'
+            )}
+          >
+            {column.getIsSorted() === 'asc' ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : column.getIsSorted() === 'desc' ? (
+              <ChevronDown className="h-3 w-3" />
+            ) : null}
+          </div>
+        </div>
+      ),
+      cell: ({ row }) => {
+        const user = row.original as UserAPI;
+        return (
+          <Badge
+            variant={BadgeVariant.OUTLINE}
+            color={
+              user.emailVerified ? BadgeColor.TEXT : BadgeColor.DESTRUCTIVE
+            }
+          >
+            {user.emailVerified
+              ? statusLabels.verified.value
+              : statusLabels.pending.value}
+          </Badge>
+        );
+      },
+    },
+    {
+      accessorKey: 'createdAt',
+      enableSorting: true,
+      header: ({ column }) => (
+        <div className="group flex items-center gap-2">
+          {tableHeaders.createdAt.value}
+          <div
+            className={cn(
+              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+              column.getIsSorted() && 'opacity-100'
+            )}
+          >
+            {column.getIsSorted() === 'asc' ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : column.getIsSorted() === 'desc' ? (
+              <ChevronDown className="h-3 w-3" />
+            ) : null}
+          </div>
+        </div>
+      ),
+      cell: ({ row }) => {
+        const user = row.original as UserAPI;
+        return (
+          <div className="text-neutral-500 text-sm dark:text-neutral-400">
+            {user.createdAt
+              ? new Date(user.createdAt).toLocaleDateString()
+              : noData.value}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: 'updatedAt',
+      enableSorting: true,
+      header: ({ column }) => (
+        <div className="group flex items-center gap-2">
+          {tableHeaders.updatedAt.value}
+          <div
+            className={cn(
+              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+              column.getIsSorted() && 'opacity-100'
+            )}
+          >
+            {column.getIsSorted() === 'asc' ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : column.getIsSorted() === 'desc' ? (
+              <ChevronDown className="h-3 w-3" />
+            ) : null}
+          </div>
+        </div>
+      ),
+      cell: ({ row }) => {
+        const user = row.original as UserAPI;
+        return (
+          <div className="text-neutral-500 text-sm dark:text-neutral-400">
+            {user.updatedAt
+              ? new Date(user.updatedAt).toLocaleDateString()
+              : noData.value}
+          </div>
+        );
+      },
+    },
+    {
+      id: 'actions',
+      enableSorting: false,
+      header: () => tableHeaders.actions.value,
+      cell: ({ row }) => {
+        const user = row.original as UserAPI;
+        return (
+          <div className="flex space-x-2">
+            <Link
+              href={PagesRoutes.Admin_Users_Id.replace(':id', user.id)}
+              label={actions.edit.value}
+              color="text"
+            >
+              {actions.edit.value}
+            </Link>
+          </div>
+        );
+      },
+    },
+  ];
+
+  const table = useReactTable({
+    data: users,
+    columns,
+    state: { sorting },
+    manualSorting: true,
+    onSortingChange: (updater) => {
+      const next = typeof updater === 'function' ? updater(sorting) : updater;
+      if (next.length > 0) {
+        const s = next[0];
+        const field = s.id;
+        const order: SortOrder = s.desc ? 'desc' : 'asc';
+        setSortBy(field);
+        setSortOrder(order);
+        pushParams({ sortBy: field, sortOrder: order, page: '1' });
+      } else {
+        setSortBy('');
+        setSortOrder('asc');
+        pushParams({ sortBy: null, sortOrder: null, page: '1' });
+      }
+    },
+    getCoreRowModel: getCoreRowModel(),
+  });
 
   const handleSearch = (value: string) => {
     setSearchQuery(value);
-    pushParams({ search: value || null, page: '1' });
+    pushParams({ search: value ?? null, page: '1' });
   };
 
   const handleOrganizationFilter = (value: string) => {
@@ -219,227 +480,50 @@ export const UsersAdminPageContent: FC = () => {
           <div className="space-y-4">
             <Table isRollable={false} displayModal={false} className="w-full">
               <thead>
-                <tr className="border-neutral-200 border-b dark:border-neutral-700">
-                  <th
-                    className="cursor-pointer select-none px-4 py-3 text-left font-medium text-neutral-900 hover:text-neutral-600 dark:text-neutral-100"
-                    onClick={() => handleSort('name')}
-                  >
-                    <div className="group flex items-center gap-2">
-                      {tableHeaders.name.value}
-                      <div
-                        className={cn(
-                          'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
-                          sortBy === 'name' && 'opacity-100'
-                        )}
-                      >
-                        {sortOrder === 'asc' ? (
-                          <ChevronUp className="h-3 w-3" />
-                        ) : (
-                          <ChevronDown className="h-3 w-3" />
-                        )}
-                      </div>
-                    </div>
-                  </th>
-                  <th
-                    className="cursor-pointer select-none px-4 py-3 text-left font-medium text-neutral-900 hover:text-neutral-600 dark:text-neutral-100"
-                    onClick={() => handleSort('id')}
-                  >
-                    <div className="group flex items-center gap-2">
-                      {tableHeaders.id.value}
-                      <div
-                        className={cn(
-                          'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
-                          sortBy === 'id' && 'opacity-100'
-                        )}
-                      >
-                        {sortOrder === 'asc' ? (
-                          <ChevronUp className="h-3 w-3" />
-                        ) : (
-                          <ChevronDown className="h-3 w-3" />
-                        )}
-                      </div>
-                    </div>
-                  </th>
-                  <th
-                    className="cursor-pointer select-none px-4 py-3 text-left font-medium text-neutral-900 hover:text-neutral-600 dark:text-neutral-100"
-                    onClick={() => handleSort('email')}
-                  >
-                    <div className="group flex items-center gap-2">
-                      {tableHeaders.email.value}
-                      <div
-                        className={cn(
-                          'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
-                          sortBy === 'email' && 'opacity-100'
-                        )}
-                      >
-                        {sortOrder === 'asc' ? (
-                          <ChevronUp className="h-3 w-3" />
-                        ) : (
-                          <ChevronDown className="h-3 w-3" />
-                        )}
-                      </div>
-                    </div>
-                  </th>
-                  <th
-                    className="cursor-pointer select-none px-4 py-3 text-left font-medium text-neutral-900 hover:text-neutral-600 dark:text-neutral-100"
-                    onClick={() => handleSort('emailVerified')}
-                  >
-                    <div className="group flex items-center gap-2">
-                      {tableHeaders.status.value}
-                      <div
-                        className={cn(
-                          'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
-                          sortBy === 'emailVerified' && 'opacity-100'
-                        )}
-                      >
-                        {sortOrder === 'asc' ? (
-                          <ChevronUp className="h-3 w-3" />
-                        ) : (
-                          <ChevronDown className="h-3 w-3" />
-                        )}
-                      </div>
-                    </div>
-                  </th>
-                  <th
-                    className="cursor-pointer select-none px-4 py-3 text-left font-medium text-neutral-900 hover:text-neutral-600 dark:text-neutral-100"
-                    onClick={() => handleSort('createdAt')}
-                  >
-                    <div className="group flex items-center gap-2">
-                      {tableHeaders.createdAt.value}
-                      <div
-                        className={cn(
-                          'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
-                          sortBy === 'createdAt' && 'opacity-100'
-                        )}
-                      >
-                        {sortOrder === 'asc' ? (
-                          <ChevronUp className="h-3 w-3" />
-                        ) : (
-                          <ChevronDown className="h-3 w-3" />
-                        )}
-                      </div>
-                    </div>
-                  </th>
-                  <th
-                    className="cursor-pointer select-none px-4 py-3 text-left font-medium text-neutral-900 hover:text-neutral-600 dark:text-neutral-100"
-                    onClick={() => handleSort('updatedAt')}
-                  >
-                    <div className="group flex items-center gap-2">
-                      {tableHeaders.updatedAt.value}
-                      <div
-                        className={cn(
-                          'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
-                          sortBy === 'updatedAt' && 'opacity-100'
-                        )}
-                      >
-                        {sortOrder === 'asc' ? (
-                          <ChevronUp className="h-3 w-3" />
-                        ) : (
-                          <ChevronDown className="h-3 w-3" />
-                        )}
-                      </div>
-                    </div>
-                  </th>
-                  <th className="px-4 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100">
-                    {tableHeaders.actions.value}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user: UserAPI) => (
+                {table.getHeaderGroups().map((headerGroup) => (
                   <tr
-                    key={user.id}
-                    className="border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                    key={headerGroup.id}
+                    className="border-neutral-200 border-b dark:border-neutral-700"
                   >
-                    <td className="px-4 py-3">
-                      <div className="flex items-center">
-                        <Avatar
-                          isLoggedIn={true}
-                          isLoading={false}
-                          className="shrink-0"
-                          src={user.image ?? undefined}
-                          fullname={user.name}
-                        />
-                        <div className="ml-3">
-                          {user.name ? (
-                            <Link
-                              href={PagesRoutes.Admin_Users_Id.replace(
-                                ':id',
-                                user.id
-                              )}
-                              label={user.name ?? '-'}
-                              color="text"
-                            >
-                              <CopyToClipboard text={user.name}>
-                                {user.name}
-                              </CopyToClipboard>
-                            </Link>
-                          ) : (
-                            '-'
-                          )}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center">
-                        <div className="ml-3">
-                          <CopyToClipboard text={user.id}>
-                            <span className="font-mono text-sm">
-                              ...{user.id.slice(-5)}
-                            </span>
-                          </CopyToClipboard>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="text-neutral-900 text-sm dark:text-neutral-100">
-                        <CopyToClipboard text={user.email}>
-                          {user.email}
-                        </CopyToClipboard>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <Badge
-                        variant={BadgeVariant.OUTLINE}
-                        color={
-                          user.emailVerified
-                            ? BadgeColor.TEXT
-                            : BadgeColor.DESTRUCTIVE
+                    {headerGroup.headers.map((header) => (
+                      <th
+                        key={header.id}
+                        className={cn(
+                          'px-4 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100',
+                          header.column.getCanSort() &&
+                            'cursor-pointer select-none hover:text-neutral-600'
+                        )}
+                        onClick={
+                          header.column.getCanSort()
+                            ? header.column.getToggleSortingHandler()
+                            : undefined
                         }
                       >
-                        {user.emailVerified
-                          ? statusLabels.verified.value
-                          : statusLabels.pending.value}
-                      </Badge>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="text-neutral-500 text-sm dark:text-neutral-400">
-                        {user.createdAt
-                          ? new Date(user.createdAt).toLocaleDateString()
-                          : noData.value}
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="text-neutral-500 text-sm dark:text-neutral-400">
-                        {user.updatedAt
-                          ? new Date(user.updatedAt).toLocaleDateString()
-                          : noData.value}
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex space-x-2">
-                        <Link
-                          href={PagesRoutes.Admin_Users_Id.replace(
-                            ':id',
-                            user.id
-                          )}
-                          label={actions.edit.value}
-                          color="text"
-                        >
-                          {actions.edit.value}
-                        </Link>
-                      </div>
-                    </td>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              <tbody>
+                {table.getRowModel().rows.map((row) => (
+                  <tr
+                    key={row.id}
+                    className="border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <td key={cell.id} className="px-4 py-3">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    ))}
                   </tr>
                 ))}
               </tbody>
