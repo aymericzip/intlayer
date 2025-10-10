@@ -8,6 +8,8 @@ import { Spinner } from './spinner';
 export type LoaderProps = HTMLAttributes<HTMLDivElement> & {
   /** Controls whether the loading spinner is displayed. Defaults to true when undefined */
   isLoading?: boolean;
+  /** Controls whether the children are kept when loading is false. Defaults to false */
+  keepChildren?: boolean;
 };
 
 /**
@@ -100,21 +102,25 @@ export type LoaderProps = HTMLAttributes<HTMLDivElement> & {
 export const Loader: FC<LoaderProps> = ({
   children,
   isLoading = true,
+  keepChildren = false,
   className,
   ...props
 }) => (
   <>
     {isLoading ? (
-      <div
-        className={cn(
-          'flex size-full max-h-screen max-w-[100vw] flex-1 items-center justify-center',
-          className
-        )}
-        role="status"
-        aria-label="Animated icon, meaning that the website is processing"
-        {...props}
-      >
-        <Spinner className="size-10 max-h-full max-w-full" />
+      <div className="relative size-full">
+        <div
+          className={cn(
+            'absolute top-0 left-0 flex size-full max-h-screen max-w-[100vw] flex-1 items-center justify-center',
+            className
+          )}
+          role="status"
+          aria-label="Animated icon, meaning that the website is processing"
+          {...props}
+        >
+          <Spinner className="size-10 max-h-full max-w-full" />
+        </div>
+        {keepChildren && children}
       </div>
     ) : (
       (children ?? <></>)

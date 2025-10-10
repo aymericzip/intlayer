@@ -18,11 +18,21 @@ import * as autocompleteUtil from '@utils/AI/autocomplete';
 import * as customQueryUtil from '@utils/AI/customQuery';
 import * as translateJSONUtil from '@utils/AI/translateJSON';
 import { type AppError, ErrorHandler } from '@utils/errors';
-import { formatResponse, type ResponseData } from '@utils/responseData';
+import {
+  type DiscussionFiltersParams,
+  getDiscussionFiltersAndPagination,
+} from '@utils/filtersAndPagination/getDiscussionFiltersAndPagination';
+import {
+  formatPaginatedResponse,
+  formatResponse,
+  type PaginatedResponse,
+  type ResponseData,
+} from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import type { Locales } from 'intlayer';
 import { DiscussionModel } from '@/models/discussion.model';
 import type { Dictionary } from '@/types/dictionary.types';
+import type { DiscussionAPI } from '@/types/discussion.types';
 import type { Tag } from '@/types/tag.types';
 
 type ReplaceAIConfigByOptions<T> = Omit<T, 'aiConfig'> & {
@@ -550,6 +560,101 @@ export const autocomplete = async (
       });
 
     res.json(responseData);
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
+
+export type GetDiscussionsParams =
+  | ({
+      page?: string | number;
+      pageSize?: string | number;
+      includeMessages?: 'true' | 'false';
+    } & DiscussionFiltersParams)
+  | undefined;
+
+export type GetDiscussionsResult = PaginatedResponse<DiscussionAPI>;
+
+/**
+ * Retrieves a list of discussions with filters and pagination.
+ * Only the owner or admins can access. By default, users only see their own.
+ */
+export const getDiscussions = async (
+  req: Request<GetDiscussionsParams>,
+  res: ResponseWithSession<GetDiscussionsResult>,
+  _next: NextFunction
+): Promise<void> => {
+  const { user, roles } = res.locals;
+  const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
+    getDiscussionFiltersAndPagination(req, res);
+  const includeMessagesParam = (req.query as any)?.includeMessages as
+    | 'true'
+    | 'false'
+    | undefined;
+  const includeMessages = includeMessagesParam !== 'false';
+
+  if (!user) {
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
+  }
+
+  try {
+    const projection = includeMessages ? {} : { messages: 0 };
+    const discussions = await DiscussionModel.find(filters, projection)
+      .sort(sortOptions)
+      .skip(skip)
+      .limit(pageSize)
+      .lean();
+
+    // Compute number of messages for each discussion
+    const numberOfMessagesById: Record<string, number> = {};
+    if (!includeMessages && discussions.length > 0) {
+      const ids = discussions.map((d: any) => d._id);
+      const counts = await DiscussionModel.aggregate([
+        { $match: { _id: { $in: ids } } },
+        {
+          $project: {
+            numberOfMessages: { $size: { $ifNull: ['$messages', []] } },
+          },
+        },
+      ]);
+      for (const c of counts as any[]) {
+        numberOfMessagesById[String(c._id)] = c.numberOfMessages ?? 0;
+      }
+    }
+
+    // Permission: allow admin, or the owner for all returned entries
+    const allOwnedByUser = discussions.every(
+      (d) => String(d.userId) === String(user.id)
+    );
+    const isAllowed = roles.includes('admin') || allOwnedByUser;
+
+    if (!isAllowed) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
+    const totalItems = await DiscussionModel.countDocuments(filters);
+
+    const responseData = formatPaginatedResponse({
+      data: discussions.map((d: any) => ({
+        ...d,
+        id: String(d._id ?? d.id),
+        numberOfMessages: includeMessages
+          ? Array.isArray(d.messages)
+            ? d.messages.length
+            : 0
+          : (numberOfMessagesById[String(d._id ?? d.id)] ?? 0),
+      })),
+      page,
+      pageSize,
+      totalPages: getNumberOfPages(totalItems),
+      totalItems,
+    });
+
+    res.json(responseData as any);
+    return;
   } catch (error) {
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;

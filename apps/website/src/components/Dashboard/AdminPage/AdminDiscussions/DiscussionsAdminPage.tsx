@@ -2,18 +2,27 @@
 
 import { Link } from '@components/Link/Link';
 import type {
-  GetOrganizationsResult,
-  OrganizationAPI,
+  DiscussionAPI,
+  GetDiscussionsResult,
+  GetUsersResult,
+  UserAPI,
 } from '@intlayer/backend';
 import {
+  Avatar,
+  CopyToClipboard,
   Loader,
+  Modal,
   NumberItemsSelector,
   Pagination,
   SearchInput,
   ShowingResultsNumberItems,
   Table,
 } from '@intlayer/design-system';
-import { useGetOrganizations, useSearch } from '@intlayer/design-system/hooks';
+import {
+  useGetDiscussions,
+  useGetUsers,
+  useSearch,
+} from '@intlayer/design-system/hooks';
 import {
   type ColumnDef,
   flexRender,
@@ -24,11 +33,12 @@ import {
 import { cn } from '@utils/cn';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useEffect } from 'react';
+import { type FC, useEffect, useMemo, useState } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { PagesRoutes } from '@/Routes';
+import { DiscussionAdminDetail } from './DiscussionAdminDetailPage';
 
-export const OrganizationsAdminPageContent: FC = () => {
+export const DiscussionsAdminPageContent: FC = () => {
   type SortOrder = 'asc' | 'desc';
 
   const { params, setParam, setParams } = useSearchParamState({
@@ -40,22 +50,58 @@ export const OrganizationsAdminPageContent: FC = () => {
   });
 
   const { setSearch, search } = useSearch({});
+  const [discussionId, setDiscussionId] = useState<string | undefined>(
+    undefined
+  );
 
-  const organizationsQuery = useGetOrganizations({
+  const discussionsQuery = useGetDiscussions({
     fetchAll: 'true',
+    includeMessages: 'false',
     ...(search && { search }),
-    ...params,
+    page: params.page.toString(),
+    pageSize: params.pageSize.toString(),
+    ...(params.sortBy && { sortBy: params.sortBy }),
+    ...(params.sortOrder && { sortOrder: params.sortOrder }),
+    ...(params.search && { search: params.search }),
   });
 
-  const { data, error, isFetching } = organizationsQuery;
-  const { title, tableHeaders, noData, errorMessages, searchPlaceholder } =
-    useIntlayer('organization-admin-page');
+  // users fetched after discussions are loaded
 
-  const organizationsResponse = data as GetOrganizationsResult | undefined;
-  const organizations = organizationsResponse?.data ?? [];
+  const { data, error, isFetching } = discussionsQuery;
+  const {
+    title,
+    tableHeaders,
+    noData,
+    errorMessages,
+    searchPlaceholder,
+    modalTitle,
+  } = useIntlayer('discussion-admin-detail');
 
-  const totalPages: number = organizationsResponse?.total_pages ?? 1;
-  const totalItems: number = organizationsResponse?.total_items ?? 0;
+  const discussionsResponse = data as GetDiscussionsResult | undefined;
+  const discussions = discussionsResponse?.data ?? [];
+
+  const userIds = useMemo(
+    () =>
+      Array.from(new Set(discussions.map((d) => String(d.userId)))) as string[],
+    [discussions]
+  );
+
+  const usersQuery = useGetUsers(
+    { ids: userIds },
+    { enabled: userIds.length > 0 }
+  );
+
+  const usersResponse = usersQuery.data as GetUsersResult | undefined;
+  const users = usersResponse?.data ?? [];
+
+  const userIdToUser = useMemo(() => {
+    const map = new Map<string, UserAPI>();
+    for (const u of users) map.set(String(u.id), u);
+    return map;
+  }, [users]);
+
+  const totalPages: number = discussionsResponse?.total_pages ?? 1;
+  const totalItems: number = discussionsResponse?.total_items ?? 0;
   const currentPage: number = params.page;
   const itemsPerPage: number = params.pageSize;
 
@@ -63,51 +109,7 @@ export const OrganizationsAdminPageContent: FC = () => {
     ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
     : [];
 
-  const columns: ColumnDef<OrganizationAPI>[] = [
-    {
-      accessorKey: 'name',
-      enableSorting: true,
-      header: ({ column }) => (
-        <div className="group flex items-center gap-2">
-          {tableHeaders.name.value}
-          <div
-            className={cn(
-              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
-              column.getIsSorted() && 'opacity-100'
-            )}
-          >
-            {column.getIsSorted() === 'asc' ? (
-              <ChevronUp className="h-3 w-3" />
-            ) : column.getIsSorted() === 'desc' ? (
-              <ChevronDown className="h-3 w-3" />
-            ) : null}
-          </div>
-        </div>
-      ),
-      cell: ({ row }) => {
-        const organization = row.original as OrganizationAPI;
-        return (
-          <div className="flex items-center">
-            <div className="ml-3">
-              {organization.name ? (
-                <Link
-                  href={PagesRoutes.Admin_Organizations_Id.replace(
-                    ':id',
-                    organization.id
-                  )}
-                  label={organization.name}
-                  color="text"
-                >
-                  {organization.name}
-                </Link>
-              ) : (
-                '-'
-              )}
-            </div>
-          </div>
-        );
-      },
-    },
+  const columns: ColumnDef<DiscussionAPI>[] = [
     {
       accessorKey: 'id',
       enableSorting: true,
@@ -129,11 +131,91 @@ export const OrganizationsAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const organization = row.original as OrganizationAPI;
+        const discussion = row.original as DiscussionAPI;
         return (
           <div className="ml-3 font-mono text-sm">
             ...
-            {organization.id.slice(-5)}
+            {String(discussion.id).slice(-5)}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: 'numberOfMessages',
+      enableSorting: true,
+      header: ({ column }) => (
+        <div className="group flex items-center gap-2">
+          {tableHeaders.numberOfMessages.value}
+          <div
+            className={cn(
+              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+              column.getIsSorted() && 'opacity-100'
+            )}
+          >
+            {column.getIsSorted() === 'asc' ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : column.getIsSorted() === 'desc' ? (
+              <ChevronDown className="h-3 w-3" />
+            ) : null}
+          </div>
+        </div>
+      ),
+      cell: ({ row }) => {
+        const discussion = row.original as any;
+        return (
+          <div className="text-center font-medium">
+            {discussion.numberOfMessages ?? 0}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: 'userName',
+      enableSorting: true,
+      header: ({ column }) => (
+        <div className="group flex items-center gap-2">
+          {tableHeaders.userName.value}
+          <div
+            className={cn(
+              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+              column.getIsSorted() && 'opacity-100'
+            )}
+          >
+            {column.getIsSorted() === 'asc' ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : column.getIsSorted() === 'desc' ? (
+              <ChevronDown className="h-3 w-3" />
+            ) : null}
+          </div>
+        </div>
+      ),
+      cell: ({ row }) => {
+        const discussion = row.original as DiscussionAPI;
+        const user = userIdToUser.get(String(discussion.userId));
+        return (
+          <div className="flex items-center">
+            <Avatar
+              isLoggedIn={true}
+              isLoading={false}
+              className="shrink-0"
+              src={user?.image ?? undefined}
+              fullname={user?.name ?? ''}
+            />
+            <div className="ml-3">
+              {user?.name ? (
+                <Link
+                  href={PagesRoutes.Admin_Users_Id.replace(':id', user.id)}
+                  label={user.name ?? '-'}
+                  color="text"
+                >
+                  <CopyToClipboard text={user.name}>
+                    {user.name}
+                  </CopyToClipboard>
+                </Link>
+              ) : (
+                '-'
+              )}
+            </div>
           </div>
         );
       },
@@ -159,11 +241,11 @@ export const OrganizationsAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const organization = row.original as OrganizationAPI;
+        const discussion = row.original as DiscussionAPI;
         return (
           <div className="text-neutral-500 text-sm dark:text-neutral-400">
-            {organization.createdAt
-              ? new Date(organization.createdAt).toLocaleDateString()
+            {discussion.createdAt
+              ? new Date(discussion.createdAt).toLocaleDateString()
               : noData.value}
           </div>
         );
@@ -190,12 +272,12 @@ export const OrganizationsAdminPageContent: FC = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const organization = row.original as OrganizationAPI;
+        const discussion = row.original as DiscussionAPI;
         return (
           <div className="text-neutral-500 text-sm dark:text-neutral-400">
-            {organization.updatedAt
-              ? new Date(organization.updatedAt).toLocaleDateString()
-              : noData}
+            {discussion.updatedAt
+              ? new Date(discussion.updatedAt).toLocaleDateString()
+              : noData.value}
           </div>
         );
       },
@@ -203,7 +285,7 @@ export const OrganizationsAdminPageContent: FC = () => {
   ];
 
   const table = useReactTable({
-    data: organizations,
+    data: discussions,
     columns,
     state: { sorting },
     manualSorting: true,
@@ -273,7 +355,7 @@ export const OrganizationsAdminPageContent: FC = () => {
       </div>
 
       <Loader isLoading={isFetching} keepChildren>
-        {organizations.length === 0 ? (
+        {discussions.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">
               {noData.value}
@@ -317,10 +399,14 @@ export const OrganizationsAdminPageContent: FC = () => {
                 {table.getRowModel().rows.map((row) => (
                   <tr
                     key={row.id}
-                    className="whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                    className="cursor-pointer whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-4 py-3">
+                      <td
+                        key={cell.id}
+                        className="px-4 py-3"
+                        onClick={() => setDiscussionId(String(row.original.id))}
+                      >
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -352,8 +438,17 @@ export const OrganizationsAdminPageContent: FC = () => {
           onPageChange={handlePageChange}
         />
       </div>
+      <Modal
+        isOpen={!!discussionId}
+        onClose={() => setDiscussionId(undefined)}
+        // title={modalTitle({ id: discussionId }).value}
+        size="xl"
+        hasCloseButton
+      >
+        <DiscussionAdminDetail discussionId={discussionId} />
+      </Modal>
     </div>
   );
 };
 
-export default OrganizationsAdminPageContent;
+export default DiscussionsAdminPageContent;

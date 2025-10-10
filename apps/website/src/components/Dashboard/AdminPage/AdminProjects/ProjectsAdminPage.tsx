@@ -48,7 +48,7 @@ export const ProjectsAdminPageContent: FC = () => {
     }
   );
 
-  const { data, error, isPending } = projectsQuery;
+  const { data, error, isFetching } = projectsQuery;
   const { title, tableHeaders, noData, errorMessages, searchPlaceholder } =
     useIntlayer('project-admin-page');
 
@@ -260,7 +260,7 @@ export const ProjectsAdminPageContent: FC = () => {
         className="max-w-md pl-10"
       />
 
-      <Loader isLoading={isPending}>
+      <Loader isLoading={isFetching} keepChildren>
         {projects.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">{noData}</p>
@@ -303,7 +303,7 @@ export const ProjectsAdminPageContent: FC = () => {
                 {table.getRowModel().rows.map((row) => (
                   <tr
                     key={row.id}
-                    className="border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                    className="whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <td key={cell.id} className="px-4 py-3">

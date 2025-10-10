@@ -6,6 +6,7 @@ import {
   auditTag,
   autocomplete,
   customQuery,
+  getDiscussions,
   translateJSON,
 } from '@controllers/ai.controller';
 import { unauthenticatedChatBotLimiter } from '@utils/rateLimiter';
@@ -60,6 +61,11 @@ export const getAiRoutes = () =>
       url: `${baseURL()}/autocomplete`,
       method: 'POST',
     },
+    getDiscussions: {
+      urlModel: '/discussions',
+      url: `${baseURL()}/discussions`,
+      method: 'GET',
+    },
   }) satisfies Routes;
 
 aiRouter.post(getAiRoutes().customQuery.urlModel, customQuery);
@@ -82,6 +88,8 @@ aiRouter.post(
 aiRouter.post(getAiRoutes().auditTag.urlModel, auditTag);
 
 aiRouter.post(getAiRoutes().autocomplete.urlModel, autocomplete);
+
+aiRouter.get(getAiRoutes().getDiscussions.urlModel, getDiscussions);
 
 /**
  * This route number of requests is limited for unauthenticated users

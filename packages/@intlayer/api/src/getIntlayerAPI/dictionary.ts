@@ -48,6 +48,7 @@ export const getDictionaryAPI = (
       otherOptions,
       {
         cache: 'no-store',
+        // @ts-ignore Number of parameter will be stringified by the fetcher
         params: filters,
       }
     );

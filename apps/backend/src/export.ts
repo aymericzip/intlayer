@@ -13,18 +13,22 @@ export type * from '@controllers/search.controller';
 export type * from '@controllers/stripe.controller';
 export type * from '@controllers/tag.controller';
 export type * from '@controllers/user.controller';
+export { getAiRoutes } from '@routes/ai.routes';
 export { getDictionaryRoutes } from '@routes/dictionary.routes';
 export { getNewsletterRoutes } from '@routes/newsletter.routes';
 export { getOrganizationRoutes } from '@routes/organization.routes';
 export { getProjectRoutes } from '@routes/project.routes';
 export { getUserRoutes } from '@routes/user.routes';
+
 // Utils
 export * from '@utils/AI/aiSdk';
 export * from '@utils/auth/getAuth';
 export * from '@utils/httpStatusCodes';
 export * from '@utils/responseData';
+
 // Objects types
 export type * from '@/types/dictionary.types';
+export type * from '@/types/discussion.types';
 export type * from '@/types/oAuth2.types';
 export type * from '@/types/organization.types';
 export type * from '@/types/plan.types';

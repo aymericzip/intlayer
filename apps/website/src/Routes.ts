@@ -67,6 +67,7 @@ export enum PagesRoutes {
   Admin_Projects_Id = '/admin/projects/:id',
   Admin_Dashboard = '/admin/dashboard',
   Admin_Management = '/admin/management',
+  Admin_Discussions = '/admin/discussions',
 }
 
 export enum ExternalLinks {

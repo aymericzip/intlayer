@@ -884,6 +884,43 @@ export const useAutocomplete = () => {
 };
 
 /**
+ * Discussions
+ */
+
+export const useGetDiscussions = (
+  params?: Record<string, string | string[] | undefined>,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['discussions', params],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.ai.getDiscussions(params, { signal, cache: 'no-store' }),
+    requireUser: true,
+    ...options,
+  });
+};
+
+export const useGetDiscussionsData = (
+  params?: Record<string, string | string[] | undefined>,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['discussions-data', params],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.ai.getDiscussions(
+        { includeMessages: 'false', ...(params ?? {}) } as any,
+        { signal, cache: 'no-store' }
+      ),
+    requireUser: true,
+    ...options,
+  });
+};
+
+/**
  * Search
  */
 

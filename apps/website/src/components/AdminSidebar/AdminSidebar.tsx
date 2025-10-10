@@ -7,6 +7,7 @@ import {
   ArrowRightFromLine,
   Building2,
   FolderOpen,
+  MessageCircle,
   Users,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -45,6 +46,13 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ className }) => {
       icon: Users,
       label: navigation.management.users.label.value,
       title: navigation.management.users.title,
+    },
+    {
+      key: 'discussions',
+      href: PagesRoutes.Admin_Discussions,
+      icon: MessageCircle,
+      label: navigation.management.discussions.label.value,
+      title: navigation.management.discussions.title,
     },
   ];
 

@@ -47,6 +47,7 @@ export const getUserAPI = (
       otherOptions,
       {
         cache: 'no-store',
+        // @ts-ignore Number of parameter will be stringified by the fetcher
         params: filters,
       }
     );

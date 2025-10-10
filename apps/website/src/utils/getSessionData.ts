@@ -14,18 +14,22 @@ export const getSessionData = async (): Promise<{
   let session: SessionAPI | null = null;
 
   if (cookieHeader && hasSessionToken) {
-    const result = await getAuthAPI()
-      .getAuthClient()
-      .getSession({
-        fetchOptions: {
-          cache: 'no-store',
-          headers: {
-            cookie: cookieHeader,
+    try {
+      const result = await getAuthAPI()
+        .getAuthClient()
+        .getSession({
+          fetchOptions: {
+            cache: 'no-store',
+            headers: {
+              cookie: cookieHeader,
+            },
           },
-        },
-      });
+        });
 
-    session = result.data as unknown as SessionAPI;
+      session = result.data as unknown as SessionAPI;
+    } catch (error) {
+      console.error('Error getting session data:', error);
+    }
   }
 
   return { session, hasSessionToken };

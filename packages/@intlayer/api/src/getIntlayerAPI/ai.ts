@@ -16,6 +16,8 @@ import type {
   ChatCompletionRequestMessage,
   CustomQueryBody,
   CustomQueryResult,
+  GetDiscussionsParams,
+  GetDiscussionsResult,
   TranslateJSONBody,
   TranslateJSONResult,
 } from '../types';
@@ -279,6 +281,24 @@ export const getAiAPI = (
       }
     );
 
+  /**
+   * Retrieves discussions with filters and pagination. Only user or admin can access.
+   */
+  const getDiscussions = async (
+    params?: GetDiscussionsParams,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetDiscussionsResult>(
+      `${AI_API_ROUTE}/discussions`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'GET',
+        // @ts-ignore Number of parameter will be stringified by the fetcher
+        params,
+      }
+    );
+
   return {
     customQuery,
     translateJSON,
@@ -288,5 +308,6 @@ export const getAiAPI = (
     auditTag,
     askDocQuestion,
     autocomplete,
+    getDiscussions,
   };
 };

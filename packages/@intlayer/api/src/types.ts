@@ -59,6 +59,8 @@ export type {
   GetDictionaryParams,
   GetDictionaryQuery,
   GetDictionaryResult,
+  GetDiscussionsParams,
+  GetDiscussionsResult,
   GetOAuth2TokenBody,
   GetOAuth2TokenBody,
   GetOAuth2TokenResult,

@@ -1,5 +1,6 @@
 import type { RenameId } from '@utils/mongoDB/types';
-import type { Document, Model, Types } from 'mongoose';
+import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
+import { Project } from './project.types';
 
 export interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -19,6 +20,12 @@ export interface Discussion extends Document {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type DiscussionAPI = ObjectIdToString<
+  Discussion & {
+    numberOfMessages: number;
+  }
+>;
 
 export type DiscussionSchema = RenameId<Discussion>;
 export type DiscussionModelType = Model<Discussion>;
