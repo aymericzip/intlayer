@@ -42,9 +42,9 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
     selectProject(projectId);
   };
 
-  const otherProjects = (projects?.data ?? []).filter(
-    (projectEl) => String(projectEl.id) !== String(project?.id)
-  );
+  const otherProjects = (projects?.data ?? [])
+    .filter((projectEl) => String(projectEl.id) !== String(project?.id))
+    .slice(0, 10);
 
   return project ? (
     <>

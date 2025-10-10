@@ -40,9 +40,11 @@ export const OrganizationDropdown: FC = () => {
     selectOrganization(organizationId);
   };
 
-  const otherOrganizations = (organizations?.data ?? []).filter(
-    (organizationEl) => String(organizationEl.id) !== String(organization?.id)
-  );
+  const otherOrganizations = (organizations?.data ?? [])
+    .filter(
+      (organizationEl) => String(organizationEl.id) !== String(organization?.id)
+    )
+    .slice(0, 10);
 
   return organization ? (
     <>
