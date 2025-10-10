@@ -35,46 +35,42 @@ export const getTagFiltersAndPagination = (
   const { roles, organization } = res.locals;
 
   let filters: TagFilters = {};
-  const sortOptions: Record<string, 1 | -1> = { createdAt: -1 };
+  const sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
 
-  if (Object.keys(filtersRequest).length > 0) {
-    const { name, search, ids, keys, organizationId, fetchAll } =
-      filtersRequest;
+  const { name, search, ids, keys, organizationId, fetchAll } =
+    filtersRequest ?? {};
 
-    filters = {};
+  if (ids) {
+    filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
+  }
 
-    if (ids) {
-      filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
-    }
+  if (keys) {
+    filters = { ...filters, key: { $in: ensureArrayQueryFilter(keys) } };
+  }
 
-    if (keys) {
-      filters = { ...filters, key: { $in: ensureArrayQueryFilter(keys) } };
-    }
+  if (name) {
+    filters = { ...filters, name: new RegExp(name, 'i') };
+  }
 
-    if (name) {
-      filters = { ...filters, name: new RegExp(name, 'i') };
-    }
+  if (search) {
+    const searchRegex = new RegExp(search, 'i');
+    filters = {
+      ...filters,
+      $or: [
+        { name: searchRegex },
+        { key: searchRegex },
+        { description: searchRegex },
+        { instructions: searchRegex },
+      ],
+    };
+  }
 
-    if (search) {
-      const searchRegex = new RegExp(search, 'i');
-      filters = {
-        ...filters,
-        $or: [
-          { name: searchRegex },
-          { key: searchRegex },
-          { description: searchRegex },
-          { instructions: searchRegex },
-        ],
-      };
-    }
+  if (organizationId) {
+    filters = { ...filters, organizationId };
+  }
 
-    if (organizationId) {
-      filters = { ...filters, organizationId };
-    }
-
-    if (!(roles.includes('admin') && fetchAll === 'true')) {
-      filters = { ...filters, organizationId: organization?.id };
-    }
+  if (!(roles.includes('admin') && fetchAll === 'true')) {
+    filters = { ...filters, organizationId: organization?.id };
   }
 
   return { filters, sortOptions, ...pagination };

@@ -44,42 +44,38 @@ export const getOrganizationFiltersAndPagination = (
   const { roles, user } = res.locals;
 
   let filters: OrganizationFilters = {};
-  let sortOptions: Record<string, 1 | -1> = { createdAt: -1 };
+  let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
 
-  if (Object.keys(filtersRequest).length > 0) {
-    const { name, search, ids, membersIds, fetchAll, sortBy, sortOrder } =
-      filtersRequest;
+  const { name, search, ids, membersIds, fetchAll, sortBy, sortOrder } =
+    filtersRequest ?? {};
 
-    filters = {};
+  if (ids) {
+    filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
+  }
 
-    if (ids) {
-      filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
-    }
+  // Non-admins can only see organizations they are members of
+  if (!(roles.includes('admin') && fetchAll === 'true')) {
+    filters = { ...filters, membersIds: { $in: [user?.id] } };
+  }
 
-    // Non-admins can only see organizations they are members of
-    if (!(roles.includes('admin') && fetchAll === 'true')) {
-      filters = { ...filters, membersIds: { $in: [user?.id] } };
-    }
+  if (name) {
+    filters = { ...filters, name: new RegExp(name, 'i') };
+  }
 
-    if (name) {
-      filters = { ...filters, name: new RegExp(name, 'i') };
-    }
+  if (search) {
+    const searchRegex = new RegExp(search, 'i');
+    filters = { ...filters, $or: [{ name: searchRegex }] };
+  }
 
-    if (search) {
-      const searchRegex = new RegExp(search, 'i');
-      filters = { ...filters, $or: [{ name: searchRegex }] };
-    }
+  if (membersIds) {
+    filters = {
+      ...filters,
+      membersIds: { $in: ensureArrayQueryFilter(membersIds) },
+    };
+  }
 
-    if (membersIds) {
-      filters = {
-        ...filters,
-        membersIds: { $in: ensureArrayQueryFilter(membersIds) },
-      };
-    }
-
-    if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
-      sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
-    }
+  if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
+    sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
   }
 
   return { filters, sortOptions, ...pagination };

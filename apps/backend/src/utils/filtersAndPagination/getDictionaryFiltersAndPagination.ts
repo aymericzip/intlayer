@@ -48,113 +48,108 @@ export const getDictionaryFiltersAndPagination = (
   const { roles, project } = res.locals;
 
   let filters: DictionaryFilters = {};
-  let sortOptions: Record<string, 1 | -1> = { createdAt: -1 };
+  let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
 
-  if (Object.keys(filtersRequest).length > 0) {
-    const {
-      key,
-      search,
-      keys,
-      tags,
-      ids,
-      projectId,
-      projectIds,
-      userId,
-      userIds,
-      creatorId,
-      creatorIds,
-      title,
-      description,
-      version,
-      sortBy,
-      sortOrder,
-      fetchAll,
-    } = filtersRequest;
+  const {
+    key,
+    search,
+    keys,
+    tags,
+    ids,
+    projectId,
+    projectIds,
+    userId,
+    userIds,
+    creatorId,
+    creatorIds,
+    title,
+    description,
+    version,
+    sortBy,
+    sortOrder,
+    fetchAll,
+  } = filtersRequest ?? {};
 
-    filters = {};
+  if (ids) {
+    filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
+  }
 
-    if (ids) {
-      filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
-    }
+  if (projectId) {
+    filters = { ...filters, projectIds: projectId };
+  }
 
-    if (projectId) {
-      filters = { ...filters, projectIds: projectId };
-    }
+  if (projectIds) {
+    filters = {
+      ...filters,
+      projectIds: { $in: ensureArrayQueryFilter(projectIds) },
+    };
+  }
 
-    if (projectIds) {
-      filters = {
-        ...filters,
-        projectIds: { $in: ensureArrayQueryFilter(projectIds) },
-      };
-    }
+  if (!(roles.includes('admin') && fetchAll === 'true')) {
+    filters = { ...filters, projectIds: { $in: project?.id } };
+  }
 
+  if (userId) {
+    filters = { ...filters, creatorId: userId };
+  }
 
-    if (!(roles.includes('admin') && fetchAll === 'true')) {
-      filters = { ...filters, projectIds: { $in: project?.id } };
-    }
+  if (userIds) {
+    filters = {
+      ...filters,
+      creatorId: { $in: ensureArrayQueryFilter(userIds) },
+    };
+  }
 
-    if (userId) {
-      filters = { ...filters, creatorId: userId };
-    }
+  if (creatorId) {
+    filters = { ...filters, creatorId: creatorId };
+  }
 
-    if (userIds) {
-      filters = {
-        ...filters,
-        creatorId: { $in: ensureArrayQueryFilter(userIds) },
-      };
-    }
+  if (creatorIds) {
+    filters = {
+      ...filters,
+      creatorId: { $in: ensureArrayQueryFilter(creatorIds) },
+    };
+  }
 
-    if (creatorId) {
-      filters = { ...filters, creatorId: creatorId };
-    }
+  if (title) {
+    filters = { ...filters, title: new RegExp(title, 'i') };
+  }
 
-    if (creatorIds) {
-      filters = {
-        ...filters,
-        creatorId: { $in: ensureArrayQueryFilter(creatorIds) },
-      };
-    }
+  if (description) {
+    filters = { ...filters, description: new RegExp(description, 'i') };
+  }
 
-    if (title) {
-      filters = { ...filters, title: new RegExp(title, 'i') };
-    }
+  if (key) {
+    filters = { ...filters, key: new RegExp(key, 'i') };
+  }
 
-    if (description) {
-      filters = { ...filters, description: new RegExp(description, 'i') };
-    }
+  if (search) {
+    const searchRegex = new RegExp(search, 'i');
+    filters = {
+      ...filters,
+      $or: [
+        { key: searchRegex },
+        { title: searchRegex },
+        { description: searchRegex },
+        { tags: { $in: [searchRegex] } },
+      ],
+    };
+  }
 
-    if (key) {
-      filters = { ...filters, key: new RegExp(key, 'i') };
-    }
+  if (keys) {
+    filters = { ...filters, key: { $in: ensureArrayQueryFilter(keys) } };
+  }
 
-    if (search) {
-      const searchRegex = new RegExp(search, 'i');
-      filters = {
-        ...filters,
-        $or: [
-          { key: searchRegex },
-          { title: searchRegex },
-          { description: searchRegex },
-          { tags: { $in: [searchRegex] } },
-        ],
-      };
-    }
+  if (tags) {
+    filters = { ...filters, tags: { $in: ensureArrayQueryFilter(tags) } };
+  }
 
-    if (keys) {
-      filters = { ...filters, key: { $in: ensureArrayQueryFilter(keys) } };
-    }
+  if (version) {
+    filters = { ...filters, content: { [version]: `$content.${version}` } };
+  }
 
-    if (tags) {
-      filters = { ...filters, tags: { $in: ensureArrayQueryFilter(tags) } };
-    }
-
-    if (version) {
-      filters = { ...filters, content: { [version]: `$content.${version}` } };
-    }
-
-    if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
-      sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
-    }
+  if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
+    sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
   }
 
   return { filters, sortOptions, ...pagination };

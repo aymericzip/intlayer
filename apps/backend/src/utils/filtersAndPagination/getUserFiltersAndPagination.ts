@@ -40,79 +40,75 @@ export const getUserFiltersAndPagination = (
   const { roles, organization } = res.locals;
 
   let filters = {};
-  let sortOptions: Record<string, 1 | -1> = { createdAt: -1 };
+  let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
 
-  if (Object.keys(filtersRequest).length > 0) {
-    const {
-      firstName,
-      lastName,
-      email,
-      emailVerified,
-      role,
-      search,
-      sortBy,
-      sortOrder,
-      ids,
-      fetchAll,
-    } = filtersRequest;
+  const {
+    firstName,
+    lastName,
+    email,
+    emailVerified,
+    role,
+    search,
+    sortBy,
+    sortOrder,
+    ids,
+    fetchAll,
+  } = filtersRequest ?? {};
 
-    filters = {};
+  if (ids) {
+    filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
 
-    if (ids) {
-      filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
+    if (!(roles.includes('admin') && fetchAll === 'true')) {
+      const secureMembersIds: string[] =
+        ensureArrayQueryFilter(ids)?.filter((id) =>
+          organization?.membersIds?.map(String).includes(id)
+        ) ?? [];
 
-      if (!(roles.includes('admin') && fetchAll === 'true')) {
-        const secureMembersIds: string[] =
-          ensureArrayQueryFilter(ids)?.filter((id) =>
-            organization?.membersIds?.map(String).includes(id)
-          ) ?? [];
-
-        filters = {
-          ...filters,
-          _id: {
-            $in: secureMembersIds,
-          },
-        };
-      }
-    }
-
-    if (firstName) {
-      filters = { ...filters, firstName: new RegExp(firstName, 'i') };
-    }
-
-    if (lastName) {
-      filters = { ...filters, lastName: new RegExp(lastName, 'i') };
-    }
-
-    if (email) {
-      filters = { ...filters, email: new RegExp(email, 'i') };
-    }
-
-    if (emailVerified !== undefined) {
-      const isVerified = emailVerified === 'true';
-      filters = { ...filters, emailVerified: isVerified };
-    }
-
-    if (role) {
-      filters = { ...filters, role };
-    }
-
-    if (search) {
-      const searchRegex = new RegExp(search, 'i');
       filters = {
         ...filters,
-        $or: [
-          { firstName: searchRegex },
-          { lastName: searchRegex },
-          { email: searchRegex },
-          { name: searchRegex },
-        ],
+        _id: {
+          $in: secureMembersIds,
+        },
       };
     }
+  }
 
-    if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
-      sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
-    }
+  if (firstName) {
+    filters = { ...filters, firstName: new RegExp(firstName, 'i') };
+  }
+
+  if (lastName) {
+    filters = { ...filters, lastName: new RegExp(lastName, 'i') };
+  }
+
+  if (email) {
+    filters = { ...filters, email: new RegExp(email, 'i') };
+  }
+
+  if (emailVerified !== undefined) {
+    const isVerified = emailVerified === 'true';
+    filters = { ...filters, emailVerified: isVerified };
+  }
+
+  if (role) {
+    filters = { ...filters, role };
+  }
+
+  if (search) {
+    const searchRegex = new RegExp(search, 'i');
+    filters = {
+      ...filters,
+      $or: [
+        { firstName: searchRegex },
+        { lastName: searchRegex },
+        { email: searchRegex },
+        { name: searchRegex },
+      ],
+    };
+  }
+
+  if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
+    sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
   }
 
   return { filters, sortOptions, ...pagination };

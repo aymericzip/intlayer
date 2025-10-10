@@ -37,56 +37,52 @@ export const getProjectFiltersAndPagination = (
   const { roles, organization } = res.locals;
 
   let filters: ProjectFilters = {};
-  let sortOptions: Record<string, 1 | -1> = { createdAt: -1 };
+  let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
 
-  if (Object.keys(filtersRequest).length > 0) {
-    const {
-      name,
-      search,
-      ids,
-      organizationId,
-      membersIds,
-      sortBy,
-      sortOrder,
-      fetchAll,
-    } = filtersRequest;
+  const {
+    name,
+    search,
+    ids,
+    organizationId,
+    membersIds,
+    sortBy,
+    sortOrder,
+    fetchAll,
+  } = filtersRequest ?? {};
 
-    filters = {};
+  if (ids) {
+    filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
+  }
 
-    if (ids) {
-      filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
-    }
+  if (name) {
+    filters = { ...filters, name: new RegExp(name, 'i') };
+  }
 
-    if (name) {
-      filters = { ...filters, name: new RegExp(name, 'i') };
-    }
+  if (search) {
+    const searchRegex = new RegExp(search, 'i');
+    filters = {
+      ...filters,
+      $or: [{ name: searchRegex }],
+    };
+  }
 
-    if (search) {
-      const searchRegex = new RegExp(search, 'i');
-      filters = {
-        ...filters,
-        $or: [{ name: searchRegex }],
-      };
-    }
+  if (organizationId) {
+    filters = { ...filters, organizationId };
+  }
 
-    if (organizationId) {
-      filters = { ...filters, organizationId };
-    }
+  if (membersIds) {
+    filters = {
+      ...filters,
+      membersIds: { $in: ensureArrayQueryFilter(membersIds) },
+    };
+  }
 
-    if (!(roles.includes('admin') && fetchAll === 'true')) {
-      filters = { ...filters, organizationId: organization?.id };
-    }
+  if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
+    sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
+  }
 
-    if (membersIds) {
-      filters = {
-        ...filters,
-        membersIds: { $in: ensureArrayQueryFilter(membersIds) },
-      };
-    }
-
-    if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
-      sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
-    }
+  if (!(roles.includes('admin') && fetchAll === 'true')) {
+    filters = { ...filters, organizationId: organization?.id };
   }
 
   return { filters, sortOptions, ...pagination };
