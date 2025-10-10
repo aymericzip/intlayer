@@ -83,7 +83,12 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
     >
       <div className="flex justify-between">
         <div className="flex w-auto items-center gap-4">
-          <Link href={PagesRoutes.Home} label="Dashboard" color="text">
+          <Link
+            href={PagesRoutes.Home}
+            label="Dashboard"
+            color="text"
+            className="max-md:hidden"
+          >
             <Logo
               className="size-6"
               style={{
