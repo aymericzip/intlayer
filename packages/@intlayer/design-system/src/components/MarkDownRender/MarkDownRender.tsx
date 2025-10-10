@@ -323,7 +323,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               pre: (props: ComponentPropsWithoutRef<'pre'>) => props.children,
 
               table: (props: ComponentProps<typeof Table>) => (
-                <Table {...props} />
+                <Table isRollable={true} {...props} />
               ),
               th: ({ className, ...props }: ComponentPropsWithoutRef<'th'>) => (
                 <th

@@ -198,7 +198,7 @@ type TableProps = HTMLAttributes<HTMLTableElement> & {
  */
 export const Table: FC<TableProps> = ({
   className,
-  isRollable,
+  isRollable = false,
   displayModal,
   ...props
 }) => {
