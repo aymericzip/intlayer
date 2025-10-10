@@ -11,7 +11,6 @@ import {
 
 export type UserFiltersParam = {
   ids?: string | string[];
-  organizationId?: string | string[];
   firstName?: string;
   lastName?: string;
   email?: string;
@@ -50,7 +49,6 @@ export const getUserFiltersAndPagination = (
       email,
       emailVerified,
       role,
-      organizationId,
       search,
       sortBy,
       sortOrder,
@@ -62,17 +60,20 @@ export const getUserFiltersAndPagination = (
 
     if (ids) {
       filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
-    }
 
-    if (organizationId) {
-      filters = {
-        ...filters,
-        organizationId: { $in: ensureArrayQueryFilter(organizationId) },
-      };
-    }
+      if (!(roles.includes('admin') && fetchAll === 'true')) {
+        const secureMembersIds: string[] =
+          ensureArrayQueryFilter(ids)?.filter((id) =>
+            organization?.membersIds?.map(String).includes(id)
+          ) ?? [];
 
-    if (!(roles.includes('admin') && fetchAll === 'true')) {
-      filters = { ...filters, organizationId: organization?.id };
+        filters = {
+          ...filters,
+          _id: {
+            $in: secureMembersIds,
+          },
+        };
+      }
     }
 
     if (firstName) {
