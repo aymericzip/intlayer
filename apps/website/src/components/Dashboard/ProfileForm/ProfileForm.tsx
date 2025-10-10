@@ -27,7 +27,7 @@ export const ProfileForm: FC = () => {
   return (
     <Container
       roundedSize="xl"
-      className="flex size-full max-w-[500px] justify-center p-6"
+      className="flex size-full max-w-md justify-center p-6"
     >
       <H3 className="mb-8"> {title}</H3>
       <Form

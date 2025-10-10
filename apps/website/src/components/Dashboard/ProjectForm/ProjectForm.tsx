@@ -24,7 +24,7 @@ export const ProjectFormContent: FC = () => {
 
   if (project) {
     return (
-      <div className="flex size-full max-w-[500px] flex-col items-center justify-center gap-4">
+      <div className="flex size-full flex-col items-center justify-center gap-4">
         {!isProjectAdmin && (
           <Container
             roundedSize="xl"
@@ -34,51 +34,57 @@ export const ProjectFormContent: FC = () => {
           </Container>
         )}
 
-        <Container
-          roundedSize="xl"
-          className="z-20 flex size-full justify-center p-6"
-        >
-          <ProjectEditionForm />
-        </Container>
-        <Container
-          roundedSize="xl"
-          className="z-20 flex size-full justify-center p-6"
-        >
-          <ConfigDetails projectConfig={project.configuration} />
-        </Container>
-        <Container
-          roundedSize="xl"
-          className="z-10 flex size-full justify-center p-6"
-        >
-          <MembersForm />
-        </Container>
-        <Container
-          roundedSize="xl"
-          className="flex size-full justify-center p-6"
-        >
-          <AccessKeyForm />
-        </Container>
-        <Container
-          roundedSize="xl"
-          className="flex size-full justify-center p-6"
-        >
-          <DeleteProjectModal
-            isOpen={isDeletionModalOpen}
-            onClose={() => setIsDeletionModalOpen(false)}
-            onDelete={() => setIsDeletionModalOpen(false)}
-          />
-          <Button
-            type="submit"
-            color="error"
-            label={deleteProjectButton.ariaLabel.value}
-            isFullWidth
-            variant="outline"
-            onClick={() => setIsDeletionModalOpen(true)}
-            Icon={Trash}
-          >
-            {deleteProjectButton.text}
-          </Button>
-        </Container>
+        <div className="flex gap-x-20 gap-y-4 max-md:flex-col">
+          <div className="mb-auto flex max-w-lg flex-1 flex-col gap-4">
+            <Container
+              roundedSize="xl"
+              className="z-20 flex size-full justify-center p-6"
+            >
+              <ProjectEditionForm />
+            </Container>
+            <Container
+              roundedSize="xl"
+              className="flex size-full justify-center p-6"
+            >
+              <AccessKeyForm />
+            </Container>
+            <Container
+              roundedSize="xl"
+              className="flex size-full justify-center p-6"
+            >
+              <DeleteProjectModal
+                isOpen={isDeletionModalOpen}
+                onClose={() => setIsDeletionModalOpen(false)}
+                onDelete={() => setIsDeletionModalOpen(false)}
+              />
+              <Button
+                type="submit"
+                color="error"
+                label={deleteProjectButton.ariaLabel.value}
+                isFullWidth
+                variant="outline"
+                onClick={() => setIsDeletionModalOpen(true)}
+                Icon={Trash}
+              >
+                {deleteProjectButton.text}
+              </Button>
+            </Container>
+          </div>
+          <div className="mb-auto flex max-w-lg flex-1 flex-col gap-4">
+            <Container
+              roundedSize="xl"
+              className="z-20 flex size-full justify-center p-6"
+            >
+              <ConfigDetails projectConfig={project.configuration} />
+            </Container>
+            <Container
+              roundedSize="xl"
+              className="z-10 flex size-full justify-center p-6"
+            >
+              <MembersForm />
+            </Container>
+          </div>
+        </div>
       </div>
     );
   }

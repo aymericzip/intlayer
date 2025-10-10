@@ -23,7 +23,7 @@ export const TagForm: FC<TagFormContentProps> = ({ tagKey }) => {
 
   return (
     <Loader isLoading={isWaitingData}>
-      <div className="flex size-full max-w-[500px] flex-col items-center justify-center gap-4">
+      <div className="flex size-full max-w-md flex-col items-center justify-center gap-4">
         {!isTagAdmin && (
           <Container
             roundedSize="xl"
