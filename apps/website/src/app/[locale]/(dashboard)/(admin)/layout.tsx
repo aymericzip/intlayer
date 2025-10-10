@@ -4,7 +4,6 @@ import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/Au
 import type { SessionAPI } from '@intlayer/backend';
 import { getSessionData } from '@utils/getSessionData';
 import type { NextLayoutIntlayer } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
 export const runtime = 'nodejs'; // ensure Node runtime
 export const dynamic = 'force-dynamic'; // make sure request cookies are read
 export const revalidate = 0;
@@ -17,7 +16,6 @@ const AdminLayout: NextLayoutIntlayer = async ({ children, params }) => {
   return (
     <AuthenticationBarrier
       accessRule="authenticated"
-      redirectionRoute={`${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(PagesRoutes.Admin_Users)}`}
       session={session as SessionAPI}
       locale={locale}
     >

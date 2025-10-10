@@ -95,7 +95,6 @@ const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
       <HydrationBoundary state={dehydratedState}>
         <AuthenticationBarrier
           accessRule="authenticated"
-          redirectionRoute={`${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(PagesRoutes.Dashboard)}`}
           session={session} // Don't preset the session on the client side to avoid infinite re-renders
           locale={locale}
         >

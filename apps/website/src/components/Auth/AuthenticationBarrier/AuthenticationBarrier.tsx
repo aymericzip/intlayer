@@ -12,6 +12,7 @@ type AuthenticationBarrierProps = Omit<
 > & {
   redirectionRoute?: PagesRoutes | string;
   locale: LocalesValues;
+  originUrl?: string;
 };
 
 export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = async ({
@@ -20,16 +21,18 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = async ({
   locale,
   ...props
 }) => {
-  const redirectionURLQuery = await getQueryParams();
+  const data = await getQueryParams();
   const redirectURL =
-    redirectionRoute ?? redirectionURLQuery ?? PagesRoutes.Home;
+    redirectionRoute ??
+    data.redirectUrl ??
+    `${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(data.pathname)}`;
   const localizedRedirectionURL = getLocalizedUrl(redirectURL, locale);
 
   return (
     <AuthenticationBarrierServer
       {...props}
       redirectionRoute={localizedRedirectionURL}
-      isEnabled={false} // We disable the barrier on the server side to avoid infinite re-renders
+      // isEnabled={false} // We disable the barrier on the server side to avoid infinite re-renders
     >
       <AuthenticationBarrierClient
         {...props}

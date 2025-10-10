@@ -11,7 +11,6 @@ const DashboardContentLayout: NextLayoutIntlayer = async ({
   return (
     <AuthenticationBarrier
       accessRule={['authenticated', 'organization-required']}
-      redirectionRoute={PagesRoutes.Dashboard_Organization}
       locale={locale}
     >
       {children}

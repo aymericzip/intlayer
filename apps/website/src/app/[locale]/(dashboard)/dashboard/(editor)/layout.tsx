@@ -22,7 +22,6 @@ const DashboardContentLayout: NextLayoutIntlayer = async ({
         'organization-required',
         'project-required',
       ]}
-      redirectionRoute={PagesRoutes.Dashboard_Projects}
       session={session}
       locale={locale}
     >
