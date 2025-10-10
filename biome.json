@@ -23,7 +23,8 @@
       "correctness": {
         "noUnusedVariables": "warn",
         "useExhaustiveDependencies": "off",
-        "useUniqueElementIds": "off"
+        "useUniqueElementIds": "off",
+        "noNestedComponentDefinitions": "warn"
       },
       "style": {
         "noNonNullAssertion": "off",
