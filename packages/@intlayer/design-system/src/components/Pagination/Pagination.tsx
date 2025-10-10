@@ -3,11 +3,8 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import type { FC, HTMLAttributes } from 'react';
-import { useIntlayer } from 'react-intlayer';
-import { useNumber } from 'react-intlayer/format';
 import { cn } from '../../utils/cn';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
-import { Select } from '../Select';
 
 export const paginationVariants = cva(
   'flex items-center justify-center gap-1',
@@ -216,74 +213,6 @@ export const Pagination: FC<PaginationProps> = ({
           className="min-w-0 px-2"
         />
       )}
-    </div>
-  );
-};
-
-type NumberItemsSelectorProps = {
-  value: string;
-  onValueChange: (value: string) => void;
-  min?: number;
-  max?: number;
-};
-
-export const NumberItemsSelector: FC<NumberItemsSelectorProps> = ({
-  value,
-  onValueChange,
-  min = 5,
-  max = 500,
-}) => {
-  const { numberItemsSelector, selectPageSize } = useIntlayer('pagination');
-
-  const items = [
-    1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 100000,
-  ].filter((item) => item >= min && item <= max);
-
-  return (
-    <div className="flex items-center gap-2">
-      <span className="text-neutral-600 text-sm dark:text-neutral-400">
-        {numberItemsSelector}
-      </span>
-      <Select value={value} onValueChange={onValueChange}>
-        <Select.Trigger className="w-20">
-          <Select.Value placeholder={selectPageSize} />
-        </Select.Trigger>
-        <Select.Content>
-          {items.map((item) => (
-            <Select.Item key={item} value={item.toString()}>
-              {item}
-            </Select.Item>
-          ))}
-        </Select.Content>
-      </Select>
-    </div>
-  );
-};
-
-type ShowingResultsNumberItemsProps = {
-  currentPage: number;
-  pageSize: number;
-  totalItems: number;
-};
-
-export const ShowingResultsNumberItems: FC<ShowingResultsNumberItemsProps> = ({
-  currentPage,
-  pageSize,
-  totalItems,
-}) => {
-  const { showingResults } = useIntlayer('pagination');
-  const number = useNumber();
-
-  const start: number = Math.max(totalItems, (currentPage - 1) * pageSize + 1);
-  const end: number = Math.min(currentPage * pageSize, totalItems);
-
-  return (
-    <div className="text-neutral-600 text-sm dark:text-neutral-400">
-      {showingResults({
-        start: number(start),
-        end: number(end),
-        total: number(totalItems),
-      })}
     </div>
   );
 };
