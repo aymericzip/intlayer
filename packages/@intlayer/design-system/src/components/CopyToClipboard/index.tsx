@@ -48,6 +48,12 @@ export interface CopyToClipboardProps extends PropsWithChildren {
    * Callback function called when copy operation fails
    */
   onCopyError?: (error: Error) => void;
+
+  /**
+   * Disable the copy to clipboard functionality and return the children
+   * @default false
+   */
+  disable?: boolean;
 }
 
 /**
@@ -90,15 +96,17 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
   feedbackDuration = 2000,
   onCopySuccess,
   onCopyError,
+  disable,
 }) => {
   const [isCopied, setIsCopied] = useState(false);
-  const [copyError, setCopyError] = useState<string | null>(null);
+
+  if (disable) return <span className={className}>{children}</span>;
 
   const handleCopy = async () => {
     if (!text) return;
 
     try {
-      setCopyError(null);
+      null;
 
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(text);
@@ -112,7 +120,6 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
-        document.execCommand('copy');
         document.body.removeChild(textArea);
       }
 
@@ -122,11 +129,7 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : 'Failed to copy to clipboard';
-      setCopyError(errorMessage);
       onCopyError?.(error instanceof Error ? error : new Error(errorMessage));
-
-      // Clear error after feedback duration
-      setTimeout(() => setCopyError(null), feedbackDuration);
     }
   };
 
@@ -137,18 +140,14 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
     }
   };
 
-  const currentAriaLabel = copyError
-    ? `Error copying to clipboard: ${copyError}`
-    : isCopied
-      ? ariaCopiedLabel
-      : ariaLabel;
+  const currentAriaLabel = isCopied ? ariaCopiedLabel : ariaLabel;
 
-  const IconComponent = copyError ? CopyIcon : isCopied ? CopyCheck : CopyIcon;
+  const IconComponent = isCopied ? CopyCheck : CopyIcon;
 
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-2 rounded-md p-0.5 hover:cursor-pointer hover:bg-neutral/10',
+        'inline-flex max-w-full cursor-pointer items-center gap-2 rounded-md p-0.5 hover:bg-neutral/10',
         className
       )}
       onClick={handleCopy}
@@ -159,19 +158,11 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
       aria-pressed={isCopied}
       data-testid="copy-to-clipboard"
     >
-      {children}
+      <span className="min-w-0 break-all">{children}</span>
 
       {text && (
         <IconComponent
-          size={12}
-          className={cn(
-            'ml-1 transition-colors duration-200',
-            copyError && 'text-destructive',
-            isCopied && 'text-success',
-            !copyError &&
-              !isCopied &&
-              'text-muted-foreground hover:text-foreground'
-          )}
+          className="ml-1 ml-auto size-4 min-w-4 shrink-0"
           aria-hidden="true"
         />
       )}

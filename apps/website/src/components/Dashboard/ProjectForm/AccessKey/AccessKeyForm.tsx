@@ -1,9 +1,11 @@
 'use client';
 
+import type { OAuth2AccessAPI } from '@intlayer/backend';
 import {
   CopyToClipboard,
   Form,
   H3,
+  HideShow,
   Modal,
   useForm,
 } from '@intlayer/design-system';
@@ -93,126 +95,141 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
       </Modal>
       <div
         key={String(accessKey.id)}
-        className="flex rounded-lg border-2 border-text p-3"
+        className="flex flex-col gap-3 divide-y divide-dashed divide-neutral rounded-lg border-2 p-3"
       >
-        <div className="flex items-center justify-center p-5">
+        <div className="flex items-center justify-center px-3 pb-3">
           <KeyRound className="size-5" size={16} />
+          <span className="m-auto w-full text-center font-bold text-lg">
+            {accessKey.name}
+          </span>
         </div>
-        <div className="flex flex-col gap-4">
-          <span className="font-bold text-base">{accessKey.name}</span>
-          <div className="flex flex-col gap-1">
-            <span className="font-bold text-sm">{labels.clientId}</span>
-            <CopyToClipboard
-              text={accessKey.clientId}
-              className="break-all text-xs"
-            >
-              {accessKey.clientId}
-            </CopyToClipboard>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-wrap font-bold text-sm">
-              {labels.clientSecret}
-            </span>
-            {accessKey.clientSecret.endsWith('*') ? (
-              <span className="text-wrap break-all text-sm">
-                {accessKey.clientSecret}
-              </span>
-            ) : (
+        <div className="flex pt-3">
+          <div className="flex items-center justify-center p-5"></div>
+          <div className="flex flex-col gap-4 pb-3">
+            <div className="flex flex-col gap-1">
+              <CopyToClipboard
+                text={accessKey.clientId}
+                className="text-wrap font-bold text-sm"
+              >
+                {labels.clientId}
+              </CopyToClipboard>
+              <HideShow
+                text={accessKey.clientId}
+                visiblePrefixChars={6}
+                className="ml-1 p-1 text-neutral text-sm"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
               <CopyToClipboard
                 text={accessKey.clientSecret}
-                className="break-all text-xs"
+                className="p-1 font-bold text-sm"
+                disable={accessKey.clientSecret.endsWith('*')}
               >
-                {accessKey.clientSecret}
+                {labels.clientSecret}
               </CopyToClipboard>
-            )}
-          </div>
-          <div>
-            <span className="text-wrap font-bold text-sm">{rights.title}</span>
-
-            <span className="block text-wrap break-all text-neutral text-xs">
-              <span className="font-bold">{rights.organization}</span>
-              {accessKey?.grants?.includes('organization:read')
-                ? rights.read
-                : '- '}
-              {accessKey?.grants?.includes('organization:write')
-                ? rights.write
-                : '- '}
-              {accessKey?.grants?.includes('organization:admin')
-                ? rights.admin
-                : '-'}
-            </span>
-            <span className="block text-wrap break-all text-neutral text-xs">
-              <span className="font-bold">{rights.project}</span>
-              {accessKey?.grants?.includes('project:read') ? rights.read : '- '}
-              {accessKey?.grants?.includes('project:write')
-                ? rights.write
-                : '- '}
-              {accessKey?.grants?.includes('project:admin')
-                ? rights.admin
-                : '-'}
-            </span>
-            <span className="block text-wrap break-all text-neutral text-xs">
-              <span className="font-bold">{rights.dictionary}</span>
-              {accessKey?.grants?.includes('dictionary:read')
-                ? rights.read
-                : '- '}
-              {accessKey?.grants?.includes('dictionary:write')
-                ? rights.write
-                : '- '}
-              {accessKey?.grants?.includes('dictionary:admin')
-                ? rights.admin
-                : '-'}
-            </span>
-          </div>
-          <div className="flex gap-3">
-            <div className="flex flex-1 flex-col gap-1 text-neutral">
-              <span className="text-wrap font-bold text-sm">
-                {labels.addedOn}
-              </span>
-              <span className="break-all text-xs">
-                {new Date(accessKey.createdAt).toLocaleDateString()}
-              </span>
+              {accessKey.clientSecret.endsWith('*') ? (
+                <span className="ml-1 break-all p-1 text-neutral text-sm">
+                  {accessKey.clientSecret}
+                </span>
+              ) : (
+                <HideShow
+                  text={accessKey.clientSecret}
+                  visiblePrefixChars={6}
+                  className="ml-1 p-1 text-neutral text-sm"
+                />
+              )}
             </div>
-            <div className="flex flex-1 flex-col gap-1 text-neutral">
+            <div>
               <span className="text-wrap font-bold text-sm">
-                {labels.expireOn}
+                {rights.title}
               </span>
-              <span className="break-all text-xs">
-                {accessKey.expiresAt
-                  ? new Date(accessKey.expiresAt).toLocaleDateString()
+
+              <span className="block text-wrap break-all text-neutral text-xs">
+                <span className="ml-1 font-bold">{rights.organization}</span>
+                {accessKey?.grants?.includes('organization:read')
+                  ? rights.read
+                  : '- '}
+                {accessKey?.grants?.includes('organization:write')
+                  ? rights.write
+                  : '- '}
+                {accessKey?.grants?.includes('organization:admin')
+                  ? rights.admin
+                  : '-'}
+              </span>
+              <span className="block text-wrap break-all text-neutral text-xs">
+                <span className="ml-1 font-bold">{rights.project}</span>
+                {accessKey?.grants?.includes('project:read')
+                  ? rights.read
+                  : '- '}
+                {accessKey?.grants?.includes('project:write')
+                  ? rights.write
+                  : '- '}
+                {accessKey?.grants?.includes('project:admin')
+                  ? rights.admin
+                  : '-'}
+              </span>
+              <span className="block text-wrap break-all text-neutral text-xs">
+                <span className="ml-1 font-bold">{rights.dictionary}</span>
+                {accessKey?.grants?.includes('dictionary:read')
+                  ? rights.read
+                  : '- '}
+                {accessKey?.grants?.includes('dictionary:write')
+                  ? rights.write
+                  : '- '}
+                {accessKey?.grants?.includes('dictionary:admin')
+                  ? rights.admin
                   : '-'}
               </span>
             </div>
+            <div className="flex gap-3">
+              <div className="flex flex-1 flex-col gap-1">
+                <span className="text-wrap font-bold text-sm">
+                  {labels.addedOn}
+                </span>
+                <span className="ml-1 break-all text-neutral text-xs">
+                  {new Date(accessKey.createdAt).toLocaleDateString()}
+                </span>
+              </div>
+              <div className="flex flex-1 flex-col gap-1">
+                <span className="text-wrap font-bold text-sm">
+                  {labels.expireOn}
+                </span>
+                <span className="ml-1 break-all text-neutral text-xs">
+                  {accessKey.expiresAt
+                    ? new Date(accessKey.expiresAt).toLocaleDateString()
+                    : '-'}
+                </span>
+              </div>
+            </div>
           </div>
-
-          <div className="flex justify-end gap-3 max-sm:flex-col">
-            <Form.Button
-              variant="outline"
-              label={labels.refreshButtonLabel.value}
-              color="text"
-              isFullWidth={false}
-              className="w-auto"
-              onClick={() => setIsUpdateModalOpen(true)}
-              Icon={RefreshCcw}
-              isLoading={isRefreshing}
-              disabled={isLoading}
-            >
-              {labels.refreshButtonText}
-            </Form.Button>
-            <Form.Button
-              variant="outline"
-              label={labels.deleteButtonLabel.value}
-              color="error"
-              isFullWidth={false}
-              className="w-auto"
-              onClick={() => setIsDeletionModalOpen(true)}
-              Icon={Trash}
-              isLoading={isDeleting}
-              disabled={isLoading}
-            >
-              {labels.deleteButtonText}
-            </Form.Button>
-          </div>
+        </div>
+        <div className="flex flex-wrap justify-end gap-3 max-sm:flex-col">
+          <Form.Button
+            variant="outline"
+            label={labels.refreshButtonLabel.value}
+            color="text"
+            isFullWidth={false}
+            className="w-auto"
+            onClick={() => setIsUpdateModalOpen(true)}
+            Icon={RefreshCcw}
+            isLoading={isRefreshing}
+            disabled={isLoading}
+          >
+            {labels.refreshButtonText}
+          </Form.Button>
+          <Form.Button
+            variant="outline"
+            label={labels.deleteButtonLabel.value}
+            color="error"
+            isFullWidth={false}
+            className="w-auto"
+            onClick={() => setIsDeletionModalOpen(true)}
+            Icon={Trash}
+            isLoading={isDeleting}
+            disabled={isLoading}
+          >
+            {labels.deleteButtonText}
+          </Form.Button>
         </div>
       </div>
     </>

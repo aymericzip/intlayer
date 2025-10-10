@@ -20,6 +20,7 @@ export * from './Footer';
 export * from './Form';
 export * from './Headers';
 export * from './HeightResizer';
+export * from './HideShow';
 export * from './IDE';
 export * from './InformationTag';
 export * from './Input';
