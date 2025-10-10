@@ -24,8 +24,8 @@ const OrganizationFormContent: FC = () => {
   if (organization) {
     return (
       <div className="flex size-full flex-col items-center justify-center gap-4">
-        <div className="flex gap-x-20 gap-y-4 max-md:flex-col">
-          <div className="mb-auto flex max-w-lg flex-1 flex-col gap-4">
+        <div className="grid w-full max-w-5xl gap-x-20 gap-y-4 max-md:grid-cols-1 md:grid-cols-2">
+          <div className="mb-auto flex flex-col gap-4">
             <Container
               roundedSize="xl"
               className="flex size-full justify-center p-6"
@@ -60,7 +60,7 @@ const OrganizationFormContent: FC = () => {
               </Button>
             </Container>
           </div>
-          <div className="mb-auto flex max-w-lg flex-1 flex-col gap-4">
+          <div className="mb-auto flex flex-col gap-4">
             <Container
               roundedSize="xl"
               className="flex size-full justify-center p-6"

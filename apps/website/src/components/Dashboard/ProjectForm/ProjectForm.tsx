@@ -34,8 +34,8 @@ export const ProjectFormContent: FC = () => {
           </Container>
         )}
 
-        <div className="flex gap-x-20 gap-y-4 max-md:flex-col">
-          <div className="mb-auto flex max-w-lg flex-1 flex-col gap-4">
+        <div className="grid w-full max-w-5xl gap-x-20 gap-y-4 max-md:grid-cols-1 md:grid-cols-2">
+          <div className="mb-auto flex flex-col gap-4">
             <Container
               roundedSize="xl"
               className="z-20 flex size-full justify-center p-6"
@@ -70,7 +70,7 @@ export const ProjectFormContent: FC = () => {
               </Button>
             </Container>
           </div>
-          <div className="mb-auto flex max-w-lg flex-1 flex-col gap-4">
+          <div className="mb-auto flex flex-col gap-4">
             <Container
               roundedSize="xl"
               className="z-20 flex size-full justify-center p-6"
