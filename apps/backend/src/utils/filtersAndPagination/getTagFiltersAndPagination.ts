@@ -12,7 +12,12 @@ export type TagFiltersParams = {
   ids?: string | string[];
   keys?: string | string[];
   name?: string;
+  search?: string;
   organizationId?: string;
+  /**
+   * For admin users, if true, will fetch all tags without filtering by organization
+   */
+  fetchAll?: 'true' | 'false';
 };
 export type TagFilters = RootFilterQuery<Tag>;
 
@@ -30,9 +35,11 @@ export const getTagFiltersAndPagination = (
   const { roles, organization } = res.locals;
 
   let filters: TagFilters = {};
+  const sortOptions: Record<string, 1 | -1> = { createdAt: -1 };
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { name, ids, keys, organizationId } = filtersRequest;
+    const { name, search, ids, keys, organizationId, fetchAll } =
+      filtersRequest;
 
     filters = {};
 
@@ -48,14 +55,27 @@ export const getTagFiltersAndPagination = (
       filters = { ...filters, name: new RegExp(name, 'i') };
     }
 
+    if (search) {
+      const searchRegex = new RegExp(search, 'i');
+      filters = {
+        ...filters,
+        $or: [
+          { name: searchRegex },
+          { key: searchRegex },
+          { description: searchRegex },
+          { instructions: searchRegex },
+        ],
+      };
+    }
+
     if (organizationId) {
       filters = { ...filters, organizationId };
     }
 
-    if (!roles.includes('admin')) {
+    if (!(roles.includes('admin') && fetchAll === 'true')) {
       filters = { ...filters, organizationId: organization?.id };
     }
   }
 
-  return { filters, ...pagination };
+  return { filters, sortOptions, ...pagination };
 };

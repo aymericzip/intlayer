@@ -16,9 +16,17 @@ import type { Tag, TagData, TagDocument } from '@/types/tag.types';
 export const findTags = async (
   filters: TagFilters,
   skip = 0,
-  limit = 100
-): Promise<TagDocument[]> =>
-  await TagModel.find(filters).skip(skip).limit(limit);
+  limit = 100,
+  sortOptions?: Record<string, 1 | -1>
+): Promise<TagDocument[]> => {
+  let query = TagModel.find(filters).skip(skip).limit(limit);
+
+  if (sortOptions && Object.keys(sortOptions).length > 0) {
+    query = query.sort(sortOptions);
+  }
+
+  return await query;
+};
 
 /**
  * Finds a tag by its ID.

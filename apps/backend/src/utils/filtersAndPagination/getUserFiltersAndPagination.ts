@@ -20,6 +20,10 @@ export type UserFiltersParam = {
   search?: string;
   sortBy?: string;
   sortOrder?: string;
+  /**
+   * For admin users, if true, will fetch all users without filtering by organization
+   */
+  fetchAll?: 'true' | 'false';
 };
 export type UserFilters = RootFilterQuery<User>;
 
@@ -37,7 +41,7 @@ export const getUserFiltersAndPagination = (
   const { roles, organization } = res.locals;
 
   let filters = {};
-  let sortOptions = {};
+  let sortOptions: Record<string, 1 | -1> = { createdAt: -1 };
 
   if (Object.keys(filtersRequest).length > 0) {
     const {
@@ -51,6 +55,7 @@ export const getUserFiltersAndPagination = (
       sortBy,
       sortOrder,
       ids,
+      fetchAll,
     } = filtersRequest;
 
     filters = {};
@@ -66,7 +71,7 @@ export const getUserFiltersAndPagination = (
       };
     }
 
-    if (!roles.includes('admin')) {
+    if (!(roles.includes('admin') && fetchAll === 'true')) {
       filters = { ...filters, organizationId: organization?.id };
     }
 

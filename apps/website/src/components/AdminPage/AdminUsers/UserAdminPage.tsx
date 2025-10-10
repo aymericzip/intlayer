@@ -57,6 +57,7 @@ export const UsersAdminPageContent: FC = () => {
   const usersQuery = useGetUsers({
     page: currentPage.toString(),
     pageSize: itemsPerPage.toString(),
+    fetchAll: 'true', // For admin users, will fetch all users without filtering by organization
     ...(searchQuery && { search: searchQuery }),
     ...(sortBy && { sortBy }),
     ...(sortOrder && { sortOrder }),

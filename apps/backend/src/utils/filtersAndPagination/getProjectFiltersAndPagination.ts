@@ -12,8 +12,15 @@ import {
 export type ProjectFiltersParams = {
   ids?: string | string[];
   name?: string;
+  search?: string;
   organizationId?: string;
   membersIds?: string[];
+  sortBy?: string;
+  sortOrder?: string;
+  /**
+   * For admin users, if true, will fetch all projects without filtering by organization
+   */
+  fetchAll?: 'true' | 'false';
 };
 export type ProjectFilters = RootFilterQuery<Project>;
 
@@ -31,9 +38,19 @@ export const getProjectFiltersAndPagination = (
   const { roles, organization } = res.locals;
 
   let filters: ProjectFilters = {};
+  let sortOptions: Record<string, 1 | -1> = { createdAt: -1 };
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { name, ids, organizationId, membersIds } = filtersRequest;
+    const {
+      name,
+      search,
+      ids,
+      organizationId,
+      membersIds,
+      sortBy,
+      sortOrder,
+      fetchAll,
+    } = filtersRequest;
 
     filters = {};
 
@@ -45,10 +62,18 @@ export const getProjectFiltersAndPagination = (
       filters = { ...filters, name: new RegExp(name, 'i') };
     }
 
+    if (search) {
+      const searchRegex = new RegExp(search, 'i');
+      filters = {
+        ...filters,
+        $or: [{ name: searchRegex }],
+      };
+    }
+
     if (organizationId) {
       filters = { ...filters, organizationId };
     }
-    if (!roles.includes('admin')) {
+    if (!(roles.includes('admin') && fetchAll === 'true')) {
       filters = { ...filters, organizationId: organization?.id };
     }
 
@@ -58,7 +83,11 @@ export const getProjectFiltersAndPagination = (
         membersIds: { $in: ensureArrayQueryFilter(membersIds) },
       };
     }
+
+    if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
+      sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
+    }
   }
 
-  return { filters, ...pagination };
+  return { filters, sortOptions, ...pagination };
 };

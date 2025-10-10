@@ -42,7 +42,7 @@ export const getProjects = async (
   _next: NextFunction
 ): Promise<void> => {
   const { user, organization, roles } = res.locals;
-  const { filters, pageSize, skip, page, getNumberOfPages } =
+  const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
     getProjectFiltersAndPagination(req, res);
 
   if (!user) {
@@ -56,7 +56,12 @@ export const getProjects = async (
   }
 
   try {
-    const projects = await projectService.findProjects(filters, skip, pageSize);
+    const projects = await projectService.findProjects(
+      filters,
+      skip,
+      pageSize,
+      sortOptions
+    );
 
     if (
       !hasPermission(

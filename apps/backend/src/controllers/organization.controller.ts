@@ -48,7 +48,7 @@ export const getOrganizations = async (
   _next: NextFunction
 ) => {
   const { user, roles } = res.locals;
-  const { filters, pageSize, skip, page, getNumberOfPages } =
+  const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req, res);
 
   if (!user) {
@@ -60,7 +60,8 @@ export const getOrganizations = async (
     const organizations = await organizationService.findOrganizations(
       filters,
       skip,
-      pageSize
+      pageSize,
+      sortOptions
     );
 
     if (

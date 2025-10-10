@@ -25,17 +25,23 @@ import type { Project } from '@/types/project.types';
 export const findDictionaries = async (
   filters: DictionaryFilters,
   skip = 0,
-  limit = 100
+  limit = 100,
+  sortOptions?: Record<string, 1 | -1>
 ): Promise<DictionaryDocument[]> => {
   try {
     const dictionaries = await DictionaryModel.aggregate<DictionaryDocument>([
       // Stage 1: Match the filters
       { $match: filters },
 
-      // Stage 2: Skip for pagination
+      // Stage 2: Sort if provided (default handled in filter builder)
+      ...(sortOptions && Object.keys(sortOptions).length > 0
+        ? [{ $sort: sortOptions }]
+        : []),
+
+      // Stage 3: Skip for pagination
       { $skip: skip },
 
-      // Stage 3: Limit the number of documents
+      // Stage 4: Limit the number of documents
       { $limit: limit },
     ]);
 

@@ -24,9 +24,17 @@ import type { Plan, PlanDocument } from '@/types/plan.types';
 export const findOrganizations = async (
   filters: OrganizationFilters,
   skip: number,
-  limit: number
-): Promise<OrganizationDocument[]> =>
-  await OrganizationModel.find(filters).skip(skip).limit(limit);
+  limit: number,
+  sortOptions?: Record<string, 1 | -1>
+): Promise<OrganizationDocument[]> => {
+  let query = OrganizationModel.find(filters).skip(skip).limit(limit);
+
+  if (sortOptions && Object.keys(sortOptions).length > 0) {
+    query = query.sort(sortOptions);
+  }
+
+  return await query;
+};
 
 /**
  * Finds an organization by its ID.

@@ -5,7 +5,6 @@ import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getTagFiltersAndPagination,
-  type TagFilters,
   type TagFiltersParams,
 } from '@utils/filtersAndPagination/getTagFiltersAndPagination';
 import { mapTagsToAPI, mapTagToAPI } from '@utils/mapper/tag';
@@ -38,7 +37,7 @@ export const getTags = async (
   _next: NextFunction
 ): Promise<void> => {
   const { user, organization, roles } = res.locals;
-  const { filters, pageSize, skip, page, getNumberOfPages } =
+  const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
     getTagFiltersAndPagination(req, res);
 
   if (!user) {
@@ -52,7 +51,12 @@ export const getTags = async (
   }
 
   try {
-    const tags = await tagService.findTags(filters, skip, pageSize);
+    const tags = await tagService.findTags(
+      filters,
+      skip,
+      pageSize,
+      sortOptions
+    );
 
     if (
       !hasPermission(

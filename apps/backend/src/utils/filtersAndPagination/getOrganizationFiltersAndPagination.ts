@@ -19,7 +19,14 @@ export type OrganizationFiltersParams = {
    */
   ids?: string | string[];
   name?: string;
+  search?: string;
   membersIds?: string[];
+  sortBy?: string;
+  sortOrder?: string;
+  /**
+   * For admin users, if true, will fetch all organizations without filtering by members
+   */
+  fetchAll?: 'true' | 'false';
 };
 export type OrganizationFilters = RootFilterQuery<Organization>;
 
@@ -37,9 +44,11 @@ export const getOrganizationFiltersAndPagination = (
   const { roles, user } = res.locals;
 
   let filters: OrganizationFilters = {};
+  let sortOptions: Record<string, 1 | -1> = { createdAt: -1 };
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { name, ids, membersIds } = filtersRequest;
+    const { name, search, ids, membersIds, fetchAll, sortBy, sortOrder } =
+      filtersRequest;
 
     filters = {};
 
@@ -48,12 +57,17 @@ export const getOrganizationFiltersAndPagination = (
     }
 
     // Non-admins can only see organizations they are members of
-    if (!roles.includes('admin')) {
+    if (!(roles.includes('admin') && fetchAll === 'true')) {
       filters = { ...filters, membersIds: { $in: [user?.id] } };
     }
 
     if (name) {
       filters = { ...filters, name: new RegExp(name, 'i') };
+    }
+
+    if (search) {
+      const searchRegex = new RegExp(search, 'i');
+      filters = { ...filters, $or: [{ name: searchRegex }] };
     }
 
     if (membersIds) {
@@ -62,7 +76,11 @@ export const getOrganizationFiltersAndPagination = (
         membersIds: { $in: ensureArrayQueryFilter(membersIds) },
       };
     }
+
+    if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
+      sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
+    }
   }
 
-  return { filters, ...pagination };
+  return { filters, sortOptions, ...pagination };
 };

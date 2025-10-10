@@ -44,7 +44,7 @@ export const getDictionaries = async (
   _next: NextFunction
 ): Promise<void> => {
   const { user, project, roles } = res.locals;
-  const { filters, pageSize, skip, page, getNumberOfPages } =
+  const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
     getDictionaryFiltersAndPagination(req, res);
 
   if (!project) {
@@ -64,7 +64,8 @@ export const getDictionaries = async (
         projectIds: project.id,
       },
       skip,
-      pageSize
+      pageSize,
+      sortOptions
     );
 
     if (
