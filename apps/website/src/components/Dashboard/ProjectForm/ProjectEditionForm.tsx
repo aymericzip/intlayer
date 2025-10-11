@@ -31,7 +31,7 @@ export const ProjectEditionForm: FC = () => {
 
   return (
     <>
-      <H3 className="mb-8"> {title}</H3>
+      <H3 className="mb-8">{title}</H3>
 
       <Form
         schema={ProjectSchema}

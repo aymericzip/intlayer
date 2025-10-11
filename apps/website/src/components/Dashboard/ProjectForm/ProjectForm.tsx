@@ -15,6 +15,7 @@ import { ProjectList } from './ProjectList';
 export const ProjectFormContent: FC = () => {
   const { session } = useSession();
 
+  const isProjectMember = session?.roles?.includes('project_user');
   const isProjectAdmin = session?.roles?.includes('project_admin');
 
   const { project } = session ?? {};
@@ -24,8 +25,8 @@ export const ProjectFormContent: FC = () => {
 
   if (project) {
     return (
-      <div className="flex size-full flex-col items-center justify-center gap-4">
-        {session?.user?.id && !isProjectAdmin && (
+      <div className="flex size-full max-w-5xl flex-col items-center justify-center gap-4">
+        {!isProjectAdmin && isProjectMember && (
           <Container
             roundedSize="xl"
             className="flex size-full justify-center p-6"
@@ -34,7 +35,7 @@ export const ProjectFormContent: FC = () => {
           </Container>
         )}
 
-        <div className="grid w-full max-w-5xl gap-x-20 gap-y-4 max-md:grid-cols-1 md:grid-cols-2">
+        <div className="grid w-full gap-x-20 gap-y-4 max-md:grid-cols-1 md:grid-cols-2">
           <div className="mb-auto flex flex-col gap-4">
             <Container
               roundedSize="xl"
