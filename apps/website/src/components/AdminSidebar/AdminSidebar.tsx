@@ -1,6 +1,7 @@
 'use client';
 
 import { Button, Container, MaxWidthSmoother } from '@intlayer/design-system';
+import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import {
   ArrowLeftToLine,
@@ -23,6 +24,7 @@ type AdminSidebarProps = {
 export const AdminSidebar: FC<AdminSidebarProps> = ({ className }) => {
   const { collapseButton, navigation } = useIntlayer('admin-sidebar');
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const { isMobile } = useDevice('sm');
   const pathname = usePathname();
 
   const navigationItems = [
@@ -71,17 +73,19 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ className }) => {
         transparency="none"
       >
         <div className="sticky top-32">
-          <div className="mb-10 flex w-full justify-end">
-            <Button
-              Icon={isCollapsed ? ArrowRightFromLine : ArrowLeftToLine}
-              size="icon-md"
-              variant="hoverable"
-              className="p-3"
-              color="text"
-              label={collapseButton.label.value}
-              onClick={() => setIsCollapsed((prev) => !prev)}
-            />
-          </div>
+          {!isMobile && (
+            <div className="mb-10 flex w-full justify-end">
+              <Button
+                Icon={isCollapsed ? ArrowRightFromLine : ArrowLeftToLine}
+                size="icon-md"
+                variant="hoverable"
+                className="p-3"
+                color="text"
+                label={collapseButton.label.value}
+                onClick={() => setIsCollapsed((prev) => !prev)}
+              />
+            </div>
+          )}
 
           <nav className="flex-1 overflow-y-auto">
             <ul className="flex flex-col gap-2">
@@ -96,7 +100,9 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ className }) => {
                     aria-label={item.label}
                   >
                     <item.icon className="size-4" />
-                    <MaxWidthSmoother isHidden={isCollapsed}>
+                    <MaxWidthSmoother
+                      isHidden={Boolean(isCollapsed || isMobile)}
+                    >
                       <span className="ml-3">{item.title}</span>
                     </MaxWidthSmoother>
                   </Link>
