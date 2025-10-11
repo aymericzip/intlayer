@@ -23,7 +23,7 @@ export const formatLocalDictionaries = (
     .map(([relativePath, dict]) => ({
       ...dict,
       localId: `${dict.key}::local::${relativePath}`,
-      location: 'locale' as const,
+      location: 'local' as const,
       filePath: relativePath,
     }));
 

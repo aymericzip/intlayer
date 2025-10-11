@@ -1,12 +1,13 @@
 import configuration from '@intlayer/config/built';
-
 import {
   type ContentNode,
+  type Dictionary,
   getContentNodeByKeyPath,
   getEmptyNode,
   getNodeType,
   isSameKeyPath,
   type KeyPath,
+  type LocalDictionaryId,
   NodeType,
 } from '@intlayer/core';
 import {
@@ -29,17 +30,17 @@ import { getIsEditableSection } from '../getIsEditableSection';
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
 export type NodeWrapperProps = {
-  dictionaryKey: string;
   keyPath: KeyPath[];
   section: ContentNode;
+  dictionary: Dictionary;
 };
 
 export const NavigationViewNode: FC<NodeWrapperProps> = ({
   section: sectionProp,
   keyPath,
-  dictionaryKey,
+  dictionary,
 }) => {
-  const { locales } = configuration?.internationalization;
+  const { locales } = configuration.internationalization;
   const section = getContentNodeByKeyPath(sectionProp, keyPath);
   const { addEditedContent } = useEditedContentActions();
   const { setFocusedContentKeyPath, focusedContent } = useFocusDictionary();
@@ -86,7 +87,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 key={translationKey}
                 keyPath={childKeyPath}
                 section={sectionProp}
-                dictionaryKey={dictionaryKey}
+                dictionary={dictionary}
               />
             );
           })}
@@ -110,7 +111,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 key={key}
                 keyPath={childKeyPath}
                 section={sectionProp}
-                dictionaryKey={dictionaryKey}
+                dictionary={dictionary}
               />
             );
           })}
@@ -132,7 +133,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 key={JSON.stringify(childKeyPath)}
                 keyPath={childKeyPath}
                 section={sectionProp}
-                dictionaryKey={dictionaryKey}
+                dictionary={dictionary}
               />
             );
           })}
@@ -158,7 +159,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                   ] as ContentNode
                 ) ?? '';
               addEditedContent(
-                dictionaryKey,
+                dictionary.localId as LocalDictionaryId,
                 emptySectionEl,
                 newKeyPath,
                 false
@@ -183,7 +184,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
         <NavigationViewNode
           keyPath={childKeyPath}
           section={sectionProp}
-          dictionaryKey={dictionaryKey}
+          dictionary={dictionary}
         />
       );
     }
@@ -230,7 +231,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                   <NavigationViewNode
                     keyPath={childKeyPath}
                     section={sectionProp}
-                    dictionaryKey={dictionaryKey}
+                    dictionary={dictionary}
                   />
                 </div>
               </div>

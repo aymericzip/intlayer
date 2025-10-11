@@ -8,7 +8,11 @@ import {
   type LocalesValues,
   type Plugin,
 } from '@intlayer/config';
-import type { ContentNode, Dictionary } from '@intlayer/core';
+import type {
+  ContentNode,
+  Dictionary,
+  LocalDictionaryId,
+} from '@intlayer/core';
 import fg from 'fast-glob';
 
 type JSONContent = Record<string, any>;
@@ -222,7 +226,7 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
           key,
           locale,
           autoFill,
-          localId: `${key}::${location}::${filePath}`,
+          localId: `${key}::${location}::${filePath}` as LocalDictionaryId,
           location: location as Dictionary['location'],
           autoFilled:
             locale !== configuration.internationalization.defaultLocale

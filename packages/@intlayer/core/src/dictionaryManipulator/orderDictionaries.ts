@@ -36,7 +36,7 @@ export const orderDictionaries = (
       return location === 'distant' ? 0 : 1;
     }
     // default: local_first
-    return location === 'locale' ? 0 : 1;
+    return location === 'local' ? 0 : 1;
   };
 
   withIndex.sort((a, b) => {

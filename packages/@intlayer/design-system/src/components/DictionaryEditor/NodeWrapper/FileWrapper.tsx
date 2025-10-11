@@ -2,6 +2,7 @@ import {
   type FileContent,
   getContentNodeByKeyPath,
   type KeyPath,
+  type LocalDictionaryId,
   NodeType,
 } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
@@ -40,7 +41,7 @@ export const FileWrapper: FC<FileWrapperProps> = (props) => {
         editedContentValue={editedContentValue?.content}
         onContentChange={(content) => {
           addEditedContent(
-            props.dictionary.key,
+            props.dictionary.localId as LocalDictionaryId,
             {
               ...section,
               content: content.newValue,

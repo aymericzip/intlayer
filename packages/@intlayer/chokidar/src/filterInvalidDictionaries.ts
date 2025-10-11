@@ -15,7 +15,7 @@ export const isInvalidDictionary = (
 
   if (!dictionary) return false;
 
-  const isLocal = Boolean(dictionary.location === 'locale');
+  const isLocal = Boolean(dictionary.location === 'local');
   const location = isLocal ? 'Local' : 'Remote';
   const hasKey = Boolean(dictionary.key);
   const hasContent = Boolean(dictionary.content);

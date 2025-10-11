@@ -71,7 +71,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({
               <NavigationViewNode
                 keyPath={[]}
                 section={section}
-                dictionaryKey={key}
+                dictionary={dictionary}
               />
             </Container>
           )}

@@ -75,9 +75,8 @@ type EditedContentActionsContextType = {
   clearEditedDictionaryContent: (localDictionaryId: LocalDictionaryId) => void;
   clearEditedContent: () => void;
   getEditedContentValue: (
-    dictionaryKey: string,
-    keyPath: KeyPath[],
-    localDictionaryId?: LocalDictionaryId
+    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
+    keyPath: KeyPath[]
   ) => ContentNode | undefined;
 };
 
@@ -275,7 +274,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const getEditedContentValue = (
-    localDictionaryIdOrKey: LocalDictionaryId | string,
+    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
     keyPath: KeyPath[]
   ): ContentNode | undefined => {
     if (!editedContent) return undefined;
@@ -286,7 +285,8 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
 
     if (isDictionaryId) {
       const currentContent =
-        editedContent?.[localDictionaryIdOrKey]?.content ?? {};
+        editedContent?.[localDictionaryIdOrKey as LocalDictionaryId]?.content ??
+        {};
 
       const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
 
@@ -298,7 +298,8 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     );
 
     for (const localDictionaryId of filteredDictionariesLocalId) {
-      const currentContent = editedContent?.[localDictionaryId]?.content ?? {};
+      const currentContent =
+        editedContent?.[localDictionaryId as LocalDictionaryId]?.content ?? {};
       const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
 
       if (contentNode) return contentNode;

@@ -87,7 +87,8 @@ type ReplaceContentValue<
 
 export type AutoFill = true | string | Partial<LanguageContent<string>>;
 
-export type LocalDictionaryId = string;
+export type LocalDictionaryId =
+  `${Dictionary['key']}::${Dictionary['location']}::${Dictionary['filePath'] | Dictionary['id']}`;
 
 export type Dictionary<ContentType = undefined, FetchableNode = false> = {
   /**
@@ -276,7 +277,7 @@ export type Dictionary<ContentType = undefined, FetchableNode = false> = {
    *
    * Indicates the location of the dictionary.
    */
-  location?: 'distant' | 'locale' | 'plugin';
+  location?: 'distant' | 'local' | 'plugin';
   /**
    * The content of the dictionary.
    *

@@ -595,7 +595,6 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionary,
   isDarkMode,
-  onContentChange,
 }) => {
   const [mode, setMode] = useState(MarkdownViewMode.Edit);
   const toggleContent = [
@@ -638,7 +637,6 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
               )
             : undefined
         }
-        onContentChange={onContentChange}
       />
     </div>
   );
