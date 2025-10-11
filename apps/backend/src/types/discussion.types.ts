@@ -1,10 +1,10 @@
 import type { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
-import { Project } from './project.types';
 
 export interface Message {
   role: 'user' | 'assistant' | 'system';
   content: string;
+  relatedFiles?: string[];
   timestamp: Date;
 }
 

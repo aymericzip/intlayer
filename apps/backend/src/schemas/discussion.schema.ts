@@ -23,6 +23,9 @@ export const discussionSchema = new Schema<DiscussionSchema>(
           type: Date,
           default: Date.now,
         },
+        relatedFiles: {
+          type: [String],
+        },
       },
     ],
     userId: {
