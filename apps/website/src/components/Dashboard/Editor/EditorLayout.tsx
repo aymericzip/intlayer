@@ -50,7 +50,7 @@ export const EditorLayout: FC<EditorLayoutProps> = ({
     );
 
     setLocaleDictionaries(dictionariesList);
-  }, []);
+  }, [configuration]);
 
   return (
     <>
