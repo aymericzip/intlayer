@@ -6,7 +6,8 @@ import {
 } from '@intlayer/editor-react';
 import { getSessionData } from '@utils/getSessionData';
 import type { NextLayoutIntlayer } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
+
+import '@/app/monaco.css';
 
 const DashboardContentLayout: NextLayoutIntlayer = async ({
   children,
