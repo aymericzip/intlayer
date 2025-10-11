@@ -16,7 +16,7 @@ import type {
 } from '@intlayer/backend';
 import { useConfiguration } from '@intlayer/editor-react';
 import {
-  keepPreviousData,
+  // keepPreviousData,
   type QueryKey,
   type UseQueryOptions,
   type UseQueryResult,
@@ -246,7 +246,7 @@ export const useGetUsers = (
     queryKey: ['users', filters],
     queryFn: () => intlayerOAuth.user.getUsers(filters),
     requireUser: true,
-    placeholderData: keepPreviousData,
+    // placeholderData: keepPreviousData,
     ...options,
   });
 };
@@ -302,7 +302,7 @@ export const useGetOrganizations = (filters?: GetOrganizationsParams) => {
     queryKey: ['organizations', filters],
     queryFn: ({ signal }) =>
       intlayerOAuth.organization.getOrganizations(filters, { signal }),
-    placeholderData: keepPreviousData,
+    // placeholderData: keepPreviousData,
     requireUser: true,
   });
 };
@@ -459,7 +459,7 @@ export const useGetProjects = (
     queryKey: ['projects', filters],
     queryFn: ({ signal }) =>
       intlayerOAuth.project.getProjects(filters, { signal }),
-    placeholderData: keepPreviousData,
+    // placeholderData: keepPreviousData,
     requireUser: true,
     requireOrganization: true,
     ...options,
@@ -622,7 +622,7 @@ export const useGetDictionaries = (
     queryKey: ['dictionaries', filters],
     queryFn: ({ signal }) =>
       intlayerOAuth.dictionary.getDictionaries(filters, { signal }),
-    placeholderData: keepPreviousData,
+    // placeholderData: keepPreviousData,
     requireUser: true,
     requireOrganization: true,
     requireProject: true,
@@ -726,7 +726,7 @@ export const useGetTags = (
   return useAppQuery({
     queryKey: ['tags', filters],
     queryFn: ({ signal }) => intlayerOAuth.tag.getTags(filters, { signal }),
-    placeholderData: keepPreviousData,
+    // placeholderData: keepPreviousData,
     requireUser: true,
     requireOrganization: true,
     requireProject: true,
