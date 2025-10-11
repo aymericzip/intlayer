@@ -251,10 +251,7 @@ const buildContentFields = (
     /**
      * Should exclude some directories from the content search
      *
-     * Default: ['node_modules']
-     *
-     * Not used yet
-     * @TODO Implement the exclusion or remove it
+     * Default: ['**\/node_modules/**', '**\/dist/**', '**\/build/**', '**\/.intlayer/**', '**\/.next/**', '**\/.nuxt/**', '**\/.expo/**', '**\/.vercel/**', '**\/.turbo/**', '**\/.tanstack/**']
      */
     excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
 

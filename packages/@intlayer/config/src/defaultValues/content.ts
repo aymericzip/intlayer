@@ -10,12 +10,16 @@ export const FILE_EXTENSIONS = [
   '.content.jsx',
 ];
 export const EXCLUDED_PATHS = [
-  'node_modules',
-  '.intlayer',
-  '.next',
-  '.nuxt',
-  '.expo',
-  'dist',
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/build/**',
+  '**/.intlayer/**',
+  '**/.next/**',
+  '**/.nuxt/**',
+  '**/.expo/**',
+  '**/.vercel/**',
+  '**/.turbo/**',
+  '**/.tanstack/**',
 ];
 
 export const CONTENT_DIR = ['.'];

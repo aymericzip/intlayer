@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-26
+updatedAt: 2025-10-12
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -423,7 +423,7 @@ Settings related to content handling within the application, including directory
 
 - **excludedPath**:
   - _Type_: `string[]`
-  - _Default_: `['node_modules']`
+  - _Default_: `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']`
   - _Description_: Directories excluded from content search.
   - _Note_: This setting is not yet used, but planned for future implementation.
 
@@ -561,6 +561,7 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
 | Version | Date       | Changes                                                                                 |
 | ------- | ---------- | --------------------------------------------------------------------------------------- |
+| 6.2.0   | 2025-10-12 | Update `excludedPath` option                                                            |
 | 6.0.2   | 2025-09-23 | Add `outputFormat` option                                                               |
 | 6.0.0   | 2025-09-21 | Remove `dictionaryOutput` field and `i18nextResourcesDir` field                         |
 | 6.0.0   | 2025-09-16 | Add `live` import mode                                                                  |
