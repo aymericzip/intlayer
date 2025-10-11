@@ -415,7 +415,7 @@ export const UsersAdminPageContent: FC = () => {
         </div>
       </div>
 
-      <Loader isLoading={isFetching} keepChildren>
+      <Loader isLoading={isFetching}>
         {users.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">
@@ -460,10 +460,10 @@ export const UsersAdminPageContent: FC = () => {
                 {table.getRowModel().rows.map((row) => (
                   <tr
                     key={row.id}
-                    className="whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                    className="border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-4 py-3">
+                      <td key={cell.id} className="whitespace-nowrap px-4 py-3">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()

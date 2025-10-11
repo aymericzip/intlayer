@@ -7,6 +7,7 @@ import {
   NumberItemsSelector,
   Pagination,
   SearchInput,
+  ShowingResultsNumberItems,
   Table,
 } from '@intlayer/design-system';
 import { useGetProjects, useSearch } from '@intlayer/design-system/hooks';
@@ -55,6 +56,7 @@ export const ProjectsAdminPageContent: FC = () => {
   const projectsResponse = data as GetProjectsResult | undefined;
   const projects = projectsResponse?.data ?? [];
   const totalPages: number = projectsResponse?.total_pages ?? 1;
+  const totalItems: number = projectsResponse?.total_items ?? 0;
   const currentPage: number = params.page;
   const itemsPerPage: number = params.pageSize;
 
@@ -260,7 +262,7 @@ export const ProjectsAdminPageContent: FC = () => {
         className="max-w-md pl-10"
       />
 
-      <Loader isLoading={isFetching} keepChildren>
+      <Loader isLoading={isFetching}>
         {projects.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">{noData}</p>
@@ -278,7 +280,7 @@ export const ProjectsAdminPageContent: FC = () => {
                       <th
                         key={header.id}
                         className={cn(
-                          'px-4 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100',
+                          'whitespace-nowrap px-4 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100',
                           header.column.getCanSort() &&
                             'cursor-pointer select-none hover:text-neutral-600'
                         )}
@@ -306,7 +308,7 @@ export const ProjectsAdminPageContent: FC = () => {
                     className="whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-4 py-3">
+                      <td key={cell.id} className="whitespace-nowrap px-4 py-3">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -320,12 +322,19 @@ export const ProjectsAdminPageContent: FC = () => {
           </div>
         )}
       </Loader>
-      <NumberItemsSelector
-        value={itemsPerPage.toString()}
-        onValueChange={handlePageSizeChange}
-      />
 
-      <div className="flex flex-col items-center justify-between gap-4 pt-4 sm:flex-row">
+      <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
+        <div className="flex flex-col gap-4">
+          <ShowingResultsNumberItems
+            currentPage={currentPage}
+            pageSize={itemsPerPage}
+            totalItems={totalItems}
+          />
+          <NumberItemsSelector
+            value={itemsPerPage.toString()}
+            onValueChange={handlePageSizeChange}
+          />
+        </div>
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
@@ -335,8 +344,6 @@ export const ProjectsAdminPageContent: FC = () => {
           maxVisiblePages={5}
           color="text"
         />
-
-        <div />
       </div>
     </div>
   );

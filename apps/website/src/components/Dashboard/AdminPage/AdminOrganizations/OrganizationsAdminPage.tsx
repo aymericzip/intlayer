@@ -272,7 +272,7 @@ export const OrganizationsAdminPageContent: FC = () => {
         </div>
       </div>
 
-      <Loader isLoading={isFetching} keepChildren>
+      <Loader isLoading={isFetching}>
         {organizations.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">
@@ -292,7 +292,7 @@ export const OrganizationsAdminPageContent: FC = () => {
                       <th
                         key={header.id}
                         className={cn(
-                          'px-4 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100',
+                          'whitespace-nowrap px-4 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100',
                           header.column.getCanSort() &&
                             'cursor-pointer select-none hover:text-neutral-600'
                         )}
@@ -320,7 +320,7 @@ export const OrganizationsAdminPageContent: FC = () => {
                     className="whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-4 py-3">
+                      <td key={cell.id} className="whitespace-nowrap px-4 py-3">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
