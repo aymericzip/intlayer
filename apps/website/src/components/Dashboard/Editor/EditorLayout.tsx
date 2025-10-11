@@ -39,6 +39,8 @@ export const EditorLayout: FC<EditorLayoutProps> = ({
   const { setLocaleDictionaries } = useDictionariesRecordActions();
 
   useEffect(() => {
+    if (!configuration) return;
+
     const dictionariesList = Object.fromEntries(
       Object.values(unmergedDictionaries)
         .flatMap((dictionaries) =>
