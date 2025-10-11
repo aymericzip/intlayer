@@ -4,6 +4,7 @@ import { Loader } from '@intlayer/design-system';
 import { useGetDiscussions } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { MessagesList } from '@/components/ChatBot/MessagesList';
 
 type DiscussionAdminDetailProps = {
@@ -15,12 +16,18 @@ export const DiscussionAdminDetail: FC<DiscussionAdminDetailProps> = ({
 }) => {
   const { noDiscussionFound } = useIntlayer('discussion-admin-detail');
 
-  const { data, isPending } = useGetDiscussions(
+  const { data, isPending, refetch } = useGetDiscussions(
     { id: discussionId, fetchAll: 'true', pageSize: '1' },
     {
       enabled: !!discussionId,
     }
   );
+
+  useEffect(() => {
+    if (discussionId) {
+      void refetch();
+    }
+  }, [discussionId, refetch]);
 
   const discussion = (data as any)?.data?.[0];
   const msgs = (discussion?.messages ?? []) as Array<{
@@ -34,7 +41,7 @@ export const DiscussionAdminDetail: FC<DiscussionAdminDetailProps> = ({
     timestamp: m.timestamp ? new Date(m.timestamp as any) : undefined,
   }));
 
-  if (isPending) return <Loader />;
+  if (isPending || discussion.id !== discussionId) return <Loader />;
 
   if (!discussionId) {
     return (
@@ -45,7 +52,7 @@ export const DiscussionAdminDetail: FC<DiscussionAdminDetailProps> = ({
   }
 
   return (
-    <div className="flex size-full min-h-[700px] flex-col">
+    <div className="flex size-full min-h-[700px] flex-col px-10">
       {messages.length === 0 && !isPending ? (
         <div className="p-6 text-neutral-500 dark:text-neutral-400">
           {noDiscussionFound}
