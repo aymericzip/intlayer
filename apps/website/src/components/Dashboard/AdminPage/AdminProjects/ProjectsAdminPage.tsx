@@ -1,8 +1,8 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
 import type { GetProjectsResult, ProjectAPI } from '@intlayer/backend';
 import {
+  CopyToClipboard,
   Loader,
   NumberItemsSelector,
   Pagination,
@@ -20,6 +20,7 @@ import {
 } from '@tanstack/react-table';
 import { cn } from '@utils/cn';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
@@ -37,6 +38,7 @@ export const ProjectsAdminPageContent: FC = () => {
   });
 
   const { setSearch, search } = useSearch({});
+  const router = useRouter();
 
   const projectsQuery = useGetProjects(
     {
@@ -91,16 +93,9 @@ export const ProjectsAdminPageContent: FC = () => {
           <div className="flex items-center">
             <div className="ml-3">
               {project.name ? (
-                <Link
-                  href={PagesRoutes.Admin_Projects_Id.replace(
-                    ':id',
-                    project.id
-                  )}
-                  label={project.name}
-                  color="text"
-                >
+                <CopyToClipboard text={project.name}>
                   {project.name}
-                </Link>
+                </CopyToClipboard>
               ) : (
                 '-'
               )}
@@ -305,7 +300,15 @@ export const ProjectsAdminPageContent: FC = () => {
                 {table.getRowModel().rows.map((row) => (
                   <tr
                     key={row.id}
-                    className="whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                    className="cursor-pointer whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                    onClick={() => {
+                      router.push(
+                        PagesRoutes.Admin_Projects_Id.replace(
+                          ':id',
+                          row.original.id
+                        )
+                      );
+                    }}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <td key={cell.id} className="whitespace-nowrap px-4 py-3">

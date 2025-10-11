@@ -1,7 +1,13 @@
 'use client';
 
 import { CopyCheck, CopyIcon } from 'lucide-react';
-import { type FC, type PropsWithChildren, useState } from 'react';
+import {
+  type FC,
+  type KeyboardEvent,
+  type MouseEvent,
+  type PropsWithChildren,
+  useState,
+} from 'react';
 import { cn } from '../../utils/cn';
 
 /**
@@ -42,7 +48,7 @@ export interface CopyToClipboardProps extends PropsWithChildren {
   /**
    * Callback function called when copy operation succeeds
    */
-  onCopySuccess?: () => void;
+  onCopySuccess?: (e: MouseEvent | KeyboardEvent) => void;
 
   /**
    * Callback function called when copy operation fails
@@ -54,6 +60,12 @@ export interface CopyToClipboardProps extends PropsWithChildren {
    * @default false
    */
   disable?: boolean;
+
+  /**
+   * Prevent the default behavior of the link when clicked
+   * @default true
+   */
+  preventDefault?: boolean;
 }
 
 /**
@@ -97,16 +109,19 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
   onCopySuccess,
   onCopyError,
   disable,
+  preventDefault = true,
 }) => {
   const [isCopied, setIsCopied] = useState(false);
 
   if (disable) return <span className={className}>{children}</span>;
 
-  const handleCopy = async () => {
+  const handleCopy = async (e: MouseEvent | KeyboardEvent) => {
     if (!text) return;
 
     try {
-      null;
+      if (preventDefault) {
+        e.preventDefault();
+      }
 
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(text);
@@ -125,7 +140,7 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
 
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), feedbackDuration);
-      onCopySuccess?.();
+      onCopySuccess?.(e);
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : 'Failed to copy to clipboard';
@@ -133,10 +148,10 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
     }
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      handleCopy();
+      handleCopy(event);
     }
   };
 
