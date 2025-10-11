@@ -1,6 +1,5 @@
 'use client';
 
-import { Loader } from '@intlayer/design-system';
 import { useGetDiscussions } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -53,9 +52,11 @@ export const DiscussionAdminDetail: FC<DiscussionAdminDetailProps> = ({
           {noDiscussionFound}
         </div>
       ) : (
-        <MessagesList storedPrompt={messages} isLoading={isPending} />
+        <MessagesList
+          storedPrompt={messages}
+          isLoading={isPending || discussion.id !== discussionId}
+        />
       )}
-      <Loader isLoading={isPending || discussion.id !== discussionId} />
     </div>
   );
 };

@@ -36,7 +36,7 @@ import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useMemo, useState } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { PagesRoutes } from '@/Routes';
-import { DiscussionAdminDetail } from './DiscussionAdminDetailPage';
+import { DiscussionAdminDetail } from './DiscussionAdminDetail';
 
 export const DiscussionsAdminPageContent: FC = () => {
   type SortOrder = 'asc' | 'desc';

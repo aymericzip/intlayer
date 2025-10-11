@@ -1,4 +1,4 @@
-export * from './AdminDiscussions/DiscussionAdminDetailPage';
+export * from './AdminDiscussions/DiscussionAdminDetail';
 export * from './AdminDiscussions/DiscussionsAdminPage';
 export * from './AdminOrganizations/OrganizationAdminDetailPage';
 export * from './AdminOrganizations/OrganizationsAdminPage';
