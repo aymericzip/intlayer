@@ -196,26 +196,28 @@ export const DiscussionsAdminPageContent: FC = () => {
           <div className="flex items-center">
             <Avatar
               isLoggedIn={true}
-              isLoading={false}
+              isLoading={usersQuery.isFetching}
               className="shrink-0"
               src={user?.image ?? undefined}
               fullname={user?.name ?? ''}
             />
-            <div className="ml-3">
-              {user?.name ? (
-                <Link
-                  href={PagesRoutes.Admin_Users_Id.replace(':id', user.id)}
-                  label={user.name ?? '-'}
-                  color="text"
-                >
-                  <CopyToClipboard text={user.name}>
-                    {user.name}
-                  </CopyToClipboard>
-                </Link>
-              ) : (
-                '-'
-              )}
-            </div>
+            {user?.id && (
+              <div className="ml-3">
+                {user?.name ? (
+                  <Link
+                    href={PagesRoutes.Admin_Users_Id.replace(':id', user.id)}
+                    label={user.name ?? '-'}
+                    color="text"
+                  >
+                    <CopyToClipboard text={user.name}>
+                      {user.name}
+                    </CopyToClipboard>
+                  </Link>
+                ) : (
+                  '-'
+                )}
+              </div>
+            )}
           </div>
         );
       },
