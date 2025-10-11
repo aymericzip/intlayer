@@ -99,11 +99,11 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ className }) => {
                     )}
                     aria-label={item.label}
                   >
-                    <item.icon className="size-4" />
+                    <item.icon className="size-4 min-w-4" />
                     <MaxWidthSmoother
                       isHidden={Boolean(isCollapsed || isMobile)}
                     >
-                      <span className="ml-3">{item.title}</span>
+                      <span className="ml-3 truncate">{item.title}</span>
                     </MaxWidthSmoother>
                   </Link>
                 </li>
