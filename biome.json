@@ -39,6 +39,7 @@
             "allow": ["assert", "error", "info", "warn"]
           }
         },
+        "noUnknownAtRules": "warn",
         "noExplicitAny": "off",
         "noArrayIndexKey": "warn",
         "noTsIgnore": "off"

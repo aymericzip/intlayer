@@ -49,6 +49,7 @@ export const customQuery = async (
   res: ResponseWithSession<CustomQueryResult>,
   _next: NextFunction
 ): Promise<void> => {
+  // biome-ignore lint/correctness/noUnusedVariables: Just filter out tagsKeys
   const { aiOptions, tagsKeys, ...rest } = req.body;
 
   let aiConfig: AIConfig;

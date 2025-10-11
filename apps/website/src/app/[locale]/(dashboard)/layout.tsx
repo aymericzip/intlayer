@@ -9,7 +9,6 @@ import {
 } from '@tanstack/react-query';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
-import { PagesRoutes } from '@/Routes';
 import { getServerIntlayerAPI } from '@/utils/getServerIntlayerAPI';
 import { getSessionData } from '@/utils/getSessionData';
 import { WarmupClient } from './dashboard/WarmupClient';

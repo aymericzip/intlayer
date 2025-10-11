@@ -423,7 +423,7 @@ export const CustomRenderers: Story = {
         const statusValue = value as string;
         return (
           <span
-            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+            className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-medium text-xs ${
               statusValue === 'Active'
                 ? 'bg-green-100 text-green-800'
                 : 'bg-red-100 text-red-800'
@@ -442,7 +442,7 @@ export const CustomRenderers: Story = {
         return (
           <a
             href={`mailto:${emailValue}`}
-            className="text-blue-500 hover:text-blue-700 underline"
+            className="text-blue-500 underline hover:text-blue-700"
           >
             {emailValue}
           </a>
@@ -474,13 +474,13 @@ export const Controlled: Story = {
         <div className="flex gap-2">
           <button
             onClick={() => setIsOpen(true)}
-            className="px-3 py-1 text-sm bg-blue-500 text-white rounded"
+            className="rounded bg-blue-500 px-3 py-1 text-sm text-white"
           >
             Expand
           </button>
           <button
             onClick={() => setIsOpen(false)}
-            className="px-3 py-1 text-sm bg-gray-500 text-white rounded"
+            className="rounded bg-gray-500 px-3 py-1 text-sm text-white"
           >
             Collapse
           </button>

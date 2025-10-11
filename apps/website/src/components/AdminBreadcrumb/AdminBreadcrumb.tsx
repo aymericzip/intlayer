@@ -53,7 +53,7 @@ export const AdminBreadcrumb: FC<AdminBreadcrumbProps> = (props) => {
           links.push({ text: projects.value, href: currentPath });
           break;
         default:
-          if (!isNaN(Number(segment)) || /^[0-9a-f]{24}$/i.test(segment)) {
+          if (!Number.isNaN(Number(segment)) || /^[0-9a-f]{24}$/i.test(segment)) {
             const previousSegment = adminSegments[index - 1];
 
             if (previousSegment === 'users') {

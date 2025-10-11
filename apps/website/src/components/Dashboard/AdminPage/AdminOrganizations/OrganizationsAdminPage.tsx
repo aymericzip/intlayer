@@ -1,6 +1,5 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
 import type {
   GetOrganizationsResult,
   OrganizationAPI,

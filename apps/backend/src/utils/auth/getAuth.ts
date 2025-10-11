@@ -92,7 +92,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
 
     hooks: {
       after: createAuthMiddleware(async (ctx) => {
-        const { path, context, error } = ctx;
+        const { path, context } = ctx;
 
         const newUser = context.newSession?.user;
         const existingUser = context.session?.user;
