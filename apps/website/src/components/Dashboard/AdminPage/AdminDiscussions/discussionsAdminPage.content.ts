@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const discussionsAdminPageContent = {
   key: 'discussion-admin-detail',
@@ -153,22 +153,24 @@ const discussionsAdminPageContent = {
       ru: 'Обсуждение не найдено',
       tr: 'Tartışma bulunamadı',
     }),
-    modalTitle: t({
-      en: 'Discussion Details - ID: {{id}}',
-      fr: 'Détails de la discussion - ID: {{id}}',
-      es: 'Detalles de la discusión - ID: {{id}}',
-      'en-GB': 'Discussion Details - ID: {{id}}',
-      de: 'Diskussion Details - ID: {{id}}',
-      ja: 'ディスカッションの詳細 - ID: {{id}}',
-      ko: '토론 세부 정보 - ID: {{id}}',
-      zh: '讨论详细信息 - ID: {{id}}',
-      it: 'Dettagli discussione - ID: {{id}}',
-      pt: 'Detalhes da discussão - ID: {{id}}',
-      hi: 'चर्चा की विवरण - ID: {{id}}',
-      ar: 'تفاصيل المناقشة - ID: {{id}}',
-      ru: 'Подробности обсуждения - ID: {{id}}',
-      tr: 'Tartışma ayrıntıları - ID: {{id}}',
-    }),
+    modalTitle: insert(
+      t({
+        en: 'Discussion Details - ID: {{discussionId}}',
+        fr: 'Détails de la discussion - ID: {{discussionId}}',
+        es: 'Detalles de la discusión - ID: {{discussionId}}',
+        'en-GB': 'Discussion Details - ID: {{discussionId}}',
+        de: 'Diskussion Details - ID: {{discussionId}}',
+        ja: 'ディスカッションの詳細 - ID: {{discussionId}}',
+        ko: '토론 세부 정보 - ID: {{discussionId}}',
+        zh: '讨论详细信息 - ID: {{discussionId}}',
+        it: 'Dettagli discussione - ID: {{discussionId}}',
+        pt: 'Detalhes da discussão - ID: {{discussionId}}',
+        hi: 'चर्चा की विवरण - ID: {{discussionId}}',
+        ar: 'تفاصيل المناقشة - ID: {{discussionId}}',
+        ru: 'Подробности обсуждения - ID: {{discussionId}}',
+        tr: 'Tartışma ayrıntıları - ID: {{discussionId}}',
+      })
+    ),
   },
 } satisfies Dictionary;
 

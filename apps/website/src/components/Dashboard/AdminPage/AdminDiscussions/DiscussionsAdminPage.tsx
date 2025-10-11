@@ -80,25 +80,25 @@ export const DiscussionsAdminPageContent: FC = () => {
   const discussionsResponse = data as GetDiscussionsResult | undefined;
   const discussions = discussionsResponse?.data ?? [];
 
-  const userIds = useMemo(
-    () =>
-      Array.from(new Set(discussions.map((d) => String(d.userId)))) as string[],
-    [discussions]
+  const userIds: string[] = Array.from(
+    new Set(
+      discussions
+        .map((d) => d.userId)
+        .filter(Boolean)
+        .map(String)
+    )
   );
 
   const usersQuery = useGetUsers(
-    { ids: userIds },
+    { ids: userIds, fetchAll: 'true' },
     { enabled: userIds.length > 0 }
   );
 
   const usersResponse = usersQuery.data as GetUsersResult | undefined;
   const users = usersResponse?.data ?? [];
 
-  const userIdToUser = useMemo(() => {
-    const map = new Map<string, UserAPI>();
-    for (const u of users) map.set(String(u.id), u);
-    return map;
-  }, [users]);
+  const userIdToUser = new Map<string, UserAPI>();
+  for (const user of users) userIdToUser.set(String(user.id), user);
 
   const totalPages: number = discussionsResponse?.total_pages ?? 1;
   const totalItems: number = discussionsResponse?.total_items ?? 0;
@@ -441,7 +441,7 @@ export const DiscussionsAdminPageContent: FC = () => {
       <Modal
         isOpen={!!discussionId}
         onClose={() => setDiscussionId(undefined)}
-        // title={modalTitle({ id: discussionId }).value}
+        title={modalTitle({ discussionId: discussionId ?? '' }).value}
         size="xl"
         hasCloseButton
       >

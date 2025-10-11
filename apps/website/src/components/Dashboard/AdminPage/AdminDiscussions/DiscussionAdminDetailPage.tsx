@@ -17,7 +17,12 @@ export const DiscussionAdminDetail: FC<DiscussionAdminDetailProps> = ({
   const { noDiscussionFound } = useIntlayer('discussion-admin-detail');
 
   const { data, isPending, refetch } = useGetDiscussions(
-    { id: discussionId, fetchAll: 'true', pageSize: '1' },
+    {
+      ids: discussionId ? [discussionId] : undefined,
+      fetchAll: 'true',
+      pageSize: '1',
+      includeMessages: 'true',
+    },
     {
       enabled: !!discussionId,
     }
@@ -41,16 +46,6 @@ export const DiscussionAdminDetail: FC<DiscussionAdminDetailProps> = ({
     timestamp: m.timestamp ? new Date(m.timestamp as any) : undefined,
   }));
 
-  if (isPending || discussion.id !== discussionId) return <Loader />;
-
-  if (!discussionId) {
-    return (
-      <div className="p-6 text-neutral-500 dark:text-neutral-400">
-        {noDiscussionFound}
-      </div>
-    );
-  }
-
   return (
     <div className="flex size-full min-h-[700px] flex-col px-10">
       {messages.length === 0 && !isPending ? (
@@ -60,6 +55,7 @@ export const DiscussionAdminDetail: FC<DiscussionAdminDetailProps> = ({
       ) : (
         <MessagesList storedPrompt={messages} isLoading={isPending} />
       )}
+      <Loader isLoading={isPending || discussion.id !== discussionId} />
     </div>
   );
 };

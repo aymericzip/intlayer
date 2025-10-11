@@ -22,7 +22,7 @@ export const MessagesList: FC<MessagesListProps> = ({
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (lastPrompt.role === 'user') {
+    if (lastPrompt?.role === 'user') {
       // Scroll to the end
       chatContainerRef.current?.scrollTo({
         top: chatContainerRef.current.scrollHeight,
@@ -50,7 +50,7 @@ export const MessagesList: FC<MessagesListProps> = ({
       ))}
       <Loader
         isLoading={isLoading}
-        className="sticky bottom-0 left-0 m-auto h-14 w-auto rounded-full bg-card/50 p-2 backdrop-blur"
+        className="sticky bottom-0 left-0 m-auto h-14 w-auto rounded-full p-2"
       />
     </div>
   );
