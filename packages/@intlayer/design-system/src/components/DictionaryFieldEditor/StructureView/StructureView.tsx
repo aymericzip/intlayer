@@ -56,6 +56,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
   if (
     nodeType === NodeType.Translation ||
     nodeType === NodeType.Condition ||
+    nodeType === NodeType.Gender ||
     nodeType === NodeType.Enumeration
   ) {
     const firstKey = Object.keys(
