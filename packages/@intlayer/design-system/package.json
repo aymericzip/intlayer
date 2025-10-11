@@ -161,7 +161,7 @@
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/espree": "^10.1.0",
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.7.2",
     "@types/react": ">=16.0.0",
     "@types/react-dom": ">=16.0.0",
     "@utils/ts-config": "workspace:*",
@@ -175,7 +175,7 @@
     "storybook": "^8.6.14",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
-    "vite": "^7.1.7",
+    "vite": "^7.1.9",
     "vite-intlayer": "workspace:*",
     "vite-plugin-dts": "^4.5.3",
     "vitest": "^3.2.4"

@@ -29,7 +29,7 @@
     "@types/react-dom": "^19.1.2",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.9.2",
-    "vite": "^7.1.7",
+    "vite": "^7.1.9",
     "vite-intlayer": "workspace:*",
     "vite-tsconfig-paths": "^5.1.4"
   },

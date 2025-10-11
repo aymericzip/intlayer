@@ -75,7 +75,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.7.2",
     "@types/react": ">=16.0.0",
     "@types/react-dom": ">=16.0.0",
     "@utils/ts-config": "workspace:*",

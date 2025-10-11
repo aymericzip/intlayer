@@ -86,7 +86,7 @@
   "devDependencies": {
     "@changesets/cli": "2.29.7",
     "@types/crypto-js": "^4.2.2",
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.7.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",

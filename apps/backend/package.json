@@ -107,7 +107,7 @@
     "@types/crypto-js": "^4.2.2",
     "@types/csurf": "^1.11.5",
     "@types/express": "^5.0.3",
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.7.2",
     "@types/oauth2-server": "^3.0.18",
     "@types/react": "^19.2.0",
     "@types/validator": "^13.12.2",

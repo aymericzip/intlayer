@@ -95,7 +95,7 @@
     "@tanstack/query-persist-client-core": "^5.90.2",
     "@tanstack/query-sync-storage-persister": "^5.90.2",
     "@tanstack/react-query": "^5.90.2",
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.7.2",
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -128,7 +128,7 @@
     "tsup": "^8.5.0",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2",
-    "vite": "^7.1.7",
+    "vite": "^7.1.9",
     "vitest": "^3.2.4"
   },
   "peerDependencies": {

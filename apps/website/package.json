@@ -89,7 +89,7 @@
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "^4.1.8",
     "@types/next-pwa": "^5.6.9",
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.7.2",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.1.9",
     "@intlayer/sync-json-plugin": "workspace:*",
