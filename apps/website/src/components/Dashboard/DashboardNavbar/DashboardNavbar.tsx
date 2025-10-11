@@ -63,7 +63,7 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const { pathWithoutLocale } = useLocale();
   const { session } = useSession();
   const { organization, project, roles } = session ?? {};
-  const { isMobile } = useDevice('sm');
+  const { isMobile } = useDevice();
   const scrollY = useScrollY();
 
   const filteredLinks = links

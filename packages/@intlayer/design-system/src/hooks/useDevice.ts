@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from 'react';
 
-export type SizeType = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type SizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 export const getBreakpointFromSize = (breakpoint: SizeType | number) => {
   switch (breakpoint) {
+    case 'xs':
+      return 480;
     case 'sm':
       return 640;
     case 'md':
