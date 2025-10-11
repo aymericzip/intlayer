@@ -12,10 +12,8 @@ const TagsDashboardPageContent: FC = () => {
     <>
       <h1 className="border-neutral border-b-[0.5px] p-10 text-3xl">{title}</h1>
       <div className="relative flex size-full flex-1 flex-col items-center">
+        <TagList />
         <BackgroundLayout />
-        <div className="flex size-full flex-1 flex-col items-center justify-center p-10">
-          <TagList />
-        </div>
       </div>
     </>
   );

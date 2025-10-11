@@ -73,7 +73,7 @@ export const DictionaryListDashboardContent: FC = () => {
   };
 
   return (
-    <div className="flex size-full flex-1 flex-col gap-10 px-10 pt-10">
+    <div className="flex size-full flex-1 flex-col gap-10 px-20 pt-20">
       <SearchInput
         placeholder={searchPlaceholder.value}
         onChange={(e) => setSearch(e.target.value)}
