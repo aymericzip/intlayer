@@ -107,7 +107,7 @@ export const Loader: FC<LoaderProps> = ({
   ...props
 }) => (
   <>
-    {isLoading ? (
+    {isLoading && keepChildren ? (
       <div className="relative size-full">
         <div
           className={cn(
@@ -120,7 +120,19 @@ export const Loader: FC<LoaderProps> = ({
         >
           <Spinner className="size-10 max-h-full max-w-full" />
         </div>
-        {keepChildren && children}
+        {children}
+      </div>
+    ) : isLoading ? (
+      <div
+        className={cn(
+          'flex size-full max-h-screen max-w-[100vw] flex-1 items-center justify-center',
+          className
+        )}
+        role="status"
+        aria-label="Animated icon, meaning that the website is processing"
+        {...props}
+      >
+        <Spinner className="size-10 max-h-full max-w-full" />
       </div>
     ) : (
       (children ?? <></>)
