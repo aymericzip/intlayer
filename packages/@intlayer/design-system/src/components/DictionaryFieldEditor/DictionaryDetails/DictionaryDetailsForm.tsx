@@ -1,6 +1,6 @@
 'use client';
 
-import type { Dictionary } from '@intlayer/core';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
 import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';
@@ -41,14 +41,14 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     titleInput,
     keyInput,
     descriptionInput,
-
     projectInput,
     tagsSelect,
     auditButton,
   } = useIntlayer('dictionary-details');
   const { mutate: auditContentDeclaration, isPending: isAuditing } =
     useAuditContentDeclarationMetadata();
-  const updatedDictionary = editedContent?.[dictionary.key];
+  const updatedDictionary =
+    editedContent?.[dictionary.localId as LocalDictionaryId];
 
   useEffect(() => {
     form.reset(dictionary);
@@ -107,12 +107,12 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         className="flex w-full flex-col gap-8"
         {...form}
         schema={DictionaryDetailsSchema}
-        onChange={(data) =>
+        onChange={(data) => {
           setEditedDictionary((prev) => ({
             ...prev,
             ...data,
-          }))
-        }
+          }));
+        }}
       >
         <div className="flex w-full flex-1 gap-8 max-md:flex-col">
           <Form.EditableFieldInput

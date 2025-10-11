@@ -1,6 +1,10 @@
 'use client';
 
-import { type Dictionary, getContentNodeByKeyPath } from '@intlayer/core';
+import {
+  type Dictionary,
+  getContentNodeByKeyPath,
+  type LocalDictionaryId,
+} from '@intlayer/core';
 import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
 import { type FC, useEffect } from 'react';
 import { Container } from '../Container';
@@ -19,15 +23,16 @@ export const ContentEditor: FC<NodeEditorProps> = ({
   dictionary,
   isDarkMode,
 }) => {
-  const { content, key } = dictionary;
+  const { content, key, localId } = dictionary;
   const { editedContent } = useEditedContent();
   const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
 
   const focusedKeyPath = focusedContent?.keyPath;
   const section =
-    typeof editedContent?.[key]?.content === 'undefined'
+    typeof editedContent?.[localId as LocalDictionaryId]?.content ===
+    'undefined'
       ? content
-      : editedContent?.[key]?.content;
+      : editedContent?.[localId as LocalDictionaryId]?.content;
 
   const focusedSection = getContentNodeByKeyPath(section, focusedKeyPath ?? []);
   const isEditableBaseSection = getIsEditableSection(section);

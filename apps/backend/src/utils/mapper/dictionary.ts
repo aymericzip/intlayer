@@ -31,6 +31,7 @@ export const mapDictionaryToAPI = (
     ...dictionaryObject,
     content,
     version: returnedVersion,
+    localId: `${dictionaryObject.key}::remote::${dictionaryObject.id}`,
     versionList,
   } as unknown as DictionaryAPI;
 };

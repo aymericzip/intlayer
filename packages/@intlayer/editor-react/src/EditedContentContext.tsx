@@ -104,14 +104,20 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     let updatedDictionaries: Dictionary = resolveState(newValue);
 
     setEditedContentState((prev) => {
+      if (!updatedDictionaries.localId) {
+        console.error('no localId', updatedDictionaries);
+
+        return prev;
+      }
+
       updatedDictionaries = resolveState(
         newValue,
-        prev?.[updatedDictionaries.key]
+        prev?.[updatedDictionaries.localId]
       );
 
       return {
         ...prev,
-        [updatedDictionaries.key]: updatedDictionaries,
+        [updatedDictionaries.localId as LocalDictionaryId]: updatedDictionaries,
       };
     });
 
