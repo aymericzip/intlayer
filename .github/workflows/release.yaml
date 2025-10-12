@@ -36,7 +36,7 @@ jobs:
 
       - name: 🥡 Setup bun
         id: setup-bun
-        uses: bun/action-setup@v4
+        uses: oven-sh/setup-bun@v2
         with:
           version: ${{ matrix.bun-version }}
           run_install: false
