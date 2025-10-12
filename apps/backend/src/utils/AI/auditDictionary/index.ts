@@ -3,6 +3,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getLocaleName } from '@intlayer/core';
 import { logger } from '@logger';
+import { extractJson } from '@utils/extractJSON';
 import { generateText } from 'ai';
 import { Locales } from 'intlayer';
 import type { Tag } from '@/types/tag.types';
@@ -104,7 +105,7 @@ export const auditDictionary = async ({
   logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
 
   return {
-    fileContent: newContent,
+    fileContent: extractJson(newContent),
     tokenUsed: usage?.totalTokens ?? 0,
   };
 };

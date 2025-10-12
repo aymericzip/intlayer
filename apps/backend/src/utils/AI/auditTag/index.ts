@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { logger } from '@logger';
+import { extractJson } from '@utils/extractJSON';
 import { generateText } from 'ai';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { Tag } from '@/types/tag.types';
@@ -60,7 +61,7 @@ export const auditTag = async ({
   logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
 
   return {
-    fileContent: newContent,
+    fileContent: extractJson(newContent),
     tokenUsed: usage?.totalTokens ?? 0,
   };
 };

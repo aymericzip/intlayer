@@ -11,7 +11,7 @@ import {
   useGetTags,
 } from '../../../hooks';
 import { useSession } from '../../../hooks/useAuth';
-import { ButtonColor, ButtonVariant } from '../../Button';
+import { ButtonColor, ButtonSize, ButtonVariant } from '../../Button';
 import { Container } from '../../Container';
 import { Form, useForm } from '../../Form';
 import { Loader } from '../../Loader';
@@ -242,6 +242,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
           <Form.Button
             type="button"
+            size={ButtonSize.ICON_MD}
             label={auditButton.label.value}
             Icon={WandSparkles}
             variant={ButtonVariant.OUTLINE}
@@ -250,9 +251,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             onClick={handleOnAuditFile}
             disabled={isSubmitting || isAuditing}
             isLoading={isAuditing}
-          >
-            {auditButton.text}
-          </Form.Button>
+          />
         </div>
       </Form>
     </Container>
