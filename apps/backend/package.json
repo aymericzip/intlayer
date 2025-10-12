@@ -62,7 +62,7 @@
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
-    "start": "cross-env NODE_ENV=production bun dist/esm/index.mjs",
+    "start": "cross-env NODE_ENV=production node dist/esm/index.mjs",
     "start:stripe": "stripe listen --forward-to localhost:3100/webhook/stripe",
     "test": "vitest run",
     "test:watch": "vitest"
