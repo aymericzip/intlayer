@@ -22,13 +22,13 @@
     "build:ci": "bun build:package & bun build:types",
     "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
-    "dev": "node --import=tsx --watch ./src/index.ts",
+    "dev": "bun --watch ./src/index.ts",
     "email": "email dev --dir ./src/emails",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
-    "start": "node --import=tsx dist/esm/index.mjs",
+    "start": "bun dist/esm/index.mjs",
     "test": ""
   },
   "dependencies": {
@@ -46,7 +46,6 @@
     "@utils/tsup-config": "workspace:*",
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",
-    "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   }
 }

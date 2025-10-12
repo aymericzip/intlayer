@@ -55,14 +55,14 @@
     "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",
-    "dev": "node --import=tsx --watch ./src/index.ts",
+    "dev": "bun --watch ./src/index.ts",
     "email": "email dev --dir ./src/emails",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
-    "start": "cross-env NODE_ENV=production node dist/esm/index.mjs",
+    "start": "cross-env NODE_ENV=production bun dist/esm/index.mjs",
     "start:stripe": "stripe listen --forward-to localhost:3100/webhook/stripe",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -119,7 +119,6 @@
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",
-    "tsx": "^4.20.5",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
   }
