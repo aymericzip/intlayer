@@ -1,5 +1,6 @@
 export { getAlias } from './alias';
 export { bundleJSFile } from './bundleJSFile';
+export { buildConfigurationFields } from './configFile/buildConfigurationFields';
 export {
   type GetConfigurationAndFilePathResult,
   type GetConfigurationOptions,

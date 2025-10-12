@@ -68,8 +68,6 @@ import { normalizePath } from '../utils/normalizePath';
 
 let storedConfiguration: IntlayerConfig;
 
-// @TODO - Add possibility of directories configurations to be arrays to allow multiple packages management
-
 const buildInternationalizationFields = (
   customConfiguration?: Partial<InternationalizationConfig>
 ): InternationalizationConfig => ({
