@@ -1,3 +1,5 @@
+// ts-nocheck there is type error in express-rate-limit
+
 import type { NextFunction, Request, Response } from 'express';
 import rateLimit, { ipKeyGenerator, type Options } from 'express-rate-limit';
 import { ErrorHandler } from './errors';
@@ -37,7 +39,6 @@ export const ipLimiter: (
     },
   };
 
-  // @ts-ignore fix Argument of type xxx is not assignable to parameter of type
   return rateLimit(options)(req, res, next);
 };
 
@@ -72,6 +73,5 @@ export const unauthenticatedChatBotLimiter: (
     },
   };
 
-  // @ts-ignore fix Argument of type xxx is not assignable to parameter of type
   return rateLimit(options)(req, res, next);
 };
