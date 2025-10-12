@@ -1301,6 +1301,7 @@
         "@types/express": "^5.0.3",
         "@types/react": "^19.2.0",
         "@types/react-dom": "^19.1.9",
+        "@utils/ts-config": "workspace:*",
         "@vitejs/plugin-react": "^5.0.3",
         "autoprefixer": "^10.4.21",
         "globals": "^16.4.0",
