@@ -43,18 +43,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'bun'
-
-      - name: 🎈 Get bun store directory
-        id: get-bun-cache-dir
-        run: echo "bun_cache_dir=$(bun store path)" >> $GITHUB_OUTPUT
 
       - name: 🔆 Cache bun modules
         uses: actions/cache@v4
         id: bun-cache
         with:
-          path: ${{ steps.get-bun-cache-dir.outputs.bun_cache_dir }}
-          key: ${{ runner.os }}-bun-store-${{ hashFiles('**/bun-lock.yaml') }}
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-store-${{ hashFiles('**/bun.lock*') }}
           restore-keys: |
             ${{ runner.os }}-bun-store-
 
