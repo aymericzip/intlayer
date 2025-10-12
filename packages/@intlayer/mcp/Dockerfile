@@ -38,7 +38,7 @@ COPY \
     . .
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install --filter=./packages/@intlayer/mcp
+RUN bun install --ignore-scripts --filter=./packages/@intlayer/mcp
 
 # Build every package in the workspace (uses the root "build" script)
 RUN bun x turbo run build:ci --filter=./packages/@intlayer/mcp
