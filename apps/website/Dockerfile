@@ -51,6 +51,7 @@ COPY \
     --exclude=packages/intlayer-cli \
     --exclude=packages/react-scripts-intlayer \
     --exclude=packages/vue-intlayer \
+    --exclude=packages/intlayer-editor \
     --exclude=packages/solid-intlayer \
     --exclude=packages/svelte-intlayer \
     --exclude=packages/preact-intlayer \
@@ -59,14 +60,14 @@ COPY \
     --exclude=packages/astro-intlayer \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
-    --exclude=packages/@intlayer/design-system/*.stories.* \
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=plugins \
+    --exclude=**/*.stories.* \
     . .
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install --ignore-scripts --filter=./apps/website
+RUN bun install --filter=./apps/website
 
 # Build every package in the workspace (uses the root "build" script)
 RUN bun x turbo run build:ci --filter=./apps/website

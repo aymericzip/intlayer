@@ -61,7 +61,12 @@ biome.json
 
 # TypeScript and build configs at root (packages have their own)
 tsconfig.json
+
 vitest.config.ts
+**/*.test.*
+**/*.spec.*
+**/*.README.md*
+**/_*
 
 # Rust Cargo build artifacts (can be multiple hundreds of MB and are not needed in Docker)
 **/target/

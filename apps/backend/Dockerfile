@@ -34,6 +34,7 @@ COPY \
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=apps/website \
+    --exclude=**/*.stories.* \
     . .
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
@@ -64,4 +65,4 @@ USER app
 EXPOSE 3100
 
 
-CMD ["bun", "start"] 
+CMD ["node", "dist/esm/index.mjs"] 

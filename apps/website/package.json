@@ -93,7 +93,6 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.1.9",
     "@utils/ts-config": "workspace:*",
-    "intlayer-editor": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.2.1",
@@ -103,6 +102,9 @@
     "raw-loader": "^4.0.2",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2"
+  },
+  "optionalDependencies": {
+    "intlayer-editor": "workspace:*"
   },
   "peerDependencies": {
     "@intlayer/backend": "workspace:*"
