@@ -41,11 +41,11 @@ export const startEditor = (options: StartEditorOptions): void => {
   }
 
   function runFallback() {
-    const pnpm = spawnWith('pnpm', ['dlx', 'intlayer-editor', ...args]);
-    pnpm.on('error', () => {
+    const bun = spawnWith('bun', ['dlx', 'intlayer-editor', ...args]);
+    bun.on('error', () => {
       const npx = spawnWith('npx', ['-y', 'intlayer-editor', ...args]);
       npx.on('error', (err) => {
-        console.error('Unable to execute intlayer-editor via pnpm or npx.');
+        console.error('Unable to execute intlayer-editor via bun or npx.');
         console.error(String(err?.message ?? err));
         process.exit(1);
       });

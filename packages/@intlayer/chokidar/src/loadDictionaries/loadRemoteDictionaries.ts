@@ -9,12 +9,12 @@ import type { DictionariesStatus } from '../loadDictionaries/loadDictionaries';
 import { sortAlphabetically } from '../utils/sortAlphabetically';
 
 export const formatDistantDictionaries = (
-  dictionaries: DictionaryAPI[]
+  dictionaries: (DictionaryAPI | Dictionary)[]
 ): Dictionary[] =>
   dictionaries.map((dict) => ({
     ...dict,
     localId: `${dict.key}::remote::${dict.id}`,
-    location: 'distant' as const,
+    location: 'remote' as const,
   }));
 
 export const loadRemoteDictionaries = async (
@@ -133,7 +133,7 @@ export const loadRemoteDictionaries = async (
 
     const distantDictionaries: DictionaryAPI[] = formatDistantDictionaries(
       distantDictionariesData
-    );
+    ) as DictionaryAPI[];
 
     return [...cachedDictionaries, ...distantDictionaries];
   } catch (error) {
