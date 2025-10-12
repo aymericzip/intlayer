@@ -20,6 +20,7 @@ COPY \
     --exclude=packages/vue-intlayer \
     --exclude=packages/solid-intlayer \
     --exclude=packages/svelte-intlayer \
+    --exclude=packages/next-intlayer \
     --exclude=packages/preact-intlayer \
     --exclude=packages/angular-intlayer \
     --exclude=packages/vite-intlayer \
@@ -35,7 +36,7 @@ COPY \
     . .
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install --frozen-lockfile
+RUN bun install --ignore-scripts --filter=./packages/@intlayer/mcp
 
 # Build every package in the workspace (uses the root "build" script)
 RUN bun x turbo run build:ci --filter=./packages/@intlayer/mcp

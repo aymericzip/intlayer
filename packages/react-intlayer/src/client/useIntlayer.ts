@@ -19,6 +19,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
 export const useIntlayer = <T extends DictionaryKeys>(
   key: T,
   locale?: LocalesValues
+  // @ts-ignore Type 'T' cannot be used to index type 'IntlayerDictionaryTypesConnector'
 ): DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']> => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
 

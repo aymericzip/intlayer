@@ -23,6 +23,7 @@ export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   ];
 
   return getIntlayerCore(key, locale, plugins) as any as DeepTransformContent<
+    // @ts-ignore Type 'T' cannot be used to index type 'IntlayerDictionaryTypesConnector'
     IntlayerDictionaryTypesConnector[T]['content']
   >;
 };

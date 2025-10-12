@@ -40,6 +40,7 @@ export const useI18n = <T extends DictionaryKeys>(
   const t = <P extends ValidDotPathsFor<T>>(
     path: P
   ): GetSubPath<
+    // @ts-ignore Type 'T' cannot be used to index type 'IntlayerDictionaryTypesConnector'
     DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']>,
     P
   > => {

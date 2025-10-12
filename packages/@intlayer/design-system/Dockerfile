@@ -16,8 +16,9 @@ COPY \
     --exclude=packages/vue-intlayer \
     --exclude=packages/solid-intlayer \
     --exclude=packages/svelte-intlayer \
-    --exclude=packages/pnext-intlayer \
+    --exclude=packages/next-intlayer \
     --exclude=packages/angular-intlayer \
+    --exclude=packages/preact-intlayer \
     --exclude=packages/nuxt-intlayer \
     --exclude=packages/astro-intlayer \
     --exclude=packages/next-intlayer \
@@ -31,7 +32,7 @@ COPY \
     . .
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install --frozen-lockfile
+RUN bun install --ignore-scripts --filter=./packages/@intlayer/design-system
 
 # Install intlayer-cli
 RUN bun add -g intlayer-cli@latest

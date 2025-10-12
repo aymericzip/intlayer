@@ -47,21 +47,18 @@ WORKDIR /workspace
 # Copy the rest of the source code
 # Remove directories to keep the image slim
 COPY \
-    --exclude=packages/@intlayer/babel \
     --exclude=packages/@intlayer/mcp \
     --exclude=packages/intlayer-cli \
     --exclude=packages/react-scripts-intlayer \
     --exclude=packages/vue-intlayer \
     --exclude=packages/solid-intlayer \
     --exclude=packages/svelte-intlayer \
-    --exclude=packages/pnext-intlayer \
+    --exclude=packages/preact-intlayer \
     --exclude=packages/angular-intlayer \
-    --exclude=packages/vite-intlayer \
     --exclude=packages/nuxt-intlayer \
     --exclude=packages/astro-intlayer \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
-    --exclude=packages/intlayer-editor \
     --exclude=packages/@intlayer/design-system/*.stories.* \
     --exclude=docs/assets \
     --exclude=examples \
@@ -69,7 +66,7 @@ COPY \
     . .
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install --frozen-lockfile
+RUN bun install --ignore-scripts --filter=./apps/website
 
 # Build every package in the workspace (uses the root "build" script)
 RUN bun x turbo run build:ci --filter=./apps/website

@@ -112,6 +112,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
+    "fast-glob": "^3.3.3",
     "@intlayer/webpack": "workspace:*",
     "deepmerge": "^4.3.1",
     "node-loader": "^2.1.0",
