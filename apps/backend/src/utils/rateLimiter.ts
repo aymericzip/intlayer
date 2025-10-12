@@ -1,5 +1,3 @@
-// ts-nocheck there is type error in express-rate-limit
-
 import type { NextFunction, Request, Response } from 'express';
 import rateLimit, { ipKeyGenerator, type Options } from 'express-rate-limit';
 import { ErrorHandler } from './errors';
@@ -39,7 +37,7 @@ export const ipLimiter: (
     },
   };
 
-  return rateLimit(options)(req, res, next);
+  return (rateLimit as any)(options)(req, res, next);
 };
 
 export const unauthenticatedChatBotLimiter: (
@@ -73,5 +71,5 @@ export const unauthenticatedChatBotLimiter: (
     },
   };
 
-  return rateLimit(options)(req, res, next);
+  return (rateLimit as any)(options)(req, res, next);
 };
