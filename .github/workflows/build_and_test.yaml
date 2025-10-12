@@ -57,7 +57,7 @@ jobs:
         id: install-dependencies
         run: bun install --frozen-lockfile
 
-      - name: 📝 Run eslint
+      - name: 📝 Run linter
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
         run: bun run lint-staged
@@ -67,5 +67,5 @@ jobs:
         run: |
           bun build:ci
 
-      # - name: 🧪 Test packages
-      #   run: npm test
+      - name: 🧪 Test packages
+        run: bun run test
