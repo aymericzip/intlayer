@@ -58,19 +58,19 @@
     "@biomejs/biome": "2.2.4",
     "@changesets/changelog-github": "0.5.1",
     "@changesets/cli": "2.29.7",
-    "@commitlint/cli": "^19.7.1",
+    "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.7.1",
-    "@commitlint/types": "^19.5.0",
+    "@commitlint/types": "^19.8.1",
     "@intlayer/mcp": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "@vitejs/plugin-react": "^5.0.0",
-    "chokidar": "^3.6.0",
+    "chokidar": "3.6.0",
     "enquirer": "^2.4.1",
     "fast-glob": "^3.3.3",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.0",
+    "lint-staged": "^16.2.4",
     "minimist": "^1.2.8",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
@@ -82,7 +82,7 @@
   "packageManager": "bun@1.3.0",
   "engines": {
     "node": ">=16.0.0",
-    "bun": ">=1.0.0"
+    "bun": ">=1.3.0"
   },
   "workspaces": [
     "./docs",

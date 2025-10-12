@@ -78,7 +78,7 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "chokidar": "^3.6.0",
+    "chokidar": "3.6.0",
     "concurrently": "^9.2.1",
     "crypto-js": "^4.2.0",
     "deep-equal": "^2.2.3",
