@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
+import rateLimit, { ipKeyGenerator, type Options } from 'express-rate-limit';
 import { ErrorHandler } from './errors';
 
 // -------------------------------------------------------------
@@ -11,57 +11,65 @@ export const ipLimiter: (
   req: Request,
   res: Response,
   next: NextFunction
-) => unknown = rateLimit({
-  windowMs: 60 * 1000, // 1-minute window
-  limit: 500, // 500 requests / IP / window
-  standardHeaders: 'draft-8',
-  legacyHeaders: false,
-  // Use a custom key generator that handles proxy headers securely
-  keyGenerator: (req) => {
-    // Normalize IPv6 to subnet using helper to avoid bypasses
-    return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
-  },
-  handler: (req, res, _next) => {
-    const { limit, remaining, resetTime } = (req as any).rateLimit;
+) => unknown = (req, res, next) => {
+  const options: Partial<Options> = {
+    windowMs: 60 * 1000, // 1-minute window
+    limit: 500, // 500 requests / IP / window
+    standardHeaders: 'draft-8',
+    legacyHeaders: false,
+    // Use a custom key generator that handles proxy headers securely
+    keyGenerator: (req) => {
+      // Normalize IPv6 to subnet using helper to avoid bypasses
+      return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
+    },
+    handler: (req, res, _next) => {
+      const { limit, remaining, resetTime } = (req as any).rateLimit;
 
-    ErrorHandler.handleGenericErrorResponse(
-      res as unknown as Response,
-      'RATE_LIMIT_EXCEEDED',
-      {
-        limit: `${limit} per minute`,
-        retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
-        remaining,
-      }
-    );
-  },
-});
+      ErrorHandler.handleGenericErrorResponse(
+        res as unknown as Response,
+        'RATE_LIMIT_EXCEEDED',
+        {
+          limit: `${limit} per minute`,
+          retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
+          remaining,
+        }
+      );
+    },
+  };
+
+  return rateLimit(options)(req, res, next);
+};
 
 export const unauthenticatedChatBotLimiter: (
   req: Request,
   res: Response,
   next: NextFunction
-) => any = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1-hour window
-  limit: 3, // 3 requests / IP / window
-  standardHeaders: 'draft-8',
-  skip: (_req, res) => Boolean(res.locals.user), // authenticated? then skip
-  legacyHeaders: false,
-  // Use a custom key generator that handles proxy headers securely
-  keyGenerator: (req) => {
-    // Normalize IPv6 to subnet using helper to avoid bypasses
-    return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
-  },
-  handler: (req, res) => {
-    const { limit, remaining, resetTime } = (req as any).rateLimit;
+) => unknown = (req, res, next) => {
+  const options: Partial<Options> = {
+    windowMs: 60 * 60 * 1000, // 1-hour window
+    limit: 3, // 3 requests / IP / window
+    standardHeaders: 'draft-8',
+    skip: (_req, res) => Boolean(res.locals.user), // authenticated? then skip
+    legacyHeaders: false,
+    // Use a custom key generator that handles proxy headers securely
+    keyGenerator: (req) => {
+      // Normalize IPv6 to subnet using helper to avoid bypasses
+      return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
+    },
+    handler: (req, res) => {
+      const { limit, remaining, resetTime } = (req as any).rateLimit;
 
-    ErrorHandler.handleGenericErrorResponse(
-      res as unknown as Response,
-      'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED',
-      {
-        limit: `${limit} per hour`,
-        retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
-        remaining,
-      }
-    );
-  },
-});
+      ErrorHandler.handleGenericErrorResponse(
+        res as unknown as Response,
+        'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED',
+        {
+          limit: `${limit} per hour`,
+          retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
+          remaining,
+        }
+      );
+    },
+  };
+
+  return rateLimit(options)(req, res, next);
+};
