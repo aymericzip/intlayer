@@ -55,7 +55,7 @@
     "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",
-    "dev": "bun --watch ./src/index.ts",
+    "dev": "bun --watch  --hot ./src/index.ts",
     "email": "email dev --dir ./src/emails",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",

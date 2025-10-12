@@ -72,7 +72,7 @@
     "clean:client": "rimraf ./client/dist",
     "clean:server": "rimraf ./server/dist",
     "dev:client": "vite dev --config ./client/vite.config.ts",
-    "dev:server": "bun --watch ./server/src/index.ts",
+    "dev:server": "bun --watch  --hot ./server/src/index.ts",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "format": "biome format . --check",
@@ -80,7 +80,7 @@
     "preview": "vite preview --config ./client/vite.config.ts",
     "start": "bun server/dist/esm/index.mjs",
     "start:client": "vite preview --config ./client/vite.config.ts",
-    "start:server": "bun --watch ./server/dist/esm/index.mjs",
+    "start:server": "bun --watch  --hot ./server/dist/esm/index.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --project ./server/tsconfig.types.json --noEmit"
