@@ -24,11 +24,15 @@ export const ipLimiter: (
   handler: (req, res, _next) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 
-    ErrorHandler.handleGenericErrorResponse(res, 'RATE_LIMIT_EXCEEDED', {
-      limit: `${limit} per minute`,
-      retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
-      remaining,
-    });
+    ErrorHandler.handleGenericErrorResponse(
+      res as unknown as Response,
+      'RATE_LIMIT_EXCEEDED',
+      {
+        limit: `${limit} per minute`,
+        retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
+        remaining,
+      }
+    );
   },
 });
 
@@ -51,7 +55,7 @@ export const unauthenticatedChatBotLimiter: (
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 
     ErrorHandler.handleGenericErrorResponse(
-      res,
+      res as unknown as Response,
       'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED',
       {
         limit: `${limit} per hour`,
