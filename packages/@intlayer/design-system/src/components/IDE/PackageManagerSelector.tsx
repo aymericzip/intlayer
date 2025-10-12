@@ -16,6 +16,7 @@ export const PackageManagerSelector: FC = () => {
         <Select.Item value="npm">npm</Select.Item>
         <Select.Item value="pnpm">pnpm</Select.Item>
         <Select.Item value="yarn">yarn</Select.Item>
+        <Select.Item value="bun">bun</Select.Item>
       </Select.Content>
     </Select>
   );

@@ -1,8 +1,6 @@
 # syntax=docker/dockerfile:1.19.0
 
-FROM node:24-alpine AS builder
-
-RUN npm install -g pnpm@10.17.1
+FROM oven/bun:1.3-alpine AS builder
 
 # Create app directory
 WORKDIR /workspace
@@ -33,22 +31,22 @@ COPY \
     . .
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN pnpm install --frozen-lockfile
+RUN bun install --frozen-lockfile
 
 # Install intlayer-cli
-RUN npm install -g intlayer-cli@latest
+RUN bun add -g intlayer-cli@latest
 
 # Build every package in the workspace (uses the root "build" script)
-RUN npx turbo run build:ci --filter=./packages/@intlayer/design-system
+RUN bun x turbo run build:ci --filter=./packages/@intlayer/design-system
 
 # Set working directory to the design-system package and run Storybook
 WORKDIR /workspace/packages/@intlayer/design-system
 
 # Build the Intlayer dictionaries
-RUN pnpm run build:intlayer
+RUN bun run build:intlayer
 
 # Build Storybook
-RUN pnpm run build:storybook
+RUN bun run build:storybook
 
 ENV NODE_ENV=production
 
@@ -56,4 +54,4 @@ ENV NODE_ENV=production
 EXPOSE 6006
 
 # Start Storybook in dev mode
-CMD ["pnpm", "start"]
+CMD ["bun", "start"]

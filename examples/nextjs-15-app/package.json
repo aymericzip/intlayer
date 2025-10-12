@@ -10,7 +10,7 @@
     "lint": "next lint",
     "start": "next start",
     "start:editor": "npx intlayer-editor start",
-    "start:live": "pnpm intlayer live --process 'next start'",
+    "start:live": "bun intlayer live --process 'next start'",
     "test": ""
   },
   "dependencies": {

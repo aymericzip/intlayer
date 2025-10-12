@@ -19,7 +19,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build:ci": "pnpm build:package & pnpm build:types",
+    "build:ci": "bun build:package & bun build:types",
     "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "dev": "node --import=tsx --watch ./src/index.ts",

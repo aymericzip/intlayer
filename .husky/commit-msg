@@ -4,7 +4,7 @@ export NVM_DIR="$HOME/.nvm"
 
 
 # Validate commit message with commitlint
-if ! pnpm exec commitlint --edit "$1"; then
+if ! bun exec commitlint --edit "$1"; then
   echo "Commit message validation failed."
   echo "Please use the Conventional Commits format:\n"
   echo "  <type>(<scope>): <subject>\n"
