@@ -18,7 +18,7 @@ describe('orderDictionaries', () => {
 
   const createMockDictionary = (
     key: string,
-    location?: 'locale' | 'distant',
+    location?: 'locale' | 'remote',
     localId?: string
   ): Dictionary => ({
     key,
@@ -41,27 +41,27 @@ describe('orderDictionaries', () => {
   it('should order local dictionaries first when strategy is local_first', () => {
     const local1 = createMockDictionary('test1', 'locale', 'local-1');
     const local2 = createMockDictionary('test2', 'locale', 'local-2');
-    const distant1 = createMockDictionary('test3', 'distant', 'distant-1');
-    const distant2 = createMockDictionary('test4', 'distant', 'distant-2');
+    const remote1 = createMockDictionary('test3', 'remote', 'remote-1');
+    const remote2 = createMockDictionary('test4', 'remote', 'remote-2');
 
-    const dictionaries = [distant1, local1, distant2, local2];
+    const dictionaries = [remote1, local1, remote2, local2];
     const result = orderDictionaries(dictionaries);
 
-    expect(result).toEqual([local1, local2, distant1, distant2]);
+    expect(result).toEqual([local1, local2, remote1, remote2]);
   });
 
-  it('should order distant dictionaries first when strategy is distant_first', () => {
+  it('should order remote dictionaries first when strategy is remote_first', () => {
     const local1 = createMockDictionary('test1', 'locale', 'local-1');
     const local2 = createMockDictionary('test2', 'locale', 'local-2');
-    const distant1 = createMockDictionary('test3', 'distant', 'distant-1');
-    const distant2 = createMockDictionary('test4', 'distant', 'distant-2');
+    const remote1 = createMockDictionary('test3', 'remote', 'remote-1');
+    const remote2 = createMockDictionary('test4', 'remote', 'remote-2');
 
-    const dictionaries = [local1, distant1, local2, distant2];
+    const dictionaries = [local1, remote1, local2, remote2];
 
     // Create a custom configuration for this test
     const customConfig = {
       editor: {
-        dictionaryPriorityStrategy: 'distant_first' as const,
+        dictionaryPriorityStrategy: 'remote_first' as const,
       },
       internationalization: {},
       middleware: {},
@@ -72,33 +72,33 @@ describe('orderDictionaries', () => {
 
     const result = orderDictionaries(dictionaries, customConfig);
 
-    expect(result).toEqual([distant1, distant2, local1, local2]);
+    expect(result).toEqual([remote1, remote2, local1, local2]);
   });
 
   it('should preserve relative order within local dictionaries', () => {
     const local1 = createMockDictionary('test1', 'locale', 'local-1');
     const local2 = createMockDictionary('test2', 'locale', 'local-2');
     const local3 = createMockDictionary('test3', 'locale', 'local-3');
-    const distant1 = createMockDictionary('test4', 'distant', 'distant-1');
+    const remote1 = createMockDictionary('test4', 'remote', 'remote-1');
 
-    const dictionaries = [distant1, local3, local1, local2];
+    const dictionaries = [remote1, local3, local1, local2];
     const result = orderDictionaries(dictionaries);
 
-    expect(result).toEqual([local3, local1, local2, distant1]);
+    expect(result).toEqual([local3, local1, local2, remote1]);
   });
 
-  it('should preserve relative order within distant dictionaries', () => {
+  it('should preserve relative order within remote dictionaries', () => {
     const local1 = createMockDictionary('test1', 'locale', 'local-1');
-    const distant1 = createMockDictionary('test2', 'distant', 'distant-1');
-    const distant2 = createMockDictionary('test3', 'distant', 'distant-2');
-    const distant3 = createMockDictionary('test4', 'distant', 'distant-3');
+    const remote1 = createMockDictionary('test2', 'remote', 'remote-1');
+    const remote2 = createMockDictionary('test3', 'remote', 'remote-2');
+    const remote3 = createMockDictionary('test4', 'remote', 'remote-3');
 
-    const dictionaries = [local1, distant3, distant1, distant2];
+    const dictionaries = [local1, remote3, remote1, remote2];
 
     // Create a custom configuration for this test
     const customConfig = {
       editor: {
-        dictionaryPriorityStrategy: 'distant_first' as const,
+        dictionaryPriorityStrategy: 'remote_first' as const,
       },
       internationalization: {},
       middleware: {},
@@ -109,7 +109,7 @@ describe('orderDictionaries', () => {
 
     const result = orderDictionaries(dictionaries, customConfig);
 
-    expect(result).toEqual([distant3, distant1, distant2, local1]);
+    expect(result).toEqual([remote3, remote1, remote2, local1]);
   });
 
   it('should handle only local dictionaries', () => {
@@ -123,15 +123,15 @@ describe('orderDictionaries', () => {
     expect(result).toEqual([local3, local1, local2]);
   });
 
-  it('should handle only distant dictionaries', () => {
-    const distant1 = createMockDictionary('test1', 'distant', 'distant-1');
-    const distant2 = createMockDictionary('test2', 'distant', 'distant-2');
-    const distant3 = createMockDictionary('test3', 'distant', 'distant-3');
+  it('should handle only remote dictionaries', () => {
+    const remote1 = createMockDictionary('test1', 'remote', 'remote-1');
+    const remote2 = createMockDictionary('test2', 'remote', 'remote-2');
+    const remote3 = createMockDictionary('test3', 'remote', 'remote-3');
 
-    const dictionaries = [distant3, distant1, distant2];
+    const dictionaries = [remote3, remote1, remote2];
     const result = orderDictionaries(dictionaries);
 
-    expect(result).toEqual([distant3, distant1, distant2]);
+    expect(result).toEqual([remote3, remote1, remote2]);
   });
 
   it('should handle dictionaries with undefined location as local', () => {
@@ -141,12 +141,12 @@ describe('orderDictionaries', () => {
       undefined,
       'local-2'
     );
-    const distant1 = createMockDictionary('test3', 'distant', 'distant-1');
+    const remote1 = createMockDictionary('test3', 'remote', 'remote-1');
 
-    const dictionaries = [distant1, undefinedLocation, local1];
+    const dictionaries = [remote1, undefinedLocation, local1];
     const result = orderDictionaries(dictionaries);
 
-    expect(result).toEqual([undefinedLocation, local1, distant1]);
+    expect(result).toEqual([undefinedLocation, local1, remote1]);
   });
 
   it('should handle mixed location types correctly with local_first strategy', () => {
@@ -156,31 +156,31 @@ describe('orderDictionaries', () => {
       undefined,
       'local-2'
     );
-    const distant1 = createMockDictionary('test3', 'distant', 'distant-1');
+    const remote1 = createMockDictionary('test3', 'remote', 'remote-1');
     const local2 = createMockDictionary('test4', 'locale', 'local-3');
 
-    const dictionaries = [distant1, undefinedLocation, local1, local2];
+    const dictionaries = [remote1, undefinedLocation, local1, local2];
     const result = orderDictionaries(dictionaries);
 
-    expect(result).toEqual([undefinedLocation, local1, local2, distant1]);
+    expect(result).toEqual([undefinedLocation, local1, local2, remote1]);
   });
 
-  it('should handle mixed location types correctly with distant_first strategy', () => {
+  it('should handle mixed location types correctly with remote_first strategy', () => {
     const local1 = createMockDictionary('test1', 'locale', 'local-1');
     const undefinedLocation = createMockDictionary(
       'test2',
       undefined,
       'local-2'
     );
-    const distant1 = createMockDictionary('test3', 'distant', 'distant-1');
+    const remote1 = createMockDictionary('test3', 'remote', 'remote-1');
     const local2 = createMockDictionary('test4', 'locale', 'local-3');
 
-    const dictionaries = [local1, undefinedLocation, distant1, local2];
+    const dictionaries = [local1, undefinedLocation, remote1, local2];
 
     // Create a custom configuration for this test
     const customConfig = {
       editor: {
-        dictionaryPriorityStrategy: 'distant_first' as const,
+        dictionaryPriorityStrategy: 'remote_first' as const,
       },
       internationalization: {},
       middleware: {},
@@ -191,21 +191,21 @@ describe('orderDictionaries', () => {
 
     const result = orderDictionaries(dictionaries, customConfig);
 
-    expect(result).toEqual([distant1, local1, undefinedLocation, local2]);
+    expect(result).toEqual([remote1, local1, undefinedLocation, local2]);
   });
 
   it('should not mutate the original array', () => {
     const local1 = createMockDictionary('test1', 'locale', 'local-1');
-    const distant1 = createMockDictionary('test2', 'distant', 'distant-1');
-    const originalDictionaries = [distant1, local1];
+    const remote1 = createMockDictionary('test2', 'remote', 'remote-1');
+    const originalDictionaries = [remote1, local1];
 
     const result = orderDictionaries(originalDictionaries);
 
     // Original array should remain unchanged
-    expect(originalDictionaries).toEqual([distant1, local1]);
+    expect(originalDictionaries).toEqual([remote1, local1]);
     // Result should be a new array
     expect(result).not.toBe(originalDictionaries);
-    expect(result).toEqual([local1, distant1]);
+    expect(result).toEqual([local1, remote1]);
   });
 
   it('should handle large arrays efficiently', () => {
@@ -218,10 +218,10 @@ describe('orderDictionaries', () => {
       );
     }
 
-    // Create 50 distant dictionaries
+    // Create 50 remote dictionaries
     for (let i = 0; i < 50; i++) {
       dictionaries.push(
-        createMockDictionary(`distant-${i}`, 'distant', `distant-${i}`)
+        createMockDictionary(`remote-${i}`, 'remote', `remote-${i}`)
       );
     }
 
@@ -231,12 +231,12 @@ describe('orderDictionaries', () => {
 
     // First 100 should be local
     for (let i = 0; i < 100; i++) {
-      expect(result[i].location).not.toBe('distant');
+      expect(result[i].location).not.toBe('remote');
     }
 
-    // Last 50 should be distant
+    // Last 50 should be remote
     for (let i = 100; i < 150; i++) {
-      expect(result[i].location).toBe('distant');
+      expect(result[i].location).toBe('remote');
     }
   });
 
@@ -254,12 +254,12 @@ describe('orderDictionaries', () => {
     };
     const baseDistant: Dictionary = {
       key: 'k',
-      location: 'distant',
+      location: 'remote',
       content: {},
     };
     const autoFilledDistant: Dictionary = {
       key: 'k',
-      location: 'distant',
+      location: 'remote',
       autoFilled: true,
       content: {},
     };
@@ -285,7 +285,7 @@ describe('orderDictionaries', () => {
     };
     const highPriorityDistant: Dictionary = {
       key: 'k',
-      location: 'distant',
+      location: 'remote',
       priority: 10,
       content: {},
     };
@@ -308,23 +308,23 @@ describe('orderDictionaries', () => {
     expect(ordered[2]).toBe(lowPriorityLocal);
   });
 
-  it('should use distant_first to break ties after priority and autoFilled', () => {
+  it('should use remote_first to break ties after priority and autoFilled', () => {
     const localA: Dictionary = {
       key: 'k',
       location: 'locale',
       priority: 1,
       content: {},
     };
-    const distantA: Dictionary = {
+    const remoteA: Dictionary = {
       key: 'k',
-      location: 'distant',
+      location: 'remote',
       priority: 1,
       content: {},
     };
 
     const customConfig = {
       editor: {
-        dictionaryPriorityStrategy: 'distant_first' as const,
+        dictionaryPriorityStrategy: 'remote_first' as const,
       },
       internationalization: {},
       middleware: {},
@@ -333,9 +333,9 @@ describe('orderDictionaries', () => {
       build: {},
     } as any;
 
-    const ordered = orderDictionaries([localA, distantA], customConfig);
+    const ordered = orderDictionaries([localA, remoteA], customConfig);
 
-    expect(ordered[0]).toBe(distantA);
+    expect(ordered[0]).toBe(remoteA);
     expect(ordered[1]).toBe(localA);
   });
 });

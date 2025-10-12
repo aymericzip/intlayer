@@ -29,11 +29,11 @@ export const orderDictionaries = (
   };
 
   const getLocationWeight = (d: Dictionary): number => {
-    const location = d.location ?? 'distant';
+    const location = d.location ?? 'remote';
 
     if (dictionaryPriorityStrategy === 'distant_first') {
       // distant should come first
-      return location === 'distant' ? 0 : 1;
+      return location === 'remote' ? 0 : 1;
     }
     // default: local_first
     return location === 'local' ? 0 : 1;
