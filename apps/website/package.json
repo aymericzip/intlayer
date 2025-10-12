@@ -36,7 +36,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "next build --turbopack",
-    "build:ci": "next build",
+    "build:ci": "next build --turbopack",
     "build:webpack": "next build",
     "dev": "intlayer watch --with 'next dev --turbopack'",
     "dev:webpack": "next dev",
