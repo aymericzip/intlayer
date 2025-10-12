@@ -1,3 +1,4 @@
+import { execSync } from 'node:child_process';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
 import { getConfiguration } from '@intlayer/config';
@@ -16,7 +17,6 @@ import {
 } from '../utils/getFormatFromExtension';
 import type { DictionaryStatus } from './dictionaryStatus';
 import { processContentDeclarationContent } from './processContentDeclarationContent';
-
 import { writeJSFile } from './writeJSFile';
 
 const formatContentDeclaration = async (
@@ -218,6 +218,12 @@ const writeFileWithDirectories = async (
   }
 
   await writeJSFile(filePath, dictionary, configuration);
+
+  if (configuration.editor.formatCommand) {
+    execSync(configuration.editor.formatCommand.replace('{{file}}', filePath), {
+      stdio: 'inherit',
+    });
+  }
 
   // remove the cache as content has changed
   // Will force a new preparation of the intlayer on next build

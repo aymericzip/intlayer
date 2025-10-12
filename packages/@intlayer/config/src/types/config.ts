@@ -268,6 +268,33 @@ export type EditorConfig = {
    * Default: `http://localhost:${liveSyncPort}`
    */
   liveSyncURL: string;
+
+  /**
+   * Command to format the content. When intlayer write your .content files locally, this command will be used to format the content.
+   *
+   * Example:
+   *
+   * ```bash
+   * npx prettier --write {{file}}
+   * ```
+   *
+   * ```bash
+   * bunx biome format {{file}}
+   * ```
+   *
+   * ```bash
+   * bun format {{file}}
+   * ```
+   *
+   * ```bash
+   * npx eslint --fix {{file}}
+   * ```
+   *
+   * Intlayer will replace the {{file}} with the path of the file to format.
+   *
+   * Default: undefined
+   */
+  formatCommand: string | undefined;
 };
 
 export type AiConfig = {

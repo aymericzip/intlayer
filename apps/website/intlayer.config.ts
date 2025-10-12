@@ -38,6 +38,7 @@ const config: IntlayerConfig = {
     backendURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    formatCommand: 'npx prettier --write {{file}}',
   },
   build: {
     importMode: 'dynamic',

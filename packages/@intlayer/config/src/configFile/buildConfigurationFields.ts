@@ -607,6 +607,32 @@ const buildEditorFields = (
   liveSyncURL:
     customConfiguration?.liveSyncURL ??
     `http://localhost:${customConfiguration?.liveSyncPort ?? LIVE_SYNC_PORT}`,
+
+  /**
+   * Command to format the content. When intlayer write your .content files locally, this command will be used to format the content.
+   * Intlayer will replace the {{file}} with the path of the file to format.
+   *
+   * Example:
+   *
+   * ```bash
+   * npx prettier --write {{file}}
+   * ```
+   *
+   * ```bash
+   * bunx biome format {{file}}
+   * ```
+   *
+   * ```bash
+   * bun format {{file}}
+   * ```
+   *
+   * ```bash
+   * npx eslint --fix {{file}}
+   * ```
+   *
+   * Default: undefined
+   */
+  formatCommand: customConfiguration?.formatCommand,
 });
 
 const buildLogFields = (

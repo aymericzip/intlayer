@@ -256,6 +256,16 @@ Defines settings related to the integrated editor, including server port and act
   - _Example_: `'https://example.com'`
   - _Note_: Point to localhost by default but can be changed to any URL in the case of a remote live sync server.
 
+- **formatCommand**:
+  - _Type_: `string`
+  - _Default_: `undefined`
+  - _Description_: The command to format the content. When intlayer write your .content files locally, this command will be used to format the content.
+  - _Example_: `'npx prettier --write {{file}}'` Using Prettier
+  - _Example_: `'bunx biome format {{file}}'` Using Biome
+  - _Example_: `'bun format {{file}}'` Using Bun
+  - _Example_: `'npx eslint --fix {{file}}'` Using ESLint
+  - _Note_: Intlayer will replace the {{file}} with the path of the file to format.
+
 ### Middleware Configuration
 
 Settings that control middleware behavior, including how the application handles cookies, headers, and URL prefixes for locale management.
@@ -561,6 +571,7 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
 | Version | Date       | Changes                                                                                 |
 | ------- | ---------- | --------------------------------------------------------------------------------------- |
+| 6.2.0   | 2025-10-12 | Add `formatCommand` option                                                              |
 | 6.2.0   | 2025-10-12 | Update `excludedPath` option                                                            |
 | 6.0.2   | 2025-09-23 | Add `outputFormat` option                                                               |
 | 6.0.0   | 2025-09-21 | Remove `dictionaryOutput` field and `i18nextResourcesDir` field                         |
