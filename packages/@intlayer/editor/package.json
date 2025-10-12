@@ -52,8 +52,8 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "bun clean & bun build:ci",
-    "build:ci": "bun build:package & bun build:types",
+    "build": "bun clean && bun build:ci",
+    "build:ci": "bun build:package && bun build:types",
     "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",

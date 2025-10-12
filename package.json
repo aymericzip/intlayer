@@ -34,8 +34,8 @@
     "check:fix": "biome check --write .",
     "clean": "turbo clean --filter=./packages/** --filter=./docs --filter=./apps/backend",
     "clean:node_modules": "rimraf node_modules ./**/node_modules",
-    "dev": "node ./scripts/script-dev-package-command.mjs --command build",
-    "dev:pick": "node ./scripts/script-pick.mjs --command dev",
+    "dev": "bun ./scripts/script-dev-package-command.mjs --command build",
+    "dev:pick": "bun ./scripts/script-pick.mjs --command dev",
     "docker:backend:build": "docker build -t intlayer-backend -f ./apps/backend/Dockerfile .",
     "docker:backend:start": "docker run --rm -p 3100:3100 --name intlayer-backend-app intlayer-backend",
     "docker:mcp:build": "docker build -t intlayer-mcp -f ./packages/@intlayer/mcp/Dockerfile .",
@@ -53,7 +53,7 @@
     "prepare": "husky",
     "prepublish": "turbo prepublish --filter=./packages/** --filter=./docs --filter=./apps/backend",
     "test": "turbo test --parallel --filter=./packages/** --filter=./docs --filter=./apps/backend",
-    "test:pick": "node ./scripts/script-pick.mjs --command test",
+    "test:pick": "bun ./scripts/script-pick.mjs --command test",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "devDependencies": {

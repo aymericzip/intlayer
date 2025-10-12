@@ -57,7 +57,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "bun clean & bun build:ci",
+    "build": "bun clean && bun build:ci",
     "build:ci": "vite build",
     "clean": "rimraf ./dist",
     "dev": "vite build --watch",

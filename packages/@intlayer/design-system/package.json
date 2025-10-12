@@ -89,7 +89,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "bun clean & bun build:ci",
+    "build": "bun clean && bun build:ci",
     "build:ci": "bun build:package",
     "build:css": "npx tailwindcss --minify -i ./src/tailwind.css -o ./dist/tailwind.css",
     "build:intlayer": "intlayer build",
