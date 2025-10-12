@@ -15,6 +15,7 @@ COPY \
     --exclude=packages/@intlayer/editor-react \
     --exclude=packages/intlayer-cli \
     --exclude=packages/next-intlayer \
+    --exclude=packages/astro-intlayer \
     --exclude=packages/react-scripts-intlayer \
     --exclude=packages/react-intlayer \
     --exclude=packages/vue-intlayer \
