@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { usePersistedStore } from '../../hooks';
 
-export type PackageManager = 'npm' | 'pnpm' | 'yarn';
+export type PackageManager = 'npm' | 'pnpm' | 'yarn' | 'bun';
 export type CodeFormat = 'typescript' | 'commonjs' | 'esm';
 export type ContentDeclarationFormat =
   | 'typescript'

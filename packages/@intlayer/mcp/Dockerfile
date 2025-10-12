@@ -1,9 +1,6 @@
 # syntax=docker/dockerfile:1.19.0
 
-FROM node:24-alpine AS builder
-
-
-RUN npm install -g pnpm@10.17.1
+FROM oven/bun:1.3-alpine AS builder
 
 # Create app directory
 WORKDIR /workspace
@@ -23,6 +20,7 @@ COPY \
     --exclude=packages/vue-intlayer \
     --exclude=packages/solid-intlayer \
     --exclude=packages/svelte-intlayer \
+    --exclude=packages/next-intlayer \
     --exclude=packages/preact-intlayer \
     --exclude=packages/angular-intlayer \
     --exclude=packages/vite-intlayer \
@@ -37,14 +35,14 @@ COPY \
     --exclude=apps/website \
     . .
 
-# Installer toutes les dépendances (dev + prod) (frozen for reproducible builds)
-RUN pnpm install --frozen-lockfile
+# Install all dependencies (dev + prod) (frozen for reproducible builds)
+RUN bun install --ignore-scripts --filter=./packages/@intlayer/mcp
 
 # Build every package in the workspace (uses the root "build" script)
-RUN npx turbo run build:ci --filter=./packages/@intlayer/mcp
+RUN bun x turbo run build:ci --filter=./packages/@intlayer/mcp
 
 # Remove all dev dependencies
-# RUN CI=true pnpm prune --prod
+# RUN CI=true bun pm prune --production
 
 # Remove .ts, .tsx and .map files only within src/** directories, ignoring node_modules, so configuration files like intlayer.config.ts are kept
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
@@ -65,7 +63,7 @@ USER app
 EXPOSE 3000
 
 # Option 1: Use mcp-proxy (recommended - simpler)
-CMD ["npm", "run", "start:sse"]
+CMD ["bun", "run", "start:sse"]
 
 # Option 2: Use stdio transport (alternative)
-# CMD ["npm", "run", "start:stdio"]
+# CMD ["bun", "run", "start:stdio"]

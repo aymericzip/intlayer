@@ -89,8 +89,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "pnpm clean & pnpm build:ci",
-    "build:ci": "pnpm build:package",
+    "build": "bun clean && bun build:ci",
+    "build:ci": "bun build:package",
     "build:css": "npx tailwindcss --minify -i ./src/tailwind.css -o ./dist/tailwind.css",
     "build:intlayer": "intlayer build",
     "build:package": "vite build",
@@ -104,7 +104,7 @@
     "format:fix": "biome format --write .",
     "preview": "vite preview",
     "prepublish": "cp -f ../../../README.md ./README.md",
-    "start": "pnpm storybook -p 6006 --no-open --host 0.0.0.0",
+    "start": "bun storybook -p 6006 --no-open --host 0.0.0.0",
     "start:serve": "npx http-server -y storybook-static -p 6006 -o --no-open",
     "storybook": "storybook dev -p 6006",
     "test": "vitest run",

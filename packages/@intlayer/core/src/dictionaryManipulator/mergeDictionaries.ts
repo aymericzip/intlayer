@@ -1,119 +1,166 @@
 import { colorizeKey, getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
-import merge, { type Options } from 'deepmerge';
-import type { Dictionary, LocalDictionaryId } from '../types/dictionary';
+import type {
+  ContentNode,
+  Dictionary,
+  LocalDictionaryId,
+} from '../types/dictionary';
 import { getNodeType } from './getNodeType';
 
+// Extended type that includes arrays for internal merge operations
+type MergeableContent = ContentNode | ContentNode[];
+
 const checkTypesMatch = (
-  obj1: any,
-  obj2: any,
-  obj2LocalId: LocalDictionaryId | undefined,
+  object1: ContentNode,
+  object2: ContentNode,
+  object2LocalId: LocalDictionaryId | undefined,
   dictionaryKey: string,
   path: string[] = []
 ): void => {
   const appLogger = getAppLogger(configuration);
-  const type1 = getNodeType(obj1.object);
-  const type2 = getNodeType(obj2.object);
+
+  // If either side is missing/undefined, allow merge without error
+  if (
+    object1 === undefined ||
+    object1 === null ||
+    object2 === undefined ||
+    object2 === null
+  )
+    return;
+
+  const type1 = getNodeType(object1);
+  const type2 = getNodeType(object2);
+
+  // Unknown types are treated as flexible; skip strict mismatch reporting
+  if (type1 === 'unknown' || type2 === 'unknown') return;
 
   if (type1 !== type2) {
     appLogger(
       [
-        `Error: Dictionary ${colorizeKey(dictionaryKey)} has a multiple content files with type mismatch at path "${path.join('.')}": Cannot merge ${type1} with ${type2} while merging ${obj2LocalId}`,
+        `Error: Dictionary ${colorizeKey(dictionaryKey)} has a multiple content files with type mismatch at path "${path.join('.')}": Cannot merge ${type1} with ${type2} while merging ${object2LocalId}`,
       ],
       {
         level: 'error',
       }
     );
 
-    console.dir({ obj1, obj2 }, { depth: null, colors: true });
-  }
-
-  if (type1 === 'object' && obj1 && obj2) {
-    const allKeys = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
-    for (const key of allKeys) {
-      if (key in obj1 && key in obj2) {
-        checkTypesMatch(obj1[key], obj2[key], obj2LocalId, dictionaryKey, [
-          ...path,
-          key,
-        ]);
-      }
-    }
+    console.dir({ object1, object2 }, { depth: null, colors: true });
+    return;
   }
 };
 
+// Custom merge function that prefers destination (first dictionary) values
+const customMerge = (
+  destination: ContentNode,
+  source: ContentNode
+): MergeableContent => {
+  // If destination is undefined/null, use source
+  if (destination === undefined || destination === null) {
+    return source;
+  }
+
+  // If source is undefined/null, use destination
+  if (source === undefined || source === null) {
+    return destination;
+  }
+
+  // For primitive values, prefer destination (first dictionary)
+  if (typeof destination !== 'object' || typeof source !== 'object') {
+    return destination;
+  }
+
+  // For arrays, use our custom array merge
+  if (Array.isArray(destination) && Array.isArray(source)) {
+    return arrayMerge(
+      destination as ContentNode[],
+      source as ContentNode[]
+    ) as MergeableContent;
+  }
+
+  // For objects, recursively merge with our custom logic
+  if (typeof destination === 'object' && typeof source === 'object') {
+    const result: Record<string, MergeableContent> = {};
+    const allKeys = new Set([
+      ...Object.keys(destination as Record<string, ContentNode>),
+      ...Object.keys(source as Record<string, ContentNode>),
+    ]);
+
+    for (const key of allKeys) {
+      result[key] = customMerge(
+        (destination as Record<string, ContentNode>)[key],
+        (source as Record<string, ContentNode>)[key]
+      );
+    }
+
+    return result as MergeableContent;
+  }
+
+  // Fallback to destination
+  return destination;
+};
+
 // Custom array merge strategy that merges arrays by key when present, otherwise by index
-const arrayMerge = (destinationArray: any[], sourceArray: any[]): any[] => {
-  const isObject = (value: unknown): value is Record<string, any> =>
-    !!value && typeof value === 'object' && !Array.isArray(value);
+const arrayMerge = (
+  destinationArray: ContentNode[],
+  sourceArray: ContentNode[]
+): MergeableContent[] => {
+  // Check if both arrays contain only primitives
+  const destHasOnlyPrimitives = destinationArray.every(
+    (item) => typeof item !== 'object' || item === null
+  );
+  const sourceHasOnlyPrimitives = sourceArray.every(
+    (item) => typeof item !== 'object' || item === null
+  );
 
-  const getKey = (item: any): string | number | undefined => {
-    if (!isObject(item)) return undefined;
-    const key = (item as any).key;
-    if (typeof key === 'string' || typeof key === 'number') return key;
-    return undefined;
-  };
-
-  const result: any[] = [];
-
-  // Build a lookup for destination keyed items and track usage of all destination indices
-  const destKeyToIndex = new Map<string | number, number>();
-  const destUsed: boolean[] = new Array(destinationArray.length).fill(false);
-  for (let i = 0; i < destinationArray.length; i++) {
-    const k = getKey(destinationArray[i]);
-    if (k !== undefined && !destKeyToIndex.has(k)) {
-      destKeyToIndex.set(k, i);
-    }
+  // If both arrays contain only primitives, use the source array (second dictionary)
+  if (destHasOnlyPrimitives && sourceHasOnlyPrimitives) {
+    return sourceArray;
   }
 
-  // First pass: respect source (already merged) order
-  for (let i = 0; i < sourceArray.length; i++) {
-    const sourceItem = sourceArray[i];
-    const sourceKey = getKey(sourceItem);
+  // Otherwise, merge by index with object merging logic
+  const result: MergeableContent[] = [];
+  const maxLength = Math.max(destinationArray.length, sourceArray.length);
 
-    if (sourceKey !== undefined && destKeyToIndex.has(sourceKey)) {
-      const destIndex = destKeyToIndex.get(sourceKey)!;
-      const destItem = destinationArray[destIndex];
-      destUsed[destIndex] = true;
-
-      if (isObject(destItem) && isObject(sourceItem)) {
-        result.push(merge(sourceItem, destItem, { arrayMerge }));
-      } else {
-        // Prefer destination item (later dictionary) when primitive
-        result.push(destItem !== undefined ? destItem : sourceItem);
-      }
-      continue;
-    }
-
-    // Fallback to index-based merge when no key match
+  for (let i = 0; i < maxLength; i++) {
     const destItem = destinationArray[i];
-    if (destItem !== undefined && !destUsed[i]) {
-      destUsed[i] = true;
-      if (isObject(destItem) && isObject(sourceItem)) {
-        result.push(merge(sourceItem, destItem, { arrayMerge }));
-      } else if (destItem !== undefined) {
-        result.push(destItem);
-      } else {
-        result.push(sourceItem);
-      }
-    } else {
-      result.push(sourceItem);
-    }
-  }
+    const sourceItem = sourceArray[i];
 
-  // Second pass: append remaining unused destination items (including keyed-only in destination or extra by index)
-  for (let i = 0; i < destinationArray.length; i++) {
-    if (!destUsed[i]) {
-      result.push(destinationArray[i]);
-      destUsed[i] = true;
+    if (destItem === undefined && sourceItem === undefined) {
+    } else if (destItem === undefined) {
+      // Only source exists, add it
+      result.push(sourceItem);
+    } else if (sourceItem === undefined) {
+      // Only destination exists, add it
+      result.push(destItem);
+    } else {
+      // Both exist, merge them
+      if (
+        typeof destItem === 'object' &&
+        typeof sourceItem === 'object' &&
+        destItem !== null &&
+        sourceItem !== null
+      ) {
+        // Check if both objects have a 'key' property for keyed merging
+        if (
+          'key' in destItem &&
+          'key' in sourceItem &&
+          (destItem as Record<string, string>).key ===
+            (sourceItem as Record<string, string>).key
+        ) {
+          // Merge objects with same key, preferring destination (first dictionary) values
+          result.push(customMerge(destItem, sourceItem));
+        } else {
+          // Merge objects by index, preferring destination (first dictionary) values
+          result.push(customMerge(destItem, sourceItem));
+        }
+      } else {
+        // For primitives or non-objects, use destination value (first dictionary)
+        result.push(destItem);
+      }
     }
   }
 
   return result;
-};
-
-// Configure deepmerge options with custom array merge strategy
-const mergeOptions: Options = {
-  arrayMerge,
 };
 
 export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
@@ -144,18 +191,15 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
       []
     );
 
-    mergedContent = merge(
-      currentDictionary.content,
+    mergedContent = customMerge(
       mergedContent,
-      mergeOptions
-    );
+      currentDictionary.content
+    ) as ContentNode;
   }
 
   const mergedDictionary: Dictionary = {
     key: dictionaries[0].key,
-    locale: undefined,
-    filePath: undefined,
-    localId: undefined,
+
     content: mergedContent,
     localIds,
   };

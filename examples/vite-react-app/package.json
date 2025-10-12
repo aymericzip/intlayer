@@ -7,7 +7,7 @@
     "build": "tsc && vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "start": "pnpm intlayer live --process 'vite preview'",
+    "start": "bun intlayer live --process 'vite preview'",
     "start:editor": "npx intlayer-editor start -e development",
     "test": ""
   },

@@ -41,6 +41,7 @@ export const useI18n = <T extends DictionaryKeys>(
 
   // Get the dictionary content for the namespace
   const dictionaryContent: DeepTransformContent<
+    // @ts-ignore Type 'T' cannot be used to index type 'IntlayerDictionaryTypesConnector'
     IntlayerDictionaryTypesConnector[T]['content']
   > = useMemo(
     () => getIntlayer(namespace, localeTarget),
@@ -51,6 +52,7 @@ export const useI18n = <T extends DictionaryKeys>(
   const t = <P extends ValidDotPathsFor<T>>(
     path: P
   ): GetSubPath<
+    // @ts-ignore Type 'T' cannot be used to index type 'IntlayerDictionaryTypesConnector'
     DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']>,
     P
   > => {
