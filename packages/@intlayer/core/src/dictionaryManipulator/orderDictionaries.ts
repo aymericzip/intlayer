@@ -29,7 +29,12 @@ export const orderDictionaries = (
   };
 
   const getLocationWeight = (d: Dictionary): number => {
-    const location = d.location ?? 'remote';
+    const location = d.location;
+
+    // undefined location should always be last
+    if (location === undefined) {
+      return 2;
+    }
 
     if (dictionaryPriorityStrategy === 'distant_first') {
       // distant should come first

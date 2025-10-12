@@ -12,8 +12,23 @@ const checkTypesMatch = (
   path: string[] = []
 ): void => {
   const appLogger = getAppLogger(configuration);
-  const type1 = getNodeType(obj1.object);
-  const type2 = getNodeType(obj2.object);
+
+  // If either side is missing/undefined, allow merge without error
+  if (
+    obj1 === undefined ||
+    obj1 === null ||
+    obj2 === undefined ||
+    obj2 === null
+  )
+    return;
+
+  const type1 = getNodeType(obj1 as any);
+  const type2 = getNodeType(obj2 as any);
+
+  // Unknown types are treated as flexible; skip strict mismatch reporting
+  if (type1 === 'unknown' || type2 === 'unknown') {
+    return;
+  }
 
   if (type1 !== type2) {
     appLogger(
@@ -26,8 +41,10 @@ const checkTypesMatch = (
     );
 
     console.dir({ obj1, obj2 }, { depth: null, colors: true });
+    return;
   }
 
+  // Recurse into plain objects
   if (type1 === 'object' && obj1 && obj2) {
     const allKeys = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
     for (const key of allKeys) {
@@ -35,6 +52,32 @@ const checkTypesMatch = (
         checkTypesMatch(obj1[key], obj2[key], obj2LocalId, dictionaryKey, [
           ...path,
           key,
+        ]);
+      }
+    }
+    return;
+  }
+
+  // Recurse into typed translation nodes to validate child types per locale
+  if (
+    obj1 &&
+    obj2 &&
+    typeof obj1 === 'object' &&
+    typeof obj2 === 'object' &&
+    obj1.nodeType === 'translation' &&
+    obj2.nodeType === 'translation'
+  ) {
+    const t1 = (obj1 as any).translation ?? {};
+    const t2 = (obj2 as any).translation ?? {};
+    const allLocales = new Set([...Object.keys(t1), ...Object.keys(t2)]);
+    for (const locale of allLocales) {
+      if (locale in t1 && locale in t2) {
+        const c1 = t1[locale];
+        const c2 = t2[locale];
+        if (c1 === undefined || c2 === undefined) continue;
+        checkTypesMatch(c1, c2, obj2LocalId, dictionaryKey, [
+          ...path,
+          `translation.${locale}`,
         ]);
       }
     }
