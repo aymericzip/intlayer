@@ -66,11 +66,12 @@ COPY \
     --exclude=**/*.stories.* \
     . .
 
+
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install --ignore-scripts --filter=./apps/website
+RUN bun install
 
 # Build every package in the workspace (uses the root "build" script)
-RUN bun x turbo run build:ci
+RUN bun x turbo run build:ci --filter=./apps/website
 
 # Set working directory to the website package and build it
 WORKDIR /workspace/apps/website
@@ -78,7 +79,7 @@ WORKDIR /workspace/apps/website
 ENV NODE_ENV=production
 
 # Build the Next.js website
-RUN bun run build
+RUN bun x next build
 
 WORKDIR /workspace
 
