@@ -20,7 +20,7 @@ export type GetConfigurationOptions = {
   env?: string;
   envFile?: string;
   logFunctions?: LogFunctions;
-  projectRequire?: NodeJS.Require;
+  require?: NodeJS.Require;
   additionalEnvVars?: Record<string, string>;
 };
 
@@ -42,19 +42,10 @@ export const getConfigurationAndFilePath = (
     ...options,
   };
 
-  const {
-    baseDir,
-    env,
-    envFile,
-    logFunctions,
-    additionalEnvVars,
-    projectRequire,
-  } = mergedOptions;
-
-  if (!storedConfiguration || typeof options !== 'undefined') {
+  if (!storedConfiguration) {
     // Search for configuration files
     const { configurationFilePath, numCustomConfiguration } =
-      searchConfigurationFile(baseDir);
+      searchConfigurationFile(mergedOptions.baseDir);
 
     // Load the custom configuration
     let customConfiguration: CustomIntlayerConfig | undefined;
@@ -62,17 +53,17 @@ export const getConfigurationAndFilePath = (
     if (configurationFilePath) {
       customConfiguration = loadConfigurationFile(
         configurationFilePath,
-        { env, envFile },
-        projectRequire,
-        additionalEnvVars
+        { env: mergedOptions.env, envFile: mergedOptions.envFile },
+        mergedOptions?.require,
+        mergedOptions.additionalEnvVars
       );
     }
 
     // Save the configuration to avoid reading the file again
     storedConfiguration = buildConfigurationFields(
       customConfiguration,
-      baseDir,
-      logFunctions
+      mergedOptions.baseDir,
+      mergedOptions.logFunctions
     );
 
     storedConfigurationFilePath = configurationFilePath;
@@ -87,9 +78,20 @@ export const getConfigurationAndFilePath = (
     );
   }
 
-  const configuration = merge(
+  const projectRequireConfig = {
+    build: {
+      require: mergedOptions.require,
+    },
+  } as CustomIntlayerConfig;
+
+  const configWithProjectRequire = merge(
     storedConfiguration,
-    options?.override ?? {}
+    projectRequireConfig
+  ) as CustomIntlayerConfig;
+
+  const configuration = merge(
+    configWithProjectRequire,
+    mergedOptions.override ?? {}
   ) as IntlayerConfig;
 
   return {

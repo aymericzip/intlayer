@@ -47,7 +47,6 @@ export type Plugin = {
    */
   loadDictionaries?: (args: {
     configuration: IntlayerConfig;
-    projectRequire: NodeJS.Require;
   }) => Promise<PluginDictionary[]> | PluginDictionary[];
 
   /**

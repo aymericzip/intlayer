@@ -428,6 +428,25 @@ export type BuildConfig = {
    * The default format is 'cjs' as it allows better interoperability with other libraries, scripts, and applications. But some build tools, such as Vite, require ES modules.
    */
   outputFormat: ('cjs' | 'esm')[];
+
+  /**
+   * Require function
+   *
+   * In some environments, as Bun, the require function should be set relatively to the project root to work properly.
+   *
+   * Default: undefined
+   *
+   * If undefined, the require function will be set to the default require function.
+   * If defined, the require function will be set to the defined require function.
+   *
+   * Example:
+   * ```js
+   * {
+   *   require: require
+   * }
+   * ```
+   */
+  require: NodeJS.Require;
 };
 
 /**

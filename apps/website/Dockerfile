@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1.19.0
 
-FROM oven/bun:1.3-alpine AS builder
+FROM node:22-alpine AS builder
+
+RUN npm install -g bun@1.3.0
 
 ARG INTLAYER_CLIENT_ID
 ARG INTLAYER_CLIENT_SECRET

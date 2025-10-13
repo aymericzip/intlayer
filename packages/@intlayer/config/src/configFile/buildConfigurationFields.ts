@@ -3,6 +3,7 @@ import {
   IMPORT_MODE,
   OPTIMIZE,
   OUTPUT_FORMAT,
+  REQUIRE,
   TRAVERSE_PATTERN,
 } from '../defaultValues/build';
 import {
@@ -16,7 +17,6 @@ import {
   FILE_EXTENSIONS,
   MAIN_DIR,
   MODULE_AUGMENTATION_DIR,
-  NORMALIZED_DICTIONARIES_DIR,
   REMOTE_DICTIONARIES_DIR,
   TYPES_DIR,
   UNMERGED_DICTIONARIES_DIR,
@@ -773,6 +773,11 @@ const buildBuildFields = (
    * - 'esm': The dictionaries are outputted as ES modules.
    */
   outputFormat: customConfiguration?.outputFormat ?? OUTPUT_FORMAT,
+
+  /**
+   * Require function
+   */
+  require: customConfiguration?.require ?? REQUIRE,
 });
 
 /**

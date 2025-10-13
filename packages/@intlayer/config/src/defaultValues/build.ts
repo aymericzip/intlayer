@@ -1,3 +1,5 @@
+import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
+
 export const OPTIMIZE = process.env.NODE_ENV === 'production';
 
 export const IMPORT_MODE = 'static';
@@ -8,3 +10,5 @@ export const TRAVERSE_PATTERN = [
 ];
 
 export const OUTPUT_FORMAT: ('cjs' | 'esm')[] = ['cjs', 'esm'];
+
+export const REQUIRE: NodeJS.Require = ESMxCJSRequire;

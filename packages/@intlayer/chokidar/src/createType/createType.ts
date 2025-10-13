@@ -1,17 +1,8 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import {
-  ESMxCJSRequire,
-  getConfiguration,
-  type IntlayerConfig,
-} from '@intlayer/config';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { parallelize } from '../utils/parallelize';
-
-const requireUncached = (module: string) => {
-  delete ESMxCJSRequire.cache[ESMxCJSRequire.resolve(module)];
-  return ESMxCJSRequire(module);
-};
 
 export const generateTypeScriptType = (dictionary: Dictionary) => {
   const jsonString = JSON.stringify(dictionary, null, 2);
@@ -25,7 +16,8 @@ export const createTypes = async (
   dictionariesPaths: string[],
   configuration: IntlayerConfig = getConfiguration()
 ): Promise<string[]> => {
-  const { typesDir } = configuration.content;
+  const { build, content } = configuration;
+  const { typesDir } = content;
 
   // Create type folders if they don't exist
   await mkdir(typesDir, { recursive: true });
@@ -33,7 +25,8 @@ export const createTypes = async (
   const results = await parallelize(
     dictionariesPaths,
     async (dictionaryPath): Promise<string | undefined> => {
-      const dictionary: Dictionary = requireUncached(dictionaryPath);
+      delete build.require.cache[build.require.resolve(dictionaryPath)];
+      const dictionary: Dictionary = build.require(dictionaryPath);
 
       if (!dictionary.key) {
         return undefined;

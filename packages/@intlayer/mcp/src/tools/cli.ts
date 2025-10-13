@@ -1,15 +1,72 @@
 import {
+  build,
   fill,
   listContentDeclarationRows,
   listMissingTranslations,
   pull,
   push,
 } from '@intlayer/cli';
-import { Locales } from '@intlayer/config';
+import { Locales, type LogConfig } from '@intlayer/config';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
 
 export const loadCLITools = async (server: McpServer) => {
+  server.tool(
+    'intlayer-build',
+    'Build the dictionaries. List all content declarations files `.content.{ts,tsx,js,json,...}` to update the content callable using the `useIntlayer` hook.',
+    {
+      watch: z.boolean().optional().describe('Watch for changes'),
+      baseDir: z.string().optional().describe('Base directory'),
+      env: z.string().optional().describe('Environment'),
+      envFile: z.string().optional().describe('Environment file'),
+      verbose: z.boolean().optional().describe('Verbose output'),
+      prefix: z.string().optional().describe('Log prefix'),
+    },
+    async ({ watch, baseDir, env, envFile, verbose, prefix }) => {
+      try {
+        const log: Partial<LogConfig> = {};
+        if (verbose) {
+          log.mode = 'verbose';
+        }
+        if (prefix) {
+          log.prefix = prefix;
+        }
+
+        await build({
+          watch,
+          configOptions: {
+            baseDir,
+            env,
+            envFile,
+            override: {
+              log,
+            },
+          },
+        });
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: 'Build successful.',
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Build failed: ${errorMessage}`,
+            },
+          ],
+        };
+      }
+    }
+  );
+
   server.tool(
     'intlayer-fill',
     'Fill the dictionaries with missing translations / review translations using Intlayer servers',

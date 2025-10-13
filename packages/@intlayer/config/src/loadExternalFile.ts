@@ -39,7 +39,7 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
 export const loadExternalFile = (
   filePath: string,
   envVarOptions?: LoadEnvFileOptions,
-  projectRequire?: NodeJS.Require,
+  projectRequire: NodeJS.Require = ESMxCJSRequire,
   additionalEnvVars?: Record<string, string>
 ): any | undefined => {
   let fileContent: any | undefined;
@@ -49,9 +49,9 @@ export const loadExternalFile = (
   try {
     if (fileExtension === 'json') {
       // Remove cache to force reloading
-      delete ESMxCJSRequire.cache[ESMxCJSRequire.resolve(filePath)];
+      delete projectRequire.cache[projectRequire.resolve(filePath)];
       // Assume JSON
-      return ESMxCJSRequire(filePath);
+      return projectRequire(filePath);
     }
 
     // Rest is JS, MJS or TS

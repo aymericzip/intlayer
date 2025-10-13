@@ -2,6 +2,7 @@ import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
   ESMxCJSRequire,
+  type GetConfigurationOptions,
   getAlias,
   getAppLogger,
   getConfiguration,
@@ -14,16 +15,19 @@ import merge from 'deepmerge';
 import fg from 'fast-glob';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
+import nextPackageJSON from 'next/package.json';
 import { compareVersions } from './compareVersion';
-import { getNextVersion } from './getNextVertion';
 
 // Extract from the start script if --turbo or --turbopack flag is used
 const isTurbopackEnabled =
   process.env.npm_lifecycle_script?.includes('--turbo');
-const nextVersion = getNextVersion();
-const isGteNext13 = compareVersions(nextVersion, '≥', '13.0.0');
-const isGteNext15 = compareVersions(nextVersion, '≥', '15.0.0');
-const isTurbopackStable = compareVersions(nextVersion, '≥', '15.3.0');
+const isGteNext13 = compareVersions(nextPackageJSON.version, '≥', '13.0.0');
+const isGteNext15 = compareVersions(nextPackageJSON.version, '≥', '15.0.0');
+const isTurbopackStable = compareVersions(
+  nextPackageJSON.version,
+  '≥',
+  '15.3.0'
+);
 
 // Check if SWC plugin is available
 const getIsSwcPluginAvailable = () => {
@@ -163,13 +167,15 @@ type WebpackParams = Parameters<NextJsWebpackConfig>;
  * ```
  */
 export const withIntlayer = async <T extends Partial<NextConfig>>(
-  nextConfig: T = {} as T
+  nextConfig: T = {} as T,
+  configOptions?: GetConfigurationOptions
 ): Promise<NextConfig & T> => {
   if (typeof nextConfig !== 'object') {
     nextConfig = {} as T;
   }
 
-  const intlayerConfig = getConfiguration();
+  const intlayerConfig = getConfiguration(configOptions);
+
   const { isDevCommand, isBuildCommand } = getCommandsEvent();
 
   // Only call prepareIntlayer during `dev` or `build` (not during `start`)

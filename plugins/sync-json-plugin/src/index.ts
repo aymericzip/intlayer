@@ -197,10 +197,7 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
   return {
     name: 'sync-json',
 
-    loadDictionaries: async ({
-      projectRequire = ESMxCJSRequire,
-      configuration,
-    }) => {
+    loadDictionaries: async ({ configuration }) => {
       const dictionariesMap: DictionariesMap = loadMessagePathMap(
         options.source,
         configuration
@@ -218,7 +215,7 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
       const dictionaries: Dictionary[] = [];
 
       for (const { locale, path, key } of dictionariesMap) {
-        const json: JSONContent = projectRequire(path as string);
+        const json: JSONContent = configuration.build.require(path as string);
 
         const filePath = relative(configuration.content.baseDir, path);
 

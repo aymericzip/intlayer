@@ -31,11 +31,17 @@ COPY \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/@intlayer/design-system \
     --exclude=packages/intlayer-editor \
-    --exclude=docs/assets \
+    --exclude=docs \
     --exclude=examples \
     --exclude=apps/website \
     --exclude=**/*.stories.* \
     . .
+
+COPY packages/@intlayer/docs/src                      packages/@intlayer/docs/src
+COPY packages/@intlayer/docs/docs/en/                 packages/@intlayer/docs/docs/en/
+COPY packages/@intlayer/docs/blogs/en/                packages/@intlayer/docs/blogs/en/
+COPY packages/@intlayer/docs/frequent_questions/en/   packages/@intlayer/docs/frequent_questions/en/
+COPY packages/@intlayer/docs/legal/en/                packages/@intlayer/docs/legal/en/
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
 RUN bun install --ignore-scripts --filter=./apps/backend

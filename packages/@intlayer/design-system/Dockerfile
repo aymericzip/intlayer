@@ -25,7 +25,7 @@ COPY \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/intlayer-editor \
-    --exclude=docs/assets \
+    --exclude=docs \
     --exclude=apps/website \
     --exclude=plugins \
     --exclude=examples \
