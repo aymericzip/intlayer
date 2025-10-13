@@ -81,7 +81,7 @@ WORKDIR /workspace/apps/website
 ENV NODE_ENV=production
 
 # Build the Next.js website
-RUN bun x next build
+RUN npx next build
 
 WORKDIR /workspace
 
@@ -98,4 +98,4 @@ USER app
 # Expose the API port (defaults to 3100 via .env, can be overridden)
 EXPOSE 3000
 
-CMD ["bun", "start"] 
+CMD ["node", "start"] 
