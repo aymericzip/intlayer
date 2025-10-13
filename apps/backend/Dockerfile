@@ -31,13 +31,15 @@ COPY \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/@intlayer/design-system \
     --exclude=packages/intlayer-editor \
-    --exclude=docs \
+    --exclude=docs/assets \
+    --exclude=docs/blog \
+    --exclude=docs/frequent_questions \
+    --exclude=docs/legal \
     --exclude=examples \
     --exclude=apps/website \
     --exclude=**/*.stories.* \
     . .
 
-COPY docs/src                      docs/src
 COPY docs/docs/en/                 docs/docs/en/
 COPY docs/blog/en/                 docs/blog/en/
 COPY docs/frequent_questions/en/   docs/frequent_questions/en/
