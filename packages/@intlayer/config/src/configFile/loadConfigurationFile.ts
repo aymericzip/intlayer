@@ -1,7 +1,7 @@
 import type { LoadEnvFileOptions } from '../loadEnvFile';
 import { loadExternalFile } from '../loadExternalFile';
-import { logger } from '../logger';
 import type { CustomIntlayerConfig } from '../types/config';
+import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 
 const filterValidConfiguration = (
   configuration: CustomIntlayerConfig
@@ -18,25 +18,16 @@ const filterValidConfiguration = (
  */
 export const loadConfigurationFile = (
   configFilePath: string,
+  projectRequire: NodeJS.Require = ESMxCJSRequire,
   envVarOptions?: LoadEnvFileOptions,
-  projectRequire?: NodeJS.Require,
   additionalEnvVars?: Record<string, string>
 ): CustomIntlayerConfig | undefined => {
-  try {
-    const fileContent = loadExternalFile(
-      configFilePath,
-      envVarOptions,
-      projectRequire,
-      additionalEnvVars
-    );
+  const fileContent = loadExternalFile(
+    configFilePath,
+    projectRequire,
+    envVarOptions,
+    additionalEnvVars
+  );
 
-    return filterValidConfiguration(fileContent);
-  } catch (error) {
-    logger(
-      `Error: ${error} ${JSON.stringify((error as Error).stack, null, 2)}`,
-      {
-        level: 'error',
-      }
-    );
-  }
+  return filterValidConfiguration(fileContent);
 };

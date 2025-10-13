@@ -6,13 +6,10 @@ import type {
   IntlayerConfig,
   LogFunctions,
 } from '../types/config';
+import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
 import { searchConfigurationFile } from './searchConfigurationFile';
-
-let storedConfiguration: IntlayerConfig | undefined;
-let storedConfigurationFilePath: string | undefined;
-let storedNumCustomConfiguration: number | undefined;
 
 export type GetConfigurationOptions = {
   baseDir?: string;
@@ -39,25 +36,29 @@ export const getConfigurationAndFilePath = (
 ): GetConfigurationAndFilePathResult => {
   const mergedOptions = {
     baseDir: BASE_DIR_PATH,
+    require: options?.require,
     ...options,
   };
 
-  if (!storedConfiguration) {
-    // Search for configuration files
-    const { configurationFilePath, numCustomConfiguration } =
-      searchConfigurationFile(mergedOptions.baseDir);
+  // Search for configuration files
+  const { configurationFilePath, numCustomConfiguration } =
+    searchConfigurationFile(mergedOptions.baseDir);
 
+  if (options?.override?.log?.mode === 'verbose') {
+    logConfigFileResult(numCustomConfiguration, configurationFilePath);
+  }
+
+  let storedConfiguration: IntlayerConfig | undefined;
+
+  if (configurationFilePath) {
     // Load the custom configuration
-    let customConfiguration: CustomIntlayerConfig | undefined;
-
-    if (configurationFilePath) {
-      customConfiguration = loadConfigurationFile(
+    const customConfiguration: CustomIntlayerConfig | undefined =
+      loadConfigurationFile(
         configurationFilePath,
+        mergedOptions.require,
         { env: mergedOptions.env, envFile: mergedOptions.envFile },
-        mergedOptions?.require,
         mergedOptions.additionalEnvVars
       );
-    }
 
     // Save the configuration to avoid reading the file again
     storedConfiguration = buildConfigurationFields(
@@ -65,27 +66,20 @@ export const getConfigurationAndFilePath = (
       mergedOptions.baseDir,
       mergedOptions.logFunctions
     );
-
-    storedConfigurationFilePath = configurationFilePath;
-    storedNumCustomConfiguration = numCustomConfiguration;
   }
 
   // Log warning if multiple configuration files are found
-  if (options?.override?.log?.mode === 'verbose') {
-    logConfigFileResult(
-      storedNumCustomConfiguration,
-      storedConfigurationFilePath
-    );
-  }
 
-  const projectRequireConfig = {
-    build: {
-      require: mergedOptions.require,
-    },
-  } as CustomIntlayerConfig;
+  const projectRequireConfig: CustomIntlayerConfig = mergedOptions.require
+    ? {
+        build: {
+          require: mergedOptions.require,
+        },
+      }
+    : {};
 
   const configWithProjectRequire = merge(
-    storedConfiguration,
+    storedConfiguration ?? {},
     projectRequireConfig
   ) as CustomIntlayerConfig;
 
@@ -96,7 +90,7 @@ export const getConfigurationAndFilePath = (
 
   return {
     configuration,
-    configurationFilePath: storedConfigurationFilePath,
+    configurationFilePath,
   };
 };
 

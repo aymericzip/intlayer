@@ -1,7 +1,6 @@
 import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
-  ESMxCJSRequire,
   type GetConfigurationOptions,
   getAlias,
   getAppLogger,
@@ -9,7 +8,7 @@ import {
   type IntlayerConfig,
   normalizePath,
 } from '@intlayer/config';
-import dictionaries from '@intlayer/dictionaries-entry';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import merge from 'deepmerge';
 import fg from 'fast-glob';
@@ -30,17 +29,20 @@ const isTurbopackStable = compareVersions(
 );
 
 // Check if SWC plugin is available
-const getIsSwcPluginAvailable = () => {
+const getIsSwcPluginAvailable = (intlayerConfig: IntlayerConfig) => {
   try {
-    ESMxCJSRequire.resolve('@intlayer/swc');
+    intlayerConfig.build.require.resolve('@intlayer/swc');
     return true;
   } catch (_e) {
     return false;
   }
 };
 
-const resolvePluginPath = (pluginPath: string): string => {
-  const pluginPathResolved = ESMxCJSRequire.resolve(pluginPath);
+const resolvePluginPath = (
+  pluginPath: string,
+  intlayerConfig: IntlayerConfig
+): string => {
+  const pluginPathResolved = intlayerConfig.build.require.resolve(pluginPath);
 
   if (isTurbopackEnabled)
     // Relative path for turbopack
@@ -66,7 +68,7 @@ const getPruneConfig = (
 
   if (!isGteNext13) return {};
 
-  const isSwcPluginAvailable = getIsSwcPluginAvailable();
+  const isSwcPluginAvailable = getIsSwcPluginAvailable(intlayerConfig);
 
   if (!isSwcPluginAvailable) return {};
 
@@ -100,6 +102,8 @@ const getPruneConfig = (
     dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
   ];
 
+  const dictionaries = getDictionaries(intlayerConfig);
+
   const liveSyncKeys = Object.values(dictionaries)
     .filter((dictionary) => dictionary.live)
     .map((dictionary) => dictionary.key);
@@ -108,7 +112,7 @@ const getPruneConfig = (
     experimental: {
       swcPlugins: [
         [
-          resolvePluginPath('@intlayer/swc'),
+          resolvePluginPath('@intlayer/swc', intlayerConfig),
           {
             dictionariesDir,
             dictionariesEntryPath,

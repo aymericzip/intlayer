@@ -38,8 +38,8 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
  */
 export const loadExternalFile = (
   filePath: string,
+  projectRequire: NodeJS.Require,
   envVarOptions?: LoadEnvFileOptions,
-  projectRequire: NodeJS.Require = ESMxCJSRequire,
   additionalEnvVars?: Record<string, string>
 ): any | undefined => {
   let fileContent: any | undefined;
@@ -110,7 +110,10 @@ export const loadExternalFile = (
     return fileContent;
   } catch (error) {
     logger(
-      `Error: ${error} ${JSON.stringify((error as Error).stack, null, 2)}`,
+      [
+        `Error: ${(error as Error).message} - `,
+        JSON.stringify((error as Error).stack, null, 2),
+      ],
       {
         level: 'error',
       }

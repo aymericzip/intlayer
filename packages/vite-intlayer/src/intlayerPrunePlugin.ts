@@ -3,7 +3,7 @@
 import { join } from 'node:path';
 import { intlayerBabelPlugin } from '@intlayer/babel';
 import { ESMxCJSRequire, type IntlayerConfig } from '@intlayer/config';
-import dictionaries from '@intlayer/dictionaries-entry';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 import fg from 'fast-glob';
 import type { PluginOption } from 'vite';
 
@@ -35,6 +35,7 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
     dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
   ];
 
+  const dictionaries = getDictionaries();
   const liveSyncKeys = Object.values(dictionaries)
     .filter((dictionary) => dictionary.live)
     .map((dictionary) => dictionary.key);

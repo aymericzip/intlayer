@@ -41,4 +41,7 @@ export const getDynamicDictionaries = (
   return dictionaries;
 };
 
-export default (() => getDynamicDictionaries())();
+export type DynamicDictionaries = Record<
+  IntlayerDictionaryTypesConnector['key'],
+  LanguageContent<Dictionary>
+>;

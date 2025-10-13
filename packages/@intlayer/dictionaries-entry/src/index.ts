@@ -36,4 +36,7 @@ export const getDictionaries = (
   >;
 };
 
-export default (() => getDictionaries())();
+export type Dictionaries = Record<
+  IntlayerDictionaryTypesConnector['key'],
+  IntlayerDictionaryTypesConnector
+>;

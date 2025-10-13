@@ -40,4 +40,7 @@ export const getDynamicDictionaries = (
   return dictionaries;
 };
 
-export default (() => getDynamicDictionaries())();
+export type FetchDictionaries = Record<
+  IntlayerDictionaryTypesConnector['key'],
+  LanguageContent<Dictionary>
+>;

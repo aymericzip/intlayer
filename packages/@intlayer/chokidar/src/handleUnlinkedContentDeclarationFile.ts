@@ -36,7 +36,7 @@ export const handleUnlinkedContentDeclarationFile = async (
     isVerbose: true,
   });
 
-  await createModuleAugmentation();
+  await createModuleAugmentation(config);
 
   appLogger('Module augmentation built', {
     isVerbose: true,

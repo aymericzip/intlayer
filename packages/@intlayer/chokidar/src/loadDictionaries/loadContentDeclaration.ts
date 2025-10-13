@@ -38,7 +38,7 @@ export const loadContentDeclarations = async (
       const relativePath = relative(configuration.content.baseDir, path);
       return {
         ...acc,
-        [relativePath]: loadExternalFile(path, undefined, build.require),
+        [relativePath]: loadExternalFile(path, build.require),
       };
     },
     {} as Record<string, Dictionary>

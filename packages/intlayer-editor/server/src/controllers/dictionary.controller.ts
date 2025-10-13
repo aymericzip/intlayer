@@ -4,12 +4,15 @@ import {
 } from '@intlayer/chokidar';
 import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import unmergedDictionaries from '@intlayer/unmerged-dictionaries-entry';
+import {
+  getUnmergedDictionaries,
+  type UnmergedDictionaries,
+} from '@intlayer/unmerged-dictionaries-entry';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
 
-type GetDictionariesResult = ResponseData<typeof unmergedDictionaries>;
+type GetDictionariesResult = ResponseData<UnmergedDictionaries>;
 
 /**
  * Get the Intlayer configuration
@@ -20,8 +23,8 @@ export const getDictionaries = async (
   _next: NextFunction
 ): Promise<void> => {
   try {
-    const formattedResponse = formatResponse<typeof unmergedDictionaries>({
-      data: unmergedDictionaries,
+    const formattedResponse = formatResponse<UnmergedDictionaries>({
+      data: getUnmergedDictionaries(),
     });
 
     res.json(formattedResponse);
@@ -32,7 +35,7 @@ export const getDictionaries = async (
       status: 500,
     };
 
-    const formattedErrorResponse = formatResponse<typeof unmergedDictionaries>({
+    const formattedErrorResponse = formatResponse<UnmergedDictionaries>({
       error: {
         message: errorMessage.message ?? 'Internal Server Error',
         code: 'INTERNAL_SERVER_ERROR',

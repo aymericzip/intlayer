@@ -35,4 +35,7 @@ export const getUnmergedDictionaries = (
   return dictionaries;
 };
 
-export default (() => getUnmergedDictionaries())();
+export type UnmergedDictionaries = Record<
+  IntlayerDictionaryTypesConnector['key'],
+  Dictionary[]
+>;

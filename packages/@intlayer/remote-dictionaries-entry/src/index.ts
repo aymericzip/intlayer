@@ -41,4 +41,7 @@ export const getRemoteDictionaries = (
   return dictionaries;
 };
 
-export default (() => getRemoteDictionaries())();
+export type RemoteDictionaries = Record<
+  IntlayerDictionaryTypesConnector['key'],
+  LanguageContent<Dictionary>
+>;
