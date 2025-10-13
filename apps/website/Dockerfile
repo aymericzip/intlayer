@@ -103,4 +103,4 @@ USER app
 # Expose the API port (defaults to 3100 via .env, can be overridden)
 EXPOSE 3000
 
-CMD ["npx", "next", "start"] 
+CMD ["npm", "run", "start"] 
