@@ -1,29 +1,19 @@
-import { Locales } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
-import { useIntlayer } from 'next-intlayer/server';
+import type { FC } from 'react';
 
 export { generateMetadata } from './metadata';
 
-/**
- * Fallback params for /404 page
- */
-const defaultParams: Promise<{ locale: Locales }> = new Promise((resolve) =>
-  resolve({
-    locale: Locales.ENGLISH,
-  })
-);
-
-const NotFountPage: NextPageIntlayer = async ({ params = defaultParams }) => {
-  const { locale } = await params;
-
-  const content = useIntlayer('not-found', locale);
+// Render
+const NotFountPageContent: FC = () => {
+  // Remove i18n because of error `Cannot read properties of null (reading 'use')`
+  // const { title, content } = useIntlayer('not-found');
 
   return (
     <>
-      <h1 className="hidden">{content?.title}</h1>
+      <h1 className="hidden">404 - Page not found</h1>
       <span className="m-32 flex justify-center gap-3 text-center font-bold text-4xl text-darkGray md:justify-end">
         <span className="relative flex items-center">
-          {content?.content}
+          Page not found
           <span className="-translate-x-1/2 absolute left-1/2 text-[9rem] opacity-10">
             404
           </span>
@@ -31,6 +21,10 @@ const NotFountPage: NextPageIntlayer = async ({ params = defaultParams }) => {
       </span>
     </>
   );
+};
+
+const NotFountPage: NextPageIntlayer = async () => {
+  return <NotFountPageContent />;
 };
 
 export default NotFountPage;
