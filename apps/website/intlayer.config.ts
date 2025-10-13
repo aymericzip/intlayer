@@ -42,7 +42,6 @@ const config: IntlayerConfig = {
   },
   build: {
     importMode: 'dynamic',
-    require,
   },
   ai: {
     apiKey: process.env.OPENAI_API_KEY,
