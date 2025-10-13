@@ -46,4 +46,5 @@ export type { Plugin } from './types/plugin';
 export { clearModuleCache } from './utils/clearModuleCache';
 export { ESMxCJSRequire, isESModule } from './utils/ESMxCJSHelpers';
 export { getExtension } from './utils/getExtension';
+export { logStack } from './utils/logStack';
 export { normalizePath } from './utils/normalizePath';
