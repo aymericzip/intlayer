@@ -41,7 +41,7 @@ COPY docs/src                      docs/src
 COPY docs/docs/en/                 docs/docs/en/
 COPY docs/blog/en/                 docs/blog/en/
 COPY docs/frequent_questions/en/   docs/frequent_questions/en/
-COPY docs/legal/en/                packages/@intlayer/docs/legal/en/
+COPY docs/legal/en/                docs/legal/en/
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
 RUN bun install --ignore-scripts --filter=./apps/backend
