@@ -1,14 +1,14 @@
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
 
 export { generateMetadata } from './metadata';
 
-const NotFountPageContent: FC = () => {
-  const { title, content } = useIntlayer('not-found');
+const NotFountPage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+  const { title, content } = useIntlayer('not-found', locale);
 
   return (
-    <>
+    <IntlayerServerProvider locale={locale}>
       <h1 className="hidden">{title}</h1>
       <span className="m-32 flex justify-center gap-3 text-center font-bold text-4xl text-darkGray md:justify-end">
         <span className="relative flex items-center">
@@ -17,17 +17,7 @@ const NotFountPageContent: FC = () => {
             404
           </span>
         </span>
-      </span>
-    </>
-  );
-};
-
-const NotFountPage: NextPageIntlayer = async ({ params }) => {
-  const { locale } = await params;
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <NotFountPageContent />
+      </span>{' '}
     </IntlayerServerProvider>
   );
 };
