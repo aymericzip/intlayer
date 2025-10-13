@@ -37,11 +37,11 @@ COPY \
     --exclude=**/*.stories.* \
     . .
 
-COPY packages/@intlayer/docs/src                      packages/@intlayer/docs/src
-COPY packages/@intlayer/docs/docs/en/                 packages/@intlayer/docs/docs/en/
-COPY packages/@intlayer/docs/blogs/en/                packages/@intlayer/docs/blogs/en/
-COPY packages/@intlayer/docs/frequent_questions/en/   packages/@intlayer/docs/frequent_questions/en/
-COPY packages/@intlayer/docs/legal/en/                packages/@intlayer/docs/legal/en/
+COPY docs/src                      docs/src
+COPY docs/docs/en/                 docs/docs/en/
+COPY docs/blogs/en/                docs/blogs/en/
+COPY docs/frequent_questions/en/   docs/frequent_questions/en/
+COPY docs/legal/en/                packages/@intlayer/docs/legal/en/
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
 RUN bun install --ignore-scripts --filter=./apps/backend
