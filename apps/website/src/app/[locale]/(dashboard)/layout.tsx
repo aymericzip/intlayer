@@ -1,14 +1,17 @@
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
+import type { SessionAPI } from '@intlayer/backend';
 import { PageLayout } from '@layouts/PageLayout';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
+import type { LocalesValues } from 'intlayer';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
+import type { FC } from 'react';
 import { getServerIntlayerAPI } from '@/utils/getServerIntlayerAPI';
 import { getSessionData } from '@/utils/getSessionData';
 import { WarmupClient } from './dashboard/WarmupClient';
@@ -20,10 +23,21 @@ export const fetchCache = 'force-no-store';
 
 export { generateMetadata } from './metadata';
 
-const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
-  const { locale } = await params;
+type DashboardLayoutContentProps = {
+  children: React.ReactNode;
+  locale: LocalesValues;
+  session: SessionAPI | null;
+  queryClient: QueryClient;
+};
 
+const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
+  children,
+  locale,
+  session,
+  queryClient,
+}) => {
   const { navbarLinks, footerLinks } = useIntlayer('dashboard-navbar-content');
+  const dehydratedState = dehydrate(queryClient);
 
   const formattedNavbarLinks = navbarLinks.map((el) => ({
     ...el,
@@ -37,9 +51,31 @@ const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
     label: el.label.value,
   }));
 
-  const queryClient = new QueryClient();
+  return (
+    <PageLayout
+      locale={locale}
+      navbar={<DashboardNavbar links={formattedNavbarLinks} />}
+      footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
+    >
+      <HydrationBoundary state={dehydratedState}>
+        <AuthenticationBarrier
+          accessRule="authenticated"
+          session={session} // Don't preset the session on the client side to avoid infinite re-renders
+          locale={locale}
+        >
+          <WarmupClient />
+          {children}
+        </AuthenticationBarrier>
+      </HydrationBoundary>
+    </PageLayout>
+  );
+};
 
+const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
   const { session } = await getSessionData();
+
+  const queryClient = new QueryClient();
 
   if (session) {
     const api = await getServerIntlayerAPI();
@@ -83,25 +119,14 @@ const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
     ]);
   }
 
-  const dehydratedState = dehydrate(queryClient);
-
   return (
-    <PageLayout
+    <DashboardLayoutContent
       locale={locale}
-      navbar={<DashboardNavbar links={formattedNavbarLinks} />}
-      footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
+      session={session}
+      queryClient={queryClient}
     >
-      <HydrationBoundary state={dehydratedState}>
-        <AuthenticationBarrier
-          accessRule="authenticated"
-          session={session} // Don't preset the session on the client side to avoid infinite re-renders
-          locale={locale}
-        >
-          <WarmupClient />
-          {children}
-        </AuthenticationBarrier>
-      </HydrationBoundary>
-    </PageLayout>
+      {children}
+    </DashboardLayoutContent>
   );
 };
 
