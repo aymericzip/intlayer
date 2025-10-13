@@ -13,6 +13,6 @@
     "esbuild": "^0.25.5",
     "esbuild-fix-imports-plugin": "^1.0.22",
     "tsup": "^8.5.0",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   }
 }

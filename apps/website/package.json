@@ -60,8 +60,8 @@
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@monaco-editor/react": "^4.7.0",
     "@next/third-parties": "^15.3.3",
-    "@stripe/react-stripe-js": "^3.10.0",
-    "@stripe/stripe-js": "^7.6.1",
+    "@stripe/react-stripe-js": "^5.2.0",
+    "@stripe/stripe-js": "^8.0.0",
     "@tanstack/react-query": "^5.90.2",
     "@tanstack/react-table": "^8.21.3",
     "clsx": "^2.1.1",
@@ -70,7 +70,7 @@
     "framer-motion": "^12.23.21",
     "fuse.js": "^7.1.0",
     "intlayer": "workspace:*",
-    "lucide-react": "^0.544.0",
+    "lucide-react": "^0.545.0",
     "markdown-to-jsx": "^7.7.13",
     "next": "^15.5.4",
     "next-intlayer": "workspace:*",
@@ -82,7 +82,7 @@
     "sharp": "^0.34.4",
     "tailwind-merge": "^3.3.1",
     "uuid": "^13.0.0",
-    "zod": "^3.25.56"
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
@@ -90,7 +90,7 @@
     "@types/next-pwa": "^5.6.9",
     "@types/node": "^24.7.2",
     "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.1.9",
+    "@types/react-dom": "^19.2.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
@@ -99,8 +99,8 @@
     "postcss": "^8.5.4",
     "pwa-asset-generator": "^8.0.5",
     "raw-loader": "^4.0.2",
-    "tailwindcss": "^4.1.13",
-    "typescript": "^5.9.2"
+    "tailwindcss": "^4.1.14",
+    "typescript": "^5.9.3"
   },
   "optionalDependencies": {
     "intlayer-editor": "workspace:*"

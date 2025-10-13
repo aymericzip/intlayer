@@ -89,7 +89,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "js-cookie": "^3.0.5",
-    "uuid": "^11.1.0"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.7.2",
@@ -101,7 +101,7 @@
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",
-    "typescript": "^5.9.2",
+    "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   },
   "peerDependencies": {

@@ -5,7 +5,7 @@ import {
   getDocsKeys,
 } from '@intlayer/docs';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import z from 'zod';
+import z from 'zod/v3';
 
 export const loadDocsTools = async (server: McpServer) => {
   const docsKeys = getDocsKeys();

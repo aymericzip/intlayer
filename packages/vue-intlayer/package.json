@@ -89,7 +89,7 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "js-cookie": "^3.0.5",
-    "uuid": "^11.1.0"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
@@ -101,7 +101,7 @@
     "concurrently": "^9.2.1",
     "fast-glob": "^3.3.3",
     "rimraf": "^6.0.1",
-    "typescript": "^5.9.2",
+    "typescript": "^5.9.3",
     "vite": "^7.1.9",
     "vite-plugin-dts": "^4.5.3",
     "vitest": "^3.2.4"

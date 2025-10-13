@@ -43,7 +43,7 @@
     "react-router-dom": "^7.4.0",
     "react-scripts": "5.0.1",
     "react-scripts-intlayer": "workspace:*",
-    "typescript": "^5.9.2",
+    "typescript": "^5.9.3",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {

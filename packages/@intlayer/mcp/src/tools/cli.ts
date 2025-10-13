@@ -8,7 +8,7 @@ import {
 } from '@intlayer/cli';
 import { Locales, type LogConfig } from '@intlayer/config';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import z from 'zod';
+import z from 'zod/v3';
 
 export const loadCLITools = async (server: McpServer) => {
   server.tool(
