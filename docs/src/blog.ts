@@ -8,12 +8,16 @@ import {
   getFileMetadataBySlug,
   getFileMetadataRecord,
   getFiles,
+  getKeys,
 } from './common';
 import { blogEntry } from './generated/blog.entry';
 
 export type BlogKey = keyof typeof blogEntry;
 export type Blogs = Record<BlogKey, Record<LocalesValues, Promise<string>>>;
 export type BlogMetadata = FileMetadata;
+
+export const getBlogsKeys = (): (keyof typeof blogEntry)[] =>
+  getKeys(blogEntry);
 
 export const getBlogs = async <L extends LocalesValues>(
   locale: L = defaultLocale as L

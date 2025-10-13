@@ -8,6 +8,9 @@ export const GITHUB_URL_PREFIX =
   'https://github.com/aymericzip/intlayer/blob/main/docs';
 export const URL_PREFIX = 'https://intlayer.org/';
 
+export const getKeys = <T extends Record<string, any>>(obj: T): (keyof T)[] =>
+  Object.keys(obj) as (keyof T)[];
+
 export const getFiles = async <
   F extends Record<`./${string}`, Record<LocalesValues, Promise<string>>>,
 >(
