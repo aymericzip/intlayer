@@ -111,6 +111,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
+    "intlayer": "workspace:*",
     "js-cookie": "^3.0.5"
   },
   "devDependencies": {
@@ -123,7 +124,6 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.2.1",
-    "intlayer": "workspace:*",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",

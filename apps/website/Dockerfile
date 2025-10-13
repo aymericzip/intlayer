@@ -1,5 +1,10 @@
 # syntax=docker/dockerfile:1.19.0
 
+
+# FROM oven/bun:1.3-alpine AS builder
+# Use node because of bun issue blocking at `Creating an optimized production build ...`
+# https://github.com/oven-sh/bun/issues/17136
+# https://github.com/oven-sh/bun/issues/4795
 FROM node:22-alpine AS builder
 
 RUN npm install -g bun@1.3.0
@@ -81,7 +86,7 @@ WORKDIR /workspace/apps/website
 ENV NODE_ENV=production
 
 # Build the Next.js website
-RUN npx next build
+RUN bun x next build
 
 WORKDIR /workspace
 

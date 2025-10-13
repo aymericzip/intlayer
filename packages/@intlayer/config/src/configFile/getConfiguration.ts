@@ -6,7 +6,6 @@ import type {
   IntlayerConfig,
   LogFunctions,
 } from '../types/config';
-import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
 import { searchConfigurationFile } from './searchConfigurationFile';

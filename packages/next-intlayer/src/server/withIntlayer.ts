@@ -284,7 +284,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
           // Activate watch mode webpack plugin
           if (isDevCommand && isServer && nextRuntime === 'nodejs') {
-            config.plugins.push(new IntlayerPlugin());
+            config.plugins.push(new IntlayerPlugin(intlayerConfig));
           }
 
           return config;

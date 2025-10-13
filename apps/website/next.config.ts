@@ -250,6 +250,8 @@ const nextConfigPWA = withPWA({
 })(nextConfig);
 
 /** @type {import('next').NextConfig} */
-const config = withIntlayer(nextConfigPWA);
+const config = withIntlayer(nextConfigPWA, {
+  require,
+});
 
 export default config;
