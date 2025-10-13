@@ -39,7 +39,7 @@ COPY \
 
 COPY docs/src                      docs/src
 COPY docs/docs/en/                 docs/docs/en/
-COPY docs/blogs/en/                docs/blogs/en/
+COPY docs/blog/en/                 docs/blog/en/
 COPY docs/frequent_questions/en/   docs/frequent_questions/en/
 COPY docs/legal/en/                packages/@intlayer/docs/legal/en/
 
