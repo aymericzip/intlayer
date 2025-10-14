@@ -5,7 +5,7 @@ import { logger } from '@logger';
 import { extractJson } from '@utils/extractJSON';
 import { generateText } from 'ai';
 import type { Dictionary } from '@/types/dictionary.types';
-import type { Tag } from '@/types/tag.types';
+import type { TagAPI } from '@/types/tag.types';
 import type { AIConfig, AIOptions } from '../aiSdk';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -16,7 +16,7 @@ const getFileContent = (filePath: string) =>
 
 export type AuditOptions = {
   dictionaries: Dictionary[];
-  tag: Tag;
+  tag: TagAPI;
   aiConfig: AIConfig;
   applicationContext?: string;
 };

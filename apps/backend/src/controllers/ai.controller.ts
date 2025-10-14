@@ -33,7 +33,7 @@ import type { Locales } from 'intlayer';
 import { DiscussionModel } from '@/models/discussion.model';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { DiscussionAPI } from '@/types/discussion.types';
-import type { Tag } from '@/types/tag.types';
+import type { Tag, TagAPI } from '@/types/tag.types';
 
 type ReplaceAIConfigByOptions<T> = Omit<T, 'aiConfig'> & {
   aiOptions?: AIOptions;
@@ -355,7 +355,7 @@ export const auditContentDeclarationMetadata = async (
 
 export type AuditTagBody = {
   aiOptions?: AIOptions;
-  tag: Tag;
+  tag: TagAPI;
 };
 export type AuditTagResult =
   ResponseData<auditContentDeclarationUtil.AuditFileResultData>;

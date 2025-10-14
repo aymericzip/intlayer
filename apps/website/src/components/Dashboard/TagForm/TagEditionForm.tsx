@@ -16,8 +16,8 @@ type TagEditionFormProps = {
 export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
   const TagSchema = useTagSchema();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const { auditTag, isLoading: isAuditing } = useAuditTag();
-  const { updateTag, isLoading: isUpdating } = useUpdateTag();
+  const { mutate: auditTag, isPending: isAuditing } = useAuditTag();
+  const { mutate: updateTag, isPending: isUpdating } = useUpdateTag();
   const { form, isSubmitting } = useForm(TagSchema, {
     defaultValues: tag,
   });
@@ -32,22 +32,36 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
   } = useIntlayer('tag-form');
 
   const onSubmitSuccess = async (data: TagFormData) => {
-    await updateTag(tag.id, data);
+    updateTag(
+      { tagId: tag.id, tag: data },
+      {
+        onSuccess: (response) => {
+          if (response.data) {
+            form.reset(response.data);
+          }
+        },
+      }
+    );
   };
 
   const handleOnAuditFile = async () => {
     const tagToAudit = form.getValues();
-    await auditTag({ tag: { ...tag, ...tagToAudit } }).then((response) => {
-      if (!response.data) return;
+    auditTag(
+      { tag: { ...tag, ...tagToAudit } },
+      {
+        onSuccess: (response) => {
+          if (!response.data) return;
 
-      try {
-        const editedTag = JSON.parse(response.data.fileContent) as TagAPI;
+          try {
+            const editedTag = JSON.parse(response.data.fileContent) as TagAPI;
 
-        form.reset(editedTag);
-      } catch (error) {
-        console.error(error);
+            form.reset(editedTag);
+          } catch (error) {
+            console.error(error);
+          }
+        },
       }
-    });
+    );
   };
 
   const isEdited = useMemo(
@@ -107,13 +121,12 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
             Icon={WandSparkles}
             variant="outline"
             color="text"
+            size="icon-md"
             className="ml-auto max-md:w-full"
             onClick={handleOnAuditFile}
             disabled={isSubmitting || isAuditing}
             isLoading={isAuditing}
-          >
-            {auditButton.text}
-          </Form.Button>
+          />
 
           <Form.Button
             type="button"
