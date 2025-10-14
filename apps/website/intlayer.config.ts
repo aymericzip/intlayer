@@ -38,7 +38,7 @@ const config: IntlayerConfig = {
     backendURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-    // formatCommand: 'bun x biome format {{file}}',
+    formatCommand: 'bun x biome format {{file}} --write',
   },
   build: {
     importMode: 'dynamic',

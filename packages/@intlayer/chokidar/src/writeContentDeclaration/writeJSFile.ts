@@ -77,6 +77,7 @@ export const writeJSFile = async (
         configuration.editor.formatCommand.replace('{{file}}', filePath),
         {
           stdio: 'inherit',
+          cwd: configuration.content.baseDir,
         }
       );
     } catch (error) {
