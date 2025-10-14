@@ -16,6 +16,13 @@ slugs:
   - doc
   - concept
   - cli
+history:
+  - version: 5.5.11
+    date: 2025-07-11
+    changes: Aggiornamento della documentazione dei parametri dei comandi CLI
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizializzazione della cronologia
 ---
 
 # CLI di Intlayer
@@ -560,10 +567,3 @@ A volte è necessario riavviare il terminale per riconoscere i nuovi comandi.
 ```bash
 npx clear-npx-cache
 ```
-
-## Cronologia della documentazione
-
-| Versione | Data       | Modifiche                                                        |
-| -------- | ---------- | ---------------------------------------------------------------- |
-| 5.5.11   | 2025-07-11 | Aggiornamento della documentazione dei parametri dei comandi CLI |
-| 5.5.10   | 2025-06-29 | Inizializzazione della cronologia                                |

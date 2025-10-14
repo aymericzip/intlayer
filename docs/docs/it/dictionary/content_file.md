@@ -11,6 +11,13 @@ slugs:
   - doc
   - concept
   - content
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Aggiunta documentazione dei campi
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizio cronologia
 ---
 
 # File di Contenuto
@@ -1052,10 +1059,3 @@ module.exports = {
    - Regola la configurazione dei contenuti per limitare l'ambito dei file monitorati
    - Usa dizionari live solo quando sono necessari aggiornamenti in tempo reale (ad esempio A/B testing, ecc.)
    - Assicurati che il plugin di trasformazione alla build (`@intlayer/swc` o `@intlayer/babel`) sia abilitato per ottimizzare il dizionario durante la build
-
-## Cronologia della Documentazione
-
-| Versione | Data       | Modifiche                         |
-| -------- | ---------- | --------------------------------- |
-| 6.0.0    | 2025-09-20 | Aggiunta documentazione dei campi |
-| 5.5.10   | 2025-06-29 | Inizio cronologia                 |

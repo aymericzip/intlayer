@@ -17,6 +17,16 @@ slugs:
   - concept
   - cms
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 6.0.1
+    date: 2025-09-22
+    changes: Aggiunta documentazione sulla sincronizzazione live
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: Sostituito il campo `hotReload` con `liveSync`
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizializzazione della cronologia
 ---
 
 # Documentazione del Sistema di Gestione dei Contenuti (CMS) di Intlayer
@@ -520,11 +530,3 @@ Se riscontri problemi con il CMS, verifica quanto segue:
 - Assicurati che la configurazione del progetto sia stata inviata al CMS di Intlayer.
 
 - L'editor visivo utilizza un iframe per visualizzare il tuo sito web. Assicurati che la Content Security Policy (CSP) del tuo sito consenta l'URL del CMS come `frame-ancestors` ('https://intlayer.org' per impostazione predefinita). Controlla la console dell'editor per eventuali errori.
-
-## Cronologia della Documentazione
-
-| Versione | Data       | Modifiche                                           |
-| -------- | ---------- | --------------------------------------------------- |
-| 6.0.1    | 2025-09-22 | Aggiunta documentazione sulla sincronizzazione live |
-| 6.0.0    | 2025-09-04 | Sostituito il campo `hotReload` con `liveSync`      |
-| 5.5.10   | 2025-06-29 | Inizializzazione della cronologia                   |
