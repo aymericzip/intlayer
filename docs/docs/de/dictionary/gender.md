@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - gender
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: Einführung geschlechtsspezifischer Inhalte
 ---
 
 # Geschlechtsspezifische Inhalte / Geschlecht in Intlayer
@@ -308,9 +312,3 @@ Für detailliertere Informationen zur Konfiguration und Nutzung verweisen wir au
 - [Next Intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_15.md)
 
 Diese Ressourcen bieten weitere Einblicke in die Einrichtung und Nutzung von Intlayer in verschiedenen Umgebungen und Frameworks.
-
-## Dokumentationshistorie
-
-| Version | Datum      | Änderungen                                 |
-| ------- | ---------- | ------------------------------------------ |
-| 5.7.2   | 2025-07-27 | Einführung geschlechtsspezifischer Inhalte |

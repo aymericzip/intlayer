@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getTranslation
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historie initialisiert
 ---
 
 # Dokumentation: `getTranslationContent` Funktion in `intlayer`
@@ -185,7 +189,3 @@ console.log(customContent.greeting); // Ausgabe: "Bonjour"
   - Wenn eine Locale nur teilweise definiert ist, werden die Inhalte nicht zusammengeführt. Es wird strikt der Wert der angegebenen Locale abgerufen oder auf die Standard-Locale zurückgegriffen.
 - **TypeScript Durchsetzung:**
   - Wenn die Locales in `languageContent` nicht mit der Projektkonfiguration übereinstimmen, erzwingt TypeScript, dass alle erforderlichen Locales definiert sind, um sicherzustellen, dass der Inhalt vollständig und typensicher ist.
-
-## Dokumentationshistorie
-
-- 5.5.10 - 2025-06-29: Historie initialisiert

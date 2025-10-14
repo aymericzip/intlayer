@@ -18,6 +18,10 @@ slugs:
   - packages
   - react-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initiale Historie
 ---
 
 # React-Integration: `useIntlayer` Hook Dokumentation
@@ -261,7 +265,3 @@ Beim Lokalisieren von Attributen greifen Sie entsprechend auf die Inhaltswerte z
 - **Intlayer Visual Editor**: Für eine intuitivere Verwaltung von Inhalten finden Sie die Dokumentation zum visuellen Editor [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
 
 Dieser Abschnitt richtet sich speziell an die Integration des `useIntlayer` Hooks in React-Anwendungen, um den Lokalisierungsprozess zu vereinfachen und die Konsistenz der Inhalte über verschiedene Sprachversionen hinweg sicherzustellen.
-
-## Dokumentationshistorie
-
-- 5.5.10 - 2025-06-29: Initiale Historie

@@ -17,6 +17,10 @@ slugs:
   - packages
   - express-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initiale Historie
 ---
 
 # Dokumentation: `t` Funktion in `express-intlayer`
@@ -452,7 +456,3 @@ app.get("/morning", (_req, res) => {
 ## Fazit
 
 Die `t`-Funktion ist ein leistungsstarkes Werkzeug für die Internationalisierung im Backend. Durch ihre effektive Nutzung können Sie eine inklusivere und benutzerfreundlichere Anwendung für ein globales Publikum erstellen. Für erweiterte Nutzungsmöglichkeiten und detaillierte Konfigurationsoptionen konsultieren Sie bitte die [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
-
-## Dokumentationshistorie
-
-- 5.5.10 - 2025-06-29: Initiale Historie

@@ -12,6 +12,10 @@ keywords:
 slugs:
   - doc
   - locale-mapper
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: Hinzufügen der Dokumentation zum Locale Mapper
 ---
 
 # Locale Mapper
@@ -236,9 +240,3 @@ Der Locale Mapper integriert sich nahtlos in Ihre Intlayer-Konfiguration:
 - **URL-Präfixierung**: Berücksichtigt `configuration.middleware.prefixDefault`
 
 Dies gewährleistet Konsistenz in Ihrer Anwendung und reduziert die Duplizierung von Konfigurationen.
-
-## Dokumentationshistorie
-
-| Version | Datum      | Änderungen                                     |
-| ------- | ---------- | ---------------------------------------------- |
-| 5.7.2   | 2025-07-27 | Hinzufügen der Dokumentation zum Locale Mapper |
