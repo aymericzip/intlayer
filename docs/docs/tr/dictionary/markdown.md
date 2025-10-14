@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - markdown
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Markdown / Zengin Metin İçeriği
@@ -373,13 +377,3 @@ const IntlayerMarkdownProvider = ({ children }) => (
 - [markdown-to-jsx on npm](https://www.npmjs.com/package/markdown-to-jsx)
 
 Bu kaynaklar, çeşitli içerik türleri ve çerçevelerle Intlayer'ın kurulumu ve kullanımı hakkında daha fazla bilgi sağlar.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
-
-```
-
-```

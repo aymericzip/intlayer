@@ -16,6 +16,10 @@ slugs:
   - environment
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
+history:
+  - version: 6.2.0
+    date: 2025-10-03
+    changes: Astro entegrasyonu, yapılandırma, kullanım için güncelleme
 ---
 
 # Intlayer ile Astro çevirin | Uluslararasılaştırma (i18n)
@@ -238,9 +242,3 @@ Eklentinin nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS
 Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.
 
 ---
-
-## Doküman Geçmişi
-
-| Sürüm | Tarih      | Değişiklikler                                              |
-| ----- | ---------- | ---------------------------------------------------------- |
-| 6.2.0 | 2025-10-03 | Astro entegrasyonu, yapılandırma, kullanım için güncelleme |

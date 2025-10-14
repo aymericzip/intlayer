@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Next.js Entegrasyonu: `useIntlayer` Hook Dokümantasyonu
@@ -257,9 +261,3 @@ const ServerComponentExample = () => {
 - **Intlayer Görsel Düzenleyici**: Daha kolay içerik yönetimi için görsel düzenleyicinin nasıl kullanılacağını öğrenin [burada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md).
 
 Bu dokümantasyon, Next.js ortamlarında `useIntlayer` hook'unun kullanımını özetler, Next.js uygulamalarınızda yerelleştirmeyi yönetmek için sağlam bir çözüm sağlar.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

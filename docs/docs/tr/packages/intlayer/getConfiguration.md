@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getConfiguration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Dokümantasyon: `intlayer` Paketinde `getConfiguration` Fonksiyonu
@@ -139,13 +143,3 @@ console.log(cookieName); // Çıktı: "INTLAYER_LOCALE"
 ## Uygulamalarda Kullanım
 
 `getConfiguration` fonksiyonu, bir `intlayer` uygulamasının yapılandırmasını başlatmak ve yönetmek için temel bir yardımcıdır. Yerel ayarlar, ara yazılım ve içerik dizinleri gibi ayarlara erişim sağlayarak, çok dilli ve içerik odaklı uygulamalarda tutarlılık ve ölçeklenebilirlik sağlar.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
-
-```
-
-```
