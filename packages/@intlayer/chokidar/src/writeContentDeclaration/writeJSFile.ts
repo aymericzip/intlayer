@@ -1,9 +1,9 @@
+import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { extname } from 'node:path';
 import {
   getAppLogger,
-  getConfiguration,
   type IntlayerConfig,
   type Locales,
   logger,
@@ -14,7 +14,6 @@ import {
   type Extension,
   getFormatFromExtension,
 } from '../utils/getFormatFromExtension';
-import { formatCode } from './formatCode';
 import { transformJSFile } from './transformJSFile';
 
 /**
@@ -57,11 +56,9 @@ export const writeJSFile = async (
     fallbackLocale
   );
 
-  const formattedCode = await formatCode(filePath, finalCode);
-
   // Write the modified code back to the file
   try {
-    await writeFile(filePath, formattedCode, 'utf-8');
+    await writeFile(filePath, finalCode, 'utf-8');
     logger(`Successfully updated ${filePath}`, {
       level: 'info',
       isVerbose: true,
@@ -72,5 +69,18 @@ export const writeJSFile = async (
       level: 'error',
     });
     throw new Error(`Failed to write updated file ${filePath}: ${err.message}`);
+  }
+
+  if (configuration.editor.formatCommand) {
+    try {
+      execSync(
+        configuration.editor.formatCommand.replace('{{file}}', filePath),
+        {
+          stdio: 'inherit',
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
   }
 };

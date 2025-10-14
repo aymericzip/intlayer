@@ -231,19 +231,6 @@ const writeFileWithDirectories = async (
 
   await writeJSFile(filePath, dictionary, configuration, fallbackLocale);
 
-  if (configuration.editor.formatCommand) {
-    try {
-      execSync(
-        configuration.editor.formatCommand.replace('{{file}}', filePath),
-        {
-          stdio: 'inherit',
-        }
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   // remove the cache as content has changed
   // Will force a new preparation of the intlayer on next build
   try {
