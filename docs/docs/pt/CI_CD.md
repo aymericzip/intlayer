@@ -15,6 +15,10 @@ slugs:
   - doc
   - concept
   - ci-cd
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Histórico inicial
 ---
 
 # Geração Automática de Traduções em um Pipeline CI/CD
@@ -190,9 +194,3 @@ Para configurar as variáveis de ambiente, vá para GitHub → Configurações �
 > Por padrão, o argumento `--git-diff` filtra os dicionários que incluem alterações da base (padrão `origin/main`) para o branch atual (padrão: `HEAD`).
 
 > Para mais informações sobre os comandos do Intlayer CLI e seu uso, consulte a [documentação do CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md).
-
-## Histórico do Documento
-
-| Versão | Data       | Alterações        |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Histórico inicial |

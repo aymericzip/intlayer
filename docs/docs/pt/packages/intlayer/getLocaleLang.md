@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleLang
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Histórico inicial
 ---
 
 # Documentação: Função `getLocaleLang` em `intlayer`
@@ -77,7 +81,3 @@ getLocaleLang(Locales.FRENCH); // Saída: "fr"
 
 - **Strings de Localidade Malformadas:**
   - Se o `locale` não seguir o formato `idioma-país` (por exemplo, `Locales.ENGLISH-US`), a função retorna com segurança a parte antes do `'-'` ou a string inteira se nenhum `'-'` estiver presente.
-
-## Histórico da Documentação
-
-- 5.5.10 - 2025-06-29: Histórico inicial

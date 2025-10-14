@@ -12,6 +12,13 @@ keywords:
 slugs:
   - doc
   - why
+history:
+  - version: 5.8.0
+    date: 2025-08-19
+    changes: Atualização da tabela comparativa
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Histórico inicial
 ---
 
 # Por que você deve considerar o Intlayer?
@@ -262,10 +269,3 @@ Esta abordagem permite que você:
 | **Tree-shaking (carregar apenas o conteúdo usado)**            | Sim, por componente em tempo de build via plugins Babel/SWC                                                                                   | Geralmente carrega tudo (pode ser melhorado com namespaces/divisão de código) | Geralmente carrega tudo                                  | Não é padrão                                             | Parcial                                                  | Parcial                                                  | Parcial (com divisão de código/configuração manual)              |
 | **Carregamento preguiçoso (Lazy loading)**                     | Sim, por localidade/por componente                                                                                                            | Sim (ex: backends/namespaces sob demanda)                                     | Sim (divisão de pacotes por localidade)                  | Sim (importações dinâmicas de catálogos)                 | Sim (por rota/por localidade)                            | Sim (por rota/por localidade)                            | Sim (mensagens de localidade assíncronas)                        |
 | **Gestão de Grandes Projetos**                                 | Incentiva modularidade, adequado para design-system                                                                                           | Requer boa disciplina de arquivos                                             | Catálogos centrais podem ficar grandes                   | Pode se tornar complexo                                  | Modular com configuração                                 | Modular com configuração                                 | Modular com Vue Router/Nuxt i18n setup                           |
-
-## Histórico do Documento
-
-| Versão | Data       | Alterações                        |
-| ------ | ---------- | --------------------------------- |
-| 5.8.0  | 2025-08-19 | Atualização da tabela comparativa |
-| 5.5.10 | 2025-06-29 | Histórico inicial                 |

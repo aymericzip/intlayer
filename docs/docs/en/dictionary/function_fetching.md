@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - function-fetching
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Function Fetching
@@ -208,9 +212,3 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
-
-## Doc History
-
-| Version | Date       | Changes      |
-| ------- | ---------- | ------------ |
-| 5.5.10  | 2025-06-29 | Init history |

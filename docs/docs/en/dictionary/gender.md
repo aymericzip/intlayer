@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - gender
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: Introduce gender based content
 ---
 
 # Gender-Based Content / Gender in Intlayer
@@ -267,9 +271,3 @@ For more detailed information on configuration and usage, refer to the following
 - [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
 
 These resources offer further insights into the setup and usage of Intlayer across various environments and frameworks.
-
-## Doc History
-
-| Version | Date       | Changes                        |
-| ------- | ---------- | ------------------------------ |
-| 5.7.2   | 2025-07-27 | Introduce gender based content |

@@ -13,6 +13,34 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 6.2.0
+    date: 2025-10-12
+    changes: Add `formatCommand` option
+  - version: 6.2.0
+    date: 2025-10-12
+    changes: Update `excludedPath` option
+  - version: 6.0.2
+    date: 2025-09-23
+    changes: Add `outputFormat` option
+  - version: 6.0.0
+    date: 2025-09-21
+    changes: Remove `dictionaryOutput` field and `i18nextResourcesDir` field
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: Add `live` import mode
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: Replace `hotReload` field by `liveSync` and add `liveSyncPort` and `liveSyncURL` fields
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: Replace `activateDynamicImport` with `importMode` option
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: Change default contentDir from `['src']` to `['.']`
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: Add `docs` commands
 ---
 
 # Intlayer Configuration Documentation
@@ -566,17 +594,3 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Use this to limit optimization to relevant code files and improve build performance.
   - _Note_: This option will be ignored if `optimize` is disabled.
   - _Note_: Use glob pattern.
-
-## Doc History
-
-| Version | Date       | Changes                                                                                 |
-| ------- | ---------- | --------------------------------------------------------------------------------------- |
-| 6.2.0   | 2025-10-12 | Add `formatCommand` option                                                              |
-| 6.2.0   | 2025-10-12 | Update `excludedPath` option                                                            |
-| 6.0.2   | 2025-09-23 | Add `outputFormat` option                                                               |
-| 6.0.0   | 2025-09-21 | Remove `dictionaryOutput` field and `i18nextResourcesDir` field                         |
-| 6.0.0   | 2025-09-16 | Add `live` import mode                                                                  |
-| 6.0.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` and add `liveSyncPort` and `liveSyncURL` fields |
-| 5.6.1   | 2025-07-25 | Replace `activateDynamicImport` with `importMode` option                                |
-| 5.6.0   | 2025-07-13 | Change default contentDir from `['src']` to `['.']`                                     |
-| 5.5.11  | 2025-06-29 | Add `docs` commands                                                                     |

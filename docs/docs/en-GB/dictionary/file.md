@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initial history
 ---
 
 # File Content / Embedding Files in Intlayer
@@ -216,7 +220,3 @@ For more details on configuring and using file embedding in Intlayer, refer to t
 - [Translation Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/translation.md)
 
 These resources provide further insights into file embedding, content management, and Intlayer’s integration with various frameworks.
-
-## Doc History
-
-- 5.5.10 - 2025-06-29: Initial history
