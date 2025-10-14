@@ -15,6 +15,10 @@ slugs:
   - doc
   - packages
   - next-intlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # next-intlayer: Paquete NPM para internacionalizar (i18n) una aplicación Next.js
@@ -279,7 +283,3 @@ El paquete `next-intlayer` también proporciona algunas funciones para ayudarte 
 - [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useIntlayer.md)
 - [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useDictionary.md)
 - [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useLocale.md)
-
-## Historial de la documentación
-
-- 5.5.10 - 2025-06-29: Historial inicial

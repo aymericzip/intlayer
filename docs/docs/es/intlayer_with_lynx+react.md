@@ -16,6 +16,10 @@ slugs:
   - environment
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Traduce tu Lynx and React mobile app con Intlayer | Internacionalización (i18n)
@@ -501,7 +505,3 @@ Esta extensión ofrece:
 - **Comandos CLI**: Explora el [CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md) para tareas como **extraer traducciones** o **comprobar claves faltantes**.
 
 ---
-
-## Historial del documento
-
-- 5.5.10 - 2025-06-29: Historial inicial

@@ -12,6 +12,10 @@ keywords:
 slugs:
   - doc
   - locale-mapper
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: Añadida documentación del mapeador de locales
 ---
 
 # Mapeador de Locales
@@ -236,9 +240,3 @@ El Locale Mapper se integra perfectamente con la configuración de Intlayer:
 - **Prefijo en URL**: Respeta `configuration.middleware.prefixDefault`
 
 Esto garantiza la coherencia en toda su aplicación y reduce la duplicación de configuraciones.
-
-## Historial de Documentación
-
-| Versión | Fecha      | Cambios                                       |
-| ------- | ---------- | --------------------------------------------- |
-| 5.7.2   | 2025-07-27 | Añadida documentación del mapeador de locales |

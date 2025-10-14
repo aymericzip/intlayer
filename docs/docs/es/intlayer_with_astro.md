@@ -16,6 +16,10 @@ slugs:
   - environment
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
+history:
+  - version: 6.2.0
+    date: 2025-10-03
+    changes: Actualización para integración con Astro, configuración, uso
 ---
 
 # Traduce tu Astro con Intlayer | Internacionalización (i18n)
@@ -238,9 +242,3 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
 
 ---
-
-## Historial del Documento
-
-| Versión | Fecha      | Cambios                                                      |
-| ------- | ---------- | ------------------------------------------------------------ |
-| 6.2.0   | 2025-10-03 | Actualización para integración con Astro, configuración, uso |
