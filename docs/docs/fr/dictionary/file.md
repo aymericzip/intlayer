@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historique initial
 ---
 
 # Contenu de fichier / Intégration de fichiers dans Intlayer
@@ -216,7 +220,3 @@ Pour plus de détails sur la configuration et l'utilisation de l'intégration de
 - [Documentation du contenu de traduction](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/translation.md)
 
 Ces ressources offrent des informations complémentaires sur l'intégration de fichiers, la gestion de contenu et l'intégration d'Intlayer avec divers frameworks.
-
-## Historique du document
-
-- 5.5.10 - 2025-06-29 : Historique initial

@@ -17,6 +17,10 @@ slugs:
   - environment
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
+history:
+  - version: 5.8.1
+    date: 2025-09-09
+    changes: Ajout pour Tanstack Start
 ---
 
 # Traduire votre Tanstack Start avec Intlayer | Internationalisation (i18n)
@@ -540,9 +544,3 @@ Pour aller plus loin, vous pouvez implémenter l’[éditeur visuel](https://git
 - [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
 
 Ce guide complet fournit tout ce dont vous avez besoin pour intégrer Intlayer avec Tanstack Start afin de créer une application entièrement internationalisée avec un routage sensible à la locale et une prise en charge de TypeScript.
-
-## Historique de la documentation
-
-| Version | Date       | Modifications             |
-| ------- | ---------- | ------------------------- |
-| 5.8.1   | 2025-09-09 | Ajout pour Tanstack Start |
