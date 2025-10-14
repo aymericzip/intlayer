@@ -15,6 +15,10 @@ slugs:
   - environment
   - vite-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Traduce tu Vite and Vue con Intlayer | Internacionalización (i18n)
@@ -1116,7 +1120,3 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
 
 ---
-
-## Historial del Documento
-
-- 5.5.10 - 2025-06-29: Historial inicial

@@ -15,6 +15,10 @@ slugs:
   - doc
   - packages
   - react-intlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # react-intlayer: Paquete NPM para internacionalizar (i18n) una aplicación React
@@ -273,7 +277,3 @@ El paquete `react-intlayer` también proporciona algunas funciones para ayudarte
 - [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useIntlayer.md)
 - [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useDictionary.md)
 - [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md)
-
-## Historial de la documentación
-
-- 5.5.10 - 2025-06-29: Historial inicial

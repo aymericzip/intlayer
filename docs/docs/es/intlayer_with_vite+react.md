@@ -17,6 +17,10 @@ slugs:
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Comenzando con la internacionalización (i18n) usando Intlayer en Vite y React
@@ -1618,7 +1622,3 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
 
 ---
-
-## Historial del documento
-
-- 5.5.10 - 2025-06-29: Historial inicial
