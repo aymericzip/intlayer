@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - insertion
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historique initial
 ---
 
 # Contenu d'Insertion / Insertion dans Intlayer
@@ -179,7 +183,3 @@ Pour des informations plus détaillées sur la configuration et l'utilisation, c
 - [Documentation Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_15.md)
 
 Ces ressources offrent des informations complémentaires sur la configuration et l'utilisation d'Intlayer dans divers environnements et frameworks.
-
-## Historique de la documentation
-
-- 5.5.10 - 2025-06-29 : Historique initial

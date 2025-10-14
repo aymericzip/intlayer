@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - gender
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: Introduction du contenu basé sur le genre
 ---
 
 # Contenu basé sur le genre / Genre dans Intlayer
@@ -268,9 +272,3 @@ Pour des informations plus détaillées sur la configuration et l'utilisation, c
 - [Documentation Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_15.md)
 
 Ces ressources offrent des informations supplémentaires sur la configuration et l'utilisation d'Intlayer dans divers environnements et frameworks.
-
-## Historique de la documentation
-
-| Version | Date       | Modifications                             |
-| ------- | ---------- | ----------------------------------------- |
-| 5.7.2   | 2025-07-27 | Introduction du contenu basé sur le genre |
