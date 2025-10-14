@@ -5,6 +5,7 @@ import {
   getAppLogger,
   getConfiguration,
   type IntlayerConfig,
+  type Locales,
   logger,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
@@ -25,7 +26,8 @@ import { transformJSFile } from './transformJSFile';
 export const writeJSFile = async (
   filePath: string,
   dictionary: Dictionary,
-  configuration: IntlayerConfig = getConfiguration()
+  configuration: IntlayerConfig,
+  fallbackLocale?: Locales
 ): Promise<void> => {
   const { key, locale, autoFilled } = dictionary;
   const appLogger = getAppLogger(configuration);
@@ -49,7 +51,11 @@ export const writeJSFile = async (
 
   const fileContent = await readFile(filePath, 'utf-8');
 
-  const finalCode = await transformJSFile(fileContent, dictionary);
+  const finalCode = await transformJSFile(
+    fileContent,
+    dictionary,
+    fallbackLocale
+  );
 
   const formattedCode = await formatCode(filePath, finalCode);
 

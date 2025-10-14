@@ -2,7 +2,11 @@ import { execSync } from 'node:child_process';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
 import { getConfiguration } from '@intlayer/config';
-import type { IntlayerConfig, LocalesValues } from '@intlayer/config/client';
+import type {
+  IntlayerConfig,
+  Locales,
+  LocalesValues,
+} from '@intlayer/config/client';
 import {
   type ContentNode,
   type Dictionary,
@@ -22,7 +26,8 @@ import { writeJSFile } from './writeJSFile';
 const formatContentDeclaration = async (
   dictionary: Dictionary,
   configuration: IntlayerConfig,
-  localeList?: LocalesValues[]
+  localeList?: LocalesValues[],
+  fallbackLocale?: Locales
 ) => {
   /**
    * Clean Markdown, Insertion, File, etc. node metadata
@@ -115,6 +120,7 @@ const formatContentDeclaration = async (
 type WriteContentDeclarationOptions = {
   newDictionariesPath?: string;
   localeList?: LocalesValues[];
+  fallbackLocale?: Locales;
 };
 
 const defaultOptions = {
@@ -128,7 +134,10 @@ export const writeContentDeclaration = async (
 ): Promise<{ status: DictionaryStatus; path: string }> => {
   const { content } = configuration;
   const { baseDir } = content;
-  const { newDictionariesPath, localeList } = { ...defaultOptions, ...options };
+  const { newDictionariesPath, localeList, fallbackLocale } = {
+    ...defaultOptions,
+    ...options,
+  };
 
   const newDictionaryLocationPath = join(baseDir, newDictionariesPath);
 
@@ -164,7 +173,8 @@ export const writeContentDeclaration = async (
     await writeFileWithDirectories(
       filePath,
       formattedContentDeclaration,
-      configuration
+      configuration,
+      fallbackLocale
     );
 
     return { status: 'updated', path: filePath };
@@ -179,7 +189,8 @@ export const writeContentDeclaration = async (
   await writeFileWithDirectories(
     contentDeclarationPath,
     formattedContentDeclaration,
-    configuration
+    configuration,
+    fallbackLocale
   );
 
   return {
@@ -191,7 +202,8 @@ export const writeContentDeclaration = async (
 const writeFileWithDirectories = async (
   filePath: string,
   dictionary: Dictionary,
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  fallbackLocale?: Locales
 ): Promise<void> => {
   // Extract the directory from the file path
   const dir = dirname(filePath);
@@ -217,12 +229,19 @@ const writeFileWithDirectories = async (
     return;
   }
 
-  await writeJSFile(filePath, dictionary, configuration);
+  await writeJSFile(filePath, dictionary, configuration, fallbackLocale);
 
   if (configuration.editor.formatCommand) {
-    execSync(configuration.editor.formatCommand.replace('{{file}}', filePath), {
-      stdio: 'inherit',
-    });
+    try {
+      execSync(
+        configuration.editor.formatCommand.replace('{{file}}', filePath),
+        {
+          stdio: 'inherit',
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   // remove the cache as content has changed
@@ -230,7 +249,12 @@ const writeFileWithDirectories = async (
   try {
     await rm(configuration.content.cacheDir, { recursive: true });
   } catch (error) {
-    if ((error as any).code !== 'ENOENT') {
+    if (
+      error &&
+      typeof error === 'object' &&
+      'code' in error &&
+      (error as { code: string }).code !== 'ENOENT'
+    ) {
       throw error;
     }
   }

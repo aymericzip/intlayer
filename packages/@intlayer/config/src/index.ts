@@ -10,7 +10,11 @@ export {
 export { searchConfigurationFile } from './configFile/searchConfigurationFile';
 export { getSandBoxContext } from './getSandboxContext';
 export { getEnvFilePath, loadEnvFile } from './loadEnvFile';
-export { loadExternalFile } from './loadExternalFile';
+export {
+  buildFileContent,
+  loadExternalFile,
+  parseFileContent,
+} from './loadExternalFile';
 export {
   ANSIColors,
   clock,

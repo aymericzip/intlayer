@@ -1,105 +1,29 @@
-import { type Dictionary, NodeType } from '@intlayer/core';
+import type { Locales } from '@intlayer/config/client';
+import {
+  type ConditionContent,
+  type ContentNode,
+  type Dictionary,
+  type EnumerationContent,
+  type FileContent,
+  type GenderContent,
+  getNodeType,
+  type InsertionContent,
+  type MarkdownContent,
+  type NestedContent,
+  NodeType,
+  type TranslationContent,
+} from '@intlayer/core';
 import {
   Node,
   type ObjectLiteralExpression,
   Project,
+  type SourceFile,
   SyntaxKind,
   ts,
 } from 'ts-morph';
 
-const isTranslationNode = (
-  value: unknown
-): value is {
-  nodeType?: NodeType;
-  [NodeType.Translation]?: Record<string, unknown>;
-} => {
-  if (!value || typeof value !== 'object') return false;
-  const v = value as any;
-  const hasNodeTypeTranslation = v.nodeType === NodeType.Translation;
-  const hasTranslationObject =
-    v[NodeType.Translation] && typeof v[NodeType.Translation] === 'object';
-  return Boolean(hasTranslationObject || hasNodeTypeTranslation);
-};
-
-const isEnumerationNode = (
-  value: unknown
-): value is {
-  nodeType?: NodeType;
-  [NodeType.Enumeration]?: Record<string, unknown>;
-} => {
-  if (!value || typeof value !== 'object') return false;
-  const v = value as any;
-  return (
-    v.nodeType === NodeType.Enumeration ||
-    (v[NodeType.Enumeration] && typeof v[NodeType.Enumeration] === 'object')
-  );
-};
-
-const isConditionNode = (
-  value: unknown
-): value is {
-  nodeType?: NodeType;
-  [NodeType.Condition]?: Record<string, unknown>;
-} => {
-  if (!value || typeof value !== 'object') return false;
-  const v = value as any;
-  return (
-    v.nodeType === NodeType.Condition ||
-    (v[NodeType.Condition] && typeof v[NodeType.Condition] === 'object')
-  );
-};
-
-const isGenderNode = (
-  value: unknown
-): value is {
-  nodeType?: NodeType;
-  [NodeType.Gender]?: Record<string, unknown>;
-} => {
-  if (!value || typeof value !== 'object') return false;
-  const v = value as any;
-  return (
-    v.nodeType === NodeType.Gender ||
-    (v[NodeType.Gender] && typeof v[NodeType.Gender] === 'object')
-  );
-};
-
-const isInsertionNode = (
-  value: unknown
-): value is { nodeType?: NodeType; [NodeType.Insertion]?: unknown } => {
-  if (!value || typeof value !== 'object') return false;
-  const v = value as any;
-  return v.nodeType === NodeType.Insertion || NodeType.Insertion in v;
-};
-
-const isMarkdownNode = (
-  value: unknown
-): value is { nodeType?: NodeType; [NodeType.Markdown]?: unknown } => {
-  if (!value || typeof value !== 'object') return false;
-  const v = value as any;
-  return v.nodeType === NodeType.Markdown || NodeType.Markdown in v;
-};
-
-const isFileNode = (
-  value: unknown
-): value is { nodeType?: NodeType; [NodeType.File]?: string } => {
-  if (!value || typeof value !== 'object') return false;
-  const v = value as any;
-  return v.nodeType === NodeType.File || typeof v[NodeType.File] === 'string';
-};
-
-const isNestedNode = (
-  value: unknown
-): value is {
-  nodeType?: NodeType;
-  [NodeType.Nested]?: { dictionaryKey?: string; path?: string };
-} => {
-  if (!value || typeof value !== 'object') return false;
-  const v = value as any;
-  return v.nodeType === NodeType.Nested || NodeType.Nested in v;
-};
-
 const buildTranslationInitializer = (
-  translationMap: Record<string, unknown>
+  translationMap: TranslationContent[NodeType.Translation]
 ): string => {
   const entries = Object.entries(translationMap)
     // Keep stable order: identifiers first (a-z), then others, alphabetically
@@ -116,6 +40,7 @@ const buildTranslationInitializer = (
       parts.push(`${keyText}: ${JSON.stringify(val)}`);
     }
   }
+
   return `t({ ${parts.join(', ')} })`;
 };
 
@@ -123,105 +48,140 @@ const stringifyKey = (key: string): string => {
   const isValidIdentifier = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(key);
   if (!isValidIdentifier) return JSON.stringify(key);
   if (key === 'true' || key === 'false') return JSON.stringify(key);
+
   return key;
 };
 
-const buildEnumerationInitializer = (map: Record<string, unknown>): string => {
+const buildEnumerationInitializer = (
+  map: EnumerationContent[NodeType.Enumeration]
+): string => {
   const parts: string[] = [];
-  for (const [k, v] of Object.entries(map)) {
-    if (typeof v !== 'string') return ''; // unsupported
-    parts.push(`${stringifyKey(k)}: ${JSON.stringify(v)}`);
+  for (const [key, value] of Object.entries(map)) {
+    if (typeof value !== 'string') return '';
+    // unsupported
+    parts.push(`${stringifyKey(key)}: ${JSON.stringify(value)}`);
   }
+
   return `enu({ ${parts.join(', ')} })`;
 };
 
-const buildConditionInitializer = (map: Record<string, unknown>): string => {
+const buildConditionInitializer = (
+  map: ConditionContent[NodeType.Condition]
+): string => {
   const parts: string[] = [];
-  for (const [k, v] of Object.entries(map)) {
-    if (typeof v !== 'string') return '';
-    parts.push(`${stringifyKey(k)}: ${JSON.stringify(v)}`);
+  for (const [key, value] of Object.entries(map)) {
+    if (typeof value !== 'string') return '';
+
+    parts.push(`${stringifyKey(key)}: ${JSON.stringify(value)}`);
   }
+
   return `cond({ ${parts.join(', ')} })`;
 };
 
-const buildGenderInitializer = (map: Record<string, unknown>): string => {
+const buildGenderInitializer = (
+  map: GenderContent[NodeType.Gender]
+): string => {
   const parts: string[] = [];
-  for (const [k, v] of Object.entries(map)) {
-    if (typeof v !== 'string') return '';
-    parts.push(`${stringifyKey(k)}: ${JSON.stringify(v)}`);
+  for (const [key, value] of Object.entries(map)) {
+    if (typeof value !== 'string') return '';
+
+    parts.push(`${stringifyKey(key)}: ${JSON.stringify(value)}`);
   }
+
   return `gender({ ${parts.join(', ')} })`;
 };
 
-const buildInsertionInitializer = (content: unknown): string | undefined => {
+const buildInsertionInitializer = (
+  content: InsertionContent[NodeType.Insertion]
+): string | undefined => {
   if (typeof content === 'string') return `insert(${JSON.stringify(content)})`;
-  if (isTranslationNode(content)) {
+  if (getNodeType(content as ContentNode) === NodeType.Translation) {
+    const translationContent = content as TranslationContent;
     const translations: Record<string, unknown> =
-      (content as any).translation ?? (content as any).translation ?? {};
+      translationContent[NodeType.Translation] ?? {};
     const allStrings = Object.values(translations).every(
       (v) => typeof v === 'string'
     );
     if (!allStrings) return undefined;
+
     return `insert(${buildTranslationInitializer(
       translations as Record<string, string>
     )})`;
   }
+
   return undefined;
 };
 
 const buildFileInitializer = (path: unknown): string | undefined => {
   if (typeof path === 'string') return `file(${JSON.stringify(path)})`;
+
   return undefined;
 };
 
-const buildMarkdownInitializer = (content: unknown): string | undefined => {
+const buildMarkdownInitializer = (
+  content: MarkdownContent[NodeType.Markdown]
+): string | undefined => {
   if (typeof content === 'string') return `md(${JSON.stringify(content)})`;
-  if (isFileNode(content)) {
-    const p = (content as any)[NodeType.File] as string;
-    const fileInit = buildFileInitializer(p);
-    if (!fileInit) return undefined;
-    return `md(${fileInit})`;
+
+  if (getNodeType(content as ContentNode) === NodeType.File) {
+    const filePath = (content as FileContent)[NodeType.File];
+
+    const fileInitializer = buildFileInitializer(filePath);
+    if (!fileInitializer) return undefined;
+
+    return `md(${fileInitializer})`;
   }
+
   return undefined;
 };
 
-const buildNestedInitializer = (obj: unknown): string | undefined => {
-  const data = (obj as any)?.[NodeType.Nested] as
-    | { dictionaryKey?: string; path?: string }
-    | undefined;
-  if (!data || typeof data.dictionaryKey !== 'string') return undefined;
-  if (data.path && typeof data.path === 'string') {
-    return `nest(${JSON.stringify(data.dictionaryKey)}, ${JSON.stringify(data.path)})`;
+const buildNestedInitializer = (
+  nestedContent: NestedContent[NodeType.Nested]
+): string | undefined => {
+  // nestedContent is already the unwrapped { dictionaryKey, path } object
+  if (!nestedContent || typeof nestedContent.dictionaryKey !== 'string')
+    return undefined;
+
+  if (nestedContent.path && typeof nestedContent.path === 'string') {
+    return `nest(${JSON.stringify(nestedContent.dictionaryKey)}, ${JSON.stringify(nestedContent.path)})`;
   }
-  return `nest(${JSON.stringify(data.dictionaryKey)})`;
+
+  return `nest(${JSON.stringify(nestedContent.dictionaryKey)})`;
 };
 
 const readExistingTranslationMap = (
   contentObject: ObjectLiteralExpression,
   propName: string
 ): Record<string, string> | undefined => {
-  const prop = contentObject.getProperty(propName);
+  const property = contentObject.getProperty(propName);
 
-  if (!prop || !Node.isPropertyAssignment(prop)) return undefined;
-  const init = prop.getInitializer();
-  if (!init) return undefined;
-  if (!Node.isCallExpression(init)) return undefined;
-  const exp = init.getExpression();
-  if (!Node.isIdentifier(exp) || exp.getText() !== 't') return undefined;
-  const arg = init.getArguments()[0];
-  if (!arg || !Node.isObjectLiteralExpression(arg)) return undefined;
+  if (!property || !Node.isPropertyAssignment(property)) return undefined;
+
+  const initializer = property.getInitializer();
+  if (!initializer) return undefined;
+
+  if (!Node.isCallExpression(initializer)) return undefined;
+
+  const expression = initializer.getExpression();
+  if (!Node.isIdentifier(expression) || expression.getText() !== 't')
+    return undefined;
+
+  const argument = initializer.getArguments()[0];
+  if (!argument || !Node.isObjectLiteralExpression(argument)) return undefined;
 
   const map: Record<string, string> = {};
-  for (const p of arg.getProperties()) {
-    if (!Node.isPropertyAssignment(p)) continue;
-    const nameNode = p.getNameNode();
+  for (const propertyAssignment of argument.getProperties()) {
+    if (!Node.isPropertyAssignment(propertyAssignment)) continue;
+
+    const nameNode = propertyAssignment.getNameNode();
     const rawName = nameNode.getText();
     const name = rawName.replace(/^['"]|['"]$/g, '');
-    const valueInit = p.getInitializer();
-    if (valueInit && Node.isStringLiteral(valueInit)) {
-      map[name] = valueInit.getLiteralValue();
+    const valueInitializer = propertyAssignment.getInitializer();
+    if (valueInitializer && Node.isStringLiteral(valueInitializer)) {
+      map[name] = valueInitializer.getLiteralValue();
     }
   }
+
   return map;
 };
 
@@ -230,25 +190,33 @@ const readExistingMapFromCall = (
   propName: string,
   callee: 'enu' | 'cond' | 'gender'
 ): Record<string, string> | undefined => {
-  const prop = contentObject.getProperty(propName);
-  if (!prop || !Node.isPropertyAssignment(prop)) return undefined;
-  const init = prop.getInitializer();
-  if (!init || !Node.isCallExpression(init)) return undefined;
-  const exp = init.getExpression();
-  if (!Node.isIdentifier(exp) || exp.getText() !== callee) return undefined;
-  const arg = init.getArguments()[0];
-  if (!arg || !Node.isObjectLiteralExpression(arg)) return undefined;
+  const property = contentObject.getProperty(propName);
+
+  if (!property || !Node.isPropertyAssignment(property)) return undefined;
+
+  const initializer = property.getInitializer();
+  if (!initializer || !Node.isCallExpression(initializer)) return undefined;
+
+  const expression = initializer.getExpression();
+  if (!Node.isIdentifier(expression) || expression.getText() !== callee)
+    return undefined;
+
+  const argument = initializer.getArguments()[0];
+  if (!argument || !Node.isObjectLiteralExpression(argument)) return undefined;
+
   const map: Record<string, string> = {};
-  for (const p of arg.getProperties()) {
-    if (!Node.isPropertyAssignment(p)) continue;
-    const nameNode = p.getNameNode();
+  for (const propertyAssignment of argument.getProperties()) {
+    if (!Node.isPropertyAssignment(propertyAssignment)) continue;
+
+    const nameNode = propertyAssignment.getNameNode();
     const rawName = nameNode.getText();
     const name = rawName.replace(/^['"]|['"]$/g, '');
-    const valueInit = p.getInitializer();
-    if (valueInit && Node.isStringLiteral(valueInit)) {
-      map[name] = valueInit.getLiteralValue();
+    const valueInitializer = propertyAssignment.getInitializer();
+    if (valueInitializer && Node.isStringLiteral(valueInitializer)) {
+      map[name] = valueInitializer.getLiteralValue();
     }
   }
+
   return map;
 };
 
@@ -260,12 +228,15 @@ const areStringMapsEqual = (
   const aEntries = Object.entries(a).filter(
     ([, v]) => typeof v === 'string'
   ) as [string, string][];
+
   if (aEntries.length !== Object.keys(a).length) return false;
   if (aEntries.length !== Object.keys(b).length) return false;
-  for (const [k, v] of aEntries) {
-    if (!(k in b)) return false;
-    if (b[k] !== v) return false;
+
+  for (const [key, value] of aEntries) {
+    if (!(key in b)) return false;
+    if (b[key] !== value) return false;
   }
+
   return true;
 };
 
@@ -279,35 +250,51 @@ const readExistingInsertion = (
 ): ExistingInsert | undefined => {
   const prop = contentObject.getProperty(propName);
   if (!prop || !Node.isPropertyAssignment(prop)) return undefined;
+
   const init = prop.getInitializer();
   if (!init || !Node.isCallExpression(init)) return undefined;
+
   const exp = init.getExpression();
   if (!Node.isIdentifier(exp) || exp.getText() !== 'insert') return undefined;
-  const arg = init.getArguments()[0];
-  if (!arg) return undefined;
-  if (Node.isStringLiteral(arg)) {
-    return { kind: 'string', value: arg.getLiteralValue() };
+
+  const argument = init.getArguments()[0];
+  if (!argument) return undefined;
+
+  if (Node.isStringLiteral(argument)) {
+    return { kind: 'string', value: argument.getLiteralValue() };
   }
-  if (Node.isCallExpression(arg)) {
-    const aexp = arg.getExpression();
-    if (Node.isIdentifier(aexp) && aexp.getText() === 't') {
-      const tArg = arg.getArguments()[0];
-      if (tArg && Node.isObjectLiteralExpression(tArg)) {
+
+  if (Node.isCallExpression(argument)) {
+    const argumentExpression = argument.getExpression();
+    if (
+      Node.isIdentifier(argumentExpression) &&
+      argumentExpression.getText() === 't'
+    ) {
+      const translationArgument = argument.getArguments()[0];
+
+      if (
+        translationArgument &&
+        Node.isObjectLiteralExpression(translationArgument)
+      ) {
         const map: Record<string, string> = {};
-        for (const p of tArg.getProperties()) {
-          if (!Node.isPropertyAssignment(p)) continue;
-          const nameNode = p.getNameNode();
+
+        for (const propertyAssignment of translationArgument.getProperties()) {
+          if (!Node.isPropertyAssignment(propertyAssignment)) continue;
+
+          const nameNode = propertyAssignment.getNameNode();
           const rawName = nameNode.getText();
           const name = rawName.replace(/^['"]|['"]$/g, '');
-          const valueInit = p.getInitializer();
-          if (valueInit && Node.isStringLiteral(valueInit)) {
-            map[name] = valueInit.getLiteralValue();
+          const valueInitializer = propertyAssignment.getInitializer();
+          if (valueInitializer && Node.isStringLiteral(valueInitializer)) {
+            map[name] = valueInitializer.getLiteralValue();
           }
         }
+
         return { kind: 'translation', map };
       }
     }
   }
+
   return undefined;
 };
 
@@ -319,26 +306,35 @@ const readExistingMarkdown = (
   contentObject: ObjectLiteralExpression,
   propName: string
 ): ExistingMarkdown | undefined => {
-  const prop = contentObject.getProperty(propName);
-  if (!prop || !Node.isPropertyAssignment(prop)) return undefined;
-  const init = prop.getInitializer();
-  if (!init || !Node.isCallExpression(init)) return undefined;
-  const exp = init.getExpression();
-  if (!Node.isIdentifier(exp) || exp.getText() !== 'md') return undefined;
-  const arg = init.getArguments()[0];
-  if (!arg) return undefined;
-  if (Node.isStringLiteral(arg)) {
-    return { kind: 'string', value: arg.getLiteralValue() };
+  const property = contentObject.getProperty(propName);
+  if (!property || !Node.isPropertyAssignment(property)) return undefined;
+
+  const initializer = property.getInitializer();
+  if (!initializer || !Node.isCallExpression(initializer)) return undefined;
+
+  const expression = initializer.getExpression();
+  if (!Node.isIdentifier(expression) || expression.getText() !== 'md')
+    return undefined;
+
+  const argument = initializer.getArguments()[0];
+  if (!argument) return undefined;
+
+  if (Node.isStringLiteral(argument)) {
+    return { kind: 'string', value: argument.getLiteralValue() };
   }
-  if (Node.isCallExpression(arg)) {
-    const aexp = arg.getExpression();
-    if (Node.isIdentifier(aexp) && aexp.getText() === 'file') {
-      const fArg = arg.getArguments()[0];
-      if (fArg && Node.isStringLiteral(fArg)) {
-        return { kind: 'file', path: fArg.getLiteralValue() };
+  if (Node.isCallExpression(argument)) {
+    const argumentExpression = argument.getExpression();
+    if (
+      Node.isIdentifier(argumentExpression) &&
+      argumentExpression.getText() === 'file'
+    ) {
+      const fileArgument = argument.getArguments()[0];
+      if (fileArgument && Node.isStringLiteral(fileArgument)) {
+        return { kind: 'file', path: fileArgument.getLiteralValue() };
       }
     }
   }
+
   return undefined;
 };
 
@@ -346,14 +342,20 @@ const readExistingFilePath = (
   contentObject: ObjectLiteralExpression,
   propName: string
 ): string | undefined => {
-  const prop = contentObject.getProperty(propName);
-  if (!prop || !Node.isPropertyAssignment(prop)) return undefined;
-  const init = prop.getInitializer();
-  if (!init || !Node.isCallExpression(init)) return undefined;
-  const exp = init.getExpression();
-  if (!Node.isIdentifier(exp) || exp.getText() !== 'file') return undefined;
-  const arg = init.getArguments()[0];
-  if (arg && Node.isStringLiteral(arg)) return arg.getLiteralValue();
+  const property = contentObject.getProperty(propName);
+  if (!property || !Node.isPropertyAssignment(property)) return undefined;
+
+  const initializer = property.getInitializer();
+  if (!initializer || !Node.isCallExpression(initializer)) return undefined;
+
+  const expression = initializer.getExpression();
+  if (!Node.isIdentifier(expression) || expression.getText() !== 'file')
+    return undefined;
+
+  const argument = initializer.getArguments()[0];
+  if (argument && Node.isStringLiteral(argument))
+    return argument.getLiteralValue();
+
   return undefined;
 };
 
@@ -361,32 +363,46 @@ const readExistingNest = (
   contentObject: ObjectLiteralExpression,
   propName: string
 ): { dictionaryKey: string; path?: string } | undefined => {
-  const prop = contentObject.getProperty(propName);
-  if (!prop || !Node.isPropertyAssignment(prop)) return undefined;
-  let init = prop.getInitializer();
-  if (!init) return undefined;
+  const property = contentObject.getProperty(propName);
+  if (!property || !Node.isPropertyAssignment(property)) return undefined;
+
+  let initializer = property.getInitializer();
+  if (!initializer) return undefined;
+
   // Unwrap type assertions and parentheses
   // Keep drilling until we reach a CallExpression or cannot unwrap further
   let safetyCounter = 0;
   while (safetyCounter++ < 5) {
-    if (Node.isCallExpression(init)) break;
+    if (Node.isCallExpression(initializer)) break;
     // AsExpression, TypeAssertion, ParenthesizedExpression expose getExpression
-    const anyInit = init as unknown as { getExpression?: () => unknown };
-    const nextExpr = anyInit.getExpression?.();
-    if (nextExpr && typeof nextExpr === 'object' && nextExpr !== init) {
-      init = nextExpr as any;
+    const anyInitializer = initializer as unknown as {
+      getExpression?: () => unknown;
+    };
+    const nextExpression = anyInitializer.getExpression?.();
+    if (
+      nextExpression &&
+      typeof nextExpression === 'object' &&
+      nextExpression !== initializer
+    ) {
+      initializer = nextExpression as any;
       continue;
     }
     break;
   }
-  if (!Node.isCallExpression(init)) return undefined;
-  const exp = init.getExpression();
-  if (!Node.isIdentifier(exp) || exp.getText() !== 'nest') return undefined;
-  const [arg1, arg2] = init.getArguments();
-  if (!arg1 || !Node.isStringLiteral(arg1)) return undefined;
-  const dictionaryKey = arg1.getLiteralValue();
+  if (!Node.isCallExpression(initializer)) return undefined;
+
+  const expression = initializer.getExpression();
+  if (!Node.isIdentifier(expression) || expression.getText() !== 'nest')
+    return undefined;
+
+  const [firstArgument, secondArgument] = initializer.getArguments();
+  if (!firstArgument || !Node.isStringLiteral(firstArgument)) return undefined;
+
+  const dictionaryKey = firstArgument.getLiteralValue();
   let path: string | undefined;
-  if (arg2 && Node.isStringLiteral(arg2)) path = arg2.getLiteralValue();
+  if (secondArgument && Node.isStringLiteral(secondArgument))
+    path = secondArgument.getLiteralValue();
+
   return { dictionaryKey, path };
 };
 
@@ -395,10 +411,12 @@ const unwrapToObjectLiteral = (
   node: unknown
 ): ObjectLiteralExpression | undefined => {
   if (!node || typeof node !== 'object') return undefined;
+
   let current = node as any;
   let safetyCounter = 0;
   while (safetyCounter++ < 8) {
     if (Node.isObjectLiteralExpression(current)) return current;
+
     const next = current?.getExpression?.();
     if (next && typeof next === 'object' && next !== current) {
       current = next;
@@ -406,6 +424,7 @@ const unwrapToObjectLiteral = (
     }
     break;
   }
+
   return undefined;
 };
 
@@ -413,46 +432,50 @@ const readExistingArraySerialized = (
   contentObject: ObjectLiteralExpression,
   propName: string
 ): string[] | undefined => {
-  const prop = contentObject.getProperty(propName);
-  if (!prop || !Node.isPropertyAssignment(prop)) return undefined;
-  const init = prop.getInitializer();
-  if (!init || !Node.isArrayLiteralExpression(init)) return undefined;
+  const property = contentObject.getProperty(propName);
+  if (!property || !Node.isPropertyAssignment(property)) return undefined;
+
+  const initializer = property.getInitializer();
+  if (!initializer || !Node.isArrayLiteralExpression(initializer))
+    return undefined;
 
   const serialized: string[] = [];
-  for (const el of init.getElements()) {
-    if (Node.isStringLiteral(el)) {
-      serialized.push(JSON.stringify(el.getLiteralValue()));
+  for (const element of initializer.getElements()) {
+    if (Node.isStringLiteral(element)) {
+      serialized.push(JSON.stringify(element.getLiteralValue()));
       continue;
     }
-    if (Node.isNumericLiteral(el)) {
-      serialized.push(el.getText());
+    if (Node.isNumericLiteral(element)) {
+      serialized.push(element.getText());
       continue;
     }
     if (
-      el.getKind() === SyntaxKind.TrueKeyword ||
-      el.getKind() === SyntaxKind.FalseKeyword
+      element.getKind() === SyntaxKind.TrueKeyword ||
+      element.getKind() === SyntaxKind.FalseKeyword
     ) {
-      serialized.push(el.getText());
+      serialized.push(element.getText());
       continue;
     }
-    if (Node.isNullLiteral(el)) {
+    if (Node.isNullLiteral(element)) {
       serialized.push('null');
       continue;
     }
-    if (Node.isCallExpression(el)) {
-      const exp = el.getExpression();
-      if (Node.isIdentifier(exp) && exp.getText() === 't') {
-        const arg = el.getArguments()[0];
-        if (arg && Node.isObjectLiteralExpression(arg)) {
+    if (Node.isCallExpression(element)) {
+      const expression = element.getExpression();
+      if (Node.isIdentifier(expression) && expression.getText() === 't') {
+        const argument = element.getArguments()[0];
+        if (argument && Node.isObjectLiteralExpression(argument)) {
           const map: Record<string, string> = {};
-          for (const p of arg.getProperties()) {
-            if (!Node.isPropertyAssignment(p)) return undefined;
-            const nameNode = p.getNameNode();
+          for (const propertyAssignment of argument.getProperties()) {
+            if (!Node.isPropertyAssignment(propertyAssignment))
+              return undefined;
+
+            const nameNode = propertyAssignment.getNameNode();
             const rawName = nameNode.getText();
             const name = rawName.replace(/^['"]|['"]$/g, '');
-            const valueInit = p.getInitializer();
-            if (valueInit && Node.isStringLiteral(valueInit)) {
-              map[name] = valueInit.getLiteralValue();
+            const valueInitializer = propertyAssignment.getInitializer();
+            if (valueInitializer && Node.isStringLiteral(valueInitializer)) {
+              map[name] = valueInitializer.getLiteralValue();
             } else {
               return undefined;
             }
@@ -462,56 +485,195 @@ const readExistingArraySerialized = (
         }
       }
     }
+
     return undefined;
   }
+
   return serialized;
 };
 
-const serializeValue = (value: unknown): string | undefined => {
-  if (typeof value === 'string') return JSON.stringify(value);
-  if (typeof value === 'number' || typeof value === 'boolean')
+const serializeValue = (value: ContentNode): string | undefined => {
+  const nodeType = getNodeType(value);
+
+  if (nodeType === NodeType.Text) return JSON.stringify(value);
+
+  if (nodeType === NodeType.Number || nodeType === NodeType.Boolean)
     return String(value);
-  if (value === null) return 'null';
-  if (isTranslationNode(value)) {
-    const translations: Record<string, unknown> =
-      (value as any).translation ?? (value as any).translation ?? {};
+
+  if (nodeType === NodeType.Null) return 'null';
+
+  if (nodeType === NodeType.Translation) {
+    const translations: TranslationContent[NodeType.Translation] =
+      (value as TranslationContent)[NodeType.Translation] ?? {};
     const allStrings = Object.values(translations).every(
       (v) => typeof v === 'string'
     );
     if (!allStrings) return undefined;
-    return buildTranslationInitializer(translations as Record<string, string>);
+
+    return buildTranslationInitializer(translations);
   }
-  if (isEnumerationNode(value)) {
-    const map = (value as any)[NodeType.Enumeration] as Record<string, unknown>;
-    const init = buildEnumerationInitializer(map);
-    return init || undefined;
+
+  if (nodeType === NodeType.Enumeration) {
+    const map: EnumerationContent[NodeType.Enumeration] = (
+      value as EnumerationContent
+    )[NodeType.Enumeration];
+
+    const initializer = buildEnumerationInitializer(map);
+
+    return initializer;
   }
-  if (isConditionNode(value)) {
-    const map = (value as any)[NodeType.Condition] as Record<string, unknown>;
-    const init = buildConditionInitializer(map);
-    return init || undefined;
+
+  if (nodeType === NodeType.Condition) {
+    const map: ConditionContent[NodeType.Condition] = (
+      value as ConditionContent
+    )[NodeType.Condition];
+
+    const initializer = buildConditionInitializer(map);
+
+    return initializer;
   }
-  if (isGenderNode(value)) {
-    const map = (value as any)[NodeType.Gender] as Record<string, unknown>;
-    const init = buildGenderInitializer(map);
-    return init || undefined;
+
+  if (nodeType === NodeType.Gender) {
+    const map: GenderContent[NodeType.Gender] = (value as GenderContent)[
+      NodeType.Gender
+    ];
+
+    const initializer = buildGenderInitializer(map);
+
+    return initializer;
   }
-  if (isInsertionNode(value)) {
-    const content = (value as any)[NodeType.Insertion];
+
+  if (nodeType === NodeType.Insertion) {
+    const content: InsertionContent[NodeType.Insertion] = (
+      value as InsertionContent
+    )[NodeType.Insertion];
+
     return buildInsertionInitializer(content);
   }
-  if (isMarkdownNode(value)) {
-    const content = (value as any)[NodeType.Markdown];
+
+  if (nodeType === NodeType.Markdown) {
+    const content: MarkdownContent[NodeType.Markdown] = (
+      value as MarkdownContent
+    )[NodeType.Markdown];
+
     return buildMarkdownInitializer(content);
   }
-  if (isFileNode(value)) {
-    const path = (value as any)[NodeType.File];
+
+  if (nodeType === NodeType.File) {
+    const path: FileContent[NodeType.File] = (value as FileContent)[
+      NodeType.File
+    ];
+
     return buildFileInitializer(path);
   }
-  if (isNestedNode(value)) {
-    return buildNestedInitializer(value);
+
+  if (nodeType === NodeType.Nested) {
+    const content: NestedContent[NodeType.Nested] = (value as NestedContent)[
+      NodeType.Nested
+    ];
+
+    return buildNestedInitializer(content);
   }
+
   return undefined;
+};
+
+/**
+ * Gets the existing imports from @intlayer/core in the source file
+ */
+const getExistingIntlayerImports = (sourceFile: SourceFile): Set<string> => {
+  const imported = new Set<string>();
+
+  for (const importDecl of sourceFile.getImportDeclarations()) {
+    const moduleSpecifier = importDecl.getModuleSpecifierValue();
+
+    if (moduleSpecifier === 'intlayer') {
+      const namedImports = importDecl.getNamedImports();
+      for (const namedImport of namedImports) {
+        imported.add(namedImport.getName());
+      }
+    }
+
+    if (moduleSpecifier === 'intlayer/file') {
+      const namedImports = importDecl.getNamedImports();
+      for (const namedImport of namedImports) {
+        const alias = namedImport.getAliasNode();
+        imported.add(alias ? alias.getText() : namedImport.getName());
+      }
+    }
+  }
+
+  return imported;
+};
+
+/**
+ * Adds missing imports to the source file
+ */
+const addMissingImports = (
+  sourceFile: SourceFile,
+  requiredImports: Set<string>
+): boolean => {
+  if (requiredImports.size === 0) return false;
+
+  const existingImports = getExistingIntlayerImports(sourceFile);
+  const missingImports = [...requiredImports].filter(
+    (imp) => !existingImports.has(imp)
+  );
+
+  if (missingImports.length === 0) return false;
+
+  // Separate 'file' from other imports
+  const hasMissingFile = missingImports.includes('file');
+  const otherMissingImports = missingImports.filter((imp) => imp !== 'file');
+
+  // Find or create @intlayer/core import
+  if (otherMissingImports.length > 0) {
+    const coreImport = sourceFile
+      .getImportDeclarations()
+      .find((imp) => imp.getModuleSpecifierValue() === 'intlayer');
+
+    if (coreImport) {
+      // Add to existing import
+      const existingNamedImports = coreImport
+        .getNamedImports()
+        .map((ni) => ni.getName());
+      const allImports = [
+        ...new Set([...existingNamedImports, ...otherMissingImports]),
+      ].sort();
+
+      coreImport.removeNamedImports();
+      coreImport.addNamedImports(allImports.map((name) => ({ name })));
+    } else {
+      // Create new import at the top
+      sourceFile.insertImportDeclaration(0, {
+        moduleSpecifier: 'intlayer',
+        namedImports: otherMissingImports.sort().map((name) => ({ name })),
+      });
+    }
+  }
+
+  // Handle file import separately with alias
+  if (hasMissingFile) {
+    const fileImport = sourceFile
+      .getImportDeclarations()
+      .find((imp) => imp.getModuleSpecifierValue() === 'intlayer/file');
+
+    if (!fileImport) {
+      // Find the position to insert (after @intlayer/core import if it exists)
+      const coreImportIndex = sourceFile
+        .getImportDeclarations()
+        .findIndex((imp) => imp.getModuleSpecifierValue() === 'intlayer');
+
+      const insertIndex = coreImportIndex >= 0 ? coreImportIndex + 1 : 0;
+
+      sourceFile.insertImportDeclaration(insertIndex, {
+        moduleSpecifier: 'intlayer/file',
+        namedImports: [{ name: 'file' }],
+      });
+    }
+  }
+
+  return true;
 };
 
 /**
@@ -522,13 +684,13 @@ const serializeValue = (value: unknown): string | undefined => {
  */
 export const transformJSFile = async (
   fileContent: string,
-  dictionary: Dictionary
+  dictionary: Dictionary,
+  fallbackLocale?: Locales
 ): Promise<string> => {
   try {
     // If no content provided, nothing to transform
-    if (!dictionary || typeof dictionary !== 'object' || !dictionary.content) {
+    if (!dictionary || typeof dictionary !== 'object' || !dictionary.content)
       return fileContent;
-    }
 
     const project = new Project({
       useInMemoryFileSystem: true,
@@ -549,76 +711,93 @@ export const transformJSFile = async (
 
     const exportAssignment = sourceFile.getExportAssignment((_) => true);
     if (exportAssignment) {
-      const expr = exportAssignment.getExpression();
-      if (Node.isIdentifier(expr)) {
+      const expression = exportAssignment.getExpression();
+      if (Node.isIdentifier(expression)) {
         // Prefer symbol resolution, but fall back to direct lookup by name
-        const declFromSymbol = expr.getSymbol()?.getDeclarations()?.[0];
-        const declByName =
-          declFromSymbol ?? sourceFile.getVariableDeclaration(expr.getText());
-        if (declByName && Node.isVariableDeclaration(declByName)) {
-          const initAny = declByName.getInitializer();
-          const obj = unwrapToObjectLiteral(initAny);
-          if (obj) rootObject = obj;
+        const declarationFromSymbol = expression
+          .getSymbol()
+          ?.getDeclarations()?.[0];
+        const declarationByName =
+          declarationFromSymbol ??
+          sourceFile.getVariableDeclaration(expression.getText());
+        if (
+          declarationByName &&
+          Node.isVariableDeclaration(declarationByName)
+        ) {
+          const initializerAny = declarationByName.getInitializer();
+          const objectLiteral = unwrapToObjectLiteral(initializerAny);
+          if (objectLiteral) rootObject = objectLiteral;
         }
-      } else if (Node.isObjectLiteralExpression(expr)) {
-        rootObject = expr;
+      } else if (Node.isObjectLiteralExpression(expression)) {
+        rootObject = expression;
       }
     }
 
     // Fallback: find a variable of type Dictionary (or named content) initialized with an object
     if (!rootObject) {
-      const varDecl = sourceFile.getVariableDeclaration((v) => {
-        try {
-          const typeText = v.getType().getText();
-          return (
-            typeText.includes('Dictionary') ||
-            v.getName() === 'content' ||
-            v.getName().toLowerCase().includes('dictionary')
-          );
-        } catch {
-          return v.getName() === 'content';
+      const variableDeclaration = sourceFile.getVariableDeclaration(
+        (variable) => {
+          try {
+            const typeText = variable.getType().getText();
+
+            return (
+              typeText.includes('Dictionary') ||
+              variable.getName() === 'content' ||
+              variable.getName().toLowerCase().includes('dictionary')
+            );
+          } catch {
+            return variable.getName() === 'content';
+          }
         }
-      });
-      if (varDecl) {
-        const obj = unwrapToObjectLiteral(varDecl.getInitializer());
-        if (obj) rootObject = obj;
+      );
+      if (variableDeclaration) {
+        const objectLiteral = unwrapToObjectLiteral(
+          variableDeclaration.getInitializer()
+        );
+        if (objectLiteral) rootObject = objectLiteral;
       }
     }
 
     // Fallback: handle CommonJS patterns like `module.exports = { ... }` or `exports.default = { ... }`
     if (!rootObject) {
-      for (const stmt of sourceFile.getStatements()) {
-        if (!Node.isExpressionStatement(stmt)) continue;
-        const expr = stmt.getExpression();
-        if (!Node.isBinaryExpression(expr)) continue;
-        const operator = expr.getOperatorToken();
+      for (const statement of sourceFile.getStatements()) {
+        if (!Node.isExpressionStatement(statement)) continue;
+
+        const expression = statement.getExpression();
+        if (!Node.isBinaryExpression(expression)) continue;
+
+        const operator = expression.getOperatorToken();
         if (operator.getText() !== '=') continue;
-        const left = expr.getLeft();
-        if (!Node.isPropertyAccessExpression(left)) continue;
-        const leftExpr = left.getExpression();
-        const leftName = left.getName();
+
+        const leftSide = expression.getLeft();
+        if (!Node.isPropertyAccessExpression(leftSide)) continue;
+
+        const leftExpression = leftSide.getExpression();
+        const leftName = leftSide.getName();
         // module.exports = {...} or exports.default = {...}
         const isModuleExports =
-          Node.isIdentifier(leftExpr) &&
-          leftExpr.getText() === 'module' &&
+          Node.isIdentifier(leftExpression) &&
+          leftExpression.getText() === 'module' &&
           leftName === 'exports';
         const isExportsDefault =
-          Node.isIdentifier(leftExpr) &&
-          leftExpr.getText() === 'exports' &&
+          Node.isIdentifier(leftExpression) &&
+          leftExpression.getText() === 'exports' &&
           leftName === 'default';
         if (!isModuleExports && !isExportsDefault) continue;
 
-        const right = expr.getRight();
-        if (Node.isObjectLiteralExpression(right)) {
-          rootObject = right;
+        const rightSide = expression.getRight();
+        if (Node.isObjectLiteralExpression(rightSide)) {
+          rootObject = rightSide;
           break;
         }
-        if (Node.isIdentifier(right)) {
-          const decl = right.getSymbol()?.getDeclarations()?.[0];
-          if (decl && Node.isVariableDeclaration(decl)) {
-            const obj = unwrapToObjectLiteral(decl.getInitializer());
-            if (obj) {
-              rootObject = obj;
+        if (Node.isIdentifier(rightSide)) {
+          const declaration = rightSide.getSymbol()?.getDeclarations()?.[0];
+          if (declaration && Node.isVariableDeclaration(declaration)) {
+            const objectLiteral = unwrapToObjectLiteral(
+              declaration.getInitializer()
+            );
+            if (objectLiteral) {
+              rootObject = objectLiteral;
               break;
             }
           }
@@ -626,31 +805,30 @@ export const transformJSFile = async (
       }
     }
 
-    if (!rootObject) {
-      return fileContent;
-    }
+    if (!rootObject) return fileContent;
 
     // Find the `content` property inside the root dictionary object
-    const contentProp = rootObject.getProperty('content');
+    const contentProperty = rootObject.getProperty('content');
     let contentObject: ObjectLiteralExpression | undefined;
-    if (contentProp && Node.isPropertyAssignment(contentProp)) {
-      contentObject = contentProp.getInitializerIfKind(
+    if (contentProperty && Node.isPropertyAssignment(contentProperty)) {
+      contentObject = contentProperty.getInitializerIfKind(
         SyntaxKind.ObjectLiteralExpression
       );
     }
 
-    if (!contentObject || !dictionary.content) {
-      return fileContent;
-    }
+    if (!contentObject || !dictionary.content) return fileContent;
 
     // Build a set of existing property names in the content object
     const existingKeys = new Set<string>();
-    for (const prop of contentObject.getProperties()) {
-      if (Node.isPropertyAssignment(prop)) {
-        const name = prop.getName();
+    for (const property of contentObject.getProperties()) {
+      if (Node.isPropertyAssignment(property)) {
+        const name = property.getName();
         if (name) existingKeys.add(name.replace(/^['"]|['"]$/g, ''));
       }
     }
+
+    // Track which intlayer functions are used in the transformation
+    const requiredImports = new Set<string>();
 
     let changed = false;
     const dictContent: Record<string, unknown> =
@@ -666,21 +844,147 @@ export const transformJSFile = async (
         if (!(lang in existing)) return false;
         if (existing[lang] !== val) return false;
       }
+
       return true;
     };
+
+    // Determine the effective fallback locale when converting plain strings to translations
+    const effectiveFallbackLocale: string =
+      (fallbackLocale as unknown as string) ?? 'en';
 
     for (const [key, value] of Object.entries(dictContent)) {
       // Handle array values (support primitives and translation nodes)
       if (Array.isArray(value)) {
         const serializedElements: string[] = [];
         let unsupported = false;
-        for (const el of value as unknown[]) {
-          const s = serializeValue(el);
-          if (s === undefined) {
+        // Try to read existing array to enable per-index fallback updates
+        let existingArrayElements: import('ts-morph').Node[] | undefined;
+        let existingArrayHasTranslation = false;
+        const existingProp = contentObject.getProperty(key);
+        if (existingProp && Node.isPropertyAssignment(existingProp)) {
+          const init = existingProp.getInitializer();
+          if (init && Node.isArrayLiteralExpression(init)) {
+            existingArrayElements = init.getElements();
+            existingArrayHasTranslation = init.getElements().some((el) => {
+              if (!Node.isCallExpression(el)) return false;
+              const ex = el.getExpression();
+              return Node.isIdentifier(ex) && ex.getText() === 't';
+            });
+          }
+        }
+
+        for (
+          let elementIndex = 0;
+          elementIndex < (value as unknown[]).length;
+          elementIndex++
+        ) {
+          const element = (value as unknown[])[elementIndex];
+          // Type guard to ensure element is a valid ContentNode
+          if (
+            element === null ||
+            element === undefined ||
+            typeof element === 'object' ||
+            typeof element === 'string' ||
+            typeof element === 'number' ||
+            typeof element === 'boolean'
+          ) {
+            let serializedValue = serializeValue(element as ContentNode);
+            // If the desired element is a plain string, and the existing array element
+            // at the same index was a translation, then preserve existing translations
+            // and update only the effective fallback locale.
+            if (
+              typeof element === 'string' &&
+              existingArrayElements &&
+              elementIndex < existingArrayElements.length
+            ) {
+              const existingEl = existingArrayElements[elementIndex];
+              if (Node.isCallExpression(existingEl)) {
+                const callee = existingEl.getExpression();
+                if (Node.isIdentifier(callee) && callee.getText() === 't') {
+                  const arg = existingEl.getArguments()[0];
+                  if (arg && Node.isObjectLiteralExpression(arg)) {
+                    const map: Record<string, string> = {};
+                    for (const prop of arg.getProperties()) {
+                      if (!Node.isPropertyAssignment(prop)) continue;
+                      const nameNode = prop.getNameNode();
+                      const rawName = nameNode.getText();
+                      const name = rawName.replace(/^['"]|['"]$/g, '');
+                      const val = prop.getInitializer();
+                      if (val && Node.isStringLiteral(val)) {
+                        map[name] = val.getLiteralValue();
+                      }
+                    }
+                    const updatedMap = {
+                      ...map,
+                      [effectiveFallbackLocale]: element,
+                    };
+                    serializedValue = buildTranslationInitializer(updatedMap);
+                    requiredImports.add('t');
+                  }
+                }
+              }
+            }
+            // If array previously contained translations and this element is a new plain string
+            // (serializedValue starts with a string literal), wrap it into t({ en: ... })
+            if (
+              typeof element === 'string' &&
+              existingArrayHasTranslation &&
+              serializedValue &&
+              serializedValue.startsWith('"')
+            ) {
+              serializedValue = buildTranslationInitializer({
+                [effectiveFallbackLocale]: element,
+              } as Record<string, string>);
+              requiredImports.add('t');
+            }
+
+            if (serializedValue === undefined) {
+              unsupported = true;
+              break;
+            }
+            serializedElements.push(serializedValue);
+
+            // Track imports for array elements
+            const elementNodeType = getNodeType(element as ContentNode);
+            if (elementNodeType === NodeType.Translation)
+              requiredImports.add('t');
+            else if (elementNodeType === NodeType.Enumeration)
+              requiredImports.add('enu');
+            else if (elementNodeType === NodeType.Condition)
+              requiredImports.add('cond');
+            else if (elementNodeType === NodeType.Gender)
+              requiredImports.add('gender');
+            else if (elementNodeType === NodeType.Insertion) {
+              requiredImports.add('insert');
+              const insertContent = (element as InsertionContent)[
+                NodeType.Insertion
+              ];
+              if (
+                typeof insertContent === 'object' &&
+                insertContent !== null &&
+                getNodeType(insertContent as ContentNode) ===
+                  NodeType.Translation
+              ) {
+                requiredImports.add('t');
+              }
+            } else if (elementNodeType === NodeType.Markdown) {
+              requiredImports.add('md');
+              const mdContent = (element as MarkdownContent)[NodeType.Markdown];
+              if (
+                typeof mdContent === 'object' &&
+                mdContent !== null &&
+                getNodeType(mdContent as ContentNode) === NodeType.File
+              ) {
+                requiredImports.add('file');
+              }
+            } else if (elementNodeType === NodeType.File)
+              requiredImports.add('file');
+            else if (elementNodeType === NodeType.Nested)
+              requiredImports.add('nest');
+          } else {
             unsupported = true;
             break;
           }
-          serializedElements.push(s);
         }
         if (unsupported) {
           continue;
@@ -694,11 +998,12 @@ export const transformJSFile = async (
             initializer: initializerText,
           });
           changed = true;
+
           continue;
         }
 
-        const prop = contentObject.getProperty(key);
-        if (prop && Node.isPropertyAssignment(prop)) {
+        const property = contentObject.getProperty(key);
+        if (property && Node.isPropertyAssignment(property)) {
           const existingSerialized = readExistingArraySerialized(
             contentObject,
             key
@@ -706,14 +1011,18 @@ export const transformJSFile = async (
           const arraysEqual =
             existingSerialized !== undefined &&
             existingSerialized.length === serializedElements.length &&
-            existingSerialized.every((v, i) => v === serializedElements[i]);
+            existingSerialized.every(
+              (value, index) => value === serializedElements[index]
+            );
           if (!arraysEqual) {
-            prop.setInitializer(initializerText);
+            property.setInitializer(initializerText);
             changed = true;
           }
         }
+
         continue;
       }
+
       // Handle primitive values: string, number, boolean, null
       if (
         typeof value === 'string' ||
@@ -721,6 +1030,27 @@ export const transformJSFile = async (
         typeof value === 'boolean' ||
         value === null
       ) {
+        // Check if this property was previously a translation and we have a fallback locale
+        if (typeof value === 'string' && existingKeys.has(key)) {
+          const existingMap = readExistingTranslationMap(contentObject, key);
+          if (existingMap) {
+            // This was a translation, so preserve existing translations and update only the fallback locale
+            const translationMap = {
+              ...existingMap,
+              [effectiveFallbackLocale]: value,
+            };
+            const initializerText = buildTranslationInitializer(translationMap);
+
+            requiredImports.add('t');
+            const property = contentObject.getProperty(key);
+            if (property && Node.isPropertyAssignment(property)) {
+              property.setInitializer(initializerText);
+              changed = true;
+            }
+            continue;
+          }
+        }
+
         if (!existingKeys.has(key)) {
           contentObject.addPropertyAssignment({
             name: key,
@@ -728,25 +1058,29 @@ export const transformJSFile = async (
               typeof value === 'string' ? JSON.stringify(value) : String(value),
           });
           changed = true;
+
           continue;
         }
 
-        const prop = contentObject.getProperty(key);
-        if (prop && Node.isPropertyAssignment(prop)) {
-          const init = prop.getInitializer();
-          const currentText = init?.getText();
+        const property = contentObject.getProperty(key);
+        if (property && Node.isPropertyAssignment(property)) {
+          const initializer = property.getInitializer();
+          const currentText = initializer?.getText();
           const desiredText =
             typeof value === 'string' ? JSON.stringify(value) : String(value);
           if (currentText !== desiredText) {
-            prop.setInitializer(desiredText);
+            property.setInitializer(desiredText);
             changed = true;
           }
         }
+
         continue;
       }
 
+      const nodeType = getNodeType(value as ContentNode);
+
       // Handle translation nodes: { nodeType: 'translation', translation: { ... } }
-      if (isTranslationNode(value)) {
+      if (nodeType === NodeType.Translation) {
         const translations: Record<string, unknown> =
           (value as any).translation ?? (value as any).translation ?? {};
 
@@ -763,216 +1097,304 @@ export const transformJSFile = async (
         );
 
         if (!existingKeys.has(key)) {
+          requiredImports.add('t');
           contentObject.addPropertyAssignment({
             name: key,
             initializer: initializerText,
           });
           changed = true;
+
           continue;
         }
 
         const existingMap = readExistingTranslationMap(contentObject, key);
         if (!areTranslationsEqual(translations, existingMap)) {
-          const prop = contentObject.getProperty(key);
-          if (prop && Node.isPropertyAssignment(prop)) {
-            prop.setInitializer(initializerText);
+          requiredImports.add('t');
+          const property = contentObject.getProperty(key);
+          if (property && Node.isPropertyAssignment(property)) {
+            property.setInitializer(initializerText);
             changed = true;
           }
         }
       }
 
       // Handle enumeration nodes
-      else if (isEnumerationNode(value)) {
-        const map = (value as any)[NodeType.Enumeration] as Record<
-          string,
-          unknown
-        >;
+      else if (nodeType === NodeType.Enumeration) {
+        const map: EnumerationContent[NodeType.Enumeration] = (
+          value as EnumerationContent
+        )[NodeType.Enumeration];
+
         if (!Object.values(map).every((v) => typeof v === 'string')) continue;
+
         const initializerText = buildEnumerationInitializer(map);
         if (!initializerText) continue;
+
         if (!existingKeys.has(key)) {
+          requiredImports.add('enu');
           contentObject.addPropertyAssignment({
             name: key,
             initializer: initializerText,
           });
           changed = true;
+
           continue;
         }
+
         const existingMap = readExistingMapFromCall(contentObject, key, 'enu');
         if (!areStringMapsEqual(map, existingMap)) {
-          const prop = contentObject.getProperty(key);
-          if (prop && Node.isPropertyAssignment(prop)) {
-            prop.setInitializer(initializerText);
+          requiredImports.add('enu');
+          const property = contentObject.getProperty(key);
+          if (property && Node.isPropertyAssignment(property)) {
+            property.setInitializer(initializerText);
             changed = true;
           }
         }
       }
 
       // Handle condition nodes
-      else if (isConditionNode(value)) {
-        const map = (value as any)[NodeType.Condition] as Record<
-          string,
-          unknown
-        >;
+      else if (nodeType === NodeType.Condition) {
+        const map: ConditionContent[NodeType.Condition] = (
+          value as ConditionContent
+        )[NodeType.Condition];
+
         if (!Object.values(map).every((v) => typeof v === 'string')) continue;
+
         const initializerText = buildConditionInitializer(map);
         if (!initializerText) continue;
+
         if (!existingKeys.has(key)) {
+          requiredImports.add('cond');
           contentObject.addPropertyAssignment({
             name: key,
             initializer: initializerText,
           });
           changed = true;
+
           continue;
         }
+
         const existingMap = readExistingMapFromCall(contentObject, key, 'cond');
         if (!areStringMapsEqual(map, existingMap)) {
-          const prop = contentObject.getProperty(key);
-          if (prop && Node.isPropertyAssignment(prop)) {
-            prop.setInitializer(initializerText);
+          requiredImports.add('cond');
+          const property = contentObject.getProperty(key);
+          if (property && Node.isPropertyAssignment(property)) {
+            property.setInitializer(initializerText);
             changed = true;
           }
         }
       }
 
       // Handle gender nodes
-      else if (isGenderNode(value)) {
-        const map = (value as any)[NodeType.Gender] as Record<string, unknown>;
+      else if (nodeType === NodeType.Gender) {
+        const map: GenderContent[NodeType.Gender] = (value as GenderContent)[
+          NodeType.Gender
+        ];
+
         if (!Object.values(map).every((v) => typeof v === 'string')) continue;
+
         const initializerText = buildGenderInitializer(map);
         if (!initializerText) continue;
+
         if (!existingKeys.has(key)) {
+          requiredImports.add('gender');
           contentObject.addPropertyAssignment({
             name: key,
             initializer: initializerText,
           });
           changed = true;
+
           continue;
         }
+
         const existingMap = readExistingMapFromCall(
           contentObject,
           key,
           'gender'
         );
         if (!areStringMapsEqual(map, existingMap)) {
-          const prop = contentObject.getProperty(key);
-          if (prop && Node.isPropertyAssignment(prop)) {
-            prop.setInitializer(initializerText);
+          requiredImports.add('gender');
+          const property = contentObject.getProperty(key);
+          if (property && Node.isPropertyAssignment(property)) {
+            property.setInitializer(initializerText);
             changed = true;
           }
         }
       }
 
       // Handle insertion nodes
-      else if (isInsertionNode(value)) {
-        const desired = (value as any)[NodeType.Insertion];
+      else if (nodeType === NodeType.Insertion) {
+        const desired: InsertionContent[NodeType.Insertion] = (
+          value as InsertionContent
+        )[NodeType.Insertion];
+
         const initializerText = buildInsertionInitializer(desired);
         if (!initializerText) continue;
+
         if (!existingKeys.has(key)) {
+          requiredImports.add('insert');
+          if (
+            typeof desired === 'object' &&
+            desired !== null &&
+            getNodeType(desired as ContentNode) === NodeType.Translation
+          ) {
+            requiredImports.add('t');
+          }
           contentObject.addPropertyAssignment({
             name: key,
             initializer: initializerText,
           });
           changed = true;
+
           continue;
         }
+
         const existing = readExistingInsertion(contentObject, key);
         const isSame =
           (typeof desired === 'string' &&
             existing?.kind === 'string' &&
             existing.value === desired) ||
-          (isTranslationNode(desired) &&
+          (typeof desired === 'object' &&
+            desired !== null &&
+            getNodeType(desired as ContentNode) === NodeType.Translation &&
             existing?.kind === 'translation' &&
             areStringMapsEqual(
-              (desired as any)[NodeType.Translation] ?? {},
+              (desired as TranslationContent)[NodeType.Translation] ?? {},
               existing.map
             ));
         if (!isSame) {
-          const prop = contentObject.getProperty(key);
-          if (prop && Node.isPropertyAssignment(prop)) {
-            prop.setInitializer(initializerText);
+          requiredImports.add('insert');
+          if (
+            typeof desired === 'object' &&
+            desired !== null &&
+            getNodeType(desired as ContentNode) === NodeType.Translation
+          ) {
+            requiredImports.add('t');
+          }
+          const property = contentObject.getProperty(key);
+          if (property && Node.isPropertyAssignment(property)) {
+            property.setInitializer(initializerText);
             changed = true;
           }
         }
       }
 
       // Handle markdown nodes
-      else if (isMarkdownNode(value)) {
-        const desired = (value as any)[NodeType.Markdown];
+      else if (nodeType === NodeType.Markdown) {
+        const desired: MarkdownContent[NodeType.Markdown] = (
+          value as MarkdownContent
+        )[NodeType.Markdown];
+
         const initializerText = buildMarkdownInitializer(desired);
         if (!initializerText) continue;
+
         if (!existingKeys.has(key)) {
+          requiredImports.add('md');
+          if (
+            typeof desired === 'object' &&
+            desired !== null &&
+            getNodeType(desired as ContentNode) === NodeType.File
+          ) {
+            requiredImports.add('file');
+          }
           contentObject.addPropertyAssignment({
             name: key,
             initializer: initializerText,
           });
           changed = true;
+
           continue;
         }
+
         const existing = readExistingMarkdown(contentObject, key);
         const isSame =
           (typeof desired === 'string' &&
             existing?.kind === 'string' &&
             existing.value === desired) ||
-          (isFileNode(desired) &&
+          (typeof desired === 'object' &&
+            desired !== null &&
+            getNodeType(desired as ContentNode) === NodeType.File &&
             existing?.kind === 'file' &&
-            existing.path === (desired as any)[NodeType.File]);
+            existing.path === (desired as FileContent)[NodeType.File]);
+
         if (!isSame) {
-          const prop = contentObject.getProperty(key);
-          if (prop && Node.isPropertyAssignment(prop)) {
-            prop.setInitializer(initializerText);
+          requiredImports.add('md');
+          if (
+            typeof desired === 'object' &&
+            desired !== null &&
+            getNodeType(desired as ContentNode) === NodeType.File
+          ) {
+            requiredImports.add('file');
+          }
+          const property = contentObject.getProperty(key);
+          if (property && Node.isPropertyAssignment(property)) {
+            property.setInitializer(initializerText);
             changed = true;
           }
         }
       }
 
       // Handle file nodes
-      else if (isFileNode(value)) {
-        const desired = (value as any)[NodeType.File];
+      else if (nodeType === NodeType.File) {
+        const desired: FileContent[NodeType.File] = (value as FileContent)[
+          NodeType.File
+        ];
+
         const initializerText = buildFileInitializer(desired);
         if (!initializerText) continue;
+
         if (!existingKeys.has(key)) {
+          requiredImports.add('file');
           contentObject.addPropertyAssignment({
             name: key,
             initializer: initializerText,
           });
           changed = true;
+
           continue;
         }
+
         const existing = readExistingFilePath(contentObject, key);
         if (existing !== desired) {
-          const prop = contentObject.getProperty(key);
-          if (prop && Node.isPropertyAssignment(prop)) {
-            prop.setInitializer(initializerText);
+          requiredImports.add('file');
+          const property = contentObject.getProperty(key);
+          if (property && Node.isPropertyAssignment(property)) {
+            property.setInitializer(initializerText);
             changed = true;
           }
         }
       }
 
       // Handle nested nodes
-      else if (isNestedNode(value)) {
-        const initializerText = buildNestedInitializer(value);
+      else if (nodeType === NodeType.Nested) {
+        const desired: NestedContent[NodeType.Nested] = (
+          value as NestedContent
+        )[NodeType.Nested];
+
+        const initializerText = buildNestedInitializer(desired);
         if (!initializerText) continue;
+
         if (!existingKeys.has(key)) {
+          requiredImports.add('nest');
           contentObject.addPropertyAssignment({
             name: key,
             initializer: initializerText,
           });
           changed = true;
+
           continue;
         }
+
         const existing = readExistingNest(contentObject, key);
-        const desired = (value as any)[NodeType.Nested] as
-          | { dictionaryKey?: string; path?: string }
-          | undefined;
+
         const isSame =
           !!desired &&
           existing?.dictionaryKey === desired.dictionaryKey &&
           existing?.path === desired.path;
         if (!isSame) {
-          const prop = contentObject.getProperty(key);
-          if (prop && Node.isPropertyAssignment(prop)) {
-            prop.setInitializer(initializerText);
+          requiredImports.add('nest');
+          const property = contentObject.getProperty(key);
+          if (property && Node.isPropertyAssignment(property)) {
+            property.setInitializer(initializerText);
             changed = true;
           }
         }
@@ -981,9 +1403,16 @@ export const transformJSFile = async (
 
     if (!changed) return fileContent;
 
-    return sourceFile.getFullText();
+    // Add any missing imports before returning the transformed content
+    const importsAdded = addMissingImports(sourceFile, requiredImports);
+    if (importsAdded || changed) {
+      return sourceFile.getFullText();
+    }
+
+    return fileContent;
   } catch {
     // Fail-safe: return original content on any unexpected parsing issue
+
     return fileContent;
   }
 };

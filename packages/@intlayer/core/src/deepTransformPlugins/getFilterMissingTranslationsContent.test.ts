@@ -1,7 +1,17 @@
-import { Locales } from '@intlayer/config/client';
-import { describe, expect, it } from 'vitest';
-import { type ContentNode, NodeType } from '../types';
+import { type CustomIntlayerConfig, Locales } from '@intlayer/config/client';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { t } from '../transpiler';
+import type { ContentNode } from '../types';
 import { getFilterMissingTranslationsContent } from './getFilterMissingTranslationsContent';
+
+// Mock dependencies
+vi.mock('@intlayer/config/built', () => ({
+  default: {
+    internationalization: {
+      defaultLocale: Locales.ENGLISH,
+    } as CustomIntlayerConfig,
+  },
+}));
 
 describe('getFilterMissingTranslationsContent', () => {
   const nodeProps = {
@@ -9,22 +19,20 @@ describe('getFilterMissingTranslationsContent', () => {
     keyPath: [],
   };
 
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('should return content only for missing translations', () => {
     const testData = {
-      test1: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
-          en: 'Hello',
-          // Missing 'fr' translation
-        },
-      },
-      test2: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
-          en: 'Hello',
-          fr: 'Bonjour', // Has 'fr' translation
-        },
-      },
+      test1: t({
+        en: 'Hello',
+        // Missing 'fr' translation
+      }),
+      test2: t({
+        en: 'Hello',
+        fr: 'Bonjour', // Has 'fr' translation
+      }),
       test3: 'Hello', // Non-translation content
     };
 
@@ -44,20 +52,14 @@ describe('getFilterMissingTranslationsContent', () => {
 
   it('should return nothing when all translations are present', () => {
     const testData = {
-      test1: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
-          en: 'Hello',
-          fr: 'Bonjour', // Has 'fr' translation
-        },
-      },
-      test2: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
-          en: 'World',
-          fr: 'Monde', // Has 'fr' translation
-        },
-      },
+      test1: t({
+        en: 'Hello',
+        fr: 'Bonjour', // Has 'fr' translation
+      }),
+      test2: t({
+        en: 'World',
+        fr: 'Monde', // Has 'fr' translation
+      }),
     };
 
     const result = getFilterMissingTranslationsContent(
@@ -73,29 +75,20 @@ describe('getFilterMissingTranslationsContent', () => {
   it('should handle nested objects with mixed translation states', () => {
     const testData = {
       level1: {
-        test1: {
-          nodeType: NodeType.Translation,
-          [NodeType.Translation]: {
-            en: 'Hello',
-            // Missing 'fr' translation
-          },
-        },
-        test2: {
-          nodeType: NodeType.Translation,
-          [NodeType.Translation]: {
-            en: 'World',
-            fr: 'Monde', // Has 'fr' translation
-          },
-        },
+        test1: t({
+          en: 'Hello',
+          // Missing 'fr' translation
+        }),
+        test2: t({
+          en: 'World',
+          fr: 'Monde', // Has 'fr' translation
+        }),
         test3: 'Regular string', // Non-translation content
         level2: {
-          test4: {
-            nodeType: NodeType.Translation,
-            [NodeType.Translation]: {
-              en: 'Nested',
-              // Missing 'fr' translation
-            },
-          },
+          test4: t({
+            en: 'Nested',
+            // Missing 'fr' translation
+          }),
         },
       },
     };
@@ -119,20 +112,14 @@ describe('getFilterMissingTranslationsContent', () => {
 
   it('should handle arrays with mixed translation states', () => {
     const testData = [
-      {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
-          en: 'Hello',
-          // Missing 'fr' translation
-        },
-      },
-      {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
-          en: 'World',
-          fr: 'Monde', // Has 'fr' translation
-        },
-      },
+      t({
+        en: 'Hello',
+        // Missing 'fr' translation
+      }),
+      t({
+        en: 'World',
+        fr: 'Monde', // Has 'fr' translation
+      }),
       'Regular string', // Non-translation content
     ];
 
@@ -148,13 +135,10 @@ describe('getFilterMissingTranslationsContent', () => {
 
   it('should use fallback locale when base locale is missing', () => {
     const testData = {
-      test1: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
-          es: 'Hola', // Only Spanish, no English
-          // Missing 'fr' translation
-        },
-      },
+      test1: t({
+        es: 'Hola', // Only Spanish, no English
+        // Missing 'fr' translation
+      }),
     };
 
     const result = getFilterMissingTranslationsContent(
@@ -172,38 +156,26 @@ describe('getFilterMissingTranslationsContent', () => {
   it('should handle complex nested structures', () => {
     const testData = {
       section1: {
-        title: {
-          nodeType: NodeType.Translation,
-          [NodeType.Translation]: {
-            en: 'Title',
-            // Missing 'fr' translation
-          },
-        },
+        title: t({
+          en: 'Title',
+          // Missing 'fr' translation
+        }),
         items: [
-          {
-            nodeType: NodeType.Translation,
-            [NodeType.Translation]: {
-              en: 'Item 1',
-              fr: 'Article 1', // Has 'fr' translation
-            },
-          },
-          {
-            nodeType: NodeType.Translation,
-            [NodeType.Translation]: {
-              en: 'Item 2',
-              // Missing 'fr' translation
-            },
-          },
+          t({
+            en: 'Item 1',
+            fr: 'Article 1', // Has 'fr' translation
+          }),
+          t({
+            en: 'Item 2',
+            // Missing 'fr' translation
+          }),
         ],
         description: 'Regular text', // Non-translation content
       },
-      section2: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
-          en: 'Section 2',
-          fr: 'Section 2', // Has 'fr' translation
-        },
-      },
+      section2: t({
+        en: 'Section 2',
+        fr: 'Section 2', // Has 'fr' translation
+      }),
     };
 
     const result = getFilterMissingTranslationsContent(
@@ -226,13 +198,10 @@ describe('getFilterMissingTranslationsContent', () => {
       emptyObject: {},
       emptyArray: [],
       mixedArray: [
-        {
-          nodeType: NodeType.Translation,
-          [NodeType.Translation]: {
-            en: 'Hello',
-            // Missing 'fr' translation
-          },
-        },
+        t({
+          en: 'Hello',
+          // Missing 'fr' translation
+        }),
       ],
     };
 
@@ -251,13 +220,10 @@ describe('getFilterMissingTranslationsContent', () => {
     const testData = {
       nullValue: null,
       undefinedValue: undefined,
-      validTranslation: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
-          en: 'Hello',
-          // Missing 'fr' translation
-        },
-      },
+      validTranslation: t({
+        en: 'Hello',
+        // Missing 'fr' translation
+      }),
     };
 
     const result = getFilterMissingTranslationsContent(
@@ -275,16 +241,13 @@ describe('getFilterMissingTranslationsContent', () => {
     const testData = {
       level1: {
         level2: {
-          level3: {
-            nodeType: NodeType.Translation,
-            [NodeType.Translation]: {
-              en: {
-                title: 'Deep Title',
-                description: 'Deep Description',
-              },
-              // Missing 'fr' translation
+          level3: t({
+            en: {
+              title: 'Deep Title',
+              description: 'Deep Description',
             },
-          },
+            // Missing 'fr' translation
+          }),
         },
       },
     };

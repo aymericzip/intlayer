@@ -116,6 +116,8 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
   if (disable) return <span className={className}>{children}</span>;
 
   const handleCopy = async (e: MouseEvent | KeyboardEvent) => {
+    e.preventDefault();
+
     if (!text) return;
 
     try {
@@ -150,7 +152,6 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
       handleCopy(event);
     }
   };

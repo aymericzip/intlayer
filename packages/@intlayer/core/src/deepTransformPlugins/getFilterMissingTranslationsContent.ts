@@ -76,7 +76,7 @@ export const filterMissingTranslationsOnlyPlugin = (
 
       // Return the base locale content using getTranslation
       // If base locale is missing, use any available locale as fallback
-      const baseLocale = configuration?.internationalization.defaultLocale;
+      const baseLocale = configuration.internationalization.defaultLocale;
       const availableLocales = Object.keys(result);
 
       if (availableLocales.length === 0) {

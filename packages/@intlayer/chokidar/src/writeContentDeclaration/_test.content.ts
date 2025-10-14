@@ -8,7 +8,7 @@ import {
   nest,
   t,
 } from '@intlayer/core';
-import { file } from '@intlayer/core/file';
+import { fileContent as file } from '@intlayer/core/file';
 
 const content: Dictionary = {
   key: 'test',
@@ -119,6 +119,16 @@ const content: Dictionary = {
         description: 'object description',
       },
     },
+    arrayOfTranslations: [
+      t({
+        en: 'Hello 1',
+        fr: 'Bonjour 1',
+      }),
+      t({
+        en: 'Hello 2',
+        fr: 'Bonjour 2',
+      }),
+    ],
   },
 };
 

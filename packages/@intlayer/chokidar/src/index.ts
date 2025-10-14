@@ -42,7 +42,6 @@ export {
 export { extractErrorMessage } from './utils/extractErrorMessage';
 export { formatLocale, formatPath } from './utils/formatter';
 export { getChunk } from './utils/getChunk';
-export { getExtension } from './utils/getExtension';
 export { getFileHash } from './utils/getFileHash';
 export {
   type Extension,
