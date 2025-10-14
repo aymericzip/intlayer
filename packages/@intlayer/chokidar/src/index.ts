@@ -60,7 +60,6 @@ export { buildAndWatchIntlayer, watch } from './watcher';
 export {
   type DictionaryStatus,
   detectExportedComponentName,
-  formatCode,
   transformJSFile,
   writeContentDeclaration,
   writeJSFile,
