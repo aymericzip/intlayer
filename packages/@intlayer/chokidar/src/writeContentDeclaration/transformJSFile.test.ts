@@ -177,6 +177,50 @@ describe('transformJSFile', () => {
     expect(result).not.toContain('badTrans: t({');
   });
 
+  it('update translation entries locale in an array or translation', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        contentMultilingual: t({
+          en: 'Hello 3',
+          fr: 'Bonjour 3',
+        }),
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('contentMultilingual: t({');
+    expect(result).toContain('en: "Hello 3"');
+  });
+
+  it('update translation entries locale in an markdown', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        markdownMultilingual: md(t({ en: 'Hello 3', fr: 'Bonjour 3' })),
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('markdownMultilingual: md(t({');
+    expect(result).toContain('en: "Hello 3"');
+    expect(result).toContain('fr: "Bonjour 3"');
+  });
+
+  it('update translation entries locale in an markdown', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        markdownMultilingual2: md(t({ en: 'Hello 3', fr: 'Bonjour 3' })),
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('markdownMultilingual2: md(');
+    expect(result).toContain('en: "Hello 3"');
+    expect(result).toContain('fr: "Bonjour 3"');
+  });
+
   it('works with ESM default export (object literal)', async () => {
     const esmContent = `export default { key: 'x', content: { existing: 'value' } };`;
     const dict: Dictionary = { content: { title: 'Hello' } } as any;
@@ -565,5 +609,68 @@ describe('transformJSFile', () => {
 
     expect(result).toContain('arrayOfTranslations: [');
     expect(result).toContain('en: "Hello 3"');
+  });
+
+  it('update translation entries with fallback locale in an array or translation', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        arrayOfTranslations: ['Hello 3', 'Hello 2'],
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('arrayOfTranslations: [');
+    expect(result).toContain('en: "Hello 3"');
+  });
+
+  it('update translation entries locale in an array of translations', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        translationOfArray: ['Hello 3', 'Hello 2'],
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('translationOfArray: [');
+    expect(result).toContain('en: "Hello 3"');
+    expect(result).toContain('en: "Hello 2"');
+  });
+
+  it('update translation entries locale in an markdown with fallback locale', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        markdownMultilingual: md('Hello 3'),
+      },
+    });
+
+    const result = await transformJSFile(
+      initialFileContentString,
+      dictionary,
+      Locales.ENGLISH
+    );
+
+    expect(result).toContain('markdownMultilingual: md(');
+    expect(result).toContain('en: "Hello 3"');
+    expect(result).toContain('fr: "## test fr"');
+  });
+
+  it('update translation entries locale in an markdown with fallback locale', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        markdownMultilingual2: md('Hello 3'),
+      },
+    });
+
+    const result = await transformJSFile(
+      initialFileContentString,
+      dictionary,
+      Locales.ENGLISH
+    );
+
+    expect(result).toContain('markdownMultilingual2: md(t({');
+    expect(result).toContain('en: "Hello 3"');
+    expect(result).toContain('fr: "## test fr"');
   });
 });
