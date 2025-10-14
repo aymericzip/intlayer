@@ -16,6 +16,10 @@ slugs:
   - environment
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Intlayer ile Lynx and React mobile app çevirin | Uluslararasılaştırma (i18n)
@@ -503,9 +507,3 @@ Uzantının nasıl kullanılacağı hakkında daha fazla detay için [Intlayer V
 - **CLI Komutları**: Çevirileri çıkarma veya eksik anahtarları kontrol etme gibi görevler için [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)'yi keşfedin.
 
 ---
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Next.js Entegrasyonu: `useLocale` Hook Dokümantasyonu `next-intlayer` için
@@ -125,9 +129,3 @@ const LocaleSwitcher = () => {
 ## Sonuç
 
 `next-intlayer`'dan `useLocale` hook'u, Next.js uygulamalarında yerel ayarları yönetmek için önemli bir araçtır. Yerel ayar depolamayı, durum yönetimini ve URL değişikliklerini sorunsuz bir şekilde hallederek uygulamanızı birden fazla yerel ayar için uyarlamak için entegre bir yaklaşım sağlar.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

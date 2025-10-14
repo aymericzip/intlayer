@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - gender
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: Cinsiyete dayalı içerik tanıtıldı
 ---
 
 # Cinsiyete Dayalı İçerik / Intlayer'da Cinsiyet
@@ -267,13 +271,3 @@ Yapılandırma ve kullanım hakkında daha detaylı bilgi için aşağıdaki kay
 - [Next Intlayer Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
 
 Bu kaynaklar, çeşitli ortamlar ve çerçevelerde Intlayer'ın kurulumu ve kullanımı hakkında daha fazla bilgi sunar.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm | Tarih      | Değişiklikler                     |
-| ----- | ---------- | --------------------------------- |
-| 5.7.2 | 2025-07-27 | Cinsiyete dayalı içerik tanıtıldı |
-
-```
-
-```

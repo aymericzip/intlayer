@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleName
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Dokümantasyon: `intlayer` Paketinde `getLocaleName` Fonksiyonu
@@ -112,13 +116,3 @@ getLocaleName("unknown-locale"); // Çıktı: "Unknown locale"
   - Fonksiyon varsayılan olarak `displayLocale`'un kendi adını döndürür.
 - **Eksik çeviriler:**
   - `localeNameTranslations` `targetLocale` veya belirli `displayLocale` için bir giriş içermezse, fonksiyon `ownLocalesName`'e geri döner veya `"Unknown locale"` döndürür.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
-
-```
-
-```

@@ -17,6 +17,10 @@ slugs:
   - packages
   - react-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Dokümantasyon: `react-intlayer`'da `t` Fonksiyonu
@@ -296,9 +300,3 @@ Daha detaylı kullanım ve gelişmiş özellikler için [react-intlayer doküman
 ---
 
 **Not**: `t` fonksiyonunun doğru çevirileri döndürmesi için `IntlayerProvider`'ınızı doğru şekilde ayarladığınızdan emin olun. Bu, bileşenlerinize mevcut yerel ayarın doğru geçirilmesi için çok önemlidir.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

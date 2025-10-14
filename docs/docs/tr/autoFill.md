@@ -15,6 +15,16 @@ slugs:
   - doc
   - concept
   - auto-fill
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Küresel yapılandırma eklendi
+  - version: 6.0.0
+    date: 2025-09-17
+    changes: `{{fileName}}` değişkeni eklendi
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Otomatik Doldurma İçerik Beyan Dosyası Çevirileri
@@ -191,11 +201,3 @@ Bu, aşağıdaki dosyaları oluşturacaktır:
 
 - `./index.content.json`
 - `./index.content.json`
-
-## Doküman Geçmişi
-
-| Sürüm   | Tarih      | Değişiklikler               |
-| ------- | ---------- | --------------------------- |
-| 6.0.0   | 2025-09-20 | Küresel yapılandırma eklendi |
-| 6.0.0   | 2025-09-17 | `{{fileName}}` değişkeni eklendi |
-| 5.5.10  | 2025-06-29 | Geçmiş başlatıldı           |

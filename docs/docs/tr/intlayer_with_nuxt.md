@@ -15,6 +15,10 @@ slugs:
   - environment
   - nuxt-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmişi başlat
 ---
 
 # Intlayer ile Nuxt and Vue çevirin | Uluslararasılaştırma (i18n)
@@ -765,9 +769,3 @@ Uzantının nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer 
 Daha fazla ilerlemek için, [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak harici hale getirebilirsiniz.
 
 ---
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler  |
-| ------ | ---------- | -------------- |
-| 5.5.10 | 2025-06-29 | Geçmişi başlat |

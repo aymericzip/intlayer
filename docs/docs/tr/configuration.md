@@ -13,6 +13,25 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: `live` import modu eklendi
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: `live` import modu eklendi
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: `hotReload` alanı `liveSync` ile değiştirildi ve `liveSyncPort` ile `liveSyncURL` alanları eklendi
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: `activateDynamicImport` seçeneği `importMode` ile değiştirildi
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: Varsayılan contentDir `['src']`'den `['.']` olarak değiştirildi
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: `docs` komutları eklendi
 ---
 
 # Intlayer Yapılandırma Dokümantasyonu
@@ -561,25 +580,3 @@ Derleme seçenekleri `@intlayer/babel` ve `@intlayer/swc` eklentilerine uygulan�
   - _Not_: Optimizasyonu ilgili kod dosyalarıyla sınırlamak ve derleme performansını artırmak için bunu kullanın.
   - _Not_: Bu seçenek `optimize` devre dışı bırakılırsa dikkate alınmaz.
   - _Not_: Glob deseni kullanın.
-
-## Doküman Geçmişi
-
-| Sürüm | Tarih      | Değişiklikler              |
-| ----- | ---------- | -------------------------- |
-| 6.0.0 | 2025-09-16 | `live` import modu eklendi |
-
-- _Açıklama_: Optimizasyon sırasında hangi dosyaların taranacağını tanımlayan desenler.
-- _Örnek_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
-- _Not_: Optimizasyonu ilgili kod dosyalarıyla sınırlamak ve derleme performansını artırmak için kullanın.
-- _Not_: Bu seçenek `optimize` devre dışı bırakılırsa göz ardı edilir.
-- _Not_: Glob deseni kullanın.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler                                                                                      |
-| ------ | ---------- | -------------------------------------------------------------------------------------------------- |
-| 6.0.0  | 2025-09-16 | `live` import modu eklendi                                                                         |
-| 6.0.0  | 2025-09-04 | `hotReload` alanı `liveSync` ile değiştirildi ve `liveSyncPort` ile `liveSyncURL` alanları eklendi |
-| 5.6.1  | 2025-07-25 | `activateDynamicImport` seçeneği `importMode` ile değiştirildi                                     |
-| 5.6.0  | 2025-07-13 | Varsayılan contentDir `['src']`'den `['.']` olarak değiştirildi                                    |
-| 5.5.11 | 2025-06-29 | `docs` komutları eklendi                                                                           |
