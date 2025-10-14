@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useDictionary
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initiale Historie
 ---
 
 # React-Integration: `useDictionary` Hook Dokumentation
@@ -262,7 +266,3 @@ Im Gegensatz zu Integrationen mit visuellen Editoren gelten hier keine Attribute
 - **Lokalisierungsaktualisierungen**: Stellen Sie beim Aktualisieren von Inhalten sicher, dass alle Sprachversionen konsistent sind, um fehlende Übersetzungen zu vermeiden.
 
 Diese Dokumentation konzentriert sich auf die Integration des `useDictionary` Hooks und bietet einen optimierten Ansatz zur Verwaltung lokalisierter Inhalte, ohne auf Funktionen visueller Editoren angewiesen zu sein.
-
-## Dokumentationshistorie
-
-- 5.5.10 - 2025-06-29: Initiale Historie

@@ -15,6 +15,10 @@ slugs:
   - doc
   - concept
   - ci-cd
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historie initialisieren
 ---
 
 # Automatische Generierung von Übersetzungen in einer CI/CD-Pipeline
@@ -190,9 +194,3 @@ Um die Umgebungsvariablen einzurichten, gehen Sie zu GitHub → Einstellungen �
 > Standardmäßig filtert das Argument `--git-diff` Wörterbücher, die Änderungen vom Basiszweig (Standard `origin/main`) zum aktuellen Zweig (Standard: `HEAD`) enthalten.
 
 > Für weitere Informationen zu den Intlayer CLI-Befehlen und deren Verwendung lesen Sie bitte die [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
-
-## Dokumentationshistorie
-
-| Version | Datum      | Änderungen              |
-| ------- | ---------- | ----------------------- |
-| 5.5.10  | 2025-06-29 | Historie initialisieren |

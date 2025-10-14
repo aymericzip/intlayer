@@ -14,6 +14,10 @@ slugs:
   - doc
   - concept
   - per-locale-file
+history:
+  - version: 5.5.10
+    date: 29.06.2025 
+    changes: Historie initialisiert
 ---
 
 # Deklaration von `Per-Locale` Inhaltsdeklaration in Intlayer
@@ -317,7 +321,3 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Automatische Übersetzungserstellung
 
 Verwenden Sie die [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md), um fehlende Übersetzungen basierend auf Ihren bevorzugten Diensten automatisch zu ergänzen.
-
-## Dokumentationsverlauf
-
-- 5.5.10 - 29.06.2025: Historie initialisiert

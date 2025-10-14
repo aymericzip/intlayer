@@ -15,6 +15,10 @@ slugs:
   - environment
   - vite-and-preact
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historie initialisiert
 ---
 
 # Übersetzen Sie Ihre Vite and Preact mit Intlayer | Internationalisierung (i18n)
@@ -1684,7 +1688,3 @@ Für weitere Details zur Nutzung der Erweiterung lesen Sie bitte die [Intlayer V
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.
 
 ---
-
-## Dokumentationsverlauf
-
-- 5.5.10 - 2025-06-29: Historie initialisiert

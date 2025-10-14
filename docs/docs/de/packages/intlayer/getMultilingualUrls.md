@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getMultilingualUrls
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historie initialisiert
 ---
 
 # Dokumentation: `getMultilingualUrls` Funktion in `intlayer`
@@ -218,7 +222,3 @@ getMultilingualUrls(
 ```
 
 Durch die Integration von `getMultilingualUrls` können Entwickler konsistente URL-Strukturen über mehrere Sprachen hinweg beibehalten, was sowohl die Benutzererfahrung als auch die SEO verbessert.
-
-## Dokumentationshistorie
-
-- 5.5.10 - 2025-06-29: Historie initialisiert

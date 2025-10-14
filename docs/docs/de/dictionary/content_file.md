@@ -11,6 +11,13 @@ slugs:
   - doc
   - concept
   - content
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Felddokumentation hinzugefügt
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historie initialisiert
 ---
 
 # Inhaltsdatei
@@ -1050,10 +1057,3 @@ module.exports = {
    - Passen Sie die Inhaltskonfiguration an, um den Umfang der überwachten Dateien zu begrenzen
    - Verwenden Sie Live-Wörterbücher nur, wenn Echtzeit-Updates erforderlich sind (z. B. A/B-Tests usw.)
    - Stellen Sie sicher, dass das Build-Transformations-Plugin (`@intlayer/swc` oder `@intlayer/babel`) aktiviert ist, um das Wörterbuch zur Build-Zeit zu optimieren
-
-## Dokumentationshistorie
-
-| Version | Datum      | Änderungen                    |
-| ------- | ---------- | ----------------------------- |
-| 6.0.0   | 2025-09-20 | Felddokumentation hinzugefügt |
-| 5.5.10  | 2025-06-29 | Historie initialisiert        |
