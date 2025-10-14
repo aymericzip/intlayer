@@ -16,6 +16,13 @@ slugs:
   - environment
   - nextjs
   - next-with-page-router
+history:
+  - version: 5.6.0
+    date: 2025-07-06
+    changes: Transform `withIntlayer()` function to a promise based function
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Translate your Next.js and Page Router website using Intlayer | Internationalization (i18n)
@@ -1488,10 +1495,3 @@ By following this guide, you can effectively integrate Intlayer into your Next.j
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-
-## Doc History
-
-| Version | Date       | Changes                                                         |
-| ------- | ---------- | --------------------------------------------------------------- |
-| 5.6.0   | 2025-07-06 | Transform `withIntlayer()` function to a promise based function |
-| 5.5.10  | 2025-06-29 | Init history                                                    |

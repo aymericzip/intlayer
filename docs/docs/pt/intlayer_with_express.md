@@ -14,6 +14,10 @@ slugs:
   - doc
   - environment
   - express
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Histórico inicial
 ---
 
 # Traduza seu Express backend com Intlayer | Internacionalização (i18n)
@@ -428,7 +432,3 @@ Para isso, você pode adicionar as seguintes instruções ao seu arquivo `.gitig
 # Ignore os arquivos gerados pelo Intlayer
 .intlayer
 ```
-
-## Histórico do Documento
-
-- 5.5.10 - 2025-06-29: Histórico inicial

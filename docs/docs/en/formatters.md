@@ -18,6 +18,28 @@ keywords:
 slugs:
   - doc
   - formatters
+history:
+  - version: 6.2.0
+    date: 2025-10-14
+    changes: Remove getIntlayerAsync from formatters
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Add vue formatters
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: Add formatters documentation
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Add list formatter documentation
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Add additional Intl utilities (DisplayNames, Collator, PluralRules)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Add locale utilities (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Add content handling utilities (getContent, getTranslation, getIntlayer, etc.)
 ---
 
 # Intlayer Formatters
@@ -567,15 +589,3 @@ import {
 ```
 
 > That composables will consider the locale from the injected `IntlayerProvider`
-
-## Doc History
-
-| Version | Date       | Changes                                                                        |
-| ------- | ---------- | ------------------------------------------------------------------------------ |
-| 6.2.0   | 2025-10-14 | Remove getIntlayerAsync from formatters                                        |
-| 5.8.0   | 2025-08-20 | Add vue formatters                                                             |
-| 5.8.0   | 2025-08-18 | Add formatters documentation                                                   |
-| 5.8.0   | 2025-08-20 | Add list formatter documentation                                               |
-| 5.8.0   | 2025-08-20 | Add additional Intl utilities (DisplayNames, Collator, PluralRules)            |
-| 5.8.0   | 2025-08-20 | Add locale utilities (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)   |
-| 5.8.0   | 2025-08-20 | Add content handling utilities (getContent, getTranslation, getIntlayer, etc.) |

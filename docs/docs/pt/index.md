@@ -16,6 +16,10 @@ keywords:
 slugs:
   - doc
   - index
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Histórico inicial
 ---
 
 # Documentação Intlayer
@@ -160,7 +164,3 @@ Integre perfeitamente com **Next.js**:
 Valorizamos o poder do desenvolvimento open-source e orientado pela comunidade. Se você deseja propor melhorias, adicionar um novo guia ou corrigir qualquer problema em nossa documentação, sinta-se à vontade para enviar um Pull Request ou abrir uma issue em nosso [repositório GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
 **Pronto para traduzir sua aplicação de forma mais rápida e eficiente?** Mergulhe em nossa documentação para começar a usar o Intlayer hoje mesmo. Experimente uma abordagem robusta e simplificada para internacionalização que mantém seu conteúdo organizado e sua equipe mais produtiva.
-
-## Histórico da Documentação
-
-- 5.5.10 - 2025-06-29: Histórico inicial

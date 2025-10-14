@@ -15,6 +15,16 @@ slugs:
   - doc
   - concept
   - auto-fill
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Add global configuration
+  - version: 6.0.0
+    date: 2025-09-17
+    changes: Add `{{fileName}}` variable
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Autofill Content Declaration File Translations
@@ -225,11 +235,3 @@ This will generate:
 
 - `./index.content.json`
 - `./index.content.json`
-
-## Doc History
-
-| Version | Date       | Changes                     |
-| ------- | ---------- | --------------------------- |
-| 6.0.0   | 2025-09-20 | Add global configuration    |
-| 6.0.0   | 2025-09-17 | Add `{{fileName}}` variable |
-| 5.5.10  | 2025-06-29 | Init history                |

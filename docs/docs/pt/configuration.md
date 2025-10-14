@@ -13,6 +13,22 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: Adicionado modo de importação `live`
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: Substituído o campo `hotReload` por `liveSync` e adicionados os campos `liveSyncPort` e `liveSyncURL`
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: Substituído `activateDynamicImport` pela opção `importMode`
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: Alterado o valor padrão de contentDir de `['src']` para `['.']`
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: Adicionados comandos `docs`
 ---
 
 # Documentação de Configuração do Intlayer
@@ -562,25 +578,3 @@ As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Use isso para limitar a otimização aos arquivos de código relevantes e melhorar o desempenho da compilação.
   - _Nota_: Esta opção será ignorada se `optimize` estiver desativado.
   - _Nota_: Use padrão glob.
-
-## Histórico da Documentação
-
-| Versão | Data       | Alterações                           |
-| ------ | ---------- | ------------------------------------ |
-| 6.0.0  | 2025-09-16 | Adicionado modo de importação `live` |
-
-- _Descrição_: Padrões que definem quais arquivos devem ser percorridos durante a otimização.
-- _Exemplo_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
-- _Nota_: Use isso para limitar a otimização aos arquivos de código relevantes e melhorar o desempenho da build.
-- _Nota_: Esta opção será ignorada se `optimize` estiver desativado.
-- _Nota_: Use padrão glob.
-
-## Histórico da Documentação
-
-| Versão | Data       | Alterações                                                                                            |
-| ------ | ---------- | ----------------------------------------------------------------------------------------------------- |
-| 6.0.0  | 2025-09-16 | Adicionado modo de importação `live`                                                                  |
-| 6.0.0  | 2025-09-04 | Substituído o campo `hotReload` por `liveSync` e adicionados os campos `liveSyncPort` e `liveSyncURL` |
-| 5.6.1  | 2025-07-25 | Substituído `activateDynamicImport` pela opção `importMode`                                           |
-| 5.6.0  | 2025-07-13 | Alterado o valor padrão de contentDir de `['src']` para `['.']`                                       |
-| 5.5.11 | 2025-06-29 | Adicionados comandos `docs`                                                                           |

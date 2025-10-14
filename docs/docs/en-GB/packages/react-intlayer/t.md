@@ -17,6 +17,10 @@ slugs:
   - packages
   - react-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 29-06-2025
+    changes: Init history
 ---
 
 # Documentation: `t` Function in `react-intlayer`
@@ -297,7 +301,3 @@ For more detailed usage and advanced features, refer to the [react-intlayer docu
 ---
 
 **Note**: Remember to set up your `IntlayerProvider` properly to ensure that the current locale is correctly passed down to your components. This is crucial for the `t` function to return the correct translations.
-
-## Doc History
-
-- 5.5.10 - 29-06-2025: Init history

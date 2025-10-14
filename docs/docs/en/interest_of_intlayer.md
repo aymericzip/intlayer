@@ -12,6 +12,13 @@ keywords:
 slugs:
   - doc
   - why
+history:
+  - version: 5.8.0
+    date: 2025-08-19
+    changes: Update comparative table
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Why you should consider Intlayer?
@@ -280,10 +287,3 @@ GitHub stars are a strong indicator of a project's popularity, community trust, 
 Using `intlayer`, you can declare your content in the format of your favorite i18n library, and intlayer will generate your namespaces in the location of your choice (example: `/messages/{{locale}}/{{namespace}}.json`).
 
 Refer to [`dictionaryOutput` and `i18nextResourcesDir` options](https://intlayer.org/doc/concept/configuration#content-configuration) for more details.
-
-## Document History
-
-| Version | Date       | Changes                  |
-| ------- | ---------- | ------------------------ |
-| 5.8.0   | 2025-08-19 | Update comparative table |
-| 5.5.10  | 2025-06-29 | Init history             |

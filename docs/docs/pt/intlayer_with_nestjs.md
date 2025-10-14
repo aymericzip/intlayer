@@ -16,6 +16,10 @@ slugs:
   - nest
 applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
 author: AydinTheFirst
+history:
+  - version: 5.8.0
+    date: 2025-09-09
+    changes: Documento inicial
 ---
 
 # Traduza seu Nest backend com Intlayer | Internacionalização (i18n)
@@ -263,9 +267,3 @@ Para isso, você pode adicionar as seguintes instruções ao seu arquivo `.gitig
 # Ignorar os arquivos gerados pelo Intlayer
 .intlayer
 ```
-
-## Histórico da Documentação
-
-| Versão | Data       | Alterações        |
-| ------ | ---------- | ----------------- |
-| 5.8.0  | 2025-09-09 | Documento inicial |
