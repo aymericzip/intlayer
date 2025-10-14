@@ -13,6 +13,13 @@ keywords:
 slugs:
   - doc
   - roadmap
+history:
+  - version: 5.5.10
+    date: 2025-06-30
+    changes: Aggiunto supporto per Preact e Nuxt, MCP Server, aggiornamento CLI
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizializzazione della cronologia
 ---
 
 # Intlayer: Panoramica delle Funzionalità & Roadmap
@@ -328,8 +335,3 @@ Intlayer mira a essere una soluzione completa per la gestione dei contenuti e l'
 Rimanete sintonizzati per i prossimi rilasci e sentitevi liberi di esplorare le funzionalità esistenti per vedere come Intlayer può aiutare a centralizzare e ottimizzare oggi i vostri processi di gestione dei contenuti!
 
 ---
-
-## Cronologia del Documento
-
-- 5.5.10 - 2025-06-30: Aggiunto supporto per Preact e Nuxt, MCP Server, aggiornamento CLI
-- 5.5.10 - 2025-06-29: Inizializzazione della cronologia

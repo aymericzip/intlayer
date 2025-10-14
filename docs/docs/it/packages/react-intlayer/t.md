@@ -17,6 +17,10 @@ slugs:
   - packages
   - react-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizio cronologia
 ---
 
 # Documentazione: Funzione `t` in `react-intlayer`
@@ -296,7 +300,3 @@ Per un utilizzo più dettagliato e funzionalità avanzate, consulta la [document
 ---
 
 **Nota**: Ricorda di configurare correttamente il tuo `IntlayerProvider` per garantire che la localizzazione corrente venga passata correttamente ai tuoi componenti. Questo è fondamentale affinché la funzione `t` restituisca le traduzioni corrette.
-
-## Cronologia del Documento
-
-- 5.5.10 - 2025-06-29: Inizio cronologia

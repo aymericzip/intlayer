@@ -16,6 +16,10 @@ slugs:
   - nextjs
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Storia iniziale
 ---
 
 # Traduci la tua Next.js 15 con Intlayer | Internazionalizzazione (i18n)
@@ -1524,7 +1528,3 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 ### Approfondimenti
 
 Per approfondire, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
-
-## Cronologia del documento
-
-- 5.5.10 - 2025-06-29: Storia iniziale

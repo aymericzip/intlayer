@@ -17,6 +17,10 @@ slugs:
   - package
   - intlayer
   - getTranslationContent
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizio cronologia
 ---
 
 # Documentazione: Funzione `getTranslation` in `intlayer`
@@ -185,7 +189,3 @@ console.log(customContent.greeting); // Output: "Bonjour"
   - Se un locale è definito parzialmente, la funzione non unisce i contenuti. Recupera strettamente il valore del locale specificato o ricade sul predefinito.
 - **Applicazione di TypeScript:**
   - Se i locali in `languageContent` non corrispondono alla configurazione del progetto, TypeScript imporrà che tutti i locali richiesti siano definiti, garantendo che il contenuto sia completo e sicuro dal punto di vista del tipo.
-
-## Cronologia della Documentazione
-
-- 5.5.10 - 2025-06-29: Inizio cronologia

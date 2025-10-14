@@ -14,6 +14,10 @@ slugs:
   - doc
   - environment
   - express
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizializzazione della cronologia
 ---
 
 # Traduci la tua Express backend con Intlayer | Internazionalizzazione (i18n)
@@ -409,7 +413,3 @@ Per fare ciò, puoi aggiungere le seguenti istruzioni al tuo file `.gitignore`:
 # Ignora i file generati da Intlayer
 .intlayer
 ```
-
-## Cronologia del Documento
-
-- 5.5.10 - 2025-06-29: Inizializzazione della cronologia

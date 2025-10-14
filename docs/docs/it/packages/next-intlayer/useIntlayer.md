@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Storia iniziale
 ---
 
 # Integrazione Next.js: Documentazione Hook `useIntlayer`
@@ -257,7 +261,3 @@ Per localizzare attributi come `alt`, `title`, `href`, `aria-label`, ecc., assic
 - **Intlayer Visual Editor**: Scopri come utilizzare l'editor visuale per una gestione più semplice dei contenuti [qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md).
 
 Questa documentazione illustra l'uso del hook `useIntlayer` specificamente negli ambienti Next.js, fornendo una soluzione robusta per la gestione della localizzazione nelle tue applicazioni Next.js.
-
-## Cronologia della Documentazione
-
-- 5.5.10 - 2025-06-29: Storia iniziale

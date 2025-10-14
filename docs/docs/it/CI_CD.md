@@ -15,6 +15,10 @@ slugs:
   - doc
   - concept
   - ci-cd
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizializza la cronologia
 ---
 
 # Generazione Automatica delle Traduzioni in una Pipeline CI/CD
@@ -190,9 +194,3 @@ Per configurare le variabili d'ambiente, vai su GitHub → Impostazioni → Segr
 > Per impostazione predefinita, l'argomento `--git-diff` filtra i dizionari che includono modifiche dalla base (default `origin/main`) al ramo corrente (default: `HEAD`).
 
 > Per maggiori informazioni sui comandi CLI di Intlayer e sul loro utilizzo, consulta la [documentazione CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md).
-
-## Cronologia del documento
-
-| Versione | Data       | Modifiche                 |
-| -------- | ---------- | ------------------------- |
-| 5.5.10   | 2025-06-29 | Inizializza la cronologia |
