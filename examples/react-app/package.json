@@ -26,29 +26,29 @@
     ]
   },
   "dependencies": {
-    "@craco/craco": "^7.1.0",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^24.7.2",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.1.9",
+    "@craco/craco": "7.1.0",
+    "@testing-library/jest-dom": "5.17.0",
+    "@testing-library/react": "13.4.0",
+    "@testing-library/user-event": "13.5.0",
+    "@types/jest": "27.5.2",
+    "@types/node": "24.7.2",
+    "@types/react": "19.2.0",
+    "@types/react-dom": "19.1.9",
     "intlayer": "workspace:*",
     "intlayer-cli": "workspace:*",
-    "postcss-preset-env": "^10.1.5",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "postcss-preset-env": "10.1.5",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-intlayer": "workspace:*",
-    "react-router-dom": "^7.4.0",
+    "react-router-dom": "7.4.0",
     "react-scripts": "5.0.1",
     "react-scripts-intlayer": "workspace:*",
-    "typescript": "^5.9.3",
-    "web-vitals": "^2.1.4"
+    "typescript": "5.9.3",
+    "web-vitals": "2.1.4"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.8",
+    "@tailwindcss/postcss": "4.1.8",
     "intlayer-editor": "workspace:*",
-    "tailwindcss": "^4.0.8"
+    "tailwindcss": "4.0.8"
   }
 }

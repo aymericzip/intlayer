@@ -89,31 +89,31 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "@intlayer/webpack": "workspace:*",
-    "deepmerge": "^4.3.1",
-    "js-cookie": "^3.0.5",
-    "uuid": "^13.0.0"
+    "deepmerge": "4.3.1",
+    "js-cookie": "3.0.5",
+    "uuid": "13.0.0"
   },
   "devDependencies": {
-    "@types/node": "^24.7.2",
-    "@types/webpack": "^5.28.5",
+    "@types/node": "24.7.2",
+    "@types/webpack": "5.28.5",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.2.1",
-    "rimraf": "^6.0.1",
-    "tsc-alias": "^1.8.16",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "concurrently": "9.2.1",
+    "rimraf": "6.0.1",
+    "tsc-alias": "1.8.16",
+    "tsup": "8.5.0",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
   },
   "peerDependencies": {
-    "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
-    "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/common": "15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/core": "15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
-    "rxjs": "^6.0.0 || ^7.0.0"
+    "rxjs": "6.0.0 || ^7.0.0"
   },
   "engines": {
     "node": ">=14.18"

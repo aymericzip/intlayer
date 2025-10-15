@@ -11,27 +11,27 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@react-router/node": "^7.7.1",
-    "@react-router/serve": "^7.7.1",
+    "@react-router/node": "7.7.1",
+    "@react-router/serve": "7.7.1",
     "intlayer": "workspace:*",
-    "isbot": "^5.1.27",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "isbot": "5.1.27",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-intlayer": "workspace:*",
-    "react-router": "^7.9.3",
-    "react-router-dom": "^7.7.1"
+    "react-router": "7.9.3",
+    "react-router-dom": "7.7.1"
   },
   "devDependencies": {
-    "@react-router/dev": "^7.7.1",
-    "@tailwindcss/vite": "^4.1.4",
-    "@types/node": "^20",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0",
-    "tailwindcss": "^4.1.4",
-    "typescript": "^5.9.3",
-    "vite": "^7.1.9",
+    "@react-router/dev": "7.7.1",
+    "@tailwindcss/vite": "4.1.4",
+    "@types/node": "20",
+    "@types/react": "19.2.0",
+    "@types/react-dom": "19.2.0",
+    "tailwindcss": "4.1.4",
+    "typescript": "5.9.3",
+    "vite": "7.1.9",
     "vite-intlayer": "workspace:*",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "5.1.4"
   },
   "engines": {
     "node": ">=20"

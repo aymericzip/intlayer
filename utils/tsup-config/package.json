@@ -9,10 +9,10 @@
   "module": "./tsup-config.mjs",
   "scripts": {},
   "devDependencies": {
-    "@types/node": "^24.7.2",
-    "esbuild": "^0.25.5",
-    "esbuild-fix-imports-plugin": "^1.0.22",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.3"
+    "@types/node": "24.7.2",
+    "esbuild": "0.25.5",
+    "esbuild-fix-imports-plugin": "1.0.22",
+    "tsup": "8.5.0",
+    "typescript": "5.9.3"
   }
 }

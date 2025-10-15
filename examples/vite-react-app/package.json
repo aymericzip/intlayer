@@ -13,21 +13,21 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-intlayer": "workspace:*",
-    "react-router-dom": "^7.4.0"
+    "react-router-dom": "7.4.0"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.13",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0",
-    "@vitejs/plugin-react-swc": "^4.1.0",
-    "autoprefixer": "^10.4.21",
+    "@tailwindcss/vite": "4.1.13",
+    "@types/react": "19.2.0",
+    "@types/react-dom": "19.2.0",
+    "@vitejs/plugin-react-swc": "4.1.0",
+    "autoprefixer": "10.4.21",
     "intlayer-editor": "workspace:*",
-    "tailwindcss": "^4.1.14",
-    "typescript": "^5.9.3",
-    "vite": "^7.1.9",
+    "tailwindcss": "4.1.14",
+    "typescript": "5.9.3",
+    "vite": "7.1.9",
     "vite-intlayer": "workspace:*"
   }
 }

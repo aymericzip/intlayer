@@ -13,19 +13,19 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "intlayer": "workspace:*",
-    "js-cookie": "^3.0.5",
-    "markdown-it": "^14.1.0",
-    "vue": "^3.5.22",
+    "js-cookie": "3.0.5",
+    "markdown-it": "14.1.0",
+    "vue": "3.5.22",
     "vue-intlayer": "workspace:*",
-    "vue-router": "^4.5.1"
+    "vue-router": "4.5.1"
   },
   "devDependencies": {
-    "@types/markdown-it": "^14.1.2",
-    "@types/node": "^24.7.2",
-    "@vitejs/plugin-vue": "^6.0.1",
+    "@types/markdown-it": "14.1.2",
+    "@types/node": "24.7.2",
+    "@vitejs/plugin-vue": "6.0.1",
     "intlayer-editor": "workspace:*",
-    "vite": "^7.1.9",
+    "vite": "7.1.9",
     "vite-intlayer": "workspace:*",
-    "vue-demi": "^0.14.10"
+    "vue-demi": "0.14.10"
   }
 }

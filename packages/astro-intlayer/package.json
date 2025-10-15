@@ -78,20 +78,20 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "tsc-alias": "^1.8.16",
-    "tsup": "^8.5.0",
+    "tsc-alias": "1.8.16",
+    "tsup": "8.5.0",
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^24.7.2",
+    "@types/node": "24.7.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.2.1",
-    "fast-glob": "^3.3.3",
-    "rimraf": "^6.0.1",
-    "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "concurrently": "9.2.1",
+    "fast-glob": "3.3.3",
+    "rimraf": "6.0.1",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
   },
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",

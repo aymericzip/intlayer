@@ -60,24 +60,24 @@
     "@biomejs/biome": "2.2.4",
     "@changesets/changelog-github": "0.5.1",
     "@changesets/cli": "2.29.7",
-    "@commitlint/cli": "^20.1.0",
-    "@commitlint/config-conventional": "^20.0.0",
-    "@commitlint/types": "^20.0.0",
+    "@commitlint/cli": "20.1.0",
+    "@commitlint/config-conventional": "20.0.0",
+    "@commitlint/types": "20.0.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "chokidar": "3.6.0",
-    "enquirer": "^2.4.1",
-    "fast-glob": "^3.3.3",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.2.4",
-    "minimist": "^1.2.8",
-    "prettier": "^3.6.2",
-    "rimraf": "^6.0.1",
-    "rollup-plugin-visualizer": "^6.0.4",
-    "turbo": "^2.5.8",
-    "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.4"
+    "enquirer": "2.4.1",
+    "fast-glob": "3.3.3",
+    "husky": "9.1.7",
+    "lint-staged": "16.2.4",
+    "minimist": "1.2.8",
+    "prettier": "3.6.2",
+    "rimraf": "6.0.1",
+    "rollup-plugin-visualizer": "6.0.4",
+    "turbo": "2.5.8",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.2.4"
   },
   "packageManager": "bun@1.3.0",
   "engines": {
@@ -93,8 +93,8 @@
     "./plugins/*"
   ],
   "overrides": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
   },
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"

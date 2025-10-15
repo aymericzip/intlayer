@@ -77,27 +77,27 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@craco/craco": "^7.1.0",
+    "@craco/craco": "7.1.0",
     "@intlayer/config": "workspace:*",
     "@intlayer/webpack": "workspace:*",
-    "node-loader": "^2.1.0",
-    "process": "^0.11.10",
-    "webpack": "^5.98.0"
+    "node-loader": "2.1.0",
+    "process": "0.11.10",
+    "webpack": "5.98.0"
   },
   "devDependencies": {
-    "@craco/types": "^7.1.0",
-    "@types/cross-spawn": "^6.0.6",
-    "@types/node": "^24.7.2",
-    "@types/webpack": "^5.28.5",
+    "@craco/types": "7.1.0",
+    "@types/cross-spawn": "6.0.6",
+    "@types/node": "24.7.2",
+    "@types/webpack": "5.28.5",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.2.1",
-    "rimraf": "^6.0.1",
-    "tsc-alias": "^1.8.16",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "concurrently": "9.2.1",
+    "rimraf": "6.0.1",
+    "tsc-alias": "1.8.16",
+    "tsup": "8.5.0",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
   },
   "peerDependencies": {
     "@intlayer/config": "workspace:*",

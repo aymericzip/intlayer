@@ -32,20 +32,20 @@
     "test": ""
   },
   "dependencies": {
-    "express": "^5.1.0",
+    "express": "5.1.0",
     "express-intlayer": "workspace:*",
     "intlayer": "workspace:*"
   },
   "devDependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/webpack": "workspace:*",
-    "@types/express": "^5.0.3",
-    "@types/node": "^24.7.2",
+    "@types/express": "5.0.3",
+    "@types/node": "24.7.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "tsc-alias": "^1.8.16",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.3"
+    "tsc-alias": "1.8.16",
+    "tsup": "8.5.0",
+    "typescript": "5.9.3"
   }
 }
