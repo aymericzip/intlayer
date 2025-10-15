@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - insertion
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 插入内容 / Intlayer 中的插入
@@ -266,7 +270,3 @@ module.exports = InsertionComponent;
 - [Next Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
 
 这些资源提供了关于在各种环境和框架中设置和使用 Intlayer 的更多见解。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29: 初始化历史

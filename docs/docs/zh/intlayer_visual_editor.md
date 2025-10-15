@@ -16,6 +16,10 @@ slugs:
   - concept
   - editor
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # Intlayer 可视化编辑器文档
@@ -261,7 +265,3 @@ pnpm intlayer-editor start -e development
     - 应用程序 URL 应与您在编辑器配置中设置的 URL (`applicationURL`) 匹配。
 
 - 可视化编辑器使用 iframe 来显示您的网站。请确保您网站的内容安全策略（CSP）允许将 CMS URL 作为 `frame-ancestors`（默认值为 'http://localhost:8000'）。如有错误，请检查编辑器控制台。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

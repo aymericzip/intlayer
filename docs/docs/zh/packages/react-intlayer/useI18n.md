@@ -19,6 +19,10 @@ slugs:
   - packages
   - react-intlayer
   - useI18n
+history:
+  - version: 6.0.0
+    date: 2025-06-29
+    changes: `useI18n` 钩子文档的初始编写
 ---
 
 # React 集成：`useI18n` Hook 文档
@@ -244,7 +248,3 @@ const ServerComponentExample = () => {
 - **Intlayer 可视化编辑器**：为了获得更直观的内容管理体验，请参阅可视化编辑器文档 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
 本节特别涵盖了在 React 应用中集成 `useI18n` 钩子，简化本地化流程并确保不同语言环境下内容的一致性。
-
-## 文档历史
-
-- 6.0.0 - 2025-06-29：`useI18n` 钩子文档的初始编写

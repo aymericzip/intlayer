@@ -14,6 +14,10 @@ slugs:
   - doc
   - concept
   - per-locale-file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # Intlayer 中的“每语言”内容声明
@@ -317,7 +321,3 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### 自动翻译生成
 
 使用 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md) 根据您偏好的服务自动填充缺失的翻译。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

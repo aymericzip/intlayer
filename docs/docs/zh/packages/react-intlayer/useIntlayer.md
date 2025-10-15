@@ -18,6 +18,10 @@ slugs:
   - packages
   - react-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # React 集成：`useIntlayer` 钩子文档
@@ -245,7 +249,3 @@ const ServerComponentExample = () => {
 - **Intlayer 可视化编辑器**：如需更直观的内容管理体验，请参阅可视化编辑器文档 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
 本节专门针对在 React 应用中集成 `useIntlayer` 钩子，简化本地化流程，确保不同语言环境下内容的一致性。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史
