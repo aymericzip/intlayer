@@ -13,6 +13,25 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: `live` 가져오기 모드 추가
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: `live` import 모드 추가
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: `hotReload` 필드를 `liveSync`로 교체하고 `liveSyncPort` 및 `liveSyncURL` 필드 추가
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: `activateDynamicImport`을 `importMode` 옵션으로 교체
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: 기본 contentDir를 `['src']`에서 `['.']`로 변경
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: `docs` 명령어 추가
 ---
 
 # Intlayer 구성 문서
@@ -562,25 +581,3 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 빌드하는 방�
   - _참고_: 최적화를 관련 코드 파일로 제한하여 빌드 성능을 향상시키는 데 사용합니다.
   - _참고_: `optimize`가 비활성화된 경우 이 옵션은 무시됩니다.
   - _참고_: glob 패턴을 사용하세요.
-
-## 문서 이력
-
-| 버전  | 날짜       | 변경 사항                 |
-| ----- | ---------- | ------------------------- |
-| 6.0.0 | 2025-09-16 | `live` 가져오기 모드 추가 |
-
-- _설명_: 최적화 중에 탐색할 파일을 정의하는 패턴입니다.
-- _예시_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
-- _참고_: 최적화를 관련 코드 파일로 제한하여 빌드 성능을 향상시키는 데 사용합니다.
-- _참고_: `optimize`가 비활성화된 경우 이 옵션은 무시됩니다.
-- _참고_: glob 패턴을 사용하세요.
-
-## 문서 이력
-
-| 버전   | 날짜       | 변경 사항                                                                          |
-| ------ | ---------- | ---------------------------------------------------------------------------------- |
-| 6.0.0  | 2025-09-16 | `live` import 모드 추가                                                            |
-| 6.0.0  | 2025-09-04 | `hotReload` 필드를 `liveSync`로 교체하고 `liveSyncPort` 및 `liveSyncURL` 필드 추가 |
-| 5.6.1  | 2025-07-25 | `activateDynamicImport`을 `importMode` 옵션으로 교체                               |
-| 5.6.0  | 2025-07-13 | 기본 contentDir를 `['src']`에서 `['.']`로 변경                                     |
-| 5.5.11 | 2025-06-29 | `docs` 명령어 추가                                                                 |

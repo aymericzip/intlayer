@@ -17,6 +17,10 @@ slugs:
   - package
   - react-intlayer
   - useDictionary
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 이력 초기화
 ---
 
 # React 통합: `useDictionary` 훅 문서
@@ -281,7 +285,3 @@ const ServerComponentExample = ({ locale }) => {
 - **로컬라이제이션 업데이트**: 콘텐츠를 업데이트할 때 모든 로케일이 일관되도록 하여 번역 누락을 방지하세요.
 
 이 문서는 `useDictionary` 훅의 통합에 중점을 두어, 비주얼 에디터 기능에 의존하지 않고 로컬라이즈된 콘텐츠를 관리하는 간소화된 접근법을 제공합니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 이력 초기화
