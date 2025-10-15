@@ -12,6 +12,10 @@ keywords:
 slugs:
   - doc
   - locale-mapper
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: 로케일 매퍼 문서 추가
 ---
 
 # 로케일 매퍼
@@ -236,9 +240,3 @@ Locale Mapper는 Intlayer 구성과 원활하게 통합됩니다:
 - **URL 접두사**: `configuration.middleware.prefixDefault`를 준수합니다
 
 이것은 애플리케이션 전반에 걸쳐 일관성을 보장하고 구성 중복을 줄여줍니다.
-
-## 문서 이력
-
-| 버전  | 날짜       | 변경 사항             |
-| ----- | ---------- | --------------------- |
-| 5.7.2 | 2025-07-27 | 로케일 매퍼 문서 추가 |

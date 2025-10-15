@@ -18,6 +18,10 @@ slugs:
   - packages
   - react-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # React 통합: `useIntlayer` 훅 문서
@@ -245,7 +249,3 @@ const ServerComponentExample = () => {
 - **Intlayer 비주얼 에디터**: 보다 직관적인 콘텐츠 관리 경험을 위해 비주얼 에디터 문서를 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)에서 참고하세요.
 
 이 섹션은 React 애플리케이션에서 `useIntlayer` 훅의 통합을 구체적으로 다루며, 현지화 과정을 단순화하고 다양한 로케일 간 콘텐츠 일관성을 보장합니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

@@ -14,6 +14,10 @@ slugs:
   - doc
   - concept
   - per-locale-file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # Intlayer에서 `지역별` 콘텐츠 선언 방법
@@ -315,7 +319,3 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### 자동 번역 생성
 
 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 사용하여 선호하는 서비스를 기반으로 누락된 번역을 자동으로 채우세요.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력
