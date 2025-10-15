@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getMultilingualUrls
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # दस्तावेज़ीकरण: `intlayer` में `getMultilingualUrls` फ़ंक्शन
@@ -220,7 +224,3 @@ getMultilingualUrls(
 ```
 
 `getMultilingualUrls` को एकीकृत करके, डेवलपर्स कई भाषाओं में सुसंगत URL संरचनाओं को बनाए रख सकते हैं, जिससे उपयोगकर्ता अनुभव और SEO दोनों में सुधार होता है।
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

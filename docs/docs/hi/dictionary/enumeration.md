@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - enumeration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # एनेमरेशन / बहुवचन रूप
@@ -239,7 +243,3 @@ module.exports = CarComponent;
 - [Next Intlayer प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md)
 
 ये संसाधन विभिन्न वातावरणों और विभिन्न फ्रेमवर्क के साथ Intlayer की सेटअप और उपयोग के बारे में और अधिक जानकारी प्रदान करते हैं।
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

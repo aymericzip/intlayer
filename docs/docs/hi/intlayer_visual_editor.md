@@ -16,6 +16,10 @@ slugs:
   - concept
   - editor
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # Intlayer विज़ुअल एडिटर दस्तावेज़ीकरण
@@ -261,7 +265,3 @@ pnpm intlayer-editor start -e development
     - एप्लिकेशन URL को एडिटर कॉन्फ़िगरेशन (`applicationURL`) में सेट किए गए URL से मेल खाना चाहिए।
 
 - विज़ुअल एडिटर आपके वेबसाइट को प्रदर्शित करने के लिए एक iframe का उपयोग करता है। सुनिश्चित करें कि आपकी वेबसाइट की कंटेंट सिक्योरिटी पॉलिसी (CSP) CMS URL को `frame-ancestors` के रूप में अनुमति देती है (डिफ़ॉल्ट रूप से 'http://localhost:8000')। किसी भी त्रुटि के लिए एडिटर कंसोल की जांच करें।
-
-## डॉक्स इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

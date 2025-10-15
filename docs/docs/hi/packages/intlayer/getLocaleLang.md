@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleLang
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # दस्तावेज़ीकरण: `intlayer` में `getLocaleLang` फ़ंक्शन
@@ -77,7 +81,3 @@ getLocaleLang(Locales.FRENCH); // आउटपुट: "fr"
 
 - **गलत स्वरूप वाले लोकल स्ट्रिंग्स:**
   - यदि `locale` `language-country` प्रारूप का पालन नहीं करता है (जैसे, `Locales.ENGLISH-US`), तो फ़ंक्शन सुरक्षित रूप से `'-'` से पहले का भाग या यदि `'-'` मौजूद नहीं है तो पूरी स्ट्रिंग लौटाता है।
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास
