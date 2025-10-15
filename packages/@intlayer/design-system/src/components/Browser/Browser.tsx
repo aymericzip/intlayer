@@ -3,6 +3,7 @@
 import { RotateCw } from 'lucide-react';
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 
 export type BrowserProps = {
@@ -65,13 +66,16 @@ export const Browser: React.FC<BrowserProps> = ({
   className,
   style,
   height,
-  'aria-label': ariaLabel = 'Embedded browser',
+  'aria-label': ariaLabel,
 }) => {
   const [inputUrl, setInputUrl] = useState(initialUrl);
   const [currentUrl, setCurrentUrl] = useState(initialUrl);
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false); // show errors only after attempt
   const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Load internationalized content
+  const content = useIntlayer('browser');
 
   useEffect(() => {
     setInputUrl(initialUrl);
@@ -88,11 +92,8 @@ export const Browser: React.FC<BrowserProps> = ({
     if (/^[-.]/.test(host) || /[-.]$/.test(host)) return false;
     // no double dots
     if (host.includes('..')) return false;
-
-    const isIPv4 = /^(\d{1,3}\.){3}\d{1,3}$/.test(host);
-    const isIPv6 = host.startsWith('[') && host.endsWith(']');
-    if (!(host.includes('.') || host === 'localhost' || isIPv4 || isIPv6))
-      return false;
+    // must have at least one dot
+    if (!host.includes('.')) return false;
 
     return true;
   };
@@ -127,7 +128,7 @@ export const Browser: React.FC<BrowserProps> = ({
       setError(null);
       return true;
     } catch {
-      setError('Invalid URL. Try something like "https://example.com".');
+      setError(content.errorMessage.value);
       return false;
     }
   };
@@ -149,36 +150,33 @@ export const Browser: React.FC<BrowserProps> = ({
     }
   };
 
-  const containerStyle = height
-    ? {
-        height: typeof height === 'number' ? `${height}px` : height,
-        minHeight: 0,
-        ...style,
-      }
-    : { minHeight: '600px', height: '100%', ...style };
-
   const showError = submitted && !!error;
 
   return (
     <section
       className={cn(
         'flex w-full flex-col',
+        !height && 'h-full min-h-[600px]',
         'overflow-hidden rounded-xl',
         'bg-background',
         'shadow-[0_4px_12px_rgba(0,0,0,0.4),0_0_1px_rgba(0,0,0,0.2)]',
         className
       )}
-      style={containerStyle}
-      aria-label={ariaLabel}
+      style={
+        height
+          ? {
+              height: typeof height === 'number' ? `${height}px` : height,
+              ...style,
+            }
+          : style
+      }
+      aria-label={ariaLabel ?? content.ariaLabel.value}
     >
       {/* Top bar */}
-      <div
-        className="relative z-10 flex shrink-0 flex-col gap-1 rounded-t-xl bg-[#222222] px-4 py-2.5"
-        style={{ boxShadow: '0px 3px 4px 0px rgba(0, 0, 0, 0.25)' }}
-      >
+      <div className="relative z-10 flex shrink-0 flex-col gap-1 rounded-t-xl bg-neutral-900 px-4 py-2.5 shadow-[0_3px_4px_0_rgba(0,0,0,0.25)]">
         <form onSubmit={handleSubmit} className="relative flex-1" noValidate>
           <label htmlFor="browser-url" className="sr-only">
-            URL address bar
+            {content.urlLabel.value}
           </label>
           <input
             id="browser-url"
@@ -192,21 +190,15 @@ export const Browser: React.FC<BrowserProps> = ({
               setInputUrl(e.target.value);
               if (showError) setError(null);
             }}
-            placeholder="https://example.com"
+            placeholder={content.urlPlaceholder.value}
             className={cn(
-              'w-full px-4 py-2 pr-11',
-              'bg-[#171717] text-[#B5B5B5]',
-              'rounded-lg text-sm leading-[140%]',
-              'placeholder:text-[#B5B5B5]/50',
-              'transition-all focus:outline-none focus:ring-1 focus:ring-[#B5B5B5]/30',
+              'w-full rounded-lg px-4 py-2 pr-11 text-sm leading-[1.4]',
+              'bg-neutral-950 text-neutral-300',
+              'placeholder:text-neutral-400',
+              'transition-all focus:outline-none focus:ring-1 focus:ring-neutral-400/30',
               showError ? 'border border-red-500' : 'border border-transparent'
             )}
-            style={{
-              fontSize: '14px',
-              lineHeight: '140%',
-              letterSpacing: '0%',
-            }}
-            aria-label="URL address bar"
+            aria-label={content.urlLabel.value}
             aria-invalid={showError}
             aria-describedby={showError ? 'browser-url-error' : undefined}
           />
@@ -217,17 +209,15 @@ export const Browser: React.FC<BrowserProps> = ({
             onClick={handleReload}
             className={cn(
               '-translate-y-1/2 absolute top-1/2 right-2',
-              'h-8 w-8 rounded-md',
-              'flex items-center justify-center',
-              'hover:bg-[#1f1f1f]',
-              'focus:outline-none focus:ring-1 focus:ring-[#B5B5B5]/30',
-              'transition-colors'
+              'flex h-8 w-8 items-center justify-center rounded-md',
+              'transition-colors hover:bg-neutral-800',
+              'focus:outline-none focus:ring-1 focus:ring-neutral-400/30'
             )}
-            title="Reload page"
-            aria-label="Reload page"
+            title={content.reloadButtonTitle.value}
+            aria-label={content.reloadButtonTitle.value}
             tabIndex={0}
           >
-            <RotateCw size={18} color="#B5B5B5" strokeWidth={2} />
+            <RotateCw size={18} className="text-neutral-400" strokeWidth={2} />
           </button>
 
           {/* invisible submit to allow Enter to work semantically */}
@@ -252,7 +242,7 @@ export const Browser: React.FC<BrowserProps> = ({
         <iframe
           ref={iframeRef}
           src={currentUrl}
-          title="Embedded web page"
+          title={content.iframeTitle.value}
           className="h-full w-full rounded-b-xl border-0"
           sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads"
           loading="lazy"
