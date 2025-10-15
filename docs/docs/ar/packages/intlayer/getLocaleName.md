@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleName
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية التاريخ
 ---
 
 # التوثيق: دالة `getLocaleName` في `intlayer`
@@ -113,7 +117,3 @@ getLocaleName("unknown-locale"); // الناتج: "Unknown locale"
 - تقوم الدالة بشكل افتراضي بإرجاع اسم `displayLocale` الخاص به.
 - **الترجمات المفقودة:**
   - إذا لم يحتوي `localeNameTranslations` على إدخال لـ `targetLocale` أو لـ `displayLocale` المحدد، فإن الدالة تعود إلى `ownLocalesName` أو تُرجع `"Unknown locale"`.
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية التاريخ

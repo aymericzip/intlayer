@@ -17,6 +17,10 @@ slugs:
   - packages
   - express-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية السجل
 ---
 
 # التوثيق: دالة `t` في `express-intlayer`
@@ -451,7 +455,3 @@ app.get("/morning", (_req, res) => {
 ## الخاتمة
 
 تُعد دالة `t` أداة قوية للتدويل في جانب الخادم. باستخدامها بشكل فعال، يمكنك إنشاء تطبيق أكثر شمولية وسهل الاستخدام لجمهور عالمي. للاستخدام المتقدم وخيارات التكوين التفصيلية، يرجى الرجوع إلى [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية السجل

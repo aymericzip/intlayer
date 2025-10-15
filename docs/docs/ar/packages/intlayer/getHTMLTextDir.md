@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getHTMLTextDir
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بدء التاريخ
 ---
 
 # التوثيق: دالة `getHTMLTextDir` في `intlayer`
@@ -117,7 +121,3 @@ const HTMLLayout = ({ children, locale }) => (
 ```
 
 في المثال أعلاه، يتم تعيين خاصية `dir` بشكل ديناميكي بناءً على اللغة.
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بدء التاريخ
