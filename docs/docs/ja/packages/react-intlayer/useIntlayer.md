@@ -18,6 +18,10 @@ slugs:
   - packages
   - react-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴初期化
 ---
 
 # React 統合: `useIntlayer` フック ドキュメント
@@ -249,7 +253,3 @@ const ServerComponentExample = () => {
 - **Intlayer ビジュアルエディター**: より直感的なコンテンツ管理体験のために、ビジュアルエディターのドキュメントは[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご参照ください。
 
 このセクションは特に、Reactアプリケーションにおける `useIntlayer` フックの統合に焦点を当てており、ローカライズプロセスを簡素化し、異なるロケール間でのコンテンツの一貫性を確保します。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴初期化

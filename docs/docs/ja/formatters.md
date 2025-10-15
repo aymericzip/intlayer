@@ -18,6 +18,31 @@ keywords:
 slugs:
   - doc
   - formatters
+history:
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Vueフォーマッターを追加
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: フォーマッターのドキュメントを追加
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Vueフォーマッターを追加
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: フォーマッターのドキュメントを追加
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: リストフォーマッターのドキュメントを追加
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: 追加のIntlユーティリティ（DisplayNames、Collator、PluralRules）を追加
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: ロケールユーティリティ（getLocaleName、getLocaleLang、getLocaleFromPathなど）を追加
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: コンテンツ処理ユーティリティ（getContent、getTranslation、getIntlayerなど）を追加
 ---
 
 # Intlayer フォーマッター
@@ -590,38 +615,3 @@ import {
 ```
 
 > これらのコンポーザブルは、注入された `IntlayerProvider` からロケールを考慮します
-
-## ドキュメント履歴
-
-| バージョン | 日付       | 変更内容                           |
-| ---------- | ---------- | ---------------------------------- |
-| 5.8.0      | 2025-08-20 | Vueフォーマッターを追加            |
-| 5.8.0      | 2025-08-18 | フォーマッターのドキュメントを追加 |
-
-クライアントコンポーネント:
-
-```ts
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "vue-intlayer/format";
-```
-
-> これらのコンポーザブルは、注入された `IntlayerProvider` からロケールを考慮します
-
-## ドキュメント履歴
-
-| バージョン | 日付       | 変更内容                                                                            |
-| ---------- | ---------- | ----------------------------------------------------------------------------------- |
-| 5.8.0      | 2025-08-20 | Vueフォーマッターを追加                                                             |
-| 5.8.0      | 2025-08-18 | フォーマッターのドキュメントを追加                                                  |
-| 5.8.0      | 2025-08-20 | リストフォーマッターのドキュメントを追加                                            |
-| 5.8.0      | 2025-08-20 | 追加のIntlユーティリティ（DisplayNames、Collator、PluralRules）を追加               |
-| 5.8.0      | 2025-08-20 | ロケールユーティリティ（getLocaleName、getLocaleLang、getLocaleFromPathなど）を追加 |
-| 5.8.0      | 2025-08-20 | コンテンツ処理ユーティリティ（getContent、getTranslation、getIntlayerなど）を追加   |

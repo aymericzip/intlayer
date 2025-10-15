@@ -17,6 +17,10 @@ slugs:
   - packages
   - express-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # ドキュメント: `express-intlayer` の `t` 関数
@@ -467,7 +471,3 @@ app.get("/morning", (_req, res) => {
 ## 結論
 
 `t`関数はバックエンド国際化のための強力なツールです。効果的に使用することで、グローバルなユーザーにとってより包括的で使いやすいアプリケーションを作成できます。高度な使用法や詳細な設定オプションについては、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

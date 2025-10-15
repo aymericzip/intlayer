@@ -2,7 +2,7 @@
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: ファイル
-description: `file` 関数を使用して外部ファイルをコンテンツ辞書に埋め込む方法を学びます。このドキュメントでは、Intlayerがファイルコンテンツを動的にリンクおよび管理する方法を説明します。
+description: file 関数を使用して外部ファイルをコンテンツ辞書に埋め込む方法を学びます。このドキュメントでは、Intlayerがファイルコンテンツを動的にリンクおよび管理する方法を説明します。
 keywords:
   - ファイル
   - 国際化
@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # ファイルコンテンツ / Intlayerでのファイル埋め込み
@@ -226,7 +230,3 @@ Intlayerでのファイル埋め込みの設定および使用方法の詳細に
 - [翻訳コンテンツ ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)
 
 これらのリソースは、ファイル埋め込み、コンテンツ管理、およびIntlayerのさまざまなフレームワークとの統合に関するさらなる洞察を提供します。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

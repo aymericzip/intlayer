@@ -19,6 +19,10 @@ slugs:
   - packages
   - react-intlayer
   - useI18n
+history:
+  - version: 6.0.0
+    date: 2025-06-29
+    changes: `useI18n` フックのドキュメント初版作成
 ---
 
 # React 統合: `useI18n` フック ドキュメント
@@ -244,7 +248,3 @@ const ServerComponentExample = () => {
 - **Intlayer ビジュアルエディター**: より直感的なコンテンツ管理体験のために、ビジュアルエディターのドキュメントは[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご参照ください。
 
 このセクションでは、Reactアプリケーションにおける `useI18n` フックの統合について具体的に説明しており、ローカライズプロセスを簡素化し、異なるロケール間でのコンテンツの一貫性を確保します。
-
-## ドキュメント履歴
-
-- 6.0.0 - 2025-06-29: `useI18n` フックのドキュメント初版作成
