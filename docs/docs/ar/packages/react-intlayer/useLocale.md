@@ -18,6 +18,10 @@ slugs:
   - packages
   - react-intlayer
   - useLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بدء التاريخ
 ---
 
 # تكامل React: توثيق هوك `useLocale`
@@ -204,7 +208,3 @@ const LocaleSelector = () => {
 ## الخاتمة
 
 تُعدّ الخطاف `useLocale` من مكتبة `react-intlayer` أداة أساسية لإدارة اللغات في تطبيقات React الخاصة بك، حيث توفر الوظائف اللازمة لتكييف تطبيقك مع جماهير دولية متنوعة بفعالية.
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بدء التاريخ

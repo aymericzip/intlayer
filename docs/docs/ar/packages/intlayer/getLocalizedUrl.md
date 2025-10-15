@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocalizedUrl
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بدء التاريخ
 ---
 
 # التوثيق: دالة `getLocalizedUrl` في `intlayer`
@@ -241,7 +245,3 @@ getLocalizedUrl("/about", Locales.ENGLISH); // الناتج: "/about"
 ```
 
 من خلال دمج دالة `getLocalizedUrl`، يمكن للمطورين الحفاظ على هياكل روابط URL متسقة عبر لغات متعددة، مما يعزز تجربة المستخدم وتحسين محركات البحث (SEO).
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بدء التاريخ

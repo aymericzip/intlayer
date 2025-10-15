@@ -15,6 +15,10 @@ slugs:
   - environment
   - nuxt-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بدء التاريخ
 ---
 
 # ترجم Nuxt and Vue باستخدام Intlayer | التدويل (i18n)
@@ -817,7 +821,3 @@ module.exports = aboutMetaContent;
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج المحتوى الخاص بك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ---
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بدء التاريخ

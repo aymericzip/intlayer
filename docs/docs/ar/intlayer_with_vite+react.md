@@ -17,6 +17,10 @@ slugs:
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية السجل
 ---
 
 # البدء في التدويل (i18n) باستخدام Intlayer و Vite و React
@@ -1623,7 +1627,3 @@ Link.displayName = "Link";
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ---
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية السجل

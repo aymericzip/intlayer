@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getEnumeration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية التاريخ
 ---
 
 # التوثيق: دالة `getEnumeration` في `intlayer`
@@ -158,7 +162,3 @@ console.log(content); // الناتج: "لديك أقل من أربعة"
 ## ملاحظات
 
 - تُستخدم أداة `findMatchingCondition` لتحديد الشرط المناسب بناءً على الكمية المعطاة.
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية التاريخ

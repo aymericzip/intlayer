@@ -15,6 +15,10 @@ slugs:
   - environment
   - vite-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية التاريخ
 ---
 
 # ترجم Vite and Vue باستخدام Intlayer | التدويل (i18n)
@@ -1068,7 +1072,3 @@ const { myMarkdownContent } = useIntlayer("my-component");
 للتعمق أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج المحتوى الخاص بك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ---
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية التاريخ

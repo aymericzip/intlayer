@@ -16,6 +16,10 @@ slugs:
   - environment
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بدء السجل
 ---
 
 # ترجم Lynx and React mobile app باستخدام Intlayer | التدويل (i18n)
@@ -516,7 +520,3 @@ export const LocaleSwitcher: FC = () => {
 - **أوامر CLI**: استكشف [CLI الخاص بـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
 
 ---
-
-## سجل التوثيق
-
-- 5.5.10 - 2025-06-29: بدء السجل

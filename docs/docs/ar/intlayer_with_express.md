@@ -14,6 +14,10 @@ slugs:
   - doc
   - environment
   - express
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية التاريخ
 ---
 
 # ترجم Express backend باستخدام Intlayer | التدويل (i18n)
@@ -421,7 +425,3 @@ module.exports = config;
 # تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية التاريخ

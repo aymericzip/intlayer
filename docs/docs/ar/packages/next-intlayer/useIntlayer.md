@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية التاريخ
 ---
 
 # تكامل Next.js: توثيق هوك `useIntlayer`
@@ -257,7 +261,3 @@ const ServerComponentExample = () => {
 - **محرر Intlayer المرئي**: تعلّم كيفية استخدام المحرر المرئي لإدارة المحتوى بسهولة أكبر [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
 توضح هذه الوثائق استخدام الخطاف `useIntlayer` بشكل خاص داخل بيئات Next.js، مما يوفر حلاً قويًا لإدارة التعريب عبر تطبيقات Next.js الخاصة بك.
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية التاريخ
