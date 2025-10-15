@@ -54,7 +54,7 @@
     "prepublish": "turbo prepublish --filter=./packages/** --filter=./docs --filter=./apps/backend",
     "test": "turbo test --parallel --filter=./packages/** --filter=./docs --filter=./apps/backend",
     "test:pick": "bun ./scripts/script-pick.mjs --command test",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit"
+    "typecheck": "tsdown  --project ./tsconfig.json --noEmit"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.4",
@@ -65,7 +65,7 @@
     "@commitlint/types": "20.0.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
-    "@utils/tsup-config": "workspace:*",
+    "@utils/tsdown-config": "workspace:*",
     "chokidar": "3.6.0",
     "enquirer": "2.4.1",
     "fast-glob": "3.3.3",

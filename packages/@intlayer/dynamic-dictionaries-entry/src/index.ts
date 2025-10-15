@@ -19,8 +19,17 @@ import type {
   LanguageContent,
 } from 'intlayer';
 
-export const getDynamicDictionaries = (
-  configuration: IntlayerConfig = getConfiguration()
+export type DynamicDictionaries = Record<
+  IntlayerDictionaryTypesConnector['key'],
+  LanguageContent<Dictionary>
+>;
+
+type GetDynamicDictionaries = (
+  configuration?: IntlayerConfig
+) => DynamicDictionaries;
+
+export const getDynamicDictionaries: GetDynamicDictionaries = (
+  configuration = getConfiguration()
 ) => {
   const { content, build } = configuration;
 
@@ -40,8 +49,3 @@ export const getDynamicDictionaries = (
 
   return dictionaries;
 };
-
-export type DynamicDictionaries = Record<
-  IntlayerDictionaryTypesConnector['key'],
-  LanguageContent<Dictionary>
->;

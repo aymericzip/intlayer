@@ -1,0 +1,18 @@
+{
+  "name": "@utils/tsdown-config",
+  "version": "1.0.4",
+  "private": true,
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "main": "./tsdown-config.mjs",
+  "module": "./tsdown-config.mjs",
+  "scripts": {},
+  "devDependencies": {
+    "@types/node": "24.7.2",
+    "esbuild": "0.25.5",
+    "esbuild-fix-imports-plugin": "1.0.22",
+
+    "typescript": "5.9.3"
+  }
+}

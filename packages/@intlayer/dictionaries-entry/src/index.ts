@@ -14,8 +14,15 @@ import {
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 
-export const getDictionaries = (
-  configuration: IntlayerConfig = getConfiguration()
+export type Dictionaries = Record<
+  IntlayerDictionaryTypesConnector['key'],
+  IntlayerDictionaryTypesConnector
+>;
+
+type GetDictionaries = (configuration?: IntlayerConfig) => Dictionaries;
+
+export const getDictionaries: GetDictionaries = (
+  configuration = getConfiguration()
 ) => {
   const { content, build } = configuration;
 
@@ -35,8 +42,3 @@ export const getDictionaries = (
     IntlayerDictionaryTypesConnector
   >;
 };
-
-export type Dictionaries = Record<
-  IntlayerDictionaryTypesConnector['key'],
-  IntlayerDictionaryTypesConnector
->;

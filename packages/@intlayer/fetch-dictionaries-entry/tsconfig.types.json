@@ -5,6 +5,7 @@
   "exclude": ["**/*.test.*"],
   "compilerOptions": {
     "rootDir": "./src",
+    "isolatedDeclarations": true,
     "outDir": "dist/types",
     "baseUrl": "src"
   }

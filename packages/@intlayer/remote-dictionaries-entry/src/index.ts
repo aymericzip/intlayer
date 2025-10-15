@@ -10,7 +10,6 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import {
   clearModuleCache,
-  ESMxCJSRequire,
   getConfiguration,
   type IntlayerConfig,
 } from '@intlayer/config';
@@ -20,8 +19,17 @@ import type {
   LanguageContent,
 } from 'intlayer';
 
-export const getRemoteDictionaries = (
-  configuration: IntlayerConfig = getConfiguration()
+export type RemoteDictionaries = Record<
+  IntlayerDictionaryTypesConnector['key'],
+  LanguageContent<Dictionary>
+>;
+
+type GetRemoteDictionaries = (
+  configuration?: IntlayerConfig
+) => RemoteDictionaries;
+
+export const getRemoteDictionaries: GetRemoteDictionaries = (
+  configuration = getConfiguration()
 ) => {
   const { content, build } = configuration;
 
@@ -40,8 +48,3 @@ export const getRemoteDictionaries = (
 
   return dictionaries;
 };
-
-export type RemoteDictionaries = Record<
-  IntlayerDictionaryTypesConnector['key'],
-  LanguageContent<Dictionary>
->;

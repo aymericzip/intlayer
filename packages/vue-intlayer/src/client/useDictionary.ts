@@ -100,5 +100,5 @@ export const useDictionary = <T extends Dictionary>(
     return new Proxy({}, handler);
   };
 
-  return makeProxy([]) as unknown;
+  return makeProxy([]) as unknown as DeepTransformContent<T['content']>;
 };

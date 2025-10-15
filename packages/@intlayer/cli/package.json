@@ -49,10 +49,8 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "bun clean && bun build:ci",
-    "build:ci": "bun build:package && bun build:types",
-    "build:package": "tsup",
-    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
+    "build": "tsdown --config tsdown.config.ts",
+    "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist",
     "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
     "lint": "biome lint .",
@@ -70,22 +68,21 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "commander": "^14.0.1",
-    "eventsource": "^3.0.7",
-    "fast-glob": "^3.3.3"
+    "commander": "14.0.1",
+    "eventsource": "3.0.7",
+    "fast-glob": "3.3.3"
   },
   "devDependencies": {
     "@intlayer/core": "workspace:*",
-    "@types/node": "^24.7.2",
+    "@types/node": "24.7.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
-    "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.2.1",
-    "rimraf": "^6.0.1",
-    "tsc-alias": "^1.8.16",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "@utils/tsdown-config": "workspace:*",
+    "concurrently": "9.2.1",
+    "rimraf": "6.0.1",
+    "tsdown": "0.15.7",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",

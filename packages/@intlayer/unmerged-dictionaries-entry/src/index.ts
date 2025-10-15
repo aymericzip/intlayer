@@ -14,7 +14,16 @@ import {
 // @ts-ignore intlayer declared for module augmentation
 import type { Dictionary, IntlayerDictionaryTypesConnector } from 'intlayer';
 
-export const getUnmergedDictionaries = (
+export type UnmergedDictionaries = Record<
+  IntlayerDictionaryTypesConnector['key'],
+  Dictionary[]
+>;
+
+type GetUnmergedDictionaries = (
+  configuration?: IntlayerConfig
+) => UnmergedDictionaries;
+
+export const getUnmergedDictionaries: GetUnmergedDictionaries = (
   configuration: IntlayerConfig = getConfiguration()
 ) => {
   const { content, build } = configuration;
@@ -34,8 +43,3 @@ export const getUnmergedDictionaries = (
 
   return dictionaries;
 };
-
-export type UnmergedDictionaries = Record<
-  IntlayerDictionaryTypesConnector['key'],
-  Dictionary[]
->;

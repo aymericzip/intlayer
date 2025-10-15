@@ -10,7 +10,9 @@ import { Locales, type LogConfig } from '@intlayer/config';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod/v3';
 
-export const loadCLITools = async (server: McpServer) => {
+type LoadCLITools = (server: McpServer) => Promise<void>;
+
+export const loadCLITools: LoadCLITools = async (server) => {
   server.tool(
     'intlayer-build',
     'Build the dictionaries. List all content declarations files `.content.{ts,tsx,js,json,...}` to update the content callable using the `useIntlayer` hook.',

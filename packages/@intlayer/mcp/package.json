@@ -67,10 +67,8 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "bun clean && bun build:ci",
-    "build:ci": "bun build:package && bun build:types",
-    "build:package": "tsup",
-    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
+    "build": "tsdown --config tsdown.config.ts",
+    "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist",
     "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
     "lint": "biome lint .",
@@ -91,30 +89,29 @@
     "start:stdio": "npx node dist/cjs/server/stdio.cjs",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit"
+    "typecheck": "tsdown  --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
     "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/docs": "workspace:*",
-    "@modelcontextprotocol/sdk": "^1.15.0",
-    "dotenv": "^16.6.1",
-    "express": "^5.1.0",
-    "zod": "^3.25.76"
+    "@modelcontextprotocol/sdk": "1.15.0",
+    "dotenv": "16.6.1",
+    "express": "5.1.0",
+    "zod": "3.25.76"
   },
   "devDependencies": {
-    "@modelcontextprotocol/inspector": "^0.17.1",
-    "@types/express": "^5.0.3",
-    "@types/node": "^24.7.2",
+    "@modelcontextprotocol/inspector": "0.17.1",
+    "@types/express": "5.0.3",
+    "@types/node": "24.7.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
-    "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.2.1",
-    "rimraf": "^6.0.1",
-    "tsc-alias": "^1.8.16",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "@utils/tsdown-config": "workspace:*",
+    "concurrently": "9.2.1",
+    "rimraf": "6.0.1",
+    "tsdown": "0.15.7",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
   },
   "peerDependencies": {
     "@intlayer/cli": "workspace:*",

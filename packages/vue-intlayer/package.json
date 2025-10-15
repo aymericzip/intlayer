@@ -69,7 +69,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "bun clean && bun build:ci",
+    "build": "vite build",
     "build:ci": "vite build",
     "clean": "rimraf ./dist",
     "dev": "vite build --watch",
@@ -80,7 +80,7 @@
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit"
+    "typecheck": "tsdown  --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
@@ -96,14 +96,15 @@
     "@types/node": "24.7.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
-    "@utils/tsup-config": "workspace:*",
+    "@utils/tsdown-config": "workspace:*",
     "@vitejs/plugin-vue": "6.0.1",
+    "ajv": "^8.17.1",
     "concurrently": "9.2.1",
     "fast-glob": "3.3.3",
     "rimraf": "6.0.1",
     "typescript": "5.9.3",
-    "vite": "7.1.9",
-    "vite-plugin-dts": "4.5.3",
+    "vite": "7.1.10",
+    "vite-plugin-dts": "4.5.4",
     "vitest": "3.2.4"
   },
   "peerDependencies": {
@@ -113,7 +114,7 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "intlayer": "workspace:*",
-    "vue": "3.5.13"
+    "vue": ">=3.0.0"
   },
   "peerDependenciesMeta": {
     "intlayer": {

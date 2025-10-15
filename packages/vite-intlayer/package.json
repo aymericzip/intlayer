@@ -58,10 +58,8 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "bun clean && bun build:ci",
-    "build:ci": "bun build:package && bun build:types",
-    "build:package": "tsup",
-    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
+    "build": "tsdown --config tsdown.config.ts",
+    "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist",
     "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
     "lint": "biome lint .",
@@ -71,7 +69,7 @@
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit"
+    "typecheck": "tsdown  --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
     "@babel/core": "7.28.4",
@@ -86,11 +84,9 @@
     "@types/node": "24.7.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
-    "@utils/tsup-config": "workspace:*",
+    "@utils/tsdown-config": "workspace:*",
     "concurrently": "9.2.1",
     "rimraf": "6.0.1",
-    "tsc-alias": "1.8.16",
-    "tsup": "8.5.0",
     "typescript": "5.9.3",
     "vitest": "3.2.4"
   },

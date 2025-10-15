@@ -19,9 +19,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build:ci": "bun build:package && bun build:types",
-    "build:package": "tsup",
-    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
+    "build:ci": "tsdown --config tsdown.config.ts",
     "dev": "bun --watch  --hot ./src/index.ts",
     "email": "email dev --dir ./src/emails",
     "lint": "biome lint .",
@@ -43,9 +41,8 @@
     "@types/node": "24.7.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
-    "@utils/tsup-config": "workspace:*",
-    "tsc-alias": "1.8.16",
-    "tsup": "8.5.0",
+    "@utils/tsdown-config": "workspace:*",
+
     "typescript": "5.9.3"
   }
 }

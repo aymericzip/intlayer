@@ -7,7 +7,9 @@ import {
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod/v3';
 
-export const loadDocsTools = async (server: McpServer) => {
+type LoadDocsTools = (server: McpServer) => Promise<void>;
+
+export const loadDocsTools: LoadDocsTools = async (server) => {
   const docsKeys = getDocsKeys();
 
   server.tool(
