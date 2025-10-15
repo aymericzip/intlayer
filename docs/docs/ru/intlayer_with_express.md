@@ -14,6 +14,10 @@ slugs:
   - doc
   - environment
   - express
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Переведите ваш Express backend с Intlayer | Интернационализация (i18n)
@@ -448,7 +452,3 @@ module.exports = config;
 # Игнорировать файлы, сгенерированные Intlayer
 .intlayer
 ```
-
-## История документа
-
-- 5.5.10 - 2025-06-29: Инициализация истории

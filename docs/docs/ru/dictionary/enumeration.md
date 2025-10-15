@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - enumeration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Перечисление / Множественное число
@@ -239,7 +243,3 @@ module.exports = CarComponent;
 - [Документация Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_15.md)
 
 Эти ресурсы предоставляют дополнительную информацию о настройке и использовании Intlayer в различных средах и с разными фреймворками.
-
-## История документа
-
-- 5.5.10 - 2025-06-29: Инициализация истории
