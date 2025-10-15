@@ -18,6 +18,25 @@ keywords:
 slugs:
   - doc
   - formatters
+history:
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: vue फॉर्मैटर्स जोड़े
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: फॉर्मैटर्स दस्तावेज़ जोड़े
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: सूची स्वरूपक प्रलेखन जोड़ें
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: अतिरिक्त Intl उपयोगिताएँ जोड़ें (DisplayNames, Collator, PluralRules)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: लोकल उपयोगिताएँ जोड़ें (getLocaleName, getLocaleLang, getLocaleFromPath, आदि)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: सामग्री प्रबंधन उपयोगिताएँ जोड़ें (getContent, getTranslation, getIntlayer, आदि)
 ---
 
 # Intlayer फॉर्मेटर्स
@@ -595,14 +614,3 @@ import {
 ```
 
 > ये कॉम्पोज़ेबल्स इंजेक्ट किए गए `IntlayerProvider` से लोकल को ध्यान में रखेंगे
-
-## दस्तावेज़ इतिहास
-
-| संस्करण | तिथि       | परिवर्तन                                                                         |
-| ------- | ---------- | -------------------------------------------------------------------------------- |
-| 5.8.0   | 2025-08-20 | vue फॉर्मैटर्स जोड़े                                                             |
-| 5.8.0   | 2025-08-18 | फॉर्मैटर्स दस्तावेज़ जोड़े                                                       |
-| 5.8.0   | 2025-08-20 | सूची स्वरूपक प्रलेखन जोड़ें                                                      |
-| 5.8.0   | 2025-08-20 | अतिरिक्त Intl उपयोगिताएँ जोड़ें (DisplayNames, Collator, PluralRules)            |
-| 5.8.0   | 2025-08-20 | लोकल उपयोगिताएँ जोड़ें (getLocaleName, getLocaleLang, getLocaleFromPath, आदि)    |
-| 5.8.0   | 2025-08-20 | सामग्री प्रबंधन उपयोगिताएँ जोड़ें (getContent, getTranslation, getIntlayer, आदि) |

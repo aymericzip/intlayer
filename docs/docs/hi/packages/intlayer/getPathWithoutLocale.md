@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getPathWithoutLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # दस्तावेज़ीकरण: `getPathWithoutLocale` फ़ंक्शन `intlayer` में
@@ -70,7 +74,3 @@ console.log(getPathWithoutLocale("/en/dashboard")); // आउटपुट: "/das
 console.log(getPathWithoutLocale("/fr/dashboard")); // आउटपुट: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // आउटपुट: "https://example.com/dashboard"
 ```
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

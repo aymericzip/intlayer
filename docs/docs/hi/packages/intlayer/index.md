@@ -15,6 +15,10 @@ slugs:
   - doc
   - packages
   - intlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # intlayer: बहुभाषी शब्दकोश (i18n) प्रबंधित करने के लिए NPM पैकेज
@@ -493,7 +497,3 @@ Intlayer आपके एप्लिकेशन के लिए एक पै
 - [`getMultilingualUrls()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getMultilingualUrls.md)
 - [`getLocalizedUrl()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md)
 - [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPathWithoutLocale.md)
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास
