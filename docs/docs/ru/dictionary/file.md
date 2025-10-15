@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Содержимое файла / Встраивание файлов в Intlayer
@@ -219,7 +223,3 @@ const myMultilingualContent = {
 - [Документация по содержимому перевода](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md)
 
 Эти ресурсы предоставляют дополнительные сведения о встраивании файлов, управлении содержимым и интеграции Intlayer с различными фреймворками.
-
-## История документа
-
-- 5.5.10 - 2025-06-29: Инициализация истории

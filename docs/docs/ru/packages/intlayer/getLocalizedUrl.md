@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocalizedUrl
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Документация: функция `getLocalizedUrl` в `intlayer`
@@ -241,7 +245,3 @@ getLocalizedUrl("/about", Locales.ENGLISH); // Вывод: "/about"
 ```
 
 Интегрируя `getLocalizedUrl`, разработчики могут поддерживать единообразную структуру URL на нескольких языках, улучшая как пользовательский опыт, так и SEO.
-
-## История документации
-
-- 5.5.10 - 2025-06-29: Инициализация истории

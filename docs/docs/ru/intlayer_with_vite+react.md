@@ -17,6 +17,10 @@ slugs:
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Начало работы с интернационализацией (i18n) с Intlayer, Vite и React
@@ -1653,7 +1657,3 @@ Intlayer использует расширение модулей (module augmen
 Для расширения возможностей вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешний [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
 
 ---
-
-## История документа
-
-- 5.5.10 - 2025-06-29: Инициализация истории

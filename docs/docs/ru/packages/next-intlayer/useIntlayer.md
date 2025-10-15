@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Интеграция с Next.js: Документация по хуку `useIntlayer`
@@ -260,7 +264,3 @@ const ServerComponentExample = () => {
 - **Визуальный редактор Intlayer**: Узнайте, как использовать визуальный редактор для более удобного управления контентом [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
 
 В этой документации описывается использование хука `useIntlayer` специально в средах Next.js, предоставляя надежное решение для управления локализацией в ваших приложениях Next.js.
-
-## История документации
-
-- 5.5.10 - 2025-06-29: Инициализация истории
