@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleLang
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 文档：`intlayer` 中的 `getLocaleLang` 函数
@@ -77,7 +81,3 @@ getLocaleLang(Locales.FRENCH); // 输出: "fr"
 
 - **格式错误的区域设置字符串：**
   - 如果 `locale` 不符合 `language-country` 格式（例如，`Locales.ENGLISH-US`），函数会安全地返回 `'-'` 之前的部分，或者如果没有 `'-'`，则返回整个字符串。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

@@ -18,6 +18,25 @@ keywords:
 slugs:
   - doc
   - formatters
+history:
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: 添加了 vue 格式化器
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: 添加了格式化器文档
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: 添加列表格式化器文档
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: 添加额外的 Intl 工具（DisplayNames、Collator、PluralRules）
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: 添加语言环境工具（getLocaleName、getLocaleLang、getLocaleFromPath 等）
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: 添加内容处理工具（getContent、getTranslation、getIntlayer 等）
 ---
 
 # Intlayer 格式化工具
@@ -590,36 +609,3 @@ import {
 ```
 
 > 这些组合式函数将会使用注入的 `IntlayerProvider` 中的语言环境
-
-## 文档历史
-
-| 版本  | 日期       | 变更内容            |
-| ----- | ---------- | ------------------- |
-| 5.8.0 | 2025-08-20 | 添加了 vue 格式化器 |
-| 5.8.0 | 2025-08-18 | 添加了格式化器文档  |
-
-客户端组件：
-
-```ts
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "vue-intlayer/format";
-```
-
-> 这些组合式函数将会使用注入的 `IntlayerProvider` 中的语言环境
-
-## 文档历史
-
-| 版本  | 日期       | 变更内容                                                               |
-| ----- | ---------- | ---------------------------------------------------------------------- |
-| 5.8.0 | 2025-08-20 | 添加列表格式化器文档                                                   |
-| 5.8.0 | 2025-08-20 | 添加额外的 Intl 工具（DisplayNames、Collator、PluralRules）            |
-| 5.8.0 | 2025-08-20 | 添加语言环境工具（getLocaleName、getLocaleLang、getLocaleFromPath 等） |
-| 5.8.0 | 2025-08-20 | 添加内容处理工具（getContent、getTranslation、getIntlayer 等）         |

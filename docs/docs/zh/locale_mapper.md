@@ -12,6 +12,10 @@ keywords:
 slugs:
   - doc
   - locale-mapper
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: 添加了区域映射器文档
 ---
 
 # 本地化映射器
@@ -236,9 +240,3 @@ Locale Mapper 无缝集成到您的 Intlayer 配置中：
 - **URL 前缀**：遵循 `configuration.middleware.prefixDefault`
 
 这确保了您的应用程序的一致性，并减少了配置重复。
-
-## 文档历史
-
-| 版本  | 日期       | 变更内容             |
-| ----- | ---------- | -------------------- |
-| 5.7.2 | 2025-07-27 | 添加了区域映射器文档 |

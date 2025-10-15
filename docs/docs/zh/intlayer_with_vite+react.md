@@ -17,6 +17,10 @@ slugs:
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 使用 Intlayer 结合 Vite 和 React 开始国际化 (i18n)
@@ -1669,7 +1673,3 @@ Intlayer 使用模块增强（module augmentation）来利用 TypeScript 的优�
 要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
 
 ---
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

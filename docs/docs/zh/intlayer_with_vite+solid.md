@@ -15,6 +15,10 @@ slugs:
   - environment
   - vite-and-solid
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 使用Intlayer翻译您的Vite and Solid | 国际化(i18n)
@@ -279,7 +283,3 @@ module.exports = appContent;
 要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
 
 ---
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

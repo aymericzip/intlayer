@@ -14,6 +14,19 @@ keywords:
 slugs:
   - doc
   - mcp-server
+history:
+  - version: 5.5.12
+    date: 2025-07-11
+    changes: 添加 ChatGPT 的设置
+  - version: 5.5.12
+    date: 2025-07-10
+    changes: 添加 Claude Desktop 的设置
+  - version: 5.5.12
+    date: 2025-07-10
+    changes: 添加 SSE 传输和远程服务器支持
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史记录
 ---
 
 # Intlayer MCP 服务器
@@ -197,12 +210,3 @@ npx @intlayer/mcp
 ```
 
 ---
-
-## 文档历史
-
-| 版本   | 日期       | 变更内容                      |
-| ------ | ---------- | ----------------------------- |
-| 5.5.12 | 2025-07-11 | 添加 ChatGPT 的设置           |
-| 5.5.12 | 2025-07-10 | 添加 Claude Desktop 的设置    |
-| 5.5.12 | 2025-07-10 | 添加 SSE 传输和远程服务器支持 |
-| 5.5.10 | 2025-06-29 | 初始化历史记录                |

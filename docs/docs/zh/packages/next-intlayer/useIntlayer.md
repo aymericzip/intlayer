@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # Next.js 集成：`useIntlayer` Hook 文档
@@ -259,7 +263,3 @@ const ServerComponentExample = () => {
 - **Intlayer 可视化编辑器**：了解如何使用可视化编辑器以更轻松地管理内容，请点击[这里](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
 本档说明文档专门介绍了在 Next.js 环境中使用 `useIntlayer` 钩子，提供了一个强大的解决方案来管理您 Next.js 应用中的本地化内容。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useDictionary
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # React 集成：`useDictionary` 钩子文档
@@ -264,7 +268,3 @@ const ServerComponentExample = () => {
 - **本地化更新**：更新内容时，确保所有语言版本保持一致，以避免遗漏翻译。
 
 本档案重点介绍 `useDictionary` 钩子的集成，提供了一种简化的方式来管理本地化内容，无需依赖可视化编辑器功能。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

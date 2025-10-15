@@ -16,6 +16,10 @@ slugs:
   - nest
 applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
 author: AydinTheFirst
+history:
+  - version: 5.8.0
+    date: 2025-09-09
+    changes: 初始文档
 ---
 
 # 使用Intlayer翻译您的Nest backend | 国际化(i18n)
@@ -260,9 +264,3 @@ export default config;
 # 忽略 Intlayer 生成的文件
 .intlayer
 ```
-
-## 文档历史
-
-| 版本  | 日期       | 变更内容 |
-| ----- | ---------- | -------- |
-| 5.8.0 | 2025-09-09 | 初始文档 |

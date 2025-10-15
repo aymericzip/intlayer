@@ -15,6 +15,16 @@ slugs:
   - doc
   - concept
   - auto-fill
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: 添加全局配置
+  - version: 6.0.0
+    date: 2025-09-17
+    changes: 添加 `{{fileName}}` 变量
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 自动填充内容声明文件翻译
@@ -191,11 +201,3 @@ const exampleContent = {
 
 - `./index.content.json`
 - `./index.content.json`
-
-## 文档历史
-
-| 版本   | 日期       | 变更内容                   |
-| ------ | ---------- | -------------------------- |
-| 6.0.0  | 2025-09-20 | 添加全局配置               |
-| 6.0.0  | 2025-09-17 | 添加 `{{fileName}}` 变量   |
-| 5.5.10 | 2025-06-29 | 初始化历史                 |

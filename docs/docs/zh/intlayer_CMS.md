@@ -17,6 +17,16 @@ slugs:
   - concept
   - cms
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 6.0.1
+    date: 2025-09-22
+    changes: 添加实时同步文档
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: 用 `liveSync` 字段替换 `hotReload` 字段
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史记录
 ---
 
 # Intlayer 内容管理系统（CMS）文档
@@ -526,12 +536,3 @@ module.exports = config;
 - 确保项目配置已推送到 Intlayer CMS。
 
 - 可视化编辑器使用 iframe 来显示您的网站。确保您网站的内容安全策略（CSP）允许 CMS URL 作为 `frame-ancestors`（默认是 'https://intlayer.org'）。检查编辑器控制台是否有任何错误。
-
-## 文档历史
-
-| 版本   | 日期       | 变更内容                               |
-| ------ | ---------- | ------------------------------------- |
-| 6.0.1  | 2025-09-22 | 添加实时同步文档                      |
-| 6.0.0  | 2025-09-04 | 用 `liveSync` 字段替换 `hotReload` 字段 |
-| 5.5.10 | 2025-06-29 | 初始化历史记录                        |
-```

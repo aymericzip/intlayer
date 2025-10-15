@@ -18,6 +18,13 @@ slugs:
   - packages
   - intlayer
   - getLocalizedUrl
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史记录
 ---
 
 # 文档：`intlayer` 中的 `getLocalizedUrl` 函数
@@ -241,19 +248,3 @@ getLocalizedUrl("/about", Locales.ENGLISH); // 输出: "/about"
 ```
 
 通过集成 `getLocalizedUrl`，开发者可以在多语言环境中保持一致的 URL 结构，提升用户体验和 SEO 效果。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29: 初始化历史
-  getLocalizedUrl("/about", Locales.FRENCH); // 输出: "/fr/about"
-  getLocalizedUrl("/about", Locales.SPANISH); // 输出: "/es/about"
-  getLocalizedUrl("/about", Locales.ENGLISH); // 输出: "/about"
-
-```
-
-通过集成 `getLocalizedUrl`，开发者可以在多语言环境中保持一致的 URL 结构，从而提升用户体验和搜索引擎优化（SEO）。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29: 初始化历史记录
-```

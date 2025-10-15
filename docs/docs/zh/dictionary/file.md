@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史记录
 ---
 
 # 文件内容 / 在 Intlayer 中嵌入文件
@@ -228,7 +232,3 @@ const myMultilingualContent = {
 - [翻译内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)
 
 这些资源提供了关于文件嵌入、内容管理以及 Intlayer 与各种框架集成的更多见解。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史记录
