@@ -14,7 +14,7 @@ import { getIntlayer } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { type FC, useEffect, useMemo, useRef, useState } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 
 // Convert the documentation into an array of objects for Fuse.js
 // Fuse.js options
@@ -67,7 +67,6 @@ export const SearchView: FC<{
   isOpen?: boolean;
 }> = ({ onClickLink = () => {}, isOpen = false }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-
   const searchQueryParam = useSearchParams().get('search');
   const [results, setResults] = useState<DocMetadata[]>([]);
   const { search, setSearch } = useSearch({
@@ -122,9 +121,13 @@ export const SearchView: FC<{
     }
   }, [searchDocData, search]);
 
+  // Focus input when modal opens using setTimeout
+  // This waits for the browser's paint cycle and the modal animation
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (isOpen) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 50);
     }
   }, [isOpen]);
 
