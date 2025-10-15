@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴初期化
 ---
 
 # Next.js 統合: `useIntlayer` フック ドキュメント
@@ -257,7 +261,3 @@ const ServerComponentExample = () => {
 - **Intlayerビジュアルエディター**: より簡単なコンテンツ管理のためのビジュアルエディターの使い方は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご覧ください。
 
 このドキュメントは、Next.js環境内での`useIntlayer`フックの使用方法を説明しており、Next.jsアプリケーション全体でのローカリゼーション管理に強力なソリューションを提供します。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴初期化

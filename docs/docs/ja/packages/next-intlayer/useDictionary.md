@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useDictionary
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # React 統合: `useDictionary` フック ドキュメント
@@ -262,7 +266,3 @@ const ServerComponentExample = () => {
 - **ローカリゼーションの更新**: コンテンツを更新する際は、すべてのロケールが一貫していることを確認し、翻訳漏れを防いでください。
 
 このドキュメントは、`useDictionary` フックの統合に焦点を当てており、ビジュアルエディタの機能に依存せずにローカライズされたコンテンツを管理するための効率的なアプローチを提供します。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化
