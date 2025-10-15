@@ -1,3 +1,4 @@
+import type { Request, Response } from 'express';
 import rateLimit, {
   ipKeyGenerator,
   type Options,
@@ -16,14 +17,14 @@ const ipLimiterOptions: Partial<Options> = {
   standardHeaders: 'draft-8',
   legacyHeaders: false,
   // Use a custom key generator that handles proxy headers securely
-  keyGenerator: (req) => {
+  keyGenerator: (req: Request) => {
     // Normalize IPv6 to subnet using helper to avoid bypasses
     return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
   },
-  handler: (req, res) => {
+  handler: (req: Request, res: Response) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 
-    ErrorHandler.handleGenericErrorResponse(res as any, 'RATE_LIMIT_EXCEEDED', {
+    ErrorHandler.handleGenericErrorResponse(res, 'RATE_LIMIT_EXCEEDED', {
       limit: `${limit} per minute`,
       retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
       remaining,
@@ -40,15 +41,15 @@ const unauthenticatedChatBotLimiterOptions: Partial<Options> = {
   skip: (_req, res) => Boolean(res.locals.user), // authenticated? then skip
   legacyHeaders: false,
   // Use a custom key generator that handles proxy headers securely
-  keyGenerator: (req) => {
+  keyGenerator: (req: Request) => {
     // Normalize IPv6 to subnet using helper to avoid bypasses
     return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
   },
-  handler: (req, res) => {
+  handler: (req: Request, res: Response) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 
     ErrorHandler.handleGenericErrorResponse(
-      res as any,
+      res,
       'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED',
       {
         limit: `${limit} per hour`,
