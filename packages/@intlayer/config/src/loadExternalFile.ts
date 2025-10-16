@@ -11,7 +11,6 @@ import { getSandBoxContext } from './getSandboxContext';
 import type { LoadEnvFileOptions } from './loadEnvFile';
 import { logger } from './logger';
 import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
-import { logStack } from './utils/logStack';
 
 const getLoader = (extension: string): Loader => {
   switch (extension) {
@@ -142,7 +141,6 @@ export const loadExternalFile = (
   envVarOptions?: LoadEnvFileOptions,
   additionalEnvVars?: Record<string, string>
 ): any | undefined => {
-  logStack('&&&&&&& loadExternalFile');
   const fileExtension = extname(filePath);
 
   try {

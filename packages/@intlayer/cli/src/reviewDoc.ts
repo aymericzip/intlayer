@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { dirname, join, relative } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { readAsset } from 'utils:asset';
 import type { AIOptions } from '@intlayer/api'; // OAuth handled by API proxy
 import {
   formatLocale,
@@ -33,10 +33,6 @@ import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
 import { getOutputFilePath } from './utils/getOutputFilePath';
 import { mapChunksBetweenFiles } from './utils/mapChunksBetweenFiles';
 
-const isESModule = typeof import.meta.url === 'string';
-
-const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;
-
 /**
  * Translate a single file for a given locale
  */
@@ -61,9 +57,7 @@ export const reviewFile = async (
     let fileResultContent = '';
 
     // Prepare the base prompt for ChatGPT
-    const basePrompt = (
-      await readFile(join(dir, './prompts/REVIEW_PROMPT.md'), 'utf-8')
-    )
+    const basePrompt = readAsset('./prompts/REVIEW_PROMPT.md', 'utf-8')
       .replaceAll('{{localeName}}', `${formatLocale(locale, false)}`)
       .replaceAll('{{baseLocaleName}}', `${formatLocale(baseLocale, false)}`)
       .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '-')

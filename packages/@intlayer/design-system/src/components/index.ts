@@ -21,6 +21,7 @@ export * from './Form';
 export * from './Headers';
 export * from './HeightResizer';
 export * from './HideShow';
+export * from './HierarchicalDropdown';
 export * from './IDE';
 export * from './InformationTag';
 export * from './Input';

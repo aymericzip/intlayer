@@ -112,7 +112,7 @@ describe('calculateChunks', () => {
 
   it('Validates chunking with real file content', () => {
     const fileContent = readFileSync(
-      join(__dirname, './calculrateChunkTest.md'),
+      join(__dirname, './_calculateChunkTest.md'),
       'utf-8'
     );
 

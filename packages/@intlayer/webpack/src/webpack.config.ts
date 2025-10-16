@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 import { getConfiguration } from '@intlayer/config';
+// @ts-ignore - Export exists
 import type { Configuration as WebPackConfiguration } from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import { getEntries } from './getEntries';

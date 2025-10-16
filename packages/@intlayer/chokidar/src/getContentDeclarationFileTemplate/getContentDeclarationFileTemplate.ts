@@ -1,6 +1,6 @@
-import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readAsset } from 'utils:asset';
 import type { Format } from '../utils/getFormatFromExtension';
 import { kebabCaseToCamelCase } from '../utils/kebabCaseToCamelCase';
 
@@ -28,7 +28,7 @@ export const getContentDeclarationFileTemplate = async (
       break;
   }
 
-  const fileContent = await readFile(join(dirname, fileTemplate), 'utf-8');
+  const fileContent = readAsset(join(dirname, fileTemplate), 'utf-8');
   const camelCaseKey = kebabCaseToCamelCase(key);
   const nonCapitalizedCamelCaseKey =
     camelCaseKey.charAt(0).toLowerCase() + camelCaseKey.slice(1);

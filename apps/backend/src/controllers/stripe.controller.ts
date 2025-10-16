@@ -1,3 +1,4 @@
+import type { Locales } from '@intlayer/config';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as emailService from '@services/email.service';
 import * as subscriptionService from '@services/subscription.service';
@@ -6,7 +7,6 @@ import { retrievePlanInformation } from '@utils/plan';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { Request } from 'express';
 import { t } from 'express-intlayer';
-import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
 import type { Organization } from '@/types/organization.types';
 

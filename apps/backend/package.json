@@ -53,7 +53,7 @@
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist",
-    "dev": "bun --watch  --hot ./src/index.ts",
+    "dev": "tsdown --config tsdown.config.ts --watch",
     "email": "email dev --dir ./src/emails",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",

@@ -60,7 +60,7 @@
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist",
-    "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
+    "dev": "tsdown --config tsdown.config.ts --watch",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "format": "biome format . --check",
