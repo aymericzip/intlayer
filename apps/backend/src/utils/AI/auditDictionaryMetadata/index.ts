@@ -1,18 +1,9 @@
-import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { readAsset } from 'utils:asset';
 import { logger } from '@logger';
 import { extractJson } from '@utils/extractJSON';
 import { generateText } from 'ai';
 import type { Tag } from '@/types/tag.types';
 import type { AIConfig, AIOptions } from '../aiSdk';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-// Get the content of a file at the specified path
-const getFileContent = (filePath: string) => {
-  return readFileSync(join(__dirname, filePath), { encoding: 'utf-8' });
-};
 
 export type AuditOptions = {
   fileContent: string;
@@ -27,7 +18,7 @@ export type AuditFileResultData = {
 };
 
 // The prompt template to send to AI models
-const CHAT_GPT_PROMPT = getFileContent('./PROMPT.md');
+const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
 
 export const aiDefaultOptions: AIOptions = {
   // Keep default options

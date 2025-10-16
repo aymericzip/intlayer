@@ -14,7 +14,7 @@ import merge from 'deepmerge';
 import fg from 'fast-glob';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
-import nextPackageJSON from 'next/package.json';
+import nextPackageJSON from 'next/package.json' with { type: 'json' };
 import { compareVersions } from './compareVersion';
 
 // Extract from the start script if --turbo or --turbopack flag is used

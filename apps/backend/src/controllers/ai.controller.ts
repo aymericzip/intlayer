@@ -1,3 +1,4 @@
+import type { Locales } from '@intlayer/config';
 import type { KeyPath } from '@intlayer/core';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { getDictionariesByTags } from '@services/dictionary.service';
@@ -29,7 +30,6 @@ import {
   type ResponseData,
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
-import type { Locales } from 'intlayer';
 import { DiscussionModel } from '@/models/discussion.model';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { DiscussionAPI } from '@/types/discussion.types';

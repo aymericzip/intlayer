@@ -22,7 +22,7 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
 );
 
 export const LocaleSwitcher: FC = () => {
-  const { availableLocales, setLocale } = useLocale();
+  const { availableLocales, setLocale } = useLocale({ onChange: 'replace' });
   const { langButtonLabel, langSwitcherLabel, title } =
     useIntlayer('lang-switcher');
 
