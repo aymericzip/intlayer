@@ -1,5 +1,3 @@
-// @ts-nocheck intlayer declared for module augmentation
-
 /**
  * @intlayer/dynamic-dictionaries-entry is a package that only returns the dynamic dictionary entry file.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
@@ -8,19 +6,16 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import {
-  clearModuleCache,
-  getConfiguration,
-  type IntlayerConfig,
-} from '@intlayer/config';
+import { clearModuleCache, getConfiguration } from '@intlayer/config';
 import type {
   Dictionary,
-  IntlayerDictionaryTypesConnector,
+  DictionaryKeys,
+  IntlayerConfig,
   LanguageContent,
-} from 'intlayer';
+} from '@intlayer/types';
 
 export type RemoteDictionaries = Record<
-  IntlayerDictionaryTypesConnector['key'],
+  DictionaryKeys,
   LanguageContent<Dictionary>
 >;
 
@@ -35,10 +30,7 @@ export const getRemoteDictionaries: GetRemoteDictionaries = (
 
   // Always use cjs for dictionaries entry as it uses require
   const dictionariesPath = join(content.mainDir, `remote_dictionaries.cjs`);
-  let dictionaries: Record<
-    IntlayerDictionaryTypesConnector['key'],
-    LanguageContent<Dictionary>
-  > = {};
+  let dictionaries: Record<DictionaryKeys, LanguageContent<Dictionary>> = {};
 
   if (existsSync(dictionariesPath)) {
     // Clear cache for dynamic_dictionaries.cjs and all its dependencies (JSON files)

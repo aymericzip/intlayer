@@ -1,3 +1,4 @@
+import { relative } from 'node:path';
 import { formatLocale } from '@intlayer/chokidar';
 import type { Logger } from '@intlayer/config';
 import {
@@ -6,30 +7,32 @@ import {
   colorize,
   colorizeKey,
   colorizePath,
-  type Locales,
 } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import {
-  type ContentNode,
-  type Dictionary,
   getFilterTranslationsOnlyContent,
   getMissingLocalesContent,
 } from '@intlayer/core';
-import { relative } from 'path';
+import type {
+  ContentNode,
+  Dictionary,
+  Locales,
+  LocalesValues,
+} from '@intlayer/types';
 
 export type TranslationTask = {
   dictionaryKey: string;
-  sourceLocale: Locales;
-  targetLocale: Locales;
+  sourceLocale: LocalesValues;
+  targetLocale: LocalesValues;
   dictionaryPreset: string;
 };
 
 export const listTranslationsTasks = (
   targetUnmergedDictionaries: Dictionary[],
   dictionariesRecord: Record<string, Dictionary>,
-  outputLocales: Locales[],
+  outputLocales: LocalesValues[],
   mode: 'complete' | 'review',
-  baseLocale: Locales,
+  baseLocale: LocalesValues,
   maxKeyLength: number,
   appLogger: Logger
 ) => {
@@ -49,8 +52,8 @@ export const listTranslationsTasks = (
     const mainDictionaryToProcess: Dictionary =
       dictionariesRecord[dictionaryKey];
 
-    const sourceLocale: Locales =
-      (targetUnmergedDictionary.locale as Locales) ?? baseLocale;
+    const sourceLocale: LocalesValues =
+      targetUnmergedDictionary.locale ?? baseLocale;
 
     if (!mainDictionaryToProcess) {
       appLogger(
@@ -70,7 +73,7 @@ export const listTranslationsTasks = (
     }
 
     const relativePath = relative(
-      configuration.content.baseDir,
+      configuration?.content?.baseDir ?? process.cwd(),
       targetUnmergedDictionary.filePath
     );
 
@@ -87,7 +90,9 @@ export const listTranslationsTasks = (
       { dictionaryKey, keyPath: [] }
     );
 
-    if (Object.keys(sourceLocaleContent).length === 0) {
+    if (
+      Object.keys(sourceLocaleContent as Record<string, unknown>).length === 0
+    ) {
       appLogger(
         `${dictionaryPreset} No content found for dictionary in source locale ${formatLocale(sourceLocale)}. Skipping translation for this dictionary.`,
         {
@@ -102,7 +107,7 @@ export const listTranslationsTasks = (
      *
      * Skip the dictionary if there are no missing locales to translate
      */
-    let outputLocalesList: Locales[] = outputLocales;
+    let outputLocalesList: LocalesValues[] = outputLocales;
 
     if (mode === 'complete') {
       const missingLocales = getMissingLocalesContent(

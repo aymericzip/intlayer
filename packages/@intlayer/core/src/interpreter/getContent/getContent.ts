@@ -1,6 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { Locales, LocalesValues } from '@intlayer/config/client';
-import type { ContentNode } from '../../types';
+import type { ContentNode, LocalesValues } from '@intlayer/types';
 import { deepTransformNode } from './deepTransform';
 import {
   conditionPlugin,
@@ -20,13 +19,10 @@ import {
  * @param node The node to transform.
  * @param locale The locale to use if your transformers need it (e.g. for translations).
  */
-export const getContent = <
-  T extends ContentNode,
-  L extends LocalesValues = Locales,
->(
+export const getContent = <T extends ContentNode, L extends LocalesValues>(
   node: T,
   nodeProps: NodeProps,
-  locale: L = configuration?.internationalization.defaultLocale as L
+  locale: L = configuration?.internationalization?.defaultLocale as L
 ) => {
   const plugins: Plugins[] = [
     insertionPlugin,

@@ -1,18 +1,20 @@
-import type { Locales } from '@intlayer/config/client';
+import type {
+  ConditionContent,
+  EnumerationContent,
+  GenderContent,
+  InsertionContent,
+  MarkdownContent,
+  NestedContent,
+  TranslationContent,
+} from '@intlayer/core';
+import { getNodeType } from '@intlayer/core';
+import type { FileContent } from '@intlayer/core/file';
 import {
-  type ConditionContent,
   type ContentNode,
   type Dictionary,
-  type EnumerationContent,
-  type FileContent,
-  type GenderContent,
-  getNodeType,
-  type InsertionContent,
-  type MarkdownContent,
-  type NestedContent,
+  type Locales,
   NodeType,
-  type TranslationContent,
-} from '@intlayer/core';
+} from '@intlayer/types';
 import {
   Node,
   type ObjectLiteralExpression,

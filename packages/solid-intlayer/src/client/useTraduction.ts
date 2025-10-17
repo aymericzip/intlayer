@@ -1,4 +1,6 @@
-import { getTranslation, type LanguageContent } from '@intlayer/core';
+import configuration from '@intlayer/config/built';
+import { getTranslation } from '@intlayer/core';
+import type { LanguageContent } from '@intlayer/types';
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 
@@ -26,7 +28,10 @@ import { IntlayerClientContext } from './IntlayerProvider';
 export const useTranslation = <Content = string>(
   languageContent: LanguageContent<Content>
 ): Content => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
-  return getTranslation(languageContent, locale());
+  return getTranslation(
+    languageContent,
+    locale?.() ?? configuration?.internationalization.defaultLocale
+  );
 };

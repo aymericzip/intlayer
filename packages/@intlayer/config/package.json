@@ -81,7 +81,7 @@
   "scripts": {
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist .turbo",
     "dev": "tsdown --config tsdown.config.ts --watch",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
@@ -89,10 +89,11 @@
     "format:fix": "biome format --write .",
     "prepublish": "cp -f ../../../README.md ./README.md",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "typecheck": "tsdown  --project ./tsconfig.json --noEmit"
+    "typecheck": "tsc --noEmit --project tsconfig.types.json",
+    "test:watch": "vitest"
   },
   "dependencies": {
+    "@intlayer/types": "workspace:*",
     "deepmerge": "4.3.1",
     "dotenv": "16.6.1",
     "esbuild": "0.25.2"
@@ -102,17 +103,20 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "concurrently": "9.2.1",
-    "rimraf": "6.0.1",
     "tsdown": "0.15.7",
+    "rimraf": "6.0.1",
     "typescript": "5.9.3",
     "vitest": "3.2.4"
   },
   "peerDependencies": {
-    "react": ">=16.0.0"
+    "react": ">=16.0.0",
+    "intlayer": "workspace:*"
   },
   "peerDependenciesMeta": {
     "react": {
+      "optional": true
+    },
+    "intlayer": {
       "optional": true
     }
   },

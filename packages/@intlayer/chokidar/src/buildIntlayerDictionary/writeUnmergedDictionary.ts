@@ -1,7 +1,8 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath, getConfiguration, x } from '@intlayer/config';
-import { type Dictionary, orderDictionaries } from '@intlayer/core';
+import { orderDictionaries } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/types';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';

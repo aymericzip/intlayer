@@ -51,7 +51,7 @@
   "scripts": {
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist .turbo",
     "dev": "tsdown --config tsdown.config.ts --watch",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
@@ -59,12 +59,14 @@
     "format:fix": "biome format --write .",
     "prepublish": "cp -f ../../../README.md ./README.md",
     "test": "vitest run",
+    "typecheck": "tsc --noEmit --project tsconfig.types.json",
     "test:watch": "vitest"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
@@ -78,9 +80,8 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "concurrently": "9.2.1",
-    "rimraf": "6.0.1",
     "tsdown": "0.15.7",
+    "rimraf": "6.0.1",
     "typescript": "5.9.3",
     "vitest": "3.2.4"
   },
@@ -88,6 +89,7 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*"

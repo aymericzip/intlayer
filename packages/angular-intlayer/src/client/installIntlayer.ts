@@ -1,6 +1,6 @@
 import { Injectable, InjectionToken, type Signal, signal } from '@angular/core';
 import configuration from '@intlayer/config/built';
-import type { Locales, LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/types';
 
 export const INTLAYER_TOKEN = new InjectionToken<IntlayerProvider>('intlayer');
 
@@ -13,14 +13,14 @@ let instance: IntlayerProvider | null = null;
   providedIn: 'root',
 })
 export class IntlayerProvider {
-  private _locale = signal<Locales>(
-    configuration.internationalization?.defaultLocale as Locales
+  private _locale = signal<LocalesValues>(
+    configuration.internationalization?.defaultLocale as LocalesValues
   );
 
-  readonly locale: Signal<Locales> = this._locale.asReadonly();
+  readonly locale: Signal<LocalesValues> = this._locale.asReadonly();
 
   setLocale = (locale: LocalesValues) => {
-    this._locale.set(locale as Locales);
+    this._locale.set(locale);
   };
 }
 

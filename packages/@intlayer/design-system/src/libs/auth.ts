@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/types';
 import { createAuthClient } from 'better-auth/client';
 
 type AuthClient = ReturnType<typeof createAuthClient>;
@@ -34,7 +34,7 @@ export interface AuthAPI {
 
 export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
   const backendURL =
-    intlayerConfig?.editor?.backendURL ?? configuration.editor?.backendURL;
+    intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
 
   if (!backendURL) {
     throw new Error(

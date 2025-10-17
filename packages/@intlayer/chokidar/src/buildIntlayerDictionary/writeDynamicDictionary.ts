@@ -3,10 +3,10 @@ import { relative, resolve } from 'node:path';
 import {
   colorizePath,
   getConfiguration,
-  type Locales,
   normalizePath,
 } from '@intlayer/config';
-import { type Dictionary, getPerLocaleDictionary } from '@intlayer/core';
+import { getPerLocaleDictionary } from '@intlayer/core';
+import type { Dictionary, Locales } from '@intlayer/types';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
@@ -30,7 +30,7 @@ export type LocalizedDictionaryOutput = Record<
  * This function generates the content of the dictionary list file
  */
 export const generateDictionaryEntryPoint = (
-  localedDictionariesPathsRecord: LocalizedDictionaryResult,
+  localizedDictionariesPathsRecord: LocalizedDictionaryResult,
   format: 'cjs' | 'esm' = 'esm',
   configuration = getConfiguration()
 ): string => {
@@ -40,7 +40,7 @@ export const generateDictionaryEntryPoint = (
 
   // Format Dictionary Map - map locales to functions
   const formattedDictionaryMap: string = Object.entries(
-    localedDictionariesPathsRecord
+    localizedDictionariesPathsRecord
   )
     // The following filter/sort preserve determinism of the generated map
     // when files are built in parallel or across different Node versions.
@@ -107,6 +107,7 @@ export const writeDynamicDictionary = async (
       const localizedDictionariesPathsRecord: LocalizedDictionaryResult = {};
 
       await parallelize(locales, async (locale) => {
+        // @ts-expect-error Type instantiation is excessively deep and possibly infinite.ts
         const localizedDictionary = getPerLocaleDictionary(
           dictionaryEntry.dictionary,
           locale,
@@ -123,7 +124,6 @@ export const writeDynamicDictionary = async (
           }
         );
 
-        // @ts-ignore Type instantiation is excessively deep and possibly infinite
         localizedDictionariesPathsRecord[locale] = {
           dictionaryPath: resultFilePath,
           dictionary: localizedDictionary,

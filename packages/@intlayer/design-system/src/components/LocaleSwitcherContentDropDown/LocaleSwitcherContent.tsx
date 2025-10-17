@@ -1,7 +1,7 @@
 'use client';
 
-import { Locales, type LocalesValues } from '@intlayer/config/client';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
+import { Locales, type LocalesValues } from '@intlayer/types';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { Check, Globe, MoveVertical } from 'lucide-react';
 import { type FC, useCallback, useMemo, useRef, useState } from 'react';

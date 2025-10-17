@@ -1,4 +1,4 @@
-import type { Locales } from '@intlayer/config';
+import type { Locales } from '@intlayer/types';
 import { logger } from '@logger';
 import * as emailService from '@services/email.service';
 import { getOrganizationById } from '@services/organization.service';

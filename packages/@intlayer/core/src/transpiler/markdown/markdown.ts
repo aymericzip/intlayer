@@ -1,9 +1,5 @@
+import { formatNodeType, NodeType, type TypedNodeModel } from '@intlayer/types';
 import { getContent } from '../../interpreter/getContent/getContent';
-import {
-  formatNodeType,
-  NodeType,
-  type TypedNodeModel,
-} from '../../types/index';
 import { getMarkdownMetadata } from './getMarkdownMetadata';
 
 export type MarkdownContentConstructor<
@@ -44,7 +40,6 @@ const markdown = <Content = unknown>(content: Content): MarkdownContent => {
   const metadata = async () => {
     const awaitedContent = await awaitContent(content);
 
-    // @ts-ignore Type instantiation is excessively deep and possibly infinite.
     const flatContent = getContent(awaitedContent, {
       dictionaryKey: '',
       keyPath: [],

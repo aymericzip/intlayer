@@ -2,7 +2,8 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { AIOptions } from '@intlayer/api';
 import { type ListGitFilesOptions, translateDoc } from '@intlayer/cli';
-import { getConfiguration, Locales } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config';
+import { Locales } from '@intlayer/types';
 import { defaultLocale, locales } from '../intlayer.config';
 
 // Fill the list of files to audit if you want to audit only a subset of the files

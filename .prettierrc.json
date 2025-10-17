@@ -1,5 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/prettierrc",
+  "plugins": ["prettier-plugin-packagejson"],
+  "includes": ["**/package.json", "**/*.md"],
   "singleQuote": true,
   "semi": true,
   "tabWidth": 2,
@@ -14,6 +16,12 @@
       "options": {
         "singleQuote": false,
         "quoteProps": "preserve"
+      }
+    },
+    {
+      "files": "package.json",
+      "options": {
+        "plugins": ["prettier-plugin-packagejson"]
       }
     }
   ]

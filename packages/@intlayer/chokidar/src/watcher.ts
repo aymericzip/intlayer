@@ -3,8 +3,8 @@ import {
   type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
-  type IntlayerConfig,
 } from '@intlayer/config';
+import type { IntlayerConfig } from '@intlayer/types';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions'. */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';

@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/config/client';
+import { Locales } from '@intlayer/types';
 
 export const localeList: Locales[] = [
   Locales.AFRIKAANS,

@@ -2,8 +2,8 @@
 
 import { getOAuthAPI } from '@intlayer/api';
 import defaultConfiguration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/config/client';
 import { useConfiguration } from '@intlayer/editor-react';
+import type { IntlayerConfig } from '@intlayer/types';
 import { useQuery } from '@tanstack/react-query';
 
 export const useOAuth2 = (intlayerConfiguration?: IntlayerConfig) => {

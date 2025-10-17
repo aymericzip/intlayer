@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/types';
 import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
 import type { BundledLanguage } from 'shiki';
 import { cn } from '../../utils/cn';

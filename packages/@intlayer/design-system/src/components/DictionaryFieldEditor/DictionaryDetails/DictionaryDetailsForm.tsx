@@ -1,7 +1,7 @@
 'use client';
 
-import type { Dictionary, LocalDictionaryId } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
 import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';

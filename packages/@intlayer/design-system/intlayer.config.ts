@@ -1,4 +1,4 @@
-import { type IntlayerConfig, Locales } from 'intlayer';
+import { type CustomIntlayerConfig, Locales } from '@intlayer/types';
 
 export const locales: Locales[] = [
   Locales.ENGLISH,
@@ -18,7 +18,7 @@ export const locales: Locales[] = [
 ];
 export const defaultLocale: Locales = Locales.ENGLISH;
 
-const config: IntlayerConfig = {
+const config: CustomIntlayerConfig = {
   internationalization: {
     locales,
     defaultLocale,

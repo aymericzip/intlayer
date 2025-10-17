@@ -1,19 +1,20 @@
 import configuration from '@intlayer/config/built';
 import {
-  type ContentNode,
-  type Dictionary,
   getContentNodeByKeyPath,
   getEmptyNode,
   getNodeType,
   isSameKeyPath,
-  type KeyPath,
-  type LocalDictionaryId,
-  NodeType,
 } from '@intlayer/core';
 import {
   useEditedContentActions,
   useFocusDictionary,
 } from '@intlayer/editor-react';
+import {
+  type KeyPath,
+  type LocalDictionaryId,
+  NodeType,
+} from '@intlayer/types';
+import type { ContentNode, Dictionary } from 'intlayer';
 import { ChevronRight, Plus } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

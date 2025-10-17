@@ -1,5 +1,4 @@
-import type { Locales } from '@intlayer/config';
-import type { KeyPath } from '@intlayer/core';
+import type { KeyPath, Locales } from '@intlayer/types';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';

@@ -1,5 +1,8 @@
-import type { LocalesValues } from '@intlayer/config/client';
-import { type ContentNode, NodeType } from '../types';
+import {
+  type ContentNode,
+  type LocalesValues,
+  NodeType,
+} from '@intlayer/types';
 
 export const getDefaultNode = (
   nodeType: NodeType,

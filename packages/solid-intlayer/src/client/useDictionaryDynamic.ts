@@ -1,10 +1,10 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
 import type {
   Dictionary,
   DictionaryKeys,
   LanguageContent,
-} from '@intlayer/core';
+  LocalesValues,
+} from '@intlayer/types';
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';
@@ -23,13 +23,15 @@ export const useDictionaryDynamic = <
   key: K,
   locale?: LocalesValues
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext);
+  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
   const defaultLocale = configuration?.internationalization.defaultLocale;
-  const localeTarget = locale ?? currentLocale() ?? defaultLocale;
+  const localeTarget = locale ?? currentLocale?.() ?? defaultLocale;
 
   const dictionary = useLoadDynamic<T>(
     `${String(key)}.${localeTarget}`,
-    (dictionaryPromise as any)[localeTarget]?.()
+    (dictionaryPromise as any)[
+      localeTarget as keyof typeof dictionaryPromise
+    ]?.()
   ) as T;
 
   return useDictionary(dictionary, localeTarget);

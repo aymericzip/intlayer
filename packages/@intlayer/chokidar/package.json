@@ -59,7 +59,7 @@
   "scripts": {
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist .turbo",
     "dev": "tsdown --config tsdown.config.ts --watch",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
@@ -67,6 +67,7 @@
     "format:fix": "biome format --write .",
     "prepublish": "cp -f ../../../README.md ./README.md",
     "test": "vitest run",
+    "typecheck": "tsc --noEmit --project tsconfig.types.json",
     "test:watch": "vitest"
   },
   "dependencies": {
@@ -75,6 +76,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/remote-dictionaries-entry": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "chokidar": "3.6.0",
     "concurrently": "9.2.1",
@@ -86,21 +88,21 @@
     "ts-morph": "27.0.0"
   },
   "devDependencies": {
-    "@changesets/cli": "2.29.7",
     "@types/crypto-js": "4.2.2",
     "@types/deep-equal": "1.0.4",
     "@types/node": "24.7.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "rimraf": "6.0.1",
     "tsdown": "0.15.7",
+    "rimraf": "6.0.1",
     "typescript": "5.9.3",
     "vitest": "3.2.4"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/remote-dictionaries-entry": "workspace:*",

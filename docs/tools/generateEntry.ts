@@ -138,7 +138,7 @@ const buildEntryContent = (
     `import { readFile } from 'node:fs/promises';`,
     `import { dirname, join } from 'node:path';`,
     `import { fileURLToPath } from 'node:url';`,
-    `import type { LocalesValues } from '@intlayer/config';`,
+    `import type { LocalesValues } from '@intlayer/types';`,
     ``,
     `const isESModule = typeof import.meta.url === 'string';`,
     `const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;`,

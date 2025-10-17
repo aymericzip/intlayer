@@ -1,7 +1,7 @@
 'use client';
 
-import { Locales } from '@intlayer/config/client';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
+import { Locales } from '@intlayer/types';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useCallback, useMemo, useRef, useState } from 'react';
@@ -38,7 +38,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   panelProps,
 }) => {
   let localeName = 'Select a locale';
-  const { switchTo, searchInput, localeSwitcherLabel, languageListLabel } =
+  const { switchTo, searchInput, languageListLabel } =
     useIntlayer('locale-switcher');
   const inputRef = useRef<HTMLInputElement>(null);
 

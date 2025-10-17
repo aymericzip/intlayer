@@ -2,6 +2,7 @@ import { resolve } from 'node:path';
 import { getAlias, getConfiguration } from '@intlayer/config';
 import { IntlayerPlugin } from '@intlayer/webpack'; // adjust path if needed
 import merge from 'deepmerge';
+/** @ts-ignore Configuration type exist but raise error */
 import type { Configuration as WebpackConfig } from 'webpack';
 
 export const mergeConfig = (baseConfig: WebpackConfig): WebpackConfig => {

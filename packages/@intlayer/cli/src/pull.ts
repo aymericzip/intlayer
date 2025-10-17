@@ -13,7 +13,7 @@ import {
   getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/types';
 import { PullLogger, type PullStatus } from './push/pullLog';
 import { checkCMSAuth } from './utils/checkAccess';
 

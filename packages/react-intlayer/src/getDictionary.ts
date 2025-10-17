@@ -1,9 +1,8 @@
-import type { Locales, LocalesValues } from '@intlayer/config/client';
 import {
-  type Dictionary,
   getDictionary as getDictionaryCore,
   type Plugins,
 } from '@intlayer/core';
+import type { Dictionary, Locales, LocalesValues } from '@intlayer/types';
 import {
   type DeepTransformContent,
   intlayerNodePlugins,

@@ -3,7 +3,7 @@ import {
   type LanguageContent,
   NodeType,
   type TypedNodeModel,
-} from '../../types/index';
+} from '@intlayer/types';
 
 export type TranslationContent<
   Content = unknown,

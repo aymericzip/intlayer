@@ -71,7 +71,7 @@
   "scripts": {
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist .turbo",
     "dev": "tsdown --config tsdown.config.ts --watch",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
@@ -79,12 +79,13 @@
     "format:fix": "biome format --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "typecheck": "tsdown  --project ./tsconfig.json --noEmit"
+    "typecheck": "tsc --noEmit --project tsconfig.types.json",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*"
   },
   "devDependencies": {
@@ -93,7 +94,6 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "concurrently": "9.2.1",
     "expo": "54.0.12",
     "metro-resolver": "0.82.0",
     "rimraf": "6.0.1",
@@ -104,6 +104,7 @@
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@lynx-js/rspeedy": ">=0.5.0",
     "@rsbuild/core": ">=1.2.0"

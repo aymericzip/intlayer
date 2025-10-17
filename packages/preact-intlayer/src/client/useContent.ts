@@ -1,4 +1,4 @@
-import type { LanguageContent } from '@intlayer/core';
+import type { LanguageContent } from '@intlayer/types';
 import { useLocaleBase } from './useLocaleBase';
 import { useTranslation } from './useTraduction';
 

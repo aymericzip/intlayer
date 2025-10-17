@@ -1,4 +1,4 @@
-import type { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/types';
 
 export const applyMask = (full: Dictionary, mask: any): Dictionary => {
   // the mask "true" → we don't filter

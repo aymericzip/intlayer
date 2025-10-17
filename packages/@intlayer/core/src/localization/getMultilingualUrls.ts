@@ -1,6 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
-import type { IConfigLocales } from '../types/intlayer';
+import type { LanguageContent, LocalesValues } from '@intlayer/types';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 import { getPathWithoutLocale } from './getPathWithoutLocale';
 
@@ -27,11 +26,12 @@ import { getPathWithoutLocale } from './getPathWithoutLocale';
  */
 export const getMultilingualUrls = (
   url: string,
-  locales: LocalesValues[] = configuration.internationalization.locales,
-  defaultLocale: LocalesValues = configuration.internationalization
-    .defaultLocale,
-  prefixDefault: boolean = configuration.middleware.prefixDefault
-): IConfigLocales<string> => {
+  locales: LocalesValues[] | undefined = configuration?.internationalization
+    ?.locales,
+  defaultLocale: LocalesValues | undefined = configuration?.internationalization
+    ?.defaultLocale,
+  prefixDefault: boolean | undefined = configuration?.middleware?.prefixDefault
+): LanguageContent<string> => {
   // Remove any existing locale segment from the URL
   const urlWithoutLocale = getPathWithoutLocale(url, locales);
 
@@ -58,10 +58,10 @@ export const getMultilingualUrls = (
     : '';
 
   // Generate multilingual URLs by iterating over each locale
-  const multilingualUrls = locales.reduce<IConfigLocales<string>>(
+  const multilingualUrls = (locales ?? []).reduce<LanguageContent<string>>(
     (acc, locale) => {
       // Determine if the current locale is the default locale
-      const isDefaultLocale = locale.toString() === defaultLocale.toString();
+      const isDefaultLocale = locale?.toString() === defaultLocale?.toString();
 
       // Decide whether to prefix the default locale based on `prefixDefault`
       const shouldPrefix = prefixDefault || !isDefaultLocale;
@@ -83,7 +83,7 @@ export const getMultilingualUrls = (
 
       return acc;
     },
-    {} as IConfigLocales<string> // Initialize an empty object
+    {} as LanguageContent<string>
   );
 
   return multilingualUrls;

@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/config';
+import type { LocalesValues } from '@intlayer/types';
 import {
   defaultLocale,
   type FileMetadata,

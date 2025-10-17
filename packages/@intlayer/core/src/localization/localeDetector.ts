@@ -1,4 +1,4 @@
-import type { Locales } from '@intlayer/config/client';
+import type { Locales } from '@intlayer/types';
 import { localeResolver } from './localeResolver';
 
 /**

@@ -1,9 +1,6 @@
-import {
-  buildConfigurationFields,
-  type CustomIntlayerConfig,
-} from '@intlayer/config';
+import { buildConfigurationFields } from '@intlayer/config';
+import type { CustomIntlayerConfig, Dictionary } from '@intlayer/types';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { Dictionary } from '../types/dictionary';
 import { orderDictionaries } from './orderDictionaries';
 
 // Mock the configuration

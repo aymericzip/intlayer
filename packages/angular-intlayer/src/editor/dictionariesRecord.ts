@@ -1,7 +1,7 @@
 import { effect, type Injector, type Signal, signal } from '@angular/core';
-import type { Dictionary } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { MessageKey } from '@intlayer/editor';
+import type { Dictionary } from '@intlayer/types';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';
 

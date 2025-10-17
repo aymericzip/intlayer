@@ -1,5 +1,5 @@
-import type { Locales } from '@intlayer/config/client';
-import { getContent, type KeyPath } from '@intlayer/core';
+import { getContent } from '@intlayer/core';
+import type { KeyPath, Locales } from '@intlayer/types';
 import type { Component } from 'solid-js';
 import { useEditedContentActions } from './contexts';
 

@@ -29,7 +29,6 @@
       "persistent": true
     },
     "test": {
-      "dependsOn": ["^build"],
       "outputs": []
     },
     "lint": {
@@ -37,6 +36,9 @@
     },
     "clean": {
       "cache": false
+    },
+    "typecheck": {
+      "outputs": []
     }
   }
 }

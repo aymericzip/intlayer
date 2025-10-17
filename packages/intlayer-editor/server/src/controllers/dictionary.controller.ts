@@ -3,7 +3,7 @@ import {
   writeContentDeclaration as writeContentDeclarationEditor,
 } from '@intlayer/chokidar';
 import { getConfiguration } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/types';
 import {
   getUnmergedDictionaries,
   type UnmergedDictionaries,

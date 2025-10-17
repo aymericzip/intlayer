@@ -1,5 +1,5 @@
-import type { KeyPath } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import type { KeyPath } from '@intlayer/types';
 import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';

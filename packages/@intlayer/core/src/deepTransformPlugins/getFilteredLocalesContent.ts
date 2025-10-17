@@ -1,23 +1,26 @@
-import type { Locales, LocalesValues } from '@intlayer/config/client';
+import {
+  type ContentNode,
+  type LocalesValues,
+  NodeType,
+} from '@intlayer/types';
 import {
   deepTransformNode,
   type NodeProps,
   type Plugins,
 } from '../interpreter';
-import { type ContentNode, NodeType } from '../types';
 
-const filterTranlationsPlugin = (
+const filterTranslationsPlugin = (
   locales: LocalesValues[] | LocalesValues
 ): Plugins => ({
   id: 'filter-translations-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Translation,
   transform: (node, props, deepTransformNode) => {
-    const translationMap = node.translation as Record<Locales, string>;
+    const translationMap = node.translation as Record<LocalesValues, string>;
 
     const filteredTranslationMap = Object.fromEntries(
       Object.entries(translationMap).filter(([key]) =>
-        locales.includes(key as Locales)
+        locales.includes(key as LocalesValues)
       )
     );
 
@@ -40,7 +43,7 @@ export const getFilteredLocalesContent = (
   nodeProps: NodeProps
 ) => {
   const plugins: Plugins[] = [
-    filterTranlationsPlugin(locale),
+    filterTranslationsPlugin(locale),
     ...(nodeProps.plugins ?? []),
   ];
 

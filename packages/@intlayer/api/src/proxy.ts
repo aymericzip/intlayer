@@ -1,4 +1,4 @@
-import type { IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/types';
 import type { FetcherOptions } from './fetcher';
 import { getIntlayerAPI } from './getIntlayerAPI';
 import type { IntlayerAPI } from './getIntlayerAPI/index';

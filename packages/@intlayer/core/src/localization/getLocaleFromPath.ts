@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { Locales } from '@intlayer/config/client';
+import { Locales } from '@intlayer/types';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 
 /**
@@ -23,7 +23,11 @@ import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
  */
 export const getLocaleFromPath = (inputUrl: string): Locales => {
   // Define supported locales array
-  const { defaultLocale, locales } = configuration.internationalization;
+  const { defaultLocale, locales } = configuration?.internationalization ?? {};
+
+  if (!defaultLocale || !locales) {
+    return Locales.ENGLISH;
+  }
 
   // Determine if the original URL is absolute (includes protocol)
   const isAbsoluteUrl = checkIsURLAbsolute(inputUrl);

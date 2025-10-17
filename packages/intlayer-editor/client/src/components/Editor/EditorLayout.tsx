@@ -1,7 +1,5 @@
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
-import type { Dictionary } from '@intlayer/core';
 import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
 import {
   type FileContent,
@@ -9,6 +7,7 @@ import {
   useCrossFrameState,
   useDictionariesRecordActions,
 } from '@intlayer/editor-react';
+import type { Dictionary, Locales } from '@intlayer/types';
 import { type FC, type PropsWithChildren, useEffect } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
 import { DictionaryListDrawer } from './DictionaryListDrawer';

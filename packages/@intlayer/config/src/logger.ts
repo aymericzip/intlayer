@@ -1,5 +1,4 @@
-import type { CustomIntlayerConfig } from './types/config';
-import type { Locales } from './types/locales';
+import type { CustomIntlayerConfig, Locales } from '@intlayer/types';
 
 export type Details = {
   isVerbose?: boolean;

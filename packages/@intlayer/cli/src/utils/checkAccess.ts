@@ -1,7 +1,8 @@
 import type { AIOptions } from '@intlayer/api';
 import { getIntlayerAPIProxy } from '@intlayer/api';
 import { extractErrorMessage } from '@intlayer/chokidar';
-import { getAppLogger, type IntlayerConfig } from '@intlayer/config';
+import { getAppLogger } from '@intlayer/config';
+import type { IntlayerConfig } from '@intlayer/types';
 
 export const checkCMSAuth = async (
   configuration: IntlayerConfig

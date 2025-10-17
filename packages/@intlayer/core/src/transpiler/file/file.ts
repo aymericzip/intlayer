@@ -2,11 +2,7 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { relative, resolve } from 'node:path';
 import { colorizePath, getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
-import {
-  formatNodeType,
-  NodeType,
-  type TypedNodeModel,
-} from '../../types/index';
+import { formatNodeType, NodeType, type TypedNodeModel } from '@intlayer/types';
 
 export type FileContentConstructor<T extends Record<string, any> = {}> =
   TypedNodeModel<NodeType.File, string, T>;
@@ -23,6 +19,14 @@ export const fileContent = (
   path: string,
   callerDir: string = process.cwd()
 ): FileContent => {
+  // Just a fix to avoid errors when the configuration is not loaded yet
+  if (!configuration?.content?.baseDir) {
+    return formatNodeType(NodeType.File, path, {
+      content: '',
+      fixedPath: relative(process.cwd(), ''),
+    });
+  }
+
   const isAbsolutePath = path.startsWith('/');
   const isRelativePath = path.startsWith('./') || path.startsWith('../');
   const appLogger = getAppLogger(configuration);

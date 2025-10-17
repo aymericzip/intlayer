@@ -1,6 +1,7 @@
 'use client';
 
-import { type ContentNode, getNodeType, NodeType } from '@intlayer/core';
+import { getNodeType } from '@intlayer/core';
+import { type ContentNode, NodeType } from '@intlayer/types';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Select } from '../Select';

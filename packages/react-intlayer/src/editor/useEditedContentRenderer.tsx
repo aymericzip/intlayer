@@ -1,8 +1,8 @@
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
-import { getContent, type KeyPath } from '@intlayer/core';
+import { getContent } from '@intlayer/core';
 import { useEditedContentActions } from '@intlayer/editor-react';
+import type { KeyPath, Locales } from '@intlayer/types';
 import type { FC } from 'react';
 import { ContentSelectorRenderer } from './ContentSelectorWrapper';
 

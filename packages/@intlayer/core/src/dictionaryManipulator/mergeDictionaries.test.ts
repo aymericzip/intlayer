@@ -1,6 +1,6 @@
+import type { Dictionary } from '@intlayer/types';
 import { describe, expect, it } from 'vitest';
-import { t } from '../transpiler/translation';
-import type { Dictionary } from '../types/dictionary';
+import { t } from '../transpiler';
 import { mergeDictionaries } from './mergeDictionaries';
 
 describe('mergeDictionaries', () => {

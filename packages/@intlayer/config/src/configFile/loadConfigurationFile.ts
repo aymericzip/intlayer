@@ -1,6 +1,6 @@
+import type { CustomIntlayerConfig } from '@intlayer/types';
 import type { LoadEnvFileOptions } from '../loadEnvFile';
 import { loadExternalFile } from '../loadExternalFile';
-import type { CustomIntlayerConfig } from '../types/config';
 import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 
 const filterValidConfiguration = (

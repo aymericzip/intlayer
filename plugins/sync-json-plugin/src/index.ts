@@ -1,18 +1,14 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { parallelize } from '@intlayer/chokidar';
-import {
-  ESMxCJSRequire,
-  type IntlayerConfig,
-  type Locales,
-  type LocalesValues,
-  type Plugin,
-} from '@intlayer/config';
 import type {
   ContentNode,
   Dictionary,
+  IntlayerConfig,
   LocalDictionaryId,
-} from '@intlayer/core';
+  Locales,
+  LocalesValues,
+} from '@intlayer/types';
 import fg from 'fast-glob';
 
 type JSONContent = Record<string, any>;

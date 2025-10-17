@@ -71,7 +71,7 @@
   "scripts": {
     "build": "vite build",
     "build:ci": "vite build",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist .turbo",
     "dev": "vite build --watch",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
@@ -80,11 +80,12 @@
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsdown  --project ./tsconfig.json --noEmit"
+    "typecheck": "vue-tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
@@ -97,6 +98,7 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
+    "tsdown": "0.15.7",
     "@vitejs/plugin-vue": "6.0.1",
     "ajv": "^8.17.1",
     "concurrently": "9.2.1",
@@ -105,11 +107,13 @@
     "typescript": "5.9.3",
     "vite": "7.1.10",
     "vite-plugin-dts": "4.5.4",
-    "vitest": "3.2.4"
+    "vitest": "3.2.4",
+    "vue-tsc": "3.1.1"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",

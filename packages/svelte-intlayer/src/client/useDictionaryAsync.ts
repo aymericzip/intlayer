@@ -1,5 +1,8 @@
-import type { LocalesValues } from '@intlayer/config/client';
-import type { Dictionary, LanguageContent } from '@intlayer/core';
+import type {
+  Dictionary,
+  LanguageContent,
+  LocalesValues,
+} from '@intlayer/types';
 import { derived, type Readable, writable } from 'svelte/store';
 import { getIntlayerContext } from './intlayerContext';
 import { intlayerStore } from './intlayerStore';

@@ -1,14 +1,6 @@
-import {
-  cond,
-  type Dictionary,
-  enu,
-  gender,
-  insert,
-  md,
-  nest,
-  t,
-} from '@intlayer/core';
+import { cond, enu, gender, insert, md, nest, t } from '@intlayer/core';
 import { fileContent as file } from '@intlayer/core/file';
+import type { Dictionary } from '@intlayer/types';
 
 const content: Dictionary = {
   key: 'test',

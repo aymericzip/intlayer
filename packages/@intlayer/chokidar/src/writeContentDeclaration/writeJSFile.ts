@@ -2,13 +2,8 @@ import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { extname } from 'node:path';
-import {
-  getAppLogger,
-  type IntlayerConfig,
-  type Locales,
-  logger,
-} from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
+import { getAppLogger, logger } from '@intlayer/config';
+import type { Dictionary, IntlayerConfig, Locales } from '@intlayer/types';
 import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 import {
   type Extension,

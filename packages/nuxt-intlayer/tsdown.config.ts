@@ -1,4 +1,3 @@
-import { builtinModules } from 'node:module';
 import { getOptions, isExternal } from '@utils/tsdown-config';
 import { defineConfig } from 'tsdown';
 

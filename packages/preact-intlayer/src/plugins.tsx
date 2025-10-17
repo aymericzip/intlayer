@@ -2,11 +2,11 @@ import {
   type DeepTransformContent as DeepTransformContentCore,
   getMarkdownMetadata,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
-  type KeyPath,
   type MarkdownContent,
-  NodeType,
   type Plugins,
 } from '@intlayer/core';
+import type { KeyPath } from '@intlayer/types';
+import { NodeType } from '@intlayer/types';
 import type { ComponentChildren } from 'preact';
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';

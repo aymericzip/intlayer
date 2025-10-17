@@ -1,6 +1,6 @@
+import type { Dictionary } from '@intlayer/types';
 import { describe, expect, it } from 'vitest';
-import { t } from '../transpiler/translation/translation';
-import type { Dictionary } from '../types';
+import { t } from '../transpiler';
 import { getPerLocaleDictionary } from './getLocalizedContent';
 
 describe('getPerLocaleDictionary', () => {

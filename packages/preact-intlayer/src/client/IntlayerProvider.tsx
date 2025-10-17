@@ -1,9 +1,9 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
 import { localeResolver } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import type { LocalesValues } from '@intlayer/types';
 import {
   type ComponentChild,
   createContext,

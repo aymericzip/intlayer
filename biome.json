@@ -8,7 +8,8 @@
   "files": {
     "ignoreUnknown": false,
     "includes": [
-      "**/*.{js,jsx,ts,tsx,mjs,cts,mts,json,md,yml,yaml,css,html,vue,svelte,solid,astro}"
+      "**/*.{js,jsx,ts,tsx,mjs,cts,mts,md,yml,yaml,css,html,vue,svelte,solid,astro,json}",
+      "!**/package.json"
     ]
   },
   "formatter": {

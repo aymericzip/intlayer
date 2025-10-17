@@ -1,8 +1,9 @@
 import { computed, inject } from '@angular/core';
-import type { LocalesValues } from '@intlayer/config/client';
-import type { DictionaryKeys } from '@intlayer/core';
-// @ts-ignore intlayer declared for module augmentation
-import type { IntlayerDictionaryTypesConnector } from 'intlayer';
+import type {
+  DictionaryKeys,
+  DictionaryRegistryContent,
+  LocalesValues,
+} from '@intlayer/types';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
@@ -15,19 +16,18 @@ export const isUpdatableNode = (
   typeof val === 'object' &&
   typeof (val as any).__update === 'function';
 
-export const useIntlayer = <T extends DictionaryKeys>(
+export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,
   locale?: LocalesValues
-): DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']> => {
+): DeepTransformContent<DictionaryRegistryContent<T>> => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN)!;
 
   /** which locale should we use right now? */
   const localeTarget = computed(() => locale ?? intlayer.locale());
 
   /** a *stable* reactive dictionary object */
-  const content = computed(() => getIntlayer(key, localeTarget()));
+  // @ts-ignore Type instantiation is excessively deep and possibly infinite
+  const content = computed(() => getIntlayer<T, L>(key, localeTarget() as L));
 
-  return content() as DeepTransformContent<
-    IntlayerDictionaryTypesConnector[T]['content']
-  >; // all consumers keep full reactivity
+  return content() as DeepTransformContent<DictionaryRegistryContent<T>>; // all consumers keep full reactivity
 };

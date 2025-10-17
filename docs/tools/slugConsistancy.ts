@@ -75,7 +75,9 @@ export const runSlugConsistencyTest = (): SlugConsistencyResult => {
   // Debug: Show first few files found
   if (englishFiles.length > 0) {
     console.info('First few files found:');
-    englishFiles.slice(0, 5).forEach((file) => console.info('  -', file));
+    englishFiles.slice(0, 5).forEach((file) => {
+      console.info('  -', file);
+    });
   } else {
     console.info('No files found - debugging...');
     // Try without ignore patterns
@@ -90,9 +92,9 @@ export const runSlugConsistencyTest = (): SlugConsistencyResult => {
     );
     if (filesWithoutIgnore.length > 0) {
       console.info('First few files without ignore:');
-      filesWithoutIgnore
-        .slice(0, 5)
-        .forEach((file) => console.info('  -', file));
+      filesWithoutIgnore.slice(0, 5).forEach((file) => {
+        console.info('  -', file);
+      });
     }
   }
 

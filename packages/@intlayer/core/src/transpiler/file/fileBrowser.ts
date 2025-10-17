@@ -1,4 +1,4 @@
-import { formatNodeType, NodeType } from '../../types';
+import { formatNodeType, NodeType } from '@intlayer/types';
 import type { FileContent } from './file';
 
 /**

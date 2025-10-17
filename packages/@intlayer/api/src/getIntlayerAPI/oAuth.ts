@@ -1,11 +1,11 @@
 import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/types';
 import { type FetcherOptions, fetcher } from '../fetcher';
 import type { GetOAuth2TokenBody, GetOAuth2TokenResult } from '../types';
 
 export const getOAuthAPI = (intlayerConfig?: IntlayerConfig) => {
   const backendURL =
-    intlayerConfig?.editor?.backendURL ?? configuration.editor?.backendURL;
+    intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
   const { clientId, clientSecret } = intlayerConfig?.editor ?? {};
 
   if (!backendURL) {

@@ -1,9 +1,8 @@
-import type { Locales, LocalesValues } from '@intlayer/config/client';
 import {
-  type Dictionary,
   getDictionary as getDictionaryCore,
   type Plugins,
 } from '@intlayer/core';
+import type { Dictionary, LocalesValues } from '@intlayer/types';
 import {
   type DeepTransformContent,
   intlayerNodePlugins,
@@ -13,7 +12,7 @@ import {
 
 export const getDictionary = <
   T extends Dictionary,
-  L extends LocalesValues = Locales,
+  L extends LocalesValues = LocalesValues,
 >(
   dictionary: T,
   locale?: L,
@@ -26,9 +25,10 @@ export const getDictionary = <
     ...(additionalPlugins ?? []),
   ];
 
-  return getDictionaryCore(
+  // @ts-ignore Type instantiation is excessively deep and possibly infinite
+  return getDictionaryCore<T, L>(
     dictionary,
-    locale,
+    locale as L,
     plugins
   ) as any as DeepTransformContent<T['content']>;
 };

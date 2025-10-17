@@ -1,12 +1,12 @@
 import { prepareIntlayer } from '@intlayer/chokidar';
-import { getConfiguration, type Locales } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config';
 import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
   getTranslation,
-  type LanguageContent,
   localeDetector,
 } from '@intlayer/core';
+import type { LanguageContent, Locales } from '@intlayer/types';
 import { createNamespace } from 'cls-hooked';
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 
@@ -194,5 +194,3 @@ export const getDictionary: typeof getDictionaryFunction = (...args) => {
     return getDictionaryFunction(...args);
   }
 };
-
-export type { LanguageContent };

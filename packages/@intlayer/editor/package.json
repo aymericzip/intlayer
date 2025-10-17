@@ -54,7 +54,7 @@
   "scripts": {
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist .turbo",
     "dev": "tsdown --config tsdown.config.ts --watch",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
@@ -63,17 +63,16 @@
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
     "prepublish": "cp -f ../../../README.md ./README.md",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "typecheck": "tsdown  --project ./tsconfig.json --noEmit"
+    "typecheck": "tsc --noEmit --project tsconfig.types.json",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@types/node": "24.7.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "concurrently": "9.2.1",
+    "tsdown": "0.15.7",
     "rimraf": "6.0.1",
-
     "typescript": "5.9.3",
     "vitest": "3.2.4"
   },

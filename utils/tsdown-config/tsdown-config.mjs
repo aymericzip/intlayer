@@ -11,6 +11,14 @@ const devDependencies = packageJsonObj.devDependencies;
 const peerDependencies = packageJsonObj.peerDependencies;
 const optionalDependencies = packageJsonObj.optionalDependencies;
 
+const allDependencies = {
+  ...dependencies,
+  ...devDependencies,
+  ...peerDependencies,
+  ...optionalDependencies,
+};
+
+/** @type {(id: string) => boolean} */
 export const isExternal = (id) => {
   // Externalize all dependencies like @intlayer/core, @intlayer/docs, etc.
   if (id in allDependencies) return true;
@@ -19,13 +27,6 @@ export const isExternal = (id) => {
   if (id in builtinModules) return true;
 
   return false;
-};
-
-const allDependencies = {
-  ...dependencies,
-  ...devDependencies,
-  ...peerDependencies,
-  ...optionalDependencies,
 };
 
 /** @type {import('tsdown').Options} */

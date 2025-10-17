@@ -1,20 +1,19 @@
 import { join, relative } from 'node:path';
-import { getConfiguration } from './configFile/getConfiguration';
-import type { IntlayerConfig } from './types/config';
+import type { IntlayerConfig } from '@intlayer/types';
 import { getExtension } from './utils/getExtension';
 import { normalizePath } from './utils/normalizePath';
 
 export type GetAliasOptions = {
-  configuration?: IntlayerConfig;
+  configuration: IntlayerConfig;
   format?: 'esm' | 'cjs';
   formatter?: (value: string) => string;
 };
 
 export const getAlias = ({
-  configuration = getConfiguration(),
+  configuration,
   format = 'esm',
   formatter = (value: string) => value,
-}: GetAliasOptions = {}) => {
+}: GetAliasOptions) => {
   const extension = getExtension(configuration, format);
 
   const { mainDir, configDir, baseDir } = configuration.content;

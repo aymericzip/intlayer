@@ -6,7 +6,7 @@ import {
   pull,
   push,
 } from '@intlayer/cli';
-import { Locales, type LogConfig } from '@intlayer/config';
+import { Locales, type LogConfig } from '@intlayer/types';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod/v3';
 

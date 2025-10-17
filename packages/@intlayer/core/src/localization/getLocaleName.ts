@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/types';
 import { Intl } from '../utils/intl';
 
 export const getLocaleName = (

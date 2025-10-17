@@ -1,12 +1,12 @@
 import { effect, type Injector, type Signal, signal } from '@angular/core';
-import {
-  type ContentNode,
-  type Dictionary,
-  getContentNodeByKeyPath,
-  type KeyPath,
-  type LocalDictionaryId,
-} from '@intlayer/core';
+import { getContentNodeByKeyPath } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import type {
+  ContentNode,
+  Dictionary,
+  KeyPath,
+  LocalDictionaryId,
+} from '@intlayer/types';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';
 

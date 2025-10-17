@@ -1,6 +1,7 @@
 import { readAsset } from 'utils:asset';
-import type { Locales } from '@intlayer/config';
-import { getLocaleName, type KeyPath } from '@intlayer/core';
+import { getLocaleName } from '@intlayer/core';
+import type { KeyPath } from '@intlayer/types';
+import { Locales } from '@intlayer/types';
 import { logger } from '@logger';
 import { generateText } from 'ai';
 import type { Tag } from '@/types/tag.types';

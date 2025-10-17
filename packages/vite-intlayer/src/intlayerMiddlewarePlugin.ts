@@ -1,7 +1,8 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { parse } from 'node:url';
-import { getConfiguration, type Locales } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config';
 import { localeDetector } from '@intlayer/core';
+import type { Locales } from '@intlayer/types';
 /* @ts-ignore - Vite types error */
 import type { Connect, Plugin } from 'vite';
 

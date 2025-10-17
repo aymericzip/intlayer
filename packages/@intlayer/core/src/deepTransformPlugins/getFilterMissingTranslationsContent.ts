@@ -1,14 +1,14 @@
 import configuration from '@intlayer/config/built';
-import type { Locales, LocalesValues } from '@intlayer/config/client';
-import { getTranslation } from '../interpreter';
+import type { LocalesValues } from '@intlayer/types';
+import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
+import {
+  type DeepTransformContent,
+  getTranslation,
+  type NodeProps,
+  type Plugins,
+} from '../interpreter';
 import { deepTransformNode } from '../interpreter/getContent/deepTransform';
-import type {
-  DeepTransformContent,
-  NodeProps,
-  Plugins,
-} from '../interpreter/getContent/plugins';
 import type { TranslationContent } from '../transpiler';
-import { type ContentNode, type KeyPath, NodeType } from '../types';
 
 /**
  * Helper function to check if a node or its children contain translation nodes
@@ -76,7 +76,7 @@ export const filterMissingTranslationsOnlyPlugin = (
 
       // Return the base locale content using getTranslation
       // If base locale is missing, use any available locale as fallback
-      const baseLocale = configuration.internationalization.defaultLocale;
+      const baseLocale = configuration?.internationalization?.defaultLocale;
       const availableLocales = Object.keys(result);
 
       if (availableLocales.length === 0) {
@@ -191,7 +191,7 @@ export const filterMissingTranslationsOnlyPlugin = (
  */
 export const getFilterMissingTranslationsContent = <
   T extends ContentNode,
-  L extends LocalesValues = Locales,
+  L extends LocalesValues,
 >(
   node: T,
   localeToCheck: L,

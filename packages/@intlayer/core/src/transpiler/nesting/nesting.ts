@@ -1,11 +1,11 @@
-import type { DeepTransformContent } from '../../interpreter';
-import type { DictionaryKeys } from '../../types/dictionary';
+import type { DictionaryRegistryContent } from '@intlayer/types';
 import {
+  type DictionaryKeys,
   formatNodeType,
   NodeType,
   type TypedNodeModel,
-} from '../../types/index';
-import type { IntlayerDictionaryTypesConnector } from '../../types/intlayer';
+} from '@intlayer/types';
+import type { DeepTransformContent } from '../../interpreter';
 
 /**
  * Recursively builds dot-notation strings for all valid paths in T.
@@ -31,7 +31,7 @@ type DeepReplace<T, From, To> = T extends From
 /** Build all valid dot-notation strings for a dictionary entry. */
 export type ValidDotPathsFor<K extends DictionaryKeys> = DotPath<
   DeepReplace<
-    DeepTransformContent<IntlayerDictionaryTypesConnector[K]['content']>,
+    DeepTransformContent<DictionaryRegistryContent<K>>,
     // Replace ReactElement type with string
     {
       type: any;
@@ -46,7 +46,7 @@ export type NestedContentState<K extends DictionaryKeys> = {
   dictionaryKey: K;
 
   /**
-   * Path must match existing keys in IntlayerDictionaryTypesConnector[K].
+   * Path must match existing keys in DictionaryRegistryContent<K>.
    * Can be either:
    *  - "dot.dot.dot" format
    */

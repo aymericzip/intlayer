@@ -59,7 +59,7 @@
   "scripts": {
     "build": "vite build",
     "build:ci": "vite build",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist .turbo",
     "dev": "vite build --watch",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
@@ -68,11 +68,12 @@
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsdown  --project ./tsconfig.json --noEmit"
-  },
+     "typecheck": "tsc --noEmit --project tsconfig.types.json"
+},
   "dependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "js-cookie": "3.0.5"
@@ -84,6 +85,7 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
+    "tsdown": "0.15.7",
     "concurrently": "9.2.1",
     "rimraf": "6.0.1",
     "typescript": "5.9.3",
@@ -94,6 +96,7 @@
   "peerDependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "svelte": ">=5.0.0"

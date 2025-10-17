@@ -1,11 +1,8 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath, getConfiguration } from '@intlayer/config';
-import {
-  type Dictionary,
-  mergeDictionaries,
-  normalizeDictionaries,
-} from '@intlayer/core';
+import { mergeDictionaries, normalizeDictionaries } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/types';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 import type { UnmergedDictionaryOutput } from './writeUnmergedDictionary';

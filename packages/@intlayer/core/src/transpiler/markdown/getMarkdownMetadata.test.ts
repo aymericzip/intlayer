@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getMarkdownMetadata } from '..';
+import { getMarkdownMetadata } from '../markdown';
 
 describe('getMarkdownMetadata', () => {
   const markdown = [

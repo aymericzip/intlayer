@@ -1,5 +1,5 @@
 import { logger } from '@intlayer/config/client';
-import type { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/types';
 import { resolveObjectPromises } from '../utils/resolveObjectPromises';
 
 /**

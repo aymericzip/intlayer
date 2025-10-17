@@ -1,7 +1,7 @@
 'use client';
 
-import type { Dictionary } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
+import type { Dictionary } from '@intlayer/types';
 import type { FC } from 'react';
 import { NodeView } from './StructureView/StructureView';
 

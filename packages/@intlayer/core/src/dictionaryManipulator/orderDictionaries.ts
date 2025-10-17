@@ -1,5 +1,5 @@
 import intlayerConfig from '@intlayer/config/built';
-import type { Dictionary } from '../types/dictionary';
+import type { Dictionary } from '@intlayer/types';
 
 /**
  * Orders dictionaries based on the dictionary priority strategy.

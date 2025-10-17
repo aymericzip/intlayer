@@ -1,4 +1,4 @@
-import type { Locales } from '@intlayer/config';
+import type { Locales } from '@intlayer/types';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as emailService from '@services/email.service';
 import * as subscriptionService from '@services/subscription.service';

@@ -71,7 +71,7 @@
   "scripts": {
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist .turbo",
     "dev": "tsdown --config tsdown.config.ts --watch",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
@@ -80,11 +80,12 @@
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsdown  --project ./tsconfig.json --noEmit"
-  },
+     "typecheck": "tsc --noEmit --project tsconfig.types.json"
+},
   "dependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*",
     "react-intlayer": "workspace:*"
   },
@@ -105,6 +106,7 @@
   },
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "expo": ">=52",

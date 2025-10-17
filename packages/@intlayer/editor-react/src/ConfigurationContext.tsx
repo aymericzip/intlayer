@@ -1,7 +1,7 @@
 'use client';
 
-import type { IntlayerConfig } from '@intlayer/config/client';
 import { MessageKey } from '@intlayer/editor';
+import type { IntlayerConfig } from '@intlayer/types';
 import {
   createContext,
   type FC,

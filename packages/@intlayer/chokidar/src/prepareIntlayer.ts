@@ -2,12 +2,11 @@ import { join } from 'node:path';
 import {
   ANSIColors,
   colorize,
-  ESMxCJSRequire,
   getAppLogger,
   getConfiguration,
-  type IntlayerConfig,
 } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json' with { type: 'json' };
+import type { IntlayerConfig } from '@intlayer/types';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { writeRemoteDictionary } from './buildIntlayerDictionary/writeRemoteDictionary';
 import { cleanOutputDir } from './cleanOutputDir';
@@ -80,7 +79,7 @@ export const prepareIntlayer = async (
         }
       );
 
-      const files: string[] = listDictionaries(configuration);
+      const files: string[] = await listDictionaries(configuration);
 
       const dictionaries = await loadDictionaries(files, configuration);
 

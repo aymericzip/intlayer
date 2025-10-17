@@ -1,11 +1,10 @@
-import type { LocalesValues } from '@intlayer/config/client';
+import type { ValidDotPathsFor } from '@intlayer/core';
 import type {
   DictionaryKeys,
+  DictionaryRegistryContent,
   GetSubPath,
-  ValidDotPathsFor,
-} from '@intlayer/core';
-// @ts-ignore intlayer declared for module augmentation
-import type { IntlayerDictionaryTypesConnector } from 'intlayer';
+  LocalesValues,
+} from '@intlayer/types';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerServerContext } from './IntlayerServerProvider';
@@ -37,13 +36,10 @@ export const useI18n = <T extends DictionaryKeys>(
   const dictionaryContent = getIntlayer(namespace, localeTarget);
 
   // Return the translation function
+  // @ts-ignore Type instantiation is excessively deep and possibly infinite
   const t = <P extends ValidDotPathsFor<T>>(
     path: P
-  ): GetSubPath<
-    // @ts-ignore Type 'T' cannot be used to index type 'IntlayerDictionaryTypesConnector'
-    DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']>,
-    P
-  > => {
+  ): GetSubPath<DeepTransformContent<DictionaryRegistryContent<T>>, P> => {
     if (!path) {
       return dictionaryContent as any;
     }

@@ -4,7 +4,7 @@ import type {
   ContentNode,
   Dictionary,
   LocalDictionaryId,
-} from '../types/dictionary';
+} from '@intlayer/types';
 import { getNodeType } from './getNodeType';
 
 // Extended type that includes arrays for internal merge operations
@@ -81,18 +81,18 @@ const customMerge = (
   if (typeof destination === 'object' && typeof source === 'object') {
     const result: Record<string, MergeableContent> = {};
     const allKeys = new Set([
-      ...Object.keys(destination as Record<string, ContentNode>),
-      ...Object.keys(source as Record<string, ContentNode>),
+      ...Object.keys(destination as unknown as Record<string, ContentNode>),
+      ...Object.keys(source as unknown as Record<string, ContentNode>),
     ]);
 
     for (const key of allKeys) {
       result[key] = customMerge(
-        (destination as Record<string, ContentNode>)[key],
-        (source as Record<string, ContentNode>)[key]
+        (destination as unknown as Record<string, ContentNode>)[key],
+        (source as unknown as Record<string, ContentNode>)[key]
       );
     }
 
-    return result as MergeableContent;
+    return result as unknown as MergeableContent;
   }
 
   // Fallback to destination

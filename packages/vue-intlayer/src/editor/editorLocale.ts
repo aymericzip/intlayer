@@ -1,5 +1,5 @@
-import type { Locales } from '@intlayer/config/client';
 import { MessageKey } from '@intlayer/editor';
+import type { Locales } from '@intlayer/types';
 import { inject, watch } from 'vue';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from '../client';
 import { createSharedComposable } from './createSharedComposable';

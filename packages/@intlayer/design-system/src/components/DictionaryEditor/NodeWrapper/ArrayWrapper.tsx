@@ -1,9 +1,6 @@
-import {
-  type ContentNode,
-  isSameKeyPath,
-  type KeyPath,
-  NodeType,
-} from '@intlayer/core';
+import { isSameKeyPath } from '@intlayer/core';
+import type { ContentNode } from '@intlayer/types';
+import { type KeyPath, NodeType } from '@intlayer/types';
 import type { FC } from 'react';
 import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, type NodeWrapperProps } from './index';

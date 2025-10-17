@@ -1,10 +1,7 @@
 'use client';
 
-import type { Locales, LocalesValues } from '@intlayer/config/client';
 import {
   type ConditionContent,
-  type ContentNode,
-  type Dictionary,
   type EnumerationContent,
   type FileContent,
   type GenderContent,
@@ -12,12 +9,17 @@ import {
   getLocaleName,
   getNodeType,
   type InsertionContent,
-  type KeyPath,
   type MarkdownContent,
-  NodeType,
   type TranslationContent,
 } from '@intlayer/core';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
+import type {
+  ContentNode,
+  Dictionary,
+  KeyPath,
+  Locales,
+  LocalesValues,
+} from '@intlayer/types';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
 import { type FC, Fragment, type ReactNode, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';

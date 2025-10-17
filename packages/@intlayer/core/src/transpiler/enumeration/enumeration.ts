@@ -1,8 +1,4 @@
-import {
-  formatNodeType,
-  NodeType,
-  type TypedNodeModel,
-} from '../../types/index';
+import { formatNodeType, NodeType, type TypedNodeModel } from '@intlayer/types';
 
 type Positive = number | `${number}`;
 type Negative = `-${number}`;

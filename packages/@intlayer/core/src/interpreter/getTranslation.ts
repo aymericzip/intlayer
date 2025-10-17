@@ -1,5 +1,4 @@
-import type { LocalesValues } from '@intlayer/config/client';
-import type { LanguageContent } from '../types';
+import type { LanguageContent, LocalesValues } from '@intlayer/types';
 
 /**
  *

@@ -24,7 +24,7 @@ export const build = async (options?: BuildOptions) => {
   let parallelProcess: ParallelHandle | null = null;
 
   if (options?.with) {
-    parallelProcess = runParallel(options.with);
+    parallelProcess = await runParallel(options.with);
   }
 
   await buildAndWatchIntlayer({

@@ -16,7 +16,7 @@ export const useUser = () => {
 
   const logoutHandle = async () => {
     setSession(null);
-    logout({});
+    logout();
   };
 
   return {

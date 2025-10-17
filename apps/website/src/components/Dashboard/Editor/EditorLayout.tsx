@@ -1,6 +1,5 @@
 'use client';
 
-import type { IntlayerConfig, Locales } from '@intlayer/config/client';
 import { normalizeDictionaries } from '@intlayer/core';
 import { Container } from '@intlayer/design-system';
 import {
@@ -9,6 +8,7 @@ import {
   useCrossFrameState,
   useDictionariesRecordActions,
 } from '@intlayer/editor-react';
+import type { IntlayerConfig, Locales } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { useTheme } from 'next-themes';
 import { type FC, type PropsWithChildren, useEffect } from 'react';

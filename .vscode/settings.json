@@ -1,5 +1,6 @@
 {
   "cSpell.words": ["intlayer"],
+  "typescript.experimental.useTsgo": true,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "biomejs.biome",
   "editor.codeActionsOnSave": {
@@ -31,5 +32,13 @@
   },
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": ".*package\\.json$",
+        "cmd": "prettier --write ${file}"
+      }
+    ]
   }
 }

@@ -1,10 +1,11 @@
 #!/usr/bin/env node
+
 // bin/intlayer-editor.mjs
 
-import { runParallel } from '@intlayer/chokidar';
 import { exec } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { runParallel } from '@intlayer/chokidar';
 
 // Get the current file's directory
 const __filename = fileURLToPath(import.meta.url);
@@ -38,13 +39,13 @@ if (envFileIndex !== -1 && args[envFileIndex + 1]) {
 }
 
 // Check for --with flag
-const withIndex = args.findIndex((arg) => arg === '--with');
+const withIndex = args.indexOf('--with');
 if (withIndex !== -1 && args[withIndex + 1]) {
   withCommand = args[withIndex + 1];
 }
 
 if (withCommand) {
-  runParallel(withCommand);
+  parallelProcess = await runParallel(withCommand);
 }
 
 if (args[0] === 'start') {

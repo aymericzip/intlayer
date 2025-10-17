@@ -1,20 +1,22 @@
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
 import {
   type ConditionContent,
-  type ContentNode,
-  type Dictionary,
   type EnumerationContent,
   type FileContent,
   getContentNodeByKeyPath,
   getNodeType,
   type InsertionContent,
-  type KeyPath,
   type MarkdownContent,
-  NodeType,
   type TranslationContent,
 } from '@intlayer/core';
+import {
+  type ContentNode,
+  type Dictionary,
+  type KeyPath,
+  type Locales,
+  NodeType,
+} from '@intlayer/types';
 import type { FC, ReactNode } from 'react';
 import { ArrayWrapper } from './ArrayWrapper';
 import { ConditionWrapper } from './ConditionWrapper';

@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { Locales, LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/types';
 
 export type LocaleData = {
   locale: LocalesValues;
@@ -37,10 +37,10 @@ export type LocaleData = {
  */
 export const localeMap = <T>(
   mapper: (locale: LocaleData) => T,
-  locales: LocalesValues[] = configuration.internationalization.locales,
-  defaultLocale: LocalesValues = configuration.internationalization
-    .defaultLocale,
-  prefixDefault: boolean = configuration.middleware.prefixDefault
+  locales: LocalesValues[] = configuration?.internationalization?.locales,
+  defaultLocale: LocalesValues = configuration?.internationalization
+    ?.defaultLocale,
+  prefixDefault: boolean = configuration?.middleware?.prefixDefault
 ): T[] =>
   locales.map((locale) =>
     mapper({
@@ -48,7 +48,7 @@ export const localeMap = <T>(
       defaultLocale,
       locales,
       isDefault: locale === defaultLocale,
-      urlPrefix: locale === defaultLocale && !prefixDefault ? '' : `/${locale}`,
+      urlPrefix: locale === defaultLocale && !prefixDefault ? '' : `/$locale`,
     })
   );
 
@@ -69,9 +69,9 @@ export const localeMap = <T>(
  *
  * // Result
  * [
- *   { path: '/', name: 'en', isDefault: true, locales: ['en'], defaultLocale: 'en', urlPrefix: '' },
- *   { path: '/fr', name: 'fr', isDefault: false, locales: ['fr'], defaultLocale: 'en', urlPrefix: '/fr' },
- *   { path: '/es', name: 'es', isDefault: false, locales: ['es'], defaultLocale: 'en', urlPrefix: '/es' },
+ *   path: '/', name: 'en', isDefault: true, locales: ['en'], defaultLocale: 'en', urlPrefix: '' ,
+ *   path: '/fr', name: 'fr', isDefault: false, locales: ['fr'], defaultLocale: 'en', urlPrefix: '/fr' ,
+ *   path: '/es', name: 'es', isDefault: false, locales: ['es'], defaultLocale: 'en', urlPrefix: '/es' ,
  * ]
  * ```
  *
@@ -80,10 +80,10 @@ export const localeMap = <T>(
  */
 export const localeFlatMap = <T>(
   mapper: (locale: LocaleData) => T[],
-  locales: LocalesValues[] = configuration.internationalization.locales,
-  defaultLocale: LocalesValues = configuration.internationalization
-    .defaultLocale,
-  prefixDefault: boolean = configuration.middleware.prefixDefault
+  locales: LocalesValues[] = configuration?.internationalization?.locales,
+  defaultLocale: LocalesValues = configuration?.internationalization
+    ?.defaultLocale,
+  prefixDefault: boolean = configuration?.middleware.prefixDefault
 ): T[] =>
   locales.flatMap((locale) =>
     mapper({
@@ -91,7 +91,7 @@ export const localeFlatMap = <T>(
       defaultLocale,
       locales,
       isDefault: locale === defaultLocale,
-      urlPrefix: locale === defaultLocale && !prefixDefault ? '' : `/${locale}`,
+      urlPrefix: locale === defaultLocale && !prefixDefault ? '' : `/$locale`,
     })
   );
 
@@ -105,11 +105,11 @@ export const localeFlatMap = <T>(
  * );
  *
  * // Result
- * {
- *   en: { ... }, // Content of translations/en.json
- *   fr: { ... }, // Content of translations/fr.json
- *   es: { ... }  // Content of translations/es.json
- * }
+ *
+ *   en: ... , // Content of translations/en.json
+ *   fr: ... , // Content of translations/fr.json
+ *   es: ...
+ *
  * ```
  *
  * @param mapper - Function that takes locale data and returns a value for that locale
@@ -120,11 +120,12 @@ export const localeFlatMap = <T>(
  */
 export const localeRecord = <T>(
   mapper: (locale: LocaleData) => T,
-  locales: Locales[] = configuration?.internationalization.locales,
-  defaultLocale: Locales = configuration?.internationalization.defaultLocale,
-  prefixDefault: boolean = configuration?.middleware.prefixDefault
-): Record<Locales, T> =>
-  locales.reduce(
+  locales: LocalesValues[] = configuration?.internationalization?.locales,
+  defaultLocale: LocalesValues = configuration?.internationalization
+    ?.defaultLocale,
+  prefixDefault: boolean = configuration?.middleware?.prefixDefault
+): Record<LocalesValues, T> =>
+  (locales ?? []).reduce(
     (acc, locale) => {
       acc[locale] = mapper({
         locale,
@@ -136,5 +137,5 @@ export const localeRecord = <T>(
       });
       return acc;
     },
-    {} as Record<Locales, T>
+    {} as Record<LocalesValues, T>
   );

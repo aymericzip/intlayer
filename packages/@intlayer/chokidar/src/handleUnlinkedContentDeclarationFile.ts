@@ -1,4 +1,5 @@
-import { getAppLogger, type IntlayerConfig } from '@intlayer/config';
+import { getAppLogger } from '@intlayer/config';
+import type { IntlayerConfig } from '@intlayer/types';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
 import { createTypes } from './createType';
@@ -18,7 +19,7 @@ export const handleUnlinkedContentDeclarationFile = async (
     isVerbose: true,
   });
 
-  const files: string[] = listDictionaries(config);
+  const files: string[] = await listDictionaries(config);
 
   const localeDictionaries = await loadLocalDictionaries(files, config);
 

@@ -4,9 +4,9 @@
 </template>
 
 <script setup lang="ts">
+import { getContent } from '@intlayer/core';
+import type { ContentNode, KeyPath, Locales } from '@intlayer/types';
 import { computed, useSlots } from 'vue';
-import { ContentNode, getContent, type KeyPath } from '@intlayer/core';
-import type { Locales } from '@intlayer/config/client';
 import { useEditedContentRenderer } from './useEditedContentRenderer';
 
 type Props = {

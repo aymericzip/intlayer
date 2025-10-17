@@ -1,13 +1,13 @@
 import configuration from '@intlayer/config/built';
-import type { Locales, LocalesValues } from '@intlayer/config/client';
+import {
+  type ContentNode,
+  type Locales,
+  type LocalesValues,
+  NodeType,
+} from '@intlayer/types';
+import type { DeepTransformContent, NodeProps, Plugins } from '../interpreter';
 import { deepTransformNode } from '../interpreter/getContent/deepTransform';
-import type {
-  DeepTransformContent,
-  NodeProps,
-  Plugins,
-} from '../interpreter/getContent/plugins';
 import type { TranslationContent } from '../transpiler';
-import { type ContentNode, NodeType } from '../types';
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const checkMissingLocalesPlugin = (
@@ -51,7 +51,7 @@ export const checkMissingLocalesPlugin = (
  */
 export const getMissingLocalesContent = <T extends ContentNode>(
   node: T,
-  locales: LocalesValues[] = configuration?.internationalization.locales,
+  locales: LocalesValues[] = configuration?.internationalization?.locales,
   nodeProps: NodeProps
 ): Locales[] => {
   const missingLocales = new Set<Locales>();

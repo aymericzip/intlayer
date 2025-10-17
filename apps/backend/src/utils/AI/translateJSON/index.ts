@@ -1,6 +1,6 @@
 import { readAsset } from 'utils:asset';
-import type { Locales } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
+import { Locales } from '@intlayer/types';
 import { logger } from '@logger';
 import { extractJson } from '@utils/extractJSON';
 import { generateText } from 'ai';

@@ -1,4 +1,4 @@
-import type { KeyPath } from '../types';
+import type { KeyPath } from '@intlayer/types';
 
 type KeyPathWithKey = KeyPath & { key: string };
 

@@ -1,10 +1,9 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
-
 import { localeResolver } from '@intlayer/core';
 import { MessageKey, useCrossFrameState } from '@intlayer/editor-react';
+import type { LocalesValues } from '@intlayer/types';
 import {
   createContext,
   type FC,

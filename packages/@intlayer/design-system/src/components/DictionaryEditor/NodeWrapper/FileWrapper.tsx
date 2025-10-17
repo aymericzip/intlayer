@@ -1,11 +1,10 @@
+import { type FileContent, getContentNodeByKeyPath } from '@intlayer/core';
+import { useEditedContent } from '@intlayer/editor-react';
 import {
-  type FileContent,
-  getContentNodeByKeyPath,
   type KeyPath,
   type LocalDictionaryId,
   NodeType,
-} from '@intlayer/core';
-import { useEditedContent } from '@intlayer/editor-react';
+} from '@intlayer/types';
 import type { FC } from 'react';
 import { StringWrapper, type StringWrapperProps } from './StringWrapper';
 

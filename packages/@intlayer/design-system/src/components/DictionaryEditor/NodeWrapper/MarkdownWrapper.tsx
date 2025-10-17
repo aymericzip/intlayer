@@ -1,9 +1,5 @@
-import {
-  type ContentNode,
-  type KeyPath,
-  type MarkdownContent,
-  NodeType,
-} from '@intlayer/core';
+import type { MarkdownContent } from '@intlayer/core';
+import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps } from './index';
 

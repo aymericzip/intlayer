@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { Locales } from '@intlayer/config/client';
+import { Locales } from '@intlayer/types';
 
 export enum LanguageDetector {
   Querystring = 'querystring',

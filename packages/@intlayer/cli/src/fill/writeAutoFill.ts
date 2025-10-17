@@ -4,13 +4,13 @@ import {
   reduceDictionaryContent,
   writeContentDeclaration,
 } from '@intlayer/chokidar';
-import {
-  colorizeKey,
-  getAppLogger,
-  type IntlayerConfig,
-  type Locales,
-} from '@intlayer/config';
-import type { AutoFill, Dictionary } from '@intlayer/core';
+import { colorizeKey, getAppLogger } from '@intlayer/config';
+import type {
+  AutoFill,
+  Dictionary,
+  IntlayerConfig,
+  Locales,
+} from '@intlayer/types';
 import { type AutoFillData, formatAutoFillData } from './formatAutoFillData';
 
 export const writeAutoFill = async (

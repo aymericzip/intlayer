@@ -1,7 +1,6 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-
 import {
   createContext,
   type FC,

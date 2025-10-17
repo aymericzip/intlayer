@@ -1,5 +1,4 @@
-import type { Locales, LocalesValues } from '@intlayer/config/client';
-import type { Dictionary } from '../types';
+import type { Dictionary, LocalesValues } from '@intlayer/types';
 import type { DeepTransformContent, NodeProps, Plugins } from './getContent';
 import { getContent } from './getContent/getContent';
 
@@ -11,14 +10,11 @@ import { getContent } from './getContent/getContent';
  * @param additionalPlugins An array of NodeTransformer that define how to transform recognized nodes.
  *                      If omitted, we’ll use a default set of plugins.
  */
-export const getDictionary = <
-  T extends Dictionary,
-  L extends LocalesValues = Locales,
->(
+export const getDictionary = <T extends Dictionary, L extends LocalesValues>(
   dictionary: T,
   locale?: L,
   plugins?: Plugins[]
-) => {
+): DeepTransformContent<T['content']> => {
   const props: NodeProps = {
     dictionaryKey: dictionary.key,
     dictionaryPath: dictionary.filePath,
@@ -27,9 +23,5 @@ export const getDictionary = <
   };
 
   // @ts-ignore Type instantiation is excessively deep and possibly infinite
-  return getContent(
-    dictionary.content,
-    props,
-    locale
-  ) as any as DeepTransformContent<T['content']>;
+  return getContent(dictionary.content, props, locale);
 };

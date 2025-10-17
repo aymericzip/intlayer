@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { getConfiguration, type IntlayerConfig } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
+import { getConfiguration } from '@intlayer/config';
+import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { parallelize } from '../utils/parallelize';
 
 export const generateTypeScriptType = (dictionary: Dictionary) => {

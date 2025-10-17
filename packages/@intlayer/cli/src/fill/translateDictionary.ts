@@ -6,20 +6,13 @@ import {
   formatLocale,
   type JsonChunk,
 } from '@intlayer/chokidar';
+import { ANSIColors, colon, colorize, getAppLogger } from '@intlayer/config';
 import {
-  ANSIColors,
-  colon,
-  colorize,
-  getAppLogger,
-  type IntlayerConfig,
-} from '@intlayer/config';
-import {
-  type ContentNode,
-  type Dictionary,
   getFilterMissingTranslationsContent,
   getFilterTranslationsOnlyContent,
   getLocalizedContent,
 } from '@intlayer/core';
+import type { ContentNode, Dictionary, IntlayerConfig } from '@intlayer/types';
 import type { TranslationTask } from './listTranslationsTasks';
 
 export const translateDictionary = async (
@@ -74,14 +67,14 @@ export const translateDictionary = async (
   /**
    * Extract the content of the target locale as preset
    */
-  const presetOutputContent = getLocalizedContent(
-    dictionaryToProcess as unknown as ContentNode,
+  const presetOutputContent: Dictionary['content'] = getLocalizedContent(
+    dictionaryToProcess.content as unknown as ContentNode,
     task.targetLocale,
     { dictionaryKey: task.dictionaryKey, keyPath: [] }
   );
 
   const chunkedJsonContent: JsonChunk[] = chunkJSON(
-    sourceLocaleContent.content,
+    sourceLocaleContent as any,
     1000
   );
 

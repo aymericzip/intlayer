@@ -1,5 +1,5 @@
-import type { Dictionary } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
+import type { Dictionary } from '@intlayer/types';
 import { type FC, useMemo } from 'react';
 import { Container } from '../Container';
 import { MonacoCode } from '../IDE/MonacoCode';

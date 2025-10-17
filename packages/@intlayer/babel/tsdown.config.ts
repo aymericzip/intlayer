@@ -1,6 +1,4 @@
-import { getOptions } from '@utils/tsdown-config';
-import { defineConfig, type Options } from 'tsdown';
-
-const options: Options[] = getOptions({});
+import { options } from '@utils/tsdown-config';
+import { defineConfig } from 'tsdown';
 
 export default defineConfig(options);

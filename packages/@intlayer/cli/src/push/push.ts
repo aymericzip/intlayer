@@ -15,8 +15,8 @@ import {
   getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import type { Dictionary } from '@intlayer/types';
 import { PushLogger, type PushStatus } from '../pushLog';
 import { checkCMSAuth } from '../utils/checkAccess';
 

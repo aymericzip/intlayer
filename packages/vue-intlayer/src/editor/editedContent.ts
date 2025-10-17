@@ -1,11 +1,11 @@
-import {
-  type ContentNode,
-  type Dictionary,
-  getContentNodeByKeyPath,
-  type KeyPath,
-  type LocalDictionaryId,
-} from '@intlayer/core';
+import { getContentNodeByKeyPath } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import type {
+  ContentNode,
+  Dictionary,
+  KeyPath,
+  LocalDictionaryId,
+} from '@intlayer/types';
 import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';

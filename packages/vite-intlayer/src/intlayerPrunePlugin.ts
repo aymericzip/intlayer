@@ -2,8 +2,9 @@
 
 import { join } from 'node:path';
 import { intlayerBabelPlugin } from '@intlayer/babel';
-import { ESMxCJSRequire, type IntlayerConfig } from '@intlayer/config';
+import { ESMxCJSRequire } from '@intlayer/config';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import type { IntlayerConfig } from '@intlayer/types';
 import fg from 'fast-glob';
 import type { PluginOption } from 'vite';
 

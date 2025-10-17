@@ -1,8 +1,8 @@
 'use client';
 
-import type { IntlayerConfig } from '@intlayer/config/client';
 import { useSession } from '@intlayer/design-system/hooks';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
+import type { IntlayerConfig } from '@intlayer/types';
 import {
   type FC,
   type PropsWithChildren,

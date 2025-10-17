@@ -1,8 +1,8 @@
-import type { Gender, GenderContentStates } from '../transpiler/gender/gender';
+import type { Gender, GenderContentStates } from '../transpiler';
 
-type GederEntry = Gender | 'm' | 'f';
+type GenderEntry = Gender | 'm' | 'f';
 
-const getGenderEntry = (gender: GederEntry): Gender => {
+const getGenderEntry = (gender: GenderEntry): Gender => {
   if (gender === 'm' || gender === 'male') return 'male';
   if (gender === 'f' || gender === 'female') return 'female';
   return 'fallback';
@@ -32,7 +32,7 @@ const getGenderEntry = (gender: GederEntry): Gender => {
  */
 export const getGender = <Content>(
   genderContent: GenderContentStates<Content>,
-  gender: GederEntry
+  gender: GenderEntry
 ): Content => {
   const stateList = Object.keys(genderContent);
 

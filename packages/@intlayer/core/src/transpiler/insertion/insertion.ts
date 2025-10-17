@@ -1,8 +1,4 @@
-import {
-  formatNodeType,
-  NodeType,
-  type TypedNodeModel,
-} from '../../types/index';
+import { formatNodeType, NodeType, type TypedNodeModel } from '@intlayer/types';
 import { getInsertionValues } from './getInsertionValues';
 
 export type InsertionContentConstructor<

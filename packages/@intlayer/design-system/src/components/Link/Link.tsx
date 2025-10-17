@@ -1,5 +1,5 @@
-import type { LocalesValues } from '@intlayer/config/client';
 import { getLocalizedUrl } from '@intlayer/core';
+import type { LocalesValues } from '@intlayer/types';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ExternalLink } from 'lucide-react';
 import type { AnchorHTMLAttributes, DetailedHTMLProps, FC } from 'react';

@@ -1,5 +1,4 @@
-import type { CustomIntlayerConfig as IntlayerConfig } from '@intlayer/config/client';
-import type { Dictionary as DictionaryCore } from '@intlayer/core';
+import type { Dictionary as DictionaryCore } from '@intlayer/types';
 
 type Dictionary<T = undefined> = DictionaryCore<T, true>;
 /**
@@ -7,7 +6,13 @@ type Dictionary<T = undefined> = DictionaryCore<T, true>;
  */
 type DeclarationContent<T = undefined> = Dictionary<T>;
 
-export { Locales, type LocalesValues } from '@intlayer/config/client';
+export {
+  type ContentNode,
+  type IntlayerConfig,
+  type LanguageContent,
+  Locales,
+  type LocalesValues,
+} from '@intlayer/types';
 export type { DeclarationContent, Dictionary };
 
 /**
@@ -22,10 +27,9 @@ const getConfiguration = () => configuration;
 
 // Reexport here for CJS compatibility
 // Fix ReferenceError: Cannot access 'xxx' before initialization
-export { configuration, getConfiguration, type IntlayerConfig };
+export { configuration, getConfiguration };
 
 export {
-  type ContentNode,
   compact,
   cond,
   currency,
@@ -55,7 +59,6 @@ export {
   getTranslation as getTranslationContent,
   Intl,
   insert,
-  type LanguageContent,
   localeFlatMap,
   localeList,
   localeMap,

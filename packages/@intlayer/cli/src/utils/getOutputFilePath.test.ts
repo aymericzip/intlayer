@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/config';
+import { Locales } from '@intlayer/types';
 import { describe, expect, it } from 'vitest';
 import { getOutputFilePath } from './getOutputFilePath';
 

@@ -1,7 +1,8 @@
-import type { LocalesValues } from '@intlayer/config/client';
-import type { DictionaryKeys } from '@intlayer/core';
-// @ts-ignore intlayer declared for module augmentation
-import type { IntlayerDictionaryTypesConnector } from 'intlayer';
+import type {
+  DictionaryKeys,
+  DictionaryRegistryContent,
+  LocalesValues,
+} from '@intlayer/types';
 import {
   type ComputedRef,
   computed,
@@ -48,7 +49,7 @@ export const toComponent = (getter: () => any) =>
 export const useIntlayer = <T extends DictionaryKeys>(
   key: T,
   locale?: MaybeRefOrGetter<LocalesValues | null | undefined>
-): DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']> => {
+): DeepTransformContent<DictionaryRegistryContent<T>> => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
   if (!intlayer)
     throw new Error('useIntlayer must be used under <IntlayerProvider>');
@@ -126,5 +127,5 @@ export const useIntlayer = <T extends DictionaryKeys>(
     return new Proxy({}, handler);
   };
 
-  return makeProxy([]) as unknown;
+  return makeProxy([]) as any;
 };

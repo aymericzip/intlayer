@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/config/client';
+import { Locales } from '@intlayer/types';
 import type { FC, ImgHTMLAttributes, JSX } from 'react';
 
 // import andorra from './ad.svg';

@@ -1,18 +1,14 @@
-import { execSync } from 'node:child_process';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
 import { getConfiguration } from '@intlayer/config';
+import { getFilteredLocalesContent, getLocalizedContent } from '@intlayer/core';
 import type {
+  ContentNode,
+  Dictionary,
   IntlayerConfig,
   Locales,
   LocalesValues,
-} from '@intlayer/config/client';
-import {
-  type ContentNode,
-  type Dictionary,
-  getFilteredLocalesContent,
-  getLocalizedContent,
-} from '@intlayer/core';
+} from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import deepEqual from 'deep-equal';
 import {
@@ -26,8 +22,7 @@ import { writeJSFile } from './writeJSFile';
 const formatContentDeclaration = async (
   dictionary: Dictionary,
   configuration: IntlayerConfig,
-  localeList?: LocalesValues[],
-  fallbackLocale?: Locales
+  localeList?: LocalesValues[]
 ) => {
   /**
    * Clean Markdown, Insertion, File, etc. node metadata

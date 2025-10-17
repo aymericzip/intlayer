@@ -5,10 +5,10 @@ import {
   getAlias,
   getAppLogger,
   getConfiguration,
-  type IntlayerConfig,
   normalizePath,
 } from '@intlayer/config';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import type { IntlayerConfig } from '@intlayer/types';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import merge from 'deepmerge';
 import fg from 'fast-glob';

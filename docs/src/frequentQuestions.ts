@@ -1,4 +1,4 @@
-import type { Locales, LocalesValues } from '@intlayer/config';
+import type { LocalesValues } from '@intlayer/types';
 import {
   defaultLocale,
   type FileMetadata,
@@ -23,38 +23,42 @@ export const getFrequentQuestionsKeys =
   (): (keyof typeof frequentQuestionsEntry)[] =>
     getKeys(frequentQuestionsEntry);
 
-export const getFrequentQuestions = async <L extends Locales>(
+export const getFrequentQuestions = async <L extends LocalesValues>(
   locale: L = defaultLocale as L
 ): Promise<Record<FrequentQuestionKey, string>> =>
   getFiles(frequentQuestionsEntry, locale);
 
-export const getFrequentQuestion = async <L extends Locales>(
+export const getFrequentQuestion = async <L extends LocalesValues>(
   docName: FrequentQuestionKey,
   locale: L = defaultLocale as L
 ): Promise<string> => getFile(frequentQuestionsEntry, docName, locale);
 
-export const getFrequentQuestionMetadataRecord = async <L extends Locales>(
+export const getFrequentQuestionMetadataRecord = async <
+  L extends LocalesValues,
+>(
   locale: L = defaultLocale as L
 ): Promise<Record<FrequentQuestionKey, FileMetadata>> =>
   getFileMetadataRecord(frequentQuestionsEntry, locale);
 
 export const getFrequentQuestionMetadata = async <
   D extends FrequentQuestionKey,
-  L extends Locales,
+  L extends LocalesValues,
 >(
   docName: D,
   locale: L = defaultLocale as L
 ): Promise<FileMetadata> =>
   getFileMetadata(frequentQuestionsEntry, docName, locale);
 
-export const getFrequentQuestionMetadataBySlug = async <L extends Locales>(
+export const getFrequentQuestionMetadataBySlug = async <
+  L extends LocalesValues,
+>(
   slugs: string | string[],
   locale: L = defaultLocale as L,
   strict = false
 ): Promise<FileMetadata[]> =>
   await getFileMetadataBySlug(frequentQuestionsEntry, slugs, locale, strict);
 
-export const getFrequentQuestionBySlug = async <L extends Locales>(
+export const getFrequentQuestionBySlug = async <L extends LocalesValues>(
   slugs: string | string[],
   locale: L = defaultLocale as L,
   strict = false

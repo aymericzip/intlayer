@@ -1,14 +1,14 @@
 import configuration from '@intlayer/config/built';
-import type { Locales, LocalesValues } from '@intlayer/config/client';
-import { getTranslation } from '../interpreter';
+import type { LocalesValues } from '@intlayer/types';
+import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
+import {
+  type DeepTransformContent,
+  getTranslation,
+  type NodeProps,
+  type Plugins,
+} from '../interpreter';
 import { deepTransformNode } from '../interpreter/getContent/deepTransform';
-import type {
-  DeepTransformContent,
-  NodeProps,
-  Plugins,
-} from '../interpreter/getContent/plugins';
 import type { TranslationContent } from '../transpiler';
-import { type ContentNode, type KeyPath, NodeType } from '../types';
 
 /**
  * Helper function to check if a node or its children contain translation nodes
@@ -76,16 +76,19 @@ export const filterTranslationsOnlyPlugin = (
       // For regular objects, filter out properties that don't contain translations
       const result: Record<string, any> = {};
       for (const key in node as any) {
-        if (hasTranslationNodes(node[key])) {
+        if (hasTranslationNodes(node[key as unknown as keyof typeof node])) {
           const childProps = {
             ...props,
-            children: node[key],
+            children: node[key as unknown as keyof typeof node],
             keyPath: [
               ...props.keyPath,
               { type: NodeType.Object, key } as KeyPath,
             ],
           };
-          result[key] = deepTransformNode(node[key], childProps);
+          result[key] = deepTransformNode(
+            node[key as unknown as keyof typeof node],
+            childProps
+          );
         }
       }
       return result;
@@ -116,10 +119,10 @@ export const filterTranslationsOnlyPlugin = (
  */
 export const getFilterTranslationsOnlyContent = <
   T extends ContentNode,
-  L extends LocalesValues = Locales,
+  L extends LocalesValues,
 >(
   node: T,
-  locale: L = configuration?.internationalization.defaultLocale as L,
+  locale: L = configuration?.internationalization?.defaultLocale as L,
   nodeProps: NodeProps,
   fallback?: LocalesValues
 ) => {

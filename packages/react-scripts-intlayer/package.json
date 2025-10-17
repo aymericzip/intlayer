@@ -63,20 +63,21 @@
   "scripts": {
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist .turbo",
     "dev": "tsdown --config tsdown.config.ts --watch",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint --write .",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsdown  --project ./tsconfig.json --noEmit"
-  },
+     "typecheck": "tsc --noEmit --project tsconfig.types.json"
+},
   "dependencies": {
     "@craco/craco": "7.1.0",
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/webpack": "workspace:*",
     "node-loader": "2.1.0",
     "process": "0.11.10",
@@ -92,12 +93,13 @@
     "@utils/tsdown-config": "workspace:*",
     "concurrently": "9.2.1",
     "rimraf": "6.0.1",
-
+    "tsdown": "0.15.7",
     "typescript": "5.9.3",
     "vitest": "3.2.4"
   },
   "peerDependencies": {
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/webpack": "workspace:*",
     "webpack": ">=5.0.0"
   },

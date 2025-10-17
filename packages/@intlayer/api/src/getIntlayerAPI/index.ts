@@ -1,4 +1,4 @@
-import type { IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/types';
 import type { FetcherOptions } from '../fetcher';
 import { getAiAPI } from './ai';
 import { getDictionaryAPI } from './dictionary';

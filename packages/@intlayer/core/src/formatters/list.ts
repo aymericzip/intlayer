@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/types';
 import { Intl as CachedIntl } from '../utils/intl';
 
 /**
@@ -22,7 +22,7 @@ export const list = (
   options?: Intl.ListFormatOptions & { locale?: LocalesValues }
 ): string =>
   new CachedIntl.ListFormat(
-    options?.locale ?? configuration.internationalization.defaultLocale,
+    options?.locale ?? configuration?.internationalization?.defaultLocale,
     {
       type: options?.type ?? 'conjunction',
       style: options?.style ?? 'long',
