@@ -1,19 +1,4 @@
 import { join } from 'node:path';
-import type {
-  AiConfig,
-  BaseContentConfig,
-  BaseDerivedConfig,
-  BuildConfig,
-  ContentConfig,
-  CustomIntlayerConfig,
-  EditorConfig,
-  InternationalizationConfig,
-  IntlayerConfig,
-  LogConfig,
-  LogFunctions,
-  MiddlewareConfig,
-  PatternsContentConfig,
-} from '@intlayer/types';
 import {
   IMPORT_MODE,
   OPTIMIZE,
@@ -64,6 +49,21 @@ import {
   PREFIX_DEFAULT,
   SERVER_SET_COOKIE,
 } from '../defaultValues/middleware';
+import type {
+  AiConfig,
+  BaseContentConfig,
+  BaseDerivedConfig,
+  BuildConfig,
+  ContentConfig,
+  CustomIntlayerConfig,
+  EditorConfig,
+  InternationalizationConfig,
+  IntlayerConfig,
+  LogConfig,
+  LogFunctions,
+  MiddlewareConfig,
+  PatternsContentConfig,
+} from '../types/config';
 import { normalizePath } from '../utils/normalizePath';
 
 let storedConfiguration: IntlayerConfig;

@@ -1,5 +1,7 @@
-import { getConfiguration as getApplicationConfiguration } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
+import {
+  getConfiguration as getApplicationConfiguration,
+  type IntlayerConfig,
+} from '@intlayer/config';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 

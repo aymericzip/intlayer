@@ -1,3 +1,5 @@
+import concurrently from 'concurrently';
+
 export type ParallelHandle = {
   kill: () => void;
   result: Promise<any>;
@@ -8,15 +10,12 @@ export type ParallelHandle = {
  * Start a cross-platform parallel process using `concurrently`.
  * Accepts either a single string (e.g., 'next start') or an array of tokens (e.g., ['next', 'start']).
  */
-export const runParallel = async (
+export const runParallel = (
   proc?: string | string[]
-): Promise<ParallelHandle | null> => {
+): ParallelHandle | null => {
   if (!proc || (Array.isArray(proc) && proc.length === 0)) return null;
 
   const commandText = Array.isArray(proc) ? proc.join(' ') : proc;
-
-  // Dynamic import to avoid loading concurrently at module initialization
-  const { concurrently } = await import('concurrently');
 
   const { result, commands } = concurrently(
     [
@@ -51,7 +50,6 @@ export const runParallel = async (
 
   // Ensure cleanup on exit
   const cleanup = () => kill();
-
   process.on('SIGINT', cleanup);
   process.on('SIGTERM', cleanup);
   process.on('exit', cleanup);

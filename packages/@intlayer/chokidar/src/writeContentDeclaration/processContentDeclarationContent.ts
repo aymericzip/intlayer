@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { colorizePath, x } from '@intlayer/config';
 import {
+  type Dictionary,
   deepTransformNode,
   type FileContent,
   type FileContentConstructor,
@@ -9,9 +10,9 @@ import {
   type InsertionContentConstructor,
   type MarkdownContent,
   type MarkdownContentConstructor,
+  NodeType,
   type Plugins,
 } from '@intlayer/core';
-import { type Dictionary, NodeType } from '@intlayer/types';
 
 /**
  * Write file plugin

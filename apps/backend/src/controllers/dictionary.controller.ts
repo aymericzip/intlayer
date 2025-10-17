@@ -2,7 +2,7 @@ import * as eventListener from '@controllers/eventListener.controller';
 import type {
   ContentNode,
   Dictionary as LocalDictionary,
-} from '@intlayer/types';
+} from '@intlayer/core';
 import { logger } from '@logger';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as dictionaryService from '@services/dictionary.service';

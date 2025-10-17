@@ -1,11 +1,11 @@
 import { relative } from 'node:path';
+import merge from 'deepmerge';
+import { logger } from '../logger';
 import type {
   CustomIntlayerConfig,
   IntlayerConfig,
   LogFunctions,
-} from '@intlayer/types';
-import merge from 'deepmerge';
-import { logger } from '../logger';
+} from '../types/config';
 import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
 import { searchConfigurationFile } from './searchConfigurationFile';

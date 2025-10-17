@@ -1,5 +1,5 @@
 import { getConfiguration } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/core';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import {
   type LocalizedDictionaryOutput,

@@ -1,9 +1,13 @@
 import {
   type GetConfigurationOptions,
   getConfiguration,
+  type Locales,
 } from '@intlayer/config';
-import { getMissingLocalesContent } from '@intlayer/core';
-import type { ContentNode, Dictionary, Locales } from '@intlayer/types';
+import {
+  type ContentNode,
+  type Dictionary,
+  getMissingLocalesContent,
+} from '@intlayer/core';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 export const listMissingTranslations = (

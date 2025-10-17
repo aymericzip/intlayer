@@ -1,11 +1,12 @@
 import { mkdir } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config';
+import type { Dictionary } from '@intlayer/core';
 import { loadContentDeclarations } from './loadContentDeclaration';
 
 export const loadLocalDictionaries = async (
   contentDeclarationsPaths: string[] | string,
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig = getConfiguration()
 ): Promise<Dictionary[]> => {
   const { content } = configuration;
   const { dictionariesDir, baseDir } = content;

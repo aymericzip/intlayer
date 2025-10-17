@@ -1,6 +1,5 @@
 import { prepareIntlayer, watch } from '@intlayer/chokidar';
-import { logger } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
+import { type IntlayerConfig, logger } from '@intlayer/config';
 import type { Compiler } from 'webpack';
 
 // Watch mode or on time build

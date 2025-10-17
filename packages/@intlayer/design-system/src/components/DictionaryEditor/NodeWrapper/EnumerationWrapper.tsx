@@ -1,5 +1,9 @@
-import type { EnumerationContent } from '@intlayer/core';
-import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
+import {
+  type ContentNode,
+  type EnumerationContent,
+  type KeyPath,
+  NodeType,
+} from '@intlayer/core';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps, traceKeys } from './index';
 

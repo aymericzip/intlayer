@@ -1,10 +1,7 @@
-import {
-  type ContentNode,
-  type CustomIntlayerConfig,
-  Locales,
-} from '@intlayer/types';
+import { type CustomIntlayerConfig, Locales } from '@intlayer/config/client';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { t } from '../transpiler';
+import type { ContentNode } from '../types';
 import { getFilterMissingTranslationsContent } from './getFilterMissingTranslationsContent';
 
 // Mock dependencies

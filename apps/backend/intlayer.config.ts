@@ -1,7 +1,8 @@
-import { type IntlayerConfig, Locales } from '@intlayer/types';
+import { type IntlayerConfig, Locales } from '@intlayer/config';
 
 export const locales = [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH];
 
+/** @type {import('intlayer').IntlayerConfig} */
 const config: IntlayerConfig = {
   internationalization: {
     locales,

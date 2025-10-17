@@ -1,3 +1,5 @@
+// @ts-nocheck intlayer declared for module augmentation
+
 /**
  * @intlayer/fetch-dictionaries-entry is a package that only returns the fetch dictionary entry file.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
@@ -6,16 +8,19 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { clearModuleCache, getConfiguration } from '@intlayer/config';
+import {
+  clearModuleCache,
+  getConfiguration,
+  type IntlayerConfig,
+} from '@intlayer/config';
 import type {
   Dictionary,
-  DictionaryKeys,
-  IntlayerConfig,
+  IntlayerDictionaryTypesConnector,
   LanguageContent,
-} from '@intlayer/types';
+} from 'intlayer';
 
 export type FetchDictionaries = Record<
-  DictionaryKeys,
+  IntlayerDictionaryTypesConnector['key'],
   LanguageContent<Dictionary>
 >;
 
@@ -30,7 +35,10 @@ export const getDynamicDictionaries: GetFetchDictionaries = (
 
   // Always use cjs for dictionaries entry as it uses require
   const dictionariesPath = join(content.mainDir, `fetch_dictionaries.cjs`);
-  let dictionaries: Record<DictionaryKeys, LanguageContent<Dictionary>> = {};
+  let dictionaries: Record<
+    IntlayerDictionaryTypesConnector['key'],
+    LanguageContent<Dictionary>
+  > = {};
 
   if (existsSync(dictionariesPath)) {
     // Clear cache for dynamic_dictionaries.cjs and all its dependencies (JSON files)

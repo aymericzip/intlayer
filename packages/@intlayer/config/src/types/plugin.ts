@@ -1,5 +1,5 @@
 import type { IntlayerConfig } from './config';
-import type { LocalesValues } from './module_augmentation';
+import type { LocalesValues } from './locales';
 
 /**
  * This is a temporary type to avoid cross-package type coupling.

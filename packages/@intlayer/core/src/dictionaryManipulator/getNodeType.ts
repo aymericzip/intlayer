@@ -1,4 +1,5 @@
-import { type ContentNode, NodeType, type TypedNode } from '@intlayer/types';
+import { NodeType, type TypedNode } from '../types';
+import type { ContentNode } from '../types/dictionary';
 import { isValidElement } from '../utils/isValidReactElement';
 
 /**

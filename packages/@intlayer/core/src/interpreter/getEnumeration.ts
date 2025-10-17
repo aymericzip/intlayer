@@ -1,4 +1,7 @@
-import type { EnterFormat, EnumerationContentState } from '../transpiler';
+import type {
+  EnterFormat,
+  EnumerationContentState,
+} from '../transpiler/enumeration/enumeration';
 
 /**
  * Find the matching condition for a quantity.

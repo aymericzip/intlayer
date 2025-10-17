@@ -1,5 +1,4 @@
-import { getTranslation } from '@intlayer/core';
-import type { LanguageContent } from '@intlayer/types';
+import { getTranslation, type LanguageContent } from '@intlayer/core';
 import { useContext, useMemo } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 

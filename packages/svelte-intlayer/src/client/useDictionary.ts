@@ -1,4 +1,5 @@
-import type { Dictionary, LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/config/client';
+import type { Dictionary } from '@intlayer/core';
 import { derived, type Readable } from 'svelte/store';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';

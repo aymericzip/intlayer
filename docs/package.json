@@ -48,10 +48,10 @@
     "legal"
   ],
   "scripts": {
-    "prebuild": "tsx tools/generateEntry.ts",
+    "prebuild": "bun tools/generateEntry.ts",
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
-    "clean": "rimraf ./dist .turbo",
+    "clean": "rimraf ./dist",
     "dev": "tsdown --config tsdown.config.ts --watch",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
@@ -61,16 +61,15 @@
     "review": "bun tools/review.ts",
     "serve": "webpack serve --config ./webpack.config.ts",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit --project tsconfig.types.json",
-    "test:markdown": "tsx tools/markdownFormatting.ts",
+    "test:markdown": "bun tools/markdownFormatting.ts",
     "test:watch": "vitest",
-    "translate": "tsx tools/translate.ts",
+    "translate": "bun tools/translate.ts",
     "transpile": "webpack --config ./webpack.config.ts",
+    "typecheck": "tsdown  --project ./tsconfig.json --noEmit",
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
     "@intlayer/config": "workspace:*",
-    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*"
   },
   "devDependencies": {
@@ -80,7 +79,7 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "tsdown": "0.15.7",
+    "concurrently": "9.2.1",
     "fast-glob": "3.3.3",
     "rimraf": "6.0.1",
     "typescript": "5.9.3",
@@ -90,7 +89,6 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*"
   },
   "engines": {

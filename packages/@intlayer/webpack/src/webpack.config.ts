@@ -1,6 +1,5 @@
 import { join } from 'node:path';
 import { getConfiguration } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
 // @ts-ignore - Export exists
 import type { Configuration as WebPackConfiguration } from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
@@ -37,9 +36,8 @@ export const devServerConfig: DevServerConfiguration = {
   static: {},
 };
 
-export const getWebpackConfig = (
-  configuration: IntlayerConfig = getConfiguration()
-): WebPackConfiguration => {
+export const getWebpackConfig = (): WebPackConfiguration => {
+  const configuration = getConfiguration();
   const { fileExtensions } = configuration.content;
 
   /**
@@ -47,15 +45,13 @@ export const getWebpackConfig = (
    */
   defineDirname();
 
-  const entries = getEntries(configuration);
-
   const webpackConfig: WebPackConfiguration = {
     // Define the environment mode (development or production)
     mode: 'production', // or 'production'
     // Entry point of the application
     target: 'node', // Specifies the target environment
 
-    entry: entries,
+    entry: getEntries,
     output: {
       clean: true, // Clean the output directory before emit
       library: 'IntlLayerContent',

@@ -1,6 +1,6 @@
 'use client';
 
-import type { LocalesValues } from '@intlayer/types';
+import type { Locales, LocalesValues } from '@intlayer/config/client';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ChevronRightIcon } from 'lucide-react';
 import { type FC, Fragment, type HTMLAttributes, type ReactNode } from 'react';
@@ -20,7 +20,7 @@ type LinkLinkProps = {
   /**
    * Locale for internationalization
    */
-  locale?: LocalesValues;
+  locale?: Locales;
   /**
    * URL to navigate to
    */

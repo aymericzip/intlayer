@@ -1,5 +1,6 @@
-import { type ContentNode, Locales, NodeType } from '@intlayer/types';
+import { Locales } from '@intlayer/config/client';
 import { describe, expect, it } from 'vitest';
+import { type ContentNode, NodeType } from '../types';
 import { getFilterTranslationsOnlyContent } from './getFilterTranslationsOnlyContent';
 
 describe('getFilterTranslationsOnlyContent', () => {

@@ -1,12 +1,17 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { cond, enu, gender, insert, md, nest, t } from '@intlayer/core';
-import { fileContent as file } from '@intlayer/core/file';
+import { type CustomIntlayerConfig, Locales } from '@intlayer/config';
 import {
-  type CustomIntlayerConfig,
+  cond,
   type Dictionary,
-  Locales,
-} from '@intlayer/types';
+  enu,
+  gender,
+  insert,
+  md,
+  nest,
+  t,
+} from '@intlayer/core';
+import { fileContent as file } from '@intlayer/core/file';
 import deepmerge from 'deepmerge';
 import { describe, expect, it, vi } from 'vitest';
 import { transformJSFile } from './transformJSFile';

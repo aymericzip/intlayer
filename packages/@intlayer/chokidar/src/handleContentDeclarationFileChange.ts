@@ -1,5 +1,4 @@
-import { getAppLogger } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
+import { getAppLogger, type IntlayerConfig } from '@intlayer/config';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
 import { getBuiltDictionariesPath } from './createDictionaryEntryPoint/getBuiltDictionariesPath';
@@ -25,7 +24,7 @@ export const handleContentDeclarationFileChange = async (
     dictionariesOutput?.mergedDictionaries ?? {}
   ).map((dictionary) => dictionary.dictionaryPath);
 
-  const allDictionariesPaths: string[] = await getBuiltDictionariesPath(config);
+  const allDictionariesPaths: string[] = getBuiltDictionariesPath(config);
 
   createTypes(updatedDictionariesPaths);
   appLogger('TypeScript types built', {

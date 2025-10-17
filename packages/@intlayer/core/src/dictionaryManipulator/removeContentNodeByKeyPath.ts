@@ -1,4 +1,5 @@
-import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
+import { type KeyPath, NodeType } from '../types';
+import type { ContentNode } from '../types/dictionary';
 
 export const removeContentNodeByKeyPath = (
   dictionaryContent: ContentNode,

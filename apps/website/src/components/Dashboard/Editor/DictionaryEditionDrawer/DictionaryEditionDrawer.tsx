@@ -1,5 +1,6 @@
 'use client';
 
+import type { Locales } from '@intlayer/config/client';
 import { getUnmergedDictionaryByKeyPath } from '@intlayer/core';
 import {
   Button,
@@ -10,7 +11,6 @@ import {
   useRightDrawerStore,
 } from '@intlayer/design-system';
 import { useFocusDictionary } from '@intlayer/editor-react';
-import type { Locales } from '@intlayer/types';
 import { Pencil } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';

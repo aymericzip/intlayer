@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/types';
+import { Locales } from '@intlayer/config';
 import type { RenameId } from '@utils/mongoDB/types';
 import {
   MEMBERS_MIN_LENGTH,

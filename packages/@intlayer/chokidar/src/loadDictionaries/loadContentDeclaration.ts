@@ -1,6 +1,10 @@
 import { relative } from 'node:path';
-import { loadExternalFile } from '@intlayer/config';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import {
+  getConfiguration,
+  type IntlayerConfig,
+  loadExternalFile,
+} from '@intlayer/config';
+import type { Dictionary } from '@intlayer/core';
 import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
 import {
   filterInvalidDictionaries,
@@ -11,7 +15,7 @@ import type { DictionariesStatus } from './loadDictionaries';
 
 export const formatLocalDictionaries = (
   dictionariesRecord: Record<string, Dictionary>,
-  configuration: IntlayerConfig
+  configuration?: IntlayerConfig
 ): Dictionary[] =>
   Object.entries(dictionariesRecord)
     .filter(([_relativePath, dict]) => isInvalidDictionary(dict, configuration))
@@ -24,7 +28,7 @@ export const formatLocalDictionaries = (
 
 export const loadContentDeclarations = async (
   contentDeclarationFilePath: string[],
-  configuration: IntlayerConfig,
+  configuration: IntlayerConfig = getConfiguration(),
   onStatusUpdate?: (status: DictionariesStatus[]) => void
 ): Promise<Dictionary[]> => {
   const { build } = configuration;
@@ -32,8 +36,10 @@ export const loadContentDeclarations = async (
   const dictionariesRecord = contentDeclarationFilePath.reduce(
     (acc, path) => {
       const relativePath = relative(configuration.content.baseDir, path);
-      acc[relativePath] = loadExternalFile(path, build.require);
-      return acc;
+      return {
+        ...acc,
+        [relativePath]: loadExternalFile(path, build.require),
+      };
     },
     {} as Record<string, Dictionary>
   );

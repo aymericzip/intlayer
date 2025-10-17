@@ -1,5 +1,4 @@
-import { getMaskContent } from '@intlayer/core';
-import type { Dictionary } from '@intlayer/types';
+import { type Dictionary, getMaskContent } from '@intlayer/core';
 import { applyMask } from './applyMask';
 
 export const reduceDictionaryContent = (

@@ -1,7 +1,8 @@
 'use client';
 
+import type { Locales } from '@intlayer/config/client';
+import type { Dictionary } from '@intlayer/core';
 import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
-import type { Dictionary, Locales } from '@intlayer/types';
 import type { FC } from 'react';
 import { SaveForm } from '../DictionaryFieldEditor/SaveForm/SaveForm';
 import { NodeWrapper } from './NodeWrapper';

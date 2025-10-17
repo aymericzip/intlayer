@@ -1,4 +1,5 @@
-import type { IConfigLocales, LocalesValues } from './module_augmentation';
+import type { LocalesValues } from '@intlayer/config/client';
+import type { IConfigLocales } from './intlayer';
 
 /**
  * If module augmented, it will return the configured locales such as Locales.ENGLISH | Locales.FRENCH | Locales.SPANISH | ...

@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/config/client';
 
 import { getMultilingualUrls } from './getMultilingualUrls';
 
@@ -33,11 +33,10 @@ import { getMultilingualUrls } from './getMultilingualUrls';
 export const getLocalizedUrl = (
   url: string,
   currentLocale: LocalesValues,
-  locales: LocalesValues[] | undefined = configuration?.internationalization
-    ?.locales,
-  defaultLocale: LocalesValues | undefined = configuration?.internationalization
-    ?.defaultLocale,
-  prefixDefault: boolean | undefined = configuration?.middleware?.prefixDefault
+  locales: LocalesValues[] = configuration.internationalization.locales,
+  defaultLocale: LocalesValues = configuration.internationalization
+    .defaultLocale,
+  prefixDefault: boolean = configuration.middleware.prefixDefault
 ): string => {
   // Remove any existing locale segment from the URL
   const urlWithoutLocale = getMultilingualUrls(

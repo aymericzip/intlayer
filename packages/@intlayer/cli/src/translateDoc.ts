@@ -19,9 +19,10 @@ import {
   type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
+  type IntlayerConfig,
+  type Locales,
   retryManager,
 } from '@intlayer/config';
-import type { IntlayerConfig, Locales } from '@intlayer/types';
 import fg from 'fast-glob';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAccess';
@@ -204,7 +205,7 @@ export const translateDoc = async ({
     nbSimultaneousFileProcessed = 10; // Limit the number of simultaneous file processed to 10
   }
 
-  let docList: string[] = await fg(docPattern, {
+  let docList: string[] = fg.sync(docPattern, {
     ignore: excludedGlobPattern,
   });
 

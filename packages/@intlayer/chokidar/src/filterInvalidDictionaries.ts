@@ -1,9 +1,10 @@
+import type { IntlayerConfig } from '@intlayer/config';
 import {
   colorizeKey,
   colorizePath,
   getAppLogger,
 } from '@intlayer/config/client';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/core';
 import { formatPath } from './utils/formatter';
 
 export const isInvalidDictionary = (

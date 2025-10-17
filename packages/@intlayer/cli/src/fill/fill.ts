@@ -15,10 +15,15 @@ import {
   colorizeKey,
   getAppLogger,
   getConfiguration,
+  type Locales,
 } from '@intlayer/config';
-import { getLocalizedContent, mergeDictionaries } from '@intlayer/core';
+import {
+  type ContentNode,
+  type Dictionary,
+  getLocalizedContent,
+  mergeDictionaries,
+} from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { ContentNode, Dictionary, Locales } from '@intlayer/types';
 import {
   ensureArray,
   type GetTargetDictionaryOptions,
@@ -174,14 +179,14 @@ export const fill = async (options?: FillOptions): Promise<void> => {
      */
     if (formattedDict.locale) {
       const presetOutputContent = getLocalizedContent(
-        mainDictionaryToProcess.content as unknown as ContentNode,
+        mainDictionaryToProcess as unknown as ContentNode,
         formattedDict.locale,
         { dictionaryKey, keyPath: [] }
       );
 
       formattedDict = {
         ...formattedDict,
-        content: presetOutputContent,
+        content: presetOutputContent.content,
       };
     }
 
@@ -213,7 +218,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
       await writeAutoFill(
         mergedResults,
         targetUnmergedDictionary,
-        formattedDict.autoFill ?? (configuration.content.autoFill as AutoFill),
+        formattedDict.autoFill ?? configuration.content.autoFill,
         localeList,
         [sourceLocale],
         configuration

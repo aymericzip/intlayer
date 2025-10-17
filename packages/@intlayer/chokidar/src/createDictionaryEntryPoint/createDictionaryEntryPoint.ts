@@ -11,14 +11,14 @@ import { getBuiltRemoteDictionariesPath } from './getBuiltRemoteDictionariesPath
 import { getBuiltUnmergedDictionariesPath } from './getBuiltUnmergedDictionariesPath';
 
 const writeDictionaryFiles = async (
-  paths: Promise<string[]>,
+  paths: string[],
   fileName: string,
   functionName: string,
   format: 'cjs' | 'esm',
   configuration = getConfiguration()
 ) => {
   const content = generateDictionaryListContent(
-    await paths,
+    paths,
     functionName,
     format,
     configuration

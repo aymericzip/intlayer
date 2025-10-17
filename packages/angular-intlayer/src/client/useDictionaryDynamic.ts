@@ -2,12 +2,12 @@
 
 import { computed, inject } from '@angular/core';
 import configuration from '@intlayer/config/built';
+import type { LocalesValues } from '@intlayer/config/client';
 import type {
   Dictionary,
   DictionaryKeys,
   LanguageContent,
-  LocalesValues,
-} from '@intlayer/types';
+} from '@intlayer/core';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
 import { useLoadDynamic } from './useLoadDynamic';

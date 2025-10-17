@@ -6,7 +6,7 @@ import {
   relative,
   resolve,
 } from 'node:path';
-import type { LocalesValues } from '@intlayer/types';
+import type { Locales } from '@intlayer/config';
 
 /**
  * This function normalizes the URI related to multiple cases:
@@ -67,7 +67,7 @@ export const formatAutoFilledFilePath = (
   dictionaryKey: string,
   dictionaryFilePath: string,
   baseDir: string,
-  locale?: LocalesValues
+  locale?: Locales
 ): string => {
   // Validate inputs
   if (!autoFillField || typeof autoFillField !== 'string') {

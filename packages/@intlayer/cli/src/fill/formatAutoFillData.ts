@@ -1,16 +1,17 @@
 import { extname } from 'node:path';
-import type { AutoFill, IntlayerConfig, LocalesValues } from '@intlayer/types';
+import type { IntlayerConfig, Locales } from '@intlayer/config';
+import type { AutoFill } from '@intlayer/core';
 import { formatAutoFilledFilePath } from './formatAutoFilledFilePath';
 
 export type AutoFillData = {
-  localeList: LocalesValues[];
+  localeList: Locales[];
   filePath: string;
   isPerLocale: boolean;
 };
 
 export const formatAutoFillData = (
   autoFillField: AutoFill,
-  localeList: LocalesValues[],
+  localeList: Locales[],
   filePath: string,
   dictionaryKey: string,
   configuration: IntlayerConfig
@@ -77,17 +78,14 @@ export const formatAutoFillData = (
 
   if (typeof autoFillField === 'object') {
     const localeList = Object.keys(autoFillField).filter(
-      (locale) =>
-        typeof autoFillField[locale as keyof typeof autoFillField] === 'string'
-    ) as LocalesValues[];
+      (locale) => typeof autoFillField[locale] === 'string'
+    ) as Locales[];
 
     const output: AutoFillData[] = localeList
-      .filter((locale) =>
-        Boolean(autoFillField[locale as keyof typeof autoFillField])
-      )
+      .filter((locale) => Boolean(autoFillField[locale]))
       .map((locale) => {
         const formattedFilePath = formatAutoFilledFilePath(
-          autoFillField[locale as keyof typeof autoFillField] as string,
+          autoFillField[locale],
           dictionaryKey,
           filePath,
           baseDir,

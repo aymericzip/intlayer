@@ -1,5 +1,4 @@
-import { getConfiguration } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config';
 import fg from 'fast-glob';
 
 /**
@@ -7,10 +6,10 @@ import fg from 'fast-glob';
  * @param configuration - The configuration object
  * @returns An array of dictionary paths
  */
-export const listDictionaries = async (
+export const listDictionaries = (
   configuration: IntlayerConfig = getConfiguration()
-): Promise<string[]> => {
-  const files: string[] = await fg(
+): string[] => {
+  const files: string[] = fg.sync(
     configuration.content.watchedFilesPatternWithPath,
     {
       ignore: [

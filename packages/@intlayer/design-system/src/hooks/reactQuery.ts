@@ -1,24 +1,8 @@
 'use client';
 
-import type {} from '@better-fetch/fetch'; // Import for type inference
 import type {
-  AddDictionaryBody,
-  AddNewAccessKeyBody,
-  AddOrganizationBody,
-  AddOrganizationMemberBody,
-  AddProjectBody,
-  AddTagBody,
-  AskDocQuestionBody,
-  AuditContentDeclarationBody,
-  AuditContentDeclarationFieldBody,
-  AuditContentDeclarationMetadataBody,
-  AuditTagBody,
-  AutocompleteBody,
-  CreateUserBody,
-  DeleteAccessKeyBody,
-  DeleteDictionaryParam,
-  DeleteTagParams,
   GetCheckoutSessionBody,
+  GetDictionariesKeysResult,
   GetDictionariesParams,
   GetDictionaryParams,
   GetDictionaryQuery,
@@ -28,32 +12,19 @@ import type {
   GetProjectsParams,
   GetTagsParams,
   GetUsersParams,
-  NewsletterSubscriptionBody,
-  NewsletterUnsubscriptionBody,
-  PushDictionariesBody,
-  RefreshAccessKeyBody,
   SearchDocUtilParams,
-  SelectOrganizationParam,
-  SelectProjectParam,
-  TranslateJSONBody,
-  UpdateDictionaryBody,
-  UpdateOrganizationBody,
-  UpdateOrganizationMembersBody,
-  UpdateProjectBody,
-  UpdateProjectMembersBody,
-  UpdateUserBody,
 } from '@intlayer/backend';
 import { useConfiguration } from '@intlayer/editor-react';
 import {
+  // keepPreviousData,
+  type QueryKey,
   type UseQueryOptions,
+  type UseQueryResult,
   useMutation,
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import type {} from 'better-auth'; // Import for type inference
-// @ts-ignore
-import type { WriteContentDeclarationBody } from 'intlayer-editor';
-import type { AuthAPI } from '../libs/auth';
+import type { getAuthAPI } from '../libs/auth';
 import { useAuth } from './useAuth';
 import { useIntlayerAuth, useIntlayerOAuth } from './useIntlayerAPI';
 
@@ -101,13 +72,18 @@ const useAuthEnable = ({
   };
 };
 
-export const useAppQuery = (
-  options: UseQueryOptions & {
+export const useAppQuery = <
+  TQueryFnData,
+  TError,
+  TData = TQueryFnData,
+  TQueryKey extends QueryKey = QueryKey,
+>(
+  options: UseQueryOptions<TQueryFnData, TError, TData, TQueryKey> & {
     requireUser?: boolean;
     requireProject?: boolean;
     requireOrganization?: boolean;
   }
-) => {
+): UseQueryResult<TData, TError> => {
   const { requireUser, requireProject, requireOrganization, ...rest } = options;
   const { enable } = useAuthEnable({
     requireUser,
@@ -116,11 +92,11 @@ export const useAppQuery = (
   });
 
   const result = useQuery({
-    enabled: rest?.enabled === false ? false : enable,
+    enabled: (rest as any).enabled === false ? false : enable,
     ...rest,
-  });
+  } as any);
 
-  return result;
+  return result as unknown as UseQueryResult<TData, TError>;
 };
 
 // Removed unused useEditorMutation
@@ -135,8 +111,9 @@ export const useLogin = () => {
 
   return useMutation({
     mutationKey: ['login'],
-    mutationFn: (args: Parameters<AuthAPI['signInEmail']>) =>
-      intlayerAuth.signInEmail(...args),
+    mutationFn: (
+      ...args: Parameters<ReturnType<typeof getAuthAPI>['signInEmail']>
+    ) => intlayerAuth.signInEmail(...args),
     onSuccess: (data) => {
       const session = queryClient.getQueryData(['session']);
 
@@ -155,8 +132,9 @@ export const useGetVerifyEmailStatus = () => {
 
   return useMutation({
     mutationKey: ['getVerifyEmailStatus'],
-    mutationFn: (args: Parameters<AuthAPI['verifyEmailSession']>) =>
-      intlayerAuth.verifyEmailSession(...args),
+    mutationFn: (
+      args: Parameters<ReturnType<typeof getAuthAPI>['verifyEmailSession']>
+    ) => intlayerAuth.verifyEmailSession(...args),
   });
 };
 
@@ -165,8 +143,9 @@ export const useRegister = () => {
 
   return useMutation({
     mutationKey: ['register'],
-    mutationFn: (args: Parameters<AuthAPI['signUpEmail']>) =>
-      intlayerAuth.signUpEmail(...args),
+    mutationFn: (
+      ...args: Parameters<ReturnType<typeof getAuthAPI>['signUpEmail']>
+    ) => intlayerAuth.signUpEmail(...args),
     meta: {
       resetQueries: [['session']],
     },
@@ -178,7 +157,9 @@ export const useLogout = () => {
 
   return useMutation({
     mutationKey: ['logout'],
-    mutationFn: () => intlayerAuth.signOut(),
+    mutationFn: (
+      ...args: Parameters<ReturnType<typeof getAuthAPI>['signOut']>
+    ) => intlayerAuth.signOut(...args),
     meta: {
       resetQueries: [
         ['session'],
@@ -197,8 +178,11 @@ export const useChangePassword = () => {
 
   return useMutation({
     mutationKey: ['changePassword'],
-    mutationFn: (args: Parameters<AuthAPI['changePasswordSession']>) =>
-      intlayerAuth.changePasswordSession(...args),
+    mutationFn: (
+      ...args: Parameters<
+        ReturnType<typeof getAuthAPI>['changePasswordSession']
+      >
+    ) => intlayerAuth.changePasswordSession(...args),
   });
 };
 
@@ -207,8 +191,11 @@ export const useAskResetPassword = () => {
 
   return useMutation({
     mutationKey: ['askResetPassword'],
-    mutationFn: (args: Parameters<AuthAPI['requestPasswordResetSession']>) =>
-      intlayerAuth.requestPasswordResetSession(...args),
+    mutationFn: (
+      ...args: Parameters<
+        ReturnType<typeof getAuthAPI>['requestPasswordResetSession']
+      >
+    ) => intlayerAuth.requestPasswordResetSession(...args),
   });
 };
 
@@ -217,8 +204,9 @@ export const useResetPassword = () => {
 
   return useMutation({
     mutationKey: ['resetPassword'],
-    mutationFn: (args: Parameters<AuthAPI['resetPassword']>) =>
-      intlayerAuth.resetPassword(...args),
+    mutationFn: (
+      ...args: Parameters<ReturnType<typeof getAuthAPI>['resetPassword']>
+    ) => intlayerAuth.resetPassword(...args),
   });
 };
 
@@ -227,8 +215,9 @@ export const useVerifyEmail = () => {
 
   return useMutation({
     mutationKey: ['verifyEmail'],
-    mutationFn: (args: Parameters<AuthAPI['verifyEmailSession']>) =>
-      intlayerAuth.verifyEmailSession(...args),
+    mutationFn: (
+      ...args: Parameters<ReturnType<typeof getAuthAPI>['verifyEmailSession']>
+    ) => intlayerAuth.verifyEmailSession(...args),
   });
 };
 
@@ -237,8 +226,9 @@ export const useGetUserByAccount = () => {
 
   return useMutation({
     mutationKey: ['user'],
-    mutationFn: (args: Parameters<AuthAPI['accountInfo']>) =>
-      intlayerAuth.accountInfo(...args),
+    mutationFn: (
+      ...args: Parameters<ReturnType<typeof getAuthAPI>['accountInfo']>
+    ) => intlayerAuth.accountInfo(...args),
   });
 };
 
@@ -276,7 +266,7 @@ export const useCreateUser = () => {
 
   return useMutation({
     mutationKey: ['users'],
-    mutationFn: (args: CreateUserBody) => intlayerAuth.user.createUser(args),
+    mutationFn: intlayerAuth.user.updateUser,
   });
 };
 
@@ -285,7 +275,7 @@ export const useUpdateUser = () => {
 
   return useMutation({
     mutationKey: ['users'],
-    mutationFn: (args: UpdateUserBody) => intlayerOAuth.user.updateUser(args),
+    mutationFn: intlayerOAuth.user.updateUser,
   });
 };
 
@@ -294,7 +284,7 @@ export const useDeleteUser = () => {
 
   return useMutation({
     mutationKey: ['users'],
-    mutationFn: (args: string) => intlayerOAuth.user.deleteUser(args),
+    mutationFn: intlayerOAuth.user.deleteUser,
     meta: {
       invalidateQueries: [['users']],
     },
@@ -322,8 +312,7 @@ export const useAddOrganization = () => {
 
   return useMutation({
     mutationKey: ['organizations'],
-    mutationFn: (args: AddOrganizationBody) =>
-      intlayerOAuth.organization.addOrganization(args),
+    mutationFn: intlayerOAuth.organization.addOrganization,
   });
 };
 
@@ -332,8 +321,7 @@ export const useUpdateOrganization = () => {
 
   return useMutation({
     mutationKey: ['organizations'],
-    mutationFn: (args: UpdateOrganizationBody) =>
-      intlayerOAuth.organization.updateOrganization(args),
+    mutationFn: intlayerOAuth.organization.updateOrganization,
   });
 };
 
@@ -342,8 +330,7 @@ export const useUpdateOrganizationMembers = () => {
 
   return useMutation({
     mutationKey: ['organizations'],
-    mutationFn: (args: UpdateOrganizationMembersBody) =>
-      intlayerOAuth.organization.updateOrganizationMembers(args),
+    mutationFn: intlayerOAuth.organization.updateOrganizationMembers,
     meta: {
       invalidateQueries: [['organizations'], ['users']],
     },
@@ -378,8 +365,7 @@ export const useAddOrganizationMember = () => {
 
   return useMutation({
     mutationKey: ['organizations'],
-    mutationFn: (args: AddOrganizationMemberBody) =>
-      intlayerOAuth.organization.addOrganizationMember(args),
+    mutationFn: intlayerOAuth.organization.addOrganizationMember,
     meta: {
       invalidateQueries: [['organizations']],
     },
@@ -391,7 +377,7 @@ export const useDeleteOrganization = () => {
 
   return useMutation({
     mutationKey: ['organizations'],
-    mutationFn: () => intlayerOAuth.organization.deleteOrganization(),
+    mutationFn: intlayerOAuth.organization.deleteOrganization,
     meta: {
       invalidateQueries: [['organizations']],
     },
@@ -404,8 +390,7 @@ export const useSelectOrganization = () => {
 
   return useMutation({
     mutationKey: ['session-organizations'],
-    mutationFn: (args: SelectOrganizationParam) =>
-      intlayerOAuth.organization.selectOrganization(args),
+    mutationFn: intlayerOAuth.organization.selectOrganization,
     meta: {
       invalidateQueries: [
         ['organizations'],
@@ -435,7 +420,7 @@ export const useUnselectOrganization = () => {
 
   return useMutation({
     mutationKey: ['session-organizations'],
-    mutationFn: () => intlayerOAuth.organization.unselectOrganization(),
+    mutationFn: intlayerOAuth.organization.unselectOrganization,
     meta: {
       resetQueries: [
         ['organizations'],
@@ -486,8 +471,7 @@ export const useAddProject = () => {
 
   return useMutation({
     mutationKey: ['projects'],
-    mutationFn: (args: AddProjectBody) =>
-      intlayerOAuth.project.addProject(args),
+    mutationFn: intlayerOAuth.project.addProject,
     meta: {
       invalidateQueries: [['projects']],
     },
@@ -499,8 +483,7 @@ export const useUpdateProject = () => {
 
   return useMutation({
     mutationKey: ['projects'],
-    mutationFn: (args: UpdateProjectBody) =>
-      intlayerOAuth.project.updateProject(args),
+    mutationFn: intlayerOAuth.project.updateProject,
     meta: {
       invalidateQueries: [['projects']],
     },
@@ -512,8 +495,7 @@ export const useUpdateProjectMembers = () => {
 
   return useMutation({
     mutationKey: ['projects'],
-    mutationFn: (args: UpdateProjectMembersBody) =>
-      intlayerOAuth.project.updateProjectMembers(args),
+    mutationFn: intlayerOAuth.project.updateProjectMembers,
     meta: {
       invalidateQueries: [['projects']],
     },
@@ -525,7 +507,7 @@ export const useDeleteProject = () => {
 
   return useMutation({
     mutationKey: ['projects'],
-    mutationFn: () => intlayerOAuth.project.deleteProject(),
+    mutationFn: intlayerOAuth.project.deleteProject,
     meta: {
       invalidateQueries: [['projects']],
     },
@@ -538,8 +520,7 @@ export const useSelectProject = () => {
 
   return useMutation({
     mutationKey: ['session-projects'],
-    mutationFn: (args: SelectProjectParam) =>
-      intlayerOAuth.project.selectProject(args),
+    mutationFn: intlayerOAuth.project.selectProject,
     meta: {
       invalidateQueries: [
         ['projects'],
@@ -568,7 +549,7 @@ export const useUnselectProject = () => {
 
   return useMutation({
     mutationKey: ['session-projects'],
-    mutationFn: () => intlayerOAuth.project.unselectProject(),
+    mutationFn: intlayerOAuth.project.unselectProject,
     meta: {
       resetQueries: [
         ['projects'],
@@ -596,8 +577,7 @@ export const useAddNewAccessKey = () => {
 
   return useMutation({
     mutationKey: ['projects'],
-    mutationFn: (args: AddNewAccessKeyBody) =>
-      intlayerOAuth.project.addNewAccessKey(args),
+    mutationFn: intlayerOAuth.project.addNewAccessKey,
     meta: {
       invalidateQueries: [['projects']],
     },
@@ -609,8 +589,7 @@ export const useDeleteAccessKey = () => {
 
   return useMutation({
     mutationKey: ['projects'],
-    mutationFn: (args: DeleteAccessKeyBody) =>
-      intlayerOAuth.project.deleteAccessKey(args),
+    mutationFn: intlayerOAuth.project.deleteAccessKey,
     meta: {
       invalidateQueries: [['projects']],
     },
@@ -622,8 +601,7 @@ export const useRefreshAccessKey = () => {
 
   return useMutation({
     mutationKey: ['projects'],
-    mutationFn: (args: RefreshAccessKeyBody) =>
-      intlayerOAuth.project.refreshAccessKey(args),
+    mutationFn: intlayerOAuth.project.refreshAccessKey,
     meta: {
       invalidateQueries: [['projects']],
     },
@@ -652,12 +630,14 @@ export const useGetDictionaries = (
   });
 };
 
-export const useGetDictionariesKeys = (options?: Partial<UseQueryOptions>) => {
+export const useGetDictionariesKeys = (
+  options?: Partial<UseQueryOptions<GetDictionariesKeysResult>>
+) => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
-    queryKey: ['dictionariesKeys'],
-    queryFn: () => intlayerOAuth.dictionary.getDictionariesKeys(),
+    queryKey: ['dictionariesKeys', options],
+    queryFn: intlayerOAuth.dictionary.getDictionariesKeys,
     requireUser: true,
     requireOrganization: true,
     requireProject: true,
@@ -690,8 +670,7 @@ export const useAddDictionary = () => {
 
   return useMutation({
     mutationKey: ['dictionaries'],
-    mutationFn: (args: AddDictionaryBody) =>
-      intlayerOAuth.dictionary.addDictionary(args),
+    mutationFn: intlayerOAuth.dictionary.addDictionary,
     meta: {
       invalidateQueries: [['dictionaries'], ['dictionariesKeys']],
     },
@@ -703,8 +682,7 @@ export const usePushDictionaries = () => {
 
   return useMutation({
     mutationKey: ['dictionaries'],
-    mutationFn: (args: PushDictionariesBody) =>
-      intlayerOAuth.dictionary.pushDictionaries(args),
+    mutationFn: intlayerOAuth.dictionary.pushDictionaries,
     meta: {
       invalidateQueries: [['dictionaries'], ['dictionariesKeys']],
     },
@@ -716,8 +694,7 @@ export const useUpdateDictionary = () => {
 
   return useMutation({
     mutationKey: ['dictionaries'],
-    mutationFn: (args: UpdateDictionaryBody) =>
-      intlayerOAuth.dictionary.updateDictionary(args),
+    mutationFn: intlayerOAuth.dictionary.updateDictionary,
     meta: {
       invalidateQueries: [['dictionaries'], ['dictionariesKeys']],
     },
@@ -729,8 +706,7 @@ export const useDeleteDictionary = () => {
 
   return useMutation({
     mutationKey: ['dictionaries'],
-    mutationFn: (args: DeleteDictionaryParam) =>
-      intlayerOAuth.dictionary.deleteDictionary(args),
+    mutationFn: intlayerOAuth.dictionary.deleteDictionary,
     meta: {
       invalidateQueries: [['dictionaries'], ['dictionariesKeys']],
     },
@@ -763,7 +739,7 @@ export const useAddTag = () => {
 
   return useMutation({
     mutationKey: ['tags'],
-    mutationFn: (args: AddTagBody) => intlayerOAuth.tag.addTag(args),
+    mutationFn: intlayerOAuth.tag.addTag,
     meta: {
       invalidateQueries: [['tags']],
     },
@@ -788,7 +764,7 @@ export const useDeleteTag = () => {
 
   return useMutation({
     mutationKey: ['tags'],
-    mutationFn: (args: DeleteTagParams) => intlayerOAuth.tag.deleteTag(args),
+    mutationFn: intlayerOAuth.tag.deleteTag,
     meta: {
       invalidateQueries: [['tags']],
     },
@@ -833,7 +809,7 @@ export const useCancelSubscription = () => {
 
   return useMutation({
     mutationKey: ['subscription'],
-    mutationFn: () => intlayerOAuth.stripe.cancelSubscription(),
+    mutationFn: intlayerOAuth.stripe.cancelSubscription,
     meta: {
       invalidateQueries: [['session'], ['subscription']],
     },
@@ -849,8 +825,7 @@ export const useTranslateJSONDeclaration = () => {
 
   return useMutation({
     mutationKey: ['ai-translateJSON'],
-    mutationFn: (args: TranslateJSONBody) =>
-      intlayerOAuth.ai.translateJSON(args),
+    mutationFn: intlayerOAuth.ai.translateJSON,
   });
 };
 
@@ -859,8 +834,7 @@ export const useAuditContentDeclaration = () => {
 
   return useMutation({
     mutationKey: ['ai-auditContentDeclaration'],
-    mutationFn: (args: AuditContentDeclarationBody) =>
-      intlayerOAuth.ai.auditContentDeclaration(args),
+    mutationFn: intlayerOAuth.ai.auditContentDeclaration,
   });
 };
 
@@ -869,8 +843,7 @@ export const useAuditContentDeclarationMetadata = () => {
 
   return useMutation({
     mutationKey: ['ai-auditContentDeclarationMetadata'],
-    mutationFn: (args: AuditContentDeclarationMetadataBody) =>
-      intlayerOAuth.ai.auditContentDeclarationMetadata(args),
+    mutationFn: intlayerOAuth.ai.auditContentDeclarationMetadata,
   });
 };
 
@@ -879,8 +852,7 @@ export const useAuditContentDeclarationField = () => {
 
   return useMutation({
     mutationKey: ['ai-auditContentDeclarationField'],
-    mutationFn: (args: AuditContentDeclarationFieldBody) =>
-      intlayerOAuth.ai.auditContentDeclarationField(args),
+    mutationFn: intlayerOAuth.ai.auditContentDeclarationField,
   });
 };
 
@@ -889,7 +861,7 @@ export const useAuditTag = () => {
 
   return useMutation({
     mutationKey: ['ai-auditTag'],
-    mutationFn: (args: AuditTagBody) => intlayerOAuth.ai.auditTag(args),
+    mutationFn: intlayerOAuth.ai.auditTag,
   });
 };
 
@@ -898,8 +870,7 @@ export const useAskDocQuestion = () => {
 
   return useMutation({
     mutationKey: [],
-    mutationFn: (args?: AskDocQuestionBody) =>
-      intlayerOAuth.ai.askDocQuestion(args),
+    mutationFn: intlayerOAuth.ai.askDocQuestion,
   });
 };
 
@@ -908,8 +879,7 @@ export const useAutocomplete = () => {
 
   return useMutation({
     mutationKey: ['ai-autocomplete'],
-    mutationFn: (args?: AutocompleteBody) =>
-      intlayerOAuth.ai.autocomplete(args),
+    mutationFn: intlayerOAuth.ai.autocomplete,
   });
 };
 
@@ -973,8 +943,7 @@ export const useSubscribeToNewsletter = () => {
 
   return useMutation({
     mutationKey: ['newsletter'],
-    mutationFn: (args: NewsletterSubscriptionBody) =>
-      intlayerOAuth.newsletter.subscribeToNewsletter(args),
+    mutationFn: intlayerOAuth.newsletter.subscribeToNewsletter,
   });
 };
 
@@ -983,8 +952,7 @@ export const useUnsubscribeFromNewsletter = () => {
 
   return useMutation({
     mutationKey: ['newsletter'],
-    mutationFn: (args: NewsletterUnsubscriptionBody) =>
-      intlayerOAuth.newsletter.unsubscribeFromNewsletter(args),
+    mutationFn: intlayerOAuth.newsletter.unsubscribeFromNewsletter,
   });
 };
 
@@ -993,7 +961,7 @@ export const useGetNewsletterStatus = () => {
 
   return useMutation({
     mutationKey: ['newsletter'],
-    mutationFn: () => intlayerOAuth.newsletter.getNewsletterStatus(),
+    mutationFn: intlayerOAuth.newsletter.getNewsletterStatus,
   });
 };
 
@@ -1006,7 +974,7 @@ export const useGetEditorDictionaries = () => {
 
   return useQuery({
     queryKey: ['editor', 'dictionaries'],
-    queryFn: () => intlayerOAuth.editor.getDictionaries(),
+    queryFn: intlayerOAuth.editor.getDictionaries,
   });
 };
 
@@ -1015,7 +983,6 @@ export const useWriteDictionary = () => {
 
   return useMutation({
     mutationKey: ['editor', 'dictionaries'],
-    mutationFn: (args: WriteContentDeclarationBody) =>
-      intlayerOAuth.editor.writeDictionary(args),
+    mutationFn: intlayerOAuth.editor.writeDictionary,
   });
 };

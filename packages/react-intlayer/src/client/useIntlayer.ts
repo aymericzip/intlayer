@@ -1,10 +1,9 @@
 'use client';
 
-import type {
-  DictionaryKeys,
-  DictionaryRegistryContent,
-  LocalesValues,
-} from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/config/client';
+import type { DictionaryKeys } from '@intlayer/core';
+// @ts-ignore intlayer declared for module augmentation
+import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import { useContext, useMemo } from 'react';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
@@ -20,7 +19,8 @@ import { IntlayerClientContext } from './IntlayerProvider';
 export const useIntlayer = <T extends DictionaryKeys>(
   key: T,
   locale?: LocalesValues
-): DeepTransformContent<DictionaryRegistryContent<T>> => {
+  // @ts-ignore Type 'T' cannot be used to index type 'IntlayerDictionaryTypesConnector'
+): DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']> => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
 
   return useMemo(() => {

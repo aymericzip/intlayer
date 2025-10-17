@@ -1,4 +1,4 @@
-import { type KeyPath, NodeType } from '@intlayer/types';
+import { type KeyPath, NodeType } from '../../types/index';
 import type { NodeProps } from './plugins';
 
 /**

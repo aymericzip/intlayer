@@ -3,8 +3,7 @@ import {
   getIntlayerAPIProxy,
   type Messages,
 } from '@intlayer/api';
-import { retryManager } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
+import { type IntlayerConfig, retryManager } from '@intlayer/config';
 
 type ChunkInferenceResult = {
   fileContent: string;

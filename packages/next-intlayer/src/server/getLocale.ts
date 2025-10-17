@@ -1,14 +1,12 @@
+import type { Locales } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { localeDetector } from '@intlayer/core';
-import { Locales } from '@intlayer/types';
 import { cookies, headers } from 'next/headers.js';
 
 // Helper function to extract locale from referer URL
 export const getLocale = async (): Promise<Locales> => {
-  const { defaultLocale } = configuration?.internationalization ?? {};
-  const { headerName, cookieName } = configuration?.middleware ?? {};
-
-  if (!headerName || !cookieName) return Locales.ENGLISH;
+  const { defaultLocale } = configuration.internationalization;
+  const { headerName, cookieName } = configuration.middleware;
 
   // 1 - Try to pick the locale selected using the headers
   const headersList = await headers();

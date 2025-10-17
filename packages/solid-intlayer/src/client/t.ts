@@ -1,5 +1,5 @@
-import { getTranslation } from '@intlayer/core';
-import type { LanguageContent, Locales } from '@intlayer/types';
+import type { Locales } from '@intlayer/config/client';
+import { getTranslation, type LanguageContent } from '@intlayer/core';
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 

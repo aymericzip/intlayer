@@ -1,4 +1,4 @@
-import type { Response } from 'express';
+import type { Request, Response } from 'express';
 import rateLimit, {
   ipKeyGenerator,
   type Options,
@@ -17,29 +17,22 @@ const ipLimiterOptions: Partial<Options> = {
   standardHeaders: 'draft-8',
   legacyHeaders: false,
   // Use a custom key generator that handles proxy headers securely
-  keyGenerator: (req) => {
+  keyGenerator: (req: Request) => {
     // Normalize IPv6 to subnet using helper to avoid bypasses
     return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
   },
-  handler: (req, res) => {
+  handler: (req: Request, res: Response) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 
-    ErrorHandler.handleGenericErrorResponse(
-      res as unknown as Response,
-      'RATE_LIMIT_EXCEEDED',
-      {
-        limit: `${limit} per minute`,
-        retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
-        remaining,
-      }
-    );
+    ErrorHandler.handleGenericErrorResponse(res, 'RATE_LIMIT_EXCEEDED', {
+      limit: `${limit} per minute`,
+      retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
+      remaining,
+    });
   },
 };
 
-// Fix type error of express-rate-limit
-export const ipLimiter: any = rateLimit(
-  ipLimiterOptions
-) satisfies RateLimitRequestHandler;
+export const ipLimiter: RateLimitRequestHandler = rateLimit(ipLimiterOptions);
 
 const unauthenticatedChatBotLimiterOptions: Partial<Options> = {
   windowMs: 60 * 60 * 1000, // 1-hour window
@@ -48,15 +41,15 @@ const unauthenticatedChatBotLimiterOptions: Partial<Options> = {
   skip: (_req, res) => Boolean(res.locals.user), // authenticated? then skip
   legacyHeaders: false,
   // Use a custom key generator that handles proxy headers securely
-  keyGenerator: (req) => {
+  keyGenerator: (req: Request) => {
     // Normalize IPv6 to subnet using helper to avoid bypasses
     return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
   },
-  handler: (req, res) => {
+  handler: (req: Request, res: Response) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 
     ErrorHandler.handleGenericErrorResponse(
-      res as unknown as Response,
+      res,
       'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED',
       {
         limit: `${limit} per hour`,
@@ -67,7 +60,6 @@ const unauthenticatedChatBotLimiterOptions: Partial<Options> = {
   },
 };
 
-// Fix type error of express-rate-limit
-export const unauthenticatedChatBotLimiter: any = rateLimit(
+export const unauthenticatedChatBotLimiter: RateLimitRequestHandler = rateLimit(
   unauthenticatedChatBotLimiterOptions
-) satisfies RateLimitRequestHandler;
+);

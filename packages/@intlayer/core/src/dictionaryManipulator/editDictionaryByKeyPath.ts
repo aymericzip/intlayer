@@ -1,4 +1,6 @@
-import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
+import type { ContentNode } from '../types/dictionary';
+import type { KeyPath } from '../types/keyPath';
+import { NodeType } from '../types/nodeType';
 
 type LastKeyType = string | number;
 

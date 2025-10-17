@@ -1,5 +1,6 @@
 import { computed, inject } from '@angular/core';
-import type { Dictionary, LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/config/client';
+import type { Dictionary } from '@intlayer/core';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';

@@ -1,5 +1,10 @@
-import { getNodeChildren, getNodeType } from '@intlayer/core';
-import { type ContentNode, NodeType, type TypedNode } from '@intlayer/types';
+import {
+  type ContentNode,
+  getNodeChildren,
+  getNodeType,
+  NodeType,
+  type TypedNode,
+} from '@intlayer/core';
 
 export const getIsEditableSection = (section: ContentNode): boolean => {
   const children = getNodeChildren(section);

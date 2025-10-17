@@ -1,10 +1,4 @@
-import {
-  type DictionaryKeys,
-  type KeyPath,
-  type Locales,
-  type LocalesValues,
-  NodeType,
-} from '@intlayer/types';
+import type { Locales, LocalesValues } from '@intlayer/config/client';
 import type {
   ConditionContent,
   EnumerationContent,
@@ -15,6 +9,7 @@ import type {
   NestedContent,
   TranslationContent,
 } from '../../transpiler';
+import { type DictionaryKeys, type KeyPath, NodeType } from '../../types/index';
 import { getCondition } from '../getCondition';
 import { getEnumeration } from '../getEnumeration';
 import { getGender } from '../getGender';

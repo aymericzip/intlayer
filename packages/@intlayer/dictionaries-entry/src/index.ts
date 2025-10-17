@@ -6,10 +6,20 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { clearModuleCache, getConfiguration } from '@intlayer/config';
-import type { DictionaryRegistry, IntlayerConfig } from '@intlayer/types';
+import {
+  clearModuleCache,
+  getConfiguration,
+  type IntlayerConfig,
+} from '@intlayer/config';
+// @ts-ignore intlayer declared for module augmentation
+import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 
-type GetDictionaries = (configuration?: IntlayerConfig) => DictionaryRegistry;
+export type Dictionaries = Record<
+  IntlayerDictionaryTypesConnector['key'],
+  IntlayerDictionaryTypesConnector
+>;
+
+type GetDictionaries = (configuration?: IntlayerConfig) => Dictionaries;
 
 export const getDictionaries: GetDictionaries = (
   configuration = getConfiguration()
@@ -27,5 +37,8 @@ export const getDictionaries: GetDictionaries = (
     dictionaries = build.require(dictionariesPath);
   }
 
-  return (dictionaries ?? {}) as DictionaryRegistry;
+  return (dictionaries ?? {}) as Record<
+    IntlayerDictionaryTypesConnector['key'],
+    IntlayerDictionaryTypesConnector
+  >;
 };

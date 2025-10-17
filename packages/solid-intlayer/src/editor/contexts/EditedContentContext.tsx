@@ -1,15 +1,13 @@
 import {
+  type ContentNode,
+  type Dictionary,
   editDictionaryByKeyPath,
   getContentNodeByKeyPath,
+  type KeyPath,
+  type LocalDictionaryId,
   renameContentNodeByKeyPath,
 } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
-import type {
-  ContentNode,
-  Dictionary,
-  KeyPath,
-  LocalDictionaryId,
-} from '@intlayer/types';
 import {
   type Component,
   createContext,

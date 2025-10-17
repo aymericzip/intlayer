@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/config';
 
 /**
  * Get the output file path by replacing the base locale with the target locale

@@ -1,10 +1,15 @@
 'use client';
 
 import {
+  type ContentNode,
   getDefaultNode,
   getNodeChildren,
   getNodeType,
   isSameKeyPath,
+  type KeyPath,
+  type LocalDictionaryId,
+  NodeType,
+  type TypedNode,
 } from '@intlayer/core';
 import {
   useConfiguration,
@@ -12,13 +17,6 @@ import {
   useFocusDictionary,
   useFocusDictionaryActions,
 } from '@intlayer/editor-react';
-import {
-  type KeyPath,
-  type LocalDictionaryId,
-  NodeType,
-  type TypedNode,
-} from '@intlayer/types';
-import type { ContentNode } from 'intlayer';
 import { Plus, Trash } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

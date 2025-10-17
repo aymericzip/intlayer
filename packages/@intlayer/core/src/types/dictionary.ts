@@ -1,13 +1,50 @@
-import type { IConfigLocales, LocalesValues } from './module_augmentation';
-import type { NodeType } from './nodeType';
+import type { ConditionContent } from '../transpiler/condition';
+import type { EnumerationContent } from '../transpiler/enumeration';
+import type { FileContent } from '../transpiler/file';
+import type { GenderContent } from '../transpiler/gender';
+import type { InsertionContent } from '../transpiler/insertion';
+import type { MarkdownContent } from '../transpiler/markdown';
+import type { NestedContent } from '../transpiler/nesting';
+import type { TranslationContent } from '../transpiler/translation';
+import type {
+  IntlayerDictionaryTypesConnector,
+  LanguageContent,
+  LocalesValues,
+} from './intlayer';
+
+/**
+ * Provides a fallback to string type if the generic type T is undefined,
+ * otherwise returns T. This is useful for handling cases where no keys are found.
+ * Example: StringFallback<undefined> -> string; StringFallback<'key'> -> 'key'
+ */
+export type StringFallback<T> = T extends undefined ? string : T; // If no keys are found, return string to disable error, and accept any string as dictionary key
+
+/**
+ * Represents the keys of the IntlayerDictionaryTypesConnector,
+ * ensuring they are valid dictionary keys or fallback to string if none exist.
+ *
+ * Example:
+ * ```ts
+ * DictionaryKeys -> 'key1' | 'key2'
+ * // or if IntlayerDictionaryTypesConnector is not defined,
+ * DictionaryKeys -> string
+ * ```
+ */
+export type DictionaryKeys = StringFallback<
+  keyof IntlayerDictionaryTypesConnector
+>;
 
 type BaseNode = number | string | boolean | null | undefined;
 
-type TypedNodeBase = {
-  nodeType: NodeType;
-};
-
-export interface TypedNode<NodeType = undefined> extends TypedNodeBase {}
+export type TypedNode<NodeType = undefined> =
+  | TranslationContent<NodeType>
+  | EnumerationContent<NodeType>
+  | ConditionContent<NodeType>
+  | InsertionContent<NodeType>
+  | MarkdownContent<NodeType>
+  | NestedContent<DictionaryKeys>
+  | GenderContent<NodeType>
+  | FileContent;
 
 type FetchableContentNode<NodeType> = (
   args?: any
@@ -48,7 +85,7 @@ type ReplaceContentValue<
         | ReplaceContentValueObject<NodeType, FetchableNode>
   : ContentNode<NodeType, FetchableNode>;
 
-export type AutoFill = true | string | Partial<IConfigLocales<string>>;
+export type AutoFill = true | string | Partial<LanguageContent<string>>;
 
 export type LocalDictionaryId =
   `${Dictionary['key']}::${Dictionary['location']}::${Dictionary['filePath'] | Dictionary['id']}`;

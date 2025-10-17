@@ -5,8 +5,10 @@ import {
   colorize,
   colorizeKey,
   getAppLogger,
+  getConfiguration,
+  type IntlayerConfig,
 } from '@intlayer/config';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/core';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { loadContentDeclarations } from './loadContentDeclaration';
 import { loadRemoteDictionaries } from './loadRemoteDictionaries';
@@ -82,7 +84,7 @@ const colorFor = (status: DictionariesStatus['status']) => {
   }
 };
 
-const printSummary = (configuration: IntlayerConfig) => {
+const printSummary = (configuration: IntlayerConfig = getConfiguration()) => {
   if (configuration.log.mode !== 'verbose') return;
 
   const appLogger = getAppLogger(configuration);
@@ -155,7 +157,7 @@ const printSummary = (configuration: IntlayerConfig) => {
 
 export const loadDictionaries = async (
   contentDeclarationsPaths: string[] | string,
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig = getConfiguration()
 ): Promise<{
   localDictionaries: Dictionary[];
   remoteDictionaries: Dictionary[];

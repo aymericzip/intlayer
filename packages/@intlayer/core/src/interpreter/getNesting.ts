@@ -1,9 +1,6 @@
-import type {
-  DictionaryKeys,
-  DictionaryRegistryContent,
-  GetSubPath,
-} from '@intlayer/types';
 import type { ValidDotPathsFor } from '../transpiler';
+import type { DictionaryKeys, GetSubPath } from '../types';
+import type { IntlayerDictionaryTypesConnector } from '../types/intlayer';
 import type {
   DeepTransformContent,
   IInterpreterPluginState,
@@ -15,7 +12,10 @@ export type GetNestingResult<
   K extends DictionaryKeys,
   P = undefined,
   S = IInterpreterPluginState,
-> = GetSubPath<DeepTransformContent<DictionaryRegistryContent<K>, S>, P>;
+> = GetSubPath<
+  DeepTransformContent<IntlayerDictionaryTypesConnector[K]['content'], S>,
+  P
+>;
 
 /**
  * Allow to extract the content of another dictionary.
