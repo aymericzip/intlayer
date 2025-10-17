@@ -1654,6 +1654,7 @@
         "vitest": "3.2.4",
       },
       "peerDependencies": {
+        "@babel/core": ">=6.0.0",
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1661,6 +1662,9 @@
         "@intlayer/types": "workspace:*",
         "vite": ">=4.0.0",
       },
+      "optionalPeers": [
+        "@babel/core",
+      ],
     },
     "packages/vue-intlayer": {
       "name": "vue-intlayer",
