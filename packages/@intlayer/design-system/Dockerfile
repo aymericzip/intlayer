@@ -31,6 +31,12 @@ COPY \
     --exclude=examples \
     . .
 
+COPY docs/docs/en/                 docs/docs/en/
+COPY docs/blog/en/                 docs/blog/en/
+COPY docs/frequent_questions/en/   docs/frequent_questions/en/
+COPY docs/legal/en/                docs/legal/en/
+    
+
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
 RUN bun install --ignore-scripts --filter=./packages/@intlayer/design-system
 
