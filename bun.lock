@@ -1640,6 +1640,7 @@
         "@intlayer/dictionaries-entry": "workspace:*",
         "@intlayer/types": "workspace:*",
         "fast-glob": "3.3.3",
+        "intlayer": "workspace:*",
       },
       "devDependencies": {
         "@types/node": "24.7.2",

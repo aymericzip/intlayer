@@ -4,8 +4,13 @@
  */
 
 import type { IntlayerConfig } from '@intlayer/types';
-import { getConfiguration } from './configFile/getConfiguration';
 
-const configuration: IntlayerConfig | undefined = getConfiguration();
+let configuration: IntlayerConfig | undefined;
+
+(() => {
+  import('./configFile/getConfiguration').then(({ getConfiguration }) => {
+    configuration = getConfiguration();
+  });
+})();
 
 export default configuration;

@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react';
 import fg from 'fast-glob';
 import preserveDirectives from 'rollup-preserve-directives';
 import { defineConfig } from 'vite';
+import { intlayer } from 'vite-intlayer';
 import dts from 'vite-plugin-dts';
 import packageJson from './package.json' with { type: 'json' };
 
@@ -25,6 +26,7 @@ export default defineConfig(() => ({
     }),
     preserveDirectives(),
     tailwindcss(),
+    intlayer(),
   ],
   define: {
     'process.env': {},

@@ -55,7 +55,7 @@ export const getSandBoxContext = (
       },
     },
     console,
-    require: wrappedRequire,
+    require: ESMxCJSRequire,
     ...additionalGlobalVar,
   };
 

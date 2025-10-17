@@ -46,7 +46,6 @@ export const intlayerPlugin = (
         };
 
         if (isWatchMode) {
-          // Ajout de l'option optimizeDeps.exclude
           config.optimizeDeps = {
             ...config.optimizeDeps,
             exclude: [

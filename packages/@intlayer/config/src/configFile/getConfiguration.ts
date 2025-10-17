@@ -6,6 +6,7 @@ import type {
 } from '@intlayer/types';
 import merge from 'deepmerge';
 import { logger } from '../logger';
+import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
 import { searchConfigurationFile } from './searchConfigurationFile';
@@ -20,8 +21,6 @@ export type GetConfigurationOptions = {
   additionalEnvVars?: Record<string, string>;
 };
 
-const BASE_DIR_PATH = process.cwd();
-
 export type GetConfigurationAndFilePathResult = {
   configuration: IntlayerConfig;
   configurationFilePath: string | undefined;
@@ -33,8 +32,9 @@ export type GetConfigurationAndFilePathResult = {
 export const getConfigurationAndFilePath = (
   options?: GetConfigurationOptions
 ): GetConfigurationAndFilePathResult => {
+  const { baseDir } = getPackageJsonPath();
   const mergedOptions = {
-    baseDir: BASE_DIR_PATH,
+    baseDir,
     require: options?.require,
     ...options,
   };
@@ -44,7 +44,11 @@ export const getConfigurationAndFilePath = (
     searchConfigurationFile(mergedOptions.baseDir);
 
   if (options?.override?.log?.mode === 'verbose') {
-    logConfigFileResult(numCustomConfiguration, configurationFilePath);
+    logConfigFileResult(
+      mergedOptions.baseDir,
+      numCustomConfiguration,
+      configurationFilePath
+    );
   }
 
   let storedConfiguration: IntlayerConfig | undefined;
@@ -101,6 +105,7 @@ export const getConfiguration = (
 ): IntlayerConfig => getConfigurationAndFilePath(options).configuration;
 
 const logConfigFileResult = (
+  baseDir: string,
   numCustomConfiguration?: number,
   configurationFilePath?: string
 ) => {
@@ -109,7 +114,7 @@ const logConfigFileResult = (
       isVerbose: true,
     });
   } else {
-    const relativeOutputPath = relative(BASE_DIR_PATH, configurationFilePath!);
+    const relativeOutputPath = relative(baseDir, configurationFilePath!);
 
     if (numCustomConfiguration === 1) {
       logger(`Configuration file found: ${relativeOutputPath}.`, {

@@ -1,4 +1,4 @@
-import { type IntlayerConfig, Locales } from '@intlayer/types';
+import { type CustomIntlayerConfig, Locales } from '@intlayer/types';
 
 export const locales = [
   Locales.ENGLISH,
@@ -18,7 +18,7 @@ export const locales = [
 ];
 export const defaultLocale = Locales.ENGLISH;
 
-const config: IntlayerConfig = {
+const config: CustomIntlayerConfig = {
   internationalization: {
     locales,
     defaultLocale,
@@ -42,7 +42,6 @@ const config: IntlayerConfig = {
   },
   build: {
     importMode: 'dynamic',
-    require,
   },
   ai: {
     apiKey: process.env.OPENAI_API_KEY,

@@ -1,4 +1,7 @@
-import type { Dictionary as DictionaryCore } from '@intlayer/types';
+import type {
+  Dictionary as DictionaryCore,
+  CustomIntlayerConfig as IntlayerConfig,
+} from '@intlayer/types';
 
 type Dictionary<T = undefined> = DictionaryCore<T, true>;
 /**
@@ -8,12 +11,11 @@ type DeclarationContent<T = undefined> = Dictionary<T>;
 
 export {
   type ContentNode,
-  type IntlayerConfig,
   type LanguageContent,
   Locales,
   type LocalesValues,
 } from '@intlayer/types';
-export type { DeclarationContent, Dictionary };
+export type { DeclarationContent, Dictionary, IntlayerConfig };
 
 /**
  * Rexport using named import because πof Tsup bug in CJS

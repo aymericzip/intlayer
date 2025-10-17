@@ -1,5 +1,3 @@
-// @ts-ignore - Fix error Module '"vite"' has no exported member
-
 import { join } from 'node:path';
 import { intlayerBabelPlugin } from '@intlayer/babel';
 import { ESMxCJSRequire } from '@intlayer/config';
