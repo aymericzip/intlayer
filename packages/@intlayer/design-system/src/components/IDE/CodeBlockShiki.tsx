@@ -1,5 +1,8 @@
-import { type FC, use } from 'react';
+'use client';
+
+import { type FC, useEffect, useState } from 'react';
 import type { BundledLanguage, BundledTheme, CodeToHastOptions } from 'shiki';
+import { CodeDefault } from './CodeBlockClient';
 
 // Map of loaded modules to avoid re-importing
 const languageCache = new Map<BundledLanguage, any>();
@@ -112,14 +115,36 @@ export const CodeBlockShiki: FC<CodeBlockShikiProps> = ({
   lang,
   isDarkMode,
 }) => {
-  // Use React's `use` hook to handle the promise
-  const html = use(highlightCode(children, lang, isDarkMode));
+  const [html, setHtml] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    setHtml(null);
+
+    highlightCode(children, lang, isDarkMode)
+      .then((result) => {
+        if (!isCancelled) setHtml(result);
+      })
+      .catch(() => {
+        if (!isCancelled) setHtml('');
+      });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [children, lang, isDarkMode]);
 
   return (
     <div
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki generates safe HTML for code highlighting
-      dangerouslySetInnerHTML={{ __html: html }}
       style={{ backgroundColor: 'transparent', minWidth: 0, overflow: 'auto' }}
-    />
+    >
+      {html ? (
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki generates safe HTML for code highlighting
+        <div dangerouslySetInnerHTML={{ __html: html }} />
+      ) : (
+        <CodeDefault>{children}</CodeDefault>
+      )}
+    </div>
   );
 };
