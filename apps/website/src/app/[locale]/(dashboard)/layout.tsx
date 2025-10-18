@@ -4,8 +4,8 @@ import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/Dashboard
 import type { SessionAPI } from '@intlayer/backend';
 import { PageLayout } from '@layouts/PageLayout';
 import {
+  type DehydratedState,
   dehydrate,
-  HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
 import type { LocalesValues } from 'intlayer';
@@ -14,6 +14,7 @@ import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import { getServerIntlayerAPI } from '@/utils/getServerIntlayerAPI';
 import { getSessionData } from '@/utils/getSessionData';
+import { DashboardHydrationBoundary } from './DashboardHydrationBoundary';
 import { WarmupClient } from './dashboard/WarmupClient';
 
 export const runtime = 'nodejs'; // ensure Node runtime
@@ -27,28 +28,27 @@ type DashboardLayoutContentProps = {
   children: React.ReactNode;
   locale: LocalesValues;
   session: SessionAPI | null;
-  queryClient: QueryClient;
+  dehydratedState: DehydratedState;
 };
 
 const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
   children,
   locale,
   session,
-  queryClient,
+  dehydratedState,
 }) => {
   const { navbarLinks, footerLinks } = useIntlayer('dashboard-navbar-content');
-  const dehydratedState = dehydrate(queryClient);
 
   const formattedNavbarLinks = navbarLinks.map((el) => ({
-    ...el,
     url: el.url.value,
     label: el.label.value,
+    title: el.title.value,
   }));
 
   const formattedFooterLinks = footerLinks.map((el) => ({
-    ...el,
     href: el.href.value,
     label: el.label.value,
+    text: el.text.value,
   }));
 
   return (
@@ -57,7 +57,7 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
       navbar={<DashboardNavbar links={formattedNavbarLinks} />}
       footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
     >
-      <HydrationBoundary state={dehydratedState}>
+      <DashboardHydrationBoundary dehydratedState={dehydratedState}>
         <AuthenticationBarrier
           accessRule="authenticated"
           session={session} // Don't preset the session on the client side to avoid infinite re-renders
@@ -66,7 +66,7 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
           <WarmupClient />
           {children}
         </AuthenticationBarrier>
-      </HydrationBoundary>
+      </DashboardHydrationBoundary>
     </PageLayout>
   );
 };
@@ -119,11 +119,13 @@ const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
     ]);
   }
 
+  const dehydratedState = dehydrate(queryClient);
+
   return (
     <DashboardLayoutContent
       locale={locale}
       session={session}
-      queryClient={queryClient}
+      dehydratedState={dehydratedState}
     >
       {children}
     </DashboardLayoutContent>

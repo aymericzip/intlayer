@@ -10,13 +10,14 @@ export const useEmailSchema = () => {
 
   return z.object({
     email: z
+      .string()
+      .min(1, { error: requiredErrorEmail.value })
       .email({
         error: (issue) =>
           issue.input === undefined
             ? requiredErrorEmail.value
             : invalidTypeErrorEmail.value,
       })
-      .min(1, { error: invalidTypeErrorEmail.value })
       .default(''),
   });
 };

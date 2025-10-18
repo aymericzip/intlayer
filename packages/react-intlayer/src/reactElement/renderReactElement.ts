@@ -16,13 +16,30 @@ export const renderReactElement = (element: ReactElement<any>) => {
 
       // Create the children elements recursively, if any
       Object.keys(children ?? {}).forEach((key) => {
-        childrenResult.push(
-          renderReactElement(
-            children?.[
-              key as keyof typeof children
-            ] as unknown as ReactElement<any>
-          )
+        const childElement = renderReactElement(
+          children?.[
+            key as keyof typeof children
+          ] as unknown as ReactElement<any>
         );
+
+        // Add key prop if the child is a React element
+        if (
+          typeof childElement === 'object' &&
+          childElement !== null &&
+          'type' in childElement
+        ) {
+          childrenResult.push(
+            createElement(
+              childElement.type,
+              { ...childElement.props, key },
+              ...(Array.isArray(childElement.props?.children)
+                ? childElement.props.children
+                : [childElement.props?.children])
+            )
+          );
+        } else {
+          childrenResult.push(childElement);
+        }
       });
 
       return {

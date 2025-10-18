@@ -54,6 +54,7 @@ export const EmailRegistrationToast: FC = () => {
   );
   const EmailSchema = useEmailSchema();
   const { form } = useForm(EmailSchema, {
+    mode: 'onSubmit',
     defaultValues: {
       email: user?.email ?? '',
     },

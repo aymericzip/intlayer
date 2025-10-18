@@ -490,10 +490,9 @@ const flagRecord: Partial<Record<Locales, typeof unknown>> = {
   [Locales.NEPALI_NEPAL]: nepal,
 };
 
-export const Flag: FC<FlagProps> = ({ locale, ...props }): JSX.Element => (
-  <img
-    src={flagRecord[locale] as unknown as string}
-    alt={`${locale} flag`}
-    {...props}
-  />
-);
+export const Flag: FC<FlagProps> = ({ locale, ...props }): JSX.Element => {
+  const flagSrc = flagRecord[locale];
+  const src = typeof flagSrc === 'string' ? flagSrc : (flagSrc as any)?.src;
+
+  return <img src={src} alt={`${locale} flag`} {...props} />;
+};
