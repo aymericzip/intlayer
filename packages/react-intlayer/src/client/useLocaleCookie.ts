@@ -3,7 +3,7 @@ import type { LocalesValues } from '@intlayer/types';
 
 import Cookies from 'js-cookie';
 
-const { cookieName } = configuration.middleware;
+const { cookieName } = configuration?.middleware ?? {};
 
 const cookieAttributes: Cookies.CookieAttributes = {
   path: '/',
@@ -16,14 +16,15 @@ const cookieAttributes: Cookies.CookieAttributes = {
 /**
  * Get the locale cookie
  */
-export const localeCookie = Cookies.get(cookieName) as unknown as
-  | LocalesValues
-  | undefined;
+export const localeCookie = cookieName
+  ? (Cookies.get(cookieName) as LocalesValues | undefined)
+  : undefined;
 
 /**
  * Set the locale cookie
  */
 export const setLocaleCookie = (locale: LocalesValues) => {
+  if (!cookieName) return;
   Cookies.set(cookieName, locale, cookieAttributes);
 };
 

@@ -17,7 +17,7 @@ export type UseCrossPlatformStateProps = {
   senderId: string;
 };
 
-const { editor } = configuration;
+const { editor } = configuration ?? {};
 
 const CommunicatorContext = createContext<UseCrossPlatformStateProps>({
   postMessage: () => null,
