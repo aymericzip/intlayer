@@ -51,12 +51,12 @@
   "dependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/docs": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@monaco-editor/react": "4.7.0",
     "@next/third-parties": "15.3.3",
@@ -78,6 +78,7 @@
     "next-themes": "0.4.6",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "react-hook-form": "7.65.0",
     "react-spring": "10.0.3",
     "sharp": "0.34.4",
     "tailwind-merge": "3.3.1",
@@ -94,16 +95,13 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "tsdown": "0.15.7",
     "next-pwa": "5.6.0",
     "postcss": "8.5.4",
     "pwa-asset-generator": "8.0.5",
     "raw-loader": "4.0.2",
     "tailwindcss": "4.1.14",
+    "tsdown": "0.15.7",
     "typescript": "5.9.3"
-  },
-  "optionalDependencies": {
-    "intlayer-editor": "workspace:*"
   },
   "peerDependencies": {
     "@intlayer/backend": "workspace:*"
@@ -112,5 +110,8 @@
     "@intlayer/backend": {
       "optional": true
     }
+  },
+  "optionalDependencies": {
+    "intlayer-editor": "workspace:*"
   }
 }
