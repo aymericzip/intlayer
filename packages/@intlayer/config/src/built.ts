@@ -3,14 +3,10 @@
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
  */
 
-import type { IntlayerConfig } from '@intlayer/types';
+import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
 
-let configuration: IntlayerConfig | undefined;
+const { getConfiguration } = ESMxCJSRequire('@intlayer/config');
 
-(() => {
-  import('./configFile/getConfiguration').then(({ getConfiguration }) => {
-    configuration = getConfiguration();
-  });
-})();
+const configuration = getConfiguration();
 
 export default configuration;

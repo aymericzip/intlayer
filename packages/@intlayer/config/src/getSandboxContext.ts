@@ -3,11 +3,16 @@ import * as intlayerTypes from '@intlayer/types';
 import { type LoadEnvFileOptions, loadEnvFile } from './loadEnvFile';
 import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
 
-export const getSandBoxContext = (
-  envVarOptions?: LoadEnvFileOptions,
-  projectRequire?: NodeJS.Require,
-  additionalEnvVars?: Record<string, string>
-): Context => {
+type SandBoxContextOptions = {
+  envVarOptions?: LoadEnvFileOptions;
+  projectRequire?: NodeJS.Require;
+  additionalEnvVars?: Record<string, string>;
+  aliases?: Record<string, any>;
+};
+
+export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
+  const { envVarOptions, projectRequire, additionalEnvVars } = options ?? {};
+
   let additionalGlobalVar = {};
 
   const safeRequire =
@@ -15,10 +20,16 @@ export const getSandBoxContext = (
 
   // Wrap require to intercept @intlayer/types
   const wrappedRequire = ((moduleName: string) => {
-    switch (moduleName) {
-      case '@intlayer/types':
-        return intlayerTypes;
+    // if (options?.aliases?.[moduleName]) {
+    //   if (typeof options.aliases[moduleName] === 'string') {
+    //     return safeRequire(options.aliases[moduleName]);
+    //   }
 
+    //   // Object
+    //   return options.aliases[moduleName];
+    // }
+
+    switch (moduleName) {
       default:
         return safeRequire(moduleName);
     }

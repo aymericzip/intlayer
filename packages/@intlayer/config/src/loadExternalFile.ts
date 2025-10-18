@@ -62,17 +62,18 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
   },
 });
 
+type ParseFileContentOptions = {
+  projectRequire?: NodeJS.Require;
+  envVarOptions?: LoadEnvFileOptions;
+  additionalEnvVars?: Record<string, string>;
+  aliases?: Record<string, any>;
+};
+
 export const parseFileContent = <T>(
   fileContentString: string,
-  projectRequire: NodeJS.Require,
-  envVarOptions?: LoadEnvFileOptions,
-  additionalEnvVars?: Record<string, string>
+  options?: ParseFileContentOptions
 ): T | undefined => {
-  const sandboxContext = getSandBoxContext(
-    envVarOptions,
-    projectRequire,
-    additionalEnvVars
-  );
+  const sandboxContext = getSandBoxContext(options);
   let fileContent: T | undefined;
 
   runInNewContext(fileContentString, sandboxContext);
@@ -130,6 +131,13 @@ export const buildFileContent = (
   return moduleResultString;
 };
 
+type LoadExternalFileOptions = {
+  projectRequire?: NodeJS.Require;
+  envVarOptions?: LoadEnvFileOptions;
+  additionalEnvVars?: Record<string, string>;
+  aliases?: Record<string, any>;
+};
+
 /**
  * Load the content declaration from the given path
  *
@@ -137,18 +145,17 @@ export const buildFileContent = (
  */
 export const loadExternalFile = (
   filePath: string,
-  projectRequire: NodeJS.Require = ESMxCJSRequire,
-  envVarOptions?: LoadEnvFileOptions,
-  additionalEnvVars?: Record<string, string>
+  options?: LoadExternalFileOptions
 ): any | undefined => {
   const fileExtension = extname(filePath);
+  const safeProjectRequire = options?.projectRequire ?? ESMxCJSRequire;
 
   try {
     if (fileExtension === 'json') {
       // Remove cache to force getting fresh content
-      delete projectRequire.cache[projectRequire.resolve(filePath)];
+      delete safeProjectRequire.cache[safeProjectRequire.resolve(filePath)];
       // Assume JSON
-      return projectRequire(filePath);
+      return safeProjectRequire(filePath);
     }
 
     // Rest is JS, MJS or TS
@@ -164,12 +171,7 @@ export const loadExternalFile = (
       return undefined;
     }
 
-    const fileContent = parseFileContent(
-      moduleResultString,
-      projectRequire,
-      envVarOptions,
-      additionalEnvVars
-    );
+    const fileContent = parseFileContent(moduleResultString, options);
 
     if (typeof fileContent === 'undefined') {
       logger(`File file could not be loaded. Path : ${filePath}`);

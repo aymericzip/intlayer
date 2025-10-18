@@ -14,11 +14,15 @@ import { searchConfigurationFile } from './searchConfigurationFile';
 export type GetConfigurationOptions = {
   baseDir?: string;
   override?: CustomIntlayerConfig;
+  // Dotenv options
   env?: string;
   envFile?: string;
+  // Log functions
   logFunctions?: LogFunctions;
-  require?: NodeJS.Require;
+  // Sandbox context additional variables
   additionalEnvVars?: Record<string, string>;
+  require?: NodeJS.Require;
+  aliases?: Record<string, string | object>;
 };
 
 export type GetConfigurationAndFilePathResult = {
@@ -56,12 +60,17 @@ export const getConfigurationAndFilePath = (
   if (configurationFilePath) {
     // Load the custom configuration
     const customConfiguration: CustomIntlayerConfig | undefined =
-      loadConfigurationFile(
-        configurationFilePath,
-        mergedOptions.require,
-        { env: mergedOptions.env, envFile: mergedOptions.envFile },
-        mergedOptions.additionalEnvVars
-      );
+      loadConfigurationFile(configurationFilePath, {
+        projectRequire: mergedOptions.require,
+        // Dotenv options
+        envVarOptions: {
+          env: mergedOptions.env,
+          envFile: mergedOptions.envFile,
+        },
+        // Sandbox context additional variables
+        additionalEnvVars: mergedOptions.additionalEnvVars,
+        aliases: mergedOptions.aliases,
+      });
 
     // Save the configuration to avoid reading the file again
     storedConfiguration = buildConfigurationFields(

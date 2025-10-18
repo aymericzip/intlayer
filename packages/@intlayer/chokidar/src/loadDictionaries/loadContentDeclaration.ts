@@ -32,7 +32,12 @@ export const loadContentDeclarations = async (
   const dictionariesRecord = contentDeclarationFilePath.reduce(
     (acc, path) => {
       const relativePath = relative(configuration.content.baseDir, path);
-      acc[relativePath] = loadExternalFile(path, build.require);
+      acc[relativePath] = loadExternalFile(path, {
+        projectRequire: build.require,
+        aliases: {
+          '@intlayer/config/built': configuration,
+        },
+      });
       return acc;
     },
     {} as Record<string, Dictionary>

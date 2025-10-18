@@ -1,13 +1,19 @@
 import type { CustomIntlayerConfig } from '@intlayer/types';
 import type { LoadEnvFileOptions } from '../loadEnvFile';
 import { loadExternalFile } from '../loadExternalFile';
-import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 
 const filterValidConfiguration = (
   configuration: CustomIntlayerConfig
 ): CustomIntlayerConfig => {
   // @TODO Implement filtering of valid configuration
   return configuration;
+};
+
+type LoadConfigurationFileOptions = {
+  projectRequire?: NodeJS.Require;
+  envVarOptions?: LoadEnvFileOptions;
+  additionalEnvVars?: Record<string, string>;
+  aliases?: Record<string, string | object>;
 };
 
 /**
@@ -18,16 +24,9 @@ const filterValidConfiguration = (
  */
 export const loadConfigurationFile = (
   configFilePath: string,
-  projectRequire: NodeJS.Require = ESMxCJSRequire,
-  envVarOptions?: LoadEnvFileOptions,
-  additionalEnvVars?: Record<string, string>
+  options?: LoadConfigurationFileOptions
 ): CustomIntlayerConfig | undefined => {
-  const fileContent = loadExternalFile(
-    configFilePath,
-    projectRequire,
-    envVarOptions,
-    additionalEnvVars
-  );
+  const fileContent = loadExternalFile(configFilePath, options);
 
   return filterValidConfiguration(fileContent);
 };
