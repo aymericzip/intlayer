@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@types/markdown-it": "14.1.2",
-    "@types/node": "24.7.2",
+    "@types/node": "24.8.1",
     "@vitejs/plugin-vue": "6.0.1",
     "intlayer-editor": "workspace:*",
     "vite": "7.1.10",

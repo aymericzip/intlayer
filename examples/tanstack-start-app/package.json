@@ -13,13 +13,13 @@
     "intlayer:build": "intlayer build"
   },
   "dependencies": {
-    "@tailwindcss/vite": "4.1.13",
-    "@tanstack/react-devtools": "0.2.2",
-    "@tanstack/react-router": "1.130.2",
-    "@tanstack/react-router-devtools": "1.131.5",
-    "@tanstack/react-router-ssr-query": "1.131.7",
-    "@tanstack/react-start": "1.131.7",
-    "@tanstack/router-plugin": "1.121.2",
+    "@tailwindcss/vite": "4.1.14",
+    "@tanstack/react-devtools": "0.7.7",
+    "@tanstack/react-router": "1.133.13",
+    "@tanstack/react-router-devtools": "1.133.13",
+    "@tanstack/react-router-ssr-query": "1.133.13",
+    "@tanstack/react-start": "1.133.13",
+    "@tanstack/router-plugin": "1.133.13",
     "intlayer": "workspace:*",
     "react": "19.2.0",
     "react-dom": "19.2.0",
@@ -28,16 +28,16 @@
     "vite-tsconfig-paths": "5.1.4"
   },
   "devDependencies": {
-    "@testing-library/dom": "10.4.0",
-    "@testing-library/react": "16.2.0",
-    "@types/react": "19.2.0",
-    "@types/react-dom": "19.2.0",
-    "@vitejs/plugin-react": "4.3.4",
-    "jsdom": "26.0.0",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/react": "16.3.0",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@vitejs/plugin-react": "5.0.4",
+    "jsdom": "27.0.1",
     "typescript": "5.7.2",
     "vite": "7.1.10",
     "vite-intlayer": "workspace:*",
-    "vitest": "3.0.5",
-    "web-vitals": "4.2.4"
+    "vitest": "3.2.4",
+    "web-vitals": "5.1.0"
   }
 }

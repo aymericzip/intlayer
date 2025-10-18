@@ -116,14 +116,14 @@
   "devDependencies": {
     "@craco/types": "7.1.0",
     "@types/js-cookie": "3.0.6",
-    "@types/node": "24.7.2",
+    "@types/node": "24.8.1",
     "@types/react": ">=16.0.0",
     "@types/react-dom": ">=16.0.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.0.1",
-    "tsdown": "0.15.7",
+    "tsdown": "0.15.8",
     "typescript": "5.9.3",
     "uuid": "13.0.0",
     "vitest": "3.2.4"

@@ -91,13 +91,13 @@
     "uuid": "13.0.0"
   },
   "devDependencies": {
-    "@types/node": "24.7.2",
+    "@types/node": "24.8.1",
     "@types/uuid": "10.0.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.0.1",
-    "tsdown": "0.15.7",
+    "tsdown": "0.15.8",
     "typescript": "5.9.3",
     "vitest": "3.2.4"
   },

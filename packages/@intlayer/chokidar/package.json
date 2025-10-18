@@ -89,12 +89,12 @@
   "devDependencies": {
     "@types/crypto-js": "4.2.2",
     "@types/deep-equal": "1.0.4",
-    "@types/node": "24.7.2",
+    "@types/node": "24.8.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.0.1",
-    "tsdown": "0.15.7",
+    "tsdown": "0.15.8",
     "typescript": "5.9.3",
     "vitest": "3.2.4"
   },
