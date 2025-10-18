@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useDictionary
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # React Integration: `useDictionary` Hook Documentation
@@ -262,9 +266,3 @@ Unlike integrations using visual editors, attributes like `buttonTitle.value` do
 - **Localization Updates**: When updating content, ensure all locales are consistent to avoid missing translations.
 
 This documentation focuses on the integration of the `useDictionary` hook, providing a streamlined approach to managing localized content without relying on visual editor functionalities.
-
-## Doc History
-
-| Version | Date       | Changes      |
-| ------- | ---------- | ------------ |
-| 5.5.10  | 2025-06-29 | Init history |

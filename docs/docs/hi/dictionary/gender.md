@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - gender
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: लिंग आधारित सामग्री पेश की गई
 ---
 
 # लिंग-आधारित सामग्री / Intlayer में लिंग
@@ -268,9 +272,3 @@ module.exports = GenderComponent;
 - [Next Intlayer दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md)
 
 ये संसाधन विभिन्न वातावरणों और फ्रेमवर्क्स में Intlayer की सेटअप और उपयोग के बारे में और अधिक जानकारी प्रदान करते हैं।
-
-## दस्तावेज़ इतिहास
-
-| संस्करण | तिथि       | परिवर्तन                      |
-| ------- | ---------- | ----------------------------- |
-| 5.7.2   | 2025-07-27 | लिंग आधारित सामग्री पेश की गई |

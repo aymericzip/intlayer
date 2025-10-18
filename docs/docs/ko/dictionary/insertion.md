@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - insertion
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 이력 초기화
 ---
 
 # 삽입 콘텐츠 / Intlayer에서의 삽입
@@ -191,7 +195,3 @@ module.exports = InsertionComponent;
 - [Next Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)
 
 이 자료들은 다양한 환경과 프레임워크에서 Intlayer의 설정 및 사용에 대한 추가적인 통찰을 제공합니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 이력 초기화

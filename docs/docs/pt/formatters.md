@@ -18,6 +18,25 @@ keywords:
 slugs:
   - doc
   - formatters
+history:
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Adicionados formatadores para Vue
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: Adicionada documentação dos formatadores
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Adicionar documentação do formatador de listas
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Adicionar utilitários adicionais do Intl (DisplayNames, Collator, PluralRules)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Adicionar utilitários de locale (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Adicionar utilitários para manipulação de conteúdo (getContent, getTranslation, getIntlayer, etc.)
 ---
 
 # Formatadores Intlayer
@@ -590,14 +609,3 @@ import {
 ```
 
 > Esses composables irão considerar o locale do `IntlayerProvider` injetado
-
-## Histórico da Documentação
-
-| Versão | Data       | Alterações                                                                                         |
-| ------ | ---------- | -------------------------------------------------------------------------------------------------- |
-| 5.8.0  | 2025-08-20 | Adicionados formatadores para Vue                                                                  |
-| 5.8.0  | 2025-08-18 | Adicionada documentação dos formatadores                                                           |
-| 5.8.0  | 2025-08-20 | Adicionar documentação do formatador de listas                                                     |
-| 5.8.0  | 2025-08-20 | Adicionar utilitários adicionais do Intl (DisplayNames, Collator, PluralRules)                     |
-| 5.8.0  | 2025-08-20 | Adicionar utilitários de locale (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)            |
-| 5.8.0  | 2025-08-20 | Adicionar utilitários para manipulação de conteúdo (getContent, getTranslation, getIntlayer, etc.) |

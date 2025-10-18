@@ -18,6 +18,31 @@ keywords:
 slugs:
   - doc
   - formatters
+history:
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Ajout des formateurs vue
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: Ajout de la documentation des formateurs
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Ajout des formateurs vue
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: Ajout de la documentation des formateurs
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Ajout de la documentation du formateur de liste
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Ajout d'utilitaires Intl supplémentaires (DisplayNames, Collator, PluralRules)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Ajout d'utilitaires de locale (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Ajout d'utilitaires de gestion de contenu (getContent, getTranslation, getIntlayer, etc.)
 ---
 
 # Formatteurs Intlayer
@@ -590,38 +615,3 @@ import {
 ```
 
 > Ces composables prendront en compte la locale depuis le `IntlayerProvider` injecté
-
-## Historique de la documentation
-
-| Version | Date       | Modifications                            |
-| ------- | ---------- | ---------------------------------------- |
-| 5.8.0   | 2025-08-20 | Ajout des formateurs vue                 |
-| 5.8.0   | 2025-08-18 | Ajout de la documentation des formateurs |
-
-Composants client :
-
-```ts
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "vue-intlayer/format";
-```
-
-> Ces composables prendront en compte la locale depuis le `IntlayerProvider` injecté
-
-## Historique de la documentation
-
-| Version | Date       | Modifications                                                                             |
-| ------- | ---------- | ----------------------------------------------------------------------------------------- |
-| 5.8.0   | 2025-08-20 | Ajout des formateurs vue                                                                  |
-| 5.8.0   | 2025-08-18 | Ajout de la documentation des formateurs                                                  |
-| 5.8.0   | 2025-08-20 | Ajout de la documentation du formateur de liste                                           |
-| 5.8.0   | 2025-08-20 | Ajout d'utilitaires Intl supplémentaires (DisplayNames, Collator, PluralRules)            |
-| 5.8.0   | 2025-08-20 | Ajout d'utilitaires de locale (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)     |
-| 5.8.0   | 2025-08-20 | Ajout d'utilitaires de gestion de contenu (getContent, getTranslation, getIntlayer, etc.) |

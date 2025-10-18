@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # Next.js 통합: `next-intlayer`용 `useLocale` 훅 문서
@@ -130,7 +134,3 @@ const LocaleSwitcher = () => {
 ## 결론
 
 `next-intlayer`의 `useLocale` 훅은 Next.js 애플리케이션에서 로케일을 관리하는 데 중요한 도구입니다. 로케일 저장, 상태 관리, URL 수정 등을 원활하게 처리하여 다중 로케일에 맞게 애플리케이션을 통합적으로 적응시킬 수 있는 접근 방식을 제공합니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

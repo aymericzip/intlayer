@@ -17,6 +17,10 @@ slugs:
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # IntlayerとViteとReactで始める国際化（i18n）
@@ -1669,7 +1673,3 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
 
 ---
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

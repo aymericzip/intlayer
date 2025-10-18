@@ -16,6 +16,10 @@ slugs:
   - concept
   - editor
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Cronologia iniziale
 ---
 
 # Documentazione dell'Editor Visivo di Intlayer
@@ -261,7 +265,3 @@ Se riscontri problemi con l'editor visivo, controlla quanto segue:
     - L'URL dell'applicazione dovrebbe corrispondere a quello impostato nella configurazione dell'editor (`applicationURL`).
 
 - L'editor visuale utilizza un iframe per visualizzare il tuo sito web. Assicurati che la Content Security Policy (CSP) del tuo sito consenta l'URL del CMS come `frame-ancestors` ('http://localhost:8000' per impostazione predefinita). Controlla la console dell'editor per eventuali errori.
-
-## Cronologia del documento
-
-- 5.5.10 - 2025-06-29: Cronologia iniziale

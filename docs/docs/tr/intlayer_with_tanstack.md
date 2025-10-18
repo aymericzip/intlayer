@@ -17,6 +17,13 @@ slugs:
   - environment
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
+history:
+  - version: 6.5.2
+    date: 2025-10-03
+    changes: Doküman güncellemesi
+  - version: 5.8.1
+    date: 2025-09-09
+    changes: Tanstack Start için eklendi
 ---
 
 # Intlayer ile Tanstack Start çevirin | Uluslararasılaştırma (i18n)
@@ -543,10 +550,3 @@ Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intla
 - [Yapılandırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 Bu kapsamlı rehber, Intlayer'ı Tanstack Start ile tam uluslararasılaştırılmış, yerel farkındalıklı yönlendirme ve TypeScript desteğine sahip bir uygulama için entegre etmeniz gereken her şeyi sağlar.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm | Tarih      | Değişiklikler               |
-| ----- | ---------- | --------------------------- |
-| 6.5.2 | 2025-10-03 | Doküman güncellemesi        |
-| 5.8.1 | 2025-09-09 | Tanstack Start için eklendi |

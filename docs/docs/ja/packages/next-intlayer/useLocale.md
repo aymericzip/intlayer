@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴初期化
 ---
 
 # Next.js 統合: `next-intlayer` の `useLocale` フックドキュメント
@@ -125,7 +129,3 @@ const LocaleSwitcher = () => {
 ## 結論
 
 `next-intlayer` の `useLocale` フックは、Next.js アプリケーションでロケールを管理するための重要なツールです。ロケールの保存、状態管理、URL の変更をシームレスに処理することで、複数のロケールに対応したアプリケーションを統合的に適応させるアプローチを提供します。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴初期化

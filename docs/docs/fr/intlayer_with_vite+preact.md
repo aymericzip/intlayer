@@ -15,6 +15,10 @@ slugs:
   - environment
   - vite-and-preact
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historique initial
 ---
 
 # Traduire votre Vite and Preact avec Intlayer | Internationalisation (i18n)
@@ -1664,7 +1668,3 @@ Pour plus de détails sur l’utilisation de l’extension, consultez la [docume
 Pour aller plus loin, vous pouvez implémenter l’[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser votre contenu en utilisant le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
 
 ---
-
-## Historique de la documentation
-
-- 5.5.10 - 2025-06-29 : Historique initial

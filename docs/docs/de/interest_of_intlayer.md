@@ -12,6 +12,13 @@ keywords:
 slugs:
   - doc
   - why
+history:
+  - version: 5.8.0
+    date: 2025-08-19
+    changes: Aktualisierung Vergleichstabelle
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initiale Historie
 ---
 
 # Warum sollten Sie Intlayer in Betracht ziehen?
@@ -261,10 +268,3 @@ Dieser Ansatz ermöglicht es Ihnen:
 | **Tree-shaking (nur verwendete Inhalte laden)**    | Ja, pro Komponente zur Build-Zeit über Babel/SWC-Plugins                                                                                   | Lädt normalerweise alles (kann mit Namespaces/Code-Splitting verbessert werden) | Lädt normalerweise alles                                | Nicht standardmäßig                                     | Teilweise                                               | Teilweise                                               | Teilweise (mit Code-Splitting/manuellem Setup)                     |
 | **Lazy Loading**                                   | Ja, pro Locale/pro Komponente                                                                                                              | Ja (z.B. Backends/Namespaces bei Bedarf)                                        | Ja (aufgeteilte Locale-Bündel)                          | Ja (dynamische Katalogimporte)                          | Ja (pro Route/pro Locale)                               | Ja (pro Route/pro Locale)                               | Ja (asynchrone Locale-Nachrichten)                                 |
 | **Verwaltung großer Projekte**                     | Fördert Modularität, geeignet für Design-Systeme                                                                                           | Benötigt gute Dateidisziplin                                                    | Zentrale Kataloge können groß werden                    | Kann komplex werden                                     | Modular mit Setup                                       | Modular mit Setup                                       | Modular mit Vue Router/Nuxt i18n Setup                             |
-
-## Dokumenthistorie
-
-| Version | Datum      | Änderungen                       |
-| ------- | ---------- | -------------------------------- |
-| 5.8.0   | 2025-08-19 | Aktualisierung Vergleichstabelle |
-| 5.5.10  | 2025-06-29 | Initiale Historie                |

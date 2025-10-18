@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getTranslation
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بدء التاريخ
 ---
 
 # التوثيق: دالة `getTranslationContent` في `intlayer`
@@ -186,7 +190,3 @@ console.log(customContent.greeting); // الناتج: "Bonjour"
   - إذا تم تعريف اللغة جزئيًا، فإن الدالة لا تدمج المحتويات. تسترجع بدقة قيمة اللغة المحددة أو تعود إلى اللغة الافتراضية.
 - **فرض TypeScript:**
   - إذا لم تتطابق اللغات في `languageContent` مع تكوين المشروع، فإن TypeScript ستفرض تعريف جميع اللغات المطلوبة، مما يضمن أن المحتوى كامل وآمن من حيث النوع.
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بدء التاريخ

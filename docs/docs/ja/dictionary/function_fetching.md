@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - function-fetching
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴初期化
 ---
 
 # 関数フェッチング
@@ -235,7 +239,3 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴初期化

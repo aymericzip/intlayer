@@ -22,6 +22,10 @@ slugs:
   - doc
   - plugin
   - sync-json
+history:
+  - version: 6.1.6
+    date: 2025-10-05
+    changes: Initial Sync JSON plugin documentation
 ---
 
 ## Sync JSON (i18n bridges)
@@ -238,9 +242,3 @@ See [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en
 - We can recommend established i18n solutions and position Intlayer as an add‑on.
 - We leverage their SEO/keywords with tutorials that end by suggesting Intlayer to manage JSON.
 - Expands the addressable audience from “new projects” to “any team already using i18n”.
-
-## Doc history
-
-| Version | Date       | Changes                                |
-| ------- | ---------- | -------------------------------------- |
-| 6.1.6   | 2025-10-05 | Initial Sync JSON plugin documentation |

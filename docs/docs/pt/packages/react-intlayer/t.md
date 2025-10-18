@@ -17,6 +17,10 @@ slugs:
   - packages
   - react-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Histórico inicial
 ---
 
 # Documentação: Função `t` no `react-intlayer`
@@ -296,7 +300,3 @@ Para um uso mais detalhado e recursos avançados, consulte a [documentação do 
 ---
 
 **Nota**: Lembre-se de configurar corretamente seu `IntlayerProvider` para garantir que o locale atual seja passado corretamente para seus componentes. Isso é crucial para que a função `t` retorne as traduções corretas.
-
-## Histórico do Documento
-
-- 5.5.10 - 2025-06-29: Histórico inicial

@@ -13,6 +13,10 @@ slugs:
   - doc
   - concept
   - how-works-intlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initialer Verlauf
 ---
 
 # Wie Intlayer funktioniert
@@ -243,7 +247,3 @@ Das `@intlayer/backend` Paket exportiert Backend-Typen und wird in Zukunft das B
 ## Chat mit unserer intelligenten Dokumentation
 
 - [Stellen Sie Ihre Fragen an unsere intelligente Dokumentation](https://intlayer.org/de/doc/chat)
-
-## Dokumentationsverlauf
-
-- 5.5.10 - 2025-06-29: Initialer Verlauf

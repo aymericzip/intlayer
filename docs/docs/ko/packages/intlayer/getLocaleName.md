@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleName
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # 문서: `intlayer`의 `getLocaleName` 함수
@@ -113,7 +117,3 @@ getLocaleName("unknown-locale"); // 출력: "Unknown locale"
 - 함수는 기본적으로 `displayLocale` 자신의 이름을 반환합니다.
 - **번역 누락:**
   - `localeNameTranslations`에 `targetLocale` 또는 특정 `displayLocale`에 대한 항목이 없으면, 함수는 `ownLocalesName`을 사용하거나 `"Unknown locale"`을 반환합니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

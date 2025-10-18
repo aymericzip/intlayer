@@ -13,6 +13,10 @@ slugs:
   - doc
   - concept
   - how-works-intlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بدء التاريخ
 ---
 
 # كيف يعمل Intlayer
@@ -243,7 +247,3 @@ const MyComponent = () => {
 ## تحدث مع وثائقنا الذكية
 
 - [اطرح أسئلتك على وثائقنا الذكية](https://intlayer.org/doc/chat)
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بدء التاريخ

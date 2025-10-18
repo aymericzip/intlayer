@@ -16,6 +16,10 @@ slugs:
   - environment
   - nextjs
   - next-with-page-router
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بدء التاريخ
 ---
 
 # ترجم Next.js and Page Router باستخدام Intlayer | التدويل (i18n)
@@ -1490,7 +1494,3 @@ yarn add @intlayer/swc --save-dev
 ### التقدم أكثر
 
 للمضي قدمًا، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بدء التاريخ

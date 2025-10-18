@@ -12,6 +12,10 @@ keywords:
 slugs:
   - doc
   - get-started
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Intlayer Dokümantasyonu
@@ -201,9 +205,3 @@ Açık kaynak ve topluluk odaklı geliştirmenin gücüne değer veriyoruz. Belg
 **Uygulamanızı daha hızlı ve verimli bir şekilde çevirmeye hazır mısınız?** Bugün Intlayer'ı kullanmaya başlamak için belgelerimize dalın. İçeriğinizi organize tutan ve ekibinizi daha üretken kılan sağlam, akıcı bir uluslararasılaştırma yaklaşımı deneyimleyin.
 
 ---
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

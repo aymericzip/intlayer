@@ -15,6 +15,10 @@ slugs:
   - doc
   - concept
   - ci-cd
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # CI/CD パイプラインでの翻訳の自動生成
@@ -190,9 +194,3 @@ jobs:
 > デフォルトでは、`--git-diff` 引数はベース（デフォルトは `origin/main`）から現在のブランチ（デフォルトは `HEAD`）への変更を含む辞書をフィルタリングします。
 
 > Intlayer CLIコマンドとその使用方法の詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を参照してください。
-
-## ドキュメント履歴
-
-| バージョン | 日付       | 変更内容     |
-| ---------- | ---------- | ------------ |
-| 5.5.10     | 2025-06-29 | 履歴の初期化 |

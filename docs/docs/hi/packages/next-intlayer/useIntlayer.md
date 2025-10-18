@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # Next.js एकीकरण: `useIntlayer` हुक दस्तावेज़
@@ -262,7 +266,3 @@ const ServerComponentExample = () => {
 - **Intlayer विज़ुअल एडिटर**: आसान सामग्री प्रबंधन के लिए विज़ुअल एडिटर का उपयोग कैसे करें, [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) जानें।
 
 यह दस्तावेज़ विशेष रूप से Next.js वातावरण में `useIntlayer` हुक के उपयोग को रेखांकित करता है, जो आपके Next.js अनुप्रयोगों में स्थानीयकरण प्रबंधन के लिए एक मजबूत समाधान प्रदान करता है।
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - translation
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Traducción
@@ -303,7 +307,3 @@ module.exports = {
   }
 }
 ```
-
-## Historial de Documentación
-
-- 5.5.10 - 2025-06-29: Historial inicial

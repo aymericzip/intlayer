@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getPathWithoutLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴初期化
 ---
 
 # ドキュメント: `intlayer` の `getPathWithoutLocale` 関数
@@ -70,7 +74,3 @@ console.log(getPathWithoutLocale("/en/dashboard")); // 出力: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // 出力: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // 出力: "https://example.com/dashboard"
 ```
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴初期化

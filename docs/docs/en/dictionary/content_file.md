@@ -11,6 +11,13 @@ slugs:
   - doc
   - concept
   - content
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Add fields documentation
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Content File
@@ -1049,10 +1056,3 @@ module.exports = {
    - Ajust the content configuration to limit the scope of watched files
    - Use live dictionaries only when real-time updates are necessary, (e.g. A/B testing, etc.)
    - Ensure the build transformation plugin (`@intlayer/swc`, or `@intlayer/babel`) is enabled to optimize the dictionary at build time
-
-## Doc History
-
-| Version | Date       | Changes                  |
-| ------- | ---------- | ------------------------ |
-| 6.0.0   | 2025-09-20 | Add fields documentation |
-| 5.5.10  | 2025-06-29 | Init history             |

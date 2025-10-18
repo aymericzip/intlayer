@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getConfiguration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 文档：`intlayer` 中的 `getConfiguration` 函数
@@ -140,7 +144,3 @@ console.log(cookieName); // 输出: "INTLAYER_LOCALE"
 ## 应用中的使用
 
 `getConfiguration` 函数是初始化和管理 `intlayer` 应用配置的核心工具。通过提供对本地化设置、中间件和内容目录等配置的访问，它确保了多语言和内容驱动应用的一致性和可扩展性。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

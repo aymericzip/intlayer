@@ -19,6 +19,10 @@ slugs:
   - react-router-v7
 applicationTemplate: https://github.com/AydinTheFirst/react-router-intlayer
 author: AydinTheFirst
+history:
+  - version: 5.8.2
+    date: 2025-09-04
+    changes: Adicionado para React Router v7
 ---
 
 # Traduza seu React Router v7 com Intlayer | Internacionalização (i18n)
@@ -521,9 +525,3 @@ Para avançar, você pode implementar o [editor visual](https://github.com/aymer
 - [Configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
 
 Este guia abrangente fornece tudo o que você precisa para integrar o Intlayer com o React Router v7 para uma aplicação totalmente internacionalizada com roteamento sensível à localidade e suporte a TypeScript.
-
-## Histórico da Documentação
-
-| Versão | Data       | Alterações                      |
-| ------ | ---------- | ------------------------------- |
-| 5.8.2  | 2025-09-04 | Adicionado para React Router v7 |

@@ -18,6 +18,10 @@ slugs:
   - packages
   - react-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Интеграция с React: Документация по хуку `useIntlayer`
@@ -254,7 +258,3 @@ const ServerComponentExample = () => {
 - **Визуальный редактор Intlayer**: Для более интуитивного управления контентом обратитесь к документации по визуальному редактору [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
 
 Этот раздел специально посвящён интеграции хука `useIntlayer` в React-приложениях, упрощая процесс локализации и обеспечивая согласованность контента между различными локалями.
-
-## История документа
-
-- 5.5.10 - 2025-06-29: Инициализация истории

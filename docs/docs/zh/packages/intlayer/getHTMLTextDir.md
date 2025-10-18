@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getHTMLTextDir
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 文档：`intlayer` 中的 `getHTMLTextDir` 函数
@@ -118,7 +122,3 @@ const HTMLLayout = ({ children, locale }) => (
 ```
 
 在上面的示例中，`dir` 属性是根据 locale 动态设置的。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleLang
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴初期化
 ---
 
 # ドキュメント: `intlayer` の `getLocaleLang` 関数
@@ -77,7 +81,3 @@ getLocaleLang(Locales.FRENCH); // 出力: "fr"
 
 - **不正なロケール文字列:**
   - `locale` が `language-country` 形式に従っていない場合（例: `Locales.ENGLISH-US`）、関数は安全に `'-'` の前の部分を返すか、`'-'` が存在しない場合は文字列全体を返します。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴初期化

@@ -15,6 +15,10 @@ slugs:
   - environment
   - vite-and-svelte
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historie initialisiert
 ---
 
 # Übersetzen Sie Ihre Vite and Svelte mit Intlayer | Internationalisierung (i18n)
@@ -280,7 +284,3 @@ Für weitere Details zur Nutzung der Erweiterung siehe die [Intlayer VS Code Erw
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mithilfe des [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.
 
 ---
-
-## Dokumentationshistorie
-
-- 5.5.10 - 2025-06-29: Historie initialisiert

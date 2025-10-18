@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleLang
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية التاريخ
 ---
 
 # التوثيق: دالة `getLocaleLang` في `intlayer`
@@ -77,7 +81,3 @@ getLocaleLang(Locales.FRENCH); // الناتج: "fr"
 
 - **سلاسل الموقع المشوهة:**
   - إذا لم يتبع `locale` تنسيق `language-country` (مثلًا، `Locales.ENGLISH-US`)، فإن الدالة تُعيد بأمان الجزء الذي يسبق `'-'` أو السلسلة كاملة إذا لم يكن هناك `'-'`.
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية التاريخ

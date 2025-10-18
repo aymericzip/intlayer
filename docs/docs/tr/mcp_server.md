@@ -14,6 +14,19 @@ keywords:
 slugs:
   - doc
   - mcp-server
+history:
+  - version: 5.5.12
+    date: 2025-07-11
+    changes: ChatGPT kurulumu eklendi
+  - version: 5.5.12
+    date: 2025-07-10
+    changes: Claude Desktop kurulumu eklendi
+  - version: 5.5.12
+    date: 2025-07-10
+    changes: SSE aktarımı ve uzak sunucu eklendi
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Intlayer MCP Sunucusu
@@ -196,12 +209,3 @@ npx @intlayer/mcp
 ```
 
 ---
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler                       |
-| ------ | ---------- | ----------------------------------- |
-| 5.5.12 | 2025-07-11 | ChatGPT kurulumu eklendi            |
-| 5.5.12 | 2025-07-10 | Claude Desktop kurulumu eklendi     |
-| 5.5.12 | 2025-07-10 | SSE aktarımı ve uzak sunucu eklendi |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı                   |

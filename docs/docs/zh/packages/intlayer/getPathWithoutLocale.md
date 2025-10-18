@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getPathWithoutLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 文档：`intlayer` 中的 `getPathWithoutLocale` 函数
@@ -70,7 +74,3 @@ console.log(getPathWithoutLocale("/en/dashboard")); // 输出: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // 输出: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // 输出: "https://example.com/dashboard"
 ```
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29: 初始化历史

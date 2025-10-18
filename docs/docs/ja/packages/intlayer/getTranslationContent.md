@@ -17,6 +17,10 @@ slugs:
   - package
   - intlayer
   - getTranslationContent
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # ドキュメント: `intlayer` の `getTranslation` 関数
@@ -185,7 +189,3 @@ console.log(customContent.greeting); // 出力: "Bonjour"
   - ロケールが部分的に定義されている場合、関数はコンテンツをマージしません。指定されたロケールの値を厳密に取得するか、デフォルトにフォールバックします。
 - **TypeScriptの強制:**
 - `languageContent` のロケールがプロジェクトの設定と一致しない場合、TypeScript はすべての必須ロケールが定義されていることを強制し、コンテンツが完全かつ型安全であることを保証します。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

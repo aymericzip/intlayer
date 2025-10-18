@@ -17,6 +17,10 @@ slugs:
   - packages
   - react-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # 문서: `react-intlayer`의 `t` 함수
@@ -339,7 +343,3 @@ const text = t(translations);
 ---
 
 **참고**: 현재 로케일이 컴포넌트에 올바르게 전달되도록 `IntlayerProvider`를 적절히 설정하는 것을 잊지 마세요. 이는 `t` 함수가 올바른 번역을 반환하는 데 매우 중요합니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

@@ -18,6 +18,10 @@ slugs:
   - packages
   - react-intlayer
   - useLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # React 통합: `useLocale` 훅 문서
@@ -204,7 +208,3 @@ const LocaleSelector = () => {
 ## 결론
 
 `react-intlayer`의 `useLocale` 훅은 React 애플리케이션에서 로케일을 관리하는 데 필수적인 도구로, 다양한 국제 사용자에게 효과적으로 애플리케이션을 적응시키는 데 필요한 기능을 제공합니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

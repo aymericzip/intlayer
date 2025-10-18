@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getMultilingualUrls
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 이력 초기화
 ---
 
 # 문서: `intlayer`의 `getMultilingualUrls` 함수
@@ -255,7 +259,3 @@ getMultilingualUrls(
 ```
 
 `getMultilingualUrls`를 통합함으로써 개발자는 여러 언어에 걸쳐 일관된 URL 구조를 유지할 수 있어 사용자 경험과 SEO를 모두 향상시킬 수 있습니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 이력 초기화

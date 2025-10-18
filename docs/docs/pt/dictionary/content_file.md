@@ -11,6 +11,13 @@ slugs:
   - doc
   - concept
   - content
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Adição da documentação dos campos
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Histórico inicial
 ---
 
 # Arquivo de Conteúdo
@@ -1053,10 +1060,3 @@ module.exports = {
    - Ajuste a configuração de conteúdo para limitar o escopo dos arquivos monitorados
    - Use dicionários ao vivo apenas quando atualizações em tempo real forem necessárias (por exemplo, testes A/B, etc.)
    - Garanta que o plugin de transformação de build (`@intlayer/swc` ou `@intlayer/babel`) esteja habilitado para otimizar o dicionário durante o build
-
-## Histórico da Documentação
-
-| Versão | Data       | Alterações                        |
-| ------ | ---------- | --------------------------------- |
-| 6.0.0  | 2025-09-20 | Adição da documentação dos campos |
-| 5.5.10 | 2025-06-29 | Histórico inicial                 |

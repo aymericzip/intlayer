@@ -16,6 +16,10 @@ slugs:
   - environment
   - nextjs
   - next-with-page-router
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Traduce tu Next.js and Page Router con Intlayer | Internacionalización (i18n)
@@ -1480,7 +1484,3 @@ Siguiendo esta guía, puedes integrar eficazmente Intlayer en tu aplicación Nex
 ### Ir más allá
 
 Para profundizar, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
-
-## Historial del Documento
-
-- 5.5.10 - 2025-06-29: Historial inicial

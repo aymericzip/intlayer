@@ -15,6 +15,19 @@ keywords:
 slugs:
   - doc
   - vs-code-extension
+history:
+  - version: 6.1.5
+    date: 2025-09-30
+    changes: Added demo gif
+  - version: 6.1.0
+    date: 2025-09-24
+    changes: Added environment selection section
+  - version: 6.0.0
+    date: 2025-09-22
+    changes: Intlayer Tab / Fill & Test commands
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initial history
 ---
 
 # Official VS Code Extension
@@ -111,12 +124,3 @@ The extension can load environment variables from your workspace to run Intlayer
 #### Monorepos and custom directories
 
 If your `.env` files reside outside the workspace root, set the **Base Directory** in `Settings → Extensions → Intlayer`. The loader will search for `.env` files relative to that directory.
-
-## Doc History
-
-| Version | Date       | Changes                             |
-| ------- | ---------- | ----------------------------------- |
-| 6.1.5   | 2025-09-30 | Added demo gif                      |
-| 6.1.0   | 2025-09-24 | Added environment selection section |
-| 6.0.0   | 2025-09-22 | Intlayer Tab / Fill & Test commands |
-| 5.5.10  | 2025-06-29 | Initial history                     |

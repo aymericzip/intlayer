@@ -16,6 +16,10 @@ slugs:
   - concept
   - editor
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Intlayer Visual Editor Documentation
@@ -261,7 +265,3 @@ If you encounter any issues with the visual editor, check the following:
     - The application URL should match the one you set in the editor configuration (`applicationURL`).
 
 - The visual editor uses an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS URL as `frame-ancestors` ('http://localhost:8000' by default). Check the editor console for any error.
-
-## Doc History
-
-- 5.5.10 - 2025-06-29: Init history

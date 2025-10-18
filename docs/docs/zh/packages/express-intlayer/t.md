@@ -17,6 +17,10 @@ slugs:
   - packages
   - express-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 文档：`express-intlayer` 中的 `t` 函数
@@ -453,7 +457,3 @@ app.get("/morning", (_req, res) => {
 ## 结论
 
 `t` 函数是后端国际化的强大工具。通过有效地使用它，您可以为全球用户创建一个更加包容和用户友好的应用程序。有关高级用法和详细配置选项，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

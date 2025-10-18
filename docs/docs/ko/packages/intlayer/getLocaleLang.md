@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleLang
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # 문서: `intlayer`의 `getLocaleLang` 함수
@@ -77,7 +81,3 @@ getLocaleLang(Locales.FRENCH); // 출력: "fr"
 
 - **잘못된 형식의 로케일 문자열:**
   - `locale`이 `language-country` 형식을 따르지 않는 경우(예: `Locales.ENGLISH-US`), 함수는 `'-'` 이전 부분을 안전하게 반환하거나 `'-'`가 없으면 전체 문자열을 반환합니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

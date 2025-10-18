@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Histórico inicial
 ---
 
 # Documentação: Função `t` no `next-intlayer`
@@ -346,7 +350,3 @@ Para um uso mais detalhado e recursos avançados, consulte a [documentação do 
 ---
 
 **Nota**: Lembre-se de configurar corretamente seu `IntlayerClientProvider` e `IntlayerServerProvider` para garantir que o locale atual seja corretamente passado para seus componentes. Isso é crucial para que a função `t` retorne as traduções corretas.
-
-## Histórico do Documento
-
-- 5.5.10 - 2025-06-29: Histórico inicial

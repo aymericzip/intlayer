@@ -18,6 +18,13 @@ slugs:
   - vite-and-react
   - react-router-v7
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
+history:
+  - version: 6.1.5
+    date: 2025-10-03
+    changes: تحديث الوثيقة
+  - version: 5.8.2
+    date: 2025-09-04
+    changes: أضيف دعم React Router v7
 ---
 
 # ترجم React Router v7 باستخدام Intlayer | التدويل (i18n)
@@ -478,10 +485,3 @@ export default defineConfig({
 - [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 يوفر هذا الدليل الشامل كل ما تحتاجه لدمج Intlayer مع React Router v7 لتطبيق دولي بالكامل مع توجيه مدرك للغة ودعم TypeScript.
-
-## تاريخ الوثيقة
-
-| الإصدار | التاريخ    | التغييرات                |
-| ------- | ---------- | ------------------------ |
-| 6.1.5   | 2025-10-03 | تحديث الوثيقة            |
-| 5.8.2   | 2025-09-04 | أضيف دعم React Router v7 |

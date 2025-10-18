@@ -14,6 +14,10 @@ slugs:
   - doc
   - concept
   - per-locale-file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Объявление контента `Per-Locale` в Intlayer
@@ -319,7 +323,3 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Автоматическая генерация переводов
 
 Используйте [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md) для автоматического заполнения отсутствующих переводов на основе ваших предпочтительных сервисов.
-
-## История документации
-
-- 5.5.10 - 2025-06-29: Инициализация истории

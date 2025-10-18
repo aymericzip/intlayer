@@ -12,6 +12,10 @@ keywords:
 slugs:
   - doc
   - locale-mapper
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: إضافة توثيق موجه اللغات
 ---
 
 # موجه اللغة
@@ -238,9 +242,3 @@ const translationModules = localeRecord(({ locale }) => ({
 - **بادئة عنوان URL**: يحترم `configuration.middleware.prefixDefault`
 
 هذا يضمن الاتساق عبر تطبيقك ويقلل من تكرار التهيئة.
-
-## تاريخ الوثيقة
-
-| الإصدار | التاريخ    | التغييرات               |
-| ------- | ---------- | ----------------------- |
-| 5.7.2   | 2025-07-27 | إضافة توثيق موجه اللغات |

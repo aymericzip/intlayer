@@ -15,6 +15,16 @@ slugs:
   - doc
   - concept
   - auto-fill
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Globale Konfiguration hinzugefügt
+  - version: 6.0.0
+    date: 2025-09-17
+    changes: Variable `{{fileName}}` hinzugefügt
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historie initialisiert
 ---
 
 # Übersetzungen der Deklarationsdatei für automatisches Ausfüllen von Inhalten
@@ -191,11 +201,3 @@ Dies erzeugt:
 
 - `./index.content.json`
 - `./index.content.json`
-
-## Dokumentationsverlauf
-
-| Version | Datum      | Änderungen                          |
-| ------- | ---------- | ----------------------------------- |
-| 6.0.0   | 2025-09-20 | Globale Konfiguration hinzugefügt   |
-| 6.0.0   | 2025-09-17 | Variable `{{fileName}}` hinzugefügt |
-| 5.5.10  | 2025-06-29 | Historie initialisiert              |

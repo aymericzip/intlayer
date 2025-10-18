@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - translation
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 翻译
@@ -331,7 +335,3 @@ module.exports = {
   }
 }
 ```
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29: 初始化历史

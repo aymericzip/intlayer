@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Contenido de Archivo / Incrustar Archivos en Intlayer
@@ -216,7 +220,3 @@ Para más detalles sobre la configuración y el uso de la incrustación de archi
 - [Documentación de Contenido de Traducción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/translation.md)
 
 Estos recursos ofrecen una visión más profunda sobre la incrustación de archivos, la gestión de contenido y la integración de Intlayer con varios frameworks.
-
-## Historial del Documento
-
-- 5.5.10 - 2025-06-29: Historial inicial

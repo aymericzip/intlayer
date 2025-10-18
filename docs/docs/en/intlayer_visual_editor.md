@@ -16,6 +16,19 @@ slugs:
   - concept
   - editor
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 6.1.0
+    date: 2025-09-23
+    changes: Add with option on CLI
+  - version: 6.0.1
+    date: 2025-09-22
+    changes: Change behavior of the editor when the file extension is not `.json`
+  - version: 6.0.0
+    date: 2025-09-21
+    changes: Add reexported command
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Intlayer Visual Editor Documentation
@@ -273,12 +286,3 @@ If you encounter any issues with the visual editor, check the following:
     - The application URL should match the one you set in the editor configuration (`applicationURL`).
 
 - The visual editor use an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS url as `frame-ancestors` ('http://localhost:8000' by default). Check the editor console for any error.
-
-## Doc History
-
-| Version | Date       | Changes                                                              |
-| ------- | ---------- | -------------------------------------------------------------------- |
-| 6.1.0   | 2025-09-23 | Add with option on CLI                                               |
-| 6.0.1   | 2025-09-22 | Change behavior of the editor when the file extension is not `.json` |
-| 6.0.0   | 2025-09-21 | Add reexported command                                               |
-| 5.5.10  | 2025-06-29 | Init history                                                         |

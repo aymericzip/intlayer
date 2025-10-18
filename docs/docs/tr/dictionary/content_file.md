@@ -11,6 +11,13 @@ slugs:
   - doc
   - concept
   - content
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Alanlar dokümantasyonu eklendi
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Başlangıç geçmişi
 ---
 
 # İçerik Dosyası
@@ -1046,10 +1053,3 @@ module.exports = {
    - İzlenen dosyaların kapsamını sınırlamak için içerik yapılandırmasını ayarlayın
    - Gerçek zamanlı güncellemeler gerektiğinde (örneğin A/B testi vb.) yalnızca canlı sözlükleri kullanın
    - Sözlüğü derleme zamanında optimize etmek için derleme dönüşüm eklentisinin (`@intlayer/swc` veya `@intlayer/babel`) etkin olduğundan emin olun
-
-## Belge Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler                  |
-| ------ | ---------- | ------------------------------ |
-| 6.0.0  | 2025-09-20 | Alanlar dokümantasyonu eklendi |
-| 5.5.10 | 2025-06-29 | Başlangıç geçmişi              |

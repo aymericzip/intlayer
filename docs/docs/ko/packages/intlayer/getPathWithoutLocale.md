@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getPathWithoutLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # 문서: `intlayer`의 `getPathWithoutLocale` 함수
@@ -70,7 +74,3 @@ console.log(getPathWithoutLocale("/en/dashboard")); // 출력: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // 출력: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // 출력: "https://example.com/dashboard"
 ```
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

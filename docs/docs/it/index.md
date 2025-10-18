@@ -16,6 +16,10 @@ keywords:
 slugs:
   - doc
   - index
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizio cronologia
 ---
 
 # Documentazione Intlayer
@@ -160,7 +164,3 @@ Integrati perfettamente con **Next.js**:
 Valorizziamo la potenza dello sviluppo open-source e guidato dalla comunità. Se desideri proporre miglioramenti, aggiungere una nuova guida o correggere eventuali problemi nella nostra documentazione, sentiti libero di inviare una Pull Request o aprire un issue nel nostro [repository GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
 **Pronto a tradurre la tua applicazione in modo più rapido ed efficiente?** Immergiti nella nostra documentazione per iniziare a usare Intlayer oggi stesso. Vivi un approccio robusto e semplificato all'internazionalizzazione che mantiene i tuoi contenuti organizzati e il tuo team più produttivo.
-
-## Cronologia della Documentazione
-
-- 5.5.10 - 2025-06-29: Inizio cronologia

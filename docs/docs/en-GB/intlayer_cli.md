@@ -16,6 +16,13 @@ slugs:
   - doc
   - concept
   - cli
+history:
+  - version: 5.5.11
+    date: 2025-07-11
+    changes: Update CLI command parameters documentation
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Intlayer CLI
@@ -565,10 +572,3 @@ Sometimes a terminal restart is needed to recognise new commands.
 ```bash
 npx clear-npx-cache
 ```
-
-## Doc History
-
-| Version | Date       | Changes                                     |
-| ------- | ---------- | ------------------------------------------- |
-| 5.5.11  | 2025-07-11 | Update CLI command parameters documentation |
-| 5.5.10  | 2025-06-29 | Init history                                |

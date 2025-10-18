@@ -16,6 +16,10 @@ slugs:
   - environment
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
+history:
+  - version: 6.2.0
+    date: 2025-10-03
+    changes: Astro統合、設定、使用法のリフレッシュ
 ---
 
 # IntlayerでAstroを翻訳する | 国際化（i18n）
@@ -238,9 +242,3 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 さらに進むためには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使ってコンテンツを外部化することができます。
 
 ---
-
-## ドキュメント履歴
-
-| バージョン | 日付       | 変更内容                              |
-| ---------- | ---------- | ------------------------------------- |
-| 6.2.0      | 2025-10-03 | Astro統合、設定、使用法のリフレッシュ |

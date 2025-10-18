@@ -12,6 +12,13 @@ keywords:
 slugs:
   - doc
   - why
+history:
+  - version: 5.8.0
+    date: 2025-08-19
+    changes: Karşılaştırma tablosunu güncelle
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Neden Intlayer'ı düşünmelisiniz?
@@ -279,10 +286,3 @@ GitHub yıldızları, bir projenin popülaritesinin, topluluk güveninin ve uzun
 `intlayer` kullanarak, içeriğinizi favori i18n kütüphanenizin formatında bildirebilirsiniz ve intlayer isim alanlarınızı seçtiğiniz konumda oluşturacaktır (örnek: `/messages/{{locale}}/{{namespace}}.json`).
 
 Daha fazla ayrıntı için [`dictionaryOutput` ve `i18nextResourcesDir` seçeneklerine](https://intlayer.org/doc/concept/configuration#content-configuration) bakın.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler                    |
-| ------ | ---------- | -------------------------------- |
-| 5.8.0  | 2025-08-19 | Karşılaştırma tablosunu güncelle |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı                |

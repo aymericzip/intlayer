@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getEnumeration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # ドキュメント: `intlayer` の `getEnumeration` 関数
@@ -158,7 +162,3 @@ console.log(content); // 出力: "あなたの値は4未満です"
 ## 注意事項
 
 - `findMatchingCondition` ユーティリティは、与えられた数量に基づいて適切な条件を決定するために使用されます。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

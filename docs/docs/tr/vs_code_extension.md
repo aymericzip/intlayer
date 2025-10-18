@@ -15,6 +15,19 @@ keywords:
 slugs:
   - doc
   - vs-code-extension
+history:
+  - version: 6.1.5
+    date: 2025-09-30
+    changes: Demo gif eklendi
+  - version: 6.1.0
+    date: 2025-09-24
+    changes: Ortam seçimi bölümü eklendi
+  - version: 6.0.0
+    date: 2025-09-22
+    changes: Intlayer Sekmesi / Doldur & Test komutları
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Başlangıç geçmişi
 ---
 
 # Resmi VS Code Eklentisi
@@ -111,12 +124,3 @@ Eklenti, Intlayer komutlarını doğru bağlamda çalıştırmak için çalışm
 #### Monorepo ve özel dizinler
 
 Eğer `.env` dosyalarınız çalışma alanı kökünün dışında bulunuyorsa, `Ayarlar → Eklentiler → Intlayer` yolunda **Temel Dizin**i ayarlayın. Yükleyici, `.env` dosyalarını bu dizine göre arayacaktır.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler                              |
-| ------ | ---------- | ------------------------------------------ |
-| 6.1.5  | 2025-09-30 | Demo gif eklendi                           |
-| 6.1.0  | 2025-09-24 | Ortam seçimi bölümü eklendi                |
-| 6.0.0  | 2025-09-22 | Intlayer Sekmesi / Doldur & Test komutları |
-| 5.5.10 | 2025-06-29 | Başlangıç geçmişi                          |

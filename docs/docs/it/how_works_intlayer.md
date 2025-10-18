@@ -13,6 +13,10 @@ slugs:
   - doc
   - concept
   - how-works-intlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizio cronologia
 ---
 
 # Come funziona Intlayer
@@ -247,7 +251,3 @@ Il pacchetto `@intlayer/backend` esporta tipi di backend e in futuro offrirà il
 ## Chatta con la nostra documentazione intelligente
 
 - [Fai le tue domande alla nostra documentazione intelligente](https://intlayer.org/doc/chat)
-
-## Cronologia della documentazione
-
-- 5.5.10 - 2025-06-29: Inizio cronologia

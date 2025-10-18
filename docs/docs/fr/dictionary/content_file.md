@@ -11,6 +11,13 @@ slugs:
   - doc
   - concept
   - content
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Ajout de la documentation des champs
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historique initial
 ---
 
 # Fichier de Contenu
@@ -1045,10 +1052,3 @@ module.exports = {
    - Ajustez la configuration du contenu pour limiter la portée des fichiers surveillés
    - Utilisez des dictionnaires en direct uniquement lorsque des mises à jour en temps réel sont nécessaires (par exemple, tests A/B, etc.)
    - Assurez-vous que le plugin de transformation de build (`@intlayer/swc` ou `@intlayer/babel`) est activé pour optimiser le dictionnaire au moment de la compilation
-
-## Historique de la documentation
-
-| Version | Date       | Modifications                        |
-| ------- | ---------- | ------------------------------------ |
-| 6.0.0   | 2025-09-20 | Ajout de la documentation des champs |
-| 5.5.10  | 2025-06-29 | Historique initial                   |

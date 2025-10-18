@@ -15,6 +15,10 @@ slugs:
   - doc
   - concept
   - ci-cd
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史记录
 ---
 
 # 在 CI/CD 流水线中自动生成翻译
@@ -190,9 +194,3 @@ jobs:
 > 默认情况下，`--git-diff` 参数会筛选包含从基线（默认 `origin/main`）到当前分支（默认 `HEAD`）的更改的字典。
 
 > 有关 Intlayer CLI 命令及其用法的更多信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
-
-## 文档历史
-
-| 版本   | 日期       | 变更           |
-| ------ | ---------- | -------------- |
-| 5.5.10 | 2025-06-29 | 初始化历史记录 |

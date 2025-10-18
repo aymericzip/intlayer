@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizio cronologia
 ---
 
 # Contenuto File / Incorporare File in Intlayer
@@ -216,7 +220,3 @@ Per maggiori dettagli sulla configurazione e l'uso dell'incorporamento di file i
 - [Documentazione sul Contenuto di Traduzione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/translation.md)
 
 Queste risorse offrono ulteriori approfondimenti sull'incorporamento di file, la gestione dei contenuti e l'integrazione di Intlayer con vari framework.
-
-## Cronologia del Documento
-
-- 5.5.10 - 2025-06-29: Inizio cronologia

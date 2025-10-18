@@ -15,6 +15,19 @@ keywords:
 slugs:
   - doc
   - vs-code-extension
+history:
+  - version: 6.1.5
+    date: 2025-09-30
+    changes: Aggiunta gif demo
+  - version: 6.1.0
+    date: 2025-09-24
+    changes: Aggiunta sezione selezione ambiente
+  - version: 6.0.0
+    date: 2025-09-22
+    changes: Comandi Intlayer Tab / Fill & Test
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizializzazione cronologia
 ---
 
 # Estensione Ufficiale per VS Code
@@ -111,12 +124,3 @@ L'estensione può caricare le variabili d'ambiente dal tuo workspace per eseguir
 #### Monorepo e directory personalizzate
 
 Se i tuoi file `.env` si trovano al di fuori della radice dello spazio di lavoro, imposta la **Directory Base** in `Impostazioni → Estensioni → Intlayer`. Il loader cercherà i file `.env` relativi a quella directory.
-
-## Cronologia Documentazione
-
-| Versione | Data       | Modifiche                           |
-| -------- | ---------- | ----------------------------------- |
-| 6.1.5    | 2025-09-30 | Aggiunta gif demo                   |
-| 6.1.0    | 2025-09-24 | Aggiunta sezione selezione ambiente |
-| 6.0.0    | 2025-09-22 | Comandi Intlayer Tab / Fill & Test  |
-| 5.5.10   | 2025-06-29 | Inizializzazione cronologia         |

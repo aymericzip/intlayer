@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getConfiguration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # ドキュメント: `intlayer` の `getConfiguration` 関数
@@ -140,7 +144,3 @@ console.log(cookieName); // 出力: "INTLAYER_LOCALE"
 ## アプリケーションでの使用方法
 
 `getConfiguration` 関数は、`intlayer` アプリケーションの設定を初期化および管理するための重要なユーティリティです。ロケール、ミドルウェア、コンテンツディレクトリなどの設定へのアクセスを提供することで、多言語対応およびコンテンツ駆動型アプリケーションにおいて、一貫性とスケーラビリティを確保します。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

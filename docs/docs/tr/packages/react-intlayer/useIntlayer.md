@@ -18,6 +18,10 @@ slugs:
   - packages
   - react-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # React Entegrasyonu: `useIntlayer` Hook Dokümantasyonu
@@ -245,9 +249,3 @@ const ServerComponentExample = () => {
 - **Intlayer Görsel Düzenleyici**: Daha sezgisel içerik yönetimi için görsel düzenleyici dokümantasyonuna [burada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) bakın.
 
 Bu bölüm, React uygulamalarında `useIntlayer` hook'unun entegrasyonuna özel olarak odaklanır, yerelleştirme sürecini basitleştirir ve farklı yerel ayarlar arasında içerik tutarlılığını sağlar.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

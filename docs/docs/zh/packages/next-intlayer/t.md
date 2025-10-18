@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 文档：`next-intlayer` 中的 `t` 函数
@@ -348,7 +352,3 @@ const text = t(translations);
 ---
 
 **注意**：请记得正确设置您的`IntlayerClientProvider`和`IntlayerServerProvider`，以确保当前语言环境正确传递给您的组件。这对于`t`函数返回正确的翻译至关重要。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

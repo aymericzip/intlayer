@@ -13,6 +13,10 @@ slugs:
   - doc
   - concept
   - how-works-intlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # Intlayer 작동 방식
@@ -243,7 +247,3 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 ## 스마트 문서와 채팅하기
 
 - [스마트 문서에 질문하기](https://intlayer.org/doc/chat)
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

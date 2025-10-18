@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - insertion
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Вставка контента / Вставка в Intlayer
@@ -179,7 +183,3 @@ module.exports = InsertionComponent;
 - [Документация Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_15.md)
 
 Эти ресурсы предлагают дополнительные сведения о настройке и использовании Intlayer в различных средах и фреймворках.
-
-## История документа
-
-- 5.5.10 - 2025-06-29: Инициализация истории

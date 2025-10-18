@@ -16,6 +16,10 @@ slugs:
   - environment
   - nextjs
   - next-with-page-router
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Переведите ваш Next.js and Page Router с Intlayer | Интернационализация (i18n)
@@ -1510,7 +1514,3 @@ Intlayer использует расширение модулей (module augmen
 ### Продвинутые возможности
 
 Чтобы пойти дальше, вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент, используя [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
-## История документа
-
-- 5.5.10 - 2025-06-29: Инициализация истории

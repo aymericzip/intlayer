@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - nesting
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # İç İçe Yerleştirme / Alt İçerik Referansı
@@ -267,13 +271,3 @@ Yapılandırma ve kullanım hakkında daha detaylı bilgi için aşağıdaki kay
 - [Next Intlayer Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
 
 Bu kaynaklar, farklı ortamlar ve çeşitli çerçevelerde Intlayer'ın kurulumu ve kullanımı hakkında daha fazla bilgi sağlar.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
-
-```
-
-```

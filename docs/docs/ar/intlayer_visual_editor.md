@@ -16,6 +16,10 @@ slugs:
   - concept
   - editor
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بدء السجل
 ---
 
 # وثائق محرر Intlayer البصري
@@ -261,7 +265,3 @@ pnpm intlayer-editor start -e development
     - يجب أن يتطابق عنوان URL للتطبيق مع الذي قمت بتعيينه في تكوين المحرر (`applicationURL`).
 
 - يستخدم المحرر المرئي iframe لعرض موقعك الإلكتروني. تأكد من أن سياسة أمان المحتوى (CSP) لموقعك تسمح بعنوان URL الخاص بنظام إدارة المحتوى (CMS) كـ `frame-ancestors` ('http://localhost:8000' بشكل افتراضي). تحقق من وحدة تحكم المحرر لأي أخطاء.
-
-## سجل الوثائق
-
-- 5.5.10 - 2025-06-29: بدء السجل

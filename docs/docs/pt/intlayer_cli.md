@@ -16,6 +16,13 @@ slugs:
   - doc
   - concept
   - cli
+history:
+  - version: 5.5.11
+    date: 2025-07-11
+    changes: Atualização da documentação dos parâmetros dos comandos CLI
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Histórico inicial
 ---
 
 # Intlayer CLI
@@ -565,10 +572,3 @@ npx intlayer dictionary build --help    # Mostra a lista de opções disponívei
 ```bash
 npx clear-npx-cache
 ```
-
-## Histórico da Documentação
-
-| Versão | Data       | Alterações                                                  |
-| ------ | ---------- | ----------------------------------------------------------- |
-| 5.5.11 | 2025-07-11 | Atualização da documentação dos parâmetros dos comandos CLI |
-| 5.5.10 | 2025-06-29 | Histórico inicial                                           |

@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية التاريخ
 ---
 
 # محتوى الملف / تضمين الملفات في Intlayer
@@ -220,7 +224,3 @@ const myMultilingualContent = {
 - [توثيق محتوى الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)
 
 توفر هذه الموارد رؤى إضافية حول تضمين الملفات، إدارة المحتوى، وتكامل Intlayer مع أُطُر العمل المختلفة.
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية التاريخ

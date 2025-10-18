@@ -16,6 +16,10 @@ slugs:
   - concept
   - editor
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴を初期化
 ---
 
 # Intlayer Visual Editor ドキュメント
@@ -266,7 +270,3 @@ pnpm intlayer-editor start -e development
     - アプリケーション URL はエディタ設定 (`applicationURL`) に設定したものと一致する必要があります。
 
 - ビジュアルエディターは iframe を使用してウェブサイトを表示します。ウェブサイトのコンテンツセキュリティポリシー（CSP）が CMS の URL を `frame-ancestors` として許可していることを確認してください（デフォルトは 'http://localhost:8000'）。エディターのコンソールでエラーがないか確認してください。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴を初期化

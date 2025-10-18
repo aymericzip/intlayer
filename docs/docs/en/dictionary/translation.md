@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - translation
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Translation
@@ -303,9 +307,3 @@ module.exports = {
   }
 }
 ```
-
-## Doc History
-
-| Version | Date       | Changes      |
-| ------- | ---------- | ------------ |
-| 5.5.10  | 2025-06-29 | Init history |

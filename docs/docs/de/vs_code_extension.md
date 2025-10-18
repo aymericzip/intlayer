@@ -15,6 +15,19 @@ keywords:
 slugs:
   - doc
   - vs-code-extension
+history:
+  - version: 6.1.5
+    date: 2025-09-30
+    changes: Demo-GIF hinzugefügt
+  - version: 6.1.0
+    date: 2025-09-24
+    changes: Abschnitt zur Umgebungs-Auswahl hinzugefügt
+  - version: 6.0.0
+    date: 2025-09-22
+    changes: Intlayer-Tab / Befehle zum Ausfüllen & Testen
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historie initialisiert
 ---
 
 # Offizielle VS Code Erweiterung
@@ -111,12 +124,3 @@ Die Erweiterung kann Umgebungsvariablen aus Ihrem Arbeitsbereich laden, um Intla
 #### Monorepos und benutzerdefinierte Verzeichnisse
 
 Wenn sich Ihre `.env`-Dateien außerhalb des Arbeitsbereichs-Stammverzeichnisses befinden, legen Sie das **Basisverzeichnis** unter `Einstellungen → Erweiterungen → Intlayer` fest. Der Loader sucht dann nach `.env`-Dateien relativ zu diesem Verzeichnis.
-
-## Dokumentationshistorie
-
-| Version | Datum      | Änderungen                                    |
-| ------- | ---------- | --------------------------------------------- |
-| 6.1.5   | 2025-09-30 | Demo-GIF hinzugefügt                          |
-| 6.1.0   | 2025-09-24 | Abschnitt zur Umgebungs-Auswahl hinzugefügt   |
-| 6.0.0   | 2025-09-22 | Intlayer-Tab / Befehle zum Ausfüllen & Testen |
-| 5.5.10  | 2025-06-29 | Historie initialisiert                        |

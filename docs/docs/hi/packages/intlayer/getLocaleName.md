@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleName
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # दस्तावेज़: `intlayer` में `getLocaleName` फ़ंक्शन
@@ -113,7 +117,3 @@ getLocaleName("unknown-locale"); // आउटपुट: "Unknown locale"
   - फ़ंक्शन डिफ़ॉल्ट रूप से `displayLocale` के अपने नाम को लौटाता है।
 - **अनुवाद गायब:**
   - यदि `localeNameTranslations` में `targetLocale` या विशिष्ट `displayLocale` के लिए कोई प्रविष्टि नहीं है, तो फ़ंक्शन `ownLocalesName` पर वापस चला जाता है या `"Unknown locale"` लौटाता है।
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

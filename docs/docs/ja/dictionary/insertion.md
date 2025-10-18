@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - insertion
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # 挿入コンテンツ / Intlayerにおける挿入
@@ -185,7 +189,3 @@ module.exports = InsertionComponent;
 - [Next Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)
 
 これらのリソースは、さまざまな環境やフレームワークにおける Intlayer のセットアップと使用方法について、さらに詳しい情報を提供します。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

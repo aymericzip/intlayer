@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - function-fetching
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Получение данных через функции
@@ -206,7 +210,3 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
-
-## История документации
-
-- 5.5.10 - 2025-06-29: Инициализация истории

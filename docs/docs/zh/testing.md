@@ -13,6 +13,10 @@ keywords:
 slugs:
   - doc
   - testing
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: 引入测试功能
 ---
 
 # 测试您的内容
@@ -189,9 +193,3 @@ npx intlayer content test --verbose
 - 对于混合的 monorepos，使用 `--base-dir` 指定 CLI 指向正确的应用根目录。
 
 ---
-
-## 文档历史
-
-| 版本  | 日期       | 变更说明     |
-| ----- | ---------- | ------------ |
-| 6.0.0 | 2025-09-20 | 引入测试功能 |

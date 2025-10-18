@@ -16,6 +16,10 @@ slugs:
   - environment
   - nextjs
   - next-with-page-router
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Getting Started Internationalising (i18n) with Intlayer and Next.js using Page Router
@@ -1487,7 +1491,3 @@ By following this guide, you can effectively integrate Intlayer into your Next.j
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/intlayer_CMS.md).
-
-## Doc History
-
-- 5.5.10 - 2025-06-29: Init history

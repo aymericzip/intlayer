@@ -14,6 +14,10 @@ slugs:
   - doc
   - concept
   - per-locale-file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Declaración de contenido `Por-Locale` en Intlayer
@@ -315,7 +319,3 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Generación Automática de Traducciones
 
 Utilice el [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md) para completar automáticamente las traducciones faltantes según sus servicios preferidos.
-
-## Historial del documento
-
-- 5.5.10 - 2025-06-29: Historial inicial

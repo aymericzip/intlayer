@@ -15,6 +15,10 @@ slugs:
   - doc
   - concept
   - ci-cd
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historique initial
 ---
 
 # Génération Automatique des Traductions dans un Pipeline CI/CD
@@ -166,7 +170,3 @@ jobs:
 > Par défaut, l'argument `--git-diff` filtre les dictionnaires qui incluent les modifications de la base (par défaut `origin/main`) vers la branche courante (par défaut : `HEAD`).
 
 > Pour plus d'informations sur les commandes Intlayer CLI et leur utilisation, consultez la [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
-
-## Historique de la documentation
-
-- 5.5.10 - 2025-06-29 : Historique initial

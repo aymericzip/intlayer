@@ -15,6 +15,10 @@ slugs:
   - environment
   - vite-and-preact
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # IntlayerでVite and Preactを翻訳する | 国際化（i18n）
@@ -1679,7 +1683,3 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使ってコンテンツを外部化することができます。
 
 ---
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

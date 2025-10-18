@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getHTMLTextDir
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # ドキュメント: `intlayer` の `getHTMLTextDir` 関数
@@ -118,7 +122,3 @@ const HTMLLayout = ({ children, locale }) => (
 ```
 
 上記の例では、`dir`属性がlocaleに基づいて動的に設定されています。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

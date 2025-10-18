@@ -18,6 +18,31 @@ keywords:
 slugs:
   - doc
   - formatters
+history:
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Vue-Formatter hinzugefügt
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: Dokumentation der Formatter hinzugefügt
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Hinzufügen von Vue-Formatierern
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: Hinzufügen der Dokumentation zu Formatierern
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Hinzufügen der Dokumentation zum Listen-Formatter
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Hinzufügen zusätzlicher Intl-Dienstprogramme (DisplayNames, Collator, PluralRules)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Hinzufügen von Locale-Dienstprogrammen (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Hinzufügen von Dienstprogrammen zur Inhaltsverwaltung (getContent, getTranslation, getIntlayer, etc.)
 ---
 
 # Intlayer Formatierer
@@ -590,38 +615,3 @@ import {
 ```
 
 > Diese Composables berücksichtigen die Locale vom injizierten `IntlayerProvider`
-
-## Dokumentationshistorie
-
-| Version | Datum      | Änderungen                              |
-| ------- | ---------- | --------------------------------------- |
-| 5.8.0   | 2025-08-20 | Vue-Formatter hinzugefügt               |
-| 5.8.0   | 2025-08-18 | Dokumentation der Formatter hinzugefügt |
-
-Client-Komponenten:
-
-```ts
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "vue-intlayer/format";
-```
-
-> Diese Composables berücksichtigen die Locale vom injizierten `IntlayerProvider`
-
-## Dokumentationshistorie
-
-| Version | Datum      | Änderungen                                                                                            |
-| ------- | ---------- | ----------------------------------------------------------------------------------------------------- |
-| 5.8.0   | 2025-08-20 | Hinzufügen von Vue-Formatierern                                                                       |
-| 5.8.0   | 2025-08-18 | Hinzufügen der Dokumentation zu Formatierern                                                          |
-| 5.8.0   | 2025-08-20 | Hinzufügen der Dokumentation zum Listen-Formatter                                                     |
-| 5.8.0   | 2025-08-20 | Hinzufügen zusätzlicher Intl-Dienstprogramme (DisplayNames, Collator, PluralRules)                    |
-| 5.8.0   | 2025-08-20 | Hinzufügen von Locale-Dienstprogrammen (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)        |
-| 5.8.0   | 2025-08-20 | Hinzufügen von Dienstprogrammen zur Inhaltsverwaltung (getContent, getTranslation, getIntlayer, etc.) |

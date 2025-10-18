@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getTranslation
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Dokümantasyon: `intlayer` Paketinde `getTranslationContent` Fonksiyonu
@@ -184,13 +188,3 @@ console.log(customContent.greeting); // Çıktı: "Bonjour"
   - Bir yerel ayar kısmen tanımlanmışsa, fonksiyon içerikleri birleştirmez. Kesinlikle belirtilen yerel ayarın değerini alır veya varsayılana geri döner.
 - **TypeScript Zorlaması:**
   - `languageContent`'teki yerel ayarlar proje yapılandırmasıyla eşleşmezse, TypeScript tüm gerekli yerel ayarların tanımlanmasını zorunlu kılar, böylece içerik tam ve tür açısından güvenli olur.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
-
-```
-
-```

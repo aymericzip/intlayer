@@ -17,6 +17,10 @@ slugs:
   - package
   - intlayer
   - getTranslationContent
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 文档：`intlayer` 中的 `getTranslation` 函数
@@ -185,7 +189,3 @@ console.log(customContent.greeting); // 输出: "Bonjour"
   - 如果某个语言环境定义不完整，函数不会合并内容。它严格检索指定语言环境的值，或者回退到默认语言环境。
 - **TypeScript 强制执行:**
   - 如果 `languageContent` 中的语言环境与项目配置不匹配，TypeScript 将强制要求定义所有必需的语言环境，确保内容完整且类型安全。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

@@ -16,6 +16,13 @@ slugs:
   - doc
   - concept
   - cli
+history:
+  - version: 5.5.11
+    date: 2025-07-11
+    changes: Mise à jour de la documentation des paramètres des commandes CLI
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historique initial
 ---
 
 # CLI Intlayer
@@ -564,10 +571,3 @@ Parfois, un redémarrage du terminal est nécessaire pour reconnaître les nouve
 ```bash
 npx clear-npx-cache
 ```
-
-## Historique de la documentation
-
-| Version | Date       | Modifications                                                    |
-| ------- | ---------- | ---------------------------------------------------------------- |
-| 5.5.11  | 2025-07-11 | Mise à jour de la documentation des paramètres des commandes CLI |
-| 5.5.10  | 2025-06-29 | Historique initial                                               |

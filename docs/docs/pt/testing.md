@@ -13,6 +13,10 @@ keywords:
 slugs:
   - doc
   - testing
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Introdução dos testes
 ---
 
 # Testando seu conteúdo
@@ -191,9 +195,3 @@ npx intlayer content test --verbose
 - Para monorepos mistos, use `--base-dir` para apontar o CLI para a raiz correta da aplicação.
 
 ---
-
-## Histórico do Documento
-
-| Versão | Data       | Alterações            |
-| ------ | ---------- | --------------------- |
-| 6.0.0  | 2025-09-20 | Introdução dos testes |

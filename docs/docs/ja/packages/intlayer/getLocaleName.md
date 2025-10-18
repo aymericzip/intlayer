@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleName
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # ドキュメント: `intlayer` の `getLocaleName` 関数
@@ -113,7 +117,3 @@ getLocaleName("unknown-locale"); // 出力: "Unknown locale"
   - 関数はデフォルトで `displayLocale` 自身の名前を返します。
 - **翻訳が見つからない場合:**
   - `localeNameTranslations` に `targetLocale` または特定の `displayLocale` のエントリが存在しない場合、関数は `ownLocalesName` にフォールバックするか、 `"Unknown locale"` を返します。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

@@ -14,6 +14,10 @@ slugs:
   - doc
   - environment
   - express
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: इतिहास प्रारंभ
 ---
 
 # Intlayer के साथ अपना Express backend अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
@@ -455,7 +459,3 @@ module.exports = config;
 # Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करें
 .intlayer
 ```
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: इतिहास प्रारंभ

@@ -18,6 +18,13 @@ slugs:
   - packages
   - intlayer
   - getLocalizedUrl
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # 문서: `intlayer`의 `getLocalizedUrl` 함수
@@ -241,19 +248,3 @@ getLocalizedUrl("/about", Locales.ENGLISH); // 출력: "/about"
 ```
 
 `getLocalizedUrl`을 통합함으로써 개발자는 여러 언어에 걸쳐 일관된 URL 구조를 유지할 수 있어 사용자 경험과 SEO를 모두 향상시킬 수 있습니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력
-  getLocalizedUrl("/about", Locales.FRENCH); // 출력: "/fr/about"
-  getLocalizedUrl("/about", Locales.SPANISH); // 출력: "/es/about"
-  getLocalizedUrl("/about", Locales.ENGLISH); // 출력: "/about"
-
-```
-
-`getLocalizedUrl`를 통합함으로써, 개발자들은 여러 언어에 걸쳐 일관된 URL 구조를 유지할 수 있어 사용자 경험과 SEO를 모두 향상시킬 수 있습니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력
-```

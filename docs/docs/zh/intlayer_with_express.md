@@ -14,6 +14,10 @@ slugs:
   - doc
   - environment
   - express
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 使用Intlayer翻译您的Express backend | 国际化(i18n)
@@ -427,7 +431,3 @@ module.exports = config;
 # 忽略 Intlayer 生成的文件
 .intlayer
 ```
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

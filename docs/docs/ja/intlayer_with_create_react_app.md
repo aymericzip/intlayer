@@ -16,6 +16,10 @@ slugs:
   - environment
   - create-react-app
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴初期化
 ---
 
 # IntlayerでCreate React Appを翻訳する | 国際化（i18n）
@@ -1232,7 +1236,3 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 ### さらに進むには
 
 さらに進みたい場合は、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使ってコンテンツを外部化することができます。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴初期化

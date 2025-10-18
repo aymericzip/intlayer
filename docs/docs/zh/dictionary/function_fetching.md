@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - function-fetching
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 函数获取
@@ -233,7 +237,3 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

@@ -18,6 +18,10 @@ slugs:
   - packages
   - react-intlayer
   - useLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # React統合: `useLocale` フック ドキュメント
@@ -204,7 +208,3 @@ const LocaleSelector = () => {
 ## 結論
 
 `react-intlayer` の `useLocale` フックは、React アプリケーションでロケールを管理するための重要なツールであり、さまざまな国際的なユーザーに効果的に対応するための機能を提供します。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

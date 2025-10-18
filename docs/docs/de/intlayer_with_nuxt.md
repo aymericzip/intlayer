@@ -15,6 +15,10 @@ slugs:
   - environment
   - nuxt-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historie initialisiert
 ---
 
 # Übersetzen Sie Ihre Nuxt and Vue mit Intlayer | Internationalisierung (i18n)
@@ -798,7 +802,3 @@ Für weitere Details zur Verwendung der Erweiterung siehe die [Intlayer VS Code 
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) externalisieren.
 
 ---
-
-## Dokumentationshistorie
-
-- 5.5.10 - 2025-06-29: Historie initialisiert

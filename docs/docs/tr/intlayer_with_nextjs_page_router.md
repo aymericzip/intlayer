@@ -16,6 +16,13 @@ slugs:
   - environment
   - nextjs
   - next-with-page-router
+history:
+  - version: 5.6.0
+    date: 2025-07-06
+    changes: `withIntlayer()` fonksiyonunu promise tabanlı fonksiyona dönüştür
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmişi başlat
 ---
 
 # Intlayer ile Next.js and Page Router çevirin | Uluslararasılaştırma (i18n)
@@ -1475,10 +1482,3 @@ Bu kılavuzu takip ederek, Sayfa Yönlendirici kullanarak Next.js uygulamanızda
 ### Daha Fazla Bilgi Edinin
 
 Daha fazla ilerlemek için, [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)yi uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak harici hale getirebilirsiniz.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler                                                     |
-| ------ | ---------- | ----------------------------------------------------------------- |
-| 5.6.0  | 2025-07-06 | `withIntlayer()` fonksiyonunu promise tabanlı fonksiyona dönüştür |
-| 5.5.10 | 2025-06-29 | Geçmişi başlat                                                    |

@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getPathWithoutLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Dokümantasyon: `intlayer` Paketinde `getPathWithoutLocale` Fonksiyonları
@@ -68,14 +72,4 @@ console.log(getPathWithoutLocale("/dashboard")); // Çıktı: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // Çıktı: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Çıktı: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Çıktı: "https://example.com/dashboard"
-```
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
-
-```
-
 ```

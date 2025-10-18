@@ -14,6 +14,10 @@ slugs:
   - doc
   - concept
   - per-locale-file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # Intlayer में `प्रति-स्थान` सामग्री घोषणा की घोषणा
@@ -317,7 +321,3 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### स्वचालित अनुवाद निर्माण
 
 अपने पसंदीदा सेवाओं के आधार पर गायब अनुवादों को स्वचालित रूप से भरने के लिए [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md) का उपयोग करें।
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

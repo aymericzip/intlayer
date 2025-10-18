@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getHTMLTextDir
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Dokümantasyon: `intlayer` Paketinde `getHTMLTextDir` Fonksiyonu
@@ -115,13 +119,3 @@ const HTMLLayout = ({ children, locale }) => (
 ```
 
 Yukarıdaki örnekte, `dir` özelliği yerel ayara göre dinamik olarak ayarlanır.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
-
-```
-
-```

@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - enumeration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Enumeración / Plurialización
@@ -239,7 +243,3 @@ Para obtener información más detallada sobre la configuración y el uso, consu
 - [Documentación de Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_15.md)
 
 Estos recursos proporcionan información adicional sobre la configuración y el uso de Intlayer en diferentes entornos y con varios frameworks.
-
-## Historial del Documento
-
-- 5.5.10 - 2025-06-29: Historial inicial

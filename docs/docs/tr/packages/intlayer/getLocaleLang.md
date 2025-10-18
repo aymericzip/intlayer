@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleLang
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Dokümantasyon: `intlayer` Paketinde `getLocaleLang` Fonksiyonu
@@ -75,13 +79,3 @@ getLocaleLang(Locales.FRENCH); // Çıktı: "fr"
 
 - **Hatalı Biçimlendirilmiş Yerel Ayar Dizeleri:**
   - `locale` `language-country` formatını takip etmezse (örneğin, `Locales.ENGLISH-US`), fonksiyon `'-'` öncesindeki kısmı güvenli bir şekilde döndürür veya `'-'` yoksa tüm dizeyi döndürür.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
-
-```
-
-```

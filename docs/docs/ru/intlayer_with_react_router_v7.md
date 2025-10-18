@@ -18,6 +18,13 @@ slugs:
   - vite-and-react
   - react-router-v7
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
+history:
+  - version: 6.1.5
+    date: 2025-10-03
+    changes: Обновлена документация
+  - version: 5.8.2
+    date: 2025-09-04
+    changes: Добавлено для React Router v7
 ---
 
 # Переведите ваш React Router v7 с Intlayer | Интернационализация (i18n)
@@ -479,10 +486,3 @@ Intlayer использует расширение модулей (module augmen
 - [Конфигурация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
 
 Это подробное руководство содержит все необходимое для интеграции Intlayer с React Router v7 для полностью интернационализированного приложения с маршрутизацией, учитывающей локаль, и поддержкой TypeScript.
-
-## История документации
-
-| Версия | Дата       | Изменения                     |
-| ------ | ---------- | ----------------------------- |
-| 6.1.5  | 2025-10-03 | Обновлена документация        |
-| 5.8.2  | 2025-09-04 | Добавлено для React Router v7 |

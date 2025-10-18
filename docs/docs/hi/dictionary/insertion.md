@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - insertion
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # सम्मिलन कंटेंट / Intlayer में सम्मिलन
@@ -186,7 +190,3 @@ module.exports = InsertionComponent;
 - [Next Intlayer प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md)
 
 ये संसाधन विभिन्न वातावरणों और फ्रेमवर्क में Intlayer की सेटअप और उपयोग के बारे में और अधिक जानकारी प्रदान करते हैं।
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

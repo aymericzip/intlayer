@@ -13,6 +13,10 @@ keywords:
 slugs:
   - doc
   - testing
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Testlerin tanıtımı
 ---
 
 # İçeriğinizi test etme
@@ -191,9 +195,3 @@ npx intlayer content test --verbose
 - Karma monorepo yapıları için, CLI'yi doğru uygulama köküne yönlendirmek amacıyla `--base-dir` kullanın.
 
 ---
-
-## Doküman Geçmişi
-
-| Sürüm | Tarih      | Değişiklikler      |
-| ----- | ---------- | ------------------ |
-| 6.0.0 | 2025-09-20 | Testlerin tanıtımı |

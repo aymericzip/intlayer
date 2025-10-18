@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocalizedUrl
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Documentación: Función `getLocalizedUrl` en `intlayer`
@@ -241,7 +245,3 @@ getLocalizedUrl("/about", Locales.ENGLISH); // Salida: "/about"
 ```
 
 Al integrar `getLocalizedUrl`, los desarrolladores pueden mantener estructuras de URL consistentes en múltiples idiomas, mejorando tanto la experiencia del usuario como el SEO.
-
-## Historial del Documento
-
-- 5.5.10 - 2025-06-29: Historial inicial

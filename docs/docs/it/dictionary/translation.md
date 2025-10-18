@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - translation
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Cronologia iniziale
 ---
 
 # Traduzione
@@ -303,7 +307,3 @@ module.exports = {
   }
 }
 ```
-
-## Cronologia del Documento
-
-- 5.5.10 - 2025-06-29: Cronologia iniziale

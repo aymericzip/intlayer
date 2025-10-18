@@ -14,6 +14,19 @@ keywords:
 slugs:
   - doc
   - mcp-server
+history:
+  - version: 5.5.12
+    date: 2025-07-11
+    changes: Aggiunta configurazione di ChatGPT
+  - version: 5.5.12
+    date: 2025-07-10
+    changes: Aggiunta configurazione di Claude Desktop
+  - version: 5.5.12
+    date: 2025-07-10
+    changes: Aggiunto trasporto SSE e server remoto
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizializzazione della cronologia
 ---
 
 # Server MCP di Intlayer
@@ -197,12 +210,3 @@ npx @intlayer/mcp
 ```
 
 ---
-
-## Cronologia del Documento
-
-| Versione | Data       | Modifiche                                 |
-| -------- | ---------- | ----------------------------------------- |
-| 5.5.12   | 2025-07-11 | Aggiunta configurazione di ChatGPT        |
-| 5.5.12   | 2025-07-10 | Aggiunta configurazione di Claude Desktop |
-| 5.5.12   | 2025-07-10 | Aggiunto trasporto SSE e server remoto    |
-| 5.5.10   | 2025-06-29 | Inizializzazione della cronologia         |

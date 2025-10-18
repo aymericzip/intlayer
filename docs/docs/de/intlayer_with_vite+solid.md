@@ -15,6 +15,10 @@ slugs:
   - environment
   - vite-and-solid
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initiale Historie
 ---
 
 # Übersetzen Sie Ihre Vite and Solid mit Intlayer | Internationalisierung (i18n)
@@ -284,7 +288,3 @@ Für weitere Details zur Nutzung der Erweiterung siehe die [Intlayer VS Code Ext
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.
 
 ---
-
-## Dokumentationshistorie
-
-- 5.5.10 - 2025-06-29: Initiale Historie

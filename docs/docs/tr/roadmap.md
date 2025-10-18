@@ -13,6 +13,16 @@ keywords:
 slugs:
   - doc
   - roadmap
+history:
+  - version: 5.5.10
+    date: 2025-06-30
+    changes: Preact ve Nuxt desteği, MCP Sunucusu, CLI güncellemesi eklendi
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: `docs` komutları eklendi
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Intlayer: Özellik Genel Bakışı & Yol Haritası
@@ -328,11 +338,3 @@ Intlayer, içerik yönetimi ve uluslararasılaştırma için tek duraklı bir ç
 Yaklaşan sürümler için bizi takip edin ve mevcut özellikleri keşfederek Intlayer'ın bugün içerik yönetimi süreçlerinizi nasıl merkezileştirebileceğini ve optimize edebileceğini görün!
 
 ---
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler                                                  |
-| ------ | ---------- | -------------------------------------------------------------- |
-| 5.5.10 | 2025-06-30 | Preact ve Nuxt desteği, MCP Sunucusu, CLI güncellemesi eklendi |
-| 5.5.11 | 2025-06-29 | `docs` komutları eklendi                                       |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı                                              |

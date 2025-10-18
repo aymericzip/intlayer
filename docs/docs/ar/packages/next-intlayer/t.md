@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية التاريخ
 ---
 
 # التوثيق: دالة `t` في `next-intlayer`
@@ -346,7 +350,3 @@ const text = t(translations);
 ---
 
 **ملاحظة**: تذكر إعداد `IntlayerClientProvider` و `IntlayerServerProvider` بشكل صحيح لضمان تمرير اللغة الحالية بشكل صحيح إلى مكوناتك. هذا أمر بالغ الأهمية لكي تقوم دالة `t` بإرجاع الترجمات الصحيحة.
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية التاريخ

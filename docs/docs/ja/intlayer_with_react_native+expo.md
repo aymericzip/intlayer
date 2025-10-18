@@ -15,6 +15,10 @@ slugs:
   - environment
   - react-native-and-expo
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴初期化
 ---
 
 # IntlayerでReact Native and Expoを翻訳する | 国際化（i18n）
@@ -684,7 +688,3 @@ Intlayerの開発体験を向上させるために、公式の**Intlayer VS Code
 **Intlayer**を通じて、完全なi18n機能を備えた**React Native**アプリの開発をお楽しみください！
 
 ---
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴初期化

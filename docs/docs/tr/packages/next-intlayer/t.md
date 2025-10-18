@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Dokümantasyon: `next-intlayer` Paketinde `t` Fonksiyonu
@@ -346,9 +350,3 @@ Daha detaylı kullanım ve gelişmiş özellikler için [next-intlayer dokümant
 ---
 
 **Not**: `t` fonksiyonunun doğru çevirileri döndürmesi için mevcut yerel ayarınızın bileşenlerinize doğru şekilde aktarıldığından emin olun. Bu, `IntlayerClientProvider` ve `IntlayerServerProvider`'ı düzgün şekilde kurmak için çok önemlidir.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

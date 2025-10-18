@@ -11,6 +11,13 @@ slugs:
   - doc
   - concept
   - content
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Añadida documentación de campos
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Archivo de Contenido
@@ -1079,10 +1086,3 @@ module.exports = {
    - Ajusta la configuración del contenido para limitar el alcance de los archivos observados
    - Usa diccionarios en vivo solo cuando sean necesarias actualizaciones en tiempo real (por ejemplo, pruebas A/B, etc.)
    - Asegúrate de que el plugin de transformación de compilación (`@intlayer/swc` o `@intlayer/babel`) esté habilitado para optimizar el diccionario en tiempo de compilación
-
-## Historial de Documentación
-
-| Versión | Fecha      | Cambios                         |
-| ------- | ---------- | ------------------------------- |
-| 6.0.0   | 2025-09-20 | Añadida documentación de campos |
-| 5.5.10  | 2025-06-29 | Historial inicial               |

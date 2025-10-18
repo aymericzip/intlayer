@@ -13,6 +13,22 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: Aggiunta modalità di importazione `live`
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: Sostituito il campo `hotReload` con `liveSync` e aggiunti i campi `liveSyncPort` e `liveSyncURL`
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: Sostituito `activateDynamicImport` con l'opzione `importMode`
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: Modificata la directory di contenuto predefinita da `['src']` a `['.']`
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: Aggiunti i comandi `docs`
 ---
 
 # Documentazione di Configurazione di Intlayer
@@ -562,13 +578,3 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Usare questo per limitare l'ottimizzazione ai file di codice rilevanti e migliorare le prestazioni di build.
   - _Nota_: Questa opzione sarà ignorata se `optimize` è disabilitato.
   - _Nota_: Usare pattern glob.
-
-## Cronologia Documentazione
-
-| Versione | Data       | Modifiche                                                                                        |
-| -------- | ---------- | ------------------------------------------------------------------------------------------------ |
-| 6.0.0    | 2025-09-16 | Aggiunta modalità di importazione `live`                                                         |
-| 6.0.0    | 2025-09-04 | Sostituito il campo `hotReload` con `liveSync` e aggiunti i campi `liveSyncPort` e `liveSyncURL` |
-| 5.6.1    | 2025-07-25 | Sostituito `activateDynamicImport` con l'opzione `importMode`                                    |
-| 5.6.0    | 2025-07-13 | Modificata la directory di contenuto predefinita da `['src']` a `['.']`                          |
-| 5.5.11   | 2025-06-29 | Aggiunti i comandi `docs`                                                                        |

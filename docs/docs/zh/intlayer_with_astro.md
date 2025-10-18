@@ -16,6 +16,10 @@ slugs:
   - environment
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
+history:
+  - version: 6.2.0
+    date: 2025-10-03
+    changes: 针对 Astro 集成、配置和使用进行了更新
 ---
 
 # 使用Intlayer翻译您的Astro | 国际化(i18n)
@@ -238,9 +242,3 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
 
 ---
-
-## 文档历史
-
-| 版本  | 日期       | 变更内容                              |
-| ----- | ---------- | ------------------------------------- |
-| 6.2.0 | 2025-10-03 | 针对 Astro 集成、配置和使用进行了更新 |

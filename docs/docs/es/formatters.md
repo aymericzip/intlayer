@@ -18,6 +18,31 @@ keywords:
 slugs:
   - doc
   - formatters
+history:
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Añadidos formateadores para Vue
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: Añadida documentación de formateadores
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Añadido formateadores de vue
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: Añadida documentación de formateadores
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Añadida documentación del formateador de listas
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Añadidas utilidades Intl adicionales (DisplayNames, Collator, PluralRules)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Añadidas utilidades de configuración regional (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Añadidas utilidades para manejo de contenido (getContent, getTranslation, getIntlayer, etc.)
 ---
 
 # Formateadores de Intlayer
@@ -590,38 +615,3 @@ import {
 ```
 
 > Esos composables considerarán la configuración regional del `IntlayerProvider` inyectado.
-
-## Historial de la documentación
-
-| Versión | Fecha      | Cambios                                |
-| ------- | ---------- | -------------------------------------- |
-| 5.8.0   | 2025-08-20 | Añadidos formateadores para Vue        |
-| 5.8.0   | 2025-08-18 | Añadida documentación de formateadores |
-
-Componentes cliente:
-
-```ts
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "vue-intlayer/format";
-```
-
-> Esos composables considerarán la configuración regional del `IntlayerProvider` inyectado
-
-## Historial de la documentación
-
-| Versión | Fecha      | Cambios                                                                                               |
-| ------- | ---------- | ----------------------------------------------------------------------------------------------------- |
-| 5.8.0   | 2025-08-20 | Añadido formateadores de vue                                                                          |
-| 5.8.0   | 2025-08-18 | Añadida documentación de formateadores                                                                |
-| 5.8.0   | 2025-08-20 | Añadida documentación del formateador de listas                                                       |
-| 5.8.0   | 2025-08-20 | Añadidas utilidades Intl adicionales (DisplayNames, Collator, PluralRules)                            |
-| 5.8.0   | 2025-08-20 | Añadidas utilidades de configuración regional (getLocaleName, getLocaleLang, getLocaleFromPath, etc.) |
-| 5.8.0   | 2025-08-20 | Añadidas utilidades para manejo de contenido (getContent, getTranslation, getIntlayer, etc.)          |

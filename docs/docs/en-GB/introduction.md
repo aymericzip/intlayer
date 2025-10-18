@@ -12,6 +12,10 @@ keywords:
 slugs:
   - doc
   - get-started
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Intlayer Documentation
@@ -208,7 +212,3 @@ We value the power of open-source and community-driven development. If you’d l
 **Ready to translate your application faster and more efficiently?** Dive into our docs to start using Intlayer today. Experience a robust, streamlined approach to internationalisation that keeps your content organised and your team more productive.
 
 ---
-
-## Doc History
-
-- 5.5.10 - 2025-06-29: Init history

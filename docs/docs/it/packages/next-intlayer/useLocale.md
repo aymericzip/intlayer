@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizio cronologia
 ---
 
 # Integrazione Next.js: Documentazione dell'hook `useLocale` per `next-intlayer`
@@ -125,7 +129,3 @@ Quando si invoca l'hook `useLocale`, restituisce un oggetto contenente le seguen
 ## Conclusione
 
 L'hook `useLocale` di `next-intlayer` è uno strumento fondamentale per la gestione delle localizzazioni nelle applicazioni Next.js. Offre un approccio integrato per adattare la tua applicazione a più localizzazioni gestendo senza soluzione di continuità l'archiviazione della locale, la gestione dello stato e le modifiche degli URL.
-
-## Cronologia della documentazione
-
-- 5.5.10 - 2025-06-29: Inizio cronologia

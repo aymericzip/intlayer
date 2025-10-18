@@ -13,6 +13,10 @@ slugs:
   - doc
   - concept
   - how-works-intlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初期履歴
 ---
 
 # Intlayerの仕組み
@@ -246,7 +250,3 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 ## スマートドキュメントとチャットする
 
 - [スマートドキュメントに質問する](https://intlayer.org/doc/chat)
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 初期履歴

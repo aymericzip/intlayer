@@ -17,6 +17,10 @@ slugs:
   - environment
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
+history:
+  - version: 5.8.1
+    date: 2025-09-09
+    changes: أضيف لـ Tanstack Start
 ---
 
 # ترجم Tanstack Start باستخدام Intlayer | التدويل (i18n)
@@ -541,9 +545,3 @@ export default defineConfig({
 - [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 يوفر هذا الدليل الشامل كل ما تحتاجه لدمج Intlayer مع Tanstack Start لتطبيق دولي بالكامل مع توجيه واعٍ للغة ودعم TypeScript.
-
-## تاريخ الوثيقة
-
-| الإصدار | التاريخ    | التغييرات              |
-| ------- | ---------- | ---------------------- |
-| 5.8.1   | 2025-09-09 | أضيف لـ Tanstack Start |

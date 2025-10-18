@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocalizedUrl
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Dokümantasyon: `intlayer` Paketinde `getLocalizedUrl` Fonksiyonu
@@ -312,13 +316,3 @@ getLocalizedUrl("/about", Locales.ENGLISH); // Çıktı: "/about"
 ```
 
 `getLocalizedUrl`'ü entegre ederek, geliştiriciler birden fazla dilde tutarlı URL yapıları koruyabilir, hem kullanıcı deneyimini hem de SEO'yu geliştirebilir.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
-
-```
-
-```

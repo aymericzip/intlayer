@@ -18,6 +18,10 @@ slugs:
   - packages
   - react-intlayer
   - useLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Histórico inicial
 ---
 
 # Integração com React: Documentação do Hook `useLocale`
@@ -204,7 +208,3 @@ const LocaleSelector = () => {
 ## Conclusão
 
 O hook `useLocale` do `react-intlayer` é uma ferramenta essencial para gerenciar localidades em suas aplicações React, fornecendo a funcionalidade necessária para adaptar sua aplicação a diversos públicos internacionais de forma eficaz.
-
-## Histórico do Documento
-
-- 5.5.10 - 2025-06-29: Histórico inicial

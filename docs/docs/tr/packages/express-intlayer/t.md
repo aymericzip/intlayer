@@ -17,6 +17,10 @@ slugs:
   - packages
   - express-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Dokümantasyon: `express-intlayer` Paketinde `t` Fonksiyonu
@@ -451,9 +455,3 @@ app.get("/morning", (_req, res) => {
 ## Sonuç
 
 `t` fonksiyonu, arka uç uluslararasılaştırması için güçlü bir araçtır. Bunu etkili bir şekilde kullanarak, küresel bir kitle için daha kapsayıcı ve kullanıcı dostu bir uygulama oluşturabilirsiniz. Gelişmiş kullanım ve detaylı yapılandırma seçenekleri için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

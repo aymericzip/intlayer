@@ -12,6 +12,10 @@ keywords:
 slugs:
   - doc
   - get-started
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historique initial
 ---
 
 # Documentation Intlayer
@@ -203,7 +207,3 @@ Nous valorisons la puissance de l'open-source et du développement communautaire
 **Prêt à traduire votre application plus rapidement et plus efficacement ?** Plongez dans notre documentation pour commencer à utiliser Intlayer dès aujourd'hui. Découvrez une approche robuste et simplifiée de l'internationalisation qui garde votre contenu organisé et votre équipe plus productive.
 
 ---
-
-## Historique de la documentation
-
-- 5.5.10 - 2025-06-29 : Historique initial

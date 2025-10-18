@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - markdown
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Markdown / Rich Text Content
@@ -373,7 +377,3 @@ const IntlayerMarkdownProvider = ({ children }) => (
 - [markdown-to-jsx on npm](https://www.npmjs.com/package/markdown-to-jsx)
 
 These resources provide further insights into setting up and using Intlayer with various content types and frameworks.
-
-## Doc History
-
-- 5.5.10 - 2025-06-29: Init history

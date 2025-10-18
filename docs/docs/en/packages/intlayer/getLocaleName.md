@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleName
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Documentation: `getLocaleName` Function in `intlayer`
@@ -112,9 +116,3 @@ getLocaleName("unknown-locale"); // Output: "Unknown locale"
   - The function defaults to returning the `displayLocale`'s own name.
 - **Missing translations:**
   - If `localeNameTranslations` does not contain an entry for the `targetLocale` or the specific `displayLocale`, the function falls back to the `ownLocalesName` or returns `"Unknown locale"`.
-
-## Doc History
-
-| Version | Date       | Changes      |
-| ------- | ---------- | ------------ |
-| 5.5.10  | 2025-06-29 | Init history |

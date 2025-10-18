@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - gender
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: تقديم المحتوى المعتمد على الجنس
 ---
 
 # المحتوى القائم على النوع الاجتماعي / النوع في Intlayer
@@ -267,9 +271,3 @@ module.exports = GenderComponent;
 - [توثيق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
 
 توفر هذه الموارد رؤى إضافية حول إعداد واستخدام Intlayer عبر بيئات وأُطُر عمل مختلفة.
-
-## تاريخ الوثيقة
-
-| الإصدار | التاريخ    | التغييرات                       |
-| ------- | ---------- | ------------------------------- |
-| 5.7.2   | 2025-07-27 | تقديم المحتوى المعتمد على الجنس |

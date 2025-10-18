@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getEnumeration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # 문서: `intlayer`의 `getEnumeration` 함수
@@ -158,7 +162,3 @@ console.log(content); // 출력: "4보다 작습니다"
 ## 참고 사항
 
 - `findMatchingCondition` 유틸리티는 주어진 수량에 따라 적절한 조건을 결정하는 데 사용됩니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

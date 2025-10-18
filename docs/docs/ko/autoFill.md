@@ -15,6 +15,16 @@ slugs:
   - doc
   - concept
   - auto-fill
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: 전역 구성 추가
+  - version: 6.0.0
+    date: 2025-09-17
+    changes: `{{fileName}}` 변수 추가
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 이력 초기화
 ---
 
 # 자동 채우기 콘텐츠 선언 파일 번역
@@ -191,11 +201,3 @@ const exampleContent = {
 
 - `./index.content.json`
 - `./index.content.json`
-
-## 문서 이력
-
-| 버전    | 날짜        | 변경 사항                   |
-| ------- | ----------- | --------------------------- |
-| 6.0.0   | 2025-09-20  | 전역 구성 추가              |
-| 6.0.0   | 2025-09-17  | `{{fileName}}` 변수 추가    |
-| 5.5.10  | 2025-06-29  | 이력 초기화                 |

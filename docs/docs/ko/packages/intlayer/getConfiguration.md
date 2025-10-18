@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getConfiguration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # 문서: `intlayer`의 `getConfiguration` 함수
@@ -140,7 +144,3 @@ console.log(cookieName); // 출력: "INTLAYER_LOCALE"
 ## 애플리케이션에서의 사용
 
 `getConfiguration` 함수는 `intlayer` 애플리케이션의 설정을 초기화하고 관리하는 데 핵심적인 유틸리티입니다. 로케일, 미들웨어, 콘텐츠 디렉토리와 같은 설정에 접근할 수 있게 하여 다국어 및 콘텐츠 중심 애플리케이션 전반에 걸쳐 일관성과 확장성을 보장합니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

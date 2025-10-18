@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useDictionary
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Histórico inicial
 ---
 
 # Integração com React: Documentação do Hook `useDictionary`
@@ -262,7 +266,3 @@ Ao contrário das integrações que utilizam editores visuais, atributos como `b
 - **Atualizações de Localização**: Ao atualizar o conteúdo, certifique-se de que todos os locais estejam consistentes para evitar traduções faltantes.
 
 Esta documentação foca na integração do hook `useDictionary`, oferecendo uma abordagem simplificada para gerenciar conteúdo localizado sem depender das funcionalidades do editor visual.
-
-## Histórico da Documentação
-
-- 5.5.10 - 2025-06-29: Histórico inicial

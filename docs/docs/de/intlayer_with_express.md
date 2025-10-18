@@ -14,6 +14,10 @@ slugs:
   - doc
   - environment
   - express
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initiale Historie
 ---
 
 # Übersetzen Sie Ihre Express backend mit Intlayer | Internationalisierung (i18n)
@@ -430,7 +434,3 @@ Dazu können Sie folgende Anweisungen in Ihre `.gitignore`-Datei einfügen:
 # Ignoriere die von Intlayer generierten Dateien
 .intlayer
 ```
-
-## Dokumentationshistorie
-
-- 5.5.10 - 2025-06-29: Initiale Historie

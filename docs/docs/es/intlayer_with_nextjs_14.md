@@ -16,6 +16,10 @@ slugs:
   - nextjs
   - 14
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Traduce tu Next.js 14 and App Router con Intlayer | Internacionalización (i18n)
@@ -1496,7 +1500,3 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 ### Ir Más Allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
-
-## Historial del Documento
-
-- 5.5.10 - 2025-06-29: Historial inicial

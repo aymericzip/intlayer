@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getEnumeration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 文档：`intlayer` 中的 `getEnumeration` 函数
@@ -158,7 +162,3 @@ console.log(content); // 输出: "你有少于四个"
 ## 备注
 
 - 使用 `findMatchingCondition` 工具根据给定的数量确定适当的条件。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

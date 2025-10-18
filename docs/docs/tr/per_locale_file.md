@@ -14,6 +14,10 @@ slugs:
   - doc
   - concept
   - per-locale-file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Intlayer'da `Yerel Ayar Başına` İçerik Bildirimi
@@ -313,9 +317,3 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Otomatik Çeviri Oluşturma
 
 Eksik çevirileri tercih ettiğiniz servisler temelinde otomatik olarak doldurmak için [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)'yi kullanın.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getHTMLTextDir
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # दस्तावेज़ीकरण: `intlayer` में `getHTMLTextDir` फ़ंक्शन
@@ -117,7 +121,3 @@ const HTMLLayout = ({ children, locale }) => (
 ```
 
 उपरोक्त उदाहरण में, `dir` एट्रिब्यूट को लोकल के आधार पर गतिशील रूप से सेट किया गया है।
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

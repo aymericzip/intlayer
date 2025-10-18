@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getConfiguration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initiale Historie
 ---
 
 # Dokumentation: `getConfiguration` Funktion in `intlayer`
@@ -140,7 +144,3 @@ console.log(cookieName); // Ausgabe: "INTLAYER_LOCALE"
 ## Verwendung in Anwendungen
 
 Die Funktion `getConfiguration` ist ein grundlegendes Werkzeug zur Initialisierung und Verwaltung der Konfiguration einer `intlayer`-Anwendung. Durch den Zugriff auf Einstellungen wie Sprachversionen, Middleware und Inhaltsverzeichnisse gewährleistet sie Konsistenz und Skalierbarkeit in mehrsprachigen und inhaltsorientierten Anwendungen.
-
-## Dokumentationshistorie
-
-- 5.5.10 - 2025-06-29: Initiale Historie

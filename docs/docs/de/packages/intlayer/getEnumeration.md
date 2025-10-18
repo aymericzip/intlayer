@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getEnumeration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initiale Historie
 ---
 
 # Dokumentation: Funktion `getEnumeration` in `intlayer`
@@ -158,7 +162,3 @@ console.log(content); // Ausgabe: "Du hast weniger als vier"
 ## Hinweise
 
 - Das Hilfsprogramm `findMatchingCondition` wird verwendet, um die passende Bedingung basierend auf der angegebenen Menge zu ermitteln.
-
-## Dokumentationshistorie
-
-- 5.5.10 - 2025-06-29: Initiale Historie

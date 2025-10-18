@@ -13,6 +13,10 @@ keywords:
 slugs:
   - doc
   - testing
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: 테스트 도입
 ---
 
 # 콘텐츠 테스트하기
@@ -191,9 +195,3 @@ npx intlayer content test --verbose
 - 혼합 모노레포의 경우, CLI가 올바른 애플리케이션 루트를 가리키도록 `--base-dir`을 사용하세요.
 
 ---
-
-## 문서 이력
-
-| 버전  | 날짜       | 변경 사항   |
-| ----- | ---------- | ----------- |
-| 6.0.0 | 2025-09-20 | 테스트 도입 |

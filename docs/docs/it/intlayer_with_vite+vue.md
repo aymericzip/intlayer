@@ -14,6 +14,10 @@ slugs:
   - doc
   - environment
   - vite-and-vue
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Storia iniziale
 ---
 
 # Traduci la tua Vite and Vue con Intlayer | Internazionalizzazione (i18n)
@@ -1106,7 +1110,3 @@ Per maggiori dettagli su come utilizzare l’estensione, consulta la [documentaz
 Per approfondire, puoi implementare l’[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) oppure esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
 
 ---
-
-## Cronologia Documentazione
-
-- 5.5.10 - 2025-06-29: Storia iniziale

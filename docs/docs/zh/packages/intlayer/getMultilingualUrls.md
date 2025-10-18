@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getMultilingualUrls
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 文档：`intlayer` 中的 `getMultilingualUrls` 函数
@@ -222,7 +226,3 @@ getMultilingualUrls(
 ```
 
 通过集成 `getMultilingualUrls`，开发者可以在多语言环境中保持一致的 URL 结构，从而提升用户体验和搜索引擎优化（SEO）。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29: 初始化历史

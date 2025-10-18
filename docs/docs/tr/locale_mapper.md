@@ -12,6 +12,10 @@ keywords:
 slugs:
   - doc
   - locale-mapper
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: Yerel ayar eşleyici dokümantasyonu eklendi
 ---
 
 # Yerel Ayar Eşleyici
@@ -236,9 +240,3 @@ Yerel Ayar Eşleyici Intlayer yapılandırmanızla sorunsuz bir şekilde entegre
 - **URL Önekleme**: `configuration.middleware.prefixDefault` değerini dikkate alır
 
 Bu, uygulamanız genelinde tutarlılığı sağlar ve yapılandırma çoğaltmasını azaltır.
-
-## Doküman Geçmişi
-
-| Sürüm | Tarih      | Değişiklikler                              |
-| ----- | ---------- | ------------------------------------------ |
-| 5.7.2 | 2025-07-27 | Yerel ayar eşleyici dokümantasyonu eklendi |

@@ -12,6 +12,10 @@ keywords:
 slugs:
   - doc
   - locale-mapper
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: Add locale mapper documentation
 ---
 
 # Locale Mapper
@@ -236,9 +240,3 @@ The Locale Mapper seamlessly integrates with your Intlayer configuration:
 - **URL Prefixing**: Respects `configuration.middleware.prefixDefault`
 
 This ensures consistency across your application and reduces configuration duplication.
-
-## Doc History
-
-| Version | Date       | Changes                         |
-| ------- | ---------- | ------------------------------- |
-| 5.7.2   | 2025-07-27 | Add locale mapper documentation |

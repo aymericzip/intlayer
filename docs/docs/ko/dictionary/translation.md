@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - translation
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # 번역
@@ -333,7 +337,3 @@ module.exports = {
   }
 }
 ```
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

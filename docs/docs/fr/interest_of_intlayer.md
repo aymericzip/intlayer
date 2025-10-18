@@ -12,6 +12,13 @@ keywords:
 slugs:
   - doc
   - why
+history:
+  - version: 5.8.0
+    date: 2025-08-19
+    changes: Mise à jour du tableau comparatif
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historique initial
 ---
 
 # Pourquoi devriez-vous envisager Intlayer ?
@@ -258,10 +265,3 @@ Cette approche vous permet de :
 | **Élimination des codes morts (chargement uniquement du contenu utilisé)** | Oui, par composant au moment de la compilation via les plugins Babel/SWC                                                                                         | Charge généralement tout (peut être amélioré avec des espaces de noms/découpage de code) | Charge généralement tout                                      | Pas par défaut                                                | Partiel                                                       | Partiel                                                       | Partiel (avec découpage de code/configuration manuelle)                        |
 | **Chargement paresseux**                                                   | Oui, par locale/par composant                                                                                                                                    | Oui (par exemple, backends/namespaces à la demande)                                      | Oui (bundles de locale fractionnés)                           | Oui (importations dynamiques de catalogues)                   | Oui (par route/par locale)                                    | Oui (par route/par locale)                                    | Oui (messages de locale asynchrones)                                           |
 | **Gestion des grands projets**                                             | Encourage la modularité, adapté aux design-systems                                                                                                               | Nécessite une bonne discipline des fichiers                                              | Les catalogues centraux peuvent devenir volumineux            | Peut devenir complexe                                         | Modulaire avec configuration                                  | Modulaire avec configuration                                  | Modulaire avec configuration Vue Router/Nuxt i18n                              |
-
-## Historique du document
-
-| Version | Date       | Modifications                     |
-| ------- | ---------- | --------------------------------- |
-| 5.8.0   | 2025-08-19 | Mise à jour du tableau comparatif |
-| 5.5.10  | 2025-06-29 | Historique initial                |

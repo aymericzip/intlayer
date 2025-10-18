@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocaleName
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 文档：`intlayer` 中的 `getLocaleName` 函数
@@ -113,7 +117,3 @@ getLocaleName("unknown-locale"); // 输出: "Unknown locale"
   - 该函数默认返回 `displayLocale` 自身的名称。
 - **缺少翻译：**
   - 如果 `localeNameTranslations` 中不包含 `targetLocale` 或特定 `displayLocale` 的条目，函数将回退到 `ownLocalesName`，或者返回 `"Unknown locale"`。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

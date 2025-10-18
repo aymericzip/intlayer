@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력 작성
 ---
 
 # 파일 콘텐츠 / Intlayer에서 파일 임베딩하기
@@ -226,7 +230,3 @@ Intlayer에서 파일 임베딩을 구성하고 사용하는 방법에 대한 �
 - [번역 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md)
 
 이 자료들은 파일 임베딩, 콘텐츠 관리 및 Intlayer가 다양한 프레임워크와 통합되는 방법에 대한 추가적인 통찰을 제공합니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력 작성

@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - function-fetching
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية السجل
 ---
 
 # جلب الدوال
@@ -210,7 +214,3 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية السجل

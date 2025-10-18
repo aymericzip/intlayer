@@ -17,6 +17,10 @@ slugs:
   - package
   - intlayer
   - getTranslationContent
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # 문서: `intlayer`의 `getTranslation` 함수
@@ -185,7 +189,3 @@ console.log(customContent.greeting); // 출력: "Bonjour"
   - 로케일이 부분적으로 정의된 경우, 함수는 콘텐츠를 병합하지 않습니다. 지정된 로케일의 값을 엄격히 가져오거나 기본값으로 대체합니다.
 - **TypeScript 강제 적용:**
   - `languageContent`의 로케일이 프로젝트 구성과 일치하지 않으면, TypeScript는 모든 필수 로케일이 정의되도록 강제하여 콘텐츠가 완전하고 타입 안전함을 보장합니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

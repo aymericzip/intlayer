@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - insertion
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية التاريخ
 ---
 
 # محتوى الإدراج / الإدراج في Intlayer
@@ -179,7 +183,3 @@ module.exports = InsertionComponent;
 - [توثيق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
 
 تقدم هذه الموارد رؤى إضافية حول إعداد واستخدام Intlayer عبر بيئات وأُطُر عمل مختلفة.
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية التاريخ

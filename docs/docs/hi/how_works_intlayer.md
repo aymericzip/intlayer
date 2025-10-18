@@ -13,6 +13,10 @@ slugs:
   - doc
   - concept
   - how-works-intlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # Intlayer कैसे काम करता है
@@ -243,7 +247,3 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 ## हमारी स्मार्ट डाक्यूमेंटेशन के साथ चैट करें
 
 - [हमारी स्मार्ट डाक्यूमेंटेशन से अपने सवाल पूछें](https://intlayer.org/doc/chat)
-
-## डाक्यूमेंटेशन इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

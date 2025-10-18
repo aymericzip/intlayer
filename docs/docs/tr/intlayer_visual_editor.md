@@ -16,6 +16,10 @@ slugs:
   - concept
   - editor
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Intlayer Görsel Düzenleyici Dokümantasyonu
@@ -261,9 +265,3 @@ Görsel düzenleyici ile herhangi bir sorunla karşılaşırsanız, aşağıdaki
     - Uygulama URL'si düzenleyici yapılandırmasında ayarladığınızla eşleşmelidir (`applicationURL`).
 
 - Görsel düzenleyici web sitenizi görüntülemek için bir iframe kullanır. Web sitenizin İçerik Güvenlik Politikası'nın (CSP) CMS URL'sini `frame-ancestors` olarak izin verdiğinden emin olun (varsayılan olarak 'http://localhost:8000'). Herhangi bir hata için düzenleyici konsolunu kontrol edin.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

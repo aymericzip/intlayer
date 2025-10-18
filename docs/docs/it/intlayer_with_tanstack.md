@@ -17,6 +17,13 @@ slugs:
   - environment
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
+history:
+  - version: 6.5.2
+    date: 2025-10-03
+    changes: Aggiornamento documentazione
+  - version: 5.8.1
+    date: 2025-09-09
+    changes: Aggiunto per Tanstack Start
 ---
 
 # Traduci la tua Tanstack Start con Intlayer | Internazionalizzazione (i18n)
@@ -550,10 +557,3 @@ Per andare oltre, puoi implementare l'[editor visuale](https://github.com/aymeri
 - [Configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md)
 
 Questa guida completa fornisce tutto il necessario per integrare Intlayer con Tanstack Start per un'applicazione completamente internazionalizzata con routing consapevole della localizzazione e supporto TypeScript.
-
-## Cronologia della Documentazione
-
-| Versione | Data       | Modifiche                    |
-| -------- | ---------- | ---------------------------- |
-| 6.5.2    | 2025-10-03 | Aggiornamento documentazione |
-| 5.8.1    | 2025-09-09 | Aggiunto per Tanstack Start  |

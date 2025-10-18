@@ -19,6 +19,10 @@ slugs:
   - packages
   - react-intlayer
   - useI18n
+history:
+  - version: 6.0.0
+    date: 2025-06-29
+    changes: `useI18n` 훅 문서 초안 작성
 ---
 
 # React 통합: `useI18n` 훅 문서
@@ -244,7 +248,3 @@ const ServerComponentExample = () => {
 - **Intlayer 비주얼 에디터**: 보다 직관적인 콘텐츠 관리 경험을 위해 비주얼 에디터 문서를 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)에서 참고하세요.
 
 이 섹션은 React 애플리케이션에서 `useI18n` 훅의 통합을 구체적으로 다루며, 현지화 과정을 단순화하고 다양한 로케일 간 콘텐츠 일관성을 보장합니다.
-
-## 문서 기록
-
-- 6.0.0 - 2025-06-29: `useI18n` 훅 문서 초안 작성

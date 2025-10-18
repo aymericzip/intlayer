@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getHTMLTextDir
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historique initial
 ---
 
 # Documentation : Fonction `getHTMLTextDir` dans `intlayer`
@@ -118,7 +122,3 @@ const HTMLLayout = ({ children, locale }) => (
 ```
 
 Dans l'exemple ci-dessus, l'attribut `dir` est défini dynamiquement en fonction de la locale.
-
-## Historique de la documentation
-
-- 5.5.10 - 2025-06-29 : Historique initial

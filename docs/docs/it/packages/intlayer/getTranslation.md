@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getTranslation
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Inizializzazione della cronologia
 ---
 
 # Documentazione: Funzione `getTranslationContent` in `intlayer`
@@ -185,7 +189,3 @@ console.log(customContent.greeting); // Output: "Bonjour"
   - Se una localizzazione è definita parzialmente, la funzione non unisce i contenuti. Recupera strettamente il valore della localizzazione specificata o ricade su quella predefinita.
 - **Applicazione di TypeScript:**
   - Se le localizzazioni in `languageContent` non corrispondono alla configurazione del progetto, TypeScript imporrà che tutte le localizzazioni richieste siano definite, garantendo che il contenuto sia completo e sicuro dal punto di vista del tipo.
-
-## Cronologia del Documento
-
-- 5.5.10 - 2025-06-29: Inizializzazione della cronologia

@@ -18,6 +18,13 @@ slugs:
   - vite-and-react
   - react-router-v7
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
+history:
+  - version: 6.1.5
+    date: 2025-10-03
+    changes: 문서 업데이트
+  - version: 5.8.2
+    date: 2025-09-04
+    changes: React Router v7 지원 추가
 ---
 
 # Intlayer로 React Router v7 번역하기 | 국제화(i18n)
@@ -477,10 +484,3 @@ Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS 코드 확
 - [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
 이 포괄적인 가이드는 Intlayer를 React Router v7과 통합하여 로케일 인식 라우팅과 TypeScript 지원이 포함된 완전한 국제화 애플리케이션을 구축하는 데 필요한 모든 것을 제공합니다.
-
-## 문서 이력
-
-| 버전  | 날짜       | 변경 사항                 |
-| ----- | ---------- | ------------------------- |
-| 6.1.5 | 2025-10-03 | 문서 업데이트             |
-| 5.8.2 | 2025-09-04 | React Router v7 지원 추가 |

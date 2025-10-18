@@ -17,6 +17,10 @@ slugs:
   - environment
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
+history:
+  - version: 5.8.1
+    date: 2025-09-09
+    changes: Добавлено для Tanstack Start
 ---
 
 # Переведите ваш Tanstack Start с Intlayer | Интернационализация (i18n)
@@ -543,9 +547,3 @@ Intlayer использует расширение модулей (module augmen
 - [Конфигурация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
 
 Это исчерпывающее руководство содержит все необходимое для интеграции Intlayer с Tanstack Start для полностью интернационализированного приложения с маршрутизацией, учитывающей локаль, и поддержкой TypeScript.
-
-## История документации
-
-| Версия | Дата       | Изменения                    |
-| ------ | ---------- | ---------------------------- |
-| 5.8.1  | 2025-09-09 | Добавлено для Tanstack Start |
