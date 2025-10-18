@@ -289,6 +289,8 @@ const DynamicMultilingualSection = dynamic(
   }
 );
 
+console.log('test pr ');
+
 // const DynamicAutocompletionSection = dynamic(
 //   () =>
 //     import('./AutocompletionSection').then((mod) => mod.AutocompletionSection),
