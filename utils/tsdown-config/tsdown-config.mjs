@@ -26,6 +26,8 @@ export const isExternal = (id) => {
   // Externalize all builtin modules like fs, path, etc.
   if (id in builtinModules) return true;
 
+  if (id.startsWith('node:')) return true;
+
   return false;
 };
 
@@ -74,6 +76,8 @@ export const typesOptions = {
   dts: {
     // oxc: true,
     emitDtsOnly: true,
+    // Avoid inlining external type references which causes TS2742 in monorepos
+    respectExternal: true,
   },
   outExtensions: () => ({
     dts: '.d.ts',

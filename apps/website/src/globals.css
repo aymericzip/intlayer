@@ -1,9 +1,8 @@
-@import "tailwindcss";
+@import "./tailwind.prelude.css";
 @import "@intlayer/design-system/css";
-@config '@intlayer/design-system/tailwind-config';
-
-@source "../src/**/*.{ts,tsx}";
-@source "../../../../packages/@intlayer/design-system/src/**/*.{ts,tsx}";
+@import "tailwindcss";
+@import "./shiki.css";
+@import "./monaco.css";
 
 @keyframes infiniteScroll {
   from {

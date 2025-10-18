@@ -22,7 +22,7 @@ export const useSearch = (options?: UseSearchProps) => {
   } = options ?? {};
   const searchRef = useRef('');
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [search, setDebouncedSearch] = useState(defaultValue ?? '');
+  const [search, setDebouncedSearch] = useState<string>(defaultValue ?? '');
 
   const clearTimer = () => {
     if (timerRef.current) {

@@ -1,18 +1,17 @@
 'use client';
 
 import type { ReactElement, ReactNode } from 'react';
-
 import {
   TabSelector,
   TabSelectorColor,
-  type TabSelectorProps,
+  type TabSelectorItemProps,
 } from '../TabSelector';
 
 /**
  * Props for the DesktopNavbar component
  * @template T - The tab props type extending TabProps
  */
-type DesktopNavbarProps<T extends TabSelectorProps<any>> = {
+type DesktopNavbarProps<T extends TabSelectorItemProps> = {
   /** Logo component or element displayed on the left side */
   logo: ReactNode;
   /** Array of navigation sections as tab elements */
@@ -20,7 +19,7 @@ type DesktopNavbarProps<T extends TabSelectorProps<any>> = {
   /** Right-aligned items (e.g., user menu, search, settings) */
   rightItems?: ReactNode;
   /** Currently selected tab key for highlighting active state */
-  selectedChoice: T['selectedChoice'];
+  selectedChoice: T['key'];
 };
 
 /**
@@ -93,7 +92,7 @@ type DesktopNavbarProps<T extends TabSelectorProps<any>> = {
  * @param props - DesktopNavbar component props
  * @returns Horizontal desktop navigation JSX element
  */
-export const DesktopNavbar = <T extends TabSelectorProps<any>>({
+export const DesktopNavbar = <T extends TabSelectorItemProps>({
   logo,
   sections,
   rightItems,

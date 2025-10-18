@@ -5,14 +5,14 @@ import { type ReactElement, type ReactNode, useRef, useState } from 'react';
 import { useScrollBlockage, useScrollDetection } from '../../hooks';
 import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
-import type { TabProps } from '../TabSelector';
+import type { TabSelectorItemProps } from '../TabSelector';
 import { Burger } from './Burger';
 
 /**
  * Props for the MobileNavbar component
  * @template T - The tab props type extending TabProps
  */
-type MobileNavbarProps<T extends TabProps> = {
+type MobileNavbarProps<T extends TabSelectorItemProps> = {
   /** Logo component or element displayed in the header */
   logo: ReactNode;
   /** Additional content displayed at the top of expanded mobile menu */
@@ -125,7 +125,7 @@ const bgStyle =
  * @param props - MobileNavbar component props
  * @returns Mobile navigation with collapsible full-screen menu
  */
-export const MobileNavbar = <T extends TabProps>({
+export const MobileNavbar = <T extends TabSelectorItemProps>({
   logo,
   topChildren,
   topSections = [],

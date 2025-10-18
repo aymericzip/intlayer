@@ -2,7 +2,7 @@
 
 import type { ReactElement, ReactNode } from 'react';
 import { useDevice, useIsMounted } from '../../hooks';
-import type { TabProps } from '../TabSelector';
+import type { TabSelectorItemProps } from '../TabSelector';
 import { DesktopNavbar } from './DesktopNavbar';
 import { MobileNavbar } from './MobileNavbar';
 
@@ -10,7 +10,7 @@ import { MobileNavbar } from './MobileNavbar';
  * Props for the responsive Navbar component
  * @template T - The tab props type extending TabProps
  */
-type NavbarProps<T extends TabProps> = {
+type NavbarProps<T extends TabSelectorItemProps> = {
   /** Logo component or element to display in navbar */
   logo: ReactNode;
   /** Currently selected tab key for active state management */
@@ -87,7 +87,7 @@ type NavbarProps<T extends TabProps> = {
  * @param props - Navbar component props
  * @returns Responsive navbar JSX element
  */
-export const Navbar = <T extends TabProps>({
+export const Navbar = <T extends TabSelectorItemProps>({
   logo,
   mobileTopChildren,
   desktopSections = [],

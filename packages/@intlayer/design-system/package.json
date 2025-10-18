@@ -30,73 +30,48 @@
     }
   ],
   "sideEffects": false,
-  "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/components/index.d.ts",
-      "import": "./dist/components/index.mjs",
-      "require": "./dist/components/index.cjs"
+      "types": "./dist/types/components/index.d.ts",
+      "import": "./dist/esm/components/index.mjs"
     },
     "./*": {
-      "types": "./dist/components/*/index.d.ts",
-      "import": "./dist/components/*/index.mjs",
-      "require": "./dist/components/*/index.cjs"
+      "types": "./dist/types/components/*/index.d.ts",
+      "import": "./dist/esm/components/*/index.mjs"
     },
     "./hooks": {
-      "types": "./dist/hooks/index.d.ts",
-      "import": "./dist/hooks/index.mjs",
-      "require": "./dist/hooks/index.cjs"
+      "types": "./dist/types/hooks/index.d.ts",
+      "import": "./dist/esm/hooks/index.mjs"
     },
     "./providers": {
-      "types": "./dist/providers/index.d.ts",
-      "import": "./dist/providers/index.mjs",
-      "require": "./dist/providers/index.cjs"
+      "types": "./dist/types/providers/index.d.ts",
+      "import": "./dist/esm/providers/index.mjs"
     },
     "./libs": {
-      "types": "./dist/libs/index.d.ts",
-      "import": "./dist/libs/index.mjs",
-      "require": "./dist/libs/index.cjs"
+      "types": "./dist/types/libs/index.d.ts",
+      "import": "./dist/esm/libs/index.mjs"
     },
     "./tailwind-config": {
-      "types": "./dist/tailwind.config.d.ts",
-      "import": "./dist/tailwind.config.mjs",
-      "require": "./dist/tailwind.config.cjs"
+      "types": "./dist/types/tailwind.config.d.ts",
+      "import": "./dist/esm/tailwind.config.mjs"
     },
-    "./css": "./src/tailwind.css",
+    "./css": "./tailwind.css",
+    "./tw-source.css": "./tw-source.css",
     "./css-output": "./dist/tailwind.css"
   },
-  "main": "dist/components/index.cjs",
-  "module": "dist/components/index.mjs",
-  "types": "dist/components/index.d.ts",
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./dist/components/index.d.ts"
-      ],
-      "hooks": [
-        "./dist/hooks/index.d.ts"
-      ],
-      "providers": [
-        "./dist/providers/index.d.ts"
-      ],
-      "libs": [
-        "./dist/libs/index.d.ts"
-      ],
-      "tailwind-config": [
-        "./dist/tailwind.config.d.ts"
-      ],
-      "package.json": [
-        "./package.json"
-      ]
-    }
-  },
+  "main": "dist/esm/components/index.mjs",
+  "module": "dist/esm/components/index.mjs",
+  "types": "dist/types/components/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "package.json",
+    "tailwind.css",
+    "tw-source.css"
   ],
   "scripts": {
-    "build": "vite build",
-    "build:ci": "vite build",
-    "build:css": "npx tailwindcss --minify -i ./src/tailwind.css -o ./dist/tailwind.css",
+    "build": "tsdown --config tsdown.config.ts",
+    "build:ci": "tsdown --config tsdown.config.ts",
+    "build:css": "npx tailwindcss --minify -i ./tailwind.css -o ./dist/tailwind.css",
     "build:intlayer": "intlayer build",
     "build:package": "vite build",
     "build:storybook": "storybook build",
@@ -108,7 +83,6 @@
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "preview": "vite preview",
-    "prepublish": "cp -f ../../../README.md ./README.md",
     "start": "bun storybook -p 6006 --no-open --host 0.0.0.0",
     "start:serve": "npx http-server -y storybook-static -p 6006 -o --no-open",
     "storybook": "storybook dev -p 6006",
@@ -131,6 +105,8 @@
     "@radix-ui/react-slot": "1.2.3",
     "@radix-ui/react-toast": "1.2.15",
     "@shikijs/transformers": "3.13.0",
+    "@storybook/manager-api": "^8.6.14",
+    "@storybook/theming": "^8.6.14",
     "@tanstack/react-query": "5.90.5",
     "@tanstack/react-query-devtools": "5.90.2",
     "better-auth": "1.3.27",
@@ -160,6 +136,8 @@
     "@storybook/react": "8.6.14",
     "@storybook/react-vite": "8.6.14",
     "@storybook/test": "8.6.14",
+    "@svgr/core": "^8.1.0",
+    "@svgr/rollup": "^8.1.0",
     "@tailwindcss/aspect-ratio": "0.4.2",
     "@tailwindcss/cli": "4.0.14",
     "@tailwindcss/vite": "4.1.13",

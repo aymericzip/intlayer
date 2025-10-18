@@ -1,7 +1,11 @@
 'use client';
 
 import { type FC, useEffect, useState } from 'react';
-import type { BundledLanguage, BundledTheme, CodeToHastOptions } from 'shiki';
+import type {
+  BundledLanguage,
+  BundledTheme,
+  CodeToHastOptions,
+} from 'shiki/bundle/web';
 import { CodeDefault } from './CodeBlockClient';
 
 // Map of loaded modules to avoid re-importing
@@ -88,7 +92,7 @@ const highlightCode = async (
 
   // Lazy load shiki, language, and theme in parallel
   const [{ codeToHtml }, languageModule, themeModule] = await Promise.all([
-    import('shiki'),
+    import('shiki/bundle/web'),
     loadLanguage(lang),
     loadTheme(themeName),
   ]);
@@ -137,7 +141,12 @@ export const CodeBlockShiki: FC<CodeBlockShikiProps> = ({
 
   return (
     <div
-      style={{ backgroundColor: 'transparent', minWidth: 0, overflow: 'auto' }}
+      style={{
+        backgroundColor: 'transparent',
+        minWidth: 0,
+        maxWidth: '100%',
+        overflow: 'auto',
+      }}
     >
       {html ? (
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki generates safe HTML for code highlighting

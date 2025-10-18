@@ -1,10 +1,10 @@
 import { type FC, type HTMLAttributes, lazy, Suspense } from 'react';
-import type { BundledLanguage } from 'shiki';
+import type { BundledLanguage } from 'shiki/bundle/web';
 import { cn } from '../../utils/cn';
 
 export const CodeDefault: FC<{ children: string }> = ({ children }) => (
-  <div>
-    <pre>
+  <div className="min-w-0 max-w-full overflow-x-auto">
+    <pre className="min-w-0 max-w-full overflow-x-auto">
       <code>
         {children.split('\n').map((line, index) => (
           <span
@@ -43,7 +43,10 @@ export const CodeBlock: FC<CodeBlockProps> = ({
   isDarkMode,
   ...props
 }) => (
-  <div className={cn('flex w-full', className)} {...props}>
+  <div
+    className={cn('flex w-full min-w-0 max-w-full overflow-x-auto', className)}
+    {...props}
+  >
     <Suspense fallback={<CodeDefault>{children}</CodeDefault>}>
       <CodeBlockShiki lang={lang} isDarkMode={isDarkMode}>
         {children}

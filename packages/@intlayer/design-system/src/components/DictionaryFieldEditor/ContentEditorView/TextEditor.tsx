@@ -13,12 +13,13 @@ import {
   type TranslationContent,
 } from '@intlayer/core';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
-import type {
-  ContentNode,
-  Dictionary,
-  KeyPath,
-  Locales,
-  LocalesValues,
+import {
+  type ContentNode,
+  type Dictionary,
+  type KeyPath,
+  type Locales,
+  type LocalesValues,
+  NodeType,
 } from '@intlayer/types';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
 import { type FC, Fragment, type ReactNode, useState } from 'react';

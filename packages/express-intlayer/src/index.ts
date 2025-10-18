@@ -10,12 +10,13 @@ import type { LanguageContent, Locales } from '@intlayer/types';
 import { createNamespace } from 'cls-hooked';
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 
-const { middleware, internationalization } = getConfiguration();
+const configuration = getConfiguration();
+const { middleware, internationalization } = configuration;
 const { headerName, cookieName } = middleware;
 
 const appNamespace = createNamespace('app');
 
-prepareIntlayer();
+prepareIntlayer(configuration);
 
 export const translateFunction =
   (_req: Request, res: Response, _next?: NextFunction) =>

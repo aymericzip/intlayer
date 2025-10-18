@@ -24,6 +24,8 @@
 
 pre.shiki {
   background-color: transparent !important;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 code {
