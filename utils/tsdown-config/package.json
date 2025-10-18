@@ -9,11 +9,11 @@
   "module": "./tsdown-config.mjs",
   "scripts": {},
   "dependencies": {
-    "tsdown": "0.15.7",
-    "fast-glob": "3.3.3"
+    "fast-glob": "3.3.3",
+    "tsdown": "0.15.8"
   },
   "devDependencies": {
-    "@types/node": "24.7.2",
+    "@types/node": "24.8.1",
     "fast-glob": "3.3.3",
     "typescript": "5.9.3"
   }
