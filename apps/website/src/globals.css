@@ -1,4 +1,3 @@
-@import "./tailwind.prelude.css";
 @import "@intlayer/design-system/css";
 @import "tailwindcss";
 @import "./shiki.css";
