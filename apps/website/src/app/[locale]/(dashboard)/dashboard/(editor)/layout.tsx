@@ -7,7 +7,7 @@ import {
 import { getSessionData } from '@utils/getSessionData';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 
-import '@/app/monaco.css';
+import '@/monaco.css';
 
 const DashboardContentLayout: NextLayoutIntlayer = async ({
   children,
