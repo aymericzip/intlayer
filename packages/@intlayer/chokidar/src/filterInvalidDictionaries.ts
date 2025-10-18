@@ -44,7 +44,7 @@ export const isInvalidDictionary = (
 
 export const filterInvalidDictionaries = (
   dictionaries: (Dictionary | undefined)[] | undefined,
-  configuration?: IntlayerConfig
+  configuration: IntlayerConfig
 ): Dictionary[] =>
   (dictionaries ?? [])?.filter((dictionary) =>
     isInvalidDictionary(dictionary, configuration)

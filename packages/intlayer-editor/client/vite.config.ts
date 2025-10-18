@@ -2,6 +2,7 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import { intlayer } from 'vite-intlayer';
 
@@ -14,5 +15,13 @@ export default defineConfig({
     port: 8000,
   },
 
-  plugins: [react(), intlayer(), tailwindcss()],
+  plugins: [
+    react(),
+    intlayer(),
+    tailwindcss(),
+    visualizer({
+      emitFile: true,
+      filename: 'stats.html',
+    }),
+  ],
 });

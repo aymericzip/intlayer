@@ -1,17 +1,37 @@
 import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
+import { cache } from './cache';
 
 export const isESModule = typeof import.meta.url === 'string';
 
 const MAX_LEVELS = 15;
 
-export const getPackageJsonPath = () => {
-  let currentDir = process.cwd();
+type PackageJsonPathCache = {
+  packageJsonPath: string;
+  baseDir: string;
+};
+
+export const getPackageJsonPath = (
+  startDir: string = process.cwd()
+): PackageJsonPathCache => {
+  const checkedCache = cache.get<PackageJsonPathCache>(
+    'packageJsonPath',
+    startDir
+  );
+
+  if (checkedCache) return checkedCache;
+
+  let currentDir = startDir;
 
   for (let level = 0; level < MAX_LEVELS; level++) {
     const packageJsonPath = join(currentDir, 'package.json');
 
     if (existsSync(packageJsonPath)) {
+      cache.set('packageJsonPath', startDir, {
+        packageJsonPath,
+        baseDir: currentDir,
+      });
+
       return { packageJsonPath, baseDir: currentDir };
     }
 

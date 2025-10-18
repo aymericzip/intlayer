@@ -199,8 +199,10 @@ export const loadDictionaries = async (
 
   const localDictionariesTime = Date.now();
 
-  const filteredLocalDictionaries =
-    filterInvalidDictionaries(localDictionaries);
+  const filteredLocalDictionaries = filterInvalidDictionaries(
+    localDictionaries,
+    configuration
+  );
 
   const localDictionariesStatus = filteredLocalDictionaries.map(
     (dict) =>

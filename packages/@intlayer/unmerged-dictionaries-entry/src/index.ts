@@ -6,7 +6,8 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { clearModuleCache, getConfiguration } from '@intlayer/config';
+import { clearModuleCache } from '@intlayer/config';
+import config from '@intlayer/config/built';
 import type {
   Dictionary,
   DictionaryKeys,
@@ -20,7 +21,7 @@ type GetUnmergedDictionaries = (
 ) => UnmergedDictionaries;
 
 export const getUnmergedDictionaries: GetUnmergedDictionaries = (
-  configuration: IntlayerConfig = getConfiguration()
+  configuration: IntlayerConfig = config
 ) => {
   const { content, build } = configuration;
 

@@ -6,6 +6,7 @@ import type {
 } from '@intlayer/types';
 import merge from 'deepmerge';
 import { logger } from '../logger';
+import { cache } from '../utils/cache';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
@@ -42,6 +43,11 @@ export const getConfigurationAndFilePath = (
     require: options?.require,
     ...options,
   };
+
+  const cachedConfiguration =
+    cache.get<GetConfigurationAndFilePathResult>(mergedOptions);
+
+  if (cachedConfiguration) return cachedConfiguration;
 
   // Search for configuration files
   const { configurationFilePath, numCustomConfiguration } =
@@ -99,6 +105,11 @@ export const getConfigurationAndFilePath = (
     configWithProjectRequire,
     mergedOptions.override ?? {}
   ) as IntlayerConfig;
+
+  cache.set(mergedOptions, {
+    configuration,
+    configurationFilePath,
+  });
 
   return {
     configuration,

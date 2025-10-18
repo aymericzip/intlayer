@@ -29,19 +29,27 @@ export const loadContentDeclarations = async (
 ): Promise<Dictionary[]> => {
   const { build } = configuration;
 
-  const dictionariesRecord = contentDeclarationFilePath.reduce(
-    (acc, path) => {
-      const relativePath = relative(configuration.content.baseDir, path);
-      acc[relativePath] = loadExternalFile(path, {
-        projectRequire: build.require,
-        aliases: {
-          '@intlayer/config/built': configuration,
-        },
-      });
+  const dictionariesPromises = contentDeclarationFilePath.map(async (path) => {
+    const relativePath = relative(configuration.content.baseDir, path);
+
+    const dictionary = await loadExternalFile(path, {
+      projectRequire: build.require,
+      aliases: {
+        '@intlayer/config/built': configuration,
+      },
+    });
+    return { relativePath, dictionary };
+  });
+
+  const dictionariesArray = await Promise.all(dictionariesPromises);
+  const dictionariesRecord = dictionariesArray.reduce(
+    (acc, { relativePath, dictionary }) => {
+      acc[relativePath] = dictionary;
       return acc;
     },
     {} as Record<string, Dictionary>
   );
+
   const contentDeclarations: Dictionary[] = formatLocalDictionaries(
     dictionariesRecord,
     configuration
@@ -90,5 +98,5 @@ export const loadContentDeclarations = async (
     }
   );
 
-  return filterInvalidDictionaries(processedDictionaries);
+  return filterInvalidDictionaries(processedDictionaries, configuration);
 };

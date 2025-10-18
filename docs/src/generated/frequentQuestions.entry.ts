@@ -2,29 +2,37 @@
 /* REGENERATE USING `pnpm prepare` */
 import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
+import { ESMxCJSRequire, getPackageJsonPath } from '@intlayer/config';
 import type { LocalesValues } from '@intlayer/types';
 
-const isESModule = typeof import.meta.url === 'string';
-const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;
+const docEntryPath = ESMxCJSRequire.resolve('@intlayer/docs');
+const { baseDir } = getPackageJsonPath(docEntryPath);
 
 const readLocale = (
   relativeAfterLocale: string,
   locale: LocalesValues
 ): Promise<string> => {
-  const target = join(
-    dir,
-    `../../../frequent_questions/${locale}/${relativeAfterLocale}`
+  const target1 = join(
+    baseDir,
+    `./frequent_questions/${locale}/${relativeAfterLocale}`
   );
-  if (!existsSync(target)) {
-    console.error(`[docs] File not found: ${target}`);
-    return readFile(
-      join(dir, `../../../frequent_questions/en/${relativeAfterLocale}`),
-      'utf8'
-    );
+  if (existsSync(target1)) {
+    return readFile(target1, 'utf8');
   }
-  return readFile(target, 'utf8');
+  const target2 = join(
+    baseDir,
+    `./frequent_questions/en/${relativeAfterLocale}`
+  );
+  if (existsSync(target2)) {
+    return readFile(target2, 'utf8');
+  }
+
+  return Promise.reject(
+    new Error(
+      `[docs] File not found: ${relativeAfterLocale} - locale: ${locale} - path: ${target1} - path: ${target2}`
+    )
+  );
 };
 
 export const frequentQuestionsEntry = {

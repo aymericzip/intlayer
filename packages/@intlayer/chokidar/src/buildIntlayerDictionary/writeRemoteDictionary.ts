@@ -32,7 +32,10 @@ export const writeRemoteDictionary = async (
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(remoteDictionariesDir), { recursive: true });
 
-  const filteredDictionaries = filterInvalidDictionaries(remoteDictionaries);
+  const filteredDictionaries = filterInvalidDictionaries(
+    remoteDictionaries,
+    configuration
+  );
 
   // Merge dictionaries with the same key and write to dictionariesDir
   await parallelize(

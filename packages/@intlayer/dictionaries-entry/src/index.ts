@@ -6,13 +6,14 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { clearModuleCache, getConfiguration } from '@intlayer/config';
+import { clearModuleCache } from '@intlayer/config';
+import config from '@intlayer/config/built';
 import type { DictionaryRegistry, IntlayerConfig } from '@intlayer/types';
 
 type GetDictionaries = (configuration?: IntlayerConfig) => DictionaryRegistry;
 
 export const getDictionaries: GetDictionaries = (
-  configuration = getConfiguration()
+  configuration: IntlayerConfig = config
 ) => {
   const { content, build } = configuration;
 

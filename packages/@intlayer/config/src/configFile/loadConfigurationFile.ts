@@ -1,6 +1,6 @@
 import type { CustomIntlayerConfig } from '@intlayer/types';
 import type { LoadEnvFileOptions } from '../loadEnvFile';
-import { loadExternalFile } from '../loadExternalFile';
+import { loadExternalFileSync } from '../loadExternalFile';
 
 const filterValidConfiguration = (
   configuration: CustomIntlayerConfig
@@ -26,7 +26,7 @@ export const loadConfigurationFile = (
   configFilePath: string,
   options?: LoadConfigurationFileOptions
 ): CustomIntlayerConfig | undefined => {
-  const fileContent = loadExternalFile(configFilePath, options);
+  const fileContent = loadExternalFileSync(configFilePath, options);
 
   return filterValidConfiguration(fileContent);
 };

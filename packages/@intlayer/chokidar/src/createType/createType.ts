@@ -1,6 +1,5 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { getConfiguration } from '@intlayer/config';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { parallelize } from '../utils/parallelize';
 
@@ -14,7 +13,7 @@ export const generateTypeScriptType = (dictionary: Dictionary) => {
  */
 export const createTypes = async (
   dictionariesPaths: string[],
-  configuration: IntlayerConfig = getConfiguration()
+  configuration: IntlayerConfig
 ): Promise<string[]> => {
   const { build, content } = configuration;
   const { typesDir } = content;

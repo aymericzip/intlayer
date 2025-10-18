@@ -37,6 +37,11 @@
       "import": "./dist/components/index.mjs",
       "require": "./dist/components/index.cjs"
     },
+    "./*": {
+      "types": "./dist/components/*/index.d.ts",
+      "import": "./dist/components/*/index.mjs",
+      "require": "./dist/components/*/index.cjs"
+    },
     "./hooks": {
       "types": "./dist/hooks/index.d.ts",
       "import": "./dist/hooks/index.mjs",

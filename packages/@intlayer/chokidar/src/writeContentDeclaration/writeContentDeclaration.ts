@@ -1,6 +1,5 @@
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
-import { getConfiguration } from '@intlayer/config';
 import { getFilteredLocalesContent, getLocalizedContent } from '@intlayer/core';
 import type {
   ContentNode,
@@ -124,7 +123,7 @@ const defaultOptions = {
 
 export const writeContentDeclaration = async (
   dictionary: Dictionary,
-  configuration: IntlayerConfig = getConfiguration(),
+  configuration: IntlayerConfig,
   options?: WriteContentDeclarationOptions
 ): Promise<{ status: DictionaryStatus; path: string }> => {
   const { content } = configuration;

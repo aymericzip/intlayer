@@ -1,9 +1,8 @@
 import type { Context } from 'node:vm';
-import * as intlayerTypes from '@intlayer/types';
 import { type LoadEnvFileOptions, loadEnvFile } from './loadEnvFile';
 import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
 
-type SandBoxContextOptions = {
+export type SandBoxContextOptions = {
   envVarOptions?: LoadEnvFileOptions;
   projectRequire?: NodeJS.Require;
   additionalEnvVars?: Record<string, string>;
@@ -20,19 +19,16 @@ export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
 
   // Wrap require to intercept @intlayer/types
   const wrappedRequire = ((moduleName: string) => {
-    // if (options?.aliases?.[moduleName]) {
-    //   if (typeof options.aliases[moduleName] === 'string') {
-    //     return safeRequire(options.aliases[moduleName]);
-    //   }
+    if (options?.aliases?.[moduleName]) {
+      if (typeof options.aliases[moduleName] === 'string') {
+        return safeRequire(options.aliases[moduleName]);
+      }
 
-    //   // Object
-    //   return options.aliases[moduleName];
-    // }
-
-    switch (moduleName) {
-      default:
-        return safeRequire(moduleName);
+      // Object
+      return options.aliases[moduleName];
     }
+
+    return safeRequire(moduleName);
   }) as NodeJS.Require;
 
   // Copy require properties
@@ -66,7 +62,7 @@ export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
       },
     },
     console,
-    require: ESMxCJSRequire,
+    require: wrappedRequire,
     ...additionalGlobalVar,
   };
 

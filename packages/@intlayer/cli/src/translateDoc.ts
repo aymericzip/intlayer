@@ -38,8 +38,8 @@ export const translateFile = async (
   outputFilePath: string,
   locale: Locales,
   baseLocale: Locales,
+  configuration: IntlayerConfig,
   aiOptions?: AIOptions,
-  configuration: IntlayerConfig = getConfiguration(),
   customInstructions?: string
 ) => {
   try {
@@ -61,9 +61,9 @@ export const translateFile = async (
       .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '-')
       .replace('{{customInstructions}}', customInstructions ?? '-');
 
-    const filePrexixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}] `;
+    const filePrefixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}] `;
     const filePrefix = [
-      colon(filePrexixText, { colSize: 40 }),
+      colon(filePrefixText, { colSize: 40 }),
       `→ ${ANSIColors.RESET}`,
     ].join('');
 
@@ -271,8 +271,8 @@ export const translateDoc = async ({
         outputFilePath,
         locale as Locales,
         baseLocale,
-        aiOptions,
         configuration,
+        aiOptions,
         customInstructions
       );
     })

@@ -1,16 +1,28 @@
 import { readFileSync } from 'node:fs';
 import { dirname, extname } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { runInNewContext } from 'node:vm';
 import {
   type BuildOptions,
   type BuildResult,
+  build,
   buildSync,
   type Loader,
+  type Plugin,
 } from 'esbuild';
-import { getSandBoxContext } from './getSandboxContext';
+import {
+  getSandBoxContext,
+  type SandBoxContextOptions,
+} from './getSandboxContext';
 import type { LoadEnvFileOptions } from './loadEnvFile';
 import { logger } from './logger';
 import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
+import { getPackageJsonPath } from './utils/getPackageJsonPath';
+
+export type ESBuildPlugin = Plugin;
+
+const packageJsonPath = getPackageJsonPath().packageJsonPath;
+const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
 
 const getLoader = (extension: string): Loader => {
   switch (extension) {
@@ -37,6 +49,18 @@ const getLoader = (extension: string): Loader => {
   }
 };
 
+const external = Array.from(
+  new Set([
+    ...[
+      ...Object.keys(packageJson.dependencies ?? {}),
+      ...Object.keys(packageJson.peerDependencies ?? {}),
+      ...Object.keys(packageJson.devDependencies ?? {}),
+    ].filter((dependency) => !dependency.includes('intlayer')),
+    '@intlayer/config',
+    '@intlayer/config/built',
+  ])
+);
+
 const getTransformationOptions = (filePath: string): BuildOptions => ({
   loader: {
     '.js': 'js',
@@ -49,11 +73,16 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
     '.md': 'text',
     '.mdx': 'text',
   },
-  format: 'cjs', // Output format as commonjs
-  target: 'es2017',
-  packages: 'external',
+  format: 'cjs',
+  target: 'node18',
+  platform: 'node',
+  packages: 'bundle',
+  external,
   write: false,
   bundle: true,
+  define: {
+    'import.meta.url': JSON.stringify(pathToFileURL(filePath).href),
+  },
   banner: {
     js: [
       `globalThis.intlayer_file_path = ${JSON.stringify(filePath)};`,
@@ -62,16 +91,9 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
   },
 });
 
-type ParseFileContentOptions = {
-  projectRequire?: NodeJS.Require;
-  envVarOptions?: LoadEnvFileOptions;
-  additionalEnvVars?: Record<string, string>;
-  aliases?: Record<string, any>;
-};
-
 export const parseFileContent = <T>(
   fileContentString: string,
-  options?: ParseFileContentOptions
+  options?: SandBoxContextOptions
 ): T | undefined => {
   const sandboxContext = getSandBoxContext(options);
   let fileContent: T | undefined;
@@ -107,7 +129,7 @@ export const parseFileContent = <T>(
   return fileContent;
 };
 
-export const buildFileContent = (
+export const buildFileContentSync = (
   code: string,
   filePath: string,
   options?: BuildOptions
@@ -131,11 +153,36 @@ export const buildFileContent = (
   return moduleResultString;
 };
 
+export const buildFileContent = async (
+  code: string,
+  filePath: string,
+  options?: BuildOptions
+): Promise<string | undefined> => {
+  const extension = extname(filePath);
+  const loader = getLoader(extension);
+
+  const moduleResult: BuildResult = await build({
+    stdin: {
+      contents: code,
+      loader,
+      resolveDir: dirname(filePath), // Add resolveDir to resolve imports relative to the file's location
+      sourcefile: filePath, // Add sourcefile for better error messages
+    },
+    ...getTransformationOptions(filePath),
+    ...options,
+  });
+
+  const moduleResultString = moduleResult.outputFiles?.[0].text;
+
+  return moduleResultString;
+};
+
 type LoadExternalFileOptions = {
   projectRequire?: NodeJS.Require;
   envVarOptions?: LoadEnvFileOptions;
   additionalEnvVars?: Record<string, string>;
-  aliases?: Record<string, any>;
+  buildOptions?: BuildOptions;
+  aliases?: Record<string, string | object>;
 };
 
 /**
@@ -143,7 +190,7 @@ type LoadExternalFileOptions = {
  *
  * Accepts JSON, JS, MJS and TS files as configuration
  */
-export const loadExternalFile = (
+export const loadExternalFileSync = (
   filePath: string,
   options?: LoadExternalFileOptions
 ): any | undefined => {
@@ -161,9 +208,65 @@ export const loadExternalFile = (
     // Rest is JS, MJS or TS
     const code = readFileSync(filePath, 'utf-8');
 
-    const moduleResultString: string | undefined = buildFileContent(
+    const moduleResultString: string | undefined = buildFileContentSync(
       code,
-      filePath
+      filePath,
+      options?.buildOptions
+    );
+
+    if (!moduleResultString) {
+      logger('File could not be loaded.', { level: 'error' });
+      return undefined;
+    }
+
+    const fileContent = parseFileContent(moduleResultString, options);
+
+    if (typeof fileContent === 'undefined') {
+      logger(`File file could not be loaded. Path : ${filePath}`);
+      return undefined;
+    }
+
+    return fileContent;
+  } catch (error) {
+    logger(
+      [
+        `Error: ${(error as Error).message} - `,
+        JSON.stringify((error as Error).stack, null, 2),
+      ],
+      {
+        level: 'error',
+      }
+    );
+  }
+};
+
+/**
+ * Load the content declaration from the given path
+ *
+ * Accepts JSON, JS, MJS and TS files as configuration
+ */
+export const loadExternalFile = async (
+  filePath: string,
+  options?: LoadExternalFileOptions
+): Promise<any | undefined> => {
+  const fileExtension = extname(filePath);
+  const safeProjectRequire = options?.projectRequire ?? ESMxCJSRequire;
+
+  try {
+    if (fileExtension === 'json') {
+      // Remove cache to force getting fresh content
+      delete safeProjectRequire.cache[safeProjectRequire.resolve(filePath)];
+      // Assume JSON
+      return safeProjectRequire(filePath);
+    }
+
+    // Rest is JS, MJS or TS
+    const code = readFileSync(filePath, 'utf-8');
+
+    const moduleResultString: string | undefined = await buildFileContent(
+      code,
+      filePath,
+      options?.buildOptions
     );
 
     if (!moduleResultString) {

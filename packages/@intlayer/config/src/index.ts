@@ -12,6 +12,7 @@ export { getSandBoxContext } from './getSandboxContext';
 export { getEnvFilePath, loadEnvFile } from './loadEnvFile';
 export {
   buildFileContent,
+  type ESBuildPlugin,
   loadExternalFile,
   parseFileContent,
 } from './loadExternalFile';
@@ -33,8 +34,10 @@ export {
   x,
 } from './logger';
 export { retryManager } from './retryManager';
+export * as cache from './utils/cache';
 export { clearModuleCache } from './utils/clearModuleCache';
 export { ESMxCJSRequire, isESModule } from './utils/ESMxCJSHelpers';
 export { getExtension } from './utils/getExtension';
+export { getPackageJsonPath } from './utils/getPackageJsonPath';
 export { logStack } from './utils/logStack';
 export { normalizePath } from './utils/normalizePath';
