@@ -63,20 +63,20 @@
     "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist .turbo",
     "dev": "tsdown --config tsdown.config.ts --watch",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint --write .",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest",
-     "typecheck": "tsc --noEmit --project tsconfig.types.json"
-},
+    "typecheck": "tsc --noEmit --project tsconfig.types.json"
+  },
   "dependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
@@ -84,21 +84,20 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "tsdown": "0.15.7",
-    "concurrently": "9.2.1",
     "fast-glob": "3.3.3",
     "rimraf": "6.0.1",
+    "tsdown": "0.15.7",
     "typescript": "5.9.3",
     "vitest": "3.2.4"
   },
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/types": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "vite-intlayer": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@nuxt/kit": ">=3.0.0",
-    "@nuxt/schema": ">=3.0.0"
+    "@nuxt/schema": ">=3.0.0",
+    "vite-intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

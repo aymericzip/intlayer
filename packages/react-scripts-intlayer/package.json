@@ -72,8 +72,8 @@
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest",
-     "typecheck": "tsc --noEmit --project tsconfig.types.json"
-},
+    "typecheck": "tsc --noEmit --project tsconfig.types.json"
+  },
   "dependencies": {
     "@craco/craco": "7.1.0",
     "@intlayer/config": "workspace:*",
@@ -91,7 +91,6 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "concurrently": "9.2.1",
     "rimraf": "6.0.1",
     "tsdown": "0.15.7",
     "typescript": "5.9.3",
