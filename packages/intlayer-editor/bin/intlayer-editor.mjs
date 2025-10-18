@@ -45,7 +45,7 @@ if (withIndex !== -1 && args[withIndex + 1]) {
 }
 
 if (withCommand) {
-  parallelProcess = await runParallel(withCommand);
+  parallelProcess = runParallel(withCommand);
 }
 
 if (args[0] === 'start') {

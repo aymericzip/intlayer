@@ -42,7 +42,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
 
   // Start the parallel process if provided
   if (options?.with) {
-    parallelProcess = await runParallel(options.with);
+    parallelProcess = runParallel(options.with);
   }
 
   // Initialize the event listener for hot reload if configured

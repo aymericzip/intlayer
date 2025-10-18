@@ -13,12 +13,7 @@ import {
   getFilterTranslationsOnlyContent,
   getMissingLocalesContent,
 } from '@intlayer/core';
-import type {
-  ContentNode,
-  Dictionary,
-  Locales,
-  LocalesValues,
-} from '@intlayer/types';
+import type { ContentNode, Dictionary, LocalesValues } from '@intlayer/types';
 
 export type TranslationTask = {
   dictionaryKey: string;

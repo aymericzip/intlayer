@@ -20,7 +20,7 @@ export const watchContentDeclaration = async (options?: WatchOptions) => {
   const appLogger = getAppLogger(config);
 
   if (options?.with) {
-    await runParallel(options.with);
+    runParallel(options.with);
   }
 
   appLogger('Watching Intlayer content declarations');
