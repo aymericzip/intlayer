@@ -13,7 +13,7 @@
     "sourceMap": true,
     "skipDefaultLibCheck": false,
     "declarationMap": true,
-    "declaration": true,
+    "declaration": false,
     "jsx": "react-jsx",
     "types": ["node"],
     "allowImportingTsExtensions": true,
