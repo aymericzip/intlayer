@@ -5,7 +5,7 @@
 
 import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
 
-const { getConfiguration } = ESMxCJSRequire('@intlayer/config');
+const { getConfiguration } = ESMxCJSRequire('./configFile/getConfiguration');
 
 const configuration = getConfiguration();
 
