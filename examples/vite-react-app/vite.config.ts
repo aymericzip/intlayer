@@ -11,9 +11,9 @@ export default defineConfig({
     intlayer(),
     intlayerMiddleware(),
     tailwindcss(),
-    visualizer({
-      emitFile: true,
-      filename: 'stats.html',
-    }),
+    // visualizer({
+    //   emitFile: true,
+    //   filename: 'stats.html',
+    // }),
   ],
 });

@@ -1,5 +1,6 @@
-import { relative } from 'node:path';
-import { loadExternalFile } from '@intlayer/config';
+import { writeFile } from 'node:fs/promises';
+import { join, relative } from 'node:path';
+import { loadExternalFile, localCache } from '@intlayer/config';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
 import {
@@ -7,6 +8,7 @@ import {
   isInvalidDictionary,
 } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
+import { getIntlayerBundle } from './getIntlayerBundle';
 import type { DictionariesStatus } from './loadDictionaries';
 
 export const formatLocalDictionaries = (
@@ -27,76 +29,105 @@ export const loadContentDeclarations = async (
   configuration: IntlayerConfig,
   onStatusUpdate?: (status: DictionariesStatus[]) => void
 ): Promise<Dictionary[]> => {
-  const { build } = configuration;
+  const { build, content } = configuration;
 
-  const dictionariesPromises = contentDeclarationFilePath.map(async (path) => {
-    const relativePath = relative(configuration.content.baseDir, path);
-
-    const dictionary = await loadExternalFile(path, {
-      projectRequire: build.require,
-      aliases: {
-        '@intlayer/config/built': configuration,
-      },
-    });
-    return { relativePath, dictionary };
+  const { set, isValid } = localCache(configuration, ['intlayer-bundle'], {
+    ttlMs: 1000 * 60 * 60 * 24 * 5, // 5 days
   });
 
-  const dictionariesArray = await Promise.all(dictionariesPromises);
-  const dictionariesRecord = dictionariesArray.reduce(
-    (acc, { relativePath, dictionary }) => {
-      acc[relativePath] = dictionary;
-      return acc;
-    },
-    {} as Record<string, Dictionary>
-  );
+  const filePath = join(content.cacheDir, 'intlayer-bundle.cjs');
+  const hasIntlayerBundle = await isValid();
 
-  const contentDeclarations: Dictionary[] = formatLocalDictionaries(
-    dictionariesRecord,
-    configuration
-  );
+  // If cache is invalid, write the intlayer bundle to the cache
+  if (!hasIntlayerBundle) {
+    const intlayerBundle = await getIntlayerBundle(configuration);
+    await writeFile(filePath, intlayerBundle);
+    await set('ok');
+  }
 
-  const listFoundDictionaries = contentDeclarations.map((declaration) => ({
-    dictionaryKey: declaration.key,
-    type: 'local' as const,
-    status: 'found' as const,
-  }));
+  try {
+    const dictionariesPromises = contentDeclarationFilePath.map(
+      async (path) => {
+        const relativePath = relative(configuration.content.baseDir, path);
 
-  onStatusUpdate?.(listFoundDictionaries);
+        const dictionary = await loadExternalFile(path, {
+          projectRequire: build.require,
+          buildOptions: {
+            banner: {
+              js: [
+                `globalThis.INTLAYER_FILE_PATH = '${path}';`,
+                `globalThis.INTLAYER_BASE_DIR = '${configuration.content.baseDir}';`,
+              ].join('\n'),
+            },
+          },
+          aliases: {
+            intlayer: filePath,
+          },
+        });
 
-  const processedDictionaries = await parallelize(
-    contentDeclarations,
-    async (contentDeclaration): Promise<Dictionary | undefined> => {
-      if (!contentDeclaration) {
-        return undefined;
+        return { relativePath, dictionary };
       }
+    );
 
-      onStatusUpdate?.([
-        {
-          dictionaryKey: contentDeclaration.key,
-          type: 'local',
-          status: 'building',
-        },
-      ]);
+    const dictionariesArray = await Promise.all(dictionariesPromises);
+    const dictionariesRecord = dictionariesArray.reduce(
+      (acc, { relativePath, dictionary }) => {
+        acc[relativePath] = dictionary;
+        return acc;
+      },
+      {} as Record<string, Dictionary>
+    );
 
-      const processedContentDeclaration = await processContentDeclaration(
-        contentDeclaration as Dictionary
-      );
+    const contentDeclarations: Dictionary[] = formatLocalDictionaries(
+      dictionariesRecord,
+      configuration
+    );
 
-      if (!processedContentDeclaration) {
-        return undefined;
+    const listFoundDictionaries = contentDeclarations.map((declaration) => ({
+      dictionaryKey: declaration.key,
+      type: 'local' as const,
+      status: 'found' as const,
+    }));
+
+    onStatusUpdate?.(listFoundDictionaries);
+
+    const processedDictionaries = await parallelize(
+      contentDeclarations,
+      async (contentDeclaration): Promise<Dictionary | undefined> => {
+        if (!contentDeclaration) {
+          return undefined;
+        }
+
+        onStatusUpdate?.([
+          {
+            dictionaryKey: contentDeclaration.key,
+            type: 'local',
+            status: 'building',
+          },
+        ]);
+
+        const processedContentDeclaration = await processContentDeclaration(
+          contentDeclaration as Dictionary
+        );
+
+        if (!processedContentDeclaration) {
+          return undefined;
+        }
+
+        onStatusUpdate?.([
+          {
+            dictionaryKey: processedContentDeclaration.key,
+            type: 'local',
+            status: 'built',
+          },
+        ]);
+
+        return processedContentDeclaration;
       }
+    );
 
-      onStatusUpdate?.([
-        {
-          dictionaryKey: processedContentDeclaration.key,
-          type: 'local',
-          status: 'built',
-        },
-      ]);
-
-      return processedContentDeclaration;
-    }
-  );
-
-  return filterInvalidDictionaries(processedDictionaries, configuration);
+    return filterInvalidDictionaries(processedDictionaries, configuration);
+  } finally {
+    // await rm(tempFilePath, { recursive: true });
+  }
 };

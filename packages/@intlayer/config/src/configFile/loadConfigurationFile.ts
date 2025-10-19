@@ -1,19 +1,14 @@
 import type { CustomIntlayerConfig } from '@intlayer/types';
-import type { LoadEnvFileOptions } from '../loadEnvFile';
-import { loadExternalFileSync } from '../loadExternalFile';
+import {
+  type LoadExternalFileOptions,
+  loadExternalFileSync,
+} from '../loadExternalFile/loadExternalFile';
 
 const filterValidConfiguration = (
   configuration: CustomIntlayerConfig
 ): CustomIntlayerConfig => {
   // @TODO Implement filtering of valid configuration
   return configuration;
-};
-
-type LoadConfigurationFileOptions = {
-  projectRequire?: NodeJS.Require;
-  envVarOptions?: LoadEnvFileOptions;
-  additionalEnvVars?: Record<string, string>;
-  aliases?: Record<string, string | object>;
 };
 
 /**
@@ -24,7 +19,7 @@ type LoadConfigurationFileOptions = {
  */
 export const loadConfigurationFile = (
   configFilePath: string,
-  options?: LoadConfigurationFileOptions
+  options?: Omit<LoadExternalFileOptions, 'configuration'>
 ): CustomIntlayerConfig | undefined => {
   const fileContent = loadExternalFileSync(configFilePath, options);
 

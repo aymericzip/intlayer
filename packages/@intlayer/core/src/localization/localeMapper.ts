@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
+import { Locales, type LocalesValues } from '@intlayer/types';
 
 export type LocaleData = {
   locale: LocalesValues;
@@ -37,12 +37,12 @@ export type LocaleData = {
  */
 export const localeMap = <T>(
   mapper: (locale: LocaleData) => T,
-  locales: LocalesValues[] = configuration?.internationalization?.locales,
+  locales: LocalesValues[] = configuration?.internationalization.locales ?? [],
   defaultLocale: LocalesValues = configuration?.internationalization
-    ?.defaultLocale,
-  prefixDefault: boolean = configuration?.middleware?.prefixDefault
+    .defaultLocale ?? Locales.ENGLISH,
+  prefixDefault: boolean = configuration?.middleware?.prefixDefault ?? false
 ): T[] =>
-  locales.map((locale) =>
+  (locales ?? []).map((locale) =>
     mapper({
       locale,
       defaultLocale,
@@ -80,10 +80,10 @@ export const localeMap = <T>(
  */
 export const localeFlatMap = <T>(
   mapper: (locale: LocaleData) => T[],
-  locales: LocalesValues[] = configuration?.internationalization?.locales,
+  locales: LocalesValues[] = configuration?.internationalization.locales ?? [],
   defaultLocale: LocalesValues = configuration?.internationalization
-    ?.defaultLocale,
-  prefixDefault: boolean = configuration?.middleware.prefixDefault
+    .defaultLocale ?? Locales.ENGLISH,
+  prefixDefault: boolean = configuration?.middleware.prefixDefault ?? false
 ): T[] =>
   locales.flatMap((locale) =>
     mapper({
@@ -120,10 +120,10 @@ export const localeFlatMap = <T>(
  */
 export const localeRecord = <T>(
   mapper: (locale: LocaleData) => T,
-  locales: LocalesValues[] = configuration?.internationalization?.locales,
+  locales: LocalesValues[] = configuration?.internationalization.locales ?? [],
   defaultLocale: LocalesValues = configuration?.internationalization
-    ?.defaultLocale,
-  prefixDefault: boolean = configuration?.middleware?.prefixDefault
+    .defaultLocale ?? Locales.ENGLISH,
+  prefixDefault: boolean = configuration?.middleware.prefixDefault ?? false
 ): Record<LocalesValues, T> =>
   (locales ?? []).reduce(
     (acc, locale) => {

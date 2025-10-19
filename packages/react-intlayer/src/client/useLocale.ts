@@ -6,14 +6,23 @@ import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useLocaleCookie } from './useLocaleCookie';
 
-type useLocaleProps = {
+type UseLocaleProps = {
   onLocaleChange?: (locale: LocalesValues) => void;
+};
+
+type UseLocaleResult = {
+  locale: LocalesValues;
+  defaultLocale: LocalesValues;
+  availableLocales: LocalesValues[];
+  setLocale: (locale: LocalesValues) => void;
 };
 
 /**
  * On the client side, hook to get the current locale and all related fields
  */
-export const useLocale = ({ onLocaleChange }: useLocaleProps = {}) => {
+export const useLocale = ({
+  onLocaleChange,
+}: UseLocaleProps = {}): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
     configuration?.internationalization ?? {};
 

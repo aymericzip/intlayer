@@ -8,14 +8,14 @@ export {
   getConfigurationAndFilePath,
 } from './configFile/getConfiguration';
 export { searchConfigurationFile } from './configFile/searchConfigurationFile';
-export { getSandBoxContext } from './getSandboxContext';
 export { getEnvFilePath, loadEnvFile } from './loadEnvFile';
+export { bundleFile, bundleFileSync } from './loadExternalFile/bundleFile';
 export {
-  buildFileContent,
   type ESBuildPlugin,
   loadExternalFile,
-  parseFileContent,
-} from './loadExternalFile';
+  loadExternalFileSync,
+} from './loadExternalFile/loadExternalFile';
+export { parseFileContent } from './loadExternalFile/parseFileContent';
 export {
   ANSIColors,
   clock,
@@ -34,7 +34,13 @@ export {
   x,
 } from './logger';
 export { retryManager } from './retryManager';
-export * as cache from './utils/cache';
+export {
+  cache,
+  clearCache,
+  getCache,
+  localCache,
+  setCache,
+} from './utils/cache';
 export { clearModuleCache } from './utils/clearModuleCache';
 export { ESMxCJSRequire, isESModule } from './utils/ESMxCJSHelpers';
 export { getExtension } from './utils/getExtension';

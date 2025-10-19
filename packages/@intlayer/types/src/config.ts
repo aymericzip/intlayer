@@ -447,6 +447,16 @@ export type BuildConfig = {
    * ```
    */
   require: NodeJS.Require;
+
+  /**
+   * Indicates if the cache should be enabled
+   *
+   * Default: true
+   *
+   * If true, the cache will be enabled.
+   * If false, the cache will not be enabled.
+   */
+  cache?: boolean;
 };
 
 /**

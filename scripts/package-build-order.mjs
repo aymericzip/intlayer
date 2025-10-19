@@ -1,4 +1,5 @@
 export const packageBuildOrder = [
+  'packages/@intlayer/types',
   'packages/@intlayer/config',
   'packages/@intlayer/dictionaries-entry',
   'packages/@intlayer/unmerged-dictionaries-entry',

@@ -7,8 +7,8 @@ import {
 } from 'next/server';
 import { localeDetector } from './localeDetector';
 
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
+const { internationalization, middleware } = configuration ?? {};
+const { locales, defaultLocale } = internationalization ?? {};
 const {
   headerName,
   cookieName,
@@ -17,7 +17,7 @@ const {
   serverSetCookie,
   noPrefix,
   detectLocaleOnPrefetchNoPrefix,
-} = middleware;
+} = middleware ?? {};
 
 /**
  * Detects if the request is a prefetch request from Next.js.
