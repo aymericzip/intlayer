@@ -1023,11 +1023,13 @@
         "@utils/ts-config": "workspace:*",
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
-        "intlayer": "workspace:*",
         "rimraf": "6.0.1",
         "tsdown": "0.15.8",
         "typescript": "5.9.3",
         "vitest": "3.2.4",
+      },
+      "optionalDependencies": {
+        "intlayer": "workspace:*",
       },
       "peerDependencies": {
         "intlayer": "workspace:*",

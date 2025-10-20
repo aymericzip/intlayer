@@ -75,7 +75,6 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "devDependencies": {
-    "intlayer": "workspace:*",
     "@types/node": "24.8.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
@@ -92,6 +91,9 @@
     "intlayer": {
       "optional": true
     }
+  },
+  "optionalDependencies": {
+    "intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"
