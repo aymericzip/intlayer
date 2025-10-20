@@ -1,7 +1,7 @@
 import { mkdir } from 'node:fs/promises';
 import { basename, extname, join, relative } from 'node:path';
 import { normalizePath } from '@intlayer/config';
-import { type IntlayerConfig, Locales } from '@intlayer/types';
+import { type IntlayerConfig, type Locale, Locales } from '@intlayer/types';
 import fg from 'fast-glob';
 import { getFileHash } from '../utils/getFileHash';
 import { kebabCaseToCamelCase } from '../utils/kebabCaseToCamelCase';
@@ -11,11 +11,13 @@ export const getTypeName = (key: string): string =>
   `${kebabCaseToCamelCase(key)}Content`;
 
 /** Returns FRENCH, ENGLISH, ENGLISH_UNITED_KINGDOM, etc. */
-const getLocaleKey = (locale: Locales) =>
-  Object.keys(Locales).find((key) => (Locales as any)[key] === locale);
+const getLocaleKey = (locale: Locale) =>
+  Object.keys(Locales.ALL_LOCALES).find(
+    (key) => (Locales as any)[key] === locale
+  );
 
 /** Returns lines like: [Locales.FRENCH]: 1; */
-const formatLocales = (locales: Locales[]) =>
+const formatLocales = (locales: Locale[]) =>
   locales
     .map((locale) => getLocaleKey(locale))
     .filter((k): k is string => Boolean(k))
@@ -74,14 +76,14 @@ const generateTypeIndexContent = (
    * Module augmentation that ONLY adds keys to registries.
    * No types/aliases redefined here—avoids merge conflicts.
    */
-  fileContent += `declare module '@intlayer/types' {\n`;
+  fileContent += `declare module 'intlayer' {\n`;
   // Dictionaries registry
   fileContent += `  interface __DictionaryRegistry {\n${formattedDictionaryMap}\n  }\n\n`;
   // Locales registries
   fileContent += `  interface __DeclaredLocalesRegistry {\n${formattedDeclaredLocales}\n  }\n\n`;
   fileContent += `  interface __RequiredLocalesRegistry {\n${formattedRequiredLocales}\n  }\n\n`;
-  // Strict mode registry (exactly one key)
-  fileContent += `  interface __StrictModeRegistry { ${strictKey}: true }\n`;
+  // Resolved strict mode (narrow the literal at build time)
+  fileContent += `  interface __StrictModeRegistry { mode: '${strictKey}' }\n`;
   fileContent += `}\n`;
 
   return fileContent;

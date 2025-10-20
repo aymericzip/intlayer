@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { Locales } from '@intlayer/types';
+import type { Locale } from '@intlayer/types';
 import {
   type NextFetchEvent,
   type NextRequest,
@@ -108,9 +108,9 @@ export const intlayerMiddleware = (
  * @param request - The incoming Next.js request object.
  * @returns - The locale found in the cookies, or undefined if not found or invalid.
  */
-const getCookieLocale = (request: NextRequest): Locales | undefined => {
+const getCookieLocale = (request: NextRequest): Locale | undefined => {
   if (!cookieName) return undefined;
-  const cookieValue = request.cookies.get(cookieName)?.value as Locales;
+  const cookieValue = request.cookies.get(cookieName)?.value as Locale;
   if (cookieValue && locales.includes(cookieValue)) {
     return cookieValue;
   }
@@ -127,7 +127,7 @@ const getCookieLocale = (request: NextRequest): Locales | undefined => {
  */
 const handleNoPrefix = (
   request: NextRequest,
-  cookieLocale: Locales | undefined,
+  cookieLocale: Locale | undefined,
   pathname: string,
   basePathTrailingSlash: boolean
 ): NextResponse => {
@@ -149,7 +149,7 @@ const handleNoPrefix = (
  * @param pathname - The pathname from the request URL.
  * @returns - The locale found in the pathname, or undefined if not found.
  */
-const getPathLocale = (pathname: string): Locales | undefined =>
+const getPathLocale = (pathname: string): Locale | undefined =>
   locales.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
@@ -166,8 +166,8 @@ const getPathLocale = (pathname: string): Locales | undefined =>
  */
 const handlePrefix = (
   request: NextRequest,
-  cookieLocale: Locales | undefined,
-  pathLocale: Locales | undefined,
+  cookieLocale: Locale | undefined,
+  pathLocale: Locale | undefined,
   pathname: string,
   basePathTrailingSlash: boolean
 ): NextResponse => {
@@ -214,13 +214,13 @@ const handlePrefix = (
  */
 const handleMissingPathLocale = (
   request: NextRequest,
-  cookieLocale: Locales | undefined,
+  cookieLocale: Locale | undefined,
   pathname: string,
   basePathTrailingSlash: boolean
 ): NextResponse => {
   let locale = (cookieLocale ??
     localeDetector?.(request) ??
-    defaultLocale) as Locales;
+    defaultLocale) as Locale;
   if (!locales.includes(locale)) {
     locale = defaultLocale;
   }
@@ -250,8 +250,8 @@ const handleMissingPathLocale = (
  */
 const handleExistingPathLocale = (
   request: NextRequest,
-  cookieLocale: Locales | undefined,
-  pathLocale: Locales,
+  cookieLocale: Locale | undefined,
+  pathLocale: Locale,
   pathname: string,
   basePathTrailingSlash: boolean
 ): NextResponse => {
@@ -295,8 +295,8 @@ const handleExistingPathLocale = (
 const handleCookieLocaleMismatch = (
   request: NextRequest,
   pathname: string,
-  pathLocale: Locales,
-  cookieLocale: Locales,
+  pathLocale: Locale,
+  cookieLocale: Locale,
   basePath: string,
   basePathTrailingSlash: boolean
 ): string => {
@@ -323,7 +323,7 @@ const handleCookieLocaleMismatch = (
  */
 const handleDefaultLocaleRedirect = (
   request: NextRequest,
-  pathLocale: Locales,
+  pathLocale: Locale,
   pathname: string,
   basePathTrailingSlash: boolean
 ): NextResponse => {
@@ -361,7 +361,7 @@ const handleDefaultLocaleRedirect = (
  * @returns - The constructed new path.
  */
 const constructPath = (
-  locale: Locales,
+  locale: Locale,
   path: string,
   basePath: string,
   basePathTrailingSlash: boolean,
@@ -387,7 +387,7 @@ const constructPath = (
 const rewriteUrl = (
   request: NextRequest,
   newPath: string,
-  locale: Locales
+  locale: Locale
 ): NextResponse => {
   // Ensure we preserve the original search params if they were present and not explicitly included in newPath
   const search = request.nextUrl.search;

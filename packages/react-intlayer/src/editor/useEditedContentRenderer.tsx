@@ -2,7 +2,7 @@
 
 import { getContent } from '@intlayer/core';
 import { useEditedContentActions } from '@intlayer/editor-react';
-import type { KeyPath, Locales } from '@intlayer/types';
+import type { KeyPath, Locale } from '@intlayer/types';
 import type { FC } from 'react';
 import { ContentSelectorRenderer } from './ContentSelectorWrapper';
 
@@ -10,7 +10,7 @@ type EditedContentRendererProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
   children: string;
-  locale?: Locales;
+  locale?: Locale;
 };
 
 export const useEditedContentRenderer = ({

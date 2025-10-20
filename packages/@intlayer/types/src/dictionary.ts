@@ -1,4 +1,8 @@
-import type { IConfigLocales, LocalesValues } from './module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+  StrictModeLocaleMap,
+} from './module_augmentation';
 import type { NodeType } from './nodeType';
 
 type BaseNode = number | string | boolean | null | undefined;
@@ -48,7 +52,7 @@ type ReplaceContentValue<
         | ReplaceContentValueObject<NodeType, FetchableNode>
   : ContentNode<NodeType, FetchableNode>;
 
-export type AutoFill = true | string | Partial<IConfigLocales<string>>;
+export type AutoFill = true | string | StrictModeLocaleMap<string>;
 
 export type LocalDictionaryId =
   `${Dictionary['key']}::${Dictionary['location']}::${Dictionary['filePath'] | Dictionary['id']}`;

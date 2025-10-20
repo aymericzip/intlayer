@@ -12,7 +12,7 @@ import { useEditedContentRenderer } from './useEditedContentRenderer';
 type Props = {
   dictionaryKey: string;
   keyPath: KeyPath[];
-  locale?: Locales;
+  locale?: Locale;
 };
 
 const props = defineProps<Props>();

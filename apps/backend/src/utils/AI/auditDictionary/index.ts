@@ -1,6 +1,6 @@
 import { readAsset } from 'utils:asset';
 import { getLocaleName } from '@intlayer/core';
-import { Locales } from '@intlayer/types';
+import { type Locale, Locales } from '@intlayer/types';
 import { logger } from '@logger';
 import { extractJson } from '@utils/extractJSON';
 import { generateText } from 'ai';
@@ -10,8 +10,8 @@ import type { AIConfig, AIOptions } from '../aiSdk';
 export type AuditOptions = {
   fileContent: string;
   filePath?: string;
-  locales: Locales[];
-  defaultLocale: Locales;
+  locales: Locale[];
+  defaultLocale: Locale;
   tags: Tag[];
   aiConfig: AIConfig;
   applicationContext?: string;
@@ -35,7 +35,7 @@ export const aiDefaultOptions: AIOptions = {
  * @param locale - The locale to format.
  * @returns A string in the format "locale: name", e.g. "en: English".
  */
-const formatLocaleWithName = (locale: Locales): string => {
+const formatLocaleWithName = (locale: Locale): string => {
   return `${locale}: ${getLocaleName(locale, Locales.ENGLISH)}`;
 };
 

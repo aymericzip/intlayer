@@ -1,7 +1,7 @@
 import { readAsset } from 'utils:asset';
 import { getLocaleName } from '@intlayer/core';
 import type { KeyPath } from '@intlayer/types';
-import { Locales } from '@intlayer/types';
+import { type Locale, Locales } from '@intlayer/types';
 import { logger } from '@logger';
 import { generateText } from 'ai';
 import type { Tag } from '@/types/tag.types';
@@ -9,7 +9,7 @@ import type { AIConfig, AIOptions } from '../aiSdk';
 
 export type AuditDictionaryFieldOptions = {
   fileContent: string;
-  locales: Locales[];
+  locales: Locale[];
   keyPath: KeyPath[];
   tags: Tag[];
   aiConfig: AIConfig;
@@ -34,7 +34,7 @@ export const aiDefaultOptions: AIOptions = {
  * @param locale - The locale to format.
  * @returns A string in the format "locale: name", e.g. "en: English".
  */
-const formatLocaleWithName = (locale: Locales): string => {
+const formatLocaleWithName = (locale: Locale): string => {
   return `${locale}: ${getLocaleName(locale, Locales.ENGLISH)}`;
 };
 

@@ -6,6 +6,6 @@
 import type { IntlayerConfig } from '@intlayer/types';
 import { getConfiguration } from './configFile/getConfiguration';
 
-const configuration: IntlayerConfig | undefined = getConfiguration();
+const configuration: IntlayerConfig = getConfiguration();
 
 export default configuration;

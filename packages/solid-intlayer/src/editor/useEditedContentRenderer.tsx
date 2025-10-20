@@ -7,7 +7,7 @@ type EditedContentRendererProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
   children: string;
-  locale?: Locales;
+  locale?: Locale;
 };
 
 export const useEditedContentRenderer = ({

@@ -1,4 +1,8 @@
-import type { Dictionary, LocalesValues } from '@intlayer/types';
+import type {
+  DeclaredLocales,
+  Dictionary,
+  LocalesValues,
+} from '@intlayer/types';
 import type { DeepTransformContent, NodeProps, Plugins } from './getContent';
 import { getContent } from './getContent/getContent';
 
@@ -10,7 +14,10 @@ import { getContent } from './getContent/getContent';
  * @param additionalPlugins An array of NodeTransformer that define how to transform recognized nodes.
  *                      If omitted, we’ll use a default set of plugins.
  */
-export const getDictionary = <T extends Dictionary, L extends LocalesValues>(
+export const getDictionary = <
+  T extends Dictionary,
+  L extends LocalesValues = DeclaredLocales,
+>(
   dictionary: T,
   locale?: L,
   plugins?: Plugins[]

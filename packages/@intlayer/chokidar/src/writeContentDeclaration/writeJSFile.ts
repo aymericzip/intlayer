@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { extname } from 'node:path';
 import { getAppLogger, logger } from '@intlayer/config';
-import type { Dictionary, IntlayerConfig, Locales } from '@intlayer/types';
+import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
 import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 import {
   type Extension,
@@ -21,7 +21,7 @@ export const writeJSFile = async (
   filePath: string,
   dictionary: Dictionary,
   configuration: IntlayerConfig,
-  fallbackLocale?: Locales
+  fallbackLocale?: Locale
 ): Promise<void> => {
   const { key, locale, autoFilled } = dictionary;
   const appLogger = getAppLogger(configuration);

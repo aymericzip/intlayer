@@ -1,4 +1,5 @@
 import type {
+  DeclaredLocales,
   DictionaryKeys,
   DictionaryRegistryContent,
   LocalesValues,
@@ -13,7 +14,10 @@ import { IntlayerClientContext } from './IntlayerProvider';
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
+export const useIntlayer = <
+  T extends DictionaryKeys,
+  L extends LocalesValues = DeclaredLocales,
+>(
   key: T,
   locale?: L
 ): (() => DeepTransformContent<DictionaryRegistryContent<T>>) => {

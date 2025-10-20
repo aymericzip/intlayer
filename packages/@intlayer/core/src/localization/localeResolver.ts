@@ -27,7 +27,7 @@ export const localeResolver = (
         (loc) => normalize(loc) === normalizedRequested
       );
       if (exactMatch) {
-        return exactMatch as Locales;
+        return exactMatch as Locale;
       }
 
       // 2) Attempt partial match on language subtag
@@ -38,7 +38,7 @@ export const localeResolver = (
         (loc) => normalize(loc).split('-')[0] === requestedLang
       );
       if (partialMatch) {
-        return partialMatch as Locales;
+        return partialMatch as Locale;
       }
     }
   } catch (_error) {
@@ -46,5 +46,5 @@ export const localeResolver = (
   }
 
   // If no match was found, return the default
-  return defaultLocale as Locales;
+  return defaultLocale as Locale;
 };

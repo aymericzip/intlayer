@@ -237,7 +237,7 @@ import southAfrica from './za.svg';
 import zimbabwe from './zw.svg';
 
 type FlagProps = ImgHTMLAttributes<HTMLImageElement> & {
-  locale: Locales;
+  locale: Locale;
 };
 
 const flagRecord: Partial<Record<Locales, typeof unknown>> = {

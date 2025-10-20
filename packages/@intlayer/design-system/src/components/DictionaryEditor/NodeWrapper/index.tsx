@@ -14,7 +14,7 @@ import {
   type ContentNode,
   type Dictionary,
   type KeyPath,
-  type Locales,
+  type Locale,
   NodeType,
 } from '@intlayer/types';
 import type { FC, ReactNode } from 'react';
@@ -35,7 +35,7 @@ export type NodeWrapperProps = {
   dictionary: Dictionary;
   section: ContentNode;
   onContentChange: (content: { keyPath: KeyPath[]; newValue: string }) => void;
-  locale: Locales;
+  locale: Locale;
   editedContent: ContentNode;
   focusedKeyPath: KeyPath[] | undefined;
   onFocusKeyPath: (keyPath: KeyPath[]) => void;

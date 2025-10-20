@@ -13,7 +13,7 @@ export const getLocale = async (): Promise<Locales> => {
   // 1 - Try to pick the locale selected using the headers
   const headersList = await headers();
 
-  const headerLocale = headersList.get(headerName) as Locales | undefined;
+  const headerLocale = headersList.get(headerName) as Locale | undefined;
 
   if (headerLocale) return headerLocale;
 
@@ -34,7 +34,7 @@ export const getLocale = async (): Promise<Locales> => {
   const userFallbackLocale = localeDetector(negotiatorHeaders);
 
   // 4 - Fallback to default locale
-  if (userFallbackLocale) return userFallbackLocale as Locales;
+  if (userFallbackLocale) return userFallbackLocale as Locale;
 
   return defaultLocale;
 };

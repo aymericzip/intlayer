@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import { parse } from 'node:url';
 import { getConfiguration } from '@intlayer/config';
 import { localeDetector } from '@intlayer/core';
-import type { Locales } from '@intlayer/types';
+import type { Locale } from '@intlayer/types';
 /* @ts-ignore - Vite types error */
 import type { Connect, Plugin } from 'vite';
 
@@ -115,9 +115,9 @@ const parseCookies = (cookieHeader: string) => {
  */
 const getValidLocaleFromCookie = (
   locale: string | undefined
-): Locales | undefined => {
-  if (locale && supportedLocales.includes(locale as Locales)) {
-    return locale as Locales;
+): Locale | undefined => {
+  if (locale && supportedLocales.includes(locale as Locale)) {
+    return locale as Locale;
   }
   return undefined;
 };
@@ -125,13 +125,13 @@ const getValidLocaleFromCookie = (
 /**
  * Extracts the locale from the URL pathname if present as the first segment.
  */
-const getPathLocale = (pathname: string): Locales | undefined => {
+const getPathLocale = (pathname: string): Locale | undefined => {
   // e.g. if pathname is /en/some/page or /en
   // we check if "en" is in your supportedLocales
   const segments = pathname.split('/').filter(Boolean);
   const firstSegment = segments[0];
-  if (firstSegment && supportedLocales.includes(firstSegment as Locales)) {
-    return firstSegment as Locales;
+  if (firstSegment && supportedLocales.includes(firstSegment as Locale)) {
+    return firstSegment as Locale;
   }
   return undefined;
 };
@@ -152,7 +152,7 @@ const rewriteUrl = (
   req: Connect.IncomingMessage,
   res: ServerResponse<IncomingMessage>,
   newUrl: string,
-  locale?: Locales
+  locale?: Locale
 ) => {
   req.url = newUrl;
   // If you want to mimic Next.js's behavior of setting a header for the locale:
@@ -167,7 +167,7 @@ const rewriteUrl = (
  * - locale:     (e.g., 'en')
  * - currentPath:(e.g., '/products/shoes')
  */
-const constructPath = (locale: Locales, currentPath: string) => {
+const constructPath = (locale: Locale, currentPath: string) => {
   // Ensure basePath always starts with '/', and remove trailing slash if needed
   const cleanBasePath = basePath.startsWith('/') ? basePath : `/${basePath}`;
   // If basePath is '/', no trailing slash is needed
@@ -206,7 +206,7 @@ const handleNoPrefix = ({
   res: ServerResponse<IncomingMessage>;
   next: Connect.NextFunction;
   originalPath: string;
-  cookieLocale?: Locales;
+  cookieLocale?: Locale;
 }) => {
   // Determine the best locale
   let locale = cookieLocale ?? defaultLocale;
@@ -218,7 +218,7 @@ const handleNoPrefix = ({
       supportedLocales,
       defaultLocale
     );
-    locale = detectedLocale as Locales;
+    locale = detectedLocale as Locale;
   }
 
   // Just rewrite the URL in-place (no prefix). We do NOT redirect because we do not want to alter the URL.
@@ -243,8 +243,8 @@ const handlePrefix = ({
   res: ServerResponse<IncomingMessage>;
   next: Connect.NextFunction;
   originalPath: string;
-  pathLocale?: Locales;
-  cookieLocale?: Locales;
+  pathLocale?: Locale;
+  cookieLocale?: Locale;
 }) => {
   // 1. If pathLocale is missing, handle
   if (!pathLocale) {
@@ -284,7 +284,7 @@ const handleMissingPathLocale = ({
   res: ServerResponse<IncomingMessage>;
   next: Connect.NextFunction;
   originalPath: string;
-  cookieLocale?: Locales;
+  cookieLocale?: Locale;
 }) => {
   // If navigation comes from the same origin (e.g., via an in-app language switcher),
   // treat unprefixed paths as an explicit intent to view the default locale.
@@ -297,7 +297,7 @@ const handleMissingPathLocale = ({
       const refererUrl = new URL(referer);
       const host = req.headers.host;
       if (host && refererUrl.host === host) {
-        const locale = defaultLocale as Locales;
+        const locale = defaultLocale as Locale;
         const newPath = constructPath(locale, originalPath);
         rewriteUrl(req, res, newPath, locale);
         return next();
@@ -313,7 +313,7 @@ const handleMissingPathLocale = ({
       req.headers as Record<string, string>,
       supportedLocales,
       defaultLocale
-    )) as Locales;
+    )) as Locale;
 
   // 2. If still invalid, fallback
   if (!supportedLocales.includes(locale)) {
@@ -350,8 +350,8 @@ const handleExistingPathLocale = ({
   res: ServerResponse<IncomingMessage>;
   next: Connect.NextFunction;
   originalPath: string;
-  pathLocale: Locales;
-  cookieLocale?: Locales;
+  pathLocale: Locale;
+  cookieLocale?: Locale;
 }) => {
   // 1. If the cookie locale is set and differs from the path locale,
   //    and we're not forcing the cookie to always override
@@ -390,7 +390,7 @@ const handleDefaultLocaleRedirect = ({
   res: ServerResponse<IncomingMessage>;
   next: Connect.NextFunction;
   originalPath: string;
-  pathLocale: Locales;
+  pathLocale: Locale;
 }) => {
   // If we don't prefix default AND the path locale is the default locale -> remove it
   if (!prefixDefault && pathLocale === defaultLocale) {

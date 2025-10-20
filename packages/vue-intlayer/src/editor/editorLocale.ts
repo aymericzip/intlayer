@@ -1,5 +1,5 @@
 import { MessageKey } from '@intlayer/editor';
-import type { Locales } from '@intlayer/types';
+import type { Locale } from '@intlayer/types';
 import { inject, watch } from 'vue';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from '../client';
 import { createSharedComposable } from './createSharedComposable';
@@ -12,7 +12,7 @@ export const useEditorLocale = createSharedComposable(() => {
     throw new Error('IntlayerEditor state not found');
   }
 
-  const [_data, setData] = useCrossFrameState<Locales>(
+  const [_data, setData] = useCrossFrameState<Locale>(
     MessageKey.INTLAYER_CURRENT_LOCALE
   );
 

@@ -44,7 +44,7 @@ import {
   WelcomeEmailES,
   WelcomeEmailFR,
 } from '@emails/Welcome';
-import type { Locales } from '@intlayer/types';
+import type { Locale } from '@intlayer/types';
 import { logger } from '@logger';
 import { t } from 'express-intlayer';
 import type { ComponentProps, JSX } from 'react';
@@ -58,7 +58,7 @@ type EmailComponents = {
   };
 };
 
-const getEmailComponents = (locale?: Locales) =>
+const getEmailComponents = (locale?: Locale) =>
   ({
     invite: {
       template: t(
@@ -206,7 +206,7 @@ export type SendEmailProps<T extends EmailType> = {
   type: T;
   to: string;
   subject?: string;
-  locale?: Locales;
+  locale?: Locale;
 } & ComponentProps<ReturnType<typeof getEmailComponents>[T]['template']>;
 
 export const sendEmail = async <T extends EmailType>({

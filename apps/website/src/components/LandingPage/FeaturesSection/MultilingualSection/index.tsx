@@ -93,10 +93,10 @@ export const MultilingualSection: FC<MultilingualSectionProps> = ({
             className="w-full gap-2 px-4 py-2"
           >
             <Label className="text-sm">
-              {getLocaleName(locale as Locales, currentLocale)}
+              {getLocaleName(locale as Locale, currentLocale)}
             </Label>
             <Input
-              aria-label={`${inputLabel.value} ${getLocaleName(locale as Locales, currentLocale)}`}
+              aria-label={`${inputLabel.value} ${getLocaleName(locale as Locale, currentLocale)}`}
               value={getTextContent(
                 content[locale as keyof typeof content],
                 index < activeIndex

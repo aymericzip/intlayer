@@ -1,7 +1,7 @@
 import {
   configuration,
   getPathWithoutLocale,
-  type Locales,
+  type Locale,
   localeFlatMap,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
@@ -51,7 +51,7 @@ export const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const client = createIntlayerClient();
 
-  const metaLocale = to.meta.locale as Locales | undefined;
+  const metaLocale = to.meta.locale as Locale | undefined;
 
   if (metaLocale) {
     // Reuse the locale defined in the route meta

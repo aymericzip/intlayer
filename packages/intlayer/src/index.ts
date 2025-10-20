@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noEmptyInterface: Intlayer module augmentation registries */
 import type {
   Dictionary as DictionaryCore,
   CustomIntlayerConfig as IntlayerConfig,
@@ -12,6 +13,7 @@ type DeclarationContent<T = undefined> = Dictionary<T>;
 export {
   type ContentNode,
   type LanguageContent,
+  type Locale,
   Locales,
   type LocalesValues,
 } from '@intlayer/types';
@@ -74,3 +76,9 @@ export {
   units,
 } from '@intlayer/core';
 export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser
+
+// --- Registries to be augmented by the generator ---
+export interface __DictionaryRegistry {} // id -> interfaceof ictionary
+export interface __DeclaredLocalesRegistry {} // 'fr': 1, 'en': 1, ...
+export interface __RequiredLocalesRegistry {} // 'en': 1, ...
+export interface __StrictModeRegistry {} // one of: { strict: true } | { inclusive: true } | { loose: true }

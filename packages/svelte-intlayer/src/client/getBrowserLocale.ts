@@ -6,18 +6,18 @@ import type { LocalesValues } from '@intlayer/types';
  */
 export const getBrowserLocale = (): LocalesValues => {
   if (typeof navigator === 'undefined') {
-    return 'en' as LocalesValues;
+    return 'en' as LocaleValues;
   }
 
   // Get the first preferred language
   const browserLocale = navigator.language || navigator.languages?.[0];
 
   if (!browserLocale) {
-    return 'en' as LocalesValues;
+    return 'en' as LocaleValues;
   }
 
   // Extract language code (e.g., 'en-US' -> 'en')
   const languageCode = browserLocale.split('-')[0];
 
-  return (languageCode || 'en') as LocalesValues;
+  return (languageCode || 'en') as LocaleValues;
 };

@@ -12,7 +12,7 @@ import { DropDown, type PanelProps } from '../DropDown';
 import { Input } from '../Input';
 
 export type LocaleSwitcherProps = {
-  locale?: Locales;
+  locale?: Locale;
   localeList: Locales[];
   availableLocales?: Locales[];
   fullLocaleName?: boolean;
@@ -23,7 +23,7 @@ export type LocaleSwitcherProps = {
 const DROPDOWN_IDENTIFIER = 'locale-switcher';
 
 type MultilingualAvailableLocales = {
-  locale: Locales;
+  locale: Locale;
   englishName: string;
   currentLocaleName: string;
   ownLocaleName: string;

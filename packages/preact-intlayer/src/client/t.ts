@@ -1,7 +1,7 @@
 'use client';
 
 import { getTranslation } from '@intlayer/core';
-import type { LanguageContent, Locales } from '@intlayer/types';
+import type { LanguageContent, Locale } from '@intlayer/types';
 import { useContext } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
 
@@ -12,7 +12,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
  */
 export const t = <Content = string>(
   multilangContent: LanguageContent<Content>,
-  locale?: Locales
+  locale?: Locale
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
   const localeTarget = locale ?? currentLocale;

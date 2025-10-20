@@ -1,5 +1,6 @@
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type {
+  DeclaredLocales,
   DictionaryKeys,
   DictionaryRegistryElement,
   LocalesValues,
@@ -7,7 +8,10 @@ import type {
 import type { Plugins } from './getContent';
 import { getDictionary } from './getDictionary';
 
-export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
+export const getIntlayer = <
+  T extends DictionaryKeys,
+  L extends LocalesValues = DeclaredLocales,
+>(
   key: T,
   locale?: L,
   plugins?: Plugins[]

@@ -5,7 +5,7 @@ import { cn } from '@utils/cn';
 import {
   getHTMLTextDir,
   getLocaleName,
-  type Locales,
+  type Locale,
   localeList,
 } from 'intlayer';
 import {
@@ -33,18 +33,18 @@ const LocalCard: FC<{ locale: string }> = ({ locale, ...props }) => (
     <Container roundedSize="xl">
       <div className="flex flex-row items-center gap-5 p-3">
         <Flag
-          locale={locale as Locales}
+          locale={locale as Locale}
           className="max-h-5 max-w-5 rounded-sm grayscale-[80%] transition duration-300 group-hover:grayscale-0"
           width={640}
           height={480}
           loading="lazy"
         />
         <span
-          dir={getHTMLTextDir(locale as Locales)}
-          lang={locale as Locales}
+          dir={getHTMLTextDir(locale as Locale)}
+          lang={locale as Locale}
           className="flex text-nowrap"
         >
-          {getLocaleName(locale as Locales)}
+          {getLocaleName(locale as Locale)}
         </span>
       </div>
     </Container>

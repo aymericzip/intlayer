@@ -216,7 +216,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
     NodeType.Translation
   ] as Record<Locales, string>;
 
-  const sectionContentKeys = Object.keys(sectionContent) as LocalesValues[];
+  const sectionContentKeys = Object.keys(sectionContent) as LocaleValues[];
 
   const isFiltered = availableLocales.length > selectedLocales.length;
 

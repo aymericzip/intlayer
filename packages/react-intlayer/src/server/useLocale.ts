@@ -11,8 +11,8 @@ import { getServerContext } from './serverContext';
 export const useLocale = () => {
   const { defaultLocale } = configuration?.internationalization ?? {};
   const locale =
-    (getServerContext<LocalesValues>(IntlayerServerContext) as Locales) ??
-    (defaultLocale as Locales);
+    (getServerContext<LocalesValues>(IntlayerServerContext) as Locale) ??
+    (defaultLocale as Locale);
 
   return { locale };
 };

@@ -1,4 +1,4 @@
-import type { Locales } from './locales';
+import type { Locale } from './locales';
 import type { Plugin } from './plugin';
 
 export type StrictMode = 'strict' | 'inclusive' | 'loose';
@@ -14,7 +14,7 @@ export type InternationalizationConfig = {
    *
    * You can define a list of available locales to support in the application.
    */
-  locales: Locales[];
+  locales: Locale[];
 
   /**
    * Locales required by TypeScript to ensure strong implementations of internationalized content using typescript.
@@ -25,7 +25,7 @@ export type InternationalizationConfig = {
    *
    * Ensure required locales are also defined in the `locales` field.
    */
-  requiredLocales: Locales[];
+  requiredLocales: Locale[];
 
   /**
    * Ensure strong implementations of internationalized content using typescript.
@@ -44,7 +44,7 @@ export type InternationalizationConfig = {
    *
    * Used to specify a fallback locale in case no other locale is set.
    */
-  defaultLocale: Locales;
+  defaultLocale: Locale;
 };
 
 export type ServerSetCookieRule = 'always' | 'never';
@@ -593,7 +593,7 @@ export type BaseContentConfig = {
    * Default: undefined
    *
    */
-  autoFill?: boolean | string | { [key in Locales]?: string };
+  autoFill?: boolean | string | { [key in Locale]?: string };
 };
 
 /**

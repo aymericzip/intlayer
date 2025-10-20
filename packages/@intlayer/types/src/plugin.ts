@@ -70,5 +70,5 @@ export type Plugin = {
   formatOutput?: (args: {
     dictionary: PluginDictionary;
     configuration: IntlayerConfig;
-  }) => Promise<PluginDictionary> | PluginDictionary;
+  }) => unknown;
 };

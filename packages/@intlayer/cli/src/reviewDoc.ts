@@ -23,7 +23,7 @@ import {
   retryManager,
 } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
-import { Locales } from '@intlayer/types';
+import { type Locale, Locales } from '@intlayer/types';
 import fg from 'fast-glob';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAccess';
@@ -39,8 +39,8 @@ import { mapChunksBetweenFiles } from './utils/mapChunksBetweenFiles';
 export const reviewFile = async (
   baseFilePath: string,
   outputFilePath: string,
-  locale: Locales,
-  baseLocale: Locales,
+  locale: Locale,
+  baseLocale: Locale,
   aiOptions?: AIOptions,
   configOptions?: GetConfigurationOptions,
   customInstructions?: string,
@@ -254,9 +254,9 @@ export const reviewFile = async (
 
 type ReviewDocOptions = {
   docPattern: string[];
-  locales: Locales[];
+  locales: Locale[];
   excludedGlobPattern: string[];
-  baseLocale: Locales;
+  baseLocale: Locale;
   aiOptions?: AIOptions;
   nbSimultaneousFileProcessed?: number;
   configOptions?: GetConfigurationOptions;
@@ -363,7 +363,7 @@ export const reviewDoc = async ({
       await reviewFile(
         absoluteBaseFilePath,
         outputFilePath,
-        locale as Locales,
+        locale as Locale,
         baseLocale,
         aiOptions,
         configOptions,

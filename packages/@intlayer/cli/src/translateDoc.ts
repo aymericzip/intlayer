@@ -21,7 +21,7 @@ import {
   getConfiguration,
   retryManager,
 } from '@intlayer/config';
-import type { IntlayerConfig, Locales } from '@intlayer/types';
+import type { IntlayerConfig, Locale, Locales } from '@intlayer/types';
 import fg from 'fast-glob';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAccess';
@@ -36,8 +36,8 @@ import { getOutputFilePath } from './utils/getOutputFilePath';
 export const translateFile = async (
   baseFilePath: string,
   outputFilePath: string,
-  locale: Locales,
-  baseLocale: Locales,
+  locale: Locale,
+  baseLocale: Locale,
   configuration: IntlayerConfig,
   aiOptions?: AIOptions,
   customInstructions?: string
@@ -165,9 +165,9 @@ export const translateFile = async (
 
 type TranslateDocOptions = {
   docPattern: string[];
-  locales: Locales[];
+  locales: Locale[];
   excludedGlobPattern: string[];
-  baseLocale: Locales;
+  baseLocale: Locale;
   aiOptions?: AIOptions;
   nbSimultaneousFileProcessed?: number;
   configOptions?: GetConfigurationOptions;
@@ -269,7 +269,7 @@ export const translateDoc = async ({
       await translateFile(
         absoluteBaseFilePath,
         outputFilePath,
-        locale as Locales,
+        locale as Locale,
         baseLocale,
         configuration,
         aiOptions,

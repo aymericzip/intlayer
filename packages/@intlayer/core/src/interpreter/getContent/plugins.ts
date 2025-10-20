@@ -1,7 +1,7 @@
 import {
   type DictionaryKeys,
   type KeyPath,
-  type Locales,
+  type Locale,
   type LocalesValues,
   NodeType,
 } from '@intlayer/types';
@@ -341,7 +341,7 @@ export interface NodeProps {
   dictionaryKey: string;
   keyPath: KeyPath[];
   plugins?: Plugins[];
-  locale?: Locales;
+  locale?: Locale;
   dictionaryPath?: string;
   children?: any;
 }

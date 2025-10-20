@@ -1,7 +1,7 @@
 import configuration from '@intlayer/config/built';
 import {
   type ContentNode,
-  type Locales,
+  type Locale,
   type LocalesValues,
   NodeType,
 } from '@intlayer/types';
@@ -11,8 +11,8 @@ import type { TranslationContent } from '../transpiler';
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const checkMissingLocalesPlugin = (
-  locales: Locales[],
-  onMissingLocale: (locale: Locales) => void
+  locales: Locale[],
+  onMissingLocale: (locale: Locale) => void
 ): Plugins => ({
   id: 'check-missing-locales-plugin',
   canHandle: (node) =>
@@ -53,11 +53,11 @@ export const getMissingLocalesContent = <T extends ContentNode>(
   node: T,
   locales: LocalesValues[] = configuration?.internationalization?.locales,
   nodeProps: NodeProps
-): Locales[] => {
-  const missingLocales = new Set<Locales>();
+): Locale[] => {
+  const missingLocales = new Set<Locale>();
 
   const plugins: Plugins[] = [
-    checkMissingLocalesPlugin(locales as Locales[], (locale) =>
+    checkMissingLocalesPlugin(locales as Locale[], (locale) =>
       missingLocales.add(locale)
     ),
     ...(nodeProps.plugins ?? []),

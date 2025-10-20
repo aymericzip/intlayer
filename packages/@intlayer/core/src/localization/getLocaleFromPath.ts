@@ -57,9 +57,9 @@ export const getLocaleFromPath = (inputUrl: string): Locales => {
   const firstSegment = pathSegments[1]; // The segment after the first '/'
 
   // Check if the first segment is a supported locale
-  if (firstSegment && locales.includes(firstSegment as Locales)) {
+  if (firstSegment && locales.includes(firstSegment as Locale)) {
     // Return the detected locale
-    return firstSegment as Locales;
+    return firstSegment as Locale;
   }
 
   // Return the default locale if no locale is found in the path

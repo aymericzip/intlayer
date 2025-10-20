@@ -6,7 +6,7 @@ const langSwitcherContent = {
     title: t({
       en: 'Change locale ⬍',
       fr: 'Changer de langue ⬍',
-      es: 'Cambiar de idioma ⬍',
+      // es: 'Cambiar de idioma ⬍',
     }),
     langSwitcherLabel: t({
       en: 'Lang selector',

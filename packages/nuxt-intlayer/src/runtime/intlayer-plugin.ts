@@ -1,6 +1,6 @@
 // @ts-nocheck -- Nuxt runtime types are provided at application level
 
-import type { Locales } from '@intlayer/config';
+import type { Locale } from '@intlayer/config';
 import { createIntlayerClient, installIntlayer } from 'vue-intlayer';
 import { defineNuxtPlugin } from '#app';
 import { useRoute } from '#imports';
@@ -27,7 +27,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // Helper that applies the `:locale` route param (if any) to Intlayer.
   const syncLocale = () => {
-    const localeParam = route.params.locale as Locales | undefined;
+    const localeParam = route.params.locale as Locale | undefined;
     if (localeParam) setLocale(localeParam);
   };
 

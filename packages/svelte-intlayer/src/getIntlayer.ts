@@ -1,5 +1,6 @@
 import { getIntlayer as getIntlayerCore, type Plugins } from '@intlayer/core';
 import type {
+  DeclaredLocales,
   DictionaryKeys,
   DictionaryRegistryContent,
   LocalesValues,
@@ -18,7 +19,10 @@ import {
  * @param additionalPlugins Additional transformation plugins
  * @returns Transformed dictionary content optimized for Svelte
  */
-export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
+export const getIntlayer = <
+  T extends DictionaryKeys,
+  L extends LocalesValues = DeclaredLocales,
+>(
   key: T,
   locale?: L,
   additionalPlugins?: Plugins[]

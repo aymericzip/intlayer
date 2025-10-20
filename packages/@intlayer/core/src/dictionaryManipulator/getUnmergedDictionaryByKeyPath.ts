@@ -10,7 +10,7 @@ import { normalizeDictionaries } from './normalizeDictionary';
 export const getUnmergedDictionaryByKeyPath = (
   dictionaryKey: string,
   keyPath: KeyPath[],
-  dictionariesRecord: UnmergedDictionaries,
+  dictionariesRecord?: UnmergedDictionaries,
   configuration: IntlayerConfig = intlayerConfiguration
 ) => {
   const unmergedEntries = (dictionariesRecord ??

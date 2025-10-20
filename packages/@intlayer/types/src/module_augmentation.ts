@@ -1,13 +1,12 @@
-/** biome-ignore-all lint/suspicious/noEmptyInterface: Interface is used to augment the module */
+import type {
+  __DeclaredLocalesRegistry,
+  __DictionaryRegistry,
+  __RequiredLocalesRegistry,
+  __StrictModeRegistry,
+} from 'intlayer';
 import type { StrictMode } from './config';
 import type { Dictionary } from './dictionary';
-import type { Locales } from './locales';
-
-// --- Registries to be augmented by the generator ---
-export interface __DictionaryRegistry {} // id -> typeof Dictionary
-export interface __DeclaredLocalesRegistry {} // 'fr': 1, 'en': 1, ...
-export interface __RequiredLocalesRegistry {} // 'en': 1, ...
-export interface __StrictModeRegistry {} // one of: { strict: true } | { inclusive: true } | { loose: true }
+import type { Locale } from './locales';
 
 /**
  * Provides a fallback to string type if the generic type T is undefined,
@@ -39,31 +38,31 @@ export type DictionaryRegistryContent<T extends DictionaryKeys> =
     : any;
 
 // --- Derived unions from registries ---
-export type DeclaredLocales = keyof __DeclaredLocalesRegistry; // 'en' | 'fr' | ...
-export type RequiredLocales = keyof __RequiredLocalesRegistry;
+export type DeclaredLocales = keyof __DeclaredLocalesRegistry extends never
+  ? Locale
+  : keyof __DeclaredLocalesRegistry; // 'en' | 'fr' | ...
+export type RequiredLocales = keyof __RequiredLocalesRegistry extends never
+  ? Locale
+  : keyof __RequiredLocalesRegistry;
 
 /** Define MyType using the ValueOf utility type on Locales */
 export type LocalesValues = keyof __DeclaredLocalesRegistry extends never
-  ? (Locales | `${Locales}`) | (string & {})
-  : (DeclaredLocales | `${DeclaredLocales}`) | (string & {});
-
-// --- Helpers ---
-export type ExtractedLocales = Extract<Locales, RequiredLocales>;
-export type ExcludedLocales = Exclude<Locales, RequiredLocales>;
+  ? Locale | (string & {})
+  : DeclaredLocales | (string & {});
 
 // --- Strict mode selection from registry (default 'loose') ---
-type __ModeFromRegistry = keyof __StrictModeRegistry;
-type ResolvedStrictMode = [__ModeFromRegistry] extends [never]
-  ? 'loose'
-  : __ModeFromRegistry & StrictMode;
+type ResolvedStrictMode = __StrictModeRegistry extends { mode: infer M }
+  ? M
+  : 'inclusive';
 
 // --- Config shape (type alias; interfaces can’t extend conditional types) ---
-export type IConfigLocales<
-  Content,
+export type StrictModeLocaleMap<
+  Content = unknown,
   Mode extends StrictMode = ResolvedStrictMode,
 > = Mode extends 'strict'
-  ? Record<DeclaredLocales, Content>
+  ? Required<Record<RequiredLocales, Content>> &
+      Partial<Record<DeclaredLocales, Content>>
   : Mode extends 'inclusive'
-    ? Record<ExtractedLocales, Content> &
-        Partial<Record<ExcludedLocales, Content>>
-    : Partial<Record<Locales, Content>>;
+    ? Required<Record<RequiredLocales, Content>> &
+        Partial<Record<Locale, Content>>
+    : Partial<Record<Locale, Content>>; // Fallback, all locales are optional

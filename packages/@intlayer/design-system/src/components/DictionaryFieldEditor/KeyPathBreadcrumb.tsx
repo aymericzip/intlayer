@@ -1,4 +1,4 @@
-import type { KeyPath, Locales } from '@intlayer/types';
+import type { KeyPath, Locale } from '@intlayer/types';
 import type { FC } from 'react';
 import { Breadcrumb, type BreadcrumbLink } from '../Breadcrumb';
 
@@ -6,7 +6,7 @@ type KeyPathBreadcrumbProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
   onClickKeyPath: (keyPath: KeyPath[]) => void;
-  locale?: Locales;
+  locale?: Locale;
 };
 
 export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({

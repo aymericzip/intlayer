@@ -1,7 +1,7 @@
 import { Link } from '@components/Link/Link';
 import type { ProjectConfiguration } from '@intlayer/backend';
 import { H3, H4, H5, Tag } from '@intlayer/design-system';
-import { getLocaleName, type Locales } from 'intlayer';
+import { getLocaleName, type Locale } from 'intlayer';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
@@ -51,7 +51,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           <div className="flex flex-row flex-wrap gap-2">
             {projectConfig.internationalization.locales.map((localeEl) => (
               <Tag key={localeEl} size="sm">
-                {getLocaleName(localeEl as Locales, locale)}
+                {getLocaleName(localeEl as Locale, locale)}
               </Tag>
             ))}
           </div>

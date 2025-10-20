@@ -6,7 +6,7 @@ import {
   getTranslation,
   localeDetector,
 } from '@intlayer/core';
-import type { LanguageContent, Locales } from '@intlayer/types';
+import type { LanguageContent, Locale } from '@intlayer/types';
 import { createNamespace } from 'cls-hooked';
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 
@@ -22,11 +22,11 @@ export const translateFunction =
   (_req: Request, res: Response, _next?: NextFunction) =>
   <T extends string>(
     content: LanguageContent<T> | string,
-    locale?: Locales
+    locale?: Locale
   ): T => {
     const { locale: currentLocale, defaultLocale } = res.locals as {
-      locale: Locales;
-      defaultLocale: Locales;
+      locale: Locale;
+      defaultLocale: Locale;
     };
 
     const targetLocale = locale ?? currentLocale;
@@ -122,7 +122,7 @@ export const intlayer = (): RequestHandler => async (req, res, next) => {
 
 export const t = <Content = string>(
   content: LanguageContent<Content>,
-  locale?: Locales
+  locale?: Locale
 ): Content => {
   try {
     if (typeof appNamespace === 'undefined') {

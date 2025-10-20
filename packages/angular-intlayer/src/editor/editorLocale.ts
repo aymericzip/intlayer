@@ -19,7 +19,7 @@ export const useEditorLocale = createSharedComposable(() => {
   // Use Angular effects instead of Vue watchers
   effect(() => {
     const newValue = client.locale();
-    setData(newValue as Locales);
+    setData(newValue as Locale);
   });
 
   return client;

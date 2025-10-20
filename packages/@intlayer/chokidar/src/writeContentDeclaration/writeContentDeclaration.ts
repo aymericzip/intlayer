@@ -114,7 +114,7 @@ const formatContentDeclaration = async (
 type WriteContentDeclarationOptions = {
   newDictionariesPath?: string;
   localeList?: LocalesValues[];
-  fallbackLocale?: Locales;
+  fallbackLocale?: Locale;
 };
 
 const defaultOptions = {

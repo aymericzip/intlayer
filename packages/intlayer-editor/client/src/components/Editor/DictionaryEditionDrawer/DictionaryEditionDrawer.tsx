@@ -11,7 +11,7 @@ import {
 } from '@intlayer/design-system';
 import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionary } from '@intlayer/editor-react';
-import type { Locales } from '@intlayer/types';
+import type { Locale } from '@intlayer/types';
 import { Pencil } from 'lucide-react';
 import { type FC, useCallback, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -24,7 +24,7 @@ import {
 
 type DictionaryEditionDrawerContentProps = {
   focusedContent: FileContentWithDictionaryPath;
-  locale: Locales;
+  locale: Locale;
   identifier: string;
   handleOnBack: () => void;
   isDarkMode?: boolean;
@@ -166,7 +166,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 };
 
 type DictionaryEditionDrawerControllerProps = {
-  locale: Locales;
+  locale: Locale;
   isDarkMode?: boolean;
 };
 

@@ -36,7 +36,7 @@ const NB_CONCURRENT_TRANSLATIONS = 8;
 
 // Arguments for the fill function
 export type FillOptions = {
-  sourceLocale?: Locales;
+  sourceLocale?: Locale;
   outputLocales?: Locales | Locales[];
   mode?: 'complete' | 'review';
   gitOptions?: ListGitFilesOptions;
@@ -146,7 +146,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
       dictionariesRecord[dictionaryKey];
 
     const sourceLocale: Locales =
-      (targetUnmergedDictionary.locale as Locales) ?? baseLocale;
+      (targetUnmergedDictionary.locale as Locale) ?? baseLocale;
 
     if (!mainDictionaryToProcess || !targetUnmergedDictionary.filePath) {
       continue;
@@ -205,7 +205,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
     if (isAutoFillEnabled && isAutoFillPerLocale) {
       const localeList = resultsByDictionary
         .get(dictionaryKey)
-        ?.map((result) => result.locale) as Locales[];
+        ?.map((result) => result.locale) as Locale[];
 
       /**
        * Write auto filled dictionary

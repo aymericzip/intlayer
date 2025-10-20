@@ -1,6 +1,7 @@
 'use client';
 
 import type {
+  DeclaredLocales,
   DictionaryKeys,
   DictionaryRegistryContent,
   LocalesValues,
@@ -17,15 +18,18 @@ import { IntlayerClientContext } from './IntlayerProvider';
  *
  * When you need the raw string for attributes like `aria-label`, access the `.value` property of the returned content
  */
-export const useIntlayer = <T extends DictionaryKeys>(
+export const useIntlayer = <
+  T extends DictionaryKeys,
+  L extends LocalesValues = DeclaredLocales,
+>(
   key: T,
-  locale?: LocalesValues
+  locale?: L
 ): DeepTransformContent<DictionaryRegistryContent<T>> => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
 
   return useMemo(() => {
-    const localeTarget = locale ?? currentLocale;
+    const localeTarget = locale ?? (currentLocale as L);
 
-    return getIntlayer(key, localeTarget) as any;
+    return getIntlayer<T, L>(key, localeTarget);
   }, [key, currentLocale, locale]);
 };

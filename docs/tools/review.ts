@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import type { AIOptions } from '@intlayer/api';
 import { type ListGitFilesOptions, reviewDoc } from '@intlayer/cli';
 import { getConfiguration } from '@intlayer/config';
-import { Locales } from '@intlayer/types';
+import { type Locale, Locales } from '@intlayer/types';
 import { defaultLocale, locales } from '../intlayer.config';
 
 // Fill the list of files to audit if you want to audit only a subset of the files
@@ -23,7 +23,7 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
 // Number of files to process simultaneously
 const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
 
-const LOCALE_LIST_TO_TRANSLATE: Locales[] = locales.filter(
+const LOCALE_LIST_TO_TRANSLATE: Locale[] = locales.filter(
   // Include all locales except English
   // Change it to include your specific locales if you want to translate only a subset of the locale(s)
   (locale) => locale !== Locales.ENGLISH

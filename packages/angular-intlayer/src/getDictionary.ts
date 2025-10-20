@@ -2,10 +2,17 @@ import {
   getDictionary as getDictionaryCore,
   type Plugins,
 } from '@intlayer/core';
-import type { Dictionary, LocalesValues } from '@intlayer/types';
+import type {
+  DeclaredLocales,
+  Dictionary,
+  LocalesValues,
+} from '@intlayer/types';
 import { intlayerNodePlugins, markdownPlugin } from './plugins';
 
-export const getDictionary = <T extends Dictionary, L extends LocalesValues>(
+export const getDictionary = <
+  T extends Dictionary,
+  L extends LocalesValues = DeclaredLocales,
+>(
   dictionary: T,
   locale?: L,
   additionalPlugins?: Plugins[]

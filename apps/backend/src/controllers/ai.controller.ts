@@ -1,4 +1,4 @@
-import type { KeyPath, Locales } from '@intlayer/types';
+import type { KeyPath, Locale } from '@intlayer/types';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';
@@ -150,8 +150,8 @@ export const translateJSON = async (
 
 export type AuditContentDeclarationBody = {
   aiOptions?: AIOptions;
-  locales: Locales[];
-  defaultLocale: Locales;
+  locales: Locale[];
+  defaultLocale: Locale;
   fileContent: string;
   filePath?: string;
   tagsKeys?: string[];
@@ -220,7 +220,7 @@ export const auditContentDeclaration = async (
 
 export type AuditContentDeclarationFieldBody = {
   aiOptions?: AIOptions;
-  locales: Locales[];
+  locales: Locale[];
   fileContent: string;
   filePath?: string;
   tagsKeys?: string[];

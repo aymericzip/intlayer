@@ -7,7 +7,7 @@ import { useEditedContentRenderer } from './useEditedContentRenderer';
 export interface EditedContentRendererProps {
   dictionaryKey: string;
   keyPath: KeyPath[];
-  locale?: Locales;
+  locale?: Locale;
 }
 
 @Component({
@@ -19,7 +19,7 @@ export interface EditedContentRendererProps {
 export class EditedContentRendererComponent {
   @Input() dictionaryKey!: string;
   @Input() keyPath!: KeyPath[];
-  @Input() locale?: Locales;
+  @Input() locale?: Locale;
 
   private fallback = signal('');
 

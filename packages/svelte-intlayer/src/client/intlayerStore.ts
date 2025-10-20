@@ -8,7 +8,7 @@ export interface IntlayerStoreType {
 // Create the main intlayer store
 const createIntlayerStore = () => {
   const { subscribe, set, update }: Writable<IntlayerStoreType> = writable({
-    locale: 'en' as LocalesValues, // Default locale
+    locale: 'en' as LocaleValues, // Default locale
   });
 
   return {
@@ -17,7 +17,7 @@ const createIntlayerStore = () => {
       update((store) => ({ ...store, locale })),
     getLocale: (): Readable<LocalesValues> =>
       derived({ subscribe }, ($store) => $store.locale),
-    reset: () => set({ locale: 'en' as LocalesValues }),
+    reset: () => set({ locale: 'en' as LocaleValues }),
   };
 };
 

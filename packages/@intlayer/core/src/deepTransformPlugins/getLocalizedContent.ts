@@ -1,4 +1,9 @@
-import type { ContentNode, Dictionary, LocalesValues } from '@intlayer/types';
+import type {
+  ContentNode,
+  DeclaredLocales,
+  Dictionary,
+  LocalesValues,
+} from '@intlayer/types';
 import {
   type DeepTransformContent,
   type NodeProps,
@@ -17,7 +22,7 @@ import { deepTransformNode } from '../interpreter/getContent/deepTransform';
  */
 export const getLocalizedContent = <
   T extends ContentNode,
-  L extends LocalesValues,
+  L extends LocalesValues = DeclaredLocales,
 >(
   node: T,
   locale: L,

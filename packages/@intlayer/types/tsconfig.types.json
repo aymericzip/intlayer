@@ -8,6 +8,6 @@
     "outDir": "dist/types",
     "baseUrl": "src",
     "allowJs": false,
-    "isolatedDeclarations": true
+    "isolatedDeclarations": false
   }
 }

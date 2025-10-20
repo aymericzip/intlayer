@@ -2,7 +2,11 @@ import {
   getDictionary as getDictionaryCore,
   type Plugins,
 } from '@intlayer/core';
-import type { Dictionary, Locales, LocalesValues } from '@intlayer/types';
+import type {
+  DeclaredLocales,
+  Dictionary,
+  LocalesValues,
+} from '@intlayer/types';
 import {
   type DeepTransformContent,
   intlayerNodePlugins,
@@ -12,7 +16,7 @@ import {
 
 export const getDictionary = <
   T extends Dictionary,
-  L extends LocalesValues = Locales,
+  L extends LocalesValues = DeclaredLocales,
 >(
   dictionary: T,
   locale?: L,

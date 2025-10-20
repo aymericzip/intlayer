@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
 import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
 import {
   type DeepTransformContent,
@@ -191,7 +191,7 @@ export const filterMissingTranslationsOnlyPlugin = (
  */
 export const getFilterMissingTranslationsContent = <
   T extends ContentNode,
-  L extends LocalesValues,
+  L extends LocalesValues = DeclaredLocales,
 >(
   node: T,
   localeToCheck: L,

@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { Locales } from '@intlayer/types';
+import { type Locale, Locales } from '@intlayer/types';
 
 export enum LanguageDetector {
   Querystring = 'querystring',
@@ -66,10 +66,10 @@ const isSessionStorageAvailable = (): boolean => {
 const detectLanguage = (
   order: string[],
   options: LanguageDetectorOptions
-): Record<LanguageDetector, Locales | Locales[]> => {
-  const detected: Record<LanguageDetector, Locales | Locales[]> = {} as Record<
+): Record<LanguageDetector, Locale | Locale[]> => {
+  const detected: Record<LanguageDetector, Locale | Locale[]> = {} as Record<
     LanguageDetector,
-    Locales | Locales[]
+    Locale | Locale[]
   >;
 
   const queryStringDetector = () => {
@@ -78,7 +78,7 @@ const detectLanguage = (
     const params = new URLSearchParams(search);
     const value = params.get(options.lookupQuerystring ?? '');
     if (value) {
-      detected[LanguageDetector.Querystring] = value as Locales;
+      detected[LanguageDetector.Querystring] = value as Locale;
     }
   };
 
@@ -90,7 +90,7 @@ const detectLanguage = (
     if (cookie) {
       const value = cookie.split('=')[1].trim();
 
-      detected[LanguageDetector.Cookie] = value as Locales;
+      detected[LanguageDetector.Cookie] = value as Locale;
     }
   };
 
@@ -98,7 +98,7 @@ const detectLanguage = (
     if (!isLocalStorageAvailable()) return;
     const value = window.localStorage.getItem(options.lookupLocalStorage ?? '');
     if (value) {
-      detected[LanguageDetector.LocalStorage] = value as Locales;
+      detected[LanguageDetector.LocalStorage] = value as Locale;
     }
   };
 
@@ -108,7 +108,7 @@ const detectLanguage = (
       options.lookupSessionStorage ?? ''
     );
     if (value) {
-      detected[LanguageDetector.SessionStorage] = value as Locales;
+      detected[LanguageDetector.SessionStorage] = value as Locale;
     }
   };
 
@@ -116,7 +116,7 @@ const detectLanguage = (
     if (typeof navigator === 'undefined') return;
 
     if (navigator.language) {
-      detected[LanguageDetector.Navigator] = navigator.language as Locales;
+      detected[LanguageDetector.Navigator] = navigator.language as Locale;
     }
   };
 
@@ -125,7 +125,7 @@ const detectLanguage = (
     if (htmlTag && typeof htmlTag.getAttribute === 'function') {
       const lang = htmlTag.getAttribute('lang');
       if (lang) {
-        detected[LanguageDetector.HtmlTag] = lang as Locales;
+        detected[LanguageDetector.HtmlTag] = lang as Locale;
       }
     }
   };
@@ -149,24 +149,22 @@ const detectLanguage = (
 };
 
 const getFirstAvailableLocale = (
-  locales: Record<LanguageDetector, Locales | Locales[]>,
+  locales: Record<LanguageDetector, Locale | Locale[]>,
   order: LanguageDetector[]
-): Locales => {
+): Locale => {
   const { internationalization } = configuration;
 
   for (const detector of order) {
     const localesArray = [locales[detector]].flat();
 
     for (const locale of localesArray) {
-      if (locale && (internationalization?.locales).includes(locale)) {
+      if (locale && internationalization.locales.includes(locale)) {
         return locale;
       } else if (
         locale?.includes('-') &&
-        (internationalization?.locales).includes(
-          locale.split('-')[0] as Locales
-        )
+        internationalization.locales.includes(locale.split('-')[0] as Locale)
       ) {
-        return locale.split('-')[0] as Locales;
+        return locale.split('-')[0] as Locale;
       }
     }
   }
@@ -180,7 +178,7 @@ const getFirstAvailableLocale = (
  */
 export const getBrowserLocale = (
   userOptions: LanguageDetectorOptions | undefined = {}
-): Locales => {
+): Locale => {
   const options = { ...getDefaultsOptions(), ...userOptions };
 
   const locales = detectLanguage(options.order ?? [], options);

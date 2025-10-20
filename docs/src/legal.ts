@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/types';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
 import {
   defaultLocale,
   type FileMetadata,
@@ -19,36 +19,40 @@ export type LegalMetadata = FileMetadata;
 export const getLegalsKeys = (): (keyof typeof legalEntry)[] =>
   getKeys(legalEntry);
 
-export const getLegals = async <L extends LocalesValues>(
+export const getLegals = async <L extends LocalesValues = DeclaredLocales>(
   locale: L = defaultLocale as L
 ): Promise<Record<LegalKey, string>> => getFiles(legalEntry, locale);
 
-export const getLegal = async <L extends LocalesValues>(
+export const getLegal = async <L extends LocalesValues = DeclaredLocales>(
   docName: keyof typeof legalEntry,
   locale: L = defaultLocale as L
 ): Promise<string> => getFile(legalEntry, docName, locale);
 
-export const getLegalMetadataRecord = async <L extends LocalesValues>(
+export const getLegalMetadataRecord = async <
+  L extends LocalesValues = DeclaredLocales,
+>(
   locale: L = defaultLocale as L
 ): Promise<Record<LegalKey, FileMetadata>> =>
   getFileMetadataRecord(legalEntry, locale);
 
 export const getLegalMetadata = async <
   D extends LegalKey,
-  L extends LocalesValues,
+  L extends LocalesValues = DeclaredLocales,
 >(
   docName: D,
   locale: L = defaultLocale as L
 ): Promise<FileMetadata> => getFileMetadata(legalEntry, docName, locale);
 
-export const getLegalMetadataBySlug = async <L extends LocalesValues>(
+export const getLegalMetadataBySlug = async <
+  L extends LocalesValues = DeclaredLocales,
+>(
   slugs: string | string[],
   locale: L = defaultLocale as L,
   strict = false
 ): Promise<FileMetadata[]> =>
   await getFileMetadataBySlug(legalEntry, slugs, locale, strict);
 
-export const getLegalBySlug = async <L extends LocalesValues>(
+export const getLegalBySlug = async <L extends LocalesValues = DeclaredLocales>(
   slugs: string | string[],
   locale: L = defaultLocale as L,
   strict = false

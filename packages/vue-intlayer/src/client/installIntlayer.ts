@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { Locales, LocalesValues } from '@intlayer/types';
+import type { Locale, LocalesValues } from '@intlayer/types';
 import { type App, type Ref, readonly, ref } from 'vue';
 import { installIntlayerEditor } from '../editor';
 
@@ -11,7 +11,7 @@ export const INTLAYER_SYMBOL = Symbol('intlayer');
 let instance: IntlayerProvider | null = null;
 
 export type IntlayerProvider = {
-  locale: Ref<Locales>;
+  locale: Ref<Locale>;
   setLocale: (locale: LocalesValues) => void;
 };
 
@@ -25,10 +25,10 @@ export const createIntlayerClient = (
 
   const { defaultLocale } = configuration.internationalization ?? {};
 
-  const targetLocale = ref<Locales>((locale as Locales) ?? defaultLocale);
+  const targetLocale = ref<Locale>((locale as Locale) ?? defaultLocale);
 
   const setLocale = (newLocale: LocalesValues) => {
-    targetLocale.value = newLocale as Locales;
+    targetLocale.value = newLocale as Locale;
   };
 
   instance = {

@@ -1,4 +1,4 @@
-import type { CustomIntlayerConfig, Locales } from '@intlayer/types';
+import type { CustomIntlayerConfig, Locale } from '@intlayer/types';
 
 export type Details = {
   isVerbose?: boolean;
@@ -87,7 +87,7 @@ export const colorize = (
     : s;
 
 export const colorizeLocales = (
-  locales: Locales | Locales[],
+  locales: Locale | Locale[],
   color = ANSIColors.GREEN,
   reset: boolean | ANSIColors = ANSIColors.RESET
 ) =>
