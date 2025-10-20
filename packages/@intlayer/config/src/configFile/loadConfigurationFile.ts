@@ -3,6 +3,7 @@ import {
   type LoadExternalFileOptions,
   loadExternalFileSync,
 } from '../loadExternalFile/loadExternalFile';
+import { configESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 
 const filterValidConfiguration = (
   configuration: CustomIntlayerConfig
@@ -21,7 +22,14 @@ export const loadConfigurationFile = (
   configFilePath: string,
   options?: Omit<LoadExternalFileOptions, 'configuration'>
 ): CustomIntlayerConfig | undefined => {
-  const fileContent = loadExternalFileSync(configFilePath, options);
+  const fileContent = loadExternalFileSync(configFilePath, {
+    ...options,
+    aliases: {
+      ...options?.aliases,
+      // Replace intlayer with @intlayer/types to avoid circular dependency intlayer -> @intlayer/config -> intlayer
+      intlayer: configESMxCJSRequire.resolve('@intlayer/types'),
+    },
+  });
 
   return filterValidConfiguration(fileContent);
 };

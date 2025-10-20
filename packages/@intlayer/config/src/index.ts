@@ -42,7 +42,11 @@ export {
   setCache,
 } from './utils/cache';
 export { clearModuleCache } from './utils/clearModuleCache';
-export { ESMxCJSRequire, isESModule } from './utils/ESMxCJSHelpers';
+export {
+  configESMxCJSRequire,
+  ESMxCJSRequire,
+  isESModule,
+} from './utils/ESMxCJSHelpers';
 export { getExtension } from './utils/getExtension';
 export { getPackageJsonPath } from './utils/getPackageJsonPath';
 export { logStack } from './utils/logStack';

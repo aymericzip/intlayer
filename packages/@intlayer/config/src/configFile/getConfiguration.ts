@@ -5,6 +5,7 @@ import type {
   LogFunctions,
 } from '@intlayer/types';
 import merge from 'deepmerge';
+import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
 import { logger } from '../logger';
 import { cache } from '../utils/cache';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
@@ -20,11 +21,9 @@ export type GetConfigurationOptions = {
   envFile?: string;
   // Log functions
   logFunctions?: LogFunctions;
-  // Sandbox context additional variables
-  additionalEnvVars?: Record<string, string>;
-  require?: NodeJS.Require;
-  aliases?: Record<string, string | object>;
-};
+  // Require function
+  require: NodeJS.Require;
+} & Omit<SandBoxContextOptions, 'projectRequire'>;
 
 export type GetConfigurationAndFilePathResult = {
   configuration: IntlayerConfig;

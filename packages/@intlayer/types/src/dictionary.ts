@@ -1,8 +1,4 @@
-import type {
-  DeclaredLocales,
-  LocalesValues,
-  StrictModeLocaleMap,
-} from './module_augmentation';
+import type { LocalesValues, StrictModeLocaleMap } from './module_augmentation';
 import type { NodeType } from './nodeType';
 
 type BaseNode = number | string | boolean | null | undefined;

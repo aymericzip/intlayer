@@ -1,8 +1,12 @@
 import { readFile } from 'node:fs/promises';
 import { builtinModules, createRequire } from 'node:module';
-import { relative } from 'node:path';
 import type { ESBuildPlugin } from '@intlayer/config';
-import { bundleFile, ESMxCJSRequire, isESModule } from '@intlayer/config';
+import {
+  bundleFile,
+  configESMxCJSRequire,
+  ESMxCJSRequire,
+  isESModule,
+} from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
 
 const replaceBuiltConfigurationPlugin = (
@@ -78,11 +82,8 @@ const rewritePathsPlugin = (
  */
 export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
   const rootRequire = ESMxCJSRequire;
+  const configPackageRequire = configESMxCJSRequire;
   const localRequire = isESModule ? createRequire(import.meta.url) : require;
-
-  const configLocation = localRequire.resolve('@intlayer/config');
-
-  const configPackageRequire = createRequire(configLocation);
 
   const replaceModules = {
     deepmerge: localRequire.resolve('deepmerge'),

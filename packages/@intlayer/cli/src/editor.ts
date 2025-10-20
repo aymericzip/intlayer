@@ -1,6 +1,7 @@
 import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { dirname as pathDirname, resolve as pathResolve } from 'node:path';
+import { isESModule } from '@intlayer/config';
 
 type StartEditorOptions = {
   env?: string;
@@ -26,8 +27,10 @@ export const startEditor = (options: StartEditorOptions): void => {
     });
 
   try {
-    const require = createRequire(import.meta.url);
-    const pkgJsonPath = require.resolve('intlayer-editor/package.json');
+    const requireFunction = isESModule
+      ? createRequire(import.meta.url)
+      : require;
+    const pkgJsonPath = requireFunction.resolve('intlayer-editor/package.json');
     const pkgDir = pathDirname(pkgJsonPath);
     const binPath = pathResolve(pkgDir, 'bin', 'intlayer-editor.mjs');
 
