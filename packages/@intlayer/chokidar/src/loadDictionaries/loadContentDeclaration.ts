@@ -10,6 +10,7 @@ import {
 import { parallelize } from '../utils/parallelize';
 import { getIntlayerBundle } from './getIntlayerBundle';
 import type { DictionariesStatus } from './loadDictionaries';
+import { replaceBuiltConfigurationPlugin } from './replaceBuiltConfigurationPlugin';
 
 export const formatLocalDictionaries = (
   dictionariesRecord: Record<string, Dictionary>,
@@ -40,7 +41,7 @@ export const loadContentDeclarations = async (
 
   // If cache is invalid, write the intlayer bundle to the cache
   if (!hasIntlayerBundle) {
-    const intlayerBundle = await getIntlayerBundle(configuration);
+    const intlayerBundle = await getIntlayerBundle();
     await writeFile(filePath, intlayerBundle);
     await set('ok');
   }
@@ -59,6 +60,9 @@ export const loadContentDeclarations = async (
                 `globalThis.INTLAYER_BASE_DIR = '${configuration.content.baseDir}';`,
               ].join('\n'),
             },
+          },
+          mocks: {
+            '@intlayer/config/built': configuration,
           },
           aliases: {
             intlayer: filePath,

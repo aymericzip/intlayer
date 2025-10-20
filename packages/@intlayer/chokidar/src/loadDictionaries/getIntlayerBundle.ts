@@ -7,35 +7,6 @@ import {
   ESMxCJSRequire,
   isESModule,
 } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
-
-const replaceBuiltConfigurationPlugin = (
-  configuration: IntlayerConfig
-): ESBuildPlugin => {
-  const VIRTUAL_NS = 'intlayer-config-virtual';
-  const VIRTUAL_ID = '@intlayer/config/built';
-
-  return {
-    name: 'replace-built-configuration',
-    setup(build) {
-      // Resolve the virtual module id
-      build.onResolve({ filter: new RegExp(`^${VIRTUAL_ID}$`) }, () => ({
-        path: VIRTUAL_ID,
-        namespace: VIRTUAL_NS,
-      }));
-
-      // Load the provided configuration as the virtual module's contents
-      build.onLoad({ filter: /.*/, namespace: VIRTUAL_NS }, () => ({
-        contents: JSON.stringify(configuration),
-        loader: 'json',
-      }));
-    },
-  };
-};
-
-/** Escape a string for literal use inside a RegExp */
-const escapeForRegex = (input: string) =>
-  input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /**
  * Rewrites selected bare specifiers (and any of their subpaths) to absolute file paths,
@@ -46,13 +17,19 @@ const escapeForRegex = (input: string) =>
  * …will also rewrite "@intlayer/core/file" etc.
  */
 const rewritePathsPlugin = (
-  replaceModules: Record<string, string>
+  replaceModules: Record<string, string>,
+  excludeModules?: string[]
 ): ESBuildPlugin => {
   return {
     name: 'rewrite-paths',
     setup(build) {
       build.onResolve({ filter: /.*/ }, (args) => {
         const exact = replaceModules[args.path];
+
+        if (excludeModules?.includes(args.path)) {
+          return null;
+        }
+
         if (exact) {
           return {
             path: exact,
@@ -80,7 +57,7 @@ const rewritePathsPlugin = (
 /**
  * Get the intlayer bundle to embed @intlayer/core and be able to mock @intlayer/config/built to mock the configuration file.
  */
-export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
+export const getIntlayerBundle = async () => {
   const rootRequire = ESMxCJSRequire;
   const configPackageRequire = configESMxCJSRequire;
   const localRequire = isESModule ? createRequire(import.meta.url) : require;
@@ -99,11 +76,9 @@ export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
     external: [
       ...builtinModules,
       ...builtinModules.map((mod) => `node:${mod}`),
+      '@intlayer/config/built',
     ],
-    plugins: [
-      replaceBuiltConfigurationPlugin(configuration),
-      rewritePathsPlugin(replaceModules),
-    ],
+    plugins: [rewritePathsPlugin(replaceModules, ['@intlayer/config/built'])],
   });
 
   return output ?? '';
