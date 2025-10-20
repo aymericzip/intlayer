@@ -1,4 +1,5 @@
 import {
+  type DeclaredLocales,
   type DictionaryKeys,
   type KeyPath,
   type Locale,
@@ -47,14 +48,15 @@ export type Plugins = {
  *  TRANSLATION PLUGIN
  *  --------------------------------------------- */
 
-export type TranslationCond<T, S> = T extends {
+export type TranslationCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Translation]: object;
+  [NodeType.Translation]: infer U;
 }
-  ? DeepTransformContent<
-      T[NodeType.Translation][keyof T[NodeType.Translation]],
-      S
-    >
+  ? U extends Record<PropertyKey, unknown>
+    ? L extends keyof U
+      ? DeepTransformContent<U[L], S>
+      : DeepTransformContent<U[keyof U], S>
+    : never
   : never;
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
@@ -90,7 +92,7 @@ export const translationPlugin = (
  *  ENUMERATION PLUGIN
  *  --------------------------------------------- */
 
-export type EnumerationCond<T, S> = T extends {
+export type EnumerationCond<T, S, L> = T extends {
   nodeType: NodeType | string;
   [NodeType.Enumeration]: object;
 }
@@ -134,7 +136,7 @@ export const enumerationPlugin: Plugins = {
  *  CONDITION PLUGIN
  *  --------------------------------------------- */
 
-export type ConditionCond<T, S> = T extends {
+export type ConditionCond<T, S, L> = T extends {
   nodeType: NodeType | string;
   [NodeType.Condition]: object;
 }
@@ -178,7 +180,7 @@ export const conditionPlugin: Plugins = {
  *  GENDER PLUGIN
  *  --------------------------------------------- */
 
-export type GenderCond<T, S> = T extends {
+export type GenderCond<T, S, L> = T extends {
   nodeType: NodeType | string;
   [NodeType.Gender]: object;
 }
@@ -216,7 +218,7 @@ export const genderPlugin: Plugins = {
  *  INSERTION PLUGIN
  *  --------------------------------------------- */
 
-export type InsertionCond<T, S> = T extends {
+export type InsertionCond<T, S, L> = T extends {
   nodeType: NodeType | string;
   [NodeType.Insertion]: infer I;
   fields?: infer U;
@@ -284,7 +286,7 @@ export const insertionPlugin: Plugins = {
  *  NESTED PLUGIN
  *  --------------------------------------------- */
 
-export type NestedCond<T, S> = T extends {
+export type NestedCond<T, S, L> = T extends {
   nodeType: NodeType | string;
   [NodeType.Nested]: infer U;
 }
@@ -350,12 +352,12 @@ export interface NodeProps {
  * Interface that defines the plugins that can be used to transform a node.
  * This interface can be augmented in other packages, such as `react-intlayer`.
  */
-export interface IInterpreterPlugin<T, S> {
-  translation: TranslationCond<T, S>;
-  insertion: InsertionCond<T, S>;
-  enumeration: EnumerationCond<T, S>;
-  condition: ConditionCond<T, S>;
-  nested: NestedCond<T, S>;
+export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
+  translation: TranslationCond<T, S, L>;
+  insertion: InsertionCond<T, S, L>;
+  enumeration: EnumerationCond<T, S, L>;
+  condition: ConditionCond<T, S, L>;
+  nested: NestedCond<T, S, L>;
   // file: FileCond<T>;
 }
 
@@ -376,29 +378,34 @@ export type IInterpreterPluginState = {
  */
 type CheckApplyPlugin<
   T,
-  K extends keyof IInterpreterPlugin<T, S>,
+  K extends keyof IInterpreterPlugin<T, S, L>,
   S,
+  L extends LocalesValues = DeclaredLocales,
 > = K extends keyof S // Test if the key is a key of S.
   ? // Test if the key of S is true. Then the plugin can be applied.
     S[K] extends true
     ? // Test if the key of S exist
-      IInterpreterPlugin<T, S>[K] extends never
+      IInterpreterPlugin<T, S, L>[K] extends never
       ? never
       : // Test if the plugin condition is true (if it's not, the plugin is skipped for this node)
-        IInterpreterPlugin<T, S>[K]
+        IInterpreterPlugin<T, S, L>[K]
     : never
   : never;
 
 /**
  * Traverse recursively through an object or array, applying each plugin as needed.
  */
-type Traverse<T, S> =
-  // Turn any read-only array into a plain mutable array
-  T extends ReadonlyArray<infer U>
-    ? Array<DeepTransformContent<U, S>>
-    : T extends object
-      ? { [K in keyof T]: DeepTransformContent<T[K], S> }
-      : T;
+type Traverse<
+  T,
+  S,
+  L extends LocalesValues = DeclaredLocales,
+> = T extends ReadonlyArray<infer U> // Turn any read-only array into a plain mutable array
+  ? Array<DeepTransformContent<U, S, L>>
+  : T extends object
+    ? { [K in keyof T]: DeepTransformContent<T[K], S, L> }
+    : T;
+
+export type IsAny<T> = 0 extends 1 & T ? true : false;
 
 /**
  * Traverse recursively through an object or array, applying each plugin as needed.
@@ -406,8 +413,11 @@ type Traverse<T, S> =
 export type DeepTransformContent<
   T,
   S = IInterpreterPluginState,
-> = CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S>, S> extends never // Check if there is a plugin for T:
-  ? // No plugin was found, so try to transform T recursively:
-    Traverse<T, S>
-  : // A plugin was found – use the plugin’s transformation.
-    IInterpreterPlugin<T, S>[keyof IInterpreterPlugin<T, S>];
+  L extends LocalesValues = DeclaredLocales,
+> = IsAny<T> extends true
+  ? T
+  : CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S> extends never // Check if there is a plugin for T:
+    ? // No plugin was found, so try to transform T recursively:
+      Traverse<T, S, L>
+    : // A plugin was found – use the plugin’s transformation.
+      IInterpreterPlugin<T, S, L>[keyof IInterpreterPlugin<T, S, L>];

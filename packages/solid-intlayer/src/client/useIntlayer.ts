@@ -4,7 +4,7 @@ import type {
   DictionaryRegistryContent,
   LocalesValues,
 } from '@intlayer/types';
-import { createMemo, useContext } from 'solid-js';
+import { type Accessor, createMemo, useContext } from 'solid-js';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -20,7 +20,7 @@ export const useIntlayer = <
 >(
   key: T,
   locale?: L
-): (() => DeepTransformContent<DictionaryRegistryContent<T>>) => {
+): Accessor<DeepTransformContent<DictionaryRegistryContent<T>, L>> => {
   const context = useContext(IntlayerClientContext);
 
   // @ts-ignore Type instantiation is excessively deep and possibly infinite

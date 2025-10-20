@@ -1,6 +1,17 @@
+import { dirname } from 'node:path';
 import { cond, enu, gender, insert, md, nest, t } from '@intlayer/core';
-import { fileContent as file } from '@intlayer/core/file';
+import { type FileContent, fileContent } from '@intlayer/core/file';
 import type { Dictionary } from '@intlayer/types';
+
+export const file = (path: string): FileContent => {
+  const INTLAYER_FILE_PATH = '/User/file.md';
+  const INTLAYER_BASE_DIR = '/User/App/';
+
+  const callerDir = dirname(INTLAYER_FILE_PATH);
+  const baseDir = INTLAYER_BASE_DIR;
+
+  return fileContent(path, callerDir, baseDir);
+};
 
 const content: Dictionary = {
   key: 'test',

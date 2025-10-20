@@ -73,9 +73,15 @@ export const loadCLITools: LoadCLITools = async (server) => {
     'intlayer-fill',
     'Fill the dictionaries with missing translations / review translations using Intlayer servers',
     {
-      sourceLocale: z.nativeEnum(Locales).optional().describe('Source locale'),
+      sourceLocale: z
+        .nativeEnum(Locales.ALL_LOCALES)
+        .optional()
+        .describe('Source locale'),
       outputLocales: z
-        .union([z.nativeEnum(Locales), z.array(z.nativeEnum(Locales))])
+        .union([
+          z.nativeEnum(Locales.ALL_LOCALES),
+          z.array(z.nativeEnum(Locales.ALL_LOCALES)),
+        ])
         .optional()
         .describe('Output locales'),
       file: z

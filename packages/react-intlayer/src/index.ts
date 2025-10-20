@@ -2,7 +2,7 @@ import type { IInterpreterPluginReact } from './plugins';
 
 declare module '@intlayer/core' {
   // biome-ignore lint/correctness/noUnusedVariables: <All declarations of 'IInterpreterPlugin' must have identical type parameters>
-  interface IInterpreterPlugin<T, S> extends IInterpreterPluginReact<T> {}
+  interface IInterpreterPlugin<T, S, L> extends IInterpreterPluginReact<T> {}
 }
 
 // Import directly from individual files to avoid circular dependency issues

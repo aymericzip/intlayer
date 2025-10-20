@@ -18,7 +18,7 @@ import {
 } from '@intlayer/config';
 import { getLocalizedContent, mergeDictionaries } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { ContentNode, Dictionary, Locales } from '@intlayer/types';
+import type { ContentNode, Dictionary, Locale, Locales } from '@intlayer/types';
 import {
   ensureArray,
   type GetTargetDictionaryOptions,
@@ -37,7 +37,7 @@ const NB_CONCURRENT_TRANSLATIONS = 8;
 // Arguments for the fill function
 export type FillOptions = {
   sourceLocale?: Locale;
-  outputLocales?: Locales | Locales[];
+  outputLocales?: Locale | Locale[];
   mode?: 'complete' | 'review';
   gitOptions?: ListGitFilesOptions;
   aiOptions?: AIOptions; // Added aiOptions to be passed to translateJSON
@@ -145,7 +145,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
     const mainDictionaryToProcess: Dictionary =
       dictionariesRecord[dictionaryKey];
 
-    const sourceLocale: Locales =
+    const sourceLocale: Locale =
       (targetUnmergedDictionary.locale as Locale) ?? baseLocale;
 
     if (!mainDictionaryToProcess || !targetUnmergedDictionary.filePath) {

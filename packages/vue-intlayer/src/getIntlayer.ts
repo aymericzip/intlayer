@@ -18,14 +18,12 @@ export const getIntlayer = <
   key: T,
   locale?: L,
   additionalPlugins?: Plugins[]
-) => {
+): DeepTransformContent<DictionaryRegistryContent<T>, L> => {
   const plugins: Plugins[] = [
     intlayerNodePlugins,
     markdownPlugin,
     ...(additionalPlugins ?? []),
   ];
 
-  return getIntlayerCore(key, locale, plugins) as any as DeepTransformContent<
-    DictionaryRegistryContent<T>
-  >;
+  return getIntlayerCore(key, locale, plugins) as any;
 };

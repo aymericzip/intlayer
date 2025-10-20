@@ -22,7 +22,7 @@ export type GetConfigurationOptions = {
   // Log functions
   logFunctions?: LogFunctions;
   // Require function
-  require: NodeJS.Require;
+  require?: NodeJS.Require;
 } & Omit<SandBoxContextOptions, 'projectRequire'>;
 
 export type GetConfigurationAndFilePathResult = {

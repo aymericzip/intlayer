@@ -6,6 +6,5 @@ export { getLocalizedUrl } from './getLocalizedUrl';
 export { getMultilingualUrls } from './getMultilingualUrls';
 export { getPathWithoutLocale } from './getPathWithoutLocale';
 export { localeDetector } from './localeDetector';
-export { localeList } from './localeList';
 export { localeFlatMap, localeMap, localeRecord } from './localeMapper';
 export { localeResolver } from './localeResolver';

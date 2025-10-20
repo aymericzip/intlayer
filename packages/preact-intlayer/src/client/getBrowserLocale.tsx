@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { Locales } from '@intlayer/types';
+import { type Locale, Locales } from '@intlayer/types';
 
 export enum LanguageDetector {
   Querystring = 'querystring',
@@ -66,10 +66,10 @@ const isSessionStorageAvailable = (): boolean => {
 const detectLanguage = (
   order: string[],
   options: LanguageDetectorOptions
-): Record<LanguageDetector, Locales | Locales[]> => {
-  const detected: Record<LanguageDetector, Locales | Locales[]> = {} as Record<
+): Record<LanguageDetector, Locale | Locale[]> => {
+  const detected: Record<LanguageDetector, Locale | Locale[]> = {} as Record<
     LanguageDetector,
-    Locales | Locales[]
+    Locale | Locale[]
   >;
 
   const queryStringDetector = () => {
@@ -149,20 +149,20 @@ const detectLanguage = (
 };
 
 const getFirstAvailableLocale = (
-  locales: Record<LanguageDetector, Locales | Locales[]>,
+  locales: Record<LanguageDetector, Locale | Locale[]>,
   order: LanguageDetector[]
-): Locales => {
+): Locale => {
   const { internationalization } = configuration;
 
   for (const detector of order) {
     const localesArray = [locales[detector]].flat();
 
     for (const locale of localesArray) {
-      if (locale && (internationalization?.locales).includes(locale)) {
+      if (locale && internationalization.locales.includes(locale)) {
         return locale;
       } else if (
         locale?.includes('-') &&
-        (internationalization?.locales).includes(locale.split('-')[0] as Locale)
+        internationalization.locales.includes(locale.split('-')[0] as Locale)
       ) {
         return locale.split('-')[0] as Locale;
       }
@@ -178,7 +178,7 @@ const getFirstAvailableLocale = (
  */
 export const getBrowserLocale = (
   userOptions: LanguageDetectorOptions | undefined = {}
-): Locales => {
+): Locale => {
   const options = { ...getDefaultsOptions(), ...userOptions };
 
   const locales = detectLanguage(options.order ?? [], options);

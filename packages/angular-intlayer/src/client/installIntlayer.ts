@@ -14,7 +14,7 @@ let instance: IntlayerProvider | null = null;
 })
 export class IntlayerProvider {
   private _locale = signal<LocalesValues>(
-    configuration.internationalization?.defaultLocale as LocaleValues
+    configuration.internationalization?.defaultLocale as LocalesValues
   );
 
   readonly locale: Signal<LocalesValues> = this._locale.asReadonly();

@@ -2,10 +2,15 @@ import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type {
   DeclaredLocales,
   DictionaryKeys,
+  DictionaryRegistryContent,
   DictionaryRegistryElement,
   LocalesValues,
 } from '@intlayer/types';
-import type { Plugins } from './getContent';
+import type {
+  DeepTransformContent,
+  IInterpreterPluginState,
+  Plugins,
+} from './getContent';
 import { getDictionary } from './getDictionary';
 
 export const getIntlayer = <
@@ -15,7 +20,11 @@ export const getIntlayer = <
   key: T,
   locale?: L,
   plugins?: Plugins[]
-) => {
+): DeepTransformContent<
+  DictionaryRegistryContent<T>,
+  IInterpreterPluginState,
+  L
+> => {
   const dictionaries = getDictionaries();
   const dictionary = dictionaries[key as T] as DictionaryRegistryElement<T>;
 

@@ -12,8 +12,10 @@ import type { FileContent } from '@intlayer/core/file';
 import {
   type ContentNode,
   type Dictionary,
+  type Locale,
   type Locales,
   NodeType,
+  type StrictModeLocaleMap,
 } from '@intlayer/types';
 import {
   Node,
@@ -35,10 +37,14 @@ const buildTranslationInitializer = (
   for (const [lang, val] of entries) {
     const isValidIdentifier = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(lang);
     const keyText = isValidIdentifier ? lang : JSON.stringify(lang);
+
     if (typeof val === 'string') {
       parts.push(`${keyText}: ${JSON.stringify(val)}`);
     } else if (Array.isArray(val)) {
-      const inner = val.map((s) => JSON.stringify(s)).join(', ');
+      const inner = (val as string[])
+        .map((content) => JSON.stringify(content))
+        .join(', ');
+
       parts.push(`${keyText}: [ ${inner} ]`);
     } else {
       // Fallback to JSON for non-string values to avoid breaking
@@ -128,16 +134,14 @@ const buildInsertionInitializer = (
   if (typeof content === 'string') return `insert(${JSON.stringify(content)})`;
   if (getNodeType(content as ContentNode) === NodeType.Translation) {
     const translationContent = content as TranslationContent;
-    const translations: Record<string, unknown> =
-      translationContent[NodeType.Translation] ?? {};
+    const translations = translationContent[NodeType.Translation] ?? {};
+
     const allStrings = Object.values(translations).every(
       (v) => typeof v === 'string'
     );
     if (!allStrings) return undefined;
 
-    return `insert(${buildTranslationInitializer(
-      translations as Record<string, string>
-    )})`;
+    return `insert(${buildTranslationInitializer(translations)})`;
   }
 
   return undefined;
@@ -157,16 +161,13 @@ const buildMarkdownInitializer = (
   // Support markdown translations: md(t({ en: '...', fr: '...' }))
   if (getNodeType(content as ContentNode) === NodeType.Translation) {
     const translationContent = content as TranslationContent;
-    const translations: Record<string, unknown> =
-      translationContent[NodeType.Translation] ?? {};
+    const translations = translationContent[NodeType.Translation] ?? {};
     const allStrings = Object.values(translations).every(
       (v) => typeof v === 'string'
     );
     if (!allStrings) return undefined;
 
-    return `md(${buildTranslationInitializer(
-      translations as Record<string, string>
-    )})`;
+    return `md(${buildTranslationInitializer(translations)})`;
   }
 
   if (getNodeType(content as ContentNode) === NodeType.File) {
@@ -602,10 +603,12 @@ const readExistingArraySerialized = (
     }
     if (Node.isCallExpression(element)) {
       const expression = element.getExpression();
+
       if (Node.isIdentifier(expression) && expression.getText() === 't') {
         const argument = element.getArguments()[0];
+
         if (argument && Node.isObjectLiteralExpression(argument)) {
-          const map: Record<string, string> = {};
+          const map: any = {};
           for (const propertyAssignment of argument.getProperties()) {
             if (!Node.isPropertyAssignment(propertyAssignment))
               return undefined;
@@ -825,7 +828,7 @@ const addMissingImports = (
 export const transformJSFile = async (
   fileContent: string,
   dictionary: Dictionary,
-  fallbackLocale?: Locales
+  fallbackLocale?: Locale
 ): Promise<string> => {
   try {
     // If no content provided, nothing to transform
@@ -1101,7 +1104,7 @@ export const transformJSFile = async (
                       map,
                       effectiveFallbackLocale,
                       element
-                    );
+                    ) as StrictModeLocaleMap;
                     serializedValue = buildTranslationInitializer(updatedMap);
                     requiredImports.add('t');
                   }
@@ -1118,7 +1121,7 @@ export const transformJSFile = async (
             ) {
               serializedValue = buildTranslationInitializer({
                 [effectiveFallbackLocale]: element,
-              } as Record<string, string>);
+              } as StrictModeLocaleMap);
               requiredImports.add('t');
             }
 
@@ -1222,7 +1225,7 @@ export const transformJSFile = async (
             const translationMap = {
               ...existingMap,
               [effectiveFallbackLocale]: value,
-            };
+            } as StrictModeLocaleMap;
             const initializerText = buildTranslationInitializer(translationMap);
 
             requiredImports.add('t');
@@ -1513,9 +1516,11 @@ export const transformJSFile = async (
           const updated = {
             ...existingMap,
             [effectiveFallbackLocale]: desired,
-          } as Record<string, string>;
+          } as StrictModeLocaleMap;
+
           requiredImports.add('md');
           requiredImports.add('t');
+
           const property = contentObject.getProperty(key);
           if (property && Node.isPropertyAssignment(property)) {
             property.setInitializer(
@@ -1530,21 +1535,22 @@ export const transformJSFile = async (
         if (desiredNodeType === NodeType.Translation) {
           const desiredMap = (desired as TranslationContent)[
             NodeType.Translation
-          ] as Record<string, unknown>;
+          ] as StrictModeLocaleMap;
+
           const allStrings = Object.values(desiredMap).every(
             (v) => typeof v === 'string'
           );
+
           if (!allStrings) continue;
           const existingEquals = areStringMapsEqual(desiredMap, existingMap);
+
           if (!existingEquals) {
             requiredImports.add('md');
             requiredImports.add('t');
             const property = contentObject.getProperty(key);
             if (property && Node.isPropertyAssignment(property)) {
               property.setInitializer(
-                `md(${buildTranslationInitializer(
-                  desiredMap as Record<string, string>
-                )})`
+                `md(${buildTranslationInitializer(desiredMap)})`
               );
               changed = true;
             }

@@ -46,7 +46,7 @@ export const LocaleSwitcher: FC = () => {
     >
       <MaxHeightSmoother>
         <div className="separator min-w-[100px] items-end divide-y divide-dashed p-1">
-          <h2 className={`mb-3 font-semibold text-xl`}>{content.title} </h2>
+          <h2 className={`mb-3 font-semibold text-xl`}>{content.title}</h2>
 
           {availableLocales.map((lang) => (
             <ButtonItem

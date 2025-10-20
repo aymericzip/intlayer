@@ -22,7 +22,7 @@ type Builder = ({
   locale: LocalesValues | (string & {});
 }) => string;
 
-type MessagesRecord = Record<Locales, Record<Dictionary['key'], FilePath>>;
+type MessagesRecord = Record<Locale, Record<Dictionary['key'], FilePath>>;
 
 const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 

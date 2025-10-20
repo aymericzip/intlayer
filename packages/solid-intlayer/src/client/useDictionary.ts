@@ -3,8 +3,9 @@ import type {
   Dictionary,
   LocalesValues,
 } from '@intlayer/types';
-import { createMemo, useContext } from 'solid-js';
+import { type Accessor, createMemo, useContext } from 'solid-js';
 import { getDictionary } from '../getDictionary';
+import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
@@ -18,7 +19,7 @@ export const useDictionary = <
 >(
   dictionary: T,
   locale?: L
-) => {
+): Accessor<DeepTransformContent<T['content'], L>> => {
   const context = useContext(IntlayerClientContext);
 
   return createMemo(() => {

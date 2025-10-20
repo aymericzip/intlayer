@@ -20,7 +20,7 @@ const filterTranslationsPlugin = (
 
     const filteredTranslationMap = Object.fromEntries(
       Object.entries(translationMap).filter(([key]) =>
-        locales.includes(key as LocaleValues)
+        locales.includes(key as LocalesValues)
       )
     );
 

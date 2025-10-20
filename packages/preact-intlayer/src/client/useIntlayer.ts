@@ -17,8 +17,8 @@ import { IntlayerClientContext } from './IntlayerProvider';
  */
 export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,
-  locale?: LocalesValues
-): DeepTransformContent<DictionaryRegistryContent<T>> => {
+  locale?: L
+) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
 
   return useMemo(() => {

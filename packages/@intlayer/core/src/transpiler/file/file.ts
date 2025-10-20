@@ -22,7 +22,7 @@ export const fileContent = (
   let filePath: string;
   if (isAbsolute(path)) {
     appLogger(
-      `Using absolute path for file is not recommended. Use relative paths instead. Path: ${path}, imported from: ${intlayer_file_path}`,
+      `Using absolute path for file is not recommended. Use relative paths instead. Path: ${path}, imported from: ${callerDir}`,
       { level: 'warn' }
     );
     filePath = path;

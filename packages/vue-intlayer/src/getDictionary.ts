@@ -20,16 +20,12 @@ export const getDictionary = <
   dictionary: T,
   locale?: L,
   additionalPlugins?: Plugins[]
-) => {
+): DeepTransformContent<T['content'], L> => {
   const plugins: Plugins[] = [
     intlayerNodePlugins,
     markdownPlugin,
     ...(additionalPlugins ?? []),
   ];
 
-  return getDictionaryCore(
-    dictionary,
-    locale,
-    plugins
-  ) as any as DeepTransformContent<T['content']>;
+  return getDictionaryCore(dictionary, locale, plugins) as any;
 };

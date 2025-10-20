@@ -1,7 +1,8 @@
 /** biome-ignore-all lint/suspicious/noEmptyInterface: Intlayer module augmentation registries */
-import type {
-  Dictionary as DictionaryCore,
-  CustomIntlayerConfig as IntlayerConfig,
+import {
+  type Dictionary as DictionaryCore,
+  type CustomIntlayerConfig as IntlayerConfig,
+  Locales,
 } from '@intlayer/types';
 
 type Dictionary<T = undefined> = DictionaryCore<T, true>;
@@ -10,6 +11,13 @@ type Dictionary<T = undefined> = DictionaryCore<T, true>;
  */
 type DeclarationContent<T = undefined> = Dictionary<T>;
 
+/**
+ * @deprecated
+ *
+ * Use Locales.All_LOCALES instead
+ */
+const localeList = Locales.ALL_LOCALES;
+
 export {
   type ContentNode,
   type Locale,
@@ -17,7 +25,7 @@ export {
   type LocalesValues,
   type StrictModeLocaleMap,
 } from '@intlayer/types';
-export type { DeclarationContent, Dictionary, IntlayerConfig };
+export type { DeclarationContent, Dictionary, IntlayerConfig, localeList };
 
 /**
  * Rexport using named import because πof Tsup bug in CJS
@@ -64,7 +72,6 @@ export {
   Intl,
   insert,
   localeFlatMap,
-  localeList,
   localeMap,
   localeRecord,
   md,

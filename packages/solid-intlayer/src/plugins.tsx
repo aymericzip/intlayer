@@ -5,7 +5,12 @@ import {
   type MarkdownContent,
   type Plugins,
 } from '@intlayer/core';
-import { type KeyPath, NodeType } from '@intlayer/types';
+import {
+  type DeclaredLocales,
+  type KeyPath,
+  type LocalesValues,
+  NodeType,
+} from '@intlayer/types';
 import type { JSX } from 'solid-js';
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
@@ -200,10 +205,10 @@ export type IInterpreterPluginState = IInterpreterPluginStateCore & {
   markdown: true;
 };
 
-export type DeepTransformContent<T> = DeepTransformContentCore<
+export type DeepTransformContent<
   T,
-  IInterpreterPluginState
->;
+  L extends LocalesValues = DeclaredLocales,
+> = DeepTransformContentCore<T, IInterpreterPluginState, L>;
 
 /**
  * Default enabled state for the plugins. Those are necessary for the rendering on client side.

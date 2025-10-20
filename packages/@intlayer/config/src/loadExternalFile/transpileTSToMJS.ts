@@ -8,7 +8,6 @@ import {
   type Plugin,
 } from 'esbuild';
 import { getLoader } from './bundleFile';
-import { tsPathsPlugin } from './resolveTSAliases';
 
 export type ESBuildPlugin = Plugin;
 

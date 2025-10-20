@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/types';
+import { type Locale, Locales } from '@intlayer/types';
 import type { FC, ImgHTMLAttributes, JSX } from 'react';
 
 // import andorra from './ad.svg';
@@ -240,7 +240,7 @@ type FlagProps = ImgHTMLAttributes<HTMLImageElement> & {
   locale: Locale;
 };
 
-const flagRecord: Partial<Record<Locales, typeof unknown>> = {
+const flagRecord: Partial<Record<Locale, typeof unknown>> = {
   [Locales.ENGLISH]: unitedStatesOfAmerica,
   [Locales.FRENCH]: france,
   [Locales.SPANISH]: spain,

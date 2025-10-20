@@ -27,7 +27,7 @@ export const handleContentDeclarationFileChange = async (
 
   const allDictionariesPaths: string[] = await getBuiltDictionariesPath(config);
 
-  createTypes(updatedDictionariesPaths);
+  createTypes(updatedDictionariesPaths, config);
   appLogger('TypeScript types built', {
     isVerbose: true,
   });

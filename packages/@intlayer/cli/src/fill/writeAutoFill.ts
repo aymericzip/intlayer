@@ -9,7 +9,7 @@ import type {
   AutoFill,
   Dictionary,
   IntlayerConfig,
-  Locales,
+  Locale,
 } from '@intlayer/types';
 import { type AutoFillData, formatAutoFillData } from './formatAutoFillData';
 
@@ -17,12 +17,12 @@ export const writeAutoFill = async (
   fullDictionary: Dictionary,
   contentDeclarationFile: Dictionary,
   autoFillOptions: AutoFill,
-  outputLocales: Locales[],
-  parentLocales: Locales[],
+  outputLocales: Locale[],
+  parentLocales: Locale[],
   configuration: IntlayerConfig
 ) => {
   const appLogger = getAppLogger(configuration);
-  const localeList: Locales[] = (
+  const localeList: Locale[] = (
     outputLocales ?? configuration.internationalization.locales
   ).filter((locale) => !parentLocales?.includes(locale));
 
@@ -60,14 +60,17 @@ export const writeAutoFill = async (
     );
 
     // write file
-    await writeContentDeclaration({
-      ...fullDictionary,
-      autoFill: undefined,
-      autoFilled: true,
-      locale: output.isPerLocale ? output.localeList[0] : undefined,
-      content: reducedDictionaryContent.content,
-      filePath: output.filePath,
-    });
+    await writeContentDeclaration(
+      {
+        ...fullDictionary,
+        autoFill: undefined,
+        autoFilled: true,
+        locale: output.isPerLocale ? output.localeList[0] : undefined,
+        content: reducedDictionaryContent.content,
+        filePath: output.filePath,
+      },
+      configuration
+    );
 
     if (output.isPerLocale) {
       const sourceLocale = output.localeList[0];

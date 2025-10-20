@@ -12,7 +12,7 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "skipDefaultLibCheck": false,
-    "declarationMap": true,
+    "declarationMap": false,
     "declaration": false,
     "jsx": "react-jsx",
     "types": ["node"],

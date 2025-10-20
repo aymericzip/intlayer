@@ -21,7 +21,7 @@ export const getDictionary = <
   dictionary: T,
   locale?: L,
   additionalPlugins?: Plugins[]
-) => {
+): DeepTransformContent<T['content'], L> => {
   const plugins: Plugins[] = [
     intlayerNodePlugins,
     solidNodePlugins,
@@ -30,9 +30,5 @@ export const getDictionary = <
   ];
 
   // @ts-ignore Type instantiation is excessively deep and possibly infinite
-  return getDictionaryCore<T, L>(
-    dictionary,
-    locale as L,
-    plugins
-  ) as any as DeepTransformContent<T['content']>;
+  return getDictionaryCore<T, L>(dictionary, locale as L, plugins) as any;
 };

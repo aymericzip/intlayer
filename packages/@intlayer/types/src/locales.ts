@@ -841,3 +841,4 @@ export const ALL_LOCALES = {
 } as const;
 
 export type Locale = (typeof ALL_LOCALES)[keyof typeof ALL_LOCALES]; // 'en' | 'en-US' | 'ar' | 'ar-AE' | ...
+export type Locales = Locale;

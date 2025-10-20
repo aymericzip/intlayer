@@ -1,7 +1,7 @@
 'use client';
 
 import { getContent } from '@intlayer/core';
-import type { Dictionary, KeyPath, Locales } from '@intlayer/types';
+import type { Dictionary, KeyPath, Locale } from '@intlayer/types';
 import type { FC } from 'preact/compat';
 import { useEditedContentActions } from './EditedContentContext';
 

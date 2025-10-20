@@ -1,6 +1,10 @@
 'use client';
 
-import type { Dictionary, LocalesValues } from '@intlayer/types';
+import type {
+  DeclaredLocales,
+  Dictionary,
+  LocalesValues,
+} from '@intlayer/types';
 import { useContext, useMemo } from 'preact/hooks';
 import { getDictionary } from '../getDictionary';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -10,15 +14,18 @@ import { IntlayerClientContext } from './IntlayerProvider';
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useDictionary = <T extends Dictionary>(
+export const useDictionary = <
+  T extends Dictionary,
+  L extends LocalesValues = DeclaredLocales,
+>(
   dictionary: T,
-  locale?: LocalesValues
+  locale?: L
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
 
   return useMemo(() => {
     const localeTarget = locale ?? currentLocale;
 
-    return getDictionary<T, LocalesValues>(dictionary, localeTarget);
+    return getDictionary<T, L>(dictionary, localeTarget as L);
   }, [dictionary, currentLocale, locale]);
 };

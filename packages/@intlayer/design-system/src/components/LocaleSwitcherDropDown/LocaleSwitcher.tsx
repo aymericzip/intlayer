@@ -1,7 +1,7 @@
 'use client';
 
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
-import { Locales } from '@intlayer/types';
+import { type Locale, Locales } from '@intlayer/types';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useCallback, useMemo, useRef, useState } from 'react';
@@ -13,10 +13,10 @@ import { Input } from '../Input';
 
 export type LocaleSwitcherProps = {
   locale?: Locale;
-  localeList: Locales[];
-  availableLocales?: Locales[];
+  localeList: Locale[];
+  availableLocales?: Locale[];
   fullLocaleName?: boolean;
-  setLocale: (locale: Locales) => void;
+  setLocale: (locale: Locale) => void;
   panelProps?: Omit<PanelProps, 'identifier'>;
 };
 

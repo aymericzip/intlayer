@@ -6,7 +6,7 @@ import {
   normalizePath,
 } from '@intlayer/config';
 import { getPerLocaleDictionary } from '@intlayer/core';
-import type { Dictionary, Locales } from '@intlayer/types';
+import type { Dictionary, Locale } from '@intlayer/types';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
@@ -18,7 +18,7 @@ export type DictionaryResult = {
 };
 
 export type LocalizedDictionaryResult = Partial<
-  Record<Locales, DictionaryResult>
+  Record<Locale, DictionaryResult>
 >;
 
 export type LocalizedDictionaryOutput = Record<

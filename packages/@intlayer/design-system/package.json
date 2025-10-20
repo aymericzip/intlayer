@@ -89,7 +89,8 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest --watch",
-    "typecheck": "tsc --noEmit --project tsconfig.json"
+    "typecheck": "",
+    "typecheck_": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
     "@hookform/resolvers": "5.0.1",

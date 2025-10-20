@@ -5,7 +5,7 @@ import type {
   ContentNode,
   Dictionary,
   IntlayerConfig,
-  Locales,
+  Locale,
   LocalesValues,
 } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
@@ -197,7 +197,7 @@ const writeFileWithDirectories = async (
   filePath: string,
   dictionary: Dictionary,
   configuration: IntlayerConfig,
-  fallbackLocale?: Locales
+  fallbackLocale?: Locale
 ): Promise<void> => {
   // Extract the directory from the file path
   const dir = dirname(filePath);

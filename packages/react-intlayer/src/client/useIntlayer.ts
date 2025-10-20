@@ -3,12 +3,10 @@
 import type {
   DeclaredLocales,
   DictionaryKeys,
-  DictionaryRegistryContent,
   LocalesValues,
 } from '@intlayer/types';
 import { useContext, useMemo } from 'react';
 import { getIntlayer } from '../getIntlayer';
-import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
@@ -24,7 +22,7 @@ export const useIntlayer = <
 >(
   key: T,
   locale?: L
-): DeepTransformContent<DictionaryRegistryContent<T>> => {
+) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
 
   return useMemo(() => {

@@ -1,8 +1,9 @@
 import configuration from '@intlayer/config/built';
-import type {
-  ContentNode,
-  DeclaredLocales,
-  LocalesValues,
+import {
+  type ContentNode,
+  type DeclaredLocales,
+  type LocalesValues,
+  NodeType,
 } from '@intlayer/types';
 import { deepTransformNode } from './deepTransform';
 import {
@@ -10,6 +11,7 @@ import {
   type DeepTransformContent,
   enumerationPlugin,
   filePlugin,
+  type IInterpreterPluginState,
   insertionPlugin,
   type NodeProps,
   nestedPlugin,
@@ -44,5 +46,5 @@ export const getContent = <
   return deepTransformNode(node, {
     ...nodeProps,
     plugins,
-  }) as DeepTransformContent<T>;
+  }) as DeepTransformContent<T, IInterpreterPluginState, L>;
 };

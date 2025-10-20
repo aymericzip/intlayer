@@ -19,7 +19,7 @@ export const getIntlayer = <
   key: T,
   locale?: L,
   additionalPlugins?: Plugins[]
-): DeepTransformContent<DictionaryRegistryContent<T>> => {
+): DeepTransformContent<DictionaryRegistryContent<T>, L> => {
   const plugins: Plugins[] = [
     intlayerNodePlugins,
     solidNodePlugins,

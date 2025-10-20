@@ -56,7 +56,7 @@ export const getPathWithoutLocale = (
   const firstSegment = pathSegments[1]; // The segment after the first '/'
 
   // Check if the first segment is a supported locale
-  if (locales?.includes(firstSegment as LocaleValues)) {
+  if (locales?.includes(firstSegment as LocalesValues)) {
     // Remove the locale segment from the pathname
     pathSegments.splice(1, 1); // Remove the first segment
 

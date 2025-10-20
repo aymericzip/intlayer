@@ -22,28 +22,31 @@ export type DictionaryKeys = keyof __DictionaryRegistry extends never
 // --- Dictionaries ---
 export type DictionaryRegistry =
   __DictionaryRegistry[keyof __DictionaryRegistry] extends never
-    ? Record<string, Dictionary<any>>
+    ? Record<string, Dictionary>
     : __DictionaryRegistry;
 
-export type DictionaryRegistryElement<T extends DictionaryKeys> =
-  T extends keyof __DictionaryRegistry
+export type DictionaryRegistryElement<T extends DictionaryKeys> = [
+  string,
+] extends [T]
+  ? Dictionary
+  : __DictionaryRegistry[T] extends Dictionary
     ? __DictionaryRegistry[T]
-    : Dictionary<any>;
+    : Dictionary;
 
-export type DictionaryRegistryContent<T extends DictionaryKeys> =
-  T extends keyof __DictionaryRegistry
-    ? __DictionaryRegistry[T] extends { content: infer C }
-      ? C
-      : any
-    : any;
+export type DictionaryRegistryContent<T extends PropertyKey> = [T] extends [
+  keyof __DictionaryRegistry,
+]
+  ? __DictionaryRegistry[T] extends { content: infer C }
+    ? C
+    : any
+  : any;
 
 // --- Derived unions from registries ---
 export type DeclaredLocales = keyof __DeclaredLocalesRegistry extends never
   ? Locale
   : keyof __DeclaredLocalesRegistry; // 'en' | 'fr' | ...
-export type RequiredLocales = keyof __RequiredLocalesRegistry extends never
-  ? Locale
-  : keyof __RequiredLocalesRegistry;
+
+export type RequiredLocales = keyof __RequiredLocalesRegistry;
 
 /** Define MyType using the ValueOf utility type on Locales */
 export type LocalesValues = keyof __DeclaredLocalesRegistry extends never
@@ -59,10 +62,12 @@ type ResolvedStrictMode = __StrictModeRegistry extends { mode: infer M }
 export type StrictModeLocaleMap<
   Content = unknown,
   Mode extends StrictMode = ResolvedStrictMode,
-> = Mode extends 'strict'
-  ? Required<Record<RequiredLocales, Content>> &
-      Partial<Record<DeclaredLocales, Content>>
-  : Mode extends 'inclusive'
+> = RequiredLocales extends never
+  ? Partial<Record<Locale, Content>>
+  : Mode extends 'strict'
     ? Required<Record<RequiredLocales, Content>> &
-        Partial<Record<Locale, Content>>
-    : Partial<Record<Locale, Content>>; // Fallback, all locales are optional
+        Partial<Record<DeclaredLocales, Content>>
+    : Mode extends 'inclusive'
+      ? Required<Record<RequiredLocales, Content>> &
+          Partial<Record<Locale, Content>>
+      : Partial<Record<Locale, Content>>; // Fallback, all locales are optional

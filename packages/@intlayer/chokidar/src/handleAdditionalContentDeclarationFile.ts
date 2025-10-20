@@ -25,7 +25,7 @@ export const handleAdditionalContentDeclarationFile = async (
     dictionariesOutput?.mergedDictionaries ?? {}
   ).map((dictionary) => dictionary.dictionaryPath);
 
-  await createTypes(dictionariesPaths);
+  await createTypes(dictionariesPaths, config);
 
   await createDictionaryEntryPoint(config);
 

@@ -1,9 +1,9 @@
-import { Locales, type StrictMode } from '@intlayer/types';
+import { type Locale, Locales, type StrictMode } from '@intlayer/types';
 
-export const LOCALES: Locales[] = [Locales.ENGLISH];
+export const LOCALES: Locale[] = [Locales.ENGLISH];
 
-export const REQUIRED_LOCALES: Locales[] = [];
+export const REQUIRED_LOCALES: Locale[] = [];
 
-export const DEFAULT_LOCALE: Locales = Locales.ENGLISH;
+export const DEFAULT_LOCALE: Locale = Locales.ENGLISH;
 
 export const STRICT_MODE: StrictMode = 'inclusive';

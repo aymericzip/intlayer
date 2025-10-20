@@ -1,4 +1,8 @@
-import type { Dictionary, LocalesValues } from '@intlayer/types';
+import type {
+  DeclaredLocales,
+  Dictionary,
+  LocalesValues,
+} from '@intlayer/types';
 import {
   type ComputedRef,
   computed,
@@ -18,10 +22,13 @@ import {
   toComponent,
 } from './useIntlayer';
 
-export const useDictionary = <T extends Dictionary>(
+export const useDictionary = <
+  T extends Dictionary,
+  L extends LocalesValues = DeclaredLocales,
+>(
   dictionary: T,
-  locale?: LocalesValues
-): DeepTransformContent<T['content']> => {
+  locale?: L
+) => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
   if (!intlayer)
     throw new Error('useIntlayer must be used under <IntlayerProvider>');
@@ -99,5 +106,5 @@ export const useDictionary = <T extends Dictionary>(
     return new Proxy({}, handler);
   };
 
-  return makeProxy([]) as unknown as DeepTransformContent<T['content']>;
+  return makeProxy([]) as unknown as DeepTransformContent<T['content'], L>;
 };

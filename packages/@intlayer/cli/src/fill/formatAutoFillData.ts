@@ -79,7 +79,7 @@ export const formatAutoFillData = (
     const localeList = Object.keys(autoFillField).filter(
       (locale) =>
         typeof autoFillField[locale as keyof typeof autoFillField] === 'string'
-    ) as LocaleValues[];
+    ) as LocalesValues[];
 
     const output: AutoFillData[] = localeList
       .filter((locale) =>

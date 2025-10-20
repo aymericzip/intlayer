@@ -14,7 +14,6 @@ import { useDictionary } from './useDictionary';
  *
  * If the locale is not provided, it will use the locale from the server context
  */
-// @ts-ignore Type instantiation is excessively deep and possibly infinite
 export const useDictionaryAsync = async <
   T extends Dictionary,
   L extends LocalesValues = DeclaredLocales,

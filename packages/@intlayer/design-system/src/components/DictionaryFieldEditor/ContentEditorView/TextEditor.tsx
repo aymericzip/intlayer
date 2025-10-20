@@ -214,9 +214,9 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
 
   const sectionContent = (section as TranslationContent<string>)[
     NodeType.Translation
-  ] as Record<Locales, string>;
+  ] as Record<Locale, string>;
 
-  const sectionContentKeys = Object.keys(sectionContent) as LocaleValues[];
+  const sectionContentKeys = Object.keys(sectionContent) as LocalesValues[];
 
   const isFiltered = availableLocales.length > selectedLocales.length;
 

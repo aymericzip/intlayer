@@ -1,4 +1,4 @@
-import type { Dictionary, IntlayerConfig, Locales } from '@intlayer/types';
+import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
 import { getPerLocaleDictionary } from '../deepTransformPlugins';
 import { t } from '../transpiler/translation';
 import { orderDictionaries } from './orderDictionaries';
@@ -36,7 +36,7 @@ export const normalizeDictionary = (
       acc[locale] = perLocaleDictionary.content;
       return acc;
     },
-    {} as Record<Locales, Dictionary['content']>
+    {} as Record<Locale, Dictionary['content']>
   );
 
   return {
