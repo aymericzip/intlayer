@@ -4,7 +4,7 @@ import type { NodeType } from './nodeType';
 type BaseNode = number | string | boolean | null | undefined;
 
 type TypedNodeBase = {
-  nodeType: NodeType;
+  nodeType: NodeType | `${NodeType}`;
 };
 
 export interface TypedNode<NodeType = undefined> extends TypedNodeBase {}
