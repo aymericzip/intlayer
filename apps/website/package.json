@@ -88,7 +88,7 @@
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "4.1.14",
     "@types/next-pwa": "5.6.9",
-    "@types/node": "24.8.1",
+    "@types/node": "24.9.0",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "@utils/ts-config": "workspace:*",
@@ -98,7 +98,7 @@
     "postcss": "8.5.6",
     "pwa-asset-generator": "8.1.2",
     "raw-loader": "4.0.2",
-    "tailwindcss": "4.1.14",
+    "tailwindcss": "4.1.15",
     "tsdown": "0.15.8",
     "typescript": "5.9.3"
   },

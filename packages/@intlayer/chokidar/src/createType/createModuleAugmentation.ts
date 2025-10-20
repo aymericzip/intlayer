@@ -1,7 +1,7 @@
 import { mkdir } from 'node:fs/promises';
 import { basename, extname, join, relative } from 'node:path';
 import { normalizePath } from '@intlayer/config';
-import { type IntlayerConfig, type Locale, Locales } from '@intlayer/types';
+import type { IntlayerConfig, Locale } from '@intlayer/types';
 import fg from 'fast-glob';
 import { getFileHash } from '../utils/getFileHash';
 import { kebabCaseToCamelCase } from '../utils/kebabCaseToCamelCase';
@@ -10,19 +10,9 @@ import { writeFileIfChanged } from '../writeFileIfChanged';
 export const getTypeName = (key: string): string =>
   `${kebabCaseToCamelCase(key)}Content`;
 
-/** Returns FRENCH, ENGLISH, ENGLISH_UNITED_KINGDOM, etc. */
-const getLocaleKey = (locale: Locale) =>
-  Object.keys(Locales.ALL_LOCALES).find(
-    (key) => (Locales as any)[key] === locale
-  );
-
 /** Returns lines like: [Locales.FRENCH]: 1; */
 const formatLocales = (locales: Locale[]) =>
-  locales
-    .map((locale) => getLocaleKey(locale))
-    .filter((k): k is string => Boolean(k))
-    .map((key) => `    [Locales.${key}]: 1;`)
-    .join('\n');
+  locales.map((locale) => `    "${locale}": 1;`).join('\n');
 
 /** Generate the content of the module augmentation file */
 const generateTypeIndexContent = (

@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
     intlayer(),
-    intlayerMiddleware(),
+    // intlayerMiddleware(),
     tailwindcss(),
     // visualizer({
     //   emitFile: true,

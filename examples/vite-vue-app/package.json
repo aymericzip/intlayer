@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build",
+    "build": "tsc && vite build",
     "dev": "vite",
     "preview": "vite preview",
     "start:editor": "npx intlayer-editor start"
@@ -15,14 +15,15 @@
     "markdown-it": "14.1.0",
     "vue": "3.5.22",
     "vue-intlayer": "workspace:*",
-    "vue-router": "4.5.1"
+    "vue-router": "4.6.3"
   },
   "devDependencies": {
     "@types/markdown-it": "14.1.2",
-    "@types/node": "24.8.1",
+    "@types/node": "24.9.0",
     "@vitejs/plugin-vue": "6.0.1",
+    "@vue/tsconfig": "^0.8.1",
     "intlayer-editor": "workspace:*",
-    "vite": "7.1.10",
+    "vite": "7.1.11",
     "vite-intlayer": "workspace:*",
     "vue-demi": "0.14.10"
   }

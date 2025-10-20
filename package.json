@@ -92,6 +92,7 @@
     "rollup-plugin-visualizer": "6.0.4",
     "tsdown": "0.15.8",
     "turbo": "2.5.8",
+    "typescript": "5.9.3",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
   },

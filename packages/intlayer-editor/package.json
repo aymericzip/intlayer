@@ -110,22 +110,22 @@
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "4.1.14",
+    "@tailwindcss/vite": "4.1.15",
     "@types/compression": "1.8.1",
     "@types/cookie-parser": "1.4.9",
     "@types/cors": "2.8.19",
     "@types/express": "5.0.3",
-    "@types/node": "24.8.1",
+    "@types/node": "24.9.0",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "@utils/ts-config": "workspace:*",
     "@vitejs/plugin-react": "5.0.4",
     "autoprefixer": "10.4.21",
     "globals": "16.4.0",
-    "tailwindcss": "4.1.14",
+    "tailwindcss": "4.1.15",
     "tsdown": "0.15.8",
     "typescript": "5.9.3",
-    "vite": "7.1.10",
+    "vite": "7.1.11",
     "vitest": "3.2.4"
   },
   "peerDependencies": {

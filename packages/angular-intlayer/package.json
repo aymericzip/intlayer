@@ -93,7 +93,7 @@
     "uuid": "13.0.0"
   },
   "devDependencies": {
-    "@types/node": "24.8.1",
+    "@types/node": "24.9.0",
     "@types/webpack": "5.28.5",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

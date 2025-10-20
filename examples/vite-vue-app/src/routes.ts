@@ -41,6 +41,8 @@ const routes = localeFlatMap((localizedData) => [
   },
 ]);
 
+console.log('routes', routes);
+
 // Create the router instance
 export const router = createRouter({
   history: createWebHistory(),

@@ -46,7 +46,9 @@ export type DeclaredLocales = keyof __DeclaredLocalesRegistry extends never
   ? Locale
   : keyof __DeclaredLocalesRegistry; // 'en' | 'fr' | ...
 
-export type RequiredLocales = keyof __RequiredLocalesRegistry;
+export type RequiredLocales = keyof __RequiredLocalesRegistry extends never
+  ? never
+  : keyof __RequiredLocalesRegistry; // 'en' | 'fr' | ...
 
 /** Define MyType using the ValueOf utility type on Locales */
 export type LocalesValues = keyof __DeclaredLocalesRegistry extends never

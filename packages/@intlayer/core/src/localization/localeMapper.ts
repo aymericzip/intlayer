@@ -91,7 +91,7 @@ export const localeFlatMap = <T>(
       defaultLocale,
       locales,
       isDefault: locale === defaultLocale,
-      urlPrefix: locale === defaultLocale && !prefixDefault ? '' : `/$locale`,
+      urlPrefix: locale === defaultLocale && !prefixDefault ? '' : `/${locale}`,
     })
   );
 

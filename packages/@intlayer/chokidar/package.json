@@ -89,7 +89,7 @@
   "devDependencies": {
     "@types/crypto-js": "4.2.2",
     "@types/deep-equal": "1.0.4",
-    "@types/node": "24.8.1",
+    "@types/node": "24.9.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
