@@ -5,8 +5,8 @@ import configuration from '@intlayer/config/built';
 import type {
   Dictionary,
   DictionaryKeys,
-  LanguageContent,
   LocalesValues,
+  StrictModeLocaleMap,
 } from '@intlayer/types';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
@@ -21,7 +21,7 @@ export const useDictionaryDynamic = <
   T extends Dictionary,
   K extends DictionaryKeys,
 >(
-  dictionaryPromise: LanguageContent<() => Promise<T>>,
+  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: K,
   locale?: LocalesValues
 ) => {

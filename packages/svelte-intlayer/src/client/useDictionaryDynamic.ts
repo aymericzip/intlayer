@@ -1,8 +1,8 @@
 import type {
   Dictionary,
   DictionaryKeys,
-  LanguageContent,
   LocalesValues,
+  StrictModeLocaleMap,
 } from '@intlayer/types';
 import { derived, type Readable, writable } from 'svelte/store';
 import { getIntlayerContext } from './intlayerContext';
@@ -19,7 +19,7 @@ export const useDictionaryDynamic = <
   T extends Dictionary,
   K extends DictionaryKeys,
 >(
-  dictionaryPromise: LanguageContent<() => Promise<T>>,
+  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: K,
   locale?: LocalesValues
 ): Readable<T | null> => {

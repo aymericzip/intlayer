@@ -12,12 +12,12 @@ import type {
   Dictionary,
   DictionaryKeys,
   IntlayerConfig,
-  LanguageContent,
+  StrictModeLocaleMap,
 } from '@intlayer/types';
 
 export type DynamicDictionaries = Record<
   DictionaryKeys,
-  LanguageContent<Dictionary>
+  StrictModeLocaleMap<Dictionary>
 >;
 
 type GetDynamicDictionaries = (
@@ -32,7 +32,10 @@ export const getDynamicDictionaries: GetDynamicDictionaries = (
   // Always use cjs for dictionaries entry as it uses require
   const dictionariesPath = join(content.mainDir, `dynamic_dictionaries.cjs`);
 
-  let dictionaries: Record<DictionaryKeys, LanguageContent<Dictionary>> = {};
+  let dictionaries: Record<
+    DictionaryKeys,
+    StrictModeLocaleMap<Dictionary>
+  > = {};
 
   if (existsSync(dictionariesPath)) {
     // Clear cache for dynamic_dictionaries.cjs and all its dependencies (JSON files)

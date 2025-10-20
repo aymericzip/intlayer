@@ -1,7 +1,7 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
 import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useLocaleCookie } from './useLocaleCookie';
@@ -11,9 +11,9 @@ type UseLocaleProps = {
 };
 
 type UseLocaleResult = {
-  locale: LocalesValues;
-  defaultLocale: LocalesValues;
-  availableLocales: LocalesValues[];
+  locale: DeclaredLocales;
+  defaultLocale: DeclaredLocales;
+  availableLocales: DeclaredLocales[];
   setLocale: (locale: LocalesValues) => void;
 };
 
@@ -50,5 +50,5 @@ export const useLocale = ({
     defaultLocale, // Principal locale defined in config
     availableLocales, // List of the available locales defined in config
     setLocale, // Function to set the locale
-  };
+  } as UseLocaleResult;
 };

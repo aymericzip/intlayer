@@ -1,6 +1,6 @@
 // Import required modules and types from their respective locations.
 
-import { type LanguageContent, Locales } from '@intlayer/types';
+import { Locales, type StrictModeLocaleMap } from '@intlayer/types';
 import { logger } from '@logger';
 import { formatPaginatedResponse, formatResponse } from '@utils/responseData';
 import type { Response } from 'express';
@@ -91,14 +91,17 @@ export class ErrorHandler {
   static handleCustomErrorResponse<T>(
     res: Response,
     errorKey: ErrorCodes | string,
-    title: LanguageContent<string> | string,
-    message: LanguageContent<string> | string,
+    title: StrictModeLocaleMap<string> | string,
+    message: StrictModeLocaleMap<string> | string,
     messageDetails?: object,
     statusCode?: HttpStatusCodes,
     isPaginatedResponse: boolean = false
   ) {
-    const errorTitle = t(title as LanguageContent<string>, Locales.ENGLISH);
-    const errorMessage = t(message as LanguageContent<string>, Locales.ENGLISH);
+    const errorTitle = t(title as StrictModeLocaleMap<string>, Locales.ENGLISH);
+    const errorMessage = t(
+      message as StrictModeLocaleMap<string>,
+      Locales.ENGLISH
+    );
     logger.error(errorMessage, messageDetails); // Log the English version of the error message.
     const status = statusCode ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500; // Default to 500 if no status code is provided.
 

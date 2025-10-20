@@ -8,12 +8,12 @@ import { getServerContext } from './serverContext';
  *
  * If the locale is not provided, it will use the locale from the server context
  */
-export const useIntlayer = <T extends DictionaryKeys, K extends LocalesValues>(
+export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,
-  locale?: K
+  locale?: L
 ) => {
   const localeTarget =
     locale ?? getServerContext<LocalesValues>(IntlayerServerContext);
 
-  return getIntlayer(key, localeTarget);
+  return getIntlayer<T, L>(key, localeTarget as L);
 };

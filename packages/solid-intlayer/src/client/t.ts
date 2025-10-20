@@ -1,5 +1,5 @@
 import { getTranslation } from '@intlayer/core';
-import type { LanguageContent, Locales } from '@intlayer/types';
+import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 
@@ -9,8 +9,8 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * If the locale is not provided, it will use the locale from the client context
  */
 export const t = <Content = string>(
-  multilangContent: LanguageContent<Content>,
-  locale?: Locales
+  multilangContent: StrictModeLocaleMap<Content>,
+  locale?: LocalesValues
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
   const localeTarget =

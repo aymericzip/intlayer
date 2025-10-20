@@ -1,4 +1,4 @@
-import type { LanguageContent, LocalesValues } from '@intlayer/types';
+import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
 
 /**
  *
@@ -22,7 +22,7 @@ import type { LanguageContent, LocalesValues } from '@intlayer/types';
  * - If a locale is missing, it will make each existing locale optional and raise an error if the locale is not found.
  */
 export const getTranslation = <Content = string>(
-  languageContent: LanguageContent<Content>,
+  languageContent: StrictModeLocaleMap<Content>,
   locale?: LocalesValues,
   fallback?: LocalesValues
 ): Content => {

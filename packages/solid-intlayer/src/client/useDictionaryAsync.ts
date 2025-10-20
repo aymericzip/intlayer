@@ -1,8 +1,9 @@
 import configuration from '@intlayer/config/built';
 import type {
+  DeclaredLocales,
   Dictionary,
-  LanguageContent,
   LocalesValues,
+  StrictModeLocaleMap,
 } from '@intlayer/types';
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -13,9 +14,12 @@ import { useDictionary } from './useDictionary';
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useDictionaryAsync = async <T extends Dictionary>(
-  dictionaryPromise: LanguageContent<() => Promise<T>>,
-  locale?: LocalesValues
+export const useDictionaryAsync = async <
+  T extends Dictionary,
+  L extends LocalesValues = DeclaredLocales,
+>(
+  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
+  locale?: L
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
   const defaultLocale = configuration?.internationalization.defaultLocale;
@@ -24,6 +28,5 @@ export const useDictionaryAsync = async <T extends Dictionary>(
   const dictionary =
     await dictionaryPromise[localeTarget as keyof typeof dictionaryPromise]?.();
 
-  // biome-ignore lint/style/noNonNullAssertion: <Dictionary can be null>
-  return useDictionary(dictionary!, localeTarget);
+  return useDictionary<T, L>(dictionary!, localeTarget as L);
 };

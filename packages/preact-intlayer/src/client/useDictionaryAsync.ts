@@ -3,8 +3,8 @@
 import configuration from '@intlayer/config/built';
 import type {
   Dictionary,
-  LanguageContent,
   LocalesValues,
+  StrictModeLocaleMap,
 } from '@intlayer/types';
 import { useContext, useMemo } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -16,7 +16,7 @@ import { useDictionary } from './useDictionary';
  * If the locale is not provided, it will use the locale from the client context
  */
 export const useDictionaryAsync = async <T extends Dictionary>(
-  dictionaryPromise: LanguageContent<() => Promise<T>>,
+  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: LocalesValues
 ): Promise<T> => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);

@@ -12,10 +12,10 @@ type DeclarationContent<T = undefined> = Dictionary<T>;
 
 export {
   type ContentNode,
-  type LanguageContent,
   type Locale,
   Locales,
   type LocalesValues,
+  type StrictModeLocaleMap,
 } from '@intlayer/types';
 export type { DeclarationContent, Dictionary, IntlayerConfig };
 

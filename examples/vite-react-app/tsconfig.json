@@ -5,7 +5,7 @@
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "skipLibCheck": true,
+    "skipLibCheck": false,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -15,6 +15,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "types": ["vite/client"],
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,

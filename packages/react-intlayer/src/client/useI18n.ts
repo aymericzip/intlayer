@@ -2,6 +2,7 @@
 
 import { getIntlayer, type ValidDotPathsFor } from '@intlayer/core';
 import type {
+  DeclaredLocales,
   DictionaryKeys,
   DictionaryRegistryContent,
   GetSubPath,
@@ -28,7 +29,10 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * const ariaLabel = t('button.ariaLabel').value; // 'Close modal'
  * ```
  */
-export const useI18n = <T extends DictionaryKeys, L extends LocalesValues>(
+export const useI18n = <
+  T extends DictionaryKeys,
+  L extends LocalesValues = DeclaredLocales,
+>(
   namespace: T,
   locale?: L
 ) => {

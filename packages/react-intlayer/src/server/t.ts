@@ -1,5 +1,5 @@
 import { getTranslation } from '@intlayer/core';
-import type { LanguageContent, LocalesValues } from '@intlayer/types';
+import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 
@@ -25,7 +25,7 @@ import { getServerContext } from './serverContext';
  * - If a locale is missing, it will make each existing locale optional and raise an error if the locale is not found.
  */
 export const t = <Content = string>(
-  multilangContent: LanguageContent<Content>,
+  multilangContent: StrictModeLocaleMap<Content>,
   locale?: LocalesValues
 ) => {
   const currentLocale = getServerContext<LocalesValues>(IntlayerServerContext);

@@ -1,11 +1,18 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
 import { createEffect, useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useLocaleCookie } from './useLocaleCookie';
 
 type useLocaleProps = {
   onLocaleChange?: (locale: LocalesValues) => void;
+};
+
+type UseLocaleResult = {
+  locale: DeclaredLocales;
+  defaultLocale: DeclaredLocales;
+  availableLocales: DeclaredLocales[];
+  setLocale: (locale: LocalesValues) => void;
 };
 
 /**
@@ -42,5 +49,5 @@ export const useLocale = ({ onLocaleChange }: useLocaleProps = {}) => {
     defaultLocale, // Principal locale defined in config
     availableLocales, // List of the available locales defined in config
     setLocale, // Function to set the locale
-  };
+  } as unknown as UseLocaleResult;
 };

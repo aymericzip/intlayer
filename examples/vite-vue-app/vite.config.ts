@@ -13,7 +13,7 @@ export default defineConfig({
 
     alias: {
       vue: createRequire(import.meta.url).resolve('vue'),
-      '@': fileURLToPath(new URL('./src', import.meta.url)), // optionnel mais souvent utile
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@components': fileURLToPath(
         new URL('./src/components', import.meta.url)
       ),

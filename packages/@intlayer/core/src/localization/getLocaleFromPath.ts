@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { Locales } from '@intlayer/types';
+import { type Locale, Locales } from '@intlayer/types';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 
 /**
@@ -21,7 +21,7 @@ import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
  * @param inputUrl - The complete URL string or pathname to process.
  * @returns The detected locale or default (en) if no locale is found
  */
-export const getLocaleFromPath = (inputUrl: string): Locales => {
+export const getLocaleFromPath = (inputUrl: string): Locale => {
   // Define supported locales array
   const { defaultLocale, locales } = configuration?.internationalization ?? {};
 

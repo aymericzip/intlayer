@@ -4,8 +4,8 @@ import { computed, inject } from '@angular/core';
 import configuration from '@intlayer/config/built';
 import type {
   Dictionary,
-  LanguageContent,
   LocalesValues,
+  StrictModeLocaleMap,
 } from '@intlayer/types';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
@@ -16,7 +16,7 @@ import { useDictionary } from './useDictionary';
  * If the locale is not provided, it will use the locale from the client context
  */
 export const useDictionaryAsync = async <T extends Dictionary>(
-  dictionaryPromise: LanguageContent<() => Promise<T>>,
+  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: LocalesValues
 ) => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN);

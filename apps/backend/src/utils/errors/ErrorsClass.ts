@@ -1,6 +1,6 @@
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
 // @ts-ignore express-intlayer not build yet
-import { type LanguageContent, t } from 'express-intlayer';
+import { type StrictModeLocaleMap, t } from 'express-intlayer';
 import { type ErrorCodes, errorData } from './errorCodes';
 
 /**
@@ -13,9 +13,9 @@ export class AppError extends Error {
   public isMultilingual: boolean = true;
   public errorKey: string;
   public title: string;
-  public multilingualTitle: LanguageContent<string>;
+  public multilingualTitle: StrictModeLocaleMap<string>;
   public message: string;
-  public multilingualMessage: LanguageContent<string>;
+  public multilingualMessage: StrictModeLocaleMap<string>;
   public httpStatusCode: HttpStatusCodes;
   public messageDetails?: object;
 
@@ -25,8 +25,8 @@ export class AppError extends Error {
    * @param httpStatusCode - Optional HTTP status code, defaults to 500 Internal Server Error.
    */
   constructor(
-    multilingualTitle: LanguageContent<string>,
-    multilingualMessage: LanguageContent<string>,
+    multilingualTitle: StrictModeLocaleMap<string>,
+    multilingualMessage: StrictModeLocaleMap<string>,
     errorKey: string,
     httpStatusCode: HttpStatusCodes = HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
     messageDetails?: object

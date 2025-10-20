@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { getTranslation } from '@intlayer/core';
-import type { LanguageContent } from '@intlayer/types';
+import type { StrictModeLocaleMap } from '@intlayer/types';
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 
@@ -26,7 +26,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * - If a locale is missing, it will make each existing locale optional and raise an error if the locale is not found.
  */
 export const useTranslation = <Content = string>(
-  languageContent: LanguageContent<Content>
+  languageContent: StrictModeLocaleMap<Content>
 ): Content => {
   const { locale } = useContext(IntlayerClientContext) ?? {};
 

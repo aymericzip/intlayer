@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
 
 import Cookies from 'js-cookie';
 
@@ -17,7 +17,7 @@ const cookieAttributes: Cookies.CookieAttributes = {
  * Get the locale cookie
  */
 export const localeCookie = Cookies.get(cookieName) as unknown as
-  | LocalesValues
+  | DeclaredLocales
   | undefined;
 
 /**

@@ -32,7 +32,7 @@
         { "type": "string" },
         {
           "type": "object",
-          "description": "LanguageContent<string> - object with locale codes as keys and string values",
+          "description": "StrictModeLocaleMap<string> - object with locale codes as keys and string values",
           "additionalProperties": {
             "type": "string"
           }

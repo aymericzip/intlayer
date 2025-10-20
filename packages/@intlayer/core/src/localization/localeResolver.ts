@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { Locales, LocalesValues } from '@intlayer/types';
+import type { Locale, LocalesValues } from '@intlayer/types';
 
 /**
  * Resolves the most specific locale from a user-provided list,
@@ -10,7 +10,7 @@ export const localeResolver = (
   locales: LocalesValues[] = configuration?.internationalization?.locales,
   defaultLocale: LocalesValues = configuration?.internationalization
     ?.defaultLocale
-): Locales => {
+): Locale => {
   // Ensure we can handle both a single locale or an array of locales uniformly
   const requestedLocales = [selectedLocale].flat();
 
