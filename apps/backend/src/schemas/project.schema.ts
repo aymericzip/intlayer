@@ -33,12 +33,12 @@ const projectConfigSchema = new Schema<Project['configuration']>(
     internationalization: {
       locales: {
         type: [String],
-        enum: Object.values(Locales),
+        enum: Object.values(Locales.ALL_LOCALES),
         required: true,
       },
       defaultLocale: {
         type: String,
-        enum: Object.values(Locales),
+        enum: Object.values(Locales.ALL_LOCALES),
       },
     },
     editor: {
