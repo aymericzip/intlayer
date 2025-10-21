@@ -11,14 +11,13 @@ import type {
   IntlayerConfig,
   LogConfig,
   LogFunctions,
-  MiddlewareConfig,
   PatternsContentConfig,
+  RoutingConfig,
 } from '@intlayer/types';
 import {
   IMPORT_MODE,
   OPTIMIZE,
   OUTPUT_FORMAT,
-  REQUIRE,
   TRAVERSE_PATTERN,
 } from '../defaultValues/build';
 import {
@@ -57,13 +56,11 @@ import {
 import { MODE, PREFIX } from '../defaultValues/log';
 import {
   BASE_PATH,
-  COOKIE_NAME,
   DETECT_LOCALE_ON_PREFETCH_NO_PREFIX,
   HEADER_NAME,
-  NO_PREFIX,
-  PREFIX_DEFAULT,
-  SERVER_SET_COOKIE,
-} from '../defaultValues/middleware';
+  ROUTING_MODE,
+} from '../defaultValues/routing';
+import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 import { normalizePath } from '../utils/normalizePath';
 
 let storedConfiguration: IntlayerConfig;
@@ -111,36 +108,47 @@ const buildInternationalizationFields = (
   defaultLocale: customConfiguration?.defaultLocale ?? DEFAULT_LOCALE,
 });
 
-const buildMiddlewareFields = (
-  customConfiguration?: Partial<MiddlewareConfig>
-): MiddlewareConfig => ({
+const buildRoutingFields = (
+  customConfiguration?: Partial<RoutingConfig>
+): RoutingConfig => ({
+  /**
+   * URL routing mode for locale handling
+   *
+   * Controls how locales are represented in application URLs:
+   * - 'prefix-no-default': Prefix all locales except the default locale (default)
+   *    - en → /dashboard
+   *    - fr → /fr/dashboard
+   *
+   * - 'prefix-all': Prefix all locales including the default locale
+   *    - en → /en/dashboard
+   *    - fr → /fr/dashboard
+   *
+   * - 'search-params': Use search parameters for locale handling
+   *    - en → /dashboard?locale=en
+   *    - fr → /fr/dashboard?locale=fr
+   *
+   * - 'no-prefix': No locale prefixing in URLs
+   *    - en → /dashboard
+   *    - fr → /dashboard
+   *
+   * Default: 'prefix-no-default'
+   */
+  mode: customConfiguration?.mode ?? ROUTING_MODE,
+
+  /**
+   * Configuration for storing the locale in the client (localStorage or sessionStorage)
+   *
+   * If false, the locale will not be stored by the middleware.
+   * If true, the locale storage will consider all default values.
+   */
+  storage: 'localStorage',
+
   /**
    * Header name to get the locale
    *
    * Default: 'x-intlayer-locale'
    */
   headerName: customConfiguration?.headerName ?? HEADER_NAME,
-
-  /**
-   * Cookie name to get the locale
-   *
-   * Default: 'intlayer-locale'
-   */
-  cookieName: customConfiguration?.cookieName ?? COOKIE_NAME,
-
-  /**
-   * Prefix default prefix the default locale to the path as other locales.
-   *
-   * Example with prefixDefault = true and defaultLocale = 'en':
-   * path = /en/dashboard or /fr/dashboard
-   *
-   * Example with prefixDefault = false and defaultLocale = 'en':
-   * path = /dashboard or /fr/dashboard
-   *
-   *
-   * Default: false
-   */
-  prefixDefault: customConfiguration?.prefixDefault ?? PREFIX_DEFAULT,
 
   /**
    * Base path of the application URL
@@ -154,30 +162,6 @@ const buildMiddlewareFields = (
    * - If the base path is not set, the URL will be https://example.com/en
    */
   basePath: customConfiguration?.basePath ?? BASE_PATH,
-
-  /**
-   * Rule to set the cookie on the server
-   * - 'always': Set the cookie on every request
-   * - 'never': Never set the cookie
-   */
-  serverSetCookie: customConfiguration?.serverSetCookie ?? SERVER_SET_COOKIE,
-
-  /**
-   * No prefix in the URL
-   * - true: No prefix in the URL
-   * - false: Prefix in the URL
-   *
-   * Example:
-   * - If the application is hosted at https://example.com/my-app
-   * - The base path is '/my-app'
-   * - The URL will be https://example.com/my-app/en
-   * - If the base path is not set, the URL will be https://example.com/en
-   * - If no prefix is set, the URL will be https://example.com/en
-   * - If the no prefix is set to true, the URL will be https://example.com
-   *
-   * Default: false
-   */
-  noPrefix: customConfiguration?.noPrefix ?? NO_PREFIX,
 
   /**
    * Controls whether locale detection occurs during Next.js prefetch requests
@@ -642,7 +626,7 @@ const buildLogFields = (
   /**
    * Indicates if the logger is enabled
    *
-   * Default: 'default'
+   * Default: 'prefix-no-default'
    *
    * If 'default', the logger is enabled and can be used.
    * If 'verbose', the logger will be enabled and can be used, but will log more information.
@@ -777,7 +761,7 @@ const buildBuildFields = (
   /**
    * Require function
    */
-  require: customConfiguration?.require ?? REQUIRE,
+  require: customConfiguration?.require ?? ESMxCJSRequire,
 });
 
 /**
@@ -792,9 +776,7 @@ export const buildConfigurationFields = (
     customConfiguration?.internationalization
   );
 
-  const middlewareConfig = buildMiddlewareFields(
-    customConfiguration?.middleware
-  );
+  const routingConfig = buildRoutingFields(customConfiguration?.routing);
 
   const contentConfig = buildContentFields(
     customConfiguration?.content,
@@ -811,7 +793,7 @@ export const buildConfigurationFields = (
 
   storedConfiguration = {
     internationalization: internationalizationConfig,
-    middleware: middlewareConfig,
+    routing: routingConfig,
     content: contentConfig,
     editor: editorConfig,
     log: logConfig,

@@ -6,13 +6,13 @@ declare module '@intlayer/core' {
 }
 
 export {
-  getBrowserLocale,
   IntlayerClientContext,
   IntlayerProvider,
   IntlayerProviderContent,
   type IntlayerProviderProps,
   localeCookie,
   setLocaleCookie,
+  setLocaleInStorage,
   t,
   useDictionary,
   useDictionaryAsync,
@@ -23,6 +23,7 @@ export {
   useLocale,
   useLocaleBase,
   useLocaleCookie,
+  useLocaleStorage,
 } from './client/index';
 export type { IntlayerNode } from './IntlayerNode';
 export { MarkdownProvider } from './markdown/index';

@@ -13,6 +13,7 @@ let instance: IntlayerProvider | null = null;
   providedIn: 'root',
 })
 export class IntlayerProvider {
+  isCookieEnabled = signal(true);
   private _locale = signal<LocalesValues>(
     configuration.internationalization?.defaultLocale as LocalesValues
   );
@@ -28,7 +29,8 @@ export class IntlayerProvider {
  * Create and return a single IntlayerProvider instance
  */
 export const createIntlayerClient = (
-  locale?: LocalesValues
+  locale?: LocalesValues,
+  isCookieEnabled = true
 ): IntlayerProvider => {
   if (instance) return instance;
 
@@ -37,6 +39,7 @@ export const createIntlayerClient = (
   if (locale) {
     instance.setLocale(locale);
   }
+  instance.isCookieEnabled.set(isCookieEnabled);
 
   return instance;
 };
@@ -44,8 +47,11 @@ export const createIntlayerClient = (
 /**
  * Helper to install the Intlayer provider
  */
-export const installIntlayer = (locale?: LocalesValues) => {
-  const client = createIntlayerClient(locale);
+export const installIntlayer = (
+  locale?: LocalesValues,
+  isCookieEnabled = true
+) => {
+  const client = createIntlayerClient(locale, isCookieEnabled);
 
   // Note: Angular editor installation will be handled differently
   // installIntlayerEditor();

@@ -8,6 +8,7 @@ export {
   getConfigurationAndFilePath,
 } from './configFile/getConfiguration';
 export { searchConfigurationFile } from './configFile/searchConfigurationFile';
+export * as DefaultValues from './defaultValues';
 export { getEnvFilePath, loadEnvFile } from './loadEnvFile';
 export { bundleFile, bundleFileSync } from './loadExternalFile/bundleFile';
 export {

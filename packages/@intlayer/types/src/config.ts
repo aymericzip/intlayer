@@ -47,12 +47,155 @@ export type InternationalizationConfig = {
   defaultLocale: Locale;
 };
 
-export type ServerSetCookieRule = 'always' | 'never';
+export type CookiesAttributes = {
+  /**
+   * Type of the storage
+   *
+   * The type of the storage. It can be 'cookie'.
+   */
+  type: 'cookie';
+  /**
+   * Cookie name to store the locale information
+   *
+   * Default: 'INTLAYER_LOCALE'
+   *
+   * The cookie key where the locale information is stored.
+   */
+  name?: string;
+  /**
+   * Cookie domain to store the locale information
+   *
+   * Default: undefined
+   *
+   * Define the domain where the cookie is available. Defaults to
+   * the domain of the page where the cookie was created.
+   */
+  domain?: string;
+  /**
+   * Cookie path to store the locale information
+   *
+   * Default: undefined
+   *
+   * Define the path where the cookie is available. Defaults to '/'
+   */
+  path?: string;
+  /**
+   * Cookie secure to store the locale information
+   *
+   * Default: undefined
+   *
+   * A Boolean indicating if the cookie transmission requires a
+   * secure protocol (https). Defaults to false.
+   */
+  secure?: boolean;
+  /**
+   * Cookie httpOnly to store the locale information
+   *
+   * Default: undefined
+   *
+   * The cookie httpOnly where the locale information is stored.
+   */
+  httpOnly?: boolean;
+  /**
+   * Cookie sameSite to store the locale information
+   *
+   * Default: undefined
+   *
+   * Asserts that a cookie must not be sent with cross-origin requests,
+   * providing some protection against cross-site request forgery
+   * attacks (CSRF)
+   */
+  sameSite?: 'strict' | 'lax' | 'none';
+
+  /**
+   * Cookie expires to store the locale information
+   *
+   * Default: undefined
+   *
+   * Define when the cookie will be removed. Value can be a Number
+   * which will be interpreted as days from time of creation or a
+   * Date instance. If omitted, the cookie becomes a session cookie.
+   */
+  expires?: Date | number | undefined;
+};
+
+export type LocaleStorageAttributes = {
+  /**
+   * Storage type where the locale is stored
+   *
+   * Default: 'localStorage'
+   *
+   * Determines whether the locale is persisted in `localStorage` (across sessions)
+   * or `sessionStorage` (cleared when the browser session ends).
+   */
+  type: 'localStorage' | 'sessionStorage';
+
+  /**
+   * Storage key to store the locale information
+   *
+   * Default: 'INTLAYER_LOCALE'
+   *
+   * The key name used in the client storage to save the locale.
+   */
+  name?: string;
+};
 
 /**
- * Configuration for middleware behaviors
+ * Configuration for routing behaviors
  */
-export type MiddlewareConfig = {
+export type RoutingConfig = {
+  /**
+   * URL routing mode for locale handling
+   *
+   * Controls how locales are represented in application URLs:
+   * - 'prefix-no-default': Prefix all locales except the default locale
+   * - 'prefix-all': Prefix all locales including the default locale
+   * - 'no-prefix': No locale prefixing in URLs
+   * - 'search-params': Use search parameters for locale handling
+   *
+   * Examples with defaultLocale = 'en':
+   * - 'prefix-no-default': /dashboard (en) or /fr/dashboard (fr)
+   * - 'prefix-all': /en/dashboard (en) or /fr/dashboard (fr)
+   * - 'no-prefix': /dashboard (locale handled via other means)
+   * - 'search-params': /dashboard?locale=fr
+   *
+   * Note: This setting do not impact the cookie, or locale storage management.
+   *
+   * Default: 'prefix-no-default'
+   */
+  mode: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+
+  /**
+   * Configuration for storing the locale in the client (localStorage or sessionStorage)
+   *
+   * If false, the locale will not be stored by the middleware.
+   * If true, the locale storage will consider all default values.
+   *
+   * Default: 'cookie'
+   *
+   * Note: Check out GDPR compliance for cookies. See https://gdpr.eu/cookies/
+   * Note: useLocale hook includes a prop to disable the cookie storage.
+   * Note: Even if storage is disabled, the middleware will still detect the locale from the request header (1- check for `x-intlayer-locale`, 2- fallback to the `accept-language`).
+   *
+   * Recommendation:
+   * - Config both localStorage and cookies for the storage of the locale if you want to support GDPR compliance.
+   * - Disable the cookie storage by default on the useLocale hook by waiting for the user to consent to the cookie storage.
+   */
+  storage:
+    | false
+    | 'cookie'
+    | 'localStorage'
+    | 'sessionStorage'
+    | CookiesAttributes
+    | LocaleStorageAttributes
+    | (
+        | 'cookie'
+        | 'localStorage'
+        | 'sessionStorage'
+        | CookiesAttributes
+        | LocaleStorageAttributes
+      )[];
+
   /**
    * Header name to get the locale from the request
    *
@@ -63,29 +206,6 @@ export type MiddlewareConfig = {
   headerName: string;
 
   /**
-   * Cookie name to store the locale information
-   *
-   * Default: 'INTLAYER_LOCALE'
-   *
-   * The cookie key where the locale information is stored.
-   */
-  cookieName: string;
-
-  /**
-   * Prefix default prefix the default locale to the path as other locales.
-   *
-   * Example with prefixDefault = true and defaultLocale = 'en':
-   * path = /en/dashboard or /fr/dashboard
-   *
-   * Example with prefixDefault = false and defaultLocale = 'en':
-   * path = /dashboard or /fr/dashboard
-   *
-   *
-   * Default: false
-   */
-  prefixDefault: boolean;
-
-  /**
    * Base path for application URLs
    *
    * Default: ''
@@ -93,24 +213,6 @@ export type MiddlewareConfig = {
    * Defines the base path where the application is accessible from.
    */
   basePath: string;
-
-  /**
-   * Strategy for setting the locale cookie on the server
-   *
-   * Default: 'always'
-   *
-   * This setting controls when the server sets the locale cookie. It can either set the cookie on every request or never set it.
-   */
-  serverSetCookie: ServerSetCookieRule;
-
-  /**
-   * Indicates if no prefix should be used in the URL for locale
-   *
-   * Default: false
-   *
-   * If true, no locale-based prefix is used in the URL.
-   */
-  noPrefix: boolean;
 
   /**
    * Controls whether locale detection occurs during Next.js prefetch requests
@@ -469,9 +571,9 @@ export type CustomIntlayerConfig = {
   internationalization?: Partial<InternationalizationConfig>;
 
   /**
-   * Custom middleware configuration
+   * Custom routing configuration
    */
-  middleware?: Partial<MiddlewareConfig>;
+  routing?: Partial<RoutingConfig>;
 
   /**
    * Custom content configuration
@@ -484,7 +586,7 @@ export type CustomIntlayerConfig = {
   editor?: Partial<EditorConfig>;
 
   /**
-   * Custom middleware configuration
+   * Custom log configuration
    */
   log?: Partial<LogConfig>;
 
@@ -514,9 +616,9 @@ export type IntlayerConfig = {
   internationalization: InternationalizationConfig;
 
   /**
-   * Middleware configuration
+   * Routing configuration
    */
-  middleware: MiddlewareConfig;
+  routing: RoutingConfig;
 
   /**
    * Content configuration

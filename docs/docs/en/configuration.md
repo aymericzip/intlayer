@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-10-12
+updatedAt: 2025-10-21
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -14,7 +14,10 @@ slugs:
   - concept
   - configuration
 history:
-  - version: 6.2.0
+  - version: 7.0.0
+    date: 2025-10-21
+    changes: Replace `middleware` by `routing` configuration
+  - version: 7.0.0
     date: 2025-10-12
     changes: Add `formatCommand` option
   - version: 6.2.0
@@ -294,11 +297,62 @@ Defines settings related to the integrated editor, including server port and act
   - _Example_: `'npx eslint --fix {{file}}'` Using ESLint
   - _Note_: Intlayer will replace the {{file}} with the path of the file to format.
 
-### Middleware Configuration
+### Routing Configuration
 
-Settings that control middleware behavior, including how the application handles cookies, headers, and URL prefixes for locale management.
+Settings that control routing behavior, including URL structure, locale storage, and middleware handling.
 
 #### Properties
+
+- **mode**:
+  - _Type_: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+  - _Default_: `'prefix-no-default'`
+  - _Description_: URL routing mode for locale handling.
+  - _Examples_:
+    - `'prefix-no-default'`: `/dashboard` (en) or `/fr/dashboard` (fr)
+    - `'prefix-all'`: `/en/dashboard` (en) or `/fr/dashboard` (fr)
+    - `'no-prefix'`: `/dashboard` (locale handled via other means)
+    - `'search-params'`: `/dashboard?locale=fr`
+  - _Note_: This setting does not impact cookie or locale storage management.
+
+- **storage**:
+  - _Type_: `false | 'cookie' | 'localStorage' | 'sessionStorage' | CookiesAttributes | LocaleStorageAttributes | Array`
+  - _Default_: `'localStorage'`
+  - _Description_: Configuration for storing the locale in the client.
+  - _Examples_:
+
+    ```typescript
+    // Disable storage
+    storage: false
+
+    // Simple storage types
+    storage: 'cookie'
+    storage: 'localStorage'
+    storage: 'sessionStorage'
+
+    // Cookie with custom attributes
+    storage: {
+      type: 'cookie',
+      name: 'custom-locale',
+      domain: '.example.com',
+      secure: true,
+      sameSite: 'strict'
+    }
+
+    // localStorage with custom key
+    storage: {
+      type: 'localStorage',
+      name: 'custom-locale'
+    }
+
+    // Multiple storage types
+    storage: ['cookie', 'localStorage']
+    ```
+
+  - _Note_:
+    - If `false`, the locale will not be stored by the middleware
+    - Check GDPR compliance for cookies. See https://gdpr.eu/cookies/
+    - Recommendation: Configure both localStorage and cookies for GDPR compliance
+    - Disable cookie storage by default on the useLocale hook until user consent
 
 - **headerName**:
   - _Type_: `string`
@@ -306,22 +360,6 @@ Settings that control middleware behavior, including how the application handles
   - _Description_: The name of the HTTP header used to determine the locale.
   - _Example_: `'x-custom-locale'`
   - _Note_: This is useful for API-based locale determination.
-
-- **cookieName**:
-  - _Type_: `string`
-  - _Default_: `'intlayer-locale'`
-  - _Description_: The name of the cookie used to store the locale.
-  - _Example_: `'custom-locale'`
-  - _Note_: Used to persist the locale across sessions.
-
-- **prefixDefault**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Whether to include the default locale in the URL.
-  - _Example_: `true`
-  - _Note_:
-    - If `true` and `defaultLocale = 'en'`: path = `/en/dashboard` or `/fr/dashboard`
-    - If `false` and `defaultLocale = 'en'`: path = `/dashboard` or `/fr/dashboard`
 
 - **basePath**:
   - _Type_: `string`
@@ -333,26 +371,6 @@ Settings that control middleware behavior, including how the application handles
     - The base path is `'/my-app'`
     - The URL will be `https://example.com/my-app/en`
     - If the base path is not set, the URL will be `https://example.com/en`
-
-- **serverSetCookie**:
-  - _Type_: `string`
-  - _Default_: `'always'`
-  - _Description_: Rule for setting the locale cookie on the server.
-  - _Options_: `'always'`, `'never'`
-  - _Example_: `'never'`
-  - _Note_: Controls whether the locale cookie is set on every request or never.
-
-- **noPrefix**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Whether to omit the locale prefix from URLs.
-  - _Example_: `true`
-  - _Note_:
-    - If `true`: No prefix in the URL
-    - If `false`: Prefix in the URL
-    - Example with `basePath = '/my-app'`:
-      - If `noPrefix = false`: URL will be `https://example.com/my-app/en`
-      - If `noPrefix = true`: URL will be `https://example.com`
 
 - **detectLocaleOnPrefetchNoPrefix**:
   - _Type_: `boolean`
@@ -377,6 +395,120 @@ Settings that control middleware behavior, including how the application handles
       - Your app uses locale-prefixed links (e.g. `<a href="/fr/about">`)
       - You want to optimize prefetching performance
       - You want to avoid potential redirect loops
+
+#### Cookie Attributes
+
+When using cookie storage, you can configure additional cookie attributes:
+
+- **name**: Cookie name (default: `'INTLAYER_LOCALE'`)
+- **domain**: Cookie domain (default: undefined)
+- **path**: Cookie path (default: undefined)
+- **secure**: Require HTTPS (default: undefined)
+- **httpOnly**: HTTP-only flag (default: undefined)
+- **sameSite**: SameSite policy (`'strict' | 'lax' | 'none'`)
+- **expires**: Expiration date or days (default: undefined)
+
+#### Locale Storage Attributes
+
+When using localStorage or sessionStorage:
+
+- **type**: Storage type (`'localStorage' | 'sessionStorage'`)
+- **name**: Storage key name (default: `'INTLAYER_LOCALE'`)
+
+#### Configuration Examples
+
+Here are some common configuration examples for the new v7 routing structure:
+
+**Basic Configuration (Default)**:
+
+```typescript
+// intlayer.config.ts
+export default defineConfig({
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: "localStorage",
+    headerName: "x-intlayer-locale",
+    basePath: "",
+    detectLocaleOnPrefetchNoPrefix: false,
+  },
+});
+```
+
+**GDPR Compliant Configuration**:
+
+```typescript
+// intlayer.config.ts
+export default defineConfig({
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: [
+      {
+        type: "localStorage",
+        name: "user-locale",
+      },
+      {
+        type: "cookie",
+        name: "user-locale",
+        secure: true,
+        sameSite: "strict",
+        httpOnly: false,
+      },
+    ],
+    headerName: "x-intlayer-locale",
+    basePath: "",
+    detectLocaleOnPrefetchNoPrefix: false,
+  },
+});
+```
+
+**Search Parameters Mode**:
+
+```typescript
+// intlayer.config.ts
+export default defineConfig({
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "search-params",
+    storage: "localStorage",
+    headerName: "x-intlayer-locale",
+    basePath: "",
+    detectLocaleOnPrefetchNoPrefix: false,
+  },
+});
+```
+
+**No Prefix Mode with Custom Storage**:
+
+```typescript
+// intlayer.config.ts
+export default defineConfig({
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "no-prefix",
+    storage: {
+      type: "sessionStorage",
+      name: "app-locale",
+    },
+    headerName: "x-custom-locale",
+    basePath: "/my-app",
+    detectLocaleOnPrefetchNoPrefix: true,
+  },
+});
+```
 
 ---
 

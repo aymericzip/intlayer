@@ -4,31 +4,39 @@ import type { LocalesValues } from '@intlayer/types';
 import { getMultilingualUrls } from './getMultilingualUrls';
 
 /**
- * Generate URL by prefixing the given URL with the referenced locale.
- * Handles both absolute and relative URLs appropriately.
+ * Generate URL by prefixing the given URL with the referenced locale or adding search parameters
+ * based on the routing mode. Handles both absolute and relative URLs appropriately.
  *
- * This function get the locales, default locale, and prefix default from the configuration if not provided.
+ * This function gets the locales, default locale, and routing mode from the configuration if not provided.
  *
  * Example:
  *
  * ```ts
- *  getCurrentUrl('/about', currentLocale, ['en', 'fr'], 'en', false);
+ *  // prefix-no-default mode
+ *  getLocalizedUrl('/about', 'fr', ['en', 'fr'], 'en', 'prefix-no-default');
  *  // Returns '/fr/about' for the French locale
- *  // Returns '/about' for the default locale
- *  // Returns '/about' for the Italian locale
+ *  // Returns '/about' for the English locale (default)
  *
- *  getCurrentUrl('https://example.com/about', currentLocale, ['en', 'fr'], 'en', false);
- *  // Returns 'https://example.com/fr/about' for the French locale
- *  // Returns 'https://example.com/about' for the default locale
- *  // Returns 'https://example.com/about' for the Italian locale
+ *  // prefix-all mode
+ *  getLocalizedUrl('/about', 'en', ['en', 'fr'], 'en', 'prefix-all');
+ *  // Returns '/en/about' for the English locale
+ *  // Returns '/fr/about' for the French locale
+ *
+ *  // search-params mode
+ *  getLocalizedUrl('/about', 'fr', ['en', 'fr'], 'en', 'search-params');
+ *  // Returns '/about?locale=fr' for the French locale
+ *
+ *  // no-prefix mode
+ *  getLocalizedUrl('/about', 'fr', ['en', 'fr'], 'en', 'no-prefix');
+ *  // Returns '/about' for any locale
  * ```
  *
- * @param url - The original URL string to be prefixed with locales.
+ * @param url - The original URL string to be processed.
  * @param currentLocale - The current locale.
- * @param locales - Optional array of supported locales. Defaults to `localesDefault`.
- * @param defaultLocale - The default locale. Defaults to `defaultLocaleDefault`.
- * @param prefixDefault - Whether to prefix the default locale. Defaults to `prefixDefaultDefault`.
- * @returns An object mapping each locale to its corresponding multilingual URL.
+ * @param locales - Optional array of supported locales. Defaults to configured locales.
+ * @param defaultLocale - The default locale. Defaults to configured default locale.
+ * @param mode - URL routing mode for locale handling. Defaults to configured mode.
+ * @returns The localized URL for the current locale.
  */
 export const getLocalizedUrl = (
   url: string,
@@ -37,17 +45,24 @@ export const getLocalizedUrl = (
     ?.locales,
   defaultLocale: LocalesValues | undefined = configuration?.internationalization
     ?.defaultLocale,
-  prefixDefault: boolean | undefined = configuration?.middleware?.prefixDefault
+  mode:
+    | 'prefix-no-default'
+    | 'prefix-all'
+    | 'no-prefix'
+    | 'search-params'
+    | undefined = configuration?.routing?.mode
 ): string => {
-  // Remove any existing locale segment from the URL
+  // Get all multilingual URLs
   const urlWithoutLocale = getMultilingualUrls(
     url,
     locales,
     defaultLocale,
-    prefixDefault
+    mode
   );
 
-  return urlWithoutLocale[
-    currentLocale as unknown as keyof typeof urlWithoutLocale
-  ];
+  return (
+    urlWithoutLocale[
+      currentLocale as unknown as keyof typeof urlWithoutLocale
+    ] ?? url
+  );
 };

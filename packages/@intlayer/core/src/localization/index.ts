@@ -1,3 +1,4 @@
+export { getBrowserLocale, localeStorageOptions } from './getBrowserLocale';
 export { getHTMLTextDir } from './getHTMLTextDir';
 export { getLocaleFromPath } from './getLocaleFromPath';
 export { getLocaleLang } from './getLocaleLang';

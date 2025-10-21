@@ -135,7 +135,7 @@ export const createCachedIntl = (): WrappedIntl =>
   }) as unknown as WrappedIntl;
 
 // Singleton – import this in application code if you just want shared caches.
-const CachedIntl = createCachedIntl();
+export const CachedIntl = createCachedIntl();
 
 // new CachedIntl.DisplayNames(Locales.FRENCH, { type: 'language' });
 // new CachedIntl.DisplayNames('fr', { type: 'language' });

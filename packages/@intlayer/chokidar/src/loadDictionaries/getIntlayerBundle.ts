@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { builtinModules, createRequire } from 'node:module';
+import { join } from 'node:path';
 import type { ESBuildPlugin } from '@intlayer/config';
 import {
   bundleFile,
@@ -7,6 +8,7 @@ import {
   ESMxCJSRequire,
   isESModule,
 } from '@intlayer/config';
+import type { IntlayerConfig } from '@intlayer/types';
 
 /**
  * Rewrites selected bare specifiers (and any of their subpaths) to absolute file paths,
@@ -57,15 +59,22 @@ const rewritePathsPlugin = (
 /**
  * Get the intlayer bundle to embed @intlayer/core and be able to mock @intlayer/config/built to mock the configuration file.
  */
-export const getIntlayerBundle = async () => {
+export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
   const rootRequire = ESMxCJSRequire;
   const configPackageRequire = configESMxCJSRequire;
   const localRequire = isESModule ? createRequire(import.meta.url) : require;
 
+  const configurationPath = join(
+    configuration.content.configDir,
+    `configuration.json`
+  );
+
   const replaceModules = {
     deepmerge: localRequire.resolve('deepmerge'),
     esbuild: configPackageRequire.resolve('esbuild'),
+    '@intlayer/config/built': configurationPath,
     '@intlayer/config': localRequire.resolve('@intlayer/config'),
+    '@intlayer/config/client': localRequire.resolve('@intlayer/config/client'),
     '@intlayer/core/file': localRequire.resolve('@intlayer/core/file'),
   };
 
@@ -76,9 +85,9 @@ export const getIntlayerBundle = async () => {
     external: [
       ...builtinModules,
       ...builtinModules.map((mod) => `node:${mod}`),
-      '@intlayer/config/built',
     ],
-    plugins: [rewritePathsPlugin(replaceModules, ['@intlayer/config/built'])],
+    minify: true,
+    plugins: [rewritePathsPlugin(replaceModules)],
   });
 
   return output ?? '';

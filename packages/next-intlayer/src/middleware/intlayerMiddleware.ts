@@ -1,4 +1,5 @@
 import configuration from '@intlayer/config/built';
+import { getLocaleFromStorage } from '@intlayer/core';
 import type { Locale } from '@intlayer/types';
 import {
   type NextFetchEvent,
@@ -7,17 +8,15 @@ import {
 } from 'next/server';
 import { localeDetector } from './localeDetector';
 
-const { internationalization, middleware } = configuration ?? {};
+const { internationalization, routing } = configuration ?? {};
 const { locales, defaultLocale } = internationalization ?? {};
-const {
-  headerName,
-  cookieName,
-  prefixDefault,
-  basePath,
-  serverSetCookie,
-  noPrefix,
-  detectLocaleOnPrefetchNoPrefix,
-} = middleware ?? {};
+const { headerName, basePath, detectLocaleOnPrefetchNoPrefix, mode } =
+  routing ?? {};
+// Note: cookie names are resolved inside LocaleStorage based on configuration
+
+// Derived flags from routing.mode
+const noPrefix = mode === 'no-prefix' || mode === 'search-params';
+const prefixDefault = mode === 'prefix-all';
 
 /**
  * Detects if the request is a prefetch request from Next.js.
@@ -45,6 +44,19 @@ const isPrefetchRequest = (request: NextRequest): boolean => {
     !!nextUrl ||
     !!xNextjsData
   );
+};
+
+// Ensure locale is reflected in search params when routing mode is 'search-params'
+const appendLocaleSearchIfNeeded = (
+  search: string | undefined,
+  locale: Locale
+): string | undefined => {
+  if (mode !== 'search-params') return search;
+
+  const params = new URLSearchParams(search ?? '');
+
+  params.set('locale', locale);
+  return `?${params.toString()}`;
 };
 
 /**
@@ -108,13 +120,10 @@ export const intlayerMiddleware = (
  * @param request - The incoming Next.js request object.
  * @returns - The locale found in the cookies, or undefined if not found or invalid.
  */
-const getCookieLocale = (request: NextRequest): Locale | undefined => {
-  if (!cookieName) return undefined;
-  const cookieValue = request.cookies.get(cookieName)?.value as Locale;
-  if (cookieValue && locales.includes(cookieValue)) {
-    return cookieValue;
-  }
-};
+const getCookieLocale = (request: NextRequest): Locale | undefined =>
+  getLocaleFromStorage({
+    getCookie: (name: string) => request.cookies.get(name)?.value ?? null,
+  });
 
 /**
  * Handles the case where URLs do not have locale prefixes.
@@ -138,7 +147,7 @@ const handleNoPrefix = (
     pathname,
     basePath,
     basePathTrailingSlash,
-    request.nextUrl.search
+    appendLocaleSearchIfNeeded(request.nextUrl.search, locale)
   );
   return rewriteUrl(request, newPath, locale);
 };
@@ -230,7 +239,7 @@ const handleMissingPathLocale = (
     pathname,
     basePath,
     basePathTrailingSlash,
-    request.nextUrl.search
+    appendLocaleSearchIfNeeded(request.nextUrl.search, locale)
   );
 
   return prefixDefault || locale !== defaultLocale
@@ -256,10 +265,9 @@ const handleExistingPathLocale = (
   basePathTrailingSlash: boolean
 ): NextResponse => {
   if (
-    // If the cookie locale is set and differs from the locale in the URL, and server should not always set cookie
+    // If the cookie locale is set and differs from the locale in the URL
     cookieLocale &&
-    cookieLocale !== pathLocale &&
-    serverSetCookie !== 'always'
+    cookieLocale !== pathLocale
   ) {
     const newPath = handleCookieLocaleMismatch(
       request,
@@ -308,7 +316,7 @@ const handleCookieLocaleMismatch = (
     newPath,
     basePath,
     basePathTrailingSlash,
-    request.nextUrl.search
+    appendLocaleSearchIfNeeded(request.nextUrl.search, cookieLocale)
   );
 };
 
@@ -338,7 +346,13 @@ const handleDefaultLocaleRedirect = (
       pathWithoutLocale = pathWithoutLocale.slice(1);
     }
 
-    if (request.nextUrl.search) {
+    const searchWithLocale = appendLocaleSearchIfNeeded(
+      request.nextUrl.search,
+      pathLocale
+    );
+    if (searchWithLocale) {
+      pathWithoutLocale += searchWithLocale;
+    } else if (request.nextUrl.search) {
       pathWithoutLocale += request.nextUrl.search;
     }
 
@@ -347,7 +361,14 @@ const handleDefaultLocaleRedirect = (
 
   // If prefixing default locale is required or pathLocale is not the defaultLocale
 
-  return rewriteUrl(request, pathname, pathLocale);
+  const searchWithLocale = appendLocaleSearchIfNeeded(
+    request.nextUrl.search,
+    pathLocale
+  );
+  const newPath = searchWithLocale
+    ? `${pathname}${searchWithLocale}`
+    : pathname;
+  return rewriteUrl(request, newPath, pathLocale);
 };
 
 /**
@@ -367,9 +388,11 @@ const constructPath = (
   basePathTrailingSlash: boolean,
   search?: string
 ): string => {
-  let newPath = `${locale}${path}`;
+  // In 'search-params' mode, we do not prefix the path with the locale
+  const pathWithLocalePrefix =
+    mode === 'search-params' ? path : `${locale}${path}`;
 
-  newPath = `${basePath}${basePathTrailingSlash ? '' : '/'}${newPath}`;
+  let newPath = `${basePath}${basePathTrailingSlash ? '' : '/'}${pathWithLocalePrefix}`;
   if (search) {
     newPath += search;
   }

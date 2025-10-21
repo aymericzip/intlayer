@@ -48,6 +48,7 @@ export {
   date,
   enu,
   gender,
+  getBrowserLocale,
   getDictionary,
   getEnumeration,
   /**

@@ -6,7 +6,6 @@ declare module '@intlayer/core' {
 }
 
 // Import directly from individual files to avoid circular dependency issues
-export { getBrowserLocale } from './client/getBrowserLocale';
 export {
   IntlayerClientContext,
   IntlayerProvider,
@@ -25,9 +24,11 @@ export { useLocale } from './client/useLocale';
 export { useLocaleBase } from './client/useLocaleBase';
 export {
   localeCookie,
+  localeInStorage,
   setLocaleCookie,
+  setLocaleInStorage,
   useLocaleCookie,
-} from './client/useLocaleCookie';
-
+  useLocaleStorage,
+} from './client/useLocaleStorage';
 export type { IntlayerNode } from './IntlayerNode';
 export { MarkdownProvider } from './markdown/index';

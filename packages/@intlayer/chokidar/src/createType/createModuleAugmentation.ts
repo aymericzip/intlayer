@@ -23,7 +23,7 @@ const generateTypeIndexContent = (
   const { moduleAugmentationDir } = content;
   const { locales, requiredLocales, strictMode } = internationalization;
 
-  let fileContent = "import { Locales } from '@intlayer/types';\n";
+  let fileContent = '';
 
   // Build dictionary refs
   const dictionariesRef = typeFiles.map((dictionaryPath) => ({

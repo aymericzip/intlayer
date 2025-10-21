@@ -184,5 +184,6 @@ export const localeDetector = (
 ): Locale => {
   const accept = headers['accept-language'];
   const languages = preferredLanguages(accept);
+
   return localeResolver(languages as Locale[], locales, defaultLocale);
 };

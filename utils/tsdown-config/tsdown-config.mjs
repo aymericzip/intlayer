@@ -46,6 +46,7 @@ export const commonOptions = {
   dts: false,
   clean: process.env.NODE_ENV === 'production',
   sourcemap: true,
+  platform: 'browser',
   unbundle: true,
   minify: false,
   fixedExtension: true,

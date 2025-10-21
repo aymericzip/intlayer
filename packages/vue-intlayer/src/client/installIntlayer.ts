@@ -13,13 +13,15 @@ let instance: IntlayerProvider | null = null;
 export type IntlayerProvider = {
   locale: Ref<Locale>;
   setLocale: (locale: LocalesValues) => void;
+  isCookieEnabled?: boolean;
 };
 
 /**
  * Create and return a single IntlayerProvider instance
  */
 export const createIntlayerClient = (
-  locale?: LocalesValues
+  locale?: LocalesValues,
+  isCookieEnabled = true
 ): IntlayerProvider => {
   if (instance) return instance;
 
@@ -34,6 +36,7 @@ export const createIntlayerClient = (
   instance = {
     locale: readonly(targetLocale),
     setLocale,
+    isCookieEnabled,
   };
 
   return instance;
@@ -42,8 +45,12 @@ export const createIntlayerClient = (
 /**
  * Helper to install the Intlayer provider into the app
  */
-export const installIntlayer = (app: App, locale?: LocalesValues) => {
-  const client = createIntlayerClient(locale);
+export const installIntlayer = (
+  app: App,
+  locale?: LocalesValues,
+  isCookieEnabled = true
+) => {
+  const client = createIntlayerClient(locale, isCookieEnabled);
 
   app.provide(INTLAYER_SYMBOL, client);
 

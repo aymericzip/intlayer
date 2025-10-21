@@ -107,7 +107,6 @@ export const writeDynamicDictionary = async (
       const localizedDictionariesPathsRecord: LocalizedDictionaryResult = {};
 
       await parallelize(locales, async (locale) => {
-        // @ts-expect-error Type instantiation is excessively deep and possibly infinite.ts
         const localizedDictionary = getPerLocaleDictionary(
           dictionaryEntry.dictionary,
           locale,

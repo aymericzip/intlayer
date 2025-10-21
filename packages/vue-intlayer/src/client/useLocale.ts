@@ -2,9 +2,10 @@ import configuration from '@intlayer/config/built';
 import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
 import { type ComputedRef, computed, inject } from 'vue';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
-import { useLocaleCookie } from './useLocaleCookie';
+import { setLocaleInStorage } from './useLocaleStorage';
 
 type useLocaleProps = {
+  isCookieEnabled?: boolean;
   onLocaleChange?: (locale: LocalesValues) => void;
 };
 
@@ -19,12 +20,12 @@ type UseLocaleResult = {
  * On the client side, composable to get the current locale and all related fields
  */
 export const useLocale = ({
+  isCookieEnabled,
   onLocaleChange,
 }: useLocaleProps = {}): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
     configuration?.internationalization ?? {};
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
-  const { setLocaleCookie } = useLocaleCookie();
 
   // Create a reactive reference for the locale
   const locale = computed(
@@ -40,7 +41,12 @@ export const useLocale = ({
     if (intlayer) {
       intlayer.setLocale(newLocale);
     }
-    setLocaleCookie(newLocale);
+
+    setLocaleInStorage(
+      newLocale,
+      isCookieEnabled ?? intlayer?.isCookieEnabled ?? true
+    );
+
     onLocaleChange?.(newLocale);
   };
 

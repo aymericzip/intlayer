@@ -2,9 +2,10 @@ import configuration from '@intlayer/config/built';
 import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
 import { createEffect, useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
-import { useLocaleCookie } from './useLocaleCookie';
+import { setLocaleInStorage } from './useLocaleStorage';
 
 type useLocaleProps = {
+  isCookieEnabled?: boolean;
   onLocaleChange?: (locale: LocalesValues) => void;
 };
 
@@ -18,12 +19,14 @@ type UseLocaleResult = {
 /**
  * On the client side, hook to get the current locale and all related fields
  */
-export const useLocale = ({ onLocaleChange }: useLocaleProps = {}) => {
+export const useLocale = ({
+  isCookieEnabled,
+  onLocaleChange,
+}: useLocaleProps = {}) => {
   const { defaultLocale, locales: availableLocales } =
     configuration?.internationalization ?? {};
 
   const context = useContext(IntlayerClientContext);
-  const { setLocaleCookie } = useLocaleCookie();
 
   const setLocale = (locale: LocalesValues) => {
     if (!availableLocales?.map(String).includes(locale)) {
@@ -32,7 +35,12 @@ export const useLocale = ({ onLocaleChange }: useLocaleProps = {}) => {
     }
 
     context?.setLocale(locale);
-    setLocaleCookie(locale);
+
+    setLocaleInStorage(
+      locale,
+      isCookieEnabled ?? context?.isCookieEnabled ?? true
+    );
+
     onLocaleChange?.(locale);
   };
 

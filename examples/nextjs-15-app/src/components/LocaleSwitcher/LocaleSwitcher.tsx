@@ -2,7 +2,7 @@
 
 import { getHTMLTextDir, getLocaleName, getLocalizedUrl } from 'intlayer';
 import Link from 'next/link';
-import { useIntlayer, useLocale, useLocaleCookie } from 'next-intlayer';
+import { useIntlayer, useLocale, useLocaleStorage } from 'next-intlayer';
 import { type FC, useRef, useState } from 'react';
 import { useLocaleSearch } from './useLocaleSearch';
 
@@ -11,7 +11,7 @@ export const LocaleSwitcher: FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const { locale, pathWithoutLocale, availableLocales } = useLocale();
-  const { setLocaleCookie } = useLocaleCookie();
+  const { setLocale } = useLocaleStorage();
   const { searchResults, handleSearch } = useLocaleSearch(
     availableLocales,
     locale
@@ -57,7 +57,7 @@ export const LocaleSwitcher: FC = () => {
                         : 'cursor-pointer hover:bg-neutral-800'
                     }`}
                     onClick={() => {
-                      setLocaleCookie(localeItem);
+                      setLocale(localeItem);
                       setIsOpen(false);
                     }}
                   >

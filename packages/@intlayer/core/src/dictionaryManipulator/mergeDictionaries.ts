@@ -1,5 +1,5 @@
-import { colorizeKey, getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
+import { colorizeKey, getAppLogger } from '@intlayer/config/client';
 import type {
   ContentNode,
   Dictionary,

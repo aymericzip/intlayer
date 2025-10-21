@@ -1,3 +1,4 @@
+export * as DefaultValues from './defaultValues';
 export {
   ANSIColors,
   clock,

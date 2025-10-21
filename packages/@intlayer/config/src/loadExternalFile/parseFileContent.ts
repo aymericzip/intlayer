@@ -25,7 +25,8 @@ export type SandBoxContextOptions = {
 };
 
 export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
-  const { envVarOptions, projectRequire, additionalEnvVars } = options ?? {};
+  const { envVarOptions, projectRequire, additionalEnvVars, mocks, aliases } =
+    options ?? {};
 
   let additionalGlobalVar = {};
 
@@ -38,9 +39,9 @@ export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
       {
         esbuild,
       },
-      options?.mocks
+      mocks
     );
-    const aliasTable = Object.assign({}, options?.aliases);
+    const aliasTable = Object.assign({}, aliases);
 
     const wrappedRequire = function mockableRequire(id: string) {
       const target = aliasTable?.[id] ? aliasTable[id] : id;
