@@ -1,11 +1,11 @@
 import configuration from '@intlayer/config/built';
-import { Locales, type LocalesValues } from '@intlayer/types';
+import { type Locale, Locales, type LocalesValues } from '@intlayer/types';
 
 export type LocaleData = {
-  locale: LocalesValues;
-  defaultLocale: LocalesValues;
+  locale: Locale;
+  defaultLocale: Locale;
   isDefault: boolean;
-  locales: LocalesValues[];
+  locales: Locale[];
   urlPrefix: string;
 };
 
@@ -73,7 +73,7 @@ export const localeMap = <T>(
       urlPrefix: shouldPrefixLocale(locale, defaultLocale, mode)
         ? `/${locale}`
         : '',
-    })
+    } as LocaleData)
   );
 
 /**
@@ -122,7 +122,7 @@ export const localeFlatMap = <T>(
       urlPrefix: shouldPrefixLocale(locale, defaultLocale, mode)
         ? `/${locale}`
         : '',
-    })
+    } as LocaleData)
   );
 
 /**
@@ -169,7 +169,7 @@ export const localeRecord = <T>(
         urlPrefix: shouldPrefixLocale(locale, defaultLocale, mode)
           ? `/${locale}`
           : '',
-      });
+      } as LocaleData);
       return acc;
     },
     {} as Record<LocalesValues, T>

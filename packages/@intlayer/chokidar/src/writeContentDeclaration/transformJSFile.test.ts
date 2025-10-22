@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { cond, enu, gender, insert, md, nest, t } from '@intlayer/core';
-import { fileContent as file } from '@intlayer/core/file';
+import { fileContent } from '@intlayer/core/file';
 import {
   type CustomIntlayerConfig,
   type Dictionary,
@@ -24,6 +24,9 @@ vi.mock('@intlayer/config/built', () => ({
     } as CustomIntlayerConfig,
   },
 }));
+
+const file = (path: string) =>
+  fileContent(path, `${process.cwd()}/src`, process.cwd());
 
 // Read the file contents as string for the transform
 const initialFileContentString = await readFile(testFilePath, 'utf-8');

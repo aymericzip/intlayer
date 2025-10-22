@@ -59,6 +59,7 @@ import {
   DETECT_LOCALE_ON_PREFETCH_NO_PREFIX,
   HEADER_NAME,
   ROUTING_MODE,
+  STORAGE,
 } from '../defaultValues/routing';
 import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 import { normalizePath } from '../utils/normalizePath';
@@ -140,8 +141,10 @@ const buildRoutingFields = (
    *
    * If false, the locale will not be stored by the middleware.
    * If true, the locale storage will consider all default values.
+   *
+   * Default: 'cookie'
    */
-  storage: 'localStorage',
+  storage: customConfiguration?.storage ?? STORAGE,
 
   /**
    * Header name to get the locale
@@ -720,7 +723,7 @@ const buildBuildFields = (
    *
    * Note:
    * - Dynamic imports rely on Suspense and may slightly impact rendering performance.
-   * - If desabled all locales will be loaded at once, even if they are not used.
+   * - If disabled all locales will be loaded at once, even if they are not used.
    * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    * - This option will be ignored if `optimize` is disabled.

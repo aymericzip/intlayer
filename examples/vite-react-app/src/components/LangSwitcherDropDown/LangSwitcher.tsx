@@ -1,6 +1,6 @@
 'use client';
 
-import { getLocaleName, getLocalizedUrl } from 'intlayer';
+import { getLocaleName, getLocalizedUrl, localeMap } from 'intlayer';
 import type { ButtonHTMLAttributes, FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -26,7 +26,7 @@ export const LocaleSwitcher: FC = () => {
   const { pathname, search } = useLocation(); // Get the current URL path. Example: /fr/about
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // Construct the URL with the updated locale
       // Example: /es/about
@@ -48,14 +48,13 @@ export const LocaleSwitcher: FC = () => {
         <div className="separator min-w-[100px] items-end divide-y divide-dashed p-1">
           <h2 className={`mb-3 font-semibold text-xl`}>{content.title}</h2>
 
-          {availableLocales.map((lang) => (
+          {localeMap(({ locale }) => (
             <ButtonItem
-              key={lang}
-              onClick={() => setLocale(lang)}
-              aria-label={`${content.langButtonLabel} ${lang}`}
-              disabled={!(availableLocales ?? []).includes(lang)}
+              key={locale}
+              onClick={() => setLocale(locale)}
+              aria-label={`${content.langButtonLabel.value} ${locale}`}
             >
-              {getLocaleName(lang)}
+              {getLocaleName(locale)}
             </ButtonItem>
           ))}
         </div>

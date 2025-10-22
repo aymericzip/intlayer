@@ -4,8 +4,9 @@ const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
-  middleware: {
-    noPrefix: true,
+  routing: {
+    mode: 'prefix-all',
+    storage: ['cookie', 'localStorage'],
   },
 };
 

@@ -97,7 +97,7 @@ export const intlayerMiddlewarePlugin = (): Plugin => {
  * Retrieves the locale from storage (cookies, localStorage, sessionStorage).
  */
 const getStorageLocale = (req: IncomingMessage): Locale | undefined => {
-  return getLocaleFromStorage({
+  const locale = getLocaleFromStorage({
     getCookie: (name: string) => {
       const cookieHeader = req.headers.cookie ?? '';
       const cookies = cookieHeader.split(';').reduce(
@@ -111,6 +111,7 @@ const getStorageLocale = (req: IncomingMessage): Locale | undefined => {
       return cookies[name] ?? null;
     },
   });
+  return locale;
 };
 
 /**
