@@ -130,7 +130,7 @@ const config = {
 module.exports = config;
 ```
 
-> Through this configuration file, you can set up localized URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+> Through this configuration file, you can set up localized URLs, proxy redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ### Step 3: Integrate Intlayer in Your Next.js Configuration
 
@@ -290,7 +290,7 @@ module.exports = LocaleLayout;
 
 > The `[locale]` path segment is used to define the locale. Example: `/en-US/about` will refer to `en-US` and `/fr/about` to `fr`.
 
-> At this stage, you will encounter the error: `Error: Missing <html> and <body> tags in the root layout.`. This is expected because the `/app/page.tsx` file is no longer in use and can be removed. Instead, the `[locale]` path segment will activate the `/app/[locale]/page.tsx` page. Consequently, pages will be accessible via paths like `/en`, `/fr`, `/es` in your browser. To set the default locale as the root page, refer to the `middleware` setup in step 7.
+> At this stage, you will encounter the error: `Error: Missing <html> and <body> tags in the root layout.`. This is expected because the `/app/page.tsx` file is no longer in use and can be removed. Instead, the `[locale]` path segment will activate the `/app/[locale]/page.tsx` page. Consequently, pages will be accessible via paths like `/en`, `/fr`, `/es` in your browser. To set the default locale as the root page, refer to the `proxy` setup in step 7.
 
 Then, implement the `generateStaticParams` function in your application Layout.
 
@@ -637,7 +637,7 @@ const ServerComponentExample = () => {
 
 ### (Optional) Step 7: Configure Proxy for Locale Detection
 
-Set up middleware to detect the user's preferred locale:
+Set up proxy to detect the user's preferred locale:
 
 ```typescript fileName="src/proxy.ts" codeFormat="typescript"
 export { intlayerProxy as proxy } from "next-intlayer/proxy";
@@ -1488,7 +1488,7 @@ export const myServerAction = async () => {
 
 > The `getLocale` function follows a cascading strategy to determine the user's locale:
 >
-> 1. First, it checks the request headers for a locale value that may have been set by the middleware
+> 1. First, it checks the request headers for a locale value that may have been set by the proxy
 > 2. If no locale is found in headers, it looks for a locale stored in cookies
 > 3. If no cookie is found, it attempts to detect the user's preferred language from their browser settings
 > 4. As a last resort, it falls back to the application's configured default locale
