@@ -19,6 +19,8 @@ const applicationTemplateMessageContent = {
       tr: "GitHub'da uygulama şablonunu görüntüle",
       zh: '在 GitHub 上查看应用程序模板',
       pl: 'Zobacz szablon aplikacji na GitHubie',
+      id: 'Lihat template aplikasi di GitHub',
+      vi: 'Xem mẫu ứng dụng trên GitHub',
     }),
     description: t({
       ar: 'هذه الصفحة لديها قالب تطبيق متاح.',
@@ -36,6 +38,8 @@ const applicationTemplateMessageContent = {
       tr: 'Bu sayfada kullanılabilir bir uygulama şablonu var.',
       zh: '此页面有可用的应用程序模板。',
       pl: 'Na tej stronie dostępny jest szablon aplikacji.',
+      id: 'Halaman ini memiliki template aplikasi yang tersedia.',
+      vi: 'Trang này có một mẫu ứng dụng có sẵn.',
     }),
     label: t({
       ar: 'عرض قالب التطبيق',
@@ -53,8 +57,14 @@ const applicationTemplateMessageContent = {
       tr: 'Uygulama şablonunu görüntüle',
       zh: '查看应用程序模板',
       pl: 'Zobacz szablon aplikacji',
+      id: 'Lihat template aplikasi',
+      vi: 'Xem mẫu ứng dụng',
     }),
   },
+  title: 'Application template message',
+  description:
+    'Content related to the application template message displayed on the documentation page. It highlights and links to an available template hosted on GitHub.',
+  tags: ['documentation', 'component', 'application template'],
 } satisfies Dictionary;
 
 export default applicationTemplateMessageContent;

@@ -20,6 +20,8 @@ const metadataContent = {
       tr: 'Blogda ara | Intlayer',
       zh: '在博客中搜索 | Intlayer',
       pl: 'Szukaj w blogu | Intlayer',
+      id: 'Cari di blog | Intlayer',
+      vi: 'Tìm kiếm trong blog | Intlayer',
     }),
     description: t({
       ar: 'البحث في الوثائق',
@@ -37,6 +39,8 @@ const metadataContent = {
       tr: 'Belgelerde ara',
       zh: '搜索文档',
       pl: 'Szukaj w blogu',
+      id: 'Cari di blog',
+      vi: 'Tìm kiếm blog',
     }),
 
     keywords: t({
@@ -55,8 +59,14 @@ const metadataContent = {
       tr: ['ara', 'belgeler', 'intlayer'],
       zh: ['搜索', '文档', 'intlayer'],
       pl: ['wyszukiwanie', 'blog', 'intlayer'],
+      id: ['pencarian', 'blog', 'intlayer'],
+      vi: ['tìm kiếm', 'blog', 'intlayer'],
     }),
   },
+  title: 'Blog search metadata',
+  description:
+    'Metadata related to the blog search page, including title, description, and keywords. Useful for SEO and improving search engine discoverability of blog search results.',
+  tags: ['page metadata', 'blog', 'search'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

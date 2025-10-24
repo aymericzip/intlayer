@@ -19,6 +19,8 @@ export const loaderContent = {
       ru: 'Анимационный значок, что означает, что сайт обрабатывается',
       tr: 'Web sitesinin işlemde olduğunu belirten animasyonlu simge',
       pl: 'Animowana ikona oznaczająca, że strona przetwarza dane',
+      id: 'Ikon animasi yang menunjukkan bahwa situs sedang memproses konten',
+      vi: 'Biểu tượng động, biểu thị rằng trang web đang xử lý',
     }),
   },
   title: 'Loader component',

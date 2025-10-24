@@ -19,6 +19,8 @@ export const copyContentContent = {
       ru: 'Копировать содержимое',
       tr: 'İçeriği kopyala',
       pl: 'Kopiuj zawartość',
+      id: 'Salin konten',
+      vi: 'Sao chép nội dung',
     }),
   },
   title: 'Copy button label',

@@ -20,6 +20,8 @@ const metadataContent = {
       tr: 'React, Next.js, Vue için i18n Çözümü ve CMS | Intlayer',
       zh: 'React、Next.js、Vue 的 i18n解决方案 CMS | Intlayer',
       pl: 'Rozwiązanie i18n i CMS dla React, Next.js, Vue | Intlayer',
+      id: 'Solusi i18n & CMS untuk React, Next.js, Vue | Intlayer',
+      vi: 'Giải pháp i18n & CMS cho React, Next.js, Vue | Intlayer',
     }),
 
     description: t({
@@ -39,6 +41,8 @@ const metadataContent = {
       tr: 'Intlayer ile uygulamanızın ölçeklenebilirliğini artırın: AI destekli bir uluslararasılaştırma (i18n) ve içerik yönetim çözümü. React, Next.js, Vue, Svelte ve daha fazlası için tasarlandı.',
       zh: '使用 Intlayer 提升应用可扩展性：一款由 AI 驱动的国际化 (i18n) 与内容管理解决方案。适用于 React、Next.js、Vue、Svelte 等。',
       pl: 'Zwiększ skalowalność swojej aplikacji dzięki Intlayer — rozwiązaniu do internacjonalizacji (i18n) i zarządzania treścią opartemu na AI. Zaprojektowane dla React, Next.js, Vue, Svelte i nie tylko.',
+      id: 'Tingkatkan skalabilitas aplikasi Anda dengan Intlayer: solusi internasionalisasi (i18n) dan manajemen konten yang didukung oleh AI. Dirancang untuk React, Next.js, Vue, Svelte dan lainnya.',
+      vi: 'Tăng khả năng mở rộng ứng dụng của bạn với Intlayer: một internationalization (i18n) và content management solution được hỗ trợ bởi AI. Thiết kế cho React, Next.js, Vue, Svelte và các framework khác.',
     }),
 
     keywords: t({
@@ -264,6 +268,34 @@ const metadataContent = {
         'CMS',
         'system zarządzania treścią',
       ],
+      id: [
+        'terjemahan',
+        'lokalisasi',
+        'multibahasa',
+        'internasionalisasi',
+        'i18n',
+        'Pengembangan Web',
+        'Next.js',
+        'JavaScript',
+        'Vite',
+        'React',
+        'CMS',
+        'Sistem Manajemen Konten',
+      ],
+      vi: [
+        'dịch thuật',
+        'bản địa hóa',
+        'đa ngôn ngữ',
+        'Internationalization',
+        'i18n',
+        'Phát triển Web',
+        'Next.js',
+        'JavaScript',
+        'Vite',
+        'React',
+        'CMS',
+        'Content Management System',
+      ],
     }),
     openGraph: {
       title: t({
@@ -282,6 +314,8 @@ const metadataContent = {
         ru: 'Интернационализация (i18n) Next.js стала простой | Intlayer',
         tr: "Uluslararasılaştırma (i18n) Next.js'i Kolaylaştırır | Intlayer",
         pl: 'Internacjonalizacja (i18n) w Next.js | Intlayer',
+        id: 'Internasionalisasi (i18n) Next.js | Intlayer',
+        vi: 'Internationalization (i18n) cho Next.js | Intlayer',
       }),
     },
   },

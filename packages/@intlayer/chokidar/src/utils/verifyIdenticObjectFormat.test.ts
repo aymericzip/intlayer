@@ -4,47 +4,61 @@ import { verifyIdenticObjectFormat } from './verifyIdenticObjectFormat';
 describe('verifyIdenticObjectFormat', () => {
   describe('Primitive types', () => {
     it('should pass for identical string types', () => {
-      expect(verifyIdenticObjectFormat('Hello', 'Bonjour')).toBe(true);
+      expect(verifyIdenticObjectFormat('Hello', 'Bonjour')).toEqual({
+        isIdentic: true,
+      });
     });
 
     it('should pass for identical number types', () => {
-      expect(verifyIdenticObjectFormat(42, 100)).toBe(true);
+      expect(verifyIdenticObjectFormat(42, 100)).toEqual({
+        isIdentic: true,
+      });
     });
 
     it('should pass for identical boolean types', () => {
-      expect(verifyIdenticObjectFormat(true, false)).toBe(true);
+      expect(verifyIdenticObjectFormat(true, false)).toEqual({
+        isIdentic: true,
+      });
     });
 
     it('should pass for null values', () => {
-      expect(verifyIdenticObjectFormat(null, null)).toBe(true);
+      expect(verifyIdenticObjectFormat(null, null)).toEqual({
+        isIdentic: true,
+      });
     });
 
     it('should pass for undefined values', () => {
-      expect(verifyIdenticObjectFormat(undefined, undefined)).toBe(true);
+      expect(verifyIdenticObjectFormat(undefined, undefined)).toEqual({
+        isIdentic: true,
+      });
     });
 
-    it('should throw error for type mismatch: string vs number', () => {
-      expect(() => verifyIdenticObjectFormat('Hello', 42)).toThrow(
-        'Type mismatch at root: expected number, got string'
-      );
+    it('should return error for type mismatch: string vs number', () => {
+      expect(verifyIdenticObjectFormat('Hello', 42)).toEqual({
+        isIdentic: false,
+        error: 'Type mismatch at root: expected number, got string',
+      });
     });
 
-    it('should throw error for type mismatch: number vs boolean', () => {
-      expect(() => verifyIdenticObjectFormat(42, true)).toThrow(
-        'Type mismatch at root: expected boolean, got number'
-      );
+    it('should return error for type mismatch: number vs boolean', () => {
+      expect(verifyIdenticObjectFormat(42, true)).toEqual({
+        isIdentic: false,
+        error: 'Type mismatch at root: expected boolean, got number',
+      });
     });
 
-    it('should throw error for null vs undefined', () => {
-      expect(() => verifyIdenticObjectFormat(null, undefined)).toThrow(
-        'Type mismatch at root: expected undefined, got null'
-      );
+    it('should return error for null vs undefined', () => {
+      expect(verifyIdenticObjectFormat(null, undefined)).toEqual({
+        isIdentic: false,
+        error: 'Type mismatch at root: expected undefined, got null',
+      });
     });
 
-    it('should throw error for null vs string', () => {
-      expect(() => verifyIdenticObjectFormat('test', null)).toThrow(
-        'Type mismatch at root: expected null, got string'
-      );
+    it('should return error for null vs string', () => {
+      expect(verifyIdenticObjectFormat('test', null)).toEqual({
+        isIdentic: false,
+        error: 'Type mismatch at root: expected null, got string',
+      });
     });
   });
 
@@ -52,15 +66,21 @@ describe('verifyIdenticObjectFormat', () => {
     it('should pass for arrays with same length and types', () => {
       expect(
         verifyIdenticObjectFormat(['Hello', 'World'], ['Bonjour', 'Monde'])
-      ).toBe(true);
+      ).toEqual({
+        isIdentic: true,
+      });
     });
 
     it('should pass for arrays with numbers', () => {
-      expect(verifyIdenticObjectFormat([1, 2, 3], [100, 200, 300])).toBe(true);
+      expect(verifyIdenticObjectFormat([1, 2, 3], [100, 200, 300])).toEqual({
+        isIdentic: true,
+      });
     });
 
     it('should pass for empty arrays', () => {
-      expect(verifyIdenticObjectFormat([], [])).toBe(true);
+      expect(verifyIdenticObjectFormat([], [])).toEqual({
+        isIdentic: true,
+      });
     });
 
     it('should pass for nested arrays with same structure', () => {
@@ -75,29 +95,38 @@ describe('verifyIdenticObjectFormat', () => {
             [7, 8],
           ]
         )
-      ).toBe(true);
+      ).toEqual({
+        isIdentic: true,
+      });
     });
 
-    it('should throw error for arrays with different lengths', () => {
-      expect(() =>
+    it('should return error for arrays with different lengths', () => {
+      expect(
         verifyIdenticObjectFormat(['Hello', 'World'], ['Bonjour'])
-      ).toThrow('Array length mismatch at root: expected 1 elements, got 2');
+      ).toEqual({
+        isIdentic: false,
+        error: 'Array length mismatch at root: expected 1 elements, got 2',
+      });
     });
 
-    it('should throw error for array vs non-array', () => {
-      expect(() => verifyIdenticObjectFormat(['Hello'], 'Bonjour')).toThrow(
-        'Type mismatch at root: expected string, got array'
-      );
+    it('should return error for array vs non-array', () => {
+      expect(verifyIdenticObjectFormat(['Hello'], 'Bonjour')).toEqual({
+        isIdentic: false,
+        error: 'Type mismatch at root: expected string, got array',
+      });
     });
 
-    it('should throw error for array elements with different types', () => {
-      expect(() =>
+    it('should return error for array elements with different types', () => {
+      expect(
         verifyIdenticObjectFormat(['Hello', 42], ['Bonjour', 'Monde'])
-      ).toThrow('Type mismatch at root[1]: expected string, got number');
+      ).toEqual({
+        isIdentic: false,
+        error: 'Type mismatch at root[1]: expected string, got number',
+      });
     });
 
-    it('should throw error for nested arrays with different lengths', () => {
-      expect(() =>
+    it('should return error for nested arrays with different lengths', () => {
+      expect(
         verifyIdenticObjectFormat(
           [
             [1, 2],
@@ -108,7 +137,10 @@ describe('verifyIdenticObjectFormat', () => {
             [7, 8],
           ]
         )
-      ).toThrow('Array length mismatch at root[1]: expected 2 elements, got 3');
+      ).toEqual({
+        isIdentic: false,
+        error: 'Array length mismatch at root[1]: expected 2 elements, got 3',
+      });
     });
   });
 
@@ -119,11 +151,15 @@ describe('verifyIdenticObjectFormat', () => {
           { name: 'John', age: 30 },
           { name: 'Jean', age: 25 }
         )
-      ).toBe(true);
+      ).toEqual({
+        isIdentic: true,
+      });
     });
 
     it('should pass for empty objects', () => {
-      expect(verifyIdenticObjectFormat({}, {})).toBe(true);
+      expect(verifyIdenticObjectFormat({}, {})).toEqual({
+        isIdentic: true,
+      });
     });
 
     it('should pass for nested objects with same structure', () => {
@@ -138,52 +174,66 @@ describe('verifyIdenticObjectFormat', () => {
             country: 'France',
           }
         )
-      ).toBe(true);
+      ).toEqual({
+        isIdentic: true,
+      });
     });
 
-    it('should throw error for objects with different number of keys', () => {
-      expect(() =>
+    it('should return error for objects with different number of keys', () => {
+      expect(
         verifyIdenticObjectFormat({ name: 'John', age: 30 }, { name: 'Jean' })
-      ).toThrow('Object keys count mismatch at root: expected 1 keys, got 2');
+      ).toEqual({
+        isIdentic: false,
+        error: 'Object keys count mismatch at root: expected 1 keys, got 2',
+      });
     });
 
-    it('should throw error for objects with different keys', () => {
-      expect(() =>
+    it('should return error for objects with different keys', () => {
+      expect(
         verifyIdenticObjectFormat({ name: 'John' }, { nom: 'Jean' })
-      ).toThrow(
-        'Object keys mismatch at root: expected key "nom" at position 0, got "name"'
-      );
+      ).toEqual({
+        isIdentic: false,
+        error:
+          'Object keys mismatch at root: expected key "nom" at position 0, got "name"',
+      });
     });
 
-    it('should throw error for objects with keys in different order', () => {
-      expect(() =>
+    it('should return error for objects with keys in different order', () => {
+      expect(
         verifyIdenticObjectFormat(
           { name: 'John', age: 30 },
           { age: 25, name: 'Jean' }
         )
-      ).toThrow(
-        'Object keys mismatch at root: expected key "age" at position 0, got "name"'
-      );
+      ).toEqual({
+        isIdentic: false,
+        error:
+          'Object keys mismatch at root: expected key "age" at position 0, got "name"',
+      });
     });
 
-    it('should throw error for object properties with different types', () => {
-      expect(() =>
+    it('should return error for object properties with different types', () => {
+      expect(
         verifyIdenticObjectFormat(
           { name: 'John', age: 30 },
           { name: 'Jean', age: '25' }
         )
-      ).toThrow('Type mismatch at root.age: expected string, got number');
+      ).toEqual({
+        isIdentic: false,
+        error: 'Type mismatch at root.age: expected string, got number',
+      });
     });
 
-    it('should throw error for nested object structure mismatch', () => {
-      expect(() =>
+    it('should return error for nested object structure mismatch', () => {
+      expect(
         verifyIdenticObjectFormat(
           { user: { name: 'John', age: 30 } },
           { user: { name: 'Jean' } }
         )
-      ).toThrow(
-        'Object keys count mismatch at root.user: expected 1 keys, got 2'
-      );
+      ).toEqual({
+        isIdentic: false,
+        error:
+          'Object keys count mismatch at root.user: expected 1 keys, got 2',
+      });
     });
   });
 
@@ -214,11 +264,13 @@ describe('verifyIdenticObjectFormat', () => {
             },
           }
         )
-      ).toBe(true);
+      ).toEqual({
+        isIdentic: true,
+      });
     });
 
-    it('should throw error for complex structure with array length mismatch', () => {
-      expect(() =>
+    it('should return error for complex structure with array length mismatch', () => {
+      expect(
         verifyIdenticObjectFormat(
           {
             items: [
@@ -230,13 +282,15 @@ describe('verifyIdenticObjectFormat', () => {
             items: [{ id: 10, text: 'Premier' }],
           }
         )
-      ).toThrow(
-        'Array length mismatch at root.items: expected 1 elements, got 2'
-      );
+      ).toEqual({
+        isIdentic: false,
+        error:
+          'Array length mismatch at root.items: expected 1 elements, got 2',
+      });
     });
 
-    it('should throw error for complex structure with nested object key mismatch', () => {
-      expect(() =>
+    it('should return error for complex structure with nested object key mismatch', () => {
+      expect(
         verifyIdenticObjectFormat(
           {
             items: [{ id: 1, text: 'First' }],
@@ -245,9 +299,11 @@ describe('verifyIdenticObjectFormat', () => {
             items: [{ id: 10, label: 'Premier' }],
           }
         )
-      ).toThrow(
-        'Object keys mismatch at root.items[0]: expected key "label" at position 1, got "text"'
-      );
+      ).toEqual({
+        isIdentic: false,
+        error:
+          'Object keys mismatch at root.items[0]: expected key "label" at position 1, got "text"',
+      });
     });
 
     it('should pass for deeply nested structures', () => {
@@ -272,11 +328,13 @@ describe('verifyIdenticObjectFormat', () => {
             },
           }
         )
-      ).toBe(true);
+      ).toEqual({
+        isIdentic: true,
+      });
     });
 
-    it('should throw error with correct path for deeply nested mismatch', () => {
-      expect(() =>
+    it('should return error with correct path for deeply nested mismatch', () => {
+      expect(
         verifyIdenticObjectFormat(
           {
             level1: {
@@ -297,9 +355,11 @@ describe('verifyIdenticObjectFormat', () => {
             },
           }
         )
-      ).toThrow(
-        'Type mismatch at root.level1.level2.level3.level4[0]: expected number, got string'
-      );
+      ).toEqual({
+        isIdentic: false,
+        error:
+          'Type mismatch at root.level1.level2.level3.level4[0]: expected number, got string',
+      });
     });
   });
 
@@ -320,7 +380,9 @@ describe('verifyIdenticObjectFormat', () => {
             nul: null,
           }
         )
-      ).toBe(true);
+      ).toEqual({
+        isIdentic: true,
+      });
     });
 
     it('should pass for arrays containing mixed types', () => {
@@ -329,13 +391,18 @@ describe('verifyIdenticObjectFormat', () => {
           ['hello', 42, true, null],
           ['bonjour', 100, false, null]
         )
-      ).toBe(true);
+      ).toEqual({
+        isIdentic: true,
+      });
     });
 
-    it('should throw error for mixed types in wrong order', () => {
-      expect(() =>
+    it('should return error for mixed types in wrong order', () => {
+      expect(
         verifyIdenticObjectFormat(['hello', 42], [100, 'bonjour'])
-      ).toThrow('Type mismatch at root[0]: expected number, got string');
+      ).toEqual({
+        isIdentic: false,
+        error: 'Type mismatch at root[0]: expected number, got string',
+      });
     });
   });
 
@@ -346,7 +413,9 @@ describe('verifyIdenticObjectFormat', () => {
           { '0': 'first', '1': 'second' },
           { '0': 'premier', '1': 'deuxième' }
         )
-      ).toBe(true);
+      ).toEqual({
+        isIdentic: true,
+      });
     });
 
     it('should handle arrays of objects with different values but same structure', () => {
@@ -363,7 +432,9 @@ describe('verifyIdenticObjectFormat', () => {
             { id: 300, name: 'Z', active: false },
           ]
         )
-      ).toBe(true);
+      ).toEqual({
+        isIdentic: true,
+      });
     });
 
     it('should handle objects with special characters in keys', () => {
@@ -372,7 +443,9 @@ describe('verifyIdenticObjectFormat', () => {
           { 'key-with-dash': 'value', 'key.with.dot': 'value2' },
           { 'key-with-dash': 'valeur', 'key.with.dot': 'valeur2' }
         )
-      ).toBe(true);
+      ).toEqual({
+        isIdentic: true,
+      });
     });
   });
 });

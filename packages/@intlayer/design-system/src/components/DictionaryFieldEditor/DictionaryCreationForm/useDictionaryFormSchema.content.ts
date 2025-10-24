@@ -19,6 +19,8 @@ export const dictionaryFormSchemaContent = {
       ru: 'Пожалуйста, введите ключ для вашего словаря',
       tr: 'Lütfen sözlüğünüz için bir anahtar girin',
       pl: 'Proszę wprowadzić klucz dla słownika',
+      id: 'Silakan masukkan key untuk dictionary Anda',
+      vi: 'Vui lòng nhập khóa cho từ điển của bạn',
     }),
 
     invalidTypeErrorName: t({
@@ -37,6 +39,8 @@ export const dictionaryFormSchemaContent = {
       ru: 'Пожалуйста, введите действительный ключ для вашего словаря',
       tr: 'Lütfen sözlüğünüz için geçerli bir anahtar girin',
       pl: 'Proszę wprowadzić prawidłowy klucz dla słownika',
+      id: 'Silakan masukkan key yang valid untuk dictionary Anda',
+      vi: 'Vui lòng nhập khóa hợp lệ cho từ điển của bạn',
     }),
 
     requiredErrorProjectId: t({
@@ -55,6 +59,8 @@ export const dictionaryFormSchemaContent = {
       ru: 'Пожалуйста, выберите проект',
       tr: 'Lütfen bir proje seçin',
       pl: 'Proszę wybrać projekt',
+      id: 'Silakan pilih project',
+      vi: 'Vui lòng chọn dự án',
     }),
 
     invalidTypeErrorProjectId: t({
@@ -73,6 +79,8 @@ export const dictionaryFormSchemaContent = {
       ru: 'Пожалуйста, выберите действительный проект',
       tr: 'Lütfen geçerli bir proje seçin',
       pl: 'Proszę wybrać prawidłowy projekt',
+      id: 'Silakan pilih project yang valid',
+      vi: 'Vui lòng chọn dự án hợp lệ',
     }),
   },
   title: 'Dictionary form schema',

@@ -132,6 +132,22 @@ const content: Dictionary = {
         fr: 'Bonjour 2',
       }),
     ],
+    contentMultilingual: t({
+      en: 'Hello',
+      fr: 'Bonjour',
+    }),
+    expandCollapseToggle: cond({
+      true: t({
+        en: 'Show all',
+        fr: 'Afficher tout',
+        es: 'Mostrar todo',
+      }),
+      false: t({
+        en: 'Show less',
+        fr: 'Afficher moins',
+        es: 'Mostrar menos',
+      }),
+    }),
   },
 };
 

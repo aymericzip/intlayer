@@ -19,6 +19,8 @@ const mCPMessageContent = {
       tr: 'MCP Sunucusunu AI Asistanınıza Ekleyin',
       zh: '将 MCP 服务器添加到您的 AI 助手',
       pl: 'Dodaj serwer MCP do swojego asystenta AI',
+      id: 'Tambahkan MCP Server ke AI Assistant Anda',
+      vi: 'Thêm MCP Server vào trợ lý AI của bạn',
     }),
     description: t({
       ar: 'بدءاً من الدمج مع خادم MCP Intlayer ، يمكن لمساعدك الذكي الاسترجاع من جميع المستندات مباشرة من ChatGPT ، DeepSeek ، Cursor ، VSCode ، إلخ.',
@@ -37,6 +39,8 @@ const mCPMessageContent = {
       tr: 'Intlayer MCP Sunucusunu favori AI asistanınıza entegre ederek tüm belgeleri doğrudan ChatGPT, DeepSeek, Cursor, VSCode vb. üzerinden alabilirsiniz.',
       zh: '通过将 Intlayer MCP 服务器集成到您的 AI 助手，您可以直接从 ChatGPT、DeepSeek、Cursor、VSCode 等获取所有文档。',
       pl: 'Dzięki integracji serwera Intlayer MCP z ulubionym asystentem AI możesz uzyskać dostęp do całej dokumentacji bezpośrednio z ChatGPT, DeepSeek, Cursor, VSCode itp.',
+      id: 'Dengan mengintegrasikan Intlayer MCP Server ke AI assistant favorit Anda, Anda dapat mengambil seluruh dokumentasi langsung dari ChatGPT, DeepSeek, Cursor, VSCode, dll.',
+      vi: 'Bằng cách tích hợp Intlayer MCP Server vào trợ lý AI ưa thích của bạn, bạn có thể truy xuất toàn bộ tài liệu trực tiếp từ ChatGPT, DeepSeek, Cursor, VSCode, v.v.',
     }),
     link: {
       test: t({
@@ -55,6 +59,8 @@ const mCPMessageContent = {
         zh: '查看 MCP 服务器文档',
         tr: 'MCP Sunucu belgesini görüntüle',
         pl: 'Zobacz dokumentację serwera MCP',
+        id: 'Lihat dokumentasi MCP Server',
+        vi: 'Xem tài liệu MCP Server',
       }),
       label: t({
         en: 'See MCP Server doc',
@@ -72,6 +78,8 @@ const mCPMessageContent = {
         zh: '查看 MCP 服务器文档',
         tr: 'MCP Sunucu belgesini görüntüle',
         pl: 'Zobacz dokumentację serwera MCP',
+        id: 'Lihat dokumentasi MCP Server',
+        vi: 'Xem tài liệu MCP Server',
       }),
     },
   },

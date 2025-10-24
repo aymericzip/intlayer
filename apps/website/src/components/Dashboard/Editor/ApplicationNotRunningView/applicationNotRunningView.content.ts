@@ -19,6 +19,8 @@ const applicationNotRunningViewContent = {
       tr: 'Uygulamanız erişilebilir değil',
       zh: '您的应用程序无法访问',
       pl: 'Twoja aplikacja jest niedostępna',
+      id: 'Aplikasi Anda tidak dapat diakses',
+      vi: 'Ứng dụng của bạn không thể truy cập được',
     }),
     description: t({
       ar: 'لاستخدام محرك المحتوى، يجب عليك التأكد من أن التطبيق يعمل.',
@@ -37,6 +39,8 @@ const applicationNotRunningViewContent = {
       tr: "CMS'yi kullanmak için uygulamanın çalıştığından emin olmanız gerekir.",
       zh: '要使用 CMS，您需要确保应用程序正在运行。',
       pl: 'Aby korzystać z CMS, upewnij się, że aplikacja jest uruchomiona.',
+      id: 'Untuk menggunakan CMS, pastikan aplikasi sedang berjalan.',
+      vi: 'Để sử dụng CMS, bạn cần đảm bảo ứng dụng đang chạy.',
     }),
     tips: t({
       ar: [
@@ -114,6 +118,16 @@ const applicationNotRunningViewContent = {
         'Jeśli twoja aplikacja działa na zdalnym serwerze (np.: https://my-app.com), upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `https://intlayer.org`.',
         "W każdym przypadku upewnij się, że nagłówek CSP ('Content-Security-Policy') nie blokuje iframe edytora.",
       ],
+      id: [
+        'Jika aplikasi Anda berjalan secara lokal (contoh: http://localhost:3000), jalankan aplikasinya dan pastikan field konfigurasi `editor.cmsUrl` diatur ke `https://intlayer.org`.',
+        'Jika aplikasi Anda berjalan di server jarak jauh (contoh: https://my-app.com), pastikan field konfigurasi `editor.cmsUrl` diatur ke `https://intlayer.org`.',
+        "Dalam semua kasus, pastikan header CSP ('Content-Security-Policy') tidak memblokir iframe editor.",
+      ],
+      vi: [
+        'Nếu ứng dụng của bạn đang chạy cục bộ (ví dụ: http://localhost:3000), hãy khởi động ứng dụng và đảm bảo trường cấu hình `editor.cmsUrl` được đặt thành `https://intlayer.org`.',
+        'Nếu ứng dụng của bạn đang chạy trên máy chủ từ xa (ví dụ: https://my-app.com), đảm bảo trường cấu hình `editor.cmsUrl` được đặt thành `https://intlayer.org`.',
+        "Trong mọi trường hợp, đảm bảo header CSP ('Content-Security-Policy') không chặn iframe của editor.",
+      ],
     }),
     documentationLink: {
       label: t({
@@ -132,6 +146,8 @@ const applicationNotRunningViewContent = {
         it: 'Fai clic qui per accedere alla documentazione del CMS',
         tr: 'CMS belgelerine gitmek için tıklayın',
         pl: 'Kliknij, aby przejść do dokumentacji CMS',
+        id: 'Klik untuk membuka dokumentasi CMS',
+        vi: 'Nhấp để xem tài liệu CMS',
       }),
       text: t({
         en: 'See how to configure the CMS',
@@ -149,9 +165,15 @@ const applicationNotRunningViewContent = {
         zh: '查看如何配置CMS',
         tr: "CMS'yi nasıl yapılandıracağınızı görün",
         pl: 'Zobacz, jak skonfigurować CMS',
+        id: 'Lihat cara mengonfigurasi CMS',
+        vi: 'Xem cách cấu hình CMS',
       }),
     },
   },
+  title: 'Application not running view',
+  description:
+    'UI content shown when the connected application is not accessible. Provides guidance to properly configure the CMS connection, including local and remote setup instructions, and CSP header requirements.',
+  tags: ['error state', 'CMS setup', 'application connection'],
 } satisfies Dictionary;
 
 export default applicationNotRunningViewContent;

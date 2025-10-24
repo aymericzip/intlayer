@@ -20,6 +20,8 @@ const metadataContent = {
       tr: 'Şifre Değiştir | Intlayer',
       zh: '更改密码 | Intlayer',
       pl: 'Zmień hasło | Intlayer',
+      id: 'Ubah Kata Sandi | Intlayer',
+      vi: 'Đổi mật khẩu | Intlayer',
     }),
     description: t({
       ar: 'قم بتأمين حسابك عن طريق تغيير كلمة المرور الحالية. حافظ على أمان حسابك في Intlayer مع كلمة مرور جديدة.',
@@ -38,6 +40,8 @@ const metadataContent = {
       tr: 'Hesabınızı mevcut şifrenizi değiştirerek güvence altına alın. Intlayer hesabınızı yeni bir şifre ile güvende tutun.',
       zh: '通过更改当前密码来保护您的帐户。使用新密码保护您的Intlayer帐户。',
       pl: 'Zabezpiecz swoje konto, zmieniając aktualne hasło. Chroń konto Intlayer, ustawiając nowe hasło.',
+      id: 'Amankan akun Anda dengan mengganti kata sandi saat ini. Jaga keamanan akun Intlayer Anda dengan kata sandi baru.',
+      vi: 'Bảo mật tài khoản của bạn bằng cách thay đổi mật khẩu hiện tại. Giữ tài khoản Intlayer của bạn an toàn với một mật khẩu mới.',
     }),
 
     keywords: t({
@@ -128,8 +132,26 @@ const metadataContent = {
         'React',
         'JavaScript',
       ],
+      id: [
+        'Ubah kata sandi',
+        'Keamanan akun',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      vi: [
+        'Đổi mật khẩu',
+        'Bảo mật tài khoản',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
     }),
   },
+  title: 'Change password page metadata',
+  description:
+    'Metadata related to the change password page, including title, description, and SEO keywords to enhance user account security section visibility and accessibility.',
+  tags: ['page metadata', 'authentication', 'account security'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

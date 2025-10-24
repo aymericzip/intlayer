@@ -19,6 +19,8 @@ const organizationsAdminPageContent = {
       ru: 'Управление организациями',
       tr: 'Organizasyon yönetimi',
       pl: 'Zarządzanie organizacjami',
+      id: 'Manajemen Organisasi',
+      vi: 'Quản lý tổ chức',
     }),
     tableHeaders: {
       name: t({
@@ -37,6 +39,8 @@ const organizationsAdminPageContent = {
         ru: 'Имя',
         tr: 'İsim',
         pl: 'Nazwa',
+        id: 'Nama',
+        vi: 'Tên',
       }),
       id: 'ID',
       createdAt: t({
@@ -55,6 +59,8 @@ const organizationsAdminPageContent = {
         ru: 'Создано',
         tr: 'Oluşturulma',
         pl: 'Data utworzenia',
+        id: 'Dibuat pada',
+        vi: 'Ngày tạo',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -72,6 +78,8 @@ const organizationsAdminPageContent = {
         ru: 'Обновлено',
         tr: 'Güncellendi',
         pl: 'Data aktualizacji',
+        id: 'Diperbarui pada',
+        vi: 'Ngày cập nhật',
       }),
     },
     noData: t({
@@ -90,6 +98,8 @@ const organizationsAdminPageContent = {
       ru: 'Н/Д',
       tr: 'Yok',
       pl: 'Brak danych',
+      id: 'Tidak tersedia',
+      vi: 'Không có dữ liệu',
     }),
     errorMessages: {
       loadingError: t({
@@ -108,6 +118,8 @@ const organizationsAdminPageContent = {
         ru: 'Ошибка загрузки организаций',
         tr: 'Organizasyonlar yüklenirken hata oluştu',
         pl: 'Błąd podczas ładowania organizacji',
+        id: 'Gagal memuat organisasi',
+        vi: 'Lỗi khi tải tổ chức',
       }),
     },
     searchPlaceholder: t({
@@ -126,6 +138,8 @@ const organizationsAdminPageContent = {
       ru: 'Поиск организаций...',
       tr: 'Organizasyonları ara...',
       pl: 'Szukaj organizacji...',
+      id: 'Cari organisasi...',
+      vi: 'Tìm kiếm tổ chức...',
     }),
     noOrganizationFound: t({
       en: 'Organization not found',
@@ -143,6 +157,8 @@ const organizationsAdminPageContent = {
       ru: 'Организация не найдена',
       tr: 'Organizasyon bulunamadı',
       pl: 'Nie znaleziono organizacji',
+      id: 'Organisasi tidak ditemukan',
+      vi: 'Không tìm thấy tổ chức',
     }),
   },
   title: 'Organization admin page',

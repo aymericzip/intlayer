@@ -19,6 +19,8 @@ const projectListContent = {
       ru: 'Найти проект',
       tr: 'Proje ara',
       pl: 'Wyszukaj projekt',
+      id: 'Cari proyek',
+      vi: 'Tìm kiếm project',
     }),
 
     createProjectButton: {
@@ -38,6 +40,8 @@ const projectListContent = {
         ru: 'Создать проект',
         tr: 'Proje oluştur',
         pl: 'Utwórz projekt',
+        id: 'Buat proyek',
+        vi: 'Tạo project',
       }),
       ariaLabel: t({
         en: 'Click to create project',
@@ -55,6 +59,8 @@ const projectListContent = {
         ru: 'Нажмите, чтобы создать проект',
         tr: 'Proje oluşturmak için tıklayın',
         pl: 'Kliknij, aby utworzyć projekt',
+        id: 'Klik untuk membuat proyek',
+        vi: 'Nhấp để tạo project',
       }),
     },
 
@@ -75,6 +81,8 @@ const projectListContent = {
         ru: 'Выберите проект',
         tr: 'Proje seç',
         pl: 'Wybierz projekt',
+        id: 'Pilih proyek',
+        vi: 'Chọn project',
       }),
       label: t({
         en: 'Click to select project',
@@ -92,6 +100,8 @@ const projectListContent = {
         ru: 'Нажмите, чтобы выбрать проект',
         tr: 'Projeyi seçmek için tıklayın',
         pl: 'Kliknij, aby wybrać projekt',
+        id: 'Klik untuk memilih proyek',
+        vi: 'Nhấp để chọn project',
       }),
     },
     noProjectFound: t({
@@ -110,6 +120,8 @@ const projectListContent = {
       ru: 'Проект не найден. Попробуйте очистить фильтры.',
       tr: 'Proje bulunamadı. Filtrelerinizi temizlemeyi deneyin.',
       pl: 'Nie znaleziono żadnego projektu. Spróbuj wyczyścić filtry.',
+      id: 'Tidak ada proyek yang ditemukan. Coba bersihkan filter Anda.',
+      vi: 'Không tìm thấy project. Hãy thử xóa bộ lọc của bạn.',
     }),
   },
   title: 'Project list',

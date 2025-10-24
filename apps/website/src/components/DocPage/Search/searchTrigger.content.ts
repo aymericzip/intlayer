@@ -20,6 +20,8 @@ const searchTriggerContent: Dictionary = {
         ru: 'Поиск',
         tr: 'Ara',
         pl: 'Szukaj',
+        id: 'Cari',
+        vi: 'Tìm kiếm',
       }),
       label: t({
         en: 'Click to search',
@@ -37,6 +39,8 @@ const searchTriggerContent: Dictionary = {
         ru: 'Нажмите, чтобы искать',
         tr: 'Aramak için tıklayın',
         pl: 'Kliknij, aby wyszukać',
+        id: 'Klik untuk mencari',
+        vi: 'Nhấn để tìm kiếm',
       }),
     },
   },

@@ -19,6 +19,8 @@ const navTitlesContent = {
       ru: 'Перейти к разделу',
       tr: 'Bölüme git',
       pl: 'Przejdź do sekcji',
+      id: 'Ke bagian',
+      vi: 'Đi tới phần',
     }),
   },
   title: 'Navigation titles',

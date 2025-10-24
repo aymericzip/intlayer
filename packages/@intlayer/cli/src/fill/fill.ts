@@ -88,6 +88,8 @@ export const fill = async (options?: FillOptions): Promise<void> => {
       : colorize('No keys found', ANSIColors.YELLOW),
   ]);
 
+  if (keysToProcess.length === 0) return;
+
   /**
    * List the translations tasks
    *

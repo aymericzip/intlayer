@@ -19,6 +19,8 @@ const demoSectionContent = {
       tr: 'Canlı demoyu deneyin',
       zh: '试用实时演示',
       pl: 'Wypróbuj demo na żywo',
+      id: 'Coba demo langsung',
+      vi: 'Thử bản demo trực tiếp',
     }),
     demoSwitchSelector: {
       youtube: t({
@@ -37,6 +39,8 @@ const demoSectionContent = {
         ru: 'Посмотрите демо на YouTube',
         tr: 'YouTube demosunu izleyin',
         pl: 'Obejrzyj demo na YouTube',
+        id: 'Tonton demo di YouTube',
+        vi: 'Xem demo trên YouTube',
       }),
       codeSandbox: t({
         en: 'Try using CodeSandbox',
@@ -54,6 +58,8 @@ const demoSectionContent = {
         ru: 'Попробуйте использовать CodeSandbox',
         tr: 'CodeSandbox kullanmayı deneyin',
         pl: 'Wypróbuj w CodeSandbox',
+        id: 'Coba menggunakan CodeSandbox',
+        vi: 'Thử với CodeSandbox',
       }),
     },
   },

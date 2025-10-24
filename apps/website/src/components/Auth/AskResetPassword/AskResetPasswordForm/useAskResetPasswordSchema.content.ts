@@ -19,6 +19,8 @@ export const useAskResetPasswordSchemaContent = {
       tr: 'Lütfen e-posta adresinizi girin',
       zh: '请输入您的电子邮件地址',
       pl: 'Proszę podać adres e-mail',
+      id: 'Silakan masukkan alamat email Anda',
+      vi: 'Vui lòng nhập địa chỉ email của bạn',
     }),
 
     invalidTypeErrorEmail: t({
@@ -37,6 +39,8 @@ export const useAskResetPasswordSchemaContent = {
       tr: 'Lütfen geçerli bir e-posta adresi girin',
       zh: '请输入有效的电子邮件地址',
       pl: 'Proszę podać prawidłowy adres e-mail',
+      id: 'Silakan masukkan alamat email yang valid',
+      vi: 'Vui lòng nhập một địa chỉ email hợp lệ',
     }),
 
     invalidLengthErrorEmail: t({
@@ -55,8 +59,14 @@ export const useAskResetPasswordSchemaContent = {
       tr: 'Lütfen geçerli bir e-posta adresi girin',
       zh: '请输入有效的电子邮件地址',
       pl: 'Proszę podać prawidłowy adres e-mail',
+      id: 'Silakan masukkan alamat email yang valid',
+      vi: 'Vui lòng nhập một địa chỉ email hợp lệ',
     }),
   },
+  title: 'Ask reset password form schema',
+  description:
+    'Validation schema for the ask reset password form. It ensures the email field is filled and correctly formatted before submitting the reset password request.',
+  tags: ['form validation', 'authentication', 'reset password'],
 } satisfies Dictionary;
 
 export default useAskResetPasswordSchemaContent;

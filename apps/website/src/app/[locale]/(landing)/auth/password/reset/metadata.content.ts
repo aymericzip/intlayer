@@ -20,6 +20,8 @@ const metadataContent = {
       ru: 'Забыли пароль | Intlayer',
       tr: 'Şifremi Unuttum | Intlayer',
       pl: 'Zapomniane hasło | Intlayer',
+      id: 'Lupa Password | Intlayer',
+      vi: 'Quên mật khẩu | Intlayer',
     }),
     description: t({
       en: 'Recover your Intlayer account by resetting your forgotten password. Follow the instructions to restore access.',
@@ -38,6 +40,8 @@ const metadataContent = {
       ru: 'Восстановите свой аккаунт Intlayer, сбросив забытый пароль. Следуйте инструкциям, чтобы восстановить доступ.',
       tr: 'Unutulan şifrenizi sıfırlayarak Intlayer hesabınızı kurtarın. Erişimi geri yüklemek için talimatları izleyin.',
       pl: 'Odzyskaj konto Intlayer, resetując zapomniane hasło. Postępuj zgodnie z instrukcjami, aby przywrócić dostęp.',
+      id: 'Pulihkan akun Intlayer Anda dengan mereset password yang terlupakan. Ikuti instruksi untuk memulihkan akses.',
+      vi: 'Khôi phục tài khoản Intlayer của bạn bằng cách đặt lại mật khẩu đã quên. Làm theo hướng dẫn để lấy lại quyền truy cập.',
     }),
 
     keywords: t({
@@ -136,6 +140,20 @@ const metadataContent = {
       pl: [
         'zapomniane hasło',
         'odzyskiwanie hasła',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      id: [
+        'Lupa Password',
+        'Pemulihan Password',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      vi: [
+        'Quên mật khẩu',
+        'Khôi phục mật khẩu',
         'Intlayer',
         'React',
         'JavaScript',

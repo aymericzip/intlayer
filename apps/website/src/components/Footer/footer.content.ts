@@ -31,6 +31,8 @@ const footerContent = {
               ru: 'Начало работы',
               tr: 'Başlarken',
               pl: 'Pierwsze kroki',
+              id: 'Memulai',
+              vi: 'Bắt đầu',
             }),
             label: t({
               en: 'See getting started documentation',
@@ -48,6 +50,8 @@ const footerContent = {
               ru: 'См. документацию по началу работы',
               tr: 'Başlarken belgelerine göz atın',
               pl: 'Zobacz dokumentację dotyczącą pierwszych kroków',
+              id: 'Lihat dokumentasi untuk memulai',
+              vi: 'Xem tài liệu hướng dẫn bắt đầu',
             }),
           },
           {
@@ -68,6 +72,8 @@ const footerContent = {
               ru: 'Intlayer с Next.js',
               tr: 'Intlayer ile Next.js',
               pl: 'Intlayer z Next.js',
+              id: 'Intlayer dengan Next.js',
+              vi: 'Intlayer với Next.js',
             }),
             label: t({
               en: 'See Intlayer with Next.js documentation',
@@ -85,6 +91,8 @@ const footerContent = {
               ru: 'См. документацию Intlayer с Next.js',
               tr: 'Intlayer ile Next.js belgelerine göz atın',
               pl: 'Zobacz dokumentację Intlayer dla Next.js',
+              id: 'Lihat dokumentasi Intlayer dengan Next.js',
+              vi: 'Xem tài liệu Intlayer với Next.js',
             }),
           },
 
@@ -106,6 +114,8 @@ const footerContent = {
               ru: 'Intlayer с React и Vite',
               tr: 'Intlayer ile Vite ve React',
               pl: 'Intlayer z Vite i React',
+              id: 'Intlayer dengan Vite dan React',
+              vi: 'Intlayer với Vite và React',
             }),
             label: t({
               en: 'See Intlayer with react and vite documentation',
@@ -123,6 +133,8 @@ const footerContent = {
               ru: 'См. документацию Intlayer с React и Vite',
               tr: 'Intlayer ile React ve Vite belgelerine göz atın',
               pl: 'Zobacz dokumentację Intlayer dla Vite i React',
+              id: 'Lihat dokumentasi Intlayer dengan Vite dan React',
+              vi: 'Xem tài liệu Intlayer với React và Vite',
             }),
           },
           {
@@ -143,6 +155,8 @@ const footerContent = {
               ru: 'Intlayer с Vue и Vite',
               tr: 'Intlayer ile Vue ve Vite',
               pl: 'Intlayer z Vue i Vite',
+              id: 'Intlayer dengan Vue dan Vite',
+              vi: 'Intlayer với Vue và Vite',
             }),
             label: t({
               en: 'See Intlayer with vue and vite documentation',
@@ -160,6 +174,8 @@ const footerContent = {
               ru: 'См. документацию Intlayer с Vue и Vite',
               tr: 'Intlayer ile Vue ve Vite belgelerine göz atın',
               pl: 'Zobacz dokumentację Intlayer dla Vue i Vite',
+              id: 'Lihat dokumentasi Intlayer dengan Vue dan Vite',
+              vi: 'Xem tài liệu Intlayer với Vue và Vite',
             }),
           },
         ],
@@ -181,6 +197,8 @@ const footerContent = {
           ru: 'Примеры',
           tr: 'Örnekler',
           pl: 'Przykłady',
+          id: 'Contoh',
+          vi: 'Ví dụ',
         }),
         links: [
           {
@@ -201,6 +219,8 @@ const footerContent = {
               ru: 'Intlayer с Next.js',
               tr: 'Intlayer ile Next.js',
               pl: 'Intlayer z Next.js',
+              id: 'Intlayer dengan Next.js',
+              vi: 'Intlayer với Next.js',
             }),
             label: t({
               en: 'See how to set up Intlayer with Next.js',
@@ -218,6 +238,8 @@ const footerContent = {
               ru: 'См. как настроить Intlayer с Next.js',
               tr: 'Intlayer ile Next.js nasıl kurulur öğrenin',
               pl: 'Zobacz, jak skonfigurować Intlayer z Next.js',
+              id: 'Lihat cara mengatur Intlayer dengan Next.js',
+              vi: 'Xem cách cài đặt Intlayer với Next.js',
             }),
           },
           {
@@ -238,6 +260,8 @@ const footerContent = {
               ru: 'Intlayer с React (CRA)',
               tr: 'Intlayer ile React (CRA)',
               pl: 'Intlayer z React (CRA)',
+              id: 'Intlayer dengan react (CRA)',
+              vi: 'Intlayer với React (CRA)',
             }),
             label: t({
               en: 'See how to set up Intlayer with react (CRA)',
@@ -255,6 +279,8 @@ const footerContent = {
               ru: 'См. как настроить Intlayer с React (CRA)',
               tr: 'Intlayer ile React (CRA) nasıl kurulur öğrenin',
               pl: 'Zobacz, jak skonfigurować Intlayer z React (CRA)',
+              id: 'Lihat cara mengatur Intlayer dengan React (CRA)',
+              vi: 'Xem cách cài đặt Intlayer với React (CRA)',
             }),
           },
           {
@@ -275,6 +301,8 @@ const footerContent = {
               ru: 'Intlayer с Vite и React',
               tr: 'Intlayer ile Vite ve React',
               pl: 'Intlayer z Vite i React',
+              id: 'Intlayer dengan Vite dan React',
+              vi: 'Intlayer với Vite và React',
             }),
             label: t({
               en: 'See how to set up Intlayer with Vite and React',
@@ -292,6 +320,8 @@ const footerContent = {
               ru: 'См. как настроить Intlayer с Vite и React',
               tr: 'Intlayer ile Vite ve React nasıl kurulur öğrenin',
               pl: 'Zobacz, jak skonfigurować Intlayer z Vite i React',
+              id: 'Lihat cara mengatur Intlayer dengan Vite dan React',
+              vi: 'Xem cách cài đặt Intlayer với Vite và React',
             }),
           },
           {
@@ -312,6 +342,8 @@ const footerContent = {
               ru: 'Intlayer с Vite и Vue',
               tr: 'Intlayer ile Vite ve Vue',
               pl: 'Intlayer z Vite i Vue',
+              id: 'Intlayer dengan Vite dan Vue',
+              vi: 'Intlayer với Vite và Vue',
             }),
             label: t({
               en: 'See how to set up Intlayer with Vite and Vue',
@@ -329,6 +361,8 @@ const footerContent = {
               ru: 'См. как настроить Intlayer с Vite и Vue',
               tr: 'Intlayer ile Vite ve Vue nasıl kurulur öğrenin',
               pl: 'Zobacz, jak skonfigurować Intlayer z Vite i Vue',
+              id: 'Lihat cara mengatur Intlayer dengan Vite dan Vue',
+              vi: 'Xem cách cài đặt Intlayer với Vite và Vue',
             }),
           },
         ],
@@ -350,6 +384,8 @@ const footerContent = {
           ru: 'Узнать больше',
           tr: 'Daha fazla bilgi edin',
           pl: 'Dowiedz się więcej',
+          id: 'Pelajari lebih lanjut',
+          vi: 'Tìm hiểu thêm',
         }),
         links: [
           {
@@ -370,6 +406,8 @@ const footerContent = {
               ru: 'Условия обслуживания',
               tr: 'Hizmet Şartları',
               pl: 'Regulamin',
+              id: 'Syarat Layanan',
+              vi: 'Điều khoản dịch vụ',
             }),
             label: t({
               en: 'Read our terms of service',
@@ -387,6 +425,8 @@ const footerContent = {
               ru: 'Прочтите наши условия обслуживания',
               tr: 'Hizmet şartlarımızı okuyun',
               pl: 'Przeczytaj nasz regulamin',
+              id: 'Baca syarat layanan kami',
+              vi: 'Đọc điều khoản dịch vụ của chúng tôi',
             }),
           },
           {
@@ -407,6 +447,8 @@ const footerContent = {
               ru: 'Уведомление о конфиденциальности',
               tr: 'Gizlilik Bildirimi',
               pl: 'Polityka prywatności',
+              id: 'Pemberitahuan Privasi',
+              vi: 'Chính sách bảo mật',
             }),
             label: t({
               en: 'Read our privacy notice',
@@ -424,6 +466,8 @@ const footerContent = {
               ru: 'Прочтите наше уведомление о конфиденциальности',
               tr: 'Gizlilik bildirimimizi okuyun',
               pl: 'Przeczytaj naszą politykę prywatności',
+              id: 'Baca pemberitahuan privasi kami',
+              vi: 'Đọc chính sách bảo mật của chúng tôi',
             }),
           },
           {
@@ -445,6 +489,8 @@ const footerContent = {
               ru: 'Перейти на нашу страницу LinkedIn',
               tr: 'LinkedIn sayfamıza git',
               pl: 'Przejdź na naszą stronę na LinkedIn',
+              id: 'Kunjungi halaman LinkedIn kami',
+              vi: 'Xem trang LinkedIn của chúng tôi',
             }),
           },
         ],

@@ -19,6 +19,8 @@ const docHeaderContent = {
       tr: 'Yazar',
       zh: '作者',
       pl: 'Autor',
+      id: 'Penulis',
+      vi: 'Tác giả',
     }),
     creationLabel: t({
       ar: 'إنشاء',
@@ -36,6 +38,8 @@ const docHeaderContent = {
       tr: 'Oluşturma',
       zh: 'Creation',
       pl: 'Data utworzenia',
+      id: 'Dibuat',
+      vi: 'Ngày tạo',
     }),
     lastUpdateLabel: t({
       ar: 'آخر تحديث',
@@ -53,6 +57,8 @@ const docHeaderContent = {
       tr: 'Son güncelleme',
       zh: 'Last update',
       pl: 'Ostatnia aktualizacja',
+      id: 'Terakhir diperbarui',
+      vi: 'Cập nhật lần cuối',
     }),
   },
   title: 'Documentation header',

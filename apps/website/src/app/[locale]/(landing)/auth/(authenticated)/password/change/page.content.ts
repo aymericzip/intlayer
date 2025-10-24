@@ -19,6 +19,8 @@ const changePasswordContent = {
       tr: 'Şifre değiştir',
       zh: '更改密码',
       pl: 'Zmień hasło',
+      id: 'Ubah kata sandi',
+      vi: 'Thay đổi mật khẩu',
     }),
     title2: t({
       ar: 'غير كلمة المرور الخاصة بك',
@@ -36,6 +38,8 @@ const changePasswordContent = {
       tr: 'Şifrenizi değiştirin',
       zh: '更改您的密码',
       pl: 'Zmień swoje hasło',
+      id: 'Ubah kata sandi Anda',
+      vi: 'Thay đổi mật khẩu của bạn',
     }),
     description: t({
       ar: 'غيّر كلمة المرور الخاصة بك للوصول إلى حسابك.',
@@ -53,8 +57,14 @@ const changePasswordContent = {
       tr: 'Hesabınıza erişmek için şifrenizi değiştirin.',
       zh: '更改您的密码以访问您的帐户。',
       pl: 'Zmień hasło, aby uzyskać dostęp do swojego konta.',
+      id: 'Ubah kata sandi Anda untuk mengakses akun Anda.',
+      vi: 'Thay đổi mật khẩu của bạn để truy cập vào tài khoản.',
     }),
   },
+  title: 'Change password page content',
+  description:
+    'Text content related to the change password page. Includes headings and short instructional message for password update process.',
+  tags: ['authentication', 'user settings', 'change password'],
 } satisfies Dictionary;
 
 export default changePasswordContent;

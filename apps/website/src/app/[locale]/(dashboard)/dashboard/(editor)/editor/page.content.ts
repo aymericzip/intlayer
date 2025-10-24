@@ -19,6 +19,8 @@ const profileDashboardContent = {
       tr: 'Intlayer Editör',
       zh: 'Intlayer 编辑器',
       pl: 'Edytor Intlayera',
+      id: 'Intlayer Editor',
+      vi: 'Trình chỉnh sửa Intlayer',
     }),
   },
   title: 'Editor dashboard page',

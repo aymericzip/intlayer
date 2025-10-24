@@ -20,6 +20,8 @@ const adminSidebarContent = {
         ru: 'Свернуть боковую панель',
         tr: 'Kenar çubuğunu daralt',
         pl: 'Zwiń pasek boczny',
+        id: 'Sembunyikan sidebar',
+        vi: 'Thu gọn thanh bên',
       }),
     },
 
@@ -41,6 +43,8 @@ const adminSidebarContent = {
           ru: 'Перейти на прибортную панель',
           tr: 'Dashboarde git',
           pl: 'Przejdź do pulpitu',
+          id: 'Buka dashboard',
+          vi: 'Đi tới bảng điều khiển',
         }),
         title: t({
           en: 'Dashboard',
@@ -58,6 +62,8 @@ const adminSidebarContent = {
           ru: 'Приборная панель',
           tr: 'Dashboard',
           pl: 'Pulpit',
+          id: 'Dashboard',
+          vi: 'Bảng điều khiển',
         }),
       },
       management: {
@@ -77,6 +83,8 @@ const adminSidebarContent = {
           ru: 'Раздел управления',
           tr: 'Yönetim bölümü',
           pl: 'Sekcja zarządzania',
+          id: 'Bagian manajemen',
+          vi: 'Mục quản lý',
         }),
         title: t({
           en: 'Management',
@@ -94,6 +102,8 @@ const adminSidebarContent = {
           ru: 'Управление',
           tr: 'Yönetim',
           pl: 'Zarządzanie',
+          id: 'Manajemen',
+          vi: 'Quản lý',
         }),
         organizations: {
           label: t({
@@ -112,6 +122,8 @@ const adminSidebarContent = {
             ru: 'Управление организациями',
             tr: 'Organizasyonları yönet',
             pl: 'Zarządzaj organizacjami',
+            id: 'Kelola organisasi',
+            vi: 'Quản lý tổ chức',
           }),
           title: t({
             en: 'Organizations',
@@ -129,6 +141,8 @@ const adminSidebarContent = {
             ru: 'Организации',
             tr: 'Organizasyonlar',
             pl: 'Organizacje',
+            id: 'Organisasi',
+            vi: 'Tổ chức',
           }),
         },
         projects: {
@@ -148,6 +162,8 @@ const adminSidebarContent = {
             ru: 'Управление проектами',
             tr: 'Projeleri yönet',
             pl: 'Zarządzaj projektami',
+            id: 'Kelola proyek',
+            vi: 'Quản lý dự án',
           }),
           title: t({
             en: 'Projects',
@@ -165,6 +181,8 @@ const adminSidebarContent = {
             ru: 'Проекты',
             tr: 'Projeler',
             pl: 'Projekty',
+            id: 'Proyek',
+            vi: 'Dự án',
           }),
         },
         users: {
@@ -184,6 +202,8 @@ const adminSidebarContent = {
             ru: 'Управление пользователями',
             tr: 'Kullanıcıları yönet',
             pl: 'Zarządzaj użytkownikami',
+            id: 'Kelola pengguna',
+            vi: 'Quản lý người dùng',
           }),
           title: t({
             en: 'Users',
@@ -201,6 +221,8 @@ const adminSidebarContent = {
             ru: 'Пользователи',
             tr: 'Kullanıcılar',
             pl: 'Użytkownicy',
+            id: 'Pengguna',
+            vi: 'Người dùng',
           }),
         },
         discussions: {
@@ -220,6 +242,8 @@ const adminSidebarContent = {
             ru: 'Управление обсуждениями',
             tr: 'Tartışma yönetimi',
             pl: 'Zarządzaj dyskusjami',
+            id: 'Kelola diskusi',
+            vi: 'Quản lý thảo luận',
           }),
           title: t({
             en: 'Discussions',
@@ -237,11 +261,17 @@ const adminSidebarContent = {
             ru: 'Обсуждения',
             tr: 'Tartışmalar',
             pl: 'Dyskusje',
+            id: 'Diskusi',
+            vi: 'Thảo luận',
           }),
         },
       },
     },
   },
+  title: 'Admin sidebar navigation',
+  description:
+    'Content declaration for the admin sidebar navigation, includes labels and titles for dashboard access and management sections such as organizations, projects, users, and discussions.',
+  tags: ['admin panel', 'sidebar navigation', 'dashboard'],
 } satisfies Dictionary;
 
 export default adminSidebarContent;

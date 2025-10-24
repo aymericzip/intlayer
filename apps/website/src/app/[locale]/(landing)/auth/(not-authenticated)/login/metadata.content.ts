@@ -20,6 +20,8 @@ const metadataContent = {
       tr: 'Giriş Yap | Intlayer',
       zh: '登录 | Intlayer',
       pl: 'Logowanie | Intlayer',
+      id: 'Login | Intlayer',
+      vi: 'Đăng nhập | Intlayer',
     }),
     description: t({
       ar: 'قم بتسجيل الدخول إلى حساب Intlayer الخاص بك للوصول إلى المحتوى الحصري وإدارة تفضيلاتك.',
@@ -38,6 +40,8 @@ const metadataContent = {
       tr: 'Özel içeriğe erişmek ve tercihlerinizi yönetmek için Intlayer hesabınıza giriş yapın.',
       zh: '登录您的Intlayer帐户以访问独家内容并管理您的偏好。',
       pl: 'Zaloguj się na swoje konto Intlayer, aby uzyskać dostęp do ekskluzywnych treści i zarządzać swoimi preferencjami.',
+      id: 'Masuk ke akun Intlayer Anda untuk mengakses konten eksklusif dan mengelola preferensi Anda.',
+      vi: 'Đăng nhập vào tài khoản Intlayer của bạn để truy cập nội dung độc quyền và quản lý các tùy chọn.',
     }),
 
     keywords: t({
@@ -132,6 +136,15 @@ const metadataContent = {
         'Dostęp',
         'Uwierzytelnianie',
         'Zaloguj się',
+      ],
+      id: ['Login', 'Akun', 'Intlayer', 'Akses', 'Otentikasi', 'Masuk'],
+      vi: [
+        'Đăng nhập',
+        'Tài khoản',
+        'Intlayer',
+        'Truy cập',
+        'Xác thực',
+        'Đăng nhập',
       ],
     }),
   },

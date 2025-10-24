@@ -19,6 +19,8 @@ const notFountContent = {
       ru: '404 - Страница не найдена',
       tr: '404 - Sayfa Bulunamadı',
       pl: '404 - Strona nie znaleziona',
+      id: '404 - Halaman tidak ditemukan',
+      vi: '404 - Không tìm thấy trang',
     }),
     content: t({
       en: 'Page not found',
@@ -36,6 +38,8 @@ const notFountContent = {
       ru: 'Страница не найдена',
       tr: 'Sayfa bulunamadı',
       pl: 'Strona nie znaleziona',
+      id: 'Halaman tidak ditemukan',
+      vi: 'Không tìm thấy trang',
     }),
   },
   title: '404 page content',

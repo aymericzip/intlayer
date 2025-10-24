@@ -20,6 +20,8 @@ const askResetPasswordContent = {
         ru: 'Адрес электронной почты',
         tr: 'E-posta adresi',
         pl: 'Adres e-mail',
+        id: 'Alamat email',
+        vi: 'Địa chỉ email',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -37,6 +39,8 @@ const askResetPasswordContent = {
         ru: 'Введите адрес электронной почты',
         tr: 'E-posta adresini girin',
         pl: 'Wprowadź adres e-mail',
+        id: 'Masukkan alamat email',
+        vi: 'Nhập địa chỉ email',
       }),
     },
     sendRecoveryEmailButton: {
@@ -56,6 +60,8 @@ const askResetPasswordContent = {
         ru: 'Отправить письмо для восстановления',
         tr: 'Kurtarma e-postası gönder',
         pl: 'Wyślij e-mail odzyskiwania',
+        id: 'Kirim email pemulihan',
+        vi: 'Gửi email khôi phục mật khẩu',
       }),
       ariaLabel: t({
         en: 'Click to send recovery email',
@@ -73,6 +79,8 @@ const askResetPasswordContent = {
         ru: 'Щелкните, чтобы отправить электронное письмо для восстановления',
         tr: 'Kurtarma e-postası göndermek için tıklayın',
         pl: 'Kliknij, aby wysłać e-mail odzyskiwania',
+        id: 'Klik untuk mengirim email pemulihan',
+        vi: 'Nhấp để gửi email khôi phục mật khẩu',
       }),
     },
     resendRecoveryEmailButton: {
@@ -92,6 +100,8 @@ const askResetPasswordContent = {
         ru: 'Повторно отправить письмо для восстановления',
         tr: 'Kurtarma e-postasını yeniden gönder',
         pl: 'Wyślij ponownie e-mail odzyskiwania',
+        id: 'Kirim ulang email pemulihan',
+        vi: 'Gửi lại email khôi phục mật khẩu',
       }),
     },
     resendInText: t({
@@ -110,6 +120,8 @@ const askResetPasswordContent = {
       tr: 'Yeniden gönder',
       zh: '重新发送',
       pl: 'Wyślij ponownie za',
+      id: 'Kirim ulang dalam',
+      vi: 'Gửi lại trong',
     }),
     backToLoginButton: {
       text: t({
@@ -128,9 +140,15 @@ const askResetPasswordContent = {
         ru: 'Вернуться к входу',
         tr: 'Girişe geri dön',
         pl: 'Powrót do logowania',
+        id: 'Kembali ke login',
+        vi: 'Quay lại đăng nhập',
       }),
     },
   },
+  title: 'Ask reset password form content',
+  description:
+    "Content used in the 'Ask reset password' form, including input labels, button texts, and messages related to email recovery for password reset.",
+  tags: ['authentication', 'reset password', 'form content'],
 } satisfies Dictionary;
 
 export default askResetPasswordContent;

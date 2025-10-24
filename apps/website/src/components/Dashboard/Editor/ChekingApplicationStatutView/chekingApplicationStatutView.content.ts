@@ -19,6 +19,8 @@ const checkingApplicationStatusViewContent = {
       tr: 'Uygulama durumu kontrol ediliyor',
       zh: '正在检查应用程序状态',
       pl: 'Sprawdzanie stanu aplikacji',
+      id: 'Memeriksa status aplikasi',
+      vi: 'Đang kiểm tra trạng thái ứng dụng',
     }),
   },
   title: 'Checking application status view',

@@ -19,6 +19,8 @@ const content = {
       ru: 'Пожалуйста, введите ваше имя',
       tr: 'Lütfen adınızı girin',
       pl: 'Proszę podać swoje imię',
+      id: 'Silakan masukkan nama Anda',
+      vi: 'Vui lòng nhập tên của bạn',
     }),
 
     invalidTypeErrorName: t({
@@ -37,6 +39,8 @@ const content = {
       ru: 'Пожалуйста, введите действительное имя пользователя',
       tr: 'Lütfen geçerli bir kullanıcı adı girin',
       pl: 'Proszę podać poprawną nazwę użytkownika',
+      id: 'Silakan masukkan nama pengguna yang valid',
+      vi: 'Vui lòng nhập một tên người dùng hợp lệ',
     }),
   },
   title: 'Profile form schema',

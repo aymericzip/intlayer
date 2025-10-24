@@ -20,6 +20,8 @@ export const verifyEmailStepContent = {
         ru: 'Подтвердите ваш адрес электронной почты',
         tr: 'E-postanızı doğrulayın',
         pl: 'Zweryfikuj swój adres e-mail',
+        id: 'Verifikasi email Anda',
+        vi: 'Xác minh email của bạn',
       }),
       description: t({
         en: 'We sent you an email to verify your email address. Please check your inbox and click on the link to verify your email.',
@@ -38,6 +40,8 @@ export const verifyEmailStepContent = {
         ru: 'Мы отправили вам письмо для подтверждения вашего адреса электронной почты. Пожалуйста, проверьте свой почтовый ящик и нажмите на ссылку, чтобы подтвердить электронную почту.',
         tr: 'E-posta adresinizi doğrulamak için size bir e-posta gönderdik. Lütfen gelen kutunuzu kontrol edin ve e-postanızı doğrulamak için bağlantıya tıklayın.',
         pl: 'Wysłaliśmy Ci wiadomość e-mail z linkiem weryfikacyjnym. Sprawdź swoją skrzynkę odbiorczą i kliknij w link, aby zweryfikować adres e-mail.',
+        id: 'Kami telah mengirimkan email untuk memverifikasi alamat email Anda. Silakan periksa kotak masuk Anda dan klik tautan untuk memverifikasi email Anda.',
+        vi: 'Chúng tôi đã gửi cho bạn một email để xác minh địa chỉ email. Vui lòng kiểm tra hộp thư đến và nhấp vào liên kết để xác minh email.',
       }),
     },
   },

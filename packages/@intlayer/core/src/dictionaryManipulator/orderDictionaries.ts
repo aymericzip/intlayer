@@ -20,10 +20,13 @@ export const orderDictionaries = (
   }
 
   // Stabilize original indices to preserve relative order for complete ties
-  const withIndex = dictionaries.map((dict, index) => ({ dict, index }));
+  const withIndex = dictionaries.map((dictionary, index) => ({
+    dictionary,
+    index,
+  }));
 
-  const getPriority = (d: Dictionary): number => {
-    const p = d.priority ?? 0;
+  const getPriority = (dictionary: Dictionary): number => {
+    const p = dictionary.priority ?? 0;
 
     return Number.isFinite(p) ? p : 0;
   };
@@ -46,23 +49,23 @@ export const orderDictionaries = (
 
   withIndex.sort((a, b) => {
     // 1) Non-autoFilled before autoFilled (autoFilled have lower precedence)
-    const aAuto = a.dict.autoFilled ? 1 : 0;
-    const bAuto = b.dict.autoFilled ? 1 : 0;
+    const aAuto = a.dictionary.filled ? 1 : 0;
+    const bAuto = b.dictionary.filled ? 1 : 0;
     if (aAuto !== bAuto) return aAuto - bAuto; // 0 before 1
 
     // 2) Higher priority first (larger number wins)
-    const aP = getPriority(a.dict);
-    const bP = getPriority(b.dict);
+    const aP = getPriority(a.dictionary);
+    const bP = getPriority(b.dictionary);
     if (aP !== bP) return bP - aP; // descending
 
     // 3) Location according to strategy
-    const aLoc = getLocationWeight(a.dict);
-    const bLoc = getLocationWeight(b.dict);
-    if (aLoc !== bLoc) return aLoc - bLoc;
+    const aLocation = getLocationWeight(a.dictionary);
+    const bLocation = getLocationWeight(b.dictionary);
+    if (aLocation !== bLocation) return aLocation - bLocation;
 
     // 4) Stable fallback by original index
     return a.index - b.index;
   });
 
-  return withIndex.map(({ dict }) => dict);
+  return withIndex.map(({ dictionary }) => dictionary);
 };

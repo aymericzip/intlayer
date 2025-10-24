@@ -19,6 +19,8 @@ const content = {
       ru: 'Пожалуйста, введите ваш адрес электронной почты',
       tr: 'Lütfen e-posta adresinizi girin',
       pl: 'Proszę podać adres e-mail',
+      id: 'Harap masukkan alamat email Anda',
+      vi: 'Vui lòng nhập địa chỉ email của bạn',
     }),
 
     invalidTypeErrorEmail: t({
@@ -37,6 +39,8 @@ const content = {
       ru: 'Пожалуйста, введите действующий адрес электронной почты',
       tr: 'Lütfen geçerli bir e-posta adresi girin',
       pl: 'Proszę podać prawidłowy adres e-mail',
+      id: 'Harap masukkan alamat email yang valid',
+      vi: 'Vui lòng nhập một địa chỉ email hợp lệ',
     }),
   },
   title: 'Register password schema',

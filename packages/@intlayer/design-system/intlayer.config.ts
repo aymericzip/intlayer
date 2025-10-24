@@ -20,6 +20,8 @@ export const locales: Locale[] = [
   Locales.HINDI,
   Locales.TURKISH,
   Locales.POLISH,
+  Locales.INDONESIAN,
+  Locales.VIETNAMESE,
 ];
 export const defaultLocale: Locale = Locales.ENGLISH;
 

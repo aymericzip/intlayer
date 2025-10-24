@@ -20,6 +20,8 @@ const docContent = {
         ru: 'Перейти к следующей секции',
         tr: 'Sonraki bölüme git',
         pl: 'Przejdź do następnej sekcji',
+        id: 'Lanjut ke bagian berikutnya',
+        vi: 'Đi tới phần tiếp theo',
       }),
     },
     goToPreviousSection: {
@@ -39,6 +41,8 @@ const docContent = {
         ru: 'Перейти к предыдущей секции',
         tr: 'Önceki bölüme git',
         pl: 'Przejdź do poprzedniej sekcji',
+        id: 'Kembali ke bagian sebelumnya',
+        vi: 'Đi tới phần trước',
       }),
     },
   },

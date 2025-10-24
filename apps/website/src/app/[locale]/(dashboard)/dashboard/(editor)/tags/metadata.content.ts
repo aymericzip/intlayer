@@ -20,6 +20,8 @@ const metadataContent = {
       ru: 'Теги | Приборная панель | Intlayer',
       tr: 'Etiketler | Dashboard | Intlayer',
       pl: 'Tagi | Panel | Intlayer',
+      id: 'Tags | Dashboard | Intlayer',
+      vi: 'Tags | Dashboard | Intlayer',
     }),
     description: t({
       en: 'Manage and organize your tags in the Intlayer dashboard. Create, edit, and delete tags to better categorize your content.',
@@ -38,6 +40,8 @@ const metadataContent = {
       ru: 'Управляйте и организуйте свои теги в панели инструментов Intlayer. Создавайте, редактируйте и удаляйте теги для лучшей категоризации вашего контента.',
       tr: 'Intlayer kontrol panelinde etiketlerinizi yönetin ve düzenleyin. İçeriğinizi daha iyi kategorize etmek için etiketler oluşturun, düzenleyin ve silin.',
       pl: 'Zarządzaj i organizuj swoje tagi w panelu Intlayer. Twórz, edytuj i usuwaj tagi, aby lepiej kategoryzować swoje treści.',
+      id: 'Kelola dan atur tag Anda di dashboard Intlayer. Buat, sunting, dan hapus tag untuk mengkategorikan konten Anda dengan lebih baik.',
+      vi: 'Quản lý và tổ chức các tags của bạn trong Dashboard Intlayer. Tạo, chỉnh sửa và xóa tags để phân loại nội dung của bạn tốt hơn.',
     }),
     keywords: t({
       en: [
@@ -123,6 +127,22 @@ const metadataContent = {
         'Zarządzanie',
         'Organizacja treści',
         'Metadane',
+      ],
+      id: [
+        'Tag',
+        'Label',
+        'Kategorisasi',
+        'Pengelolaan',
+        'Organisasi Konten',
+        'Metadata',
+      ],
+      vi: [
+        'Tags',
+        'Labels',
+        'Phân loại (Categorization)',
+        'Quản lý (Management)',
+        'Tổ chức nội dung (Content Organization)',
+        'Metadata',
       ],
     }),
   },

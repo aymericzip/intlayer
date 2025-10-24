@@ -20,6 +20,8 @@ const chatFormSectionContent = {
         ru: 'Спросите нашу умную документацию',
         tr: 'Yapay Zeka Destekli Akıllı Belgelerimize sorunuzu sorun',
         pl: 'Zadaj pytanie naszej inteligentnej dokumentacji wspieranej przez AI',
+        id: 'Ajukan pertanyaan Anda kepada Dokumentasi Cerdas bertenaga AI kami',
+        vi: 'Đặt câu hỏi cho Tài liệu Thông minh do AI hỗ trợ',
       }),
       placeholder: t({
         de: 'Stellen Sie mir irgendwas...',
@@ -37,6 +39,8 @@ const chatFormSectionContent = {
         ru: 'Спросите меня что-нибудь...',
         tr: 'Bana bir şey sor...',
         pl: 'Zapytaj mnie o cokolwiek...',
+        id: 'Tanyakan apa saja...',
+        vi: 'Hãy hỏi tôi bất cứ điều gì...',
       }),
     },
     sendQuestionButton: {
@@ -56,6 +60,8 @@ const chatFormSectionContent = {
         ru: 'Нажмите, чтобы отправить вопрос',
         tr: 'Soruyu göndermek için tıklayın',
         pl: 'Kliknij, aby wysłać pytanie',
+        id: 'Klik untuk mengirim pertanyaan',
+        vi: 'Nhấn để gửi câu hỏi',
       }),
     },
     clearButton: {
@@ -75,6 +81,8 @@ const chatFormSectionContent = {
         ru: 'Нажмите, чтобы очистить',
         tr: 'Temizlemek için tıklayın',
         pl: 'Kliknij, aby wyczyścić',
+        id: 'Klik untuk mengosongkan',
+        vi: 'Nhấn để xóa',
       }),
     },
   },

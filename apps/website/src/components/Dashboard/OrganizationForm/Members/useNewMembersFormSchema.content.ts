@@ -19,6 +19,8 @@ const content = {
       ru: 'Пожалуйста, введите правильный адрес электронной почты',
       tr: 'Lütfen geçerli bir e-posta adresi girin',
       pl: 'Proszę podać prawidłowy adres e-mail.',
+      id: 'Silakan masukkan alamat email yang valid',
+      vi: 'Vui lòng nhập địa chỉ email hợp lệ',
     }),
   },
   title: 'New members form validation schema',

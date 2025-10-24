@@ -20,6 +20,8 @@ export const dictionaryFieldEditorContent = {
         ru: 'Вернуться к списку словарей',
         tr: 'Sözlük listesine dön',
         pl: 'Powrót do listy słowników',
+        id: 'Kembali ke daftar kamus',
+        vi: 'Quay lại danh sách từ điển',
       }),
       text: t({
         en: 'Dictionary list',
@@ -37,6 +39,8 @@ export const dictionaryFieldEditorContent = {
         ru: 'Список словарей',
         tr: 'Sözlük listesi',
         pl: 'Lista słowników',
+        id: 'Daftar kamus',
+        vi: 'Danh sách từ điển',
       }),
     },
   },

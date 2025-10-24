@@ -20,6 +20,8 @@ const pageContent = {
       tr: 'Blogda ara',
       zh: '在博客中搜索',
       pl: 'Szukaj na blogu',
+      id: 'Cari di blog',
+      vi: 'Tìm kiếm trong blog',
     }),
   },
   title: 'Undefined content declaration',

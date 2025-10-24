@@ -20,6 +20,8 @@ export const locales: Locale[] = [
   Locales.HINDI,
   Locales.TURKISH,
   Locales.POLISH,
+  Locales.INDONESIAN,
+  Locales.VIETNAMESE,
 ];
 export const defaultLocale = Locales.ENGLISH;
 
@@ -51,7 +53,8 @@ const config: CustomIntlayerConfig = {
   ai: {
     applicationContext: [
       'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',
-      'This application contain a landing page, the documentation and the CMS on the dashboard.',
+      'This application contains a landing page, documentation, and the CMS within the dashboard.',
+      'It is intended for developers, so do not hesitate to use technical terms, and keep anglicisms in English.',
     ].join('\n'),
     apiKey: process.env.OPENAI_API_KEY,
   },

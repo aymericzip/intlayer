@@ -19,6 +19,8 @@ const searchTriggerContent: Dictionary = {
       tr: 'Sonuç bulunamadı',
       zh: '未找到结果',
       pl: 'Brak wyników',
+      id: 'Tidak ada hasil yang ditemukan',
+      vi: 'Không tìm thấy kết quả',
     }),
     searchInput: {
       label: t({
@@ -37,6 +39,8 @@ const searchTriggerContent: Dictionary = {
         ru: 'Поиск',
         tr: 'Ara',
         pl: 'Szukaj',
+        id: 'Cari',
+        vi: 'Tìm kiếm',
       }),
       placeholder: t({
         en: 'Search...',
@@ -54,6 +58,8 @@ const searchTriggerContent: Dictionary = {
         ru: 'Поиск...',
         tr: 'Ara...',
         pl: 'Szukaj...',
+        id: 'Cari...',
+        vi: 'Tìm kiếm...',
       }),
     },
     searchResultItemButton: {
@@ -73,6 +79,8 @@ const searchTriggerContent: Dictionary = {
         ru: 'Нажмите, чтобы просмотреть',
         tr: 'Görüntülemek için tıklayın',
         pl: 'Kliknij, aby wyświetlić',
+        id: 'Klik untuk melihat',
+        vi: 'Nhấp để xem',
       }),
     },
   },

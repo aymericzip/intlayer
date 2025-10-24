@@ -20,6 +20,8 @@ const metadataContent = {
       tr: 'Editör | Dashboard Paneli | Intlayer',
       zh: '编辑器 | 仪表板 | Intlayer',
       pl: 'Edytor | Panel | Intlayer',
+      id: 'Editor | Dasbor | Intlayer',
+      vi: 'Editor | Bảng điều khiển | Intlayer',
     }),
     description: t({
       ar: 'إدارة محتوى موقعك باستخدام محرر الفيديو لـ Intlayer.',
@@ -37,6 +39,8 @@ const metadataContent = {
       tr: 'Intlayer görsel düzenleyicisini kullanarak web sitesi içeriğinizi yönetin.',
       zh: '使用 Intlayer 视觉编辑器管理您的网站内容。',
       pl: 'Zarządzaj zawartością swojej strony internetowej za pomocą wizualnego edytora Intlayer.',
+      id: 'Kelola konten situs web Anda menggunakan editor visual Intlayer.',
+      vi: 'Quản lý nội dung trang web của bạn bằng Visual Editor của Intlayer.',
     }),
     keywords: t({
       ar: ['CMS', 'نظام إدارة المحتوى', 'محرر الفيديو', 'محرر', 'لوحة القيادة'],
@@ -119,6 +123,20 @@ const metadataContent = {
         'Wizualny edytor',
         'Edytor',
         'Panel',
+      ],
+      id: [
+        'CMS',
+        'Sistem Manajemen Konten',
+        'Editor Visual',
+        'Editor',
+        'Dasbor',
+      ],
+      vi: [
+        'CMS',
+        'Hệ thống quản lý nội dung',
+        'Visual Editor',
+        'Editor',
+        'Bảng điều khiển',
       ],
     }),
   },

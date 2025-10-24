@@ -19,6 +19,8 @@ const availableTechnoContent = {
       tr: 'Mevcut',
       zh: '可用',
       pl: 'Dostępne na',
+      id: 'Tersedia di',
+      vi: 'Có sẵn trên',
     }),
     comingSoon: t({
       ar: 'قريبا متاح على',
@@ -36,6 +38,8 @@ const availableTechnoContent = {
       tr: 'Çok yakında',
       zh: '即将可用',
       pl: 'Wkrótce',
+      id: 'Segera hadir',
+      vi: 'Sắp ra mắt',
     }),
     icons: {
       react: {
@@ -55,6 +59,8 @@ const availableTechnoContent = {
           ru: 'Перейти на официальный сайт ReactJS',
           tr: 'ReactJS resmi web sitesine git',
           pl: 'Przejdź do oficjalnej strony ReactJS',
+          id: 'Buka situs resmi ReactJS',
+          vi: 'Truy cập trang web chính thức của ReactJS',
         }),
       },
       nextjs: {
@@ -74,6 +80,8 @@ const availableTechnoContent = {
           ru: 'Перейти на официальный сайт NextJS',
           tr: 'NextJS resmi web sitesine git',
           pl: 'Przejdź do oficjalnej strony NextJS',
+          id: 'Buka situs resmi NextJS',
+          vi: 'Truy cập trang web chính thức của NextJS',
         }),
       },
       vite: {
@@ -93,6 +101,8 @@ const availableTechnoContent = {
           ru: 'Перейти на официальный сайт ViteJS',
           tr: 'ViteJS resmi web sitesine git',
           pl: 'Przejdź do oficjalnej strony ViteJS',
+          id: 'Buka situs resmi ViteJS',
+          vi: 'Truy cập trang web chính thức của ViteJS',
         }),
       },
       vue: {
@@ -112,6 +122,8 @@ const availableTechnoContent = {
           ru: 'Перейти на официальный сайт VueJS',
           tr: 'VueJS resmi web sitesine git',
           pl: 'Przejdź do oficjalnej strony VueJS',
+          id: 'Buka situs resmi VueJS',
+          vi: 'Truy cập trang web chính thức của VueJS',
         }),
       },
       nuxt: {
@@ -131,6 +143,8 @@ const availableTechnoContent = {
           ru: 'Перейти на официальный сайт NuxtJS',
           tr: 'NuxtJS resmi web sitesine git',
           pl: 'Przejdź do oficjalnej strony NuxtJS',
+          id: 'Buka situs resmi NuxtJS',
+          vi: 'Truy cập trang web chính thức của NuxtJS',
         }),
       },
       angular: {
@@ -150,6 +164,8 @@ const availableTechnoContent = {
           ru: 'Перейти на официальный сайт AngularJS',
           tr: 'AngularJS resmi web sitesine git',
           pl: 'Przejdź do oficjalnej strony AngularJS',
+          id: 'Buka situs resmi AngularJS',
+          vi: 'Truy cập trang web chính thức của AngularJS',
         }),
       },
       preact: {
@@ -169,6 +185,8 @@ const availableTechnoContent = {
           ru: 'Перейти на официальный сайт Preact',
           tr: 'Preact resmi web sitesine git',
           pl: 'Przejdź do oficjalnej strony Preact',
+          id: 'Buka situs resmi Preact',
+          vi: 'Truy cập trang web chính thức của Preact',
         }),
       },
       solid: {
@@ -188,6 +206,8 @@ const availableTechnoContent = {
           ru: 'Перейти на официальный сайт SolidJS',
           tr: 'SolidJS resmi web sitesine git',
           pl: 'Przejdź do oficjalnej strony SolidJS',
+          id: 'Buka situs resmi SolidJS',
+          vi: 'Truy cập trang web chính thức của SolidJS',
         }),
       },
       svelte: {
@@ -207,6 +227,8 @@ const availableTechnoContent = {
           ru: 'Перейти на официальный сайт Svelte',
           tr: 'Svelte resmi web sitesine git',
           pl: 'Przejdź do oficjalnej strony Svelte',
+          id: 'Buka situs resmi Svelte',
+          vi: 'Truy cập trang web chính thức của Svelte',
         }),
       },
       astro: {
@@ -226,6 +248,8 @@ const availableTechnoContent = {
           ru: 'Перейти на официальный сайт Astro',
           tr: 'Astro resmi web sitesine git',
           pl: 'Przejdź do oficjalnej strony Astro',
+          id: 'Buka situs resmi Astro',
+          vi: 'Truy cập trang web chính thức của Astro',
         }),
       },
       lynx: {
@@ -245,10 +269,16 @@ const availableTechnoContent = {
           ru: 'Перейти на официальный сайт Lynx',
           tr: 'Lynx resmi web sitesine git',
           pl: 'Przejdź do oficjalnej strony Lynx',
+          id: 'Buka situs resmi Lynx',
+          vi: 'Truy cập trang web chính thức của Lynx',
         }),
       },
     },
   },
+  title: 'Available technologies section',
+  description:
+    'Section displaying supported frontend technologies and frameworks, indicating availability and linking to official websites.',
+  tags: ['landing page', 'technology support', 'frameworks'],
 } satisfies Dictionary;
 
 export default availableTechnoContent;

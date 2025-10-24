@@ -63,7 +63,14 @@ export const verifyIdenticObjectFormat = (
 
     // Recursively check each element
     for (let i = 0; i < expectedFormat.length; i++) {
-      verifyIdenticObjectFormat(object[i], expectedFormat[i], `${path}[${i}]`);
+      const result = verifyIdenticObjectFormat(
+        object[i],
+        expectedFormat[i],
+        `${path}[${i}]`
+      );
+      if (!result.isIdentic) {
+        return result;
+      }
     }
 
     return {
@@ -101,11 +108,14 @@ export const verifyIdenticObjectFormat = (
 
     // Recursively check each property
     for (const key of expectedKeys) {
-      verifyIdenticObjectFormat(
+      const result = verifyIdenticObjectFormat(
         (object as Record<string, RecursiveType>)[key],
         (expectedFormat as Record<string, RecursiveType>)[key],
         `${path}.${key}`
       );
+      if (!result.isIdentic) {
+        return result;
+      }
     }
 
     return {

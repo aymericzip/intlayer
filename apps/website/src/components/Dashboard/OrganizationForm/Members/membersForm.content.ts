@@ -20,6 +20,8 @@ const organizationMembersFormContent = {
       'en-GB': 'Members',
       tr: 'Üyeler',
       pl: 'Członkowie',
+      id: 'Anggota',
+      vi: 'Thành viên',
     }),
     description: t({
       en: 'Manage the members that have access and can edit your organization.',
@@ -38,6 +40,8 @@ const organizationMembersFormContent = {
         'Manage the members that have access and can edit your organization.',
       tr: 'Organizasyonunuza erişimi olan ve düzenleyebilen üyeleri yönetin.',
       pl: 'Zarządzaj członkami, którzy mają dostęp i mogą edytować Twoją organizację.',
+      id: 'Kelola anggota yang memiliki akses dan dapat mengedit organisasi Anda.',
+      vi: 'Quản lý các thành viên có quyền truy cập và có thể chỉnh sửa organization của bạn.',
     }),
     deleteMemberButton: {
       label: t({
@@ -56,6 +60,8 @@ const organizationMembersFormContent = {
         'en-GB': 'Delete',
         tr: 'Sil',
         pl: 'Usuń',
+        id: 'Hapus',
+        vi: 'Xóa',
       }),
     },
     noMembers: t({
@@ -74,6 +80,8 @@ const organizationMembersFormContent = {
       'en-GB': 'No members',
       tr: 'Üye yok',
       pl: 'Brak członków',
+      id: 'Tidak ada anggota',
+      vi: 'Không có thành viên',
     }),
 
     newMemberEmailInput: {
@@ -93,6 +101,8 @@ const organizationMembersFormContent = {
         'en-GB': 'Add a member',
         tr: 'Üye ekle',
         pl: 'Dodaj członka',
+        id: 'Tambahkan anggota',
+        vi: 'Thêm thành viên',
       }),
       placeholder: t({
         en: 'Enter an email address',
@@ -110,6 +120,8 @@ const organizationMembersFormContent = {
         'en-GB': 'Enter an email address',
         tr: 'Bir e-posta adresi girin',
         pl: 'Wprowadź adres e-mail',
+        id: 'Masukkan alamat email',
+        vi: 'Nhập địa chỉ email',
       }),
 
       description: t({
@@ -129,6 +141,8 @@ const organizationMembersFormContent = {
           'Add members to your organization by entering their email addresses.',
         tr: 'E-posta adreslerini girerek organizasyonunuza üye ekleyin.',
         pl: 'Dodaj członków do swojej organizacji, wpisując ich adresy e-mail.',
+        id: 'Tambahkan anggota ke organisasi Anda dengan memasukkan alamat email mereka.',
+        vi: 'Thêm thành viên vào organization của bạn bằng cách nhập địa chỉ email của họ.',
       }),
     },
 
@@ -149,6 +163,8 @@ const organizationMembersFormContent = {
         'en-GB': 'Add member',
         tr: 'Üye ekle',
         pl: 'Dodaj członka',
+        id: 'Tambahkan anggota',
+        vi: 'Thêm thành viên',
       }),
       text: t({
         en: 'Add',
@@ -166,6 +182,8 @@ const organizationMembersFormContent = {
         'en-GB': 'Add',
         tr: 'Ekle',
         pl: 'Dodaj',
+        id: 'Tambah',
+        vi: 'Thêm',
       }),
       placeholder: t({
         en: 'Add member',
@@ -183,6 +201,8 @@ const organizationMembersFormContent = {
         'en-GB': 'Add member',
         tr: 'Üye ekle',
         pl: 'Dodaj członka',
+        id: 'Tambahkan anggota',
+        vi: 'Thêm thành viên',
       }),
     },
 
@@ -203,6 +223,8 @@ const organizationMembersFormContent = {
         'en-GB': 'Select admins',
         tr: 'Yöneticileri seçin',
         pl: 'Wybierz administratorów',
+        id: 'Pilih admin',
+        vi: 'Chọn Admins',
       }),
       placeholder: t({
         en: 'Select admins',
@@ -220,6 +242,8 @@ const organizationMembersFormContent = {
         'en-GB': 'Select admins',
         tr: 'Yöneticileri seçin',
         pl: 'Wybierz administratorów',
+        id: 'Pilih admin',
+        vi: 'Chọn Admins',
       }),
       description: t({
         en: 'Admins can edit members and organization settings.',
@@ -237,6 +261,8 @@ const organizationMembersFormContent = {
         'en-GB': 'Admins can edit members and organization settings.',
         tr: 'Yöneticiler üyeleri ve organizasyon ayarlarını düzenleyebilir.',
         pl: 'Administratorzy mogą edytować członków i ustawienia organizacji.',
+        id: 'Admin dapat mengedit anggota dan pengaturan organisasi.',
+        vi: 'Admins có thể chỉnh sửa các thành viên và cài đặt của organization.',
       }),
     },
     addMembersButton: {
@@ -256,6 +282,8 @@ const organizationMembersFormContent = {
         'en-GB': 'Update Members',
         tr: 'Üyeleri Güncelle',
         pl: 'Zaktualizuj członków',
+        id: 'Perbarui anggota',
+        vi: 'Cập nhật thành viên',
       }),
       label: t({
         en: 'Update Members',
@@ -273,6 +301,8 @@ const organizationMembersFormContent = {
         'en-GB': 'Update Members',
         tr: 'Üyeleri Güncelle',
         pl: 'Zaktualizuj członków',
+        id: 'Perbarui anggota',
+        vi: 'Cập nhật thành viên',
       }),
     },
   },

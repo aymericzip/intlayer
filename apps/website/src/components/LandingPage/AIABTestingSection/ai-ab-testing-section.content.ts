@@ -19,6 +19,8 @@ const aiAbTestingSectionContent = {
       tr: "Yakında Beta'da",
       zh: '即将公测',
       pl: 'Wkrótce w wersji beta',
+      id: 'Segera dalam Beta',
+      vi: 'Sắp có bản Beta',
     }),
     title: t({
       ar: 'ملعبك لتجارب المنتجات.',
@@ -36,6 +38,8 @@ const aiAbTestingSectionContent = {
       tr: 'Ürün Deneyleri için Playground.',
       zh: '您的产品实验游乐场。',
       pl: 'Twoje pole do eksperymentów produktowych.',
+      id: 'Area Eksperimen Produk Anda.',
+      vi: 'Sân chơi để thử nghiệm sản phẩm của bạn.',
     }),
     description: md(
       t({
@@ -47,6 +51,7 @@ const aiAbTestingSectionContent = {
         es: 'Sé el primero en explorar la nueva beta de **A/B Testing impulsado por IA** de Intlayer, diseñada para impulsar la descubribilidad y guiar decisiones de producto más inteligentes. Prueba cualquier cosa en tiempo real, desde copy y diseño hasta funciones completas, y deja que los datos te muestren lo que realmente funciona.',
         fr: "Soyez les premiers à explorer la nouvelle version bêta d'**A/B Testing piloté par IA** d'Intlayer, conçue pour améliorer la découvrabilité et guider des décisions produit plus intelligentes. Testez tout en temps réel, du contenu et du design aux fonctionnalités complètes, et laissez les données vous montrer ce qui fonctionne vraiment.",
         hi: 'Intlayer के नए **AI-संचालित A/B टेस्टिंग** बीटा का पता लगाने वाले पहले व्यक्ति बनें, जो खोज योग्यता बढ़ाने और स्मार्ट उत्पाद निर्णयों का मार्गदर्शन करने के लिए बनाया गया है। कॉपी और डिज़ाइन से लेकर पूरे फीचर्स तक, रियल टाइम में कुछ भी टेस्ट करें, और डेटा को दिखाने दें कि वास्तव में क्या काम करता है।',
+        id: 'Jadilah yang pertama menjelajahi beta baru Intlayer untuk **AI-driven A/B Testing**, yang dibuat untuk meningkatkan discoverability dan membantu pengambilan keputusan produk yang lebih cerdas. Uji apa saja secara real time, mulai dari teks dan desain hingga fitur lengkap, dan biarkan data menunjukkan apa yang benar-benar berhasil.',
         it: "Sii il primo a esplorare la nuova beta di A/B Testing guidato dall'IA di Intlayer, costruita per aumentare la scopribilità e guidare decisioni di prodotto più intelligenti. Testa qualsiasi cosa in tempo reale, dai copy e design alle funzionalità complete, e lascia che i dati ti mostrino cosa funziona davvero.",
         ja: 'Intlayerの新しい**AI搭載A/Bテストベータ**を最初に体験してください。発見可能性を高め、よりスマートな製品決定を導くために構築されました。コピーやデザインから機能全体まで、リアルタイムで何でもテストし、データに本当に効果的なものを示してもらいましょう。',
         ko: 'Intlayer의 새로운 **AI 기반 A/B 테스트 베타**를 가장 먼저 탐험해보세요. 발견 가능성을 높이고 더 스마트한 제품 결정을 안내하도록 구축되었습니다. 카피와 디자인부터 전체 기능까지 실시간으로 무엇이든 테스트하고, 데이터가 진정으로 작동하는 것을 보여주도록 하세요.',
@@ -54,6 +59,7 @@ const aiAbTestingSectionContent = {
         pt: 'Seja o primeiro a explorar a nova beta de A/B Testing orientado por IA da Intlayer, construída para aumentar a descoberta e orientar decisões de produto mais inteligentes. Teste qualquer coisa em tempo real, desde copy e design até recursos completos, e deixe os dados mostrarem o que realmente funciona.',
         ru: 'Станьте первыми, кто исследует новую бета-версию **A/B-тестирования на базе ИИ** от Intlayer, созданную для повышения обнаруживаемости и направления более умных решений по продукту. Тестируйте что угодно в реальном времени, от текстов и дизайна до целых функций, и позвольте данным показать вам, что действительно работает.',
         tr: "Intlayer'ın yeni **Yapay Zeka destekli A/B Testi** beta sürümünü keşfeden ilk kişi olun. Keşfedilebilirliği artırmak ve daha akıllı ürün kararlarına rehberlik etmek için tasarlandı. Kopya ve tasarımdan tüm özelliklere kadar her şeyi gerçek zamanlı olarak test edin ve verilerin gerçekten neyin işe yaradığını göstermesine izin verin.",
+        vi: 'Hãy là người đầu tiên khám phá bản Beta mới của Intlayer: **AI-driven A/B Testing**, được xây dựng để tăng khả năng hiển thị và định hướng những quyết định sản phẩm thông minh hơn. Thử nghiệm mọi thứ theo thời gian thực, từ nội dung (copy) và thiết kế đến toàn bộ tính năng, và để dữ liệu cho bạn thấy điều gì thực sự hiệu quả.',
         zh: '成为第一批探索 Intlayer 新 **AI 驱动 A/B 测试**测试版的用户，该版本旨在提升可发现性并指导更明智的产品决策。从文案和设计到整个功能，实时测试任何内容，让数据告诉您什么真正有效。',
       })
     ),
@@ -75,6 +81,8 @@ const aiAbTestingSectionContent = {
         ru: 'Узнайте больше о функции *AI A/B Testing (открывается в новой вкладке)',
         tr: '*Yapay Zeka A/B Testi özelliği hakkında daha fazla bilgi edinin (yeni sekmede açılır)',
         pl: 'Dowiedz się więcej o funkcji *AI A/B Testing (otworzy się w nowej karcie)',
+        id: 'Pelajari lebih lanjut tentang fitur AI A/B Testing (buka di tab baru)',
+        vi: 'Tìm hiểu thêm về tính năng *AI A/B Testing* (mở trong tab mới)',
       }),
       text: t({
         en: 'Learn more about the feature',
@@ -92,9 +100,15 @@ const aiAbTestingSectionContent = {
         ru: 'Узнайте больше о функции',
         tr: 'Özellik hakkında daha fazla bilgi edinin',
         pl: 'Dowiedz się więcej o funkcji',
+        id: 'Pelajari lebih lanjut tentang fitur ini',
+        vi: 'Tìm hiểu thêm về tính năng',
       }),
     },
   },
+  title: 'AI A/B Testing section',
+  description:
+    'Content declaration for the AI-driven A/B Testing section on the landing page. Highlights beta availability, feature presentation, and CTA for further exploration. Aimed at encouraging user experimentation and data-driven product optimization.',
+  tags: ['landing page', 'feature section', 'AI A/B testing'],
 } satisfies Dictionary;
 
 export default aiAbTestingSectionContent;

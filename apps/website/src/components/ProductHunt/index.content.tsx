@@ -90,6 +90,24 @@ const productHuntContent = {
           yayınlanır
         </>
       ),
+      pl: (
+        <>
+          Intlayer wydany<strong>w niedzielę, 11 maja</strong> na{' '}
+          <strong className="underline">Product Hunt</strong>
+        </>
+      ),
+      id: (
+        <>
+          Intlayer akan diluncurkan pada <strong>Minggu, 11 Mei</strong> di{' '}
+          <strong className="underline">Product Hunt</strong>
+        </>
+      ),
+      vi: (
+        <>
+          Intlayer sẽ được phát hành vào <strong>Chủ Nhật, 11 tháng 5</strong>{' '}
+          trên <strong className="underline">Product Hunt</strong>
+        </>
+      ),
     }),
     details: t({
       en: 'Visit us on Product Hunt and show your support with an upvote. Your feedback is invaluable!',
@@ -108,6 +126,8 @@ const productHuntContent = {
       ru: 'Посетите нас на Product Hunt и поддержите нас голосованием. Ваш отзыв бесценен!',
       tr: "Product Hunt'da bizi ziyaret edin ve bir upvote ile desteğinizi gösterin. Yorumunuz değerlidir!",
       pl: 'Odwiedź nas na Product Hunt i wesprzyj nas upvotem. Twoja opinia jest dla nas nieoceniona!',
+      id: 'Kunjungi kami di Product Hunt dan tunjukkan dukungan Anda dengan memberi upvote. Umpan balik Anda sangat berharga!',
+      vi: 'Hãy ghé thăm chúng tôi trên Product Hunt và ủng hộ bằng một lượt upvote. Phản hồi của bạn vô cùng quý giá!',
     }),
     linkLabel: t({
       en: 'Go to see it on Product Hunt',
@@ -125,6 +145,8 @@ const productHuntContent = {
       ru: 'Посетите на Product Hunt',
       tr: "Product Hunt'da görüntüle",
       pl: 'Zobacz to na Product Hunt',
+      id: 'Lihat di Product Hunt',
+      vi: 'Xem trên Product Hunt',
     }),
     closeLabel: t({
       en: 'Close',
@@ -142,6 +164,8 @@ const productHuntContent = {
       ru: 'Закрыть',
       tr: 'Kapat',
       pl: 'Zamknij',
+      id: 'Tutup',
+      vi: 'Đóng',
     }),
   },
   title: 'Product Hunt announcement',

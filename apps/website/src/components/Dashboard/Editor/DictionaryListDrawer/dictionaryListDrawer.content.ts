@@ -20,6 +20,8 @@ const dictionaryListDrawerContent = {
         hi: 'शब्दकोश सूची',
         tr: 'Sözlük listesi',
         pl: 'Lista słowników',
+        id: 'Daftar kamus',
+        vi: 'Danh sách từ điển',
       }),
     },
     buttonLabel: {
@@ -32,6 +34,7 @@ const dictionaryListDrawerContent = {
           es: 'Abrir el diccionario en el editor {{dictionaryLocalId}}',
           fr: "Ouvrir le dictionnaire dans l'éditeur {{dictionaryLocalId}}",
           hi: 'शब्दकोश संपादक खोलें {{dictionaryLocalId}}',
+          id: 'Buka editor kamus {{dictionaryLocalId}}',
           it: 'Apri editor dizionario {{dictionaryLocalId}}',
           ja: '辞書エディタを開く {{dictionaryLocalId}}',
           ko: '사전 편집기 열기 {{dictionaryLocalId}}',
@@ -39,6 +42,7 @@ const dictionaryListDrawerContent = {
           pt: 'Abrir editor de dicionário {{dictionaryLocalId}}',
           ru: 'Открыть редактор словаря {{dictionaryLocalId}}',
           tr: 'Sözlük düzenleyiciyi aç {{dictionaryLocalId}}',
+          vi: 'Mở trình chỉnh sửa từ điển {{dictionaryLocalId}}',
           zh: '打开字典编辑器 {{dictionaryLocalId}}',
         })
       ),

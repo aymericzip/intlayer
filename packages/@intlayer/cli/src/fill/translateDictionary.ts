@@ -192,10 +192,8 @@ export const translateDictionary = async (
 
         const chunkResult: JsonChunk[] = [];
 
-        // Process chunks sequentially (one at a time per task) to allow fair interleaving across tasks
-        const chunkResults: { chunk: JsonChunk; result: any }[] = [];
-
-        for (const chunk of chunkedJsonContent) {
+        // Process chunks in parallel (globally throttled) to allow concurrent translation
+        const chunkPromises = chunkedJsonContent.map((chunk) => {
           const chunkPreset = createChunkPreset(chunk.index, chunk.total);
 
           if (nbOfChunks > 1) {
@@ -265,13 +263,15 @@ export const translateDictionary = async (
             )();
           };
 
-          // IMPORTANT: only one in-flight per task
-          const result = options?.onHandle
-            ? await options.onHandle(executeTranslation)
-            : await executeTranslation();
+          const wrapped = options?.onHandle
+            ? options.onHandle(executeTranslation) // queued in global limiter
+            : executeTranslation(); // no global limiter
 
-          chunkResults.push({ chunk, result });
-        }
+          return wrapped.then((result) => ({ chunk, result }));
+        });
+
+        // Wait for all chunks for this locale in parallel (still capped by global limiter)
+        const chunkResults = await Promise.all(chunkPromises);
 
         // Maintain order
         chunkResults

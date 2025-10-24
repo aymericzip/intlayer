@@ -19,6 +19,8 @@ const noApplicationURLViewContent = {
       it: 'La configurazione del progetto non include l’URL dell’applicazione',
       tr: "Proje yapılandırmanız uygulama URL'sini içermiyor",
       pl: 'Konfiguracja Twojego projektu nie zawiera adresu URL aplikacji',
+      id: 'Konfigurasi proyek Anda tidak menyertakan URL aplikasi',
+      vi: 'Cấu hình dự án của bạn không bao gồm URL ứng dụng',
     }),
     description: t({
       en: 'To use the CMS, you need to add the URL of the application to access to the configuration file.',
@@ -37,6 +39,8 @@ const noApplicationURLViewContent = {
       it: 'Per utilizzare il CMS, è necessario aggiungere l’URL dell’applicazione per accedere al file di configurazione.',
       tr: "CMS'yi kullanmak için yapılandırma dosyasına erişmek için uygulamanın URL'sini eklemeniz gerekir.",
       pl: 'Aby korzystać z CMS, musisz dodać adres URL aplikacji do pliku konfiguracyjnego.',
+      id: 'Untuk menggunakan CMS, Anda perlu menambahkan URL aplikasi ke file konfigurasi.',
+      vi: 'Để sử dụng CMS, bạn cần thêm URL của ứng dụng vào tệp cấu hình.',
     }),
     documentationLink: {
       label: t({
@@ -55,6 +59,8 @@ const noApplicationURLViewContent = {
         it: 'Fai clic qui per accedere alla documentazione del CMS',
         tr: 'CMS belgelerine gitmek için tıklayın',
         pl: 'Kliknij, aby przejść do dokumentacji CMS',
+        id: 'Klik untuk membuka dokumentasi CMS',
+        vi: 'Nhấp để xem tài liệu CMS',
       }),
       text: t({
         en: 'See how to configure the CMS',
@@ -72,6 +78,8 @@ const noApplicationURLViewContent = {
         zh: '查看如何配置CMS',
         tr: "CMS'yi nasıl yapılandıracağınızı görün",
         pl: 'Zobacz, jak skonfigurować CMS',
+        id: 'Lihat cara mengonfigurasi CMS',
+        vi: 'Xem cách cấu hình CMS',
       }),
     },
   },

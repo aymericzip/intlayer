@@ -12,6 +12,7 @@ const longPressMessageContent = {
         es: 'Presiona largo para editar el diccionario "{{dictionaryKey}}"',
         fr: 'Long press pour éditer le dictionnaire "{{dictionaryKey}}"',
         hi: 'लंग प्रेस करें टू एडिट "{{dictionaryKey}}"',
+        id: 'Tekan lama untuk mengedit dictionary "{{dictionaryKey}}"',
         it: 'Premi a lungo per modificare il dizionario "{{dictionaryKey}}"',
         ja: '長押しして編集 "{{dictionaryKey}}" 辞書',
         ko: '길게 눌러 편집 "{{dictionaryKey}}" 사전',
@@ -19,6 +20,7 @@ const longPressMessageContent = {
         pt: 'Pressione longa para editar o dicionário "{{dictionaryKey}}"',
         ru: 'Длительное нажатие для редактирования словаря "{{dictionaryKey}}"',
         tr: '"{{dictionaryKey}}" sözlüğünü düzenlemek için uzun basın',
+        vi: 'Nhấn và giữ để chỉnh sửa từ điển "{{dictionaryKey}}"',
         zh: '长按编辑 "{{dictionaryKey}}" 字典',
       })
     ),

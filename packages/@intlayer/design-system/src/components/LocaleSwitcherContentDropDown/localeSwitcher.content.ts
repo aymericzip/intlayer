@@ -19,6 +19,8 @@ const localeSwitcherContent = {
       ru: 'Переключатель языка',
       tr: 'Dil değiştirici',
       pl: 'Przełącznik języka',
+      id: 'Pengalih bahasa',
+      vi: 'Chuyển đổi ngôn ngữ',
     }),
     languageListLabel: t({
       en: 'Language list',
@@ -36,6 +38,8 @@ const localeSwitcherContent = {
       ru: 'Список языков',
       tr: 'Dil listesi',
       pl: 'Lista języków',
+      id: 'Daftar bahasa',
+      vi: 'Danh sách ngôn ngữ',
     }),
     switchTo: t({
       en: 'Switch to',
@@ -53,6 +57,8 @@ const localeSwitcherContent = {
       ru: 'Переключиться на',
       tr: 'Geçiş yap',
       pl: 'Przełącz na',
+      id: 'Beralih ke',
+      vi: 'Chuyển sang',
     }),
     searchInput: {
       text: t({
@@ -71,6 +77,8 @@ const localeSwitcherContent = {
         ru: 'Поиск языка',
         tr: 'Dil ara',
         pl: 'Wyszukaj lokalizację',
+        id: 'Cari locale',
+        vi: 'Tìm Locale',
       }),
       placeholder: t({
         en: 'Search a locale',
@@ -88,6 +96,8 @@ const localeSwitcherContent = {
         ru: 'Поиск языка',
         tr: 'Dil ara',
         pl: 'Wyszukaj lokalizację',
+        id: 'Cari locale',
+        vi: 'Tìm một Locale',
       }),
       ariaLabel: t({
         en: 'Language search',
@@ -105,6 +115,8 @@ const localeSwitcherContent = {
         ru: 'Поиск языка',
         tr: 'Dil ara',
         pl: 'Wyszukiwanie lokalizacji',
+        id: 'Pencarian locale',
+        vi: 'Tìm kiếm Locale',
       }),
     },
     seeAllLocalesSwitch: {
@@ -124,6 +136,8 @@ const localeSwitcherContent = {
         ru: 'Показать все языки',
         tr: 'Tüm dilleri göster',
         pl: 'Pokaż wszystkie lokalizacje',
+        id: 'Tampilkan semua locale',
+        vi: 'Xem tất cả các Locale',
       }),
       false: t({
         en: 'See only selected locales',
@@ -141,6 +155,8 @@ const localeSwitcherContent = {
         ru: 'Показать только выбранные языки',
         tr: 'Yalnızca seçilen dilleri göster',
         pl: 'Pokaż tylko wybrane lokalizacje',
+        id: 'Tampilkan hanya locale yang dipilih',
+        vi: 'Chỉ xem các Locale đã chọn',
       }),
     },
   },

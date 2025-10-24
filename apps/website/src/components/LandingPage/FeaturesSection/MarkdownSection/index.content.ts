@@ -21,6 +21,8 @@ const markdownSectionContent = {
       tr: '# Başlığım\n\nMetni **kalın** ve *italik* olarak dahil edebilirsiniz.\n\n- İlk madde\n- İkinci madde\n\nAyrıca bir [şeye bağlantı ekleyebilirsiniz](https://example.com).  \n',
       zh: '# 我的标题\n\n您可以在 **粗体** 和 *斜体* 中包含文本。\n\n- 第一项\n- 第二项\n\n您还可以包含一个 [链接到某事](https://example.com)。  \n',
       pl: '# Mój nagłówek\n\nTo jest przykładowy tekst. Oto **pogrubiony tekst** i oto *pochylony tekst*.\n\n- Pierwszy element\n- Drugi element\n\nMożesz także umieścić [link do czegoś](https://example.com).  \n',
+      id: '# Judul Saya\n\nIni adalah teks contoh. Di sini ada **teks tebal** dan *teks miring*.\n\n- Item pertama\n- Item kedua\n\nAnda juga dapat menyertakan sebuah [tautan ke sesuatu](https://example.com).  \n',
+      vi: '# Tiêu đề của tôi\n\nĐây là một đoạn văn mẫu. Đây là **chữ in đậm** và đây là *chữ in nghiêng*.\n\n- Mục đầu tiên\n- Mục thứ hai\n\nBạn cũng có thể bao gồm một [liên kết tới cái gì đó](https://example.com).  \n',
     }),
     ariaLabel: t({
       ar: 'محرر Markdown',
@@ -38,6 +40,8 @@ const markdownSectionContent = {
       tr: 'Markdown düzenleyici',
       zh: 'Markdown 编辑器',
       pl: 'Edytor Markdown',
+      id: 'Editor Markdown',
+      vi: 'Trình soạn thảo Markdown',
     }),
   },
   description:

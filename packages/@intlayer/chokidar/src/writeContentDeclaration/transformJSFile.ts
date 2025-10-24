@@ -17,6 +17,7 @@ import {
   type StrictModeLocaleMap,
 } from '@intlayer/types';
 import {
+  type CallExpression,
   IndentationText,
   NewLineKind,
   Node,
@@ -28,164 +29,267 @@ import {
   ts,
 } from 'ts-morph';
 
+/**
+ * Builds a translation initializer string for the 't' function call.
+ * Creates a properly formatted translation object with locale keys and values.
+ *
+ * @param translationMap - Map of locale codes to translation values
+ * @param typeArgumentsText - Optional generic type arguments for the translation function
+ * @returns Formatted string for the translation function call
+ */
 const buildTranslationInitializer = (
-  translationMap: TranslationContent[NodeType.Translation]
+  translationMap: TranslationContent[NodeType.Translation],
+  typeArgumentsText?: string
 ): string => {
-  const entries = Object.entries(translationMap)
-    // Keep stable order: identifiers first (a-z), then others, alphabetically
-    .sort(([a], [b]) => a.localeCompare(b));
+  // Convert map to entries and sort for consistent output
+  // Identifiers first (a-z), then others alphabetically
+  const translationEntries = Object.entries(translationMap).sort(
+    ([firstKey], [secondKey]) => firstKey.localeCompare(secondKey)
+  );
 
-  const parts: string[] = [];
+  const translationParts: string[] = [];
 
-  for (const [lang, value] of entries) {
-    const isValidIdentifier = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(lang);
-    const keyText = isValidIdentifier ? lang : JSON.stringify(lang);
+  for (const [localeCode, translationValue] of translationEntries) {
+    // Check if locale code is a valid JavaScript identifier
+    const isLocaleCodeValidIdentifier = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(
+      localeCode
+    );
+    const formattedLocaleKey = isLocaleCodeValidIdentifier
+      ? localeCode
+      : JSON.stringify(localeCode);
 
-    if (typeof value === 'string') {
-      parts.push(`${keyText}: ${JSON.stringify(value)}`);
-    } else if (Array.isArray(value)) {
-      const inner = (value as string[])
-        .map((content) => JSON.stringify(content))
+    if (typeof translationValue === 'string') {
+      translationParts.push(
+        `${formattedLocaleKey}: ${JSON.stringify(translationValue)}`
+      );
+    } else if (Array.isArray(translationValue)) {
+      const serializedArrayElements = (translationValue as string[])
+        .map((arrayElement) => JSON.stringify(arrayElement))
         .join(', ');
 
-      parts.push(`${keyText}: [ ${inner} ]`);
+      translationParts.push(
+        `${formattedLocaleKey}: [ ${serializedArrayElements} ]`
+      );
     } else {
-      // Fallback to JSON for non-string values to avoid breaking
-      parts.push(`${keyText}: ${JSON.stringify(value)}`);
+      // Fallback to JSON serialization for non-string values to avoid breaking
+      translationParts.push(
+        `${formattedLocaleKey}: ${JSON.stringify(translationValue)}`
+      );
     }
   }
 
-  return `t({ ${parts.join(', ')} })`;
+  return `t${typeArgumentsText ?? ''}({ ${translationParts.join(', ')} })`;
 };
 
-// Adjust numeric suffixes in non-fallback locales to mirror the fallback value's trailing number.
-// This is useful for lists of translations like "Hello 1" / "Bonjour 1" when updating to "Hello 3".
+/**
+ * Synchronizes numeric suffixes across locales to maintain consistency.
+ * When updating a fallback locale's numeric suffix, this function updates
+ * the corresponding numeric suffixes in other locales to match.
+ *
+ * This is useful for maintaining numbered lists across translations,
+ * e.g., "Hello 1" / "Bonjour 1" when updating to "Hello 3".
+ *
+ * @param existingTranslationMap - Current translation map with locale values
+ * @param fallbackLocaleCode - The locale being updated (fallback)
+ * @param newFallbackValue - The new value for the fallback locale
+ * @returns Updated translation map with synchronized numeric suffixes
+ */
 const syncNumericSuffixAcrossLocales = (
-  existingMap: Record<string, string>,
-  fallbackLocale: string,
+  existingTranslationMap: Record<string, string>,
+  fallbackLocaleCode: string,
   newFallbackValue: string
 ): Record<string, string> => {
-  const updatedMap: Record<string, string> = {
-    ...existingMap,
-    [fallbackLocale]: newFallbackValue,
+  const updatedTranslationMap: Record<string, string> = {
+    ...existingTranslationMap,
+    [fallbackLocaleCode]: newFallbackValue,
   };
 
-  const newNumMatch = newFallbackValue.match(/\d+(?!.*\d)/);
+  // Extract the trailing number from the new fallback value
+  const trailingNumberMatch = newFallbackValue.match(/\d+(?!.*\d)/);
 
-  if (!newNumMatch) return updatedMap;
-  const newNum = newNumMatch[0];
+  if (!trailingNumberMatch) return updatedTranslationMap;
+  const newTrailingNumber = trailingNumberMatch[0];
 
-  for (const [locale, value] of Object.entries(existingMap)) {
-    if (locale === fallbackLocale) continue;
-    const currentNumMatch = value.match(/\d+(?!.*\d)/);
+  // Update numeric suffixes in other locales to match the new fallback number
+  for (const [localeCode, currentValue] of Object.entries(
+    existingTranslationMap
+  )) {
+    if (localeCode === fallbackLocaleCode) continue;
 
-    if (!currentNumMatch) continue;
-    updatedMap[locale] = value.replace(/(\d+)(?!.*\d)/, newNum);
+    const currentTrailingNumberMatch = currentValue.match(/\d+(?!.*\d)/);
+
+    if (!currentTrailingNumberMatch) continue;
+
+    // Replace the trailing number in this locale with the new number
+    updatedTranslationMap[localeCode] = currentValue.replace(
+      /(\d+)(?!.*\d)/,
+      newTrailingNumber
+    );
   }
 
-  return updatedMap;
+  return updatedTranslationMap;
 };
 
-const stringifyKey = (key: string): string => {
-  const isValidIdentifier = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(key);
+/**
+ * Safely formats a key for use in object literals.
+ * Handles special cases like reserved keywords and non-identifier keys.
+ *
+ * @param objectKey - The key to format
+ * @returns Properly formatted key string
+ */
+const stringifyKey = (objectKey: string): string => {
+  const isKeyValidIdentifier = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(objectKey);
 
-  if (!isValidIdentifier) return JSON.stringify(key);
+  if (!isKeyValidIdentifier) return JSON.stringify(objectKey);
 
-  if (key === 'true' || key === 'false') return JSON.stringify(key);
+  // Handle reserved keywords that need to be quoted
+  if (objectKey === 'true' || objectKey === 'false')
+    return JSON.stringify(objectKey);
 
-  return key;
+  return objectKey;
 };
 
+/**
+ * Builds an enumeration initializer string for the 'enu' function call.
+ * Creates a properly formatted enumeration object with key-value pairs.
+ *
+ * @param enumerationMap - Map of enumeration keys to string values
+ * @returns Formatted string for the enumeration function call, or empty string if invalid
+ */
 const buildEnumerationInitializer = (
-  map: EnumerationContent[NodeType.Enumeration]
+  enumerationMap: EnumerationContent[NodeType.Enumeration]
 ): string => {
-  const parts: string[] = [];
+  const enumerationParts: string[] = [];
 
-  for (const [key, value] of Object.entries(map)) {
-    if (typeof value !== 'string') return '';
-    // unsupported
-    parts.push(`${stringifyKey(key)}: ${JSON.stringify(value)}`);
+  for (const [enumerationKey, enumerationValue] of Object.entries(
+    enumerationMap
+  )) {
+    if (typeof enumerationValue !== 'string') return '';
+    // Non-string values are not supported for enumerations
+    enumerationParts.push(
+      `${stringifyKey(enumerationKey)}: ${JSON.stringify(enumerationValue)}`
+    );
   }
 
-  return `enu({ ${parts.join(', ')} })`;
+  return `enu({ ${enumerationParts.join(', ')} })`;
 };
 
+/**
+ * Builds a condition initializer string for the 'cond' function call.
+ * Creates a properly formatted condition object with key-value pairs.
+ *
+ * @param conditionMap - Map of condition keys to string values
+ * @returns Formatted string for the condition function call, or empty string if invalid
+ */
 const buildConditionInitializer = (
-  map: ConditionContent[NodeType.Condition]
+  conditionMap: ConditionContent[NodeType.Condition]
 ): string => {
-  const parts: string[] = [];
+  const conditionParts: string[] = [];
 
-  for (const [key, value] of Object.entries(map)) {
-    if (typeof value !== 'string') return '';
+  for (const [conditionKey, conditionValue] of Object.entries(conditionMap)) {
+    if (typeof conditionValue !== 'string') return '';
 
-    parts.push(`${stringifyKey(key)}: ${JSON.stringify(value)}`);
+    conditionParts.push(
+      `${stringifyKey(conditionKey)}: ${JSON.stringify(conditionValue)}`
+    );
   }
 
-  return `cond({ ${parts.join(', ')} })`;
+  return `cond({ ${conditionParts.join(', ')} })`;
 };
 
+/**
+ * Builds a gender initializer string for the 'gender' function call.
+ * Creates a properly formatted gender object with key-value pairs.
+ *
+ * @param genderMap - Map of gender keys to string values
+ * @returns Formatted string for the gender function call, or empty string if invalid
+ */
 const buildGenderInitializer = (
-  map: GenderContent[NodeType.Gender]
+  genderMap: GenderContent[NodeType.Gender]
 ): string => {
-  const parts: string[] = [];
+  const genderParts: string[] = [];
 
-  for (const [key, value] of Object.entries(map)) {
-    if (typeof value !== 'string') return '';
+  for (const [genderKey, genderValue] of Object.entries(genderMap)) {
+    if (typeof genderValue !== 'string') return '';
 
-    parts.push(`${stringifyKey(key)}: ${JSON.stringify(value)}`);
+    genderParts.push(
+      `${stringifyKey(genderKey)}: ${JSON.stringify(genderValue)}`
+    );
   }
 
-  return `gender({ ${parts.join(', ')} })`;
+  return `gender({ ${genderParts.join(', ')} })`;
 };
 
+/**
+ * Builds an insertion initializer string for the 'insert' function call.
+ * Handles both string content and translation content for insertions.
+ *
+ * @param insertionContent - The content to be inserted (string or translation)
+ * @returns Formatted string for the insertion function call, or undefined if invalid
+ */
 const buildInsertionInitializer = (
-  content: InsertionContent[NodeType.Insertion]
+  insertionContent: InsertionContent[NodeType.Insertion]
 ): string | undefined => {
-  if (typeof content === 'string') return `insert(${JSON.stringify(content)})`;
+  if (typeof insertionContent === 'string')
+    return `insert(${JSON.stringify(insertionContent)})`;
 
-  if (getNodeType(content as ContentNode) === NodeType.Translation) {
-    const translationContent = content as TranslationContent;
-    const translations = translationContent[NodeType.Translation] ?? {};
+  if (getNodeType(insertionContent as ContentNode) === NodeType.Translation) {
+    const translationContent = insertionContent as TranslationContent;
+    const translationMap = translationContent[NodeType.Translation] ?? {};
 
-    const allStrings = Object.values(translations).every(
-      (v) => typeof v === 'string'
+    const areAllValuesStrings = Object.values(translationMap).every(
+      (translationValue) => typeof translationValue === 'string'
     );
 
-    if (!allStrings) return undefined;
+    if (!areAllValuesStrings) return undefined;
 
-    return `insert(${buildTranslationInitializer(translations)})`;
+    return `insert(${buildTranslationInitializer(translationMap)})`;
   }
 
   return;
 };
 
-const buildFileInitializer = (path: unknown): string | undefined => {
-  if (typeof path === 'string') return `file(${JSON.stringify(path)})`;
+/**
+ * Builds a file initializer string for the 'file' function call.
+ * Creates a properly formatted file path reference.
+ *
+ * @param filePath - The file path to reference
+ * @returns Formatted string for the file function call, or undefined if invalid
+ */
+const buildFileInitializer = (filePath: unknown): string | undefined => {
+  if (typeof filePath === 'string') return `file(${JSON.stringify(filePath)})`;
 
   return;
 };
 
+/**
+ * Builds a markdown initializer string for the 'md' function call.
+ * Handles string content, translation content, and file references for markdown.
+ *
+ * @param markdownContent - The markdown content (string, translation, or file reference)
+ * @returns Formatted string for the markdown function call, or undefined if invalid
+ */
 const buildMarkdownInitializer = (
-  content: MarkdownContent[NodeType.Markdown]
+  markdownContent: MarkdownContent[NodeType.Markdown]
 ): string | undefined => {
-  if (typeof content === 'string') return `md(${JSON.stringify(content)})`;
+  if (typeof markdownContent === 'string')
+    return `md(${JSON.stringify(markdownContent)})`;
 
   // Support markdown translations: md(t({ en: '...', fr: '...' }))
-
-  if (getNodeType(content as ContentNode) === NodeType.Translation) {
-    const translationContent = content as TranslationContent;
-    const translations = translationContent[NodeType.Translation] ?? {};
-    const allStrings = Object.values(translations).every(
-      (v) => typeof v === 'string'
+  if (getNodeType(markdownContent as ContentNode) === NodeType.Translation) {
+    const translationContent = markdownContent as TranslationContent;
+    const translationMap = translationContent[NodeType.Translation] ?? {};
+    const areAllValuesStrings = Object.values(translationMap).every(
+      (translationValue) => typeof translationValue === 'string'
     );
 
-    if (!allStrings) return undefined;
+    if (!areAllValuesStrings) return undefined;
 
-    return `md(${buildTranslationInitializer(translations)})`;
+    return `md(${buildTranslationInitializer(translationMap)})`;
   }
 
-  if (getNodeType(content as ContentNode) === NodeType.File) {
-    const filePath = (content as FileContent)[NodeType.File];
+  if (getNodeType(markdownContent as ContentNode) === NodeType.File) {
+    const filePath = (markdownContent as FileContent)[NodeType.File];
 
     const fileInitializer = buildFileInitializer(filePath);
 
@@ -197,6 +301,13 @@ const buildMarkdownInitializer = (
   return;
 };
 
+/**
+ * Builds a nested initializer string for the 'nest' function call.
+ * Creates a properly formatted nested dictionary reference.
+ *
+ * @param nestedContent - The nested content with dictionary key and optional path
+ * @returns Formatted string for the nested function call, or undefined if invalid
+ */
 const buildNestedInitializer = (
   nestedContent: NestedContent[NodeType.Nested]
 ): string | undefined => {
@@ -212,143 +323,273 @@ const buildNestedInitializer = (
   return `nest(${JSON.stringify(nestedContent.dictionaryKey)})`;
 };
 
+/**
+ * Reads an existing translation map from a property in a content object.
+ * Parses the 't' function call and extracts the translation key-value pairs.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyName - The name of the property to read
+ * @returns Translation map with locale keys and values, or undefined if not found
+ */
 const readExistingTranslationMap = (
   contentObject: ObjectLiteralExpression,
-  propName: string
+  propertyName: string
 ): Record<string, string | string[]> | undefined => {
-  const property = contentObject.getProperty(propName);
+  const property = contentObject.getProperty(propertyName);
 
   if (!property || !Node.isPropertyAssignment(property)) return undefined;
 
-  const initializer = property.getInitializer();
+  const propertyInitializer = property.getInitializer();
 
-  if (!initializer) return undefined;
+  if (!propertyInitializer) return undefined;
 
-  if (!Node.isCallExpression(initializer)) return undefined;
+  if (!Node.isCallExpression(propertyInitializer)) return undefined;
 
-  const expression = initializer.getExpression();
+  const callExpression = propertyInitializer.getExpression();
 
-  if (!Node.isIdentifier(expression) || expression.getText() !== 't')
+  if (!Node.isIdentifier(callExpression) || callExpression.getText() !== 't')
     return undefined;
 
-  const argument = initializer.getArguments()[0];
+  const translationArgument = propertyInitializer.getArguments()[0];
 
-  if (!argument || !Node.isObjectLiteralExpression(argument)) return undefined;
+  if (
+    !translationArgument ||
+    !Node.isObjectLiteralExpression(translationArgument)
+  )
+    return undefined;
 
-  const map: Record<string, string | string[]> = {};
+  const translationMap: Record<string, string | string[]> = {};
 
-  for (const propertyAssignment of argument.getProperties()) {
+  for (const propertyAssignment of translationArgument.getProperties()) {
     if (!Node.isPropertyAssignment(propertyAssignment)) continue;
 
-    const nameNode = propertyAssignment.getNameNode();
-    const rawName = nameNode.getText();
-    const name = rawName.replace(/^['"]|['"]$/g, '');
+    const propertyNameNode = propertyAssignment.getNameNode();
+    const rawPropertyName = propertyNameNode.getText();
+    const cleanPropertyName = rawPropertyName.replace(/^['"]|['"]$/g, '');
     const valueInitializer = propertyAssignment.getInitializer();
 
     if (valueInitializer && Node.isStringLiteral(valueInitializer)) {
-      map[name] = valueInitializer.getLiteralValue();
+      translationMap[cleanPropertyName] = valueInitializer.getLiteralValue();
     } else if (
       valueInitializer &&
       Node.isArrayLiteralExpression(valueInitializer)
     ) {
-      const strings: string[] = [];
+      const stringArray: string[] = [];
 
-      for (const el of valueInitializer.getElements()) {
-        if (!Node.isStringLiteral(el)) return undefined;
-        strings.push(el.getLiteralValue());
+      for (const arrayElement of valueInitializer.getElements()) {
+        if (!Node.isStringLiteral(arrayElement)) return undefined;
+        stringArray.push(arrayElement.getLiteralValue());
       }
-      map[name] = strings;
+      translationMap[cleanPropertyName] = stringArray;
     } else {
       return undefined;
     }
   }
 
-  return map;
+  return translationMap;
 };
 
+/**
+ * Reads an existing map from a function call (enu, cond, or gender).
+ * Parses the function call and extracts the key-value pairs.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyName - The name of the property to read
+ * @param functionName - The name of the function to look for ('enu', 'cond', or 'gender')
+ * @returns Map with keys and string values, or undefined if not found
+ */
 const readExistingMapFromCall = (
   contentObject: ObjectLiteralExpression,
-  propName: string,
-  callee: 'enu' | 'cond' | 'gender'
+  propertyName: string,
+  functionName: 'enu' | 'cond' | 'gender'
 ): Record<string, string> | undefined => {
-  const property = contentObject.getProperty(propName);
+  const property = contentObject.getProperty(propertyName);
 
   if (!property || !Node.isPropertyAssignment(property)) return undefined;
 
-  const initializer = property.getInitializer();
+  const propertyInitializer = property.getInitializer();
 
-  if (!initializer || !Node.isCallExpression(initializer)) return undefined;
-
-  const expression = initializer.getExpression();
-
-  if (!Node.isIdentifier(expression) || expression.getText() !== callee)
+  if (!propertyInitializer || !Node.isCallExpression(propertyInitializer))
     return undefined;
 
-  const argument = initializer.getArguments()[0];
+  const callExpression = propertyInitializer.getExpression();
 
-  if (!argument || !Node.isObjectLiteralExpression(argument)) return undefined;
+  if (
+    !Node.isIdentifier(callExpression) ||
+    callExpression.getText() !== functionName
+  )
+    return undefined;
 
-  const map: Record<string, string> = {};
+  const functionArgument = propertyInitializer.getArguments()[0];
 
-  for (const propertyAssignment of argument.getProperties()) {
+  if (!functionArgument || !Node.isObjectLiteralExpression(functionArgument))
+    return undefined;
+
+  const keyValueMap: Record<string, string> = {};
+
+  for (const propertyAssignment of functionArgument.getProperties()) {
     if (!Node.isPropertyAssignment(propertyAssignment)) continue;
 
-    const nameNode = propertyAssignment.getNameNode();
-    const rawName = nameNode.getText();
-    const name = rawName.replace(/^['"]|['"]$/g, '');
+    const propertyNameNode = propertyAssignment.getNameNode();
+    const rawPropertyName = propertyNameNode.getText();
+    const cleanPropertyName = rawPropertyName.replace(/^['"]|['"]$/g, '');
     const valueInitializer = propertyAssignment.getInitializer();
 
     if (valueInitializer && Node.isStringLiteral(valueInitializer)) {
-      map[name] = valueInitializer.getLiteralValue();
+      keyValueMap[cleanPropertyName] = valueInitializer.getLiteralValue();
     }
   }
 
-  return map;
+  return keyValueMap;
 };
 
+/**
+ * Extracts generic type arguments text from a call expression.
+ * Returns the type arguments as a string (e.g., "<string[]>").
+ *
+ * @param callExpression - The call expression to extract type arguments from
+ * @returns Type arguments as a string, or undefined if none found
+ */
+const getCallExpressionTypeArgsText = (
+  callExpression: CallExpression
+): string | undefined => {
+  try {
+    const typeArguments = callExpression.getTypeArguments();
+    if (!typeArguments || typeArguments.length === 0) return undefined;
+    const typeArgumentsText = `<${typeArguments.map((typeArgument) => typeArgument.getText()).join(', ')}>`;
+    return typeArgumentsText;
+  } catch {
+    return undefined;
+  }
+};
+
+/**
+ * Reads existing type arguments used in a specific property call.
+ * Supports both direct calls and nested calls (e.g., md(t<...>(...))).
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyName - The name of the property to read
+ * @param functionName - The name of the function to look for
+ * @returns Type arguments as a string, or undefined if not found
+ */
+const readExistingTypeArgsForCall = (
+  contentObject: ObjectLiteralExpression,
+  propertyName: string,
+  functionName:
+    | 't'
+    | 'md'
+    | 'insert'
+    | 'enu'
+    | 'cond'
+    | 'gender'
+    | 'nest'
+    | 'file'
+): string | undefined => {
+  const property = contentObject.getProperty(propertyName);
+
+  if (!property || !Node.isPropertyAssignment(property)) return undefined;
+  const propertyInitializer = property.getInitializer();
+
+  if (!propertyInitializer || !Node.isCallExpression(propertyInitializer))
+    return undefined;
+  const callExpression = propertyInitializer.getExpression();
+
+  if (
+    Node.isIdentifier(callExpression) &&
+    callExpression.getText() === functionName
+  ) {
+    return getCallExpressionTypeArgsText(propertyInitializer);
+  }
+
+  // Support nested md(t<...>(...)) when asking for 't'
+  if (
+    functionName === 't' &&
+    Node.isIdentifier(callExpression) &&
+    callExpression.getText() === 'md'
+  ) {
+    const markdownArgument = propertyInitializer.getArguments()[0];
+    if (markdownArgument && Node.isCallExpression(markdownArgument)) {
+      const innerExpression = markdownArgument.getExpression();
+      if (
+        Node.isIdentifier(innerExpression) &&
+        innerExpression.getText() === 't'
+      ) {
+        return getCallExpressionTypeArgsText(markdownArgument);
+      }
+    }
+  }
+  return undefined;
+};
+
+/**
+ * Compares two string maps for equality.
+ * Filters out non-string values from the first map before comparison.
+ *
+ * @param firstMap - First map to compare (may contain non-string values)
+ * @param secondMap - Second map to compare (should contain only strings)
+ * @returns True if the string values in both maps are equal
+ */
 const areStringMapsEqual = (
-  a: Record<string, unknown>,
-  b: Record<string, string> | undefined
+  firstMap: Record<string, unknown>,
+  secondMap: Record<string, string> | undefined
 ): boolean => {
-  if (!b) return false;
-  const aEntries = Object.entries(a).filter(
-    ([, v]) => typeof v === 'string'
+  if (!secondMap) return false;
+
+  // Filter to only string values from the first map
+  const firstMapStringEntries = Object.entries(firstMap).filter(
+    ([, value]) => typeof value === 'string'
   ) as [string, string][];
 
-  if (aEntries.length !== Object.keys(a).length) return false;
+  // Check if all values in first map are strings
+  if (firstMapStringEntries.length !== Object.keys(firstMap).length)
+    return false;
 
-  if (aEntries.length !== Object.keys(b).length) return false;
+  // Check if both maps have the same number of entries
+  if (firstMapStringEntries.length !== Object.keys(secondMap).length)
+    return false;
 
-  for (const [key, value] of aEntries) {
-    if (!(key in b)) return false;
+  // Compare each key-value pair
+  for (const [key, value] of firstMapStringEntries) {
+    if (!(key in secondMap)) return false;
 
-    if (b[key] !== value) return false;
+    if (secondMap[key] !== value) return false;
   }
 
   return true;
 };
 
+/**
+ * Compares translation maps for equality.
+ * Handles both string and array values in translations.
+ *
+ * @param desiredTranslationMap - The desired translation map
+ * @param existingTranslationMap - The existing translation map to compare against
+ * @returns True if both translation maps are equal
+ */
 const areTranslationsEqual = (
-  desired: Record<string, unknown>,
-  existing: Record<string, string | string[]> | undefined
+  desiredTranslationMap: Record<string, unknown>,
+  existingTranslationMap: Record<string, string | string[]> | undefined
 ): boolean => {
-  if (!existing) return false;
+  if (!existingTranslationMap) return false;
 
-  for (const [lang, value] of Object.entries(desired)) {
-    if (!(lang in existing)) return false;
-    const ex = existing[lang];
+  for (const [localeCode, desiredValue] of Object.entries(
+    desiredTranslationMap
+  )) {
+    if (!(localeCode in existingTranslationMap)) return false;
+    const existingValue = existingTranslationMap[localeCode];
 
-    if (typeof value === 'string') {
-      if (typeof ex !== 'string') return false;
+    if (typeof desiredValue === 'string') {
+      if (typeof existingValue !== 'string') return false;
 
-      if (ex !== value) return false;
-    } else if (Array.isArray(value)) {
-      if (!Array.isArray(ex)) return false;
+      if (existingValue !== desiredValue) return false;
+    } else if (Array.isArray(desiredValue)) {
+      if (!Array.isArray(existingValue)) return false;
 
-      if (ex.length !== value.length) return false;
+      if (existingValue.length !== desiredValue.length) return false;
 
-      for (let i = 0; i < value.length; i++)
-        if (ex[i] !== value[i]) return false;
+      for (let arrayIndex = 0; arrayIndex < desiredValue.length; arrayIndex++)
+        if (existingValue[arrayIndex] !== desiredValue[arrayIndex])
+          return false;
     } else {
       return false;
     }
@@ -358,69 +599,124 @@ const areTranslationsEqual = (
 };
 
 /**
- * Gets existing property names from the content object
+ * Gets existing property names from the content object.
+ * Handles both regular property assignments and shorthand properties.
+ *
+ * @param contentObject - The object literal expression to extract property names from
+ * @returns Set of existing property names
  */
 const getExistingPropertyNames = (
   contentObject: ObjectLiteralExpression
 ): Set<string> => {
-  const existingKeys = new Set<string>();
+  const existingPropertyNames = new Set<string>();
 
   for (const property of contentObject.getProperties()) {
     if (Node.isPropertyAssignment(property)) {
-      const name = property.getName();
+      const propertyName = property.getName();
 
-      if (name) existingKeys.add(name.replace(/^['"]|['"]$/g, ''));
+      if (propertyName)
+        existingPropertyNames.add(propertyName.replace(/^['"]|['"]$/g, ''));
+      continue;
+    }
+    // Also consider shorthand properties like { pricing }
+    if (Node.isShorthandPropertyAssignment(property)) {
+      const shorthandPropertyName = property.getNameNode().getText();
+      if (shorthandPropertyName)
+        existingPropertyNames.add(shorthandPropertyName);
     }
   }
-  return existingKeys;
+  return existingPropertyNames;
 };
 
 /**
- * Processes array content entries
+ * Processes array content entries.
+ * Handles arrays of various content types including strings, objects, and complex content nodes.
+ * Supports nested objects within arrays and maintains existing translation structures.
+ *
+ * @param contentObject - The object containing the array property
+ * @param propertyKey - The key of the array property
+ * @param arrayValue - The array of values to process
+ * @param existingPropertyKeys - Set of existing property names in the content object
+ * @param effectiveFallbackLocale - The fallback locale for translations
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
  */
 const processArrayContent = (
   contentObject: ObjectLiteralExpression,
-  key: string,
-  value: unknown[],
-  existingKeys: Set<string>,
+  propertyKey: string,
+  arrayValue: unknown[],
+  existingPropertyKeys: Set<string>,
   effectiveFallbackLocale: string,
-  requiredImports: Set<string>
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
-  const serializedElements: string[] = [];
-  let unsupported = false;
+  // If property key is absent locally but present in a spread source, defer to that object
+  if (!existingPropertyKeys.has(propertyKey)) {
+    const spreadTargetObject = findSpreadTargetObjectForKey(
+      contentObject,
+      propertyKey,
+      sourceFile
+    );
+    if (spreadTargetObject) {
+      return processArrayContent(
+        spreadTargetObject,
+        propertyKey,
+        arrayValue,
+        getExistingPropertyNames(spreadTargetObject),
+        effectiveFallbackLocale,
+        requiredImports,
+        sourceFile
+      );
+    }
+  }
+  const serializedArrayElements: string[] = [];
+  let hasUnsupportedContent = false;
   let existingArrayElements: import('ts-morph').Node[] | undefined;
   let existingArrayHasTranslation = false;
-  let arrayChanged = false;
+  let existingArrayTypeArguments: string | undefined;
+  let arrayWasChanged = false;
 
-  const existingProp = contentObject.getProperty(key);
+  const existingProperty = contentObject.getProperty(propertyKey);
 
-  if (existingProp && Node.isPropertyAssignment(existingProp)) {
-    const init = existingProp.getInitializer();
-    const desiredAllStrings = value.every((v) => typeof v === 'string');
+  if (existingProperty && Node.isPropertyAssignment(existingProperty)) {
+    const propertyInitializer = existingProperty.getInitializer();
+    let existingPropertyTypeArguments: string | undefined;
+    const areAllDesiredValuesStrings = arrayValue.every(
+      (arrayElement) => typeof arrayElement === 'string'
+    );
 
     if (
-      init &&
-      Node.isCallExpression(init) &&
-      Node.isIdentifier(init.getExpression()) &&
-      init.getExpression().getText() === 't' &&
-      desiredAllStrings
+      propertyInitializer &&
+      Node.isCallExpression(propertyInitializer) &&
+      Node.isIdentifier(propertyInitializer.getExpression()) &&
+      propertyInitializer.getExpression().getText() === 't' &&
+      areAllDesiredValuesStrings
     ) {
-      const existingMap = readExistingTranslationMap(contentObject, key);
+      existingPropertyTypeArguments =
+        getCallExpressionTypeArgsText(propertyInitializer);
+      const existingTranslationMap = readExistingTranslationMap(
+        contentObject,
+        propertyKey
+      );
 
-      if (existingMap) {
-        const updatedMap = {
-          ...existingMap,
-          [effectiveFallbackLocale]: value as string[],
+      if (existingTranslationMap) {
+        const updatedTranslationMap = {
+          ...existingTranslationMap,
+          [effectiveFallbackLocale]: arrayValue as string[],
         } as Record<string, string | string[]>;
-        const initializerText = buildTranslationInitializer(updatedMap as any);
+        const translationInitializerText = buildTranslationInitializer(
+          updatedTranslationMap as any,
+          existingPropertyTypeArguments
+        );
         requiredImports.add('t');
-        const property = contentObject.getProperty(key);
+        const property = contentObject.getProperty(propertyKey);
 
         if (property && Node.isPropertyAssignment(property)) {
-          const current = property.getInitializer()?.getText();
+          const currentInitializerText = property.getInitializer()?.getText();
 
-          if (current !== initializerText) {
-            property.setInitializer(initializerText);
+          if (currentInitializerText !== translationInitializerText) {
+            property.setInitializer(translationInitializerText);
             return true;
           }
         }
@@ -428,63 +724,103 @@ const processArrayContent = (
       }
     }
 
-    if (init && Node.isArrayLiteralExpression(init)) {
-      existingArrayElements = init.getElements();
-      existingArrayHasTranslation = init.getElements().some((el) => {
-        if (!Node.isCallExpression(el)) return false;
-        const ex = el.getExpression();
-        return Node.isIdentifier(ex) && ex.getText() === 't';
-      });
+    if (
+      propertyInitializer &&
+      Node.isArrayLiteralExpression(propertyInitializer)
+    ) {
+      existingArrayElements = propertyInitializer.getElements();
+      existingArrayHasTranslation = propertyInitializer
+        .getElements()
+        .some((arrayElement) => {
+          if (!Node.isCallExpression(arrayElement)) return false;
+          const callExpression = arrayElement.getExpression();
+          return (
+            Node.isIdentifier(callExpression) &&
+            callExpression.getText() === 't'
+          );
+        });
+      if (existingArrayHasTranslation) {
+        for (const arrayElement of existingArrayElements) {
+          if (Node.isCallExpression(arrayElement)) {
+            const callExpression = arrayElement.getExpression();
+            if (
+              Node.isIdentifier(callExpression) &&
+              callExpression.getText() === 't'
+            ) {
+              existingArrayTypeArguments =
+                getCallExpressionTypeArgsText(arrayElement);
+              if (existingArrayTypeArguments) break;
+            }
+          }
+        }
+      }
     }
   }
 
-  for (let elementIndex = 0; elementIndex < value.length; elementIndex++) {
-    const element = value[elementIndex];
+  for (let elementIndex = 0; elementIndex < arrayValue.length; elementIndex++) {
+    const currentElement = arrayValue[elementIndex];
 
     if (
-      element === null ||
-      element === undefined ||
-      typeof element === 'string' ||
-      typeof element === 'number' ||
-      typeof element === 'boolean'
+      currentElement === null ||
+      currentElement === undefined ||
+      typeof currentElement === 'string' ||
+      typeof currentElement === 'number' ||
+      typeof currentElement === 'boolean'
     ) {
-      let serializedValue = serializeValue(element as ContentNode);
+      let serializedElementValue = serializeValue(
+        currentElement as ContentNode
+      );
 
       if (
-        typeof element === 'string' &&
+        typeof currentElement === 'string' &&
         existingArrayElements &&
         elementIndex < existingArrayElements.length
       ) {
-        const existingEl = existingArrayElements[elementIndex];
+        const existingArrayElement = existingArrayElements[elementIndex];
 
-        if (Node.isCallExpression(existingEl)) {
-          const callee = existingEl.getExpression();
+        if (Node.isCallExpression(existingArrayElement)) {
+          const callExpression = existingArrayElement.getExpression();
 
-          if (Node.isIdentifier(callee) && callee.getText() === 't') {
-            const arg = existingEl.getArguments()[0];
+          if (
+            Node.isIdentifier(callExpression) &&
+            callExpression.getText() === 't'
+          ) {
+            const translationArgument = existingArrayElement.getArguments()[0];
 
-            if (arg && Node.isObjectLiteralExpression(arg)) {
-              const map: Record<string, string> = {};
+            if (
+              translationArgument &&
+              Node.isObjectLiteralExpression(translationArgument)
+            ) {
+              const translationMap: Record<string, string> = {};
 
-              for (const prop of arg.getProperties()) {
-                if (!Node.isPropertyAssignment(prop)) continue;
-                const nameNode = prop.getNameNode();
-                const rawName = nameNode.getText();
-                const name = rawName.replace(/^['"]|['"]$/g, '');
-                const value = prop.getInitializer();
+              for (const propertyAssignment of translationArgument.getProperties()) {
+                if (!Node.isPropertyAssignment(propertyAssignment)) continue;
+                const propertyNameNode = propertyAssignment.getNameNode();
+                const rawPropertyName = propertyNameNode.getText();
+                const cleanPropertyName = rawPropertyName.replace(
+                  /^['"]|['"]$/g,
+                  ''
+                );
+                const propertyValue = propertyAssignment.getInitializer();
 
-                if (value && Node.isStringLiteral(value)) {
-                  map[name] = value.getLiteralValue();
+                if (propertyValue && Node.isStringLiteral(propertyValue)) {
+                  translationMap[cleanPropertyName] =
+                    propertyValue.getLiteralValue();
                 }
               }
 
-              const updatedMap = syncNumericSuffixAcrossLocales(
-                map,
+              const updatedTranslationMap = syncNumericSuffixAcrossLocales(
+                translationMap,
                 effectiveFallbackLocale,
-                element
+                currentElement
               ) as StrictModeLocaleMap;
 
-              serializedValue = buildTranslationInitializer(updatedMap);
+              const translationTypeArguments =
+                getCallExpressionTypeArgsText(existingArrayElement);
+              serializedElementValue = buildTranslationInitializer(
+                updatedTranslationMap,
+                translationTypeArguments
+              );
               requiredImports.add('t');
             }
           }
@@ -492,69 +828,77 @@ const processArrayContent = (
       }
 
       if (
-        typeof element === 'string' &&
+        typeof currentElement === 'string' &&
         existingArrayHasTranslation &&
-        serializedValue &&
-        serializedValue.startsWith('"')
+        serializedElementValue &&
+        serializedElementValue.startsWith('"')
       ) {
-        serializedValue = buildTranslationInitializer({
-          [effectiveFallbackLocale]: element,
-        } as StrictModeLocaleMap);
+        serializedElementValue = buildTranslationInitializer(
+          {
+            [effectiveFallbackLocale]: currentElement,
+          } as StrictModeLocaleMap,
+          existingArrayTypeArguments
+        );
 
         requiredImports.add('t');
       }
 
-      if (serializedValue === undefined) {
-        unsupported = true;
+      if (serializedElementValue === undefined) {
+        hasUnsupportedContent = true;
         break;
       }
 
-      serializedElements.push(serializedValue);
-    } else if (typeof element === 'object' && element !== null) {
+      serializedArrayElements.push(serializedElementValue);
+    } else if (typeof currentElement === 'object' && currentElement !== null) {
       // Handle nested objects within arrays
 
       if (
         existingArrayElements &&
         elementIndex < existingArrayElements.length
       ) {
-        const existingEl = existingArrayElements[elementIndex];
+        const existingArrayElement = existingArrayElements[elementIndex];
 
-        if (Node.isObjectLiteralExpression(existingEl)) {
+        if (Node.isObjectLiteralExpression(existingArrayElement)) {
           // Process nested object within array element
-          const elementChanged = processContentEntries(
-            existingEl,
-            element as Record<string, unknown>,
+          const elementWasChanged = processContentEntries(
+            existingArrayElement,
+            currentElement as Record<string, unknown>,
             effectiveFallbackLocale,
-            requiredImports
+            requiredImports,
+            sourceFile
           );
 
-          if (elementChanged) arrayChanged = true;
+          if (elementWasChanged) arrayWasChanged = true;
 
-          serializedElements.push(existingEl.getText());
+          serializedArrayElements.push(existingArrayElement.getText());
         } else {
           // Element exists but is not an object - serialize normally
-          const serializedValue = serializeValue(element as ContentNode);
+          const serializedElementValue = serializeValue(
+            currentElement as ContentNode
+          );
 
-          if (serializedValue === undefined) {
-            unsupported = true;
+          if (serializedElementValue === undefined) {
+            hasUnsupportedContent = true;
             break;
           }
 
-          serializedElements.push(serializedValue);
+          serializedArrayElements.push(serializedElementValue);
         }
       } else {
         // New element - serialize it
-        const serializedValue = serializeValue(element as ContentNode);
+        const serializedElementValue = serializeValue(
+          currentElement as ContentNode
+        );
 
-        if (serializedValue === undefined) {
-          unsupported = true;
+        if (serializedElementValue === undefined) {
+          hasUnsupportedContent = true;
           break;
         }
 
-        serializedElements.push(serializedValue);
+        serializedArrayElements.push(serializedElementValue);
       }
 
-      const elementNodeType = getNodeType(element as ContentNode);
+      const elementNodeType = getNodeType(currentElement as ContentNode);
 
       if (elementNodeType === NodeType.Translation) requiredImports.add('t');
       else if (elementNodeType === NodeType.Enumeration)
@@ -565,65 +909,75 @@ const processArrayContent = (
         requiredImports.add('gender');
       else if (elementNodeType === NodeType.Insertion) {
         requiredImports.add('insert');
-        const insertContent = (element as InsertionContent)[NodeType.Insertion];
+        const insertionContent = (currentElement as InsertionContent)[
+          NodeType.Insertion
+        ];
 
         if (
-          typeof insertContent === 'object' &&
-          insertContent !== null &&
-          getNodeType(insertContent as ContentNode) === NodeType.Translation
+          typeof insertionContent === 'object' &&
+          insertionContent !== null &&
+          getNodeType(insertionContent as ContentNode) === NodeType.Translation
         ) {
           requiredImports.add('t');
         }
       } else if (elementNodeType === NodeType.Markdown) {
         requiredImports.add('md');
-        const mdContent = (element as MarkdownContent)[NodeType.Markdown];
+        const markdownContent = (currentElement as MarkdownContent)[
+          NodeType.Markdown
+        ];
 
         if (
-          typeof mdContent === 'object' &&
-          mdContent !== null &&
-          getNodeType(mdContent as ContentNode) === NodeType.File
+          typeof markdownContent === 'object' &&
+          markdownContent !== null &&
+          getNodeType(markdownContent as ContentNode) === NodeType.File
         ) {
           requiredImports.add('file');
         }
       } else if (elementNodeType === NodeType.File) requiredImports.add('file');
       else if (elementNodeType === NodeType.Nested) requiredImports.add('nest');
     } else {
-      unsupported = true;
+      hasUnsupportedContent = true;
       break;
     }
   }
 
-  if (unsupported) {
+  if (hasUnsupportedContent) {
     return false;
   }
 
   // If we modified nested objects in place, return the changed status
-  if (arrayChanged) {
+  if (arrayWasChanged) {
     return true;
   }
 
-  const initializerText = `[ ${serializedElements.join(', ')} ]`;
+  const arrayInitializerText = `[ ${serializedArrayElements.join(', ')} ]`;
 
-  if (!existingKeys.has(key)) {
+  if (!existingPropertyKeys.has(propertyKey)) {
     contentObject.addPropertyAssignment({
-      name: key,
-      initializer: initializerText,
+      name: propertyKey,
+      initializer: arrayInitializerText,
     });
     return true;
   }
 
-  const property = contentObject.getProperty(key);
+  const property = contentObject.getProperty(propertyKey);
 
   if (property && Node.isPropertyAssignment(property)) {
-    const existingSerialized = readExistingArraySerialized(contentObject, key);
+    const existingSerializedArray = readExistingArraySerialized(
+      contentObject,
+      propertyKey
+    );
 
-    const arraysEqual =
-      existingSerialized !== undefined &&
-      existingSerialized.length === serializedElements.length &&
-      existingSerialized.every((v, i) => v === serializedElements[i]);
+    const areArraysEqual =
+      existingSerializedArray !== undefined &&
+      existingSerializedArray.length === serializedArrayElements.length &&
+      existingSerializedArray.every(
+        (existingElement, elementIndex) =>
+          existingElement === serializedArrayElements[elementIndex]
+      );
 
-    if (!arraysEqual) {
-      property.setInitializer(initializerText);
+    if (!areArraysEqual) {
+      property.setInitializer(arrayInitializerText);
       return true;
     }
   }
@@ -632,53 +986,78 @@ const processArrayContent = (
 };
 
 /**
- * Processes primitive content entries (string, number, boolean, null)
+ * Processes primitive content entries (string, number, boolean, null).
+ * Handles simple value types and updates existing translation maps when appropriate.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyKey - The key of the property to process
+ * @param primitiveValue - The primitive value to process
+ * @param existingPropertyKeys - Set of existing property names
+ * @param effectiveFallbackLocale - The fallback locale for translations
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
  */
 const processPrimitiveContent = (
   contentObject: ObjectLiteralExpression,
-  key: string,
-  value: string | number | boolean | null,
-  existingKeys: Set<string>,
+  propertyKey: string,
+  primitiveValue: string | number | boolean | null,
+  existingPropertyKeys: Set<string>,
   effectiveFallbackLocale: string,
-  requiredImports: Set<string>
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
-  if (typeof value === 'string' && existingKeys.has(key)) {
-    const property = contentObject.getProperty(key);
+  if (
+    typeof primitiveValue === 'string' &&
+    existingPropertyKeys.has(propertyKey)
+  ) {
+    const property = contentObject.getProperty(propertyKey);
 
     // Check if existing value is a non-string-literal (e.g., variable reference)
 
     if (property && Node.isPropertyAssignment(property)) {
-      const initializer = property.getInitializer();
+      const propertyInitializer = property.getInitializer();
 
       // If the existing value is not a string literal or a call expression (like t()),
       // skip updating it to preserve variable references
 
       if (
-        initializer &&
-        !Node.isStringLiteral(initializer) &&
-        !Node.isCallExpression(initializer)
+        propertyInitializer &&
+        !Node.isStringLiteral(propertyInitializer) &&
+        !Node.isCallExpression(propertyInitializer)
       ) {
         console.log(
-          `Skipping update for key "${key}" because existing value is not a string literal`
+          `Skipping update for key "${propertyKey}" because existing value is not a string literal`
         );
         return false;
       }
     }
 
-    const existingMap = readExistingTranslationMap(contentObject, key);
+    const existingTranslationMap = readExistingTranslationMap(
+      contentObject,
+      propertyKey
+    );
 
-    if (existingMap) {
-      const translationMap = {
-        ...existingMap,
-        [effectiveFallbackLocale]: value,
+    if (existingTranslationMap) {
+      const updatedTranslationMap = {
+        ...existingTranslationMap,
+        [effectiveFallbackLocale]: primitiveValue,
       } as StrictModeLocaleMap;
 
-      const initializerText = buildTranslationInitializer(translationMap);
+      const translationTypeArguments = readExistingTypeArgsForCall(
+        contentObject,
+        propertyKey,
+        't'
+      );
+      const translationInitializerText = buildTranslationInitializer(
+        updatedTranslationMap,
+        translationTypeArguments
+      );
 
       requiredImports.add('t');
 
       if (property && Node.isPropertyAssignment(property)) {
-        property.setInitializer(initializerText);
+        property.setInitializer(translationInitializerText);
         return true;
       }
 
@@ -686,44 +1065,67 @@ const processPrimitiveContent = (
     }
   }
 
-  if (!existingKeys.has(key)) {
+  if (!existingPropertyKeys.has(propertyKey)) {
+    // If the key is not locally present, but exists in a spread source, update that spread source instead
+    const spreadTargetObject = findSpreadTargetObjectForKey(
+      contentObject,
+      propertyKey,
+      sourceFile
+    );
+    if (spreadTargetObject) {
+      // Recurse into the spread target object
+      const nestedObjectWasChanged = processPrimitiveContent(
+        spreadTargetObject,
+        propertyKey,
+        primitiveValue,
+        getExistingPropertyNames(spreadTargetObject),
+        effectiveFallbackLocale,
+        requiredImports,
+        sourceFile
+      );
+      return nestedObjectWasChanged;
+    }
     contentObject.addPropertyAssignment({
-      name: key,
+      name: propertyKey,
       initializer:
-        typeof value === 'string' ? JSON.stringify(value) : String(value),
+        typeof primitiveValue === 'string'
+          ? JSON.stringify(primitiveValue)
+          : String(primitiveValue),
     });
 
     return true;
   }
 
-  const property = contentObject.getProperty(key);
+  const property = contentObject.getProperty(propertyKey);
 
   if (property && Node.isPropertyAssignment(property)) {
-    const initializer = property.getInitializer();
+    const propertyInitializer = property.getInitializer();
 
     // Check if existing value is a non-primitive-literal (e.g., variable reference)
-    const isLiteral =
-      initializer &&
-      (Node.isStringLiteral(initializer) ||
-        Node.isNumericLiteral(initializer) ||
-        initializer.getKind() === SyntaxKind.TrueKeyword ||
-        initializer.getKind() === SyntaxKind.FalseKeyword ||
-        Node.isNullLiteral(initializer) ||
-        Node.isCallExpression(initializer));
+    const isPrimitiveLiteral =
+      propertyInitializer &&
+      (Node.isStringLiteral(propertyInitializer) ||
+        Node.isNumericLiteral(propertyInitializer) ||
+        propertyInitializer.getKind() === SyntaxKind.TrueKeyword ||
+        propertyInitializer.getKind() === SyntaxKind.FalseKeyword ||
+        Node.isNullLiteral(propertyInitializer) ||
+        Node.isCallExpression(propertyInitializer));
 
-    if (initializer && !isLiteral) {
+    if (propertyInitializer && !isPrimitiveLiteral) {
       console.log(
-        `Skipping update for key "${key}" because existing value is not a primitive literal`
+        `Skipping update for key "${propertyKey}" because existing value is not a primitive literal`
       );
       return false;
     }
 
-    const currentText = initializer?.getText();
-    const desiredText =
-      typeof value === 'string' ? JSON.stringify(value) : String(value);
+    const currentInitializerText = propertyInitializer?.getText();
+    const desiredInitializerText =
+      typeof primitiveValue === 'string'
+        ? JSON.stringify(primitiveValue)
+        : String(primitiveValue);
 
-    if (currentText !== desiredText) {
-      property.setInitializer(desiredText);
+    if (currentInitializerText !== desiredInitializerText) {
+      property.setInitializer(desiredInitializerText);
       return true;
     }
   }
@@ -732,83 +1134,102 @@ const processPrimitiveContent = (
 };
 
 /**
- * Processes complex content entries (translation, enumeration, condition, etc.)
+ * Processes complex content entries (translation, enumeration, condition, etc.).
+ * Routes content to the appropriate specialized processor based on node type.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyKey - The key of the property to process
+ * @param contentNode - The complex content node to process
+ * @param existingPropertyKeys - Set of existing property names
+ * @param effectiveFallbackLocale - The fallback locale for translations
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
  */
 const processComplexContent = (
   contentObject: ObjectLiteralExpression,
-  key: string,
-  value: ContentNode,
-  existingKeys: Set<string>,
+  propertyKey: string,
+  contentNode: ContentNode,
+  existingPropertyKeys: Set<string>,
   effectiveFallbackLocale: string,
-  requiredImports: Set<string>
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
-  const nodeType = getNodeType(value);
+  const nodeType = getNodeType(contentNode);
 
   switch (nodeType) {
     case NodeType.Translation:
       return processTranslationContent(
         contentObject,
-        key,
-        value,
-        existingKeys,
-        requiredImports
+        propertyKey,
+        contentNode,
+        existingPropertyKeys,
+        requiredImports,
+        sourceFile
       );
     case NodeType.Enumeration:
       return processEnumerationContent(
         contentObject,
-        key,
-        value,
-        existingKeys,
-        requiredImports
+        propertyKey,
+        contentNode,
+        existingPropertyKeys,
+        requiredImports,
+        sourceFile
       );
     case NodeType.Condition:
       return processConditionContent(
         contentObject,
-        key,
-        value,
-        existingKeys,
-        requiredImports
+        propertyKey,
+        contentNode,
+        existingPropertyKeys,
+        requiredImports,
+        sourceFile
       );
     case NodeType.Gender:
       return processGenderContent(
         contentObject,
-        key,
-        value,
-        existingKeys,
-        requiredImports
+        propertyKey,
+        contentNode,
+        existingPropertyKeys,
+        requiredImports,
+        sourceFile
       );
     case NodeType.Insertion:
       return processInsertionContent(
         contentObject,
-        key,
-        value,
-        existingKeys,
-        requiredImports
+        propertyKey,
+        contentNode,
+        existingPropertyKeys,
+        requiredImports,
+        sourceFile
       );
     case NodeType.Markdown:
       return processMarkdownContent(
         contentObject,
-        key,
-        value,
-        existingKeys,
+        propertyKey,
+        contentNode,
+        existingPropertyKeys,
         effectiveFallbackLocale,
-        requiredImports
+        requiredImports,
+        sourceFile
       );
     case NodeType.File:
       return processFileContent(
         contentObject,
-        key,
-        value,
-        existingKeys,
-        requiredImports
+        propertyKey,
+        contentNode,
+        existingPropertyKeys,
+        requiredImports,
+        sourceFile
       );
     case NodeType.Nested:
       return processNestedContent(
         contentObject,
-        key,
-        value,
-        existingKeys,
-        requiredImports
+        propertyKey,
+        contentNode,
+        existingPropertyKeys,
+        requiredImports,
+        sourceFile
       );
     default:
       return false;
@@ -816,56 +1237,236 @@ const processComplexContent = (
 };
 
 /**
- * Processes translation content
+ * Processes translation content.
+ * Handles translation objects with locale keys and string/array values.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyKey - The key of the property to process
+ * @param contentNode - The translation content node
+ * @param existingPropertyKeys - Set of existing property names
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
  */
 const processTranslationContent = (
   contentObject: ObjectLiteralExpression,
-  key: string,
-  value: ContentNode,
-  existingKeys: Set<string>,
-  requiredImports: Set<string>
+  propertyKey: string,
+  contentNode: ContentNode,
+  existingPropertyKeys: Set<string>,
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
-  const translations: Record<string, unknown> =
-    (value as TranslationContent)[NodeType.Translation] ?? {};
-  const allStringsOrArrays = Object.values(translations).every(
-    (value) => typeof value === 'string' || Array.isArray(value)
+  const translationMap: Record<string, unknown> =
+    (contentNode as TranslationContent)[NodeType.Translation] ?? {};
+
+  // Check if all values are simple types (strings or arrays)
+  const areAllValuesStringsOrArrays = Object.values(translationMap).every(
+    (translationValue) =>
+      typeof translationValue === 'string' || Array.isArray(translationValue)
   );
 
-  if (!allStringsOrArrays) return false;
+  // Check if any values are complex content nodes
+  const hasComplexContentNodes = Object.values(translationMap).some(
+    (translationValue) =>
+      typeof translationValue === 'object' &&
+      translationValue !== null &&
+      !Array.isArray(translationValue) &&
+      getNodeType(translationValue as ContentNode) !== NodeType.Text
+  );
 
-  const parts: string[] = [];
+  // If we have complex content nodes, handle them separately
+  if (hasComplexContentNodes && !areAllValuesStringsOrArrays) {
+    // If property key is absent locally, try to delegate into a spread source that contains the key
+    if (!existingPropertyKeys.has(propertyKey)) {
+      const spreadTargetObject = findSpreadTargetObjectForKey(
+        contentObject,
+        propertyKey,
+        sourceFile
+      );
+      if (spreadTargetObject) {
+        return processTranslationContent(
+          spreadTargetObject,
+          propertyKey,
+          contentNode,
+          getExistingPropertyNames(spreadTargetObject),
+          requiredImports,
+          sourceFile
+        );
+      }
+    }
 
-  for (const [lang, value] of Object.entries(translations)) {
-    const isValidIdentifier = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(lang);
-    const keyText = isValidIdentifier ? lang : JSON.stringify(lang);
+    const translationParts: string[] = [];
+    let hasUnsupportedValue = false;
 
-    if (typeof value === 'string') {
-      parts.push(`${keyText}: ${JSON.stringify(value)}`);
-    } else if (Array.isArray(value)) {
-      const inner = value.map((s) => JSON.stringify(s)).join(', ');
-      parts.push(`${keyText}: [ ${inner} ]`);
+    for (const [localeCode, translationValue] of Object.entries(
+      translationMap
+    )) {
+      const isLocaleCodeValidIdentifier = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(
+        localeCode
+      );
+      const formattedLocaleKey = isLocaleCodeValidIdentifier
+        ? localeCode
+        : JSON.stringify(localeCode);
+
+      // Handle complex content nodes
+      if (
+        typeof translationValue === 'object' &&
+        translationValue !== null &&
+        !Array.isArray(translationValue)
+      ) {
+        const serializedValue = serializeValue(translationValue as ContentNode);
+        if (serializedValue === undefined) {
+          hasUnsupportedValue = true;
+          break;
+        }
+        translationParts.push(`${formattedLocaleKey}: ${serializedValue}`);
+
+        // Track required imports for nested content
+        const nodeType = getNodeType(translationValue as ContentNode);
+        if (nodeType === NodeType.Markdown) {
+          requiredImports.add('md');
+          const markdownContent = (translationValue as MarkdownContent)[
+            NodeType.Markdown
+          ];
+          if (
+            typeof markdownContent === 'object' &&
+            markdownContent !== null &&
+            getNodeType(markdownContent as ContentNode) === NodeType.File
+          ) {
+            requiredImports.add('file');
+          }
+        } else if (nodeType === NodeType.File) {
+          requiredImports.add('file');
+        } else if (nodeType === NodeType.Insertion) {
+          requiredImports.add('insert');
+        } else if (nodeType === NodeType.Enumeration) {
+          requiredImports.add('enu');
+        } else if (nodeType === NodeType.Condition) {
+          requiredImports.add('cond');
+        } else if (nodeType === NodeType.Gender) {
+          requiredImports.add('gender');
+        } else if (nodeType === NodeType.Nested) {
+          requiredImports.add('nest');
+        }
+      } else if (typeof translationValue === 'string') {
+        translationParts.push(
+          `${formattedLocaleKey}: ${JSON.stringify(translationValue)}`
+        );
+      } else if (Array.isArray(translationValue)) {
+        const serializedArrayElements = translationValue
+          .map((arrayElement) => JSON.stringify(arrayElement))
+          .join(', ');
+        translationParts.push(
+          `${formattedLocaleKey}: [ ${serializedArrayElements} ]`
+        );
+      }
+    }
+
+    if (hasUnsupportedValue) return false;
+
+    const existingTypeArguments = readExistingTypeArgsForCall(
+      contentObject,
+      propertyKey,
+      't'
+    );
+    const translationInitializerText = `t${existingTypeArguments ?? ''}({ ${translationParts.join(', ')} })`;
+
+    if (!existingPropertyKeys.has(propertyKey)) {
+      requiredImports.add('t');
+
+      contentObject.addPropertyAssignment({
+        name: propertyKey,
+        initializer: translationInitializerText,
+      });
+      return true;
+    }
+
+    const property = contentObject.getProperty(propertyKey);
+    if (property && Node.isPropertyAssignment(property)) {
+      const currentInitializer = property.getInitializer()?.getText();
+      if (currentInitializer !== translationInitializerText) {
+        requiredImports.add('t');
+        property.setInitializer(translationInitializerText);
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  // Original logic for simple string/array translations
+  if (!areAllValuesStringsOrArrays) return false;
+
+  // If property key is absent locally, try to delegate into a spread source that contains the key
+  if (!existingPropertyKeys.has(propertyKey)) {
+    const spreadTargetObject = findSpreadTargetObjectForKey(
+      contentObject,
+      propertyKey,
+      sourceFile
+    );
+    if (spreadTargetObject) {
+      return processTranslationContent(
+        spreadTargetObject,
+        propertyKey,
+        contentNode,
+        getExistingPropertyNames(spreadTargetObject),
+        requiredImports,
+        sourceFile
+      );
     }
   }
-  const initializerText = `t({ ${parts.join(', ')} })`;
 
-  if (!existingKeys.has(key)) {
+  const translationParts: string[] = [];
+
+  for (const [localeCode, translationValue] of Object.entries(translationMap)) {
+    const isLocaleCodeValidIdentifier = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(
+      localeCode
+    );
+    const formattedLocaleKey = isLocaleCodeValidIdentifier
+      ? localeCode
+      : JSON.stringify(localeCode);
+
+    if (typeof translationValue === 'string') {
+      translationParts.push(
+        `${formattedLocaleKey}: ${JSON.stringify(translationValue)}`
+      );
+    } else if (Array.isArray(translationValue)) {
+      const serializedArrayElements = translationValue
+        .map((arrayElement) => JSON.stringify(arrayElement))
+        .join(', ');
+      translationParts.push(
+        `${formattedLocaleKey}: [ ${serializedArrayElements} ]`
+      );
+    }
+  }
+  const existingTypeArguments = readExistingTypeArgsForCall(
+    contentObject,
+    propertyKey,
+    't'
+  );
+  const translationInitializerText = `t${existingTypeArguments ?? ''}({ ${translationParts.join(', ')} })`;
+
+  if (!existingPropertyKeys.has(propertyKey)) {
     requiredImports.add('t');
 
     contentObject.addPropertyAssignment({
-      name: key,
-      initializer: initializerText,
+      name: propertyKey,
+      initializer: translationInitializerText,
     });
     return true;
   }
 
-  const existingMap = readExistingTranslationMap(contentObject, key);
+  const existingTranslationMap = readExistingTranslationMap(
+    contentObject,
+    propertyKey
+  );
 
-  if (!areTranslationsEqual(translations, existingMap)) {
+  if (!areTranslationsEqual(translationMap, existingTranslationMap)) {
     requiredImports.add('t');
-    const property = contentObject.getProperty(key);
+    const property = contentObject.getProperty(propertyKey);
 
     if (property && Node.isPropertyAssignment(property)) {
-      property.setInitializer(initializerText);
+      property.setInitializer(translationInitializerText);
       return true;
     }
   }
@@ -874,40 +1475,76 @@ const processTranslationContent = (
 };
 
 /**
- * Processes enumeration content
+ * Processes enumeration content.
+ * Handles enumeration objects with key-value string pairs.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyKey - The key of the property to process
+ * @param contentNode - The enumeration content node
+ * @param existingPropertyKeys - Set of existing property names
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
  */
 const processEnumerationContent = (
   contentObject: ObjectLiteralExpression,
-  key: string,
-  value: ContentNode,
-  existingKeys: Set<string>,
-  requiredImports: Set<string>
+  propertyKey: string,
+  contentNode: ContentNode,
+  existingPropertyKeys: Set<string>,
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
-  const map: EnumerationContent[NodeType.Enumeration] = (
-    value as EnumerationContent
+  const enumerationMap: EnumerationContent[NodeType.Enumeration] = (
+    contentNode as EnumerationContent
   )[NodeType.Enumeration];
 
-  if (!Object.values(map).every((v) => typeof v === 'string')) return false;
-  const initializerText = buildEnumerationInitializer(map);
+  if (
+    !Object.values(enumerationMap).every(
+      (enumerationValue) => typeof enumerationValue === 'string'
+    )
+  )
+    return false;
+  const enumerationInitializerText =
+    buildEnumerationInitializer(enumerationMap);
 
-  if (!initializerText) return false;
+  if (!enumerationInitializerText) return false;
 
-  if (!existingKeys.has(key)) {
+  if (!existingPropertyKeys.has(propertyKey)) {
+    // Delegate into spread source if available
+    const spreadTargetObject = findSpreadTargetObjectForKey(
+      contentObject,
+      propertyKey,
+      sourceFile
+    );
+    if (spreadTargetObject) {
+      return processEnumerationContent(
+        spreadTargetObject,
+        propertyKey,
+        contentNode,
+        getExistingPropertyNames(spreadTargetObject),
+        requiredImports,
+        sourceFile
+      );
+    }
     requiredImports.add('enu');
     contentObject.addPropertyAssignment({
-      name: key,
-      initializer: initializerText,
+      name: propertyKey,
+      initializer: enumerationInitializerText,
     });
     return true;
   }
-  const existingMap = readExistingMapFromCall(contentObject, key, 'enu');
+  const existingEnumerationMap = readExistingMapFromCall(
+    contentObject,
+    propertyKey,
+    'enu'
+  );
 
-  if (!areStringMapsEqual(map, existingMap)) {
+  if (!areStringMapsEqual(enumerationMap, existingEnumerationMap)) {
     requiredImports.add('enu');
-    const property = contentObject.getProperty(key);
+    const property = contentObject.getProperty(propertyKey);
 
     if (property && Node.isPropertyAssignment(property)) {
-      property.setInitializer(initializerText);
+      property.setInitializer(enumerationInitializerText);
       return true;
     }
   }
@@ -916,82 +1553,313 @@ const processEnumerationContent = (
 };
 
 /**
- * Processes condition content
+ * Processes condition content.
+ * Handles condition objects with key-value string pairs.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyKey - The key of the property to process
+ * @param contentNode - The condition content node
+ * @param existingPropertyKeys - Set of existing property names
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
  */
 const processConditionContent = (
   contentObject: ObjectLiteralExpression,
-  key: string,
-  value: ContentNode,
-  existingKeys: Set<string>,
-  requiredImports: Set<string>
+  propertyKey: string,
+  contentNode: ContentNode,
+  existingPropertyKeys: Set<string>,
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
-  const map: ConditionContent[NodeType.Condition] = (value as ConditionContent)[
-    NodeType.Condition
-  ];
+  const conditionMap: ConditionContent[NodeType.Condition] = (
+    contentNode as ConditionContent
+  )[NodeType.Condition];
 
-  if (!Object.values(map).every((v) => typeof v === 'string')) return false;
-  const initializerText = buildConditionInitializer(map);
+  // Check if condition values are simple strings (old format)
+  const hasSimpleStringValues = Object.values(conditionMap).every(
+    (conditionValue) => typeof conditionValue === 'string'
+  );
 
-  if (!initializerText) return false;
+  if (hasSimpleStringValues) {
+    // Handle simple string conditions (old behavior)
+    const conditionInitializerText = buildConditionInitializer(conditionMap);
 
-  if (!existingKeys.has(key)) {
-    requiredImports.add('cond');
-    contentObject.addPropertyAssignment({
-      name: key,
-      initializer: initializerText,
-    });
-    return true;
-  }
-  const existingMap = readExistingMapFromCall(contentObject, key, 'cond');
+    if (!conditionInitializerText) return false;
 
-  if (!areStringMapsEqual(map, existingMap)) {
-    requiredImports.add('cond');
-    const property = contentObject.getProperty(key);
-
-    if (property && Node.isPropertyAssignment(property)) {
-      property.setInitializer(initializerText);
+    if (!existingPropertyKeys.has(propertyKey)) {
+      const spreadTargetObject = findSpreadTargetObjectForKey(
+        contentObject,
+        propertyKey,
+        sourceFile
+      );
+      if (spreadTargetObject) {
+        return processConditionContent(
+          spreadTargetObject,
+          propertyKey,
+          contentNode,
+          getExistingPropertyNames(spreadTargetObject),
+          requiredImports,
+          sourceFile
+        );
+      }
+      requiredImports.add('cond');
+      contentObject.addPropertyAssignment({
+        name: propertyKey,
+        initializer: conditionInitializerText,
+      });
       return true;
     }
+    const existingConditionMap = readExistingMapFromCall(
+      contentObject,
+      propertyKey,
+      'cond'
+    );
+
+    if (!areStringMapsEqual(conditionMap, existingConditionMap)) {
+      requiredImports.add('cond');
+      const property = contentObject.getProperty(propertyKey);
+
+      if (property && Node.isPropertyAssignment(property)) {
+        property.setInitializer(conditionInitializerText);
+        return true;
+      }
+    }
+
+    return false;
   }
 
-  return false;
+  // Handle nested content nodes within conditions (new behavior)
+  if (!existingPropertyKeys.has(propertyKey)) {
+    const spreadTargetObject = findSpreadTargetObjectForKey(
+      contentObject,
+      propertyKey,
+      sourceFile
+    );
+    if (spreadTargetObject) {
+      return processConditionContent(
+        spreadTargetObject,
+        propertyKey,
+        contentNode,
+        getExistingPropertyNames(spreadTargetObject),
+        requiredImports,
+        sourceFile
+      );
+    }
+    // Property doesn't exist, we can't process nested content
+    return false;
+  }
+
+  // Get the existing cond() call
+  const property = contentObject.getProperty(propertyKey);
+  if (!property || !Node.isPropertyAssignment(property)) return false;
+
+  const propertyInitializer = property.getInitializer();
+  if (!propertyInitializer || !Node.isCallExpression(propertyInitializer))
+    return false;
+
+  const callExpression = propertyInitializer.getExpression();
+  if (!Node.isIdentifier(callExpression) || callExpression.getText() !== 'cond')
+    return false;
+
+  const condArgument = propertyInitializer.getArguments()[0];
+  if (!condArgument || !Node.isObjectLiteralExpression(condArgument))
+    return false;
+
+  requiredImports.add('cond');
+
+  // Process each condition branch (true, false, etc.)
+  let hasModifications = false;
+  for (const [conditionKey, conditionValue] of Object.entries(conditionMap)) {
+    const nodeType = getNodeType(conditionValue as ContentNode);
+
+    if (!nodeType) continue;
+
+    // Find the property for this condition key in the cond() argument
+    // Handle both regular identifiers and keywords like 'true'/'false'
+    let condProperty = condArgument.getProperty(conditionKey);
+    // If not found directly, try with stringifyKey which handles special cases
+    if (!condProperty) {
+      condProperty = condArgument.getProperty(stringifyKey(conditionKey));
+    }
+    if (!condProperty || !Node.isPropertyAssignment(condProperty)) continue;
+
+    const condValueInitializer = condProperty.getInitializer();
+    if (!condValueInitializer) continue;
+
+    // Handle different content node types within the condition
+    if (nodeType === NodeType.Translation) {
+      if (!Node.isCallExpression(condValueInitializer)) continue;
+
+      const tCallExpression = condValueInitializer.getExpression();
+      if (
+        !Node.isIdentifier(tCallExpression) ||
+        tCallExpression.getText() !== 't'
+      )
+        continue;
+
+      const tArgument = condValueInitializer.getArguments()[0];
+      if (!tArgument || !Node.isObjectLiteralExpression(tArgument)) continue;
+
+      // Process the translation object
+      const translationContent = conditionValue as TranslationContent;
+      const translationMap = translationContent[NodeType.Translation];
+
+      // Skip if translation map is invalid
+      if (!translationMap || typeof translationMap !== 'object') continue;
+
+      // Read existing translations from the t() argument
+      const existingTranslationMap: Record<string, string | string[]> = {};
+      for (const propertyAssignment of tArgument.getProperties()) {
+        if (!Node.isPropertyAssignment(propertyAssignment)) continue;
+
+        const propertyNameNode = propertyAssignment.getNameNode();
+        const rawPropertyName = propertyNameNode.getText();
+        const cleanPropertyName = rawPropertyName.replace(/^['"]|['"]$/g, '');
+        const valueInitializer = propertyAssignment.getInitializer();
+
+        if (valueInitializer && Node.isStringLiteral(valueInitializer)) {
+          existingTranslationMap[cleanPropertyName] =
+            valueInitializer.getLiteralValue();
+        } else if (
+          valueInitializer &&
+          Node.isArrayLiteralExpression(valueInitializer)
+        ) {
+          const stringArray: string[] = [];
+          for (const arrayElement of valueInitializer.getElements()) {
+            if (Node.isStringLiteral(arrayElement)) {
+              stringArray.push(arrayElement.getLiteralValue());
+            }
+          }
+          existingTranslationMap[cleanPropertyName] = stringArray;
+        }
+      }
+
+      const areEqual = areTranslationsEqual(
+        translationMap,
+        existingTranslationMap
+      );
+
+      if (!areEqual) {
+        requiredImports.add('t');
+
+        // Update the translation object
+        for (const [locale, localeValue] of Object.entries(translationMap)) {
+          // Format locale key properly for property lookup
+          const isLocaleCodeValidIdentifier = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(
+            locale
+          );
+          const formattedLocaleKey = isLocaleCodeValidIdentifier
+            ? locale
+            : JSON.stringify(locale);
+
+          // Try to find the property with both the raw locale and formatted key
+          let existingProperty = tArgument.getProperty(locale);
+          if (!existingProperty && !isLocaleCodeValidIdentifier) {
+            // Try with quotes if locale has special characters
+            existingProperty = tArgument.getProperty(JSON.stringify(locale));
+          }
+
+          if (existingProperty && Node.isPropertyAssignment(existingProperty)) {
+            const currentValue = existingProperty.getInitializer();
+            const newValue = Array.isArray(localeValue)
+              ? `[${localeValue.map((v) => JSON.stringify(v)).join(', ')}]`
+              : JSON.stringify(localeValue);
+
+            if (currentValue?.getText() !== newValue) {
+              existingProperty.setInitializer(newValue);
+              hasModifications = true;
+            }
+          } else if (!existingProperty) {
+            // Add new locale
+            const newValue = Array.isArray(localeValue)
+              ? `[${localeValue.map((v) => JSON.stringify(v)).join(', ')}]`
+              : JSON.stringify(localeValue);
+
+            tArgument.addPropertyAssignment({
+              name: formattedLocaleKey,
+              initializer: newValue,
+            });
+            hasModifications = true;
+          }
+        }
+      }
+    }
+    // Add more handlers for other node types if needed
+  }
+
+  return hasModifications;
 };
 
 /**
- * Processes gender content
+ * Processes gender content.
+ * Handles gender objects with key-value string pairs.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyKey - The key of the property to process
+ * @param contentNode - The gender content node
+ * @param existingPropertyKeys - Set of existing property names
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
  */
 const processGenderContent = (
   contentObject: ObjectLiteralExpression,
-  key: string,
-  value: ContentNode,
-  existingKeys: Set<string>,
-  requiredImports: Set<string>
+  propertyKey: string,
+  contentNode: ContentNode,
+  existingPropertyKeys: Set<string>,
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
-  const map: GenderContent[NodeType.Gender] = (value as GenderContent)[
-    NodeType.Gender
-  ];
+  const genderMap: GenderContent[NodeType.Gender] = (
+    contentNode as GenderContent
+  )[NodeType.Gender];
 
-  if (!Object.values(map).every((v) => typeof v === 'string')) return false;
-  const initializerText = buildGenderInitializer(map);
+  if (
+    !Object.values(genderMap).every(
+      (genderValue) => typeof genderValue === 'string'
+    )
+  )
+    return false;
+  const genderInitializerText = buildGenderInitializer(genderMap);
 
-  if (!initializerText) return false;
+  if (!genderInitializerText) return false;
 
-  if (!existingKeys.has(key)) {
+  if (!existingPropertyKeys.has(propertyKey)) {
+    const spreadTargetObject = findSpreadTargetObjectForKey(
+      contentObject,
+      propertyKey,
+      sourceFile
+    );
+    if (spreadTargetObject) {
+      return processGenderContent(
+        spreadTargetObject,
+        propertyKey,
+        contentNode,
+        getExistingPropertyNames(spreadTargetObject),
+        requiredImports,
+        sourceFile
+      );
+    }
     requiredImports.add('gender');
     contentObject.addPropertyAssignment({
-      name: key,
-      initializer: initializerText,
+      name: propertyKey,
+      initializer: genderInitializerText,
     });
     return true;
   }
-  const existingMap = readExistingMapFromCall(contentObject, key, 'gender');
+  const existingGenderMap = readExistingMapFromCall(
+    contentObject,
+    propertyKey,
+    'gender'
+  );
 
-  if (!areStringMapsEqual(map, existingMap)) {
+  if (!areStringMapsEqual(genderMap, existingGenderMap)) {
     requiredImports.add('gender');
-    const property = contentObject.getProperty(key);
+    const property = contentObject.getProperty(propertyKey);
 
     if (property && Node.isPropertyAssignment(property)) {
-      property.setInitializer(initializerText);
+      property.setInitializer(genderInitializerText);
       return true;
     }
   }
@@ -1000,66 +1868,91 @@ const processGenderContent = (
 };
 
 /**
- * Processes insertion content
+ * Processes insertion content.
+ * Handles insertion objects with string or translation content.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyKey - The key of the property to process
+ * @param contentNode - The insertion content node
+ * @param existingPropertyKeys - Set of existing property names
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
  */
 const processInsertionContent = (
   contentObject: ObjectLiteralExpression,
-  key: string,
-  value: ContentNode,
-  existingKeys: Set<string>,
-  requiredImports: Set<string>
+  propertyKey: string,
+  contentNode: ContentNode,
+  existingPropertyKeys: Set<string>,
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
-  const desired: InsertionContent[NodeType.Insertion] = (
-    value as InsertionContent
+  const insertionContent: InsertionContent[NodeType.Insertion] = (
+    contentNode as InsertionContent
   )[NodeType.Insertion];
-  const initializerText = buildInsertionInitializer(desired);
+  const insertionInitializerText = buildInsertionInitializer(insertionContent);
 
-  if (!initializerText) return false;
+  if (!insertionInitializerText) return false;
 
-  if (!existingKeys.has(key)) {
+  if (!existingPropertyKeys.has(propertyKey)) {
+    const spreadTargetObject = findSpreadTargetObjectForKey(
+      contentObject,
+      propertyKey,
+      sourceFile
+    );
+    if (spreadTargetObject) {
+      return processInsertionContent(
+        spreadTargetObject,
+        propertyKey,
+        contentNode,
+        getExistingPropertyNames(spreadTargetObject),
+        requiredImports,
+        sourceFile
+      );
+    }
     requiredImports.add('insert');
 
     if (
-      typeof desired === 'object' &&
-      desired !== null &&
-      getNodeType(desired as ContentNode) === NodeType.Translation
+      typeof insertionContent === 'object' &&
+      insertionContent !== null &&
+      getNodeType(insertionContent as ContentNode) === NodeType.Translation
     ) {
       requiredImports.add('t');
     }
     contentObject.addPropertyAssignment({
-      name: key,
-      initializer: initializerText,
+      name: propertyKey,
+      initializer: insertionInitializerText,
     });
     return true;
   }
-  const existing = readExistingInsertion(contentObject, key);
-  const isSame =
-    (typeof desired === 'string' &&
-      existing?.kind === 'string' &&
-      existing.value === desired) ||
-    (typeof desired === 'object' &&
-      desired !== null &&
-      getNodeType(desired as ContentNode) === NodeType.Translation &&
-      existing?.kind === 'translation' &&
+  const existingInsertion = readExistingInsertion(contentObject, propertyKey);
+  const isInsertionSame =
+    (typeof insertionContent === 'string' &&
+      existingInsertion?.kind === 'string' &&
+      existingInsertion.value === insertionContent) ||
+    (typeof insertionContent === 'object' &&
+      insertionContent !== null &&
+      getNodeType(insertionContent as ContentNode) === NodeType.Translation &&
+      existingInsertion?.kind === 'translation' &&
       areStringMapsEqual(
-        (desired as TranslationContent)[NodeType.Translation] ?? {},
-        existing.map
+        (insertionContent as TranslationContent)[NodeType.Translation] ?? {},
+        existingInsertion.map
       ));
 
-  if (!isSame) {
+  if (!isInsertionSame) {
     requiredImports.add('insert');
 
     if (
-      typeof desired === 'object' &&
-      desired !== null &&
-      getNodeType(desired as ContentNode) === NodeType.Translation
+      typeof insertionContent === 'object' &&
+      insertionContent !== null &&
+      getNodeType(insertionContent as ContentNode) === NodeType.Translation
     ) {
       requiredImports.add('t');
     }
-    const property = contentObject.getProperty(key);
+    const property = contentObject.getProperty(propertyKey);
 
     if (property && Node.isPropertyAssignment(property)) {
-      property.setInitializer(initializerText);
+      property.setInitializer(insertionInitializerText);
       return true;
     }
   }
@@ -1068,77 +1961,124 @@ const processInsertionContent = (
 };
 
 /**
- * Processes markdown content
+ * Processes markdown content.
+ * Handles markdown objects with string, translation, or file content.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyKey - The key of the property to process
+ * @param contentNode - The markdown content node
+ * @param existingPropertyKeys - Set of existing property names
+ * @param effectiveFallbackLocale - The fallback locale for translations
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
  */
 const processMarkdownContent = (
   contentObject: ObjectLiteralExpression,
-  key: string,
-  value: ContentNode,
-  existingKeys: Set<string>,
+  propertyKey: string,
+  contentNode: ContentNode,
+  existingPropertyKeys: Set<string>,
   effectiveFallbackLocale: string,
-  requiredImports: Set<string>
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
-  const desired: MarkdownContent[NodeType.Markdown] = (
-    value as MarkdownContent
+  const markdownContent: MarkdownContent[NodeType.Markdown] = (
+    contentNode as MarkdownContent
   )[NodeType.Markdown];
-  const initializerText = buildMarkdownInitializer(desired);
+  const markdownInitializerText = buildMarkdownInitializer(markdownContent);
 
-  if (!initializerText) return false;
+  if (!markdownInitializerText) return false;
 
-  if (!existingKeys.has(key)) {
+  if (!existingPropertyKeys.has(propertyKey)) {
+    const spreadTargetObject = findSpreadTargetObjectForKey(
+      contentObject,
+      propertyKey,
+      sourceFile
+    );
+    if (spreadTargetObject) {
+      return processMarkdownContent(
+        spreadTargetObject,
+        propertyKey,
+        contentNode,
+        getExistingPropertyNames(spreadTargetObject),
+        effectiveFallbackLocale,
+        requiredImports,
+        sourceFile
+      );
+    }
     requiredImports.add('md');
-    const desiredNodeType = getNodeType(desired as ContentNode);
+    const markdownNodeType = getNodeType(markdownContent as ContentNode);
 
-    if (desiredNodeType === NodeType.File) {
+    if (markdownNodeType === NodeType.File) {
       requiredImports.add('file');
-    } else if (desiredNodeType === NodeType.Translation) {
+    } else if (markdownNodeType === NodeType.Translation) {
       requiredImports.add('t');
     }
     contentObject.addPropertyAssignment({
-      name: key,
-      initializer: initializerText,
+      name: propertyKey,
+      initializer: markdownInitializerText,
     });
     return true;
   }
-  const desiredNodeType = getNodeType(desired as ContentNode);
-  const existingSimple = readExistingMarkdown(contentObject, key);
-  const existingMap = readExistingMarkdownTranslationMap(contentObject, key);
+  const markdownNodeType = getNodeType(markdownContent as ContentNode);
+  const existingSimpleMarkdown = readExistingMarkdown(
+    contentObject,
+    propertyKey
+  );
+  const existingMarkdownTranslationMap = readExistingMarkdownTranslationMap(
+    contentObject,
+    propertyKey
+  );
+  const existingTranslationTypeArguments = readExistingTypeArgsForCall(
+    contentObject,
+    propertyKey,
+    't'
+  );
 
-  if (typeof desired === 'string' && existingMap && effectiveFallbackLocale) {
-    const updated = {
-      ...existingMap,
-      [effectiveFallbackLocale]: desired,
+  if (
+    typeof markdownContent === 'string' &&
+    existingMarkdownTranslationMap &&
+    effectiveFallbackLocale
+  ) {
+    const updatedTranslationMap = {
+      ...existingMarkdownTranslationMap,
+      [effectiveFallbackLocale]: markdownContent,
     } as StrictModeLocaleMap;
     requiredImports.add('md');
     requiredImports.add('t');
-    const property = contentObject.getProperty(key);
+    const property = contentObject.getProperty(propertyKey);
 
     if (property && Node.isPropertyAssignment(property)) {
-      property.setInitializer(`md(${buildTranslationInitializer(updated)})`);
+      property.setInitializer(
+        `md(${buildTranslationInitializer(updatedTranslationMap, existingTranslationTypeArguments)})`
+      );
       return true;
     }
     return false;
   }
 
-  if (desiredNodeType === NodeType.Translation) {
-    const desiredMap = (desired as TranslationContent)[
+  if (markdownNodeType === NodeType.Translation) {
+    const markdownTranslationMap = (markdownContent as TranslationContent)[
       NodeType.Translation
     ] as StrictModeLocaleMap;
-    const allStrings = Object.values(desiredMap).every(
-      (v) => typeof v === 'string'
+    const areAllValuesStrings = Object.values(markdownTranslationMap).every(
+      (translationValue) => typeof translationValue === 'string'
     );
 
-    if (!allStrings) return false;
-    const existingEquals = areStringMapsEqual(desiredMap, existingMap);
+    if (!areAllValuesStrings) return false;
+    const areTranslationMapsEqual = areStringMapsEqual(
+      markdownTranslationMap,
+      existingMarkdownTranslationMap
+    );
 
-    if (!existingEquals) {
+    if (!areTranslationMapsEqual) {
       requiredImports.add('md');
       requiredImports.add('t');
-      const property = contentObject.getProperty(key);
+      const property = contentObject.getProperty(propertyKey);
 
       if (property && Node.isPropertyAssignment(property)) {
         property.setInitializer(
-          `md(${buildTranslationInitializer(desiredMap)})`
+          `md(${buildTranslationInitializer(markdownTranslationMap, existingTranslationTypeArguments)})`
         );
         return true;
       }
@@ -1146,24 +2086,25 @@ const processMarkdownContent = (
     return false;
   }
 
-  const isSameSimple =
-    (typeof desired === 'string' &&
-      existingSimple?.kind === 'string' &&
-      existingSimple.value === desired) ||
-    (desiredNodeType === NodeType.File &&
-      existingSimple?.kind === 'file' &&
-      existingSimple.path === (desired as FileContent)[NodeType.File]);
+  const isSimpleMarkdownSame =
+    (typeof markdownContent === 'string' &&
+      existingSimpleMarkdown?.kind === 'string' &&
+      existingSimpleMarkdown.value === markdownContent) ||
+    (markdownNodeType === NodeType.File &&
+      existingSimpleMarkdown?.kind === 'file' &&
+      existingSimpleMarkdown.path ===
+        (markdownContent as FileContent)[NodeType.File]);
 
-  if (!isSameSimple) {
+  if (!isSimpleMarkdownSame) {
     requiredImports.add('md');
 
-    if (desiredNodeType === NodeType.File) {
+    if (markdownNodeType === NodeType.File) {
       requiredImports.add('file');
     }
-    const property = contentObject.getProperty(key);
+    const property = contentObject.getProperty(propertyKey);
 
     if (property && Node.isPropertyAssignment(property)) {
-      property.setInitializer(initializerText);
+      property.setInitializer(markdownInitializerText);
       return true;
     }
   }
@@ -1172,38 +2113,63 @@ const processMarkdownContent = (
 };
 
 /**
- * Processes file content
+ * Processes file content.
+ * Handles file objects with file path references.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyKey - The key of the property to process
+ * @param contentNode - The file content node
+ * @param existingPropertyKeys - Set of existing property names
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
  */
 const processFileContent = (
   contentObject: ObjectLiteralExpression,
-  key: string,
-  value: ContentNode,
-  existingKeys: Set<string>,
-  requiredImports: Set<string>
+  propertyKey: string,
+  contentNode: ContentNode,
+  existingPropertyKeys: Set<string>,
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
-  const desired: FileContent[NodeType.File] = (value as FileContent)[
+  const filePath: FileContent[NodeType.File] = (contentNode as FileContent)[
     NodeType.File
   ];
-  const initializerText = buildFileInitializer(desired);
+  const fileInitializerText = buildFileInitializer(filePath);
 
-  if (!initializerText) return false;
+  if (!fileInitializerText) return false;
 
-  if (!existingKeys.has(key)) {
+  if (!existingPropertyKeys.has(propertyKey)) {
+    const spreadTargetObject = findSpreadTargetObjectForKey(
+      contentObject,
+      propertyKey,
+      sourceFile
+    );
+    if (spreadTargetObject) {
+      return processFileContent(
+        spreadTargetObject,
+        propertyKey,
+        contentNode,
+        getExistingPropertyNames(spreadTargetObject),
+        requiredImports,
+        sourceFile
+      );
+    }
     requiredImports.add('file');
     contentObject.addPropertyAssignment({
-      name: key,
-      initializer: initializerText,
+      name: propertyKey,
+      initializer: fileInitializerText,
     });
     return true;
   }
-  const existing = readExistingFilePath(contentObject, key);
+  const existingFilePath = readExistingFilePath(contentObject, propertyKey);
 
-  if (existing !== desired) {
+  if (existingFilePath !== filePath) {
     requiredImports.add('file');
-    const property = contentObject.getProperty(key);
+    const property = contentObject.getProperty(propertyKey);
 
     if (property && Node.isPropertyAssignment(property)) {
-      property.setInitializer(initializerText);
+      property.setInitializer(fileInitializerText);
       return true;
     }
   }
@@ -1212,42 +2178,67 @@ const processFileContent = (
 };
 
 /**
- * Processes nested content
+ * Processes nested content.
+ * Handles nested objects with dictionary key and optional path references.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyKey - The key of the property to process
+ * @param contentNode - The nested content node
+ * @param existingPropertyKeys - Set of existing property names
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
  */
 const processNestedContent = (
   contentObject: ObjectLiteralExpression,
-  key: string,
-  value: ContentNode,
-  existingKeys: Set<string>,
-  requiredImports: Set<string>
+  propertyKey: string,
+  contentNode: ContentNode,
+  existingPropertyKeys: Set<string>,
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
-  const desired: NestedContent[NodeType.Nested] = (value as NestedContent)[
-    NodeType.Nested
-  ];
-  const initializerText = buildNestedInitializer(desired);
+  const nestedContent: NestedContent[NodeType.Nested] = (
+    contentNode as NestedContent
+  )[NodeType.Nested];
+  const nestedInitializerText = buildNestedInitializer(nestedContent);
 
-  if (!initializerText) return false;
+  if (!nestedInitializerText) return false;
 
-  if (!existingKeys.has(key)) {
+  if (!existingPropertyKeys.has(propertyKey)) {
+    const spreadTargetObject = findSpreadTargetObjectForKey(
+      contentObject,
+      propertyKey,
+      sourceFile
+    );
+    if (spreadTargetObject) {
+      return processNestedContent(
+        spreadTargetObject,
+        propertyKey,
+        contentNode,
+        getExistingPropertyNames(spreadTargetObject),
+        requiredImports,
+        sourceFile
+      );
+    }
     requiredImports.add('nest');
     contentObject.addPropertyAssignment({
-      name: key,
-      initializer: initializerText,
+      name: propertyKey,
+      initializer: nestedInitializerText,
     });
     return true;
   }
-  const existing = readExistingNest(contentObject, key);
-  const isSame =
-    !!desired &&
-    existing?.dictionaryKey === desired.dictionaryKey &&
-    existing?.path === desired.path;
+  const existingNestedContent = readExistingNest(contentObject, propertyKey);
+  const isNestedContentSame =
+    !!nestedContent &&
+    existingNestedContent?.dictionaryKey === nestedContent.dictionaryKey &&
+    existingNestedContent?.path === nestedContent.path;
 
-  if (!isSame) {
+  if (!isNestedContentSame) {
     requiredImports.add('nest');
-    const property = contentObject.getProperty(key);
+    const property = contentObject.getProperty(propertyKey);
 
     if (property && Node.isPropertyAssignment(property)) {
-      property.setInitializer(initializerText);
+      property.setInitializer(nestedInitializerText);
       return true;
     }
   }
@@ -1256,31 +2247,95 @@ const processNestedContent = (
 };
 
 /**
- * Processes nested object content
+ * Processes nested object content.
+ * Handles nested objects within content structures.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyKey - The key of the property to process
+ * @param nestedObjectValue - The nested object value to process
+ * @param _existingPropertyKeys - Set of existing property names (unused)
+ * @param effectiveFallbackLocale - The fallback locale for translations
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
  */
 const processNestedObjectContent = (
   contentObject: ObjectLiteralExpression,
-  key: string,
-  value: Record<string, unknown>,
-  _existingKeys: Set<string>,
+  propertyKey: string,
+  nestedObjectValue: Record<string, unknown>,
+  _existingPropertyKeys: Set<string>,
   effectiveFallbackLocale: string,
-  requiredImports: Set<string>
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
   let childObject: ObjectLiteralExpression | undefined;
-  const existing = contentObject.getProperty(key);
+  const existingProperty = contentObject.getProperty(propertyKey);
 
-  if (existing && Node.isPropertyAssignment(existing)) {
-    childObject = existing.getInitializerIfKind(
+  if (existingProperty && Node.isPropertyAssignment(existingProperty)) {
+    childObject = existingProperty.getInitializerIfKind(
       SyntaxKind.ObjectLiteralExpression
     );
   }
 
+  // If property is shorthand or an identifier referencing another object, resolve it
   if (!childObject) {
-    contentObject.addPropertyAssignment({ name: key, initializer: '{ }' });
-    const newProp = contentObject.getProperty(key);
+    const shorthandProperty = contentObject.getProperty(propertyKey);
+    if (
+      shorthandProperty &&
+      Node.isShorthandPropertyAssignment(shorthandProperty)
+    ) {
+      childObject = resolveNameToObjectLiteral(
+        contentObject.getSourceFile(),
+        propertyKey
+      );
+    } else if (
+      existingProperty &&
+      Node.isPropertyAssignment(existingProperty)
+    ) {
+      const propertyInitializer = existingProperty.getInitializer();
+      if (propertyInitializer) {
+        if (Node.isIdentifier(propertyInitializer)) {
+          childObject = resolveNameToObjectLiteral(
+            sourceFile,
+            propertyInitializer.getText()
+          );
+        } else if (Node.isPropertyAccessExpression(propertyInitializer)) {
+          childObject = resolveExpressionToObjectLiteral(
+            sourceFile,
+            propertyInitializer
+          );
+        }
+      }
+    }
+  }
 
-    if (newProp && Node.isPropertyAssignment(newProp)) {
-      childObject = newProp.getInitializerIfKind(
+  if (!childObject) {
+    // If property key not local, try route into a spread that already defines it (including nested object/property access like planDetails.free)
+    const spreadTargetObject = findSpreadTargetObjectForKey(
+      contentObject,
+      propertyKey,
+      sourceFile
+    );
+    if (spreadTargetObject) {
+      return processNestedObjectContent(
+        spreadTargetObject,
+        propertyKey,
+        nestedObjectValue,
+        getExistingPropertyNames(spreadTargetObject),
+        effectiveFallbackLocale,
+        requiredImports,
+        sourceFile
+      );
+    }
+
+    contentObject.addPropertyAssignment({
+      name: propertyKey,
+      initializer: '{ }',
+    });
+    const newProperty = contentObject.getProperty(propertyKey);
+
+    if (newProperty && Node.isPropertyAssignment(newProperty)) {
+      childObject = newProperty.getInitializerIfKind(
         SyntaxKind.ObjectLiteralExpression
       );
     }
@@ -1289,61 +2344,78 @@ const processNestedObjectContent = (
   if (childObject) {
     return processContentEntries(
       childObject,
-      value,
+      nestedObjectValue,
       effectiveFallbackLocale,
-      requiredImports
+      requiredImports,
+      sourceFile
     );
   }
 
   return false;
 };
 
+/**
+ * Processes content entries in a dictionary object.
+ * Routes different content types to appropriate processors.
+ *
+ * @param contentObject - The object containing the content
+ * @param dictionaryContent - The dictionary content to process
+ * @param effectiveFallbackLocale - The fallback locale for translations
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if any content was modified
+ */
 const processContentEntries = (
   contentObject: ObjectLiteralExpression,
-  dictContent: Record<string, unknown>,
+  dictionaryContent: Record<string, unknown>,
   effectiveFallbackLocale: string,
-  requiredImports: Set<string>
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
 ): boolean => {
-  let changed = false;
+  let contentWasChanged = false;
 
-  const existingKeys = getExistingPropertyNames(contentObject);
+  const existingPropertyKeys = getExistingPropertyNames(contentObject);
 
-  for (const [key, value] of Object.entries(dictContent)) {
-    if (Array.isArray(value)) {
-      const arrayChanged = processArrayContent(
+  for (const [propertyKey, propertyValue] of Object.entries(
+    dictionaryContent
+  )) {
+    if (Array.isArray(propertyValue)) {
+      const arrayWasChanged = processArrayContent(
         contentObject,
-        key,
-        value,
-        existingKeys,
+        propertyKey,
+        propertyValue,
+        existingPropertyKeys,
         effectiveFallbackLocale,
-        requiredImports
+        requiredImports,
+        sourceFile
       );
 
-      if (arrayChanged) changed = true;
+      if (arrayWasChanged) contentWasChanged = true;
       continue;
     }
 
     if (
-      typeof value === 'string' ||
-      typeof value === 'number' ||
-      typeof value === 'boolean' ||
-      value === null
+      typeof propertyValue === 'string' ||
+      typeof propertyValue === 'number' ||
+      typeof propertyValue === 'boolean' ||
+      propertyValue === null
     ) {
-      const primitiveChanged = processPrimitiveContent(
+      const primitiveWasChanged = processPrimitiveContent(
         contentObject,
-        key,
-        value as string | number | boolean | null,
-        existingKeys,
+        propertyKey,
+        propertyValue as string | number | boolean | null,
+        existingPropertyKeys,
         effectiveFallbackLocale,
-        requiredImports
+        requiredImports,
+        sourceFile
       );
 
-      if (primitiveChanged) changed = true;
+      if (primitiveWasChanged) contentWasChanged = true;
       continue;
     }
 
     // Check if it's a complex content node
-    const nodeType = getNodeType(value as ContentNode);
+    const nodeType = getNodeType(propertyValue as ContentNode);
 
     if (
       nodeType !== NodeType.Text &&
@@ -1351,17 +2423,18 @@ const processContentEntries = (
       nodeType !== NodeType.Boolean &&
       nodeType !== NodeType.Null
     ) {
-      const complexChanged = processComplexContent(
+      const complexContentWasChanged = processComplexContent(
         contentObject,
-        key,
-        value as ContentNode,
-        existingKeys,
+        propertyKey,
+        propertyValue as ContentNode,
+        existingPropertyKeys,
         effectiveFallbackLocale,
-        requiredImports
+        requiredImports,
+        sourceFile
       );
 
-      if (complexChanged) {
-        changed = true;
+      if (complexContentWasChanged) {
+        contentWasChanged = true;
         continue; // Only skip nested handling if we actually processed a complex node
       }
       // Fall through to nested object handling when not a recognized complex node
@@ -1370,35 +2443,36 @@ const processContentEntries = (
     // Handle nested objects
 
     if (
-      value &&
-      typeof value === 'object' &&
-      !Array.isArray(value) &&
-      !(value as any).nodeType
+      propertyValue &&
+      typeof propertyValue === 'object' &&
+      !Array.isArray(propertyValue) &&
+      !(propertyValue as any).nodeType
     ) {
-      const nestedChanged = processNestedObjectContent(
+      const nestedObjectWasChanged = processNestedObjectContent(
         contentObject,
-        key,
-        value as Record<string, unknown>,
-        existingKeys,
+        propertyKey,
+        propertyValue as Record<string, unknown>,
+        existingPropertyKeys,
         effectiveFallbackLocale,
-        requiredImports
+        requiredImports,
+        sourceFile
       );
 
-      if (nestedChanged) changed = true;
+      if (nestedObjectWasChanged) contentWasChanged = true;
     }
   }
 
-  return changed;
+  return contentWasChanged;
 };
 
-type ExistingInsert =
+type ExistingInsertionContent =
   | { kind: 'string'; value: string }
   | { kind: 'translation'; map: Record<string, string> };
 
 const readExistingInsertion = (
   contentObject: ObjectLiteralExpression,
   propName: string
-): ExistingInsert | undefined => {
+): ExistingInsertionContent | undefined => {
   const prop = contentObject.getProperty(propName);
 
   if (!prop || !Node.isPropertyAssignment(prop)) return undefined;
@@ -1455,14 +2529,14 @@ const readExistingInsertion = (
   return;
 };
 
-type ExistingMarkdown =
+type ExistingMarkdownContent =
   | { kind: 'string'; value: string }
   | { kind: 'file'; path: string };
 
 const readExistingMarkdown = (
   contentObject: ObjectLiteralExpression,
   propName: string
-): ExistingMarkdown | undefined => {
+): ExistingMarkdownContent | undefined => {
   const property = contentObject.getProperty(propName);
 
   if (!property || !Node.isPropertyAssignment(property)) return undefined;
@@ -1700,6 +2774,95 @@ const unwrapToObjectLiteral = (
   }
 
   return;
+};
+
+// Resolve an identifier/shorthand property name to the object literal of its variable initializer
+const resolveNameToObjectLiteral = (
+  sourceFile: SourceFile,
+  name: string
+): ObjectLiteralExpression | undefined => {
+  // Try to find a variable declaration in the same file
+  const varDecl = sourceFile.getVariableDeclaration(name);
+  if (varDecl) {
+    const init = varDecl.getInitializer();
+    const obj = unwrapToObjectLiteral(init);
+    if (obj) return obj;
+  }
+
+  // Fallback via symbol resolution
+  const identifier = sourceFile.getDescendants().find((n) => {
+    return Node.isIdentifier(n) && n.getText() === name;
+  });
+  const decl = identifier?.getSymbol()?.getDeclarations()?.[0];
+  if (decl && Node.isVariableDeclaration(decl)) {
+    const obj = unwrapToObjectLiteral(decl.getInitializer());
+    if (obj) return obj;
+  }
+  return undefined;
+};
+
+// Resolve an arbitrary expression to an object literal if it refers to one (identifier or property access)
+const resolveExpressionToObjectLiteral = (
+  sourceFile: SourceFile,
+  expr: import('ts-morph').Expression
+): ObjectLiteralExpression | undefined => {
+  if (Node.isIdentifier(expr)) {
+    return resolveNameToObjectLiteral(sourceFile, expr.getText());
+  }
+
+  if (Node.isPropertyAccessExpression(expr)) {
+    // Resolve the left side first (could be identifier or nested property access)
+    const leftResolved = resolveExpressionToObjectLiteral(
+      sourceFile,
+      expr.getExpression()
+    );
+    if (!leftResolved) return undefined;
+    const propName = expr.getName();
+    const prop = leftResolved.getProperty(propName);
+    if (prop && Node.isPropertyAssignment(prop)) {
+      const init = prop.getInitializer();
+      const obj = unwrapToObjectLiteral(init);
+      if (obj) return obj;
+      // Support aliasing to another identifier: const x = planDetails.free; then use x
+      if (init && Node.isIdentifier(init)) {
+        return resolveNameToObjectLiteral(sourceFile, init.getText());
+      }
+    }
+  }
+  return undefined;
+};
+
+// Find spread source objects for a given object literal, in declaration order
+const getSpreadSourceObjects = (
+  contentObject: ObjectLiteralExpression,
+  sourceFile: SourceFile
+): ObjectLiteralExpression[] => {
+  const spreads: ObjectLiteralExpression[] = [];
+  for (const prop of contentObject.getProperties()) {
+    if (Node.isSpreadAssignment(prop)) {
+      const expr = prop.getExpression();
+      const resolved = resolveExpressionToObjectLiteral(sourceFile, expr);
+      if (resolved) spreads.push(resolved);
+    }
+  }
+  return spreads;
+};
+
+// Find the spread source object (prefer the last one) that contains a given key
+const findSpreadTargetObjectForKey = (
+  contentObject: ObjectLiteralExpression,
+  key: string,
+  sourceFile: SourceFile
+): ObjectLiteralExpression | undefined => {
+  const spreads = getSpreadSourceObjects(contentObject, sourceFile);
+  for (let i = spreads.length - 1; i >= 0; i--) {
+    const spreadObj = spreads[i];
+    const prop = spreadObj.getProperty(key);
+    if (prop && Node.isPropertyAssignment(prop)) {
+      return spreadObj;
+    }
+  }
+  return undefined;
 };
 
 const readExistingArraySerialized = (
@@ -2201,8 +3364,12 @@ const findRootDictionaryObject = (
 
         if (objectLiteral) return objectLiteral;
       }
-    } else if (Node.isObjectLiteralExpression(expression)) {
-      return expression;
+    } else {
+      // Support wrapped default exports like: export default ({ ... } as const)
+      // or: export default ({ ... } satisfies Dictionary)
+      const objectLiteral = unwrapToObjectLiteral(expression);
+
+      if (objectLiteral) return objectLiteral;
     }
   }
 
@@ -2330,7 +3497,7 @@ export const transformJSFile = async (
       },
       manipulationSettings: {
         indentationText: IndentationText.TwoSpaces,
-        quoteKind: QuoteKind.Single,
+        quoteKind: QuoteKind.Double, // More safe for JSON.stringify compatibility
         newLineKind: NewLineKind.LineFeed,
       },
     });
@@ -2357,24 +3524,48 @@ export const transformJSFile = async (
     if (dictionary.content) {
       const contentProperty = rootObject.getProperty('content');
       let contentObject: ObjectLiteralExpression | undefined;
+      let isContentArrayInSource = false;
 
       if (contentProperty && Node.isPropertyAssignment(contentProperty)) {
         contentObject = contentProperty.getInitializerIfKind(
           SyntaxKind.ObjectLiteralExpression
         );
+        // Detect if the source file defines content as an array
+        isContentArrayInSource = !!contentProperty.getInitializerIfKind(
+          SyntaxKind.ArrayLiteralExpression
+        );
       }
 
-      if (contentObject) {
+      const effectiveFallbackLocale: string =
+        (fallbackLocale as unknown as string) ?? 'en';
+
+      if (contentObject && !Array.isArray(dictionary.content)) {
+        // Existing behavior when content is an object
         const dictContent: Record<string, unknown> =
           (dictionary.content as unknown as Record<string, unknown>) ?? {};
-        const effectiveFallbackLocale: string =
-          (fallbackLocale as unknown as string) ?? 'en';
 
         const contentChanged = processContentEntries(
           contentObject,
           dictContent,
           effectiveFallbackLocale,
-          requiredImports
+          requiredImports,
+          sourceFile
+        );
+
+        if (contentChanged) changed = true;
+      } else if (Array.isArray(dictionary.content) && isContentArrayInSource) {
+        // New behavior: content is an array in both the dictionary and the source file
+        const dictArrayContent: unknown[] =
+          (dictionary.content as unknown[]) ?? [];
+
+        const contentChanged = processArrayContent(
+          rootObject,
+          'content',
+          dictArrayContent,
+          getExistingPropertyNames(rootObject),
+          effectiveFallbackLocale,
+          requiredImports,
+          sourceFile
         );
 
         if (contentChanged) changed = true;

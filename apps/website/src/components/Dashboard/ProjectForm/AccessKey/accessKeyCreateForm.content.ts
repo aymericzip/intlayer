@@ -19,6 +19,8 @@ const accessKeyFormContent = {
       tr: 'Erişim anahtarı',
       zh: '访问密钥',
       pl: 'Klucz dostępu',
+      id: 'Kunci akses',
+      vi: 'Khóa truy cập',
     }),
     nameInput: {
       label: t({
@@ -37,6 +39,8 @@ const accessKeyFormContent = {
         'en-GB': 'Name of your access key',
         tr: 'Erişim anahtarınızın adı',
         pl: 'Nazwa klucza dostępu',
+        id: 'Nama kunci akses Anda',
+        vi: 'Tên khóa truy cập của bạn',
       }),
       placeholder: t({
         en: 'Enter the name of your access key',
@@ -54,6 +58,8 @@ const accessKeyFormContent = {
         'en-GB': 'Enter the name of your access key',
         tr: 'Erişim anahtarınızın adını girin',
         pl: 'Wprowadź nazwę klucza dostępu',
+        id: 'Masukkan nama kunci akses Anda',
+        vi: 'Nhập tên khóa truy cập của bạn',
       }),
     },
 
@@ -74,6 +80,8 @@ const accessKeyFormContent = {
         'en-GB': 'Rights',
         tr: 'Haklar',
         pl: 'Uprawnienia',
+        id: 'Hak akses',
+        vi: 'Quyền',
       }),
       dictionary: t({
         en: 'Dictionary',
@@ -91,6 +99,8 @@ const accessKeyFormContent = {
         'en-GB': 'Dictionary',
         tr: 'Sözlük',
         pl: 'Słownik',
+        id: 'Dictionary',
+        vi: 'Từ điển',
       }),
       project: t({
         en: 'Project',
@@ -108,6 +118,8 @@ const accessKeyFormContent = {
         'en-GB': 'Project',
         tr: 'Proje',
         pl: 'Projekt',
+        id: 'Project',
+        vi: 'Dự án',
       }),
       organization: t({
         en: 'Organization',
@@ -125,6 +137,8 @@ const accessKeyFormContent = {
         'en-GB': 'Organization',
         tr: 'Organizasyon',
         pl: 'Organizacja',
+        id: 'Organization',
+        vi: 'Tổ chức',
       }),
       read: t({
         en: 'Read ',
@@ -142,6 +156,8 @@ const accessKeyFormContent = {
         'en-GB': 'Read ',
         tr: 'Oku ',
         pl: 'Odczyt ',
+        id: 'Read',
+        vi: 'Đọc',
       }),
       write: t({
         en: 'Write ',
@@ -159,6 +175,8 @@ const accessKeyFormContent = {
         'en-GB': 'Write ',
         tr: 'Yaz ',
         pl: 'Zapis ',
+        id: 'Write',
+        vi: 'Ghi',
       }),
       admin: t({
         en: 'Admin',
@@ -176,6 +194,8 @@ const accessKeyFormContent = {
         'en-GB': 'Admin',
         tr: 'Yönetici',
         pl: 'Administrator',
+        id: 'Admin',
+        vi: 'Quản trị',
       }),
     },
 
@@ -196,6 +216,8 @@ const accessKeyFormContent = {
         'en-GB': 'Expires at',
         tr: 'Süresi doluyor',
         pl: 'Wygasa',
+        id: 'Berakhir pada',
+        vi: 'Ngày hết hạn',
       }),
       placeholder: t({
         en: 'Select the expiration date',
@@ -213,6 +235,8 @@ const accessKeyFormContent = {
         'en-GB': 'Select the expiration date',
         tr: 'Son kullanma tarihini seçin',
         pl: 'Wybierz datę wygaśnięcia',
+        id: 'Pilih tanggal kedaluwarsa',
+        vi: 'Chọn ngày hết hạn',
       }),
     },
 
@@ -233,6 +257,8 @@ const accessKeyFormContent = {
         'en-GB': 'Create access key',
         tr: 'Erişim anahtarı oluştur',
         pl: 'Utwórz klucz dostępu',
+        id: 'Buat kunci akses',
+        vi: 'Tạo khóa truy cập',
       }),
       label: t({
         en: 'Click to create access key',
@@ -250,9 +276,15 @@ const accessKeyFormContent = {
         'en-GB': 'Click to create access key',
         tr: 'Erişim anahtarı oluşturmak için tıklayın',
         pl: 'Kliknij, aby utworzyć klucz dostępu',
+        id: 'Klik untuk membuat kunci akses',
+        vi: 'Nhấp để tạo khóa truy cập',
       }),
     },
   },
+  title: 'Access key creation form',
+  description:
+    'Content declaration for the access key creation form used to generate and configure access keys with specific permissions, name, and expiration date within the dashboard.',
+  tags: ['form', 'access key', 'dashboard'],
 } satisfies Dictionary;
 
 export default accessKeyFormContent;

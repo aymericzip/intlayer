@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 const markdownSectionContent = {
   key: 'autocompletion-section',
-  title: 'Autocompletion',
+  title: 'Autocompletion section',
   content: {
     input: t({
       ar: 'عزيز العملاء،\n\nأنا أريد كتابة لك ',
@@ -20,6 +20,8 @@ const markdownSectionContent = {
       tr: 'Değerli müşteri,\n\nSize yazıyorum ',
       zh: '您好，我是写给您的 ',
       pl: 'Szanowny Kliencie,\n\nPiszę do Państwa ',
+      id: 'Pelanggan yang terhormat,\n\nSaya menulis kepada Anda ',
+      vi: 'Kính gửi Quý khách,\n\nTôi viết thư này ',
     }),
     suggestion: t({
       ar: 'لتأكيد طلبك',
@@ -37,6 +39,8 @@ const markdownSectionContent = {
       tr: 'siparişinizi onaylamak için',
       zh: '确认您的订单',
       pl: 'aby potwierdzić Państwa zamówienie',
+      id: 'untuk mengonfirmasi pesanan Anda',
+      vi: 'để xác nhận đơn hàng của Quý khách',
     }),
     ariaLabel: t({
       ar: 'محرر الإكمال التلقائي',
@@ -54,8 +58,13 @@ const markdownSectionContent = {
       tr: 'Otomatik Tamamlama düzenleyicisi',
       zh: '自动补全编辑器',
       pl: 'Edytor autouzupełniania',
+      id: 'Editor autocompletion',
+      vi: 'Trình soạn thảo tự hoàn thành',
     }),
   },
+  description:
+    'Content declaration for the Autocompletion section of the landing page. Includes UI strings for an editor experience such as input prompts and autocomplete suggestions.',
+  tags: ['landing page', 'UI component', 'autocompletion'],
 } satisfies Dictionary;
 
 export default markdownSectionContent;

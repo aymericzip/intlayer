@@ -20,6 +20,8 @@ const pageContent = {
       tr: 'Dokümanda ara',
       zh: '在文档中搜索',
       pl: 'Szukaj w dokumentacji',
+      id: 'Cari di dokumentasi',
+      vi: 'Tìm kiếm trong tài liệu',
     }),
   },
   title: 'Documentation search page',

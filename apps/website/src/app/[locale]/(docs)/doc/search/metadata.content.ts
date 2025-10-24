@@ -20,6 +20,8 @@ const metadataContent = {
       tr: 'Belgelerde ara | Intlayer',
       zh: '在文档中搜索 | Intlayer',
       pl: 'Wyszukiwanie w dokumentacji | Intlayer',
+      id: 'Cari di dokumentasi | Intlayer',
+      vi: 'Tìm kiếm trong tài liệu | Intlayer',
     }),
     description: t({
       ar: 'البحث في الوثائق',
@@ -37,6 +39,8 @@ const metadataContent = {
       tr: 'Belgelerde ara',
       zh: '搜索文档',
       pl: 'Przeszukaj dokumentację',
+      id: 'Cari dokumentasi',
+      vi: 'Tìm kiếm tài liệu',
     }),
 
     keywords: t({
@@ -55,6 +59,8 @@ const metadataContent = {
       tr: ['ara', 'belgeler', 'intlayer'],
       zh: ['搜索', '文档', 'intlayer'],
       pl: ['wyszukiwanie', 'dokumentacja', 'intlayer'],
+      id: ['pencarian', 'dokumentasi', 'intlayer'],
+      vi: ['tìm kiếm', 'tài liệu', 'Intlayer'],
     }),
   },
   title: 'Documentation search metadata',

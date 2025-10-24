@@ -19,6 +19,8 @@ const contentDashboardContent = {
       tr: 'Sözlüğü düzenle',
       zh: '编辑字典',
       pl: 'Edytuj słownik',
+      id: 'Sunting kamus',
+      vi: 'Chỉnh sửa từ điển',
     }),
   },
   title: 'Dictionary editor page',

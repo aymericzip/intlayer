@@ -20,6 +20,8 @@ const metadataContent = {
       tr: 'Yönetici Paneli | Intlayer',
       zh: '管理面板 | Intlayer',
       pl: 'Panel administracyjny | Intlayer',
+      id: 'Panel Admin | Intlayer',
+      vi: 'Bảng quản trị | Intlayer',
     }),
     description: t({
       ar: 'لوحة تحكم إدارية لـ Intlayer. إدارة إعدادات النظام وأذونات المستخدمين ومراجعة المحتوى وخيارات التكوين المتقدمة لمشاريع Intlayer الخاصة بك.',
@@ -38,6 +40,8 @@ const metadataContent = {
       tr: 'Intlayer için yönetici kontrol paneli. Sistem ayarlarını, kullanıcı izinlerini, içerik moderasyonunu ve Intlayer projeleriniz için gelişmiş yapılandırma seçeneklerini yönetin.',
       zh: 'Intlayer的管理控制面板。管理系统设置、用户权限、内容审核以及Intlayer项目的高级配置选项。',
       pl: 'Panel administracyjny Intlayer. Zarządzaj ustawieniami systemu, uprawnieniami użytkowników, moderacją treści oraz zaawansowanymi opcjami konfiguracji dla swoich projektów Intlayer.',
+      id: 'Panel kontrol administratif untuk Intlayer. Kelola pengaturan sistem, izin pengguna, moderasi konten, dan opsi konfigurasi lanjutan untuk proyek Intlayer Anda.',
+      vi: 'Bảng điều khiển quản trị cho Intlayer. Quản lý cài đặt hệ thống, phân quyền người dùng, kiểm duyệt nội dung và các tùy chọn cấu hình nâng cao cho các dự án Intlayer của bạn.',
     }),
 
     keywords: t({
@@ -147,8 +151,28 @@ const metadataContent = {
         'Uprawnienia',
         'Konfiguracja',
       ],
+      id: [
+        'Panel Admin',
+        'Administrasi',
+        'Pengaturan Sistem',
+        'Manajemen Pengguna',
+        'Izin',
+        'Konfigurasi',
+      ],
+      vi: [
+        'Bảng quản trị',
+        'Quản trị',
+        'Cài đặt hệ thống',
+        'Quản lý người dùng',
+        'Phân quyền',
+        'Cấu hình',
+      ],
     }),
   },
+  title: 'Admin panel metadata',
+  description:
+    'Metadata related to the admin panel of Intlayer. Includes title, description, and keywords for SEO, describing administrative features such as system settings, user management, permissions, and configuration tools.',
+  tags: ['page metadata', 'admin panel', 'dashboard'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

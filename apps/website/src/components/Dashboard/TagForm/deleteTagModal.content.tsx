@@ -19,6 +19,8 @@ const deleteTagModalContent = {
       tr: 'Tagı sil',
       zh: '删除标签',
       pl: 'Usuń tag',
+      id: 'Hapus tag',
+      vi: 'Xóa tag',
     }),
 
     description: t({
@@ -37,6 +39,8 @@ const deleteTagModalContent = {
       tr: 'Bu etiketi silmek istediğinize emin misiniz?',
       zh: '您确定要删除此标签吗？',
       pl: 'Czy na pewno chcesz usunąć ten tag?',
+      id: 'Apakah Anda yakin ingin menghapus tag ini?',
+      vi: 'Bạn có chắc chắn muốn xóa tag này không?',
     }),
 
     confirmButton: {
@@ -56,6 +60,8 @@ const deleteTagModalContent = {
         ru: 'Удалить',
         tr: 'Sil',
         pl: 'Usuń',
+        id: 'Hapus',
+        vi: 'Xóa',
       }),
       label: t({
         en: 'Click to delete tag',
@@ -73,6 +79,8 @@ const deleteTagModalContent = {
         ru: 'Нажмите, чтобы удалить тег',
         tr: 'Tagı silmek için tıklayın',
         pl: 'Kliknij, aby usunąć tag',
+        id: 'Klik untuk menghapus tag',
+        vi: 'Nhấp để xóa tag',
       }),
     },
 
@@ -93,6 +101,8 @@ const deleteTagModalContent = {
         ru: 'Отменить',
         tr: 'İptal etmek için tıklayın',
         pl: 'Anuluj',
+        id: 'Batal',
+        vi: 'Hủy',
       }),
       label: t({
         en: 'Click to cancel',
@@ -110,6 +120,8 @@ const deleteTagModalContent = {
         ru: 'Нажмите, чтобы отменить',
         tr: 'İptal etmek için tıklayın',
         pl: 'Kliknij, aby anulować',
+        id: 'Klik untuk membatalkan',
+        vi: 'Nhấp để hủy',
       }),
     },
   },

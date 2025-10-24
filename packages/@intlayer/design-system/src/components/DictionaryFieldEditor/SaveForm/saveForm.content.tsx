@@ -20,6 +20,8 @@ export const saveDictionaryContent = {
         ru: 'Удалить словарь',
         tr: 'Sözlüğü sil',
         pl: 'Usuń słownik',
+        id: 'Hapus dictionary',
+        vi: 'Xóa dictionary',
       }),
       label: t({
         en: 'Click to delete dictionary',
@@ -37,6 +39,8 @@ export const saveDictionaryContent = {
         ru: 'Нажмите, чтобы удалить словарь',
         tr: 'Sözlüğü silmek için tıklayın',
         pl: 'Kliknij, aby usunąć słownik',
+        id: 'Klik untuk menghapus dictionary',
+        vi: 'Nhấp để xóa dictionary',
       }),
     },
     resetButton: {
@@ -56,6 +60,8 @@ export const saveDictionaryContent = {
         ru: 'Сбросить все изменения',
         tr: 'Tüm değişiklikleri sıfırla',
         pl: 'Resetuj wszystkie zmiany',
+        id: 'Reset semua perubahan',
+        vi: 'Đặt lại tất cả các thay đổi',
       }),
       label: t({
         en: 'Click to reset all the changes',
@@ -73,6 +79,8 @@ export const saveDictionaryContent = {
         ru: 'Нажмите, чтобы сбросить все изменения',
         tr: 'Tüm değişiklikleri sıfırlamak için tıklayın',
         pl: 'Kliknij, aby zresetować wszystkie zmiany',
+        id: 'Klik untuk mereset semua perubahan',
+        vi: 'Nhấp để đặt lại tất cả các thay đổi',
       }),
     },
     saveButton: {
@@ -92,6 +100,8 @@ export const saveDictionaryContent = {
         ru: 'Сохранить изменения',
         tr: 'Değişiklikleri kaydet',
         pl: 'Zapisz zmiany',
+        id: 'Simpan perubahan',
+        vi: 'Lưu thay đổi',
       }),
       label: t({
         en: 'Click to save changes',
@@ -109,6 +119,8 @@ export const saveDictionaryContent = {
         ru: 'Нажмите, чтобы сохранить изменения',
         tr: 'Değişiklikleri kaydetmek için tıklayın',
         pl: 'Kliknij, aby zapisać zmiany',
+        id: 'Klik untuk menyimpan perubahan',
+        vi: 'Nhấp để lưu các thay đổi',
       }),
     },
     publishButton: {
@@ -128,6 +140,8 @@ export const saveDictionaryContent = {
         ru: 'Опубликовать словарь',
         tr: 'Sözlüğü yayınla',
         pl: 'Opublikuj słownik',
+        id: 'Publikasikan dictionary',
+        vi: 'Xuất bản dictionary',
       }),
       label: t({
         en: 'Click to publish dictionary',
@@ -145,6 +159,8 @@ export const saveDictionaryContent = {
         ru: 'Нажмите, чтобы опубликовать словарь',
         tr: 'Sözlüğü yayınlamak için tıklayın',
         pl: 'Kliknij, aby opublikować słownik',
+        id: 'Klik untuk mempublikasikan dictionary',
+        vi: 'Nhấp để xuất bản dictionary',
       }),
     },
     downloadButton: {
@@ -164,6 +180,8 @@ export const saveDictionaryContent = {
         ru: 'Скачать',
         tr: 'İndir',
         pl: 'Pobierz',
+        id: 'Unduh',
+        vi: 'Tải xuống',
       }),
       label: t({
         en: 'Click to download',
@@ -181,6 +199,8 @@ export const saveDictionaryContent = {
         ru: 'Нажмите, чтобы скачать',
         tr: 'İndirmek için tıklayın',
         pl: 'Kliknij, aby pobrać',
+        id: 'Klik untuk mengunduh',
+        vi: 'Nhấp để tải xuống',
       }),
     },
 
@@ -201,6 +221,8 @@ export const saveDictionaryContent = {
         ru: 'Подтверждение',
         tr: 'Onay',
         pl: 'Potwierdzenie',
+        id: 'Konfirmasi',
+        vi: 'Xác nhận',
       }),
       message: t({
         en: 'This will overwrite the existing dictionary. Are you sure you want to continue?',
@@ -219,6 +241,8 @@ export const saveDictionaryContent = {
         ru: 'Это перезапишет существующий словарь. Вы уверены, что хотите продолжить?',
         tr: 'Bu, mevcut sözlüğün üzerine yazacaktır. Devam etmek istediğinizden emin misiniz?',
         pl: 'To spowoduje nadpisanie istniejącego słownika. Czy na pewno chcesz kontynuować?',
+        id: 'Tindakan ini akan menimpa dictionary yang ada. Apakah Anda yakin ingin melanjutkan?',
+        vi: 'Hành động này sẽ ghi đè lên dictionary hiện có. Bạn có chắc muốn tiếp tục không?',
       }),
       confirmButton: {
         text: t({
@@ -237,6 +261,8 @@ export const saveDictionaryContent = {
           ru: 'Подтвердить',
           tr: 'Onayla',
           pl: 'Potwierdź',
+          id: 'Konfirmasi',
+          vi: 'Xác nhận',
         }),
         label: t({
           en: 'Click to confirm',
@@ -254,6 +280,8 @@ export const saveDictionaryContent = {
           ru: 'Нажмите, чтобы подтвердить',
           tr: 'Onaylamak için tıklayın',
           pl: 'Kliknij, aby potwierdzić',
+          id: 'Klik untuk mengonfirmasi',
+          vi: 'Nhấp để xác nhận',
         }),
       },
       cancelButton: {
@@ -273,6 +301,8 @@ export const saveDictionaryContent = {
           ru: 'Отмена',
           tr: 'İptal',
           pl: 'Anuluj',
+          id: 'Batal',
+          vi: 'Hủy',
         }),
         label: t({
           en: 'Click to cancel',
@@ -290,6 +320,8 @@ export const saveDictionaryContent = {
           ru: 'Нажмите, чтобы отменить',
           tr: 'İptal etmek için tıklayın',
           pl: 'Kliknij, aby anulować',
+          id: 'Klik untuk membatalkan',
+          vi: 'Nhấp để hủy',
         }),
       },
     },

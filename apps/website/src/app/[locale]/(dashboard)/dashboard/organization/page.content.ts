@@ -19,6 +19,8 @@ const profileDashboardContent = {
       ru: 'Настройки организации',
       tr: 'Organizasyon ayarları',
       pl: 'Ustawienia organizacji',
+      id: 'Pengaturan organisasi',
+      vi: 'Cài đặt tổ chức',
     }),
   },
   title: 'Organization dashboard page',

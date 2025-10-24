@@ -19,6 +19,8 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Пожалуйста, введите название вашей организации.',
       tr: 'Lütfen organizasyonunuz için bir isim girin.',
       pl: 'Proszę podać nazwę organizacji.',
+      id: 'Silakan masukkan nama organisasi Anda.',
+      vi: 'Vui lòng nhập tên cho tổ chức của bạn.',
     }),
 
     titleInvalidTypeError: t({
@@ -37,6 +39,8 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Имя организации должно быть правильной строкой.',
       tr: 'Organizasyon adı geçerli bir dize olmalıdır.',
       pl: 'Nazwa organizacji musi być poprawnym łańcuchem znaków.',
+      id: 'Nama organisasi harus berupa string yang valid.',
+      vi: 'Tên tổ chức phải là một chuỗi hợp lệ.',
     }),
 
     titleMinLengthError: t({
@@ -55,6 +59,8 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Имя организации должно содержать не менее 4 символов.',
       tr: 'Organizasyon adı en az 4 karakter uzunluğunda olmalıdır.',
       pl: 'Nazwa organizacji musi mieć co najmniej 4 znaki.',
+      id: 'Nama organisasi harus terdiri dari minimal 4 karakter.',
+      vi: 'Tên tổ chức phải có ít nhất 4 ký tự.',
     }),
 
     keyRequiredError: t({
@@ -73,6 +79,8 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Пожалуйста, введите ключ для вашей организации.',
       tr: 'Lütfen organizasyonunuz için bir anahtar girin.',
       pl: 'Proszę podać klucz organizacji.',
+      id: 'Silakan masukkan key untuk organisasi Anda.',
+      vi: 'Vui lòng nhập một key cho tổ chức của bạn.',
     }),
 
     keyInvalidTypeError: t({
@@ -91,6 +99,8 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Ключ должен быть правильной строкой.',
       tr: 'Anahtar geçerli bir dize olmalıdır.',
       pl: 'Klucz musi być poprawnym łańcuchem znaków.',
+      id: 'Key harus berupa string yang valid.',
+      vi: 'Key phải là một chuỗi hợp lệ.',
     }),
 
     keySpaceError: t({
@@ -109,6 +119,8 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Ключ не может содержать пробелы или специальные символы.',
       tr: 'Anahtar boşluk veya özel karakterler içeremez.',
       pl: 'Klucz nie może zawierać spacji ani znaków specjalnych.',
+      id: 'Key tidak boleh mengandung spasi atau karakter khusus.',
+      vi: 'Key không được chứa khoảng trắng hoặc ký tự đặc biệt.',
     }),
 
     keyMinLengthError: t({
@@ -127,6 +139,8 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Ключ должен содержать не менее 4 символов.',
       tr: 'Anahtar en az 4 karakter uzunluğunda olmalıdır.',
       pl: 'Klucz musi mieć co najmniej 4 znaki.',
+      id: 'Key harus terdiri dari minimal 4 karakter.',
+      vi: 'Key phải có ít nhất 4 ký tự.',
     }),
 
     // Description Field Error Messages
@@ -146,6 +160,8 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Пожалуйста, введите описание вашей организации.',
       tr: 'Lütfen organizasyonunuz için bir açıklama girin.',
       pl: 'Proszę podać opis organizacji.',
+      id: 'Silakan masukkan deskripsi untuk organisasi Anda.',
+      vi: 'Vui lòng nhập mô tả cho tổ chức của bạn.',
     }),
 
     descriptionInvalidTypeError: t({
@@ -164,6 +180,8 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Описание должно быть правильной строкой.',
       tr: 'Açıklama geçerli bir dize olmalıdır.',
       pl: 'Opis musi być poprawnym łańcuchem znaków.',
+      id: 'Deskripsi harus berupa string yang valid.',
+      vi: 'Mô tả phải là một chuỗi hợp lệ.',
     }),
 
     requiredErrorProjectId: t({
@@ -182,6 +200,8 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Пожалуйста, выберите проект',
       tr: 'Lütfen bir proje seçin',
       pl: 'Proszę wybrać projekt.',
+      id: 'Silakan pilih project',
+      vi: 'Vui lòng chọn một project',
     }),
 
     invalidTypeErrorProjectId: t({
@@ -200,6 +220,8 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Пожалуйста, выберите действительный проект',
       tr: 'Lütfen geçerli bir proje seçin',
       pl: 'Proszę wybrać poprawny projekt.',
+      id: 'Silakan pilih project yang valid',
+      vi: 'Vui lòng chọn một project hợp lệ',
     }),
 
     invalidTypeErrorTags: t({
@@ -218,6 +240,8 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Пожалуйста, введите действительный тег',
       tr: 'Lütfen geçerli bir etiket girin',
       pl: 'Proszę podać poprawny tag.',
+      id: 'Silakan masukkan tag yang valid',
+      vi: 'Vui lòng nhập một tag hợp lệ',
     }),
   },
   title: 'Dictionary details validation schema',

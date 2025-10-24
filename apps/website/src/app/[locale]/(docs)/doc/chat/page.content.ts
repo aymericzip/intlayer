@@ -20,6 +20,8 @@ const metadataContent = {
       tr: 'Yapay Zeka Destekli Akıllı Dokümantasyonumuza Sorun',
       zh: '请向我们的AI智能文档发出问题',
       pl: 'Zadaj swoje pytanie naszej inteligentnej dokumentacji zasilanej sztuczną inteligencją',
+      id: 'Ajukan pertanyaan Anda ke Smart Documentation bertenaga AI kami',
+      vi: 'Hãy đặt câu hỏi cho tài liệu thông minh được hỗ trợ bởi AI của chúng tôi.',
     }),
   },
   title: 'Documentation chat page',

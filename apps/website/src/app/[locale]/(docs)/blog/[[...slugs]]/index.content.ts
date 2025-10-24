@@ -21,6 +21,8 @@ const blogContent = {
         ru: 'Если у вас есть идея по улучшению этой документации, не стесняйтесь внести свой вклад, подав запрос на вытягивание на GitHub.',
         tr: 'Bu belgeyi geliştirmek için bir fikriniz varsa, lütfen GitHub’da bir çekme isteği göndererek katkıda bulunun.',
         pl: 'Jeśli masz pomysł na ulepszenie tego bloga, możesz wnieść wkład, przesyłając pull request na GitHub.',
+        id: 'Jika Anda memiliki ide untuk meningkatkan blog ini, silakan berkontribusi dengan mengajukan pull request di GitHub.',
+        vi: 'Nếu bạn có ý tưởng để cải thiện blog này, xin vui lòng đóng góp bằng cách gửi pull request trên GitHub.',
       }),
       button: t({
         en: 'GitHub link to the blog',
@@ -38,6 +40,8 @@ const blogContent = {
         ru: 'Ссылка на блог GitHub',
         tr: 'Blog için GitHub bağlantısı',
         pl: 'Link do bloga na GitHubie',
+        id: 'Tautan GitHub ke blog',
+        vi: 'Liên kết GitHub tới blog',
       }),
       buttonLabel: t({
         en: 'Click here to contribute',
@@ -55,6 +59,8 @@ const blogContent = {
         ru: 'Нажмите здесь, чтобы внести свой вклад',
         tr: 'Katkıda bulunmak için buraya tıklayın',
         pl: 'Kliknij tutaj, aby wnieść wkład',
+        id: 'Klik di sini untuk berkontribusi',
+        vi: 'Nhấp vào đây để đóng góp',
       }),
     },
     goToNextSection: {
@@ -74,6 +80,8 @@ const blogContent = {
         ru: 'Перейти к следующей секции',
         tr: 'Sonraki bölüme git',
         pl: 'Przejdź do następnej sekcji',
+        id: 'Lanjut ke bagian berikutnya',
+        vi: 'Đi tới phần tiếp theo',
       }),
     },
     goToPreviousSection: {
@@ -93,9 +101,15 @@ const blogContent = {
         ru: 'Перейти к предыдущей секции',
         tr: 'Önceki bölüme git',
         pl: 'Przejdź do poprzedniej sekcji',
+        id: 'Kembali ke bagian sebelumnya',
+        vi: 'Quay lại phần trước',
       }),
     },
   },
+  title: 'Blog page content',
+  description:
+    'Content declarations for the blog page, including navigation labels and contribution call-to-action. Used to handle multilingual support for blog-related sections.',
+  tags: ['blog page', 'content section', 'navigation'],
 } satisfies Dictionary;
 
 export default blogContent;

@@ -20,6 +20,8 @@ const accessKeyFormContent = {
       tr: 'Erişim anahtarları',
       zh: '访问密钥',
       pl: 'Klucze dostępu',
+      id: 'Access keys',
+      vi: 'Khóa truy cập',
     }),
     description: t({
       ar: 'مفاتيح الوصول تستخدم للمصادقة على مشروعك.',
@@ -37,6 +39,8 @@ const accessKeyFormContent = {
       tr: 'Erişim anahtarları projenizi doğrulamak için kullanılır.',
       zh: '访问密钥用于认证您的项目。',
       pl: 'Klucze dostępu służą do uwierzytelniania Twojego projektu.',
+      id: 'Access keys digunakan untuk mengautentikasi proyek Anda.',
+      vi: 'Các khóa truy cập được sử dụng để xác thực dự án của bạn.',
     }),
     noAccessKeys: t({
       ar: 'لا توجد مفاتيح الوصول',
@@ -54,6 +58,8 @@ const accessKeyFormContent = {
       tr: 'Erişim anahtarı yok',
       zh: '没有访问密钥',
       pl: 'Brak kluczy dostępu',
+      id: 'Belum ada access key',
+      vi: 'Không có khóa truy cập',
     }),
     createAccessKey: {
       text: t({
@@ -72,6 +78,8 @@ const accessKeyFormContent = {
         ru: 'Создать ключ доступа',
         tr: 'Erişim anahtarı oluştur',
         pl: 'Utwórz klucz dostępu',
+        id: 'Buat access key',
+        vi: 'Tạo khóa truy cập',
       }),
       label: t({
         en: 'Click to create access key',
@@ -89,6 +97,8 @@ const accessKeyFormContent = {
         ru: 'Нажмите, чтобы создать ключ доступа',
         tr: 'Erişim anahtarı oluşturmak için tıklayın',
         pl: 'Kliknij, aby utworzyć klucz dostępu',
+        id: 'Klik untuk membuat access key',
+        vi: 'Nhấp để tạo khóa truy cập',
       }),
     },
     rights: {
@@ -108,6 +118,8 @@ const accessKeyFormContent = {
         ru: 'Права',
         tr: 'Haklar',
         pl: 'Uprawnienia',
+        id: 'Grants',
+        vi: 'Quyền',
       }),
       read: t({
         en: 'Read ',
@@ -125,6 +137,8 @@ const accessKeyFormContent = {
         ru: 'Чтение ',
         tr: 'Oku ',
         pl: 'Odczyt ',
+        id: 'Baca ',
+        vi: 'Đọc ',
       }),
       write: t({
         en: 'Write ',
@@ -142,6 +156,8 @@ const accessKeyFormContent = {
         ru: 'Запись ',
         tr: 'Yaz ',
         pl: 'Zapis ',
+        id: 'Tulis ',
+        vi: 'Ghi ',
       }),
       admin: 'Admin',
       organization: t({
@@ -160,6 +176,8 @@ const accessKeyFormContent = {
         ru: 'Организация: ',
         tr: 'Organizasyon: ',
         pl: 'Organizacja: ',
+        id: 'Organisasi: ',
+        vi: 'Tổ chức: ',
       }),
       project: t({
         en: 'Project: ',
@@ -177,6 +195,8 @@ const accessKeyFormContent = {
         ru: 'Проект: ',
         tr: 'Proje: ',
         pl: 'Projekt: ',
+        id: 'Proyek: ',
+        vi: 'Dự án: ',
       }),
       dictionary: t({
         en: 'Dictionary: ',
@@ -194,6 +214,8 @@ const accessKeyFormContent = {
         ru: 'Словарь: ',
         tr: 'Sözlük: ',
         pl: 'Słownik: ',
+        id: 'Dictionary: ',
+        vi: 'Từ điển: ',
       }),
     },
     labels: {
@@ -215,6 +237,8 @@ const accessKeyFormContent = {
         ru: 'Добавлено',
         tr: 'Eklendi',
         pl: 'Dodano',
+        id: 'Ditambahkan pada',
+        vi: 'Đã thêm vào',
       }),
       expireOn: t({
         en: 'Expire on',
@@ -232,6 +256,8 @@ const accessKeyFormContent = {
         ru: 'Истекает',
         tr: 'Süresi doluyor',
         pl: 'Wygasa',
+        id: 'Berakhir pada',
+        vi: 'Hết hạn vào',
       }),
       deleteButtonText: t({
         en: 'Delete',
@@ -249,6 +275,8 @@ const accessKeyFormContent = {
         ru: 'Удалить',
         tr: 'Sil',
         pl: 'Usuń',
+        id: 'Hapus',
+        vi: 'Xóa',
       }),
       deleteButtonLabel: t({
         en: 'Delete the access key',
@@ -266,6 +294,8 @@ const accessKeyFormContent = {
         ru: 'Удалите ключ доступа',
         tr: 'Erişim anahtarını sil',
         pl: 'Usuń klucz dostępu',
+        id: 'Hapus the access key',
+        vi: 'Xóa khóa truy cập',
       }),
       refreshButtonText: t({
         en: 'Refresh',
@@ -283,6 +313,8 @@ const accessKeyFormContent = {
         ru: 'Обновить',
         tr: 'Yenile',
         pl: 'Odśwież',
+        id: 'Segarkan',
+        vi: 'Làm mới',
       }),
       refreshButtonLabel: t({
         en: 'Refresh the access key secret key',
@@ -300,6 +332,8 @@ const accessKeyFormContent = {
         ru: 'Обновите секретный ключ ключа доступа',
         tr: 'Erişim anahtarı gizli anahtarını yenile',
         pl: 'Odśwież sekret klucza dostępu',
+        id: 'Segarkan secret key dari access key',
+        vi: 'Làm mới khóa bí mật của khóa truy cập',
       }),
     },
     modal: {
@@ -319,6 +353,8 @@ const accessKeyFormContent = {
         ru: 'Вы уверены, что хотите удалить этот ключ доступа?',
         tr: 'Bu erişim anahtarını silmek istediğinizden emin misiniz?',
         pl: 'Czy na pewno chcesz usunąć ten klucz dostępu?',
+        id: 'Anda yakin ingin menghapus access key ini?',
+        vi: 'Bạn có chắc chắn muốn xóa khóa truy cập này không?',
       }),
       updateTitle: t({
         en: 'Are you sure you want to update this access key?',
@@ -336,6 +372,8 @@ const accessKeyFormContent = {
         ru: 'Вы уверены, что хотите обновить этот ключ доступа?',
         tr: 'Bu erişim anahtarını güncellemek istediğinizden emin misiniz?',
         pl: 'Czy na pewno chcesz zaktualizować ten klucz dostępu?',
+        id: 'Anda yakin ingin memperbarui access key ini?',
+        vi: 'Bạn có chắc chắn muốn cập nhật khóa truy cập này không?',
       }),
       deleteMessage: t({
         en: 'This action CANNOT be undone. This will permanently delete the access key and if you’d like to use it in the future, you will need to create it again.',
@@ -354,6 +392,8 @@ const accessKeyFormContent = {
         ru: 'Это действие НЕ МОЖЕТ быть отменено. Ключ доступа будет удален навсегда, и если вы захотите использовать его в будущем, вам придется создать его заново.',
         tr: 'Bu işlem geri alınamaz. Bu, erişim anahtarını kalıcı olarak silecek ve gelecekte kullanmak isterseniz, yeniden oluşturmanız gerekecektir.',
         pl: 'Ta operacja NIE MOŻE zostać cofnięta. Spowoduje trwałe usunięcie klucza dostępu, a jeśli będziesz chciał go użyć w przyszłości, będziesz musiał utworzyć go ponownie.',
+        id: 'Tindakan ini TIDAK dapat dibatalkan. Ini akan menghapus access key secara permanen dan jika Anda ingin menggunakannya di masa mendatang, Anda perlu membuatnya kembali.',
+        vi: 'Hành động này KHÔNG THỂ hoàn tác. Hành động này sẽ xóa vĩnh viễn khóa truy cập và nếu bạn muốn sử dụng lại trong tương lai, bạn sẽ cần tạo lại.',
       }),
       updateMessage: t({
         en: 'This action will generate a new client secret. The old secret will no longer be valid. Please make sure to update your configurations accordingly.',
@@ -372,6 +412,8 @@ const accessKeyFormContent = {
         ru: 'Это действие создаст новый клиентский секрет. Старый секрет больше не будет действительным. Обязательно обновите свои настройки соответственно.',
         tr: 'Bu işlem yeni bir istemci sırrı oluşturacaktır. Eski sır artık geçerli olmayacaktır. Lütfen yapılandırmalarınızı buna göre güncellediğinizden emin olun.',
         pl: 'Ta operacja wygeneruje nowy sekret klienta. Stary sekret przestanie być ważny. Upewnij się, że odpowiednio zaktualizujesz swoje konfiguracje.',
+        id: 'Tindakan ini akan menghasilkan client secret baru. Secret lama tidak akan lagi berlaku. Pastikan untuk memperbarui konfigurasi Anda sesuai.',
+        vi: 'Hành động này sẽ tạo một client secret mới. Secret cũ sẽ không còn hợp lệ. Vui lòng cập nhật cấu hình của bạn tương ứng.',
       }),
       deleteButtonLabel: t({
         en: 'Delete the access key',
@@ -389,6 +431,8 @@ const accessKeyFormContent = {
         ru: 'Удалить ключ доступа',
         tr: 'Erişim anahtarını sil',
         pl: 'Usuń klucz dostępu',
+        id: 'Hapus the access key',
+        vi: 'Xóa khóa truy cập',
       }),
       updateButtonLabel: t({
         en: 'Update the access key',
@@ -406,6 +450,8 @@ const accessKeyFormContent = {
         ru: 'Обновить ключ доступа',
         tr: 'Erişim anahtarını güncelle',
         pl: 'Aktualizuj klucz dostępu',
+        id: 'Perbarui the access key',
+        vi: 'Cập nhật khóa truy cập',
       }),
       deleteConfirmText: t({
         en: 'I understand, delete the access key',
@@ -423,6 +469,8 @@ const accessKeyFormContent = {
         ru: 'Я понимаю, удалите ключ доступа',
         tr: 'Anladım, erişim anahtarını sil',
         pl: 'Rozumiem, usuń klucz dostępu',
+        id: 'Saya mengerti, hapus the access key',
+        vi: 'Tôi đã hiểu, xóa khóa truy cập',
       }),
       updateConfirmText: t({
         en: 'I understand, update the access key',
@@ -440,6 +488,8 @@ const accessKeyFormContent = {
         ru: 'Я понимаю, обновите ключ доступа',
         tr: 'Anladım, erişim anahtarını güncelle',
         pl: 'Rozumiem, zaktualizuj klucz dostępu',
+        id: 'Saya mengerti, perbarui the access key',
+        vi: 'Tôi đã hiểu, cập nhật khóa truy cập',
       }),
     },
 
@@ -452,6 +502,7 @@ const accessKeyFormContent = {
         es: '1 - Cree una clave de acceso',
         fr: "1 - Créez une clé d'accès",
         hi: '1 - एक पहुँच कुंजी बनाएँ',
+        id: '1 - Buat access key',
         it: '1 - Crea una chiave di accesso',
         ja: '1 - アクセスキーを作成する',
         ko: '1 - 액세스 키 생성',
@@ -459,6 +510,7 @@ const accessKeyFormContent = {
         pt: '1 - Crie uma chave de acesso',
         ru: '1 - Создайте ключ доступа',
         tr: '1 - Bir erişim anahtarı oluşturun',
+        vi: '1 - Tạo một khóa truy cập',
         zh: '1 - 创建访问密钥',
       }),
       t({
@@ -469,6 +521,7 @@ const accessKeyFormContent = {
         es: '2 - Copie la clave de acceso en su archivo de configuración intlayer',
         fr: "2 - Copiez la clé d'accès dans votre fichier de configuration intlayer",
         hi: '2 - पहुँच कुंजी को अपने इंटलेयर कॉन्फ़िग फ़ाइल में कॉपी करें',
+        id: '2 - Salin access key ke file konfigurasi intlayer Anda',
         it: '2 - Copia la chiave di accesso nel file di configurazione di Intlayer',
         ja: '2 - アクセスキーをIntlayer設定ファイルにコピーする',
         ko: '2 - 액세스 키를 Intlayer 구성 파일에 복사합니다',
@@ -476,6 +529,7 @@ const accessKeyFormContent = {
         pt: '2 - Copie a chave de acesso para o arquivo de configuração do Intlayer',
         ru: '2 - Скопируйте ключ доступа в файл конфигурации Intlayer',
         tr: '2 - Erişim anahtarını intlayer yapılandırma dosyanıza kopyalayın',
+        vi: '2 - Sao chép khóa truy cập vào tệp cấu hình intlayer của bạn',
         zh: '2 - 将访问密钥复制到Intlayer配置文件中',
       }),
     ],
@@ -497,8 +551,20 @@ const accessKeyFormContent = {
       tr: 'Erişim anahtarları kişiseldir ve başkalarıyla paylaşılmamalıdır. Bu erişim anahtarlarını ortam değişkenleri gibi güvenli bir şekilde sakladığınızdan emin olun.',
       zh: '访问密钥是个人的，不应与他人共享。请小心将这些访问密钥安全存储，例如环境变量。',
       pl: 'Klucze dostępu są osobiste i nie należy ich udostępniać innym. Przechowuj je bezpiecznie, np. w zmiennych środowiskowych.',
+      id: 'Access key bersifat pribadi dan tidak boleh dibagikan kepada orang lain. Pastikan menyimpan access key ini dengan aman, misalnya di environment variables.',
+      vi: 'Khóa truy cập là thông tin cá nhân và không nên chia sẻ với người khác. Hãy lưu trữ các khóa truy cập này một cách an toàn, ví dụ bằng biến môi trường.',
     }),
   },
+  title: 'Access key form',
+  description:
+    'Content declaration for managing access keys within a project, including creation, deletion, and permission levels. Provides labels, modals, and security warnings for secure authentication integration with the Intlayer configuration.',
+  tags: [
+    'authentication',
+    'project settings',
+    'access control',
+    'developer tools',
+    'security',
+  ],
 } satisfies Dictionary;
 
 export default accessKeyFormContent;

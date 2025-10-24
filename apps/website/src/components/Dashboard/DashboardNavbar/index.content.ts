@@ -20,6 +20,8 @@ const dashboardNavbarContent = {
         ru: 'Нажмите, чтобы выбрать организацию',
         tr: 'Bir organizasyon seçmek için tıklayın',
         pl: 'Kliknij, aby wybrać organizację',
+        id: 'Klik untuk memilih organisasi',
+        vi: 'Nhấp để chọn tổ chức',
       }),
     },
     selectOrganizationInstruction: t({
@@ -38,6 +40,8 @@ const dashboardNavbarContent = {
       tr: 'Organizasyon seç',
       zh: '选择组织',
       pl: 'Wybierz organizację',
+      id: 'Pilih organisasi',
+      vi: 'Chọn tổ chức',
     }),
 
     noOtherOrganizations: t({
@@ -56,6 +60,8 @@ const dashboardNavbarContent = {
       tr: 'Başka organizasyon yok',
       zh: '没有其他组织',
       pl: 'Brak innych organizacji',
+      id: 'Tidak ada organisasi lain',
+      vi: 'Không có tổ chức nào khác',
     }),
     organizationLogout: {
       text: t({
@@ -74,6 +80,8 @@ const dashboardNavbarContent = {
         ru: 'Выйти из организации',
         tr: 'Organizasyondan çıkış yap',
         pl: 'Wyloguj się z organizacji',
+        id: 'Keluar dari organisasi',
+        vi: 'Đăng xuất khỏi tổ chức',
       }),
       label: t({
         en: 'Click to log out from organization',
@@ -91,6 +99,8 @@ const dashboardNavbarContent = {
         ru: 'Нажмите, чтобы выйти из организации',
         tr: 'Organizasyondan çıkış yapmak için tıklayın',
         pl: 'Kliknij, aby wylogować się z organizacji',
+        id: 'Klik untuk keluar dari organisasi',
+        vi: 'Nhấp để đăng xuất khỏi tổ chức',
       }),
     },
     createNewOrganization: {
@@ -110,6 +120,8 @@ const dashboardNavbarContent = {
         ru: 'Создать новую организацию',
         tr: 'Yeni organizasyon oluştur',
         pl: 'Utwórz nową organizację',
+        id: 'Buat organisasi baru',
+        vi: 'Tạo tổ chức mới',
       }),
       label: t({
         en: 'Click to create a new organization',
@@ -127,6 +139,8 @@ const dashboardNavbarContent = {
         ru: 'Нажмите, чтобы создать новую организацию',
         tr: 'Yeni organizasyon oluşturmak için tıklayın',
         pl: 'Kliknij, aby utworzyć nową organizację',
+        id: 'Klik untuk membuat organisasi baru',
+        vi: 'Nhấp để tạo tổ chức mới',
       }),
     },
 
@@ -147,6 +161,8 @@ const dashboardNavbarContent = {
         ru: 'Нажмите, чтобы выбрать проект',
         tr: 'Bir proje seçmek için tıklayın',
         pl: 'Kliknij, aby wybrać projekt',
+        id: 'Klik untuk memilih proyek',
+        vi: 'Nhấp để chọn dự án',
       }),
     },
     selectProjectInstruction: t({
@@ -165,6 +181,8 @@ const dashboardNavbarContent = {
       tr: 'Proje seç',
       zh: '选择项目',
       pl: 'Wybierz projekt',
+      id: 'Pilih proyek',
+      vi: 'Chọn dự án',
     }),
 
     noOtherProjects: t({
@@ -183,6 +201,8 @@ const dashboardNavbarContent = {
       tr: 'Başka proje yok',
       zh: '没有其他项目',
       pl: 'Brak innych projektów',
+      id: 'Tidak ada proyek lain',
+      vi: 'Không có dự án nào khác',
     }),
     projectLogout: {
       text: t({
@@ -201,6 +221,8 @@ const dashboardNavbarContent = {
         ru: 'Выйти из проекта',
         tr: 'Projeden çıkış yap',
         pl: 'Wyloguj się z projektu',
+        id: 'Keluar dari proyek',
+        vi: 'Đăng xuất khỏi dự án',
       }),
       label: t({
         en: 'Click to log out from project',
@@ -218,6 +240,8 @@ const dashboardNavbarContent = {
         ru: 'Нажмите, чтобы выйти из проекта',
         tr: 'Projeden çıkış yapmak için tıklayın',
         pl: 'Kliknij, aby wylogować się z projektu',
+        id: 'Klik untuk keluar dari proyek',
+        vi: 'Nhấp để đăng xuất khỏi dự án',
       }),
     },
     createNewProject: {
@@ -237,6 +261,8 @@ const dashboardNavbarContent = {
         ru: 'Создать новый проект',
         tr: 'Yeni proje oluştur',
         pl: 'Utwórz nowy projekt',
+        id: 'Buat proyek baru',
+        vi: 'Tạo dự án mới',
       }),
       label: t({
         en: 'Click to create a new project',
@@ -254,6 +280,8 @@ const dashboardNavbarContent = {
         ru: 'Нажмите, чтобы создать новый проект',
         tr: 'Yeni proje oluşturmak için tıklayın',
         pl: 'Kliknij, aby utworzyć nowy projekt',
+        id: 'Klik untuk membuat proyek baru',
+        vi: 'Nhấp để tạo dự án mới',
       }),
     },
   },

@@ -19,6 +19,8 @@ const tableContent = {
       ru: 'Показать все данные таблицы',
       tr: 'Tüm tablo içeriğini göster',
       pl: 'Pokaż całą zawartość tabeli',
+      id: 'Tampilkan semua isi tabel',
+      vi: 'Hiển thị tất cả nội dung bảng',
     }),
   },
   title: 'Table component content',

@@ -19,6 +19,8 @@ const localeSwitcherContent = {
       tr: 'Bir dil seçin',
       zh: '选择语言',
       pl: 'Wybierz język',
+      id: 'Pilih bahasa',
+      vi: 'Chọn ngôn ngữ',
     }),
     localeSwitcherLabel: t({
       ar: 'مبدل اللغة',
@@ -36,6 +38,8 @@ const localeSwitcherContent = {
       tr: 'Dil değiştirici',
       zh: '语言切换器',
       pl: 'Wybór języka',
+      id: 'Pengalih bahasa',
+      vi: 'Trình chuyển ngôn ngữ',
     }),
     languageListLabel: t({
       ar: 'قائمة اللغات',
@@ -53,6 +57,8 @@ const localeSwitcherContent = {
       tr: 'Dil listesi',
       zh: '语言列表',
       pl: 'Lista języków',
+      id: 'Daftar bahasa',
+      vi: 'Danh sách ngôn ngữ',
     }),
     switchTo: t({
       ar: 'التبديل إلى',
@@ -70,6 +76,8 @@ const localeSwitcherContent = {
       tr: 'Geçiş yap',
       zh: '切换到',
       pl: 'Zmień na',
+      id: 'Beralih ke',
+      vi: 'Chuyển sang',
     }),
     searchInput: {
       text: t({
@@ -88,6 +96,8 @@ const localeSwitcherContent = {
         ru: 'Поиск языка',
         tr: 'Dil ara',
         pl: 'Szukaj języka',
+        id: 'Cari locale',
+        vi: 'Tìm ngôn ngữ',
       }),
       placeholder: t({
         en: 'Search a locale',
@@ -105,6 +115,8 @@ const localeSwitcherContent = {
         ru: 'Поиск языка',
         tr: 'Dil ara',
         pl: 'Szukaj języka',
+        id: 'Cari locale',
+        vi: 'Tìm một ngôn ngữ',
       }),
       ariaLabel: t({
         en: 'Language search',
@@ -122,6 +134,8 @@ const localeSwitcherContent = {
         ru: 'Поиск языка',
         tr: 'Dil ara',
         pl: 'Wyszukiwanie języka',
+        id: 'Pencarian bahasa',
+        vi: 'Tìm kiếm ngôn ngữ',
       }),
     },
   },

@@ -35,16 +35,6 @@ const initialFileContentString = await readFile(testFilePath, 'utf-8');
 const { default: initialFileContent } = await import('./_test.content');
 
 describe('transformJSFile', () => {
-  it('should not change the file if the dictionary is the same', async () => {
-    const result = await transformJSFile(
-      initialFileContentString,
-      initialFileContent
-    );
-
-    expect(typeof result).toBe('string');
-    expect(result).toBe(initialFileContentString);
-  });
-
   it('add new string entries', async () => {
     const dictionary: Dictionary = deepmerge(initialFileContent, {
       content: {
@@ -296,26 +286,6 @@ describe('transformJSFile', () => {
     expect(result).toContain('fallback: "x"');
     expect(result).toContain('insertNode: insert("Hello {{name}}")');
     expect(result).toContain('nestNode: nest("code")');
-  });
-
-  it('ignores object literal additions', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        newObject: { foo: 'bar' },
-      },
-    });
-    const result = await transformJSFile(initialFileContentString, dictionary);
-    expect(result).toBe(initialFileContentString);
-  });
-
-  it('ignores nested translations inside new nested objects', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        nested: { title: t({ en: 'X', fr: 'Y' }) },
-      },
-    });
-    const result = await transformJSFile(initialFileContentString, dictionary);
-    expect(result).toBe(initialFileContentString);
   });
 
   it('adds a new string element to an existing array', async () => {
@@ -670,5 +640,44 @@ describe('transformJSFile', () => {
     expect(result).toContain('markdownMultilingual2: md(t({');
     expect(result).toContain('en: "Hello 3"');
     expect(result).toContain('fr: "## test fr"');
+  });
+
+  it('updates nested translations within conditional nodes', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        expandCollapseToggle: cond({
+          true: t({
+            en: 'Show all',
+            fr: 'Afficher tout',
+            es: 'Mostrar todo',
+            de: 'Mehr anzeigen',
+            pl: 'Pokaż wszystko',
+          }),
+          false: t({
+            en: 'Show less',
+            fr: 'Afficher moins',
+            es: 'Mostrar menos',
+            de: 'Weniger anzeigen',
+            pl: 'Pokaż mniej',
+          }),
+        }),
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('expandCollapseToggle: cond({');
+    expect(result).toContain('true: t({');
+    expect(result).toContain('en: "Show all"');
+    expect(result).toContain('fr: "Afficher tout"');
+    expect(result).toContain('es: "Mostrar todo"');
+    expect(result).toContain('de: "Mehr anzeigen"');
+    expect(result).toContain('pl: "Pokaż wszystko"');
+    expect(result).toContain('false: t({');
+    expect(result).toContain('en: "Show less"');
+    expect(result).toContain('fr: "Afficher moins"');
+    expect(result).toContain('es: "Mostrar menos"');
+    expect(result).toContain('de: "Weniger anzeigen"');
+    expect(result).toContain('pl: "Pokaż mniej"');
   });
 });

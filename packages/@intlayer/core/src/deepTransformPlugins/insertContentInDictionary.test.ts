@@ -728,6 +728,103 @@ describe('insertContentInDictionary', () => {
       expect(result.content.matrix[0]).toHaveLength(2);
     });
 
+    it('should handle root content as array without locale', () => {
+      const dictionary = {
+        key: 'test',
+        content: [
+          t({ en: 'Item 1', fr: 'Article 1' }),
+          t({ en: 'Item 2', fr: 'Article 2' }),
+        ],
+      } as unknown as Dictionary;
+
+      const newContent = ['New Item 1', 'New Item 2'];
+
+      const result = insertContentInDictionary(dictionary, newContent);
+
+      expect(Array.isArray(result.content)).toBe(true);
+      expect(result.content).toEqual(['New Item 1', 'New Item 2']);
+    });
+
+    it('should handle root content as array with locale', () => {
+      const dictionary = {
+        key: 'test',
+        content: [
+          t({ en: 'Item 1', fr: 'Article 1' }),
+          t({ en: 'Item 2', fr: 'Article 2' }),
+        ],
+      } as unknown as Dictionary;
+
+      const newContent = ['アイテム 1', 'アイテム 2'];
+
+      const result = insertContentInDictionary(dictionary, newContent, 'ja');
+
+      expect(Array.isArray(result.content)).toBe(true);
+      expect(result.content).toHaveLength(2);
+      expect(result.content[0]).toHaveProperty('nodeType', 'translation');
+      expect(result.content[0].translation).toHaveProperty('ja', 'アイテム 1');
+      expect(result.content[1]).toHaveProperty('nodeType', 'translation');
+      expect(result.content[1].translation).toHaveProperty('ja', 'アイテム 2');
+    });
+
+    it('should handle root content as array of objects with nested translations', () => {
+      const dictionary = {
+        key: 'test',
+        content: [
+          {
+            title: t({ en: 'Title 1', fr: 'Titre 1' }),
+            description: t({ en: 'Description 1', fr: 'Description 1' }),
+          },
+          {
+            title: t({ en: 'Title 2', fr: 'Titre 2' }),
+            description: t({ en: 'Description 2', fr: 'Description 2' }),
+          },
+        ],
+      } as unknown as Dictionary;
+
+      const newContent = [
+        {
+          title: 'タイトル 1',
+          description: '説明 1',
+        },
+        {
+          title: 'タイトル 2',
+          description: '説明 2',
+        },
+      ];
+
+      const result = insertContentInDictionary(dictionary, newContent, 'ja');
+
+      expect(Array.isArray(result.content)).toBe(true);
+      expect(result.content).toHaveLength(2);
+
+      // First item
+      expect(result.content[0].title).toHaveProperty('nodeType', 'translation');
+      expect(result.content[0].title.translation.en).toBe('Title 1');
+      expect(result.content[0].title.translation.fr).toBe('Titre 1');
+      expect(result.content[0].title.translation.ja).toBe('タイトル 1');
+
+      expect(result.content[0].description.translation.en).toBe(
+        'Description 1'
+      );
+      expect(result.content[0].description.translation.fr).toBe(
+        'Description 1'
+      );
+      expect(result.content[0].description.translation.ja).toBe('説明 1');
+
+      // Second item
+      expect(result.content[1].title.translation.en).toBe('Title 2');
+      expect(result.content[1].title.translation.fr).toBe('Titre 2');
+      expect(result.content[1].title.translation.ja).toBe('タイトル 2');
+
+      expect(result.content[1].description.translation.en).toBe(
+        'Description 2'
+      );
+      expect(result.content[1].description.translation.fr).toBe(
+        'Description 2'
+      );
+      expect(result.content[1].description.translation.ja).toBe('説明 2');
+    });
+
     it('should not mutate original dictionary', () => {
       const dictionary: Dictionary = {
         key: 'test',

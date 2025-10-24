@@ -19,6 +19,8 @@ const versionSwitcherContent = {
       ru: 'Выбор версии',
       tr: 'Sürüm seçici',
       pl: 'Wybór wersji',
+      id: 'Pemilih versi',
+      vi: 'Trình chọn phiên bản',
     }),
     versionListLabel: t({
       en: 'Version list',
@@ -36,6 +38,8 @@ const versionSwitcherContent = {
       ru: 'Список версий',
       tr: 'Sürüm listesi',
       pl: 'Lista wersji',
+      id: 'Daftar versi',
+      vi: 'Danh sách phiên bản',
     }),
     switchTo: t({
       en: 'Switch to',
@@ -53,6 +57,8 @@ const versionSwitcherContent = {
       ru: 'Переключиться на',
       tr: 'Geçiş yap',
       pl: 'Przełącz na',
+      id: 'Beralih ke',
+      vi: 'Chuyển sang',
     }),
   },
   title: 'Version switcher',

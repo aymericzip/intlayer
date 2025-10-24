@@ -19,6 +19,8 @@ const demoContent = {
       ru: 'Попробуйте новый визуальный редактор Intlayer',
       tr: 'Yeni Intlayer görsel editörünü deneyin',
       pl: 'Wypróbuj nowy wizualny edytor Intlayer',
+      id: 'Coba editor visual Intlayer yang baru',
+      vi: 'Dùng thử trình chỉnh sửa trực quan mới của Intlayer',
     }),
 
     landingParagraph: t({
@@ -36,6 +38,9 @@ const demoContent = {
       ar: md(file('./landingParagraph.ar.md')),
       ru: md(file('./landingParagraph.ru.md')),
       tr: md(file('./landingParagraph.tr.md')),
+      pl: md(file('./landingParagraph.pl.md')),
+      id: md(file('./landingParagraph.id.md')),
+      vi: md(file('./landingParagraph.vi.md')),
     }),
     tutoParagraphs: {
       selection: {
@@ -55,6 +60,8 @@ const demoContent = {
           ru: 'Наведите курсор на содержимое, которое нужно изменить и удерживайте его',
           tr: 'Değiştirilecek içeriğin üzerine gelin ve uzun basın',
           pl: 'Najedź kursorem i przytrzymaj zawartość, którą chcesz zmodyfikować',
+          id: 'Arahkan kursor dan tekan lama pada konten yang akan dimodifikasi',
+          vi: 'Di chuột và nhấn giữ nội dung để chỉnh sửa',
         }),
         description: t({
           fr: "Exercez un clic prolongé pour faire apparaître l'éditeur visuel. Le panneau d'édition s'étend de la droite et met en évidence le contenu sélectionné pour édition.",
@@ -73,6 +80,8 @@ const demoContent = {
           ru: 'Нажмите и удерживайте, чтобы визуальный редактор появился. Панель редактирования расширяется справа, выделяя контент, выбранный для редактирования.',
           tr: 'Görsel editörü görüntülemek için basılı tutun. Düzenleme paneli sağdan uzanır ve düzenleme için seçilen içeriği vurgular.',
           pl: 'Naciśnij i przytrzymaj, aby pojawił się wizualny edytor. Panel edycji wysuwa się z prawej strony, podświetlając wybraną zawartość do edycji.',
+          id: 'Tekan dan tahan untuk memunculkan visual editor. Panel penyuntingan terbuka dari sisi kanan, menyorot konten yang dipilih untuk diedit.',
+          vi: 'Nhấn và giữ để trình chỉnh sửa trực quan xuất hiện. Bảng chỉnh sửa mở rộng từ bên phải, làm nổi bật nội dung được chọn để chỉnh sửa.',
         }),
       },
       edition: {
@@ -92,6 +101,8 @@ const demoContent = {
           ru: 'Вносите изменения, заменяя соответствующий текст',
           tr: 'İlgili metni değiştirerek değişikliklerinizi yapın',
           pl: 'Wprowadź zmiany, zastępując odpowiedni tekst',
+          id: 'Lakukan modifikasi dengan mengganti teks yang relevan',
+          vi: 'Thực hiện chỉnh sửa bằng cách thay thế đoạn văn bản tương ứng',
         }),
         description: t({
           fr: "Le texte mis en évidence dans le panneau d'édition peut être modifié ou remplacé à guise. Les modifications apparaîtront instantanément sur la page principale, facilitant la révision du contenu. Pour annuler les changements apportés, cliquez sur la croix.",
@@ -110,6 +121,8 @@ const demoContent = {
           ru: 'Выделенный текст на панели редактирования можно изменять или заменять по желанию. Изменения появятся мгновенно на главной странице, что упростит обзор контента. Чтобы отменить внесенные изменения, нажмите на крестик.',
           tr: 'Düzenleme panelinde vurgulanan metin istediğiniz gibi değiştirilebilir veya değiştirilebilir. Değişiklikler ana sayfada anında görünecek ve içeriği gözden geçirmeyi kolaylaştıracaktır. Yapılan değişiklikleri geri almak için çarpıya tıklayın.',
           pl: 'Podświetlony tekst w panelu edycji można dowolnie modyfikować lub zastępować. Zmiany pojawią się natychmiast na stronie głównej, co ułatwia ich przeglądanie. Aby cofnąć wprowadzone zmiany, kliknij krzyżyk.',
+          id: 'Teks yang disorot di panel penyuntingan dapat dimodifikasi atau diganti sesuka hati. Perubahan akan muncul secara instan di halaman utama, memudahkan peninjauan konten. Untuk membatalkan perubahan, klik tanda silang.',
+          vi: 'Văn bản được làm nổi bật trong bảng chỉnh sửa có thể được sửa hoặc thay thế tùy ý. Các thay đổi sẽ xuất hiện ngay lập tức trên trang chính, giúp dễ dàng xem lại nội dung. Để hoàn tác các thay đổi, nhấp vào biểu tượng dấu x.',
         }),
       },
       validation: {
@@ -129,6 +142,8 @@ const demoContent = {
           ru: 'Подтвердите ваши изменения',
           tr: 'Değişikliklerinizi onaylayın',
           pl: 'Potwierdź zmiany',
+          id: 'Konfirmasi perubahan Anda',
+          vi: 'Xác nhận các thay đổi',
         }),
         description: t({
           fr: 'Une fois vos changements effectués, validez les modifications apportées au champ concerné, puis validez les changements apportés au dictionnaire. Lorsque les changements apportés au dictionnaire sont validés, Intlayer écrira les modifications dans le fichier concerné.',
@@ -147,6 +162,8 @@ const demoContent = {
           ru: 'После внесения изменений подтвердите изменения, внесенные в соответствующее поле, затем подтвердите изменения, внесенные в словарь. Когда изменения в словаре будут подтверждены, Intlayer запишет изменения в соответствующий файл.',
           tr: 'Değişikliklerinizi yaptıktan sonra, ilgili alanda yapılan değişiklikleri doğrulayın, ardından sözlükte yapılan değişiklikleri onaylayın. Sözlükte yapılan değişiklikler doğrulandığında, Intlayer değişiklikleri ilgili dosyaya yazacaktır.',
           pl: 'Po wprowadzeniu zmian zatwierdź modyfikacje danego pola, a następnie potwierdź zmiany w słowniku. Po zatwierdzeniu zmian w słowniku Intlayer zapisze modyfikacje w odpowiednim pliku.',
+          id: 'Setelah Anda melakukan perubahan, validasi modifikasi pada field terkait, lalu konfirmasi perubahan pada dictionary. Saat perubahan pada dictionary divalidasi, Intlayer akan menuliskan modifikasi ke file terkait.',
+          vi: 'Khi bạn đã thực hiện thay đổi, xác nhận các chỉnh sửa cho trường tương ứng, sau đó xác nhận các thay đổi trong từ điển. Khi các thay đổi trong từ điển được xác nhận, Intlayer sẽ ghi các sửa đổi vào tệp tương ứng.',
         }),
       },
     },

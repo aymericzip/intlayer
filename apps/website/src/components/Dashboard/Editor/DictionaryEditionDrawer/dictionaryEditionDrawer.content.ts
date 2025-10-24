@@ -20,6 +20,8 @@ const dictionaryEditionDrawerContent = {
         'en-GB': 'Click to open the dictionary in the editor',
         tr: 'Sözlüğü düzenleyicide açmak için tıklayın',
         pl: 'Kliknij, aby otworzyć słownik w edytorze',
+        id: 'Klik untuk membuka dictionary di editor',
+        vi: 'Nhấp để mở từ điển trong trình chỉnh sửa',
       }),
     },
     backButtonText: t({
@@ -38,6 +40,8 @@ const dictionaryEditionDrawerContent = {
       tr: 'Sözlük listesi',
       zh: '词典列表',
       pl: 'Lista słowników',
+      id: 'Daftar dictionary',
+      vi: 'Danh sách từ điển',
     }),
     modalTitle: t({
       ar: 'تحرير قاموس',
@@ -55,6 +59,8 @@ const dictionaryEditionDrawerContent = {
       tr: 'Sözlüğü düzenle',
       zh: '编辑词典',
       pl: 'Edytuj słownik',
+      id: 'Edit dictionary',
+      vi: 'Chỉnh sửa từ điển',
     }),
     noDictionaryFocused: t({
       ar: 'لا يوجد قاموس مرتبط',
@@ -72,6 +78,8 @@ const dictionaryEditionDrawerContent = {
       tr: 'Hiçbir sözlük odaklanmadı',
       zh: '没有聚焦的词典',
       pl: 'Nie wybrano słownika',
+      id: 'Tidak ada dictionary yang dipilih',
+      vi: 'Không có từ điển nào được chọn',
     }),
     focusedDictionaryNotFound: t({
       ar: 'لا يوجد قاموس مرتبط',
@@ -89,6 +97,8 @@ const dictionaryEditionDrawerContent = {
       tr: 'Odaklanılan sözlük bulunamadı',
       zh: '没有聚焦的词典',
       pl: 'Nie znaleziono zaznaczonego słownika',
+      id: 'Dictionary yang dipilih tidak ditemukan',
+      vi: 'Không tìm thấy từ điển được chọn',
     }),
   },
   title: 'Dictionary edition drawer',

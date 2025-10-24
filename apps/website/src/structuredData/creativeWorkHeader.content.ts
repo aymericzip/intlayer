@@ -19,6 +19,12 @@ export default {
       ru: 'Разработчики, менеджеры контента',
       tr: 'Geliştiriciler, İçerik Yöneticileri',
       pl: 'Programiści, Menedżerowie treści',
+      id: 'Pengembang, Manajer Konten',
+      vi: 'Nhà phát triển (Developers), Quản trị nội dung (Content Managers)',
     }),
   },
+  title: 'Creative work structured data',
+  description:
+    'Structured data declaration for creative works. This dictionary defines metadata intended to improve SEO and content discoverability across search engines by identifying content type and audience targeting developers and content managers.',
+  tags: ['structured data', 'SEO', 'creative work'],
 } satisfies Dictionary;

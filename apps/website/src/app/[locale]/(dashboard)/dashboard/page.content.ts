@@ -19,6 +19,8 @@ const dashboardContent = {
       tr: 'Dashboard',
       zh: '仪表板',
       pl: 'Panel',
+      id: 'Dasbor',
+      vi: 'Bảng điều khiển',
     }),
   },
   title: 'Dashboard page',

@@ -20,6 +20,8 @@ const userDeleteActionContent = {
         ru: 'Ошибка загрузки деталей пользователя',
         tr: 'Kullanıcı detayları yüklenirken hata',
         pl: 'Błąd ładowania szczegółów użytkownika',
+        id: 'Kesalahan saat memuat detail pengguna',
+        vi: 'Lỗi khi tải chi tiết người dùng',
       }),
       deleteError: t({
         en: 'Error deleting user',
@@ -37,6 +39,8 @@ const userDeleteActionContent = {
         ru: 'Ошибка удаления пользователя',
         tr: 'Kullanıcı silinirken hata',
         pl: 'Błąd usuwania użytkownika',
+        id: 'Kesalahan saat menghapus pengguna',
+        vi: 'Lỗi khi xóa người dùng',
       }),
     },
     successMessages: {
@@ -56,6 +60,8 @@ const userDeleteActionContent = {
         ru: 'Пользователь успешно удален',
         tr: 'Kullanıcı başarıyla silindi',
         pl: 'Użytkownik został pomyślnie usunięty',
+        id: 'Pengguna berhasil dihapus',
+        vi: 'Đã xóa người dùng thành công',
       }),
       userUpdated: t({
         en: 'User updated successfully',
@@ -73,6 +79,8 @@ const userDeleteActionContent = {
         ru: 'Пользователь успешно обновлен',
         tr: 'Kullanıcı başarıyla güncellendi',
         pl: 'Użytkownik został pomyślnie zaktualizowany',
+        id: 'Pengguna berhasil diperbarui',
+        vi: 'Cập nhật người dùng thành công',
       }),
     },
     deleteSection: {
@@ -92,6 +100,8 @@ const userDeleteActionContent = {
         ru: 'Опасная зона',
         tr: 'Tehlikeli Bölge',
         pl: 'Strefa niebezpieczeństwa',
+        id: 'Zona Berbahaya',
+        vi: 'Khu vực nguy hiểm',
       }),
       description: t({
         en: 'Once you delete this user, there is no going back. Please be certain.',
@@ -110,6 +120,8 @@ const userDeleteActionContent = {
         ru: 'После удаления этого пользователя пути назад нет. Пожалуйста, убедитесь.',
         tr: 'Bu kullanıcıyı sildiğinizde geri dönüş olmaz. Lütfen emin olun.',
         pl: 'Po usunięciu tego użytkownika nie ma odwrotu. Upewnij się, że chcesz kontynuować.',
+        id: 'Setelah Anda menghapus pengguna ini, tidak ada jalan kembali. Harap pastikan.',
+        vi: 'Một khi bạn xóa người dùng này, sẽ không thể khôi phục. Vui lòng cân nhắc kỹ.',
       }),
       button: t({
         en: 'Delete User',
@@ -127,6 +139,8 @@ const userDeleteActionContent = {
         ru: 'Удалить пользователя',
         tr: 'Kullanıcıyı Sil',
         pl: 'Usuń użytkownika',
+        id: 'Hapus Pengguna',
+        vi: 'Xóa người dùng',
       }),
       modalTitle: t({
         en: 'Delete User',
@@ -144,6 +158,8 @@ const userDeleteActionContent = {
         ru: 'Удалить пользователя',
         tr: 'Kullanıcıyı Sil',
         pl: 'Usuń użytkownika',
+        id: 'Hapus Pengguna',
+        vi: 'Xóa người dùng',
       }),
       modalWarning: t({
         en: 'Warning: This action cannot be undone!',
@@ -161,6 +177,8 @@ const userDeleteActionContent = {
         ru: 'Внимание: это действие нельзя отменить!',
         tr: 'Uyarı: Bu işlem geri alınamaz!',
         pl: 'Ostrzeżenie: tej operacji nie można cofnąć!',
+        id: 'Peringatan: Tindakan ini tidak dapat dibatalkan!',
+        vi: 'Cảnh báo: Hành động này không thể hoàn tác!',
       }),
       modalDescription: t({
         en: 'This will permanently delete the user account and all associated data. This action is irreversible.',
@@ -179,6 +197,8 @@ const userDeleteActionContent = {
         ru: 'Это навсегда удалит учетную запись пользователя и все связанные данные. Это действие необратимо.',
         tr: 'Bu, kullanıcı hesabını ve ilişkili tüm verileri kalıcı olarak silecektir. Bu işlem geri alınamaz.',
         pl: 'To spowoduje trwałe usunięcie konta użytkownika oraz wszystkich powiązanych danych. Ta operacja jest nieodwracalna.',
+        id: 'Ini akan secara permanen menghapus akun pengguna dan semua data terkait. Tindakan ini tidak dapat dibatalkan.',
+        vi: 'Việc này sẽ xóa vĩnh viễn tài khoản người dùng và tất cả dữ liệu liên quan. Hành động này không thể đảo ngược.',
       }),
       userToDelete: t({
         en: 'User to be deleted:',
@@ -196,6 +216,8 @@ const userDeleteActionContent = {
         ru: 'Пользователь для удаления:',
         tr: 'Silinecek kullanıcı:',
         pl: 'Użytkownik do usunięcia:',
+        id: 'Pengguna yang akan dihapus:',
+        vi: 'Người dùng sẽ bị xóa:',
       }),
       cancelButton: t({
         en: 'Cancel',
@@ -213,6 +235,8 @@ const userDeleteActionContent = {
         ru: 'Отмена',
         tr: 'İptal',
         pl: 'Anuluj',
+        id: 'Batal',
+        vi: 'Hủy',
       }),
       confirmButton: t({
         en: 'Delete Permanently',
@@ -230,6 +254,8 @@ const userDeleteActionContent = {
         ru: 'Удалить навсегда',
         tr: 'Kalıcı olarak sil',
         pl: 'Usuń na stałe',
+        id: 'Hapus Permanen',
+        vi: 'Xóa vĩnh viễn',
       }),
     },
   },

@@ -19,6 +19,8 @@ const content = {
       tr: 'Lütfen erişim anahtarınız için bir ad girin',
       zh: '请输入访问密钥的名称',
       pl: 'Wprowadź nazwę klucza dostępu',
+      id: 'Silakan masukkan nama untuk access key Anda',
+      vi: 'Vui lòng nhập tên cho access key của bạn',
     }),
 
     invalidTypeErrorName: t({
@@ -37,6 +39,8 @@ const content = {
       tr: 'Lütfen erişim anahtarınız için geçerli bir ad girin',
       zh: '请输入访问密钥的有效名称',
       pl: 'Wprowadź prawidłową nazwę klucza dostępu',
+      id: 'Silakan masukkan nama yang valid untuk access key Anda',
+      vi: 'Vui lòng nhập tên hợp lệ cho access key của bạn',
     }),
 
     invalidDateErrorName: t({
@@ -55,8 +59,14 @@ const content = {
       tr: 'Lütfen erişim anahtarınızın son kullanma tarihi için geçerli bir tarih girin',
       zh: '请输入访问密钥的有效期日期',
       pl: 'Wprowadź prawidłową datę wygaśnięcia klucza dostępu',
+      id: 'Silakan masukkan tanggal kedaluwarsa yang valid untuk access key Anda',
+      vi: 'Vui lòng nhập ngày hết hạn hợp lệ cho access key của bạn',
     }),
   },
+  title: 'Access key creation form schema',
+  description:
+    'Validation schema for the access key creation form, including error messages for invalid name and expiration date inputs.',
+  tags: ['form validation', 'access management', 'dashboard'],
 } satisfies Dictionary;
 
 export default content;

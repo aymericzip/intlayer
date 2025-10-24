@@ -19,6 +19,8 @@ const youtubeVideoMessageContent = {
       zh: '观看视频教程',
       tr: 'Video eğitimini izleyin',
       pl: 'Obejrzyj samouczek wideo',
+      id: 'Tonton tutorial video',
+      vi: 'Xem video hướng dẫn',
     }),
     description: t({
       en: 'This page has a video tutorial available.',
@@ -36,6 +38,8 @@ const youtubeVideoMessageContent = {
       it: 'Questa pagina ha un video tutorial disponibile.',
       tr: 'Bu sayfada bir video eğitimi mevcuttur.',
       pl: 'Na tej stronie dostępny jest samouczek wideo.',
+      id: 'Halaman ini memiliki tutorial video yang tersedia.',
+      vi: 'Trang này có video hướng dẫn.',
     }),
     label: t({
       en: 'Watch the video tutorial',
@@ -53,6 +57,8 @@ const youtubeVideoMessageContent = {
       zh: '观看视频教程',
       tr: 'Video eğitimini izleyin',
       pl: 'Obejrzyj samouczek wideo',
+      id: 'Tonton tutorial video',
+      vi: 'Xem video hướng dẫn',
     }),
   },
   title: 'YouTube video message',

@@ -19,6 +19,8 @@ const definePasswordStepContent = {
       tr: 'Bir şifre belirleyin',
       zh: '定义密码',
       pl: 'Zdefiniuj hasło',
+      id: 'Tentukan kata sandi',
+      vi: 'Đặt mật khẩu',
     }),
 
     newPasswordInput: {
@@ -38,6 +40,8 @@ const definePasswordStepContent = {
         ru: 'Пароль',
         tr: 'Parola',
         pl: 'Hasło',
+        id: 'Kata sandi',
+        vi: 'Mật khẩu',
       }),
       placeholder: t({
         en: 'Enter password',
@@ -55,6 +59,8 @@ const definePasswordStepContent = {
         ru: 'Введите пароль',
         tr: 'Parolayı girin',
         pl: 'Wprowadź hasło',
+        id: 'Masukkan kata sandi',
+        vi: 'Nhập mật khẩu',
       }),
     },
     confirmPasswordInput: {
@@ -74,6 +80,8 @@ const definePasswordStepContent = {
         ru: 'Подтвердите пароль',
         tr: 'Parolayı onayla',
         pl: 'Potwierdź hasło',
+        id: 'Konfirmasi kata sandi',
+        vi: 'Xác nhận mật khẩu',
       }),
       placeholder: t({
         en: 'Confirm password',
@@ -91,6 +99,8 @@ const definePasswordStepContent = {
         ru: 'Подтвердите пароль',
         tr: 'Parolayı onayla',
         pl: 'Potwierdź hasło',
+        id: 'Konfirmasi kata sandi',
+        vi: 'Nhập lại mật khẩu',
       }),
     },
   },

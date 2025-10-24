@@ -19,6 +19,8 @@ export const registerStepContent = {
       ru: 'Создайте свою учетную запись',
       tr: 'Hesabınızı oluşturun',
       pl: 'Utwórz konto',
+      id: 'Buat akun Anda',
+      vi: 'Tạo tài khoản của bạn',
     }),
 
     emailInput: {
@@ -38,6 +40,8 @@ export const registerStepContent = {
         ru: 'Адрес электронной почты',
         tr: 'E-posta adresi',
         pl: 'Adres e-mail',
+        id: 'Alamat email',
+        vi: 'Địa chỉ email',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -55,6 +59,8 @@ export const registerStepContent = {
         ru: 'Введите адрес электронной почты',
         tr: 'E-posta adresinizi girin',
         pl: 'Wprowadź adres e-mail',
+        id: 'Masukkan alamat email',
+        vi: 'Nhập địa chỉ email',
       }),
     },
 
@@ -75,6 +81,8 @@ export const registerStepContent = {
         ru: 'У вас уже есть учетная запись?',
         tr: 'Zaten bir hesabınız var mı?',
         pl: 'Masz już konto?',
+        id: 'Sudah punya akun?',
+        vi: 'Bạn đã có tài khoản?',
       }),
       text: t({
         en: 'Log in',
@@ -92,6 +100,8 @@ export const registerStepContent = {
         ru: 'Войти',
         tr: 'Giriş yapın',
         pl: 'Zaloguj się',
+        id: 'Log in',
+        vi: 'Đăng nhập',
       }),
       ariaLabel: t({
         en: 'Click to go to login page',
@@ -109,6 +119,8 @@ export const registerStepContent = {
         ru: 'Нажмите, чтобы перейти на страницу входа',
         tr: 'Giriş sayfasına gitmek için tıklayın',
         pl: 'Kliknij, aby przejść do strony logowania',
+        id: 'Klik untuk menuju halaman login',
+        vi: 'Nhấp để đến trang đăng nhập',
       }),
     },
   },

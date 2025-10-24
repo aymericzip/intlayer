@@ -21,6 +21,8 @@ const chatFormSectionContent = {
         ru: 'Привет! Спросите меня что-нибудь и я помогу тебе.',
         tr: 'Hey! Bana bir şey sor ve cevaplamaya çalışayım.',
         pl: 'Cześć! Zapytaj mnie o cokolwiek, a postaram się odpowiedzieć.',
+        id: 'Hai! Tanyakan apa saja dan saya akan mencoba menjawabnya.',
+        vi: 'Chào! Hỏi tôi bất cứ điều gì và tôi sẽ cố gắng trả lời.',
       }),
     },
     rateLimitExceededMessage: t({
@@ -40,6 +42,8 @@ const chatFormSectionContent = {
       tr: 'Kimliği doğrulanmamış kullanıcılar için istek sayısı sınırlıdır. Lütfen daha sonra tekrar deneyin veya sınırınızı artırmak ve daha iyi modelleri açmak için giriş yapın.',
       zh: '未认证用户的请求数有限。请稍后再试，或登录以增加您的限制。',
       pl: 'Liczba żądań jest ograniczona dla niezalogowanych użytkowników. Spróbuj ponownie później lub zaloguj się, aby zwiększyć limit i uzyskać dostęp do lepszych modeli.',
+      id: 'Jumlah permintaan dibatasi untuk pengguna yang belum diautentikasi. Silakan coba lagi nanti, atau masuk untuk meningkatkan batas Anda dan membuka akses ke models yang lebih baik.',
+      vi: 'Số lượng yêu cầu bị giới hạn đối với người dùng chưa xác thực. Vui lòng thử lại sau, hoặc đăng nhập để tăng giới hạn của bạn và mở khóa các mô hình tốt hơn.',
     }),
     signInButton: {
       text: t({
@@ -58,6 +62,8 @@ const chatFormSectionContent = {
         ru: 'Войти',
         tr: 'Giriş yap',
         pl: 'Zaloguj się',
+        id: 'Masuk',
+        vi: 'Đăng nhập',
       }),
       label: t({
         en: 'Go to login page',
@@ -75,6 +81,8 @@ const chatFormSectionContent = {
         ru: 'Перейти на страницу входа',
         tr: 'Giriş sayfasına git',
         pl: 'Przejdź do strony logowania',
+        id: 'Pergi ke halaman login',
+        vi: 'Đi tới trang đăng nhập',
       }),
     },
   },

@@ -19,6 +19,8 @@ export const setUpOrganizationStepContent = {
       ru: 'Выберите вашу организацию',
       tr: 'Organizasyonunuzu seçin',
       pl: 'Wybierz swoją organizację',
+      id: 'Pilih organisasi Anda',
+      vi: 'Chọn tổ chức của bạn',
     }),
   },
   title: 'Set up organization step',

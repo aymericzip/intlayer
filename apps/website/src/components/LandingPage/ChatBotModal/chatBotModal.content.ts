@@ -20,6 +20,8 @@ const chatbotContent = {
         ru: 'Нажмите, чтобы открыть чат-бота',
         tr: 'Sohbet botunu açmak için tıklayın',
         pl: 'Kliknij, aby otworzyć chatbota',
+        id: 'Klik untuk membuka chatbot',
+        vi: 'Nhấn để mở chatbot',
       }),
     },
     title: t({
@@ -38,6 +40,8 @@ const chatbotContent = {
       tr: 'Herhangi bir şey sor',
       zh: '问任何事情',
       pl: 'Zapytaj o cokolwiek',
+      id: 'Tanyakan apa saja',
+      vi: 'Hỏi bất cứ điều gì',
     }),
   },
   title: 'Chatbot modal content',

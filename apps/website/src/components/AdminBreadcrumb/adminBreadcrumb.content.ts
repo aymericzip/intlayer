@@ -19,6 +19,8 @@ const adminBreadcrumbContent = {
       tr: 'Kontrol Paneli',
       zh: '仪表板',
       pl: 'Pulpit',
+      id: 'Dasbor',
+      vi: 'Bảng điều khiển',
     }),
     users: t({
       ar: 'المستخدمون',
@@ -36,6 +38,8 @@ const adminBreadcrumbContent = {
       tr: 'Kullanıcılar',
       zh: '用户',
       pl: 'Użytkownicy',
+      id: 'Pengguna',
+      vi: 'Người dùng',
     }),
     organizations: t({
       ar: 'المنظمات',
@@ -53,6 +57,8 @@ const adminBreadcrumbContent = {
       tr: 'Kuruluşlar',
       zh: '组织',
       pl: 'Organizacje',
+      id: 'Organisasi',
+      vi: 'Tổ chức',
     }),
     projects: t({
       ar: 'المشاريع',
@@ -70,6 +76,8 @@ const adminBreadcrumbContent = {
       tr: 'Projeler',
       zh: '项目',
       pl: 'Projekty',
+      id: 'Proyek',
+      vi: 'Dự án',
     }),
     dashboard: t({
       ar: 'لوحة التحكم',
@@ -87,6 +95,8 @@ const adminBreadcrumbContent = {
       tr: 'Kontrol Paneli',
       zh: '仪表板',
       pl: 'Pulpit',
+      id: 'Dasbor',
+      vi: 'Bảng điều khiển',
     }),
     userDetail: t({
       ar: 'تفاصيل المستخدم',
@@ -104,8 +114,14 @@ const adminBreadcrumbContent = {
       tr: 'Kullanıcı Detayları',
       zh: '用户详情',
       pl: 'Szczegóły użytkownika',
+      id: 'Detail Pengguna',
+      vi: 'Chi tiết người dùng',
     }),
   },
+  title: 'Admin dashboard breadcrumb',
+  description:
+    'Breadcrumb navigation labels used in the admin dashboard interface, enabling hierarchical navigation between dashboard sections such as users, organizations, and projects.',
+  tags: ['admin interface', 'breadcrumb navigation', 'dashboard UI'],
 } satisfies Dictionary;
 
 export default adminBreadcrumbContent;

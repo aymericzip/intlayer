@@ -22,6 +22,8 @@ const content = {
       zh: '欢迎来到我们的应用程序',
       tr: 'Uygulamamıza hoş geldiniz',
       pl: 'Witamy w naszej aplikacji',
+      id: 'Selamat datang di aplikasi kami',
+      vi: 'Chào mừng bạn đến với ứng dụng của chúng tôi',
     }),
     numberOfCar: enu({
       '<-1': 'Less than minus one car',
@@ -54,6 +56,7 @@ const content = {
         es: '¡Hola, mi nombre es {{name}} y tengo {{age}} años!',
         fr: "Bonjour, mon nom est {{name}} et j'ai {{age}} ans!",
         hi: 'नमस्ते, मेरा नाम {{name}} है और मैं {{age}} वर्ष का हूँ!',
+        id: 'Halo, nama saya {{name}} dan saya berumur {{age}} tahun!',
         it: 'Ciao, mi chiamo {{name}} e ho {{age}} anni!',
         ja: 'こんにちは、私の名前は {{name}} で、私は {{age}} 歳です！',
         ko: '안녕하세요, 저는 {{name}} 이고, {{age}} 살입니다!',
@@ -61,6 +64,7 @@ const content = {
         pt: 'Olá, meu nome é {{name}} e eu tenho {{age}} anos!',
         ru: 'Привет, моё имя {{name}} и мне {{age}} лет!',
         tr: 'Merhaba, benim adım {{name}} ve ben {{age}} yaşındayım!',
+        vi: 'Xin chào, tôi là {{name}} và tôi {{age}} tuổi!',
         zh: '你好，我的名字是 {{name}} ，我 {{age}} 岁了！',
       })
     ),
@@ -92,7 +96,8 @@ const content = {
       ko: md('## test ko'),
       de: md('## test de'),
       ar: md('## test ar'),
-      text: () => 'This is the content rendered by a function',
+      text: 'This is the content rendered by a function',
+      vi: md('## kiểm tra'),
     }),
     arrayContent: ['string', 'string2', 'string3', 'string4', 'string5'],
     arrayNestedContent: [

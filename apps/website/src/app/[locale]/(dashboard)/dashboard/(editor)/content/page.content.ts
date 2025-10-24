@@ -19,6 +19,8 @@ const contentDashboardContent = {
       tr: 'İçerik yönetimi',
       zh: '内容管理',
       pl: 'Zarządzanie treścią',
+      id: 'Manajemen Konten',
+      vi: 'Quản lý nội dung',
     }),
   },
   title: 'Content dashboard page',

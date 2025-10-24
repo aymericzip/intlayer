@@ -19,6 +19,8 @@ const asideNavigationContent = {
       tr: 'Bu sayfada',
       zh: '在此页面',
       pl: 'Na tej stronie',
+      id: 'Di halaman ini',
+      vi: 'Trong trang này',
     }),
     linkLabel: t({
       ar: 'اذهب إلى القسم',
@@ -36,6 +38,8 @@ const asideNavigationContent = {
       tr: 'Bölüme git',
       zh: '转到节',
       pl: 'Przejdź do sekcji',
+      id: 'Pergi ke bagian',
+      vi: 'Đi tới phần',
     }),
     collapseButton: {
       label: t({
@@ -54,9 +58,15 @@ const asideNavigationContent = {
         ru: 'Свернуть',
         tr: 'Daralt',
         pl: 'Zwiń',
+        id: 'Sembunyikan',
+        vi: 'Thu gọn',
       }),
     },
   },
+  title: 'Aside navigation',
+  description:
+    'Dictionary for the aside navigation component, including navigational labels and actions such as collapsing the menu and accessing specific sections of the page.',
+  tags: ['component', 'navigation', 'aside menu'],
 } satisfies Dictionary;
 
 export default asideNavigationContent;

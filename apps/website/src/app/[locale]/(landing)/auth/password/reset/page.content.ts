@@ -19,6 +19,8 @@ const resetPasswordContent = {
       ru: 'Сбросить пароль',
       tr: 'Şifreyi Sıfırla',
       pl: 'Resetowanie hasła',
+      id: 'Setel ulang password',
+      vi: 'Đặt lại mật khẩu',
     }),
     title2: t({
       en: 'Reset your password',
@@ -36,6 +38,8 @@ const resetPasswordContent = {
       ru: 'Сбросьте свой пароль',
       tr: 'Şifrenizi Sıfırlayın',
       pl: 'Zresetuj swoje hasło',
+      id: 'Setel ulang password Anda',
+      vi: 'Đặt lại mật khẩu của bạn',
     }),
     description: t({
       en: 'Enter your email to reset your password.',
@@ -53,6 +57,8 @@ const resetPasswordContent = {
       ru: 'Введите вашу электронную почту, чтобы сбросить пароль.',
       tr: 'E-postanızı girerek şifrenizi sıfırlayın.',
       pl: 'Wprowadź swój adres e-mail, aby zresetować hasło.',
+      id: 'Masukkan alamat email Anda untuk menyetel ulang password Anda.',
+      vi: 'Nhập email của bạn để đặt lại mật khẩu.',
     }),
   },
   title: 'Reset password page',

@@ -19,8 +19,14 @@ export const breadCrumbContent = {
       ru: 'Перейти на',
       tr: 'Git',
       pl: 'Przejdź do',
+      id: 'Pergi ke',
+      vi: 'Đi tới',
     }),
   },
+  title: 'Breadcrumb navigation',
+  description:
+    "Content declaration for the breadcrumb component's navigation label, used to guide users through hierarchical structures within the interface.",
+  tags: ['navigation', 'breadcrumb'],
 } satisfies Dictionary;
 
 export default breadCrumbContent;

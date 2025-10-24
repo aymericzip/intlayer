@@ -19,6 +19,8 @@ const landingSectionContent = {
       tr: 'Neler Yeni',
       zh: '最新消息',
       pl: 'Co nowego',
+      id: 'Apa yang baru',
+      vi: 'Có gì mới',
     }),
     whatsNewLabel: t({
       ar: 'اذهب إلى صفحة التحديثات',
@@ -36,6 +38,8 @@ const landingSectionContent = {
       tr: 'Güncellemeler sayfasına git',
       zh: '前往更新页面',
       pl: 'Przejdź do strony z aktualizacjami',
+      id: 'Buka halaman pembaruan',
+      vi: 'Đi tới trang cập nhật',
     }),
     version: t({
       ar: 'تم شحن   للتو',
@@ -53,6 +57,8 @@ const landingSectionContent = {
       tr: 'Az önce yayınlandı  ',
       zh: '刚刚发布  ',
       pl: 'Właśnie wydano',
+      id: 'Baru saja dirilis',
+      vi: 'Vừa phát hành',
     }),
     title: t({
       ar: 'i18n بالمكون - تسريع عملية التطوير',
@@ -70,6 +76,8 @@ const landingSectionContent = {
       tr: 'Bileşen Başına i18n - Geliştirme Sürecinizi Hızlandırın',
       zh: '组件级i18n - 加速开发过程',
       pl: 'Per-Component i18n - Przyspiesz proces tworzenia',
+      id: 'Per-Component i18n - Percepat proses pengembangan Anda',
+      vi: 'Per-Component i18n - Tăng tốc quy trình phát triển của bạn',
     }),
     subheading: t({
       ar: 'آمن الأنواع. ترجم بالذكاء الاصطناعي. حرر بصريًا.',
@@ -87,6 +95,8 @@ const landingSectionContent = {
       tr: 'Type-Safe. Yapay Zeka ile Çeviri. Görsel Olarak Düzenle.',
       zh: '类型安全。AI翻译。可视化编辑。',
       pl: 'Bezpieczne typowanie. Tłumacz przy pomocy AI. Edytuj wizualnie.',
+      id: 'Type-Safe. Terjemahkan dengan AI. Sunting secara visual.',
+      vi: 'Type-Safe. Translate with AI. Edit Visually.',
     }),
     description: t({
       ar: 'يوفر Intlayer لفريقك سير عمل يركز على المطور للتدويل وإدارة المحتوى، مما يضمن بقاء كودك قابلاً للصيانة وقابلاً للتطوير. يعمل كنظام إدارة محتوى موجه للمكونات وهو مفتوح المصدر بالكامل. كل مساهمة مقدرة بصدق.',
@@ -105,6 +115,8 @@ const landingSectionContent = {
       tr: 'Intlayer, ekibinize uluslararasılaştırma ve içerik yönetimi için geliştirici odaklı bir iş akışı sağlar ve kodunuzun sürdürülebilir ve ölçeklenebilir kalmasını sağlar. Bileşen odaklı bir CMS olarak çalışır ve tamamen açık kaynaktır. Her katkı gerçekten takdir edilmektedir.',
       zh: 'Intlayer为您的团队提供以开发者为先的国际化和内容管理工作流程，确保您的代码保持可维护性和可扩展性。它作为面向组件的CMS运作，并且完全开源。真诚感谢每一份贡献。',
       pl: 'Definiuj tłumaczenia obok komponentów, z pełnym bezpieczeństwem typów. Zapraszaj redaktorów przez opcjonalny CMS, gdy zajdzie taka potrzeba. Każdy wkład jest naprawdę doceniany.',
+      id: 'Tentukan terjemahan di samping komponen, dengan keamanan tipe penuh. Undang editor melalui CMS opsional bila diperlukan. Setiap kontribusi sangat dihargai.',
+      vi: 'Định nghĩa bản dịch ngay cạnh các component, với type safety đầy đủ. Mời biên tập viên thông qua CMS tùy chọn khi cần. Mọi đóng góp đều được trân trọng.',
     }),
 
     availableFor: t({
@@ -123,6 +135,8 @@ const landingSectionContent = {
       tr: 'Şunun için mevcut',
       zh: '适用于',
       pl: 'Dostępne dla',
+      id: 'Tersedia untuk',
+      vi: 'Có sẵn cho',
     }),
     supportButton: t({
       ar: 'دعم المشروع',
@@ -140,6 +154,8 @@ const landingSectionContent = {
       tr: 'Projeyi destekle',
       zh: '支持项目',
       pl: 'Wesprzyj projekt',
+      id: 'Dukung proyek ini',
+      vi: 'Hỗ trợ dự án',
     }),
     getStartedButton: t({
       ar: 'البدء',
@@ -157,6 +173,8 @@ const landingSectionContent = {
       tr: 'Başlayın',
       zh: '开始',
       pl: 'Rozpocznij',
+      id: 'Mulai',
+      vi: 'Bắt đầu',
     }),
   },
   title: 'Landing section content',

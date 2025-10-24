@@ -19,6 +19,8 @@ const projectsAdminPageContentContent = {
       ru: 'Управление проектами',
       tr: 'Proje yönetimi',
       pl: 'Zarządzanie projektami',
+      id: 'Manajemen Proyek',
+      vi: 'Quản lý dự án',
     }),
     tableHeaders: {
       name: t({
@@ -37,6 +39,8 @@ const projectsAdminPageContentContent = {
         ru: 'Имя',
         tr: 'İsim',
         pl: 'Nazwa',
+        id: 'Nama',
+        vi: 'Tên',
       }),
       id: 'ID',
       createdAt: t({
@@ -55,6 +59,8 @@ const projectsAdminPageContentContent = {
         ru: 'Создано',
         tr: 'Oluşturulma',
         pl: 'Utworzono',
+        id: 'Dibuat Pada',
+        vi: 'Ngày tạo',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -72,6 +78,8 @@ const projectsAdminPageContentContent = {
         ru: 'Обновлено',
         tr: 'Güncellendi',
         pl: 'Zaktualizowano',
+        id: 'Diperbarui Pada',
+        vi: 'Ngày cập nhật',
       }),
     },
     noData: t({
@@ -90,6 +98,8 @@ const projectsAdminPageContentContent = {
       ru: 'Н/Д',
       tr: 'Yok',
       pl: 'Brak danych',
+      id: 'N/A',
+      vi: 'Không có dữ liệu',
     }),
     errorMessages: {
       loadingError: t({
@@ -108,6 +118,8 @@ const projectsAdminPageContentContent = {
         ru: 'Ошибка загрузки проектов',
         tr: 'Projeler yüklenirken hata oluştu',
         pl: 'Błąd podczas ładowania projektów',
+        id: 'Terjadi kesalahan saat memuat proyek',
+        vi: 'Lỗi khi tải danh sách dự án',
       }),
     },
     searchPlaceholder: t({
@@ -126,6 +138,8 @@ const projectsAdminPageContentContent = {
       ru: 'Поиск проектов...',
       tr: 'Projeleri ara...',
       pl: 'Szukaj projektów...',
+      id: 'Cari proyek...',
+      vi: 'Tìm kiếm dự án...',
     }),
     noProjectFound: t({
       en: 'No project found',
@@ -143,6 +157,8 @@ const projectsAdminPageContentContent = {
       ru: 'Проект не найден',
       tr: 'Proje bulunamadı',
       pl: 'Nie znaleziono projektu',
+      id: 'Tidak ada proyek yang ditemukan',
+      vi: 'Không tìm thấy dự án nào',
     }),
   },
   title: 'Project admin page',

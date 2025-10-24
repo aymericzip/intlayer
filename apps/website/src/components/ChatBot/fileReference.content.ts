@@ -19,8 +19,14 @@ const chatFormSectionContent = {
       tr: 'İlgili dosyalar:',
       zh: '相关文件：',
       pl: 'Powiązane pliki:',
+      id: 'File terkait:',
+      vi: 'Các tệp liên quan:',
     }),
   },
+  title: 'Chat form related files',
+  description:
+    'Content declaration for the label displaying related files in the chat form component. Useful for identifying and managing file references within the chatbot interaction.',
+  tags: ['chatbot', 'form', 'file reference'],
 } satisfies Dictionary;
 
 export default chatFormSectionContent;

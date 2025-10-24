@@ -17,6 +17,10 @@ const featuresSectionContent = {
       tr: 'Playground kullanarak ücretsiz deneyin.',
       pl: 'Wypróbuj za darmo, korzystając z playgrounda.',
       ru: 'Попробуйте бесплатно, воспользовавшись песочницей.',
+      zh: '在 playground 中免费试用。',
+      pt: 'Experimente gratuitamente no playground.',
+      id: 'Coba gratis menggunakan playground.',
+      vi: 'Dùng thử miễn phí với playground.',
     }),
     gotToPlaygroundButton: {
       text: t({
@@ -35,6 +39,8 @@ const featuresSectionContent = {
         ko: '플레이그라운드로 이동',
         tr: "Playground'a git",
         pl: 'Przejdź do playgrounda',
+        id: 'Buka playground',
+        vi: 'Đi tới playground',
       }),
       label: t({
         en: 'Click to go to the playground',
@@ -52,6 +58,8 @@ const featuresSectionContent = {
         ko: '클릭하여 플레이그라운드로 이동',
         tr: "Playground'a gitmek için tıklayın",
         pl: 'Kliknij, aby przejść do playgrounda',
+        id: 'Klik untuk membuka playground',
+        vi: 'Nhấp để vào playground',
       }),
     },
   },

@@ -19,6 +19,8 @@ export const changePasswordSchemaContent = {
       tr: 'Lütfen mevcut şifrenizi girin',
       zh: '请输入您的当前密码',
       pl: 'Proszę wprowadzić swoje aktualne hasło',
+      id: 'Silakan masukkan password Anda saat ini',
+      vi: 'Vui lòng nhập mật khẩu hiện tại của bạn',
     }),
 
     invalidTypeErrorPassword: t({
@@ -37,6 +39,8 @@ export const changePasswordSchemaContent = {
       tr: 'Lütfen geçerli bir şifre girin',
       zh: '请输入有效的密码',
       pl: 'Proszę wprowadzić prawidłowe hasło',
+      id: 'Silakan masukkan password yang valid',
+      vi: 'Vui lòng nhập mật khẩu hợp lệ',
     }),
 
     invalidPasswordLengthError: t({
@@ -55,6 +59,8 @@ export const changePasswordSchemaContent = {
       tr: 'Şifreniz en az 8 karakter olmalıdır',
       zh: '您的密码必须至少为8个字符',
       pl: 'Twoje hasło musi mieć co najmniej 8 znaków',
+      id: 'Password Anda harus memiliki minimal 8 karakter',
+      vi: 'Mật khẩu của bạn phải có ít nhất 8 ký tự',
     }),
 
     requiredErrorNewPassword: t({
@@ -73,6 +79,8 @@ export const changePasswordSchemaContent = {
       tr: 'Lütfen yeni şifrenizi girin',
       zh: '请输入您的新密码',
       pl: 'Proszę wprowadzić nowe hasło',
+      id: 'Silakan masukkan password baru Anda',
+      vi: 'Vui lòng nhập mật khẩu mới của bạn',
     }),
 
     invalidTypeErrorNewPassword: t({
@@ -91,6 +99,8 @@ export const changePasswordSchemaContent = {
       tr: 'Lütfen geçerli bir yeni şifre girin',
       zh: '请输入有效的新密码',
       pl: 'Proszę wprowadzić prawidłowe nowe hasło',
+      id: 'Silakan masukkan password baru yang valid',
+      vi: 'Vui lòng nhập mật khẩu mới hợp lệ',
     }),
 
     requiredErrorNewPasswordConfirmation: t({
@@ -109,6 +119,8 @@ export const changePasswordSchemaContent = {
       tr: 'Lütfen yeni şifrenizi tekrar girin',
       zh: '请再次输入您的新密码',
       pl: 'Proszę ponownie wprowadzić nowe hasło',
+      id: 'Silakan masukkan kembali password baru Anda',
+      vi: 'Vui lòng nhập lại mật khẩu mới của bạn',
     }),
 
     invalidTypeErrorNewPasswordConfirmation: t({
@@ -127,6 +139,8 @@ export const changePasswordSchemaContent = {
       tr: 'Lütfen geçerli bir yeni şifreyi tekrar girin',
       zh: '请再次输入有效的新密码',
       pl: 'Proszę ponownie wprowadzić prawidłowe nowe hasło',
+      id: 'Silakan masukkan kembali password baru yang valid',
+      vi: 'Vui lòng nhập lại mật khẩu mới hợp lệ',
     }),
 
     passwordNotMatchError: t({
@@ -145,8 +159,14 @@ export const changePasswordSchemaContent = {
       tr: 'Yeni şifre ve şifre onayı eşleşmelidir',
       zh: '新密码和密码确认必须匹配',
       pl: 'Nowe hasło i potwierdzenie hasła muszą się zgadzać',
+      id: 'Password baru dan konfirmasi password harus cocok',
+      vi: 'Mật khẩu mới và xác nhận mật khẩu phải khớp',
     }),
   },
+  title: 'Change password form schema',
+  description:
+    'Validation schema for the change password form, handling user input errors such as required fields, password length, type checks, and password confirmation match.',
+  tags: ['form validation', 'authentication', 'password management'],
 } satisfies Dictionary;
 
 export default changePasswordSchemaContent;

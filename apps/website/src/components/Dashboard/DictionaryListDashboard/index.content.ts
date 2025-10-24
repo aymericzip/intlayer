@@ -19,6 +19,8 @@ const dictionaryFormContent = {
       tr: 'Sözlük arama',
       zh: '搜索字典',
       pl: 'Wyszukaj słownik',
+      id: 'Cari kamus',
+      vi: 'Tìm kiếm từ điển',
     }),
 
     selectDictionaryButton: {
@@ -38,6 +40,8 @@ const dictionaryFormContent = {
         ru: 'Нажмите, чтобы выбрать словарь',
         tr: 'Bir sözlük seçmek için tıklayın',
         pl: 'Kliknij, aby wybrać słownik',
+        id: 'Klik untuk memilih kamus',
+        vi: 'Nhấp để chọn một từ điển',
       }),
     },
   },

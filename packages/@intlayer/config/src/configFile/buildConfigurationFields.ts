@@ -19,7 +19,6 @@ import {
   IMPORT_MODE,
   OPTIMIZE,
   OUTPUT_FORMAT,
-  REQUIRE,
   TRAVERSE_PATTERN,
 } from '../defaultValues/build';
 import {
@@ -64,6 +63,7 @@ import {
   ROUTING_MODE,
   STORAGE,
 } from '../defaultValues/routing';
+import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 import { normalizePath } from '../utils/normalizePath';
 
 let storedConfiguration: IntlayerConfig;
@@ -771,7 +771,7 @@ const buildBuildFields = (
   /**
    * Require function
    */
-  require: customConfiguration?.require ?? REQUIRE,
+  require: customConfiguration?.require ?? ESMxCJSRequire,
 });
 
 /**

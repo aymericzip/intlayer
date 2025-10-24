@@ -19,6 +19,8 @@ const content = {
       tr: 'Lütfen projeye en az bir üye ekleyin',
       zh: '请至少为项目添加一名成员',
       pl: 'Dodaj co najmniej jednego członka projektu',
+      id: 'Harap tambahkan setidaknya satu member ke project',
+      vi: 'Vui lòng thêm ít nhất một thành viên vào dự án',
     }),
 
     requiredErrorAdmin: t({
@@ -37,6 +39,8 @@ const content = {
       tr: 'Lütfen projeye en az bir yönetici ekleyin',
       zh: '请至少为项目添加一名管理员',
       pl: 'Dodaj co najmniej jednego administratora projektu',
+      id: 'Harap tambahkan setidaknya satu admin ke project',
+      vi: 'Vui lòng thêm ít nhất một admin vào dự án',
     }),
   },
   title: 'Members form validation schema',

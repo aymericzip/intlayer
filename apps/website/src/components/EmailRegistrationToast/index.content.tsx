@@ -20,6 +20,8 @@ const productHuntContent = {
       tr: 'Yaklaşan Intlayer sürümleri hakkında bildirim alın',
       zh: '接收有关即将发布的Intlayer的通知',
       pl: 'Otrzymuj powiadomienia o nadchodzących wydaniach Intlayera',
+      id: 'Terima notifikasi tentang rilis Intlayer yang akan datang',
+      vi: 'Nhận thông báo về các bản phát hành sắp tới của Intlayer',
     }),
     closeLabel: t({
       ar: 'إغلاق',
@@ -37,6 +39,8 @@ const productHuntContent = {
       tr: 'Kapat',
       zh: '关闭',
       pl: 'Zamknij',
+      id: 'Tutup',
+      vi: 'Đóng',
     }),
     registerLabel: t({
       ar: 'أبقني على اطلاع',
@@ -54,6 +58,8 @@ const productHuntContent = {
       tr: 'Beni güncel tut',
       zh: '保持更新',
       pl: 'Informuj mnie',
+      id: 'Tetap beri tahu saya',
+      vi: 'Thông báo cho tôi',
     }),
     emailInput: {
       placeholder: t({
@@ -72,6 +78,8 @@ const productHuntContent = {
         ru: 'Введите адрес электронной почты',
         tr: 'E-posta adresinizi girin',
         pl: 'Wprowadź adres e-mail',
+        id: 'Masukkan alamat e-mail',
+        vi: 'Nhập địa chỉ email',
       }),
     },
     requiredErrorEmail: t({
@@ -90,6 +98,8 @@ const productHuntContent = {
       tr: 'Lütfen kullanıcı adınızı girin',
       zh: '请输入您的用户名',
       pl: 'Proszę podać nazwę użytkownika',
+      id: 'Harap masukkan username Anda',
+      vi: 'Vui lòng nhập tên người dùng của bạn',
     }),
 
     invalidTypeErrorEmail: t({
@@ -108,6 +118,8 @@ const productHuntContent = {
       tr: 'Lütfen geçerli bir kullanıcı adı girin',
       zh: '请输入有效的用户名',
       pl: 'Proszę podać poprawną nazwę użytkownika',
+      id: 'Harap masukkan username yang valid',
+      vi: 'Vui lòng nhập tên người dùng hợp lệ',
     }),
   },
   title: 'Email registration toast',

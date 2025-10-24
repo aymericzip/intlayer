@@ -1,4 +1,4 @@
-- **Deleguj zarządzanie treścią do swoich zespołów**, przekształcając aplikację w CMS jednym kliknięciem.
-- **Uprość formatowanie treści** dzięki obsłudze Markdown, co ułatwia strukturyzację i stylizację zawartości.
+- **Powierz zespołom zarządzanie treścią**, przekształcając aplikację w CMS jednym kliknięciem.
+- **Uprość formatowanie treści** dzięki obsłudze Markdown, co ułatwia strukturyzowanie i formatowanie zawartości.
 - **Zwiększ produktywność dzięki AI**, wykorzystując inteligentne sugestie i automatyzację, aby usprawnić tworzenie treści.
-- **Wspieraj wiele języków** bez wysiłku, zapewniając płynną lokalizację dla globalnej publiczności.
+- **Wspieraj wiele języków** bez wysiłku, zapewniając płynną lokalizację dla odbiorców na całym świecie.

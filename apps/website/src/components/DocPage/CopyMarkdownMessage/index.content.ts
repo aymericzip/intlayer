@@ -19,6 +19,8 @@ const copyMarkdownMessageContent = {
       tr: 'Kopyala',
       zh: 'Copy',
       pl: 'Kopiuj',
+      id: 'Salin',
+      vi: 'Sao chép',
     }),
     description: t({
       ar: 'نسخ الـ Markdown من المستند إلى الحافظة',
@@ -36,6 +38,8 @@ const copyMarkdownMessageContent = {
       tr: "Belge Markdown'ını panoya kopyala",
       zh: '复制文档 Markdown 到剪贴板',
       pl: 'Kopiuj dokument Markdown do schowka',
+      id: 'Salin Markdown dokumentasi ke clipboard',
+      vi: 'Sao chép Markdown của tài liệu vào bộ nhớ tạm',
     }),
   },
   title: 'Copy Markdown message',

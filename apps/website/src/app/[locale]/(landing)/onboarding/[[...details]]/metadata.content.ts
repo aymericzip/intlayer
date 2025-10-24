@@ -20,6 +20,8 @@ const metadataContent = {
       ru: 'Онбординг | Intlayer',
       tr: 'Onboarding | Intlayer',
       pl: 'Pierwsze kroki | Intlayer',
+      id: 'Onboarding | Intlayer',
+      vi: 'Onboarding | Intlayer',
     }),
     description: t({
       en: 'Get started with Intlayer by completing the onboarding process. Follow each step to set up your account efficiently.',
@@ -38,6 +40,8 @@ const metadataContent = {
       ru: 'Начните работу с Intlayer, завершив процесс онбординга. Следуйте каждому шагу, чтобы эффективно настроить свою учетную запись.',
       tr: 'Hesabınızı verimli bir şekilde kurmak için her adımı izleyin. Onboarding sürecini tamamlayarak Intlayer ile başlayın.',
       pl: 'Rozpocznij pracę z Intlayer, przechodząc przez proces onboardingu. Wykonaj poszczególne kroki, aby szybko i efektywnie skonfigurować swoje konto.',
+      id: 'Mulai menggunakan Intlayer dengan menyelesaikan proses onboarding. Ikuti setiap langkah untuk mengatur akun Anda dengan efisien.',
+      vi: 'Bắt đầu với Intlayer bằng cách hoàn tất quy trình onboarding. Thực hiện theo từng bước để thiết lập tài khoản của bạn một cách hiệu quả.',
     }),
 
     keywords: t({
@@ -160,6 +164,22 @@ const metadataContent = {
         'React',
         'JavaScript',
         'Przewodnik użytkownika',
+      ],
+      id: [
+        'Onboarding',
+        'Pengaturan akun',
+        'Intlayer',
+        'React',
+        'JavaScript',
+        'Panduan pengguna',
+      ],
+      vi: [
+        'Onboarding',
+        'Thiết lập tài khoản',
+        'Intlayer',
+        'React',
+        'JavaScript',
+        'Hướng dẫn sử dụng',
       ],
     }),
   },

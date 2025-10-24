@@ -19,6 +19,8 @@ const projectDashboardContent = {
       ru: 'Настройки проектов',
       tr: 'Proje ayarları',
       pl: 'Ustawienia projektów',
+      id: 'Pengaturan Proyek',
+      vi: 'Cài đặt dự án',
     }),
   },
   title: 'Projects dashboard page',

@@ -19,6 +19,8 @@ const profileDashboardContent = {
       ru: 'Редактор Intlayer - Playground',
       tr: 'Intlayer Editör - Playground',
       pl: 'Edytor Intlayer — Środowisko testowe',
+      id: 'Intlayer Editor - Playground',
+      vi: 'Intlayer Editor - Playground',
     }),
     description: t({
       en: 'Through this playground, you can test the Intlayer visual editor by interacting with the website.',
@@ -37,6 +39,8 @@ const profileDashboardContent = {
       ru: 'Через эту площадку вы можете протестировать визуальный редактор Intlayer, взаимодействуя с веб-сайтом.',
       tr: 'Bu Playground aracılığıyla, web sitesiyle etkileşimde bulunarak Intlayer görsel düzenleyicisini test edebilirsiniz.',
       pl: 'Dzięki temu środowisku testowemu możesz przetestować wizualny edytor Intlayer, wchodząc w interakcję z witryną.',
+      id: 'Melalui playground ini, Anda dapat menguji visual editor Intlayer dengan berinteraksi dengan situs web.',
+      vi: 'Thông qua playground này, bạn có thể thử nghiệm Intlayer visual editor bằng cách tương tác với trang web.',
     }),
   },
   title: 'Playground page',

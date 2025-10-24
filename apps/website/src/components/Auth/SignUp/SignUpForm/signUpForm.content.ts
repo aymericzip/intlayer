@@ -20,6 +20,8 @@ const content = {
         ru: 'Адрес электронной почты',
         tr: 'E-posta adresi',
         pl: 'Adres e-mail',
+        id: 'Alamat email',
+        vi: 'Địa chỉ email',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -37,6 +39,8 @@ const content = {
         ru: 'Введите адрес электронной почты',
         tr: 'E-posta adresinizi girin',
         pl: 'Wprowadź adres e-mail',
+        id: 'Masukkan alamat e-mail',
+        vi: 'Nhập địa chỉ e-mail',
       }),
     },
     passwordInput: {
@@ -56,6 +60,8 @@ const content = {
         ru: 'Пароль',
         tr: 'Parola',
         pl: 'Hasło',
+        id: 'Kata sandi',
+        vi: 'Mật khẩu',
       }),
       placeholder: t({
         en: 'Enter password',
@@ -73,6 +79,8 @@ const content = {
         ru: 'Введите пароль',
         tr: 'Parolanızı girin',
         pl: 'Wprowadź hasło',
+        id: 'Masukkan kata sandi',
+        vi: 'Nhập mật khẩu',
       }),
     },
     passwordConfirmationInput: {
@@ -92,6 +100,8 @@ const content = {
         ru: 'Подтверждение пароля',
         tr: 'Parola Onayı',
         pl: 'Potwierdzenie hasła',
+        id: 'Konfirmasi kata sandi',
+        vi: 'Xác nhận mật khẩu',
       }),
       placeholder: t({
         en: 'Enter password again',
@@ -109,6 +119,8 @@ const content = {
         ru: 'Введите пароль еще раз',
         tr: 'Parolayı tekrar girin',
         pl: 'Wprowadź hasło ponownie',
+        id: 'Masukkan kata sandi lagi',
+        vi: 'Nhập lại mật khẩu',
       }),
     },
     termsAndConditionsCheckbox: {
@@ -128,6 +140,8 @@ const content = {
         ru: 'Соглашаюсь с условиями и положениями',
         tr: 'Şartlar ve koşulları kabul ediyorum',
         pl: 'Zgadzam się z warunkami i regulaminem',
+        id: 'Saya setuju dengan syarat dan ketentuan',
+        vi: 'Tôi đồng ý với các điều khoản và điều kiện',
       }),
     },
 
@@ -148,6 +162,8 @@ const content = {
         ru: 'Создать аккаунт',
         tr: 'Hesap oluştur',
         pl: 'Utwórz konto',
+        id: 'Buat akun',
+        vi: 'Tạo tài khoản',
       }),
       ariaLabel: t({
         en: 'Submit form to create account',
@@ -165,6 +181,8 @@ const content = {
         ru: 'Отправить форму для создания аккаунта',
         tr: 'Hesap oluşturmak için formu gönderin',
         pl: 'Wyślij formularz, aby utworzyć konto',
+        id: 'Kirim formulir untuk membuat akun',
+        vi: 'Gửi biểu mẫu để tạo tài khoản',
       }),
     },
     loginLink: {
@@ -184,6 +202,8 @@ const content = {
         ru: 'У вас уже есть аккаунт?',
         tr: 'Zaten bir hesabınız var mı?',
         pl: 'Masz już konto?',
+        id: 'Sudah punya akun?',
+        vi: 'Bạn đã có tài khoản?',
       }),
       text: t({
         en: 'Log in',
@@ -201,6 +221,8 @@ const content = {
         ru: 'Войти',
         tr: 'Giriş yap',
         pl: 'Zaloguj się',
+        id: 'Masuk',
+        vi: 'Đăng nhập',
       }),
       ariaLabel: t({
         en: 'Click to go to login page',
@@ -218,6 +240,8 @@ const content = {
         ru: 'Нажмите, чтобы перейти на страницу входа',
         tr: 'Giriş sayfasına gitmek için tıklayın',
         pl: 'Kliknij, aby przejść do strony logowania',
+        id: 'Klik untuk menuju halaman masuk',
+        vi: 'Nhấn để đến trang đăng nhập',
       }),
     },
   },

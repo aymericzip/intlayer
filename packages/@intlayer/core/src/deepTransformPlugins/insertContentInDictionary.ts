@@ -300,7 +300,9 @@ export const insertContentInDictionary = (
   locale?: LocalesValues
 ): Dictionary => {
   const mergedContent = deepMergeContent(
-    { ...dictionary.content },
+    Array.isArray(dictionary.content)
+      ? [...dictionary.content]
+      : { ...dictionary.content },
     content,
     locale
   );

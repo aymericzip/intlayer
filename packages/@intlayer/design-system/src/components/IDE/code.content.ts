@@ -19,6 +19,8 @@ const codeContent = {
       ar: 'نسخ الكود',
       tr: 'Kodu kopyala',
       pl: 'Kopiuj kod',
+      id: 'Salin kode',
+      vi: 'Sao chép mã',
     }),
     description: t({
       en: 'Copy the code to the clipboard',
@@ -36,6 +38,8 @@ const codeContent = {
       ar: 'نسخ الكود إلى الحافظة',
       tr: 'Kodu panoya kopyala',
       pl: 'Skopiuj kod do schowka',
+      id: 'Salin kode ke clipboard',
+      vi: 'Sao chép đoạn mã vào khay nhớ tạm (clipboard)',
     }),
   },
   title: 'Code block actions',

@@ -19,6 +19,8 @@ const paginationContent = {
       ru: 'Элементов на странице',
       tr: 'Sayfa başına öğe',
       pl: 'Elementów na stronę',
+      id: 'Item per halaman',
+      vi: 'Số mục trên mỗi trang',
     }),
     showingResults: insert(
       t({
@@ -29,6 +31,7 @@ const paginationContent = {
         es: 'Mostrando {{start}} a {{end}} de {{total}} resultados',
         fr: 'Afficher {{start}} à {{end}} de {{total}} résultats',
         hi: '{{start}} से {{end}} तक के {{total}} परिणाम दिखा रहे हैं',
+        id: 'Menampilkan {{start}} hingga {{end}} dari {{total}} hasil',
         it: 'Mostrando {{start}} a {{end}} di {{total}} risultati',
         ja: '{{start}} から {{end}} までの {{total}} 件の結果を表示',
         ko: '{{start}} 에서 {{end}} 까지의 {{total}} 개 결과 표시',
@@ -36,6 +39,7 @@ const paginationContent = {
         pt: 'Mostrando {{start}} a {{end}} de {{total}} resultados',
         ru: 'Показано {{start}}-{{end}} из {{total}} результатов',
         tr: '{{start}} から {{end}} までの {{total}} 件の結果を表示',
+        vi: 'Hiển thị {{start}} đến {{end}} trong tổng số {{total}} kết quả',
         zh: '显示第 {{start}} 到 {{end}} 项，共 {{total}} 个结果',
       })
     ),
@@ -55,6 +59,8 @@ const paginationContent = {
       ru: 'Выберите размер страницы',
       tr: 'Sayfa boyutunu seç',
       pl: 'Wybierz liczbę elementów na stronę',
+      id: 'Pilih jumlah item per halaman',
+      vi: 'Chọn số mục trên mỗi trang',
     }),
     goToNextPage: t({
       en: 'Go to next page',
@@ -72,6 +78,8 @@ const paginationContent = {
       ru: 'Перейти к следующей странице',
       tr: 'Sonraki sayfaya git',
       pl: 'Przejdź do następnej strony',
+      id: 'Pergi ke halaman berikutnya',
+      vi: 'Chuyển sang trang tiếp theo',
     }),
     goToPreviousPage: t({
       en: 'Go to previous page',
@@ -89,6 +97,8 @@ const paginationContent = {
       ru: 'Перейти к предыдущей странице',
       tr: 'Önceki sayfaya git',
       pl: 'Przejdź do poprzedniej strony',
+      id: 'Pergi ke halaman sebelumnya',
+      vi: 'Chuyển sang trang trước',
     }),
   },
   title: 'Pagination',

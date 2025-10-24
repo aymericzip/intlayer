@@ -19,6 +19,8 @@ const content = {
       ru: 'Пожалуйста, выберите организацию',
       tr: 'Lütfen bir organizasyon seçin',
       pl: 'Proszę wybrać organizację',
+      id: 'Silakan pilih organisasi',
+      vi: 'Vui lòng chọn một tổ chức',
     }),
   },
   title: 'Set up organization schema',

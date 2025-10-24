@@ -20,6 +20,8 @@ export const dictionaryDetailsContent = {
         ru: 'Заголовок',
         tr: 'Başlık',
         pl: 'Tytuł',
+        id: 'Judul',
+        vi: 'Tiêu đề',
       }),
       description: t({
         en: 'The title of your dictionary allows you to easily identify it',
@@ -38,6 +40,8 @@ export const dictionaryDetailsContent = {
         ru: 'Название вашего словаря позволяет легко его идентифицировать',
         tr: 'Sözlüğünüzün başlığı, onu kolayca tanımlamanızı sağlar',
         pl: 'Tytuł słownika pozwala na jego łatwe rozpoznanie',
+        id: 'Judul dictionary Anda memungkinkan Anda mengidentifikasinya dengan mudah',
+        vi: 'Tiêu đề của dictionary cho phép bạn dễ dàng nhận diện nó',
       }),
       placeholder: t({
         en: 'Enter the title of your dictionary',
@@ -55,6 +59,8 @@ export const dictionaryDetailsContent = {
         ru: 'Введите название вашего словаря',
         tr: 'Sözlüğünüzün başlığını girin',
         pl: 'Wprowadź tytuł słownika',
+        id: 'Masukkan judul dictionary Anda',
+        vi: 'Nhập tiêu đề cho dictionary của bạn',
       }),
     },
     keyInput: {
@@ -74,6 +80,8 @@ export const dictionaryDetailsContent = {
         ru: 'Ключ',
         tr: 'Anahtar',
         pl: 'Klucz',
+        id: 'Key',
+        vi: 'Khóa',
       }),
       description: t({
         en: 'The key of your dictionary is used to identify it in the application',
@@ -92,6 +100,8 @@ export const dictionaryDetailsContent = {
         ru: 'Ключ вашего словаря используется для его идентификации в приложении',
         tr: 'Sözlüğünüzün anahtarı, uygulamada onu tanımlamak için kullanılır',
         pl: 'Klucz słownika służy do jego identyfikacji w aplikacji',
+        id: 'Key dari dictionary Anda digunakan untuk mengidentifikasinya di aplikasi',
+        vi: 'Khóa của dictionary được sử dụng để xác định nó trong ứng dụng',
       }),
       placeholder: t({
         en: 'Enter the key of your dictionary',
@@ -109,6 +119,8 @@ export const dictionaryDetailsContent = {
         ru: 'Введите ключ вашего словаря',
         tr: 'Sözlüğünüzün anahtarını girin',
         pl: 'Wprowadź klucz słownika',
+        id: 'Masukkan key dari dictionary Anda',
+        vi: 'Nhập khóa cho dictionary của bạn',
       }),
     },
     descriptionInput: {
@@ -128,6 +140,8 @@ export const dictionaryDetailsContent = {
         ru: 'Описание',
         tr: 'Açıklama',
         pl: 'Opis',
+        id: 'Deskripsi',
+        vi: 'Mô tả',
       }),
       placeholder: t({
         en: 'Enter the description of your dictionary',
@@ -145,6 +159,8 @@ export const dictionaryDetailsContent = {
         ru: 'Введите описание вашего словаря',
         tr: 'Sözlüğünüzün açıklamasını girin',
         pl: 'Wprowadź opis słownika',
+        id: 'Masukkan deskripsi dictionary Anda',
+        vi: 'Nhập mô tả cho dictionary của bạn',
       }),
       description: t({
         en: 'The description of your dictionary allows you to easily identify it using keywords. It is also used to search for your dictionary, and to assist the AI in understanding your dictionary.',
@@ -163,6 +179,8 @@ export const dictionaryDetailsContent = {
         ru: 'Описание вашего словаря позволяет легко его идентифицировать с помощью ключевых слов. Оно также используется для поиска вашего словаря и для помощи ИИ в понимании вашего словаря.',
         tr: "Sözlüğünüzün açıklaması, anahtar kelimeleri kullanarak onu kolayca tanımlamanızı sağlar. Ayrıca sözlüğünüzü aramak ve AI'nın sözlüğünüzü anlamasına yardımcı olmak için de kullanılır.",
         pl: 'Opis słownika pozwala na jego łatwe rozpoznanie za pomocą słów kluczowych. Jest również używany do wyszukiwania słownika i pomaga AI w zrozumieniu zawartości słownika.',
+        id: 'Deskripsi dictionary Anda memungkinkan Anda mengidentifikasinya dengan kata kunci. Deskripsi ini juga digunakan untuk mencari dictionary Anda dan membantu AI memahami dictionary tersebut.',
+        vi: 'Mô tả cho dictionary của bạn giúp bạn dễ dàng xác định nó bằng các từ khóa. Nó cũng được sử dụng để tìm kiếm dictionary và hỗ trợ AI hiểu nội dung của dictionary.',
       }),
     },
 
@@ -183,6 +201,8 @@ export const dictionaryDetailsContent = {
         ru: 'Проекты',
         tr: 'Projeler',
         pl: 'Projekty',
+        id: 'Projects',
+        vi: 'Dự án',
       }),
       description: t({
         en: 'A dictionary can be associated with one or more projects. This allows you load the dictionary on different applications, and share it across different teams.',
@@ -201,6 +221,8 @@ export const dictionaryDetailsContent = {
         ru: 'Словарь можно ассоциировать с одним или несколькими проектами. Это позволяет загружать словарь в различных приложениях и делиться им между разными командами.',
         tr: 'Sözlük, bir veya daha fazla projeyle ilişkilendirilebilir. Bu, sözlüğü farklı uygulamalarda yüklemenize ve farklı ekipler arasında paylaşmanıza olanak tanır.',
         pl: 'Słownik może być powiązany z jednym lub kilkoma projektami. Pozwala to ładować słownik w różnych aplikacjach i udostępniać go między zespołami.',
+        id: 'Sebuah dictionary dapat terkait dengan satu atau beberapa projects. Ini memungkinkan Anda memuat dictionary pada aplikasi yang berbeda dan membagikannya di antara tim yang berbeda.',
+        vi: 'Một dictionary có thể được liên kết với một hoặc nhiều dự án. Điều này cho phép bạn tải dictionary trên các ứng dụng khác nhau và chia sẻ nó giữa các nhóm.',
       }),
       placeholder: t({
         en: 'Select one or more projects to associate with your dictionary',
@@ -219,6 +241,8 @@ export const dictionaryDetailsContent = {
         ru: 'Выберите один или несколько проектов, чтобы связать их с вашим словарем',
         tr: 'Sözlüğünüzle ilişkilendirmek için bir veya daha fazla proje seçin',
         pl: 'Wybierz jeden lub więcej projektów do powiązania ze słownikiem',
+        id: 'Pilih satu atau lebih projects untuk dikaitkan dengan dictionary Anda',
+        vi: 'Chọn một hoặc nhiều dự án để liên kết với dictionary của bạn',
       }),
     },
 
@@ -239,6 +263,8 @@ export const dictionaryDetailsContent = {
         ru: 'Теги',
         tr: 'Etiketler',
         pl: 'Tagi',
+        id: 'Tags',
+        vi: 'Tags',
       }),
       description: t({
         en: 'A dictionary can be associated with one or more tags. This allows you to load the dictionary on different applications, and share it across different teams.',
@@ -257,6 +283,8 @@ export const dictionaryDetailsContent = {
         ru: 'Словарь можно связать с одним или несколькими тегами. Это позволяет загружать словарь в различных приложениях и делиться им между различными командами.',
         tr: 'Sözlük, bir veya daha fazla etiketle ilişkilendirilebilir. Bu, sözlüğü farklı uygulamalarda yüklemenize ve farklı ekipler arasında paylaşmanıza olanak tanır.',
         pl: 'Słownik może być powiązany z jednym lub kilkoma tagami. Umożliwia to ładowanie słownika w różnych aplikacjach i udostępnianie go między zespołami.',
+        id: 'Sebuah dictionary dapat terkait dengan satu atau beberapa tags. Ini memungkinkan Anda memuat dictionary pada aplikasi berbeda dan membagikannya ke berbagai tim.',
+        vi: 'Một dictionary có thể được liên kết với một hoặc nhiều tags. Điều này cho phép bạn tải dictionary trên các ứng dụng khác nhau và chia sẻ nó giữa các nhóm.',
       }),
       placeholder: t({
         en: 'Select the tags to associate with your dictionary',
@@ -274,6 +302,8 @@ export const dictionaryDetailsContent = {
         ru: 'Выберите теги, которые нужно связать с словарем',
         tr: 'Sözlüğünüzle ilişkilendirmek için etiketleri seçin',
         pl: 'Wybierz tagi do powiązania ze słownikiem',
+        id: 'Pilih tags untuk dikaitkan dengan dictionary Anda',
+        vi: 'Chọn các tags để liên kết với dictionary của bạn',
       }),
     },
 
@@ -294,6 +324,8 @@ export const dictionaryDetailsContent = {
         ru: 'Отслеживание',
         tr: 'Denetle',
         pl: 'Audyt',
+        id: 'Audit',
+        vi: 'Audit',
       }),
     },
   },
