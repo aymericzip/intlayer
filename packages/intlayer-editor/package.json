@@ -119,7 +119,7 @@
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "@utils/ts-config": "workspace:*",
-    "@vitejs/plugin-react": "5.0.4",
+    "@vitejs/plugin-react": "5.1.0",
     "autoprefixer": "10.4.21",
     "globals": "16.4.0",
     "tailwindcss": "4.1.16",
