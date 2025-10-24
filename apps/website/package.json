@@ -70,7 +70,7 @@
     "framer-motion": "12.23.24",
     "fuse.js": "7.1.0",
     "intlayer": "workspace:*",
-    "lucide-react": "0.546.0",
+    "lucide-react": "0.547.0",
     "next": "15.5.4",
     "next-intlayer": "workspace:*",
     "next-secure-headers": "2.2.0",
@@ -88,7 +88,7 @@
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "4.1.14",
     "@types/next-pwa": "5.6.9",
-    "@types/node": "24.9.0",
+    "@types/node": "24.9.1",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "@utils/ts-config": "workspace:*",
@@ -98,8 +98,8 @@
     "postcss": "8.5.6",
     "pwa-asset-generator": "8.1.2",
     "raw-loader": "4.0.2",
-    "tailwindcss": "4.1.15",
-    "tsdown": "0.15.8",
+    "tailwindcss": "4.1.16",
+    "tsdown": "0.15.9",
     "typescript": "5.9.3"
   },
   "peerDependencies": {

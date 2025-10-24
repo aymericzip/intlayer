@@ -79,21 +79,21 @@
   },
   "devDependencies": {
     "@solidjs/testing-library": "0.8.10",
-    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/jest-dom": "6.6.4",
     "@testing-library/user-event": "14.6.1",
     "@types/js-cookie": "3.0.6",
-    "@types/node": "24.9.0",
+    "@types/node": "24.9.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "jsdom": "26.1.0",
     "rimraf": "6.0.1",
-    "tsdown": "0.15.8",
+    "tsdown": "0.15.9",
     "typescript": "5.9.3",
-    "vite": "7.1.11",
+    "vite": "7.1.12",
     "vite-plugin-dts": "4.5.4",
     "vite-plugin-solid": "2.11.6",
-    "vitest": "3.2.4"
+    "vitest": "4.0.3"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",

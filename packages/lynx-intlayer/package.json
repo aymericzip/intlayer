@@ -90,16 +90,16 @@
   },
   "devDependencies": {
     "@rsbuild/core": "1.2.16",
-    "@types/node": "24.9.0",
+    "@types/node": "24.9.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "expo": "54.0.12",
     "metro-resolver": "0.82.0",
     "rimraf": "6.0.1",
-    "tsdown": "0.15.8",
+    "tsdown": "0.15.9",
     "typescript": "5.9.3",
-    "vitest": "3.2.4"
+    "vitest": "4.0.3"
   },
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",

@@ -83,14 +83,14 @@
     "intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "24.9.0",
+    "@types/node": "24.9.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.0.1",
-    "tsdown": "0.15.8",
+    "tsdown": "0.15.9",
     "typescript": "5.9.3",
-    "vitest": "3.2.4"
+    "vitest": "4.0.3"
   },
   "peerDependencies": {
     "@babel/core": ">=6.0.0",

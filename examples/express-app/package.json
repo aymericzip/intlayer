@@ -38,11 +38,11 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/webpack": "workspace:*",
     "@types/express": "5.0.3",
-    "@types/node": "24.9.0",
+    "@types/node": "24.9.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "tsdown": "0.15.8",
+    "tsdown": "0.15.9",
     "typescript": "5.9.3"
   }
 }
