@@ -389,8 +389,13 @@ const constructPath = (
   search?: string
 ): string => {
   // In 'search-params' mode, we do not prefix the path with the locale
+  // If the path is already prefixed with the same locale (e.g. '/fr/...'), avoid double prefixing
   const pathWithLocalePrefix =
-    mode === 'search-params' ? path : `${locale}${path}`;
+    mode === 'search-params'
+      ? path
+      : path.startsWith(`/${locale}`)
+        ? path
+        : `${locale}${path}`;
 
   let newPath = `${basePath}${basePathTrailingSlash ? '' : '/'}${pathWithLocalePrefix}`;
   if (search) {
