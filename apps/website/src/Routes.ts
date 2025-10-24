@@ -20,6 +20,7 @@ export enum PagesRoutes {
   Doc_IntlayerCMS = '/doc/concept/cms',
 
   ReleasesV6 = '/doc/releases/v6',
+  ReleasesV7 = '/doc/releases/v7',
   Doc_Environment_NextJS_15 = '/doc/environment/nextjs',
   Doc_Environment_NextJS_14 = '/doc/environment/nextjs/14',
   Doc_Environment_CRA = '/doc/environment/create-react-app',
