@@ -14,6 +14,7 @@ slugs:
   - doc
   - environment
   - nextjs
+  - 15
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
@@ -186,10 +187,19 @@ module.exports = withIntlayer(nextConfig);
 
 > The `withIntlayer()` Next.js plugin is used to integrate Intlayer with Next.js. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the [Webpack](https://webpack.js.org/) or [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) environments. Additionally, it provides aliases to optimize performance and ensures compatibility with server components.
 
-> The `withIntlayer()` function is a promise function. If you want to use it with other plugins, you can await it. Example:
+> The `withIntlayer()` function is a promise function. It allows to prepare the intlayer dictionaries before the build starts. If you want to use it with other plugins, you can await it. Example:
 >
 > ```tsx
 > const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+>
+> If you want to use it synchronously, you can use the `withIntlayerSync()` function. Example:
+>
+> ```tsx
+> const nextConfig = withIntlayerSync(nextConfig);
 > const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
 >
 > export default nextConfigWithOtherPlugins;

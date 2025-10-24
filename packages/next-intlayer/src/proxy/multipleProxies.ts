@@ -5,13 +5,13 @@ import {
 } from 'next/server';
 
 /**
- * Utility to combine multiple Next.js middlewares into one.
+ * Utility to combine multiple Next.js proxies into one.
  *
- * It executes middlewares in order, merges headers, and correctly handles
+ * It executes proxies in order, merges headers, and correctly handles
  * redirects and rewrites.
  *
  * @example
- * import { multipleMiddlewares, intlayerMiddleware } from "next-intlayer/middleware";
+ * import { multipleProxies, intlayerProxy } from "next-intlayer/proxy";
  * import { NextResponse } from "next/server";
  *
  * const authMiddleware = (req: NextRequest) => {
@@ -21,55 +21,55 @@ import {
  *   return NextResponse.next();
  * };
  *
- * export default multipleMiddlewares([
- *   intlayerMiddleware,
+ * export default multipleProxies([
+ *   intlayerProxy,
  *   authMiddleware,
  * ]);
  *
- * @param middlewares - An array of middleware functions to execute in order.
- * @returns A single middleware function that runs all provided middlewares.
+ * @param proxies - An array of proxy functions to execute in order.
+ * @returns A single proxy function that runs all provided proxies.
  */
-export const multipleMiddlewares =
+export const multipleProxies =
   (
-    middlewares: ((
+    proxies: ((
       req: NextRequest,
       event?: NextFetchEvent,
       response?: NextResponse
     ) => NextResponse | Promise<NextResponse>)[]
   ) =>
   async (req: NextRequest, event?: NextFetchEvent, response?: NextResponse) => {
-    // Array to store middleware headers
-    const middlewareHeader = [];
+    // Array to store proxy headers
+    const proxyHeader: Headers[] = [];
 
-    // Loop through middleware functions
-    for (const middleware of middlewares) {
-      // Execute middleware function and await the result
-      const result = await middleware(req, event, response);
+    // Loop through proxy functions
+    for (const proxy of proxies) {
+      // Execute proxy function and await the result
+      const result = await proxy(req, event, response);
 
       // Check if the result is not okay and return it
       if (!result.ok) {
         return result;
       }
 
-      // Push middleware headers to the array
-      middlewareHeader.push(result.headers);
+      // Push proxy headers to the array
+      proxyHeader.push(result.headers);
     }
 
     // Merge all the headers to check if there is a redirection or rewrite
     const mergedHeaders = new Headers();
 
-    // Merge all the custom headers added by the middlewares
+    // Merge all the custom headers added by the proxies
     const transmittedHeaders = new Headers();
 
     // Merge headers
-    middlewareHeader.forEach((header) => {
+    proxyHeader.forEach((header) => {
       for (const [key, value] of header.entries()) {
         mergedHeaders.append(key, value);
 
-        // check if it's a custom header added by one of the middlewares
-        if (key.startsWith('x-middleware-request-')) {
+        // check if it's a custom header added by one of the proxies
+        if (key.startsWith('x-proxy-request-')) {
           // remove the prefix to get the original key
-          const fixedKey = key.replace('x-middleware-request-', '');
+          const fixedKey = key.replace('x-proxy-request-', '');
 
           // add the original key to the transmitted headers
           transmittedHeaders.append(fixedKey, value);
@@ -77,10 +77,10 @@ export const multipleMiddlewares =
       }
     });
 
-    // Look for the 'x-middleware-request-redirect' header
-    const redirect = mergedHeaders.get('x-middleware-request-redirect');
+    // Look for the 'x-proxy-request-redirect' header
+    const redirect = mergedHeaders.get('x-proxy-request-redirect');
 
-    // If a redirection is required based on the middleware headers
+    // If a redirection is required based on the proxy headers
     if (redirect) {
       // Perform the redirection
       return NextResponse.redirect(new URL(redirect, req.url), {
@@ -88,8 +88,8 @@ export const multipleMiddlewares =
       });
     }
 
-    // Look for the 'x-middleware-rewrite' header
-    const rewrite = mergedHeaders.get('x-middleware-rewrite');
+    // Look for the 'x-proxy-rewrite' header
+    const rewrite = mergedHeaders.get('x-proxy-rewrite');
     if (rewrite) {
       // Perform the rewrite
       return NextResponse.rewrite(new URL(rewrite, req.url), {
@@ -99,10 +99,12 @@ export const multipleMiddlewares =
       });
     }
 
-    // Default: continue to next middleware
+    // Default: continue to next proxy
     return NextResponse.next({
       request: {
         headers: transmittedHeaders,
       },
     });
   };
+
+export const multipleMiddlewares = multipleProxies;

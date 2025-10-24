@@ -60,29 +60,29 @@ const appendLocaleSearchIfNeeded = (
 };
 
 /**
- * Middleware that handles the internationalization layer
+ * Proxy that handles the internationalization layer
  *
  * Usage:
  *
  * ```ts
- * // ./src/middleware.ts
+ * // ./src/proxy.ts
  *
- * export { intlayerMiddleware as middleware } from '@intlayer/next/middleware';
+ * export { intlayerProxy as proxy } from '@intlayer/next/proxy';
  *
- * // applies this middleware only to files in the app directory
+ * // applies this proxy only to files in the app directory
  * export const config = {
  *   matcher: '/((?!api|static|.*\\..*|_next).*)',
  * };
  * ```
  *
- * Main middleware function for handling internationalization.
+ * Main proxy function for handling internationalization.
  *
  * @param request - The incoming Next.js request object.
  * @param event - The Next.js fetch event (optional).
  * @param response - The Next.js response object (optional).
  * @returns - The response to be returned to the client.
  */
-export const intlayerMiddleware = (
+export const intlayerProxy = (
   request: NextRequest,
   _event?: NextFetchEvent,
   _response?: NextResponse
@@ -437,3 +437,28 @@ const redirectUrl = (request: NextRequest, newPath: string): NextResponse => {
 
   return NextResponse.redirect(new URL(pathWithSearch, request.url));
 };
+
+/**
+ * Middleware that handles the internationalization layer
+ *
+ * Usage:
+ *
+ * ```ts
+ * // ./src/middleware.ts
+ *
+ * export { intlayerMiddleware as middleware } from '@intlayer/next/middleware';
+ *
+ * // applies this middleware only to files in the app directory
+ * export const config = {
+ *   matcher: '/((?!api|static|.*\\..*|_next).*)',
+ * };
+ * ```
+ *
+ * Main middleware function for handling internationalization.
+ *
+ * @param request - The incoming Next.js request object.
+ * @param event - The Next.js fetch event (optional).
+ * @param response - The Next.js response object (optional).
+ * @returns - The response to be returned to the client.
+ */
+export const intlayerMiddleware = intlayerProxy;

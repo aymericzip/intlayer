@@ -18,10 +18,13 @@ import nextPackageJSON from 'next/package.json' with { type: 'json' };
 import { compareVersions } from './compareVersion';
 
 // Extract from the start script if --turbo or --turbopack flag is used
-const isTurbopackEnabled =
-  process.env.npm_lifecycle_script?.includes('--turbo');
 const isGteNext13 = compareVersions(nextPackageJSON.version, '≥', '13.0.0');
 const isGteNext15 = compareVersions(nextPackageJSON.version, '≥', '15.0.0');
+const isGteNext16 = compareVersions(nextPackageJSON.version, '≥', '16.0.0');
+const isTurbopackEnabled =
+  (!isGteNext16 && process.env.npm_lifecycle_script?.includes('--turbo')) ||
+  (isGteNext16 && !process.env.npm_lifecycle_script?.includes('--webpack'));
+
 const isTurbopackStable = compareVersions(
   nextPackageJSON.version,
   '≥',
@@ -161,31 +164,26 @@ type WebpackParams = Parameters<NextJsWebpackConfig>;
 
 /**
  * A Next.js plugin that adds the intlayer configuration to the webpack configuration
- * and sets the environment variablesi
+ * and sets the environment variables
  *
  * Usage:
  *
  * ```ts
  * // next.config.js
- * export default withIntlayer(nextConfig)
+ * export default withIntlayerSync(nextConfig)
  * ```
  */
-export const withIntlayer = async <T extends Partial<NextConfig>>(
+export const withIntlayerSync = <T extends Partial<NextConfig>>(
   nextConfig: T = {} as T,
   configOptions?: GetConfigurationOptions
-): Promise<NextConfig & T> => {
+): NextConfig & T => {
   if (typeof nextConfig !== 'object') {
     nextConfig = {} as T;
   }
 
   const intlayerConfig = getConfiguration(configOptions);
 
-  const { isDevCommand, isBuildCommand } = getCommandsEvent();
-
-  // Only call prepareIntlayer during `dev` or `build` (not during `start`)
-  if (isBuildCommand || isDevCommand) {
-    await prepareIntlayer(intlayerConfig);
-  }
+  const { isBuildCommand, isDevCommand } = getCommandsEvent();
 
   // Only provide turbo-specific config if user explicitly sets it
   const turboConfig = {
@@ -241,6 +239,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
           ...config,
           experimental: {
             ...(config?.experimental ?? {}),
+            // @ts-ignore exist in next@14
             turbo: turboConfig,
           },
         };
@@ -310,4 +309,34 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   const result = merge(nextConfig, intlayerNextConfig) as NextConfig & T;
 
   return result;
+};
+
+/**
+ * A Next.js plugin that adds the intlayer configuration to the webpack configuration
+ * and sets the environment variables
+ *
+ * Usage:
+ *
+ * ```ts
+ * // next.config.js
+ * export default withIntlayer(nextConfig)
+ * ```
+ *
+ * > Node withIntlayer is a promise function. Use withIntlayerSync instead if you want to use it synchronously.
+ * > Using the promise allows to prepare the intlayer dictionaries before the build starts.
+ *
+ */
+export const withIntlayer = async <T extends Partial<NextConfig>>(
+  nextConfig: T = {} as T,
+  configOptions?: GetConfigurationOptions
+): Promise<NextConfig & T> => {
+  const { isBuildCommand, isDevCommand } = getCommandsEvent();
+
+  // Only call prepareIntlayer during `dev` or `build` (not during `start`)
+  if (isBuildCommand || isDevCommand) {
+    const intlayerConfig = getConfiguration(configOptions);
+    await prepareIntlayer(intlayerConfig);
+  }
+
+  return withIntlayerSync(nextConfig, configOptions);
 };

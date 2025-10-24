@@ -45,10 +45,15 @@
       "require": "./dist/cjs/client/format/index.cjs",
       "import": "./dist/esm/client/format/index.mjs"
     },
+    "./proxy": {
+      "types": "./dist/types/proxy/index.d.ts",
+      "require": "./dist/cjs/proxy/index.cjs",
+      "import": "./dist/esm/proxy/index.mjs"
+    },
     "./middleware": {
-      "types": "./dist/types/middleware/index.d.ts",
-      "require": "./dist/cjs/middleware/index.cjs",
-      "import": "./dist/esm/middleware/index.mjs"
+      "types": "./dist/types/proxy/index.d.ts",
+      "require": "./dist/cjs/proxy/index.cjs",
+      "import": "./dist/esm/proxy/index.mjs"
     },
     "./server": {
       "types": "./dist/types/server/index.d.ts",

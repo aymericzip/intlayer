@@ -1,4 +1,5 @@
-import { withIntlayer } from 'next-intlayer/server';
+import type { NextConfig } from 'next';
+import { withIntlayerSync } from 'next-intlayer/server';
 import withPWA from 'next-pwa';
 import { createSecureHeaders } from 'next-secure-headers';
 
@@ -146,12 +147,13 @@ const dashboardHeaders = [
   ...headersList,
 ];
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   // Ensure the full @intlayer/docs package (including markdown assets) is shipped with the server bundle
   serverExternalPackages: ['@intlayer/backend', '@intlayer/docs'],
   transpilePackages: ['@intlayer/design-system', 'shiki'],
   productionBrowserSourceMaps: true,
+  reactCompiler: true,
+  cacheComponents: true,
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
@@ -249,16 +251,13 @@ const nextConfig = {
   },
 };
 
-const nextConfigPWA = withPWA({
+const nextConfigPWA: NextConfig = withPWA({
   disable: process.env.ENABLE_SERVICE_WORKER !== 'true',
   dest: 'public',
   register: true,
   skipWaiting: true,
 })(nextConfig);
 
-/** @type {import('next').NextConfig} */
-const config = withIntlayer(nextConfigPWA, {
-  require,
-});
+const config: NextConfig = withIntlayerSync(nextConfigPWA);
 
 export default config;
