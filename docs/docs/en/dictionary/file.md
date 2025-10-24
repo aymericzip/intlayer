@@ -24,9 +24,11 @@ history:
 
 # File Content / Embedding Files in Intlayer
 
-## How File Embedding Works
+In Intlayer, the `file` function allows embedding external file content into a dictionary. This approach ensures that Intlayer recognizes the source file, enabling seamless integration with the Intlayer Visual Editor and CMS.
 
-In Intlayer, the `file` function allows embedding external file content into a dictionary. This approach ensures that Intlayer recognizes the source file, enabling seamless integration with the Intlayer Visual Editor and CMS. Unlike direct `import`, `require`, or `fs` file reading methods, using `file` associates the file with the dictionary, allowing Intlayer to track and update the content dynamically when the file is edited.
+## Why using `file` instead of `import`, `require`, or `fs`?
+
+Unlike `import`, `require`, or `fs` file reading methods, using `file` associates the file with the dictionary, allowing Intlayer to track and update the content dynamically when the file is edited. As a result, using file will offer better integration with the Intlayer Visual Editor and CMS.
 
 ## Setting Up File Content
 
@@ -200,6 +202,14 @@ const myMultilingualContent = {
 ```
 
 This setup allows the content to be dynamically retrieved based on the user's language preference. When used in the Intlayer Visual Editor or CMS, the system will recognize that the content comes from the specified Markdown files and ensure they remain editable.
+
+## Different types of paths
+
+When using the `file` function, you can use different types of paths to specify the file to embed.
+
+- `file("./path/to/file.txt")` - Relative path to the current file
+- `file("path/to/file.txt")` - Relative path to the project root directory
+- `file("/users/username/path/to/file.txt")` - Absolute path
 
 ## How Intlayer Handles File Content
 
