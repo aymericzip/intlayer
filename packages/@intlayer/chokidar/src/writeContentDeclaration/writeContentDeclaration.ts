@@ -149,15 +149,16 @@ export const writeContentDeclaration = async (
     localeList
   );
 
-  console.dir({ formattedContentDeclaration, localeList }, { depth: null });
-
-  if (existingDictionary) {
-    const filePath = join(configuration.content.baseDir, dictionary.filePath!);
-
+  if (existingDictionary?.filePath) {
     // Compare existing dictionary content with new dictionary content
     const isSameContent = deepEqual(
       existingDictionary.content,
       dictionary.content
+    );
+
+    const filePath = resolve(
+      configuration.content.baseDir,
+      existingDictionary.filePath
     );
 
     // Up to date, nothing to do
@@ -210,35 +211,37 @@ export const writeContentDeclaration = async (
 };
 
 const writeFileWithDirectories = async (
-  filePath: string,
+  absoluteFilePath: string,
   dictionary: Dictionary,
   configuration: IntlayerConfig
 ): Promise<void> => {
   // Extract the directory from the file path
-  const dir = dirname(filePath);
+  const dir = dirname(absoluteFilePath);
 
   // Create the directory recursively
   await mkdir(dir, { recursive: true });
 
-  const extension = extname(filePath);
+  const extension = extname(absoluteFilePath);
   const acceptedExtensions = configuration.content.fileExtensions.map(
     (extension) => extname(extension)
   );
 
   if (!acceptedExtensions.includes(extension)) {
-    throw new Error(`Invalid file extension: ${extension}, file: ${filePath}`);
+    throw new Error(
+      `Invalid file extension: ${extension}, file: ${absoluteFilePath}`
+    );
   }
 
   if (extension === '.json') {
     const jsonDictionary = JSON.stringify(dictionary, null, 2);
 
     // Write the file
-    await writeFile(filePath, `${jsonDictionary}\n`); // Add a new line at the end of the file to avoid formatting issues with VSCode
+    await writeFile(absoluteFilePath, `${jsonDictionary}\n`); // Add a new line at the end of the file to avoid formatting issues with VSCode
 
     return;
   }
 
-  await writeJSFile(filePath, dictionary, configuration);
+  await writeJSFile(absoluteFilePath, dictionary, configuration);
 
   // remove the cache as content has changed
   // Will force a new preparation of the intlayer on next build

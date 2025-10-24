@@ -1,7 +1,7 @@
+import { relative } from 'node:path';
 import {
   formatLocale,
   formatPath,
-  reduceDictionaryContent,
   writeContentDeclaration,
 } from '@intlayer/chokidar';
 import { colorizeKey, getAppLogger } from '@intlayer/config';
@@ -68,14 +68,22 @@ export const writeFill = async (
       continue;
     }
 
+    // biome-ignore lint/correctness/noUnusedVariables: Just filtering out the fill property
+    const { fill, ...rest } = contentDeclarationFile;
+
+    const relativeFilePath = relative(
+      configuration.content.baseDir,
+      output.filePath
+    );
+
     // write file
     await writeContentDeclaration(
       {
-        ...contentDeclarationFile,
-        fill: undefined,
+        ...rest,
         filled: true,
         locale: output.isPerLocale ? output.localeList[0] : undefined,
-        filePath: output.filePath,
+        localId: `${contentDeclarationFile.key}::local::${relativeFilePath}`,
+        filePath: relativeFilePath,
       },
       configuration,
       {

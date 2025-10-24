@@ -17,9 +17,12 @@ import {
   type StrictModeLocaleMap,
 } from '@intlayer/types';
 import {
+  IndentationText,
+  NewLineKind,
   Node,
   type ObjectLiteralExpression,
   Project,
+  QuoteKind,
   type SourceFile,
   SyntaxKind,
   ts,
@@ -509,6 +512,7 @@ const processArrayContent = (
       serializedElements.push(serializedValue);
     } else if (typeof element === 'object' && element !== null) {
       // Handle nested objects within arrays
+
       if (
         existingArrayElements &&
         elementIndex < existingArrayElements.length
@@ -642,11 +646,13 @@ const processPrimitiveContent = (
     const property = contentObject.getProperty(key);
 
     // Check if existing value is a non-string-literal (e.g., variable reference)
+
     if (property && Node.isPropertyAssignment(property)) {
       const initializer = property.getInitializer();
 
       // If the existing value is not a string literal or a call expression (like t()),
       // skip updating it to preserve variable references
+
       if (
         initializer &&
         !Node.isStringLiteral(initializer) &&
@@ -1961,6 +1967,135 @@ const addMissingImports = (
 };
 
 /**
+ * Detect whether the current source file is written in CommonJS style.
+ * Prefers ESM when import/export syntax is present; otherwise detects CJS via require/module.exports.
+ */
+const isCommonJS = (sourceFile: SourceFile): boolean => {
+  // Prefer ESM if any ESM import/export is present
+  if (sourceFile.getImportDeclarations().length > 0) return false;
+  if (sourceFile.getExportDeclarations().length > 0) return false;
+  if (sourceFile.getExportAssignments().length > 0) return false;
+
+  // Detect classic CJS markers
+  for (const statement of sourceFile.getStatements()) {
+    if (!Node.isExpressionStatement(statement)) continue;
+    const expression = statement.getExpression();
+
+    if (!Node.isBinaryExpression(expression)) continue;
+    const leftSide = expression.getLeft();
+
+    if (!Node.isPropertyAccessExpression(leftSide)) continue;
+    const leftExpression = leftSide.getExpression();
+    const leftName = leftSide.getName();
+    const isModuleExports =
+      Node.isIdentifier(leftExpression) &&
+      leftExpression.getText() === 'module' &&
+      leftName === 'exports';
+    const isExportsDefault =
+      Node.isIdentifier(leftExpression) &&
+      leftExpression.getText() === 'exports';
+
+    if (isModuleExports || isExportsDefault) return true;
+  }
+
+  const hasRequire = sourceFile
+    .getDescendantsOfKind(SyntaxKind.CallExpression)
+    .some((call) => {
+      const exp = call.getExpression();
+      return Node.isIdentifier(exp) && exp.getText() === 'require';
+    });
+
+  return hasRequire;
+};
+
+/**
+ * Adds missing CommonJS requires for intlayer helpers.
+ * - Core helpers (t, md, insert, enu, cond, gender, nest) come from require('intlayer') via destructuring
+ * - file helper comes from require('intlayer/file') via destructuring
+ * Existing destructured requires are respected to avoid duplicates.
+ */
+const addMissingRequires = (
+  sourceFile: SourceFile,
+  requiredImports: Set<string>
+): boolean => {
+  if (requiredImports.size === 0) return false;
+
+  const existingCoreNames = new Set<string>();
+  let hasFileHelper = false;
+
+  for (const varDecl of sourceFile.getVariableDeclarations()) {
+    const init = varDecl.getInitializer();
+
+    if (!init || !Node.isCallExpression(init)) continue;
+    const callee = init.getExpression();
+
+    if (!Node.isIdentifier(callee) || callee.getText() !== 'require') continue;
+    const arg = init.getArguments()[0];
+
+    if (!arg || !Node.isStringLiteral(arg)) continue;
+    const spec = arg.getLiteralValue();
+    const nameNode = varDecl.getNameNode();
+
+    if (spec === 'intlayer') {
+      if (Node.isObjectBindingPattern(nameNode)) {
+        for (const el of nameNode.getElements()) {
+          existingCoreNames.add(el.getNameNode().getText());
+        }
+      }
+    }
+
+    if (spec === 'intlayer/file') {
+      if (Node.isObjectBindingPattern(nameNode)) {
+        for (const el of nameNode.getElements()) {
+          if (el.getNameNode().getText() === 'file') hasFileHelper = true;
+        }
+      } else if (Node.isIdentifier(nameNode) && nameNode.getText() === 'file') {
+        hasFileHelper = true;
+      }
+    }
+  }
+
+  const requiredList = Array.from(requiredImports);
+  const missingCore = requiredList
+    .filter((n) => n !== 'file')
+    .filter((n) => !existingCoreNames.has(n));
+  const needsFile = requiredImports.has('file') && !hasFileHelper;
+
+  if (missingCore.length === 0 && !needsFile) return false;
+
+  // Insert after directive prologue (e.g., 'use strict') if present
+  let insertIndex = 0;
+  const statements = sourceFile.getStatements();
+  for (const st of statements) {
+    if (Node.isExpressionStatement(st)) {
+      const expr = st.getExpression();
+
+      if (Node.isStringLiteral(expr)) {
+        insertIndex += 1;
+        continue;
+      }
+    }
+    break;
+  }
+
+  const lines: string[] = [];
+  if (missingCore.length > 0) {
+    const sorted = Array.from(new Set(missingCore)).sort();
+    lines.push(`const { ${sorted.join(', ')} } = require('intlayer');`);
+  }
+  if (needsFile) {
+    lines.push("const { file } = require('intlayer/file');");
+  }
+
+  if (lines.length > 0) {
+    sourceFile.insertStatements(insertIndex, lines.join('\n'));
+    return true;
+  }
+
+  return false;
+};
+
+/**
  * Updates dictionary metadata properties (title, description, tags) in the root object
  */
 const updateDictionaryMetadata = (
@@ -2193,6 +2328,11 @@ export const transformJSFile = async (
         allowJs: true,
         jsx: ts.JsxEmit.Preserve,
       },
+      manipulationSettings: {
+        indentationText: IndentationText.TwoSpaces,
+        quoteKind: QuoteKind.Single,
+        newLineKind: NewLineKind.LineFeed,
+      },
     });
 
     const sourceFile = project.createSourceFile('file.tsx', fileContent, {
@@ -2226,7 +2366,7 @@ export const transformJSFile = async (
 
       if (contentObject) {
         const dictContent: Record<string, unknown> =
-          (dictionary.content as unknown as Record<string, unknown>) || {};
+          (dictionary.content as unknown as Record<string, unknown>) ?? {};
         const effectiveFallbackLocale: string =
           (fallbackLocale as unknown as string) ?? 'en';
 
@@ -2243,8 +2383,11 @@ export const transformJSFile = async (
 
     if (!changed) return fileContent;
 
-    // Add any missing imports before returning the transformed content
-    const importsAdded = addMissingImports(sourceFile, requiredImports);
+    // Add any missing imports/requires before returning the transformed content
+    const useCJS = isCommonJS(sourceFile);
+    const importsAdded = useCJS
+      ? addMissingRequires(sourceFile, requiredImports)
+      : addMissingImports(sourceFile, requiredImports);
 
     if (importsAdded || changed) {
       return sourceFile.getFullText();

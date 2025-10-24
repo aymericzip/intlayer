@@ -108,6 +108,9 @@ export const readAsset = (relPath, encoding = 'utf8') => {
     .split('\\')
     .join('/');
 
+  /**
+   * Transform ./dist/esm/my/file.ts to my/file.ts for make resolution easier
+   */
   const callerSubpath = callerSubpathRaw
     .replace(/^esm\//, '')
     .replace(/^cjs\//, '')
@@ -115,18 +118,34 @@ export const readAsset = (relPath, encoding = 'utf8') => {
 
   // 1) Relative path from caller (./ or ../)
   const looksRelative = relPath.startsWith('./') || relPath.startsWith('../');
+
   if (looksRelative) {
     // Use resolve to collapse any ../ correctly
     const fromCallerAbs = resolve(assetsRoot, callerSubpath, relPath);
+
+    // 1.1) Path in assets source (/dist/assets/my/file.txt)
+    const fromCallerAbsToVirtual = fromCallerAbs
+      .replace(/^dist\/esm\//, '/dist/assets/')
+      .replace(/^dist\/cjs\//, '/dist/assets/');
+
+    tried.push(fromCallerAbsToVirtual);
+
+    if (existsSync(fromCallerAbsToVirtual)) {
+      return readFileSync(fromCallerAbsToVirtual, encoding);
+    }
+
+    // 1.2) Path in original path (/dist/cjs/my/file.txt)
     tried.push(fromCallerAbs);
+
     if (existsSync(fromCallerAbs)) {
       return readFileSync(fromCallerAbs, encoding);
     }
   }
 
-  // 2) Src-relative directly under assets
+  // 2) Src-relative directly under assets (/dist/assets/my/file.txt)
   const directPath = join(assetsRoot, relPath);
   tried.push(directPath);
+
   if (existsSync(directPath)) {
     return readFileSync(directPath, encoding);
   }
@@ -135,6 +154,7 @@ export const readAsset = (relPath, encoding = 'utf8') => {
   if (callerSubpath) {
     const nested = join(assetsRoot, callerSubpath, relPath);
     tried.push(nested);
+
     if (existsSync(nested)) {
       return readFileSync(nested, encoding);
     }

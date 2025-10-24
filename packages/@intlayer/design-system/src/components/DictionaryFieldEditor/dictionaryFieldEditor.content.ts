@@ -4,7 +4,7 @@ export const dictionaryFieldEditorContent = {
   key: 'dictionary-field-editor',
   fill: {
     en: false,
-    pl: './{{key}}.{{locale}}.content.json',
+    pl: './{{key}}.{{locale}}.content.cjs',
   },
   content: {
     returnToDictionaryList: {
