@@ -19,6 +19,7 @@ const content = {
         ar: 'عنوان البريد الإلكتروني',
         ru: 'Адрес электронной почты',
         tr: 'E-posta adresi',
+        pl: 'Adres e-mail',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -35,6 +36,7 @@ const content = {
         ar: 'أدخل عنوان البريد الإلكتروني',
         ru: 'Введите адрес электронной почты',
         tr: 'E-posta adresinizi girin',
+        pl: 'Wprowadź adres e-mail',
       }),
     },
     passwordInput: {
@@ -53,6 +55,7 @@ const content = {
         ar: 'كلمة المرور',
         ru: 'Пароль',
         tr: 'Parola',
+        pl: 'Hasło',
       }),
       placeholder: t({
         en: 'Enter password',
@@ -69,6 +72,7 @@ const content = {
         ar: 'أدخل كلمة المرور',
         ru: 'Введите пароль',
         tr: 'Parolanızı girin',
+        pl: 'Wprowadź hasło',
       }),
     },
     passwordConfirmationInput: {
@@ -87,6 +91,7 @@ const content = {
         ar: 'تأكيد كلمة المرور',
         ru: 'Подтверждение пароля',
         tr: 'Parola Onayı',
+        pl: 'Potwierdzenie hasła',
       }),
       placeholder: t({
         en: 'Enter password again',
@@ -103,6 +108,7 @@ const content = {
         ar: 'أعد إدخال كلمة المرور',
         ru: 'Введите пароль еще раз',
         tr: 'Parolayı tekrar girin',
+        pl: 'Wprowadź hasło ponownie',
       }),
     },
     termsAndConditionsCheckbox: {
@@ -121,6 +127,7 @@ const content = {
         ar: 'أوافق على الشروط والأحكام',
         ru: 'Соглашаюсь с условиями и положениями',
         tr: 'Şartlar ve koşulları kabul ediyorum',
+        pl: 'Zgadzam się z warunkami i regulaminem',
       }),
     },
 
@@ -140,6 +147,7 @@ const content = {
         ar: 'إنشاء حساب',
         ru: 'Создать аккаунт',
         tr: 'Hesap oluştur',
+        pl: 'Utwórz konto',
       }),
       ariaLabel: t({
         en: 'Submit form to create account',
@@ -156,6 +164,7 @@ const content = {
         ar: 'إرسال النموذج لإنشاء حساب',
         ru: 'Отправить форму для создания аккаунта',
         tr: 'Hesap oluşturmak için formu gönderin',
+        pl: 'Wyślij formularz, aby utworzyć konto',
       }),
     },
     loginLink: {
@@ -174,6 +183,7 @@ const content = {
         ar: 'هل لديك حساب بالفعل؟',
         ru: 'У вас уже есть аккаунт?',
         tr: 'Zaten bir hesabınız var mı?',
+        pl: 'Masz już konto?',
       }),
       text: t({
         en: 'Log in',
@@ -190,6 +200,7 @@ const content = {
         ar: 'تسجيل الدخول',
         ru: 'Войти',
         tr: 'Giriş yap',
+        pl: 'Zaloguj się',
       }),
       ariaLabel: t({
         en: 'Click to go to login page',
@@ -206,9 +217,14 @@ const content = {
         ar: 'انقر للذهاب إلى صفحة تسجيل الدخول',
         ru: 'Нажмите, чтобы перейти на страницу входа',
         tr: 'Giriş sayfasına gitmek için tıklayın',
+        pl: 'Kliknij, aby przejść do strony logowania',
       }),
     },
   },
+  title: 'Sign-up form',
+  description:
+    'Content declaration for the user sign-up form, including input labels, placeholders, checkbox agreement, and navigation to login. Designed to support multilingual authentication interfaces.',
+  tags: ['form', 'authentication', 'sign-up'],
 };
 
 export default content;

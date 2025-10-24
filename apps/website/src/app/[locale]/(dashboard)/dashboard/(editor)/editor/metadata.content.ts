@@ -19,6 +19,7 @@ const metadataContent = {
       ru: 'Редактор | Панель управления | Intlayer',
       tr: 'Editör | Dashboard Paneli | Intlayer',
       zh: '编辑器 | 仪表板 | Intlayer',
+      pl: 'Edytor | Panel | Intlayer',
     }),
     description: t({
       ar: 'إدارة محتوى موقعك باستخدام محرر الفيديو لـ Intlayer.',
@@ -35,6 +36,7 @@ const metadataContent = {
       ru: 'Управляйте содержимым веб-сайта с помощью визуального редактора Intlayer.',
       tr: 'Intlayer görsel düzenleyicisini kullanarak web sitesi içeriğinizi yönetin.',
       zh: '使用 Intlayer 视觉编辑器管理您的网站内容。',
+      pl: 'Zarządzaj zawartością swojej strony internetowej za pomocą wizualnego edytora Intlayer.',
     }),
     keywords: t({
       ar: ['CMS', 'نظام إدارة المحتوى', 'محرر الفيديو', 'محرر', 'لوحة القيادة'],
@@ -111,8 +113,19 @@ const metadataContent = {
         'Dashboard',
       ],
       zh: ['CMS', '内容管理系统', '视觉编辑器', '编辑器', '仪表板'],
+      pl: [
+        'CMS',
+        'System zarządzania treścią',
+        'Wizualny edytor',
+        'Edytor',
+        'Panel',
+      ],
     }),
   },
+  title: 'Editor dashboard metadata',
+  description:
+    'Metadata for the editor section of the dashboard, used for SEO and page identification within the Intlayer CMS. Includes title, description, and keywords for the visual editor interface.',
+  tags: ['page metadata', 'editor', 'dashboard'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

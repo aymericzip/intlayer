@@ -9,4 +9,5 @@ export type DictionaryStatus =
   | 'error'
   | 'imported'
   | 'reimported in JSON'
-  | 'new content file';
+  | 'new content file'
+  | 'created';

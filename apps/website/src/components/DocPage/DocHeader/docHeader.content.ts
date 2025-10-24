@@ -18,6 +18,7 @@ const docHeaderContent = {
       ru: 'Автор',
       tr: 'Yazar',
       zh: '作者',
+      pl: 'Autor',
     }),
     creationLabel: t({
       ar: 'إنشاء',
@@ -34,6 +35,7 @@ const docHeaderContent = {
       ru: 'Создание',
       tr: 'Oluşturma',
       zh: 'Creation',
+      pl: 'Data utworzenia',
     }),
     lastUpdateLabel: t({
       ar: 'آخر تحديث',
@@ -50,8 +52,13 @@ const docHeaderContent = {
       ru: 'Последнее обновление',
       tr: 'Son güncelleme',
       zh: 'Last update',
+      pl: 'Ostatnia aktualizacja',
     }),
   },
+  title: 'Documentation header',
+  description:
+    'Content declaration for the documentation page header, including labels for author, creation date, and last update date.',
+  tags: ['documentation', 'page header'],
 } satisfies Dictionary;
 
 export default docHeaderContent;

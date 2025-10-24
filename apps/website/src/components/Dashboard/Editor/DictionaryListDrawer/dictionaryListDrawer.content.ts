@@ -19,29 +19,35 @@ const dictionaryListDrawerContent = {
         ar: 'قائمة القواميس',
         hi: 'शब्दकोश सूची',
         tr: 'Sözlük listesi',
+        pl: 'Lista słowników',
       }),
     },
     buttonLabel: {
       label: insert(
         t({
+          ar: 'فتح محرر القاموس {{dictionaryLocalId}}',
+          de: 'Wörterbuch-Editor öffnen {{dictionaryLocalId}}',
           en: 'Open dictionary editor {{dictionaryLocalId}}',
           'en-GB': 'Open dictionary editor {{dictionaryLocalId}}',
-          fr: "Ouvrir le dictionnaire dans l'éditeur {{dictionaryLocalId}}",
           es: 'Abrir el diccionario en el editor {{dictionaryLocalId}}',
-          de: 'Wörterbuch-Editor öffnen {{dictionaryLocalId}}',
+          fr: "Ouvrir le dictionnaire dans l'éditeur {{dictionaryLocalId}}",
+          hi: 'शब्दकोश संपादक खोलें {{dictionaryLocalId}}',
           it: 'Apri editor dizionario {{dictionaryLocalId}}',
-          pt: 'Abrir editor de dicionário {{dictionaryLocalId}}',
-          ru: 'Открыть редактор словаря {{dictionaryLocalId}}',
           ja: '辞書エディタを開く {{dictionaryLocalId}}',
           ko: '사전 편집기 열기 {{dictionaryLocalId}}',
-          zh: '打开字典编辑器 {{dictionaryLocalId}}',
-          ar: 'فتح محرر القاموس {{dictionaryLocalId}}',
-          hi: 'शब्दकोश संपादक खोलें {{dictionaryLocalId}}',
+          pl: 'Otwórz edytor słownika {{dictionaryLocalId}}',
+          pt: 'Abrir editor de dicionário {{dictionaryLocalId}}',
+          ru: 'Открыть редактор словаря {{dictionaryLocalId}}',
           tr: 'Sözlük düzenleyiciyi aç {{dictionaryLocalId}}',
+          zh: '打开字典编辑器 {{dictionaryLocalId}}',
         })
       ),
     },
   },
+  title: 'Dictionary list drawer',
+  description:
+    'Content declaration for the dictionary list drawer component in the dashboard editor. It includes UI labels such as the drawer title and the button for opening the dictionary editor.',
+  tags: ['dashboard', 'editor', 'dictionary', 'ui component'],
 } satisfies Dictionary;
 
 export default dictionaryListDrawerContent;

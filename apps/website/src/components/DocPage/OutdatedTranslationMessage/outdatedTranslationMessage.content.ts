@@ -20,6 +20,7 @@ const outdatedTranslationMessage: Dictionary = {
         zh: '此文档已过期，基础版本已在以下日期更新',
         hi: 'यह दस्तावेज़ पुराना है, आधार संस्करण को इस तिथि पर अपडेट किया गया है',
         tr: 'Bu belge güncel değil, temel sürüm şu tarihte güncellendi',
+        pl: 'Ta dokumentacja jest nieaktualna, wersja bazowa została zaktualizowana w',
       }),
       after: t({
         en: '.',
@@ -36,6 +37,7 @@ const outdatedTranslationMessage: Dictionary = {
         zh: '.',
         hi: '.',
         tr: '.',
+        pl: '.',
       }),
     },
     link: {
@@ -54,6 +56,7 @@ const outdatedTranslationMessage: Dictionary = {
         zh: '前往英文文档',
         hi: 'अंग्रेजी दस्तावेज़ पर जाएँ',
         tr: 'İngilizce dökümana git',
+        pl: 'Przejdź do angielskiej wersji dokumentu',
       }),
       content: t({
         en: 'Go to English doc',
@@ -70,9 +73,14 @@ const outdatedTranslationMessage: Dictionary = {
         zh: '前往英文文档',
         hi: 'अंग्रेजी दस्तावेज़ पर जाएँ',
         tr: 'İngilizce dökümana git',
+        pl: 'Przejdź do angielskiej wersji dokumentu',
       }),
     },
   },
+  title: 'Outdated translation message',
+  description:
+    'Message displayed when a documentation page is outdated compared to the original English version, prompting users to check the updated content.',
+  tags: ['documentation', 'translation notice', 'UI component'],
 };
 
 export default outdatedTranslationMessage;

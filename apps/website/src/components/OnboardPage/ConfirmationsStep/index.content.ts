@@ -19,6 +19,7 @@ export const confirmationStepContent = {
         ar: 'تأكيد',
         ru: 'Подтверждение',
         tr: 'Onay',
+        pl: 'Potwierdzenie',
       }),
       hiText: t({
         en: 'Hi {name}!',
@@ -35,6 +36,7 @@ export const confirmationStepContent = {
         ar: 'مرحبا {name}!',
         ru: 'Привет {name}!',
         tr: 'Merhaba {name}!',
+        pl: 'Cześć {name}!',
       }),
       description: t({
         en: 'You are now ready to start using Intlayer.',
@@ -51,6 +53,7 @@ export const confirmationStepContent = {
         ar: 'أنت الآن جاهز لبدء استخدام Intlayer.',
         ru: 'Теперь вы готовы начать использовать Intlayer.',
         tr: 'Artık Intlayer kullanmaya hazırsınız.',
+        pl: 'Teraz możesz zacząć korzystać z Intlayer.',
       }),
     },
     goToDashboardButton: {
@@ -69,6 +72,7 @@ export const confirmationStepContent = {
         ar: 'اذهب إلى لوحة التحكم',
         ru: 'Перейти к приборной панели',
         tr: 'Kontrol paneline git',
+        pl: 'Przejdź do pulpitu',
       }),
       text: t({
         en: 'Go to dashboard',
@@ -85,9 +89,14 @@ export const confirmationStepContent = {
         ar: 'اذهب إلى لوحة التحكم',
         ru: 'Перейти к приборной панели',
         tr: 'Kontrol paneline git',
+        pl: 'Przejdź do pulpitu',
       }),
     },
   },
+  title: 'Confirmation step content',
+  description:
+    'Content declarations for the confirmation step of the onboarding process, including user greeting and navigation to the dashboard.',
+  tags: ['onboarding', 'confirmation step', 'dashboard navigation'],
 } satisfies Dictionary;
 
 export default confirmationStepContent;

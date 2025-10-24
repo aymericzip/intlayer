@@ -19,6 +19,7 @@ const productHuntContent = {
       ru: 'Получайте уведомления о предстоящих релизах Intlayer',
       tr: 'Yaklaşan Intlayer sürümleri hakkında bildirim alın',
       zh: '接收有关即将发布的Intlayer的通知',
+      pl: 'Otrzymuj powiadomienia o nadchodzących wydaniach Intlayera',
     }),
     closeLabel: t({
       ar: 'إغلاق',
@@ -35,6 +36,7 @@ const productHuntContent = {
       ru: 'Закрыть',
       tr: 'Kapat',
       zh: '关闭',
+      pl: 'Zamknij',
     }),
     registerLabel: t({
       ar: 'أبقني على اطلاع',
@@ -51,6 +53,7 @@ const productHuntContent = {
       ru: 'Держите меня в курсе',
       tr: 'Beni güncel tut',
       zh: '保持更新',
+      pl: 'Informuj mnie',
     }),
     emailInput: {
       placeholder: t({
@@ -68,6 +71,7 @@ const productHuntContent = {
         ar: 'أدخل عنوان البريد الإلكتروني',
         ru: 'Введите адрес электронной почты',
         tr: 'E-posta adresinizi girin',
+        pl: 'Wprowadź adres e-mail',
       }),
     },
     requiredErrorEmail: t({
@@ -85,6 +89,7 @@ const productHuntContent = {
       ru: 'Пожалуйста, введите ваше имя пользователя',
       tr: 'Lütfen kullanıcı adınızı girin',
       zh: '请输入您的用户名',
+      pl: 'Proszę podać nazwę użytkownika',
     }),
 
     invalidTypeErrorEmail: t({
@@ -102,8 +107,13 @@ const productHuntContent = {
       ru: 'Пожалуйста, введите корректное имя пользователя',
       tr: 'Lütfen geçerli bir kullanıcı adı girin',
       zh: '请输入有效的用户名',
+      pl: 'Proszę podać poprawną nazwę użytkownika',
     }),
   },
+  title: 'Email registration toast',
+  description:
+    'A toast component for registering email notifications about upcoming Intlayer releases. Includes input validation and user interaction texts.',
+  tags: ['component', 'email registration', 'notification'],
 } satisfies Dictionary;
 
 export default productHuntContent;

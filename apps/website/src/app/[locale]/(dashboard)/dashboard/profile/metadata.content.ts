@@ -19,6 +19,7 @@ const metadataContent = {
       ar: 'الملف الشخصي | لوحة التحكم | Intlayer',
       ru: 'Профиль | Приборная панель | Intlayer',
       tr: 'Profil | Dashboard | Intlayer',
+      pl: 'Profil | Panel | Intlayer',
     }),
     description: t({
       en: 'Manage your profile settings in the Intlayer dashboard. Update your personal information, change your password, and configure preferences.',
@@ -36,8 +37,9 @@ const metadataContent = {
       ar: 'إدارة إعدادات ملفك الشخصي في لوحة تحكم Intlayer. قم بتحديث معلوماتك الشخصية، وتغيير كلمة المرور، وتكوين التفضيلات.',
       ru: 'Управляйте настройками профиля в панели инструментов Intlayer. Обновите личную информацию, измените пароль и настройте предпочтения.',
       tr: 'Intlayer kontrol panelinde profil ayarlarınızı yönetin. Kişisel bilgilerinizi güncelleyin, şifrenizi değiştirin ve tercihlerinizi yapılandırın.',
+      pl: 'Zarządzaj ustawieniami swojego profilu w panelu Intlayer. Zaktualizuj dane osobowe, zmień hasło i skonfiguruj preferencje.',
     }),
-    keywords: t<string[]>({
+    keywords: t({
       en: [
         'Profile',
         'Settings',
@@ -143,8 +145,20 @@ const metadataContent = {
         'Tercihler',
         'Hesap Yönetimi',
       ],
+      pl: [
+        'Profil',
+        'Ustawienia',
+        'Informacje o użytkowniku',
+        'Hasło',
+        'Preferencje',
+        'Zarządzanie kontem',
+      ],
     }),
   },
+  title: 'Profile dashboard metadata',
+  description:
+    'Metadata related to the profile section of the dashboard. Includes title, description, and keywords for SEO and user navigation purposes.',
+  tags: ['page metadata', 'dashboard', 'user profile'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

@@ -18,8 +18,13 @@ const navTitlesContent = {
       ar: 'اذهب إلى القسم',
       ru: 'Перейти к разделу',
       tr: 'Bölüme git',
+      pl: 'Przejdź do sekcji',
     }),
   },
+  title: 'Navigation titles',
+  description:
+    'Content declaration for navigation titles used to label navigation links or buttons across the interface.',
+  tags: ['navigation', 'ui component'],
 } satisfies Dictionary;
 
 export default navTitlesContent;

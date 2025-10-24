@@ -1,5 +1,6 @@
 import {
   type ContentNode,
+  type Dictionary,
   type LocalesValues,
   NodeType,
 } from '@intlayer/types';
@@ -9,9 +10,7 @@ import {
   type Plugins,
 } from '../interpreter';
 
-const filterTranslationsPlugin = (
-  locales: LocalesValues[] | LocalesValues
-): Plugins => ({
+const filterTranslationsPlugin = (locales: LocalesValues[]): Plugins => ({
   id: 'filter-translations-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Translation,
@@ -39,11 +38,13 @@ const filterTranslationsPlugin = (
 
 export const getFilteredLocalesContent = (
   node: ContentNode,
-  locale: LocalesValues | LocalesValues[],
+  locales: LocalesValues | LocalesValues[],
   nodeProps: NodeProps
 ) => {
+  const localesArray = Array.isArray(locales) ? locales : [locales];
+
   const plugins: Plugins[] = [
-    filterTranslationsPlugin(locale),
+    filterTranslationsPlugin(localesArray),
     ...(nodeProps.plugins ?? []),
   ];
 
@@ -51,4 +52,28 @@ export const getFilteredLocalesContent = (
     ...nodeProps,
     plugins,
   });
+};
+
+/*
+ * Remove all unneeded translation from translation node
+ *
+ * locale: fr
+ * t({ ar: 'Hello', en: 'Hello', fr: 'Bonjour' }) -> t({ fr: 'Bonjour' })
+ *
+ * locales: [fr, en]
+ * t({ ar: 'Hello', en: 'Hello', fr: 'Bonjour' }) -> t({ en: 'Hello', fr: 'Bonjour' })
+ */
+export const getFilteredLocalesDictionary = (
+  dictionary: Dictionary,
+  locale: LocalesValues | LocalesValues[]
+) => {
+  const localesArray = Array.isArray(locale) ? locale : [locale];
+
+  return {
+    ...dictionary,
+    content: getFilteredLocalesContent(dictionary.content, localesArray, {
+      dictionaryKey: dictionary.key,
+      keyPath: [],
+    }),
+  };
 };

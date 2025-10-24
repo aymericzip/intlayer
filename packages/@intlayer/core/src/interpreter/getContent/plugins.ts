@@ -73,17 +73,18 @@ export const translationPlugin = (
     for (const key in result) {
       const childProps = {
         ...props,
-        children: result[key as unknown as keyof typeof result],
+        children: result[key as keyof typeof result],
         keyPath: [
           ...props.keyPath,
           { type: NodeType.Translation, key } as KeyPath,
         ],
       };
-      result[key as unknown as keyof typeof result] = deepTransformNode(
-        result[key as unknown as keyof typeof result],
+      result[key as keyof typeof result] = deepTransformNode(
+        result[key as keyof typeof result],
         childProps
       );
     }
+
     return getTranslation(result, locale, fallback);
   },
 });

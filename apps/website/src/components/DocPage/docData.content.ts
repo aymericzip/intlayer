@@ -7,8 +7,9 @@ import { type Dictionary, localeRecord, t } from 'intlayer';
 const getDocMetadata = (doc: DocKey) =>
   t(localeRecord(async ({ locale }) => await getDocMetadataCore(doc, locale)));
 
-const docDataContent: any = {
+const docDataContent: Dictionary = {
   key: 'doc-data',
+  fill: false,
   content: {
     why: {
       title: t({

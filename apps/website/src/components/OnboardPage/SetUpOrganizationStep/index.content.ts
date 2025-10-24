@@ -18,8 +18,13 @@ export const setUpOrganizationStepContent = {
       ar: 'اختر منظمتك',
       ru: 'Выберите вашу организацию',
       tr: 'Organizasyonunuzu seçin',
+      pl: 'Wybierz swoją organizację',
     }),
   },
+  title: 'Set up organization step',
+  description:
+    'Content declaration for selecting an organization during the onboarding process. Guides the user through choosing or creating an organization.',
+  tags: ['onboarding', 'organization setup'],
 } satisfies Dictionary;
 
 export default setUpOrganizationStepContent;

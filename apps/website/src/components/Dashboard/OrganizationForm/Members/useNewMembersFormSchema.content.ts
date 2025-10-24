@@ -18,8 +18,13 @@ const content = {
       ar: 'يرجى إدخال عنوان بريد إلكتروني صالح',
       ru: 'Пожалуйста, введите правильный адрес электронной почты',
       tr: 'Lütfen geçerli bir e-posta adresi girin',
+      pl: 'Proszę podać prawidłowy adres e-mail.',
     }),
   },
+  title: 'New members form validation schema',
+  description:
+    'Validation error messages for the new members form, including input validation logic such as email format verification.',
+  tags: ['form validation', 'dashboard', 'organization members'],
 } satisfies Dictionary;
 
 export default content;

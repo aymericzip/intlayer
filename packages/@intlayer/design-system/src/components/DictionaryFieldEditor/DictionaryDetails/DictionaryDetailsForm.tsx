@@ -75,9 +75,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           if (!response?.data) return;
 
           try {
-            const auditedDictionary = JSON.parse(response.data.fileContent) as
-              | Partial<Dictionary>
-              | undefined;
+            const auditedDictionary = response.data.fileContent;
 
             setEditedDictionary((prev) => ({
               ...prev,

@@ -18,6 +18,7 @@ const youtubeVideoMessageContent = {
       pt: 'Assistir ao vídeo tutorial',
       zh: '观看视频教程',
       tr: 'Video eğitimini izleyin',
+      pl: 'Obejrzyj samouczek wideo',
     }),
     description: t({
       en: 'This page has a video tutorial available.',
@@ -34,6 +35,7 @@ const youtubeVideoMessageContent = {
       'en-GB': 'This page has a video tutorial available.',
       it: 'Questa pagina ha un video tutorial disponibile.',
       tr: 'Bu sayfada bir video eğitimi mevcuttur.',
+      pl: 'Na tej stronie dostępny jest samouczek wideo.',
     }),
     label: t({
       en: 'Watch the video tutorial',
@@ -50,8 +52,13 @@ const youtubeVideoMessageContent = {
       pt: 'Assistir ao vídeo tutorial',
       zh: '观看视频教程',
       tr: 'Video eğitimini izleyin',
+      pl: 'Obejrzyj samouczek wideo',
     }),
   },
+  title: 'YouTube video message',
+  description:
+    'Content declaration for a component that displays a message prompting users to watch a video tutorial. Useful in documentation pages where visual guidance is provided.',
+  tags: ['documentation', 'video tutorial', 'component message'],
 } satisfies Dictionary;
 
 export default youtubeVideoMessageContent;

@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.0.0
+    date: 2025-10-23
+    changes: Rename `autoFill` to `fill`
   - version: 6.0.0
     date: 2025-09-20
     changes: Add fields documentation
@@ -409,32 +412,33 @@ Transforms the dictionary into a per-locale dictionary where each field declared
 }
 ```
 
-#### `autoFill` (AutoFill)
+#### `fill` (Fill)
 
 Instructions for automatically filling dictionary content from external sources. This can be configured globally in `intlayer.config.ts` or per-dictionary. Supports multiple formats:
 
-- **`true`**: Enable auto-fill for all locales
+- **`true`**: Enable filling for all locales
+- **`false`**: Disable filling for all locales
 - **`string`**: Path to a single file or template with variables
 - **`object`**: Per-locale file paths
 
 **Examples:**
 
 ```json
-// Enable for all locales
+// Disable filling
 {
-  "autoFill": true
+  "fill": false
 }
 // Single file
 {
-  "autoFill": "./translations/aboutPage.content.json"
+  "fill": "./translations/aboutPage.content.json"
 }
 // Template with variables
 {
-  "autoFill": "/messages/{{locale}}/{{key}}/{{fileName}}.content.json"
+  "fill": "/messages/{{locale}}/{{key}}/{{fileName}}.content.json"
 }
 // Fine per-locale configuration
 {
-  "autoFill": {
+  "fill": {
     "en": "./translations/en/aboutPage.content.json",
     "fr": "./translations/fr/aboutPage.content.json",
     "es": "./translations/es/aboutPage.content.json"
@@ -448,7 +452,7 @@ Instructions for automatically filling dictionary content from external sources.
 - `{{fileName}}` – File name (e.g. `example`)
 - `{{key}}` – Dictionary key (e.g. `example`)
 
-> See [Auto-Fill Configuration in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md) for more information.
+> See [Auto-Fill Configuration in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/fill.md) for more information.
 
 ##### `priority` (number)
 
@@ -521,7 +525,7 @@ The file path of the local dictionary, indicating which `.content` file the dict
 
 For remote dictionaries, this array contains all available versions of the dictionary. Helps track which versions are available for use.
 
-##### `autoFilled` (true)
+##### `filled` (true)
 
 Indicates whether the dictionary has been auto-filled from external sources. In case of conflicts, base dictionaries will override auto-filled dictionaries.
 
@@ -1050,7 +1054,7 @@ module.exports = {
    - Keep related content together in the same dictionary
    - Use nested objects to organize complex content structures
    - Leverage tags for categorization
-   - Use the `autoFill` to automatically fill the missing translations
+   - Use the `fill` to automatically fill the missing translations
 
 3. **Performance**:
    - Ajust the content configuration to limit the scope of watched files

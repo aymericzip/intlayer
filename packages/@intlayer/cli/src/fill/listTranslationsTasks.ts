@@ -1,42 +1,64 @@
-import { relative } from 'node:path';
+import { basename } from 'node:path';
 import { formatLocale } from '@intlayer/chokidar';
-import type { Logger } from '@intlayer/config';
 import {
   ANSIColors,
   colon,
   colorize,
   colorizeKey,
   colorizePath,
+  getAppLogger,
 } from '@intlayer/config';
-import configuration from '@intlayer/config/built';
 import {
-  getFilterTranslationsOnlyContent,
+  getFilterTranslationsOnlyDictionary,
   getMissingLocalesContent,
 } from '@intlayer/core';
-import type { ContentNode, Dictionary, LocalesValues } from '@intlayer/types';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
+import type {
+  ContentNode,
+  Dictionary,
+  IntlayerConfig,
+  LocalDictionaryId,
+  Locale,
+} from '@intlayer/types';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 export type TranslationTask = {
   dictionaryKey: string;
-  sourceLocale: LocalesValues;
-  targetLocale: LocalesValues;
+  dictionaryLocalId: LocalDictionaryId;
+  sourceLocale: Locale;
+  targetLocales: Locale[];
   dictionaryPreset: string;
+  dictionaryFilePath: string;
 };
 
 export const listTranslationsTasks = (
-  targetUnmergedDictionaries: Dictionary[],
-  dictionariesRecord: Record<string, Dictionary>,
-  outputLocales: LocalesValues[],
+  localIds: LocalDictionaryId[],
+  outputLocales: Locale[],
   mode: 'complete' | 'review',
-  baseLocale: LocalesValues,
-  maxKeyLength: number,
-  appLogger: Logger
-) => {
+  baseLocale: Locale,
+  configuration: IntlayerConfig
+): TranslationTask[] => {
+  const appLogger = getAppLogger(configuration);
+
+  const mergedDictionariesRecord = getDictionaries(configuration);
+  const unmergedDictionariesRecord = getUnmergedDictionaries(configuration);
+
+  const allFlatDictionaries = Object.values(unmergedDictionariesRecord).flat();
+  const dictionariesToProcess = allFlatDictionaries.filter((dictionary) =>
+    localIds.includes(dictionary.localId!)
+  );
+
+  const maxKeyLength = Math.max(
+    ...dictionariesToProcess.map((dict) => dict.key.length)
+  );
+
   const translationTasks: TranslationTask[] = [];
 
-  for (const targetUnmergedDictionary of targetUnmergedDictionaries) {
+  for (const targetUnmergedDictionary of dictionariesToProcess) {
     const dictionaryPreset = colon(
       [
-        colorize('  - [', ANSIColors.GREY_DARK),
+        ' - ',
+        colorize('[', ANSIColors.GREY_DARK),
         colorizeKey(targetUnmergedDictionary.key),
         colorize(']', ANSIColors.GREY_DARK),
       ].join(''),
@@ -44,11 +66,16 @@ export const listTranslationsTasks = (
     );
 
     const dictionaryKey = targetUnmergedDictionary.key;
+    const dictionaryLocalId = targetUnmergedDictionary.localId!;
     const mainDictionaryToProcess: Dictionary =
-      dictionariesRecord[dictionaryKey];
+      mergedDictionariesRecord[dictionaryKey];
+    const dictionaryFill =
+      targetUnmergedDictionary.fill ?? configuration.content.fill;
 
-    const sourceLocale: LocalesValues =
-      targetUnmergedDictionary.locale ?? baseLocale;
+    if (dictionaryFill === false) continue;
+
+    const sourceLocale: Locale = (targetUnmergedDictionary.locale ??
+      baseLocale) as Locale;
 
     if (!mainDictionaryToProcess) {
       appLogger(
@@ -67,22 +94,9 @@ export const listTranslationsTasks = (
       continue;
     }
 
-    const relativePath = relative(
-      configuration?.content?.baseDir ?? process.cwd(),
-      targetUnmergedDictionary.filePath
-    );
-
-    appLogger(
-      `${dictionaryPreset} Processing content declaration: ${colorizePath(relativePath)}`,
-      {
-        level: 'info',
-      }
-    );
-
-    const sourceLocaleContent = getFilterTranslationsOnlyContent(
-      mainDictionaryToProcess as unknown as ContentNode,
-      sourceLocale,
-      { dictionaryKey, keyPath: [] }
+    const sourceLocaleContent = getFilterTranslationsOnlyDictionary(
+      mainDictionaryToProcess,
+      sourceLocale
     );
 
     if (
@@ -102,14 +116,14 @@ export const listTranslationsTasks = (
      *
      * Skip the dictionary if there are no missing locales to translate
      */
-    let outputLocalesList: LocalesValues[] = outputLocales;
+    let outputLocalesList: Locale[] = outputLocales as Locale[];
 
     if (mode === 'complete') {
       const missingLocales = getMissingLocalesContent(
-        mainDictionaryToProcess as unknown as ContentNode,
+        targetUnmergedDictionary as unknown as ContentNode,
         outputLocales,
         {
-          dictionaryKey: mainDictionaryToProcess.key,
+          dictionaryKey: targetUnmergedDictionary.key,
           keyPath: [],
           plugins: [],
         }
@@ -120,7 +134,7 @@ export const listTranslationsTasks = (
 
     if (outputLocalesList.length === 0) {
       appLogger(
-        `${dictionaryPreset} No locales to fill - Skipping dictionary`,
+        `${dictionaryPreset} No locales to fill, Skipping ${colorizePath(basename(targetUnmergedDictionary.filePath))}`,
         {
           level: 'warn',
         }
@@ -128,14 +142,14 @@ export const listTranslationsTasks = (
       continue;
     }
 
-    for (const targetLocale of outputLocalesList) {
-      translationTasks.push({
-        dictionaryKey,
-        sourceLocale,
-        targetLocale,
-        dictionaryPreset,
-      });
-    }
+    translationTasks.push({
+      dictionaryKey,
+      dictionaryLocalId,
+      sourceLocale,
+      targetLocales: outputLocalesList,
+      dictionaryPreset,
+      dictionaryFilePath: targetUnmergedDictionary.filePath,
+    });
   }
 
   return translationTasks;

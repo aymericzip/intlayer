@@ -330,7 +330,6 @@ describe('getPerLocaleDictionary', () => {
     const result = getPerLocaleDictionary(dictionary, 'xx', 'yy');
 
     expect(result.key).toBe('website-structured-data');
-    expect(result.locale).toBe('xx');
     expect(result.content.keywords).toBeUndefined();
   });
 

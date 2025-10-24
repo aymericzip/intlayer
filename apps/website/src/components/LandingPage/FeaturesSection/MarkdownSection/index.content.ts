@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 const markdownSectionContent = {
   key: 'markdown-section',
-  title: 'Markdown',
+  title: 'Markdown section',
   content: {
     markdown: t({
       ar: '# عنواني\n\nيمكنك تضمين النص بشكل **غامق** والنص بشكل *مائل*.\n\n- العنصر الأول\n- العنصر الثاني\n\nيمكنك أيضا تضمين رابط إلى شيء [هنا](https://example.com).  \n',
@@ -20,6 +20,7 @@ const markdownSectionContent = {
       ru: '# Мой Заголовок\n\nВы можете включить текст в **жирный** и текст в *курсив*.\n\n- Первый элемент\n- Второй элемент\n\nВы также можете включить ссылку на что-то [ссылка](https://example.com).  \n',
       tr: '# Başlığım\n\nMetni **kalın** ve *italik* olarak dahil edebilirsiniz.\n\n- İlk madde\n- İkinci madde\n\nAyrıca bir [şeye bağlantı ekleyebilirsiniz](https://example.com).  \n',
       zh: '# 我的标题\n\n您可以在 **粗体** 和 *斜体* 中包含文本。\n\n- 第一项\n- 第二项\n\n您还可以包含一个 [链接到某事](https://example.com)。  \n',
+      pl: '# Mój nagłówek\n\nTo jest przykładowy tekst. Oto **pogrubiony tekst** i oto *pochylony tekst*.\n\n- Pierwszy element\n- Drugi element\n\nMożesz także umieścić [link do czegoś](https://example.com).  \n',
     }),
     ariaLabel: t({
       ar: 'محرر Markdown',
@@ -36,8 +37,12 @@ const markdownSectionContent = {
       ru: 'Редактор Markdown',
       tr: 'Markdown düzenleyici',
       zh: 'Markdown 编辑器',
+      pl: 'Edytor Markdown',
     }),
   },
+  description:
+    'Content declaration for the Markdown section of the landing page feature. Includes sample markdown text and accessibility label for the editor.',
+  tags: ['landing page', 'features section', 'markdown'],
 } satisfies Dictionary;
 
 export default markdownSectionContent;

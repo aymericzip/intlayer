@@ -18,6 +18,7 @@ export const useAskResetPasswordSchemaContent = {
       ru: 'Пожалуйста, введите свой адрес электронной почты',
       tr: 'Lütfen e-posta adresinizi girin',
       zh: '请输入您的电子邮件地址',
+      pl: 'Proszę podać adres e-mail',
     }),
 
     invalidTypeErrorEmail: t({
@@ -35,6 +36,7 @@ export const useAskResetPasswordSchemaContent = {
       ru: 'Пожалуйста, введите действующий адрес электронной почты',
       tr: 'Lütfen geçerli bir e-posta adresi girin',
       zh: '请输入有效的电子邮件地址',
+      pl: 'Proszę podać prawidłowy adres e-mail',
     }),
 
     invalidLengthErrorEmail: t({
@@ -52,6 +54,7 @@ export const useAskResetPasswordSchemaContent = {
       ru: 'Пожалуйста, введите действующий адрес электронной почты',
       tr: 'Lütfen geçerli bir e-posta adresi girin',
       zh: '请输入有效的电子邮件地址',
+      pl: 'Proszę podać prawidłowy adres e-mail',
     }),
   },
 } satisfies Dictionary;

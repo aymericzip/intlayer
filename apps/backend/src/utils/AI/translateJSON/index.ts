@@ -29,7 +29,7 @@ const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
 
 export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,
-  model: 'gpt-5-nano',
+  model: 'gpt-5-mini',
 };
 
 /**

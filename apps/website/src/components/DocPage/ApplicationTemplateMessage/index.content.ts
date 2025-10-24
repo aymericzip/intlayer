@@ -18,6 +18,7 @@ const applicationTemplateMessageContent = {
       ru: 'Посмотреть шаблон приложения на GitHub',
       tr: "GitHub'da uygulama şablonunu görüntüle",
       zh: '在 GitHub 上查看应用程序模板',
+      pl: 'Zobacz szablon aplikacji na GitHubie',
     }),
     description: t({
       ar: 'هذه الصفحة لديها قالب تطبيق متاح.',
@@ -34,6 +35,7 @@ const applicationTemplateMessageContent = {
       ru: 'Для этой страницы доступен шаблон приложения.',
       tr: 'Bu sayfada kullanılabilir bir uygulama şablonu var.',
       zh: '此页面有可用的应用程序模板。',
+      pl: 'Na tej stronie dostępny jest szablon aplikacji.',
     }),
     label: t({
       ar: 'عرض قالب التطبيق',
@@ -50,6 +52,7 @@ const applicationTemplateMessageContent = {
       ru: 'Посмотреть шаблон приложения',
       tr: 'Uygulama şablonunu görüntüle',
       zh: '查看应用程序模板',
+      pl: 'Zobacz szablon aplikacji',
     }),
   },
 } satisfies Dictionary;

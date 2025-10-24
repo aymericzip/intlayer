@@ -18,6 +18,7 @@ export const changePasswordSchemaContent = {
       ru: 'Пожалуйста, введите ваш текущий пароль',
       tr: 'Lütfen mevcut şifrenizi girin',
       zh: '请输入您的当前密码',
+      pl: 'Proszę wprowadzić swoje aktualne hasło',
     }),
 
     invalidTypeErrorPassword: t({
@@ -35,6 +36,7 @@ export const changePasswordSchemaContent = {
       ru: 'Пожалуйста, введите действительный пароль',
       tr: 'Lütfen geçerli bir şifre girin',
       zh: '请输入有效的密码',
+      pl: 'Proszę wprowadzić prawidłowe hasło',
     }),
 
     invalidPasswordLengthError: t({
@@ -52,6 +54,7 @@ export const changePasswordSchemaContent = {
       ru: 'Ваш пароль должен содержать не менее 8 символов',
       tr: 'Şifreniz en az 8 karakter olmalıdır',
       zh: '您的密码必须至少为8个字符',
+      pl: 'Twoje hasło musi mieć co najmniej 8 znaków',
     }),
 
     requiredErrorNewPassword: t({
@@ -69,6 +72,7 @@ export const changePasswordSchemaContent = {
       ru: 'Пожалуйста, введите ваш новый пароль',
       tr: 'Lütfen yeni şifrenizi girin',
       zh: '请输入您的新密码',
+      pl: 'Proszę wprowadzić nowe hasło',
     }),
 
     invalidTypeErrorNewPassword: t({
@@ -86,6 +90,7 @@ export const changePasswordSchemaContent = {
       ru: 'Пожалуйста, введите действительный новый пароль',
       tr: 'Lütfen geçerli bir yeni şifre girin',
       zh: '请输入有效的新密码',
+      pl: 'Proszę wprowadzić prawidłowe nowe hasło',
     }),
 
     requiredErrorNewPasswordConfirmation: t({
@@ -103,6 +108,7 @@ export const changePasswordSchemaContent = {
       ru: 'Пожалуйста, повторно введите ваш новый пароль',
       tr: 'Lütfen yeni şifrenizi tekrar girin',
       zh: '请再次输入您的新密码',
+      pl: 'Proszę ponownie wprowadzić nowe hasło',
     }),
 
     invalidTypeErrorNewPasswordConfirmation: t({
@@ -120,6 +126,7 @@ export const changePasswordSchemaContent = {
       ru: 'Пожалуйста, повторно введите действительный новый пароль',
       tr: 'Lütfen geçerli bir yeni şifreyi tekrar girin',
       zh: '请再次输入有效的新密码',
+      pl: 'Proszę ponownie wprowadzić prawidłowe nowe hasło',
     }),
 
     passwordNotMatchError: t({
@@ -137,6 +144,7 @@ export const changePasswordSchemaContent = {
       ru: 'Новый пароль и подтверждение пароля должны совпадать',
       tr: 'Yeni şifre ve şifre onayı eşleşmelidir',
       zh: '新密码和密码确认必须匹配',
+      pl: 'Nowe hasło i potwierdzenie hasła muszą się zgadzać',
     }),
   },
 } satisfies Dictionary;

@@ -18,6 +18,7 @@ const organizationsAdminPageContent = {
       ar: 'إدارة المنظمات',
       ru: 'Управление организациями',
       tr: 'Organizasyon yönetimi',
+      pl: 'Zarządzanie organizacjami',
     }),
     tableHeaders: {
       name: t({
@@ -35,6 +36,7 @@ const organizationsAdminPageContent = {
         ar: 'الاسم',
         ru: 'Имя',
         tr: 'İsim',
+        pl: 'Nazwa',
       }),
       id: 'ID',
       createdAt: t({
@@ -52,6 +54,7 @@ const organizationsAdminPageContent = {
         ar: 'تم الإنشاء في',
         ru: 'Создано',
         tr: 'Oluşturulma',
+        pl: 'Data utworzenia',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -68,6 +71,7 @@ const organizationsAdminPageContent = {
         ar: 'تم التحديث في',
         ru: 'Обновлено',
         tr: 'Güncellendi',
+        pl: 'Data aktualizacji',
       }),
     },
     noData: t({
@@ -85,6 +89,7 @@ const organizationsAdminPageContent = {
       ar: 'غير متوفر',
       ru: 'Н/Д',
       tr: 'Yok',
+      pl: 'Brak danych',
     }),
     errorMessages: {
       loadingError: t({
@@ -102,6 +107,7 @@ const organizationsAdminPageContent = {
         ar: 'خطأ في تحميل المنظمات',
         ru: 'Ошибка загрузки организаций',
         tr: 'Organizasyonlar yüklenirken hata oluştu',
+        pl: 'Błąd podczas ładowania organizacji',
       }),
     },
     searchPlaceholder: t({
@@ -119,6 +125,7 @@ const organizationsAdminPageContent = {
       ar: 'ابحث عن المنظمات...',
       ru: 'Поиск организаций...',
       tr: 'Organizasyonları ara...',
+      pl: 'Szukaj organizacji...',
     }),
     noOrganizationFound: t({
       en: 'Organization not found',
@@ -135,8 +142,13 @@ const organizationsAdminPageContent = {
       ar: 'المنظمة غير موجودة',
       ru: 'Организация не найдена',
       tr: 'Organizasyon bulunamadı',
+      pl: 'Nie znaleziono organizacji',
     }),
   },
+  title: 'Organization admin page',
+  description:
+    'Content declarations for the organization administration page, including table headers, search placeholder, error messages, and no data state.',
+  tags: ['admin page', 'organizations', 'dashboard'],
 } satisfies Dictionary;
 
 export default organizationsAdminPageContent;

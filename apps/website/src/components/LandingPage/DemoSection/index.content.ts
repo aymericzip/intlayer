@@ -18,6 +18,7 @@ const demoSectionContent = {
       ru: 'Попробуйте демонстрацию в реальном времени',
       tr: 'Canlı demoyu deneyin',
       zh: '试用实时演示',
+      pl: 'Wypróbuj demo na żywo',
     }),
     demoSwitchSelector: {
       youtube: t({
@@ -35,6 +36,7 @@ const demoSectionContent = {
         ar: 'شاهد العرض التوضيحي على YouTube',
         ru: 'Посмотрите демо на YouTube',
         tr: 'YouTube demosunu izleyin',
+        pl: 'Obejrzyj demo na YouTube',
       }),
       codeSandbox: t({
         en: 'Try using CodeSandbox',
@@ -51,9 +53,14 @@ const demoSectionContent = {
         ar: 'جرب استخدام CodeSandbox',
         ru: 'Попробуйте использовать CodeSandbox',
         tr: 'CodeSandbox kullanmayı deneyin',
+        pl: 'Wypróbuj w CodeSandbox',
       }),
     },
   },
+  title: 'Demo section',
+  description:
+    'Content related to the demo section of the landing page, including titles and options to try the demo via YouTube or CodeSandbox.',
+  tags: ['landing page', 'demo section'],
 } satisfies Dictionary;
 
 export default demoSectionContent;

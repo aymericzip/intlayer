@@ -18,6 +18,7 @@ const profileDashboardContent = {
       ar: 'محرر الفيديو - Playground',
       ru: 'Редактор Intlayer - Playground',
       tr: 'Intlayer Editör - Playground',
+      pl: 'Edytor Intlayer — Środowisko testowe',
     }),
     description: t({
       en: 'Through this playground, you can test the Intlayer visual editor by interacting with the website.',
@@ -35,8 +36,13 @@ const profileDashboardContent = {
       ar: 'من خلال هذا الملعب، يمكنك اختبار محرر Intlayer المرئي عن طريق التفاعل مع الموقع الإلكتروني.',
       ru: 'Через эту площадку вы можете протестировать визуальный редактор Intlayer, взаимодействуя с веб-сайтом.',
       tr: 'Bu Playground aracılığıyla, web sitesiyle etkileşimde bulunarak Intlayer görsel düzenleyicisini test edebilirsiniz.',
+      pl: 'Dzięki temu środowisku testowemu możesz przetestować wizualny edytor Intlayer, wchodząc w interakcję z witryną.',
     }),
   },
+  title: 'Playground page',
+  description:
+    'Page content for the Intlayer Playground, allowing users to test the visual editor in an interactive environment.',
+  tags: ['playground', 'editor test', 'page content'],
 } satisfies Dictionary;
 
 export default profileDashboardContent;

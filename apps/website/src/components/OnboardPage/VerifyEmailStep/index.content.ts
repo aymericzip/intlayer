@@ -19,6 +19,7 @@ export const verifyEmailStepContent = {
         ar: 'تحقق من بريدك الإلكتروني',
         ru: 'Подтвердите ваш адрес электронной почты',
         tr: 'E-postanızı doğrulayın',
+        pl: 'Zweryfikuj swój adres e-mail',
       }),
       description: t({
         en: 'We sent you an email to verify your email address. Please check your inbox and click on the link to verify your email.',
@@ -36,9 +37,14 @@ export const verifyEmailStepContent = {
         ar: 'لقد أرسلنا إليك بريدًا إلكترونيًا للتحقق من عنوان بريدك الإلكتروني. يرجى التحقق من صندوق الوارد الخاص بك والنقر على الرابط للتحقق من بريدك الإلكتروني.',
         ru: 'Мы отправили вам письмо для подтверждения вашего адреса электронной почты. Пожалуйста, проверьте свой почтовый ящик и нажмите на ссылку, чтобы подтвердить электронную почту.',
         tr: 'E-posta adresinizi doğrulamak için size bir e-posta gönderdik. Lütfen gelen kutunuzu kontrol edin ve e-postanızı doğrulamak için bağlantıya tıklayın.',
+        pl: 'Wysłaliśmy Ci wiadomość e-mail z linkiem weryfikacyjnym. Sprawdź swoją skrzynkę odbiorczą i kliknij w link, aby zweryfikować adres e-mail.',
       }),
     },
   },
+  title: 'Verify email step',
+  description:
+    'Content for the verify email step during the onboarding process. Includes title and description to prompt users to check their inbox for a verification link.',
+  tags: ['onboarding', 'email verification'],
 } satisfies Dictionary;
 
 export default verifyEmailStepContent;

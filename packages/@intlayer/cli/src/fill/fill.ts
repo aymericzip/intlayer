@@ -1,11 +1,11 @@
-import type { AIOptions } from '@intlayer/api'; // Importing only getAiAPI for now
+import { basename, relative } from 'node:path';
+import type { AIOptions } from '@intlayer/api';
 import {
-  formatLocale,
   formatPath,
+  getGlobalLimiter,
+  getTaskLimiter,
   type ListGitFilesOptions,
-  parallelize,
   prepareIntlayer,
-  reduceDictionaryContent,
   writeContentDeclaration,
 } from '@intlayer/chokidar';
 import {
@@ -13,12 +13,11 @@ import {
   colon,
   colorize,
   colorizeKey,
+  colorizePath,
   getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
-import { getLocalizedContent, mergeDictionaries } from '@intlayer/core';
-import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { ContentNode, Dictionary, Locale, Locales } from '@intlayer/types';
+import type { Locale } from '@intlayer/types';
 import {
   ensureArray,
   type GetTargetDictionaryOptions,
@@ -30,9 +29,9 @@ import {
   type TranslationTask,
 } from './listTranslationsTasks';
 import { translateDictionary } from './translateDictionary';
-import { writeAutoFill } from './writeAutoFill';
+import { writeFill } from './writeFill';
 
-const NB_CONCURRENT_TRANSLATIONS = 8;
+const NB_CONCURRENT_TRANSLATIONS = 7;
 
 // Arguments for the fill function
 export type FillOptions = {
@@ -43,7 +42,9 @@ export type FillOptions = {
   aiOptions?: AIOptions; // Added aiOptions to be passed to translateJSON
   verbose?: boolean;
   nbConcurrentTranslations?: number;
+  nbConcurrentTasks?: number; // NEW: number of tasks that may run at once
   build?: boolean;
+  skipMetadata?: boolean;
 } & GetTargetDictionaryOptions;
 
 /**
@@ -78,21 +79,14 @@ export const fill = async (options?: FillOptions): Promise<void> => {
     affectedDictionaryKeys.add(dict.key);
   });
 
+  const keysToProcess = Array.from(affectedDictionaryKeys);
+
   appLogger([
     'Affected dictionary keys for processing:',
-    Array.from(affectedDictionaryKeys)
-      .map((key) => colorizeKey(key))
-      .join(', '),
+    keysToProcess.length > 0
+      ? keysToProcess.map((key) => colorizeKey(key)).join(', ')
+      : colorize('No keys found', ANSIColors.YELLOW),
   ]);
-
-  const maxKeyLength = Math.max(
-    ...targetUnmergedDictionaries.map((dict) => dict.key.length)
-  );
-  const maxLocaleLength = Math.max(
-    ...locales.map((locale) => formatLocale(locale).length)
-  );
-
-  const dictionariesRecord = getDictionaries(configuration);
 
   /**
    * List the translations tasks
@@ -102,156 +96,87 @@ export const fill = async (options?: FillOptions): Promise<void> => {
    * In 'complete' mode, filter only the missing locales to translate
    */
   const translationTasks: TranslationTask[] = listTranslationsTasks(
-    targetUnmergedDictionaries,
-    dictionariesRecord,
+    targetUnmergedDictionaries.map((dict) => dict.localId!),
     outputLocales,
     mode,
     baseLocale,
-    maxKeyLength,
-    appLogger
+    configuration
   );
 
-  /**
-   * Translate the dictionaries and return
-   */
-  const translationResults = await parallelize(
-    translationTasks,
-    async (task) =>
-      translateDictionary(
+  // AI calls in flight at once (translateJSON + metadata audit)
+  const nbConcurrentTranslations =
+    options?.nbConcurrentTranslations ?? NB_CONCURRENT_TRANSLATIONS;
+  const globalLimiter = getGlobalLimiter(nbConcurrentTranslations);
+
+  // NEW: number of *tasks* that may run at once (start/prepare/log/write)
+  const nbConcurrentTasks = Math.min(
+    options?.nbConcurrentTasks ?? nbConcurrentTranslations,
+    translationTasks.length
+  );
+  const taskLimiter = getTaskLimiter(nbConcurrentTasks);
+
+  const runners = translationTasks.map((task) =>
+    taskLimiter(async () => {
+      const relativePath = relative(
+        configuration?.content?.baseDir ?? process.cwd(),
+        task?.dictionaryFilePath ?? ''
+      );
+
+      // log AFTER acquiring a task slot
+      appLogger(
+        `${task.dictionaryPreset} Processing ${colorizePath(basename(relativePath))}`,
+        { level: 'info' }
+      );
+
+      const translationTaskResult = await translateDictionary(
         task,
-        dictionariesRecord,
-        maxLocaleLength,
-        mode,
         configuration,
-        options?.aiOptions
-      ),
-    options?.nbConcurrentTranslations ?? NB_CONCURRENT_TRANSLATIONS
-  );
-
-  /**
-   * Form a per-locale dictionary record again
-   */
-  const resultsByDictionary = new Map<string, Dictionary[]>();
-  for (const item of translationResults) {
-    if (item?.result) {
-      const list = resultsByDictionary.get(item.key) ?? [];
-      list.push(item.result);
-      resultsByDictionary.set(item.key, list);
-    }
-  }
-
-  for (const targetUnmergedDictionary of targetUnmergedDictionaries) {
-    const dictionaryKey = targetUnmergedDictionary.key;
-    const mainDictionaryToProcess: Dictionary =
-      dictionariesRecord[dictionaryKey];
-
-    const sourceLocale: Locale =
-      (targetUnmergedDictionary.locale as Locale) ?? baseLocale;
-
-    if (!mainDictionaryToProcess || !targetUnmergedDictionary.filePath) {
-      continue;
-    }
-
-    const perLocaleResults = resultsByDictionary.get(dictionaryKey) ?? [];
-
-    /**
-     * Merge the new translations with the base content
-     *
-     * In 'review' mode, consider the new translations over the base content declaration
-     * In 'complete' mode, consider the base content declaration over the new translations
-     */
-    const dictionaryToMerge: Dictionary[] =
-      mode === 'review'
-        ? [...perLocaleResults, mainDictionaryToProcess]
-        : [mainDictionaryToProcess, ...perLocaleResults];
-
-    const mergedResults = mergeDictionaries(dictionaryToMerge);
-
-    let formattedDict = targetUnmergedDictionary;
-
-    /**
-     * If the dictionary is a per-locale dictionary, get the content for the specific locale
-     */
-    if (formattedDict.locale) {
-      const presetOutputContent = getLocalizedContent(
-        mainDictionaryToProcess.content as unknown as ContentNode,
-        formattedDict.locale,
-        { dictionaryKey, keyPath: [] }
+        {
+          mode,
+          aiOptions: options?.aiOptions,
+          fillMetadata: !options?.skipMetadata,
+          onHandle: globalLimiter, // <= AI calls go through here
+        }
       );
 
-      formattedDict = {
-        ...formattedDict,
-        content: presetOutputContent,
-      };
-    }
+      if (!translationTaskResult?.dictionaryOutput) return;
 
-    /**
-     * In the case two dictionaries have the same key, reducing the content allows to keep the base dictionary structure without inserting new fields
-     */
-    const reducedResult: Dictionary = reduceDictionaryContent(
-      mergedResults,
-      formattedDict
-    );
+      const { dictionaryOutput, sourceLocale } = translationTaskResult;
 
-    /**
-     * Check if auto fill is enabled
-     */
-    const isAutoFillEnabled =
-      formattedDict.autoFill || configuration.content.autoFill;
-    const isAutoFillPerLocale =
-      typeof formattedDict.locale === 'undefined' ||
-      formattedDict.locale === sourceLocale;
+      // fix impossible && condition
+      const isFillOtherFile =
+        typeof dictionaryOutput.fill === 'string' ||
+        typeof dictionaryOutput.fill === 'object';
 
-    if (isAutoFillEnabled && isAutoFillPerLocale) {
-      const localeList = resultsByDictionary
-        .get(dictionaryKey)
-        ?.map((result) => result.locale) as Locale[];
-
-      /**
-       * Write auto filled dictionary
-       */
-      await writeAutoFill(
-        mergedResults,
-        targetUnmergedDictionary,
-        formattedDict.autoFill ?? (configuration.content.autoFill as AutoFill),
-        localeList,
-        [sourceLocale],
-        configuration
-      );
-    } else {
-      for (const locale of locales) {
-        const localizedDictionaryContent = getLocalizedContent(
-          reducedResult.content as unknown as ContentNode,
-          locale,
-          { dictionaryKey, keyPath: [] }
+      if (isFillOtherFile) {
+        await writeFill(
+          dictionaryOutput,
+          outputLocales,
+          [sourceLocale],
+          configuration
         );
+      } else {
+        await writeContentDeclaration(dictionaryOutput, configuration);
 
-        /**
-         * Otherwise, write the base dictionary
-         */
-        await writeContentDeclaration(
-          { ...formattedDict, content: localizedDictionaryContent },
-          configuration,
-          { fallbackLocale: locale }
-        );
-
-        if (formattedDict.filePath) {
+        if (dictionaryOutput.filePath) {
           const dictionaryPreset = colon(
             [
-              colorize('  - [', ANSIColors.GREY_DARK),
-              colorizeKey(targetUnmergedDictionary.key),
+              ' - ',
+              colorize('[', ANSIColors.GREY_DARK),
+              colorizeKey(dictionaryOutput.key),
               colorize(']', ANSIColors.GREY_DARK),
             ].join(''),
-            { colSize: maxKeyLength + 6 }
+            { colSize: 15 }
           );
           appLogger(
-            `${dictionaryPreset} Content declaration written to ${formatPath(formattedDict.filePath)}`,
-            {
-              level: 'info',
-            }
+            `${dictionaryPreset} Content declaration written to ${formatPath(basename(dictionaryOutput.filePath))}`,
+            { level: 'info' }
           );
         }
       }
-    }
-  }
+    })
+  );
+
+  await Promise.all(runners);
+  await (globalLimiter as any).onIdle();
 };

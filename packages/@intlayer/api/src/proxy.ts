@@ -58,12 +58,13 @@ export const getIntlayerAPIProxy = (
   // Use a shared mutable auth options object captured by the API closures
   const authOptionsRef: FetcherOptions = { ..._baseAuthOptions };
   const hasCMSAuth =
-    intlayerConfig?.editor.clientId && intlayerConfig?.editor.clientSecret;
+    intlayerConfig?.editor?.clientId && intlayerConfig?.editor?.clientSecret;
   const baseApi = getIntlayerAPI(authOptionsRef, intlayerConfig);
 
   const needsRefresh = (): boolean => {
     if (!currentAccessToken) return true;
     if (!currentExpiryTs) return false; // If unknown, assume usable until failure
+
     return Date.now() + ONE_MINUTE_MS >= currentExpiryTs; // refresh 1 min before expiry
   };
 
@@ -72,6 +73,7 @@ export const getIntlayerAPIProxy = (
       const authApi = getOAuthAPI(intlayerConfig);
       const res = await authApi.getOAuth2AccessToken();
       const tokenData = res?.data as OAuthTokenLike | undefined;
+
       currentAccessToken = tokenData?.accessToken;
       currentExpiryTs = getExpiryTimestamp(tokenData);
     };

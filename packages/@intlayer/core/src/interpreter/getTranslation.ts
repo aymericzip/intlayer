@@ -23,17 +23,13 @@ import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
  */
 export const getTranslation = <Content = string>(
   languageContent: StrictModeLocaleMap<Content>,
-  locale?: LocalesValues,
+  locale: LocalesValues,
   fallback?: LocalesValues
 ): Content => {
-  let result =
-    languageContent[
-      (locale ?? fallback) as unknown as keyof typeof languageContent
-    ];
+  let result = languageContent[locale as keyof typeof languageContent];
 
   if (fallback && !result) {
-    result =
-      languageContent[fallback as unknown as keyof typeof languageContent];
+    result = languageContent[fallback as keyof typeof languageContent];
   }
 
   return result as unknown as Content;

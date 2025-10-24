@@ -19,6 +19,7 @@ const metadataContent = {
       ar: 'المؤسسة | لوحة التحكم | Intlayer',
       ru: 'Организация | Приборная панель | Intlayer',
       tr: 'Organizasyon | Dashboard | Intlayer',
+      pl: 'Organizacja | Panel | Intlayer',
     }),
     description: t({
       en: 'Manage your organization settings in the Intlayer dashboard. Update organization details, manage team members, and configure access controls.',
@@ -36,6 +37,7 @@ const metadataContent = {
       ar: 'إدارة إعدادات مؤسستك في لوحة تحكم Intlayer. قم بتحديث تفاصيل المؤسسة، وإدارة أعضاء الفريق، وتكوين ضوابط الوصول.',
       ru: 'Управляйте настройками вашей организации в панели инструментов Intlayer. Обновите данные организации, управляйте членами команды и настройте контроль доступа.',
       tr: 'Intlayer kontrol panelinde organizasyon ayarlarınızı yönetin. Organizasyon ayrıntılarını güncelleyin, ekip üyelerini yönetin ve erişim kontrollerini yapılandırın.',
+      pl: 'Zarządzaj ustawieniami organizacji w panelu Intlayer. Aktualizuj dane organizacji, zarządzaj członkami zespołu i konfiguruj kontrolę dostępu.',
     }),
     keywords: t<string[]>({
       en: [
@@ -129,8 +131,20 @@ const metadataContent = {
         'İzinler',
         'Şirket Ayarları',
       ],
+      pl: [
+        'Organizacja',
+        'Ustawienia',
+        'Zarządzanie zespołem',
+        'Kontrola dostępu',
+        'Uprawnienia',
+        'Ustawienia firmy',
+      ],
     }),
   },
+  title: 'Organization dashboard metadata',
+  description:
+    'Metadata for the organization settings page within the Intlayer dashboard. Includes SEO-related title, description, and keywords for managing organization details, team members, and access permissions.',
+  tags: ['page metadata', 'dashboard', 'organization settings'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

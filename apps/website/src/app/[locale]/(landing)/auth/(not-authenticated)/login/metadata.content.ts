@@ -19,6 +19,7 @@ const metadataContent = {
       ru: 'Вход | Intlayer',
       tr: 'Giriş Yap | Intlayer',
       zh: '登录 | Intlayer',
+      pl: 'Logowanie | Intlayer',
     }),
     description: t({
       ar: 'قم بتسجيل الدخول إلى حساب Intlayer الخاص بك للوصول إلى المحتوى الحصري وإدارة تفضيلاتك.',
@@ -36,6 +37,7 @@ const metadataContent = {
       ru: 'Войдите в свою учетную запись Intlayer, чтобы получить доступ к эксклюзивному контенту и управлять своими настройками.',
       tr: 'Özel içeriğe erişmek ve tercihlerinizi yönetmek için Intlayer hesabınıza giriş yapın.',
       zh: '登录您的Intlayer帐户以访问独家内容并管理您的偏好。',
+      pl: 'Zaloguj się na swoje konto Intlayer, aby uzyskać dostęp do ekskluzywnych treści i zarządzać swoimi preferencjami.',
     }),
 
     keywords: t({
@@ -123,8 +125,20 @@ const metadataContent = {
         'Oturum aç',
       ],
       zh: ['登录', '账户', 'Intlayer', '访问', '身份验证', '登录'],
+      pl: [
+        'Logowanie',
+        'Konto',
+        'Intlayer',
+        'Dostęp',
+        'Uwierzytelnianie',
+        'Zaloguj się',
+      ],
     }),
   },
+  title: 'Login page metadata',
+  description:
+    'Metadata for the login page, including title, description, and keywords. It supports SEO and helps describe the purpose of the login page for search engines.',
+  tags: ['page metadata', 'login page'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

@@ -9,8 +9,9 @@ const getBlogMetadata = (blog: BlogKey) =>
     localeRecord(async ({ locale }) => await getBlogMetadataCore(blog, locale))
   );
 
-const blogDataContent: any = {
+const blogDataContent: Dictionary = {
   key: 'blog-data',
+  fill: false,
   content: {
     'what-is-internationalization': {
       title: t({

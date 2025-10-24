@@ -19,6 +19,7 @@ const metadataContent = {
       ar: 'كلمة المرور منسية | Intlayer',
       ru: 'Забыли пароль | Intlayer',
       tr: 'Şifremi Unuttum | Intlayer',
+      pl: 'Zapomniane hasło | Intlayer',
     }),
     description: t({
       en: 'Recover your Intlayer account by resetting your forgotten password. Follow the instructions to restore access.',
@@ -36,9 +37,10 @@ const metadataContent = {
       ar: 'استعد حسابك في Intlayer عن طريق إعادة تعيين كلمة المرور المنسية. اتبع التعليمات لاستعادة الوصول.',
       ru: 'Восстановите свой аккаунт Intlayer, сбросив забытый пароль. Следуйте инструкциям, чтобы восстановить доступ.',
       tr: 'Unutulan şifrenizi sıfırlayarak Intlayer hesabınızı kurtarın. Erişimi geri yüklemek için talimatları izleyin.',
+      pl: 'Odzyskaj konto Intlayer, resetując zapomniane hasło. Postępuj zgodnie z instrukcjami, aby przywrócić dostęp.',
     }),
 
-    keywords: t<string[]>({
+    keywords: t({
       en: [
         'Forgotten password',
         'Password recovery',
@@ -131,8 +133,19 @@ const metadataContent = {
         'React',
         'JavaScript',
       ],
+      pl: [
+        'zapomniane hasło',
+        'odzyskiwanie hasła',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
     }),
   },
+  title: 'Reset password page metadata',
+  description:
+    'Metadata related to the reset password page. It contains SEO elements like title, description, and keywords to help users recover their Intlayer account and guide search engines.',
+  tags: ['page metadata', 'authentication', 'password reset'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

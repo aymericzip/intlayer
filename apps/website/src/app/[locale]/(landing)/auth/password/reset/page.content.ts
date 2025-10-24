@@ -18,6 +18,7 @@ const resetPasswordContent = {
       ar: 'إعادة تعيين كلمة المرور',
       ru: 'Сбросить пароль',
       tr: 'Şifreyi Sıfırla',
+      pl: 'Resetowanie hasła',
     }),
     title2: t({
       en: 'Reset your password',
@@ -34,6 +35,7 @@ const resetPasswordContent = {
       ar: 'إعادة تعيين كلمة المرور الخاصة بك',
       ru: 'Сбросьте свой пароль',
       tr: 'Şifrenizi Sıfırlayın',
+      pl: 'Zresetuj swoje hasło',
     }),
     description: t({
       en: 'Enter your email to reset your password.',
@@ -50,8 +52,13 @@ const resetPasswordContent = {
       ar: 'أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك.',
       ru: 'Введите вашу электронную почту, чтобы сбросить пароль.',
       tr: 'E-postanızı girerek şifrenizi sıfırlayın.',
+      pl: 'Wprowadź swój adres e-mail, aby zresetować hasło.',
     }),
   },
+  title: 'Reset password page',
+  description:
+    'Content declarations for the reset password page, including titles and description for guiding users in the password recovery process.',
+  tags: ['authentication', 'reset password', 'landing page'],
 } satisfies Dictionary;
 
 export default resetPasswordContent;

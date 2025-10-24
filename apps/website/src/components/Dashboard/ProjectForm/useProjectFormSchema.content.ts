@@ -18,6 +18,7 @@ const content = {
       ar: 'يرجى إدخال اسم لمشروعك',
       ru: 'Пожалуйста, введите название вашего проекта',
       tr: 'Lütfen projeniz için bir isim girin',
+      pl: 'Proszę wprowadzić nazwę projektu',
     }),
 
     invalidTypeErrorName: t({
@@ -35,8 +36,13 @@ const content = {
       ar: 'يرجى إدخال اسم صالح لمشروعك',
       ru: 'Пожалуйста, введите допустимое имя для вашего проекта',
       tr: 'Lütfen projeniz için geçerli bir isim girin',
+      pl: 'Proszę wprowadzić prawidłową nazwę projektu',
     }),
   },
+  title: 'Project form validation schema',
+  description:
+    'Validation messages for the project form, ensuring users provide a valid and non-empty project name.',
+  tags: ['form validation', 'project form'],
 } satisfies Dictionary;
 
 export default content;

@@ -19,6 +19,7 @@ const metadataContent = {
       ru: '404 - Страница Не Найдена | Intlayer',
       tr: '404 - Sayfa Bulunamadı | Intlayer',
       zh: '404 - 找不到页面 | Intlayer',
+      pl: '404 - Strona nie znaleziona | Intlayer',
     }),
     description: t({
       ar: 'عذرًا! قد تكون الصفحة التي تبحث عنها قد أزيلت، أو تغير اسمها، أو أنها غير متاحة مؤقتًا. عد إلى صفحتنا الرئيسية أو استخدم وظيفة البحث للعثور على ما تحتاجه.',
@@ -36,6 +37,7 @@ const metadataContent = {
       ru: 'Упс! Возможно, запрашиваемая вами страница была удалена, ее имя изменено или она временно недоступна. Вернитесь на нашу главную страницу или используйте функцию поиска, чтобы найти то, что вам нужно.',
       tr: 'Hata! Aradığınız sayfa kaldırılmış, adı değiştirilmiş veya geçici olarak kullanılamıyor olabilir. Ana sayfamıza geri dönün veya ihtiyacınız olanı bulmak için arama işlevini kullanın.',
       zh: '抱歉！您要找的页面可能已被删除、更改名称或暂时无法使用。请返回我们的主页或使用搜索功能寻找您所需的内容。',
+      pl: 'Ups! Strona, której szukasz, mogła zostać usunięta, zmieniono jej nazwę lub jest tymczasowo niedostępna. Wróć do naszej strony głównej lub użyj funkcji wyszukiwania, aby znaleźć to, czego potrzebujesz.',
     }),
 
     keywords: t({
@@ -179,8 +181,22 @@ const metadataContent = {
         '网页开发',
         'i18n',
       ],
+      pl: [
+        'błąd 404',
+        'strona nie znaleziona',
+        'błąd',
+        'Intlayer',
+        'JavaScript',
+        'React',
+        'tworzenie stron internetowych',
+        'i18n',
+      ],
     }),
   },
+  title: 'Dashboard 404 metadata',
+  description:
+    'Metadata for the 404 error page within the dashboard. Includes SEO-relevant information like title, description, and keywords to help users and search engines understand the nature of the missing page.',
+  tags: ['page metadata', 'dashboard', '404 page'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

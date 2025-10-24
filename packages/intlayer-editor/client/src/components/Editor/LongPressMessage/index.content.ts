@@ -2,7 +2,7 @@ import { type Dictionary, insert, t } from 'intlayer';
 
 const longPressMessageContent = {
   key: 'long-press-message',
-  autoFill: './{{key}}.content.json',
+  fill: './{{key}}.content.json',
   content: {
     message: insert(
       t({

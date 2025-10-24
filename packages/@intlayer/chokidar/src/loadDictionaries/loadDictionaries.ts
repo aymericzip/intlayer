@@ -34,12 +34,12 @@ const setLoadDictionariesStatus = (statuses: DictionariesStatus[]) => {
   const updated: DictionariesStatus[] = [...loadDictionariesStatus];
 
   for (const incoming of statuses) {
-    const idx = updated.findIndex(
+    const index = updated.findIndex(
       (s) =>
         s.dictionaryKey === incoming.dictionaryKey && s.type === incoming.type
     );
-    if (idx >= 0) {
-      updated[idx] = incoming;
+    if (index >= 0) {
+      updated[index] = incoming;
     } else {
       updated.push(incoming);
     }

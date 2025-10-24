@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 export const copyContentContent = {
   key: 'copy-button',
-  autoFill: './{{key}}.content.json',
+  fill: './{{key}}.content.json',
   content: {
     label: t({
       en: 'Copy content',
@@ -19,8 +19,13 @@ export const copyContentContent = {
       ar: 'نسخ المحتوى',
       ru: 'Копировать содержимое',
       tr: 'İçeriği kopyala',
+      pl: 'Kopiuj zawartość',
     }),
   },
+  title: 'Copy button label',
+  description:
+    'Content declaration for the copy button label used to trigger the copy to clipboard action in the design system.',
+  tags: ['button component', 'design system'],
 } satisfies Dictionary;
 
 export default copyContentContent;

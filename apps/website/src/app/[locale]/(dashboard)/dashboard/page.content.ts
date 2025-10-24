@@ -18,8 +18,13 @@ const dashboardContent = {
       ru: 'Панель управления',
       tr: 'Dashboard',
       zh: '仪表板',
+      pl: 'Panel',
     }),
   },
+  title: 'Dashboard page',
+  description:
+    'Content declaration for the dashboard page of the application. It serves as the main control panel for users to access key CMS features and data.',
+  tags: ['dashboard', 'cms page'],
 } satisfies Dictionary;
 
 export default dashboardContent;

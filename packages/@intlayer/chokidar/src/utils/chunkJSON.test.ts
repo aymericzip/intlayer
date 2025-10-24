@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { assembleJSON, chunkJSON } from './chunkJSON';
+import {
+  assembleJSON,
+  chunkJSON,
+  reconstructFromSingleChunk,
+} from './chunkJSON';
 
 describe('chunkJSON', () => {
   describe('basic functionality', () => {
@@ -159,7 +163,7 @@ describe('chunkJSON', () => {
 
     it('should throw error for maxChars too small', () => {
       const data = { test: 'value' };
-      expect(() => chunkJSON(data, 10)).toThrow(
+      expect(() => chunkJSON(data, 100)).toThrow(
         'maxChars is too small. Use at least 500 characters.'
       );
     });
@@ -374,6 +378,249 @@ describe('chunkJSON', () => {
       const chunks = chunkJSON(data, 700);
       const reassembled = assembleJSON(chunks);
       expect(reassembled).toEqual(data);
+    });
+  });
+
+  describe('blog metadata array case', () => {
+    it('should handle large blog metadata array with many entries', () => {
+      // Create a realistic blog metadata structure similar to user's case
+      const blogEntries = Array.from({ length: 22 }, (_, i) => ({
+        createdAt: `2024-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
+        updatedAt: '2025-06-29',
+        title: `Blog Post ${i + 1}: ${'A'.repeat(50)}`,
+        description: `This is a detailed description for blog post ${i + 1}. ${'B'.repeat(100)}`,
+        keywords: [
+          'Intlayer',
+          'Internationalization',
+          'Blog',
+          'Next.js',
+          'JavaScript',
+          'React',
+          `Topic${i}`,
+        ],
+        slugs: ['blog', `post-${i + 1}`, `category-${i % 5}`],
+        docKey: `./blog/en/post-${i + 1}.md`,
+        githubUrl: `https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/post-${i + 1}.md`,
+        relativeUrl: `/blog/post-${i + 1}`,
+        url: `https://intlayer.org/blog/post-${i + 1}`,
+      }));
+
+      // This should split into 2 chunks based on maxChars
+      const chunks = chunkJSON(blogEntries, 16000);
+
+      expect(chunks.length).toBeGreaterThan(0);
+      expect(chunks.length).toBeLessThanOrEqual(3);
+
+      // Verify all chunks have consistent metadata
+      chunks.forEach((chunk, index) => {
+        expect(chunk.index).toBe(index);
+        expect(chunk.total).toBe(chunks.length);
+        expect(chunk.schemaVersion).toBe(1);
+        expect(chunk.rootType).toBe('array');
+      });
+
+      // Reassemble and verify
+      const reassembled = assembleJSON(chunks);
+      expect(reassembled).toEqual(blogEntries);
+    });
+
+    it('should handle the exact structure from user logs', () => {
+      const data = [
+        {
+          createdAt: '2024-24-12',
+          updatedAt: '2025-06-29',
+          title: 'Blog',
+          description:
+            'Discover all topics related to Intlayer, internationalization and other',
+          keywords: [
+            'Intlayer',
+            'Internationalization',
+            'Blog',
+            'Next.js',
+            'JavaScript',
+            'React',
+          ],
+          slugs: ['blog', 'search'],
+          docKey: './blog/en/index.md',
+          githubUrl:
+            'https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/index.md',
+          relativeUrl: '/blog/search',
+          url: 'https://intlayer.org/blog/search',
+        },
+        {
+          createdAt: '2024-12-24',
+          updatedAt: '2025-06-29',
+          title: 'SEO and Internationalization',
+          description:
+            'Discover how to optimize your multilingual website for search engines and improve your SEO.',
+          keywords: [
+            'SEO',
+            'Intlayer',
+            'Internationalization',
+            'Blog',
+            'Next.js',
+            'JavaScript',
+            'React',
+          ],
+          slugs: ['blog', 'SEO-and-i18n'],
+          docKey: './blog/en/internationalization_and_SEO.md',
+          githubUrl:
+            'https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md',
+          relativeUrl: '/blog/SEO-and-i18n',
+          url: 'https://intlayer.org/blog/SEO-and-i18n',
+        },
+        {
+          createdAt: '2024-12-24',
+          updatedAt: '2025-06-29',
+          title: 'Intlayer and i18next',
+          description:
+            'Integrate Intlayer with i18next for optimal internationalisation. Compare the two frameworks and learn how to configure them together.',
+          keywords: [
+            'Intlayer',
+            'i18next',
+            'Internationalisation',
+            'i18n',
+            'Localisation',
+            'Translation',
+            'React',
+            'Next.js',
+            'JavaScript',
+            'TypeScript',
+          ],
+          slugs: ['blog', 'intlayer-with-i18next'],
+          docKey: './blog/en/intlayer_with_i18next.md',
+          githubUrl:
+            'https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_i18next.md',
+          relativeUrl: '/blog/intlayer-with-i18next',
+          url: 'https://intlayer.org/blog/intlayer-with-i18next',
+        },
+      ];
+
+      const chunks = chunkJSON(data, 2000);
+
+      // Verify chunks are properly formed
+      chunks.forEach((chunk, index) => {
+        expect(chunk.index).toBe(index);
+        expect(chunk.total).toBe(chunks.length);
+      });
+
+      const reassembled = assembleJSON(chunks);
+      expect(reassembled).toEqual(data);
+    });
+
+    it('should handle array with very large string fields requiring splitting', () => {
+      const data = [
+        {
+          id: 1,
+          content: 'A'.repeat(15000),
+          metadata: { title: 'First' },
+        },
+        {
+          id: 2,
+          content: 'B'.repeat(15000),
+          metadata: { title: 'Second' },
+        },
+      ];
+
+      const chunks = chunkJSON(data, 8000);
+      expect(chunks.length).toBeGreaterThan(1);
+
+      // Verify chunk consistency
+      const firstChunk = chunks[0];
+      chunks.forEach((chunk) => {
+        expect(chunk.total).toBe(chunks.length);
+        expect(chunk.checksum).toBe(firstChunk.checksum);
+        expect(chunk.rootType).toBe('array');
+      });
+
+      const reassembled = assembleJSON(chunks);
+      expect(reassembled).toEqual(data);
+    });
+  });
+
+  describe('reconstructFromSingleChunk', () => {
+    it('should reconstruct partial content from a single chunk', () => {
+      const data = {
+        title: 'Test',
+        items: [1, 2, 3],
+        nested: { value: 'test' },
+      };
+
+      const chunks = chunkJSON(data, 1000);
+
+      // Even if there's only one chunk, test that we can reconstruct it individually
+      const reconstructed = reconstructFromSingleChunk(chunks[0]);
+      expect(reconstructed).toEqual(data);
+    });
+
+    it('should reconstruct partial content from first chunk of multi-chunk data', () => {
+      const data = Array.from({ length: 100 }, (_, i) => ({
+        id: i,
+        name: `Item ${i}`,
+        description: `Description ${i}`,
+      }));
+
+      const chunks = chunkJSON(data, 2000);
+      expect(chunks.length).toBeGreaterThan(1);
+
+      // Each chunk should reconstruct to a partial array
+      for (const chunk of chunks) {
+        const partial = reconstructFromSingleChunk(chunk);
+        expect(Array.isArray(partial)).toBe(true);
+        // The partial array should have some items (not necessarily all)
+        expect((partial as any[]).length).toBeGreaterThan(0);
+      }
+    });
+
+    it('should handle single chunk with split string', () => {
+      const data = {
+        content: 'A'.repeat(10000),
+        other: 'small',
+      };
+
+      const chunks = chunkJSON(data, 5000);
+      expect(chunks.length).toBeGreaterThan(1);
+
+      // Reconstruct just the first chunk
+      const partial = reconstructFromSingleChunk(chunks[0]);
+      expect(partial).toHaveProperty('content');
+
+      // Note: if the content string is split across multiple chunks,
+      // reconstructFromSingleChunk will leave it as a split-node object
+      // with __splittedType, __total, and partial parts
+      const content = (partial as any).content;
+      if (typeof content === 'object' && content.__splittedType === 'string') {
+        // Split string - this is expected for incomplete chunks
+        expect(content).toHaveProperty('__splittedType');
+        expect(content).toHaveProperty('__total');
+      } else {
+        // If all parts are in this chunk, it will be reconstructed
+        expect(typeof content).toBe('string');
+      }
+    });
+
+    it('should work with blog metadata structure', () => {
+      const blogEntries = Array.from({ length: 22 }, (_, i) => ({
+        createdAt: `2024-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
+        updatedAt: '2025-06-29',
+        title: `Blog Post ${i + 1}`,
+        description: `Description for post ${i + 1}`,
+        keywords: ['Intlayer', 'Blog', `Topic${i}`],
+        slugs: ['blog', `post-${i + 1}`],
+      }));
+
+      const chunks = chunkJSON(blogEntries, 16000);
+
+      // Should be able to reconstruct each chunk individually
+      for (const chunk of chunks) {
+        const partial = reconstructFromSingleChunk(chunk);
+        expect(Array.isArray(partial)).toBe(true);
+        expect((partial as any[]).length).toBeGreaterThan(0);
+      }
+
+      // Full assembly should still work
+      const fullReassembly = assembleJSON(chunks);
+      expect(fullReassembly).toEqual(blogEntries);
     });
   });
 });

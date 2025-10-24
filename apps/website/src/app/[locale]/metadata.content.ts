@@ -19,6 +19,7 @@ const metadataContent = {
       ru: 'Решение i18n и CMS для React, Next.js, Vue | Intlayer',
       tr: 'React, Next.js, Vue için i18n Çözümü ve CMS | Intlayer',
       zh: 'React、Next.js、Vue 的 i18n解决方案 CMS | Intlayer',
+      pl: 'Rozwiązanie i18n i CMS dla React, Next.js, Vue | Intlayer',
     }),
 
     description: t({
@@ -37,6 +38,7 @@ const metadataContent = {
       ru: 'Увеличьте масштабируемость вашего приложения с помощью Intlayer: решение для интернационализации (i18n) и управления контентом на базе ИИ. Поддержка React, Next.js, Vue, Svelte и других.',
       tr: 'Intlayer ile uygulamanızın ölçeklenebilirliğini artırın: AI destekli bir uluslararasılaştırma (i18n) ve içerik yönetim çözümü. React, Next.js, Vue, Svelte ve daha fazlası için tasarlandı.',
       zh: '使用 Intlayer 提升应用可扩展性：一款由 AI 驱动的国际化 (i18n) 与内容管理解决方案。适用于 React、Next.js、Vue、Svelte 等。',
+      pl: 'Zwiększ skalowalność swojej aplikacji dzięki Intlayer — rozwiązaniu do internacjonalizacji (i18n) i zarządzania treścią opartemu na AI. Zaprojektowane dla React, Next.js, Vue, Svelte i nie tylko.',
     }),
 
     keywords: t({
@@ -248,6 +250,20 @@ const metadataContent = {
         'CMS',
         '内容管理系统',
       ],
+      pl: [
+        'tłumaczenie',
+        'lokalizacja',
+        'wielojęzyczność',
+        'internacjonalizacja',
+        'i18n',
+        'tworzenie stron internetowych',
+        'Next.js',
+        'JavaScript',
+        'Vite',
+        'React',
+        'CMS',
+        'system zarządzania treścią',
+      ],
     }),
     openGraph: {
       title: t({
@@ -265,9 +281,14 @@ const metadataContent = {
         ar: 'التدويل (i18n) يجعل Next.js سهلًا | Intlayer',
         ru: 'Интернационализация (i18n) Next.js стала простой | Intlayer',
         tr: "Uluslararasılaştırma (i18n) Next.js'i Kolaylaştırır | Intlayer",
+        pl: 'Internacjonalizacja (i18n) w Next.js | Intlayer',
       }),
     },
   },
+  title: 'Locale page metadata',
+  description:
+    'Metadata related to the locale-specific main page, including SEO fields such as title, description, keywords, and Open Graph data. It highlights the internationalization and CMS capabilities of Intlayer for modern frameworks.',
+  tags: ['page metadata', 'locale', 'i18n', 'cms', 'seo'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

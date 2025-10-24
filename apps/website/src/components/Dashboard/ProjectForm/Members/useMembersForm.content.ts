@@ -19,6 +19,7 @@ const projectMembersFormContent = {
       ar: 'الأعضاء',
       ru: 'Члены',
       tr: 'Üyeler',
+      pl: 'Członkowie',
     }),
     description: t({
       en: 'Manage the members that have access and can edit your project.',
@@ -35,6 +36,7 @@ const projectMembersFormContent = {
       ar: 'إدارة الأعضاء الذين يمكنهم الوصول إلى المشروع وتحريره.',
       ru: 'Управляйте членами, которые имеют доступ и могут редактировать ваш проект.',
       tr: 'Projeye erişimi olan ve düzenleyebilen üyeleri yönetin.',
+      pl: 'Zarządzaj członkami, którzy mają dostęp i mogą edytować Twój projekt.',
     }),
 
     noMembers: t({
@@ -52,6 +54,7 @@ const projectMembersFormContent = {
       ar: 'لا يوجد أعضاء',
       ru: 'Нет членов',
       tr: 'Üye yok',
+      pl: 'Brak członków',
     }),
 
     membersSelect: {
@@ -70,6 +73,7 @@ const projectMembersFormContent = {
         ar: 'اختر الأعضاء',
         ru: 'Выберите членов',
         tr: 'Üyeleri seçin',
+        pl: 'Wybierz członków',
       }),
       placeholder: t({
         en: 'Select members',
@@ -86,6 +90,7 @@ const projectMembersFormContent = {
         ar: 'اختر الأعضاء',
         ru: 'Выберите членов',
         tr: 'Üyeleri seçin',
+        pl: 'Wybierz członków',
       }),
       description: t({
         en: 'Members can view the project.',
@@ -102,6 +107,7 @@ const projectMembersFormContent = {
         ar: 'يمكن للأعضاء عرض المشروع.',
         ru: 'Члены могут просматривать проект.',
         tr: 'Üyeler projeyi görüntüleyebilir.',
+        pl: 'Członkowie mogą przeglądać projekt.',
       }),
     },
     adminsSelect: {
@@ -120,6 +126,7 @@ const projectMembersFormContent = {
         ar: 'اختر المديرين',
         ru: 'Выберите администраторов',
         tr: 'Yöneticileri seçin',
+        pl: 'Wybierz administratorów',
       }),
       placeholder: t({
         en: 'Select admins',
@@ -136,6 +143,7 @@ const projectMembersFormContent = {
         ar: 'اختر المديرين',
         ru: 'Выберите администраторов',
         tr: 'Yöneticileri seçin',
+        pl: 'Wybierz administratorów',
       }),
       description: t({
         en: 'Admins can edit members and project settings.',
@@ -152,6 +160,7 @@ const projectMembersFormContent = {
         ar: 'يمكن للمديرين تعديل الأعضاء وإعدادات المشروع.',
         ru: 'Администраторы могут редактировать участников и настройки проекта.',
         tr: 'Yöneticiler üyeleri ve proje ayarlarını düzenleyebilir.',
+        pl: 'Administratorzy mogą edytować członków i ustawienia projektu.',
       }),
     },
     addMembersButton: {
@@ -170,6 +179,7 @@ const projectMembersFormContent = {
         ar: 'تحديث الأعضاء',
         ru: 'Обновить членов',
         tr: 'Üyeleri güncelle',
+        pl: 'Aktualizuj członków',
       }),
       label: t({
         en: 'Update Members',
@@ -186,6 +196,7 @@ const projectMembersFormContent = {
         ar: 'تحديث الأعضاء',
         ru: 'Обновить членов',
         tr: 'Üyeleri güncelle',
+        pl: 'Aktualizuj członków',
       }),
     },
     schema: {
@@ -204,6 +215,7 @@ const projectMembersFormContent = {
         ar: 'الرجاء إضافة عضو واحد على الأقل إلى المشروع',
         ru: 'Пожалуйста, добавьте хотя бы одного участника в проект',
         tr: 'Lütfen projeye en az bir üye ekleyin',
+        pl: 'Dodaj przynajmniej jednego członka do projektu',
       }),
 
       requiredErrorAdmin: t({
@@ -221,9 +233,14 @@ const projectMembersFormContent = {
         ar: 'الرجاء إضافة مدير واحد على الأقل إلى المشروع',
         ru: 'Пожалуйста, добавьте хотя бы одного администратора в проект',
         tr: 'Lütfen projeye en az bir yönetici ekleyin',
+        pl: 'Dodaj przynajmniej jednego administratora do projektu',
       }),
     },
   },
+  title: 'Project members form',
+  description:
+    'Dictionary for the project members form, including labels, descriptions, and validation messages for managing members and admins within a project.',
+  tags: ['form', 'project settings', 'members management'],
 } satisfies Dictionary;
 
 export default projectMembersFormContent;

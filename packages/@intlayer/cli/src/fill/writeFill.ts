@@ -5,28 +5,22 @@ import {
   writeContentDeclaration,
 } from '@intlayer/chokidar';
 import { colorizeKey, getAppLogger } from '@intlayer/config';
-import type {
-  AutoFill,
-  Dictionary,
-  IntlayerConfig,
-  Locale,
-} from '@intlayer/types';
-import { type AutoFillData, formatAutoFillData } from './formatAutoFillData';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
+import type { Dictionary, Fill, IntlayerConfig, Locale } from '@intlayer/types';
+import { type FillData, formatFillData } from './formatFillData';
 
-export const writeAutoFill = async (
-  fullDictionary: Dictionary,
+export const writeFill = async (
   contentDeclarationFile: Dictionary,
-  autoFillOptions: AutoFill,
   outputLocales: Locale[],
   parentLocales: Locale[],
   configuration: IntlayerConfig
 ) => {
   const appLogger = getAppLogger(configuration);
-  const localeList: Locale[] = (
-    outputLocales ?? configuration.internationalization.locales
-  ).filter((locale) => !parentLocales?.includes(locale));
+  const dictionaries = getDictionaries(configuration);
 
-  const filePath = contentDeclarationFile.filePath;
+  const fullDictionary = dictionaries[contentDeclarationFile.key];
+
+  const { filePath } = contentDeclarationFile;
 
   if (!filePath) {
     appLogger('No file path found for dictionary', {
@@ -35,8 +29,28 @@ export const writeAutoFill = async (
     return;
   }
 
-  const autoFillData: AutoFillData[] = formatAutoFillData(
-    autoFillOptions,
+  const autoFillOptions =
+    contentDeclarationFile.fill ?? configuration.content.fill;
+
+  if (
+    typeof autoFillOptions === 'boolean' &&
+    (autoFillOptions as boolean) === false
+  ) {
+    appLogger(
+      `Auto fill is disabled for '${colorizeKey(fullDictionary.key)}'`,
+      {
+        level: 'info',
+      }
+    );
+    return;
+  }
+
+  const localeList: Locale[] = (
+    outputLocales ?? configuration.internationalization.locales
+  ).filter((locale) => !parentLocales?.includes(locale));
+
+  const autoFillData: FillData[] = formatFillData(
+    autoFillOptions as Fill,
     localeList,
     filePath,
     fullDictionary.key,
@@ -54,22 +68,19 @@ export const writeAutoFill = async (
       continue;
     }
 
-    const reducedDictionaryContent = reduceDictionaryContent(
-      fullDictionary,
-      contentDeclarationFile
-    );
-
     // write file
     await writeContentDeclaration(
       {
-        ...fullDictionary,
-        autoFill: undefined,
-        autoFilled: true,
+        ...contentDeclarationFile,
+        fill: undefined,
+        filled: true,
         locale: output.isPerLocale ? output.localeList[0] : undefined,
-        content: reducedDictionaryContent.content,
         filePath: output.filePath,
       },
-      configuration
+      configuration,
+      {
+        localeList: output.localeList,
+      }
     );
 
     if (output.isPerLocale) {

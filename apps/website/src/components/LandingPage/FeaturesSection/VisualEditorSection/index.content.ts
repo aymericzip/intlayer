@@ -15,6 +15,8 @@ const featuresSectionContent = {
       hi: 'प्लेगन का उपयोग करके मुफ्त को खेलें।',
       ko: '플레이그라운드를 사용하여 무료로 시도하세요.',
       tr: 'Playground kullanarak ücretsiz deneyin.',
+      pl: 'Wypróbuj za darmo, korzystając z playgrounda.',
+      ru: 'Попробуйте бесплатно, воспользовавшись песочницей.',
     }),
     gotToPlaygroundButton: {
       text: t({
@@ -32,6 +34,7 @@ const featuresSectionContent = {
         hi: 'प्लेगन पर जाएं',
         ko: '플레이그라운드로 이동',
         tr: "Playground'a git",
+        pl: 'Przejdź do playgrounda',
       }),
       label: t({
         en: 'Click to go to the playground',
@@ -48,9 +51,14 @@ const featuresSectionContent = {
         hi: 'प्लेगन पर जाएं',
         ko: '클릭하여 플레이그라운드로 이동',
         tr: "Playground'a gitmek için tıklayın",
+        pl: 'Kliknij, aby przejść do playgrounda',
       }),
     },
   },
+  title: 'Visual editor section',
+  description:
+    'Content for the Visual Editor section of the landing page, encouraging users to try the playground for free with a call-to-action button.',
+  tags: ['landing page', 'feature section', 'playground'],
 } satisfies Dictionary;
 
 export default featuresSectionContent;

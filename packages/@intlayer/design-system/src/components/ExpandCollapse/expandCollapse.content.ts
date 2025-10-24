@@ -2,7 +2,7 @@ import { cond, type Dictionary, t } from 'intlayer';
 
 const expandCollapseContent = {
   key: 'expand-collapse',
-  autoFill: './{{key}}.content.json',
+  fill: './{{key}}.content.json',
   content: {
     expandCollapseContent: cond({
       true: t({

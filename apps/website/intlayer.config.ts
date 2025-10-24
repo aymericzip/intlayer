@@ -19,6 +19,7 @@ export const locales: Locale[] = [
   Locales.PORTUGUESE,
   Locales.HINDI,
   Locales.TURKISH,
+  Locales.POLISH,
 ];
 export const defaultLocale = Locales.ENGLISH;
 
@@ -42,12 +43,16 @@ const config: CustomIntlayerConfig = {
     backendURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     // clientId: process.env.INTLAYER_CLIENT_ID,
     // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-    formatCommand: 'bun x biome format {{file}} --write',
+    formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
   build: {
     importMode: 'dynamic',
   },
   ai: {
+    applicationContext: [
+      'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',
+      'This application contain a landing page, the documentation and the CMS on the dashboard.',
+    ].join('\n'),
     apiKey: process.env.OPENAI_API_KEY,
   },
   log: {

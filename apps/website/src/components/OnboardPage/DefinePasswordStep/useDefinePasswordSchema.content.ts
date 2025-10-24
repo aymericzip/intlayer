@@ -18,6 +18,7 @@ const content = {
       ru: 'Пожалуйста, введите свой текущий пароль',
       tr: 'Lütfen mevcut şifrenizi girin',
       zh: '请输入您当前的密码',
+      pl: 'Proszę wprowadzić aktualne hasło',
     }),
 
     invalidTypeErrorPassword: t({
@@ -35,6 +36,7 @@ const content = {
       ru: 'Пожалуйста, введите действующий пароль',
       tr: 'Lütfen geçerli bir şifre girin',
       zh: '请输入有效的密码',
+      pl: 'Proszę podać prawidłowe hasło',
     }),
 
     invalidPasswordLengthError: t({
@@ -52,6 +54,7 @@ const content = {
       ru: 'Ваш пароль должен содержать не менее 8 символов',
       tr: 'Şifreniz en az 8 karakter olmalıdır',
       zh: '您的密码必须至少为8个字符',
+      pl: 'Twoje hasło musi mieć co najmniej 8 znaków',
     }),
 
     requiredErrorNewPassword: t({
@@ -69,6 +72,7 @@ const content = {
       ru: 'Пожалуйста, введите свой новый пароль',
       tr: 'Lütfen yeni şifrenizi girin',
       zh: '请输入您的新密码',
+      pl: 'Proszę wprowadzić nowe hasło',
     }),
 
     invalidTypeErrorNewPassword: t({
@@ -86,6 +90,7 @@ const content = {
       ru: 'Пожалуйста, введите действующий новый пароль',
       tr: 'Lütfen geçerli bir yeni şifre girin',
       zh: '请输入有效的新密码',
+      pl: 'Proszę podać prawidłowe nowe hasło',
     }),
 
     requiredErrorNewPasswordConfirmation: t({
@@ -103,6 +108,7 @@ const content = {
       ru: 'Пожалуйста, введите свой новый пароль снова',
       tr: 'Lütfen yeni şifrenizi tekrar girin',
       zh: '请再次输入您的新密码',
+      pl: 'Proszę ponownie wprowadzić nowe hasło',
     }),
 
     invalidTypeErrorNewPasswordConfirmation: t({
@@ -120,6 +126,7 @@ const content = {
       ru: 'Пожалуйста, введите действительный новый пароль еще раз',
       tr: 'Lütfen geçerli bir yeni şifre tekrar girin',
       zh: '请输入有效的新密码',
+      pl: 'Proszę ponownie podać prawidłowe nowe hasło',
     }),
 
     passwordNotMatchError: t({
@@ -137,8 +144,13 @@ const content = {
       ru: 'Новый пароль и подтверждение пароля должны совпадать',
       tr: 'Yeni şifre ve şifre onayı eşleşmelidir',
       zh: '新密码和密码确认必须匹配',
+      pl: 'Nowe hasło i potwierdzenie hasła muszą się zgadzać',
     }),
   },
+  title: 'Define password schema validation',
+  description:
+    'Validation schema content for defining a new password during onboarding. Includes error messages for required fields, invalid formats, and password confirmation mismatch.',
+  tags: ['form validation', 'onboarding', 'password'],
 } satisfies Dictionary;
 
 export default content;

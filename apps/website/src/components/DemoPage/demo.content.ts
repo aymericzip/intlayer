@@ -18,6 +18,7 @@ const demoContent = {
       ar: 'جرّب محرر Intlayer المرئي الجديد',
       ru: 'Попробуйте новый визуальный редактор Intlayer',
       tr: 'Yeni Intlayer görsel editörünü deneyin',
+      pl: 'Wypróbuj nowy wizualny edytor Intlayer',
     }),
 
     landingParagraph: t({
@@ -53,6 +54,7 @@ const demoContent = {
           ar: 'ضع المؤشر على المحتوى الذي تريد تعديله واضغط مع الاستمرار',
           ru: 'Наведите курсор на содержимое, которое нужно изменить и удерживайте его',
           tr: 'Değiştirilecek içeriğin üzerine gelin ve uzun basın',
+          pl: 'Najedź kursorem i przytrzymaj zawartość, którą chcesz zmodyfikować',
         }),
         description: t({
           fr: "Exercez un clic prolongé pour faire apparaître l'éditeur visuel. Le panneau d'édition s'étend de la droite et met en évidence le contenu sélectionné pour édition.",
@@ -70,6 +72,7 @@ const demoContent = {
           ar: 'اضغط مع الاستمرار لإظهار المحرر المرئي. يمتد لوحة التحرير من اليمين ويبرز المحتوى المحدد للتعديل.',
           ru: 'Нажмите и удерживайте, чтобы визуальный редактор появился. Панель редактирования расширяется справа, выделяя контент, выбранный для редактирования.',
           tr: 'Görsel editörü görüntülemek için basılı tutun. Düzenleme paneli sağdan uzanır ve düzenleme için seçilen içeriği vurgular.',
+          pl: 'Naciśnij i przytrzymaj, aby pojawił się wizualny edytor. Panel edycji wysuwa się z prawej strony, podświetlając wybraną zawartość do edycji.',
         }),
       },
       edition: {
@@ -88,6 +91,7 @@ const demoContent = {
           ar: 'قم بإجراء التعديلات عن طريق استبدال النص المعني',
           ru: 'Вносите изменения, заменяя соответствующий текст',
           tr: 'İlgili metni değiştirerek değişikliklerinizi yapın',
+          pl: 'Wprowadź zmiany, zastępując odpowiedni tekst',
         }),
         description: t({
           fr: "Le texte mis en évidence dans le panneau d'édition peut être modifié ou remplacé à guise. Les modifications apparaîtront instantanément sur la page principale, facilitant la révision du contenu. Pour annuler les changements apportés, cliquez sur la croix.",
@@ -105,6 +109,7 @@ const demoContent = {
           ar: 'يمكن تعديل أو استبدال النص المميز في لوحة التحرير حسب الرغبة. ستظهر التغييرات على الفور على الصفحة الرئيسية، مما يسهل مراجعة المحتوى. للتراجع عن التغييرات التي أجريتها، انقر فوق علامة الإغلاق.',
           ru: 'Выделенный текст на панели редактирования можно изменять или заменять по желанию. Изменения появятся мгновенно на главной странице, что упростит обзор контента. Чтобы отменить внесенные изменения, нажмите на крестик.',
           tr: 'Düzenleme panelinde vurgulanan metin istediğiniz gibi değiştirilebilir veya değiştirilebilir. Değişiklikler ana sayfada anında görünecek ve içeriği gözden geçirmeyi kolaylaştıracaktır. Yapılan değişiklikleri geri almak için çarpıya tıklayın.',
+          pl: 'Podświetlony tekst w panelu edycji można dowolnie modyfikować lub zastępować. Zmiany pojawią się natychmiast na stronie głównej, co ułatwia ich przeglądanie. Aby cofnąć wprowadzone zmiany, kliknij krzyżyk.',
         }),
       },
       validation: {
@@ -123,6 +128,7 @@ const demoContent = {
           ar: 'أكد تغييراتك',
           ru: 'Подтвердите ваши изменения',
           tr: 'Değişikliklerinizi onaylayın',
+          pl: 'Potwierdź zmiany',
         }),
         description: t({
           fr: 'Une fois vos changements effectués, validez les modifications apportées au champ concerné, puis validez les changements apportés au dictionnaire. Lorsque les changements apportés au dictionnaire sont validés, Intlayer écrira les modifications dans le fichier concerné.',
@@ -140,10 +146,15 @@ const demoContent = {
           ar: 'بمجرد إجراء تغييراتك، قم بالتحقق من التعديلات التي أجريت على الحقل المعني، ثم أكد التغييرات التي تم إجراؤها على القاموس. عندما يتم التحقق من التغييرات التي تم إجراؤها على القاموس، ستقوم Intlayer بكتابة التعديلات في الملف المعني.',
           ru: 'После внесения изменений подтвердите изменения, внесенные в соответствующее поле, затем подтвердите изменения, внесенные в словарь. Когда изменения в словаре будут подтверждены, Intlayer запишет изменения в соответствующий файл.',
           tr: 'Değişikliklerinizi yaptıktan sonra, ilgili alanda yapılan değişiklikleri doğrulayın, ardından sözlükte yapılan değişiklikleri onaylayın. Sözlükte yapılan değişiklikler doğrulandığında, Intlayer değişiklikleri ilgili dosyaya yazacaktır.',
+          pl: 'Po wprowadzeniu zmian zatwierdź modyfikacje danego pola, a następnie potwierdź zmiany w słowniku. Po zatwierdzeniu zmian w słowniku Intlayer zapisze modyfikacje w odpowiednim pliku.',
         }),
       },
     },
   },
+  title: 'Demo page',
+  description:
+    'Content declaration for the demo page showcasing the Intlayer visual editor. Includes tutorial steps and markdown-supported landing paragraph designed to guide users through content editing with real-time updates and multilingual support.',
+  tags: ['demo', 'visual editor', 'content editing', 'landing page'],
 } satisfies Dictionary;
 
 export default demoContent;

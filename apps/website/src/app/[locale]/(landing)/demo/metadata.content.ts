@@ -19,6 +19,7 @@ const metadataContent = {
       ru: 'Демо | Intlayer',
       tr: 'Demo | Intlayer',
       zh: '演示 | Intlayer',
+      pl: 'Demo | Intlayer',
     }),
     description: t({
       ar: 'جرب محرر Intlayer الإلكتروني الجديد. مكن فرقك من السيطرة على المحتوى الخاص بك وتحويل تطبيقك إلى نظام إدارة محتوى.',
@@ -36,6 +37,7 @@ const metadataContent = {
       ru: 'Попробуйте новый онлайн-редактор Intlayer. Дайте вашим командам возможность контролировать ваш контент и превратить ваше приложение в CMS.',
       tr: "Yeni Intlayer çevrimiçi düzenleyicisini deneyin. Ekiplerinize içeriğiniz üzerinde kontrol sağlama ve uygulamanızı bir CMS'ye dönüştürme gücü verin.",
       zh: '试用新的Intlayer在线编辑器。赋予您的团队掌控内容的能力，并将您的应用程序转变为CMS。',
+      pl: 'Wypróbuj nowy edytor online Intlayer. Umożliw swoim zespołom przejęcie kontroli nad zawartością i przekształcenie aplikacji w CMS.',
     }),
 
     keywords: t({
@@ -179,8 +181,22 @@ const metadataContent = {
         'React',
         'JavaScript',
       ],
+      pl: [
+        'Demo',
+        'Demonstracja',
+        'Edytor online',
+        'Wypróbuj',
+        'CMS',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
     }),
   },
+  title: 'Demo page metadata',
+  description:
+    "Metadata related to the demo page, includes title, description, and keywords for SEO purposes. Highlights Intlayer's online editor capabilities and CMS features.",
+  tags: ['page metadata', 'demo page', 'online editor', 'CMS'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

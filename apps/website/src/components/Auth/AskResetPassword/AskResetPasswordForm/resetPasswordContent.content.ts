@@ -19,6 +19,7 @@ const askResetPasswordContent = {
         ar: 'عنوان البريد الإلكتروني',
         ru: 'Адрес электронной почты',
         tr: 'E-posta adresi',
+        pl: 'Adres e-mail',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -35,6 +36,7 @@ const askResetPasswordContent = {
         ar: 'أدخل عنوان البريد الإلكتروني',
         ru: 'Введите адрес электронной почты',
         tr: 'E-posta adresini girin',
+        pl: 'Wprowadź adres e-mail',
       }),
     },
     sendRecoveryEmailButton: {
@@ -53,6 +55,7 @@ const askResetPasswordContent = {
         ar: 'إرسال بريد إلكتروني لاستعادة كلمة المرور',
         ru: 'Отправить письмо для восстановления',
         tr: 'Kurtarma e-postası gönder',
+        pl: 'Wyślij e-mail odzyskiwania',
       }),
       ariaLabel: t({
         en: 'Click to send recovery email',
@@ -69,6 +72,7 @@ const askResetPasswordContent = {
         ar: 'انقر لإرسال بريد إلكتروني لاستعادة كلمة المرور',
         ru: 'Щелкните, чтобы отправить электронное письмо для восстановления',
         tr: 'Kurtarma e-postası göndermek için tıklayın',
+        pl: 'Kliknij, aby wysłać e-mail odzyskiwania',
       }),
     },
     resendRecoveryEmailButton: {
@@ -87,6 +91,7 @@ const askResetPasswordContent = {
         ar: 'إعادة إرسال البريد الإلكتروني لاستعادة كلمة المرور',
         ru: 'Повторно отправить письмо для восстановления',
         tr: 'Kurtarma e-postasını yeniden gönder',
+        pl: 'Wyślij ponownie e-mail odzyskiwania',
       }),
     },
     resendInText: t({
@@ -104,6 +109,7 @@ const askResetPasswordContent = {
       ru: 'Повторно отправить через',
       tr: 'Yeniden gönder',
       zh: '重新发送',
+      pl: 'Wyślij ponownie za',
     }),
     backToLoginButton: {
       text: t({
@@ -121,6 +127,7 @@ const askResetPasswordContent = {
         ar: 'العودة إلى تسجيل الدخول',
         ru: 'Вернуться к входу',
         tr: 'Girişe geri dön',
+        pl: 'Powrót do logowania',
       }),
     },
   },

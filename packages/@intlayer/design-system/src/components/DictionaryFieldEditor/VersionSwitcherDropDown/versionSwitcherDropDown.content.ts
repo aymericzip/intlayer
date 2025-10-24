@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 const versionSwitcherContent = {
   key: 'version-switcher',
-  autoFill: './{{key}}.content.json',
+  fill: './{{key}}.content.json',
   content: {
     versionSwitcherLabel: t({
       en: 'Version selector',

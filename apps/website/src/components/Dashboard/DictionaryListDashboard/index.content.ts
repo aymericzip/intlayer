@@ -18,6 +18,7 @@ const dictionaryFormContent = {
       ru: 'Найти словарь',
       tr: 'Sözlük arama',
       zh: '搜索字典',
+      pl: 'Wyszukaj słownik',
     }),
 
     selectDictionaryButton: {
@@ -36,9 +37,14 @@ const dictionaryFormContent = {
         ar: 'اضغط لتحديد قاموس',
         ru: 'Нажмите, чтобы выбрать словарь',
         tr: 'Bir sözlük seçmek için tıklayın',
+        pl: 'Kliknij, aby wybrać słownik',
       }),
     },
   },
+  title: 'Dictionary list dashboard',
+  description:
+    'UI content for the dashboard section listing available dictionaries. Includes search placeholder and dictionary selection button.',
+  tags: ['dashboard', 'dictionary'],
 } satisfies Dictionary;
 
 export default dictionaryFormContent;

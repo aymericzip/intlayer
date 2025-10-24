@@ -19,6 +19,7 @@ const metadataContent = {
       ru: 'Умная документация | ИС чат-бот | Intlayer',
       tr: 'Akıllı Dokümantasyon | AI Destekli ChatBot | Intlayer',
       zh: '智能文档 | AI 聊天机器人 | Intlayer',
+      pl: 'Inteligentna dokumentacja | Czatbot oparty na sztucznej inteligencji | Intlayer',
     }),
     description: t({
       ar: 'احصل على إجابات فورية مع دردشة الوثائق الخاصة بنا AI. استكشف دليلات تفاعلية، حل المشاكل والعثور على حلول بسهولة,  سواء تسأل!',
@@ -36,6 +37,7 @@ const metadataContent = {
       ru: 'Получите мгновенные ответы с нашего AI-поддерживаемого чат-бота документации. Исследуйте интерактивные руководства, устраняйте проблемы и найдите решения без усилий, просто спросите!',
       tr: 'Yapay zeka destekli dokümantasyon sohbet botumuzla anında cevaplar alın. Etkileşimli kılavuzları keşfedin, sorunları giderin ve zahmetsizce çözümler bulun, sadece sorun!',
       zh: '使用我们的 AI 驱动的文档聊天机器人获取即时答案。探索交互式指南、排除问题并找到解决方案，只需要问！',
+      pl: 'Uzyskaj natychmiastowe odpowiedzi dzięki naszemu czatbotowi dokumentacyjnemu opartemu na sztucznej inteligencji. Przeglądaj interaktywne przewodniki, rozwiązuj problemy i znajdź rozwiązania bez wysiłku — wystarczy zapytać!',
     }),
 
     keywords: t({
@@ -53,8 +55,19 @@ const metadataContent = {
       ru: ['чат-бот', 'AI', 'умный', 'документация', 'intlayer'],
       tr: ['sohbet botu', 'AI', 'akıllı', 'dokümantasyon', 'intlayer'],
       zh: ['聊天机器人', 'AI', '智能', '文档', 'intlayer'],
+      pl: [
+        'czatbot',
+        'sztuczna inteligencja',
+        'inteligentny',
+        'dokumentacja',
+        'intlayer',
+      ],
     }),
   },
+  title: 'Documentation chatbot metadata',
+  description:
+    'Metadata for the AI-powered documentation chatbot page. Includes SEO information such as title, description, and keywords to help users discover the interactive support feature.',
+  tags: ['page metadata', 'documentation', 'chatbot'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

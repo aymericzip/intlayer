@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { colorizePath, x } from '@intlayer/config';
 import {
   deepTransformNode,
@@ -38,10 +38,7 @@ const writeFilePlugin: Plugins = {
       const absoluteFilePath = join(process.cwd(), filePath);
 
       // Create the file directory if it doesn't exist
-      const fileDirectory = join(process.cwd(), filePath);
-      if (!fileDirectory.startsWith(process.cwd())) {
-        throw new Error('File directory not found');
-      }
+      const fileDirectory = dirname(absoluteFilePath);
 
       if (!existsSync(fileDirectory)) {
         mkdirSync(fileDirectory, { recursive: true });

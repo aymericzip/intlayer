@@ -18,6 +18,7 @@ const organizationFormContent = {
       ar: 'تفاصيل المنظمة',
       ru: 'Детали организации',
       tr: 'Organizasyon detayları',
+      pl: 'Szczegóły organizacji',
     }),
     nameInput: {
       label: t({
@@ -35,6 +36,7 @@ const organizationFormContent = {
         ar: 'اسم',
         ru: 'Имя',
         tr: 'İsim',
+        pl: 'Nazwa',
       }),
       placeholder: t({
         en: 'Enter the name of your organization',
@@ -51,6 +53,7 @@ const organizationFormContent = {
         ar: 'أدخل اسم منظمتك',
         ru: 'Введите название вашей организации',
         tr: 'Organizasyonunuzun adını girin',
+        pl: 'Wprowadź nazwę swojej organizacji',
       }),
     },
 
@@ -69,6 +72,7 @@ const organizationFormContent = {
       ar: 'لا توجد منظمة',
       ru: 'Нет организации',
       tr: 'Organizasyon yok',
+      pl: 'Brak organizacji',
     }),
 
     createOrganizationDescription: t({
@@ -86,6 +90,7 @@ const organizationFormContent = {
       ar: 'قم بإنشاء منظمتك الأولى لبدء استخدام Intlayer',
       ru: 'Создайте свою первую организацию, чтобы начать использовать Intlayer',
       tr: 'Intlayer kullanmaya başlamak için ilk organizasyonunuzu oluşturun',
+      pl: 'Utwórz swoją pierwszą organizację, aby zacząć korzystać z Intlayer',
     }),
 
     createOrganizationButton: {
@@ -104,6 +109,7 @@ const organizationFormContent = {
         ar: 'إنشاء منظمة',
         ru: 'Создать организацию',
         tr: 'Organizasyon oluştur',
+        pl: 'Utwórz organizację',
       }),
       ariaLabel: t({
         en: 'Click to create organization',
@@ -120,6 +126,7 @@ const organizationFormContent = {
         ar: 'انقر لإنشاء منظمة',
         ru: 'Нажмите, чтобы создать организацию',
         tr: 'Organizasyon oluşturmak için tıklayın',
+        pl: 'Kliknij, aby utworzyć organizację',
       }),
     },
 
@@ -139,6 +146,7 @@ const organizationFormContent = {
         ar: 'تحرير المنظمة',
         ru: 'Редактировать организацию',
         tr: 'Organizasyonu düzenle',
+        pl: 'Edytuj organizację',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -155,6 +163,7 @@ const organizationFormContent = {
         ar: 'انقر لتحرير',
         ru: 'Нажмите, чтобы отредактировать',
         tr: 'Düzenlemek için tıklayın',
+        pl: 'Kliknij, aby edytować organizację',
       }),
     },
 
@@ -174,6 +183,7 @@ const organizationFormContent = {
         ar: 'اختر',
         ru: 'Выбрать',
         tr: 'Seç',
+        pl: 'Wybierz',
       }),
       ariaLabel: t({
         en: 'Click to select',
@@ -190,6 +200,7 @@ const organizationFormContent = {
         ar: 'انقر للاختيار',
         ru: 'Нажмите, чтобы выбрать',
         tr: 'Seçmek için tıklayın',
+        pl: 'Kliknij, aby wybrać',
       }),
       selected: t({
         en: 'Selected',
@@ -206,6 +217,7 @@ const organizationFormContent = {
         ar: 'محدد',
         ru: 'Выбран',
         tr: 'Seçildi',
+        pl: 'Wybrano',
       }),
       unselected: t({
         en: 'Select',
@@ -222,6 +234,7 @@ const organizationFormContent = {
         ar: 'اختر',
         ru: 'Выбрать',
         tr: 'Seç',
+        pl: 'Wybierz',
       }),
     },
     addOrganizationButton: {
@@ -240,6 +253,7 @@ const organizationFormContent = {
         ko: '조직 추가',
         zh: '添加组织',
         tr: 'Organizasyon ekle',
+        pl: 'Dodaj organizację',
       }),
       ariaLabel: t({
         en: 'Click to add organization',
@@ -256,6 +270,7 @@ const organizationFormContent = {
         ko: '조직을 추가하려면 클릭',
         zh: '单击添加组织',
         tr: 'Organizasyon eklemek için tıklayın',
+        pl: 'Kliknij, aby dodać organizację',
       }),
     },
     deleteOrganizationButton: {
@@ -274,6 +289,7 @@ const organizationFormContent = {
         ar: 'حذف المنظمة',
         ru: 'Удалить организацию',
         tr: 'Organizasyonu sil',
+        pl: 'Usuń organizację',
       }),
       ariaLabel: t({
         en: 'Click to delete organization',
@@ -290,9 +306,14 @@ const organizationFormContent = {
         ar: 'انقر لحذف المنظمة',
         ru: 'Нажмите, чтобы удалить организацию',
         tr: 'Organizasyonu silmek için tıklayın',
+        pl: 'Kliknij, aby usunąć organizację',
       }),
     },
   },
+  title: 'Organization form',
+  description:
+    'Content declaration for the organization form in the dashboard. Includes titles, button labels, and input placeholders for creating, editing, selecting, and deleting organizations.',
+  tags: ['dashboard', 'organization management', 'form'],
 } satisfies Dictionary;
 
 export default organizationFormContent;

@@ -291,10 +291,9 @@ Defines settings related to the integrated editor, including server port and act
   - _Type_: `string`
   - _Default_: `undefined`
   - _Description_: The command to format the content. When intlayer write your .content files locally, this command will be used to format the content.
-  - _Example_: `'npx prettier --write {{file}}'` Using Prettier
-  - _Example_: `'bunx biome format {{file}}'` Using Biome
-  - _Example_: `'bun format {{file}}'` Using Bun
-  - _Example_: `'npx eslint --fix {{file}}'` Using ESLint
+  - _Example_: `'npx prettier --write "{{file}}" --log-level silent'` Using Prettier
+  - _Example_: `'npx biome format "{{file}}" --write --log-level none'` Using Biome
+  - _Example_: `'npx eslint --fix "{{file}}"  --quiet'` Using ESLint
   - _Note_: Intlayer will replace the {{file}} with the path of the file to format.
 
 ### Routing Configuration
@@ -518,7 +517,7 @@ Settings related to content handling within the application, including directory
 
 #### Properties
 
-- **autoFill**:
+- **fill**:
   - _Type_: `boolean | string | { [key in Locales]?: string }`
   - _Default_: `undefined`
   - _Description_: Indicate how the content should be automatically filled using AI. Can be declared globally in the `intlayer.config.ts` file.
@@ -526,9 +525,10 @@ Settings related to content handling within the application, including directory
   - _Example_: `'./{{fileName}}.content.json'`
   - _Example_: `{ fr: './{{fileName}}.fr.content.json', es: './{{fileName}}.es.content.json' }`
   - _Note_: The auto fill configuration. It can be:
-    - boolean: Enable auto fill for all locales
-    - string: Path to a single file or template with variables
-    - object: Per-locale file paths
+    - `true`: Rewrites the current file with filled content for all locales
+    - `false`: Disables auto-fill completely
+    - `string`: Path to a single file or template with variables (fills the specified file without modifying the current one)
+    - `object`: Per-locale file paths
 
 - **watch**:
   - _Type_: `boolean`

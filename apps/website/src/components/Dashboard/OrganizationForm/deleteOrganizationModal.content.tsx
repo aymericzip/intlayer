@@ -18,6 +18,7 @@ const deleteOrganizationModalContent = {
       ru: 'Удалить организацию',
       tr: 'Organizasyonu Sil',
       zh: '删除组织',
+      pl: 'Usuń organizację',
     }),
 
     description: t({
@@ -35,6 +36,7 @@ const deleteOrganizationModalContent = {
       ru: 'Вы уверены, что хотите удалить эту организацию?',
       tr: 'Bu Organizasyonu silmek istediğinize emin misiniz?',
       zh: '您确定要删除此组织吗？',
+      pl: 'Czy na pewno chcesz usunąć tę organizację?',
     }),
 
     confirmButton: {
@@ -53,6 +55,7 @@ const deleteOrganizationModalContent = {
         ar: 'حذف',
         ru: 'Удалить',
         tr: 'Sil',
+        pl: 'Usuń',
       }),
       label: t({
         en: 'Click to delete Organization',
@@ -69,6 +72,7 @@ const deleteOrganizationModalContent = {
         ar: 'انقر لحذف المنظمة',
         ru: 'Нажмите, чтобы удалить организацию',
         tr: 'Organizasyonu silmek için tıklayın',
+        pl: 'Kliknij, aby usunąć organizację',
       }),
     },
 
@@ -88,6 +92,7 @@ const deleteOrganizationModalContent = {
         ar: 'إلغاء',
         ru: 'Отменить',
         tr: 'İptal etmek için tıklayın',
+        pl: 'Anuluj',
       }),
       label: t({
         en: 'Click to cancel',
@@ -104,9 +109,14 @@ const deleteOrganizationModalContent = {
         ar: 'انقر لإلغاء',
         ru: 'Нажмите, чтобы отменить',
         tr: 'İptal etmek için tıklayın',
+        pl: 'Kliknij, aby anulować',
       }),
     },
   },
+  title: 'Delete organization modal',
+  description:
+    'Modal content for confirming the deletion of an organization. Includes confirmation message and action buttons with corresponding labels.',
+  tags: ['modal', 'organization', 'confirmation'],
 } satisfies Dictionary;
 
 export default deleteOrganizationModalContent;

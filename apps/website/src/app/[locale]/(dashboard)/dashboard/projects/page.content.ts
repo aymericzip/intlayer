@@ -18,8 +18,13 @@ const projectDashboardContent = {
       ar: 'إعدادات المشاريع',
       ru: 'Настройки проектов',
       tr: 'Proje ayarları',
+      pl: 'Ustawienia projektów',
     }),
   },
+  title: 'Projects dashboard page',
+  description:
+    'Content declaration for the projects dashboard page showing the settings or configuration options for project-related operations in the CMS.',
+  tags: ['dashboard', 'projects', 'page content'],
 } satisfies Dictionary;
 
 export default projectDashboardContent;

@@ -12,6 +12,7 @@ const getBlogMetadata = () =>
 
 const blogDataContent: any = {
   key: 'blog-metadata',
+  fill: false,
   content: getBlogMetadata(),
 } satisfies Dictionary;
 

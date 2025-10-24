@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 const localeSwitcherContent = {
   key: 'locale-switcher-content',
-  autoFill: './{{key}}.content.json',
+  fill: './{{key}}.content.json',
   content: {
     localeSwitcherLabel: t({
       en: 'Language switcher',

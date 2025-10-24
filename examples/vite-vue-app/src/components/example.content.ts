@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 const exampleContent = {
   key: 'example',
-  autoFill: {
+  fill: {
     es: '/messages/{{locale}}/{{key}}.content.cjs',
   },
   content: {

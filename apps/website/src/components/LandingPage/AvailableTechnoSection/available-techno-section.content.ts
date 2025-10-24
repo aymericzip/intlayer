@@ -18,6 +18,7 @@ const availableTechnoContent = {
       ru: 'Доступно на',
       tr: 'Mevcut',
       zh: '可用',
+      pl: 'Dostępne na',
     }),
     comingSoon: t({
       ar: 'قريبا متاح على',
@@ -34,6 +35,7 @@ const availableTechnoContent = {
       ru: 'Скоро доступно',
       tr: 'Çok yakında',
       zh: '即将可用',
+      pl: 'Wkrótce',
     }),
     icons: {
       react: {
@@ -52,6 +54,7 @@ const availableTechnoContent = {
           ar: 'اذهب إلى الموقع الرسمي لـ ReactJS',
           ru: 'Перейти на официальный сайт ReactJS',
           tr: 'ReactJS resmi web sitesine git',
+          pl: 'Przejdź do oficjalnej strony ReactJS',
         }),
       },
       nextjs: {
@@ -70,6 +73,7 @@ const availableTechnoContent = {
           ar: 'اذهب إلى الموقع الرسمي لـ NextJS',
           ru: 'Перейти на официальный сайт NextJS',
           tr: 'NextJS resmi web sitesine git',
+          pl: 'Przejdź do oficjalnej strony NextJS',
         }),
       },
       vite: {
@@ -88,6 +92,7 @@ const availableTechnoContent = {
           ar: 'اذهب إلى الموقع الرسمي لـ ViteJS',
           ru: 'Перейти на официальный сайт ViteJS',
           tr: 'ViteJS resmi web sitesine git',
+          pl: 'Przejdź do oficjalnej strony ViteJS',
         }),
       },
       vue: {
@@ -106,6 +111,7 @@ const availableTechnoContent = {
           ar: 'اذهب إلى الموقع الرسمي لـ VueJS',
           ru: 'Перейти на официальный сайт VueJS',
           tr: 'VueJS resmi web sitesine git',
+          pl: 'Przejdź do oficjalnej strony VueJS',
         }),
       },
       nuxt: {
@@ -124,6 +130,7 @@ const availableTechnoContent = {
           ar: 'اذهب إلى الموقع الرسمي لـ NuxtJS',
           ru: 'Перейти на официальный сайт NuxtJS',
           tr: 'NuxtJS resmi web sitesine git',
+          pl: 'Przejdź do oficjalnej strony NuxtJS',
         }),
       },
       angular: {
@@ -142,6 +149,7 @@ const availableTechnoContent = {
           ar: 'اذهب إلى الموقع الرسمي لـ AngularJS',
           ru: 'Перейти на официальный сайт AngularJS',
           tr: 'AngularJS resmi web sitesine git',
+          pl: 'Przejdź do oficjalnej strony AngularJS',
         }),
       },
       preact: {
@@ -160,6 +168,7 @@ const availableTechnoContent = {
           ar: 'اذهب إلى الموقع الرسمي لـ Preact',
           ru: 'Перейти на официальный сайт Preact',
           tr: 'Preact resmi web sitesine git',
+          pl: 'Przejdź do oficjalnej strony Preact',
         }),
       },
       solid: {
@@ -178,6 +187,7 @@ const availableTechnoContent = {
           ar: 'اذهب إلى الموقع الرسمي لـ SolidJS',
           ru: 'Перейти на официальный сайт SolidJS',
           tr: 'SolidJS resmi web sitesine git',
+          pl: 'Przejdź do oficjalnej strony SolidJS',
         }),
       },
       svelte: {
@@ -196,6 +206,7 @@ const availableTechnoContent = {
           ar: 'اذهب إلى الموقع الرسمي لـ Svelte',
           ru: 'Перейти на официальный сайт Svelte',
           tr: 'Svelte resmi web sitesine git',
+          pl: 'Przejdź do oficjalnej strony Svelte',
         }),
       },
       astro: {
@@ -214,6 +225,7 @@ const availableTechnoContent = {
           ar: 'اذهب إلى الموقع الرسمي لـ Astro',
           ru: 'Перейти на официальный сайт Astro',
           tr: 'Astro resmi web sitesine git',
+          pl: 'Przejdź do oficjalnej strony Astro',
         }),
       },
       lynx: {
@@ -232,6 +244,7 @@ const availableTechnoContent = {
           ar: 'اذهب إلى الموقع الرسمي لـ Lynx',
           ru: 'Перейти на официальный сайт Lynx',
           tr: 'Lynx resmi web sitesine git',
+          pl: 'Przejdź do oficjalnej strony Lynx',
         }),
       },
     },

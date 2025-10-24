@@ -1,42 +1,24 @@
-import { extname } from 'node:path';
-import type { AutoFill, IntlayerConfig, LocalesValues } from '@intlayer/types';
+import type { Fill, IntlayerConfig, LocalesValues } from '@intlayer/types';
 import { formatAutoFilledFilePath } from './formatAutoFilledFilePath';
 
-export type AutoFillData = {
+export type FillData = {
   localeList: LocalesValues[];
   filePath: string;
   isPerLocale: boolean;
 };
 
-export const formatAutoFillData = (
-  autoFillField: AutoFill,
+export const formatFillData = (
+  autoFillField: Fill,
   localeList: LocalesValues[],
   filePath: string,
   dictionaryKey: string,
   configuration: IntlayerConfig
-): AutoFillData[] => {
-  const outputContentDeclarationFile: AutoFillData[] = [];
+): FillData[] => {
+  const outputContentDeclarationFile: FillData[] = [];
 
   const baseDir = configuration.content.baseDir;
 
   if (!autoFillField) return outputContentDeclarationFile;
-
-  if (autoFillField === true) {
-    // wanted jsonFilePath: /..../src/components/home/index.content.json
-    // replace file extension in json
-    let jsonFilePath = filePath.replace(extname(filePath), '.json');
-
-    // if both filePath jsonFilePath are same path, change it as : /..../src/components/home/index.fill.content.json
-    if (filePath === jsonFilePath) {
-      jsonFilePath = jsonFilePath.replace(extname(jsonFilePath), '.fill.json');
-    }
-
-    outputContentDeclarationFile.push({
-      localeList,
-      filePath: jsonFilePath,
-      isPerLocale: false,
-    });
-  }
 
   if (typeof autoFillField === 'string') {
     if (autoFillField.includes('{{locale}}')) {
@@ -81,7 +63,7 @@ export const formatAutoFillData = (
         typeof autoFillField[locale as keyof typeof autoFillField] === 'string'
     ) as LocalesValues[];
 
-    const output: AutoFillData[] = localeList
+    const output: FillData[] = localeList
       .filter((locale) =>
         Boolean(autoFillField[locale as keyof typeof autoFillField])
       )
@@ -110,7 +92,7 @@ export const formatAutoFillData = (
         acc.push(curr);
       }
       return acc;
-    }, [] as AutoFillData[]);
+    }, [] as FillData[]);
 
     outputContentDeclarationFile.push(...groupedByFilePath);
   }

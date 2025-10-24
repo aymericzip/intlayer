@@ -1,5 +1,9 @@
 import configuration from '@intlayer/config/built';
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
+import type {
+  DeclaredLocales,
+  Dictionary,
+  LocalesValues,
+} from '@intlayer/types';
 import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
 import {
   type DeepTransformContent,
@@ -136,3 +140,18 @@ export const getFilterTranslationsOnlyContent = <
     plugins,
   }) as DeepTransformContent<T>;
 };
+
+export const getFilterTranslationsOnlyDictionary = (
+  dictionary: Dictionary,
+  locale: LocalesValues = configuration?.internationalization
+    ?.defaultLocale as LocalesValues,
+  fallback?: LocalesValues
+) => ({
+  ...dictionary,
+  content: getFilterTranslationsOnlyContent(
+    dictionary.content,
+    locale,
+    { dictionaryKey: dictionary.key, keyPath: [] },
+    fallback
+  ),
+});

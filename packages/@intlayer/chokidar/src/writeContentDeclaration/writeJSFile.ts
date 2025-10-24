@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { extname } from 'node:path';
 import { getAppLogger, logger } from '@intlayer/config';
-import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
+import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 import {
   type Extension,
@@ -20,10 +20,9 @@ import { transformJSFile } from './transformJSFile';
 export const writeJSFile = async (
   filePath: string,
   dictionary: Dictionary,
-  configuration: IntlayerConfig,
-  fallbackLocale?: Locale
+  configuration: IntlayerConfig
 ): Promise<void> => {
-  const { key, locale, autoFilled } = dictionary;
+  const { key, locale, filled } = dictionary;
   const appLogger = getAppLogger(configuration);
 
   // Check if the file exist
@@ -37,7 +36,7 @@ export const writeJSFile = async (
     });
     const template = await getContentDeclarationFileTemplate(key, format, {
       locale,
-      autoFilled,
+      filled,
     });
 
     await writeFile(filePath, template, 'utf-8');
@@ -45,11 +44,7 @@ export const writeJSFile = async (
 
   const fileContent = await readFile(filePath, 'utf-8');
 
-  const finalCode = await transformJSFile(
-    fileContent,
-    dictionary,
-    fallbackLocale
-  );
+  const finalCode = await transformJSFile(fileContent, dictionary);
 
   // Write the modified code back to the file
   try {

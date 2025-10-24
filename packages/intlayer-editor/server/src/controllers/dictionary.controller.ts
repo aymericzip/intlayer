@@ -75,6 +75,15 @@ export const writeContentDeclaration = async (
     let description = '';
 
     switch (result.status) {
+      case 'created': {
+        description = t({
+          en: 'Content declaration created successfully',
+          fr: 'Déclaration de contenu créée avec succès',
+          es: 'Declaración de contenido creada con éxito',
+        });
+        break;
+      }
+
       case 'updated': {
         description = t({
           en: 'Content declaration updated successfully',

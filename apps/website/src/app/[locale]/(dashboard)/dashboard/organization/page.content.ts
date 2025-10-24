@@ -18,8 +18,13 @@ const profileDashboardContent = {
       ar: 'إعدادات المنظمة',
       ru: 'Настройки организации',
       tr: 'Organizasyon ayarları',
+      pl: 'Ustawienia organizacji',
     }),
   },
+  title: 'Organization dashboard page',
+  description:
+    "Content declaration for the organization's settings page within the dashboard. It contains the title displayed to the user.",
+  tags: ['dashboard', 'organization page'],
 } satisfies Dictionary;
 
 export default profileDashboardContent;

@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 export const useDictionaryDetailsSchemaContent = {
   key: 'dictionary-detail-schema',
-  autoFill: './{{key}}.content.json',
+  fill: './{{key}}.content.json',
   content: {
     titleRequiredError: t({
       en: 'Please enter a name for your organization.',

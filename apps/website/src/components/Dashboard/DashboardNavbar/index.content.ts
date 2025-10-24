@@ -19,6 +19,7 @@ const dashboardNavbarContent = {
         ar: 'انقر لاختيار منظمة',
         ru: 'Нажмите, чтобы выбрать организацию',
         tr: 'Bir organizasyon seçmek için tıklayın',
+        pl: 'Kliknij, aby wybrać organizację',
       }),
     },
     selectOrganizationInstruction: t({
@@ -36,6 +37,7 @@ const dashboardNavbarContent = {
       ru: 'Выберите организацию',
       tr: 'Organizasyon seç',
       zh: '选择组织',
+      pl: 'Wybierz organizację',
     }),
 
     noOtherOrganizations: t({
@@ -53,6 +55,7 @@ const dashboardNavbarContent = {
       ru: 'Нет других организаций',
       tr: 'Başka organizasyon yok',
       zh: '没有其他组织',
+      pl: 'Brak innych organizacji',
     }),
     organizationLogout: {
       text: t({
@@ -70,6 +73,7 @@ const dashboardNavbarContent = {
         ar: 'تسجيل الخروج من المنظمة',
         ru: 'Выйти из организации',
         tr: 'Organizasyondan çıkış yap',
+        pl: 'Wyloguj się z organizacji',
       }),
       label: t({
         en: 'Click to log out from organization',
@@ -86,6 +90,7 @@ const dashboardNavbarContent = {
         ar: 'انقر لتسجيل الخروج من المنظمة',
         ru: 'Нажмите, чтобы выйти из организации',
         tr: 'Organizasyondan çıkış yapmak için tıklayın',
+        pl: 'Kliknij, aby wylogować się z organizacji',
       }),
     },
     createNewOrganization: {
@@ -104,6 +109,7 @@ const dashboardNavbarContent = {
         ar: 'إنشاء منظمة جديدة',
         ru: 'Создать новую организацию',
         tr: 'Yeni organizasyon oluştur',
+        pl: 'Utwórz nową organizację',
       }),
       label: t({
         en: 'Click to create a new organization',
@@ -120,6 +126,7 @@ const dashboardNavbarContent = {
         ar: 'انقر لإنشاء منظمة جديدة',
         ru: 'Нажмите, чтобы создать новую организацию',
         tr: 'Yeni organizasyon oluşturmak için tıklayın',
+        pl: 'Kliknij, aby utworzyć nową organizację',
       }),
     },
 
@@ -139,6 +146,7 @@ const dashboardNavbarContent = {
         ar: 'انقر لاختيار مشروع',
         ru: 'Нажмите, чтобы выбрать проект',
         tr: 'Bir proje seçmek için tıklayın',
+        pl: 'Kliknij, aby wybrać projekt',
       }),
     },
     selectProjectInstruction: t({
@@ -156,6 +164,7 @@ const dashboardNavbarContent = {
       ru: 'Выберите проект',
       tr: 'Proje seç',
       zh: '选择项目',
+      pl: 'Wybierz projekt',
     }),
 
     noOtherProjects: t({
@@ -173,6 +182,7 @@ const dashboardNavbarContent = {
       ru: 'Нет других проектов',
       tr: 'Başka proje yok',
       zh: '没有其他项目',
+      pl: 'Brak innych projektów',
     }),
     projectLogout: {
       text: t({
@@ -190,6 +200,7 @@ const dashboardNavbarContent = {
         ar: 'تسجيل الخروج من المشروع',
         ru: 'Выйти из проекта',
         tr: 'Projeden çıkış yap',
+        pl: 'Wyloguj się z projektu',
       }),
       label: t({
         en: 'Click to log out from project',
@@ -206,6 +217,7 @@ const dashboardNavbarContent = {
         ar: 'انقر لتسجيل الخروج من المشروع',
         ru: 'Нажмите, чтобы выйти из проекта',
         tr: 'Projeden çıkış yapmak için tıklayın',
+        pl: 'Kliknij, aby wylogować się z projektu',
       }),
     },
     createNewProject: {
@@ -224,6 +236,7 @@ const dashboardNavbarContent = {
         ar: 'إنشاء مشروع جديد',
         ru: 'Создать новый проект',
         tr: 'Yeni proje oluştur',
+        pl: 'Utwórz nowy projekt',
       }),
       label: t({
         en: 'Click to create a new project',
@@ -240,9 +253,20 @@ const dashboardNavbarContent = {
         ar: 'انقر لإنشاء مشروع جديد',
         ru: 'Нажмите, чтобы создать новый проект',
         tr: 'Yeni proje oluşturmak için tıklayın',
+        pl: 'Kliknij, aby utworzyć nowy projekt',
       }),
     },
   },
+  title: 'Dashboard navbar',
+  description:
+    'Content declarations for the dashboard navigation bar, including labels and instructions for selecting or creating organizations and projects.',
+  tags: [
+    'dashboard',
+    'navbar',
+    'navigation',
+    'organization',
+    'project management',
+  ],
 } satisfies Dictionary;
 
 export default dashboardNavbarContent;

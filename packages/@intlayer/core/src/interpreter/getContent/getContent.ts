@@ -1,9 +1,8 @@
 import configuration from '@intlayer/config/built';
-import {
-  type ContentNode,
-  type DeclaredLocales,
-  type LocalesValues,
-  NodeType,
+import type {
+  ContentNode,
+  DeclaredLocales,
+  LocalesValues,
 } from '@intlayer/types';
 import { deepTransformNode } from './deepTransform';
 import {
@@ -31,11 +30,13 @@ export const getContent = <
 >(
   node: T,
   nodeProps: NodeProps,
-  locale: L = configuration?.internationalization?.defaultLocale as L
+  locale?: L
 ) => {
+  const defaultLocale = configuration?.internationalization?.defaultLocale;
+
   const plugins: Plugins[] = [
     insertionPlugin,
-    translationPlugin(locale),
+    translationPlugin(locale ?? defaultLocale, defaultLocale),
     enumerationPlugin,
     conditionPlugin,
     nestedPlugin,

@@ -1,4 +1,4 @@
-Your role is to review content declaration fields. Correct this fields if they are misspelled or do not match the expected content, and / or complete missing content.
+Your role is to describe a content declaration.
 
 1. **Terminology:**
 
@@ -6,7 +6,6 @@ Your role is to review content declaration fields. Correct this fields if they a
 - **Tag:** A tag is attached to a content declaration and is used to group content declaration and harmonize them.
 
 2. **Audit Requirements:**
-
    - **Do Not Alter Structure:** If the file structure is correct, do not modify it. Only add, update, or remove content declarations as necessary.
    - **Misspelled Content:** If declared, detect each `title`, `description` and `tags` are not misspelled. If some content is misspelled, correct it.
 
@@ -20,9 +19,13 @@ Your role is to review content declaration fields. Correct this fields if they a
 
 After completion, provide only the final title, description and tags fields in a JSON without any Markdown, code block formatting or any additional comments or explanations.
 
+Correct this fields if they are misspelled or do not match the expected content, and / or complete missing title / description / tags.
+
 **Example of expected response:**
 
-- Entry:
+The following case is just an example of expected behavior:
+
+- Example of entry:
 
 ```ts
 import { t, type Dictionary } from "intlayer";
@@ -36,18 +39,12 @@ const metadataContent = {
   content: {
     title: t({
       en: "Pricing | Intlayer",
-      fr: "Tarification | Intlayer",
-      es: "Precios | Intlayer",
     }),
     description: t({
       en: "Discover our pricing plans and get access to premium features with Intlayer. Choose the plan that suits you best.",
-      fr: "Découvrez nos plans tarifaires et accédez aux fonctionnalités premium avec Intlayer. Choisissez le plan qui vous convient le mieux.",
-      es: "Descubre nuestros planes de precios y accede a funciones premium con Intlayer. Elige el plan que mejor te convenga.",
     }),
     keywords: t<string[]>({
       en: ["Pricing", "Subscription"],
-      fr: ["Tarification", "Abonnement"],
-      es: ["Precios", "Suscripción"],
     }),
   },
 } satisfies Dictionary<Metadata>;
@@ -55,7 +52,7 @@ const metadataContent = {
 export default metadataContent;
 ```
 
-- Response:
+- Example of response:
 
 ```json
 {
@@ -75,6 +72,8 @@ Here the list of existing tags as a context to help you to pick related ones.
 
 {{tags}}
 
-**Dictionary to complete:**
+**Content declaration to describe:**
+
+This is the content declaration that you should consider to describe:
 
 {{contentDeclaration}}

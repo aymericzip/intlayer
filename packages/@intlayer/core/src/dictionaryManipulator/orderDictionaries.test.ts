@@ -399,16 +399,16 @@ describe('orderDictionaries', () => {
     }
   });
 
-  it('should place non-autoFilled before autoFilled (autoFilled have lower precedence)', () => {
+  it('should place non-filled before filled (filled have lower precedence)', () => {
     const baseLocal: Dictionary = {
       key: 'k',
       location: 'local',
       content: {},
     };
-    const autoFilledLocal: Dictionary = {
+    const filledLocal: Dictionary = {
       key: 'k',
       location: 'local',
-      autoFilled: true,
+      filled: true,
       content: {},
     };
     const baseDistant: Dictionary = {
@@ -416,23 +416,23 @@ describe('orderDictionaries', () => {
       location: 'remote',
       content: {},
     };
-    const autoFilledDistant: Dictionary = {
+    const filledDistant: Dictionary = {
       key: 'k',
       location: 'remote',
-      autoFilled: true,
+      filled: true,
       content: {},
     };
 
     const ordered = orderDictionaries([
-      autoFilledDistant,
+      filledDistant,
       baseLocal,
-      autoFilledLocal,
+      filledLocal,
       baseDistant,
     ]);
 
-    // All non-autoFilled should come first (order among them respects strategy/local_first default)
-    expect(ordered.slice(0, 2).every((d) => !d.autoFilled)).toBe(true);
-    expect(ordered.slice(2).every((d) => d.autoFilled)).toBe(true);
+    // All non-filled should come first (order among them respects strategy/local_first default)
+    expect(ordered.slice(0, 2).every((d) => !d.filled)).toBe(true);
+    expect(ordered.slice(2).every((d) => d.filled)).toBe(true);
   });
 
   it('should order by higher priority first, then by strategy', () => {
@@ -467,7 +467,7 @@ describe('orderDictionaries', () => {
     expect(ordered[2]).toBe(lowPriorityLocal);
   });
 
-  it('should use distant_first to break ties after priority and autoFilled', () => {
+  it('should use distant_first to break ties after priority and filled', () => {
     const localA = {
       key: 'k',
       location: 'local',

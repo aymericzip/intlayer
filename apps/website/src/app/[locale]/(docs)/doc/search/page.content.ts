@@ -19,8 +19,13 @@ const pageContent = {
       ru: 'Поиск в документации',
       tr: 'Dokümanda ara',
       zh: '在文档中搜索',
+      pl: 'Szukaj w dokumentacji',
     }),
   },
+  title: 'Documentation search page',
+  description:
+    'Content declaration for the documentation search page, defining the page title and supporting multilingual display.',
+  tags: ['documentation', 'search page'],
 } satisfies Dictionary<Metadata>;
 
 export default pageContent;

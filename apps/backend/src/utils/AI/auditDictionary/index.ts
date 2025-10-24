@@ -18,7 +18,11 @@ export type AuditOptions = {
 };
 
 export type AuditFileResultData = {
-  fileContent: string;
+  fileContent: {
+    title: string;
+    description: string;
+    tags: string[];
+  };
   tokenUsed: number;
 };
 

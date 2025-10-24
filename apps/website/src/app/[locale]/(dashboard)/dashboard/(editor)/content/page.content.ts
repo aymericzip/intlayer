@@ -18,8 +18,13 @@ const contentDashboardContent = {
       ru: 'Управление контентом',
       tr: 'İçerik yönetimi',
       zh: '内容管理',
+      pl: 'Zarządzanie treścią',
     }),
   },
+  title: 'Content dashboard page',
+  description:
+    'Content declaration for the content dashboard page within the CMS. It manages titles and labels used by the editor to handle multilingual content.',
+  tags: ['cms', 'dashboard', 'content management'],
 } satisfies Dictionary;
 
 export default contentDashboardContent;

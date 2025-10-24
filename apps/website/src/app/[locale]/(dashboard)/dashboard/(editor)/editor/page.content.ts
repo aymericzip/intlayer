@@ -18,8 +18,13 @@ const profileDashboardContent = {
       ru: 'Редактор Intlayer',
       tr: 'Intlayer Editör',
       zh: 'Intlayer 编辑器',
+      pl: 'Edytor Intlayera',
     }),
   },
+  title: 'Editor dashboard page',
+  description:
+    'Content declaration for the editor dashboard page within the Intlayer CMS dashboard. It defines the main title shown on the page.',
+  tags: ['dashboard', 'editor', 'page content'],
 } satisfies Dictionary;
 
 export default profileDashboardContent;

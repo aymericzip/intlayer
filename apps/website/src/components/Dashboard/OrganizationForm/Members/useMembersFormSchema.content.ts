@@ -18,6 +18,7 @@ const content = {
       ru: 'Пожалуйста, добавьте хотя бы одного участника в проект',
       tr: 'Lütfen projeye en az bir üye ekleyin',
       zh: '请至少为项目添加一名成员',
+      pl: 'Dodaj co najmniej jednego członka projektu',
     }),
 
     requiredErrorAdmin: t({
@@ -35,8 +36,13 @@ const content = {
       ru: 'Пожалуйста, добавьте хотя бы одного администратора в проект',
       tr: 'Lütfen projeye en az bir yönetici ekleyin',
       zh: '请至少为项目添加一名管理员',
+      pl: 'Dodaj co najmniej jednego administratora projektu',
     }),
   },
+  title: 'Members form validation schema',
+  description:
+    'Validation messages for the members form used in the organization settings, ensuring at least one member and one admin are assigned to the project.',
+  tags: ['form validation', 'organization settings', 'dashboard'],
 } satisfies Dictionary;
 
 export default content;

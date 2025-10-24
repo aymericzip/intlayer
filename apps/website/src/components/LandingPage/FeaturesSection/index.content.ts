@@ -2,9 +2,9 @@ import { type Dictionary, t } from 'intlayer';
 
 const featuresSectionContent = {
   key: 'features-section',
-  title: 'Features',
+  title: 'Features section',
   description:
-    'Discover powerful features designed to simplify content management and streamline development workflows.',
+    'Highlights key features of the platform that enhance content management, multilingual support, and development efficiency. Includes tools like the visual editor, Markdown support, and built-in translation capabilities.',
   content: [
     {
       id: 'codebase',
@@ -172,6 +172,7 @@ const featuresSectionContent = {
       }),
     },
   ],
+  tags: ['landing page', 'feature highlight', 'content management'],
 } satisfies Dictionary;
 
 export default featuresSectionContent;

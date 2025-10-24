@@ -1,3 +1,4 @@
+import type { Fill } from './dictionary';
 import type { Locale } from './locales';
 import type { Plugin } from './plugin';
 
@@ -532,9 +533,19 @@ export type BuildConfig = {
   outputFormat: ('cjs' | 'esm')[];
 
   /**
+   * Indicates if the cache should be enabled
+   *
+   * Default: true
+   *
+   * If true, the cache will be enabled.
+   * If false, the cache will not be enabled.
+   */
+  cache: boolean;
+
+  /**
    * Require function
    *
-   * In some environments, as Bun, the require function should be set relatively to the project root to work properly.
+   * In some environments, as VSCode extension, the require function should be set relatively to the project root to work properly.
    *
    * Default: undefined
    *
@@ -549,16 +560,6 @@ export type BuildConfig = {
    * ```
    */
   require: NodeJS.Require;
-
-  /**
-   * Indicates if the cache should be enabled
-   *
-   * Default: true
-   *
-   * If true, the cache will be enabled.
-   * If false, the cache will not be enabled.
-   */
-  cache?: boolean;
 };
 
 /**
@@ -695,7 +696,7 @@ export type BaseContentConfig = {
    * Default: undefined
    *
    */
-  autoFill?: boolean | string | { [key in Locale]?: string };
+  fill: Fill;
 };
 
 /**

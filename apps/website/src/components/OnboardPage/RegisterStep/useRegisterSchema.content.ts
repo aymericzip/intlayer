@@ -18,6 +18,7 @@ const content = {
       ar: 'يرجى إدخال عنوان بريدك الإلكتروني',
       ru: 'Пожалуйста, введите ваш адрес электронной почты',
       tr: 'Lütfen e-posta adresinizi girin',
+      pl: 'Proszę podać adres e-mail',
     }),
 
     invalidTypeErrorEmail: t({
@@ -35,8 +36,13 @@ const content = {
       ar: 'يرجى إدخال عنوان بريد إلكتروني صالح',
       ru: 'Пожалуйста, введите действующий адрес электронной почты',
       tr: 'Lütfen geçerli bir e-posta adresi girin',
+      pl: 'Proszę podać prawidłowy adres e-mail',
     }),
   },
+  title: 'Register password schema',
+  description:
+    'Validation schema content for the password registration step, including user-friendly error messages for email input fields.',
+  tags: ['form validation', 'registration', 'user onboarding'],
 } satisfies Dictionary;
 
 export default content;

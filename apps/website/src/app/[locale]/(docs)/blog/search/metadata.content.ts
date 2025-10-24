@@ -19,6 +19,7 @@ const metadataContent = {
       ru: 'Поиск в блоге | Интлайер',
       tr: 'Blogda ara | Intlayer',
       zh: '在博客中搜索 | Intlayer',
+      pl: 'Szukaj w blogu | Intlayer',
     }),
     description: t({
       ar: 'البحث في الوثائق',
@@ -35,6 +36,7 @@ const metadataContent = {
       ru: 'Поиск документации',
       tr: 'Belgelerde ara',
       zh: '搜索文档',
+      pl: 'Szukaj w blogu',
     }),
 
     keywords: t({
@@ -52,6 +54,7 @@ const metadataContent = {
       ru: ['поиск', 'документация', 'intlayer'],
       tr: ['ara', 'belgeler', 'intlayer'],
       zh: ['搜索', '文档', 'intlayer'],
+      pl: ['wyszukiwanie', 'blog', 'intlayer'],
     }),
   },
 } satisfies Dictionary<Metadata>;

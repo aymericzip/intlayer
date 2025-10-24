@@ -18,6 +18,7 @@ const content = {
       ar: 'يرجى إدخال اسمك',
       ru: 'Пожалуйста, введите ваше имя',
       tr: 'Lütfen adınızı girin',
+      pl: 'Proszę podać swoje imię',
     }),
 
     invalidTypeErrorName: t({
@@ -35,8 +36,13 @@ const content = {
       ar: 'يرجى إدخال اسم مستخدم صالح',
       ru: 'Пожалуйста, введите действительное имя пользователя',
       tr: 'Lütfen geçerli bir kullanıcı adı girin',
+      pl: 'Proszę podać poprawną nazwę użytkownika',
     }),
   },
+  title: 'Profile form schema',
+  description:
+    "Validation messages related to the profile form, including required and invalid input errors for the user's name field.",
+  tags: ['form validation', 'profile form'],
 } satisfies Dictionary;
 
 export default content;

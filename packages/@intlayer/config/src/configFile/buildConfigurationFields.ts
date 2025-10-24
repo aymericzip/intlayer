@@ -15,9 +15,11 @@ import type {
   RoutingConfig,
 } from '@intlayer/types';
 import {
+  CACHE,
   IMPORT_MODE,
   OPTIMIZE,
   OUTPUT_FORMAT,
+  REQUIRE,
   TRAVERSE_PATTERN,
 } from '../defaultValues/build';
 import {
@@ -29,6 +31,7 @@ import {
   EXCLUDED_PATHS,
   FETCH_DICTIONARIES_DIR,
   FILE_EXTENSIONS,
+  FILL,
   MAIN_DIR,
   MODULE_AUGMENTATION_DIR,
   REMOTE_DICTIONARIES_DIR,
@@ -61,7 +64,6 @@ import {
   ROUTING_MODE,
   STORAGE,
 } from '../defaultValues/routing';
-import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 import { normalizePath } from '../utils/normalizePath';
 
 let storedConfiguration: IntlayerConfig;
@@ -248,11 +250,11 @@ const buildContentFields = (
     watch: customConfiguration?.watch ?? WATCH,
 
     /**
-     * Indicate how the content should be automatically filled using AI.
+     * Indicate how the content should be filled using AI.
      *
-     * Default: undefined
+     * Default: true
      */
-    autoFill: customConfiguration?.autoFill ?? undefined,
+    fill: customConfiguration?.fill ?? FILL,
   };
 
   const baseDirDerivedConfiguration: BaseDerivedConfig = {
@@ -762,9 +764,14 @@ const buildBuildFields = (
   outputFormat: customConfiguration?.outputFormat ?? OUTPUT_FORMAT,
 
   /**
+   * Cache
+   */
+  cache: customConfiguration?.cache ?? CACHE,
+
+  /**
    * Require function
    */
-  require: customConfiguration?.require ?? ESMxCJSRequire,
+  require: customConfiguration?.require ?? REQUIRE,
 });
 
 /**

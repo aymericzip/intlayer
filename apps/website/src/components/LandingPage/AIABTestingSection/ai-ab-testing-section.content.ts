@@ -18,6 +18,7 @@ const aiAbTestingSectionContent = {
       ru: 'Вскоре в бета-версии',
       tr: "Yakında Beta'da",
       zh: '即将公测',
+      pl: 'Wkrótce w wersji beta',
     }),
     title: t({
       ar: 'ملعبك لتجارب المنتجات.',
@@ -34,6 +35,7 @@ const aiAbTestingSectionContent = {
       ru: 'Ваша площадка для экспериментов с продуктом.',
       tr: 'Ürün Deneyleri için Playground.',
       zh: '您的产品实验游乐场。',
+      pl: 'Twoje pole do eksperymentów produktowych.',
     }),
     description: md(
       t({
@@ -48,6 +50,7 @@ const aiAbTestingSectionContent = {
         it: "Sii il primo a esplorare la nuova beta di A/B Testing guidato dall'IA di Intlayer, costruita per aumentare la scopribilità e guidare decisioni di prodotto più intelligenti. Testa qualsiasi cosa in tempo reale, dai copy e design alle funzionalità complete, e lascia che i dati ti mostrino cosa funziona davvero.",
         ja: 'Intlayerの新しい**AI搭載A/Bテストベータ**を最初に体験してください。発見可能性を高め、よりスマートな製品決定を導くために構築されました。コピーやデザインから機能全体まで、リアルタイムで何でもテストし、データに本当に効果的なものを示してもらいましょう。',
         ko: 'Intlayer의 새로운 **AI 기반 A/B 테스트 베타**를 가장 먼저 탐험해보세요. 발견 가능성을 높이고 더 스마트한 제품 결정을 안내하도록 구축되었습니다. 카피와 디자인부터 전체 기능까지 실시간으로 무엇이든 테스트하고, 데이터가 진정으로 작동하는 것을 보여주도록 하세요.',
+        pl: 'Bądź pierwszym, który wypróbuje nową wersję beta **AI-driven A/B Testing** od Intlayera — stworzoną, aby zwiększyć odkrywalność i wspierać mądrzejsze decyzje produktowe. Testuj wszystko w czasie rzeczywistym: od treści i projektu po całe funkcje, i pozwól danym pokazać, co naprawdę działa.',
         pt: 'Seja o primeiro a explorar a nova beta de A/B Testing orientado por IA da Intlayer, construída para aumentar a descoberta e orientar decisões de produto mais inteligentes. Teste qualquer coisa em tempo real, desde copy e design até recursos completos, e deixe os dados mostrarem o que realmente funciona.',
         ru: 'Станьте первыми, кто исследует новую бета-версию **A/B-тестирования на базе ИИ** от Intlayer, созданную для повышения обнаруживаемости и направления более умных решений по продукту. Тестируйте что угодно в реальном времени, от текстов и дизайна до целых функций, и позвольте данным показать вам, что действительно работает.',
         tr: "Intlayer'ın yeni **Yapay Zeka destekli A/B Testi** beta sürümünü keşfeden ilk kişi olun. Keşfedilebilirliği artırmak ve daha akıllı ürün kararlarına rehberlik etmek için tasarlandı. Kopya ve tasarımdan tüm özelliklere kadar her şeyi gerçek zamanlı olarak test edin ve verilerin gerçekten neyin işe yaradığını göstermesine izin verin.",
@@ -71,6 +74,7 @@ const aiAbTestingSectionContent = {
         ar: 'تعرف على المزيد حول ميزة اختبار A/B بالذكاء الاصطناعي (يفتح في علامة تبويب جديدة)',
         ru: 'Узнайте больше о функции *AI A/B Testing (открывается в новой вкладке)',
         tr: '*Yapay Zeka A/B Testi özelliği hakkında daha fazla bilgi edinin (yeni sekmede açılır)',
+        pl: 'Dowiedz się więcej o funkcji *AI A/B Testing (otworzy się w nowej karcie)',
       }),
       text: t({
         en: 'Learn more about the feature',
@@ -87,6 +91,7 @@ const aiAbTestingSectionContent = {
         ar: 'تعرف على المزيد حول الميزة',
         ru: 'Узнайте больше о функции',
         tr: 'Özellik hakkında daha fazla bilgi edinin',
+        pl: 'Dowiedz się więcej o funkcji',
       }),
     },
   },

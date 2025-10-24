@@ -39,12 +39,15 @@ type ReplaceAIConfigByOptions<T> = Omit<T, 'aiConfig'> & {
 };
 
 export type CustomQueryBody =
-  ReplaceAIConfigByOptions<customQueryUtil.CustomQueryOptions>;
+  ReplaceAIConfigByOptions<customQueryUtil.CustomQueryOptions> & {
+    tagsKeys?: string[];
+    applicationContext?: string;
+  };
 export type CustomQueryResult =
   ResponseData<customQueryUtil.CustomQueryResultData>;
 
 export const customQuery = async (
-  req: Request<AuditContentDeclarationBody>,
+  req: Request<CustomQueryBody>,
   res: ResponseWithSession<CustomQueryResult>,
   _next: NextFunction
 ): Promise<void> => {
@@ -97,7 +100,7 @@ export type TranslateJSONResult =
   ResponseData<translateJSONUtil.TranslateJSONResultData>;
 
 export const translateJSON = async (
-  req: Request<AuditContentDeclarationBody>,
+  req: Request<TranslateJSONBody>,
   res: ResponseWithSession<TranslateJSONResult>,
   _next: NextFunction
 ): Promise<void> => {
@@ -119,7 +122,7 @@ export const translateJSON = async (
   try {
     let tags: Tag[] = [];
 
-    if (project?.organizationId) {
+    if (project?.organizationId && tagsKeys) {
       tags = await getTagsByKeys(tagsKeys, project.organizationId);
     }
 
@@ -227,7 +230,7 @@ export type AuditContentDeclarationFieldBody = {
   keyPath: KeyPath[];
 };
 export type AuditContentDeclarationFieldResult =
-  ResponseData<auditContentDeclarationUtil.AuditFileResultData>;
+  ResponseData<auditContentDeclarationFieldUtil.AuditDictionaryFieldResultData>;
 
 /**
  * Retrieves a list of dictionaries based on filters and pagination.
@@ -275,9 +278,11 @@ export const auditContentDeclarationField = async (
     }
 
     const responseData =
-      formatResponse<auditContentDeclarationUtil.AuditFileResultData>({
-        data: auditResponse,
-      });
+      formatResponse<auditContentDeclarationFieldUtil.AuditDictionaryFieldResultData>(
+        {
+          data: auditResponse,
+        }
+      );
 
     res.json(responseData);
     return;
@@ -291,8 +296,9 @@ export type AuditContentDeclarationMetadataBody = {
   aiOptions?: AIOptions;
   fileContent: string;
 };
+
 export type AuditContentDeclarationMetadataResult =
-  ResponseData<auditContentDeclarationUtil.AuditFileResultData>;
+  ResponseData<auditContentDeclarationMetadataUtil.AuditFileResultData>;
 
 /**
  * Retrieves a list of dictionaries based on filters and pagination.
@@ -340,7 +346,7 @@ export const auditContentDeclarationMetadata = async (
     }
 
     const responseData =
-      formatResponse<auditContentDeclarationUtil.AuditFileResultData>({
+      formatResponse<auditContentDeclarationMetadataUtil.AuditFileResultData>({
         data: auditResponse,
       });
 
@@ -356,8 +362,7 @@ export type AuditTagBody = {
   aiOptions?: AIOptions;
   tag: TagAPI;
 };
-export type AuditTagResult =
-  ResponseData<auditContentDeclarationUtil.AuditFileResultData>;
+export type AuditTagResult = ResponseData<auditTagUtil.TranslateJSONResultData>;
 
 /**
  * Retrieves a list of dictionaries based on filters and pagination.
@@ -400,10 +405,9 @@ export const auditTag = async (
       return;
     }
 
-    const responseData =
-      formatResponse<auditContentDeclarationUtil.AuditFileResultData>({
-        data: auditResponse,
-      });
+    const responseData = formatResponse<auditTagUtil.TranslateJSONResultData>({
+      data: auditResponse,
+    });
 
     res.json(responseData);
     return;
@@ -422,9 +426,10 @@ export type AskDocQuestionResult =
 
 export const askDocQuestion = async (
   req: Request<undefined, undefined, AskDocQuestionBody>,
-  res: ResponseWithSession<AskDocQuestionResult>
-) => {
-  const { messages, discussionId } = req.body;
+  res: ResponseWithSession<AskDocQuestionResult>,
+  _next: NextFunction
+): Promise<void> => {
+  const { messages = [], discussionId } = req.body;
   const { user, project, organization } = res.locals;
 
   let aiConfig: AIConfig;
@@ -458,7 +463,7 @@ export const askDocQuestion = async (
     })
     .then(async (fullResponse) => {
       const lastUserMessageContent = messages.findLast(
-        (msg) => msg.role === 'user'
+        (message) => message.role === 'user'
       )?.content;
       const lastUserMessageNbWords = lastUserMessageContent
         ? lastUserMessageContent.split(' ').length
@@ -523,9 +528,10 @@ export type AutocompleteResponse = ResponseData<{
 }>;
 
 export const autocomplete = async (
-  req: Request<undefined, undefined, AutocompleteBody>,
-  res: ResponseWithSession<AutocompleteResponse>
-) => {
+  req: Request<AutocompleteBody>,
+  res: ResponseWithSession<AutocompleteResponse>,
+  _next: NextFunction
+): Promise<void> => {
   try {
     const { text, aiOptions, contextBefore, currentLine, contextAfter } =
       req.body;

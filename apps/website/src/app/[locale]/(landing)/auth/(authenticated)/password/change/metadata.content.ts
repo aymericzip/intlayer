@@ -19,6 +19,7 @@ const metadataContent = {
       ru: 'Сменить пароль | Intlayer',
       tr: 'Şifre Değiştir | Intlayer',
       zh: '更改密码 | Intlayer',
+      pl: 'Zmień hasło | Intlayer',
     }),
     description: t({
       ar: 'قم بتأمين حسابك عن طريق تغيير كلمة المرور الحالية. حافظ على أمان حسابك في Intlayer مع كلمة مرور جديدة.',
@@ -36,6 +37,7 @@ const metadataContent = {
       ru: 'Обеспечьте безопасность своей учетной записи, изменив текущий пароль. Держите свою учетную запись Intlayer в безопасности с помощью нового пароля.',
       tr: 'Hesabınızı mevcut şifrenizi değiştirerek güvence altına alın. Intlayer hesabınızı yeni bir şifre ile güvende tutun.',
       zh: '通过更改当前密码来保护您的帐户。使用新密码保护您的Intlayer帐户。',
+      pl: 'Zabezpiecz swoje konto, zmieniając aktualne hasło. Chroń konto Intlayer, ustawiając nowe hasło.',
     }),
 
     keywords: t({
@@ -119,6 +121,13 @@ const metadataContent = {
         'JavaScript',
       ],
       zh: ['更改密码', '账户安全', 'Intlayer', 'React', 'JavaScript'],
+      pl: [
+        'Zmiana hasła',
+        'Bezpieczeństwo konta',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
     }),
   },
 } satisfies Dictionary<Metadata>;

@@ -18,6 +18,7 @@ const organizationListContent = {
       ar: 'البحث عن منظمة',
       ru: 'Найти организацию',
       tr: 'Organizasyon ara',
+      pl: 'Szukaj organizacji',
     }),
     noOrganizationFound: t({
       en: 'No organization found. Try clearing your filters.',
@@ -34,8 +35,13 @@ const organizationListContent = {
       ar: 'لم يتم العثور على منظمة. حاول مسح عوامل التصفية.',
       ru: 'Организация не найдена. Попробуйте очистить фильтры.',
       tr: 'Organizasyon bulunamadı. Filtrelerinizi temizlemeyi deneyin.',
+      pl: 'Nie znaleziono żadnej organizacji. Spróbuj wyczyścić filtry.',
     }),
   },
+  title: 'Organization list',
+  description:
+    'Contains content related to listing organizations within the dashboard, including search functionality and empty state messaging.',
+  tags: ['dashboard', 'organization', 'list'],
 } satisfies Dictionary;
 
 export default organizationListContent;

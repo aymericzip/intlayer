@@ -19,6 +19,7 @@ const metadataContent = {
       ar: 'العلامات | لوحة التحكم | Intlayer',
       ru: 'Теги | Приборная панель | Intlayer',
       tr: 'Etiketler | Dashboard | Intlayer',
+      pl: 'Tagi | Panel | Intlayer',
     }),
     description: t({
       en: 'Manage and organize your tags in the Intlayer dashboard. Create, edit, and delete tags to better categorize your content.',
@@ -36,8 +37,9 @@ const metadataContent = {
       ar: 'قم بإدارة وتنظيم العلامات الخاصة بك في لوحة تحكم Intlayer. أنشئ وعدل واحذف العلامات لتحسين تصنيف المحتوى الخاص بك.',
       ru: 'Управляйте и организуйте свои теги в панели инструментов Intlayer. Создавайте, редактируйте и удаляйте теги для лучшей категоризации вашего контента.',
       tr: 'Intlayer kontrol panelinde etiketlerinizi yönetin ve düzenleyin. İçeriğinizi daha iyi kategorize etmek için etiketler oluşturun, düzenleyin ve silin.',
+      pl: 'Zarządzaj i organizuj swoje tagi w panelu Intlayer. Twórz, edytuj i usuwaj tagi, aby lepiej kategoryzować swoje treści.',
     }),
-    keywords: t<string[]>({
+    keywords: t({
       en: [
         'Tags',
         'Labels',
@@ -114,8 +116,20 @@ const metadataContent = {
         'İçerik Organizasyonu',
         'Meta Veriler',
       ],
+      pl: [
+        'Tagi',
+        'Etykiety',
+        'Kategoryzacja',
+        'Zarządzanie',
+        'Organizacja treści',
+        'Metadane',
+      ],
     }),
   },
+  title: 'Tags dashboard metadata',
+  description:
+    'Metadata for the tags management section in the Intlayer dashboard. Includes information to support SEO and help search engines understand the tags page content.',
+  tags: ['dashboard metadata', 'tags management'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

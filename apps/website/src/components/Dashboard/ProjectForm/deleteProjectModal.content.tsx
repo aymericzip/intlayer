@@ -18,6 +18,7 @@ const deleteProjectModalContent = {
       ru: 'Удалить проект',
       tr: 'Projeyi Sil',
       zh: '删除项目',
+      pl: 'Usuń projekt',
     }),
 
     description: t({
@@ -35,6 +36,7 @@ const deleteProjectModalContent = {
       ru: 'Вы уверены, что хотите удалить этот проект?',
       tr: 'Bu projeyi silmek istediğinizden emin misiniz?',
       zh: '您确定要删除此项目吗？',
+      pl: 'Czy na pewno chcesz usunąć ten projekt?',
     }),
 
     confirmButton: {
@@ -53,6 +55,7 @@ const deleteProjectModalContent = {
         ar: 'حذف',
         ru: 'Удалить',
         tr: 'Sil',
+        pl: 'Usuń',
       }),
       label: t({
         en: 'Click to delete Project',
@@ -69,6 +72,7 @@ const deleteProjectModalContent = {
         ar: 'انقر لحذف المشروع',
         ru: 'Нажмите, чтобы удалить проект',
         tr: 'Projeyi silmek için tıklayın',
+        pl: 'Kliknij, aby usunąć projekt',
       }),
     },
 
@@ -88,6 +92,7 @@ const deleteProjectModalContent = {
         ar: 'إلغاء',
         ru: 'Отменить',
         tr: 'İptal etmek için tıklayın',
+        pl: 'Anuluj',
       }),
       label: t({
         en: 'Click to cancel',
@@ -104,9 +109,14 @@ const deleteProjectModalContent = {
         ar: 'انقر لإلغاء',
         ru: 'Нажмите, чтобы отменить',
         tr: 'İptal etmek için tıklayın',
+        pl: 'Kliknij, aby anulować',
       }),
     },
   },
+  title: 'Delete project modal',
+  description:
+    'Confirmation modal content for deleting a project. Includes title, description, and button labels for deletion and cancellation actions.',
+  tags: ['dashboard', 'project management', 'modal'],
 } satisfies Dictionary;
 
 export default deleteProjectModalContent;

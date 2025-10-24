@@ -19,6 +19,7 @@ const definePasswordContent = {
         ru: 'Новый пароль',
         'en-GB': 'New password',
         tr: 'Yeni şifre',
+        pl: 'Nowe hasło',
       }),
       placeholder: t({
         en: 'Enter new password',
@@ -35,6 +36,7 @@ const definePasswordContent = {
         ru: 'Введите новый пароль',
         'en-GB': 'Enter new password',
         tr: 'Yeni şifreyi girin',
+        pl: 'Wprowadź nowe hasło',
       }),
     },
     confirmPasswordInput: {
@@ -53,6 +55,7 @@ const definePasswordContent = {
         ru: 'Подтвердите новый пароль',
         'en-GB': 'Confirm new password',
         tr: 'Yeni şifreyi onayla',
+        pl: 'Potwierdź nowe hasło',
       }),
       placeholder: t({
         en: 'Confirm new password',
@@ -69,6 +72,7 @@ const definePasswordContent = {
         ru: 'Подтвердите новый пароль',
         'en-GB': 'Confirm new password',
         tr: 'Yeni şifreyi onayla',
+        pl: 'Potwierdź nowe hasło',
       }),
     },
     definePasswordButton: {
@@ -87,6 +91,7 @@ const definePasswordContent = {
         ru: 'Сменить пароль',
         'en-GB': 'Change password',
         tr: 'Yeni şifreyi tanımla',
+        pl: 'Ustaw hasło',
       }),
       ariaLabel: t({
         en: 'Click to change password',
@@ -103,9 +108,14 @@ const definePasswordContent = {
         ru: 'Нажмите, чтобы изменить пароль',
         'en-GB': 'Click to change password',
         tr: 'Şifreyi değiştirmek için tıklayın',
+        pl: 'Kliknij, aby zmienić hasło',
       }),
     },
   },
+  title: 'Define password form schema',
+  description:
+    'Dictionary for the define password form. Includes input labels and placeholders for new password entry and confirmation, as well as button text for submitting the password change.',
+  tags: ['authentication', 'form', 'password management'],
 } satisfies Dictionary;
 
 export default definePasswordContent;

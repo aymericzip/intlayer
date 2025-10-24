@@ -18,6 +18,7 @@ const definePasswordStepContent = {
       ru: 'Установить пароль',
       tr: 'Bir şifre belirleyin',
       zh: '定义密码',
+      pl: 'Zdefiniuj hasło',
     }),
 
     newPasswordInput: {
@@ -36,6 +37,7 @@ const definePasswordStepContent = {
         ar: 'كلمة المرور',
         ru: 'Пароль',
         tr: 'Parola',
+        pl: 'Hasło',
       }),
       placeholder: t({
         en: 'Enter password',
@@ -52,6 +54,7 @@ const definePasswordStepContent = {
         ar: 'أدخل كلمة المرور',
         ru: 'Введите пароль',
         tr: 'Parolayı girin',
+        pl: 'Wprowadź hasło',
       }),
     },
     confirmPasswordInput: {
@@ -70,6 +73,7 @@ const definePasswordStepContent = {
         ar: 'تأكيد كلمة المرور',
         ru: 'Подтвердите пароль',
         tr: 'Parolayı onayla',
+        pl: 'Potwierdź hasło',
       }),
       placeholder: t({
         en: 'Confirm password',
@@ -86,9 +90,14 @@ const definePasswordStepContent = {
         ar: 'تأكيد كلمة المرور',
         ru: 'Подтвердите пароль',
         tr: 'Parolayı onayla',
+        pl: 'Potwierdź hasło',
       }),
     },
   },
+  title: 'Define password step',
+  description:
+    'Content declaration for the step where users define and confirm their password during onboarding. Includes labels and placeholders for new and confirmation password inputs.',
+  tags: ['onboarding', 'authentication', 'form step'],
 } satisfies Dictionary;
 
 export default definePasswordStepContent;

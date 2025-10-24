@@ -19,6 +19,7 @@ const chatbotContent = {
         ar: 'انقر لفتح الدردشة',
         ru: 'Нажмите, чтобы открыть чат-бота',
         tr: 'Sohbet botunu açmak için tıklayın',
+        pl: 'Kliknij, aby otworzyć chatbota',
       }),
     },
     title: t({
@@ -36,8 +37,13 @@ const chatbotContent = {
       ru: 'Спросите что-нибудь',
       tr: 'Herhangi bir şey sor',
       zh: '问任何事情',
+      pl: 'Zapytaj o cokolwiek',
     }),
   },
+  title: 'Chatbot modal content',
+  description:
+    'Content declaration for the chatbot modal on the landing page, including the button label and title used to prompt user interaction.',
+  tags: ['landing page', 'chatbot', 'modal'],
 } satisfies Dictionary;
 
 export default chatbotContent;

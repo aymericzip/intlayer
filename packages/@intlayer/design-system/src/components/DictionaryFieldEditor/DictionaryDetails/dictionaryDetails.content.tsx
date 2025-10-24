@@ -19,6 +19,7 @@ export const dictionaryDetailsContent = {
         ar: 'العنوان',
         ru: 'Заголовок',
         tr: 'Başlık',
+        pl: 'Tytuł',
       }),
       description: t({
         en: 'The title of your dictionary allows you to easily identify it',
@@ -36,6 +37,7 @@ export const dictionaryDetailsContent = {
         ar: 'يتيح لك عنوان القاموس الخاص بك التعرف عليه بسهولة',
         ru: 'Название вашего словаря позволяет легко его идентифицировать',
         tr: 'Sözlüğünüzün başlığı, onu kolayca tanımlamanızı sağlar',
+        pl: 'Tytuł słownika pozwala na jego łatwe rozpoznanie',
       }),
       placeholder: t({
         en: 'Enter the title of your dictionary',
@@ -52,6 +54,7 @@ export const dictionaryDetailsContent = {
         ar: 'أدخل عنوان القاموس الخاص بك',
         ru: 'Введите название вашего словаря',
         tr: 'Sözlüğünüzün başlığını girin',
+        pl: 'Wprowadź tytuł słownika',
       }),
     },
     keyInput: {
@@ -70,6 +73,7 @@ export const dictionaryDetailsContent = {
         ar: 'مفتاح',
         ru: 'Ключ',
         tr: 'Anahtar',
+        pl: 'Klucz',
       }),
       description: t({
         en: 'The key of your dictionary is used to identify it in the application',
@@ -87,6 +91,7 @@ export const dictionaryDetailsContent = {
         ar: 'مفتاح القاموس الخاص بك يُستخدم لتحديده في التطبيق',
         ru: 'Ключ вашего словаря используется для его идентификации в приложении',
         tr: 'Sözlüğünüzün anahtarı, uygulamada onu tanımlamak için kullanılır',
+        pl: 'Klucz słownika służy do jego identyfikacji w aplikacji',
       }),
       placeholder: t({
         en: 'Enter the key of your dictionary',
@@ -103,6 +108,7 @@ export const dictionaryDetailsContent = {
         ar: 'أدخل مفتاح القاموس الخاص بك',
         ru: 'Введите ключ вашего словаря',
         tr: 'Sözlüğünüzün anahtarını girin',
+        pl: 'Wprowadź klucz słownika',
       }),
     },
     descriptionInput: {
@@ -121,6 +127,7 @@ export const dictionaryDetailsContent = {
         ar: 'الوصف',
         ru: 'Описание',
         tr: 'Açıklama',
+        pl: 'Opis',
       }),
       placeholder: t({
         en: 'Enter the description of your dictionary',
@@ -137,6 +144,7 @@ export const dictionaryDetailsContent = {
         ar: 'أدخل وصف القاموس الخاص بك',
         ru: 'Введите описание вашего словаря',
         tr: 'Sözlüğünüzün açıklamasını girin',
+        pl: 'Wprowadź opis słownika',
       }),
       description: t({
         en: 'The description of your dictionary allows you to easily identify it using keywords. It is also used to search for your dictionary, and to assist the AI in understanding your dictionary.',
@@ -154,6 +162,7 @@ export const dictionaryDetailsContent = {
         ar: 'يتيح لك وصف القاموس الخاص بك التعرف عليه بسهولة باستخدام الكلمات الرئيسية. كما أنه يستخدم للبحث عن القاموس الخاص بك ، ولمساعدة الذكاء الاصطناعي على فهم القاموس الخاص بك.',
         ru: 'Описание вашего словаря позволяет легко его идентифицировать с помощью ключевых слов. Оно также используется для поиска вашего словаря и для помощи ИИ в понимании вашего словаря.',
         tr: "Sözlüğünüzün açıklaması, anahtar kelimeleri kullanarak onu kolayca tanımlamanızı sağlar. Ayrıca sözlüğünüzü aramak ve AI'nın sözlüğünüzü anlamasına yardımcı olmak için de kullanılır.",
+        pl: 'Opis słownika pozwala na jego łatwe rozpoznanie za pomocą słów kluczowych. Jest również używany do wyszukiwania słownika i pomaga AI w zrozumieniu zawartości słownika.',
       }),
     },
 
@@ -173,6 +182,7 @@ export const dictionaryDetailsContent = {
         ar: 'المشاريع',
         ru: 'Проекты',
         tr: 'Projeler',
+        pl: 'Projekty',
       }),
       description: t({
         en: 'A dictionary can be associated with one or more projects. This allows you load the dictionary on different applications, and share it across different teams.',
@@ -190,6 +200,7 @@ export const dictionaryDetailsContent = {
         ar: 'يمكن ربط قاموس بواحد أو أكثر من المشاريع. وهذا يتيح لك تحميل القاموس على تطبيقات مختلفة ومشاركته عبر فرق مختلفة.',
         ru: 'Словарь можно ассоциировать с одним или несколькими проектами. Это позволяет загружать словарь в различных приложениях и делиться им между разными командами.',
         tr: 'Sözlük, bir veya daha fazla projeyle ilişkilendirilebilir. Bu, sözlüğü farklı uygulamalarda yüklemenize ve farklı ekipler arasında paylaşmanıza olanak tanır.',
+        pl: 'Słownik może być powiązany z jednym lub kilkoma projektami. Pozwala to ładować słownik w różnych aplikacjach i udostępniać go między zespołami.',
       }),
       placeholder: t({
         en: 'Select one or more projects to associate with your dictionary',
@@ -207,6 +218,7 @@ export const dictionaryDetailsContent = {
         ar: 'حدد مشروعًا أو أكثر لربطه بقاموسك',
         ru: 'Выберите один или несколько проектов, чтобы связать их с вашим словарем',
         tr: 'Sözlüğünüzle ilişkilendirmek için bir veya daha fazla proje seçin',
+        pl: 'Wybierz jeden lub więcej projektów do powiązania ze słownikiem',
       }),
     },
 
@@ -226,6 +238,7 @@ export const dictionaryDetailsContent = {
         ar: 'الوسوم',
         ru: 'Теги',
         tr: 'Etiketler',
+        pl: 'Tagi',
       }),
       description: t({
         en: 'A dictionary can be associated with one or more tags. This allows you to load the dictionary on different applications, and share it across different teams.',
@@ -243,6 +256,7 @@ export const dictionaryDetailsContent = {
         ar: 'يمكن ربط قاموس بواحد أو أكثر من الوسوم. يتيح لك تحميل القاموس في تطبيقات مختلفة ومشاركته بين فرق مختلفة.',
         ru: 'Словарь можно связать с одним или несколькими тегами. Это позволяет загружать словарь в различных приложениях и делиться им между различными командами.',
         tr: 'Sözlük, bir veya daha fazla etiketle ilişkilendirilebilir. Bu, sözlüğü farklı uygulamalarda yüklemenize ve farklı ekipler arasında paylaşmanıza olanak tanır.',
+        pl: 'Słownik może być powiązany z jednym lub kilkoma tagami. Umożliwia to ładowanie słownika w różnych aplikacjach i udostępnianie go między zespołami.',
       }),
       placeholder: t({
         en: 'Select the tags to associate with your dictionary',
@@ -259,6 +273,7 @@ export const dictionaryDetailsContent = {
         ar: 'حدد الوسوم التي تريد ربطها بقاموسك',
         ru: 'Выберите теги, которые нужно связать с словарем',
         tr: 'Sözlüğünüzle ilişkilendirmek için etiketleri seçin',
+        pl: 'Wybierz tagi do powiązania ze słownikiem',
       }),
     },
 
@@ -278,9 +293,14 @@ export const dictionaryDetailsContent = {
         ar: 'التدقيق',
         ru: 'Отслеживание',
         tr: 'Denetle',
+        pl: 'Audyt',
       }),
     },
   },
+  title: 'Dictionary details form',
+  description:
+    'Form labels, placeholders and descriptions for editing the details of a dictionary, including title, key, description, projects, and tags. Used in the dictionary editor component to guide users in defining dictionary metadata.',
+  tags: ['form content', 'dictionary editor', 'metadata input'],
 } satisfies Dictionary;
 
 export default dictionaryDetailsContent;

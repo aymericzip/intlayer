@@ -18,6 +18,7 @@ const copyMarkdownMessageContent = {
       ru: 'Копировать',
       tr: 'Kopyala',
       zh: 'Copy',
+      pl: 'Kopiuj',
     }),
     description: t({
       ar: 'نسخ الـ Markdown من المستند إلى الحافظة',
@@ -34,8 +35,13 @@ const copyMarkdownMessageContent = {
       ru: 'Копировать Markdown документа в буфер обмена',
       tr: "Belge Markdown'ını panoya kopyala",
       zh: '复制文档 Markdown 到剪贴板',
+      pl: 'Kopiuj dokument Markdown do schowka',
     }),
   },
+  title: 'Copy Markdown message',
+  description:
+    'Message displayed to copy documentation content in Markdown format to the clipboard.',
+  tags: ['documentation', 'user interaction', 'copy action'],
 } satisfies Dictionary;
 
 export default copyMarkdownMessageContent;

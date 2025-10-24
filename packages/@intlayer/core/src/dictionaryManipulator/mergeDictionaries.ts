@@ -44,7 +44,6 @@ const checkTypesMatch = (
       }
     );
 
-    console.dir({ object1, object2 }, { depth: null, colors: true });
     return;
   }
 };

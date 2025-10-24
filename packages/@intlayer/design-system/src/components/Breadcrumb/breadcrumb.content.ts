@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 export const breadCrumbContent = {
   key: 'breadcrumb',
-  autoFill: './{{key}}.content.json',
+  fill: './{{key}}.content.json',
   content: {
     linkLabel: t({
       en: 'Go to',
@@ -19,6 +19,7 @@ export const breadCrumbContent = {
       ar: 'اذهب إلى',
       ru: 'Перейти на',
       tr: 'Git',
+      pl: 'Przejdź do',
     }),
   },
 } satisfies Dictionary;

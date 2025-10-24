@@ -770,6 +770,7 @@ const pricingContent = {
       ar: 'سعر CMS',
       ru: 'Цены CMS',
       tr: 'Fiyatlandırma CMS',
+      pl: 'Cennik CMS',
     }),
     description: t({
       fr: "Intlayer est avant tout une suite d'outil gratuit et open source. Le pricing associée s'applique uniquement à l'utilisation du CMS, de l'éditeur visuel et des outils d'IA associés. (Note: Il est aussi possible de self hoster le CMS en clonant le dépôt GitHub.)",
@@ -787,6 +788,7 @@ const pricingContent = {
       ar: 'إن Intlayer هو في المقام الأول مجموعة أدوات مجانية ومفتوحة المصدر. يتم تطبيق التسعير المرتبط فقط لاستخدام CMS، والمحرر المرئي، وأدوات الذكاء الاصطناعي المرتبطة. (ملاحظة: من الممكن أيضًا استضافة CMS بنفسك عن طريق استنساخ مستودع GitHub.)',
       ru: 'Intlayer - это, прежде всего, набор бесплатных и открытых инструментов. Сопутствующая цена применяется только к использованию CMS, визуального редактора и связанных инструментов ИИ. (Примечание: также возможно саморазмещение CMS с помощью клонирования репозитория на GitHub.)',
       tr: "Intlayer öncelikle ücretsiz ve açık kaynaklı bir araç setidir. İlgili fiyatlandırma yalnızca CMS, görsel düzenleyici ve ilgili AI araçlarının kullanımı için geçerlidir. (Not: GitHub deposunu klonlayarak CMS'yi kendi kendinize barındırmak da mümkündür.)",
+      pl: 'Intlayer to przede wszystkim darmowy i otwartoźródłowy zestaw narzędzi. Powiązane opłaty dotyczą wyłącznie korzystania z CMS, edytora wizualnego oraz powiązanych narzędzi AI. (Uwaga: możliwe jest również samodzielne hostowanie CMS przez sklonowanie repozytorium na GitHubie.)',
     }),
     pricing,
     period: {
@@ -805,6 +807,7 @@ const pricingContent = {
         ar: 'شهريًا',
         ru: 'Ежемесячно',
         tr: 'Aylık',
+        pl: 'Miesięcznie',
       }),
 
       yearly: t({
@@ -822,9 +825,20 @@ const pricingContent = {
         ar: 'سنويًا',
         ru: 'Ежегодно',
         tr: 'Yıllık',
+        pl: 'Rocznie',
       }),
     },
   },
+  title: 'Pricing plans for CMS',
+  description:
+    "Content declaration defining the pricing plans for Intlayer's CMS, including Free, Premium, and Enterprise tiers. It outlines the features, limits, and structure of monthly and yearly subscriptions, along with AI capabilities and user/project quotas.",
+  tags: [
+    'pricing',
+    'cms',
+    'subscription plans',
+    'visual editor',
+    'ai features',
+  ],
 };
 
 export default pricingContent;

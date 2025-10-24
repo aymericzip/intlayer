@@ -18,6 +18,7 @@ const accessKeyFormContent = {
       ru: 'Ключ доступа',
       tr: 'Erişim anahtarı',
       zh: '访问密钥',
+      pl: 'Klucz dostępu',
     }),
     nameInput: {
       label: t({
@@ -35,6 +36,7 @@ const accessKeyFormContent = {
         ru: 'Имя вашего ключа доступа',
         'en-GB': 'Name of your access key',
         tr: 'Erişim anahtarınızın adı',
+        pl: 'Nazwa klucza dostępu',
       }),
       placeholder: t({
         en: 'Enter the name of your access key',
@@ -51,6 +53,7 @@ const accessKeyFormContent = {
         ru: 'Введите имя вашего ключа доступа',
         'en-GB': 'Enter the name of your access key',
         tr: 'Erişim anahtarınızın adını girin',
+        pl: 'Wprowadź nazwę klucza dostępu',
       }),
     },
 
@@ -70,6 +73,7 @@ const accessKeyFormContent = {
         ru: 'Права',
         'en-GB': 'Rights',
         tr: 'Haklar',
+        pl: 'Uprawnienia',
       }),
       dictionary: t({
         en: 'Dictionary',
@@ -86,6 +90,7 @@ const accessKeyFormContent = {
         ru: 'Словарь',
         'en-GB': 'Dictionary',
         tr: 'Sözlük',
+        pl: 'Słownik',
       }),
       project: t({
         en: 'Project',
@@ -102,6 +107,7 @@ const accessKeyFormContent = {
         ru: 'Проект',
         'en-GB': 'Project',
         tr: 'Proje',
+        pl: 'Projekt',
       }),
       organization: t({
         en: 'Organization',
@@ -118,6 +124,7 @@ const accessKeyFormContent = {
         ru: 'Организация',
         'en-GB': 'Organization',
         tr: 'Organizasyon',
+        pl: 'Organizacja',
       }),
       read: t({
         en: 'Read ',
@@ -134,6 +141,7 @@ const accessKeyFormContent = {
         ru: 'Читать ',
         'en-GB': 'Read ',
         tr: 'Oku ',
+        pl: 'Odczyt ',
       }),
       write: t({
         en: 'Write ',
@@ -150,6 +158,7 @@ const accessKeyFormContent = {
         ru: 'Записать ',
         'en-GB': 'Write ',
         tr: 'Yaz ',
+        pl: 'Zapis ',
       }),
       admin: t({
         en: 'Admin',
@@ -166,6 +175,7 @@ const accessKeyFormContent = {
         ru: 'Администратор',
         'en-GB': 'Admin',
         tr: 'Yönetici',
+        pl: 'Administrator',
       }),
     },
 
@@ -185,6 +195,7 @@ const accessKeyFormContent = {
         ru: 'Истекает',
         'en-GB': 'Expires at',
         tr: 'Süresi doluyor',
+        pl: 'Wygasa',
       }),
       placeholder: t({
         en: 'Select the expiration date',
@@ -201,6 +212,7 @@ const accessKeyFormContent = {
         ru: 'Выберите дату истечения срока',
         'en-GB': 'Select the expiration date',
         tr: 'Son kullanma tarihini seçin',
+        pl: 'Wybierz datę wygaśnięcia',
       }),
     },
 
@@ -220,6 +232,7 @@ const accessKeyFormContent = {
         ru: 'Создать ключ доступа',
         'en-GB': 'Create access key',
         tr: 'Erişim anahtarı oluştur',
+        pl: 'Utwórz klucz dostępu',
       }),
       label: t({
         en: 'Click to create access key',
@@ -236,6 +249,7 @@ const accessKeyFormContent = {
         ru: 'Нажмите, чтобы создать ключ доступа',
         'en-GB': 'Click to create access key',
         tr: 'Erişim anahtarı oluşturmak için tıklayın',
+        pl: 'Kliknij, aby utworzyć klucz dostępu',
       }),
     },
   },

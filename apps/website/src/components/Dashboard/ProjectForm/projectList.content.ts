@@ -18,6 +18,7 @@ const projectListContent = {
       ar: 'البحث عن مشروع',
       ru: 'Найти проект',
       tr: 'Proje ara',
+      pl: 'Wyszukaj projekt',
     }),
 
     createProjectButton: {
@@ -36,6 +37,7 @@ const projectListContent = {
         ar: 'إنشاء مشروع',
         ru: 'Создать проект',
         tr: 'Proje oluştur',
+        pl: 'Utwórz projekt',
       }),
       ariaLabel: t({
         en: 'Click to create project',
@@ -52,6 +54,7 @@ const projectListContent = {
         ar: 'انقر لإنشاء مشروع',
         ru: 'Нажмите, чтобы создать проект',
         tr: 'Proje oluşturmak için tıklayın',
+        pl: 'Kliknij, aby utworzyć projekt',
       }),
     },
 
@@ -71,6 +74,7 @@ const projectListContent = {
         ar: 'اختر المشروع',
         ru: 'Выберите проект',
         tr: 'Proje seç',
+        pl: 'Wybierz projekt',
       }),
       label: t({
         en: 'Click to select project',
@@ -87,6 +91,7 @@ const projectListContent = {
         ar: 'انقر لاختيار المشروع',
         ru: 'Нажмите, чтобы выбрать проект',
         tr: 'Projeyi seçmek için tıklayın',
+        pl: 'Kliknij, aby wybrać projekt',
       }),
     },
     noProjectFound: t({
@@ -104,8 +109,13 @@ const projectListContent = {
       ar: 'لم يتم العثور على مشروع. حاول مسح عوامل التصفية.',
       ru: 'Проект не найден. Попробуйте очистить фильтры.',
       tr: 'Proje bulunamadı. Filtrelerinizi temizlemeyi deneyin.',
+      pl: 'Nie znaleziono żadnego projektu. Spróbuj wyczyścić filtry.',
     }),
   },
+  title: 'Project list',
+  description:
+    'Content dictionary for the project listing section in the dashboard. Includes placeholder text, button labels, and empty state messages related to project selection and creation.',
+  tags: ['dashboard', 'project management'],
 } satisfies Dictionary;
 
 export default projectListContent;

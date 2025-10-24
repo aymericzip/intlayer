@@ -19,6 +19,7 @@ const metadataContent = {
       ru: 'Поиск в документации | Intlayer',
       tr: 'Belgelerde ara | Intlayer',
       zh: '在文档中搜索 | Intlayer',
+      pl: 'Wyszukiwanie w dokumentacji | Intlayer',
     }),
     description: t({
       ar: 'البحث في الوثائق',
@@ -35,6 +36,7 @@ const metadataContent = {
       ru: 'Поиск документации',
       tr: 'Belgelerde ara',
       zh: '搜索文档',
+      pl: 'Przeszukaj dokumentację',
     }),
 
     keywords: t({
@@ -52,8 +54,13 @@ const metadataContent = {
       ru: ['поиск', 'документация', 'intlayer'],
       tr: ['ara', 'belgeler', 'intlayer'],
       zh: ['搜索', '文档', 'intlayer'],
+      pl: ['wyszukiwanie', 'dokumentacja', 'intlayer'],
     }),
   },
+  title: 'Documentation search metadata',
+  description:
+    'Metadata related to the documentation search page, including title, description and keywords for SEO and discoverability.',
+  tags: ['page metadata', 'documentation'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

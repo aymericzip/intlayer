@@ -18,6 +18,7 @@ const actionButtonContent = {
       ru: 'Поддержать проект',
       tr: 'Projeyi destekle',
       zh: '支持项目',
+      pl: 'Wesprzyj projekt',
     }),
     getStartedButton: t({
       ar: 'البدء',
@@ -34,8 +35,13 @@ const actionButtonContent = {
       ru: 'Начать',
       tr: 'Başlayın',
       zh: '开始',
+      pl: 'Rozpocznij',
     }),
   },
+  title: 'Landing section action buttons',
+  description:
+    "Text content for the action buttons in the landing section, including labels like 'Support the project' and 'Get started'. This content is used to encourage user interaction on the landing page.",
+  tags: ['landing page', 'call to action'],
 } satisfies Dictionary;
 
 export default actionButtonContent;

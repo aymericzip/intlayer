@@ -2,7 +2,10 @@ import { type Dictionary, t } from 'intlayer';
 
 export const dictionaryFieldEditorContent = {
   key: 'dictionary-field-editor',
-  autoFill: './{{key}}.content.json',
+  fill: {
+    en: false,
+    pl: './{{key}}.{{locale}}.content.json',
+  },
   content: {
     returnToDictionaryList: {
       label: t({

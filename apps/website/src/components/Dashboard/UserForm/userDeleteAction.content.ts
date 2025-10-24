@@ -19,6 +19,7 @@ const userDeleteActionContent = {
         ar: 'خطأ في تحميل تفاصيل المستخدم',
         ru: 'Ошибка загрузки деталей пользователя',
         tr: 'Kullanıcı detayları yüklenirken hata',
+        pl: 'Błąd ładowania szczegółów użytkownika',
       }),
       deleteError: t({
         en: 'Error deleting user',
@@ -35,6 +36,7 @@ const userDeleteActionContent = {
         ar: 'خطأ في حذف المستخدم',
         ru: 'Ошибка удаления пользователя',
         tr: 'Kullanıcı silinirken hata',
+        pl: 'Błąd usuwania użytkownika',
       }),
     },
     successMessages: {
@@ -53,6 +55,7 @@ const userDeleteActionContent = {
         ar: 'تم حذف المستخدم بنجاح',
         ru: 'Пользователь успешно удален',
         tr: 'Kullanıcı başarıyla silindi',
+        pl: 'Użytkownik został pomyślnie usunięty',
       }),
       userUpdated: t({
         en: 'User updated successfully',
@@ -69,6 +72,7 @@ const userDeleteActionContent = {
         ar: 'تم تحديث المستخدم بنجاح',
         ru: 'Пользователь успешно обновлен',
         tr: 'Kullanıcı başarıyla güncellendi',
+        pl: 'Użytkownik został pomyślnie zaktualizowany',
       }),
     },
     deleteSection: {
@@ -87,6 +91,7 @@ const userDeleteActionContent = {
         ar: 'منطقة الخطر',
         ru: 'Опасная зона',
         tr: 'Tehlikeli Bölge',
+        pl: 'Strefa niebezpieczeństwa',
       }),
       description: t({
         en: 'Once you delete this user, there is no going back. Please be certain.',
@@ -104,6 +109,7 @@ const userDeleteActionContent = {
         ar: 'بمجرد حذف هذا المستخدم، لا يمكن التراجع. يرجى التأكد.',
         ru: 'После удаления этого пользователя пути назад нет. Пожалуйста, убедитесь.',
         tr: 'Bu kullanıcıyı sildiğinizde geri dönüş olmaz. Lütfen emin olun.',
+        pl: 'Po usunięciu tego użytkownika nie ma odwrotu. Upewnij się, że chcesz kontynuować.',
       }),
       button: t({
         en: 'Delete User',
@@ -120,6 +126,7 @@ const userDeleteActionContent = {
         ar: 'حذف المستخدم',
         ru: 'Удалить пользователя',
         tr: 'Kullanıcıyı Sil',
+        pl: 'Usuń użytkownika',
       }),
       modalTitle: t({
         en: 'Delete User',
@@ -136,6 +143,7 @@ const userDeleteActionContent = {
         ar: 'حذف المستخدم',
         ru: 'Удалить пользователя',
         tr: 'Kullanıcıyı Sil',
+        pl: 'Usuń użytkownika',
       }),
       modalWarning: t({
         en: 'Warning: This action cannot be undone!',
@@ -152,6 +160,7 @@ const userDeleteActionContent = {
         ar: 'تحذير: لا يمكن التراجع عن هذا الإجراء!',
         ru: 'Внимание: это действие нельзя отменить!',
         tr: 'Uyarı: Bu işlem geri alınamaz!',
+        pl: 'Ostrzeżenie: tej operacji nie można cofnąć!',
       }),
       modalDescription: t({
         en: 'This will permanently delete the user account and all associated data. This action is irreversible.',
@@ -169,6 +178,7 @@ const userDeleteActionContent = {
         ar: 'سيؤدي هذا إلى حذف حساب المستخدم وجميع البيانات المرتبطة به بشكل دائم. هذا الإجراء لا رجعة فيه.',
         ru: 'Это навсегда удалит учетную запись пользователя и все связанные данные. Это действие необратимо.',
         tr: 'Bu, kullanıcı hesabını ve ilişkili tüm verileri kalıcı olarak silecektir. Bu işlem geri alınamaz.',
+        pl: 'To spowoduje trwałe usunięcie konta użytkownika oraz wszystkich powiązanych danych. Ta operacja jest nieodwracalna.',
       }),
       userToDelete: t({
         en: 'User to be deleted:',
@@ -185,6 +195,7 @@ const userDeleteActionContent = {
         ar: 'المستخدم المراد حذفه:',
         ru: 'Пользователь для удаления:',
         tr: 'Silinecek kullanıcı:',
+        pl: 'Użytkownik do usunięcia:',
       }),
       cancelButton: t({
         en: 'Cancel',
@@ -201,6 +212,7 @@ const userDeleteActionContent = {
         ar: 'إلغاء',
         ru: 'Отмена',
         tr: 'İptal',
+        pl: 'Anuluj',
       }),
       confirmButton: t({
         en: 'Delete Permanently',
@@ -217,9 +229,14 @@ const userDeleteActionContent = {
         ar: 'حذف نهائيًا',
         ru: 'Удалить навсегда',
         tr: 'Kalıcı olarak sil',
+        pl: 'Usuń na stałe',
       }),
     },
   },
+  title: 'User delete action',
+  description:
+    "Content declarations for deleting a user, including error messages, success confirmations, modal warnings, and button labels within the Dashboard's user form section.",
+  tags: ['dashboard', 'user management', 'deletion'],
 } satisfies Dictionary;
 
 export default userDeleteActionContent;

@@ -18,6 +18,7 @@ const adminBreadcrumbContent = {
       ru: 'Панель управления',
       tr: 'Kontrol Paneli',
       zh: '仪表板',
+      pl: 'Pulpit',
     }),
     users: t({
       ar: 'المستخدمون',
@@ -34,6 +35,7 @@ const adminBreadcrumbContent = {
       ru: 'Пользователи',
       tr: 'Kullanıcılar',
       zh: '用户',
+      pl: 'Użytkownicy',
     }),
     organizations: t({
       ar: 'المنظمات',
@@ -50,6 +52,7 @@ const adminBreadcrumbContent = {
       ru: 'Организации',
       tr: 'Kuruluşlar',
       zh: '组织',
+      pl: 'Organizacje',
     }),
     projects: t({
       ar: 'المشاريع',
@@ -66,6 +69,7 @@ const adminBreadcrumbContent = {
       ru: 'Проекты',
       tr: 'Projeler',
       zh: '项目',
+      pl: 'Projekty',
     }),
     dashboard: t({
       ar: 'لوحة التحكم',
@@ -82,6 +86,7 @@ const adminBreadcrumbContent = {
       ru: 'Панель управления',
       tr: 'Kontrol Paneli',
       zh: '仪表板',
+      pl: 'Pulpit',
     }),
     userDetail: t({
       ar: 'تفاصيل المستخدم',
@@ -98,6 +103,7 @@ const adminBreadcrumbContent = {
       ru: 'Детали пользователя',
       tr: 'Kullanıcı Detayları',
       zh: '用户详情',
+      pl: 'Szczegóły użytkownika',
     }),
   },
 } satisfies Dictionary;

@@ -38,8 +38,8 @@ export {
   chunkJSON,
   type JSONObject,
   type JsonChunk,
+  reconstructFromSingleChunk,
 } from './utils/chunkJSON';
-export { extractErrorMessage } from './utils/extractErrorMessage';
 export { formatLocale, formatPath } from './utils/formatter';
 export { getChunk } from './utils/getChunk';
 export { getFileHash } from './utils/getFileHash';
@@ -51,11 +51,19 @@ export {
 } from './utils/getFormatFromExtension';
 export { kebabCaseToCamelCase } from './utils/kebabCaseToCamelCase';
 export { parallelize } from './utils/parallelize';
+export {
+  getGlobalLimiter,
+  getTaskLimiter,
+  parallelizeGlobal,
+} from './utils/parallelizeGlobal';
+export { pLimit } from './utils/pLimit';
+export { reduceObjectFormat } from './utils/reduceObjectFormat';
 export { resolveObjectPromises } from './utils/resolveObjectPromises';
 export { runOnce } from './utils/runOnce';
 export { type ParallelHandle, runParallel } from './utils/runParallel';
 export { sortAlphabetically } from './utils/sortAlphabetically';
 export { splitTextByLines } from './utils/splitTextByLine';
+export { verifyIdenticObjectFormat } from './utils/verifyIdenticObjectFormat';
 export { buildAndWatchIntlayer, watch } from './watcher';
 export {
   type DictionaryStatus,

@@ -18,6 +18,7 @@ const searchTriggerContent: Dictionary = {
       ru: 'Результатов не найдено',
       tr: 'Sonuç bulunamadı',
       zh: '未找到结果',
+      pl: 'Brak wyników',
     }),
     searchInput: {
       label: t({
@@ -35,6 +36,7 @@ const searchTriggerContent: Dictionary = {
         ar: 'بحث',
         ru: 'Поиск',
         tr: 'Ara',
+        pl: 'Szukaj',
       }),
       placeholder: t({
         en: 'Search...',
@@ -51,6 +53,7 @@ const searchTriggerContent: Dictionary = {
         ar: 'بحث...',
         ru: 'Поиск...',
         tr: 'Ara...',
+        pl: 'Szukaj...',
       }),
     },
     searchResultItemButton: {
@@ -69,9 +72,14 @@ const searchTriggerContent: Dictionary = {
         ar: 'انقر لعرض',
         ru: 'Нажмите, чтобы просмотреть',
         tr: 'Görüntülemek için tıklayın',
+        pl: 'Kliknij, aby wyświetlić',
       }),
     },
   },
+  title: 'Documentation search view',
+  description:
+    'Content declarations used for the search interface in the documentation, including labels, placeholders, and messages related to search results.',
+  tags: ['documentation', 'search component', 'user interface'],
 };
 
 export default searchTriggerContent;

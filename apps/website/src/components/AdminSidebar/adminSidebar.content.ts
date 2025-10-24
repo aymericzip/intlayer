@@ -19,6 +19,7 @@ const adminSidebarContent = {
         ar: 'اطوي الشريط الجانبي',
         ru: 'Свернуть боковую панель',
         tr: 'Kenar çubuğunu daralt',
+        pl: 'Zwiń pasek boczny',
       }),
     },
 
@@ -39,6 +40,7 @@ const adminSidebarContent = {
           ar: 'اذهب إلى لوحة القيادة',
           ru: 'Перейти на прибортную панель',
           tr: 'Dashboarde git',
+          pl: 'Przejdź do pulpitu',
         }),
         title: t({
           en: 'Dashboard',
@@ -55,6 +57,7 @@ const adminSidebarContent = {
           ar: 'لوحة القيادة',
           ru: 'Приборная панель',
           tr: 'Dashboard',
+          pl: 'Pulpit',
         }),
       },
       management: {
@@ -73,6 +76,7 @@ const adminSidebarContent = {
           ar: 'قسم الإدارة',
           ru: 'Раздел управления',
           tr: 'Yönetim bölümü',
+          pl: 'Sekcja zarządzania',
         }),
         title: t({
           en: 'Management',
@@ -89,6 +93,7 @@ const adminSidebarContent = {
           ar: 'الإدارة',
           ru: 'Управление',
           tr: 'Yönetim',
+          pl: 'Zarządzanie',
         }),
         organizations: {
           label: t({
@@ -106,6 +111,7 @@ const adminSidebarContent = {
             ar: 'إدارة المنظمات',
             ru: 'Управление организациями',
             tr: 'Organizasyonları yönet',
+            pl: 'Zarządzaj organizacjami',
           }),
           title: t({
             en: 'Organizations',
@@ -122,6 +128,7 @@ const adminSidebarContent = {
             ar: 'المنظمات',
             ru: 'Организации',
             tr: 'Organizasyonlar',
+            pl: 'Organizacje',
           }),
         },
         projects: {
@@ -140,6 +147,7 @@ const adminSidebarContent = {
             ar: 'إدارة المشاريع',
             ru: 'Управление проектами',
             tr: 'Projeleri yönet',
+            pl: 'Zarządzaj projektami',
           }),
           title: t({
             en: 'Projects',
@@ -156,6 +164,7 @@ const adminSidebarContent = {
             ar: 'المشاريع',
             ru: 'Проекты',
             tr: 'Projeler',
+            pl: 'Projekty',
           }),
         },
         users: {
@@ -174,6 +183,7 @@ const adminSidebarContent = {
             ar: 'إدارة المستخدمين',
             ru: 'Управление пользователями',
             tr: 'Kullanıcıları yönet',
+            pl: 'Zarządzaj użytkownikami',
           }),
           title: t({
             en: 'Users',
@@ -190,6 +200,7 @@ const adminSidebarContent = {
             ar: 'المستخدمون',
             ru: 'Пользователи',
             tr: 'Kullanıcılar',
+            pl: 'Użytkownicy',
           }),
         },
         discussions: {
@@ -208,6 +219,7 @@ const adminSidebarContent = {
             ar: 'إدارة المناقشات',
             ru: 'Управление обсуждениями',
             tr: 'Tartışma yönetimi',
+            pl: 'Zarządzaj dyskusjami',
           }),
           title: t({
             en: 'Discussions',
@@ -224,6 +236,7 @@ const adminSidebarContent = {
             ar: 'المناقشات',
             ru: 'Обсуждения',
             tr: 'Tartışmalar',
+            pl: 'Dyskusje',
           }),
         },
       },

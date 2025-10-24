@@ -19,6 +19,7 @@ const metadataContent = {
       ru: '404 - Страница Не Найдена | Intlayer',
       'en-GB': '404 - Page Not Found | Intlayer',
       tr: '404 - Sayfa Bulunamadı | Intlayer',
+      pl: '404 - Strona nie znaleziona | Intlayer',
     }),
     description: t({
       en: 'Oops! The page you are looking for might have been removed, had its name changed, or is temporarily unavailable. Navigate back to our homepage or use the search function to find what you need.',
@@ -36,6 +37,7 @@ const metadataContent = {
       ar: 'عذرًا! قد تكون الصفحة التي تبحث عنها قد أزيلت أو تم تغيير اسمها أو أنها غير متاحة مؤقتًا. انتقل إلى صفحتنا الرئيسية أو استخدم وظيفة البحث للعثور على ما تحتاجه.',
       ru: 'Упс! Страница, которую вы ищете, возможно, была удалена, изменила название или временно недоступна. Вернитесь на нашу домашнюю страницу или воспользуйтесь функцией поиска, чтобы найти то, что вам нужно.',
       tr: 'Hata! Aradığınız sayfa kaldırılmış, adı değiştirilmiş veya geçici olarak kullanılamıyor olabilir. Ana sayfamıza geri dönün veya ihtiyacınız olanı bulmak için arama işlevini kullanın.',
+      pl: 'Ups! Strona, której szukasz, mogła zostać usunięta, zmieniono jej nazwę lub jest tymczasowo niedostępna. Wróć na naszą stronę główną lub użyj funkcji wyszukiwania, aby znaleźć to, czego potrzebujesz.',
     }),
     keywords: t<string[]>({
       en: [
@@ -178,8 +180,22 @@ const metadataContent = {
         'web geliştirme',
         'i18n',
       ],
+      pl: [
+        'błąd 404',
+        'strona nie znaleziona',
+        'błąd',
+        'Intlayer',
+        'JavaScript',
+        'React',
+        'tworzenie stron internetowych',
+        'i18n',
+      ],
     }),
   },
+  title: '404 page metadata',
+  description:
+    'Metadata for the 404 error page, including title, description, and keywords to assist search engines and improve user experience for not found pages.',
+  tags: ['page metadata', 'error page', '404'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

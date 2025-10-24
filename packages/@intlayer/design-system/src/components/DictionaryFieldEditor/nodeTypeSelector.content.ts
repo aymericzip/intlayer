@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 export const nodeTypeSelectorContent = {
   key: 'node-type-selector',
-  autoFill: './{{key}}.content.json',
+  fill: './{{key}}.content.json',
   content: {
     triggerPlaceHolder: t({
       en: 'Node type',

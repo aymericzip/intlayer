@@ -18,6 +18,7 @@ const applicationNotRunningViewContent = {
       ru: 'Ваше приложение не доступно',
       tr: 'Uygulamanız erişilebilir değil',
       zh: '您的应用程序无法访问',
+      pl: 'Twoja aplikacja jest niedostępna',
     }),
     description: t({
       ar: 'لاستخدام محرك المحتوى، يجب عليك التأكد من أن التطبيق يعمل.',
@@ -35,6 +36,7 @@ const applicationNotRunningViewContent = {
       ru: 'Чтобы использовать CMS, вам необходимо убедиться, что приложение работает.',
       tr: "CMS'yi kullanmak için uygulamanın çalıştığından emin olmanız gerekir.",
       zh: '要使用 CMS，您需要确保应用程序正在运行。',
+      pl: 'Aby korzystać z CMS, upewnij się, że aplikacja jest uruchomiona.',
     }),
     tips: t({
       ar: [
@@ -107,6 +109,11 @@ const applicationNotRunningViewContent = {
         '如果您的应用程序在远程服务器上运行（例如：https://my-app.com），请确保 `editor.cmsUrl` 配置字段设置为 `https://intlayer.org`。',
         "在所有情况下，确保 CSP ('Content-Security-Policy') 头不阻止编辑器的 iframe。",
       ],
+      pl: [
+        'Jeśli twoja aplikacja działa lokalnie (np.: http://localhost:3000), uruchom aplikację i upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `https://intlayer.org`.',
+        'Jeśli twoja aplikacja działa na zdalnym serwerze (np.: https://my-app.com), upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `https://intlayer.org`.',
+        "W każdym przypadku upewnij się, że nagłówek CSP ('Content-Security-Policy') nie blokuje iframe edytora.",
+      ],
     }),
     documentationLink: {
       label: t({
@@ -124,6 +131,7 @@ const applicationNotRunningViewContent = {
         hi: 'क्या आप कैम्स का डॉक्यूमेंट पर जाए रखना चाहते हैं?',
         it: 'Fai clic qui per accedere alla documentazione del CMS',
         tr: 'CMS belgelerine gitmek için tıklayın',
+        pl: 'Kliknij, aby przejść do dokumentacji CMS',
       }),
       text: t({
         en: 'See how to configure the CMS',
@@ -140,6 +148,7 @@ const applicationNotRunningViewContent = {
         ko: 'CMS 설정 방법을 보십시오',
         zh: '查看如何配置CMS',
         tr: "CMS'yi nasıl yapılandıracağınızı görün",
+        pl: 'Zobacz, jak skonfigurować CMS',
       }),
     },
   },

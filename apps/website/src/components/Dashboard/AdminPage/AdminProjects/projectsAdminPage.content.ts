@@ -18,6 +18,7 @@ const projectsAdminPageContentContent = {
       ar: 'إدارة المشاريع',
       ru: 'Управление проектами',
       tr: 'Proje yönetimi',
+      pl: 'Zarządzanie projektami',
     }),
     tableHeaders: {
       name: t({
@@ -35,6 +36,7 @@ const projectsAdminPageContentContent = {
         ar: 'الاسم',
         ru: 'Имя',
         tr: 'İsim',
+        pl: 'Nazwa',
       }),
       id: 'ID',
       createdAt: t({
@@ -52,6 +54,7 @@ const projectsAdminPageContentContent = {
         ar: 'تم الإنشاء في',
         ru: 'Создано',
         tr: 'Oluşturulma',
+        pl: 'Utworzono',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -68,6 +71,7 @@ const projectsAdminPageContentContent = {
         ar: 'تم التحديث في',
         ru: 'Обновлено',
         tr: 'Güncellendi',
+        pl: 'Zaktualizowano',
       }),
     },
     noData: t({
@@ -85,6 +89,7 @@ const projectsAdminPageContentContent = {
       ar: 'غير متوفر',
       ru: 'Н/Д',
       tr: 'Yok',
+      pl: 'Brak danych',
     }),
     errorMessages: {
       loadingError: t({
@@ -102,6 +107,7 @@ const projectsAdminPageContentContent = {
         ar: 'خطأ في تحميل المشاريع',
         ru: 'Ошибка загрузки проектов',
         tr: 'Projeler yüklenirken hata oluştu',
+        pl: 'Błąd podczas ładowania projektów',
       }),
     },
     searchPlaceholder: t({
@@ -119,6 +125,7 @@ const projectsAdminPageContentContent = {
       ar: 'ابحث عن المشاريع...',
       ru: 'Поиск проектов...',
       tr: 'Projeleri ara...',
+      pl: 'Szukaj projektów...',
     }),
     noProjectFound: t({
       en: 'No project found',
@@ -135,8 +142,13 @@ const projectsAdminPageContentContent = {
       ar: 'لم يتم العثور على مشروع',
       ru: 'Проект не найден',
       tr: 'Proje bulunamadı',
+      pl: 'Nie znaleziono projektu',
     }),
   },
+  title: 'Project admin page',
+  description:
+    'Content declarations for the project administration page. Includes project table headers, error messages, search placeholder, and informative labels to support multilingual management in the CMS dashboard.',
+  tags: ['admin page', 'project management', 'dashboard content'],
 } satisfies Dictionary;
 
 export default projectsAdminPageContentContent;

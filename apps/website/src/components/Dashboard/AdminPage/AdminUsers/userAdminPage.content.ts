@@ -18,6 +18,7 @@ const userAdminPageContent = {
       ar: 'إدارة المستخدمين',
       ru: 'Управление пользователями',
       tr: 'Kullanıcı yönetimi',
+      pl: 'Zarządzanie użytkownikami',
     }),
     tableHeaders: {
       name: t({
@@ -35,6 +36,7 @@ const userAdminPageContent = {
         ar: 'الاسم',
         ru: 'Имя',
         tr: 'İsim',
+        pl: 'Imię i nazwisko',
       }),
       id: 'ID',
       email: t({
@@ -52,6 +54,7 @@ const userAdminPageContent = {
         ar: 'البريد الإلكتروني',
         ru: 'Электронная почта',
         tr: 'E-posta',
+        pl: 'E-mail',
       }),
       role: t({
         en: 'Role',
@@ -68,6 +71,7 @@ const userAdminPageContent = {
         ar: 'الدور',
         ru: 'Роль',
         tr: 'Rol',
+        pl: 'Rola',
       }),
       status: t({
         en: 'Status',
@@ -84,6 +88,7 @@ const userAdminPageContent = {
         ar: 'الحالة',
         ru: 'Статус',
         tr: 'Durum',
+        pl: 'Status',
       }),
       createdAt: t({
         en: 'Created At',
@@ -100,6 +105,7 @@ const userAdminPageContent = {
         ar: 'تم الإنشاء في',
         ru: 'Создано',
         tr: 'Oluşturulma',
+        pl: 'Utworzono',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -116,6 +122,7 @@ const userAdminPageContent = {
         ar: 'تم التحديث في',
         ru: 'Обновлено',
         tr: 'Güncellendi',
+        pl: 'Zaktualizowano',
       }),
       actions: t({
         en: 'Actions',
@@ -132,6 +139,7 @@ const userAdminPageContent = {
         ar: 'الإجراءات',
         ru: 'Действия',
         tr: 'İşlemler',
+        pl: 'Akcje',
       }),
     },
     statusLabels: {
@@ -150,6 +158,7 @@ const userAdminPageContent = {
         ar: 'متحقق',
         ru: 'Подтвержден',
         tr: 'Doğrulandı',
+        pl: 'Zweryfikowany',
       }),
       pending: t({
         en: 'Pending',
@@ -166,6 +175,7 @@ const userAdminPageContent = {
         ar: 'معلق',
         ru: 'Ожидает',
         tr: 'Beklemede',
+        pl: 'Oczekujący',
       }),
     },
     actions: {
@@ -184,6 +194,7 @@ const userAdminPageContent = {
         ar: 'تعديل',
         ru: 'Редактировать',
         tr: 'Düzenle',
+        pl: 'Edytuj',
       }),
       delete: t({
         en: 'Delete',
@@ -200,6 +211,7 @@ const userAdminPageContent = {
         ar: 'حذف',
         ru: 'Удалить',
         tr: 'Sil',
+        pl: 'Usuń',
       }),
       copyId: t({
         en: 'Copy id',
@@ -216,6 +228,7 @@ const userAdminPageContent = {
         ar: 'نسخ الأيدي',
         ru: 'Копировать id',
         tr: 'Id kopyala',
+        pl: 'Kopiuj ID',
       }),
     },
     noUsersMessage: t({
@@ -233,6 +246,7 @@ const userAdminPageContent = {
       ar: 'لم يتم العثور على مستخدمين',
       ru: 'Пользователи не найдены',
       tr: 'Kullanıcı bulunamadı',
+      pl: 'Nie znaleziono użytkowników',
     }),
     errorMessages: {
       loadingError: t({
@@ -250,6 +264,7 @@ const userAdminPageContent = {
         ar: 'خطأ في تحميل المستخدمين',
         ru: 'Ошибка загрузки пользователей',
         tr: 'Kullanıcıları yükleme hatası',
+        pl: 'Błąd ładowania użytkowników',
       }),
     },
     showingResults: t({
@@ -267,6 +282,7 @@ const userAdminPageContent = {
       ar: 'عرض {start} إلى {end} من أصل {total} نتيجة',
       ru: 'Показано {start}-{end} из {total} результатов',
       tr: '{total} sonuçtan {start}-{end} arası gösteriliyor',
+      pl: 'Wyświetlanie {start} do {end} z {total} wyników',
     }),
     searchPlaceholder: t({
       en: 'Search users...',
@@ -283,6 +299,7 @@ const userAdminPageContent = {
       ar: 'البحث عن المستخدمين...',
       ru: 'Поиск пользователей...',
       tr: 'Kullanıcıları ara...',
+      pl: 'Szukaj użytkowników...',
     }),
     filterPlaceholder: t({
       en: 'Filter by organization',
@@ -299,6 +316,7 @@ const userAdminPageContent = {
       ar: 'تصفية حسب المنظمة',
       ru: 'Фильтр по организации',
       tr: 'Organizasyona göre filtrele',
+      pl: 'Filtruj po organizacji',
     }),
     allStatuses: t({
       en: 'All organizations',
@@ -315,6 +333,7 @@ const userAdminPageContent = {
       ar: 'جميع المنظمات',
       ru: 'Все организации',
       tr: 'Tüm organizasyonlar',
+      pl: 'Wszystkie organizacje',
     }),
     noData: t({
       en: 'N/A',
@@ -331,8 +350,13 @@ const userAdminPageContent = {
       ar: 'غير متوفر',
       ru: 'Н/Д',
       tr: 'Yok',
+      pl: 'Brak danych',
     }),
   },
+  title: 'User administration page',
+  description:
+    'Content dictionary for the user administration page. Includes table headers, status labels, action buttons, messages, and search filters necessary for managing users in the dashboard.',
+  tags: ['dashboard', 'user management', 'admin page'],
 } satisfies Dictionary;
 
 export default userAdminPageContent;

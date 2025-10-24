@@ -18,6 +18,7 @@ export default {
       ar: 'المطورون ومديرو المحتوى',
       ru: 'Разработчики, менеджеры контента',
       tr: 'Geliştiriciler, İçerik Yöneticileri',
+      pl: 'Programiści, Menedżerowie treści',
     }),
   },
 } satisfies Dictionary;

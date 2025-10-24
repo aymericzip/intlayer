@@ -47,20 +47,17 @@ export const getPerLocaleDictionary = <
   dictionary: T,
   locale: L,
   fallback?: LocalesValues
-): DeepTransformContent<T['content']> => {
-  // @ts-ignore Type instantiation is excessively deep and possibly infinite
-  return {
-    ...dictionary,
+): Dictionary => ({
+  ...dictionary,
+  locale,
+  content: getLocalizedContent(
+    dictionary.content,
     locale,
-    content: getLocalizedContent(
-      dictionary.content,
-      locale,
-      {
-        dictionaryKey: dictionary.key,
-        keyPath: [],
-        plugins: [],
-      },
-      fallback
-    ),
-  };
-};
+    {
+      dictionaryKey: dictionary.key,
+      keyPath: [],
+      plugins: [],
+    },
+    fallback
+  ),
+});

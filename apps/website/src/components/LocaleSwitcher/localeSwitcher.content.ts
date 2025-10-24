@@ -18,6 +18,7 @@ const localeSwitcherContent = {
       ru: 'Выберите язык',
       tr: 'Bir dil seçin',
       zh: '选择语言',
+      pl: 'Wybierz język',
     }),
     localeSwitcherLabel: t({
       ar: 'مبدل اللغة',
@@ -34,6 +35,7 @@ const localeSwitcherContent = {
       ru: 'Переключатель языка',
       tr: 'Dil değiştirici',
       zh: '语言切换器',
+      pl: 'Wybór języka',
     }),
     languageListLabel: t({
       ar: 'قائمة اللغات',
@@ -50,6 +52,7 @@ const localeSwitcherContent = {
       ru: 'Список языков',
       tr: 'Dil listesi',
       zh: '语言列表',
+      pl: 'Lista języków',
     }),
     switchTo: t({
       ar: 'التبديل إلى',
@@ -66,6 +69,7 @@ const localeSwitcherContent = {
       ru: 'Переключиться на',
       tr: 'Geçiş yap',
       zh: '切换到',
+      pl: 'Zmień na',
     }),
     searchInput: {
       text: t({
@@ -83,6 +87,7 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Szukaj języka',
       }),
       placeholder: t({
         en: 'Search a locale',
@@ -99,6 +104,7 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Szukaj języka',
       }),
       ariaLabel: t({
         en: 'Language search',
@@ -115,9 +121,14 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Wyszukiwanie języka',
       }),
     },
   },
+  title: 'Locale switcher',
+  description:
+    'Content declaration for the locale switcher component, enabling users to change the language of the website interface. Includes labels and placeholders for language selection and search functionality.',
+  tags: ['locale', 'language switcher', 'interface'],
 } satisfies Dictionary;
 
 export default localeSwitcherContent;

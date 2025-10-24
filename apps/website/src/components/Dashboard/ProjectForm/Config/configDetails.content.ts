@@ -18,6 +18,7 @@ const projectConfigDetailsContent = {
       ar: 'تكوين المشروع',
       ru: 'Конфигурация проекта',
       tr: 'Proje yapılandırması',
+      pl: 'Konfiguracja projektu',
     }),
     i18nSection: {
       title: t({
@@ -35,6 +36,7 @@ const projectConfigDetailsContent = {
         ar: 'التدويل الدولي',
         ru: 'Интернационализация',
         tr: 'Uluslararasılaştırma',
+        pl: 'Internacjonalizacja',
       }),
       localeListTitle: t({
         en: 'Available locales',
@@ -51,6 +53,7 @@ const projectConfigDetailsContent = {
         ar: 'المواقع المتاحة',
         ru: 'Доступные локализации',
         tr: 'Mevcut yereller',
+        pl: 'Dostępne lokalizacje',
       }),
       defaultLocaleTitle: t({
         en: 'Default locale',
@@ -67,6 +70,7 @@ const projectConfigDetailsContent = {
         ar: 'الموقع الافتراضي',
         ru: 'Локализация по умолчанию',
         tr: 'Varsayılan yerel',
+        pl: 'Domyślna lokalizacja',
       }),
     },
 
@@ -86,6 +90,7 @@ const projectConfigDetailsContent = {
         ar: 'المحرر',
         ru: 'Редактор',
         tr: 'Editör',
+        pl: 'Edytor',
       }),
       applicationURL: {
         title: t({
@@ -103,6 +108,7 @@ const projectConfigDetailsContent = {
           ar: 'عنوان URL التطبيق',
           ru: 'URL-адрес приложения',
           tr: "Uygulama URL'si",
+          pl: 'URL aplikacji',
         }),
         label: t({
           en: "Click to navigate to the application's URL",
@@ -119,6 +125,7 @@ const projectConfigDetailsContent = {
           ar: 'انقر للانتقال إلى عنوان URL التطبيق',
           ru: 'Нажмите, чтобы перейти к URL-адресу приложения',
           tr: "Uygulamanın URL'sine gitmek için tıklayın",
+          pl: 'Kliknij, aby przejść do adresu URL aplikacji',
         }),
       },
       cmsURL: {
@@ -137,6 +144,7 @@ const projectConfigDetailsContent = {
           ar: 'عنوان URL للمحرك المرئي',
           ru: 'URL-адрес CMS',
           tr: 'CMS URL',
+          pl: 'URL CMS',
         }),
         label: t({
           en: 'Click to navigate to the CMS URL',
@@ -153,6 +161,7 @@ const projectConfigDetailsContent = {
           ar: 'انقر للانتقال إلى عنوان URL للمحرك المرئي',
           ru: 'Нажмите, чтобы перейти к URL-адресу CMS',
           tr: "CMS URL'ine gitmek için tıklayın",
+          pl: 'Kliknij, aby przejść do adresu URL CMS',
         }),
       },
     },
@@ -174,6 +183,7 @@ const projectConfigDetailsContent = {
         ar: 'لا تم تحميل التكوين. يرجى تحميل التكوين الخاص بك أولاً باستخدام CLI.',
         ru: 'Не загружена конфигурация. Пожалуйста, сначала загрузите конфигурацию с помощью CLI.',
         tr: 'Yapılandırma yüklenmedi. Lütfen önce CLI kullanarak yapılandırmanızı yükleyin.',
+        pl: 'Nie przesłano konfiguracji. Najpierw wyślij konfigurację za pomocą CLI.',
       }),
     },
     updateConfig: {
@@ -192,6 +202,7 @@ const projectConfigDetailsContent = {
         ar: 'يمكنك تحديث تكوينك باستخدام CLI.',
         ru: 'Вы можете обновить конфигурацию с помощью CLI.',
         tr: 'Yapılandırmanızı CLI kullanarak güncelleyebilirsiniz',
+        pl: 'Możesz zaktualizować konfigurację za pomocą CLI.',
       }),
     },
     pushConfigDocLink: {
@@ -210,6 +221,7 @@ const projectConfigDetailsContent = {
         ar: 'شاهد كيفية تحميل التكوين الخاص بك',
         ru: 'Посмотрите, как загрузить вашу конфигурацию',
         tr: 'Yapılandırmanızı nasıl göndereceğinizi görün',
+        pl: 'Zobacz, jak przesłać konfigurację',
       }),
       label: t({
         en: 'Click to go to the related documentation',
@@ -226,9 +238,14 @@ const projectConfigDetailsContent = {
         ar: 'انقر للانتقال إلى الوثائق ذات الصلة',
         ru: 'Нажмите, чтобы перейти к соответствующей документации',
         tr: 'İlgili belgelere gitmek için tıklayın',
+        pl: 'Kliknij, aby przejść do powiązanej dokumentacji',
       }),
     },
   },
+  title: 'Project configuration details',
+  description:
+    'Content declaration for the project configuration section in the dashboard. Includes titles and messages related to internationalization settings, editor URLs, and configuration status.',
+  tags: ['dashboard', 'project settings', 'configuration'],
 } satisfies Dictionary;
 
 export default projectConfigDetailsContent;

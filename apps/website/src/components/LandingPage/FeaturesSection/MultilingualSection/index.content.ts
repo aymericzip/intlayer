@@ -18,8 +18,13 @@ const multilingualSectionContent = {
       ru: 'Автоматически генерируемый контент в ',
       tr: 'Otomatik Oluşturulmuş içerik ',
       zh: '自动生成的内容位于 ',
+      pl: 'Autogenerowana zawartość w ',
     }),
   },
+  title: 'Multilingual section',
+  description:
+    'Dictionary for the multilingual section of the landing page, used to define localized labels or content related to language-specific features.',
+  tags: ['landing page', 'feature section', 'multilingual support'],
 } satisfies Dictionary;
 
 export default multilingualSectionContent;

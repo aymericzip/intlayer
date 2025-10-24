@@ -18,6 +18,7 @@ const discussionsAdminPageContent = {
       ar: 'إدارة المناقشات',
       ru: 'Управление обсуждениями',
       tr: 'Tartışma yönetimi',
+      pl: 'Zarządzanie dyskusjami',
     }),
 
     tableHeaders: {
@@ -37,6 +38,7 @@ const discussionsAdminPageContent = {
         ar: 'المستخدم',
         ru: 'Пользователь',
         tr: 'Kullanıcı',
+        pl: 'Użytkownik',
       }),
       numberOfMessages: t({
         en: 'Messages',
@@ -53,6 +55,7 @@ const discussionsAdminPageContent = {
         ar: 'الرسائل',
         ru: 'Сообщения',
         tr: 'Mesajlar',
+        pl: 'Wiadomości',
       }),
       createdAt: t({
         en: 'Created At',
@@ -69,6 +72,7 @@ const discussionsAdminPageContent = {
         ar: 'تم الإنشاء في',
         ru: 'Создано',
         tr: 'Oluşturulma',
+        pl: 'Utworzono',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -85,6 +89,7 @@ const discussionsAdminPageContent = {
         ar: 'تم التحديث في',
         ru: 'Обновлено',
         tr: 'Güncellendi',
+        pl: 'Zaktualizowano',
       }),
     },
     noData: t({
@@ -102,6 +107,7 @@ const discussionsAdminPageContent = {
       ar: 'غير متوفر',
       ru: 'Н/Д',
       tr: 'Yok',
+      pl: 'Brak danych',
     }),
     errorMessages: {
       loadingError: t({
@@ -119,6 +125,7 @@ const discussionsAdminPageContent = {
         ar: 'خطأ في تحميل المناقشات',
         ru: 'Ошибка загрузки обсуждений',
         tr: 'Tartışmalar yüklenirken hata oluştu',
+        pl: 'Błąd podczas ładowania dyskusji',
       }),
     },
     searchPlaceholder: t({
@@ -136,6 +143,7 @@ const discussionsAdminPageContent = {
       ar: 'ابحث عن المناقشات...',
       ru: 'Поиск обсуждений...',
       tr: 'Tartışmaları ara...',
+      pl: 'Szukaj dyskusji...',
     }),
     noDiscussionFound: t({
       en: 'Discussion not found',
@@ -152,26 +160,32 @@ const discussionsAdminPageContent = {
       ar: 'المناقشة غير موجودة',
       ru: 'Обсуждение не найдено',
       tr: 'Tartışma bulunamadı',
+      pl: 'Nie znaleziono dyskusji',
     }),
     modalTitle: insert(
       t({
-        en: 'Discussion Details - ID: {{discussionId}}',
-        fr: 'Détails de la discussion - ID: {{discussionId}}',
-        es: 'Detalles de la discusión - ID: {{discussionId}}',
-        'en-GB': 'Discussion Details - ID: {{discussionId}}',
+        ar: 'تفاصيل المناقشة - ID: {{discussionId}}',
         de: 'Diskussion Details - ID: {{discussionId}}',
+        en: 'Discussion Details - ID: {{discussionId}}',
+        'en-GB': 'Discussion Details - ID: {{discussionId}}',
+        es: 'Detalles de la discusión - ID: {{discussionId}}',
+        fr: 'Détails de la discussion - ID: {{discussionId}}',
+        hi: 'चर्चा की विवरण - ID: {{discussionId}}',
+        it: 'Dettagli discussione - ID: {{discussionId}}',
         ja: 'ディスカッションの詳細 - ID: {{discussionId}}',
         ko: '토론 세부 정보 - ID: {{discussionId}}',
-        zh: '讨论详细信息 - ID: {{discussionId}}',
-        it: 'Dettagli discussione - ID: {{discussionId}}',
+        pl: 'Szczegóły dyskusji - ID: {{discussionId}}',
         pt: 'Detalhes da discussão - ID: {{discussionId}}',
-        hi: 'चर्चा की विवरण - ID: {{discussionId}}',
-        ar: 'تفاصيل المناقشة - ID: {{discussionId}}',
         ru: 'Подробности обсуждения - ID: {{discussionId}}',
         tr: 'Tartışma ayrıntıları - ID: {{discussionId}}',
+        zh: '讨论详细信息 - ID: {{discussionId}}',
       })
     ),
   },
+  title: 'Discussion admin detail',
+  description:
+    'Content declaration for managing discussions in the admin dashboard, including table headers, search placeholder, error messages, and modal title templates.',
+  tags: ['admin panel', 'discussions management', 'dashboard content'],
 } satisfies Dictionary;
 
 export default discussionsAdminPageContent;

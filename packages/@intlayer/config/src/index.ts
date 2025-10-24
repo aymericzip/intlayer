@@ -48,6 +48,7 @@ export {
   ESMxCJSRequire,
   isESModule,
 } from './utils/ESMxCJSHelpers';
+export { extractErrorMessage } from './utils/extractErrorMessage';
 export { getExtension } from './utils/getExtension';
 export { getPackageJsonPath } from './utils/getPackageJsonPath';
 export { logStack } from './utils/logStack';

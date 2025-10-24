@@ -107,6 +107,7 @@ const productHuntContent = {
       ar: 'قم بزيارتنا على Product Hunt وأظهر دعمك من خلال التصويت. ملاحظاتك لا تقدر بثمن!',
       ru: 'Посетите нас на Product Hunt и поддержите нас голосованием. Ваш отзыв бесценен!',
       tr: "Product Hunt'da bizi ziyaret edin ve bir upvote ile desteğinizi gösterin. Yorumunuz değerlidir!",
+      pl: 'Odwiedź nas na Product Hunt i wesprzyj nas upvotem. Twoja opinia jest dla nas nieoceniona!',
     }),
     linkLabel: t({
       en: 'Go to see it on Product Hunt',
@@ -123,6 +124,7 @@ const productHuntContent = {
       ar: 'اذهب لرؤيةه على Product Hunt',
       ru: 'Посетите на Product Hunt',
       tr: "Product Hunt'da görüntüle",
+      pl: 'Zobacz to na Product Hunt',
     }),
     closeLabel: t({
       en: 'Close',
@@ -139,8 +141,13 @@ const productHuntContent = {
       ar: 'إغلاق',
       ru: 'Закрыть',
       tr: 'Kapat',
+      pl: 'Zamknij',
     }),
   },
+  title: 'Product Hunt announcement',
+  description:
+    'Content related to the Product Hunt launch announcement, including title, call-to-action, launch date and interaction labels for the modal or banner.',
+  tags: ['product launch', 'announcement'],
 } satisfies Dictionary;
 
 export default productHuntContent;

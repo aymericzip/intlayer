@@ -19,6 +19,7 @@ const markdownSectionContent = {
       ru: 'Дорогой клиент,\n\nЯ напишу вам ',
       tr: 'Değerli müşteri,\n\nSize yazıyorum ',
       zh: '您好，我是写给您的 ',
+      pl: 'Szanowny Kliencie,\n\nPiszę do Państwa ',
     }),
     suggestion: t({
       ar: 'لتأكيد طلبك',
@@ -35,6 +36,7 @@ const markdownSectionContent = {
       ru: 'для подтверждения вашего заказа',
       tr: 'siparişinizi onaylamak için',
       zh: '确认您的订单',
+      pl: 'aby potwierdzić Państwa zamówienie',
     }),
     ariaLabel: t({
       ar: 'محرر الإكمال التلقائي',
@@ -51,6 +53,7 @@ const markdownSectionContent = {
       ru: 'Редактор автозавершения',
       tr: 'Otomatik Tamamlama düzenleyicisi',
       zh: '自动补全编辑器',
+      pl: 'Edytor autouzupełniania',
     }),
   },
 } satisfies Dictionary;

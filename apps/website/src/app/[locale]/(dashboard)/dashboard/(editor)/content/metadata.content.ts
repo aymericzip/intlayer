@@ -19,6 +19,7 @@ const metadataContent = {
       ru: 'Контент | Приборная панель | Intlayer',
       tr: 'İçerik | Dashboard | Intlayer',
       zh: '内容 | 仪表板 | Intlayer',
+      pl: 'Zawartość | Panel | Intlayer',
     }),
     description: t({
       ar: 'قم بإدارة إعدادات المحتوى الخاص بك في لوحة تحكم Intlayer. حرر وقم بتحديث وتكوين المحتوى الخاص بك لضمان مطابقته لمعاييرك.',
@@ -36,6 +37,7 @@ const metadataContent = {
       ru: 'Управляйте настройками контента в панели инструментов Intlayer. Редактируйте, обновляйте и настраивайте контент, чтобы он соответствовал вашим стандартам.',
       tr: 'Intlayer kontrol panelinde içerik ayarlarınızı yönetin. İçeriğinizi düzenleyin, güncelleyin ve standartlarınıza uygun olduğundan emin olun.',
       zh: '在Intlayer仪表板中管理您的内容设置。编辑、更新并配置您的内容，以确保它符合您的标准。',
+      pl: 'Zarządzaj ustawieniami zawartości w panelu Intlayer. Edytuj, aktualizuj i konfiguruj treści, aby spełniały twoje standardy.',
     }),
     keywords: t({
       ar: ['المحتوى', 'الإعدادات', 'المحرر', 'الإدارة', 'التحديثات', 'النشر'],
@@ -115,8 +117,20 @@ const metadataContent = {
         'Yayınlama',
       ],
       zh: ['内容', '设置', '编辑器', '管理', '更新', '发布'],
+      pl: [
+        'Zawartość',
+        'Ustawienia',
+        'Edytor',
+        'Zarządzanie',
+        'Aktualizacje',
+        'Publikowanie',
+      ],
     }),
   },
+  title: 'Content dashboard metadata',
+  description:
+    'Metadata related to the content section within the Intlayer dashboard. Includes title, description, and keywords for SEO and content management purposes.',
+  tags: ['dashboard', 'content editor', 'page metadata', 'content settings'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

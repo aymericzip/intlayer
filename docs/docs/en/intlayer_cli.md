@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-10-05
+updatedAt: 2025-01-27
 title: CLI
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 6.1.4
+    date: 2025-01-27
+    changes: Add aliases for CLI arguments and commands
   - version: 6.1.3
     date: 2025-10-05
     changes: Add build option to commands
@@ -182,6 +185,10 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
   > Example: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
 
+- **`--dictionary`**: ids of the dictionaries to pull (alias for --dictionaries).
+
+  > Example: `npx intlayer dictionary push --dictionary my-dictionary-id my-other-dictionary-id`
+
 **Configuration options:**
 
 - **`--base-dir`**: Specify the base directory for the project. To retrieve the intlayer configuration, the command will look for the `intlayer.config.{ts,js,json,cjs,mjs}` file in the base directory.
@@ -254,6 +261,10 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
   > Example: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 
+- **`--dictionary`**: Ids of the dictionaries to pull (alias for --dictionaries).
+
+  > Example: `npx intlayer dictionary pull --dictionary my-dictionary-id my-other-dictionary-id`
+
 **Configuration options:**
 
 - **`--base-dir`**: Specify the base directory for the project. To retrieve the intlayer configuration, the command will look for the `intlayer.config.{ts,js,json,cjs,mjs}` file in the base directory.
@@ -310,9 +321,17 @@ This command analyzes your content declaration files for potential issues such a
 
   > Example: `npx intlayer dictionary fill -k key1 key2`
 
+- **`--key [keys...]`**: Filter dictionaries based on keys (alias for --keys).
+
+  > Example: `npx intlayer dictionary fill --key key1 key2`
+
 - **`--excluded-keys [excludedKeys...]`**: Filter out dictionaries based on keys. If not provided, all dictionaries will be audited.
 
   > Example: `npx intlayer dictionary fill --excluded-keys key1 key2`
+
+- **`--excluded-key [excludedKeys...]`**: Filter out dictionaries based on keys (alias for --excluded-keys).
+
+  > Example: `npx intlayer dictionary fill --excluded-key key1 key2`
 
 - **`--path-filter [pathFilters...]`**: Filter dictionaries based on glob pattern for file paths.
 
@@ -369,6 +388,8 @@ This command analyzes your content declaration files for potential issues such a
 
 - **`--build`**: Build the dictionaries before pushing to ensure the content is up to date. True will force the build, false will skip the build, undefined will allow using the cache of the build.
 
+- **`--skip-metadata`**: Skip filling missing metadata (description, title, tags) for dictionaries.
+
 **Log options:**
 
 - **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
@@ -386,6 +407,10 @@ This command will translate content from English to French and Spanish for all c
 ```bash
 npx intlayer content test
 ```
+
+##### Aliases:
+
+- `npx intlayer test`
 
 This command analyzes your content declaration files to identify missing translations across all configured locales. It provides a comprehensive report showing which translation keys are missing for which locales, helping you maintain consistency across your multilingual content.
 
@@ -456,6 +481,10 @@ The output helps you quickly identify which translations need to be completed to
 ```bash
 npx intlayer content list
 ```
+
+##### Aliases:
+
+- `npx intlayer list`
 
 This command displays all content declaration files in your project, showing their dictionary keys and file paths. It's useful for getting an overview of all your content files and verifying that they are properly discovered by Intlayer.
 
@@ -667,6 +696,11 @@ If you activated one of the git options, the command will only review the part o
   "intlayer:doc:review": "npx intlayer doc review"
 }
 ```
+
+> **Note**: You can also use the shorter aliases:
+>
+> - `npx intlayer list` instead of `npx intlayer content list`
+> - `npx intlayer test` instead of `npx intlayer content test`
 
 ### Editor commands
 

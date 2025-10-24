@@ -27,6 +27,7 @@ const whyToChoseIntlayerContent = {
       ar: 'لماذا تختار Intlayer؟',
       ru: 'Почему стоит выбрать Intlayer?',
       tr: "Neden Intlayer'ı seçmelisiniz?",
+      pl: 'Dlaczego warto wybrać Intlayer?',
     }),
     content: [
       {
@@ -45,6 +46,7 @@ const whyToChoseIntlayerContent = {
           ar: 'مجاني ومفتوح المصدر',
           ru: 'Бесплатно и с открытым исходным кодом',
           tr: 'Ücretsiz ve Açık Kaynak',
+          pl: 'Darmowy i otwartoźródłowy',
         }),
         description: t({
           en: 'Intlayer is free and open source, allowing you to use it for free and contribute to suit your needs.',
@@ -62,6 +64,7 @@ const whyToChoseIntlayerContent = {
           ar: 'Intlayer مجاني ومفتوح المصدر، مما يتيح لك استخدامه مجانًا والمساهمة وفقًا لاحتياجاتك.',
           ru: 'Intlayer бесплатен и с открытым исходным кодом, что позволяет вам использовать его бесплатно и вносить изменения по мере необходимости.',
           tr: 'Intlayer ücretsiz ve açık kaynaklıdır, böylece ücretsiz kullanabilir ve ihtiyaçlarınıza göre katkıda bulunabilirsiniz.',
+          pl: 'Intlayer jest darmowy i otwartoźródłowy, co pozwala na jego bezpłatne używanie oraz współtworzenie i dostosowywanie do własnych potrzeb.',
         }),
         iconKey: 'free',
       },
@@ -81,6 +84,7 @@ const whyToChoseIntlayerContent = {
           ar: 'إدارة المحتوى المدعومة من JavaScript',
           ru: 'Управление контентом на базе JavaScript',
           tr: 'JavaScript Destekli İçerik Yönetimi',
+          pl: 'Zarządzanie treścią oparte na JavaScript',
         }),
         description: t({
           en: 'Harness the flexibility of JavaScript to define and manage your content efficiently.',
@@ -98,6 +102,7 @@ const whyToChoseIntlayerContent = {
           ar: 'استفد من مرونة JavaScript لتعريف وإدارة المحتوى الخاص بك بكفاءة.',
           ru: 'Используйте гибкость JavaScript, чтобы эффективно определять и управлять своим контентом.',
           tr: "JavaScript'in esnekliğini kullanarak içeriğinizi verimli bir şekilde tanımlayın ve yönetin.",
+          pl: 'Wykorzystaj elastyczność JavaScriptu, aby definiować i zarządzać treścią w wydajny sposób.',
         }),
         iconKey: 'code',
       },
@@ -117,6 +122,7 @@ const whyToChoseIntlayerContent = {
           ar: 'بيئة آمنة من نوعها',
           ru: 'Типобезопасная среда',
           tr: 'Tip Güvenli Ortam',
+          pl: 'Środowisko z bezpieczeństwem typów',
         }),
         description: t({
           en: 'Leverage TypeScript to ensure all your content definitions are precise and error-free.',
@@ -134,6 +140,7 @@ const whyToChoseIntlayerContent = {
           ar: 'استفد من TypeScript لضمان دقة جميع تعريفات المحتوى الخاصة بك وخلوها من الأخطاء.',
           ru: 'Используйте TypeScript, чтобы гарантировать, что все ваши определения контента точны и свободны от ошибок.',
           tr: "TypeScript'i kullanarak tüm içerik tanımlarınızın kesin ve hatasız olmasını sağlayın.",
+          pl: 'Wykorzystaj TypeScript, aby zapewnić, że wszystkie twoje definicje treści są precyzyjne i wolne od błędów.',
         }),
         iconKey: 'type',
       },
@@ -153,6 +160,7 @@ const whyToChoseIntlayerContent = {
           ar: 'إعلان على مستوى المكون',
           ru: 'Декларация на уровне компонента',
           tr: 'Bileşen düzeyinde beyan',
+          pl: 'Deklaracja na poziomie komponentu',
         }),
         description: t({
           en: 'Keep your translations close to their respective components, enhancing maintainability and clarity.',
@@ -170,6 +178,7 @@ const whyToChoseIntlayerContent = {
           ar: 'احتفظ بترجمتك بالقرب من مكوناتها الخاصة، مما يعزز القابلية للصيانة والوضوح.',
           ru: 'Держите переводы рядом с соответствующими компонентами, улучшая поддерживаемость и ясность.',
           tr: 'Çevirilerinizi ilgili bileşenlerine yakın tutarak sürdürülebilirliği ve netliği artırın.',
+          pl: 'Umieszczaj tłumaczenia bezpośrednio przy odpowiednich komponentach, co ułatwia utrzymanie i zwiększa czytelność.',
         }),
         iconKey: 'file-tree',
       },
@@ -189,6 +198,7 @@ const whyToChoseIntlayerContent = {
           ar: 'إعداد مبسط',
           ru: 'Упрощенный процесс настройки',
           tr: 'Basitleştirilmiş Kurulum',
+          pl: 'Uproszczona konfiguracja',
         }),
         description: t({
           en: 'Get up and running quickly with minimal configuration, especially optimized for Next.js projects.',
@@ -206,6 +216,7 @@ const whyToChoseIntlayerContent = {
           ar: 'ابدأ بسرعة مع الحد الأدنى من التكوين، مع تحسين خاص لمشاريع Next.js.',
           ru: 'Быстро начните работу с минимальной настройкой, особенно оптимизированной для проектов Next.js.',
           tr: 'Özellikle Next.js projeleri için optimize edilmiş, minimum yapılandırma ile hızlıca başlayın.',
+          pl: 'Szybko rozpocznij pracę przy minimalnej konfiguracji, szczególnie zoptymalizowanej pod projekty Next.js.',
         }),
         iconKey: 'timer',
       },
@@ -225,6 +236,7 @@ const whyToChoseIntlayerContent = {
           ar: 'CMS متكامل',
           ru: 'Интегрированная CMS',
           tr: 'Entegre CMS',
+          pl: 'Zintegrowany CMS',
         }),
         description: t({
           en: 'Edit your content on your website with an integrated CMS directly on your website. Boost content generation thanks to AI.',
@@ -242,11 +254,16 @@ const whyToChoseIntlayerContent = {
           ar: 'قم بتحرير المحتوى الخاص بك على موقع الويب الخاص بك باستخدام نظام إدارة المحتوى المتكامل مباشرة على موقع الويب الخاص بك. عزز إنتاج المحتوى بفضل الذكاء الاصطناعي.',
           ru: 'Редактируйте свой контент на своем сайте с помощью интегрированной CMS непосредственно на вашем сайте. Ускорьте создание контента благодаря ИИ.',
           tr: 'Entegre CMS ile web sitenizdeki içeriğinizi doğrudan web sitenizde düzenleyin. Yapay zeka sayesinde içerik üretimini artırın.',
+          pl: 'Edytuj treści bezpośrednio na swojej stronie dzięki zintegrowanemu CMS. Wspomagaj generowanie treści dzięki AI.',
         }),
         iconKey: 'cms',
       },
     ],
   },
+  title: 'Why choose Intlayer section',
+  description:
+    'Section explaining the key reasons to choose Intlayer. Highlights features such as open-source nature, JavaScript-based content management, type safety with TypeScript, simplified setup, component-level declarations, and an integrated CMS.',
+  tags: ['landing page', 'feature highlight', 'introduction section'],
 } satisfies Dictionary<WhyToChoseIntlayerContent>;
 
 export default whyToChoseIntlayerContent;

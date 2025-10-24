@@ -18,6 +18,7 @@ export const registerStepContent = {
       ar: 'إنشاء حسابك',
       ru: 'Создайте свою учетную запись',
       tr: 'Hesabınızı oluşturun',
+      pl: 'Utwórz konto',
     }),
 
     emailInput: {
@@ -36,6 +37,7 @@ export const registerStepContent = {
         ar: 'عنوان البريد الإلكتروني',
         ru: 'Адрес электронной почты',
         tr: 'E-posta adresi',
+        pl: 'Adres e-mail',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -52,6 +54,7 @@ export const registerStepContent = {
         ar: 'أدخل عنوان البريد الإلكتروني',
         ru: 'Введите адрес электронной почты',
         tr: 'E-posta adresinizi girin',
+        pl: 'Wprowadź adres e-mail',
       }),
     },
 
@@ -71,6 +74,7 @@ export const registerStepContent = {
         ar: 'هل لديك حساب بالفعل؟',
         ru: 'У вас уже есть учетная запись?',
         tr: 'Zaten bir hesabınız var mı?',
+        pl: 'Masz już konto?',
       }),
       text: t({
         en: 'Log in',
@@ -87,6 +91,7 @@ export const registerStepContent = {
         ar: 'تسجيل الدخول',
         ru: 'Войти',
         tr: 'Giriş yapın',
+        pl: 'Zaloguj się',
       }),
       ariaLabel: t({
         en: 'Click to go to login page',
@@ -103,9 +108,14 @@ export const registerStepContent = {
         ar: 'انقر للانتقال إلى صفحة تسجيل الدخول',
         ru: 'Нажмите, чтобы перейти на страницу входа',
         tr: 'Giriş sayfasına gitmek için tıklayın',
+        pl: 'Kliknij, aby przejść do strony logowania',
       }),
     },
   },
+  title: 'Register step content',
+  description:
+    'Content declarations for the register step component, including form labels, placeholders, and links related to account creation.',
+  tags: ['register', 'onboarding', 'form'],
 } satisfies Dictionary;
 
 export default registerStepContent;

@@ -1,2 +1,2 @@
 export * from './fill';
-export * from './writeAutoFill';
+export * from './writeFill';

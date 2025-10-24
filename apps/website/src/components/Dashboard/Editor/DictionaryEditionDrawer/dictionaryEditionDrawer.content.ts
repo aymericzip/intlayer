@@ -19,6 +19,7 @@ const dictionaryEditionDrawerContent = {
         ru: 'Нажмите, чтобы открыть словарь в редакторе',
         'en-GB': 'Click to open the dictionary in the editor',
         tr: 'Sözlüğü düzenleyicide açmak için tıklayın',
+        pl: 'Kliknij, aby otworzyć słownik w edytorze',
       }),
     },
     backButtonText: t({
@@ -36,6 +37,7 @@ const dictionaryEditionDrawerContent = {
       ru: 'Список словарей',
       tr: 'Sözlük listesi',
       zh: '词典列表',
+      pl: 'Lista słowników',
     }),
     modalTitle: t({
       ar: 'تحرير قاموس',
@@ -52,6 +54,7 @@ const dictionaryEditionDrawerContent = {
       ru: 'Редактировать словарь',
       tr: 'Sözlüğü düzenle',
       zh: '编辑词典',
+      pl: 'Edytuj słownik',
     }),
     noDictionaryFocused: t({
       ar: 'لا يوجد قاموس مرتبط',
@@ -68,6 +71,7 @@ const dictionaryEditionDrawerContent = {
       ru: 'Нет фокусированного словаря',
       tr: 'Hiçbir sözlük odaklanmadı',
       zh: '没有聚焦的词典',
+      pl: 'Nie wybrano słownika',
     }),
     focusedDictionaryNotFound: t({
       ar: 'لا يوجد قاموس مرتبط',
@@ -84,8 +88,13 @@ const dictionaryEditionDrawerContent = {
       ru: 'Нет фокусированного словаря',
       tr: 'Odaklanılan sözlük bulunamadı',
       zh: '没有聚焦的词典',
+      pl: 'Nie znaleziono zaznaczonego słownika',
     }),
   },
+  title: 'Dictionary edition drawer',
+  description:
+    'UI content for the dictionary edition drawer, allowing users to edit a selected dictionary in the editor within the dashboard.',
+  tags: ['dashboard', 'editor', 'dictionary management'],
 } satisfies Dictionary;
 
 export default dictionaryEditionDrawerContent;

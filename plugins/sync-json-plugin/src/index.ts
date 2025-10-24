@@ -29,7 +29,7 @@ const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const extractKeyAndLocaleFromPath = (
   filePath: string,
   maskPattern: string,
-  locales: Locales[]
+  locales: Locale[]
 ) => {
   const keyPlaceholder = '{{__KEY__}}';
   const localePlaceholder = '{{__LOCALE__}}';
@@ -53,7 +53,7 @@ const extractKeyAndLocaleFromPath = (
 
   const match = maskRegex.exec(filePath);
 
-  let locale: Locales | undefined;
+  let locale: Locale | undefined;
   let key: string | undefined;
 
   if (match?.groups) {
@@ -200,13 +200,13 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
         configuration
       );
 
-      let autoFill: string = options.source({
+      let fill: string = options.source({
         key: '{{key}}',
         locale: '{{locale}}',
       });
 
-      if (autoFill && !isAbsolute(autoFill)) {
-        autoFill = join(configuration.content.baseDir, autoFill);
+      if (fill && !isAbsolute(fill)) {
+        fill = join(configuration.content.baseDir, fill);
       }
 
       const dictionaries: Dictionary[] = [];
@@ -219,10 +219,10 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
         const dictionary: Dictionary = {
           key,
           locale,
-          autoFill,
+          fill,
           localId: `${key}::${location}::${filePath}` as LocalDictionaryId,
           location: location as Dictionary['location'],
-          autoFilled:
+          filled:
             locale !== configuration.internationalization.defaultLocale
               ? true
               : undefined,

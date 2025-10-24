@@ -19,6 +19,7 @@ const chatFormSectionContent = {
         ar: 'طرح سؤالك لدردشة الوثائق الخاصة بنا AI',
         ru: 'Спросите нашу умную документацию',
         tr: 'Yapay Zeka Destekli Akıllı Belgelerimize sorunuzu sorun',
+        pl: 'Zadaj pytanie naszej inteligentnej dokumentacji wspieranej przez AI',
       }),
       placeholder: t({
         de: 'Stellen Sie mir irgendwas...',
@@ -35,6 +36,7 @@ const chatFormSectionContent = {
         ar: 'طرح شيئا...',
         ru: 'Спросите меня что-нибудь...',
         tr: 'Bana bir şey sor...',
+        pl: 'Zapytaj mnie o cokolwiek...',
       }),
     },
     sendQuestionButton: {
@@ -53,6 +55,7 @@ const chatFormSectionContent = {
         ar: 'انقر لإرسال السؤال',
         ru: 'Нажмите, чтобы отправить вопрос',
         tr: 'Soruyu göndermek için tıklayın',
+        pl: 'Kliknij, aby wysłać pytanie',
       }),
     },
     clearButton: {
@@ -71,9 +74,14 @@ const chatFormSectionContent = {
         ar: 'انقر لمسح',
         ru: 'Нажмите, чтобы очистить',
         tr: 'Temizlemek için tıklayın',
+        pl: 'Kliknij, aby wyczyścić',
       }),
     },
   },
+  title: 'Chat form section',
+  description:
+    'Content declaration for the chat form section of the AI-powered documentation assistant, including labels and placeholders for user interaction.',
+  tags: ['chat interface', 'documentation assistant', 'form section'],
 } satisfies Dictionary;
 
 export default chatFormSectionContent;

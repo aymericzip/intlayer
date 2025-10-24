@@ -19,8 +19,13 @@ const pageContent = {
       ru: 'Поиск в блоге',
       tr: 'Blogda ara',
       zh: '在博客中搜索',
+      pl: 'Szukaj na blogu',
     }),
   },
+  title: 'Undefined content declaration',
+  description:
+    'This content declaration currently lacks a clear identifier or structure. It may require definition or completion to properly associate multilingual content with a specific page or component.',
+  tags: [],
 } satisfies Dictionary<Metadata>;
 
 export default pageContent;

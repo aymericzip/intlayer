@@ -19,6 +19,7 @@ const metadataContent = {
       ar: 'التسعير CMS | Intlayer',
       ru: 'Цены CMS | Intlayer',
       tr: 'Fiyatlandırma CMS | Intlayer',
+      pl: 'Cennik CMS | Intlayer',
     }),
     description: t({
       en: 'Discover our pricing plans and get access to premium features with Intlayer. Choose the plan that suits you best.',
@@ -36,6 +37,7 @@ const metadataContent = {
       ar: 'اكتشف خطط التسعير لدينا واحصل على إمكانية الوصول إلى الميزات المميزة مع Intlayer. اختر الخطة التي تناسبك أكثر.',
       ru: 'Откройте для себя наши ценовые планы и получите доступ к премиум-функциям с Intlayer. Выберите план, который вам больше всего подходит.',
       tr: 'Fiyatlandırma planlarımızı keşfedin ve Intlayer ile premium özelliklere erişin. Size en uygun planı seçin.',
+      pl: 'Poznaj nasze plany cenowe i uzyskaj dostęp do funkcji premium w Intlayer. Wybierz plan, który najlepiej Ci odpowiada.',
     }),
 
     keywords: t<string[]>({
@@ -193,8 +195,23 @@ const metadataContent = {
         'React',
         'JavaScript',
       ],
+      pl: [
+        'Cennik',
+        'Subskrypcja',
+        'Premium',
+        'Plany',
+        'Intlayer',
+        'Internacjonalizacja',
+        'Next.js',
+        'React',
+        'JavaScript',
+      ],
     }),
   },
+  title: 'Pricing page metadata',
+  description:
+    'Metadata for the pricing page of the CMS, including title, description, and keywords to support SEO and multilingual optimization.',
+  tags: ['pricing', 'page metadata', 'cms'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

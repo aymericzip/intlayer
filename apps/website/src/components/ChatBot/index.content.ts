@@ -20,6 +20,7 @@ const chatFormSectionContent = {
         ar: 'مرحبا! اسمح لي بسؤال وسأقوم بالإجابة.',
         ru: 'Привет! Спросите меня что-нибудь и я помогу тебе.',
         tr: 'Hey! Bana bir şey sor ve cevaplamaya çalışayım.',
+        pl: 'Cześć! Zapytaj mnie o cokolwiek, a postaram się odpowiedzieć.',
       }),
     },
     rateLimitExceededMessage: t({
@@ -38,6 +39,7 @@ const chatFormSectionContent = {
       ru: 'Количество запросов ограничено для неавторизованных пользователей. Пожалуйста, попробуйте снова позже, или войдите для увеличения лимита и открытия лучших моделей.',
       tr: 'Kimliği doğrulanmamış kullanıcılar için istek sayısı sınırlıdır. Lütfen daha sonra tekrar deneyin veya sınırınızı artırmak ve daha iyi modelleri açmak için giriş yapın.',
       zh: '未认证用户的请求数有限。请稍后再试，或登录以增加您的限制。',
+      pl: 'Liczba żądań jest ograniczona dla niezalogowanych użytkowników. Spróbuj ponownie później lub zaloguj się, aby zwiększyć limit i uzyskać dostęp do lepszych modeli.',
     }),
     signInButton: {
       text: t({
@@ -55,6 +57,7 @@ const chatFormSectionContent = {
         ar: 'تسجيل الدخول',
         ru: 'Войти',
         tr: 'Giriş yap',
+        pl: 'Zaloguj się',
       }),
       label: t({
         en: 'Go to login page',
@@ -71,9 +74,14 @@ const chatFormSectionContent = {
         ar: 'الذهاب إلى صفحة التسجيل',
         ru: 'Перейти на страницу входа',
         tr: 'Giriş sayfasına git',
+        pl: 'Przejdź do strony logowania',
       }),
     },
   },
+  title: 'Chatbot component content',
+  description:
+    'Content declarations for the chatbot component, including system message, rate limit warning, and sign-in button labels used in the interactive assistant.',
+  tags: ['chatbot', 'component content'],
 } satisfies Dictionary;
 
 export default chatFormSectionContent;

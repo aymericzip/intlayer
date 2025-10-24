@@ -19,6 +19,7 @@ const metadataContent = {
       ar: 'Playground | Intlayer',
       ru: 'Playground | Intlayer',
       tr: 'Playground | Intlayer',
+      pl: 'Środowisko testowe | Intlayer',
     }),
     description: t({
       en: 'Test the Intlayer visual editor by interacting with the website.',
@@ -36,6 +37,7 @@ const metadataContent = {
       ar: 'اختبار محرر الفيديو لـ Intlayer عن طريق التفاعل مع الموقع.',
       ru: 'Тестируйте визуальный редактор Intlayer, взаимодействуя с веб-сайтом.',
       tr: 'Web sitesiyle etkileşimde bulunarak Intlayer görsel düzenleyicisini test edin.',
+      pl: 'Przetestuj wizualny edytor Intlayer, wchodząc w interakcję z witryną.',
     }),
     keywords: t<string[]>({
       en: [
@@ -112,8 +114,19 @@ const metadataContent = {
         'Editör',
         'Dashboard',
       ],
+      pl: [
+        'CMS',
+        'System zarządzania treścią',
+        'Edytor wizualny',
+        'Edytor',
+        'Panel administracyjny',
+      ],
     }),
   },
+  title: 'Playground page metadata',
+  description:
+    'Metadata for the playground page, enabling users to test the Intlayer visual editor. Includes title, description, and keywords for SEO and content discovery.',
+  tags: ['page metadata', 'playground page', 'visual editor', 'cms demo'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

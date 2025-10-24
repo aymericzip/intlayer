@@ -18,6 +18,7 @@ export const paymentStepContent = {
       ar: 'الدفع',
       ru: 'Платеж',
       tr: 'Ödeme',
+      pl: 'Płatność',
     }),
     paymentDetails: {
       title: t({
@@ -35,6 +36,7 @@ export const paymentStepContent = {
         ar: 'تفاصيل الدفع',
         ru: 'Детали платежа',
         tr: 'Ödeme Detayları',
+        pl: 'Szczegóły płatności',
       }),
     },
     youReOrganizationIsAlreadySubscribed: {
@@ -53,6 +55,7 @@ export const paymentStepContent = {
         ar: 'منظمتك مشترك بها بالفعل',
         ru: 'Ваша организация уже подписана',
         tr: 'Organizasyonunuz zaten abone olmuş',
+        pl: 'Twoja organizacja ma już aktywną subskrypcję',
       }),
     },
     incorrectProductMessage: t({
@@ -71,6 +74,7 @@ export const paymentStepContent = {
       ar: 'المنتج المحدد حاليا غير صالح. يرجى اختيار منتج صالح.',
       ru: 'Текущий выбранный продукт недействителен. Пожалуйста, выберите действительный продукт.',
       tr: 'Seçilen ürün geçerli değil. Lütfen geçerli bir ürün seçin.',
+      pl: 'Wybrany produkt jest nieprawidłowy. Wybierz prawidłowy produkt.',
     }),
     pickANewProductButton: {
       text: t({
@@ -88,6 +92,7 @@ export const paymentStepContent = {
         ar: 'اختر منتجًا جديدًا',
         ru: 'Выберите новый продукт',
         tr: 'Yeni bir ürün seçin',
+        pl: 'Wybierz nowy produkt',
       }),
       label: t({
         en: 'Pick a new product',
@@ -104,6 +109,7 @@ export const paymentStepContent = {
         ar: 'اختر منتجًا جديدًا',
         ru: 'Выберите новый продукт',
         tr: 'Yeni bir ürün seçin',
+        pl: 'Wybierz nowy produkt',
       }),
     },
 
@@ -123,8 +129,13 @@ export const paymentStepContent = {
       ar: 'طلب الدفع غير صالح. ربما قمت بالاشتراك في هذا الخطة. يرجى إعادة المحاولة.',
       ru: 'Недействительный запрос на оплату. Возможно, вы уже подписались на этот план. Пожалуйста, попробуйте еще раз.',
       tr: 'Geçersiz ödeme isteği. Belki bu plana zaten abone olmuşsunuzdur. Lütfen tekrar deneyin.',
+      pl: 'Nieprawidłowe żądanie płatności. Możliwe, że już subskrybujesz ten plan. Spróbuj ponownie.',
     }),
   },
+  title: 'Payment step',
+  description:
+    'Text content related to the payment step in the onboarding flow. Includes titles, messages, and button labels used during the subscription or plan selection process.',
+  tags: ['onboarding', 'payment'],
 } satisfies Dictionary;
 
 export default paymentStepContent;

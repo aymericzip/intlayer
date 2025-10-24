@@ -19,6 +19,7 @@ const metadataContent = {
       ru: 'Панель администратора | Intlayer',
       tr: 'Yönetici Paneli | Intlayer',
       zh: '管理面板 | Intlayer',
+      pl: 'Panel administracyjny | Intlayer',
     }),
     description: t({
       ar: 'لوحة تحكم إدارية لـ Intlayer. إدارة إعدادات النظام وأذونات المستخدمين ومراجعة المحتوى وخيارات التكوين المتقدمة لمشاريع Intlayer الخاصة بك.',
@@ -36,6 +37,7 @@ const metadataContent = {
       ru: 'Административная панель управления для Intlayer. Управляйте системными настройками, правами пользователей, модерацией контента и расширенными параметрами конфигурации для ваших проектов Intlayer.',
       tr: 'Intlayer için yönetici kontrol paneli. Sistem ayarlarını, kullanıcı izinlerini, içerik moderasyonunu ve Intlayer projeleriniz için gelişmiş yapılandırma seçeneklerini yönetin.',
       zh: 'Intlayer的管理控制面板。管理系统设置、用户权限、内容审核以及Intlayer项目的高级配置选项。',
+      pl: 'Panel administracyjny Intlayer. Zarządzaj ustawieniami systemu, uprawnieniami użytkowników, moderacją treści oraz zaawansowanymi opcjami konfiguracji dla swoich projektów Intlayer.',
     }),
 
     keywords: t({
@@ -137,6 +139,14 @@ const metadataContent = {
         'Yapılandırma',
       ],
       zh: ['管理面板', '管理', '系统设置', '用户管理', '权限', '配置'],
+      pl: [
+        'Panel administracyjny',
+        'Administracja',
+        'Ustawienia systemu',
+        'Zarządzanie użytkownikami',
+        'Uprawnienia',
+        'Konfiguracja',
+      ],
     }),
   },
 } satisfies Dictionary<Metadata>;

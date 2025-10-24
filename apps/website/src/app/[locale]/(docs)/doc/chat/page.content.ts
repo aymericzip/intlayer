@@ -19,8 +19,13 @@ const metadataContent = {
       ru: 'Спросите нашу умную документацию',
       tr: 'Yapay Zeka Destekli Akıllı Dokümantasyonumuza Sorun',
       zh: '请向我们的AI智能文档发出问题',
+      pl: 'Zadaj swoje pytanie naszej inteligentnej dokumentacji zasilanej sztuczną inteligencją',
     }),
   },
+  title: 'Documentation chat page',
+  description:
+    'Content declaration for the documentation chat page, where users can interact with AI-powered assistance to ask questions related to documentation.',
+  tags: ['documentation', 'chat page', 'AI assistant'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

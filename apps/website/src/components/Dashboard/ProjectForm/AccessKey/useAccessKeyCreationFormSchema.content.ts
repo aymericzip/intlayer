@@ -18,6 +18,7 @@ const content = {
       ru: 'Пожалуйста, введите имя для вашего ключа доступа',
       tr: 'Lütfen erişim anahtarınız için bir ad girin',
       zh: '请输入访问密钥的名称',
+      pl: 'Wprowadź nazwę klucza dostępu',
     }),
 
     invalidTypeErrorName: t({
@@ -35,6 +36,7 @@ const content = {
       ru: 'Пожалуйста, введите допустимое имя для вашего ключа доступа',
       tr: 'Lütfen erişim anahtarınız için geçerli bir ad girin',
       zh: '请输入访问密钥的有效名称',
+      pl: 'Wprowadź prawidłową nazwę klucza dostępu',
     }),
 
     invalidDateErrorName: t({
@@ -52,6 +54,7 @@ const content = {
       ru: 'Пожалуйста, введите допустимую дату для даты истечения срока действия вашего ключа доступа',
       tr: 'Lütfen erişim anahtarınızın son kullanma tarihi için geçerli bir tarih girin',
       zh: '请输入访问密钥的有效期日期',
+      pl: 'Wprowadź prawidłową datę wygaśnięcia klucza dostępu',
     }),
   },
 } satisfies Dictionary;

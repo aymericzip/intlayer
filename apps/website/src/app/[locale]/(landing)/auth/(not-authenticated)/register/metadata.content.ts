@@ -19,6 +19,7 @@ const metadataContent = {
       ar: 'تسجيل | Intlayer',
       ru: 'Регистрация | Intlayer',
       tr: 'Kayıt Ol | Intlayer',
+      pl: 'Zarejestruj się | Intlayer',
     }),
     description: t({
       en: 'Create a new account on Intlayer to start exploring personalized content and features.',
@@ -36,6 +37,7 @@ const metadataContent = {
       ar: 'إنشاء حساب جديد على Intlayer لبدء استكشاف المحتوى والميزات المخصصة.',
       ru: 'Создайте новую учетную запись на Intlayer, чтобы начать изучение персонализированного контента и функций.',
       tr: "Kişiselleştirilmiş içerik ve özellikleri keşfetmeye başlamak için Intlayer'da yeni bir hesap oluşturun.",
+      pl: 'Utwórz nowe konto w Intlayer, aby rozpocząć odkrywanie spersonalizowanych treści i funkcji.',
     }),
 
     keywords: t<string[]>({
@@ -116,8 +118,20 @@ const metadataContent = {
         'React',
         'JavaScript',
       ],
+      pl: [
+        'Rejestracja',
+        'Zarejestruj się',
+        'Intlayer',
+        'Konto',
+        'React',
+        'JavaScript',
+      ],
     }),
   },
+  title: 'Register page metadata',
+  description:
+    'Metadata related to the registration page. Includes title, description, and keywords to support SEO and improve content discoverability for users creating a new Intlayer account.',
+  tags: ['page metadata', 'authentication', 'registration'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

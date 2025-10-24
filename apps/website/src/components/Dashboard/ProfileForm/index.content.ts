@@ -18,6 +18,7 @@ const profileFormContent = {
       ar: 'تفاصيل الملف الشخصي',
       ru: 'Детали профиля',
       tr: 'Profil detayları',
+      pl: 'Szczegóły profilu',
     }),
     nameInput: {
       label: t({
@@ -35,6 +36,7 @@ const profileFormContent = {
         ar: 'الاسم',
         ru: 'Имя',
         tr: 'İsim',
+        pl: 'Imię',
       }),
       placeholder: t({
         en: 'Enter your name',
@@ -51,6 +53,7 @@ const profileFormContent = {
         ar: 'أدخل اسمك',
         ru: 'Введите ваше имя',
         tr: 'Adınızı girin',
+        pl: 'Wpisz swoje imię',
       }),
     },
 
@@ -70,6 +73,7 @@ const profileFormContent = {
         ar: 'البريد الإلكتروني',
         ru: 'Электронная почта',
         tr: 'E-posta',
+        pl: 'E-mail',
       }),
       placeholder: t({
         en: 'Enter your email address',
@@ -86,6 +90,7 @@ const profileFormContent = {
         ar: 'أدخل عنوان بريدك الإلكتروني',
         ru: 'Введите свой адрес электронной почты',
         tr: 'E-posta adresinizi girin',
+        pl: 'Wpisz swój adres e-mail',
       }),
     },
 
@@ -105,6 +110,7 @@ const profileFormContent = {
         ar: 'تحرير الملف الشخصي',
         ru: 'Редактировать профиль',
         tr: 'Profili düzenle',
+        pl: 'Edytuj profil',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -121,9 +127,14 @@ const profileFormContent = {
         ar: 'انقر للتعديل',
         ru: 'Нажмите для редактирования',
         tr: 'Düzenlemek için tıklayın',
+        pl: 'Kliknij, aby edytować',
       }),
     },
   },
+  title: 'Profile form',
+  description:
+    'Content dictionary for the profile form component, including labels, placeholders, and accessibility attributes used for editing user profile details.',
+  tags: ['form', 'user profile', 'dashboard'],
 } satisfies Dictionary;
 
 export default profileFormContent;

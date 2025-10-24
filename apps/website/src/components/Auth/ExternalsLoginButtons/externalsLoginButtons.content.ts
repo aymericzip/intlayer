@@ -18,6 +18,7 @@ export const externalsLoginButtonsContent = {
       ru: 'или',
       tr: 'veya',
       zh: '或',
+      pl: 'lub',
     }),
     github: {
       label: t({
@@ -35,6 +36,7 @@ export const externalsLoginButtonsContent = {
         ru: 'Войти с GitHub',
         'en-GB': 'Sign in with GitHub',
         tr: 'GitHub ile giriş yap',
+        pl: 'Zaloguj się przez GitHub',
       }),
       ariaLabel: t({
         en: 'Sign in with GitHub',
@@ -51,6 +53,7 @@ export const externalsLoginButtonsContent = {
         ru: 'Войти с GitHub',
         'en-GB': 'Sign in with GitHub',
         tr: 'GitHub ile giriş yap',
+        pl: 'Zaloguj się przez GitHub',
       }),
     },
     google: {
@@ -69,6 +72,7 @@ export const externalsLoginButtonsContent = {
         ru: 'Войти с Google',
         'en-GB': 'Sign in with Google',
         tr: 'Google ile giriş yap',
+        pl: 'Zaloguj się przez Google',
       }),
       ariaLabel: t({
         en: 'Sign in with Google',
@@ -85,9 +89,14 @@ export const externalsLoginButtonsContent = {
         ru: 'Войти с Google',
         'en-GB': 'Sign in with Google',
         tr: 'Google ile giriş yap',
+        pl: 'Zaloguj się przez Google',
       }),
     },
   },
+  title: 'External login buttons',
+  description:
+    'Content declarations for third-party login buttons such as GitHub and Google, used in the authentication components.',
+  tags: ['authentication', 'login', 'third-party providers'],
 } satisfies Dictionary;
 
 export default externalsLoginButtonsContent;

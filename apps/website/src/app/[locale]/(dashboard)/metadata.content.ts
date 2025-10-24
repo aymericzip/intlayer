@@ -19,6 +19,7 @@ const metadataContent = {
       ru: 'Приборная панель | Intlayer',
       tr: 'Dashboard | Intlayer',
       zh: '仪表板 | Intlayer',
+      pl: 'Panel | Intlayer',
     }),
     description: t({
       ar: 'إدارة محتوى موقعك على الويب باستخدام لوحة تحكم Intlayer. تحرير أو إضافة أو حذف المشاريع والقواميس والمحتويات الأخرى. التحكم في وصول المستخدمين إلى عناصر مختلفة.',
@@ -36,6 +37,7 @@ const metadataContent = {
       ru: 'Управляйте содержимым вашего веб-сайта с помощью панели инструментов Intlayer. Редактировать, добавлять или удалять проекты, словари и другие материалы. Контролируйте доступ пользователей к различным элементам.',
       tr: 'Intlayer kontrol paneli ile web sitesi içeriğinizi yönetin. Projeleri, sözlükleri ve diğer içerikleri düzenleyin, ekleyin veya silin. Kullanıcı erişimini çeşitli öğelere kontrol edin.',
       zh: '使用Intlayer仪表板管理您的网站内容。 编辑、添加或删除项目、字典和其他内容。 控制用户对各项内容的访问。',
+      pl: 'Zarządzaj zawartością swojej strony za pomocą panelu Intlayer. Edytuj, dodawaj lub usuwaj projekty, słowniki i inne treści. Kontroluj dostęp użytkowników do różnych elementów.',
     }),
 
     keywords: t({
@@ -144,8 +146,20 @@ const metadataContent = {
         'İçeriği Düzenle',
       ],
       zh: ['仪表板', '内容管理', '项目', '字典', '用户访问', '编辑内容'],
+      pl: [
+        'Panel',
+        'Zarządzanie zawartością',
+        'Projekty',
+        'Słowniki',
+        'Dostęp użytkowników',
+        'Edycja treści',
+      ],
     }),
   },
+  title: 'Dashboard page metadata',
+  description:
+    'Metadata related to the dashboard page, including title, description, and keywords for SEO purposes. Describes the content management and user access capabilities within the dashboard.',
+  tags: ['page metadata', 'dashboard page'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

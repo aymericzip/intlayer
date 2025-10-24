@@ -18,8 +18,13 @@ const profileDashboardContent = {
       ru: 'Настройки профиля',
       'en-GB': 'Profile settings',
       tr: 'Profil ayarları',
+      pl: 'Ustawienia profilu',
     }),
   },
+  title: 'Profile settings page',
+  description:
+    'Content declaration for the profile settings page in the dashboard. Contains localized title for managing user profile preferences.',
+  tags: ['dashboard page', 'profile settings'],
 } satisfies Dictionary;
 
 export default profileDashboardContent;

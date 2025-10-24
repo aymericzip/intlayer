@@ -18,6 +18,7 @@ const deleteProjectModalContent = {
       ar: 'حذف {{memberName}} من المنظمة',
       ru: 'Удалить {{memberName}} участника из организации',
       tr: '{{memberName}} adlı üyeyi organizasyondan çıkar',
+      pl: 'Usuń {{memberName}} z organizacji',
     }),
 
     description: t({
@@ -36,6 +37,7 @@ const deleteProjectModalContent = {
       ar: 'هل أنت متأكد من أنك تريد حذف هذا العضو من المنظمة؟',
       ru: 'Вы уверены, что хотите удалить этого участника из организации?',
       tr: 'Bu üyeyi organizasyondan çıkarmak istediğinize emin misiniz?',
+      pl: 'Czy na pewno chcesz usunąć tego członka z organizacji?',
     }),
 
     confirmButton: {
@@ -54,6 +56,7 @@ const deleteProjectModalContent = {
         ar: 'حذف العضو',
         ru: 'Удалить участника',
         tr: 'Çıkar',
+        pl: 'Usuń',
       }),
       label: t({
         en: 'Click to remove member from organization',
@@ -70,6 +73,7 @@ const deleteProjectModalContent = {
         ar: 'انقر لحذف عضو من المنظمة',
         ru: 'Нажмите, чтобы удалить участника из организации',
         tr: 'Organizasyondan üye çıkarmak için tıklayın',
+        pl: 'Kliknij, aby usunąć członka z organizacji',
       }),
     },
 
@@ -89,6 +93,7 @@ const deleteProjectModalContent = {
         ar: 'إلغاء',
         ru: 'Отменить',
         tr: 'İptal etmek için tıklayın',
+        pl: 'Anuluj',
       }),
       label: t({
         en: 'Click to cancel',
@@ -105,9 +110,14 @@ const deleteProjectModalContent = {
         ar: 'انقر لإلغاء',
         ru: 'Нажмите, чтобы отменить',
         tr: 'İptal etmek için tıklayın',
+        pl: 'Kliknij, aby anulować',
       }),
     },
   },
+  title: 'Remove member modal',
+  description:
+    'Content declaration for the modal that confirms removal of a member from the organization. Includes title, description, and button labels for user actions.',
+  tags: ['modal', 'member management', 'dashboard'],
 } satisfies Dictionary;
 
 export default deleteProjectModalContent;

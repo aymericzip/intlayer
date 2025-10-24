@@ -19,6 +19,7 @@ const organizationMembersFormContent = {
       ru: 'Участники',
       'en-GB': 'Members',
       tr: 'Üyeler',
+      pl: 'Członkowie',
     }),
     description: t({
       en: 'Manage the members that have access and can edit your organization.',
@@ -36,6 +37,7 @@ const organizationMembersFormContent = {
       'en-GB':
         'Manage the members that have access and can edit your organization.',
       tr: 'Organizasyonunuza erişimi olan ve düzenleyebilen üyeleri yönetin.',
+      pl: 'Zarządzaj członkami, którzy mają dostęp i mogą edytować Twoją organizację.',
     }),
     deleteMemberButton: {
       label: t({
@@ -53,6 +55,7 @@ const organizationMembersFormContent = {
         ru: 'Удалить',
         'en-GB': 'Delete',
         tr: 'Sil',
+        pl: 'Usuń',
       }),
     },
     noMembers: t({
@@ -70,6 +73,7 @@ const organizationMembersFormContent = {
       ru: 'Нет участников',
       'en-GB': 'No members',
       tr: 'Üye yok',
+      pl: 'Brak członków',
     }),
 
     newMemberEmailInput: {
@@ -88,6 +92,7 @@ const organizationMembersFormContent = {
         ru: 'Добавить участника',
         'en-GB': 'Add a member',
         tr: 'Üye ekle',
+        pl: 'Dodaj członka',
       }),
       placeholder: t({
         en: 'Enter an email address',
@@ -104,6 +109,7 @@ const organizationMembersFormContent = {
         ru: 'Введите адрес электронной почты',
         'en-GB': 'Enter an email address',
         tr: 'Bir e-posta adresi girin',
+        pl: 'Wprowadź adres e-mail',
       }),
 
       description: t({
@@ -122,6 +128,7 @@ const organizationMembersFormContent = {
         'en-GB':
           'Add members to your organization by entering their email addresses.',
         tr: 'E-posta adreslerini girerek organizasyonunuza üye ekleyin.',
+        pl: 'Dodaj członków do swojej organizacji, wpisując ich adresy e-mail.',
       }),
     },
 
@@ -141,6 +148,7 @@ const organizationMembersFormContent = {
         ru: 'Добавить участника',
         'en-GB': 'Add member',
         tr: 'Üye ekle',
+        pl: 'Dodaj członka',
       }),
       text: t({
         en: 'Add',
@@ -157,6 +165,7 @@ const organizationMembersFormContent = {
         ru: 'Добавить',
         'en-GB': 'Add',
         tr: 'Ekle',
+        pl: 'Dodaj',
       }),
       placeholder: t({
         en: 'Add member',
@@ -173,6 +182,7 @@ const organizationMembersFormContent = {
         ru: 'Добавить участника',
         'en-GB': 'Add member',
         tr: 'Üye ekle',
+        pl: 'Dodaj członka',
       }),
     },
 
@@ -192,6 +202,7 @@ const organizationMembersFormContent = {
         ru: 'Выберите администраторов',
         'en-GB': 'Select admins',
         tr: 'Yöneticileri seçin',
+        pl: 'Wybierz administratorów',
       }),
       placeholder: t({
         en: 'Select admins',
@@ -208,6 +219,7 @@ const organizationMembersFormContent = {
         ru: 'Выберите администраторов',
         'en-GB': 'Select admins',
         tr: 'Yöneticileri seçin',
+        pl: 'Wybierz administratorów',
       }),
       description: t({
         en: 'Admins can edit members and organization settings.',
@@ -224,6 +236,7 @@ const organizationMembersFormContent = {
         ru: 'Администраторы могут редактировать участников и настройки организации.',
         'en-GB': 'Admins can edit members and organization settings.',
         tr: 'Yöneticiler üyeleri ve organizasyon ayarlarını düzenleyebilir.',
+        pl: 'Administratorzy mogą edytować członków i ustawienia organizacji.',
       }),
     },
     addMembersButton: {
@@ -242,6 +255,7 @@ const organizationMembersFormContent = {
         ru: 'Обновить участников',
         'en-GB': 'Update Members',
         tr: 'Üyeleri Güncelle',
+        pl: 'Zaktualizuj członków',
       }),
       label: t({
         en: 'Update Members',
@@ -258,9 +272,14 @@ const organizationMembersFormContent = {
         ru: 'Обновить участников',
         'en-GB': 'Update Members',
         tr: 'Üyeleri Güncelle',
+        pl: 'Zaktualizuj członków',
       }),
     },
   },
+  title: 'Organization members form',
+  description:
+    'Content declaration for managing organization members. Includes labels, placeholders, and descriptions for adding, updating, and removing members, including admin roles.',
+  tags: ['form', 'organization settings', 'members management', 'dashboard'],
 } satisfies Dictionary;
 
 export default organizationMembersFormContent;

@@ -18,6 +18,7 @@ const deleteTagModalContent = {
       ru: 'Удалить тег',
       tr: 'Tagı sil',
       zh: '删除标签',
+      pl: 'Usuń tag',
     }),
 
     description: t({
@@ -35,6 +36,7 @@ const deleteTagModalContent = {
       ru: 'Вы уверены, что хотите удалить этот тег?',
       tr: 'Bu etiketi silmek istediğinize emin misiniz?',
       zh: '您确定要删除此标签吗？',
+      pl: 'Czy na pewno chcesz usunąć ten tag?',
     }),
 
     confirmButton: {
@@ -53,6 +55,7 @@ const deleteTagModalContent = {
         ar: 'حذف',
         ru: 'Удалить',
         tr: 'Sil',
+        pl: 'Usuń',
       }),
       label: t({
         en: 'Click to delete tag',
@@ -69,6 +72,7 @@ const deleteTagModalContent = {
         ar: 'انقر لحذف الوسم',
         ru: 'Нажмите, чтобы удалить тег',
         tr: 'Tagı silmek için tıklayın',
+        pl: 'Kliknij, aby usunąć tag',
       }),
     },
 
@@ -88,6 +92,7 @@ const deleteTagModalContent = {
         ar: 'إلغاء',
         ru: 'Отменить',
         tr: 'İptal etmek için tıklayın',
+        pl: 'Anuluj',
       }),
       label: t({
         en: 'Click to cancel',
@@ -104,9 +109,14 @@ const deleteTagModalContent = {
         ar: 'انقر لإلغاء',
         ru: 'Нажмите, чтобы отменить',
         tr: 'İptal etmek için tıklayın',
+        pl: 'Kliknij, aby anulować',
       }),
     },
   },
+  title: 'Delete tag confirmation modal',
+  description:
+    'Modal content related to the confirmation process before deleting a tag in the dashboard. Includes text for title, buttons, and labels.',
+  tags: ['dashboard', 'tag management', 'modal'],
 } satisfies Dictionary;
 
 export default deleteTagModalContent;

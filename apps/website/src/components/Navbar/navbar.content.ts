@@ -55,6 +55,7 @@ export const navbarContent = {
         ar: 'شعار الشركة - انتقل إلى الصفحة الرئيسية',
         ru: 'Логотип компании - Перейти на главную страницу',
         tr: 'Şirket logosu - Ana sayfaya git',
+        pl: 'Logo firmy - przejdź do strony głównej',
       }),
       url: PagesRoutes.Home,
     },
@@ -76,6 +77,7 @@ export const navbarContent = {
           ar: 'الرئيسية',
           ru: 'Главная',
           tr: 'Ana Sayfa',
+          pl: 'Strona główna',
         }),
         url: PagesRoutes.Home,
         label: t({
@@ -93,6 +95,7 @@ export const navbarContent = {
           ar: 'اذهب إلى الصفحة الرئيسية',
           ru: 'Перейти на главную страницу',
           tr: 'Ana sayfaya git',
+          pl: 'Przejdź do strony głównej',
         }),
       },
       {
@@ -112,6 +115,7 @@ export const navbarContent = {
           ar: 'بيئة اختبار',
           ru: 'Песочница',
           tr: 'Playground',
+          pl: 'Piaskownica',
         }),
         url: PagesRoutes.Playground,
         label: t({
@@ -129,6 +133,7 @@ export const navbarContent = {
           ar: 'اذهب إلى الملعب',
           ru: 'Перейти на Playground',
           tr: "Playground'a git",
+          pl: 'Przejdź do piaskownicy',
         }),
       },
 
@@ -183,6 +188,7 @@ export const navbarContent = {
           ar: 'لوحة القيادة',
           ru: 'Приборная панель',
           tr: 'Dashboard',
+          pl: 'Panel',
         }),
         url: PagesRoutes.Dashboard,
         label: t({
@@ -200,6 +206,7 @@ export const navbarContent = {
           ar: 'اذهب إلى لوحة القيادة',
           ru: 'Перейти на прибортную панель',
           tr: 'Dashboardne git',
+          pl: 'Przejdź do panelu',
         }),
       },
       {
@@ -219,6 +226,7 @@ export const navbarContent = {
           ar: 'وثيقة',
           ru: 'Документ',
           tr: 'Doküman',
+          pl: 'Dokumentacja',
         }),
         url: PagesRoutes.Doc,
         label: t({
@@ -236,6 +244,7 @@ export const navbarContent = {
           ar: 'اذهب إلى صفحة الوثيقة',
           ru: 'Перейти на страницу документации',
           tr: 'Dokümantasyon sayfasına git',
+          pl: 'Przejdź do dokumentacji',
         }),
       },
       {
@@ -256,6 +265,7 @@ export const navbarContent = {
           ar: 'مدونة',
           ru: 'Блог',
           tr: 'Blog',
+          pl: 'Blog',
         }),
         label: t({
           en: 'Go to the blog',
@@ -272,6 +282,7 @@ export const navbarContent = {
           ar: 'اذهب إلى المدونة',
           ru: 'Перейти на блог',
           tr: 'Bloga git',
+          pl: 'Przejdź do bloga',
         }),
       },
     ],
@@ -294,6 +305,7 @@ export const navbarContent = {
         ar: 'اذهب إلى مستودع Github',
         ru: 'Перейти в репозиторий Github',
         tr: 'Github deposuna git',
+        pl: 'Przejdź do repozytorium na GitHubie',
       }),
       gitHubLogoAlt: t({
         en: 'Github logo',
@@ -310,6 +322,7 @@ export const navbarContent = {
         ar: 'شعار Github',
         ru: 'Логотип Github',
         tr: 'Github logosu',
+        pl: 'Logo GitHuba',
       }),
     },
     discord: {
@@ -331,6 +344,7 @@ export const navbarContent = {
         ar: 'اذهب إلى خادم Discord',
         ru: 'Перейти на сервер Discord',
         tr: 'Discord sunucusuna git',
+        pl: 'Przejdź do serwera Discord',
       }),
     },
 
@@ -350,6 +364,7 @@ export const navbarContent = {
         ar: 'تسجيل الخروج',
         ru: 'Выйти',
         tr: 'Çıkış Yap',
+        pl: 'Wyloguj',
       }),
       label: t({
         en: 'Logout',
@@ -366,6 +381,7 @@ export const navbarContent = {
         ar: 'تسجيل الخروج',
         ru: 'Выйти',
         tr: 'Çıkış Yap',
+        pl: 'Wyloguj się',
       }),
     },
     login: {
@@ -385,6 +401,7 @@ export const navbarContent = {
         ar: 'تسجيل الدخول',
         ru: 'Войти',
         tr: 'Giriş Yap',
+        pl: 'Zaloguj',
       }),
       label: t({
         en: 'Go to login page',
@@ -401,9 +418,14 @@ export const navbarContent = {
         ar: 'اذهب إلى صفحة تسجيل الدخول',
         ru: 'Перейти на страницу входа',
         tr: 'Giriş sayfasına git',
+        pl: 'Przejdź do strony logowania',
       }),
     },
   },
+  title: 'Navbar content',
+  description:
+    'Content declaration for the navigation bar, including labels, titles and links for sections like home, dashboard, documentation, blog, and external links such as GitHub and Discord.',
+  tags: ['navbar', 'navigation', 'header'],
 } satisfies Dictionary<SectionsContent>;
 
 export default navbarContent;

@@ -18,6 +18,7 @@ const useFormSectionSchemaContent = {
       ru: 'Пожалуйста, введите вопрос.',
       tr: 'Lütfen bir soru girin',
       zh: '请输入一个问题。',
+      pl: 'Proszę wprowadzić pytanie.',
     }),
 
     questionInvalidTypeError: t({
@@ -35,8 +36,13 @@ const useFormSectionSchemaContent = {
       ru: 'Имя вопроса должно быть правильной строкой.',
       tr: 'Soru adı geçerli bir dize olmalıdır',
       zh: '问题名称必须是有效的字符串。',
+      pl: 'Nazwa pytania musi być poprawnym ciągiem znaków.',
     }),
   },
+  title: 'Undefined content declaration',
+  description:
+    'This content declaration lacks defined metadata. It needs to be reviewed and completed with proper multilingual content for consistency across components or pages.',
+  tags: ['undefined'],
 } satisfies Dictionary;
 
 export default useFormSectionSchemaContent;

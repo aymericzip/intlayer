@@ -19,6 +19,7 @@ const tagFormContent = {
       ar: 'أنت لست مسؤولًا عن هذا الوسم. اتصل بمسؤولك إذا كنت ترغب في تحرير الوسم.',
       ru: 'Вы не являетесь администратором этого тега. Свяжитесь с вашим администратором, если хотите отредактировать тег.',
       tr: 'Bu tagın yöneticisi değilsiniz. Tagı düzenlemek istiyorsanız yöneticinizle iletişime geçin.',
+      pl: 'Nie jesteś administratorem tego tagu. Skontaktuj się z administratorem, jeśli chcesz go edytować.',
     }),
 
     keyInput: {
@@ -37,6 +38,7 @@ const tagFormContent = {
         ar: 'مفتاح',
         ru: 'Ключ',
         tr: 'Anahtar',
+        pl: 'Klucz',
       }),
       description: t({
         en: 'Identify your tag with a unique key',
@@ -53,6 +55,7 @@ const tagFormContent = {
         ar: 'تحديد الوسم الخاص بك باستخدام مفتاح فريد',
         ru: 'Укажите уникальный ключ для вашего тега',
         tr: 'Tagınızı benzersiz bir anahtarla tanımlayın',
+        pl: 'Zidentyfikuj swój tag za pomocą unikalnego klucza',
       }),
       placeholder: t({
         en: 'Enter the key of your tag',
@@ -69,6 +72,7 @@ const tagFormContent = {
         ar: 'أدخل مفتاح الوسم',
         ru: 'Введите ключ вашего тега',
         tr: "Tag'ınızın anahtarını girin",
+        pl: 'Wprowadź klucz tagu',
       }),
     },
 
@@ -88,6 +92,7 @@ const tagFormContent = {
         ar: 'الاسم',
         ru: 'Название',
         tr: 'İsim',
+        pl: 'Nazwa',
       }),
       description: t({
         en: 'Title of your tag to help you identify it',
@@ -104,6 +109,7 @@ const tagFormContent = {
         ar: 'عنوان الوسم الخاص بك لمساعدتك في تحديده',
         ru: 'Название вашего тега, чтобы вам помочь в его идентификации',
         tr: 'Tagınızın başlığı, onu tanımlamanıza yardımcı olur',
+        pl: 'Nazwa tagu, która pomoże Ci go zidentyfikować',
       }),
       placeholder: t({
         en: 'Enter the name of the tag',
@@ -120,6 +126,7 @@ const tagFormContent = {
         ar: 'أدخل اسم الوسم',
         ru: 'Введите название тега',
         tr: 'Tagın adını girin',
+        pl: 'Wprowadź nazwę tagu',
       }),
     },
 
@@ -139,6 +146,7 @@ const tagFormContent = {
         ar: 'وصف',
         ru: 'Описание',
         tr: 'Açıklama',
+        pl: 'Opis',
       }),
       description: t({
         en: 'Description of your tag to help you udnerstand its purpose. This will also be used to search for your tag',
@@ -156,6 +164,7 @@ const tagFormContent = {
         ar: 'وصف الوسم الخاص بك لمساعدتك في فهم الغرض منه. سيتم استخدام هذا أيضًا للبحث عن وسمك',
         ru: 'Описание вашего тега, чтобы помочь вам понять его назначение. Это также будет использоваться для поиска вашего тега',
         tr: 'Tagınızın amacını anlamanıza yardımcı olacak tag açıklaması. Bu, tagınızı aramak için de kullanılacaktır',
+        pl: 'Opis tagu, który pomoże Ci zrozumieć jego przeznaczenie. Będzie on również używany do wyszukiwania tagu',
       }),
 
       placeholder: t({
@@ -173,6 +182,7 @@ const tagFormContent = {
         ar: 'أدخل وصف الوسم',
         ru: 'Введите описание вашего тега',
         tr: "Tag'ınızın açıklamasını girin",
+        pl: 'Wprowadź opis tagu',
       }),
     },
 
@@ -192,6 +202,7 @@ const tagFormContent = {
         ar: 'تعليمات',
         ru: 'Инструкции',
         tr: 'Talimatlar',
+        pl: 'Instrukcje',
       }),
       description: t({
         en: 'Instructions are provided to AI to better understand your tag, and what rules to apply to a dictionary containing your tag',
@@ -209,6 +220,7 @@ const tagFormContent = {
         ar: 'توصيات تقدمها للذكاء الذكي لتفهم مزيد من الوسم والقواعد التي ينطبق على قاموس يحتوي على الوسم',
         ru: 'Инструкции предоставляются ИИ для лучшего понимания вашего тега и правил, которые нужно применить к словарю, содержащему ваш тег',
         tr: "Talimatlar, AI'ya tagınızı ve tagınızı içeren bir sözlüğe uygulanacak kuralları daha iyi anlaması için sağlanır",
+        pl: 'Instrukcje przekazywane są do AI, aby lepiej zrozumiało tag i zasady, które należy stosować w słowniku zawierającym ten tag',
       }),
       placeholder: t({
         en: 'Enter the instructions of your tag',
@@ -225,6 +237,7 @@ const tagFormContent = {
         ar: 'أدخل تعليمات الوسم',
         ru: 'Введите инструкции вашего тега',
         tr: "Tag'ınızın talimatlarını girin",
+        pl: 'Wprowadź instrukcje dla tagu',
       }),
     },
 
@@ -243,6 +256,7 @@ const tagFormContent = {
       ar: 'لا توجد وسم',
       ru: 'Нет тега',
       tr: 'Tag yok',
+      pl: 'Brak tagu',
     }),
 
     createTagDescription: t({
@@ -261,6 +275,7 @@ const tagFormContent = {
       ar: 'أنشئ مشروعك الأول للبدء في استخدام Intlayer',
       ru: 'Создайте свой первый тег, чтобы показать, как ИИ может структурировать ваш контент',
       tr: "İçeriğinizi AI'nın nasıl yapılandırabileceğini göstermek için ilk tagınızı oluşturun",
+      pl: 'Utwórz pierwszy tag, aby określić, jak AI może strukturyzować Twoje treści',
     }),
 
     createTagButton: {
@@ -279,6 +294,7 @@ const tagFormContent = {
         ar: 'إنشاء وسم',
         ru: 'Создать тег',
         tr: 'Tag oluştur',
+        pl: 'Utwórz tag',
       }),
       ariaLabel: t({
         en: 'Click to create tag',
@@ -295,6 +311,7 @@ const tagFormContent = {
         ar: 'انقر لإنشاء وسم',
         ru: 'Нажмите, чтобы создать тег',
         tr: 'Tag oluşturmak için tıklayın',
+        pl: 'Kliknij, aby utworzyć tag',
       }),
     },
 
@@ -314,6 +331,7 @@ const tagFormContent = {
         ar: 'تعديل الوسم',
         ru: 'Редактировать тег',
         tr: 'Tagı düzenle',
+        pl: 'Edytuj tag',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -330,6 +348,7 @@ const tagFormContent = {
         ar: 'انقر للتعديل',
         ru: 'Нажмите, чтобы редактировать',
         tr: 'Düzenlemek için tıklayın',
+        pl: 'Kliknij, aby edytować',
       }),
     },
     deleteButton: {
@@ -348,6 +367,7 @@ const tagFormContent = {
         ar: 'حذف الوسم',
         ru: 'Удалить тег',
         tr: 'Tagı sil',
+        pl: 'Usuń tag',
       }),
       ariaLabel: t({
         en: 'Click to delete tag',
@@ -364,6 +384,7 @@ const tagFormContent = {
         ar: 'انقر لحذف الوسم',
         ru: 'Нажмите, чтобы удалить тег',
         tr: 'Tagı silmek için tıklayın',
+        pl: 'Kliknij, aby usunąć tag',
       }),
     },
     auditButton: {
@@ -382,9 +403,14 @@ const tagFormContent = {
         ar: 'التدقيق',
         ru: 'Отслеживание',
         tr: 'Denetim',
+        pl: 'Audyt',
       }),
     },
   },
+  title: 'Tag form',
+  description:
+    'Content declaration for the tag form component. Includes field labels, placeholders, and button texts used to create, edit, and manage tags within the dashboard.',
+  tags: ['tag', 'form', 'dashboard'],
 } satisfies Dictionary;
 
 export default tagFormContent;

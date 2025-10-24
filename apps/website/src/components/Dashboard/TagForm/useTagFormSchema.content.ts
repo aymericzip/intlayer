@@ -18,6 +18,7 @@ const content = {
       ar: 'يرجى إدخال مفتاح لوسمك',
       ru: 'Пожалуйста, введите ключ для вашего тега',
       tr: 'Lütfen etiketiniz için bir anahtar girin',
+      pl: 'Proszę podać klucz tagu.',
     }),
 
     invalidTypeErrorKey: t({
@@ -35,6 +36,7 @@ const content = {
       ar: 'يرجى إدخال علامة تعريف صالحة لوسمك',
       ru: 'Пожалуйста, введите допустимый тег для вашего тега',
       tr: 'Lütfen etiketiniz için geçerli bir etiket girin',
+      pl: 'Proszę podać prawidłowy klucz tagu.',
     }),
 
     requiredErrorName: t({
@@ -52,6 +54,7 @@ const content = {
       ar: 'يرجى إدخال مفتاح لوسمك',
       ru: 'Пожалуйста, введите ключ для вашего тега',
       tr: 'Lütfen etiketiniz için bir anahtar girin',
+      pl: 'Proszę podać klucz tagu.',
     }),
 
     invalidTypeErrorName: t({
@@ -69,6 +72,7 @@ const content = {
       ar: 'يرجى إدخال علامة تعريف صالحة لوسمك',
       ru: 'Пожалуйста, введите допустимый тег для вашего тега',
       tr: 'Lütfen etiketiniz için geçerli bir etiket girin',
+      pl: 'Proszę podać prawidłowy klucz tagu.',
     }),
 
     invalidTypeErrorDescription: t({
@@ -86,6 +90,7 @@ const content = {
       ar: 'يرجى إدخال وصف صالح لوسمك',
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
       tr: 'Lütfen etiketiniz için geçerli bir açıklama girin',
+      pl: 'Proszę podać prawidłowy opis tagu.',
     }),
 
     requiredErrorDescription: t({
@@ -103,6 +108,7 @@ const content = {
       ar: 'يرجى إدخال وصف صالح لوسمك',
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
       tr: 'Lütfen etiketiniz için bir açıklama girin',
+      pl: 'Proszę podać opis tagu.',
     }),
 
     requiredErrorInstructions: t({
@@ -120,6 +126,7 @@ const content = {
       ar: 'يرجى إدخال وصف صالح لوسمك',
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
       tr: 'Lütfen etiketiniz için talimatlar girin',
+      pl: 'Proszę podać instrukcje dla tagu.',
     }),
 
     invalidTypeErrorInstructions: t({
@@ -137,8 +144,13 @@ const content = {
       ar: 'يرجى إدخال وصف صالح لوسمك',
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
       tr: 'Lütfen etiketiniz için geçerli talimatlar girin',
+      pl: 'Proszę podać prawidłowe instrukcje dla tagu.',
     }),
   },
+  title: 'Tag form schema',
+  description:
+    'Validation messages and schema configuration used in the dashboard tag form. Ensures correct input for key, description, and instructions fields when creating or editing a tag.',
+  tags: ['form validation', 'tag management', 'dashboard'],
 } satisfies Dictionary;
 
 export default content;
