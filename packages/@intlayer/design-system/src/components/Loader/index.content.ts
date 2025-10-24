@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 export const loaderContent = {
   key: 'loader',
-  fill: './{{key}}.content.json',
   content: {
     label: t({
       en: 'Animated icon, meaning that the website is processing',
@@ -19,8 +18,13 @@ export const loaderContent = {
       ar: 'رمز متحرك، مما يعني أن الموقع الإلكتروني يتم التحميل',
       ru: 'Анимационный значок, что означает, что сайт обрабатывается',
       tr: 'Web sitesinin işlemde olduğunu belirten animasyonlu simge',
+      pl: 'Animowana ikona oznaczająca, że strona przetwarza dane',
     }),
   },
+  title: 'Loader component',
+  description:
+    'Content declaration for the loader component, representing an animated icon indicating that the website is processing or loading content.',
+  tags: ['component', 'loader'],
 } satisfies Dictionary;
 
 export default loaderContent;

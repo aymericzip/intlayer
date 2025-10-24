@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 export const nodeTypeSelectorContent = {
   key: 'node-type-selector',
-  fill: './{{key}}.content.json',
   content: {
     triggerPlaceHolder: t({
       en: 'Node type',
@@ -19,6 +18,7 @@ export const nodeTypeSelectorContent = {
       ar: 'نوع العقدة',
       ru: 'Тип узла',
       tr: 'Düğüm türü',
+      pl: 'Typ węzła',
     }),
     multilingual: t({
       en: 'Multilingual content',
@@ -35,6 +35,7 @@ export const nodeTypeSelectorContent = {
       ar: 'محتوى متعدد اللغات',
       ru: 'Многоязычный контент',
       tr: 'Çok dilli içerik',
+      pl: 'Treść wielojęzyczna',
     }),
     text: t({
       en: 'Text',
@@ -51,6 +52,7 @@ export const nodeTypeSelectorContent = {
       ar: 'نص',
       ru: 'Текст',
       tr: 'Metin',
+      pl: 'Tekst',
     }),
     number: t({
       en: 'Number',
@@ -67,6 +69,7 @@ export const nodeTypeSelectorContent = {
       ar: 'رقم',
       ru: 'Число',
       tr: 'Sayı',
+      pl: 'Liczba',
     }),
     boolean: t({
       en: 'Boolean',
@@ -83,6 +86,7 @@ export const nodeTypeSelectorContent = {
       ar: 'منطقي',
       ru: 'Булево',
       tr: 'Boolean',
+      pl: 'Wartość logiczna',
     }),
     node: t({
       en: 'Object',
@@ -99,6 +103,7 @@ export const nodeTypeSelectorContent = {
       ar: 'كائن',
       ru: 'Объект',
       tr: 'Nesne',
+      pl: 'Obiekt',
     }),
     array: t({
       en: 'Array',
@@ -115,6 +120,7 @@ export const nodeTypeSelectorContent = {
       ar: 'مصفوفة',
       ru: 'Массив',
       tr: 'Dizi',
+      pl: 'Tablica',
     }),
     enumeration: t({
       en: 'Enumeration',
@@ -131,6 +137,7 @@ export const nodeTypeSelectorContent = {
       ar: 'تعداد',
       ru: 'Перечисление',
       tr: 'Numaralandırma',
+      pl: 'Wyliczenie',
     }),
     gender: t({
       en: 'Gender',
@@ -147,6 +154,7 @@ export const nodeTypeSelectorContent = {
       ar: 'جنس',
       ru: 'Пол',
       tr: 'Cins',
+      pl: 'Płeć',
     }),
     nest: t({
       en: 'Nesting',
@@ -163,6 +171,7 @@ export const nodeTypeSelectorContent = {
       ar: 'مستوى',
       ru: 'Вложенность',
       tr: 'İç içe geçme',
+      pl: 'Zagnieżdżanie',
     }),
     insertion: t({
       en: 'Insertion',
@@ -179,6 +188,7 @@ export const nodeTypeSelectorContent = {
       ar: 'إدراج',
       ru: 'Вставка',
       tr: 'Ekleme',
+      pl: 'Wstawianie',
     }),
     condition: t({
       en: 'Condition',
@@ -195,6 +205,7 @@ export const nodeTypeSelectorContent = {
       ar: 'شرط',
       ru: 'Условие',
       tr: 'Koşul',
+      pl: 'Warunek',
     }),
     file: t({
       en: 'File',
@@ -211,6 +222,7 @@ export const nodeTypeSelectorContent = {
       ar: 'ملف',
       ru: 'Файл',
       tr: 'Dosya',
+      pl: 'Plik',
     }),
     markdown: t({
       en: 'Markdown',
@@ -227,6 +239,7 @@ export const nodeTypeSelectorContent = {
       ar: 'مارك داون',
       ru: 'Markdown',
       tr: 'Markdown',
+      pl: 'Markdown',
     }),
     reactNode: t({
       en: 'React Node',
@@ -243,8 +256,13 @@ export const nodeTypeSelectorContent = {
       ar: 'عقدة رياكت',
       ru: 'Реакт узел',
       tr: 'React Node',
+      pl: 'Węzeł React',
     }),
   },
+  title: 'Node type selector',
+  description:
+    'Defines the available node types that can be selected for content modeling, including text, number, boolean, object structures, arrays, and other specialized types like enumeration, gender, condition, and markdown.',
+  tags: ['content modeling', 'field type', 'editor'],
 } satisfies Dictionary;
 
 export default nodeTypeSelectorContent;

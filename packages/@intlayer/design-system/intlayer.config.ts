@@ -26,6 +26,7 @@ export const defaultLocale: Locale = Locales.ENGLISH;
 const config: CustomIntlayerConfig = {
   internationalization: {
     locales,
+    requiredLocales: [Locales.ENGLISH],
     defaultLocale,
     strictMode: 'strict',
   },

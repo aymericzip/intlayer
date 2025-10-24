@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 export const dictionaryFormSchemaContent = {
   key: 'dictionary-form-schema',
-  fill: './{{key}}.content.json',
   content: {
     requiredErrorName: t({
       en: 'Please enter a key for your dictionary',
@@ -19,6 +18,7 @@ export const dictionaryFormSchemaContent = {
       ar: 'الرجاء إدخال مفتاح لقاموسك',
       ru: 'Пожалуйста, введите ключ для вашего словаря',
       tr: 'Lütfen sözlüğünüz için bir anahtar girin',
+      pl: 'Proszę wprowadzić klucz dla słownika',
     }),
 
     invalidTypeErrorName: t({
@@ -36,6 +36,7 @@ export const dictionaryFormSchemaContent = {
       ar: 'الرجاء إدخال مفتاح صالح لقاموسك',
       ru: 'Пожалуйста, введите действительный ключ для вашего словаря',
       tr: 'Lütfen sözlüğünüz için geçerli bir anahtar girin',
+      pl: 'Proszę wprowadzić prawidłowy klucz dla słownika',
     }),
 
     requiredErrorProjectId: t({
@@ -53,6 +54,7 @@ export const dictionaryFormSchemaContent = {
       ar: 'الرجاء تحديد مشروع',
       ru: 'Пожалуйста, выберите проект',
       tr: 'Lütfen bir proje seçin',
+      pl: 'Proszę wybrać projekt',
     }),
 
     invalidTypeErrorProjectId: t({
@@ -70,8 +72,13 @@ export const dictionaryFormSchemaContent = {
       ar: 'الرجاء تحديد مشروع صالح',
       ru: 'Пожалуйста, выберите действительный проект',
       tr: 'Lütfen geçerli bir proje seçin',
+      pl: 'Proszę wybrać prawidłowy projekt',
     }),
   },
+  title: 'Dictionary form schema',
+  description:
+    'Validation schema for the dictionary creation form, ensuring required fields like dictionary key and associated project ID are correctly filled and typed.',
+  tags: ['form validation', 'dictionary creation', 'schema'],
 } satisfies Dictionary;
 
 export default dictionaryFormSchemaContent;

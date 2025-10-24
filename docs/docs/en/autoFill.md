@@ -62,6 +62,11 @@ You can also customize the behavior for each locale by using an object:
 ```ts fileName="intlayer.config.ts"
 const config: IntlayerConfig = {
   content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // Recommended to avoid Property 'pl' is missing in type '{ en: string; xxx } on your t function if
+    },
     fill: {
       en: true, // Fill and edit the current file for English
       fr: "./translations/fr.json", // Create separate file for French

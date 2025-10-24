@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 const versionSwitcherContent = {
   key: 'version-switcher',
-  fill: './{{key}}.content.json',
   content: {
     versionSwitcherLabel: t({
       en: 'Version selector',
@@ -19,6 +18,7 @@ const versionSwitcherContent = {
       ar: 'منتقي الإصدار',
       ru: 'Выбор версии',
       tr: 'Sürüm seçici',
+      pl: 'Wybór wersji',
     }),
     versionListLabel: t({
       en: 'Version list',
@@ -35,6 +35,7 @@ const versionSwitcherContent = {
       ar: 'قائمة الإصدارات',
       ru: 'Список версий',
       tr: 'Sürüm listesi',
+      pl: 'Lista wersji',
     }),
     switchTo: t({
       en: 'Switch to',
@@ -51,8 +52,13 @@ const versionSwitcherContent = {
       ar: 'التبديل إلى',
       ru: 'Переключиться на',
       tr: 'Geçiş yap',
+      pl: 'Przełącz na',
     }),
   },
+  title: 'Version switcher',
+  description:
+    'Dictionary for UI labels used in the version switcher component, enabling users to select and switch between different content or documentation versions.',
+  tags: ['interface', 'version control', 'component'],
 } satisfies Dictionary;
 
 export default versionSwitcherContent;

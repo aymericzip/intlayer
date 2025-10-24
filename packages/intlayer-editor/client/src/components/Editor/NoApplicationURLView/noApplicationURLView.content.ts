@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 const noApplicationURLViewContent = {
   key: 'no-application-url-view',
-  fill: './{{key}}.content.json',
   content: {
     title: t({
       en: 'Your project configuration do not includes application URL',

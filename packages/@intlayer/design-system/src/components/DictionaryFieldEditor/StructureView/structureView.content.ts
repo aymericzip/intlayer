@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 export const structureViewContent = {
   key: 'structure-view',
-  fill: './{{key}}.content.json',
   content: {
     titleInput: {
       placeholder: t({
@@ -20,6 +19,7 @@ export const structureViewContent = {
         ar: 'أدخل مفتاح العقدة الخاص بك',
         ru: 'Введите ключ вашего узла',
         tr: 'Düğümünüzün anahtarını girin',
+        pl: 'Wprowadź klucz węzła',
       }),
     },
     deleteButton: {
@@ -38,6 +38,7 @@ export const structureViewContent = {
         ar: 'إزالة العقدة من القسم',
         ru: 'Удалить узел из секции',
         tr: 'Düğümü bölümden kaldır',
+        pl: 'Usuń węzeł z sekcji',
       }),
     },
     addNodeButton: {
@@ -56,6 +57,7 @@ export const structureViewContent = {
         ar: 'انقر لإضافة عقدة جديدة',
         ru: 'Нажмите, чтобы добавить новый узел',
         tr: 'Yeni bir düğüm eklemek için tıklayın',
+        pl: 'Kliknij, aby dodać nowy węzeł',
       }),
       text: t({
         en: 'Add a new node',
@@ -72,9 +74,14 @@ export const structureViewContent = {
         ar: 'إضافة عقدة جديدة',
         ru: 'Добавить новый узел',
         tr: 'Yeni bir düğüm ekle',
+        pl: 'Dodaj nowy węzeł',
       }),
     },
   },
+  title: 'Structure view',
+  description:
+    'Interface content for managing nodes within a structured view, including actions to add, remove, and identify nodes by key.',
+  tags: ['form', 'dictionary editor', 'structure management'],
 } satisfies Dictionary;
 
 export default structureViewContent;

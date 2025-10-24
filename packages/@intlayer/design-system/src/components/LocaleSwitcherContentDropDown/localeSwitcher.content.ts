@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 const localeSwitcherContent = {
   key: 'locale-switcher-content',
-  fill: './{{key}}.content.json',
   content: {
     localeSwitcherLabel: t({
       en: 'Language switcher',
@@ -19,6 +18,7 @@ const localeSwitcherContent = {
       ar: 'مبدل اللغة',
       ru: 'Переключатель языка',
       tr: 'Dil değiştirici',
+      pl: 'Przełącznik języka',
     }),
     languageListLabel: t({
       en: 'Language list',
@@ -35,6 +35,7 @@ const localeSwitcherContent = {
       ar: 'قائمة اللغات',
       ru: 'Список языков',
       tr: 'Dil listesi',
+      pl: 'Lista języków',
     }),
     switchTo: t({
       en: 'Switch to',
@@ -51,6 +52,7 @@ const localeSwitcherContent = {
       ar: 'التبديل إلى',
       ru: 'Переключиться на',
       tr: 'Geçiş yap',
+      pl: 'Przełącz na',
     }),
     searchInput: {
       text: t({
@@ -68,6 +70,7 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Wyszukaj lokalizację',
       }),
       placeholder: t({
         en: 'Search a locale',
@@ -84,6 +87,7 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Wyszukaj lokalizację',
       }),
       ariaLabel: t({
         en: 'Language search',
@@ -100,6 +104,7 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Wyszukiwanie lokalizacji',
       }),
     },
     seeAllLocalesSwitch: {
@@ -118,6 +123,7 @@ const localeSwitcherContent = {
         ar: 'عرض جميع اللغات',
         ru: 'Показать все языки',
         tr: 'Tüm dilleri göster',
+        pl: 'Pokaż wszystkie lokalizacje',
       }),
       false: t({
         en: 'See only selected locales',
@@ -134,9 +140,14 @@ const localeSwitcherContent = {
         ar: 'عرض اللغات المحددة فقط',
         ru: 'Показать только выбранные языки',
         tr: 'Yalnızca seçilen dilleri göster',
+        pl: 'Pokaż tylko wybrane lokalizacje',
       }),
     },
   },
+  title: 'Locale switcher content',
+  description:
+    'Content strings for the locale switcher component, including labels, placeholders, and toggle options for displaying available locales.',
+  tags: ['component', 'locale switcher', 'i18n'],
 } satisfies Dictionary;
 
 export default localeSwitcherContent;

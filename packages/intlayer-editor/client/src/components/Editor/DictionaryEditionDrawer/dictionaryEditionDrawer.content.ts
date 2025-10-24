@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 const dictionaryEditionDrawerContent = {
   key: 'dictionary-edition-drawer',
-  fill: './{{key}}.content.json',
   content: {
     openDictionaryEditor: {
       label: t({

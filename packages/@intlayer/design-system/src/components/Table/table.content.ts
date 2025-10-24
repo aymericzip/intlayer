@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 const tableContent = {
   key: 'table',
-  fill: './{{key}}.content.json',
   content: {
     show: t({
       en: 'Show all table content',
@@ -19,8 +18,13 @@ const tableContent = {
       ar: 'اظهار جميع محتويات الجدول',
       ru: 'Показать все данные таблицы',
       tr: 'Tüm tablo içeriğini göster',
+      pl: 'Pokaż całą zawartość tabeli',
     }),
   },
+  title: 'Table component content',
+  description:
+    'Content declaration related to the Table component, specifically for UI message to display all table content.',
+  tags: ['table', 'component content', 'design system'],
 } satisfies Dictionary;
 
 export default tableContent;

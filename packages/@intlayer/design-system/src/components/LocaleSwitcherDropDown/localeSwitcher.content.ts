@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 const localeSwitcherContent = {
   key: 'locale-switcher',
-  fill: './{{key}}.content.json',
   content: {
     localeSwitcherLabel: t({
       en: 'Language switcher',
@@ -19,6 +18,7 @@ const localeSwitcherContent = {
       ar: 'مبدل اللغة',
       ru: 'Переключатель языка',
       tr: 'Dil değiştirici',
+      pl: 'Przełącznik języka',
     }),
     languageListLabel: t({
       en: 'Language list',
@@ -35,6 +35,7 @@ const localeSwitcherContent = {
       ar: 'قائمة اللغات',
       ru: 'Список языков',
       tr: 'Dil listesi',
+      pl: 'Lista języków',
     }),
     switchTo: t({
       en: 'Switch to',
@@ -51,6 +52,7 @@ const localeSwitcherContent = {
       ar: 'التبديل إلى',
       ru: 'Переключиться на',
       tr: 'Geçiş yap',
+      pl: 'Przełącz na',
     }),
     searchInput: {
       text: t({
@@ -68,6 +70,7 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Szukaj lokalizacji',
       }),
       placeholder: t({
         en: 'Search a locale',
@@ -84,6 +87,7 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Szukaj lokalizacji',
       }),
       ariaLabel: t({
         en: 'Language search',
@@ -100,9 +104,14 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Wyszukiwanie lokalizacji',
       }),
     },
   },
+  title: 'Locale switcher',
+  description:
+    'Content declaration for the locale switcher component, including user interface labels for switching and searching between different languages.',
+  tags: ['language selector', 'internationalization', 'UI component'],
 } satisfies Dictionary;
 
 export default localeSwitcherContent;

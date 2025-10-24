@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 export const copyContentContent = {
   key: 'copy-button',
-  fill: './{{key}}.content.json',
   content: {
     label: t({
       en: 'Copy content',

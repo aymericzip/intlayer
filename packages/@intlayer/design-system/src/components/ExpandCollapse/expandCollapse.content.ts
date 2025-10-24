@@ -2,7 +2,6 @@ import { cond, type Dictionary, t } from 'intlayer';
 
 const expandCollapseContent = {
   key: 'expand-collapse',
-  fill: './{{key}}.content.json',
   content: {
     expandCollapseContent: cond({
       true: t({
@@ -39,6 +38,10 @@ const expandCollapseContent = {
       }),
     }),
   },
+  title: 'Expand collapse toggle',
+  description:
+    'Content declaration for the expand/collapse toggle component, defining the labels shown when content is expanded or collapsed.',
+  tags: ['ui component', 'toggle', 'expand collapse'],
 } satisfies Dictionary;
 
 export default expandCollapseContent;
