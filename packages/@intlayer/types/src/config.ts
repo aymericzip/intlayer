@@ -559,7 +559,7 @@ export type BuildConfig = {
    * }
    * ```
    */
-  require: NodeJS.Require;
+  require?: NodeJS.Require;
 };
 
 /**

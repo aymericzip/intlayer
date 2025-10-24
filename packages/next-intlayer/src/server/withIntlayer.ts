@@ -1,6 +1,7 @@
 import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
+  ESMxCJSRequire,
   type GetConfigurationOptions,
   getAlias,
   getAppLogger,
@@ -17,13 +18,15 @@ import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import nextPackageJSON from 'next/package.json' with { type: 'json' };
 import { compareVersions } from './compareVersion';
 
-// Extract from the start script if --turbo or --turbopack flag is used
 const isGteNext13 = compareVersions(nextPackageJSON.version, '≥', '13.0.0');
 const isGteNext15 = compareVersions(nextPackageJSON.version, '≥', '15.0.0');
 const isGteNext16 = compareVersions(nextPackageJSON.version, '≥', '16.0.0');
-const isTurbopackEnabled =
-  (!isGteNext16 && process.env.npm_lifecycle_script?.includes('--turbo')) ||
-  (isGteNext16 && !process.env.npm_lifecycle_script?.includes('--webpack'));
+
+const isTurbopackEnabled = isGteNext16
+  ? // Next@16 enable turbopack by default, and offer the possibility to disable it if --webpack flag is used
+    !process.env.npm_lifecycle_script?.includes('--webpack')
+  : // Next@15 use --turbopack flag, Next@14 use --turbo flag
+    process.env.npm_lifecycle_script?.includes('--turbo');
 
 const isTurbopackStable = compareVersions(
   nextPackageJSON.version,
@@ -34,7 +37,8 @@ const isTurbopackStable = compareVersions(
 // Check if SWC plugin is available
 const getIsSwcPluginAvailable = (intlayerConfig: IntlayerConfig) => {
   try {
-    intlayerConfig.build.require.resolve('@intlayer/swc');
+    const requireFunction = intlayerConfig.build?.require ?? ESMxCJSRequire;
+    requireFunction.resolve('@intlayer/swc');
     return true;
   } catch (_e) {
     return false;
@@ -45,7 +49,8 @@ const resolvePluginPath = (
   pluginPath: string,
   intlayerConfig: IntlayerConfig
 ): string => {
-  const pluginPathResolved = intlayerConfig.build.require.resolve(pluginPath);
+  const requireFunction = intlayerConfig.build?.require ?? ESMxCJSRequire;
+  const pluginPathResolved = requireFunction?.resolve(pluginPath);
 
   if (isTurbopackEnabled)
     // Relative path for turbopack

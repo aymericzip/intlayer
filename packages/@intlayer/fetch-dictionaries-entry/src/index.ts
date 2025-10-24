@@ -6,7 +6,7 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { clearModuleCache } from '@intlayer/config';
+import { clearModuleCache, ESMxCJSRequire } from '@intlayer/config';
 import config from '@intlayer/config/built';
 import type {
   Dictionary,
@@ -39,7 +39,7 @@ export const getDynamicDictionaries: GetFetchDictionaries = (
   if (existsSync(dictionariesPath)) {
     // Clear cache for dynamic_dictionaries.cjs and all its dependencies (JSON files)
     clearModuleCache(dictionariesPath);
-    dictionaries = build.require(dictionariesPath);
+    dictionaries = (build.require ?? ESMxCJSRequire)(dictionariesPath);
   }
 
   return dictionaries;

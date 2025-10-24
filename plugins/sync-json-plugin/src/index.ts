@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { parallelize } from '@intlayer/chokidar';
+import { ESMxCJSRequire } from '@intlayer/config';
 import type {
   ContentNode,
   Dictionary,
@@ -212,7 +213,8 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
       const dictionaries: Dictionary[] = [];
 
       for (const { locale, path, key } of dictionariesMap) {
-        const json: JSONContent = configuration.build.require(path as string);
+        const requireFunction = configuration.build?.require ?? ESMxCJSRequire;
+        const json: JSONContent = requireFunction(path as string);
 
         const filePath = relative(configuration.content.baseDir, path);
 
