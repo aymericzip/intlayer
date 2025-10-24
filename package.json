@@ -1,6 +1,6 @@
 {
   "name": "intlayer-monorepo",
-  "version": "7.0.0-canary.0",
+  "version": "7.0.0-canary.1",
   "private": false,
   "description": "Intlayer monorepo - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "homepage": "https://intlayer.org",
@@ -79,7 +79,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "@vitejs/plugin-react": "5.0.4",
-    "bun": "1.3.0",
+    "bun": "1.3.1",
     "chokidar": "3.6.0",
     "enquirer": "2.4.1",
     "fast-glob": "3.3.3",
@@ -96,9 +96,9 @@
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "4.0.3"
   },
-  "packageManager": "bun@1.3.0",
+  "packageManager": "bun@1.3.1",
   "engines": {
-    "bun": ">=1.3.0",
+    "bun": ">=1.3.1",
     "node": ">=16.0.0"
   },
   "bug": {

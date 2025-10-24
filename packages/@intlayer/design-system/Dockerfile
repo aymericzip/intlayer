@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.19.0
 
-FROM oven/bun:1.3-alpine AS builder
+FROM oven/bun:1.3.1-alpine AS builder
 
 # Create app directory
 WORKDIR /workspace
