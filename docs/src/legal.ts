@@ -8,12 +8,16 @@ import {
   getFileMetadataBySlug,
   getFileMetadataRecord,
   getFiles,
+  getKeys,
 } from './common';
 import { legalEntry } from './generated/legal.entry';
 
 export type LegalKey = keyof typeof legalEntry;
 export type Legals = Record<LegalKey, Record<LocalesValues, Promise<string>>>;
 export type LegalMetadata = FileMetadata;
+
+export const getLegalsKeys = (): (keyof typeof legalEntry)[] =>
+  getKeys(legalEntry);
 
 export const getLegals = async <L extends LocalesValues>(
   locale: L = defaultLocale as L

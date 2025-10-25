@@ -9,7 +9,7 @@ import {
   useCrossFrameState,
   useDictionariesRecordActions,
 } from '@intlayer/editor-react';
-import unmergedDictionaries from '@intlayer/unmerged-dictionaries-entry';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { useTheme } from 'next-themes';
 import { type FC, type PropsWithChildren, useEffect } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
@@ -41,6 +41,7 @@ export const EditorLayout: FC<EditorLayoutProps> = ({
   useEffect(() => {
     if (!configuration) return;
 
+    const unmergedDictionaries = getUnmergedDictionaries(configuration);
     const dictionariesList = Object.fromEntries(
       Object.values(unmergedDictionaries)
         .flatMap((dictionaries) =>

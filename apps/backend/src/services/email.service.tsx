@@ -44,10 +44,9 @@ import {
   WelcomeEmailES,
   WelcomeEmailFR,
 } from '@emails/Welcome';
-
+import type { Locales } from '@intlayer/config';
 import { logger } from '@logger';
 import { t } from 'express-intlayer';
-import type { Locales } from 'intlayer';
 import type { ComponentProps, JSX } from 'react';
 import { Resend } from 'resend';
 

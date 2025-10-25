@@ -1,3 +1,4 @@
+import type { Locales } from '@intlayer/config';
 import type { KeyPath } from '@intlayer/core';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { getDictionariesByTags } from '@services/dictionary.service';
@@ -29,11 +30,10 @@ import {
   type ResponseData,
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
-import type { Locales } from 'intlayer';
 import { DiscussionModel } from '@/models/discussion.model';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { DiscussionAPI } from '@/types/discussion.types';
-import type { Tag } from '@/types/tag.types';
+import type { Tag, TagAPI } from '@/types/tag.types';
 
 type ReplaceAIConfigByOptions<T> = Omit<T, 'aiConfig'> & {
   aiOptions?: AIOptions;
@@ -49,6 +49,7 @@ export const customQuery = async (
   res: ResponseWithSession<CustomQueryResult>,
   _next: NextFunction
 ): Promise<void> => {
+  // biome-ignore lint/correctness/noUnusedVariables: Just filter out tagsKeys
   const { aiOptions, tagsKeys, ...rest } = req.body;
 
   let aiConfig: AIConfig;
@@ -354,7 +355,7 @@ export const auditContentDeclarationMetadata = async (
 
 export type AuditTagBody = {
   aiOptions?: AIOptions;
-  tag: Tag;
+  tag: TagAPI;
 };
 export type AuditTagResult =
   ResponseData<auditContentDeclarationUtil.AuditFileResultData>;

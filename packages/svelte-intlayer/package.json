@@ -57,7 +57,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "pnpm clean & pnpm build:ci",
+    "build": "vite build",
     "build:ci": "vite build",
     "clean": "rimraf ./dist",
     "dev": "vite build --watch",
@@ -68,28 +68,28 @@
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit"
+    "typecheck": "tsdown  --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
-    "js-cookie": "^3.0.5"
+    "js-cookie": "3.0.5"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^6.1.2",
-    "@types/js-cookie": "^3.0.6",
-    "@types/node": "^24.5.2",
+    "@sveltejs/vite-plugin-svelte": "6.1.2",
+    "@types/js-cookie": "3.0.6",
+    "@types/node": "24.7.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
-    "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.2.1",
-    "rimraf": "^6.0.1",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.7",
-    "vite-plugin-dts": "^4.5.3",
-    "vitest": "^3.2.4"
+    "@utils/tsdown-config": "workspace:*",
+    "concurrently": "9.2.1",
+    "rimraf": "6.0.1",
+    "typescript": "5.9.3",
+    "vite": "7.1.10",
+    "vite-plugin-dts": "4.5.4",
+    "vitest": "3.2.4"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",

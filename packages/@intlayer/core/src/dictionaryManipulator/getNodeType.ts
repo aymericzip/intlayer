@@ -2,13 +2,37 @@ import { NodeType, type TypedNode } from '../types';
 import type { ContentNode } from '../types/dictionary';
 import { isValidElement } from '../utils/isValidReactElement';
 
+/**
+ * Type guard to check if content is a TypedNode
+ */
+const isTypedNode = (content: unknown): content is TypedNode => {
+  return (
+    typeof content === 'object' &&
+    content !== null &&
+    'nodeType' in content &&
+    typeof (content as TypedNode).nodeType === 'string'
+  );
+};
+
+/**
+ * Type guard to check if content is a valid NodeType
+ */
+const isValidNodeType = (nodeType: string): nodeType is NodeType => {
+  return Object.values(NodeType).includes(nodeType as NodeType);
+};
+
 export const getNodeType = (content: ContentNode): NodeType => {
   if (typeof content === 'string') {
     return NodeType.Text;
   }
 
-  if (typeof (content as TypedNode)?.nodeType === 'string') {
-    return (content as TypedNode).nodeType as NodeType;
+  if (isTypedNode(content)) {
+    const nodeType = content.nodeType;
+    if (isValidNodeType(nodeType)) {
+      return nodeType;
+    }
+    // Fallback for unknown node types
+    return NodeType.Unknown;
   }
 
   if (Array.isArray(content)) {
@@ -29,6 +53,10 @@ export const getNodeType = (content: ContentNode): NodeType => {
 
   if (content && typeof content === 'object') {
     return NodeType.Object;
+  }
+
+  if (content === null) {
+    return NodeType.Null;
   }
 
   return NodeType.Unknown;

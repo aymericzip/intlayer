@@ -10,7 +10,6 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import {
   clearModuleCache,
-  ESMxCJSRequire,
   getConfiguration,
   type IntlayerConfig,
 } from '@intlayer/config';
@@ -20,11 +19,19 @@ import type {
   LanguageContent,
 } from 'intlayer';
 
-export const getDynamicDictionaries = (
-  configuration: IntlayerConfig = getConfiguration(),
-  projectRequire = ESMxCJSRequire
+export type FetchDictionaries = Record<
+  IntlayerDictionaryTypesConnector['key'],
+  LanguageContent<Dictionary>
+>;
+
+type GetFetchDictionaries = (
+  configuration?: IntlayerConfig
+) => FetchDictionaries;
+
+export const getDynamicDictionaries: GetFetchDictionaries = (
+  configuration = getConfiguration()
 ) => {
-  const { content } = configuration;
+  const { content, build } = configuration;
 
   // Always use cjs for dictionaries entry as it uses require
   const dictionariesPath = join(content.mainDir, `fetch_dictionaries.cjs`);
@@ -36,10 +43,8 @@ export const getDynamicDictionaries = (
   if (existsSync(dictionariesPath)) {
     // Clear cache for dynamic_dictionaries.cjs and all its dependencies (JSON files)
     clearModuleCache(dictionariesPath);
-    dictionaries = projectRequire(dictionariesPath);
+    dictionaries = build.require(dictionariesPath);
   }
 
   return dictionaries;
 };
-
-export default (() => getDynamicDictionaries())();

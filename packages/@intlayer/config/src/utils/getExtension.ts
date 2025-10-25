@@ -1,7 +1,7 @@
-import { getConfiguration, type IntlayerConfig } from '@intlayer/config';
+import type { IntlayerConfig } from '@intlayer/config';
 
 export const getExtension = (
-  configuration: IntlayerConfig = getConfiguration(),
+  configuration: IntlayerConfig,
   format?: 'esm' | 'cjs' | undefined
 ) => {
   const outputFormats = configuration.build.outputFormat;

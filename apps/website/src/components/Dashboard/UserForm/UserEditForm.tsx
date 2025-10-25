@@ -39,13 +39,8 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
   const UserEditSchema = useUserEditSchema();
   const { form, isSubmitting } = useForm(UserEditSchema);
 
-  const {
-    title,
-    statusLabels,
-    formLabels,
-    errorMessages,
-    successMessages,
-  } = useIntlayer('user-edit-form');
+  const { title, statusLabels, formLabels, errorMessages, successMessages } =
+    useIntlayer('user-edit-form');
 
   const user: UserAPI | undefined = userResponse?.data ?? undefined;
 
@@ -174,7 +169,7 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
 
   if (error) {
     return (
-      <div className="text-error p-6">
+      <div className="p-6 text-error">
         {errorMessages.loadingError}:{' '}
         {(error as Error)?.message ?? 'Unknown error'}
       </div>

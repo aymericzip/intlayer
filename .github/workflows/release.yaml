@@ -24,7 +24,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node-version: [lts/*]
-        pnpm-version: [10.17.1]
+        bun-version: [1.3.0]
     runs-on: ${{ matrix.os }}
     steps:
       - name: ⬇️ Checkout
@@ -34,11 +34,11 @@ jobs:
           token: ${{ env.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: 🥡 Setup pnpm
-        id: setup-pnpm
-        uses: pnpm/action-setup@v4
+      - name: 🥡 Setup bun
+        id: setup-bun
+        uses: oven-sh/setup-bun@v2
         with:
-          version: ${{ matrix.pnpm-version }}
+          version: ${{ matrix.bun-version }}
           run_install: false
 
       - name: 🟢 Setup node
@@ -46,29 +46,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
 
-      - name: 🎈 Get pnpm store directory
-        id: get-pnpm-cache-dir
-        run: echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: 🔆 Cache pnpm modules
+      - name: 🔆 Cache bun modules
         uses: actions/cache@v4
-        id: pnpm-cache
+        id: bun-cache
         with:
-          path: ${{ steps.get-pnpm-cache-dir.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-store-${{ hashFiles('**/bun.lock*') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            ${{ runner.os }}-bun-store-
 
       - name: 🧩 Install Dependencies
         id: install-dependencies
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: 🏗️ Build
         id: build-the-mono-repo
         run: |
-          pnpm build:ci
+          bun build:ci
 
       - name: 🔍 Check for changesets
         id: check-changesets

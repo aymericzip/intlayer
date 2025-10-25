@@ -9,7 +9,6 @@ import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getOrganizationFiltersAndPagination,
-  type OrganizationFilters,
   type OrganizationFiltersParams,
 } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import {

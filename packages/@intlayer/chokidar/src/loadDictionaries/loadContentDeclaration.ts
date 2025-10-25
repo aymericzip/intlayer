@@ -1,6 +1,5 @@
 import { relative } from 'node:path';
 import {
-  ESMxCJSRequire,
   getConfiguration,
   type IntlayerConfig,
   loadExternalFile,
@@ -23,22 +22,23 @@ export const formatLocalDictionaries = (
     .map(([relativePath, dict]) => ({
       ...dict,
       localId: `${dict.key}::local::${relativePath}`,
-      location: 'locale' as const,
+      location: 'local' as const,
       filePath: relativePath,
     }));
 
 export const loadContentDeclarations = async (
   contentDeclarationFilePath: string[],
   configuration: IntlayerConfig = getConfiguration(),
-  projectRequire = ESMxCJSRequire,
   onStatusUpdate?: (status: DictionariesStatus[]) => void
 ): Promise<Dictionary[]> => {
+  const { build } = configuration;
+
   const dictionariesRecord = contentDeclarationFilePath.reduce(
     (acc, path) => {
       const relativePath = relative(configuration.content.baseDir, path);
       return {
         ...acc,
-        [relativePath]: loadExternalFile(path, undefined, projectRequire),
+        [relativePath]: loadExternalFile(path, build.require),
       };
     },
     {} as Record<string, Dictionary>

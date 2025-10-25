@@ -19,24 +19,10 @@ export type FileContent = FileContentConstructor<{
 declare const intlayer_file_path: string; // Injected by esbuild to track the file content
 declare const intlayer_file_dir: string; // Injected by esbuild to track the file path
 
-/**
- * Function intended to be used to build intlayer dictionaries.
- *
- * Allow identify the usage of an external resource.
- *
- * Usage:
- *
- * ```ts
- * file('/path/to/file.md') // absolute path
- *
- * // or
- *
- * file('path/to/file.md') // relative path
- * ```
- */
-export const file = (path: string): FileContent => {
-  const callerDir = intlayer_file_dir ?? process.cwd();
-
+export const fileContent = (
+  path: string,
+  callerDir: string = process.cwd()
+): FileContent => {
   const isAbsolutePath = path.startsWith('/');
   const isRelativePath = path.startsWith('./') || path.startsWith('../');
   const appLogger = getAppLogger(configuration);
@@ -89,4 +75,25 @@ export const file = (path: string): FileContent => {
     content,
     fixedPath: relative(process.cwd(), filePath),
   });
+};
+
+/**
+ * Function intended to be used to build intlayer dictionaries.
+ *
+ * Allow identify the usage of an external resource.
+ *
+ * Usage:
+ *
+ * ```ts
+ * file('/path/to/file.md') // absolute path
+ *
+ * // or
+ *
+ * file('path/to/file.md') // relative path
+ * ```
+ */
+export const file = (path: string): FileContent => {
+  const callerDir = intlayer_file_dir ?? process.cwd();
+
+  return fileContent(path, callerDir);
 };

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-20
+updatedAt: 2025-10-14
 title: Formatters
 description: Locale-aware formatting utilities based on Intl for numbers, percentages, currency, dates, relative time, units, and compact notation. Includes a cached Intl helper.
 keywords:
@@ -48,7 +48,6 @@ import {
   getContent,
   getTranslation,
   getIntlayer,
-  getIntlayerAsync,
 } from "intlayer";
 ```
 
@@ -292,20 +291,6 @@ const nestedContent = getIntlayer("common", "fr", customPlugins);
 - **locale**: Optional locale (defaults to configured default locale)
 - **plugins**: Optional array of custom transformation plugins
 
-### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
-
-Asynchronously retrieves content from a distant dictionary:
-
-```ts
-import { getIntlayerAsync } from "intlayer";
-
-const content = await getIntlayerAsync("common", "fr");
-```
-
-- **dictionaryKey**: The key of the dictionary to retrieve
-- **locale**: Optional locale (defaults to configured default locale)
-- **plugins**: Optional array of custom transformation plugins
-
 ## Formatters
 
 All helpers below are exported from `intlayer`.
@@ -488,7 +473,6 @@ import {
   getContent,
   getTranslation,
   getIntlayer,
-  getIntlayerAsync,
 } from "intlayer";
 ```
 
@@ -588,6 +572,7 @@ import {
 
 | Version | Date       | Changes                                                                        |
 | ------- | ---------- | ------------------------------------------------------------------------------ |
+| 6.2.0   | 2025-10-14 | Remove getIntlayerAsync from formatters                                        |
 | 5.8.0   | 2025-08-20 | Add vue formatters                                                             |
 | 5.8.0   | 2025-08-18 | Add formatters documentation                                                   |
 | 5.8.0   | 2025-08-20 | Add list formatter documentation                                               |

@@ -5,20 +5,20 @@ const docNavTitlesContent = {
   key: 'common-questions',
   content: {
     title: t({
-      fr: 'Questions fréquentes',
-      en: 'Frequently asked questions',
-      es: 'Preguntas frecuentes',
-      'en-GB': 'Frequently asked questions',
+      ar: 'الأسئلة الشائعة',
       de: 'Häufig gestellte Fragen',
+      en: 'Frequently asked questions',
+      'en-GB': 'Frequently asked questions',
+      es: 'Preguntas frecuentes',
+      fr: 'Questions fréquentes',
+      hi: 'अधिकतर पूछे जाने वाले प्रश्न',
+      it: 'Domande frequenti',
       ja: 'よくある質問',
       ko: '자주 묻는 질문',
-      zh: '常见问题',
-      it: 'Domande frequenti',
       pt: 'Perguntas frequentes',
-      hi: 'अधिकतर पूछे जाने वाले प्रश्न',
-      ar: 'الأسئلة الشائعة',
       ru: 'Часто задаваемые вопросы',
       tr: 'Sıkça Sorulan Sorular',
+      zh: '常见问题',
     }),
 
     content: [

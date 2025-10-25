@@ -63,6 +63,7 @@ echo "Passing build args for keys: ${PASSED_KEYS[*]}" >/dev/stderr
 
 docker build \
   --network=host \
+  --progress=plain \
   -t intlayer-website \
   -f "${ROOT_DIR}/apps/website/Dockerfile" \
   "${BUILD_ARGS[@]}" \

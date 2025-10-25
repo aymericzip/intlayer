@@ -289,13 +289,13 @@ const DynamicMultilingualSection = dynamic(
   }
 );
 
-const DynamicAutocompletionSection = dynamic(
-  () =>
-    import('./AutocompletionSection').then((mod) => mod.AutocompletionSection),
-  {
-    loading: () => <Loader />,
-  }
-);
+// const DynamicAutocompletionSection = dynamic(
+//   () =>
+//     import('./AutocompletionSection').then((mod) => mod.AutocompletionSection),
+//   {
+//     loading: () => <Loader />,
+//   }
+// );
 
 const DynamicVisualEditorSection = dynamic(
   () => import('./VisualEditorSection').then((mod) => mod.VisualEditorSection),
@@ -336,13 +336,13 @@ export const FeaturesSection: FC = () => {
             ...sectionData,
             children: <DynamicMarkdownSection scrollProgress={progress} />,
           };
-        case 'autocomplete':
-          return {
-            ...sectionData,
-            children: (
-              <DynamicAutocompletionSection scrollProgress={progress} />
-            ),
-          };
+        // case 'autocomplete':
+        //   return {
+        //     ...sectionData,
+        //     children: (
+        //       <DynamicAutocompletionSection scrollProgress={progress} />
+        //     ),
+        //   };
         default:
           return {
             ...sectionData,

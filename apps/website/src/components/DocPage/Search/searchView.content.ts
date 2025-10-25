@@ -4,20 +4,20 @@ const searchTriggerContent: Dictionary = {
   key: 'doc-search-view',
   content: {
     noContentText: t({
+      ar: 'لم يتم العثور على نتائج',
+      de: 'Keine Ergebnisse gefunden',
       en: 'No results found',
       'en-GB': 'No results found',
-      fr: 'Aucun résultat trouvé',
       es: 'No se encontraron resultados',
-      de: 'Keine Ergebnisse gefunden',
+      fr: 'Aucun résultat trouvé',
+      hi: 'कोई परिणाम नहीं मिला',
+      it: 'Nessun risultato trovato',
       ja: '結果が見つかりませんでした',
       ko: '결과를 찾을 수 없습니다',
-      zh: '未找到结果',
-      it: 'Nessun risultato trovato',
       pt: 'Nenhum resultado encontrado',
-      hi: 'कोई परिणाम नहीं मिला',
-      ar: 'لم يتم العثور على نتائج',
       ru: 'Результатов не найдено',
       tr: 'Sonuç bulunamadı',
+      zh: '未找到结果',
     }),
     searchInput: {
       label: t({

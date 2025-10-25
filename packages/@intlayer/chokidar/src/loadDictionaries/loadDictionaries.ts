@@ -4,7 +4,6 @@ import {
   colon,
   colorize,
   colorizeKey,
-  ESMxCJSRequire,
   getAppLogger,
   getConfiguration,
   type IntlayerConfig,
@@ -158,8 +157,7 @@ const printSummary = (configuration: IntlayerConfig = getConfiguration()) => {
 
 export const loadDictionaries = async (
   contentDeclarationsPaths: string[] | string,
-  configuration: IntlayerConfig = getConfiguration(),
-  projectRequire = ESMxCJSRequire
+  configuration: IntlayerConfig = getConfiguration()
 ): Promise<{
   localDictionaries: Dictionary[];
   remoteDictionaries: Dictionary[];
@@ -180,7 +178,6 @@ export const loadDictionaries = async (
     try {
       const res = await plugin.loadDictionaries?.({
         configuration,
-        projectRequire,
       });
       return (res as Dictionary[] | undefined) ?? [];
     } catch {
@@ -199,7 +196,6 @@ export const loadDictionaries = async (
   const localDictionaries: Dictionary[] = await loadContentDeclarations(
     files,
     configuration,
-    projectRequire,
     setLoadDictionariesStatus
   );
 

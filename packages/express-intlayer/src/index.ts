@@ -1,4 +1,4 @@
-import { createModuleAugmentation } from '@intlayer/chokidar';
+import { prepareIntlayer } from '@intlayer/chokidar';
 import { getConfiguration, type Locales } from '@intlayer/config';
 import {
   getDictionary as getDictionaryFunction,
@@ -15,7 +15,7 @@ const { headerName, cookieName } = middleware;
 
 const appNamespace = createNamespace('app');
 
-createModuleAugmentation();
+prepareIntlayer();
 
 export const translateFunction =
   (_req: Request, res: Response, _next?: NextFunction) =>
@@ -61,7 +61,7 @@ export const translateFunction =
  *
  * @returns
  */
-export const intlayer = (): RequestHandler => (req, res, next) => {
+export const intlayer = (): RequestHandler => async (req, res, next) => {
   // Detect if locale is set by intlayer frontend lib in the cookies
   const localeCookie = req.cookies?.[cookieName];
   // Detect if locale is set by intlayer frontend lib in the headers
@@ -122,25 +122,77 @@ export const intlayer = (): RequestHandler => (req, res, next) => {
 export const t = <Content = string>(
   content: LanguageContent<Content>,
   locale?: Locales
-): Content => appNamespace.get('t')(content, locale);
+): Content => {
+  try {
+    if (typeof appNamespace === 'undefined') {
+      throw new Error(
+        'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function.'
+      );
+    }
 
-export const getIntlayer: typeof getIntlayerFunction = (...args) => {
-  if (typeof appNamespace === 'undefined') {
-    throw new Error(
-      'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function'
+    if (typeof appNamespace.get('t') !== 'function') {
+      throw new Error(
+        'Using the import { t } from "express-intlayer" is not supported in your environment. Use the res.locals.t syntax instead.'
+      );
+    }
+
+    return appNamespace.get('t')(content, locale);
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error((error as Error).message);
+    }
+
+    return getTranslation(
+      content,
+      locale ?? internationalization.defaultLocale
     );
   }
+};
 
-  return appNamespace.get('getIntlayer')(...args);
+export const getIntlayer: typeof getIntlayerFunction = (...args) => {
+  try {
+    if (typeof appNamespace === 'undefined') {
+      throw new Error(
+        'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function.'
+      );
+    }
+
+    if (typeof appNamespace.get('getIntlayer') !== 'function') {
+      throw new Error(
+        'Using the import { t } from "express-intlayer" is not supported in your environment. Use the res.locals.t syntax instead.'
+      );
+    }
+
+    return appNamespace.get('getIntlayer')(...args);
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error((error as Error).message);
+    }
+    return getIntlayerFunction(...args);
+  }
 };
 
 export const getDictionary: typeof getDictionaryFunction = (...args) => {
-  if (typeof appNamespace === 'undefined') {
-    throw new Error(
-      'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function'
-    );
+  try {
+    if (typeof appNamespace === 'undefined') {
+      throw new Error(
+        'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function.'
+      );
+    }
+
+    if (typeof appNamespace.get('getDictionary') !== 'function') {
+      throw new Error(
+        'Using the import { t } from "express-intlayer" is not supported in your environment. Use the res.locals.t syntax instead.'
+      );
+    }
+
+    return appNamespace.get('getDictionary')(...args);
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error((error as Error).message);
+    }
+    return getDictionaryFunction(...args);
   }
-  return appNamespace.get('getDictionary')(...args);
 };
 
 export type { LanguageContent };

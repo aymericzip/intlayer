@@ -8,7 +8,7 @@ const execAsync = promisify(exec);
 
 // This script is used by the `release.yml` workflow to update the version of the packages being released.
 // The standard step is only to run `changeset version` but this does not update the package-lock.yaml file.
-// So we also run `pnpm install`, which does this update.
+// So we also run `bun install`, which does this update.
 // This is a workaround until this is handled automatically by `changeset version`.
 // See https://github.com/changesets/changesets/issues/421.
 
@@ -17,8 +17,8 @@ const runChangesetVersion = async () => {
     console.log('Running changeset version...');
     await execAsync('npx changeset version');
 
-    console.log('Updating lockfile with pnpm install...');
-    await execAsync('pnpm install --frozen-lockfile=false');
+    console.log('Updating lockfile with bun install...');
+    await execAsync('bun install --frozen-lockfile=false');
 
     console.log('Changeset version completed successfully');
   } catch (error) {

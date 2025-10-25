@@ -17,99 +17,108 @@ export const editDictionaryByKeyPath = (
     return newValue;
   }
 
-  for (let i = 0; i < keyPath.length; i++) {
-    const keyObj = keyPath[i];
-    parentValue = currentValue;
+  try {
+    for (let i = 0; i < keyPath.length; i++) {
+      const keyObj = keyPath[i];
+      parentValue = currentValue;
 
-    if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
-      lastKeys = [keyObj.key];
+      if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
+        lastKeys = [keyObj.key];
+        if (
+          !currentValue[keyObj.key] ||
+          typeof currentValue[keyObj.key] !== 'object'
+        ) {
+          currentValue[keyObj.key] = {};
+        }
+        currentValue = currentValue[keyObj.key];
+      }
+
       if (
-        !currentValue[keyObj.key] ||
-        typeof currentValue[keyObj.key] !== 'object'
+        keyObj.type === NodeType.Translation ||
+        keyObj.type === NodeType.Enumeration
       ) {
-        currentValue[keyObj.key] = {};
+        lastKeys = [keyObj.type, keyObj.key];
+        if (
+          !currentValue[keyObj.type] ||
+          typeof currentValue[keyObj.type] !== 'object'
+        ) {
+          currentValue[keyObj.type] = {};
+        }
+        if (
+          !currentValue[keyObj.type][keyObj.key] ||
+          typeof currentValue[keyObj.type][keyObj.key] !== 'object'
+        ) {
+          currentValue[keyObj.type][keyObj.key] = {};
+        }
+        currentValue = currentValue[keyObj.type][keyObj.key];
       }
-      currentValue = currentValue[keyObj.key];
-    }
 
-    if (
-      keyObj.type === NodeType.Translation ||
-      keyObj.type === NodeType.Enumeration
-    ) {
-      lastKeys = [keyObj.type, keyObj.key];
       if (
-        !currentValue[keyObj.type] ||
-        typeof currentValue[keyObj.type] !== 'object'
+        keyObj.type === NodeType.Enumeration ||
+        keyObj.type === NodeType.Condition
       ) {
-        currentValue[keyObj.type] = {};
+        lastKeys = [keyObj.type, keyObj.key];
+        if (
+          !currentValue[keyObj.type] ||
+          typeof currentValue[keyObj.type] !== 'object'
+        ) {
+          currentValue[keyObj.type] = {};
+        }
+        if (
+          !currentValue[keyObj.type][keyObj.key] ||
+          typeof currentValue[keyObj.type][keyObj.key] !== 'object'
+        ) {
+          currentValue[keyObj.type][keyObj.key] = {};
+        }
+        currentValue = currentValue[keyObj.type][keyObj.key];
       }
+
       if (
-        !currentValue[keyObj.type][keyObj.key] ||
-        typeof currentValue[keyObj.type][keyObj.key] !== 'object'
+        keyObj.type === NodeType.Markdown ||
+        keyObj.type === NodeType.Insertion
       ) {
-        currentValue[keyObj.type][keyObj.key] = {};
+        lastKeys = [keyObj.type];
+        if (
+          !currentValue[keyObj.type] ||
+          typeof currentValue[keyObj.type] !== 'object'
+        ) {
+          currentValue[keyObj.type] = '';
+        }
+        currentValue = currentValue[keyObj.type];
       }
-      currentValue = currentValue[keyObj.type][keyObj.key];
-    }
 
-    if (
-      keyObj.type === NodeType.Enumeration ||
-      keyObj.type === NodeType.Condition
-    ) {
-      lastKeys = [keyObj.type, keyObj.key];
-      if (
-        !currentValue[keyObj.type] ||
-        typeof currentValue[keyObj.type] !== 'object'
-      ) {
-        currentValue[keyObj.type] = {};
+      if (keyObj.type === NodeType.File) {
+        lastKeys = ['content'];
+
+        currentValue = currentValue.content;
       }
-      if (
-        !currentValue[keyObj.type][keyObj.key] ||
-        typeof currentValue[keyObj.type][keyObj.key] !== 'object'
-      ) {
-        currentValue[keyObj.type][keyObj.key] = {};
+
+      if (keyObj.type) {
+        // No treated TypedNode
       }
-      currentValue = currentValue[keyObj.type][keyObj.key];
-    }
 
-    if (
-      keyObj.type === NodeType.Markdown ||
-      keyObj.type === NodeType.Insertion
-    ) {
-      lastKeys = [keyObj.type];
-      if (
-        !currentValue[keyObj.type] ||
-        typeof currentValue[keyObj.type] !== 'object'
-      ) {
-        currentValue[keyObj.type] = '';
-      }
-      currentValue = currentValue[keyObj.type];
-    }
-
-    if (keyObj.type === NodeType.File) {
-      lastKeys = ['content'];
-
-      currentValue = currentValue.content;
-    }
-
-    if (keyObj.type) {
-      // No treated TypedNode
-    }
-
-    // Only update the value when processing the last key in the keyPath.
-    if (i === keyPath.length - 1 && parentValue && lastKeys.length > 0) {
-      let target = parentValue;
-      // Drill down if lastKeys contains more than one key.
-      for (const key of lastKeys.slice(0, -1)) {
-        target = target[key];
-      }
-      if (typeof newValue === 'undefined') {
-        delete target[lastKeys[lastKeys.length - 1]];
-      } else {
-        target[lastKeys[lastKeys.length - 1]] = newValue;
+      // Only update the value when processing the last key in the keyPath.
+      if (i === keyPath.length - 1 && parentValue && lastKeys.length > 0) {
+        let target = parentValue;
+        // Drill down if lastKeys contains more than one key.
+        for (const key of lastKeys.slice(0, -1)) {
+          target = target[key];
+        }
+        if (typeof newValue === 'undefined') {
+          delete target[lastKeys[lastKeys.length - 1]];
+        } else {
+          target[lastKeys[lastKeys.length - 1]] = newValue;
+        }
       }
     }
+
+    return dictionaryContent;
+  } catch (error) {
+    console.error(
+      'Cannot edit dictionary by key path',
+      { dictionaryContent, keyPath, newValue },
+      error
+    );
+    return dictionaryContent;
   }
-
-  return dictionaryContent;
 };

@@ -31,11 +31,11 @@ For that, Intlayer introduce the concept of 'distant dictionaries'.
 
 ## Understanding distant dictionaries
 
-Intlayer make a difference between 'local' and 'distant' dictionaries.
+Intlayer make a difference between 'local' and 'remote' dictionaries.
 
 - A 'local' dictionary is a dictionary that is declared in your Intlayer project. Such as the declaration file of a button, or your navigation bar. Externalizing your content do not make sense in this case because this content is not supposed to change often.
 
-- A 'distant' dictionary is a dictionary that is managed through the Intlayer CMS. It could be useful to allow your team to manage your content in direct on your website, and also aims to use A/B testing features and SEO automatic optimization.
+- A 'remote' dictionary is a dictionary that is managed through the Intlayer CMS. It could be useful to allow your team to manage your content in direct on your website, and also aims to use A/B testing features and SEO automatic optimization.
 
 ## Visual editor vs CMS
 

@@ -224,29 +224,38 @@ export const fill = async (options?: FillOptions): Promise<void> => {
         configuration
       );
     } else {
-      /**
-       * Otherwise, write the base dictionary
-       */
-      await writeContentDeclaration(
-        { ...formattedDict, content: reducedResult.content },
-        configuration
-      );
+      for (const locale of locales) {
+        const localizedDictionaryContent = getLocalizedContent(
+          reducedResult.content as unknown as ContentNode,
+          locale,
+          { dictionaryKey, keyPath: [] }
+        );
 
-      if (formattedDict.filePath) {
-        const dictionaryPreset = colon(
-          [
-            colorize('  - [', ANSIColors.GREY_DARK),
-            colorizeKey(targetUnmergedDictionary.key),
-            colorize(']', ANSIColors.GREY_DARK),
-          ].join(''),
-          { colSize: maxKeyLength + 6 }
+        /**
+         * Otherwise, write the base dictionary
+         */
+        await writeContentDeclaration(
+          { ...formattedDict, content: localizedDictionaryContent },
+          configuration,
+          { fallbackLocale: locale }
         );
-        appLogger(
-          `${dictionaryPreset} Content declaration written to ${formatPath(formattedDict.filePath)}`,
-          {
-            level: 'info',
-          }
-        );
+
+        if (formattedDict.filePath) {
+          const dictionaryPreset = colon(
+            [
+              colorize('  - [', ANSIColors.GREY_DARK),
+              colorizeKey(targetUnmergedDictionary.key),
+              colorize(']', ANSIColors.GREY_DARK),
+            ].join(''),
+            { colSize: maxKeyLength + 6 }
+          );
+          appLogger(
+            `${dictionaryPreset} Content declaration written to ${formatPath(formattedDict.filePath)}`,
+            {
+              level: 'info',
+            }
+          );
+        }
       }
     }
   }

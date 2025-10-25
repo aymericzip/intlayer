@@ -1,10 +1,11 @@
+import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { extname } from 'node:path';
 import {
   getAppLogger,
-  getConfiguration,
   type IntlayerConfig,
+  type Locales,
   logger,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
@@ -13,7 +14,6 @@ import {
   type Extension,
   getFormatFromExtension,
 } from '../utils/getFormatFromExtension';
-import { formatCode } from './formatCode';
 import { transformJSFile } from './transformJSFile';
 
 /**
@@ -25,7 +25,8 @@ import { transformJSFile } from './transformJSFile';
 export const writeJSFile = async (
   filePath: string,
   dictionary: Dictionary,
-  configuration: IntlayerConfig = getConfiguration()
+  configuration: IntlayerConfig,
+  fallbackLocale?: Locales
 ): Promise<void> => {
   const { key, locale, autoFilled } = dictionary;
   const appLogger = getAppLogger(configuration);
@@ -49,13 +50,15 @@ export const writeJSFile = async (
 
   const fileContent = await readFile(filePath, 'utf-8');
 
-  const finalCode = await transformJSFile(fileContent, dictionary);
-
-  const formattedCode = await formatCode(filePath, finalCode);
+  const finalCode = await transformJSFile(
+    fileContent,
+    dictionary,
+    fallbackLocale
+  );
 
   // Write the modified code back to the file
   try {
-    await writeFile(filePath, formattedCode, 'utf-8');
+    await writeFile(filePath, finalCode, 'utf-8');
     logger(`Successfully updated ${filePath}`, {
       level: 'info',
       isVerbose: true,
@@ -66,5 +69,19 @@ export const writeJSFile = async (
       level: 'error',
     });
     throw new Error(`Failed to write updated file ${filePath}: ${err.message}`);
+  }
+
+  if (configuration.editor.formatCommand) {
+    try {
+      execSync(
+        configuration.editor.formatCommand.replace('{{file}}', filePath),
+        {
+          stdio: 'inherit',
+          cwd: configuration.content.baseDir,
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
   }
 };

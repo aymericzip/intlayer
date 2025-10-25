@@ -58,8 +58,15 @@ const secureHeaders = {
         '*.star-history.com',
         '*.vercel.app',
         'img.shields.io',
+        '*.googleusercontent.com',
       ],
-      imgSrc: ["'self'", 'https:', 'data:', 'raw.githubusercontent.com'],
+      imgSrc: [
+        "'self'",
+        'https:',
+        'data:',
+        'raw.githubusercontent.com',
+        '*.googleusercontent.com',
+      ],
       workerSrc: [
         `${process.env.NEXT_PUBLIC_URL}`,
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
@@ -250,6 +257,8 @@ const nextConfigPWA = withPWA({
 })(nextConfig);
 
 /** @type {import('next').NextConfig} */
-const config = withIntlayer(nextConfigPWA);
+const config = withIntlayer(nextConfigPWA, {
+  require,
+});
 
 export default config;

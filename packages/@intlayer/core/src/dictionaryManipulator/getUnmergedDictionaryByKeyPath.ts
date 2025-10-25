@@ -1,6 +1,6 @@
 import type { IntlayerConfig } from '@intlayer/config';
 import intlayerConfiguration from '@intlayer/config/built';
-import unmergedDictionary from '@intlayer/unmerged-dictionaries-entry';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import type { KeyPath } from '../types';
 import { getContentNodeByKeyPath } from './getContentNodeByKeyPath';
 import { normalizeDictionaries } from './normalizeDictionary';
@@ -8,10 +8,11 @@ import { normalizeDictionaries } from './normalizeDictionary';
 export const getUnmergedDictionaryByKeyPath = (
   dictionaryKey: string,
   keyPath: KeyPath[],
-  dictionariesRecord: keyof typeof unmergedDictionary = unmergedDictionary,
+  dictionariesRecord,
   configuration: IntlayerConfig = intlayerConfiguration
 ) => {
-  const unmergedEntries = dictionariesRecord?.[dictionaryKey];
+  const unmergedEntries = (dictionariesRecord ??
+    getUnmergedDictionaries(configuration))?.[dictionaryKey];
 
   if (!unmergedEntries) {
     return null;

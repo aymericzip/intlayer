@@ -1,6 +1,5 @@
-import { readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { writeFileSync } from 'node:fs';
+import { readAsset } from 'utils:asset';
 import { getMarkdownMetadata } from '@intlayer/core';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import { streamText } from 'ai';
@@ -12,7 +11,8 @@ import {
   AIProvider,
   type ChatCompletionRequestMessage,
 } from '../aiSdk';
-import embeddingsList from './embeddings.json' with { type: 'json' };
+
+const embeddingsList = JSON.parse(readAsset('./embeddings.json', 'utf-8'));
 
 type VectorStoreEl = {
   fileKey: string;
@@ -304,21 +304,7 @@ export const searchChunkReference = async (
   return results;
 };
 
-/**
- * Reads the content of a file synchronously.
- *
- * @function
- * @param relativeFilePath - The relative or absolute path to the target file.
- * @returns The entire contents of the specified file as a UTF-8 encoded string.
- */
-const getFileContent = (relativeFilePath: string): string => {
-  const __dirname = dirname(fileURLToPath(import.meta.url));
-  const absolutePath = join(__dirname, relativeFilePath);
-  const fileContent = readFileSync(absolutePath, 'utf-8');
-  return fileContent;
-};
-
-const CHAT_GPT_PROMPT = getFileContent('./PROMPT.md');
+const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
 
 // Initial prompt configuration for the chatbot
 export const initPrompt: ChatCompletionRequestMessage = {

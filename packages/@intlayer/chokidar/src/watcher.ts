@@ -37,13 +37,17 @@ export const watch = (options?: WatchOptions) => {
       stabilityThreshold: 1000,
       pollInterval: 100,
     },
+    ignored: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/build/**',
+      '**/.intlayer/**',
+    ],
     ...options,
   })
     .on('add', async (filePath) => {
       const fileName = basename(filePath);
       recentlyAddedFiles.add(fileName);
-
-      console.log('add', filePath);
 
       await handleAdditionalContentDeclarationFile(filePath, configuration);
 

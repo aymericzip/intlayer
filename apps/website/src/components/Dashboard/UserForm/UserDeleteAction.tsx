@@ -2,10 +2,7 @@
 
 import type { UserAPI } from '@intlayer/backend';
 import { Form, Loader, Modal, toast } from '@intlayer/design-system';
-import {
-  useDeleteUser,
-  useGetUserById,
-} from '@intlayer/design-system/hooks';
+import { useDeleteUser, useGetUserById } from '@intlayer/design-system/hooks';
 import { AlertTriangle, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
@@ -50,7 +47,7 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
 
   if (error) {
     return (
-      <div className="text-error p-6">
+      <div className="p-6 text-error">
         {errorMessages.loadingError}:{' '}
         {(error as Error)?.message ?? 'Unknown error'}
       </div>

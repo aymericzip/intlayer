@@ -126,6 +126,7 @@ const startWatcher = () => {
         '**/.next/**',
         '**/.intlayer/**',
         '**/tsup.config.bundled_*.mjs',
+        '**/*.test.*',
       ],
     }
   );

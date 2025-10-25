@@ -1,2 +1,2 @@
-export { devServerConfig, webpackConfig } from './webpack.config';
+export { devServerConfig, getWebpackConfig } from './webpack.config';
 export { IntlayerPlugin } from './webpack-plugin';

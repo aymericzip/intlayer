@@ -6,15 +6,17 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { loadCLITools } from '../tools/cli';
 import { loadDocsTools } from '../tools/docs';
 
-export const dirname = isESModule
+export const dirname: string = isESModule
   ? pathDirname(fileURLToPath(import.meta.url))
   : __dirname;
 
-const packageJson = JSON.parse(
+const packageJson: Record<string, any> = JSON.parse(
   readFileSync(resolve(dirname, '../../../package.json'), 'utf8')
 );
 
-export const loadServer = (isLocal: boolean): McpServer => {
+type LoadServer = (isLocal: boolean) => McpServer;
+
+export const loadServer: LoadServer = (isLocal) => {
   const server = new McpServer({
     name: 'intlayer',
     version: packageJson.version,

@@ -1,5 +1,5 @@
 import type { Dictionary } from '@intlayer/core';
-import dictionaries from '@intlayer/dictionaries-entry';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { MessageKey } from '@intlayer/editor';
 import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
 import { createSharedComposable } from './createSharedComposable';
@@ -25,6 +25,7 @@ type DictionariesRecordClient = {
 export const createDictionaryRecordClient = () => {
   if (instance) return instance;
 
+  const dictionaries = getDictionaries();
   const localeDictionaries = ref<DictionaryContent>(dictionaries);
 
   instance = {

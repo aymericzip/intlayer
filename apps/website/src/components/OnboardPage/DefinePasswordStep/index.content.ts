@@ -4,20 +4,20 @@ const definePasswordStepContent = {
   key: 'define-password-step',
   content: {
     title: t({
+      ar: 'حدد كلمة مرور',
+      de: 'Ein Passwort definieren',
       en: 'Define a password',
       'en-GB': 'Define a password',
-      fr: 'Définissez un mot de passe',
       es: 'Defina una contraseña',
-      de: 'Ein Passwort definieren',
+      fr: 'Définissez un mot de passe',
+      hi: 'एक पासवर्ड निर्दिष्ट करें',
+      it: 'Definisci una password',
       ja: 'パスワードを定義する',
       ko: '비밀번호 정의',
-      zh: '定义密码',
-      it: 'Definisci una password',
       pt: 'Defina uma senha',
-      hi: 'एक पासवर्ड निर्दिष्ट करें',
-      ar: 'حدد كلمة مرور',
       ru: 'Установить пароль',
       tr: 'Bir şifre belirleyin',
+      zh: '定义密码',
     }),
 
     newPasswordInput: {

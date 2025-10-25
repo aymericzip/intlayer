@@ -1,10 +1,10 @@
-# This loads nvm.sh and sets the correct PATH before running hook
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-
+#!/usr/bin/env sh
 # Validate commit message with commitlint
-if ! pnpm exec commitlint --edit "$1"; then
+
+# Add common bun installation paths to PATH
+export PATH="$HOME/.bun/bin:$PATH"
+
+if ! bun x commitlint --edit "$1"; then
   echo "Commit message validation failed."
   echo "Please use the Conventional Commits format:\n"
   echo "  <type>(<scope>): <subject>\n"

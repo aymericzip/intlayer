@@ -4,20 +4,20 @@ const accessKeyFormContent = {
   key: 'access-key-creation-form',
   content: {
     title: t({
-      en: 'Access key',
-      fr: "Clé d'accès",
-      es: 'Clave de acceso',
+      ar: 'مفتاح الوصول',
       de: 'Zugriffsschlüssel',
+      en: 'Access key',
+      'en-GB': 'Access key',
+      es: 'Clave de acceso',
+      fr: "Clé d'accès",
+      hi: 'एक्सेस कुंजी',
+      it: 'Chiave di accesso',
       ja: 'アクセスキー',
       ko: '액세스 키',
-      zh: '访问密钥',
-      it: 'Chiave di accesso',
       pt: 'Chave de acesso',
-      hi: 'एक्सेस कुंजी',
-      ar: 'مفتاح الوصول',
       ru: 'Ключ доступа',
-      'en-GB': 'Access key',
       tr: 'Erişim anahtarı',
+      zh: '访问密钥',
     }),
     nameInput: {
       label: t({

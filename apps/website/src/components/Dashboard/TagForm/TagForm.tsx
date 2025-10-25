@@ -1,6 +1,6 @@
 'use client';
 
-import type { TagAPI } from '@intlayer/backend';
+import type { GetTagsResult, TagAPI } from '@intlayer/backend';
 import { Container, Loader } from '@intlayer/design-system';
 import { useGetTags } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
@@ -13,16 +13,16 @@ type TagFormContentProps = {
 
 export const TagForm: FC<TagFormContentProps> = ({ tagKey }) => {
   const { noAdminMessage } = useIntlayer('tag-form');
-  const { data: tagResponse, isWaitingData } = useGetTags({
-    args: { key: tagKey },
+  const { data: tagResponse, isFetching } = useGetTags({
+    keys: tagKey,
   });
 
   const isTagAdmin = true;
 
-  const tag = tagResponse?.data?.[0];
+  const tag = (tagResponse as GetTagsResult).data?.[0];
 
   return (
-    <Loader isLoading={isWaitingData}>
+    <Loader isLoading={isFetching}>
       <div className="flex size-full max-w-md flex-col items-center justify-center gap-4">
         {!isTagAdmin && (
           <Container

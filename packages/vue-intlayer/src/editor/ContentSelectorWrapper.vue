@@ -12,14 +12,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
 import { isSameKeyPath, type NodeProps } from '@intlayer/core';
+import { MessageKey } from '@intlayer/editor';
+import { computed, type HTMLAttributes } from 'vue';
 import ContentSelector from '../UI/ContentSelector.vue';
+import { useCommunicator } from './communicator';
 import { useEditorEnabled } from './editorEnabled';
 import { useFocusDictionary } from './focusDictionary';
 import { useEditor } from './useEditor';
-import { MessageKey } from '@intlayer/editor';
-import { useCommunicator } from './communicator';
 
 /**
  * Combine your NodeProps (which include dictionaryKey & keyPath)

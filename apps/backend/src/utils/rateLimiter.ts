@@ -1,5 +1,9 @@
-import type { NextFunction, Request, Response } from 'express';
-import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
+import type { Request, Response } from 'express';
+import rateLimit, {
+  ipKeyGenerator,
+  type Options,
+  type RateLimitRequestHandler,
+} from 'express-rate-limit';
 import { ErrorHandler } from './errors';
 
 // -------------------------------------------------------------
@@ -7,21 +11,17 @@ import { ErrorHandler } from './errors';
 // that the hit counters are shared across every incoming request.
 // -------------------------------------------------------------
 
-export const ipLimiter: (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => unknown = rateLimit({
+const ipLimiterOptions: Partial<Options> = {
   windowMs: 60 * 1000, // 1-minute window
   limit: 500, // 500 requests / IP / window
   standardHeaders: 'draft-8',
   legacyHeaders: false,
   // Use a custom key generator that handles proxy headers securely
-  keyGenerator: (req) => {
+  keyGenerator: (req: Request) => {
     // Normalize IPv6 to subnet using helper to avoid bypasses
     return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
   },
-  handler: (req, res, _next) => {
+  handler: (req: Request, res: Response) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 
     ErrorHandler.handleGenericErrorResponse(res, 'RATE_LIMIT_EXCEEDED', {
@@ -30,24 +30,22 @@ export const ipLimiter: (
       remaining,
     });
   },
-});
+};
 
-export const unauthenticatedChatBotLimiter: (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => any = rateLimit({
+export const ipLimiter: RateLimitRequestHandler = rateLimit(ipLimiterOptions);
+
+const unauthenticatedChatBotLimiterOptions: Partial<Options> = {
   windowMs: 60 * 60 * 1000, // 1-hour window
   limit: 3, // 3 requests / IP / window
   standardHeaders: 'draft-8',
   skip: (_req, res) => Boolean(res.locals.user), // authenticated? then skip
   legacyHeaders: false,
   // Use a custom key generator that handles proxy headers securely
-  keyGenerator: (req) => {
+  keyGenerator: (req: Request) => {
     // Normalize IPv6 to subnet using helper to avoid bypasses
     return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
   },
-  handler: (req, res) => {
+  handler: (req: Request, res: Response) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 
     ErrorHandler.handleGenericErrorResponse(
@@ -60,4 +58,8 @@ export const unauthenticatedChatBotLimiter: (
       }
     );
   },
-});
+};
+
+export const unauthenticatedChatBotLimiter: RateLimitRequestHandler = rateLimit(
+  unauthenticatedChatBotLimiterOptions
+);

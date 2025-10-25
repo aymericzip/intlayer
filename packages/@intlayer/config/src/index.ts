@@ -1,5 +1,6 @@
 export { getAlias } from './alias';
 export { bundleJSFile } from './bundleJSFile';
+export { buildConfigurationFields } from './configFile/buildConfigurationFields';
 export {
   type GetConfigurationAndFilePathResult,
   type GetConfigurationOptions,
@@ -9,7 +10,11 @@ export {
 export { searchConfigurationFile } from './configFile/searchConfigurationFile';
 export { getSandBoxContext } from './getSandboxContext';
 export { getEnvFilePath, loadEnvFile } from './loadEnvFile';
-export { loadExternalFile } from './loadExternalFile';
+export {
+  buildFileContent,
+  loadExternalFile,
+  parseFileContent,
+} from './loadExternalFile';
 export {
   ANSIColors,
   clock,
@@ -45,4 +50,5 @@ export type { Plugin } from './types/plugin';
 export { clearModuleCache } from './utils/clearModuleCache';
 export { ESMxCJSRequire, isESModule } from './utils/ESMxCJSHelpers';
 export { getExtension } from './utils/getExtension';
+export { logStack } from './utils/logStack';
 export { normalizePath } from './utils/normalizePath';

@@ -4,7 +4,7 @@
  * This script allows the user to run a specified npm command (default is 'dev')
  * on selected packages, apps, or examples from a monorepo.
  * The user is prompted to choose items (apps, packages, or examples) through a multi-select prompt.
- * It constructs a command for the selected items and runs it using `pnpm`.
+ * It constructs a command for the selected items and runs it using `bun`.
  * The script supports filtering specific directories or selecting "all" items.
  *
  * The script uses `fast-glob` for pattern matching, `enquirer` for interactive user prompts,
@@ -120,7 +120,7 @@ const main = async () => {
         .map((ex) => `--filter "./${ex.replace('example:', '')}"`);
 
   // Construct the PNPM command, including chosen command
-  const command = `pnpm ${[
+  const command = `bun ${[
     ...packageFilters,
     ...appFilters,
     ...exampleFilters,

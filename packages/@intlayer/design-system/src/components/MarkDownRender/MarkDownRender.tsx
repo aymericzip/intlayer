@@ -251,7 +251,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                   Partial<CodeCompAttributes> & { children: string }
               ) =>
                 !props.className ? (
-                  <strong className="rounded bg-card/60 p-1 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
+                  <strong className="rounded bg-card/60 box-decoration-clone px-1 py-0.5">
                     {props.children}
                   </strong>
                 ) : (

@@ -38,9 +38,11 @@ const config: IntlayerConfig = {
     backendURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    formatCommand: 'bun x biome format {{file}} --write',
   },
   build: {
     importMode: 'dynamic',
+    require,
   },
   ai: {
     apiKey: process.env.OPENAI_API_KEY,

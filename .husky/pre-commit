@@ -1,6 +1,7 @@
-# This loads nvm.sh and sets the correct PATH before running hook
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+#!/usr/bin/env sh
+# Run lint-staged with bun (monorepo uses bun)
 
-# Run lint-staged with pnpm (monorepo uses pnpm)
-npm run lint-staged --concurrent false
+# Add common bun installation paths to PATH
+export PATH="$HOME/.bun/bin:$PATH"
+
+bun run lint-staged --concurrent false

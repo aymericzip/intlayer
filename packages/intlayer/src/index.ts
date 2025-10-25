@@ -40,7 +40,6 @@ export {
   getEnumeration as getEnumerationContent,
   getHTMLTextDir,
   getIntlayer,
-  getIntlayerAsync,
   getLocaleFromPath,
   getLocaleLang,
   getLocaleName,

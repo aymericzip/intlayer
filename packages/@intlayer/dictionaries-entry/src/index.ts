@@ -8,18 +8,23 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import {
   clearModuleCache,
-  ESMxCJSRequire,
   getConfiguration,
   type IntlayerConfig,
 } from '@intlayer/config';
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 
-export const getDictionaries = (
-  configuration: IntlayerConfig = getConfiguration(),
-  projectRequire = ESMxCJSRequire
+export type Dictionaries = Record<
+  IntlayerDictionaryTypesConnector['key'],
+  IntlayerDictionaryTypesConnector
+>;
+
+type GetDictionaries = (configuration?: IntlayerConfig) => Dictionaries;
+
+export const getDictionaries: GetDictionaries = (
+  configuration = getConfiguration()
 ) => {
-  const { content } = configuration;
+  const { content, build } = configuration;
 
   // Always use cjs for dictionaries entry as it uses require
   const dictionariesPath = join(content.mainDir, `dictionaries.cjs`);
@@ -29,7 +34,7 @@ export const getDictionaries = (
     // Clear cache for dictionaries.cjs and all its dependencies (JSON files)
     clearModuleCache(dictionariesPath);
 
-    dictionaries = projectRequire(dictionariesPath);
+    dictionaries = build.require(dictionariesPath);
   }
 
   return (dictionaries ?? {}) as Record<
@@ -37,5 +42,3 @@ export const getDictionaries = (
     IntlayerDictionaryTypesConnector
   >;
 };
-
-export default (() => getDictionaries())();

@@ -1,6 +1,33 @@
 /**
- * Extracts the first JSON value (object or array) from a string.
- * Returns the parsed value, or throws if no valid JSON is found.
+ * Extracts and parses the first valid JSON value (object or array) from a string containing arbitrary text.
+ * This is used to safely extract JSON from LLM responses that may contain additional text or markdown.
+ *
+ * @example
+ * // Extracts JSON object from markdown response:
+ * ```json
+ * {
+ *   "title": "Test content declarations",
+ *   "description": "A comprehensive test dictionary...",
+ *   "tags": ["test tag"]
+ * }
+ * ```
+ *
+ * @example
+ * // Extracts JSON array:
+ * ```json
+ * ["item1", "item2", "item3"]
+ * ```
+ *
+ * @example
+ * // Extracts JSON from markdown:
+ * Here is the response:
+ * ```json
+ * {"key": "value"}
+ * ```
+ * End of response.
+ *
+ * @throws {Error} If no valid JSON object/array is found or if parsing fails
+ * @returns {T} The parsed JSON value cast to type T
  */
 export const extractJson = <T = any>(input: string): T => {
   const opening = input.match(/[{[]/);

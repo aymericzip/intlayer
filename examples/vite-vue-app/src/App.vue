@@ -11,6 +11,7 @@ useI18nHTMLAttributes();
   <nav>
     <RouterLink to="/">Root</RouterLink>
     <RouterLink to="/home">Home</RouterLink>
+    <RouterLink to="/test">Test</RouterLink>
     <LocaleSwitcher />
   </nav>
   <RouterView />

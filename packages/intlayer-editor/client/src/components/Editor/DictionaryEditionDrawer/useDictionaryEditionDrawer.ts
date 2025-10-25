@@ -1,4 +1,9 @@
-import type { ContentNode, KeyPath } from '@intlayer/core';
+import type {
+  ContentNode,
+  Dictionary,
+  KeyPath,
+  LocalDictionaryId,
+} from '@intlayer/core';
 import { useRightDrawerStore } from '@intlayer/design-system';
 import {
   useEditedContentActions,
@@ -23,7 +28,7 @@ type DictionaryEditionDrawer = {
   isOpen: boolean;
   close: () => void;
   getEditedContentValue: (
-    dictionaryKey: DictionaryKey,
+    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
     keyPath: KeyPath[]
   ) => ContentNode | undefined;
 };

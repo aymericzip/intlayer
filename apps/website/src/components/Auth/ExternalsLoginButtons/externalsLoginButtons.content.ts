@@ -4,20 +4,20 @@ export const externalsLoginButtonsContent = {
   key: 'externals-login-buttons',
   content: {
     span: t({
-      en: 'or',
-      fr: 'ou',
-      es: 'o',
+      ar: 'أو',
       de: 'oder',
+      en: 'or',
+      'en-GB': 'or',
+      es: 'o',
+      fr: 'ou',
+      hi: 'या',
+      it: 'o',
       ja: 'または',
       ko: '또는',
-      zh: '或',
-      it: 'o',
       pt: 'ou',
-      hi: 'या',
-      ar: 'أو',
       ru: 'или',
-      'en-GB': 'or',
       tr: 'veya',
+      zh: '或',
     }),
     github: {
       label: t({

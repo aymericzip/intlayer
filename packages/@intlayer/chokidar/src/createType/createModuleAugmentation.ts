@@ -1,6 +1,6 @@
 import { mkdir } from 'node:fs/promises';
 import { basename, extname, join, relative } from 'node:path';
-import { getConfiguration, Locales, normalizePath } from '@intlayer/config';
+import { type IntlayerConfig, Locales, normalizePath } from '@intlayer/config';
 import fg from 'fast-glob';
 import { getFileHash } from '../utils/getFileHash';
 import { kebabCaseToCamelCase } from '../utils/kebabCaseToCamelCase';
@@ -9,15 +9,12 @@ import { writeFileIfChanged } from '../writeFileIfChanged';
 export const getTypeName = (key: string): string =>
   `${kebabCaseToCamelCase(key)}Content`;
 
+const validLocales = Object.values(Locales);
+
 const formatLocales = (locales: Locales[]): string =>
   locales
-    .map((locale) => {
-      for (const key in Locales) {
-        if (Locales[key as keyof typeof Locales] === locale) {
-          return `Locales.${key}`;
-        }
-      }
-    })
+    .filter((locale) => validLocales.includes(locale))
+    .map((locale) => `Locales.${locale}`)
     .join(' | ');
 
 /**
@@ -25,7 +22,7 @@ const formatLocales = (locales: Locales[]): string =>
  */
 const generateTypeIndexContent = (
   typeFiles: string[],
-  configuration = getConfiguration()
+  configuration: IntlayerConfig
 ): string => {
   const { content, internationalization } = configuration;
   const { moduleAugmentationDir } = content;
@@ -105,7 +102,7 @@ const generateTypeIndexContent = (
  * This function generates a index file merging all the types
  */
 export const createModuleAugmentation = async (
-  configuration = getConfiguration()
+  configuration: IntlayerConfig
 ) => {
   const { moduleAugmentationDir, typesDir } = configuration.content;
 
@@ -120,7 +117,10 @@ export const createModuleAugmentation = async (
   );
 
   // Create the dictionary list file
-  const tsContent = generateTypeIndexContent(dictionariesTypesDefinitions);
+  const tsContent = generateTypeIndexContent(
+    dictionariesTypesDefinitions,
+    configuration
+  );
 
   const tsFilePath = join(moduleAugmentationDir, 'intlayer.d.ts');
 

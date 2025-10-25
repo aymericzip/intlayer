@@ -13,11 +13,12 @@ export enum NodeType {
   Number = 'number',
   Boolean = 'boolean',
   Gender = 'gender',
+  Null = 'null',
   Unknown = 'unknown',
 }
 
 type AdditionalAttributesType = {
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 export type TypedNodeModel<
@@ -32,12 +33,12 @@ export type TypedNodeModel<
 
 export const formatNodeType = <
   T extends NodeType,
-  Content = any,
+  Content = unknown,
   AdditionalAttributes extends AdditionalAttributesType = {},
 >(
   nodeType: T | `${T}`,
   content: Content,
-  additionalAttributes?: { [key: string]: any }
+  additionalAttributes?: { [key: string]: unknown }
 ) =>
   ({
     ...additionalAttributes,

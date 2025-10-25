@@ -15,6 +15,7 @@ export const mapUserToAPI = <T extends User | UserAPI | null>(
 
   const userObject = ensureMongoDocumentToObject(user);
 
+  // biome-ignore lint/correctness/noUnusedVariables: Just filter out provider and session
   const { provider, session, ...userAPI } = userObject as any;
 
   return userAPI as any;

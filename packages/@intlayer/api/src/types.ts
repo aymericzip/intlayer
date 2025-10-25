@@ -50,6 +50,7 @@ export type {
   DeleteProjectResult,
   DeleteTagParams,
   DeleteTagResult,
+  DictionaryAPI,
   GetCheckoutSessionBody,
   GetCheckoutSessionResult,
   GetDictionariesKeysResult,

@@ -8,6 +8,7 @@ import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
+import TestView from './views/test/TestView.vue';
 
 // Get internationalization configuration
 const { internationalization, middleware } = configuration;
@@ -26,6 +27,14 @@ const routes = localeFlatMap((localizedData) => [
     path: `${localizedData.urlPrefix}/home`,
     name: `Home-${localizedData.locale}`,
     component: HomeView,
+    meta: {
+      locale: localizedData.locale,
+    },
+  },
+  {
+    path: `${localizedData.urlPrefix}/test`,
+    name: `Test-${localizedData.locale}`,
+    component: TestView,
     meta: {
       locale: localizedData.locale,
     },

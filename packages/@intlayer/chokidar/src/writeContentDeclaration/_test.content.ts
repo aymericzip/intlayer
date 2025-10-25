@@ -8,7 +8,7 @@ import {
   nest,
   t,
 } from '@intlayer/core';
-import { file } from '@intlayer/core/file';
+import { fileContent as file } from '@intlayer/core/file';
 
 const content: Dictionary = {
   key: 'test',
@@ -79,26 +79,16 @@ const content: Dictionary = {
     partialNestedContent: nest('code', 'title') as any,
     myMarkdownContent: md('## My title \n\nLorem Ipsum'),
     myMarkdownFileContent: md(file('./file.md')),
-    contentMultilingual: t({
+    markdownMultilingual: t({
       en: md('## test en'),
       fr: md('## test fr'),
-      es: md('## test es'),
-      'en-GB': md('## test en-GB'),
-      pl: md('## test pl'),
-      'pl-PL': md('## test pl-PL'),
-      pt: md('## test pt'),
-      ru: md('## test ru'),
-      tr: md('## test tr'),
-      zh: md('## test zh'),
-      id: md('## test id'),
-      hi: md('## test hi'),
-      it: md('## test it'),
-      ja: md('## test ja'),
-      ko: md('## test ko'),
-      de: md('## test de'),
-      ar: md('## test ar'),
-      text: () => 'This is the content rendered by a function',
     }),
+    markdownMultilingual2: md(
+      t({
+        en: '## test en',
+        fr: '## test fr',
+      })
+    ),
     arrayContent: ['string', 'string2', 'string3', 'string4', 'string5'],
     arrayNestedContent: [
       {
@@ -119,6 +109,26 @@ const content: Dictionary = {
         description: 'object description',
       },
     },
+    arrayOfTranslations: [
+      t({
+        en: 'Hello 1',
+        fr: 'Bonjour 1',
+      }),
+      t({
+        en: 'Hello 2',
+        fr: 'Bonjour 2',
+      }),
+    ],
+    translationOfArray: [
+      t({
+        en: 'Hello 1',
+        fr: 'Bonjour 1',
+      }),
+      t({
+        en: 'Hello 2',
+        fr: 'Bonjour 2',
+      }),
+    ],
   },
 };
 

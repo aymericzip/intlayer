@@ -8,6 +8,7 @@ import {
   getFileMetadataBySlug,
   getFileMetadataRecord,
   getFiles,
+  getKeys,
 } from './common';
 import { frequentQuestionsEntry } from './generated/frequentQuestions.entry';
 
@@ -17,6 +18,10 @@ export type FrequentQuestions = Record<
   Record<LocalesValues, Promise<string>>
 >;
 export type FrequentQuestionMetadata = FileMetadata;
+
+export const getFrequentQuestionsKeys =
+  (): (keyof typeof frequentQuestionsEntry)[] =>
+    getKeys(frequentQuestionsEntry);
 
 export const getFrequentQuestions = async <L extends Locales>(
   locale: L = defaultLocale as L

@@ -3,6 +3,7 @@ import {
   IMPORT_MODE,
   OPTIMIZE,
   OUTPUT_FORMAT,
+  REQUIRE,
   TRAVERSE_PATTERN,
 } from '../defaultValues/build';
 import {
@@ -16,7 +17,6 @@ import {
   FILE_EXTENSIONS,
   MAIN_DIR,
   MODULE_AUGMENTATION_DIR,
-  NORMALIZED_DICTIONARIES_DIR,
   REMOTE_DICTIONARIES_DIR,
   TYPES_DIR,
   UNMERGED_DICTIONARIES_DIR,
@@ -67,8 +67,6 @@ import type {
 import { normalizePath } from '../utils/normalizePath';
 
 let storedConfiguration: IntlayerConfig;
-
-// @TODO - Add possibility of directories configurations to be arrays to allow multiple packages management
 
 const buildInternationalizationFields = (
   customConfiguration?: Partial<InternationalizationConfig>
@@ -251,10 +249,7 @@ const buildContentFields = (
     /**
      * Should exclude some directories from the content search
      *
-     * Default: ['node_modules']
-     *
-     * Not used yet
-     * @TODO Implement the exclusion or remove it
+     * Default: ['**\/node_modules/**', '**\/dist/**', '**\/build/**', '**\/.intlayer/**', '**\/.next/**', '**\/.nuxt/**', '**\/.expo/**', '**\/.vercel/**', '**\/.turbo/**', '**\/.tanstack/**']
      */
     excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
 
@@ -612,6 +607,32 @@ const buildEditorFields = (
   liveSyncURL:
     customConfiguration?.liveSyncURL ??
     `http://localhost:${customConfiguration?.liveSyncPort ?? LIVE_SYNC_PORT}`,
+
+  /**
+   * Command to format the content. When intlayer write your .content files locally, this command will be used to format the content.
+   * Intlayer will replace the {{file}} with the path of the file to format.
+   *
+   * Example:
+   *
+   * ```bash
+   * npx prettier --write {{file}}
+   * ```
+   *
+   * ```bash
+   * bunx biome format {{file}}
+   * ```
+   *
+   * ```bash
+   * bun format {{file}}
+   * ```
+   *
+   * ```bash
+   * npx eslint --fix {{file}}
+   * ```
+   *
+   * Default: undefined
+   */
+  formatCommand: customConfiguration?.formatCommand,
 });
 
 const buildLogFields = (
@@ -752,6 +773,11 @@ const buildBuildFields = (
    * - 'esm': The dictionaries are outputted as ES modules.
    */
   outputFormat: customConfiguration?.outputFormat ?? OUTPUT_FORMAT,
+
+  /**
+   * Require function
+   */
+  require: customConfiguration?.require ?? REQUIRE,
 });
 
 /**

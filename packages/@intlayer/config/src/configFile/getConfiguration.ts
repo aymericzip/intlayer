@@ -10,17 +10,13 @@ import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
 import { searchConfigurationFile } from './searchConfigurationFile';
 
-let storedConfiguration: IntlayerConfig | undefined;
-let storedConfigurationFilePath: string | undefined;
-let storedNumCustomConfiguration: number | undefined;
-
 export type GetConfigurationOptions = {
   baseDir?: string;
   override?: CustomIntlayerConfig;
   env?: string;
   envFile?: string;
   logFunctions?: LogFunctions;
-  projectRequire?: NodeJS.Require;
+  require?: NodeJS.Require;
   additionalEnvVars?: Record<string, string>;
 };
 
@@ -39,62 +35,61 @@ export const getConfigurationAndFilePath = (
 ): GetConfigurationAndFilePathResult => {
   const mergedOptions = {
     baseDir: BASE_DIR_PATH,
+    require: options?.require,
     ...options,
   };
 
-  const {
-    baseDir,
-    env,
-    envFile,
-    logFunctions,
-    additionalEnvVars,
-    projectRequire,
-  } = mergedOptions;
+  // Search for configuration files
+  const { configurationFilePath, numCustomConfiguration } =
+    searchConfigurationFile(mergedOptions.baseDir);
 
-  if (!storedConfiguration || typeof options !== 'undefined') {
-    // Search for configuration files
-    const { configurationFilePath, numCustomConfiguration } =
-      searchConfigurationFile(baseDir);
+  if (options?.override?.log?.mode === 'verbose') {
+    logConfigFileResult(numCustomConfiguration, configurationFilePath);
+  }
 
+  let storedConfiguration: IntlayerConfig | undefined;
+
+  if (configurationFilePath) {
     // Load the custom configuration
-    let customConfiguration: CustomIntlayerConfig | undefined;
-
-    if (configurationFilePath) {
-      customConfiguration = loadConfigurationFile(
+    const customConfiguration: CustomIntlayerConfig | undefined =
+      loadConfigurationFile(
         configurationFilePath,
-        { env, envFile },
-        projectRequire,
-        additionalEnvVars
+        mergedOptions.require,
+        { env: mergedOptions.env, envFile: mergedOptions.envFile },
+        mergedOptions.additionalEnvVars
       );
-    }
 
     // Save the configuration to avoid reading the file again
     storedConfiguration = buildConfigurationFields(
       customConfiguration,
-      baseDir,
-      logFunctions
+      mergedOptions.baseDir,
+      mergedOptions.logFunctions
     );
-
-    storedConfigurationFilePath = configurationFilePath;
-    storedNumCustomConfiguration = numCustomConfiguration;
   }
 
   // Log warning if multiple configuration files are found
-  if (options?.override?.log?.mode === 'verbose') {
-    logConfigFileResult(
-      storedNumCustomConfiguration,
-      storedConfigurationFilePath
-    );
-  }
+
+  const projectRequireConfig: CustomIntlayerConfig = mergedOptions.require
+    ? {
+        build: {
+          require: mergedOptions.require,
+        },
+      }
+    : {};
+
+  const configWithProjectRequire = merge(
+    storedConfiguration ?? {},
+    projectRequireConfig
+  ) as CustomIntlayerConfig;
 
   const configuration = merge(
-    storedConfiguration,
-    options?.override ?? {}
+    configWithProjectRequire,
+    mergedOptions.override ?? {}
   ) as IntlayerConfig;
 
   return {
     configuration,
-    configurationFilePath: storedConfigurationFilePath,
+    configurationFilePath,
   };
 };
 

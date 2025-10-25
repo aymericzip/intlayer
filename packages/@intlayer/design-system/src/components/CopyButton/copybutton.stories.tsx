@@ -729,8 +729,8 @@ function MyComponent() {
   "name": "@intlayer/design-system",
   "version": "1.0.0",
   "dependencies": {
-    "react": "^18.0.0",
-    "lucide-react": "^0.263.0"
+    "react": "18.0.0",
+    "lucide-react": "0.263.0"
   }
 }`}</code>
             </pre>
@@ -739,8 +739,8 @@ function MyComponent() {
   "name": "@intlayer/design-system",
   "version": "1.0.0",
   "dependencies": {
-    "react": "^18.0.0",
-    "lucide-react": "^0.263.0"
+    "react": "18.0.0",
+    "lucide-react": "0.263.0"
   }
 }`}
               className="absolute top-2 right-2"

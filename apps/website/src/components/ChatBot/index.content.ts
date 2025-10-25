@@ -23,21 +23,21 @@ const chatFormSectionContent = {
       }),
     },
     rateLimitExceededMessage: t({
+      ar: 'عدد الطلبات محدود للمستخدمين غير المصرح لهم. يرجى المحاولة مرة أخرى لاحقًا، أو تسجيل الدخول لزيادة الحد وفتح المزيد من المودلات.',
+      de: 'Die Anzahl der Anfragen ist für nicht authentifizierte Benutzer begrenzt. Bitte versuchen Sie es später erneut, oder melden Sie sich an, um Ihre Begrenzung zu erhöhen und bessere Modelle zu entsperren.',
       en: 'The number of requests is limited for unauthenticated users. Please try again later, or sign in to increase your limit and unlock better models.',
       'en-GB':
         'The number of requests is limited for unauthenticated users. Please try again later, or sign in to increase your limit and unlock better models.',
-      fr: 'Le nombre de requêtes est limité pour les utilisateurs non authentifiés. Veuillez réessayer plus tard, ou connectez-vous pour augmenter votre limite et débloquer de meilleurs modèles.',
       es: 'El número de solicitudes está limitado para usuarios no autenticados. Por favor, inténtelo de nuevo más tarde, o inicie sesión para aumentar su límite y desbloquear mejores modelos.',
-      de: 'Die Anzahl der Anfragen ist für nicht authentifizierte Benutzer begrenzt. Bitte versuchen Sie es später erneut, oder melden Sie sich an, um Ihre Begrenzung zu erhöhen und bessere Modelle zu entsperren.',
+      fr: 'Le nombre de requêtes est limité pour les utilisateurs non authentifiés. Veuillez réessayer plus tard, ou connectez-vous pour augmenter votre limite et débloquer de meilleurs modèles.',
+      hi: 'अनुमोदित उपयोगकर्ताओं के लिए अनुरोधों की संख्या सीमित है। कृपया बाद में पुनः प्रयास करें, या लॉग इन करके सीमा बढ़ाएं और बेहतर मॉडल खोलें।',
+      it: 'Il numero di richieste è limitato per gli utenti non autenticati. Per favore, riprova più tardi, o accedi per aumentare il limite e sbloccare modelli migliori.',
       ja: '非認証ユーザーのリクエスト数は制限されています。後でもう一度お試しください、またはログインして制限を増やしてください。',
       ko: '인증되지 않은 사용자의 요청 수는 제한되어 있습니다. 나중에 다시 시도하거나 로그인하여 제한을 늘리세요.',
-      zh: '未认证用户的请求数有限。请稍后再试，或登录以增加您的限制。',
-      it: 'Il numero di richieste è limitato per gli utenti non autenticati. Per favore, riprova più tardi, o accedi per aumentare il limite e sbloccare modelli migliori.',
       pt: 'O número de solicitações é limitado para usuários não autenticados. Por favor, tente novamente mais tarde, ou faça login para aumentar seu limite e desbloquear modelos melhores.',
-      hi: 'अनुमोदित उपयोगकर्ताओं के लिए अनुरोधों की संख्या सीमित है। कृपया बाद में पुनः प्रयास करें, या लॉग इन करके सीमा बढ़ाएं और बेहतर मॉडल खोलें।',
-      ar: 'عدد الطلبات محدود للمستخدمين غير المصرح لهم. يرجى المحاولة مرة أخرى لاحقًا، أو تسجيل الدخول لزيادة الحد وفتح المزيد من المودلات.',
       ru: 'Количество запросов ограничено для неавторизованных пользователей. Пожалуйста, попробуйте снова позже, или войдите для увеличения лимита и открытия лучших моделей.',
       tr: 'Kimliği doğrulanmamış kullanıcılar için istek sayısı sınırlıdır. Lütfen daha sonra tekrar deneyin veya sınırınızı artırmak ve daha iyi modelleri açmak için giriş yapın.',
+      zh: '未认证用户的请求数有限。请稍后再试，或登录以增加您的限制。',
     }),
     signInButton: {
       text: t({

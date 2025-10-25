@@ -4,7 +4,7 @@ import type { LocalesValues } from '@intlayer/config/client';
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
-import dictionaries from '@intlayer/dictionaries-entry';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { Dictionary, DictionaryKeys } from '../types';
 import type { IntlayerDictionaryTypesConnector } from '../types/intlayer';
 import type { DeepTransformContent, Plugins } from './getContent/plugins';
@@ -15,6 +15,7 @@ export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   locale?: L,
   plugins?: Plugins[]
 ) => {
+  const dictionaries = getDictionaries();
   const dictionary = dictionaries[key as T];
 
   if (!dictionary) {

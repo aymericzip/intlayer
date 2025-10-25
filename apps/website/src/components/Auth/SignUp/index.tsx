@@ -9,11 +9,7 @@ import { VerifyEmailForm as VerifyEmailFormUI } from '../VerifyEmail';
 import type { SignUp } from './SignUpForm';
 import { SignUpForm as SignUpFormUI } from './SignUpForm/SignUpForm';
 
-type SignUpFormProps = {
-  callbackUrl?: string;
-};
-
-export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
+export const SignUpForm: FC = () => {
   const router = useRouter();
   const userId = useSearchParams().get('') as string | undefined;
   const [user, setUser] = useState<UserAPI | null>(null);

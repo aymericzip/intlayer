@@ -8,7 +8,11 @@ import {
   type LocalesValues,
   type Plugin,
 } from '@intlayer/config';
-import type { ContentNode, Dictionary } from '@intlayer/core';
+import type {
+  ContentNode,
+  Dictionary,
+  LocalDictionaryId,
+} from '@intlayer/core';
 import fg from 'fast-glob';
 
 type JSONContent = Record<string, any>;
@@ -193,10 +197,7 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
   return {
     name: 'sync-json',
 
-    loadDictionaries: async ({
-      projectRequire = ESMxCJSRequire,
-      configuration,
-    }) => {
+    loadDictionaries: async ({ configuration }) => {
       const dictionariesMap: DictionariesMap = loadMessagePathMap(
         options.source,
         configuration
@@ -214,7 +215,7 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
       const dictionaries: Dictionary[] = [];
 
       for (const { locale, path, key } of dictionariesMap) {
-        const json: JSONContent = projectRequire(path as string);
+        const json: JSONContent = configuration.build.require(path as string);
 
         const filePath = relative(configuration.content.baseDir, path);
 
@@ -222,7 +223,7 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
           key,
           locale,
           autoFill,
-          localId: `${key}::${location}::${filePath}`,
+          localId: `${key}::${location}::${filePath}` as LocalDictionaryId,
           location: location as Dictionary['location'],
           autoFilled:
             locale !== configuration.internationalization.defaultLocale

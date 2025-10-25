@@ -58,7 +58,7 @@ export const overrideCracoConfig = ({
         // Ensure we actually add IntlayerWebpackPlugin
         add: [
           ...(cracoConfig.webpack?.plugins?.add ?? []),
-          new IntlayerWebpackPlugin(),
+          new IntlayerWebpackPlugin(intlayerConfig),
         ],
       },
       configure: {

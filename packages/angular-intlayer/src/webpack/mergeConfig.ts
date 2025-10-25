@@ -29,7 +29,7 @@ export const mergeConfig = (baseConfig: WebpackConfig): WebpackConfig => {
         },
       ],
     },
-    plugins: [new IntlayerPlugin()],
+    plugins: [new IntlayerPlugin(intlayerConfig)],
   };
 
   return merge(baseConfig, config);

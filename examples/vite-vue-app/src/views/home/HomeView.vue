@@ -3,19 +3,21 @@ import { useIntlayer } from 'vue-intlayer';
 
 // Use the useIntlayer composable to access translations
 const content = useIntlayer('home');
+const { syntax1, syntax2, syntax5 } = useIntlayer('home');
 </script>
 
 <template>
   <div class="home-container">
     <header>
-      <h1><content.welcome /></h1>
-      <p class="subtitle"><content.subtitle /></p>
+      <h1>{{content.welcome}} </h1>
+      <p class="subtitle">{{content.subtitle}}</p>
     </header>
 
     <main>
       <section class="description">
         <p><content.description /></p>
       </section>
+
 
       <section class="features">
         <h2><content.features.title /></h2>
@@ -53,6 +55,12 @@ h1 {
 }
 
 .description {
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.syntax {
   margin-bottom: 2.5rem;
   font-size: 1.1rem;
   line-height: 1.6;
