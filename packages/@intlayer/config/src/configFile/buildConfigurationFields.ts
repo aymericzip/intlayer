@@ -6,6 +6,7 @@ import type {
   BuildConfig,
   ContentConfig,
   CustomIntlayerConfig,
+  DictionaryConfig,
   EditorConfig,
   InternationalizationConfig,
   IntlayerConfig,
@@ -30,7 +31,6 @@ import {
   EXCLUDED_PATHS,
   FETCH_DICTIONARIES_DIR,
   FILE_EXTENSIONS,
-  FILL,
   MAIN_DIR,
   MODULE_AUGMENTATION_DIR,
   REMOTE_DICTIONARIES_DIR,
@@ -38,6 +38,7 @@ import {
   UNMERGED_DICTIONARIES_DIR,
   WATCH,
 } from '../defaultValues/content';
+import { FILL } from '../defaultValues/dictionary';
 import {
   APPLICATION_URL,
   BACKEND_URL,
@@ -248,13 +249,6 @@ const buildContentFields = (
      * Default: process.env.NODE_ENV === 'development'
      */
     watch: customConfiguration?.watch ?? WATCH,
-
-    /**
-     * Indicate how the content should be filled using AI.
-     *
-     * Default: true
-     */
-    fill: customConfiguration?.fill ?? FILL,
   };
 
   const baseDirDerivedConfiguration: BaseDerivedConfig = {
@@ -774,6 +768,17 @@ const buildBuildFields = (
   require: customConfiguration?.require ?? ESMxCJSRequire,
 });
 
+const buildDictionaryFields = (
+  customConfiguration?: Partial<DictionaryConfig>
+): DictionaryConfig => ({
+  /**
+   * Indicate how the dictionary should be filled using AI.
+   *
+   * Default: true
+   */
+  fill: customConfiguration?.fill ?? FILL,
+});
+
 /**
  * Build the configuration fields by merging the default values with the custom configuration
  */
@@ -801,6 +806,10 @@ export const buildConfigurationFields = (
 
   const buildConfig = buildBuildFields(customConfiguration?.build);
 
+  const dictionaryConfig = buildDictionaryFields(
+    customConfiguration?.dictionary
+  );
+
   storedConfiguration = {
     internationalization: internationalizationConfig,
     routing: routingConfig,
@@ -809,6 +818,7 @@ export const buildConfigurationFields = (
     log: logConfig,
     ai: aiConfig,
     build: buildConfig,
+    dictionary: dictionaryConfig,
     plugins: customConfiguration?.plugins,
   };
 

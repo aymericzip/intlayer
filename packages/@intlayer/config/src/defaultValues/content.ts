@@ -51,5 +51,3 @@ export const CONFIG_DIR = '.intlayer/config';
 export const CACHE_DIR = '.intlayer/cache';
 
 export const WATCH = process.env.NODE_ENV === 'development';
-
-export const FILL = true;

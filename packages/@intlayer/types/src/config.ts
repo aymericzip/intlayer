@@ -1,4 +1,4 @@
-import type { Fill } from './dictionary';
+import type { Dictionary } from './dictionary';
 import type { Locale } from './locales';
 import type { Plugin } from './plugin';
 
@@ -572,6 +572,11 @@ export type CustomIntlayerConfig = {
   internationalization?: Partial<InternationalizationConfig>;
 
   /**
+   * Custom dictionary configuration
+   */
+  dictionary?: Partial<DictionaryConfig>;
+
+  /**
    * Custom routing configuration
    */
   routing?: Partial<RoutingConfig>;
@@ -607,6 +612,18 @@ export type CustomIntlayerConfig = {
   plugins?: Plugin[];
 };
 
+export type DictionaryConfig = Pick<
+  Dictionary,
+  | 'fill'
+  | 'description'
+  | 'locale'
+  | 'priority'
+  | 'live'
+  | 'title'
+  | 'tags'
+  | 'version'
+>;
+
 /**
  * Combined configuration for internationalization, middleware, and content
  */
@@ -615,6 +632,11 @@ export type IntlayerConfig = {
    * Internationalization configuration
    */
   internationalization: InternationalizationConfig;
+
+  /**
+   * Default dictionary configuration
+   */
+  dictionary?: Partial<DictionaryConfig>;
 
   /**
    * Routing configuration
@@ -689,14 +711,6 @@ export type BaseContentConfig = {
    * Default: process.env.NODE_ENV === 'development'
    */
   watch: boolean;
-
-  /**
-   * Indicate how the content should be automatically filled using AI.
-   *
-   * Default: undefined
-   *
-   */
-  fill: Fill;
 };
 
 /**

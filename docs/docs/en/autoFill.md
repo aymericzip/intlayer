@@ -67,6 +67,8 @@ const config: IntlayerConfig = {
       defaultLocale: Locales.ENGLISH,
       requiredLocales: [Locales.ENGLISH], // Recommended to avoid Property 'pl' is missing in type '{ en: string; xxx } on your t function if
     },
+  },
+  dictionary: {
     fill: {
       en: true, // Fill and edit the current file for English
       fr: "./translations/fr.json", // Create separate file for French
@@ -133,7 +135,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
     requiredLocales: [Locales.ENGLISH, Locales.FRENCH],
   },
-  content: {
+  dictionary: {
     // Auto-generate missing translations for all dictionaries
     fill: "./{{fileName}}Filled.content.ts",
     //

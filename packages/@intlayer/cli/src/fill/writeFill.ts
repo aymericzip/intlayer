@@ -30,7 +30,7 @@ export const writeFill = async (
   }
 
   const autoFillOptions =
-    contentDeclarationFile.fill ?? configuration.content.fill;
+    contentDeclarationFile.fill ?? configuration.dictionary?.fill ?? false;
 
   if (
     typeof autoFillOptions === 'boolean' &&

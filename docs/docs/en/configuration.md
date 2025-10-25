@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-10-21
+updatedAt: 2025-10-25
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.0.0
+    date: 2025-10-25
+    changes: Add `dictionary` configuration
   - version: 7.0.0
     date: 2025-10-21
     changes: Replace `middleware` by `routing` configuration
@@ -77,8 +80,10 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH],
   },
   content: {
-    autoFill: "./{{fileName}}.content.json",
     contentDir: ["src", "../ui-library"],
+  },
+  dictionary: {
+    fill: "./{{fileName}}.content.json",
   },
   middleware: {
     noPrefix: false,
@@ -134,6 +139,9 @@ module.exports = config;
   },
   "content": {
     "contentDir": ["src", "../ui-library"],
+  },
+  "dictionary": {
+    "fill": "./{{fileName}}.content.json",
   },
   "middleware": {
     "noPrefix": false,
@@ -517,19 +525,6 @@ Settings related to content handling within the application, including directory
 
 #### Properties
 
-- **fill**:
-  - _Type_: `boolean | string | { [key in Locales]?: string }`
-  - _Default_: `undefined`
-  - _Description_: Indicate how the content should be automatically filled using AI. Can be declared globally in the `intlayer.config.ts` file.
-  - _Example_: true
-  - _Example_: `'./{{fileName}}.content.json'`
-  - _Example_: `{ fr: './{{fileName}}.fr.content.json', es: './{{fileName}}.es.content.json' }`
-  - _Note_: The auto fill configuration. It can be:
-    - `true`: Rewrites the current file with filled content for all locales
-    - `false`: Disables auto-fill completely
-    - `string`: Path to a single file or template with variables (fills the specified file without modifying the current one)
-    - `object`: Per-locale file paths
-
 - **watch**:
   - _Type_: `boolean`
   - _Default_: `process.env.NODE_ENV === 'development'`
@@ -596,6 +591,30 @@ Settings related to content handling within the application, including directory
   - _Default_: `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']`
   - _Description_: Directories excluded from content search.
   - _Note_: This setting is not yet used, but planned for future implementation.
+
+### Dictionary Configuration
+
+Settings that control dictionary operations, including auto-fill behavior and content generation.
+
+This dictionary configuration serves two main purposes:
+
+1. **Default Values**: Define default values when creating content declaration files
+2. **Fallback Behavior**: Provide fallback values when specific fields are not defined, allowing you to define dictionary operation behavior globally
+
+For more information about content declaration files and how configuration values are applied, see the [Content File Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
+
+#### Properties
+
+- **fill**
+- **description**
+- **locale**
+- **priority**
+- **live**
+- **title**
+- **tags**
+- **version**
+
+---
 
 ### Logger Configuration
 

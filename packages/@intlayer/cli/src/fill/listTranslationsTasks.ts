@@ -70,7 +70,7 @@ export const listTranslationsTasks = (
     const mainDictionaryToProcess: Dictionary =
       mergedDictionariesRecord[dictionaryKey];
     const dictionaryFill =
-      targetUnmergedDictionary.fill ?? configuration.content.fill;
+      targetUnmergedDictionary.fill ?? configuration.dictionary?.fill ?? false;
 
     if (dictionaryFill === false) continue;
 

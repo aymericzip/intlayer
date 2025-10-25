@@ -22,7 +22,11 @@ export const writeJSFile = async (
   dictionary: Dictionary,
   configuration: IntlayerConfig
 ): Promise<void> => {
-  const { key, locale, filled } = dictionary;
+  const mergedDictionary = {
+    ...configuration.dictionary,
+    ...dictionary,
+  };
+
   const appLogger = getAppLogger(configuration);
 
   // Check if the file exist
@@ -34,10 +38,24 @@ export const writeJSFile = async (
     appLogger('File does not exist, creating it', {
       isVerbose: true,
     });
-    const template = await getContentDeclarationFileTemplate(key, format, {
-      locale,
-      filled,
-    });
+    const template = await getContentDeclarationFileTemplate(
+      mergedDictionary.key,
+      format,
+      // Filter out undefined values
+      Object.fromEntries(
+        Object.entries({
+          locale: mergedDictionary.locale,
+          filled: mergedDictionary.filled,
+          fill: mergedDictionary.fill,
+          description: mergedDictionary.description,
+          title: mergedDictionary.title,
+          tags: mergedDictionary.tags,
+          version: mergedDictionary.version,
+          priority: mergedDictionary.priority,
+          live: mergedDictionary.live,
+        }).filter(([, value]) => value !== undefined)
+      )
+    );
 
     await writeFile(filePath, template, 'utf-8');
   }

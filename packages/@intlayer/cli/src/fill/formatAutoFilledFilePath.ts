@@ -1,11 +1,4 @@
-import {
-  basename,
-  dirname,
-  isAbsolute,
-  normalize,
-  relative,
-  resolve,
-} from 'node:path';
+import { basename, dirname, isAbsolute, normalize, resolve } from 'node:path';
 import type { LocalesValues } from '@intlayer/types';
 
 export const formatAutoFilledFilePath = (
