@@ -510,15 +510,6 @@ module.exports = config;
 
 注意事項と制約：
 
-- サイトのセキュリティポリシー（CSP）にLive Syncのオリジンを追加してください。`connect-src`（および該当する場合は`frame-ancestors`）にLive SyncのURLが許可されていることを確認してください。
-- Live Syncは静的出力では動作しません。Next.jsの場合、ページは動的である必要があり、ランタイムで更新を受け取るために（例：`generateStaticParams`、`generateMetadata`、`getServerSideProps`、または`getStaticProps`を適切に使用して）完全な静的のみの制約を回避してください。
-
-```
-
-このセットアップは、開発サーバーを Live Sync サーバーでラップし、起動時にリモート辞書を取得し、CMS からの更新を SSE 経由でストリーミングします。変更を確認するにはページをリフレッシュしてください。
-
-注意事項と制約：
-
 - Live Sync のオリジンをサイトのセキュリティポリシー（CSP）に追加してください。Live Sync の URL が `connect-src`（および該当する場合は `frame-ancestors`）で許可されていることを確認してください。
 - Live Sync は静的出力では動作しません。Next.js の場合、ページはランタイムで更新を受け取るために動的である必要があります（例：完全な静的のみの制約を避けるために、`generateStaticParams`、`generateMetadata`、`getServerSideProps`、または `getStaticProps` を適切に使用してください）。
 - CMSでは、各辞書に`live`フラグがあります。`live=true`の辞書のみがライブ同期APIを通じて取得され、それ以外は動的にインポートされ、実行時には変更されません。

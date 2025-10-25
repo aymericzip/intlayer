@@ -502,37 +502,14 @@ const config = {
 module.exports = config;
 ```
 
-此配置会将你的开发服务器包装在实时同步服务器中，启动时获取远程字典，并通过 SSE 从 CMS 流式传输更新。刷新页面即可看到更改。
-
-注意事项和限制：
-
-- 将实时同步的源添加到你的网站安全策略（CSP）中。确保在 `connect-src`（如果相关，还包括 `frame-ancestors`）中允许实时同步 URL。
-- 实时同步不适用于静态输出。对于 Next.js，页面必须是动态的，才能在运行时接收更新（例如，适当使用 `generateStaticParams`、`generateMetadata`、`getServerSideProps` 或 `getStaticProps`，以避免完全静态的限制）。
-
-```
-
 此设置将您的开发服务器与实时同步服务器包装在一起，在启动时获取远程字典，并通过 SSE 从 CMS 流式传输更新。刷新页面以查看更改。
 
 注意事项和限制：
 
 - 将实时同步源添加到您的站点安全策略（CSP）中。确保实时同步 URL 被允许在 `connect-src` 中（如果相关，也包括 `frame-ancestors`）。
 - 实时同步不适用于静态输出。对于 Next.js，页面必须是动态的才能在运行时接收更新（例如，适当使用 `generateStaticParams`、`generateMetadata`、`getServerSideProps` 或 `getStaticProps`，以避免完全静态的限制）。
-/// 在 CMS 中，每个字典都有一个 `live` 标志。只有 `live=true` 的字典才会通过实时同步 API 获取；其他字典则动态导入，并在运行时保持不变。
-/// `live` 标志在构建时对每个字典进行评估。如果远程内容在构建时未标记为 `live=true`，则必须重新构建以启用该字典的实时同步。
-/// 实时同步服务器必须能够写入 `.intlayer`。在容器中，确保对 `/.intlayer` 具有写入权限。
-///
-/// ## 调试
-///
-/// 如果遇到 CMS 相关问题，请检查以下内容：
-///
-/// - 应用程序是否正在运行。
-///
-/// - [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) 配置是否在您的 Intlayer 配置文件中正确设置。
-///   - 必填字段：
-///
 - 应用程序 URL 应与您在编辑器配置中设置的 URL (`applicationURL`) 匹配。
 - CMS URL
-
 - 确保项目配置已推送到 Intlayer CMS。
 
 - 可视化编辑器使用 iframe 来显示您的网站。确保您网站的内容安全策略（CSP）允许 CMS URL 作为 `frame-ancestors`（默认是 'https://intlayer.org'）。检查编辑器控制台是否有任何错误。
