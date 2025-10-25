@@ -68,6 +68,11 @@ export type FileMetadata = {
   author?: string;
   youtubeVideo?: string;
   applicationTemplate?: string;
+  history?: {
+    version: string;
+    date: string;
+    changes: string;
+  }[];
 };
 
 export const formatMetadata = (

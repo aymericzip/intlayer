@@ -62,7 +62,7 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
         datePublished={new Date(blogData.createdAt)}
         url={blogData.url}
       />
-      <DocHeader {...blogData} markdownContent={blogContent} locale={locale} />
+      <DocHeader {...blogData} markdownContent={blogContent} />
 
       <BlogRender>{blogContent}</BlogRender>
 

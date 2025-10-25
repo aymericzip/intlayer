@@ -1,7 +1,7 @@
 import { type Dictionary, t } from 'intlayer';
 
-const outdatedTranslationMessage: Dictionary = {
-  key: 'outdated-translation-message',
+const docHistory: Dictionary = {
+  key: 'doc-history',
   content: {
     message: {
       before: t({
@@ -66,11 +66,37 @@ const outdatedTranslationMessage: Dictionary = {
         vi: 'Xem tài liệu tiếng Anh',
       }),
     },
+    versionHistory: {
+      title: t({
+        en: 'Version History',
+        'en-GB': 'Version History',
+        fr: 'Historique des versions',
+        ar: 'تاريخ الإصدارات',
+        de: 'Versionshistorie',
+        es: 'Historial de versiones',
+        it: 'Cronologia delle versioni',
+        ja: 'バージョン履歴',
+        ko: '버전 기록',
+        pt: 'Histórico de versões',
+        ru: 'История версий',
+        zh: '版本历史',
+        hi: 'संस्करण इतिहास',
+        tr: 'Sürüm Geçmişi',
+        pl: 'Historia wersji',
+        id: 'Riwayat Versi',
+        vi: 'Lịch sử phiên bản',
+      }),
+    },
   },
-  title: 'Outdated translation message',
+  title: 'Document history',
   description:
-    'Message displayed when a documentation page is outdated compared to the original English version, prompting users to check the updated content.',
-  tags: ['documentation', 'translation notice', 'UI component'],
+    'Message displayed when a documentation page is outdated compared to the original English version, with version history display.',
+  tags: [
+    'documentation',
+    'translation notice',
+    'UI component',
+    'version history',
+  ],
 };
 
-export default outdatedTranslationMessage;
+export default docHistory;

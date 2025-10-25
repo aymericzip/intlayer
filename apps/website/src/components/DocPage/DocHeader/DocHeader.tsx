@@ -5,8 +5,8 @@ import type { FC } from 'react';
 import { ApplicationTemplateMessage } from '../ApplicationTemplateMessage';
 import { ContributionMessage } from '../ContributionMessage';
 import { CopyMarkdownMessage } from '../CopyMarkdownMessage';
+import { History } from '../History';
 import { MCPMessage } from '../MCPMessage';
-import { OutdatedTranslationMessage } from '../OutdatedTranslationMessage';
 import { SummarizeAI } from '../SummarizeAI/SummarizeAI';
 import { TranslatedContentMessage } from '../TranslatedContentMessage';
 import { YoutubeVideoMessage } from '../YoutubeVideoMessage';
@@ -14,6 +14,11 @@ import { YoutubeVideoMessage } from '../YoutubeVideoMessage';
 type DocHeaderProps = DocMetadata & {
   markdownContent: string;
   baseUpdatedAt?: string;
+  history?: {
+    version: string;
+    date: string;
+    changes: string;
+  }[];
 };
 
 export const DocHeader: FC<DocHeaderProps> = ({
@@ -27,6 +32,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
   youtubeVideo,
   applicationTemplate,
   baseUpdatedAt,
+  history,
 }) => {
   const { locale } = useLocale();
   const { authorLabel, creationLabel, lastUpdateLabel } =
@@ -83,9 +89,10 @@ export const DocHeader: FC<DocHeaderProps> = ({
           </div>
           <div className="flex w-full flex-row items-center justify-end gap-4">
             {isOutdated && (
-              <OutdatedTranslationMessage
+              <History
                 pageUrl={relativeUrl}
                 baseUpdatedAt={baseUpdatedAt as string}
+                history={history}
               />
             )}
             <TranslatedContentMessage pageUrl={relativeUrl} />
