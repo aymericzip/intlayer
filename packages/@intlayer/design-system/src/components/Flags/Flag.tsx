@@ -1,5 +1,11 @@
 import { type Locale, Locales } from '@intlayer/types';
-import type { FC, ImgHTMLAttributes, JSX } from 'react';
+import type {
+  ComponentType,
+  FC,
+  ImgHTMLAttributes,
+  JSX,
+  SVGProps,
+} from 'react';
 
 // import andorra from './ad.svg';
 import unitedArabEmirates from './ae.svg';
@@ -490,9 +496,30 @@ const flagRecord: Partial<Record<Locale, typeof unknown>> = {
   [Locales.NEPALI_NEPAL]: nepal,
 };
 
-export const Flag: FC<FlagProps> = ({ locale, ...props }): JSX.Element => {
-  const flagSrc = flagRecord[locale];
-  const src = typeof flagSrc === 'string' ? flagSrc : (flagSrc as any)?.src;
+export const Flag: FC<FlagProps> = ({ locale, alt, ...props }): JSX.Element => {
+  const asset = flagRecord[locale] ?? unknown;
 
-  return <img src={src} alt={`${locale} flag`} {...props} />;
+  // Case 1: bundler returns a URL string or an object with a .src field
+  if (typeof asset === 'string' || (asset as any)?.src) {
+    const src =
+      typeof asset === 'string' ? (asset as string) : (asset as any).src;
+    return <img src={src} alt={alt ?? `${locale} flag`} {...props} />;
+  }
+
+  // Case 2: bundler returns a React component (SVGR)
+  const Svg = asset as ComponentType<SVGProps<SVGSVGElement>>;
+  const { width, height, className, style, onClick } = props;
+
+  return (
+    <Svg
+      aria-label={alt ?? `${locale} flag`}
+      width={width as any}
+      height={height as any}
+      className={className}
+      style={style}
+      onClick={onClick as any}
+      role="img"
+      focusable={false as any}
+    />
+  );
 };

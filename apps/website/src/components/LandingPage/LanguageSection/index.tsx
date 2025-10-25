@@ -13,10 +13,13 @@ import {
 
 const shuffleArray = (array: string[], limit?: number) => {
   const shuffled = [...array];
+
   for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+
+    [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
   }
+
   return limit ? shuffled.slice(0, limit) : shuffled;
 };
 
@@ -56,12 +59,12 @@ const LocalCardList: FC<{ localeList: string[]; className?: string }> = ({
       className={cn('inline-flex shrink-0 will-change-transform', className)}
     >
       {/* First set of cards */}
-      {localeList.map((locale, idx) => (
-        <LocalCard key={`${locale}-first-${idx}`} locale={locale} />
+      {localeList.map((locale, index) => (
+        <LocalCard key={`${locale}-first-${index}`} locale={locale} />
       ))}
       {/* Duplicate set for seamless loop */}
-      {localeList.map((locale, idx) => (
-        <LocalCard key={`${locale}-second-${idx}`} locale={locale} />
+      {localeList.map((locale, index) => (
+        <LocalCard key={`${locale}-second-${index}`} locale={locale} />
       ))}
     </div>
   </div>
