@@ -32,8 +32,19 @@ const config: CustomIntlayerConfig = {
     requiredLocales: [Locales.ENGLISH],
     strictMode: 'strict',
   },
+  dictionary: {
+    fill: './{{fileName}}.content.json',
+    title: 'Website',
+    description: 'Website description',
+    tags: ['website', 'intlayer'],
+    version: '1.0.0',
+    priority: 1,
+    live: true,
+    locale: Locales.ENGLISH,
+  },
   content: {
     contentDir: ['./src', '../../packages/@intlayer/design-system/src'],
+    formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
   editor: {
     enabled: true,
@@ -45,7 +56,6 @@ const config: CustomIntlayerConfig = {
     backendURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     // clientId: process.env.INTLAYER_CLIENT_ID,
     // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-    formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
   build: {
     importMode: 'dynamic',

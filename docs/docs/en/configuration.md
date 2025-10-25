@@ -85,8 +85,9 @@ const config: IntlayerConfig = {
   dictionary: {
     fill: "./{{fileName}}.content.json",
   },
-  middleware: {
-    noPrefix: false,
+  routing: {
+    mode: "prefix-no-default",
+    storage: "cookie",
   },
   editor: {
     applicationURL: "https://example.com",
@@ -114,8 +115,9 @@ const config = {
   content: {
     contentDir: ["src", "../ui-library"],
   },
-  middleware: {
-    noPrefix: false,
+  routing: {
+    mode: "prefix-no-default",
+    storage: "cookie",
   },
   editor: {
     applicationURL: "https://example.com",
@@ -143,8 +145,9 @@ module.exports = config;
   "dictionary": {
     "fill": "./{{fileName}}.content.json",
   },
-  "middleware": {
-    "noPrefix": false,
+  "routing": {
+    "mode": "prefix-no-default",
+    "storage": "cookie",
   },
   "editor": {
     "applicationURL": "https://example.com",
@@ -294,15 +297,6 @@ Defines settings related to the integrated editor, including server port and act
   - _Description_: The URL of the live sync server.
   - _Example_: `'https://example.com'`
   - _Note_: Point to localhost by default but can be changed to any URL in the case of a remote live sync server.
-
-- **formatCommand**:
-  - _Type_: `string`
-  - _Default_: `undefined`
-  - _Description_: The command to format the content. When intlayer write your .content files locally, this command will be used to format the content.
-  - _Example_: `'npx prettier --write "{{file}}" --log-level silent'` Using Prettier
-  - _Example_: `'npx biome format "{{file}}" --write --log-level none'` Using Biome
-  - _Example_: `'npx eslint --fix "{{file}}"  --quiet'` Using ESLint
-  - _Note_: Intlayer will replace the {{file}} with the path of the file to format.
 
 ### Routing Configuration
 
@@ -591,6 +585,16 @@ Settings related to content handling within the application, including directory
   - _Default_: `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']`
   - _Description_: Directories excluded from content search.
   - _Note_: This setting is not yet used, but planned for future implementation.
+
+- **formatCommand**:
+  - _Type_: `string`
+  - _Default_: `undefined`
+  - _Description_: The command to format the content. When intlayer write your .content files locally, this command will be used to format the content.
+  - _Example_: `'npx prettier --write "{{file}}" --log-level silent'` Using Prettier
+  - _Example_: `'npx biome format "{{file}}" --write --log-level none'` Using Biome
+  - _Example_: `'npx eslint --fix "{{file}}"  --quiet'` Using ESLint
+  - _Note_: Intlayer will replace the {{file}} with the path of the file to format.
+  - _Note_: If not set, Intlayer will try to detect the format command automatically. By trying to resolve the following commands: prettier, biome, eslint.
 
 ### Dictionary Configuration
 

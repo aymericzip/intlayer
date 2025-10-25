@@ -65,8 +65,9 @@ const config: IntlayerConfig = {
     autoFill: "./{{fileName}}.content.json",
     contentDir: ["src", "../ui-library"],
   },
-  middleware: {
-    noPrefix: false,
+  routing: {
+    mode: "prefix-no-default",
+    storage: "cookie",
   },
   editor: {
     applicationURL: "https://example.com",
@@ -95,8 +96,9 @@ const config = {
   content: {
     contentDir: ["src", "../ui-library"],
   },
-  middleware: {
-    noPrefix: false,
+  routing: {
+    mode: "prefix-no-default",
+    storage: "cookie",
   },
   editor: {
     applicationURL: "https://example.com",
@@ -121,8 +123,9 @@ module.exports = config;
   "content": {
     "contentDir": ["src", "../ui-library"],
   },
-  "middleware": {
-    "noPrefix": false,
+  "routing": {
+    "mode": "prefix-no-default",
+    "storage": "cookie",
   },
   "editor": {
     "applicationURL": "https://example.com",

@@ -9,6 +9,7 @@ import {
   type Extension,
   getFormatFromExtension,
 } from '../utils/getFormatFromExtension';
+import { detectFormatCommand } from './detectFormatCommand';
 import { transformJSFile } from './transformJSFile';
 
 /**
@@ -79,15 +80,14 @@ export const writeJSFile = async (
     throw new Error(`Failed to write updated file ${filePath}: ${err.message}`);
   }
 
-  if (configuration.editor.formatCommand) {
+  const formatCommand = detectFormatCommand(configuration);
+
+  if (formatCommand) {
     try {
-      execSync(
-        configuration.editor.formatCommand.replace('{{file}}', filePath),
-        {
-          stdio: 'inherit',
-          cwd: configuration.content.baseDir,
-        }
-      );
+      execSync(formatCommand.replace('{{file}}', filePath), {
+        stdio: 'inherit',
+        cwd: configuration.content.baseDir,
+      });
     } catch (error) {
       console.error(error);
     }
