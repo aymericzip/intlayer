@@ -8,7 +8,6 @@ import {
 } from 'next/server';
 import { localeDetector } from './localeDetector';
 
-console.log({ configuration });
 const { internationalization, routing } = configuration ?? {};
 const { locales, defaultLocale } = internationalization ?? {};
 const { headerName, basePath, detectLocaleOnPrefetchNoPrefix, mode } =
@@ -16,8 +15,10 @@ const { headerName, basePath, detectLocaleOnPrefetchNoPrefix, mode } =
 // Note: cookie names are resolved inside LocaleStorage based on configuration
 
 // Derived flags from routing.mode
-const noPrefix = !mode || mode === 'no-prefix' || mode === 'search-params';
-const prefixDefault = !mode || mode === 'prefix-all';
+const effectiveMode = mode ?? 'prefix-no-default';
+const noPrefix =
+  effectiveMode === 'no-prefix' || effectiveMode === 'search-params';
+const prefixDefault = effectiveMode === 'prefix-all';
 
 /**
  * Detects if the request is a prefetch request from Next.js.
@@ -52,7 +53,7 @@ const appendLocaleSearchIfNeeded = (
   search: string | undefined,
   locale: Locale
 ): string | undefined => {
-  if (mode !== 'search-params') return search;
+  if (effectiveMode !== 'search-params') return search;
 
   const params = new URLSearchParams(search ?? '');
 
@@ -389,11 +390,15 @@ const constructPath = (
   basePathTrailingSlash: boolean,
   search?: string
 ): string => {
-  // In 'search-params' mode, we do not prefix the path with the locale
-  // If the path is already prefixed with the same locale (e.g. '/fr/...'), avoid double prefixing
+  // In 'search-params' and 'no-prefix' modes, do not prefix the path with the locale
+  // Also, strip any incoming locale prefix if present
+  const pathWithoutPrefix = path.startsWith(`/${locale}`)
+    ? path.slice(`/${locale}`.length) || '/'
+    : path;
+
   const pathWithLocalePrefix =
-    mode === 'search-params'
-      ? path
+    effectiveMode === 'search-params' || effectiveMode === 'no-prefix'
+      ? pathWithoutPrefix
       : path.startsWith(`/${locale}`)
         ? path
         : `${locale}${path}`;
