@@ -16,18 +16,23 @@ import { useSearchParams } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useEffect, useRef, useState } from 'react';
 
-// Convert the documentation into an array of objects for Fuse.js
-// Fuse.js options
 const fuseOptions: IFuseOptions<DocMetadata> = {
+  includeScore: true,
+  shouldSort: true,
+  threshold: 0.25,
+  ignoreLocation: true,
+  distance: 100,
+  minMatchCharLength: 2,
+  findAllMatches: true,
   keys: [
-    { name: 'title', weight: 0.8 },
-    { name: 'description', weight: 0.1 },
+    { name: 'title', weight: 0.7 },
+    { name: 'description', weight: 0.15 },
     { name: 'keywords', weight: 0.1 },
+    { name: 'excerpt', weight: 0.05 }, // Optional short snippet per doc
   ],
-  threshold: 0.02, // Defines how fuzzy the matching should be (lower is more strict)
 };
 
-// Debounce function
+// Debounce utility
 const debounce = <T extends (...args: any[]) => void>(
   func: T,
   delay: number,
@@ -39,24 +44,57 @@ const debounce = <T extends (...args: any[]) => void>(
       onAbort();
       clearTimeout(timeoutId);
     }
-    timeoutId = setTimeout(() => {
-      func(...args);
-    }, delay);
+    timeoutId = setTimeout(() => func(...args), delay);
   };
 };
+
+/**
+ * Hybrid rank merge between Fuse.js (local) and embedding backend results.
+ */
+function mergeHybridResults(
+  fuseResults: Fuse.FuseResult<DocMetadata>[],
+  backendResults: { docKey: string; score: number }[],
+  allDocs: DocMetadata[]
+): DocMetadata[] {
+  const normalizeFuse = (score?: number) => 1 - Math.min((score ?? 1) / 0.5, 1); // invert Fuse score
+  const normalizeBackend = (score: number) => Math.min(score / 1.0, 1); // already cosine-like
+
+  const backendMap = new Map(
+    backendResults.map((r) => [r.docKey, normalizeBackend(r.score)])
+  );
+  const combinedMap = new Map<string, { doc: DocMetadata; score: number }>();
+
+  for (const fuseItem of fuseResults) {
+    const doc = fuseItem.item;
+    const fuseScore = normalizeFuse(fuseItem.score);
+    const backendScore = backendMap.get(doc.docKey);
+    const combinedScore = backendScore
+      ? 0.7 * backendScore + 0.3 * fuseScore
+      : fuseScore;
+    combinedMap.set(doc.docKey, { doc, score: combinedScore });
+  }
+
+  for (const [docKey, backendScore] of backendMap) {
+    if (!combinedMap.has(docKey)) {
+      const doc = allDocs.find((d) => d.docKey === docKey);
+      if (doc) combinedMap.set(docKey, { doc, score: 0.7 * backendScore });
+    }
+  }
+
+  return Array.from(combinedMap.values())
+    .sort((a, b) => b.score - a.score)
+    .map((entry) => entry.doc);
+}
 
 const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
   doc,
   onClickLink,
 }) => {
   const { searchResultItemButton } = useIntlayer('doc-search-view');
-
   const breadcrumbLinks: BreadcrumbLink[] = doc.url
     .split('/')
     .slice(2)
-    .map((path) => {
-      return { text: path };
-    });
+    .map((path) => ({ text: path }));
 
   return (
     <Link
@@ -97,89 +135,66 @@ export const SearchView: FC<{
   });
 
   const { noContentText, searchInput } = useIntlayer('doc-search-view');
-
   const { locale } = useLocale();
+
   const docMetadata = getIntlayer('doc-metadata', locale) as DocMetadata[];
   const blogMetadata = getIntlayer('blog-metadata', locale) as BlogMetadata[];
   const filesData = [...docMetadata, ...blogMetadata];
-
-  // Create a new Fuse instance with the options and documentation data
   const fuse = new Fuse(filesData, fuseOptions);
 
-  const handleSearch = async (searchQuery: string) => {
-    if (searchQuery) {
-      // Prioritize backend search for longer queries, but always include Fuse results
-      if (searchQuery.length > 2) {
-        // Set the search query to trigger the useSearchDoc hook
-        setCurrentSearchQuery(searchQuery);
-      } else {
-        // For shorter queries, only use Fuse search
-        setCurrentSearchQuery(null);
-        const fuseSearchResults = fuse
-          .search(searchQuery)
-          .map((result) => result.item);
-        setResults(fuseSearchResults);
-      }
-    } else {
+  const handleSearch = async (query: string) => {
+    if (!query) {
       setCurrentSearchQuery(null);
       setResults([]);
+      return;
+    }
+
+    if (query.length > 2) {
+      setCurrentSearchQuery(query);
+    } else {
+      setCurrentSearchQuery(null);
+      const fuseSearchResults = fuse.search(query).map((r) => r.item);
+      setResults(fuseSearchResults);
     }
   };
 
   const debouncedSearch = debounce(handleSearch, 200, () => null);
 
-  // Handle backend search results
   useEffect(() => {
     if (searchDocData?.data && currentSearchQuery) {
-      const backendResults: DocMetadata[] = searchDocData.data
-        .map((docKey: string) => filesData.find((doc) => doc.docKey === docKey))
-        .filter((doc: DocMetadata | undefined): doc is DocMetadata =>
-          Boolean(doc)
-        );
+      const backendDocsWithScore =
+        (searchDocData?.data ?? []).map((d: any) => ({
+          docKey: d.fileKey,
+          score: d.similarityScore ?? 0.5,
+        })) ?? [];
 
-      // Perform client-side Fuse search
-      const fuseSearchResults = fuse
-        .search(currentSearchQuery)
-        .map((result) => result.item);
-
-      // Merge results: backend results first, then Fuse results, avoiding duplicates
-      const combinedResults = [...backendResults];
-      const backendResultUrls = new Set(
-        backendResults.map((doc) => doc.docKey)
+      const fuseSearchResults = fuse.search(currentSearchQuery);
+      const mergedResults = mergeHybridResults(
+        fuseSearchResults,
+        backendDocsWithScore,
+        filesData
       );
 
-      fuseSearchResults.forEach((fuseDoc) => {
-        if (!backendResultUrls.has(fuseDoc.docKey)) {
-          combinedResults.push(fuseDoc);
-        }
-      });
-
-      setResults(combinedResults);
+      setResults(mergedResults);
     }
   }, [searchDocData, currentSearchQuery, filesData, fuse]);
 
   useEffect(() => {
-    if (!searchQuery) return;
-    // Call the original handleSearch directly for the initial search query from URL
-    handleSearch(searchQuery);
-  }, [searchQuery]); // Removed handleSearch from dependencies as it's stable now
+    if (searchQuery) handleSearch(searchQuery);
+  }, [searchQuery]);
 
+  /* --------------------------- Autofocus on open --------------------------- */
   useEffect(() => {
     if (isOpen) {
       timeoutRef.current = setTimeout(() => inputRef.current?.focus(), 10);
     }
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, [isOpen]);
 
   const isNoResult =
-    !isFetching &&
-    results.length === 0 &&
-    inputRef.current &&
-    inputRef.current?.value !== '';
+    !isFetching && results.length === 0 && inputRef.current?.value !== '';
 
   return (
     <div className="relative w-full p-4">
@@ -195,6 +210,7 @@ export const SearchView: FC<{
           ref={inputRef}
         />
       </div>
+
       <div className="mt-4">
         {isNoResult && (
           <p className="text-center text-neutral text-sm">{noContentText}</p>
@@ -202,9 +218,10 @@ export const SearchView: FC<{
 
         {results.length > 0 && (
           <ul className="flex flex-col gap-10">
-            {results.map((result) => (
+            {results.map((result, i) => (
               <li key={result.url}>
                 <SearchResultItem doc={result} onClickLink={onClickLink} />
+                <p className="text-gray-400 text-xs">Rank #{i + 1}</p>
               </li>
             ))}
           </ul>
