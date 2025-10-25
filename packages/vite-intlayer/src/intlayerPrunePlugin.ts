@@ -1,7 +1,6 @@
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { intlayerBabelPlugin } from '@intlayer/babel';
-import { isESModule } from '@intlayer/config';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types';
 import fg from 'fast-glob';
@@ -9,7 +8,7 @@ import type { PluginOption } from 'vite';
 
 export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
   try {
-    const localeRequire = isESModule ? createRequire(import.meta.url) : require;
+    const localeRequire = createRequire(import.meta.url);
     const babel = localeRequire('@babel/core');
 
     const { optimize, importMode, traversePattern } = intlayerConfig.build;
