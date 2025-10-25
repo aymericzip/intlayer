@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next';
-import { withIntlayerSync } from 'next-intlayer/server';
+import { withIntlayer } from 'next-intlayer/server';
 import withPWA from 'next-pwa';
 import { createSecureHeaders } from 'next-secure-headers';
 
@@ -152,8 +152,8 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['@intlayer/backend', '@intlayer/docs'],
   transpilePackages: ['@intlayer/design-system', 'shiki'],
   productionBrowserSourceMaps: true,
-  reactCompiler: true,
-  cacheComponents: true,
+  // reactCompiler: true,
+  // cacheComponents: true,
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
@@ -258,6 +258,6 @@ const nextConfigPWA: NextConfig = withPWA({
   skipWaiting: true,
 })(nextConfig);
 
-const config: NextConfig = withIntlayerSync(nextConfigPWA);
+const config: Promise<NextConfig> = withIntlayer(nextConfigPWA);
 
 export default config;

@@ -78,8 +78,11 @@
       "format": [
         "./dist/types/client/format/index.d.ts"
       ],
+      "proxy": [
+        "./dist/types/proxy/index.d.ts"
+      ],
       "middleware": [
-        "./dist/types/middleware/index.d.ts"
+        "./dist/types/proxy/index.d.ts"
       ],
       "server": [
         "./dist/types/server/index.d.ts"

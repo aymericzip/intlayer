@@ -68,6 +68,7 @@
     "typecheck": "turbo typecheck --filter=./packages/** --filter=./docs --filter=./apps/backend --concurrency=1"
   },
   "overrides": {
+    "next": "15.5.4",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },
