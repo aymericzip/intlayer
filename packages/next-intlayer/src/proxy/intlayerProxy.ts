@@ -8,6 +8,7 @@ import {
 } from 'next/server';
 import { localeDetector } from './localeDetector';
 
+console.log({ configuration });
 const { internationalization, routing } = configuration ?? {};
 const { locales, defaultLocale } = internationalization ?? {};
 const { headerName, basePath, detectLocaleOnPrefetchNoPrefix, mode } =
@@ -15,8 +16,8 @@ const { headerName, basePath, detectLocaleOnPrefetchNoPrefix, mode } =
 // Note: cookie names are resolved inside LocaleStorage based on configuration
 
 // Derived flags from routing.mode
-const noPrefix = mode === 'no-prefix' || mode === 'search-params';
-const prefixDefault = mode === 'prefix-all';
+const noPrefix = !mode || mode === 'no-prefix' || mode === 'search-params';
+const prefixDefault = !mode || mode === 'prefix-all';
 
 /**
  * Detects if the request is a prefetch request from Next.js.
