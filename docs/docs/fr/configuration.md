@@ -336,30 +336,6 @@ Paramètres qui contrôlent le comportement du middleware, y compris la gestion 
       - Si `noPrefix = false` : l'URL sera `https://example.com/my-app/en`
       - Si `noPrefix = true` : l'URL sera `https://example.com`
 
-- **detectLocaleOnPrefetchNoPrefix** :
-  - _Type_ : `boolean`
-  - _Par défaut_ : `false`
-  - _Description_ : Contrôle si la détection de la locale se produit lors des requêtes de préchargement (prefetch) de Next.js.
-  - _Exemple_ : `true`
-  - _Note_ : Ce paramètre influence la manière dont Next.js gère le préchargement des locales :
-    - **Scénario d'exemple :**
-      - La langue du navigateur de l'utilisateur est `'fr'`
-      - La page actuelle est `/fr/about`
-      - Un lien précharge `/about`
-    - **Avec `detectLocaleOnPrefetchNoPrefix: true` :**
-      - Le préchargement détecte la locale `'fr'` depuis le navigateur
-      - Redirige le préchargement vers `/fr/about`
-    - **Avec `detectLocaleOnPrefetchNoPrefix: false` (par défaut) :**
-      - Le préchargement utilise la locale par défaut
-      - Redirige le préchargement vers `/en/about` (en supposant que `'en'` est la locale par défaut)
-    - **Quand utiliser `true` :**
-      - Votre application utilise des liens internes non localisés (par exemple `<a href="/about">`)
-      - Vous souhaitez un comportement cohérent de détection de la langue entre les requêtes normales et les requêtes de préchargement
-    - **Quand utiliser `false` (par défaut) :**
-      - Votre application utilise des liens préfixés par la langue (par exemple `<a href="/fr/about">`)
-      - Vous souhaitez optimiser les performances du préchargement
-      - Vous souhaitez éviter les boucles de redirection potentielles
-
 ---
 
 ### Configuration du contenu

@@ -332,30 +332,6 @@ Configuraciones que controlan el comportamiento del middleware, incluyendo cómo
       - Si `noPrefix = false`: La URL será `https://example.com/my-app/en`
       - Si `noPrefix = true`: La URL será `https://example.com`
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _Tipo_: `boolean`
-  - _Por defecto_: `false`
-  - _Descripción_: Controla si la detección de la configuración regional ocurre durante las solicitudes de prefetch de Next.js.
-  - _Ejemplo_: `true`
-  - _Nota_: Esta configuración afecta cómo Next.js maneja el prefetch de locales:
-    - **Escenario de ejemplo:**
-      - El idioma del navegador del usuario es `'fr'`
-      - La página actual es `/fr/about`
-      - El enlace hace prefetch de `/about`
-    - **Con `detectLocaleOnPrefetchNoPrefix: true`:**
-      - El prefetch detecta la configuración regional `'fr'` desde el navegador
-      - Redirige el prefetch a `/fr/about`
-    - **Con `detectLocaleOnPrefetchNoPrefix: false` (por defecto):**
-      - El prefetch usa la configuración regional por defecto
-      - Redirige el prefetch a `/en/about` (asumiendo que `'en'` es la predeterminada)
-    - **Cuándo usar `true`:**
-      - Su aplicación utiliza enlaces internos no localizados (por ejemplo, `<a href="/about">`)
-      - Desea un comportamiento consistente en la detección de la configuración regional entre solicitudes regulares y de prefetch
-    - **Cuándo usar `false` (por defecto):**
-      - Su aplicación utiliza enlaces con prefijo de configuración regional (por ejemplo, `<a href="/fr/about">`)
-      - Desea optimizar el rendimiento del prefetch
-      - Desea evitar posibles bucles de redireccionamiento
-
 ---
 
 ### Configuración de Contenido

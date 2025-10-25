@@ -336,30 +336,6 @@ module.exports = config;
       - 如果 `noPrefix = false`：URL 将是 `https://example.com/my-app/en`
       - 如果 `noPrefix = true`：URL 将是 `https://example.com`
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _类型_: `boolean`
-  - _默认值_: `false`
-  - _描述_: 控制是否在 Next.js 预取请求期间进行语言环境检测。
-  - _示例_: `true`
-  - _说明_: 此设置影响 Next.js 如何处理语言环境预取：
-    - **示例场景：**
-      - 用户浏览器语言为 `'fr'`
-      - 当前页面为 `/fr/about`
-      - 链接预取 `/about`
-    - **当 `detectLocaleOnPrefetchNoPrefix: true` 时：**
-      - 预取从浏览器检测到 `'fr'` 语言环境
-      - 将预取重定向到 `/fr/about`
-    - **当 `detectLocaleOnPrefetchNoPrefix: false`（默认）时：**
-      - 预取使用默认语言环境
-      - 将预取重定向到 `/en/about`（假设 `'en'` 是默认语言）
-    - **何时使用 `true`：**
-      - 您的应用使用非本地化的内部链接（例如 `<a href="/about">`）
-      - 您希望常规请求和预取请求之间的语言检测行为保持一致
-    - **何时使用 `false`（默认值）：**
-      - 您的应用使用带语言前缀的链接（例如 `<a href="/fr/about">`）
-      - 您希望优化预取性能
-      - 您希望避免潜在的重定向循环
-
 ---
 
 ### 内容配置

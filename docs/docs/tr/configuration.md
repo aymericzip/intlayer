@@ -335,30 +335,6 @@ Uygulamanın çerezleri, başlıkları ve yerel yönetimi için URL öneklerini 
       - Eğer `noPrefix = false` ise: URL `https://example.com/my-app/en` olur
       - Eğer `noPrefix = true` ise: URL `https://example.com` olur
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _Tür_: `boolean`
-  - _Varsayılan_: `false`
-  - _Açıklama_: Next.js önceden getirme (prefetch) istekleri sırasında locale tespitinin yapılıp yapılmayacağını kontrol eder.
-  - _Örnek_: `true`
-  - _Not_: Bu ayar, Next.js'in locale önceden getirme işlemini nasıl yönettiğini etkiler:
-    - **Örnek senaryo:**
-      - Kullanıcının tarayıcı dili `'fr'`
-      - Mevcut sayfa `/fr/about`
-      - Bağlantı `/about` sayfasını önceden getiriyor
-    - **`detectLocaleOnPrefetchNoPrefix: true` ile:**
-      - Önceden getirme, tarayıcıdan `'fr'` locale bilgisini algılar
-      - Önceden getirme `/fr/about` sayfasına yönlendirilir
-    - **`detectLocaleOnPrefetchNoPrefix: false` (varsayılan) ile:**
-      - Önceden getirme varsayılan locale kullanır
-      - Önceden getirme `/en/about` sayfasına yönlendirilir (varsayılanın `'en'` olduğu varsayılır)
-    - **`true` ne zaman kullanılmalı:**
-      - Uygulamanız yerelleştirilmemiş dahili bağlantılar kullanıyorsa (örneğin `<a href="/about">`)
-      - Normal ve önceden getirme (prefetch) istekleri arasında tutarlı locale tespit davranışı istiyorsanız
-    - **`false` (varsayılan) ne zaman kullanılmalı:**
-      - Uygulamanız locale önekli bağlantılar kullanıyorsa (örneğin `<a href="/fr/about">`)
-      - Önceden getirme performansını optimize etmek istiyorsanız
-      - Olası yönlendirme döngülerinden kaçınmak istiyorsanız
-
 ---
 
 ### İçerik Yapılandırması

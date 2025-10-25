@@ -373,30 +373,6 @@ Settings that control routing behavior, including URL structure, locale storage,
     - The URL will be `https://example.com/my-app/en`
     - If the base path is not set, the URL will be `https://example.com/en`
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Controls whether locale detection occurs during Next.js prefetch requests.
-  - _Example_: `true`
-  - _Note_: This setting affects how Next.js handles locale prefetching:
-    - **Example scenario:**
-      - User's browser language is `'fr'`
-      - Current page is `/fr/about`
-      - Link prefetches `/about`
-    - **With `detectLocaleOnPrefetchNoPrefix: true`:**
-      - Prefetch detects `'fr'` locale from browser
-      - Redirects prefetch to `/fr/about`
-    - **With `detectLocaleOnPrefetchNoPrefix: false` (default):**
-      - Prefetch uses default locale
-      - Redirects prefetch to `/en/about` (assuming `'en'` is default)
-    - **When to use `true`:**
-      - Your app uses non-localized internal links (e.g. `<a href="/about">`)
-      - You want consistent locale detection behavior between regular and prefetch requests
-    - **When to use `false` (default):**
-      - Your app uses locale-prefixed links (e.g. `<a href="/fr/about">`)
-      - You want to optimize prefetching performance
-      - You want to avoid potential redirect loops
-
 #### Cookie Attributes
 
 When using cookie storage, you can configure additional cookie attributes:
@@ -434,7 +410,6 @@ export default defineConfig({
     storage: "localStorage",
     headerName: "x-intlayer-locale",
     basePath: "",
-    detectLocaleOnPrefetchNoPrefix: false,
   },
 });
 ```
@@ -465,7 +440,6 @@ export default defineConfig({
     ],
     headerName: "x-intlayer-locale",
     basePath: "",
-    detectLocaleOnPrefetchNoPrefix: false,
   },
 });
 ```
@@ -484,7 +458,6 @@ export default defineConfig({
     storage: "localStorage",
     headerName: "x-intlayer-locale",
     basePath: "",
-    detectLocaleOnPrefetchNoPrefix: false,
   },
 });
 ```
@@ -506,7 +479,6 @@ export default defineConfig({
     },
     headerName: "x-custom-locale",
     basePath: "/my-app",
-    detectLocaleOnPrefetchNoPrefix: true,
   },
 });
 ```

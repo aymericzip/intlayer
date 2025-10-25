@@ -9,6 +9,4 @@ export const SERVER_SET_COOKIE = 'always';
 
 export const ROUTING_MODE = 'prefix-no-default';
 
-export const DETECT_LOCALE_ON_PREFETCH_NO_PREFIX = false;
-
 export const STORAGE = 'cookie';

@@ -335,30 +335,6 @@ module.exports = config;
       - `noPrefix = false`인 경우: URL은 `https://example.com/my-app/en`이 됩니다.
       - `noPrefix = true`인 경우: URL은 `https://example.com`이 됩니다.
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Next.js 프리페치 요청 중에 로케일 감지가 발생하는지 여부를 제어합니다.
-  - _Example_: `true`
-  - _Note_: 이 설정은 Next.js가 로케일 프리페칭을 처리하는 방식에 영향을 미칩니다:
-    - **예시 시나리오:**
-      - 사용자의 브라우저 언어가 `'fr'`인 경우
-      - 현재 페이지가 `/fr/about`인 경우
-      - 링크가 `/about`을 프리페치하는 경우
-    - **`detectLocaleOnPrefetchNoPrefix: true`인 경우:**
-      - 프리페치가 브라우저에서 `'fr'` 로케일을 감지합니다
-      - 프리페치를 `/fr/about`으로 리다이렉트합니다
-    - **`detectLocaleOnPrefetchNoPrefix: false` (기본값)인 경우:**
-      - 프리페치가 기본 로케일을 사용합니다
-      - 프리페치를 `/en/about`으로 리다이렉트합니다 (기본 로케일이 `'en'`이라고 가정)
-    - **`true`를 사용해야 하는 경우:**
-      - 앱에서 비지역화된 내부 링크를 사용하는 경우 (예: `<a href="/about">`)
-      - 일반 요청과 프리페치 요청 간에 일관된 로케일 감지 동작을 원할 때
-    - **`false` (기본값)를 사용할 때:**
-      - 앱에서 로케일 접두사가 있는 링크를 사용하는 경우 (예: `<a href="/fr/about">`)
-      - 프리페치 성능을 최적화하려는 경우
-      - 잠재적인 리디렉션 루프를 방지하려는 경우
-
 ---
 
 ### 콘텐츠 구성

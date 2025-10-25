@@ -333,30 +333,6 @@ module.exports = config;
       - `noPrefix = false` の場合: URLは `https://example.com/my-app/en`
       - `noPrefix = true` の場合: URLは `https://example.com`
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _タイプ_: `boolean`
-  - _デフォルト_: `false`
-  - _説明_: Next.jsのプリフェッチリクエスト時にロケール検出を行うかどうかを制御します。
-  - _例_: `true`
-  - _注意_: この設定はNext.jsのロケールプリフェッチの動作に影響します：
-    - **例のシナリオ:**
-      - ユーザーのブラウザ言語が `'fr'`
-      - 現在のページが `/fr/about`
-      - リンクが `/about` をプリフェッチする
-    - **`detectLocaleOnPrefetchNoPrefix: true` の場合:**
-      - プリフェッチはブラウザから `'fr'` ロケールを検出
-      - プリフェッチを `/fr/about` にリダイレクト
-    - **`detectLocaleOnPrefetchNoPrefix: false`（デフォルト）の場合:**
-      - プリフェッチはデフォルトロケールを使用
-      - プリフェッチを `/en/about` にリダイレクト（`'en'` がデフォルトの場合）
-    - **`true` を使うべき場合:**
-      - アプリがローカライズされていない内部リンクを使用している場合（例：`<a href="/about">`）
-      - 通常のリクエストとプリフェッチリクエスト間で一貫したロケール検出動作を望む場合
-    - **`false`（デフォルト）を使用する場合：**
-      - アプリがロケール接頭辞付きリンクを使用している場合（例：`<a href="/fr/about">`）
-      - プリフェッチのパフォーマンスを最適化したい場合
-      - リダイレクトループの可能性を回避したい場合
-
 ---
 
 ### コンテンツ設定
