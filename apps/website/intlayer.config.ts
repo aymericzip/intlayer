@@ -43,7 +43,7 @@ const config: CustomIntlayerConfig = {
     locale: Locales.ENGLISH,
   },
   routing: {
-    mode: 'no-prefix',
+    mode: 'prefix-no-default',
   },
   content: {
     contentDir: ['./src', '../../packages/@intlayer/design-system/src'],
