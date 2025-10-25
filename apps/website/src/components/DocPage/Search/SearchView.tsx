@@ -19,8 +19,8 @@ import { type FC, useEffect, useRef, useState } from 'react';
 const fuseOptions: IFuseOptions<DocMetadata> = {
   includeScore: true,
   shouldSort: true,
-  threshold: 0.25,
-  ignoreLocation: true,
+  threshold: 0.25, // More flexible fuzzy matching
+  ignoreLocation: true, // Word order insensitive
   distance: 100,
   minMatchCharLength: 2,
   findAllMatches: true,
@@ -48,9 +48,6 @@ const debounce = <T extends (...args: any[]) => void>(
   };
 };
 
-/**
- * Hybrid rank merge between Fuse.js (local) and embedding backend results.
- */
 function mergeHybridResults(
   fuseResults: Fuse.FuseResult<DocMetadata>[],
   backendResults: { docKey: string; score: number }[],
@@ -183,7 +180,6 @@ export const SearchView: FC<{
     if (searchQuery) handleSearch(searchQuery);
   }, [searchQuery]);
 
-  /* --------------------------- Autofocus on open --------------------------- */
   useEffect(() => {
     if (isOpen) {
       timeoutRef.current = setTimeout(() => inputRef.current?.focus(), 10);
