@@ -142,18 +142,12 @@ const buildRoutingFields = (
    * Configuration for storing the locale in the client (localStorage or sessionStorage)
    *
    * If false, the locale will not be stored by the middleware.
-   * If true, the locale storage will consider all default values.
+   * If true, the locale storage will consider all default values. (cookie and header)
    *
-   * Default: 'cookie'
+   * Default: ['cookie', 'header']
+   *
    */
   storage: customConfiguration?.storage ?? STORAGE,
-
-  /**
-   * Header name to get the locale
-   *
-   * Default: 'x-intlayer-locale'
-   */
-  headerName: customConfiguration?.headerName ?? HEADER_NAME,
 
   /**
    * Base path of the application URL

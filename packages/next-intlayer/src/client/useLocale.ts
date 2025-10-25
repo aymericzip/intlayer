@@ -2,7 +2,7 @@
 
 import { getLocalizedUrl, getPathWithoutLocale } from '@intlayer/core';
 import type { LocalesValues } from '@intlayer/types';
-import { usePathname, useRouter } from 'next/navigation.js';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation.js';
 import { useCallback, useMemo } from 'react';
 import { useLocale as useLocaleReact } from 'react-intlayer';
 
@@ -13,10 +13,15 @@ type UseLocaleProps = {
 export const useLocale = ({ onChange }: UseLocaleProps = {}) => {
   const { replace, push } = useRouter();
   const pathname = usePathname();
-  const pathWithoutLocale = useMemo(
-    () => getPathWithoutLocale(pathname),
-    [pathname]
-  );
+  const searchParams = useSearchParams();
+
+  const pathWithoutLocale = useMemo(() => {
+    const fullUrl = searchParams.toString()
+      ? `${pathname}?${searchParams.toString()}`
+      : pathname;
+
+    return getPathWithoutLocale(fullUrl);
+  }, [pathname, searchParams]);
 
   const redirectionFunction = useCallback(
     (locale: LocalesValues) => {

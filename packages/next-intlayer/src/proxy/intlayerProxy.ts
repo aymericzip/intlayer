@@ -1,5 +1,6 @@
+import { DefaultValues } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
-import { getLocaleFromStorage } from '@intlayer/core';
+import { getLocaleFromStorage, setLocaleInStorage } from '@intlayer/core';
 import type { Locale } from '@intlayer/types';
 import {
   type NextFetchEvent,
@@ -8,14 +9,44 @@ import {
 } from 'next/server';
 import { localeDetector } from './localeDetector';
 
+/**
+ * Controls whether locale detection occurs during Next.js prefetch requests
+ * - true: Detect and apply locale during prefetch
+ * - false: Use default locale during prefetch (recommended)
+ *
+ * This setting affects how Next.js handles locale prefetching:
+ *
+ * Example scenario:
+ * - User's browser language is 'fr'
+ * - Current page is /fr/about
+ * - Link prefetches /about
+ *
+ * With `detectLocaleOnPrefetchNoPrefix:true`
+ * - Prefetch detects 'fr' locale from browser
+ * - Redirects prefetch to /fr/about
+ *
+ * With `detectLocaleOnPrefetchNoPrefix:false` (default)
+ * - Prefetch uses default locale
+ * - Redirects prefetch to /en/about (assuming 'en' is default)
+ *
+ * When to use true:
+ * - Your app uses non-localized internal links (e.g. <a href="/about">)
+ * - You want consistent locale detection behavior between regular and prefetch requests
+ *
+ * When to use false (default):
+ * - Your app uses locale-prefixed links (e.g. <a href="/fr/about">)
+ * - You want to optimize prefetching performance
+ * - You want to avoid potential redirect loops
+ */
+const DEFAULT_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX = false;
+
 const { internationalization, routing } = configuration ?? {};
 const { locales, defaultLocale } = internationalization ?? {};
-const { headerName, basePath, detectLocaleOnPrefetchNoPrefix, mode } =
-  routing ?? {};
+const { basePath, mode } = routing ?? {};
 // Note: cookie names are resolved inside LocaleStorage based on configuration
 
 // Derived flags from routing.mode
-const effectiveMode = mode ?? 'prefix-no-default';
+const effectiveMode = mode ?? DefaultValues.Routing.ROUTING_MODE;
 const noPrefix =
   effectiveMode === 'no-prefix' || effectiveMode === 'search-params';
 const prefixDefault = effectiveMode === 'prefix-all';
@@ -58,6 +89,7 @@ const appendLocaleSearchIfNeeded = (
   const params = new URLSearchParams(search ?? '');
 
   params.set('locale', locale);
+
   return `?${params.toString()}`;
 };
 
@@ -91,29 +123,17 @@ export const intlayerProxy = (
 ): NextResponse => {
   const pathname = request.nextUrl.pathname;
 
-  const cookieLocale = getCookieLocale(request);
-  const basePathTrailingSlash = basePath.endsWith('/');
+  const localLocale = getLocalLocale(request);
 
   if (
     noPrefix // If the application is configured not to use locale prefixes in URLs
   ) {
-    return handleNoPrefix(
-      request,
-      cookieLocale,
-      pathname,
-      basePathTrailingSlash
-    );
+    return handleNoPrefix(request, localLocale, pathname);
   }
 
   const pathLocale = getPathLocale(pathname);
 
-  return handlePrefix(
-    request,
-    cookieLocale,
-    pathLocale,
-    pathname,
-    basePathTrailingSlash
-  );
+  return handlePrefix(request, localLocale, pathLocale, pathname);
 };
 
 /**
@@ -122,36 +142,85 @@ export const intlayerProxy = (
  * @param request - The incoming Next.js request object.
  * @returns - The locale found in the cookies, or undefined if not found or invalid.
  */
-const getCookieLocale = (request: NextRequest): Locale | undefined =>
+const getLocalLocale = (request: NextRequest): Locale | undefined =>
   getLocaleFromStorage({
     getCookie: (name: string) => request.cookies.get(name)?.value ?? null,
+    getHeader: (name: string) => request.headers.get(name) ?? null,
   });
 
 /**
  * Handles the case where URLs do not have locale prefixes.
  *
  * @param request - The incoming Next.js request object.
- * @param cookieLocale - The locale from the cookie.
+ * @param localLocale - The locale from the cookie.
  * @param pathname - The pathname from the request URL.
- * @param basePathTrailingSlash - Indicates if the basePath ends with a slash.
  * @returns - The rewritten response with the locale applied.
  */
 const handleNoPrefix = (
   request: NextRequest,
-  cookieLocale: Locale | undefined,
-  pathname: string,
-  basePathTrailingSlash: boolean
+  localLocale: Locale | undefined,
+  pathname: string
 ): NextResponse => {
-  const locale = cookieLocale ?? defaultLocale;
+  // Check if pathname has a locale prefix (even though we're in no-prefix mode)
+  const pathLocale = getPathLocale(pathname);
 
-  const newPath = constructPath(
-    locale,
-    pathname,
-    basePath,
-    basePathTrailingSlash,
-    appendLocaleSearchIfNeeded(request.nextUrl.search, locale)
-  );
-  return rewriteUrl(request, newPath, locale);
+  // If a locale prefix is detected in the URL, redirect to remove it
+  if (pathLocale) {
+    // Strip the locale prefix from the pathname
+    const pathWithoutLocale = pathname.slice(`/${pathLocale}`.length) || '/';
+
+    // Build redirect URL without locale prefix but with search params if needed
+    const search = appendLocaleSearchIfNeeded(
+      request.nextUrl.search,
+      pathLocale
+    );
+    const redirectPath = search
+      ? `${pathWithoutLocale}${search}`
+      : `${pathWithoutLocale}${request.nextUrl.search ?? ''}`;
+
+    // Redirect to the path without locale prefix (URL changes in browser)
+    return redirectUrl(request, redirectPath);
+  }
+
+  // If no locale prefix in URL, determine locale and rewrite internally
+  const locale = localLocale ?? defaultLocale;
+
+  // In search-params mode, we need to redirect to add the locale search param
+  if (effectiveMode === 'search-params') {
+    // Check if locale search param already exists and matches the detected locale
+    const existingSearchParams = new URLSearchParams(request.nextUrl.search);
+    const existingLocale = existingSearchParams.get('locale');
+
+    // If the existing locale matches the detected locale, no redirect needed
+    if (existingLocale === locale) {
+      // For internal routing, we need to add the locale prefix so Next.js can match [locale] param
+      const internalPath = `/${locale}${pathname}`;
+      const rewritePath = `${internalPath}${request.nextUrl.search ?? ''}`;
+
+      // Rewrite internally (URL stays the same in browser, but Next.js routes to /[locale]/path)
+      return rewriteUrl(request, rewritePath, locale);
+    }
+
+    const search = appendLocaleSearchIfNeeded(request.nextUrl.search, locale);
+    const redirectPath = search
+      ? `${pathname}${search}`
+      : `${pathname}${request.nextUrl.search ?? ''}`;
+
+    // Redirect to add/update the locale search param (URL changes in browser)
+    return redirectUrl(request, redirectPath);
+  }
+
+  // For internal routing, we need to add the locale prefix so Next.js can match [locale] param
+  const internalPath = `/${locale}${pathname}`;
+
+  // Add search params if needed
+  const search = appendLocaleSearchIfNeeded(request.nextUrl.search, locale);
+  const rewritePath = search
+    ? `${internalPath}${search}`
+    : `${internalPath}${request.nextUrl.search ?? ''}`;
+
+  // Rewrite internally (URL stays the same in browser, but Next.js routes to /[locale]/path)
+  return rewriteUrl(request, rewritePath, locale);
 };
 
 /**
@@ -169,7 +238,7 @@ const getPathLocale = (pathname: string): Locale | undefined =>
  * Handles the case where URLs have locale prefixes.
  *
  * @param request - The incoming Next.js request object.
- * @param cookieLocale - The locale from the cookie.
+ * @param localLocale - The locale from the cookie.
  * @param pathLocale - The locale extracted from the pathname.
  * @param pathname - The pathname from the request URL.
  * @param basePathTrailingSlash - Indicates if the basePath ends with a slash.
@@ -177,59 +246,41 @@ const getPathLocale = (pathname: string): Locale | undefined =>
  */
 const handlePrefix = (
   request: NextRequest,
-  cookieLocale: Locale | undefined,
+  localLocale: Locale | undefined,
   pathLocale: Locale | undefined,
-  pathname: string,
-  basePathTrailingSlash: boolean
+  pathname: string
 ): NextResponse => {
   if (
     !pathLocale // If the URL does not contain a locale prefix
   ) {
     const isPrefetch = isPrefetchRequest(request);
 
-    if (isPrefetch && !detectLocaleOnPrefetchNoPrefix) {
-      return handleMissingPathLocale(
-        request,
-        defaultLocale,
-        pathname,
-        basePathTrailingSlash
-      );
+    if (isPrefetch && !DEFAULT_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX) {
+      return handleMissingPathLocale(request, defaultLocale, pathname);
     }
 
-    return handleMissingPathLocale(
-      request,
-      cookieLocale,
-      pathname,
-      basePathTrailingSlash
-    );
+    return handleMissingPathLocale(request, localLocale, pathname);
   }
 
   // If the URL contains a locale prefix
-  return handleExistingPathLocale(
-    request,
-    cookieLocale,
-    pathLocale,
-    pathname,
-    basePathTrailingSlash
-  );
+  return handleExistingPathLocale(request, localLocale, pathLocale, pathname);
 };
 
 /**
  * Handles requests where the locale is missing from the URL pathname.
  *
  * @param request - The incoming Next.js request object.
- * @param cookieLocale - The locale from the cookie.
+ * @param localLocale - The locale from the cookie.
  * @param pathname - The pathname from the request URL.
  * @param basePathTrailingSlash - Indicates if the basePath ends with a slash.
  * @returns - The response to be returned to the client.
  */
 const handleMissingPathLocale = (
   request: NextRequest,
-  cookieLocale: Locale | undefined,
-  pathname: string,
-  basePathTrailingSlash: boolean
+  localLocale: Locale | undefined,
+  pathname: string
 ): NextResponse => {
-  let locale = (cookieLocale ??
+  let locale = (localLocale ??
     localeDetector?.(request) ??
     defaultLocale) as Locale;
   if (!locales.includes(locale)) {
@@ -240,7 +291,6 @@ const handleMissingPathLocale = (
     locale,
     pathname,
     basePath,
-    basePathTrailingSlash,
     appendLocaleSearchIfNeeded(request.nextUrl.search, locale)
   );
 
@@ -253,42 +303,34 @@ const handleMissingPathLocale = (
  * Handles requests where the locale exists in the URL pathname.
  *
  * @param request - The incoming Next.js request object.
- * @param cookieLocale - The locale from the cookie.
+ * @param localLocale - The locale from the cookie.
  * @param pathLocale - The locale extracted from the pathname.
  * @param pathname - The pathname from the request URL.
- * @param basePathTrailingSlash - Indicates if the basePath ends with a slash.
  * @returns - The response to be returned to the client.
  */
 const handleExistingPathLocale = (
   request: NextRequest,
-  cookieLocale: Locale | undefined,
+  localLocale: Locale | undefined,
   pathLocale: Locale,
-  pathname: string,
-  basePathTrailingSlash: boolean
+  pathname: string
 ): NextResponse => {
   if (
     // If the cookie locale is set and differs from the locale in the URL
-    cookieLocale &&
-    cookieLocale !== pathLocale
+    localLocale &&
+    localLocale !== pathLocale
   ) {
     const newPath = handleCookieLocaleMismatch(
       request,
       pathname,
       pathLocale,
-      cookieLocale,
-      basePath,
-      basePathTrailingSlash
+      localLocale,
+      basePath
     );
     return redirectUrl(request, newPath);
   }
 
   // If the cookie locale matches the path locale, or cookie locale is not set, or serverSetCookie is 'always'
-  return handleDefaultLocaleRedirect(
-    request,
-    pathLocale,
-    pathname,
-    basePathTrailingSlash
-  );
+  return handleDefaultLocaleRedirect(request, pathLocale, pathname);
 };
 
 /**
@@ -297,28 +339,25 @@ const handleExistingPathLocale = (
  * @param request - The incoming Next.js request object.
  * @param pathname - The pathname from the request URL.
  * @param pathLocale - The locale extracted from the pathname.
- * @param cookieLocale - The locale from the cookie.
+ * @param localLocale - The locale from the cookie.
  * @param basePath - The base path of the application.
- * @param basePathTrailingSlash - Indicates if the basePath ends with a slash.
  * @returns - The new URL path with the correct locale.
  */
 const handleCookieLocaleMismatch = (
   request: NextRequest,
   pathname: string,
   pathLocale: Locale,
-  cookieLocale: Locale,
-  basePath: string,
-  basePathTrailingSlash: boolean
+  localLocale: Locale,
+  basePath: string
 ): string => {
-  // Replace the pathLocale in the pathname with the cookieLocale
-  const newPath = pathname.replace(`/${pathLocale}`, `/${cookieLocale}`);
+  // Replace the pathLocale in the pathname with the localLocale
+  const newPath = pathname.replace(`/${pathLocale}`, `/${localLocale}`);
 
   return constructPath(
-    cookieLocale,
+    localLocale,
     newPath,
     basePath,
-    basePathTrailingSlash,
-    appendLocaleSearchIfNeeded(request.nextUrl.search, cookieLocale)
+    appendLocaleSearchIfNeeded(request.nextUrl.search, localLocale)
   );
 };
 
@@ -328,14 +367,12 @@ const handleCookieLocaleMismatch = (
  * @param request - The incoming Next.js request object.
  * @param pathLocale - The locale extracted from the pathname.
  * @param pathname - The pathname from the request URL.
- * @param basePathTrailingSlash - Indicates if the basePath ends with a slash.
  * @returns - The rewritten response without the locale prefix.
  */
 const handleDefaultLocaleRedirect = (
   request: NextRequest,
   pathLocale: Locale,
-  pathname: string,
-  basePathTrailingSlash: boolean
+  pathname: string
 ): NextResponse => {
   if (
     // If default locale should not be prefixed and the pathLocale is the defaultLocale
@@ -343,6 +380,8 @@ const handleDefaultLocaleRedirect = (
     pathLocale === defaultLocale
   ) {
     let pathWithoutLocale = pathname.slice(`/${pathLocale}`.length) ?? '/';
+
+    const basePathTrailingSlash = basePath.endsWith('/');
 
     if (basePathTrailingSlash) {
       pathWithoutLocale = pathWithoutLocale.slice(1);
@@ -379,7 +418,6 @@ const handleDefaultLocaleRedirect = (
  * @param locale - The locale to include in the path.
  * @param path - The original path from the request.
  * @param basePath - The base path of the application.
- * @param basePathTrailingSlash - Indicates if the basePath ends with a slash.
  * @param [search] - The query string from the request URL (optional).
  * @returns - The constructed new path.
  */
@@ -387,7 +425,6 @@ const constructPath = (
   locale: Locale,
   path: string,
   basePath: string,
-  basePathTrailingSlash: boolean,
   search?: string
 ): string => {
   // In 'search-params' and 'no-prefix' modes, do not prefix the path with the locale
@@ -396,17 +433,30 @@ const constructPath = (
     ? path.slice(`/${locale}`.length) || '/'
     : path;
 
-  const pathWithLocalePrefix =
-    effectiveMode === 'search-params' || effectiveMode === 'no-prefix'
-      ? pathWithoutPrefix
-      : path.startsWith(`/${locale}`)
-        ? path
-        : `${locale}${path}`;
+  if (effectiveMode === 'no-prefix') {
+    if (search) {
+      return `${pathWithoutPrefix}?${search}`;
+    }
 
-  let newPath = `${basePath}${basePathTrailingSlash ? '' : '/'}${pathWithLocalePrefix}`;
-  if (search) {
-    newPath += search;
+    return pathWithoutPrefix;
   }
+
+  if (effectiveMode === 'search-params') {
+    if (search) {
+      return `${pathWithoutPrefix}?${search}`;
+    }
+
+    return pathWithoutPrefix;
+  }
+
+  const pathWithLocalePrefix = path.startsWith(`/${locale}`)
+    ? path
+    : `${locale}${path}`;
+
+  const basePathTrailingSlash = basePath.endsWith('/');
+
+  const newPath = `${basePath}${basePathTrailingSlash ? '' : '/'}${pathWithLocalePrefix}`;
+
   return newPath;
 };
 
@@ -429,7 +479,12 @@ const rewriteUrl = (
     search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
 
   const response = NextResponse.rewrite(new URL(pathWithSearch, request.url));
-  response.headers.set(headerName, locale);
+
+  setLocaleInStorage(locale, {
+    setHeader: (name: string, value: string) =>
+      response.headers.set(name, value),
+  });
+
   return response;
 };
 

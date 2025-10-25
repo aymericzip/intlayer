@@ -120,16 +120,14 @@ export type CookiesAttributes = {
   expires?: Date | number | undefined;
 };
 
-export type LocaleStorageAttributes = {
+export type StorageAttributes = {
   /**
    * Storage type where the locale is stored
    *
-   * Default: 'localStorage'
-   *
    * Determines whether the locale is persisted in `localStorage` (across sessions)
-   * or `sessionStorage` (cleared when the browser session ends).
+   * or `sessionStorage` (cleared when the browser session ends) or `header` (from the request header).
    */
-  type: 'localStorage' | 'sessionStorage';
+  type: 'localStorage' | 'sessionStorage' | 'header';
 
   /**
    * Storage key to store the locale information
@@ -172,7 +170,7 @@ export type RoutingConfig = {
    * If false, the locale will not be stored by the middleware.
    * If true, the locale storage will consider all default values.
    *
-   * Default: 'cookie'
+   * Default: ['cookie', 'header]
    *
    * Note: Check out GDPR compliance for cookies. See https://gdpr.eu/cookies/
    * Note: useLocale hook includes a prop to disable the cookie storage.
@@ -187,24 +185,17 @@ export type RoutingConfig = {
     | 'cookie'
     | 'localStorage'
     | 'sessionStorage'
+    | 'header'
     | CookiesAttributes
-    | LocaleStorageAttributes
+    | StorageAttributes
     | (
         | 'cookie'
         | 'localStorage'
         | 'sessionStorage'
+        | 'header'
         | CookiesAttributes
-        | LocaleStorageAttributes
+        | StorageAttributes
       )[];
-
-  /**
-   * Header name to get the locale from the request
-   *
-   * Default: 'x-intlayer-locale'
-   *
-   * The HTTP header key used to determine the current locale.
-   */
-  headerName: string;
 
   /**
    * Base path for application URLs

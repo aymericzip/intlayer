@@ -92,10 +92,12 @@ export type LocaleStorageOptions = {
   getSessionStorage?: (name: string) => string | undefined | null;
   setLocaleStorage?: (name: string, value: string) => void;
   getLocaleStorage?: (name: string) => string | undefined | null;
+  getHeader?: (name: string) => string | undefined | null;
+  setHeader?: (name: string, value: string) => void;
 };
 
 /**
- * Retrieves the locale from various storage mechanisms (cookies, localStorage, sessionStorage).
+ * Retrieves the locale from various storage mechanisms (cookies, localStorage, sessionStorage, headers).
  * The function checks storage locations in order of priority as defined in the configuration.
  *
  * @returns The locale if found in any storage, or undefined if not found
@@ -103,7 +105,11 @@ export type LocaleStorageOptions = {
 export const getLocaleFromStorage = (
   options: Pick<
     LocaleStorageOptions,
-    'getCookie' | 'getSessionStorage' | 'getLocaleStorage' | 'isCookieEnabled'
+    | 'getCookie'
+    | 'getSessionStorage'
+    | 'getLocaleStorage'
+    | 'getHeader'
+    | 'isCookieEnabled'
   >
 ): Locale | undefined => {
   const { routing, internationalization } = configuration;
@@ -179,7 +185,7 @@ export const getLocaleFromStorage = (
     } catch {}
   }
 
-  // 3) Finally check sessionStorage candidates (browser only)
+  // 3) Check sessionStorage candidates (browser only)
   for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
     const { name } = storageAttributes.sessionStorage[i];
 
@@ -189,10 +195,21 @@ export const getLocaleFromStorage = (
       if (isValidLocale(value)) return value;
     } catch {}
   }
+
+  // 4) Finally check header candidates (server only)
+  for (let i = 0; i < storageAttributes.headers.length; i++) {
+    const { name } = storageAttributes.headers[i];
+
+    try {
+      const value = options?.getHeader?.(name);
+
+      if (isValidLocale(value)) return value;
+    } catch {}
+  }
 };
 
 /**
- * Stores the locale in various storage mechanisms (cookies, localStorage, sessionStorage).
+ * Stores the locale in various storage mechanisms (cookies, localStorage, sessionStorage, headers).
  * The function writes to all configured storage locations according to their attributes.
  * Respects overwrite flags for localStorage and sessionStorage.
  *
@@ -270,16 +287,27 @@ export const setLocaleInStorage = (
       } catch {}
     }
   }
+
+  // Write to headers (server only)
+  if (options?.setHeader) {
+    for (let i = 0; i < storageAttributes.headers.length; i++) {
+      const { name } = storageAttributes.headers[i];
+
+      try {
+        options?.setHeader?.(name, locale);
+      } catch {}
+    }
+  }
 };
 
 /**
  * Utility object to get and set the locale in the storage by considering the configuration
  *
- * @property getLocale - Retrieves the locale from various storage mechanisms (cookies, localStorage, sessionStorage).
- * Retrieves the locale from various storage mechanisms (cookies, localStorage, sessionStorage).
+ * @property getLocale - Retrieves the locale from various storage mechanisms (cookies, localStorage, sessionStorage, headers).
+ * Retrieves the locale from various storage mechanisms (cookies, localStorage, sessionStorage, headers).
  * The function checks storage locations in order of priority as defined in the configuration.
  *
- * @property setLocale - Stores the locale in various storage mechanisms (cookies, localStorage, sessionStorage).
+ * @property setLocale - Stores the locale in various storage mechanisms (cookies, localStorage, sessionStorage, headers).
  * The function writes to all configured storage locations according to their attributes.
  * Respects overwrite flags for localStorage and sessionStorage.
  *

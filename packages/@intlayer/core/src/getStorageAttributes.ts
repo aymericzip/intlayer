@@ -2,7 +2,7 @@ import { DefaultValues } from '@intlayer/config/client';
 import type {
   CookiesAttributes,
   IntlayerConfig,
-  LocaleStorageAttributes,
+  StorageAttributes,
 } from '@intlayer/types';
 
 // ============================================================================
@@ -18,18 +18,24 @@ type WebStorageEntry = {
   name: string;
 };
 
-export type StorageAttributes = {
+type HeaderEntry = {
+  name: string;
+};
+
+export type ProcessedStorageAttributes = {
   cookies: CookieEntry[];
   localStorage: WebStorageEntry[];
   sessionStorage: WebStorageEntry[];
+  headers: HeaderEntry[];
 };
 
 type StorageEntry =
   | 'cookie'
   | 'localStorage'
   | 'sessionStorage'
+  | 'header'
   | CookiesAttributes
-  | LocaleStorageAttributes;
+  | StorageAttributes;
 
 // ============================================================================
 // Helper Functions
@@ -61,12 +67,25 @@ const createCookieEntry = (
  * Creates a web storage entry (localStorage or sessionStorage) with default name
  */
 const createWebStorageEntry = (
-  options?: Partial<LocaleStorageAttributes>
+  options?: Partial<StorageAttributes>
 ): WebStorageEntry => {
   const { name } = options ?? {};
 
   return {
     name: name ?? DefaultValues.Routing.LOCALE_STORAGE_NAME,
+  };
+};
+
+/**
+ * Creates a header entry with default name
+ */
+const createHeaderEntry = (
+  options?: Partial<StorageAttributes>
+): HeaderEntry => {
+  const { name } = options ?? {};
+
+  return {
+    name: name ?? DefaultValues.Routing.HEADER_NAME,
   };
 };
 
@@ -87,9 +106,12 @@ const isCookieEntry = (entry: any): boolean => {
  */
 const isStorageType = (
   value: string
-): value is 'cookie' | 'localStorage' | 'sessionStorage' => {
+): value is 'cookie' | 'localStorage' | 'sessionStorage' | 'header' => {
   return (
-    value === 'cookie' || value === 'localStorage' || value === 'sessionStorage'
+    value === 'cookie' ||
+    value === 'localStorage' ||
+    value === 'sessionStorage' ||
+    value === 'header'
   );
 };
 
@@ -102,11 +124,11 @@ const isStorageType = (
  */
 const processStorageEntry = (
   entry: StorageEntry
-): Partial<StorageAttributes> => {
+): Partial<ProcessedStorageAttributes> => {
   // Handle string literals
   if (typeof entry === 'string') {
     if (!isStorageType(entry)) {
-      return { cookies: [], localStorage: [], sessionStorage: [] };
+      return { cookies: [], localStorage: [], sessionStorage: [], headers: [] };
     }
 
     if (entry === 'cookie') {
@@ -120,11 +142,15 @@ const processStorageEntry = (
     if (entry === 'sessionStorage') {
       return { sessionStorage: [createWebStorageEntry()] };
     }
+
+    if (entry === 'header') {
+      return { headers: [createHeaderEntry()] };
+    }
   }
 
   // Handle object entries
   if (typeof entry === 'object' && entry !== null) {
-    const typedEntry = entry as CookiesAttributes | LocaleStorageAttributes;
+    const typedEntry = entry as CookiesAttributes | StorageAttributes;
 
     if (isCookieEntry(typedEntry)) {
       return { cookies: [createCookieEntry(typedEntry as CookiesAttributes)] };
@@ -132,34 +158,37 @@ const processStorageEntry = (
 
     // Handle localStorage
     if ('type' in typedEntry && typedEntry.type === 'localStorage') {
-      const { name, ...rest } = typedEntry as LocaleStorageAttributes;
+      const { name, ...rest } = typedEntry as StorageAttributes;
       return { localStorage: [createWebStorageEntry({ name, ...rest })] };
     }
 
     // Handle sessionStorage
     if ('type' in typedEntry && typedEntry.type === 'sessionStorage') {
-      const { name, ...rest } = typedEntry as LocaleStorageAttributes;
+      const { name, ...rest } = typedEntry as StorageAttributes;
       return { sessionStorage: [createWebStorageEntry({ name, ...rest })] };
     }
 
+    // Handle header
+    if ('type' in typedEntry && typedEntry.type === 'header') {
+      const { name, ...rest } = typedEntry as StorageAttributes;
+      return { headers: [createHeaderEntry({ name, ...rest })] };
+    }
+
     // Default to localStorage for ambiguous objects
-    const { name, ...rest } = typedEntry as Omit<
-      LocaleStorageAttributes,
-      'type'
-    >;
+    const { name, ...rest } = typedEntry as Omit<StorageAttributes, 'type'>;
     return { localStorage: [createWebStorageEntry({ name, ...rest })] };
   }
 
-  return { cookies: [], localStorage: [], sessionStorage: [] };
+  return { cookies: [], localStorage: [], sessionStorage: [], headers: [] };
 };
 
 /**
  * Merges multiple partial storage attributes into a single result
  */
 const mergeStorageAttributes = (
-  accumulated: StorageAttributes,
-  partial: Partial<StorageAttributes>
-): StorageAttributes => {
+  accumulated: ProcessedStorageAttributes,
+  partial: Partial<ProcessedStorageAttributes>
+): ProcessedStorageAttributes => {
   return {
     cookies: [...accumulated.cookies, ...(partial.cookies ?? [])],
     localStorage: [
@@ -170,6 +199,7 @@ const mergeStorageAttributes = (
       ...accumulated.sessionStorage,
       ...(partial.sessionStorage ?? []),
     ],
+    headers: [...accumulated.headers, ...(partial.headers ?? [])],
   };
 };
 
@@ -181,11 +211,12 @@ const mergeStorageAttributes = (
  */
 export const getStorageAttributes = (
   options: IntlayerConfig['routing']['storage']
-): StorageAttributes => {
-  const emptyResult: StorageAttributes = {
+): ProcessedStorageAttributes => {
+  const emptyResult: ProcessedStorageAttributes = {
     cookies: [],
     localStorage: [],
     sessionStorage: [],
+    headers: [],
   };
 
   // Storage is disabled
@@ -195,7 +226,7 @@ export const getStorageAttributes = (
 
   // Handle array of storage entries
   if (Array.isArray(options)) {
-    return options.reduce((acc, entry) => {
+    return options.reduce<ProcessedStorageAttributes>((acc, entry) => {
       const partial = processStorageEntry(entry);
       return mergeStorageAttributes(acc, partial);
     }, emptyResult);

@@ -1,3 +1,4 @@
+import { DefaultValues } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
@@ -75,7 +76,7 @@ export const getMultilingualUrls = (
     : '';
 
   // Default mode to 'prefix-no-default' if not provided
-  const routingMode = mode ?? 'prefix-no-default';
+  const routingMode = mode ?? DefaultValues.Routing.ROUTING_MODE;
 
   // Generate multilingual URLs by iterating over each locale
   const multilingualUrls = (locales ?? []).reduce<StrictModeLocaleMap<string>>(

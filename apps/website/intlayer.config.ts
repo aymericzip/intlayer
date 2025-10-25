@@ -42,6 +42,9 @@ const config: CustomIntlayerConfig = {
     live: true,
     locale: Locales.ENGLISH,
   },
+  routing: {
+    mode: 'no-prefix',
+  },
   content: {
     contentDir: ['./src', '../../packages/@intlayer/design-system/src'],
     formatCommand: 'bun x biome format "{{file}}" --write --log-level none',

@@ -1,7 +1,12 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { parse } from 'node:url';
 import { getConfiguration } from '@intlayer/config';
-import { getLocaleFromStorage, localeDetector } from '@intlayer/core';
+import { DefaultValues } from '@intlayer/config/client';
+import {
+  getLocaleFromStorage,
+  localeDetector,
+  setLocaleInStorage,
+} from '@intlayer/core';
 import type { Locale } from '@intlayer/types';
 /* @ts-ignore - Vite types error */
 import type { Connect, Plugin } from 'vite';
@@ -19,23 +24,22 @@ const intlayerConfig = getConfiguration();
 const { internationalization, routing } = intlayerConfig;
 const { locales: supportedLocales, defaultLocale } = internationalization;
 
-const { headerName, basePath = '', mode } = routing;
+const { basePath = '', mode = DefaultValues.Routing.ROUTING_MODE } = routing;
 
 // Derived flags from routing.mode
 const noPrefix = mode === 'no-prefix' || mode === 'search-params';
 const prefixDefault = mode === 'prefix-all';
 
 /**
- * @deprecated Rename to intlayerMiddleware instead
  *
  * A Vite plugin that integrates a logic similar to the Next.js intlayer middleware.
  *
  * // Example usage of the plugin in a Vite configuration
  * export default defineConfig({
- *   plugins: [ intlayerMiddleware() ],
+ *   plugins: [ intlayerProxyPlugin() ],
  * });
  */
-export const intlayerMiddlewarePlugin = (): Plugin => {
+export const intlayerProxy = (): Plugin => {
   return {
     name: 'vite-intlayer-middleware-plugin',
     configureServer: (server) => {
@@ -162,8 +166,10 @@ const rewriteUrl = (
 ) => {
   req.url = newUrl;
   // If you want to mimic Next.js's behavior of setting a header for the locale:
-  if (locale && headerName) {
-    res.setHeader(headerName, locale);
+  if (locale) {
+    setLocaleInStorage(locale, {
+      setHeader: (name: string, value: string) => res.setHeader(name, value),
+    });
   }
 };
 
@@ -179,21 +185,43 @@ const constructPath = (
   currentPath: string,
   search?: string
 ) => {
+  // Strip any incoming locale prefix if present
+  const pathWithoutPrefix = currentPath.startsWith(`/${locale}`)
+    ? (currentPath.slice(`/${locale}`.length) ?? '/')
+    : currentPath;
+
   // Ensure basePath always starts with '/', and remove trailing slash if needed
   const cleanBasePath = basePath.startsWith('/') ? basePath : `/${basePath}`;
   // If basePath is '/', no trailing slash is needed
   const normalizedBasePath = cleanBasePath === '/' ? '' : cleanBasePath;
 
-  // In 'search-params' mode, we do not prefix the path with the locale
-  const pathWithLocalePrefix =
-    mode === 'search-params' ? currentPath : `/${locale}${currentPath}`;
+  // In 'search-params' and 'no-prefix' modes, do not prefix the path with the locale
+  if (mode === 'no-prefix') {
+    const newPath = search
+      ? `${pathWithoutPrefix}${search}`
+      : pathWithoutPrefix;
+    return newPath;
+  }
 
-  // Combine basePath + locale prefix + the rest of the path
-  let newPath = `${normalizedBasePath}${pathWithLocalePrefix}`;
+  if (mode === 'search-params') {
+    const newPath = search
+      ? `${pathWithoutPrefix}${search}`
+      : pathWithoutPrefix;
+    return newPath;
+  }
+
+  // Check if path already starts with locale to avoid double-prefixing
+  const pathWithLocalePrefix = currentPath.startsWith(`/${locale}`)
+    ? currentPath
+    : `/${locale}${currentPath}`;
+
+  const basePathTrailingSlash = basePath.endsWith('/');
+
+  let newPath = `${normalizedBasePath}${basePathTrailingSlash ? '' : ''}${pathWithLocalePrefix}`;
 
   // Special case: if prefixDefault is false and locale is defaultLocale, remove the locale prefix
-  if (!prefixDefault && locale === defaultLocale && mode !== 'search-params') {
-    newPath = `${normalizedBasePath}${currentPath}`;
+  if (!prefixDefault && locale === defaultLocale) {
+    newPath = `${normalizedBasePath}${pathWithoutPrefix}`;
   }
 
   // Append search parameters if provided
@@ -242,15 +270,45 @@ const handleNoPrefix = ({
     locale = detectedLocale as Locale;
   }
 
-  // Construct the new path with locale in search params if needed
-  const newPath = constructPath(
-    locale,
-    originalPath,
-    appendLocaleSearchIfNeeded(searchParams, locale)
-  );
+  // In search-params mode, we need to redirect to add the locale search param
+  if (mode === 'search-params') {
+    // Check if locale search param already exists and matches the detected locale
+    const existingSearchParams = new URLSearchParams(searchParams ?? '');
+    const existingLocale = existingSearchParams.get('locale');
 
-  // Just rewrite the URL in-place (no prefix). We do NOT redirect because we do not want to alter the URL.
-  rewriteUrl(req, res, newPath, locale);
+    // If the existing locale matches the detected locale, no redirect needed
+    if (existingLocale === locale) {
+      // For internal routing, we need to add the locale prefix so the framework can match [locale] param
+      const internalPath = `/${locale}${originalPath}`;
+      const rewritePath = `${internalPath}${searchParams ?? ''}`;
+
+      // Rewrite internally (URL stays the same in browser, but internally routes to /[locale]/path)
+      rewriteUrl(req, res, rewritePath, locale);
+      return next();
+    }
+
+    // Locale param missing or doesn't match - redirect to add/update it
+    const search = appendLocaleSearchIfNeeded(searchParams, locale);
+    const redirectPath = search
+      ? `${originalPath}${search}`
+      : `${originalPath}${searchParams ?? ''}`;
+
+    // Redirect to add/update the locale search param (URL changes in browser)
+    return redirectUrl(res, redirectPath);
+  }
+
+  // For no-prefix mode (not search-params), add locale prefix internally for routing
+  const internalPath = `/${locale}${originalPath}`;
+
+  // Add search params if needed
+  const search = appendLocaleSearchIfNeeded(searchParams, locale);
+  const rewritePath = search
+    ? `${internalPath}${search}`
+    : `${internalPath}${searchParams ?? ''}`;
+
+  // Rewrite internally (URL stays the same in browser, but internally routes to /[locale]/path)
+  rewriteUrl(req, res, rewritePath, locale);
+
   return next();
 };
 
@@ -289,7 +347,7 @@ const handlePrefix = ({
     return;
   }
 
-  // 2. If pathLocale exists, handle possible mismatch with storage
+  // 2. If pathLocale exists, handle it
   handleExistingPathLocale({
     req,
     res,
@@ -297,7 +355,6 @@ const handlePrefix = ({
     originalPath,
     searchParams,
     pathLocale,
-    storageLocale,
   });
 };
 
@@ -320,31 +377,6 @@ const handleMissingPathLocale = ({
   searchParams: string;
   storageLocale?: Locale;
 }) => {
-  // If navigation comes from the same origin (e.g., via an in-app language switcher),
-  // treat unprefixed paths as an explicit intent to view the default locale.
-  // This avoids redirecting back to the storage locale (e.g., '/tr/') when user selects '/'.
-  const referer = (req.headers.referer || req.headers.referrer) as
-    | string
-    | undefined;
-  if (referer) {
-    try {
-      const refererUrl = new URL(referer);
-      const host = req.headers.host;
-      if (host && refererUrl.host === host) {
-        const locale = defaultLocale as Locale;
-        const newPath = constructPath(
-          locale,
-          originalPath,
-          appendLocaleSearchIfNeeded(searchParams, locale)
-        );
-        rewriteUrl(req, res, newPath, locale);
-        return next();
-      }
-    } catch {
-      // ignore invalid referer
-    }
-  }
-
   // 1. Choose the best locale
   let locale = (storageLocale ??
     localeDetector(
@@ -358,12 +390,9 @@ const handleMissingPathLocale = ({
     locale = defaultLocale;
   }
 
-  // 3. Construct new path
-  const newPath = constructPath(
-    locale,
-    originalPath,
-    appendLocaleSearchIfNeeded(searchParams, locale)
-  );
+  // 3. Construct new path - preserving original search params
+  const search = appendLocaleSearchIfNeeded(searchParams, locale);
+  const newPath = constructPath(locale, originalPath, search);
 
   // If we always prefix default or if this is not the default locale, do a 301 redirect
   // so that the user sees the locale in the URL.
@@ -378,7 +407,6 @@ const handleMissingPathLocale = ({
 
 /**
  * Handles requests where the locale prefix is present in the pathname.
- * We verify if the storage locale differs from the path locale; if so, handle.
  */
 const handleExistingPathLocale = ({
   req,
@@ -387,7 +415,6 @@ const handleExistingPathLocale = ({
   originalPath,
   searchParams,
   pathLocale,
-  storageLocale,
 }: {
   req: Connect.IncomingMessage;
   res: ServerResponse<IncomingMessage>;
@@ -395,21 +422,9 @@ const handleExistingPathLocale = ({
   originalPath: string;
   searchParams: string;
   pathLocale: Locale;
-  storageLocale?: Locale;
 }) => {
-  // 1. If the storage locale is set and differs from the path locale, redirect
-  if (storageLocale && storageLocale !== pathLocale) {
-    // We want to swap out the pathLocale with the storageLocale
-    const newPath = originalPath.replace(`/${pathLocale}`, `/${storageLocale}`);
-    const finalPath = constructPath(
-      storageLocale,
-      newPath.replace(/^\/+/, '/'),
-      appendLocaleSearchIfNeeded(searchParams, storageLocale)
-    );
-    return redirectUrl(res, finalPath);
-  }
-
-  // 2. Otherwise, handle default-locale prefix if needed
+  // In prefix modes, respect the URL path locale
+  // The path locale takes precedence, and we'll update storage to match
   handleDefaultLocaleRedirect({
     req,
     res,
@@ -442,27 +457,27 @@ const handleDefaultLocaleRedirect = ({
   if (!prefixDefault && pathLocale === defaultLocale) {
     // Remove the default locale part from the path
     let newPath = originalPath.replace(`/${defaultLocale}`, '') || '/';
-    const searchWithLocale = appendLocaleSearchIfNeeded(
-      searchParams,
-      pathLocale
-    );
-    if (searchWithLocale) {
-      newPath += searchWithLocale;
+    // In prefix modes, don't add locale to search params
+    // Just preserve the original search params if they exist
+    if (searchParams) {
+      newPath += searchParams;
     }
     rewriteUrl(req, res, newPath, pathLocale);
     return next();
   }
 
   // If we do prefix default or pathLocale != default, keep as is, but rewrite headers
-  const searchWithLocale = appendLocaleSearchIfNeeded(searchParams, pathLocale);
-  const newPath = searchWithLocale
-    ? `${originalPath}${searchWithLocale}`
+  // Preserve original search params without adding locale
+  const newPath = searchParams
+    ? `${originalPath}${searchParams}`
     : originalPath;
   rewriteUrl(req, res, newPath, pathLocale);
   return next();
 };
 
 /**
+ * @deprecated Rename to intlayerProxy instead
+ *
  * A Vite plugin that integrates a logic similar to the Next.js intlayer middleware.
  *
  * ```ts
@@ -472,10 +487,10 @@ const handleDefaultLocaleRedirect = ({
  * });
  * ```
  */
-export const intlayerMiddleware = intlayerMiddlewarePlugin;
+export const intlayerMiddleware = intlayerProxy;
 
 /**
- * @deprecated Rename to intlayerMiddleware instead
+ * @deprecated Rename to intlayerProxy instead
  * 
  * A Vite plugin that integrates a logic similar to the Next.js intlayer middleware.
 
@@ -486,4 +501,4 @@ export const intlayerMiddleware = intlayerMiddlewarePlugin;
  * });
  * ```
  */
-export const intLayerMiddleware = intlayerMiddlewarePlugin;
+export const intLayerMiddlewarePlugin = intlayerProxy;

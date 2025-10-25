@@ -67,9 +67,9 @@ export const multipleProxies =
         mergedHeaders.append(key, value);
 
         // check if it's a custom header added by one of the proxies
-        if (key.startsWith('x-proxy-request-')) {
+        if (key.startsWith('x-middleware-request-')) {
           // remove the prefix to get the original key
-          const fixedKey = key.replace('x-proxy-request-', '');
+          const fixedKey = key.replace('x-middleware-request-', '');
 
           // add the original key to the transmitted headers
           transmittedHeaders.append(fixedKey, value);
@@ -77,8 +77,8 @@ export const multipleProxies =
       }
     });
 
-    // Look for the 'x-proxy-request-redirect' header
-    const redirect = mergedHeaders.get('x-proxy-request-redirect');
+    // Look for the 'x-middleware-request-redirect' header
+    const redirect = mergedHeaders.get('x-middleware-request-redirect');
 
     // If a redirection is required based on the proxy headers
     if (redirect) {
@@ -88,8 +88,8 @@ export const multipleProxies =
       });
     }
 
-    // Look for the 'x-proxy-rewrite' header
-    const rewrite = mergedHeaders.get('x-proxy-rewrite');
+    // Look for the 'x-middleware-rewrite' header
+    const rewrite = mergedHeaders.get('x-middleware-rewrite');
     if (rewrite) {
       // Perform the rewrite
       return NextResponse.rewrite(new URL(rewrite, req.url), {
