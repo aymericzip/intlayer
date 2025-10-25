@@ -2,26 +2,31 @@
 
 import { getLocalizedUrl, getPathWithoutLocale } from '@intlayer/core';
 import type { LocalesValues } from '@intlayer/types';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation.js';
-import { useCallback, useMemo } from 'react';
+import { usePathname, useRouter } from 'next/navigation.js';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocale as useLocaleReact } from 'react-intlayer';
 
 type UseLocaleProps = {
   onChange?: 'replace' | 'push' | ((locale: LocalesValues) => void);
 };
 
+const usePathWithoutLocale = () => {
+  const pathname = usePathname(); // updates on client navigations
+  const [fullPath, setFullPath] = useState(pathname);
+
+  useEffect(() => {
+    // Runs only on client; avoids suspense.
+    const search = typeof window !== 'undefined' ? window.location.search : '';
+    setFullPath(search ? `${pathname}${search}` : pathname);
+  }, [pathname]);
+
+  // Your own helper
+  return useMemo(() => getPathWithoutLocale(fullPath), [fullPath]);
+};
+
 export const useLocale = ({ onChange }: UseLocaleProps = {}) => {
   const { replace, push } = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const pathWithoutLocale = useMemo(() => {
-    const fullUrl = searchParams.toString()
-      ? `${pathname}?${searchParams.toString()}`
-      : pathname;
-
-    return getPathWithoutLocale(fullUrl);
-  }, [pathname, searchParams]);
+  const pathWithoutLocale = usePathWithoutLocale();
 
   const redirectionFunction = useCallback(
     (locale: LocalesValues) => {
