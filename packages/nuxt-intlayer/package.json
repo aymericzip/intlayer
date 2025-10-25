@@ -77,7 +77,8 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "vite-intlayer": "workspace:*"
+    "vite-intlayer": "workspace:*",
+    "vue-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "24.9.1",
@@ -97,7 +98,8 @@
     "@intlayer/types": "workspace:*",
     "@nuxt/kit": ">=3.0.0",
     "@nuxt/schema": ">=3.0.0",
-    "vite-intlayer": "workspace:*"
+    "vite-intlayer": "workspace:*",
+    "vue-intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"
