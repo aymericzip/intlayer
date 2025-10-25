@@ -8,13 +8,6 @@ import type { StrictMode } from './config';
 import type { Dictionary } from './dictionary';
 import type { Locale } from './locales';
 
-/**
- * Provides a fallback to string type if the generic type T is undefined,
- * otherwise returns T. This is useful for handling cases where no keys are found.
- * Example: StringFallback<undefined> -> string; StringFallback<'key'> -> 'key'
- */
-export type StringFallback<T> = T extends never ? string : T; // If no keys are found, return string to disable error, and accept any string as dictionary key
-
 export type DictionaryKeys = keyof __DictionaryRegistry extends never
   ? string
   : keyof __DictionaryRegistry;
@@ -42,18 +35,25 @@ export type DictionaryRegistryContent<T extends PropertyKey> = [T] extends [
   : any;
 
 // --- Derived unions from registries ---
-export type DeclaredLocales = keyof __DeclaredLocalesRegistry extends never
-  ? Locale
-  : keyof __DeclaredLocalesRegistry; // 'en' | 'fr' | ...
 
-export type RequiredLocales = keyof __RequiredLocalesRegistry extends never
+type NarrowStringKeys<T> = string extends keyof T
   ? never
-  : keyof __RequiredLocalesRegistry; // 'en' | 'fr' | ...
+  : Extract<keyof T, string>;
+
+export type DeclaredLocales = [
+  NarrowStringKeys<__DeclaredLocalesRegistry>,
+] extends [never]
+  ? Locale
+  : NarrowStringKeys<__DeclaredLocalesRegistry>;
+
+export type RequiredLocales = [
+  NarrowStringKeys<__RequiredLocalesRegistry>,
+] extends [never]
+  ? never
+  : NarrowStringKeys<__RequiredLocalesRegistry>;
 
 /** Define MyType using the ValueOf utility type on Locales */
-export type LocalesValues = keyof __DeclaredLocalesRegistry extends never
-  ? Locale | (string & {})
-  : DeclaredLocales | (string & {});
+export type LocalesValues = DeclaredLocales | (string & {});
 
 // --- Strict mode selection from registry (default 'loose') ---
 type ResolvedStrictMode = __StrictModeRegistry extends { mode: infer M }
