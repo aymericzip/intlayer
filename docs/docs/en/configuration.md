@@ -316,51 +316,32 @@ Settings that control routing behavior, including URL structure, locale storage,
   - _Note_: This setting does not impact cookie or locale storage management.
 
 - **storage**:
-  - _Type_: `false | 'cookie' | 'localStorage' | 'sessionStorage' | CookiesAttributes | LocaleStorageAttributes | Array`
+  - _Type_: `false | 'cookie' | 'localStorage' | 'sessionStorage' | 'header' | CookiesAttributes | StorageAttributes | Array`
   - _Default_: `'localStorage'`
   - _Description_: Configuration for storing the locale in the client.
-  - _Examples_:
 
-    ```typescript
-    // Disable storage
-    storage: false
+  - **cookie**:
+    - _Description_: Stores data in cookies, small pieces of data stored on the client's browser, accessible on both client and server side.
+    - _Note_: For GDPR compliant storage, ensure proper user consent before usage.
+    - _Note_: Cookies parameters are customizable if set as CookiesAttributes (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`).
 
-    // Simple storage types
-    storage: 'cookie'
-    storage: 'localStorage'
-    storage: 'sessionStorage'
+  - **localStorage**:
+    - _Description_: Stores data in the browser without expiration dates, allowing for data persistence across sessions, accessible only on the client side.
+    - _Note_: Ideal for storing long-term data but mindful of the privacy and security implications due to non-expiring nature unless explicitly cleared.
+    - _Note_: Locale storage is only accessible on the client side, the intlayer proxy will not be able to access it.
+    - _Note_: Locale storage parameters are customizable if set as StorageAttributes (`{ type: 'localStorage', name: 'custom-locale' }`).
 
-    // Cookie with custom attributes
-    storage: {
-      type: 'cookie',
-      name: 'custom-locale',
-      domain: '.example.com',
-      secure: true,
-      sameSite: 'strict'
-    }
+  - **sessionStorage**:
+    - _Description_: Stores data for the duration of a page session, meaning it gets cleared once the tab or window is closed, accessible only on the client side.
+    - _Note_: Suitable for temporary data storage for each session.
+    - _Note_: Locale storage is only accessible on the client side, the intlayer proxy will not be able to access it.
+    - _Note_: Locale storage parameters are customizable if set as StorageAttributes (`{ type: 'sessionStorage', name: 'custom-locale' }`).
 
-    // localStorage with custom key
-    storage: {
-      type: 'localStorage',
-      name: 'custom-locale'
-    }
-
-    // Multiple storage types
-    storage: ['cookie', 'localStorage']
-    ```
-
-  - _Note_:
-    - If `false`, the locale will not be stored by the middleware
-    - Check GDPR compliance for cookies. See https://gdpr.eu/cookies/
-    - Recommendation: Configure both localStorage and cookies for GDPR compliance
-    - Disable cookie storage by default on the useLocale hook until user consent
-
-- **headerName**:
-  - _Type_: `string`
-  - _Default_: `'x-intlayer-locale'`
-  - _Description_: The name of the HTTP header used to determine the locale.
-  - _Example_: `'x-custom-locale'`
-  - _Note_: This is useful for API-based locale determination.
+  - **header**:
+    - _Description_: Utilizes HTTP headers to store or transmit locale data, suitable for server-side language determination.
+    - _Note_: Useful in API calls for maintaining consistent language settings across requests.
+    - _Note_: Header is only accessible on the server side, the client side will not be able to access it.
+    - _Note_: Header name is customizable if set as StorageAttributes (`{ type: 'header', name: 'custom-locale' }`).
 
 - **basePath**:
   - _Type_: `string`
