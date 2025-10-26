@@ -42,6 +42,10 @@ With Intlayer, you can:
 
 ## Step-by-Step Guide to Set Up Intlayer in a Vite and Solid Application
 
+## Table of Contents
+
+<TOC>
+
 ### Step 1: Install Dependencies
 
 Install the necessary packages using npm:

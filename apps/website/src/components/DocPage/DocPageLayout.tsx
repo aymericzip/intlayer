@@ -1,8 +1,8 @@
-import { AsideNavigation } from '@components/AsideNavigation/AsideNavigation';
 // import { BackgroundLayout } from '@components/BackgroundLayout';
 import { EmailRegistrationToast } from '@components/EmailRegistrationToast';
 import { getIntlayer, type LocalesValues } from 'intlayer';
 import type { FC, ReactNode } from 'react';
+import { AsideNavigation } from './AsideNavigation/AsideNavigation';
 import { DocBreadCrumb } from './DocBreadCrumb';
 import { DocNavList } from './DocNavList';
 import type { Section } from './types';

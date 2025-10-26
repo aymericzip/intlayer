@@ -25,6 +25,10 @@ history:
 
 Intlayer allows the automatic generation of translations for your content declaration files. There are multiple ways to achieve this depending on your workflow.
 
+## Table of Contents
+
+<TOC>
+
 ## Using the CMS
 
 With Intlayer, you can adopt a workflow where only a single locale is declared locally, while all translations are managed remotely through the CMS. This allows content and translations to be completely detached from the codebase, offering more flexibility for content editors and enabling Live Sync (no need to rebuild the application to apply changes).

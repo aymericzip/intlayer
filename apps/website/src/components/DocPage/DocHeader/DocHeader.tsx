@@ -7,6 +7,7 @@ import { ContributionMessage } from '../ContributionMessage';
 import { CopyMarkdownMessage } from '../CopyMarkdownMessage';
 import { History } from '../History';
 import { MCPMessage } from '../MCPMessage';
+import { ScrollWellAndTitle } from '../ScrollWell';
 import { SummarizeAI } from '../SummarizeAI/SummarizeAI';
 import { TranslatedContentMessage } from '../TranslatedContentMessage';
 import { YoutubeVideoMessage } from '../YoutubeVideoMessage';
@@ -63,7 +64,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
       </header>
       <Container className="sticky top-20 z-5 mx-auto mt-5 flex flex-col gap-2 px-4 py-2">
         <div className="flex w-full flex-row justify-between gap-4">
-          <div className="flex w-full flex-row items-center justify-start gap-4">
+          <div className="flex w-full shrink flex-row items-center justify-start gap-4">
             {applicationTemplate && (
               <ApplicationTemplateMessage
                 applicationTemplateUrl={applicationTemplate.replace(
@@ -80,8 +81,10 @@ export const DocHeader: FC<DocHeaderProps> = ({
             <SummarizeAI url={url} />
 
             <MCPMessage />
+
+            <ScrollWellAndTitle />
           </div>
-          <div className="flex w-full flex-row items-center justify-end gap-4">
+          <div className="flex shrink-0 flex-row items-center justify-end gap-4">
             <History
               pageUrl={relativeUrl}
               updatedAt={updatedAt as string}

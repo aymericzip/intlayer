@@ -21,6 +21,10 @@ history:
 
 # How Intlayer Works
 
+## Table of Contents
+
+<TOC>
+
 ## Overview
 
 The main idea behind Intlayer is to adopt a per-component content management. So the idea behind Intlayer is to allow you to declare your content anywhere in your codebase, as in the same directory as your component.

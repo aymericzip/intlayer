@@ -27,6 +27,10 @@ history:
 
 # Translate your Next.js and Page Router website using Intlayer | Internationalization (i18n)
 
+## Table of Contents
+
+<TOC>
+
 ## What is Intlayer?
 
 **Intlayer** is an innovative, open-source internationalization (i18n) library designed to simplify multilingual support in modern web applications. Intlayer seamlessly integrates with the latest **Next.js** framework, including its traditional **Page Router**.

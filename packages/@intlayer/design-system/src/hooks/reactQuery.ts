@@ -135,8 +135,8 @@ export const useLogin = () => {
 
   return useMutation({
     mutationKey: ['login'],
-    mutationFn: (args: Parameters<AuthAPI['signInEmail']>) =>
-      intlayerAuth.signInEmail(...args),
+    mutationFn: (args: Parameters<AuthAPI['signInEmail']>[0]) =>
+      intlayerAuth.signInEmail(args),
     onSuccess: (data) => {
       const session = queryClient.getQueryData(['session']);
 
@@ -165,8 +165,8 @@ export const useRegister = () => {
 
   return useMutation({
     mutationKey: ['register'],
-    mutationFn: (args: Parameters<AuthAPI['signUpEmail']>) =>
-      intlayerAuth.signUpEmail(...args),
+    mutationFn: (args: Parameters<AuthAPI['signUpEmail']>[0]) =>
+      intlayerAuth.signUpEmail(args),
     meta: {
       resetQueries: [['session']],
     },

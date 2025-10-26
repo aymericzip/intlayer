@@ -44,6 +44,10 @@ history:
 
 # Intlayer Formatters
 
+## Table of Contents
+
+<TOC>
+
 ## Overview
 
 Intlayer provides a set of lightweight helpers built on top of the native `Intl` APIs, plus a cached `Intl` wrapper to avoid repeatedly constructing heavy formatters. These utilities are fully locale-aware and can be used from the main `intlayer` package.

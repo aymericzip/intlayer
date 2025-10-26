@@ -48,6 +48,14 @@ history:
 
 # Intlayer CLI
 
+---
+
+## Table of Contents
+
+<TOC>
+
+---
+
 ## Install Package
 
 Install the necessary packages using npm:

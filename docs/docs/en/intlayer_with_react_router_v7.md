@@ -31,6 +31,10 @@ history:
 
 This guide demonstrates how to integrate **Intlayer** for seamless internationalization in React Router v7 projects with locale-aware routing, TypeScript support, and modern development practices.
 
+## Table of Contents
+
+<TOC>
+
 ## What is Intlayer?
 
 **Intlayer** is an innovative, open-source internationalization (i18n) library designed to simplify multilingual support in modern web applications.

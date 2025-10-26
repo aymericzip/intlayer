@@ -1,4 +1,4 @@
-import { AsideNavigation } from '@components/AsideNavigation/AsideNavigation';
+import { AsideNavigation } from '@components/DocPage/AsideNavigation/AsideNavigation';
 // import { BackgroundLayout } from '@components/BackgroundLayout';
 import type { LocalesValues } from 'intlayer';
 import type { FC, ReactNode } from 'react';

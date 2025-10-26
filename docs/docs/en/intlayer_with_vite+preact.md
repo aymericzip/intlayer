@@ -27,6 +27,10 @@ history:
 
 See [Application Template](https://github.com/aymericzip/intlayer-vite-preact-template) on GitHub.
 
+## Table of Contents
+
+<TOC>
+
 ## What is Intlayer?
 
 **Intlayer** is an innovative, open-source internationalization (i18n) library designed to simplify multilingual support in modern web applications.

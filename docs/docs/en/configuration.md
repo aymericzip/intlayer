@@ -57,6 +57,12 @@ Intlayer configuration files allow customization of various aspects of the plugi
 
 ---
 
+## Table of Contents
+
+<TOC>
+
+---
+
 ## Configuration File Support
 
 Intlayer accepts JSON, JS, MJS, and TS configuration file formats:

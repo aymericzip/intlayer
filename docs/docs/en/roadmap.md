@@ -31,6 +31,12 @@ Intlayer is a content management and internationalization solution designed to s
 
 ---
 
+## Table of Contents
+
+<TOC>
+
+---
+
 ## Current Features
 
 ### 1. Content Declaration

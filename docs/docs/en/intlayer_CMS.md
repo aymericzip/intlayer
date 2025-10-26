@@ -39,6 +39,12 @@ For that, Intlayer introduce the concept of 'distant dictionaries'.
 
 ![Intlayer CMS Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
+## Table of Contents
+
+<TOC>
+
+---
+
 ## Understanding distant dictionaries
 
 Intlayer make a difference between 'local' and 'remote' dictionaries.

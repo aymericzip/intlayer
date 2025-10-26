@@ -28,6 +28,10 @@ history:
 
 # Translate your Tanstack Start website using Intlayer | Internationalization (i18n)
 
+## Table of Contents
+
+<TOC>
+
 This guide demonstrates how to integrate **Intlayer** for seamless internationalization in Tanstack Start projects with locale-aware routing, TypeScript support, and modern development practices.
 
 ## What is Intlayer?

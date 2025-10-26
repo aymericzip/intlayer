@@ -2,7 +2,21 @@
 
 import { useCallback, useSyncExternalStore } from 'react';
 
-export const useScrollY = (): number => {
+type UseScrollYResult = {
+  scrollY: number;
+  scrollPercentage: number;
+  scrollYMax: number;
+};
+
+const INITIAL_SCROLL_STATE: UseScrollYResult = {
+  scrollY: 0,
+  scrollPercentage: 0,
+  scrollYMax: 0,
+};
+
+let lastSnapshot: UseScrollYResult = INITIAL_SCROLL_STATE;
+
+export const useScrollY = (): UseScrollYResult => {
   const subscribe = useCallback((onChange: () => void) => {
     if (typeof window === 'undefined') return () => {};
     let raf = 0;
@@ -23,20 +37,39 @@ export const useScrollY = (): number => {
     };
   }, []);
 
-  const getSnapshot = () => {
-    if (typeof window === 'undefined') return 0; // SSR/hydration-safe
+  const getSnapshot = (): UseScrollYResult => {
+    if (typeof window === 'undefined') {
+      return INITIAL_SCROLL_STATE; // SSR/hydration-safe
+    }
+
     const doc = document.documentElement;
     const body = document.body;
-    return (
+
+    const scrollY =
       window.scrollY ??
       window.pageYOffset ??
       doc?.scrollTop ??
       body?.scrollTop ??
-      0
-    );
+      0;
+
+    const scrollHeight = doc?.scrollHeight ?? body?.scrollHeight ?? 0;
+    const clientHeight = doc?.clientHeight ?? window.innerHeight ?? 0;
+    const scrollYMax = Math.max(0, scrollHeight - clientHeight);
+    const scrollPercentage = scrollYMax > 0 ? scrollY / scrollYMax : 0;
+
+    if (
+      lastSnapshot.scrollY === scrollY &&
+      lastSnapshot.scrollPercentage === scrollPercentage &&
+      lastSnapshot.scrollYMax === scrollYMax
+    ) {
+      return lastSnapshot;
+    }
+
+    lastSnapshot = { scrollY, scrollPercentage, scrollYMax };
+    return lastSnapshot;
   };
 
-  const getServerSnapshot = () => 0;
+  const getServerSnapshot = (): UseScrollYResult => INITIAL_SCROLL_STATE;
 
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 };
