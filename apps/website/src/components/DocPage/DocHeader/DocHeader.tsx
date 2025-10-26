@@ -38,12 +38,6 @@ export const DocHeader: FC<DocHeaderProps> = ({
   const { authorLabel, creationLabel, lastUpdateLabel } =
     useIntlayer('doc-header');
 
-  const isOutdated = Boolean(
-    baseUpdatedAt &&
-      updatedAt &&
-      new Date(baseUpdatedAt).getTime() > new Date(updatedAt).getTime()
-  );
-
   return (
     <>
       <header className="z-10 mx-auto mt-5 flex flex-col gap-2 px-4 py-2 text-xs">
@@ -88,13 +82,12 @@ export const DocHeader: FC<DocHeaderProps> = ({
             <MCPMessage />
           </div>
           <div className="flex w-full flex-row items-center justify-end gap-4">
-            {isOutdated && (
-              <History
-                pageUrl={relativeUrl}
-                baseUpdatedAt={baseUpdatedAt as string}
-                history={history}
-              />
-            )}
+            <History
+              pageUrl={relativeUrl}
+              updatedAt={updatedAt as string}
+              baseUpdatedAt={baseUpdatedAt as string}
+              history={history}
+            />
             <TranslatedContentMessage pageUrl={relativeUrl} />
 
             <ContributionMessage

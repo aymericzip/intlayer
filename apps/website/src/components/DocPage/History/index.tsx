@@ -2,6 +2,7 @@
 
 import { Link } from '@components/Link/Link';
 import { Container, Popover } from '@intlayer/design-system';
+import { cn } from '@utils/cn';
 import { getLocalizedUrl } from 'intlayer';
 import { Clock } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
@@ -9,6 +10,7 @@ import type { FC } from 'react';
 
 type HistoryProps = {
   pageUrl: string;
+  updatedAt: string;
   baseUpdatedAt: string;
   history?: {
     version: string;
@@ -19,6 +21,7 @@ type HistoryProps = {
 
 export const History: FC<HistoryProps> = ({
   pageUrl,
+  updatedAt,
   baseUpdatedAt,
   history = [],
 }) => {
@@ -29,9 +32,17 @@ export const History: FC<HistoryProps> = ({
 
   const localizedUrl = getLocalizedUrl(pageUrl, defaultLocale);
 
+  const isOutdated = Boolean(
+    baseUpdatedAt &&
+      updatedAt &&
+      new Date(baseUpdatedAt).getTime() > new Date(updatedAt).getTime()
+  );
+
+  console.log('history', history);
+
   return (
     <Popover identifier="outdated-translation">
-      <div className="flex p-2 text-warning">
+      <div className={cn('flex p-2', isOutdated && 'text-warning')}>
         <Clock className="size-4" />
       </div>
       <Popover.Detail
