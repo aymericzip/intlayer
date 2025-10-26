@@ -187,6 +187,7 @@ Organize your multilingual content close to your code to keep everything consist
 
 We’ve built Intlayer with flexibility in mind, offering seamless integration across popular frameworks and build tools:
 
+- **[Intlayer with Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)**
 - **[Intlayer with Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)**
 - **[Intlayer with Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md)**
 - **[Intlayer with Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md)**
