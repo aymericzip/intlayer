@@ -166,12 +166,15 @@ export const parseYaml = <T = any>(input: string): T | null => {
 
     while (!eof()) {
       const lineStart = index;
+      const prevChar = text[lineStart - 1];
       skipWhitespace();
 
-      // Check if we're still in the same indentation level
+      // Check if we're still in the same indentation level.
+      // Only consider this an outdent when we're at the start of a new line.
       const currentIndent = getCurrentIndent();
-      if (currentIndent <= baseIndent && index > lineStart) {
-        // We've outdented, restore position and return
+      const startedNewLine = lineStart === 0 || prevChar === '\n';
+      if (startedNewLine && currentIndent <= baseIndent) {
+        // We've outdented to the parent level, restore position and return
         index = lineStart;
         break;
       }
@@ -350,7 +353,12 @@ export const parseYaml = <T = any>(input: string): T | null => {
       }
 
       // Parse inline value
-      const value = parseValue([',', '\n', ...stops]);
+      // In JSON-like objects (inside '{' ... '}'), comma separates entries.
+      // In bare YAML frontmatter (no braces), commas can be part of plain scalars.
+      const valueStopChars = stops.includes('}')
+        ? [',', '\n', ...stops]
+        : ['\n', ...stops];
+      const value = parseValue(valueStopChars);
       obj[key] = value;
 
       // Check what separator follows (don't skip whitespace yet)

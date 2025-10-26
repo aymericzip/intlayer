@@ -793,5 +793,14 @@ history:
         },
       });
     });
+
+    it('parses plain multi-line YAML with comma correctly', () => {
+      const yaml = 'description: Erfahren Sie, wie.\n';
+
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        description: 'Erfahren Sie, wie.',
+      });
+    });
   });
 });
