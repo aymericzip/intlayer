@@ -26,7 +26,6 @@ const ContributorsPage = () => {
     <BackgroundLayout>
       <div className="flex min-h-screen w-full flex-col items-center px-4 py-12 md:px-8 lg:px-16">
         <div className="mx-auto w-full max-w-7xl">
-          {/* Headers */}
           <div className="relative mb-12 text-center">
             <p className="mb-3 font-medium text-base text-neutral-400 sm:text-lg">
               Meet our amazing
@@ -36,7 +35,6 @@ const ContributorsPage = () => {
             </h1>
           </div>
 
-          {/* Contributors List */}
           <ContributorsList contributors={contributors} />
         </div>
       </div>
