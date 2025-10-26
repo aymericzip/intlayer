@@ -306,23 +306,6 @@ module.exports = LocaleLayout;
 
 > Le segment de chemin `[locale]` est utilisé pour définir la locale. Exemple : `/en-US/about` fera référence à `en-US` et `/fr/about` à `fr`.
 
-const inter = Inter({ subsets: ["latin"] });
-
-const LocaleLayout = async ({ children, params: { locale } }) => {
-const { locale } = await params;
-return (
-<html lang={locale} dir={getHTMLTextDir(locale)}>
-<body className={inter.className}>{children}</body>
-</html>
-);
-};
-
-module.exports = LocaleLayout;
-
-````
-
-> Le segment de chemin `[locale]` est utilisé pour définir la locale. Exemple : `/en-US/about` fera référence à `en-US` et `/fr/about` à `fr`.
-
 > À ce stade, vous rencontrerez l'erreur : `Error: Missing <html> and <body> tags in the root layout.`. Cela est attendu car le fichier `/app/page.tsx` n'est plus utilisé et peut être supprimé. À la place, le segment de chemin `[locale]` activera la page `/app/[locale]/page.tsx`. Par conséquent, les pages seront accessibles via des chemins comme `/en`, `/fr`, `/es` dans votre navigateur. Pour définir la locale par défaut comme page racine, référez-vous à la configuration du `proxy` à l'étape 7.
 
 Ensuite, implémentez la fonction `generateStaticParams` dans le Layout de votre application.
@@ -335,7 +318,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 };
 
 export default LocaleLayout;
-````
+```
 
 ```jsx {1} fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
 export { generateStaticParams } from "next-intlayer"; // Ligne à insérer
@@ -842,15 +825,17 @@ export const generateMetadata = async ({
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl =
+    multilingualUrls[locale as keyof typeof multilingualUrls];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale as keyof typeof multilingualUrls],
+      url: localizedUrl,
     },
   };
 };
@@ -882,15 +867,16 @@ export const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -922,15 +908,16 @@ const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
