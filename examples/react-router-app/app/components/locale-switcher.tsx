@@ -5,14 +5,14 @@ import {
   getPathWithoutLocale,
 } from 'intlayer';
 import type { FC } from 'react';
-import { setLocaleCookie, useIntlayer, useLocale } from 'react-intlayer';
+import { useIntlayer, useLocale } from 'react-intlayer';
 import { Link, useLocation } from 'react-router';
 
 export const LocaleSwitcher: FC = () => {
   const { localeSwitcherLabel } = useIntlayer('locale-switcher');
   const { pathname } = useLocation();
 
-  const { availableLocales, locale } = useLocale();
+  const { availableLocales, locale, setLocale } = useLocale();
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
@@ -23,7 +23,7 @@ export const LocaleSwitcher: FC = () => {
           <Link
             aria-current={localeEl === locale ? 'page' : undefined}
             aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
-            onClick={() => setLocaleCookie(localeEl)}
+            onClick={() => setLocale(localeEl)}
             to={getLocalizedUrl(pathWithoutLocale, localeEl)}
           >
             <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
