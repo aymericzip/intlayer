@@ -1,5 +1,5 @@
 import { AsideNavigation } from '@components/AsideNavigation/AsideNavigation';
-import { BackgroundLayout } from '@components/BackgroundLayout';
+// import { BackgroundLayout } from '@components/BackgroundLayout';
 import { EmailRegistrationToast } from '@components/EmailRegistrationToast';
 import { getIntlayer, type LocalesValues } from 'intlayer';
 import type { FC, ReactNode } from 'react';
@@ -34,7 +34,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
           className="relative m-auto mb-24 h-full w-auto max-w-6xl flex-1 grow rounded-xl bg-background px-4 max-md:pl-16 md:px-10"
           id="content"
         >
-          <BackgroundLayout className="z-0" />
+          {/* <BackgroundLayout /> */}
           {displayBreadCrumb && (
             <DocBreadCrumb
               className="mt-12 ml-10"
