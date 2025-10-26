@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-10-09
+updatedAt: 2025-10-26
 title: Comment traduire votre application Next.js 16 – guide i18n 2025
 description: Découvrez comment rendre votre site Next.js 16 multilingue. Suivez la documentation pour internationaliser (i18n) et traduire votre site.
 keywords:
@@ -850,7 +850,7 @@ export const generateMetadata = async ({
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: multilingualUrls[locale as keyof typeof multilingualUrls],
     },
   };
 };

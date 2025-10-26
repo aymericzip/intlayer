@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-10-25
-updatedAt: 2025-10-25
+updatedAt: 2025-10-26
 title: अपने Next.js 16 ऐप का अनुवाद कैसे करें – i18n गाइड 2025
 description: जानें कि अपनी Next.js 16 वेबसाइट को बहुभाषी कैसे बनाएं। अंतरराष्ट्रीयकरण (i18n) और अनुवाद के लिए दस्तावेज़ का पालन करें।
 keywords:
@@ -842,7 +842,7 @@ export const generateMetadata = async ({
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: multilingualUrls[locale as keyof typeof multilingualUrls],
     },
   };
 };

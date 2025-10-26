@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-10-25
-updatedAt: 2025-10-25
+updatedAt: 2025-10-26
 title: 如何翻译您的 Next.js 16 应用 – 2025 年国际化 (i18n) 指南
 description: 了解如何让您的 Next.js 16 网站支持多语言。按照文档进行国际化 (i18n) 和翻译。
 keywords:
@@ -850,7 +850,7 @@ export const generateMetadata = async ({
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: multilingualUrls[locale as keyof typeof multilingualUrls],
     },
   };
 };
