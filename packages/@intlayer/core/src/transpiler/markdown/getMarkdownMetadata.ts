@@ -14,69 +14,29 @@ export const getMarkdownMetadata = <T extends Record<string, any>>(
       return result;
     }
 
-    const metadata: T = {} as T;
-    let inMetadataBlock = false;
-    let currentKey: string | null = null;
-    let currentArrayItems: string[] = [];
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      const trimmedLine = line.trim();
-
-      // Toggle metadata block on encountering the delimiter.
-      if (trimmedLine === '---') {
-        if (!inMetadataBlock) {
-          // Begin metadata block.
-          inMetadataBlock = true;
-          continue;
-        } else {
-          // End of metadata block; finalize any pending array and stop processing.
-          if (currentKey && currentArrayItems.length > 0) {
-            (metadata as Record<string, any>)[currentKey] = currentArrayItems;
-          }
-          break;
-        }
-      }
-
-      // If we're inside the metadata block, parse key: value pairs.
-      if (inMetadataBlock) {
-        // Check if this line is an array item (starts with - )
-        const arrayItemMatch = line.match(/^\s*-\s+(.+)$/);
-        if (arrayItemMatch && currentKey) {
-          // This is an array item for the current key
-          currentArrayItems.push(arrayItemMatch[1].trim());
-          continue;
-        }
-
-        // If we have a pending array from a previous key, save it
-        if (currentKey && currentArrayItems.length > 0) {
-          (metadata as Record<string, any>)[currentKey] = currentArrayItems;
-          currentKey = null;
-          currentArrayItems = [];
-        }
-
-        // Check for key: value pairs
-        const match = line.match(/^([^:]+)\s*:\s*(.*)$/);
-        if (match) {
-          const key = match[1].trim();
-          const value = match[2].trim();
-
-          if (value === '') {
-            // This might be the start of a multi-line structure (like an array)
-            currentKey = key;
-            currentArrayItems = [];
-          } else {
-            try {
-              (metadata as Record<string, any>)[key] = parseYaml(value);
-            } catch (_e) {
-              (metadata as Record<string, any>)[key] = value;
-            }
-          }
-        }
+    // Find the end of the metadata block
+    let metadataEndIndex = -1;
+    for (let i = 1; i < lines.length; i++) {
+      if (lines[i].trim() === '---') {
+        metadataEndIndex = i;
+        break;
       }
     }
 
-    return metadata;
+    if (metadataEndIndex === -1) {
+      // No closing delimiter found
+      const result: T = {} as T;
+      return result;
+    }
+
+    // Extract the metadata content between the delimiters
+    const metadataLines = lines.slice(1, metadataEndIndex);
+    const metadataContent = metadataLines.join('\n');
+
+    // Use the improved parseYaml function to parse the entire metadata block
+    const metadata = parseYaml<T>(metadataContent);
+
+    return metadata ?? ({} as T);
   } catch (_e) {
     const result: T = {} as T;
     return result;

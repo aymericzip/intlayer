@@ -454,6 +454,244 @@ describe('parseYaml', () => {
     });
   });
 
+  describe('YAML List Syntax (with dashes)', () => {
+    it('should parse simple YAML list with strings', () => {
+      const yaml = `items:
+  - item1
+  - item2
+  - item3`;
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        items: ['item1', 'item2', 'item3'],
+      });
+    });
+
+    it('should parse YAML list with numbers', () => {
+      const yaml = `numbers:
+  - 1
+  - 2
+  - 3`;
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        numbers: [1, 2, 3],
+      });
+    });
+
+    it('should parse YAML list with mixed types', () => {
+      const yaml = `mixed:
+  - string
+  - 42
+  - 3.14`;
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        mixed: ['string', 42, 3.14],
+      });
+    });
+
+    it('should parse YAML list with objects (history field format)', () => {
+      const yaml = `history:
+  - version: 7.0.0
+    date: 2025-10-25
+    changes: Add dictionary configuration
+  - version: 7.0.0
+    date: 2025-10-21
+    changes: Replace middleware by routing configuration
+  - version: 6.0.0
+    date: 2025-09-21
+    changes: Remove dictionaryOutput field`;
+
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        history: [
+          {
+            version: '7.0.0',
+            date: '2025-10-25',
+            changes: 'Add dictionary configuration',
+          },
+          {
+            version: '7.0.0',
+            date: '2025-10-21',
+            changes: 'Replace middleware by routing configuration',
+          },
+          {
+            version: '6.0.0',
+            date: '2025-09-21',
+            changes: 'Remove dictionaryOutput field',
+          },
+        ],
+      });
+    });
+
+    it('should parse YAML list with objects containing special characters', () => {
+      const yaml = `history:
+  - version: 7.0.0
+    date: 2025-10-25
+    changes: Add \`dictionary\` configuration
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: Add \`live\` import mode`;
+
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        history: [
+          {
+            version: '7.0.0',
+            date: '2025-10-25',
+            changes: 'Add `dictionary` configuration',
+          },
+          {
+            version: '6.0.0',
+            date: '2025-09-16',
+            changes: 'Add `live` import mode',
+          },
+        ],
+      });
+    });
+
+    it('should parse full markdown frontmatter with history', () => {
+      const yaml = `title: Configuration
+description: Learn how to configure Intlayer
+keywords:
+  - Configuration
+  - Settings
+history:
+  - version: 7.0.0
+    date: 2025-10-25
+    changes: Add dictionary configuration
+  - version: 6.0.0
+    date: 2025-09-21
+    changes: Remove dictionaryOutput field`;
+
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        title: 'Configuration',
+        description: 'Learn how to configure Intlayer',
+        keywords: ['Configuration', 'Settings'],
+        history: [
+          {
+            version: '7.0.0',
+            date: '2025-10-25',
+            changes: 'Add dictionary configuration',
+          },
+          {
+            version: '6.0.0',
+            date: '2025-09-21',
+            changes: 'Remove dictionaryOutput field',
+          },
+        ],
+      });
+    });
+
+    it('should parse YAML list with nested lists', () => {
+      const yaml = `categories:
+  - Web Development
+  - Internationalization
+  - React`;
+
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        categories: ['Web Development', 'Internationalization', 'React'],
+      });
+    });
+
+    it('should parse multiple YAML lists in same object', () => {
+      const yaml = `tags:
+  - tutorial
+  - getting-started
+categories:
+  - Web Development
+  - React`;
+
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        tags: ['tutorial', 'getting-started'],
+        categories: ['Web Development', 'React'],
+      });
+    });
+
+    it('should parse YAML list with quoted strings', () => {
+      const yaml = `items:
+  - "quoted string"
+  - 'single quoted'
+  - unquoted`;
+
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        items: ['quoted string', 'single quoted', 'unquoted'],
+      });
+    });
+
+    it('should parse empty YAML list', () => {
+      const yaml = `items:`;
+
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        items: '',
+      });
+    });
+
+    it('should parse YAML list with single item', () => {
+      const yaml = `items:
+  - single-item`;
+
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        items: ['single-item'],
+      });
+    });
+
+    it('should handle complex real-world markdown frontmatter', () => {
+      const yaml = `createdAt: 2024-08-13
+updatedAt: 2025-10-25
+title: Configuration
+description: Learn how to configure Intlayer for your application
+keywords:
+  - Configuration
+  - Settings
+  - Customization
+slugs:
+  - doc
+  - concept
+history:
+  - version: 7.0.0
+    date: 2025-10-25
+    changes: Add \`dictionary\` configuration
+  - version: 7.0.0
+    date: 2025-10-21
+    changes: Replace \`middleware\` by \`routing\` configuration
+  - version: 6.2.0
+    date: 2025-10-12
+    changes: Update \`excludedPath\` option`;
+
+      const result = parseYaml(yaml);
+      expect(result).toEqual({
+        createdAt: '2024-08-13',
+        updatedAt: '2025-10-25',
+        title: 'Configuration',
+        description: 'Learn how to configure Intlayer for your application',
+        keywords: ['Configuration', 'Settings', 'Customization'],
+        slugs: ['doc', 'concept'],
+        history: [
+          {
+            version: '7.0.0',
+            date: '2025-10-25',
+            changes: 'Add `dictionary` configuration',
+          },
+          {
+            version: '7.0.0',
+            date: '2025-10-21',
+            changes: 'Replace `middleware` by `routing` configuration',
+          },
+          {
+            version: '6.2.0',
+            date: '2025-10-12',
+            changes: 'Update `excludedPath` option',
+          },
+        ],
+      });
+    });
+  });
+
   describe('Holistic YAML Fixture Test', () => {
     it('should parse the comprehensive YAML fixture', () => {
       // Read the YAML fixture file to ensure it exists and is accessible

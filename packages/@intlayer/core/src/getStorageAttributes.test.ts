@@ -7,6 +7,7 @@ describe('getStorageAttributes', () => {
 
     expect(result).toEqual({
       cookies: [],
+      headers: [],
       localStorage: [],
       sessionStorage: [],
     });
@@ -17,6 +18,7 @@ describe('getStorageAttributes', () => {
 
     expect(result).toEqual({
       cookies: [],
+      headers: [],
       localStorage: [],
       sessionStorage: [],
     });
@@ -29,6 +31,7 @@ describe('getStorageAttributes', () => {
     expect(result.cookies[0].name).toBe('INTLAYER_LOCALE');
     expect(result.localStorage).toHaveLength(0);
     expect(result.sessionStorage).toHaveLength(0);
+    expect(result.headers).toHaveLength(0);
   });
 
   it('should handle single string "localStorage"', () => {

@@ -81,13 +81,19 @@ export const formatMetadata = (
   locale: LocalesValues = defaultLocale as LocalesValues
 ): FileMetadata => {
   const metadata = getMarkdownMetadata(file);
-  const relativeUrl = join('/', ...(metadata.slugs ?? []));
+
+  const slugs = (metadata.slugs ?? []).map(String);
+  const keywords = (metadata.keywords ?? []).map(String);
+
+  const relativeUrl = join('/', ...slugs);
 
   const slicedDocKey = docKey.slice(1);
 
   return {
     ...metadata,
     docKey,
+    slugs,
+    keywords,
     githubUrl: `${GITHUB_URL_PREFIX}${slicedDocKey}`.replace(
       '/en/',
       `/${locale}/`
