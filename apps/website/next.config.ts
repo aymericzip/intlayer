@@ -87,6 +87,7 @@ const secureHeaders = {
         'github.com',
         '*.github.com',
         '*.stripe.com',
+        'stackblitz.com',
       ],
       frameAncestors: ["'self'", 'intlayer.org', 'localhost:*'],
       manifestSrc: ["'self'"],
