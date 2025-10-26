@@ -51,9 +51,9 @@
       "import": "./dist/esm/proxy/index.mjs"
     },
     "./middleware": {
-      "types": "./dist/types/proxy/index.d.ts",
-      "require": "./dist/cjs/proxy/index.cjs",
-      "import": "./dist/esm/proxy/index.mjs"
+      "types": "./dist/types/proxy/middleware.d.ts",
+      "require": "./dist/cjs/proxy/middleware.cjs",
+      "import": "./dist/esm/proxy/middleware.mjs"
     },
     "./server": {
       "types": "./dist/types/server/index.d.ts",

@@ -106,5 +106,3 @@ export const multipleProxies =
       },
     });
   };
-
-export const multipleMiddlewares = multipleProxies;
