@@ -866,7 +866,7 @@ export const generateMetadata = async ({
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: multilingualUrls[locale as keyof typeof multilingualUrls],
     },
   };
 };
