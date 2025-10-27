@@ -42,6 +42,8 @@ export type BrowserProps = {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   /** Accessible label for screen readers describing the browser purpose */
   'aria-label'?: string;
+  /** Sandbox attribute for the iframe to control security restrictions */
+  sandbox?: string;
 };
 
 /**
@@ -80,11 +82,20 @@ export type BrowserProps = {
  *   aria-label="Video content browser"
  * />
  *
+ * @example
+ * // With custom sandbox restrictions
+ * <Browser
+ *   initialUrl="https://example.com"
+ *   sandbox="allow-scripts allow-same-origin"
+ *   aria-label="Restricted content browser"
+ * />
+ *
  * @param initialUrl - The initial URL to load in the iframe (default: 'https://example.com')
  * @param className - Additional CSS classes for the main container element
  * @param style - Inline CSS styles for the main container element
  * @param size - Size of the browser window: 'xs' (400px), 'sm' (500px), 'md' (600px), 'lg' (800px), 'xl' (1000px). Defaults to 'md'
  * @param aria-label - Accessible label for screen readers describing the browser's purpose (default: 'Embedded browser')
+ * @param sandbox - Sandbox attribute for the iframe to control security restrictions (default: 'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads')
  */
 export const Browser: FC<BrowserProps> = ({
   initialUrl = 'https://example.com',
@@ -92,6 +103,7 @@ export const Browser: FC<BrowserProps> = ({
   style,
   size = 'md',
   'aria-label': ariaLabel,
+  sandbox = 'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads',
 }) => {
   const [inputUrl, setInputUrl] = useState(initialUrl);
   const [currentUrl, setCurrentUrl] = useState(initialUrl);
@@ -251,7 +263,7 @@ export const Browser: FC<BrowserProps> = ({
           src={currentUrl}
           title={content.iframeTitle.value}
           className="h-full w-full rounded-b-xl border-0"
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads"
+          sandbox={sandbox}
           loading="lazy"
           aria-live="polite"
         />

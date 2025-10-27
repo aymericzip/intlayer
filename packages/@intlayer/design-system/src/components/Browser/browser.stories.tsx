@@ -43,6 +43,13 @@ const meta: Meta<typeof Browser> = {
       description: 'ARIA label for accessibility',
       defaultValue: 'Embedded browser',
     },
+    sandbox: {
+      control: 'text',
+      description:
+        'Sandbox attribute for the iframe to control security restrictions',
+      defaultValue:
+        'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads',
+    },
   },
 } satisfies Meta<typeof Browser>;
 
@@ -125,5 +132,18 @@ export const InvalidFormat: Story = {
   args: {
     initialUrl: '???!!!', // clearly invalid URL to trigger validation error
     size: 'md',
+  },
+};
+
+/**
+ * Custom Sandbox Restrictions
+ * Demonstrates using custom sandbox restrictions for enhanced security.
+ * This example uses a more restrictive sandbox that only allows scripts and same-origin access.
+ */
+export const CustomSandbox: Story = {
+  args: {
+    initialUrl: 'https://example.com',
+    size: 'md',
+    sandbox: 'allow-scripts allow-same-origin',
   },
 };
