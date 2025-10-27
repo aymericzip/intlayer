@@ -43,7 +43,11 @@ const ContributorsPage: NextPageIntlayer = async ({ params }) => {
     );
 
     if (response.ok) {
-      contributors = await response.json();
+      const data = await response.json();
+      contributors = data.filter(
+        (contributor: any) =>
+          contributor.type !== 'Bot' && !contributor.login.includes('[bot]')
+      );
     }
   } catch (error) {
     console.error('Error fetching contributors:', error);

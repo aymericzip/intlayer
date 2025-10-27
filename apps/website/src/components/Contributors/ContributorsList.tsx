@@ -16,13 +16,13 @@ type ContributorsListProps = {
 };
 
 const ShimmerCard = () => (
-  <Container className="flex items-center gap-4 overflow-hidden rounded-sm border border-neutral-700 bg-black p-4">
-    <div className="h-16 w-16 shrink-0 animate-pulse overflow-hidden rounded-sm bg-neutral-800" />
+  <Container className="flex items-center gap-4 overflow-hidden rounded-sm p-4">
+    <div className="h-16 w-16 shrink-0 animate-pulse overflow-hidden rounded-sm" />
     <div className="flex min-w-0 flex-1 flex-col gap-2">
-      <div className="h-5 w-32 animate-pulse rounded bg-neutral-800" />
-      <div className="h-4 w-24 animate-pulse rounded bg-neutral-800" />
+      <div className="h-5 w-32 animate-pulse rounded" />
+      <div className="h-4 w-24 animate-pulse rounded" />
     </div>
-    <div className="h-6 w-6 shrink-0 animate-pulse rounded bg-neutral-800" />
+    <div className="h-6 w-6 shrink-0 animate-pulse rounded" />
   </Container>
 );
 
@@ -53,7 +53,7 @@ const ContributorsList: React.FC<ContributorsListProps> = ({
               className="no-underline hover:no-underline"
               label={contributor.login}
             >
-              <Container className="flex flex-row items-center gap-4 overflow-hidden rounded border border-neutral-700 bg-black p-4">
+              <Container className="flex flex-row items-center gap-4 overflow-hidden rounded border p-4">
                 <div className="shrink-0">
                   <div className="relative h-16 w-16 overflow-hidden rounded-sm">
                     <Avatar
@@ -65,13 +65,13 @@ const ContributorsList: React.FC<ContributorsListProps> = ({
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <h2 className="mb-1 truncate font-semibold text-base text-white">
+                  <h2 className="mb-1 truncate font-semibold">
                     {contributor.login}
                   </h2>
 
                   {contributor.contributions && (
-                    <p className="text-neutral-500 text-sm">
-                      <span className="font-semibold text-neutral-300">
+                    <p className="text-sm">
+                      <span className="font-semibold">
                         {contributor.contributions.toLocaleString()}
                       </span>{' '}
                       contribution{contributor.contributions !== 1 ? 's' : ''}
@@ -79,7 +79,7 @@ const ContributorsList: React.FC<ContributorsListProps> = ({
                   )}
                 </div>
 
-                <ArrowUpRight className="h-6 w-6 shrink-0 text-neutral-500" />
+                <ArrowUpRight className="h-6 w-6 shrink-0" />
               </Container>
             </Link>
           );
