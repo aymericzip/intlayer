@@ -1,5 +1,5 @@
-import { DefaultValues } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
+import { DefaultValues } from '@intlayer/config/client';
 import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 import { getPathWithoutLocale } from './getPathWithoutLocale';

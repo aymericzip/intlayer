@@ -157,6 +157,9 @@ module.exports = (async () => {
 })();
 ```
 
+> Note: `configMetroIntlayer` is a promise function. Use `configMetroIntlayerSync` instead if you want to use it synchronously, or avoid IFFE (Immediately Invoked Function Expression).
+> Note: `configMetroIntlayerSync` does not allow to build intlayer dictionaries on server start
+
 ## Step 4: Add the Intlayer provider
 
 To keep synchronized the user language across your application, you need to wrap your root component with the `IntlayerProvider` component from `react-intlayer-native`.
