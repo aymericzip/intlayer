@@ -27,11 +27,12 @@ const meta: Meta<typeof Browser> = {
       description: 'Initial URL to load in the iframe',
       defaultValue: 'https://example.com',
     },
-    height: {
-      control: { type: 'number', min: 300, max: 1200, step: 20 },
+    size: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
       description:
-        'Height of the browser window (in pixels or CSS string like "80vh")',
-      defaultValue: 600,
+        'Size of the browser window: xs (400px), sm (500px), md (600px), lg (800px), xl (1000px)',
+      defaultValue: 'md',
     },
     className: {
       control: 'text',
@@ -50,34 +51,56 @@ type Story = StoryObj<typeof Browser>;
 
 /**
  * Default Browser
- * Basic browser component with standard height displaying example.com
+ * Basic browser component with medium size displaying example.com
  */
 export const Default: Story = {
   args: {
     initialUrl: 'https://example.com',
-    height: 600,
+    size: 'md',
   },
 };
 
 /**
- * Custom Height
- * Browser with a smaller viewport height, useful for compact layouts
+ * Extra Small Size
+ * Browser with extra small size (400px), useful for compact layouts
  */
-export const SmallHeight: Story = {
+export const ExtraSmall: Story = {
   args: {
     initialUrl: 'https://example.com',
-    height: 400,
+    size: 'xs',
   },
 };
 
 /**
- * Large Height
- * Browser with a larger viewport height, ideal for full content viewing
+ * Small Size
+ * Browser with small size (500px), ideal for sidebars or compact views
  */
-export const LargeHeight: Story = {
+export const Small: Story = {
   args: {
     initialUrl: 'https://example.com',
-    height: 800,
+    size: 'sm',
+  },
+};
+
+/**
+ * Large Size
+ * Browser with large size (800px), ideal for prominent content viewing
+ */
+export const Large: Story = {
+  args: {
+    initialUrl: 'https://example.com',
+    size: 'lg',
+  },
+};
+
+/**
+ * Extra Large Size
+ * Browser with extra large size (1000px), ideal for full content viewing
+ */
+export const ExtraLarge: Story = {
+  args: {
+    initialUrl: 'https://example.com',
+    size: 'xl',
   },
 };
 
@@ -89,18 +112,7 @@ export const LargeHeight: Story = {
 export const InvalidUrl: Story = {
   args: {
     initialUrl: 'example.com',
-    height: 600,
-  },
-};
-
-/**
- * Responsive Height
- * Browser using viewport-relative height units for responsive layouts
- */
-export const ResponsiveHeight: Story = {
-  args: {
-    initialUrl: 'https://example.com',
-    height: '70vh',
+    size: 'md',
   },
 };
 
@@ -112,6 +124,6 @@ export const ResponsiveHeight: Story = {
 export const InvalidFormat: Story = {
   args: {
     initialUrl: '???!!!', // clearly invalid URL to trigger validation error
-    height: 600,
+    size: 'md',
   },
 };

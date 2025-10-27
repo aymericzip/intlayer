@@ -1,5 +1,6 @@
 'use client';
 
+import { cva } from 'class-variance-authority';
 import { RotateCw } from 'lucide-react';
 import {
   type CSSProperties,
@@ -12,6 +13,24 @@ import {
 import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 
+const browserVariants = cva(
+  'flex w-full flex-col overflow-hidden rounded-xl bg-background shadow-[0_4px_12px_rgba(0,0,0,0.4),0_0_1px_rgba(0,0,0,0.2)]',
+  {
+    variants: {
+      size: {
+        xs: 'h-[400px]',
+        sm: 'h-[500px]',
+        md: 'h-[600px]',
+        lg: 'h-[800px]',
+        xl: 'h-[1000px]',
+      },
+    },
+    defaultVariants: {
+      size: 'md',
+    },
+  }
+);
+
 export type BrowserProps = {
   /** Initial URL to load in the iframe */
   initialUrl?: string;
@@ -19,8 +38,8 @@ export type BrowserProps = {
   className?: string;
   /** Inline styles for the container */
   style?: CSSProperties;
-  /** Height of the browser window (number in px or CSS string like "80vh") */
-  height?: number | string;
+  /** Size of the browser window */
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   /** Accessible label for screen readers describing the browser purpose */
   'aria-label'?: string;
 };
@@ -34,7 +53,7 @@ export type BrowserProps = {
  * - Automatic protocol addition (adds https:// if missing)
  * - Integrated reload button inside the URL input
  * - Error handling with visual feedback for invalid URLs
- * - Responsive iframe with customizable height
+ * - Responsive iframe with standardized sizes
  * - Full accessibility support with ARIA attributes
  * - Sandbox security for iframe content
  * - Dark-themed UI matching modern browser aesthetics
@@ -42,13 +61,13 @@ export type BrowserProps = {
  *
  * @example
  * // Basic usage
- * <Browser initialUrl="https://example.com" height={600} />
+ * <Browser initialUrl="https://example.com" size="md" />
  *
  * @example
- * // With custom height and styling
+ * // With custom size and styling
  * <Browser
  *   initialUrl="https://example.com"
- *   height="80vh"
+ *   size="lg"
  *   className="shadow-2xl"
  *   aria-label="Documentation viewer"
  * />
@@ -57,21 +76,21 @@ export type BrowserProps = {
  * // For content preview
  * <Browser
  *   initialUrl="https://youtube.com/embed/VIDEO_ID"
- *   height={650}
+ *   size="xl"
  *   aria-label="Video content browser"
  * />
  *
  * @param initialUrl - The initial URL to load in the iframe (default: 'https://example.com')
  * @param className - Additional CSS classes for the main container element
  * @param style - Inline CSS styles for the main container element
- * @param height - Height of the browser window. Accepts number (pixels) or CSS string (e.g., "80vh", "600px"). If not specified, defaults to minimum 600px with 100% height
+ * @param size - Size of the browser window: 'xs' (400px), 'sm' (500px), 'md' (600px), 'lg' (800px), 'xl' (1000px). Defaults to 'md'
  * @param aria-label - Accessible label for screen readers describing the browser's purpose (default: 'Embedded browser')
  */
 export const Browser: FC<BrowserProps> = ({
   initialUrl = 'https://example.com',
   className,
   style,
-  height,
+  size = 'md',
   'aria-label': ariaLabel,
 }) => {
   const [inputUrl, setInputUrl] = useState(initialUrl);
@@ -113,17 +132,17 @@ export const Browser: FC<BrowserProps> = ({
       ? trimmed
       : `https://${trimmed}`;
 
-    const u = new URL(candidate);
+    const url = new URL(candidate);
 
-    if (u.protocol !== 'http:' && u.protocol !== 'https:') {
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') {
       throw new Error('Only http(s) is allowed');
     }
 
-    if (!isValidHostname(u.hostname)) {
+    if (!isValidHostname(url.hostname)) {
       throw new Error('Invalid host');
     }
 
-    return u.toString();
+    return url.toString();
   };
 
   const validateAndNavigate = (url: string) => {
@@ -132,10 +151,8 @@ export const Browser: FC<BrowserProps> = ({
       setCurrentUrl(validated);
       setInputUrl(validated);
       setError(null);
-      return true;
     } catch {
       setError(content.errorMessage.value);
-      return false;
     }
   };
   // --------------------------------------------------------------------------
@@ -150,9 +167,7 @@ export const Browser: FC<BrowserProps> = ({
     if (iframeRef.current) {
       const url = iframeRef.current.src;
       iframeRef.current.src = '';
-      setTimeout(() => {
-        if (iframeRef.current) iframeRef.current.src = url;
-      }, 10);
+      iframeRef.current.src = url;
     }
   };
 
@@ -160,22 +175,8 @@ export const Browser: FC<BrowserProps> = ({
 
   return (
     <section
-      className={cn(
-        'flex w-full flex-col',
-        !height && 'h-full min-h-[600px]',
-        'overflow-hidden rounded-xl',
-        'bg-background',
-        'shadow-[0_4px_12px_rgba(0,0,0,0.4),0_0_1px_rgba(0,0,0,0.2)]',
-        className
-      )}
-      style={
-        height
-          ? {
-              height: typeof height === 'number' ? `${height}px` : height,
-              ...style,
-            }
-          : style
-      }
+      className={cn(browserVariants({ size }), className)}
+      style={style}
       aria-label={ariaLabel ?? content.ariaLabel.value}
     >
       {/* Top bar */}
