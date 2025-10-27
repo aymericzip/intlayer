@@ -18,6 +18,7 @@ export default defineConfig({
     rollupOptions: {
       treeshake: { moduleSideEffects: false },
     },
+    minify: false,
   },
   plugins: [
     react(),
