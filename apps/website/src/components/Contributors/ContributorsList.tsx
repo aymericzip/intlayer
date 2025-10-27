@@ -16,9 +16,8 @@ type ContributorsListProps = {
 };
 
 const ShimmerCard = () => (
-  <Container className="relative flex items-center gap-4 overflow-hidden rounded-sm border border-neutral-700 bg-black p-4">
-    <div className="-translate-x-full absolute inset-0 animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-neutral-600/20 to-transparent" />
-    <div className="relative h-16 w-16 shrink-0 animate-pulse overflow-hidden rounded-sm bg-neutral-800" />
+  <Container className="flex items-center gap-4 overflow-hidden rounded-sm border border-neutral-700 bg-black p-4">
+    <div className="h-16 w-16 shrink-0 animate-pulse overflow-hidden rounded-sm bg-neutral-800" />
     <div className="flex min-w-0 flex-1 flex-col gap-2">
       <div className="h-5 w-32 animate-pulse rounded bg-neutral-800" />
       <div className="h-4 w-24 animate-pulse rounded bg-neutral-800" />
