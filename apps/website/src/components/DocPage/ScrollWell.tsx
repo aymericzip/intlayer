@@ -70,7 +70,7 @@ const Title: FC = () => {
 
 export const ScrollWellAndTitle: FC = () => {
   return (
-    <div className="flex size-5 max-h-10 flex-1 flex-row items-center justify-between gap-5">
+    <div className="flex size-5 h-8 flex-1 flex-row items-center justify-between gap-5 p-2">
       <ScrollWell className="block h-full shrink-0" />
       <Title />
     </div>
