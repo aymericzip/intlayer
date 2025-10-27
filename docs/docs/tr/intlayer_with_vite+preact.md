@@ -15,6 +15,10 @@ slugs:
   - environment
   - vite-and-preact
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Intlayer ile Vite and Preact çevirin | Uluslararasılaştırma (i18n)
@@ -1661,13 +1665,3 @@ Uzantıyı kullanma hakkında daha fazla ayrıntı için [Intlayer VS Code Uzant
 Daha fazla ilerlemek için [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak dışa aktarmayı uygulayabilirsiniz.
 
 ---
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
-
-```
-
-```

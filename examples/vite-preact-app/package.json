@@ -11,17 +11,17 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "preact": "^10.26.4",
+    "preact": "10.26.4",
     "preact-intlayer": "workspace:*",
-    "preact-iso": "^2.9.1"
+    "preact-iso": "2.9.1"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.10.1",
-    "@tailwindcss/vite": "^4.1.13",
+    "@preact/preset-vite": "2.10.1",
+    "@tailwindcss/vite": "4.1.16",
     "intlayer-editor": "workspace:*",
-    "tailwindcss": "^4.1.13",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.7",
+    "tailwindcss": "4.1.16",
+    "typescript": "5.9.3",
+    "vite": "7.1.12",
     "vite-intlayer": "workspace:*"
   }
 }

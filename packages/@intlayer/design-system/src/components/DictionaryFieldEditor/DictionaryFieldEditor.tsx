@@ -1,11 +1,11 @@
 'use client';
 
-import type { Dictionary } from '@intlayer/core';
 import {
   useConfiguration,
   useDictionariesRecordActions,
   useFocusDictionaryActions,
 } from '@intlayer/editor-react';
+import type { Dictionary } from '@intlayer/types';
 import { ArrowLeft } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';

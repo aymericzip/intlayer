@@ -2,12 +2,7 @@
 
 import { Container, Flag } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
-import {
-  getHTMLTextDir,
-  getLocaleName,
-  type Locales,
-  localeList,
-} from 'intlayer';
+import { getHTMLTextDir, getLocaleName, type Locale, Locales } from 'intlayer';
 import {
   type FC,
   type HTMLAttributes,
@@ -18,10 +13,13 @@ import {
 
 const shuffleArray = (array: string[], limit?: number) => {
   const shuffled = [...array];
+
   for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+
+    [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
   }
+
   return limit ? shuffled.slice(0, limit) : shuffled;
 };
 
@@ -33,18 +31,18 @@ const LocalCard: FC<{ locale: string }> = ({ locale, ...props }) => (
     <Container roundedSize="xl">
       <div className="flex flex-row items-center gap-5 p-3">
         <Flag
-          locale={locale as Locales}
+          locale={locale as Locale}
           className="max-h-5 max-w-5 rounded-sm grayscale-[80%] transition duration-300 group-hover:grayscale-0"
           width={640}
           height={480}
           loading="lazy"
         />
         <span
-          dir={getHTMLTextDir(locale as Locales)}
-          lang={locale as Locales}
+          dir={getHTMLTextDir(locale as Locale)}
+          lang={locale as Locale}
           className="flex text-nowrap"
         >
-          {getLocaleName(locale as Locales)}
+          {getLocaleName(locale as Locale)}
         </span>
       </div>
     </Container>
@@ -61,12 +59,12 @@ const LocalCardList: FC<{ localeList: string[]; className?: string }> = ({
       className={cn('inline-flex shrink-0 will-change-transform', className)}
     >
       {/* First set of cards */}
-      {localeList.map((locale, idx) => (
-        <LocalCard key={`${locale}-first-${idx}`} locale={locale} />
+      {localeList.map((locale, index) => (
+        <LocalCard key={`${locale}-first-${index}`} locale={locale} />
       ))}
       {/* Duplicate set for seamless loop */}
-      {localeList.map((locale, idx) => (
-        <LocalCard key={`${locale}-second-${idx}`} locale={locale} />
+      {localeList.map((locale, index) => (
+        <LocalCard key={`${locale}-second-${index}`} locale={locale} />
       ))}
     </div>
   </div>
@@ -77,7 +75,7 @@ const NUM_OF_LOCALES = 15;
 const emptyArrayOfLocale: string[][] = new Array(4).fill(0).map(() => []);
 const arrayOfLocale: string[][] = new Array(4)
   .fill(0)
-  .map(() => shuffleArray(localeList, NUM_OF_LOCALES));
+  .map(() => shuffleArray(Object.values(Locales.ALL_LOCALES), NUM_OF_LOCALES));
 
 export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
   className,

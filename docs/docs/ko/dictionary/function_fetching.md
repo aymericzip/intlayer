@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - function-fetching
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # 함수 패칭
@@ -206,7 +210,3 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

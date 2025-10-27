@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 export const structureViewContent = {
   key: 'structure-view',
-  autoFill: './{{key}}.content.json',
   content: {
     titleInput: {
       placeholder: t({
@@ -20,6 +19,9 @@ export const structureViewContent = {
         ar: 'أدخل مفتاح العقدة الخاص بك',
         ru: 'Введите ключ вашего узла',
         tr: 'Düğümünüzün anahtarını girin',
+        pl: 'Wprowadź klucz węzła',
+        id: 'Masukkan kunci node Anda',
+        vi: 'Nhập key của node của bạn',
       }),
     },
     deleteButton: {
@@ -38,6 +40,9 @@ export const structureViewContent = {
         ar: 'إزالة العقدة من القسم',
         ru: 'Удалить узел из секции',
         tr: 'Düğümü bölümden kaldır',
+        pl: 'Usuń węzeł z sekcji',
+        id: 'Hapus node dari bagian',
+        vi: 'Xóa node khỏi section',
       }),
     },
     addNodeButton: {
@@ -56,6 +61,9 @@ export const structureViewContent = {
         ar: 'انقر لإضافة عقدة جديدة',
         ru: 'Нажмите, чтобы добавить новый узел',
         tr: 'Yeni bir düğüm eklemek için tıklayın',
+        pl: 'Kliknij, aby dodać nowy węzeł',
+        id: 'Klik untuk menambahkan node baru',
+        vi: 'Nhấp để thêm node mới',
       }),
       text: t({
         en: 'Add a new node',
@@ -72,9 +80,16 @@ export const structureViewContent = {
         ar: 'إضافة عقدة جديدة',
         ru: 'Добавить новый узел',
         tr: 'Yeni bir düğüm ekle',
+        pl: 'Dodaj nowy węzeł',
+        id: 'Tambahkan node baru',
+        vi: 'Thêm node mới',
       }),
     },
   },
+  title: 'Structure view',
+  description:
+    'Interface content for managing nodes within a structured view, including actions to add, remove, and identify nodes by key.',
+  tags: ['form', 'dictionary editor', 'structure management'],
 } satisfies Dictionary;
 
 export default structureViewContent;

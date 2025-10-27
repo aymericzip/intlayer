@@ -14,8 +14,13 @@ slugs:
   - doc
   - environment
   - nextjs
+  - 15
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Переведите ваш Next.js 15 с Intlayer | Интернационализация (i18n)
@@ -800,15 +805,17 @@ export const generateMetadata = async ({
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl =
+    multilingualUrls[locale as keyof typeof multilingualUrls];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -879,15 +886,16 @@ const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -1542,7 +1550,3 @@ Intlayer использует расширение модулей (module augmen
 ### Продвинутые возможности
 
 Для расширения возможностей вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент с помощью [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
-## История документации
-
-- 5.5.10 - 2025-06-29: Инициализация истории

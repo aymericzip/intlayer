@@ -3,8 +3,8 @@ import {
   type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
-  type IntlayerConfig,
 } from '@intlayer/config';
+import type { IntlayerConfig } from '@intlayer/types';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions'. */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
@@ -37,13 +37,17 @@ export const watch = (options?: WatchOptions) => {
       stabilityThreshold: 1000,
       pollInterval: 100,
     },
+    ignored: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/build/**',
+      '**/.intlayer/**',
+    ],
     ...options,
   })
     .on('add', async (filePath) => {
       const fileName = basename(filePath);
       recentlyAddedFiles.add(fileName);
-
-      console.log('add', filePath);
 
       await handleAdditionalContentDeclarationFile(filePath, configuration);
 

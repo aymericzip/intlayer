@@ -18,6 +18,9 @@ const translatedContentMessageContent = {
       'en-GB': 'The content of this page was translated using an AI.',
       it: "Il contenuto di questa pagina è stato tradotto con un'IA.",
       tr: 'Bu sayfanın içeriği bir yapay zeka kullanılarak çevrildi.',
+      pl: 'Treść tej strony została przetłumaczona przy użyciu sztucznej inteligencji.',
+      id: 'Konten halaman ini diterjemahkan menggunakan AI.',
+      vi: 'Nội dung của trang này đã được dịch bằng AI.',
     }),
     link: {
       content: t({
@@ -35,6 +38,9 @@ const translatedContentMessageContent = {
         ar: 'اعرض آخر نسخة المحتوى الأصلي باللغة الإنكليزية',
         'en-GB': 'See the last version of the original content in English',
         tr: 'Orijinal içeriğin İngilizce son sürümünü görüntüleyin',
+        pl: 'Zobacz ostatnią wersję oryginalnej treści w języku angielskim',
+        id: 'Lihat versi terakhir dari konten aslinya dalam bahasa Inggris',
+        vi: 'Xem phiên bản mới nhất của nội dung gốc bằng tiếng Anh',
       }),
       label: t({
         en: 'Click to change the language to English',
@@ -51,9 +57,16 @@ const translatedContentMessageContent = {
         'en-GB': 'Click to change the language to English',
         it: 'Fai clic per cambiare la lingua in inglese',
         tr: 'Dili İngilizceye değiştirmek için tıklayın',
+        pl: 'Kliknij, aby zmienić język na angielski',
+        id: 'Klik untuk mengubah bahasa ke bahasa Inggris',
+        vi: 'Nhấp để chuyển ngôn ngữ sang tiếng Anh',
       }),
     },
   },
+  title: 'Translated content message',
+  description:
+    'Message displayed when the content of a page has been translated automatically by AI, includes a link to view the original English version.',
+  tags: ['doc page', 'language switch', 'translation message'],
 } satisfies Dictionary;
 
 export default translatedContentMessageContent;

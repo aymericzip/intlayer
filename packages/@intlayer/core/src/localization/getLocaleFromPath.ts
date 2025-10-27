@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { Locales } from '@intlayer/config/client';
+import { type Locale, Locales } from '@intlayer/types';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 
 /**
@@ -21,9 +21,13 @@ import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
  * @param inputUrl - The complete URL string or pathname to process.
  * @returns The detected locale or default (en) if no locale is found
  */
-export const getLocaleFromPath = (inputUrl: string): Locales => {
+export const getLocaleFromPath = (inputUrl: string): Locale => {
   // Define supported locales array
-  const { defaultLocale, locales } = configuration.internationalization;
+  const { defaultLocale, locales } = configuration?.internationalization ?? {};
+
+  if (!defaultLocale || !locales) {
+    return Locales.ENGLISH;
+  }
 
   // Determine if the original URL is absolute (includes protocol)
   const isAbsoluteUrl = checkIsURLAbsolute(inputUrl);
@@ -53,9 +57,9 @@ export const getLocaleFromPath = (inputUrl: string): Locales => {
   const firstSegment = pathSegments[1]; // The segment after the first '/'
 
   // Check if the first segment is a supported locale
-  if (firstSegment && locales.includes(firstSegment as Locales)) {
+  if (firstSegment && locales.includes(firstSegment as Locale)) {
     // Return the detected locale
-    return firstSegment as Locales;
+    return firstSegment as Locale;
   }
 
   // Return the default locale if no locale is found in the path

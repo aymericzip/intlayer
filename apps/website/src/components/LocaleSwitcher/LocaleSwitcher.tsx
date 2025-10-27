@@ -9,6 +9,7 @@ import {
   type PanelProps,
 } from '@intlayer/design-system';
 import { MoveVertical } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useRef } from 'react';
 import { useLocaleSearch } from './useLocaleSearch';
@@ -33,6 +34,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   } = useIntlayer('locale-switcher');
   let localeName = defaultLocaleName.value as string;
   const inputRef = useRef<HTMLInputElement>(null);
+
   const { locale, pathWithoutLocale, availableLocales, setLocale } =
     useLocale();
   const { searchResults, handleSearch } = useLocaleSearch(

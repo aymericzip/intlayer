@@ -14,8 +14,13 @@ slugs:
   - doc
   - environment
   - nextjs
+  - 15
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية التاريخ
 ---
 
 # ترجم Next.js 15 باستخدام Intlayer | التدويل (i18n)
@@ -766,15 +771,17 @@ export const generateMetadata = async ({
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl =
+    multilingualUrls[locale as keyof typeof multilingualUrls];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -806,15 +813,16 @@ export const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -846,15 +854,16 @@ const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -1506,7 +1515,3 @@ yarn add @intlayer/swc --save-dev
 ### التقدم أكثر
 
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية التاريخ

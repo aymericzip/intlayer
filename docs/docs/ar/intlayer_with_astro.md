@@ -16,6 +16,10 @@ slugs:
   - environment
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
+history:
+  - version: 6.2.0
+    date: 2025-10-03
+    changes: تحديث لتكامل Astro، الإعدادات، الاستخدام
 ---
 
 # ترجم Astro باستخدام Intlayer | التدويل (i18n)
@@ -238,9 +242,3 @@ const { title } = getIntlayer('app');
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ---
-
-## تاريخ الوثيقة
-
-| الإصدار | التاريخ    | التغييرات                                |
-| ------- | ---------- | ---------------------------------------- |
-| 6.2.0   | 2025-10-03 | تحديث لتكامل Astro، الإعدادات، الاستخدام |

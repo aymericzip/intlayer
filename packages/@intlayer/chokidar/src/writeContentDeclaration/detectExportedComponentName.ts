@@ -29,16 +29,12 @@ export const detectExportedComponentName = (
   // 2) Check for default CJS
   const cjsDefaultMatch =
     fileText.match(cjsDefaultRegex) || fileText.match(cjsDefaultVarRegex);
-  if (cjsDefaultMatch) {
-    return cjsDefaultMatch[1];
-  }
+
+  if (cjsDefaultMatch) return cjsDefaultMatch[1];
 
   // 3) Otherwise, look for capitalized named exports
-  let match;
-  while ((match = namedExportRegex.exec(fileText)) !== null) {
-    if (/^[A-Z]/.test(match[1])) {
-      return match[1];
-    }
+  for (const match of fileText.matchAll(namedExportRegex)) {
+    if (/^[A-Z]/.test(match[1])) return match[1];
   }
 
   // If we can’t find it, return null

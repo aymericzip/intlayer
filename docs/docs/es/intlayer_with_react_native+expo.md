@@ -15,6 +15,10 @@ slugs:
   - environment
   - react-native-and-expo
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Traduce tu React Native and Expo con Intlayer | Internacionalización (i18n)
@@ -644,7 +648,3 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 ¡Disfruta construyendo tus aplicaciones **React Native** con i18n completamente potenciado a través de **Intlayer**!
 
 ---
-
-## Historial del Documento
-
-- 5.5.10 - 2025-06-29: Historial inicial

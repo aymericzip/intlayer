@@ -24,7 +24,7 @@ export const generateMetadata = async ({
   const { locale, slugs } = await params;
 
   const blogsData = await getBlogMetadataBySlug(
-    ['blog', ...slugs],
+    ['blog', ...(slugs ?? [])],
     locale,
     true
   );

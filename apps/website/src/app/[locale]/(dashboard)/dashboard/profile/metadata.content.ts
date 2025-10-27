@@ -19,6 +19,9 @@ const metadataContent = {
       ar: 'الملف الشخصي | لوحة التحكم | Intlayer',
       ru: 'Профиль | Приборная панель | Intlayer',
       tr: 'Profil | Dashboard | Intlayer',
+      pl: 'Profil | Panel | Intlayer',
+      id: 'Profil | Dashboard | Intlayer',
+      vi: 'Hồ sơ | Dashboard | Intlayer',
     }),
     description: t({
       en: 'Manage your profile settings in the Intlayer dashboard. Update your personal information, change your password, and configure preferences.',
@@ -36,8 +39,11 @@ const metadataContent = {
       ar: 'إدارة إعدادات ملفك الشخصي في لوحة تحكم Intlayer. قم بتحديث معلوماتك الشخصية، وتغيير كلمة المرور، وتكوين التفضيلات.',
       ru: 'Управляйте настройками профиля в панели инструментов Intlayer. Обновите личную информацию, измените пароль и настройте предпочтения.',
       tr: 'Intlayer kontrol panelinde profil ayarlarınızı yönetin. Kişisel bilgilerinizi güncelleyin, şifrenizi değiştirin ve tercihlerinizi yapılandırın.',
+      pl: 'Zarządzaj ustawieniami swojego profilu w panelu Intlayer. Zaktualizuj dane osobowe, zmień hasło i skonfiguruj preferencje.',
+      id: 'Kelola pengaturan profil Anda di dashboard Intlayer. Perbarui informasi pribadi Anda, ubah kata sandi, dan atur preferensi.',
+      vi: 'Quản lý cài đặt hồ sơ của bạn trên Dashboard Intlayer. Cập nhật thông tin cá nhân, đổi mật khẩu và cấu hình các tùy chọn.',
     }),
-    keywords: t<string[]>({
+    keywords: t({
       en: [
         'Profile',
         'Settings',
@@ -143,8 +149,36 @@ const metadataContent = {
         'Tercihler',
         'Hesap Yönetimi',
       ],
+      pl: [
+        'Profil',
+        'Ustawienia',
+        'Informacje o użytkowniku',
+        'Hasło',
+        'Preferencje',
+        'Zarządzanie kontem',
+      ],
+      id: [
+        'Profil',
+        'Pengaturan',
+        'Info Pengguna',
+        'Kata Sandi',
+        'Preferensi',
+        'Manajemen Akun',
+      ],
+      vi: [
+        'Hồ sơ',
+        'Cài đặt',
+        'Thông tin người dùng',
+        'Mật khẩu',
+        'Tùy chọn',
+        'Quản lý tài khoản',
+      ],
     }),
   },
+  title: 'Profile dashboard metadata',
+  description:
+    'Metadata related to the profile section of the dashboard. Includes title, description, and keywords for SEO and user navigation purposes.',
+  tags: ['page metadata', 'dashboard', 'user profile'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

@@ -19,6 +19,9 @@ const signInContent = {
         ar: 'نسيت كلمة المرور؟',
         ru: 'Забыли пароль?',
         tr: 'Şifrenizi mi unuttunuz?',
+        pl: 'Zapomniałeś hasła?',
+        id: 'Lupa kata sandi Anda?',
+        vi: 'Bạn quên mật khẩu?',
       }),
       text: t({
         en: 'Forgot password?',
@@ -35,6 +38,9 @@ const signInContent = {
         ar: 'نسيت كلمة المرور؟',
         ru: 'Забыли пароль?',
         tr: 'Şifrenizi mi unuttunuz?',
+        pl: 'Zapomniałeś hasła?',
+        id: 'Lupa kata sandi?',
+        vi: 'Quên mật khẩu?',
       }),
     },
     emailInput: {
@@ -53,6 +59,9 @@ const signInContent = {
         ar: 'عنوان البريد الإلكتروني',
         ru: 'Адрес электронной почты',
         tr: 'E-posta adresi',
+        pl: 'Adres e-mail',
+        id: 'Alamat email',
+        vi: 'Địa chỉ email',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -69,6 +78,9 @@ const signInContent = {
         ar: 'أدخل عنوان البريد الإلكتروني',
         ru: 'Введите адрес электронной почты',
         tr: 'E-posta adresinizi girin',
+        pl: 'Wpisz adres e-mail',
+        id: 'Masukkan alamat email',
+        vi: 'Nhập địa chỉ email',
       }),
     },
     passwordInput: {
@@ -87,6 +99,9 @@ const signInContent = {
         ar: 'كلمة المرور',
         ru: 'Пароль',
         tr: 'Parola',
+        pl: 'Hasło',
+        id: 'Kata sandi',
+        vi: 'Mật khẩu',
       }),
       placeholder: t({
         en: 'Enter password',
@@ -103,6 +118,9 @@ const signInContent = {
         ar: 'أدخل كلمة المرور',
         ru: 'Введите пароль',
         tr: 'Parolanızı girin',
+        pl: 'Wpisz hasło',
+        id: 'Masukkan kata sandi',
+        vi: 'Nhập mật khẩu',
       }),
     },
     rememberMeCheckbox: {
@@ -121,6 +139,9 @@ const signInContent = {
         ar: 'تذكرني على هذا الجهاز',
         ru: 'Запомнить меня на этом устройстве',
         tr: 'Bu cihazda beni hatırla',
+        pl: 'Zapamiętaj mnie na tym urządzeniu',
+        id: 'Ingat saya di perangkat ini',
+        vi: 'Ghi nhớ tôi trên thiết bị này',
       }),
     },
 
@@ -140,6 +161,9 @@ const signInContent = {
         ar: 'تسجيل الدخول',
         ru: 'Войти',
         tr: 'Giriş yap',
+        pl: 'Zaloguj się',
+        id: 'Masuk',
+        vi: 'Đăng nhập',
       }),
       ariaLabel: t({
         en: 'Click to log in',
@@ -156,6 +180,9 @@ const signInContent = {
         ar: 'انقر لتسجيل الدخول',
         ru: 'Нажмите, чтобы войти',
         tr: 'Giriş yapmak için tıklayın',
+        pl: 'Kliknij, aby się zalogować',
+        id: 'Klik untuk masuk',
+        vi: 'Nhấn để đăng nhập',
       }),
     },
     signInButton: {
@@ -174,6 +201,9 @@ const signInContent = {
         ar: 'تسجيل الدخول',
         ru: 'Войти',
         tr: 'Giriş yap',
+        pl: 'Zaloguj się',
+        id: 'Masuk',
+        vi: 'Đăng nhập',
       }),
       ariaLabel: t({
         en: 'Click to log in',
@@ -190,6 +220,9 @@ const signInContent = {
         ar: 'انقر لتسجيل الدخول',
         ru: 'Нажмите, чтобы войти',
         tr: 'Giriş yapmak için tıklayın',
+        pl: 'Kliknij, aby się zalogować',
+        id: 'Klik untuk masuk',
+        vi: 'Nhấn để đăng nhập',
       }),
     },
     signUpLink: {
@@ -208,6 +241,9 @@ const signInContent = {
         ar: 'ليس لديك حساب؟',
         ru: 'У вас нет аккаунта?',
         tr: 'Hesabınız yok mu?',
+        pl: 'Nie masz konta?',
+        id: 'Belum punya akun?',
+        vi: 'Bạn chưa có tài khoản?',
       }),
       ariaLabel: t({
         en: 'Click to go to create an account page',
@@ -224,6 +260,9 @@ const signInContent = {
         ar: 'انقر للانتقال إلى صفحة إنشاء حساب',
         ru: 'Нажмите, чтобы перейти на страницу создания аккаунта',
         tr: 'Hesap oluşturma sayfasına gitmek için tıklayın',
+        pl: 'Kliknij, aby przejść do strony tworzenia konta',
+        id: 'Klik untuk menuju halaman pembuatan akun',
+        vi: 'Nhấn để tới trang tạo tài khoản',
       }),
       text: t({
         en: 'Create an account',
@@ -240,9 +279,16 @@ const signInContent = {
         ar: 'إنشاء حساب',
         ru: 'Создать аккаунт',
         tr: 'Hesap oluştur',
+        pl: 'Utwórz konto',
+        id: 'Buat akun',
+        vi: 'Tạo tài khoản',
       }),
     },
   },
+  title: 'Sign-in form content',
+  description:
+    'Multilingual content for the sign-in form, including labels, placeholders, and button texts used in the user authentication interface.',
+  tags: ['authentication', 'form', 'sign-in'],
 } satisfies Dictionary;
 
 export default signInContent;

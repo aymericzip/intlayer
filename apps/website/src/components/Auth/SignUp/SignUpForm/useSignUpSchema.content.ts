@@ -18,6 +18,9 @@ export const signUpSchemaContent = {
       ar: 'يرجى إدخال عنوان بريدك الإلكتروني',
       ru: 'Пожалуйста, введите свой адрес электронной почты',
       tr: 'Lütfen e-posta adresinizi girin',
+      pl: 'Proszę podać adres e-mail',
+      id: 'Silakan masukkan alamat email Anda',
+      vi: 'Vui lòng nhập địa chỉ email của bạn',
     }),
 
     invalidTypeErrorEmail: t({
@@ -35,6 +38,9 @@ export const signUpSchemaContent = {
       ar: 'يرجى إدخال عنوان بريد إلكتروني صالح',
       ru: 'Пожалуйста, введите корректный адрес электронной почты',
       tr: 'Lütfen geçerli bir e-posta adresi girin',
+      pl: 'Proszę podać prawidłowy adres e-mail',
+      id: 'Silakan masukkan alamat email yang valid',
+      vi: 'Vui lòng nhập địa chỉ email hợp lệ',
     }),
 
     requiredErrorPassword: t({
@@ -52,6 +58,9 @@ export const signUpSchemaContent = {
       ar: 'يرجى إدخال كلمة المرور الخاصة بك',
       ru: 'Пожалуйста, введите ваш пароль',
       tr: 'Lütfen şifrenizi girin',
+      pl: 'Proszę podać hasło',
+      id: 'Silakan masukkan kata sandi Anda',
+      vi: 'Vui lòng nhập mật khẩu của bạn',
     }),
 
     invalidTypeErrorPassword: t({
@@ -69,6 +78,9 @@ export const signUpSchemaContent = {
       ar: 'يرجى إدخال كلمة مرور صالحة',
       ru: 'Пожалуйста, введите корректный пароль',
       tr: 'Lütfen geçerli bir şifre girin',
+      pl: 'Proszę podać prawidłowe hasło',
+      id: 'Silakan masukkan kata sandi yang valid',
+      vi: 'Vui lòng nhập mật khẩu hợp lệ',
     }),
 
     requiredErrorPasswordConfirmation: t({
@@ -86,6 +98,9 @@ export const signUpSchemaContent = {
       ar: 'يرجى إعادة إدخال كلمة المرور الخاصة بك',
       ru: 'Пожалуйста, введите ваш пароль еще раз',
       tr: 'Lütfen şifrenizi tekrar girin',
+      pl: 'Proszę powtórzyć hasło',
+      id: 'Silakan masukkan kembali kata sandi Anda',
+      vi: 'Vui lòng nhập lại mật khẩu của bạn',
     }),
 
     invalidTypeErrorPasswordConfirmation: t({
@@ -103,6 +118,9 @@ export const signUpSchemaContent = {
       ar: 'يرجى إدخال كلمة مرور صالحة',
       ru: 'Пожалуйста, введите корректный пароль',
       tr: 'Lütfen geçerli bir şifre girin',
+      pl: 'Proszę podać prawidłowe hasło',
+      id: 'Silakan masukkan konfirmasi kata sandi yang valid',
+      vi: 'Vui lòng nhập mật khẩu hợp lệ',
     }),
 
     passwordNotMatchError: t({
@@ -120,6 +138,9 @@ export const signUpSchemaContent = {
       ar: 'يجب أن تتطابق كلمة المرور وتأكيد كلمة المرور',
       ru: 'Пароль и подтверждение пароля должны совпадать',
       tr: 'Parola ve parola onayı eşleşmelidir',
+      pl: 'Hasło i potwierdzenie hasła muszą się zgadzać',
+      id: 'Kata sandi dan konfirmasi kata sandi harus cocok',
+      vi: 'Mật khẩu và xác nhận mật khẩu phải khớp',
     }),
     termsAndConditionsError: t({
       en: 'You must agree to the terms and conditions',
@@ -136,8 +157,15 @@ export const signUpSchemaContent = {
       ar: 'يجب أن توافق على شروط وأحكامنا',
       ru: 'Вы должны согласиться с условиями и положениями',
       tr: 'Şartlar ve koşulları kabul etmelisiniz',
+      pl: 'Musisz zaakceptować regulamin',
+      id: 'Anda harus menyetujui syarat dan ketentuan',
+      vi: 'Bạn phải đồng ý với các điều khoản và điều kiện',
     }),
   },
+  title: 'Sign up schema validation',
+  description:
+    'Validation messages and error handling schema for the sign-up form, ensuring correct email, password, and terms agreement input by users.',
+  tags: ['validation', 'sign up', 'auth'],
 } satisfies Dictionary;
 
 export default signUpSchemaContent;

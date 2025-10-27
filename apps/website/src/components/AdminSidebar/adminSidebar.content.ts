@@ -19,6 +19,9 @@ const adminSidebarContent = {
         ar: 'اطوي الشريط الجانبي',
         ru: 'Свернуть боковую панель',
         tr: 'Kenar çubuğunu daralt',
+        pl: 'Zwiń pasek boczny',
+        id: 'Sembunyikan sidebar',
+        vi: 'Thu gọn thanh bên',
       }),
     },
 
@@ -39,6 +42,9 @@ const adminSidebarContent = {
           ar: 'اذهب إلى لوحة القيادة',
           ru: 'Перейти на прибортную панель',
           tr: 'Dashboarde git',
+          pl: 'Przejdź do pulpitu',
+          id: 'Buka dashboard',
+          vi: 'Đi tới bảng điều khiển',
         }),
         title: t({
           en: 'Dashboard',
@@ -55,6 +61,9 @@ const adminSidebarContent = {
           ar: 'لوحة القيادة',
           ru: 'Приборная панель',
           tr: 'Dashboard',
+          pl: 'Pulpit',
+          id: 'Dashboard',
+          vi: 'Bảng điều khiển',
         }),
       },
       management: {
@@ -73,6 +82,9 @@ const adminSidebarContent = {
           ar: 'قسم الإدارة',
           ru: 'Раздел управления',
           tr: 'Yönetim bölümü',
+          pl: 'Sekcja zarządzania',
+          id: 'Bagian manajemen',
+          vi: 'Mục quản lý',
         }),
         title: t({
           en: 'Management',
@@ -89,6 +101,9 @@ const adminSidebarContent = {
           ar: 'الإدارة',
           ru: 'Управление',
           tr: 'Yönetim',
+          pl: 'Zarządzanie',
+          id: 'Manajemen',
+          vi: 'Quản lý',
         }),
         organizations: {
           label: t({
@@ -106,6 +121,9 @@ const adminSidebarContent = {
             ar: 'إدارة المنظمات',
             ru: 'Управление организациями',
             tr: 'Organizasyonları yönet',
+            pl: 'Zarządzaj organizacjami',
+            id: 'Kelola organisasi',
+            vi: 'Quản lý tổ chức',
           }),
           title: t({
             en: 'Organizations',
@@ -122,6 +140,9 @@ const adminSidebarContent = {
             ar: 'المنظمات',
             ru: 'Организации',
             tr: 'Organizasyonlar',
+            pl: 'Organizacje',
+            id: 'Organisasi',
+            vi: 'Tổ chức',
           }),
         },
         projects: {
@@ -140,6 +161,9 @@ const adminSidebarContent = {
             ar: 'إدارة المشاريع',
             ru: 'Управление проектами',
             tr: 'Projeleri yönet',
+            pl: 'Zarządzaj projektami',
+            id: 'Kelola proyek',
+            vi: 'Quản lý dự án',
           }),
           title: t({
             en: 'Projects',
@@ -156,6 +180,9 @@ const adminSidebarContent = {
             ar: 'المشاريع',
             ru: 'Проекты',
             tr: 'Projeler',
+            pl: 'Projekty',
+            id: 'Proyek',
+            vi: 'Dự án',
           }),
         },
         users: {
@@ -174,6 +201,9 @@ const adminSidebarContent = {
             ar: 'إدارة المستخدمين',
             ru: 'Управление пользователями',
             tr: 'Kullanıcıları yönet',
+            pl: 'Zarządzaj użytkownikami',
+            id: 'Kelola pengguna',
+            vi: 'Quản lý người dùng',
           }),
           title: t({
             en: 'Users',
@@ -190,6 +220,9 @@ const adminSidebarContent = {
             ar: 'المستخدمون',
             ru: 'Пользователи',
             tr: 'Kullanıcılar',
+            pl: 'Użytkownicy',
+            id: 'Pengguna',
+            vi: 'Người dùng',
           }),
         },
         discussions: {
@@ -208,6 +241,9 @@ const adminSidebarContent = {
             ar: 'إدارة المناقشات',
             ru: 'Управление обсуждениями',
             tr: 'Tartışma yönetimi',
+            pl: 'Zarządzaj dyskusjami',
+            id: 'Kelola diskusi',
+            vi: 'Quản lý thảo luận',
           }),
           title: t({
             en: 'Discussions',
@@ -224,11 +260,18 @@ const adminSidebarContent = {
             ar: 'المناقشات',
             ru: 'Обсуждения',
             tr: 'Tartışmalar',
+            pl: 'Dyskusje',
+            id: 'Diskusi',
+            vi: 'Thảo luận',
           }),
         },
       },
     },
   },
+  title: 'Admin sidebar navigation',
+  description:
+    'Content declaration for the admin sidebar navigation, includes labels and titles for dashboard access and management sections such as organizations, projects, users, and discussions.',
+  tags: ['admin panel', 'sidebar navigation', 'dashboard'],
 } satisfies Dictionary;
 
 export default adminSidebarContent;

@@ -19,6 +19,9 @@ const content = {
         ru: 'Перейти на главную страницу',
         'en-GB': 'Go to home page',
         tr: 'Ana sayfaya git',
+        pl: 'Przejdź do strony głównej',
+        id: 'Pergi ke halaman utama',
+        vi: 'Đến trang chủ',
       }),
       ariaLabel: t({
         en: 'Click to go to home page',
@@ -35,9 +38,16 @@ const content = {
         ru: 'Нажмите, чтобы перейти на главную страницу',
         'en-GB': 'Click to go to home page',
         tr: 'Ana sayfaya gitmek için tıklayın',
+        pl: 'Kliknij, aby przejść do strony głównej',
+        id: 'Klik untuk pergi ke halaman utama',
+        vi: 'Nhấn để đến trang chủ',
       }),
     },
   },
+  title: 'Define password form',
+  description:
+    'Content declaration for the define password form component, including navigation elements such as the button to return to the home page.',
+  tags: ['authentication', 'form', 'define password'],
 } satisfies Dictionary;
 
 export default content;

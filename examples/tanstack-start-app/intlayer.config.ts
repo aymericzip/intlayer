@@ -1,5 +1,4 @@
 import type { IntlayerConfig } from 'intlayer';
-
 import { Locales } from 'intlayer';
 
 const config: IntlayerConfig = {

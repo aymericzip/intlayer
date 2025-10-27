@@ -2,17 +2,17 @@ import type { IInterpreterPluginPreact } from './plugins';
 
 declare module '@intlayer/core' {
   // biome-ignore lint/correctness/noUnusedVariables: <All declarations of 'IInterpreterPlugin' must have identical type parameters>
-  interface IInterpreterPlugin<T, S> extends IInterpreterPluginPreact<T> {}
+  interface IInterpreterPlugin<T, S, L> extends IInterpreterPluginPreact<T> {}
 }
 
 export {
-  getBrowserLocale,
   IntlayerClientContext,
   IntlayerProvider,
   IntlayerProviderContent,
   type IntlayerProviderProps,
   localeCookie,
   setLocaleCookie,
+  setLocaleInStorage,
   t,
   useDictionary,
   useDictionaryAsync,
@@ -23,6 +23,7 @@ export {
   useLocale,
   useLocaleBase,
   useLocaleCookie,
+  useLocaleStorage,
 } from './client/index';
 export type { IntlayerNode } from './IntlayerNode';
 export { MarkdownProvider } from './markdown/index';

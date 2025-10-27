@@ -15,6 +15,16 @@ slugs:
   - doc
   - concept
   - auto-fill
+history:
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: グローバル設定の追加
+  - version: 6.0.0
+    date: 2025-09-17
+    changes: `{{fileName}}` 変数の追加
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # 自動入力コンテンツ宣言ファイルの翻訳
@@ -191,11 +201,3 @@ const exampleContent = {
 
 - `./index.content.json`
 - `./index.content.json`
-
-## ドキュメント履歴
-
-| バージョン | 日付       | 変更内容                     |
-| ---------- | ---------- | ---------------------------- |
-| 6.0.0      | 2025-09-20 | グローバル設定の追加          |
-| 6.0.0      | 2025-09-17 | `{{fileName}}` 変数の追加    |
-| 5.5.10     | 2025-06-29 | 履歴の初期化                 |

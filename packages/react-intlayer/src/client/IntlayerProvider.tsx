@@ -1,10 +1,9 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
-
 import { localeResolver } from '@intlayer/core';
 import { MessageKey, useCrossFrameState } from '@intlayer/editor-react';
+import type { LocalesValues } from '@intlayer/types';
 import {
   createContext,
   type FC,
@@ -12,12 +11,13 @@ import {
   useContext,
 } from 'react';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
-import { localeCookie, setLocaleCookie } from './useLocaleCookie';
+import { localeCookie, setLocaleInStorage } from './useLocaleStorage';
 
 type IntlayerValue = {
   locale: LocalesValues;
   setLocale: (newLocale: LocalesValues) => void;
   disableEditor?: boolean;
+  isCookieEnabled?: boolean;
 };
 
 /**
@@ -26,6 +26,7 @@ type IntlayerValue = {
 export const IntlayerClientContext = createContext<IntlayerValue>({
   locale: localeCookie ?? configuration?.internationalization?.defaultLocale,
   setLocale: () => null,
+  isCookieEnabled: true,
   disableEditor: false,
 });
 
@@ -39,6 +40,7 @@ export type IntlayerProviderProps = PropsWithChildren<{
   defaultLocale?: LocalesValues;
   setLocale?: (locale: LocalesValues) => void;
   disableEditor?: boolean;
+  isCookieEnabled?: boolean;
 }>;
 
 /**
@@ -50,6 +52,7 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   children,
   setLocale: setLocaleProp,
   disableEditor,
+  isCookieEnabled,
 }) => {
   const { internationalization } = configuration ?? {};
   const { defaultLocale: defaultLocaleConfig, locales: availableLocales } =
@@ -72,7 +75,7 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
     }
 
     setCurrentLocale(newLocale); // Update state
-    setLocaleCookie(newLocale); // Optionally set cookie for persistence
+    setLocaleInStorage(newLocale, isCookieEnabled); // Optionally set cookie for persistence
   };
 
   const setLocale = setLocaleProp ?? setLocaleBase;

@@ -19,6 +19,9 @@ const docContent = {
         ar: 'اذهب إلى القسم التالي',
         ru: 'Перейти к следующей секции',
         tr: 'Sonraki bölüme git',
+        pl: 'Przejdź do następnej sekcji',
+        id: 'Lanjut ke bagian berikutnya',
+        vi: 'Đi tới phần tiếp theo',
       }),
     },
     goToPreviousSection: {
@@ -37,9 +40,16 @@ const docContent = {
         ar: 'اذهب إلى القسم السابق',
         ru: 'Перейти к предыдущей секции',
         tr: 'Önceki bölüme git',
+        pl: 'Przejdź do poprzedniej sekcji',
+        id: 'Kembali ke bagian sebelumnya',
+        vi: 'Đi tới phần trước',
       }),
     },
   },
+  title: 'Documentation page navigation',
+  description:
+    'Content declaration for navigation controls on the documentation page, including labels for moving to the next or previous section.',
+  tags: ['documentation', 'navigation'],
 } satisfies Dictionary;
 
 export default docContent;

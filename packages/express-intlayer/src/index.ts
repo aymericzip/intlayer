@@ -1,31 +1,79 @@
-import { createModuleAugmentation } from '@intlayer/chokidar';
-import { getConfiguration, type Locales } from '@intlayer/config';
+import { prepareIntlayer } from '@intlayer/chokidar';
+import { DefaultValues, getConfiguration } from '@intlayer/config';
 import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
   getTranslation,
-  type LanguageContent,
   localeDetector,
 } from '@intlayer/core';
+import type {
+  Locale,
+  RoutingConfig,
+  StrictModeLocaleMap,
+} from '@intlayer/types';
 import { createNamespace } from 'cls-hooked';
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 
-const { middleware, internationalization } = getConfiguration();
-const { headerName, cookieName } = middleware;
+const configuration = getConfiguration();
+const { routing, internationalization } = configuration;
+const { headerName } = routing;
+
+const getCookieNames = (storage: RoutingConfig['storage']): string[] => {
+  // If storage is disabled, return default cookie name
+  if (!storage) {
+    return [];
+  }
+
+  // If storage is a string
+  if (typeof storage === 'string') {
+    // Only 'cookie' string means use default cookie
+    return storage === 'cookie'
+      ? [DefaultValues.Routing.COOKIE_NAME]
+      : [DefaultValues.Routing.COOKIE_NAME];
+  }
+
+  // If storage is an array
+  if (Array.isArray(storage)) {
+    const cookieNames: string[] = [];
+    for (const item of storage) {
+      if (typeof item === 'string') {
+        if (item === 'cookie') {
+          cookieNames.push(DefaultValues.Routing.COOKIE_NAME);
+        }
+      } else if (typeof item === 'object' && item.type === 'cookie') {
+        cookieNames.push(item.name ?? DefaultValues.Routing.COOKIE_NAME);
+      }
+    }
+    return cookieNames.length > 0
+      ? cookieNames
+      : [DefaultValues.Routing.COOKIE_NAME];
+  }
+
+  // If storage is an object (CookiesAttributes or LocaleStorageAttributes)
+  if (typeof storage === 'object' && 'type' in storage) {
+    return storage.type === 'cookie'
+      ? [storage.name ?? DefaultValues.Routing.COOKIE_NAME]
+      : [DefaultValues.Routing.COOKIE_NAME];
+  }
+
+  return [DefaultValues.Routing.COOKIE_NAME];
+};
+
+const cookieNames = getCookieNames(routing.storage);
 
 const appNamespace = createNamespace('app');
 
-createModuleAugmentation();
+prepareIntlayer(configuration);
 
 export const translateFunction =
   (_req: Request, res: Response, _next?: NextFunction) =>
   <T extends string>(
-    content: LanguageContent<T> | string,
-    locale?: Locales
+    content: StrictModeLocaleMap<T> | string,
+    locale?: Locale
   ): T => {
     const { locale: currentLocale, defaultLocale } = res.locals as {
-      locale: Locales;
-      defaultLocale: Locales;
+      locale: Locale;
+      defaultLocale: Locale;
     };
 
     const targetLocale = locale ?? currentLocale;
@@ -39,12 +87,13 @@ export const translateFunction =
     }
 
     if (
-      typeof content?.[targetLocale as unknown as keyof LanguageContent<T>] ===
-      'undefined'
+      typeof content?.[
+        targetLocale as unknown as keyof StrictModeLocaleMap<T>
+      ] === 'undefined'
     ) {
       if (
         typeof content?.[
-          defaultLocale as unknown as keyof LanguageContent<T>
+          defaultLocale as unknown as keyof StrictModeLocaleMap<T>
         ] === 'undefined'
       ) {
         return content as unknown as T;
@@ -61,9 +110,16 @@ export const translateFunction =
  *
  * @returns
  */
-export const intlayer = (): RequestHandler => (req, res, next) => {
+export const intlayer = (): RequestHandler => async (req, res, next) => {
   // Detect if locale is set by intlayer frontend lib in the cookies
-  const localeCookie = req.cookies?.[cookieName];
+  // Check all possible cookie names and use the first one found
+  let localeCookie: string | undefined;
+  for (const cookieName of cookieNames) {
+    if (req.cookies?.[cookieName]) {
+      localeCookie = req.cookies[cookieName];
+      break;
+    }
+  }
   // Detect if locale is set by intlayer frontend lib in the headers
   const localeHeader = req.headers?.[headerName];
   // Interpret browser locale
@@ -120,27 +176,77 @@ export const intlayer = (): RequestHandler => (req, res, next) => {
 };
 
 export const t = <Content = string>(
-  content: LanguageContent<Content>,
-  locale?: Locales
-): Content => appNamespace.get('t')(content, locale);
+  content: StrictModeLocaleMap<Content>,
+  locale?: Locale
+): Content => {
+  try {
+    if (typeof appNamespace === 'undefined') {
+      throw new Error(
+        'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function.'
+      );
+    }
 
-export const getIntlayer: typeof getIntlayerFunction = (...args) => {
-  if (typeof appNamespace === 'undefined') {
-    throw new Error(
-      'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function'
+    if (typeof appNamespace.get('t') !== 'function') {
+      throw new Error(
+        'Using the import { t } from "express-intlayer" is not supported in your environment. Use the res.locals.t syntax instead.'
+      );
+    }
+
+    return appNamespace.get('t')(content, locale);
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error((error as Error).message);
+    }
+
+    return getTranslation(
+      content,
+      locale ?? internationalization.defaultLocale
     );
   }
+};
 
-  return appNamespace.get('getIntlayer')(...args);
+export const getIntlayer: typeof getIntlayerFunction = (...args) => {
+  try {
+    if (typeof appNamespace === 'undefined') {
+      throw new Error(
+        'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function.'
+      );
+    }
+
+    if (typeof appNamespace.get('getIntlayer') !== 'function') {
+      throw new Error(
+        'Using the import { t } from "express-intlayer" is not supported in your environment. Use the res.locals.t syntax instead.'
+      );
+    }
+
+    return appNamespace.get('getIntlayer')(...args);
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error((error as Error).message);
+    }
+    return getIntlayerFunction(...args);
+  }
 };
 
 export const getDictionary: typeof getDictionaryFunction = (...args) => {
-  if (typeof appNamespace === 'undefined') {
-    throw new Error(
-      'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function'
-    );
-  }
-  return appNamespace.get('getDictionary')(...args);
-};
+  try {
+    if (typeof appNamespace === 'undefined') {
+      throw new Error(
+        'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function.'
+      );
+    }
 
-export type { LanguageContent };
+    if (typeof appNamespace.get('getDictionary') !== 'function') {
+      throw new Error(
+        'Using the import { t } from "express-intlayer" is not supported in your environment. Use the res.locals.t syntax instead.'
+      );
+    }
+
+    return appNamespace.get('getDictionary')(...args);
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error((error as Error).message);
+    }
+    return getDictionaryFunction(...args);
+  }
+};

@@ -1,6 +1,5 @@
 'use client';
 
-import type { Dictionary } from '@intlayer/core';
 import {
   Button,
   Container,
@@ -14,6 +13,7 @@ import {
 } from '@intlayer/design-system';
 import { useGetDictionaries, useSearch } from '@intlayer/design-system/hooks';
 import { useFocusDictionaryActions } from '@intlayer/editor-react';
+import type { Dictionary } from '@intlayer/types';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

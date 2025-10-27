@@ -17,6 +17,16 @@ slugs:
   - concept
   - cms
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 6.0.1
+    date: 2025-09-22
+    changes: Add live sync documentation
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: Replace `hotReload` field with `liveSync`
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initialise history
 ---
 
 # Intlayer Content Management System (CMS) Documentation
@@ -25,23 +35,23 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 
 The Intlayer CMS is an application that allows you to externalise the content of an Intlayer project.
 
-For this, Intlayer introduces the concept of 'distant dictionaries'.
+For this, Intlayer introduces the concept of 'remote dictionaries'.
 
 ![Intlayer CMS Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
-## Understanding distant dictionaries
+## Understanding remote dictionaries
 
-Intlayer distinguishes between 'local' and 'distant' dictionaries.
+Intlayer distinguishes between 'local' and 'remote' dictionaries.
 
 - A 'local' dictionary is a dictionary that is declared in your Intlayer project. Such as the declaration file of a button, or your navigation bar. Externalising your content does not make sense in this case because this content is not supposed to change often.
 
-- A 'distant' dictionary is a dictionary that is managed through the Intlayer CMS. It could be useful to allow your team to manage your content directly on your website, and also aims to use A/B testing features and SEO automatic optimisation.
+- A 'remote' dictionary is a dictionary that is managed through the Intlayer CMS. It could be useful to allow your team to manage your content directly on your website, and also aims to use A/B testing features and SEO automatic optimisation.
 
 ## Visual editor vs CMS
 
 The [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) editor is a tool that allows you to manage your content in a visual editor for local dictionaries. Once a change is made, the content will be replaced in the code-base. This means that the application will be rebuilt and the page will be reloaded to display the new content.
 
-In contrast, the Intlayer CMS is a tool that allows you to manage your content in a visual editor for distant dictionaries. Once a change is made, the content will **not** impact your code-base. The website will automatically display the updated content.
+In contrast, the Intlayer CMS is a tool that allows you to manage your content in a visual editor for remote dictionaries. Once a change is made, the content will **not** impact your code-base. The website will automatically display the updated content.
 
 ## Integrating
 
@@ -520,11 +530,3 @@ If you encounter any issues with the CMS, check the following:
 - Ensure that the project configuration was pushed to the Intlayer CMS.
 
 - The visual editor uses an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS URL as `frame-ancestors` ('https://intlayer.org' by default). Check the editor console for any errors.
-
-## Doc History
-
-| Version | Date       | Changes                                   |
-| ------- | ---------- | ----------------------------------------- |
-| 6.0.1   | 2025-09-22 | Add live sync documentation               |
-| 6.0.0   | 2025-09-04 | Replace `hotReload` field with `liveSync` |
-| 5.5.10  | 2025-06-29 | Initialise history                        |

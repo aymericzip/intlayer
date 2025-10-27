@@ -19,6 +19,9 @@ const metadataContent = {
       ar: 'كلمة المرور منسية | Intlayer',
       ru: 'Забыли пароль | Intlayer',
       tr: 'Şifremi Unuttum | Intlayer',
+      pl: 'Zapomniane hasło | Intlayer',
+      id: 'Lupa Kata Sandi | Intlayer',
+      vi: 'Quên mật khẩu | Intlayer',
     }),
     description: t({
       en: 'Recover your Intlayer account by resetting your forgotten password. Follow the instructions to restore access.',
@@ -36,6 +39,9 @@ const metadataContent = {
       ar: 'استعد حسابك في Intlayer عن طريق إعادة تعيين كلمة المرور المنسية. اتبع التعليمات لاستعادة الوصول.',
       ru: 'Восстановите свой аккаунт Intlayer, сбросив забытый пароль. Следуйте инструкциям, чтобы восстановить доступ.',
       tr: 'Unutulan şifrenizi sıfırlayarak Intlayer hesabınızı kurtarın. Erişimi geri yüklemek için talimatları izleyin.',
+      pl: 'Odzyskaj swoje konto Intlayer, resetując zapomniane hasło. Postępuj zgodnie z instrukcjami, aby przywrócić dostęp.',
+      id: 'Pulihkan akun Intlayer Anda dengan mereset kata sandi yang terlupa. Ikuti petunjuk untuk memulihkan akses.',
+      vi: 'Khôi phục tài khoản Intlayer của bạn bằng cách đặt lại mật khẩu đã quên. Làm theo hướng dẫn để lấy lại quyền truy cập.',
     }),
 
     keywords: t<string[]>({
@@ -131,8 +137,33 @@ const metadataContent = {
         'React',
         'JavaScript',
       ],
+      pl: [
+        'Zapomniane hasło',
+        'Odzyskiwanie hasła',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      id: [
+        'Lupa kata sandi',
+        'Pemulihan kata sandi',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      vi: [
+        'Quên mật khẩu',
+        'Khôi phục mật khẩu',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
     }),
   },
+  title: 'Reset password page metadata',
+  description:
+    'Metadata related to the password reset page, including title, description, and keywords for SEO optimization. Helps users and search engines identify the reset password functionality.',
+  tags: ['page metadata', 'authentication', 'password reset'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

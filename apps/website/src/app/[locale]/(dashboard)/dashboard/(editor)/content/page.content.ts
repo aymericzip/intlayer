@@ -4,22 +4,29 @@ const contentDashboardContent = {
   key: 'content-dashboard-page',
   content: {
     title: t({
+      ar: 'إدارة المحتوى',
+      de: 'Inhaltsverwaltung',
       en: 'Content management',
       'en-GB': 'Content management',
-      fr: 'Gestion de contenu',
       es: 'Gestión de contenido',
-      de: 'Inhaltsverwaltung',
+      fr: 'Gestion de contenu',
+      hi: 'सामग्री प्रबंधन',
+      it: 'Gestione dei contenuti',
       ja: 'コンテンツ管理',
       ko: '콘텐츠 관리',
-      zh: '内容管理',
-      it: 'Gestione dei contenuti',
       pt: 'Gestão de conteúdo',
-      hi: 'सामग्री प्रबंधन',
-      ar: 'إدارة المحتوى',
       ru: 'Управление контентом',
       tr: 'İçerik yönetimi',
+      zh: '内容管理',
+      pl: 'Zarządzanie treścią',
+      id: 'Manajemen Konten',
+      vi: 'Quản lý nội dung',
     }),
   },
+  title: 'Content dashboard page',
+  description:
+    'Content declaration for the content dashboard page within the CMS. It manages titles and labels used by the editor to handle multilingual content.',
+  tags: ['cms', 'dashboard', 'content management'],
 } satisfies Dictionary;
 
 export default contentDashboardContent;

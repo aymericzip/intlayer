@@ -1,9 +1,9 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
 import { localeResolver } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import type { LocalesValues } from '@intlayer/types';
 import {
   type ComponentChild,
   createContext,
@@ -12,12 +12,13 @@ import {
 import { useContext } from 'preact/hooks';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
 import { useCrossFrameState } from '../editor/useCrossFrameState';
-import { localeCookie, setLocaleCookie } from './useLocaleCookie';
+import { localeCookie, setLocaleInStorage } from './useLocaleStorage';
 
 type IntlayerValue = {
   locale: LocalesValues;
   setLocale: (newLocale: LocalesValues) => void;
   disableEditor?: boolean;
+  isCookieEnabled?: boolean;
 };
 
 /**
@@ -40,6 +41,7 @@ export type IntlayerProviderProps = {
   defaultLocale?: LocalesValues;
   setLocale?: (locale: LocalesValues) => void;
   disableEditor?: boolean;
+  isCookieEnabled?: boolean;
 };
 
 /**
@@ -53,6 +55,7 @@ export const IntlayerProviderContent: FunctionComponent<
   children,
   setLocale: setLocaleProp,
   disableEditor,
+  isCookieEnabled,
 }) => {
   const { internationalization } = configuration ?? {};
   const { defaultLocale: defaultLocaleConfig, locales: availableLocales } =
@@ -75,7 +78,7 @@ export const IntlayerProviderContent: FunctionComponent<
     }
 
     setCurrentLocale(newLocale); // Update state
-    setLocaleCookie(newLocale); // Optionally set cookie for persistence
+    setLocaleInStorage(newLocale, isCookieEnabled ?? true); // Optionally set cookie for persistence
   };
 
   const setLocale = setLocaleProp ?? setLocaleBase;
@@ -88,6 +91,7 @@ export const IntlayerProviderContent: FunctionComponent<
         locale: resolvedLocale,
         setLocale,
         disableEditor,
+        isCookieEnabled,
       }}
     >
       {children}

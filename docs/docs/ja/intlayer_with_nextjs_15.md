@@ -14,8 +14,13 @@ slugs:
   - doc
   - environment
   - nextjs
+  - 15
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # IntlayerでNext.js 15を翻訳する | 国際化（i18n）
@@ -789,15 +794,17 @@ export const generateMetadata = async ({
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl =
+    multilingualUrls[locale as keyof typeof multilingualUrls];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -829,15 +836,16 @@ export const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -869,15 +877,16 @@ const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -1528,7 +1537,3 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 ### さらに進むには
 
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

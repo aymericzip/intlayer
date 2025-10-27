@@ -326,6 +326,10 @@ export const setAPI = (): Command => {
     description: 'Pull dictionaries from the server',
     options: [
       ['-d, --dictionaries [ids...]', 'List of dictionary IDs to pull'],
+      [
+        '--dictionary [ids...]',
+        'List of dictionary IDs to pull (alias for --dictionaries)',
+      ],
       ['--new-dictionaries-path [path]', 'Path to save the new dictionaries'],
       // Backward-compatibility for older tests/flags (camelCase)
       [
@@ -343,8 +347,15 @@ export const setAPI = (): Command => {
   applyOptions(dictionariesPullCmd, pullOptions.options);
   applyConfigOptions(dictionariesPullCmd);
   dictionariesPullCmd.action((options) => {
+    // Merge dictionary aliases
+    const dictionaries = [
+      ...(options.dictionaries ?? []),
+      ...(options.dictionary ?? []),
+    ];
+
     pull({
       ...options,
+      dictionaries: dictionaries.length > 0 ? dictionaries : undefined,
       configOptions: {
         ...options.configOptions,
         baseDir: options.baseDir,
@@ -360,8 +371,15 @@ export const setAPI = (): Command => {
   applyOptions(rootPullCmd, pullOptions.options);
   applyConfigOptions(rootPullCmd);
   rootPullCmd.action((options) => {
+    // Merge dictionary aliases
+    const dictionaries = [
+      ...(options.dictionaries ?? []),
+      ...(options.dictionary ?? []),
+    ];
+
     pull({
       ...options,
+      dictionaries: dictionaries.length > 0 ? dictionaries : undefined,
       configOptions: extractConfigOptions(options),
     });
   });
@@ -372,6 +390,10 @@ export const setAPI = (): Command => {
       'Push all dictionaries. Create or update the pushed dictionaries',
     options: [
       ['-d, --dictionaries [ids...]', 'List of dictionary IDs to push'],
+      [
+        '--dictionary [ids...]',
+        'List of dictionary IDs to push (alias for --dictionaries)',
+      ],
       [
         '-r, --delete-locale-dictionary',
         'Delete the local dictionaries after pushing',
@@ -405,13 +427,20 @@ export const setAPI = (): Command => {
   applyConfigOptions(dictionariesPushCmd);
   applyGitOptions(dictionariesPushCmd);
 
-  dictionariesPushCmd.action((options) =>
-    push({
+  dictionariesPushCmd.action((options) => {
+    // Merge dictionary aliases
+    const dictionaries = [
+      ...(options.dictionaries || []),
+      ...(options.dictionary || []),
+    ];
+
+    return push({
       ...options,
+      dictionaries: dictionaries.length > 0 ? dictionaries : undefined,
       gitOptions: extractGitOptions(options),
       configOptions: extractConfigOptions(options),
-    } as FillOptions)
-  );
+    } as FillOptions);
+  });
 
   // Add push command to root program as well
   const rootPushCmd = program
@@ -422,13 +451,20 @@ export const setAPI = (): Command => {
   applyConfigOptions(rootPushCmd);
   applyGitOptions(rootPushCmd);
 
-  rootPushCmd.action((options) =>
-    push({
+  rootPushCmd.action((options) => {
+    // Merge dictionary aliases
+    const dictionaries = [
+      ...(options.dictionaries || []),
+      ...(options.dictionary || []),
+    ];
+
+    return push({
       ...options,
+      dictionaries: dictionaries.length > 0 ? dictionaries : undefined,
       gitOptions: extractGitOptions(options),
       configOptions: extractConfigOptions(options),
-    } as FillOptions)
-  );
+    } as FillOptions);
+  });
 
   /**
    * CONFIGURATION
@@ -479,6 +515,12 @@ export const setAPI = (): Command => {
     .description('List the content declaration files')
     .action(listContentDeclaration);
 
+  // Add alias for content list command
+  program
+    .command('list')
+    .description('List the content declaration files')
+    .action(listContentDeclaration);
+
   const testProgram = contentProgram
     .command('test')
     .description('Test if there are missing translations')
@@ -489,6 +531,23 @@ export const setAPI = (): Command => {
 
   applyConfigOptions(testProgram);
   testProgram.action((options) => {
+    testMissingTranslations({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    });
+  });
+
+  // Add alias for content test command
+  const rootTestCmd = program
+    .command('test')
+    .description('Test if there are missing translations')
+    .option(
+      '--build [build]',
+      'Build the dictionaries before testing to ensure the content is up to date. True will force the build, false will skip the build, undefined will allow using the cache of the build'
+    );
+
+  applyConfigOptions(rootTestCmd);
+  rootTestCmd.action((options) => {
     testMissingTranslations({
       ...options,
       configOptions: extractConfigOptions(options),
@@ -511,8 +570,16 @@ export const setAPI = (): Command => {
     )
     .option('-k, --keys [keys...]', 'Filter dictionaries based on keys')
     .option(
+      '--key [keys...]',
+      'Filter dictionaries based on keys (alias for --keys)'
+    )
+    .option(
       '--excluded-keys [excludedKeys...]',
       'Filter out dictionaries based on keys'
+    )
+    .option(
+      '--excluded-key [excludedKeys...]',
+      'Filter out dictionaries based on keys (alias for --excluded-keys)'
     )
     .option(
       '--path-filter [pathFilters...]',
@@ -521,20 +588,39 @@ export const setAPI = (): Command => {
     .option(
       '--build [build]',
       'Build the dictionaries before filling to ensure the content is up to date. True will force the build, false will skip the build, undefined will allow using the cache of the build'
+    )
+    .option(
+      '--skip-metadata',
+      'Skip filling missing metadata (description, title, tags) for dictionaries'
     );
 
   applyConfigOptions(fillProgram);
   applyAIOptions(fillProgram);
   applyGitOptions(fillProgram);
 
-  fillProgram.action((options) =>
-    fill({
+  fillProgram.action((options) => {
+    // Merge key aliases
+    const keys = [...(options.keys ?? []), ...(options.key ?? [])];
+    const excludedKeys = [
+      ...(options.excludedKeys ?? []),
+      ...(options.excludedKey ?? []),
+    ];
+    // Merge dictionary aliases
+    const dictionaries = [
+      ...(options.dictionaries ?? []),
+      ...(options.dictionary ?? []),
+    ];
+
+    return fill({
       ...options,
+      keys: keys.length > 0 ? keys : undefined,
+      excludedKeys: excludedKeys.length > 0 ? excludedKeys : undefined,
+      dictionaries: dictionaries.length > 0 ? dictionaries : undefined,
       aiOptions: extractAiOptions(options),
       gitOptions: extractGitOptions(options),
       configOptions: extractConfigOptions(options),
-    } as FillOptions)
-  );
+    } as FillOptions);
+  });
 
   /**
    * DOCS

@@ -1,5 +1,22 @@
 import { join } from 'node:path';
+import type {
+  AiConfig,
+  BaseContentConfig,
+  BaseDerivedConfig,
+  BuildConfig,
+  ContentConfig,
+  CustomIntlayerConfig,
+  DictionaryConfig,
+  EditorConfig,
+  InternationalizationConfig,
+  IntlayerConfig,
+  LogConfig,
+  LogFunctions,
+  PatternsContentConfig,
+  RoutingConfig,
+} from '@intlayer/types';
 import {
+  CACHE,
   IMPORT_MODE,
   OPTIMIZE,
   OUTPUT_FORMAT,
@@ -16,12 +33,12 @@ import {
   FILE_EXTENSIONS,
   MAIN_DIR,
   MODULE_AUGMENTATION_DIR,
-  NORMALIZED_DICTIONARIES_DIR,
   REMOTE_DICTIONARIES_DIR,
   TYPES_DIR,
   UNMERGED_DICTIONARIES_DIR,
   WATCH,
 } from '../defaultValues/content';
+import { FILL } from '../defaultValues/dictionary';
 import {
   APPLICATION_URL,
   BACKEND_URL,
@@ -42,33 +59,14 @@ import {
 import { MODE, PREFIX } from '../defaultValues/log';
 import {
   BASE_PATH,
-  COOKIE_NAME,
-  DETECT_LOCALE_ON_PREFETCH_NO_PREFIX,
   HEADER_NAME,
-  NO_PREFIX,
-  PREFIX_DEFAULT,
-  SERVER_SET_COOKIE,
-} from '../defaultValues/middleware';
-import type {
-  AiConfig,
-  BaseContentConfig,
-  BaseDerivedConfig,
-  BuildConfig,
-  ContentConfig,
-  CustomIntlayerConfig,
-  EditorConfig,
-  InternationalizationConfig,
-  IntlayerConfig,
-  LogConfig,
-  LogFunctions,
-  MiddlewareConfig,
-  PatternsContentConfig,
-} from '../types/config';
+  ROUTING_MODE,
+  STORAGE,
+} from '../defaultValues/routing';
+import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 import { normalizePath } from '../utils/normalizePath';
 
 let storedConfiguration: IntlayerConfig;
-
-// @TODO - Add possibility of directories configurations to be arrays to allow multiple packages management
 
 const buildInternationalizationFields = (
   customConfiguration?: Partial<InternationalizationConfig>
@@ -113,36 +111,43 @@ const buildInternationalizationFields = (
   defaultLocale: customConfiguration?.defaultLocale ?? DEFAULT_LOCALE,
 });
 
-const buildMiddlewareFields = (
-  customConfiguration?: Partial<MiddlewareConfig>
-): MiddlewareConfig => ({
+const buildRoutingFields = (
+  customConfiguration?: Partial<RoutingConfig>
+): RoutingConfig => ({
   /**
-   * Header name to get the locale
+   * URL routing mode for locale handling
    *
-   * Default: 'x-intlayer-locale'
+   * Controls how locales are represented in application URLs:
+   * - 'prefix-no-default': Prefix all locales except the default locale (default)
+   *    - en → /dashboard
+   *    - fr → /fr/dashboard
+   *
+   * - 'prefix-all': Prefix all locales including the default locale
+   *    - en → /en/dashboard
+   *    - fr → /fr/dashboard
+   *
+   * - 'search-params': Use search parameters for locale handling
+   *    - en → /dashboard?locale=en
+   *    - fr → /fr/dashboard?locale=fr
+   *
+   * - 'no-prefix': No locale prefixing in URLs
+   *    - en → /dashboard
+   *    - fr → /dashboard
+   *
+   * Default: 'prefix-no-default'
    */
-  headerName: customConfiguration?.headerName ?? HEADER_NAME,
+  mode: customConfiguration?.mode ?? ROUTING_MODE,
 
   /**
-   * Cookie name to get the locale
+   * Configuration for storing the locale in the client (localStorage or sessionStorage)
    *
-   * Default: 'intlayer-locale'
+   * If false, the locale will not be stored by the middleware.
+   * If true, the locale storage will consider all default values. (cookie and header)
+   *
+   * Default: ['cookie', 'header']
+   *
    */
-  cookieName: customConfiguration?.cookieName ?? COOKIE_NAME,
-
-  /**
-   * Prefix default prefix the default locale to the path as other locales.
-   *
-   * Example with prefixDefault = true and defaultLocale = 'en':
-   * path = /en/dashboard or /fr/dashboard
-   *
-   * Example with prefixDefault = false and defaultLocale = 'en':
-   * path = /dashboard or /fr/dashboard
-   *
-   *
-   * Default: false
-   */
-  prefixDefault: customConfiguration?.prefixDefault ?? PREFIX_DEFAULT,
+  storage: customConfiguration?.storage ?? STORAGE,
 
   /**
    * Base path of the application URL
@@ -156,65 +161,6 @@ const buildMiddlewareFields = (
    * - If the base path is not set, the URL will be https://example.com/en
    */
   basePath: customConfiguration?.basePath ?? BASE_PATH,
-
-  /**
-   * Rule to set the cookie on the server
-   * - 'always': Set the cookie on every request
-   * - 'never': Never set the cookie
-   */
-  serverSetCookie: customConfiguration?.serverSetCookie ?? SERVER_SET_COOKIE,
-
-  /**
-   * No prefix in the URL
-   * - true: No prefix in the URL
-   * - false: Prefix in the URL
-   *
-   * Example:
-   * - If the application is hosted at https://example.com/my-app
-   * - The base path is '/my-app'
-   * - The URL will be https://example.com/my-app/en
-   * - If the base path is not set, the URL will be https://example.com/en
-   * - If no prefix is set, the URL will be https://example.com/en
-   * - If the no prefix is set to true, the URL will be https://example.com
-   *
-   * Default: false
-   */
-  noPrefix: customConfiguration?.noPrefix ?? NO_PREFIX,
-
-  /**
-   * Controls whether locale detection occurs during Next.js prefetch requests
-   * - true: Detect and apply locale during prefetch
-   * - false: Use default locale during prefetch (recommended)
-   *
-   * This setting affects how Next.js handles locale prefetching:
-   *
-   * Example scenario:
-   * - User's browser language is 'fr'
-   * - Current page is /fr/about
-   * - Link prefetches /about
-   *
-   * With `detectLocaleOnPrefetchNoPrefix:true`
-   * - Prefetch detects 'fr' locale from browser
-   * - Redirects prefetch to /fr/about
-   *
-   * With `detectLocaleOnPrefetchNoPrefix:false` (default)
-   * - Prefetch uses default locale
-   * - Redirects prefetch to /en/about (assuming 'en' is default)
-   *
-   * When to use true:
-   * - Your app uses non-localized internal links (e.g. <a href="/about">)
-   * - You want consistent locale detection behavior between regular and prefetch requests
-   *
-   * When to use false (default):
-   * - Your app uses locale-prefixed links (e.g. <a href="/fr/about">)
-   * - You want to optimize prefetching performance
-   * - You want to avoid potential redirect loops
-   *
-   * Default: false
-   */
-  detectLocaleOnPrefetchNoPrefix:
-    customConfiguration?.detectLocaleOnPrefetchNoPrefix ??
-    DETECT_LOCALE_ON_PREFETCH_NO_PREFIX,
 });
 
 const buildContentFields = (
@@ -251,10 +197,7 @@ const buildContentFields = (
     /**
      * Should exclude some directories from the content search
      *
-     * Default: ['node_modules']
-     *
-     * Not used yet
-     * @TODO Implement the exclusion or remove it
+     * Default: ['**\/node_modules/**', '**\/dist/**', '**\/build/**', '**\/.intlayer/**', '**\/.next/**', '**\/.nuxt/**', '**\/.expo/**', '**\/.vercel/**', '**\/.turbo/**', '**\/.tanstack/**']
      */
     excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
 
@@ -266,11 +209,32 @@ const buildContentFields = (
     watch: customConfiguration?.watch ?? WATCH,
 
     /**
-     * Indicate how the content should be automatically filled using AI.
+     * Command to format the content. When intlayer write your .content files locally, this command will be used to format the content.
+     * Intlayer will replace the {{file}} with the path of the file to format.
+     *
+     * If not set, Intlayer will try to detect the format command automatically. By trying to resolve the following commands: prettier, biome, eslint.
+     *
+     * Example:
+     *
+     * ```bash
+     * npx prettier --write {{file}}
+     * ```
+     *
+     * ```bash
+     * bunx biome format {{file}}
+     * ```
+     *
+     * ```bash
+     * bun format {{file}}
+     * ```
+     *
+     * ```bash
+     * npx eslint --fix {{file}}
+     * ```
      *
      * Default: undefined
      */
-    autoFill: customConfiguration?.autoFill ?? undefined,
+    formatCommand: customConfiguration?.formatCommand,
   };
 
   const baseDirDerivedConfiguration: BaseDerivedConfig = {
@@ -621,7 +585,7 @@ const buildLogFields = (
   /**
    * Indicates if the logger is enabled
    *
-   * Default: 'default'
+   * Default: 'prefix-no-default'
    *
    * If 'default', the logger is enabled and can be used.
    * If 'verbose', the logger will be enabled and can be used, but will log more information.
@@ -715,7 +679,7 @@ const buildBuildFields = (
    *
    * Note:
    * - Dynamic imports rely on Suspense and may slightly impact rendering performance.
-   * - If desabled all locales will be loaded at once, even if they are not used.
+   * - If disabled all locales will be loaded at once, even if they are not used.
    * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    * - This option will be ignored if `optimize` is disabled.
@@ -752,6 +716,27 @@ const buildBuildFields = (
    * - 'esm': The dictionaries are outputted as ES modules.
    */
   outputFormat: customConfiguration?.outputFormat ?? OUTPUT_FORMAT,
+
+  /**
+   * Cache
+   */
+  cache: customConfiguration?.cache ?? CACHE,
+
+  /**
+   * Require function
+   */
+  require: customConfiguration?.require ?? ESMxCJSRequire,
+});
+
+const buildDictionaryFields = (
+  customConfiguration?: Partial<DictionaryConfig>
+): DictionaryConfig => ({
+  /**
+   * Indicate how the dictionary should be filled using AI.
+   *
+   * Default: true
+   */
+  fill: customConfiguration?.fill ?? FILL,
 });
 
 /**
@@ -766,9 +751,7 @@ export const buildConfigurationFields = (
     customConfiguration?.internationalization
   );
 
-  const middlewareConfig = buildMiddlewareFields(
-    customConfiguration?.middleware
-  );
+  const routingConfig = buildRoutingFields(customConfiguration?.routing);
 
   const contentConfig = buildContentFields(
     customConfiguration?.content,
@@ -783,14 +766,19 @@ export const buildConfigurationFields = (
 
   const buildConfig = buildBuildFields(customConfiguration?.build);
 
+  const dictionaryConfig = buildDictionaryFields(
+    customConfiguration?.dictionary
+  );
+
   storedConfiguration = {
     internationalization: internationalizationConfig,
-    middleware: middlewareConfig,
+    routing: routingConfig,
     content: contentConfig,
     editor: editorConfig,
     log: logConfig,
     ai: aiConfig,
     build: buildConfig,
+    dictionary: dictionaryConfig,
     plugins: customConfiguration?.plugins,
   };
 

@@ -1,7 +1,11 @@
-import type { LocalesValues } from '@intlayer/config/client';
-import type { Dictionary } from '@intlayer/core';
-import { createMemo, useContext } from 'solid-js';
+import type {
+  DeclaredLocales,
+  Dictionary,
+  LocalesValues,
+} from '@intlayer/types';
+import { type Accessor, createMemo, useContext } from 'solid-js';
 import { getDictionary } from '../getDictionary';
+import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
@@ -9,15 +13,18 @@ import { IntlayerClientContext } from './IntlayerProvider';
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useDictionary = <T extends Dictionary>(
+export const useDictionary = <
+  T extends Dictionary,
+  L extends LocalesValues = DeclaredLocales,
+>(
   dictionary: T,
-  locale?: LocalesValues
-) => {
+  locale?: L
+): Accessor<DeepTransformContent<T['content'], L>> => {
   const context = useContext(IntlayerClientContext);
 
   return createMemo(() => {
     const localeTarget = locale ?? context?.locale?.();
 
-    return getDictionary<T, LocalesValues>(dictionary, localeTarget);
+    return getDictionary<T, L>(dictionary, localeTarget as L);
   });
 };

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-26
+updatedAt: 2025-10-25
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -13,6 +13,40 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 7.0.0
+    date: 2025-10-25
+    changes: Add `dictionary` configuration
+  - version: 7.0.0
+    date: 2025-10-21
+    changes: Replace `middleware` by `routing` configuration
+  - version: 7.0.0
+    date: 2025-10-12
+    changes: Add `formatCommand` option
+  - version: 6.2.0
+    date: 2025-10-12
+    changes: Update `excludedPath` option
+  - version: 6.0.2
+    date: 2025-09-23
+    changes: Add `outputFormat` option
+  - version: 6.0.0
+    date: 2025-09-21
+    changes: Remove `dictionaryOutput` field and `i18nextResourcesDir` field
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: Add `live` import mode
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: Replace `hotReload` field by `liveSync` and add `liveSyncPort` and `liveSyncURL` fields
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: Replace `activateDynamicImport` with `importMode` option
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: Change default contentDir from `['src']` to `['.']`
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: Add `docs` commands
 ---
 
 # Intlayer Configuration Documentation
@@ -20,6 +54,12 @@ slugs:
 ## Overview
 
 Intlayer configuration files allow customization of various aspects of the plugin, such as internationalization, middleware, and content handling. This document provides a detailed description of each property in the configuration.
+
+---
+
+## Table of Contents
+
+<TOC>
 
 ---
 
@@ -46,11 +86,14 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH],
   },
   content: {
-    autoFill: "./{{fileName}}.content.json",
     contentDir: ["src", "../ui-library"],
   },
-  middleware: {
-    noPrefix: false,
+  dictionary: {
+    fill: "./{{fileName}}.content.json",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: "cookie",
   },
   editor: {
     applicationURL: "https://example.com",
@@ -78,8 +121,9 @@ const config = {
   content: {
     contentDir: ["src", "../ui-library"],
   },
-  middleware: {
-    noPrefix: false,
+  routing: {
+    mode: "prefix-no-default",
+    storage: "cookie",
   },
   editor: {
     applicationURL: "https://example.com",
@@ -104,8 +148,12 @@ module.exports = config;
   "content": {
     "contentDir": ["src", "../ui-library"],
   },
-  "middleware": {
-    "noPrefix": false,
+  "dictionary": {
+    "fill": "./{{fileName}}.content.json",
+  },
+  "routing": {
+    "mode": "prefix-no-default",
+    "storage": "cookie",
   },
   "editor": {
     "applicationURL": "https://example.com",
@@ -256,34 +304,50 @@ Defines settings related to the integrated editor, including server port and act
   - _Example_: `'https://example.com'`
   - _Note_: Point to localhost by default but can be changed to any URL in the case of a remote live sync server.
 
-### Middleware Configuration
+### Routing Configuration
 
-Settings that control middleware behavior, including how the application handles cookies, headers, and URL prefixes for locale management.
+Settings that control routing behavior, including URL structure, locale storage, and middleware handling.
 
 #### Properties
 
-- **headerName**:
-  - _Type_: `string`
-  - _Default_: `'x-intlayer-locale'`
-  - _Description_: The name of the HTTP header used to determine the locale.
-  - _Example_: `'x-custom-locale'`
-  - _Note_: This is useful for API-based locale determination.
+- **mode**:
+  - _Type_: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+  - _Default_: `'prefix-no-default'`
+  - _Description_: URL routing mode for locale handling.
+  - _Examples_:
+    - `'prefix-no-default'`: `/dashboard` (en) or `/fr/dashboard` (fr)
+    - `'prefix-all'`: `/en/dashboard` (en) or `/fr/dashboard` (fr)
+    - `'no-prefix'`: `/dashboard` (locale handled via other means)
+    - `'search-params'`: `/dashboard?locale=fr`
+  - _Note_: This setting does not impact cookie or locale storage management.
 
-- **cookieName**:
-  - _Type_: `string`
-  - _Default_: `'intlayer-locale'`
-  - _Description_: The name of the cookie used to store the locale.
-  - _Example_: `'custom-locale'`
-  - _Note_: Used to persist the locale across sessions.
+- **storage**:
+  - _Type_: `false | 'cookie' | 'localStorage' | 'sessionStorage' | 'header' | CookiesAttributes | StorageAttributes | Array`
+  - _Default_: `'localStorage'`
+  - _Description_: Configuration for storing the locale in the client.
 
-- **prefixDefault**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Whether to include the default locale in the URL.
-  - _Example_: `true`
-  - _Note_:
-    - If `true` and `defaultLocale = 'en'`: path = `/en/dashboard` or `/fr/dashboard`
-    - If `false` and `defaultLocale = 'en'`: path = `/dashboard` or `/fr/dashboard`
+  - **cookie**:
+    - _Description_: Stores data in cookies, small pieces of data stored on the client's browser, accessible on both client and server side.
+    - _Note_: For GDPR compliant storage, ensure proper user consent before usage.
+    - _Note_: Cookies parameters are customizable if set as CookiesAttributes (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`).
+
+  - **localStorage**:
+    - _Description_: Stores data in the browser without expiration dates, allowing for data persistence across sessions, accessible only on the client side.
+    - _Note_: Ideal for storing long-term data but mindful of the privacy and security implications due to non-expiring nature unless explicitly cleared.
+    - _Note_: Locale storage is only accessible on the client side, the intlayer proxy will not be able to access it.
+    - _Note_: Locale storage parameters are customizable if set as StorageAttributes (`{ type: 'localStorage', name: 'custom-locale' }`).
+
+  - **sessionStorage**:
+    - _Description_: Stores data for the duration of a page session, meaning it gets cleared once the tab or window is closed, accessible only on the client side.
+    - _Note_: Suitable for temporary data storage for each session.
+    - _Note_: Locale storage is only accessible on the client side, the intlayer proxy will not be able to access it.
+    - _Note_: Locale storage parameters are customizable if set as StorageAttributes (`{ type: 'sessionStorage', name: 'custom-locale' }`).
+
+  - **header**:
+    - _Description_: Utilizes HTTP headers to store or transmit locale data, suitable for server-side language determination.
+    - _Note_: Useful in API calls for maintaining consistent language settings across requests.
+    - _Note_: Header is only accessible on the server side, the client side will not be able to access it.
+    - _Note_: Header name is customizable if set as StorageAttributes (`{ type: 'header', name: 'custom-locale' }`).
 
 - **basePath**:
   - _Type_: `string`
@@ -296,49 +360,115 @@ Settings that control middleware behavior, including how the application handles
     - The URL will be `https://example.com/my-app/en`
     - If the base path is not set, the URL will be `https://example.com/en`
 
-- **serverSetCookie**:
-  - _Type_: `string`
-  - _Default_: `'always'`
-  - _Description_: Rule for setting the locale cookie on the server.
-  - _Options_: `'always'`, `'never'`
-  - _Example_: `'never'`
-  - _Note_: Controls whether the locale cookie is set on every request or never.
+#### Cookie Attributes
 
-- **noPrefix**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Whether to omit the locale prefix from URLs.
-  - _Example_: `true`
-  - _Note_:
-    - If `true`: No prefix in the URL
-    - If `false`: Prefix in the URL
-    - Example with `basePath = '/my-app'`:
-      - If `noPrefix = false`: URL will be `https://example.com/my-app/en`
-      - If `noPrefix = true`: URL will be `https://example.com`
+When using cookie storage, you can configure additional cookie attributes:
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Controls whether locale detection occurs during Next.js prefetch requests.
-  - _Example_: `true`
-  - _Note_: This setting affects how Next.js handles locale prefetching:
-    - **Example scenario:**
-      - User's browser language is `'fr'`
-      - Current page is `/fr/about`
-      - Link prefetches `/about`
-    - **With `detectLocaleOnPrefetchNoPrefix: true`:**
-      - Prefetch detects `'fr'` locale from browser
-      - Redirects prefetch to `/fr/about`
-    - **With `detectLocaleOnPrefetchNoPrefix: false` (default):**
-      - Prefetch uses default locale
-      - Redirects prefetch to `/en/about` (assuming `'en'` is default)
-    - **When to use `true`:**
-      - Your app uses non-localized internal links (e.g. `<a href="/about">`)
-      - You want consistent locale detection behavior between regular and prefetch requests
-    - **When to use `false` (default):**
-      - Your app uses locale-prefixed links (e.g. `<a href="/fr/about">`)
-      - You want to optimize prefetching performance
-      - You want to avoid potential redirect loops
+- **name**: Cookie name (default: `'INTLAYER_LOCALE'`)
+- **domain**: Cookie domain (default: undefined)
+- **path**: Cookie path (default: undefined)
+- **secure**: Require HTTPS (default: undefined)
+- **httpOnly**: HTTP-only flag (default: undefined)
+- **sameSite**: SameSite policy (`'strict' | 'lax' | 'none'`)
+- **expires**: Expiration date or days (default: undefined)
+
+#### Locale Storage Attributes
+
+When using localStorage or sessionStorage:
+
+- **type**: Storage type (`'localStorage' | 'sessionStorage'`)
+- **name**: Storage key name (default: `'INTLAYER_LOCALE'`)
+
+#### Configuration Examples
+
+Here are some common configuration examples for the new v7 routing structure:
+
+**Basic Configuration (Default)**:
+
+```typescript
+// intlayer.config.ts
+export default defineConfig({
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: "localStorage",
+    headerName: "x-intlayer-locale",
+    basePath: "",
+  },
+});
+```
+
+**GDPR Compliant Configuration**:
+
+```typescript
+// intlayer.config.ts
+export default defineConfig({
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: [
+      {
+        type: "localStorage",
+        name: "user-locale",
+      },
+      {
+        type: "cookie",
+        name: "user-locale",
+        secure: true,
+        sameSite: "strict",
+        httpOnly: false,
+      },
+    ],
+    headerName: "x-intlayer-locale",
+    basePath: "",
+  },
+});
+```
+
+**Search Parameters Mode**:
+
+```typescript
+// intlayer.config.ts
+export default defineConfig({
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "search-params",
+    storage: "localStorage",
+    headerName: "x-intlayer-locale",
+    basePath: "",
+  },
+});
+```
+
+**No Prefix Mode with Custom Storage**:
+
+```typescript
+// intlayer.config.ts
+export default defineConfig({
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "no-prefix",
+    storage: {
+      type: "sessionStorage",
+      name: "app-locale",
+    },
+    headerName: "x-custom-locale",
+    basePath: "/my-app",
+  },
+});
+```
 
 ---
 
@@ -347,18 +477,6 @@ Settings that control middleware behavior, including how the application handles
 Settings related to content handling within the application, including directory names, file extensions, and derived configurations.
 
 #### Properties
-
-- **autoFill**:
-  - _Type_: `boolean | string | { [key in Locales]?: string }`
-  - _Default_: `undefined`
-  - _Description_: Indicate how the content should be automatically filled using AI. Can be declared globally in the `intlayer.config.ts` file.
-  - _Example_: true
-  - _Example_: `'./{{fileName}}.content.json'`
-  - _Example_: `{ fr: './{{fileName}}.fr.content.json', es: './{{fileName}}.es.content.json' }`
-  - _Note_: The auto fill configuration. It can be:
-    - boolean: Enable auto fill for all locales
-    - string: Path to a single file or template with variables
-    - object: Per-locale file paths
 
 - **watch**:
   - _Type_: `boolean`
@@ -423,9 +541,43 @@ Settings related to content handling within the application, including directory
 
 - **excludedPath**:
   - _Type_: `string[]`
-  - _Default_: `['node_modules']`
+  - _Default_: `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']`
   - _Description_: Directories excluded from content search.
   - _Note_: This setting is not yet used, but planned for future implementation.
+
+- **formatCommand**:
+  - _Type_: `string`
+  - _Default_: `undefined`
+  - _Description_: The command to format the content. When intlayer write your .content files locally, this command will be used to format the content.
+  - _Example_: `'npx prettier --write "{{file}}" --log-level silent'` Using Prettier
+  - _Example_: `'npx biome format "{{file}}" --write --log-level none'` Using Biome
+  - _Example_: `'npx eslint --fix "{{file}}"  --quiet'` Using ESLint
+  - _Note_: Intlayer will replace the {{file}} with the path of the file to format.
+  - _Note_: If not set, Intlayer will try to detect the format command automatically. By trying to resolve the following commands: prettier, biome, eslint.
+
+### Dictionary Configuration
+
+Settings that control dictionary operations, including auto-fill behavior and content generation.
+
+This dictionary configuration serves two main purposes:
+
+1. **Default Values**: Define default values when creating content declaration files
+2. **Fallback Behavior**: Provide fallback values when specific fields are not defined, allowing you to define dictionary operation behavior globally
+
+For more information about content declaration files and how configuration values are applied, see the [Content File Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
+
+#### Properties
+
+- **fill**
+- **description**
+- **locale**
+- **priority**
+- **live**
+- **title**
+- **tags**
+- **version**
+
+---
 
 ### Logger Configuration
 
@@ -556,15 +708,3 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Use this to limit optimization to relevant code files and improve build performance.
   - _Note_: This option will be ignored if `optimize` is disabled.
   - _Note_: Use glob pattern.
-
-## Doc History
-
-| Version | Date       | Changes                                                                                 |
-| ------- | ---------- | --------------------------------------------------------------------------------------- |
-| 6.0.2   | 2025-09-23 | Add `outputFormat` option                                                               |
-| 6.0.0   | 2025-09-21 | Remove `dictionaryOutput` field and `i18nextResourcesDir` field                         |
-| 6.0.0   | 2025-09-16 | Add `live` import mode                                                                  |
-| 6.0.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` and add `liveSyncPort` and `liveSyncURL` fields |
-| 5.6.1   | 2025-07-25 | Replace `activateDynamicImport` with `importMode` option                                |
-| 5.6.0   | 2025-07-13 | Change default contentDir from `['src']` to `['.']`                                     |
-| 5.5.11  | 2025-06-29 | Add `docs` commands                                                                     |

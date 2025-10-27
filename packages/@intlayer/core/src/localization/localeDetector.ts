@@ -1,4 +1,4 @@
-import type { Locales } from '@intlayer/config/client';
+import type { Locale } from '@intlayer/types';
 import { localeResolver } from './localeResolver';
 
 /**
@@ -179,10 +179,11 @@ const isQuality = (spec: { q: number }): boolean => spec.q > 0;
  */
 export const localeDetector = (
   headers: Record<string, string | undefined>,
-  locales?: Locales[],
-  defaultLocale?: Locales
-): Locales => {
+  locales?: Locale[],
+  defaultLocale?: Locale
+): Locale => {
   const accept = headers['accept-language'];
   const languages = preferredLanguages(accept);
-  return localeResolver(languages as Locales[], locales, defaultLocale);
+
+  return localeResolver(languages as Locale[], locales, defaultLocale);
 };

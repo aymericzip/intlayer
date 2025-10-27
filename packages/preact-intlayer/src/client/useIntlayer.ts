@@ -1,9 +1,10 @@
 'use client';
 
-import type { LocalesValues } from '@intlayer/config/client';
-import type { DictionaryKeys } from '@intlayer/core';
-// @ts-ignore intlayer declared for module augmentation
-import type { IntlayerDictionaryTypesConnector } from 'intlayer';
+import type {
+  DictionaryKeys,
+  DictionaryRegistryContent,
+  LocalesValues,
+} from '@intlayer/types';
 import { useContext, useMemo } from 'preact/hooks';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
@@ -14,15 +15,18 @@ import { IntlayerClientContext } from './IntlayerProvider';
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useIntlayer = <T extends DictionaryKeys>(
+export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,
-  locale?: LocalesValues
-): DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']> => {
+  locale?: L
+) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
 
   return useMemo(() => {
     const localeTarget = locale ?? currentLocale;
 
-    return getIntlayer(key, localeTarget) as any;
+    // @ts-ignore Type instantiation is excessively deep and possibly infinite
+    return getIntlayer<T, L>(key, localeTarget as L) as DeepTransformContent<
+      DictionaryRegistryContent<T>
+    >;
   }, [key, currentLocale, locale]);
 };

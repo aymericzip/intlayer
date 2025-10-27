@@ -2,7 +2,6 @@ import { cond, type Dictionary, t } from 'intlayer';
 
 const expandCollapseContent = {
   key: 'expand-collapse',
-  autoFill: './{{key}}.content.json',
   content: {
     expandCollapseContent: cond({
       true: t({
@@ -20,6 +19,9 @@ const expandCollapseContent = {
         ar: 'عرض الكل',
         ru: 'Показать все',
         tr: 'Hepsini göster',
+        pl: 'Pokaż wszystko',
+        id: 'Tampilkan semua',
+        vi: 'Hiển thị tất cả',
       }),
       false: t({
         en: 'Show less',
@@ -36,9 +38,16 @@ const expandCollapseContent = {
         ar: 'عرض أقل',
         ru: 'Показать меньше',
         tr: 'Daha az göster',
+        pl: 'Pokaż mniej',
+        id: 'Tampilkan lebih sedikit',
+        vi: 'Thu gọn',
       }),
     }),
   },
+  title: 'Expand collapse toggle',
+  description:
+    'Content declaration for the expand/collapse toggle component, defining the labels shown when content is expanded or collapsed.',
+  tags: ['ui component', 'toggle', 'expand collapse'],
 } satisfies Dictionary;
 
 export default expandCollapseContent;

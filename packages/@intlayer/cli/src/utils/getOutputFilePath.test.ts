@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/config';
+import { type Locale, Locales } from '@intlayer/types';
 import { describe, expect, it } from 'vitest';
 import { getOutputFilePath } from './getOutputFilePath';
 
@@ -67,7 +67,7 @@ describe('getOutputFilePath', () => {
   });
 
   it('should not duplicate locale parts for composite target locales', () => {
-    const compositeTarget = 'en-GB' as unknown as Locales;
+    const compositeTarget = 'en-GB' as unknown as Locale;
     expect(getOutputFilePath('/en/file.md', compositeTarget, baseLocale)).toBe(
       '/en-GB/file.md'
     );
@@ -79,7 +79,7 @@ describe('getOutputFilePath', () => {
     );
 
     expect(() =>
-      getOutputFilePath('/docs/guide.md', '' as Locales, baseLocale)
+      getOutputFilePath('/docs/guide.md', '' as Locale, baseLocale)
     ).toThrow('filePath, locale, and baseLocale are required');
   });
 });

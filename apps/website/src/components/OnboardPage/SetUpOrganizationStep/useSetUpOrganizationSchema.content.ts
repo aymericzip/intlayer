@@ -18,8 +18,15 @@ const content = {
       ar: 'يرجى اختيار منظمة',
       ru: 'Пожалуйста, выберите организацию',
       tr: 'Lütfen bir organizasyon seçin',
+      pl: 'Proszę wybrać organizację',
+      id: 'Silakan pilih organisasi',
+      vi: 'Vui lòng chọn một tổ chức',
     }),
   },
+  title: 'Set up organization schema',
+  description:
+    'Validation schema for setting up an organization during the onboarding process. Ensures that an organization is selected before submitting the form.',
+  tags: ['onboarding', 'form validation', 'organization setup'],
 } satisfies Dictionary;
 
 export default content;

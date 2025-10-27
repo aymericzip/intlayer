@@ -14,8 +14,13 @@ slugs:
   - doc
   - environment
   - nextjs
+  - 15
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # Intlayer के साथ अपना Next.js 15 अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
@@ -768,15 +773,17 @@ export const generateMetadata = async ({
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl =
+    multilingualUrls[locale as keyof typeof multilingualUrls];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -808,15 +815,16 @@ export const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -848,15 +856,16 @@ const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -1509,7 +1518,3 @@ Intlayer के साथ अपने विकास अनुभव को �
 ### आगे बढ़ें
 
 आगे बढ़ने के लिए, आप [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) को लागू कर सकते हैं या अपनी सामग्री को [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) का उपयोग करके बाहरी रूप से प्रबंधित कर सकते हैं।
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

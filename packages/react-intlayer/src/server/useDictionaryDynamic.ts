@@ -1,6 +1,10 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
-import type { Dictionary, LanguageContent } from '@intlayer/core';
+import type {
+  DeclaredLocales,
+  Dictionary,
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 import { useDictionary } from './useDictionary';
@@ -11,10 +15,13 @@ import { useLoadDynamic } from './useLoadDynamic';
  *
  * If the locale is not provided, it will use the locale from the server context
  */
-export const useDictionaryDynamic = <T extends Dictionary>(
-  dictionaryPromise: LanguageContent<() => Promise<T>>,
+export const useDictionaryDynamic = <
+  T extends Dictionary,
+  L extends LocalesValues = DeclaredLocales,
+>(
+  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: string,
-  locale?: LocalesValues
+  locale?: L
 ) => {
   const localeTarget =
     locale ??
@@ -26,5 +33,5 @@ export const useDictionaryDynamic = <T extends Dictionary>(
     (dictionaryPromise as any)[localeTarget]?.()
   );
 
-  return useDictionary(dictionary, localeTarget);
+  return useDictionary<T, L>(dictionary, localeTarget as L);
 };

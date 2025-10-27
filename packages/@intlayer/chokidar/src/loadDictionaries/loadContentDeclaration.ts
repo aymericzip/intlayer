@@ -1,95 +1,133 @@
-import { relative } from 'node:path';
-import {
-  ESMxCJSRequire,
-  getConfiguration,
-  type IntlayerConfig,
-  loadExternalFile,
-} from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
+import { writeFile } from 'node:fs/promises';
+import { join, relative } from 'node:path';
+import { loadExternalFile, localCache } from '@intlayer/config';
+import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
 import {
   filterInvalidDictionaries,
   isInvalidDictionary,
 } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
+import { getIntlayerBundle } from './getIntlayerBundle';
 import type { DictionariesStatus } from './loadDictionaries';
 
 export const formatLocalDictionaries = (
   dictionariesRecord: Record<string, Dictionary>,
-  configuration?: IntlayerConfig
+  configuration: IntlayerConfig
 ): Dictionary[] =>
   Object.entries(dictionariesRecord)
     .filter(([_relativePath, dict]) => isInvalidDictionary(dict, configuration))
     .map(([relativePath, dict]) => ({
       ...dict,
       localId: `${dict.key}::local::${relativePath}`,
-      location: 'locale' as const,
+      location: 'local' as const,
       filePath: relativePath,
     }));
 
 export const loadContentDeclarations = async (
   contentDeclarationFilePath: string[],
-  configuration: IntlayerConfig = getConfiguration(),
-  projectRequire = ESMxCJSRequire,
+  configuration: IntlayerConfig,
   onStatusUpdate?: (status: DictionariesStatus[]) => void
 ): Promise<Dictionary[]> => {
-  const dictionariesRecord = contentDeclarationFilePath.reduce(
-    (acc, path) => {
-      const relativePath = relative(configuration.content.baseDir, path);
-      return {
-        ...acc,
-        [relativePath]: loadExternalFile(path, undefined, projectRequire),
-      };
-    },
-    {} as Record<string, Dictionary>
-  );
-  const contentDeclarations: Dictionary[] = formatLocalDictionaries(
-    dictionariesRecord,
-    configuration
-  );
+  const { build, content } = configuration;
 
-  const listFoundDictionaries = contentDeclarations.map((declaration) => ({
-    dictionaryKey: declaration.key,
-    type: 'local' as const,
-    status: 'found' as const,
-  }));
+  const { set, isValid } = localCache(configuration, ['intlayer-bundle'], {
+    ttlMs: 1000 * 60 * 60 * 24 * 5, // 5 days
+  });
 
-  onStatusUpdate?.(listFoundDictionaries);
+  const filePath = join(content.cacheDir, 'intlayer-bundle.cjs');
+  const hasIntlayerBundle = await isValid();
 
-  const processedDictionaries = await parallelize(
-    contentDeclarations,
-    async (contentDeclaration): Promise<Dictionary | undefined> => {
-      if (!contentDeclaration) {
-        return undefined;
+  // If cache is invalid, write the intlayer bundle to the cache
+  if (!hasIntlayerBundle) {
+    const intlayerBundle = await getIntlayerBundle(configuration);
+    await writeFile(filePath, intlayerBundle);
+    await set('ok');
+  }
+
+  try {
+    const dictionariesPromises = contentDeclarationFilePath.map(
+      async (path) => {
+        const relativePath = relative(configuration.content.baseDir, path);
+
+        const dictionary = await loadExternalFile(path, {
+          projectRequire: build.require,
+          buildOptions: {
+            banner: {
+              js: [
+                `globalThis.INTLAYER_FILE_PATH = '${path}';`,
+                `globalThis.INTLAYER_BASE_DIR = '${configuration.content.baseDir}';`,
+              ].join('\n'),
+            },
+          },
+          aliases: {
+            intlayer: filePath,
+          },
+        });
+
+        return { relativePath, dictionary };
       }
+    );
 
-      onStatusUpdate?.([
-        {
-          dictionaryKey: contentDeclaration.key,
-          type: 'local',
-          status: 'building',
-        },
-      ]);
+    const dictionariesArray = await Promise.all(dictionariesPromises);
+    const dictionariesRecord = dictionariesArray.reduce(
+      (acc, { relativePath, dictionary }) => {
+        acc[relativePath] = dictionary;
+        return acc;
+      },
+      {} as Record<string, Dictionary>
+    );
 
-      const processedContentDeclaration = await processContentDeclaration(
-        contentDeclaration as Dictionary
-      );
+    const contentDeclarations: Dictionary[] = formatLocalDictionaries(
+      dictionariesRecord,
+      configuration
+    );
 
-      if (!processedContentDeclaration) {
-        return undefined;
+    const listFoundDictionaries = contentDeclarations.map((declaration) => ({
+      dictionaryKey: declaration.key,
+      type: 'local' as const,
+      status: 'found' as const,
+    }));
+
+    onStatusUpdate?.(listFoundDictionaries);
+
+    const processedDictionaries = await parallelize(
+      contentDeclarations,
+      async (contentDeclaration): Promise<Dictionary | undefined> => {
+        if (!contentDeclaration) {
+          return undefined;
+        }
+
+        onStatusUpdate?.([
+          {
+            dictionaryKey: contentDeclaration.key,
+            type: 'local',
+            status: 'building',
+          },
+        ]);
+
+        const processedContentDeclaration = await processContentDeclaration(
+          contentDeclaration as Dictionary
+        );
+
+        if (!processedContentDeclaration) {
+          return undefined;
+        }
+
+        onStatusUpdate?.([
+          {
+            dictionaryKey: processedContentDeclaration.key,
+            type: 'local',
+            status: 'built',
+          },
+        ]);
+
+        return processedContentDeclaration;
       }
+    );
 
-      onStatusUpdate?.([
-        {
-          dictionaryKey: processedContentDeclaration.key,
-          type: 'local',
-          status: 'built',
-        },
-      ]);
-
-      return processedContentDeclaration;
-    }
-  );
-
-  return filterInvalidDictionaries(processedDictionaries);
+    return filterInvalidDictionaries(processedDictionaries, configuration);
+  } finally {
+    // await rm(tempFilePath, { recursive: true });
+  }
 };

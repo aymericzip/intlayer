@@ -1,5 +1,5 @@
-import type { Dictionary } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import type { Dictionary } from '@intlayer/types';
 import {
   type Component,
   createContext,

@@ -1,4 +1,4 @@
-import type { LanguageContent } from '@intlayer/core';
+import type { StrictModeLocaleMap } from '@intlayer/types';
 import { useLocaleBase } from './useLocaleBase';
 import { useTranslation } from './useTraduction';
 
@@ -6,7 +6,7 @@ import { useTranslation } from './useTraduction';
  * On the client side, hook to get the translation content based on the locale
  */
 export const useContent = <Content>(
-  languageContent: LanguageContent<Content>
+  languageContent: StrictModeLocaleMap<Content>
 ) => {
   const { locale } = useLocaleBase();
 

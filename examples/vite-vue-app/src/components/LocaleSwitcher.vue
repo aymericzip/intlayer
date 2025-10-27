@@ -9,10 +9,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { useRouter } from 'vue-router';
 import { getLocaleName, getLocalizedUrl } from 'intlayer';
+import { ref, watch } from 'vue';
 import { useLocale } from 'vue-intlayer';
+import { useRouter } from 'vue-router';
 
 // Get Vue Router
 const router = useRouter();
@@ -33,7 +33,10 @@ const { locale, availableLocales, setLocale } = useLocale({
 const selectedLocale = ref(locale.value);
 
 // Update the locale when the selection changes
-const changeLocale = () => setLocale(selectedLocale.value);
+const changeLocale = () => {
+  console.log('changeLocale', selectedLocale.value);
+  setLocale(selectedLocale.value);
+};
 
 // Keep the selectedLocale in sync with the global locale
 watch(

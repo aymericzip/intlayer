@@ -1,12 +1,13 @@
 import { existsSync, mkdirSync } from 'node:fs';
-import { getConfiguration, normalizePath } from '@intlayer/config';
+import { normalizePath } from '@intlayer/config';
+import type { IntlayerConfig } from '@intlayer/types';
 import fg from 'fast-glob';
 
 /**
  * This function generates a list of dictionaries in the main directory
  */
-export const getBuiltDictionariesPath = (
-  configuration = getConfiguration()
+export const getBuiltDictionariesPath = async (
+  configuration: IntlayerConfig
 ) => {
   const { dictionariesDir, mainDir } = configuration.content;
 
@@ -15,7 +16,7 @@ export const getBuiltDictionariesPath = (
     mkdirSync(mainDir, { recursive: true });
   }
 
-  const dictionariesPath: string[] = fg.sync(
+  const dictionariesPath: string[] = await fg(
     `${normalizePath(dictionariesDir)}/**/*.json`
   );
 

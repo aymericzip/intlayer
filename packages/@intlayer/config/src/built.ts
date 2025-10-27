@@ -3,8 +3,9 @@
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
  */
 
+import type { IntlayerConfig } from '@intlayer/types';
 import { getConfiguration } from './configFile/getConfiguration';
 
-const configuration = getConfiguration();
+const configuration: IntlayerConfig = getConfiguration();
 
 export default configuration;

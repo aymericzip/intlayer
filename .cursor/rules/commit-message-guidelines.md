@@ -112,7 +112,7 @@ style(backend): run eslint --fix on src directory
 
 ## 10. Validation & Automation
 
-- The `.husky/commit-msg` hook runs `pnpm exec commitlint --edit "$1"`.
+- The `.husky/commit-msg` hook runs `bun exec commitlint --edit "$1"`.
 - Any deviation from the rules aborts the commit **with guidance**.
 - Use `git commit --amend` to fix a rejected message.
 

@@ -1,7 +1,7 @@
-import type { LocalesValues } from '@intlayer/config/client';
 import { getLocalizedUrl } from '@intlayer/core';
+import type { LocalesValues } from '@intlayer/types';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, MoveRight } from 'lucide-react';
 import type { AnchorHTMLAttributes, DetailedHTMLProps, FC } from 'react';
 import { cn } from '../../utils/cn';
 
@@ -141,6 +141,12 @@ export type LinkProps = DetailedHTMLProps<
      * @default undefined (auto-detect based on href)
      */
     isExternalLink?: boolean;
+
+    /**
+     * If a link is a page section as '#id'
+     * @default false
+     */
+    isPageSection?: boolean;
 
     /**
      * Whether this link represents the current page/active state
@@ -285,11 +291,14 @@ export const Link: FC<LinkProps> = (props) => {
     underlined,
     locale,
     isExternalLink: isExternalLinkProp,
+    isPageSection: isPageSectionProp,
     href: hrefProp,
     ...otherProps
   } = props;
 
-  const isExternalLink = checkIsExternalLink(props);
+  const isExternalLink = isExternalLinkProp ?? checkIsExternalLink(props);
+  const isPageSection = isPageSectionProp ?? hrefProp?.startsWith('#') ?? false;
+
   const isChildrenString = typeof children === 'string';
 
   const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
@@ -297,7 +306,7 @@ export const Link: FC<LinkProps> = (props) => {
   const target = isExternalLink ? '_blank' : '_self';
 
   const href =
-    locale && hrefProp && !isExternalLink
+    locale && hrefProp && !isExternalLink && !isPageSection
       ? getLocalizedUrl(hrefProp, locale)
       : hrefProp;
 
@@ -322,6 +331,7 @@ export const Link: FC<LinkProps> = (props) => {
       {isExternalLink && isChildrenString && (
         <ExternalLink className="ml-2 inline-block size-4" />
       )}
+      {isPageSection && <MoveRight className="ml-2 inline-block size-4" />}
     </a>
   );
 };

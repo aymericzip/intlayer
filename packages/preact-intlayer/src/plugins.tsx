@@ -2,11 +2,11 @@ import {
   type DeepTransformContent as DeepTransformContentCore,
   getMarkdownMetadata,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
-  type KeyPath,
   type MarkdownContent,
-  NodeType,
   type Plugins,
 } from '@intlayer/core';
+import type { DeclaredLocales, KeyPath, LocalesValues } from '@intlayer/types';
+import { NodeType } from '@intlayer/types';
 import type { ComponentChildren } from 'preact';
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
@@ -203,7 +203,7 @@ export type IInterpreterPluginState = IInterpreterPluginStateCore & {
   markdown: true;
 };
 
-export type DeepTransformContent<T> = DeepTransformContentCore<
+export type DeepTransformContent<
   T,
-  IInterpreterPluginState
->;
+  L extends LocalesValues = DeclaredLocales,
+> = DeepTransformContentCore<T, IInterpreterPluginState, L>;

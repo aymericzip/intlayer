@@ -31,5 +31,13 @@
   },
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": ".*package\\.json$",
+        "cmd": "prettier --write ${file}"
+      }
+    ]
   }
 }

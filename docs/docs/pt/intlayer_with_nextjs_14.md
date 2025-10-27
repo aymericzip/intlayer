@@ -634,6 +634,8 @@ export const generateMetadata = ({
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl =
+    multilingualUrls[locale as keyof typeof multilingualUrls];
 
   return {
     title: t<string>({
@@ -649,11 +651,11 @@ export const generateMetadata = ({
       pt: "Minha descrição",
     }),
     alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -683,7 +685,7 @@ export const generateMetadata = ({ params: { locale } }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
-
+  const localizedUrl = multilingualUrls[locale];
   return {
     title: t({
       en: "My title",
@@ -698,11 +700,11 @@ export const generateMetadata = ({ params: { locale } }) => {
       pt: "Minha descrição",
     }),
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -732,6 +734,7 @@ module.exports.generateMetadata = ({ params: { locale } }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     title: t({
@@ -747,11 +750,11 @@ module.exports.generateMetadata = ({ params: { locale } }) => {
       pt: "Minha descrição",
     }),
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };

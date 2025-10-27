@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # Next.js 集成：`useLocale` 钩子文档（适用于 `next-intlayer`）
@@ -125,7 +129,3 @@ const LocaleSwitcher = () => {
 ## 结论
 
 `next-intlayer` 的 `useLocale` 钩子是管理 Next.js 应用中多语言环境的关键工具。它通过无缝处理语言环境存储、状态管理和 URL 修改，提供了一种集成的方法来适配多语言应用。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

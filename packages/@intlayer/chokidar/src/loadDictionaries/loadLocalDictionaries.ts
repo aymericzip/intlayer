@@ -1,17 +1,11 @@
 import { mkdir } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
-import {
-  ESMxCJSRequire,
-  getConfiguration,
-  type IntlayerConfig,
-} from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
+import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { loadContentDeclarations } from './loadContentDeclaration';
 
 export const loadLocalDictionaries = async (
   contentDeclarationsPaths: string[] | string,
-  configuration: IntlayerConfig = getConfiguration(),
-  projectRequire = ESMxCJSRequire
+  configuration: IntlayerConfig
 ): Promise<Dictionary[]> => {
   const { content } = configuration;
   const { dictionariesDir, baseDir } = content;
@@ -28,8 +22,7 @@ export const loadLocalDictionaries = async (
   for await (const contentDeclarationPath of contentDeclarationsPaths) {
     const dictionary = await loadContentDeclarations(
       [contentDeclarationPath],
-      configuration,
-      projectRequire
+      configuration
     );
 
     const relativeFilePath = relative(baseDir, contentDeclarationPath);

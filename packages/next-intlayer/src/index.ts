@@ -1,7 +1,11 @@
 export {
   IntlayerClientContext,
   type IntlayerNode,
+  localeCookie,
+  localeInStorage,
   MarkdownProvider,
+  setLocaleCookie,
+  setLocaleInStorage,
   t,
   useDictionary,
   useDictionaryAsync,
@@ -10,6 +14,7 @@ export {
   useIntlayer,
   useLoadDynamic,
   useLocaleCookie,
+  useLocaleStorage,
 } from 'react-intlayer';
 export {
   IntlayerClientProvider,

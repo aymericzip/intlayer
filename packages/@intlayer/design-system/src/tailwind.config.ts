@@ -1,7 +1,5 @@
-// biome-ignore lint/style/useNodejsImportProtocol: <build failed without this>
-import { dirname, relative } from 'path';
-// biome-ignore lint/style/useNodejsImportProtocol: <build failed without this>
-import { fileURLToPath } from 'url';
+import { dirname, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = dirname(__filename); // get the name of the directory

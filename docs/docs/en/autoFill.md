@@ -15,13 +15,70 @@ slugs:
   - doc
   - concept
   - auto-fill
+history:
+  - version: 7.0.0
+    date: 2025-10-23
+    changes: Rename `autoFill` to `fill` and update behavior
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Add global configuration
+  - version: 6.0.0
+    date: 2025-09-17
+    changes: Add `{{fileName}}` variable
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
-# Autofill Content Declaration File Translations
+# Fill Content Declaration File Translations
 
-**Autofill content declaration files** are a way to speed up your development workflow.
+**Autofill content declaration files** in your CI are a way to speed up your development workflow.
 
-The autofill mechanism works through a _master-slave_ relationship between content declaration files. When the main (master) file is updated, Intlayer will automatically apply those changes to the derived (autofilled) declaration files.
+## Default Behavior
+
+By default, `fill` is set to `true` globally, which means Intlayer will automatically fill all content files and edit the file itself. This behavior can be customized in several ways:
+
+### Global Configuration Options
+
+1. **`fill: true` (default)** - Automatically fill all locales and edit the current file
+2. **`fill: false`** - Disable auto-fill for this content file
+3. **`fill: "path/to/file"`** - Create/update the specified file without editing the current one
+4. **`fill: { [key in Locales]?: string }`** - Create/update the specified file for each locale
+
+### v7 Behavior Changes
+
+In v7, the `fill` command behavior has been updated:
+
+- **`fill: true`** - Rewrites the current file with filled content for all locales
+- **`fill: "path/to/file"`** - Fills the specified file without modifying the current file
+- **`fill: false`** - Disables auto-fill completely
+
+When using a path option to write to another file, the fill mechanism works through a _master-slave_ relationship between content declaration files. The main (master) file serves as the source of truth, and when it's updated, Intlayer will automatically apply those changes to the derived (filled) declaration files specified by the path.
+
+### Per-Locale Customization
+
+You can also customize the behavior for each locale by using an object:
+
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // Recommended to avoid Property 'pl' is missing in type '{ en: string; xxx } on your t function if
+    },
+  },
+  dictionary: {
+    fill: {
+      en: true, // Fill and edit the current file for English
+      fr: "./translations/fr.json", // Create separate file for French
+      es: false, // Disable fill for Spanish
+    },
+  },
+};
+```
+
+This allows you to have different fill behaviors for different locales within the same project.
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -29,7 +86,7 @@ import { Locales, type Dictionary } from "intlayer";
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json",
+  fill: "./example.content.json",
   content: {
     contentExample: "This is an example of content",
   },
@@ -38,7 +95,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-Here is a [per-locale content declaration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/per_locale_file.md) using the `autoFill` instruction.
+Here is a [per-locale content declaration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/per_locale_file.md) using the `fill` instruction.
 
 Then, when you run the following command:
 
@@ -78,15 +135,15 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
     requiredLocales: [Locales.ENGLISH, Locales.FRENCH],
   },
-  content: {
+  dictionary: {
     // Auto-generate missing translations for all dictionaries
-    autoFill: "./{{fileName}}Filled.content.ts",
+    fill: "./{{fileName}}Filled.content.ts",
     //
-    // autoFill: "/messages/{{locale}}/{{key}}/{{fileName}}.content.json",
+    // fill: "/messages/{{locale}}/{{key}}/{{fileName}}.content.json",
     //
-    // autoFill: true, // auto-generate missing translations for all dictionaries like using "./{{fileName}}.content.json"
+    // fill: true, // auto-generate missing translations for all dictionaries like using "./{{fileName}}.content.json"
     //
-    // autoFill: {
+    // fill: {
     //   en: "./{{fileName}}.en.content.json",
     //   fr: "./{{fileName}}.fr.content.json",
     //   es: "./{{fileName}}.es.content.json",
@@ -97,7 +154,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-You can still fine‑tune per dictionary using the `autoFill` field in content files. Intlayer will first consider the per dictionary configuration and then fallback to the global configuration.
+You can still fine‑tune per dictionary using the `fill` field in content files. Intlayer will first consider the per dictionary configuration and then fallback to the global configuration.
 
 ## Autofilled File Format
 
@@ -106,7 +163,7 @@ The recommended format for autofilled declaration files is **JSON**, which helps
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
   key: "example",
-  autoFill: "./example.filled.content.ts",
+  fill: "./example.filled.content.ts",
   content: {
     // Your content
   },
@@ -126,12 +183,12 @@ src/components/example/example.filled.content.ts
 
 ## Absolute Paths
 
-The `autoFill` field also supports absolute paths.
+The `fill` field also supports absolute paths.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
   key: "example",
-  autoFill: "/messages/example.content.json",
+  fill: "/messages/example.content.json",
   content: {
     // Your content
   },
@@ -146,12 +203,12 @@ This will generate the file at:
 
 ## Autogenerate Per-Locale Content Declaration Files
 
-The `autoFill` field also supports generation of **per-locale** content declaration files.
+The `fill` field also supports generation of **per-locale** content declaration files.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
   key: "example",
-  autoFill: {
+  fill: {
     fr: "./example.fr.content.json",
     es: "./example.es.content.json",
   },
@@ -170,12 +227,12 @@ This will generate two separate files:
 
 ## Filter Specific Locale Autofill
 
-Using an object for the `autoFill` field allows you to apply filters and generate only specific locale files.
+Using an object for the `fill` field allows you to apply filters and generate only specific locale files.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
   key: "example",
-  autoFill: {
+  fill: {
     fr: "./example.fr.content.json",
   },
   content: {
@@ -188,7 +245,7 @@ This will only generate the French translation file.
 
 ## Path Variables
 
-You can use variables inside the `autoFill` path to dynamically resolve the target paths for the generated files.
+You can use variables inside the `fill` path to dynamically resolve the target paths for the generated files.
 
 **Available variables:**
 
@@ -199,7 +256,7 @@ You can use variables inside the `autoFill` path to dynamically resolve the targ
 ```ts fileName="src/components/example/index.content.ts"
 const exampleContent = {
   key: "example",
-  autoFill: "/messages/{{locale}}/{{key}}.content.json",
+  fill: "/messages/{{locale}}/{{key}}.content.json",
   content: {
     // Your content
   },
@@ -214,7 +271,7 @@ This will generate:
 ```ts fileName="src/components/example/index.content.ts"
 const exampleContent = {
   key: "example",
-  autoFill: "./{{fileName}}.content.json",
+  fill: "./{{fileName}}.content.json",
   content: {
     // Your content
   },
@@ -225,11 +282,3 @@ This will generate:
 
 - `./index.content.json`
 - `./index.content.json`
-
-## Doc History
-
-| Version | Date       | Changes                     |
-| ------- | ---------- | --------------------------- |
-| 6.0.0   | 2025-09-20 | Add global configuration    |
-| 6.0.0   | 2025-09-17 | Add `{{fileName}}` variable |
-| 5.5.10  | 2025-06-29 | Init history                |

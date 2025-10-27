@@ -18,6 +18,9 @@ const signUpContent = {
       ru: 'Зарегистрироваться',
       'en-GB': 'Sign up',
       tr: 'Kayıt Ol',
+      pl: 'Zarejestruj się',
+      id: 'Daftar',
+      vi: 'Đăng ký',
     }),
     title2: t({
       en: 'Create an account',
@@ -34,6 +37,9 @@ const signUpContent = {
       ru: 'Создать аккаунт',
       'en-GB': 'Create an account',
       tr: 'Hesap Oluştur',
+      pl: 'Utwórz konto',
+      id: 'Buat akun',
+      vi: 'Tạo tài khoản',
     }),
     description: t({
       en: 'Enter your email and password to create an account.',
@@ -50,8 +56,15 @@ const signUpContent = {
       ru: 'Введите свой адрес электронной почты и пароль, чтобы создать аккаунт.',
       'en-GB': 'Enter your email and password to create an account.',
       tr: 'Hesap oluşturmak için e-posta adresinizi ve şifrenizi girin.',
+      pl: 'Wprowadź swój adres e-mail i hasło, aby utworzyć konto.',
+      id: 'Masukkan email dan kata sandi Anda untuk membuat akun.',
+      vi: 'Nhập email và mật khẩu để tạo tài khoản.',
     }),
   },
+  title: 'Sign up page content',
+  description:
+    'Content declaration for the sign up page including titles and user registration description. Used for rendering the registration interface in the landing area.',
+  tags: ['authentication', 'sign up', 'landing page'],
 } satisfies Dictionary;
 
 export default signUpContent;

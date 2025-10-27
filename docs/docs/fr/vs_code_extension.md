@@ -15,6 +15,19 @@ keywords:
 slugs:
   - doc
   - vs-code-extension
+history:
+  - version: 6.1.5
+    date: 2025-09-30
+    changes: Ajout d’un gif de démonstration
+  - version: 6.1.0
+    date: 2025-09-24
+    changes: Ajout de la section de sélection de l’environnement
+  - version: 6.0.0
+    date: 2025-09-22
+    changes: Onglet Intlayer / Commandes Remplir & Tester
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historique initial
 ---
 
 # Extension officielle VS Code
@@ -111,12 +124,3 @@ L'extension peut charger les variables d'environnement depuis votre espace de tr
 #### Monorepos et répertoires personnalisés
 
 Si vos fichiers `.env` se trouvent en dehors de la racine de l’espace de travail, définissez le **Répertoire de base** dans `Paramètres → Extensions → Intlayer`. Le chargeur recherchera les fichiers `.env` relatifs à ce répertoire.
-
-## Historique de la documentation
-
-| Version | Date       | Modifications                                       |
-| ------- | ---------- | --------------------------------------------------- |
-| 6.1.5   | 2025-09-30 | Ajout d’un gif de démonstration                     |
-| 6.1.0   | 2025-09-24 | Ajout de la section de sélection de l’environnement |
-| 6.0.0   | 2025-09-22 | Onglet Intlayer / Commandes Remplir & Tester        |
-| 5.5.10  | 2025-06-29 | Historique initial                                  |

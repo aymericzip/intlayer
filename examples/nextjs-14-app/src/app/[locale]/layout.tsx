@@ -1,4 +1,8 @@
-import { getHTMLTextDir, getTranslation, type IConfigLocales } from 'intlayer';
+import {
+  getHTMLTextDir,
+  getTranslation,
+  type StrictModeLocaleMap,
+} from 'intlayer';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';
@@ -10,7 +14,7 @@ export { generateStaticParams } from 'next-intlayer';
 export const generateMetadata = ({
   params: { locale },
 }: LocalParams): Metadata => {
-  const t = <T extends string>(content: IConfigLocales<T>) =>
+  const t = <T extends string>(content: StrictModeLocaleMap<T>) =>
     getTranslation(content, locale);
 
   const title = t<string>({

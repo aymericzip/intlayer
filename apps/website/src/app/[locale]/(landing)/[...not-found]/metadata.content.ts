@@ -19,6 +19,9 @@ const metadataContent = {
       ru: '404 - Страница Не Найдена | Intlayer',
       'en-GB': '404 - Page Not Found | Intlayer',
       tr: '404 - Sayfa Bulunamadı | Intlayer',
+      pl: '404 - Strona nie znaleziona | Intlayer',
+      id: '404 - Halaman Tidak Ditemukan | Intlayer',
+      vi: '404 - Trang không tìm thấy | Intlayer',
     }),
     description: t({
       en: 'Oops! The page you are looking for might have been removed, had its name changed, or is temporarily unavailable. Navigate back to our homepage or use the search function to find what you need.',
@@ -36,6 +39,9 @@ const metadataContent = {
       ar: 'عذرًا! قد تكون الصفحة التي تبحث عنها قد أزيلت أو تم تغيير اسمها أو أنها غير متاحة مؤقتًا. انتقل إلى صفحتنا الرئيسية أو استخدم وظيفة البحث للعثور على ما تحتاجه.',
       ru: 'Упс! Страница, которую вы ищете, возможно, была удалена, изменила название или временно недоступна. Вернитесь на нашу домашнюю страницу или воспользуйтесь функцией поиска, чтобы найти то, что вам нужно.',
       tr: 'Hata! Aradığınız sayfa kaldırılmış, adı değiştirilmiş veya geçici olarak kullanılamıyor olabilir. Ana sayfamıza geri dönün veya ihtiyacınız olanı bulmak için arama işlevini kullanın.',
+      pl: 'Ups! Strona, której szukasz, mogła zostać usunięta, zmieniono jej nazwę lub jest tymczasowo niedostępna. Wróć na naszą stronę główną lub użyj funkcji wyszukiwania, aby znaleźć to, czego potrzebujesz.',
+      id: 'Ups! Halaman yang Anda cari mungkin telah dihapus, namanya diubah, atau sedang tidak tersedia. Kembali ke beranda kami atau gunakan fungsi pencarian untuk menemukan apa yang Anda butuhkan.',
+      vi: 'Rất tiếc! Trang bạn đang tìm có thể đã bị xóa, đã đổi tên hoặc tạm thời không khả dụng. Quay lại trang chủ của chúng tôi hoặc sử dụng chức năng tìm kiếm để tìm nội dung bạn cần.',
     }),
     keywords: t<string[]>({
       en: [
@@ -178,8 +184,42 @@ const metadataContent = {
         'web geliştirme',
         'i18n',
       ],
+      pl: [
+        'błąd 404',
+        'strona nie znaleziona',
+        'błąd',
+        'Intlayer',
+        'JavaScript',
+        'React',
+        'tworzenie stron internetowych',
+        'i18n',
+      ],
+      id: [
+        'Error 404',
+        'halaman tidak ditemukan',
+        'error',
+        'Intlayer',
+        'JavaScript',
+        'React',
+        'pengembangan web',
+        'i18n',
+      ],
+      vi: [
+        'lỗi 404',
+        'trang không tìm thấy',
+        'lỗi',
+        'Intlayer',
+        'JavaScript',
+        'React',
+        'phát triển web',
+        'i18n',
+      ],
     }),
   },
+  title: '404 page metadata',
+  description:
+    'Metadata for the 404 error page, including title, description, and keywords to assist search engines and improve user experience for not found pages.',
+  tags: ['page metadata', 'error page', '404'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

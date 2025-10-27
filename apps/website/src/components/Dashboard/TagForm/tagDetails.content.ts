@@ -19,6 +19,9 @@ const tagFormContent = {
         ar: 'العودة إلى قائمة الوسوم',
         ru: 'Вернуться к списку тегов',
         tr: 'Tag listesine dön',
+        pl: 'Powrót do listy tagów',
+        id: 'Kembali ke daftar tag',
+        vi: 'Quay lại danh sách tags',
       }),
       label: t({
         en: 'Click to return to tags list',
@@ -35,6 +38,9 @@ const tagFormContent = {
         ar: 'انقر للعودة إلى قائمة الوسوم',
         ru: 'Нажмите, чтобы вернуться к списку тегов',
         tr: 'Tag listesine dönmek için tıklayın',
+        pl: 'Kliknij, aby wrócić do listy tagów',
+        id: 'Klik untuk kembali ke daftar tag',
+        vi: 'Nhấp để quay lại danh sách tags',
       }),
     },
 
@@ -53,6 +59,9 @@ const tagFormContent = {
       ar: 'تفاصيل الوسم',
       ru: 'Детали тега',
       tr: 'Etiket detayları',
+      pl: 'Szczegóły tagu',
+      id: 'Detail tag',
+      vi: 'Chi tiết tag',
     }),
 
     dictionariesListTitle: t({
@@ -70,8 +79,15 @@ const tagFormContent = {
       ar: 'قاموس مرتبطة بهذا الوسم',
       ru: 'Словари, связанные с этим тегом',
       tr: 'Bu etiketle ilişkili sözlükler',
+      pl: 'Słowniki powiązane z tym tagiem',
+      id: 'Dictionaries yang terkait dengan tag ini',
+      vi: 'Các từ điển liên quan đến tag này',
     }),
   },
+  title: 'Tag details section',
+  description:
+    'Content declaration for the tag details section of the dashboard. Includes UI text for returning to the tag list, viewing tag details, and listing associated dictionaries.',
+  tags: ['dashboard', 'tag management', 'content declaration'],
 } satisfies Dictionary;
 
 export default tagFormContent;

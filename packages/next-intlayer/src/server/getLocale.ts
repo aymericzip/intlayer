@@ -1,38 +1,39 @@
-import type { Locales } from '@intlayer/config';
+import { DefaultValues } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
-import { localeDetector } from '@intlayer/core';
+import { getLocaleFromStorage, localeDetector } from '@intlayer/core';
+import { type Locale, Locales } from '@intlayer/types';
 import { cookies, headers } from 'next/headers.js';
 
-// Helper function to extract locale from referer URL
-export const getLocale = async (): Promise<Locales> => {
-  const { defaultLocale } = configuration.internationalization;
-  const { headerName, cookieName } = configuration.middleware;
+// Helper function to extract locale from headers/cookies
+export const getLocale = async (): Promise<Locale> => {
+  const defaultLocale =
+    configuration?.internationalization?.defaultLocale ?? Locales.ENGLISH;
+  const headerName =
+    configuration?.routing?.headerName ?? DefaultValues.Routing.HEADER_NAME;
 
-  // 1 - Try to pick the locale selected using the headers
+  // 1 - Try locale from header
   const headersList = await headers();
-
-  const headerLocale = headersList.get(headerName) as Locales | undefined;
-
+  const headerLocale = headersList.get(headerName) as Locale | undefined;
   if (headerLocale) return headerLocale;
 
-  // 2 - Try to pick the locale selected using the cookies
+  // 2 - Try locale from cookie via universal storage
   const cookiesList = await cookies();
-  const cookieLocale = cookiesList.get(cookieName)?.value as
-    | Locales
-    | undefined;
-  if (cookieLocale) return cookieLocale;
 
-  // 3 - Try to pick the locale selected using the browser language preference
+  const cookieLocale = getLocaleFromStorage({
+    getCookie: (name: string) => cookiesList.get(name)?.value ?? null,
+  });
+
+  if (cookieLocale) return cookieLocale as Locale;
+
+  // 3 - Fallback to Accept-Language negotiation
   const negotiatorHeaders: Record<string, string> = {};
-
   headersList.forEach((value, key) => {
     negotiatorHeaders[key] = value;
   });
 
   const userFallbackLocale = localeDetector(negotiatorHeaders);
+  if (userFallbackLocale) return userFallbackLocale as Locale;
 
-  // 4 - Fallback to default locale
-  if (userFallbackLocale) return userFallbackLocale as Locales;
-
+  // 4 - Default locale
   return defaultLocale;
 };

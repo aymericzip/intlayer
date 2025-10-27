@@ -7,27 +7,28 @@
     "build": "tsc && vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "start": "pnpm intlayer live --process 'vite preview'",
+    "start": "bun intlayer live --process 'vite preview'",
     "start:editor": "npx intlayer-editor start -e development",
     "test": ""
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-intlayer": "workspace:*",
-    "react-router-dom": "^7.4.0"
+    "react-router-dom": "7.4.0"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.13",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.1.9",
+    "@tailwindcss/vite": "4.1.16",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@vitejs/plugin-react": "5.1.0",
     "@vitejs/plugin-react-swc": "^4.1.0",
-    "autoprefixer": "^10.4.21",
+    "autoprefixer": "10.4.21",
     "intlayer-editor": "workspace:*",
-    "tailwindcss": "^4.1.13",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.7",
+    "tailwindcss": "4.1.16",
+    "typescript": "5.9.3",
+    "vite": "7.1.12",
     "vite-intlayer": "workspace:*"
   }
 }

@@ -19,6 +19,9 @@ const searchTriggerContent: Dictionary = {
         ar: 'بحث',
         ru: 'Поиск',
         tr: 'Ara',
+        pl: 'Szukaj',
+        id: 'Cari',
+        vi: 'Tìm kiếm',
       }),
       label: t({
         en: 'Click to search',
@@ -35,9 +38,16 @@ const searchTriggerContent: Dictionary = {
         ar: 'انقر للبحث',
         ru: 'Нажмите, чтобы искать',
         tr: 'Aramak için tıklayın',
+        pl: 'Kliknij, aby wyszukać',
+        id: 'Klik untuk mencari',
+        vi: 'Nhấn để tìm kiếm',
       }),
     },
   },
+  title: 'Documentation search trigger',
+  description:
+    'Content declaration for the search button in the documentation page. Includes button text and accessible label for triggering the search functionality.',
+  tags: ['documentation', 'search', 'component'],
 };
 
 export default searchTriggerContent;

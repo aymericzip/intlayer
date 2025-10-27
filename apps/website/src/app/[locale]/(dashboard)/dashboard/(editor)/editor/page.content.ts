@@ -4,22 +4,29 @@ const profileDashboardContent = {
   key: 'editor-dashboard-page',
   content: {
     title: t({
+      ar: 'محرر Intlayer',
+      de: 'Intlayer-Editor',
       en: 'Intlayer Editor',
       'en-GB': 'Intlayer Editor',
-      fr: 'Éditeur Intlayer',
       es: 'Editor de Intlayer',
-      de: 'Intlayer-Editor',
+      fr: 'Éditeur Intlayer',
+      hi: 'Intlayer एडिटर',
+      it: 'Editor Intlayer',
       ja: 'Intlayer エディタ',
       ko: 'Intlayer 편집기',
-      zh: 'Intlayer 编辑器',
-      it: 'Editor Intlayer',
       pt: 'Editor do Intlayer',
-      hi: 'Intlayer एडिटर',
-      ar: 'محرر Intlayer',
       ru: 'Редактор Intlayer',
       tr: 'Intlayer Editör',
+      zh: 'Intlayer 编辑器',
+      pl: 'Edytor Intlayera',
+      id: 'Intlayer Editor',
+      vi: 'Trình chỉnh sửa Intlayer',
     }),
   },
+  title: 'Editor dashboard page',
+  description:
+    'Content declaration for the editor dashboard page within the Intlayer CMS dashboard. It defines the main title shown on the page.',
+  tags: ['dashboard', 'editor', 'page content'],
 } satisfies Dictionary;
 
 export default profileDashboardContent;

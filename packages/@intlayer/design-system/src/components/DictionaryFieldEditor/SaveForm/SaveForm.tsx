@@ -1,11 +1,11 @@
 'use client';
 
 import type { Dictionary as DistantDictionary } from '@intlayer/backend';
-import type { Dictionary } from '@intlayer/core';
 import {
   useDictionariesRecordActions,
   useEditedContent,
 } from '@intlayer/editor-react';
+import type { Dictionary } from '@intlayer/types';
 import {
   ArrowUpFromLine,
   Download,

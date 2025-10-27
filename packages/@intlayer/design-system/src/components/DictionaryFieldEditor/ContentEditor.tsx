@@ -1,7 +1,8 @@
 'use client';
 
-import { type Dictionary, getContentNodeByKeyPath } from '@intlayer/core';
+import { getContentNodeByKeyPath } from '@intlayer/core';
 import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
 import { type FC, useEffect } from 'react';
 import { Container } from '../Container';
 import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';
@@ -19,15 +20,16 @@ export const ContentEditor: FC<NodeEditorProps> = ({
   dictionary,
   isDarkMode,
 }) => {
-  const { content, key } = dictionary;
+  const { content, key, localId } = dictionary;
   const { editedContent } = useEditedContent();
   const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
 
   const focusedKeyPath = focusedContent?.keyPath;
   const section =
-    typeof editedContent?.[key]?.content === 'undefined'
+    typeof editedContent?.[localId as LocalDictionaryId]?.content ===
+    'undefined'
       ? content
-      : editedContent?.[key]?.content;
+      : editedContent?.[localId as LocalDictionaryId]?.content;
 
   const focusedSection = getContentNodeByKeyPath(section, focusedKeyPath ?? []);
   const isEditableBaseSection = getIsEditableSection(section);
@@ -66,7 +68,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({
               <NavigationViewNode
                 keyPath={[]}
                 section={section}
-                dictionaryKey={key}
+                dictionary={dictionary}
               />
             </Container>
           )}

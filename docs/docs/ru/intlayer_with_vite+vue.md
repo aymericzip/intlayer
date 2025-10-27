@@ -15,6 +15,10 @@ slugs:
   - environment
   - vite-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Переведите ваш Vite and Vue с Intlayer | Интернационализация (i18n)
@@ -1068,7 +1072,3 @@ Intlayer использует расширение модулей (module augmen
 Для расширения возможностей вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешний [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
 
 ---
-
-## История документа
-
-- 5.5.10 - 2025-06-29: Инициализация истории

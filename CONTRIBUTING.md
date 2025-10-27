@@ -6,13 +6,13 @@ To understand the project, you can read the [documentation named "How Intlayer W
 
 ## Development setup
 
-Intlayer is developed as a mono-repo using pnpm.
+Intlayer is developed as a mono-repo using Bun.
 
 To set up the repository, you will need to follow these steps:
 
 1. Create a Copy (Fork the repository)
 2. Clone the repository
-3. Install the approved version of pnpm
+3. Install the approved version of Bun
 4. Install dependencies
 5. Build packages
 6. Start dev mode (to interact with packages)
@@ -35,13 +35,15 @@ git clone git@github.com:{username}/intlayer.git
 #### Installing packages manager
 
 ```sh
-npm install -g pnpm@10.17.1
+npm install -g bun@1.3.1
 ```
+
+or visit [https://bun.com/docs/installation](https://bun.com/docs/installation) for installation instructions.
 
 #### Installing Dependencies
 
 ```sh
-pnpm install:packages
+bun install:packages
 ```
 
 ##### Tips
@@ -52,12 +54,12 @@ This prevents installing docs, backend apps, and all other frameworks you're not
 Example: Install only the `vite-react-app` example
 
 ```bash
-pnpm install  -F ./examples/vite-react-app
+bun install --filter ./examples/vite-react-app
 ```
 
-> `-F` is the short form for `--filter`, used to limit installation to selected packages only.
+> `--filter` is used to limit installation to selected packages only.
 
-The `--filter '!./examples/\*\*'` argument in pnpm install is used to exclude all packages within the examples directory from being installed.
+The `--filter '!./examples/**'` argument in bun install is used to exclude all packages within the examples directory from being installed.
 
 ##### Packages List
 
@@ -71,19 +73,19 @@ Look at the application that you want to contribute to, and build it with the fo
 
 ```sh
 # Build website and all related packages
-pnpm turbo build --filter=./apps/website
+bun run turbo build --filter=./apps/website
 ```
 
 ```sh
 # Build vite-react-app example app and all related packages
-pnpm turbo build --filter=./examples/vite-react-app
+bun run turbo build --filter=./examples/vite-react-app
 ```
 
 Or if you want to build all packages, you can use the following command:
 
 ```sh
 # Build all packages (clean dist folders, and build packages)
-pnpm build
+bun run build
 ```
 
 > ⏱️ On Github Actions, building all packages usualy take around 2 to 4 minutes.
@@ -93,7 +95,7 @@ To pick a package and build it, without having to navigate in the repository, yo
 
 ```sh
 # Select a package and build it (clean dist folder, and build package)
-pnpm build:pick
+bun run build:pick
 ```
 
 ### Development mode
@@ -101,13 +103,13 @@ pnpm build:pick
 ```sh
 # Start development mode for all packages
 # Watch the change related to each files. If the modified file is included in a package, the package will be rebuilt
-pnpm dev
+bun run dev
 ```
 
 ```sh
 # Start development mode for selected packages or apps
 # This command allow to pick the packages to execute in watch-mode, avoid conflicts, and optimize performances during development
-pnpm dev:pick
+bun run dev:pick
 ```
 
 ### Setup environment variables
@@ -122,12 +124,12 @@ For applications locates in `apps/` folder, as well as example applications loca
 
 ```sh
 cd ./apps/backend # or ./apps/website, ./examples/nextjs-15-app, etc.
-pnpm dev # or pnpm dev:turbo, etc.
+bun run dev # or bun run dev:turbo, etc.
 ```
 
 > Adapt the path to the application you want to start.
-> See the application `package.json` to check the command to start it. Example for nextjs-15-app: `pnpm dev:turbo` is the most efficient command to start the dev server.
-> If you filtered some applications during the installation, do not forget to add the related dependencies using the install command (Example: `pnpm install --filter './examples/nextjs-15-app'`).
+> See the application `package.json` to check the command to start it. Example for nextjs-15-app: `bun run dev:turbo` is the most efficient command to start the dev server.
+> If you filtered some applications during the installation, do not forget to add the related dependencies using the install command (Example: `bun install --filter ./examples/nextjs-15-app`).
 
 ## Includes a new package
 
@@ -185,11 +187,11 @@ Maintaining this format helps ensure consistent, readable commit history and is 
 This repo uses [changesets](https://github.com/changesets/changesets) to
 make releasing updates easier.
 
-Use the command `pnpm changeset` to indicate what packages should have a major/minor/patch bump. A changeset is asked in your PR, and can also be added using github changeset bot.
+Use the command `bun run changeset` to indicate what packages should have a major/minor/patch bump. A changeset is asked in your PR, and can also be added using github changeset bot.
 
-Once a changeset present, run the command `pnpm changeset:version` to increment the related packages version. Recommended commit name : `chore(release): version packages`.
+Once a changeset present, run the command `bun run changeset:version` to increment the related packages version. Recommended commit name : `chore(release): version packages`.
 
-If new version of packages are referenced, and you're a maintainer, the command `pnpm changeset:publish` is dedicated to the packages release.
+If new version of packages are referenced, and you're a maintainer, the command `bun run changeset:publish` is dedicated to the packages release.
 
 Note: the versioning and the publication are automatically managed by the CI/CD.
 
@@ -258,12 +260,12 @@ To add new documentation files to the translation system:
 5. **Run the translation command**:
 
    ```bash
-   pnpm translate
+   bun run translate
    ```
 
 6. **Test the translation**:
    ```bash
-   pnpm test
+   bun run test
    ```
 
 ## Support the project

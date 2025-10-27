@@ -47,38 +47,60 @@ const isObject = (val: unknown): val is Record<string, unknown> => {
 const computeDjb2 = (str: string): string => {
   // Simple 32-bit hash; deterministic & fast
   let hash = 5381;
-  for (let i = 0; i < str.length; i++)
+
+  for (let i = 0; i < str.length; i++) {
     hash = ((hash << 5) + hash) ^ str.charCodeAt(i);
+  }
+
   // convert to unsigned hex
   return (hash >>> 0).toString(16).padStart(8, '0');
 };
 
 const setAtPath = (root: any, path: Path, value: JSONValue) => {
-  let cur = root;
+  let current = root;
+
   for (let i = 0; i < path.length - 1; i++) {
     const key = path[i];
     const nextKey = path[i + 1];
     const isNextIndex = typeof nextKey === 'number';
 
     if (typeof key === 'number') {
-      if (!Array.isArray(cur))
+      if (!Array.isArray(current)) {
         throw new Error(`Expected array at path segment ${i}`);
-      if (cur[key] === undefined) cur[key] = isNextIndex ? [] : {};
-      cur = cur[key];
+      }
+
+      if (current[key] === undefined) {
+        current[key] = isNextIndex ? [] : {};
+      }
+
+      current = current[key];
     } else {
-      if (!isObject(cur))
+      if (!isObject(current)) {
         throw new Error(`Expected object at path segment ${i}`);
-      if (!(key in cur)) (cur as any)[key] = isNextIndex ? [] : {};
-      cur = (cur as any)[key];
+      }
+
+      if (!(key in current)) {
+        (current as any)[key] = isNextIndex ? [] : {};
+      }
+
+      current = (current as any)[key];
     }
   }
+
   const last = path[path.length - 1];
+
   if (typeof last === 'number') {
-    if (!Array.isArray(cur)) throw new Error(`Expected array at final segment`);
-    cur[last] = value as any;
+    if (!Array.isArray(current)) {
+      throw new Error(`Expected array at final segment`);
+    }
+
+    current[last] = value as any;
   } else {
-    if (!isObject(cur)) throw new Error(`Expected object at final segment`);
-    (cur as any)[last] = value as any;
+    if (!isObject(current)) {
+      throw new Error(`Expected object at final segment`);
+    }
+
+    (current as any)[last] = value as any;
   }
 };
 
@@ -90,20 +112,30 @@ const pathKey = (path: Path): string => {
 /**
  * Split a string into parts using getChunk with a charLength budget per part.
  */
-const splitStringByBudget = (s: string, maxCharsPerPart: number): string[] => {
-  if (maxCharsPerPart <= 0) throw new Error('maxChars must be > 0');
-  const out: string[] = [];
+const splitStringByBudget = (
+  str: string,
+  maxCharsPerPart: number
+): string[] => {
+  if (maxCharsPerPart <= 0) {
+    throw new Error('maxChars must be > 0');
+  }
+
+  const output: string[] = [];
   let offset = 0;
-  while (offset < s.length) {
-    const part = getChunk(s, {
+
+  while (offset < str.length) {
+    const part = getChunk(str, {
       charStart: offset,
       charLength: maxCharsPerPart,
     });
+
     if (!part) break;
-    out.push(part);
+
+    output.push(part);
     offset += part.length;
   }
-  return out;
+
+  return output;
 };
 
 /**
@@ -125,52 +157,70 @@ const flattenToPatches = (
 
   const patches: Patch[] = [];
 
-  const walk = (val: JSONValue, p: Path) => {
-    if (typeof val === 'string') {
+  const walk = (currentValue: JSONValue, currentPath: Path) => {
+    if (typeof currentValue === 'string') {
       // If the serialized patch wouldn't fit, split the string into multiple parts
       // and encode as a split-node sentinel with numbered keys.
-      const testPatch: SetPatch = { op: 'set', path: p, value: val };
+      const testPatch: SetPatch = {
+        op: 'set',
+        path: currentPath,
+        value: currentValue,
+      };
       const testLen = JSON.stringify(testPatch).length + 150; // margin
+
       if (testLen <= maxCharsPerChunk) {
         patches.push(testPatch);
         return;
       }
+
       // Use getChunk-based splitting to produce stable parts
-      const parts = splitStringByBudget(val, maxStringPiece);
+      const parts = splitStringByBudget(currentValue, maxStringPiece);
+
       // Emit split-node metadata and parts as individual leaf writes
       patches.push({
         op: 'set',
-        path: [...p, '__splittedType'],
+        path: [...currentPath, '__splittedType'],
         value: 'string',
       });
-      patches.push({ op: 'set', path: [...p, '__total'], value: parts.length });
+      patches.push({
+        op: 'set',
+        path: [...currentPath, '__total'],
+        value: parts.length,
+      });
+
       for (let i = 0; i < parts.length; i++) {
         patches.push({
           op: 'set',
-          path: [...p, String(i + 1)],
+          path: [...currentPath, String(i + 1)],
           value: parts[i],
         });
       }
+
       return;
     }
 
-    if (val === null || typeof val !== 'object') {
-      patches.push({ op: 'set', path: p, value: val });
+    if (currentValue === null || typeof currentValue !== 'object') {
+      patches.push({ op: 'set', path: currentPath, value: currentValue });
       return;
     }
 
-    if (seen.has(val as object)) {
+    if (seen.has(currentValue as object)) {
       throw new Error('Cannot serialize circular structures to JSON.');
     }
-    seen.add(val as object);
 
-    if (Array.isArray(val)) {
-      for (let i = 0; i < val.length; i++) walk(val[i] as JSONValue, [...p, i]);
+    seen.add(currentValue as object);
+
+    if (Array.isArray(currentValue)) {
+      for (let i = 0; i < currentValue.length; i++) {
+        walk(currentValue[i] as JSONValue, [...currentPath, i]);
+      }
     } else {
-      for (const k of Object.keys(val)) walk((val as JSONObject)[k], [...p, k]);
+      for (const key of Object.keys(currentValue)) {
+        walk((currentValue as JSONObject)[key], [...currentPath, key]);
+      }
     }
 
-    seen.delete(val as object);
+    seen.delete(currentValue as object);
   };
 
   walk(value, path);
@@ -185,27 +235,29 @@ export const chunkJSON = (
   maxChars: number
 ): JsonChunk[] => {
   if (!isObject(value) && !Array.isArray(value)) {
-    throw new Error('Root must be an object or array.', value);
+    throw new Error('Root must be an object or array.');
   }
-  if (maxChars < 50) {
+
+  if (maxChars < 500) {
     // You can lower this if you truly need; recommended to keep some envelope headroom.
     throw new Error('maxChars is too small. Use at least 500 characters.');
   }
 
   const rootType: RootType = Array.isArray(value) ? 'array' : 'object';
   let sourceString: string;
+
   try {
     sourceString = JSON.stringify(value);
   } catch {
     // Provide a deterministic error message for circular refs
     throw new Error('Cannot serialize circular structures to JSON.');
   }
-  const checksum = computeDjb2(sourceString);
 
+  const checksum = computeDjb2(sourceString);
   const allPatches = flattenToPatches(value as JSONValue, maxChars);
 
   const chunks: JsonChunk[] = [];
-  let cur: JsonChunk = {
+  let currentChunk: JsonChunk = {
     schemaVersion: 1,
     index: 0, // provisional
     total: 0, // provisional
@@ -214,12 +266,15 @@ export const chunkJSON = (
     entries: [],
   };
 
-  const emptyEnvelopeSize = JSON.stringify({ ...cur, entries: [] }).length;
+  const emptyEnvelopeSize = JSON.stringify({
+    ...currentChunk,
+    entries: [],
+  }).length;
 
   const tryFlush = () => {
-    if (cur.entries.length > 0) {
-      chunks.push(cur);
-      cur = {
+    if (currentChunk.entries.length > 0) {
+      chunks.push(currentChunk);
+      currentChunk = {
         schemaVersion: 1,
         index: 0,
         total: 0,
@@ -234,20 +289,21 @@ export const chunkJSON = (
     // Would adding this patch exceed maxChars?
     const withPatchSize =
       emptyEnvelopeSize +
-      JSON.stringify(cur.entries).length + // current entries array
-      (cur.entries.length ? 1 : 0) + // possible comma
+      JSON.stringify(currentChunk.entries).length + // current entries array
+      (currentChunk.entries.length ? 1 : 0) + // possible comma
       JSON.stringify(patch).length;
 
     if (withPatchSize <= maxChars) {
-      cur.entries.push(patch);
+      currentChunk.entries.push(patch);
     } else {
       // Start a new chunk if current has items
-      if (cur.entries.length > 0) {
+      if (currentChunk.entries.length > 0) {
         tryFlush();
       }
 
       // Ensure single patch fits into an empty chunk
       const singleSize = emptyEnvelopeSize + JSON.stringify([patch]).length;
+
       if (singleSize > maxChars) {
         // This should only happen for massive strings, which we pre-split;
         // if it happens for a non-string, we cannot split further.
@@ -255,7 +311,8 @@ export const chunkJSON = (
           'A single entry exceeds maxChars and cannot be split. Reduce entry size or increase maxChars.'
         );
       }
-      cur.entries.push(patch);
+
+      currentChunk.entries.push(patch);
     }
   }
 
@@ -274,10 +331,11 @@ export const chunkJSON = (
   }
 
   // Finalize indices & totals
-  const total = chunks.length;
-  chunks.forEach((c, i) => {
-    c.index = i;
-    c.total = total;
+  const totalChunks = chunks.length;
+
+  chunks.forEach((chunk, index) => {
+    chunk.index = index;
+    chunk.total = totalChunks;
   });
 
   return chunks;
@@ -288,8 +346,114 @@ export const chunkJSON = (
  * - Validates checksums and indices.
  * - Applies 'set' patches and merges string pieces from 'str-append'.
  */
+/**
+ * Reconstruct content from a single chunk without validation.
+ * Useful for processing individual chunks in a pipeline where you don't have all chunks yet.
+ * Note: This will only reconstruct the partial content contained in this chunk.
+ */
+export const reconstructFromSingleChunk = (
+  chunk: JsonChunk
+): JSONObject | JSONArray => {
+  const root: any = chunk.rootType === 'array' ? [] : {};
+
+  // Apply all 'set' patches from this chunk
+  for (const entry of chunk.entries) {
+    if (entry.op === 'set') {
+      setAtPath(root, entry.path, entry.value);
+    }
+  }
+
+  // Reconcile split-node sentinels for strings/arrays
+  // When reconstructing from a single chunk, we may have incomplete split nodes
+  const reconcileSplitNodes = (node: any): any => {
+    if (node === null || typeof node !== 'object') return node;
+
+    if (Array.isArray(node)) {
+      for (let i = 0; i < node.length; i++) {
+        node[i] = reconcileSplitNodes(node[i]);
+      }
+      return node;
+    }
+
+    // string split-node
+    if ((node as any)['__splittedType'] === 'string') {
+      const total = (node as any)['__total'];
+
+      if (typeof total !== 'number' || total <= 0) {
+        // Invalid split node, return as-is
+        return node;
+      }
+
+      const parts: string[] = [];
+      let hasAllParts = true;
+
+      for (let i = 1; i <= total; i++) {
+        const piece = (node as any)[String(i)];
+
+        if (typeof piece !== 'string') {
+          hasAllParts = false;
+          break;
+        }
+
+        parts.push(piece);
+      }
+
+      // Only reconstruct if we have all parts, otherwise return the node as-is
+      if (hasAllParts) {
+        return parts.join('');
+      }
+
+      return node;
+    }
+
+    // array split-node (optional support)
+    if ((node as any)['__splittedType'] === 'array') {
+      const total = (node as any)['__total'];
+
+      if (typeof total !== 'number' || total < 0) {
+        // Invalid split node, return as-is
+        return node;
+      }
+
+      const output: any[] = [];
+      let hasAllParts = true;
+
+      for (let i = 1; i <= total; i++) {
+        const slice = (node as any)[String(i)];
+
+        if (!Array.isArray(slice)) {
+          hasAllParts = false;
+          break;
+        }
+
+        for (let j = 0; j < slice.length; j++) {
+          output.push(reconcileSplitNodes(slice[j]));
+        }
+      }
+
+      // Only reconstruct if we have all parts
+      if (hasAllParts) {
+        return output;
+      }
+
+      return node;
+    }
+
+    // walk normal object
+    for (const key of Object.keys(node)) {
+      node[key] = reconcileSplitNodes(node[key]);
+    }
+
+    return node;
+  };
+
+  return reconcileSplitNodes(root);
+};
+
 export const assembleJSON = (chunks: JsonChunk[]): JSONObject | JSONArray => {
-  if (!chunks || chunks.length === 0) throw new Error('No chunks provided.');
+  if (!chunks || chunks.length === 0) {
+    throw new Error('No chunks provided.');
+  }
 
   // Basic validation & sort
   const sorted = [...chunks].sort((a, b) => a.index - b.index);
@@ -297,101 +461,156 @@ export const assembleJSON = (chunks: JsonChunk[]): JSONObject | JSONArray => {
   const schemaVersion = 1;
 
   for (let i = 0; i < sorted.length; i++) {
-    const c = sorted[i];
-    if (c.schemaVersion !== schemaVersion)
+    const chunk = sorted[i];
+
+    if (chunk.schemaVersion !== schemaVersion) {
+      console.error('Unsupported schemaVersion.', {
+        cause: chunk,
+        schemaVersion,
+      });
       throw new Error('Unsupported schemaVersion.');
-    if (c.rootType !== rootType) throw new Error('Chunks rootType mismatch.');
-    if (c.checksum !== checksum)
+    }
+
+    if (chunk.rootType !== rootType) {
+      console.error('Chunks rootType mismatch.', {
+        cause: chunk,
+        rootType,
+      });
+      throw new Error('Chunks rootType mismatch.');
+    }
+
+    if (chunk.checksum !== checksum) {
+      console.error('Chunks checksum mismatch (different source objects?).', {
+        cause: chunk,
+        checksum,
+      });
       throw new Error('Chunks checksum mismatch (different source objects?).');
-    if (c.index !== i)
+    }
+
+    if (chunk.index !== i) {
+      console.error('Chunk indices are not contiguous or sorted.', {
+        cause: chunk,
+        index: chunk.index,
+        i,
+      });
       throw new Error('Chunk indices are not contiguous or sorted.');
+    }
+
     // Defer total check until after reconstruction to prefer more specific errors
   }
 
   const root: any = rootType === 'array' ? [] : {};
 
   // Collect string parts by path
-  const strParts = new Map<
+  const stringParts = new Map<
     string,
     { path: Path; total: number; received: StrAppendPatch[] }
   >();
 
-  const applySet = (p: SetPatch) => setAtPath(root, p.path, p.value);
+  const applySet = (patch: SetPatch) =>
+    setAtPath(root, patch.path, patch.value);
 
-  for (const c of sorted) {
-    for (const entry of c.entries) {
+  for (const chunk of sorted) {
+    for (const entry of chunk.entries) {
       if (entry.op === 'set') {
         applySet(entry);
       } else {
         const key = pathKey(entry.path);
-        const rec = strParts.get(key) ?? {
+        const record = stringParts.get(key) ?? {
           path: entry.path,
           total: entry.total,
           received: [],
         };
-        if (rec.total !== entry.total)
+
+        if (record.total !== entry.total) {
           throw new Error('Inconsistent string part totals for a path.');
-        rec.received.push(entry);
-        strParts.set(key, rec);
+        }
+
+        record.received.push(entry);
+        stringParts.set(key, record);
       }
     }
   }
 
   // Stitch strings
-  for (const { path, total, received } of strParts.values()) {
-    if (received.length !== total)
+  for (const { path, total, received } of stringParts.values()) {
+    if (received.length !== total) {
       throw new Error('Missing string parts for a path; incomplete chunk set.');
+    }
+
     received.sort((a, b) => a.index - b.index);
-    const full = received.map((p) => p.value).join('');
-    setAtPath(root, path, full);
+    const fullString = received.map((part) => part.value).join('');
+    setAtPath(root, path, fullString);
   }
 
   // Reconcile split-node sentinels for strings/arrays after all patches applied
   const reconcileSplitNodes = (node: any): any => {
     if (node === null || typeof node !== 'object') return node;
+
     if (Array.isArray(node)) {
-      for (let i = 0; i < node.length; i++)
+      for (let i = 0; i < node.length; i++) {
         node[i] = reconcileSplitNodes(node[i]);
+      }
       return node;
     }
+
     // string split-node
     if ((node as any)['__splittedType'] === 'string') {
       const total = (node as any)['__total'];
-      if (typeof total !== 'number' || total <= 0)
+
+      if (typeof total !== 'number' || total <= 0) {
         throw new Error('Invalid split-node total for a path.');
+      }
+
       const parts: string[] = [];
+
       for (let i = 1; i <= total; i++) {
         const piece = (node as any)[String(i)];
-        if (typeof piece !== 'string')
+
+        if (typeof piece !== 'string') {
           throw new Error(
             'Missing string parts for a path; incomplete chunk set.'
           );
+        }
+
         parts.push(piece);
       }
+
       return parts.join('');
     }
+
     // array split-node (optional support)
     if ((node as any)['__splittedType'] === 'array') {
       const total = (node as any)['__total'];
-      if (typeof total !== 'number' || total < 0)
+
+      if (typeof total !== 'number' || total < 0) {
         throw new Error('Invalid split-node total for a path.');
-      const out: any[] = [];
+      }
+
+      const output: any[] = [];
+
       for (let i = 1; i <= total; i++) {
         const slice = (node as any)[String(i)];
-        if (!Array.isArray(slice))
+
+        if (!Array.isArray(slice)) {
           throw new Error(
             'Missing string parts for a path; incomplete chunk set.'
           );
+        }
+
         for (let j = 0; j < slice.length; j++) {
-          out.push(reconcileSplitNodes(slice[j]));
+          output.push(reconcileSplitNodes(slice[j]));
         }
       }
-      return out;
+
+      return output;
     }
+
     // walk normal object
-    for (const k of Object.keys(node)) {
-      node[k] = reconcileSplitNodes(node[k]);
+    for (const key of Object.keys(node)) {
+      node[key] = reconcileSplitNodes(node[key]);
     }
+
     return node;
   };
 
@@ -399,9 +618,13 @@ export const assembleJSON = (chunks: JsonChunk[]): JSONObject | JSONArray => {
 
   // Now validate totals match provided count
   for (let i = 0; i < sorted.length; i++) {
-    const c = sorted[i];
-    if (c.total !== sorted.length)
-      throw new Error('Chunk total does not match provided count.');
+    const chunk = sorted[i];
+
+    if (chunk.total !== sorted.length) {
+      throw new Error(
+        `Chunk total does not match provided count. Expected ${sorted.length}, but chunk ${i} has total=${chunk.total}`
+      );
+    }
   }
 
   return reconciled;

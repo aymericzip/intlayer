@@ -14,8 +14,13 @@ slugs:
   - doc
   - environment
   - nextjs
+  - 15
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Traduce tu Next.js 15 con Intlayer | Internacionalización (i18n)
@@ -764,15 +769,17 @@ export const generateMetadata = async ({
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl =
+    multilingualUrls[locale as keyof typeof multilingualUrls];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -843,15 +850,16 @@ const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -1501,7 +1509,3 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 ### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
-
-## Historial del documento
-
-- 5.5.10 - 2025-06-29: Historial inicial

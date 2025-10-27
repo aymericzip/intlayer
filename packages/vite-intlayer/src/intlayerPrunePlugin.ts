@@ -1,62 +1,63 @@
-// @ts-ignore - Fix error Module '"vite"' has no exported member
-
+import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { intlayerBabelPlugin } from '@intlayer/babel';
-import { ESMxCJSRequire, type IntlayerConfig } from '@intlayer/config';
-import dictionaries from '@intlayer/dictionaries-entry';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
+import type { IntlayerConfig } from '@intlayer/types';
 import fg from 'fast-glob';
 import type { PluginOption } from 'vite';
 
 export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
-  const { optimize, importMode, traversePattern } = intlayerConfig.build;
+  try {
+    const localeRequire = createRequire(import.meta.url);
+    const babel = localeRequire('@babel/core');
 
-  const {
-    dictionariesDir,
-    dynamicDictionariesDir,
-    fetchDictionariesDir,
-    mainDir,
-    baseDir,
-  } = intlayerConfig.content;
+    const { optimize, importMode, traversePattern } = intlayerConfig.build;
 
-  const filesListPattern = fg
-    .sync(traversePattern, {
-      cwd: baseDir,
-    })
-    .map((file) => join(baseDir, file));
+    const {
+      dictionariesDir,
+      dynamicDictionariesDir,
+      fetchDictionariesDir,
+      mainDir,
+      baseDir,
+    } = intlayerConfig.content;
 
-  const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
-  const dynamicDictionariesEntryPath = join(
-    mainDir,
-    'dynamic_dictionaries.mjs'
-  );
+    const filesListPattern = fg
+      .sync(traversePattern, {
+        cwd: baseDir,
+      })
+      .map((file) => join(baseDir, file));
 
-  const filesList = [
-    ...filesListPattern,
-    dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
-  ];
+    const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
+    const dynamicDictionariesEntryPath = join(
+      mainDir,
+      'dynamic_dictionaries.mjs'
+    );
 
-  const liveSyncKeys = Object.values(dictionaries)
-    .filter((dictionary) => dictionary.live)
-    .map((dictionary) => dictionary.key);
+    const filesList = [
+      ...filesListPattern,
+      dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
+    ];
 
-  return {
-    name: 'vite-intlayer-babel-transform',
-    enforce: 'post', // Run after other transformations as vue
-    transform(code, id) {
-      /**
-       * Transform file as
-       * .../HelloWorld.vue?vue&type=script&setup=true&lang.ts
-       * Into
-       * .../HelloWorld.vue
-       *
-       * Prevention for virtual file
-       */
-      const filename = id.split('?', 1)[0];
-      if (!filesList.includes(filename)) return null;
-      if (!optimize) return null;
+    const dictionaries = getDictionaries();
+    const liveSyncKeys = Object.values(dictionaries)
+      .filter((dictionary) => dictionary.live)
+      .map((dictionary) => dictionary.key);
 
-      try {
-        const babel = ESMxCJSRequire('@babel/core');
+    return {
+      name: 'vite-intlayer-babel-transform',
+      enforce: 'post', // Run after other transformations as vue
+      transform(code, id) {
+        /**
+         * Transform file as
+         * .../HelloWorld.vue?vue&type=script&setup=true&lang.ts
+         * Into
+         * .../HelloWorld.vue
+         *
+         * Prevention for virtual file
+         */
+        const filename = id.split('?', 1)[0];
+        if (!filesList.includes(filename)) return null;
+        if (!optimize) return null;
 
         const result = babel.transformSync(code, {
           filename,
@@ -102,11 +103,11 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
             map: result.map,
           };
         }
-      } catch (error) {
-        console.warn('Failed to transform with Babel plugin:', error);
-      }
+      },
+    };
+  } catch (error) {
+    console.warn('Failed to transform with Babel plugin:', error);
 
-      return null;
-    },
-  };
+    return null;
+  }
 };

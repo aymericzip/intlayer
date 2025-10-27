@@ -2,19 +2,19 @@ import { getIntlayerAPIProxy } from '@intlayer/api';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
 import { getRemoteDictionaries } from '@intlayer/remote-dictionaries-entry';
+import type { Dictionary } from '@intlayer/types';
 import { fetchDistantDictionaries } from '../fetchDistantDictionaries';
 import type { DictionariesStatus } from '../loadDictionaries/loadDictionaries';
 import { sortAlphabetically } from '../utils/sortAlphabetically';
 
 export const formatDistantDictionaries = (
-  dictionaries: DictionaryAPI[]
+  dictionaries: (DictionaryAPI | Dictionary)[]
 ): Dictionary[] =>
   dictionaries.map((dict) => ({
     ...dict,
     localId: `${dict.key}::remote::${dict.id}`,
-    location: 'distant' as const,
+    location: 'remote' as const,
   }));
 
 export const loadRemoteDictionaries = async (
@@ -133,7 +133,7 @@ export const loadRemoteDictionaries = async (
 
     const distantDictionaries: DictionaryAPI[] = formatDistantDictionaries(
       distantDictionariesData
-    );
+    ) as DictionaryAPI[];
 
     return [...cachedDictionaries, ...distantDictionaries];
   } catch (error) {

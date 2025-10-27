@@ -13,6 +13,10 @@ slugs:
   - doc
   - concept
   - how-works-intlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Intlayer Nasıl Çalışır
@@ -246,9 +250,3 @@ Sunucu, Express tabanlıdır ve görsel düzenleyici isteklerini almak ve içeri
 ## Akıllı dokümantasyonumuzla sohbet edin
 
 - [Sorularınızı akıllı dokümantasyonumuza sorun](https://intlayer.org/doc/chat)
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

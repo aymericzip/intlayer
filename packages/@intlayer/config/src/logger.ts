@@ -1,5 +1,4 @@
-import type { CustomIntlayerConfig } from './types/config';
-import type { Locales } from './types/locales';
+import type { CustomIntlayerConfig, Locale } from '@intlayer/types';
 
 export type Details = {
   isVerbose?: boolean;
@@ -52,9 +51,10 @@ export enum ANSIColors {
   BLUE = '\x1b[34m',
   RED = '\x1b[31m',
   GREEN = '\x1b[32m',
-  YELLOW = '\x1b[33m',
+  YELLOW = '\x1b[38;5;226m',
   MAGENTA = '\x1b[35m',
   BEIGE = '\x1b[38;5;3m',
+  ORANGE = '\x1b[38;5;208m',
   CYAN = '\x1b[36m',
   WHITE = '\x1b[37m',
 }
@@ -88,7 +88,7 @@ export const colorize = (
     : s;
 
 export const colorizeLocales = (
-  locales: Locales | Locales[],
+  locales: Locale | Locale[],
   color = ANSIColors.GREEN,
   reset: boolean | ANSIColors = ANSIColors.RESET
 ) =>

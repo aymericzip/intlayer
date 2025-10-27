@@ -1,7 +1,10 @@
 import { resolve } from 'node:path';
 import { prepareIntlayer, watch } from '@intlayer/chokidar';
-import { getAlias } from '@intlayer/config';
-import intlayerConfig from '@intlayer/config/built';
+import {
+  type GetConfigurationOptions,
+  getAlias,
+  getConfiguration,
+} from '@intlayer/config';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import type { PluginOption } from 'vite';
 import { intlayerPrune } from './intlayerPrunePlugin';
@@ -18,7 +21,10 @@ import { intlayerPrune } from './intlayerPrunePlugin';
  * });
  * ```
  *  */
-export const intlayerPlugin = (): PluginOption => {
+export const intlayerPlugin = (
+  configOptions?: GetConfigurationOptions
+): PluginOption => {
+  const intlayerConfig = getConfiguration(configOptions);
   const { watch: isWatchMode } = intlayerConfig.content;
   const { optimize } = intlayerConfig.build;
 
@@ -40,7 +46,6 @@ export const intlayerPlugin = (): PluginOption => {
         };
 
         if (isWatchMode) {
-          // Ajout de l'option optimizeDeps.exclude
           config.optimizeDeps = {
             ...config.optimizeDeps,
             exclude: [

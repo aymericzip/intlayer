@@ -4,20 +4,23 @@ const demoSectionContent = {
   key: 'demo-section',
   content: {
     title: t({
+      ar: 'جرب العرض التوضيحي المباشر',
+      de: 'Versuchen Sie die Live-Demo',
       en: 'Try the live demo',
       'en-GB': 'Try the live demo',
-      fr: 'Essayez la démo en direct',
       es: 'Prueba la demo en vivo',
-      de: 'Versuchen Sie die Live-Demo',
+      fr: 'Essayez la démo en direct',
+      hi: 'लाइव डेमो का प्रयास करें',
+      it: 'Prova la demo dal vivo',
       ja: 'ライブデモを試す',
       ko: '라이브 데모를 사용해 보세요',
-      zh: '试用实时演示',
-      it: 'Prova la demo dal vivo',
       pt: 'Experimente a demonstração ao vivo',
-      hi: 'लाइव डेमो का प्रयास करें',
-      ar: 'جرب العرض التوضيحي المباشر',
       ru: 'Попробуйте демонстрацию в реальном времени',
       tr: 'Canlı demoyu deneyin',
+      zh: '试用实时演示',
+      pl: 'Wypróbuj demo na żywo',
+      id: 'Coba demo langsung',
+      vi: 'Thử bản demo trực tiếp',
     }),
     demoSwitchSelector: {
       youtube: t({
@@ -35,6 +38,9 @@ const demoSectionContent = {
         ar: 'شاهد العرض التوضيحي على YouTube',
         ru: 'Посмотрите демо на YouTube',
         tr: 'YouTube demosunu izleyin',
+        pl: 'Obejrzyj demo na YouTube',
+        id: 'Tonton demo di YouTube',
+        vi: 'Xem demo trên YouTube',
       }),
       codeSandbox: t({
         en: 'Try using CodeSandbox',
@@ -51,9 +57,16 @@ const demoSectionContent = {
         ar: 'جرب استخدام CodeSandbox',
         ru: 'Попробуйте использовать CodeSandbox',
         tr: 'CodeSandbox kullanmayı deneyin',
+        pl: 'Wypróbuj w CodeSandbox',
+        id: 'Coba menggunakan CodeSandbox',
+        vi: 'Thử với CodeSandbox',
       }),
     },
   },
+  title: 'Demo section',
+  description:
+    'Content related to the demo section of the landing page, including titles and options to try the demo via YouTube or CodeSandbox.',
+  tags: ['landing page', 'demo section'],
 } satisfies Dictionary;
 
 export default demoSectionContent;

@@ -12,6 +12,10 @@ keywords:
 slugs:
   - doc
   - get-started
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Intlayer Documentation
@@ -183,6 +187,7 @@ Organize your multilingual content close to your code to keep everything consist
 
 We’ve built Intlayer with flexibility in mind, offering seamless integration across popular frameworks and build tools:
 
+- **[Intlayer with Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)**
 - **[Intlayer with Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)**
 - **[Intlayer with Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md)**
 - **[Intlayer with Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md)**
@@ -208,9 +213,3 @@ We value the power of open-source and community-driven development. If you’d l
 **Ready to translate your application faster and more efficiently?** Dive into our docs to start using Intlayer today. Experience a robust, streamlined approach to internationalization that keeps your content organized and your team more productive.
 
 ---
-
-## Doc History
-
-| Version | Date       | Changes      |
-| ------- | ---------- | ------------ |
-| 5.5.10  | 2025-06-29 | Init history |

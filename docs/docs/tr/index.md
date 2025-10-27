@@ -16,6 +16,10 @@ keywords:
 slugs:
   - doc
   - index
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Intlayer Dokümantasyonu
@@ -160,9 +164,3 @@ Güçlü kancalarla **React** uygulamalarınızı geliştirin:
 Açık kaynak ve topluluk odaklı geliştirmenin gücüne değer veriyoruz. Belgelerimizde iyileştirmeler önermek, yeni bir rehber eklemek veya herhangi bir sorunu düzeltmek isterseniz, [GitHub deposumuzda](https://github.com/aymericzip/intlayer/blob/main/docs/docs) bir Pull Request gönderin veya bir sorun açın.
 
 **Uygulamanızı daha hızlı ve verimli bir şekilde çevirmeye hazır mısınız?** Bugün Intlayer'ı kullanmaya başlamak için belgelerimize dalın. İçeriğinizi organize tutan ve ekibinizi daha üretken kılan sağlam, akıcı bir uluslararasılaştırma yaklaşımı deneyimleyin.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

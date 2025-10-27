@@ -18,6 +18,10 @@ slugs:
   - packages
   - react-intlayer
   - useLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # React Entegrasyonu: `useLocale` Hook Dokümantasyonu
@@ -204,9 +208,3 @@ const LocaleSelector = () => {
 ## Sonuç
 
 `react-intlayer`'dan `useLocale` hook'u, React uygulamalarınızda yerel ayarları yönetmek için önemli bir araçtır, uygulamanızı çeşitli uluslararası kitlelere uyarlamak için gereken işlevselliği sağlar.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

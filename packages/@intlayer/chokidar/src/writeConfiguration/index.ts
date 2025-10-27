@@ -1,6 +1,6 @@
 import { mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
-import type { IntlayerConfig } from '@intlayer/config';
+import type { IntlayerConfig } from '@intlayer/types';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 
 export const writeConfiguration = async (configuration: IntlayerConfig) => {

@@ -1,8 +1,4 @@
-import {
-  formatNodeType,
-  NodeType,
-  type TypedNodeModel,
-} from '../../types/index';
+import { formatNodeType, NodeType, type TypedNodeModel } from '@intlayer/types';
 
 export type ConditionContentStates<Content> = Record<`${boolean}`, Content> & {
   fallback?: Content;

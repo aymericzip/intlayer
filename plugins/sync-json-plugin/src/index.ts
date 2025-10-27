@@ -1,14 +1,16 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { parallelize } from '@intlayer/chokidar';
-import {
-  ESMxCJSRequire,
-  type IntlayerConfig,
-  type Locales,
-  type LocalesValues,
-  type Plugin,
-} from '@intlayer/config';
-import type { ContentNode, Dictionary } from '@intlayer/core';
+import { ESMxCJSRequire } from '@intlayer/config';
+import type {
+  ContentNode,
+  Dictionary,
+  IntlayerConfig,
+  LocalDictionaryId,
+  Locale,
+  LocalesValues,
+  Plugin,
+} from '@intlayer/types';
 import fg from 'fast-glob';
 
 type JSONContent = Record<string, any>;
@@ -21,14 +23,14 @@ type Builder = ({
   locale: LocalesValues | (string & {});
 }) => string;
 
-type MessagesRecord = Record<Locales, Record<Dictionary['key'], FilePath>>;
+type MessagesRecord = Record<Locale, Record<Dictionary['key'], FilePath>>;
 
 const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const extractKeyAndLocaleFromPath = (
   filePath: string,
   maskPattern: string,
-  locales: Locales[]
+  locales: Locale[]
 ) => {
   const keyPlaceholder = '{{__KEY__}}';
   const localePlaceholder = '{{__LOCALE__}}';
@@ -52,11 +54,11 @@ const extractKeyAndLocaleFromPath = (
 
   const match = maskRegex.exec(filePath);
 
-  let locale: Locales | undefined;
+  let locale: Locale | undefined;
   let key: string | undefined;
 
   if (match?.groups) {
-    locale = match.groups.locale as Locales | undefined;
+    locale = match.groups.locale as Locale | undefined;
     key = (match.groups.key as string | undefined) ?? 'index';
   }
 
@@ -73,7 +75,7 @@ const listMessages = (
   const { content, internationalization } = configuration;
 
   const baseDir = content.baseDir;
-  const locales = internationalization.locales as Locales[];
+  const locales = internationalization.locales as Locale[];
 
   const localePattern = `{${locales.map((locale) => locale).join(',')}}`;
 
@@ -95,11 +97,11 @@ const listMessages = (
 
     const absolutePath = isAbsolute(file) ? file : resolve(baseDir, file);
 
-    if (!result[locale as Locales]) {
-      result[locale as Locales] = {};
+    if (!result[locale as Locale]) {
+      result[locale as Locale] = {};
     }
 
-    result[locale as Locales][key as Dictionary['key']] = absolutePath;
+    result[locale as Locale][key as Dictionary['key']] = absolutePath;
   }
 
   return result;
@@ -107,7 +109,7 @@ const listMessages = (
 
 type FilePath = string;
 
-type DictionariesMap = { path: string; locale: Locales; key: string }[];
+type DictionariesMap = { path: string; locale: Locale; key: string }[];
 
 const loadMessagePathMap = (
   source: MessagesRecord | Builder,
@@ -183,7 +185,7 @@ type SyncJSONPluginOptions = {
   priority?: number;
 };
 
-export const syncJSON = (options: SyncJSONPluginOptions) => {
+export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
   const { location, priority } = {
     location: 'plugin',
     priority: 0,
@@ -193,38 +195,36 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
   return {
     name: 'sync-json',
 
-    loadDictionaries: async ({
-      projectRequire = ESMxCJSRequire,
-      configuration,
-    }) => {
+    loadDictionaries: async ({ configuration }) => {
       const dictionariesMap: DictionariesMap = loadMessagePathMap(
         options.source,
         configuration
       );
 
-      let autoFill: string = options.source({
+      let fill: string = options.source({
         key: '{{key}}',
         locale: '{{locale}}',
       });
 
-      if (autoFill && !isAbsolute(autoFill)) {
-        autoFill = join(configuration.content.baseDir, autoFill);
+      if (fill && !isAbsolute(fill)) {
+        fill = join(configuration.content.baseDir, fill);
       }
 
       const dictionaries: Dictionary[] = [];
 
       for (const { locale, path, key } of dictionariesMap) {
-        const json: JSONContent = projectRequire(path as string);
+        const requireFunction = configuration.build?.require ?? ESMxCJSRequire;
+        const json: JSONContent = requireFunction(path as string);
 
         const filePath = relative(configuration.content.baseDir, path);
 
         const dictionary: Dictionary = {
           key,
           locale,
-          autoFill,
-          localId: `${key}::${location}::${filePath}`,
+          fill,
+          localId: `${key}::${location}::${filePath}` as LocalDictionaryId,
           location: location as Dictionary['location'],
-          autoFilled:
+          filled:
             locale !== configuration.internationalization.defaultLocale
               ? true
               : undefined,
@@ -247,7 +247,7 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
       type RecordList = {
         key: string;
         dictionary: Dictionary;
-        locale: Locales;
+        locale: Locale;
       };
 
       const recordList: RecordList[] = Object.entries(
@@ -305,5 +305,5 @@ export const syncJSON = (options: SyncJSONPluginOptions) => {
 
       return dictionary.content;
     },
-  } as Plugin;
+  };
 };

@@ -13,6 +13,13 @@ keywords:
 slugs:
   - doc
   - testing
+history:
+  - version: 6.0.1
+    date: 2025-10-05
+    changes: Make test async and add build option
+  - version: 6.0.0
+    date: 2025-09-20
+    changes: Introduction of testing
 ---
 
 # Testing your content
@@ -193,10 +200,3 @@ npx intlayer content test --verbose
 - For mixed monorepos, use `--base-dir` to point the CLI at the correct application root.
 
 ---
-
-## Doc History
-
-| Version | Date       | Changes                              |
-| ------- | ---------- | ------------------------------------ |
-| 6.0.1   | 2025-10-05 | Make test async and add build option |
-| 6.0.0   | 2025-09-20 | Introduction of testing              |

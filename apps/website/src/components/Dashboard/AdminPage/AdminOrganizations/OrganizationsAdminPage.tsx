@@ -1,11 +1,11 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
 import type {
   GetOrganizationsResult,
   OrganizationAPI,
 } from '@intlayer/backend';
 import {
+  CopyToClipboard,
   Loader,
   NumberItemsSelector,
   Pagination,
@@ -23,6 +23,7 @@ import {
 } from '@tanstack/react-table';
 import { cn } from '@utils/cn';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
@@ -39,6 +40,7 @@ export const OrganizationsAdminPageContent: FC = () => {
     sortOrder: { type: 'string', fallbackValue: 'asc' },
   });
 
+  const router = useRouter();
   const { setSearch, search } = useSearch({});
 
   const organizationsQuery = useGetOrganizations({
@@ -90,16 +92,9 @@ export const OrganizationsAdminPageContent: FC = () => {
           <div className="flex items-center">
             <div className="ml-3">
               {organization.name ? (
-                <Link
-                  href={PagesRoutes.Admin_Organizations_Id.replace(
-                    ':id',
-                    organization.id
-                  )}
-                  label={organization.name}
-                  color="text"
-                >
+                <CopyToClipboard text={organization.name}>
                   {organization.name}
-                </Link>
+                </CopyToClipboard>
               ) : (
                 '-'
               )}
@@ -317,7 +312,15 @@ export const OrganizationsAdminPageContent: FC = () => {
                 {table.getRowModel().rows.map((row) => (
                   <tr
                     key={row.id}
-                    className="whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                    className="cursor-pointer whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                    onClick={() => {
+                      router.push(
+                        PagesRoutes.Admin_Organizations_Id.replace(
+                          ':id',
+                          row.original.id
+                        )
+                      );
+                    }}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <td key={cell.id} className="whitespace-nowrap px-4 py-3">

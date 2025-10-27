@@ -1,13 +1,15 @@
 import { mkdir, rm, writeFile } from 'node:fs/promises';
-import { dirname, extname, join } from 'node:path';
-import { getConfiguration } from '@intlayer/config';
-import type { IntlayerConfig, LocalesValues } from '@intlayer/config/client';
+import { dirname, extname, join, resolve } from 'node:path';
 import {
-  type ContentNode,
-  type Dictionary,
-  getFilteredLocalesContent,
-  getLocalizedContent,
+  getFilteredLocalesDictionary,
+  getPerLocaleDictionary,
 } from '@intlayer/core';
+import type {
+  Dictionary,
+  IntlayerConfig,
+  Locale,
+  LocalesValues,
+} from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import deepEqual from 'deep-equal';
 import {
@@ -16,7 +18,6 @@ import {
 } from '../utils/getFormatFromExtension';
 import type { DictionaryStatus } from './dictionaryStatus';
 import { processContentDeclarationContent } from './processContentDeclarationContent';
-
 import { writeJSFile } from './writeJSFile';
 
 const formatContentDeclaration = async (
@@ -27,7 +28,6 @@ const formatContentDeclaration = async (
   /**
    * Clean Markdown, Insertion, File, etc. node metadata
    */
-
   const processedDictionary =
     await processContentDeclarationContent(dictionary);
 
@@ -38,26 +38,21 @@ const formatContentDeclaration = async (
    */
 
   if (dictionary.locale) {
-    content = getLocalizedContent(
-      processedDictionary.content as unknown as ContentNode,
-      dictionary.locale,
-      {
-        dictionaryKey: dictionary.key,
-        keyPath: [],
-      }
-    );
+    content = getPerLocaleDictionary(
+      processedDictionary,
+      dictionary.locale
+    ).content;
   } else if (localeList) {
-    content = getFilteredLocalesContent(
-      processedDictionary.content as unknown as ContentNode,
-      localeList,
-      { dictionaryKey: dictionary.key, keyPath: [] }
-    );
+    content = getFilteredLocalesDictionary(
+      processedDictionary,
+      localeList
+    ).content;
   }
 
-  let pluginFormatResult: Dictionary = {
+  let pluginFormatResult: any = {
     ...dictionary,
     content,
-  };
+  } satisfies Dictionary;
 
   /**
    * Format the dictionary with the plugins
@@ -66,12 +61,12 @@ const formatContentDeclaration = async (
   for await (const plugin of configuration.plugins ?? []) {
     if (plugin.formatOutput) {
       const formattedResult = await plugin.formatOutput?.({
-        dictionary: pluginFormatResult as Dictionary,
+        dictionary: pluginFormatResult,
         configuration,
       });
 
       if (formattedResult) {
-        pluginFormatResult = formattedResult as Dictionary;
+        pluginFormatResult = formattedResult;
       }
     }
   }
@@ -81,12 +76,12 @@ const formatContentDeclaration = async (
 
   if (!isDictionaryFormat) return pluginFormatResult;
 
-  const result: Dictionary = {
+  let result: Dictionary = {
     key: dictionary.key,
     content,
     locale: dictionary.locale,
-    autoFill: dictionary.autoFill,
-    autoFilled: dictionary.autoFilled,
+    fill: dictionary.fill,
+    filled: dictionary.filled,
     tags: dictionary.tags,
     title: dictionary.title,
     description: dictionary.description,
@@ -106,7 +101,10 @@ const formatContentDeclaration = async (
     pluginFormatResult.content &&
     pluginFormatResult.key
   ) {
-    result['$schema'] = 'https://intlayer.org/schema.json';
+    result = {
+      $schema: 'https://intlayer.org/schema.json',
+      ...result,
+    };
   }
 
   return result;
@@ -115,6 +113,7 @@ const formatContentDeclaration = async (
 type WriteContentDeclarationOptions = {
   newDictionariesPath?: string;
   localeList?: LocalesValues[];
+  fallbackLocale?: Locale;
 };
 
 const defaultOptions = {
@@ -123,12 +122,15 @@ const defaultOptions = {
 
 export const writeContentDeclaration = async (
   dictionary: Dictionary,
-  configuration: IntlayerConfig = getConfiguration(),
+  configuration: IntlayerConfig,
   options?: WriteContentDeclarationOptions
 ): Promise<{ status: DictionaryStatus; path: string }> => {
   const { content } = configuration;
   const { baseDir } = content;
-  const { newDictionariesPath, localeList } = { ...defaultOptions, ...options };
+  const { newDictionariesPath, localeList } = {
+    ...defaultOptions,
+    ...options,
+  };
 
   const newDictionaryLocationPath = join(baseDir, newDictionariesPath);
 
@@ -137,7 +139,7 @@ export const writeContentDeclaration = async (
     dictionary.key
   ] as Dictionary[];
 
-  const existingDictionary = unmergedDictionaries.filter(
+  const existingDictionary = unmergedDictionaries?.find(
     (el) => el.localId === dictionary.localId
   );
 
@@ -147,14 +149,20 @@ export const writeContentDeclaration = async (
     localeList
   );
 
-  if (existingDictionary && dictionary.filePath) {
-    const filePath = join(configuration.content.baseDir, dictionary.filePath);
+  if (existingDictionary?.filePath) {
+    // Compare existing dictionary content with new dictionary content
+    const isSameContent = deepEqual(
+      existingDictionary.content,
+      dictionary.content
+    );
 
-    // Compare existing dictionary with distant dictionary
-    const isSameFile = deepEqual(existingDictionary, dictionary);
+    const filePath = resolve(
+      configuration.content.baseDir,
+      existingDictionary.filePath
+    );
 
     // Up to date, nothing to do
-    if (isSameFile) {
+    if (isSameContent) {
       return {
         status: 'up-to-date',
         path: filePath,
@@ -168,6 +176,20 @@ export const writeContentDeclaration = async (
     );
 
     return { status: 'updated', path: filePath };
+  }
+
+  if (dictionary.filePath) {
+    const filePath = resolve(
+      configuration.content.baseDir,
+      dictionary.filePath
+    );
+    await writeFileWithDirectories(
+      filePath,
+      formattedContentDeclaration,
+      configuration
+    );
+
+    return { status: 'created', path: filePath };
   }
 
   // No existing dictionary, write to new location
@@ -189,42 +211,49 @@ export const writeContentDeclaration = async (
 };
 
 const writeFileWithDirectories = async (
-  filePath: string,
+  absoluteFilePath: string,
   dictionary: Dictionary,
   configuration: IntlayerConfig
 ): Promise<void> => {
   // Extract the directory from the file path
-  const dir = dirname(filePath);
+  const dir = dirname(absoluteFilePath);
 
   // Create the directory recursively
   await mkdir(dir, { recursive: true });
 
-  const extension = extname(filePath);
+  const extension = extname(absoluteFilePath);
   const acceptedExtensions = configuration.content.fileExtensions.map(
     (extension) => extname(extension)
   );
 
   if (!acceptedExtensions.includes(extension)) {
-    throw new Error(`Invalid file extension: ${extension}, file: ${filePath}`);
+    throw new Error(
+      `Invalid file extension: ${extension}, file: ${absoluteFilePath}`
+    );
   }
 
   if (extension === '.json') {
     const jsonDictionary = JSON.stringify(dictionary, null, 2);
 
     // Write the file
-    await writeFile(filePath, `${jsonDictionary}\n`); // Add a new line at the end of the file to avoid formatting issues with VSCode
+    await writeFile(absoluteFilePath, `${jsonDictionary}\n`); // Add a new line at the end of the file to avoid formatting issues with VSCode
 
     return;
   }
 
-  await writeJSFile(filePath, dictionary, configuration);
+  await writeJSFile(absoluteFilePath, dictionary, configuration);
 
   // remove the cache as content has changed
   // Will force a new preparation of the intlayer on next build
   try {
     await rm(configuration.content.cacheDir, { recursive: true });
   } catch (error) {
-    if ((error as any).code !== 'ENOENT') {
+    if (
+      error &&
+      typeof error === 'object' &&
+      'code' in error &&
+      (error as { code: string }).code !== 'ENOENT'
+    ) {
       throw error;
     }
   }

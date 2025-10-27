@@ -1,13 +1,7 @@
 import { join } from 'node:path';
-import {
-  ANSIColors,
-  colorize,
-  ESMxCJSRequire,
-  getAppLogger,
-  getConfiguration,
-  type IntlayerConfig,
-} from '@intlayer/config';
+import { ANSIColors, colorize, getAppLogger } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json' with { type: 'json' };
+import type { IntlayerConfig } from '@intlayer/types';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { writeRemoteDictionary } from './buildIntlayerDictionary/writeRemoteDictionary';
 import { cleanOutputDir } from './cleanOutputDir';
@@ -19,7 +13,6 @@ import { runOnce } from './utils/runOnce';
 import { writeConfiguration } from './writeConfiguration';
 
 type PrepareIntlayerOptions = {
-  projectRequire?: NodeJS.Require;
   clean?: boolean;
   format?: ('cjs' | 'esm')[];
   forceRun?: boolean;
@@ -27,17 +20,16 @@ type PrepareIntlayerOptions = {
 };
 
 const DEFAULT_PREPARE_INTLAYER_OPTIONS = {
-  projectRequire: ESMxCJSRequire,
   clean: false,
   format: ['cjs', 'esm'],
   forceRun: false,
 } satisfies PrepareIntlayerOptions;
 
 export const prepareIntlayer = async (
-  configuration: IntlayerConfig = getConfiguration(),
+  configuration: IntlayerConfig,
   options?: PrepareIntlayerOptions
 ) => {
-  const { projectRequire, clean, format, forceRun, onIsCached } = {
+  const { clean, format, forceRun, onIsCached } = {
     ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
     ...(options ?? {}),
   };
@@ -82,13 +74,9 @@ export const prepareIntlayer = async (
         }
       );
 
-      const files: string[] = listDictionaries(configuration);
+      const files: string[] = await listDictionaries(configuration);
 
-      const dictionaries = await loadDictionaries(
-        files,
-        configuration,
-        projectRequire
-      );
+      const dictionaries = await loadDictionaries(files, configuration);
 
       const dictionariesLoadedTime = Date.now();
 
@@ -132,7 +120,7 @@ export const prepareIntlayer = async (
         dictionariesOutput?.mergedDictionaries ?? {}
       ).map((dictionary) => dictionary.dictionaryPath);
 
-      await createTypes(dictionariesPaths);
+      await createTypes(dictionariesPaths, configuration);
 
       await createDictionaryEntryPoint(configuration);
 

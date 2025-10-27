@@ -18,6 +18,9 @@ const planContent = {
       ar: 'الخطة',
       ru: 'План',
       tr: 'Plan',
+      pl: 'Plan',
+      id: 'Paket',
+      vi: 'Gói',
     }),
 
     upgradeButton: {
@@ -36,6 +39,9 @@ const planContent = {
         ar: 'ترقية',
         ru: 'Обновить',
         tr: 'Yükselt',
+        pl: 'Uaktualnij',
+        id: 'Tingkatkan',
+        vi: 'Nâng cấp',
       }),
       label: t({
         en: 'Click to upgrade',
@@ -52,6 +58,9 @@ const planContent = {
         ar: 'انقر لترقية',
         ru: 'Нажмите, чтобы обновить',
         tr: 'Yükseltmek için tıklayın',
+        pl: 'Kliknij, aby uaktualnić plan',
+        id: 'Klik untuk meningkatkan',
+        vi: 'Nhấn để nâng cấp',
       }),
     },
 
@@ -71,6 +80,9 @@ const planContent = {
         ar: 'إعادة ترقية الخطة',
         ru: 'Продлить план',
         tr: 'Planı yenile',
+        pl: 'Odnów plan',
+        id: 'Perpanjang paket',
+        vi: 'Gia hạn gói',
       }),
       label: t({
         en: 'Click to renew plan',
@@ -87,6 +99,9 @@ const planContent = {
         ar: 'انقر لإعادة ترقية الخطة',
         ru: 'Нажмите, чтобы продлить план',
         tr: 'Planı yenilemek için tıklayın',
+        pl: 'Kliknij, aby odnowić plan',
+        id: 'Klik untuk memperpanjang paket',
+        vi: 'Nhấn để gia hạn gói',
       }),
     },
 
@@ -106,6 +121,9 @@ const planContent = {
         ar: 'إلغاء الخطة',
         ru: 'Отменить план',
         tr: 'Planı iptal et',
+        pl: 'Anuluj plan',
+        id: 'Batalkan langganan',
+        vi: 'Hủy gói',
       }),
       label: t({
         en: 'Click to cancel plan',
@@ -122,6 +140,9 @@ const planContent = {
         ar: 'انقر لإلغاء الخطة',
         ru: 'Нажмите, чтобы отменить план',
         tr: 'Planı iptal etmek için tıklayın',
+        pl: 'Kliknij, aby anulować plan',
+        id: 'Klik untuk membatalkan langganan',
+        vi: 'Nhấn để hủy gói',
       }),
     },
 
@@ -141,6 +162,9 @@ const planContent = {
         ar: 'هل أنت متأكد من أنك ترغب في إلغاء اشتراكك؟',
         ru: 'Вы уверены, что хотите отменить подписку?',
         tr: 'Aboneliğinizi iptal etmek istediğinizden emin misiniz?',
+        pl: 'Czy na pewno chcesz anulować subskrypcję?',
+        id: 'Apakah Anda yakin ingin membatalkan langganan Anda?',
+        vi: 'Bạn có chắc chắn muốn hủy đăng ký của mình không?',
       }),
 
       message: t({
@@ -159,6 +183,9 @@ const planContent = {
         ar: 'هذا الإجراء لا يمكن التراجع عنه. سيتم إلغاء اشتراكك بشكل دائم. سيفقد أعضاء المنظمة الآخرون أيضًا الوصول إلى المنظمة وسيتم تعطيل الوصول إلى الميزات المميزة. إذا كنت ترغب في استخدامه في المستقبل ، فيجب عليك إعادة إنشائه.',
         ru: 'Это действие НЕЛЬЗЯ отменить. Это навсегда отменит вашу подписку. Ваши другие члены организации также потеряют доступ к организации, и доступ к премиальным функциям будет отключен. Если вы хотите использовать его в будущем, вам нужно будет создать его снова.',
         tr: 'Bu işlem geri alınamaz. Bu, aboneliğinizi kalıcı olarak iptal edecektir. Diğer organizasyon üyeleriniz de organizasyona erişimi kaybedecek ve premium özelliklere erişim devre dışı bırakılacaktır. Gelecekte kullanmak isterseniz, yeniden oluşturmanız gerekecektir.',
+        pl: 'Ta akcja NIE MOŻE zostać cofnięta. To spowoduje trwałe anulowanie Twojej subskrypcji. Pozostali członkowie organizacji również stracą dostęp do organizacji, a dostęp do funkcji premium zostanie wyłączony. Jeśli w przyszłości będziesz chciał(a) z niej skorzystać, będziesz musiał(a) utworzyć ją ponownie.',
+        id: 'Tindakan ini TIDAK DAPAT dibatalkan. Ini akan secara permanen membatalkan langganan Anda. Anggota organisasi lainnya juga akan kehilangan akses ke organisasi dan akses ke fitur premium akan dinonaktifkan. Jika Anda ingin menggunakannya di masa depan, Anda harus membuatnya lagi.',
+        vi: 'Hành động này KHÔNG THỂ hoàn tác. Thao tác này sẽ hủy vĩnh viễn đăng ký của bạn. Các thành viên khác trong tổ chức của bạn cũng sẽ mất quyền truy cập vào tổ chức và quyền truy cập các tính năng cao cấp sẽ bị vô hiệu hóa. Nếu bạn muốn sử dụng lại trong tương lai, bạn sẽ cần phải tạo lại tổ chức.',
       }),
 
       buttonLabel: t({
@@ -176,6 +203,9 @@ const planContent = {
         ar: 'إلغاء اشتراكي',
         ru: 'Отменить мою подписку',
         tr: 'Aboneliğimi iptal et',
+        pl: 'Anuluj moją subskrypcję',
+        id: 'Batalkan langganan saya',
+        vi: 'Hủy đăng ký của tôi',
       }),
 
       confirmText: t({
@@ -193,9 +223,16 @@ const planContent = {
         ar: 'أفهم، إلغاء اشتراكي',
         ru: 'Я понимаю, отменить мою подписку',
         tr: 'Anlıyorum, aboneliğimi iptal et',
+        pl: 'Rozumiem, anuluj moją subskrypcję',
+        id: 'Saya mengerti, batalkan langganan saya',
+        vi: 'Tôi hiểu, hủy đăng ký của tôi',
       }),
     },
   },
+  title: 'Organization plan',
+  description:
+    'Content declaration related to the subscription plan management within an organization. Includes UI text for upgrading, renewing, and canceling plans, as well as confirmation modals.',
+  tags: ['organization', 'subscription', 'dashboard'],
 } satisfies Dictionary;
 
 export default planContent;

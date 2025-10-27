@@ -19,6 +19,9 @@ const blogNavTitlesContent = {
         ar: 'اطوي التوسيع',
         ru: 'Свернуть',
         tr: 'Daralt',
+        pl: 'Zwiń',
+        id: 'Sembunyikan',
+        vi: 'Thu gọn',
       }),
     },
     docButton: {
@@ -37,6 +40,9 @@ const blogNavTitlesContent = {
         ar: 'اذهب إلى الوثائق',
         ru: 'Перейти к документации',
         tr: 'Belgelere git',
+        pl: 'Przejdź do dokumentacji',
+        id: 'Buka dokumentasi',
+        vi: 'Đi tới Documentation',
       }),
       text: t({
         en: 'Documentation',
@@ -53,9 +59,16 @@ const blogNavTitlesContent = {
         ar: 'الوثائق',
         ru: 'Документация',
         tr: 'Dokümantasyon',
+        pl: 'Dokumentacja',
+        id: 'Dokumentasi',
+        vi: 'Documentation',
       }),
     },
   },
+  title: 'Blog navigation list',
+  description:
+    'Content declarations for the navigation list component used on the blog page, including labels for the collapse button and documentation link.',
+  tags: ['blog page', 'navigation', 'component'],
 } satisfies Dictionary;
 
 export default blogNavTitlesContent;

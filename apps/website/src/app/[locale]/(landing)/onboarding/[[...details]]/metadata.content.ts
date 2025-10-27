@@ -19,6 +19,9 @@ const metadataContent = {
       ar: 'التوجيه | Intlayer',
       ru: 'Онбординг | Intlayer',
       tr: 'Onboarding | Intlayer',
+      pl: 'Pierwsze kroki | Intlayer',
+      id: 'Onboarding | Intlayer',
+      vi: 'Onboarding | Intlayer',
     }),
     description: t({
       en: 'Get started with Intlayer by completing the onboarding process. Follow each step to set up your account efficiently.',
@@ -36,9 +39,12 @@ const metadataContent = {
       ar: 'ابدأ باستخدام Intlayer من خلال إكمال عملية التوجيه. اتبع كل خطوة لضبط حسابك بكفاءة.',
       ru: 'Начните работу с Intlayer, завершив процесс онбординга. Следуйте каждому шагу, чтобы эффективно настроить свою учетную запись.',
       tr: 'Hesabınızı verimli bir şekilde kurmak için her adımı izleyin. Onboarding sürecini tamamlayarak Intlayer ile başlayın.',
+      pl: 'Rozpocznij pracę z Intlayer, przechodząc przez proces onboardingu. Wykonaj poszczególne kroki, aby szybko i efektywnie skonfigurować swoje konto.',
+      id: 'Mulai menggunakan Intlayer dengan menyelesaikan proses onboarding. Ikuti setiap langkah untuk mengatur akun Anda dengan efisien.',
+      vi: 'Bắt đầu với Intlayer bằng cách hoàn tất quy trình onboarding. Thực hiện theo từng bước để thiết lập tài khoản của bạn một cách hiệu quả.',
     }),
 
-    keywords: t<string[]>({
+    keywords: t({
       en: [
         'Onboarding',
         'Account setup',
@@ -151,8 +157,36 @@ const metadataContent = {
         'JavaScript',
         'Kullanıcı kılavuzu',
       ],
+      pl: [
+        'Onboarding',
+        'Konfiguracja konta',
+        'Intlayer',
+        'React',
+        'JavaScript',
+        'Przewodnik użytkownika',
+      ],
+      id: [
+        'Onboarding',
+        'Pengaturan akun',
+        'Intlayer',
+        'React',
+        'JavaScript',
+        'Panduan pengguna',
+      ],
+      vi: [
+        'Onboarding',
+        'Thiết lập tài khoản',
+        'Intlayer',
+        'React',
+        'JavaScript',
+        'Hướng dẫn sử dụng',
+      ],
     }),
   },
+  title: 'Onboarding page metadata',
+  description:
+    'Metadata related to the onboarding page, including title, description, and keywords to support SEO and guide new users through the initial setup process on Intlayer.',
+  tags: ['page metadata', 'onboarding page'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

@@ -4,6 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import {
   cloneElement,
   type HTMLAttributes,
+  type MouseEvent,
   type ReactElement,
   useEffect,
   useRef,
@@ -58,11 +59,11 @@ const indicatorVariant = cva(
   }
 );
 
-type TabProps = HTMLAttributes<HTMLElement> & {
+export type TabSelectorItemProps = HTMLAttributes<HTMLElement> & {
   key: string | number;
 };
 
-export type TabSelectorProps<T extends TabProps> = {
+export type TabSelectorProps<T extends TabSelectorItemProps> = {
   tabs: ReactElement<T>[];
   selectedChoice: T['key'];
   onTabClick?: (choice: T['key']) => void;
@@ -89,7 +90,7 @@ export type TabSelectorProps<T extends TabProps> = {
  * </TabSelector>
  * ```
  */
-export const TabSelector = <T extends TabProps>({
+export const TabSelector = <T extends TabSelectorItemProps>({
   tabs,
   selectedChoice,
   onTabClick,
@@ -129,7 +130,7 @@ export const TabSelector = <T extends TabProps>({
         return cloneElement(Tab, {
           key: key ?? index,
           role: 'tab',
-          onClick: (e: unknown) => {
+          onClick: (e: MouseEvent<HTMLElement>) => {
             Tab.props?.onClick?.(e);
             onTabClick?.(key);
           },

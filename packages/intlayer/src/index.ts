@@ -1,5 +1,9 @@
-import type { CustomIntlayerConfig as IntlayerConfig } from '@intlayer/config/client';
-import type { Dictionary as DictionaryCore } from '@intlayer/core';
+/** biome-ignore-all lint/suspicious/noEmptyInterface: Intlayer module augmentation registries */
+import {
+  type Dictionary as DictionaryCore,
+  type CustomIntlayerConfig as IntlayerConfig,
+  Locales,
+} from '@intlayer/types';
 
 type Dictionary<T = undefined> = DictionaryCore<T, true>;
 /**
@@ -7,8 +11,21 @@ type Dictionary<T = undefined> = DictionaryCore<T, true>;
  */
 type DeclarationContent<T = undefined> = Dictionary<T>;
 
-export { Locales, type LocalesValues } from '@intlayer/config/client';
-export type { DeclarationContent, Dictionary };
+/**
+ * @deprecated
+ *
+ * Use Locales.All_LOCALES instead
+ */
+const localeList = Locales.ALL_LOCALES;
+
+export {
+  type ContentNode,
+  type Locale,
+  Locales,
+  type LocalesValues,
+  type StrictModeLocaleMap,
+} from '@intlayer/types';
+export type { DeclarationContent, Dictionary, IntlayerConfig, localeList };
 
 /**
  * Rexport using named import because πof Tsup bug in CJS
@@ -22,16 +39,16 @@ const getConfiguration = () => configuration;
 
 // Reexport here for CJS compatibility
 // Fix ReferenceError: Cannot access 'xxx' before initialization
-export { configuration, getConfiguration, type IntlayerConfig };
+export { configuration, getConfiguration };
 
 export {
-  type ContentNode,
   compact,
   cond,
   currency,
   date,
   enu,
   gender,
+  getBrowserLocale,
   getDictionary,
   getEnumeration,
   /**
@@ -40,7 +57,6 @@ export {
   getEnumeration as getEnumerationContent,
   getHTMLTextDir,
   getIntlayer,
-  getIntlayerAsync,
   getLocaleFromPath,
   getLocaleLang,
   getLocaleName,
@@ -56,9 +72,7 @@ export {
   getTranslation as getTranslationContent,
   Intl,
   insert,
-  type LanguageContent,
   localeFlatMap,
-  localeList,
   localeMap,
   localeRecord,
   md,
@@ -70,3 +84,9 @@ export {
   units,
 } from '@intlayer/core';
 export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser
+
+// --- Registries to be augmented by the generator ---
+export interface __DictionaryRegistry {} // id -> interfaceof ictionary
+export interface __DeclaredLocalesRegistry {} // 'fr': 1, 'en': 1, ...
+export interface __RequiredLocalesRegistry {} // 'en': 1, ...
+export interface __StrictModeRegistry {} // one of: { strict: true } | { inclusive: true } | { loose: true }

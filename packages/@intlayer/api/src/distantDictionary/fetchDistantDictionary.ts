@@ -1,18 +1,16 @@
-// @ts-ignore @intlayer/backend is not build yet
-import type { DictionaryAPI } from '@intlayer/backend';
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/types';
 import { getIntlayerAPIProxy } from '../proxy';
+import type { DictionaryAPI } from '../types';
 
 /**
  * Fetch distant dictionary
  */
 export const fetchDistantDictionary = async (
   dictionaryKey: string,
-  intlayerConfig: IntlayerConfig = configuration
+  intlayerConfig: IntlayerConfig
 ): Promise<DictionaryAPI | undefined> => {
   try {
-    const { clientId, clientSecret } = intlayerConfig?.editor;
+    const { clientId, clientSecret } = intlayerConfig.editor;
 
     if (!clientId || !clientSecret) {
       throw new Error(

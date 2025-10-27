@@ -19,6 +19,9 @@ const content = {
         de: 'Gehen Sie zur Startseite',
         'en-GB': 'Go to home page',
         tr: 'Ana sayfaya git',
+        pl: 'Przejdź na stronę główną',
+        id: 'Ke beranda',
+        vi: 'Về trang chủ',
       }),
       ariaLabel: t({
         hi: 'होम पृष्ठ पर जाएँ को क्लिक करें',
@@ -35,9 +38,16 @@ const content = {
         de: 'Klicken Sie, um zur Startseite zu gehen',
         'en-GB': 'Click to go to home page',
         tr: 'Ana sayfaya gitmek için tıklayın',
+        pl: 'Kliknij, aby przejść na stronę główną',
+        id: 'Klik untuk pergi ke beranda',
+        vi: 'Nhấp để về trang chủ',
       }),
     },
   },
+  title: 'Change password form',
+  description:
+    'Content for the change password form component, including button text and accessibility label to navigate back to the home page.',
+  tags: ['auth form', 'change password'],
 } satisfies Dictionary;
 
 export default content;

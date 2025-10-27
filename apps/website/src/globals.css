@@ -1,0 +1,60 @@
+@import "@intlayer/design-system/css";
+@import "tailwindcss";
+@import "./shiki.css";
+@import "./monaco.css";
+
+@keyframes infiniteScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes infiniteScrollInverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--float-distance, 10px));
+  }
+}
+
+.horizontal-loop-1 {
+  animation-name: infiniteScroll;
+  animation-duration: 85s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.horizontal-loop-2 {
+  animation-name: infiniteScrollInverse;
+  animation-duration: 45s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.horizontal-loop-4 {
+  animation-name: infiniteScroll;
+  animation-duration: 50s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.animate-float {
+  animation-name: float;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}

@@ -6,7 +6,7 @@ const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
-    strictMode: 'loose',
+    strictMode: 'strict',
   },
   editor: {
     enabled: true,

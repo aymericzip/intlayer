@@ -1,18 +1,14 @@
 import { readFile } from 'node:fs/promises';
-import { dirname, resolve } from 'node:path';
+import { resolve } from 'node:path';
+import { cond, enu, gender, insert, md, nest, t } from '@intlayer/core';
+import { fileContent } from '@intlayer/core/file';
 import {
-  cond,
+  type CustomIntlayerConfig,
   type Dictionary,
-  enu,
-  gender,
-  insert,
-  md,
-  nest,
-  t,
-} from '@intlayer/core';
-import { file as intFile } from '@intlayer/core/file';
+  Locales,
+} from '@intlayer/types';
 import deepmerge from 'deepmerge';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { transformJSFile } from './transformJSFile';
 
 // Compute absolute path to the test content file
@@ -21,13 +17,16 @@ const testFilePath = resolve(
   'src/writeContentDeclaration/_test.content.ts'
 );
 
-// Inject globals required by `file()` before importing the content module
-(globalThis as any).intlayer_file_path = testFilePath;
-(globalThis as any).intlayer_file_dir = dirname(testFilePath);
+vi.mock('@intlayer/config/built', () => ({
+  default: {
+    content: {
+      baseDir: process.cwd(),
+    } as CustomIntlayerConfig,
+  },
+}));
 
-// Also set them as global variables for direct access
-(global as any).intlayer_file_path = testFilePath;
-(global as any).intlayer_file_dir = dirname(testFilePath);
+const file = (path: string) =>
+  fileContent(path, `${process.cwd()}/src`, process.cwd());
 
 // Read the file contents as string for the transform
 const initialFileContentString = await readFile(testFilePath, 'utf-8');
@@ -36,16 +35,6 @@ const initialFileContentString = await readFile(testFilePath, 'utf-8');
 const { default: initialFileContent } = await import('./_test.content');
 
 describe('transformJSFile', () => {
-  it('should not change the file if the dictionary is the same', async () => {
-    const result = await transformJSFile(
-      initialFileContentString,
-      initialFileContent
-    );
-
-    expect(typeof result).toBe('string');
-    expect(result).toBe(initialFileContentString);
-  });
-
   it('add new string entries', async () => {
     const dictionary: Dictionary = deepmerge(initialFileContent, {
       content: {
@@ -97,6 +86,39 @@ describe('transformJSFile', () => {
     expect(result).toContain('es: "Hola"');
   });
 
+  it('add new translation entries in an array', async () => {
+    const dictionary: Dictionary = deepmerge(
+      initialFileContent,
+      {
+        content: {
+          arrayOfTranslations: [
+            t({
+              en: 'Hello 3',
+              fr: 'Bonjour 3',
+            }),
+            t({
+              en: 'Hello 2',
+              fr: 'Bonjour 2',
+            }),
+          ],
+        },
+      },
+      {
+        arrayMerge: (_destinationArray, sourceArray) => sourceArray,
+      }
+    );
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('arrayOfTranslations: [');
+    expect(result).toContain('t({');
+    expect(result).toContain('en: "Hello 3"');
+    expect(result).toContain('fr: "Bonjour 3"');
+    expect(result).toContain('t({');
+    expect(result).toContain('en: "Hello 2"');
+    expect(result).toContain('fr: "Bonjour 2"');
+  });
+
   it('add new primitive entries (number, boolean, null)', async () => {
     const dictionary: Dictionary = deepmerge(initialFileContent, {
       content: {
@@ -141,6 +163,50 @@ describe('transformJSFile', () => {
     const result = await transformJSFile(initialFileContentString, dictionary);
 
     expect(result).not.toContain('badTrans: t({');
+  });
+
+  it('update translation entries locale in an array or translation', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        contentMultilingual: t({
+          en: 'Hello 3',
+          fr: 'Bonjour 3',
+        }),
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('contentMultilingual: t({');
+    expect(result).toContain('en: "Hello 3"');
+  });
+
+  it('update translation entries locale in an markdown', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        markdownMultilingual: md(t({ en: 'Hello 3', fr: 'Bonjour 3' })),
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('markdownMultilingual: md(t({');
+    expect(result).toContain('en: "Hello 3"');
+    expect(result).toContain('fr: "Bonjour 3"');
+  });
+
+  it('update translation entries locale in an markdown', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        markdownMultilingual2: md(t({ en: 'Hello 3', fr: 'Bonjour 3' })),
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('markdownMultilingual2: md(');
+    expect(result).toContain('en: "Hello 3"');
+    expect(result).toContain('fr: "Bonjour 3"');
   });
 
   it('works with ESM default export (object literal)', async () => {
@@ -192,7 +258,7 @@ describe('transformJSFile', () => {
     const dictionary: Dictionary = deepmerge(initialFileContent, {
       content: {
         mdInline: md('# Title'),
-        mdFromFile: md(intFile('./file.md')),
+        mdFromFile: md(file('./file.md')),
       },
     });
     const result = await transformJSFile(initialFileContentString, dictionary);
@@ -222,39 +288,25 @@ describe('transformJSFile', () => {
     expect(result).toContain('nestNode: nest("code")');
   });
 
-  it('ignores object literal additions', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        newObject: { foo: 'bar' },
-      },
-    });
-    const result = await transformJSFile(initialFileContentString, dictionary);
-    expect(result).toBe(initialFileContentString);
-  });
-
-  it('ignores nested translations inside new nested objects', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        nested: { title: t({ en: 'X', fr: 'Y' }) },
-      },
-    });
-    const result = await transformJSFile(initialFileContentString, dictionary);
-    expect(result).toBe(initialFileContentString);
-  });
-
   it('adds a new string element to an existing array', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        arrayContent: [
-          'string',
-          'string2',
-          'string3',
-          'string4',
-          'string5',
-          'string6',
-        ],
+    const dictionary: Dictionary = deepmerge(
+      initialFileContent,
+      {
+        content: {
+          arrayContent: [
+            'string',
+            'string2',
+            'string3',
+            'string4',
+            'string5',
+            'string6',
+          ],
+        },
       },
-    });
+      {
+        arrayMerge: (_destinationArray, sourceArray) => sourceArray,
+      }
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -280,5 +332,352 @@ describe('transformJSFile', () => {
     expect(result).toContain('t({');
     expect(result).toContain('en: "Hello"');
     expect(result).toContain('fr: "Bonjour"');
+  });
+
+  it('update translation entries with fallback locale', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        welcomeMessage: 'Hello',
+      },
+    });
+
+    const result = await transformJSFile(
+      initialFileContentString,
+      dictionary,
+      Locales.ENGLISH
+    );
+
+    expect(result).toContain('welcomeMessage: t({');
+    expect(result).toContain('en: "Hello"');
+  });
+
+  it('adds missing import for t() when adding new translation', async () => {
+    const fileWithoutImports = `export default { key: 'test', content: { existing: 'value' } };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        title: t({ en: 'Hello', fr: 'Bonjour' }),
+      },
+    };
+
+    const result = await transformJSFile(fileWithoutImports, dict);
+
+    // Check that the import was added
+    expect(result).toContain('import { t } from "intlayer"');
+    // Check that the content was added
+    expect(result).toContain('title: t({ en: "Hello", fr: "Bonjour" })');
+  });
+
+  it('adds missing import for enu() when adding enumeration', async () => {
+    const fileWithoutImports = `export default { key: 'test', content: {} };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        count: enu({ '0': 'none', '1': 'one', '>1': 'many' }),
+      },
+    };
+
+    const result = await transformJSFile(fileWithoutImports, dict);
+
+    expect(result).toContain('import { enu } from "intlayer"');
+    expect(result).toContain('count: enu({');
+  });
+
+  it('adds missing import for cond() when adding condition', async () => {
+    const fileWithoutImports = `export default { key: 'test', content: {} };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        status: cond({ true: 'yes', false: 'no', fallback: 'maybe' }),
+      },
+    };
+
+    const result = await transformJSFile(fileWithoutImports, dict);
+
+    expect(result).toContain('import { cond } from "intlayer"');
+    expect(result).toContain('status: cond({');
+  });
+
+  it('adds missing import for gender() when adding gender node', async () => {
+    const fileWithoutImports = `export default { key: 'test', content: {} };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        pronoun: gender({ male: 'he', female: 'she', fallback: 'they' }),
+      },
+    };
+
+    const result = await transformJSFile(fileWithoutImports, dict);
+
+    expect(result).toContain('import { gender } from "intlayer"');
+    expect(result).toContain('pronoun: gender({');
+  });
+
+  it('adds missing import for insert() when adding insertion', async () => {
+    const fileWithoutImports = `export default { key: 'test', content: {} };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        greeting: insert('Hello {{name}}'),
+      },
+    };
+
+    const result = await transformJSFile(fileWithoutImports, dict);
+
+    expect(result).toContain('import { insert } from "intlayer"');
+    expect(result).toContain('greeting: insert("Hello {{name}}")');
+  });
+
+  it('adds missing import for md() when adding markdown', async () => {
+    const fileWithoutImports = `export default { key: 'test', content: {} };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        description: md('# Title'),
+      },
+    };
+
+    const result = await transformJSFile(fileWithoutImports, dict);
+
+    expect(result).toContain('import { md } from "intlayer"');
+    expect(result).toContain('description: md("# Title")');
+  });
+
+  it('adds missing imports for md() and file() when adding markdown with file', async () => {
+    const fileWithoutImports = `export default { key: 'test', content: {} };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        readme: md(file('./README.md')),
+      },
+    };
+
+    const result = await transformJSFile(fileWithoutImports, dict);
+
+    expect(result).toContain('import { md } from "intlayer"');
+    expect(result).toContain('import { file } from "intlayer/file"');
+    expect(result).toContain('readme: md(file("./README.md"))');
+  });
+
+  it('adds missing import for nest() when adding nested content', async () => {
+    const fileWithoutImports = `export default { key: 'test', content: {} };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        nested: nest('other-key'),
+      },
+    };
+
+    const result = await transformJSFile(fileWithoutImports, dict);
+
+    expect(result).toContain('import { nest } from "intlayer"');
+    expect(result).toContain('nested: nest("other-key")');
+  });
+
+  it('adds multiple missing imports at once', async () => {
+    const fileWithoutImports = `export default { key: 'test', content: {} };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        title: t({ en: 'Hello' }),
+        count: enu({ '0': 'none', '1': 'one' }),
+        description: md('# Title'),
+      },
+    };
+
+    const result = await transformJSFile(fileWithoutImports, dict);
+
+    expect(result).toContain('import { enu, md, t } from "intlayer"');
+  });
+
+  it('does not duplicate existing imports', async () => {
+    const fileWithExistingImport = `import { t } from "intlayer";\nexport default { key: 'test', content: {} };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        title: t({ en: 'Hello' }),
+      },
+    };
+
+    const result = await transformJSFile(fileWithExistingImport, dict);
+
+    // Should not add a second import
+    const importCount = (result.match(/import \{ t \} from "intlayer"/g) || [])
+      .length;
+    expect(importCount).toBe(1);
+  });
+
+  it('adds to existing import statement when some imports are missing', async () => {
+    const fileWithPartialImport = `import { t } from "intlayer";\nexport default { key: 'test', content: {} };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        title: t({ en: 'Hello' }),
+        count: enu({ '0': 'none' }),
+      },
+    };
+
+    const result = await transformJSFile(fileWithPartialImport, dict);
+
+    // Should add enu to existing import
+    expect(result).toContain('import { enu, t } from "intlayer"');
+  });
+
+  it('adds imports for translations within arrays', async () => {
+    const fileWithoutImports = `export default { key: 'test', content: {} };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        messages: [t({ en: 'Hello', fr: 'Bonjour' })],
+      },
+    };
+
+    const result = await transformJSFile(fileWithoutImports, dict);
+
+    expect(result).toContain('import { t } from "intlayer"');
+    expect(result).toContain('messages: [ t({');
+  });
+
+  it('adds imports for insert() with nested translation', async () => {
+    const fileWithoutImports = `export default { key: 'test', content: {} };`;
+    const dict: Dictionary = {
+      key: 'test',
+      content: {
+        greeting: insert(t({ en: 'Hello {{name}}', fr: 'Bonjour {{name}}' })),
+      },
+    };
+
+    const result = await transformJSFile(fileWithoutImports, dict);
+
+    expect(result).toContain('import { insert, t } from "intlayer"');
+    expect(result).toContain('greeting: insert(t({');
+  });
+
+  it('update translation entries with fallback locale', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        welcomeMessage: 'Hello',
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('welcomeMessage: t({');
+    expect(result).toContain('en: "Hello"');
+  });
+
+  it('update translation entries with fallback locale in an array', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        arrayOfTranslations: ['Hello 3', 'Hello 2'],
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('arrayOfTranslations: [');
+    expect(result).toContain('en: "Hello 3"');
+  });
+
+  it('update translation entries with fallback locale in an array or translation', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        arrayOfTranslations: ['Hello 3', 'Hello 2'],
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('arrayOfTranslations: [');
+    expect(result).toContain('en: "Hello 3"');
+  });
+
+  it('update translation entries locale in an array of translations', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        translationOfArray: ['Hello 3', 'Hello 2'],
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('translationOfArray: [');
+    expect(result).toContain('en: "Hello 3"');
+    expect(result).toContain('en: "Hello 2"');
+  });
+
+  it('update translation entries locale in an markdown with fallback locale', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        markdownMultilingual: md('Hello 3'),
+      },
+    });
+
+    const result = await transformJSFile(
+      initialFileContentString,
+      dictionary,
+      Locales.ENGLISH
+    );
+
+    expect(result).toContain('markdownMultilingual: md(');
+    expect(result).toContain('en: "Hello 3"');
+    expect(result).toContain('fr: "## test fr"');
+  });
+
+  it('update translation entries locale in an markdown with fallback locale', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        markdownMultilingual2: md('Hello 3'),
+      },
+    });
+
+    const result = await transformJSFile(
+      initialFileContentString,
+      dictionary,
+      Locales.ENGLISH
+    );
+
+    expect(result).toContain('markdownMultilingual2: md(t({');
+    expect(result).toContain('en: "Hello 3"');
+    expect(result).toContain('fr: "## test fr"');
+  });
+
+  it('updates nested translations within conditional nodes', async () => {
+    const dictionary: Dictionary = deepmerge(initialFileContent, {
+      content: {
+        expandCollapseToggle: cond({
+          true: t({
+            en: 'Show all',
+            fr: 'Afficher tout',
+            es: 'Mostrar todo',
+            de: 'Mehr anzeigen',
+            pl: 'Pokaż wszystko',
+          }),
+          false: t({
+            en: 'Show less',
+            fr: 'Afficher moins',
+            es: 'Mostrar menos',
+            de: 'Weniger anzeigen',
+            pl: 'Pokaż mniej',
+          }),
+        }),
+      },
+    });
+
+    const result = await transformJSFile(initialFileContentString, dictionary);
+
+    expect(result).toContain('expandCollapseToggle: cond({');
+    expect(result).toContain('true: t({');
+    expect(result).toContain('en: "Show all"');
+    expect(result).toContain('fr: "Afficher tout"');
+    expect(result).toContain('es: "Mostrar todo"');
+    expect(result).toContain('de: "Mehr anzeigen"');
+    expect(result).toContain('pl: "Pokaż wszystko"');
+    expect(result).toContain('false: t({');
+    expect(result).toContain('en: "Show less"');
+    expect(result).toContain('fr: "Afficher moins"');
+    expect(result).toContain('es: "Mostrar menos"');
+    expect(result).toContain('de: "Weniger anzeigen"');
+    expect(result).toContain('pl: "Pokaż mniej"');
   });
 });

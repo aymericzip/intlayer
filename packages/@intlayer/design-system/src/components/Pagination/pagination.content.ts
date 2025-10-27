@@ -18,23 +18,29 @@ const paginationContent = {
       ar: 'عدد العناصر لكل صفحة',
       ru: 'Элементов на странице',
       tr: 'Sayfa başına öğe',
+      pl: 'Elementów na stronę',
+      id: 'Item per halaman',
+      vi: 'Số mục trên mỗi trang',
     }),
     showingResults: insert(
       t({
-        en: 'Showing {{start}} to {{end}} of {{total}} results',
-        fr: 'Afficher {{start}} à {{end}} de {{total}} résultats',
-        es: 'Mostrando {{start}} a {{end}} de {{total}} resultados',
-        'en-GB': 'Showing {{start}} to {{end}} of {{total}} results',
+        ar: 'عرض {{start}} إلى {{end}} من {{total}} نتائج',
         de: 'Zeigt {{start}} bis {{end}} von {{total}} Ergebnissen',
+        en: 'Showing {{start}} to {{end}} of {{total}} results',
+        'en-GB': 'Showing {{start}} to {{end}} of {{total}} results',
+        es: 'Mostrando {{start}} a {{end}} de {{total}} resultados',
+        fr: 'Afficher {{start}} à {{end}} de {{total}} résultats',
+        hi: '{{start}} से {{end}} तक के {{total}} परिणाम दिखा रहे हैं',
+        id: 'Menampilkan {{start}} hingga {{end}} dari {{total}} hasil',
+        it: 'Mostrando {{start}} a {{end}} di {{total}} risultati',
         ja: '{{start}} から {{end}} までの {{total}} 件の結果を表示',
         ko: '{{start}} 에서 {{end}} 까지의 {{total}} 개 결과 표시',
-        zh: '显示第 {{start}} 到 {{end}} 项，共 {{total}} 个结果',
-        it: 'Mostrando {{start}} a {{end}} di {{total}} risultati',
+        pl: 'Wyświetlane {{start}} do {{end}} z {{total}} wyników',
         pt: 'Mostrando {{start}} a {{end}} de {{total}} resultados',
-        hi: '{{start}} से {{end}} तक के {{total}} परिणाम दिखा रहे हैं',
-        ar: 'عرض {{start}} إلى {{end}} من {{total}} نتائج',
         ru: 'Показано {{start}}-{{end}} из {{total}} результатов',
         tr: '{{start}} から {{end}} までの {{total}} 件の結果を表示',
+        vi: 'Hiển thị {{start}} đến {{end}} trong tổng số {{total}} kết quả',
+        zh: '显示第 {{start}} 到 {{end}} 项，共 {{total}} 个结果',
       })
     ),
     selectPageSize: t({
@@ -52,6 +58,9 @@ const paginationContent = {
       ar: 'اختر حجم الصفحة',
       ru: 'Выберите размер страницы',
       tr: 'Sayfa boyutunu seç',
+      pl: 'Wybierz liczbę elementów na stronę',
+      id: 'Pilih jumlah item per halaman',
+      vi: 'Chọn số mục trên mỗi trang',
     }),
     goToNextPage: t({
       en: 'Go to next page',
@@ -68,6 +77,9 @@ const paginationContent = {
       ar: 'اذهب إلى الصفحة التالية',
       ru: 'Перейти к следующей странице',
       tr: 'Sonraki sayfaya git',
+      pl: 'Przejdź do następnej strony',
+      id: 'Pergi ke halaman berikutnya',
+      vi: 'Chuyển sang trang tiếp theo',
     }),
     goToPreviousPage: t({
       en: 'Go to previous page',
@@ -84,8 +96,15 @@ const paginationContent = {
       ar: 'اذهب إلى الصفحة السابقة',
       ru: 'Перейти к предыдущей странице',
       tr: 'Önceki sayfaya git',
+      pl: 'Przejdź do poprzedniej strony',
+      id: 'Pergi ke halaman sebelumnya',
+      vi: 'Chuyển sang trang trước',
     }),
   },
+  title: 'Pagination',
+  description:
+    'Content strings used for the pagination component, including labels for navigating pages and selecting items per page.',
+  tags: ['pagination', 'component'],
 } satisfies Dictionary;
 
 export default paginationContent;

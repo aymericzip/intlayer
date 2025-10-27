@@ -1,6 +1,7 @@
 'use client';
 
-import { type ContentNode, getNodeType, NodeType } from '@intlayer/core';
+import { getNodeType } from '@intlayer/core';
+import { type ContentNode, NodeType } from '@intlayer/types';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Select } from '../Select';
@@ -24,6 +25,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
     enumeration,
     triggerPlaceHolder,
     nest,
+    gender,
     condition,
     markdown,
     insertion,
@@ -51,6 +53,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
         <Select.Item value={NodeType.Object}>{node}</Select.Item>
         <Select.Item value={NodeType.Array}>{array}</Select.Item>
         <Select.Item value={NodeType.Enumeration}>{enumeration}</Select.Item>
+        <Select.Item value={NodeType.Gender}>{gender}</Select.Item>
         <Select.Item value={NodeType.Insertion}>{insertion}</Select.Item>
         <Select.Item value={NodeType.Markdown}>{markdown}</Select.Item>
         <Select.Item value={NodeType.Nested}>{nest}</Select.Item>

@@ -18,8 +18,15 @@ const tagDashboardContent = {
       ar: 'تعديل الوسم',
       ru: 'Редактировать тег',
       tr: 'Etiketi düzenle',
+      pl: 'Edytuj tag',
+      id: 'Sunting tag',
+      vi: 'Chỉnh sửa tag',
     }),
   },
+  title: 'Tag editor dashboard page',
+  description:
+    'Content declaration for the tag editor page within the dashboard. It includes the page title for editing existing tags in the CMS interface.',
+  tags: ['dashboard', 'tag editor', 'cms'],
 } satisfies Dictionary;
 
 export default tagDashboardContent;

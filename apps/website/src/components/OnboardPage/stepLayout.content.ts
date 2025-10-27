@@ -19,6 +19,9 @@ export default {
         ar: 'التالي',
         ru: 'Далее',
         tr: 'Sonraki',
+        pl: 'Dalej',
+        id: 'Berikutnya',
+        vi: 'Tiếp theo',
       }),
       text: t({
         en: 'Next',
@@ -35,6 +38,9 @@ export default {
         ar: 'التالي',
         ru: 'Далее',
         tr: 'Sonraki',
+        pl: 'Dalej',
+        id: 'Berikutnya',
+        vi: 'Tiếp theo',
       }),
     },
     previousStepButton: {
@@ -53,6 +59,9 @@ export default {
         ar: 'السابق',
         ru: 'Предыдущий',
         tr: 'Önceki',
+        pl: 'Wstecz',
+        id: 'Sebelumnya',
+        vi: 'Quay lại',
       }),
       text: t({
         en: 'Previous',
@@ -69,6 +78,9 @@ export default {
         ar: 'السابق',
         ru: 'Предыдущий',
         tr: 'Önceki',
+        pl: 'Wstecz',
+        id: 'Sebelumnya',
+        vi: 'Quay lại',
       }),
     },
     skipButton: {
@@ -87,6 +99,9 @@ export default {
         ar: 'تجاوز',
         ru: 'Пропустить',
         tr: 'Atla',
+        pl: 'Pomiń',
+        id: 'Lewati',
+        vi: 'Bỏ qua',
       }),
       text: t({
         en: 'Skip',
@@ -103,7 +118,14 @@ export default {
         ar: 'تجاوز',
         ru: 'Пропустить',
         tr: 'Atla',
+        pl: 'Pomiń',
+        id: 'Lewati',
+        vi: 'Bỏ qua',
       }),
     },
   },
+  title: 'Onboarding step layout',
+  description:
+    'Content declaration managing step navigation buttons such as Next, Previous, and Skip within the onboarding page layout.',
+  tags: ['onboarding', 'navigation', 'buttons'],
 } satisfies Dictionary;

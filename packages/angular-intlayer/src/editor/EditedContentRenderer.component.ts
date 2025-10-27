@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, Input, signal } from '@angular/core';
-import type { Locales } from '@intlayer/config/client';
-import { type ContentNode, getContent, type KeyPath } from '@intlayer/core';
+import { getContent } from '@intlayer/core';
+import type { ContentNode, KeyPath, Locale } from '@intlayer/types';
 import { useEditedContentRenderer } from './useEditedContentRenderer';
 
 export interface EditedContentRendererProps {
   dictionaryKey: string;
   keyPath: KeyPath[];
-  locale?: Locales;
+  locale?: Locale;
 }
 
 @Component({
@@ -19,7 +19,7 @@ export interface EditedContentRendererProps {
 export class EditedContentRendererComponent {
   @Input() dictionaryKey!: string;
   @Input() keyPath!: KeyPath[];
-  @Input() locale?: Locales;
+  @Input() locale?: Locale;
 
   private fallback = signal('');
 

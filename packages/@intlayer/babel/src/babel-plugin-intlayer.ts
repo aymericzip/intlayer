@@ -1,6 +1,6 @@
 import { dirname, join, relative } from 'node:path';
 import type { NodePath, PluginObj, PluginPass } from '@babel/core';
-import * as t from '@babel/types';
+import type * as BabelTypes from '@babel/types';
 import { getFileHash } from '@intlayer/chokidar';
 import { normalizePath } from '@intlayer/config';
 
@@ -97,15 +97,17 @@ type State = PluginPass & {
     filesList: string[];
   };
   /** map key → generated ident (per-file) for static imports */
-  _newStaticImports?: Map<string, t.Identifier>;
+  _newStaticImports?: Map<string, BabelTypes.Identifier>;
   /** map key → generated ident (per-file) for dynamic imports */
-  _newDynamicImports?: Map<string, t.Identifier>;
+  _newDynamicImports?: Map<string, BabelTypes.Identifier>;
   /** whether the current file imported *any* intlayer package */
   _hasValidImport?: boolean;
   /** whether the current file *is* the dictionaries entry file */
   _isDictEntry?: boolean;
   /** whether dynamic helpers are active for this file */
   _useDynamicHelpers?: boolean;
+  /** whether the current file is included in the filesList */
+  _isIncluded?: boolean;
 };
 
 /* ────────────────────────────────────────── helpers ─────────────────────── */
@@ -115,7 +117,7 @@ type State = PluginPass & {
  * and prefixes an underscore so the generated identifiers never collide
  * with user-defined ones.
  */
-const makeIdent = (key: string): t.Identifier => {
+const makeIdent = (key: string, t: typeof BabelTypes): BabelTypes.Identifier => {
   const hash = getFileHash(key);
   return t.identifier(`_${hash}`);
 };
@@ -223,7 +225,7 @@ const computeImport = (
  * const content2 = getIntlayer(_dicHash);
  * ```
  *
- * > If `liveSyncKeys` does not include the key, the plugin will fallback to the dynamic import.
+ * > If `liveSyncKeys` does not include the key, the plugin will fallback to the dynamic impor
  *
  * ```ts
  * import _dicHash from '../../.intlayer/dictionaries/app.json' with { type: 'json' };
@@ -235,7 +237,11 @@ const computeImport = (
  * const content2 = getIntlayer(_dicHash);
  * ```
  */
-export const intlayerBabelPlugin = (): PluginObj<State> => {
+export const intlayerBabelPlugin = (
+  babel: { types: typeof BabelTypes }
+): PluginObj<State> => {
+  const { types: t } = babel;
+  
   return {
     name: 'babel-plugin-intlayer-transform',
 
@@ -289,7 +295,7 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
           const dictionariesDir = state.opts.dictionariesDir;
           const dynamicDictionariesDir = state.opts.dynamicDictionariesDir;
           const fetchDictionariesDir = state.opts.fetchDictionariesDir;
-          const imports: t.ImportDeclaration[] = [];
+          const imports: BabelTypes.ImportDeclaration[] = [];
 
           // Generate static JSON imports (getIntlayer always uses JSON dictionaries)
           for (const [key, ident] of state._newStaticImports!) {
@@ -342,7 +348,7 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
           if (!imports.length) return;
 
           /* Keep "use client" / "use server" directives at the very top. */
-          const bodyPaths = programPath.get('body') as NodePath<t.Statement>[];
+          const bodyPaths = programPath.get('body') as NodePath<BabelTypes.Statement>[];
           let insertPos = 0;
           for (const stmtPath of bodyPaths) {
             const stmt = stmtPath.node;
@@ -362,7 +368,7 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
         },
       },
 
-      /* 1. Inspect *every* intlayer import. */
+      /* 1. Inspect *every* intlayer impor */
       ImportDeclaration(path, state) {
         if (state._isDictEntry) return; // skip if entry file – already handled
 
@@ -379,7 +385,7 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
           // ⚠️  We now key off *imported* name, *not* local name.
           const importedName = t.isIdentifier(spec.imported)
             ? spec.imported.name
-            : (spec.imported as t.StringLiteral).value;
+            : (spec.imported as BabelTypes.StringLiteral).value;
 
           const importMode = state.opts.importMode;
           // Determine whether this import should use the dynamic helpers.
@@ -450,7 +456,7 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
           }
         }
 
-        let ident: t.Identifier;
+        let ident: BabelTypes.Identifier;
 
         if (perCallMode === 'live') {
           // Use fetch dictionaries entry (live mode for selected keys)
@@ -487,12 +493,12 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
           // Use static imports for getIntlayer or useIntlayer when not using dynamic helpers
           let staticIdent = state._newStaticImports?.get(key);
           if (!staticIdent) {
-            staticIdent = makeIdent(key);
+            staticIdent = makeIdent(key, t);
             state._newStaticImports?.set(key, staticIdent);
           }
           ident = staticIdent;
 
-          // Static helper (useDictionary / getDictionary): replace key with ident.
+          // Static helper (useDictionary / getDictionary): replace key with iden
           path.node.arguments[0] = t.identifier(ident.name);
         }
       },

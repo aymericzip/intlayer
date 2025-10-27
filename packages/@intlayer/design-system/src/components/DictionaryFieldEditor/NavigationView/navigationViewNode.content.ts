@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 export const navigationViewContent = {
   key: 'navigation-view',
-  autoFill: './{{key}}.content.json',
   content: {
     tsxNotEditable: t({
       en: 'React node is not editable',
@@ -19,6 +18,9 @@ export const navigationViewContent = {
       ar: 'عقدة React غير قابلة للتحرير',
       ru: 'React-узел не редактируемый',
       tr: 'React düğümü düzenlenemez',
+      pl: 'Węzeł React nie jest edytowalny',
+      id: 'React node tidak dapat diedit',
+      vi: 'React node không thể chỉnh sửa',
     }),
     goToField: {
       label: t({
@@ -36,6 +38,9 @@ export const navigationViewContent = {
         ar: 'اذهب إلى الحقل',
         ru: 'Перейти к полю',
         tr: 'Alana git',
+        pl: 'Przejdź do pola',
+        id: 'Buka field',
+        vi: 'Đi tới trường',
       }),
     },
     addNewElement: {
@@ -54,6 +59,9 @@ export const navigationViewContent = {
         ar: 'انقر لإضافة عنصر',
         ru: 'Нажмите, чтобы добавить элемент',
         tr: 'Eleman eklemek için tıklayın',
+        pl: 'Kliknij, aby dodać element',
+        id: 'Klik untuk menambah elemen',
+        vi: 'Nhấp để thêm phần tử',
       }),
       text: t({
         en: 'Add new element',
@@ -70,6 +78,9 @@ export const navigationViewContent = {
         ar: 'أضف عنصرًا جديدًا',
         ru: 'Добавить новый элемент',
         tr: 'Yeni eleman ekle',
+        pl: 'Dodaj nowy element',
+        id: 'Tambahkan elemen baru',
+        vi: 'Thêm phần tử mới',
       }),
     },
     removeElement: {
@@ -88,6 +99,9 @@ export const navigationViewContent = {
         ar: 'انقر لإزالة عنصر',
         ru: 'Нажмите, чтобы удалить элемент',
         tr: 'Elemanı kaldırmak için tıklayın',
+        pl: 'Kliknij, aby usunąć element',
+        id: 'Klik untuk menghapus elemen',
+        vi: 'Nhấp để xóa phần tử',
       }),
       text: t({
         en: 'Remove element',
@@ -104,6 +118,9 @@ export const navigationViewContent = {
         ar: 'إزالة عنصر',
         ru: 'Удалить элемент',
         tr: 'Elemanı kaldır',
+        pl: 'Usuń element',
+        id: 'Hapus elemen',
+        vi: 'Xóa phần tử',
       }),
     },
     addNewEnumeration: {
@@ -122,6 +139,9 @@ export const navigationViewContent = {
         ar: 'انقر لإضافة تعداد',
         ru: 'Нажмите, чтобы добавить перечисление',
         tr: 'Numaralandırma eklemek için tıklayın',
+        pl: 'Kliknij, aby dodać enumerację',
+        id: 'Klik untuk menambah enumerasi',
+        vi: 'Nhấp để thêm enumeration',
       }),
       text: t({
         en: 'Add new enumeration',
@@ -138,6 +158,9 @@ export const navigationViewContent = {
         ar: 'أضف تعدادًا جديدًا',
         ru: 'Добавить новое перечисление',
         tr: 'Yeni numaralandırma ekle',
+        pl: 'Dodaj nową enumerację',
+        id: 'Tambahkan enumerasi baru',
+        vi: 'Thêm enumeration mới',
       }),
     },
     removeEnumeration: {
@@ -156,6 +179,9 @@ export const navigationViewContent = {
         ar: 'انقر لإزالة تعداد',
         ru: 'Нажмите, чтобы удалить перечисление',
         tr: 'Numaralandırmayı kaldırmak için tıklayın',
+        pl: 'Kliknij, aby usunąć enumerację',
+        id: 'Klik untuk menghapus enumerasi',
+        vi: 'Nhấp để xóa enumeration',
       }),
       text: t({
         en: 'Remove enumeration',
@@ -172,6 +198,9 @@ export const navigationViewContent = {
         ar: 'إزالة تعداد',
         ru: 'Удалить перечисление',
         tr: 'Numaralandırmayı kaldır',
+        pl: 'Usuń enumerację',
+        id: 'Hapus enumerasi',
+        vi: 'Xóa enumeration',
       }),
     },
     addNewCondition: {
@@ -190,6 +219,9 @@ export const navigationViewContent = {
         ar: 'انقر لإضافة شرط',
         ru: 'Нажмите, чтобы добавить условие',
         tr: 'Koşul eklemek için tıklayın',
+        pl: 'Kliknij, aby dodać warunek',
+        id: 'Klik untuk menambah kondisi',
+        vi: 'Nhấp để thêm điều kiện',
       }),
       text: t({
         en: 'Add new condition',
@@ -206,9 +238,16 @@ export const navigationViewContent = {
         ar: 'أضف شرطًا جديدًا',
         ru: 'Добавить новое условие',
         tr: 'Yeni koşul ekle',
+        pl: 'Dodaj nowy warunek',
+        id: 'Tambahkan kondisi baru',
+        vi: 'Thêm điều kiện mới',
       }),
     },
   },
+  title: 'Navigation view content',
+  description:
+    'Content declarations used for UI interactions within the navigation view of the Dictionary Field Editor. Includes labels and helper texts for adding or removing elements, enumerations, and conditions.',
+  tags: ['editor UI', 'form navigation', 'dictionary editor'],
 } satisfies Dictionary;
 
 export default navigationViewContent;

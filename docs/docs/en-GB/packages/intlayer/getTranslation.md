@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getTranslation
+history:
+  - version: 5.5.10
+    date: 29-06-2025
+    changes: Initial history
 ---
 
 # Documentation: `getTranslationContent` Function in `intlayer`
@@ -223,7 +227,3 @@ console.log(customContent.greeting); // Output: "Bonjour"
   - If a locale is partially defined, the function does not merge contents. It strictly retrieves the value of the specified locale or falls back to the default.
 - **TypeScript Enforcement:**
   - If the locales in `languageContent` do not match the project configuration, TypeScript will enforce all required locales to be defined, ensuring the content is complete and type-safe.
-
-## Doc History
-
-- 5.5.10 - 29-06-2025: Initial history

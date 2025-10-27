@@ -27,13 +27,7 @@ This is not a full tutorial. It’s a comparison to help you pick.
 
 We focus on **Next.js 13+ App Router** (with **React Server Components**) and evaluate:
 
-1. **Architecture & content organization**
-2. **TypeScript & safety**
-3. **Missing translation handling**
-4. **Routing & middleware**
-5. **Performance & loading behavior**
-6. **Developer experience (DX), tooling & maintenance**
-7. **SEO & large-project scalability**
+<TOC>
 
 > **tl;dr**: All three can localize a Next.js app. If you want **component-scoped content**, **strict TypeScript types**, **build-time missing-key checks**, **tree-shaken dictionaries**, and **first-class App Router + SEO helpers**, **Intlayer** is the most complete, modern choice.
 
@@ -1402,14 +1396,13 @@ export const config = {
 Intlayer provides built-in middleware handling through the `next-intlayer` package configuration.
 
 ```ts fileName="src/middleware.ts"
-import { intlayerMiddleware } from 'next-intlayer/middleware';
+import { intlayerMiddleware } from "next-intlayer/middleware";
 
-export const middleware = intlayerMiddleware()
+export const middleware = intlayerMiddleware();
 
 // applies this middleware only to files in the app directory
 export const config = {
-  matcher:
-    "/((?!api|_next|static|.*\\..*).*)",
+  matcher: "/((?!api|_next|static|.*\\..*).*)",
 };
 ```
 

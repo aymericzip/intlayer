@@ -22,7 +22,7 @@ export const chunkText = (
 
   const splittedText = splitTextByLines(text);
 
-  // Split text into lines to faciliate the translation
+  // Split text into lines to facilitate the translation
   const lines: ChunkLineResult[] = [];
   let charStartAcc = 0;
 

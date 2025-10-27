@@ -17,6 +17,16 @@ slugs:
   - concept
   - cms
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 6.0.1
+    date: 2025-09-22
+    changes: 라이브 동기화 문서 추가
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: `hotReload` 필드를 `liveSync`로 교체
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 이력 초기화
 ---
 
 # Intlayer 콘텐츠 관리 시스템(CMS) 문서
@@ -520,11 +530,3 @@ CMS에서 문제가 발생하면 다음을 확인하세요:
 - 프로젝트 구성이 Intlayer CMS에 푸시되었는지 확인하세요.
 
 - 비주얼 에디터는 iframe을 사용하여 웹사이트를 표시합니다. 웹사이트의 콘텐츠 보안 정책(CSP)이 CMS URL을 `frame-ancestors`로 허용하는지 확인하세요(기본값은 'https://intlayer.org'). 에디터 콘솔에서 오류가 있는지 확인하세요.
-
-## 문서 이력
-
-| 버전   | 날짜       | 변경 사항                            |
-| ------ | ---------- | ------------------------------------ |
-| 6.0.1  | 2025-09-22 | 라이브 동기화 문서 추가              |
-| 6.0.0  | 2025-09-04 | `hotReload` 필드를 `liveSync`로 교체 |
-| 5.5.10 | 2025-06-29 | 이력 초기화                          |

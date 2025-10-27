@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - function-fetching
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: प्रारंभिक इतिहास
 ---
 
 # फ़ंक्शन फ़ेचिंग
@@ -208,7 +212,3 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
-
-## दस्तावेज़ इतिहास
-
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

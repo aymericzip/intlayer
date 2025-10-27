@@ -13,6 +13,22 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: Aggiunta modalità di importazione `live`
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: Sostituito il campo `hotReload` con `liveSync` e aggiunti i campi `liveSyncPort` e `liveSyncURL`
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: Sostituito `activateDynamicImport` con l'opzione `importMode`
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: Modificata la directory di contenuto predefinita da `['src']` a `['.']`
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: Aggiunti i comandi `docs`
 ---
 
 # Documentazione di Configurazione di Intlayer
@@ -316,30 +332,6 @@ Impostazioni che controllano il comportamento del middleware, incluso come l'app
       - Se `noPrefix = false`: l'URL sarà `https://example.com/my-app/en`
       - Se `noPrefix = true`: l'URL sarà `https://example.com`
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _Tipo_: `boolean`
-  - _Predefinito_: `false`
-  - _Descrizione_: Controlla se il rilevamento della lingua avviene durante le richieste di prefetch di Next.js.
-  - _Esempio_: `true`
-  - _Nota_: Questa impostazione influisce su come Next.js gestisce il prefetching delle lingue:
-    - **Scenario di esempio:**
-      - La lingua del browser dell'utente è `'fr'`
-      - La pagina corrente è `/fr/about`
-      - Il link fa il prefetch di `/about`
-    - **Con `detectLocaleOnPrefetchNoPrefix: true`:**
-      - Il prefetch rileva la lingua `'fr'` dal browser
-      - Reindirizza il prefetch a `/fr/about`
-    - **Con `detectLocaleOnPrefetchNoPrefix: false` (predefinito):**
-      - Il prefetch usa la lingua predefinita
-      - Reindirizza il prefetch a `/en/about` (assumendo che `'en'` sia la predefinita)
-    - **Quando usare `true`:**
-      - La tua app utilizza link interni non localizzati (es. `<a href="/about">`)
-      - Vuoi un comportamento coerente nel rilevamento della lingua tra richieste normali e di prefetch
-    - **Quando usare `false` (default):**
-      - La tua app utilizza link con prefisso di lingua (es. `<a href="/fr/about">`)
-      - Vuoi ottimizzare le prestazioni del prefetch
-      - Vuoi evitare potenziali loop di redirect
-
 ---
 
 ### Configurazione del Contenuto
@@ -562,13 +554,3 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Usare questo per limitare l'ottimizzazione ai file di codice rilevanti e migliorare le prestazioni di build.
   - _Nota_: Questa opzione sarà ignorata se `optimize` è disabilitato.
   - _Nota_: Usare pattern glob.
-
-## Cronologia Documentazione
-
-| Versione | Data       | Modifiche                                                                                        |
-| -------- | ---------- | ------------------------------------------------------------------------------------------------ |
-| 6.0.0    | 2025-09-16 | Aggiunta modalità di importazione `live`                                                         |
-| 6.0.0    | 2025-09-04 | Sostituito il campo `hotReload` con `liveSync` e aggiunti i campi `liveSyncPort` e `liveSyncURL` |
-| 5.6.1    | 2025-07-25 | Sostituito `activateDynamicImport` con l'opzione `importMode`                                    |
-| 5.6.0    | 2025-07-13 | Modificata la directory di contenuto predefinita da `['src']` a `['.']`                          |
-| 5.5.11   | 2025-06-29 | Aggiunti i comandi `docs`                                                                        |

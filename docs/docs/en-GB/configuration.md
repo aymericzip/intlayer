@@ -13,6 +13,22 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: Add `live` import mode
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: Replace `hotReload` field with `liveSync` and add `liveSyncPort` and `liveSyncURL` fields
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: Replace `activateDynamicImport` with `importMode` option
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: Change default contentDir from `['src']` to `['.']`
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: Add `docs` commands
 ---
 
 # Intlayer Configuration Documentation
@@ -49,8 +65,9 @@ const config: IntlayerConfig = {
     autoFill: "./{{fileName}}.content.json",
     contentDir: ["src", "../ui-library"],
   },
-  middleware: {
-    noPrefix: false,
+  routing: {
+    mode: "prefix-no-default",
+    storage: "cookie",
   },
   editor: {
     applicationURL: "https://example.com",
@@ -79,8 +96,9 @@ const config = {
   content: {
     contentDir: ["src", "../ui-library"],
   },
-  middleware: {
-    noPrefix: false,
+  routing: {
+    mode: "prefix-no-default",
+    storage: "cookie",
   },
   editor: {
     applicationURL: "https://example.com",
@@ -105,8 +123,9 @@ module.exports = config;
   "content": {
     "contentDir": ["src", "../ui-library"],
   },
-  "middleware": {
-    "noPrefix": false,
+  "routing": {
+    "mode": "prefix-no-default",
+    "storage": "cookie",
   },
   "editor": {
     "applicationURL": "https://example.com",
@@ -316,30 +335,6 @@ Settings that control middleware behaviour, including how the application handle
     - Example with `basePath = '/my-app'`:
       - If `noPrefix = false`: URL will be `https://example.com/my-app/en`
       - If `noPrefix = true`: URL will be `https://example.com`
-
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Controls whether locale detection occurs during Next.js prefetch requests.
-  - _Example_: `true`
-  - _Note_: This setting affects how Next.js handles locale prefetching:
-    - **Example scenario:**
-      - User's browser language is `'fr'`
-      - Current page is `/fr/about`
-      - Link prefetches `/about`
-    - **With `detectLocaleOnPrefetchNoPrefix: true`:**
-      - Prefetch detects `'fr'` locale from browser
-      - Redirects prefetch to `/fr/about`
-    - **With `detectLocaleOnPrefetchNoPrefix: false` (default):**
-      - Prefetch uses default locale
-      - Redirects prefetch to `/en/about` (assuming `'en'` is default)
-    - **When to use `true`:**
-      - Your app uses non-localised internal links (e.g. `<a href="/about">`)
-      - You want consistent locale detection behaviour between regular and prefetch requests
-    - **When to use `false` (default):**
-      - Your app uses locale-prefixed links (e.g. `<a href="/fr/about">`)
-      - You want to optimise prefetching performance
-      - You want to avoid potential redirect loops
 
 ---
 
@@ -563,13 +558,3 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Use this to limit optimisation to relevant code files and improve build performance.
   - _Note_: This option will be ignored if `optimise` is disabled.
   - _Note_: Use glob pattern.
-
-## Doc History
-
-| Version | Date       | Changes                                                                                   |
-| ------- | ---------- | ----------------------------------------------------------------------------------------- |
-| 6.0.0   | 2025-09-16 | Add `live` import mode                                                                    |
-| 6.0.0   | 2025-09-04 | Replace `hotReload` field with `liveSync` and add `liveSyncPort` and `liveSyncURL` fields |
-| 5.6.1   | 2025-07-25 | Replace `activateDynamicImport` with `importMode` option                                  |
-| 5.6.0   | 2025-07-13 | Change default contentDir from `['src']` to `['.']`                                       |
-| 5.5.11  | 2025-06-29 | Add `docs` commands                                                                       |

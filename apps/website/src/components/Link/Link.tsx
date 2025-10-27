@@ -7,7 +7,7 @@ import {
   linkVariants,
 } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, MoveRight } from 'lucide-react';
 import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
 import { useLocale } from 'next-intlayer';
 import type { FC } from 'react';
@@ -26,12 +26,14 @@ export const Link: FC<LinkProps> = (props) => {
     locale: localeProp,
     prefetch,
     isExternalLink: isExternalLinkProp,
+    isPageSection: isPageSectionProp,
     href: hrefProp,
     ...otherProps
   } = props;
   const { locale: currentLocale } = useLocale();
   const locale = localeProp ?? currentLocale;
-  const isExternalLink = checkIsExternalLink(props);
+  const isExternalLink = isExternalLinkProp ?? checkIsExternalLink(props);
+  const isPageSection = isPageSectionProp ?? hrefProp?.startsWith('#') ?? false;
   const isChildrenString = typeof children === 'string';
 
   const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
@@ -39,7 +41,7 @@ export const Link: FC<LinkProps> = (props) => {
   const target = isExternalLink ? '_blank' : '_self';
 
   const href =
-    locale && hrefProp && !isExternalLink
+    locale && hrefProp && !isExternalLink && !isPageSection
       ? getLocalizedUrl(hrefProp, locale)
       : hrefProp;
 
@@ -69,6 +71,7 @@ export const Link: FC<LinkProps> = (props) => {
       {isExternalLink && isChildrenString && (
         <ExternalLink className="ml-2 inline-block size-4" />
       )}
+      {isPageSection && <MoveRight className="ml-2 inline-block size-4" />}
     </NextLink>
   );
 };

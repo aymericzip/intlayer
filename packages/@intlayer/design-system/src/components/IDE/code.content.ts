@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 const codeContent = {
   key: 'code',
-  autoFill: './{{key}}.content.json',
   content: {
     title: t({
       en: 'Copy code',
@@ -19,6 +18,9 @@ const codeContent = {
       ru: 'Копировать код',
       ar: 'نسخ الكود',
       tr: 'Kodu kopyala',
+      pl: 'Kopiuj kod',
+      id: 'Salin kode',
+      vi: 'Sao chép mã',
     }),
     description: t({
       en: 'Copy the code to the clipboard',
@@ -35,8 +37,15 @@ const codeContent = {
       ru: 'Копировать код в буфер обмена',
       ar: 'نسخ الكود إلى الحافظة',
       tr: 'Kodu panoya kopyala',
+      pl: 'Skopiuj kod do schowka',
+      id: 'Salin kode ke clipboard',
+      vi: 'Sao chép đoạn mã vào khay nhớ tạm (clipboard)',
     }),
   },
+  title: 'Code block actions',
+  description:
+    'Content declaration for code block interactions, allowing users to copy code snippets to the clipboard.',
+  tags: ['code block', 'copy action', 'design system'],
 } satisfies Dictionary;
 
 export default codeContent;

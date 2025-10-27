@@ -14,6 +14,10 @@ slugs:
   - doc
   - concept
   - per-locale-file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴初期化
 ---
 
 # Intlayerにおける「ロケール別」コンテンツ宣言
@@ -315,7 +319,3 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### 自動翻訳生成
 
 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md) を使用して、お好みのサービスに基づいて不足している翻訳を自動的に補完します。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴初期化

@@ -18,6 +18,9 @@ export const paymentStepContent = {
       ar: 'الدفع',
       ru: 'Платеж',
       tr: 'Ödeme',
+      pl: 'Płatność',
+      id: 'Pembayaran',
+      vi: 'Thanh toán',
     }),
     paymentDetails: {
       title: t({
@@ -35,6 +38,9 @@ export const paymentStepContent = {
         ar: 'تفاصيل الدفع',
         ru: 'Детали платежа',
         tr: 'Ödeme Detayları',
+        pl: 'Szczegóły płatności',
+        id: 'Rincian Pembayaran',
+        vi: 'Chi tiết thanh toán',
       }),
     },
     youReOrganizationIsAlreadySubscribed: {
@@ -53,6 +59,9 @@ export const paymentStepContent = {
         ar: 'منظمتك مشترك بها بالفعل',
         ru: 'Ваша организация уже подписана',
         tr: 'Organizasyonunuz zaten abone olmuş',
+        pl: 'Twoja organizacja ma już aktywną subskrypcję',
+        id: 'Organisasi Anda sudah berlangganan',
+        vi: 'Tổ chức của bạn đã đăng ký',
       }),
     },
     incorrectProductMessage: t({
@@ -71,6 +80,9 @@ export const paymentStepContent = {
       ar: 'المنتج المحدد حاليا غير صالح. يرجى اختيار منتج صالح.',
       ru: 'Текущий выбранный продукт недействителен. Пожалуйста, выберите действительный продукт.',
       tr: 'Seçilen ürün geçerli değil. Lütfen geçerli bir ürün seçin.',
+      pl: 'Wybrany produkt jest nieprawidłowy. Wybierz prawidłowy produkt.',
+      id: 'Produk yang dipilih saat ini tidak valid. Silakan pilih produk yang valid.',
+      vi: 'Sản phẩm hiện được chọn không hợp lệ. Vui lòng chọn một sản phẩm hợp lệ.',
     }),
     pickANewProductButton: {
       text: t({
@@ -88,6 +100,9 @@ export const paymentStepContent = {
         ar: 'اختر منتجًا جديدًا',
         ru: 'Выберите новый продукт',
         tr: 'Yeni bir ürün seçin',
+        pl: 'Wybierz nowy produkt',
+        id: 'Pilih produk baru',
+        vi: 'Chọn sản phẩm mới',
       }),
       label: t({
         en: 'Pick a new product',
@@ -104,6 +119,9 @@ export const paymentStepContent = {
         ar: 'اختر منتجًا جديدًا',
         ru: 'Выберите новый продукт',
         tr: 'Yeni bir ürün seçin',
+        pl: 'Wybierz nowy produkt',
+        id: 'Pilih produk baru',
+        vi: 'Chọn sản phẩm mới',
       }),
     },
 
@@ -123,8 +141,15 @@ export const paymentStepContent = {
       ar: 'طلب الدفع غير صالح. ربما قمت بالاشتراك في هذا الخطة. يرجى إعادة المحاولة.',
       ru: 'Недействительный запрос на оплату. Возможно, вы уже подписались на этот план. Пожалуйста, попробуйте еще раз.',
       tr: 'Geçersiz ödeme isteği. Belki bu plana zaten abone olmuşsunuzdur. Lütfen tekrar deneyin.',
+      pl: 'Nieprawidłowe żądanie płatności. Możliwe, że już subskrybujesz ten plan. Spróbuj ponownie.',
+      id: 'Permintaan pembayaran tidak valid. Mungkin Anda sudah berlangganan paket ini. Silakan coba lagi.',
+      vi: 'Yêu cầu thanh toán không hợp lệ. Có thể bạn đã đăng ký gói này rồi. Vui lòng thử lại.',
     }),
   },
+  title: 'Payment step',
+  description:
+    'Text content related to the payment step in the onboarding flow. Includes titles, messages, and button labels used during the subscription or plan selection process.',
+  tags: ['onboarding', 'payment'],
 } satisfies Dictionary;
 
 export default paymentStepContent;

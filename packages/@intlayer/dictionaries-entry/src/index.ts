@@ -6,20 +6,16 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import {
-  clearModuleCache,
-  ESMxCJSRequire,
-  getConfiguration,
-  type IntlayerConfig,
-} from '@intlayer/config';
-// @ts-ignore intlayer declared for module augmentation
-import type { IntlayerDictionaryTypesConnector } from 'intlayer';
+import { clearModuleCache, ESMxCJSRequire } from '@intlayer/config';
+import config from '@intlayer/config/built';
+import type { DictionaryRegistry, IntlayerConfig } from '@intlayer/types';
 
-export const getDictionaries = (
-  configuration: IntlayerConfig = getConfiguration(),
-  projectRequire = ESMxCJSRequire
+type GetDictionaries = (configuration?: IntlayerConfig) => DictionaryRegistry;
+
+export const getDictionaries: GetDictionaries = (
+  configuration: IntlayerConfig = config
 ) => {
-  const { content } = configuration;
+  const { content, build } = configuration;
 
   // Always use cjs for dictionaries entry as it uses require
   const dictionariesPath = join(content.mainDir, `dictionaries.cjs`);
@@ -29,13 +25,8 @@ export const getDictionaries = (
     // Clear cache for dictionaries.cjs and all its dependencies (JSON files)
     clearModuleCache(dictionariesPath);
 
-    dictionaries = projectRequire(dictionariesPath);
+    dictionaries = (build.require ?? ESMxCJSRequire)(dictionariesPath);
   }
 
-  return (dictionaries ?? {}) as Record<
-    IntlayerDictionaryTypesConnector['key'],
-    IntlayerDictionaryTypesConnector
-  >;
+  return (dictionaries ?? {}) as DictionaryRegistry;
 };
-
-export default (() => getDictionaries())();

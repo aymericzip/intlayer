@@ -1,12 +1,15 @@
 import { join } from 'node:path';
-import { Locales, type LocalesValues } from '@intlayer/config';
 import { getLocalizedUrl, getMarkdownMetadata } from '@intlayer/core';
+import { Locales, type LocalesValues } from '@intlayer/types';
 
 export const defaultLocale = Locales.ENGLISH;
 
 export const GITHUB_URL_PREFIX =
   'https://github.com/aymericzip/intlayer/blob/main/docs';
 export const URL_PREFIX = 'https://intlayer.org/';
+
+export const getKeys = <T extends Record<string, any>>(obj: T): (keyof T)[] =>
+  Object.keys(obj) as (keyof T)[];
 
 export const getFiles = async <
   F extends Record<`./${string}`, Record<LocalesValues, Promise<string>>>,
@@ -65,6 +68,11 @@ export type FileMetadata = {
   author?: string;
   youtubeVideo?: string;
   applicationTemplate?: string;
+  history?: {
+    version: string;
+    date: string;
+    changes: string;
+  }[];
 };
 
 export const formatMetadata = (
@@ -73,13 +81,19 @@ export const formatMetadata = (
   locale: LocalesValues = defaultLocale as LocalesValues
 ): FileMetadata => {
   const metadata = getMarkdownMetadata(file);
-  const relativeUrl = join('/', ...(metadata.slugs ?? []));
+
+  const slugs = (metadata.slugs ?? []).map(String);
+  const keywords = (metadata.keywords ?? []).map(String);
+
+  const relativeUrl = join('/', ...slugs);
 
   const slicedDocKey = docKey.slice(1);
 
   return {
     ...metadata,
     docKey,
+    slugs,
+    keywords,
     githubUrl: `${GITHUB_URL_PREFIX}${slicedDocKey}`.replace(
       '/en/',
       `/${locale}/`

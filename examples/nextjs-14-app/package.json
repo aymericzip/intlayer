@@ -16,19 +16,19 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "next": "14.2.32",
+    "next": "14.2.33",
     "next-intlayer": "workspace:*",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.8",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.1",
-    "autoprefixer": "^10.4.21",
+    "@tailwindcss/postcss": "4.1.15",
+    "@types/react": "18.3.26",
+    "@types/react-dom": "18.3.1",
+    "autoprefixer": "10.4.21",
     "intlayer-editor": "workspace:*",
-    "postcss": "^8.5.4",
-    "tailwindcss": "^4.1.13",
-    "typescript": "^5.9.2"
+    "postcss": "8.5.6",
+    "tailwindcss": "4.1.16",
+    "typescript": "5.9.3"
   }
 }

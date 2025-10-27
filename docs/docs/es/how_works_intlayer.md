@@ -13,6 +13,10 @@ slugs:
   - doc
   - concept
   - how-works-intlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Cómo funciona Intlayer
@@ -248,7 +252,3 @@ El paquete `@intlayer/backend` exporta tipos de backend y eventualmente ofrecer�
 ## Chatea con nuestra documentación inteligente
 
 - [Haz tus preguntas a nuestra documentación inteligente](https://intlayer.org/es/doc/chat)
-
-## Historial de la documentación
-
-- 5.5.10 - 2025-06-29: Historial inicial

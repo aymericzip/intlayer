@@ -35,6 +35,9 @@ const dashboardFooterContent = {
         ar: 'الصفحة الرئيسية',
         ru: 'Главная',
         tr: 'Ana Sayfa',
+        pl: 'Strona główna',
+        id: 'Beranda',
+        vi: 'Trang chủ',
       }),
       label: t({
         en: 'Go to the Intlayer home page',
@@ -51,6 +54,9 @@ const dashboardFooterContent = {
         ar: 'اذهب إلى الصفحة الرئيسية لـ Intlayer',
         ru: 'Перейти на главную страницу Intlayer',
         tr: 'Intlayer ana sayfasına git',
+        pl: 'Przejdź do strony głównej Intlayera',
+        id: 'Buka halaman utama Intlayer',
+        vi: 'Đi tới trang chủ của Intlayer',
       }),
     },
     github: {
@@ -71,6 +77,9 @@ const dashboardFooterContent = {
         ar: 'اذهب إلى مستودع github',
         ru: 'Перейти к репозиторию github',
         tr: 'Github deposuna git',
+        pl: 'Przejdź do repozytorium na GitHubie',
+        id: 'Buka repositori GitHub',
+        vi: 'Truy cập repo trên GitHub',
       }),
       alt: t({
         en: 'Github logo',
@@ -87,9 +96,16 @@ const dashboardFooterContent = {
         ar: 'شعار Github',
         ru: 'Логотип Github',
         tr: 'Github logosu',
+        pl: 'Logo GitHub',
+        id: 'Logo GitHub',
+        vi: 'Logo GitHub',
       }),
     },
   },
+  title: 'Dashboard footer',
+  description:
+    'Content declaration for the dashboard footer, including links to the Intlayer homepage and GitHub repository with relevant labels and accessibility metadata.',
+  tags: ['dashboard', 'footer'],
 } satisfies Dictionary<DashboardFooterContent>;
 
 export default dashboardFooterContent;

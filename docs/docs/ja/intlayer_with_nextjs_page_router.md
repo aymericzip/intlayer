@@ -16,6 +16,10 @@ slugs:
   - environment
   - nextjs
   - next-with-page-router
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # IntlayerでNext.js and Page Routerを翻訳する | 国際化（i18n）
@@ -1484,7 +1488,3 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 ### さらに進む
 
 さらに進めるには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

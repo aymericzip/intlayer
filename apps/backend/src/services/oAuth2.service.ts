@@ -131,6 +131,7 @@ export const formatOAuth2Token = (
   organization: Organization,
   grants: Token['grants']
 ): OAuth2Token => {
+  // biome-ignore lint/correctness/noUnusedVariables: Just filter out clientId
   const { clientId, userId, ...restToken } = token;
 
   if (String(userId) !== String(user.id)) {

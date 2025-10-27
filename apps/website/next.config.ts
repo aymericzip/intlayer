@@ -1,3 +1,4 @@
+import type { NextConfig } from 'next';
 import { withIntlayer } from 'next-intlayer/server';
 import withPWA from 'next-pwa';
 import { createSecureHeaders } from 'next-secure-headers';
@@ -58,8 +59,15 @@ const secureHeaders = {
         '*.star-history.com',
         '*.vercel.app',
         'img.shields.io',
+        '*.googleusercontent.com',
       ],
-      imgSrc: ["'self'", 'https:', 'data:', 'raw.githubusercontent.com'],
+      imgSrc: [
+        "'self'",
+        'https:',
+        'data:',
+        'raw.githubusercontent.com',
+        '*.googleusercontent.com',
+      ],
       workerSrc: [
         `${process.env.NEXT_PUBLIC_URL}`,
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
@@ -79,6 +87,7 @@ const secureHeaders = {
         'github.com',
         '*.github.com',
         '*.stripe.com',
+        'stackblitz.com',
       ],
       frameAncestors: ["'self'", 'intlayer.org', 'localhost:*'],
       manifestSrc: ["'self'"],
@@ -139,12 +148,13 @@ const dashboardHeaders = [
   ...headersList,
 ];
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   // Ensure the full @intlayer/docs package (including markdown assets) is shipped with the server bundle
   serverExternalPackages: ['@intlayer/backend', '@intlayer/docs'],
   transpilePackages: ['@intlayer/design-system', 'shiki'],
   productionBrowserSourceMaps: true,
+  // reactCompiler: true,
+  // cacheComponents: true,
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
@@ -242,14 +252,13 @@ const nextConfig = {
   },
 };
 
-const nextConfigPWA = withPWA({
+const nextConfigPWA: NextConfig = withPWA({
   disable: process.env.ENABLE_SERVICE_WORKER !== 'true',
   dest: 'public',
   register: true,
   skipWaiting: true,
 })(nextConfig);
 
-/** @type {import('next').NextConfig} */
-const config = withIntlayer(nextConfigPWA);
+const config: Promise<NextConfig> = withIntlayer(nextConfigPWA);
 
 export default config;

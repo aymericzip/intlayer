@@ -13,6 +13,22 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: `live` Importmodus hinzugefügt
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: Ersetze das Feld `hotReload` durch `liveSync` und füge die Felder `liveSyncPort` und `liveSyncURL` hinzu
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: Ersetze `activateDynamicImport` durch die Option `importMode`
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: Ändere das Standard-`contentDir` von `['src']` zu `['.']`
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: Füge `docs`-Befehle hinzu
 ---
 
 # Intlayer Konfigurationsdokumentation
@@ -317,30 +333,6 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich wie die
       - Wenn `noPrefix = false`: URL wird `https://example.com/my-app/en` sein
       - Wenn `noPrefix = true`: URL wird `https://example.com` sein
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _Typ_: `boolean`
-  - _Standard_: `false`
-  - _Beschreibung_: Steuert, ob die Lokalisierungserkennung während Next.js Prefetch-Anfragen erfolgt.
-  - _Beispiel_: `true`
-  - _Hinweis_: Diese Einstellung beeinflusst, wie Next.js das Prefetching von Lokalisierungen handhabt:
-    - **Beispielszenario:**
-      - Die Browsersprache des Benutzers ist `'fr'`
-      - Aktuelle Seite ist `/fr/about`
-      - Link prefetcht `/about`
-    - **Mit `detectLocaleOnPrefetchNoPrefix: true`:**
-      - Prefetch erkennt die `'fr'`-Lokalisierung aus dem Browser
-      - Prefetch wird zu `/fr/about` umgeleitet
-    - **Mit `detectLocaleOnPrefetchNoPrefix: false` (Standard):**
-      - Prefetch verwendet die Standard-Lokalisierung
-      - Prefetch wird zu `/en/about` umgeleitet (angenommen `'en'` ist Standard)
-    - **Wann `true` verwendet werden sollte:**
-      - Ihre Anwendung verwendet nicht lokalisierte interne Links (z. B. `<a href="/about">`)
-      - Sie möchten ein konsistentes Verhalten bei der Lokalerkennung zwischen regulären und Prefetch-Anfragen
-    - **Wann `false` (Standard) verwenden:**
-      - Ihre Anwendung verwendet lokalisierte Links mit Präfix (z. B. `<a href="/fr/about">`)
-      - Sie möchten die Prefetch-Leistung optimieren
-      - Sie möchten potenzielle Redirect-Schleifen vermeiden
-
 ---
 
 ### Inhaltskonfiguration
@@ -563,13 +555,3 @@ Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
   - _Hinweis_: Verwenden Sie dies, um die Optimierung auf relevante Code-Dateien zu beschränken und die Build-Leistung zu verbessern.
   - _Hinweis_: Diese Option wird ignoriert, wenn `optimize` deaktiviert ist.
   - _Hinweis_: Verwenden Sie Glob-Muster.
-
-## Dokumentationshistorie
-
-| Version | Datum      | Änderungen                                                                                               |
-| ------- | ---------- | -------------------------------------------------------------------------------------------------------- |
-| 6.0.0   | 2025-09-16 | `live` Importmodus hinzugefügt                                                                           |
-| 6.0.0   | 2025-09-04 | Ersetze das Feld `hotReload` durch `liveSync` und füge die Felder `liveSyncPort` und `liveSyncURL` hinzu |
-| 5.6.1   | 2025-07-25 | Ersetze `activateDynamicImport` durch die Option `importMode`                                            |
-| 5.6.0   | 2025-07-13 | Ändere das Standard-`contentDir` von `['src']` zu `['.']`                                                |
-| 5.5.11  | 2025-06-29 | Füge `docs`-Befehle hinzu                                                                                |

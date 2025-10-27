@@ -1,6 +1,7 @@
 import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { dirname as pathDirname, resolve as pathResolve } from 'node:path';
+import { isESModule } from '@intlayer/config';
 
 type StartEditorOptions = {
   env?: string;
@@ -26,8 +27,10 @@ export const startEditor = (options: StartEditorOptions): void => {
     });
 
   try {
-    const require = createRequire(import.meta.url);
-    const pkgJsonPath = require.resolve('intlayer-editor/package.json');
+    const requireFunction = isESModule
+      ? createRequire(import.meta.url)
+      : require;
+    const pkgJsonPath = requireFunction.resolve('intlayer-editor/package.json');
     const pkgDir = pathDirname(pkgJsonPath);
     const binPath = pathResolve(pkgDir, 'bin', 'intlayer-editor.mjs');
 
@@ -41,11 +44,11 @@ export const startEditor = (options: StartEditorOptions): void => {
   }
 
   function runFallback() {
-    const pnpm = spawnWith('pnpm', ['dlx', 'intlayer-editor', ...args]);
-    pnpm.on('error', () => {
+    const bun = spawnWith('bun', ['dlx', 'intlayer-editor', ...args]);
+    bun.on('error', () => {
       const npx = spawnWith('npx', ['-y', 'intlayer-editor', ...args]);
       npx.on('error', (err) => {
-        console.error('Unable to execute intlayer-editor via pnpm or npx.');
+        console.error('Unable to execute intlayer-editor via bun or npx.');
         console.error(String(err?.message ?? err));
         process.exit(1);
       });

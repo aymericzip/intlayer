@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - function-fetching
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historial inicial
 ---
 
 # Obtención de Funciones
@@ -208,7 +212,3 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
-
-## Historial de Documentación
-
-- 5.5.10 - 2025-06-29: Historial inicial

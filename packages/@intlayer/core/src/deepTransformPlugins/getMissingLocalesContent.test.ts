@@ -1,6 +1,5 @@
-import { Locales } from '@intlayer/config/client';
+import { type ContentNode, Locales, NodeType } from '@intlayer/types';
 import { describe, expect, it } from 'vitest';
-import { type ContentNode, NodeType } from '../types';
 import { getMissingLocalesContent } from './getMissingLocalesContent';
 
 describe('getMissingLocalesContent', () => {

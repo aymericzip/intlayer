@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/webpack",
-  "version": "6.1.6",
+  "version": "7.0.1",
   "private": false,
   "description": "Webpack plugin for seamless integration with Intlayer, enhancing JavaScript apps built with React, Next.js and more.",
   "keywords": [
@@ -57,51 +57,48 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "pnpm clean & pnpm build:ci",
-    "build:ci": "pnpm build:package & pnpm build:types",
-    "build:package": "tsup",
-    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
-    "clean": "rimraf ./dist",
-    "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint --write .",
+    "build": "tsdown --config tsdown.config.ts",
+    "build:ci": "tsdown --config tsdown.config.ts",
+    "clean": "rimraf ./dist .turbo",
+    "dev": "tsdown --config tsdown.config.ts --watch",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../../../README.md ./README.md",
     "serve": "webpack serve --config ./webpack.config.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "transpile": "webpack --config ./webpack.config.ts",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit",
+    "typecheck": "tsc --noEmit --project tsconfig.types.json",
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "crypto-js": "^4.2.0",
-    "fast-glob": "^3.3.3",
-    "webpack": "^5.99.9",
-    "webpack-dev-server": "^5.2.0"
+    "@intlayer/types": "workspace:*",
+    "crypto-js": "4.2.0",
+    "fast-glob": "3.3.3",
+    "webpack": "5.99.9",
+    "webpack-dev-server": "5.2.0"
   },
   "devDependencies": {
-    "@changesets/cli": "2.29.7",
-    "@types/crypto-js": "^4.2.2",
-    "@types/node": "^24.5.2",
+    "@types/crypto-js": "4.2.2",
+    "@types/node": "24.9.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
-    "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.2.1",
-    "rimraf": "^6.0.1",
-    "tsc-alias": "^1.8.16",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "@utils/tsdown-config": "workspace:*",
+    "rimraf": "6.0.1",
+    "tsdown": "0.15.9",
+    "typescript": "5.9.3",
+    "vitest": "4.0.3"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "webpack": "^5.99.9"
+    "@intlayer/types": "workspace:*",
+    "webpack": "5.99.9"
   },
   "engines": {
     "node": ">=14.18"

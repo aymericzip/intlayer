@@ -1,7 +1,7 @@
 'use client';
 
-import type { Dictionary } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import type { Dictionary } from '@intlayer/types';
 import {
   createContext,
   type Dispatch,
@@ -52,7 +52,7 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
       setLocaleDictionary: (dictionary: Dictionary) => {
         setLocaleDictionaries((dictionaries) => ({
           ...dictionaries,
-          [dictionary.localId]: dictionary,
+          [String(dictionary.localId)]: dictionary,
         }));
       },
     }),

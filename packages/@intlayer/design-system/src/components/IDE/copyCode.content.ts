@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 const copyContentContent = {
   key: 'code',
-  autoFill: './{{key}}.content.json',
   content: {
     title: t({
       en: 'Copy code',
@@ -19,6 +18,9 @@ const copyContentContent = {
       ru: 'Копировать код',
       ar: 'نسخ الكود',
       tr: 'Kodu kopyala',
+      pl: 'Kopiuj kod',
+      id: 'Salin kode',
+      vi: 'Sao chép mã',
     }),
     description: t({
       en: 'Copy the code to the clipboard',
@@ -35,8 +37,15 @@ const copyContentContent = {
       ru: 'Копировать код в буфер обмена',
       ar: 'نسخ الكود إلى الحافظة',
       tr: 'Kodu panoya kopyala',
+      pl: 'Skopiuj kod do schowka',
+      id: 'Salin kode ke clipboard',
+      vi: 'Sao chép mã vào clipboard',
     }),
   },
+  title: 'Copy code button',
+  description:
+    'Content declaration for the copy code button. Provides the title and tooltip description used to allow users to copy code snippets to the clipboard.',
+  tags: ['component', 'code snippet', 'copy functionality'],
 } satisfies Dictionary;
 
 export default copyContentContent;

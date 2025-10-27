@@ -14,6 +14,10 @@ slugs:
   - doc
   - environment
   - express
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Historique initial
 ---
 
 # Traduire votre Express backend avec Intlayer | Internationalisation (i18n)
@@ -402,7 +406,3 @@ Pour ce faire, vous pouvez ajouter les instructions suivantes à votre fichier `
 # Ignorer les fichiers générés par Intlayer
 .intlayer
 ```
-
-## Historique de la documentation
-
-- 5.5.10 - 2025-06-29 : Historique initial

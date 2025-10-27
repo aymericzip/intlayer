@@ -3354,7 +3354,7 @@ it('should remove YAML front matter', () => {
 });
 
 it('handles a holistic example', () => {
-  const md = readFileSync(`${__dirname}/_fixture.mdx`, 'utf8');
+  const md = readFileSync(`${__dirname}/_fixture.md`, 'utf8');
   renderFn(compiler(md));
 
   expect(container.innerHTML).toMatchSnapshot();

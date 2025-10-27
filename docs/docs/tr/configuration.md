@@ -13,6 +13,25 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: `live` import modu eklendi
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: `live` import modu eklendi
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: `hotReload` alanı `liveSync` ile değiştirildi ve `liveSyncPort` ile `liveSyncURL` alanları eklendi
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: `activateDynamicImport` seçeneği `importMode` ile değiştirildi
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: Varsayılan contentDir `['src']`'den `['.']` olarak değiştirildi
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: `docs` komutları eklendi
 ---
 
 # Intlayer Yapılandırma Dokümantasyonu
@@ -316,30 +335,6 @@ Uygulamanın çerezleri, başlıkları ve yerel yönetimi için URL öneklerini 
       - Eğer `noPrefix = false` ise: URL `https://example.com/my-app/en` olur
       - Eğer `noPrefix = true` ise: URL `https://example.com` olur
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _Tür_: `boolean`
-  - _Varsayılan_: `false`
-  - _Açıklama_: Next.js önceden getirme (prefetch) istekleri sırasında locale tespitinin yapılıp yapılmayacağını kontrol eder.
-  - _Örnek_: `true`
-  - _Not_: Bu ayar, Next.js'in locale önceden getirme işlemini nasıl yönettiğini etkiler:
-    - **Örnek senaryo:**
-      - Kullanıcının tarayıcı dili `'fr'`
-      - Mevcut sayfa `/fr/about`
-      - Bağlantı `/about` sayfasını önceden getiriyor
-    - **`detectLocaleOnPrefetchNoPrefix: true` ile:**
-      - Önceden getirme, tarayıcıdan `'fr'` locale bilgisini algılar
-      - Önceden getirme `/fr/about` sayfasına yönlendirilir
-    - **`detectLocaleOnPrefetchNoPrefix: false` (varsayılan) ile:**
-      - Önceden getirme varsayılan locale kullanır
-      - Önceden getirme `/en/about` sayfasına yönlendirilir (varsayılanın `'en'` olduğu varsayılır)
-    - **`true` ne zaman kullanılmalı:**
-      - Uygulamanız yerelleştirilmemiş dahili bağlantılar kullanıyorsa (örneğin `<a href="/about">`)
-      - Normal ve önceden getirme (prefetch) istekleri arasında tutarlı locale tespit davranışı istiyorsanız
-    - **`false` (varsayılan) ne zaman kullanılmalı:**
-      - Uygulamanız locale önekli bağlantılar kullanıyorsa (örneğin `<a href="/fr/about">`)
-      - Önceden getirme performansını optimize etmek istiyorsanız
-      - Olası yönlendirme döngülerinden kaçınmak istiyorsanız
-
 ---
 
 ### İçerik Yapılandırması
@@ -561,25 +556,3 @@ Derleme seçenekleri `@intlayer/babel` ve `@intlayer/swc` eklentilerine uygulan�
   - _Not_: Optimizasyonu ilgili kod dosyalarıyla sınırlamak ve derleme performansını artırmak için bunu kullanın.
   - _Not_: Bu seçenek `optimize` devre dışı bırakılırsa dikkate alınmaz.
   - _Not_: Glob deseni kullanın.
-
-## Doküman Geçmişi
-
-| Sürüm | Tarih      | Değişiklikler              |
-| ----- | ---------- | -------------------------- |
-| 6.0.0 | 2025-09-16 | `live` import modu eklendi |
-
-- _Açıklama_: Optimizasyon sırasında hangi dosyaların taranacağını tanımlayan desenler.
-- _Örnek_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
-- _Not_: Optimizasyonu ilgili kod dosyalarıyla sınırlamak ve derleme performansını artırmak için kullanın.
-- _Not_: Bu seçenek `optimize` devre dışı bırakılırsa göz ardı edilir.
-- _Not_: Glob deseni kullanın.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler                                                                                      |
-| ------ | ---------- | -------------------------------------------------------------------------------------------------- |
-| 6.0.0  | 2025-09-16 | `live` import modu eklendi                                                                         |
-| 6.0.0  | 2025-09-04 | `hotReload` alanı `liveSync` ile değiştirildi ve `liveSyncPort` ile `liveSyncURL` alanları eklendi |
-| 5.6.1  | 2025-07-25 | `activateDynamicImport` seçeneği `importMode` ile değiştirildi                                     |
-| 5.6.0  | 2025-07-13 | Varsayılan contentDir `['src']`'den `['.']` olarak değiştirildi                                    |
-| 5.5.11 | 2025-06-29 | `docs` komutları eklendi                                                                           |

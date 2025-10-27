@@ -1,8 +1,6 @@
 # syntax=docker/dockerfile:1.19.0
 
-FROM node:24-alpine AS builder
-
-RUN npm install -g pnpm@10.17.1
+FROM oven/bun:1.3.1-alpine AS builder
 
 # Create app directory
 WORKDIR /workspace
@@ -18,37 +16,44 @@ COPY \
     --exclude=packages/vue-intlayer \
     --exclude=packages/solid-intlayer \
     --exclude=packages/svelte-intlayer \
-    --exclude=packages/pnext-intlayer \
+    --exclude=packages/next-intlayer \
     --exclude=packages/angular-intlayer \
+    --exclude=packages/preact-intlayer \
     --exclude=packages/nuxt-intlayer \
     --exclude=packages/astro-intlayer \
     --exclude=packages/next-intlayer \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/intlayer-editor \
-    --exclude=docs/assets \
+    --exclude=docs \
     --exclude=apps/website \
     --exclude=plugins \
     --exclude=examples \
     . .
 
+COPY docs/docs/en/                 docs/docs/en/
+COPY docs/blog/en/                 docs/blog/en/
+COPY docs/frequent_questions/en/   docs/frequent_questions/en/
+COPY docs/legal/en/                docs/legal/en/
+    
+
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN pnpm install --frozen-lockfile
+RUN bun install --ignore-scripts --filter=./packages/@intlayer/design-system
 
 # Install intlayer-cli
-RUN npm install -g intlayer-cli@latest
+RUN bun add -g intlayer-cli@latest
 
 # Build every package in the workspace (uses the root "build" script)
-RUN npx turbo run build:ci --filter=./packages/@intlayer/design-system
+RUN bun x turbo run build:ci --filter=./packages/@intlayer/design-system
 
 # Set working directory to the design-system package and run Storybook
 WORKDIR /workspace/packages/@intlayer/design-system
 
 # Build the Intlayer dictionaries
-RUN pnpm run build:intlayer
+RUN bun run build:intlayer
 
 # Build Storybook
-RUN pnpm run build:storybook
+RUN bun run build:storybook
 
 ENV NODE_ENV=production
 
@@ -56,4 +61,4 @@ ENV NODE_ENV=production
 EXPOSE 6006
 
 # Start Storybook in dev mode
-CMD ["pnpm", "start"]
+CMD ["bun", "start"]

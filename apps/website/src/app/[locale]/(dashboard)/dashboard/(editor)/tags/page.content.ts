@@ -18,8 +18,15 @@ const tagDashboardContent = {
       ar: 'إعدادات الوسوم',
       ru: 'Настройки тегов',
       tr: 'Etiket ayarları',
+      pl: 'Ustawienia tagów',
+      id: 'Pengaturan tag',
+      vi: 'Cài đặt thẻ',
     }),
   },
+  title: 'Tags dashboard page',
+  description:
+    'Content declaration for the tags settings section in the dashboard editor. It defines multilingual values for the tags management page used in the CMS dashboard.',
+  tags: ['dashboard', 'tags', 'settings', 'editor page'],
 } satisfies Dictionary;
 
 export default tagDashboardContent;

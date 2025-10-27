@@ -10,14 +10,17 @@ const featuresSectionContent = {
       es: 'Pruébelo gratis usando el playground.',
       de: 'Probieren Sie es kostenlos mit dem Playground.',
       it: 'Provalo gratuitamente usando il playground.',
-      pt: 'Experimente gratuitamente usando o playground.',
-      ru: 'Попробуйте бесплатно с помощью плейграунда.',
-      zh: '在用演示机中免费试用。',
       ja: 'プレイグラウンドを使用して無料で試してみてください。',
       ar: 'جربه مجاناً باستخدام الملعب.',
       hi: 'प्लेगन का उपयोग करके मुफ्त को खेलें।',
       ko: '플레이그라운드를 사용하여 무료로 시도하세요.',
       tr: 'Playground kullanarak ücretsiz deneyin.',
+      pl: 'Wypróbuj za darmo, korzystając z playgrounda.',
+      ru: 'Попробуйте бесплатно, воспользовавшись песочницей.',
+      zh: '在 playground 中免费试用。',
+      pt: 'Experimente gratuitamente no playground.',
+      id: 'Coba gratis menggunakan playground.',
+      vi: 'Dùng thử miễn phí với playground.',
     }),
     gotToPlaygroundButton: {
       text: t({
@@ -35,6 +38,9 @@ const featuresSectionContent = {
         hi: 'प्लेगन पर जाएं',
         ko: '플레이그라운드로 이동',
         tr: "Playground'a git",
+        pl: 'Przejdź do playgrounda',
+        id: 'Buka playground',
+        vi: 'Đi tới playground',
       }),
       label: t({
         en: 'Click to go to the playground',
@@ -51,9 +57,16 @@ const featuresSectionContent = {
         hi: 'प्लेगन पर जाएं',
         ko: '클릭하여 플레이그라운드로 이동',
         tr: "Playground'a gitmek için tıklayın",
+        pl: 'Kliknij, aby przejść do playgrounda',
+        id: 'Klik untuk membuka playground',
+        vi: 'Nhấp để vào playground',
       }),
     },
   },
+  title: 'Visual editor section',
+  description:
+    'Content for the Visual Editor section of the landing page, encouraging users to try the playground for free with a call-to-action button.',
+  tags: ['landing page', 'feature section', 'playground'],
 } satisfies Dictionary;
 
 export default featuresSectionContent;

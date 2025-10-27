@@ -13,6 +13,22 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: Adicionado modo de importação `live`
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: Substituído o campo `hotReload` por `liveSync` e adicionados os campos `liveSyncPort` e `liveSyncURL`
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: Substituído `activateDynamicImport` pela opção `importMode`
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: Alterado o valor padrão de contentDir de `['src']` para `['.']`
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: Adicionados comandos `docs`
 ---
 
 # Documentação de Configuração do Intlayer
@@ -316,30 +332,6 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
       - Se `noPrefix = false`: a URL será `https://example.com/my-app/en`
       - Se `noPrefix = true`: a URL será `https://example.com`
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _Tipo_: `boolean`
-  - _Padrão_: `false`
-  - _Descrição_: Controla se a detecção de local ocorre durante as requisições de prefetch do Next.js.
-  - _Exemplo_: `true`
-  - _Nota_: Esta configuração afeta como o Next.js lida com o prefetch de local:
-    - **Cenário de exemplo:**
-      - O idioma do navegador do usuário é `'fr'`
-      - A página atual é `/fr/about`
-      - O link faz prefetch de `/about`
-    - **Com `detectLocaleOnPrefetchNoPrefix: true`:**
-      - O prefetch detecta o local `'fr'` do navegador
-      - Redireciona o prefetch para `/fr/about`
-    - **Com `detectLocaleOnPrefetchNoPrefix: false` (padrão):**
-      - O prefetch usa o local padrão
-      - Redireciona o prefetch para `/en/about` (assumindo que `'en'` é o padrão)
-    - **Quando usar `true`:**
-      - Sua aplicação usa links internos não localizados (ex: `<a href="/about">`)
-      - Você deseja um comportamento consistente de detecção de localidade entre requisições normais e prefetch
-    - **Quando usar `false` (padrão):**
-      - Sua aplicação usa links com prefixo de localidade (ex: `<a href="/fr/about">`)
-      - Você deseja otimizar a performance do prefetch
-      - Você deseja evitar possíveis loops de redirecionamento
-
 ---
 
 ### Configuração de Conteúdo
@@ -562,25 +554,3 @@ As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Use isso para limitar a otimização aos arquivos de código relevantes e melhorar o desempenho da compilação.
   - _Nota_: Esta opção será ignorada se `optimize` estiver desativado.
   - _Nota_: Use padrão glob.
-
-## Histórico da Documentação
-
-| Versão | Data       | Alterações                           |
-| ------ | ---------- | ------------------------------------ |
-| 6.0.0  | 2025-09-16 | Adicionado modo de importação `live` |
-
-- _Descrição_: Padrões que definem quais arquivos devem ser percorridos durante a otimização.
-- _Exemplo_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
-- _Nota_: Use isso para limitar a otimização aos arquivos de código relevantes e melhorar o desempenho da build.
-- _Nota_: Esta opção será ignorada se `optimize` estiver desativado.
-- _Nota_: Use padrão glob.
-
-## Histórico da Documentação
-
-| Versão | Data       | Alterações                                                                                            |
-| ------ | ---------- | ----------------------------------------------------------------------------------------------------- |
-| 6.0.0  | 2025-09-16 | Adicionado modo de importação `live`                                                                  |
-| 6.0.0  | 2025-09-04 | Substituído o campo `hotReload` por `liveSync` e adicionados os campos `liveSyncPort` e `liveSyncURL` |
-| 5.6.1  | 2025-07-25 | Substituído `activateDynamicImport` pela opção `importMode`                                           |
-| 5.6.0  | 2025-07-13 | Alterado o valor padrão de contentDir de `['src']` para `['.']`                                       |
-| 5.5.11 | 2025-06-29 | Adicionados comandos `docs`                                                                           |

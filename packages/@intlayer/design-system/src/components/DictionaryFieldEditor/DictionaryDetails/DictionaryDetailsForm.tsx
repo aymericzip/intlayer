@@ -1,7 +1,7 @@
 'use client';
 
-import type { Dictionary } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
 import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -11,7 +11,7 @@ import {
   useGetTags,
 } from '../../../hooks';
 import { useSession } from '../../../hooks/useAuth';
-import { ButtonColor, ButtonVariant } from '../../Button';
+import { ButtonColor, ButtonSize, ButtonVariant } from '../../Button';
 import { Container } from '../../Container';
 import { Form, useForm } from '../../Form';
 import { Loader } from '../../Loader';
@@ -41,14 +41,14 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     titleInput,
     keyInput,
     descriptionInput,
-
     projectInput,
     tagsSelect,
     auditButton,
   } = useIntlayer('dictionary-details');
   const { mutate: auditContentDeclaration, isPending: isAuditing } =
     useAuditContentDeclarationMetadata();
-  const updatedDictionary = editedContent?.[dictionary.key];
+  const updatedDictionary =
+    editedContent?.[dictionary.localId as LocalDictionaryId];
 
   useEffect(() => {
     form.reset(dictionary);
@@ -75,9 +75,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           if (!response?.data) return;
 
           try {
-            const auditedDictionary = JSON.parse(response.data.fileContent) as
-              | Partial<Dictionary>
-              | undefined;
+            const auditedDictionary = response.data.fileContent;
 
             setEditedDictionary((prev) => ({
               ...prev,
@@ -107,12 +105,12 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         className="flex w-full flex-col gap-8"
         {...form}
         schema={DictionaryDetailsSchema}
-        onChange={(data) =>
+        onChange={(data) => {
           setEditedDictionary((prev) => ({
             ...prev,
             ...data,
-          }))
-        }
+          }));
+        }}
       >
         <div className="flex w-full flex-1 gap-8 max-md:flex-col">
           <Form.EditableFieldInput
@@ -242,6 +240,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
           <Form.Button
             type="button"
+            size={ButtonSize.ICON_MD}
             label={auditButton.label.value}
             Icon={WandSparkles}
             variant={ButtonVariant.OUTLINE}
@@ -250,9 +249,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             onClick={handleOnAuditFile}
             disabled={isSubmitting || isAuditing}
             isLoading={isAuditing}
-          >
-            {auditButton.text}
-          </Form.Button>
+          />
         </div>
       </Form>
     </Container>

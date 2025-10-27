@@ -1,5 +1,5 @@
-import type { LocalesValues } from '@intlayer/config/client';
 import { relativeTime } from '@intlayer/core';
+import type { LocalesValues } from '@intlayer/types';
 import { IntlayerServerContext } from '../IntlayerServerProvider';
 import { getServerContext } from '../serverContext';
 

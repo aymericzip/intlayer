@@ -16,6 +16,10 @@ keywords:
 slugs:
   - doc
   - index
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # Intlayer 文档
@@ -177,7 +181,3 @@ Intlayer 的模块化设计为特定环境和需求提供了专用包：
 我们重视开源和社区驱动开发的力量。如果您想提出改进建议、添加新的指南，或纠正文档中的任何问题，欢迎随时在我们的[GitHub 仓库](https://github.com/aymericzip/intlayer/blob/main/docs/docs)提交 Pull Request 或开启 issue。
 
 **准备好更快更高效地翻译您的应用了吗？** 立即深入我们的文档，开始使用 Intlayer。体验一种强大且简化的国际化方法，让您的内容井然有序，团队工作更高效。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

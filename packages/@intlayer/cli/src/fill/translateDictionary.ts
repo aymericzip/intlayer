@@ -1,137 +1,345 @@
+import { basename } from 'node:path';
 import { type AIOptions, getIntlayerAPIProxy } from '@intlayer/api';
 import {
-  assembleJSON,
   chunkJSON,
-  extractErrorMessage,
   formatLocale,
   type JsonChunk,
+  reconstructFromSingleChunk,
+  reduceObjectFormat,
+  verifyIdenticObjectFormat,
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
   colon,
   colorize,
+  colorizeNumber,
+  colorizePath,
   getAppLogger,
-  type IntlayerConfig,
+  retryManager,
 } from '@intlayer/config';
 import {
-  type ContentNode,
-  type Dictionary,
-  getFilterMissingTranslationsContent,
-  getFilterTranslationsOnlyContent,
-  getLocalizedContent,
+  getFilterMissingTranslationsDictionary,
+  getPerLocaleDictionary,
+  insertContentInDictionary,
+  mergeDictionaries,
 } from '@intlayer/core';
+import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import type { TranslationTask } from './listTranslationsTasks';
+
+type TranslateDictionaryResult = TranslationTask & {
+  dictionaryOutput: Dictionary | null;
+};
+
+type TranslateDictionaryOptions = {
+  mode: 'complete' | 'review';
+  aiOptions?: AIOptions;
+  fillMetadata?: boolean;
+  onHandle?: ReturnType<typeof import('@intlayer/chokidar').getGlobalLimiter>;
+};
+
+const hasMissingMetadata = (dictionary: Dictionary) =>
+  !dictionary.description || !dictionary.title || !dictionary.tags;
+
+const CHUNK_SIZE = 7000; // GPT-5 Mini safe input size
+const GLOBAL_MAX_RETRY = 2;
+const MAX_RETRY = 3;
+const RETRY_DELAY = 1000 * 10; // 10 seconds
 
 export const translateDictionary = async (
   task: TranslationTask,
-  dictionariesRecord: Record<string, Dictionary>,
-  maxLocaleLength: number,
-  mode: 'complete' | 'review',
   configuration: IntlayerConfig,
-  aiOptions?: AIOptions
-) => {
+  options?: TranslateDictionaryOptions
+): Promise<TranslateDictionaryResult> => {
   const appLogger = getAppLogger(configuration);
   const intlayerAPI = getIntlayerAPIProxy(undefined, configuration);
 
-  let dictionaryToProcess: Dictionary = dictionariesRecord[task.dictionaryKey];
+  const { mode, aiOptions, fillMetadata } = {
+    mode: 'complete',
+    fillMetadata: true,
+    ...options,
+  };
 
-  /**
-   * In complete mode, for large dictionaries, we want to filter all content that is already translated
-   */
-  if (mode === 'complete') {
-    dictionaryToProcess = getFilterMissingTranslationsContent(
-      dictionaryToProcess as unknown as ContentNode,
-      task.targetLocale,
-      { dictionaryKey: task.dictionaryKey, keyPath: [] }
-    );
-  }
+  const result = await retryManager(
+    async () => {
+      const unmergedDictionariesRecord = getUnmergedDictionaries(configuration);
 
-  const localePreset = colon(
-    [
-      colorize('[', ANSIColors.GREY_DARK),
-      formatLocale(task.targetLocale),
-      colorize(']', ANSIColors.GREY_DARK),
-    ].join(''),
-    { colSize: maxLocaleLength }
-  );
+      const baseUnmergedDictionary: Dictionary | undefined =
+        unmergedDictionariesRecord[task.dictionaryKey].find(
+          (dict) => dict.localId === task.dictionaryLocalId
+        );
 
-  appLogger(
-    `${task.dictionaryPreset}${localePreset} Preparing translation for dictionary from ${formatLocale(task.sourceLocale)} to ${formatLocale(task.targetLocale)}`,
-    {
-      level: 'info',
-    }
-  );
+      if (!baseUnmergedDictionary) {
+        appLogger(
+          `${task.dictionaryPreset}Dictionary not found in unmergedDictionariesRecord. Skipping.`,
+          {
+            level: 'warn',
+          }
+        );
+        return { ...task, dictionaryOutput: null };
+      }
 
-  /**
-   * Extract the content of the default locale as entry
-   */
-  const sourceLocaleContent = getFilterTranslationsOnlyContent(
-    dictionaryToProcess as unknown as ContentNode,
-    task.sourceLocale,
-    { dictionaryKey: task.dictionaryKey, keyPath: [] }
-  );
+      let metadata:
+        | Pick<Dictionary, 'description' | 'title' | 'tags'>
+        | undefined;
 
-  /**
-   * Extract the content of the target locale as preset
-   */
-  const presetOutputContent = getLocalizedContent(
-    dictionaryToProcess as unknown as ContentNode,
-    task.targetLocale,
-    { dictionaryKey: task.dictionaryKey, keyPath: [] }
-  );
+      if (
+        fillMetadata &&
+        (hasMissingMetadata(baseUnmergedDictionary) || mode === 'review')
+      ) {
+        const defaultLocaleDictionary = getPerLocaleDictionary(
+          baseUnmergedDictionary,
+          configuration.internationalization.defaultLocale
+        );
 
-  const chunkedJsonContent: JsonChunk[] = chunkJSON(
-    sourceLocaleContent.content,
-    1000
-  );
+        appLogger(
+          `${task.dictionaryPreset} Filling missing metadata for ${colorizePath(basename(baseUnmergedDictionary.filePath!))}`,
+          {
+            level: 'info',
+          }
+        );
 
-  try {
-    const translationsResults: JsonChunk[] = [];
+        const runAudit = async () =>
+          await intlayerAPI.ai.auditContentDeclarationMetadata({
+            fileContent: JSON.stringify(defaultLocaleDictionary),
+            aiOptions,
+          });
 
-    for (const chunk of chunkedJsonContent) {
-      const translationResult = await intlayerAPI.ai.translateJSON({
-        entryFileContent: chunk as unknown as JSON,
-        presetOutputContent: presetOutputContent.content,
-        dictionaryDescription: dictionaryToProcess.description ?? '',
-        entryLocale: task.sourceLocale,
-        outputLocale: task.targetLocale,
-        mode,
-        aiOptions,
-      });
+        const metadataResult = options?.onHandle
+          ? await options.onHandle(runAudit)
+          : await runAudit();
 
-      if (typeof translationResult.data?.fileContent !== 'string') {
-        appLogger(`${task.dictionaryPreset}${localePreset} No content result`, {
-          level: 'error',
+        metadata = metadataResult.data?.fileContent;
+      }
+
+      let dictionaryToProcess = baseUnmergedDictionary;
+
+      const translatedContent: Partial<Record<Locale, Dictionary['content']>> =
+        {};
+
+      for await (const targetLocale of task.targetLocales) {
+        /**
+         * In complete mode, for large dictionaries, we want to filter all content that is already translated
+         *
+         * targetLocale: fr
+         *
+         * { test1: t({ ar: 'Hello', en: 'Hello', fr: 'Bonjour' } }) -> {}
+         * { test2: t({ ar: 'Hello', en: 'Hello' }) } -> { test2: t({ ar: 'Hello', en: 'Hello' }) }
+         *
+         */
+        if (mode === 'complete') {
+          // Remove all nodes that don't have any content to translate
+          dictionaryToProcess = getFilterMissingTranslationsDictionary(
+            dictionaryToProcess,
+            targetLocale
+          );
+        }
+
+        dictionaryToProcess = getPerLocaleDictionary(
+          dictionaryToProcess,
+          task.sourceLocale
+        );
+
+        const targetLocaleDictionary = getPerLocaleDictionary(
+          baseUnmergedDictionary,
+          targetLocale
+        );
+
+        const localePreset = colon(
+          [
+            colorize('[', ANSIColors.GREY_DARK),
+            formatLocale(targetLocale),
+            colorize(']', ANSIColors.GREY_DARK),
+          ].join(''),
+          { colSize: 10 }
+        );
+
+        const createChunkPreset = (chunkIndex: number, totalChunks: number) => {
+          if (totalChunks <= 1) return '';
+          return colon(
+            [
+              colorize('[', ANSIColors.GREY_DARK),
+              colorizeNumber(chunkIndex + 1),
+              colorize(`/${totalChunks}`, ANSIColors.GREY_DARK),
+              colorize(']', ANSIColors.GREY_DARK),
+            ].join(''),
+            { colSize: 5 }
+          );
+        };
+
+        appLogger(
+          `${task.dictionaryPreset}${localePreset} Preparing ${colorizePath(basename(targetLocaleDictionary.filePath!))}`,
+          {
+            level: 'info',
+          }
+        );
+
+        const chunkedJsonContent: JsonChunk[] = chunkJSON(
+          dictionaryToProcess.content,
+          CHUNK_SIZE
+        );
+
+        const nbOfChunks = chunkedJsonContent.length;
+
+        if (nbOfChunks > 1) {
+          appLogger(
+            `${task.dictionaryPreset}${localePreset} Split into ${colorizeNumber(nbOfChunks)} chunks for translation`,
+            {
+              level: 'info',
+            }
+          );
+        }
+
+        const chunkResult: JsonChunk[] = [];
+
+        // Process chunks in parallel (globally throttled) to allow concurrent translation
+        const chunkPromises = chunkedJsonContent.map((chunk) => {
+          const chunkPreset = createChunkPreset(chunk.index, chunk.total);
+
+          if (nbOfChunks > 1) {
+            appLogger(
+              `${task.dictionaryPreset}${localePreset}${chunkPreset} Translating chunk`,
+              {
+                level: 'info',
+              }
+            );
+          }
+
+          // Reconstruct partial JSON content from this chunk's patches
+          const chunkContent = reconstructFromSingleChunk(chunk);
+          const presetOutputContent = reduceObjectFormat(
+            targetLocaleDictionary.content,
+            chunkContent
+          );
+
+          const executeTranslation = async () => {
+            return await retryManager(
+              async () => {
+                const translationResult = await intlayerAPI.ai.translateJSON({
+                  entryFileContent: chunkContent as unknown as JSON,
+                  presetOutputContent,
+                  dictionaryDescription:
+                    dictionaryToProcess.description ??
+                    metadata?.description ??
+                    '',
+                  entryLocale: task.sourceLocale,
+                  outputLocale: targetLocale,
+                  mode,
+                  aiOptions,
+                });
+
+                if (!translationResult.data?.fileContent) {
+                  throw new Error('No content result');
+                }
+
+                const { isIdentic } = verifyIdenticObjectFormat(
+                  translationResult.data.fileContent,
+                  chunkContent
+                );
+                if (!isIdentic) {
+                  throw new Error(
+                    'Translation result does not match expected format'
+                  );
+                }
+
+                return translationResult.data.fileContent;
+              },
+              {
+                maxRetry: MAX_RETRY,
+                delay: RETRY_DELAY,
+                onError: ({ error, attempt, maxRetry }) => {
+                  const chunkPreset = createChunkPreset(
+                    chunk.index,
+                    chunk.total
+                  );
+                  appLogger(
+                    `${task.dictionaryPreset}${localePreset}${chunkPreset} ${colorize('Error filling:', ANSIColors.RED)} ${colorize(error, ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
+                    {
+                      level: 'error',
+                    }
+                  );
+                },
+              }
+            )();
+          };
+
+          const wrapped = options?.onHandle
+            ? options.onHandle(executeTranslation) // queued in global limiter
+            : executeTranslation(); // no global limiter
+
+          return wrapped.then((result) => ({ chunk, result }));
         });
-        return { key: task.dictionaryKey, result: null } as const;
+
+        // Wait for all chunks for this locale in parallel (still capped by global limiter)
+        const chunkResults = await Promise.all(chunkPromises);
+
+        // Maintain order
+        chunkResults
+          .sort((a, b) => a.chunk.index - b.chunk.index)
+          .forEach(({ result }) => {
+            chunkResult.push(result);
+          });
+
+        // Merge partial JSON objects produced from each chunk into a single object
+        const merged = mergeDictionaries(
+          chunkResult.map((chunk) => ({
+            ...dictionaryToProcess,
+            content: chunk,
+          }))
+        );
+
+        translatedContent[targetLocale] =
+          merged.content as Dictionary['content'];
       }
 
-      const parsedTranslationResult = JSON.parse(
-        translationResult.data.fileContent!
-      ) as Partial<Dictionary['content']>;
+      let dictionaryOutput: Dictionary = {
+        ...baseUnmergedDictionary,
+        ...metadata,
+      };
 
-      translationsResults.push(parsedTranslationResult as JsonChunk);
-    }
+      for (const targetLocale of task.targetLocales) {
+        if (translatedContent[targetLocale]) {
+          dictionaryOutput = insertContentInDictionary(
+            dictionaryOutput,
+            translatedContent[targetLocale],
+            targetLocale
+          );
+        }
+      }
 
-    const reconciliateChunks = assembleJSON(translationsResults as JsonChunk[]);
+      appLogger(
+        `${task.dictionaryPreset} ${colorize('Translation completed successfully', ANSIColors.GREEN)} for ${colorizePath(basename(dictionaryOutput.filePath!))}`,
+        {
+          level: 'info',
+        }
+      );
 
-    return {
-      key: task.dictionaryKey,
-      result: {
-        ...dictionaryToProcess,
-        content: reconciliateChunks,
-        locale: task.targetLocale,
+      return {
+        ...task,
+        dictionaryOutput,
+      };
+    },
+    {
+      maxRetry: GLOBAL_MAX_RETRY,
+      delay: RETRY_DELAY,
+      onError: ({ error, attempt, maxRetry }) => {
+        appLogger(
+          `${task.dictionaryPreset} ${colorize('Error fill command:', ANSIColors.RED)} ${colorize(error, ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
+          {
+            level: 'error',
+          }
+        );
       },
-    } as const;
-  } catch (error) {
-    const errorMessage = extractErrorMessage(error);
+      onMaxTryReached: ({ error }) => {
+        appLogger(
+          `${task.dictionaryPreset} ${colorize('Maximum number of retries reached:', ANSIColors.RED)} ${colorize(error, ANSIColors.GREY_DARK)}`,
+          {
+            level: 'error',
+          }
+        );
+      },
+    }
+  )();
 
-    appLogger(
-      `${task.dictionaryPreset}${localePreset} ${colorize('Error filling:', ANSIColors.RED)} ${colorize(errorMessage, ANSIColors.GREY_DARK)}`,
-      {
-        level: 'error',
-      }
-    );
-    return { key: task.dictionaryKey, result: null } as const;
-  }
+  return result as TranslateDictionaryResult;
 };

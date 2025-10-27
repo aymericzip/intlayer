@@ -18,6 +18,9 @@ const notFountContent = {
       ar: '404 - الصفحة غير موجودة',
       ru: '404 - Страница не найдена',
       tr: '404 - Sayfa Bulunamadı',
+      pl: '404 - Strona nie znaleziona',
+      id: '404 - Halaman tidak ditemukan',
+      vi: '404 - Không tìm thấy trang',
     }),
     content: t({
       en: 'Page not found',
@@ -34,8 +37,15 @@ const notFountContent = {
       ar: 'الصفحة غير موجودة',
       ru: 'Страница не найдена',
       tr: 'Sayfa bulunamadı',
+      pl: 'Strona nie znaleziona',
+      id: 'Halaman tidak ditemukan',
+      vi: 'Không tìm thấy trang',
     }),
   },
+  title: '404 page content',
+  description:
+    'Content displayed when a user visits a non-existing page. It informs the user that the requested page was not found.',
+  tags: ['error page', '404 content'],
 } satisfies Dictionary;
 
 export default notFountContent;

@@ -1,5 +1,5 @@
 import type { FC, HTMLAttributes } from 'react';
-import type { BundledLanguage } from 'shiki';
+import type { BundledLanguage } from 'shiki/bundle/web';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';
 import { ExpandCollapse } from '../ExpandCollapse';
@@ -62,7 +62,7 @@ export const Code: FC<CodeCompProps> = ({
     >
       <Container
         className={cn(
-          'relative text-sm leading-6',
+          'relative min-w-0 max-w-full text-sm leading-6',
           showLineNumbers && 'with-line-number ml-0',
           className
         )}
@@ -96,7 +96,7 @@ export const Code: FC<CodeCompProps> = ({
         <ExpandCollapse
           minHeight={MIN_HEIGHT}
           isRollable={isRollable}
-          className="overflow-x-auto p-2"
+          className="min-w-0 max-w-full overflow-x-auto p-2"
         >
           <CodeBlock lang={language} isDarkMode={isDarkMode}>
             {code}

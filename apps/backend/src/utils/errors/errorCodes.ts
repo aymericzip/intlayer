@@ -1,10 +1,10 @@
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
 // @ts-ignore express-intlayer not build yet
-import type { LanguageContent } from 'express-intlayer';
+import type { StrictModeLocaleMap } from 'express-intlayer';
 
 type ErrorCode = {
-  title: LanguageContent<string>;
-  message: LanguageContent<string>;
+  title: StrictModeLocaleMap<string>;
+  message: StrictModeLocaleMap<string>;
   statusCode: HttpStatusCodes;
 };
 

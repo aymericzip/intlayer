@@ -18,6 +18,9 @@ const userAdminPageContent = {
       ar: 'إدارة المستخدمين',
       ru: 'Управление пользователями',
       tr: 'Kullanıcı yönetimi',
+      pl: 'Zarządzanie użytkownikami',
+      id: 'Manajemen Pengguna',
+      vi: 'Quản lý người dùng',
     }),
     tableHeaders: {
       name: t({
@@ -35,6 +38,9 @@ const userAdminPageContent = {
         ar: 'الاسم',
         ru: 'Имя',
         tr: 'İsim',
+        pl: 'Imię i nazwisko',
+        id: 'Nama',
+        vi: 'Tên',
       }),
       id: 'ID',
       email: t({
@@ -52,6 +58,9 @@ const userAdminPageContent = {
         ar: 'البريد الإلكتروني',
         ru: 'Электронная почта',
         tr: 'E-posta',
+        pl: 'E-mail',
+        id: 'Email',
+        vi: 'Email',
       }),
       role: t({
         en: 'Role',
@@ -68,6 +77,9 @@ const userAdminPageContent = {
         ar: 'الدور',
         ru: 'Роль',
         tr: 'Rol',
+        pl: 'Rola',
+        id: 'Peran',
+        vi: 'Vai trò',
       }),
       status: t({
         en: 'Status',
@@ -84,6 +96,9 @@ const userAdminPageContent = {
         ar: 'الحالة',
         ru: 'Статус',
         tr: 'Durum',
+        pl: 'Status',
+        id: 'Status',
+        vi: 'Trạng thái',
       }),
       createdAt: t({
         en: 'Created At',
@@ -100,6 +115,9 @@ const userAdminPageContent = {
         ar: 'تم الإنشاء في',
         ru: 'Создано',
         tr: 'Oluşturulma',
+        pl: 'Utworzono',
+        id: 'Dibuat pada',
+        vi: 'Ngày tạo',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -116,6 +134,9 @@ const userAdminPageContent = {
         ar: 'تم التحديث في',
         ru: 'Обновлено',
         tr: 'Güncellendi',
+        pl: 'Zaktualizowano',
+        id: 'Diperbarui pada',
+        vi: 'Cập nhật lần cuối',
       }),
       actions: t({
         en: 'Actions',
@@ -132,6 +153,9 @@ const userAdminPageContent = {
         ar: 'الإجراءات',
         ru: 'Действия',
         tr: 'İşlemler',
+        pl: 'Akcje',
+        id: 'Aksi',
+        vi: 'Hành động',
       }),
     },
     statusLabels: {
@@ -150,6 +174,9 @@ const userAdminPageContent = {
         ar: 'متحقق',
         ru: 'Подтвержден',
         tr: 'Doğrulandı',
+        pl: 'Zweryfikowany',
+        id: 'Terverifikasi',
+        vi: 'Đã xác minh',
       }),
       pending: t({
         en: 'Pending',
@@ -166,6 +193,9 @@ const userAdminPageContent = {
         ar: 'معلق',
         ru: 'Ожидает',
         tr: 'Beklemede',
+        pl: 'Oczekujący',
+        id: 'Menunggu',
+        vi: 'Đang chờ',
       }),
     },
     actions: {
@@ -184,6 +214,9 @@ const userAdminPageContent = {
         ar: 'تعديل',
         ru: 'Редактировать',
         tr: 'Düzenle',
+        pl: 'Edytuj',
+        id: 'Ubah',
+        vi: 'Chỉnh sửa',
       }),
       delete: t({
         en: 'Delete',
@@ -200,6 +233,9 @@ const userAdminPageContent = {
         ar: 'حذف',
         ru: 'Удалить',
         tr: 'Sil',
+        pl: 'Usuń',
+        id: 'Hapus',
+        vi: 'Xóa',
       }),
       copyId: t({
         en: 'Copy id',
@@ -216,6 +252,9 @@ const userAdminPageContent = {
         ar: 'نسخ الأيدي',
         ru: 'Копировать id',
         tr: 'Id kopyala',
+        pl: 'Kopiuj ID',
+        id: 'Salin ID',
+        vi: 'Sao chép id',
       }),
     },
     noUsersMessage: t({
@@ -233,6 +272,9 @@ const userAdminPageContent = {
       ar: 'لم يتم العثور على مستخدمين',
       ru: 'Пользователи не найдены',
       tr: 'Kullanıcı bulunamadı',
+      pl: 'Nie znaleziono użytkowników',
+      id: 'Tidak ada pengguna',
+      vi: 'Không tìm thấy người dùng nào',
     }),
     errorMessages: {
       loadingError: t({
@@ -250,6 +292,9 @@ const userAdminPageContent = {
         ar: 'خطأ في تحميل المستخدمين',
         ru: 'Ошибка загрузки пользователей',
         tr: 'Kullanıcıları yükleme hatası',
+        pl: 'Błąd ładowania użytkowników',
+        id: 'Gagal memuat pengguna',
+        vi: 'Lỗi tải người dùng',
       }),
     },
     showingResults: t({
@@ -267,6 +312,9 @@ const userAdminPageContent = {
       ar: 'عرض {start} إلى {end} من أصل {total} نتيجة',
       ru: 'Показано {start}-{end} из {total} результатов',
       tr: '{total} sonuçtan {start}-{end} arası gösteriliyor',
+      pl: 'Wyświetlanie {start} do {end} z {total} wyników',
+      id: 'Menampilkan {start} hingga {end} dari {total} hasil',
+      vi: 'Hiển thị {start} đến {end} trong tổng số {total} kết quả',
     }),
     searchPlaceholder: t({
       en: 'Search users...',
@@ -283,6 +331,9 @@ const userAdminPageContent = {
       ar: 'البحث عن المستخدمين...',
       ru: 'Поиск пользователей...',
       tr: 'Kullanıcıları ara...',
+      pl: 'Szukaj użytkowników...',
+      id: 'Cari pengguna...',
+      vi: 'Tìm kiếm người dùng...',
     }),
     filterPlaceholder: t({
       en: 'Filter by organization',
@@ -299,6 +350,9 @@ const userAdminPageContent = {
       ar: 'تصفية حسب المنظمة',
       ru: 'Фильтр по организации',
       tr: 'Organizasyona göre filtrele',
+      pl: 'Filtruj po organizacji',
+      id: 'Saring berdasarkan organisasi',
+      vi: 'Lọc theo tổ chức',
     }),
     allStatuses: t({
       en: 'All organizations',
@@ -315,6 +369,9 @@ const userAdminPageContent = {
       ar: 'جميع المنظمات',
       ru: 'Все организации',
       tr: 'Tüm organizasyonlar',
+      pl: 'Wszystkie organizacje',
+      id: 'Semua organisasi',
+      vi: 'Tất cả tổ chức',
     }),
     noData: t({
       en: 'N/A',
@@ -331,8 +388,15 @@ const userAdminPageContent = {
       ar: 'غير متوفر',
       ru: 'Н/Д',
       tr: 'Yok',
+      pl: 'Brak danych',
+      id: 'N/A',
+      vi: 'Không có dữ liệu',
     }),
   },
+  title: 'User administration page',
+  description:
+    'Content dictionary for the user administration page. Includes table headers, status labels, action buttons, messages, and search filters necessary for managing users in the dashboard.',
+  tags: ['dashboard', 'user management', 'admin page'],
 } satisfies Dictionary;
 
 export default userAdminPageContent;

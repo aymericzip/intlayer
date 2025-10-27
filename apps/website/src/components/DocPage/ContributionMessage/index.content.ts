@@ -19,6 +19,9 @@ const contributionMessageContent = {
         ar: 'تعديل هذه الوثيقة',
         ru: 'Изменить эту документацию',
         tr: 'Bu dokümanı düzenle',
+        pl: 'Edytuj tę dokumentację',
+        id: 'Sunting dokumen ini',
+        vi: 'Chỉnh sửa tài liệu này',
       }),
       text: t({
         en: 'If you have an idea for improving this documentation, please feel free to contribute by submitting a pull request on GitHub.',
@@ -36,6 +39,9 @@ const contributionMessageContent = {
         ar: 'إذا كان لديك فكرة لتحسين هذه الوثيقة، فلا تتردد في المساهمة من خلال تقديم طلب سحب على GitHub.',
         ru: 'Если у вас есть идея по улучшению этой документации, не стесняйтесь внести свой вклад, подав запрос на вытягивание на GitHub.',
         tr: "Bu dokümantasyonu geliştirmek için bir fikriniz varsa, lütfen GitHub'da bir çekme isteği göndererek katkıda bulunmaktan çekinmeyin.",
+        pl: 'Jeśli masz pomysł na ulepszenie tej dokumentacji, zachęcamy do przesłania pull requesta na GitHubie.',
+        id: 'Jika Anda memiliki ide untuk meningkatkan dokumentasi ini, silakan berkontribusi dengan mengajukan pull request di GitHub.',
+        vi: 'Nếu bạn có ý tưởng để cải thiện tài liệu này, vui lòng đóng góp bằng cách gửi pull request trên GitHub.',
       }),
       button: t({
         en: 'GitHub link to the documentation',
@@ -52,6 +58,9 @@ const contributionMessageContent = {
         ar: 'رابط GitHub للتوثيق',
         ru: 'Ссылка на документацию GitHub',
         tr: 'Dokümantasyon için GitHub bağlantısı',
+        pl: 'Link do dokumentacji na GitHubie',
+        id: 'Tautan GitHub ke dokumentasi',
+        vi: 'Liên kết GitHub tới tài liệu',
       }),
       buttonLabel: t({
         en: 'Click here to contribute',
@@ -68,9 +77,16 @@ const contributionMessageContent = {
         ar: 'انقر هنا للمساهمة',
         ru: 'Нажмите здесь, чтобы внести свой вклад',
         tr: 'Katkıda bulunmak için buraya tıklayın',
+        pl: 'Kliknij tutaj, aby wnieść wkład',
+        id: 'Klik di sini untuk berkontribusi',
+        vi: 'Nhấp vào đây để đóng góp',
       }),
     },
   },
+  title: 'Contribution message',
+  description:
+    'Content related to inviting users to contribute improvements to the documentation, including a call-to-action and link to GitHub.',
+  tags: ['documentation', 'contribution', 'call to action'],
 } satisfies Dictionary;
 
 export default contributionMessageContent;

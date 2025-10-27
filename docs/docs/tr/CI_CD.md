@@ -15,6 +15,10 @@ slugs:
   - doc
   - concept
   - ci-cd
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # CI/CD Hattında Çevirileri Otomatik Oluştur
@@ -190,9 +194,3 @@ Ortam değişkenlerini ayarlamak için GitHub → Settings → Secrets and varia
 > Varsayılan olarak, `--git-diff` argümanı base'den (varsayılan `origin/main`) mevcut branch'e (varsayılan: `HEAD`) kadar olan değişiklikleri içeren sözlükleri filtreler.
 
 > Intlayer CLI komutları ve kullanımları hakkında daha fazla bilgi için [CLI dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) bakın.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

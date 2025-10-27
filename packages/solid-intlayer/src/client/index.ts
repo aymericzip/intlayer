@@ -16,6 +16,9 @@ export { useLocale } from './useLocale';
 export { useLocaleBase } from './useLocaleBase';
 export {
   localeCookie,
+  localeInStorage,
   setLocaleCookie,
+  setLocaleInStorage,
   useLocaleCookie,
-} from './useLocaleCookie';
+  useLocaleStorage,
+} from './useLocaleStorage';

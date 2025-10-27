@@ -1,5 +1,6 @@
 export { getAlias } from './alias';
 export { bundleJSFile } from './bundleJSFile';
+export { buildConfigurationFields } from './configFile/buildConfigurationFields';
 export {
   type GetConfigurationAndFilePathResult,
   type GetConfigurationOptions,
@@ -7,9 +8,15 @@ export {
   getConfigurationAndFilePath,
 } from './configFile/getConfiguration';
 export { searchConfigurationFile } from './configFile/searchConfigurationFile';
-export { getSandBoxContext } from './getSandboxContext';
+export * as DefaultValues from './defaultValues';
 export { getEnvFilePath, loadEnvFile } from './loadEnvFile';
-export { loadExternalFile } from './loadExternalFile';
+export { bundleFile, bundleFileSync } from './loadExternalFile/bundleFile';
+export {
+  type ESBuildPlugin,
+  loadExternalFile,
+  loadExternalFileSync,
+} from './loadExternalFile/loadExternalFile';
+export { parseFileContent } from './loadExternalFile/parseFileContent';
 export {
   ANSIColors,
   clock,
@@ -28,21 +35,21 @@ export {
   x,
 } from './logger';
 export { retryManager } from './retryManager';
-export type {
-  CustomIntlayerConfig,
-  InternationalizationConfig,
-  IntlayerConfig,
-  LogConfig,
-  LogFunctions,
-  MiddlewareConfig,
-  PatternsContentConfig,
-  ServerSetCookieRule,
-  StrictMode,
-} from './types/config';
-export type { LocalesValues } from './types/locales';
-export { Locales } from './types/locales';
-export type { Plugin } from './types/plugin';
+export {
+  cache,
+  clearCache,
+  getCache,
+  localCache,
+  setCache,
+} from './utils/cache';
 export { clearModuleCache } from './utils/clearModuleCache';
-export { ESMxCJSRequire, isESModule } from './utils/ESMxCJSHelpers';
+export {
+  configESMxCJSRequire,
+  ESMxCJSRequire,
+  isESModule,
+} from './utils/ESMxCJSHelpers';
+export { extractErrorMessage } from './utils/extractErrorMessage';
 export { getExtension } from './utils/getExtension';
+export { getPackageJsonPath } from './utils/getPackageJsonPath';
+export { logStack } from './utils/logStack';
 export { normalizePath } from './utils/normalizePath';

@@ -15,6 +15,10 @@ slugs:
   - environment
   - vite-and-svelte
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Переведите ваш Vite and Svelte с Intlayer | Интернационализация (i18n)
@@ -280,7 +284,3 @@ module.exports = appContent;
 Для расширения возможностей вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешний [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
 
 ---
-
-## История документации
-
-- 5.5.10 - 2025-06-29: Инициализация истории

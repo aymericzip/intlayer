@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Dosya İçeriği / Intlayer'da Dosyaları Gömme
@@ -216,13 +220,3 @@ Intlayer'da dosya gömmenin yapılandırılması ve kullanımı hakkında daha f
 - [Çeviri İçerik Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
 
 Bu kaynaklar, dosya gömmesi, içerik yönetimi ve çeşitli çerçevelerle Intlayer'ın entegrasyonu hakkında daha fazla bilgi sağlar.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
-
-```
-
-```

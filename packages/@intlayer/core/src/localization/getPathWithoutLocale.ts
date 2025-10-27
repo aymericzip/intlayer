@@ -1,10 +1,11 @@
 import configuration from '@intlayer/config/built';
-import type { Locales, LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/types';
 
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 
 /**
  * Removes the locale segment from the given URL or pathname if present.
+ * Also removes locale from search parameters if present.
  *
  * This function get the locales from the configuration if not provided.
  *
@@ -15,19 +16,20 @@ import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
  * getPathWithoutLocale('/fr/dashboard') // Returns '/dashboard'
  * getPathWithoutLocale('/dashboard') // Returns '/dashboard'
  * getPathWithoutLocale('dashboard') // Returns 'dashboard'
+ * getPathWithoutLocale('/dashboard?locale=fr') // Returns '/dashboard'
  * getPathWithoutLocale('https://example.com/en/dashboard') // Returns 'https://example.com/dashboard'
  * getPathWithoutLocale('https://example.com/fr/dashboard') // Returns 'https://example.com/dashboard'
  * getPathWithoutLocale('https://example.com/dashboard') // Returns 'https://example.com/dashboard'
+ * getPathWithoutLocale('https://example.com/dashboard?locale=fr') // Returns 'https://example.com/dashboard'
  * ```
  *
  * @param inputUrl - The complete URL string or pathname to process.
  * @param locales - Optional array of supported locales. Defaults to `localesDefault`.
- * @returns The URL string or pathname without the locale segment.
+ * @returns The URL string or pathname without the locale segment or locale search parameter.
  */
 export const getPathWithoutLocale = (
   inputUrl: string,
-  locales: LocalesValues[] = configuration.internationalization
-    .locales as LocalesValues[]
+  locales: LocalesValues[] = configuration?.internationalization?.locales
 ): string => {
   // Determine if the original URL is absolute (includes protocol)
   const isAbsoluteUrl = checkIsURLAbsolute(inputUrl);
@@ -57,13 +59,20 @@ export const getPathWithoutLocale = (
   const firstSegment = pathSegments[1]; // The segment after the first '/'
 
   // Check if the first segment is a supported locale
-  if (locales.includes(firstSegment as Locales)) {
+  if (locales?.includes(firstSegment as LocalesValues)) {
     // Remove the locale segment from the pathname
     pathSegments.splice(1, 1); // Remove the first segment
 
     // Reconstruct the pathname
     const newPathname = pathSegments.join('/') ?? '/';
     url.pathname = newPathname;
+  }
+
+  // Remove locale from search parameters if present
+  const searchParams = new URLSearchParams(url.search);
+  if (searchParams.has('locale')) {
+    searchParams.delete('locale');
+    url.search = searchParams.toString();
   }
 
   if (isAbsoluteUrl) {

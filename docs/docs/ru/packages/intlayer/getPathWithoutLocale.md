@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getPathWithoutLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Документация: функция `getPathWithoutLocale` в `intlayer`
@@ -70,7 +74,3 @@ console.log(getPathWithoutLocale("/en/dashboard")); // Вывод: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Вывод: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Вывод: "https://example.com/dashboard"
 ```
-
-## История документации
-
-- 5.5.10 - 2025-06-29: Инициализация истории

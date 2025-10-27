@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - function-fetching
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Cronologia iniziale
 ---
 
 # Recupero Funzioni
@@ -208,7 +212,3 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
-
-## Cronologia Documentazione
-
-- 5.5.10 - 2025-06-29: Cronologia iniziale

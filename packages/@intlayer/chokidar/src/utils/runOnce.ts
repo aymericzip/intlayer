@@ -1,5 +1,6 @@
-import { mkdir, stat, unlink, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, stat, unlink, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
+import packageJson from '@intlayer/core/package.json' with { type: 'json' };
 
 type RunOnceOptions = {
   /**
@@ -23,6 +24,11 @@ type RunOnceOptions = {
 const DEFAULT_RUN_ONCE_OPTIONS = {
   cacheTimeoutMs: 60 * 1000, // 1 minute in milliseconds,
 } satisfies RunOnceOptions;
+
+type SentinelData = {
+  version: string;
+  timestamp: number;
+};
 
 /**
  * Ensures a callback function runs only once within a specified time window across multiple processes.
@@ -62,13 +68,40 @@ export const runOnce = async (
     const sentinelStats = await stat(sentinelFilePath);
     const sentinelAge = currentTimestamp - sentinelStats.mtime.getTime();
 
-    // If sentinel is older than the timeout, delete it and rebuild
-    if (sentinelAge > cacheTimeoutMs || forceRun) {
-      await unlink(sentinelFilePath);
+    // Determine if we should rebuild based on cache age, force flag, or version mismatch
+    let shouldRebuild = Boolean(forceRun) || sentinelAge > cacheTimeoutMs!;
+
+    if (!shouldRebuild) {
+      try {
+        const raw = await readFile(sentinelFilePath, 'utf8');
+        let cachedVersion: string | undefined;
+        try {
+          const parsed = JSON.parse(raw) as Partial<SentinelData>;
+          cachedVersion = parsed.version;
+        } catch {
+          // Legacy format (timestamp only). Force a rebuild once to write versioned sentinel.
+          cachedVersion = undefined;
+        }
+
+        if (!cachedVersion || cachedVersion !== packageJson.version) {
+          shouldRebuild = true;
+        }
+      } catch {
+        // If we cannot read the file, err on the safe side and rebuild
+        shouldRebuild = true;
+      }
+    }
+
+    if (shouldRebuild) {
+      try {
+        await unlink(sentinelFilePath);
+      } catch (err: any) {
+        if (err.code !== 'ENOENT') throw err;
+      }
       // Fall through to create new sentinel and rebuild
     } else {
       await onIsCached?.();
-      // Sentinel is recent, no need to rebuild
+      // Sentinel is recent and versions match, no need to rebuild
       return;
     }
   } catch (err: any) {
@@ -84,7 +117,11 @@ export const runOnce = async (
     await mkdir(dirname(sentinelFilePath), { recursive: true });
 
     // O_EXCL ensures only the *first* process can create the file
-    await writeFile(sentinelFilePath, String(currentTimestamp), { flag: 'wx' });
+    const data: SentinelData = {
+      version: packageJson.version,
+      timestamp: currentTimestamp,
+    };
+    await writeFile(sentinelFilePath, JSON.stringify(data), { flag: 'wx' });
   } catch (err: any) {
     if (err.code === 'EEXIST') {
       // Another process already created it → we're done

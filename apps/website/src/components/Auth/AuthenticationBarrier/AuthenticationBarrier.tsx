@@ -1,4 +1,4 @@
-import { getQueryParams } from '@utils/queryMiddleware';
+import { getQueryParams } from '@utils/queryProxy';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';

@@ -1,10 +1,7 @@
 'use client';
 
-import type { Locales, LocalesValues } from '@intlayer/config/client';
 import {
   type ConditionContent,
-  type ContentNode,
-  type Dictionary,
   type EnumerationContent,
   type FileContent,
   type GenderContent,
@@ -12,12 +9,18 @@ import {
   getLocaleName,
   getNodeType,
   type InsertionContent,
-  type KeyPath,
   type MarkdownContent,
-  NodeType,
   type TranslationContent,
 } from '@intlayer/core';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
+import {
+  type ContentNode,
+  type Dictionary,
+  type KeyPath,
+  type Locales,
+  type LocalesValues,
+  NodeType,
+} from '@intlayer/types';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
 import { type FC, Fragment, type ReactNode, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
@@ -211,7 +214,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
 
   const sectionContent = (section as TranslationContent<string>)[
     NodeType.Translation
-  ] as Record<Locales, string>;
+  ] as Record<Locale, string>;
 
   const sectionContentKeys = Object.keys(sectionContent) as LocalesValues[];
 
@@ -595,7 +598,6 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionary,
   isDarkMode,
-  onContentChange,
 }) => {
   const [mode, setMode] = useState(MarkdownViewMode.Edit);
   const toggleContent = [
@@ -638,7 +640,6 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
               )
             : undefined
         }
-        onContentChange={onContentChange}
       />
     </div>
   );

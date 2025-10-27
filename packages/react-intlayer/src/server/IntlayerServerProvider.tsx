@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/types';
 
 import type { FC, PropsWithChildren } from 'react';
 import { createServerContext, getServerContext } from './serverContext';

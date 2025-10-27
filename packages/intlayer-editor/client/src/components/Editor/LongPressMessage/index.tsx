@@ -1,6 +1,6 @@
 'use client';
 
-import type { KeyPath } from '@intlayer/core';
+import type { KeyPath } from '@intlayer/types';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../../utils/cn';

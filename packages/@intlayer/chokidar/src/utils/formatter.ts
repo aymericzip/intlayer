@@ -1,7 +1,8 @@
 import { relative } from 'node:path';
-import { ANSIColors, colorize, colorizePath, Locales } from '@intlayer/config';
+import { ANSIColors, colorize, colorizePath } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { getLocaleName } from '@intlayer/core';
+import { Locales, type LocalesValues } from '@intlayer/types';
 
 export const formatPath = (
   path: string | string[],
@@ -20,7 +21,7 @@ export const formatPath = (
     .join(`, `);
 
 export const formatLocale = (
-  locale: Locales | Locales[],
+  locale: LocalesValues | LocalesValues[],
   color: ANSIColors | false = ANSIColors.GREEN
 ) =>
   [locale]

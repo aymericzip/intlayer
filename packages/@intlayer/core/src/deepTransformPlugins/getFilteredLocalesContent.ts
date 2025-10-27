@@ -1,23 +1,25 @@
-import type { Locales, LocalesValues } from '@intlayer/config/client';
+import {
+  type ContentNode,
+  type Dictionary,
+  type LocalesValues,
+  NodeType,
+} from '@intlayer/types';
 import {
   deepTransformNode,
   type NodeProps,
   type Plugins,
 } from '../interpreter';
-import { type ContentNode, NodeType } from '../types';
 
-const filterTranlationsPlugin = (
-  locales: LocalesValues[] | LocalesValues
-): Plugins => ({
+const filterTranslationsPlugin = (locales: LocalesValues[]): Plugins => ({
   id: 'filter-translations-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Translation,
   transform: (node, props, deepTransformNode) => {
-    const translationMap = node.translation as Record<Locales, string>;
+    const translationMap = node.translation as Record<LocalesValues, string>;
 
     const filteredTranslationMap = Object.fromEntries(
       Object.entries(translationMap).filter(([key]) =>
-        locales.includes(key as Locales)
+        locales.includes(key as LocalesValues)
       )
     );
 
@@ -36,11 +38,13 @@ const filterTranlationsPlugin = (
 
 export const getFilteredLocalesContent = (
   node: ContentNode,
-  locale: LocalesValues | LocalesValues[],
+  locales: LocalesValues | LocalesValues[],
   nodeProps: NodeProps
 ) => {
+  const localesArray = Array.isArray(locales) ? locales : [locales];
+
   const plugins: Plugins[] = [
-    filterTranlationsPlugin(locale),
+    filterTranslationsPlugin(localesArray),
     ...(nodeProps.plugins ?? []),
   ];
 
@@ -48,4 +52,28 @@ export const getFilteredLocalesContent = (
     ...nodeProps,
     plugins,
   });
+};
+
+/*
+ * Remove all unneeded translation from translation node
+ *
+ * locale: fr
+ * t({ ar: 'Hello', en: 'Hello', fr: 'Bonjour' }) -> t({ fr: 'Bonjour' })
+ *
+ * locales: [fr, en]
+ * t({ ar: 'Hello', en: 'Hello', fr: 'Bonjour' }) -> t({ en: 'Hello', fr: 'Bonjour' })
+ */
+export const getFilteredLocalesDictionary = (
+  dictionary: Dictionary,
+  locale: LocalesValues | LocalesValues[]
+) => {
+  const localesArray = Array.isArray(locale) ? locale : [locale];
+
+  return {
+    ...dictionary,
+    content: getFilteredLocalesContent(dictionary.content, localesArray, {
+      dictionaryKey: dictionary.key,
+      keyPath: [],
+    }),
+  };
 };

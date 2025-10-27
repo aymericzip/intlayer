@@ -6,7 +6,7 @@
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "baseUrl": ".",
 
     /* Bundler mode */
@@ -14,6 +14,8 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "isolatedDeclarations": false,
+    "declaration": true,
     "noEmit": true,
     "jsx": "react-jsx",
 

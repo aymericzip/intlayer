@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 const localeSwitcherContent = {
   key: 'locale-switcher-content',
-  autoFill: './{{key}}.content.json',
   content: {
     localeSwitcherLabel: t({
       en: 'Language switcher',
@@ -19,6 +18,9 @@ const localeSwitcherContent = {
       ar: 'مبدل اللغة',
       ru: 'Переключатель языка',
       tr: 'Dil değiştirici',
+      pl: 'Przełącznik języka',
+      id: 'Pengalih bahasa',
+      vi: 'Chuyển đổi ngôn ngữ',
     }),
     languageListLabel: t({
       en: 'Language list',
@@ -35,6 +37,9 @@ const localeSwitcherContent = {
       ar: 'قائمة اللغات',
       ru: 'Список языков',
       tr: 'Dil listesi',
+      pl: 'Lista języków',
+      id: 'Daftar bahasa',
+      vi: 'Danh sách ngôn ngữ',
     }),
     switchTo: t({
       en: 'Switch to',
@@ -51,6 +56,9 @@ const localeSwitcherContent = {
       ar: 'التبديل إلى',
       ru: 'Переключиться на',
       tr: 'Geçiş yap',
+      pl: 'Przełącz na',
+      id: 'Beralih ke',
+      vi: 'Chuyển sang',
     }),
     searchInput: {
       text: t({
@@ -68,6 +76,9 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Wyszukaj lokalizację',
+        id: 'Cari locale',
+        vi: 'Tìm Locale',
       }),
       placeholder: t({
         en: 'Search a locale',
@@ -84,6 +95,9 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Wyszukaj lokalizację',
+        id: 'Cari locale',
+        vi: 'Tìm một Locale',
       }),
       ariaLabel: t({
         en: 'Language search',
@@ -100,6 +114,9 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Wyszukiwanie lokalizacji',
+        id: 'Pencarian locale',
+        vi: 'Tìm kiếm Locale',
       }),
     },
     seeAllLocalesSwitch: {
@@ -118,6 +135,9 @@ const localeSwitcherContent = {
         ar: 'عرض جميع اللغات',
         ru: 'Показать все языки',
         tr: 'Tüm dilleri göster',
+        pl: 'Pokaż wszystkie lokalizacje',
+        id: 'Tampilkan semua locale',
+        vi: 'Xem tất cả các Locale',
       }),
       false: t({
         en: 'See only selected locales',
@@ -134,9 +154,16 @@ const localeSwitcherContent = {
         ar: 'عرض اللغات المحددة فقط',
         ru: 'Показать только выбранные языки',
         tr: 'Yalnızca seçilen dilleri göster',
+        pl: 'Pokaż tylko wybrane lokalizacje',
+        id: 'Tampilkan hanya locale yang dipilih',
+        vi: 'Chỉ xem các Locale đã chọn',
       }),
     },
   },
+  title: 'Locale switcher content',
+  description:
+    'Content strings for the locale switcher component, including labels, placeholders, and toggle options for displaying available locales.',
+  tags: ['component', 'locale switcher', 'i18n'],
 } satisfies Dictionary;
 
 export default localeSwitcherContent;

@@ -7,7 +7,7 @@ import {
   Input,
   Loader,
 } from '@intlayer/design-system';
-import { useSearchDoc } from '@intlayer/design-system/hooks';
+import { useSearch, useSearchDoc } from '@intlayer/design-system/hooks';
 import type { BlogMetadata, DocMetadata } from '@intlayer/docs';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { getIntlayer } from 'intlayer';
@@ -120,15 +120,21 @@ export const SearchView: FC<{
   isOpen?: boolean;
 }> = ({ onClickLink = () => {}, isOpen = false }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const searchQuery = useSearchParams().get('search');
-
+  const searchQueryParam = useSearchParams().get('search');
   const [results, setResults] = useState<DocMetadata[]>([]);
-  const [currentSearchQuery, setCurrentSearchQuery] = useState<string | null>(
-    searchQuery
-  );
+  const { search, setSearch } = useSearch({
+    defaultValue: searchQueryParam,
+    onClear: () => setResults([]),
+    onSearch: (searchQuery: string) => {
+      const fuseSearchResults = fuse
+        .search(searchQuery)
+        .map((result) => result.item);
+
+      setResults(fuseSearchResults);
+    },
+  });
   const { data: searchDocData, isFetching } = useSearchDoc({
-    input: currentSearchQuery ?? '',
+    input: search,
   });
 
   const { noContentText, searchInput } = useIntlayer('doc-search-view');
@@ -136,6 +142,7 @@ export const SearchView: FC<{
 
   const docMetadata = getIntlayer('doc-metadata', locale) as DocMetadata[];
   const blogMetadata = getIntlayer('blog-metadata', locale) as BlogMetadata[];
+
   const filesData = [...docMetadata, ...blogMetadata];
   const fuse = new Fuse(filesData, fuseOptions);
 
@@ -180,9 +187,13 @@ export const SearchView: FC<{
     if (searchQuery) handleSearch(searchQuery);
   }, [searchQuery]);
 
+  // Focus input when modal opens using setTimeout
+  // This waits for the browser's paint cycle and the modal animation
   useEffect(() => {
     if (isOpen) {
-      timeoutRef.current = setTimeout(() => inputRef.current?.focus(), 10);
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 50);
     }
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -191,6 +202,9 @@ export const SearchView: FC<{
 
   const isNoResult =
     !isFetching && results.length === 0 && inputRef.current?.value !== '';
+  }, [isOpen]);
+
+  const isNoResult = !isFetching && results.length === 0 && search.length > 0;
 
   return (
     <div className="relative w-full p-4">
@@ -200,8 +214,8 @@ export const SearchView: FC<{
           type="search"
           placeholder={searchInput.placeholder.value}
           aria-label={searchInput.label.value}
-          onChange={(e) => debouncedSearch(e.target.value)}
-          defaultValue={searchQuery ?? ''}
+          onChange={(e) => setSearch(e.target.value)}
+          defaultValue={searchQueryParam ?? ''}
           className="m-3"
           ref={inputRef}
         />

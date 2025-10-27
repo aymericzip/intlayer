@@ -19,6 +19,9 @@ const tagListContent = {
         ar: 'لا يوجد علامات',
         ru: 'Нет тегов',
         tr: 'Etiket yok',
+        pl: 'Brak tagów',
+        id: 'Belum ada tag',
+        vi: 'Chưa có tag nào',
       }),
       description: t({
         en: 'Create your first tag to indicate how AI can structure your content',
@@ -36,6 +39,9 @@ const tagListContent = {
         ar: 'أنشئ مشروعك الأول للبدء في استخدام Intlayer',
         ru: 'Создайте свой первый тег, чтобы показать, как ИИ может структурировать ваш контент',
         tr: 'İçeriğinizi yapay zekanın nasıl yapılandırabileceğini göstermek için ilk etiketinizi oluşturun',
+        pl: 'Utwórz pierwszy tag, aby wskazać, jak AI może strukturyzować twoje treści',
+        id: 'Buat tag pertama Anda untuk menunjukkan bagaimana AI dapat menyusun konten Anda',
+        vi: 'Tạo tag đầu tiên để chỉ ra cách AI có thể cấu trúc nội dung của bạn',
       }),
     },
 
@@ -55,6 +61,9 @@ const tagListContent = {
         ar: 'إنشاء وسم',
         ru: 'Создать тег',
         tr: 'Etiket oluştur',
+        pl: 'Utwórz tag',
+        id: 'Buat tag',
+        vi: 'Tạo tag',
       }),
       ariaLabel: t({
         en: 'Click to create tag',
@@ -71,9 +80,16 @@ const tagListContent = {
         ar: 'انقر لإنشاء وسم',
         ru: 'Нажмите, чтобы создать тег',
         tr: 'Etiket oluşturmak için tıklayın',
+        pl: 'Kliknij, aby utworzyć tag',
+        id: 'Klik untuk membuat tag',
+        vi: 'Nhấp để tạo tag',
       }),
     },
   },
+  title: 'Tag list',
+  description:
+    'Content declaration for displaying and managing the list of tags in the dashboard. Includes messages for empty states and actions to create new tags.',
+  tags: ['dashboard', 'tag management'],
 } satisfies Dictionary;
 
 export default tagListContent;

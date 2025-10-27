@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - gender
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: 引入基于性别的内容显示功能
 ---
 
 # 基于性别的内容 / Intlayer 中的性别
@@ -267,9 +271,3 @@ module.exports = GenderComponent;
 - [Next Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
 
 这些资源提供了关于在各种环境和框架中设置和使用 Intlayer 的更多见解。
-
-## 文档历史
-
-| 版本  | 日期       | 变更内容                   |
-| ----- | ---------- | -------------------------- |
-| 5.7.2 | 2025-07-27 | 引入基于性别的内容显示功能 |

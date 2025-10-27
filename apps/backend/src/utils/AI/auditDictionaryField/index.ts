@@ -1,23 +1,15 @@
-import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { getLocaleName, type KeyPath } from '@intlayer/core';
+import { readAsset } from 'utils:asset';
+import { getLocaleName } from '@intlayer/core';
+import type { KeyPath } from '@intlayer/types';
+import { type Locale, Locales } from '@intlayer/types';
 import { logger } from '@logger';
 import { generateText } from 'ai';
-import { Locales } from 'intlayer';
 import type { Tag } from '@/types/tag.types';
 import type { AIConfig, AIOptions } from '../aiSdk';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-// Get the content of a file at the specified path
-const getFileContent = (filePath: string) => {
-  return readFileSync(join(__dirname, filePath), { encoding: 'utf-8' });
-};
-
 export type AuditDictionaryFieldOptions = {
   fileContent: string;
-  locales: Locales[];
+  locales: Locale[];
   keyPath: KeyPath[];
   tags: Tag[];
   aiConfig: AIConfig;
@@ -30,7 +22,7 @@ export type AuditDictionaryFieldResultData = {
 };
 
 // The prompt template to send to the AI model
-const CHAT_GPT_PROMPT = getFileContent('./PROMPT.md');
+const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
 
 export const aiDefaultOptions: AIOptions = {
   // Keep default options
@@ -42,7 +34,7 @@ export const aiDefaultOptions: AIOptions = {
  * @param locale - The locale to format.
  * @returns A string in the format "locale: name", e.g. "en: English".
  */
-const formatLocaleWithName = (locale: Locales): string => {
+const formatLocaleWithName = (locale: Locale): string => {
   return `${locale}: ${getLocaleName(locale, Locales.ENGLISH)}`;
 };
 

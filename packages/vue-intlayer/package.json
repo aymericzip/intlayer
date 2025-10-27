@@ -1,6 +1,6 @@
 {
   "name": "vue-intlayer",
-  "version": "6.1.6",
+  "version": "7.0.1",
   "private": false,
   "description": "Easily internationalize i18n your Vue applications with type-safe multilingual content management.",
   "keywords": [
@@ -69,18 +69,18 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "pnpm clean & pnpm build:ci",
+    "build": "vite build",
     "build:ci": "vite build",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist .turbo",
     "dev": "vite build --watch",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint --write .",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit"
+    "typecheck": "vue-tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
@@ -88,23 +88,26 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
-    "js-cookie": "^3.0.5",
-    "uuid": "^11.1.0"
+    "@intlayer/types": "workspace:*",
+    "js-cookie": "3.0.5",
+    "uuid": "13.0.0"
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.6",
-    "@types/node": "^24.5.2",
+    "@types/js-cookie": "3.0.6",
+    "@types/node": "24.9.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
-    "@utils/tsup-config": "workspace:*",
-    "@vitejs/plugin-vue": "^6.0.1",
-    "concurrently": "^9.2.1",
-    "fast-glob": "^3.3.3",
-    "rimraf": "^6.0.1",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.7",
-    "vite-plugin-dts": "^4.5.3",
-    "vitest": "^3.2.4"
+    "@utils/tsdown-config": "workspace:*",
+    "@vitejs/plugin-vue": "6.0.1",
+    "ajv": "^8.17.1",
+    "fast-glob": "3.3.3",
+    "rimraf": "6.0.1",
+    "tsdown": "0.15.9",
+    "typescript": "5.9.3",
+    "vite": "7.1.12",
+    "vite-plugin-dts": "4.5.4",
+    "vitest": "4.0.3",
+    "vue-tsc": "3.1.1"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",
@@ -112,8 +115,9 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "intlayer": "workspace:*",
-    "vue": "^3.5.13"
+    "vue": ">=3.0.0"
   },
   "peerDependenciesMeta": {
     "intlayer": {

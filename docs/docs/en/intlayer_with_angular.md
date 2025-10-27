@@ -14,6 +14,10 @@ slugs:
   - environment
   - angular
 # applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Translate your Angular website using Intlayer | Internationalization (i18n)
@@ -686,9 +690,3 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
 ---
-
-## Doc History
-
-| Version | Date       | Changes      |
-| ------- | ---------- | ------------ |
-| 5.5.10  | 2025-06-29 | Init history |

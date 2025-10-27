@@ -18,6 +18,9 @@ const tagListContent = {
       ar: 'إدارة قاموس',
       ru: 'Управление словарем',
       tr: 'Sözlüğü yönet',
+      pl: 'Zarządzaj słownikiem',
+      id: 'Kelola kamus',
+      vi: 'Quản lý từ điển',
     }),
 
     noDictionaryView: {
@@ -36,6 +39,9 @@ const tagListContent = {
         ar: 'لا يوجد قاموس',
         ru: 'Нет словаря',
         tr: 'Sözlük yok',
+        pl: 'Brak słownika',
+        id: 'Tidak ada kamus',
+        vi: 'Không có từ điển',
       }),
       description: t({
         en: 'There are no dictionaries associated with this tag',
@@ -52,9 +58,16 @@ const tagListContent = {
         ar: 'لا توجد قاموس مرتبطة بهذا الوسم',
         ru: 'Словари, связанные с этим тегом нет',
         tr: 'Bu etiketle ilişkili sözlük yok',
+        pl: 'Do tego tagu nie są przypisane żadne słowniki',
+        id: 'Tidak ada kamus yang terkait dengan tag ini',
+        vi: 'Không có từ điển nào được liên kết với thẻ này',
       }),
     },
   },
+  title: 'Tags dictionaries list',
+  description:
+    'Displays the list of dictionaries associated with a specific tag in the dashboard. Includes UI messages for when no dictionaries are linked.',
+  tags: ['dashboard', 'tags', 'dictionaries'],
 } satisfies Dictionary;
 
 export default tagListContent;

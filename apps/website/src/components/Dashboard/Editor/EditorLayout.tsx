@@ -1,6 +1,5 @@
 'use client';
 
-import type { IntlayerConfig, Locales } from '@intlayer/config/client';
 import { normalizeDictionaries } from '@intlayer/core';
 import { Container } from '@intlayer/design-system';
 import {
@@ -9,7 +8,8 @@ import {
   useCrossFrameState,
   useDictionariesRecordActions,
 } from '@intlayer/editor-react';
-import unmergedDictionaries from '@intlayer/unmerged-dictionaries-entry';
+import type { IntlayerConfig, Locale } from '@intlayer/types';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { useTheme } from 'next-themes';
 import { type FC, type PropsWithChildren, useEffect } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
@@ -27,7 +27,7 @@ export const EditorLayout: FC<EditorLayoutProps> = ({
     MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED,
     null
   );
-  const [currentLocale] = useCrossFrameState<Locales>(
+  const [currentLocale] = useCrossFrameState<Locale>(
     MessageKey.INTLAYER_CURRENT_LOCALE,
     undefined,
     {
@@ -41,6 +41,7 @@ export const EditorLayout: FC<EditorLayoutProps> = ({
   useEffect(() => {
     if (!configuration) return;
 
+    const unmergedDictionaries = getUnmergedDictionaries(configuration);
     const dictionariesList = Object.fromEntries(
       Object.values(unmergedDictionaries)
         .flatMap((dictionaries) =>

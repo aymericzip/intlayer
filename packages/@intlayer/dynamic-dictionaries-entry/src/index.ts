@@ -1,5 +1,3 @@
-// @ts-nocheck intlayer declared for module augmentation
-
 /**
  * @intlayer/dynamic-dictionaries-entry is a package that only returns the dynamic dictionary entry file.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
@@ -8,39 +6,42 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import {
-  clearModuleCache,
-  ESMxCJSRequire,
-  getConfiguration,
-  type IntlayerConfig,
-} from '@intlayer/config';
+import { clearModuleCache, ESMxCJSRequire } from '@intlayer/config';
+import config from '@intlayer/config/built';
 import type {
   Dictionary,
-  IntlayerDictionaryTypesConnector,
-  LanguageContent,
-} from 'intlayer';
+  DictionaryKeys,
+  IntlayerConfig,
+  StrictModeLocaleMap,
+} from '@intlayer/types';
 
-export const getDynamicDictionaries = (
-  configuration: IntlayerConfig = getConfiguration(),
-  projectRequire = ESMxCJSRequire
+export type DynamicDictionaries = Record<
+  DictionaryKeys,
+  StrictModeLocaleMap<Dictionary>
+>;
+
+type GetDynamicDictionaries = (
+  configuration?: IntlayerConfig
+) => DynamicDictionaries;
+
+export const getDynamicDictionaries: GetDynamicDictionaries = (
+  configuration: IntlayerConfig = config
 ) => {
-  const { content } = configuration;
+  const { content, build } = configuration;
 
   // Always use cjs for dictionaries entry as it uses require
   const dictionariesPath = join(content.mainDir, `dynamic_dictionaries.cjs`);
 
   let dictionaries: Record<
-    IntlayerDictionaryTypesConnector['key'],
-    LanguageContent<Dictionary>
+    DictionaryKeys,
+    StrictModeLocaleMap<Dictionary>
   > = {};
 
   if (existsSync(dictionariesPath)) {
     // Clear cache for dynamic_dictionaries.cjs and all its dependencies (JSON files)
     clearModuleCache(dictionariesPath);
-    dictionaries = projectRequire(dictionariesPath);
+    dictionaries = (build.require ?? ESMxCJSRequire)(dictionariesPath);
   }
 
   return dictionaries;
 };
-
-export default (() => getDynamicDictionaries())();

@@ -1,0 +1,95 @@
+:root {
+  --shiki-line-number-color: rgba(93, 93, 93, 0.3);
+
+  --shiki-highlighted-background-color: rgba(93, 93, 93, 0.05);
+  --shiki-highlighted-warning-background-color: rgba(16, 185, 129, 0.15);
+  --shiki-highlighted-error-background-color: rgba(239, 68, 68, 0.15);
+
+  --shiki-diff-add-background-color: rgba(16, 185, 129, 0.15);
+  --shiki-diff-add-sign-color: rgba(16, 185, 129, 1);
+  --shiki-diff-remove-background-color: rgba(239, 68, 68, 0.15);
+  --shiki-diff-remove-sign-color: rgba(239, 68, 68, 1);
+
+  --shiki-highlighted-word-background-color: rgba(169, 169, 169, 0.2);
+  --shiki-highlighted-word-border-color: rgba(169, 169, 169, 0.5);
+}
+
+[data-theme="dark"] {
+  --shiki-line-number-color: rgba(209, 209, 209, 0.3);
+  --shiki-highlighted-background-color: rgba(209, 209, 209, 0.1);
+
+  --shiki-highlighted-word-background-color: rgba(255, 255, 255, 0.2);
+  --shiki-highlighted-word-border-color: rgba(255, 255, 255, 0.5);
+}
+
+pre.shiki {
+  background-color: transparent !important;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+code {
+  counter-reset: step;
+  counter-increment: step 0;
+}
+
+.with-line-number .line::before {
+  content: counter(step);
+  counter-increment: step;
+  width: 1rem;
+  margin-right: 1.5rem;
+  display: inline-block;
+  text-align: right;
+  color: var(--shiki-line-number-color);
+}
+
+code .highlighted,
+code .diff {
+  transition: background-color 0.5s;
+  margin: 0 -24px;
+  padding: 0 24px;
+  width: calc(100% + 48px);
+  display: inline-block;
+}
+
+code .highlighted {
+  background-color: var(--shiki-highlighted-background-color);
+}
+
+code .highlighted.warning {
+  background-color: var(--shiki-highlighted-warning-background-color);
+}
+
+code .highlighted.error {
+  background-color: var(--shiki-highlighted-error-background-color);
+}
+
+code .diff.add {
+  background-color: var(--shiki-diff-add-background-color);
+}
+code .diff.remove {
+  background-color: var(--shiki-diff-remove-background-color);
+}
+code .diff::before {
+  counter-increment: step;
+  width: 1rem;
+  margin-right: 1.5rem;
+  display: inline-block;
+  text-align: right;
+}
+code .diff.add::before {
+  content: "+";
+  color: var(--shiki-diff-add-sign-color);
+}
+code .diff.remove::before {
+  content: "-";
+  color: var(--shiki-diff-remove-sign-color);
+}
+
+code .highlighted-word {
+  background-color: var(--shiki-highlighted-word-background-color);
+  border: 1px solid var(--shiki-highlighted-word-border-color);
+  padding: 1px 3px;
+  margin: -1px -3px;
+  border-radius: 4px;
+}

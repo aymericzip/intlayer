@@ -2,7 +2,9 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
   "compilerOptions": {
-    "types": ["node", "vue"]
+    "types": ["node", "vue"],
+    "jsx": "preserve"
   },
-  "include": ["**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", ".turbo"]
 }

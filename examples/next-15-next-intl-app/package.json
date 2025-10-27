@@ -8,18 +8,18 @@
     "test": "echo 'No tests yet'"
   },
   "dependencies": {
-    "date-fns": "^4.1.0",
-    "next": "^15.5.4",
-    "next-intl": "^4.0.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "date-fns": "4.1.0",
+    "next": "15.5.4",
+    "next-intl": "4.0.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
   },
   "devDependencies": {
     "@intlayer/sync-json-plugin": "workspace:*",
-    "@types/lodash": "^4.17.5",
-    "@types/node": "^20.14.5",
-    "@types/react": "^19.2.0",
+    "@types/lodash": "4.17.5",
+    "@types/node": "20.14.5",
+    "@types/react": "19.2.2",
     "intlayer": "workspace:*",
-    "typescript": "^5.9.2"
+    "typescript": "5.9.3"
   }
 }

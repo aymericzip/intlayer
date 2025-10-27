@@ -1,11 +1,10 @@
 import configuration from '@intlayer/config/built';
-import { Locales } from '@intlayer/config/client';
+import { getLocaleFromStorage, localeDetector } from '@intlayer/core';
+import { type Locale, Locales } from '@intlayer/types';
 
 export enum LanguageDetector {
   Querystring = 'querystring',
-  Cookie = 'cookie',
-  LocalStorage = 'localStorage',
-  SessionStorage = 'sessionStorage',
+  Storage = 'storage',
   Navigator = 'navigator',
   HtmlTag = 'htmlTag',
 }
@@ -14,62 +13,30 @@ export enum LanguageDetector {
 type LanguageDetectorOptions = {
   order?: LanguageDetector[];
   lookupQuerystring?: string;
-  lookupCookie?: string;
-  lookupLocalStorage?: string;
-  lookupSessionStorage?: string;
-  excludeCacheFor?: string[];
   htmlTag?: HTMLElement | null;
 };
 
 const getDefaultsOptions = (): LanguageDetectorOptions => {
-  const { middleware } = configuration;
-
   return {
     order: [
       LanguageDetector.Querystring,
-      LanguageDetector.Cookie,
+      LanguageDetector.Storage,
       LanguageDetector.Navigator,
       LanguageDetector.HtmlTag,
     ],
     lookupQuerystring: 'locale',
-    lookupCookie: middleware?.cookieName,
-    htmlTag: document.documentElement,
+    htmlTag: typeof document !== 'undefined' ? document.documentElement : null,
   };
-};
-
-// Helper functions for various checks and operations
-const isLocalStorageAvailable = (): boolean => {
-  try {
-    if (typeof window === 'undefined') return false;
-    const testKey = 'intlayer.translate.boo';
-    window.localStorage.setItem(testKey, 'foo');
-    window.localStorage.removeItem(testKey);
-    return true;
-  } catch {
-    return false;
-  }
-};
-
-const isSessionStorageAvailable = (): boolean => {
-  try {
-    if (typeof window === 'undefined') return false;
-    const testKey = 'intlayer.translate.boo';
-    window.sessionStorage.setItem(testKey, 'foo');
-    window.sessionStorage.removeItem(testKey);
-    return true;
-  } catch {
-    return false;
-  }
 };
 
 // Function to detect language using different detectors
 const detectLanguage = (
   order: string[],
   options: LanguageDetectorOptions
-): Record<LanguageDetector, Locales | Locales[]> => {
-  const detected: Record<LanguageDetector, Locales | Locales[]> = {} as Record<
+): Record<LanguageDetector, Locale | undefined> => {
+  const detected: Record<LanguageDetector, Locale | undefined> = {} as Record<
     LanguageDetector,
-    Locales | Locales[]
+    Locale | undefined
   >;
 
   const queryStringDetector = () => {
@@ -78,45 +45,59 @@ const detectLanguage = (
     const params = new URLSearchParams(search);
     const value = params.get(options.lookupQuerystring ?? '');
     if (value) {
-      detected[LanguageDetector.Querystring] = value as Locales;
+      detected[LanguageDetector.Querystring] = value as Locale;
     }
   };
 
-  const cookieDetector = () => {
-    if (typeof document === 'undefined') return;
-    const cookies = document.cookie.split(';');
-    const cookieName = `${options.lookupCookie ?? ''}=`;
-    const cookie = cookies.find((c) => c.trim().startsWith(cookieName));
-    if (cookie) {
-      const value = cookie.split('=')[1].trim();
+  const storageDetector = () => {
+    if (typeof window === 'undefined') return;
 
-      detected[LanguageDetector.Cookie] = value as Locales;
-    }
-  };
+    const locale = getLocaleFromStorage({
+      getCookie: (name: string) => {
+        try {
+          const cookies = document.cookie.split(';');
+          const cookieName = `${name}=`;
+          const cookie = cookies.find((c) => c.trim().startsWith(cookieName));
+          if (cookie) {
+            return cookie.split('=')[1].trim();
+          }
+        } catch {}
+        return undefined;
+      },
+      getSessionStorage: (name: string) => {
+        try {
+          return window.sessionStorage.getItem(name) ?? undefined;
+        } catch {}
+        return undefined;
+      },
+      getLocaleStorage: (name: string) => {
+        try {
+          return window.localStorage.getItem(name) ?? undefined;
+        } catch {}
+        return undefined;
+      },
+    });
 
-  const localStorageDetector = () => {
-    if (!isLocalStorageAvailable()) return;
-    const value = window.localStorage.getItem(options.lookupLocalStorage ?? '');
-    if (value) {
-      detected[LanguageDetector.LocalStorage] = value as Locales;
-    }
-  };
-
-  const sessionStorageDetector = () => {
-    if (!isSessionStorageAvailable()) return;
-    const value = window.sessionStorage.getItem(
-      options.lookupSessionStorage ?? ''
-    );
-    if (value) {
-      detected[LanguageDetector.SessionStorage] = value as Locales;
+    if (locale) {
+      detected[LanguageDetector.Storage] = locale;
     }
   };
 
   const navigatorDetector = () => {
     if (typeof navigator === 'undefined') return;
 
-    if (navigator.language) {
-      detected[LanguageDetector.Navigator] = navigator.language as Locales;
+    const { internationalization } = configuration;
+    const languages = navigator.languages ?? [navigator.language];
+
+    // Use localeDetector to find the best matching locale
+    const locale = localeDetector(
+      { 'accept-language': languages.join(',') },
+      internationalization.locales,
+      internationalization.defaultLocale
+    );
+
+    if (locale) {
+      detected[LanguageDetector.Navigator] = locale;
     }
   };
 
@@ -125,7 +106,16 @@ const detectLanguage = (
     if (htmlTag && typeof htmlTag.getAttribute === 'function') {
       const lang = htmlTag.getAttribute('lang');
       if (lang) {
-        detected[LanguageDetector.HtmlTag] = lang as Locales;
+        const { internationalization } = configuration;
+
+        // Validate and resolve the locale
+        const locale = localeDetector(
+          { 'accept-language': lang },
+          internationalization.locales,
+          internationalization.defaultLocale
+        );
+
+        detected[LanguageDetector.HtmlTag] = locale;
       }
     }
   };
@@ -133,9 +123,7 @@ const detectLanguage = (
   // Map detector names to their corresponding functions
   const detectors: Record<string, () => void> = {
     [LanguageDetector.Querystring]: queryStringDetector,
-    [LanguageDetector.Cookie]: cookieDetector,
-    [LanguageDetector.LocalStorage]: localStorageDetector,
-    [LanguageDetector.SessionStorage]: sessionStorageDetector,
+    [LanguageDetector.Storage]: storageDetector,
     [LanguageDetector.Navigator]: navigatorDetector,
     [LanguageDetector.HtmlTag]: htmlTagDetector,
   };
@@ -149,25 +137,16 @@ const detectLanguage = (
 };
 
 const getFirstAvailableLocale = (
-  locales: Record<LanguageDetector, Locales | Locales[]>,
+  locales: Record<LanguageDetector, Locale | undefined>,
   order: LanguageDetector[]
-): Locales => {
+): Locale => {
   const { internationalization } = configuration;
 
   for (const detector of order) {
-    const localesArray = [locales[detector]].flat();
+    const locale = locales[detector];
 
-    for (const locale of localesArray) {
-      if (locale && (internationalization?.locales).includes(locale)) {
-        return locale;
-      } else if (
-        locale?.includes('-') &&
-        (internationalization?.locales).includes(
-          locale.split('-')[0] as Locales
-        )
-      ) {
-        return locale.split('-')[0] as Locales;
-      }
+    if (locale && internationalization.locales.includes(locale)) {
+      return locale;
     }
   }
 
@@ -175,12 +154,23 @@ const getFirstAvailableLocale = (
 };
 
 /**
- * Core language detector function
- * const detectedLanguages = detectLanguage(['LanguageDetector.Cookie', 'LanguageDetector.LocalStorage'], { lookupCookie: 'myCookie' });
+ * Core language detector function for browser environments.
+ *
+ * Detects the user's preferred locale by checking multiple sources in order:
+ * 1. Query string parameter
+ * 2. Storage (cookies, localStorage, sessionStorage) - uses getLocaleFromStorage
+ * 3. Navigator languages - uses localeDetector
+ * 4. HTML lang attribute - uses localeDetector
+ *
+ * @param userOptions - Optional configuration for detection order and lookup keys
+ * @returns The detected locale or the default locale
+ *
+ * @example
+ * const locale = getBrowserLocale({ order: [LanguageDetector.Storage, LanguageDetector.Navigator] });
  */
 export const getBrowserLocale = (
   userOptions: LanguageDetectorOptions | undefined = {}
-): Locales => {
+): Locale => {
   const options = { ...getDefaultsOptions(), ...userOptions };
 
   const locales = detectLanguage(options.order ?? [], options);

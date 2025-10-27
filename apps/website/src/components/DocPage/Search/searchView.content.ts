@@ -4,20 +4,23 @@ const searchTriggerContent: Dictionary = {
   key: 'doc-search-view',
   content: {
     noContentText: t({
+      ar: 'لم يتم العثور على نتائج',
+      de: 'Keine Ergebnisse gefunden',
       en: 'No results found',
       'en-GB': 'No results found',
-      fr: 'Aucun résultat trouvé',
       es: 'No se encontraron resultados',
-      de: 'Keine Ergebnisse gefunden',
+      fr: 'Aucun résultat trouvé',
+      hi: 'कोई परिणाम नहीं मिला',
+      it: 'Nessun risultato trovato',
       ja: '結果が見つかりませんでした',
       ko: '결과를 찾을 수 없습니다',
-      zh: '未找到结果',
-      it: 'Nessun risultato trovato',
       pt: 'Nenhum resultado encontrado',
-      hi: 'कोई परिणाम नहीं मिला',
-      ar: 'لم يتم العثور على نتائج',
       ru: 'Результатов не найдено',
       tr: 'Sonuç bulunamadı',
+      zh: '未找到结果',
+      pl: 'Brak wyników',
+      id: 'Tidak ada hasil yang ditemukan',
+      vi: 'Không tìm thấy kết quả',
     }),
     searchInput: {
       label: t({
@@ -35,6 +38,9 @@ const searchTriggerContent: Dictionary = {
         ar: 'بحث',
         ru: 'Поиск',
         tr: 'Ara',
+        pl: 'Szukaj',
+        id: 'Cari',
+        vi: 'Tìm kiếm',
       }),
       placeholder: t({
         en: 'Search...',
@@ -51,6 +57,9 @@ const searchTriggerContent: Dictionary = {
         ar: 'بحث...',
         ru: 'Поиск...',
         tr: 'Ara...',
+        pl: 'Szukaj...',
+        id: 'Cari...',
+        vi: 'Tìm kiếm...',
       }),
     },
     searchResultItemButton: {
@@ -69,9 +78,16 @@ const searchTriggerContent: Dictionary = {
         ar: 'انقر لعرض',
         ru: 'Нажмите, чтобы просмотреть',
         tr: 'Görüntülemek için tıklayın',
+        pl: 'Kliknij, aby wyświetlić',
+        id: 'Klik untuk melihat',
+        vi: 'Nhấp để xem',
       }),
     },
   },
+  title: 'Documentation search view',
+  description:
+    'Content declarations used for the search interface in the documentation, including labels, placeholders, and messages related to search results.',
+  tags: ['documentation', 'search component', 'user interface'],
 };
 
 export default searchTriggerContent;

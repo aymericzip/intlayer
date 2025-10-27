@@ -18,6 +18,10 @@ slugs:
   - packages
   - react-intlayer
   - useLocale
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # React 集成：`useLocale` Hook 文档
@@ -204,7 +208,3 @@ const LocaleSelector = () => {
 ## 结论
 
 来自 `react-intlayer` 的 `useLocale` 钩子是管理 React 应用中语言环境的关键工具，提供了适应各种国际受众所需的功能。
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29: 初始化历史

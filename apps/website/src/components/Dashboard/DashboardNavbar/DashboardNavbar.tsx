@@ -64,7 +64,7 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const { session } = useSession();
   const { organization, project, roles } = session ?? {};
   const { isMobile } = useDevice();
-  const scrollY = useScrollY();
+  const { scrollY } = useScrollY();
 
   const filteredLinks = links
     .filter(

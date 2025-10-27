@@ -1,12 +1,18 @@
 import { GridPattern } from '@intlayer/design-system';
 import type { FC, PropsWithChildren } from 'react';
+import { cn } from '../../utils/cn';
 
 export const BackgroundLayout: FC<
-  PropsWithChildren<{ hasSpotlight?: boolean }>
-> = ({ children, hasSpotlight = true }) => {
+  PropsWithChildren<{ hasSpotlight?: boolean; className?: string }>
+> = ({ children, hasSpotlight = true, className }) => {
   return (
     <>
-      <div className="absolute z-[-1] size-full max-h-full max-w-full overflow-hidden">
+      <div
+        className={cn(
+          'absolute z-[-1] size-full max-h-full max-w-full overflow-hidden',
+          className
+        )}
+      >
         <div className="relative size-full">
           <GridPattern
             width={70}

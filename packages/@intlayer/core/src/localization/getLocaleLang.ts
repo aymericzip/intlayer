@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/types';
 
 /**
  * Returns the language code of the given locale for locales including the country code.

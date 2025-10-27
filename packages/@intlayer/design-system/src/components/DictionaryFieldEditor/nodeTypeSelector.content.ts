@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 export const nodeTypeSelectorContent = {
   key: 'node-type-selector',
-  autoFill: './{{key}}.content.json',
   content: {
     triggerPlaceHolder: t({
       en: 'Node type',
@@ -19,6 +18,9 @@ export const nodeTypeSelectorContent = {
       ar: 'نوع العقدة',
       ru: 'Тип узла',
       tr: 'Düğüm türü',
+      pl: 'Typ węzła',
+      id: 'Tipe Node',
+      vi: 'Kiểu node',
     }),
     multilingual: t({
       en: 'Multilingual content',
@@ -35,6 +37,9 @@ export const nodeTypeSelectorContent = {
       ar: 'محتوى متعدد اللغات',
       ru: 'Многоязычный контент',
       tr: 'Çok dilli içerik',
+      pl: 'Treść wielojęzyczna',
+      id: 'Konten multibahasa',
+      vi: 'Nội dung đa ngôn ngữ',
     }),
     text: t({
       en: 'Text',
@@ -51,6 +56,9 @@ export const nodeTypeSelectorContent = {
       ar: 'نص',
       ru: 'Текст',
       tr: 'Metin',
+      pl: 'Tekst',
+      id: 'Teks',
+      vi: 'Văn bản',
     }),
     number: t({
       en: 'Number',
@@ -67,6 +75,9 @@ export const nodeTypeSelectorContent = {
       ar: 'رقم',
       ru: 'Число',
       tr: 'Sayı',
+      pl: 'Liczba',
+      id: 'Angka',
+      vi: 'Số',
     }),
     boolean: t({
       en: 'Boolean',
@@ -83,6 +94,9 @@ export const nodeTypeSelectorContent = {
       ar: 'منطقي',
       ru: 'Булево',
       tr: 'Boolean',
+      pl: 'Wartość logiczna',
+      id: 'Boolean',
+      vi: 'Boolean',
     }),
     node: t({
       en: 'Object',
@@ -99,6 +113,9 @@ export const nodeTypeSelectorContent = {
       ar: 'كائن',
       ru: 'Объект',
       tr: 'Nesne',
+      pl: 'Obiekt',
+      id: 'Object',
+      vi: 'Đối tượng',
     }),
     array: t({
       en: 'Array',
@@ -115,6 +132,9 @@ export const nodeTypeSelectorContent = {
       ar: 'مصفوفة',
       ru: 'Массив',
       tr: 'Dizi',
+      pl: 'Tablica',
+      id: 'Array',
+      vi: 'Mảng',
     }),
     enumeration: t({
       en: 'Enumeration',
@@ -131,6 +151,28 @@ export const nodeTypeSelectorContent = {
       ar: 'تعداد',
       ru: 'Перечисление',
       tr: 'Numaralandırma',
+      pl: 'Wyliczenie',
+      id: 'Enumeration',
+      vi: 'Kiểu liệt kê',
+    }),
+    gender: t({
+      en: 'Gender',
+      'en-GB': 'Gender',
+      fr: 'Genre',
+      es: 'Género',
+      de: 'Geschlecht',
+      ja: '性別',
+      ko: '성별',
+      zh: '性别',
+      it: 'Genere',
+      pt: 'Gênero',
+      hi: 'लिंग',
+      ar: 'جنس',
+      ru: 'Пол',
+      tr: 'Cins',
+      pl: 'Płeć',
+      id: 'Gender',
+      vi: 'Giới tính',
     }),
     nest: t({
       en: 'Nesting',
@@ -147,6 +189,9 @@ export const nodeTypeSelectorContent = {
       ar: 'مستوى',
       ru: 'Вложенность',
       tr: 'İç içe geçme',
+      pl: 'Zagnieżdżanie',
+      id: 'Nesting',
+      vi: 'Lồng nhau',
     }),
     insertion: t({
       en: 'Insertion',
@@ -163,6 +208,9 @@ export const nodeTypeSelectorContent = {
       ar: 'إدراج',
       ru: 'Вставка',
       tr: 'Ekleme',
+      pl: 'Wstawianie',
+      id: 'Insertion',
+      vi: 'Chèn',
     }),
     condition: t({
       en: 'Condition',
@@ -179,6 +227,9 @@ export const nodeTypeSelectorContent = {
       ar: 'شرط',
       ru: 'Условие',
       tr: 'Koşul',
+      pl: 'Warunek',
+      id: 'Condition',
+      vi: 'Điều kiện',
     }),
     file: t({
       en: 'File',
@@ -195,6 +246,9 @@ export const nodeTypeSelectorContent = {
       ar: 'ملف',
       ru: 'Файл',
       tr: 'Dosya',
+      pl: 'Plik',
+      id: 'File',
+      vi: 'Tệp',
     }),
     markdown: t({
       en: 'Markdown',
@@ -211,6 +265,9 @@ export const nodeTypeSelectorContent = {
       ar: 'مارك داون',
       ru: 'Markdown',
       tr: 'Markdown',
+      pl: 'Markdown',
+      id: 'Markdown',
+      vi: 'Markdown',
     }),
     reactNode: t({
       en: 'React Node',
@@ -227,8 +284,15 @@ export const nodeTypeSelectorContent = {
       ar: 'عقدة رياكت',
       ru: 'Реакт узел',
       tr: 'React Node',
+      pl: 'Węzeł React',
+      id: 'React Node',
+      vi: 'React Node',
     }),
   },
+  title: 'Node type selector',
+  description:
+    'Defines the available node types that can be selected for content modeling, including text, number, boolean, object structures, arrays, and other specialized types like enumeration, gender, condition, and markdown.',
+  tags: ['content modeling', 'field type', 'editor'],
 } satisfies Dictionary;
 
 export default nodeTypeSelectorContent;

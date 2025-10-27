@@ -1,7 +1,7 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath, getConfiguration } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/types';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { formatDistantDictionaries } from '../loadDictionaries';
 import { parallelize } from '../utils/parallelize';
@@ -32,7 +32,10 @@ export const writeRemoteDictionary = async (
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(remoteDictionariesDir), { recursive: true });
 
-  const filteredDictionaries = filterInvalidDictionaries(remoteDictionaries);
+  const filteredDictionaries = filterInvalidDictionaries(
+    remoteDictionaries,
+    configuration
+  );
 
   // Merge dictionaries with the same key and write to dictionariesDir
   await parallelize(

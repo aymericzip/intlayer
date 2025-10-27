@@ -1,3 +1,4 @@
+import type { Locale } from '@intlayer/types';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as emailService from '@services/email.service';
 import * as subscriptionService from '@services/subscription.service';
@@ -6,7 +7,6 @@ import { retrievePlanInformation } from '@utils/plan';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { Request } from 'express';
 import { t } from 'express-intlayer';
-import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
 import type { Organization } from '@/types/organization.types';
 
@@ -105,7 +105,7 @@ export const getSubscription = async (
           organizationId: String(organization.id),
           userId: String(user.id),
           // Include the locale for potential localization
-          locale: (res.locals as unknown as { locale: Locales }).locale,
+          locale: (res.locals as unknown as { locale: Locale }).locale,
         },
       });
       customerId = customer.id;

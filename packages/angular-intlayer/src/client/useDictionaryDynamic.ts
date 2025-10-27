@@ -2,12 +2,12 @@
 
 import { computed, inject } from '@angular/core';
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
 import type {
   Dictionary,
   DictionaryKeys,
-  LanguageContent,
-} from '@intlayer/core';
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
 import { useLoadDynamic } from './useLoadDynamic';
@@ -21,7 +21,7 @@ export const useDictionaryDynamic = <
   T extends Dictionary,
   K extends DictionaryKeys,
 >(
-  dictionaryPromise: LanguageContent<() => Promise<T>>,
+  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: K,
   locale?: LocalesValues
 ) => {

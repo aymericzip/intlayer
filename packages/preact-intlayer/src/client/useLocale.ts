@@ -1,26 +1,31 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/types';
 import { useContext } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
-import { useLocaleCookie } from './useLocaleCookie';
+import { setLocaleInStorage } from './useLocaleStorage';
 
 type useLocaleProps = {
+  isCookieEnabled?: boolean;
   onLocaleChange?: (locale: LocalesValues) => void;
 };
 
 /**
  * On the client side, hook to get the current locale and all related fields
  */
-export const useLocale = ({ onLocaleChange }: useLocaleProps = {}) => {
+export const useLocale = ({
+  isCookieEnabled,
+  onLocaleChange,
+}: useLocaleProps = {}) => {
   const { defaultLocale, locales: availableLocales } =
     configuration?.internationalization ?? {};
 
-  const { locale, setLocale: setLocaleState } = useContext(
-    IntlayerClientContext
-  );
-  const { setLocaleCookie } = useLocaleCookie();
+  const {
+    locale,
+    setLocale: setLocaleState,
+    isCookieEnabled: isCookieEnabledContext,
+  } = useContext(IntlayerClientContext);
 
   const setLocale = (locale: LocalesValues) => {
     if (!availableLocales?.map(String).includes(locale)) {
@@ -29,7 +34,12 @@ export const useLocale = ({ onLocaleChange }: useLocaleProps = {}) => {
     }
 
     setLocaleState(locale);
-    setLocaleCookie(locale);
+
+    setLocaleInStorage(
+      locale,
+      isCookieEnabled ?? isCookieEnabledContext ?? true
+    );
+
     onLocaleChange?.(locale);
   };
 

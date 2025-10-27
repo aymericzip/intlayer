@@ -1,11 +1,9 @@
-import type { LocalesValues } from '@intlayer/config/client';
 import {
-  type ContentNode,
   getContent,
   getContentNodeByKeyPath,
   getMarkdownMetadata,
-  type KeyPath,
 } from '@intlayer/core';
+import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
 import type { Component, JSX } from 'solid-js';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import { useMarkdown } from './MarkdownProvider';

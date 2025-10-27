@@ -14,8 +14,16 @@ slugs:
   - doc
   - environment
   - nextjs
+  - 15
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
+history:
+  - version: 5.6.0
+    date: 2025-07-06
+    changes: `withIntlayer()` fonksiyonunu promise tabanlı fonksiyona dönüştür
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmişi başlat
 ---
 
 # Intlayer ile Next.js 15 çevirin | Uluslararasılaştırma (i18n)
@@ -761,15 +769,17 @@ export const generateMetadata = async ({
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl =
+    multilingualUrls[locale as keyof typeof multilingualUrls];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -801,15 +811,16 @@ export const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -841,15 +852,16 @@ const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -1497,10 +1509,3 @@ Uzantının nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer 
 ### Daha Fazla Bilgi Edinin
 
 Daha fazla ilerlemek için, [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)yi uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak harici hale getirebilirsiniz.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler                                                     |
-| ------ | ---------- | ----------------------------------------------------------------- |
-| 5.6.0  | 2025-07-06 | `withIntlayer()` fonksiyonunu promise tabanlı fonksiyona dönüştür |
-| 5.5.10 | 2025-06-29 | Geçmişi başlat                                                    |

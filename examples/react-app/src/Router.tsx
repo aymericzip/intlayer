@@ -1,5 +1,5 @@
 // Importing necessary dependencies and functions
-import { configuration, getPathWithoutLocale, type Locales } from 'intlayer'; // Utility functions and types from 'intlayer'
+import { configuration, getPathWithoutLocale, type Locale } from 'intlayer'; // Utility functions and types from 'intlayer'
 import type { FC, PropsWithChildren } from 'react'; // React types for functional components and props
 import { IntlayerProvider } from 'react-intlayer'; // Provider for internationalization context
 import {
@@ -18,7 +18,7 @@ const { locales, defaultLocale } = internationalization;
  * A component that handles localization and wraps children with the appropriate locale context.
  * It manages URL-based locale detection and validation.
  */
-const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
+const AppLocalized: FC<PropsWithChildren<{ locale: Locale }>> = ({
   children,
   locale,
 }) => {

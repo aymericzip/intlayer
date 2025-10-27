@@ -1,4 +1,4 @@
-import type { ConditionContentStates } from '../transpiler/condition/condition';
+import type { ConditionContentStates } from '../transpiler';
 
 /**
  * Allow to pick a content based on a condition.

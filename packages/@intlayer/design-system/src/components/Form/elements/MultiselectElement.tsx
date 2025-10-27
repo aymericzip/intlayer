@@ -1,3 +1,5 @@
+'use client';
+
 import type { ComponentProps, ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { MultiSelect } from '../../Select/Multiselect';

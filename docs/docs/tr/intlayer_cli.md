@@ -16,6 +16,13 @@ slugs:
   - doc
   - concept
   - cli
+history:
+  - version: 5.5.11
+    date: 2025-07-11
+    changes: CLI komut parametreleri dokümantasyonunu güncelle
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Intlayer CLI
@@ -561,10 +568,3 @@ Bazen yeni komutları tanımak için terminal yeniden başlatması gerekir.
 ```bash
 npx clear-npx-cache
 ```
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler                                     |
-| ------ | ---------- | ------------------------------------------------- |
-| 5.5.11 | 2025-07-11 | CLI komut parametreleri dokümantasyonunu güncelle |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı                                 |

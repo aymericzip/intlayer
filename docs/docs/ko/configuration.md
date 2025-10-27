@@ -13,6 +13,25 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: `live` 가져오기 모드 추가
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: `live` import 모드 추가
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: `hotReload` 필드를 `liveSync`로 교체하고 `liveSyncPort` 및 `liveSyncURL` 필드 추가
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: `activateDynamicImport`을 `importMode` 옵션으로 교체
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: 기본 contentDir를 `['src']`에서 `['.']`로 변경
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: `docs` 명령어 추가
 ---
 
 # Intlayer 구성 문서
@@ -316,30 +335,6 @@ module.exports = config;
       - `noPrefix = false`인 경우: URL은 `https://example.com/my-app/en`이 됩니다.
       - `noPrefix = true`인 경우: URL은 `https://example.com`이 됩니다.
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Next.js 프리페치 요청 중에 로케일 감지가 발생하는지 여부를 제어합니다.
-  - _Example_: `true`
-  - _Note_: 이 설정은 Next.js가 로케일 프리페칭을 처리하는 방식에 영향을 미칩니다:
-    - **예시 시나리오:**
-      - 사용자의 브라우저 언어가 `'fr'`인 경우
-      - 현재 페이지가 `/fr/about`인 경우
-      - 링크가 `/about`을 프리페치하는 경우
-    - **`detectLocaleOnPrefetchNoPrefix: true`인 경우:**
-      - 프리페치가 브라우저에서 `'fr'` 로케일을 감지합니다
-      - 프리페치를 `/fr/about`으로 리다이렉트합니다
-    - **`detectLocaleOnPrefetchNoPrefix: false` (기본값)인 경우:**
-      - 프리페치가 기본 로케일을 사용합니다
-      - 프리페치를 `/en/about`으로 리다이렉트합니다 (기본 로케일이 `'en'`이라고 가정)
-    - **`true`를 사용해야 하는 경우:**
-      - 앱에서 비지역화된 내부 링크를 사용하는 경우 (예: `<a href="/about">`)
-      - 일반 요청과 프리페치 요청 간에 일관된 로케일 감지 동작을 원할 때
-    - **`false` (기본값)를 사용할 때:**
-      - 앱에서 로케일 접두사가 있는 링크를 사용하는 경우 (예: `<a href="/fr/about">`)
-      - 프리페치 성능을 최적화하려는 경우
-      - 잠재적인 리디렉션 루프를 방지하려는 경우
-
 ---
 
 ### 콘텐츠 구성
@@ -562,25 +557,3 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 빌드하는 방�
   - _참고_: 최적화를 관련 코드 파일로 제한하여 빌드 성능을 향상시키는 데 사용합니다.
   - _참고_: `optimize`가 비활성화된 경우 이 옵션은 무시됩니다.
   - _참고_: glob 패턴을 사용하세요.
-
-## 문서 이력
-
-| 버전  | 날짜       | 변경 사항                 |
-| ----- | ---------- | ------------------------- |
-| 6.0.0 | 2025-09-16 | `live` 가져오기 모드 추가 |
-
-- _설명_: 최적화 중에 탐색할 파일을 정의하는 패턴입니다.
-- _예시_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
-- _참고_: 최적화를 관련 코드 파일로 제한하여 빌드 성능을 향상시키는 데 사용합니다.
-- _참고_: `optimize`가 비활성화된 경우 이 옵션은 무시됩니다.
-- _참고_: glob 패턴을 사용하세요.
-
-## 문서 이력
-
-| 버전   | 날짜       | 변경 사항                                                                          |
-| ------ | ---------- | ---------------------------------------------------------------------------------- |
-| 6.0.0  | 2025-09-16 | `live` import 모드 추가                                                            |
-| 6.0.0  | 2025-09-04 | `hotReload` 필드를 `liveSync`로 교체하고 `liveSyncPort` 및 `liveSyncURL` 필드 추가 |
-| 5.6.1  | 2025-07-25 | `activateDynamicImport`을 `importMode` 옵션으로 교체                               |
-| 5.6.0  | 2025-07-13 | 기본 contentDir를 `['src']`에서 `['.']`로 변경                                     |
-| 5.5.11 | 2025-06-29 | `docs` 명령어 추가                                                                 |

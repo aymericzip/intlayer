@@ -1,5 +1,11 @@
-import { Locales } from '@intlayer/config/client';
-import type { FC, ImgHTMLAttributes, JSX } from 'react';
+import { type Locale, Locales } from '@intlayer/types';
+import type {
+  ComponentType,
+  FC,
+  ImgHTMLAttributes,
+  JSX,
+  SVGProps,
+} from 'react';
 
 // import andorra from './ad.svg';
 import unitedArabEmirates from './ae.svg';
@@ -237,10 +243,10 @@ import southAfrica from './za.svg';
 import zimbabwe from './zw.svg';
 
 type FlagProps = ImgHTMLAttributes<HTMLImageElement> & {
-  locale: Locales;
+  locale: Locale;
 };
 
-const flagRecord: Partial<Record<Locales, typeof unknown>> = {
+const flagRecord: Partial<Record<Locale, typeof unknown>> = {
   [Locales.ENGLISH]: unitedStatesOfAmerica,
   [Locales.FRENCH]: france,
   [Locales.SPANISH]: spain,
@@ -490,10 +496,30 @@ const flagRecord: Partial<Record<Locales, typeof unknown>> = {
   [Locales.NEPALI_NEPAL]: nepal,
 };
 
-export const Flag: FC<FlagProps> = ({ locale, ...props }): JSX.Element => (
-  <img
-    src={flagRecord[locale] as unknown as string}
-    alt={`${locale} flag`}
-    {...props}
-  />
-);
+export const Flag: FC<FlagProps> = ({ locale, alt, ...props }): JSX.Element => {
+  const asset = flagRecord[locale] ?? unknown;
+
+  // Case 1: bundler returns a URL string or an object with a .src field
+  if (typeof asset === 'string' || (asset as any)?.src) {
+    const src =
+      typeof asset === 'string' ? (asset as string) : (asset as any).src;
+    return <img src={src} alt={alt ?? `${locale} flag`} {...props} />;
+  }
+
+  // Case 2: bundler returns a React component (SVGR)
+  const Svg = asset as ComponentType<SVGProps<SVGSVGElement>>;
+  const { width, height, className, style, onClick } = props;
+
+  return (
+    <Svg
+      aria-label={alt ?? `${locale} flag`}
+      width={width as any}
+      height={height as any}
+      className={className}
+      style={style}
+      onClick={onClick as any}
+      role="img"
+      focusable={false as any}
+    />
+  );
+};

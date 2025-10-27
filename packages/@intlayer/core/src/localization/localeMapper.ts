@@ -1,12 +1,30 @@
 import configuration from '@intlayer/config/built';
-import type { Locales, LocalesValues } from '@intlayer/config/client';
+import { type Locale, Locales, type LocalesValues } from '@intlayer/types';
 
 export type LocaleData = {
-  locale: LocalesValues;
-  defaultLocale: LocalesValues;
+  locale: Locale;
+  defaultLocale: Locale;
   isDefault: boolean;
-  locales: LocalesValues[];
+  locales: Locale[];
   urlPrefix: string;
+};
+
+/**
+ * Determine if the locale should be prefixed in the URL based on routing mode
+ */
+const shouldPrefixLocale = (
+  locale: LocalesValues,
+  defaultLocale: LocalesValues,
+  mode: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'
+): boolean => {
+  if (mode === 'no-prefix' || mode === 'search-params') {
+    return false;
+  }
+  if (mode === 'prefix-all') {
+    return true;
+  }
+  // 'prefix-no-default'
+  return locale !== defaultLocale;
 };
 
 /**
@@ -37,19 +55,25 @@ export type LocaleData = {
  */
 export const localeMap = <T>(
   mapper: (locale: LocaleData) => T,
-  locales: LocalesValues[] = configuration.internationalization.locales,
-  defaultLocale: LocalesValues = configuration.internationalization
-    .defaultLocale,
-  prefixDefault: boolean = configuration.middleware.prefixDefault
+  locales: LocalesValues[] = configuration?.internationalization.locales ?? [],
+  defaultLocale: LocalesValues = configuration?.internationalization
+    .defaultLocale ?? Locales.ENGLISH,
+  mode:
+    | 'prefix-no-default'
+    | 'prefix-all'
+    | 'no-prefix'
+    | 'search-params' = configuration?.routing?.mode ?? 'prefix-no-default'
 ): T[] =>
-  locales.map((locale) =>
+  (locales ?? []).map((locale) =>
     mapper({
       locale,
       defaultLocale,
       locales,
       isDefault: locale === defaultLocale,
-      urlPrefix: locale === defaultLocale && !prefixDefault ? '' : `/${locale}`,
-    })
+      urlPrefix: shouldPrefixLocale(locale, defaultLocale, mode)
+        ? `/${locale}`
+        : '',
+    } as LocaleData)
   );
 
 /**
@@ -69,9 +93,9 @@ export const localeMap = <T>(
  *
  * // Result
  * [
- *   { path: '/', name: 'en', isDefault: true, locales: ['en'], defaultLocale: 'en', urlPrefix: '' },
- *   { path: '/fr', name: 'fr', isDefault: false, locales: ['fr'], defaultLocale: 'en', urlPrefix: '/fr' },
- *   { path: '/es', name: 'es', isDefault: false, locales: ['es'], defaultLocale: 'en', urlPrefix: '/es' },
+ *   path: '/', name: 'en', isDefault: true, locales: ['en'], defaultLocale: 'en', urlPrefix: '' ,
+ *   path: '/fr', name: 'fr', isDefault: false, locales: ['fr'], defaultLocale: 'en', urlPrefix: '/fr' ,
+ *   path: '/es', name: 'es', isDefault: false, locales: ['es'], defaultLocale: 'en', urlPrefix: '/es' ,
  * ]
  * ```
  *
@@ -80,10 +104,14 @@ export const localeMap = <T>(
  */
 export const localeFlatMap = <T>(
   mapper: (locale: LocaleData) => T[],
-  locales: LocalesValues[] = configuration.internationalization.locales,
-  defaultLocale: LocalesValues = configuration.internationalization
-    .defaultLocale,
-  prefixDefault: boolean = configuration.middleware.prefixDefault
+  locales: LocalesValues[] = configuration?.internationalization.locales ?? [],
+  defaultLocale: LocalesValues = configuration?.internationalization
+    .defaultLocale ?? Locales.ENGLISH,
+  mode:
+    | 'prefix-no-default'
+    | 'prefix-all'
+    | 'no-prefix'
+    | 'search-params' = configuration?.routing?.mode ?? 'prefix-no-default'
 ): T[] =>
   locales.flatMap((locale) =>
     mapper({
@@ -91,8 +119,10 @@ export const localeFlatMap = <T>(
       defaultLocale,
       locales,
       isDefault: locale === defaultLocale,
-      urlPrefix: locale === defaultLocale && !prefixDefault ? '' : `/${locale}`,
-    })
+      urlPrefix: shouldPrefixLocale(locale, defaultLocale, mode)
+        ? `/${locale}`
+        : '',
+    } as LocaleData)
   );
 
 /**
@@ -105,36 +135,42 @@ export const localeFlatMap = <T>(
  * );
  *
  * // Result
- * {
- *   en: { ... }, // Content of translations/en.json
- *   fr: { ... }, // Content of translations/fr.json
- *   es: { ... }  // Content of translations/es.json
- * }
+ *
+ *   en: ... , // Content of translations/en.json
+ *   fr: ... , // Content of translations/fr.json
+ *   es: ...
+ *
  * ```
  *
  * @param mapper - Function that takes locale data and returns a value for that locale
  * @param locales - Array of locale codes to map over (defaults to configured locales)
  * @param defaultLocale - The default locale (defaults to configured default)
- * @param prefixDefault - Whether to prefix the default locale in URLs (defaults to configured value)
+ * @param mode - URL routing mode for locale handling (defaults to configured value)
  * @returns Record mapping locale codes to mapped values
  */
 export const localeRecord = <T>(
   mapper: (locale: LocaleData) => T,
-  locales: Locales[] = configuration?.internationalization.locales,
-  defaultLocale: Locales = configuration?.internationalization.defaultLocale,
-  prefixDefault: boolean = configuration?.middleware.prefixDefault
-): Record<Locales, T> =>
-  locales.reduce(
+  locales: LocalesValues[] = configuration?.internationalization.locales ?? [],
+  defaultLocale: LocalesValues = configuration?.internationalization
+    .defaultLocale ?? Locales.ENGLISH,
+  mode:
+    | 'prefix-no-default'
+    | 'prefix-all'
+    | 'no-prefix'
+    | 'search-params' = configuration?.routing?.mode ?? 'prefix-no-default'
+): Record<LocalesValues, T> =>
+  (locales ?? []).reduce(
     (acc, locale) => {
       acc[locale] = mapper({
         locale,
         defaultLocale,
         locales,
         isDefault: locale === defaultLocale,
-        urlPrefix:
-          locale === defaultLocale && !prefixDefault ? '' : `/${locale}`,
-      });
+        urlPrefix: shouldPrefixLocale(locale, defaultLocale, mode)
+          ? `/${locale}`
+          : '',
+      } as LocaleData);
       return acc;
     },
-    {} as Record<Locales, T>
+    {} as Record<LocalesValues, T>
   );

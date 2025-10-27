@@ -1,7 +1,8 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { colorizePath, getConfiguration, x } from '@intlayer/config';
-import { type Dictionary, orderDictionaries } from '@intlayer/core';
+import { colorizePath, x } from '@intlayer/config';
+import { orderDictionaries } from '@intlayer/core';
+import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
@@ -50,14 +51,17 @@ export type UnmergedDictionaryOutput = Record<string, UnmergedDictionaryResult>;
  */
 export const writeUnmergedDictionaries = async (
   dictionaries: Dictionary[],
-  configuration = getConfiguration()
+  configuration: IntlayerConfig
 ): Promise<UnmergedDictionaryOutput> => {
   const { unmergedDictionariesDir } = configuration.content;
 
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(unmergedDictionariesDir), { recursive: true });
 
-  const filteredDictionaries = filterInvalidDictionaries(dictionaries);
+  const filteredDictionaries = filterInvalidDictionaries(
+    dictionaries,
+    configuration
+  );
 
   //  Group dictionaries by key and write to unmergedDictionariesDir
   const groupedDictionaries = groupDictionariesByKey(filteredDictionaries);

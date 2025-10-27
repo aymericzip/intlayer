@@ -1,7 +1,6 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-
 import {
   createContext,
   type FC,
@@ -18,7 +17,7 @@ export type UseCrossPlatformStateProps = {
   senderId: string;
 };
 
-const { editor } = configuration;
+const { editor } = configuration ?? {};
 
 const CommunicatorContext = createContext<UseCrossPlatformStateProps>({
   postMessage: () => null,

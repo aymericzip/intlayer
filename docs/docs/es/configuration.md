@@ -13,6 +13,22 @@ slugs:
   - doc
   - concept
   - configuration
+history:
+  - version: 6.0.0
+    date: 2025-09-16
+    changes: Añadido modo de importación `live`
+  - version: 6.0.0
+    date: 2025-09-04
+    changes: Reemplazar el campo `hotReload` por `liveSync` y agregar los campos `liveSyncPort` y `liveSyncURL`
+  - version: 5.6.1
+    date: 2025-07-25
+    changes: Reemplazar `activateDynamicImport` por la opción `importMode`
+  - version: 5.6.0
+    date: 2025-07-13
+    changes: Cambiar el valor predeterminado de contentDir de `['src']` a `['.']`
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: Agregar comandos `docs`
 ---
 
 # Documentación de Configuración de Intlayer
@@ -316,30 +332,6 @@ Configuraciones que controlan el comportamiento del middleware, incluyendo cómo
       - Si `noPrefix = false`: La URL será `https://example.com/my-app/en`
       - Si `noPrefix = true`: La URL será `https://example.com`
 
-- **detectLocaleOnPrefetchNoPrefix**:
-  - _Tipo_: `boolean`
-  - _Por defecto_: `false`
-  - _Descripción_: Controla si la detección de la configuración regional ocurre durante las solicitudes de prefetch de Next.js.
-  - _Ejemplo_: `true`
-  - _Nota_: Esta configuración afecta cómo Next.js maneja el prefetch de locales:
-    - **Escenario de ejemplo:**
-      - El idioma del navegador del usuario es `'fr'`
-      - La página actual es `/fr/about`
-      - El enlace hace prefetch de `/about`
-    - **Con `detectLocaleOnPrefetchNoPrefix: true`:**
-      - El prefetch detecta la configuración regional `'fr'` desde el navegador
-      - Redirige el prefetch a `/fr/about`
-    - **Con `detectLocaleOnPrefetchNoPrefix: false` (por defecto):**
-      - El prefetch usa la configuración regional por defecto
-      - Redirige el prefetch a `/en/about` (asumiendo que `'en'` es la predeterminada)
-    - **Cuándo usar `true`:**
-      - Su aplicación utiliza enlaces internos no localizados (por ejemplo, `<a href="/about">`)
-      - Desea un comportamiento consistente en la detección de la configuración regional entre solicitudes regulares y de prefetch
-    - **Cuándo usar `false` (por defecto):**
-      - Su aplicación utiliza enlaces con prefijo de configuración regional (por ejemplo, `<a href="/fr/about">`)
-      - Desea optimizar el rendimiento del prefetch
-      - Desea evitar posibles bucles de redireccionamiento
-
 ---
 
 ### Configuración de Contenido
@@ -562,13 +554,3 @@ Las opciones de compilación se aplican a los plugins `@intlayer/babel` y `@intl
   - _Nota_: Utilice esto para limitar la optimización a archivos de código relevantes y mejorar el rendimiento de la compilación.
   - _Nota_: Esta opción será ignorada si `optimize` está deshabilitado.
   - _Nota_: Use patrón glob.
-
-## Historial de Documentación
-
-| Versión | Fecha      | Cambios                                                                                            |
-| ------- | ---------- | -------------------------------------------------------------------------------------------------- |
-| 6.0.0   | 2025-09-16 | Añadido modo de importación `live`                                                                 |
-| 6.0.0   | 2025-09-04 | Reemplazar el campo `hotReload` por `liveSync` y agregar los campos `liveSyncPort` y `liveSyncURL` |
-| 5.6.1   | 2025-07-25 | Reemplazar `activateDynamicImport` por la opción `importMode`                                      |
-| 5.6.0   | 2025-07-13 | Cambiar el valor predeterminado de contentDir de `['src']` a `['.']`                               |
-| 5.5.11  | 2025-06-29 | Agregar comandos `docs`                                                                            |

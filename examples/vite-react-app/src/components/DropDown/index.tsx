@@ -37,11 +37,12 @@ export const DropDown: UnrollablePanelType = ({
   >
     <MaxHeightSmoother
       className={
-        `overflow-x-hidden${isOverable}`
+        `overflow-x-hidden ${className} ` +
+        (isOverable
           ? `group-hover/unrollable-panel:grid-rows-[1fr] group-hover/unrollable-panel:overflow-x-auto`
           : `${isFocusable}`
             ? `group-focus/unrollable-panel:grid-rows-[1fr] group-focus/unrollable-panel:overflow-x-auto`
-            : `${className}`
+            : '')
       }
       tabIndex={isHidden !== false ? undefined : -1}
       {...props}

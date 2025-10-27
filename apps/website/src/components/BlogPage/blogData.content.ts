@@ -9,8 +9,9 @@ const getBlogMetadata = (blog: BlogKey) =>
     localeRecord(async ({ locale }) => await getBlogMetadataCore(blog, locale))
   );
 
-const blogDataContent: any = {
+const blogDataContent: Dictionary = {
   key: 'blog-data',
+  fill: false,
   content: {
     'what-is-internationalization': {
       title: t({
@@ -28,6 +29,9 @@ const blogDataContent: any = {
         ar: 'ما هو التدويل (i18n)?',
         ru: 'Что такое интернационализация (i18n)?',
         tr: 'Uluslararasılaştırma (i18n) nedir?',
+        pl: 'Co to jest国际化 (i18n)?',
+        id: 'Apa itu国际化 (i18n)?',
+        vi: 'Internationalization (i18n) là gì?',
       }),
       default: getBlogMetadata('./blog/en/what_is_internationalization.md'),
     },
@@ -47,6 +51,9 @@ const blogDataContent: any = {
         ar: 'SEO و التدويل',
         ru: 'SEO и Интернационализация',
         tr: 'SEO ve i18n',
+        pl: 'SEO dan i18n',
+        id: 'SEO dan i18n',
+        vi: 'SEO và i18n',
       }),
       default: getBlogMetadata('./blog/en/internationalization_and_SEO.md'),
     },
@@ -86,6 +93,9 @@ const blogDataContent: any = {
     //     ar: 'Intlayer و react-i18next',
     //     ru: 'Intlayer и react-i18next',
     //     tr: 'Intlayer ve react-i18next',
+    //     pl: 'Intlayer dan react-i18next',
+    //     id: 'Intlayer dan react-i18next',
+    //     vi: 'Intlayer và react-i18next',
     //   }),
     //   default: getBlogMetadata('./blog/en/intlayer_with_react-i18next.md'),
     // },
@@ -105,6 +115,9 @@ const blogDataContent: any = {
     //     ar: 'Intlayer و next-intl',
     //     ru: 'Intlayer и next-intl',
     //     tr: 'Intlayer ve next-intl',
+    //     pl: 'Intlayer dan next-intl',
+    //     id: 'Intlayer dan next-intl',
+    //     vi: 'Intlayer và next-intl',
     //   }),
     //   default: getBlogMetadata('./blog/en/intlayer_with_next-intl.md'),
     // },
@@ -124,6 +137,9 @@ const blogDataContent: any = {
     //     ar: 'Intlayer و react-intl',
     //     ru: 'Intlayer и react-intl',
     //     tr: 'Intlayer ve react-intl',
+    //     pl: 'Intlayer dan react-intl',
+    //     id: 'Intlayer dan react-intl',
+    //     vi: 'Intlayer và react-intl',
     //   }),
     //   default: getBlogMetadata('./blog/en/intlayer_with_react-intl.md'),
     // },
@@ -160,6 +176,9 @@ const blogDataContent: any = {
     //     ar: 'تقنيات i18n',
     //     it: 'Tecnologie di i18n',
     //     tr: 'i18n Teknolojileri',
+    //     pl: 'Technologies i18n',
+    //     id: 'Technologies i18n',
+    //     vi: 'Technologies i18n',
     //   }),
     //   subSections: {
     //     frameworks: {
@@ -178,6 +197,9 @@ const blogDataContent: any = {
     //         ar: 'الإطارات',
     //         ru: 'Фреймворки',
     //         tr: 'Frameworks',
+    //         pl: 'Frameworks',
+    //         id: 'Frameworks',
+    //         vi: 'Frameworks',
     //       }),
     //       subSections: {
     //         angular: {

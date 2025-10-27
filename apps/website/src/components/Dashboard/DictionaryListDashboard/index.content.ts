@@ -4,20 +4,23 @@ const dictionaryFormContent = {
   key: 'dictionary-list',
   content: {
     searchPlaceholder: t({
-      en: 'Search for a dictionary',
-      fr: 'Rechercher un dictionnaire',
-      es: 'Buscar un diccionario',
-      'en-GB': 'Search for a dictionary',
+      ar: 'قاموس 검색',
       de: 'Wörterbuch suchen',
+      en: 'Search for a dictionary',
+      'en-GB': 'Search for a dictionary',
+      es: 'Buscar un diccionario',
+      fr: 'Rechercher un dictionnaire',
+      hi: 'शब्दकोश खोजें',
+      it: 'Cerca un dizionario',
       ja: '辞書を検索',
       ko: '사전 검색',
-      zh: '搜索字典',
-      it: 'Cerca un dizionario',
       pt: 'Pesquisar um dicionário',
-      hi: 'शब्दकोश खोजें',
-      ar: 'قاموس 검색',
       ru: 'Найти словарь',
       tr: 'Sözlük arama',
+      zh: '搜索字典',
+      pl: 'Wyszukaj słownik',
+      id: 'Cari kamus',
+      vi: 'Tìm kiếm từ điển',
     }),
 
     selectDictionaryButton: {
@@ -36,9 +39,16 @@ const dictionaryFormContent = {
         ar: 'اضغط لتحديد قاموس',
         ru: 'Нажмите, чтобы выбрать словарь',
         tr: 'Bir sözlük seçmek için tıklayın',
+        pl: 'Kliknij, aby wybrać słownik',
+        id: 'Klik untuk memilih kamus',
+        vi: 'Nhấp để chọn một từ điển',
       }),
     },
   },
+  title: 'Dictionary list dashboard',
+  description:
+    'UI content for the dashboard section listing available dictionaries. Includes search placeholder and dictionary selection button.',
+  tags: ['dashboard', 'dictionary'],
 } satisfies Dictionary;
 
 export default dictionaryFormContent;

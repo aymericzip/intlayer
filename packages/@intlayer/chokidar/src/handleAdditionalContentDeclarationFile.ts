@@ -1,4 +1,5 @@
-import { getAppLogger, type IntlayerConfig } from '@intlayer/config';
+import { getAppLogger } from '@intlayer/config';
+import type { IntlayerConfig } from '@intlayer/types';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
 import { createModuleAugmentation, createTypes } from './createType/index';
@@ -24,7 +25,7 @@ export const handleAdditionalContentDeclarationFile = async (
     dictionariesOutput?.mergedDictionaries ?? {}
   ).map((dictionary) => dictionary.dictionaryPath);
 
-  await createTypes(dictionariesPaths);
+  await createTypes(dictionariesPaths, config);
 
   await createDictionaryEntryPoint(config);
 

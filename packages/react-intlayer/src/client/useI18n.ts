@@ -1,13 +1,13 @@
 'use client';
 
-import type { LocalesValues } from '@intlayer/config/client';
+import { getIntlayer, type ValidDotPathsFor } from '@intlayer/core';
 import type {
+  DeclaredLocales,
   DictionaryKeys,
+  DictionaryRegistryContent,
   GetSubPath,
-  ValidDotPathsFor,
-} from '@intlayer/core';
-// @ts-ignore intlayer declared for module augmentation
-import { getIntlayer, type IntlayerDictionaryTypesConnector } from 'intlayer';
+  LocalesValues,
+} from '@intlayer/types';
 import { useContext, useMemo } from 'react';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -29,9 +29,12 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * const ariaLabel = t('button.ariaLabel').value; // 'Close modal'
  * ```
  */
-export const useI18n = <T extends DictionaryKeys>(
+export const useI18n = <
+  T extends DictionaryKeys,
+  L extends LocalesValues = DeclaredLocales,
+>(
   namespace: T,
-  locale?: LocalesValues
+  locale?: L
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
   const localeTarget = useMemo(
@@ -40,21 +43,21 @@ export const useI18n = <T extends DictionaryKeys>(
   );
 
   // Get the dictionary content for the namespace
-  const dictionaryContent: DeepTransformContent<
-    IntlayerDictionaryTypesConnector[T]['content']
-  > = useMemo(
-    () => getIntlayer(namespace, localeTarget),
-    [namespace, localeTarget]
-  );
+  // @ts-ignore Type instantiation is excessively deep and possibly infinite
+  const dictionaryContent: DeepTransformContent<DictionaryRegistryContent<T>> =
+    useMemo(
+      () => getIntlayer<T, L>(namespace, localeTarget as L),
+      [namespace, localeTarget]
+    );
 
   // Return the translation function
+  // @ts-ignore Type instantiation is excessively deep and possibly infinite
   const t = <P extends ValidDotPathsFor<T>>(
     path: P
-  ): GetSubPath<
-    DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']>,
-    P
-  > => {
+    // @ts-ignore Type instantiation is excessively deep and possibly infinite
+  ): GetSubPath<DeepTransformContent<DictionaryRegistryContent<T>>, P> => {
     if (!path) {
+      // @ts-ignore Type instantiation is excessively deep and possibly infinite
       return dictionaryContent as any;
     }
 

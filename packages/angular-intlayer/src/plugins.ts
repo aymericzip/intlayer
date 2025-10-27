@@ -2,11 +2,10 @@ import {
   type DeepTransformContent as DeepTransformContentCore,
   getMarkdownMetadata,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
-  type KeyPath,
   type MarkdownContent,
-  NodeType,
   type Plugins,
 } from '@intlayer/core';
+import { type KeyPath, NodeType } from '@intlayer/types';
 import { ContentSelectorWrapperComponent } from './editor';
 import { useMarkdown } from './markdown/installIntlayerMarkdown';
 import { renderIntlayerNode } from './renderIntlayerNode';

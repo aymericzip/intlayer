@@ -1,12 +1,12 @@
-import type { LocalesValues } from '@intlayer/config/client';
-import { Intl } from '../utils/intl';
+import type { LocalesValues } from '@intlayer/types';
+import { CachedIntl } from '../utils/intl';
 
 export const getLocaleName = (
   displayLocale: LocalesValues,
   targetLocale: LocalesValues = displayLocale
 ): string => {
   // new Intl.DisplayNames() is fairly heavy: under the hood every call parses CLDR data and builds a resolver table. In your LocaleSwitcher it’s invoked:
-  const displayNames = new Intl.DisplayNames(targetLocale, {
+  const displayNames = new CachedIntl.DisplayNames(targetLocale, {
     type: 'language',
   });
 

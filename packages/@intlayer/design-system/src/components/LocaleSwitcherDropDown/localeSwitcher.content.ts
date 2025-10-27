@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 const localeSwitcherContent = {
   key: 'locale-switcher',
-  autoFill: './{{key}}.content.json',
   content: {
     localeSwitcherLabel: t({
       en: 'Language switcher',
@@ -19,6 +18,9 @@ const localeSwitcherContent = {
       ar: 'مبدل اللغة',
       ru: 'Переключатель языка',
       tr: 'Dil değiştirici',
+      pl: 'Przełącznik języka',
+      id: 'Pemilih bahasa',
+      vi: 'Bộ chọn ngôn ngữ',
     }),
     languageListLabel: t({
       en: 'Language list',
@@ -35,6 +37,9 @@ const localeSwitcherContent = {
       ar: 'قائمة اللغات',
       ru: 'Список языков',
       tr: 'Dil listesi',
+      pl: 'Lista języków',
+      id: 'Daftar bahasa',
+      vi: 'Danh sách ngôn ngữ',
     }),
     switchTo: t({
       en: 'Switch to',
@@ -51,6 +56,9 @@ const localeSwitcherContent = {
       ar: 'التبديل إلى',
       ru: 'Переключиться на',
       tr: 'Geçiş yap',
+      pl: 'Przełącz na',
+      id: 'Beralih ke',
+      vi: 'Chuyển sang',
     }),
     searchInput: {
       text: t({
@@ -68,6 +76,9 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Szukaj lokalizacji',
+        id: 'Cari locale',
+        vi: 'Tìm ngôn ngữ',
       }),
       placeholder: t({
         en: 'Search a locale',
@@ -84,6 +95,9 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Szukaj lokalizacji',
+        id: 'Cari locale',
+        vi: 'Tìm một ngôn ngữ',
       }),
       ariaLabel: t({
         en: 'Language search',
@@ -100,9 +114,16 @@ const localeSwitcherContent = {
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
         tr: 'Dil ara',
+        pl: 'Wyszukiwanie lokalizacji',
+        id: 'Pencarian bahasa',
+        vi: 'Tìm kiếm ngôn ngữ',
       }),
     },
   },
+  title: 'Locale switcher',
+  description:
+    'Content declaration for the locale switcher component, including user interface labels for switching and searching between different languages.',
+  tags: ['language selector', 'internationalization', 'UI component'],
 } satisfies Dictionary;
 
 export default localeSwitcherContent;

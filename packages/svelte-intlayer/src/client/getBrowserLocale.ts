@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/types';
 
 /**
  * Gets the user's preferred locale from browser settings

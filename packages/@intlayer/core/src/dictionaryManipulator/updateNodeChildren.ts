@@ -1,4 +1,4 @@
-import { type ContentNode, NodeType, type TypedNode } from '../types';
+import { type ContentNode, NodeType, type TypedNode } from '@intlayer/types';
 
 export const updateNodeChildren = <
   T extends ContentNode,
@@ -18,7 +18,8 @@ export const updateNodeChildren = <
   }
   if (typeof (section as TypedNode)?.nodeType === 'string') {
     const typedNode = section as TypedNode;
-    const content = typedNode[typedNode.nodeType as keyof TypedNode];
+    const content =
+      typedNode[typedNode.nodeType as unknown as keyof typeof typedNode];
 
     if (
       typedNode.nodeType === NodeType.Translation ||
@@ -26,10 +27,10 @@ export const updateNodeChildren = <
       typedNode.nodeType === NodeType.Condition
     ) {
       const newContent = Object.entries(content).reduce(
-        (acc, [key]) => ({
-          ...acc,
-          [key]: newChildren,
-        }),
+        (acc, [key]) => {
+          acc[key] = newChildren;
+          return acc;
+        },
         {} as Record<string, ContentNode>
       );
 
@@ -65,5 +66,5 @@ export const updateNodeChildren = <
       [key]: newChildren,
     }),
     {} as Record<string, ContentNode>
-  ) as ContentNode;
+  ) as unknown as ContentNode;
 };

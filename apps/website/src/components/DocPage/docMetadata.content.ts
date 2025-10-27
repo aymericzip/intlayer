@@ -12,6 +12,7 @@ const getDocMetadata = () =>
 
 const docDataContent: any = {
   key: 'doc-metadata',
+  fill: false,
   content: getDocMetadata(),
 } satisfies Dictionary;
 

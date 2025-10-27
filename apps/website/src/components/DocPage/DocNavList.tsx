@@ -35,6 +35,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
         {...props}
       />
     );
+
   return (
     <Link
       href={href}
@@ -61,6 +62,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
   activeSections,
 }) => {
   const { blogButton, chatBotButton } = useIntlayer('doc-nav-list');
+
   return (
     <nav className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pt-8 pb-20">
       {Object.keys(docData).map((key1) => {

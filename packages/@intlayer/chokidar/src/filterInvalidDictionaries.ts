@@ -1,10 +1,9 @@
-import type { IntlayerConfig } from '@intlayer/config';
 import {
   colorizeKey,
   colorizePath,
   getAppLogger,
 } from '@intlayer/config/client';
-import type { Dictionary } from '@intlayer/core';
+import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { formatPath } from './utils/formatter';
 
 export const isInvalidDictionary = (
@@ -15,7 +14,7 @@ export const isInvalidDictionary = (
 
   if (!dictionary) return false;
 
-  const isLocal = Boolean(dictionary.location === 'locale');
+  const isLocal = Boolean(dictionary.location === 'local');
   const location = isLocal ? 'Local' : 'Remote';
   const hasKey = Boolean(dictionary.key);
   const hasContent = Boolean(dictionary.content);
@@ -45,7 +44,7 @@ export const isInvalidDictionary = (
 
 export const filterInvalidDictionaries = (
   dictionaries: (Dictionary | undefined)[] | undefined,
-  configuration?: IntlayerConfig
+  configuration: IntlayerConfig
 ): Dictionary[] =>
   (dictionaries ?? [])?.filter((dictionary) =>
     isInvalidDictionary(dictionary, configuration)

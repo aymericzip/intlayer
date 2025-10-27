@@ -1,34 +1,16 @@
-'use client';
-
-import {
-  transformerMetaHighlight,
-  transformerMetaWordHighlight,
-  transformerNotationDiff,
-  transformerNotationErrorLevel,
-  transformerNotationHighlight,
-  transformerNotationWordHighlight,
-} from '@shikijs/transformers';
-import {
-  type FC,
-  type HTMLAttributes,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import {
-  type BundledLanguage,
-  type BundledTheme,
-  type CodeToHastOptions,
-  codeToHtml,
-} from 'shiki';
+import { type FC, type HTMLAttributes, lazy, Suspense } from 'react';
+import type { BundledLanguage } from 'shiki/bundle/web';
 import { cn } from '../../utils/cn';
 
-const CodeDefault: FC<{ children: string }> = ({ children }) => (
-  <div>
-    <pre>
+export const CodeDefault: FC<{ children: string }> = ({ children }) => (
+  <div className="min-w-0 max-w-full overflow-x-auto">
+    <pre className="min-w-0 max-w-full overflow-x-auto">
       <code>
         {children.split('\n').map((line, index) => (
-          <span className="line block w-full" key={index}>
+          <span
+            className="line block w-full"
+            key={`line-${index}-${line.slice(0, 10)}`}
+          >
             {line}
           </span>
         ))}
@@ -37,47 +19,12 @@ const CodeDefault: FC<{ children: string }> = ({ children }) => (
   </div>
 );
 
-export const CodeBlockShiki = (({
-  children,
-  lang,
-  isDarkMode,
-  onChange,
-  ...props
-}: CodeBlockProps) => {
-  const [out, setOut] = useState<string | null>(null);
-  const shikiOptions: CodeToHastOptions<BundledLanguage, BundledTheme> =
-    useMemo(
-      () => ({
-        lang,
-        theme: isDarkMode ? 'github-dark' : 'github-light',
-        transformers: [
-          transformerNotationDiff(),
-          transformerNotationHighlight(),
-          transformerNotationWordHighlight(),
-          transformerNotationErrorLevel(),
-          transformerMetaHighlight(),
-          transformerMetaWordHighlight(),
-        ],
-      }),
-      [lang, isDarkMode]
-    );
-
-  useEffect(() => {
-    codeToHtml(children, shikiOptions)
-      .then((out) => setOut(out))
-      .catch((e) => console.error(e));
-  }, [shikiOptions, children]);
-
-  if (!out) return <CodeDefault>{children}</CodeDefault>;
-
-  return (
-    <div
-      dangerouslySetInnerHTML={{ __html: out }}
-      {...props}
-      style={{ backgroundColor: 'transparent', minWidth: 0, overflow: 'auto' }}
-    />
-  );
-}) as unknown as FC<CodeBlockProps>;
+// Lazy load the Shiki component
+const CodeBlockShiki = lazy(() =>
+  import('./CodeBlockShiki').then((mod) => ({
+    default: mod.CodeBlockShiki,
+  }))
+);
 
 export type CodeBlockProps = {
   children: string;
@@ -91,12 +38,19 @@ export const CodeBlock: FC<CodeBlockProps> = ({
   className,
   onChange,
   isEditable,
+  children,
+  lang,
+  isDarkMode,
   ...props
 }) => (
-  <CodeBlockShiki
-    className={cn('flex w-full', className)}
-    contentEditable={isEditable}
-    onInput={(e) => onChange?.(e.currentTarget.textContent ?? '')}
+  <div
+    className={cn('flex w-full min-w-0 max-w-full overflow-x-auto', className)}
     {...props}
-  />
+  >
+    <Suspense fallback={<CodeDefault>{children}</CodeDefault>}>
+      <CodeBlockShiki lang={lang} isDarkMode={isDarkMode}>
+        {children}
+      </CodeBlockShiki>
+    </Suspense>
+  </div>
 );

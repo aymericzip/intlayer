@@ -1,7 +1,6 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
-
 import { localeResolver } from '@intlayer/core';
+import type { LocalesValues } from '@intlayer/types';
 import {
   type Component,
   createContext,
@@ -11,12 +10,13 @@ import {
   useContext,
 } from 'solid-js';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
-import { localeCookie, setLocaleCookie } from './useLocaleCookie';
+import { localeCookie, setLocaleInStorage } from './useLocaleStorage';
 
 type IntlayerValue = {
   locale: () => LocalesValues;
   setLocale: (newLocale: LocalesValues) => void;
   disableEditor?: boolean;
+  isCookieEnabled?: boolean;
 };
 
 /**
@@ -39,6 +39,7 @@ export type IntlayerProviderProps = ParentProps<{
   defaultLocale?: LocalesValues;
   setLocale?: (locale: LocalesValues) => void;
   disableEditor?: boolean;
+  isCookieEnabled?: boolean;
 }>;
 
 /**
@@ -98,7 +99,7 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
     }
 
     setCurrentLocale(newLocale); // Update state
-    setLocaleCookie(newLocale); // Optionally set cookie for persistence
+    setLocaleInStorage(newLocale, props.isCookieEnabled); // Optionally set cookie for persistence
   };
 
   const setLocale = props.setLocale ?? setLocaleBase;

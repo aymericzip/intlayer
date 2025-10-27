@@ -1,64 +1,110 @@
-import type { LocalesValues } from '@intlayer/config/client';
-import type { Dictionary } from '@intlayer/core';
+import type {
+  DeclaredLocales,
+  Dictionary,
+  LocalesValues,
+} from '@intlayer/types';
 import {
+  type ComputedRef,
   computed,
   inject,
   isRef,
-  reactive,
   ref,
-  type ToRefs,
-  toRefs,
   toValue,
   watch,
 } from 'vue';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
+import {
+  atPath,
+  isComponentLike,
+  isObjectLike,
+  toComponent,
+} from './useIntlayer';
 
-export const useDictionary = <T extends Dictionary>(
+export const useDictionary = <
+  T extends Dictionary,
+  L extends LocalesValues = DeclaredLocales,
+>(
   dictionary: T,
-  locale?: LocalesValues
-): ToRefs<DeepTransformContent<T['content']>> => {
+  locale?: L
+) => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
-
   if (!intlayer)
     throw new Error('useIntlayer must be used under <IntlayerProvider>');
 
-  // Normalize the provider locale so it’s a Ref either way
+  // normalize provider locale
   const providerLocale = isRef(intlayer.locale)
     ? intlayer.locale
     : ref(intlayer.locale as any);
 
-  // Decide which locale to use, and make it reactive
+  // which locale to use (reactive)
   const localeTarget = computed<LocalesValues>(() => {
     const explicit = locale !== undefined ? toValue(locale) : undefined;
     return (explicit ?? providerLocale.value)!;
   });
 
-  // @ts-ignore
-  const content = reactive({}) as DeepTransformContent<T['content']>;
+  // single reactive source for the entire content tree
+  const source = ref<any>({});
 
-  const patch = (next: Record<string, any>) => {
-    // add/replace (force new identity)
-    for (const key in next) {
-      (content as any)[key] = next[key];
-    }
-    // remove stale
-    for (const key in content as any) {
-      if (!(key in next)) delete (content as any)[key];
-    }
-  };
-
-  // Explicitly watch both key & locale. No dependency "branching" issues.
   watch(
     [() => toValue(dictionary) as T, () => localeTarget.value],
-    ([k, l]) => {
-      const next = getDictionary(k, l);
-      patch(next as any);
+    ([_key, locale]) => {
+      source.value = getDictionary(dictionary, locale);
     },
     { immediate: true, flush: 'sync' }
   );
 
-  // Convert to refs to maintain reactivity when destructuring
-  return toRefs(content);
+  // create a deep, read-only reactive proxy
+  const makeProxy = (path: (string | number)[]) => {
+    const leafRef: ComputedRef<any> = computed(() =>
+      atPath(source.value, path)
+    );
+
+    const handler: ProxyHandler<any> = {
+      get(_t, prop: any, _r) {
+        // Make the proxy "ref-like" so templates unwrap {{proxy}} to its current value.
+        if (prop === '__v_isRef') return true;
+        if (prop === 'value') return leafRef.value;
+
+        // Avoid Promise-like traps
+        if (prop === 'then') return undefined;
+
+        // Coerce the node to a component when asked
+        if (prop === 'c' || prop === 'asComponent')
+          return toComponent(() => leafRef.value);
+
+        // Handy escape hatch to get the underlying computed
+        if (prop === '$raw') return leafRef;
+
+        // Primitive coercion in string contexts (e.g., `${node}`)
+        if (prop === Symbol.toPrimitive) {
+          return () => leafRef.value as any;
+        }
+
+        // Dive into children reactively
+        const nextPath = path.concat(prop as any);
+        const snapshot = atPath(source.value, nextPath);
+
+        if (isObjectLike(snapshot) && !isComponentLike(snapshot)) {
+          return makeProxy(nextPath); // nested proxy
+        }
+        // Leaf: return a computed ref (templates auto-unwrap)
+        return computed(() => atPath(source.value, nextPath));
+      },
+
+      // Make Object.keys(), for...in, v-for on object keys work
+      ownKeys() {
+        const v = leafRef.value;
+        return isObjectLike(v) ? Reflect.ownKeys(v) : [];
+      },
+      getOwnPropertyDescriptor() {
+        return { enumerable: true, configurable: true };
+      },
+    };
+
+    return new Proxy({}, handler);
+  };
+
+  return makeProxy([]) as unknown as DeepTransformContent<T['content'], L>;
 };

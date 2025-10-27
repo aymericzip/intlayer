@@ -1,7 +1,9 @@
 'use client';
 
-import type { Locales, LocalesValues } from '@intlayer/config/client';
+import { getIntlayer } from '@intlayer/core';
+import type { LocalesValues } from '@intlayer/types';
 import { cva, type VariantProps } from 'class-variance-authority';
+import type { __DictionaryRegistry } from 'intlayer';
 import { ChevronRightIcon } from 'lucide-react';
 import { type FC, Fragment, type HTMLAttributes, type ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -20,7 +22,7 @@ type LinkLinkProps = {
   /**
    * Locale for internationalization
    */
-  locale?: Locales;
+  locale?: LocalesValues;
   /**
    * URL to navigate to
    */
@@ -82,7 +84,8 @@ const LinkLink: FC<LinkLinkProps> = ({
   className,
   ...props
 }) => {
-  const { linkLabel } = useIntlayer('breadcrumb');
+  const content = getIntlayer('breadcrumb');
+  const linkLabel = content.linkLabel;
 
   return (
     <>
@@ -319,7 +322,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
 
           if (isTruncated) {
             return (
-              <Fragment key={`truncated-${index}`}>
+              <Fragment key={`truncated-${text}`}>
                 <li className="flex items-center" aria-hidden="true">
                   <span className="text-neutral-500">…</span>
                 </li>

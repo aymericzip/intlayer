@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-12-06
-updatedAt: 2025-10-09
+createdAt: 2025-10-25
+updatedAt: 2025-10-25
 title: How to translate your Next.js 15 app – i18n guide 2025
 description: Discover how to make your Next.js 15 website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -14,8 +14,31 @@ slugs:
   - doc
   - environment
   - nextjs
+  - 15
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
+history:
+  - version: 7.0.0
+    date: 2025-10-25
+    changes: Added mention of `withIntlayerSync()` function
+  - version: 6.2.0
+    date: 2025-10-09
+    changes: Added docs for `useLocale` hook with `onLocaleChange` option
+  - version: 5.6.6
+    date: 2025-10-02
+    changes: Added docs for `getLocale` function on server actions
+  - version: 5.6.2
+    date: 2025-09-23
+    changes: Added docs for watch dictionaries changes on Turbopack
+  - version: 5.6.2
+    date: 2025-09-22
+    changes: Added docs for `multipleMiddlewares` helper
+  - version: 5.6.0
+    date: 2025-07-06
+    changes: Transform `withIntlayer()` function to a promise based function
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Translate your Next.js 15 website using Intlayer | Internationalization (i18n)
@@ -23,6 +46,10 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 <iframe title="The best i18n solution for Next.js? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 See [Application Template](https://github.com/aymericzip/intlayer-next-15-template) on GitHub.
+
+## Table of Contents
+
+<TOC>
 
 ## What is Intlayer?
 
@@ -167,10 +194,19 @@ module.exports = withIntlayer(nextConfig);
 
 > The `withIntlayer()` Next.js plugin is used to integrate Intlayer with Next.js. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the [Webpack](https://webpack.js.org/) or [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) environments. Additionally, it provides aliases to optimize performance and ensures compatibility with server components.
 
-> The `withIntlayer()` function is a promise function. If you want to use it with other plugins, you can await it. Example:
+> The `withIntlayer()` function is a promise function. It allows to prepare the intlayer dictionaries before the build starts. If you want to use it with other plugins, you can await it. Example:
 >
 > ```tsx
 > const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+>
+> If you want to use it synchronously, you can use the `withIntlayerSync()` function. Example:
+>
+> ```tsx
+> const nextConfig = withIntlayerSync(nextConfig);
 > const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
 >
 > export default nextConfigWithOtherPlugins;
@@ -797,15 +833,17 @@ export const generateMetadata = async ({
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl =
+    multilingualUrls[locale as keyof typeof multilingualUrls];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -837,15 +875,16 @@ export const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -877,15 +916,16 @@ const generateMetadata = async ({ params }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -1575,14 +1615,3 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-
-## Doc History
-
-| Version | Date       | Changes                                                         |
-| ------- | ---------- | --------------------------------------------------------------- |
-| 6.2.0   | 2025-10-09 | Added docs for `useLocale` hook with `onLocaleChange` option    |
-| 5.6.6   | 2025-10-02 | Added docs for `getLocale` function on server actions           |
-| 5.6.2   | 2025-09-23 | Added docs for watch dictionaries changes on Turbopack          |
-| 5.6.2   | 2025-09-22 | Added docs for `multipleMiddlewares` helper                     |
-| 5.6.0   | 2025-07-06 | Transform `withIntlayer()` function to a promise based function |
-| 5.5.10  | 2025-06-29 | Init history                                                    |

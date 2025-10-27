@@ -8,3 +8,5 @@ export const TRAVERSE_PATTERN = [
 ];
 
 export const OUTPUT_FORMAT: ('cjs' | 'esm')[] = ['cjs', 'esm'];
+
+export const CACHE = true;

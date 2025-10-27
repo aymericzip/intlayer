@@ -1,7 +1,7 @@
 'use client';
 
-import { Locales } from '@intlayer/config/client';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
+import { type Locale, Locales } from '@intlayer/types';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useCallback, useMemo, useRef, useState } from 'react';
@@ -12,18 +12,18 @@ import { DropDown, type PanelProps } from '../DropDown';
 import { Input } from '../Input';
 
 export type LocaleSwitcherProps = {
-  locale?: Locales;
-  localeList: Locales[];
-  availableLocales?: Locales[];
+  locale?: Locale;
+  localeList: Locale[];
+  availableLocales?: Locale[];
   fullLocaleName?: boolean;
-  setLocale: (locale: Locales) => void;
+  setLocale: (locale: Locale) => void;
   panelProps?: Omit<PanelProps, 'identifier'>;
 };
 
 const DROPDOWN_IDENTIFIER = 'locale-switcher';
 
 type MultilingualAvailableLocales = {
-  locale: Locales;
+  locale: Locale;
   englishName: string;
   currentLocaleName: string;
   ownLocaleName: string;
@@ -38,7 +38,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   panelProps,
 }) => {
   let localeName = 'Select a locale';
-  const { switchTo, searchInput, localeSwitcherLabel, languageListLabel } =
+  const { switchTo, searchInput, languageListLabel } =
     useIntlayer('locale-switcher');
   const inputRef = useRef<HTMLInputElement>(null);
 

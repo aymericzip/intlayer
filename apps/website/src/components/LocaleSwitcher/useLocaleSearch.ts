@@ -10,7 +10,7 @@ type MultilingualAvailableLocales = {
 };
 
 export const useLocaleSearch = (
-  availableLocales: LocalesValues[] = Object.values(Locales),
+  availableLocales: LocalesValues[] = Object.values(Locales.ALL_LOCALES),
   locale: LocalesValues = Locales.ENGLISH
 ) => {
   const multilingualAvailableLocales: MultilingualAvailableLocales[] = useMemo(

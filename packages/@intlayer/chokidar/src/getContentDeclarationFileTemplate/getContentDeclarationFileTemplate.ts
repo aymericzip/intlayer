@@ -1,6 +1,4 @@
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { readAsset } from 'utils:asset';
 import type { Format } from '../utils/getFormatFromExtension';
 import { kebabCaseToCamelCase } from '../utils/kebabCaseToCamelCase';
 
@@ -9,8 +7,6 @@ export const getContentDeclarationFileTemplate = async (
   format: Format,
   fileParams: Record<string, any> = {}
 ) => {
-  const dirname = __dirname ?? fileURLToPath(import.meta.url);
-
   let fileTemplate: string;
 
   switch (format) {
@@ -28,32 +24,32 @@ export const getContentDeclarationFileTemplate = async (
       break;
   }
 
-  const fileContent = await readFile(join(dirname, fileTemplate), 'utf-8');
+  const fileContent = readAsset(fileTemplate);
   const camelCaseKey = kebabCaseToCamelCase(key);
   const nonCapitalizedCamelCaseKey =
     camelCaseKey.charAt(0).toLowerCase() + camelCaseKey.slice(1);
 
-  const fileParmsString = Object.entries(fileParams)
+  const fileParamsString = Object.entries(fileParams)
     .filter(([, value]) => value !== undefined)
     .map(([key, value]) => {
       if (typeof value === 'object') {
-        return `\n'${key}': ${JSON.stringify(value)},`;
+        return `\n  '${key}': ${JSON.stringify(value)},`;
       }
 
       if (typeof value === 'boolean' || typeof value === 'number') {
-        return `\n'${key}': ${value},`;
+        return `\n  '${key}': ${value},`;
       }
 
       if (typeof value === 'string') {
-        return `\n'${key}': '${value}',`;
+        return `\n  '${key}': '${value}',`;
       }
 
-      return `\n'${key}': ${value},`;
+      return `\n  '${key}': ${value},`;
     })
     .join('');
 
   return fileContent
     .replace('{{key}}', key)
     .replaceAll('{{name}}', nonCapitalizedCamelCaseKey)
-    .replace('{{fileParams}}', fileParmsString);
+    .replace('{{fileParams}}', fileParamsString);
 };

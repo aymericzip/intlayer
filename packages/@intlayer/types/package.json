@@ -1,0 +1,93 @@
+{
+  "name": "@intlayer/types",
+  "version": "7.0.1",
+  "private": false,
+  "description": "Retrieve Intlayer configurations and manage environment variables for both server-side and client-side environments.",
+  "keywords": [
+    "intlayer",
+    "types",
+    "typescript"
+  ],
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aymericzip"
+    }
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "client": [
+        "./dist/types/client.d.ts"
+      ],
+      "built": [
+        "./dist/types/built.d.ts"
+      ],
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "tsdown --config tsdown.config.ts",
+    "build:ci": "tsdown --config tsdown.config.ts",
+    "clean": "rimraf ./dist .turbo",
+    "dev": "tsdown --config tsdown.config.ts --watch",
+    "format": "biome format . --check",
+    "format:fix": "biome format --write .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "prepublish": "cp -f ../../../README.md ./README.md",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit --project tsconfig.types.json"
+  },
+  "devDependencies": {
+    "@types/node": "24.9.1",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsdown-config": "workspace:*",
+    "rimraf": "6.0.1",
+    "tsdown": "0.15.9",
+    "typescript": "5.9.3",
+    "vitest": "4.0.3"
+  },
+  "engines": {
+    "node": ">=14.18"
+  },
+  "bug": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  }
+}

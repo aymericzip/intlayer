@@ -18,6 +18,9 @@ const content = {
       ar: 'يرجى إدخال مفتاح لوسمك',
       ru: 'Пожалуйста, введите ключ для вашего тега',
       tr: 'Lütfen etiketiniz için bir anahtar girin',
+      pl: 'Proszę podać klucz tagu.',
+      id: 'Silakan masukkan key untuk tag Anda',
+      vi: 'Vui lòng nhập key cho tag của bạn',
     }),
 
     invalidTypeErrorKey: t({
@@ -35,6 +38,9 @@ const content = {
       ar: 'يرجى إدخال علامة تعريف صالحة لوسمك',
       ru: 'Пожалуйста, введите допустимый тег для вашего тега',
       tr: 'Lütfen etiketiniz için geçerli bir etiket girin',
+      pl: 'Proszę podać prawidłowy klucz tagu.',
+      id: 'Silakan masukkan key yang valid untuk tag Anda',
+      vi: 'Vui lòng nhập một tag hợp lệ cho tag của bạn',
     }),
 
     requiredErrorName: t({
@@ -52,6 +58,9 @@ const content = {
       ar: 'يرجى إدخال مفتاح لوسمك',
       ru: 'Пожалуйста, введите ключ для вашего тега',
       tr: 'Lütfen etiketiniz için bir anahtar girin',
+      pl: 'Proszę podać klucz tagu.',
+      id: 'Silakan masukkan key untuk tag Anda',
+      vi: 'Vui lòng nhập key cho tag của bạn',
     }),
 
     invalidTypeErrorName: t({
@@ -69,6 +78,9 @@ const content = {
       ar: 'يرجى إدخال علامة تعريف صالحة لوسمك',
       ru: 'Пожалуйста, введите допустимый тег для вашего тега',
       tr: 'Lütfen etiketiniz için geçerli bir etiket girin',
+      pl: 'Proszę podać prawidłowy klucz tagu.',
+      id: 'Silakan masukkan key yang valid untuk tag Anda',
+      vi: 'Vui lòng nhập một tag hợp lệ cho tag của bạn',
     }),
 
     invalidTypeErrorDescription: t({
@@ -86,6 +98,9 @@ const content = {
       ar: 'يرجى إدخال وصف صالح لوسمك',
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
       tr: 'Lütfen etiketiniz için geçerli bir açıklama girin',
+      pl: 'Proszę podać prawidłowy opis tagu.',
+      id: 'Silakan masukkan deskripsi yang valid untuk tag Anda',
+      vi: 'Vui lòng nhập một description hợp lệ cho tag của bạn',
     }),
 
     requiredErrorDescription: t({
@@ -103,6 +118,9 @@ const content = {
       ar: 'يرجى إدخال وصف صالح لوسمك',
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
       tr: 'Lütfen etiketiniz için bir açıklama girin',
+      pl: 'Proszę podać opis tagu.',
+      id: 'Silakan masukkan deskripsi untuk tag Anda',
+      vi: 'Vui lòng nhập description cho tag của bạn',
     }),
 
     requiredErrorInstructions: t({
@@ -120,6 +138,9 @@ const content = {
       ar: 'يرجى إدخال وصف صالح لوسمك',
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
       tr: 'Lütfen etiketiniz için talimatlar girin',
+      pl: 'Proszę podać instrukcje dla tagu.',
+      id: 'Silakan masukkan instruksi untuk tag Anda',
+      vi: 'Vui lòng nhập instructions cho tag của bạn',
     }),
 
     invalidTypeErrorInstructions: t({
@@ -137,8 +158,15 @@ const content = {
       ar: 'يرجى إدخال وصف صالح لوسمك',
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
       tr: 'Lütfen etiketiniz için geçerli talimatlar girin',
+      pl: 'Proszę podać prawidłowe instrukcje dla tagu.',
+      id: 'Silakan masukkan instruksi yang valid untuk tag Anda',
+      vi: 'Vui lòng nhập instructions hợp lệ cho tag của bạn',
     }),
   },
+  title: 'Tag form schema',
+  description:
+    'Validation messages and schema configuration used in the dashboard tag form. Ensures correct input for key, description, and instructions fields when creating or editing a tag.',
+  tags: ['form validation', 'tag management', 'dashboard'],
 } satisfies Dictionary;
 
 export default content;

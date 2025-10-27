@@ -4,12 +4,9 @@ import {
   colon,
   colorize,
   colorizeKey,
-  ESMxCJSRequire,
   getAppLogger,
-  getConfiguration,
-  type IntlayerConfig,
 } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
+import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { loadContentDeclarations } from './loadContentDeclaration';
 import { loadRemoteDictionaries } from './loadRemoteDictionaries';
@@ -37,12 +34,12 @@ const setLoadDictionariesStatus = (statuses: DictionariesStatus[]) => {
   const updated: DictionariesStatus[] = [...loadDictionariesStatus];
 
   for (const incoming of statuses) {
-    const idx = updated.findIndex(
+    const index = updated.findIndex(
       (s) =>
         s.dictionaryKey === incoming.dictionaryKey && s.type === incoming.type
     );
-    if (idx >= 0) {
-      updated[idx] = incoming;
+    if (index >= 0) {
+      updated[index] = incoming;
     } else {
       updated.push(incoming);
     }
@@ -85,7 +82,7 @@ const colorFor = (status: DictionariesStatus['status']) => {
   }
 };
 
-const printSummary = (configuration: IntlayerConfig = getConfiguration()) => {
+const printSummary = (configuration: IntlayerConfig) => {
   if (configuration.log.mode !== 'verbose') return;
 
   const appLogger = getAppLogger(configuration);
@@ -158,8 +155,7 @@ const printSummary = (configuration: IntlayerConfig = getConfiguration()) => {
 
 export const loadDictionaries = async (
   contentDeclarationsPaths: string[] | string,
-  configuration: IntlayerConfig = getConfiguration(),
-  projectRequire = ESMxCJSRequire
+  configuration: IntlayerConfig
 ): Promise<{
   localDictionaries: Dictionary[];
   remoteDictionaries: Dictionary[];
@@ -180,7 +176,6 @@ export const loadDictionaries = async (
     try {
       const res = await plugin.loadDictionaries?.({
         configuration,
-        projectRequire,
       });
       return (res as Dictionary[] | undefined) ?? [];
     } catch {
@@ -199,14 +194,15 @@ export const loadDictionaries = async (
   const localDictionaries: Dictionary[] = await loadContentDeclarations(
     files,
     configuration,
-    projectRequire,
     setLoadDictionariesStatus
   );
 
   const localDictionariesTime = Date.now();
 
-  const filteredLocalDictionaries =
-    filterInvalidDictionaries(localDictionaries);
+  const filteredLocalDictionaries = filterInvalidDictionaries(
+    localDictionaries,
+    configuration
+  );
 
   const localDictionariesStatus = filteredLocalDictionaries.map(
     (dict) =>

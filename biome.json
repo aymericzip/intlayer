@@ -7,7 +7,10 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**/*.{js,jsx,ts,tsx,json,md,yml,yaml,css,html}"]
+    "includes": [
+      "**/*.{js,jsx,ts,tsx,mjs,cjs,md,yml,yaml,css,html,vue,svelte,solid,astro,json}",
+      "!**/package.json"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -39,6 +42,7 @@
             "allow": ["assert", "error", "info", "warn"]
           }
         },
+        "noUnknownAtRules": "warn",
         "noExplicitAny": "off",
         "noArrayIndexKey": "warn",
         "noTsIgnore": "off"

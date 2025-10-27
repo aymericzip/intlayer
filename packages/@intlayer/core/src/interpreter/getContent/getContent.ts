@@ -1,12 +1,16 @@
 import configuration from '@intlayer/config/built';
-import type { Locales, LocalesValues } from '@intlayer/config/client';
-import type { ContentNode } from '../../types';
+import type {
+  ContentNode,
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types';
 import { deepTransformNode } from './deepTransform';
 import {
   conditionPlugin,
   type DeepTransformContent,
   enumerationPlugin,
   filePlugin,
+  type IInterpreterPluginState,
   insertionPlugin,
   type NodeProps,
   nestedPlugin,
@@ -22,15 +26,17 @@ import {
  */
 export const getContent = <
   T extends ContentNode,
-  L extends LocalesValues = Locales,
+  L extends LocalesValues = DeclaredLocales,
 >(
   node: T,
   nodeProps: NodeProps,
-  locale: L = configuration?.internationalization.defaultLocale as L
+  locale?: L
 ) => {
+  const defaultLocale = configuration?.internationalization?.defaultLocale;
+
   const plugins: Plugins[] = [
     insertionPlugin,
-    translationPlugin(locale),
+    translationPlugin(locale ?? defaultLocale, defaultLocale),
     enumerationPlugin,
     conditionPlugin,
     nestedPlugin,
@@ -41,5 +47,5 @@ export const getContent = <
   return deepTransformNode(node, {
     ...nodeProps,
     plugins,
-  }) as DeepTransformContent<T>;
+  }) as DeepTransformContent<T, IInterpreterPluginState, L>;
 };

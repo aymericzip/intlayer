@@ -1,18 +1,17 @@
-import type { Locales, LocalesValues } from '@intlayer/config/client';
 import {
-  type Dictionary,
   getDictionary as getDictionaryCore,
   type Plugins,
 } from '@intlayer/core';
-import {
-  type DeepTransformContent,
-  intlayerNodePlugins,
-  markdownPlugin,
-} from './plugins';
+import type {
+  DeclaredLocales,
+  Dictionary,
+  LocalesValues,
+} from '@intlayer/types';
+import { intlayerNodePlugins, markdownPlugin } from './plugins';
 
 export const getDictionary = <
   T extends Dictionary,
-  L extends LocalesValues = Locales,
+  L extends LocalesValues = DeclaredLocales,
 >(
   dictionary: T,
   locale?: L,
@@ -24,9 +23,5 @@ export const getDictionary = <
     ...(additionalPlugins ?? []),
   ];
 
-  return getDictionaryCore(
-    dictionary,
-    locale,
-    plugins
-  ) as any as DeepTransformContent<T['content']>;
+  return getDictionaryCore<T, L>(dictionary, locale, plugins);
 };

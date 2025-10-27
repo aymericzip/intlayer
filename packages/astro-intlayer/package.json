@@ -1,6 +1,6 @@
 {
   "name": "astro-intlayer",
-  "version": "6.1.6",
+  "version": "7.0.1",
   "private": false,
   "description": "Easily internationalize i18n your Nuxt applications with type-safe multilingual content management.",
   "keywords": [
@@ -59,44 +59,42 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "pnpm clean & pnpm build:ci",
-    "build:ci": "pnpm build:package & pnpm build:types",
-    "build:package": "tsup",
-    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
-    "clean": "rimraf ./dist",
-    "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint --write .",
+    "build": "tsdown --config tsdown.config.ts",
+    "build:ci": "tsdown --config tsdown.config.ts",
+    "clean": "rimraf ./dist .turbo",
+    "dev": "tsdown --config tsdown.config.ts --watch",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit"
+    "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "tsc-alias": "^1.8.16",
-    "tsup": "^8.5.0",
+    "@intlayer/types": "workspace:*",
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^24.5.2",
+    "@types/node": "24.9.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
-    "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.2.1",
-    "fast-glob": "^3.3.3",
-    "rimraf": "^6.0.1",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "@utils/tsdown-config": "workspace:*",
+    "fast-glob": "3.3.3",
+    "rimraf": "6.0.1",
+    "tsdown": "0.15.9",
+    "typescript": "5.9.3",
+    "vitest": "4.0.3"
   },
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "astro": ">=4.0.0",
     "vite-intlayer": "workspace:*"
   },

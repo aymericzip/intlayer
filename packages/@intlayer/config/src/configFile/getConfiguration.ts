@@ -1,30 +1,29 @@
 import { relative } from 'node:path';
-import merge from 'deepmerge';
-import { logger } from '../logger';
 import type {
   CustomIntlayerConfig,
   IntlayerConfig,
   LogFunctions,
-} from '../types/config';
+} from '@intlayer/types';
+import merge from 'deepmerge';
+import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
+import { logger } from '../logger';
+import { cache } from '../utils/cache';
+import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
 import { searchConfigurationFile } from './searchConfigurationFile';
 
-let storedConfiguration: IntlayerConfig | undefined;
-let storedConfigurationFilePath: string | undefined;
-let storedNumCustomConfiguration: number | undefined;
-
 export type GetConfigurationOptions = {
   baseDir?: string;
   override?: CustomIntlayerConfig;
+  // Dotenv options
   env?: string;
   envFile?: string;
+  // Log functions
   logFunctions?: LogFunctions;
-  projectRequire?: NodeJS.Require;
-  additionalEnvVars?: Record<string, string>;
-};
-
-const BASE_DIR_PATH = process.cwd();
+  // Require function
+  require?: NodeJS.Require;
+} & Omit<SandBoxContextOptions, 'projectRequire'>;
 
 export type GetConfigurationAndFilePathResult = {
   configuration: IntlayerConfig;
@@ -37,64 +36,83 @@ export type GetConfigurationAndFilePathResult = {
 export const getConfigurationAndFilePath = (
   options?: GetConfigurationOptions
 ): GetConfigurationAndFilePathResult => {
+  const { baseDir } = getPackageJsonPath();
   const mergedOptions = {
-    baseDir: BASE_DIR_PATH,
+    baseDir,
+    require: options?.require,
     ...options,
   };
 
-  const {
-    baseDir,
-    env,
-    envFile,
-    logFunctions,
-    additionalEnvVars,
-    projectRequire,
-  } = mergedOptions;
+  const cachedConfiguration =
+    cache.get<GetConfigurationAndFilePathResult>(mergedOptions);
 
-  if (!storedConfiguration || typeof options !== 'undefined') {
-    // Search for configuration files
-    const { configurationFilePath, numCustomConfiguration } =
-      searchConfigurationFile(baseDir);
+  if (cachedConfiguration) return cachedConfiguration;
 
+  // Search for configuration files
+  const { configurationFilePath, numCustomConfiguration } =
+    searchConfigurationFile(mergedOptions.baseDir);
+
+  if (options?.override?.log?.mode === 'verbose') {
+    logConfigFileResult(
+      mergedOptions.baseDir,
+      numCustomConfiguration,
+      configurationFilePath
+    );
+  }
+
+  let storedConfiguration: IntlayerConfig | undefined;
+
+  if (configurationFilePath) {
     // Load the custom configuration
-    let customConfiguration: CustomIntlayerConfig | undefined;
-
-    if (configurationFilePath) {
-      customConfiguration = loadConfigurationFile(
-        configurationFilePath,
-        { env, envFile },
-        projectRequire,
-        additionalEnvVars
-      );
-    }
+    const customConfiguration: CustomIntlayerConfig | undefined =
+      loadConfigurationFile(configurationFilePath, {
+        projectRequire: mergedOptions.require,
+        // Dotenv options
+        envVarOptions: {
+          env: mergedOptions.env,
+          envFile: mergedOptions.envFile,
+        },
+        // Sandbox context additional variables
+        additionalEnvVars: mergedOptions.additionalEnvVars,
+        aliases: mergedOptions.aliases,
+      });
 
     // Save the configuration to avoid reading the file again
     storedConfiguration = buildConfigurationFields(
       customConfiguration,
-      baseDir,
-      logFunctions
+      mergedOptions.baseDir,
+      mergedOptions.logFunctions
     );
-
-    storedConfigurationFilePath = configurationFilePath;
-    storedNumCustomConfiguration = numCustomConfiguration;
   }
 
   // Log warning if multiple configuration files are found
-  if (options?.override?.log?.mode === 'verbose') {
-    logConfigFileResult(
-      storedNumCustomConfiguration,
-      storedConfigurationFilePath
-    );
-  }
+
+  const projectRequireConfig: CustomIntlayerConfig = mergedOptions.require
+    ? {
+        build: {
+          require: mergedOptions.require,
+        },
+      }
+    : {};
+
+  const configWithProjectRequire = merge(
+    storedConfiguration ?? {},
+    projectRequireConfig
+  ) as CustomIntlayerConfig;
 
   const configuration = merge(
-    storedConfiguration,
-    options?.override ?? {}
+    configWithProjectRequire,
+    mergedOptions.override ?? {}
   ) as IntlayerConfig;
+
+  cache.set(mergedOptions, {
+    configuration,
+    configurationFilePath,
+  });
 
   return {
     configuration,
-    configurationFilePath: storedConfigurationFilePath,
+    configurationFilePath,
   };
 };
 
@@ -106,6 +124,7 @@ export const getConfiguration = (
 ): IntlayerConfig => getConfigurationAndFilePath(options).configuration;
 
 const logConfigFileResult = (
+  baseDir: string,
   numCustomConfiguration?: number,
   configurationFilePath?: string
 ) => {
@@ -114,7 +133,7 @@ const logConfigFileResult = (
       isVerbose: true,
     });
   } else {
-    const relativeOutputPath = relative(BASE_DIR_PATH, configurationFilePath!);
+    const relativeOutputPath = relative(baseDir, configurationFilePath!);
 
     if (numCustomConfiguration === 1) {
       logger(`Configuration file found: ${relativeOutputPath}.`, {

@@ -19,6 +19,9 @@ const metadataContent = {
       ar: 'التسعير CMS | Intlayer',
       ru: 'Цены CMS | Intlayer',
       tr: 'Fiyatlandırma CMS | Intlayer',
+      pl: 'Cennik CMS | Intlayer',
+      id: 'Harga CMS | Intlayer',
+      vi: 'Bảng giá CMS | Intlayer',
     }),
     description: t({
       en: 'Discover our pricing plans and get access to premium features with Intlayer. Choose the plan that suits you best.',
@@ -36,6 +39,9 @@ const metadataContent = {
       ar: 'اكتشف خطط التسعير لدينا واحصل على إمكانية الوصول إلى الميزات المميزة مع Intlayer. اختر الخطة التي تناسبك أكثر.',
       ru: 'Откройте для себя наши ценовые планы и получите доступ к премиум-функциям с Intlayer. Выберите план, который вам больше всего подходит.',
       tr: 'Fiyatlandırma planlarımızı keşfedin ve Intlayer ile premium özelliklere erişin. Size en uygun planı seçin.',
+      pl: 'Poznaj nasze plany cenowe i uzyskaj dostęp do funkcji premium w Intlayer. Wybierz plan, który najlepiej Ci odpowiada.',
+      id: 'Temukan paket harga kami dan dapatkan akses ke fitur premium dengan Intlayer. Pilih paket yang paling sesuai untuk Anda.',
+      vi: 'Khám phá các gói giá của chúng tôi và truy cập các tính năng cao cấp với Intlayer. Chọn gói phù hợp nhất với bạn.',
     }),
 
     keywords: t<string[]>({
@@ -193,8 +199,45 @@ const metadataContent = {
         'React',
         'JavaScript',
       ],
+      pl: [
+        'Cennik',
+        'Subskrypcja',
+        'Premium',
+        'Plany',
+        'Intlayer',
+        'Internacjonalizacja',
+        'Next.js',
+        'React',
+        'JavaScript',
+      ],
+      id: [
+        'Harga',
+        'Berlangganan',
+        'Premium',
+        'Paket',
+        'Intlayer',
+        'Internationalization',
+        'Next.js',
+        'React',
+        'JavaScript',
+      ],
+      vi: [
+        'Bảng giá',
+        'Đăng ký',
+        'Cao cấp',
+        'Gói',
+        'Intlayer',
+        'Internationalization',
+        'Next.js',
+        'React',
+        'JavaScript',
+      ],
     }),
   },
+  title: 'Pricing page metadata',
+  description:
+    'Metadata for the pricing page of the CMS, including title, description, and keywords to support SEO and multilingual optimization.',
+  tags: ['pricing', 'page metadata', 'cms'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

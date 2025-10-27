@@ -18,6 +18,9 @@ const projectConfigDetailsContent = {
       ar: 'تكوين المشروع',
       ru: 'Конфигурация проекта',
       tr: 'Proje yapılandırması',
+      pl: 'Konfiguracja projektu',
+      id: 'Konfigurasi proyek',
+      vi: 'Cấu hình dự án',
     }),
     i18nSection: {
       title: t({
@@ -35,6 +38,9 @@ const projectConfigDetailsContent = {
         ar: 'التدويل الدولي',
         ru: 'Интернационализация',
         tr: 'Uluslararasılaştırma',
+        pl: 'Internacjonalizacja',
+        id: 'Internasionalisasi',
+        vi: 'Quốc tế hóa (i18n)',
       }),
       localeListTitle: t({
         en: 'Available locales',
@@ -51,6 +57,9 @@ const projectConfigDetailsContent = {
         ar: 'المواقع المتاحة',
         ru: 'Доступные локализации',
         tr: 'Mevcut yereller',
+        pl: 'Dostępne lokalizacje',
+        id: 'Daftar locale yang tersedia',
+        vi: 'Các locale khả dụng',
       }),
       defaultLocaleTitle: t({
         en: 'Default locale',
@@ -67,6 +76,9 @@ const projectConfigDetailsContent = {
         ar: 'الموقع الافتراضي',
         ru: 'Локализация по умолчанию',
         tr: 'Varsayılan yerel',
+        pl: 'Domyślna lokalizacja',
+        id: 'Locale default',
+        vi: 'Locale mặc định',
       }),
     },
 
@@ -86,6 +98,9 @@ const projectConfigDetailsContent = {
         ar: 'المحرر',
         ru: 'Редактор',
         tr: 'Editör',
+        pl: 'Edytor',
+        id: 'Editor',
+        vi: 'Editor',
       }),
       applicationURL: {
         title: t({
@@ -103,6 +118,9 @@ const projectConfigDetailsContent = {
           ar: 'عنوان URL التطبيق',
           ru: 'URL-адрес приложения',
           tr: "Uygulama URL'si",
+          pl: 'URL aplikacji',
+          id: 'URL Aplikasi',
+          vi: 'URL ứng dụng',
         }),
         label: t({
           en: "Click to navigate to the application's URL",
@@ -119,6 +137,9 @@ const projectConfigDetailsContent = {
           ar: 'انقر للانتقال إلى عنوان URL التطبيق',
           ru: 'Нажмите, чтобы перейти к URL-адресу приложения',
           tr: "Uygulamanın URL'sine gitmek için tıklayın",
+          pl: 'Kliknij, aby przejść do adresu URL aplikacji',
+          id: 'Klik untuk membuka URL aplikasi',
+          vi: 'Nhấp để điều hướng đến URL của ứng dụng',
         }),
       },
       cmsURL: {
@@ -137,6 +158,9 @@ const projectConfigDetailsContent = {
           ar: 'عنوان URL للمحرك المرئي',
           ru: 'URL-адрес CMS',
           tr: 'CMS URL',
+          pl: 'URL CMS',
+          id: 'URL CMS',
+          vi: 'URL CMS',
         }),
         label: t({
           en: 'Click to navigate to the CMS URL',
@@ -153,6 +177,9 @@ const projectConfigDetailsContent = {
           ar: 'انقر للانتقال إلى عنوان URL للمحرك المرئي',
           ru: 'Нажмите, чтобы перейти к URL-адресу CMS',
           tr: "CMS URL'ine gitmek için tıklayın",
+          pl: 'Kliknij, aby przejść do adresu URL CMS',
+          id: 'Klik untuk membuka URL CMS',
+          vi: 'Nhấp để điều hướng đến URL của CMS',
         }),
       },
     },
@@ -174,6 +201,9 @@ const projectConfigDetailsContent = {
         ar: 'لا تم تحميل التكوين. يرجى تحميل التكوين الخاص بك أولاً باستخدام CLI.',
         ru: 'Не загружена конфигурация. Пожалуйста, сначала загрузите конфигурацию с помощью CLI.',
         tr: 'Yapılandırma yüklenmedi. Lütfen önce CLI kullanarak yapılandırmanızı yükleyin.',
+        pl: 'Nie przesłano konfiguracji. Najpierw wyślij konfigurację za pomocą CLI.',
+        id: 'Belum ada konfigurasi yang dipush. Silakan push konfigurasi Anda terlebih dahulu menggunakan CLI.',
+        vi: 'Chưa có cấu hình được đẩy. Vui lòng đẩy cấu hình của bạn trước bằng CLI.',
       }),
     },
     updateConfig: {
@@ -192,6 +222,9 @@ const projectConfigDetailsContent = {
         ar: 'يمكنك تحديث تكوينك باستخدام CLI.',
         ru: 'Вы можете обновить конфигурацию с помощью CLI.',
         tr: 'Yapılandırmanızı CLI kullanarak güncelleyebilirsiniz',
+        pl: 'Możesz zaktualizować konfigurację za pomocą CLI.',
+        id: 'Anda dapat memperbarui konfigurasi Anda menggunakan CLI.',
+        vi: 'Bạn có thể cập nhật cấu hình bằng CLI.',
       }),
     },
     pushConfigDocLink: {
@@ -210,6 +243,9 @@ const projectConfigDetailsContent = {
         ar: 'شاهد كيفية تحميل التكوين الخاص بك',
         ru: 'Посмотрите, как загрузить вашу конфигурацию',
         tr: 'Yapılandırmanızı nasıl göndereceğinizi görün',
+        pl: 'Zobacz, jak przesłać konfigurację',
+        id: 'Lihat cara mempush konfigurasi Anda',
+        vi: 'Xem cách đẩy cấu hình',
       }),
       label: t({
         en: 'Click to go to the related documentation',
@@ -226,9 +262,16 @@ const projectConfigDetailsContent = {
         ar: 'انقر للانتقال إلى الوثائق ذات الصلة',
         ru: 'Нажмите, чтобы перейти к соответствующей документации',
         tr: 'İlgili belgelere gitmek için tıklayın',
+        pl: 'Kliknij, aby przejść do powiązanej dokumentacji',
+        id: 'Klik untuk membuka dokumentasi terkait',
+        vi: 'Nhấp để đến tài liệu liên quan',
       }),
     },
   },
+  title: 'Project configuration details',
+  description:
+    'Content declaration for the project configuration section in the dashboard. Includes titles and messages related to internationalization settings, editor URLs, and configuration status.',
+  tags: ['dashboard', 'project settings', 'configuration'],
 } satisfies Dictionary;
 
 export default projectConfigDetailsContent;

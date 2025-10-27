@@ -17,6 +17,10 @@ slugs:
   - packages
   - react-intlayer
   - t
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴初期化
 ---
 
 # ドキュメント: `react-intlayer` の `t` 関数
@@ -296,7 +300,3 @@ const text = t(translations);
 ---
 
 **注意**: `IntlayerProvider` を適切に設定し、現在のロケールがコンポーネントに正しく渡されるようにしてください。これは、`t` 関数が正しい翻訳を返すために非常に重要です。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴初期化

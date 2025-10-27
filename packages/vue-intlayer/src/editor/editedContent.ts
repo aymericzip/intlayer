@@ -1,6 +1,11 @@
-import type { ContentNode, Dictionary, KeyPath } from '@intlayer/core';
 import { getContentNodeByKeyPath } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import type {
+  ContentNode,
+  Dictionary,
+  KeyPath,
+  LocalDictionaryId,
+} from '@intlayer/types';
 import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';
@@ -11,7 +16,7 @@ type EditedContentClient = {
   editedContent: Ref<EditedContent>;
   setEditedContent: (editedContent: EditedContent) => void;
   getEditedContentValue: (
-    dictionaryKey: Dictionary['key'],
+    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
     keyPath: KeyPath[]
   ) => ContentNode | undefined;
 };
@@ -33,14 +38,43 @@ export const createEditedContentClient = () => {
 
   instance = {
     editedContent: readonly(editedContentRef) as Ref<EditedContent>,
+
     getEditedContentValue: (
-      dictionaryKey: Dictionary['key'],
+      localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
       keyPath: KeyPath[]
     ): ContentNode | undefined => {
-      const content = editedContentRef.value?.[dictionaryKey]?.content;
-      if (!content) return undefined;
+      const editedContent = editedContentRef.value;
 
-      return getContentNodeByKeyPath(content, keyPath);
+      if (!editedContent) return undefined;
+
+      const isDictionaryId =
+        localDictionaryIdOrKey.includes(':local:') ||
+        localDictionaryIdOrKey.includes(':remote:');
+
+      if (isDictionaryId) {
+        const currentContent =
+          editedContent?.[localDictionaryIdOrKey as LocalDictionaryId]
+            ?.content ?? {};
+
+        const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+
+        return contentNode;
+      }
+
+      const filteredDictionariesLocalId = Object.keys(editedContent).filter(
+        (key) => key.startsWith(`${localDictionaryIdOrKey}:`)
+      );
+
+      for (const localDictionaryId of filteredDictionariesLocalId) {
+        const currentContent =
+          editedContent?.[localDictionaryId as LocalDictionaryId]?.content ??
+          {};
+        const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+
+        if (contentNode) return contentNode;
+      }
+
+      return undefined;
     },
     setEditedContent: (editedContent: EditedContent) => {
       editedContentRef.value = editedContent;

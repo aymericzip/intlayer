@@ -5,7 +5,6 @@
  * The main package index.ts imports directly from individual files to avoid circular dependencies.
  */
 
-export { getBrowserLocale } from './getBrowserLocale';
 export {
   IntlayerClientContext,
   IntlayerProvider,
@@ -24,6 +23,9 @@ export { useLocale } from './useLocale';
 export { useLocaleBase } from './useLocaleBase';
 export {
   localeCookie,
+  localeInStorage,
   setLocaleCookie,
+  setLocaleInStorage,
   useLocaleCookie,
-} from './useLocaleCookie';
+  useLocaleStorage,
+} from './useLocaleStorage';

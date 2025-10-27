@@ -1,13 +1,14 @@
 import {
   configuration,
   getPathWithoutLocale,
-  type Locales,
+  type Locale,
   localeFlatMap,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
+import TestView from './views/test/TestView.vue';
 
 // Get internationalization configuration
 const { internationalization, middleware } = configuration;
@@ -30,7 +31,17 @@ const routes = localeFlatMap((localizedData) => [
       locale: localizedData.locale,
     },
   },
+  {
+    path: `${localizedData.urlPrefix}/test`,
+    name: `Test-${localizedData.locale}`,
+    component: TestView,
+    meta: {
+      locale: localizedData.locale,
+    },
+  },
 ]);
+
+console.log('routes', routes);
 
 // Create the router instance
 export const router = createRouter({
@@ -42,7 +53,7 @@ export const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const client = createIntlayerClient();
 
-  const metaLocale = to.meta.locale as Locales | undefined;
+  const metaLocale = to.meta.locale as Locale | undefined;
 
   if (metaLocale) {
     // Reuse the locale defined in the route meta

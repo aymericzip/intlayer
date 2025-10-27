@@ -1,17 +1,11 @@
-import { queryMiddleware } from '@utils/queryMiddleware';
-import {
-  intlayerMiddleware,
-  multipleMiddlewares,
-} from 'next-intlayer/middleware';
+import { queryProxy } from '@utils/queryProxy';
+import { intlayerProxy, multipleProxies } from 'next-intlayer/proxy';
 
-export const middleware = multipleMiddlewares([
-  intlayerMiddleware,
-  queryMiddleware,
-]);
+export const middleware = multipleProxies([intlayerProxy, queryProxy]);
 
 // Middleware can also be exported as a default:
 // Example:
-// export default multipleMiddlewares([intlayerMiddleware, queryMiddleware]);
+// export default multipleProxy([intlayerMiddleware, queryMiddleware]);
 
 // applies this middleware only to files in the app directory
 export const config = {

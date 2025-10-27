@@ -1,11 +1,11 @@
 'use client';
 
-import type { LocalesValues } from '@intlayer/config/client';
 import type {
   Dictionary,
   DictionaryKeys,
-  LanguageContent,
-} from '@intlayer/core';
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types';
 import { useContext, useMemo } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';
@@ -20,7 +20,7 @@ export const useDictionaryDynamic = <
   T extends Dictionary,
   K extends DictionaryKeys,
 >(
-  dictionaryPromise: LanguageContent<() => Promise<T>>,
+  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: K,
   locale?: LocalesValues
 ) => {

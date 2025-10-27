@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - function-fetching
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initialer Verlauf
 ---
 
 # Funktionsabruf
@@ -208,7 +212,3 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
-
-## Dokumentationsverlauf
-
-- 5.5.10 - 2025-06-29: Initialer Verlauf

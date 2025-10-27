@@ -19,6 +19,13 @@ export default {
       ar: 'Intlayer CMS هو نظام إدارة محتوى مرن للمطورين ومديري المحتوى.',
       ru: 'Intlayer CMS - это гибкая система управления контентом для разработчиков и менеджеров по контенту.',
       tr: 'Intlayer CMS, geliştiriciler ve içerik yöneticileri için esnek bir içerik yönetim sistemidir.',
+      pl: 'Intlayer CMS to elastyczny system zarządzania treścią dla deweloperów i menedżerów treści.',
+      id: 'Intlayer CMS adalah sistem manajemen konten yang fleksibel untuk developers dan content managers.',
+      vi: 'Intlayer CMS là một hệ thống quản lý nội dung linh hoạt dành cho developers và content managers.',
     }),
   },
+  title: 'Product header structured data',
+  description:
+    'Structured data for the product header section, providing metadata to enhance SEO and improve content discoverability by search engines.',
+  tags: ['structured data', 'product header', 'SEO'],
 } satisfies Dictionary;

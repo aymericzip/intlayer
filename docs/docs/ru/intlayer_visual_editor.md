@@ -16,6 +16,10 @@ slugs:
   - concept
   - editor
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Документация по Intlayer Visual Editor
@@ -261,7 +265,3 @@ pnpm intlayer-editor start -e development
     - URL приложения должен совпадать с тем, который вы указали в конфигурации редактора (`applicationURL`).
 
 - Визуальный редактор использует iframe для отображения вашего сайта. Убедитесь, что политика безопасности контента (Content Security Policy, CSP) вашего сайта разрешает URL CMS в качестве `frame-ancestors` (по умолчанию 'http://localhost:8000'). Проверьте консоль редактора на наличие ошибок.
-
-## История документа
-
-- 5.5.10 - 2025-06-29: Инициализация истории

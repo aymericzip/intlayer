@@ -1,5 +1,5 @@
-import type { Locales } from '@intlayer/config/client';
-import { getContent, type KeyPath } from '@intlayer/core';
+import { getContent } from '@intlayer/core';
+import type { KeyPath, Locale } from '@intlayer/types';
 import type { Component } from 'solid-js';
 import { useEditedContentActions } from './contexts';
 
@@ -7,7 +7,7 @@ type EditedContentRendererProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
   children: string;
-  locale?: Locales;
+  locale?: Locale;
 };
 
 export const useEditedContentRenderer = ({

@@ -1,12 +1,12 @@
 import {
   ANSIColors,
   colorize,
+  extractErrorMessage,
   getConfiguration,
   spinnerFrames,
   v,
   x,
 } from '@intlayer/config';
-import { extractErrorMessage } from '../utils/extractErrorMessage';
 import type { DictionariesStatus } from './loadDictionaries';
 
 export class DictionariesLogger {

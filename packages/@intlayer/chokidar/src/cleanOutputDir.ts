@@ -1,7 +1,8 @@
 import { existsSync, rmSync } from 'node:fs';
-import { getAppLogger, getConfiguration } from '@intlayer/config';
+import { getAppLogger } from '@intlayer/config';
+import type { IntlayerConfig } from '@intlayer/types';
 
-export const cleanOutputDir = (configuration = getConfiguration()) => {
+export const cleanOutputDir = (configuration: IntlayerConfig) => {
   const {
     dictionariesDir,
     unmergedDictionariesDir,

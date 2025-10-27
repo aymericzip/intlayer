@@ -1,4 +1,4 @@
-import { TanstackDevtools } from '@tanstack/react-devtools';
+import * as TanstackDevtools from '@tanstack/react-devtools';
 import { createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 

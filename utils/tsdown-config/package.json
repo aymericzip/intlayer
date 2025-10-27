@@ -1,0 +1,20 @@
+{
+  "name": "@utils/tsdown-config",
+  "version": "1.0.4",
+  "private": true,
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "main": "./tsdown-config.mjs",
+  "module": "./tsdown-config.mjs",
+  "scripts": {},
+  "dependencies": {
+    "fast-glob": "3.3.3",
+    "tsdown": "0.15.8"
+  },
+  "devDependencies": {
+    "@types/node": "24.9.1",
+    "fast-glob": "3.3.3",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-20
+updatedAt: 2025-10-14
 title: Formatters
 description: Locale-aware formatting utilities based on Intl for numbers, percentages, currency, dates, relative time, units, and compact notation. Includes a cached Intl helper.
 keywords:
@@ -18,9 +18,35 @@ keywords:
 slugs:
   - doc
   - formatters
+history:
+  - version: 6.2.0
+    date: 2025-10-14
+    changes: Remove getIntlayerAsync from formatters
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Add vue formatters
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: Add formatters documentation
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Add list formatter documentation
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Add additional Intl utilities (DisplayNames, Collator, PluralRules)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Add locale utilities (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: Add content handling utilities (getContent, getTranslation, getIntlayer, etc.)
 ---
 
 # Intlayer Formatters
+
+## Table of Contents
+
+<TOC>
 
 ## Overview
 
@@ -48,7 +74,6 @@ import {
   getContent,
   getTranslation,
   getIntlayer,
-  getIntlayerAsync,
 } from "intlayer";
 ```
 
@@ -292,20 +317,6 @@ const nestedContent = getIntlayer("common", "fr", customPlugins);
 - **locale**: Optional locale (defaults to configured default locale)
 - **plugins**: Optional array of custom transformation plugins
 
-### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
-
-Asynchronously retrieves content from a distant dictionary:
-
-```ts
-import { getIntlayerAsync } from "intlayer";
-
-const content = await getIntlayerAsync("common", "fr");
-```
-
-- **dictionaryKey**: The key of the dictionary to retrieve
-- **locale**: Optional locale (defaults to configured default locale)
-- **plugins**: Optional array of custom transformation plugins
-
 ## Formatters
 
 All helpers below are exported from `intlayer`.
@@ -488,7 +499,6 @@ import {
   getContent,
   getTranslation,
   getIntlayer,
-  getIntlayerAsync,
 } from "intlayer";
 ```
 
@@ -583,14 +593,3 @@ import {
 ```
 
 > That composables will consider the locale from the injected `IntlayerProvider`
-
-## Doc History
-
-| Version | Date       | Changes                                                                        |
-| ------- | ---------- | ------------------------------------------------------------------------------ |
-| 5.8.0   | 2025-08-20 | Add vue formatters                                                             |
-| 5.8.0   | 2025-08-18 | Add formatters documentation                                                   |
-| 5.8.0   | 2025-08-20 | Add list formatter documentation                                               |
-| 5.8.0   | 2025-08-20 | Add additional Intl utilities (DisplayNames, Collator, PluralRules)            |
-| 5.8.0   | 2025-08-20 | Add locale utilities (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)   |
-| 5.8.0   | 2025-08-20 | Add content handling utilities (getContent, getTranslation, getIntlayer, etc.) |

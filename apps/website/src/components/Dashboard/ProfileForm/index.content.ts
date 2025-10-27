@@ -18,6 +18,9 @@ const profileFormContent = {
       ar: 'تفاصيل الملف الشخصي',
       ru: 'Детали профиля',
       tr: 'Profil detayları',
+      pl: 'Szczegóły profilu',
+      id: 'Detail profil',
+      vi: 'Chi tiết hồ sơ',
     }),
     nameInput: {
       label: t({
@@ -35,6 +38,9 @@ const profileFormContent = {
         ar: 'الاسم',
         ru: 'Имя',
         tr: 'İsim',
+        pl: 'Imię',
+        id: 'Nama',
+        vi: 'Tên',
       }),
       placeholder: t({
         en: 'Enter your name',
@@ -51,6 +57,9 @@ const profileFormContent = {
         ar: 'أدخل اسمك',
         ru: 'Введите ваше имя',
         tr: 'Adınızı girin',
+        pl: 'Wpisz swoje imię',
+        id: 'Masukkan nama Anda',
+        vi: 'Nhập tên của bạn',
       }),
     },
 
@@ -70,6 +79,9 @@ const profileFormContent = {
         ar: 'البريد الإلكتروني',
         ru: 'Электронная почта',
         tr: 'E-posta',
+        pl: 'E-mail',
+        id: 'Email',
+        vi: 'Email',
       }),
       placeholder: t({
         en: 'Enter your email address',
@@ -86,6 +98,9 @@ const profileFormContent = {
         ar: 'أدخل عنوان بريدك الإلكتروني',
         ru: 'Введите свой адрес электронной почты',
         tr: 'E-posta adresinizi girin',
+        pl: 'Wpisz swój adres e-mail',
+        id: 'Masukkan alamat email Anda',
+        vi: 'Nhập địa chỉ email của bạn',
       }),
     },
 
@@ -105,6 +120,9 @@ const profileFormContent = {
         ar: 'تحرير الملف الشخصي',
         ru: 'Редактировать профиль',
         tr: 'Profili düzenle',
+        pl: 'Edytuj profil',
+        id: 'Sunting profil',
+        vi: 'Chỉnh sửa hồ sơ',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -121,9 +139,16 @@ const profileFormContent = {
         ar: 'انقر للتعديل',
         ru: 'Нажмите для редактирования',
         tr: 'Düzenlemek için tıklayın',
+        pl: 'Kliknij, aby edytować',
+        id: 'Klik untuk mengedit',
+        vi: 'Nhấn để chỉnh sửa',
       }),
     },
   },
+  title: 'Profile form',
+  description:
+    'Content dictionary for the profile form component, including labels, placeholders, and accessibility attributes used for editing user profile details.',
+  tags: ['form', 'user profile', 'dashboard'],
 } satisfies Dictionary;
 
 export default profileFormContent;

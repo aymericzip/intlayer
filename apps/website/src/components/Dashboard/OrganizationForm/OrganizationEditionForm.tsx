@@ -6,7 +6,7 @@ import {
   useUpdateOrganization,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import type { FC } from 'react';
+import { type FC, useEffect } from 'react';
 import {
   type OrganizationFormData,
   useOrganizationSchema,
@@ -23,6 +23,12 @@ export const OrganizationEditionForm: FC = () => {
   const onSubmitSuccess = (data: OrganizationFormData) => {
     updateOrganization(data);
   };
+
+  useEffect(() => {
+    if (organization) {
+      form.reset(organization);
+    }
+  }, [form.reset, organization]);
 
   return (
     <>

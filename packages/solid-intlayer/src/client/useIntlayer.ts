@@ -1,8 +1,10 @@
-import type { LocalesValues } from '@intlayer/config/client';
-import type { DictionaryKeys } from '@intlayer/core';
-// @ts-ignore intlayer declared for module augmentation
-import type { IntlayerDictionaryTypesConnector } from 'intlayer';
-import { createMemo, useContext } from 'solid-js';
+import type {
+  DeclaredLocales,
+  DictionaryKeys,
+  DictionaryRegistryContent,
+  LocalesValues,
+} from '@intlayer/types';
+import { type Accessor, createMemo, useContext } from 'solid-js';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -12,18 +14,20 @@ import { IntlayerClientContext } from './IntlayerProvider';
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useIntlayer = <T extends DictionaryKeys>(
+export const useIntlayer = <
+  T extends DictionaryKeys,
+  L extends LocalesValues = DeclaredLocales,
+>(
   key: T,
-  locale?: LocalesValues
-): (() => DeepTransformContent<
-  IntlayerDictionaryTypesConnector[T]['content']
->) => {
+  locale?: L
+): Accessor<DeepTransformContent<DictionaryRegistryContent<T>, L>> => {
   const context = useContext(IntlayerClientContext);
 
+  // @ts-ignore Type instantiation is excessively deep and possibly infinite
   return createMemo(() => {
     const currentLocale = context?.locale();
     const localeTarget = locale ?? currentLocale;
 
-    return getIntlayer(key, localeTarget);
+    return getIntlayer<T, L>(key, localeTarget as L);
   });
 };

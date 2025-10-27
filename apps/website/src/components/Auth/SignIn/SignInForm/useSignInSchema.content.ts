@@ -18,6 +18,9 @@ export const signInSchemaContent = {
       ar: 'يرجى إدخال اسم المستخدم الخاص بك',
       ru: 'Пожалуйста, введите ваше имя пользователя',
       tr: 'Lütfen kullanıcı adınızı girin',
+      pl: 'Proszę podać nazwę użytkownika',
+      id: 'Silakan masukkan username Anda',
+      vi: 'Vui lòng nhập username',
     }),
 
     invalidTypeErrorEmail: t({
@@ -35,6 +38,9 @@ export const signInSchemaContent = {
       ar: 'يرجى إدخال اسم مستخدم صالح',
       ru: 'Пожалуйста, введите корректное имя пользователя',
       tr: 'Lütfen geçerli bir kullanıcı adı girin',
+      pl: 'Proszę podać poprawną nazwę użytkownika',
+      id: 'Silakan masukkan username yang valid',
+      vi: 'Vui lòng nhập một username hợp lệ',
     }),
 
     requiredErrorPassword: t({
@@ -52,6 +58,9 @@ export const signInSchemaContent = {
       ar: 'يرجى إدخال كلمة المرور الخاصة بك',
       ru: 'Пожалуйста, введите ваш пароль',
       tr: 'Lütfen şifrenizi girin',
+      pl: 'Proszę podać hasło',
+      id: 'Silakan masukkan password Anda',
+      vi: 'Vui lòng nhập password',
     }),
 
     invalidTypeErrorPassword: t({
@@ -69,8 +78,15 @@ export const signInSchemaContent = {
       ar: 'يرجى إدخال كلمة مرور صالحة',
       ru: 'Пожалуйста, введите корректный пароль',
       tr: 'Lütfen geçerli bir şifre girin',
+      pl: 'Proszę podać poprawne hasło',
+      id: 'Silakan masukkan password yang valid',
+      vi: 'Vui lòng nhập một password hợp lệ',
     }),
   },
+  title: 'Sign in form validation schema',
+  description:
+    'Validation messages for the sign in form, including required and type errors for username and password fields.',
+  tags: ['form validation', 'authentication'],
 } satisfies Dictionary;
 
 export default signInSchemaContent;

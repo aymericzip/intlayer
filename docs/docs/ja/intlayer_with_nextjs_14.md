@@ -16,6 +16,10 @@ slugs:
   - nextjs
   - 14
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴の初期化
 ---
 
 # IntlayerでNext.js 14 and App Routerを翻訳する | 国際化（i18n）
@@ -757,15 +761,17 @@ export const generateMetadata = ({
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl =
+    multilingualUrls[locale as keyof typeof multilingualUrls];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -792,15 +798,17 @@ export const generateMetadata = ({ params: { locale } }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl =
+    multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -830,15 +838,16 @@ const generateMetadata = ({ params: { locale } }) => {
    * ```
    */
   const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
   return {
     ...metadata,
     alternates: {
-      canonical: multilingualUrls[locale],
+      canonical: localizedUrl,
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
-      url: multilingualUrls[locale],
+      url: localizedUrl,
     },
   };
 };
@@ -1490,7 +1499,3 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 ### さらに進む
 
 さらに進むために、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴の初期化

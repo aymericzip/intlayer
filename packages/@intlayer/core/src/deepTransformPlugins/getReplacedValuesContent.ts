@@ -1,9 +1,14 @@
+import type {
+  ContentNode,
+  KeyPath,
+  NodeType,
+  TypedNode,
+} from '@intlayer/types';
 import {
   deepTransformNode,
   type NodeProps,
   type Plugins,
 } from '../interpreter';
-import type { ContentNode, KeyPath, NodeType, TypedNode } from '../types';
 
 const replaceValuesPlugin = (value: string | number | boolean): Plugins => ({
   id: 'replace-values-plugin',

@@ -1,6 +1,6 @@
-import type { LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/types';
 import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
-import type { BundledLanguage } from 'shiki';
+import type { BundledLanguage } from 'shiki/bundle/web';
 import { cn } from '../../utils/cn';
 import { H1, H2, H3, H4, H5, H6 } from '../Headers';
 import type { CodeCompAttributes } from '../IDE/Code';
@@ -251,7 +251,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                   Partial<CodeCompAttributes> & { children: string }
               ) =>
                 !props.className ? (
-                  <strong className="rounded bg-card/60 p-1 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
+                  <strong className="rounded bg-card/60 box-decoration-clone px-1 py-0.5">
                     {props.children}
                   </strong>
                 ) : (

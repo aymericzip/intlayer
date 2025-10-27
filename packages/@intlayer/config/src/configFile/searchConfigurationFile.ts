@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { logger } from '../logger';
+import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 
 const EXTENSION = ['ts', 'js', 'json', 'cjs', 'mjs', ''];
 const CONFIGURATION_FILE_NAME_1 = 'intlayer.config';
@@ -29,14 +30,16 @@ type SearchConfigurationFileResult = {
  * - .intlayerrc
  */
 export const searchConfigurationFile = (
-  configFilePath: string = process.cwd()
+  startDir: string
 ): SearchConfigurationFileResult => {
   let configurationFilePath: string | undefined;
   let numCustomConfiguration = 0;
 
+  const { baseDir } = getPackageJsonPath(startDir);
+
   for (const fileName of configurationFiles) {
     try {
-      const filePath = resolve(configFilePath, fileName);
+      const filePath = resolve(baseDir, fileName);
 
       // Check if the file exists
       if (!existsSync(filePath)) {

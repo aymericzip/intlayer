@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 export const dictionaryFormContent = {
   key: 'dictionary-form',
-  autoFill: './{{key}}.content.json',
   content: {
     keyInput: {
       label: t({
@@ -20,6 +19,9 @@ export const dictionaryFormContent = {
         ar: 'مفتاح',
         ru: 'Ключ',
         tr: 'Anahtar',
+        pl: 'Klucz',
+        id: 'Key',
+        vi: 'Key',
       }),
       placeholder: t({
         en: 'Enter the key of your dictionary',
@@ -36,6 +38,9 @@ export const dictionaryFormContent = {
         ar: 'أدخل مفتاح القاموس الخاص بك',
         ru: 'Введите ключ вашего словаря',
         tr: 'Sözlüğünüzün anahtarını girin',
+        pl: 'Wprowadź klucz słownika',
+        id: 'Masukkan key dictionary Anda',
+        vi: 'Nhập key của từ điển của bạn',
       }),
     },
 
@@ -55,6 +60,9 @@ export const dictionaryFormContent = {
         ar: 'مشاريع',
         ru: 'Проекты',
         tr: 'Projeler',
+        pl: 'Projekty',
+        id: 'Projects',
+        vi: 'Dự án',
       }),
       placeholder: t({
         en: 'Select one or more projects to associate with your dictionary',
@@ -72,6 +80,9 @@ export const dictionaryFormContent = {
         ar: 'حدد مشروعًا أو أكثر للربط مع قاموسك',
         ru: 'Выберите один или несколько проектов для связывания со словарем',
         tr: 'Sözlüğünüzle ilişkilendirmek için bir veya daha fazla proje seçin',
+        pl: 'Wybierz jeden lub więcej projektów do powiązania z tym słownikiem',
+        id: 'Pilih satu atau lebih Projects untuk dikaitkan dengan dictionary Anda',
+        vi: 'Chọn một hoặc nhiều dự án để liên kết với từ điển của bạn',
       }),
     },
 
@@ -91,6 +102,9 @@ export const dictionaryFormContent = {
         ar: 'لا يوجد قاموس',
         ru: 'Нет словаря',
         tr: 'Hiç sözlük yok',
+        pl: 'Brak słownika',
+        id: 'Tidak ada dictionary',
+        vi: 'Chưa có từ điển',
       }),
       description: t({
         en: 'Create your first dictionary to start using Intlayer',
@@ -107,6 +121,9 @@ export const dictionaryFormContent = {
         ar: 'أنشئ قاموسك الأول لبدء استخدام Intlayer',
         ru: 'Создайте свой первый словарь, чтобы начать использовать Intlayer',
         tr: "Intlayer'ı kullanmaya başlamak için ilk sözlüğünüzü oluşturun",
+        pl: 'Utwórz swój pierwszy słownik, aby zacząć korzystać z Intlayer',
+        id: 'Buat dictionary pertama Anda untuk mulai menggunakan Intlayer',
+        vi: 'Tạo từ điển đầu tiên của bạn để bắt đầu sử dụng Intlayer',
       }),
     },
 
@@ -125,6 +142,9 @@ export const dictionaryFormContent = {
       ar: 'لا يوجد قاموس',
       ru: 'Нет словаря',
       tr: 'Hiç sözlük yok',
+      pl: 'Brak słownika',
+      id: 'Tidak ada dictionary',
+      vi: 'Chưa có từ điển',
     }),
 
     createDictionaryDescription: t({
@@ -142,6 +162,9 @@ export const dictionaryFormContent = {
       ar: 'أنشئ قاموسك الأول لبدء استخدام Intlayer',
       ru: 'Создайте свой первый словарь, чтобы начать использовать Intlayer',
       tr: "Intlayer'ı kullanmaya başlamak için ilk sözlüğünüzü oluşturun",
+      pl: 'Utwórz swój pierwszy słownik, aby zacząć korzystać z Intlayer',
+      id: 'Buat dictionary pertama Anda untuk mulai menggunakan Intlayer',
+      vi: 'Tạo từ điển đầu tiên của bạn để bắt đầu sử dụng Intlayer',
     }),
 
     createDictionaryButton: {
@@ -160,6 +183,9 @@ export const dictionaryFormContent = {
         ar: 'إنشاء قاموس',
         ru: 'Создать словарь',
         tr: 'Sözlük oluştur',
+        pl: 'Utwórz słownik',
+        id: 'Buat dictionary',
+        vi: 'Tạo từ điển',
       }),
       ariaLabel: t({
         en: 'Click to create dictionary',
@@ -176,6 +202,9 @@ export const dictionaryFormContent = {
         ar: 'انقر لإنشاء قاموس',
         ru: 'Нажмите, чтобы создать словарь',
         tr: 'Sözlük oluşturmak için tıklayın',
+        pl: 'Kliknij, aby utworzyć słownik',
+        id: 'Klik untuk membuat dictionary',
+        vi: 'Nhấn để tạo từ điển',
       }),
     },
 
@@ -195,6 +224,9 @@ export const dictionaryFormContent = {
         ar: 'تعديل القاموس',
         ru: 'Редактировать словарь',
         tr: 'Sözlüğü düzenle',
+        pl: 'Edytuj słownik',
+        id: 'Edit dictionary',
+        vi: 'Chỉnh sửa từ điển',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -211,9 +243,16 @@ export const dictionaryFormContent = {
         ar: 'انقر لتعديل',
         ru: 'Нажмите, чтобы отредактировать',
         tr: 'Düzenlemek için tıklayın',
+        pl: 'Kliknij, aby edytować',
+        id: 'Klik untuk mengedit',
+        vi: 'Nhấn để chỉnh sửa',
       }),
     },
   },
+  title: 'Dictionary form',
+  description:
+    'Content declarations for the dictionary creation form, including labels, placeholders, titles, descriptions, and button texts for managing dictionaries within Intlayer.',
+  tags: ['form', 'dictionary creation', 'intlayer cms'],
 } satisfies Dictionary;
 
 export default dictionaryFormContent;

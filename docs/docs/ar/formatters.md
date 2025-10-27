@@ -18,6 +18,25 @@ keywords:
 slugs:
   - doc
   - formatters
+history:
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: إضافة منسقات vue
+  - version: 5.8.0
+    date: 2025-08-18
+    changes: إضافة توثيق المنسقات
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: إضافة توثيق منسق القوائم
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: إضافة أدوات Intl إضافية (DisplayNames، Collator، PluralRules)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: إضافة أدوات التعامل مع اللغة (getLocaleName، getLocaleLang، getLocaleFromPath، إلخ)
+  - version: 5.8.0
+    date: 2025-08-20
+    changes: إضافة أدوات التعامل مع المحتوى (getContent، getTranslation، getIntlayer، إلخ)
 ---
 
 # أدوات تنسيق Intlayer
@@ -590,14 +609,3 @@ import {
 ```
 
 > ستأخذ هذه التركيبات في الاعتبار اللغة من `IntlayerProvider` المحقون
-
-## تاريخ الوثيقة
-
-| الإصدار | التاريخ    | التغييرات                                                                           |
-| ------- | ---------- | ----------------------------------------------------------------------------------- |
-| 5.8.0   | 2025-08-20 | إضافة منسقات vue                                                                    |
-| 5.8.0   | 2025-08-18 | إضافة توثيق المنسقات                                                                |
-| 5.8.0   | 2025-08-20 | إضافة توثيق منسق القوائم                                                            |
-| 5.8.0   | 2025-08-20 | إضافة أدوات Intl إضافية (DisplayNames، Collator، PluralRules)                       |
-| 5.8.0   | 2025-08-20 | إضافة أدوات التعامل مع اللغة (getLocaleName، getLocaleLang، getLocaleFromPath، إلخ) |
-| 5.8.0   | 2025-08-20 | إضافة أدوات التعامل مع المحتوى (getContent، getTranslation، getIntlayer، إلخ)       |

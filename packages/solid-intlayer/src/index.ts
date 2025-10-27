@@ -2,7 +2,7 @@ import type { IInterpreterPluginSolid } from './plugins';
 
 declare module '@intlayer/core' {
   // biome-ignore lint/correctness/noUnusedVariables: <All declarations of 'IInterpreterPlugin' must have identical type parameters>
-  interface IInterpreterPlugin<T, S> extends IInterpreterPluginSolid<T> {}
+  interface IInterpreterPlugin<T, S, L> extends IInterpreterPluginSolid<T> {}
 }
 
 export {
@@ -12,7 +12,9 @@ export {
   IntlayerProviderContent,
   type IntlayerProviderProps,
   localeCookie,
+  localeInStorage,
   setLocaleCookie,
+  setLocaleInStorage,
   t,
   useDictionary,
   useDictionaryAsync,
@@ -23,6 +25,7 @@ export {
   useLocale,
   useLocaleBase,
   useLocaleCookie,
+  useLocaleStorage,
 } from './client/index';
 export type { IntlayerNode } from './IntlayerNode';
 export { MarkdownProvider } from './markdown/index';

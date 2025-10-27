@@ -1,9 +1,9 @@
-import type { LocalesValues } from '@intlayer/config/client';
 import type {
   Dictionary,
   DictionaryKeys,
-  LanguageContent,
-} from '@intlayer/core';
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types';
 import { derived, type Readable, writable } from 'svelte/store';
 import { getIntlayerContext } from './intlayerContext';
 import { intlayerStore } from './intlayerStore';
@@ -19,7 +19,7 @@ export const useDictionaryDynamic = <
   T extends Dictionary,
   K extends DictionaryKeys,
 >(
-  dictionaryPromise: LanguageContent<() => Promise<T>>,
+  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: K,
   locale?: LocalesValues
 ): Readable<T | null> => {

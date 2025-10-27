@@ -19,6 +19,9 @@ const metadataContent = {
       ar: 'Playground | Intlayer',
       ru: 'Playground | Intlayer',
       tr: 'Playground | Intlayer',
+      pl: 'Środowisko testowe | Intlayer',
+      id: 'Playground | Intlayer',
+      vi: 'Playground | Intlayer',
     }),
     description: t({
       en: 'Test the Intlayer visual editor by interacting with the website.',
@@ -36,6 +39,9 @@ const metadataContent = {
       ar: 'اختبار محرر الفيديو لـ Intlayer عن طريق التفاعل مع الموقع.',
       ru: 'Тестируйте визуальный редактор Intlayer, взаимодействуя с веб-сайтом.',
       tr: 'Web sitesiyle etkileşimde bulunarak Intlayer görsel düzenleyicisini test edin.',
+      pl: 'Przetestuj wizualny edytor Intlayer, wchodząc w interakcję z witryną.',
+      id: 'Uji visual editor Intlayer dengan berinteraksi langsung dengan situs web.',
+      vi: 'Thử nghiệm trình soạn thảo trực quan của Intlayer bằng cách tương tác với trang web.',
     }),
     keywords: t<string[]>({
       en: [
@@ -112,8 +118,33 @@ const metadataContent = {
         'Editör',
         'Dashboard',
       ],
+      pl: [
+        'CMS',
+        'System zarządzania treścią',
+        'Edytor wizualny',
+        'Edytor',
+        'Panel administracyjny',
+      ],
+      id: [
+        'CMS',
+        'Content Management System',
+        'Visual Editor',
+        'Editor',
+        'Dashboard',
+      ],
+      vi: [
+        'CMS',
+        'Hệ thống quản lý nội dung',
+        'Trình soạn thảo trực quan',
+        'Trình soạn thảo',
+        'Bảng điều khiển',
+      ],
     }),
   },
+  title: 'Playground page metadata',
+  description:
+    'Metadata for the playground page, enabling users to test the Intlayer visual editor. Includes title, description, and keywords for SEO and content discovery.',
+  tags: ['page metadata', 'playground page', 'visual editor', 'cms demo'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

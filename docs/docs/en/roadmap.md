@@ -13,11 +13,27 @@ keywords:
 slugs:
   - doc
   - roadmap
+history:
+  - version: 5.5.10
+    date: 2025-06-30
+    changes: Add Preact and Nuxt support, MCP Server, update CLI
+  - version: 5.5.11
+    date: 2025-06-29
+    changes: Add `docs` commands
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Intlayer: Feature Overview & Roadmap
 
 Intlayer is a content management and internationalization solution designed to streamline how you declare, manage, and update content across your applications. It offers powerful features such as centralized or distributed content declaration, extensive internationalization options, Markdown support, conditional rendering, TypeScript/JavaScript/JSON integration, and more. Below is a comprehensive overview of what Intlayer currently provides, followed by upcoming roadmap features.
+
+---
+
+## Table of Contents
+
+<TOC>
 
 ---
 
@@ -328,11 +344,3 @@ Intlayer aims to be a one-stop solution for content management and international
 Stay tuned for upcoming releases, and feel free to explore the existing features to see how Intlayer can help centralize and optimize your content management processes today!
 
 ---
-
-## Doc History
-
-| Version | Date       | Changes                                             |
-| ------- | ---------- | --------------------------------------------------- |
-| 5.5.10  | 2025-06-30 | Add Preact and Nuxt support, MCP Server, update CLI |
-| 5.5.11  | 2025-06-29 | Add `docs` commands                                 |
-| 5.5.10  | 2025-06-29 | Init history                                        |

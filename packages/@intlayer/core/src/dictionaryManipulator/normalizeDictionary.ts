@@ -1,7 +1,6 @@
-import type { IntlayerConfig, Locales } from '@intlayer/config';
+import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
 import { getPerLocaleDictionary } from '../deepTransformPlugins';
 import { t } from '../transpiler/translation';
-import type { Dictionary } from '../types/dictionary';
 import { orderDictionaries } from './orderDictionaries';
 
 export const normalizeDictionary = (
@@ -18,6 +17,7 @@ export const normalizeDictionary = (
       ...dictionary,
       locale: undefined,
       content: t({
+        // @ts-ignore Type instantiation is excessively deep and possibly infinite.
         [dictionary.locale]: getPerLocaleDictionary(
           dictionary.content,
           dictionary.locale
@@ -36,7 +36,7 @@ export const normalizeDictionary = (
       acc[locale] = perLocaleDictionary.content;
       return acc;
     },
-    {} as Record<Locales, Dictionary['content']>
+    {} as Record<Locale, Dictionary['content']>
   );
 
   return {

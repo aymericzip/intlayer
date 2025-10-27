@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getLocalizedUrl
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 履歴初期化
 ---
 
 # ドキュメント: `intlayer` の `getLocalizedUrl` 関数
@@ -241,7 +245,3 @@ getLocalizedUrl("/about", Locales.ENGLISH); // 出力: "/about"
 ```
 
 `getLocalizedUrl` を統合することで、開発者は複数言語にわたって一貫したURL構造を維持でき、ユーザー体験とSEOの両方を向上させることができます。
-
-## ドキュメント履歴
-
-- 5.5.10 - 2025-06-29: 履歴初期化

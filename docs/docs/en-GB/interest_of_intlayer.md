@@ -12,6 +12,13 @@ keywords:
 slugs:
   - doc
   - why
+history:
+  - version: 5.8.0
+    date: 2025-08-19
+    changes: Updated comparative table
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initial history
 ---
 
 # Why you should consider Intlayer?
@@ -258,10 +265,3 @@ This approach allows you to:
 | **Tree-shaking (load only used content)**     | Yes, per-component at build time via Babel/SWC plugins                                                                           | Usually loads all (can be improved with namespaces/code-splitting) | Usually loads all                                  | Not default                                        | Partial                                            | Partial                                            | Partial (with code-splitting/manual setup)                |
 | **Lazy loading**                              | Yes, per-locale/per-component                                                                                                    | Yes (e.g., backends/namespaces on demand)                          | Yes (split locale bundles)                         | Yes (dynamic catalogue imports)                    | Yes (per-route/per-locale)                         | Yes (per-route/per-locale)                         | Yes (async locale messages)                               |
 | **Management of Large Projects**              | Encourages modularity, suited for design systems                                                                                 | Requires good file discipline                                      | Central catalogues can become large                | Can become complex                                 | Modular with setup                                 | Modular with setup                                 | Modular with Vue Router/Nuxt i18n setup                   |
-
-## Document History
-
-| Version | Date       | Changes                   |
-| ------- | ---------- | ------------------------- |
-| 5.8.0   | 2025-08-19 | Updated comparative table |
-| 5.5.10  | 2025-06-29 | Initial history           |

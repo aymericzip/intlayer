@@ -1,4 +1,4 @@
-import { configuration, getPathWithoutLocale, type Locales } from 'intlayer';
+import { configuration, getPathWithoutLocale, type Locale } from 'intlayer';
 import type { ComponentChildren, FunctionalComponent } from 'preact';
 import { useEffect } from 'preact/hooks';
 import { IntlayerProvider } from 'preact-intlayer';
@@ -26,7 +26,7 @@ const Navigate: FunctionalComponent<{ to: string; replace?: boolean }> = ({
  */
 const AppLocalized: FunctionalComponent<{
   children: ComponentChildren;
-  locale?: Locales;
+  locale?: Locale;
 }> = ({ children, locale }) => {
   const { path: pathname, url } = useLocation();
 
@@ -96,7 +96,7 @@ const RouterContent: FunctionalComponent<{
     return null;
   }
 
-  const pathLocale = path.split('/')[1] as Locales;
+  const pathLocale = path.split('/')[1] as Locale;
 
   const isLocaleRoute = locales
     .filter((locale) => middleware.prefixDefault || locale !== defaultLocale)

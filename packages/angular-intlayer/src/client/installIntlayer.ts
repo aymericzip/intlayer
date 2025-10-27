@@ -1,6 +1,6 @@
 import { Injectable, InjectionToken, type Signal, signal } from '@angular/core';
 import configuration from '@intlayer/config/built';
-import type { Locales, LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/types';
 
 export const INTLAYER_TOKEN = new InjectionToken<IntlayerProvider>('intlayer');
 
@@ -13,14 +13,15 @@ let instance: IntlayerProvider | null = null;
   providedIn: 'root',
 })
 export class IntlayerProvider {
-  private _locale = signal<Locales>(
-    configuration.internationalization?.defaultLocale as Locales
+  isCookieEnabled = signal(true);
+  private _locale = signal<LocalesValues>(
+    configuration.internationalization?.defaultLocale as LocalesValues
   );
 
-  readonly locale: Signal<Locales> = this._locale.asReadonly();
+  readonly locale: Signal<LocalesValues> = this._locale.asReadonly();
 
   setLocale = (locale: LocalesValues) => {
-    this._locale.set(locale as Locales);
+    this._locale.set(locale);
   };
 }
 
@@ -28,7 +29,8 @@ export class IntlayerProvider {
  * Create and return a single IntlayerProvider instance
  */
 export const createIntlayerClient = (
-  locale?: LocalesValues
+  locale?: LocalesValues,
+  isCookieEnabled = true
 ): IntlayerProvider => {
   if (instance) return instance;
 
@@ -37,6 +39,7 @@ export const createIntlayerClient = (
   if (locale) {
     instance.setLocale(locale);
   }
+  instance.isCookieEnabled.set(isCookieEnabled);
 
   return instance;
 };
@@ -44,8 +47,11 @@ export const createIntlayerClient = (
 /**
  * Helper to install the Intlayer provider
  */
-export const installIntlayer = (locale?: LocalesValues) => {
-  const client = createIntlayerClient(locale);
+export const installIntlayer = (
+  locale?: LocalesValues,
+  isCookieEnabled = true
+) => {
+  const client = createIntlayerClient(locale, isCookieEnabled);
 
   // Note: Angular editor installation will be handled differently
   // installIntlayerEditor();

@@ -15,6 +15,10 @@ slugs:
   - environment
   - react-native-and-expo
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 使用Intlayer翻译您的React Native and Expo | 国际化(i18n)
@@ -690,7 +694,3 @@ Intlayer 会在一个隐藏文件夹中（默认是 `.intlayer`）生成类型�
 享受通过 **Intlayer** 为您的 **React Native** 应用构建强大国际化支持的乐趣！
 
 ---
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

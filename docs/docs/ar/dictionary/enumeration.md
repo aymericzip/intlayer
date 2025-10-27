@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - enumeration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية التاريخ
 ---
 
 # التعداد / الجمع
@@ -239,7 +243,3 @@ module.exports = CarComponent;
 - [توثيق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
 
 توفر هذه الموارد رؤى إضافية حول إعداد واستخدام Intlayer في بيئات مختلفة ومع أُطُر عمل متنوعة.
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية التاريخ

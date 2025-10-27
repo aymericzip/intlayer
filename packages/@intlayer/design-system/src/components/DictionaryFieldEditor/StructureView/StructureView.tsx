@@ -1,14 +1,10 @@
 'use client';
 
 import {
-  type ContentNode,
   getDefaultNode,
   getNodeChildren,
   getNodeType,
   isSameKeyPath,
-  type KeyPath,
-  NodeType,
-  type TypedNode,
 } from '@intlayer/core';
 import {
   useConfiguration,
@@ -16,6 +12,13 @@ import {
   useFocusDictionary,
   useFocusDictionaryActions,
 } from '@intlayer/editor-react';
+import {
+  type KeyPath,
+  type LocalDictionaryId,
+  NodeType,
+  type TypedNode,
+} from '@intlayer/types';
+import type { ContentNode } from 'intlayer';
 import { Plus, Trash } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -27,7 +30,7 @@ import { InputVariant } from '../../Input';
 import { NodeTypeSelector } from '../NodeTypeSelector';
 
 type NodeTypeViewProps = {
-  dictionaryKey: string;
+  dictionaryLocalId: LocalDictionaryId;
   keyPath: KeyPath[];
   section: ContentNode;
   onNodeTypeChange: (content?: ContentNode) => void;
@@ -35,7 +38,7 @@ type NodeTypeViewProps = {
 
 const NodeTypeView: FC<NodeTypeViewProps> = ({
   section,
-  dictionaryKey,
+  dictionaryLocalId,
   keyPath,
   onNodeTypeChange: onNodeTypeChangeProp,
 }) => {
@@ -56,6 +59,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
   if (
     nodeType === NodeType.Translation ||
     nodeType === NodeType.Condition ||
+    nodeType === NodeType.Gender ||
     nodeType === NodeType.Enumeration
   ) {
     const firstKey = Object.keys(
@@ -80,7 +84,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
         <NodeTypeView
           section={children}
           keyPath={childrenKeyPath}
-          dictionaryKey={dictionaryKey}
+          dictionaryLocalId={dictionaryLocalId}
           onNodeTypeChange={onNodeTypeChange}
         />
       </div>
@@ -103,7 +107,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
         <NodeTypeView
           section={children}
           keyPath={childrenKeyPath}
-          dictionaryKey={dictionaryKey}
+          dictionaryLocalId={dictionaryLocalId}
           onNodeTypeChange={onNodeTypeChange}
         />
       </div>
@@ -125,7 +129,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
           <StructureView
             keyPath={keyPath}
             section={section}
-            dictionaryKey={dictionaryKey}
+            dictionaryLocalId={dictionaryLocalId}
           />
         </div>
       </>
@@ -144,7 +148,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
 
 type NodeWrapperProps = {
   sectionKey?: string;
-  dictionaryKey: string;
+  dictionaryLocalId: LocalDictionaryId;
   keyPath: KeyPath[];
   section: ContentNode;
 };
@@ -153,7 +157,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
   sectionKey,
   section,
   keyPath,
-  dictionaryKey,
+  dictionaryLocalId,
 }) => {
   const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
   const { renameEditedContent, addEditedContent } = useEditedContentActions();
@@ -161,7 +165,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
   const { titleInput, deleteButton } = useIntlayer('structure-view');
 
   const handleRenameNodeKey = (keyName: string) => {
-    renameEditedContent(dictionaryKey, keyName, keyPath);
+    renameEditedContent(dictionaryLocalId, keyName, keyPath);
     const prevKeyPath: KeyPath[] = keyPath.slice(0, -1);
     const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
     const newKeyPath: KeyPath[] = [
@@ -202,7 +206,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
                 className="translate-x-2"
                 Icon={Trash}
                 onClick={() => {
-                  addEditedContent(dictionaryKey, undefined, keyPath);
+                  addEditedContent(dictionaryLocalId, undefined, keyPath);
 
                   const parentKeyPath: KeyPath[] = keyPath.slice(0, -1);
                   setFocusedContentKeyPath(parentKeyPath);
@@ -217,10 +221,10 @@ export const NodeView: FC<NodeWrapperProps> = ({
         )}
         <NodeTypeView
           keyPath={keyPath}
-          dictionaryKey={dictionaryKey}
+          dictionaryLocalId={dictionaryLocalId}
           section={section}
           onNodeTypeChange={(content) => {
-            addEditedContent(dictionaryKey, content, keyPath);
+            addEditedContent(dictionaryLocalId, content, keyPath);
           }}
         />
       </div>
@@ -229,7 +233,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
 };
 
 type ObjectViewProps = {
-  dictionaryKey: string;
+  dictionaryLocalId: LocalDictionaryId;
   keyPath: KeyPath[];
   section: ContentNode;
 };
@@ -237,7 +241,7 @@ type ObjectViewProps = {
 export const ObjectView: FC<ObjectViewProps> = ({
   section,
   keyPath,
-  dictionaryKey,
+  dictionaryLocalId,
 }) => {
   const { addNodeButton } = useIntlayer('structure-view');
   const { setFocusedContentKeyPath } = useFocusDictionaryActions();
@@ -256,7 +260,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
               sectionKey={key}
               section={section?.[key as keyof typeof section]}
               keyPath={[...keyPath, { type: NodeType.Object, key }]}
-              dictionaryKey={dictionaryKey}
+              dictionaryLocalId={dictionaryLocalId}
             />
           </li>
         ))}
@@ -274,7 +278,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
             ...keyPath,
             { type: NodeType.Object, key: newKey },
           ] as KeyPath[];
-          addEditedContent(dictionaryKey, '', newKeyPath);
+          addEditedContent(dictionaryLocalId, '', newKeyPath);
           setFocusedContentKeyPath(newKeyPath);
         }}
       >
@@ -285,7 +289,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
 };
 
 type StructureViewProps = {
-  dictionaryKey: string;
+  dictionaryLocalId: LocalDictionaryId;
   keyPath: KeyPath[];
   section: ContentNode;
 };
@@ -293,7 +297,7 @@ type StructureViewProps = {
 export const StructureView: FC<StructureViewProps> = ({
   section,
   keyPath,
-  dictionaryKey,
+  dictionaryLocalId,
 }) => {
   if (
     !section ||
@@ -305,7 +309,7 @@ export const StructureView: FC<StructureViewProps> = ({
         sectionKey={'content'}
         section={section}
         keyPath={keyPath}
-        dictionaryKey={dictionaryKey}
+        dictionaryLocalId={dictionaryLocalId}
       />
     );
   }
@@ -314,7 +318,7 @@ export const StructureView: FC<StructureViewProps> = ({
     <ObjectView
       section={section}
       keyPath={keyPath}
-      dictionaryKey={dictionaryKey}
+      dictionaryLocalId={dictionaryLocalId}
     />
   );
 };

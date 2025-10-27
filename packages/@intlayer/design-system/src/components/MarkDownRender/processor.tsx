@@ -68,6 +68,8 @@ if (process.env.NODE_ENV === 'test') {
   });
 }
 
+const durationDelayTrigger = 20; // 20ms
+
 type RuleType = (typeof RuleType)[keyof typeof RuleType];
 
 const Priority = {
@@ -743,7 +745,7 @@ const parseTableRow = (
   state.inTable = prevInTable;
 
   const duration = performance.now() - start;
-  if (duration > 1) {
+  if (duration > durationDelayTrigger) {
     console.log(
       `parseTableRow: ${duration.toFixed(3)}ms, source length: ${source.length}, cells count: ${cells.length}`
     );
@@ -771,7 +773,7 @@ const parseTableCells = (
   );
 
   const duration = performance.now() - start;
-  if (duration > 1) {
+  if (duration > durationDelayTrigger) {
     console.log(
       `parseTableCells: ${duration.toFixed(3)}ms, source length: ${source.length}, rows count: ${rowsText.length}`
     );
@@ -890,7 +892,7 @@ const parseStyleAttribute = (styleString: string): StyleTuple[] => {
   }
 
   const duration = performance.now() - start;
-  if (duration > 1) {
+  if (duration > durationDelayTrigger) {
     console.log(
       `parseStyleAttribute: ${duration.toFixed(3)}ms, styleString length: ${styleString.length}, styles count: ${styles.length}`
     );
@@ -955,7 +957,7 @@ const trimLeadingWhitespaceOutsideFences = (
   const result = out.join('\n');
 
   const duration = performance.now() - start;
-  if (duration > 1) {
+  if (duration > durationDelayTrigger) {
     console.log(
       `trimLeadingWhitespaceOutsideFences: ${duration.toFixed(3)}ms, text length: ${text.length}, lines count: ${lines.length}`
     );
@@ -1018,7 +1020,7 @@ const normalizeWhitespace = (source: string): string => {
     .replace(TAB_R, '    ');
 
   const duration = performance.now() - start;
-  if (duration > 1) {
+  if (duration > durationDelayTrigger) {
     console.log(
       `normalizeWhitespace: ${duration.toFixed(3)}ms, source length: ${source.length}`
     );
@@ -1133,7 +1135,7 @@ const parserFor = (
   };
 
   const duration = performance.now() - start;
-  if (duration > 1) {
+  if (duration > durationDelayTrigger) {
     console.log(
       `parserFor: ${duration.toFixed(3)}ms, rules count: ${ruleList.length}`
     );
@@ -1246,7 +1248,7 @@ const parseInline = (
   state.simple = isCurrentlySimple;
 
   const duration = performance.now() - start;
-  if (duration > 1) {
+  if (duration > durationDelayTrigger) {
     console.log(
       `parseInline: ${duration.toFixed(3)}ms, children length: ${children.length}, result count: ${result.length}`
     );
@@ -1273,7 +1275,7 @@ const parseSimpleInline = (
   state.simple = isCurrentlySimple;
 
   const duration = performance.now() - start;
-  if (duration > 1) {
+  if (duration > durationDelayTrigger) {
     console.log(
       `parseSimpleInline: ${duration.toFixed(3)}ms, children length: ${children.length}, result count: ${result.length}`
     );
@@ -1304,7 +1306,7 @@ const parseBlock = (
   state.inline = isCurrentlyInline;
 
   const duration = performance.now() - start;
-  if (duration > 1) {
+  if (duration > durationDelayTrigger) {
     console.log(
       `parseBlock: ${duration.toFixed(3)}ms, children length: ${children.length}, result count: ${result.length}`
     );
@@ -1361,7 +1363,7 @@ const reactFor =
       state.key = oldKey;
 
       const duration = performance.now() - start;
-      if (duration > 1) {
+      if (duration > durationDelayTrigger) {
         console.log(
           `reactFor (array): ${duration.toFixed(3)}ms, ast length: ${ast.length}`
         );
@@ -1377,7 +1379,7 @@ const reactFor =
     ) as unknown as ReactNode[];
 
     const duration = performance.now() - start;
-    if (duration > 1) {
+    if (duration > durationDelayTrigger) {
       console.log(
         `reactFor (single): ${duration.toFixed(3)}ms, ast type: ${(ast as ParserResult).type}`
       );
@@ -1397,7 +1399,7 @@ const createRenderer =
       : renderer?.(ast, render, state);
 
     const duration = performance.now() - start;
-    if (duration > 1) {
+    if (duration > durationDelayTrigger) {
       console.log(
         `createRenderer: ${duration.toFixed(3)}ms, ast type: ${ast.type}, hasUserRender: ${!!userRender}`
       );
@@ -1599,7 +1601,7 @@ export const compiler = (
 
     if (options.wrapper === null) {
       const duration = performance.now() - start;
-      if (duration > 1) {
+      if (duration > durationDelayTrigger) {
         console.log(
           `compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`
         );
@@ -1618,7 +1620,7 @@ export const compiler = (
       // TODO: remove this for React 16
       if (typeof jsx === 'string') {
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`
           );
@@ -1641,7 +1643,7 @@ export const compiler = (
         return createElementFn('span', spanProps, jsx) as JSX.Element;
       } else {
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`
           );
@@ -1654,7 +1656,7 @@ export const compiler = (
     }
 
     const duration = performance.now() - start;
-    if (duration > 1) {
+    if (duration > durationDelayTrigger) {
       console.log(
         `compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`
       );
@@ -1712,7 +1714,7 @@ export const compiler = (
     }, {});
 
     const duration = performance.now() - start;
-    if (duration > 1) {
+    if (duration > durationDelayTrigger) {
       console.log(
         `attrStringToMap: ${duration.toFixed(3)}ms, str length: ${str.length}, attributes count: ${attributes.length}`
       );
@@ -1778,7 +1780,7 @@ export const compiler = (
         };
 
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `blockQuote._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}`
           );
@@ -1811,7 +1813,7 @@ export const compiler = (
         );
 
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `blockQuote._render: ${duration.toFixed(3)}ms, children count: ${node.children.length}, has alert: ${!!node.alert}`
           );
@@ -1869,7 +1871,7 @@ export const compiler = (
         );
 
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `codeBlock._render: ${duration.toFixed(3)}ms, text length: ${(node as any).text.length}, lang: ${node.lang || 'none'}`
           );
@@ -1911,7 +1913,7 @@ export const compiler = (
         const result = h('code', { key: state.key }, (node as any).text);
 
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `codeInline._render: ${duration.toFixed(3)}ms, text length: ${(node as any).text.length}`
           );
@@ -1995,7 +1997,7 @@ export const compiler = (
         };
 
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `heading._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}, level: ${capture[1].length}`
           );
@@ -2012,7 +2014,7 @@ export const compiler = (
         );
 
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `heading._render: ${duration.toFixed(3)}ms, level: ${node.level}, children count: ${node.children.length}, id: ${node.id}`
           );
@@ -2119,7 +2121,7 @@ export const compiler = (
         );
 
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `htmlBlock._render: ${duration.toFixed(3)}ms, tag: ${node.tag}, has text: ${!!node.text}, has children: ${!!node.children}`
           );
@@ -2155,7 +2157,7 @@ export const compiler = (
         });
 
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `htmlSelfClosing._render: ${duration.toFixed(3)}ms, tag: ${node.tag}`
           );
@@ -2392,7 +2394,7 @@ export const compiler = (
         const start = performance.now();
         const result = parseCaptureInline(capture, parse, state);
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `paragraph._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}`
           );
@@ -2408,7 +2410,7 @@ export const compiler = (
         );
 
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `paragraph._render: ${duration.toFixed(3)}ms, children count: ${node.children.length}`
           );
@@ -2489,7 +2491,7 @@ export const compiler = (
         const start = performance.now();
         const result = parseTable(capture, parse, state);
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `table._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}`
           );
@@ -2541,7 +2543,7 @@ export const compiler = (
         );
 
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `table._render: ${duration.toFixed(3)}ms, header count: ${table.header.length}, rows count: ${table.cells.length}`
           );
@@ -2603,7 +2605,7 @@ export const compiler = (
         );
 
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `textBolded._render: ${duration.toFixed(3)}ms, children count: ${node.children.length}`
           );
@@ -2636,7 +2638,7 @@ export const compiler = (
         );
 
         const duration = performance.now() - start;
-        if (duration > 1) {
+        if (duration > durationDelayTrigger) {
           console.log(
             `textEmphasized._render: ${duration.toFixed(3)}ms, children count: ${node.children.length}`
           );

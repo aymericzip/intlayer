@@ -4,22 +4,29 @@ const contentDashboardContent = {
   key: 'dictionary-dashboard-page',
   content: {
     title: t({
+      ar: 'تعديل القاموس',
+      de: 'Wörterbuch bearbeiten',
       en: 'Edit dictionary',
       'en-GB': 'Edit dictionary',
-      fr: 'Modifier le dictionnaire',
       es: 'Editar diccionario',
-      de: 'Wörterbuch bearbeiten',
+      fr: 'Modifier le dictionnaire',
+      hi: 'शब्दकोश संपादित करें',
+      it: 'Modifica dizionario',
       ja: '辞書を編集',
       ko: '사전 편집',
-      zh: '编辑字典',
-      it: 'Modifica dizionario',
       pt: 'Editar dicionário',
-      hi: 'शब्दकोश संपादित करें',
-      ar: 'تعديل القاموس',
       ru: 'Редактировать словарь',
       tr: 'Sözlüğü düzenle',
+      zh: '编辑字典',
+      pl: 'Edytuj słownik',
+      id: 'Sunting kamus',
+      vi: 'Chỉnh sửa từ điển',
     }),
   },
+  title: 'Dictionary editor page',
+  description:
+    'Content declaration for the dictionary editor page in the dashboard. This includes the title used in the interface for editing multilingual dictionaries.',
+  tags: ['dashboard', 'dictionary editor', 'content management'],
 } satisfies Dictionary;
 
 export default contentDashboardContent;

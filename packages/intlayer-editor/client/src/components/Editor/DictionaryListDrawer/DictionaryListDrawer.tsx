@@ -1,6 +1,5 @@
 'use client';
 
-import type { Dictionary } from '@intlayer/core';
 import {
   Button,
   RightDrawer,
@@ -11,6 +10,7 @@ import {
   useEditedContent,
   useFocusDictionary,
 } from '@intlayer/editor-react';
+import type { Dictionary } from '@intlayer/types';
 import { ChevronRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

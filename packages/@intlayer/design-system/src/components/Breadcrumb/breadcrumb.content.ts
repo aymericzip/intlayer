@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 export const breadCrumbContent = {
   key: 'breadcrumb',
-  autoFill: './{{key}}.content.json',
   content: {
     linkLabel: t({
       en: 'Go to',
@@ -19,8 +18,15 @@ export const breadCrumbContent = {
       ar: 'اذهب إلى',
       ru: 'Перейти на',
       tr: 'Git',
+      pl: 'Przejdź do',
+      id: 'Pergi ke',
+      vi: 'Đi tới',
     }),
   },
+  title: 'Breadcrumb navigation',
+  description:
+    "Content declaration for the breadcrumb component's navigation label, used to guide users through hierarchical structures within the interface.",
+  tags: ['navigation', 'breadcrumb'],
 } satisfies Dictionary;
 
 export default breadCrumbContent;

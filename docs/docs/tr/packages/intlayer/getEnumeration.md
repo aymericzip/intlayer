@@ -18,6 +18,10 @@ slugs:
   - packages
   - intlayer
   - getEnumeration
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # Dokümantasyon: `intlayer` Paketinde `getEnumeration` Fonksiyonu
@@ -153,13 +157,3 @@ console.log(content); // Çıktı: "Dörtten azınız var"
 ## Notlar
 
 - Uygun koşulu verilen miktara göre belirlemek için `findMatchingCondition` yardımcı programı kullanılır.
-
-## Dokümantasyon Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
-
-```
-
-```

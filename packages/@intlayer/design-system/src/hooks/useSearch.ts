@@ -6,13 +6,23 @@ type UseSearchProps = {
   minChars?: number;
   debounceMs?: number;
   trim?: boolean;
+  defaultValue?: string | null;
+  onSearch?: (value: string) => void;
+  onClear?: () => void;
 };
 
 export const useSearch = (options?: UseSearchProps) => {
-  const { minChars = 3, debounceMs = 300, trim = true } = options ?? {};
+  const {
+    minChars = 3,
+    debounceMs = 300,
+    trim = true,
+    defaultValue,
+    onSearch,
+    onClear,
+  } = options ?? {};
   const searchRef = useRef('');
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [search, setDebouncedSearch] = useState('');
+  const [search, setDebouncedSearch] = useState<string>(defaultValue ?? '');
 
   const clearTimer = () => {
     if (timerRef.current) {
@@ -29,6 +39,7 @@ export const useSearch = (options?: UseSearchProps) => {
 
     if (normalized.length < minChars) {
       setDebouncedSearch('');
+      onClear?.();
       return;
     }
 
@@ -36,8 +47,10 @@ export const useSearch = (options?: UseSearchProps) => {
       const current = trim ? searchRef.current.trim() : searchRef.current;
       if (current.length >= minChars) {
         setDebouncedSearch(current);
+        onSearch?.(current);
       } else {
         setDebouncedSearch('');
+        onClear?.();
       }
     }, debounceMs);
   };

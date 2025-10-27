@@ -1,6 +1,10 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/config/client';
-import type { Dictionary, LanguageContent } from '@intlayer/core';
+import type {
+  DeclaredLocales,
+  Dictionary,
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 import { useDictionary } from './useDictionary';
@@ -10,9 +14,12 @@ import { useDictionary } from './useDictionary';
  *
  * If the locale is not provided, it will use the locale from the server context
  */
-export const useDictionaryAsync = async <T extends Dictionary>(
-  dictionaryPromise: LanguageContent<() => Promise<T>>,
-  locale?: LocalesValues
+export const useDictionaryAsync = async <
+  T extends Dictionary,
+  L extends LocalesValues = DeclaredLocales,
+>(
+  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
+  locale?: L
 ) => {
   const localeTarget =
     locale ??
@@ -21,6 +28,5 @@ export const useDictionaryAsync = async <T extends Dictionary>(
 
   const dictionary = await (dictionaryPromise as any)[localeTarget]?.();
 
-  // @ts-ignore Type instantiation is excessively deep and possibly infinite
-  return useDictionary(dictionary, localeTarget) as any;
+  return useDictionary<T, L>(dictionary, localeTarget as L);
 };

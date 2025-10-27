@@ -1,3 +1,4 @@
+import type { Locale } from '@intlayer/types';
 import { logger } from '@logger';
 import * as emailService from '@services/email.service';
 import { getOrganizationById } from '@services/organization.service';
@@ -9,12 +10,11 @@ import {
 import { getUserById } from '@services/user.service';
 import { GenericError } from '@utils/errors';
 import type { Request, Response } from 'express';
-import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
 import type { Plan } from '@/types/plan.types';
 
 type SubscriptionMetadata = {
-  locale: Locales; // Localization setting (e.g., 'en', 'fr', 'es')
+  locale: Locale; // Localization setting (e.g., 'en', 'fr', 'es')
   userId: string; // ID of the user associated with the subscription
   organizationId: string; // ID of the organization associated with the subscription
 };

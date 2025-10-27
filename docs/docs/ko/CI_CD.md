@@ -15,6 +15,10 @@ slugs:
   - doc
   - concept
   - ci-cd
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 기록
 ---
 
 # CI/CD 파이프라인에서 번역 자동 생성
@@ -190,9 +194,3 @@ jobs:
 > 기본적으로 `--git-diff` 인수는 기본 브랜치(기본값 `origin/main`)에서 현재 브랜치(기본값: `HEAD`)로 변경된 사전을 필터링합니다.
 
 > Intlayer CLI 명령어 및 사용법에 대한 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 참조하세요.
-
-## 문서 이력
-
-| 버전   | 날짜       | 변경 사항 |
-| ------ | ---------- | --------- |
-| 5.5.10 | 2025-06-29 | 초기 기록 |

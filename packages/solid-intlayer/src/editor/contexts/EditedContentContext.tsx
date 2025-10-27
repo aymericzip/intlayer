@@ -1,12 +1,15 @@
 import {
-  type ContentNode,
-  type Dictionary,
   editDictionaryByKeyPath,
   getContentNodeByKeyPath,
-  type KeyPath,
   renameContentNodeByKeyPath,
 } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import type {
+  ContentNode,
+  Dictionary,
+  KeyPath,
+  LocalDictionaryId,
+} from '@intlayer/types';
 import {
   type Component,
   createContext,
@@ -74,7 +77,7 @@ type EditedContentActionsContextType = {
   clearEditedDictionaryContent: (dictionaryKey: Dictionary['key']) => void;
   clearEditedContent: () => void;
   getEditedContentValue: (
-    dictionaryKey: Dictionary['key'],
+    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
     keyPath: KeyPath[]
   ) => ContentNode | undefined;
 };
@@ -273,14 +276,41 @@ export const EditedContentProvider: Component<ParentProps> = (props) => {
   };
 
   const getEditedContentValue = (
-    dictionaryKey: Dictionary['key'],
+    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
     keyPath: KeyPath[]
   ): ContentNode | undefined => {
-    const originalContent = localeDictionaries[dictionaryKey]?.content;
-    const currentContent =
-      editedContent()?.[dictionaryKey]?.content ?? originalContent;
+    const editedContentValue = editedContent();
 
-    return getContentNodeByKeyPath(currentContent, keyPath);
+    if (!editedContentValue) return undefined;
+
+    const isDictionaryId =
+      localDictionaryIdOrKey.includes(':local:') ||
+      localDictionaryIdOrKey.includes(':remote:');
+
+    if (isDictionaryId) {
+      const currentContent =
+        editedContentValue?.[localDictionaryIdOrKey as LocalDictionaryId]
+          ?.content ?? {};
+
+      const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+
+      return contentNode;
+    }
+
+    const filteredDictionariesLocalId = Object.keys(editedContentValue).filter(
+      (key) => key.startsWith(`${localDictionaryIdOrKey}:`)
+    );
+
+    for (const localDictionaryId of filteredDictionariesLocalId) {
+      const currentContent =
+        editedContentValue?.[localDictionaryId as LocalDictionaryId]?.content ??
+        {};
+      const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+
+      if (contentNode) return contentNode;
+    }
+
+    return undefined;
   };
 
   const stateValue = {

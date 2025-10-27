@@ -19,6 +19,9 @@ const metadataContent = {
       ar: 'المشروع | لوحة التحكم | Intlayer',
       ru: 'Проект | Приборная панель | Intlayer',
       tr: 'Proje | Dashboard | Intlayer',
+      pl: 'Projekt | Panel | Intlayer',
+      id: 'Proyek | Dashboard | Intlayer',
+      vi: 'Dự án | Dashboard | Intlayer',
     }),
     description: t({
       en: 'Manage your project settings in the Intlayer dashboard. Update project details, adjust configurations, and collaborate with your team.',
@@ -36,6 +39,9 @@ const metadataContent = {
       ar: 'إدارة إعدادات مشروعك في لوحة تحكم Intlayer. قم بتحديث تفاصيل المشروع، وضبط التكوينات، وتعاون مع فريقك.',
       ru: 'Управляйте настройками вашего проекта в панели инструментов Intlayer. Обновляйте детали проекта, настраивайте конфигурации и сотрудничайте с вашей командой.',
       tr: 'Intlayer kontrol panelinde proje ayarlarınızı yönetin. Proje ayrıntılarını güncelleyin, yapılandırmaları ayarlayın ve ekibinizle işbirliği yapın.',
+      pl: 'Zarządzaj ustawieniami projektu w panelu Intlayer. Aktualizuj szczegóły projektu, dostosowuj konfiguracje i współpracuj ze swoim zespołem.',
+      id: 'Kelola pengaturan proyek Anda di dashboard Intlayer. Perbarui detail proyek, sesuaikan konfigurasi, dan berkolaborasilah dengan tim Anda.',
+      vi: 'Quản lý cài đặt dự án của bạn trên dashboard Intlayer. Cập nhật thông tin dự án, điều chỉnh cấu hình và hợp tác cùng nhóm của bạn.',
     }),
     keywords: t<string[]>({
       en: [
@@ -128,8 +134,29 @@ const metadataContent = {
         'İşbirliği',
         'Proje Yönetimi',
       ],
+      pl: [
+        'Projekt',
+        'Ustawienia',
+        'Konfiguracja',
+        'Zespół',
+        'Współpraca',
+        'Zarządzanie projektem',
+      ],
+      id: [
+        'Proyek',
+        'Pengaturan',
+        'Konfigurasi',
+        'Tim',
+        'Kolaborasi',
+        'Manajemen Proyek',
+      ],
+      vi: ['Dự án', 'Cài đặt', 'Cấu hình', 'Nhóm', 'Hợp tác', 'Quản lý dự án'],
     }),
   },
+  title: 'Project dashboard metadata',
+  description:
+    'Metadata related to the project settings page in the dashboard. Includes the title, description, and keywords to support SEO and project management functionalities.',
+  tags: ['page metadata', 'dashboard', 'project management'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

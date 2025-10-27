@@ -1,14 +1,17 @@
 'use client';
 
 import {
-  type ContentNode,
-  type Dictionary,
   editDictionaryByKeyPath,
   getContentNodeByKeyPath,
-  type KeyPath,
   renameContentNodeByKeyPath,
 } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import type {
+  ContentNode,
+  Dictionary,
+  KeyPath,
+  LocalDictionaryId,
+} from '@intlayer/types';
 import {
   createContext,
   type Dispatch,
@@ -25,7 +28,7 @@ import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 import { useCrossFrameState } from './useCrossFrameState';
 
 type EditedContentStateContextType = {
-  editedContent: Record<Dictionary['key'], Dictionary> | undefined;
+  editedContent: Record<LocalDictionaryId, Dictionary> | undefined;
 };
 
 const EditedContentStateContext = createContext<
@@ -50,33 +53,33 @@ export const useGetEditedContentState = <S,>(
 
 type EditedContentActionsContextType = {
   setEditedContentState: (
-    editedContent: Record<Dictionary['key'], Dictionary>
+    editedContent: Record<LocalDictionaryId, Dictionary>
   ) => void;
   setEditedDictionary: Dispatch<SetStateAction<Dictionary>>;
   setEditedContent: (
-    dictionaryKey: Dictionary['key'],
+    dictionaryLocalId: LocalDictionaryId,
     newValue: Dictionary['content']
   ) => void;
   addEditedContent: (
-    dictionaryKey: Dictionary['key'],
+    dictionaryLocalId: LocalDictionaryId,
     newValue: ContentNode<any>,
     keyPath?: KeyPath[],
     overwrite?: boolean
   ) => void;
   renameEditedContent: (
-    dictionaryKey: Dictionary['key'],
+    dictionaryLocalId: LocalDictionaryId,
     newKey: KeyPath['key'],
     keyPath?: KeyPath[]
   ) => void;
   removeEditedContent: (
-    dictionaryKey: Dictionary['key'],
+    dictionaryLocalId: LocalDictionaryId,
     keyPath: KeyPath[]
   ) => void;
-  restoreEditedContent: (dictionaryKey: Dictionary['key']) => void;
-  clearEditedDictionaryContent: (dictionaryKey: Dictionary['key']) => void;
+  restoreEditedContent: (dictionaryLocalId: LocalDictionaryId) => void;
+  clearEditedDictionaryContent: (dictionaryLocalId: LocalDictionaryId) => void;
   clearEditedContent: () => void;
   getEditedContentValue: (
-    dictionaryKey: Dictionary['key'],
+    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
     keyPath: KeyPath[]
   ) => ContentNode | undefined;
 };
@@ -119,29 +122,29 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const setEditedContent = (
-    dictionaryKey: Dictionary['key'],
+    dictionaryLocalId: LocalDictionaryId,
     newValue: Dictionary['content']
   ) => {
     setEditedContentState((prev) => ({
       ...prev,
-      [dictionaryKey]: {
-        ...prev?.[dictionaryKey],
+      [dictionaryLocalId]: {
+        ...prev?.[dictionaryLocalId],
         content: newValue,
       },
     }));
   };
 
   const addEditedContent = (
-    dictionaryKey: Dictionary['key'],
+    dictionaryLocalId: LocalDictionaryId,
     newValue: ContentNode,
     keyPath: KeyPath[] = [],
     overwrite: boolean = true
   ) => {
     setEditedContentState((prev) => {
       // Get the starting content: edited version if available, otherwise a deep copy of the original
-      const originalContent = localeDictionaries[dictionaryKey]?.content;
+      const originalContent = localeDictionaries[dictionaryLocalId]?.content;
       const currentContent = structuredClone(
-        prev?.[dictionaryKey]?.content ?? originalContent
+        prev?.[dictionaryLocalId]?.content ?? originalContent
       );
 
       let newKeyPath = keyPath;
@@ -175,8 +178,8 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
 
       return {
         ...prev,
-        [dictionaryKey]: {
-          ...prev?.[dictionaryKey],
+        [dictionaryLocalId]: {
+          ...prev?.[dictionaryLocalId],
           content: updatedContent as Dictionary['content'],
         },
       };
@@ -184,15 +187,15 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const renameEditedContent = (
-    dictionaryKey: Dictionary['key'],
+    dictionaryLocalId: LocalDictionaryId,
     newKey: KeyPath['key'],
     keyPath: KeyPath[] = []
   ) => {
     setEditedContentState((prev) => {
       // Retrieve the base content: use edited version if available, otherwise deep copy of original
-      const originalContent = localeDictionaries[dictionaryKey]?.content;
+      const originalContent = localeDictionaries[dictionaryLocalId]?.content;
       const currentContent = structuredClone(
-        prev?.[dictionaryKey]?.content ?? originalContent
+        prev?.[dictionaryLocalId]?.content ?? originalContent
       );
 
       const contentWithNewField = renameContentNodeByKeyPath(
@@ -203,8 +206,8 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
 
       return {
         ...prev,
-        [dictionaryKey]: {
-          ...prev?.[dictionaryKey],
+        [dictionaryLocalId]: {
+          ...prev?.[dictionaryLocalId],
           content: contentWithNewField as Dictionary['content'],
         },
       };
@@ -212,14 +215,14 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const removeEditedContent = (
-    dictionaryKey: Dictionary['key'],
+    dictionaryLocalId: LocalDictionaryId,
     keyPath: KeyPath[]
   ) => {
     setEditedContentState((prev) => {
       // Retrieve the original content as reference
-      const originalContent = localeDictionaries[dictionaryKey]?.content;
+      const originalContent = localeDictionaries[dictionaryLocalId]?.content;
       const currentContent = structuredClone(
-        prev?.[dictionaryKey]?.content ?? originalContent
+        prev?.[dictionaryLocalId]?.content ?? originalContent
       );
 
       // Get the initial value from the original dictionary content
@@ -234,26 +237,28 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
 
       return {
         ...prev,
-        [dictionaryKey]: {
-          ...prev?.[dictionaryKey],
+        [dictionaryLocalId]: {
+          ...prev?.[dictionaryLocalId],
           content: restoredContent as Dictionary['content'],
         },
       };
     });
   };
 
-  const restoreEditedContent = (dictionaryKey: Dictionary['key']) => {
+  const restoreEditedContent = (dictionaryLocalId: LocalDictionaryId) => {
     setEditedContentState((prev) => {
       const updated = { ...prev };
-      delete updated[dictionaryKey];
+      delete updated[dictionaryLocalId];
       return updated;
     });
   };
 
-  const clearEditedDictionaryContent = (dictionaryKey: Dictionary['key']) => {
+  const clearEditedDictionaryContent = (
+    dictionaryLocalId: LocalDictionaryId
+  ) => {
     setEditedContentState((prev) => {
       const filtered = Object.entries(prev).reduce((acc, [key, value]) => {
-        if (key === dictionaryKey) {
+        if (key === dictionaryLocalId) {
           return acc;
         }
         return { ...acc, [key]: value };
@@ -267,11 +272,38 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const getEditedContentValue = (
-    dictionaryKey: Dictionary['key'],
+    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
     keyPath: KeyPath[]
   ): ContentNode | undefined => {
-    const currentContent = editedContent?.[dictionaryKey]?.content ?? {};
-    return getContentNodeByKeyPath(currentContent, keyPath);
+    if (!editedContent) return undefined;
+
+    const isDictionaryId =
+      localDictionaryIdOrKey.includes(':local:') ||
+      localDictionaryIdOrKey.includes(':remote:');
+
+    if (isDictionaryId) {
+      const currentContent =
+        editedContent?.[localDictionaryIdOrKey as LocalDictionaryId]?.content ??
+        {};
+
+      const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+
+      return contentNode;
+    }
+
+    const filteredDictionariesLocalId = Object.keys(editedContent).filter(
+      (key) => key.startsWith(`${localDictionaryIdOrKey}:`)
+    );
+
+    for (const localDictionaryId of filteredDictionariesLocalId) {
+      const currentContent =
+        editedContent?.[localDictionaryId as LocalDictionaryId]?.content ?? {};
+      const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+
+      if (contentNode) return contentNode;
+    }
+
+    return undefined;
   };
 
   return (

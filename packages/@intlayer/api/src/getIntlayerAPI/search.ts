@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/types';
 import { type FetcherOptions, fetcher } from '../fetcher';
 import type { SearchDocUtilParams, SearchDocUtilResult } from '../types';
 
@@ -8,7 +8,7 @@ export const getSearchAPI = (
   intlayerConfig?: IntlayerConfig
 ) => {
   const backendURL =
-    intlayerConfig?.editor?.backendURL ?? configuration.editor?.backendURL;
+    intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
 
   if (!backendURL) {
     throw new Error(

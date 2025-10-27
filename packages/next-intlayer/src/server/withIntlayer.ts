@@ -2,41 +2,55 @@ import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
   ESMxCJSRequire,
+  type GetConfigurationOptions,
   getAlias,
   getAppLogger,
   getConfiguration,
-  type IntlayerConfig,
   normalizePath,
 } from '@intlayer/config';
-import dictionaries from '@intlayer/dictionaries-entry';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
+import type { IntlayerConfig } from '@intlayer/types';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import merge from 'deepmerge';
 import fg from 'fast-glob';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
+import nextPackageJSON from 'next/package.json' with { type: 'json' };
 import { compareVersions } from './compareVersion';
-import { getNextVersion } from './getNextVertion';
 
-// Extract from the start script if --turbo or --turbopack flag is used
-const isTurbopackEnabled =
-  process.env.npm_lifecycle_script?.includes('--turbo');
-const nextVersion = getNextVersion();
-const isGteNext13 = compareVersions(nextVersion, '≥', '13.0.0');
-const isGteNext15 = compareVersions(nextVersion, '≥', '15.0.0');
-const isTurbopackStable = compareVersions(nextVersion, '≥', '15.3.0');
+const isGteNext13 = compareVersions(nextPackageJSON.version, '≥', '13.0.0');
+const isGteNext15 = compareVersions(nextPackageJSON.version, '≥', '15.0.0');
+const isGteNext16 = compareVersions(nextPackageJSON.version, '≥', '16.0.0');
+
+const isTurbopackEnabled = isGteNext16
+  ? // Next@16 enable turbopack by default, and offer the possibility to disable it if --webpack flag is used
+    !process.env.npm_lifecycle_script?.includes('--webpack')
+  : // Next@15 use --turbopack flag, Next@14 use --turbo flag
+    process.env.npm_lifecycle_script?.includes('--turbo');
+
+const isTurbopackStable = compareVersions(
+  nextPackageJSON.version,
+  '≥',
+  '15.3.0'
+);
 
 // Check if SWC plugin is available
-const getIsSwcPluginAvailable = () => {
+const getIsSwcPluginAvailable = (intlayerConfig: IntlayerConfig) => {
   try {
-    ESMxCJSRequire.resolve('@intlayer/swc');
+    const requireFunction = intlayerConfig.build?.require ?? ESMxCJSRequire;
+    requireFunction.resolve('@intlayer/swc');
     return true;
   } catch (_e) {
     return false;
   }
 };
 
-const resolvePluginPath = (pluginPath: string): string => {
-  const pluginPathResolved = ESMxCJSRequire.resolve(pluginPath);
+const resolvePluginPath = (
+  pluginPath: string,
+  intlayerConfig: IntlayerConfig
+): string => {
+  const requireFunction = intlayerConfig.build?.require ?? ESMxCJSRequire;
+  const pluginPathResolved = requireFunction?.resolve(pluginPath);
 
   if (isTurbopackEnabled)
     // Relative path for turbopack
@@ -62,7 +76,7 @@ const getPruneConfig = (
 
   if (!isGteNext13) return {};
 
-  const isSwcPluginAvailable = getIsSwcPluginAvailable();
+  const isSwcPluginAvailable = getIsSwcPluginAvailable(intlayerConfig);
 
   if (!isSwcPluginAvailable) return {};
 
@@ -96,6 +110,8 @@ const getPruneConfig = (
     dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
   ];
 
+  const dictionaries = getDictionaries(intlayerConfig);
+
   const liveSyncKeys = Object.values(dictionaries)
     .filter((dictionary) => dictionary.live)
     .map((dictionary) => dictionary.key);
@@ -104,7 +120,7 @@ const getPruneConfig = (
     experimental: {
       swcPlugins: [
         [
-          resolvePluginPath('@intlayer/swc'),
+          resolvePluginPath('@intlayer/swc', intlayerConfig),
           {
             dictionariesDir,
             dictionariesEntryPath,
@@ -153,29 +169,26 @@ type WebpackParams = Parameters<NextJsWebpackConfig>;
 
 /**
  * A Next.js plugin that adds the intlayer configuration to the webpack configuration
- * and sets the environment variablesi
+ * and sets the environment variables
  *
  * Usage:
  *
  * ```ts
  * // next.config.js
- * export default withIntlayer(nextConfig)
+ * export default withIntlayerSync(nextConfig)
  * ```
  */
-export const withIntlayer = async <T extends Partial<NextConfig>>(
-  nextConfig: T = {} as T
-): Promise<NextConfig & T> => {
+export const withIntlayerSync = <T extends Partial<NextConfig>>(
+  nextConfig: T = {} as T,
+  configOptions?: GetConfigurationOptions
+): NextConfig & T => {
   if (typeof nextConfig !== 'object') {
     nextConfig = {} as T;
   }
 
-  const intlayerConfig = getConfiguration();
-  const { isDevCommand, isBuildCommand } = getCommandsEvent();
+  const intlayerConfig = getConfiguration(configOptions);
 
-  // Only call prepareIntlayer during `dev` or `build` (not during `start`)
-  if (isBuildCommand || isDevCommand) {
-    await prepareIntlayer(intlayerConfig);
-  }
+  const { isBuildCommand, isDevCommand } = getCommandsEvent();
 
   // Only provide turbo-specific config if user explicitly sets it
   const turboConfig = {
@@ -231,6 +244,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
           ...config,
           experimental: {
             ...(config?.experimental ?? {}),
+            // @ts-ignore exist in next@14
             turbo: turboConfig,
           },
         };
@@ -274,7 +288,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
           // Activate watch mode webpack plugin
           if (isDevCommand && isServer && nextRuntime === 'nodejs') {
-            config.plugins.push(new IntlayerPlugin());
+            config.plugins.push(new IntlayerPlugin(intlayerConfig));
           }
 
           return config;
@@ -300,4 +314,34 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   const result = merge(nextConfig, intlayerNextConfig) as NextConfig & T;
 
   return result;
+};
+
+/**
+ * A Next.js plugin that adds the intlayer configuration to the webpack configuration
+ * and sets the environment variables
+ *
+ * Usage:
+ *
+ * ```ts
+ * // next.config.js
+ * export default withIntlayer(nextConfig)
+ * ```
+ *
+ * > Node withIntlayer is a promise function. Use withIntlayerSync instead if you want to use it synchronously.
+ * > Using the promise allows to prepare the intlayer dictionaries before the build starts.
+ *
+ */
+export const withIntlayer = async <T extends Partial<NextConfig>>(
+  nextConfig: T = {} as T,
+  configOptions?: GetConfigurationOptions
+): Promise<NextConfig & T> => {
+  const { isBuildCommand, isDevCommand } = getCommandsEvent();
+
+  // Only call prepareIntlayer during `dev` or `build` (not during `start`)
+  if (isBuildCommand || isDevCommand) {
+    const intlayerConfig = getConfiguration(configOptions);
+    await prepareIntlayer(intlayerConfig);
+  }
+
+  return withIntlayerSync(nextConfig, configOptions);
 };

@@ -15,11 +15,22 @@ slugs:
   - environment
   - react-native-and-expo
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
+history:
+  - version: 6.1.6
+    date: 2025-10-02
+    changes: Add debug section
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Translate your React Native and Expo website using Intlayer | Internationalization (i18n)
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-native-template) on GitHub.
+
+## Table of Contents
+
+<TOC>
 
 ## What is Intlayer?
 
@@ -673,10 +684,3 @@ import "@formatjs/intl-datetimeformat/polyfill";
 - Verify your Metro configuration (resolver aliases, asset plugins, `tsconfig` paths) if modules fail to resolve.
 
 ---
-
-## Doc History
-
-| Version | Date       | Changes           |
-| ------- | ---------- | ----------------- |
-| 6.1.6   | 2025-10-02 | Add debug section |
-| 5.5.10  | 2025-06-29 | Init history      |

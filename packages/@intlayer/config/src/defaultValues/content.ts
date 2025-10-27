@@ -10,12 +10,16 @@ export const FILE_EXTENSIONS = [
   '.content.jsx',
 ];
 export const EXCLUDED_PATHS = [
-  'node_modules',
-  '.intlayer',
-  '.next',
-  '.nuxt',
-  '.expo',
-  'dist',
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/build/**',
+  '**/.intlayer/**',
+  '**/.next/**',
+  '**/.nuxt/**',
+  '**/.expo/**',
+  '**/.vercel/**',
+  '**/.turbo/**',
+  '**/.tanstack/**',
 ];
 
 export const CONTENT_DIR = ['.'];
@@ -29,8 +33,6 @@ export const MASKS_DIR = '.intlayer/mask';
 export const REMOTE_DICTIONARIES_DIR = '.intlayer/remote_dictionary';
 
 export const UNMERGED_DICTIONARIES_DIR = '.intlayer/unmerged_dictionary';
-
-export const NORMALIZED_DICTIONARIES_DIR = '.intlayer/normalized_dictionary';
 
 export const DYNAMIC_DICTIONARIES_DIR = '.intlayer/dynamic_dictionary';
 

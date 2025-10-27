@@ -1,15 +1,15 @@
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
-import { getContent, type KeyPath } from '@intlayer/core';
+import { getContent } from '@intlayer/core';
+import type { Dictionary, KeyPath, Locale } from '@intlayer/types';
 import type { FC } from 'preact/compat';
 import { useEditedContentActions } from './EditedContentContext';
 
 type EditedContentRendererProps = {
-  dictionaryKey: string;
+  dictionaryKey: Dictionary['key'];
   keyPath: KeyPath[];
   children: string;
-  locale?: Locales;
+  locale?: Locale;
 };
 
 export const useEditedContentRenderer = ({

@@ -7,12 +7,12 @@
  * The script is based on the original craco script from create-react-app.
  */
 
+import { spawnSync } from 'node:child_process';
 import { ESMxCJSRequire, logger } from '@intlayer/config';
-import spawn from 'cross-spawn';
 
 const args = process.argv.slice(2);
 const scriptIndex = args.findIndex(
-  (x) => x === 'build' || x === 'start' || x === 'test'
+  (index) => index === 'build' || index === 'start' || index === 'test'
 );
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 
@@ -34,7 +34,7 @@ switch (script) {
         './node_modules/react-scripts-intlayer/dist/cjs/craco.config.cjs',
       ]);
 
-    const child = spawn.sync('node', processArgs, {
+    const child = spawnSync('node', processArgs, {
       stdio: 'inherit',
     });
 

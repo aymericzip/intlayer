@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 export const dictionaryFieldEditorContent = {
   key: 'dictionary-field-editor',
-  autoFill: './{{key}}.content.json',
   content: {
     returnToDictionaryList: {
       label: t({
@@ -20,6 +19,9 @@ export const dictionaryFieldEditorContent = {
         zh: '返回字典列表',
         ru: 'Вернуться к списку словарей',
         tr: 'Sözlük listesine dön',
+        pl: 'Powrót do listy słowników',
+        id: 'Kembali ke daftar kamus',
+        vi: 'Quay lại danh sách từ điển',
       }),
       text: t({
         en: 'Dictionary list',
@@ -36,9 +38,16 @@ export const dictionaryFieldEditorContent = {
         ar: 'قائمة المعاجم',
         ru: 'Список словарей',
         tr: 'Sözlük listesi',
+        pl: 'Lista słowników',
+        id: 'Daftar kamus',
+        vi: 'Danh sách từ điển',
       }),
     },
   },
+  title: 'Dictionary field editor',
+  description:
+    'Content declaration for the dictionary field editor component, including labels and texts used for navigation to the dictionary list.',
+  tags: ['component', 'dictionary', 'design system'],
 } satisfies Dictionary;
 
 export default dictionaryFieldEditorContent;

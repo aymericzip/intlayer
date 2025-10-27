@@ -1,15 +1,17 @@
 'use client';
 
 import {
-  type ContentNode,
-  type Dictionary,
   editDictionaryByKeyPath,
   getContentNodeByKeyPath,
-  type KeyPath,
-  type LocalDictionaryId,
   renameContentNodeByKeyPath,
 } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import type {
+  ContentNode,
+  Dictionary,
+  KeyPath,
+  LocalDictionaryId,
+} from '@intlayer/types';
 import {
   createContext,
   type Dispatch,
@@ -75,9 +77,8 @@ type EditedContentActionsContextType = {
   clearEditedDictionaryContent: (localDictionaryId: LocalDictionaryId) => void;
   clearEditedContent: () => void;
   getEditedContentValue: (
-    dictionaryKey: string,
-    keyPath: KeyPath[],
-    localDictionaryId?: LocalDictionaryId
+    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
+    keyPath: KeyPath[]
   ) => ContentNode | undefined;
 };
 
@@ -104,14 +105,20 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     let updatedDictionaries: Dictionary = resolveState(newValue);
 
     setEditedContentState((prev) => {
+      if (!updatedDictionaries.localId) {
+        console.error('no localId', updatedDictionaries);
+
+        return prev;
+      }
+
       updatedDictionaries = resolveState(
         newValue,
-        prev?.[updatedDictionaries.key]
+        prev?.[updatedDictionaries.localId]
       );
 
       return {
         ...prev,
-        [updatedDictionaries.key]: updatedDictionaries,
+        [updatedDictionaries.localId as LocalDictionaryId]: updatedDictionaries,
       };
     });
 
@@ -269,7 +276,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const getEditedContentValue = (
-    localDictionaryIdOrKey: LocalDictionaryId | string,
+    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
     keyPath: KeyPath[]
   ): ContentNode | undefined => {
     if (!editedContent) return undefined;
@@ -280,7 +287,8 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
 
     if (isDictionaryId) {
       const currentContent =
-        editedContent?.[localDictionaryIdOrKey]?.content ?? {};
+        editedContent?.[localDictionaryIdOrKey as LocalDictionaryId]?.content ??
+        {};
 
       const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
 
@@ -292,7 +300,8 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     );
 
     for (const localDictionaryId of filteredDictionariesLocalId) {
-      const currentContent = editedContent?.[localDictionaryId]?.content ?? {};
+      const currentContent =
+        editedContent?.[localDictionaryId as LocalDictionaryId]?.content ?? {};
       const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
 
       if (contentNode) return contentNode;

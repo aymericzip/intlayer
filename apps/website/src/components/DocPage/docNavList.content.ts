@@ -19,6 +19,9 @@ const docNavTitlesContent = {
         ar: 'اطوي التوسيع',
         ru: 'Свернуть',
         tr: 'Daralt',
+        pl: 'Zwiń',
+        id: 'Ciutkan',
+        vi: 'Thu gọn',
       }),
     },
     blogButton: {
@@ -37,6 +40,9 @@ const docNavTitlesContent = {
         ar: 'اذهب إلى المدونة',
         ru: 'Перейти к блогу',
         tr: 'Bloga git',
+        pl: 'Przejdź do bloga',
+        id: 'Kunjungi blog',
+        vi: 'Đi tới blog',
       }),
       text: t({
         en: 'Blog',
@@ -53,6 +59,9 @@ const docNavTitlesContent = {
         ar: 'مدونة',
         ru: 'Блог',
         tr: 'Blog',
+        pl: 'Blog',
+        id: 'Blog',
+        vi: 'Blog',
       }),
     },
     chatBotButton: {
@@ -71,6 +80,9 @@ const docNavTitlesContent = {
         ar: 'طرح سؤال',
         ru: 'Задать вопрос',
         tr: 'Bir soru sor',
+        pl: 'Zadaj pytanie',
+        id: 'Ajukan pertanyaan',
+        vi: 'Đặt câu hỏi',
       }),
       label: t({
         en: 'Click to go to the AI powered smart documentation chatbot',
@@ -87,9 +99,16 @@ const docNavTitlesContent = {
         ar: 'انقر للدخول إلى الدردشة الذكية للوثائق الذكية',
         ru: 'Нажмите, чтобы перейти к интеллектуальному чат-боту для умной документации',
         tr: 'Yapay zeka destekli akıllı dokümantasyon sohbet botuna gitmek için tıklayın',
+        pl: 'Kliknij, aby przejść do inteligentnego chatbota dokumentacji napędzanego sztuczną inteligencją',
+        id: 'Klik untuk membuka chatbot dokumentasi cerdas bertenaga AI',
+        vi: 'Nhấp để truy cập chatbot thông minh hỗ trợ tài liệu, hoạt động bằng trí tuệ nhân tạo',
       }),
     },
   },
+  title: 'Documentation navigation list',
+  description:
+    'Content declaration for the documentation navigation list component, including labels for buttons like collapse, blog access, and chatbot interaction.',
+  tags: ['documentation', 'navigation', 'component'],
 } satisfies Dictionary;
 
 export default docNavTitlesContent;

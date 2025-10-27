@@ -18,6 +18,9 @@ const resetPasswordContent = {
       ar: 'إعداد الحساب',
       ru: 'Настройка аккаунта',
       tr: 'Hesap Kurulumu',
+      pl: 'Wprowadzenie',
+      id: 'Onboarding',
+      vi: 'Hướng dẫn bắt đầu',
     }),
 
     description: t({
@@ -35,8 +38,15 @@ const resetPasswordContent = {
       ar: 'قم بإعداد حسابك في Intlayer باتباع التعليمات.',
       ru: 'Настройте свою учетную запись Intlayer, следуя инструкциям.',
       tr: 'Talimatları izleyerek Intlayer hesabınızı kurun.',
+      pl: 'Skonfiguruj swoje konto Intlayer, postępując zgodnie z instrukcjami.',
+      id: 'Siapkan akun Intlayer Anda dengan mengikuti instruksi.',
+      vi: 'Thiết lập tài khoản Intlayer của bạn theo hướng dẫn.',
     }),
   },
+  title: 'Onboarding page content',
+  description:
+    'Content for the onboarding page, helps users set up their Intlayer account through provided instructions and guidance.',
+  tags: ['onboarding', 'landing page'],
 } satisfies Dictionary;
 
 export default resetPasswordContent;

@@ -1,9 +1,9 @@
 @import "tailwindcss";
-@import "@intlayer/design-system/css";
-@config '@intlayer/design-system/tailwind-config';
 
 @source "./**/*.{ts,tsx}";
-@source "../../../@intlayer/design-system/src/**/*.{ts,tsx}";
+
+@config '@intlayer/design-system/tailwind-config';
+@source "@intlayer/design-system/tw-source";
 
 html {
   font-family: "Figtree";

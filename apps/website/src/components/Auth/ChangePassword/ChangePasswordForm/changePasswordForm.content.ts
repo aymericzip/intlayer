@@ -19,6 +19,9 @@ const changePasswordContent = {
         ru: 'Текущий пароль',
         'en-GB': 'Current password',
         tr: 'Mevcut şifre',
+        pl: 'Obecne hasło',
+        id: 'Kata sandi saat ini',
+        vi: 'Mật khẩu hiện tại',
       }),
       placeholder: t({
         en: 'Enter actual password',
@@ -35,6 +38,9 @@ const changePasswordContent = {
         ru: 'Введите текущий пароль',
         'en-GB': 'Enter actual password',
         tr: 'Mevcut şifreyi girin',
+        pl: 'Wprowadź aktualne hasło',
+        id: 'Masukkan kata sandi saat ini',
+        vi: 'Nhập mật khẩu hiện tại',
       }),
     },
     newPasswordInput: {
@@ -53,6 +59,9 @@ const changePasswordContent = {
         ru: 'Новый пароль',
         'en-GB': 'New password',
         tr: 'Yeni şifre',
+        pl: 'Nowe hasło',
+        id: 'Kata sandi baru',
+        vi: 'Mật khẩu mới',
       }),
       placeholder: t({
         en: 'Enter new password',
@@ -69,6 +78,9 @@ const changePasswordContent = {
         ru: 'Введите новый пароль',
         'en-GB': 'Enter new password',
         tr: 'Yeni şifreyi girin',
+        pl: 'Wprowadź nowe hasło',
+        id: 'Masukkan kata sandi baru',
+        vi: 'Nhập mật khẩu mới',
       }),
     },
     confirmPasswordInput: {
@@ -87,6 +99,9 @@ const changePasswordContent = {
         ru: 'Подтвердите новый пароль',
         'en-GB': 'Confirm new password',
         tr: 'Yeni şifreyi onayla',
+        pl: 'Potwierdź nowe hasło',
+        id: 'Konfirmasi kata sandi baru',
+        vi: 'Xác nhận mật khẩu mới',
       }),
       placeholder: t({
         en: 'Confirm new password',
@@ -103,6 +118,9 @@ const changePasswordContent = {
         ru: 'Подтвердите новый пароль',
         'en-GB': 'Confirm new password',
         tr: 'Yeni şifreyi onayla',
+        pl: 'Potwierdź nowe hasło',
+        id: 'Konfirmasi kata sandi baru',
+        vi: 'Nhập lại mật khẩu mới',
       }),
     },
     changePasswordButton: {
@@ -121,6 +139,9 @@ const changePasswordContent = {
         ru: 'Сменить пароль',
         'en-GB': 'Change password',
         tr: 'Şifre değiştir',
+        pl: 'Zmień hasło',
+        id: 'Ubah kata sandi',
+        vi: 'Đổi mật khẩu',
       }),
       ariaLabel: t({
         en: 'Click to change password',
@@ -137,9 +158,16 @@ const changePasswordContent = {
         ru: 'Нажмите, чтобы изменить пароль',
         'en-GB': 'Click to change password',
         tr: 'Şifreyi değiştirmek için tıklayın',
+        pl: 'Kliknij, aby zmienić hasło',
+        id: 'Klik untuk mengubah kata sandi',
+        vi: 'Nhấp để đổi mật khẩu',
       }),
     },
   },
+  title: 'Change password form schema',
+  description:
+    'Content declaration for the change password form, including labels, placeholders, and button texts for managing password updates.',
+  tags: ['authentication', 'form', 'password management'],
 } satisfies Dictionary;
 
 export default changePasswordContent;

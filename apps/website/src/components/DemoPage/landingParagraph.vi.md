@@ -1,0 +1,4 @@
+- **Chuyển quyền quản lý nội dung cho các nhóm của bạn** bằng cách biến ứng dụng của bạn thành một CMS chỉ với một cú nhấp chuột.
+- **Đơn giản hóa việc định dạng nội dung** với hỗ trợ Markdown, giúp dễ dàng hơn trong việc cấu trúc và trình bày nội dung của bạn.
+- **Tăng năng suất bằng AI**, tận dụng gợi ý thông minh và tự động hóa để đơn giản hóa quá trình tạo nội dung.
+- **Hỗ trợ nhiều ngôn ngữ** một cách dễ dàng, đảm bảo bản địa hóa liền mạch cho khán giả toàn cầu.

@@ -1,4 +1,5 @@
 import { logger } from './logger';
+import { extractErrorMessage } from './utils/extractErrorMessage';
 
 export type RetryManagerOptions = {
   /** maximum number of retries before giving up */
@@ -6,7 +7,17 @@ export type RetryManagerOptions = {
   /** delay between attempts, in milliseconds */
   delay?: number;
   /** function to call when an error occurs */
-  onError?: (err: Error) => void;
+  onError?: (details: {
+    error: string;
+    attempt: number;
+    maxRetry: number;
+  }) => void;
+  /** function to call when the maximum number of retries is reached */
+  onMaxTryReached?: (details: {
+    error: string;
+    attempt: number;
+    maxRetry: number;
+  }) => void;
 };
 
 const DEFAULT_MAX_RETRY = 3;
@@ -26,20 +37,48 @@ export const retryManager =
       maxRetry = DEFAULT_MAX_RETRY,
       delay = DEFAULT_DELAY,
       onError,
+      onMaxTryReached,
     }: RetryManagerOptions = {}
   ): ((...args: Args) => Promise<R>) =>
   // ───────────────────────────────^ returned wrapper function
   async (...args: Args): Promise<R> => {
-    for (let attempt = 0; ; attempt++) {
+    let lastError: unknown;
+
+    for (let attempt = 0; attempt <= maxRetry; attempt++) {
       try {
         return await fn(...args);
       } catch (err) {
-        onError?.(err as Error);
-        logger(['Request failed', err], {
-          level: 'error',
-        });
-        if (attempt >= maxRetry) throw err; // out of retries
-        if (delay > 0) await new Promise((res) => setTimeout(res, delay));
+        lastError = err;
+        const error = extractErrorMessage(err);
+
+        // If this was the last attempt, handle max retry reached
+        if (attempt >= maxRetry) {
+          if (onMaxTryReached) {
+            onMaxTryReached?.({ error, attempt, maxRetry });
+            return null as R;
+          }
+
+          // Otherwise, throw the error
+          throw err;
+        }
+
+        if (onError) {
+          onError?.({ error, attempt, maxRetry });
+        } else {
+          logger(error, {
+            level: 'error',
+          });
+        }
+
+        // Wait before retrying
+        if (delay > 0) {
+          await new Promise((res) => setTimeout(res, delay));
+        }
       }
     }
+
+    // This should never be reached, but TypeScript needs it
+    throw (
+      lastError ?? new Error('Unexpected: retry loop completed without result')
+    );
   };

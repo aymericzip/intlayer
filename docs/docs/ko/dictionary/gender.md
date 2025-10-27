@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - gender
+history:
+  - version: 5.7.2
+    date: 2025-07-27
+    changes: 성별 기반 콘텐츠 도입
 ---
 
 # 성별 기반 콘텐츠 / Intlayer의 성별
@@ -267,9 +271,3 @@ module.exports = GenderComponent;
 - [Next Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)
 
 이 자료들은 다양한 환경과 프레임워크에서 Intlayer의 설정 및 사용에 대한 추가적인 통찰을 제공합니다.
-
-## 문서 이력
-
-| 버전  | 날짜       | 변경 사항             |
-| ----- | ---------- | --------------------- |
-| 5.7.2 | 2025-07-27 | 성별 기반 콘텐츠 도입 |

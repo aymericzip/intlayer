@@ -1,13 +1,11 @@
 'use client';
 
-import type { LocalesValues } from '@intlayer/config/client';
 import {
-  type ContentNode,
   getContent,
   getContentNodeByKeyPath,
   getMarkdownMetadata,
-  type KeyPath,
 } from '@intlayer/core';
+import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
 import type { FC, ReactNode } from 'preact/compat';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import { useMarkdownContext } from './MarkdownProvider';

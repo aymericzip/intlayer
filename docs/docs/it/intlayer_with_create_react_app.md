@@ -16,6 +16,10 @@ slugs:
   - environment
   - create-react-app
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Cronologia iniziale
 ---
 
 # Traduci la tua Create React App con Intlayer | Internazionalizzazione (i18n)
@@ -1152,7 +1156,3 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 ### Approfondimenti
 
 Per approfondire, puoi implementare l’[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti usando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
-
-## Cronologia della documentazione
-
-- 5.5.10 - 2025-06-29: Cronologia iniziale

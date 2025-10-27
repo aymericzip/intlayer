@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useDictionary
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Geçmiş başlatıldı
 ---
 
 # React Entegrasyonu: `useDictionary` Hook Dokümantasyonu
@@ -262,9 +266,3 @@ Görsel düzenleyiciler kullanan entegrasyonların aksine, `buttonTitle.value` g
 - **Yerelleştirme Güncellemeleri**: İçeriği güncellerken, eksik çevirileri önlemek için tüm yerel ayarların tutarlı olduğundan emin olun.
 
 Bu dokümantasyon, `useDictionary` hook'unun entegrasyonuna odaklanır, görsel düzenleyici işlevlerine güvenmeden yerelleştirilmiş içeriği yönetmek için akıcı bir yaklaşım sağlar.
-
-## Doküman Geçmişi
-
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |

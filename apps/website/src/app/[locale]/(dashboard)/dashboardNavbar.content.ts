@@ -29,6 +29,9 @@ const dashboardNavbarContent = {
           ar: 'اذهب إلى محرر الفيديو لـ Intlayer',
           ru: 'Перейти к визуальному редактору Intlayer',
           tr: 'Intlayer görsel düzenleyicisine git',
+          pl: 'Przejdź do wizualnego edytora Intlayer',
+          id: 'Buka Intlayer visual editor',
+          vi: 'Mở trình chỉnh sửa trực quan Intlayer',
         }),
         title: t({
           en: 'Editor',
@@ -45,6 +48,9 @@ const dashboardNavbarContent = {
           ar: 'محرر',
           ru: 'Редактор',
           tr: 'Editör',
+          pl: 'Edytor',
+          id: 'Editor',
+          vi: 'Trình chỉnh sửa',
         }),
       },
       {
@@ -64,6 +70,9 @@ const dashboardNavbarContent = {
           ar: 'اذهب إلى لوحة معلومات المحتوى',
           ru: 'Перейти к панели управления контентом',
           tr: "İçerik Dashboard'ına git",
+          pl: 'Przejdź do panelu zawartości',
+          id: 'Buka dashboard Content',
+          vi: 'Đi tới bảng điều khiển nội dung',
         }),
         title: t({
           en: 'Content',
@@ -80,6 +89,9 @@ const dashboardNavbarContent = {
           ar: 'محتوى',
           ru: 'Содержание',
           tr: 'İçerik',
+          pl: 'Zawartość',
+          id: 'Content',
+          vi: 'Nội dung',
         }),
       },
       {
@@ -99,6 +111,9 @@ const dashboardNavbarContent = {
           ar: 'اذهب إلى لوحة معلومات الوسوم',
           ru: 'Перейти к панели управления тегами',
           tr: "Etiket Dashboard'ına git",
+          pl: 'Przejdź do panelu tagów',
+          id: 'Buka dashboard Tags',
+          vi: 'Đi tới bảng điều khiển thẻ',
         }),
         title: t({
           en: 'Tags',
@@ -115,6 +130,9 @@ const dashboardNavbarContent = {
           ar: 'وسوم',
           ru: 'Теги',
           tr: 'Etiketler',
+          pl: 'Tagi',
+          id: 'Tags',
+          vi: 'Thẻ',
         }),
       },
       {
@@ -134,6 +152,9 @@ const dashboardNavbarContent = {
           ar: 'اذهب إلى لوحة معلومات المشاريع',
           ru: 'Перейти к панели управления проектами',
           tr: "Proje Dashboard'ına git",
+          pl: 'Przejdź do panelu projektów',
+          id: 'Buka dashboard Projects',
+          vi: 'Đi tới bảng điều khiển dự án',
         }),
         title: t({
           en: 'Projects',
@@ -150,6 +171,9 @@ const dashboardNavbarContent = {
           ar: 'مشاريع',
           ru: 'Проекты',
           tr: 'Projeler',
+          pl: 'Projekty',
+          id: 'Projects',
+          vi: 'Dự án',
         }),
       },
 
@@ -170,6 +194,9 @@ const dashboardNavbarContent = {
           ar: 'اذهب إلى لوحة معلومات المؤسسة',
           ru: 'Перейти к панели управления организацией',
           tr: "Organizasyon Dashboard'ına git",
+          pl: 'Przejdź do panelu organizacji',
+          id: 'Buka dashboard Organization',
+          vi: 'Đi tới bảng điều khiển tổ chức',
         }),
         title: t({
           en: 'Organization',
@@ -186,6 +213,9 @@ const dashboardNavbarContent = {
           ar: 'تنظيم',
           ru: 'Организация',
           tr: 'Organizasyon',
+          pl: 'Organizacja',
+          id: 'Organization',
+          vi: 'Tổ chức',
         }),
       },
       {
@@ -205,6 +235,9 @@ const dashboardNavbarContent = {
           ar: 'اذهب إلى لوحة معلومات الملف الشخصي',
           ru: 'Перейти к панели управления профилем',
           tr: "Profil Dashboard'ına git",
+          pl: 'Przejdź do panelu profilu',
+          id: 'Buka dashboard Profile',
+          vi: 'Đi tới bảng điều khiển hồ sơ',
         }),
         title: t({
           en: 'Profile',
@@ -221,6 +254,9 @@ const dashboardNavbarContent = {
           ar: 'الملف الشخصي',
           ru: 'Профиль',
           tr: 'Profil',
+          pl: 'Profil',
+          id: 'Profile',
+          vi: 'Hồ sơ',
         }),
       },
       {
@@ -240,6 +276,9 @@ const dashboardNavbarContent = {
           ar: 'اذهب إلى لوحة معلومات المشرف',
           ru: 'Перейти к панели управления администратором',
           tr: "Admin Dashboard'ına git",
+          pl: 'Przejdź do panelu administracyjnego',
+          id: 'Buka dashboard Admin',
+          vi: 'Đi tới bảng điều khiển quản trị',
         }),
         title: t({
           en: 'Admin',
@@ -256,6 +295,9 @@ const dashboardNavbarContent = {
           ar: 'مشرف',
           ru: 'Администратор',
           tr: 'Admin',
+          pl: 'Administracja',
+          id: 'Admin',
+          vi: 'Quản trị',
         }),
       },
     ],
@@ -277,6 +319,9 @@ const dashboardNavbarContent = {
           ar: 'اذهب إلى الصفحة الرئيسية',
           ru: 'Перейти на главную страницу',
           tr: 'Ana sayfaya git',
+          pl: 'Przejdź na stronę główną',
+          id: 'Buka beranda',
+          vi: 'Đi tới trang chủ',
         }),
         text: t({
           en: 'Home',
@@ -293,6 +338,9 @@ const dashboardNavbarContent = {
           ar: 'الرئيسية',
           ru: 'Главная',
           tr: 'Ana Sayfa',
+          pl: 'Strona główna',
+          id: 'Beranda',
+          vi: 'Trang chủ',
         }),
       },
       {
@@ -312,6 +360,9 @@ const dashboardNavbarContent = {
           ar: 'اذهب إلى صفحة الوثائق',
           ru: 'Перейти на страницу документации',
           tr: 'Belgeler sayfasına git',
+          pl: 'Przejdź do strony dokumentacji',
+          id: 'Buka dokumentasi',
+          vi: 'Đi tới trang tài liệu',
         }),
         text: t({
           en: 'Documentation',
@@ -328,6 +379,9 @@ const dashboardNavbarContent = {
           ar: 'التوثيق',
           ru: 'Документация',
           tr: 'Dokümantasyon',
+          pl: 'Dokumentacja',
+          id: 'Dokumentasi',
+          vi: 'Tài liệu',
         }),
       },
       {
@@ -347,6 +401,9 @@ const dashboardNavbarContent = {
           ar: 'اذهب إلى صفحة إشعار الخصوصية',
           ru: 'Перейти на страницу уведомления о конфиденциальности',
           tr: 'Gizlilik bildirim sayfasına git',
+          pl: 'Przejdź do strony polityki prywatności',
+          id: 'Buka halaman pemberitahuan privasi',
+          vi: 'Đi tới trang thông báo quyền riêng tư',
         }),
         text: t({
           en: 'Privacy Notice',
@@ -363,6 +420,9 @@ const dashboardNavbarContent = {
           ar: 'إشعار الخصوصية',
           ru: 'Уведомление о конфиденциальности',
           tr: 'Gizlilik Bildirimi',
+          pl: 'Polityka prywatności',
+          id: 'Pemberitahuan Privasi',
+          vi: 'Thông báo quyền riêng tư',
         }),
       },
       {
@@ -382,6 +442,9 @@ const dashboardNavbarContent = {
           ar: 'اذهب إلى صفحة شروط الخدمة',
           ru: 'Перейти на страницу условий обслуживания',
           tr: 'Hizmet şartları sayfasına git',
+          pl: 'Przejdź do strony regulaminu',
+          id: 'Buka halaman ketentuan layanan',
+          vi: 'Đi tới trang điều khoản dịch vụ',
         }),
         text: t({
           en: 'Terms of Service',
@@ -398,10 +461,17 @@ const dashboardNavbarContent = {
           ar: 'شروط الخدمة',
           ru: 'Условия обслуживания',
           tr: 'Hizmet Şartları',
+          pl: 'Regulamin',
+          id: 'Ketentuan Layanan',
+          vi: 'Điều khoản dịch vụ',
         }),
       },
     ],
   },
+  title: 'Dashboard navbar content',
+  description:
+    'Defines the navigation structure for the Intlayer dashboard, including top navigation links to editor, content, tags, projects, organization, profile, and admin pages, along with footer links to external sections like home, documentation, privacy notice, and terms of service.',
+  tags: ['dashboard', 'navigation', 'navbar'],
 } satisfies Dictionary<Content>;
 
 export default dashboardNavbarContent;

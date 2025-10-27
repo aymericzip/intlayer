@@ -1,15 +1,16 @@
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
-import { getContent, type KeyPath } from '@intlayer/core';
+import { getContent } from '@intlayer/core';
 import { useEditedContentActions } from '@intlayer/editor-react';
+import type { KeyPath, Locale } from '@intlayer/types';
 import type { FC } from 'react';
+import { ContentSelectorRenderer } from './ContentSelectorWrapper';
 
 type EditedContentRendererProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
   children: string;
-  locale?: Locales;
+  locale?: Locale;
 };
 
 export const useEditedContentRenderer = ({
@@ -46,11 +47,23 @@ export const EditedContentRenderer: FC<EditedContentRendererProps> = (
         `Incorrect edited content format. Content type: ${typeof transformedEditedContent}. Expected string. Value ${JSON.stringify(transformedEditedContent)}`
       );
 
-      return props.children;
+      return (
+        <ContentSelectorRenderer {...props} key={props.children}>
+          {props.children}
+        </ContentSelectorRenderer>
+      );
     }
 
-    return transformedEditedContent;
+    return (
+      <ContentSelectorRenderer {...props} key={props.children}>
+        {transformedEditedContent}
+      </ContentSelectorRenderer>
+    );
   }
 
-  return content;
+  return (
+    <ContentSelectorRenderer {...props} key={props.children}>
+      {content}
+    </ContentSelectorRenderer>
+  );
 };

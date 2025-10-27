@@ -1,4 +1,4 @@
-import { type ContentNode, NodeType, type TypedNode } from '../types';
+import { type ContentNode, NodeType, type TypedNode } from '@intlayer/types';
 
 export const getEmptyNode = (section: ContentNode): ContentNode => {
   if (typeof section === 'string') {
@@ -12,7 +12,8 @@ export const getEmptyNode = (section: ContentNode): ContentNode => {
   }
   if (typeof (section as TypedNode)?.nodeType === 'string') {
     const typedNode = section as TypedNode;
-    const content = typedNode[typedNode.nodeType as keyof TypedNode];
+    const content =
+      typedNode[typedNode.nodeType as unknown as keyof typeof typedNode];
 
     if (
       typedNode.nodeType === NodeType.Translation ||

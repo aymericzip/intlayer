@@ -1,7 +1,9 @@
-import type { LoadEnvFileOptions } from '../loadEnvFile';
-import { loadExternalFile } from '../loadExternalFile';
-import { logger } from '../logger';
-import type { CustomIntlayerConfig } from '../types/config';
+import type { CustomIntlayerConfig } from '@intlayer/types';
+import {
+  type LoadExternalFileOptions,
+  loadExternalFileSync,
+} from '../loadExternalFile/loadExternalFile';
+import { configESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 
 const filterValidConfiguration = (
   configuration: CustomIntlayerConfig
@@ -18,25 +20,16 @@ const filterValidConfiguration = (
  */
 export const loadConfigurationFile = (
   configFilePath: string,
-  envVarOptions?: LoadEnvFileOptions,
-  projectRequire?: NodeJS.Require,
-  additionalEnvVars?: Record<string, string>
+  options?: Omit<LoadExternalFileOptions, 'configuration'>
 ): CustomIntlayerConfig | undefined => {
-  try {
-    const fileContent = loadExternalFile(
-      configFilePath,
-      envVarOptions,
-      projectRequire,
-      additionalEnvVars
-    );
+  const fileContent = loadExternalFileSync(configFilePath, {
+    ...options,
+    aliases: {
+      ...options?.aliases,
+      // Replace intlayer with @intlayer/types to avoid circular dependency intlayer -> @intlayer/config -> intlayer
+      intlayer: configESMxCJSRequire.resolve('@intlayer/types'),
+    },
+  });
 
-    return filterValidConfiguration(fileContent);
-  } catch (error) {
-    logger(
-      `Error: ${error} ${JSON.stringify((error as Error).stack, null, 2)}`,
-      {
-        level: 'error',
-      }
-    );
-  }
+  return filterValidConfiguration(fileContent);
 };

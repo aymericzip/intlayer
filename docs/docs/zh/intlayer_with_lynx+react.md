@@ -16,6 +16,10 @@ slugs:
   - environment
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 初始化历史
 ---
 
 # 使用Intlayer翻译您的Lynx and React mobile app | 国际化(i18n)
@@ -515,7 +519,3 @@ Intlayer 在一个隐藏文件夹中生成类型定义（默认是 `.intlayer`�
 - **CLI 命令**：探索[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)以执行诸如**提取翻译**或**检查缺失键**等任务。
 
 ---
-
-## 文档历史
-
-- 5.5.10 - 2025-06-29：初始化历史

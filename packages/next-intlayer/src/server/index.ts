@@ -12,4 +12,4 @@ export {
   useLocale,
 } from 'react-intlayer/server';
 export { getLocale } from './getLocale';
-export { withIntlayer } from './withIntlayer';
+export { withIntlayer, withIntlayerSync } from './withIntlayer';

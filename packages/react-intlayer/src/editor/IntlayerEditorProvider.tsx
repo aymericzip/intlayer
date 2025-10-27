@@ -23,7 +23,7 @@ const IntlayerEditorHooksEnabled: FC = () => {
   return <></>;
 };
 
-const { editor } = configuration;
+const { editor } = configuration ?? {};
 
 const IntlayerEditorHook: FC = () => {
   const { enabled } = useEditorEnabled();
@@ -36,6 +36,7 @@ export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
     <EditorProvider
       postMessage={(data: any) => {
         if (typeof window === 'undefined') return;
+        if (!editor) return;
 
         const isInIframe = window.self !== window.top;
         if (!isInIframe) return;
@@ -67,11 +68,11 @@ export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
           );
         }
       }}
-      allowedOrigins={[
-        editor?.editorURL,
-        editor?.cmsURL,
-        editor?.applicationURL,
-      ]}
+      allowedOrigins={
+        [editor?.editorURL, editor?.cmsURL, editor?.applicationURL].filter(
+          Boolean
+        ) as string[]
+      }
       mode="client"
       configuration={configuration}
     >

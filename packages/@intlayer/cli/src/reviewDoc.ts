@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { dirname, join, relative } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { readAsset } from 'utils:asset';
 import type { AIOptions } from '@intlayer/api'; // OAuth handled by API proxy
 import {
   formatLocale,
@@ -20,10 +20,10 @@ import {
   type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
-  Locales,
   retryManager,
 } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
+import { type Locale, Locales } from '@intlayer/types';
 import fg from 'fast-glob';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAccess';
@@ -33,18 +33,14 @@ import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
 import { getOutputFilePath } from './utils/getOutputFilePath';
 import { mapChunksBetweenFiles } from './utils/mapChunksBetweenFiles';
 
-const isESModule = typeof import.meta.url === 'string';
-
-const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;
-
 /**
  * Translate a single file for a given locale
  */
 export const reviewFile = async (
   baseFilePath: string,
   outputFilePath: string,
-  locale: Locales,
-  baseLocale: Locales,
+  locale: Locale,
+  baseLocale: Locale,
   aiOptions?: AIOptions,
   configOptions?: GetConfigurationOptions,
   customInstructions?: string,
@@ -61,9 +57,7 @@ export const reviewFile = async (
     let fileResultContent = '';
 
     // Prepare the base prompt for ChatGPT
-    const basePrompt = (
-      await readFile(join(dir, './prompts/REVIEW_PROMPT.md'), 'utf-8')
-    )
+    const basePrompt = readAsset('./prompts/REVIEW_PROMPT.md', 'utf-8')
       .replaceAll('{{localeName}}', `${formatLocale(locale, false)}`)
       .replaceAll('{{baseLocaleName}}', `${formatLocale(baseLocale, false)}`)
       .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '-')
@@ -260,9 +254,9 @@ export const reviewFile = async (
 
 type ReviewDocOptions = {
   docPattern: string[];
-  locales: Locales[];
+  locales: Locale[];
   excludedGlobPattern: string[];
-  baseLocale: Locales;
+  baseLocale: Locale;
   aiOptions?: AIOptions;
   nbSimultaneousFileProcessed?: number;
   configOptions?: GetConfigurationOptions;
@@ -303,7 +297,7 @@ export const reviewDoc = async ({
     nbSimultaneousFileProcessed = 10; // Limit the number of simultaneous file processed to 10
   }
 
-  let docList: string[] = fg.sync(docPattern, {
+  let docList: string[] = await fg(docPattern, {
     ignore: excludedGlobPattern,
   });
 
@@ -369,7 +363,7 @@ export const reviewDoc = async ({
       await reviewFile(
         absoluteBaseFilePath,
         outputFilePath,
-        locale as Locales,
+        locale as Locale,
         baseLocale,
         aiOptions,
         configOptions,

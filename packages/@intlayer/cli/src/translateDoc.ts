@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { dirname, join, relative } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { readAsset } from 'utils:asset';
 import type { AIOptions } from '@intlayer/api';
 import {
   formatLocale,
@@ -19,10 +19,9 @@ import {
   type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
-  type IntlayerConfig,
-  type Locales,
   retryManager,
 } from '@intlayer/config';
+import type { IntlayerConfig, Locale, Locales } from '@intlayer/types';
 import fg from 'fast-glob';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAccess';
@@ -31,20 +30,16 @@ import { chunkInference } from './utils/chunkInference';
 import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
 import { getOutputFilePath } from './utils/getOutputFilePath';
 
-const isESModule = typeof import.meta.url === 'string';
-
-const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;
-
 /**
  * Translate a single file for a given locale
  */
 export const translateFile = async (
   baseFilePath: string,
   outputFilePath: string,
-  locale: Locales,
-  baseLocale: Locales,
+  locale: Locale,
+  baseLocale: Locale,
+  configuration: IntlayerConfig,
   aiOptions?: AIOptions,
-  configuration: IntlayerConfig = getConfiguration(),
   customInstructions?: string
 ) => {
   try {
@@ -56,20 +51,19 @@ export const translateFile = async (
 
     // Determine the target locale file path
     const fileContent = await readFile(baseFilePath, 'utf-8');
+
     let fileResultContent = fileContent;
 
     // Prepare the base prompt for ChatGPT
-    const basePrompt = (
-      await readFile(join(dir, './prompts/TRANSLATE_PROMPT.md'), 'utf-8')
-    )
+    const basePrompt = readAsset('./prompts/TRANSLATE_PROMPT.md', 'utf-8')
       .replaceAll('{{localeName}}', `${formatLocale(locale, false)}`)
       .replaceAll('{{baseLocaleName}}', `${formatLocale(baseLocale, false)}`)
       .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '-')
       .replace('{{customInstructions}}', customInstructions ?? '-');
 
-    const filePrexixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}] `;
+    const filePrefixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}] `;
     const filePrefix = [
-      colon(filePrexixText, { colSize: 40 }),
+      colon(filePrefixText, { colSize: 40 }),
       `→ ${ANSIColors.RESET}`,
     ].join('');
 
@@ -171,9 +165,9 @@ export const translateFile = async (
 
 type TranslateDocOptions = {
   docPattern: string[];
-  locales: Locales[];
+  locales: Locale[];
   excludedGlobPattern: string[];
-  baseLocale: Locales;
+  baseLocale: Locale;
   aiOptions?: AIOptions;
   nbSimultaneousFileProcessed?: number;
   configOptions?: GetConfigurationOptions;
@@ -210,7 +204,7 @@ export const translateDoc = async ({
     nbSimultaneousFileProcessed = 10; // Limit the number of simultaneous file processed to 10
   }
 
-  let docList: string[] = fg.sync(docPattern, {
+  let docList: string[] = await fg(docPattern, {
     ignore: excludedGlobPattern,
   });
 
@@ -275,10 +269,10 @@ export const translateDoc = async ({
       await translateFile(
         absoluteBaseFilePath,
         outputFilePath,
-        locale as Locales,
+        locale as Locale,
         baseLocale,
-        aiOptions,
         configuration,
+        aiOptions,
         customInstructions
       );
     })

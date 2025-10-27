@@ -19,6 +19,10 @@ slugs:
   - packages
   - react-intlayer
   - useI18n
+history:
+  - version: 6.0.0
+    date: 2025-06-29
+    changes: Scrittura iniziale della documentazione dell'hook `useI18n`
 ---
 
 # Integrazione React: Documentazione Hook `useI18n`
@@ -244,7 +248,3 @@ Quando si localizzano gli attributi, accedere correttamente ai valori di traduzi
 - **Intlayer Visual Editor**: Per un'esperienza di gestione dei contenuti più intuitiva, fare riferimento alla documentazione dell'editor visuale [qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md).
 
 Questa sezione copre specificamente l'integrazione del hook `useI18n` nelle applicazioni React, semplificando il processo di localizzazione e garantendo la coerenza dei contenuti tra le diverse localizzazioni.
-
-## Cronologia della Documentazione
-
-- 6.0.0 - 2025-06-29: Scrittura iniziale della documentazione dell'hook `useI18n`

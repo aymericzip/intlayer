@@ -18,6 +18,10 @@ slugs:
   - packages
   - next-intlayer
   - useIntlayer
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: 초기 이력
 ---
 
 # Next.js 통합: `useIntlayer` 훅 문서
@@ -257,7 +261,3 @@ const ServerComponentExample = () => {
 - **Intlayer 비주얼 에디터**: 더 쉬운 콘텐츠 관리를 위한 비주얼 에디터 사용법은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)에서 확인하세요.
 
 이 문서는 Next.js 환경 내에서 `useIntlayer` 훅의 사용법을 설명하며, Next.js 애플리케이션 전반에 걸쳐 현지화 관리를 위한 강력한 솔루션을 제공합니다.
-
-## 문서 이력
-
-- 5.5.10 - 2025-06-29: 초기 이력

@@ -4,20 +4,23 @@ const definePasswordStepContent = {
   key: 'define-password-step',
   content: {
     title: t({
+      ar: 'حدد كلمة مرور',
+      de: 'Ein Passwort definieren',
       en: 'Define a password',
       'en-GB': 'Define a password',
-      fr: 'Définissez un mot de passe',
       es: 'Defina una contraseña',
-      de: 'Ein Passwort definieren',
+      fr: 'Définissez un mot de passe',
+      hi: 'एक पासवर्ड निर्दिष्ट करें',
+      it: 'Definisci una password',
       ja: 'パスワードを定義する',
       ko: '비밀번호 정의',
-      zh: '定义密码',
-      it: 'Definisci una password',
       pt: 'Defina uma senha',
-      hi: 'एक पासवर्ड निर्दिष्ट करें',
-      ar: 'حدد كلمة مرور',
       ru: 'Установить пароль',
       tr: 'Bir şifre belirleyin',
+      zh: '定义密码',
+      pl: 'Zdefiniuj hasło',
+      id: 'Tentukan kata sandi',
+      vi: 'Đặt mật khẩu',
     }),
 
     newPasswordInput: {
@@ -36,6 +39,9 @@ const definePasswordStepContent = {
         ar: 'كلمة المرور',
         ru: 'Пароль',
         tr: 'Parola',
+        pl: 'Hasło',
+        id: 'Kata sandi',
+        vi: 'Mật khẩu',
       }),
       placeholder: t({
         en: 'Enter password',
@@ -52,6 +58,9 @@ const definePasswordStepContent = {
         ar: 'أدخل كلمة المرور',
         ru: 'Введите пароль',
         tr: 'Parolayı girin',
+        pl: 'Wprowadź hasło',
+        id: 'Masukkan kata sandi',
+        vi: 'Nhập mật khẩu',
       }),
     },
     confirmPasswordInput: {
@@ -70,6 +79,9 @@ const definePasswordStepContent = {
         ar: 'تأكيد كلمة المرور',
         ru: 'Подтвердите пароль',
         tr: 'Parolayı onayla',
+        pl: 'Potwierdź hasło',
+        id: 'Konfirmasi kata sandi',
+        vi: 'Xác nhận mật khẩu',
       }),
       placeholder: t({
         en: 'Confirm password',
@@ -86,9 +98,16 @@ const definePasswordStepContent = {
         ar: 'تأكيد كلمة المرور',
         ru: 'Подтвердите пароль',
         tr: 'Parolayı onayla',
+        pl: 'Potwierdź hasło',
+        id: 'Konfirmasi kata sandi',
+        vi: 'Nhập lại mật khẩu',
       }),
     },
   },
+  title: 'Define password step',
+  description:
+    'Content declaration for the step where users define and confirm their password during onboarding. Includes labels and placeholders for new and confirmation password inputs.',
+  tags: ['onboarding', 'authentication', 'form step'],
 } satisfies Dictionary;
 
 export default definePasswordStepContent;

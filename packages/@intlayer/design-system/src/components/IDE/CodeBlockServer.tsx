@@ -12,7 +12,7 @@ import {
   type BundledTheme,
   type CodeToHastOptions,
   codeToHtml,
-} from 'shiki';
+} from 'shiki/bundle/web';
 import { cn } from '../../utils/cn';
 
 export const CodeBlockShiki = (async ({

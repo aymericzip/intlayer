@@ -1,0 +1,158 @@
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "change-password-metadata",
+  "content": {
+    "nodeType": "translation",
+    "translation": {
+      "en": {
+        "title": "Change Password | Intlayer",
+        "description": "Secure your account by changing your current password. Keep your Intlayer account safe with a new password.",
+        "keywords": [
+          "Change password",
+          "Account security",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      },
+      "ru": {
+        "title": "Сменить пароль | Intlayer",
+        "description": "Обеспечьте безопасность своей учетной записи, изменив текущий пароль. Держите свою учетную запись Intlayer в безопасности с помощью нового пароля.",
+        "keywords": [
+          "Сменить пароль",
+          "Безопасность аккаунта",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      },
+      "ja": {
+        "title": "パスワードを変更 | Intlayer",
+        "description": "現在のパスワードを変更することでアカウントを保護します。新しいパスワードでIntlayerアカウントを安全に保ちます。",
+        "keywords": [
+          "パスワード変更",
+          "アカウントのセキュリティ",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      },
+      "fr": {
+        "title": "Changer le mot de passe | Intlayer",
+        "description": "Sécurisez votre compte en changeant votre mot de passe actuel. Gardez votre compte Intlayer en sécurité avec un nouveau mot de passe.",
+        "keywords": [
+          "Changer le mot de passe",
+          "Sécurité du compte",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      },
+      "ko": {
+        "title": "비밀번호 변경 | Intlayer",
+        "description": "현재 비밀번호를 변경하여 계정을 보호하세요. 새 비밀번호로 Intlayer 계정을 안전하게 유지하세요.",
+        "keywords": [
+          "비밀번호 변경",
+          "계정 보안",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      },
+      "zh": {
+        "title": "更改密码 | Intlayer",
+        "description": "通过更改当前密码来保护您的帐户。使用新密码保护您的Intlayer帐户。",
+        "keywords": ["更改密码", "账户安全", "Intlayer", "React", "JavaScript"]
+      },
+      "es": {
+        "title": "Cambiar la contraseña | Intlayer",
+        "description": "Asegura tu cuenta cambiando tu contraseña actual. Mantén segura tu cuenta de Intlayer con una nueva contraseña.",
+        "keywords": [
+          "Cambiar la contraseña",
+          "Seguridad de la cuenta",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      },
+      "de": {
+        "title": "Passwort ändern | Intlayer",
+        "description": "Sichern Sie Ihr Konto, indem Sie Ihr aktuelles Passwort ändern. Halten Sie Ihr Intlayer-Konto mit einem neuen Passwort sicher.",
+        "keywords": [
+          "Passwort ändern",
+          "Kontosicherheit",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      },
+      "ar": {
+        "title": "تغيير كلمة المرور | Intlayer",
+        "description": "قم بتأمين حسابك عن طريق تغيير كلمة المرور الحالية. حافظ على أمان حسابك في Intlayer مع كلمة مرور جديدة.",
+        "keywords": [
+          "تغيير كلمة المرور",
+          "أمان الحساب",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      },
+      "it": {
+        "title": "Cambia la password | Intlayer",
+        "description": "Metti al sicuro il tuo account cambiando la tua password attuale. Mantieni il tuo account Intlayer al sicuro con una nuova password.",
+        "keywords": [
+          "Cambia la password",
+          "Sicurezza del conto",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      },
+      "en-GB": {
+        "title": "Change Password | Intlayer",
+        "description": "Secure your account by changing your current password. Keep your Intlayer account safe with a new password.",
+        "keywords": [
+          "Change password",
+          "Account security",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      },
+      "pt": {
+        "title": "Alterar senha | Intlayer",
+        "description": "Proteja sua conta alterando sua senha atual. Mantenha sua conta Intlayer segura com uma nova senha.",
+        "keywords": [
+          "Alterar senha",
+          "Segurança da conta",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      },
+      "hi": {
+        "title": "पासवर्ड बदलें | Intlayer",
+        "description": "अपनी वर्तमान पासवर्ड बदलकर अपने खाते को सुरक्षित करें। एक नए पासवर्ड के साथ अपने Intlayer खाते को सुरक्षित रखें।",
+        "keywords": [
+          "पासवर्ड बदलें",
+          "खाते की सुरक्षा",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      },
+      "tr": {
+        "title": "Şifre Değiştir | Intlayer",
+        "description": "Hesabınızı mevcut şifrenizi değiştirerek güvence altına alın. Intlayer hesabınızı yeni bir şifre ile güvende tutun.",
+        "keywords": [
+          "Şifre değiştir",
+          "Hesap güvenliği",
+          "Intlayer",
+          "React",
+          "JavaScript"
+        ]
+      }
+    }
+  },
+  "filled": true
+}

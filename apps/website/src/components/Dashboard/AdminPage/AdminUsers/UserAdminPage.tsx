@@ -34,6 +34,7 @@ import {
 } from '@tanstack/react-table';
 import { cn } from '@utils/cn';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
@@ -51,6 +52,7 @@ export const UsersAdminPageContent: FC = () => {
     organizationId: { type: 'string', fallbackValue: 'all' },
   });
 
+  const router = useRouter();
   const { setSearch, search } = useSearch({});
 
   const { data: organizationsData } = useGetOrganizations({
@@ -127,15 +129,7 @@ export const UsersAdminPageContent: FC = () => {
             />
             <div className="ml-3">
               {user.name ? (
-                <Link
-                  href={PagesRoutes.Admin_Users_Id.replace(':id', user.id)}
-                  label={user.name ?? '-'}
-                  color="text"
-                >
-                  <CopyToClipboard text={user.name}>
-                    {user.name}
-                  </CopyToClipboard>
-                </Link>
+                <CopyToClipboard text={user.name}>{user.name}</CopyToClipboard>
               ) : (
                 '-'
               )}
@@ -460,7 +454,15 @@ export const UsersAdminPageContent: FC = () => {
                 {table.getRowModel().rows.map((row) => (
                   <tr
                     key={row.id}
-                    className="border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                    className="cursor-pointer border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                    onClick={() => {
+                      router.push(
+                        PagesRoutes.Admin_Users_Id.replace(
+                          ':id',
+                          row.original.id
+                        )
+                      );
+                    }}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <td key={cell.id} className="whitespace-nowrap px-4 py-3">

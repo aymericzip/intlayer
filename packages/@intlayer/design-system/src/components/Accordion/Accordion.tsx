@@ -4,8 +4,9 @@ import { ChevronDown } from 'lucide-react';
 import {
   type FC,
   type KeyboardEvent,
+  type MouseEvent,
   type ReactNode,
-  useCallback,
+  useId,
   useState,
 } from 'react';
 import { cn } from '../../utils/cn';
@@ -95,43 +96,37 @@ export const Accordion: FC<AccordionProps> = ({
   // Determine if we're in controlled or uncontrolled mode
   const isControlled = isOpen !== undefined;
   const [internalIsOpen, setInternalIsOpen] = useState(defaultIsOpen);
+  const id = useId();
 
   // Use controlled value if provided, otherwise use internal state
   const isExpandedState = isControlled ? isOpen : internalIsOpen;
   const isHidden = !isExpandedState;
 
   // Generate unique ID for content if not provided
-  const generatedContentId =
-    contentId || `accordion-content-${Math.random().toString(36).substr(2, 9)}`;
+  const generatedContentId = contentId ?? `${id}-accordion-content`;
 
-  const handleToggle = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (disabled) return;
+  const handleToggle = (e: MouseEvent<HTMLButtonElement>) => {
+    if (disabled) return;
 
-      const newIsOpen = !isExpandedState;
+    const newIsOpen = !isExpandedState;
 
-      // Update internal state if uncontrolled
-      if (!isControlled) {
-        setInternalIsOpen(newIsOpen);
-      }
+    // Update internal state if uncontrolled
+    if (!isControlled) {
+      setInternalIsOpen(newIsOpen);
+    }
 
-      // Call external handlers
-      onToggle?.(newIsOpen);
-      onClick?.(e);
-    },
-    [disabled, isExpandedState, isControlled, onToggle, onClick]
-  );
+    // Call external handlers
+    onToggle?.(newIsOpen);
+    onClick?.(e);
+  };
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLButtonElement>) => {
-      // Enter and Space should toggle the accordion
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        handleToggle(e as any);
-      }
-    },
-    [handleToggle]
-  );
+  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+    // Enter and Space should toggle the accordion
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleToggle(e as any);
+    }
+  };
 
   return (
     <div className="w-full">

@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - file
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Initiale Historie
 ---
 
 # Dateiinhalte / Einbetten von Dateien in Intlayer
@@ -216,7 +220,3 @@ Für weitere Details zur Konfiguration und Verwendung der Dateieinbettung in Int
 - [Übersetzungsinhaltsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/translation.md)
 
 Diese Ressourcen bieten weitere Einblicke in die Dateieinbettung, Inhaltsverwaltung und die Integration von Intlayer mit verschiedenen Frameworks.
-
-## Dokumentationshistorie
-
-- 5.5.10 - 2025-06-29: Initiale Historie

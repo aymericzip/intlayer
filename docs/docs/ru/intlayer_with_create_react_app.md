@@ -16,6 +16,10 @@ slugs:
   - environment
   - create-react-app
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Инициализация истории
 ---
 
 # Переведите ваш Create React App с Intlayer | Интернационализация (i18n)
@@ -1267,7 +1271,3 @@ Intlayer использует расширение модулей (module augmen
 ### Продвинутые возможности
 
 Для расширения возможностей вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешний [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
-## История документации
-
-- 5.5.10 - 2025-06-29: Инициализация истории

@@ -22,7 +22,7 @@
 //
 // ---------------------------------------------------------------------
 
-import { Locales, type LocalesValues } from '@intlayer/config/client';
+import { Locales, type LocalesValues } from '@intlayer/types';
 
 // Helper type that picks just the constructor members off `typeof Intl`.
 // The "capital‑letter" heuristic is 100 % accurate today and keeps the
@@ -135,7 +135,7 @@ export const createCachedIntl = (): WrappedIntl =>
   }) as unknown as WrappedIntl;
 
 // Singleton – import this in application code if you just want shared caches.
-const CachedIntl = createCachedIntl();
+export const CachedIntl = createCachedIntl();
 
 // new CachedIntl.DisplayNames(Locales.FRENCH, { type: 'language' });
 // new CachedIntl.DisplayNames('fr', { type: 'language' });

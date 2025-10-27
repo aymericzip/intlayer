@@ -15,6 +15,10 @@ slugs:
   - environment
   - vite-and-svelte
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
+history:
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: بداية التاريخ
 ---
 
 # ترجم Vite and Svelte باستخدام Intlayer | التدويل (i18n)
@@ -277,7 +281,3 @@ module.exports = appContent;
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ---
-
-## تاريخ الوثيقة
-
-- 5.5.10 - 2025-06-29: بداية التاريخ

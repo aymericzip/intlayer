@@ -33,7 +33,7 @@ import {
 import { cn } from '@utils/cn';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useEffect, useMemo, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { PagesRoutes } from '@/Routes';
 import { DiscussionAdminDetail } from './DiscussionAdminDetail';

@@ -73,6 +73,7 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
         {...docData}
         markdownContent={docContent}
         baseUpdatedAt={defaultDocData.updatedAt}
+        history={docData.history ?? []}
       />
 
       <DocumentationRender>{docContent}</DocumentationRender>

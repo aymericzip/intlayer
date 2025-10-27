@@ -5,3 +5,4 @@ export * from './getLocalizedContent';
 export * from './getMaskContent';
 export * from './getMissingLocalesContent';
 export * from './getReplacedValuesContent';
+export * from './insertContentInDictionary';

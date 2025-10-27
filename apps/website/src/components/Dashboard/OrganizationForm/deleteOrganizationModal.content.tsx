@@ -18,6 +18,9 @@ const deleteOrganizationModalContent = {
       ru: 'Удалить организацию',
       tr: 'Organizasyonu Sil',
       zh: '删除组织',
+      pl: 'Usuń organizację',
+      id: 'Hapus Organisasi',
+      vi: 'Xóa Organization',
     }),
 
     description: t({
@@ -35,6 +38,9 @@ const deleteOrganizationModalContent = {
       ru: 'Вы уверены, что хотите удалить эту организацию?',
       tr: 'Bu Organizasyonu silmek istediğinize emin misiniz?',
       zh: '您确定要删除此组织吗？',
+      pl: 'Czy na pewno chcesz usunąć tę organizację?',
+      id: 'Apakah Anda yakin ingin menghapus Organisasi ini?',
+      vi: 'Bạn có chắc chắn muốn xóa Organization này?',
     }),
 
     confirmButton: {
@@ -53,6 +59,9 @@ const deleteOrganizationModalContent = {
         ar: 'حذف',
         ru: 'Удалить',
         tr: 'Sil',
+        pl: 'Usuń',
+        id: 'Hapus',
+        vi: 'Xóa',
       }),
       label: t({
         en: 'Click to delete Organization',
@@ -69,6 +78,9 @@ const deleteOrganizationModalContent = {
         ar: 'انقر لحذف المنظمة',
         ru: 'Нажмите, чтобы удалить организацию',
         tr: 'Organizasyonu silmek için tıklayın',
+        pl: 'Kliknij, aby usunąć organizację',
+        id: 'Klik untuk menghapus Organisasi',
+        vi: 'Nhấp để xóa Organization',
       }),
     },
 
@@ -88,6 +100,9 @@ const deleteOrganizationModalContent = {
         ar: 'إلغاء',
         ru: 'Отменить',
         tr: 'İptal etmek için tıklayın',
+        pl: 'Anuluj',
+        id: 'Batal',
+        vi: 'Hủy',
       }),
       label: t({
         en: 'Click to cancel',
@@ -104,9 +119,16 @@ const deleteOrganizationModalContent = {
         ar: 'انقر لإلغاء',
         ru: 'Нажмите, чтобы отменить',
         tr: 'İptal etmek için tıklayın',
+        pl: 'Kliknij, aby anulować',
+        id: 'Klik untuk membatalkan',
+        vi: 'Nhấp để hủy',
       }),
     },
   },
+  title: 'Delete organization modal',
+  description:
+    'Modal content for confirming the deletion of an organization. Includes confirmation message and action buttons with corresponding labels.',
+  tags: ['modal', 'organization', 'confirmation'],
 } satisfies Dictionary;
 
 export default deleteOrganizationModalContent;

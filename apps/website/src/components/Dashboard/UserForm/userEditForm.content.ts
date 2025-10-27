@@ -18,6 +18,9 @@ const userEditFormContent = {
       ar: 'تفاصيل المستخدم',
       ru: 'Детали пользователя',
       tr: 'Kullanıcı Detayları',
+      pl: 'Szczegóły użytkownika',
+      id: 'Detail Pengguna',
+      vi: 'Chi tiết người dùng',
     }),
     statusLabels: {
       verified: t({
@@ -35,6 +38,9 @@ const userEditFormContent = {
         ar: 'مؤكد',
         ru: 'Подтверждено',
         tr: 'Doğrulandı',
+        pl: 'Zweryfikowany',
+        id: 'Terverifikasi',
+        vi: 'Đã xác minh',
       }),
       pending: t({
         en: 'Pending',
@@ -51,6 +57,9 @@ const userEditFormContent = {
         ar: 'معلق',
         ru: 'В ожидании',
         tr: 'Beklemede',
+        pl: 'Oczekujący',
+        id: 'Menunggu',
+        vi: 'Đang chờ',
       }),
     },
     userDetails: {
@@ -69,6 +78,9 @@ const userEditFormContent = {
         ar: 'المعلومات الأساسية',
         ru: 'Основная информация',
         tr: 'Temel Bilgiler',
+        pl: 'Podstawowe informacje',
+        id: 'Informasi Dasar',
+        vi: 'Thông tin cơ bản',
       }),
       accountInfo: t({
         en: 'Account Information',
@@ -85,6 +97,9 @@ const userEditFormContent = {
         ar: 'معلومات الحساب',
         ru: 'Информация об аккаунте',
         tr: 'Hesap Bilgileri',
+        pl: 'Informacje o koncie',
+        id: 'Informasi Akun',
+        vi: 'Thông tin tài khoản',
       }),
       name: t({
         en: 'Name',
@@ -101,6 +116,9 @@ const userEditFormContent = {
         ar: 'الاسم',
         ru: 'Имя',
         tr: 'Ad',
+        pl: 'Imię i nazwisko',
+        id: 'Nama',
+        vi: 'Tên',
       }),
       email: t({
         en: 'Email',
@@ -117,6 +135,9 @@ const userEditFormContent = {
         ar: 'البريد الإلكتروني',
         ru: 'Электронная почта',
         tr: 'E-posta',
+        pl: 'E-mail',
+        id: 'Email',
+        vi: 'Email',
       }),
       role: t({
         en: 'Role',
@@ -133,6 +154,9 @@ const userEditFormContent = {
         ar: 'الدور',
         ru: 'Роль',
         tr: 'Rol',
+        pl: 'Rola',
+        id: 'Peran',
+        vi: 'Vai trò',
       }),
       language: t({
         en: 'Language',
@@ -149,6 +173,9 @@ const userEditFormContent = {
         ar: 'اللغة',
         ru: 'Язык',
         tr: 'Dil',
+        pl: 'Język',
+        id: 'Bahasa',
+        vi: 'Ngôn ngữ',
       }),
       emailVerified: t({
         en: 'Email Verified',
@@ -165,6 +192,9 @@ const userEditFormContent = {
         ar: 'البريد الإلكتروني مؤكد',
         ru: 'Электронная почта подтверждена',
         tr: 'E-posta doğrulandı',
+        pl: 'E-mail zweryfikowany',
+        id: 'Email Terverifikasi',
+        vi: 'Email đã xác minh',
       }),
       createdAt: t({
         en: 'Created At',
@@ -181,6 +211,9 @@ const userEditFormContent = {
         ar: 'تم الإنشاء في',
         ru: 'Создано',
         tr: 'Oluşturuldu',
+        pl: 'Data utworzenia',
+        id: 'Dibuat Pada',
+        vi: 'Ngày tạo',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -197,6 +230,9 @@ const userEditFormContent = {
         ar: 'تم التحديث في',
         ru: 'Обновлено',
         tr: 'Güncellendi',
+        pl: 'Data aktualizacji',
+        id: 'Diperbarui Pada',
+        vi: 'Cập nhật lần cuối',
       }),
     },
     errorMessages: {
@@ -215,6 +251,9 @@ const userEditFormContent = {
         ar: 'خطأ في تحميل تفاصيل المستخدم',
         ru: 'Ошибка загрузки деталей пользователя',
         tr: 'Kullanıcı detayları yüklenirken hata',
+        pl: 'Błąd podczas ładowania szczegółów użytkownika',
+        id: 'Terjadi kesalahan saat memuat detail pengguna',
+        vi: 'Lỗi khi tải thông tin người dùng',
       }),
       deleteError: t({
         en: 'Error deleting user',
@@ -231,6 +270,9 @@ const userEditFormContent = {
         ar: 'خطأ في حذف المستخدم',
         ru: 'Ошибка удаления пользователя',
         tr: 'Kullanıcı silinirken hata',
+        pl: 'Błąd usuwania użytkownika',
+        id: 'Terjadi kesalahan saat menghapus pengguna',
+        vi: 'Lỗi khi xóa người dùng',
       }),
       updateError: t({
         en: 'Error updating user',
@@ -247,6 +289,9 @@ const userEditFormContent = {
         ar: 'خطأ في تحديث المستخدم',
         ru: 'Ошибка обновления пользователя',
         tr: 'Kullanıcı güncellenirken hata',
+        pl: 'Błąd aktualizacji użytkownika',
+        id: 'Terjadi kesalahan saat memperbarui pengguna',
+        vi: 'Lỗi khi cập nhật người dùng',
       }),
       cannotRemoveLastMember: t({
         en: 'Cannot remove last member',
@@ -263,6 +308,9 @@ const userEditFormContent = {
         ar: 'لا يمكن إزالة العضو الأخير',
         ru: 'Невозможно удалить последнего участника',
         tr: 'Son üye kaldırılamaz',
+        pl: 'Nie można usunąć ostatniego członka',
+        id: 'Tidak dapat menghapus anggota terakhir',
+        vi: 'Không thể xóa thành viên cuối cùng',
       }),
       organizationsWithOneUser: t({
         en: 'The following organizations have only this user',
@@ -279,6 +327,9 @@ const userEditFormContent = {
         ar: 'المنظمات التالية لديها هذا المستخدم فقط',
         ru: 'В следующих организациях только этот пользователь',
         tr: 'Aşağıdaki organizasyonlarda yalnızca bu kullanıcı var',
+        pl: 'Następujące organizacje mają tylko tego użytkownika',
+        id: 'Organisasi berikut hanya memiliki pengguna ini',
+        vi: 'Các tổ chức sau chỉ có người dùng này',
       }),
     },
     successMessages: {
@@ -297,6 +348,9 @@ const userEditFormContent = {
         ar: 'تم حذف المستخدم بنجاح',
         ru: 'Пользователь успешно удален',
         tr: 'Kullanıcı başarıyla silindi',
+        pl: 'Użytkownik został pomyślnie usunięty',
+        id: 'Pengguna berhasil dihapus',
+        vi: 'Xóa người dùng thành công',
       }),
       userUpdated: t({
         en: 'User updated successfully',
@@ -313,6 +367,9 @@ const userEditFormContent = {
         ar: 'تم تحديث المستخدم بنجاح',
         ru: 'Пользователь успешно обновлен',
         tr: 'Kullanıcı başarıyla güncellendi',
+        pl: 'Użytkownik został pomyślnie zaktualizowany',
+        id: 'Pengguna berhasil diperbarui',
+        vi: 'Cập nhật người dùng thành công',
       }),
     },
     formLabels: {
@@ -331,6 +388,9 @@ const userEditFormContent = {
         ar: 'تعديل معلومات المستخدم',
         ru: 'Редактировать информацию пользователя',
         tr: 'Kullanıcı Bilgilerini Düzenle',
+        pl: 'Edytuj informacje o użytkowniku',
+        id: 'Sunting Informasi Pengguna',
+        vi: 'Chỉnh sửa thông tin người dùng',
       }),
       name: t({
         en: 'Name',
@@ -347,6 +407,9 @@ const userEditFormContent = {
         ar: 'الاسم',
         ru: 'Имя',
         tr: 'Ad',
+        pl: 'Imię i nazwisko',
+        id: 'Nama',
+        vi: 'Tên',
       }),
       namePlaceholder: t({
         en: 'Enter name',
@@ -363,6 +426,9 @@ const userEditFormContent = {
         ar: 'أدخل الاسم',
         ru: 'Введите имя',
         tr: 'Adı girin',
+        pl: 'Wprowadź imię i nazwisko',
+        id: 'Masukkan nama',
+        vi: 'Nhập tên',
       }),
       email: t({
         en: 'Email',
@@ -379,6 +445,9 @@ const userEditFormContent = {
         ar: 'البريد الإلكتروني',
         ru: 'Электронная почта',
         tr: 'E-posta',
+        pl: 'E-mail',
+        id: 'Email',
+        vi: 'Email',
       }),
       emailPlaceholder: t({
         en: 'Enter email',
@@ -395,6 +464,9 @@ const userEditFormContent = {
         ar: 'أدخل البريد الإلكتروني',
         ru: 'Введите email',
         tr: 'E-postayı girin',
+        pl: 'Wprowadź adres e-mail',
+        id: 'Masukkan email',
+        vi: 'Nhập địa chỉ email',
       }),
       role: t({
         en: 'Role',
@@ -411,6 +483,9 @@ const userEditFormContent = {
         ar: 'الدور',
         ru: 'Роль',
         tr: 'Rol',
+        pl: 'Rola',
+        id: 'Peran',
+        vi: 'Vai trò',
       }),
       rolePlaceholder: t({
         en: 'Select role',
@@ -427,6 +502,9 @@ const userEditFormContent = {
         ar: 'اختر الدور',
         ru: 'Выберите роль',
         tr: 'Rol seçin',
+        pl: 'Wybierz rolę',
+        id: 'Pilih peran',
+        vi: 'Chọn vai trò',
       }),
       roleUser: t({
         en: 'User',
@@ -443,6 +521,9 @@ const userEditFormContent = {
         ar: 'مستخدم',
         ru: 'Пользователь',
         tr: 'Kullanıcı',
+        pl: 'Użytkownik',
+        id: 'Pengguna',
+        vi: 'User',
       }),
       roleAdmin: t({
         en: 'Admin',
@@ -459,6 +540,9 @@ const userEditFormContent = {
         ar: 'مسؤول',
         ru: 'Администратор',
         tr: 'Yönetici',
+        pl: 'Administrator',
+        id: 'Admin',
+        vi: 'Admin',
       }),
       language: t({
         en: 'Language',
@@ -475,6 +559,9 @@ const userEditFormContent = {
         ar: 'اللغة',
         ru: 'Язык',
         tr: 'Dil',
+        pl: 'Język',
+        id: 'Bahasa',
+        vi: 'Ngôn ngữ',
       }),
       languagePlaceholder: t({
         en: 'Select language',
@@ -491,6 +578,9 @@ const userEditFormContent = {
         ar: 'اختر اللغة',
         ru: 'Выберите язык',
         tr: 'Dil seçin',
+        pl: 'Wybierz język',
+        id: 'Pilih bahasa',
+        vi: 'Chọn ngôn ngữ',
       }),
       organizations: t({
         en: 'Organizations',
@@ -507,6 +597,9 @@ const userEditFormContent = {
         ar: 'المنظمات',
         ru: 'Организации',
         tr: 'Organizasyonlar',
+        pl: 'Organizacje',
+        id: 'Organisasi',
+        vi: 'Tổ chức',
       }),
       organizationsPlaceholder: t({
         en: 'Select organizations...',
@@ -523,6 +616,9 @@ const userEditFormContent = {
         ar: 'اختر المنظمات...',
         ru: 'Выберите организации...',
         tr: 'Organizasyonları seçin...',
+        pl: 'Wybierz organizacje...',
+        id: 'Pilih organisasi...',
+        vi: 'Chọn tổ chức...',
       }),
       createdAt: t({
         en: 'Created At',
@@ -539,6 +635,9 @@ const userEditFormContent = {
         ar: 'تم الإنشاء في',
         ru: 'Создано',
         tr: 'Oluşturulma',
+        pl: 'Data utworzenia',
+        id: 'Dibuat Pada',
+        vi: 'Ngày tạo',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -555,6 +654,9 @@ const userEditFormContent = {
         ar: 'تم التحديث في',
         ru: 'Обновлено',
         tr: 'Güncellendi',
+        pl: 'Data aktualizacji',
+        id: 'Diperbarui Pada',
+        vi: 'Cập nhật lần cuối',
       }),
       updateButton: t({
         en: 'Update User',
@@ -571,6 +673,9 @@ const userEditFormContent = {
         ar: 'تحديث المستخدم',
         ru: 'Обновить пользователя',
         tr: 'Kullanıcıyı Güncelle',
+        pl: 'Aktualizuj użytkownika',
+        id: 'Perbarui Pengguna',
+        vi: 'Cập nhật người dùng',
       }),
       lastMember: t({
         en: 'Last member',
@@ -587,6 +692,9 @@ const userEditFormContent = {
         ar: 'العضو الأخير',
         ru: 'Последний участник',
         tr: 'Son üye',
+        pl: 'Ostatni członek',
+        id: 'Anggota terakhir',
+        vi: 'Thành viên cuối cùng',
       }),
       organization: t({
         en: 'Organization',
@@ -603,6 +711,9 @@ const userEditFormContent = {
         ar: 'المنظمة',
         ru: 'Организация',
         tr: 'Organizasyon',
+        pl: 'Organizacja',
+        id: 'Organisasi',
+        vi: 'Tổ chức',
       }),
       organizationPlaceholder: t({
         en: 'Select organization',
@@ -619,6 +730,9 @@ const userEditFormContent = {
         ar: 'اختر المنظمة',
         ru: 'Выберите организацию',
         tr: 'Organizasyon seçin',
+        pl: 'Wybierz organizację',
+        id: 'Pilih organisasi',
+        vi: 'Chọn tổ chức',
       }),
       noOrganization: t({
         en: 'No organization',
@@ -635,6 +749,9 @@ const userEditFormContent = {
         ar: 'لا توجد منظمة',
         ru: 'Без организации',
         tr: 'Organizasyon yok',
+        pl: 'Brak organizacji',
+        id: 'Tidak ada organisasi',
+        vi: 'Không có tổ chức',
       }),
     },
     formValidation: {
@@ -653,6 +770,9 @@ const userEditFormContent = {
         ar: 'الاسم مطلوب',
         ru: 'Имя обязательно',
         tr: 'Ad gerekli',
+        pl: 'Imię i nazwisko jest wymagane',
+        id: 'Nama wajib diisi',
+        vi: 'Tên là bắt buộc',
       }),
       nameTooLong: t({
         en: 'Name is too long',
@@ -669,6 +789,9 @@ const userEditFormContent = {
         ar: 'الاسم طويل جدًا',
         ru: 'Имя слишком длинное',
         tr: 'Ad çok uzun',
+        pl: 'Imię i nazwisko jest za długie',
+        id: 'Nama terlalu panjang',
+        vi: 'Tên quá dài',
       }),
       emailRequired: t({
         en: 'Email is required',
@@ -685,6 +808,9 @@ const userEditFormContent = {
         ar: 'البريد الإلكتروني مطلوب',
         ru: 'Email обязателен',
         tr: 'E-posta gerekli',
+        pl: 'E-mail jest wymagany',
+        id: 'Email wajib diisi',
+        vi: 'Email là bắt buộc',
       }),
       emailInvalid: t({
         en: 'Invalid email address',
@@ -701,6 +827,9 @@ const userEditFormContent = {
         ar: 'عنوان البريد الإلكتروني غير صالح',
         ru: 'Неверный адрес электронной почты',
         tr: 'Geçersiz e-posta adresi',
+        pl: 'Nieprawidłowy adres e-mail',
+        id: 'Alamat email tidak valid',
+        vi: 'Địa chỉ email không hợp lệ',
       }),
       roleRequired: t({
         en: 'Role is required',
@@ -717,6 +846,9 @@ const userEditFormContent = {
         ar: 'الدور مطلوب',
         ru: 'Роль обязательна',
         tr: 'Rol gerekli',
+        pl: 'Rola jest wymagana',
+        id: 'Peran wajib diisi',
+        vi: 'Vai trò là bắt buộc',
       }),
       langRequired: t({
         en: 'Language is required',
@@ -733,9 +865,16 @@ const userEditFormContent = {
         ar: 'اللغة مطلوبة',
         ru: 'Язык обязателен',
         tr: 'Dil gerekli',
+        pl: 'Język jest wymagany',
+        id: 'Bahasa wajib diisi',
+        vi: 'Ngôn ngữ là bắt buộc',
       }),
     },
   },
+  title: 'User edit form',
+  description:
+    "Content declaration for the user edit form, including labels, validation messages, success and error notifications, and user detail sections used within the dashboard's user management interface.",
+  tags: ['user management', 'dashboard form', 'form validation'],
 } satisfies Dictionary;
 
 export default userEditFormContent;

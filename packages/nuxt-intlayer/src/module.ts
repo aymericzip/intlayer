@@ -10,7 +10,7 @@ export const module: NuxtModule = defineNuxtModule({
   meta: {
     name: 'nuxt-intlayer',
   },
-  setup({}, nuxt) {
+  setup(_options, nuxt) {
     const configuration = getConfiguration();
 
     const { optimize } = configuration.build;
@@ -70,8 +70,12 @@ export const module: NuxtModule = defineNuxtModule({
     nuxt.hook('pages:extend', (pages) => {
       const {
         internationalization: { locales, defaultLocale },
-        middleware: { prefixDefault, noPrefix },
+        routing: { mode },
       } = configuration;
+
+      // Derived flags from routing.mode
+      const noPrefix = mode === 'no-prefix' || mode === 'search-params';
+      const prefixDefault = mode === 'prefix-all';
 
       // If noPrefix strategy is enabled we keep Nuxt original routing untouched
       if (noPrefix) return;

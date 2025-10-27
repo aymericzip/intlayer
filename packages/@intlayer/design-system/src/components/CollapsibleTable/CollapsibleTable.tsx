@@ -2,13 +2,13 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ChevronRight } from 'lucide-react';
-import { useState, type FC, type HTMLAttributes, type ReactNode } from 'react';
+import { type FC, type HTMLAttributes, type ReactNode, useState } from 'react';
 import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 // Container variants using CVA
 const collapsibleTableVariants = cva(
-  'max-w-full w-full bg-card border rounded-lg overflow-hidden',
+  'w-full max-w-full overflow-hidden rounded-lg border bg-card',
   {
     variants: {
       size: {
@@ -16,13 +16,13 @@ const collapsibleTableVariants = cva(
         md: 'max-w-2xl',
         lg: 'max-w-4xl',
         xl: 'max-w-6xl',
-        full: 'max-w-none w-full',
+        full: 'w-full max-w-none',
       },
       variant: {
-        default: 'bg-card border-neutral/20',
-        dark: 'bg-[#242424] border-[#B5B5B5]',
-        ghost: 'bg-transparent border-transparent',
-        outlined: 'bg-background border-2 border-primary/20',
+        default: 'border-neutral/20 bg-card',
+        dark: 'border-[#B5B5B5] bg-[#242424]',
+        ghost: 'border-transparent bg-transparent',
+        outlined: 'border-2 border-primary/20 bg-background',
       },
       spacing: {
         none: '',
@@ -42,7 +42,7 @@ const collapsibleTableVariants = cva(
 
 // Header variants
 const headerVariants = cva(
-  'flex justify-between items-center p-3 cursor-pointer transition-colors duration-200',
+  'flex cursor-pointer items-center justify-between p-3 transition-colors duration-200',
   {
     variants: {
       variant: {
@@ -53,8 +53,8 @@ const headerVariants = cva(
       },
       borderStyle: {
         none: '',
-        dashed: 'border-b border-dashed border-neutral/20',
-        solid: 'border-b border-solid border-neutral/20',
+        dashed: 'border-neutral/20 border-b border-dashed',
+        solid: 'border-neutral/20 border-b border-solid',
       },
     },
     defaultVariants: {
@@ -323,7 +323,7 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
       <MaxHeightSmoother isHidden={!isExpanded}>
         <div
           id={generatedContentId}
-          className={cn('p-3 overflow-x-auto', contentClassName)}
+          className={cn('overflow-x-auto p-3', contentClassName)}
           role="region"
           aria-labelledby={`${generatedContentId}-header`}
         >
@@ -340,7 +340,7 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
                   <th
                     key={column}
                     className={cn(
-                      'text-left text-sm font-medium text-text/70 pb-2',
+                      'pb-2 text-left font-medium text-sm text-text/70',
                       thClassName
                     )}
                   >
@@ -354,7 +354,7 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
                 <tr
                   key={index}
                   className={cn(
-                    'bg-neutral/5 hover:bg-neutral/10 transition-colors',
+                    'bg-neutral/5 transition-colors hover:bg-neutral/10',
                     trClassName
                   )}
                 >
@@ -362,7 +362,7 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
                     <td
                       key={column}
                       className={cn(
-                        'px-3 py-2 text-sm text-text rounded',
+                        'rounded px-3 py-2 text-sm text-text',
                         tdClassName
                       )}
                     >

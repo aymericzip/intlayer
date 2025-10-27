@@ -18,6 +18,9 @@ const signInContent = {
       ar: 'تسجيل الدخول',
       ru: 'Войти',
       tr: 'Giriş Yap',
+      pl: 'Zaloguj się',
+      id: 'Masuk',
+      vi: 'Đăng nhập',
     }),
     title2: t({
       en: 'Sign in',
@@ -34,6 +37,9 @@ const signInContent = {
       ar: 'تسجيل الدخول',
       ru: 'Войти',
       tr: 'Giriş Yap',
+      pl: 'Zaloguj się',
+      id: 'Masuk',
+      vi: 'Đăng nhập',
     }),
     description: t({
       en: 'Enter your email and password to log in.',
@@ -50,8 +56,15 @@ const signInContent = {
       ar: 'أدخل بريدك الإلكتروني وكلمة المرور لتسجيل الدخول.',
       ru: 'Введите свой адрес электронной почты и пароль, чтобы войти.',
       tr: 'Giriş yapmak için e-posta adresinizi ve şifrenizi girin.',
+      pl: 'Wprowadź swój adres e-mail i hasło, aby się zalogować.',
+      id: 'Masukkan email dan kata sandi Anda untuk masuk.',
+      vi: 'Nhập email và mật khẩu của bạn để đăng nhập.',
     }),
   },
+  title: 'Sign in page content',
+  description:
+    'Content related to the sign in page including titles and description. This helps localize the user authentication entry point.',
+  tags: ['authentication', 'sign in', 'landing page'],
 } satisfies Dictionary;
 
 export default signInContent;

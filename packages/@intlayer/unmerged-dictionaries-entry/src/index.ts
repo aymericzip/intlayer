@@ -6,35 +6,34 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import {
-  clearModuleCache,
-  ESMxCJSRequire,
-  getConfiguration,
-  type IntlayerConfig,
-} from '@intlayer/config';
-// @ts-ignore intlayer declared for module augmentation
-import type { Dictionary, IntlayerDictionaryTypesConnector } from 'intlayer';
+import { clearModuleCache, ESMxCJSRequire } from '@intlayer/config';
+import config from '@intlayer/config/built';
+import type {
+  Dictionary,
+  DictionaryKeys,
+  IntlayerConfig,
+} from '@intlayer/types';
 
-export const getUnmergedDictionaries = (
-  configuration: IntlayerConfig = getConfiguration(),
-  projectRequire = ESMxCJSRequire
+export type UnmergedDictionaries = Record<DictionaryKeys, Dictionary[]>;
+
+type GetUnmergedDictionaries = (
+  configuration?: IntlayerConfig
+) => UnmergedDictionaries;
+
+export const getUnmergedDictionaries: GetUnmergedDictionaries = (
+  configuration: IntlayerConfig = config
 ) => {
-  const { content } = configuration;
+  const { content, build } = configuration;
 
   // Always use cjs for dictionaries entry as it uses require
   const dictionariesPath = join(content.mainDir, `unmerged_dictionaries.cjs`);
-  let dictionaries: Record<
-    IntlayerDictionaryTypesConnector['key'],
-    Dictionary[]
-  > = {};
+  let dictionaries: Record<DictionaryKeys, Dictionary[]> = {};
 
   if (existsSync(dictionariesPath)) {
     // Clear cache for unmerged_dictionaries.cjs and all its dependencies (JSON files)
     clearModuleCache(dictionariesPath);
-    dictionaries = projectRequire(dictionariesPath);
+    dictionaries = (build.require ?? ESMxCJSRequire)(dictionariesPath);
   }
 
   return dictionaries;
 };
-
-export default (() => getUnmergedDictionaries())();

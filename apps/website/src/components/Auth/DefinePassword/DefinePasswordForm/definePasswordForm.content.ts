@@ -19,6 +19,9 @@ const definePasswordContent = {
         ru: 'Новый пароль',
         'en-GB': 'New password',
         tr: 'Yeni şifre',
+        pl: 'Nowe hasło',
+        id: 'Kata sandi baru',
+        vi: 'Mật khẩu mới',
       }),
       placeholder: t({
         en: 'Enter new password',
@@ -35,6 +38,9 @@ const definePasswordContent = {
         ru: 'Введите новый пароль',
         'en-GB': 'Enter new password',
         tr: 'Yeni şifreyi girin',
+        pl: 'Wprowadź nowe hasło',
+        id: 'Masukkan kata sandi baru',
+        vi: 'Nhập mật khẩu mới',
       }),
     },
     confirmPasswordInput: {
@@ -53,6 +59,9 @@ const definePasswordContent = {
         ru: 'Подтвердите новый пароль',
         'en-GB': 'Confirm new password',
         tr: 'Yeni şifreyi onayla',
+        pl: 'Potwierdź nowe hasło',
+        id: 'Konfirmasi kata sandi baru',
+        vi: 'Xác nhận mật khẩu mới',
       }),
       placeholder: t({
         en: 'Confirm new password',
@@ -69,6 +78,9 @@ const definePasswordContent = {
         ru: 'Подтвердите новый пароль',
         'en-GB': 'Confirm new password',
         tr: 'Yeni şifreyi onayla',
+        pl: 'Potwierdź nowe hasło',
+        id: 'Konfirmasi kata sandi baru',
+        vi: 'Nhập lại mật khẩu mới',
       }),
     },
     definePasswordButton: {
@@ -87,6 +99,9 @@ const definePasswordContent = {
         ru: 'Сменить пароль',
         'en-GB': 'Change password',
         tr: 'Yeni şifreyi tanımla',
+        pl: 'Ustaw hasło',
+        id: 'Tetapkan kata sandi',
+        vi: 'Đặt mật khẩu',
       }),
       ariaLabel: t({
         en: 'Click to change password',
@@ -103,9 +118,16 @@ const definePasswordContent = {
         ru: 'Нажмите, чтобы изменить пароль',
         'en-GB': 'Click to change password',
         tr: 'Şifreyi değiştirmek için tıklayın',
+        pl: 'Kliknij, aby zmienić hasło',
+        id: 'Klik untuk mengubah kata sandi',
+        vi: 'Nhấp để thay đổi mật khẩu',
       }),
     },
   },
+  title: 'Define password form schema',
+  description:
+    'Dictionary for the define password form. Includes input labels and placeholders for new password entry and confirmation, as well as button text for submitting the password change.',
+  tags: ['authentication', 'form', 'password management'],
 } satisfies Dictionary;
 
 export default definePasswordContent;

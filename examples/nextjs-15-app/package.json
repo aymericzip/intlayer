@@ -10,28 +10,28 @@
     "lint": "next lint",
     "start": "next start",
     "start:editor": "npx intlayer-editor start",
-    "start:live": "pnpm intlayer live --process 'next start'",
+    "start:live": "bun intlayer live --process 'next start'",
     "test": ""
   },
   "dependencies": {
-    "fuse.js": "^7.1.0",
+    "fuse.js": "7.1.0",
     "intlayer": "workspace:*",
-    "markdown-to-jsx": "^7.7.13",
-    "next": "^15.5.4",
+    "markdown-to-jsx": "7.7.17",
+    "next": "15.5.6",
     "next-intlayer": "workspace:*",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
   },
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
-    "@next/bundle-analyzer": "^15.5.4",
-    "@tailwindcss/postcss": "^4.1.13",
-    "@types/node": "^24.5.2",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.1.9",
+    "@next/bundle-analyzer": "15.5.6",
+    "@tailwindcss/postcss": "4.1.16",
+    "@types/node": "24.9.1",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
     "intlayer-editor": "workspace:*",
-    "postcss": "^8.5.4",
-    "tailwindcss": "^4.1.13",
-    "typescript": "^5.9.2"
+    "postcss": "8.5.6",
+    "tailwindcss": "4.1.16",
+    "typescript": "5.9.3"
   }
 }

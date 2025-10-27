@@ -1,6 +1,6 @@
 {
   "name": "react-scripts-intlayer",
-  "version": "6.1.6",
+  "version": "7.0.1",
   "private": false,
   "description": "Integrate Intlayer with Create React App using custom React scripts for internationalization i18n and advanced Webpack configurations",
   "keywords": [
@@ -61,46 +61,44 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "pnpm clean & pnpm build:ci",
-    "build:ci": "pnpm build:package & pnpm build:types",
-    "build:package": "tsup",
-    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
-    "clean": "rimraf ./dist",
-    "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint --write .",
+    "build": "tsdown --config tsdown.config.ts",
+    "build:ci": "tsdown --config tsdown.config.ts",
+    "clean": "rimraf ./dist .turbo",
+    "dev": "tsdown --config tsdown.config.ts --watch",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit"
+    "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@craco/craco": "^7.1.0",
+    "@craco/craco": "7.1.0",
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/webpack": "workspace:*",
-    "node-loader": "^2.1.0",
-    "process": "^0.11.10",
-    "webpack": "^5.98.0"
+    "node-loader": "2.1.0",
+    "process": "0.11.10",
+    "webpack": "5.98.0"
   },
   "devDependencies": {
-    "@craco/types": "^7.1.0",
-    "@types/cross-spawn": "^6.0.6",
-    "@types/node": "^24.5.2",
-    "@types/webpack": "^5.28.5",
+    "@craco/types": "7.1.0",
+    "@types/cross-spawn": "6.0.6",
+    "@types/node": "24.9.1",
+    "@types/webpack": "5.28.5",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
-    "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.2.1",
-    "rimraf": "^6.0.1",
-    "tsc-alias": "^1.8.16",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "@utils/tsdown-config": "workspace:*",
+    "rimraf": "6.0.1",
+    "tsdown": "0.15.9",
+    "typescript": "5.9.3",
+    "vitest": "4.0.3"
   },
   "peerDependencies": {
     "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "@intlayer/webpack": "workspace:*",
     "webpack": ">=5.0.0"
   },

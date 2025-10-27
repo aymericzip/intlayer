@@ -1,8 +1,13 @@
 # syntax=docker/dockerfile:1.19.0
 
-FROM node:24-alpine AS builder
 
-RUN npm install -g pnpm@10.17.1
+# FROM oven/bun:1.3.1-alpine AS builder
+# Use node because of bun issue blocking at `Creating an optimized production build ...`
+# https://github.com/oven-sh/bun/issues/17136
+# https://github.com/oven-sh/bun/issues/4795
+FROM node:22-alpine AS builder
+
+RUN npm install -g bun@1.3.1
 
 ARG INTLAYER_CLIENT_ID
 ARG INTLAYER_CLIENT_SECRET
@@ -49,32 +54,31 @@ WORKDIR /workspace
 # Copy the rest of the source code
 # Remove directories to keep the image slim
 COPY \
-    --exclude=packages/@intlayer/babel \
     --exclude=packages/@intlayer/mcp \
     --exclude=packages/intlayer-cli \
     --exclude=packages/react-scripts-intlayer \
     --exclude=packages/vue-intlayer \
+    --exclude=packages/intlayer-editor \
     --exclude=packages/solid-intlayer \
     --exclude=packages/svelte-intlayer \
-    --exclude=packages/pnext-intlayer \
+    --exclude=packages/preact-intlayer \
     --exclude=packages/angular-intlayer \
-    --exclude=packages/vite-intlayer \
     --exclude=packages/nuxt-intlayer \
     --exclude=packages/astro-intlayer \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
-    --exclude=packages/intlayer-editor \
-    --exclude=packages/@intlayer/design-system/*.stories.* \
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=plugins \
+    --exclude=**/*.stories.* \
     . .
 
-# Installer toutes les dépendances (dev + prod) (frozen for reproducible builds)
-RUN pnpm install --frozen-lockfile
+
+# Install all dependencies (dev + prod) (frozen for reproducible builds)
+RUN bun install
 
 # Build every package in the workspace (uses the root "build" script)
-RUN npx turbo run build:ci --filter=./apps/website
+RUN bun x turbo run build:ci --filter=./apps/website
 
 # Set working directory to the website package and build it
 WORKDIR /workspace/apps/website
@@ -82,16 +86,12 @@ WORKDIR /workspace/apps/website
 ENV NODE_ENV=production
 
 # Build the Next.js website
-RUN pnpm run build
+RUN bun x next build
 
 WORKDIR /workspace
 
 # Remove .ts, .tsx and .map files only within src/** directories, ignoring node_modules, so configuration files like intlayer.config.ts are kept
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
-
-# Remove all dev dependencies
-# RUN CI=true pnpm prune --prod
-
 
 WORKDIR /workspace/apps/website
 
@@ -103,4 +103,4 @@ USER app
 # Expose the API port (defaults to 3100 via .env, can be overridden)
 EXPOSE 3000
 
-CMD ["pnpm", "start"] 
+CMD ["bun", "x", "next", "start"] 
