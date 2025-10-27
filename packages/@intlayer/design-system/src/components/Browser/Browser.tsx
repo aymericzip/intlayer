@@ -1,8 +1,14 @@
 'use client';
 
 import { RotateCw } from 'lucide-react';
-import type React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import {
+  type CSSProperties,
+  type FC,
+  type FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 
@@ -12,7 +18,7 @@ export type BrowserProps = {
   /** Additional CSS classes for the container */
   className?: string;
   /** Inline styles for the container */
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   /** Height of the browser window (number in px or CSS string like "80vh") */
   height?: number | string;
   /** Accessible label for screen readers describing the browser purpose */
@@ -61,7 +67,7 @@ export type BrowserProps = {
  * @param height - Height of the browser window. Accepts number (pixels) or CSS string (e.g., "80vh", "600px"). If not specified, defaults to minimum 600px with 100% height
  * @param aria-label - Accessible label for screen readers describing the browser's purpose (default: 'Embedded browser')
  */
-export const Browser: React.FC<BrowserProps> = ({
+export const Browser: FC<BrowserProps> = ({
   initialUrl = 'https://example.com',
   className,
   style,
@@ -134,7 +140,7 @@ export const Browser: React.FC<BrowserProps> = ({
   };
   // --------------------------------------------------------------------------
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitted(true);
     validateAndNavigate(inputUrl);
