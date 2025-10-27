@@ -47,8 +47,25 @@ export const intlayerProxy = (): Plugin => {
         // 1. Bypass assets and special Vite endpoints
         if (
           req.url?.startsWith('/node_modules') ||
+          /**
+           * /^@vite/            # HMR client and helpers
+           * /^@fs/              # file-system import serving
+           * /^@id/              # virtual module ids
+           * /^@tanstack/start-router-manifest # Tanstack Start Router manifest
+           */
           req.url?.startsWith('/@') ||
-          req.url?.split('?')[0].match(/\.[a-z]+$/i) // checks for file extensions
+          /**
+           * /^__vite_ping$      # health ping
+           * /^__open-in-editor$
+           * /^__manifest$       # Remix/RR7 lazyRouteDiscovery
+           */
+          req.url?.startsWith('/__') ||
+          /**
+           * ./myFile.js
+           */
+          req.url
+            ?.split('?')[0]
+            .match(/\.[a-z]+$/i) // checks for file extensions
         ) {
           return next();
         }
