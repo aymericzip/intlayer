@@ -2,7 +2,6 @@ import { type Dictionary, t } from 'intlayer';
 
 export const browserContent = {
   key: 'browser',
-  autoFill: './{{key}}.content.json',
   content: {
     ariaLabel: t({
       en: 'Embedded browser',
