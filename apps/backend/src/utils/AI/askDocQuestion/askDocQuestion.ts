@@ -23,6 +23,9 @@ type VectorStoreEl = {
   docName: string;
 };
 
+type VectorStoreElWithSimilarity = VectorStoreEl & { similarity: number };
+
+
 /**
  * Simple in-memory vector store to hold document embeddings and their content.
  * Each entry contains:
@@ -274,19 +277,17 @@ export const searchChunkReference = async (
   query: string,
   maxResults: number = MAX_RELEVANT_CHUNKS_NB,
   minSimilarity: number = MIN_RELEVANT_CHUNKS_SIMILARITY
-): Promise<VectorStoreEl[]> => {
-  // Generate an embedding for the user's query
+): Promise<VectorStoreElWithSimilarity[]> => {
   const queryEmbedding = await generateEmbedding(query);
 
-  // Calculate similarity scores between the query embedding and each document's embedding
   const selection = vectorStore
     .map((chunk) => ({
       ...chunk,
-      similarity: cosineSimilarity(queryEmbedding, chunk.embedding), // Add similarity score to each doc
+      similarity: cosineSimilarity(queryEmbedding, chunk.embedding),
     }))
-    .filter((chunk) => chunk.similarity > minSimilarity) // Filter out documents with low similarity scores
-    .sort((a, b) => b.similarity - a.similarity) // Sort documents by highest similarity first
-    .slice(0, maxResults); // Select the top 6 most similar documents
+    .filter((chunk) => chunk.similarity > minSimilarity)
+    .sort((a, b) => b.similarity - a.similarity)
+    .slice(0, maxResults);
 
   const orderedDocKeys = new Set(selection.map((chunk) => chunk.fileKey));
 
@@ -300,8 +301,13 @@ export const searchChunkReference = async (
     )
   );
 
-  // Return the content of the top matching documents
-  return results;
+  return results.map((r) => ({
+    ...r,
+    similarity:
+      selection.find(
+        (s) => s.fileKey === r.fileKey && s.chunkNumber === r.chunkNumber
+      )?.similarity ?? 0,
+  }));
 };
 
 const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
@@ -401,3 +407,7 @@ export const askDocQuestion = async (
     relatedFiles,
   };
 };
+
+export function getEmbedding(input: string) {
+  throw new Error('Function not implemented.');
+}
