@@ -29,7 +29,7 @@ const BASE_SCREEN_WIDTH = 1500;
 type LogoConfig = {
   Logo: FC<SVGProps<SVGSVGElement>>;
   route: string;
-  intitialPost: {
+  initialPost: {
     scale: number;
     x: number;
     y: number;
@@ -50,7 +50,7 @@ type LogoItemProps = LogoConfig & {
 const LogoItem: FC<LogoItemProps> = ({
   Logo,
   route,
-  intitialPost,
+  initialPost,
   animationProgress,
   outputRange,
   label,
@@ -60,12 +60,12 @@ const LogoItem: FC<LogoItemProps> = ({
   animationDelay,
 }) => {
   const x = useTransform(animationProgress, outputRange, [
-    getXPosition(intitialPost.x),
+    getXPosition(initialPost.x),
     0,
   ]);
-  const y = useTransform(animationProgress, outputRange, [intitialPost.y, 0]);
+  const y = useTransform(animationProgress, outputRange, [initialPost.y, 0]);
   const scale = useTransform(animationProgress, outputRange, [
-    intitialPost.scale,
+    initialPost.scale,
     1,
   ]);
   const isEnabled = useTransform(animationProgress, outputRange, [true, false]);
@@ -106,8 +106,8 @@ const logos = [
   {
     Logo: ViteLogo,
     route: PagesRoutes.Doc_Environment_ViteAndReact,
-    intitialPost: {
-      scale: 1.7,
+    initialPost: {
+      scale: 1.5,
       x: -200,
       y: -100,
     },
@@ -116,9 +116,8 @@ const logos = [
   {
     Logo: ReactLogo,
     route: PagesRoutes.Doc_Environment_CRA,
-    scale: 1.1,
-    intitialPost: {
-      scale: 2,
+    initialPost: {
+      scale: 1.7,
       x: 0,
       y: 0,
     },
@@ -127,8 +126,8 @@ const logos = [
   {
     Logo: VuejsLogo,
     route: PagesRoutes.Doc_Environment_ViteAndVue,
-    intitialPost: {
-      scale: 1.7,
+    initialPost: {
+      scale: 1.5,
       x: 200,
       y: -100,
     },
@@ -137,8 +136,8 @@ const logos = [
   {
     Logo: NextJSLogo,
     route: PagesRoutes.Doc_Environment_NextJS_15,
-    intitialPost: {
-      scale: 1.9,
+    initialPost: {
+      scale: 1.5,
       x: -200,
       y: -100,
     },
@@ -147,7 +146,7 @@ const logos = [
   {
     Logo: PreactLogo,
     route: PagesRoutes.Doc_Environment_ViteAndPreact,
-    intitialPost: {
+    initialPost: {
       scale: 1.2,
       x: 0,
       y: 30,
@@ -157,7 +156,7 @@ const logos = [
   {
     Logo: NuxtLogo,
     route: PagesRoutes.Doc_Environment_NuxtAndVue,
-    intitialPost: {
+    initialPost: {
       scale: 1.2,
       x: 200,
       y: -100,
@@ -170,7 +169,7 @@ const comingSoonData = [
   {
     Logo: SolidLogo,
     route: PagesRoutes.Doc_Environment_ViteAndSolid,
-    intitialPost: {
+    initialPost: {
       scale: 1,
       x: -200,
       y: 0,
@@ -180,7 +179,7 @@ const comingSoonData = [
   {
     Logo: SvelteLogo,
     route: PagesRoutes.Doc_Environment_ViteAndSvelte,
-    intitialPost: {
+    initialPost: {
       scale: 1,
       x: 0,
       y: 50,
@@ -190,7 +189,7 @@ const comingSoonData = [
   {
     Logo: AngularLogo,
     route: PagesRoutes.Doc_Environment_Angular,
-    intitialPost: {
+    initialPost: {
       scale: 1,
       x: 200,
       y: 0,
@@ -205,7 +204,7 @@ export const AvailableTechnoSection: FC = () => {
   );
 
   const { isMobile } = useDevice();
-  const { screenWith } = useScreenWidth();
+  const { screenWidth } = useScreenWidth();
 
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -217,7 +216,7 @@ export const AvailableTechnoSection: FC = () => {
   const animationProgress = useTransform(scrollYProgress, [0.4, 1], [0, 1]);
 
   const getXPosition = (index: number) =>
-    index * (screenWith / BASE_SCREEN_WIDTH);
+    index * (screenWidth / BASE_SCREEN_WIDTH);
 
   return (
     <section
@@ -228,7 +227,7 @@ export const AvailableTechnoSection: FC = () => {
       <motion.div className="mt-[30px] grid h-76 w-2/3 grid-cols-3 justify-items-center gap-0 p-0 sm:w-1/3">
         {logos.map((logoConfig, index) => (
           <LogoItem
-            key={index}
+            key={logoConfig.label}
             {...logoConfig}
             animationProgress={animationProgress}
             outputRange={[0, 0.15]}
@@ -244,7 +243,7 @@ export const AvailableTechnoSection: FC = () => {
       <motion.div className="mt-[30px] grid h-56 w-2/3 grid-cols-3 justify-items-center gap-0 p-0 sm:w-1/3">
         {comingSoonData.map((logoConfig, index) => (
           <LogoItem
-            key={index}
+            key={logoConfig.label}
             {...logoConfig}
             animationProgress={animationProgress}
             outputRange={[0.15, 0.3]}
