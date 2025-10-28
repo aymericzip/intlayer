@@ -1,6 +1,6 @@
 'use client';
 
-import { getUnmergedDictionaryByKeyPath } from '@intlayer/core';
+import { getContentNodeByKeyPath } from '@intlayer/core';
 import {
   Button,
   DictionaryEditor,
@@ -10,7 +10,7 @@ import {
   useRightDrawerStore,
 } from '@intlayer/design-system';
 import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
-import { useFocusDictionary } from '@intlayer/editor-react';
+import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Locale } from '@intlayer/types';
 import { Pencil } from 'lucide-react';
 import { type FC, useCallback, useState } from 'react';
@@ -49,6 +49,7 @@ export const DictionaryEditionDrawerContent: FC<
   }, [handleOnBack]);
 
   const dictionaryKey = focusedContent?.dictionaryKey;
+  const dictionaryLocalId = focusedContent?.dictionaryLocalId;
 
   if (!dictionaryKey)
     return (
@@ -57,10 +58,8 @@ export const DictionaryEditionDrawerContent: FC<
       </span>
     );
 
-  const dictionary = getUnmergedDictionaryByKeyPath(
-    dictionaryKey,
-    focusedContent.keyPath ?? [],
-    unmergedDictionaries
+  const dictionary = unmergedDictionaries?.[dictionaryKey]?.find(
+    (dictionary) => dictionary.localId === dictionaryLocalId
   );
 
   if (!dictionary)
@@ -96,7 +95,6 @@ export const DictionaryEditionDrawerContent: FC<
           />
         </div>
       </Modal>
-
       <div className="/20 mb-5 flex w-full border-text/20 border-b border-dashed px-3 pb-2">
         <h3 className="w-full text-center text-lg">
           {dictionary.title ? dictionary.title : dictionary.key}
@@ -173,7 +171,7 @@ type DictionaryEditionDrawerControllerProps = {
 export const DictionaryEditionDrawerController: FC<
   DictionaryEditionDrawerControllerProps
 > = ({ locale, isDarkMode }) => {
-  const { focusedContent } = useFocusDictionary();
+  const { focusedContent } = useFocusUnmergedDictionary();
   const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
 
   if (!dictionaryKey) {

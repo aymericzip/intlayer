@@ -1,6 +1,6 @@
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { MessageKey } from '@intlayer/editor';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
 import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';
@@ -14,12 +14,12 @@ const INTLAYER_DICTIONARIES_RECORD_SYMBOL = Symbol(
   'intlayerDictionariesRecord'
 );
 
-export type DictionaryContent = Record<Dictionary['key'], Dictionary>;
+export type DictionaryContent = Record<LocalDictionaryId, Dictionary>;
 
 type DictionariesRecordClient = {
   localeDictionaries: Ref<DictionaryContent>;
   setLocaleDictionaries: (newValue: DictionaryContent) => void;
-  setLocaleDictionary: (d: Dictionary) => void;
+  setLocaleDictionary: (dictionary: Dictionary) => void;
 };
 
 export const createDictionaryRecordClient = () => {
@@ -38,7 +38,7 @@ export const createDictionaryRecordClient = () => {
     setLocaleDictionary(dictionary) {
       localeDictionaries.value = {
         ...localeDictionaries.value,
-        [dictionary.key]: dictionary,
+        [dictionary.localId!]: dictionary,
       };
     },
   };

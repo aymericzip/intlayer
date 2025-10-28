@@ -106,22 +106,29 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       ...editedContent?.[dictionary.localId!],
     };
 
-    pushDictionaries([updatedDictionary], {
-      onSuccess: (res) => {
-        if (res) {
-          setLocaleDictionary(editedContent?.[dictionary.localId!]);
-          restoreEditedContent(dictionary.localId!);
-          onSave?.();
-        }
-      },
-    });
+    pushDictionaries(
+      { dictionaries: [updatedDictionary] },
+      {
+        onSuccess: (res) => {
+          if (res) {
+            setLocaleDictionary(editedContent?.[dictionary.localId!]);
+            restoreEditedContent(dictionary.localId!);
+            onSave?.();
+          }
+        },
+      }
+    );
   };
 
   const handleDeleteDictionary = () => {
     if (!(dictionary as unknown as DistantDictionary).id) return;
 
     deleteDictionary(
-      (dictionary as unknown as DistantDictionary).id.toString(),
+      {
+        dictionaryId: (
+          dictionary as unknown as DistantDictionary
+        ).id.toString(),
+      },
       {
         onSuccess: (res) => {
           if (res) {

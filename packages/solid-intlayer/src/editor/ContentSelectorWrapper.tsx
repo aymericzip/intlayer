@@ -1,4 +1,5 @@
 import { isSameKeyPath, type NodeProps } from '@intlayer/core';
+import { NodeType } from '@intlayer/types';
 import { type Component, createMemo, type JSX } from 'solid-js';
 import { useIntlayerContext } from '../client';
 import { ContentSelector } from '../UI/ContentSelector';
@@ -17,14 +18,17 @@ const ContentSelectorWrapperContent: Component<ContentSelectorWrapperProps> = (
   const handleSelect = () =>
     setFocusedContent({
       dictionaryKey: props.dictionaryKey,
-      keyPath: props.keyPath,
+      keyPath: props.keyPath.filter((key) => key.type !== NodeType.Translation),
     });
 
   const isSelected = createMemo(
     () =>
       (focusedContent?.dictionaryKey === props.dictionaryKey &&
         (focusedContent?.keyPath?.length ?? 0) > 0 &&
-        isSameKeyPath(focusedContent?.keyPath ?? [], props.keyPath)) ??
+        isSameKeyPath(
+          focusedContent?.keyPath ?? [],
+          props.keyPath.filter((key) => key.type !== NodeType.Translation)
+        )) ??
       false
   );
 

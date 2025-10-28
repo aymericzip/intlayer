@@ -11,7 +11,7 @@ import {
   useContext,
 } from 'react';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
-import { localeCookie, setLocaleInStorage } from './useLocaleStorage';
+import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
 
 type IntlayerValue = {
   locale: LocalesValues;
@@ -24,7 +24,7 @@ type IntlayerValue = {
  * Context that store the current locale on the client side
  */
 export const IntlayerClientContext = createContext<IntlayerValue>({
-  locale: localeCookie ?? configuration?.internationalization?.defaultLocale,
+  locale: localeInStorage ?? configuration?.internationalization?.defaultLocale,
   setLocale: () => null,
   isCookieEnabled: true,
   disableEditor: false,
@@ -59,7 +59,7 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
     internationalization ?? {};
 
   const defaultLocale =
-    localeProp ?? localeCookie ?? defaultLocaleProp ?? defaultLocaleConfig;
+    localeProp ?? localeInStorage ?? defaultLocaleProp ?? defaultLocaleConfig;
 
   const [currentLocale, setCurrentLocale] = useCrossFrameState(
     MessageKey.INTLAYER_CURRENT_LOCALE,

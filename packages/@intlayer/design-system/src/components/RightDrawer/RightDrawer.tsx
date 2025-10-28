@@ -302,7 +302,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
     }
 
     if (isMobile) {
-      close();
+      closeDrawer(identifier);
       onClose?.();
     }
   };
@@ -336,7 +336,10 @@ export const RightDrawer: FC<RightDrawerProps> = ({
                   color={ButtonColor.TEXT}
                   label="Close"
                   className="ml-auto"
-                  onClick={close}
+                  onClick={() => {
+                    closeDrawer(identifier);
+                    onClose?.();
+                  }}
                   Icon={X}
                   size={ButtonSize.ICON_MD}
                 />

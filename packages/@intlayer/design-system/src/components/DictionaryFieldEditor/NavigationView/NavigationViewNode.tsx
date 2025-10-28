@@ -7,7 +7,8 @@ import {
 } from '@intlayer/core';
 import {
   useEditedContentActions,
-  useFocusDictionary,
+  useEditorLocale,
+  useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import {
   type KeyPath,
@@ -42,9 +43,11 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
   dictionary,
 }) => {
   const { locales } = configuration.internationalization;
-  const section = getContentNodeByKeyPath(sectionProp, keyPath);
+  const currentLocale = useEditorLocale();
+  const section = getContentNodeByKeyPath(sectionProp, keyPath, currentLocale);
   const { addEditedContent } = useEditedContentActions();
-  const { setFocusedContentKeyPath, focusedContent } = useFocusDictionary();
+  const { setFocusedContentKeyPath, focusedContent } =
+    useFocusUnmergedDictionary();
   const { addNewElement, goToField } = useIntlayer('navigation-view');
   const nodeType = getNodeType(section);
   const getIsSelected = (keyPath: KeyPath[]) =>

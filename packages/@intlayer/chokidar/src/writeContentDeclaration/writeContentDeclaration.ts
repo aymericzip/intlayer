@@ -246,7 +246,11 @@ const writeFileWithDirectories = async (
   // remove the cache as content has changed
   // Will force a new preparation of the intlayer on next build
   try {
-    await rm(configuration.content.cacheDir, { recursive: true });
+    const sentinelPath = join(
+      configuration.content.cacheDir,
+      'intlayer-prepared.lock'
+    );
+    await rm(sentinelPath, { recursive: true });
   } catch (error) {
     if (
       error &&

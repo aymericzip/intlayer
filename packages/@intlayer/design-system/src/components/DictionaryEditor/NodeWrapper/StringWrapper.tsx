@@ -1,4 +1,5 @@
 import { getContentNodeByKeyPath } from '@intlayer/core';
+import { useEditorLocale } from '@intlayer/editor-react';
 import type { FC } from 'react';
 import { cn } from '../../../utils/cn';
 import { EditableFieldTextArea } from '../../EditableField';
@@ -18,8 +19,10 @@ export const StringWrapper: FC<StringWrapperProps> = ({
   onFocusKeyPath,
   renderSection,
 }) => {
+  const currentLocale = useEditorLocale();
   const editedContentValue =
-    editedContentValueProp ?? getContentNodeByKeyPath(editedContent, keyPath);
+    editedContentValueProp ??
+    getContentNodeByKeyPath(editedContent, keyPath, currentLocale);
 
   if (editedContentValue && typeof editedContentValue !== 'string') {
     return (

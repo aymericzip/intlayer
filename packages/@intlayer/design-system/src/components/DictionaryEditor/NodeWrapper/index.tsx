@@ -10,6 +10,7 @@ import {
   type MarkdownContent,
   type TranslationContent,
 } from '@intlayer/core';
+import { useEditorLocale } from '@intlayer/editor-react';
 import {
   type ContentNode,
   type Dictionary,
@@ -17,7 +18,7 @@ import {
   type Locale,
   NodeType,
 } from '@intlayer/types';
-import type { FC, ReactNode } from 'react';
+import { type FC, memo, type ReactNode, useMemo } from 'react';
 import { ArrayWrapper } from './ArrayWrapper';
 import { ConditionWrapper } from './ConditionWrapper';
 import { EnumerationWrapper } from './EnumerationWrapper';
@@ -43,13 +44,18 @@ export type NodeWrapperProps = {
   renderSection?: (content: string) => ReactNode;
 };
 
-export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
-  const editedContentValue = getContentNodeByKeyPath(
-    props.editedContent,
-    props.keyPath
-  );
-  const section = editedContentValue ?? props.section;
-  const nodeType = getNodeType(section);
+export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
+  const currentLocale = useEditorLocale();
+  const section = useMemo(() => {
+    const editedContentValue = getContentNodeByKeyPath(
+      props.editedContent,
+      props.keyPath,
+      currentLocale
+    );
+    return editedContentValue ?? props.section;
+  }, [props.editedContent, props.keyPath, props.section]);
+
+  const nodeType = useMemo(() => getNodeType(section), [section]);
 
   if (typeof section === 'object') {
     if (nodeType === NodeType.ReactNode) {
@@ -127,7 +133,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
     return (
       <NestedObjectWrapper
         {...props}
-        section={section as Record<string, ContentNode>}
+        section={section as unknown as Record<string, ContentNode>}
       />
     );
   }
@@ -135,4 +141,4 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
   if (typeof section === 'string') {
     return <StringWrapper {...props} section={section} />;
   }
-};
+});

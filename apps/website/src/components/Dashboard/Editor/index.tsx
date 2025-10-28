@@ -7,15 +7,20 @@ import { EditorProvider } from './EditorProvider';
 import { IframeController } from './IframeController';
 
 type EditorProps = {
-  configuration: IntlayerConfig;
+  configuration?: IntlayerConfig;
+  DictionariesLoader: FC;
 };
 
-export const Editor: FC<EditorProps> = ({ configuration }) => {
+export const Editor: FC<EditorProps> = ({
+  configuration,
+  DictionariesLoader,
+}) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   return (
     <EditorProvider iframeRef={iframeRef} configuration={configuration}>
-      <EditorLayout configuration={configuration}>
+      <EditorLayout>
+        <DictionariesLoader />
         <IframeController iframeRef={iframeRef} />
       </EditorLayout>
     </EditorProvider>

@@ -2,6 +2,7 @@
 
 import { isSameKeyPath, type NodeProps } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import { NodeType } from '@intlayer/types';
 import {
   type FC,
   type HTMLAttributes,
@@ -29,7 +30,7 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
     () =>
       setFocusedContent({
         dictionaryKey,
-        keyPath,
+        keyPath: keyPath.filter((key) => key.type !== NodeType.Translation),
       }),
     [dictionaryKey, keyPath]
   );

@@ -1,14 +1,22 @@
-import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
+import {
+  type ContentNode,
+  type KeyPath,
+  type Locale,
+  NodeType,
+} from '@intlayer/types';
 
 export const getContentNodeByKeyPath = (
   dictionaryContent: ContentNode,
-  keyPath: KeyPath[]
+  keyPath: KeyPath[],
+  fallbackLocale?: Locale
 ): ContentNode => {
   let currentValue: any = structuredClone(dictionaryContent);
 
   for (const keyObj of keyPath) {
     if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
       currentValue = currentValue?.[keyObj.key];
+    } else if (keyObj.type === NodeType.Translation && fallbackLocale) {
+      currentValue = currentValue?.[NodeType.Translation]?.[fallbackLocale];
     } else if (
       keyObj.type === NodeType.Translation ||
       keyObj.type === NodeType.Condition ||

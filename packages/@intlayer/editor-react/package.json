@@ -71,6 +71,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "uuid": "13.0.0"
   },
   "devDependencies": {
@@ -91,6 +92,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0"
   },

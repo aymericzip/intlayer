@@ -38,7 +38,7 @@ export const compareUrls = (url1: string, url2: string): boolean => {
 
     return true;
   } catch (error) {
-    console.error('Invalid URL(s)', error);
+    console.error('Invalid URL(s)', error, { url1, url2 });
     return false;
   }
 };

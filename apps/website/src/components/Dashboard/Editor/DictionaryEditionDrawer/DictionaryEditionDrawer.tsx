@@ -1,6 +1,5 @@
 'use client';
 
-import { getUnmergedDictionaryByKeyPath } from '@intlayer/core';
 import {
   Button,
   DictionaryEditor,
@@ -9,7 +8,10 @@ import {
   RightDrawer,
   useRightDrawerStore,
 } from '@intlayer/design-system';
-import { useFocusDictionary } from '@intlayer/editor-react';
+import {
+  useDictionariesRecord,
+  useFocusUnmergedDictionary,
+} from '@intlayer/editor-react';
 import type { Locale } from '@intlayer/types';
 import { Pencil } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
@@ -40,6 +42,7 @@ export const DictionaryEditionDrawerContent: FC<
   } = useIntlayer('dictionary-edition-drawer');
   const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false);
   const { focusedContent } = useDictionaryEditionDrawer(identifier);
+  const { localeDictionaries } = useDictionariesRecord();
 
   const onClickDictionaryList = () => {
     setEditionModalOpen(false);
@@ -55,9 +58,8 @@ export const DictionaryEditionDrawerContent: FC<
       </span>
     );
 
-  const dictionary = getUnmergedDictionaryByKeyPath(
-    dictionaryKey,
-    focusedContent.keyPath ?? []
+  const dictionary = Object.values(localeDictionaries ?? {}).find(
+    (dictionary) => dictionary.key === dictionaryKey
   );
 
   if (!dictionary)
@@ -169,7 +171,7 @@ type DictionaryEditionDrawerControllerProps = {
 export const DictionaryEditionDrawerController: FC<
   DictionaryEditionDrawerControllerProps
 > = ({ locale, isDarkMode }) => {
-  const { focusedContent } = useFocusDictionary();
+  const { focusedContent } = useFocusUnmergedDictionary();
   const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
 
   if (!dictionaryKey) {

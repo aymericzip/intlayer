@@ -12,7 +12,7 @@ import {
   ShowingResultsNumberItems,
 } from '@intlayer/design-system';
 import { useGetDictionaries, useSearch } from '@intlayer/design-system/hooks';
-import { useFocusDictionaryActions } from '@intlayer/editor-react';
+import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -32,7 +32,7 @@ const getStableId = (dictionary: Dictionary) => {
 };
 
 export const DictionaryListDashboardContent: FC = () => {
-  const { setFocusedContent } = useFocusDictionaryActions();
+  const { setFocusedContent } = useFocusUnmergedDictionary();
   const { selectDictionaryButton, searchPlaceholder } =
     useIntlayer('dictionary-list');
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
@@ -50,8 +50,8 @@ export const DictionaryListDashboardContent: FC = () => {
     'dictionary-form'
   ) as any;
   const { data, isPending, refetch } = useGetDictionaries({
-    search,
     ...params,
+    search,
   });
   const router = useRouter();
 

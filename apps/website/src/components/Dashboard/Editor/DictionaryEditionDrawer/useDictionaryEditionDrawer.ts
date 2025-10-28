@@ -1,14 +1,14 @@
+import { useRightDrawerStore } from '@intlayer/design-system';
+import {
+  useEditedContentActions,
+  useFocusUnmergedDictionary,
+} from '@intlayer/editor-react';
 import type {
   ContentNode,
   Dictionary,
   KeyPath,
   LocalDictionaryId,
-} from '@intlayer/core';
-import { useRightDrawerStore } from '@intlayer/design-system';
-import {
-  useEditedContentActions,
-  useFocusDictionary,
-} from '@intlayer/editor-react';
+} from '@intlayer/types';
 import { useEffect } from 'react';
 
 export const getDrawerIdentifier = (dictionaryKey: string) =>
@@ -43,7 +43,7 @@ export const useDictionaryEditionDrawer = (
     close: closeDrawer,
   } = useRightDrawerStore();
   const { getEditedContentValue } = useEditedContentActions();
-  const { focusedContent, setFocusedContent } = useFocusDictionary();
+  const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
 
   useEffect(() => {
     if (focusedContent && (focusedContent.keyPath?.length ?? 0) > 0) {

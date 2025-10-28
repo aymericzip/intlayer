@@ -174,6 +174,10 @@ export const prepareIntlayer = async (
         }
       );
     },
-    { forceRun, onIsCached }
+    {
+      forceRun,
+      onIsCached,
+      cacheTimeoutMs: 1000 * 60 * 60, // 1 hour
+    }
   );
 };

@@ -9,8 +9,7 @@ import {
 import {
   useConfiguration,
   useEditedContentActions,
-  useFocusDictionary,
-  useFocusDictionaryActions,
+  useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import {
   type KeyPath,
@@ -159,7 +158,8 @@ export const NodeView: FC<NodeWrapperProps> = ({
   keyPath,
   dictionaryLocalId,
 }) => {
-  const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
+  const { focusedContent, setFocusedContentKeyPath } =
+    useFocusUnmergedDictionary();
   const { renameEditedContent, addEditedContent } = useEditedContentActions();
 
   const { titleInput, deleteButton } = useIntlayer('structure-view');
@@ -244,7 +244,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
   dictionaryLocalId,
 }) => {
   const { addNodeButton } = useIntlayer('structure-view');
-  const { setFocusedContentKeyPath } = useFocusDictionaryActions();
+  const { setFocusedContentKeyPath } = useFocusUnmergedDictionary();
   const { addEditedContent } = useEditedContentActions();
 
   if (!section || typeof section !== 'object') {

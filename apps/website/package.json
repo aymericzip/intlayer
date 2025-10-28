@@ -64,6 +64,7 @@
     "@stripe/stripe-js": "8.1.0",
     "@tanstack/react-query": "5.90.5",
     "@tanstack/react-table": "8.21.3",
+    "babel-plugin-react-compiler": "^1.0.0",
     "clsx": "2.1.1",
     "cobe": "0.6.5",
     "deepmerge": "4.3.1",

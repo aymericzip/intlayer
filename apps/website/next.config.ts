@@ -154,8 +154,8 @@ const nextConfig: NextConfig = {
   // Ensure the full @intlayer/docs package (including markdown assets) is shipped with the server bundle
   serverExternalPackages: ['@intlayer/backend', '@intlayer/docs'],
   transpilePackages: ['@intlayer/design-system', 'shiki'],
+  reactCompiler: true,
   productionBrowserSourceMaps: true,
-  // reactCompiler: true,
   // cacheComponents: true,
   images: {
     remotePatterns: [

@@ -15,7 +15,7 @@ export type DictionaryContent = Record<Dictionary['key'], Dictionary>;
 type DictionariesRecordClient = {
   localeDictionaries: Signal<DictionaryContent>;
   setLocaleDictionaries: (newValue: DictionaryContent) => void;
-  setLocaleDictionary: (d: Dictionary) => void;
+  setLocaleDictionary: (dictionary: Dictionary) => void;
 };
 
 export const createDictionaryRecordClient = () => {
@@ -35,7 +35,7 @@ export const createDictionaryRecordClient = () => {
       const current = localeDictionariesSignal();
       localeDictionariesSignal.set({
         ...current,
-        [dictionary.key]: dictionary,
+        [dictionary.localId!]: dictionary,
       });
     },
   };

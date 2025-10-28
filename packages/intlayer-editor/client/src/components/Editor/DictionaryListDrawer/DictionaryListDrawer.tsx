@@ -8,10 +8,10 @@ import {
 import {
   useDictionariesRecord,
   useEditedContent,
-  useFocusDictionary,
+  useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Pencil } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { getDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
@@ -23,7 +23,7 @@ export const DictionaryListDrawer: FC = () => {
 
   const { localeDictionaries } = useDictionariesRecord();
   const { editedContent } = useEditedContent();
-  const { setFocusedContent } = useFocusDictionary();
+  const { setFocusedContent } = useFocusUnmergedDictionary();
 
   const handleClickDictionary = (dictionary: Dictionary) => {
     closeDrawer(dictionaryListDrawerIdentifier);
@@ -31,6 +31,7 @@ export const DictionaryListDrawer: FC = () => {
     setFocusedContent({
       dictionaryKey: dictionary.key!,
       dictionaryLocalId: dictionary.localId!,
+      keyPath: [],
     });
 
     openDrawer(getDrawerIdentifier(dictionary.key!));
@@ -44,24 +45,43 @@ export const DictionaryListDrawer: FC = () => {
       title={drawerTitle.label.value}
       identifier={dictionaryListDrawerIdentifier}
     >
-      {Object.values(localeDictionaries).map((dictionary) => (
-        <Button
-          key={dictionary.localId!}
-          label={
-            buttonLabel.label({ dictionaryLocalId: dictionary.localId! }).value
-          }
-          onClick={() => handleClickDictionary(dictionary)}
-          variant="hoverable"
-          color="text"
-          IconRight={ChevronRight}
-          size="md"
-          isFullWidth
-        >
-          {isDictionaryEdited(dictionary.key!)
-            ? `✎ ${dictionary.key}`
-            : dictionary.key}
-        </Button>
-      ))}
+      <ul className="flex flex-col gap-1">
+        {Object.values(localeDictionaries).map((dictionary) => (
+          <li key={dictionary.localId!} className="w-full">
+            <Button
+              label={
+                buttonLabel.label({ dictionaryLocalId: dictionary.localId! })
+                  .value
+              }
+              onClick={() => handleClickDictionary(dictionary)}
+              variant="hoverable"
+              color="text"
+              IconRight={ChevronRight}
+              size="md"
+              isFullWidth
+              Icon={
+                isDictionaryEdited(dictionary.localId!) ? Pencil : undefined
+              }
+            >
+              <div className="flex items-center gap-2 py-1">
+                <div className="flex max-w-full flex-col gap-1">
+                  <span
+                    className={dictionary.title ? 'text-neutral text-sm' : ''}
+                  >
+                    {dictionary.key}
+                  </span>
+                  {dictionary.title && <span>{dictionary.title}</span>}
+                  {dictionary.filePath && (
+                    <span className="truncate text-left text-neutral text-xs [direction:rtl]">
+                      {dictionary.filePath}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </Button>
+          </li>
+        ))}
+      </ul>
     </RightDrawer>
   );
 };

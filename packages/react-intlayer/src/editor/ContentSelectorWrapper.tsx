@@ -7,6 +7,7 @@ import {
   useEditorEnabled,
   useFocusDictionary,
 } from '@intlayer/editor-react';
+import { NodeType } from '@intlayer/types';
 import { type FC, type HTMLAttributes, useCallback, useMemo } from 'react';
 import { useIntlayerContext } from '../client';
 import { ContentSelector } from '../UI/ContentSelector';
@@ -26,7 +27,7 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
     () =>
       setFocusedContent({
         dictionaryKey,
-        keyPath,
+        keyPath: keyPath.filter((key) => key.type !== NodeType.Translation),
       }),
     [dictionaryKey, keyPath]
   );
@@ -58,7 +59,10 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
     () =>
       (focusedContent?.dictionaryKey === dictionaryKey &&
         (focusedContent?.keyPath?.length ?? 0) > 0 &&
-        isSameKeyPath(focusedContent?.keyPath ?? [], keyPath)) ??
+        isSameKeyPath(
+          focusedContent?.keyPath ?? [],
+          keyPath.filter((key) => key.type !== NodeType.Translation)
+        )) ??
       false,
     [focusedContent, keyPath, dictionaryKey]
   );

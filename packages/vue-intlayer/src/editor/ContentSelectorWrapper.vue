@@ -14,6 +14,7 @@
 <script setup lang="ts">
 import { isSameKeyPath, type NodeProps } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import { NodeType } from '@intlayer/types';
 import { computed, type HTMLAttributes } from 'vue';
 import ContentSelector from '../UI/ContentSelector.vue';
 import { useCommunicator } from './communicator';
@@ -43,7 +44,7 @@ const isSelected = computed(
     (focusDictionary?.focusedContent.value.keyPath?.length ?? 0) > 0 &&
     isSameKeyPath(
       focusDictionary?.focusedContent.value.keyPath ?? [],
-      props.keyPath
+      props.keyPath.filter((key) => key.type !== NodeType.Translation)
     )
 );
 
@@ -51,7 +52,7 @@ const isSelected = computed(
 const handleSelect = () => {
   focusDictionary?.setFocusedContent({
     dictionaryKey: props.dictionaryKey,
-    keyPath: props.keyPath,
+    keyPath: props.keyPath.filter((key) => key.type !== NodeType.Translation),
   });
 };
 

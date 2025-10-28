@@ -13,3 +13,4 @@ export {
   v,
   x,
 } from './logger';
+export { logStack } from './utils/logStack';
