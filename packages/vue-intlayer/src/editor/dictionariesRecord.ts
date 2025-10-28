@@ -1,4 +1,3 @@
-import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { MessageKey } from '@intlayer/editor';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
 import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
@@ -25,8 +24,7 @@ type DictionariesRecordClient = {
 export const createDictionaryRecordClient = () => {
   if (instance) return instance;
 
-  const dictionaries = getDictionaries();
-  const localeDictionaries = ref<DictionaryContent>(dictionaries);
+  const localeDictionaries = ref<DictionaryContent | undefined>(undefined);
 
   instance = {
     localeDictionaries: readonly(localeDictionaries) as Ref<DictionaryContent>,

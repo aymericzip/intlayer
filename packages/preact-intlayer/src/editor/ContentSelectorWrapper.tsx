@@ -26,13 +26,19 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
   const { focusedContent, setFocusedContent } = useFocusDictionary();
   const { postMessage, senderId } = useCommunicator();
 
+  // Filter out translation nodes for more flexibility with the editor that can have different format
+  const filteredKeyPath = useMemo(
+    () => keyPath.filter((key) => key.type !== NodeType.Translation),
+    [keyPath]
+  );
+
   const handleSelect = useCallback(
     () =>
       setFocusedContent({
         dictionaryKey,
-        keyPath: keyPath.filter((key) => key.type !== NodeType.Translation),
+        keyPath: filteredKeyPath,
       }),
-    [dictionaryKey, keyPath]
+    [dictionaryKey, filteredKeyPath]
   );
 
   const handleHover = useCallback(
@@ -41,11 +47,11 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
         type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
         data: {
           dictionaryKey,
-          keyPath,
+          keyPath: filteredKeyPath,
         },
         senderId,
       }),
-    [dictionaryKey, keyPath]
+    [dictionaryKey, filteredKeyPath]
   );
 
   const handleUnhover = useCallback(
@@ -62,9 +68,9 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
     () =>
       (focusedContent?.dictionaryKey === dictionaryKey &&
         (focusedContent?.keyPath?.length ?? 0) > 0 &&
-        isSameKeyPath(focusedContent?.keyPath ?? [], keyPath)) ??
+        isSameKeyPath(focusedContent?.keyPath ?? [], filteredKeyPath)) ??
       false,
-    [focusedContent, keyPath, dictionaryKey]
+    [focusedContent, filteredKeyPath, dictionaryKey]
   );
 
   return (

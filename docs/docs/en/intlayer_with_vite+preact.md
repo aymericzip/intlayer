@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2025-10-28
 title: How to translate your Vite and Preact app – i18n guide 2025
 description: Discover how to make your Vite and Preact website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - vite-and-preact
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 history:
+  - version: 7.0.0
+    date: 2025-10-28
+    changes: Update LocaleRouter component to use new route configuration
   - version: 5.5.10
     date: 2025-06-29
     changes: Init history
@@ -92,6 +95,10 @@ const config: IntlayerConfig = {
     ],
     defaultLocale: Locales.ENGLISH,
   },
+  routing: {
+    mode: "prefix-no-default", // Default: prefix all locales except the default locale
+    storage: ["cookie", "header"], // Default: store locale in cookie and detect from header
+  },
 };
 
 export default config;
@@ -110,6 +117,10 @@ const config = {
       // Your other locales
     ],
     defaultLocale: Locales.ENGLISH,
+  },
+  routing: {
+    mode: "prefix-no-default", // Default: prefix all locales except the default locale
+    storage: ["cookie", "header"], // Default: store locale in cookie and detect from header
   },
 };
 
@@ -130,12 +141,16 @@ const config = {
     ],
     defaultLocale: Locales.ENGLISH,
   },
+  routing: {
+    mode: "prefix-no-default", // Default: prefix all locales except the default locale
+    storage: ["cookie", "header"], // Default: store locale in cookie and detect from header
+  },
 };
 
 module.exports = config;
 ```
 
-> Through this configuration file, you can set up localized URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+> Through this configuration file, you can set up localized URLs, routing modes, storage options, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ### Step 3: Integrate Intlayer in Your Vite Configuration
 
@@ -611,7 +626,7 @@ Example:
 - https://example.com/fr/about
 ```
 
-> By default, the routes are not prefixed for the default locale. If you want to prefix the default locale, you can set the `middleware.prefixDefault` option to `true` in your configuration. See the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) for more information.
+> By default, the routes are not prefixed for the default locale (`routing.mode: "prefix-no-default"`). If you want to prefix the default locale, you can set the `routing.mode` option to `"prefix-all"` in your configuration. See the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) for more information.
 
 To add localized routing to your application, you can create a `LocaleRouter` component that wraps your application's routes and handles locale-based routing. Here is an example using [preact-iso](https://github.com/preactjs/preact-iso):
 
@@ -630,13 +645,13 @@ yarn add preact-iso
 ```
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
-import { type Locales, configuration, getPathWithoutLocale } from "intlayer";
-import { ComponentChildren, FunctionalComponent } from "preact";
+import { configuration, getPathWithoutLocale, type Locale } from "intlayer";
+import type { ComponentChildren, FunctionalComponent } from "preact";
+import { useEffect } from "preact/hooks";
 import { IntlayerProvider } from "preact-intlayer";
 import { LocationProvider, useLocation } from "preact-iso";
-import { useEffect } from "preact/hooks";
 
-const { internationalization, middleware } = configuration;
+const { internationalization, routing } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 const Navigate: FunctionalComponent<{ to: string; replace?: boolean }> = ({
@@ -656,7 +671,7 @@ const Navigate: FunctionalComponent<{ to: string; replace?: boolean }> = ({
  */
 const AppLocalized: FunctionalComponent<{
   children: ComponentChildren;
-  locale?: Locales;
+  locale?: Locale;
 }> = ({ children, locale }) => {
   const { path: pathname, url } = useLocation();
 
@@ -675,9 +690,9 @@ const AppLocalized: FunctionalComponent<{
   );
 
   /**
-   * If middleware.prefixDefault is true, the default locale should always be prefixed.
+   * If routing.mode is 'prefix-all', the default locale should always be prefixed.
    */
-  if (middleware.prefixDefault) {
+  if (routing.mode === "prefix-all") {
     // Validate the locale
     if (!locale || !locales.includes(locale)) {
       // Redirect to the default locale with the updated path
@@ -695,7 +710,7 @@ const AppLocalized: FunctionalComponent<{
     );
   } else {
     /**
-     * When middleware.prefixDefault is false, the default locale is not prefixed.
+     * When routing.mode is not 'prefix-all', the default locale is not prefixed.
      * Ensure that the current locale is valid and not the default locale.
      */
     if (
@@ -726,10 +741,12 @@ const RouterContent: FunctionalComponent<{
     return null;
   }
 
-  const pathLocale = path.split("/")[1] as Locales;
+  const pathLocale = path.split("/")[1] as Locale;
 
   const isLocaleRoute = locales
-    .filter((locale) => middleware.prefixDefault || locale !== defaultLocale)
+    .filter(
+      (locale) => routing.mode === "prefix-all" || locale !== defaultLocale
+    )
     .some((locale) => locale.toString() === pathLocale);
 
   if (isLocaleRoute) {
@@ -738,7 +755,7 @@ const RouterContent: FunctionalComponent<{
 
   return (
     <AppLocalized
-      locale={!middleware.prefixDefault ? defaultLocale : undefined}
+      locale={routing.mode !== "prefix-all" ? defaultLocale : undefined}
     >
       {children}
     </AppLocalized>
@@ -767,7 +784,7 @@ import { useEffect } from "preact/hooks";
 import { h } from "preact"; // Required for JSX
 
 // Destructuring configuration from Intlayer
-const { internationalization, middleware } = configuration;
+const { internationalization, routing } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 const Navigate = ({ to, replace }) => {
@@ -800,9 +817,9 @@ const AppLocalized = ({ children, locale }) => {
   );
 
   /**
-   * If middleware.prefixDefault is true, the default locale should always be prefixed.
+   * If routing.mode is 'prefix-all', the default locale should always be prefixed.
    */
-  if (middleware.prefixDefault) {
+  if (routing.mode === "prefix-all") {
     // Validate the locale
     if (!locale || !locales.includes(locale)) {
       // Redirect to the default locale with the updated path
@@ -820,7 +837,7 @@ const AppLocalized = ({ children, locale }) => {
     );
   } else {
     /**
-     * When middleware.prefixDefault is false, the default locale is not prefixed.
+     * When routing.mode is not 'prefix-all', the default locale is not prefixed.
      * Ensure that the current locale is valid and not the default locale.
      */
     if (
@@ -852,7 +869,9 @@ const RouterContent = ({ children }) => {
   const pathLocale = path.split("/")[1];
 
   const isLocaleRoute = locales
-    .filter((locale) => middleware.prefixDefault || locale !== defaultLocale)
+    .filter(
+      (locale) => routing.mode === "prefix-all" || locale !== defaultLocale
+    )
     .some((locale) => locale.toString() === pathLocale);
 
   if (isLocaleRoute) {
@@ -861,7 +880,7 @@ const RouterContent = ({ children }) => {
 
   return (
     <AppLocalized
-      locale={!middleware.prefixDefault ? defaultLocale : undefined}
+      locale={routing.mode !== "prefix-all" ? defaultLocale : undefined}
     >
       {children}
     </AppLocalized>
@@ -888,7 +907,7 @@ const { useEffect } = require("preact/hooks");
 const { h } = require("preact"); // Required for JSX
 
 // Destructuring configuration from Intlayer
-const { internationalization, middleware } = configuration;
+const { internationalization, routing } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 const Navigate = ({ to, replace }) => {
@@ -921,9 +940,9 @@ const AppLocalized = ({ children, locale }) => {
   );
 
   /**
-   * If middleware.prefixDefault is true, the default locale should always be prefixed.
+   * If routing.mode is 'prefix-all', the default locale should always be prefixed.
    */
-  if (middleware.prefixDefault) {
+  if (routing.mode === "prefix-all") {
     // Validate the locale
     if (!locale || !locales.includes(locale)) {
       // Redirect to the default locale with the updated path
@@ -941,7 +960,7 @@ const AppLocalized = ({ children, locale }) => {
     );
   } else {
     /**
-     * When middleware.prefixDefault is false, the default locale is not prefixed.
+     * When routing.mode is not 'prefix-all', the default locale is not prefixed.
      * Ensure that the current locale is valid and not the default locale.
      */
     if (
@@ -973,7 +992,9 @@ const RouterContent = ({ children }) => {
   const pathLocale = path.split("/")[1];
 
   const isLocaleRoute = locales
-    .filter((locale) => middleware.prefixDefault || locale !== defaultLocale)
+    .filter(
+      (locale) => routing.mode === "prefix-all" || locale !== defaultLocale
+    )
     .some((locale) => locale.toString() === pathLocale);
 
   if (isLocaleRoute) {
@@ -982,7 +1003,7 @@ const RouterContent = ({ children }) => {
 
   return (
     <AppLocalized
-      locale={!middleware.prefixDefault ? defaultLocale : undefined}
+      locale={routing.mode !== "prefix-all" ? defaultLocale : undefined}
     >
       {children}
     </AppLocalized>

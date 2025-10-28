@@ -4,11 +4,12 @@ import {
   renameContentNodeByKeyPath,
 } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
-import type {
-  ContentNode,
-  Dictionary,
-  KeyPath,
-  LocalDictionaryId,
+import {
+  type ContentNode,
+  type Dictionary,
+  type KeyPath,
+  type LocalDictionaryId,
+  NodeType,
 } from '@intlayer/types';
 import {
   type Component,
@@ -232,7 +233,7 @@ export const EditedContentProvider: Component<ParentProps> = (props) => {
       if (targetKey) {
         const parentNode = getContentNodeByKeyPath(
           contentWithoutField,
-          parentKeyPath
+          parentKeyPath.filter((key) => key.type !== NodeType.Translation)
         );
         if (
           parentNode &&
@@ -283,6 +284,10 @@ export const EditedContentProvider: Component<ParentProps> = (props) => {
 
     if (!editedContentValue) return undefined;
 
+    const filteredKeyPath = keyPath.filter(
+      (key) => key.type !== NodeType.Translation
+    );
+
     const isDictionaryId =
       localDictionaryIdOrKey.includes(':local:') ||
       localDictionaryIdOrKey.includes(':remote:');
@@ -292,7 +297,10 @@ export const EditedContentProvider: Component<ParentProps> = (props) => {
         editedContentValue?.[localDictionaryIdOrKey as LocalDictionaryId]
           ?.content ?? {};
 
-      const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+      const contentNode = getContentNodeByKeyPath(
+        currentContent,
+        filteredKeyPath
+      );
 
       return contentNode;
     }
@@ -305,7 +313,10 @@ export const EditedContentProvider: Component<ParentProps> = (props) => {
       const currentContent =
         editedContentValue?.[localDictionaryId as LocalDictionaryId]?.content ??
         {};
-      const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+      const contentNode = getContentNodeByKeyPath(
+        currentContent,
+        filteredKeyPath
+      );
 
       if (contentNode) return contentNode;
     }

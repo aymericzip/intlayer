@@ -1,12 +1,14 @@
 import { getContentNodeByKeyPath } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
-import type {
-  ContentNode,
-  Dictionary,
-  KeyPath,
-  LocalDictionaryId,
+import {
+  type ContentNode,
+  type Dictionary,
+  type KeyPath,
+  type LocalDictionaryId,
+  NodeType,
 } from '@intlayer/types';
 import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
+import type { IntlayerProvider } from '../client';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';
 
@@ -31,7 +33,9 @@ const INTLAYER_EDITED_CONTENT_SYMBOL = Symbol('EditedContent');
 /**
  * Creates an edited content client
  */
-export const createEditedContentClient = () => {
+export const createEditedContentClient = (
+  localeProvider?: IntlayerProvider
+) => {
   if (instance) return instance;
 
   const editedContentRef = ref<EditedContent>({});
@@ -47,16 +51,27 @@ export const createEditedContentClient = () => {
 
       if (!editedContent) return undefined;
 
+      const filteredKeyPath = keyPath.filter(
+        (key) => key.type !== NodeType.Translation
+      );
+
       const isDictionaryId =
         localDictionaryIdOrKey.includes(':local:') ||
         localDictionaryIdOrKey.includes(':remote:');
+
+      // Get the current locale from the locale provider
+      const currentLocale = localeProvider?.locale.value;
 
       if (isDictionaryId) {
         const currentContent =
           editedContent?.[localDictionaryIdOrKey as LocalDictionaryId]
             ?.content ?? {};
 
-        const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+        const contentNode = getContentNodeByKeyPath(
+          currentContent,
+          filteredKeyPath,
+          currentLocale
+        );
 
         return contentNode;
       }
@@ -69,7 +84,11 @@ export const createEditedContentClient = () => {
         const currentContent =
           editedContent?.[localDictionaryId as LocalDictionaryId]?.content ??
           {};
-        const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+        const contentNode = getContentNodeByKeyPath(
+          currentContent,
+          filteredKeyPath,
+          currentLocale
+        );
 
         if (contentNode) return contentNode;
       }
@@ -87,8 +106,11 @@ export const createEditedContentClient = () => {
 /**
  * Helper to install the edited content into the app
  */
-export const installEditedContent = (app: App) => {
-  const client = createEditedContentClient();
+export const installEditedContent = (
+  app: App,
+  localeProvider?: IntlayerProvider
+) => {
+  const client = createEditedContentClient(localeProvider);
 
   app.provide(INTLAYER_EDITED_CONTENT_SYMBOL, client);
 };

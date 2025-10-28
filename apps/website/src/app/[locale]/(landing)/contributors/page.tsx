@@ -1,16 +1,14 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
-import type { NextPageIntlayer } from 'next-intlayer';
-import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
 import ContributorsList, {
   type Contributor,
-} from '@/components/Contributors/ContributorsList';
+} from '@components/Contributors/ContributorsList';
+import type { LocalesValues } from 'intlayer';
+import type { NextPageIntlayer } from 'next-intlayer';
+import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import type { FC, PropsWithChildren } from 'react';
 
-const ContributorsPageContent: FC = async () => {
-  const { title, subtitle } = useIntlayer('contributors-page');
-
+const getContributors = async () => {
   let contributors: Contributor[] = [];
-
   try {
     const response = await fetch(
       'https://api.github.com/repos/aymericzip/intlayer/contributors',
@@ -28,8 +26,15 @@ const ContributorsPageContent: FC = async () => {
     }
   } catch (error) {
     console.error('Error fetching contributors:', error);
-    contributors = [];
   }
+
+  return contributors;
+};
+
+const ContributorsPageContent: FC<
+  PropsWithChildren<{ locale: LocalesValues }>
+> = ({ locale, children }) => {
+  const { title, subtitle } = useIntlayer('contributors-page', locale);
 
   return (
     <BackgroundLayout>
@@ -44,7 +49,7 @@ const ContributorsPageContent: FC = async () => {
             </h1>
           </div>
 
-          <ContributorsList contributors={contributors} />
+          {children}
         </div>
       </div>
     </BackgroundLayout>
@@ -54,9 +59,12 @@ const ContributorsPageContent: FC = async () => {
 const ContributorsPage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
 
+  const contributors: Contributor[] = await getContributors();
+
   return (
     <IntlayerServerProvider locale={locale}>
-      <ContributorsPageContent />
+      <ContributorsPageContent locale={locale} />
+      <ContributorsList contributors={contributors} />
     </IntlayerServerProvider>
   );
 };

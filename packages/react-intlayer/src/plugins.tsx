@@ -2,7 +2,6 @@ import {
   type DeepTransformContent as DeepTransformContentCore,
   getMarkdownMetadata,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
-  type IsAny,
   type MarkdownContent,
   type Plugins,
 } from '@intlayer/core';

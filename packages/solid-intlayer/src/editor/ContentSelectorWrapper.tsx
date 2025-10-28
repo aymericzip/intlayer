@@ -15,20 +15,21 @@ const ContentSelectorWrapperContent: Component<ContentSelectorWrapperProps> = (
 ) => {
   const { focusedContent, setFocusedContent } = useFocusDictionary();
 
+  const filteredKeyPath = createMemo(() =>
+    props.keyPath.filter((key) => key.type !== NodeType.Translation)
+  );
+
   const handleSelect = () =>
     setFocusedContent({
       dictionaryKey: props.dictionaryKey,
-      keyPath: props.keyPath.filter((key) => key.type !== NodeType.Translation),
+      keyPath: filteredKeyPath(),
     });
 
   const isSelected = createMemo(
     () =>
       (focusedContent?.dictionaryKey === props.dictionaryKey &&
         (focusedContent?.keyPath?.length ?? 0) > 0 &&
-        isSameKeyPath(
-          focusedContent?.keyPath ?? [],
-          props.keyPath.filter((key) => key.type !== NodeType.Translation)
-        )) ??
+        isSameKeyPath(focusedContent?.keyPath ?? [], filteredKeyPath())) ??
       false
   );
 

@@ -36,6 +36,10 @@ const communicator = useCommunicator();
 
 useEditor();
 
+const filteredKeyPath = computed(() =>
+  props.keyPath.filter((key) => key.type !== NodeType.Translation)
+);
+
 // compute whether this node is the current focus
 const isSelected = computed(
   () =>
@@ -44,7 +48,7 @@ const isSelected = computed(
     (focusDictionary?.focusedContent.value.keyPath?.length ?? 0) > 0 &&
     isSameKeyPath(
       focusDictionary?.focusedContent.value.keyPath ?? [],
-      props.keyPath.filter((key) => key.type !== NodeType.Translation)
+      filteredKeyPath.value
     )
 );
 
@@ -52,7 +56,7 @@ const isSelected = computed(
 const handleSelect = () => {
   focusDictionary?.setFocusedContent({
     dictionaryKey: props.dictionaryKey,
-    keyPath: props.keyPath.filter((key) => key.type !== NodeType.Translation),
+    keyPath: filteredKeyPath.value,
   });
 };
 
@@ -61,7 +65,7 @@ const handleHover = () => {
     type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
     data: {
       dictionaryKey: props.dictionaryKey,
-      keyPath: props.keyPath,
+      keyPath: filteredKeyPath.value,
     },
   });
 };

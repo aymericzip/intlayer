@@ -1,5 +1,4 @@
 import { effect, type Injector, type Signal, signal } from '@angular/core';
-import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { MessageKey } from '@intlayer/editor';
 import type { Dictionary } from '@intlayer/types';
 import { createSharedComposable } from './createSharedComposable';
@@ -21,11 +20,13 @@ type DictionariesRecordClient = {
 export const createDictionaryRecordClient = () => {
   if (instance) return instance;
 
-  const dictionaries = getDictionaries();
-  const localeDictionariesSignal = signal<DictionaryContent>(dictionaries);
+  const localeDictionariesSignal = signal<DictionaryContent | undefined>(
+    undefined
+  );
 
   instance = {
-    localeDictionaries: localeDictionariesSignal.asReadonly(),
+    localeDictionaries:
+      localeDictionariesSignal.asReadonly() as Signal<DictionaryContent>,
 
     setLocaleDictionaries: (newValue) => {
       localeDictionariesSignal.set(newValue ?? {});

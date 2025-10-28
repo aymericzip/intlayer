@@ -7,7 +7,7 @@
     "build": "tsc && vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "start:editor": "npx intlayer-editor start"
+    "start:editor": "npx intlayer-editor start --with 'vite dev'"
   },
   "dependencies": {
     "intlayer": "workspace:*",
