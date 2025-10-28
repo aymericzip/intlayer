@@ -1,6 +1,7 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
-import ContributorsList, {
+import {
   type Contributor,
+  ContributorsList,
 } from '@components/Contributors/ContributorsList';
 import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
@@ -48,9 +49,8 @@ const ContributorsPageContent: FC<
               {title}
             </h1>
           </div>
-
-          {children}
         </div>
+        {children}
       </div>
     </BackgroundLayout>
   );
@@ -63,8 +63,9 @@ const ContributorsPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <ContributorsPageContent locale={locale} />
-      <ContributorsList contributors={contributors} />
+      <ContributorsPageContent locale={locale}>
+        <ContributorsList contributors={contributors} />
+      </ContributorsPageContent>
     </IntlayerServerProvider>
   );
 };
