@@ -3,7 +3,7 @@ import { Avatar, Container } from '@intlayer/design-system';
 import { ArrowUpRight } from 'lucide-react';
 import type React from 'react';
 
-type Contributor = {
+export type Contributor = {
   login: string;
   avatar_url: string;
   html_url: string;

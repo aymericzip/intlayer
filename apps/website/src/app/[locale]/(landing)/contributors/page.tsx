@@ -1,38 +1,15 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import type { NextPageIntlayer } from 'next-intlayer';
-import ContributorsList from '@/components/Contributors/ContributorsList';
+import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import type { FC } from 'react';
+import ContributorsList, {
+  type Contributor,
+} from '@/components/Contributors/ContributorsList';
 
-const TRANSLATIONS = {
-  en: { subtitle: 'Meet our amazing', title: 'Contributors' },
-  fr: { subtitle: 'Découvrez nos incroyables', title: 'Contributeurs' },
-  es: { subtitle: 'Conoce a nuestros increíbles', title: 'Colaboradores' },
-  de: {
-    subtitle: 'Lernen Sie unsere erstaunlichen kennen',
-    title: 'Mitwirkende',
-  },
-  ar: { subtitle: 'تعرف على رائعين لدينا', title: 'المساهمون' },
-  ja: { subtitle: '素晴らしい', title: '貢献者' },
-  ko: { subtitle: '놀라운', title: '기여자' },
-  pt: { subtitle: 'Conheça nossos incríveis', title: 'Colaboradores' },
-  ru: {
-    subtitle: 'Познакомьтесь с нашими удивительными',
-    title: 'Участниками',
-  },
-  tr: { subtitle: 'Harika', title: 'Katkıda Bulunanlar' },
-  zh: { subtitle: '认识我们优秀的', title: '贡献者' },
-  pl: { subtitle: 'Poznaj naszych niesamowitych', title: 'Współpracowników' },
-  hi: { subtitle: 'हमारे अद्भुत', title: 'योगदानकर्ता' },
-  id: { subtitle: 'Temui yang luar biasa', title: 'Kontributor' },
-  it: { subtitle: 'Incontra i nostri incredibili', title: 'Collaboratori' },
-  vi: { subtitle: 'Gặp gỡ', title: 'Người đóng góp' },
-} as const;
+const ContributorsPageContent: FC = async () => {
+  const { title, subtitle } = useIntlayer('contributors-page');
 
-const ContributorsPage: NextPageIntlayer = async ({ params }) => {
-  const { locale } = await params;
-  const t =
-    TRANSLATIONS[locale as keyof typeof TRANSLATIONS] || TRANSLATIONS.en;
-
-  let contributors = [];
+  let contributors: Contributor[] = [];
 
   try {
     const response = await fetch(
@@ -45,7 +22,7 @@ const ContributorsPage: NextPageIntlayer = async ({ params }) => {
     if (response.ok) {
       const data = await response.json();
       contributors = data.filter(
-        (contributor: any) =>
+        (contributor: Contributor) =>
           contributor.type !== 'Bot' && !contributor.login.includes('[bot]')
       );
     }
@@ -60,10 +37,10 @@ const ContributorsPage: NextPageIntlayer = async ({ params }) => {
         <div className="mx-auto w-full max-w-7xl">
           <div className="relative mb-12 text-center">
             <p className="mb-3 font-medium text-base text-neutral-400 sm:text-lg">
-              {t.subtitle}
+              {subtitle}
             </p>
             <h1 className="font-bold text-5xl text-neutral-900 sm:text-6xl md:text-7xl dark:text-neutral-100">
-              {t.title}
+              {title}
             </h1>
           </div>
 
@@ -71,6 +48,16 @@ const ContributorsPage: NextPageIntlayer = async ({ params }) => {
         </div>
       </div>
     </BackgroundLayout>
+  );
+};
+
+const ContributorsPage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <ContributorsPageContent />
+    </IntlayerServerProvider>
   );
 };
 
