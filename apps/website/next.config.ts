@@ -50,6 +50,7 @@ const secureHeaders = {
         '*.google-analytics.com',
         '*.googletagmanager.com',
         'github.com',
+        'api.github.com',
         'raw.githubusercontent.com',
         '*.openai.com',
         '*.stripe.com',
@@ -66,6 +67,7 @@ const secureHeaders = {
         'https:',
         'data:',
         'raw.githubusercontent.com',
+        'avatars.githubusercontent.com',
         '*.googleusercontent.com',
       ],
       workerSrc: [
@@ -155,6 +157,14 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: true,
   // reactCompiler: true,
   // cacheComponents: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+    ],
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
