@@ -1,6 +1,5 @@
 import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { logStack } from '..';
 import { cache } from './cache';
 
 export const isESModule = typeof import.meta.url === 'string';
@@ -45,8 +44,6 @@ export const getPackageJsonPath = (
 
     currentDir = parentDir;
   }
-
-  logStack('test');
 
   throw new Error(
     `Could not find package.json in current directory or any of the ${MAX_LEVELS} parent directories. Searched from: ${startDir}`

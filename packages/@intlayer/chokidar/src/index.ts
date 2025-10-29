@@ -72,4 +72,5 @@ export {
   writeContentDeclaration,
   writeJSFile,
 } from './writeContentDeclaration';
+export { detectFormatCommand } from './writeContentDeclaration/detectFormatCommand';
 export { processContentDeclarationContent } from './writeContentDeclaration/processContentDeclarationContent';
