@@ -30,6 +30,7 @@
     }
   ],
   "sideEffects": false,
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/types/components/index.d.ts",
@@ -57,9 +58,9 @@
     },
     "./css": "./tailwind.css",
     "./tw-source.css": "./tw-source.css",
-    "./css-output": "./dist/tailwind.css"
+    "./css-output": "./dist/tailwind.css",
+    "./package.json": "./package.json"
   },
-  "main": "dist/esm/components/index.mjs",
   "module": "dist/esm/components/index.mjs",
   "types": "dist/types/components/index.d.ts",
   "files": [

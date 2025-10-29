@@ -1,4 +1,4 @@
-import { join } from 'node:path';
+import { isAbsolute, join } from 'node:path';
 import type {
   AiConfig,
   BaseContentConfig,
@@ -57,12 +57,7 @@ import {
   STRICT_MODE,
 } from '../defaultValues/internationalization';
 import { MODE, PREFIX } from '../defaultValues/log';
-import {
-  BASE_PATH,
-  HEADER_NAME,
-  ROUTING_MODE,
-  STORAGE,
-} from '../defaultValues/routing';
+import { BASE_PATH, ROUTING_MODE, STORAGE } from '../defaultValues/routing';
 import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 import { normalizePath } from '../utils/normalizePath';
 
@@ -237,6 +232,12 @@ const buildContentFields = (
     formatCommand: customConfiguration?.formatCommand,
   };
 
+  const optionalJoinBaseDir = (path: string) => {
+    if (isAbsolute(path)) return path;
+
+    return join(notDerivedContentConfig.baseDir, path);
+  };
+
   const baseDirDerivedConfiguration: BaseDerivedConfig = {
     /**
      * Directory where the content is stored
@@ -252,7 +253,7 @@ const buildContentFields = (
      * - If the content is not at the base directory level, update the contentDirName field instead
      */
     contentDir: (customConfiguration?.contentDir ?? CONTENT_DIR).map(
-      (contentDir) => join(notDerivedContentConfig.baseDir, contentDir)
+      optionalJoinBaseDir
     ),
 
     /**
@@ -271,9 +272,7 @@ const buildContentFields = (
      * - If the module augmentation is not at the base directory level, update the moduleAugmentationDirName field instead
      *
      */
-    moduleAugmentationDir: join(
-      notDerivedContentConfig.baseDir,
-
+    moduleAugmentationDir: optionalJoinBaseDir(
       customConfiguration?.moduleAugmentationDir ?? MODULE_AUGMENTATION_DIR
     ),
 
@@ -285,9 +284,7 @@ const buildContentFields = (
      * Default: '.intlayer/unmerged_dictionary'
      *
      */
-    unmergedDictionariesDir: join(
-      notDerivedContentConfig.baseDir,
-
+    unmergedDictionariesDir: optionalJoinBaseDir(
       customConfiguration?.unmergedDictionariesDir ?? UNMERGED_DICTIONARIES_DIR
     ),
 
@@ -298,8 +295,7 @@ const buildContentFields = (
      *
      * Default: '.intlayer/remote_dictionary'
      */
-    remoteDictionariesDir: join(
-      notDerivedContentConfig.baseDir,
+    remoteDictionariesDir: optionalJoinBaseDir(
       customConfiguration?.remoteDictionariesDir ?? REMOTE_DICTIONARIES_DIR
     ),
 
@@ -318,9 +314,7 @@ const buildContentFields = (
      * - The dictionaries are used to translate the content
      * - The dictionaries are built from the content files
      */
-    dictionariesDir: join(
-      notDerivedContentConfig.baseDir,
-
+    dictionariesDir: optionalJoinBaseDir(
       customConfiguration?.dictionariesDir ?? DICTIONARIES_DIR
     ),
 
@@ -331,8 +325,7 @@ const buildContentFields = (
      *
      * Default: .intlayer/dynamic_dictionary
      */
-    dynamicDictionariesDir: join(
-      notDerivedContentConfig.baseDir,
+    dynamicDictionariesDir: optionalJoinBaseDir(
       customConfiguration?.dynamicDictionariesDir ?? DYNAMIC_DICTIONARIES_DIR
     ),
 
@@ -343,8 +336,7 @@ const buildContentFields = (
      *
      * Default: .intlayer/fetch_dictionary
      */
-    fetchDictionariesDir: join(
-      notDerivedContentConfig.baseDir,
+    fetchDictionariesDir: optionalJoinBaseDir(
       customConfiguration?.fetchDictionariesDir ?? FETCH_DICTIONARIES_DIR
     ),
 
@@ -360,11 +352,7 @@ const buildContentFields = (
      * Note:
      * - If the types are not at the result directory level, update the typesDirName field instead
      */
-    typesDir: join(
-      notDerivedContentConfig.baseDir,
-
-      customConfiguration?.typesDir ?? TYPES_DIR
-    ),
+    typesDir: optionalJoinBaseDir(customConfiguration?.typesDir ?? TYPES_DIR),
 
     /**
      * Directory where the main files will be stored
@@ -379,11 +367,7 @@ const buildContentFields = (
      *
      * - If the main files are not at the result directory level, update the mainDirName field instead
      */
-    mainDir: join(
-      notDerivedContentConfig.baseDir,
-
-      customConfiguration?.mainDir ?? MAIN_DIR
-    ),
+    mainDir: optionalJoinBaseDir(customConfiguration?.mainDir ?? MAIN_DIR),
 
     /**
      * Directory where the configuration files are stored
@@ -398,9 +382,7 @@ const buildContentFields = (
      *
      * - If the configuration files are not at the result directory level, update the configDirName field instead
      */
-    configDir: join(
-      notDerivedContentConfig.baseDir,
-
+    configDir: optionalJoinBaseDir(
       customConfiguration?.configDir ?? CONFIG_DIR
     ),
 
@@ -409,10 +391,7 @@ const buildContentFields = (
      *
      * Default: .intlayer/cache
      */
-    cacheDir: join(
-      notDerivedContentConfig.baseDir,
-      customConfiguration?.cacheDir ?? CACHE_DIR
-    ),
+    cacheDir: optionalJoinBaseDir(customConfiguration?.cacheDir ?? CACHE_DIR),
   };
 
   const patternsConfiguration: PatternsContentConfig = {
