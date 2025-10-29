@@ -29,8 +29,6 @@ export const prepareIntlayer = async (
   configuration: IntlayerConfig,
   options?: PrepareIntlayerOptions
 ) => {
-  console.log('prepareIntlayer', configuration);
-
   const { clean, format, forceRun, onIsCached } = {
     ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
     ...(options ?? {}),
