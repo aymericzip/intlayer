@@ -14,9 +14,9 @@ const packageJson: Record<string, any> = JSON.parse(
   readFileSync(resolve(dirname, '../../../package.json'), 'utf8')
 );
 
-type LoadServer = (isLocal: boolean) => McpServer;
+type LoadServer = (options: { isLocal: boolean }) => McpServer;
 
-export const loadServer: LoadServer = (isLocal) => {
+export const loadServer: LoadServer = ({ isLocal }) => {
   const server = new McpServer({
     name: 'intlayer',
     version: packageJson.version,
@@ -25,7 +25,7 @@ export const loadServer: LoadServer = (isLocal) => {
     },
   });
 
-  if (!isLocal) {
+  if (isLocal) {
     loadCLITools(server);
   }
 

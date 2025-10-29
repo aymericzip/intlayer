@@ -5,15 +5,15 @@ import dotenv from 'dotenv';
 import express, { type Request, type Response } from 'express';
 import { loadServer } from './server';
 
-/*******************************/
-/******* Server Set Up *******/
-/*******************************/
+/**********************************/
+/******* Server Set Up ************/
+/**********************************/
 
-const server = loadServer(false);
+const server = loadServer({ isLocal: false });
 
-/*******************************/
+/**********************************/
 /******* Express App Set Up *******/
-/*******************************/
+/**********************************/
 
 const app = express();
 
