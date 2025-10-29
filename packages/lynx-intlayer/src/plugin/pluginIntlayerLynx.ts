@@ -1,5 +1,9 @@
 import { prepareIntlayer, watch } from '@intlayer/chokidar';
-import { ESMxCJSRequire, getAlias, getConfiguration } from '@intlayer/config';
+import {
+  getAlias,
+  getConfiguration,
+  getProjectRequire,
+} from '@intlayer/config';
 import type { RsbuildPlugin } from '@rsbuild/core';
 
 /**
@@ -43,7 +47,7 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
           resolve: {
             alias: {
               ...getAlias({ configuration }),
-              react: ESMxCJSRequire.resolve('@lynx-js/react'),
+              react: getProjectRequire().resolve('@lynx-js/react'),
             },
           },
         });

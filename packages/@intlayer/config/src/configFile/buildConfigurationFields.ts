@@ -58,7 +58,6 @@ import {
 } from '../defaultValues/internationalization';
 import { MODE, PREFIX } from '../defaultValues/log';
 import { BASE_PATH, ROUTING_MODE, STORAGE } from '../defaultValues/routing';
-import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 import { normalizePath } from '../utils/normalizePath';
 
 let storedConfiguration: IntlayerConfig;
@@ -704,7 +703,7 @@ const buildBuildFields = (
   /**
    * Require function
    */
-  require: customConfiguration?.require ?? ESMxCJSRequire,
+  require: customConfiguration?.require,
 });
 
 const buildDictionaryFields = (

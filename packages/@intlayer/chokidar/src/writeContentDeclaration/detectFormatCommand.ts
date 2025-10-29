@@ -1,8 +1,9 @@
-import { ESMxCJSRequire } from '@intlayer/config';
+import { getProjectRequire } from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
 
 export const detectFormatCommand = (configuration: IntlayerConfig) => {
   const { formatCommand } = configuration.content;
+  const projectRequire = getProjectRequire();
 
   if (formatCommand) {
     return formatCommand;
@@ -10,7 +11,7 @@ export const detectFormatCommand = (configuration: IntlayerConfig) => {
 
   // Try Prettier
   try {
-    ESMxCJSRequire.resolve('prettier');
+    projectRequire.resolve('prettier');
 
     return 'prettier --write "{{file}}" --log-level silent';
   } catch (_error) {
@@ -19,7 +20,7 @@ export const detectFormatCommand = (configuration: IntlayerConfig) => {
 
   // Try Biome
   try {
-    ESMxCJSRequire.resolve('biome');
+    projectRequire.resolve('biome');
 
     return 'biome format "{{file}}" --write --log-level none';
   } catch (_error) {
@@ -28,7 +29,7 @@ export const detectFormatCommand = (configuration: IntlayerConfig) => {
 
   // Try ESLint
   try {
-    ESMxCJSRequire.resolve('eslint');
+    projectRequire.resolve('eslint');
 
     return 'eslint --fix "{{file}}" --quiet';
   } catch (_error) {

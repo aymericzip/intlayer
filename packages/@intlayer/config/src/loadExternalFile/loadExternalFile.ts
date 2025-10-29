@@ -4,7 +4,7 @@ import { extname } from 'node:path';
 import type { IntlayerConfig } from '@intlayer/types';
 import type { BuildOptions, Plugin } from 'esbuild';
 import { colorizePath, logger } from '../logger';
-import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
+import { getProjectRequire } from '../utils/ESMxCJSHelpers';
 import {
   parseFileContent,
   type SandBoxContextOptions,
@@ -28,7 +28,7 @@ export const loadExternalFileSync = (
   options?: LoadExternalFileOptions
 ): any | undefined => {
   const fileExtension = extname(filePath);
-  const safeProjectRequire = options?.projectRequire ?? ESMxCJSRequire;
+  const safeProjectRequire = options?.projectRequire ?? getProjectRequire();
 
   try {
     if (fileExtension === 'json') {
@@ -88,7 +88,7 @@ export const loadExternalFile = async (
   options?: LoadExternalFileOptions
 ): Promise<any | undefined> => {
   const fileExtension = extname(filePath);
-  const safeProjectRequire = options?.projectRequire ?? ESMxCJSRequire;
+  const safeProjectRequire = options?.projectRequire ?? getProjectRequire();
 
   try {
     if (fileExtension === 'json') {

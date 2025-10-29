@@ -71,6 +71,7 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "fast-glob": "3.3.3"
   },
   "devDependencies": {
@@ -86,12 +87,7 @@
   "peerDependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "intlayer": "workspace:*"
-  },
-  "peerDependenciesMeta": {
-    "intlayer": {
-      "optional": true
-    }
+    "@intlayer/types": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

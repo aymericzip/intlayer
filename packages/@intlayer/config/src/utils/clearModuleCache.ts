@@ -1,4 +1,4 @@
-import { ESMxCJSRequire } from './ESMxCJSHelpers';
+import { configESMxCJSRequire } from './ESMxCJSHelpers';
 
 /**
  * Recursively clears the require cache for a module and all its dependencies
@@ -14,10 +14,10 @@ export const clearModuleCache = (
   visited.add(modulePath);
 
   try {
-    const resolvedPath = ESMxCJSRequire.resolve(modulePath);
+    const resolvedPath = configESMxCJSRequire.resolve(modulePath);
 
     // Get the cached module
-    const cachedModule = ESMxCJSRequire.cache[resolvedPath];
+    const cachedModule = configESMxCJSRequire.cache[resolvedPath];
 
     if (cachedModule) {
       // Clear cache for all children (dependencies) first
@@ -28,7 +28,7 @@ export const clearModuleCache = (
       }
 
       // Clear the cache for this module
-      delete ESMxCJSRequire.cache[resolvedPath];
+      delete configESMxCJSRequire.cache[resolvedPath];
     }
   } catch (error) {
     // Module might not exist or be resolvable, skip it

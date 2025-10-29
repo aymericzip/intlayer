@@ -1746,6 +1746,7 @@
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
+        "@intlayer/types": "workspace:*",
         "fast-glob": "3.3.3",
       },
       "devDependencies": {
@@ -1761,11 +1762,8 @@
       "peerDependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
-        "intlayer": "workspace:*",
+        "@intlayer/types": "workspace:*",
       },
-      "optionalPeers": [
-        "intlayer",
-      ],
     },
     "utils/ts-config": {
       "name": "@utils/ts-config",

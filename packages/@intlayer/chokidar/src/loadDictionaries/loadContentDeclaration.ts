@@ -1,6 +1,10 @@
 import { writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
-import { loadExternalFile, localCache } from '@intlayer/config';
+import {
+  getProjectRequire,
+  loadExternalFile,
+  localCache,
+} from '@intlayer/config';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
 import {
@@ -51,7 +55,7 @@ export const loadContentDeclarations = async (
         const relativePath = relative(configuration.content.baseDir, path);
 
         const dictionary = await loadExternalFile(path, {
-          projectRequire: build.require,
+          projectRequire: build.require ?? getProjectRequire(),
           buildOptions: {
             banner: {
               js: [

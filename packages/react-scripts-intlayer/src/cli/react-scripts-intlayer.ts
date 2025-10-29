@@ -8,7 +8,7 @@
  */
 
 import { spawnSync } from 'node:child_process';
-import { ESMxCJSRequire, logger } from '@intlayer/config';
+import { getProjectRequire, logger } from '@intlayer/config';
 
 const args = process.argv.slice(2);
 const scriptIndex = args.findIndex(
@@ -21,7 +21,7 @@ switch (script) {
   case 'start':
   case 'test': {
     const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
-    const scriptPath = ESMxCJSRequire.resolve(
+    const scriptPath = getProjectRequire().resolve(
       `@craco/craco/dist/scripts/${script}`
     );
 

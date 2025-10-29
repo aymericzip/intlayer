@@ -1,7 +1,7 @@
 import { type Context, runInNewContext } from 'node:vm';
 import * as esbuild from 'esbuild';
 import { type LoadEnvFileOptions, loadEnvFile } from '../loadEnvFile';
-import { ESMxCJSRequire } from '../utils/ESMxCJSHelpers';
+import { getProjectRequire } from '../utils/ESMxCJSHelpers';
 
 export type SandBoxContextOptions = {
   envVarOptions?: LoadEnvFileOptions;
@@ -31,7 +31,7 @@ export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
   let additionalGlobalVar = {};
 
   const baseRequire: NodeJS.Require =
-    typeof projectRequire === 'function' ? projectRequire : ESMxCJSRequire;
+    typeof projectRequire === 'function' ? projectRequire : getProjectRequire();
 
   // Wrap require to honor mocks and aliases inside the VM
   const mockedRequire: NodeJS.Require = (() => {

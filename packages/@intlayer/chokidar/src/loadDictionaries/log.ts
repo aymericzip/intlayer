@@ -1,12 +1,12 @@
+import configuration from '@intlayer/config/built';
 import {
   ANSIColors,
   colorize,
   extractErrorMessage,
-  getConfiguration,
   spinnerFrames,
   v,
   x,
-} from '@intlayer/config';
+} from '@intlayer/config/client';
 import type { DictionariesStatus } from './loadDictionaries';
 
 export class DictionariesLogger {
@@ -23,7 +23,6 @@ export class DictionariesLogger {
   private remoteError: string | undefined;
 
   constructor() {
-    const configuration = getConfiguration();
     this.prefix = configuration.log.prefix;
   }
 

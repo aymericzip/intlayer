@@ -43,12 +43,21 @@ export const checkAIAccess = async (
 ): Promise<boolean> => {
   const appLogger = getAppLogger(configuration);
 
-  const hasCMSAuth =
-    configuration.editor.clientId && configuration.editor.clientSecret;
-  const hasHisOwnAIAPIKey = configuration.ai?.apiKey || aiOptions?.apiKey;
+  const hasCMSAuth = Boolean(
+    configuration.editor.clientId && configuration.editor.clientSecret
+  );
+  const hasHisOwnAIAPIKey = Boolean(
+    configuration.ai?.apiKey || aiOptions?.apiKey
+  );
+
+  console.log({ hasCMSAuth, hasHisOwnAIAPIKey });
+
+  if (hasHisOwnAIAPIKey) {
+    return true;
+  }
 
   // User need to provide either his own AI API key or the CMS auth
-  if (!hasCMSAuth && !hasHisOwnAIAPIKey) {
+  if (!hasCMSAuth) {
     appLogger('AI options or API key not provided.', {
       level: 'error',
     });
@@ -57,9 +66,5 @@ export const checkAIAccess = async (
   }
 
   // If the user do not have his own AI API key, we need to check the CMS auth
-  if (!hasHisOwnAIAPIKey) {
-    return await checkCMSAuth(configuration);
-  }
-
-  return true;
+  return await checkCMSAuth(configuration);
 };

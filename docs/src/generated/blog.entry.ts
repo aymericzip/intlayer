@@ -3,10 +3,10 @@
 import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { ESMxCJSRequire, getPackageJsonPath } from '@intlayer/config';
+import { getPackageJsonPath, getProjectRequire } from '@intlayer/config';
 import type { LocalesValues } from '@intlayer/types';
 
-const docEntryPath = ESMxCJSRequire.resolve('@intlayer/docs');
+const docEntryPath = getProjectRequire().resolve('@intlayer/docs');
 const { baseDir } = getPackageJsonPath(docEntryPath);
 
 const readLocale = (
