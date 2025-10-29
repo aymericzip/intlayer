@@ -13,7 +13,8 @@ export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = memo(
     const { keyPath, section, focusedKeyPath = [], onFocusKeyPath } = props;
 
     const sectionKeys = useMemo(
-      () => Object.keys(section).filter((key) => !traceKeys.includes(key)),
+      () =>
+        Object.keys(section ?? {}).filter((key) => !traceKeys.includes(key)),
       [section]
     );
 

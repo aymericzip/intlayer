@@ -78,6 +78,7 @@
     "js-cookie": "3.0.5"
   },
   "devDependencies": {
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@solidjs/testing-library": "0.8.10",
     "@testing-library/jest-dom": "6.6.4",
     "@testing-library/user-event": "14.6.1",
@@ -101,6 +102,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "solid-js": ">=1.0.0"
   },
   "engines": {

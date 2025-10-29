@@ -1,5 +1,6 @@
 import { MessageKey } from '@intlayer/editor';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';
@@ -49,6 +50,18 @@ export const createDictionaryRecordClient = () => {
  */
 export const installDictionariesRecord = (app: App) => {
   const client = createDictionaryRecordClient();
+
+  /**
+   * Sent local dictionaries to editor
+   */
+  const unmergedDictionaries = getUnmergedDictionaries();
+  const dictionariesList = Object.fromEntries(
+    Object.values(unmergedDictionaries)
+      .flat()
+      .map((dictionary) => [dictionary.localId, dictionary])
+  );
+
+  client.setLocaleDictionaries(dictionariesList);
 
   app.provide(INTLAYER_DICTIONARIES_RECORD_SYMBOL, client);
 };

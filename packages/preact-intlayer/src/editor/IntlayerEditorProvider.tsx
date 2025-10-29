@@ -1,7 +1,10 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import type { ComponentChildren, FunctionComponent } from 'preact';
+import { useEffect } from 'preact/compat';
+import { useDictionariesRecordActions } from './DictionariesRecordContext';
 import { useEditorEnabled } from './EditorEnabledContext';
 import { EditorProvider } from './EditorProvider';
 import { useCrossURLPathSetter } from './useCrossURLPathState';
@@ -17,6 +20,22 @@ const IntlayerEditorHooksEnabled: FunctionComponent = () => {
    * Click Messages
    */
   useIframeClickInterceptor();
+
+  /**
+   * Sent local dictionaries to editor
+   */
+  const { setLocaleDictionaries } = useDictionariesRecordActions() ?? {};
+
+  useEffect(() => {
+    const unmergedDictionaries = getUnmergedDictionaries();
+    const dictionariesList = Object.fromEntries(
+      Object.values(unmergedDictionaries)
+        .flat()
+        .map((dictionary) => [dictionary.localId, dictionary])
+    );
+
+    setLocaleDictionaries?.(dictionariesList);
+  }, []);
 
   return <></>;
 };

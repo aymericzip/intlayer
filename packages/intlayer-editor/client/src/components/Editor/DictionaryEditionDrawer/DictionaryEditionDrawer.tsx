@@ -1,12 +1,12 @@
 'use client';
 
-import { getContentNodeByKeyPath } from '@intlayer/core';
 import {
   Button,
   DictionaryEditor,
   DictionaryFieldEditor,
   Modal,
   RightDrawer,
+  Tag,
   useRightDrawerStore,
 } from '@intlayer/design-system';
 import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
@@ -95,10 +95,12 @@ export const DictionaryEditionDrawerContent: FC<
           />
         </div>
       </Modal>
-      <div className="/20 mb-5 flex w-full border-text/20 border-b border-dashed px-3 pb-2">
+
+      <div className="mb-5 flex w-full px-3">
         <h3 className="w-full text-center text-lg">
           {dictionary.title ? dictionary.title : dictionary.key}
         </h3>
+
         <Button
           variant="hoverable"
           color="text"
@@ -107,6 +109,21 @@ export const DictionaryEditionDrawerContent: FC<
           label={openDictionaryEditor.label.value}
           onClick={() => setEditionModalOpen(true)}
         />
+      </div>
+      <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-text/20 border-b border-dashed pb-3">
+        <Tag color="text" roundedSize="full" size="xs">
+          {dictionary.key}
+        </Tag>
+        {dictionary.filePath && (
+          <Tag color="blue" roundedSize="full" size="xs">
+            {dictionary.filePath.split('/').pop()}
+          </Tag>
+        )}
+        {dictionary.id && (
+          <Tag color="purple" roundedSize="full" size="xs">
+            remote
+          </Tag>
+        )}
       </div>
 
       <DictionaryEditor

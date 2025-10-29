@@ -1,5 +1,6 @@
 import { useRightDrawerStore } from '@intlayer/design-system';
 import {
+  type FileContent,
   useEditedContentActions,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
@@ -13,15 +14,6 @@ import { useEffect } from 'react';
 
 export const getDrawerIdentifier = (dictionaryKey: string) =>
   `dictionary_edition_${dictionaryKey}`;
-
-type DictionaryKey = string;
-type DictionaryPath = string;
-
-export type FileContent = {
-  dictionaryPath?: DictionaryPath;
-  dictionaryKey: DictionaryKey;
-  keyPath?: KeyPath[];
-};
 
 type DictionaryEditionDrawer = {
   focusedContent: FileContent | null;

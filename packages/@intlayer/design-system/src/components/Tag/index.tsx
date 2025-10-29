@@ -104,6 +104,17 @@ export enum TagColor {
   WARNING = 'warning',
   NEUTRAL = 'neutral',
   TEXT = 'text',
+  BLUE = 'blue',
+  YELLOW = 'yellow',
+  GREEN = 'green',
+  RED = 'red',
+  ORANGE = 'orange',
+  PURPLE = 'purple',
+  PINK = 'pink',
+  BROWN = 'brown',
+  GRAY = 'gray',
+  BLACK = 'black',
+  WHITE = 'white',
 }
 
 /**
@@ -195,6 +206,26 @@ const containerVariants = cva('w-fit backdrop-blur', {
       [`${TagColor.WARNING}`]: 'border-warning bg-warning/10 text-warning',
       [`${TagColor.NEUTRAL}`]: '/10 border-neutral bg-neutral/10 text-neutral',
       [`${TagColor.TEXT}`]: 'border-text bg-text/10 text-text',
+      [`${TagColor.BLUE}`]:
+        'border-blue-500 bg-blue-500/10 text-blue-500 dark:text-blue-300',
+      [`${TagColor.YELLOW}`]:
+        'border-yellow-500 bg-yellow-500/10 text-yellow-500 dark:text-yellow-300',
+      [`${TagColor.GREEN}`]:
+        'border-green-500 bg-green-500/10 text-green-500 dark:text-green-300',
+      [`${TagColor.RED}`]:
+        'border-red-500 bg-red-500/10 text-red-500 dark:text-red-300',
+      [`${TagColor.ORANGE}`]:
+        'border-orange-500 bg-orange-500/10 text-orange-500 dark:text-orange-300',
+      [`${TagColor.PURPLE}`]:
+        'border-purple-500 bg-purple-500/10 text-purple-500 dark:text-purple-300',
+      [`${TagColor.PINK}`]:
+        'border-pink-500 bg-pink-500/10 text-pink-500 dark:text-pink-300',
+      [`${TagColor.BROWN}`]:
+        'border-brown-500 bg-brown-500/10 text-brown-500 dark:text-brown-300',
+      [`${TagColor.GRAY}`]:
+        'border-gray-500 bg-gray-500/10 text-gray-500 dark:text-gray-300',
+      [`${TagColor.BLACK}`]: 'border-black bg-black/10 text-black',
+      [`${TagColor.WHITE}`]: 'border-white bg-white/10 text-white',
     },
     size: {
       [`${TagSize.XS}`]: 'border-[1.2px] px-2 py-0.5 text-xs',

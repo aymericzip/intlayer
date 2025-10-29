@@ -27,18 +27,21 @@ const mergedKeyPathToUnmergedKeyPath = (
   dictionaries: Dictionary[],
   locale: Locale
 ): UnmergedKeyPath | undefined => {
-  if (!keyPath || keyPath.length === 0) return;
+  console.log('test2', { keyPath, dictionaries, locale });
 
   // If we have a dictionary, verify the path exists
   // Try to find the correct position for the translation key
   // by checking which path actually exists in the dictionary
   for (const dictionary of dictionaries) {
+    console.log('test2', { dictionary });
     try {
       const result = getContentNodeByKeyPath(
         dictionary.content,
-        keyPath,
+        keyPath ?? [],
         locale
       );
+
+      console.log('test2', { result });
 
       if (result) {
         return { keyPath, dictionaryLocalId: dictionary.localId };
@@ -47,9 +50,6 @@ const mergedKeyPathToUnmergedKeyPath = (
       // Continue to next candidate
     }
   }
-
-  // Default: translation key at the end
-  return;
 };
 
 export const useFocusUnmergedDictionary = () => {
@@ -64,6 +64,7 @@ export const useFocusUnmergedDictionary = () => {
   const focusedContent = useMemo<FileContent | null>(() => {
     if (!mergedFocusedContent) return mergedFocusedContent;
     if (!localeDictionaries) return mergedFocusedContent;
+    if (mergedFocusedContent.dictionaryLocalId) return mergedFocusedContent;
 
     const dictionaries = Object.values(localeDictionaries).filter(
       (dictionary) => dictionary.key === mergedFocusedContent.dictionaryKey

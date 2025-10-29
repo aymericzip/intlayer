@@ -98,6 +98,7 @@
     "express": "5.1.0",
     "express-intlayer": "workspace:*",
     "framer-motion": "12.23.24",
+    "fuse.js": "7.1.0",
     "helmet": "8.1.0",
     "intlayer": "workspace:*",
     "lucide-react": "0.547.0",

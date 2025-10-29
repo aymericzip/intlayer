@@ -86,9 +86,9 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "js-cookie": "3.0.5",
     "uuid": "13.0.0"
   },
@@ -113,9 +113,9 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "intlayer": "workspace:*",
     "vue": ">=3.0.0"
   },
