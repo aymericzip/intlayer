@@ -61,6 +61,7 @@ const secureHeaders = {
         '*.vercel.app',
         'img.shields.io',
         '*.googleusercontent.com',
+        '*.githubusercontent.com',
       ],
       imgSrc: [
         "'self'",
@@ -69,6 +70,7 @@ const secureHeaders = {
         'raw.githubusercontent.com',
         'avatars.githubusercontent.com',
         '*.googleusercontent.com',
+        '*.githubusercontent.com',
       ],
       workerSrc: [
         `${process.env.NEXT_PUBLIC_URL}`,

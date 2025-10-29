@@ -29,7 +29,7 @@ export const ContributorsList: React.FC<ContributorsListProps> = ({
             key={contributor.login}
             href={contributor.html_url}
             isExternalLink
-            className="no-underline hover:no-underline"
+            variant="invisible-link"
             label={contributor.login}
           >
             <Container
@@ -37,15 +37,11 @@ export const ContributorsList: React.FC<ContributorsListProps> = ({
               roundedSize="xl"
               transparency="xl"
             >
-              <div className="shrink-0">
-                <div className="relative h-16 w-16 overflow-hidden rounded-sm">
-                  <Avatar
-                    src={contributor.avatar_url}
-                    alt={`${contributor.login}'s avatar`}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </div>
+              <Avatar
+                src={contributor.avatar_url}
+                alt={`${contributor.login}'s avatar`}
+                className="size-16 object-cover"
+              />
 
               <div className="min-w-0 flex-1">
                 <h2 className="mb-1 truncate font-semibold">
