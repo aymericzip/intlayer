@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2025-10-29
 title: Intlayer and react-i18next
 description: Compare Intlayer with react-i18next for a React app
 keywords:
@@ -15,6 +15,10 @@ keywords:
 slugs:
   - blog
   - intlayer-with-react-i18next
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: Change to syncJSON plugin
 ---
 
 # React Internationalization (i18n) with react-i18next and Intlayer
@@ -25,6 +29,10 @@ slugs:
 - **react-i18next** is a popular React integration for **i18next** that provides hooks like `useTranslation` to fetch localized strings in your components.
 
 When combined, Intlayer can **export** dictionaries in **i18next-compatible JSON** so that react-i18next can **consume** them at runtime.
+
+## Table of Contents
+
+<TOC>
 
 ## Why Use Intlayer with react-i18next?
 
@@ -79,17 +87,17 @@ In a Create React App project, install these dependencies:
 
 ```bash
 # With npm
-npm install intlayer react-i18next i18next i18next-resources-to-backend
+npm install intlayer react-i18next i18next i18next-resources-to-backend @intlayer/sync-json-plugin
 ```
 
 ```bash
 # With yarn
-yarn add intlayer react-i18next i18next i18next-resources-to-backend
+yarn add intlayer react-i18next i18next i18next-resources-to-backend @intlayer/sync-json-plugin
 ```
 
 ```bash
 # With pnpm
-pnpm add intlayer react-i18next i18next i18next-resources-to-backend
+pnpm add intlayer react-i18next i18next i18next-resources-to-backend @intlayer/sync-json-plugin
 ```
 
 ### What Are These Packages?
@@ -99,6 +107,7 @@ pnpm add intlayer react-i18next i18next i18next-resources-to-backend
 - **react-i18next** – React-specific integration library for i18next, including the `useTranslation` hook.
 - **i18next** – The underlying framework for translation handling.
 - **i18next-resources-to-backend** – An i18next backend that dynamically imports JSON resources.
+- **@intlayer/sync-json-plugin** – A plugin for Intlayer that syncs JSON files to dictionaries.
 
 ## Configuring Intlayer to Export i18next Dictionaries
 
@@ -113,14 +122,11 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    // Tell Intlayer to create i18next-compatible JSON
-    dictionaryOutput: ["i18next"],
-
-    // Choose an output directory for the generated resources
-    // This folder will be created if it doesn't exist yet.
-    i18nextResourcesDir: "./i18next/resources",
-  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./i18next/resources/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;

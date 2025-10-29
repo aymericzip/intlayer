@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2025-10-29
 title: Intlayer and next-intl
 description: Integrate Intlayer with next-intl for the internationalization (i18n) of a React app
 keywords:
@@ -14,6 +14,10 @@ keywords:
 slugs:
   - blog
   - intlayer-with-next-intl
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: Change to syncJSON plugin
 ---
 
 # Next.js Internationalization (i18n) with next-intl and Intlayer
@@ -29,6 +33,10 @@ They share three principal notions:
 2. **Utilities**: Tools to build and interpret content declarations in the application, such as `useIntlayer()` or `useLocale()` for Intlayer, and `useTranslations()` for next-intl.
 
 3. **Plugins and Middlewares**: Features for managing URL redirection, bundling optimization, and more e.g., `intlayerMiddleware` for Intlayer or [`createMiddleware`](https://github.com/amannn/next-intl) for next-intl.
+
+## Table of Contents
+
+<TOC>
 
 ## Intlayer vs. next-intl: Key Differences
 
@@ -87,15 +95,15 @@ Intlayer content declaration files generally offer a better developer experience
 To use Intlayer and next-intl together, install both libraries:
 
 ```bash packageManager="npm"
-npm install intlayer next-intl
+npm install intlayer next-intl @intlayer/sync-json-plugin
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer next-intl
+yarn add intlayer next-intl @intlayer/sync-json-plugin
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer next-intl
+pnpm add intlayer next-intl @intlayer/sync-json-plugin
 ```
 
 ### Configuring Intlayer to Export next-intl Messages
@@ -104,7 +112,7 @@ pnpm add intlayer next-intl
 
 Create or update an `intlayer.config.ts` file (or `.mjs` / `.cjs`) in the root of your project:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -112,49 +120,14 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    dictionaryOutput: ["next-intl"], // Use the next-intl output
-    nextIntlMessagesDir: "./intl/messages", // Where to save next-intl messages
-  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./intl/messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    dictionaryOutput: ["react-intl"],
-    nextIntlMessagesDir: "./intl/messages",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    dictionaryOutput: ["next-intl"],
-    nextIntlMessagesDir: "./intl/messages",
-  },
-};
-
-module.exports = config;
 ```
 
 ### Dictionary
@@ -233,7 +206,7 @@ module.exports = {
 To build the message files for next-intl, run:
 
 ```bash packageManager="npm"
-npx intlayer dictionaries build
+npx intlayer build
 ```
 
 ```bash packageManager="yarn"
