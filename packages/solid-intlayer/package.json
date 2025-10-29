@@ -83,18 +83,18 @@
     "@testing-library/jest-dom": "6.6.4",
     "@testing-library/user-event": "14.6.1",
     "@types/js-cookie": "3.0.6",
-    "@types/node": "24.9.1",
+    "@types/node": "24.9.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "jsdom": "26.1.0",
     "rimraf": "6.0.1",
-    "tsdown": "0.15.9",
+    "tsdown": "0.15.11",
     "typescript": "5.9.3",
     "vite": "7.1.12",
     "vite-plugin-dts": "4.5.4",
     "vite-plugin-solid": "2.11.6",
-    "vitest": "4.0.3"
+    "vitest": "4.0.5"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",

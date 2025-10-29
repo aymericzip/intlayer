@@ -115,8 +115,8 @@
     "@types/compression": "1.8.1",
     "@types/cookie-parser": "1.4.9",
     "@types/cors": "2.8.19",
-    "@types/express": "5.0.3",
-    "@types/node": "24.9.1",
+    "@types/express": "5.0.5",
+    "@types/node": "24.9.2",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "@utils/ts-config": "workspace:*",
@@ -125,10 +125,10 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "globals": "16.4.0",
     "tailwindcss": "4.1.16",
-    "tsdown": "0.15.9",
+    "tsdown": "0.15.11",
     "typescript": "5.9.3",
     "vite": "7.1.12",
-    "vitest": "4.0.3"
+    "vitest": "4.0.5"
   },
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",

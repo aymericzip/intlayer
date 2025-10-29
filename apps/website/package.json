@@ -89,7 +89,7 @@
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "4.1.16",
     "@types/next-pwa": "5.6.9",
-    "@types/node": "24.9.1",
+    "@types/node": "24.9.2",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "@utils/ts-config": "workspace:*",
@@ -100,7 +100,7 @@
     "pwa-asset-generator": "8.1.2",
     "raw-loader": "4.0.2",
     "tailwindcss": "4.1.16",
-    "tsdown": "0.15.9",
+    "tsdown": "0.15.11",
     "typescript": "5.9.3"
   },
   "peerDependencies": {

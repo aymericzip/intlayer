@@ -23,7 +23,7 @@ export class DictionariesLogger {
   private remoteError: string | undefined;
 
   constructor() {
-    this.prefix = configuration.log.prefix;
+    this.prefix = configuration?.log?.prefix ?? '';
   }
 
   setExpectRemote(expect: boolean) {
