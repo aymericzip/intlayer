@@ -52,6 +52,9 @@ export const generateMetadata = async ({
         ...getMultilingualUrls(relativeUrl),
         'x-default': getLocalizedUrl(relativeUrl, Locales.ENGLISH),
       },
+      types: {
+        'text/markdown': `${getLocalizedUrl(relativeUrl, locale)}.md`,
+      },
     },
     openGraph: {
       url: getLocalizedUrl(absoluteUrl, locale),
