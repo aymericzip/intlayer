@@ -50,12 +50,14 @@
     "./package.json"
   ],
   "scripts": {
+    "prebuild": "tsx scripts/generate-embeddings.ts",
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist .turbo",
     "dev": "node --watch ./dist/esm/index.mjs",
     "dev:package": "tsdown --config tsdown.config.ts --watch",
     "email": "email dev --dir ./src/emails",
+    "embeddings:generate": "tsx scripts/generate-embeddings.ts",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
     "lint": "biome lint .",
@@ -119,6 +121,7 @@
     "intlayer": "workspace:*",
     "rimraf": "6.0.1",
     "tsdown": "0.15.11",
+    "tsx": "^4.20.6",
     "typescript": "5.9.3",
     "vitest": "4.0.5"
   }

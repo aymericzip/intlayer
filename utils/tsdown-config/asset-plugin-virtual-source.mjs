@@ -90,7 +90,7 @@ const getCallerDir = () => {
  * - './' or '../' is resolved relative to the *caller module's* emitted directory.
  * - otherwise, treat as src-relative.
  *
- * @param {string} relPath - e.g. './PROMPT.md' or 'utils/AI/askDocQuestion/embeddings.json'
+ * @param {string} relPath - e.g. './PROMPT.md' or 'utils/AI/askDocQuestion/embeddings/<fileKey>.json'
  * @param {BufferEncoding} [encoding='utf8']
  */
 export const readAsset = (relPath, encoding = 'utf8') => {
