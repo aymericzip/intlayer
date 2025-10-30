@@ -4,16 +4,33 @@ import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { join, dirname as pathDirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getPackageJsonPath } from '@intlayer/config';
+import { getPackageJsonPath, getProjectRequire } from '@intlayer/config';
 import type { LocalesValues } from '@intlayer/types';
 
-// Resolve the base directory of the @intlayer/docs package regardless of the consumer project.
-// Works in both CJS (__dirname) and ESM (import.meta.url) builds.
+// Robustly resolve the base directory of the @intlayer/docs package in both
+// bundled environments (Next.js) and standalone CLIs (MCP via npx).
 const currentDir =
   typeof __dirname !== 'undefined'
     ? __dirname
     : pathDirname(fileURLToPath(import.meta.url));
-const { baseDir } = getPackageJsonPath(currentDir);
+
+let baseDir: string;
+try {
+  // Prefer resolving from the location of this file (works for CLIs).
+  const projectRequire = getProjectRequire(currentDir);
+  const docEntryPath = projectRequire.resolve('@intlayer/docs');
+  baseDir = getPackageJsonPath(docEntryPath).baseDir;
+} catch {
+  try {
+    // Fallback: resolve from the consumer project (works for apps/bundlers).
+    const projectRequire = getProjectRequire();
+    const docEntryPath = projectRequire.resolve('@intlayer/docs');
+    baseDir = getPackageJsonPath(docEntryPath).baseDir;
+  } catch {
+    // Last resort: walk up from currentDir (useful when executed inside @intlayer/docs).
+    baseDir = getPackageJsonPath(currentDir).baseDir;
+  }
+}
 
 const readLocale = (
   relativeAfterLocale: string,
