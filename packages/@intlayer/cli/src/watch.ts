@@ -20,7 +20,11 @@ export const watchContentDeclaration = async (options?: WatchOptions) => {
   const appLogger = getAppLogger(config);
 
   if (options?.with) {
-    runParallel(options.with);
+    const parallelProcess = runParallel(options.with);
+    // Handle the promise to avoid unhandled rejection
+    parallelProcess.result.catch(() => {
+      // Parallel process failed or was terminated
+    });
   }
 
   appLogger('Watching Intlayer content declarations');

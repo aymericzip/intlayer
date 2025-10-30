@@ -43,6 +43,10 @@ export const liveSync = async (options?: LiveSyncOptions) => {
   // Start the parallel process if provided
   if (options?.with) {
     parallelProcess = runParallel(options.with);
+    // Handle the promise to avoid unhandled rejection
+    parallelProcess.result.catch(() => {
+      // Parallel process failed or was terminated
+    });
   }
 
   // Initialize the event listener for hot reload if configured
