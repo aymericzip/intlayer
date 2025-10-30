@@ -41,7 +41,7 @@ For that, Intlayer introduce the concept of 'distant dictionaries'.
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ---
 

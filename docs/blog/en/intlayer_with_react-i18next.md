@@ -27,7 +27,7 @@ history:
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## What is Intlayer?
 

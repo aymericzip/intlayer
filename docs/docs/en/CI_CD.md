@@ -27,7 +27,7 @@ Intlayer allows the automatic generation of translations for your content declar
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## Using the CMS
 

@@ -25,7 +25,7 @@ history:
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## What is next-i18next?
 

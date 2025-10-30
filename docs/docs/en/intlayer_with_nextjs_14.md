@@ -40,7 +40,7 @@ See [Application Template](https://github.com/aymericzip/intlayer-next-14-templa
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## What is Intlayer?
 

@@ -27,7 +27,7 @@ See [Application Template](https://github.com/aymericzip/intlayer-vite-vue-templ
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## What is Intlayer?
 

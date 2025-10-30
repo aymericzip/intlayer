@@ -27,7 +27,7 @@ This is not a full tutorial. It’s a comparison to help you pick.
 
 We focus on **Next.js 13+ App Router** (with **React Server Components**) and evaluate:
 
-<TOC>
+<TOC/>
 
 > **tl;dr**: All three can localize a Next.js app. If you want **component-scoped content**, **strict TypeScript types**, **build-time missing-key checks**, **tree-shaken dictionaries**, and **first-class App Router + SEO helpers**, **Intlayer** is the most complete, modern choice.
 

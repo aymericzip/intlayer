@@ -27,7 +27,7 @@ See [Application Template](https://github.com/aymericzip/intlayer-nuxt-template)
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## What is Intlayer?
 

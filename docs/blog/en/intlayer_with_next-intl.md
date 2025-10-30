@@ -50,7 +50,7 @@ Key advantages of Intlayer include:
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## Intlayer vs. next-intl: Key Differences
 

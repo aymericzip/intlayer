@@ -49,7 +49,7 @@ See [Application Template](https://github.com/aymericzip/intlayer-next-15-templa
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## What is Intlayer?
 

@@ -27,7 +27,7 @@ This comprehensive guide demonstrates how to integrate **Intlayer** with **react
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## What is Intlayer?
 

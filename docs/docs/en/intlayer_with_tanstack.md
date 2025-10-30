@@ -30,7 +30,7 @@ history:
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 This guide demonstrates how to integrate **Intlayer** for seamless internationalization in Tanstack Start projects with locale-aware routing, TypeScript support, and modern development practices.
 

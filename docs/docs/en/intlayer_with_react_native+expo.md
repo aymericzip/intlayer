@@ -30,7 +30,7 @@ See [Application Template](https://github.com/aymericzip/intlayer-react-native-t
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## What is Intlayer?
 
