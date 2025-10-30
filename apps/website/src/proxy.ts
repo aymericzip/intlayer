@@ -1,7 +1,7 @@
 import { queryProxy } from '@utils/queryProxy';
 import { intlayerProxy, multipleProxies } from 'next-intlayer/proxy';
 
-export const middleware = multipleProxies([intlayerProxy, queryProxy]);
+export const proxy = multipleProxies([intlayerProxy, queryProxy]);
 
 // Middleware can also be exported as a default:
 // Example:
