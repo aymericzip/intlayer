@@ -661,7 +661,6 @@
         "deep-equal": "2.2.3",
         "deepmerge": "4.3.1",
         "fast-glob": "3.3.3",
-        "pidtree": "^0.6.0",
         "simple-git": "3.28.0",
         "ts-morph": "27.0.0",
       },
