@@ -1,325 +1,122 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
-title: Intlayer e react-intl
-description: Integra Intlayer con react-intl per un'app React
+updatedAt: 2025-10-29
+title: Come automatizzare le traduzioni JSON di react-intl usando Intlayer
+description: Automatizza le tue traduzioni JSON con Intlayer e react-intl per una migliore internazionalizzazione nelle applicazioni React.
 keywords:
   - react-intl
   - Intlayer
   - Internazionalizzazione
-  - Blogumentazione
-  - Next.js
+  - Blog
+  - i18n
   - JavaScript
   - React
+  - FormatJS
 slugs:
   - blog
   - intlayer-with-react-intl
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: Cambio al plugin syncJSON
 ---
 
-# React Internationalization (i18n) con **react-intl** e Intlayer
+# Come automatizzare le traduzioni JSON di react-intl usando Intlayer
 
-Questa guida mostra come integrare **Intlayer** con **react-intl** per gestire le traduzioni in un'applicazione React. Dichiari i tuoi contenuti traducibili con Intlayer e poi consuma quei messaggi con **react-intl**, una popolare libreria dell'ecosistema [FormatJS](https://formatjs.io/docs/react-intl).
+## Cos'è Intlayer?
 
-## Panoramica
+**Intlayer** è una libreria di internazionalizzazione innovativa e open-source progettata per superare le limitazioni delle soluzioni i18n tradizionali. Offre un approccio moderno alla gestione dei contenuti nelle applicazioni React.
 
-- **Intlayer** ti consente di memorizzare le traduzioni nei file di dichiarazione dei contenuti a **livello di componente** (JSON, JS, TS, ecc.) all'interno del tuo progetto.
-- **react-intl** fornisce componenti React e hook (come `<FormattedMessage>` e `useIntl()`) per visualizzare stringhe localizzate.
+Consulta un confronto concreto con react-intl nel nostro post del blog [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/react-i18next_vs_react-intl_vs_intlayer.md).
 
-Configurando Intlayer per **esportare** le traduzioni in un formato **compatibile con react-intl**, puoi automaticamente **generare** e **aggiornare** i file di messaggi di cui `<IntlProvider>` (da react-intl) ha bisogno.
+## Perché combinare Intlayer con react-intl?
 
----
+Sebbene Intlayer fornisca una soluzione i18n autonoma eccellente (vedi la nostra [guida all'integrazione con React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vite+react.md)), potresti volerlo combinare con react-intl per diversi motivi:
 
-## Perché usare Intlayer con react-intl?
+1. **Codice esistente**: Hai un'implementazione consolidata di react-intl e vuoi migrare gradualmente alla migliore esperienza sviluppatore offerta da Intlayer.
+2. **Requisiti legacy**: Il tuo progetto richiede compatibilità con plugin o flussi di lavoro esistenti di react-intl.
+3. **Familiarità del team**: Il tuo team è abituato a react-intl ma desidera una migliore gestione dei contenuti.
 
-1. **Dichiarazioni di contenuto per componente**  
-   I file di dichiarazione dei contenuti di Intlayer possono vivere accanto ai tuoi componenti React, evitando traduzioni “orfane” se i componenti vengono spostati o rimossi. Ad esempio:
+**Per questo, Intlayer può essere implementato come un adattatore per react-intl per aiutarti ad automatizzare le traduzioni JSON nella CLI o nelle pipeline CI/CD, testare le traduzioni e altro ancora.**
 
-   ```bash
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.ts   # Dichiarazione contenuti Intlayer
-               └── index.tsx          # Componente React
-   ```
+Questa guida ti mostra come sfruttare il sistema superiore di dichiarazione dei contenuti di Intlayer mantenendo la compatibilità con react-intl.
 
-2. **Traduzioni centralizzate**  
-   Ogni file di dichiarazione dei contenuti raccoglie tutte le traduzioni necessarie a un componente. Questo è particolarmente utile nei progetti TypeScript: le traduzioni mancanti possono essere catturate al **momento della compilazione**.
+## Indice
 
-3. **Build e rigenerazione automatiche**  
-   Ogni volta che aggiungi o aggiorni le traduzioni, Intlayer rigenera file JSON di messaggio. Puoi quindi passarli a `<IntlProvider>` di react-intl.
+<TOC/>
 
----
+## Guida passo-passo per configurare Intlayer con react-intl
 
-## Installazione
+### Passo 1: Installa le dipendenze
 
-In un tipico progetto React, installa i seguenti:
+Installa i pacchetti necessari:
 
-```bash
-# con npm
-npm install intlayer react-intl
-
-# con yarn
-yarn add intlayer react-intl
-
-# con pnpm
-pnpm add intlayer react-intl
+```bash packageManager="npm"
+npm install intlayer @intlayer/sync-json-plugin
 ```
 
-### Perché questi pacchetti?
+```bash packageManager="pnpm"
+pnpm add intlayer @intlayer/sync-json-plugin
+```
 
-- **intlayer**: CLI core e libreria che scansiona le dichiarazioni di contenuto, le unisce e genera output di dizionario.
-- **react-intl**: La libreria principale di FormatJS che fornisce `<IntlProvider>`, `<FormattedMessage>`, `useIntl()` e altre primitives di internazionalizzazione.
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
+```
 
-> Se non hai già installato React, avrai bisogno anche di esso (`react` e `react-dom`).
+**Descrizione dei pacchetti:**
 
-## Configurare Intlayer per esportare i messaggi react-intl
+- **intlayer**: Libreria core per la gestione dell'internazionalizzazione, dichiarazione dei contenuti e build
+- **@intlayer/sync-json-plugin**: Plugin per esportare le dichiarazioni di contenuto di Intlayer in formato JSON compatibile con react-intl
 
-Nella radice del tuo progetto, crea **`intlayer.config.ts`** (o `.js`, `.mjs`, `.cjs`) in questo modo:
+### Passo 2: Implementa il plugin Intlayer per incapsulare il JSON
 
-```typescript title="intlayer.config.ts"
+Crea un file di configurazione Intlayer per definire le tue localizzazioni supportate:
+
+**Se vuoi anche esportare dizionari JSON per react-intl**, aggiungi il plugin `syncJSON`:
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
   internationalization: {
-    // Aggiungi quanti più locali desideri
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    // Indica a Intlayer di generare file di messaggi per react-intl
-    dictionaryOutput: ["react-intl"],
-
-    // La directory in cui Intlayer scriverà i tuoi file JSON di messaggi
-    reactIntlMessagesDir: "./react-intl/messages",
-  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./intl/messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-> **Nota**: Per altri tipi di file (`.mjs`, `.cjs`, `.js`), consulta la [documentazione di Intlayer](https://intlayer.org/it/doc/concept/configuration) per i dettagli sull'uso.
+Il plugin `syncJSON` incapsulerà automaticamente il JSON. Leggerà e scriverà i file JSON senza modificare l'architettura del contenuto.
 
----
+Se vuoi far coesistere quel JSON con i file di dichiarazione dei contenuti di Intlayer (file `.content`), Intlayer procederà in questo modo:
 
-## Creazione delle dichiarazioni di contenuto di Intlayer
+    1. caricherà sia i file JSON che quelli di dichiarazione dei contenuti e li trasformerà in un dizionario Intlayer.
+    2. se ci sono conflitti tra i file JSON e i file di dichiarazione del contenuto, Intlayer procederà alla fusione di tutti questi dizionari. A seconda della priorità dei plugin e di quella del file di dichiarazione del contenuto (tutti configurabili).
 
-Intlayer scansiona il tuo codice sorgente (per impostazione predefinita, sotto `./src`) per file che corrispondono a `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`.  
-Ecco un esempio in **TypeScript**:
+Se vengono apportate modifiche utilizzando la CLI per tradurre il JSON, o utilizzando il CMS, Intlayer aggiornerà il file JSON con le nuove traduzioni.
 
-```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type Dictionary } from "intlayer";
-
-const content = {
-  // "chiave" diventa la chiave di messaggio di primo livello nel tuo file JSON react-intl
-  key: "my-component",
-
-  content: {
-    // Ogni chiamata a t() dichiara un campo traducibile
-    helloWorld: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-    description: t({
-      en: "This is a description",
-      fr: "Ceci est une description",
-      es: "Esta es una descripción",
-    }),
-  },
-} satisfies Dictionary;
-
-export default content;
-```
-
-Se preferisci JSON o diversi tipi di JS (`.cjs`, `.mjs`), la struttura è essenzialmente la stessa, vedi [documentazione di Intlayer sulla dichiarazione dei contenuti](https://intlayer.org/it/doc/concept/content).
-
----
-
-## Costruzione dei messaggi react-intl
-
-Per generare i file JSON di messaggi effettivi per **react-intl**, esegui:
-
-```bash
-# con npm
-npx intlayer dictionaries build
-
-# con yarn
-yarn intlayer build
-
-# con pnpm
-pnpm intlayer build
-```
-
-Questo scansiona tutti i file `*.content.*`, li compila e scrive i risultati nella directory specificata nel tuo **`intlayer.config.ts`** , in questo esempio, `./react-intl/messages`.  
-Un output tipico potrebbe apparire così:
-
-```bash
-.
-└── react-intl
-    └── messages
-        ├── en.json
-        ├── fr.json
-        └── es.json
-```
-
-Ogni file è un oggetto JSON i cui **chiavi di primo livello** corrispondono a ciascuna **`content.key`** dalle tue dichiarazioni. Le **sotto-chiavi** (come `helloWorld`) riflettono le traduzioni dichiarate all'interno di quell'elemento di contenuto.
-
-Ad esempio, il **en.json** potrebbe apparire così:
-
-```json fileName="react-intl/messages/en/my-component.json"
-{
-  "helloWorld": "Hello World",
-  "description": "This is a description"
-}
-```
-
----
-
-## Inizializzare react-intl nella tua app React
-
-### 1. Carica i messaggi generati
-
-Dove configuri il componente radice della tua app (ad esempio, `src/main.tsx` o `src/index.tsx`), dovrai:
-
-1. **Importare** i file di messaggi generati (staticamente o dinamicamente).
-2. **Fornirli** a `<IntlProvider>` da `react-intl`.
-
-Un approccio semplice è importare staticamente:
-
-```typescript title="src/index.tsx"
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { IntlProvider } from "react-intl";
-import App from "./App";
-
-// Importa i file JSON dall'output della build.
-// In alternativa, puoi importare dinamicamente in base alla lingua scelta dall'utente.
-import en from "../react-intl/messages/en.json";
-import fr from "../react-intl/messages/fr.json";
-import es from "../react-intl/messages/es.json";
-
-// Se hai un meccanismo per rilevare la lingua dell'utente, impostalo qui.
-// Per semplicità, scegliamo l'inglese.
-const locale = "en";
-
-// Raccogli i messaggi in un oggetto (o scegli in modo dinamico)
-const messagesRecord: Record<string, Record<string, any>> = {
-  en,
-  fr,
-  es,
-};
-
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <IntlProvider locale={locale} messages={messagesRecord[locale]}>
-      <App />
-    </IntlProvider>
-  </React.StrictMode>
-);
-```
-
-> **Suggerimento**: Per progetti reali, potresti:
->
-> - Caricare dinamicamente i messaggi JSON a runtime.
-> - Utilizzare rilevamenti di locale basati su ambiente, browser o account utente.
-
-### 2. Usa `<FormattedMessage>` o `useIntl()`
-
-Una volta che i tuoi messaggi sono stati caricati in `<IntlProvider>`, qualsiasi componente figlio può utilizzare react-intl per accedere a stringhe localizzate. Ci sono due approcci principali:
-
-- **Componente `<FormattedMessage>`**
-- **Hook `useIntl()`**
-
----
-
-## Utilizzo delle traduzioni nei componenti React
-
-### Approccio A: `<FormattedMessage>`
-
-Per un utilizzo rapido in linea:
-
-```tsx title="src/components/MyComponent/index.tsx"
-import React from "react";
-import { FormattedMessage } from "react-intl";
-
-export default function MyComponent() {
-  return (
-    <div>
-      <h1>
-        {/* “my-component.helloWorld” fa riferimento alla chiave da en.json, fr.json, ecc. */}
-        <FormattedMessage id="my-component.helloWorld" />
-      </h1>
-
-      <p>
-        <FormattedMessage id="my-component.description" />
-      </p>
-    </div>
-  );
-}
-```
-
-> La prop **`id`** in `<FormattedMessage>` deve corrispondere alla **chiave di primo livello** (`my-component`) più eventuali sotto-chiavi (`helloWorld`).
-
-### Approccio B: `useIntl()`
-
-Per un utilizzo più dinamico:
-
-```tsx title="src/components/MyComponent/index.tsx"
-import React from "react";
-import { useIntl } from "react-intl";
-
-export default function MyComponent() {
-  const intl = useIntl();
-
-  return (
-    <div>
-      <h1>{intl.formatMessage({ id: "my-component.helloWorld" })}</h1>
-      <p>{intl.formatMessage({ id: "my-component.description" })}</p>
-    </div>
-  );
-}
-```
-
-Entrambi gli approcci sono validi: scegli quello che meglio si adatta alla tua app.
-
----
-
-## Aggiornamento o aggiunta di nuove traduzioni
-
-1. **Aggiungi o modifica** contenuti in qualsiasi file `*.content.*`.
-2. Riesegui `intlayer build` per rigenerare i file JSON sotto `./react-intl/messages`.
-3. React (e react-intl) rileveranno gli aggiornamenti la prossima volta che ricompili o ricarichi la tua applicazione.
-
----
-
-## Integrazione TypeScript (Opzionale)
-
-Se stai usando TypeScript, Intlayer può **generare definizioni di tipo** per le tue traduzioni.
-
-- Assicurati che `tsconfig.json` includa la tua cartella `types` (o qualsiasi altra cartella di output generata da Intlayer) nell'array `"include"`.
-
-```json5
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", "types"],
-}
-```
-
-I tipi generati possono aiutare a rilevare traduzioni mancanti o chiavi non valide nei tuoi componenti React al momento della compilazione.
-
----
+Per maggiori dettagli sul plugin `syncJSON`, si prega di fare riferimento alla [documentazione del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/plugins/sync-json.md).
 
 ## Configurazione Git
 
-È comune **escludere** gli artefatti di build interni di Intlayer dal controllo versione. Nel tuo `.gitignore`, aggiungi:
+Si consiglia di ignorare i file Intlayer generati automaticamente:
 
-```plaintext
-# Ignora gli artefatti di build di intlayer
+```plaintext fileName=".gitignore"
+# Ignora i file generati da Intlayer
 .intlayer
-react-intl
 ```
 
-A seconda del tuo flusso di lavoro, potresti anche voler ignorare o impegnare i dizionari finali in `./react-intl/messages`. Se la tua pipeline CI/CD li rigenera, puoi ignorarli in sicurezza; altrimenti, impegnali se hai bisogno di loro per le distribuzioni in produzione.
+Questi file possono essere rigenerati durante il processo di build e non è necessario che vengano inseriti nel controllo di versione.
+
+### Estensione VS Code
+
+Per migliorare l'esperienza dello sviluppatore, installa l'**Estensione ufficiale Intlayer per VS Code**:
+
+[Installa dal Marketplace di VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

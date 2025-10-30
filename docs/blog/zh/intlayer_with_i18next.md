@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
-title: Intlayer 和 i18next
-description: 将 Intlayer 与 i18next 集成以实现最佳国际化。比较两个框架并了解如何配置它们。
+updatedAt: 2025-10-29
+title: 如何使用 Intlayer 自动化您的 i18next JSON 翻译
+description: 使用 Intlayer 和 i18next 自动化您的 JSON 翻译，提升 JavaScript 应用程序的国际化水平。
 keywords:
   - Intlayer
   - i18next
@@ -14,149 +14,114 @@ keywords:
   - Next.js
   - JavaScript
   - TypeScript
+  - 迁移
+  - 集成
 slugs:
   - blog
   - intlayer-with-i18next
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: 更改为 syncJSON 插件
 ---
 
-# 国际化与 Intlayer 和 i18next
+# 如何使用 Intlayer 自动化您的 i18next JSON 翻译
 
-i18next 是一个开源国际化 (i18n) 框架，旨在用于 JavaScript 应用程序。它广泛用于管理翻译、定位和软件项目中的语言切换。然而，它有一些限制，可能会使可扩展性和开发变得复杂。
+## 什么是 Intlayer？
 
-Intlayer 是另一个国际化框架，解决了这些限制，提供了一种更灵活的内容声明和管理方法。让我们探讨一下 i18next 和 Intlayer 之间的主要区别，以及如何为最佳国际化配置两者。
+**Intlayer** 是一个创新的开源国际化库，旨在解决传统 i18n 解决方案的不足。它为 JavaScript 应用程序中的内容管理提供了一种现代化的方法。
 
-## Intlayer 与 i18next：主要区别
+请参阅我们博客文章中的具体比较：[next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)。
 
-### 1. 内容声明
+## 为什么要将 Intlayer 与 i18next 结合使用？
 
-使用 i18next 时，翻译字典必须在特定文件夹中声明，这可能会使应用程序的可扩展性变得复杂。相比之下，Intlayer 允许内容在与组件相同的目录中声明。这有几个优点：
+虽然 Intlayer 提供了一个出色的独立 i18n 解决方案（请参阅我们的[Next.js 集成指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)），但您可能出于以下几个原因想将其与 i18next 结合使用：
 
-- **简化内容编辑**：用户不必为了编辑而查找正确的字典，从而减少错误的机会。
-- **自动适应**：如果组件更改位置或被删除，Intlayer 会自动检测并适应。
+1. **现有代码库**：您已经有一个成熟的 i18next 实现，并希望逐步迁移到 Intlayer 以获得更好的开发者体验。
+2. **遗留需求**：您的项目需要兼容现有的 i18next 插件或工作流程。
+3. **团队熟悉度**：您的团队熟悉 i18next，但希望获得更好的内容管理。
 
-### 2. 配置复杂性
+**为此，Intlayer 可以作为 i18next 的适配器来实现，帮助您在 CLI 或 CI/CD 流水线中自动化 JSON 翻译，测试翻译内容等。**
 
-配置 i18next 可能很复杂，尤其是在与服务器组件集成或为 Next.js 等框架配置中间件时。Intlayer 简化了这一过程，提供了更直接的配置。
+本指南将向您展示如何利用 Intlayer 优越的内容声明系统，同时保持与 i18next 的兼容性。
 
-### 3. 翻译字典的一致性
+## 目录
 
-确保翻译字典在不同语言之间的一致性在使用 i18next 时可能会面临挑战。这种不一致性如果处理不当，可能导致应用程序崩溃。Intlayer 通过对翻译内容施加约束来解决这个问题，确保没有翻译遗漏，并且翻译内容准确。
+<TOC/>
 
-### 4. TypeScript 集成
+## 使用 i18next 设置 Intlayer 的分步指南
 
-Intlayer 与 TypeScript 的集成更好，允许在代码中自动建议内容，从而提高开发效率。
+### 第一步：安装依赖项
 
-### 5. 跨应用共享内容
+安装必要的包：
 
-Intlayer 促进了跨多个应用程序和共享库的内容声明文件共享。这个功能使得在更大的代码库中维护一致的翻译变得更容易。
+```bash packageManager="npm"
+npm install intlayer @intlayer/sync-json-plugin
+```
 
-## 如何使用 Intlayer 生成 i18next 字典
+```bash packageManager="pnpm"
+pnpm add intlayer @intlayer/sync-json-plugin
+```
 
-### 配置 Intlayer 以导出 i18next 字典
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
+```
 
-> 重要提示
+**包描述：**
 
-> i18next 字典的导出当前处于测试阶段，并不确保与其他框架的 1:1 兼容性。建议遵循基于 Intlayer 的配置以最小化问题。
+- **intlayer**：用于国际化管理、内容声明和构建的核心库
+- **@intlayer/sync-json-plugin**：用于将 Intlayer 内容声明导出为兼容 i18next 的 JSON 格式的插件
 
-要导出 i18next 字典，您需要适当地配置 Intlayer。以下是如何设置 Intlayer 以导出 Intlayer 和 i18next 字典的示例。
+### 步骤 2：实现 Intlayer 插件以包装 JSON
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+创建一个 Intlayer 配置文件以定义支持的语言环境：
+
+**如果你还想导出 i18next 的 JSON 词典**，请添加 `syncJSON` 插件：
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
-  content: {
-    // 指示 Intlayer 将导出 Intlayer 和 i18next 字典
-    dictionaryOutput: ["intlayer", "i18next"],
-    // 从项目根目录到导出 i18n 字典的目录的相对路径
-    i18nextResourcesDir: "./i18next/dictionaries",
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./intl/messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
+`syncJSON` 插件会自动包装 JSON。它会读取和写入 JSON 文件，而不会改变内容结构。
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  content: {
-    // 指示 Intlayer 将导出 Intlayer 和 i18next 字典
-    dictionaryOutput: ["intlayer", "i18next"],
-    // 从项目根目录到导出 i18n 字典的目录的相对路径
-    i18nextResourcesDir: "./i18next/dictionaries",
-  },
-};
+如果你想让 JSON 与 intlayer 内容声明文件（`.content` 文件）共存，Intlayer 会按以下方式处理：
 
-export default config;
+    1. 加载 JSON 和内容声明文件，并将它们转换为 intlayer 字典。
+
+2. 如果 JSON 文件和内容声明文件之间存在冲突，Intlayer 将合并所有字典。合并的优先级取决于插件的优先级以及内容声明文件的优先级（所有这些都是可配置的）。
+
+如果使用 CLI 翻译 JSON，或使用 CMS 进行更改，Intlayer 会使用新的翻译更新 JSON 文件。
+
+## Git 配置
+
+建议忽略自动生成的 Intlayer 文件：
+
+```plaintext fileName=".gitignore"
+# 忽略 Intlayer 生成的文件
+.intlayer
 ```
 
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+这些文件可以在构建过程中重新生成，无需提交到版本控制。
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  content: {
-    // 指示 Intlayer 将导出 Intlayer 和 i18next 字典
-    dictionaryOutput: ["intlayer", "i18next"],
-    // 从项目根目录到导出 i18n 字典的目录的相对路径
-    i18nextResourcesDir: "./i18next/dictionaries",
-  },
-};
+### VS Code 扩展
 
-module.exports = config;
-```
+为了提升开发者体验，请安装官方的 **Intlayer VS Code 扩展**：
 
-通过在配置中包含 'i18next'，Intlayer 生成专用的 i18next 字典，除此之外，还有 Intlayer 字典。请注意，移除 'intlayer' 可能导致与 React-Intlayer 或 Next-Intlayer 的兼容性破坏。
+[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-### 将字典导入到您的 i18next 配置中
-
-要将生成的字典导入到您的 i18next 配置中，可以使用 'i18next-resources-to-backend'。以下是如何导入您的 i18next 字典的示例：
-
-```typescript fileName="i18n/client.ts" codeFormat="typescript"
-// i18n/client.ts
-
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next
-  // 您的 i18next 配置
-  .use(
-    resourcesToBackend(
-      (language: string, namespace: string) =>
-        import(`../i18next/dictionaries/${language}/${namespace}.json`)
-    )
-  );
-```
-
-```javascript fileName="i18n/client.mjs" codeFormat="esm"
-// i18n/client.mjs
-
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next
-  // 您的 i18next 配置
-  .use(
-    resourcesToBackend(
-      (language, namespace) =>
-        import(`../i18next/dictionaries/${language}/${namespace}.json`)
-    )
-  );
-```
-
-```javascript fileName="i18n/client.cjs" codeFormat="commonjs"
-// i18n/client.cjs
-
-const i18next = require("i18next");
-const resourcesToBackend = require("i18next-resources-to-backend");
-
-i18next
-  // 您的 i18next 配置
-  .use(
-    resourcesToBackend(
-      (language, namespace) =>
-        import(`../i18next/dictionaries/${language}/${namespace}.json`)
-    )
-  );
-```
+[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

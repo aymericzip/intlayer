@@ -270,7 +270,7 @@ const LocaleLayout = async ({ children, params: { locale } }) => {
 export default LocaleLayout;
 ```
 
-````jsx fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
+```jsx fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
 const { Inter } = require("next/font/google");
 const { getHTMLTextDir } = require("intlayer");
 
@@ -301,7 +301,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 };
 
 export default LocaleLayout;
-````
+```
 
 ```jsx {1} fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
 export { generateStaticParams } from "next-intlayer"; // सम्मिलित करने के लिए पंक्ति

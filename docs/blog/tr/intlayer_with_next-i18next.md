@@ -1,13 +1,13 @@
 ---
-createdAt: 2025-09-07
-updatedAt: 2025-09-07
+createdAt: 2025-08-23
+updatedAt: 2025-10-29
 title: Intlayer ve next-i18next
-description: Next.js uygulaması için Intlayer'ı next-i18next ile entegre edin
+description: Kapsamlı bir Next.js uluslararasılaştırma çözümü için Intlayer'ı next-i18next ile entegre edin
 keywords:
   - i18next
   - next-i18next
   - Intlayer
-  - Internationalization
+  - Uluslararasılaştırma
   - Blog
   - Next.js
   - JavaScript
@@ -15,353 +15,128 @@ keywords:
 slugs:
   - blog
   - intlayer-with-next-i18next
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: syncJSON eklentisine geçiş ve kapsamlı yeniden yazım
 ---
 
-# next-i18next ve Intlayer ile Next.js Uluslararasılaştırma (i18n)
+# next-i18next ve Intlayer ile Next.js Uluslararasılaştırması (i18n)
 
-Hem next-i18next hem de Intlayer, Next.js uygulamaları için tasarlanmış açık kaynaklı uluslararasılaştırma (i18n) çerçeveleridir. Yazılım projelerinde çevirileri, yerelleştirmeyi ve dil değiştirmeyi yönetmek için yaygın olarak kullanılırlar.
+## İçindekiler
 
-Her iki çözüm de üç temel kavramı içerir:
+<TOC/>
 
-1. **Sözlük**: Uygulamanızın çevrilebilir içeriğini tanımlama yöntemi.
-   - `i18next` durumunda `resource` olarak adlandırılır, içerik beyanı bir veya daha fazla dilde çeviriler için anahtar-değer çiftleri içeren yapılandırılmış bir JSON nesnesidir. Daha fazla bilgi için [i18next dokümantasyonuna](https://www.i18next.com/translation-function/essentials) bakın.
-   - `Intlayer` durumunda `content declaration file` olarak adlandırılır, içerik beyanı yapılandırılmış veriyi dışa aktaran bir JSON, JS veya TS dosyası olabilir. Daha fazla bilgi için [Intlayer dokümantasyonuna](https://intlayer.org/fr/doc/concept/content) bakın.
+## next-i18next nedir?
 
-2. **Araçlar**: Uygulamada içerik beyanlarını oluşturmak ve yorumlamak için araçlar, örneğin next-i18next için `getI18n()`, `useCurrentLocale()` veya `useChangeLocale()`, Intlayer için `useIntlayer()` veya `useLocale()`.
+**next-i18next**, Next.js uygulamaları için en popüler uluslararasılaştırma (i18n) çerçevelerinden biridir. Güçlü **i18next** ekosistemi üzerine inşa edilmiştir ve Next.js projelerinde çevirilerin yönetimi, yerelleştirme ve dil değiştirme için kapsamlı bir çözüm sunar.
 
-3. **Eklentiler ve Ara Yazılımlar**: URL yönlendirmesini, paket optimizasyonunu vb. yönetmek için özellikler, örneğin next-i18next için `next-i18next/middleware` veya Intlayer için `intlayerMiddleware`.
+Ancak, next-i18next bazı zorluklarla birlikte gelir:
 
-## Intlayer vs. i18next: Temel Farklılıklar
+- **Karmaşık yapılandırma**: next-i18next kurulumu, birden fazla yapılandırma dosyası gerektirir ve sunucu tarafı ile istemci tarafı i18n örneklerinin dikkatli kurulmasını gerektirir.
+- **Dağınık çeviriler**: Çeviri dosyaları genellikle bileşenlerden ayrı dizinlerde saklanır, bu da tutarlılığı korumayı zorlaştırır.
+- **Manuel isim alanı yönetimi**: Geliştiricilerin isim alanlarını manuel olarak yönetmesi ve çeviri kaynaklarının doğru şekilde yüklenmesini sağlaması gerekir.
+- **Sınırlı tür güvenliği**: TypeScript desteği ek yapılandırma gerektirir ve çeviriler için otomatik tür oluşturma sağlamaz.
 
-i18next ve Intlayer arasındaki farkları keşfetmek için [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18next_vs_next-intl_vs_intlayer.md) blog yazımıza bakın.
+## Intlayer Nedir?
 
-## Intlayer ile next-i18next Sözlükleri Nasıl Oluşturulur
+**Intlayer**, geleneksel i18n çözümlerinin eksikliklerini gidermek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma kütüphanesidir. Next.js uygulamalarında içerik yönetimine modern bir yaklaşım sunar.
 
-### Neden Intlayer'ı next-i18next ile Kullanmalı?
+next-intl ile somut bir karşılaştırma için [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) blog yazımıza bakabilirsiniz.
 
-Intlayer içerik beyan dosyaları genellikle daha iyi bir geliştirici deneyimi sunar. İki ana avantaj nedeniyle daha esnek ve sürdürülebilirlerdir:
+## Neden Intlayer ile next-i18next Birlikte Kullanılır?
 
-1. **Esnek Yerleştirme**: Bir Intlayer içerik beyan dosyası uygulamanın dosya ağacında herhangi bir yere yerleştirilebilir, kullanılmayan içerik beyanları bırakmadan yinelenen veya silinen bileşenlerin yönetimini basitleştirir.
+Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bkz. [Next.js entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)), birkaç nedenle next-i18next ile birleştirmek isteyebilirsiniz:
 
-   Örnek dosya yapıları:
+1. **Mevcut kod tabanı**: Yerleşik bir next-i18next uygulamanız var ve Intlayer'ın geliştirilmiş geliştirici deneyimine kademeli olarak geçmek istiyorsunuz.
+2. **Eski gereksinimler**: Projeniz mevcut i18next eklentileri veya iş akışları ile uyumluluk gerektiriyor.
+3. **Ekip aşinalığı**: Ekibiniz next-i18next ile rahat ancak daha iyi içerik yönetimi istiyor.
 
-   ```bash codeFormat="typescript"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.ts # İçerik beyan dosyası
-               └── index.tsx
-   ```
+**Bunun için, Intlayer, CLI veya CI/CD boru hatlarında JSON çevirilerinizi otomatikleştirmeye, çevirilerinizi test etmeye ve daha fazlasına yardımcı olmak için next-i18next için bir adaptör olarak uygulanabilir.**
 
-   ```bash codeFormat="esm"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.mjs # İçerik beyan dosyası
-               └── index.mjx
-   ```
+Bu rehber, Intlayer'ın üstün içerik beyan sistemi avantajlarından yararlanırken next-i18next ile uyumluluğu nasıl koruyacağınızı gösterir.
 
-   ```bash codeFormat="cjs"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.cjs # İçerik beyan dosyası
-               └── index.cjx
-   ```
+---
 
-   ```bash codeFormat="json"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.json # İçerik beyan dosyası
-               └── index.jsx
-   ```
+## Intlayer'ı next-i18next ile Kurmak için Adım Adım Rehber
 
-2. **Merkezi Çeviriler**: Intlayer tüm çevirileri tek bir dosyada depolar, hiçbir çevirinin eksik olmasını sağlar. TypeScript kullanırken, eksik çeviriler otomatik olarak algılanır ve hatalar olarak raporlanır.
+### Adım 1: Bağımlılıkları Yükleyin
 
-### Kurulum
+Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri yükleyin:
 
 ```bash packageManager="npm"
-npm install intlayer i18next next-i18next i18next-resources-to-backend
-```
-
-```bash packageManager="yarn"
-yarn add intlayer i18next next-i18next i18next-resources-to-backend
+npm install intlayer @intlayer/sync-json-plugin
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer i18next next-i18next i18next-resources-to-backend
+pnpm add intlayer @intlayer/sync-json-plugin
 ```
 
-### i18next Sözlüklerini Dışa Aktarmak İçin Intlayer'ı Yapılandırma
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
+```
 
-> i18next kaynaklarını dışa aktarmak diğer çerçevelerle 1:1 uyumluluk sağlamaz. Sorunları en aza indirmek için Intlayer tabanlı bir yapılandırmaya bağlı kalmak önerilir.
+**Paket açıklamaları:**
 
-i18next kaynaklarını dışa aktarmak için Intlayer'ı bir `intlayer.config.ts` dosyasında yapılandırın. Örnek yapılandırmalar:
+- **intlayer**: İçerik beyanı ve yönetimi için temel kütüphane
+- **next-intlayer**: Next.js entegrasyon katmanı ve build eklentileri
+- **i18next**: Temel i18n çerçevesi
+- **next-i18next**: i18next için Next.js sarmalayıcısı
+- **i18next-resources-to-backend**: i18next için dinamik kaynak yükleme
+- **@intlayer/sync-json-plugin**: Intlayer içerik beyanlarını i18next JSON formatına senkronize eden eklenti
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+### Adım 2: JSON'u sarmak için Intlayer eklentisini uygulayın
+
+Desteklediğiniz yerel ayarları tanımlamak için bir Intlayer yapılandırma dosyası oluşturun:
+
+**Eğer i18next için JSON sözlüklerini de dışa aktarmak istiyorsanız**, `syncJSON` eklentisini ekleyin:
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    dictionaryOutput: ["i18next"],
-    i18nextResourcesDir: "./i18next/resources",
-  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
+`syncJSON` eklentisi JSON'u otomatik olarak saracaktır. İçerik mimarisini değiştirmeden JSON dosyalarını okuyup yazar.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    dictionaryOutput: ["i18next"],
-    i18nextResourcesDir: "./i18next/resources",
-  },
-};
+Eğer JSON dosyalarının intlayer içerik beyan dosyaları (`.content` dosyaları) ile birlikte var olmasını istiyorsanız, Intlayer şu şekilde ilerleyecektir:
 
-export default config;
-```
+    1. Hem JSON hem de içerik beyan dosyalarını yükler ve bunları bir intlayer sözlüğüne dönüştürür.
+    2. JSON ile içerik beyan dosyaları arasında çakışma varsa, Intlayer tüm sözlükleri birleştirme işlemi yapacaktır. Bu işlem, eklentilerin önceliğine ve içerik beyan dosyasının önceliğine bağlıdır (tümü yapılandırılabilir).
 
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+CLI kullanılarak JSON çevirisi yapılırsa veya CMS kullanılırsa, Intlayer JSON dosyasını yeni çevirilerle güncelleyecektir.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    dictionaryOutput: ["i18next"],
-    i18nextResourcesDir: "./i18next/resources",
-  },
-};
-
-module.exports = config;
-```
-
-Burada belgenizin kalan kısımlarının devamı ve düzeltmesi:
+`syncJSON` eklentisi hakkında daha fazla detay için lütfen [syncJSON eklenti dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) bakınız.
 
 ---
 
-### Sözlükleri i18next Yapılandırmanıza İçe Aktarma
+## Git Yapılandırması
 
-Oluşturulan kaynakları i18next yapılandırmanıza içe aktarmak için `i18next-resources-to-backend` kullanın. Aşağıda örnekler:
+Oluşturulan dosyaları sürüm kontrolünden hariç tutun:
 
-```typescript fileName="i18n/client.ts" codeFormat="typescript"
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next.use(
-  resourcesToBackend(
-    (language: string, namespace: string) =>
-      import(`../i18next/resources/${language}/${namespace}.json`)
-  )
-);
+```plaintext fileName=".gitignore"
+# Intlayer tarafından oluşturulan dosyaları yoksay
+.intlayer
+intl
 ```
 
-```javascript fileName="i18n/client.mjs" codeFormat="esm"
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
+Bu dosyalar, derleme süreci sırasında otomatik olarak yeniden oluşturulur ve depoza gönderilmesine gerek yoktur.
 
-i18next.use(
-  resourcesToBackend(
-    (language, namespace) =>
-      import(`../i18next/resources/${language}/${namespace}.json`)
-  )
-);
-```
+### VS Code Eklentisi
 
-```javascript fileName="i18n/client.cjs" codeFormat="commonjs"
-const i18next = require("i18next");
-const resourcesToBackend = require("i18next-resources-to-backend");
+Geliştirici deneyimini iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyin:
 
-i18next.use(
-  resourcesToBackend(
-    (language, namespace) =>
-      import(`../i18next/resources/${language}/${namespace}.json`)
-  )
-);
-```
-
-### Sözlük
-
-Çeşitli formatlardaki içerik beyan dosyalarının örnekleri:
-
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type Dictionary } from "intlayer";
-
-const content = {
-  key: "my-content",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-} satisfies Dictionary;
-
-export default content;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const content = {
-  key: "my-content",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-module.exports = {
-  key: "my-content",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-```
-
-```json fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my-content",
-  "content": {
-    "myTranslatedContent": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Hello World",
-        "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
-      }
-    }
-  }
-}
-```
-
-### next-i18next Kaynaklarını Oluştur
-
-next-i18next kaynaklarını oluşturmak için aşağıdaki komutu çalıştırın:
-
-```bash packageManager="npm"
-npx run intlayer build
-```
-
-```bash packageManager="yarn"
-yarn intlayer build
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer build
-```
-
-Bu, `./i18next/resources` dizininde kaynaklar oluşturacaktır. Beklenen çıktı:
-
-```bash
-.
-└── i18next
-    └── resources
-       └── en
-           └── my-content.json
-       └── fr
-           └── my-content.json
-       └── es
-           └── my-content.json
-```
-
-Not: i18next ad alanı Intlayer beyan anahtarına karşılık gelir.
-
-### Next.js Eklentisini Uygula
-
-Yapılandırıldıktan sonra, Intlayer içerik beyan dosyaları güncellendiğinde i18next kaynaklarınızı yeniden oluşturmak için Next.js eklentisini uygulayın.
-
-```typescript fileName="next.config.mjs"
-import { withIntlayer } from "next-intlayer/server";
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default withIntlayer(nextConfig);
-```
-
-### Next.js Bileşenlerinde İçeriği Kullanma
-
-Next.js eklentisini uyguladıktan sonra, içeriği bileşenlerinizde kullanabilirsiniz:
-
-```typescript fileName="src/components/myComponent/index.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { useTranslation } from "react-i18next";
-
-const IndexPage: FC = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div>
-      <h1>{t("my-content.title")}</h1>
-      <p>{t("my-content.description")}</p>
-    </div>
-  );
-};
-
-export default IndexPage;
-```
-
-```jsx fileName="src/components/myComponent/index.mjx" codeFormat="esm"
-import { useTranslation } from "react-i18next";
-
-const IndexPage = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div>
-      <h1>{t("my-content.title")}</h1>
-      <p>{t("my-content.description")}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/myComponent/index.cjx" codeFormat="commonjs"
-const { useTranslation } = require("react-i18next");
-
-const IndexPage = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div>
-      <h1>{t("my-content.title")}</h1>
-      <p>{t("my-content.description")}</p>
-    </div>
-  );
-};
-```
+[VS Code Marketinden Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

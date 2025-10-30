@@ -28,7 +28,7 @@ history:
     changes: Initial Sync JSON plugin documentation
 ---
 
-## Sync JSON (i18n bridges)
+# Sync JSON (i18n bridges)
 
 Use Intlayer as an add‑on to your existing i18n stack. This plugin keeps your JSON messages in sync with Intlayer dictionaries so you can:
 

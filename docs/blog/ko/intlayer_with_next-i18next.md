@@ -1,367 +1,165 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2025-10-29
 title: Intlayer와 next-i18next
-description: Next.js 앱을 위해 next-i18next와 Intlayer를 통합하다
+description: 포괄적인 Next.js 국제화 솔루션을 위해 Intlayer를 next-i18next와 통합하기
 keywords:
   - i18next
   - next-i18next
   - Intlayer
   - 국제화
-  - 문서화
+  - 블로그
   - Next.js
-  - JavaScript
-  - React
+  - 자바스크립트
+  - 리액트
 slugs:
   - blog
   - intlayer-with-next-i18next
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: syncJSON 플러그인으로 변경 및 전면 개편
 ---
 
-# Next.js 국제화 (i18n) with next-i18next 및 Intlayer
+# next-i18next와 Intlayer를 활용한 Next.js 국제화(i18n)
 
-both next-i18next와 Intlayer는 Next.js 애플리케이션용으로 설계된 오픈 소스 국제화(i18n) 프레임워크입니다. 이들은 소프트웨어 프로젝트에서 번역, 지역화 및 언어 전환을 관리하는 데 널리 사용됩니다.
+## 목차
 
-두 솔루션은 세 가지 주요 개념을 포함합니다:
+<TOC/>
 
-1. **콘텐츠 선언**: 애플리케이션의 번역 가능한 콘텐츠를 정의하는 방법입니다.
-   - `i18next`의 경우 `resource`라고 명명된 콘텐츠 선언은 하나 이상의 언어로된 번역의 키-값 쌍을 포함하는 구조화된 JSON 객체입니다. 자세한 내용은 [i18next 문서](https://www.i18next.com/translation-function/essentials)를 참조하십시오.
-   - `Intlayer`의 경우 `content declaration file`이라고 명명된 콘텐츠 선언은 구조화된 데이터를 내보내는 JSON, JS 또는 TS 파일이 될 수 있습니다. 자세한 내용은 [Intlayer 문서](https://intlayer.org/fr/doc/concept/content)를 참조하십시오.
+## next-i18next란 무엇인가?
 
-2. **유틸리티**: `getI18n()`, `useCurrentLocale()`, 또는 `useChangeLocale()`와 같은 애플리케이션 내 콘텐츠 선언을 구축하고 해석하기 위한 도구이며, next-i18next의 경우, `useIntlayer()` 또는 `useLocale()`는 Intlayer를 위한 것입니다.
+**next-i18next**는 Next.js 애플리케이션을 위한 가장 인기 있는 국제화(i18n) 프레임워크 중 하나입니다. 강력한 **i18next** 생태계 위에 구축되어, Next.js 프로젝트에서 번역, 현지화, 언어 전환을 관리하는 포괄적인 솔루션을 제공합니다.
 
-3. **플러그인 및 미들웨어**: URL 리디렉션 관리, 번들 최적화 등을 위한 기능으로, next-i18next의 경우 `next-i18next/middleware` 또는 Intlayer의 경우 `intlayerMiddleware`가 있습니다.
+하지만 next-i18next에는 몇 가지 어려움이 있습니다:
 
-## Intlayer vs. i18next: 주요 차이점
+- **복잡한 설정**: next-i18next를 설정하려면 여러 구성 파일과 서버 측 및 클라이언트 측 i18n 인스턴스의 신중한 설정이 필요합니다.
+- **분산된 번역 파일**: 번역 파일이 일반적으로 컴포넌트와 별도의 디렉토리에 저장되어 일관성 유지가 어렵습니다.
+- **수동 네임스페이스 관리**: 개발자가 네임스페이스를 수동으로 관리하고 번역 리소스가 제대로 로드되도록 해야 합니다.
+- **제한된 타입 안전성**: TypeScript 지원은 추가 구성이 필요하며 번역에 대한 자동 타입 생성을 제공하지 않습니다.
 
-i18next와 Intlayer의 차이를 알고 싶다면 우리의 [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_next-intl_vs_intlayer.md) 블로그 게시물을 확인하십시오.
+## Intlayer란 무엇인가요?
 
-## Intlayer로 next-i18next 사전 생성하는 방법
+**Intlayer**는 전통적인 i18n 솔루션의 단점을 해결하기 위해 설계된 혁신적이고 오픈 소스인 국제화 라이브러리입니다. Next.js 애플리케이션에서 콘텐츠 관리를 위한 현대적인 접근 방식을 제공합니다.
 
-### 왜 next-i18next와 함께 Intlayer를 사용해야 할까요?
+[next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md) 블로그 게시물에서 next-intl과의 구체적인 비교를 확인하세요.
 
-Intlayer 콘텐츠 선언 파일은 일반적으로 더 나은 개발자 경험을 제공합니다. 두 가지 주요 이점으로 인해 더 유연하고 유지 관리가 용이합니다:
+## 왜 Intlayer를 next-i18next와 결합해야 하나요?
 
-1. **유연한 배치**: Intlayer 콘텐츠 선언 파일은 애플리케이션의 파일 트리 어디에나 배치할 수 있어 중복되거나 삭제된 구성 요소를 관리하는 것을 단순화하며, 사용되지 않는 콘텐츠 선언을 남기지 않습니다.
+Intlayer는 훌륭한 독립형 i18n 솔루션을 제공하지만(자세한 내용은 [Next.js 통합 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)를 참조하세요), 다음과 같은 여러 이유로 next-i18next와 결합하여 사용할 수 있습니다:
 
-   예시 파일 구조:
+1. **기존 코드베이스**: 이미 구축된 next-i18next 구현이 있으며 Intlayer의 향상된 개발자 경험으로 점진적으로 마이그레이션하고자 할 때.
+2. **레거시 요구사항**: 프로젝트가 기존 i18next 플러그인 또는 워크플로우와의 호환성을 필요로 할 때.
+3. **팀 친숙도**: 팀이 next-i18next에 익숙하지만 더 나은 콘텐츠 관리를 원할 때.
 
-   ```bash codeFormat="typescript"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.ts # 콘텐츠 선언 파일
-               └── index.tsx
-   ```
+**이를 위해 Intlayer는 next-i18next의 어댑터로 구현되어 CLI 또는 CI/CD 파이프라인에서 JSON 번역 자동화, 번역 테스트 등 다양한 작업을 지원할 수 있습니다.**
 
-   ```bash codeFormat="esm"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.mjs # 콘텐츠 선언 파일
-               └── index.mjx
-   ```
+이 가이드는 next-i18next와의 호환성을 유지하면서 Intlayer의 우수한 콘텐츠 선언 시스템을 활용하는 방법을 보여줍니다.
 
-   ```bash codeFormat="cjs"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.cjs # 콘텐츠 선언 파일
-               └── index.cjx
-   ```
+---
 
-   ```bash codeFormat="json"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.json # 콘텐츠 선언 파일
-               └── index.jsx
-   ```
+## next-i18next와 함께 Intlayer 설정 단계별 가이드
 
-2. **중앙 집중식 번역**: Intlayer는 모든 번역을 단일 파일에 저장하여 누락된 번역이 없도록 보장합니다. TypeScript를 사용할 경우, 누락된 번역이 자동으로 검출되어 오류로 보고됩니다.
+### 1단계: 의존성 설치
 
-### 설치
+선호하는 패키지 관리자를 사용하여 필요한 패키지를 설치하세요:
 
 ```bash packageManager="npm"
-npm install intlayer i18next next-i18next i18next-resources-to-backend
-```
-
-```bash packageManager="yarn"
-yarn add intlayer i18next next-i18next i18next-resources-to-backend
+npm install intlayer @intlayer/sync-json-plugin
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer i18next next-i18next i18next-resources-to-backend
+pnpm add intlayer @intlayer/sync-json-plugin
 ```
 
-### Intlayer를 구성하여 i18next 사전 내보내기
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
+```
 
-> i18next 리소스를 내보내는 것은 다른 프레임워크와의 1:1 호환성을 보장하지 않습니다. 문제를 최소화하려면 Intlayer 기반 구성을 유지하는 것이 권장됩니다.
+**패키지 설명:**
 
-i18next 리소스를 내보내기 위해, `intlayer.config.ts` 파일에서 Intlayer를 구성합니다. 예시 구성:
+- **intlayer**: 콘텐츠 선언 및 관리를 위한 핵심 라이브러리
+- **next-intlayer**: 빌드 플러그인이 포함된 Next.js 통합 레이어
+- **i18next**: 핵심 i18n 프레임워크
+- **next-i18next**: i18next를 위한 Next.js 래퍼
+- **i18next-resources-to-backend**: i18next를 위한 동적 리소스 로딩
+- **@intlayer/sync-json-plugin**: Intlayer 콘텐츠 선언을 i18next JSON 형식으로 동기화하는 플러그인
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+### 2단계: JSON을 래핑하는 Intlayer 플러그인 구현
+
+지원하는 로케일을 정의하기 위해 Intlayer 구성 파일을 만듭니다:
+
+**i18next용 JSON 사전도 내보내고 싶다면**, `syncJSON` 플러그인을 추가하세요:
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    dictionaryOutput: ["i18next"],
-    i18nextResourcesDir: "./i18next/resources",
-  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
+`syncJSON` 플러그인은 JSON을 자동으로 래핑합니다. 콘텐츠 구조를 변경하지 않고 JSON 파일을 읽고 씁니다.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    dictionaryOutput: ["i18next"],
-    i18nextResourcesDir: "./i18next/resources",
-  },
-};
+JSON과 intlayer 콘텐츠 선언 파일(`.content` 파일)을 공존시키고 싶다면, Intlayer는 다음과 같이 처리합니다:
 
-export default config;
-```
+    1. JSON과 콘텐츠 선언 파일을 모두 로드하여 intlayer 사전으로 변환합니다.
 
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+2. JSON과 콘텐츠 선언 파일 간에 충돌이 있는 경우, Intlayer는 모든 사전을 병합하는 과정을 진행합니다. 플러그인의 우선순위와 콘텐츠 선언 파일의 우선순위에 따라 결정되며(모두 구성 가능합니다).
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    dictionaryOutput: ["i18next"],
-    i18nextResourcesDir: "./i18next/resources",
-  },
-};
-
-module.exports = config;
-```
-
-여기서는 문서의 나머지 부분의 연속성과 수정을 제공하겠습니다:
+CLI를 사용하여 JSON을 번역하거나 CMS를 통해 변경 사항이 발생하면, Intlayer는 새로운 번역으로 JSON 파일을 업데이트합니다.
 
 ---
 
-### i18next 구성에 사전 가져오기
+## Git 구성
 
-생성된 리소스를 i18next 구성에 가져오려면 `i18next-resources-to-backend`를 사용하십시오. 아래는 예시입니다:
+생성된 파일을 버전 관리에서 제외하세요:
 
-```typescript fileName="i18n/client.ts" codeFormat="typescript"
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next.use(
-  resourcesToBackend(
-    (language: string, namespace: string) =>
-      import(`../i18next/resources/${language}/${namespace}.json`)
-  )
-);
+```plaintext fileName=".gitignore"
+# Intlayer에서 생성된 파일 무시
+.intlayer
+intl
 ```
 
-```javascript fileName="i18n/client.mjs" codeFormat="esm"
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
+이 파일들은 빌드 과정에서 자동으로 다시 생성되므로 저장소에 커밋할 필요가 없습니다.
 
-i18next.use(
-  resourcesToBackend(
-    (language, namespace) =>
-      import(`../i18next/resources/${language}/${namespace}.json`)
-  )
-);
+### VS Code 확장 프로그램
+
+개발자 경험 향상을 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치하세요:
+
+[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+2. JSON과 콘텐츠 선언 파일 간에 충돌이 있는 경우, Intlayer는 모든 사전을 병합하는 작업을 수행합니다. 플러그인의 우선순위와 콘텐츠 선언 파일의 우선순위에 따라 처리됩니다(모두 구성 가능합니다).
+
+CLI를 사용하여 JSON 번역을 변경하거나 CMS를 사용하여 변경하는 경우, Intlayer는 새 번역으로 JSON 파일을 업데이트합니다.
+
+---
+
+## Git 구성
+
+버전 관리에서 생성된 파일 제외:
+
+```plaintext fileName=".gitignore"
+# Intlayer에서 생성된 파일 무시
+.intlayer
+intl
 ```
 
-```javascript fileName="i18n/client.cjs" codeFormat="commonjs"
-const i18next = require("i18next");
-const resourcesToBackend = require("i18next-resources-to-backend");
+이 파일들은 빌드 과정에서 자동으로 다시 생성되므로 저장소에 커밋할 필요가 없습니다.
 
-i18next.use(
-  resourcesToBackend(
-    (language, namespace) =>
-      import(`../i18next/resources/${language}/${namespace}.json`)
-  )
-);
-```
+### VS Code 확장 프로그램
 
-### 콘텐츠 선언
+개발자 경험 향상을 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치하세요:
 
-다양한 형식의 콘텐츠 선언 파일 예시:
-
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type Dictionary } from "intlayer";
-
-const content = {
-  key: "my-content",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-} satisfies Dictionary;
-
-export default content;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const content = {
-  key: "my-content",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-module.exports = {
-  key: "my-content",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-```
-
-```json fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my-content",
-  "content": {
-    "myTranslatedContent": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Hello World",
-        "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
-      }
-    }
-  }
-}
-```
-
-### next-i18next 리소스 빌드하기
-
-next-i18next 리소스를 빌드하려면 다음 명령어를 실행하십시오:
-
-```bash packageManager="npm"
-npx run intlayer build
-```
-
-```bash packageManager="yarn"
-yarn intlayer build
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer build
-```
-
-이렇게 하면 `./i18next/resources` 디렉토리에 리소스가 생성됩니다. 예상 출력:
-
-```bash
-.
-└── i18next
-    └── resources
-       └── en
-           └── my-content.json
-       └── fr
-           └── my-content.json
-       └── es
-           └── my-content.json
-```
-
-노트: i18next 네임스페이스는 Intlayer 선언 키에 해당합니다.
-
-### Next.js 플러그인 구현
-
-구성이 완료되면 Intlayer 콘텐츠 선언 파일이 업데이트될 때마다 i18next 리소스를 다시 빌드하기 위해 Next.js 플러그인을 구현합니다.
-
-```typescript fileName="next.config.mjs"
-import { withIntlayer } from "next-intlayer/server";
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default withIntlayer(nextConfig);
-```
-
-### Next.js 컴포넌트에서 콘텐츠 사용하기
-
-Next.js 플러그인을 구현한 후에는 컴포넌트에서 콘텐츠를 사용할 수 있습니다:
-
-```typescript fileName="src/components/myComponent/index.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { useTranslation } from "react-i18next";
-
-const IndexPage: FC = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div>
-      <h1>{t("my-content.title")}</h1>
-      <p>{t("my-content.description")}</p>
-    </div>
-  );
-};
-
-export default IndexPage;
-```
-
-```jsx fileName="src/components/myComponent/index.mjx" codeFormat="esm"
-import { useTranslation } from "react-i18next";
-
-const IndexPage = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div>
-      <h1>{t("my-content.title")}</h1>
-      <p>{t("my-content.description")}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/myComponent/index.cjx" codeFormat="commonjs"
-const { useTranslation } = require("react-i18next");
-
-const IndexPage = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div>
-      <h1>{t("my-content.title")}</h1>
-      <p>{t("my-content.description")}</p>
-    </div>
-  );
-};
-```
+[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

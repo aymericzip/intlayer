@@ -1,325 +1,123 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
-title: Intlayer와 react-intl
-description: React 앱에서 react-intl와 Intlayer를 통합하십시오
+updatedAt: 2025-10-29
+title: Intlayer를 사용하여 react-intl JSON 번역 자동화하는 방법
+description: React 애플리케이션에서 향상된 국제화를 위해 Intlayer와 react-intl을 사용하여 JSON 번역을 자동화하세요.
 keywords:
   - react-intl
   - Intlayer
   - 국제화
-  - 문서화
-  - Next.js
-  - JavaScript
-  - React
+  - 블로그
+  - i18n
+  - 자바스크립트
+  - 리액트
+  - FormatJS
 slugs:
   - blog
   - intlayer-with-react-intl
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: syncJSON 플러그인으로 변경
 ---
 
-# React 국제화 (i18n) with **react-intl** and Intlayer
+# Intlayer를 사용하여 react-intl JSON 번역 자동화하는 방법
 
-이 가이드는 **Intlayer**와 **react-intl**을 통합하여 React 애플리케이션에서 번역을 관리하는 방법을 보여줍니다. Intlayer로 귀하의 번역 가능한 콘텐츠를 선언하고, 그 메시지를 **react-intl**, [FormatJS](https://formatjs.io/docs/react-intl) 생태계의 인기 라이브러리로 소비합니다.
+## Intlayer란 무엇인가요?
 
-## 개요
+**Intlayer**는 전통적인 i18n 솔루션의 한계를 극복하기 위해 설계된 혁신적이고 오픈 소스 국제화 라이브러리입니다. React 애플리케이션에서 콘텐츠 관리를 위한 현대적인 접근 방식을 제공합니다.
 
-- **Intlayer**는 프로젝트 내에서 **컴포넌트 수준** 콘텐츠 선언 파일(JSON, JS, TS 등)에 번역을 저장할 수 있습니다.
-- **react-intl**은 로컬화된 문자열을 표시하기 위해 React 컴포넌트 및 훅(예: `<FormattedMessage>` 및 `useIntl()`)을 제공합니다.
+react-intl과의 구체적인 비교는 저희 [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/react-i18next_vs_react-intl_vs_intlayer.md) 블로그 게시물을 참고하세요.
 
-Intlayer를 구성하여 **react-intl과 호환되는** 형식으로 번역을 **내보내기**하면, `<IntlProvider>`(react-intl의 컴포넌트)가 필요로 하는 메시지 파일을 자동으로 **생성**하고 **업데이트**할 수 있습니다.
+## 왜 Intlayer와 react-intl을 함께 사용해야 할까요?
 
----
+Intlayer는 훌륭한 독립형 i18n 솔루션을 제공하지만(자세한 내용은 저희 [React 통합 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)를 참조), 다음과 같은 여러 이유로 react-intl과 함께 사용하고자 할 수 있습니다:
 
-## Why Use Intlayer with react-intl?
+1. **기존 코드베이스**: 이미 구축된 react-intl 구현이 있으며 Intlayer의 향상된 개발자 경험으로 점진적으로 이전하고자 할 때.
+2. **레거시 요구사항**: 프로젝트가 기존 react-intl 플러그인 또는 워크플로우와의 호환성을 필요로 할 때.
+3. **팀 친숙도**: 팀이 react-intl에 익숙하지만 더 나은 콘텐츠 관리를 원할 때.
 
-1. **컴포넌트별 콘텐츠 선언**  
-   Intlayer 콘텐츠 선언 파일은 React 컴포넌트와 함께 존재할 수 있어, 컴포넌트가 이동하거나 제거될 경우 “고아” 번역을 방지합니다. 예를 들어:
+**이를 위해 Intlayer는 react-intl의 어댑터로 구현되어 CLI 또는 CI/CD 파이프라인에서 JSON 번역 자동화, 번역 테스트 등 다양한 작업을 지원할 수 있습니다.**
 
-   ```bash
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.ts   # Intlayer 콘텐츠 선언
-               └── index.tsx          # React 컴포넌트
-   ```
+이 가이드는 react-intl과의 호환성을 유지하면서 Intlayer의 우수한 콘텐츠 선언 시스템을 활용하는 방법을 보여줍니다.
 
-2. **중앙 집중식 번역**  
-   각 콘텐츠 선언 파일은 컴포넌트에 필요한 모든 번역을 수집합니다. 이는 TypeScript 프로젝트에서 특히 유용합니다: 누락된 번역은 **컴파일 시간**에 포착될 수 있습니다.
+## 목차
 
-3. **자동 빌드 및 재생성**  
-   번역을 추가하거나 업데이트할 때마다 Intlayer는 메시지 JSON 파일을 재생성합니다. 그런 다음 이를 react-intl의 `<IntlProvider>`에 전달할 수 있습니다.
+<TOC/>
 
----
+## react-intl과 함께 Intlayer 설정 단계별 가이드
 
-## 설치
+### 1단계: 의존성 설치
 
-전형적인 React 프로젝트에서 다음을 설치합니다:
+필요한 패키지를 설치하세요:
 
-```bash
-# npm으로
-npm install intlayer react-intl
-
-# yarn으로
-yarn add intlayer react-intl
-
-# pnpm으로
-pnpm add intlayer react-intl
+```bash packageManager="npm"
+npm install intlayer @intlayer/sync-json-plugin
 ```
 
-### 이러한 패키지가 필요한 이유?
+```bash packageManager="pnpm"
+pnpm add intlayer @intlayer/sync-json-plugin
+```
 
-- **intlayer**: 콘텐츠 선언을 검색하고, 이를 병합하며, 사전 출력을 빌드하는 핵심 CLI 및 라이브러리입니다.
-- **react-intl**: `<IntlProvider>`, `<FormattedMessage>`, `useIntl()` 및 기타 국제화 원시 요소를 제공하는 FormatJS의 주요 라이브러리입니다.
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
+```
 
-> React가 이미 설치되어 있지 않다면, 이를 설치해야 합니다 (`react`와 `react-dom`).
+**패키지 설명:**
 
-## Intlayer에 react-intl 메시지를 내보내도록 구성하기
+- **intlayer**: 국제화 관리, 콘텐츠 선언 및 빌드를 위한 핵심 라이브러리
+- **@intlayer/sync-json-plugin**: Intlayer 콘텐츠 선언을 react-intl 호환 JSON 형식으로 내보내는 플러그인
 
-프로젝트의 루트에 **`intlayer.config.ts`** (또는 `.js`, `.mjs`, `.cjs`)를 다음과 같이 생성합니다:
+### 2단계: JSON을 래핑하기 위한 Intlayer 플러그인 구현
 
-```typescript title="intlayer.config.ts"
+지원하는 로케일을 정의하기 위해 Intlayer 구성 파일을 만드세요:
+
+**react-intl용 JSON 사전도 내보내고 싶다면**, `syncJSON` 플러그인을 추가하세요:
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
   internationalization: {
-    // 원하는 만큼 로케일을 추가하세요
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    // Intlayer에 react-intl용 메시지 파일을 생성하라고 지시합니다.
-    dictionaryOutput: ["react-intl"],
-
-    // Intlayer가 메시지 JSON 파일을 쓸 디렉토리
-    reactIntlMessagesDir: "./react-intl/messages",
-  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./intl/messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-> **참고**: 다른 파일 확장자(`.mjs`, `.cjs`, `.js`)에 대한 사용 세부정보는 [Intlayer 문서](https://intlayer.org/ko/doc/concept/configuration)에서 확인하세요.
+`syncJSON` 플러그인은 JSON을 자동으로 래핑합니다. 콘텐츠 구조를 변경하지 않고 JSON 파일을 읽고 씁니다.
 
----
+JSON과 intlayer 콘텐츠 선언 파일(`.content` 파일)을 공존시키고 싶다면, Intlayer는 다음과 같이 처리합니다:
 
-## Intlayer 콘텐츠 선언 생성하기
+    1. JSON 파일과 콘텐츠 선언 파일을 모두 불러와 intlayer 사전(dictionary)으로 변환합니다.
 
-Intlayer는 코드베이스를 스캔하여(기본적으로 `./src` 아래에서) `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`와 일치하는 파일을 찾습니다.  
-다음은 **TypeScript** 예제입니다:
+2. JSON과 콘텐츠 선언 파일 간에 충돌이 있을 경우, Intlayer는 모든 사전을 병합하는 과정을 진행합니다. 이는 플러그인의 우선순위와 콘텐츠 선언 파일의 우선순위에 따라 결정되며(모두 구성 가능함).
 
-```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type Dictionary } from "intlayer";
+CLI를 사용하여 JSON을 번역하거나 CMS를 통해 변경 사항이 발생하면, Intlayer는 새로운 번역으로 JSON 파일을 업데이트합니다.
 
-const content = {
-  // "key"는 react-intl JSON 파일의 최상위 메시지 키가 됩니다.
-  key: "my-component",
-
-  content: {
-    // t()를 호출할 때마다 번역 가능한 필드를 선언합니다.
-    helloWorld: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-    description: t({
-      en: "This is a description",
-      fr: "Ceci est une description",
-      es: "Esta es una descripción",
-    }),
-  },
-} satisfies Dictionary;
-
-export default content;
-```
-
-JSON이나 다양한 JS 유형(`.cjs`, `.mjs`)을 선호하는 경우, 구조는 대부분 동일합니다 – [Intlayer 문서의 콘텐츠 선언](https://intlayer.org/ko/doc/concept/content)에서 확인하세요.
-
----
-
-## react-intl 메시지 빌드하기
-
-**react-intl**에 대한 실제 메시지 JSON 파일을 생성하려면 다음을 실행합니다:
-
-```bash
-# npm으로
-npx intlayer dictionaries build
-
-# yarn으로
-yarn intlayer build
-
-# pnpm으로
-pnpm intlayer build
-```
-
-이 명령은 모든 `*.content.*` 파일을 스캔하고, 이를 컴파일하며, 결과를 **`intlayer.config.ts`**에서 지정한 디렉토리(이번 예제에서는 `./react-intl/messages`)에 씁니다.  
-일반적인 출력 예시는 다음과 같을 수 있습니다:
-
-```bash
-.
-└── react-intl
-    └── messages
-        ├── en.json
-        ├── fr.json
-        └── es.json
-```
-
-각 파일은 **최상위 키**가 각 **`content.key`**에 해당하는 JSON 객체입니다. **하위 키**(예: `helloWorld`)는 해당 콘텐츠 항목 내에 선언된 번역을 반영합니다.
-
-예를 들어, **en.json**은 다음과 같을 수 있습니다:
-
-```json fileName="react-intl/messages/en/my-component.json"
-{
-  "helloWorld": "Hello World",
-  "description": "This is a description"
-}
-```
-
----
-
-## Your React App에서 react-intl 초기화하기
-
-### 1. 생성된 메시지 로드하기
-
-앱의 루트 컴포넌트를 구성하는 곳(예: `src/main.tsx` 또는 `src/index.tsx`)에서 다음을 수행해야 합니다:
-
-1. 생성된 메시지 파일을 **가져옵니다** (정적으로 또는 동적으로).
-2. 이들을 `react-intl`의 `<IntlProvider>`에 **제공합니다**.
-
-간단한 접근법은 정적으로 가져오는 것입니다:
-
-```typescript title="src/index.tsx"
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { IntlProvider } from "react-intl";
-import App from "./App";
-
-// 빌드 출력에서 JSON 파일을 가져옵니다.
-// 또는 사용자가 선택한 로케일에 따라 동적으로 가져올 수 있습니다.
-import en from "../react-intl/messages/en.json";
-import fr from "../react-intl/messages/fr.json";
-import es from "../react-intl/messages/es.json";
-
-// 사용자의 언어를 감지하는 메커니즘이 있다면, 여기서 설정하세요.
-// 간단하게 영어를 선택해 보겠습니다.
-const locale = "en";
-
-// 메시지를 객체에 수집합니다 (또는 동적으로 선택할 수 있습니다)
-const messagesRecord: Record<string, Record<string, any>> = {
-  en,
-  fr,
-  es,
-};
-
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <IntlProvider locale={locale} messages={messagesRecord[locale]}>
-      <App />
-    </IntlProvider>
-  </React.StrictMode>
-);
-```
-
-> **팁**: 실제 프로젝트에서는:
->
-> - 런타임에 JSON 메시지를 동적으로 로드할 수 있습니다.
-> - 환경 기반, 브라우저 기반 또는 사용자 계정 기반의 로케일 감지를 사용할 수 있습니다.
-
-### 2. `<FormattedMessage>` 또는 `useIntl()` 사용하기
-
-메시지가 `<IntlProvider>`에 로드되면, 자식 컴포넌트는 react-intl을 사용하여 로컬화된 문자열에 접근할 수 있습니다. 두 가지 주요 접근 방식이 있습니다:
-
-- **`<FormattedMessage>`** 컴포넌트
-- **`useIntl()`** 훅
-
----
-
-## React 컴포넌트에서 번역 사용하기
-
-### 접근법 A: `<FormattedMessage>`
-
-빠른 인라인 사용을 위해:
-
-```tsx title="src/components/MyComponent/index.tsx"
-import React from "react";
-import { FormattedMessage } from "react-intl";
-
-export default function MyComponent() {
-  return (
-    <div>
-      <h1>
-        {/* “my-component.helloWorld”은 en.json, fr.json 등에서 키를 참조합니다. */}
-        <FormattedMessage id="my-component.helloWorld" />
-      </h1>
-
-      <p>
-        <FormattedMessage id="my-component.description" />
-      </p>
-    </div>
-  );
-}
-```
-
-> `<FormattedMessage>`의 **`id`** 속성은 **최상위 키**(`my-component`)와 모든 하위 키(`helloWorld`)를 일치시켜야 합니다.
-
-### 접근법 B: `useIntl()`
-
-더 동적인 사용을 위해:
-
-```tsx title="src/components/MyComponent/index.tsx"
-import React from "react";
-import { useIntl } from "react-intl";
-
-export default function MyComponent() {
-  const intl = useIntl();
-
-  return (
-    <div>
-      <h1>{intl.formatMessage({ id: "my-component.helloWorld" })}</h1>
-      <p>{intl.formatMessage({ id: "my-component.description" })}</p>
-    </div>
-  );
-}
-```
-
-어느 접근 방식이나 유효합니다 , 애플리케이션에 가장 적합한 스타일을 선택하세요.
-
----
-
-## 새로운 번역 업데이트 또는 추가하기
-
-1. 모든 `*.content.*` 파일에서 콘텐츠를 **추가 또는 수정**합니다.
-2. `intlayer build`를 다시 실행하여 `./react-intl/messages` 아래에 JSON 파일을 재생성합니다.
-3. React(및 react-intl)는 애플리케이션을 다음에 빌드하거나 다시 로드할 때 업데이트를 감지합니다.
-
----
-
-## TypeScript 통합 (선택 사항)
-
-TypeScript를 사용하는 경우, Intlayer는 번역에 대한 **타입 정의**를 생성할 수 있습니다.
-
-- `tsconfig.json`에 Intlayer가 생성하는 `types` 폴더(또는 출력 폴더)를 `"include"` 배열에 포함시킵니다.
-
-```json5
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", "types"],
-}
-```
-
-생성된 타입은 React 컴포넌트에서 누락된 번역이나 잘못된 키를 컴파일 시간에 감지하는 데 도움을 줄 수 있습니다.
-
----
+`syncJSON` 플러그인에 대한 자세한 내용은 [syncJSON 플러그인 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-json.md)를 참조하세요.
 
 ## Git 구성
 
-Intlayer의 내부 빌드 아티팩트를 버전 관리에서 **제외**하는 것이 일반적입니다. `.gitignore`에 다음을 추가하세요:
+자동 생성된 Intlayer 파일은 무시하는 것이 권장됩니다:
 
-```plaintext
-# intlayer 빌드 아티팩트 무시
+```plaintext fileName=".gitignore"
+# Intlayer에서 생성된 파일 무시
 .intlayer
-react-intl
 ```
 
-작업 흐름에 따라 `./react-intl/messages`의 최종 사전을 무시하거나 커밋할 수 있습니다. CI/CD 파이프라인이 그것들을 재생성하는 경우, 안전하게 무시할 수 있으며; 그렇지 않으면, 프로덕션 배포에 필요하다면 커밋할 수 있습니다.
+이 파일들은 빌드 과정 중에 다시 생성될 수 있으므로 버전 관리에 커밋할 필요가 없습니다.
+
+### VS 코드 확장
+
+개발자 경험을 향상시키기 위해 공식 **Intlayer VS 코드 확장**을 설치하세요:
+
+[VS 코드 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
