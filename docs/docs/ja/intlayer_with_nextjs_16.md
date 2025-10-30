@@ -205,7 +205,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
 export default RootLayout;
 ```
 
-```jsx {3} fileName="src/app/layout.mjx" codeFormat="esm"
+```jsx {3} fileName="src/app/layout.mjs" codeFormat="esm"
 import "./globals.css";
 
 const RootLayout = ({ children }) => (
@@ -216,7 +216,7 @@ const RootLayout = ({ children }) => (
 export default RootLayout;
 ```
 
-```jsx {1,8} fileName="src/app/layout.csx" codeFormat="commonjs"
+```jsx {1,8} fileName="src/app/layout.cjs" codeFormat="commonjs"
 require("./globals.css");
 
 const RootLayout = ({ children }) => (
@@ -226,7 +226,6 @@ const RootLayout = ({ children }) => (
 
 module.exports = {
   default: RootLayout,
-  generateStaticParams,
 };
 ```
 
@@ -253,12 +252,13 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
-```jsx fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
+```jsx fileName="src/app/[locale]/layout.mjs" codeFormat="esm"
+import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const LocaleLayout = async ({ children, params: { locale } }) => {
+const LocaleLayout = async ({ children, params }) => {
   const { locale } = await params;
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
@@ -270,13 +270,13 @@ const LocaleLayout = async ({ children, params: { locale } }) => {
 export default LocaleLayout;
 ```
 
-```jsx fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
+```jsx fileName="src/app/[locale]/layout.cjs" codeFormat="commonjs"
 const { Inter } = require("next/font/google");
 const { getHTMLTextDir } = require("intlayer");
 
 const inter = Inter({ subsets: ["latin"] });
 
-const LocaleLayout = async ({ children, params: { locale } }) => {
+const LocaleLayout = async ({ children, params }) => {
   const { locale } = await params;
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
@@ -289,22 +289,6 @@ module.exports = LocaleLayout;
 ```
 
 > `[locale]`パスセグメントはロケールを定義するために使用されます。例：`/en-US/about`は`en-US`を指し、`/fr/about`は`fr`を指します。
-
-const inter = Inter({ subsets: ["latin"] });
-
-const LocaleLayout = async ({ children, params: { locale } }) => {
-const { locale } = await params;
-return (
-
-<html lang={locale} dir={getHTMLTextDir(locale)}>
-<body className={inter.className}>{children}</body>
-</html>
-);
-};
-
-module.exports = LocaleLayout;
-
-````
 
 > `[locale]` パスセグメントはロケールを定義するために使用されます。例：`/en-US/about` は `en-US` を指し、`/fr/about` は `fr` を指します。
 
@@ -320,22 +304,22 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 };
 
 export default LocaleLayout;
-````
+```
 
-```jsx {1} fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
+```jsx {1} fileName="src/app/[locale]/layout.mjs" codeFormat="esm"
 export { generateStaticParams } from "next-intlayer"; // 挿入する行
 
-const LocaleLayout = async ({ children, params: { locale } }) => {
+const LocaleLayout = async ({ children, params }) => {
   /*... 残りのコード */
 };
 
-// ... 残りのコード
+export default LocaleLayout;
 ```
 
-```jsx {1,7} fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
+```jsx {1,7} fileName="src/app/[locale]/layout.cjs" codeFormat="commonjs"
 const { generateStaticParams } = require("next-intlayer"); // 挿入する行
 
-const LocaleLayout = async ({ children, params: { locale } }) => {
+const LocaleLayout = async ({ children, params }) => {
   /*... 残りのコード */
 };
 
@@ -349,23 +333,6 @@ module.exports = { default: LocaleLayout, generateStaticParams };
 ### ステップ5: コンテンツの宣言
 
 翻訳を格納するためのコンテンツ宣言を作成・管理します：
-
-```tsx fileName="src/app/[locale]/page.content.ts" contentDeclarationFormat="typescript"
-import { t, type Dictionary } from "intlayer";
-
-const pageContent = {
-  key: "page",
-  content: {
-    getStarted: {
-```
-
-> `generateStaticParams` は、すべてのロケールに必要なページを事前にビルドすることを保証し、実行時の計算を減らしてユーザー体験を向上させます。詳細については、[Next.js の generateStaticParams に関するドキュメント](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params)を参照してください。
-
-> Intlayer は `export const dynamic = 'force-static';` と連携して、すべてのロケールのページが事前にビルドされるようにします。
-
-### ステップ5: コンテンツを宣言する
-
-翻訳を格納するためのコンテンツ宣言を作成および管理します：
 
 ```tsx fileName="src/app/[locale]/page.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -445,25 +412,6 @@ module.exports = pageContent;
     "pageLink": "src/app/page.tsx"
   }
 }
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const pageContent = {
-  key: "page",
-  content: {
-    getStarted: {
-      main: t({
-        en: "Get started by editing",
-        fr: "Commencez par éditer",
-        es: "Comience por editar",
-        ja: "編集を始めてください",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-module.exports = pageContent;
 ```
 
 ```json fileName="src/app/[locale]/page.content.json" contentDeclarationFormat="json"
@@ -529,7 +477,7 @@ const Page: NextPageIntlayer = async ({ params }) => {
 export default Page;
 ```
 
-```jsx fileName="src/app/[locale]/page.mjx" codeFormat="esm"
+```jsx fileName="src/app/[locale]/page.mjs" codeFormat="esm"
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
 import { IntlayerClientProvider } from "next-intlayer";
@@ -564,11 +512,15 @@ const Page = async ({ params }) => {
 export default Page;
 ```
 
-```jsx fileName="src/app/[locale]/page.csx" codeFormat="commonjs"
-import { ClientComponentExample } from "@components/ClientComponentExample";
-import { ServerComponentExample } from "@components/ServerComponentExample";
-import { IntlayerClientProvider } from "next-intlayer";
-import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+```jsx fileName="src/app/[locale]/page.cjs" codeFormat="commonjs"
+const {
+  ClientComponentExample,
+} = require("@components/ClientComponentExample");
+const {
+  ServerComponentExample,
+} = require("@components/ServerComponentExample");
+const { IntlayerClientProvider } = require("next-intlayer");
+const { IntlayerServerProvider, useIntlayer } = require("next-intlayer/server");
 
 const PageContent = () => {
   const content = useIntlayer("page");
@@ -595,25 +547,14 @@ const Page = async ({ params }) => {
     </IntlayerServerProvider>
   );
 };
+
+module.exports = Page;
 ```
 
 - **`IntlayerClientProvider`** はクライアントサイドのコンポーネントにロケールを提供するために使用されます。レイアウトを含む任意の親コンポーネントに配置できます。ただし、Next.jsはページ間でレイアウトコードを共有するため、レイアウトに配置することが推奨されます。レイアウトで `IntlayerClientProvider` を使用することで、各ページごとに再初期化する必要がなくなり、パフォーマンスが向上し、アプリケーション全体で一貫したローカリゼーションコンテキストを維持できます。
 - **`IntlayerServerProvider`** はサーバー側の子コンポーネントにロケールを提供するために使用されます。レイアウトには設定できません。
 
   > レイアウトとページは共通のサーバーコンテキストを共有できません。なぜなら、サーバーコンテキストシステムはリクエストごとのデータストア（[Reactのcache](https://react.dev/reference/react/cache) メカニズム）に基づいており、アプリケーションの異なるセグメントごとに「コンテキスト」が再作成されるためです。プロバイダーを共有レイアウトに配置すると、この分離が破られ、サーバーコンポーネントに正しくサーバーコンテキストの値が伝播されなくなります。
-
-````tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
-"use client";
-
-import type { FC } from "react";
-import { useIntlayer } from "next-intlayer";
-
-export const ClientComponentExample: FC = () => {
-  const content = useIntlayer("client-component-example"); // 関連するコンテンツ宣言を作成
-
-  return (
-    <div>
-> レイアウトとページは共通のサーバーコンテキストを共有できません。なぜなら、サーバーコンテキストシステムはリクエストごとのデータストア（[Reactのcache](https://react.dev/reference/react/cache)メカニズム）に基づいており、アプリケーションの異なるセグメントごとに各「コンテキスト」が再作成されるためです。プロバイダーを共有レイアウトに配置すると、この分離が破壊され、サーバーコンポーネントへのサーバーコンテキスト値の正しい伝播が妨げられます。
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -631,9 +572,9 @@ export const ClientComponentExample: FC = () => {
     </div>
   );
 };
-````
+```
 
-```jsx {3,6} fileName="src/components/ClientComponentExample.mjx" codeFormat="esm"
+```jsx {3,6} fileName="src/components/ClientComponentExample.mjs" codeFormat="esm"
 "use client";
 
 import { useIntlayer } from "next-intlayer";
@@ -650,7 +591,7 @@ const ClientComponentExample = () => {
 };
 ```
 
-```jsx {3,6} fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
+```jsx {3,6} fileName="src/components/ClientComponentExample.cjs" codeFormat="commonjs"
 "use client";
 
 const { useIntlayer } = require("next-intlayer");
@@ -665,6 +606,8 @@ const ClientComponentExample = () => {
     </div>
   );
 };
+
+module.exports = ClientComponentExample;
 ```
 
 ```tsx {2} fileName="src/components/ServerComponentExample.tsx"  codeFormat="typescript"
@@ -683,52 +626,24 @@ export const ServerComponentExample: FC = () => {
 };
 ```
 
-```jsx {1} fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
+```jsx {1} fileName="src/components/ServerComponentExample.mjs" codeFormat="esm"
 import { useIntlayer } from "next-intlayer/server";
 
 const ServerComponentExample = () => {
   const content = useIntlayer("server-component-example"); // 関連するコンテンツ宣言を作成
 
   return (
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```tsx {2} fileName="src/components/ServerComponentExample.tsx"  codeFormat="typescript"
-import type { FC } from "react";
-import { useIntlayer } from "next-intlayer/server";
-
-export const ServerComponentExample: FC = () => {
-  const content = useIntlayer("server-component-example"); // 関連コンテンツ宣言を作成
-
-  return (
     <div>
       <h2>{content.title}</h2>
       <p>{content.content}</p>
     </div>
   );
 };
+
+export default ServerComponentExample;
 ```
 
-```jsx {1} fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer/server";
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("server-component-example"); // 関連コンテンツ宣言を作成
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx {1} fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
+```jsx {1} fileName="src/components/ServerComponentExample.cjs" codeFormat="commonjs"
 const { useIntlayer } = require("next-intlayer/server");
 
 const ServerComponentExample = () => {
@@ -741,6 +656,8 @@ const ServerComponentExample = () => {
     </div>
   );
 };
+
+module.exports = ServerComponentExample;
 ```
 
 > コンテンツを `alt`、`title`、`href`、`aria-label` などの `string` 属性で使用したい場合は、関数の値を呼び出す必要があります。例えば：
@@ -863,36 +780,6 @@ const metadataContent = {
     description: t({
       en: "Generated by create next app",
       ja: "create next app によって生成されました",
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-module.exports = metadataContent;
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-export default metadataContent;
-```
-
-```javascript fileName="src/app/[locale]/metadata.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "page-metadata",
-  content: {
-    title: t({
-      en: "Create Next App",
-      fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
-    }),
-    description: t({
-      en: "Generated by create next app",
       fr: "Généré par create next app",
       es: "Generado por create next app",
     }),
@@ -1179,7 +1066,7 @@ const sitemap = (): MetadataRoute.Sitemap => [
 export default sitemap;
 ```
 
-```jsx fileName="src/app/sitemap.mjx" codeFormat="esm"
+```jsx fileName="src/app/sitemap.mjs" codeFormat="esm"
 import { getMultilingualUrls } from "intlayer";
 
 const sitemap = () => [
@@ -1206,7 +1093,7 @@ const sitemap = () => [
 export default sitemap;
 ```
 
-```jsx fileName="src/app/sitemap.csx" codeFormat="commonjs"
+```jsx fileName="src/app/sitemap.cjs" codeFormat="commonjs"
 const { getMultilingualUrls } = require("intlayer");
 
 const sitemap = () => [
@@ -1254,7 +1141,7 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-```jsx fileName="src/app/robots.mjx" codeFormat="esm"
+```jsx fileName="src/app/robots.mjs" codeFormat="esm"
 import { getMultilingualUrls } from "intlayer";
 
 const getAllMultilingualUrls = (urls) =>
@@ -1273,7 +1160,7 @@ const robots = () => ({
 export default robots;
 ```
 
-```jsx fileName="src/app/robots.csx" codeFormat="commonjs"
+```jsx fileName="src/app/robots.cjs" codeFormat="commonjs"
 const { getMultilingualUrls } = require("intlayer");
 
 // すべての多言語URLを取得する関数
@@ -1352,7 +1239,7 @@ export const LocaleSwitcher: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
+```jsx fileName="src/components/LocaleSwitcher.mjs" codeFormat="esm"
 "use client";
 
 import {
@@ -1404,7 +1291,7 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
+```jsx fileName="src/components/LocaleSwitcher.cjs" codeFormat="commonjs"
 "use client";
 
 const {
@@ -1416,7 +1303,7 @@ const {
 const { useLocale } = require("next-intlayer");
 const Link = require("next/link");
 
-export const LocaleSwitcher = () => {
+const LocaleSwitcher = () => {
   const { locale, pathWithoutLocale, availableLocales, setLocale } =
     useLocale();
 
@@ -1614,7 +1501,6 @@ const Link = ({ href, children, ...props }) => {
 
 #### 動作の仕組み
 
-- **外部リンクの検出**:
 - **外部リンクの検出**:  
   ヘルパー関数 `checkIsExternalLink` は、URLが外部リンクかどうかを判定します。外部リンクはローカライズの必要がないため、そのまま変更されません。
 
