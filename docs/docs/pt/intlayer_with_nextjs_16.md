@@ -940,26 +940,6 @@ module.exports = { generateMetadata };
 
 Alternativamente, você pode usar a função `getTranslation` para declarar seus metadados. No entanto, é recomendável usar arquivos de declaração de conteúdo para automatizar a tradução dos seus metadados e externalizar o conteúdo em algum momento.
 
-````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
-import {
-  type IConfigLocales,
-  getTranslation,
-  getMultilingualUrls,
-} from "intlayer";
-import type { Metadata } from "next";
-import type { LocalPromiseParams } from "next-intlayer";
-
-export const generateMetadata = async ({
-  params,
-}: LocalPromiseParams): Promise<Metadata> => {
-  const { locale } = await params;
-  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
-
-  return {
-    title: t<string>({
-      en: "My title",
-Alternativamente, você pode usar a função `getTranslation` para declarar seus metadados. No entanto, é recomendado usar arquivos de declaração de conteúdo para automatizar a tradução dos seus metadados e externalizar o conteúdo em algum momento.
-
 ```typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
 import {
   type IConfigLocales,
@@ -990,7 +970,7 @@ export const generateMetadata = async ({
 };
 
 // ... Resto do código
-````
+```
 
 ```javascript fileName="src/app/[locale]/layout.mjs or src/app/[locale]/page.mjs" codeFormat="esm"
 import { getTranslation, getMultilingualUrls } from "intlayer";
