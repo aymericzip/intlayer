@@ -753,14 +753,6 @@ const metadataContent = {
 };
 
 module.exports = metadataContent;
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-      pt: "Gerado por create next app",
-    }),
-  },
-};
-
-export default metadataContent;
 ```
 
 ```javascript fileName="src/app/[locale]/metadata.content.cjs" contentDeclarationFormat="commonjs"
