@@ -287,6 +287,7 @@ const LocaleLayout = async ({ children, params: { locale } }) => {
 };
 
 module.exports = LocaleLayout;
+```
 
 > इस चरण में, आपको त्रुटि का सामना करना पड़ेगा: `Error: Missing <html> and <body> tags in the root layout.`। यह अपेक्षित है क्योंकि `/app/page.tsx` फ़ाइल अब उपयोग में नहीं है और इसे हटा दिया जा सकता है। इसके बजाय, `[locale]` पाथ सेगमेंट `/app/[locale]/page.tsx` पेज को सक्रिय करेगा। परिणामस्वरूप, आपके ब्राउज़र में पेज `/en`, `/fr`, `/es` जैसे पाथ के माध्यम से सुलभ होंगे। डिफ़ॉल्ट लोकल को रूट पेज के रूप में सेट करने के लिए, चरण 7 में `proxy` सेटअप को देखें।
 

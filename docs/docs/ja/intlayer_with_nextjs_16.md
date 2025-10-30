@@ -232,20 +232,6 @@ module.exports = {
 
 > `RootLayout` コンポーネントを空のままにしておくことで、`<html>` タグに [`lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang) および [`dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir) 属性を設定できます。
 
-動的ルーティングを実装するには、`[locale]` ディレクトリに新しいレイアウトを追加してロケールのパスを提供します。
-
-````tsx fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
-import type { NextLayoutIntlayer } from "next-intlayer";
-import { Inter } from "next/font/google";
-import { getHTMLTextDir } from "intlayer";
-
-const inter = Inter({ subsets: ["latin"] });
-
-const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
-  const { locale } = await params;
-  return (
-> `RootLayout`コンポーネントを空のままにしておくことで、`<html>`タグに[`lang`](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/lang)および[`dir`](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/dir)属性を設定できます。
-
 動的ルーティングを実装するには、`[locale]`ディレクトリに新しいレイアウトを追加してロケールのパスを指定します：
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
@@ -265,7 +251,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 };
 
 export default LocaleLayout;
-````
+```
 
 ```jsx fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
 import { getHTMLTextDir } from "intlayer";
@@ -321,17 +307,6 @@ module.exports = LocaleLayout;
 ````
 
 > `[locale]` パスセグメントはロケールを定義するために使用されます。例：`/en-US/about` は `en-US` を指し、`/fr/about` は `fr` を指します。
-
-> この段階で、`Error: Missing <html> and <body> tags in the root layout.` というエラーが発生します。これは、`/app/page.tsx` ファイルがもはや使用されておらず、削除可能であるため予期されるものです。代わりに、`[locale]` パスセグメントが `/app/[locale]/page.tsx` ページを有効にします。その結果、ブラウザ上で `/en`、`/fr`、`/es` のようなパスでページにアクセスできるようになります。デフォルトのロケールをルートページとして設定するには、ステップ7の `proxy` 設定を参照してください。
-
-次に、アプリケーションのレイアウトで `generateStaticParams` 関数を実装します。
-
-```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
-export { generateStaticParams } from "next-intlayer"; // 挿入する行
-
-const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
-  /*... 残りのコード */
-};
 
 > この段階で、`Error: Missing <html> and <body> tags in the root layout.` というエラーが発生します。これは予期されたもので、`/app/page.tsx` ファイルはもはや使用されておらず、削除して問題ありません。代わりに、`[locale]` パスセグメントが `/app/[locale]/page.tsx` ページを有効にします。その結果、ブラウザでは `/en`、`/fr`、`/es` のようなパスでページにアクセスできるようになります。デフォルトのロケールをルートページとして設定するには、ステップ7の `proxy` 設定を参照してください。
 
@@ -626,8 +601,6 @@ const Page = async ({ params }) => {
 - **`IntlayerServerProvider`** はサーバー側の子コンポーネントにロケールを提供するために使用されます。レイアウトには設定できません。
 
   > レイアウトとページは共通のサーバーコンテキストを共有できません。なぜなら、サーバーコンテキストシステムはリクエストごとのデータストア（[Reactのcache](https://react.dev/reference/react/cache) メカニズム）に基づいており、アプリケーションの異なるセグメントごとに「コンテキスト」が再作成されるためです。プロバイダーを共有レイアウトに配置すると、この分離が破られ、サーバーコンポーネントに正しくサーバーコンテキストの値が伝播されなくなります。
-
-> レイアウトとページは共通のサーバーコンテキストを共有できません。なぜなら、サーバーコンテキストシステムはリクエストごとのデータストア（[Reactのキャッシュ](https://react.dev/reference/react/cache)メカニズム）に基づいているため、アプリケーションの異なるセグメントごとに各「コンテキスト」が再作成されるからです。プロバイダーを共有レイアウトに配置すると、この分離が破られ、サーバーコンポーネントへのサーバーコンテキスト値の正しい伝播が妨げられます。
 
 ````tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
