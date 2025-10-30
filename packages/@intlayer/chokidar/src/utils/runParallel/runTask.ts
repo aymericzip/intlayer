@@ -19,27 +19,30 @@ const remove = <T>(array: T[], x: T): void => {
 };
 
 const signals: Record<string, number> = {
-  SIGABRT: 6,
-  SIGALRM: 14,
-  SIGBUS: 10,
-  SIGCHLD: 20,
-  SIGCONT: 19,
-  SIGFPE: 8,
-  SIGHUP: 1,
-  SIGILL: 4,
-  SIGINT: 2,
-  SIGKILL: 9,
-  SIGPIPE: 13,
-  SIGQUIT: 3,
-  SIGSEGV: 11,
-  SIGSTOP: 17,
-  SIGTERM: 15,
-  SIGTRAP: 5,
-  SIGTSTP: 18,
-  SIGTTIN: 21,
-  SIGTTOU: 22,
-  SIGUSR1: 30,
-  SIGUSR2: 31,
+  // Signal name mappings to their respective standard numeric codes.
+  // See: https://man7.org/linux/man-pages/man7/signal.7.html
+
+  SIGABRT: 6, // Abort signal from abort(3)
+  SIGALRM: 14, // Timer signal from alarm(2)
+  SIGBUS: 10, // Bus error (bad memory access)
+  SIGCHLD: 20, // Child stopped or terminated
+  SIGCONT: 19, // Continue if stopped
+  SIGFPE: 8, // Floating point exception
+  SIGHUP: 1, // Hangup detected on controlling terminal or death of controlling process
+  SIGILL: 4, // Illegal Instruction
+  SIGINT: 2, // Interrupt from keyboard (Ctrl+C)
+  SIGKILL: 9, // Kill signal (cannot be caught or ignored)
+  SIGPIPE: 13, // Broken pipe: write to pipe with no readers
+  SIGQUIT: 3, // Quit from keyboard (Ctrl+\)
+  SIGSEGV: 11, // Invalid memory reference (segmentation fault)
+  SIGSTOP: 17, // Stop process (cannot be caught or ignored)
+  SIGTERM: 15, // Termination signal
+  SIGTRAP: 5, // Trace/breakpoint trap
+  SIGTSTP: 18, // Stop typed at tty (Ctrl+Z)
+  SIGTTIN: 21, // tty input for background process
+  SIGTTOU: 22, // tty output for background process
+  SIGUSR1: 30, // User-defined signal 1
+  SIGUSR2: 31, // User-defined signal 2
 };
 
 /**

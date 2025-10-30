@@ -4,7 +4,7 @@
 
 import type { SpawnOptions } from 'node:child_process';
 import { type ChildProcess, spawn as nodeSpawn } from 'node:child_process';
-import pidtree from 'pidtree';
+import { list } from './pidTree';
 
 //------------------------------------------------------------------------------
 // Helpers
@@ -19,31 +19,37 @@ const createKillHandler = (
   return (signal?: NodeJS.Signals | number): boolean => {
     if (!child.pid) return false;
 
-    // Try using pidtree if available
+    // Try using list if available
     try {
-      pidtree(
-        child.pid,
-        { root: true },
-        (err: Error | null, pids: number[]) => {
-          if (err) {
-            // Fallback to process group kill
-            try {
-              process.kill(-child.pid!, signal ?? 'SIGTERM');
-            } catch {
-              // ignore
-            }
-            return;
+      list(child.pid, { root: true }, (err: Error | null, pids?: number[]) => {
+        if (err) {
+          // Fallback to process group kill
+          try {
+            process.kill(-child.pid!, signal ?? 'SIGTERM');
+          } catch {
+            // ignore
           }
+          return;
+        }
 
-          for (const pid of pids) {
-            try {
-              process.kill(pid, signal ?? 'SIGTERM');
-            } catch (_err) {
-              // ignore.
-            }
+        if (!pids) {
+          // Fallback to process group kill if no pids returned
+          try {
+            process.kill(-child.pid!, signal ?? 'SIGTERM');
+          } catch {
+            // ignore
+          }
+          return;
+        }
+
+        for (const pid of pids) {
+          try {
+            process.kill(pid, signal ?? 'SIGTERM');
+          } catch (_err) {
+            // ignore.
           }
         }
-      );
+      });
     } catch {
       // pidtree not available, use process group kill
       try {
