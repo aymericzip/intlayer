@@ -83,6 +83,7 @@
     "fast-glob": "3.3.3",
     "rimraf": "6.0.1",
     "tsdown": "0.15.11",
+    "tsx": "^4.0.0",
     "typescript": "5.9.3",
     "vitest": "4.0.5"
   },

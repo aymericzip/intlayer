@@ -33,15 +33,15 @@
     "./plugins/*"
   ],
   "scripts": {
-    "build": "turbo build --filter=./packages/** --filter=./docs --filter=./apps/backend",
-    "build:ci": "turbo build:ci --filter=./packages/** --filter=./docs --filter=./apps/backend",
+    "build": "turbo build --filter='./packages/**' --filter='./docs' --filter='./apps/backend'",
+    "build:ci": "turbo build:ci --filter='./packages/**' --filter='./docs' --filter='./apps/backend'",
     "changeset": "changeset",
     "changeset:publish": "npm run changeset:publish:node",
     "changeset:publish:node": "changeset publish --tag canary",
     "changeset:version": "changeset version",
     "check": "biome check .",
     "check:fix": "biome check --write .",
-    "clean": "turbo clean --filter=./packages/** --filter=./docs --filter=./apps/backend",
+    "clean": "turbo clean --filter='./packages/**' --filter='./docs' --filter='./apps/backend'",
     "clean:node_modules": "rimraf node_modules ./**/node_modules",
     "clean:packages:node_modules": "rimraf ./**/node_modules",
     "dev": "bun ./scripts/script-dev-package-command.mjs --command build",
@@ -62,10 +62,10 @@
     "lint-staged": "lint-staged --allow-empty",
     "lint:fix": "biome lint --write .",
     "prepare": "husky",
-    "prepublish": "turbo prepublish --filter=./packages/** --filter=./docs --filter=./apps/backend",
-    "test": "turbo test --filter=./packages/** --filter=./docs --filter=./apps/backend --concurrency=2",
+    "prepublish": "turbo prepublish --filter='./packages/**' --filter='./docs' --filter='./apps/backend'",
+    "test": "turbo test --filter='./packages/**' --filter='./docs' --filter='./apps/backend' --concurrency=2",
     "test:pick": "bun ./scripts/script-pick.mjs --command test",
-    "typecheck": "turbo typecheck --filter=./packages/** --filter=./docs --filter=./apps/backend --concurrency=1"
+    "typecheck": "turbo typecheck --filter='./packages/**' --filter='./docs' --filter='./apps/backend'  --concurrency=1"
   },
   "overrides": {
     "react": "19.2.0",
