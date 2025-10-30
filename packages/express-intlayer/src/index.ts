@@ -1,5 +1,5 @@
 import { prepareIntlayer } from '@intlayer/chokidar';
-import { DefaultValues, getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config';
 import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
