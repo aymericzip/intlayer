@@ -20,7 +20,19 @@ export const searchDocUtil = async (
   const { input } = req.query;
 
   if (!input || typeof input !== 'string') {
-    res.status(400).json(formatResponse({ error: 'Missing search input' }));
+    res.status(400).json(
+      formatResponse({
+        error: {
+          code: 'MISSING_INPUT',
+          title: 'Missing Input',
+          message: 'Missing search input',
+        },
+        status: 400,
+        data: null,
+        message: null,
+        description: null,
+      })
+    );
     return;
   }
 
