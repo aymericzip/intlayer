@@ -16,7 +16,6 @@ import { useSearchParams } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useEffect, useRef, useState } from 'react';
 
-
 const fuseOptions: IFuseOptions<DocMetadata> = {
   includeScore: true,
   shouldSort: true,
@@ -36,21 +35,6 @@ const fuseOptions: IFuseOptions<DocMetadata> = {
 const FUSE_WEIGHT = 0.3;
 const BACKEND_WEIGHT = 0.7;
 
-const debounce = <T extends (...args: any[]) => void>(
-  func: T,
-  delay: number,
-  onAbort: () => void
-): ((...args: Parameters<T>) => void) => {
-  let timeoutId: ReturnType<typeof setTimeout> | null = null;
-  return (...args: Parameters<T>) => {
-    if (timeoutId) {
-      onAbort();
-      clearTimeout(timeoutId);
-    }
-    timeoutId = setTimeout(() => func(...args), delay);
-  };
-};
-
 type BackendDocResult = { fileKey: string; similarityScore: number };
 
 function mergeHybridResults(
@@ -58,14 +42,13 @@ function mergeHybridResults(
   backendResults: BackendDocResult[],
   allDocs: DocMetadata[]
 ): DocMetadata[] {
-  const normalizeFuse = (score?: number) =>
-    1 - Math.min((score ?? 1) / 0.5, 1); // invert Fuse score
-  const normalizeBackend = (score: number) => Math.min(score, 1); // no need to divide by 1
+  const normalizeFuse = (score?: number) => 1 - Math.min((score ?? 1) / 0.5, 1);
+  const normalizeBackend = (score: number) => Math.min(score, 1);
 
   const backendMap = new Map(
     backendResults.map((r) => [r.fileKey, normalizeBackend(r.similarityScore)])
   );
-  const combinedMap = new Map<string, { doc: DocMetadata; score: number }>();
+  const combined = new Map<string, { doc: DocMetadata; score: number }>();
 
   for (const fuseItem of fuseResults) {
     const doc = fuseItem.item;
@@ -74,21 +57,21 @@ function mergeHybridResults(
     const combinedScore = backendScore
       ? BACKEND_WEIGHT * backendScore + FUSE_WEIGHT * fuseScore
       : fuseScore;
-    combinedMap.set(doc.docKey, { doc, score: combinedScore });
+    combined.set(doc.docKey, { doc, score: combinedScore });
   }
 
   for (const [fileKey, backendScore] of backendMap) {
-    if (!combinedMap.has(fileKey)) {
+    if (!combined.has(fileKey)) {
       const doc = allDocs.find((d) => d.docKey === fileKey);
-      if (doc) combinedMap.set(fileKey, { doc, score: BACKEND_WEIGHT * backendScore });
+      if (doc)
+        combined.set(fileKey, { doc, score: BACKEND_WEIGHT * backendScore });
     }
   }
 
-  return Array.from(combinedMap.values())
+  return Array.from(combined.values())
     .sort((a, b) => b.score - a.score)
-    .map((entry) => entry.doc);
+    .map((v) => v.doc);
 }
-
 
 const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
   doc,
@@ -110,7 +93,7 @@ const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
       className="w-full max-w-full"
       onClick={onClickLink}
     >
-      <div className="flex items-center justify-between gap-2 text-wrap p-3">
+      <div className="flex items-center justify-between gap-2 p-3">
         <div className="flex flex-1 flex-col gap-2 text-left">
           <strong className="text-base">{doc.title}</strong>
           <p className="text-neutral text-sm">{doc.description}</p>
@@ -122,8 +105,6 @@ const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
   );
 };
 
-
-
 export const SearchView: FC<{
   onClickLink?: () => void;
   isOpen?: boolean;
@@ -131,81 +112,59 @@ export const SearchView: FC<{
   const inputRef = useRef<HTMLInputElement>(null);
   const searchQueryParam = useSearchParams().get('search');
   const [results, setResults] = useState<DocMetadata[]>([]);
-  const [currentSearchQuery, setCurrentSearchQuery] = useState<string | null>(
+  const [currentQuery, setCurrentQuery] = useState<string | null>(
     searchQueryParam
   );
 
   const { search, setSearch } = useSearch({
     defaultValue: searchQueryParam,
     onClear: () => setResults([]),
-    onSearch: (query) => {
-      const fuseResults = fuse.search(query).map((r) => r.item);
-      setResults(fuseResults);
-    },
   });
 
-  const { data: searchDocData, isFetching } = useSearchDoc({
-    input: search,
-  });
-
+  const { data: backendData, isFetching } = useSearchDoc({ input: search });
   const { noContentText, searchInput } = useIntlayer('doc-search-view');
   const { locale } = useLocale();
 
-  const docMetadata = getIntlayer('doc-metadata', locale) as DocMetadata[];
-  const blogMetadata = getIntlayer('blog-metadata', locale) as BlogMetadata[];
-  const filesData = [...docMetadata, ...blogMetadata];
-
-  const fuse = new Fuse(filesData, fuseOptions);
-
-  const handleSearch = async (query: string) => {
-    if (!query) {
-      setCurrentSearchQuery(null);
-      setResults([]);
-      return;
-    }
-
-    if (query.length > 2) {
-      setCurrentSearchQuery(query);
-    } else {
-      setCurrentSearchQuery(null);
-      const fuseSearchResults = fuse.search(query).map((r) => r.item);
-      setResults(fuseSearchResults);
-    }
-  };
-
-  const debouncedSearch = debounce(handleSearch, 200, () => null);
+  const docs = getIntlayer('doc-metadata', locale) as DocMetadata[];
+  const blogs = getIntlayer('blog-metadata', locale) as BlogMetadata[];
+  const allDocs = [...docs, ...blogs];
+  const fuse = new Fuse(allDocs, fuseOptions);
 
   useEffect(() => {
-    if (searchDocData?.data && currentSearchQuery) {
-      const backendDocumentsWithScore: BackendDocResult[] = searchDocData.data.map(
+    if (backendData?.data && currentQuery) {
+      const backendResults: BackendDocResult[] = backendData.data.map(
         (doc) => ({
           fileKey: doc.fileKey,
           similarityScore: doc.similarityScore ?? 0.5,
         })
       );
 
-      const fuseResults = fuse.search(currentSearchQuery);
-      const mergedResults = mergeHybridResults(
-        fuseResults,
-        backendDocumentsWithScore,
-        filesData
-      );
+      const fuseResults = fuse.search(currentQuery);
+      let mergedResults: DocMetadata[];
+
+      if (fuseResults.length > 0) {
+        // Hybrid mode: combine Fuse.js and backend semantic results
+        mergedResults = mergeHybridResults(
+          fuseResults,
+          backendResults,
+          filesData
+        );
+      } else {
+        // Fallback: show backend-only results when Fuse finds none
+        mergedResults = backendResults
+          .map((r) => filesData.find((d) => d.docKey === r.fileKey))
+          .filter((d): d is DocMetadata => Boolean(d));
+      }
 
       setResults(mergedResults);
     }
-  }, [searchDocData, currentSearchQuery, filesData, fuse]);
+  }, [backendData, currentQuery, allDocs, fuse]);
 
-  useEffect(() => {
-    if (searchQueryParam) handleSearch(searchQueryParam);
-  }, [searchQueryParam]);
-
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
-    }
-  }, [isOpen]);
-
-  const isNoResult = !isFetching && results.length === 0 && search.length > 0;
+  const isNoResult =
+    !isFetching &&
+    results.length === 0 &&
+    search.length > 0 &&
+    !backendData?.data?.length;
 
   return (
     <div className="relative w-full p-4">
@@ -226,12 +185,11 @@ export const SearchView: FC<{
         {isNoResult && (
           <p className="text-center text-neutral text-sm">{noContentText}</p>
         )}
-
         {results.length > 0 && (
           <ul className="flex flex-col gap-10">
-            {results.map((result) => (
-              <li key={result.url}>
-                <SearchResultItem doc={result} onClickLink={onClickLink} />
+            {results.map((r) => (
+              <li key={r.url}>
+                <SearchResultItem doc={r} onClickLink={onClickLink} />
               </li>
             ))}
           </ul>

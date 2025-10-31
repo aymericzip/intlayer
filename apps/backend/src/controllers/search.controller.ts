@@ -19,14 +19,18 @@ export const searchDocUtil = async (
 ) => {
   const { input } = req.query;
 
-  // Ask the embedding search util for top 30 chunks
+  if (!input || typeof input !== 'string') {
+    res.status(400).json(formatResponse({ error: 'Missing search input' }));
+    return;
+  }
+
+  // Search for top 30 chunks via embeddings
   const response = await askDocQuestionUtil.searchChunkReference(
     input,
     30,
     0.2
   );
 
-  // Aggregate scores by file (since multiple chunks may come from same file)
   const docScores = new Map<string, number[]>();
 
   for (const doc of response) {
@@ -35,18 +39,17 @@ export const searchDocUtil = async (
     docScores.get(doc.fileKey)!.push(doc.similarity);
   }
 
-  // Compute average similarity per file
+  // Compute average similarity per document
   const docAverages: SearchDocResult[] = Array.from(docScores.entries()).map(
     ([fileKey, scores]) => ({
       fileKey,
-      similarityScore: scores.reduce((a, b) => a + b, 0) / scores.length,
+      similarityScore: scores.reduce((a, b) => a + b, 0) / (scores.length || 1),
     })
   );
 
-  // Sort by descending similarity
+  // Sort descending by relevance
   docAverages.sort((a, b) => b.similarityScore - a.similarityScore);
 
-  // Respond with top N unique files + scores
   const responseData = formatResponse<SearchDocResult[]>({
     data: docAverages.slice(0, 30),
   });
