@@ -36,7 +36,7 @@ export const testMissingTranslations = async (
     await prepareIntlayer(config);
   }
 
-  const result = listMissingTranslations(undefined, options?.configOptions);
+  const result = listMissingTranslations(options?.configOptions);
 
   const maxKeyColSize = result.missingTranslations
     .map((t) => ` - ${t.key}`)
@@ -57,8 +57,9 @@ export const testMissingTranslations = async (
           colSize: maxLocalesColSize,
           maxSize: 40,
         }),
-        ' - ',
-        translation.filePath ? formatPath(translation.filePath) : 'Remote',
+
+        translation.filePath ? ` - ${formatPath(translation.filePath)}` : '',
+        translation.id ? ' - remote' : '',
       ].join('')
   );
 

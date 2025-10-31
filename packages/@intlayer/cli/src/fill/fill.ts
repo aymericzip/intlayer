@@ -63,9 +63,10 @@ export const fill = async (options?: FillOptions): Promise<void> => {
   const { defaultLocale, locales } = configuration.internationalization;
   const mode = options?.mode ?? 'complete';
   const baseLocale = options?.sourceLocale ?? defaultLocale;
-  const outputLocales = (
-    options?.outputLocales ? ensureArray(options.outputLocales) : locales
-  ).filter((locale) => locale !== baseLocale);
+
+  const outputLocales = options?.outputLocales
+    ? ensureArray(options.outputLocales)
+    : locales;
 
   const hasAIAccess = await checkAIAccess(configuration, options?.aiOptions);
 
@@ -98,7 +99,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
    * In 'complete' mode, filter only the missing locales to translate
    */
   const translationTasks: TranslationTask[] = listTranslationsTasks(
-    targetUnmergedDictionaries.map((dict) => dict.localId!),
+    targetUnmergedDictionaries.map((dictionary) => dictionary.localId!),
     outputLocales,
     mode,
     baseLocale,
@@ -111,10 +112,14 @@ export const fill = async (options?: FillOptions): Promise<void> => {
   const globalLimiter = getGlobalLimiter(nbConcurrentTranslations);
 
   // NEW: number of *tasks* that may run at once (start/prepare/log/write)
-  const nbConcurrentTasks = Math.min(
-    options?.nbConcurrentTasks ?? nbConcurrentTranslations,
-    translationTasks.length
+  const nbConcurrentTasks = Math.max(
+    1,
+    Math.min(
+      options?.nbConcurrentTasks ?? nbConcurrentTranslations,
+      translationTasks.length
+    )
   );
+
   const taskLimiter = getTaskLimiter(nbConcurrentTasks);
 
   const runners = translationTasks.map((task) =>

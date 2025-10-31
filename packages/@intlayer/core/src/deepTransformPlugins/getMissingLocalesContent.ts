@@ -1,4 +1,5 @@
 import configuration from '@intlayer/config/built';
+import type { Dictionary } from '@intlayer/types';
 import {
   type ContentNode,
   type Locale,
@@ -70,3 +71,12 @@ export const getMissingLocalesContent = <T extends ContentNode>(
 
   return Array.from(missingLocales);
 };
+
+export const getMissingLocalesContentFromDictionary = (
+  dictionary: Dictionary,
+  locales: LocalesValues[] = configuration?.internationalization?.locales
+) =>
+  getMissingLocalesContent(dictionary.content, locales, {
+    dictionaryKey: dictionary.key,
+    keyPath: [],
+  });

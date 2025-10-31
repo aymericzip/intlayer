@@ -18,6 +18,8 @@ export const browserContent = {
       ar: 'متصفح مدمج',
       ru: 'Встроенный браузер',
       tr: 'Gömülü tarayıcı',
+      pl: 'Osadzona przeglądarka',
+      id: 'Peramban tertanam',
     }),
     urlLabel: t({
       en: 'URL address bar',
@@ -34,6 +36,8 @@ export const browserContent = {
       ar: 'شريط عنوان URL',
       ru: 'Адресная строка URL',
       tr: 'URL adres çubuğu',
+      pl: 'Pasek adresu URL',
+      id: 'Bilah alamat URL',
     }),
     urlPlaceholder: 'https://example.com',
     errorMessage: t({
@@ -51,6 +55,8 @@ export const browserContent = {
       ar: 'رابط غير صالح. جرب شيئًا مثل "https://example.com".',
       ru: 'Неверный URL. Попробуйте что-то вроде "https://example.com".',
       tr: 'Geçersiz URL. "https://example.com" gibi bir şey deneyin.',
+      pl: 'Nieprawidłowy adres URL. Wypróbuj coś w rodzaju "https://example.com".',
+      id: 'URL tidak valid. Coba misalnya "https://example.com".',
     }),
     reloadButtonTitle: t({
       en: 'Reload page',
@@ -67,6 +73,8 @@ export const browserContent = {
       ar: 'إعادة تحميل الصفحة',
       ru: 'Перезагрузить страницу',
       tr: 'Sayfayı yenile',
+      pl: 'Przeładuj stronę',
+      id: 'Muat ulang halaman',
     }),
     iframeTitle: t({
       en: 'Embedded web page',
@@ -83,8 +91,14 @@ export const browserContent = {
       ar: 'صفحة ويب مدمجة',
       ru: 'Встроенная веб-страница',
       tr: 'Gömülü web sayfası',
+      pl: 'Osadzona strona internetowa',
+      id: 'Halaman web tertanam',
     }),
   },
+  title: 'Embedded browser component',
+  description:
+    'Content declaration for the embedded browser UI component, including ARIA labels, URL placeholder, and error messages for displaying web pages within an iframe.',
+  tags: ['UI component', 'embedded browser', 'iframe'],
 } satisfies Dictionary;
 
 export default browserContent;

@@ -4,6 +4,7 @@ export * from './getFilterTranslationsOnlyContent';
 export * from './getLocalizedContent';
 export * from './getMaskContent';
 export * from './getMissingLocalesContent';
+export * from './getMultilingualDictionary';
 export * from './getReplacedValuesContent';
 export * from './getSplittedContent';
 export * from './insertContentInDictionary';

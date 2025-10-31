@@ -23,6 +23,8 @@ export type GetConfigurationOptions = {
   logFunctions?: LogFunctions;
   // Require function
   require?: NodeJS.Require;
+  // cache
+  cache?: boolean;
 } & Omit<SandBoxContextOptions, 'projectRequire'>;
 
 export type GetConfigurationAndFilePathResult = {
@@ -36,15 +38,10 @@ export type GetConfigurationAndFilePathResult = {
 export const getConfigurationAndFilePath = (
   options?: GetConfigurationOptions
 ): GetConfigurationAndFilePathResult => {
-  const mergedOptions = {
-    require: options?.require,
-    ...options,
-  };
-
-  const baseDir = mergedOptions.baseDir ?? getPackageJsonPath().baseDir;
+  const baseDir = options?.baseDir ?? getPackageJsonPath().baseDir;
 
   const cachedConfiguration =
-    cache.get<GetConfigurationAndFilePathResult>(mergedOptions);
+    cache.get<GetConfigurationAndFilePathResult>(options);
 
   if (cachedConfiguration) return cachedConfiguration;
 
@@ -62,31 +59,32 @@ export const getConfigurationAndFilePath = (
     // Load the custom configuration
     const customConfiguration: CustomIntlayerConfig | undefined =
       loadConfigurationFile(configurationFilePath, {
-        projectRequire: mergedOptions.require,
+        projectRequire: options?.require,
         // Dotenv options
         envVarOptions: {
-          env: mergedOptions.env,
-          envFile: mergedOptions.envFile,
+          env: options?.env,
+          envFile: options?.envFile,
         },
         // Sandbox context additional variables
-        additionalEnvVars: mergedOptions.additionalEnvVars,
-        aliases: mergedOptions.aliases,
+        additionalEnvVars: options?.additionalEnvVars,
+        aliases: options?.aliases,
       });
 
     // Save the configuration to avoid reading the file again
     storedConfiguration = buildConfigurationFields(
       customConfiguration,
-      mergedOptions.baseDir,
-      mergedOptions.logFunctions
+      options?.baseDir,
+      options?.logFunctions
     );
   }
 
   // Log warning if multiple configuration files are found
 
-  const projectRequireConfig: CustomIntlayerConfig = mergedOptions.require
+  const projectRequireConfig: CustomIntlayerConfig = options?.require
     ? {
         build: {
-          require: mergedOptions.require,
+          require: options?.require,
+          cache: options?.cache,
         },
       }
     : {};
@@ -98,10 +96,10 @@ export const getConfigurationAndFilePath = (
 
   const configuration = merge(
     configWithProjectRequire,
-    mergedOptions.override ?? {}
+    options?.override ?? {}
   ) as IntlayerConfig;
 
-  cache.set(mergedOptions, {
+  cache.set(options, {
     configuration,
     configurationFilePath,
   });
