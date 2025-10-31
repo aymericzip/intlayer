@@ -1,7 +1,11 @@
 'use client';
 
 import { MessageKey } from '@intlayer/editor';
-import type { KeyPath } from '@intlayer/types';
+import {
+  type KeyPath,
+  type LocalDictionaryId,
+  NodeType,
+} from '@intlayer/types';
 import {
   createContext,
   type Dispatch,
@@ -14,15 +18,15 @@ import { useCrossFrameState } from './useCrossFrameState';
 
 export type FileContent = {
   dictionaryKey: string;
-  dictionaryLocalId?: string;
+  dictionaryLocalId?: LocalDictionaryId;
   keyPath?: KeyPath[];
 };
 
-type FocusDictionaryState = {
+export type FocusDictionaryState = {
   focusedContent: FileContent | null;
 };
 
-type FocusDictionaryActions = {
+export type FocusDictionaryActions = {
   setFocusedContent: Dispatch<SetStateAction<FileContent | null>>;
   setFocusedContentKeyPath: (keyPath: KeyPath[]) => void;
 };
@@ -48,7 +52,16 @@ export const FocusDictionaryProvider: FC<PropsWithChildren> = ({
       if (!prev) {
         return prev; // nothing to update if there's no focused content
       }
-      return { ...prev, keyPath };
+
+      // Remove translation key path if it exists to make it more flexible with optimization client / editor
+      const filteredKeyPath = keyPath.filter(
+        (key) => key.type !== NodeType.Translation
+      );
+
+      return {
+        ...prev,
+        keyPath: filteredKeyPath,
+      };
     });
   };
 

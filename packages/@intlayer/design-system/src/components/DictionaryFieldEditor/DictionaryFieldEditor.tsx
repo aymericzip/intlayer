@@ -3,7 +3,7 @@
 import {
   useConfiguration,
   useDictionariesRecordActions,
-  useFocusDictionaryActions,
+  useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types';
 import { ArrowLeft } from 'lucide-react';
@@ -51,7 +51,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     EditorViewType.ContentEditor
   );
   const { returnToDictionaryList } = useIntlayer('dictionary-field-editor');
-  const { setFocusedContent } = useFocusDictionaryActions();
+  const { setFocusedContent } = useFocusUnmergedDictionary();
   const { setLocaleDictionaries } = useDictionariesRecordActions();
 
   useEffect(() => {

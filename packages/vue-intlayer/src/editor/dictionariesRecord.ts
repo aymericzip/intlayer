@@ -1,6 +1,6 @@
-import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { MessageKey } from '@intlayer/editor';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';
@@ -14,19 +14,18 @@ const INTLAYER_DICTIONARIES_RECORD_SYMBOL = Symbol(
   'intlayerDictionariesRecord'
 );
 
-export type DictionaryContent = Record<Dictionary['key'], Dictionary>;
+export type DictionaryContent = Record<LocalDictionaryId, Dictionary>;
 
 type DictionariesRecordClient = {
   localeDictionaries: Ref<DictionaryContent>;
   setLocaleDictionaries: (newValue: DictionaryContent) => void;
-  setLocaleDictionary: (d: Dictionary) => void;
+  setLocaleDictionary: (dictionary: Dictionary) => void;
 };
 
 export const createDictionaryRecordClient = () => {
   if (instance) return instance;
 
-  const dictionaries = getDictionaries();
-  const localeDictionaries = ref<DictionaryContent>(dictionaries);
+  const localeDictionaries = ref<DictionaryContent | undefined>(undefined);
 
   instance = {
     localeDictionaries: readonly(localeDictionaries) as Ref<DictionaryContent>,
@@ -38,7 +37,7 @@ export const createDictionaryRecordClient = () => {
     setLocaleDictionary(dictionary) {
       localeDictionaries.value = {
         ...localeDictionaries.value,
-        [dictionary.key]: dictionary,
+        [dictionary.localId!]: dictionary,
       };
     },
   };
@@ -51,6 +50,18 @@ export const createDictionaryRecordClient = () => {
  */
 export const installDictionariesRecord = (app: App) => {
   const client = createDictionaryRecordClient();
+
+  /**
+   * Sent local dictionaries to editor
+   */
+  const unmergedDictionaries = getUnmergedDictionaries();
+  const dictionariesList = Object.fromEntries(
+    Object.values(unmergedDictionaries)
+      .flat()
+      .map((dictionary) => [dictionary.localId, dictionary])
+  );
+
+  client.setLocaleDictionaries(dictionariesList);
 
   app.provide(INTLAYER_DICTIONARIES_RECORD_SYMBOL, client);
 };

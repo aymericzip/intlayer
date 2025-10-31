@@ -1,57 +1,27 @@
 'use client';
 
-import { normalizeDictionaries } from '@intlayer/core';
 import { Container } from '@intlayer/design-system';
 import {
   type FileContent,
   MessageKey,
   useCrossFrameState,
-  useDictionariesRecordActions,
+  useEditorLocale,
 } from '@intlayer/editor-react';
-import type { IntlayerConfig, Locale } from '@intlayer/types';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { useTheme } from 'next-themes';
-import { type FC, type PropsWithChildren, useEffect } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
 import { DictionaryListDrawer } from './DictionaryListDrawer';
 import { LongPressMessage } from './LongPressMessage';
 
-type EditorLayoutProps = PropsWithChildren<{ configuration: IntlayerConfig }>;
+type EditorLayoutProps = PropsWithChildren;
 
-export const EditorLayout: FC<EditorLayoutProps> = ({
-  children,
-  configuration,
-}) => {
+export const EditorLayout: FC<EditorLayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const [hoveredContent] = useCrossFrameState<FileContent | null>(
     MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED,
     null
   );
-  const [currentLocale] = useCrossFrameState<Locale>(
-    MessageKey.INTLAYER_CURRENT_LOCALE,
-    undefined,
-    {
-      receive: true,
-      emit: false,
-    }
-  );
-
-  const { setLocaleDictionaries } = useDictionariesRecordActions();
-
-  useEffect(() => {
-    if (!configuration) return;
-
-    const unmergedDictionaries = getUnmergedDictionaries(configuration);
-    const dictionariesList = Object.fromEntries(
-      Object.values(unmergedDictionaries)
-        .flatMap((dictionaries) =>
-          normalizeDictionaries(dictionaries, configuration)
-        )
-        .map((dictionary) => [dictionary.localId, dictionary])
-    );
-
-    setLocaleDictionaries(dictionariesList);
-  }, [configuration]);
+  const currentLocale = useEditorLocale();
 
   return (
     <>

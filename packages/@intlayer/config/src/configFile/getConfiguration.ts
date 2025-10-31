@@ -36,12 +36,12 @@ export type GetConfigurationAndFilePathResult = {
 export const getConfigurationAndFilePath = (
   options?: GetConfigurationOptions
 ): GetConfigurationAndFilePathResult => {
-  const { baseDir } = getPackageJsonPath();
   const mergedOptions = {
-    baseDir,
     require: options?.require,
     ...options,
   };
+
+  const baseDir = mergedOptions.baseDir ?? getPackageJsonPath().baseDir;
 
   const cachedConfiguration =
     cache.get<GetConfigurationAndFilePathResult>(mergedOptions);
@@ -50,14 +50,10 @@ export const getConfigurationAndFilePath = (
 
   // Search for configuration files
   const { configurationFilePath, numCustomConfiguration } =
-    searchConfigurationFile(mergedOptions.baseDir);
+    searchConfigurationFile(baseDir);
 
   if (options?.override?.log?.mode === 'verbose') {
-    logConfigFileResult(
-      mergedOptions.baseDir,
-      numCustomConfiguration,
-      configurationFilePath
-    );
+    logConfigFileResult(baseDir, numCustomConfiguration, configurationFilePath);
   }
 
   let storedConfiguration: IntlayerConfig | undefined;

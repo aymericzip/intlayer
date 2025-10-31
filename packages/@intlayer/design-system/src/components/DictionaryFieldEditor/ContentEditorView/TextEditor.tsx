@@ -17,7 +17,7 @@ import {
   type ContentNode,
   type Dictionary,
   type KeyPath,
-  type Locales,
+  type Locale,
   type LocalesValues,
   NodeType,
 } from '@intlayer/types';
@@ -235,21 +235,23 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
         {localesList.map((translationKey) => (
           <Fragment key={translationKey}>
             <tr className="mt-2 w-full p-2 text-xs">
-              {getLocaleName(translationKey, locale)}
+              <td>{getLocaleName(translationKey, locale)}</td>
             </tr>
             <tr>
-              <TextEditorContainer
-                section={
-                  content[translationKey] ??
-                  getEmptyNode(content[defaultLocale])
-                }
-                keyPath={[
-                  ...keyPath,
-                  { type: NodeType.Translation, key: translationKey },
-                ]}
-                dictionary={dictionary}
-                renderSection={renderSection}
-              />
+              <td>
+                <TextEditorContainer
+                  section={
+                    content[translationKey] ??
+                    getEmptyNode(content[defaultLocale])
+                  }
+                  keyPath={[
+                    ...keyPath,
+                    { type: NodeType.Translation, key: translationKey },
+                  ]}
+                  dictionary={dictionary}
+                  renderSection={renderSection}
+                />
+              </td>
             </tr>
           </Fragment>
         ))}
@@ -378,7 +380,7 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
         {['true', 'false', 'fallback'].map((condKey) => (
           <Fragment key={condKey}>
             <tr key={condKey} className="mt-2 block w-full p-2 text-xs">
-              {String(condKey)}
+              <td>{String(condKey)}</td>
             </tr>
             <tr key={condKey} className="block w-full">
               <TextEditorContainer
@@ -418,7 +420,7 @@ const GenderTextEditor: FC<TextEditorProps> = ({
         {['male', 'female', 'fallback'].map((condKey) => (
           <Fragment key={condKey}>
             <tr key={condKey} className="mt-2 block w-full p-2 text-xs">
-              {String(condKey)}
+              <td>{String(condKey)}</td>
             </tr>
             <tr key={condKey} className="block w-full">
               <TextEditorContainer
@@ -569,7 +571,7 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
                   key={JSON.stringify(subSection)}
                   className="mt-2 p-2 text-xs"
                 >
-                  {String(key)}
+                  <td>{String(key)}</td>
                 </tr>
                 <tr key={JSON.stringify(subSection)} className="block w-full">
                   <TextEditor

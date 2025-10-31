@@ -1,6 +1,6 @@
 {
   "name": "intlayer-cli",
-  "version": "7.0.1",
+  "version": "7.0.3",
   "private": false,
   "description": "Lightweight CLI tool for Intlayer, enabling content audits, dictionary management, and CMS sync. Ideal for JavaScript developers using React or Express.",
   "keywords": [
@@ -80,14 +80,14 @@
     "webpack": "5.98.0"
   },
   "devDependencies": {
-    "@types/node": "24.9.1",
+    "@types/node": "24.9.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.0.1",
-    "tsdown": "0.15.9",
+    "tsdown": "0.15.11",
     "typescript": "5.9.3",
-    "vitest": "4.0.3"
+    "vitest": "4.0.5"
   },
   "engines": {
     "node": ">=14.18"

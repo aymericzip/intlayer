@@ -1,8 +1,8 @@
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { defineConfig } from 'vite';
-import { intlayer, intlayerMiddleware } from 'vite-intlayer';
+import { intlayer, intlayerProxy } from 'vite-intlayer';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [svelte(), intlayer(), intlayerMiddleware()],
+  plugins: [svelte(), intlayer(), intlayerProxy()],
 });

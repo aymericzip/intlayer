@@ -9,4 +9,6 @@ export * from './FocusDictionaryContext';
 export * from './useCrossFrameMessageListener';
 export * from './useCrossFrameState';
 export * from './useCrossURLPathState';
+export * from './useEditorLocale';
+export * from './useFocusUnmergedDictionary';
 export * from './useIframeClickInterceptor';

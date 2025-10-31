@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, Input } from '@angular/core';
 import { isSameKeyPath, type NodeProps } from '@intlayer/core';
+import { NodeType } from '@intlayer/types';
 import { ContentSelectorComponent } from '../UI/ContentSelector.component';
 import { useEditorEnabled } from './editorEnabled';
 import { useFocusDictionary } from './focusDictionary';
@@ -57,7 +58,7 @@ export class ContentSelectorWrapperComponent {
   handleSelect() {
     this.focusDictionary.setFocusedContent({
       dictionaryKey: this.dictionaryKey,
-      keyPath: this.keyPath,
+      keyPath: this.keyPath.filter((key) => key.type !== NodeType.Translation),
     });
   }
 }

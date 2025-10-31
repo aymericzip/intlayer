@@ -1,346 +1,124 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
-title: Intlayer und react-i18next
-description: Vergleichen Sie Intlayer mit react-i18next für eine React-App
+updatedAt: 2025-10-29
+title: Wie Sie Ihre react-i18next JSON-Übersetzungen mit Intlayer automatisieren
+description: Automatisieren Sie Ihre JSON-Übersetzungen mit Intlayer und react-i18next für eine verbesserte Internationalisierung in React-Anwendungen.
 keywords:
   - react-i18next
   - i18next
   - Intlayer
   - Internationalisierung
-  - Dokumentation
-  - Next.js
-  - JavaScript
+  - i18n
+  - Blog
   - React
+  - JavaScript
+  - TypeScript
+  - Content Management
 slugs:
   - blog
   - intlayer-with-react-i18next
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: Wechsel zum syncJSON-Plugin
 ---
 
-# React Internationalisierung (i18n) mit react-i18next und Intlayer
+# Wie Sie Ihre react-i18next JSON-Übersetzungen mit Intlayer automatisieren
 
-## Übersicht
+## Was ist Intlayer?
 
-- **Intlayer** hilft Ihnen, Übersetzungen über **komponentenbasierte** Inhaltsdeklarationsdateien zu verwalten.
-- **react-i18next** ist eine beliebte React-Integration für **i18next**, die Hooks wie `useTranslation` bereitstellt, um lokalisierte Strings in Ihren Komponenten abzurufen.
+**Intlayer** ist eine innovative, Open-Source-Internationalisierungsbibliothek, die entwickelt wurde, um die Schwächen traditioneller i18n-Lösungen zu beheben. Sie bietet einen modernen Ansatz für das Content-Management in React-Anwendungen.
 
-In Kombination kann Intlayer **Wörterbücher** im **i18next-kompatiblen JSON** exportieren, sodass react-i18next sie zur Laufzeit **verbrauchen** kann.
+Siehe einen konkreten Vergleich mit react-i18next in unserem Blogbeitrag [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/react-i18next_vs_react-intl_vs_intlayer.md).
 
-## Warum Intlayer mit react-i18next verwenden?
+## Warum Intlayer mit react-i18next kombinieren?
 
-Die Inhaltsdeklarationsdateien von **Intlayer** bieten ein besseres Entwicklererlebnis, da sie:
+Während Intlayer eine hervorragende eigenständige i18n-Lösung bietet (siehe unseren [React-Integrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md)), möchten Sie es möglicherweise aus mehreren Gründen mit react-i18next kombinieren:
 
-1. **Flexibel in der Dateiplatzierung sind**  
-   Platzieren Sie jede Inhaltsdeklarationsdatei direkt neben der Komponente, die sie benötigt. Diese Struktur ermöglicht es Ihnen, Übersetzungen lokal zusammenzuhalten und verhindert verwaiste Übersetzungen, wenn Komponenten verschoben oder gelöscht werden.
+1. **Bestehender Codebestand**: Sie haben eine etablierte react-i18next-Implementierung und möchten schrittweise auf die verbesserte Entwicklererfahrung von Intlayer migrieren.
+2. **Altsystem-Anforderungen**: Ihr Projekt erfordert Kompatibilität mit bestehenden react-i18next-Plugins oder Workflows.
+3. **Teamvertrautheit**: Ihr Team ist mit react-i18next vertraut, möchte jedoch ein besseres Content-Management.
 
-   ```bash codeFormat="typescript"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.ts # Inhaltsdeklarationsdatei
-               └── index.tsx
-   ```
+**Dafür kann Intlayer als Adapter für react-i18next implementiert werden, um Ihre JSON-Übersetzungen in CLI- oder CI/CD-Pipelines zu automatisieren, Ihre Übersetzungen zu testen und mehr.**
 
-   ```bash codeFormat="esm"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.mjs # Inhaltsdeklarationsdatei
-               └── index.mjx
-   ```
+Dieser Leitfaden zeigt Ihnen, wie Sie das überlegene Content-Deklarationssystem von Intlayer nutzen und gleichzeitig die Kompatibilität mit react-i18next beibehalten.
 
-   ```bash codeFormat="cjs"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.cjs # Inhaltsdeklarationsdatei
-               └── index.cjx
-   ```
+## Inhaltsverzeichnis
 
-   ```bash codeFormat="json"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.json # Inhaltsdeklarationsdatei
-               └── index.jsx
-   ```
+<TOC/>
 
-2. **Zentralisierte Übersetzungen**  
-   Eine einzelne Inhaltsdeklarationsdatei sammelt alle notwendigen Übersetzungen für eine Komponente, was fehlende Übersetzungen leichter erkennbar macht.  
-   Mit TypeScript erhalten Sie sogar zur Kompilierzeit Fehler, wenn Übersetzungen fehlen.
+## Schritt-für-Schritt-Anleitung zur Einrichtung von Intlayer mit react-i18next
 
-## Installation
+### Schritt 1: Abhängigkeiten installieren
 
-In einem Create React App-Projekt installieren Sie diese Abhängigkeiten:
+Installieren Sie die notwendigen Pakete:
 
-```bash
-# Mit npm
-npm install intlayer react-i18next i18next i18next-resources-to-backend
+```bash packageManager="npm"
+npm install intlayer @intlayer/sync-json-plugin
 ```
 
-```bash
-# Mit yarn
-yarn add intlayer react-i18next i18next i18next-resources-to-backend
+```bash packageManager="pnpm"
+pnpm add intlayer @intlayer/sync-json-plugin
 ```
 
-```bash
-# Mit pnpm
-pnpm add intlayer react-i18next i18next i18next-resources-to-backend
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
 ```
 
-### Was sind diese Pakete?
+**Paketbeschreibungen:**
 
-- **intlayer** – Die CLI und Kernbibliothek zur Verwaltung von i18n-Konfigurationen, Inhaltsdeklarationen und zum Erstellen von Wörterbuchausgaben.
-- **react-intlayer** – React-spezifische Integration für Intlayer, die einige Skripte zur Automatisierung des Aufbaus von Wörterbüchern bereitstellt.
-- **react-i18next** – React-spezifische Integrationsbibliothek für i18next, einschließlich des `useTranslation`-Hooks.
-- **i18next** – Das zugrunde liegende Framework für die Übersetzungsbearbeitung.
-- **i18next-resources-to-backend** – Ein i18next-Backend, das JSON-Ressourcen dynamisch importiert.
+- **intlayer**: Kernbibliothek für Internationalisierungsmanagement, Content-Deklaration und Build-Prozesse
+- **@intlayer/sync-json-plugin**: Plugin zum Exportieren von Intlayer-Content-Deklarationen in ein mit react-i18next kompatibles JSON-Format
 
-## Intlayer zur Ausgabe von i18next-Wörterbüchern konfigurieren
+### Schritt 2: Implementieren Sie das Intlayer-Plugin zum Verpacken des JSON
 
-Erstellen (oder aktualisieren) Sie Ihre `intlayer.config.ts` im Root Ihres Projekts:
+Erstellen Sie eine Intlayer-Konfigurationsdatei, um Ihre unterstützten Sprachen zu definieren:
 
-```typescript title="intlayer.config.ts"
+**Wenn Sie auch JSON-Wörterbücher für react-i18next exportieren möchten**, fügen Sie das `syncJSON`-Plugin hinzu:
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
   internationalization: {
-    // Fügen Sie so viele Sprachen hinzu, wie Sie möchten
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    // Sagen Sie Intlayer, dass es i18next-kompatibles JSON erstellen soll
-    dictionaryOutput: ["i18next"],
-
-    // Wählen Sie ein Ausgabeverzeichnis für die generierten Ressourcen
-    // Dieses Verzeichnis wird erstellt, wenn es noch nicht existiert.
-    i18nextResourcesDir: "./i18next/resources",
-  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-> **Hinweis**: Wenn Sie kein TypeScript verwenden, können Sie diese Konfigurationsdatei als `.cjs`, `.mjs` oder `.js` erstellen (siehe die [Intlayer-Dokumentation](https://intlayer.org/en/doc/concept/configuration) für Details).
+Das `syncJSON`-Plugin umschließt das JSON automatisch. Es liest und schreibt die JSON-Dateien, ohne die Inhaltsarchitektur zu verändern.
 
-## Erstellen der i18next-Ressourcen
+Wenn Sie möchten, dass dieses JSON zusammen mit Intlayer-Content-Deklarationsdateien (`.content`-Dateien) koexistiert, geht Intlayer folgendermaßen vor:
 
-Sobald Ihre Inhaltsdeklarationen an Ort und Stelle sind (nächster Abschnitt), führen Sie den **Intlayer-Befehl zum Erstellen** aus:
+    1. Lade sowohl JSON- als auch Inhaltsdeklarationsdateien und transformiere sie in ein Intlayer-Wörterbuch.
+    2. Wenn es Konflikte zwischen den JSON- und den Inhaltsdeklarationsdateien gibt, wird Intlayer alle Wörterbücher zusammenführen. Dies hängt von der Priorität der Plugins und der Inhaltsdeklarationsdatei ab (alle sind konfigurierbar).
 
-```bash
-# Mit npm
-npx run intlayer build
-```
+Wenn Änderungen über die CLI zur Übersetzung des JSON vorgenommen werden oder das CMS verwendet wird, aktualisiert Intlayer die JSON-Datei mit den neuen Übersetzungen.
 
-```bash
-# Mit yarn
-yarn intlayer build
-```
-
-```bash
-# Mit pnpm
-pnpm intlayer build
-```
-
-> Dies wird standardmäßig Ihre i18next-Ressourcen im Verzeichnis `./i18next/resources` generieren.
-
-Eine typische Ausgabe könnte folgendermaßen aussehen:
-
-```bash
-.
-└── i18next
-    └── resources
-       ├── de
-       │   └── my-content.json
-       ├── fr
-       │   └── my-content.json
-       └── es
-           └── my-content.json
-```
-
-Wo jeder **Intlayer**-Schlüssel als **i18next-Namensraum** verwendet wird (z.B. `my-content.json`).
-
-## Wörterbücher in Ihre react-i18next-Konfiguration importieren
-
-Um diese Ressourcen zur Laufzeit dynamisch zu laden, verwenden Sie [`i18next-resources-to-backend`](https://www.npmjs.com/package/i18next-resources-to-backend). Erstellen Sie beispielsweise eine Datei `i18n.ts` (oder `.js`) in Ihrem Projekt:
-
-```typescript title="i18n.ts"
-import i18next from "i18next";
-import { initReactI18next } from "react-i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next
-  // react-i18next-Plugin
-  .use(initReactI18next)
-  // Ressourcen dynamisch laden
-  .use(
-    resourcesToBackend((language: string, namespace: string) => {
-      // Passen Sie den Importpfad zu Ihrem Ressourcenverzeichnis an
-      return import(`../i18next/resources/${language}/${namespace}.json`);
-    })
-  )
-  // Initialize i18next
-  .init({
-    // Fallback-Sprache
-    fallbackLng: "de",
-
-    // Sie können hier andere i18next-Konfigurationsoptionen hinzufügen, siehe:
-    // https://www.i18next.com/overview/configuration-options
-  });
-
-export default i18next;
-```
-
-```javascript title="i18n.js"
-import i18next from "i18next";
-import { initReactI18next } from "react-i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next
-  .use(initReactI18next)
-  .use(
-    resourcesToBackend(
-      (language, namespace) =>
-        import(`../i18next/resources/${language}/${namespace}.json`)
-    )
-  )
-  .init({
-    fallbackLng: "de",
-  });
-
-export default i18next;
-```
-
-Dann importieren Sie in Ihrer **Haupt**- oder **Index**-Datei (z.B. `src/index.tsx`) diese `i18n`-Einrichtung **vor** dem Rendern der `App`:
-
-```typescript
-import React from "react";
-import ReactDOM from "react-dom/client";
-// Initialisieren Sie i18n vor allem anderen
-import "./i18n";
-import App from "./App";
-
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-```
-
-## Erstellen und Verwalten Ihrer Inhaltsdeklarationen
-
-Intlayer extrahiert Übersetzungen aus „Inhaltsdeklarationsdateien“, die sich überall unter `./src` (standardmäßig) befinden.  
-Hier ist ein minimales Beispiel in TypeScript:
-
-```typescript title="src/components/MyComponent/MyComponent.content.ts"
-import { t, type Dictionary } from "intlayer";
-
-const content = {
-  // Der "key" wird Ihr i18next-Namensraum sein (z.B. "my-component")
-  key: "my-component",
-  content: {
-    // Jeder "t"-Aufruf ist ein separater Übersetzungs-Knoten
-    heading: t({
-      de: "Hallo Welt",
-      fr: "Bonjour le monde",
-      es: "Hola Mundo",
-    }),
-    description: t({
-      de: "Mein i18n Beschreibungstext...",
-      fr: "Ma description en i18n...",
-      es: "Mi descripción en i18n...",
-    }),
-  },
-} satisfies Dictionary;
-
-export default content;
-```
-
-Wenn Sie JSON, `.cjs` oder `.mjs` bevorzugen, siehe die [Intlayer-Dokumentation](https://intlayer.org/en/doc/concept/content).
-
-> Standardmäßig entsprechen gültige Inhaltsdeklarationen dem Dateiendungsmuster:
-
-> `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`
-
-## Verwendung der Übersetzungen in React-Komponenten
-
-Nachdem Sie Ihre Intlayer-Ressourcen **gebaut** und react-i18next konfiguriert haben, können Sie direkt den `useTranslation`-Hook von **react-i18next** verwenden.  
-Zum Beispiel:
-
-```tsx title="src/components/MyComponent/MyComponent.tsx"
-import type { FC } from "react";
-import { useTranslation } from "react-i18next";
-
-/**
- * Der i18next "Namensraum" ist der Intlayer `key` aus "MyComponent.content.ts"
- * also übergeben wir "my-component" an useTranslation().
- */
-const MyComponent: FC = () => {
-  const { t } = useTranslation("my-component");
-
-  return (
-    <div>
-      <h1>{t("heading")}</h1>
-      <p>{t("description")}</p>
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-> Beachten Sie, dass die `t`-Funktion **Schlüssel** innerhalb Ihres generierten JSON referenziert. Für einen Intlayer-Inhaltseintragsnamen `heading` verwenden Sie `t("heading")`.
-
-## Optional: Integration mit Create React App-Skripten (CRACO)
-
-**react-intlayer** bietet einen CRACO-basierten Ansatz für benutzerdefinierte Builds und DEV-Serverkonfiguration. Wenn Sie den Build-Schritt von Intlayer nahtlos integrieren möchten, können Sie:
-
-1. **react-intlayer installieren** (falls Sie dies noch nicht getan haben):
-   ```bash
-   npm install react-intlayer --save-dev
-   ```
-2. **Passen Sie Ihre `package.json`-Skripte** an, um `react-intlayer`-Skripte zu verwenden:
-
-   ```jsonc
-   "scripts": {
-     "start": "react-intlayer start",
-     "build": "react-intlayer build",
-     "transpile": "intlayer build"
-   }
-   ```
-
-   > Die `react-intlayer`-Skripte basieren auf [CRACO](https://craco.js.org/). Sie können auch Ihr eigenes Setup basierend auf dem Intlayer-CRACO-Plugin implementieren. [Siehe Beispiel hier](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
-
-Nun löst das Ausführen von `npm run build`, `yarn build` oder `pnpm build` sowohl die Intlayer- als auch die CRA-Bauten aus.
-
-## TypeScript-Konfiguration
-
-**Intlayer** bietet **automatisch generierte Typdefinitionen** für Ihren Inhalt. Um sicherzustellen, dass TypeScript sie erfasst, fügen Sie **`types`** (oder `types`, wenn Sie es anders konfiguriert haben) zu Ihrem `tsconfig.json` **include**-Array hinzu:
-
-```json5 title="tsconfig.json"
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", "types"],
-}
-```
-
-> Dies ermöglicht es TypeScript, die Struktur Ihrer Übersetzungen für bessere Autovervollständigung und Fehlererkennung abzuleiten.
+Für weitere Details zum `syncJSON`-Plugin siehe bitte die [syncJSON Plugin-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md).
 
 ## Git-Konfiguration
 
-Es wird empfohlen, automatisch generierte Dateien und Ordner von Intlayer zu **ignorieren**. Fügen Sie diese Zeile zu Ihrer `.gitignore` hinzu:
+Es wird empfohlen, automatisch generierte Intlayer-Dateien zu ignorieren:
 
-```plaintext
-# Ignoriere die von Intlayer generierten Dateien
+```plaintext fileName=".gitignore"
+# Ignoriere automatisch generierte Intlayer-Dateien
 .intlayer
-i18next
 ```
 
-Sie sollten diese Ressourcen oder `.intlayer`-interne Build-Artefakte normalerweise **nicht** einchecken, da sie bei jedem Build regeneriert werden können.
+Diese Dateien können während Ihres Build-Prozesses neu generiert werden und müssen nicht in die Versionskontrolle übernommen werden.
+
+### VS Code Erweiterung
+
+Für eine verbesserte Entwicklererfahrung installieren Sie die offizielle **Intlayer VS Code Erweiterung**:
+
+[Installation aus dem VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

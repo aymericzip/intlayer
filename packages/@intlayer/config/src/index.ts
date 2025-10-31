@@ -45,7 +45,7 @@ export {
 export { clearModuleCache } from './utils/clearModuleCache';
 export {
   configESMxCJSRequire,
-  ESMxCJSRequire,
+  getProjectRequire,
   isESModule,
 } from './utils/ESMxCJSHelpers';
 export { extractErrorMessage } from './utils/extractErrorMessage';

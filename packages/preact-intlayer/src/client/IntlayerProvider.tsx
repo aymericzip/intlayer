@@ -12,7 +12,7 @@ import {
 import { useContext } from 'preact/hooks';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
 import { useCrossFrameState } from '../editor/useCrossFrameState';
-import { localeCookie, setLocaleInStorage } from './useLocaleStorage';
+import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
 
 type IntlayerValue = {
   locale: LocalesValues;
@@ -25,7 +25,7 @@ type IntlayerValue = {
  * Context that store the current locale on the client side
  */
 export const IntlayerClientContext = createContext<IntlayerValue>({
-  locale: localeCookie ?? configuration?.internationalization?.defaultLocale,
+  locale: localeInStorage ?? configuration?.internationalization?.defaultLocale,
   setLocale: () => null,
   disableEditor: false,
 });
@@ -62,7 +62,7 @@ export const IntlayerProviderContent: FunctionComponent<
     internationalization ?? {};
 
   const defaultLocale =
-    localeProp ?? localeCookie ?? defaultLocaleProp ?? defaultLocaleConfig;
+    localeProp ?? localeInStorage ?? defaultLocaleProp ?? defaultLocaleConfig;
 
   const [currentLocale, setCurrentLocale] = useCrossFrameState(
     MessageKey.INTLAYER_CURRENT_LOCALE,

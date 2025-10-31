@@ -7,6 +7,7 @@ import {
   buildSync,
   type Plugin,
 } from 'esbuild';
+import { getPackageJsonPath } from '..';
 import { getLoader } from './bundleFile';
 
 export type ESBuildPlugin = Plugin;
@@ -29,7 +30,10 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
   write: false,
   packages: 'external',
   bundle: true,
-  tsconfig: join(process.cwd(), 'tsconfig.json'),
+  tsconfig: join(
+    getPackageJsonPath(dirname(filePath)).baseDir,
+    'tsconfig.json'
+  ),
   define: {
     'import.meta.url': JSON.stringify(pathToFileURL(filePath).href),
   },

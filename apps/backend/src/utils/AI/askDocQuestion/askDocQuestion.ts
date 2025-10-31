@@ -1,9 +1,7 @@
-import { writeFileSync } from 'node:fs';
 import { readAsset } from 'utils:asset';
 import { getMarkdownMetadata } from '@intlayer/core';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import { streamText } from 'ai';
-import dotenv from 'dotenv';
 import { OpenAI } from 'openai';
 import {
   type AIConfig,
@@ -12,13 +10,21 @@ import {
   type ChatCompletionRequestMessage,
 } from '../aiSdk';
 
-const embeddingsList = JSON.parse(readAsset('./embeddings.json', 'utf-8'));
+const readEmbeddingsForFile = (fileKey: string): Record<string, number[]> => {
+  try {
+    return JSON.parse(
+      readAsset(`./embeddings/${fileKey.replace('.md', '.json')}`, 'utf-8')
+    ) as Record<string, number[]>;
+  } catch {
+    return {};
+  }
+};
 
 type VectorStoreEl = {
   fileKey: string;
   chunkNumber: number;
   content: string;
-  embedding: number[];
+  embedding?: number[];
   docUrl: string;
   docName: string;
 };
@@ -143,22 +149,14 @@ const cosineSimilarity = (vecA: number[], vecB: number[]): number => {
 
 /**
  * Indexes all Markdown documents by generating embeddings for each chunk and storing them in memory.
- * Also updates the embeddings.json file if new embeddings are generated.
+ * Persists per-document embeddings under `embeddings/<fileKey>.json`.
  * Handles cases where files have been updated and chunk counts have changed.
  */
-export const indexMarkdownFiles = async (): Promise<void> => {
-  const env = process.env.NODE_ENV;
-  dotenv.config({
-    path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
-  });
-
+export const loadMarkdownFiles = async (): Promise<void> => {
   // Retrieve documentation and blog posts in English locale
   const frequentQuestions = await getFrequentQuestions();
   const docs = await getDocs();
   const blogs = await getBlogs();
-
-  let result: Record<string, number[]> = {}; // Object to hold updated embeddings
-  const currentChunkKeys = new Set<string>(); // Track which chunks should exist
 
   const files = { ...docs, ...blogs, ...frequentQuestions }; // Combine docs and blogs into a single object
 
@@ -174,10 +172,11 @@ export const indexMarkdownFiles = async (): Promise<void> => {
       files[fileKey as keyof typeof files] as string
     );
 
+    // Read existing embeddings for this file
+    const existingEmbeddings = readEmbeddingsForFile(fileKey);
+
     // Check if the number of chunks has changed for this file
-    const existingChunksForFile = Object.keys(embeddingsList).filter((key) =>
-      key.startsWith(`${fileKey}/chunk_`)
-    );
+    const existingChunksForFile = Object.keys(existingEmbeddings);
     const currentChunkCount = fileChunks.length;
     const previousChunkCount = existingChunksForFile.length;
 
@@ -193,6 +192,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
     }
 
     // Iterate over each chunk within the current file
+    let resultForFile: Record<string, number[] | undefined> = {};
     for await (const chunkIndex of Object.keys(fileChunks)) {
       const chunkNumber = Number(chunkIndex) + 1; // Chunk number starts at 1
       const chunksNumber = fileChunks.length;
@@ -201,25 +201,19 @@ export const indexMarkdownFiles = async (): Promise<void> => {
         chunkIndex as keyof typeof fileChunks
       ] as string;
 
-      const embeddingKeyName = `${fileKey}/chunk_${chunkNumber}`; // Unique key for the chunk
-      currentChunkKeys.add(embeddingKeyName); // Track this chunk as current
+      const chunkKeyName = `chunk_${chunkNumber}`; // Unique key for the chunk within the file
 
       // Retrieve precomputed embedding if available and file hasn't changed
       const docEmbedding = !shouldRegenerateFileEmbeddings
-        ? (embeddingsList[embeddingKeyName as keyof typeof embeddingsList] as
-            | number[]
-            | undefined)
+        ? (existingEmbeddings[
+            chunkKeyName as keyof typeof existingEmbeddings
+          ] as number[] | undefined)
         : undefined;
 
-      let embedding = docEmbedding; // Use existing embedding if available and valid
+      const embedding = docEmbedding; // Use existing embedding if available and valid
 
-      if (!embedding) {
-        embedding = await generateEmbedding(fileChunk); // Generate embedding if not present or file changed
-        console.info(`- Generated new embedding: ${embeddingKeyName}`);
-      }
-
-      // Update the result object with the embedding
-      result = { ...result, [embeddingKeyName]: embedding };
+      // Update the file-scoped result object with the embedding
+      resultForFile = { ...resultForFile, [chunkKeyName]: embedding };
 
       // Store the embedding and content in the in-memory vector store
       vectorStore.push({
@@ -231,40 +225,13 @@ export const indexMarkdownFiles = async (): Promise<void> => {
         docName: fileMetadata.title,
       });
 
-      console.info(`- Indexed: ${embeddingKeyName}/${chunksNumber}`);
+      console.info(`- Loaded: ${fileKey}/${chunkKeyName}/${chunksNumber}`);
     }
-  }
-
-  // Remove outdated embeddings that no longer exist in current files
-  const filteredEmbeddings: Record<string, number[]> = {};
-  for (const [key, embedding] of Object.entries(embeddingsList)) {
-    if (currentChunkKeys.has(key)) {
-      // Only keep embeddings for chunks that still exist
-      if (!result[key]) {
-        filteredEmbeddings[key] = embedding as number[];
-      }
-    }
-  }
-
-  // Merge filtered existing embeddings with new ones
-  result = { ...filteredEmbeddings, ...result };
-
-  try {
-    // Compare the newly generated embeddings with existing ones
-    if (JSON.stringify(result) !== JSON.stringify(embeddingsList)) {
-      // If there are new embeddings or changes, save them to embeddings.json
-      writeFileSync(
-        'src/utils/AI/askDocQuestion/embeddings.json',
-        JSON.stringify(result, null, 2)
-      );
-    }
-  } catch (error) {
-    console.error(error); // Log any errors during the file write process
   }
 };
 
 // Automatically index Markdown files
-indexMarkdownFiles();
+loadMarkdownFiles();
 
 /**
  * Searches the indexed documents for the most relevant chunks based on a query.
@@ -281,9 +248,14 @@ export const searchChunkReference = async (
   const queryEmbedding = await generateEmbedding(query);
 
   const selection = vectorStore
+    .filter((chunk) => chunk.embedding)
     .map((chunk) => ({
       ...chunk,
+<<<<<<< HEAD
       similarity: cosineSimilarity(queryEmbedding, chunk.embedding),
+=======
+      similarity: cosineSimilarity(queryEmbedding, chunk.embedding!), // Add similarity score to each doc
+>>>>>>> 88599b80ef448b9116c90c6871cb9a3c1506af59
     }))
     .filter((chunk) => chunk.similarity > minSimilarity)
     .sort((a, b) => b.similarity - a.similarity)

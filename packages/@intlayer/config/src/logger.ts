@@ -48,6 +48,7 @@ export enum ANSIColors {
   RESET = '\x1b[0m',
   GREY = '\x1b[90m',
   GREY_DARK = '\x1b[38;5;239m',
+  GREY_LIGHT = '\x1b[38;5;252m',
   BLUE = '\x1b[34m',
   RED = '\x1b[31m',
   GREEN = '\x1b[32m',
@@ -57,6 +58,7 @@ export enum ANSIColors {
   ORANGE = '\x1b[38;5;208m',
   CYAN = '\x1b[36m',
   WHITE = '\x1b[37m',
+  BOLD = '\x1b[1m',
 }
 
 export const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];

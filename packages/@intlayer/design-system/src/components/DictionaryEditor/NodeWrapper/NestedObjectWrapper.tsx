@@ -1,6 +1,6 @@
 import { isSameKeyPath } from '@intlayer/core';
 import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
-import type { FC } from 'react';
+import { type FC, memo, useMemo } from 'react';
 import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, type NodeWrapperProps, traceKeys } from './index';
 
@@ -8,14 +8,21 @@ type NestedObjectWrapperProps = Omit<NodeWrapperProps, 'section'> & {
   section: Record<string, ContentNode>;
 };
 
-export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = (props) => {
-  const { keyPath, section, focusedKeyPath = [], onFocusKeyPath } = props;
+export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = memo(
+  (props) => {
+    const { keyPath, section, focusedKeyPath = [], onFocusKeyPath } = props;
 
-  return Object.keys(section)
-    .filter((key) => !traceKeys.includes(key))
-    .map((key) => {
+    const sectionKeys = useMemo(
+      () =>
+        Object.keys(section ?? {}).filter((key) => !traceKeys.includes(key)),
+      [section]
+    );
+
+    return sectionKeys.map((key) => {
       const newKeyPathEl: KeyPath = { key, type: NodeType.Object };
       const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
+
+      const isSelected = isSameKeyPath(newKeyPath, focusedKeyPath);
 
       return (
         <ItemLayout
@@ -23,15 +30,20 @@ export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = (props) => {
           key={key}
           title={key}
           description=""
-          isSelected={isSameKeyPath(newKeyPath, focusedKeyPath)}
+          isSelected={isSelected}
           onClick={(e) => {
             e.stopPropagation();
 
-            onFocusKeyPath(newKeyPath);
+            if (isSelected) {
+              onFocusKeyPath([]);
+            } else {
+              onFocusKeyPath(newKeyPath);
+            }
           }}
         >
           <NodeWrapper {...props} keyPath={newKeyPath} section={section[key]} />
         </ItemLayout>
       );
     });
-};
+  }
+);

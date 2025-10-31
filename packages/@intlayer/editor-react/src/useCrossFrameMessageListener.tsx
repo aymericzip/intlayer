@@ -51,7 +51,9 @@ export const useCrossFrameMessageListener = <S,>(
         // Check if the message origin is allowed
         if (
           typeof allowedOrigins === 'undefined' ||
-          allowedOrigins?.some((url) => compareUrls(url, event.origin)) ||
+          allowedOrigins
+            ?.filter((url) => ![null, undefined, '', '*'].includes(url))
+            .some((url) => compareUrls(url, event.origin)) ||
           allowedOrigins?.includes('*')
         ) {
           // Update the local state with the received data

@@ -14,6 +14,7 @@
 <script setup lang="ts">
 import { isSameKeyPath, type NodeProps } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
+import { NodeType } from '@intlayer/types';
 import { computed, type HTMLAttributes } from 'vue';
 import ContentSelector from '../UI/ContentSelector.vue';
 import { useCommunicator } from './communicator';
@@ -35,6 +36,10 @@ const communicator = useCommunicator();
 
 useEditor();
 
+const filteredKeyPath = computed(() =>
+  props.keyPath.filter((key) => key.type !== NodeType.Translation)
+);
+
 // compute whether this node is the current focus
 const isSelected = computed(
   () =>
@@ -43,7 +48,7 @@ const isSelected = computed(
     (focusDictionary?.focusedContent.value.keyPath?.length ?? 0) > 0 &&
     isSameKeyPath(
       focusDictionary?.focusedContent.value.keyPath ?? [],
-      props.keyPath
+      filteredKeyPath.value
     )
 );
 
@@ -51,7 +56,7 @@ const isSelected = computed(
 const handleSelect = () => {
   focusDictionary?.setFocusedContent({
     dictionaryKey: props.dictionaryKey,
-    keyPath: props.keyPath,
+    keyPath: filteredKeyPath.value,
   });
 };
 
@@ -60,7 +65,7 @@ const handleHover = () => {
     type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
     data: {
       dictionaryKey: props.dictionaryKey,
-      keyPath: props.keyPath,
+      keyPath: filteredKeyPath.value,
     },
   });
 };

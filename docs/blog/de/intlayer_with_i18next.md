@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
-title: Intlayer und i18next
-description: Integrieren Sie Intlayer mit i18next für optimale Internationalisierung. Vergleichen Sie die beiden Frameworks und lernen Sie, wie Sie sie zusammen konfigurieren.
+updatedAt: 2025-10-29
+title: Wie Sie Ihre i18next JSON-Übersetzungen mit Intlayer automatisieren
+description: Automatisieren Sie Ihre JSON-Übersetzungen mit Intlayer und i18next für eine verbesserte Internationalisierung in JavaScript-Anwendungen.
 keywords:
   - Intlayer
   - i18next
@@ -14,149 +14,129 @@ keywords:
   - Next.js
   - JavaScript
   - TypeScript
+  - Migration
+  - Integration
 slugs:
   - blog
   - intlayer-with-i18next
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: Wechsel zum syncJSON-Plugin
 ---
 
-# Internationalisierung mit Intlayer und i18next
+# Wie Sie Ihre i18next JSON-Übersetzungen mit Intlayer automatisieren
 
-i18next ist ein Open-Source-Internationalisierungs (i18n) Framework, das für JavaScript-Anwendungen entwickelt wurde. Es wird häufig für die Verwaltung von Übersetzungen, Lokalisierung und Sprachwechsel in Softwareprojekten verwendet. Es hat jedoch einige Einschränkungen, die die Skalierbarkeit und die Entwicklung erschweren können.
+## Was ist Intlayer?
 
-Intlayer ist ein weiteres Internationalisierungsframework, das diese Einschränkungen behebt und einen flexibleren Ansatz zur Inhaltsdeklaration und -verwaltung bietet. Lassen Sie uns einige wichtige Unterschiede zwischen i18next und Intlayer sowie deren Konfiguration für optimierte Internationalisierung erkunden.
+**Intlayer** ist eine innovative, Open-Source-Internationalisierungsbibliothek, die entwickelt wurde, um die Schwächen traditioneller i18n-Lösungen zu beheben. Sie bietet einen modernen Ansatz für das Content-Management in JavaScript-Anwendungen.
 
-## Intlayer vs. i18next: Hauptunterschiede
+Sehen Sie einen konkreten Vergleich mit i18next in unserem Blogbeitrag [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-intl_vs_intlayer.md).
 
-### 1. Inhaltsdeklaration
+## Warum Intlayer mit i18next kombinieren?
 
-Bei i18next müssen Übersetzungswörterbücher in einem bestimmten Ordner deklariert werden, was die Skalierbarkeit der Anwendung erschweren kann. Im Gegensatz dazu ermöglicht Intlayer die Deklaration von Inhalten im selben Verzeichnis wie Ihre Komponente. Dies hat mehrere Vorteile:
+Während Intlayer eine ausgezeichnete eigenständige i18n-Lösung bietet (siehe unseren [Next.js-Integrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md)), möchten Sie es möglicherweise aus mehreren Gründen mit i18next kombinieren:
 
-- **Vereinfachte Inhaltsbearbeitung**: Benutzer müssen nicht nach dem richtigen Wörterbuch suchen, um Änderungen vorzunehmen, wodurch die Fehlerquote verringert wird.
-- **Automatische Anpassung**: Wenn sich der Standort einer Komponente ändert oder sie entfernt wird, erkennt Intlayer dies und passt sich automatisch an.
+1. **Bestehender Codebestand**: Sie haben eine etablierte i18next-Implementierung und möchten schrittweise auf die verbesserte Entwicklererfahrung von Intlayer migrieren.
+2. **Altsystem-Anforderungen**: Ihr Projekt erfordert Kompatibilität mit bestehenden i18next-Plugins oder Workflows.
+3. **Teamvertrautheit**: Ihr Team ist mit i18next vertraut, möchte jedoch ein besseres Content-Management.
 
-### 2. Komplexität der Konfiguration
+**Dafür kann Intlayer als Adapter für i18next implementiert werden, um Ihre JSON-Übersetzungen in CLI- oder CI/CD-Pipelines zu automatisieren, Ihre Übersetzungen zu testen und mehr.**
 
-Die Konfiguration von i18next kann komplex sein, insbesondere bei der Integration mit serverseitigen Komponenten oder der Konfiguration von Middleware für Frameworks wie Next.js. Intlayer vereinfacht diesen Prozess und bietet eine unkompliziertere Konfiguration.
+Dieser Leitfaden zeigt Ihnen, wie Sie das überlegene Content-Deklarationssystem von Intlayer nutzen und gleichzeitig die Kompatibilität mit i18next beibehalten.
 
-### 3. Konsistenz der Übersetzungswörterbücher
+## Inhaltsverzeichnis
 
-Die Gewährleistung, dass Übersetzungswörterbücher in verschiedenen Sprachen konsistent sind, kann mit i18next herausfordernd sein. Diese Inkonsistenz kann zu Anwendungsabstürzen führen, wenn sie nicht ordnungsgemäß behandelt wird. Intlayer behebt dies, indem es Einschränkungen für übersetzte Inhalte durchsetzt, um sicherzustellen, dass keine Übersetzung ausgelassen wird und dass der übersetzte Inhalt genau ist.
+<TOC/>
 
-### 4. TypeScript-Integration
+## Schritt-für-Schritt-Anleitung zur Einrichtung von Intlayer mit i18next
 
-Intlayer bietet eine bessere Integration mit TypeScript, die automatische Vorschläge für Inhalte in Ihrem Code ermöglicht, wodurch die Effizienz der Entwicklung verbessert wird.
+### Schritt 1: Abhängigkeiten installieren
 
-### 5. Teilen von Inhalten über Anwendungen hinaus
+Installieren Sie die notwendigen Pakete:
 
-Intlayer erleichtert das Teilen von Inhaltsdeklarationsdateien über mehrere Anwendungen und gemeinsame Bibliotheken. Diese Funktion erleichtert die Pflege konsistenter Übersetzungen über einen größeren Codebase.
+```bash packageManager="npm"
+npm install intlayer @intlayer/sync-json-plugin
+```
 
-## Wie man i18next-Wörterbücher mit Intlayer generiert
+```bash packageManager="pnpm"
+pnpm add intlayer @intlayer/sync-json-plugin
+```
 
-### Konfiguration von Intlayer zum Export von i18next-Wörterbüchern
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
+```
 
-> Wichtige Hinweise
+**Paketbeschreibungen:**
 
-> Der Export von i18next-Wörterbüchern befindet sich derzeit in der Beta-Phase und gewährleistet keine 1:1-Kompatibilität mit anderen Frameworks. Es wird empfohlen, eine auf Intlayer basierende Konfiguration zu verwenden, um Probleme zu minimieren.
+- **intlayer**: Kernbibliothek für Internationalisierungsmanagement, Content-Deklaration und Build-Prozesse
+- **@intlayer/sync-json-plugin**: Plugin zum Exportieren von Intlayer-Content-Deklarationen in ein i18next-kompatibles JSON-Format
 
-Um i18next-Wörterbücher zu exportieren, müssen Sie Intlayer entsprechend konfigurieren. Im Folgenden finden Sie ein Beispiel dafür, wie Sie Intlayer so einrichten, dass sowohl Intlayer- als auch i18next-Wörterbücher exportiert werden.
+### Schritt 2: Implementieren Sie das Intlayer-Plugin zum Verpacken des JSON
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+Erstellen Sie eine Intlayer-Konfigurationsdatei, um Ihre unterstützten Sprachen zu definieren:
+
+**Wenn Sie auch JSON-Wörterbücher für i18next exportieren möchten**, fügen Sie das `syncJSON`-Plugin hinzu:
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
-  content: {
-    // Geben Sie an, dass Intlayer sowohl Intlayer- als auch i18next-Wörterbücher exportieren wird
-    dictionaryOutput: ["intlayer", "i18next"],
-    // Relativer Pfad vom Projektstammverzeichnis zum Verzeichnis, in das die i18n-Wörterbücher exportiert werden
-    i18nextResourcesDir: "./i18next/dictionaries",
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./intl/messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
+Das `syncJSON`-Plugin wird das JSON automatisch umschließen. Es liest und schreibt die JSON-Dateien, ohne die Inhaltsarchitektur zu verändern.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  content: {
-    // Geben Sie an, dass Intlayer sowohl Intlayer- als auch i18next-Wörterbücher exportieren wird
-    dictionaryOutput: ["intlayer", "i18next"],
-    // Relativer Pfad vom Projektstammverzeichnis zum Verzeichnis, in das die i18n-Wörterbücher exportiert werden
-    i18nextResourcesDir: "./i18next/dictionaries",
-  },
-};
+Wenn Sie möchten, dass dieses JSON zusammen mit Intlayer-Content-Deklarationsdateien (`.content`-Dateien) koexistiert, geht Intlayer wie folgt vor:
 
-export default config;
+    1. Lädt sowohl JSON- als auch Content-Deklarationsdateien und transformiert sie in ein Intlayer-Wörterbuch.
+
+2. Wenn es Konflikte zwischen den JSON- und den Inhaltsdeklarationsdateien gibt, wird Intlayer alle Wörterbücher zusammenführen. Dies geschieht abhängig von der Priorität der Plugins und der der Inhaltsdeklarationsdatei (alle sind konfigurierbar).
+
+Wenn Änderungen über die CLI zur Übersetzung des JSON oder über das CMS vorgenommen werden, aktualisiert Intlayer die JSON-Datei mit den neuen Übersetzungen.
+
+## Git-Konfiguration
+
+Es wird empfohlen, automatisch generierte Intlayer-Dateien zu ignorieren:
+
+```plaintext fileName=".gitignore"
+# Dateien, die von Intlayer generiert werden, ignorieren
+.intlayer
 ```
 
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+Diese Dateien können während Ihres Build-Prozesses neu generiert werden und müssen nicht in die Versionskontrolle aufgenommen werden.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  content: {
-    // Geben Sie an, dass Intlayer sowohl Intlayer- als auch i18next-Wörterbücher exportieren wird
-    dictionaryOutput: ["intlayer", "i18next"],
-    // Relativer Pfad vom Projektstammverzeichnis zum Verzeichnis, in das die i18n-Wörterbücher exportiert werden
-    i18nextResourcesDir: "./i18next/dictionaries",
-  },
-};
+### VS Code Erweiterung
 
-module.exports = config;
+Für eine verbesserte Entwicklererfahrung installieren Sie die offizielle **Intlayer VS Code Erweiterung**:
+
+[Installieren Sie sie aus dem VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+## Git-Konfiguration
+
+Es wird empfohlen, automatisch generierte Intlayer-Dateien zu ignorieren:
+
+```plaintext fileName=".gitignore"
+# Dateien, die von Intlayer generiert werden, ignorieren
+.intlayer
 ```
 
-Durch das Hinzufügen von 'i18next' zur Konfiguration generiert Intlayer spezielle i18next-Wörterbücher zusätzlich zu den Intlayer-Wörterbüchern. Beachten Sie, dass das Entfernen von 'intlayer' aus der Konfiguration die Kompatibilität mit React-Intlayer oder Next-Intlayer beeinträchtigen kann.
+Diese Dateien können während Ihres Build-Prozesses neu generiert werden und müssen nicht in die Versionskontrolle aufgenommen werden.
 
-### Importieren von Wörterbüchern in Ihre i18next-Konfiguration
+### VS Code Erweiterung
 
-Um die generierten Wörterbücher in Ihre i18next-Konfiguration zu importieren, können Sie 'i18next-resources-to-backend' verwenden. Hier ist ein Beispiel dafür, wie Sie Ihre i18next-Wörterbücher importieren können:
+Für eine verbesserte Entwicklererfahrung installieren Sie die offizielle **Intlayer VS Code Erweiterung**:
 
-```typescript fileName="i18n/client.ts" codeFormat="typescript"
-// i18n/client.ts
-
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next
-  // Ihre i18next-Konfiguration
-  .use(
-    resourcesToBackend(
-      (language: string, namespace: string) =>
-        import(`../i18next/dictionaries/${language}/${namespace}.json`)
-    )
-  );
-```
-
-```javascript fileName="i18n/client.mjs" codeFormat="esm"
-// i18n/client.mjs
-
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next
-  // Ihre i18next-Konfiguration
-  .use(
-    resourcesToBackend(
-      (language, namespace) =>
-        import(`../i18next/dictionaries/${language}/${namespace}.json`)
-    )
-  );
-```
-
-```javascript fileName="i18n/client.cjs" codeFormat="commonjs"
-// i18n/client.cjs
-
-const i18next = require("i18next");
-const resourcesToBackend = require("i18next-resources-to-backend");
-
-i18next
-  // Ihre i18next-Konfiguration
-  .use(
-    resourcesToBackend(
-      (language, namespace) =>
-        import(`../i18next/dictionaries/${language}/${namespace}.json`)
-    )
-  );
-```
+[Installation aus dem VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

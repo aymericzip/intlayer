@@ -44,7 +44,7 @@ With Intlayer, you can:
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ### Step 1: Install Dependencies
 

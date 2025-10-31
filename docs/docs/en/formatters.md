@@ -46,7 +46,7 @@ history:
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## Overview
 

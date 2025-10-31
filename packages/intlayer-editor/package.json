@@ -1,6 +1,6 @@
 {
   "name": "intlayer-editor",
-  "version": "7.0.1",
+  "version": "7.0.3",
   "private": false,
   "description": "Integrate the Intlayer visual editor into your Intlayer projects, enabling CMS-like content management with multilingual support.",
   "keywords": [
@@ -98,6 +98,7 @@
     "express": "5.1.0",
     "express-intlayer": "workspace:*",
     "framer-motion": "12.23.24",
+    "fuse.js": "7.1.0",
     "helmet": "8.1.0",
     "intlayer": "workspace:*",
     "lucide-react": "0.547.0",
@@ -114,19 +115,20 @@
     "@types/compression": "1.8.1",
     "@types/cookie-parser": "1.4.9",
     "@types/cors": "2.8.19",
-    "@types/express": "5.0.3",
-    "@types/node": "24.9.1",
+    "@types/express": "5.0.5",
+    "@types/node": "24.9.2",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "@utils/ts-config": "workspace:*",
-    "@vitejs/plugin-react": "5.1.0",
+    "@vitejs/plugin-react": "^5.1.0",
     "autoprefixer": "10.4.21",
+    "babel-plugin-react-compiler": "^1.0.0",
     "globals": "16.4.0",
     "tailwindcss": "4.1.16",
-    "tsdown": "0.15.9",
+    "tsdown": "0.15.11",
     "typescript": "5.9.3",
     "vite": "7.1.12",
-    "vitest": "4.0.3"
+    "vitest": "4.0.5"
   },
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",

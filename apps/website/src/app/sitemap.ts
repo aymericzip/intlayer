@@ -63,6 +63,19 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       },
     },
     {
+      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Contributors}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.2,
+      alternates: {
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Contributors}`
+          ),
+        },
+      },
+    },
+    {
       url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',

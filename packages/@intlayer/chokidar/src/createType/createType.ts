@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { clearModuleCache, ESMxCJSRequire } from '@intlayer/config';
+import { clearModuleCache, getProjectRequire } from '@intlayer/config';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { parallelize } from '../utils/parallelize';
 
@@ -25,7 +25,7 @@ export const createTypes = async (
   const results = await parallelize(
     dictionariesPaths,
     async (dictionaryPath): Promise<string | undefined> => {
-      const requireFunction = build.require ?? ESMxCJSRequire;
+      const requireFunction = build.require ?? getProjectRequire();
       clearModuleCache(dictionaryPath);
 
       const dictionary: Dictionary = requireFunction(dictionaryPath);

@@ -5,7 +5,7 @@ import type { ESBuildPlugin } from '@intlayer/config';
 import {
   bundleFile,
   configESMxCJSRequire,
-  ESMxCJSRequire,
+  getProjectRequire,
   isESModule,
 } from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
@@ -60,7 +60,7 @@ const rewritePathsPlugin = (
  * Get the intlayer bundle to embed @intlayer/core and be able to mock @intlayer/config/built to mock the configuration file.
  */
 export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
-  const rootRequire = ESMxCJSRequire;
+  const rootRequire = getProjectRequire(configuration.content.baseDir);
   const configPackageRequire = configESMxCJSRequire;
   const localRequire = isESModule ? createRequire(import.meta.url) : require;
 

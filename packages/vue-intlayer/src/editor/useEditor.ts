@@ -15,5 +15,4 @@ export const useEditor = createSharedComposable(() => {
   useCrossURLPathSetter();
   useEditorLocale();
   useDictionariesRecord();
-  useEditorLocale();
 });

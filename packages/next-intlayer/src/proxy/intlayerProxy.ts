@@ -1,5 +1,5 @@
-import { DefaultValues } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
+import { DefaultValues } from '@intlayer/config/client';
 import { getLocaleFromStorage, setLocaleInStorage } from '@intlayer/core';
 import type { Locale } from '@intlayer/types';
 import {

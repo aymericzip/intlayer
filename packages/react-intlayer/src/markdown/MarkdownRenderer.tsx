@@ -5,6 +5,7 @@ import {
   getContentNodeByKeyPath,
   getMarkdownMetadata,
 } from '@intlayer/core';
+import { useEditorLocale } from '@intlayer/editor-react';
 import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
 import type { FC, ReactNode } from 'react';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
@@ -69,11 +70,14 @@ export const MarkdownMetadataRenderer: FC<MarkdownMetadataRendererProps> = ({
     keyPath,
     children,
   });
+  const currentLocale = useEditorLocale();
+
   const metadata = getMarkdownMetadata(editedContentContext);
 
   const metadataEl = getContentNodeByKeyPath(
     metadata as ContentNode,
-    metadataKeyPath
+    metadataKeyPath,
+    currentLocale
   );
 
   return metadataEl as ReactNode;

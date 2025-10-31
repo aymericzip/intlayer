@@ -1,14 +1,14 @@
-import { BlogRender } from '@components/BlogPage/BlogRender';
 import { getPreviousNextBlogData } from '@components/BlogPage/blogData';
 import { DocHeader } from '@components/DocPage/DocHeader/DocHeader';
 import {
   DocPageNavigation,
   type DocPageNavigationProps,
 } from '@components/DocPage/DocPageNavigation/DocPageNavigation';
+import { DocumentationRender } from '@components/DocPage/DocumentationRender';
+import { getLocalizedUrl } from '@intlayer/core';
 import { type BlogKey, getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
 import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import { urlRenamer } from '@utils/markdown';
-import { getLocalizedUrl } from 'intlayer';
 import { redirect } from 'next/navigation';
 import type { LocalPromiseParams } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
@@ -64,7 +64,7 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
       />
       <DocHeader {...blogData} markdownContent={blogContent} />
 
-      <BlogRender>{blogContent}</BlogRender>
+      <DocumentationRender>{blogContent}</DocumentationRender>
 
       <DocPageNavigation nextDoc={nextBlog} prevDoc={prevBlog} />
     </IntlayerServerProvider>

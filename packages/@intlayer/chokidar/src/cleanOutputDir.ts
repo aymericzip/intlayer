@@ -1,5 +1,5 @@
 import { existsSync, rmSync } from 'node:fs';
-import { getAppLogger } from '@intlayer/config';
+import { getAppLogger } from '@intlayer/config/client';
 import type { IntlayerConfig } from '@intlayer/types';
 
 export const cleanOutputDir = (configuration: IntlayerConfig) => {

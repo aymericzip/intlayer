@@ -1,345 +1,123 @@
 ---
-createdAt: 2025-09-07
-updatedAt: 2025-09-07
-title: Intlayer ve react-intl
-description: React uygulaması için Intlayer'ı react-intl ile entegre edin
+createdAt: 2025-01-02
+updatedAt: 2025-10-29
+title: Intlayer kullanarak react-intl JSON çevirilerinizi nasıl otomatikleştirirsiniz
+description: React uygulamalarında gelişmiş uluslararasılaştırma için Intlayer ve react-intl ile JSON çevirilerinizi otomatikleştirin.
 keywords:
   - react-intl
   - Intlayer
-  - Internationalization
+  - Uluslararasılaştırma
   - Blog
-  - Next.js
+  - i18n
   - JavaScript
   - React
+  - FormatJS
 slugs:
   - blog
   - intlayer-with-react-intl
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: syncJSON eklentisine geçiş
 ---
 
-# React Uluslararasılaştırma (i18n) ile **react-intl** ve Intlayer
+# Intlayer kullanarak react-intl JSON çevirilerinizi nasıl otomatikleştirirsiniz
 
-Bu rehber, React uygulamasında çevirileri yönetmek için **Intlayer**'ı **react-intl** ile nasıl entegre edeceğinizi gösterir. Çevrilebilir içeriğinizi Intlayer ile beyan edeceksiniz ve ardından bu mesajları **react-intl** ile tüketeceksiniz, [FormatJS](https://formatjs.io/docs/react-intl) ekosisteminden popüler bir kütüphane.
+## Intlayer nedir?
 
-## Genel Bakış
+**Intlayer**, geleneksel i18n çözümlerinin eksikliklerini gidermek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma kütüphanesidir. React uygulamalarında içerik yönetimi için modern bir yaklaşım sunar.
 
-- **Intlayer**, çevirileri projenizde **bileşen düzeyinde** içerik beyan dosyalarında (JSON, JS, TS vb.) saklamanıza izin verir.
-- **react-intl**, yerelleştirilmiş dizeleri görüntülemek için React bileşenleri ve hook'lar ( `<FormattedMessage>` ve `useIntl()` gibi) sağlar.
+react-intl ile somut bir karşılaştırma için [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md) blog yazımıza bakabilirsiniz.
 
-Intlayer'ı çevirileri **react-intl–uyumlu** bir formatta **dışa aktarmak** için yapılandırarak, `<IntlProvider>` (react-intl'den) tarafından gereken mesaj dosyalarını otomatik olarak **oluşturabilir** ve **güncelleyebilirsiniz**.
+## Neden Intlayer'ı react-intl ile Birleştirmelisiniz?
 
----
+Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bakınız [React entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)), react-intl ile birkaç nedenle birleştirmek isteyebilirsiniz:
 
-## Neden Intlayer'ı react-intl ile Kullanmalı?
+1. **Mevcut kod tabanı**: Yerleşik bir react-intl uygulamanız var ve Intlayer'ın geliştirilmiş geliştirici deneyimine kademeli olarak geçmek istiyorsunuz.
+2. **Eski gereksinimler**: Projeniz mevcut react-intl eklentileri veya iş akışları ile uyumluluk gerektiriyor.
+3. **Ekip aşinalığı**: Ekibiniz react-intl ile rahat ancak daha iyi içerik yönetimi istiyor.
 
-1. **Bileşen Başına Sözlükler**  
-   Intlayer içerik beyan dosyaları React bileşenlerinizin yanında yaşayabilir, bileşenler taşındığında veya kaldırıldığında "yetim" çevirileri önler. Örneğin:
+**Bunun için, Intlayer react-intl için bir adaptör olarak uygulanabilir; böylece JSON çevirilerinizi CLI veya CI/CD boru hatlarında otomatikleştirebilir, çevirilerinizi test edebilir ve daha fazlasını yapabilirsiniz.**
 
-   ```bash
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.ts   # Intlayer içerik beyan
-               └── index.tsx          # React bileşeni
-   ```
+Bu rehber, Intlayer'ın üstün içerik beyan sistemi avantajlarından yararlanırken react-intl ile uyumluluğu nasıl koruyacağınızı gösterir.
 
-2. **Merkezi Çeviriler**  
-   Her içerik beyan dosyası bir bileşen tarafından ihtiyaç duyulan tüm çevirileri toplar. Bu, özellikle TypeScript projelerinde yardımcı olur: eksik çeviriler **derleme zamanında** yakalanabilir.
+## İçindekiler
 
-3. **Otomatik Oluşturma ve Yeniden Oluşturma**  
-   Çeviri eklediğinizde veya güncellediğinizde, Intlayer mesaj JSON dosyalarını yeniden oluşturur. Bunları react-intl’in `<IntlProvider>`'ına geçebilirsiniz.
+<TOC/>
 
----
+## Intlayer'ı react-intl ile Kurmak İçin Adım Adım Rehber
 
-## Kurulum
+### Adım 1: Bağımlılıkları Yükleyin
 
-Tipik bir React projesinde şunları yükleyin:
+Gerekli paketleri yükleyin:
 
-```bash
-# npm ile
-npm install intlayer react-intl
-
-# yarn ile
-yarn add intlayer react-intl
-
-# pnpm ile
-pnpm add intlayer react-intl
+```bash packageManager="npm"
+npm install intlayer @intlayer/sync-json-plugin
 ```
 
-### Bu Paketler Neden?
+```bash packageManager="pnpm"
+pnpm add intlayer @intlayer/sync-json-plugin
+```
 
-- **intlayer**: İçerik beyanlarını tarar, birleştirir ve sözlük çıktılarını oluşturur.
-- **react-intl**: FormatJS'ten ana kütüphane, `<IntlProvider>`, `<FormattedMessage>`, `useIntl()` ve diğer uluslararasılaştırma primitiflerini sağlar.
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
+```
 
-> React'i henüz yüklemediyseniz, onu da yüklemeniz gerekir (`react` ve `react-dom`).
+**Paket açıklamaları:**
 
-## react-intl Mesajlarını Dışa Aktarmak İçin Intlayer'ı Yapılandırma
+- **intlayer**: Uluslararasılaştırma yönetimi, içerik beyanı ve oluşturma için temel kütüphane
+- **@intlayer/sync-json-plugin**: Intlayer içerik beyanlarını react-intl uyumlu JSON formatına aktarmak için eklenti
 
-Projenizin kökünde **`intlayer.config.ts`** (veya `.js`, `.mjs`, `.cjs`) oluşturun:
+### Adım 2: JSON'u sarmak için Intlayer eklentisini uygulayın
 
-```typescript title="intlayer.config.ts"
+Desteklenen yerel ayarları tanımlamak için bir Intlayer yapılandırma dosyası oluşturun:
+
+**Eğer react-intl için JSON sözlüklerini de dışa aktarmak istiyorsanız**, `syncJSON` eklentisini ekleyin:
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
   internationalization: {
-    // İstediğiniz kadar yerel ekleyin
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    // Intlayer'a react-intl için mesaj dosyaları oluşturmasını söyler
-    dictionaryOutput: ["react-intl"],
-
-    // Intlayer'ın mesaj JSON dosyalarınızı yazacağı dizin
-    reactIntlMessagesDir: "./react-intl/messages",
-  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./intl/messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-> **Not**: Diğer dosya uzantıları için (`.mjs`, `.cjs`, `.js`), kullanım detayları için [Intlayer dokümantasyonuna](https://intlayer.org/en/doc/concept/configuration) bakın.
+`syncJSON` eklentisi JSON'u otomatik olarak saracaktır. İçerik mimarisini değiştirmeden JSON dosyalarını okuyup yazar.
 
----
+Eğer bu JSON'un intlayer içerik beyan dosyaları (`.content` dosyaları) ile birlikte var olmasını istiyorsanız, Intlayer şu şekilde ilerleyecektir:
 
-## Intlayer Sözlüklerinizi Oluşturma
+    1. Hem JSON hem de içerik beyan dosyalarını yükleyip bunları bir intlayer sözlüğüne dönüştürür.
 
-Intlayer kod tabanınızı (varsayılan olarak `./src` altında) `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}` ile eşleşen dosyalar için tarar.  
-**TypeScript** örneği burada:
+2. JSON ile içerik beyan dosyaları arasında çakışma varsa, Intlayer tüm sözlükleri birleştirme işlemini gerçekleştirecektir. Bu, eklentilerin önceliğine ve içerik beyan dosyasının önceliğine bağlıdır (tüm öncelikler yapılandırılabilir).
 
-```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type Dictionary } from "intlayer";
+JSON'u çevirmek için CLI kullanılarak veya CMS aracılığıyla değişiklik yapılırsa, Intlayer JSON dosyasını yeni çevirilerle güncelleyecektir.
 
-const content = {
-  // "key" react-intl JSON dosyanızda üst düzey mesaj anahtarı olur
-  key: "my-component",
-
-  content: {
-    // t() çağrısının her biri çevrilebilir bir alan beyan eder
-    helloWorld: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-    description: t({
-      en: "This is a description",
-      fr: "Ceci est une description",
-      es: "Esta es una descripción",
-    }),
-  },
-} satisfies Dictionary;
-
-export default content;
-```
-
-JSON veya farklı JS türlerini tercih ederseniz (`.cjs`, `.mjs`), yapı büyük ölçüde aynıdır, bkz. [Intlayer içerik beyan dokümantasyonu](https://intlayer.org/en/doc/concept/content).
-
----
-
-## react-intl Mesajlarını Oluşturma
-
-**react-intl** için gerçek mesaj JSON dosyalarını oluşturmak için şunu çalıştırın:
-
-```bash
-# npm ile
-npx intlayer dictionaries build
-
-# yarn ile
-yarn intlayer build
-
-# pnpm ile
-pnpm intlayer build
-```
-
-Bu, tüm `*.content.*` dosyalarını tarar, derler ve sonuçları **`intlayer.config.ts`**'inizde belirtilen dizine yazar, bu örnekte `./react-intl/messages`.  
-Tipik bir çıktı şöyle görünebilir:
-
-```bash
-.
-└── react-intl
-    └── messages
-        ├── en.json
-        ├── fr.json
-        └── es.json
-```
-
-Her dosya, beyanlarınızın her **`content.key`**'ine karşılık gelen **üst düzey anahtarlara** sahip bir JSON nesnesidir. **Alt anahtarlar** ( `helloWorld` gibi) o içerik öğesi içinde beyan edilen çevirileri yansıtır.
-
-Örneğin, **en.json** şöyle görünebilir:
-
-```json fileName="react-intl/messages/en/my-component.json"
-{
-  "helloWorld": "Hello World",
-  "description": "This is a description"
-}
-```
-
----
-
-## React Uygulamanızda react-intl'i Başlatma
-
-### 1. Oluşturulan Mesajları Yükleyin
-
-Uygulamanızın kök bileşenini yapılandırdığınız yerde (örneğin, `src/main.tsx` veya `src/index.tsx`), şunları yapmanız gerekir:
-
-1. **İçe aktarın** oluşturulan mesaj dosyalarını (statik olarak veya dinamik olarak).
-2. **Sağlayın** bunları `react-intl`'den `<IntlProvider>`'a.
-
-Basit bir yaklaşım onları **statik olarak** içe aktarmaktır:
-
-```typescript title="src/index.tsx"
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { IntlProvider } from "react-intl";
-import App from "./App";
-
-// Yapı çıktısından JSON dosyalarını içe aktarın.
-// Alternatif olarak, kullanıcının seçtiği yerele göre dinamik olarak içe aktarabilirsiniz.
-import en from "../react-intl/messages/en.json";
-import fr from "../react-intl/messages/fr.json";
-import es from "../react-intl/messages/es.json";
-
-
-
-// Vite'nin import.meta.glob kullanarak tüm JSON dosyalarını dinamik olarak içe aktarın
-const messages = import.meta.glob("../react-intl/messages/**/*.json", {
-  eager: true,
-});
-
-// Mesajları yapılandırılmış bir kayda toplayın
-const messagesRecord: Record<string, Record<string, any>> = {};
-
-Object.entries(messages).forEach(([path, module]) => {
-  // Dosya yolundan yerel ve ad alanını çıkarın
-  const [, locale, namespace] = path.match(/messages\/(\w+)\/(.+?)\.json$/) ?? [];
-  if (locale && namespace) {
-    messagesRecord[locale] = messagesRecord[locale] ?? {};
-    messagesRecord[locale][namespace] = module.default; // JSON içeriğini atayın
-  }
-});
-
-// Her yerel için ad alanlarını birleştirin
-const mergeMessages = (locale: string) =>
-  Object.values(messagesRecord[locale] ?? {}).reduce(
-    (acc, namespaceMessages) => ({ ...acc, ...namespaceMessages }),
-    {}
-  );
-
-// Kullanıcının dilini algılamak için bir mekanizmanız varsa, burada ayarlayın.
-// Basitlik için İngilizce'yi seçelim.
-const locale = "en";
-
-
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <IntlProvider locale={locale} messages={mergeMessages(locale)}>
-      <App />
-    </IntlProvider>
-  </React.StrictMode>
-);
-```
-
-> **İpucu**: Gerçek projeler için şunları yapabilirsiniz:
-
-> - JSON mesajlarını çalışma zamanında dinamik olarak yükleyin.
-> - Ortama dayalı, tarayıcıya dayalı veya kullanıcı hesabına dayalı yerel algılama kullanın.
-
-### 2. `<FormattedMessage>` veya `useIntl()` Kullanın
-
-Mesajlarınız `<IntlProvider>`'a yüklendikten sonra, herhangi bir alt bileşen react-intl'i yerelleştirilmiş dizelere erişmek için kullanabilir. İki ana yaklaşım vardır:
-
-- **`<FormattedMessage>`** bileşeni
-- **`useIntl()`** hook'u
-
----
-
-## React Bileşenlerinde Çevirileri Kullanma
-
-### Yaklaşım A: `<FormattedMessage>`
-
-Hızlı satır içi kullanım için:
-
-```tsx title="src/components/MyComponent/index.tsx"
-import React from "react";
-import { FormattedMessage } from "react-intl";
-
-export default function MyComponent() {
-  return (
-    <div>
-      <h1>
-        {/* “my-component.helloWorld” en.json, fr.json vb.'den anahtara başvurur */}
-        <FormattedMessage id="my-component.helloWorld" />
-      </h1>
-
-      <p>
-        <FormattedMessage id="my-component.description" />
-      </p>
-    </div>
-  );
-}
-```
-
-> `<FormattedMessage>`'teki **`id`** prop'u **üst düzey anahtar** (`my-component`) artı herhangi bir alt anahtar (`helloWorld`) ile eşleşmelidir.
-
-### Yaklaşım B: `useIntl()`
-
-Daha dinamik kullanım için:
-
-```tsx title="src/components/MyComponent/index.tsx"
-import React from "react";
-import { useIntl } from "react-intl";
-
-export default function MyComponent() {
-  const intl = useIntl();
-
-  return (
-    <div>
-      <h1>{intl.formatMessage({ id: "my-component.helloWorld" })}</h1>
-      <p>{intl.formatMessage({ id: "my-component.description" })}</p>
-    </div>
-  );
-}
-```
-
-Her iki yaklaşım da geçerlidir, uygulamanıza uygun olanı seçin.
-
----
-
-## Yeni Çeviriler Güncelleme veya Ekleme
-
-1. Herhangi bir `*.content.*` dosyasında içeriği **ekleyin veya değiştirin**.
-2. `./react-intl/messages` altında JSON dosyalarını yeniden oluşturmak için `intlayer build` komutunu yeniden çalıştırın.
-3. React (ve react-intl) güncellemeleri bir sonraki yeniden oluşturma veya yeniden yükleme sırasında alacak.
-
----
-
-## TypeScript Entegrasyonu (İsteğe Bağlı)
-
-TypeScript kullanıyorsanız, Intlayer çevirileriniz için **tip tanımlarını oluşturabilir**.
-
-- `tsconfig.json`'ınızın `"include"` dizisinde `types` klasörünüzü (veya Intlayer'ın oluşturduğu çıktı klasörünü) içerdiğinden emin olun.
-
-```json5
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", "types"],
-}
-```
-
-Oluşturulan tipler, React bileşenlerinizde eksik çevirileri veya geçersiz anahtarları derleme zamanında algılamaya yardımcı olabilir.
-
----
+`syncJSON` eklentisi hakkında daha fazla ayrıntı için lütfen [syncJSON eklenti dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) bakınız.
 
 ## Git Yapılandırması
 
-Intlayer'ın iç yapı eserlerini sürüm kontrolünden **hariç tutmak** yaygındır. `.gitignore` dosyanıza şunu ekleyin:
+Otomatik oluşturulan Intlayer dosyalarını görmezden gelmeniz önerilir:
 
-```plaintext
-# Intlayer yapı eserlerini yoksay
+```plaintext fileName=".gitignore"
+# Intlayer tarafından oluşturulan dosyaları görmezden gel
 .intlayer
-react-intl
 ```
 
-İş akışınıza bağlı olarak, `./react-intl/messages` içindeki son sözlükleri yoksayabilir veya commit edebilirsiniz. CI/CD boru hattınız onları yeniden oluşturuyorsa, güvenle yoksayabilirsiniz; aksi takdirde, üretim dağıtımları için ihtiyaç duyarsanız commit edin.
+Bu dosyalar, derleme süreciniz sırasında yeniden oluşturulabilir ve sürüm kontrolüne eklenmeleri gerekmez.
+
+### VS Code Eklentisi
+
+Geliştirici deneyimini iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyin:
+
+[VS Code Market'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

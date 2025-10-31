@@ -1,8 +1,11 @@
 'use client';
 
-import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
+import {
+  useEditedContent,
+  useFocusUnmergedDictionary,
+} from '@intlayer/editor-react';
 import type { Dictionary, Locale } from '@intlayer/types';
-import type { FC } from 'react';
+import { type FC, useMemo } from 'react';
 import { SaveForm } from '../DictionaryFieldEditor/SaveForm/SaveForm';
 import { NodeWrapper } from './NodeWrapper';
 
@@ -21,9 +24,12 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
 }) => {
   const { editedContent, addEditedContent } = useEditedContent();
   const { focusedContent, setFocusedContentKeyPath, setFocusedContent } =
-    useFocusDictionary();
+    useFocusUnmergedDictionary();
 
-  const focusedKeyPath = focusedContent?.keyPath;
+  const focusedKeyPath = useMemo(
+    () => focusedContent?.keyPath,
+    [focusedContent?.keyPath]
+  );
 
   return (
     <div className="flex flex-1 flex-col justify-between gap-2">

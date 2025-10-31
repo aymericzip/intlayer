@@ -4,7 +4,7 @@ import { useEffect } from 'preact/hooks';
 import { IntlayerProvider } from 'preact-intlayer';
 import { LocationProvider, useLocation } from 'preact-iso';
 
-const { internationalization, middleware } = configuration;
+const { internationalization, routing } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 const Navigate: FunctionalComponent<{ to: string; replace?: boolean }> = ({
@@ -47,7 +47,7 @@ const AppLocalized: FunctionalComponent<{
   /**
    * If middleware.prefixDefault is true, the default locale should always be prefixed.
    */
-  if (middleware.prefixDefault) {
+  if (routing.mode === 'prefix-all') {
     // Validate the locale
     if (!locale || !locales.includes(locale)) {
       // Redirect to the default locale with the updated path
@@ -99,7 +99,9 @@ const RouterContent: FunctionalComponent<{
   const pathLocale = path.split('/')[1] as Locale;
 
   const isLocaleRoute = locales
-    .filter((locale) => middleware.prefixDefault || locale !== defaultLocale)
+    .filter(
+      (locale) => routing.mode === 'prefix-all' || locale !== defaultLocale
+    )
     .some((locale) => locale.toString() === pathLocale);
 
   if (isLocaleRoute) {
@@ -108,7 +110,7 @@ const RouterContent: FunctionalComponent<{
 
   return (
     <AppLocalized
-      locale={!middleware.prefixDefault ? defaultLocale : undefined}
+      locale={routing.mode === 'prefix-all' ? defaultLocale : undefined}
     >
       {children}
     </AppLocalized>

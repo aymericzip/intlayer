@@ -33,7 +33,7 @@ This guide demonstrates how to integrate **Intlayer** for seamless international
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## What is Intlayer?
 

@@ -86,7 +86,11 @@ if (args[0] === 'start') {
       parallelProcess.kill();
     }
 
-    console.info(`Child process exited with code ${code}`);
+    // Only log if there's an actual error (non-zero exit code)
+    // code === null means graceful termination (e.g., Ctrl+C)
+    if (code !== null && code !== 0) {
+      console.info(`Child process exited with code ${code}`);
+    }
   });
 } else {
   console.info('Usage: intlayer-editor start');

@@ -1,7 +1,7 @@
 import { resolve as pathResolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar';
 import { getAlias, getConfiguration } from '@intlayer/config';
-import { getDefaultConfig } from 'expo/metro-config';
+import type { getDefaultConfig } from 'expo/metro-config';
 import { resolve } from 'metro-resolver';
 import { exclusionList } from './exclusionList';
 
@@ -10,39 +10,31 @@ type MetroConfig = ReturnType<typeof getDefaultConfig>;
 /**
  * // metro.config.js
  * const { getDefaultConfig } = require("expo/metro-config");
- * const { configMetroIntlayer } = require("react-native-intlayer/metro");
+ * const { configMetroIntlayerSync } = require("react-native-intlayer/metro");
  *
- * module.exports = (async () => {
- *   const defaultConfig = getDefaultConfig(__dirname);
  *
- *   return await configMetroIntlayer(defaultConfig);
- * })();
+ * const defaultConfig = getDefaultConfig(__dirname);
+ *
+ * return configMetroIntlayerSync(defaultConfig);
  * ```
+ *
+ * > Note: `configMetroIntlayerSync` allow to build intlayer dictionaries on server start
  */
-export const configMetroIntlayer = async (
+export const configMetroIntlayerSync = (
   baseConfig?: MetroConfig
-): Promise<MetroConfig> => {
-  let resolvedBaseConfig: MetroConfig;
-  const intlayerConfig = getConfiguration();
-
-  if (baseConfig) {
-    resolvedBaseConfig = baseConfig;
-  } else {
-    resolvedBaseConfig = getDefaultConfig(intlayerConfig.content.baseDir);
-  }
-
-  await prepareIntlayer(intlayerConfig);
+): MetroConfig => {
+  const configuration = getConfiguration();
 
   const alias = getAlias({
-    configuration: intlayerConfig,
-    formatter: (value: string) => pathResolve(value), // get absolute path
+    configuration,
+    formatter: pathResolve, // get absolute path
   });
 
   const config = {
     ...baseConfig,
 
     resolver: {
-      ...resolvedBaseConfig.resolver,
+      ...baseConfig?.resolver,
       resolveRequest: (context, moduleName, ...args) => {
         if (Object.keys(alias).includes(moduleName)) {
           return {
@@ -51,7 +43,7 @@ export const configMetroIntlayer = async (
           };
         }
 
-        // Because metro does not resolve subodules, we need to resolve the path manually
+        // Because metro does not resolve submodules, we need to resolve the path manually
         if (moduleName === '@intlayer/config/client') {
           return {
             filePath: require.resolve('@intlayer/config/client'),
@@ -60,12 +52,10 @@ export const configMetroIntlayer = async (
         }
 
         // Because metro does not resolve subodules, we need to resolve the path manually
-        if (moduleName.startsWith('@intlayer/core/file')) {
+        if (moduleName === '@intlayer/core/file') {
           // Force React Native to use the correct transpiled version
           return {
-            filePath: require.resolve(
-              moduleName.replace('/file', '/file/browser')
-            ),
+            filePath: require.resolve('@intlayer/core/file/browser'),
             type: 'sourceFile',
           };
         }
@@ -79,8 +69,8 @@ export const configMetroIntlayer = async (
         return resolve(context as any, moduleName, ...args);
       },
       blockList: exclusionList([
-        ...[resolvedBaseConfig.resolver?.blockList ?? []].flat(),
-        // the following instruction should be replaced intlayerConfig.content.watchedFilesPattern
+        ...[baseConfig?.resolver?.blockList ?? []].flat(),
+        // the following instruction should be replaced configuration.content.watchedFilesPattern
         // but using watchedFilesPattern does not exclude the files properly for now
         /.*\.content\.(?:ts|tsx|js|jsx|cjs|cjx|mjs|mjx|json)$/,
       ]),
@@ -88,4 +78,29 @@ export const configMetroIntlayer = async (
   } satisfies MetroConfig;
 
   return config;
+};
+
+/**
+ * // metro.config.js
+ * const { getDefaultConfig } = require("expo/metro-config");
+ * const { configMetroIntlayer } = require("react-native-intlayer/metro");
+ *
+ * module.exports = (async () => {
+ *   const defaultConfig = getDefaultConfig(__dirname);
+ *
+ *   return await configMetroIntlayer(defaultConfig);
+ * })();
+ * ```
+ *
+ * > Note: `configMetroIntlayer` is a promise function. Use `configMetroIntlayerSync` instead if you want to use it synchronously.
+ * > Note: `configMetroIntlayerSync` do not allow to build intlayer dictionaries on server start
+ */
+export const configMetroIntlayer = async (
+  baseConfig?: MetroConfig
+): Promise<MetroConfig> => {
+  const configuration = getConfiguration();
+
+  await prepareIntlayer(configuration);
+
+  return configMetroIntlayerSync(baseConfig);
 };

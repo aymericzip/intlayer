@@ -2,7 +2,7 @@
 
 import { Button, Loader } from '@intlayer/design-system';
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
-import { useFocusDictionaryActions } from '@intlayer/editor-react';
+import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
@@ -28,7 +28,7 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
   tagKey,
 }) => {
   const router = useRouter();
-  const { setFocusedContent } = useFocusDictionaryActions();
+  const { setFocusedContent } = useFocusUnmergedDictionary();
   const { dictionaryLinkLabel } = useIntlayer('tags-dictionaries-list');
   const { data, isFetching } = useGetDictionaries({
     tags: [tagKey],

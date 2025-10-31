@@ -1,11 +1,10 @@
-// @ts-ignore @intlayer/backend is not build yet
 import {
   ANSIColors,
   colon,
   colorize,
   colorizeKey,
   getAppLogger,
-} from '@intlayer/config';
+} from '@intlayer/config/client';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { loadContentDeclarations } from './loadContentDeclaration';

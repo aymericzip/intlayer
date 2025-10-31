@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
-title: Intlayer и i18next
-description: Интегрируйте Intlayer с i18next для оптимальной интернационализации. Сравните два фреймворка и узнайте, как настроить их вместе.
+updatedAt: 2025-10-29
+title: Как автоматизировать ваши JSON-переводы i18next с помощью Intlayer
+description: Автоматизируйте ваши JSON-переводы с помощью Intlayer и i18next для улучшенной интернационализации в JavaScript-приложениях.
 keywords:
   - Intlayer
   - i18next
@@ -14,149 +14,111 @@ keywords:
   - Next.js
   - JavaScript
   - TypeScript
+  - Миграция
+  - Интеграция
 slugs:
   - blog
   - intlayer-with-i18next
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: Переход на плагин syncJSON
 ---
 
-# Интернационализация с Intlayer и i18next
+# Как автоматизировать ваши JSON-переводы i18next с помощью Intlayer
 
-i18next - это open-source фреймворк интернационализации (i18n), разработанный для JavaScript-приложений. Он широко используется для управления переводами, локализацией и переключением языков в программных проектах. Однако у него есть некоторые ограничения, которые могут усложнить масштабируемость и разработку.
+## Что такое Intlayer?
 
-Intlayer - это другой фреймворк интернационализации, который устраняет эти ограничения, предлагая более гибкий подход к декларации и управлению контентом. Давайте рассмотрим некоторые ключевые отличия между i18next и Intlayer, и как настроить оба для оптимальной интернационализации.
+**Intlayer** — это инновационная, открытая библиотека для интернационализации, созданная для устранения недостатков традиционных решений i18n. Она предлагает современный подход к управлению контентом в JavaScript-приложениях.
 
-## Intlayer против i18next: ключевые отличия
+Смотрите конкретное сравнение с i18next в нашем блоге [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
 
-### 1. Декларация контента
+## Почему стоит сочетать Intlayer с i18next?
 
-С помощью i18next словари перевода должны быть объявлены в конкретной папке, что может усложнить масштабируемость приложения. В отличие от этого, Intlayer позволяет объявлять контент в той же директории, что и ваш компонент. Это имеет несколько преимуществ:
+Хотя Intlayer предоставляет отличное самостоятельное решение для i18n (см. наше руководство по интеграции с Next.js [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md)), вы можете захотеть сочетать его с i18next по нескольким причинам:
 
-- **Упрощенное редактирование контента**: Пользователям не нужно искать правильный словарь для редактирования, что снижает вероятность ошибок.
-- **Автоматическая адаптация**: Если компонент меняет местоположение или удаляется, Intlayer обнаруживает это и адаптируется автоматически.
+1. **Существующая кодовая база**: У вас уже есть реализованная система i18next, и вы хотите постепенно перейти на улучшенный опыт разработки с Intlayer.
+2. **Требования наследия**: Ваш проект требует совместимости с существующими плагинами или рабочими процессами i18next.
+3. **Знакомство команды**: Ваша команда привыкла к i18next, но хочет улучшить управление контентом.
 
-### 2. Сложность конфигурации
+**Для этого Intlayer может быть реализован как адаптер для i18next, чтобы помочь автоматизировать ваши JSON-переводы в CLI или CI/CD пайплайнах, тестировать переводы и многое другое.**
 
-Настройка i18next может быть сложной, особенно при интеграции с серверными компонентами или настройке middleware для таких фреймворков, как Next.js. Intlayer упрощает этот процесс, предлагая более простую настройку.
+В этом руководстве показано, как использовать превосходную систему декларации контента Intlayer, сохраняя совместимость с i18next.
 
-### 3. Согласованность переводов словарей
+## Содержание
 
-Обеспечение согласованности словарей перевода на разных языках может быть проблематичным с i18next. Эта несогласованность может привести к сбоям приложения, если не обрабатывать это должным образом. Intlayer решает эту проблему, вводя ограничения на переведенный контент, что гарантирует, что ни один перевод не будет пропущен, и что переведенный контент будет точным.
+<TOC/>
 
-### 4. Интеграция с TypeScript
+## Пошаговое руководство по настройке Intlayer с i18next
 
-Intlayer предлагает лучшую интеграцию с TypeScript, позволяя автоматически предлагать контент в вашем коде, тем самым повышая эффективность разработки.
+### Шаг 1: Установка зависимостей
 
-### 5. Обмен контентом между приложениями
+Установите необходимые пакеты:
 
-Intlayer облегчает обмен файлами декларации контента между несколькими приложениями и общими библиотеками. Эта функция упрощает поддержку согласованных переводов в более крупном кодовом базисе.
+```bash packageManager="npm"
+npm install intlayer @intlayer/sync-json-plugin
+```
 
-## Как сгенерировать словари i18next с Intlayer
+```bash packageManager="pnpm"
+pnpm add intlayer @intlayer/sync-json-plugin
+```
 
-### Настройка Intlayer для экспорта словарей i18next
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
+```
 
-> Важные заметки
+**Описание пакетов:**
 
-> Экспорт словарей i18next в настоящее время находится в бета-версии и не гарантирует совместимость 1: 1 с другими фреймворками. Рекомендуется придерживаться настройки, основанной на Intlayer, чтобы минимизировать проблемы.
+- **intlayer**: Основная библиотека для управления интернационализацией, декларации контента и сборки
+- **@intlayer/sync-json-plugin**: Плагин для экспорта деклараций контента Intlayer в JSON-формат, совместимый с i18next
 
-Чтобы экспортировать словари i18next, вам нужно соответствующим образом настроить Intlayer. Ниже приведен пример того, как настроить Intlayer для экспорта как словарей Intlayer, так и i18next.
+### Шаг 2: Реализация плагина Intlayer для обертки JSON
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+Создайте файл конфигурации Intlayer для определения поддерживаемых локалей:
+
+**Если вы хотите также экспортировать JSON-словари для i18next**, добавьте плагин `syncJSON`:
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
-  content: {
-    // Укажите, что Intlayer будет экспортировать как словари Intlayer, так и i18next
-    dictionaryOutput: ["intlayer", "i18next"],
-    // Относительный путь от корня проекта к директории, куда будут экспортироваться словари i18n
-    i18nextResourcesDir: "./i18next/dictionaries",
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./intl/messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
+Плагин `syncJSON` автоматически обернет JSON. Он будет читать и записывать JSON-файлы без изменения архитектуры контента.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  content: {
-    // Укажите, что Intlayer будет экспортировать как словари Intlayer, так и i18next
-    dictionaryOutput: ["intlayer", "i18next"],
-    // Относительный путь от корня проекта к директории, куда будут экспортироваться словари i18n
-    i18nextResourcesDir: "./i18next/dictionaries",
-  },
-};
+Если вы хотите, чтобы JSON сосуществовал с файлами декларации контента Intlayer (`.content` файлы), Intlayer будет работать следующим образом:
 
-export default config;
+    1. загрузит как JSON, так и файлы декларации контента и преобразует их в словарь Intlayer.
+    2. если возникают конфликты между JSON и файлами декларации контента, Intlayer выполнит слияние всех словарей. В зависимости от приоритета плагинов и файла декларации контента (все настраивается).
+
+Если изменения вносятся с помощью CLI для перевода JSON или через CMS, Intlayer обновит JSON-файл с новыми переводами.
+
+## Конфигурация Git
+
+Рекомендуется игнорировать автоматически сгенерированные файлы Intlayer:
+
+```plaintext fileName=".gitignore"
+# Игнорировать файлы, сгенерированные Intlayer
+.intlayer
 ```
 
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+Эти файлы могут быть восстановлены во время процесса сборки и не требуют добавления в систему контроля версий.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  content: {
-    // Укажите, что Intlayer будет экспортировать как словари Intlayer, так и i18next
-    dictionaryOutput: ["intlayer", "i18next"],
-    // Относительный путь от корня проекта к директории, куда будут экспортироваться словари i18n
-    i18nextResourcesDir: "./i18next/dictionaries",
-  },
-};
+### Расширение VS Code
 
-module.exports = config;
-```
+Для улучшения опыта разработчика установите официальное **расширение Intlayer для VS Code**:
 
-Включив 'i18next' в конфигурацию, Intlayer генерирует специальные словари i18next в дополнение к словарям Intlayer. Обратите внимание, что удаление 'intlayer' из конфигурации может нарушить совместимость с React-Intlayer или Next-Intlayer.
-
-### Импортирование словарей в вашу конфигурацию i18next
-
-Чтобы импортировать сгенерированные словари в вашу конфигурацию i18next, вы можете использовать 'i18next-resources-to-backend'. Вот пример того, как импортировать ваши словари i18next:
-
-```typescript fileName="i18n/client.ts" codeFormat="typescript"
-// i18n/client.ts
-
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next
-  // Ваша конфигурация i18next
-  .use(
-    resourcesToBackend(
-      (language: string, namespace: string) =>
-        import(`../i18next/dictionaries/${language}/${namespace}.json`)
-    )
-  );
-```
-
-```javascript fileName="i18n/client.mjs" codeFormat="esm"
-// i18n/client.mjs
-
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next
-  // Ваша конфигурация i18next
-  .use(
-    resourcesToBackend(
-      (language, namespace) =>
-        import(`../i18next/dictionaries/${language}/${namespace}.json`)
-    )
-  );
-```
-
-```javascript fileName="i18n/client.cjs" codeFormat="commonjs"
-// i18n/client.cjs
-
-const i18next = require("i18next");
-const resourcesToBackend = require("i18next-resources-to-backend");
-
-i18next
-  // Ваша конфигурация i18next
-  .use(
-    resourcesToBackend(
-      (language, namespace) =>
-        import(`../i18next/dictionaries/${language}/${namespace}.json`)
-    )
-  );
-```
+[Установить из магазина расширений VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

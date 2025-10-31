@@ -33,7 +33,7 @@ Intlayer is a content management and internationalization solution designed to s
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ---
 

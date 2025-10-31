@@ -1,367 +1,142 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2025-10-29
 title: Intlayer e next-i18next
-description: Integra Intlayer con next-i18next per un'app Next.js
+description: Integra Intlayer con next-i18next per una soluzione completa di internazionalizzazione in Next.js
 keywords:
   - i18next
   - next-i18next
   - Intlayer
   - Internazionalizzazione
-  - Blogumentazione
+  - Blog
   - Next.js
   - JavaScript
   - React
 slugs:
   - blog
   - intlayer-with-next-i18next
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: Cambio al plugin syncJSON e riscrittura completa
 ---
 
-# Next.js Internazionalizzazione (i18n) con next-i18next e Intlayer
+# Internazionalizzazione (i18n) in Next.js con next-i18next e Intlayer
 
-Sia next-i18next che Intlayer sono framework di internazionalizzazione (i18n) open-source progettati per applicazioni Next.js. Sono ampiamente utilizzati per gestire traduzioni, localizzazione e cambio di lingua nei progetti software.
+## Indice
 
-Entrambe le soluzioni includono tre nozioni principali:
+<TOC/>
 
-1. **Dichiarazione dei Contenuti**: Il metodo per definire i contenuti traducibili della tua applicazione.
-   - Chiamata `resource` nel caso di `i18next`, la dichiarazione dei contenuti è un oggetto JSON strutturato contenente coppie chiave-valore per traduzioni in una o più lingue. Vedi [documentazione di i18next](https://www.i18next.com/translation-function/essentials) per ulteriori informazioni.
-   - Chiamata `file di dichiarazione dei contenuti` nel caso di `Intlayer`, la dichiarazione dei contenuti può essere un file JSON, JS o TS che esporta i dati strutturati. Vedi [documentazione di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/doc/concept/content) per ulteriori informazioni.
+## Cos'è next-i18next?
 
-2. **Utilities**: Strumenti per costruire e interpretare le dichiarazioni dei contenuti nell'applicazione, come `getI18n()`, `useCurrentLocale()`, o `useChangeLocale()` per next-i18next, e `useIntlayer()` o `useLocale()` per Intlayer.
+**next-i18next** è uno dei framework di internazionalizzazione (i18n) più popolari per applicazioni Next.js. Costruito sopra il potente ecosistema **i18next**, offre una soluzione completa per la gestione delle traduzioni, della localizzazione e del cambio lingua nei progetti Next.js.
 
-3. **Plugin e Middleware**: Funzionalità per gestire la reindirizzamento degli URL, ottimizzazione del bundle e altro, come `next-i18next/middleware` per next-i18next o `intlayerMiddleware` per Intlayer.
+Tuttavia, next-i18next presenta alcune sfide:
 
-## Intlayer vs. i18next: Principali Differenze
+- **Configurazione complessa**: Configurare next-i18next richiede più file di configurazione e un'attenta impostazione delle istanze i18n sia lato server che lato client.
+- **Traduzioni sparse**: I file di traduzione sono tipicamente archiviati in directory separate dai componenti, rendendo più difficile mantenere la coerenza.
+- **Gestione manuale dei namespace**: Gli sviluppatori devono gestire manualmente i namespace e assicurarsi del corretto caricamento delle risorse di traduzione.
+- **Sicurezza dei tipi limitata**: Il supporto a TypeScript richiede una configurazione aggiuntiva e non fornisce una generazione automatica dei tipi per le traduzioni.
 
-Per esplorare le differenze tra i18next e Intlayer, controlla il nostro post sul blog [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/i18next_vs_next-intl_vs_intlayer.md).
+## Cos'è Intlayer?
 
-## Come Generare Dizionari next-i18next con Intlayer
+**Intlayer** è una libreria di internazionalizzazione innovativa e open-source progettata per superare le limitazioni delle soluzioni i18n tradizionali. Offre un approccio moderno alla gestione dei contenuti nelle applicazioni Next.js.
 
-### Perché Usare Intlayer con next-i18next?
+Consulta un confronto concreto con next-intl nel nostro post sul blog [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/next-i18next_vs_next-intl_vs_intlayer.md).
 
-I file di dichiarazione dei contenuti di Intlayer offrono generalmente una migliore esperienza per gli sviluppatori. Sono più flessibili e manutenibili grazie a due principali vantaggi:
+## Perché combinare Intlayer con next-i18next?
 
-1. **Posizionamento Flessibile**: Un file di dichiarazione dei contenuti di Intlayer può essere posizionato ovunque nell'albero dei file dell'applicazione, semplificando la gestione di componenti duplicati o eliminati senza lasciare dichiarazioni di contenuti non utilizzate.
+Mentre Intlayer offre una soluzione i18n autonoma eccellente (consulta la nostra [guida all'integrazione con Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md)), potresti volerla combinare con next-i18next per diversi motivi:
 
-   Esempi di strutture di file:
+1. **Codice esistente**: Hai un'implementazione consolidata di next-i18next e desideri migrare gradualmente verso la migliore esperienza sviluppatore offerta da Intlayer.
+2. **Requisiti legacy**: Il tuo progetto richiede compatibilità con plugin o flussi di lavoro i18next esistenti.
+3. **Familiarità del team**: Il tuo team è abituato a next-i18next ma desidera una migliore gestione dei contenuti.
 
-   ```bash codeFormat="typescript"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.ts # File di dichiarazione dei contenuti
-               └── index.tsx
-   ```
+**Per questo, Intlayer può essere implementato come un adattatore per next-i18next per aiutarti ad automatizzare le tue traduzioni JSON in CLI o pipeline CI/CD, testare le tue traduzioni e altro ancora.**
 
-   ```bash codeFormat="esm"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.mjs # File di dichiarazione dei contenuti
-               └── index.mjx
-   ```
+Questa guida ti mostra come sfruttare il sistema superiore di dichiarazione dei contenuti di Intlayer mantenendo la compatibilità con next-i18next.
 
-   ```bash codeFormat="cjs"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.cjs # File di dichiarazione dei contenuti
-               └── index.cjx
-   ```
+---
 
-   ```bash codeFormat="json"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.json # File di dichiarazione dei contenuti
-               └── index.jsx
-   ```
+## Guida passo-passo per configurare Intlayer con next-i18next
 
-2. **Traduzioni Centralizzate**: Intlayer memorizza tutte le traduzioni in un unico file, garantendo che nessuna traduzione manchi. Quando si utilizza TypeScript, le traduzioni mancanti vengono automaticamente rilevate e segnalate come errori.
+### Passo 1: Installa le dipendenze
 
-### Installazione
+Installa i pacchetti necessari usando il tuo gestore di pacchetti preferito:
 
 ```bash packageManager="npm"
-npm install intlayer i18next next-i18next i18next-resources-to-backend
-```
-
-```bash packageManager="yarn"
-yarn add intlayer i18next next-i18next i18next-resources-to-backend
+npm install intlayer @intlayer/sync-json-plugin
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer i18next next-i18next i18next-resources-to-backend
+pnpm add intlayer @intlayer/sync-json-plugin
 ```
 
-### Configurare Intlayer per Esportare Dizionari i18next
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
+```
 
-> L'esportazione delle risorse di i18next non garantisce una compatibilità 1:1 con altri framework. Si consiglia di attenersi a una configurazione basata su Intlayer per minimizzare i problemi.
+**Spiegazioni dei pacchetti:**
 
-Per esportare le risorse di i18next, configura Intlayer in un file `intlayer.config.ts`. Esempi di configurazioni:
+- **intlayer**: Libreria core per la dichiarazione e gestione dei contenuti
+- **next-intlayer**: Layer di integrazione per Next.js con plugin di build
+- **i18next**: Framework core per l'internazionalizzazione
+- **next-i18next**: Wrapper Next.js per i18next
+- **i18next-resources-to-backend**: Caricamento dinamico delle risorse per i18next
+- **@intlayer/sync-json-plugin**: Plugin per sincronizzare le dichiarazioni di contenuto Intlayer nel formato JSON di i18next
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+### Passo 2: Implementare il plugin Intlayer per incapsulare il JSON
+
+Crea un file di configurazione Intlayer per definire le tue localizzazioni supportate:
+
+**Se vuoi anche esportare dizionari JSON per i18next**, aggiungi il plugin `syncJSON`:
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    dictionaryOutput: ["i18next"],
-    i18nextResourcesDir: "./i18next/resources",
-  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
+Il plugin `syncJSON` incapsulerà automaticamente il JSON. Leggerà e scriverà i file JSON senza modificare l'architettura del contenuto.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    dictionaryOutput: ["i18next"],
-    i18nextResourcesDir: "./i18next/resources",
-  },
-};
+Se vuoi far coesistere quel JSON con i file di dichiarazione dei contenuti di intlayer (file `.content`), Intlayer procederà in questo modo:
 
-export default config;
-```
+    1. caricherà sia i file JSON che i file di dichiarazione dei contenuti e li trasformerà in un dizionario intlayer.
+    2. se ci sono conflitti tra i file JSON e i file di dichiarazione dei contenuti, Intlayer procederà alla fusione di tutti questi dizionari. A seconda della priorità dei plugin e di quella del file di dichiarazione dei contenuti (tutti configurabili).
 
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    dictionaryOutput: ["i18next"],
-    i18nextResourcesDir: "./i18next/resources",
-  },
-};
-
-module.exports = config;
-```
-
-Ecco la continuazione e la correzione delle parti rimanenti del tuo documento:
+Se vengono apportate modifiche utilizzando la CLI per tradurre il JSON, o utilizzando il CMS, Intlayer aggiornerà il file JSON con le nuove traduzioni.
 
 ---
 
-### Importare Dizionari nella Tua Configurazione i18next
+## Configurazione Git
 
-Per importare le risorse generate nella tua configurazione i18next, utilizza `i18next-resources-to-backend`. Di seguito sono riportati esempi:
+Escludi i file generati dal controllo versione:
 
-```typescript fileName="i18n/client.ts" codeFormat="typescript"
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next.use(
-  resourcesToBackend(
-    (language: string, namespace: string) =>
-      import(`../i18next/resources/${language}/${namespace}.json`)
-  )
-);
+```plaintext fileName=".gitignore"
+# Ignora i file generati da Intlayer
+.intlayer
+intl
 ```
 
-```javascript fileName="i18n/client.mjs" codeFormat="esm"
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
+Questi file vengono rigenerati automaticamente durante il processo di build e non devono essere inseriti nel tuo repository.
 
-i18next.use(
-  resourcesToBackend(
-    (language, namespace) =>
-      import(`../i18next/resources/${language}/${namespace}.json`)
-  )
-);
-```
+### Estensione VS Code
 
-```javascript fileName="i18n/client.cjs" codeFormat="commonjs"
-const i18next = require("i18next");
-const resourcesToBackend = require("i18next-resources-to-backend");
+Per migliorare l'esperienza dello sviluppatore, installa la **Estensione ufficiale Intlayer per VS Code**:
 
-i18next.use(
-  resourcesToBackend(
-    (language, namespace) =>
-      import(`../i18next/resources/${language}/${namespace}.json`)
-  )
-);
-```
+[Installa dal Marketplace di VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-### Dichiarazione dei Contenuti
-
-Esempi di file di dichiarazione dei contenuti in vari formati:
-
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type Dictionary } from "intlayer";
-
-const content = {
-  key: "my-content",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-} satisfies Dictionary;
-
-export default content;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const content = {
-  key: "my-content",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-module.exports = {
-  key: "my-content",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-```
-
-```json fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my-content",
-  "content": {
-    "myTranslatedContent": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Hello World",
-        "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
-      }
-    }
-  }
-}
-```
-
-### Costruire le Risorse next-i18next
-
-Per costruire le risorse next-i18next, esegui il seguente comando:
-
-```bash packageManager="npm"
-npx run intlayer build
-```
-
-```bash packageManager="yarn"
-yarn intlayer build
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer build
-```
-
-Questo genererà risorse nella directory `./i18next/resources`. L'output atteso:
-
-```bash
-.
-└── i18next
-    └── resources
-       └── en
-           └── my-content.json
-       └── fr
-           └── my-content.json
-       └── es
-           └── my-content.json
-```
-
-Nota: Il namespace di i18next corrisponde alla chiave di dichiarazione di Intlayer.
-
-### Implementare il Plugin Next.js
-
-Una volta configurato, implementa il plugin Next.js per ricostruire le tue risorse i18next ogni volta che i file di dichiarazione dei contenuti di Intlayer vengono aggiornati.
-
-```typescript fileName="next.config.mjs"
-import { withIntlayer } from "next-intlayer/server";
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default withIntlayer(nextConfig);
-```
-
-### Usare il Contenuto nei Componenti Next.js
-
-Dopo aver implementato il plugin Next.js, puoi utilizzare il contenuto nei tuoi componenti:
-
-```typescript fileName="src/components/myComponent/index.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { useTranslation } from "react-i18next";
-
-const IndexPage: FC = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div>
-      <h1>{t("my-content.title")}</h1>
-      <p>{t("my-content.description")}</p>
-    </div>
-  );
-};
-
-export default IndexPage;
-```
-
-```jsx fileName="src/components/myComponent/index.mjx" codeFormat="esm"
-import { useTranslation } from "react-i18next";
-
-const IndexPage = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div>
-      <h1>{t("my-content.title")}</h1>
-      <p>{t("my-content.description")}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/myComponent/index.cjx" codeFormat="commonjs"
-const { useTranslation } = require("react-i18next");
-
-const IndexPage = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div>
-      <h1>{t("my-content.title")}</h1>
-      <p>{t("my-content.description")}</p>
-    </div>
-  );
-};
-```
+[Installa dal Marketplace di VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

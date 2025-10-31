@@ -30,7 +30,7 @@ See [Application Template](https://github.com/aymericzip/intlayer-react-native-t
 
 ## Table of Contents
 
-<TOC>
+<TOC/>
 
 ## What is Intlayer?
 
@@ -156,6 +156,9 @@ module.exports = (async () => {
   return await configMetroIntlayer(defaultConfig);
 })();
 ```
+
+> Note: `configMetroIntlayer` is a promise function. Use `configMetroIntlayerSync` instead if you want to use it synchronously, or avoid IFFE (Immediately Invoked Function Expression).
+> Note: `configMetroIntlayerSync` does not allow to build intlayer dictionaries on server start
 
 ## Step 4: Add the Intlayer provider
 

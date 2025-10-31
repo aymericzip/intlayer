@@ -10,17 +10,6 @@ const organizationsAdminPageContent = {
       'en-GB': 'Organisations Management',
       de: 'Organisationsverwaltung',
       ja: '組織管理',
-      ko: '조직 관리',
-      zh: '组织管理',
-      it: 'Gestione organizzazioni',
-      pt: 'Gestão de organizações',
-      hi: 'संगठन प्रबंधन',
-      ar: 'إدارة المنظمات',
-      ru: 'Управление организациями',
-      tr: 'Organizasyon yönetimi',
-      pl: 'Zarządzanie organizacjami',
-      id: 'Manajemen Organisasi',
-      vi: 'Quản lý tổ chức',
     }),
     tableHeaders: {
       name: t({

@@ -4,7 +4,6 @@ export * from './getDefaultNode';
 export * from './getEmptyNode';
 export * from './getNodeChildren';
 export * from './getNodeType';
-export * from './getUnmergedDictionaryByKeyPath';
 export * from './mergeDictionaries';
 export * from './normalizeDictionary';
 export * from './orderDictionaries';

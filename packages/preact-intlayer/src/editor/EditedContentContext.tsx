@@ -6,11 +6,12 @@ import {
   renameContentNodeByKeyPath,
 } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
-import type {
-  ContentNode,
-  Dictionary,
-  KeyPath,
-  LocalDictionaryId,
+import {
+  type ContentNode,
+  type Dictionary,
+  type KeyPath,
+  type LocalDictionaryId,
+  NodeType,
 } from '@intlayer/types';
 import {
   createContext,
@@ -277,6 +278,10 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   ): ContentNode | undefined => {
     if (!editedContent) return undefined;
 
+    const filteredKeyPath = keyPath.filter(
+      (key) => key.type !== NodeType.Translation
+    );
+
     const isDictionaryId =
       localDictionaryIdOrKey.includes(':local:') ||
       localDictionaryIdOrKey.includes(':remote:');
@@ -286,7 +291,10 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
         editedContent?.[localDictionaryIdOrKey as LocalDictionaryId]?.content ??
         {};
 
-      const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+      const contentNode = getContentNodeByKeyPath(
+        currentContent,
+        filteredKeyPath
+      );
 
       return contentNode;
     }
@@ -298,7 +306,10 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     for (const localDictionaryId of filteredDictionariesLocalId) {
       const currentContent =
         editedContent?.[localDictionaryId as LocalDictionaryId]?.content ?? {};
-      const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+      const contentNode = getContentNodeByKeyPath(
+        currentContent,
+        filteredKeyPath
+      );
 
       if (contentNode) return contentNode;
     }

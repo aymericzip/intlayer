@@ -761,6 +761,15 @@ const docDataContent: Dictionary = {
         },
       },
     },
+    plugins: {
+      title: 'Plugins',
+      subSections: {
+        syncJSON: {
+          title: 'syncJSON',
+          default: getDocMetadata('./docs/en/plugins/sync-json.md'),
+        },
+      },
+    },
 
     'vs-code-extension': {
       title: t({

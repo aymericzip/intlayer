@@ -1,5 +1,6 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { Editor } from '@components/Dashboard/Editor';
+import { DictionaryLoaderPlayground } from '@components/Dashboard/Editor/DictionaryLoaderPlayground';
 import baseConfiguration from '@intlayer/config/built';
 import { ConfigurationProvider } from '@intlayer/editor-react';
 import type { NextPageIntlayer } from 'next-intlayer';
@@ -34,7 +35,10 @@ const PlaygroundContent: FC = () => {
         </p>
         <div className="relative flex size-full flex-1 flex-col items-center px-10 pb-5">
           <ConfigurationProvider configuration={configuration}>
-            <Editor configuration={configuration} />
+            <Editor
+              configuration={configuration}
+              DictionariesLoader={DictionaryLoaderPlayground}
+            />
           </ConfigurationProvider>
         </div>
       </div>

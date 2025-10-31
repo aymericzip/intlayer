@@ -1,11 +1,11 @@
 import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
-  ESMxCJSRequire,
   type GetConfigurationOptions,
   getAlias,
   getAppLogger,
   getConfiguration,
+  getProjectRequire,
   normalizePath,
 } from '@intlayer/config';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
@@ -37,7 +37,8 @@ const isTurbopackStable = compareVersions(
 // Check if SWC plugin is available
 const getIsSwcPluginAvailable = (intlayerConfig: IntlayerConfig) => {
   try {
-    const requireFunction = intlayerConfig.build?.require ?? ESMxCJSRequire;
+    const requireFunction =
+      intlayerConfig.build?.require ?? getProjectRequire();
     requireFunction.resolve('@intlayer/swc');
     return true;
   } catch (_e) {
@@ -49,7 +50,7 @@ const resolvePluginPath = (
   pluginPath: string,
   intlayerConfig: IntlayerConfig
 ): string => {
-  const requireFunction = intlayerConfig.build?.require ?? ESMxCJSRequire;
+  const requireFunction = intlayerConfig.build?.require ?? getProjectRequire();
   const pluginPathResolved = requireFunction?.resolve(pluginPath);
 
   if (isTurbopackEnabled)

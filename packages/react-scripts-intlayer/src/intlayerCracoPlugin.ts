@@ -8,7 +8,11 @@ import type {
   CracoPlugin,
   WebpackConfigOverride,
 } from '@craco/types';
-import { ESMxCJSRequire, getAlias, getConfiguration } from '@intlayer/config';
+import {
+  getAlias,
+  getConfiguration,
+  getProjectRequire,
+} from '@intlayer/config';
 import { IntlayerPlugin as IntlayerWebpackPlugin } from '@intlayer/webpack';
 import type { Configuration as WebpackConfig } from 'webpack';
 
@@ -68,7 +72,7 @@ export const overrideCracoConfig = ({
           // 3) Provide browser fallbacks so these modules won’t error out in the browser.
           fallback: {
             ...(cracoConfig.webpack?.configure?.resolve?.fallback ?? {}),
-            process: ESMxCJSRequire.resolve('process/browser'),
+            process: getProjectRequire().resolve('process/browser'),
             fs: false,
             module: false,
             path: false,

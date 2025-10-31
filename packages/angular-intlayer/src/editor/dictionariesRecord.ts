@@ -1,5 +1,4 @@
 import { effect, type Injector, type Signal, signal } from '@angular/core';
-import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { MessageKey } from '@intlayer/editor';
 import type { Dictionary } from '@intlayer/types';
 import { createSharedComposable } from './createSharedComposable';
@@ -15,17 +14,19 @@ export type DictionaryContent = Record<Dictionary['key'], Dictionary>;
 type DictionariesRecordClient = {
   localeDictionaries: Signal<DictionaryContent>;
   setLocaleDictionaries: (newValue: DictionaryContent) => void;
-  setLocaleDictionary: (d: Dictionary) => void;
+  setLocaleDictionary: (dictionary: Dictionary) => void;
 };
 
 export const createDictionaryRecordClient = () => {
   if (instance) return instance;
 
-  const dictionaries = getDictionaries();
-  const localeDictionariesSignal = signal<DictionaryContent>(dictionaries);
+  const localeDictionariesSignal = signal<DictionaryContent | undefined>(
+    undefined
+  );
 
   instance = {
-    localeDictionaries: localeDictionariesSignal.asReadonly(),
+    localeDictionaries:
+      localeDictionariesSignal.asReadonly() as Signal<DictionaryContent>,
 
     setLocaleDictionaries: (newValue) => {
       localeDictionariesSignal.set(newValue ?? {});
@@ -35,7 +36,7 @@ export const createDictionaryRecordClient = () => {
       const current = localeDictionariesSignal();
       localeDictionariesSignal.set({
         ...current,
-        [dictionary.key]: dictionary,
+        [dictionary.localId!]: dictionary,
       });
     },
   };

@@ -41,7 +41,10 @@ const postMessage = (data: any) => {
  * </script>
  * ```
  */
-export const installIntlayerEditor = (app: App): void => {
+export const installIntlayerEditor = (
+  app: App,
+  localeProvider?: import('../client').IntlayerProvider
+): void => {
   /* ---------------------------------------------------------------------
    * 1. Base providers – always on
    * -------------------------------------------------------------------*/
@@ -52,6 +55,6 @@ export const installIntlayerEditor = (app: App): void => {
   });
   installEditorEnabled(app);
   installDictionariesRecord(app);
-  installEditedContent(app);
+  installEditedContent(app, localeProvider);
   installFocusDictionary(app);
 };

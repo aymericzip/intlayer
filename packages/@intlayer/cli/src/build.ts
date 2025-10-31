@@ -25,6 +25,10 @@ export const build = async (options?: BuildOptions) => {
 
   if (options?.with) {
     parallelProcess = runParallel(options.with);
+    // Handle the promise to avoid unhandled rejection
+    parallelProcess.result.catch(() => {
+      // Parallel process failed or was terminated
+    });
   }
 
   await buildAndWatchIntlayer({

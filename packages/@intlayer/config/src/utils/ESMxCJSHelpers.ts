@@ -8,9 +8,12 @@ export const isESModule = typeof import.meta.url === 'string';
  *
  * Note: Can resolve package that are installed in the user project, ex `'intlayer'`
  */
-export const ESMxCJSRequire: NodeJS.Require = createRequire(
-  getPackageJsonPath().packageJsonPath
-);
+export const getProjectRequire = (startDir?: string): NodeJS.Require => {
+  // Can fail on VSCode extensions
+  const { packageJsonPath } = getPackageJsonPath(startDir);
+
+  return createRequire(packageJsonPath);
+};
 
 /**
  * Require relative to the @intlayer/config package

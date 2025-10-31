@@ -3,11 +3,12 @@
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { loadServer } from './server';
 
-const server = loadServer(true);
+const server = loadServer({ isLocal: true });
 
 const main = async () => {
   const transport = new StdioServerTransport();
   await server.connect(transport);
+
   console.error('Intlayer MCP Server running on stdio');
 };
 

@@ -1,7 +1,11 @@
 'use client';
 
 import { getContentNodeByKeyPath } from '@intlayer/core';
-import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
+import {
+  useEditedContent,
+  useEditorLocale,
+  useFocusUnmergedDictionary,
+} from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
 import { type FC, useEffect } from 'react';
 import { Container } from '../Container';
@@ -22,7 +26,8 @@ export const ContentEditor: FC<NodeEditorProps> = ({
 }) => {
   const { content, key, localId } = dictionary;
   const { editedContent } = useEditedContent();
-  const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
+  const { focusedContent, setFocusedContentKeyPath } =
+    useFocusUnmergedDictionary();
 
   const focusedKeyPath = focusedContent?.keyPath;
   const section =
@@ -31,7 +36,12 @@ export const ContentEditor: FC<NodeEditorProps> = ({
       ? content
       : editedContent?.[localId as LocalDictionaryId]?.content;
 
-  const focusedSection = getContentNodeByKeyPath(section, focusedKeyPath ?? []);
+  const currentLocale = useEditorLocale();
+  const focusedSection = getContentNodeByKeyPath(
+    section,
+    focusedKeyPath ?? [],
+    currentLocale
+  );
   const isEditableBaseSection = getIsEditableSection(section);
   const isEditableFocusedSection = getIsEditableSection(focusedSection);
 

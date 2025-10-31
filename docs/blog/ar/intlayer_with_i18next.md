@@ -1,162 +1,124 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
-title: التدويل باستخدام Intlayer و i18next
-description: تعرّف على كيفية دمج Intlayer مع i18next لتحقيق أفضل تدويل. قارن بين الإطارين وتعلم كيفية تكوينهما معًا.
+updatedAt: 2025-10-29
+title: كيفية أتمتة ترجمات JSON الخاصة بـ i18next باستخدام Intlayer
+description: أتمتة ترجمات JSON الخاصة بك باستخدام Intlayer و i18next لتعزيز التدويل في تطبيقات جافاسكريبت.
 keywords:
   - Intlayer
   - i18next
   - التدويل
   - i18n
   - التوطين
-  - ترجمة
+  - الترجمة
   - React
   - Next.js
-  - JavaScript
+  - جافاسكريبت
   - TypeScript
+  - الترحيل
+  - التكامل
 slugs:
   - blog
   - intlayer-with-i18next
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: التغيير إلى مكون syncJSON
 ---
 
-# التدويل باستخدام Intlayer و i18next
+# كيفية أتمتة ترجمات JSON الخاصة بـ i18next باستخدام Intlayer
 
-i18next هو إطار عمل مفتوح المصدر للتدويل (i18n) مصمم لتطبيقات JavaScript. ويستخدم على نطاق واسع لإدارة الترجمات، والتوطين، وتبديل اللغة في مشاريع البرمجيات. ومع ذلك، لديه بعض القيود التي يمكن أن تعقد القابلية للتوسع والتنمية.
+## ما هو Intlayer؟
 
-Intlayer هو إطار عمل آخر للتدويل يعالج هذه القيود، مما يوفر نهجًا أكثر مرونة لتصريح المحتوى وإدارته. دعونا نستعرض بعض الفروقات الرئيسية بين i18next و Intlayer، وكيفية تكوين كلاهما لتحقيق أفضل تدويل.
+**Intlayer** هي مكتبة تدويل مبتكرة ومفتوحة المصدر مصممة لمعالجة أوجه القصور في حلول i18n التقليدية. تقدم نهجًا حديثًا لإدارة المحتوى في تطبيقات جافاسكريبت.
 
-## Intlayer مقابل i18next: الفروقات الرئيسية
+اطلع على مقارنة ملموسة مع i18next في منشور المدونة الخاص بنا [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md).
 
-### 1. تصريح المحتوى
+## لماذا الجمع بين Intlayer و i18next؟
 
-مع i18next، يجب أن يتم التصريح عن قواميس الترجمات في مجلد محدد، مما يمكن أن يعقد من قابلية تطبيقك للتوسع. في المقابل، يتيح Intlayer التصريح عن المحتوى داخل نفس الدليل كما هو في المكون الخاص بك. وهذا له عدة مزايا:
+بينما يوفر Intlayer حلاً ممتازًا مستقلاً لـ i18n (راجع دليل التكامل مع Next.js الخاص بنا [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md))، قد ترغب في دمجه مع i18next لأسباب عدة:
 
-- **تحرير محتوى مبسط**: لا يحتاج المستخدمون للبحث عن القاموس الصحيح للتحرير، مما يقلل من فرصة حدوث أخطاء.
-- **التكيف التلقائي**: إذا تغير مكان المكون أو تم إزالته، يكتشف Intlayer ذلك ويتكيف تلقائيًا.
+1. **قاعدة الشيفرة الحالية**: لديك تنفيذ قائم لـ i18next وترغب في الترحيل التدريجي إلى تجربة المطور المحسنة التي يوفرها Intlayer.
+2. **متطلبات النظام القديم**: يتطلب مشروعك التوافق مع الإضافات أو سير العمل الحالي لـ i18next.
+3. **ألفة الفريق**: فريقك معتاد على i18next لكنه يرغب في إدارة محتوى أفضل.
 
-### 2. تعقيد التكوين
+**لهذا، يمكن تنفيذ Intlayer كمحول لـ i18next للمساعدة في أتمتة ترجمات JSON الخاصة بك في واجهة الأوامر أو خطوط أنابيب CI/CD، واختبار ترجماتك، والمزيد.**
 
-يمكن أن يكون تكوين i18next معقدًا، خاصة عند التكامل مع المكونات الجانبية للخادم أو تكوين middleware لإطارات العمل مثل Next.js. يبسط Intlayer هذه العملية، مما يوفر تكوينًا أكثر بساطة.
+يوضح هذا الدليل كيفية الاستفادة من نظام إعلان المحتوى المتفوق في Intlayer مع الحفاظ على التوافق مع i18next.
 
-### 3. اتساق قواميس الترجمات
+## جدول المحتويات
 
-يمكن أن يكون ضمان اتساق قواميس الترجمات عبر لغات مختلفة تحديًا مع i18next. يمكن أن تؤدي هذه الفجوة إلى تعطل التطبيق إذا لم يتم التعامل معها بشكل صحيح. يعالج Intlayer هذا من خلال فرض قيود على المحتوى المترجم، مما يضمن عدم فقدان أي ترجمة وأن المحتوى المترجم دقيق.
+<TOC/>
 
-### 4. تكامل TypeScript
+## دليل خطوة بخطوة لإعداد Intlayer مع i18next
 
-يقدم Intlayer تكاملًا أفضل مع TypeScript، مما يسمح بالاقتراحات التلقائية للمحتوى في الكود الخاص بك، وبالتالي يعزز كفاءة التطوير.
+### الخطوة 1: تثبيت التبعيات
 
-### 5. مشاركة المحتوى عبر التطبيقات
+قم بتثبيت الحزم اللازمة:
 
-يسهل Intlayer مشاركة ملفات تصريح المحتوى عبر تطبيقات متعددة ومكتبات مشتركة. تجعل هذه الميزة من السهل الحفاظ على ترجمات متسقة عبر قاعدة شفرة أكبر.
+```bash packageManager="npm"
+npm install intlayer @intlayer/sync-json-plugin
+```
 
-## كيفية إنشاء قواميس i18next باستخدام Intlayer
+```bash packageManager="pnpm"
+pnpm add intlayer @intlayer/sync-json-plugin
+```
 
-### تكوين Intlayer لتصدير قواميس i18next
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
+```
 
-> ملاحظات مهمة
+**وصف الحزم:**
 
-> تصدير قواميس i18next حاليًا في النسخة التجريبية ولا يضمن توافق 1: 1 مع أطر العمل الأخرى. يُنصح بالالتزام بتكوين يعتمد على Intlayer لتقليل المشاكل.
+- **intlayer**: المكتبة الأساسية لإدارة التدويل، إعلان المحتوى، والبناء
+- **@intlayer/sync-json-plugin**: إضافة لتصدير إعلانات محتوى Intlayer إلى صيغة JSON المتوافقة مع i18next
 
-لتصدير قواميس i18next، تحتاج إلى تكوين Intlayer بشكل مناسب. فيما يلي مثال على كيفية إعداد Intlayer لتصدير كل من قواميس Intlayer و i18next.
+### الخطوة 2: تنفيذ إضافة Intlayer لتغليف JSON
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+قم بإنشاء ملف إعدادات Intlayer لتعريف اللغات المدعومة لديك:
+
+**إذا كنت تريد أيضًا تصدير قواميس JSON لـ i18next**، أضف إضافة `syncJSON`:
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
-  content: {
-    // الإشارة إلى أن Intlayer سيصدر كل من قواميس Intlayer و i18next
-    dictionaryOutput: ["intlayer", "i18next"],
-    // المسار النسبي من جذر المشروع إلى الدليل الذي ستصدر فيه قواميس i18n
-    i18nextResourcesDir: "./i18next/dictionaries",
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./intl/messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
+إضافة `syncJSON` ستقوم تلقائيًا بتغليف JSON. ستقرأ وتكتب ملفات JSON دون تغيير هيكل المحتوى.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  content: {
-    // الإشارة إلى أن Intlayer سيصدر كل من قواميس Intlayer و i18next
-    dictionaryOutput: ["intlayer", "i18next"],
-    // المسار النسبي من جذر المشروع إلى الدليل الذي ستصدر فيه قواميس i18n
-    i18nextResourcesDir: "./i18next/dictionaries",
-  },
-};
+إذا كنت تريد جعل JSON يتعايش مع ملفات إعلان محتوى intlayer (`.content` files)، فستقوم Intlayer بالخطوات التالية:
 
-export default config;
+    1. تحميل كل من ملفات JSON وملفات إعلان المحتوى وتحويلها إلى قاموس intlayer.
+    2. إذا كانت هناك تعارضات بين ملفات JSON وملفات إعلان المحتوى، ستقوم Intlayer بدمج جميع القواميس. وذلك يعتمد على أولوية الإضافات، وأولوية ملف إعلان المحتوى (كلها قابلة للتكوين).
+
+إذا تم إجراء تغييرات باستخدام CLI لترجمة JSON، أو باستخدام نظام إدارة المحتوى (CMS)، ستقوم Intlayer بتحديث ملف JSON بالترجمات الجديدة.
+
+## إعداد Git
+
+يوصى بتجاهل ملفات Intlayer التي يتم إنشاؤها تلقائيًا:
+
+```plaintext fileName=".gitignore"
+# تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
+.intlayer
 ```
 
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+يمكن إعادة إنشاء هذه الملفات أثناء عملية البناء الخاصة بك ولا تحتاج إلى الالتزام بها في نظام التحكم في الإصدارات.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  content: {
-    // الإشارة إلى أن Intlayer سيصدر كل من قواميس Intlayer و i18next
-    dictionaryOutput: ["intlayer", "i18next"],
-    // المسار النسبي من جذر المشروع إلى الدليل الذي ستصدر فيه قواميس i18n
-    i18nextResourcesDir: "./i18next/dictionaries",
-  },
-};
+### إضافة VS Code
 
-module.exports = config;
-```
+لتحسين تجربة المطور، قم بتثبيت **إضافة Intlayer الرسمية لـ VS Code**:
 
-من خلال تضمين 'i18next' في التكوين، يقوم Intlayer بإنشاء قواميس i18next مخصصة بالإضافة إلى قواميس Intlayer. لاحظ أن إزالة 'intlayer' من التكوين قد تكسر التوافق مع React-Intlayer أو Next-Intlayer.
-
-### استيراد القواميس في تكوين i18next الخاص بك
-
-لاستيراد القواميس المنشأة في تكوين i18next الخاص بك، يمكنك استخدام 'i18next-resources-to-backend'. إليك مثال لكيفية استيراد قواميس i18next الخاصة بك:
-
-```typescript fileName="i18n/client.ts" codeFormat="typescript"
-// i18n/client.ts
-
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next
-  // تكوين i18next الخاص بك
-  .use(
-    resourcesToBackend(
-      (language: string, namespace: string) =>
-        import(`../i18next/dictionaries/${language}/${namespace}.json`)
-    )
-  );
-```
-
-```javascript fileName="i18n/client.mjs" codeFormat="esm"
-// i18n/client.mjs
-
-import i18next from "i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-
-i18next
-  // تكوين i18next الخاص بك
-  .use(
-    resourcesToBackend(
-      (language, namespace) =>
-        import(`../i18next/dictionaries/${language}/${namespace}.json`)
-    )
-  );
-```
-
-```javascript fileName="i18n/client.cjs" codeFormat="commonjs"
-// i18n/client.cjs
-
-const i18next = require("i18next");
-const resourcesToBackend = require("i18next-resources-to-backend");
-
-i18next
-  // تكوين i18next الخاص بك
-  .use(
-    resourcesToBackend(
-      (language, namespace) =>
-        import(`../i18next/dictionaries/${language}/${namespace}.json`)
-    )
-  );
-```
+[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

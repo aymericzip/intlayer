@@ -1,392 +1,111 @@
 ---
-createdAt: 2025-09-07
-updatedAt: 2025-09-07
-title: Intlayer ve next-intl
-description: React uygulaması için Intlayer'ı next-intl ile entegre edin
-keywords:
-  - next-intl
-  - Intlayer
-  - Internationalization
-  - Blog
-  - Next.js
-  - JavaScript
-  - React
+createdAt: 2025-01-02
+updatedAt: 2025-10-29
+title: Intlayer kullanarak next-intl JSON çevirilerinizi nasıl otomatikleştirirsiniz
+description: Next.js uygulamalarında gelişmiş uluslararasılaştırma için Intlayer ve next-intl ile JSON çevirilerinizi otomatikleştirin.
 slugs:
   - blog
   - intlayer-with-next-intl
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: syncJSON eklentisine geçiş
 ---
 
-# next-intl ve Intlayer ile Next.js Uluslararasılaştırma (i18n)
+# Intlayer kullanarak next-intl JSON çevirilerinizi nasıl otomatikleştirirsiniz
 
-Hem next-intl hem de Intlayer, Next.js uygulamaları için tasarlanmış açık kaynaklı uluslararasılaştırma (i18n) çerçeveleridir. Yazılım projelerinde çevirileri, yerelleştirmeyi ve dil değiştirmeyi yönetmek için yaygın olarak kullanılırlar.
+## Intlayer nedir?
 
-Üç temel kavramı paylaşırlar:
+**Intlayer**, geleneksel i18n çözümlerinin eksikliklerini gidermek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma kütüphanesidir. Next.js uygulamalarında içerik yönetimine modern bir yaklaşım sunar.
 
-1. **Sözlük**: Uygulamanızın çevrilebilir içeriğini tanımlama yöntemi.
-   - Intlayer'da `content declaration file` olarak adlandırılır, yapılandırılmış veriyi dışa aktaran bir JSON, JS veya TS dosyası olabilir. Daha fazla bilgi için [Intlayer dokümantasyonuna](https://intlayer.org/fr/doc/concept/content) bakın.
-   - next-intl'de `messages` veya `locale messages` olarak adlandırılır, genellikle JSON dosyalarında. Daha fazla bilgi için [next-intl dokümantasyonuna](https://github.com/amannn/next-intl) bakın.
+Next-intl ile somut bir karşılaştırma için [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) blog yazımıza bakabilirsiniz.
 
-2. **Araçlar**: Uygulamada içerik beyanlarını oluşturmak ve yorumlamak için araçlar, örneğin Intlayer için `useIntlayer()` veya `useLocale()`, next-intl için `useTranslations()`.
+## Neden Intlayer'ı next-intl ile Birleştirmelisiniz?
 
-3. **Eklentiler ve Ara Yazılımlar**: URL yönlendirmesini, paket optimizasyonunu vb. yönetmek için özellikler, örneğin Intlayer için `intlayerMiddleware` veya next-intl için [`createMiddleware`](https://github.com/amannn/next-intl).
+Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bakınız [Next.js entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)), birkaç nedenle next-intl ile birleştirmek isteyebilirsiniz:
 
-## Intlayer vs. next-intl: Temel Farklılıklar
+1. **Mevcut kod tabanı**: Yerleşik bir next-intl uygulamanız var ve Intlayer'ın geliştirilmiş geliştirici deneyimine kademeli olarak geçmek istiyorsunuz.
+2. **Eski gereksinimler**: Projeniz mevcut next-intl eklentileri veya iş akışları ile uyumluluk gerektiriyor.
+3. **Takım aşinalığı**: Ekibiniz next-intl ile rahat ancak daha iyi içerik yönetimi istiyor.
 
-Intlayer'ın Next.js için diğer i18n kütüphaneleriyle (next-intl gibi) nasıl karşılaştırıldığına dair daha derin bir analiz için [next-i18next vs. next-intl vs. Intlayer blog yazısına](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18next_vs_next-intl_vs_intlayer.md) bakın.
+**Bunun için, Intlayer, JSON çevirilerinizi CLI veya CI/CD boru hatlarında otomatikleştirmeye, çevirilerinizi test etmeye ve daha fazlasına yardımcı olmak amacıyla next-intl için bir adaptör olarak uygulanabilir.**
 
-## Intlayer ile next-intl Mesajları Nasıl Oluşturulur
+Bu rehber, Intlayer'ın üstün içerik beyan sistemi avantajlarından yararlanırken next-intl ile uyumluluğu nasıl koruyacağınızı gösterir.
 
-### Neden Intlayer'ı next-intl ile Kullanmalı?
+## İçindekiler
 
-Intlayer içerik beyan dosyaları genellikle daha iyi bir geliştirici deneyimi sunar. İki ana avantaj nedeniyle daha esnek ve sürdürülebilirlerdir:
+<TOC/>
 
-1. **Esnek Yerleştirme**: Intlayer içerik beyan dosyasını uygulamanızın dosya ağacında herhangi bir yere yerleştirebilirsiniz. Bu, kullanılmayan veya sallanan mesaj dosyaları bırakmadan bileşenleri yeniden adlandırmayı veya silmeyi kolaylaştırır.
+## Intlayer'ı next-intl ile Kurmak İçin Adım Adım Rehber
 
-   Örnek dosya yapıları:
+### Adım 1: Bağımlılıkları Yükleyin
 
-   ```bash codeFormat="typescript"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.ts # İçerik beyan dosyası
-               └── index.tsx
-   ```
-
-   ```bash codeFormat="esm"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.mjs # İçerik beyan dosyası
-               └── index.mjx
-   ```
-
-   ```bash codeFormat="cjs"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.cjs # İçerik beyan dosyası
-               └── index.cjx
-   ```
-
-   ```bash codeFormat="json"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.json # İçerik beyan dosyası
-               └── index.jsx
-   ```
-
-2. **Merkezi Çeviriler**: Intlayer tüm çevirileri tek bir içerik beyanında depolar, hiçbir çevirinin eksik olmasını sağlar. TypeScript projelerinde, eksik çeviriler otomatik olarak tip hataları olarak işaretlenir, geliştiricilere anında geri bildirim sağlar.
-
-### Kurulum
-
-Intlayer ve next-intl'i birlikte kullanmak için her iki kütüphaneyi de yükleyin:
+Gerekli paketleri yükleyin:
 
 ```bash packageManager="npm"
-npm install intlayer next-intl
-```
-
-```bash packageManager="yarn"
-yarn add intlayer next-intl
+npm install intlayer @intlayer/sync-json-plugin
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer next-intl
+pnpm add intlayer @intlayer/sync-json-plugin
 ```
 
-### next-intl Mesajlarını Dışa Aktarmak İçin Intlayer'ı Yapılandırma
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
+```
 
-> **Not:** Intlayer'dan next-intl için mesajları dışa aktarmak yapıda hafif farklılıklar getirebilir. Mümkünse, entegrasyonu basitleştirmek için Intlayer-only veya next-intl-only akışını koruyun. Intlayer'dan next-intl mesajları oluşturmanız gerekiyorsa, aşağıdaki adımları takip edin.
+**Paket açıklamaları:**
 
-Projenizin kökünde bir `intlayer.config.ts` dosyası oluşturun veya güncelleyin (.mjs / .cjs):
+- **intlayer**: Uluslararasılaştırma yönetimi, içerik beyanı ve oluşturma için temel kütüphane
+- **@intlayer/sync-json-plugin**: Intlayer içerik beyanlarını next-intl uyumlu JSON formatına aktarmak için eklenti
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+### Adım 2: JSON'u sarmak için Intlayer eklentisini uygulayın
+
+Desteklenen yerel ayarları tanımlamak için bir Intlayer yapılandırma dosyası oluşturun:
+
+**Ayrıca next-intl için JSON sözlüklerini dışa aktarmak istiyorsanız**, `syncJSON` eklentisini ekleyin:
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    dictionaryOutput: ["next-intl"], // next-intl çıktısını kullan
-    nextIntlMessagesDir: "./intl/messages", // next-intl mesajlarının kaydedileceği yer
-  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
+`syncJSON` eklentisi JSON'u otomatik olarak saracaktır. İçerik mimarisini değiştirmeden JSON dosyalarını okuyacak ve yazacaktır.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    dictionaryOutput: ["react-intl"],
-    nextIntlMessagesDir: "./intl/messages",
-  },
-};
+JSON dosyalarının intlayer içerik beyan dosyaları (`.content` dosyaları) ile birlikte var olmasını istiyorsanız, Intlayer şu şekilde ilerleyecektir:
 
-export default config;
+    1. Hem JSON hem de içerik beyan dosyalarını yükleyip bunları intlayer sözlüğüne dönüştürür.
+    2. JSON ile içerik beyan dosyaları arasında çakışma varsa, Intlayer tüm sözlükleri birleştirme işlemi yapacaktır. Bu, eklentilerin önceliğine ve içerik beyan dosyasının önceliğine bağlıdır (tüm öncelikler yapılandırılabilir).
+
+CLI kullanılarak JSON çevirisi yapılırsa veya CMS kullanılırsa, Intlayer JSON dosyasını yeni çevirilerle güncelleyecektir.
+
+## Git Yapılandırması
+
+Otomatik oluşturulan Intlayer dosyalarını görmezden gelmeniz önerilir:
+
+```plaintext fileName=".gitignore"
+# Intlayer tarafından oluşturulan dosyaları görmezden gel
+.intlayer
 ```
 
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+Bu dosyalar derleme süreciniz sırasında yeniden oluşturulabilir ve sürüm kontrolüne dahil edilmesi gerekmez.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    dictionaryOutput: ["next-intl"],
-    nextIntlMessagesDir: "./intl/messages",
-  },
-};
+### VS Code Eklentisi
 
-module.exports = config;
-```
+Geliştirici deneyimini iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyin:
 
-### Sözlük
-
-Çeşitli formatlardaki içerik beyan dosyalarının örnekleri aşağıdadır. Intlayer bunları next-intl'in tüketebileceği mesaj dosyalarına derleyecektir.
-
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type Dictionary } from "intlayer";
-
-const content = {
-  key: "my-component",
-  content: {
-    helloWorld: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-} satisfies Dictionary;
-
-export default content;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const content = {
-  key: "my-component",
-  content: {
-    helloWorld: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-export default content;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-module.exports = {
-  key: "my-component",
-  content: {
-    helloWorld: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-```
-
-```json fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my-component",
-  "content": {
-    "helloWorld": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Hello World",
-        "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
-      }
-    }
-  }
-}
-```
-
-### next-intl Mesajlarını Oluştur
-
-next-intl için mesaj dosyalarını oluşturmak için şunu çalıştırın:
-
-```bash packageManager="npm"
-npx intlayer dictionaries build
-```
-
-```bash packageManager="yarn"
-yarn intlayer build
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer build
-```
-
-Bu, `./intl/messages` dizininde kaynaklar oluşturacaktır ( `intlayer.config.*` dosyasında yapılandırıldığı gibi). Beklenen çıktı:
-
-```bash
-.
-└── intl
-    └── messages
-       └── en
-           └── my-content.json
-       └── fr
-           └── my-content.json
-       └── es
-           └── my-content.json
-```
-
-Her dosya, tüm Intlayer içerik beyanlarından derlenmiş mesajları içerir. Üst düzey anahtarlar genellikle `content.key` alanlarınızla eşleşir.
-
-### Next.js Uygulamanızda next-intl Kullanma
-
-> Daha fazla detay için resmi [next-intl kullanım dokümantasyonuna](https://github.com/amannn/next-intl#readme) bakın.
-
-1. **Bir Ara Yazılım Oluşturun (isteğe bağlı):**  
-   Otomatik yerel algılama veya yönlendirmeyi yönetmek istiyorsanız, next-intl’in [createMiddleware](https://github.com/amannn/next-intl#createMiddleware) özelliğini kullanın.
-
-   ```typescript fileName="middleware.ts"
-   import createMiddleware from "next-intl/middleware";
-   import { NextResponse } from "next/server";
-
-   export default createMiddleware({
-     locales: ["en", "fr", "es"],
-     defaultLocale: "en",
-   });
-
-   export const config = {
-     matcher: ["/((?!api|_next|.*\\..*).*)"],
-   };
-   ```
-
-2. **Mesajları Yüklemek İçin `layout.tsx` veya `_app.tsx` Oluşturun:**  
-   App Router kullanıyorsanız (Next.js 13+), bir layout oluşturun:
-
-   ```typescript fileName="app/[locale]/layout.tsx"
-   import { NextIntlClientProvider } from 'next-intl';
-   import { notFound } from 'next/navigation';
-   import React, { ReactNode } from 'react';
-
-
-   export default async function RootLayout({
-     children,
-     params
-   }: {
-     children: ReactNode;
-     params: { locale: string };
-   }) {
-     let messages;
-     try {
-       messages = (await import(`../../intl/messages/${params.locale}.json`)).default;
-     } catch (error) {
-       notFound();
-     }
-
-     return (
-       <html lang={params.locale}>
-         <body>
-           <NextIntlClientProvider locale={params.locale} messages={messages}>
-             {children}
-           </NextIntlClientProvider>
-         </body>
-       </html>
-     );
-   }
-   ```
-
-   Pages Router kullanıyorsanız (Next.js 12 veya aşağı), mesajları `_app.tsx` dosyasında yükleyin:
-
-   ```typescript fileName="pages/_app.tsx"
-   import type { AppProps } from 'next/app';
-   import { NextIntlProvider } from 'next-intl';
-
-   function MyApp({ Component, pageProps }: AppProps) {
-     return (
-       <NextIntlProvider locale={pageProps.locale} messages={pageProps.messages}>
-         <Component {...pageProps} />
-       </NextIntlProvider>
-     );
-   }
-
-   export default MyApp;
-   ```
-
-3. **Mesajları Sunucu Tarafında Getirin (Pages Router örneği):**
-
-   ```typescript fileName="pages/index.tsx"
-   import { GetServerSideProps } from "next";
-   import HomePage from "../components/HomePage";
-
-   export default HomePage;
-
-   export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-     const messages = (await import(`../intl/messages/${locale}.json`)).default;
-
-     return {
-       props: {
-         locale,
-         messages,
-       },
-     };
-   };
-   ```
-
-### Next.js Bileşenlerinde İçeriği Kullanma
-
-Mesajlar next-intl'e yüklendikten sonra, `useTranslations()` hook'u aracılığıyla bileşenlerinizde kullanabilirsiniz:
-
-```typescript fileName="src/components/MyComponent/index.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { useTranslations } from 'next-intl';
-
-const MyComponent: FC = () => {
-  const t = useTranslations('my-component');
-  // 'my-component' Intlayer'daki içerik anahtarına karşılık gelir
-
-  return (
-    <div>
-      <h1>{t('helloWorld')}</h1>
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-```jsx fileName="src/components/MyComponent/index.jsx" codeFormat="esm"
-import { useTranslations } from "next-intl";
-
-export default function MyComponent() {
-  const t = useTranslations("my-component");
-
-  return (
-    <div>
-      <h1>{t("helloWorld")}</h1>
-    </div>
-  );
-}
-```
-
-**Hepsi bu kadar!** Intlayer içerik beyan dosyalarınızı güncellediğinizde veya yeni eklediğinizde, next-intl JSON mesajlarınızı yeniden oluşturmak için `intlayer build` komutunu yeniden çalıştırın. next-intl güncellenmiş içeriği otomatik olarak alacak.
+[VS Code Marketplace'den yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

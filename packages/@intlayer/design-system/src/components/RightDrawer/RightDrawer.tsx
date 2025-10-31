@@ -8,7 +8,6 @@ import {
   useEffect,
   useRef,
 } from 'react';
-import { useShallow } from 'zustand/react/shallow';
 import { useDevice } from '../../hooks/useDevice';
 import { useScrollBlockage } from '../../hooks/useScrollBlockage';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
@@ -235,13 +234,10 @@ export const RightDrawer: FC<RightDrawerProps> = ({
   const { isMobile } = useDevice('md');
   const panelRef = useRef<HTMLDivElement>(null);
   const childrenContainerRef = useRef<HTMLDivElement>(null);
-  const { close, open, isOpen } = useRightDrawerStore(
-    useShallow((s) => ({
-      close: () => s.close(identifier),
-      open: () => s.open(identifier),
-      isOpen: s.isOpen(identifier),
-    }))
-  );
+  const openDrawer = useRightDrawerStore((s) => s.open);
+  const closeDrawer = useRightDrawerStore((s) => s.close);
+  const storeIsOpen = useRightDrawerStore((s) => s.isOpen(identifier));
+  const isOpen = useRightDrawerStore((s) => s.isOpen(identifier));
 
   useScrollBlockage({
     disableScroll: isOpen,
@@ -267,29 +263,37 @@ export const RightDrawer: FC<RightDrawerProps> = ({
           (isClickAble && isClickOutside && isAtTopAndVisible) ||
           !event.target
         ) {
-          close();
+          closeDrawer(identifier);
           onClose?.();
         }
       } catch (_e) {
-        close();
+        closeDrawer(identifier);
         onClose?.();
       }
     };
 
     window.addEventListener('mousedown', handleClickOutside);
     return () => window.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen, close, onClose, closeOnOutsideClick, identifier]); // Make sure the effect runs only if isOpen or close changes
+  }, [isOpen, closeDrawer, onClose, closeOnOutsideClick, identifier]); // Make sure the effect runs only if isOpen or close changes
+
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
-    if (isOpenProp !== undefined) {
-      if (isOpenProp) {
-        open();
-      } else {
-        close();
-        onClose?.();
-      }
+    if (isOpenProp === undefined) return;
+
+    // prevent redundant set → re-render → effect loop
+    if (isOpenProp === storeIsOpen) return;
+
+    if (isOpenProp) {
+      openDrawer(identifier);
+    } else {
+      closeDrawer(identifier);
+      onCloseRef.current?.();
     }
-  }, [close, open, onClose, isOpenProp, identifier]);
+  }, [isOpenProp, storeIsOpen, identifier, openDrawer, closeDrawer]);
 
   const handleSpareSpaceClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Check if the click trigger the background
@@ -298,7 +302,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
     }
 
     if (isMobile) {
-      close();
+      closeDrawer(identifier);
       onClose?.();
     }
   };
@@ -332,7 +336,10 @@ export const RightDrawer: FC<RightDrawerProps> = ({
                   color={ButtonColor.TEXT}
                   label="Close"
                   className="ml-auto"
-                  onClick={close}
+                  onClick={() => {
+                    closeDrawer(identifier);
+                    onClose?.();
+                  }}
                   Icon={X}
                   size={ButtonSize.ICON_MD}
                 />
@@ -351,6 +358,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
               className="flex flex-1 flex-col"
               onClick={handleSpareSpaceClick}
               ref={childrenContainerRef}
+              role="region"
             >
               {children}
             </div>

@@ -48,6 +48,8 @@ export enum PagesRoutes {
   PrivacyPolicy = '/privacy-notice',
   TermsOfService = '/terms-of-service',
 
+  Contributors = '/contributors',
+
   Pricing = '/pricing',
 
   Onboarding = '/onboarding',

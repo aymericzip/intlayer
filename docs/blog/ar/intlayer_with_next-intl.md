@@ -1,392 +1,113 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
-title: Intlayer وnext-intl
-description: قم بدمج Intlayer مع next-intl للتدويل (i18n) لتطبيق React
-keywords:
-  - next-intl
-  - Intlayer
-  - التدويل
-  - التوثيق
-  - Next.js
-  - JavaScript
-  - React
+updatedAt: 2025-10-29
+title: كيفية أتمتة ترجمات JSON الخاصة بـ next-intl باستخدام Intlayer
+description: أتمتة ترجمات JSON الخاصة بك باستخدام Intlayer و next-intl لتعزيز التدويل في تطبيقات Next.js.
 slugs:
   - blog
   - intlayer-with-next-intl
+history:
+  - version: 7.0.0
+    date: 2025-10-29
+    changes: التغيير إلى مكون syncJSON
 ---
 
-# Next.js Internationalization (i18n) with next-intl و Intlayer
+# كيفية أتمتة ترجمات JSON الخاصة بـ next-intl باستخدام Intlayer
 
-كلا من next-intl و Intlayer هما إطاران مفتوحا المصدر للتعريب (i18n) مصممان لتطبيقات Next.js. يتم استخدامهما بشكل واسع لإدارة الترجمات، والمحلية، وتبديل اللغات في مشاريع البرمجيات.
+## ما هو Intlayer؟
 
-يتشاركان ثلاث مفاهيم رئيسية:
+**Intlayer** هو مكتبة تدويل مبتكرة ومفتوحة المصدر مصممة لمعالجة أوجه القصور في حلول i18n التقليدية. يقدم نهجًا حديثًا لإدارة المحتوى في تطبيقات Next.js.
 
-1. **إعلان المحتوى**: الطريقة لتحديد المحتوى القابل للترجمة في تطبيقك.
-   - يُسمى `ملف إعلان المحتوى` في Intlayer، والذي يمكن أن يكون ملف JSON أو JS أو TS يقوم بتصدير البيانات المنظمة. راجع [وثائق Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/concept/content.md) لمزيد من المعلومات.
-   - يُسمى `الرسائل` أو `رسائل اللغة` في next-intl، عادةً في ملفات JSON. راجع [وثائق next-intl](https://github.com/amannn/next-intl) لمزيد من المعلومات.
+راجع مقارنة ملموسة مع next-intl في منشور المدونة الخاص بنا [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md).
 
-2. **الأدوات**: أدوات لبناء وتفسير إعلانات المحتوى في التطبيق، مثل `useIntlayer()` أو `useLocale()` لـ Intlayer، و `useTranslations()` لـ next-intl.
+## لماذا الجمع بين Intlayer و next-intl؟
 
-3. **الإضافات والبرمجيات الوسيطة**: ميزات لإدارة إعادة توجيه عنوان URL، وتحسين التجميع، وأكثر, على سبيل المثال، `intlayerMiddleware` لـ Intlayer أو [`createMiddleware`](https://github.com/amannn/next-intl) لـ next-intl.
+بينما يوفر Intlayer حلاً ممتازًا مستقلاً للتدويل (راجع دليل التكامل مع Next.js الخاص بنا [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md))، قد ترغب في دمجه مع next-intl لأسباب عدة:
 
-## Intlayer مقابل next-intl: الاختلافات الرئيسية
+1. **قاعدة الشيفرة الحالية**: لديك تنفيذ قائم لـ next-intl وترغب في الترحيل التدريجي إلى تجربة المطور المحسنة التي يقدمها Intlayer.
+2. **متطلبات قديمة**: يتطلب مشروعك التوافق مع الإضافات أو سير العمل الحالي لـ next-intl.
+3. **ألفة الفريق**: فريقك مرتاح لاستخدام next-intl ولكنه يرغب في إدارة محتوى أفضل.
 
-لتحليل أعمق حول كيفية مقارنة Intlayer بمكتبات i18n الأخرى لـ Next.js (مثل next-intl)، تحقق من [منشور المدونة next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_next-intl_vs_intlayer.md).
+**لهذا السبب، يمكن تنفيذ Intlayer كمحول لـ next-intl للمساعدة في أتمتة ترجمات JSON الخاصة بك في واجهة الأوامر أو خطوط أنابيب CI/CD، واختبار ترجماتك، والمزيد.**
 
-## كيفية إنشاء رسائل next-intl مع Intlayer
+يوضح هذا الدليل كيفية الاستفادة من نظام إعلان المحتوى المتفوق في Intlayer مع الحفاظ على التوافق مع next-intl.
 
-### لماذا تستخدم Intlayer مع next-intl؟
+## جدول المحتويات
 
-تقدم ملفات إعلان المحتوى في Intlayer بشكل عام تجربة أفضل للمطورين. إنها أكثر مرونة وقابلة للصيانة بسبب ميزتين رئيسيتين:
+<TOC/>
 
-1. **مكان مرن**: يمكنك وضع ملف إعلان المحتوى في Intlayer في أي مكان في شجرة ملفات تطبيقك. يجعل ذلك من السهل إعادة تسمية أو حذف المكونات دون ترك ملفات رسائل غير مستعملة أو معلقة.
+## دليل خطوة بخطوة لإعداد Intlayer مع next-intl
 
-   هياكل الملفات النموذجية:
+### الخطوة 1: تثبيت التبعيات
 
-   ```bash codeFormat="typescript"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.ts # ملف إعلان المحتوى
-               └── index.tsx
-   ```
-
-   ```bash codeFormat="esm"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.mjs # ملف إعلان المحتوى
-               └── index.mjx
-   ```
-
-   ```bash codeFormat="cjs"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.cjs # ملف إعلان المحتوى
-               └── index.cjx
-   ```
-
-   ```bash codeFormat="json"
-   .
-   └── src
-       └── components
-           └── MyComponent
-               ├── index.content.json # ملف إعلان المحتوى
-               └── index.jsx
-   ```
-
-2. **ترجمات مركزة**: تُخزن Intlayer جميع الترجمات في إعلان محتوى واحد، مما يضمن عدم فقدان أي ترجمة. في مشاريع TypeScript، تُعلم الترجمات المفقودة تلقائياً كأخطاء نوع، مما يوفر تغذية راجعة فورية للمطورين.
-
-### التثبيت
-
-لاستخدام Intlayer و next-intl معًا، قم بتثبيت المكتبتين:
+قم بتثبيت الحزم اللازمة:
 
 ```bash packageManager="npm"
-npm install intlayer next-intl
-```
-
-```bash packageManager="yarn"
-yarn add intlayer next-intl
+npm install intlayer @intlayer/sync-json-plugin
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer next-intl
+pnpm add intlayer @intlayer/sync-json-plugin
 ```
 
-### تكوين Intlayer لتصدير رسائل next-intl
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin
+```
 
-> **ملاحظة:** يمكن أن يؤدي تصدير الرسائل من Intlayer لـ next-intl إلى إدخال اختلافات طفيفة في الهيكل. إذا كان ذلك ممكنًا، احتفظ بتدفق يعمل بIntlayer فقط أو next-intl فقط لتبسيط التكامل. إذا كنت بحاجة إلى إنشاء رسائل next-intl من Intlayer، اتبع الخطوات أدناه.
+**وصف الحزم:**
 
-قم بإنشاء أو تحديث ملف `intlayer.config.ts` (أو `.mjs` / `.cjs`) في جذر مشروعك:
+- **intlayer**: المكتبة الأساسية لإدارة التدويل، إعلان المحتوى، والبناء
+- **@intlayer/sync-json-plugin**: إضافة لتصدير إعلانات محتوى Intlayer إلى صيغة JSON متوافقة مع next-intl
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+### الخطوة 2: تنفيذ إضافة Intlayer لتغليف JSON
+
+قم بإنشاء ملف تكوين Intlayer لتعريف اللغات المدعومة لديك:
+
+**إذا كنت تريد أيضًا تصدير قواميس JSON لـ next-intl**، أضف إضافة `syncJSON`:
+
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    dictionaryOutput: ["next-intl"], // استخدم ناتج next-intl
-    nextIntlMessagesDir: "./intl/messages", // حيث يتم حفظ رسائل next-intl
-  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+    }),
+  ],
 };
 
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
+ستقوم إضافة `syncJSON` تلقائيًا بتغليف JSON. ستقرأ وتكتب ملفات JSON دون تغيير هيكل المحتوى.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    dictionaryOutput: ["react-intl"],
-    nextIntlMessagesDir: "./intl/messages",
-  },
-};
+إذا كنت تريد جعل JSON يتعايش مع ملفات إعلان المحتوى الخاصة بـ intlayer (`.content` files)، فسيعمل Intlayer بهذه الطريقة:
 
-export default config;
+    1. تحميل كل من ملفات JSON وملفات إعلان المحتوى وتحويلها إلى قاموس intlayer.
+    2. إذا كانت هناك تعارضات بين ملفات JSON وملفات إعلان المحتوى، فسيقوم Intlayer بدمج جميع القواميس. وذلك يعتمد على أولوية الإضافات، وأولوية ملف إعلان المحتوى (كلها قابلة للتكوين).
+
+إذا تم إجراء تغييرات باستخدام واجهة الأوامر CLI لترجمة JSON، أو باستخدام نظام إدارة المحتوى CMS، فسيقوم Intlayer بتحديث ملف JSON بالترجمات الجديدة.
+
+## إعدادات Git
+
+يوصى بتجاهل ملفات Intlayer التي يتم إنشاؤها تلقائيًا:
+
+```plaintext fileName=".gitignore"
+# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
+.intlayer
 ```
 
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+يمكن إعادة إنشاء هذه الملفات أثناء عملية البناء الخاصة بك ولا تحتاج إلى الالتزام بها في نظام التحكم في الإصدارات.
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    dictionaryOutput: ["next-intl"],
-    nextIntlMessagesDir: "./intl/messages",
-  },
-};
+### إضافة VS Code
 
-module.exports = config;
-```
+لتحسين تجربة المطور، قم بتثبيت **إضافة Intlayer الرسمية لـ VS Code**:
 
-### إعلان المحتوى
+[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-فيما يلي أمثلة على ملفات إعلان المحتوى بعدة تنسيقات. ستقوم Intlayer بتجميع هذه الملفات في ملفات رسائل يمكن أن تستهلكها next-intl.
-
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type Dictionary } from "intlayer";
-
-const content = {
-  key: "my-component",
-  content: {
-    helloWorld: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-} satisfies Dictionary;
-
-export default content;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const content = {
-  key: "my-component",
-  content: {
-    helloWorld: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-export default content;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-module.exports = {
-  key: "my-component",
-  content: {
-    helloWorld: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-```
-
-```json fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my-component",
-  "content": {
-    "helloWorld": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Hello World",
-        "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
-      }
-    }
-  }
-}
-```
-
-### بناء رسائل next-intl
-
-لبناء ملفات الرسائل لـ next-intl، قم بتشغيل:
-
-```bash packageManager="npm"
-npx intlayer dictionaries build
-```
-
-```bash packageManager="yarn"
-yarn intlayer build
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer build
-```
-
-سيقوم هذا بإنشاء الموارد في دليل `./intl/messages` (كما هو مُكون في `intlayer.config.*`). الناتج المتوقع:
-
-```bash
-.
-└── intl
-    └── messages
-       └── ar
-           └── my-content.json
-       └── fr
-           └── my-content.json
-       └── es
-           └── my-content.json
-```
-
-تتضمن كل ملف رسائل مجمعة من جميع إعلانات محتوى Intlayer. عادةً ما تتطابق المفاتيح في المستوى الأعلى مع حقول `content.key` الخاصة بك.
-
-### استخدام next-intl في تطبيق Next.js الخاص بك
-
-> لمزيد من التفاصيل، راجع [وثائق استخدام next-intl الرسمية](https://github.com/amannn/next-intl#readme).
-
-1. **إنشاء برمجية وسيطة (اختياري):**  
-   إذا كنت ترغب في إدارة الكشف التلقائي عن اللغة أو إعادة التوجيه، استخدم [createMiddleware](https://github.com/amannn/next-intl#createMiddleware) لـ next-intl.
-
-   ```typescript fileName="middleware.ts"
-   import createMiddleware from "next-intl/middleware";
-   import { NextResponse } from "next/server";
-
-   export default createMiddleware({
-     locales: ["en", "fr", "es"],
-     defaultLocale: "en",
-   });
-
-   export const config = {
-     matcher: ["/((?!api|_next|.*\\..*).*)"],
-   };
-   ```
-
-2. **إنشاء `layout.tsx` أو `_app.tsx` لتحميل الرسائل:**  
-   إذا كنت تستخدم App Router (Next.js 13+)، أنشئ تخطيطًا:
-
-   ```typescript fileName="app/[locale]/layout.tsx"
-   import { NextIntlClientProvider } from 'next-intl';
-   import { notFound } from 'next/navigation';
-   import React, { ReactNode } from 'react';
-
-
-   export default async function RootLayout({
-     children,
-     params
-   }: {
-     children: ReactNode;
-     params: { locale: string };
-   }) {
-     let messages;
-     try {
-       messages = (await import(`../../intl/messages/${params.locale}.json`)).default;
-     } catch (error) {
-       notFound();
-     }
-
-     return (
-       <html lang={params.locale}>
-         <body>
-           <NextIntlClientProvider locale={params.locale} messages={messages}>
-             {children}
-           </NextIntlClientProvider>
-         </body>
-       </html>
-     );
-   }
-   ```
-
-   إذا كنت تستخدم Pages Router (Next.js 12 أو أقل)، قم بتحميل الرسائل في `_app.tsx`:
-
-   ```typescript fileName="pages/_app.tsx"
-   import type { AppProps } from 'next/app';
-   import { NextIntlProvider } from 'next-intl';
-
-   function MyApp({ Component, pageProps }: AppProps) {
-     return (
-       <NextIntlProvider locale={pageProps.locale} messages={pageProps.messages}>
-         <Component {...pageProps} />
-       </NextIntlProvider>
-     );
-   }
-
-   export default MyApp;
-   ```
-
-3. **جلب الرسائل من جانب الخادم (مثال Pages Router):**
-
-   ```typescript fileName="pages/index.tsx"
-   import { GetServerSideProps } from "next";
-   import HomePage from "../components/HomePage";
-
-   export default HomePage;
-
-   export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-     const messages = (await import(`../intl/messages/${locale}.json`)).default;
-
-     return {
-       props: {
-         locale,
-         messages,
-       },
-     };
-   };
-   ```
-
-### استخدام المحتوى في مكونات Next.js
-
-بمجرد تحميل الرسائل في next-intl، يمكنك استخدامها في مكوناتك عبر `useTranslations()`:
-
-```typescript fileName="src/components/MyComponent/index.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { useTranslations } from 'next-intl';
-
-const MyComponent: FC = () => {
-  const t = useTranslations('my-component');
-  // 'my-component' تتوافق مع مفتاح المحتوى في Intlayer
-
-  return (
-    <div>
-      <h1>{t('helloWorld')}</h1>
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-```jsx fileName="src/components/MyComponent/index.jsx" codeFormat="esm"
-import { useTranslations } from "next-intl";
-
-export default function MyComponent() {
-  const t = useTranslations("my-component");
-
-  return (
-    <div>
-      <h1>{t("helloWorld")}</h1>
-    </div>
-  );
-}
-```
-
-**هذا كل شيء!** كلما قمت بتحديث أو إضافة ملفات إعلان محتوى جديدة من Intlayer، أعد تشغيل أمر `intlayer build` لإعادة توليد رسائل JSON الخاصة بك لـ next-intl. ستقوم next-intl بالتقاط المحتوى المحدث تلقائياً.
+[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

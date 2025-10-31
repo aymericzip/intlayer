@@ -46,6 +46,6 @@ export const getPackageJsonPath = (
   }
 
   throw new Error(
-    `Could not find package.json in current directory or any of the ${MAX_LEVELS} parent directories. Searched from: ${process.cwd()}`
+    `Could not find package.json in current directory or any of the ${MAX_LEVELS} parent directories. Searched from: ${startDir}`
   );
 };

@@ -8,7 +8,7 @@
     "dev": "vite",
     "preview": "vite preview",
     "start": "bun intlayer live --process 'vite preview'",
-    "start:editor": "npx intlayer-editor start -e development",
+    "start:editor": "npx intlayer-editor start -e development --with 'vite dev'",
     "test": ""
   },
   "dependencies": {

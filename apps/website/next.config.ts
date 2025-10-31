@@ -50,6 +50,7 @@ const secureHeaders = {
         '*.google-analytics.com',
         '*.googletagmanager.com',
         'github.com',
+        'api.github.com',
         'raw.githubusercontent.com',
         '*.openai.com',
         '*.stripe.com',
@@ -60,13 +61,16 @@ const secureHeaders = {
         '*.vercel.app',
         'img.shields.io',
         '*.googleusercontent.com',
+        '*.githubusercontent.com',
       ],
       imgSrc: [
         "'self'",
         'https:',
         'data:',
         'raw.githubusercontent.com',
+        'avatars.githubusercontent.com',
         '*.googleusercontent.com',
+        '*.githubusercontent.com',
       ],
       workerSrc: [
         `${process.env.NEXT_PUBLIC_URL}`,
@@ -152,9 +156,17 @@ const nextConfig: NextConfig = {
   // Ensure the full @intlayer/docs package (including markdown assets) is shipped with the server bundle
   serverExternalPackages: ['@intlayer/backend', '@intlayer/docs'],
   transpilePackages: ['@intlayer/design-system', 'shiki'],
+  reactCompiler: true,
   productionBrowserSourceMaps: true,
-  // reactCompiler: true,
   // cacheComponents: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+    ],
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,

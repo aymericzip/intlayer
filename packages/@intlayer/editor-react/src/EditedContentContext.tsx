@@ -6,11 +6,12 @@ import {
   renameContentNodeByKeyPath,
 } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
-import type {
-  ContentNode,
-  Dictionary,
-  KeyPath,
-  LocalDictionaryId,
+import {
+  type ContentNode,
+  type Dictionary,
+  type KeyPath,
+  type LocalDictionaryId,
+  NodeType,
 } from '@intlayer/types';
 import {
   createContext,
@@ -26,6 +27,7 @@ import {
 } from './DictionariesRecordContext';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 import { useCrossFrameState } from './useCrossFrameState';
+import { useEditorLocale } from './useEditorLocale';
 
 type EditedContentStateContextType = {
   editedContent: Record<LocalDictionaryId, Dictionary> | undefined;
@@ -93,6 +95,7 @@ const resolveState = <S,>(state?: SetStateAction<S>, prevState?: S): S =>
 
 export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   const { localeDictionaries } = useDictionariesRecord();
+  const currentLocale = useEditorLocale();
 
   const [editedContent, setEditedContentState] =
     useCrossFrameState<DictionaryContent>(
@@ -155,8 +158,10 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
       if (!overwrite) {
         // Find a unique key based on the keyPath provided
         let index = 0;
+
         const otherKeyPath = keyPath.slice(0, -1);
         const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
+
         let finalKey = lastKeyPath.key;
 
         // Loop until we find a key that does not exist
@@ -281,6 +286,10 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   ): ContentNode | undefined => {
     if (!editedContent) return undefined;
 
+    const filteredKeyPath = keyPath.filter(
+      (key) => key.type !== NodeType.Translation
+    );
+
     const isDictionaryId =
       localDictionaryIdOrKey.includes(':local:') ||
       localDictionaryIdOrKey.includes(':remote:');
@@ -290,7 +299,11 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
         editedContent?.[localDictionaryIdOrKey as LocalDictionaryId]?.content ??
         {};
 
-      const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+      const contentNode = getContentNodeByKeyPath(
+        currentContent,
+        filteredKeyPath,
+        currentLocale
+      );
 
       return contentNode;
     }
@@ -302,7 +315,11 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     for (const localDictionaryId of filteredDictionariesLocalId) {
       const currentContent =
         editedContent?.[localDictionaryId as LocalDictionaryId]?.content ?? {};
-      const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
+      const contentNode = getContentNodeByKeyPath(
+        currentContent,
+        filteredKeyPath,
+        currentLocale
+      );
 
       if (contentNode) return contentNode;
     }

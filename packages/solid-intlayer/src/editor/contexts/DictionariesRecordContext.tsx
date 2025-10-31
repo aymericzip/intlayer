@@ -43,7 +43,7 @@ export const DictionariesRecordProvider: Component<ParentProps> = (props) => {
     setLocaleDictionary: (dictionary: Dictionary) => {
       setLocaleDictionaries((dictionaries) => ({
         ...dictionaries,
-        [dictionary.key]: dictionary,
+        [dictionary.localId!]: dictionary,
       }));
     },
   }));

@@ -58,7 +58,7 @@ jobs:
 
       - name: 🧩 Install Dependencies
         id: install-dependencies
-        run: bun install --frozen-lockfile
+        run: bun install
 
       - name: 🏗️ Build
         id: build-the-mono-repo

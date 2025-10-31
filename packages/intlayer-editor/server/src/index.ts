@@ -1,7 +1,13 @@
 import { existsSync, lstatSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getConfiguration, getEnvFilePath } from '@intlayer/config';
+import {
+  ANSIColors,
+  colorize,
+  colorizePath,
+  getConfiguration,
+  getEnvFilePath,
+} from '@intlayer/config';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
 import { checkPortAvailability } from '@utils/checkPortAvailability';
@@ -96,12 +102,12 @@ const startServer = async (app: Express) => {
     );
 
     console.log(`
-    \x1b[1;90mINTLAYER v${packageJson.version}\x1b[0m
+    ${colorize(colorize('INTLAYER', ANSIColors.BOLD), ANSIColors.GREY_DARK)} ${colorize(`v${packageJson.version}`, ANSIColors.GREY_DARK)}
 
-    Editor running at:          \x1b[90mhttp://localhost:${port}\x1b[0m
-    - Watching application at:  ${config.editor.applicationURL === '' ? '-' : `\x1b[90m${config.editor.applicationURL}\x1b[0m`}
-    - Access key:               ${config.editor.clientId ?? '-'}
-    - Environment:              ${dotEnvFilePath ?? '-'}
+    Editor running at:           ${colorizePath(`http://localhost:${port}`)}
+    ${colorize('➜', ANSIColors.GREY_DARK)}  Watching application at:  ${config.editor.applicationURL === '' ? '-' : colorizePath(config.editor.applicationURL)}
+    ${colorize('➜', ANSIColors.GREY_DARK)}  Access key:               ${config.editor.clientId ?? '-'}
+    ${colorize('➜', ANSIColors.GREY_DARK)}  Environment:              ${dotEnvFilePath ?? '-'}
     `);
   });
 };

@@ -6,7 +6,7 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { clearModuleCache, ESMxCJSRequire } from '@intlayer/config';
+import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config';
 import config from '@intlayer/config/built';
 import type {
   Dictionary,
@@ -32,7 +32,7 @@ export const getUnmergedDictionaries: GetUnmergedDictionaries = (
   if (existsSync(dictionariesPath)) {
     // Clear cache for unmerged_dictionaries.cjs and all its dependencies (JSON files)
     clearModuleCache(dictionariesPath);
-    dictionaries = (build.require ?? ESMxCJSRequire)(dictionariesPath);
+    dictionaries = (build.require ?? configESMxCJSRequire)(dictionariesPath);
   }
 
   return dictionaries;

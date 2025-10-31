@@ -1,28 +1,31 @@
 'use client';
 
-import { getUnmergedDictionaryByKeyPath } from '@intlayer/core';
 import {
   Button,
   DictionaryEditor,
   DictionaryFieldEditor,
   Modal,
   RightDrawer,
+  Tag,
   useRightDrawerStore,
 } from '@intlayer/design-system';
-import { useFocusDictionary } from '@intlayer/editor-react';
+import {
+  type FileContent,
+  useDictionariesRecord,
+  useFocusUnmergedDictionary,
+} from '@intlayer/editor-react';
 import type { Locale } from '@intlayer/types';
 import { Pencil } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
-  type FileContent as FileContentWithDictionaryPath,
   getDrawerIdentifier,
   useDictionaryEditionDrawer,
 } from './useDictionaryEditionDrawer';
 
 type DictionaryEditionDrawerContentProps = {
-  focusedContent: FileContentWithDictionaryPath;
+  focusedContent: FileContent;
   locale: Locale;
   identifier: string;
   handleOnBack: () => void;
@@ -40,6 +43,7 @@ export const DictionaryEditionDrawerContent: FC<
   } = useIntlayer('dictionary-edition-drawer');
   const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false);
   const { focusedContent } = useDictionaryEditionDrawer(identifier);
+  const { localeDictionaries } = useDictionariesRecord();
 
   const onClickDictionaryList = () => {
     setEditionModalOpen(false);
@@ -47,6 +51,7 @@ export const DictionaryEditionDrawerContent: FC<
   };
 
   const dictionaryKey = focusedContent?.dictionaryKey;
+  const dictionaryLocalId = focusedContent?.dictionaryLocalId;
 
   if (!dictionaryKey)
     return (
@@ -55,9 +60,8 @@ export const DictionaryEditionDrawerContent: FC<
       </span>
     );
 
-  const dictionary = getUnmergedDictionaryByKeyPath(
-    dictionaryKey,
-    focusedContent.keyPath ?? []
+  const dictionary = Object.values(localeDictionaries ?? {}).find(
+    (dictionary) => dictionary.localId === dictionaryLocalId
   );
 
   if (!dictionary)
@@ -94,10 +98,11 @@ export const DictionaryEditionDrawerContent: FC<
         </div>
       </Modal>
 
-      <div className="/20 mb-5 flex w-full border-text/20 border-b border-dashed px-3 pb-2">
+      <div className="mb-5 flex w-full px-3">
         <h3 className="w-full text-center text-lg">
           {dictionary.title ? dictionary.title : dictionary.key}
         </h3>
+
         <Button
           variant="hoverable"
           color="text"
@@ -106,6 +111,21 @@ export const DictionaryEditionDrawerContent: FC<
           label={openDictionaryEditor.label.value}
           onClick={() => setEditionModalOpen(true)}
         />
+      </div>
+      <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-text/20 border-b border-dashed pb-3">
+        <Tag color="text" roundedSize="full" size="xs">
+          {dictionary.key}
+        </Tag>
+        {dictionary.filePath && (
+          <Tag color="blue" roundedSize="full" size="xs">
+            {dictionary.filePath.split('/').pop()}
+          </Tag>
+        )}
+        {dictionary.id && (
+          <Tag color="purple" roundedSize="full" size="xs">
+            remote
+          </Tag>
+        )}
       </div>
       <DictionaryEditor
         dictionary={dictionary}
@@ -169,7 +189,7 @@ type DictionaryEditionDrawerControllerProps = {
 export const DictionaryEditionDrawerController: FC<
   DictionaryEditionDrawerControllerProps
 > = ({ locale, isDarkMode }) => {
-  const { focusedContent } = useFocusDictionary();
+  const { focusedContent } = useFocusUnmergedDictionary();
   const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
 
   if (!dictionaryKey) {

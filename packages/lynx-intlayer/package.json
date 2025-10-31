@@ -1,6 +1,6 @@
 {
   "name": "lynx-intlayer",
-  "version": "7.0.1",
+  "version": "7.0.3",
   "private": false,
   "description": "A Lynx plugin for seamless internationalization (i18n) and localization (l10n) of your mobile app.",
   "keywords": [
@@ -90,16 +90,16 @@
   },
   "devDependencies": {
     "@rsbuild/core": "1.2.16",
-    "@types/node": "24.9.1",
+    "@types/node": "24.9.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "expo": "54.0.12",
     "metro-resolver": "0.82.0",
     "rimraf": "6.0.1",
-    "tsdown": "0.15.9",
+    "tsdown": "0.15.11",
     "typescript": "5.9.3",
-    "vitest": "4.0.3"
+    "vitest": "4.0.5"
   },
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",

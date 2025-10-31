@@ -12,19 +12,7 @@ export const listDictionaries = async (
   const files: string[] = await fg(
     configuration.content.watchedFilesPatternWithPath,
     {
-      ignore: [
-        '**/node_modules/**',
-        '**/.git/**',
-        '**/.github/**',
-        '**/.next/**',
-        '**/.expo/**',
-        '**/.expo-shared/**',
-        '**/.vercel/**',
-        '**/.cache/**',
-        '**/dist/**',
-        '**/build/**',
-        '**/.intlayer/**',
-      ],
+      ignore: configuration.content.excludedPath,
     }
   );
 

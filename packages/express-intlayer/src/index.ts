@@ -1,65 +1,27 @@
 import { prepareIntlayer } from '@intlayer/chokidar';
-import { DefaultValues, getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config';
 import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
+  getLocaleFromStorage,
   getTranslation,
   localeDetector,
 } from '@intlayer/core';
-import type {
-  Locale,
-  RoutingConfig,
-  StrictModeLocaleMap,
-} from '@intlayer/types';
+import type { Locale, StrictModeLocaleMap } from '@intlayer/types';
 import { createNamespace } from 'cls-hooked';
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 
 const configuration = getConfiguration();
-const { routing, internationalization } = configuration;
-const { headerName } = routing;
+const { internationalization } = configuration;
 
-const getCookieNames = (storage: RoutingConfig['storage']): string[] => {
-  // If storage is disabled, return default cookie name
-  if (!storage) {
-    return [];
-  }
-
-  // If storage is a string
-  if (typeof storage === 'string') {
-    // Only 'cookie' string means use default cookie
-    return storage === 'cookie'
-      ? [DefaultValues.Routing.COOKIE_NAME]
-      : [DefaultValues.Routing.COOKIE_NAME];
-  }
-
-  // If storage is an array
-  if (Array.isArray(storage)) {
-    const cookieNames: string[] = [];
-    for (const item of storage) {
-      if (typeof item === 'string') {
-        if (item === 'cookie') {
-          cookieNames.push(DefaultValues.Routing.COOKIE_NAME);
-        }
-      } else if (typeof item === 'object' && item.type === 'cookie') {
-        cookieNames.push(item.name ?? DefaultValues.Routing.COOKIE_NAME);
-      }
-    }
-    return cookieNames.length > 0
-      ? cookieNames
-      : [DefaultValues.Routing.COOKIE_NAME];
-  }
-
-  // If storage is an object (CookiesAttributes or LocaleStorageAttributes)
-  if (typeof storage === 'object' && 'type' in storage) {
-    return storage.type === 'cookie'
-      ? [storage.name ?? DefaultValues.Routing.COOKIE_NAME]
-      : [DefaultValues.Routing.COOKIE_NAME];
-  }
-
-  return [DefaultValues.Routing.COOKIE_NAME];
-};
-
-const cookieNames = getCookieNames(routing.storage);
+/**
+ * Retrieves the locale from storage (cookies, localStorage, sessionStorage).
+ */
+const getStorageLocale = (req: Request): Locale | undefined =>
+  getLocaleFromStorage({
+    getCookie: (name: string) => req.cookies?.[name],
+    getHeader: (name: string) => req.headers?.[name] as string | undefined,
+  });
 
 const appNamespace = createNamespace('app');
 
@@ -111,17 +73,8 @@ export const translateFunction =
  * @returns
  */
 export const intlayer = (): RequestHandler => async (req, res, next) => {
-  // Detect if locale is set by intlayer frontend lib in the cookies
-  // Check all possible cookie names and use the first one found
-  let localeCookie: string | undefined;
-  for (const cookieName of cookieNames) {
-    if (req.cookies?.[cookieName]) {
-      localeCookie = req.cookies[cookieName];
-      break;
-    }
-  }
   // Detect if locale is set by intlayer frontend lib in the headers
-  const localeHeader = req.headers?.[headerName];
+  const localeFromStorage = getStorageLocale(req);
   // Interpret browser locale
 
   const negotiatorHeaders: Record<string, string> = {};
@@ -142,10 +95,9 @@ export const intlayer = (): RequestHandler => async (req, res, next) => {
     internationalization.defaultLocale
   );
 
-  res.locals.locale_header = localeHeader;
-  res.locals.locale_cookie = localeCookie;
+  res.locals.locale_storage = localeFromStorage;
   res.locals.locale_detected = localeDetected;
-  res.locals.locale = localeCookie ?? localeHeader ?? localeDetected;
+  res.locals.locale = localeFromStorage ?? localeDetected;
   res.locals.defaultLocale = internationalization.defaultLocale;
 
   const t = translateFunction(req, res, next);
