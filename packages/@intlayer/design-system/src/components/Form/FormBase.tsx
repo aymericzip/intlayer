@@ -7,6 +7,7 @@ import {
   type FormProviderProps,
   type UseFormProps,
   useForm as useFormReactHookForm,
+  useFormState,
 } from 'react-hook-form';
 import type { ZodObject, z } from 'zod/v4';
 import { cn } from '../../utils/cn';
@@ -86,10 +87,9 @@ export const useForm = <T extends ZodObject>(
     ...props,
   });
 
-  const isSubmitting = form.formState.isSubmitting;
-  const isSubmitted = form.formState.isSubmitted;
-  const isLoading = form.formState.isLoading;
-  const isValid = form.formState.isValid;
+  const { isSubmitting, isSubmitted, isLoading, isValid } = useFormState({
+    control: form.control,
+  });
 
   return {
     form,

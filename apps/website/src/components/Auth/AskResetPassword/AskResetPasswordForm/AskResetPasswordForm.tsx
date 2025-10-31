@@ -37,12 +37,11 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
     resendInText,
     backToLoginButton,
   } = useIntlayer('ask-reset-password');
-  const { form, isSubmitting, isSubmitted, isValid } = useForm(
-    AskResetPasswordSchema,
-    {
-      defaultValues: { email },
-    }
-  );
+  const { form } = useForm(AskResetPasswordSchema, {
+    mode: 'onChange',
+    defaultValues: { email },
+  });
+  const { isSubmitting, isSubmitted, isValid } = form.formState;
   const [submissionState, setSubmissionState] = useState({
     isFrozen: isValid,
     remainingTime: 0,
