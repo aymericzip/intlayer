@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { dirname, join, relative, resolve, sep } from 'node:path';
+import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const hereDirname = () => {
@@ -13,7 +13,7 @@ const hereDirname = () => {
 const findDistRoot = (startDir) => {
   let dir = startDir;
   for (let i = 0; i < 12; i++) {
-    const base = dir.split('/').pop() || dir.split('\\\\').pop();
+    const base = basename(dir);
     if (base === 'dist') return dir;
     const parent = resolve(dir, '..');
     if (parent === dir) break;
