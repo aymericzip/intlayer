@@ -35,43 +35,64 @@ const fuseOptions: IFuseOptions<DocMetadata> = {
 const FUSE_WEIGHT = 0.3;
 const BACKEND_WEIGHT = 0.7;
 
-type BackendDocResult = { fileKey: string; similarityScore: number };
+type BackendDocumentResult = {
+  fileKey: string;
+  similarityScore: number;
+};
 
-function mergeHybridResults(
+/**
+ * Merges Fuse.js (local fuzzy search) and backend (semantic search) results
+ * into a single ranked list.
+ */
+const mergeHybridResults = (
   fuseResults: Fuse.FuseResult<DocMetadata>[],
-  backendResults: BackendDocResult[],
-  allDocs: DocMetadata[]
-): DocMetadata[] {
+  backendResults: BackendDocumentResult[],
+  allDocuments: DocMetadata[]
+): DocMetadata[] => {
   const normalizeFuse = (score?: number) => 1 - Math.min((score ?? 1) / 0.5, 1);
   const normalizeBackend = (score: number) => Math.min(score, 1);
 
   const backendMap = new Map(
-    backendResults.map((r) => [r.fileKey, normalizeBackend(r.similarityScore)])
+    backendResults.map((result) => [
+      result.fileKey,
+      normalizeBackend(result.similarityScore),
+    ])
   );
-  const combined = new Map<string, { doc: DocMetadata; score: number }>();
 
+  const combined = new Map<string, { document: DocMetadata; score: number }>();
+
+  // Combine both Fuse and backend scores where available
   for (const fuseItem of fuseResults) {
-    const doc = fuseItem.item;
+    const document = fuseItem.item;
     const fuseScore = normalizeFuse(fuseItem.score);
-    const backendScore = backendMap.get(doc.docKey);
+    const backendScore = backendMap.get(document.docKey);
     const combinedScore = backendScore
       ? BACKEND_WEIGHT * backendScore + FUSE_WEIGHT * fuseScore
       : fuseScore;
-    combined.set(doc.docKey, { doc, score: combinedScore });
+    combined.set(document.docKey, { document, score: combinedScore });
   }
 
+  // Include backend-only results not found by Fuse
   for (const [fileKey, backendScore] of backendMap) {
     if (!combined.has(fileKey)) {
-      const doc = allDocs.find((d) => d.docKey === fileKey);
-      if (doc)
-        combined.set(fileKey, { doc, score: BACKEND_WEIGHT * backendScore });
+      const document = allDocuments.find(
+        (doc) =>
+          doc.docKey === fileKey ||
+          doc.url.endsWith(fileKey) ||
+          doc.url.includes(fileKey)
+      );
+      if (document)
+        combined.set(fileKey, {
+          document,
+          score: BACKEND_WEIGHT * backendScore,
+        });
     }
   }
 
   return Array.from(combined.values())
     .sort((a, b) => b.score - a.score)
-    .map((v) => v.doc);
-}
+    .map((value) => value.document);
+};
 
 const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
   doc,
@@ -105,6 +126,10 @@ const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
   );
 };
 
+/**
+ * SearchView — combines Fuse.js fuzzy search (client-side)
+ * with backend semantic vector results for robust doc discovery.
+ */
 export const SearchView: FC<{
   onClickLink?: () => void;
   isOpen?: boolean;
@@ -112,9 +137,6 @@ export const SearchView: FC<{
   const inputRef = useRef<HTMLInputElement>(null);
   const searchQueryParam = useSearchParams().get('search');
   const [results, setResults] = useState<DocMetadata[]>([]);
-  const [currentQuery, setCurrentQuery] = useState<string | null>(
-    searchQueryParam
-  );
 
   const { search, setSearch } = useSearch({
     defaultValue: searchQueryParam,
@@ -127,38 +149,52 @@ export const SearchView: FC<{
 
   const docs = getIntlayer('doc-metadata', locale) as DocMetadata[];
   const blogs = getIntlayer('blog-metadata', locale) as BlogMetadata[];
-  const allDocs = [...docs, ...blogs];
-  const fuse = new Fuse(allDocs, fuseOptions);
+  const allDocuments = [...docs, ...blogs];
+  const fuse = new Fuse(allDocuments, fuseOptions);
 
   useEffect(() => {
-    if (backendData?.data && currentQuery) {
-      const backendResults: BackendDocResult[] = backendData.data.map(
-        (doc) => ({
-          fileKey: doc.fileKey,
-          similarityScore: doc.similarityScore ?? 0.5,
-        })
+    if (backendData?.data && search) {
+      // Normalize backend response (string paths → structured results)
+      const backendResults: BackendDocumentResult[] = backendData.data.map(
+        (item: any) => {
+          if (typeof item === 'string') {
+            return {
+              fileKey: item.replace(/^\.\//, ''),
+              similarityScore: 0.5,
+            };
+          }
+          return {
+            fileKey: item.fileKey,
+            similarityScore: item.similarityScore ?? 0.5,
+          };
+        }
       );
 
-      const fuseResults = fuse.search(currentQuery);
+      const fuseResults = fuse.search(search);
       let mergedResults: DocMetadata[];
 
       if (fuseResults.length > 0) {
-        // Hybrid mode: combine Fuse.js and backend semantic results
         mergedResults = mergeHybridResults(
           fuseResults,
           backendResults,
-          filesData
+          allDocuments
         );
       } else {
-        // Fallback: show backend-only results when Fuse finds none
         mergedResults = backendResults
-          .map((r) => filesData.find((d) => d.docKey === r.fileKey))
-          .filter((d): d is DocMetadata => Boolean(d));
+          .map((result) =>
+            allDocuments.find(
+              (doc) =>
+                doc.docKey === result.fileKey ||
+                doc.url.endsWith(result.fileKey) ||
+                doc.url.includes(result.fileKey)
+            )
+          )
+          .filter((doc): doc is DocMetadata => Boolean(doc));
       }
 
       setResults(mergedResults);
     }
-  }, [backendData, currentQuery, allDocs, fuse]);
+  }, [backendData, search, allDocuments, fuse]);
 
   const isNoResult =
     !isFetching &&
@@ -187,9 +223,9 @@ export const SearchView: FC<{
         )}
         {results.length > 0 && (
           <ul className="flex flex-col gap-10">
-            {results.map((r) => (
-              <li key={r.url}>
-                <SearchResultItem doc={r} onClickLink={onClickLink} />
+            {results.map((result) => (
+              <li key={result.url}>
+                <SearchResultItem doc={result} onClickLink={onClickLink} />
               </li>
             ))}
           </ul>

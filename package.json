@@ -25,12 +25,12 @@
   ],
   "type": "module",
   "workspaces": [
-    "./docs",
-    "./apps/*",
-    "./packages/**/*",
-    "./utils/*",
-    "./examples/*",
-    "./plugins/*"
+    "docs",
+    "apps/*",
+    "packages/**/*",
+    "utils/*",
+    "examples/*",
+    "plugins/*"
   ],
   "scripts": {
     "build": "turbo build --filter=./packages/** --filter=./docs --filter=./apps/backend",
