@@ -25,7 +25,7 @@ const config: UserConfig = {
         'build',
         'chore',
         'ci',
-        'doc',
+        'docs',
         'feat',
         'fix',
         'perf',
