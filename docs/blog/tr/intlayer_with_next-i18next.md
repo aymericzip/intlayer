@@ -16,6 +16,9 @@ slugs:
   - blog
   - intlayer-with-next-i18next
 history:
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: loadJSON eklentisi eklendi
   - version: 7.0.0
     date: 2025-10-29
     changes: syncJSON eklentisine geçiş ve kapsamlı yeniden yazım
@@ -36,15 +39,15 @@ Ancak, next-i18next bazı zorluklarla birlikte gelir:
 - **Karmaşık yapılandırma**: next-i18next kurulumu, birden fazla yapılandırma dosyası gerektirir ve sunucu tarafı ile istemci tarafı i18n örneklerinin dikkatli kurulmasını gerektirir.
 - **Dağınık çeviriler**: Çeviri dosyaları genellikle bileşenlerden ayrı dizinlerde saklanır, bu da tutarlılığı korumayı zorlaştırır.
 - **Manuel isim alanı yönetimi**: Geliştiricilerin isim alanlarını manuel olarak yönetmesi ve çeviri kaynaklarının doğru şekilde yüklenmesini sağlaması gerekir.
-- **Sınırlı tür güvenliği**: TypeScript desteği ek yapılandırma gerektirir ve çeviriler için otomatik tür oluşturma sağlamaz.
+  /// **Sınırlı tür güvenliği**: TypeScript desteği ek yapılandırma gerektirir ve çeviriler için otomatik tür oluşturma sağlamaz.
 
 ## Intlayer Nedir?
 
-**Intlayer**, geleneksel i18n çözümlerinin eksikliklerini gidermek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma kütüphanesidir. Next.js uygulamalarında içerik yönetimine modern bir yaklaşım sunar.
+**Intlayer**, geleneksel i18n çözümlerinin eksikliklerini gidermek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma kütüphanesidir. Next.js uygulamalarında içerik yönetimi için modern bir yaklaşım sunar.
 
-next-intl ile somut bir karşılaştırma için [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) blog yazımıza bakabilirsiniz.
+next-intl ile somut bir karşılaştırma için [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) blog yazımıza bakabilirsiniz.
 
-## Neden Intlayer ile next-i18next Birlikte Kullanılır?
+## Neden Intlayer'ı next-i18next ile Birleştirmelisiniz?
 
 Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bkz. [Next.js entegrasyon rehberimiz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)), birkaç nedenle next-i18next ile birleştirmek isteyebilirsiniz:
 
@@ -52,13 +55,13 @@ Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bkz. [Next.js enteg
 2. **Eski gereksinimler**: Projeniz mevcut i18next eklentileri veya iş akışları ile uyumluluk gerektiriyor.
 3. **Ekip aşinalığı**: Ekibiniz next-i18next ile rahat ancak daha iyi içerik yönetimi istiyor.
 
-**Bunun için, Intlayer, CLI veya CI/CD boru hatlarında JSON çevirilerinizi otomatikleştirmeye, çevirilerinizi test etmeye ve daha fazlasına yardımcı olmak için next-i18next için bir adaptör olarak uygulanabilir.**
+Bunun için, Intlayer, JSON çevirilerinizi CLI veya CI/CD boru hatlarında otomatikleştirmeye, çevirilerinizi test etmeye ve daha fazlasına yardımcı olmak için next-i18next için bir adaptör olarak uygulanabilir.
 
 Bu rehber, Intlayer'ın üstün içerik beyan sistemi avantajlarından yararlanırken next-i18next ile uyumluluğu nasıl koruyacağınızı gösterir.
 
 ---
 
-## Intlayer'ı next-i18next ile Kurmak için Adım Adım Rehber
+## Intlayer'ı next-i18next ile Kurmak İçin Adım Adım Rehber
 
 ### Adım 1: Bağımlılıkları Yükleyin
 
@@ -76,18 +79,18 @@ pnpm add intlayer @intlayer/sync-json-plugin
 yarn add intlayer @intlayer/sync-json-plugin
 ```
 
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin
+```
+
 **Paket açıklamaları:**
 
 - **intlayer**: İçerik beyanı ve yönetimi için temel kütüphane
-- **next-intlayer**: Next.js entegrasyon katmanı ve build eklentileri
-- **i18next**: Temel i18n çerçevesi
-- **next-i18next**: i18next için Next.js sarmalayıcısı
-- **i18next-resources-to-backend**: i18next için dinamik kaynak yükleme
-- **@intlayer/sync-json-plugin**: Intlayer içerik beyanlarını i18next JSON formatına senkronize eden eklenti
+- **@intlayer/sync-json-plugin**: Intlayer içerik beyanlarını i18next JSON formatına senkronize etmek için eklenti
 
 ### Adım 2: JSON'u sarmak için Intlayer eklentisini uygulayın
 
-Desteklediğiniz yerel ayarları tanımlamak için bir Intlayer yapılandırma dosyası oluşturun:
+Desteklenen yerel ayarları tanımlamak için bir Intlayer yapılandırma dosyası oluşturun:
 
 **Eğer i18next için JSON sözlüklerini de dışa aktarmak istiyorsanız**, `syncJSON` eklentisini ekleyin:
 
@@ -102,7 +105,18 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+typescript fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
     }),
   ],
 };
@@ -110,16 +124,59 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-`syncJSON` eklentisi JSON'u otomatik olarak saracaktır. İçerik mimarisini değiştirmeden JSON dosyalarını okuyup yazar.
+`syncJSON` eklentisi JSON'u otomatik olarak saracaktır. İçerik mimarisini değiştirmeden JSON dosyalarını okuyup yazacaktır.
 
-Eğer JSON dosyalarının intlayer içerik beyan dosyaları (`.content` dosyaları) ile birlikte var olmasını istiyorsanız, Intlayer şu şekilde ilerleyecektir:
+Eğer bu JSON'un intlayer içerik beyan dosyaları (`.content` dosyaları) ile birlikte var olmasını istiyorsanız, Intlayer şu şekilde ilerleyecektir:
 
-    1. Hem JSON hem de içerik beyan dosyalarını yükler ve bunları bir intlayer sözlüğüne dönüştürür.
-    2. JSON ile içerik beyan dosyaları arasında çakışma varsa, Intlayer tüm sözlükleri birleştirme işlemi yapacaktır. Bu işlem, eklentilerin önceliğine ve içerik beyan dosyasının önceliğine bağlıdır (tümü yapılandırılabilir).
+    1. Hem JSON hem de içerik beyan dosyalarını yükleyip bunları bir intlayer sözlüğüne dönüştürür.
+    2. JSON ile içerik beyan dosyaları arasında çakışma varsa, Intlayer tüm sözlükleri birleştirme işlemi yapar. Bu işlem, eklentilerin önceliğine ve içerik beyan dosyasının önceliğine bağlıdır (tümü yapılandırılabilir).
 
-CLI kullanılarak JSON çevirisi yapılırsa veya CMS kullanılırsa, Intlayer JSON dosyasını yeni çevirilerle güncelleyecektir.
+JSON'i çevirmek için CLI kullanılarak veya CMS kullanılarak değişiklikler yapılırsa, Intlayer yeni çevirilerle JSON dosyasını güncelleyecektir.
 
-`syncJSON` eklentisi hakkında daha fazla detay için lütfen [syncJSON eklenti dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) bakınız.
+`syncJSON` eklentisi hakkında daha fazla ayrıntı için lütfen [syncJSON eklenti dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) bakınız.
+
+---
+
+### (İsteğe Bağlı) Adım 3: Bileşen başına JSON çevirilerini uygulama
+
+Varsayılan olarak, Intlayer hem JSON hem de içerik beyan dosyalarını yükler, birleştirir ve senkronize eder. Daha fazla ayrıntı için [içerik beyan dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakınız. Ancak isterseniz, Intlayer eklentisi kullanarak, kod tabanınızın herhangi bir yerinde yerelleştirilmiş JSON'un bileşen bazında yönetimini de uygulayabilirsiniz.
+
+Bunun için `loadJSON` eklentisini kullanabilirsiniz.
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  // Mevcut JSON dosyalarınızı Intlayer sözlükleri ile senkronize tutun
+  plugins: [
+    /**
+     * src içindeki ve {key}.i18n.json desenine uyan tüm JSON dosyalarını yükler
+     */
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1, // Bu JSON dosyalarının `./public/locales/en/${key}.json` dosyalarından öncelikli olmasını sağlar
+    }),
+    /**
+     * Yerel dizindeki JSON dosyalarına çıktıyı ve çevirileri geri yazacak ve yükleyecek
+     */
+    syncJSON({
+      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
+      priority: 0,
+    }),
+  ],
+};
+
+export default config;
+```
+
+Bu, `src` dizinindeki `{key}.i18n.json` desenine uyan tüm JSON dosyalarını yükleyecek ve bunları Intlayer sözlükleri olarak kullanacaktır.
 
 ---
 
@@ -133,10 +190,10 @@ Oluşturulan dosyaları sürüm kontrolünden hariç tutun:
 intl
 ```
 
-Bu dosyalar, derleme süreci sırasında otomatik olarak yeniden oluşturulur ve depoza gönderilmesine gerek yoktur.
+Bu dosyalar derleme sürecinde otomatik olarak yeniden oluşturulur ve depoza gönderilmesine gerek yoktur.
 
 ### VS Code Eklentisi
 
-Geliştirici deneyimini iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyin:
+Geliştirici deneyimini iyileştirmek için resmi **Intlayer VS Code Uzantısı**nı yükleyin:
 
 [VS Code Marketinden Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

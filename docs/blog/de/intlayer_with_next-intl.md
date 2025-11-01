@@ -1,18 +1,21 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
-title: Wie Sie Ihre next-intl JSON-Übersetzungen mit Intlayer automatisieren
+title: So automatisieren Sie Ihre next-intl JSON-Übersetzungen mit Intlayer
 description: Automatisieren Sie Ihre JSON-Übersetzungen mit Intlayer und next-intl für eine verbesserte Internationalisierung in Next.js-Anwendungen.
 slugs:
   - blog
   - intlayer-with-next-intl
 history:
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: Hinzufügen des loadJSON-Plugins
   - version: 7.0.0
     date: 2025-10-29
     changes: Wechsel zum syncJSON-Plugin
 ---
 
-# Wie Sie Ihre next-intl JSON-Übersetzungen mit Intlayer automatisieren
+# So automatisieren Sie Ihre next-intl JSON-Übersetzungen mit Intlayer
 
 ## Was ist Intlayer?
 
@@ -22,15 +25,15 @@ Sehen Sie einen konkreten Vergleich mit next-intl in unserem Blogbeitrag [next-i
 
 ## Warum Intlayer mit next-intl kombinieren?
 
-Während Intlayer eine ausgezeichnete eigenständige i18n-Lösung bietet (siehe unseren [Next.js-Integrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md)), möchten Sie es möglicherweise aus mehreren Gründen mit next-intl kombinieren:
+Während Intlayer eine hervorragende eigenständige i18n-Lösung bietet (siehe unseren [Next.js-Integrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md)), möchten Sie es möglicherweise aus mehreren Gründen mit next-intl kombinieren:
 
 1. **Bestehender Codebestand**: Sie haben eine etablierte next-intl-Implementierung und möchten schrittweise zur verbesserten Entwicklererfahrung von Intlayer migrieren.
-2. **Altsystemanforderungen**: Ihr Projekt erfordert Kompatibilität mit bestehenden next-intl-Plugins oder Workflows.
-3. **Teamvertrautheit**: Ihr Team ist mit next-intl vertraut, möchte aber ein besseres Content-Management.
+2. **Legacy-Anforderungen**: Ihr Projekt erfordert Kompatibilität mit bestehenden next-intl-Plugins oder Workflows.
+3. **Teamvertrautheit**: Ihr Team ist mit next-intl vertraut, möchte jedoch ein besseres Content-Management.
 
 **Dafür kann Intlayer als Adapter für next-intl implementiert werden, um Ihre JSON-Übersetzungen in CLI- oder CI/CD-Pipelines zu automatisieren, Ihre Übersetzungen zu testen und mehr.**
 
-Dieser Leitfaden zeigt Ihnen, wie Sie das überlegene Content-Deklarationssystem von Intlayer nutzen und gleichzeitig die Kompatibilität mit next-intl beibehalten.
+Dieser Leitfaden zeigt Ihnen, wie Sie das überlegene Content-Deklarationssystem von Intlayer nutzen können, während die Kompatibilität mit next-intl erhalten bleibt.
 
 ## Inhaltsverzeichnis
 
@@ -40,7 +43,7 @@ Dieser Leitfaden zeigt Ihnen, wie Sie das überlegene Content-Deklarationssystem
 
 ### Schritt 1: Abhängigkeiten installieren
 
-Installieren Sie die erforderlichen Pakete:
+Installieren Sie die notwendigen Pakete:
 
 ```bash packageManager="npm"
 npm install intlayer @intlayer/sync-json-plugin
@@ -54,10 +57,14 @@ pnpm add intlayer @intlayer/sync-json-plugin
 yarn add intlayer @intlayer/sync-json-plugin
 ```
 
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin
+```
+
 **Paketbeschreibungen:**
 
-- **intlayer**: Kernbibliothek für Internationalisierungsmanagement, Content-Deklaration und Build-Prozesse
-- **@intlayer/sync-json-plugin**: Plugin zum Exportieren von Intlayer-Content-Deklarationen in ein next-intl-kompatibles JSON-Format
+- **intlayer**: Kernbibliothek für Internationalisierungsmanagement, Content-Deklaration und -Erstellung
+- **@intlayer/sync-json-plugin**: Plugin zum Exportieren von Intlayer-Content-Deklarationen in ein mit next-intl kompatibles JSON-Format
 
 ### Schritt 2: Implementieren Sie das Intlayer-Plugin zum Verpacken des JSON
 
@@ -89,21 +96,63 @@ Das `syncJSON`-Plugin verpackt das JSON automatisch. Es liest und schreibt die J
 Wenn Sie möchten, dass dieses JSON zusammen mit Intlayer-Content-Deklarationsdateien (`.content`-Dateien) koexistiert, geht Intlayer folgendermaßen vor:
 
     1. Lädt sowohl JSON- als auch Content-Deklarationsdateien und transformiert sie in ein Intlayer-Wörterbuch.
+    2. Wenn es Konflikte zwischen den JSON- und den Inhaltsdeklarationsdateien gibt, wird Intlayer alle Wörterbücher zusammenführen. Dies hängt von der Priorität der Plugins und der der Inhaltsdeklarationsdatei ab (alle sind konfigurierbar).
 
-2. Wenn es Konflikte zwischen den JSON- und den Inhaltsdeklarationsdateien gibt, wird Intlayer alle Wörterbücher zusammenführen. Dies hängt von der Priorität der Plugins und der der Inhaltsdeklarationsdatei ab (alle sind konfigurierbar).
+Wenn Änderungen über die CLI zur Übersetzung des JSON oder über das CMS vorgenommen werden, aktualisiert Intlayer die JSON-Datei mit den neuen Übersetzungen.
 
-Wenn Änderungen über die CLI zur Übersetzung des JSON vorgenommen werden oder das CMS verwendet wird, aktualisiert Intlayer die JSON-Datei mit den neuen Übersetzungen.
+Für weitere Details zum `syncJSON`-Plugin siehe bitte die [syncJSON Plugin-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md).
+
+### (Optional) Schritt 3: Implementierung von JSON-Übersetzungen pro Komponente
+
+Standardmäßig lädt, verbindet und synchronisiert Intlayer sowohl JSON- als auch Inhaltsdeklarationsdateien. Weitere Details finden Sie in der [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md). Wenn Sie jedoch möchten, können Sie mit einem Intlayer-Plugin auch eine komponentenbezogene Verwaltung von JSON-Übersetzungen implementieren, die überall in Ihrem Codebasis lokalisiert sind.
+
+Dafür können Sie das `loadJSON`-Plugin verwenden.
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  // Halten Sie Ihre aktuellen JSON-Dateien mit den Intlayer-Wörterbüchern synchron
+  plugins: [
+    /**
+     * Lädt alle JSON-Dateien im src-Verzeichnis, die dem Muster {key}.i18n.json entsprechen
+     */
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1, // Stellt sicher, dass diese JSON-Dateien Vorrang vor Dateien in `./locales/en/${key}.json` haben
+    }),
+    /**
+     * Lädt und schreibt die Ausgabe sowie Übersetzungen zurück in die JSON-Dateien im locales-Verzeichnis
+     */
+    syncJSON({
+      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+      priority: 0,
+    }),
+  ],
+};
+
+export default config;
+```
+
+Dies lädt alle JSON-Dateien im Verzeichnis `src`, die dem Muster `{key}.i18n.json` entsprechen, und lädt sie als Intlayer-Wörterbücher.
 
 ## Git-Konfiguration
 
 Es wird empfohlen, automatisch generierte Intlayer-Dateien zu ignorieren:
 
 ```plaintext fileName=".gitignore"
-# Dateien, die von Intlayer generiert werden, ignorieren
+# Dateien ignorieren, die von Intlayer generiert werden
 .intlayer
 ```
 
-Diese Dateien können während Ihres Build-Prozesses neu generiert werden und müssen nicht in die Versionskontrolle aufgenommen werden.
+Diese Dateien können während Ihres Build-Prozesses neu generiert werden und müssen nicht in die Versionskontrolle übernommen werden.
 
 ### VS Code Erweiterung
 

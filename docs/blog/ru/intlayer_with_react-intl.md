@@ -16,12 +16,19 @@ slugs:
   - blog
   - intlayer-with-react-intl
 history:
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: Добавлен плагин loadJSON
   - version: 7.0.0
     date: 2025-10-29
-    changes: Переход на плагин syncJSON
+    changes: Изменён на плагин syncJSON
 ---
 
 # Как автоматизировать ваши JSON-переводы react-intl с помощью Intlayer
+
+## Содержание
+
+<TOC/>
 
 ## Что такое Intlayer?
 
@@ -31,15 +38,16 @@ history:
 
 ## Почему стоит сочетать Intlayer с react-intl?
 
-Хотя Intlayer предоставляет отличное самостоятельное решение для i18n (см. наше [руководство по интеграции с React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md)), вы можете захотеть сочетать его с react-intl по нескольким причинам:
+Хотя Intlayer предоставляет отличное самостоятельное решение для i18n (см. наше [руководство по интеграции с React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md)), вы можете захотеть использовать его вместе с react-intl по нескольким причинам:
 
-1. **Существующая кодовая база**: У вас уже есть реализованная система react-intl, и вы хотите постепенно перейти на улучшенный опыт разработчика с Intlayer.
+1. **Существующая кодовая база**: У вас уже есть реализованная система на react-intl, и вы хотите постепенно перейти на улучшенный опыт разработки с Intlayer.
 2. **Требования наследия**: Ваш проект требует совместимости с существующими плагинами или рабочими процессами react-intl.
 3. **Знакомство команды**: Ваша команда привыкла к react-intl, но хочет улучшить управление контентом.
+4. **Использование возможностей Intlayer**: Вы хотите использовать функции Intlayer, такие как декларация контента, автоматизация перевода, тестирование переводов и многое другое.
 
 **Для этого Intlayer может быть реализован как адаптер для react-intl, чтобы помочь автоматизировать ваши JSON-переводы в CLI или CI/CD пайплайнах, тестировать переводы и многое другое.**
 
-Это руководство покажет вам, как использовать превосходную систему декларации контента Intlayer, сохраняя при этом совместимость с react-intl.
+Это руководство показывает, как использовать превосходную систему декларации контента Intlayer, сохраняя при этом совместимость с react-intl.
 
 ## Содержание
 
@@ -63,16 +71,20 @@ pnpm add intlayer @intlayer/sync-json-plugin
 yarn add intlayer @intlayer/sync-json-plugin
 ```
 
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin
+```
+
 **Описание пакетов:**
 
 - **intlayer**: Основная библиотека для управления интернационализацией, декларации контента и сборки
-- **@intlayer/sync-json-plugin**: Плагин для экспорта деклараций контента Intlayer в JSON-формат, совместимый с react-intl
+- **@intlayer/sync-json-plugin**: Плагин для экспорта деклараций контента Intlayer в формат JSON, совместимый с react-intl
 
-### Шаг 2: Реализация плагина Intlayer для обёртки JSON
+### Шаг 2: Реализация плагина Intlayer для обертки JSON
 
-Создайте конфигурационный файл Intlayer для определения поддерживаемых локалей:
+Создайте файл конфигурации Intlayer для определения поддерживаемых локалей:
 
-**Если вы также хотите экспортировать JSON-словари для react-intl**, добавьте плагин `syncJSON`:
+**Если вы также хотите экспортировать словари JSON для react-intl**, добавьте плагин `syncJSON`:
 
 ```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -93,16 +105,57 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Плагин `syncJSON` автоматически обернет JSON. Он будет читать и записывать JSON-файлы без изменения архитектуры контента.
+Плагин `syncJSON` автоматически обернет JSON. Он будет читать и записывать JSON-файлы без изменения архитектуры содержимого.
 
-Если вы хотите, чтобы JSON сосуществовал с файлами декларации контента intlayer (`.content` файлы), Intlayer будет работать следующим образом:
+Если вы хотите, чтобы JSON сосуществовал с файлами деклараций контента Intlayer (`.content` файлы), Intlayer будет работать следующим образом:
 
-    1. загрузит как JSON, так и файлы декларации контента и преобразует их в словарь intlayer.
-    2. если возникают конфликты между JSON и файлами декларации контента, Intlayer выполнит слияние всех словарей. В зависимости от приоритета плагинов и файла декларации контента (все настраивается).
+    1. загрузит как JSON, так и файлы деклараций контента и преобразует их в словарь Intlayer.
+    2. если возникнут конфликты между JSON и файлами деклараций контента, Intlayer выполнит слияние всех словарей. В зависимости от приоритета плагинов и файлов деклараций контента (все настраивается).
 
-Если изменения вносятся с помощью CLI для перевода JSON или с использованием CMS, Intlayer обновит JSON-файл с новыми переводами.
+Если изменения вносятся с помощью CLI для перевода JSON или с помощью CMS, Intlayer обновит JSON-файл с новыми переводами.
 
-Для получения дополнительной информации о плагине `syncJSON` обратитесь к [документации плагина syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md).
+Чтобы узнать больше подробностей о плагине `syncJSON`, пожалуйста, обратитесь к [документации плагина syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md).
+
+### (Необязательно) Шаг 3: Реализация переводов JSON по компонентам
+
+По умолчанию Intlayer загрузит, объединит и синхронизирует как JSON, так и файлы деклараций контента. Подробнее смотрите в [документации по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md). Но если вы предпочитаете, используя плагин Intlayer, вы также можете реализовать управление локализованным JSON по компонентам в любом месте вашей кодовой базы.
+
+Для этого вы можете использовать плагин `loadJSON`.
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  // Синхронизируйте ваши текущие JSON-файлы с словарями Intlayer
+  plugins: [
+    /**
+     * Загрузит все JSON-файлы в папке src, соответствующие шаблону {key}.i18n.json
+     */
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1, // Обеспечивает приоритет этих JSON-файлов над файлами в `./locales/en/${key}.json`
+    }),
+    /**
+     * Загрузит и запишет результат и переводы обратно в JSON-файлы в директории locales
+     */
+    syncJSON({
+      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+      priority: 0,
+    }),
+  ],
+};
+
+export default config;
+```
+
+Это загрузит все JSON-файлы в каталоге `src`, которые соответствуют шаблону `{key}.i18n.json`, и загрузит их как словари Intlayer.
 
 ## Конфигурация Git
 
@@ -117,6 +170,6 @@ export default config;
 
 ### Расширение VS Code
 
-Для улучшения опыта разработчика установите официальное **Расширение Intlayer для VS Code**:
+Для улучшения опыта разработчика установите официальное **расширение Intlayer для VS Code**:
 
-[Установить из магазина расширений VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[Установить из VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

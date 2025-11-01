@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
-title: Intlayerを使ったreact-i18nextのJSON翻訳の自動化方法
+title: Intlayerを使ってreact-i18nextのJSON翻訳を自動化する方法
 description: Reactアプリケーションの国際化を強化するために、Intlayerとreact-i18nextを使ってJSON翻訳を自動化する方法。
 keywords:
   - react-i18next
@@ -18,12 +18,15 @@ slugs:
   - blog
   - intlayer-with-react-i18next
 history:
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: loadJSONプラグインを追加
   - version: 7.0.0
     date: 2025-10-29
-    changes: syncJSONプラグインへの変更
+    changes: syncJSONプラグインに変更
 ---
 
-# Intlayerを使ったreact-i18nextのJSON翻訳の自動化方法
+# Intlayerを使ってreact-i18nextのJSON翻訳を自動化する方法
 
 ## Intlayerとは何ですか？
 
@@ -33,11 +36,12 @@ history:
 
 ## なぜIntlayerをreact-i18nextと組み合わせるのか？
 
-Intlayerは優れた単独のi18nソリューションを提供します（[React統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)を参照）が、以下のような理由でreact-i18nextと組み合わせたい場合があります：
+Intlayerは優れた単独のi18nソリューションを提供します（当社の[React統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)を参照）が、以下のような理由でreact-i18nextと組み合わせたい場合があります：
 
-1. **既存のコードベース**: 既にreact-i18nextの実装があり、Intlayerの向上した開発者体験へ段階的に移行したい場合。
+1. **既存のコードベース**: 既に確立されたreact-i18nextの実装があり、Intlayerの改善された開発者体験に徐々に移行したい場合。
 2. **レガシー要件**: プロジェクトが既存のreact-i18nextプラグインやワークフローとの互換性を必要とする場合。
 3. **チームの慣れ親しみ**: チームがreact-i18nextに慣れているが、より良いコンテンツ管理を望んでいる場合。
+4. **Intlayerの機能利用**: コンテンツ宣言、翻訳の自動化、翻訳のテストなど、Intlayerの機能を活用したい場合。
 
 **そのために、Intlayerはreact-i18nextのアダプターとして実装でき、CLIやCI/CDパイプラインでのJSON翻訳の自動化、翻訳のテストなどを支援します。**
 
@@ -65,14 +69,18 @@ pnpm add intlayer @intlayer/sync-json-plugin
 yarn add intlayer @intlayer/sync-json-plugin
 ```
 
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin
+```
+
 **パッケージの説明:**
 
-- **intlayer**: 国際化管理、コンテンツ宣言、ビルドのためのコアライブラリ
+- **intlayer**: 国際化管理、コンテンツ宣言、およびビルドのためのコアライブラリ
 - **@intlayer/sync-json-plugin**: Intlayerのコンテンツ宣言をreact-i18next互換のJSON形式にエクスポートするプラグイン
 
 ### ステップ2: JSONをラップするためのIntlayerプラグインの実装
 
-サポートするロケールを定義するIntlayer設定ファイルを作成します:
+サポートするロケールを定義するためのIntlayer設定ファイルを作成します。
 
 **react-i18next用のJSON辞書もエクスポートしたい場合は、`syncJSON`プラグインを追加してください:**
 
@@ -87,7 +95,57 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+    }),
+  ],
+};
+
+`export default config;
+```
+
+`syncJSON`プラグインはJSONを自動的にラップします。コンテンツの構造を変更することなく、JSONファイルの読み書きを行います。
+
+もしJSONとintlayerのコンテンツ宣言ファイル（`.content`ファイル）を共存させたい場合、Intlayerは以下の手順で処理します：
+
+1. JSONファイルとコンテンツ宣言ファイルの両方を読み込み、intlayerの辞書に変換します。
+2. JSONとコンテンツ宣言ファイル間に競合がある場合、Intlayerはすべての辞書をマージします。プラグインの優先度やコンテンツ宣言ファイルの優先度に応じて処理されます（すべて設定可能です）。
+
+CLIを使ってJSONの翻訳を変更した場合やCMSを使用した場合、Intlayerは新しい翻訳でJSONファイルを更新します。
+
+`syncJSON`プラグインの詳細については、[syncJSONプラグインのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)を参照してください。
+
+### （オプション）ステップ3：コンポーネントごとのJSON翻訳の実装
+
+デフォルトでは、IntlayerはJSONファイルとコンテンツ宣言ファイルの両方を読み込み、マージし、同期します。詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。しかし、必要に応じてIntlayerプラグインを使用して、コードベースのどこにでもあるJSONのローカライズをコンポーネント単位で管理することも可能です。
+
+そのためには、`loadJSON`プラグインを使用できます。
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  // 現在のJSONファイルをIntlayerの辞書と同期させる
+  plugins: [
+    /**
+     * src内の{key}.i18n.jsonパターンに一致するすべてのJSONファイルを読み込みます
+     */
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1, // これらのJSONファイルが`./locales/en/${key}.json`のファイルより優先されることを保証します
+    }),
+    /**
+     * ローカルディレクトリ内のJSONファイルに出力と翻訳を書き戻しながら読み込みます
+     */
+    syncJSON({
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+      priority: 0,
     }),
   ],
 };
@@ -95,30 +153,21 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-`syncJSON` プラグインは JSON を自動的にラップします。コンテンツの構造を変更することなく、JSON ファイルの読み書きを行います。
+これにより、`src` ディレクトリ内の `{key}.i18n.json` パターンに一致するすべての JSON ファイルが読み込まれ、Intlayer の辞書としてロードされます。
 
-もし JSON と intlayer のコンテンツ宣言ファイル（`.content` ファイル）を共存させたい場合、Intlayer は以下の手順で処理します：
+## Git 設定
 
-    1. JSONファイルとコンテンツ宣言ファイルの両方を読み込み、Intlayerの辞書に変換します。
-    2. JSONファイルとコンテンツ宣言ファイルの間に競合がある場合、Intlayerはすべての辞書をマージします。これはプラグインの優先度やコンテンツ宣言ファイルの優先度に依存します（すべて設定可能です）。
-
-CLIを使用してJSONの翻訳を行った場合やCMSを使用した場合、Intlayerは新しい翻訳でJSONファイルを更新します。
-
-`syncJSON`プラグインの詳細については、[syncJSONプラグインのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)をご参照ください。
-
-## Git設定
-
-自動生成されたIntlayerファイルは無視することを推奨します：
+自動生成された Intlayer ファイルは無視することを推奨します：
 
 ```plaintext fileName=".gitignore"
-# Intlayerによって生成されたファイルを無視する
+# Intlayer によって生成されたファイルを無視する
 .intlayer
 ```
 
 これらのファイルはビルドプロセス中に再生成可能であり、バージョン管理にコミットする必要はありません。
 
-### VS Code拡張機能
+### VS Code 拡張機能
 
-開発者体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールしてください：
+開発者体験を向上させるために、公式の **Intlayer VS Code 拡張機能** をインストールしてください：
 
-[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[VS Code マーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

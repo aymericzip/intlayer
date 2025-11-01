@@ -18,6 +18,9 @@ slugs:
   - blog
   - intlayer-with-react-i18next
 history:
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: Dodano wtyczkę loadJSON
   - version: 7.0.0
     date: 2025-10-29
     changes: Zmiana na wtyczkę syncJSON
@@ -38,16 +41,17 @@ Chociaż Intlayer zapewnia doskonałe, samodzielne rozwiązanie i18n (zobacz nas
 1. **Istniejąca baza kodu**: Masz już wdrożoną implementację react-i18next i chcesz stopniowo przejść na ulepszone doświadczenie deweloperskie oferowane przez Intlayer.
 2. **Wymagania dotyczące kompatybilności wstecznej**: Twój projekt wymaga zgodności z istniejącymi wtyczkami lub procesami react-i18next.
 3. **Znajomość zespołu**: Twój zespół dobrze zna react-i18next, ale chce lepszego zarządzania treścią.
+4. **Korzystanie z funkcji Intlayer**: Chcesz korzystać z funkcji Intlayer, takich jak deklaracja treści, automatyzacja tłumaczeń, testowanie tłumaczeń i inne.
 
 **W tym celu Intlayer może być zaimplementowany jako adapter dla react-i18next, aby pomóc w automatyzacji tłumaczeń JSON w CLI lub pipeline’ach CI/CD, testowaniu tłumaczeń i innych zadaniach.**
 
-Ten przewodnik pokazuje, jak wykorzystać zaawansowany system deklaracji treści Intlayer, zachowując jednocześnie kompatybilność z react-i18next.
+Ten przewodnik pokazuje, jak wykorzystać zaawansowany system deklaracji treści Intlayer, jednocześnie zachowując kompatybilność z react-i18next.
 
 ## Spis treści
 
 <TOC/>
 
-## Przewodnik krok po kroku: konfiguracja Intlayer z react-i18next
+## Przewodnik krok po kroku: Konfiguracja Intlayer z react-i18next
 
 ### Krok 1: Instalacja zależności
 
@@ -63,6 +67,10 @@ pnpm add intlayer @intlayer/sync-json-plugin
 
 ```bash packageManager="yarn"
 yarn add intlayer @intlayer/sync-json-plugin
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin
 ```
 
 **Opis pakietów:**
@@ -87,7 +95,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
 };
@@ -97,14 +105,55 @@ export default config;
 
 Wtyczka `syncJSON` automatycznie opakuje JSON. Będzie odczytywać i zapisywać pliki JSON bez zmiany architektury zawartości.
 
-Jeśli chcesz, aby JSON współistniał z plikami deklaracji treści intlayer (`.content`), Intlayer postąpi w następujący sposób:
+Jeśli chcesz, aby JSON współistniał z plikami deklaracji zawartości Intlayer (`.content`), Intlayer postąpi w następujący sposób:
 
-    1. załaduj zarówno pliki JSON, jak i pliki deklaracji zawartości, a następnie przekształć je w słownik intlayer.
-    2. jeśli wystąpią konflikty między plikami JSON a plikami deklaracji zawartości, Intlayer przeprowadzi scalanie wszystkich tych słowników. W zależności od priorytetu wtyczek oraz pliku deklaracji zawartości (wszystko jest konfigurowalne).
+    1. załaduje zarówno pliki JSON, jak i pliki deklaracji zawartości, a następnie przekształci je w słownik Intlayer.
+    2. jeśli wystąpią konflikty między plikami JSON a plikami deklaracji zawartości, Intlayer połączy wszystkie słowniki. W zależności od priorytetu wtyczek oraz pliku deklaracji zawartości (wszystko jest konfigurowalne).
 
-Jeśli zmiany zostaną wprowadzone za pomocą CLI do tłumaczenia JSON lub za pomocą CMS, Intlayer zaktualizuje plik JSON o nowe tłumaczenia.
+Jeśli zmiany zostaną dokonane za pomocą CLI do tłumaczenia JSON lub przy użyciu CMS, Intlayer zaktualizuje plik JSON o nowe tłumaczenia.
 
-Aby zobaczyć więcej szczegółów na temat wtyczki `syncJSON`, proszę zapoznać się z [dokumentacją wtyczki syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md).
+Aby zobaczyć więcej szczegółów dotyczących wtyczki `syncJSON`, prosimy o zapoznanie się z [dokumentacją wtyczki syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md).
+
+### (Opcjonalny) Krok 3: Implementacja tłumaczeń JSON na poziomie komponentów
+
+Domyślnie Intlayer załaduje, połączy i zsynchronizuje zarówno pliki JSON, jak i pliki deklaracji zawartości. Więcej informacji można znaleźć w [dokumentacji deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md). Jednak jeśli wolisz, korzystając z wtyczki Intlayer, możesz również zaimplementować zarządzanie JSON na poziomie poszczególnych komponentów, zlokalizowanych w dowolnym miejscu w Twojej bazie kodu.
+
+Do tego celu możesz użyć wtyczki `loadJSON`.
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  // Synchronizuj swoje obecne pliki JSON ze słownikami Intlayer
+  plugins: [
+    /**
+     * Załaduje wszystkie pliki JSON w katalogu src, które pasują do wzorca {key}.i18n.json
+     */
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1, // Zapewnia, że te pliki JSON mają pierwszeństwo przed plikami w `./locales/en/${key}.json`
+    }),
+    /**
+     * Załaduje i zapisze wynik oraz tłumaczenia z powrotem do plików JSON w katalogu locales
+     */
+    syncJSON({
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+      priority: 0,
+    }),
+  ],
+};
+
+export default config;
+```
+
+To spowoduje załadowanie wszystkich plików JSON w katalogu `src`, które pasują do wzorca `{key}.i18n.json` i załaduje je jako słowniki Intlayer.
 
 ## Konfiguracja Git
 
@@ -119,6 +168,6 @@ Te pliki mogą być ponownie wygenerowane podczas procesu budowania i nie muszą
 
 ### Rozszerzenie VS Code
 
-Dla lepszego doświadczenia programistycznego zainstaluj oficjalne **rozszerzenie Intlayer dla VS Code**:
+Dla lepszego doświadczenia deweloperskiego zainstaluj oficjalne **rozszerzenie Intlayer dla VS Code**:
 
-[Zainstaluj z Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

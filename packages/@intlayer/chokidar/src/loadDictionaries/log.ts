@@ -21,6 +21,9 @@ export class DictionariesLogger {
   private remoteCheckInProgress = false;
   private expectRemote = false;
   private remoteError: string | undefined;
+  private pluginTotal = 0;
+  private pluginDone = 0;
+  private pluginError: string | undefined;
 
   constructor() {
     this.prefix = configuration?.log?.prefix ?? '';
@@ -95,9 +98,36 @@ export class DictionariesLogger {
     this.render();
   };
 
+  setPluginTotal(total: number) {
+    if (this.isFinished) return;
+    this.pluginTotal = total;
+    if (total > 0) {
+      this.startSpinner();
+    }
+    this.render();
+  }
+
+  setPluginDone(done: number) {
+    if (this.isFinished) return;
+    this.pluginDone = done;
+    this.render();
+  }
+
+  setPluginError(error?: Error) {
+    if (this.isFinished) return;
+    this.pluginError = extractErrorMessage(error);
+    this.render();
+  }
+
   private render() {
-    const { localTotal, localDone, remoteTotal, remoteDone } =
-      this.computeProgress();
+    const {
+      localTotal,
+      localDone,
+      remoteTotal,
+      remoteDone,
+      pluginTotal,
+      pluginDone,
+    } = this.computeProgress();
 
     const frame = this.spinnerFrames[this.spinnerIndex];
     const clock = colorize(frame, ANSIColors.BLUE);
@@ -105,6 +135,7 @@ export class DictionariesLogger {
 
     const isLocalDone = localDone === localTotal;
     const isRemoteDone = remoteDone === remoteTotal;
+    const isPluginDone = pluginDone === pluginTotal;
 
     const suppressLocalWhileCheckingRemote =
       this.expectRemote && this.remoteCheckInProgress && remoteTotal === 0;
@@ -141,6 +172,26 @@ export class DictionariesLogger {
       } else {
         lines.push(
           `${this.prefix} ${clock} Remote content: ${colorize(`${remoteDone}`, ANSIColors.BLUE)}${colorize(`/${remoteTotal}`, ANSIColors.GREY)}`
+        );
+      }
+    }
+
+    // Plugin line: show error or progress counts
+    if (pluginTotal > 0 || this.pluginError) {
+      if (this.pluginError) {
+        lines.push(
+          `${this.prefix} ${x} Plugin content: ${colorize(
+            this.pluginError,
+            ANSIColors.RED
+          )}`
+        );
+      } else if (isPluginDone) {
+        lines.push(
+          `${this.prefix} ${v} Plugin content: ${colorize(`${pluginDone}`, ANSIColors.GREEN)}${colorize(`/${pluginTotal}`, ANSIColors.GREY)}`
+        );
+      } else {
+        lines.push(
+          `${this.prefix} ${clock} Plugin content: ${colorize(`${pluginDone}`, ANSIColors.BLUE)}${colorize(`/${pluginTotal}`, ANSIColors.GREY)}`
         );
       }
     }
@@ -208,6 +259,8 @@ export class DictionariesLogger {
       localDone: localDoneKeys.size,
       remoteTotal: remoteKeys.size,
       remoteDone: remoteDoneKeys.size,
+      pluginTotal: this.pluginTotal,
+      pluginDone: this.pluginDone,
     } as const;
   }
 }

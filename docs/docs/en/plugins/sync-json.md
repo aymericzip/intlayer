@@ -55,15 +55,68 @@ pnpm add -D @intlayer/sync-json-plugin
 npm i -D @intlayer/sync-json-plugin
 ```
 
-## Quick start
+## Plugins
+
+This package provides two plugins:
+
+- `loadJSON`: Load JSON files into Intlayer dictionaries.
+  - This plugin is used to load JSON files from a source and will be loaded into Intlayer dictionaries. It can scan all the codebase and search for specific JSON files.
+    This plugin can be used
+    - if you use an i18n library that impose a specific location for your JSON to be loaded (ex: `next-intl`, `i18next`, `react-intl`, `vue-i18n`, etc.), but you want to place your content declaration where you want in your code base.
+    - It can also be used if you want to fetch your messages from a remote source (ex: a CMS, a API, etc.) and store your messages in JSON files.
+
+  > Under the hood, this plugin will scan all the codebase and search for specific JSON files and load them into Intlayer dictionaries.
+  > Note that this plugin will not write the output and translations back to the JSON files.
+
+- `syncJSON`: Synchronize JSON files with Intlayer dictionaries.
+  - This plugin is used to synchronize JSON files with Intlayer dictionaries. It can scan the given location and load the JSON that match the pattern for specific JSON files. This plugin is useful if you want to get the benefits of Intlayer while using another i18n library.
+
+## Using both plugins
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  // Keep your current JSON files in sync with Intlayer dictionaries
+  plugins: [
+    /**
+     * Will load all the JSON files in the src that match the pattern {key}.i18n json
+     */
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1, // Ensures these JSON files take precedence over files at `./locales/en/${key}.json`
+    }),
+    /**
+     * Will load, and write the output and translations back to the JSON files in the locales directory
+     */
+    syncJSON({
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+      priority: 0,
+    }),
+  ],
+};
+
+export default config;
+```
+
+## `syncJSON` plugin
+
+### Quick start
 
 Add the plugin to your `intlayer.config.ts` and point it at your existing JSON structure.
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
@@ -76,20 +129,33 @@ export default defineConfig({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 Alternative: single file per locale (common with i18next/react-intl setups):
 
 ```ts fileName="intlayer.config.ts"
-plugins: [
-  syncJSON({
-    source: ({ locale }) => `./locales/${locale}.json`,
-  }),
-];
+import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  plugins: [
+    syncJSON({
+      source: ({ locale }) => `./locales/${locale}.json`,
+    }),
+  ],
+};
+
+export default config;
 ```
 
-### How it works
+#### How it works
 
 - Read: the plugin discovers JSON files from your `source` builder and loads them as Intlayer dictionaries.
 - Write: after builds and fills, it writes localized JSON back to the same paths (with a final newline to avoid formatting issues).
@@ -105,24 +171,24 @@ syncJSON({
 });
 ```
 
-## Multiple JSON sources and priority
+### Multiple JSON sources and priority
 
 You can add multiple `syncJSON` plugins to synchronize different JSON sources. This is useful when you have multiple i18n libraries or different JSON structures in your project.
 
-### Priority system
+#### Priority system
 
 When multiple plugins target the same dictionary key, the `priority` parameter determines which plugin takes precedence:
 
 - Higher priority numbers win over lower ones
 - Default priority of `.content` files is `0`
-- Default priority of plugins content files is `-1`
+- Default priority of plugins is `0`
 - Plugins with the same priority are processed in the order they appear in the configuration
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
@@ -150,74 +216,105 @@ export default defineConfig({
       priority: 1,
     }),
   ],
+};
+
+export default config;
+```
+
+## Load JSON plugin
+
+### Quick start
+
+Add the plugin to your `intlayer.config.ts` to ingest existing JSON files as Intlayer dictionaries. This plugin is read‑only (no writes to disk):
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  plugins: [
+    // Ingest JSON messages located anywhere in your source tree
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      // Load a single locale per plugin instance (defaults to the config defaultLocale)
+      locale: Locales.ENGLISH,
+      priority: 0,
+    }),
+  ],
+};
+
+export default config;
+```
+
+Alternative: per‑locale layout, still read‑only (only the selected locale is loaded):
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  plugins: [
+    loadJSON({
+      // Only files for Locales.FRENCH will be loaded from this pattern
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+      locale: Locales.FRENCH,
+    }),
+  ],
+};
+
+export default config;
+```
+
+### How it works
+
+- Discover: builds a glob from your `source` builder and collects matching JSON files.
+- Ingest: loads each JSON file as an Intlayer dictionary with the provided `locale`.
+- Read‑only: does not write or format output files; use `syncJSON` if you need round‑trip sync.
+- Auto‑fill ready: defines a `fill` pattern so `intlayer content fill` can populate missing keys.
+
+### API
+
+```ts
+loadJSON({
+  // Build paths to your JSON. `locale` is optional if your structure has no locale segment
+  source: ({ key, locale }) => string,
+
+  // Target locale for the dictionaries loaded by this plugin instance
+  // Defaults to configuration.internationalization.defaultLocale
+  locale?: Locale,
+
+  // Optional label to identify the source
+  location?: string, // default: "plugin"
+
+  // Priority used for conflict resolution against other sources
+  priority?: number, // default: 0
 });
 ```
 
-### Conflict resolution
+### Behavior and conventions
+
+- If your `source` mask includes a locale placeholder, only files for the selected `locale` are ingested.
+- If there is no `{key}` segment in your mask, the dictionary key is "index".
+- Keys are derived from file paths by substituting the `{key}` placeholder in your `source` builder.
+- The plugin only uses discovered files and does not fabricate missing locales or keys.
+- The `fill` path is inferred from your `source` and used to update missing values via CLI when you opt‑in.
+
+## Conflict resolution
 
 When the same translation key exists in multiple JSON sources:
 
 1. The plugin with the highest priority determines the final value
 2. Lower priority sources are used as fallbacks for missing keys
 3. This allows you to maintain legacy translations while gradually migrating to new structures
-
-## Integrations
-
-Below are common mappings. Keep your runtime untouched; only add the plugin.
-
-### i18next
-
-Typical file layout: `./public/locales/{locale}/{namespace}.json` or `./locales/{locale}/{namespace}.json`.
-
-```ts fileName="intlayer.config.ts"
-import { syncJSON } from "@intlayer/sync-json-plugin";
-
-export default {
-  plugins: [
-    syncJSON({
-      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
-    }),
-  ],
-};
-```
-
-### next-intl
-
-Per‑locale JSON messages (often `./messages/{locale}.json`) or per‑namespace.
-
-```ts fileName="intlayer.config.ts"
-plugins: [
-  syncJSON({
-    source: ({ locale, key }) => `./messages/${locale}/${key}.json`,
-  }),
-];
-```
-
-See also: `docs/en/intlayer_with_next-intl.md`.
-
-### react-intl
-
-Single JSON per locale is common:
-
-```ts fileName="intlayer.config.ts"
-plugins: [
-  syncJSON({
-    source: ({ locale }) => `./locales/${locale}.json`,
-  }),
-];
-```
-
-### vue-i18n
-
-Either a single file per locale or per‑namespace:
-
-```ts fileName="intlayer.config.ts"
-plugins: [
-  syncJSON({
-    source: ({ key, locale }) => `./src/locales/${locale}/${key}.json`,
-  }),
-];
-```
 
 ## CLI
 

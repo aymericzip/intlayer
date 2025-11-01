@@ -162,6 +162,7 @@ export const loadDictionaries = async (
   time: {
     localDictionaries: number;
     remoteDictionaries: number;
+    pluginDictionaries: number;
   };
 }> => {
   const { plugins } = configuration;
@@ -171,16 +172,34 @@ export const loadDictionaries = async (
   appLogger('Dictionaries:', { isVerbose: true });
 
   // Load additional dictionaries via plugins (e.g., ICU JSON ingestion)
-  const loadPluginDictionariesPromise = (plugins ?? []).map(async (plugin) => {
-    try {
-      const res = await plugin.loadDictionaries?.({
-        configuration,
-      });
-      return (res as Dictionary[] | undefined) ?? [];
-    } catch {
-      return [];
+  const pluginsWithLoadDictionaries = (plugins ?? []).filter(
+    (plugin) => plugin.loadDictionaries
+  );
+
+  logger.setPluginTotal(pluginsWithLoadDictionaries.length);
+
+  const completedPluginIndices = new Set<number>();
+  const updatePluginProgress = () => {
+    logger.setPluginDone(completedPluginIndices.size);
+  };
+
+  const loadPluginDictionariesPromise = pluginsWithLoadDictionaries.map(
+    async (plugin, index) => {
+      try {
+        const res = await plugin.loadDictionaries?.({
+          configuration,
+        });
+        completedPluginIndices.add(index);
+        updatePluginProgress();
+        return (res as Dictionary[] | undefined) ?? [];
+      } catch (error) {
+        logger.setPluginError(error as Error);
+        completedPluginIndices.add(index);
+        updatePluginProgress();
+        return [];
+      }
     }
-  });
+  );
 
   const pluginDictionaries: Dictionary[] = (
     await Promise.all(loadPluginDictionariesPromise)
@@ -237,6 +256,8 @@ export const loadDictionaries = async (
   }
   const remoteDictionariesTime = Date.now();
 
+  const pluginDictionariesTime = Date.now();
+
   // Stop spinner and show final progress line(s)
   logger.finish();
 
@@ -249,6 +270,7 @@ export const loadDictionaries = async (
     time: {
       localDictionaries: localDictionariesTime - loadDictionariesStartTime,
       remoteDictionaries: remoteDictionariesTime - localDictionariesTime,
+      pluginDictionaries: pluginDictionariesTime - remoteDictionariesTime,
     },
   };
 };

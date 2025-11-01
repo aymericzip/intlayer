@@ -176,11 +176,9 @@ module.exports = withIntlayer(nextConfig);
 > ```tsx
 > const nextConfig = await withIntlayer(nextConfig);
 > const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
-> ```
-
-> export default nextConfigWithOtherPlugins;
 >
-> ````
+> export default nextConfigWithOtherPlugins;
+> ```
 >
 > Eşzamanlı kullanmak isterseniz, `withIntlayerSync()` fonksiyonunu kullanabilirsiniz. Örnek:
 >
@@ -189,7 +187,7 @@ module.exports = withIntlayer(nextConfig);
 > const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
 >
 > export default nextConfigWithOtherPlugins;
-> ````
+> ```
 
 ### Adım 4: Dinamik Yerel Rotaları Tanımlayın
 
@@ -723,13 +721,6 @@ const metadataContent = {
       en: "create next app tarafından oluşturuldu",
       fr: "Généré par create next app",
       es: "Generado por create next app",
-    }),
-  },
-};
-
-export default metadataContent;
-      fr: "create next app tarafından oluşturuldu",
-      es: "create next app tarafından oluşturuldu",
     }),
   },
 };

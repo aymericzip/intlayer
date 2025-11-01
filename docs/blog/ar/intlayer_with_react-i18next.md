@@ -18,9 +18,12 @@ slugs:
   - blog
   - intlayer-with-react-i18next
 history:
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: إضافة ملحق loadJSON
   - version: 7.0.0
     date: 2025-10-29
-    changes: التغيير إلى مكون syncJSON
+    changes: التغيير إلى ملحق syncJSON
 ---
 
 # كيفية أتمتة ترجمات JSON الخاصة بـ react-i18next باستخدام Intlayer
@@ -35,9 +38,10 @@ history:
 
 بينما يوفر Intlayer حلاً ممتازًا مستقلاً لـ i18n (راجع دليل التكامل مع React الخاص بنا [React integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md))، قد ترغب في دمجه مع react-i18next لأسباب عدة:
 
-1. **قاعدة الشيفرة الحالية**: لديك تنفيذ قائم لـ react-i18next وترغب في الترحيل تدريجيًا إلى تجربة المطور المحسنة التي يقدمها Intlayer.
-2. **متطلبات قديمة**: مشروعك يتطلب التوافق مع الإضافات أو سير العمل الحالي لـ react-i18next.
-3. **ألفة الفريق**: فريقك مرتاح لاستخدام react-i18next لكنه يرغب في إدارة محتوى أفضل.
+1. **قاعدة الشيفرة الحالية**: لديك تنفيذ قائم لـ react-i18next وتريد الانتقال تدريجيًا إلى تجربة المطور المحسنة التي يقدمها Intlayer.
+2. **متطلبات قديمة**: يتطلب مشروعك التوافق مع الإضافات أو سير العمل الحالي لـ react-i18next.
+3. **ألفة الفريق**: فريقك معتاد على react-i18next لكنه يرغب في إدارة محتوى أفضل.
+4. **استخدام ميزات Intlayer**: تريد استخدام ميزات Intlayer مثل إعلان المحتوى، وأتمتة الترجمة، واختبار الترجمات، والمزيد.
 
 **لهذا، يمكن تنفيذ Intlayer كمحول لـ react-i18next للمساعدة في أتمتة ترجمات JSON الخاصة بك في واجهة الأوامر أو خطوط أنابيب CI/CD، واختبار ترجماتك، والمزيد.**
 
@@ -65,16 +69,20 @@ pnpm add intlayer @intlayer/sync-json-plugin
 yarn add intlayer @intlayer/sync-json-plugin
 ```
 
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin
+```
+
 **وصف الحزم:**
 
-- **intlayer**: المكتبة الأساسية لإدارة التدويل، إعلان المحتوى، والبناء
-- **@intlayer/sync-json-plugin**: إضافة لتصدير إعلانات محتوى Intlayer إلى صيغة JSON المتوافقة مع react-i18next
+- **intlayer**: المكتبة الأساسية لإدارة التدويل، وإعلان المحتوى، والبناء
+- **@intlayer/sync-json-plugin**: مكون إضافي لتصدير إعلانات محتوى Intlayer إلى تنسيق JSON المتوافق مع react-i18next
 
-### الخطوة 2: تنفيذ إضافة Intlayer لتغليف JSON
+### الخطوة 2: تنفيذ مكون Intlayer الإضافي لتغليف JSON
 
-قم بإنشاء ملف تكوين Intlayer لتعريف اللغات المدعومة لديك:
+أنشئ ملف تكوين Intlayer لتعريف اللغات المدعومة لديك:
 
-**إذا كنت تريد أيضًا تصدير قواميس JSON لـ react-i18next**، أضف إضافة `syncJSON`:
+**إذا كنت ترغب أيضًا في تصدير قواميس JSON لـ react-i18next**، أضف مكون `syncJSON` الإضافي:
 
 ```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -87,7 +95,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
 };
@@ -95,23 +103,64 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-إضافة `syncJSON` ستقوم تلقائيًا بتغليف JSON. ستقرأ وتكتب ملفات JSON دون تغيير بنية المحتوى.
+سيقوم مكون الإضافة `syncJSON` تلقائيًا بتغليف ملفات JSON. سيقرأ ويكتب ملفات JSON دون تغيير بنية المحتوى.
 
-إذا كنت تريد جعل ملفات JSON تتعايش مع ملفات إعلان محتوى intlayer (`.content` files)، فإن Intlayer سيتبع هذه الطريقة:
+إذا كنت ترغب في جعل ملفات JSON تتعايش مع ملفات إعلان المحتوى الخاصة بـ Intlayer (`.content` files)، فسيتم التعامل معها بهذه الطريقة:
 
-    1. تحميل كل من ملفات JSON وملفات إعلان المحتوى وتحويلها إلى قاموس intlayer.
-    2. إذا كانت هناك تعارضات بين ملفات JSON وملفات إعلان المحتوى، سيقوم Intlayer بدمج جميع القواميس. وذلك يعتمد على أولوية الإضافات، وأولوية ملف إعلان المحتوى (كلها قابلة للتكوين).
+    1. تحميل كل من ملفات JSON وملفات إعلان المحتوى وتحويلها إلى قاموس Intlayer.
+    2. إذا كانت هناك تعارضات بين ملفات JSON وملفات إعلان المحتوى، فسيقوم Intlayer بدمج جميع القواميس. وذلك يعتمد على أولوية المكونات الإضافية وأولوية ملفات إعلان المحتوى (كلها قابلة للتكوين).
 
-إذا تم إجراء تغييرات باستخدام CLI لترجمة JSON، أو باستخدام نظام إدارة المحتوى (CMS)، سيقوم Intlayer بتحديث ملف JSON بالترجمات الجديدة.
+إذا تم إجراء تغييرات باستخدام واجهة الأوامر CLI لترجمة JSON، أو باستخدام نظام إدارة المحتوى CMS، فسيقوم Intlayer بتحديث ملف JSON بالترجمات الجديدة.
 
-للاطلاع على مزيد من التفاصيل حول إضافة `syncJSON`، يرجى الرجوع إلى [توثيق إضافة syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md).
+للاطلاع على مزيد من التفاصيل حول المكون الإضافي `syncJSON`، يرجى الرجوع إلى [توثيق مكون syncJSON الإضافي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-json.md).
 
-## تكوين Git
+### (اختياري) الخطوة 3: تنفيذ ترجمات JSON لكل مكون
+
+بشكل افتراضي، يقوم Intlayer بتحميل ودمج ومزامنة كل من ملفات JSON وملفات إعلان المحتوى. راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md) لمزيد من التفاصيل. ولكن إذا كنت تفضل، باستخدام مكون إضافي من Intlayer، يمكنك أيضًا تنفيذ إدارة JSON لكل مكون محليًا في أي مكان في قاعدة الشيفرة الخاصة بك.
+
+لهذا الغرض، يمكنك استخدام المكون الإضافي `loadJSON`.
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  // حافظ على تزامن ملفات JSON الحالية مع قواميس Intlayer
+  plugins: [
+    /**
+     * سيقوم بتحميل جميع ملفات JSON في مجلد src التي تطابق النمط {key}.i18n.json
+     */
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1, // يضمن أن هذه الملفات JSON لها أولوية على الملفات في `./locales/en/${key}.json`
+    }),
+    /**
+     * سيقوم بتحميل، وكتابة المخرجات والترجمات مرة أخرى إلى ملفات JSON في مجلد locales
+     */
+    syncJSON({
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+      priority: 0,
+    }),
+  ],
+};
+
+export default config;
+```
+
+سيقوم هذا بتحميل جميع ملفات JSON في مجلد `src` التي تطابق النمط `{key}.i18n.json` وتحميلها كقواميس Intlayer.
+
+## إعدادات Git
 
 يوصى بتجاهل ملفات Intlayer التي يتم إنشاؤها تلقائيًا:
 
 ```plaintext fileName=".gitignore"
-# تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
+# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
 

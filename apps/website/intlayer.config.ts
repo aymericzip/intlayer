@@ -67,7 +67,7 @@ const config: CustomIntlayerConfig = {
     applicationContext: [
       'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',
       'This application contains a landing page, documentation, and the CMS within the dashboard.',
-      'It is intended for developers, so do not hesitate to use technical terms, and keep anglicisms in English.',
+      'It is intended for developers, so do not hesitate to use technical terms, and keep anglicisms in English. Example: "codebase" instead of "base de code" or "package" instead of "paquets".',
     ].join('\n'),
     apiKey: process.env.OPENAI_API_KEY,
   },

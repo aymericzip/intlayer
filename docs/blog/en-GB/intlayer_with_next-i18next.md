@@ -16,6 +16,9 @@ slugs:
   - blog
   - intlayer-with-next-i18next
 history:
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: Add loadJSON plugin
   - version: 7.0.0
     date: 2025-10-29
     changes: Change to syncJSON plugin and comprehensive rewrite
@@ -76,13 +79,13 @@ pnpm add intlayer @intlayer/sync-json-plugin
 yarn add intlayer @intlayer/sync-json-plugin
 ```
 
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin
+```
+
 **Package explanations:**
 
 - **intlayer**: Core library for content declaration and management
-- **next-intlayer**: Next.js integration layer with build plugins
-- **i18next**: Core i18n framework
-- **next-i18next**: Next.js wrapper for i18next
-- **i18next-resources-to-backend**: Dynamic resource loading for i18next
 - **@intlayer/sync-json-plugin**: Plugin to synchronise Intlayer content declarations to i18next JSON format
 
 ### Step 2: Implement the Intlayer plugin to wrap the JSON
@@ -102,7 +105,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
     }),
   ],
 };
@@ -115,9 +118,54 @@ The `syncJSON` plugin will automatically wrap the JSON. It will read and write t
 If you want to make that JSON coexist with Intlayer content declaration files (`.content` files), Intlayer will proceed as follows:
 
     1. load both JSON and content declaration files and transform them into an Intlayer dictionary.
-    2. if there are conflicts between the JSON and the content declaration files, Intlayer will proceed to merge all those dictionaries. This depends on the priority of the plugins and that of the content declaration file (all are configurable).
+    2. if there are conflicts between the JSON and the content declaration files, Intlayer will merge all those dictionaries. This depends on the priority of the plugins, and that of the content declaration file (all are configurable).
 
 If changes are made using the CLI to translate the JSON, or using the CMS, Intlayer will update the JSON file with the new translations.
+
+To see more details about the `syncJSON` plugin, please refer to the [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md).
+
+---
+
+### (Optional) Step 3: Implement per-component JSON translations
+
+By default, Intlayer will load, merge and synchronise both JSON and content declaration files. See [the content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) for more details. But if you prefer, using an Intlayer plugin, you can also implement per-component management of JSON localised anywhere in your codebase.
+
+For that, you can use the `loadJSON` plugin.
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  // Keep your current JSON files in sync with Intlayer dictionaries
+  plugins: [
+    /**
+     * Will load all the JSON files in the src that match the pattern {key}.i18n.json
+     */
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1, // Ensures these JSON files take precedence over files at `./public/locales/en/${key}.json`
+    }),
+    /**
+     * Will load, and write the output and translations back to the JSON files in the locales directory
+     */
+    syncJSON({
+      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
+      priority: 0,
+    }),
+  ],
+};
+
+export default config;
+```
+
+This will load all the JSON files in the `src` directory that match the pattern `{key}.i18n.json` and load them as Intlayer dictionaries.
 
 ---
 
@@ -135,8 +183,6 @@ These files are automatically regenerated during the build process and do not ne
 
 ### VS Code Extension
 
-For an improved developer experience, install the official **Intlayer VS Code Extension**:
-
-[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+For improved developer experience, install the official **Intlayer VS Code Extension**:
 
 [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

@@ -85,8 +85,22 @@ export const prepareIntlayer = async (
           'Content loaded',
           colorize(
             [
-              dictionaries.remoteDictionaries.length > 0
-                ? ` (Total: ${dictionariesLoadedTime - configurationWrittenTime}ms - Local: ${dictionaries.time.localDictionaries}ms - Remote: ${dictionaries.time.remoteDictionaries}ms)`
+              dictionaries.remoteDictionaries.length +
+                dictionaries.pluginDictionaries.length >
+              0
+                ? [
+                    `(Total: ${dictionariesLoadedTime - configurationWrittenTime}ms`,
+                    dictionaries.localDictionaries.length > 0
+                      ? `- Local: ${dictionaries.time.localDictionaries}ms`
+                      : '',
+                    dictionaries.remoteDictionaries.length > 0
+                      ? `- Remote: ${dictionaries.time.remoteDictionaries}ms`
+                      : '',
+                    dictionaries.pluginDictionaries.length > 0
+                      ? `- Plugin: ${dictionaries.time.pluginDictionaries}ms`
+                      : '',
+                    `)`,
+                  ].join('')
                 : `(${dictionariesLoadedTime - configurationWrittenTime}ms)`,
             ].join(''),
             ANSIColors.GREY_DARK

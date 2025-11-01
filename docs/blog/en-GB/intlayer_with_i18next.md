@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-10-29
+updatedAt: 2025-11-01
 title: How to automate your i18next JSON translations using Intlayer
 description: Automate your JSON translations with Intlayer and i18next for enhanced internationalisation in JavaScript applications.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - blog
   - intlayer-with-i18next
 history:
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: Add loadJSON plugin
   - version: 7.0.0
     date: 2025-10-29
     changes: Change to syncJSON plugin
@@ -40,6 +43,7 @@ While Intlayer provides an excellent standalone i18n solution (see our [Next.js 
 1. **Existing codebase**: You have an established i18next implementation and want to gradually migrate to Intlayer's improved developer experience.
 2. **Legacy requirements**: Your project requires compatibility with existing i18next plugins or workflows.
 3. **Team familiarity**: Your team is comfortable with i18next but wants better content management.
+4. **Using Intlayer features**: You want to use Intlayer features like content declaration, translation keys management, translation status, and more.
 
 **For that, Intlayer can be implemented as an adapter for i18next to help automate your JSON translations in CLI or CI/CD pipelines, test your translations, and more.**
 
@@ -67,6 +71,10 @@ pnpm add intlayer @intlayer/sync-json-plugin
 yarn add intlayer @intlayer/sync-json-plugin
 ```
 
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin
+```
+
 **Package descriptions:**
 
 - **intlayer**: Core library for internationalisation management, content declaration, and building
@@ -76,7 +84,7 @@ yarn add intlayer @intlayer/sync-json-plugin
 
 Create an Intlayer configuration file to define your supported locales:
 
-**If you want to also export JSON dictionaries for i18next**, add the `syncJSON` plugin:
+**If you also want to export JSON dictionaries for i18next**, add the `syncJSON` plugin:
 
 ```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -89,7 +97,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      source: ({ key, locale }) => `./intl/messages/${locale}/${key}.json`,
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
 };
@@ -97,14 +105,59 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-The `syncJSON` plugin will automatically wrap the JSON. It will read and write the JSON files without changing the content architecture.
+The `syncJSON` plugin will automatically wrap the JSON. It will read and write the JSON files without altering the content architecture.
 
 If you want to make that JSON coexist with Intlayer content declaration files (`.content` files), Intlayer will proceed as follows:
 
     1. load both JSON and content declaration files and transform them into an Intlayer dictionary.
-    2. if there are conflicts between the JSON and the content declaration files, Intlayer will proceed to merge all those dictionaries. This depends on the priority of the plugins and that of the content declaration file (all are configurable).
+    2. if there are conflicts between the JSON and the content declaration files, Intlayer will merge all those dictionaries. This depends on the priority of the plugins and that of the content declaration file (all are configurable).
 
 If changes are made using the CLI to translate the JSON, or using the CMS, Intlayer will update the JSON file with the new translations.
+
+To see more details about the `syncJSON` plugin, please refer to the [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md).
+
+### (Optional) Step 3: Implement per-component JSON translations
+
+By default, Intlayer will load, merge and synchronise both JSON and content declaration files. See [the content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md) for more details. But if you prefer, using an Intlayer plugin, you can also implement per-component management of JSON localised anywhere in your codebase.
+
+For that, you can use the `loadJSON` plugin.
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalisation: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  // Keep your current JSON files in sync with Intlayer dictionaries
+  plugins: [
+    /**
+     * Will load all the JSON files in the src that match the pattern {key}.i18n.json
+     */
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1, // Ensures these JSON files take precedence over files at `./locales/en/${key}.json`
+    }),
+    /**
+     * Will load, and write the output and translations back to the JSON files in the locales directory
+     */
+    syncJSON({
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+      priority: 0,
+    }),
+  ],
+};
+
+export default config;
+```
+
+This will load all the JSON files in the `src` directory that match the pattern `{key}.i18n.json` and load them as Intlayer dictionaries.
+
+---
 
 ## Git Configuration
 
@@ -120,7 +173,5 @@ These files can be regenerated during your build process and do not need to be c
 ### VS Code Extension
 
 For an improved developer experience, install the official **Intlayer VS Code Extension**:
-
-[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)

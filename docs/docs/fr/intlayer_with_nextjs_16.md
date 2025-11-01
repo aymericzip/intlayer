@@ -236,20 +236,6 @@ module.exports = {
 
 Pour implémenter le routage dynamique, fournissez le chemin pour la locale en ajoutant un nouveau layout dans votre répertoire `[locale]` :
 
-````tsx fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
-import type { NextLayoutIntlayer } from "next-intlayer";
-import { Inter } from "next/font/google";
-import { getHTMLTextDir } from "intlayer";
-
-const inter = Inter({ subsets: ["latin"] });
-
-const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
-  const { locale } = await params;
-  return (
-> Garder le composant `RootLayout` vide permet de définir les attributs [`lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang) et [`dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir) sur la balise `<html>`.
-
-Pour implémenter le routage dynamique, fournissez le chemin pour la locale en ajoutant un nouveau layout dans votre répertoire `[locale]` :
-
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
 import type { NextLayoutIntlayer } from "next-intlayer";
 import { Inter } from "next/font/google";
@@ -267,7 +253,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 };
 
 export default LocaleLayout;
-````
+```
 
 ```jsx fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
 import { getHTMLTextDir } from "intlayer";

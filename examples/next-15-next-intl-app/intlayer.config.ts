@@ -1,4 +1,4 @@
-import { syncJSON } from '@intlayer/sync-json-plugin';
+import { loadJSON, syncJSON } from '@intlayer/sync-json-plugin';
 import { type IntlayerConfig, Locales } from 'intlayer';
 
 export const locales = [Locales.ENGLISH, Locales.GERMAN, Locales.SPANISH];
@@ -15,6 +15,11 @@ const config: IntlayerConfig = {
   },
 
   plugins: [
+    loadJSON({
+      source: ({ key }) => `./src/**/en.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1,
+    }),
     syncJSON({
       source: ({ locale }) => `./messages/${locale}.json`,
     }),

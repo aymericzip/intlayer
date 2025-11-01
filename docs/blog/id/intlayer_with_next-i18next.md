@@ -16,9 +16,12 @@ slugs:
   - blog
   - intlayer-with-next-i18next
 history:
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: Menambahkan plugin loadJSON
   - version: 7.0.0
     date: 2025-10-29
-    changes: Berubah ke plugin syncJSON dan penulisan ulang yang komprehensif
+    changes: Berubah ke plugin syncJSON dan penulisan ulang secara menyeluruh
 ---
 
 # Internasionalisasi Next.js (i18n) dengan next-i18next dan Intlayer
@@ -33,7 +36,7 @@ history:
 
 Namun, next-i18next memiliki beberapa tantangan:
 
-- **Konfigurasi yang kompleks**: Mengatur next-i18next memerlukan beberapa file konfigurasi dan pengaturan yang cermat untuk instance i18n di sisi server dan klien.
+- **Konfigurasi yang kompleks**: Mengatur next-i18next memerlukan beberapa file konfigurasi dan penyiapan yang cermat untuk instance i18n di sisi server dan klien.
 - **Terjemahan yang tersebar**: File terjemahan biasanya disimpan di direktori yang terpisah dari komponen, sehingga lebih sulit untuk menjaga konsistensi.
 - **Manajemen namespace manual**: Pengembang perlu mengelola namespace secara manual dan memastikan pemuatan sumber daya terjemahan yang tepat.
 - **Keamanan tipe terbatas**: Dukungan TypeScript memerlukan konfigurasi tambahan dan tidak menyediakan pembuatan tipe otomatis untuk terjemahan.
@@ -54,7 +57,7 @@ Sementara Intlayer menyediakan solusi i18n mandiri yang sangat baik (lihat [pand
 
 **Untuk itu, Intlayer dapat diimplementasikan sebagai adaptor untuk next-i18next guna membantu mengotomatisasi terjemahan JSON Anda di CLI atau pipeline CI/CD, menguji terjemahan Anda, dan lainnya.**
 
-Panduan ini menunjukkan cara memanfaatkan sistem deklarasi konten Intlayer yang unggul sambil mempertahankan kompatibilitas dengan next-i18next.
+Panduan ini menunjukkan cara memanfaatkan sistem deklarasi konten unggulan Intlayer sambil mempertahankan kompatibilitas dengan next-i18next.
 
 ---
 
@@ -62,7 +65,7 @@ Panduan ini menunjukkan cara memanfaatkan sistem deklarasi konten Intlayer yang 
 
 ### Langkah 1: Instalasi Dependensi
 
-Pasang paket yang diperlukan menggunakan manajer paket pilihan Anda:
+Instal paket yang diperlukan menggunakan manajer paket pilihan Anda:
 
 ```bash packageManager="npm"
 npm install intlayer @intlayer/sync-json-plugin
@@ -76,13 +79,13 @@ pnpm add intlayer @intlayer/sync-json-plugin
 yarn add intlayer @intlayer/sync-json-plugin
 ```
 
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin
+```
+
 **Penjelasan paket:**
 
 - **intlayer**: Perpustakaan inti untuk deklarasi dan manajemen konten
-- **next-intlayer**: Lapisan integrasi Next.js dengan plugin build
-- **i18next**: Kerangka kerja inti i18n
-- **next-i18next**: Pembungkus Next.js untuk i18next
-- **i18next-resources-to-backend**: Pemuat sumber daya dinamis untuk i18next
 - **@intlayer/sync-json-plugin**: Plugin untuk menyinkronkan deklarasi konten Intlayer ke format JSON i18next
 
 ### Langkah 2: Implementasikan plugin Intlayer untuk membungkus JSON
@@ -102,7 +105,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
     }),
   ],
 };
@@ -110,16 +113,59 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Plugin `syncJSON` akan secara otomatis membungkus JSON. Plugin ini akan membaca dan menulis file JSON tanpa mengubah arsitektur konten.
+Plugin `syncJSON` akan secara otomatis membungkus JSON. Plugin ini akan membaca dan menulis file JSON tanpa mengubah arsitektur kontennya.
 
-Jika Anda ingin membuat JSON tersebut berdampingan dengan file deklarasi konten intlayer (`.content` files), Intlayer akan melanjutkan dengan cara berikut:
+Jika Anda ingin membuat JSON tersebut berdampingan dengan file deklarasi konten intlayer (`.content` files), Intlayer akan memprosesnya dengan cara berikut:
 
     1. memuat baik file JSON maupun file deklarasi konten dan mengubahnya menjadi kamus intlayer.
-    2. jika terdapat konflik antara file JSON dan file deklarasi konten, Intlayer akan memproses penggabungan semua kamus tersebut. Tergantung pada prioritas plugin, dan prioritas file deklarasi konten (semua dapat dikonfigurasi).
+    2. jika terdapat konflik antara file JSON dan file deklarasi konten, Intlayer akan melakukan penggabungan dari semua kamus tersebut. Hal ini tergantung pada prioritas plugin, dan prioritas file deklarasi konten (semua dapat dikonfigurasi).
 
 Jika perubahan dilakukan menggunakan CLI untuk menerjemahkan JSON, atau menggunakan CMS, Intlayer akan memperbarui file JSON dengan terjemahan baru.
 
 Untuk melihat lebih detail tentang plugin `syncJSON`, silakan merujuk ke [dokumentasi plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-json.md).
+
+---
+
+### (Opsional) Langkah 3: Implementasikan terjemahan JSON per-komponen
+
+Secara default, Intlayer akan memuat, menggabungkan, dan menyinkronkan baik file JSON maupun file deklarasi konten. Lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md) untuk lebih detail. Namun jika Anda lebih suka, menggunakan plugin Intlayer, Anda juga dapat mengimplementasikan manajemen JSON per-komponen yang dilokalkan di mana saja dalam basis kode Anda.
+
+Untuk itu, Anda dapat menggunakan plugin `loadJSON`.
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  // Menjaga file JSON Anda saat ini tetap sinkron dengan kamus Intlayer
+  plugins: [
+    /**
+     * Akan memuat semua file JSON di src yang cocok dengan pola {key}.i18n.json
+     */
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1, // Memastikan file JSON ini memiliki prioritas lebih tinggi dibanding file di `./public/locales/en/${key}.json`
+    }),
+    /**
+     * Akan memuat, dan menulis output serta terjemahan kembali ke file JSON di direktori locales
+     */
+    syncJSON({
+      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
+      priority: 0,
+    }),
+  ],
+};
+
+export default config;
+```
+
+Ini akan memuat semua file JSON di direktori `src` yang sesuai dengan pola `{key}.i18n.json` dan memuatnya sebagai kamus Intlayer.
 
 ---
 

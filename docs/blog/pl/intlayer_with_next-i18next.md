@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2025-10-29
 title: Intlayer i next-i18next
-description: Integracja Intlayer z next-i18next dla kompleksowego rozwiązania internacjonalizacji w Next.js
+description: Integracja Intlayer z next-i18next dla kompleksowego rozwiązania internacjonalizacji Next.js
 keywords:
   - i18next
   - next-i18next
@@ -16,9 +16,12 @@ slugs:
   - blog
   - intlayer-with-next-i18next
 history:
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: Dodanie wtyczki loadJSON
   - version: 7.0.0
     date: 2025-10-29
-    changes: Zmiana na wtyczkę syncJSON i kompleksowy przepis
+    changes: Zmiana na wtyczkę syncJSON i kompleksowy przepisanie
 ---
 
 # Internacjonalizacja (i18n) w Next.js z next-i18next i Intlayer
@@ -29,13 +32,13 @@ history:
 
 ## Czym jest next-i18next?
 
-**next-i18next** jest jednym z najpopularniejszych frameworków do internacjonalizacji (i18n) dla aplikacji Next.js. Zbudowany na bazie potężnego ekosystemu **i18next**, zapewnia kompleksowe rozwiązanie do zarządzania tłumaczeniami, lokalizacją oraz przełączaniem języków w projektach Next.js.
+**next-i18next** jest jednym z najpopularniejszych frameworków do internacjonalizacji (i18n) dla aplikacji Next.js. Zbudowany na bazie potężnego ekosystemu **i18next**, oferuje kompleksowe rozwiązanie do zarządzania tłumaczeniami, lokalizacją oraz przełączaniem języków w projektach Next.js.
 
 Jednak next-i18next wiąże się z pewnymi wyzwaniami:
 
 - **Złożona konfiguracja**: Konfiguracja next-i18next wymaga wielu plików konfiguracyjnych oraz starannego ustawienia instancji i18n po stronie serwera i klienta.
-- **Rozproszone tłumaczenia**: Pliki tłumaczeń zazwyczaj przechowywane są w oddzielnych katalogach od komponentów, co utrudnia utrzymanie spójności.
-- **Ręczne zarządzanie przestrzeniami nazw**: Programiści muszą ręcznie zarządzać przestrzeniami nazw i zapewnić prawidłowe ładowanie zasobów tłumaczeń.
+- **Rozproszone tłumaczenia**: Pliki tłumaczeń są zazwyczaj przechowywane w oddzielnych katalogach od komponentów, co utrudnia utrzymanie spójności.
+- **Ręczne zarządzanie przestrzeniami nazw**: Programiści muszą ręcznie zarządzać przestrzeniami nazw i zapewniać poprawne ładowanie zasobów tłumaczeniowych.
 - **Ograniczone bezpieczeństwo typów**: Wsparcie dla TypeScript wymaga dodatkowej konfiguracji i nie zapewnia automatycznego generowania typów dla tłumaczeń.
 
 ## Czym jest Intlayer?
@@ -46,7 +49,7 @@ Zobacz konkretne porównanie z next-intl w naszym wpisie na blogu [next-i18next 
 
 ## Dlaczego łączyć Intlayer z next-i18next?
 
-Chociaż Intlayer zapewnia doskonałe, samodzielne rozwiązanie i18n (zobacz nasz [przewodnik integracji z Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md)), możesz chcieć połączyć go z next-i18next z kilku powodów:
+Chociaż Intlayer oferuje doskonałe, samodzielne rozwiązanie i18n (zobacz nasz [przewodnik integracji z Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md)), możesz chcieć połączyć je z next-i18next z kilku powodów:
 
 1. **Istniejąca baza kodu**: Masz już wdrożoną implementację next-i18next i chcesz stopniowo przechodzić na ulepszone doświadczenie deweloperskie Intlayer.
 2. **Wymagania dotyczące kompatybilności wstecznej**: Twój projekt wymaga zgodności z istniejącymi wtyczkami lub procesami i18next.
@@ -58,7 +61,7 @@ Ten przewodnik pokazuje, jak wykorzystać zaawansowany system deklaracji treści
 
 ---
 
-## Przewodnik krok po kroku, jak skonfigurować Intlayer z next-i18next
+## Przewodnik krok po kroku: konfiguracja Intlayer z next-i18next
 
 ### Krok 1: Instalacja zależności
 
@@ -76,13 +79,13 @@ pnpm add intlayer @intlayer/sync-json-plugin
 yarn add intlayer @intlayer/sync-json-plugin
 ```
 
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin
+```
+
 **Wyjaśnienie pakietów:**
 
 - **intlayer**: Podstawowa biblioteka do deklaracji i zarządzania treścią
-- **next-intlayer**: Warstwa integracyjna Next.js z wtyczkami build
-- **i18next**: Podstawowy framework i18n
-- **next-i18next**: Nakładka Next.js dla i18next
-- **i18next-resources-to-backend**: Dynamiczne ładowanie zasobów dla i18next
 - **@intlayer/sync-json-plugin**: Wtyczka do synchronizacji deklaracji treści Intlayer z formatem JSON i18next
 
 ### Krok 2: Implementacja wtyczki Intlayer do opakowania JSON
@@ -102,7 +105,18 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+typescript fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
     }),
   ],
 };
@@ -112,14 +126,57 @@ export default config;
 
 Wtyczka `syncJSON` automatycznie opakuje JSON. Będzie odczytywać i zapisywać pliki JSON bez zmiany architektury zawartości.
 
-Jeśli chcesz, aby JSON współistniał z plikami deklaracji zawartości intlayer (`.content`), Intlayer postąpi w następujący sposób:
+Jeśli chcesz, aby JSON współistniał z plikami deklaracji treści intlayer (`.content`), Intlayer postąpi w następujący sposób:
 
-    1. załaduje zarówno pliki JSON, jak i pliki deklaracji zawartości, a następnie przekształci je w słownik intlayer.
-    2. jeśli wystąpią konflikty między plikami JSON a plikami deklaracji zawartości, Intlayer przeprowadzi scalanie wszystkich słowników. W zależności od priorytetu wtyczek oraz pliku deklaracji zawartości (wszystko jest konfigurowalne).
+    1. załaduje zarówno pliki JSON, jak i pliki deklaracji treści, a następnie przekształci je w słownik intlayer.
+    2. jeśli wystąpią konflikty między plikami JSON a plikami deklaracji treści, Intlayer połączy wszystkie słowniki. W zależności od priorytetu wtyczek oraz pliku deklaracji treści (wszystko jest konfigurowalne).
 
-Jeśli zmiany zostaną wprowadzone za pomocą CLI do tłumaczenia JSON lub za pomocą CMS, Intlayer zaktualizuje plik JSON nowymi tłumaczeniami.
+Jeśli zmiany zostaną wprowadzone za pomocą CLI do tłumaczenia JSON lub przy użyciu CMS, Intlayer zaktualizuje plik JSON o nowe tłumaczenia.
 
 Aby zobaczyć więcej szczegółów na temat wtyczki `syncJSON`, prosimy zapoznać się z [dokumentacją wtyczki syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md).
+
+---
+
+### (Opcjonalny) Krok 3: Implementacja tłumaczeń JSON na poziomie komponentu
+
+Domyślnie Intlayer załaduje, połączy i zsynchronizuje zarówno pliki JSON, jak i pliki deklaracji zawartości. Zobacz [dokumentację deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md) po więcej szczegółów. Jednak jeśli wolisz, używając wtyczki Intlayer, możesz również zaimplementować zarządzanie tłumaczeniami JSON na poziomie poszczególnych komponentów, zlokalizowanych w dowolnym miejscu w Twojej bazie kodu.
+
+Do tego możesz użyć wtyczki `loadJSON`.
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  // Synchronizuj swoje obecne pliki JSON ze słownikami Intlayer
+  plugins: [
+    /**
+     * Załaduje wszystkie pliki JSON w katalogu src, które pasują do wzorca {key}.i18n.json
+     */
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1, // Zapewnia, że te pliki JSON mają pierwszeństwo przed plikami w `./public/locales/en/${key}.json`
+    }),
+    /**
+     * Załaduje i zapisze wynik oraz tłumaczenia z powrotem do plików JSON w katalogu locales
+     */
+    syncJSON({
+      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
+      priority: 0,
+    }),
+  ],
+};
+
+export default config;
+```
+
+To spowoduje załadowanie wszystkich plików JSON w katalogu `src`, które pasują do wzorca `{key}.i18n.json` i załaduje je jako słowniki Intlayer.
 
 ---
 
@@ -137,6 +194,6 @@ Te pliki są automatycznie generowane podczas procesu budowania i nie muszą by�
 
 ### Rozszerzenie VS Code
 
-Dla lepszego doświadczenia deweloperskiego zainstaluj oficjalne **Rozszerzenie Intlayer dla VS Code**:
+Dla lepszego doświadczenia deweloperskiego zainstaluj oficjalne rozszerzenie **Intlayer VS Code Extension**:
 
 [Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
