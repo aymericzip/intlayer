@@ -8,10 +8,10 @@ import {
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
-  ESMxCJSRequire,
   type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
+  getProjectRequire,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/types';
 import { PullLogger, type PullStatus } from './push/pullLog';
@@ -71,10 +71,11 @@ export const pull = async (options?: PullOptions): Promise<void> => {
       config.content.mainDir,
       'remote_dictionaries.cjs'
     );
+    const requireFunction = config.build?.require ?? getProjectRequire();
     const remoteDictionariesRecord: Record<string, any> = existsSync(
       remoteDictionariesPath
     )
-      ? (ESMxCJSRequire(remoteDictionariesPath) as any)
+      ? (requireFunction(remoteDictionariesPath) as any)
       : {};
 
     // Determine which keys need fetching by comparing updatedAt with local cache

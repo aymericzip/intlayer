@@ -18,8 +18,14 @@ const contributorsListContent = {
       hi: 'योगदान',
       tr: 'katkılar',
       ar: 'مساهمات',
+      'en-GB': 'contributions',
+      pl: 'wkłady',
     }),
   },
+  title: 'Contributors list',
+  description:
+    'Contains the declaration for the contributors list component, including display label and related textual elements for multilingual rendering.',
+  tags: ['contributors', 'component content'],
 } satisfies Dictionary;
 
 export default contributorsListContent;

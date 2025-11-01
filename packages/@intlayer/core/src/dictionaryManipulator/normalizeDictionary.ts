@@ -17,11 +17,7 @@ export const normalizeDictionary = (
       ...dictionary,
       locale: undefined,
       content: t({
-        // @ts-ignore Type instantiation is excessively deep and possibly infinite.
-        [dictionary.locale]: getPerLocaleDictionary(
-          dictionary.content,
-          dictionary.locale
-        ),
+        [dictionary.locale]: dictionary.content,
       }),
     };
   }

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/sync-json-plugin",
-  "version": "7.0.3",
+  "version": "7.0.5",
   "private": false,
   "description": "A plugin for Intlayer that syncs JSON files to dictionaries.",
   "keywords": [

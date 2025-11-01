@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { dirname, join, relative, resolve, sep } from 'node:path';
+import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const hereDirname = () => {
@@ -13,7 +13,7 @@ const hereDirname = () => {
 const findDistRoot = (startDir) => {
   let dir = startDir;
   for (let i = 0; i < 12; i++) {
-    const base = dir.split('/').pop() || dir.split('\\\\').pop();
+    const base = basename(dir);
     if (base === 'dist') return dir;
     const parent = resolve(dir, '..');
     if (parent === dir) break;
@@ -109,11 +109,10 @@ export const readAsset = (relPath, encoding = 'utf8') => {
     .join('/');
 
   /**
-   * Transform ./dist/esm/my/file.ts to my/file.ts for make resolution easier
+   * Transform dist/(esm|cjs)/... and _virtual/ prefix to clean subpath (Windows-safe)
    */
   const callerSubpath = callerSubpathRaw
-    .replace(/^esm\//, '')
-    .replace(/^cjs\//, '')
+    .replace(/^(?:dist\/)?(?:esm|cjs)\//, '')
     .replace(/^_virtual\//, '');
 
   // 1) Relative path from caller (./ or ../)
@@ -123,18 +122,7 @@ export const readAsset = (relPath, encoding = 'utf8') => {
     // Use resolve to collapse any ../ correctly
     const fromCallerAbs = resolve(assetsRoot, callerSubpath, relPath);
 
-    // 1.1) Path in assets source (/dist/assets/my/file.txt)
-    const fromCallerAbsToVirtual = fromCallerAbs
-      .replace(/^dist\/esm\//, '/dist/assets/')
-      .replace(/^dist\/cjs\//, '/dist/assets/');
-
-    tried.push(fromCallerAbsToVirtual);
-
-    if (existsSync(fromCallerAbsToVirtual)) {
-      return readFileSync(fromCallerAbsToVirtual, encoding);
-    }
-
-    // 1.2) Path in original path (/dist/cjs/my/file.txt)
+    // 1.1) Path in assets source (/dist/assets/<caller-subpath>/<file>)
     tried.push(fromCallerAbs);
 
     if (existsSync(fromCallerAbs)) {

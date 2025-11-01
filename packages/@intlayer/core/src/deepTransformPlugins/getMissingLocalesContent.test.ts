@@ -169,4 +169,36 @@ describe('getMissingLocalesContent', () => {
 
     expect(result.sort()).toEqual([Locales.ENGLISH, Locales.FRENCH].sort());
   });
+
+  it('should detect missing locale when translation values are objects', () => {
+    const data = {
+      index: {
+        nodeType: NodeType.Translation,
+        [NodeType.Translation]: {
+          en: {
+            Index: {
+              title: 'Home',
+            },
+          },
+          de: {
+            Index: {
+              title: 'Start',
+            },
+          },
+          // Note: intentionally missing "es"
+        },
+      },
+    };
+
+    const result = getMissingLocalesContent(
+      data as unknown as ContentNode,
+      [Locales.ENGLISH, Locales.GERMAN, Locales.SPANISH],
+      {
+        dictionaryKey: 'index',
+        keyPath: [],
+      }
+    );
+
+    expect(result.sort()).toEqual([Locales.SPANISH].sort());
+  });
 });

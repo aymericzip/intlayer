@@ -150,6 +150,10 @@ This command will find your declaration content files as default as `./src/**/*.
 
   > Example: `npx intlayer build --skip-prepare`
 
+- **`--no-cache`**: Disable the cache.
+
+  > Example: `npx intlayer build --no-cache`
+
 ### Watch dictionaries
 
 ```bash
@@ -202,6 +206,10 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 - **`--base-dir`**: Specify the base directory for the project. To retrieve the intlayer configuration, the command will look for the `intlayer.config.{ts,js,json,cjs,mjs}` file in the base directory.
 
   > Example: `npx intlayer dictionary push --env-file .env.production.local`
+
+- **`--no-cache`**: Disable the cache.
+
+  > Example: `npx intlayer build --no-cache`
 
 **Environment variables options:**
 
@@ -278,6 +286,10 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 - **`--base-dir`**: Specify the base directory for the project. To retrieve the intlayer configuration, the command will look for the `intlayer.config.{ts,js,json,cjs,mjs}` file in the base directory.
 
   > Example: `npx intlayer dictionary push --env-file .env.production.local`
+
+- **`--no-cache`**: Disable the cache.
+
+  > Example: `npx intlayer build --no-cache`
 
 **Environment variables options:**
 
@@ -392,6 +404,10 @@ This command analyzes your content declaration files for potential issues such a
 
   > Example: `npx intlayer fill --base-dir ./src`
 
+- **`--no-cache`**: Disable the cache.
+
+  > Example: `npx intlayer build --no-cache`
+
 **Preparation options:**
 
 - **`--build`**: Build the dictionaries before pushing to ensure the content is up to date. True will force the build, false will skip the build, undefined will allow using the cache of the build.
@@ -447,6 +463,10 @@ Total missing required locales: 0
 - **`--base-dir`**: Specify the base directory for the project.
 
   > Example: `npx intlayer content test --base-dir ./src --env-file .env.production.local`
+
+- **`--no-cache`**: Disable the cache.
+
+  > Example: `npx intlayer build --no-cache`
 
 **Preparation options:**
 
@@ -530,6 +550,7 @@ npx intlayer configuration get
 - **`--env-file`**: Provide a custom environment file to load variables from.
 - **`--base-dir`**: Specify the base directory for the project.
 - **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
+- **`--no-cache`**: Disable the cache.
 
 #### Push Configuration
 
@@ -550,6 +571,7 @@ npx intlayer configuration push
 - **`--env-file`**: Provide a custom environment file to load variables from.
 - **`--base-dir`**: Specify the base directory for the project.
 - **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
+- **`--no-cache`**: Disable the cache.
 
 By pushing the configuration, your project is fully integrated with the Intlayer CMS, enabling seamless dictionary management across teams.
 
@@ -623,6 +645,7 @@ npx intlayer doc translate
 - **`--env`**: Specify the environment (e.g., `development`, `production`).
 - **`--env-file [envFile]`**: Provide a custom environment file to load variables from.
 - **`--base-dir`**: Specify the base directory for the project.
+- **`--no-cache`**: Disable the cache.
 
   > Example: `npx intlayer doc translate --base-dir ./docs --env-file .env.production.local`
 
@@ -737,6 +760,8 @@ Live Sync lets your app reflect CMS content changes at runtime. No rebuild or re
 **Configuration options:**
 
 - **`--base-dir`**: Specify the base directory for the project. To retrieve the intlayer configuration, the command will look for the `intlayer.config.{ts,js,json,cjs,mjs}` file in the base directory.
+
+- **`--no-cache`**: Disable the cache.
 
   > Example: `npx intlayer dictionary push --env-file .env.production.local`
 

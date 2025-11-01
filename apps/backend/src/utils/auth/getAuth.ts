@@ -205,13 +205,13 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       minPasswordLength: 8,
       maxPasswordLength: 128,
       autoSignIn: true,
-      sendResetPassword: async ({ user, url }) => {
+      sendResetPassword: async ({ user, token }) => {
         logger.info('sending reset password email', { email: user.email });
         await sendEmail({
           type: 'resetPassword',
           to: user.email,
           username: user.name ?? user.email.split('@')[0],
-          resetLink: url,
+          resetLink: `${process.env.CLIENT_URL}/auth/password/reset?token=${token}`,
         });
       },
       resetPasswordTokenExpiresIn: 3600,

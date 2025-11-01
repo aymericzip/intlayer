@@ -5,6 +5,7 @@ import type {
   Dictionary,
   LocalDictionaryId,
 } from '@intlayer/types';
+import { getMultilingualDictionary } from '../deepTransformPlugins';
 import { getNodeType } from './getNodeType';
 
 // Extended type that includes arrays for internal merge operations
@@ -179,7 +180,8 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
   let mergedContent: Dictionary['content'] = dictionaries[0].content;
 
   for (let i = 1; i < dictionaries.length; i++) {
-    const currentDictionary = dictionaries[i];
+    // If the dictionary is a per-locale dictionary, transform it to a partial multilingual dictionary
+    const currentDictionary = getMultilingualDictionary(dictionaries[i]);
 
     // Check types before merging
     checkTypesMatch(
@@ -198,7 +200,6 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
 
   const mergedDictionary: Dictionary = {
     key: dictionaries[0].key,
-
     content: mergedContent,
     localIds,
   };

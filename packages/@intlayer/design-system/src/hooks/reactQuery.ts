@@ -207,8 +207,8 @@ export const useAskResetPassword = () => {
 
   return useMutation({
     mutationKey: ['askResetPassword'],
-    mutationFn: (args: Parameters<AuthAPI['requestPasswordResetSession']>) =>
-      intlayerAuth.requestPasswordResetSession(...args),
+    mutationFn: (args: Parameters<AuthAPI['requestPasswordResetSession']>[0]) =>
+      intlayerAuth.requestPasswordResetSession(args),
   });
 };
 
@@ -217,8 +217,8 @@ export const useResetPassword = () => {
 
   return useMutation({
     mutationKey: ['resetPassword'],
-    mutationFn: (args: Parameters<AuthAPI['resetPassword']>) =>
-      intlayerAuth.resetPassword(...args),
+    mutationFn: (args: Parameters<AuthAPI['resetPassword']>[0]) =>
+      intlayerAuth.resetPassword(args),
   });
 };
 
@@ -227,8 +227,8 @@ export const useVerifyEmail = () => {
 
   return useMutation({
     mutationKey: ['verifyEmail'],
-    mutationFn: (args: Parameters<AuthAPI['verifyEmailSession']>) =>
-      intlayerAuth.verifyEmailSession(...args),
+    mutationFn: (args: Parameters<AuthAPI['verifyEmailSession']>[0]) =>
+      intlayerAuth.verifyEmailSession(args),
   });
 };
 
@@ -237,8 +237,8 @@ export const useGetUserByAccount = () => {
 
   return useMutation({
     mutationKey: ['user'],
-    mutationFn: (args: Parameters<AuthAPI['accountInfo']>) =>
-      intlayerAuth.accountInfo(...args),
+    mutationFn: (args: Parameters<AuthAPI['accountInfo']>[0]) =>
+      intlayerAuth.accountInfo(args),
   });
 };
 

@@ -50,8 +50,6 @@ export const checkAIAccess = async (
     configuration.ai?.apiKey || aiOptions?.apiKey
   );
 
-  console.log({ hasCMSAuth, hasHisOwnAIAPIKey });
-
   if (hasHisOwnAIAPIKey) {
     return true;
   }

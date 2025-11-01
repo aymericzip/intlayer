@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "date-fns": "4.1.0",
+    "intlayer": "workspace:*",
     "next": "15.5.4",
     "next-intl": "4.0.0",
     "react": "19.2.0",

@@ -1,6 +1,5 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
-import { parallelize } from '@intlayer/chokidar';
 import { getProjectRequire } from '@intlayer/config';
 import type {
   ContentNode,
@@ -102,6 +101,43 @@ const listMessages = (
     }
 
     result[locale as Locale][key as Dictionary['key']] = absolutePath;
+  }
+
+  // Ensure all declared locales are present even if the file doesn't exist yet
+  // Derive the list of keys from discovered files; if no key placeholder in mask, default to 'index'
+  const hasKeyInMask = maskPattern.includes('{{__KEY__}}');
+  const discoveredKeys = new Set<string>();
+
+  for (const locale of Object.keys(result)) {
+    for (const key of Object.keys(result[locale as Locale] ?? {})) {
+      discoveredKeys.add(key);
+    }
+  }
+
+  if (!hasKeyInMask) {
+    discoveredKeys.add('index');
+  }
+
+  // If no keys were discovered and mask expects a key, we cannot infer keys.
+  // In that case, do not fabricate unknown keys.
+  const keysToEnsure =
+    discoveredKeys.size > 0 ? Array.from(discoveredKeys) : [];
+
+  for (const locale of locales) {
+    if (!result[locale]) {
+      result[locale] = {} as Record<Dictionary['key'], FilePath>;
+    }
+
+    for (const key of keysToEnsure) {
+      if (!result[locale][key as Dictionary['key']]) {
+        const builtPath = builder({ key, locale });
+        const absoluteBuiltPath = isAbsolute(builtPath)
+          ? builtPath
+          : resolve(baseDir, builtPath);
+
+        result[locale][key as Dictionary['key']] = absoluteBuiltPath;
+      }
+    }
   }
 
   return result;
@@ -215,7 +251,13 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
       for (const { locale, path, key } of dictionariesMap) {
         const requireFunction =
           configuration.build?.require ?? getProjectRequire();
-        const json: JSONContent = requireFunction(path as string);
+        let json: JSONContent = {};
+        try {
+          json = requireFunction(path as string);
+        } catch {
+          // File does not exist yet; default to empty content so it can be filled later
+          json = {};
+        }
 
         const filePath = relative(configuration.content.baseDir, path);
 
@@ -239,9 +281,26 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
 
       return dictionaries;
     },
+
+    formatOutput: ({ dictionary }) => {
+      if (!dictionary.filePath || !dictionary.locale) return dictionary;
+
+      const builderPath = options.source({
+        key: dictionary.key,
+        locale: dictionary.locale,
+      });
+
+      // It's not one of the JSON that we synchronize, don't modify it
+      if (resolve(builderPath) !== resolve(dictionary.filePath)) {
+        return dictionary;
+      }
+
+      return dictionary.content;
+    },
     afterBuild: async ({ dictionaries, configuration }) => {
       // Dynamic import to avoid circular dependency as core package import config, that load esbuild, that load the config file, that load the plugin
       const { getLocalizedContent } = await import('@intlayer/core');
+      const { parallelize } = await import('@intlayer/chokidar');
 
       const locales = configuration.internationalization.locales;
 
@@ -279,6 +338,15 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
           }
         );
 
+        // The file is empty, don't write it
+        if (
+          typeof localizedContent === 'undefined' ||
+          (typeof localizedContent === 'object' &&
+            Object.keys(localizedContent as Record<string, unknown>).length ===
+              0)
+        )
+          return;
+
         // Ensure directory exists before writing the file
         await mkdir(dirname(builderPath), { recursive: true });
 
@@ -290,21 +358,6 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
           'utf-8'
         );
       });
-    },
-    formatOutput: ({ dictionary }) => {
-      if (!dictionary.filePath || !dictionary.locale) return dictionary;
-
-      const builderPath = options.source({
-        key: dictionary.key,
-        locale: dictionary.locale,
-      });
-
-      // It's not one of the JSON that we synchronize, don't modify it
-      if (resolve(builderPath) !== resolve(dictionary.filePath)) {
-        return dictionary;
-      }
-
-      return dictionary.content;
     },
   };
 };

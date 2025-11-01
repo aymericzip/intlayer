@@ -83,5 +83,5 @@ export const getTargetUnmergedDictionaries = async (
     }
   }
 
-  return result.filter((dict) => !dict.filled);
+  return result;
 };

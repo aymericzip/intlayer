@@ -45,6 +45,7 @@ const configurationOptions = [
   ['--env-file [envFile]', 'Environment file'],
   ['-e, --env [env]', 'Environment'],
   ['--base-dir [baseDir]', 'Base directory'],
+  ['--no-cache [noCache]', 'No cache'],
   ...logOptions,
 ];
 
@@ -172,6 +173,7 @@ export type ConfigurationOptions = {
   baseDir?: string;
   env?: string;
   envFile?: string;
+  noCache?: boolean;
 } & LogOptions;
 
 const configurationOptionKeys: (keyof ConfigurationOptions)[] = [
@@ -197,7 +199,7 @@ const extractConfigOptions = (
     return undefined;
   }
 
-  const { baseDir, env, envFile, verbose, prefix } = options;
+  const { baseDir, env, envFile, verbose, prefix, noCache } = options;
 
   const addPrefix: boolean = Boolean((options as any).with); // Hack to add the prefix when the command is run in parallel
   const log = {
@@ -214,6 +216,7 @@ const extractConfigOptions = (
     env,
     envFile,
     override,
+    cache: !noCache,
   });
 };
 
