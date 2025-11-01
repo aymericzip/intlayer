@@ -142,6 +142,7 @@ bun run dev # or bun run dev:turbo, etc.
 - For testing and reusability, prefer 1 function per file.
 - Prefer `??` over `||` syntax.
 - Prefer `import type` over `import` for type imports.
+- Prefer named exports over default exports.
 - Avoid abbreviations in variable names (ex: use `locale` instead of `loc`, `map(dictionary => dictionary.key)` instead of `map(d => d.key)`, etc.).
 
 ## Commit formatting

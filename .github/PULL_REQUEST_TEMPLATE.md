@@ -28,6 +28,7 @@ Thank you for contributing to the project! Please make sure your pull request fo
 - For better testing and reusability, prefer **one function per file**.
 - Prefer **`??`** over **`||`** syntax.
 - Prefer **`import type`** over `import` for type imports.
+- Prefer named exports over default exports.
 - Avoid abbreviations in variable names:
   - `locale` instead of `loc`
   - `map(dictionary => dictionary.key)` instead of `map(d => d.key)`
