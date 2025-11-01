@@ -1011,19 +1011,28 @@ const sitemap = (): MetadataRoute.Sitemap => [
   {
     url: "https://example.com",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com") },
+      languages: {
+        ...getMultilingualUrls("https://example.com"),
+        "x-default": "https://example.com",
+      },
     },
   },
   {
     url: "https://example.com/login",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/login") },
+      languages: {
+        ...getMultilingualUrls("https://example.com/login"),
+        "x-default": "https://example.com/login",
+      },
     },
   },
   {
     url: "https://example.com/register",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/register") },
+      languages: {
+        ...getMultilingualUrls("https://example.com/register"),
+        "x-default": "https://example.com/register",
+      },
     },
   },
 ];
@@ -1038,19 +1047,28 @@ const sitemap = () => [
   {
     url: "https://example.com",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com") },
+      languages: {
+        ...getMultilingualUrls("https://example.com"),
+        "x-default": "https://example.com",
+      },
     },
   },
   {
     url: "https://example.com/login",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/login") },
+      languages: {
+        ...getMultilingualUrls("https://example.com/login"),
+        "x-default": "https://example.com/login",
+      },
     },
   },
   {
     url: "https://example.com/register",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/register") },
+      languages: {
+        ...getMultilingualUrls("https://example.com/register"),
+        "x-default": "https://example.com/register",
+      },
     },
   },
 ];
@@ -1065,19 +1083,28 @@ const sitemap = () => [
   {
     url: "https://example.com",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com") },
+      languages: {
+        ...getMultilingualUrls("https://example.com"),
+        "x-default": "https://example.com",
+      },
     },
   },
   {
     url: "https://example.com/login",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/login") },
+      languages: {
+        ...getMultilingualUrls("https://example.com/login"),
+        "x-default": "https://example.com/login",
+      },
     },
   },
   {
     url: "https://example.com/register",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/register") },
+      languages: {
+        ...getMultilingualUrls("https://example.com/register"),
+        "x-default": "https://example.com/register",
+      },
     },
   },
 ];

@@ -20,6 +20,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     alternates: {
       languages: {
         ...getMultilingualUrls(legal.url),
+        'x-default': legal.url,
       },
     },
   }));
@@ -32,6 +33,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     alternates: {
       languages: {
         ...getMultilingualUrls(doc.url),
+        'x-default': doc.url,
       },
     },
   }));
@@ -44,6 +46,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     alternates: {
       languages: {
         ...getMultilingualUrls(blog.url),
+        'x-default': blog.url,
       },
     },
   }));
@@ -59,6 +62,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Home}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Home}`,
         },
       },
     },
@@ -72,6 +76,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Contributors}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Contributors}`,
         },
       },
     },
@@ -85,6 +90,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`,
         },
       },
     },
@@ -98,6 +104,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Playground}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Playground}`,
         },
       },
     },
@@ -111,6 +118,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Pricing}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Pricing}`,
         },
       },
     },
@@ -124,6 +132,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Onboarding}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Onboarding}`,
         },
       },
     },
@@ -137,6 +146,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Dashboard}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Dashboard}`,
         },
       },
     },
@@ -150,6 +160,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Admin}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Admin}`,
         },
       },
     },
@@ -163,6 +174,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc}`,
         },
       },
     },
@@ -176,6 +188,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.NotFound}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.NotFound}`,
         },
       },
     },
@@ -189,6 +202,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignIn}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignIn}`,
         },
       },
     },
@@ -202,6 +216,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignUp}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignUp}`,
         },
       },
     },
@@ -215,6 +230,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ResetPassword}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ResetPassword}`,
         },
       },
     },
@@ -228,6 +244,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ChangePassword}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ChangePassword}`,
         },
       },
     },
@@ -241,6 +258,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Search}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Search}`,
         },
       },
     },
@@ -254,6 +272,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
           ...getMultilingualUrls(
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Blog_Search}`
           ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Blog_Search}`,
         },
       },
     },

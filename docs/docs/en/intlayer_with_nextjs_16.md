@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-10-26
+updatedAt: 2025-11-01
 title: How to translate your Next.js 16 app – i18n guide 2025
 description: Discover how to make your Next.js 16 website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: Added mention of `x-default` in `alternates` object
   - version: 7.0.0
     date: 2025-06-29
     changes: Init history
@@ -1011,19 +1014,28 @@ const sitemap = (): MetadataRoute.Sitemap => [
   {
     url: "https://example.com",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com") },
+      languages: {
+        ...getMultilingualUrls("https://example.com"),
+        "x-default": "https://example.com",
+      },
     },
   },
   {
     url: "https://example.com/login",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/login") },
+      languages: {
+        ...getMultilingualUrls("https://example.com/login"),
+        "x-default": "https://example.com/login",
+      },
     },
   },
   {
     url: "https://example.com/register",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/register") },
+      languages: {
+        ...getMultilingualUrls("https://example.com/register"),
+        "x-default": "https://example.com/register",
+      },
     },
   },
 ];
@@ -1038,19 +1050,28 @@ const sitemap = () => [
   {
     url: "https://example.com",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com") },
+      languages: {
+        ...getMultilingualUrls("https://example.com"),
+        "x-default": "https://example.com",
+      },
     },
   },
   {
     url: "https://example.com/login",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/login") },
+      languages: {
+        ...getMultilingualUrls("https://example.com/login"),
+        "x-default": "https://example.com/login",
+      },
     },
   },
   {
     url: "https://example.com/register",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/register") },
+      languages: {
+        ...getMultilingualUrls("https://example.com/register"),
+        "x-default": "https://example.com/register",
+      },
     },
   },
 ];
@@ -1065,19 +1086,28 @@ const sitemap = () => [
   {
     url: "https://example.com",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com") },
+      languages: {
+        ...getMultilingualUrls("https://example.com"),
+        "x-default": "https://example.com",
+      },
     },
   },
   {
     url: "https://example.com/login",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/login") },
+      languages: {
+        ...getMultilingualUrls("https://example.com/login"),
+        "x-default": "https://example.com/login",
+      },
     },
   },
   {
     url: "https://example.com/register",
     alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/register") },
+      languages: {
+        ...getMultilingualUrls("https://example.com/register"),
+        "x-default": "https://example.com/register",
+      },
     },
   },
 ];
