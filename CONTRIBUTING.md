@@ -133,7 +133,7 @@ bun run dev # or bun run dev:turbo, etc.
 
 ## Includes a new package
 
-> If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
+> If you're working on a new package, ensure this package is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
 ## Codebase conventions
 
@@ -142,10 +142,11 @@ bun run dev # or bun run dev:turbo, etc.
 - For testing and reusability, prefer 1 function per file.
 - Prefer `??` over `||` syntax.
 - Prefer `import type` over `import` for type imports.
+- Avoid abbreviations in variable names (ex: use `locale` instead of `loc`, `map(dictionary => dictionary.key)` instead of `map(d => d.key)`, etc.).
 
 ## Commit formatting
 
-We follow a conventional commit format to make our Git history cleaner and more readable. Each commit message should follow the pattern:
+We follow a [Conventional Commit](https://www.conventionalcommits.org/) format to make our Git history cleaner and more readable. Each commit message should follow the pattern:
 
 ```
 <type>(<scope>): <message>
@@ -180,7 +181,7 @@ chore: update lockfile
 
 Maintaining this format helps ensure consistent, readable commit history and is also necessary for automated tools like [changesets](https://github.com/changesets/changesets) to work correctly.
 
-## Release and PR
+<!-- ## Release and PR
 
 > Dont works properly. Need to fix it.
 
@@ -193,11 +194,11 @@ Once a changeset present, run the command `bun run changeset:version` to increme
 
 If new version of packages are referenced, and you're a maintainer, the command `bun run changeset:publish` is dedicated to the packages release.
 
-Note: the versioning and the publication are automatically managed by the CI/CD.
+Note: the versioning and the publication are automatically managed by the CI/CD. -->
 
 ### Includes a new package
 
-If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
+If you're working on a new package, ensure this package is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
 ## Adding and translating documentation
 
@@ -213,7 +214,7 @@ Before translating documentation, you need to set up the required environment:
    # Navigate to the docs directory
    cd ./docs
 
-   # Create environment file (if it doesn't exist)
+   # Create environment file (if it doesn\'t exist)
    cp .env.template .env
 
    # Add your OpenAI API key
