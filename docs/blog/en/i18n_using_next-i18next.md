@@ -181,9 +181,8 @@ import { useTranslation, type TFunction } from "react-i18next";
 
 const { t } = useTranslation("about");
 
-// ✅ typed: t("counter.increment")
-// ❌ compile error: t("doesNotExist")
-
+// OK, typed: t("counter.increment")
+// ERROR, compile error: t("doesNotExist")
 export type AboutTranslator = TFunction<"about">;
 ```
 
