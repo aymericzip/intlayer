@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/types",
-  "version": "7.0.4",
+  "version": "7.0.5",
   "private": false,
   "description": "Retrieve Intlayer configurations and manage environment variables for both server-side and client-side environments.",
   "keywords": [
