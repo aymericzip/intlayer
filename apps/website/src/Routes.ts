@@ -5,6 +5,9 @@ export enum PagesRoutes {
   NotFound = '/404',
   Changelog = '/changelog',
   Dashboard = '/dashboard',
+
+  Audit = '/audit',
+
   Dashboard_Editor = '/dashboard/editor',
   Dashboard_Content = '/dashboard/content',
   Dashboard_Projects = '/dashboard/projects',

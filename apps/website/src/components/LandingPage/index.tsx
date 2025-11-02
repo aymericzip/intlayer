@@ -39,6 +39,13 @@ const DynamicFeaturesSection = dynamic(
   }
 );
 
+const DynamicAuditSection = dynamic(
+  () => import('./AuditSection').then((mod) => mod.AuditSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
 const DynamicDemoSection = dynamic(
   () => import('./DemoSection').then((mod) => mod.DemoSection),
   {
@@ -68,6 +75,7 @@ export const LandingPage: FC = () => (
         <DynamicWhyToChoseIntlayerSection />
       </BackgroundLayout>
       <DynamicFeaturesSection />
+      <DynamicAuditSection />
       <DynamicAIABTestingSection />
       <DynamicAvailableTechnoSection />
       <DynamicLanguageSection />
