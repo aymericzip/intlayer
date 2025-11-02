@@ -116,7 +116,7 @@ yarn add next-intl
 
 Create a configuration file that defines your supported locales and sets up next-intl's request configuration. This file serves as the single source of truth for your i18n setup and ensures type safety throughout your application.
 
-**Why this step is important**: Centralizing your locale configuration prevents inconsistencies and makes it easier to add or remove locales in the future. The `getRequestConfig` function runs on every request and loads only the translations needed for each page, enabling code-splitting and reducing bundle size.
+Centralizing your locale configuration prevents inconsistencies and makes it easier to add or remove locales in the future. The `getRequestConfig` function runs on every request and loads only the translations needed for each page, enabling code-splitting and reducing bundle size.
 
 ```tsx fileName="src/i18n.ts"
 import { notFound } from "next/navigation";
@@ -200,7 +200,7 @@ export const proxy = createMiddleware(routingOptions);
 
 Set up dynamic routing for locales by creating a `[locale]` directory in your app folder. This allows Next.js to handle locale-based routing where each locale becomes a URL segment (e.g., `/en/about`, `/fr/about`).
 
-**Why this step is important**: Using dynamic routes enables Next.js to generate static pages for all locales at build time, improving performance and SEO. The layout component sets the HTML `lang` and `dir` attributes based on the locale, which is crucial for accessibility and search engine understanding.
+Using dynamic routes enables Next.js to generate static pages for all locales at build time, improving performance and SEO. The layout component sets the HTML `lang` and `dir` attributes based on the locale, which is crucial for accessibility and search engine understanding.
 
 ```tsx fileName="src/app/[locale]/layout.tsx"
 import type { ReactNode } from "react";
@@ -288,7 +288,7 @@ export default async function AboutPage({
 
 Create JSON files for each locale and namespace. This structure allows you to organize translations logically and load only what you need for each page.
 
-**Why this step is important**: Organizing translations by namespace (e.g., `common.json`, `about.json`) enables code splitting and reduces bundle size. You only load the translations needed for each page, improving performance.
+Organizing translations by namespace (e.g., `common.json`, `about.json`) enables code splitting and reduces bundle size. You only load the translations needed for each page, improving performance.
 
 ```json fileName="locales/en/common.json"
 {
@@ -330,7 +330,7 @@ Create JSON files for each locale and namespace. This structure allows you to or
 
 Create a page component that loads translations on the server and passes them to both server and client components. This ensures that translations are loaded before rendering and prevents content flashing.
 
-**Why this step is important**: Server-side loading of translations improves SEO and prevents FOUC (Flash of Untranslated Content). By using `pick` to send only required namespaces to the client provider, we minimize the JavaScript bundle sent to the browser.
+Server-side loading of translations improves SEO and prevents FOUC (Flash of Untranslated Content). By using `pick` to send only required namespaces to the client provider, we minimize the JavaScript bundle sent to the browser.
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
 import { getTranslations, getMessages, getFormatter } from "next-intl/server";
@@ -381,7 +381,7 @@ export default async function AboutPage({
 
 Client components can use the `useTranslations` and `useFormatter` hooks to access translations and formatting functions. These hooks read from the `NextIntlClientProvider` context.
 
-**Why this step is important**: Client components need React hooks to access translations. The `useTranslations` and `useFormatter` hooks integrate seamlessly with next-intl and provide reactive updates when the locale changes.
+Client components need React hooks to access translations. The `useTranslations` and `useFormatter` hooks integrate seamlessly with next-intl and provide reactive updates when the locale changes.
 
 > Don't forget to add the required namespaces to the page's client messages (only include the namespaces your client components actually need).
 
@@ -417,7 +417,7 @@ const ClientComponentExample = () => {
 
 Server components cannot use React hooks, so they receive translations and formatters via props from their parent components. This approach keeps server components synchronous and allows them to be nested inside client components.
 
-**Why this step is important**: Server components that might be nested under client boundaries need to be synchronous. By passing translated strings and formatted values as props, we avoid async operations and ensure proper rendering. Pre-compute translations and formatting in the parent page component.
+Server components that might be nested under client boundaries need to be synchronous. By passing translated strings and formatted values as props, we avoid async operations and ensure proper rendering. Pre-compute translations and formatting in the parent page component.
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 // Server components nested inside client components must be synchronous
@@ -451,7 +451,7 @@ const ServerComponent = ({
 
 To change the language of your content with next-intl, render locale-aware links that point to the same pathname while switching locale. The provider rewrites URLs automatically, so you only have to target the current route.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
 import Link from "next/link";
@@ -521,19 +521,19 @@ export default function LocaleSwitcher() {
 
 ### (Optional) Step 9: Use the localized Link component
 
-`next-intl/link` provides a localized link component that automatically applies the active locale. You can use it like this:
+`next-intl` provides a subpackage `next-intl/navigation` that contains a localized link component that automatically applies the active locale. We already extracted it for you in the `@/i18n` file, so you can use it like this:
 
-```tsx fileName="src/components/LocalizedLink.tsx" codeFormat="typescript"
-import Link, { type LinkProps } from "next-intl/link";
+```tsx fileName="src/components/MyComponent.tsx"
+import { Link } from "@/i18n";
 
-return <Link href="/about">About</Link>;
+return <Link href="/about">t("about.title")</Link>;
 ```
 
 ### (Optional) Step 10: Access the active locale inside Server Actions
 
 Server Actions can read the current locale using `next-intl/server`. This is useful for sending localized emails or storing language preferences alongside submitted data.
 
-```ts fileName="src/app/actions/get-current-locale.ts" codeFormat="typescript"
+```ts fileName="src/app/actions/get-current-locale.ts"
 "use server";
 
 import { getLocale } from "next-intl/server";
@@ -556,7 +556,7 @@ export async function handleContactForm(formData: FormData) {
 
 Translating content is important, but the main goal of internationalization is to make your website more visible to the world. I18n is an incredible lever to improve your website visibility through proper SEO.
 
-**Why this step is important**: Properly internationalized metadata helps search engines understand what languages are available on your pages. This includes setting hreflang meta tags, translating titles and descriptions, and ensuring canonical URLs are correctly set for each locale.
+Properly internationalized metadata helps search engines understand what languages are available on your pages. This includes setting hreflang meta tags, translating titles and descriptions, and ensuring canonical URLs are correctly set for each locale.
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -595,31 +595,51 @@ export async function generateMetadata({
 
 Generate a sitemap that includes all locale versions of your pages. This helps search engines discover and index all language versions of your content.
 
-**Why this step is important**: A properly internationalized sitemap ensures search engines can find and index all language versions of your pages. This improves visibility in international search results.
+A properly internationalized sitemap ensures search engines can find and index all language versions of your pages. This improves visibility in international search results.
 
 ```tsx fileName="src/app/sitemap.ts"
 import type { MetadataRoute } from "next";
-import { locales, defaultLocale } from "@/i18n";
+import { defaultLocale, locales } from "@/i18n";
 
 const origin = "https://example.com";
 
 const formatterLocalizedPath = (locale: string, path: string) =>
-  locale === defaultLocale ? origin + path : origin + "/" + locale + path;
+  locale === defaultLocale ? `${origin}${path}` : `${origin}/${locale}${path}`;
+
+/**
+ * Get a map of all locales and their localized paths
+ *
+ * Example output:
+ * {
+ *   "en": "https://example.com",
+ *   "fr": "https://example.com/fr",
+ *   "es": "https://example.com/es",
+ *   "x-default": "https://example.com"
+ * }
+ */
+const getLocalizedMap = (path: string) =>
+  Object.fromEntries([
+    ...locales.map((locale) => [locale, formatterLocalizedPath(locale, path)]),
+    ["x-default", formatterLocalizedPath(defaultLocale, path)],
+  ]);
 
 // Generate sitemap with all locale variants for better SEO
 // The alternates field tells search engines about language versions
 export default function sitemap(): MetadataRoute.Sitemap {
-  const aboutLanguages = Object.fromEntries(
-    locales.map((l) => [l, formatterLocalizedPath(l, "/about")])
-  );
-
   return [
+    {
+      url: formatterLocalizedPath(defaultLocale, "/"),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1.0,
+      alternates: { languages: getLocalizedMap("/") },
+    },
     {
       url: formatterLocalizedPath(defaultLocale, "/about"),
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
-      alternates: { languages: aboutLanguages },
+      alternates: { languages: getLocalizedMap("/about") },
     },
   ];
 }
@@ -629,7 +649,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 Create a robots.txt file that properly handles all locale versions of your protected routes. This ensures that search engines don't index admin or dashboard pages in any language.
 
-**Why this step is important**: Properly configuring robots.txt for all locales prevents search engines from indexing sensitive pages in any language. This is crucial for security and privacy.
+Properly configuring robots.txt for all locales prevents search engines from indexing sensitive pages when your routes are different for each locale.
 
 ```tsx fileName="src/app/robots.ts"
 import type { MetadataRoute } from "next";
@@ -662,7 +682,7 @@ export default function robots(): MetadataRoute.Robots {
 
 Create a proxy to automatically detect the user's preferred locale and redirect them to the appropriate locale-prefixed URL. next-intl provides a convenient proxy function that handles this automatically.
 
-**Why this step is important**: Proxy ensures that users are automatically redirected to their preferred language when they visit your site. It also saves the user's preference for future visits, improving user experience.
+Proxy ensures that users are automatically redirected to their preferred language when they visit your site. It also saves the user's preference for future visits, improving user experience.
 
 ```ts fileName="src/proxy.ts"
 import { proxy } from "@/i18n";
@@ -708,7 +728,7 @@ This code will use Module Augmentation to add the locales and messages to the ne
 
 Intlayer is a **free** and **open-source** library designed to assist the localization process in your application. While next-intl handles the translation loading and management, Intlayer helps automate the translation workflow.
 
-**Why this step is important**: Managing translations manually can be time-consuming and error-prone. Intlayer automates translation testing, generation, and management, saving you time and ensuring consistency across your application.
+Managing translations manually can be time-consuming and error-prone. Intlayer automates translation testing, generation, and management, saving you time and ensuring consistency across your application.
 
 Intlayer will allows your to:
 

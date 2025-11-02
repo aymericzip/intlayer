@@ -125,7 +125,7 @@ yarn add i18next react-i18next i18next-resources-to-backend
 
 Create a configuration file to define your supported locales, default locale, and helper functions for URL localization. This file serves as the single source of truth for your i18n setup and ensures type safety throughout your application.
 
-**Why this step is important**: Centralizing your locale configuration prevents inconsistencies and makes it easier to add or remove locales in the future. The helper functions ensure consistent URL generation for SEO and routing.
+Centralizing your locale configuration prevents inconsistencies and makes it easier to add or remove locales in the future. The helper functions ensure consistent URL generation for SEO and routing.
 
 ```ts fileName="i18n.config.ts"
 // Define supported locales as a const array for type safety
@@ -210,7 +210,7 @@ export type AboutTranslator = TFunction<"about">;
 
 Create a server-side initialization function that loads translations for server components. This function creates a separate i18next instance for server-side rendering, ensuring that translations are loaded before rendering.
 
-**Why this step is important**: Server components need their own i18next instance because they run in a different context than client components. Pre-loading translations on the server prevents flash of untranslated content and improves SEO by ensuring search engines see translated content.
+Server components need their own i18next instance because they run in a different context than client components. Pre-loading translations on the server prevents flash of untranslated content and improves SEO by ensuring search engines see translated content.
 
 ```ts fileName="src/app/i18n/server.ts"
 import { createInstance } from "i18next";
@@ -265,7 +265,7 @@ export async function initI18next(
 
 Create a client component provider that wraps your application with i18next context. This provider receives pre-loaded translations from the server to prevent flash of untranslated content (FOUC) and avoid duplicate fetching.
 
-**Why this step is important**: Client components need their own i18next instance that runs in the browser. By accepting pre-loaded resources from the server, we ensure seamless hydration and prevent content flashing. The provider also manages locale changes and namespace loading dynamically.
+Client components need their own i18next instance that runs in the browser. By accepting pre-loaded resources from the server, we ensure seamless hydration and prevent content flashing. The provider also manages locale changes and namespace loading dynamically.
 
 ```tsx fileName="src/components/I18nProvider.tsx"
 "use client";
@@ -348,7 +348,7 @@ export default function I18nProvider({
 
 Set up dynamic routing for locales by creating a `[locale]` directory in your app folder. This allows Next.js to handle locale-based routing where each locale becomes a URL segment (e.g., `/en/about`, `/fr/about`).
 
-**Why this step is important**: Using dynamic routes enables Next.js to generate static pages for all locales at build time, improving performance and SEO. The layout component sets the HTML `lang` and `dir` attributes based on the locale, which is crucial for accessibility and search engine understanding.
+Using dynamic routes enables Next.js to generate static pages for all locales at build time, improving performance and SEO. The layout component sets the HTML `lang` and `dir` attributes based on the locale, which is crucial for accessibility and search engine understanding.
 
 ```tsx fileName="src/app/[locale]/layout.tsx"
 import type { ReactNode } from "react";
@@ -400,7 +400,7 @@ export default function LocaleLayout({
 
 Create JSON files for each locale and namespace. This structure allows you to organize translations logically and load only what you need for each page.
 
-**Why this step is important**: Organizing translations by namespace (e.g., `common.json`, `about.json`) enables code splitting and reduces bundle size. You only load the translations needed for each page, improving performance.
+Organizing translations by namespace (e.g., `common.json`, `about.json`) enables code splitting and reduces bundle size. You only load the translations needed for each page, improving performance.
 
 ```json fileName="src/locales/en/common.json"
 {
@@ -442,7 +442,7 @@ Create JSON files for each locale and namespace. This structure allows you to or
 
 Create a page component that initializes i18next on the server and passes translations to both server and client components. This ensures that translations are loaded before rendering and prevents content flashing.
 
-**Why this step is important**: Server-side initialization loads translations before the page renders, improving SEO and preventing FOUC. By passing pre-loaded resources to the client provider, we avoid duplicate fetching and ensure smooth hydration.
+Server-side initialization loads translations before the page renders, improving SEO and preventing FOUC. By passing pre-loaded resources to the client provider, we avoid duplicate fetching and ensure smooth hydration.
 
 ```tsx fileName="src/app/[locale]/about.tsx"
 import I18nProvider from "@/components/I18nProvider";
@@ -502,7 +502,7 @@ export default async function AboutPage({
 
 Client components can use the `useTranslation` hook to access translations. This hook provides access to the translation function and the i18n instance, allowing you to translate content and access locale information.
 
-**Why this step is important**: Client components need React hooks to access translations. The `useTranslation` hook integrates seamlessly with i18next and provides reactive updates when the locale changes.
+Client components need React hooks to access translations. The `useTranslation` hook integrates seamlessly with i18next and provides reactive updates when the locale changes.
 
 > Ensure the page/provider includes only the namespaces you need (e.g., `about`).  
 > If you use React < 19, memoize heavy formatters like `Intl.NumberFormat`.
@@ -549,7 +549,7 @@ export default ClientComponent;
 
 Server components cannot use React hooks, so they receive translations via props from their parent components. This approach keeps server components synchronous and allows them to be nested inside client components.
 
-**Why this step is important**: Server components that might be nested under client boundaries need to be synchronous. By passing translated strings and locale information as props, we avoid async operations and ensure proper rendering.
+Server components that might be nested under client boundaries need to be synchronous. By passing translated strings and locale information as props, we avoid async operations and ensure proper rendering.
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import type { TFunction } from "react-i18next";
@@ -591,7 +591,7 @@ export default ServerComponent;
 
 To change the language of your content in Next.js, the recommended way is to use locale-prefixed URLs and Next.js links. The example below reads the current locale from the route, strips it from the pathname, and renders one link per available locale.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
 import { useMemo } from "react";
@@ -656,7 +656,7 @@ export default function LocaleSwitcher() {
 
 Reusing localized URLs across your app keeps navigation consistent and SEO-friendly. Wrap `next/link` in a small helper that prefixes internal routes with the active locale while leaving external URLs untouched.
 
-```tsx fileName="src/components/LocalizedLink.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocalizedLink.tsx"
 "use client";
 
 import type { PropsWithChildren } from "react";
@@ -707,7 +707,7 @@ export default function LocalizedLink({
 
 Server Actions often need the current locale for emails, logging, or third-party integrations. Combine the locale cookie set by your proxy with the `Accept-Language` header as a fallback.
 
-```ts fileName="src/app/actions/get-current-locale.ts" codeFormat="typescript"
+```ts fileName="src/app/actions/get-current-locale.ts"
 "use server";
 
 import { cookies, headers } from "next/headers";
@@ -745,7 +745,7 @@ export async function stuffFromServer(formData: FormData) {
 
 Translating content is important, but the main goal of internationalization is to make your website more visible to the world. I18n is an incredible lever to improve your website visibility through proper SEO.
 
-**Why this step is important**: Properly internationalized metadata helps search engines understand what languages are available on your pages. This includes setting hreflang meta tags, translating titles and descriptions, and ensuring canonical URLs are correctly set for each locale.
+Properly internationalized metadata helps search engines understand what languages are available on your pages. This includes setting hreflang meta tags, translating titles and descriptions, and ensuring canonical URLs are correctly set for each locale.
 
 Here's a list of good practices regarding multilingual SEO:
 
@@ -812,7 +812,7 @@ export default async function AboutPage() {
 
 Generate a sitemap that includes all locale versions of your pages. This helps search engines discover and index all language versions of your content.
 
-**Why this step is important**: A properly internationalized sitemap ensures search engines can find and index all language versions of your pages. This improves visibility in international search results.
+A properly internationalized sitemap ensures search engines can find and index all language versions of your pages. This improves visibility in international search results.
 
 ```ts fileName="src/app/sitemap.ts"
 import type { MetadataRoute } from "next";
@@ -866,7 +866,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 Create a robots.txt file that properly handles all locale versions of your protected routes. This ensures that search engines don't index admin or dashboard pages in any language.
 
-**Why this step is important**: Properly configuring robots.txt for all locales prevents search engines from indexing sensitive pages in any language. This is crucial for security and privacy.
+Properly configuring robots.txt for all locales prevents search engines from indexing sensitive pages in any language. This is crucial for security and privacy.
 
 ```ts fileName="src/app/robots.ts"
 import type { MetadataRoute } from "next";
@@ -897,7 +897,7 @@ export default function robots(): MetadataRoute.Robots {
 
 Create a proxy to automatically detect the user's preferred locale and redirect them to the appropriate locale-prefixed URL. This improves user experience by showing content in their preferred language.
 
-**Why this step is important**: Middleware ensures that users are automatically redirected to their preferred language when they visit your site. It also saves the user's preference in a cookie for future visits.
+Middleware ensures that users are automatically redirected to their preferred language when they visit your site. It also saves the user's preference in a cookie for future visits.
 
 ```ts fileName="src/proxy.ts"
 import { NextResponse, type NextRequest } from "next/server";
@@ -986,7 +986,7 @@ export const config = {
 
 Intlayer is a **free** and **open-source** library designed to assist the localization process in your application. While i18next handles the translation loading and management, Intlayer helps automate the translation workflow.
 
-**Why this step is important**: Managing translations manually can be time-consuming and error-prone. Intlayer automates translation testing, generation, and management, saving you time and ensuring consistency across your application.
+Managing translations manually can be time-consuming and error-prone. Intlayer automates translation testing, generation, and management, saving you time and ensuring consistency across your application.
 
 Intlayer will allows your to:
 
