@@ -15,8 +15,7 @@ keywords:
   - 语言环境
   - url
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - translated-path-url
 ---
 

@@ -15,8 +15,7 @@ keywords:
   - 重启
   - 本地
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - unknown-command
 ---
 

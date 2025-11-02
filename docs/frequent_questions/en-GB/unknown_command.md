@@ -15,8 +15,7 @@ keywords:
   - restart
   - local
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - unknown-command
 ---
 

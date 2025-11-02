@@ -15,8 +15,7 @@ keywords:
   - middleware
   - configuración
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - static-rendering
 ---
 
@@ -31,7 +30,6 @@ slugs:
   next-intl busca la configuración regional actual desde un encabezado exclusivo de la solicitud (`x-next-intl-locale`) a través de `headers()`. Debido a que `headers()` es una **API dinámica**, cualquier componente que la utilice pierde la optimización estática. ([Next Intl][1], [Next.js][2])
 
 - **Solución oficial (boilerplate)**
-
   1. Exporta `generateStaticParams` con cada configuración regional soportada.
   2. Llama a `setRequestLocale(locale)` en **cada** layout/página _antes_ de llamar a `useTranslations`. ([Next Intl][1])
      Esto elimina la dependencia del encabezado, pero ahora tienes código extra que mantener y una API inestable en producción.

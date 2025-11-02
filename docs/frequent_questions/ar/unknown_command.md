@@ -15,8 +15,7 @@ keywords:
   - إعادة تشغيل
   - محلي
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - unknown-command
 ---
 

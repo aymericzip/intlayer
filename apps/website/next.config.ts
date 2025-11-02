@@ -252,6 +252,14 @@ const nextConfig: NextConfig = {
           destination: '/en/blog/raw/:path*?format=txt',
         },
         {
+          source: '/:locale/frequent-questions/:path*.md',
+          destination: '/:locale/frequent-questions/raw/:path*?format=txt',
+        },
+        {
+          source: '/frequent-questions/:path*.md',
+          destination: '/en/frequent-questions/raw/:path*?format=txt',
+        },
+        {
           source: '/environment/nextjs/next-with-Page-Router',
           destination: '/environment/nextjs/next-with-page-router',
         },

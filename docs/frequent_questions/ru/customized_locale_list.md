@@ -15,8 +15,7 @@ keywords:
   - локаль
   - список
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - customized-locale-list
 ---
 

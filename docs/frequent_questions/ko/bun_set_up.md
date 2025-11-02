@@ -10,8 +10,7 @@ keywords:
   - 설정
   - 패키지 관리자
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - bun-set-up
 ---
 

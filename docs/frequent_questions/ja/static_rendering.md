@@ -15,8 +15,7 @@ keywords:
   - ミドルウェア
   - 設定
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - static-rendering
 ---
 
@@ -31,7 +30,6 @@ slugs:
   next-intlは、リクエスト専用ヘッダー（`x-next-intl-locale`）から`headers()`を介して現在のロケールを取得します。`headers()`は**動的API**であるため、それに触れるコンポーネントは静的最適化を失います。([Next Intl][1], [Next.js][2])
 
 - **公式の回避策（ボイラープレート）**
-
   1. サポートされているすべてのロケールで`generateStaticParams`をエクスポートします。
   2. `useTranslations`を呼び出す**前に**、**すべての**レイアウト/ページで`setRequestLocale(locale)`を呼び出します。([Next Intl][1])
      これによりヘッダー依存がなくなりますが、追加のコード管理が必要になり、本番環境で不安定なAPIとなります。

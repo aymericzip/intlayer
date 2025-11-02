@@ -15,8 +15,7 @@ keywords:
   - prefixDefault
   - noPrefix
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - locale-incorect-in-url
 ---
 

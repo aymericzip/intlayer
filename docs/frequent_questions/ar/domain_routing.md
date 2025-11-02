@@ -15,8 +15,7 @@ keywords:
   - vite
   - الإطار
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - domain-routing
 ---
 

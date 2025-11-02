@@ -10,8 +10,7 @@ keywords:
   - 配置
   - 包管理器
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - bun-set-up
 ---
 

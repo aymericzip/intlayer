@@ -15,8 +15,7 @@ keywords:
   - neustart
   - lokal
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - unknown-command
 ---
 

@@ -15,8 +15,7 @@ keywords:
   - prebuild
   - automazione
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - build-error-ci-cd
 ---
 

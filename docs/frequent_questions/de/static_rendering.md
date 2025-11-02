@@ -15,8 +15,7 @@ keywords:
   - middleware
   - konfiguration
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - static-rendering
 ---
 
@@ -31,7 +30,6 @@ slugs:
   next-intl liest die aktuelle Locale aus einem nur bei der Anfrage verfügbaren Header (`x-next-intl-locale`) über `headers()` aus. Da `headers()` eine **dynamische API** ist, verliert jede Komponente, die darauf zugreift, die statische Optimierung. ([Next Intl][1], [Next.js][2])
 
 - **Offizieller Workaround (Boilerplate)**
-
   1. Exportieren Sie `generateStaticParams` mit jeder unterstützten Locale.
   2. Rufen Sie `setRequestLocale(locale)` in **jedem** Layout/Seite _vor_ dem Aufruf von `useTranslations` auf. ([Next Intl][1])
      Dies entfernt die Abhängigkeit vom Header, aber Sie haben nun zusätzlichen Code zu pflegen und eine instabile API in der Produktion.

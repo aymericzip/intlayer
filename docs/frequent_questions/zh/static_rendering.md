@@ -15,8 +15,7 @@ keywords:
   - 中间件
   - 配置
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - static-rendering
 ---
 
@@ -31,7 +30,6 @@ slugs:
   next-intl 通过 `headers()` 从仅限请求的头部 (`x-next-intl-locale`) 查找当前语言环境。由于 `headers()` 是一个 **动态 API**，任何使用它的组件都会失去静态优化。([Next Intl][1], [Next.js][2])
 
 - **官方解决方案（模板）**
-
   1. 导出包含所有支持语言环境的 `generateStaticParams`。
   2. 在调用 `useTranslations` 之前，在 **每个** 布局/页面中调用 `setRequestLocale(locale)`。([Next Intl][1])
      这样可以去除对头部的依赖，但你需要维护额外的代码，并且在生产环境中使用不稳定的 API。

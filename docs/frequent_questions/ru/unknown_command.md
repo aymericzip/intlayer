@@ -15,8 +15,7 @@ keywords:
   - перезапуск
   - локально
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - unknown-command
 ---
 

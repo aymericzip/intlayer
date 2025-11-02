@@ -15,8 +15,7 @@ keywords:
   - локаль
   - url
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - translated-path-url
 ---
 
