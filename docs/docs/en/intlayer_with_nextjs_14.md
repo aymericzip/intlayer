@@ -37,8 +37,6 @@ history:
 
 # Translate your Next.js 14 and App Router website using Intlayer | Internationalization (i18n)
 
-See [Application Template](https://github.com/aymericzip/intlayer-next-14-template) on GitHub.
-
 ## Table of Contents
 
 <TOC/>
@@ -60,6 +58,16 @@ With Intlayer, you can:
 ---
 
 ## Step-by-Step Guide to Set Up Intlayer in a Next.js Application
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-next-14-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+See [Application Template](https://github.com/aymericzip/intlayer-next-14-template) on GitHub.
 
 ### Step 1: Install Dependencies
 
