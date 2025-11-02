@@ -80,7 +80,7 @@ Here's the project structure we'll be creating:
 ```bash
 .
 ├── i18n.config.ts
-└── src
+└── src # Src is optional
     ├── locales
     │   ├── en
     │   │  ├── common.json
@@ -88,13 +88,20 @@ Here's the project structure we'll be creating:
     │   └── fr
     │      ├── common.json
     │      └── about.json
+    ├── types
+    │   └── i18next.d.ts
     ├── app
     │   ├── proxy.ts
     │   ├── i18n
     │   │   └── server.ts
     │   └── [locale]
     │       ├── layout.tsx
-    │       └── about.tsx
+    │       ├── (home) # / (Route Group to not pollute all pages with home messages)
+    │       │   ├── layout.tsx
+    │       │   └── page.tsx
+    │       └── about # /about
+    │           ├── layout.tsx
+    │           └── page.tsx
     └── components
         ├── I18nProvider.tsx
         ├── ClientComponent.tsx
@@ -162,6 +169,16 @@ const ORIGIN = "https://example.com";
 export function absoluteUrl(locale: string, path: string) {
   return `${ORIGIN}${localizedPath(locale, path)}`;
 }
+
+// Used to set the locale cookie in the browser
+export function getCookie(locale: Locale) {
+  return [
+    `NEXT_LOCALE=${locale}`,
+    "Path=/",
+    `Max-Age=${60 * 60 * 24 * 365}`, // 1 year
+    "SameSite=Lax",
+  ].join("; ");
+}
 ```
 
 ### Step 3: Centralize Translation Namespaces
@@ -192,7 +209,13 @@ declare module "i18next" {
 }
 ```
 
-> Tip: Store this declaration under `src/types` (create the folder if it doesn't exist). Next.js already includes `src` in `tsconfig.json`, so the augmentation is picked up automatically.
+> Tip: Store this declaration under `src/types` (create the folder if it doesn't exist). Next.js already includes `src` in `tsconfig.json`, so the augmentation is picked up automatically. If not, add the following to your `tsconfig.json` file:
+
+```json5 fileName="tsconfig.json"
+{
+  "include": ["src/types/**/*.ts"],
+}
+```
 
 With this in place you can rely on autocomplete and compile-time checks:
 
@@ -404,15 +427,37 @@ Organizing translations by namespace (e.g., `common.json`, `about.json`) enables
 
 ```json fileName="src/locales/en/common.json"
 {
-  "welcome": "Welcome",
-  "greeting": "Hello, world!"
+  "appTitle": "Next.js i18n App",
+  "appDescription": "Example Next.js application with internationalization using i18next"
 }
 ```
 
 ```json fileName="src/locales/fr/common.json"
 {
+  "appTitle": "Application Next.js i18n",
+  "appDescription": "Exemple d'application Next.js avec internationalisation utilisant i18next"
+}
+```
+
+```json fileName="src/locales/en/home.json"
+{
+  "title": "Home",
+  "description": "Home page description",
+  "welcome": "Welcome",
+  "greeting": "Hello, world!",
+  "aboutPage": "About Page",
+  "documentation": "Documentation"
+}
+```
+
+```json fileName="src/locales/fr/home.json"
+{
+  "title": "Accueil",
+  "description": "Description de la page d'accueil",
   "welcome": "Bienvenue",
-  "greeting": "Bonjour le monde!"
+  "greeting": "Bonjour le monde!",
+  "aboutPage": "Page À propos",
+  "documentation": "Documentation"
 }
 ```
 
@@ -422,7 +467,8 @@ Organizing translations by namespace (e.g., `common.json`, `about.json`) enables
   "description": "About page description",
   "counter": {
     "label": "Counter",
-    "increment": "Increment"
+    "increment": "Increment",
+    "description": "Click the button to increase the counter"
   }
 }
 ```
@@ -433,7 +479,8 @@ Organizing translations by namespace (e.g., `common.json`, `about.json`) enables
   "description": "Description de la page À propos",
   "counter": {
     "label": "Compteur",
-    "increment": "Incrémenter"
+    "increment": "Incrémenter",
+    "description": "Cliquez sur le bouton pour augmenter le compteur"
   }
 }
 ```
@@ -444,7 +491,7 @@ Create a page component that initializes i18next on the server and passes transl
 
 Server-side initialization loads translations before the page renders, improving SEO and preventing FOUC. By passing pre-loaded resources to the client provider, we avoid duplicate fetching and ensure smooth hydration.
 
-```tsx fileName="src/app/[locale]/about.tsx"
+```tsx fileName="src/app/[locale]/about/index.tsx"
 import I18nProvider from "@/components/I18nProvider";
 import { initI18next } from "@/app/i18n/server";
 import type { Locale } from "@/i18n.config";
@@ -510,7 +557,7 @@ Client components need React hooks to access translations. The `useTranslation` 
 ```tsx fileName="src/components/ClientComponent.tsx"
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 /**
@@ -529,10 +576,14 @@ const ClientComponent = () => {
   const numberFormat = new Intl.NumberFormat(i18n.language);
 
   return (
-    <div>
+    <div className="flex flex-col items-center gap-4">
       {/* Format number using locale-specific formatting */}
-      <p>{numberFormat.format(count)}</p>
+      <p className="text-5xl font-bold text-white m-0">
+        {numberFormat.format(count)}
+      </p>
       <button
+        type="button"
+        className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
         aria-label={t("counter.label")}
         onClick={() => setCount((c) => c + 1)}
       >
@@ -552,12 +603,11 @@ Server components cannot use React hooks, so they receive translations via props
 Server components that might be nested under client boundaries need to be synchronous. By passing translated strings and locale information as props, we avoid async operations and ensure proper rendering.
 
 ```tsx fileName="src/components/ServerComponent.tsx"
-import type { TFunction } from "react-i18next";
+import type { TFunction } from "i18next";
 
 type ServerComponentProps = {
   // Translation function passed from parent server component
   // Server components can't use hooks, so translations come via props
-  // Strongly typed to the "about" namespace for compile-time safety
   t: TFunction<"about">;
   locale: string;
   count: number;
@@ -574,10 +624,17 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
   const formatted = new Intl.NumberFormat(locale).format(count);
 
   return (
-    <div>
-      <p>{formatted}</p>
+    <div className="flex flex-col items-center gap-4">
+      <p className="text-5xl font-bold text-white m-0">{formatted}</p>
       {/* Use translation function passed as prop */}
-      <button aria-label={t("counter.label")}>{t("counter.increment")}</button>
+      <div className="flex flex-col items-center gap-2">
+        <span className="text-xl font-semibold text-white">
+          {t("counter.label")}
+        </span>
+        <span className="text-sm opacity-80 italic">
+          {t("counter.description")}
+        </span>
+      </div>
     </div>
   );
 };
@@ -594,21 +651,27 @@ To change the language of your content in Next.js, the recommended way is to use
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
 
-import { useMemo } from "react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { locales, defaultLocale, type Locale } from "@/i18n.config";
-
-const localeLabels: Record<Locale, string> = {
-  en: "English",
-  fr: "Français",
-};
+import { useMemo } from "react";
+import { defaultLocale, getCookie, type Locale, locales } from "@/i18n.config";
 
 export default function LocaleSwitcher() {
   const params = useParams();
   const pathname = usePathname();
 
   const activeLocale = (params?.locale as Locale | undefined) ?? defaultLocale;
+
+  const getLocaleLabel = (locale: Locale): string => {
+    try {
+      const displayNames = new Intl.DisplayNames([locale], {
+        type: "language",
+      });
+      return displayNames.of(locale) ?? locale.toUpperCase();
+    } catch {
+      return locale.toUpperCase();
+    }
+  };
 
   const basePath = useMemo(() => {
     if (!pathname) return "/";
@@ -618,6 +681,7 @@ export default function LocaleSwitcher() {
     if (segments.length === 0) return "/";
 
     const maybeLocale = segments[0] as Locale;
+
     if ((locales as readonly string[]).includes(maybeLocale)) {
       const rest = segments.slice(1).join("/");
       return rest ? `/${rest}` : "/";
@@ -626,27 +690,27 @@ export default function LocaleSwitcher() {
     return pathname;
   }, [pathname]);
 
-  const hrefForLocale = (nextLocale: Locale) => {
-    if (nextLocale === defaultLocale) {
-      return basePath;
-    }
-    return basePath === "/" ? `/${nextLocale}` : `/${nextLocale}${basePath}`;
-  };
-
   return (
     <nav aria-label="Language selector">
-      <ul>
-        {(locales as readonly Locale[]).map((locale) => (
-          <li key={locale}>
-            <Link
-              href={hrefForLocale(locale)}
-              aria-current={locale === activeLocale ? "page" : undefined}
-            >
-              {localeLabels[locale] ?? locale.toUpperCase()}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {(locales as readonly Locale[]).map((locale) => {
+        const isActive = locale === activeLocale;
+
+        const href =
+          locale === defaultLocale ? basePath : `/${locale}${basePath}`;
+
+        return (
+          <Link
+            key={locale}
+            href={href}
+            aria-current={isActive ? "page" : undefined}
+            onClick={() => {
+              document.cookie = getCookie(locale);
+            }}
+          >
+            {getLocaleLabel(locale)}
+          </Link>
+        );
+      })}
     </nav>
   );
 }
@@ -659,20 +723,21 @@ Reusing localized URLs across your app keeps navigation consistent and SEO-frien
 ```tsx fileName="src/components/LocalizedLink.tsx"
 "use client";
 
-import type { PropsWithChildren } from "react";
 import NextLink, { type LinkProps } from "next/link";
 import { useParams } from "next/navigation";
+import type { ComponentProps, PropsWithChildren } from "react";
 import {
   defaultLocale,
+  type Locale,
   locales,
   localizedPath,
-  type Locale,
 } from "@/i18n.config";
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
 
 type LocalizedLinkProps = PropsWithChildren<
-  Omit<LinkProps, "href"> & { href: string; locale?: Locale }
+  Omit<LinkProps, "href"> &
+    Omit<ComponentProps<"a">, "href"> & { href: string; locale?: Locale }
 >;
 
 export default function LocalizedLink({
@@ -683,7 +748,6 @@ export default function LocalizedLink({
 }: LocalizedLinkProps) {
   const params = useParams();
   const fallback = (params?.locale as Locale | undefined) ?? defaultLocale;
-
   const normalizedLocale = (locales as readonly string[]).includes(fallback)
     ? ((locale ?? fallback) as Locale)
     : defaultLocale;

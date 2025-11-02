@@ -71,6 +71,7 @@ Here's the project structure we'll be creating:
 
 ```bash
 .
+├── global.ts
 ├── locales
 │   ├── en
 │   │  ├── common.json
@@ -81,16 +82,20 @@ Here's the project structure we'll be creating:
 │   └── es
 │      ├── common.json
 │      └── about.json
-└── src
+└── src # Src is optional
     ├── proxy.ts
     ├── app
     │   ├── i18n.ts
     │   └── [locale]
     │       ├── layout.tsx
-    │       └── about
+    │       ├── (home) # / (Route Group to not pollute all pages with home resources)
+    │       │   ├── layout.tsx
+    │       │   └── page.tsx
+    │       └── about # /about
+    │           ├── layout.tsx
     │           └── page.tsx
     └── components
-        ├── ClientComponentExample.tsx
+        ├── ClientComponent.tsx
         └── ServerComponent.tsx
 ```
 
@@ -244,7 +249,7 @@ import { getTranslations, getMessages, getFormatter } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import pick from "lodash/pick";
 import ServerComponent from "@/components/ServerComponent";
-import ClientComponentExample from "@/components/ClientComponentExample";
+import ClientComponent from "@/components/ClientComponent";
 
 export default async function AboutPage({
   params,
@@ -272,7 +277,7 @@ export default async function AboutPage({
     <NextIntlClientProvider locale={locale} messages={clientMessages}>
       <main>
         <h1>{tAbout("title")}</h1>
-        <ClientComponentExample />
+        <ClientComponent />
         <ServerComponent
           formattedCount={initialFormattedCount}
           label={tCounter("label")}
@@ -337,7 +342,7 @@ import { getTranslations, getMessages, getFormatter } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import pick from "lodash/pick";
 import ServerComponent from "@/components/ServerComponent";
-import ClientComponentExample from "@/components/ClientComponentExample";
+import ClientComponent from "@/components/ClientComponent";
 
 export default async function AboutPage({
   params,
@@ -365,7 +370,7 @@ export default async function AboutPage({
     <NextIntlClientProvider locale={locale} messages={clientMessages}>
       <main>
         <h1>{tAbout("title")}</h1>
-        <ClientComponentExample />
+        <ClientComponent />
         <ServerComponent
           formattedCount={initialFormattedCount}
           label={tCounter("label")}
@@ -385,13 +390,13 @@ Client components need React hooks to access translations. The `useTranslations`
 
 > Don't forget to add the required namespaces to the page's client messages (only include the namespaces your client components actually need).
 
-```tsx fileName="src/components/ClientComponentExample.tsx"
+```tsx fileName="src/components/ClientComponent.tsx"
 "use client";
 
 import React, { useState } from "react";
 import { useTranslations, useFormatter } from "next-intl";
 
-const ClientComponentExample = () => {
+const ClientComponent = () => {
   // Scope directly to the nested object
   // useTranslations/useFormatter are hooks that read from NextIntlClientProvider context
   // They only work if the component is wrapped in NextIntlClientProvider
