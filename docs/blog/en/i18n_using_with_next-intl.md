@@ -23,35 +23,49 @@ history:
 
 **next-intl** is a popular internationalization (i18n) library designed specifically for Next.js App Router. It provides a seamless way to build multilingual Next.js applications with excellent TypeScript support and built-in optimizations.
 
-With next-intl, you can:
+> If you prefer, you can also refer to the [next-i18next guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-i18next.md), or directly using [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-intl.md).
 
-- **Organize translations** using namespaces (e.g., `common.json`, `about.json`) for better content management.
-- **Load translations efficiently** by loading only the namespaces needed for each page, reducing bundle size.
-- **Support both server and client components** with proper SSR and hydration handling.
-- **Ensure TypeScript support** with type-safe locale configuration and translation keys.
-- **Benefit from built-in formatting** for dates, numbers, and other locale-specific formatting.
-- **Optimize for SEO** with proper metadata, sitemap, and robots.txt internationalization.
+> See the comparison in [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
 
-> See [Application Template](https://github.com/aymericzip/next-intl-template) on GitHub.
+## Practices you should follow
 
-If you prefer, you can also refer to the [next-i18next guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-i18next.md), or directly using [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-intl.md).
+Before we dive into the implementation, here are some practices you should follow:
 
-See the comparison in [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
+- **Set HTML `lang` and `dir` attributes**
+  In your layout, compute `dir` using `getLocaleDirection(locale)` and set `<html lang={locale} dir={dir}>` for proper accessibility and SEO.
+- **Split messages by namespace**
+  Organize JSON files per locale and namespace (e.g., `common.json`, `about.json`) to load only what you need.
+- **Minimize client payload**
+  On pages, send only required namespaces to `NextIntlClientProvider` (e.g., `pick(messages, ['common', 'about'])`).
+- **Prefer static pages**
+  Use static page as much as possible for better performance and SEO.
+- **I18n in server components**
+  Server components, like pages or all components not marked as `client` are statics and can be pre-rendered at build time. So we will have to pass the translation functions to them as props.
+- **Set up TypeScript types**
+  For your locales to ensure type safety throughout your application.
+- **Proxy for redirection**
+  Use a proxy to handle the locale detection and routing and redirect the user to the appropriate locale-prefixed URL.
+- **Internationalization of your metadata, sitemap, robots.txt**
+  Internationalize your metadata, sitemap, robots.txt using the `generateMetadata` function provided by Next.js to ensure a better discovery by search engines in all locales.
+- **Localize Links**
+  Localize Links using the `Link` component to redirect the user to the appropriate locale-prefixed URL. It's important to ensure the discovery of your pages in all locales.
+- **Automate tests and translations**
+  Automate tests and translations help loosing time to maintain your multilingual application.
 
-## Best Practices
-
-Before we dive into the implementation, here are some best practices you should follow:
-
-- **Set up TypeScript types** for your locales to ensure type safety throughout your application.
-- **Set HTML `lang` and `dir` attributes**: In your layout, compute `dir` using `getLocaleDirection(locale)` and set `<html lang={locale} dir={dir}>` for proper accessibility and SEO.
-- **Split messages by namespace**: Organize JSON files per locale and namespace (e.g., `common.json`, `about.json`) to load only what you need.
-- **Minimize client payload**: On pages, send only required namespaces to `NextIntlClientProvider` (e.g., `pick(messages, ['common', 'about'])`).
-- **Prefer static pages**: Use `export const dynamic = 'force-static'` and generate static params for all locales when possible.
-- **Keep server components synchronous**: Pass precomputed strings (translated labels, formatted numbers) rather than async calls or non-serializable functions to nested server components.
+> See our doc listing everything you need to know about internationalization and SEO: [Internationalization (i18n) with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md).
 
 ---
 
 ## Step-by-Step Guide to Set Up next-intl in a Next.js Application
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/next-intl-template?embed=1&ctl=1&file=src/i18n.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+
+> See [Application Template](https://github.com/aymericzip/next-intl-template) on GitHub.
 
 Here's the project structure we'll be creating:
 
@@ -68,9 +82,9 @@ Here's the project structure we'll be creating:
 │      ├── common.json
 │      └── about.json
 └── src
-    ├── i18n.ts
     ├── proxy.ts
     ├── app
+    │   ├── i18n.ts
     │   └── [locale]
     │       ├── layout.tsx
     │       └── about
@@ -105,24 +119,31 @@ Create a configuration file that defines your supported locales and sets up next
 **Why this step is important**: Centralizing your locale configuration prevents inconsistencies and makes it easier to add or remove locales in the future. The `getRequestConfig` function runs on every request and loads only the translations needed for each page, enabling code-splitting and reducing bundle size.
 
 ```tsx fileName="src/i18n.ts"
-import { getRequestConfig } from "next-intl/server";
 import { notFound } from "next/navigation";
+import createMiddleware from "next-intl/middleware";
+import { createNavigation } from "next-intl/navigation";
 
 // Define supported locales with type safety
 export const locales = ["en", "fr", "es"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "en";
 
+export function isRTL(locale: Locale | (string & {})) {
+  return /^(ar|fa|he|iw|ur|ps|sd|ug|yi|ckb|ku)(-|$)/i.test(locale);
+}
+
 // Load messages dynamically per locale to enable code-splitting
 // Promise.all loads namespaces in parallel for better performance
 async function loadMessages(locale: Locale) {
   // Load only the namespaces your layout/pages need
-  const [common, about] = await Promise.all([
-    import(`@/locales/${locale}/common.json`).then((m) => m.default),
-    import(`@/locales/${locale}/about.json`).then((m) => m.default),
+  const [common, home, about] = await Promise.all([
+    import(`../locales/${locale}/common.json`).then((m) => m.default),
+    import(`../locales/${locale}/home.json`).then((m) => m.default),
+    import(`../locales/${locale}/about.json`).then((m) => m.default),
+    // ... Future JSON files should be added here
   ]);
 
-  return { common, about } as const;
+  return { common, home, about } as const;
 }
 
 // Helper to generate localized URLs (e.g., /about vs /fr/about)
@@ -132,13 +153,47 @@ export function localizedPath(locale: string, path: string) {
 
 // getRequestConfig runs on every request and provides messages to server components
 // This is where next-intl hooks into Next.js's server-side rendering
-export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as Locale)) notFound();
+export default async function getRequestConfig({
+  requestLocale,
+}: {
+  requestLocale: Promise<string | undefined>;
+}) {
+  const requested: Locale = ((await requestLocale) as Locale) ?? defaultLocale;
+
+  if (!locales.includes(requested)) notFound();
 
   return {
-    messages: await loadMessages(locale),
+    locale: requested,
+    messages: await loadMessages(requested),
   };
-});
+}
+
+export function getCookie(locale: Locale) {
+  return [
+    `NEXT_LOCALE=${locale}`,
+    "Path=/",
+    `Max-Age=${60 * 60 * 24 * 365}`, // 1 year
+    "SameSite=Lax",
+  ].join("; ");
+}
+
+const routingOptions = {
+  locales,
+  defaultLocale,
+  localePrefix: "as-needed", // Change /en/... route to /...
+  // Optional: localized pathnames
+  // pathnames: {
+  //   '/': '/',
+  //   '/about': {en: '/about', fr: '/a-propos', es: '/acerca-de'},
+  //   '/blog/[slug]': '/blog/[slug]'
+  // }
+  //  localeDetection: true, // prevent "/" -> "/en" redirects from cookie
+} as const;
+
+export const { Link, redirect, usePathname, useRouter, getPathname } =
+  createNavigation(routingOptions);
+
+export const proxy = createMiddleware(routingOptions);
 ```
 
 ### Step 3: Define Dynamic Locale Routes
@@ -399,36 +454,66 @@ To change the language of your content with next-intl, render locale-aware links
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
 
-import Link from "next-intl/link";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
-import { usePathname } from "next-intl/client";
-import { locales, type Locale } from "@/i18n";
+import { defaultLocale, getCookie, type Locale, locales } from "@/i18n";
 
-const localeLabels: Record<Locale, string> = {
-  en: "English",
-  fr: "Français",
-  es: "Español",
+const getLocaleLabel = (locale: Locale): string => {
+  try {
+    const displayNames = new Intl.DisplayNames([locale], { type: "language" });
+    return displayNames.of(locale) ?? locale.toUpperCase();
+  } catch {
+    return locale.toUpperCase();
+  }
+};
+
+const localeFlags: Record<Locale, string> = {
+  en: "🇬🇧",
+  fr: "🇫🇷",
+  es: "🇪🇸",
 };
 
 export default function LocaleSwitcher() {
   const activeLocale = useLocale();
-  const pathname = usePathname() ?? "/";
+  const pathname = usePathname();
+
+  // Remove the locale prefix from the pathname to get the base path
+  const getBasePath = (path: string) => {
+    for (const locale of locales) {
+      if (path.startsWith(`/${locale}`)) {
+        return path.slice(locale.length + 1) || "/";
+      }
+    }
+    return path;
+  };
+
+  const basePath = getBasePath(pathname);
 
   return (
     <nav aria-label="Language selector">
-      <ul>
-        {(locales as readonly Locale[]).map((locale) => (
-          <li key={locale}>
+      <div>
+        {(locales as readonly Locale[]).map((locale) => {
+          const isActive = locale === activeLocale;
+          // Build the href based on whether it's the default locale
+          const href =
+            locale === defaultLocale ? basePath : `/${locale}${basePath}`;
+          return (
             <Link
-              href={pathname}
-              locale={locale}
-              aria-current={locale === activeLocale ? "page" : undefined}
+              key={locale}
+              href={href}
+              aria-current={isActive ? "page" : undefined}
+              onClick={() => {
+                document.cookie = getCookie(locale);
+              }}
             >
-              {localeLabels[locale] ?? locale.toUpperCase()}
+              <span>{localeFlags[locale]}</span>
+              <span>{getLocaleLabel(locale)}</span>
+              <span>{locale.toUpperCase()}</span>
             </Link>
-          </li>
-        ))}
-      </ul>
+          );
+        })}
+      </div>
     </nav>
   );
 }
@@ -580,16 +665,11 @@ Create a proxy to automatically detect the user's preferred locale and redirect 
 **Why this step is important**: Proxy ensures that users are automatically redirected to their preferred language when they visit your site. It also saves the user's preference for future visits, improving user experience.
 
 ```ts fileName="src/proxy.ts"
-import createMiddleware from "next-intl/middleware";
-import { locales, defaultLocale } from "@/i18n";
+import { proxy } from "@/i18n";
 
-// Proxy runs before routes, handling locale detection and routing
+// Middleware runs before routes, handling locale detection and routing
 // localeDetection: true uses Accept-Language header to auto-detect locale
-export default createMiddleware({
-  locales: [...locales],
-  defaultLocale,
-  localeDetection: true,
-});
+export default proxy;
 
 export const config = {
   // Skip API, Next internals and static assets
@@ -597,6 +677,32 @@ export const config = {
   matcher: ["/((?!api|_next|.*\\..*).*)"],
 };
 ```
+
+### (Optional) Step 15: Set Up TypeScript Types for the Locale
+
+Setting up TypeScript will help you to get autocompletion and type safety for your keys.
+
+For that, you can create a global.ts file in your project root and add the following code:
+
+```ts fileName="global.ts"
+import type { locales } from "@/i18n";
+
+type Messages = {
+  common: typeof import("./locales/en/common.json");
+  home: typeof import("./locales/en/home.json");
+  about: typeof import("./locales/en/about.json");
+  // ... Future JSON files should be added here too
+};
+
+declare module "next-intl" {
+  interface AppConfig {
+    Locale: (typeof locales)[number];
+    Messages: Messages;
+  }
+}
+```
+
+This code will use Module Augmentation to add the locales and messages to the next-intl AppConfig type.
 
 ### (Optional) Step 15: Automate Your Translations Using Intlayer
 

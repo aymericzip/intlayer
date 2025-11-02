@@ -31,29 +31,49 @@ With this approach, you can:
 - **Ensure TypeScript support** with type-safe locale configuration and translation keys.
 - **Optimize for SEO** with proper metadata, sitemap, and robots.txt internationalization.
 
-> See [Application Template](https://github.com/aymericzip/next-i18next-template) on GitHub.
+> As an alternative, you can also refer to the [next-intl guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_with_next-intl.md), or directly using [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md).
 
-As an alternative, you can also refer to the [next-intl guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_with_next-intl.md), or directly using [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md).
+> See the comparison in [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
 
-## Best Practices
+## Practices you should follow
 
-Before we dive into the implementation, here are some best practices you should follow:
+Before we dive into the implementation, here are some practices you should follow:
 
-- **Set up TypeScript types** for your locales to ensure type safety throughout your application.
-- **Augment i18next types** so translation keys are strongly typed across namespaces on both server and client.
-- **Set HTML `lang` and `dir` attributes**: In your layout, compute `dir` based on locale and set `<html lang={locale} dir={dir}>` for proper accessibility and SEO.
-- **Split messages by namespace**: Organize JSON files per locale and namespace (e.g., `common.json`, `about.json`) to load only what you need.
-- **Minimize client payload**: On pages, send only required namespaces to your provider to reduce bundle size.
-- **Prefer static pages**: Use `export const dynamic = 'force-static'` and generate static params for all locales when possible.
-- **Keep server components synchronous**: Pass precomputed strings (translated labels, formatted numbers) rather than async calls or non-serializable functions to nested server components.
+- **Set HTML `lang` and `dir` attributes**
+  In your layout, compute `dir` using `getLocaleDirection(locale)` and set `<html lang={locale} dir={dir}>` for proper accessibility and SEO.
+- **Split messages by namespace**
+  Organize JSON files per locale and namespace (e.g., `common.json`, `about.json`) to load only what you need.
+- **Minimize client payload**
+  On pages, send only required namespaces to `NextIntlClientProvider` (e.g., `pick(messages, ['common', 'about'])`).
+- **Prefer static pages**
+  Use static page as much as possible for better performance and SEO.
+- **I18n in server components**
+  Server components, like pages or all components not marked as `client` are statics and can be pre-rendered at build time. So we will have to pass the translation functions to them as props.
+- **Set up TypeScript types**
+  For your locales to ensure type safety throughout your application.
+- **Proxy for redirection**
+  Use a proxy to handle the locale detection and routing and redirect the user to the appropriate locale-prefixed URL.
+- **Internationalization of your metadata, sitemap, robots.txt**
+  Internationalize your metadata, sitemap, robots.txt using the `generateMetadata` function provided by Next.js to ensure a better discovery by search engines in all locales.
+- **Localize Links**
+  Localize Links using the `Link` component to redirect the user to the appropriate locale-prefixed URL. It's important to ensure the discovery of your pages in all locales.
+- **Automate tests and translations**
+  Automate tests and translations help loosing time to maintain your multilingual application.
 
-If you prefer, you can also refer to the [next-i18next guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_with_next-intl.md), or directly using [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md).
-
-See the comparison in [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
+> See our doc listing everything you need to know about internationalization and SEO: [Internationalization (i18n) with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md).
 
 ---
 
 ## Step-by-Step Guide to Set Up i18next in a Next.js Application
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/next-i18next-template?embed=1&ctl=1&file=src/app/i18n.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+
+> See [Application Template](https://github.com/aymericzip/next-i18next-template) on GitHub.
 
 Here's the project structure we'll be creating:
 
@@ -796,34 +816,47 @@ Generate a sitemap that includes all locale versions of your pages. This helps s
 
 ```ts fileName="src/app/sitemap.ts"
 import type { MetadataRoute } from "next";
-import { locales, defaultLocale, absoluteUrl } from "@/i18n.config";
+import { defaultLocale, locales } from "@/i18n";
+
+const origin = "https://example.com";
+
+const formatterLocalizedPath = (locale: string, path: string) =>
+  locale === defaultLocale ? `${origin}${path}` : `${origin}/${locale}${path}`;
 
 /**
- * Generate XML sitemap for SEO
- * Helps search engines discover and index all locale versions of pages
+ * Get a map of all locales and their localized paths
+ *
+ * Example output:
+ * {
+ *   "en": "https://example.com",
+ *   "fr": "https://example.com/fr",
+ *   "es": "https://example.com/es",
+ *   "x-default": "https://example.com"
+ * }
  */
-export default function sitemap(): MetadataRoute.Sitemap {
-  // Create language alternatives mapping for sitemap
-  // Maps each locale to its absolute URL
-  const languages = Object.fromEntries(
-    locales.map((locale) => [locale, absoluteUrl(locale, "/about")])
-  );
+const getLocalizedMap = (path: string) =>
+  Object.fromEntries([
+    ...locales.map((locale) => [locale, formatterLocalizedPath(locale, path)]),
+    ["x-default", formatterLocalizedPath(defaultLocale, path)],
+  ]);
 
+// Generate sitemap with all locale variants for better SEO
+// The alternates field tells search engines about language versions
+export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: absoluteUrl(defaultLocale, "/about"),
+      url: formatterLocalizedPath(defaultLocale, "/"),
       lastModified: new Date(),
-      changeFrequency: "monthly", // How often the page typically changes
-      priority: 0.7, // Relative priority (0.0 to 1.0)
-      alternates: {
-        // Language alternatives for this page
-        // Helps search engines understand multilingual content
-        languages: {
-          ...languages,
-          // x-default indicates the default locale version
-          "x-default": absoluteUrl(defaultLocale, "/about"),
-        },
-      },
+      changeFrequency: "monthly",
+      priority: 1.0,
+      alternates: { languages: getLocalizedMap("/") },
+    },
+    {
+      url: formatterLocalizedPath(defaultLocale, "/about"),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: { languages: getLocalizedMap("/about") },
     },
   ];
 }
@@ -837,47 +870,25 @@ Create a robots.txt file that properly handles all locale versions of your prote
 
 ```ts fileName="src/app/robots.ts"
 import type { MetadataRoute } from "next";
-import {
-  locales,
-  defaultLocale,
-  localizedPath,
-  absoluteUrl,
-} from "@/i18n.config";
+import { defaultLocale, locales } from "@/i18n";
 
-/**
- * Helper function to expand a path to all locale versions
- * Example: expandAllLocales("/dashboard") returns ["/dashboard", "/fr/dashboard"]
- * This ensures robots.txt blocks all locale versions of protected routes
- */
-const expandAllLocales = (path: string) => [
-  // Include default locale path (no prefix)
-  localizedPath(defaultLocale, path),
-  // Include all other locale-prefixed paths
+const origin = "https://example.com";
+
+// Generate paths for all locales (e.g., /admin, /fr/admin, /es/admin)
+const withAllLocales = (path: string) => [
+  path,
   ...locales
     .filter((locale) => locale !== defaultLocale)
-    .map((locale) => localizedPath(locale, path)),
+    .map((locale) => `/${locale}${path}`),
 ];
 
-/**
- * Generate robots.txt file
- * Controls which pages search engines can crawl
- */
-export default function robots(): MetadataRoute.Robots {
-  // List all paths that should be blocked for all locales
-  // Prevents indexing of admin/dashboard pages in any language
-  const disallow = [
-    ...expandAllLocales("/dashboard"),
-    ...expandAllLocales("/admin"),
-  ];
+const disallow = [...withAllLocales("/dashboard"), ...withAllLocales("/admin")];
 
+export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*", // Apply rules to all crawlers
-      allow: ["/"], // Allow root path
-      disallow, // Block specified paths
-    },
-    host: absoluteUrl(defaultLocale, "/"), // Canonical hostname
-    sitemap: absoluteUrl(defaultLocale, "/sitemap.xml"), // Sitemap location
+    rules: { userAgent: "*", allow: ["/"], disallow },
+    host: origin,
+    sitemap: `${origin}/sitemap.xml`,
   };
 }
 ```
@@ -932,7 +943,7 @@ export function proxy(request: NextRequest) {
   // Check if URL already has a locale prefix
   // Example: "/fr/about" or "/en" would return true
   const hasLocale = (locales as readonly string[]).some(
-    (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`)
+    (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)
   );
 
   // If no locale prefix, detect locale and redirect
