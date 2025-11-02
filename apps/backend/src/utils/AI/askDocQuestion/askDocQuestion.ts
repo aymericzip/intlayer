@@ -29,6 +29,8 @@ type VectorStoreEl = {
   docName: string;
 };
 
+type VectorStoreElWithSimilarity = VectorStoreEl & { similarity: number };
+
 /**
  * Simple in-memory vector store to hold document embeddings and their content.
  * Each entry contains:
@@ -59,7 +61,7 @@ export const aiDefaultOptions: AIOptions = {
 const EMBEDDING_MODEL: OpenAI.EmbeddingModel = 'text-embedding-3-large'; // Model to use for embedding generation
 const OVERLAP_TOKENS: number = 200; // Number of tokens to overlap between chunks
 const MAX_CHUNK_TOKENS: number = 800; // Maximum number of tokens per chunk
-const CHAR_BY_TOKEN: number = 4.15; // Approximate pessimistically the number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
+const CHAR_BY_TOKEN: number = 4.15; // Approximate pessimistically the number of characters per token
 const MAX_CHARS: number = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
 const OVERLAP_CHARS: number = OVERLAP_TOKENS * CHAR_BY_TOKEN;
 
@@ -133,14 +135,9 @@ const generateEmbedding = async (text: string): Promise<number[]> => {
  * @returns The cosine similarity score
  */
 const cosineSimilarity = (vecA: number[], vecB: number[]): number => {
-  // Calculate the dot product of the two vectors
   const dotProduct = vecA.reduce((sum, a, idx) => sum + a * vecB[idx], 0);
-
-  // Calculate the magnitude (Euclidean norm) of each vector
   const magnitudeA = Math.sqrt(vecA.reduce((sum, a) => sum + a * a, 0));
   const magnitudeB = Math.sqrt(vecB.reduce((sum, b) => sum + b * b, 0));
-
-  // Compute and return the cosine similarity
   return dotProduct / (magnitudeA * magnitudeB);
 };
 
@@ -150,69 +147,56 @@ const cosineSimilarity = (vecA: number[], vecB: number[]): number => {
  * Handles cases where files have been updated and chunk counts have changed.
  */
 export const loadMarkdownFiles = async (): Promise<void> => {
-  // Retrieve documentation and blog posts in English locale
   const frequentQuestions = await getFrequentQuestions();
   const docs = await getDocs();
   const blogs = await getBlogs();
 
-  const files = { ...docs, ...blogs, ...frequentQuestions }; // Combine docs and blogs into a single object
+  const files = { ...docs, ...blogs, ...frequentQuestions };
 
-  // Iterate over each file key (identifier) in the combined files
   for await (const fileKey of Object.keys(files)) {
-    // Get the metadata of the file
     const fileMetadata = getMarkdownMetadata(
       files[fileKey as keyof typeof files] as string
     );
 
-    // Split the document into chunks based on headings
     const fileChunks = chunkText(
       files[fileKey as keyof typeof files] as string
     );
 
-    // Read existing embeddings for this file
     const existingEmbeddings = readEmbeddingsForFile(fileKey);
-
-    // Check if the number of chunks has changed for this file
     const existingChunksForFile = Object.keys(existingEmbeddings);
     const currentChunkCount = fileChunks.length;
     const previousChunkCount = existingChunksForFile.length;
 
     let shouldRegenerateFileEmbeddings = false;
 
-    // If chunk count differs, we need to regenerate embeddings for this file
     if (currentChunkCount !== previousChunkCount) {
       console.info(
         `File "${fileKey}" chunk count changed: ${previousChunkCount} -> ${currentChunkCount}. Regenerating embeddings.`
       );
-
       shouldRegenerateFileEmbeddings = !skipDocEmbeddingsIndex;
     }
 
-    // Iterate over each chunk within the current file
     let resultForFile: Record<string, number[] | undefined> = {};
     for await (const chunkIndex of Object.keys(fileChunks)) {
-      const chunkNumber = Number(chunkIndex) + 1; // Chunk number starts at 1
+      const chunkNumber = Number(chunkIndex) + 1;
       const chunksNumber = fileChunks.length;
 
       const fileChunk = fileChunks[
         chunkIndex as keyof typeof fileChunks
       ] as string;
 
-      const chunkKeyName = `chunk_${chunkNumber}`; // Unique key for the chunk within the file
+      const chunkKeyName = `chunk_${chunkNumber}`;
 
-      // Retrieve precomputed embedding if available and file hasn't changed
       const docEmbedding = !shouldRegenerateFileEmbeddings
         ? (existingEmbeddings[
             chunkKeyName as keyof typeof existingEmbeddings
           ] as number[] | undefined)
         : undefined;
 
-      const embedding = docEmbedding; // Use existing embedding if available and valid
+      const embedding = docEmbedding;
 
-      // Update the file-scoped result object with the embedding
       resultForFile = { ...resultForFile, [chunkKeyName]: embedding };
 
-      // Store the embedding and content in the in-memory vector store
       vectorStore.push({
         fileKey,
         chunkNumber,
@@ -241,20 +225,18 @@ export const searchChunkReference = async (
   query: string,
   maxResults: number = MAX_RELEVANT_CHUNKS_NB,
   minSimilarity: number = MIN_RELEVANT_CHUNKS_SIMILARITY
-): Promise<VectorStoreEl[]> => {
-  // Generate an embedding for the user's query
+): Promise<VectorStoreElWithSimilarity[]> => {
   const queryEmbedding = await generateEmbedding(query);
 
-  // Calculate similarity scores between the query embedding and each document's embedding
   const selection = vectorStore
     .filter((chunk) => chunk.embedding)
     .map((chunk) => ({
       ...chunk,
       similarity: cosineSimilarity(queryEmbedding, chunk.embedding!), // Add similarity score to each doc
     }))
-    .filter((chunk) => chunk.similarity > minSimilarity) // Filter out documents with low similarity scores
-    .sort((a, b) => b.similarity - a.similarity) // Sort documents by highest similarity first
-    .slice(0, maxResults); // Select the top 6 most similar documents
+    .filter((chunk) => chunk.similarity > minSimilarity)
+    .sort((a, b) => b.similarity - a.similarity)
+    .slice(0, maxResults);
 
   const orderedDocKeys = new Set(selection.map((chunk) => chunk.fileKey));
 
@@ -268,8 +250,14 @@ export const searchChunkReference = async (
     )
   );
 
-  // Return the content of the top matching documents
-  return results;
+  // Return chunks along with similarity scores
+  return results.map((r) => ({
+    ...r,
+    similarity:
+      selection.find(
+        (s) => s.fileKey === r.fileKey && s.chunkNumber === r.chunkNumber
+      )?.similarity ?? 0,
+  }));
 };
 
 const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
@@ -301,16 +289,13 @@ export const askDocQuestion = async (
   aiConfig: AIConfig,
   options?: AskDocQuestionOptions
 ): Promise<AskDocQuestionResult> => {
-  // Format the user's question to keep only the relevant keywords
   const query = messages
     .filter((message) => message.role === 'user')
     .map((message) => `- ${message.content}`)
     .join('\n');
 
-  // 1) Find relevant documents based on the user's question
   const relevantFilesReferences = await searchChunkReference(query);
 
-  // 2) Integrate the relevant documents into the initial system prompt
   const systemPrompt = initPrompt.content.replace(
     '{{relevantFilesReferences}}',
     relevantFilesReferences.length === 0
@@ -329,10 +314,9 @@ export const askDocQuestion = async (
               `-----`,
             ].join('\n')
           )
-          .join('\n\n') // Insert relevant docs into the prompt
+          .join('\n\n')
   );
 
-  // Format messages for AI SDK
   const aiMessages = [
     {
       role: 'system' as const,
@@ -345,25 +329,21 @@ export const askDocQuestion = async (
     throw new Error('Failed to initialize AI configuration');
   }
 
-  // 3) Use the AI SDK to stream the response
   let fullResponse = '';
   const stream = streamText({
     ...aiConfig,
     messages: aiMessages,
   });
 
-  // Process the stream
   for await (const chunk of stream.textStream) {
     fullResponse += chunk;
     options?.onMessage?.(chunk);
   }
 
-  // 4) Extract unique related files
   const relatedFiles = [
     ...new Set(relevantFilesReferences.map((doc) => doc.fileKey)),
   ];
 
-  // 5) Return the assistant's response to the user
   return {
     response: fullResponse ?? 'Error: No result found',
     relatedFiles,
