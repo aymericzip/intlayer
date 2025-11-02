@@ -64,6 +64,7 @@ Before we dive into the implementation, here are some practices you should follo
   title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
+/>
 
 > See [Application Template](https://github.com/aymericzip/next-intl-template) on GitHub.
 
