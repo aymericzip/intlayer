@@ -49,10 +49,6 @@ Trong khi Intlayer cung cấp một giải pháp i18n độc lập xuất sắc 
 
 Hướng dẫn này sẽ chỉ cho bạn cách tận dụng hệ thống khai báo nội dung vượt trội của Intlayer trong khi vẫn duy trì khả năng tương thích với react-intl.
 
-## Mục lục
-
-<TOC/>
-
 ## Hướng dẫn từng bước để thiết lập Intlayer với react-intl
 
 ### Bước 1: Cài đặt các phụ thuộc

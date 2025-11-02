@@ -49,10 +49,6 @@ Meskipun Intlayer menyediakan solusi i18n mandiri yang sangat baik (lihat [pandu
 
 Panduan ini menunjukkan cara memanfaatkan sistem deklarasi konten unggulan Intlayer sambil mempertahankan kompatibilitas dengan react-intl.
 
-## Daftar Isi
-
-<TOC/>
-
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer dengan react-intl
 
 ### Langkah 1: Instalasi Dependensi

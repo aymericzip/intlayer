@@ -49,10 +49,6 @@ Chociaż Intlayer zapewnia doskonałe, samodzielne rozwiązanie i18n (zobacz nas
 
 Ten przewodnik pokazuje, jak wykorzystać zaawansowany system deklaracji treści Intlayer, jednocześnie zachowując kompatybilność z react-intl.
 
-## Spis treści
-
-<TOC/>
-
 ## Przewodnik krok po kroku: Konfiguracja Intlayer z react-intl
 
 ### Krok 1: Instalacja zależności
