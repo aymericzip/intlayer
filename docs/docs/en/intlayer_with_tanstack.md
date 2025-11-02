@@ -50,6 +50,16 @@ With Intlayer, you can:
 
 ## Step-by-Step Guide to Set Up Intlayer in a Tanstack Start Application
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+See [Application Template](https://github.com/aymericzip/intlayer-tanstack-start-template) on GitHub.
+
 ### Step 1: Create Project
 
 Start by creating a new TanStack Start project by following the [Start new project](https://tanstack.com/start/latest/docs/framework/react/quick-start) guide on the TanStack Start website.
