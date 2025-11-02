@@ -31,7 +31,7 @@ history:
 - **ضمان دعم TypeScript** مع تكوين locale آمن من حيث النوع ومفاتيح الترجمة.
 - **تحسين SEO** باستخدام بيانات وصفية مناسبة، وخريطة الموقع، وتعريب ملف robots.txt.
 
-> كبديل، يمكنك أيضًا الرجوع إلى [دليل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_with_next-intl.md)، أو استخدام [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md) مباشرة.
+> كبديل، يمكنك أيضًا الرجوع إلى [دليل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)، أو استخدام [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md) مباشرة.
 
 > اطلع على المقارنة في [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
 

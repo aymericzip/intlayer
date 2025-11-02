@@ -31,7 +31,7 @@ history:
 - **TypeScript समर्थन सुनिश्चित करें** टाइप-सेफ लोकल कॉन्फ़िगरेशन और अनुवाद कुंजियों के साथ।
 - **SEO के लिए अनुकूलित करें** उचित मेटाडेटा, साइटमैप, और robots.txt अंतरराष्ट्रीयकरण के साथ।
 
-> एक विकल्प के रूप में, आप [next-intl गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_with_next-intl.md) को भी देख सकते हैं, या सीधे [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md) का उपयोग कर सकते हैं।
+> एक विकल्प के रूप में, आप [next-intl गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_next-intl.md) को भी देख सकते हैं, या सीधे [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md) का उपयोग कर सकते हैं।
 
 > तुलना देखें [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) में।
 

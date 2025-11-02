@@ -31,7 +31,7 @@ Với cách tiếp cận này, bạn có thể:
 - **Đảm bảo hỗ trợ TypeScript** với cấu hình locale và khóa dịch có kiểu an toàn.
 - **Tối ưu hóa cho SEO** với metadata phù hợp, sitemap và quốc tế hóa robots.txt.
 
-> Ngoài ra, bạn cũng có thể tham khảo [hướng dẫn next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_with_next-intl.md), hoặc sử dụng trực tiếp [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
+> Ngoài ra, bạn cũng có thể tham khảo [hướng dẫn next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-intl.md), hoặc sử dụng trực tiếp [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
 
 > Xem so sánh tại [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
 

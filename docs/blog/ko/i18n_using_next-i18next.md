@@ -31,7 +31,7 @@ history:
 - **타입 안전한 로케일 구성과 번역 키로 TypeScript 지원을 보장**할 수 있습니다.
 - **적절한 메타데이터, 사이트맵, robots.txt 국제화를 통해 SEO 최적화**를 합니다.
 
-> 대안으로 [next-intl 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_with_next-intl.md)를 참조하거나, 직접 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)를 사용할 수 있습니다.
+> 대안으로 [next-intl 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-intl.md)를 참조하거나, 직접 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)를 사용할 수 있습니다.
 
 > [next-i18next vs next-intl vs Intlayer 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)를 확인하세요.
 

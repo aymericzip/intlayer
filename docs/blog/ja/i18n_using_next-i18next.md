@@ -31,7 +31,7 @@ history:
 - **TypeScriptサポートの確保**により、型安全なロケール設定と翻訳キーを実現。
 - **適切なメタデータ、サイトマップ、robots.txtの国際化によりSEOを最適化**。
 
-> 代替として、[next-intlガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_with_next-intl.md)や、直接[Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)を参照することもできます。
+> 代替として、[next-intlガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-intl.md)や、直接[Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)を参照することもできます。
 
 > 比較は[ next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)をご覧ください。
 
