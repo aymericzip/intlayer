@@ -235,23 +235,45 @@ const blogDataContent: Dictionary = {
         },
       },
     },
-
-    'next-i18next-vs-next-intl-vs-intlayer': {
-      title: 'next-i18next vs next-intl vs Intlayer',
-      default: getBlogMetadata(
-        './blog/en/next-i18next_vs_next-intl_vs_intlayer.md'
-      ),
+    comparisons: {
+      title: t({
+        en: 'Comparisons',
+        'en-GB': 'Comparisons',
+        fr: 'Comparaisons',
+        es: 'Comparaciones',
+        de: 'Vergleiche',
+        ja: '比較',
+        ko: '비교',
+        zh: '比较',
+        it: 'Comparazioni',
+        pt: 'Comparações',
+        hi: 'अंतर्गत',
+        ar: 'مقارنات',
+        ru: 'Сравнения',
+        tr: 'Karşılaştırmalar',
+        pl: 'Porównania',
+        id: 'Perbandingan',
+        vi: 'So sánh',
+      }),
+      subSections: {
+        'next-i18next-vs-next-intl-vs-intlayer': {
+          title: 'next-i18next vs next-intl vs Intlayer',
+          default: getBlogMetadata(
+            './blog/en/next-i18next_vs_next-intl_vs_intlayer.md'
+          ),
+        },
+        'react-i18next-vs-react-intl-vs-intlayer': {
+          title: 'react-i18next vs react-intl vs Intlayer',
+          default: getBlogMetadata(
+            './blog/en/react-i18next_vs_react-intl_vs_intlayer.md'
+          ),
+        },
+      },
+      // 'vue-i18n-vs-intlayer': {
+      //   title: 'vue-i18n vs Intlayer',
+      //   default: getBlogMetadata('./blog/en/vue-i18n_vs_intlayer.md'),
+      // },
     },
-    'react-i18next-vs-react-intl-vs-intlayer': {
-      title: 'react-i18next vs react-intl vs Intlayer',
-      default: getBlogMetadata(
-        './blog/en/react-i18next_vs_react-intl_vs_intlayer.md'
-      ),
-    },
-    // 'vue-i18n-vs-intlayer': {
-    //   title: 'vue-i18n vs Intlayer',
-    //   default: getBlogMetadata('./blog/en/vue-i18n_vs_intlayer.md'),
-    // },
 
     // 'i18n-technologies': {
     //   title: t({
