@@ -31,11 +31,26 @@ export const DocBreadCrumb: FC<DocBreadCrumbProps> = ({
       .map((_, index) => activeSections.slice(0, index + 1))
       .map((el) => {
         const docSection = getDocSubSection(docData, el);
-        const sectionUrl = docSection?.default?.url;
+
+        if (docSection?.title) {
+          const sectionUrl = docSection.default?.url;
+          return {
+            text: docSection.title,
+            href: sectionUrl,
+          };
+        }
+
+        const lastItem = el[el.length - 1];
+        const titleCapitalized =
+          lastItem.charAt(0).toUpperCase() + lastItem.slice(1);
+        const title = titleCapitalized?.replace(/-/g, ' ');
 
         return {
-          text: docSection?.title ?? '',
-          href: sectionUrl,
+          text: title ?? '-',
+          href: getLocalizedUrl(
+            `${PagesRoutes.Doc_Root}/${el.join('/')}`,
+            locale
+          ),
         };
       }),
   ];
