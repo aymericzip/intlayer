@@ -15,8 +15,7 @@ keywords:
   - next.js
   - vite
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - build-dictionaries
 ---
 

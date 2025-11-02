@@ -10,8 +10,7 @@ keywords:
   - التهيئة
   - مدير الحزم
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - bun-set-up
 ---
 

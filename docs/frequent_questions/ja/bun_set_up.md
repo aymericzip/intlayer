@@ -10,8 +10,7 @@ keywords:
   - 設定
   - パッケージマネージャー
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - bun-set-up
 ---
 

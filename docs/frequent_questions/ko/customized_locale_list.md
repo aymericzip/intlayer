@@ -15,8 +15,7 @@ keywords:
   - 로케일
   - 목록
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - customized-locale-list
 ---
 

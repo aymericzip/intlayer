@@ -15,8 +15,7 @@ keywords:
   - localizzazione
   - lista
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - customized-locale-list
 ---
 

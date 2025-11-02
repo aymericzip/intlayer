@@ -14,8 +14,7 @@ keywords:
   - react-native
   - lynx
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - esbuild-error
 ---
 

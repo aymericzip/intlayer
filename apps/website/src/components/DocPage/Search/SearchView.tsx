@@ -89,8 +89,16 @@ export const SearchView: FC<{
   const { locale } = useLocale();
   const docMetadata = getIntlayer('doc-metadata', locale) as DocMetadata[];
   const blogMetadata = getIntlayer('blog-metadata', locale) as BlogMetadata[];
+  const frequentQuestionMetadata = getIntlayer(
+    'frequent-question-metadata',
+    locale
+  ) as DocMetadata[];
 
-  const filesData = [...docMetadata, ...blogMetadata];
+  const filesData = [
+    ...docMetadata,
+    ...blogMetadata,
+    ...frequentQuestionMetadata,
+  ];
 
   // Create a new Fuse instance with the options and documentation data
   const fuse = new Fuse(filesData, fuseOptions);

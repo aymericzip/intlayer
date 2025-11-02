@@ -15,8 +15,7 @@ keywords:
   - vite
   - 框架
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - domain-routing
 ---
 

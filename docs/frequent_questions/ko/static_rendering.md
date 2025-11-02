@@ -15,8 +15,7 @@ keywords:
   - 미들웨어
   - 구성
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - static-rendering
 ---
 
@@ -31,7 +30,6 @@ slugs:
   next-intl은 요청 전용 헤더(`x-next-intl-locale`)에서 현재 로케일을 `headers()`를 통해 조회합니다. `headers()`는 **동적 API**이기 때문에, 이를 사용하는 모든 컴포넌트는 정적 최적화를 잃게 됩니다. ([Next Intl][1], [Next.js][2])
 
 - **공식 해결책 (보일러플레이트)**
-
   1. 지원하는 모든 로케일에 대해 `generateStaticParams`를 내보냅니다.
   2. `useTranslations`를 호출하기 _전에_ **모든** 레이아웃/페이지에서 `setRequestLocale(locale)`을 호출합니다. ([Next Intl][1])
      이렇게 하면 헤더 의존성은 제거되지만, 유지해야 할 추가 코드가 생기고 프로덕션에서 불안정한 API를 사용하게 됩니다.

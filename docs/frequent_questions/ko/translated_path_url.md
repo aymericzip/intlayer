@@ -15,8 +15,7 @@ keywords:
   - 로케일
   - URL
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - translated-path-url
 ---
 

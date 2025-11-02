@@ -10,8 +10,7 @@ keywords:
   - configuración
   - gestor de paquetes
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - bun-set-up
 ---
 

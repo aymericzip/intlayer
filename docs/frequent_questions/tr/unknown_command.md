@@ -15,8 +15,7 @@ keywords:
   - yeniden başlat
   - local
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - unknown-command
 ---
 

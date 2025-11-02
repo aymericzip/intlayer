@@ -15,8 +15,7 @@ keywords:
   - sprache
   - liste
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - customized-locale-list
 ---
 

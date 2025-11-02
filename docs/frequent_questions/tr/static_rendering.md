@@ -15,8 +15,7 @@ keywords:
   - middleware
   - yapılandırma
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - static-rendering
 ---
 

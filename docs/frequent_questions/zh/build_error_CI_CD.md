@@ -15,8 +15,7 @@ keywords:
   - 预构建
   - 自动化
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - build-error-ci-cd
 ---
 

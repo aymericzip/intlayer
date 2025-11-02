@@ -15,8 +15,7 @@ keywords:
   - vite
   - framework
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - domain-routing
 ---
 

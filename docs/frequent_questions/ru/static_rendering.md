@@ -15,8 +15,7 @@ keywords:
   - middleware
   - конфигурация
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - static-rendering
 ---
 

@@ -9,8 +9,7 @@ keywords:
   - deklaration
   - intlayer
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - array-as-content-declaration
 ---
 

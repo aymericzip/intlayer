@@ -15,8 +15,7 @@ keywords:
   - プレビルド
   - 自動化
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - build-error-ci-cd
 ---
 
