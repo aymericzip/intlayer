@@ -5,7 +5,7 @@ type AccessRule =
   | 'public'
   | 'authenticated'
   | 'admin'
-  | 'none-authenticated'
+  | 'not-authenticated'
   | 'organization-required'
   | 'project-required';
 
@@ -32,7 +32,7 @@ export const accessValidation = (
     redirectionFunction(redirectionRoute);
   }
 
-  if (session?.user && accessRuleArray?.includes('none-authenticated')) {
+  if (session?.user && accessRuleArray?.includes('not-authenticated')) {
     redirectionFunction(redirectionRoute);
   }
 

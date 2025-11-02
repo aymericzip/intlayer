@@ -7,7 +7,7 @@ export enum AccessRule {
   none = 'none',
   authenticated = 'authenticated',
   admin = 'admin',
-  noneAuthenticated = 'none-authenticated',
+  noneAuthenticated = 'not-authenticated',
   hasOrganization = 'has-organization',
   hasProject = 'has-project',
   hasBearer = 'has-bearer',
@@ -53,7 +53,7 @@ export const accessControl = <R extends AccessRule | AccessRule[]>(
   //   }
   // }
 
-  // Check for 'none-authenticated' access rule
+  // Check for 'not-authenticated' access rule
   if (accessRuleArray.includes(AccessRule.noneAuthenticated)) {
     if (user) {
       success = false;

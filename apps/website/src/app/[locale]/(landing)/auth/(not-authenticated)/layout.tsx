@@ -16,7 +16,7 @@ const AuthLayout: NextLayoutIntlayer = async ({ children, params }) => {
 
   return (
     <AuthenticationBarrier
-      accessRule="none-authenticated"
+      accessRule="not-authenticated"
       // session={session} // Don't preset the session on the client side to avoid infinite re-renders
       locale={locale}
     >
