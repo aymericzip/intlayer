@@ -31,7 +31,7 @@ history:
 - **Обеспечить поддержку TypeScript** с типобезопасной конфигурацией локалей и ключей переводов.
 - **Оптимизируйте SEO** с помощью правильных метаданных, карты сайта и интернационализации robots.txt.
 
-> В качестве альтернативы вы также можете ознакомиться с [руководством next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_with_next-intl.md) или использовать напрямую [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md).
+> В качестве альтернативы вы также можете ознакомиться с [руководством next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-intl.md) или использовать напрямую [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md).
 
 > Сравнение смотрите в [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
 

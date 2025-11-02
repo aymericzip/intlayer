@@ -120,7 +120,7 @@ const blogDataContent: Dictionary = {
             id: 'i18n dengan next-intl',
             vi: 'i18n với next-intl',
           }),
-          default: getBlogMetadata('./blog/en/i18n_using_with_next-intl.md'),
+          default: getBlogMetadata('./blog/en/i18n_using_next-intl.md'),
         },
       },
     },

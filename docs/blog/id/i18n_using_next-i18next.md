@@ -31,7 +31,7 @@ Dengan pendekatan ini, Anda dapat:
 - **Memastikan dukungan TypeScript** dengan konfigurasi locale dan kunci terjemahan yang aman tipe.
 - **Mengoptimalkan untuk SEO** dengan metadata yang tepat, sitemap, dan internasionalisasi robots.txt.
 
-> Sebagai alternatif, Anda juga dapat merujuk ke [panduan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_with_next-intl.md), atau langsung menggunakan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
+> Sebagai alternatif, Anda juga dapat merujuk ke [panduan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md), atau langsung menggunakan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
 
 > Lihat perbandingan di [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
 

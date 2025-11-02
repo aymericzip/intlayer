@@ -31,7 +31,7 @@ Com essa abordagem, você pode:
 - **Garantir suporte ao TypeScript** com configuração de locale e chaves de tradução tipadas de forma segura.
 - **Otimizar para SEO** com metadados apropriados, sitemap e internacionalização do robots.txt.
 
-> Como alternativa, você também pode consultar o [guia next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/i18n_using_with_next-intl.md), ou usar diretamente o [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_16.md).
+> Como alternativa, você também pode consultar o [guia next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/i18n_using_next-intl.md), ou usar diretamente o [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_16.md).
 
 > Veja a comparação em [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-i18next_vs_next-intl_vs_intlayer.md).
 
