@@ -6,7 +6,9 @@ import AnalyzerForm from './Analyzer/Form/AnalyzerForm';
 import AnalyzerResults from './Analyzer/Results/AnalyzerResults';
 
 export default function LocalizationAnalyzer() {
-  const { title, steps, error } = useIntlayer('localization-analyzer');
+  const { title, steps, description, error } = useIntlayer(
+    'localization-analyzer'
+  );
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -47,10 +49,13 @@ export default function LocalizationAnalyzer() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-neutral-50 p-6 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-100">
-      <h1 className="mb-8 text-center font-extrabold text-4xl text-neutral-900 dark:text-neutral-100">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-neutral-50 p-6 text-center text-neutral-800 dark:bg-neutral-900 dark:text-neutral-100">
+      <h2 className="mb-6 max-w-5xl font-bold text-3xl text-text leading-tight sm:text-5xl md:text-5xl lg:text-5xl">
         {title.value}
-      </h1>
+      </h2>
+      <p className="mb-10 max-w-4xl text-lg text-neutral leading-relaxed sm:text-xl md:text-xl">
+        {description.value}
+      </p>
 
       <AnalyzerForm onAnalyze={handleAnalyze} loading={loading} />
 

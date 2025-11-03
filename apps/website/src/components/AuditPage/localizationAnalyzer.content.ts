@@ -4,12 +4,20 @@ const localizationAnalyzerContent = {
   key: 'localization-analyzer',
   content: {
     title: t({
-      en: 'Localization Score Analyzer',
-      fr: 'Analyseur de score de localisation',
-      es: 'Analizador de puntuación de localización',
-      de: 'Lokalisierungs-Score-Analysator',
-      ja: 'ローカリゼーションスコアアナライザー',
-      zh: '本地化评分分析器',
+      en: 'Analyze Your Website’s Global Localization Score',
+      fr: 'Analysez le score de localisation de votre site web',
+      es: 'Analice el puntaje de localización global de su sitio web',
+      de: 'Analysieren Sie den globalen Lokalisierungs-Score Ihrer Website',
+      ja: 'ウェブサイトのグローバルなローカリゼーションスコアを分析します',
+      zh: '分析您网站的全球本地化评分',
+    }),
+    description: t({
+      en: 'Quickly evaluate the localization quality of your website. Analyze principal multilingual elements of your website to get a comprehensive score and actionable insights for improving your reach.',
+      fr: "Évaluez rapidement la qualité de la localisation de votre site Web. Analysez les principaux éléments multilingues de votre site Web pour obtenir un score complet et des informations exploitables afin d'améliorer votre portée.",
+      es: 'Evalúe rápidamente la calidad de la localización de su sitio web. Analice los principales elementos multilingües de su sitio web para obtener una puntuación integral y conocimientos prácticos para mejorar su alcance.',
+      de: 'Bewerten Sie schnell die Lokalisierungsqualität Ihrer Website. Analysieren Sie die wichtigsten mehrsprachigen Elemente Ihrer Website, um eine umfassende Bewertung und umsetzbare Erkenntnisse zur Verbesserung Ihrer Reichweite zu erhalten.',
+      ja: 'ウェブサイトのローカリゼーション品質を迅速に評価します。ウェブサイトの主要な多言語要素を分析して、包括的なスコアとリーチを改善するための実用的な洞察を得ます。',
+      zh: '快速评估您网站的本地化质量。分析您网站的主要多语言元素，以获得全面的评分和可行的见解，从而提高您的覆盖范围。',
     }),
     steps: t({
       en: [
