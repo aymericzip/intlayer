@@ -1,4 +1,5 @@
 'use client';
+import { useIntlayer } from 'next-intlayer';
 import { useState } from 'react';
 
 export default function AnalyzerForm({
@@ -9,6 +10,7 @@ export default function AnalyzerForm({
   loading: boolean;
 }) {
   const [url, setUrl] = useState('');
+  const { input, button } = useIntlayer('analyzer-form');
 
   const normalizeUrl = (input: string) => {
     if (!input.startsWith('http://') && !input.startsWith('https://')) {
@@ -32,7 +34,7 @@ export default function AnalyzerForm({
       <input
         type="url"
         value={url}
-        placeholder="https://yourwebsite.com"
+        placeholder={input.placeholder.value}
         onChange={(e) => setUrl(e.target.value)}
         className="flex-1 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#C8EB3E] dark:bg-neutral-700 dark:text-neutral-100"
       />
@@ -41,7 +43,7 @@ export default function AnalyzerForm({
         disabled={loading}
         className="rounded-xl bg-black px-5 py-2 font-medium text-white transition hover:bg-neutral-900 dark:bg-neutral-800 dark:hover:bg-neutral-700"
       >
-        {loading ? 'Analyzing...' : 'Analyze'}
+        {loading ? button.analyzing.value : button.analyze.value}{' '}
       </button>
     </form>
   );

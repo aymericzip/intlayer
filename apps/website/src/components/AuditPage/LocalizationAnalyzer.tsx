@@ -1,24 +1,17 @@
 'use client';
+import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState } from 'react';
-import AnalyzerForm from './Analyzer/AnalyzerForm';
 import AnalyzerLoading from './Analyzer/AnalyzerLoading';
-import AnalyzerResults from './Analyzer/AnalyzerResults';
+import AnalyzerForm from './Analyzer/Form/AnalyzerForm';
+import AnalyzerResults from './Analyzer/Results/AnalyzerResults';
 
 export default function LocalizationAnalyzer() {
+  const { title, steps, error } = useIntlayer('localization-analyzer');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentStep, setCurrentStep] = useState('');
-
-  const analysisSteps = [
-    'Fetching and parsing HTML...',
-    'Analyzing linguistic structure...',
-    'Checking hreflang and metadata...',
-    'Detecting language selector...',
-    'Analyzing SEO multilanguage...',
-    'Calculating localization score...',
-  ];
 
   // Simule la progression
   useEffect(() => {
@@ -28,8 +21,8 @@ export default function LocalizationAnalyzer() {
       let step = 0;
       timer = setInterval(() => {
         setProgress((p) => Math.min(p + Math.random() * 8 + 8, 98));
-        if (step < analysisSteps.length) {
-          setCurrentStep(analysisSteps[step]);
+        if (step < steps.length) {
+          setCurrentStep(steps[step]);
           step++;
         }
       }, 1000);
@@ -47,7 +40,7 @@ export default function LocalizationAnalyzer() {
       const json = await res.json();
       setData(json);
     } catch (err) {
-      setData({ error: 'Unable to analyze site.' });
+      setData({ error });
     } finally {
       setLoading(false);
     }
@@ -56,7 +49,7 @@ export default function LocalizationAnalyzer() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-neutral-50 p-6 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-100">
       <h1 className="mb-8 text-center font-extrabold text-4xl text-neutral-900 dark:text-neutral-100">
-        Localization Score Analyzer
+        {title.value}
       </h1>
 
       <AnalyzerForm onAnalyze={handleAnalyze} loading={loading} />

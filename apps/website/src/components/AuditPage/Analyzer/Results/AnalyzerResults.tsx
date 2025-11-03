@@ -1,5 +1,5 @@
 'use client';
-
+// biome-ignore assist/source/organizeImports: <explanation>
 import {
   BarChart3,
   Blocks,
@@ -14,6 +14,7 @@ import {
   Map as MapIcon,
   XCircle,
 } from 'lucide-react';
+import { useIntlayer } from 'next-intlayer';
 import Image from 'next/image';
 
 const StatusIcon = ({ ok }: { ok: boolean }) =>
@@ -27,10 +28,12 @@ export default function AnalyzerResults({
   data,
   url,
 }: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
   url: string;
 }) {
+  const { score, statusLabels, messages, fields } =
+    useIntlayer('analyzer-results');
+
   if (data.error) {
     return (
       <div className="mt-10 w-full max-w-2xl rounded-2xl border border-gray-100 bg-white p-6 shadow-md dark:border-neutral-700 dark:bg-neutral-800">
@@ -39,11 +42,70 @@ export default function AnalyzerResults({
     );
   }
 
+  const getStatusLabel = () => {
+    if (data.score >= 70) return statusLabels.good.value;
+    if (data.score >= 40) return statusLabels.medium.value;
+    return statusLabels.bad.value;
+  };
+
+  const fieldsList = [
+    {
+      icon: <Globe size={16} />,
+      label: fields.langTag.value,
+      value: data.summary.langTag,
+    },
+    {
+      icon: <FileText size={16} />,
+      label: fields.hreflangs.value,
+      value: data.summary.hreflangs,
+    },
+    {
+      icon: <BarChart3 size={16} />,
+      label: fields.diversity.value,
+      value: data.summary.hreflangDiversity,
+    },
+    {
+      icon: <Languages size={16} />,
+      label: fields.langSelector.value,
+      value: <StatusIcon ok={data.summary.hasLangSelector} />,
+    },
+    {
+      icon: <Flag size={16} />,
+      label: fields.flags.value,
+      value: <StatusIcon ok={data.summary.hasFlagIcons} />,
+    },
+    {
+      icon: <LinkIcon size={16} />,
+      label: fields.canonical.value,
+      value: <StatusIcon ok={data.summary.hasCanonical} />,
+    },
+    {
+      icon: <Blocks size={16} />,
+      label: fields.localizedUrls.value,
+      value: <StatusIcon ok={data.summary.urlStructureLocalized} />,
+    },
+    {
+      icon: <MapIcon size={16} />,
+      label: fields.sitemap.value,
+      value: <StatusIcon ok={data.summary.sitemapHasAlternate} />,
+    },
+    {
+      icon: <Bot size={16} />,
+      label: fields.robots.value,
+      value: <StatusIcon ok={data.summary.robotsHasLocales} />,
+    },
+    {
+      icon: <Link2 size={16} />,
+      label: fields.localizedLinks.value,
+      value: <StatusIcon ok={data.summary.hasLocalizedLinks} />,
+    },
+  ];
+
   return (
     <div className="mt-10 w-full max-w-2xl rounded-2xl border border-gray-100 bg-white p-6 shadow-md dark:border-neutral-700 dark:bg-neutral-800">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="font-semibold text-2xl text-neutral-900 dark:text-neutral-100">
-          Score:{' '}
+          {score.title.value}:{' '}
           <span
             className={
               data.score >= 70
@@ -65,7 +127,7 @@ export default function AnalyzerResults({
                 : 'bg-red-100 text-red-700'
           }`}
         >
-          {data.label}
+          {getStatusLabel()}
         </span>
       </div>
 
@@ -79,7 +141,7 @@ export default function AnalyzerResults({
           <div className="flex-shrink-0">
             <Image
               src={data.summary.ogImage}
-              alt="Website preview"
+              alt={messages.websitePreview.value}
               width={300}
               height={180}
               unoptimized
@@ -88,10 +150,10 @@ export default function AnalyzerResults({
           </div>
           <div className="flex-1">
             <h3 className="mb-2 font-semibold text-neutral-900 text-xl dark:text-neutral-100">
-              {data.summary.title || 'No title'}
+              {data.summary.title || messages.noTitle.value}
             </h3>
             <p className="text-neutral-600 text-sm leading-relaxed dark:text-neutral-300">
-              {data.summary.metaDescription || 'No meta description available.'}
+              {data.summary.metaDescription || messages.noDescription.value}
             </p>
           </div>
         </a>
@@ -100,58 +162,7 @@ export default function AnalyzerResults({
       <div className="my-6 border-gray-200 border-t dark:border-neutral-700" />
 
       <div className="grid grid-cols-2 gap-2 text-neutral-700 text-sm sm:grid-cols-3 dark:text-neutral-300">
-        {[
-          {
-            icon: <Globe size={16} />,
-            label: 'Lang tag',
-            value: data.summary.langTag,
-          },
-          {
-            icon: <FileText size={16} />,
-            label: 'Hreflangs',
-            value: data.summary.hreflangs,
-          },
-          {
-            icon: <BarChart3 size={16} />,
-            label: 'Diversity',
-            value: data.summary.hreflangDiversity,
-          },
-          {
-            icon: <Languages size={16} />,
-            label: 'Lang selector',
-            value: <StatusIcon ok={data.summary.hasLangSelector} />,
-          },
-          {
-            icon: <Flag size={16} />,
-            label: 'Flags',
-            value: <StatusIcon ok={data.summary.hasFlagIcons} />,
-          },
-          {
-            icon: <LinkIcon size={16} />,
-            label: 'Canonical',
-            value: <StatusIcon ok={data.summary.hasCanonical} />,
-          },
-          {
-            icon: <Blocks size={16} />,
-            label: 'Localized URLs',
-            value: <StatusIcon ok={data.summary.urlStructureLocalized} />,
-          },
-          {
-            icon: <MapIcon size={16} />,
-            label: 'Sitemap',
-            value: <StatusIcon ok={data.summary.sitemapHasAlternate} />,
-          },
-          {
-            icon: <Bot size={16} />,
-            label: 'Robots.txt',
-            value: <StatusIcon ok={data.summary.robotsHasLocales} />,
-          },
-          {
-            icon: <Link2 size={16} />,
-            label: 'Localized links',
-            value: <StatusIcon ok={data.summary.hasLocalizedLinks} />,
-          },
-        ].map((item, idx) => (
+        {fieldsList.map((item, idx) => (
           <p
             key={idx}
             className="flex items-center gap-2 rounded-lg px-2 py-1 transition-all hover:scale-[1.05] hover:bg-neutral-100 dark:hover:bg-neutral-700"
