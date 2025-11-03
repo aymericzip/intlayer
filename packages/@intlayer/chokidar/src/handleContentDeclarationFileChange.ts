@@ -4,6 +4,7 @@ import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictiona
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
 import { getBuiltDictionariesPath } from './createDictionaryEntryPoint/getBuiltDictionariesPath';
 import { createTypes } from './createType';
+import { createModuleAugmentation } from './createType/createModuleAugmentation';
 import { loadLocalDictionaries } from './loadDictionaries/loadLocalDictionaries';
 import { formatPath } from './utils/formatter';
 
@@ -44,6 +45,12 @@ export const handleContentDeclarationFileChange = async (
       isVerbose: true,
     });
   }
+
+  createModuleAugmentation(config);
+
+  appLogger('Module augmentation built', {
+    isVerbose: true,
+  });
 
   // Plugin transformation
   // Allow plugins to post-process the final build output (e.g., write back ICU JSON)

@@ -1,0 +1,1 @@
+export { LocalizationAnalyzer } from './LocalizationAnalyzer';

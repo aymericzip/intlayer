@@ -1,15 +1,14 @@
-import { getDictionary, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
 import { PagesRoutes } from '@/Routes';
-import metadataContent from './metadata.content';
 
 export const generateMetadata = async ({
   params,
 }: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
-  const { title, description, keywords } = getDictionary(
-    metadataContent,
+  const { title, description, keywords } = getIntlayer(
+    'i18n-SEO-scanner',
     locale
   );
 
@@ -18,17 +17,17 @@ export const generateMetadata = async ({
     description,
     keywords,
     alternates: {
-      canonical: getLocalizedUrl(PagesRoutes.Audit, locale),
+      canonical: getLocalizedUrl(PagesRoutes.Scanner, locale),
       languages: {
-        ...getMultilingualUrls(PagesRoutes.Audit),
-        'x-default': PagesRoutes.Audit,
+        ...getMultilingualUrls(PagesRoutes.Scanner),
+        'x-default': PagesRoutes.Scanner,
       },
     },
     openGraph: {
       title,
       description,
       url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL!}${PagesRoutes.Audit}`,
+        `${process.env.NEXT_PUBLIC_URL!}${PagesRoutes.Scanner}`,
         locale
       ),
     },

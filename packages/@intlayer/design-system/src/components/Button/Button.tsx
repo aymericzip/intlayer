@@ -57,6 +57,7 @@ export enum ButtonVariant {
   LINK = 'link',
   INVISIBLE_LINK = 'invisible-link',
   HOVERABLE = 'hoverable',
+  FADE = 'fade',
   INPUT = 'input',
 }
 
@@ -71,7 +72,9 @@ export enum ButtonColor {
   LIGHT = 'light',
   DARK = 'dark',
   TEXT = 'text',
+  CARD = 'card',
   TEXT_INVERSE = 'text-inverse',
+  CURRENT = 'current',
   ERROR = 'error',
   SUCCESS = 'success',
   CUSTOM = 'custom',
@@ -112,12 +115,16 @@ const buttonVariants = cva(
           'text-destructive *:text-text-light focus:ring-destructive-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-destructive-500/50',
         [`${ButtonColor.NEUTRAL}`]:
           'text-neutral *:text-text-light focus:ring-neutral-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-neutral-500/50',
+        [`${ButtonColor.CARD}`]:
+          'text-card *:text-text-light focus:ring-card-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-card-500/50',
         [`${ButtonColor.LIGHT}`]:
           'text-white *:text-text-light focus:ring-white/50 aria-[selected=true]:ring-6 aria-[selected=true]:ring-white/50',
         [`${ButtonColor.DARK}`]:
           'text-neutral-800 *:text-text-light focus:ring-neutral-800/50 aria-[selected=true]:ring-6 aria-[selected=true]:ring-neutral-800/50',
         [`${ButtonColor.TEXT}`]:
           'text-text *:text-text-opposite focus:ring-neutral-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-neutral-500/50',
+        [`${ButtonColor.CURRENT}`]:
+          'text-current *:text-text-light focus:ring-current/50 aria-[selected=true]:ring-6 aria-[selected=true]:ring-current/50',
         [`${ButtonColor.TEXT_INVERSE}`]:
           'text-text-opposite *:text-text focus:ring-neutral-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-neutral-500/50',
         [`${ButtonColor.ERROR}`]:
@@ -140,6 +147,9 @@ const buttonVariants = cva(
           '*:!text-current h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent',
         [`${ButtonVariant.HOVERABLE}`]:
           '*:!text-current rounded-lg border-none bg-current/0 transition hover:bg-current/10 aria-[current]:bg-current/5',
+        [`${ButtonVariant.FADE}`]:
+          '*:!text-current rounded-lg border-none bg-current/10 transition hover:bg-current/20 aria-[current]:bg-current/5',
+
         [`${ButtonVariant.INPUT}`]: [
           '*:!text-current w-full select-text resize-none rounded-xl border-2 bg-input-background text-input-text text-sm shadow-none outline-0 transition-all',
           'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',

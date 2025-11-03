@@ -14,7 +14,7 @@ import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
  * @property {TagSize} [size] - Size variant affecting padding and font size
  * @property {TagBorder} [border] - Whether to show a border around the tag
  * @property {TagBackground} [background] - Background visibility option
- * @property {string} [className] - Additional CSS classes for custom styling
+ * @property [className] - Additional CSS classes for custom styling
  *
  * @example
  * ```tsx
@@ -40,15 +40,15 @@ type TagProps = PropsWithChildren<VariantProps<typeof containerVariants>> &
  *
  * Controls the roundedness of tag corners, from sharp edges to fully rounded pills.
  *
- * @enum {string} TagRoundedSize
- * @property {string} NONE - 'none' - No border radius (sharp corners)
- * @property {string} SM - 'sm' - Small border radius (2px)
- * @property {string} MD - 'md' - Medium border radius (6px)
- * @property {string} LG - 'lg' - Large border radius (8px)
- * @property {string} XL - 'xl' - Extra large border radius (12px)
- * @property {string} XXL - '2xl' - 2x large border radius (16px)
- * @property {string} XXXL - '3xl' - 3x large border radius (24px)
- * @property {string} FULL - 'full' - Fully rounded (50% border radius, pill shape)
+ * @enum TagRoundedSize
+ * @property NONE - 'none' - No border radius (sharp corners)
+ * @property SM - 'sm' - Small border radius (2px)
+ * @property MD - 'md' - Medium border radius (6px)
+ * @property LG - 'lg' - Large border radius (8px)
+ * @property XL - 'xl' - Extra large border radius (12px)
+ * @property XXL - '2xl' - 2x large border radius (16px)
+ * @property XXXL - '3xl' - 3x large border radius (24px)
+ * @property FULL - 'full' - Fully rounded (50% border radius, pill shape)
  *
  * @example
  * ```tsx
@@ -79,12 +79,12 @@ export enum TagRoundedSize {
  * Provides semantic color options for different tag purposes and meanings.
  * Each color includes background, border, and text color variations.
  *
- * @enum {string} TagColor
- * @property {string} SUCCESS - 'success' - Green theme for positive states, success messages, or completed items
- * @property {string} ERROR - 'error' - Red theme for error states, warnings, or failed operations
- * @property {string} WARNING - 'warning' - Yellow/orange theme for caution, pending states, or important notices
- * @property {string} NEUTRAL - 'neutral' - Gray theme for neutral information or secondary content
- * @property {string} TEXT - 'text' - Default text color theme for general purpose tags
+ * @enum TagColor
+ * @property SUCCESS - 'success' - Green theme for positive states, success messages, or completed items
+ * @property ERROR - 'error' - Red theme for error states, warnings, or failed operations
+ * @property WARNING - 'warning' - Yellow/orange theme for caution, pending states, or important notices
+ * @property NEUTRAL - 'neutral' - Gray theme for neutral information or secondary content
+ * @property TEXT - 'text' - Default text color theme for general purpose tags
  *
  * @example
  * ```tsx
@@ -123,12 +123,12 @@ export enum TagColor {
  * Controls the overall size of tags including padding, font size, and border thickness.
  * Sizes are designed to maintain visual hierarchy and readability.
  *
- * @enum {string} TagSize
- * @property {string} XS - 'xs' - Extra small (0.5rem padding, text-xs, 1.2px border)
- * @property {string} SM - 'sm' - Small (0.5rem padding, text-sm, 1.5px border)
- * @property {string} MD - 'md' - Medium (1rem padding, text-base, 2px border) - Default size
- * @property {string} LG - 'lg' - Large (2rem padding, text-lg, 2px border)
- * @property {string} XL - 'xl' - Extra large (4rem padding, text-xl, 2px border)
+ * @enum TagSize
+ * @property XS - 'xs' - Extra small (0.5rem padding, text-xs, 1.2px border)
+ * @property SM - 'sm' - Small (0.5rem padding, text-sm, 1.5px border)
+ * @property MD - 'md' - Medium (1rem padding, text-base, 2px border) - Default size
+ * @property LG - 'lg' - Large (2rem padding, text-lg, 2px border)
+ * @property XL - 'xl' - Extra large (4rem padding, text-xl, 2px border)
  *
  * @example
  * ```tsx
@@ -153,9 +153,9 @@ export enum TagSize {
  *
  * Controls whether a border is displayed around the tag.
  *
- * @enum {string} TagBorder
- * @property {string} NONE - 'none' - No border (default)
- * @property {string} WITH - 'with' - Show border with 1.5px thickness
+ * @enum TagBorder
+ * @property NONE - 'none' - No border (default)
+ * @property WITH - 'with' - Show border with 1.5px thickness
  *
  * @example
  * ```tsx
@@ -173,9 +173,9 @@ export enum TagBorder {
  *
  * Controls the background styling of the tag.
  *
- * @enum {string} TagBackground
- * @property {string} NONE - 'none' - No background styling
- * @property {string} WITH - 'with' - Apply background styling
+ * @enum TagBackground
+ * @property NONE - 'none' - No background styling
+ * @property WITH - 'with' - Apply background styling
  *
  * @example
  * ```tsx
@@ -232,7 +232,7 @@ const containerVariants = cva('w-fit backdrop-blur', {
       [`${TagSize.SM}`]: 'border-[1.5px] px-2 py-0.5 text-sm',
       [`${TagSize.MD}`]: 'border-2 px-2 py-1 text-base',
       [`${TagSize.LG}`]: 'border-2 px-3 py-2 text-lg',
-      [`${TagSize.XL}`]: 'border-2 px-5 py-4 text-xl',
+      [`${TagSize.XL}`]: 'border-2 px-3 py-2 text-xl',
     },
     border: {
       [`${TagBorder.NONE}`]: 'border-none',

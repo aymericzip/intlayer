@@ -1,5 +1,5 @@
-import { LocalizationAnalyzer } from '@components/AuditPage';
 import { BackgroundLayout } from '@components/BackgroundLayout';
+import { LocalizationAnalyzer } from '@components/ScannerPage';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
@@ -10,18 +10,16 @@ const AuditContent: FC = () => {
   const { title, description } = useIntlayer('audit-page');
 
   return (
-    <>
-      <h1 className="border-neutral border-b-[0.5px] p-10 text-3xl">{title}</h1>
-      <div className="relative flex size-full flex-1 flex-col">
-        <BackgroundLayout />
-        <p className="m-auto my-3 max-w-3xl px-10 text-neutral text-sm">
-          {description}
-        </p>
-        <div className="relative flex size-full flex-1 flex-col items-center px-10 pb-5">
-          <LocalizationAnalyzer />
-        </div>
-      </div>
-    </>
+    <div className="relative flex size-full flex-1 flex-col">
+      <BackgroundLayout />
+      <main className="relative flex flex-1 flex-col items-center justify-center gap-16 px-10 pt-20">
+        <h1 className="max-w-5xl font-bold text-3xl text-text leading-tight sm:text-5xl md:text-5xl lg:text-5xl">
+          {title}
+        </h1>
+        <p className="max-w-2xl text-neutral leading-relaxed">{description}</p>
+        <LocalizationAnalyzer />
+      </main>
+    </div>
   );
 };
 

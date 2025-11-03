@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import puppeteer from 'puppeteer';
+import puppeteer, { type Browser } from 'puppeteer';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Missing URL' }, { status: 400 });
   }
 
-  let browser: puppeteer.Browser | undefined;
+  let browser: Browser | undefined;
   try {
     browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();

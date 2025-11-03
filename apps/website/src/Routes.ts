@@ -6,7 +6,7 @@ export enum PagesRoutes {
   Changelog = '/changelog',
   Dashboard = '/dashboard',
 
-  Audit = '/audit',
+  Scanner = '/i18n-seo-scanner',
 
   Dashboard_Editor = '/dashboard/editor',
   Dashboard_Content = '/dashboard/content',
