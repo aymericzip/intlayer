@@ -1,4 +1,4 @@
-import { AuditYourProject } from '@components/AuditPage';
+import { LocalizationAnalyzer } from '@components/AuditPage';
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
@@ -18,7 +18,7 @@ const AuditContent: FC = () => {
           {description}
         </p>
         <div className="relative flex size-full flex-1 flex-col items-center px-10 pb-5">
-          <AuditYourProject />
+          <LocalizationAnalyzer />
         </div>
       </div>
     </>
