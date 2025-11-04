@@ -5,7 +5,13 @@ import type { Request, Response } from 'express';
 export type SearchDocUtilParams = {
   input: string;
 };
-export type SearchDocUtilResult = ResponseData<string[]>;
+
+export type SearchDocResult = {
+  fileKey: string;
+  similarityScore: number;
+};
+
+export type SearchDocUtilResult = ResponseData<SearchDocResult[]>;
 
 export const searchDocUtil = async (
   req: Request<unknown, unknown, unknown, SearchDocUtilParams>,
@@ -13,17 +19,51 @@ export const searchDocUtil = async (
 ) => {
   const { input } = req.query;
 
+  if (!input || typeof input !== 'string') {
+    res.status(400).json(
+      formatResponse({
+        error: {
+          code: 'MISSING_INPUT',
+          title: 'Missing Input',
+          message: 'Missing search input',
+        },
+        status: 400,
+        data: null,
+        message: null,
+        description: null,
+      })
+    );
+    return;
+  }
+
+  // Search for top 30 chunks via embeddings
   const response = await askDocQuestionUtil.searchChunkReference(
     input,
     30,
     0.2
   );
-  const docFileList = response.map((doc) => doc.fileKey);
 
-  const uniqueDocFileList = Array.from(new Set(docFileList));
+  const docScores = new Map<string, number[]>();
 
-  const responseData = formatResponse<string[]>({
-    data: uniqueDocFileList,
+  for (const doc of response) {
+    if (!doc.fileKey || typeof doc.similarity !== 'number') continue;
+    if (!docScores.has(doc.fileKey)) docScores.set(doc.fileKey, []);
+    docScores.get(doc.fileKey)!.push(doc.similarity);
+  }
+
+  // Compute average similarity per document
+  const docAverages: SearchDocResult[] = Array.from(docScores.entries()).map(
+    ([fileKey, scores]) => ({
+      fileKey,
+      similarityScore: scores.reduce((a, b) => a + b, 0) / (scores.length || 1),
+    })
+  );
+
+  // Sort descending by relevance
+  docAverages.sort((a, b) => b.similarityScore - a.similarityScore);
+
+  const responseData = formatResponse<SearchDocResult[]>({
+    data: docAverages.slice(0, 30),
   });
 
   res.json(responseData);
