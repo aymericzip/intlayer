@@ -1,6 +1,44 @@
+import { getIntlayerAPIProxy } from '@intlayer/api';
 import { Locales } from 'intlayer';
 import type { NextRequest } from 'next/server';
 import puppeteer, { type Browser } from 'puppeteer';
+
+// Helper function to save audit data
+const saveAuditData = async (
+  _req: NextRequest,
+  url: string,
+  summary: any,
+  score: number,
+  label: string
+) => {
+  try {
+    const auditApiKey = process.env.AUDIT_API_KEY;
+
+    if (!auditApiKey) {
+      console.warn('AUDIT_API_KEY not configured, skipping audit save');
+      return;
+    }
+
+    const api = getIntlayerAPIProxy(
+      {
+        headers: {
+          'x-audit-api-key': auditApiKey,
+        } as HeadersInit,
+      },
+      undefined
+    );
+
+    await api.audit.createAudit({
+      url,
+      summary,
+      score,
+      label,
+    });
+  } catch (error) {
+    // Silently fail - don't break the analysis flow if saving fails
+    console.error('Failed to save audit data:', error);
+  }
+};
 
 const allLocales = Object.values(Locales.ALL_LOCALES).join('|');
 
@@ -1159,6 +1197,10 @@ export const GET = async (req: NextRequest) => {
             progress: 100,
             data: { success: true, score, label, summary, errors },
           });
+
+          // Save audit data to database
+          await saveAuditData(req, targetUrl, summary, score, label);
+
           controller.close();
           return;
         }
@@ -1276,6 +1318,9 @@ export const GET = async (req: NextRequest) => {
             errors,
           },
         });
+
+        // Save audit data to database
+        await saveAuditData(req, targetUrl, summary, score, label);
 
         controller.close();
       } catch (err: unknown) {
@@ -1400,6 +1445,9 @@ export const POST = async (req: NextRequest) => {
               url,
               data: { success: true, score, label, summary, errors },
             });
+
+            // Save audit data to database
+            await saveAuditData(req, url, summary, score, label);
           } catch (err: unknown) {
             const errorMessage = formatErrorMessage(err);
             sendSSE(controller, {
