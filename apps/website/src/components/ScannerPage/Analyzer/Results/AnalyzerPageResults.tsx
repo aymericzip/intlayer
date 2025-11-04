@@ -6,14 +6,12 @@ import { cn } from '@utils/cn';
 import {
   AlertCircle,
   BarChart3,
-  Blocks,
   CheckCircle2,
   FileText,
   Flag,
   Globe,
   Info,
   Languages,
-  Link2,
   Link as LinkIcon,
   XCircle,
 } from 'lucide-react';
@@ -302,7 +300,7 @@ export const AnalyzerPageResults: FC<AnalyzerResultsProps> = memo(
 
             return (
               <div
-                key={item.label}
+                key={item.label.value}
                 className={cn(
                   'grid grid-cols-[auto_auto_1fr_auto] items-center gap-2 rounded-lg px-2 py-1 text-neutral',
                   isLoading && 'animate-pulse'

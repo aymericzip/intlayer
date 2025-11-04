@@ -27,7 +27,7 @@ ARG NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID
 ARG NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID
 ARG NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID
 ARG NEXT_PUBLIC_PRODUCTHUNT_TOKEN
-ARG AUDIT_API_KEY
+ARG NEXT_PUBLIC_SCANNER_API_URL
 
 ENV INTLAYER_CLIENT_ID=${INTLAYER_CLIENT_ID}
 ENV INTLAYER_CLIENT_SECRET=${INTLAYER_CLIENT_SECRET}
@@ -47,7 +47,7 @@ ENV NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_PREMIUM_MON
 ENV NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID}
 ENV NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID}
 ENV NEXT_PUBLIC_PRODUCTHUNT_TOKEN=${NEXT_PUBLIC_PRODUCTHUNT_TOKEN}
-ENV AUDIT_API_KEY=${AUDIT_API_KEY}
+ENV NEXT_PUBLIC_SCANNER_API_URL=${NEXT_PUBLIC_SCANNER_API_URL}
 ENV CI=true
 
 # Create app directory
@@ -90,25 +90,6 @@ ENV NODE_ENV=production
 # Build the Next.js website
 RUN bun x next build
 
-# Install Chrome browser for Puppeteer
-
-# System deps for headless Chromium + fonts
-RUN apk add --no-cache \
-  chromium \
-  nss \
-  harfbuzz \
-  ca-certificates \
-  ttf-freefont \
-  font-noto-emoji \
-  udev
-
-# Tell Puppeteer to use system Chromium (not try to download its own)
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
-ENV PUPPETEER_SKIP_DOWNLOAD=true
-# (optional) align/cache path to avoid warnings and to match your non-root user
-ENV PUPPETEER_CACHE_DIR=/home/app/.cache/puppeteer
-
-
 WORKDIR /workspace
 
 # Remove .ts, .tsx and .map files only within src/** directories, ignoring node_modules, so configuration files like intlayer.config.ts are kept
@@ -116,10 +97,8 @@ RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.
 
 WORKDIR /workspace/apps/website
 
-# Create non-root user and make sure cache dir is writable
-RUN addgroup -S app && adduser -S app -G app \
-  && mkdir -p /home/app/.cache/puppeteer \
-  && chown -R app:app /home/app/.cache /workspace/apps/website/.next
+# Create and use a non-root user for security
+RUN addgroup -S app && adduser -S app -G app && chown -R app:app ./.next
 
 USER app
 

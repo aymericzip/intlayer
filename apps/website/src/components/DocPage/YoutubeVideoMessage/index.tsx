@@ -1,5 +1,5 @@
 import { Link } from '@components/Link/Link';
-import { Popover, YoutubeLogo } from '@intlayer/design-system';
+import { PopoverStatic, YoutubeLogo } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 
@@ -13,7 +13,7 @@ export const YoutubeVideoMessage: FC<YoutubeVideoMessageProps> = ({
   const { title, description, label } = useIntlayer('youtube-video-message');
 
   return (
-    <Popover identifier="mcp">
+    <PopoverStatic identifier="mcp">
       <Link
         href={youtubeVideoUrl}
         label={label.value}
@@ -23,13 +23,13 @@ export const YoutubeVideoMessage: FC<YoutubeVideoMessageProps> = ({
       >
         <YoutubeLogo className="size-4" />
       </Link>
-      <Popover.Detail
+      <PopoverStatic.Detail
         identifier="mcp"
         className="flex min-w-64 flex-col gap-3 p-3 text-sm"
       >
         <strong>{title}</strong>
         <p className="text-neutral">{description}</p>
-      </Popover.Detail>
-    </Popover>
+      </PopoverStatic.Detail>
+    </PopoverStatic>
   );
 };

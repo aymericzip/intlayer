@@ -1,28 +1,14 @@
-// Libraries
-
-// Middlewares
+/// Controllers
 import { getOAuth2AccessToken } from '@controllers/oAuth2.controller';
+// Middlewares
 import {
   attachOAuthInstance,
   oAuth2Middleware,
 } from '@middlewares/oAuth2.middleware';
 import { logAPIRequestURL } from '@middlewares/request.middleware';
-import { toNodeHandler } from 'better-auth/node';
-import compression from 'compression';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import express, { type Express } from 'express';
-import { intlayer, t } from 'express-intlayer';
-import helmet from 'helmet';
-
-// Services
-
-// Logger
 import { authMiddleware } from '@middlewares/sessionAuth.middleware';
 // Routes
 import { aiRoute, aiRouter } from '@routes/ai.routes';
-import { auditRoute, auditRouter } from '@routes/audit.routes';
 import { dictionaryRoute, dictionaryRouter } from '@routes/dictionary.routes';
 import {
   eventListenerRoute,
@@ -38,7 +24,6 @@ import { searchRoute, searchRouter } from '@routes/search.routes';
 import { stripeRoute, stripeRouter } from '@routes/stripe.routes';
 import { tagRoute, tagRouter } from '@routes/tags.routes';
 import { userRoute, userRouter } from '@routes/user.routes';
-
 // Utils
 import { getAuth } from '@utils/auth/getAuth';
 import { corsOptions } from '@utils/cors';
@@ -46,6 +31,16 @@ import { connectDB } from '@utils/mongoDB/connectDB';
 import { ipLimiter } from '@utils/rateLimiter';
 // Webhooks
 import { stripeWebhook } from '@webhooks/stripe.webhook';
+// Libraries
+import { toNodeHandler } from 'better-auth/node';
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import express, { type Express } from 'express';
+import { intlayer, t } from 'express-intlayer';
+import helmet from 'helmet';
+/// Logger
 import { logger } from './logger/index';
 
 const startServer = async () => {
@@ -134,7 +129,6 @@ const startServer = async () => {
   app.use(eventListenerRoute, eventListenerRouter);
   app.use(searchRoute, searchRouter);
   app.use(newsletterRoute, newsletterRouter);
-  app.use(auditRoute, auditRouter);
 
   // Server
   app.listen(process.env.PORT, () => {

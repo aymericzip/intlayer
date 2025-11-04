@@ -68,7 +68,7 @@ export const LocalizationAnalyzer: FC = () => {
 
     try {
       const eventSource = new EventSource(
-        `/api/analyze?url=${encodeURIComponent(url)}`
+        `${process.env.NEXT_PUBLIC_SCANNER_API_URL}?url=${encodeURIComponent(url)}`
       );
       eventSourceRef.current = eventSource;
 

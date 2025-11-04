@@ -1,6 +1,5 @@
 'use client';
 
-import { ExternalLinks } from '@/Routes';
 import { Link } from '@components/Link/Link';
 import {
   LinkColor,
@@ -14,6 +13,7 @@ import { m } from 'framer-motion';
 import { ArrowRightIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { ExternalLinks } from '@/Routes';
 
 export const AIABTestingSection: FC = () => {
   const { betaTag, title, description, ctaButton } = useIntlayer(

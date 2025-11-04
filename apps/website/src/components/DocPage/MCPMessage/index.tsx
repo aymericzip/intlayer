@@ -1,5 +1,5 @@
 import { Link } from '@components/Link/Link';
-import { Popover } from '@intlayer/design-system';
+import { PopoverStatic } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
@@ -9,7 +9,7 @@ export const MCPMessage: FC = () => {
   const { title, description, link } = useIntlayer('mcp-message');
 
   return (
-    <Popover identifier="mcp">
+    <PopoverStatic identifier="mcp">
       <Link
         href={PagesRoutes.Doc_MCP}
         label={link.label.value}
@@ -19,7 +19,7 @@ export const MCPMessage: FC = () => {
       >
         <McpLogo className="size-4" />
       </Link>
-      <Popover.Detail
+      <PopoverStatic.Detail
         identifier="mcp"
         className="flex min-w-64 flex-col gap-3 p-3 text-sm"
       >
@@ -33,7 +33,7 @@ export const MCPMessage: FC = () => {
         >
           {link.test}
         </Link>
-      </Popover.Detail>
-    </Popover>
+      </PopoverStatic.Detail>
+    </PopoverStatic>
   );
 };
