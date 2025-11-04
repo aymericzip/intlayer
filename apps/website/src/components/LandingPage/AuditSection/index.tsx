@@ -1,5 +1,6 @@
 'use client';
 
+import { Link } from '@components/Link/Link';
 import { AnalyzerForm } from '@components/ScannerPage/Analyzer/Form/AnalyzerForm';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
@@ -7,7 +8,7 @@ import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 export const AuditSection: FC = () => {
-  const { title, description } = useIntlayer('audit-page');
+  const { title, description, goToScanner } = useIntlayer('audit-page');
   const router = useRouter();
 
   const handleAnalyze = (url: string) => {
@@ -24,7 +25,17 @@ export const AuditSection: FC = () => {
       <p className="m-auto max-w-2xl text-lg text-neutral leading-relaxed sm:text-xl md:text-xl">
         {description}
       </p>
-      <AnalyzerForm onAnalyze={handleAnalyze} className="m-auto mt-10" />
+      <div className="m-auto flex w-full max-w-lg flex-col justify-end gap-2">
+        <AnalyzerForm onAnalyze={handleAnalyze} className="m-auto mt-10" />
+        <Link
+          href={PagesRoutes.Scanner}
+          className="flex w-full items-center justify-end gap-2 px-2 text-sm"
+          label={goToScanner.text}
+          color="neutral"
+        >
+          {goToScanner.text}
+        </Link>
+      </div>
     </section>
   );
 };

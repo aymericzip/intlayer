@@ -1,4 +1,7 @@
+'use client';
+
 import type { DetailedHTMLProps, FC, HTMLAttributes } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';
 
@@ -234,53 +237,190 @@ const Detail: FC<DetailProps> = ({
   className,
   displayArrow = true,
   ...props
-}) => (
-  <Container
-    transparency="sm"
-    role="group"
-    aria-hidden={isHidden}
-    aria-labelledby={`unrollable-panel-button-${identifier}`}
-    id={`unrollable-panel-${identifier}`}
-    className={cn(
-      'absolute z-[1000] min-w-full rounded-md ring-1 ring-neutral',
+}) => {
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const [computedXAlign, setComputedXAlign] = useState(xAlign);
+  const [computedYAlign, setComputedYAlign] = useState(yAlign);
+  const [maxWidth, setMaxWidth] = useState<number | undefined>(undefined);
 
-      /* Positioning */
-      xAlign === 'start' && 'left-0',
-      xAlign === 'end' && 'right-0',
-      yAlign === 'bellow' && 'top-[calc(100%+1rem)]',
-      yAlign === 'above' && 'bottom-[calc(100%+1rem)]',
+  useEffect(() => {
+    const adjustPosition = () => {
+      if (!popoverRef.current) return;
 
-      /* Arrow indicator */
-      displayArrow &&
-        'before:absolute before:z-[999] before:h-0 before:w-0 before:content-[""]',
+      const popoverElement = popoverRef.current;
+      const triggerElement = document.getElementById(
+        `unrollable-panel-button-${identifier}`
+      );
 
-      /* Horizontal positioning */
-      displayArrow && xAlign === 'start' && 'before:left-2',
-      displayArrow && xAlign === 'end' && 'before:right-2',
+      if (!triggerElement) return;
 
-      /* Arrow pointing up (when popover is below trigger) */
-      displayArrow &&
-        yAlign === 'bellow' &&
-        'before:-top-[10px] before:border-r-[10px] before:border-r-transparent before:border-b-[10px] before:border-b-neutral before:border-l-[10px] before:border-l-transparent',
+      const triggerRect = triggerElement.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const gap = 16; // 1rem gap
+      const padding = 16; // Additional padding from viewport edges
 
-      /* Arrow pointing down (when popover is above trigger) */
-      displayArrow &&
-        yAlign === 'above' &&
-        'before:-bottom-[10px] before:border-t-[10px] before:border-t-neutral before:border-r-[10px] before:border-r-transparent before:border-l-[10px] before:border-l-transparent',
+      // Calculate maximum width based on viewport and trigger position
+      const maxWidthFromLeft = viewportWidth - triggerRect.left - padding;
+      const maxWidthFromRight = triggerRect.right - padding;
 
-      /* Visibility management */
-      'overflow-x-visible opacity-0 transition-all duration-400 ease-in-out',
-      isHidden !== false ? 'invisible' : 'visible opacity-100 delay-800',
-      isOverable &&
-        'group-hover/popover:visible group-hover/popover:opacity-100 group-hover/popover:delay-800',
-      isFocusable &&
-        'group-focus-within/popover:visible group-focus-within/popover:opacity-100 group-focus-within/popover:delay-800',
-      className
-    )}
-    {...props}
-  >
-    {children}
-  </Container>
-);
+      // Use the larger space to ensure popover can fit
+      const absoluteMaxWidth = Math.max(maxWidthFromLeft, maxWidthFromRight);
+
+      setMaxWidth(absoluteMaxWidth);
+
+      // Force a layout calculation by temporarily making visible if needed
+      const wasInvisible = popoverElement.classList.contains('invisible');
+      if (wasInvisible) {
+        popoverElement.style.visibility = 'hidden';
+        popoverElement.classList.remove('invisible');
+      }
+
+      // Small delay to ensure max-width is applied and content reflows
+      requestAnimationFrame(() => {
+        const popoverRect = popoverElement.getBoundingClientRect();
+
+        // Restore invisible state if it was invisible
+        if (wasInvisible) {
+          popoverElement.style.visibility = '';
+          popoverElement.classList.add('invisible');
+        }
+
+        // Determine optimal Y alignment
+        let newYAlign = yAlign;
+        const spaceBelow = viewportHeight - triggerRect.bottom - gap;
+        const spaceAbove = triggerRect.top - gap;
+
+        if (yAlign === PopoverYAlign.BELOW && spaceBelow < popoverRect.height) {
+          // Not enough space below, try above
+          if (spaceAbove >= popoverRect.height) {
+            newYAlign = PopoverYAlign.ABOVE;
+          }
+        } else if (
+          yAlign === PopoverYAlign.ABOVE &&
+          spaceAbove < popoverRect.height
+        ) {
+          // Not enough space above, try below
+          if (spaceBelow >= popoverRect.height) {
+            newYAlign = PopoverYAlign.BELOW;
+          }
+        }
+
+        // Determine optimal X alignment
+        let newXAlign = xAlign;
+        const spaceRight = viewportWidth - triggerRect.left - padding;
+        const spaceLeft = triggerRect.right - padding;
+
+        if (xAlign === PopoverXAlign.START && spaceRight < popoverRect.width) {
+          // Not enough space on the right, try left
+          if (spaceLeft >= popoverRect.width) {
+            newXAlign = PopoverXAlign.END;
+          }
+        } else if (
+          xAlign === PopoverXAlign.END &&
+          spaceLeft < popoverRect.width
+        ) {
+          // Not enough space on the left, try right
+          if (spaceRight >= popoverRect.width) {
+            newXAlign = PopoverXAlign.START;
+          }
+        }
+
+        setComputedYAlign(newYAlign);
+        setComputedXAlign(newXAlign);
+      });
+    };
+
+    // Adjust position with a slight delay to ensure DOM is ready
+    const timeoutId = setTimeout(adjustPosition, 0);
+
+    // Listen to mouse enter on the trigger to recalculate
+    const triggerElement = document.getElementById(
+      `unrollable-panel-button-${identifier}`
+    );
+
+    if (triggerElement) {
+      triggerElement.addEventListener('mouseenter', adjustPosition);
+      triggerElement.addEventListener('focusin', adjustPosition);
+    }
+
+    // Use ResizeObserver to detect popover content size changes
+    const resizeObserver = new ResizeObserver(() => {
+      adjustPosition();
+    });
+
+    if (popoverRef.current) {
+      resizeObserver.observe(popoverRef.current);
+    }
+
+    window.addEventListener('resize', adjustPosition);
+    window.addEventListener('scroll', adjustPosition, true);
+
+    return () => {
+      clearTimeout(timeoutId);
+      if (triggerElement) {
+        triggerElement.removeEventListener('mouseenter', adjustPosition);
+        triggerElement.removeEventListener('focusin', adjustPosition);
+      }
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', adjustPosition);
+      window.removeEventListener('scroll', adjustPosition, true);
+    };
+  }, [identifier, xAlign, yAlign]);
+
+  return (
+    <Container
+      ref={popoverRef}
+      transparency="sm"
+      role="group"
+      aria-hidden={isHidden}
+      aria-labelledby={`unrollable-panel-button-${identifier}`}
+      id={`unrollable-panel-${identifier}`}
+      className={cn(
+        'absolute z-[1000] min-w-full rounded-md ring-1 ring-neutral',
+
+        /* Positioning */
+        computedXAlign === 'start' && 'left-0',
+        computedXAlign === 'end' && 'right-0',
+        computedYAlign === 'bellow' && 'top-[calc(100%+1rem)]',
+        computedYAlign === 'above' && 'bottom-[calc(100%+1rem)]',
+
+        /* Arrow indicator */
+        displayArrow &&
+          'before:absolute before:z-[999] before:h-0 before:w-0 before:content-[""]',
+
+        /* Horizontal positioning */
+        displayArrow && computedXAlign === 'start' && 'before:left-2',
+        displayArrow && computedXAlign === 'end' && 'before:right-2',
+
+        /* Arrow pointing up (when popover is below trigger) */
+        displayArrow &&
+          computedYAlign === 'bellow' &&
+          'before:-top-[10px] before:border-r-[10px] before:border-r-transparent before:border-b-[10px] before:border-b-neutral before:border-l-[10px] before:border-l-transparent',
+
+        /* Arrow pointing down (when popover is above trigger) */
+        displayArrow &&
+          computedYAlign === 'above' &&
+          'before:-bottom-[10px] before:border-t-[10px] before:border-t-neutral before:border-r-[10px] before:border-r-transparent before:border-l-[10px] before:border-l-transparent',
+
+        /* Visibility management */
+        'overflow-x-visible opacity-0 transition-all duration-400 ease-in-out',
+        isHidden !== false ? 'invisible' : 'visible opacity-100 delay-800',
+        isOverable &&
+          'group-hover/popover:visible group-hover/popover:opacity-100 group-hover/popover:delay-800',
+        isFocusable &&
+          'group-focus-within/popover:visible group-focus-within/popover:opacity-100 group-focus-within/popover:delay-800',
+        className
+      )}
+      {...props}
+      style={{
+        ...props.style,
+        maxWidth: maxWidth ? `${maxWidth}px` : undefined,
+      }}
+    >
+      {children}
+    </Container>
+  );
+};
 
 Popover.Detail = Detail;
