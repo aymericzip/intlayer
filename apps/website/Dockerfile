@@ -90,6 +90,9 @@ ENV NODE_ENV=production
 # Build the Next.js website
 RUN bun x next build
 
+# Install Chrome browser for Puppeteer
+RUN bun x puppeteer browsers install chrome
+
 WORKDIR /workspace
 
 # Remove .ts, .tsx and .map files only within src/** directories, ignoring node_modules, so configuration files like intlayer.config.ts are kept
