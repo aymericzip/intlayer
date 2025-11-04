@@ -2,7 +2,7 @@ import { BackgroundLayout } from '@components/BackgroundLayout';
 import { LocalizationAnalyzer } from '@components/ScannerPage';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
+import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
 
@@ -17,7 +17,9 @@ const AuditContent: FC = () => {
           {title}
         </h1>
         <p className="max-w-2xl text-neutral leading-relaxed">{description}</p>
-        <LocalizationAnalyzer />
+        <Suspense>
+          <LocalizationAnalyzer />
+        </Suspense>
       </main>
     </div>
   );
