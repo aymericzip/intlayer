@@ -1,6 +1,7 @@
 import type { IntlayerConfig } from '@intlayer/types';
 import type { FetcherOptions } from '../fetcher';
 import { getAiAPI } from './ai';
+import { getAuditAPI } from './audit';
 import { getDictionaryAPI } from './dictionary';
 import { getEditorAPI } from './editor';
 import { getNewsletterAPI } from './newsletter';
@@ -24,6 +25,7 @@ interface IntlayerAPIReturn {
   search: ReturnType<typeof getSearchAPI>;
   editor: ReturnType<typeof getEditorAPI>;
   newsletter: ReturnType<typeof getNewsletterAPI>;
+  audit: ReturnType<typeof getAuditAPI>;
 }
 
 export const getIntlayerAPI = (
@@ -41,6 +43,7 @@ export const getIntlayerAPI = (
   search: getSearchAPI(authAPIOptions, intlayerConfig),
   editor: getEditorAPI(authAPIOptions, intlayerConfig),
   newsletter: getNewsletterAPI(authAPIOptions, intlayerConfig),
+  audit: getAuditAPI(authAPIOptions, intlayerConfig),
 });
 
 export type IntlayerAPI = ReturnType<typeof getIntlayerAPI>;

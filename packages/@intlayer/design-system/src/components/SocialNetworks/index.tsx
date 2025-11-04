@@ -81,7 +81,7 @@ const DefaultRenderItem: FC<DefaultRenderItemProps> = ({
     key={href}
     href={href}
     aria-label={label}
-    className="max-h-4 max-w-4"
+    className="max-h-4 max-w-4 shrink-0"
     {...iconProps}
   >
     {component}

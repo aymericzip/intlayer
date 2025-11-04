@@ -135,7 +135,7 @@ import { t } from "next-intlayer/server";
 const ServerComponentExample = () => (
   <p>
     {t({
-      en-GB: "This is the content of a server component example",
+      "en-GB": "This is the content of a server component example",
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
       es: "Este es el contenido de un ejemplo de componente servidor",
@@ -150,7 +150,7 @@ const { t } = require("next-intlayer/server");
 const ServerComponentExample = () => (
   <p>
     {t({
-      en-GB: "This is the content of a server component example",
+      "en-GB": "This is the content of a server component example",
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
       es: "Este es el contenido de un ejemplo de componente servidor",
