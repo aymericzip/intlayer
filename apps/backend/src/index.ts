@@ -22,6 +22,7 @@ import helmet from 'helmet';
 import { authMiddleware } from '@middlewares/sessionAuth.middleware';
 // Routes
 import { aiRoute, aiRouter } from '@routes/ai.routes';
+import { auditRoute, auditRouter } from '@routes/audit.routes';
 import { dictionaryRoute, dictionaryRouter } from '@routes/dictionary.routes';
 import {
   eventListenerRoute,
@@ -133,6 +134,7 @@ const startServer = async () => {
   app.use(eventListenerRoute, eventListenerRouter);
   app.use(searchRoute, searchRouter);
   app.use(newsletterRoute, newsletterRouter);
+  app.use(auditRoute, auditRouter);
 
   // Server
   app.listen(process.env.PORT, () => {
