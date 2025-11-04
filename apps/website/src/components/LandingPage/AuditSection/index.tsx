@@ -2,18 +2,20 @@
 
 import { Link } from '@components/Link/Link';
 import { AnalyzerForm } from '@components/ScannerPage/Analyzer/Form/AnalyzerForm';
+import { getLocalizedUrl } from '@intlayer/core';
 import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 export const AuditSection: FC = () => {
   const { title, description, goToScanner } = useIntlayer('audit-page');
   const router = useRouter();
+  const { locale } = useLocale();
 
   const handleAnalyze = (url: string) => {
     router.push(
-      `${PagesRoutes.Scanner}?url=${encodeURIComponent(url)}&auto_start=true`
+      `${getLocalizedUrl(PagesRoutes.Scanner, locale)}?url=${encodeURIComponent(url)}&auto_start=true`
     );
   };
 
