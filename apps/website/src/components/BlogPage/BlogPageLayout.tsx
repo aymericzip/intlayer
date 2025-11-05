@@ -28,7 +28,7 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
       </aside>
       <div className="flex flex-1 flex-row">
         <article
-          className="relative m-auto mb-24 h-full w-auto max-w-6xl flex-1 grow rounded-xl bg-background px-4 max-md:pl-16 md:px-10"
+          className="relative m-auto mb-3 h-full w-auto max-w-6xl flex-1 grow rounded-xl bg-background px-4 pb-24 max-md:pl-16 md:px-10"
           id="content"
         >
           {/* <BackgroundLayout /> */}
