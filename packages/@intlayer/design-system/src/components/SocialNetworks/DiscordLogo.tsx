@@ -4,7 +4,7 @@ export const DiscordLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="800px"
-    height="auto"
+    height="800px"
     viewBox="0 0 71 80"
     fill="none"
     role="img"

@@ -161,7 +161,7 @@ export const Navbar: FC = () => {
             rel="noopener noreferrer nofollow"
             className="flex cursor-pointer items-center gap-2 rounded-full border-[1.5px] border-text p-1.5 hover:bg-text/10"
           >
-            <DiscordLogo width={20} />
+            <DiscordLogo width={20} className="aspect-square h-auto" />
           </a>
           <Link
             label={github.label.value}
