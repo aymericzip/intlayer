@@ -105,12 +105,12 @@
     "@intlayer/types": "workspace:*",
     "@types/body-parser": "1.19.6",
     "@types/compression": "1.8.1",
-    "@types/cookie-parser": "1.4.9",
+    "@types/cookie-parser": "1.4.10",
     "@types/cors": "2.8.19",
     "@types/crypto-js": "4.2.2",
     "@types/csurf": "1.11.5",
     "@types/express": "5.0.5",
-    "@types/node": "24.9.2",
+    "@types/node": "24.10.0",
     "@types/oauth2-server": "3.0.18",
     "@types/react": "19.2.2",
     "@types/validator": "13.12.2",
@@ -118,10 +118,10 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "intlayer": "workspace:*",
-    "rimraf": "6.0.1",
-    "tsdown": "0.15.11",
+    "rimraf": "6.1.0",
+    "tsdown": "0.16.0",
     "tsx": "^4.20.6",
     "typescript": "5.9.3",
-    "vitest": "4.0.5"
+    "vitest": "4.0.7"
   }
 }

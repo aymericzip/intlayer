@@ -126,16 +126,16 @@
     "react-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "24.9.2",
+    "@types/node": "24.10.0",
     "@types/react": ">=16.0.0",
     "@types/react-dom": ">=16.0.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "rimraf": "6.0.1",
-    "tsdown": "0.15.11",
+    "rimraf": "6.1.0",
+    "tsdown": "0.16.0",
     "typescript": "5.9.3",
-    "vitest": "4.0.5"
+    "vitest": "4.0.7"
   },
   "peerDependencies": {
     "@intlayer/config": "workspace:*",
