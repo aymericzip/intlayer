@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { dirname, join, relative } from 'node:path';
 import { readAsset } from 'utils:asset';
@@ -263,6 +263,7 @@ type ReviewDocOptions = {
   customInstructions?: string;
   skipIfModifiedBefore?: number | string | Date;
   skipIfModifiedAfter?: number | string | Date;
+  skipIfExists?: boolean;
   gitOptions?: ListGitFilesOptions;
 };
 
@@ -281,6 +282,7 @@ export const reviewDoc = async ({
   customInstructions,
   skipIfModifiedBefore,
   skipIfModifiedAfter,
+  skipIfExists,
   gitOptions,
 }: ReviewDocOptions) => {
   const configuration = getConfiguration(configOptions);
@@ -337,6 +339,18 @@ export const reviewDoc = async ({
         locale,
         baseLocale
       );
+
+      // Skip if file exists and skipIfExists option is enabled
+      if (skipIfExists && existsSync(outputFilePath)) {
+        const relativePath = relative(
+          configuration.content.baseDir,
+          outputFilePath
+        );
+        appLogger(
+          `${colorize('⊘', ANSIColors.YELLOW)} File ${formatPath(relativePath)} already exists, skipping.`
+        );
+        return;
+      }
 
       const fileModificationData = checkFileModifiedRange(outputFilePath, {
         skipIfModifiedBefore,

@@ -10,9 +10,9 @@ import { defaultLocale, locales } from '../intlayer.config';
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
 const DOC_PATTERN: string[] = [
   './docs/en/**/*.md',
-  // './blog/en/**/*.md',
-  // './frequent_questions/en/**/*.md',
-  // './legal/en/**/*.md',
+  './blog/en/**/*.md',
+  './frequent_questions/en/**/*.md',
+  './legal/en/**/*.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/v7.md',
@@ -58,4 +58,5 @@ translateDoc({
   skipIfModifiedBefore: SKIP_IF_MODIFIED_BEFORE,
   skipIfModifiedAfter: SKIP_IF_MODIFIED_AFTER,
   gitOptions: GIT_OPTIONS,
+  skipIfExists: true,
 });

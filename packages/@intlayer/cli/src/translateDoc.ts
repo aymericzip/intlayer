@@ -21,7 +21,7 @@ import {
   getConfiguration,
   retryManager,
 } from '@intlayer/config';
-import type { IntlayerConfig, Locale, Locales } from '@intlayer/types';
+import type { IntlayerConfig, Locale } from '@intlayer/types';
 import fg from 'fast-glob';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAccess';
@@ -174,6 +174,7 @@ type TranslateDocOptions = {
   customInstructions?: string;
   skipIfModifiedBefore?: number | string | Date;
   skipIfModifiedAfter?: number | string | Date;
+  skipIfExists?: boolean;
   gitOptions?: ListGitFilesOptions;
 };
 
@@ -192,6 +193,7 @@ export const translateDoc = async ({
   customInstructions,
   skipIfModifiedBefore,
   skipIfModifiedAfter,
+  skipIfExists,
   gitOptions,
 }: TranslateDocOptions) => {
   const configuration = getConfiguration(configOptions);
@@ -248,6 +250,18 @@ export const translateDoc = async ({
         locale,
         baseLocale
       );
+
+      // Skip if file exists and skipIfExists option is enabled
+      if (skipIfExists && existsSync(outputFilePath)) {
+        const relativePath = relative(
+          configuration.content.baseDir,
+          outputFilePath
+        );
+        appLogger(
+          `${colorize('⊘', ANSIColors.YELLOW)} File ${formatPath(relativePath)} already exists, skipping.`
+        );
+        return;
+      }
 
       // check if the file exist, otherwise create it
       if (!existsSync(outputFilePath)) {

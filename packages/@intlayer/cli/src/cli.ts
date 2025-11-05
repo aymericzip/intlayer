@@ -653,6 +653,7 @@ export const setAPI = (): Command => {
       '--skip-if-modified-after [skipIfModifiedAfter]',
       'Skip the file if it has been modified within the given time. Can be an absolute time as "2025-12-05" (string or Date) or a relative time in ms `1 * 60 * 60 * 1000` (1 hour). This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.',
     ],
+    ['--skip-if-exists', 'Skip the file if it already exists'],
   ];
 
   const docProgram = program
@@ -681,6 +682,7 @@ export const setAPI = (): Command => {
       customInstructions: options.customInstructions,
       skipIfModifiedBefore: options.skipIfModifiedBefore,
       skipIfModifiedAfter: options.skipIfModifiedAfter,
+      skipIfExists: options.skipIfExists,
     })
   );
 
@@ -706,6 +708,7 @@ export const setAPI = (): Command => {
       customInstructions: options.customInstructions,
       skipIfModifiedBefore: options.skipIfModifiedBefore,
       skipIfModifiedAfter: options.skipIfModifiedAfter,
+      skipIfExists: options.skipIfExists,
     })
   );
 

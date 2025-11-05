@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.1.0
+    date: 2025-11-05
+    changes: Add skipIfExists option to translate command
   - version: 6.1.4
     date: 2025-01-27
     changes: Add aliases for CLI arguments and commands
@@ -612,6 +615,10 @@ npx intlayer doc translate
   - This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
 
   > Example: `npx intlayer doc translate --skip-if-modified-after "2025-12-05"`
+
+- **`--skip-if-exists`**: Skip the file if it already exists.
+
+  > Example: `npx intlayer doc translate --skip-if-exists`
 
 **Entry output options:**
 
