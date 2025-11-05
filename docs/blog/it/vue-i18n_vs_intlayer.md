@@ -30,6 +30,8 @@ Ci concentriamo sugli strumenti moderni di Vue (Vite, Composition API) e valutia
 6. **Esperienza sviluppatore (DX), strumenti e manutenzione**
 7. **SEO e scalabilità per progetti di grandi dimensioni**
 
+<TOC/>
+
 > **tl;dr**: Entrambi possono localizzare app Vue. Se desideri **contenuti a livello di componente**, **tipi TypeScript rigorosi**, **controlli delle chiavi mancanti in fase di build**, **dizionari tree-shaken** e **helper integrati per router/SEO** oltre a **Editor Visivo e traduzioni AI**, **Intlayer** è la scelta più completa e moderna.
 
 ---

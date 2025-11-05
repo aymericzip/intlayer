@@ -30,6 +30,8 @@ Modern Vue araçlarına (Vite, Composition API) odaklanıyoruz ve şunları değ
 6. **Geliştirici deneyimi (DX), araçlar ve bakım**
 7. **SEO ve büyük proje ölçeklenebilirliği**
 
+<TOC/>
+
 > **tl;dr**: İkisi de Vue uygulamalarını yerelleştirebilir. **Bileşen kapsamlı içerik**, **katı TypeScript türleri**, **derleme zamanı eksik anahtar kontrolleri**, **ağaç sallanan sözlükler** ve **pil dahil yönlendirici/SEO yardımcıları** artı **Görsel Düzenleyici ve AI çevirileri** istiyorsanız, **Intlayer** daha kapsamlı, modern seçimdir.
 
 ---

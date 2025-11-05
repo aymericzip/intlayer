@@ -19,6 +19,8 @@ slugs:
 
 # next-i18next مقابل next-intl مقابل intlayer | التدويل في Next.js (i18n)
 
+<TOC/>
+
 لنلقي نظرة على أوجه التشابه والاختلاف بين ثلاثة خيارات للتدويل في Next.js: next-i18next، next-intl، و Intlayer.
 
 هذا ليس درسًا كاملاً. إنها مقارنة لمساعدتك في الاختيار.
@@ -1397,14 +1399,13 @@ export const config = {
 Intlayer provides built-in middleware handling through the `next-intlayer` package configuration.
 
 ```ts fileName="src/middleware.ts"
-import { intlayerMiddleware } from 'next-intlayer/middleware';
+import { intlayerMiddleware } from "next-intlayer/middleware";
 
-export const middleware = intlayerMiddleware()
+export const middleware = intlayerMiddleware();
 
 // applies this middleware only to files in the app directory
 export const config = {
-  matcher:
-    "/((?!api|_next|static|.*\\..*).*)",
+  matcher: "/((?!api|_next|static|.*\\..*).*)",
 };
 ```
 

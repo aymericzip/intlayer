@@ -19,6 +19,8 @@ slugs:
 
 # react-Intl VS react-i18next VS intlayer | Internazionalizzazione (i18n) in React
 
+<TOC/>
+
 Questa guida confronta tre opzioni consolidate per l'i18n in **React**: **react-intl** (FormatJS), **react-i18next** (i18next) e **Intlayer**.
 Ci concentriamo su applicazioni **React plain** (ad esempio, Vite, CRA, SPA). Se usi Next.js, consulta il nostro confronto dedicato a Next.js.
 
@@ -31,6 +33,8 @@ Valutiamo:
 - Prestazioni e comportamento di caricamento
 - Esperienza sviluppatore (DX), strumenti e manutenzione
 - SEO/routing (dipendente dal framework)
+
+<TOC/>
 
 > **tl;dr**: Tutti e tre possono localizzare un'app React. Se desideri **contenuti a livello di componente**, **tipi TypeScript rigorosi**, **controlli delle chiavi mancanti in fase di build**, **dizionari ottimizzati con tree-shaking** e strumenti editoriali integrati (Visual Editor/CMS + traduzione AI opzionale), **Intlayer** è la scelta più completa per codebase React modulari.
 

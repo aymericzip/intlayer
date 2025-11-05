@@ -30,6 +30,8 @@ We focus on modern Vue tooling (Vite, Composition API) and evaluate:
 6. **Developer experience (DX), tooling & maintenance**
 7. **SEO & large-project scalability**
 
+<TOC/>
+
 > **tl;dr**: Both can localize Vue apps. If you want **component-scoped content**, **strict TypeScript types**, **build-time missing-key checks**, **tree-shaken dictionaries**, and **batteries-included router/SEO helpers** plus **Visual Editor & AI translations**, **Intlayer** is the more complete, modern choice.
 
 ---

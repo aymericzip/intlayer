@@ -32,6 +32,8 @@ We evaluate:
 - Developer experience (DX), tooling & maintenance
 - SEO/routing (framework-dependent)
 
+<TOC/>
+
 > **tl;dr**: All three can localize a React app. If you want **component-scoped content**, **strict TypeScript types**, **build-time missing-key checks**, **tree-shaken dictionaries**, and built-in editorial tooling (Visual Editor/CMS + optional AI translation), **Intlayer** is the most complete choice for modular React codebases.
 
 ---

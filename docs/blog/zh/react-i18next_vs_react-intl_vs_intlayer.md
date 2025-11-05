@@ -19,6 +19,8 @@ slugs:
 
 # react-Intl VS react-i18next VS intlayer | React 国际化 (i18n)
 
+<TOC/>
+
 本指南比较了三种成熟的 **React** 国际化方案：**react-intl**（FormatJS）、**react-i18next**（i18next）和 **Intlayer**。
 我们重点关注 **纯 React** 应用（例如 Vite、CRA、SPA）。如果您使用的是 Next.js，请参阅我们专门的 Next.js 比较。
 

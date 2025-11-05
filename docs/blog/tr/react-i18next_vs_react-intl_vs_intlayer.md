@@ -32,6 +32,8 @@ Bu rehber, **React** için üç yerleşik i18n seçeneğini karşılaştırır: 
 - Geliştirici deneyimi (DX), araçlar ve bakım
 - SEO/yönlendirme (çerçeve bağımlı)
 
+<TOC/>
+
 > **tl;dr**: Üçü de bir React uygulamasını yerelleştirebilir. **Bileşen kapsamlı içerik**, **katı TypeScript türleri**, **derleme zamanı eksik anahtar kontrolleri**, **ağaç sallanan sözlükler** ve yerleşik düzenleme araçları (Görsel Düzenleyici/CMS + isteğe bağlı AI çeviri) istiyorsanız, **Intlayer** modüler React kod tabanları için en kapsamlı seçimdir.
 
 ---

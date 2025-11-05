@@ -19,6 +19,8 @@ slugs:
 
 # next-i18next बनाम next-intl बनाम intlayer | Next.js अंतरराष्ट्रीयकरण (i18n)
 
+<TOC/>
+
 यह गाइड **Next.js** के लिए तीन व्यापक रूप से उपयोग किए जाने वाले i18n विकल्पों की तुलना करता है: **next-intl**, **next-i18next**, और **Intlayer**।
 हम **Next.js 13+ App Router** (जिसमें **React Server Components** शामिल हैं) पर ध्यान केंद्रित करते हैं और मूल्यांकन करते हैं:
 

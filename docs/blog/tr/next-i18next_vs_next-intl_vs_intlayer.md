@@ -32,6 +32,8 @@ Bu rehber, **Next.js** için yaygın olarak kullanılan üç i18n seçeneğini k
 6. **Geliştirici deneyimi (DX), araçlar ve bakım**
 7. **SEO ve büyük proje ölçeklenebilirliği**
 
+<TOC/>
+
 > **tl;dr**: Üçü de bir Next.js uygulamasını yerelleştirebilir. **Bileşen kapsamlı içerik**, **katı TypeScript türleri**, **derleme zamanı eksik anahtar kontrolleri**, **ağaç sallanan sözlükler** ve **birinci sınıf App Router + SEO yardımcıları** istiyorsanız, **Intlayer** en kapsamlı, modern seçimdir.
 
 ---
