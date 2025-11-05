@@ -94,7 +94,8 @@ export const LocalizationAnalyzer: FC = () => {
           const message: AuditEvent = JSON.parse(event.data);
 
           if (message.globalError) {
-            setError(message.globalError);
+            console.error(message.globalError);
+            setError('An error occurred while analyzing the site.');
             eventSource.close();
             eventSourceRef.current = null;
             setIsLoading(false);
