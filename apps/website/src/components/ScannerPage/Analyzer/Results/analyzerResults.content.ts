@@ -44,7 +44,28 @@ const analyzerResultsContent = {
       }),
     },
     status: enu({
-      '>=70': {
+      '100': {
+        label: t({
+          en: 'Perfect',
+          fr: 'Parfait',
+          es: 'Perfecto',
+          de: 'Perfekt',
+          ja: '完璧',
+          zh: '完美',
+          ru: 'Идеально',
+          ko: '완벽',
+          it: 'Perfetto',
+          pt: 'Perfeito',
+          hi: 'पूर्ण',
+          tr: 'Mükemmel',
+          pl: 'Idealny',
+          id: 'Sempurna',
+          vi: 'Hoàn hảo',
+          ar: 'مثالي',
+        }),
+        color: 'success',
+      },
+      '>=90': {
         label: t({
           en: 'Good',
           fr: 'Bon',
@@ -65,7 +86,7 @@ const analyzerResultsContent = {
         }),
         color: 'success',
       },
-      '>=40': {
+      '>=70': {
         label: t({
           en: 'Average',
           fr: 'Moyen',
@@ -86,7 +107,7 @@ const analyzerResultsContent = {
         }),
         color: 'warning',
       },
-      '<40': {
+      fallback: {
         label: t({
           en: 'Poor',
           fr: 'Mauvais',

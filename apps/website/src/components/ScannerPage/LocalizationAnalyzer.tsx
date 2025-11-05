@@ -20,9 +20,18 @@ import type {
 export const LocalizationAnalyzer: FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [progress, setProgress] = useState<number>(0);
-  const [stepsMessage, setStepsMessage] = useState<string>('');
-  const [score, setScore] = useState<number>(0);
+  const [progress, setProgress] = usePersistedStore<number>(
+    'localization-analyzer-progress',
+    0
+  );
+  const [stepsMessage, setStepsMessage] = usePersistedStore<string>(
+    'localization-analyzer-steps-message',
+    ''
+  );
+  const [score, setScore] = usePersistedStore<number>(
+    'localization-analyzer-score',
+    0
+  );
 
   const [domainData, setDomainData] = usePersistedStore<
     Partial<DomainData> | undefined
@@ -35,6 +44,7 @@ export const LocalizationAnalyzer: FC = () => {
   const urlSchema = useAnalyzerUrlSchema();
 
   const eventSourceRef = useRef<EventSource | null>(null);
+  const analyzedUrlRef = useRef<string | null>(null);
 
   const { params } = useSearchParamState({
     auto_start: { type: 'boolean', fallbackValue: false },
@@ -52,10 +62,18 @@ export const LocalizationAnalyzer: FC = () => {
   }, []);
 
   useEffect(() => {
+    // Only auto-start if:
+    // 1. auto_start is true
+    // 2. URL is provided
+    // 3. We haven't already analyzed this URL
+    // 4. Not currently loading
+    // 5. No existing data (first time or after reset)
     if (
-      Object.keys(mergedData).length === 0 &&
       params.auto_start &&
-      params.url
+      params.url &&
+      analyzedUrlRef.current !== params.url &&
+      !isLoading &&
+      Object.keys(mergedData).length === 0
     ) {
       try {
         // Validate the URL (adjust schema call as needed)
@@ -65,9 +83,10 @@ export const LocalizationAnalyzer: FC = () => {
         return;
       }
 
+      analyzedUrlRef.current = params.url;
       handleAnalyze(params.url);
     }
-  }, [params.auto_start, params.url]);
+  }, [params.auto_start, params.url, isLoading]);
 
   const handleAnalyze = async (url: string) => {
     // Close any existing EventSource connection
@@ -112,6 +131,7 @@ export const LocalizationAnalyzer: FC = () => {
             setScore(message.score);
           }
           if (typeof message.type === 'string') {
+            console.log(message);
             setMergedData((prev) => ({
               ...prev,
               [message.type!]: {
@@ -137,20 +157,21 @@ export const LocalizationAnalyzer: FC = () => {
                 eventSourceRef.current.close();
                 eventSourceRef.current = null;
               }
-            }, 10000);
+            }, 1000);
           }
         } catch (err) {
           console.error('Failed to parse SSE message:', err);
         }
       };
 
-      eventSource.onerror = (error) => {
-        console.error('SSE error:', error);
-        setError('Connection error while analyzing site.');
-        eventSource.close();
-        eventSourceRef.current = null;
-        setIsLoading(false);
-      };
+      // eventSource.onerror = (error) => {
+      //   console.error('SSE error:', error);
+
+      //   setError('Connection error while analyzing site.');
+      //   eventSource.close();
+      //   eventSourceRef.current = null;
+      //   setIsLoading(false);
+      // };
     } catch (error) {
       setMergedData({});
       setError(extractErrorMessage(error));
