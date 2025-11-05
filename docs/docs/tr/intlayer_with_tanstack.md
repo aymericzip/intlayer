@@ -28,6 +28,10 @@ history:
 
 # Intlayer ile Tanstack Start çevirin | Uluslararasılaştırma (i18n)
 
+## İçindekiler
+
+<TOC/>
+
 Bu rehber, Tanstack Start projelerinde yerel dil yönlendirmesi, TypeScript desteği ve modern geliştirme uygulamalarıyla sorunsuz uluslararasılaştırma için **Intlayer**'ın nasıl entegre edileceğini göstermektedir.
 
 ## Intlayer Nedir?

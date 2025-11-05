@@ -25,6 +25,10 @@ history:
 
 # 使用Intlayer翻译您的Tanstack Start | 国际化(i18n)
 
+## 目录
+
+<TOC/>
+
 本指南演示如何在 Tanstack Start 项目中集成 **Intlayer**，实现无缝国际化，支持基于区域设置的路由、TypeScript 支持以及现代开发实践。
 
 ## 什么是 Intlayer？

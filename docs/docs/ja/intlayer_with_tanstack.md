@@ -25,6 +25,10 @@ history:
 
 # IntlayerでTanstack Startを翻訳する | 国際化（i18n）
 
+## 目次
+
+<TOC/>
+
 このガイドでは、Tanstack Startプロジェクトにおいて、ロケール対応ルーティング、TypeScriptサポート、最新の開発手法を活用しながら、**Intlayer**を使ったシームレスな国際化（i18n）の統合方法を示します。
 
 ## Intlayerとは？

@@ -25,6 +25,10 @@ history:
 
 # 使用 Intlayer 结合 Vite 和 React 开始国际化 (i18n)
 
+## 目录
+
+<TOC/>
+
 <iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-vite-react-template)。

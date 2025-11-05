@@ -25,6 +25,10 @@ history:
 
 # Intlayer로 Tanstack Start 번역하기 | 국제화(i18n)
 
+## 목차
+
+<TOC/>
+
 이 가이드는 로케일 인식 라우팅, TypeScript 지원 및 최신 개발 방식을 갖춘 Tanstack Start 프로젝트에서 **Intlayer**를 통합하여 원활한 국제화(i18n)를 구현하는 방법을 보여줍니다.
 
 ## Intlayer란 무엇인가요?

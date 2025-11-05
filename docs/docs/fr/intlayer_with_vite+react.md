@@ -25,6 +25,10 @@ history:
 
 # Prise en main de l'internationalisation (i18n) avec Intlayer, Vite et React
 
+## Table des matières
+
+<TOC/>
+
 <iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
 Voir le [Modèle d'application](https://github.com/aymericzip/intlayer-vite-react-template) sur GitHub.

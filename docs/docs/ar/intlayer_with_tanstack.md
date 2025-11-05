@@ -25,6 +25,10 @@ history:
 
 # ترجم Tanstack Start باستخدام Intlayer | التدويل (i18n)
 
+## جدول المحتويات
+
+<TOC/>
+
 يوضح هذا الدليل كيفية دمج **Intlayer** لتحقيق تدويل سلس في مشاريع Tanstack Start مع توجيه يعتمد على اللغة، ودعم TypeScript، وممارسات تطوير حديثة.
 
 ## ما هو Intlayer؟
