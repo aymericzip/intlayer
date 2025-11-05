@@ -9,15 +9,12 @@ import { defaultLocale, locales } from '../intlayer.config';
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
 const DOC_PATTERN: string[] = [
-  './docs/en/**/*.md',
-  './blog/en/**/*.md',
-  './frequent_questions/en/**/*.md',
-  './legal/en/**/*.md',
+  './docs/en/**/configuration.md',
+  // './blog/en/**/*.md',
+  // './frequent_questions/en/**/*.md',
+  // './legal/en/**/*.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
-  '**/v7.md',
-  '**/sync-json.md',
-  '**/intlayer_with_nextjs_16.md',
   '**/_*',
   '**/node_modules/**',
   '**/dist/**',
@@ -30,7 +27,7 @@ const NB_SIMULTANEOUS_FILE_PROCESSED: number = 3;
 const LOCALE_LIST_TO_TRANSLATE: Locale[] = locales.filter(
   // Include all locales except English
   // Change it to include your specific locales if you want to translate only a subset of the locale(s)
-  (locale) => [Locales.VIETNAMESE, Locales.INDONESIAN].includes(locale as any)
+  (locale) => locale !== Locales.ENGLISH
 );
 
 const SKIP_IF_MODIFIED_BEFORE: number | undefined = undefined; // 1000 * 60 * 60; // 1 hour ago
