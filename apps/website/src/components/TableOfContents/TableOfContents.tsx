@@ -113,6 +113,8 @@ export const TableOfContents: FC<TableOfContentsProps> = ({
           const children = headingMap.get(heading);
           const hasChildren = children && children.length > 0;
 
+          if ((heading.innerText ?? '').length === 0) return <></>;
+
           return (
             <li key={id} className="list-none">
               <Link
