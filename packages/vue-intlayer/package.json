@@ -1,6 +1,6 @@
 {
   "name": "vue-intlayer",
-  "version": "7.0.5",
+  "version": "7.0.6",
   "private": false,
   "description": "Easily internationalize i18n your Vue applications with type-safe multilingual content management.",
   "keywords": [
