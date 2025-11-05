@@ -16,7 +16,7 @@ export const StatusIcon: FC<{ status?: AuditStatus; isLoading?: boolean }> = ({
   status,
   isLoading,
 }) => {
-  if (isLoading) {
+  if (isLoading && typeof status === 'undefined') {
     return <Loader className="size-4" />;
   }
 
@@ -65,10 +65,7 @@ export const EventTag: FC<{
   if (details) {
     return (
       <Popover identifier={`information-tag-${id}`}>
-        <StatusIcon
-          status={event?.status}
-          isLoading={isLoading && !event?.status}
-        />
+        <StatusIcon status={event?.status} />
         <Popover.Detail
           identifier={`information-tag-${id}`}
           className="flex max-h-80 w-auto max-w-[400px] flex-col gap-4 overflow-auto bg-background/50 px-4 text-left text-sm"
@@ -83,7 +80,11 @@ export const EventTag: FC<{
     );
   }
 
-  return <StatusIcon status={event?.status} />;
+  return (
+    <div className="flex items-center justify-center">
+      <StatusIcon status={event?.status} isLoading={isLoading} />
+    </div>
+  );
 };
 
 export type FieldItemProps = {
@@ -102,16 +103,14 @@ export const FieldItem: FC<FieldItemProps> = ({
   event,
   details,
   isLoading,
-}) => {
-  return (
-    <div className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-2 rounded-lg px-2 py-1 text-neutral">
-      {icon}
-      <strong className="min-w-28">{label}:</strong>
-      <span className="flex items-center justify-end gap-2 text-left text-text/70">
-        <EventTag id={`${id}-success`} event={event} isLoading={isLoading} />
+}) => (
+  <div className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-2 rounded-lg px-2 py-1 text-neutral">
+    {icon}
+    <strong className="min-w-28">{label}:</strong>
+    <span className="flex items-center justify-end gap-2 text-left text-text/70">
+      <EventTag id={`${id}-success`} event={event} isLoading={isLoading} />
 
-        {details && <InformationTag id={id}>{details}</InformationTag>}
-      </span>
-    </div>
-  );
-};
+      {details && <InformationTag id={id}>{details}</InformationTag>}
+    </span>
+  </div>
+);
