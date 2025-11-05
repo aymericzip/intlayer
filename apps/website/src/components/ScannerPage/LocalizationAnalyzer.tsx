@@ -79,7 +79,7 @@ export const LocalizationAnalyzer: FC = () => {
     setError(null);
     setIsLoading(true);
     setProgress(0);
-    setStepsMessage('');
+    setStepsMessage('Starting analysis...');
     setMergedData({});
     setDomainData(undefined);
 
@@ -93,7 +93,7 @@ export const LocalizationAnalyzer: FC = () => {
         try {
           const message: AuditEvent = JSON.parse(event.data);
 
-          if (message.globalError) {
+          if (typeof message.globalError === 'string') {
             console.error(message.globalError);
             setError('An error occurred while analyzing the site.');
             eventSource.close();
@@ -102,13 +102,13 @@ export const LocalizationAnalyzer: FC = () => {
             return;
           }
 
-          if (message.message) {
+          if (typeof message.message === 'string') {
             setStepsMessage(message.message);
           }
-          if (message.progress) {
+          if (typeof message.progress === 'number') {
             setProgress(message.progress ?? 0);
           }
-          if (message.score) {
+          if (typeof message.score === 'number') {
             setScore(message.score);
           }
           if (typeof message.type === 'string') {
@@ -121,12 +121,15 @@ export const LocalizationAnalyzer: FC = () => {
             }));
           }
 
-          if (message.domainData) {
+          if (typeof message.domainData === 'object') {
             setDomainData((prev) => ({ ...prev, ...message.domainData }));
           }
 
           // Check if analysis is complete (only when progress reaches 100)
-          if (message.progress === 100) {
+          if (
+            typeof message.progress === 'number' &&
+            message.progress === 100
+          ) {
             setIsLoading(false);
             // Keep connection open briefly to ensure all messages are received
             setTimeout(() => {
@@ -134,7 +137,7 @@ export const LocalizationAnalyzer: FC = () => {
                 eventSourceRef.current.close();
                 eventSourceRef.current = null;
               }
-            }, 1000);
+            }, 10000);
           }
         } catch (err) {
           console.error('Failed to parse SSE message:', err);
@@ -156,8 +159,6 @@ export const LocalizationAnalyzer: FC = () => {
   };
 
   const hasData = mergedData && Object.keys(mergedData).length > 0;
-
-  console.log('mergedData', mergedData);
 
   return (
     <div className="flex w-full flex-col items-center justify-center p-6 text-center">

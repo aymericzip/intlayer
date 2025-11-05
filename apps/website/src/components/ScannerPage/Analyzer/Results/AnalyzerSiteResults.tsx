@@ -78,13 +78,13 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
         <span className="font-semibold text-2xl text-text/70">
           <span className="mr-2 text-neutral">{scoreTitle.title}:</span>
 
-          <Skeleton isLoading={isLoading || !score}>
+          <Skeleton isLoading={isLoading && !score}>
             <span className="mr-1 text-text">{score ?? 0}</span>
           </Skeleton>
           <span className="text-neutral text-sm">/100</span>
         </span>
 
-        <Skeleton isLoading={isLoading || !score}>
+        <Skeleton isLoading={isLoading && !score}>
           <Tag color={status(score).color.value} size="md">
             {status(score).label}
           </Tag>
@@ -94,7 +94,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
       <div className="flex items-center gap-8">
         <Skeleton
           className="h-[180px] w-[300px] rounded-xl border-4"
-          isLoading={isLoading || !domainData?.image}
+          isLoading={isLoading && !domainData?.image}
           renderChildren={false}
         >
           <Image
@@ -110,7 +110,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
         <div className="flex-1 text-left">
           <Skeleton
             className="mb-2 h-7 w-3/4"
-            isLoading={isLoading || !domainData?.title}
+            isLoading={isLoading && !domainData?.title}
           >
             <h3 className="mb-2 font-semibold text-neutral-900 text-xl dark:text-neutral-100">
               {domainData?.title ?? messages.noTitle}
@@ -118,7 +118,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
           </Skeleton>
           <Skeleton
             className="mb-2 h-4 w-full"
-            isLoading={isLoading || !domainData?.description}
+            isLoading={isLoading && !domainData?.description}
           >
             <p className="text-neutral text-sm">
               {domainData?.description ?? messages.noDescription}

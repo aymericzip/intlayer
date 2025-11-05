@@ -65,7 +65,10 @@ export const EventTag: FC<{
   if (details) {
     return (
       <Popover identifier={`information-tag-${id}`}>
-        <StatusIcon status={event?.status} isLoading={isLoading} />
+        <StatusIcon
+          status={event?.status}
+          isLoading={isLoading && !event?.status}
+        />
         <Popover.Detail
           identifier={`information-tag-${id}`}
           className="flex max-h-80 w-auto max-w-[400px] flex-col gap-4 overflow-auto bg-background/50 px-4 text-left text-sm"

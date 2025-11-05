@@ -161,6 +161,7 @@ const scannerHeaders = [
       directives: {
         ...secureHeaders.contentSecurityPolicy.directives,
         imgSrc: ['*'],
+        connectSrc: ['*'],
       },
     },
   }),
