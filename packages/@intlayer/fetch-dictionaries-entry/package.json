@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/fetch-dictionaries-entry",
-  "version": "7.0.6",
+  "version": "7.0.7",
   "private": false,
   "description": "Provides the entry path for Intlayer fetch dictionaries, solving filesystem retrieval issues for bundlers like Webpack and Rollup.",
   "keywords": [

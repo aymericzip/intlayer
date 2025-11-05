@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/mcp",
-  "version": "7.0.6",
+  "version": "7.0.7",
   "private": false,
   "description": "Intlayer MCP server. Handle MCP to help IDE to use Intlayer. It build, fill, pull, push, dictionaries",
   "keywords": [
