@@ -10,8 +10,7 @@ keywords:
   - कॉन्फ़िगरेशन
   - पैकेज प्रबंधक
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - bun-set-up
 ---
 

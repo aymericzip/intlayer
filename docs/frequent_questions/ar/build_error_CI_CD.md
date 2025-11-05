@@ -15,8 +15,7 @@ keywords:
   - ما قبل البناء
   - الأتمتة
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - build-error-ci-cd
 ---
 

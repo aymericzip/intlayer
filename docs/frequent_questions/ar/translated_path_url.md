@@ -15,8 +15,7 @@ keywords:
   - لغة
   - عنوان URL
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - translated-path-url
 ---
 

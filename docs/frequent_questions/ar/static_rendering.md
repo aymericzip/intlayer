@@ -15,8 +15,7 @@ keywords:
   - وسيط
   - التهيئة
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - static-rendering
 ---
 
@@ -31,7 +30,6 @@ slugs:
   يبحث next-intl عن اللغة الحالية من خلال رأس خاص بالطلب فقط (`x-next-intl-locale`) عبر `headers()`. وبما أن `headers()` هي **واجهة برمجة تطبيقات ديناميكية**، فإن أي مكون يستخدمها يفقد التحسين الثابت. ([Next Intl][1]، [Next.js][2])
 
 - **الحل الرسمي (النموذجي)**
-
   1. تصدير `generateStaticParams` مع كل لغة مدعومة.
   2. استدعاء `setRequestLocale(locale)` في **كل** تخطيط/صفحة _قبل_ استدعاء `useTranslations`. ([Next Intl][1])
      هذا يزيل الاعتماد على الرأس، لكنك الآن لديك كود إضافي يجب صيانته وواجهة برمجة تطبيقات غير مستقرة في الإنتاج.

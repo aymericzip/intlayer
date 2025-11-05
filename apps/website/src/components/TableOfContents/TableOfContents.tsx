@@ -53,6 +53,8 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
         const subChildren = childrenMap.get(heading);
         const hasChildren = subChildren && subChildren.length > 0;
 
+        if ((heading.innerText ?? '').length === 0) return <></>;
+
         return (
           <li key={id} className={cn('list-none')}>
             <Link

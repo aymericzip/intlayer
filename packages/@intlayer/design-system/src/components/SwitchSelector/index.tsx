@@ -2,14 +2,19 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
+  createElement,
   type HTMLAttributes,
+  type ReactElement,
   type ReactNode,
   useEffect,
-  useRef,
   useState,
 } from 'react';
-import { useItemSelector } from '../../hooks';
 import { cn } from '../../utils/cn';
+import {
+  TabSelector,
+  type TabSelectorColor,
+  type TabSelectorItemProps,
+} from '../TabSelector';
 
 /**
  * Configuration for a single choice in the SwitchSelector
@@ -113,6 +118,15 @@ export enum SwitchSelectorColor {
   TEXT = 'text',
 }
 
+/**
+ * Maps SwitchSelectorColor to TabSelectorColor
+ */
+const mapColorToTabSelector = (
+  color: SwitchSelectorColor
+): TabSelectorColor => {
+  return color as unknown as TabSelectorColor;
+};
+
 const switchSelectorVariant = cva(
   'flex w-fit flex-row gap-2 rounded-full border-[1.5px] p-[1.5px]',
   {
@@ -160,24 +174,6 @@ const choiceVariant = cva(
     },
     defaultVariants: {
       size: SwitchSelectorSize.MD,
-    },
-  }
-);
-
-const indicatorVariant = cva(
-  'absolute top-0 z-[-1] h-full w-auto rounded-full transition-[left,width] duration-300 ease-in-out motion-reduce:transition-none',
-  {
-    variants: {
-      color: {
-        [SwitchSelectorColor.PRIMARY]: 'bg-primary aria-selected:text-text',
-        [SwitchSelectorColor.SECONDARY]: 'bg-secondary aria-selected:text-text',
-        [SwitchSelectorColor.DESTRUCTIVE]:
-          'bg-destructive aria-selected:text-text',
-        [SwitchSelectorColor.NEUTRAL]: 'bg-neutral aria-selected:text-white',
-        [SwitchSelectorColor.LIGHT]: 'bg-white aria-selected:text-black',
-        [SwitchSelectorColor.DARK]: 'bg-neutral-800 aria-selected:text-white',
-        [SwitchSelectorColor.TEXT]: 'bg-text aria-selected:text-text-opposite',
-      },
     },
   }
 );
@@ -285,13 +281,16 @@ export const SwitchSelector = <T,>({
   const [valueState, setValue] = useState<T>(
     value ?? defaultValue ?? choices[0].value
   );
-  const optionsRefs = useRef<HTMLButtonElement[]>([]);
-  const indicatorRef = useRef<HTMLDivElement | null>(null);
-  const { choiceIndicatorPosition } = useItemSelector(optionsRefs);
 
-  const handleChange = (newValue: T) => {
-    setValue(newValue);
-    onChange?.(newValue);
+  const handleChange = (key: string | number) => {
+    // TabSelector passes the key (which is the index in our case)
+    const choiceIndex = typeof key === 'number' ? key : parseInt(key, 10);
+
+    if (choiceIndex >= 0 && choiceIndex < choices.length) {
+      const choice = choices[choiceIndex];
+      setValue(choice.value);
+      onChange?.(choice.value);
+    }
   };
 
   useEffect(() => {
@@ -299,56 +298,65 @@ export const SwitchSelector = <T,>({
     setValue(value);
   }, [value]);
 
+  // Convert choices to ReactElements (buttons) for TabSelector
+  // Use index as key for TabSelector since it requires string | number
+  const tabs: ReactElement<TabSelectorItemProps>[] = choices.map(
+    (choice, index) => {
+      const { content, value: choiceValue, ...buttonProps } = choice;
+
+      return createElement(
+        'button',
+        {
+          ...buttonProps,
+          type: 'button',
+          key: index,
+          className: cn(choiceVariant({ size })),
+          disabled: choiceValue === valueState,
+        } as TabSelectorItemProps & { key: number },
+        content
+      );
+    }
+  );
+
+  // Determine the selected key for TabSelector (use index)
+  const selectedKey = choices.findIndex((c) => c.value === valueState);
+  // Fallback to 0 if no match found (shouldn't happen, but TypeScript safety)
+  const validSelectedKey = selectedKey >= 0 ? selectedKey : 0;
+
+  // Map colors to indicator background classes
+  // color has a default value, so it's guaranteed to be non-null at runtime
+  const currentColor = color ?? SwitchSelectorColor.PRIMARY;
+  const indicatorBgClass = {
+    [SwitchSelectorColor.PRIMARY]: '[&>div>div[class*="absolute"]]:bg-primary',
+    [SwitchSelectorColor.SECONDARY]:
+      '[&>div>div[class*="absolute"]]:bg-secondary',
+    [SwitchSelectorColor.DESTRUCTIVE]:
+      '[&>div>div[class*="absolute"]]:bg-destructive',
+    [SwitchSelectorColor.NEUTRAL]: '[&>div>div[class*="absolute"]]:bg-neutral',
+    [SwitchSelectorColor.LIGHT]: '[&>div>div[class*="absolute"]]:bg-white',
+    [SwitchSelectorColor.DARK]: '[&>div>div[class*="absolute"]]:bg-neutral-800',
+    [SwitchSelectorColor.TEXT]: '[&>div>div[class*="absolute"]]:bg-text',
+  }[currentColor];
+
   return (
     <div
       className={switchSelectorVariant({
         color,
         className,
       })}
-      role="tablist"
     >
-      <div className="relative flex size-full flex-row items-center justify-center">
-        {choices.map((choice, index) => {
-          const { content, value, ...buttonProps } = choice;
-
-          const isKeyOfKey =
-            typeof value === 'string' || typeof value === 'number';
-
-          const isSelected = value === valueState;
-
-          return (
-            <button
-              {...buttonProps}
-              className={cn(
-                choiceVariant({
-                  size,
-                })
-              )}
-              key={isKeyOfKey ? value : index}
-              role="tab"
-              onClick={() => handleChange(value)}
-              aria-selected={isSelected}
-              disabled={isSelected}
-              ref={(el) => {
-                optionsRefs.current[index] = el!;
-              }}
-            >
-              {content}
-            </button>
-          );
-        })}
-        {choiceIndicatorPosition && (
-          <div
-            className={cn(
-              indicatorVariant({
-                color,
-              })
-            )}
-            style={choiceIndicatorPosition}
-            ref={indicatorRef}
-          />
+      <TabSelector
+        tabs={tabs}
+        selectedChoice={validSelectedKey}
+        onTabClick={handleChange}
+        color={mapColorToTabSelector(currentColor)}
+        className={cn(
+          '[&>div]:gap-0',
+          '[&>div>div[class*="absolute"]]:rounded-full',
+          '[&>div>div[class*="absolute"]]:!bg-opacity-100',
+          indicatorBgClass
         )}
-      </div>
+      />
     </div>
   );
 };

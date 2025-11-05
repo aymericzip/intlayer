@@ -49,10 +49,6 @@ Bien qu'Intlayer fournisse une excellente solution i18n autonome (voir notre [gu
 
 Ce guide vous montre comment tirer parti du système supérieur de déclaration de contenu d'Intlayer tout en maintenant la compatibilité avec react-intl.
 
-## Table des matières
-
-<TOC/>
-
 ## Guide étape par étape pour configurer Intlayer avec react-intl
 
 ### Étape 1 : Installer les dépendances

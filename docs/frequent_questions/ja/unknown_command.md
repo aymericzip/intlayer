@@ -15,8 +15,7 @@ keywords:
   - 再起動
   - ローカル
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - unknown-command
 ---
 

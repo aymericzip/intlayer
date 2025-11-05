@@ -15,8 +15,7 @@ keywords:
   - vite
   - 프레임워크
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - domain-routing
 ---
 

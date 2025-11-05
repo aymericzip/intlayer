@@ -15,8 +15,7 @@ keywords:
   - middleware
   - configuração
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - static-rendering
 ---
 
@@ -31,7 +30,6 @@ slugs:
   next-intl busca a localidade atual a partir de um cabeçalho disponível apenas na requisição (`x-next-intl-locale`) via `headers()`. Como `headers()` é uma **API dinâmica**, qualquer componente que a utilize perde a otimização estática. ([Next Intl][1], [Next.js][2])
 
 - **Solução oficial (boilerplate)**
-
   1. Exporte `generateStaticParams` com todas as localidades suportadas.
   2. Chame `setRequestLocale(locale)` em **todos** os layouts/páginas _antes_ de chamar `useTranslations`. ([Next Intl][1])
      Isso remove a dependência do cabeçalho, mas agora você tem código extra para manter e uma API instável em produção.

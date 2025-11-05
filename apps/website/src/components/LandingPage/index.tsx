@@ -39,6 +39,13 @@ const DynamicFeaturesSection = dynamic(
   }
 );
 
+const DynamicAuditSection = dynamic(
+  () => import('./AuditSection').then((mod) => mod.AuditSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
 const DynamicDemoSection = dynamic(
   () => import('./DemoSection').then((mod) => mod.DemoSection),
   {
@@ -68,9 +75,14 @@ export const LandingPage: FC = () => (
         <DynamicWhyToChoseIntlayerSection />
       </BackgroundLayout>
       <DynamicFeaturesSection />
+      <div className="relative w-full overflow-hidden bg-neutral/5 py-16 dark:bg-neutral-900/10">
+        <DynamicAuditSection />
+        <DynamicLanguageSection />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-background [clip-path:polygon(0_0,100%_0,0_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-background [clip-path:polygon(100%_0,100%_100%,0_100%)]" />
+      </div>
       <DynamicAIABTestingSection />
       <DynamicAvailableTechnoSection />
-      <DynamicLanguageSection />
       <DynamicDemoSection />
       <CommonQuestionsSection />
     </div>

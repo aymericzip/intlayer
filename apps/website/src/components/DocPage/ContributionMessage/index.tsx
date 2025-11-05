@@ -1,5 +1,5 @@
 import { Link } from '@components/Link/Link';
-import { Popover } from '@intlayer/design-system';
+import { PopoverStatic } from '@intlayer/design-system';
 import { Edit } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
@@ -10,7 +10,7 @@ export const ContributionMessage: FC<{ githubUrl: string }> = ({
   const { contribution } = useIntlayer('contribution-message');
 
   return (
-    <Popover identifier="contribute">
+    <PopoverStatic identifier="contribute">
       <Link
         href={githubUrl.replace('/blob/', `/edit/`)}
         label={contribution.buttonLabel.value}
@@ -20,7 +20,7 @@ export const ContributionMessage: FC<{ githubUrl: string }> = ({
       >
         <Edit className="size-4" size={24} />
       </Link>
-      <Popover.Detail
+      <PopoverStatic.Detail
         identifier="contribute"
         className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-sm"
         xAlign="end"
@@ -34,7 +34,7 @@ export const ContributionMessage: FC<{ githubUrl: string }> = ({
         >
           {contribution.button}
         </Link>
-      </Popover.Detail>
-    </Popover>
+      </PopoverStatic.Detail>
+    </PopoverStatic>
   );
 };

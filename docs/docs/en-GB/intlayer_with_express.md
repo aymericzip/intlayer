@@ -129,7 +129,7 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      en-GB: "Example of returned content in English",
+      "en-GB": "Example of returned content in English",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -149,7 +149,7 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      en-GB: "Example of returned content in English",
+      "en-GB": "Example of returned content in English",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -222,7 +222,7 @@ app.use(intlayer());
 app.get("/t_example", (_req, res) => {
   res.send(
     t({
-      en-GB: "Example of returned content in English",
+      "en-GB": "Example of returned content in English",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -257,7 +257,7 @@ app.use(intlayer());
 app.get("/t_example", (_req, res) => {
   res.send(
     t({
-      en-GB: "Example of returned content in English",
+      "en-GB": "Example of returned content in English",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",

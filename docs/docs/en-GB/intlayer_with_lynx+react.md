@@ -224,28 +224,28 @@ const appContent = {
   content: {
     title: "React",
     subtitle: t({
-      en-GB: "on Lynx",
+      "en-GB": "on Lynx",
       en: "on Lynx",
       fr: "sur Lynx",
       fr: "sur Lynx",
       es: "en Lynx",
     }),
     description: t({
-      en-GB: "Tap the logo and have fun!",
+      "en-GB": "Tap the logo and have fun!",
       en: "Tap the logo and have fun!",
       fr: "Appuyez sur le logo et amusez-vous!",
       es: "¡Toca el logo y diviértete!",
     }),
     hint: [
       t({
-        en-GB: "Edit",
+        "en-GB": "Edit",
         en: "Edit",
         fr: "Modifier",
         es: "Editar",
       }),
       " src/App.tsx ",
       t({
-        en-GB: "to see updates!",
+        "en-GB": "to see updates!",
         en: "to see updates!",
         fr: "pour voir les mises à jour!",
         es: "para ver actualizaciones!",
@@ -265,27 +265,27 @@ const appContent = {
   content: {
     title: "React",
     subtitle: t({
-      en-GB: "on Lynx",
+      "en-GB": "on Lynx",
       en: "on Lynx",
       fr: "sur Lynx",
       es: "en Lynx",
     }),
     description: t({
-      en-GB: "Tap the logo and have fun!",
+      "en-GB": "Tap the logo and have fun!",
       en: "Tap the logo and have fun!",
       fr: "Appuyez sur le logo et amusez-vous!",
       es: "¡Toca el logo y diviértete!",
     }),
     hint: [
       t({
-        en-GB: "Edit",
+        "en-GB": "Edit",
         en: "Edit",
         fr: "Modifier",
         es: "Editar",
       }),
       " src/App.tsx ",
       t({
-        en-GB: "to see updates!",
+        "en-GB": "to see updates!",
         en: "to see updates!",
         fr: "pour voir les mises à jour!",
         es: "para ver actualizaciones!",
@@ -306,27 +306,27 @@ const appContent = {
   content: {
     title: "React",
     subtitle: t({
-      en-GB: "on Lynx",
+      "en-GB": "on Lynx",
       en: "on Lynx",
       fr: "sur Lynx",
       es: "en Lynx",
     }),
     description: t({
-      en-GB: "Tap the logo and have fun!",
+      "en-GB": "Tap the logo and have fun!",
       en: "Tap the logo and have fun!",
       fr: "Appuyez sur le logo et amusez-vous!",
       es: "¡Toca el logo y diviértete!",
     }),
     hint: [
       t({
-        en-GB: "Edit",
+        "en-GB": "Edit",
         en: "Edit",
         fr: "Modifier",
         es: "Editar",
       }),
       " src/App.tsx ",
       t({
-        en-GB: "to see updates!",
+        "en-GB": "to see updates!",
         en: "to see updates!",
         fr: "pour voir les mises à jour!",
         es: "para ver actualizaciones!",

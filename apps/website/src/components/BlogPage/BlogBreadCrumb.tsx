@@ -34,9 +34,24 @@ export const BlogBreadCrumb: FC<BlogBreadCrumbProps> = ({
           const blogSection = getBlogSubSection(blogData, el);
           const sectionUrl = blogSection?.default?.url;
 
+          if (blogSection?.title) {
+            return {
+              text: blogSection.title,
+              href: sectionUrl,
+            };
+          }
+
+          const lastItem = el[el.length - 1];
+          const titleCapitalized =
+            lastItem.charAt(0).toUpperCase() + lastItem.slice(1);
+          const title = titleCapitalized?.replace(/-/g, ' ');
+
           return {
-            text: blogSection?.title ?? '',
-            href: sectionUrl,
+            text: title ?? '-',
+            href: getLocalizedUrl(
+              `${PagesRoutes.Blog_Root}/${el.join('/')}`,
+              locale
+            ),
           };
         }),
     ],

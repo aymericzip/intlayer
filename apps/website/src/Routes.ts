@@ -5,6 +5,9 @@ export enum PagesRoutes {
   NotFound = '/404',
   Changelog = '/changelog',
   Dashboard = '/dashboard',
+
+  Scanner = '/i18n-seo-scanner',
+
   Dashboard_Editor = '/dashboard/editor',
   Dashboard_Content = '/dashboard/content',
   Dashboard_Projects = '/dashboard/projects',
@@ -12,6 +15,7 @@ export enum PagesRoutes {
   Dashboard_Organization = '/dashboard/organization',
   Dashboard_Profile = '/dashboard/profile',
 
+  Doc_Root = '/doc',
   Doc = '/doc/get-started',
   Doc_Why = '/doc/why',
   Doc_Search = '/doc/search',
@@ -41,7 +45,8 @@ export enum PagesRoutes {
 
   Doc_MCP = '/doc/mcp-server',
 
-  Blog = '/blog/search/',
+  Blog_Root = '/blog',
+  Blog = '/blog/search',
   Blog_Search = '/blog/search',
   Blog_What_is_i18n = '/blog/what-is-internationalization',
 

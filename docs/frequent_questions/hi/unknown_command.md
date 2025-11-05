@@ -15,8 +15,7 @@ keywords:
   - पुनःप्रारंभ
   - स्थानीय
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - unknown-command
 ---
 

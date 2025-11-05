@@ -1,6 +1,7 @@
 import {
   getBlogMetadataBySlug,
   getDocMetadataBySlug,
+  getFrequentQuestionMetadataBySlug,
   getLegalMetadataBySlug,
 } from '@intlayer/docs';
 import { getMultilingualUrls } from 'intlayer';
@@ -11,6 +12,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const docs = await getDocMetadataBySlug([]);
   const blob = await getBlogMetadataBySlug([]);
   const legal = await getLegalMetadataBySlug([]);
+  const frequentQuestions = await getFrequentQuestionMetadataBySlug([]);
 
   const legalSitemap: MetadataRoute.Sitemap = legal.map((legal) => ({
     url: legal.url,
@@ -29,7 +31,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     url: doc.url,
     lastModified: doc.updatedAt,
     changeFrequency: 'monthly',
-    priority: 0.7,
+    priority: 1,
     alternates: {
       languages: {
         ...getMultilingualUrls(doc.url),
@@ -42,7 +44,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     url: blog.url,
     lastModified: blog.updatedAt,
     changeFrequency: 'monthly',
-    priority: 0.5,
+    priority: 0.8,
     alternates: {
       languages: {
         ...getMultilingualUrls(blog.url),
@@ -50,6 +52,21 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       },
     },
   }));
+
+  const frequentQuestionSitemap: MetadataRoute.Sitemap = frequentQuestions.map(
+    (frequentQuestion) => ({
+      url: frequentQuestion.url,
+      lastModified: frequentQuestion.updatedAt,
+      changeFrequency: 'monthly',
+      priority: 0.4,
+      alternates: {
+        languages: {
+          ...getMultilingualUrls(frequentQuestion.url),
+          'x-default': frequentQuestion.url,
+        },
+      },
+    })
+  );
 
   return [
     {
@@ -105,6 +122,20 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
             `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Playground}`
           ),
           'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Playground}`,
+        },
+      },
+    },
+    {
+      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Scanner}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+      alternates: {
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Scanner}`
+          ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Scanner}`,
         },
       },
     },
@@ -279,6 +310,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     ...legalSitemap,
     ...docSitemap,
     ...blogSitemap,
+    ...frequentQuestionSitemap,
   ];
 };
 

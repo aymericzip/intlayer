@@ -15,8 +15,7 @@ keywords:
   - 사전빌드
   - 자동화
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - build-error-ci-cd
 ---
 

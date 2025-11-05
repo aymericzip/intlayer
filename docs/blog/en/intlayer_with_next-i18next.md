@@ -24,7 +24,7 @@ history:
     changes: Change to syncJSON plugin and comprehensive rewrite
 ---
 
-# Next.js Internationalization (i18n) with next-i18next and Intlayer
+# How to automate your next-i18next JSON translations using Intlayer
 
 ## Table of Contents
 

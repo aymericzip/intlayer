@@ -26,8 +26,6 @@ history:
 
 # Translate your React Native and Expo website using Intlayer | Internationalization (i18n)
 
-See [Application Template](https://github.com/aymericzip/intlayer-react-native-template) on GitHub.
-
 ## Table of Contents
 
 <TOC/>
@@ -46,6 +44,16 @@ With Intlayer, you can:
 ---
 
 ## Step 1: Install Dependencies
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-react-native-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+See [Application Template](https://github.com/aymericzip/intlayer-react-native-template) on GitHub.
 
 From your React Native project, install the following packages:
 

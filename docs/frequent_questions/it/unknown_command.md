@@ -15,8 +15,7 @@ keywords:
   - riavviare
   - locale
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - unknown-command
 ---
 

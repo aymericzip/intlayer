@@ -15,8 +15,7 @@ keywords:
   - react-intlayer
   - vue-intlayer
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - get-locale-cookie
 ---
 

@@ -10,8 +10,7 @@ keywords:
   - конфигурация
   - менеджер пакетов
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - bun-set-up
 ---
 

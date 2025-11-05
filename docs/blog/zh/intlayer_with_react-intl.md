@@ -49,10 +49,6 @@ history:
 
 本指南将向您展示如何利用 Intlayer 优越的内容声明系统，同时保持与 react-intl 的兼容性。
 
-## 目录
-
-<TOC/>
-
 ## 使用 react-intl 设置 Intlayer 的分步指南
 
 ### 第一步：安装依赖

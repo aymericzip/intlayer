@@ -10,8 +10,7 @@ keywords:
   - yapılandırma
   - paket yöneticisi
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - bun-set-up
 ---
 

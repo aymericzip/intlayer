@@ -40,8 +40,6 @@ export const History: FC<HistoryProps> = ({
       new Date(baseUpdatedAt).getTime() > new Date(updatedAt).getTime()
   );
 
-  console.log('history', history);
-
   return (
     <Popover identifier="outdated-translation">
       <div className={cn('flex p-2', isOutdated && 'text-warning')}>

@@ -49,10 +49,6 @@ Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bkz. [React entegra
 
 Bu rehber, react-intl ile uyumluluğu korurken Intlayer'ın üstün içerik beyan sistemi nasıl kullanılacağını gösterir.
 
-## İçindekiler
-
-<TOC/>
-
 ## Intlayer'ı react-intl ile Kurmak için Adım Adım Rehber
 
 ### Adım 1: Bağımlılıkları Yükleyin

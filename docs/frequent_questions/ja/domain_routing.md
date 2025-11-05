@@ -15,8 +15,7 @@ keywords:
   - vite
   - フレームワーク
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - domain-routing
 ---
 

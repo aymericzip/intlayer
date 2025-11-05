@@ -15,8 +15,7 @@ keywords:
   - 语言环境
   - 列表
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - customized-locale-list
 ---
 

@@ -15,8 +15,7 @@ keywords:
   - 재시작
   - 로컬
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - unknown-command
 ---
 

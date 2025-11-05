@@ -15,8 +15,7 @@ keywords:
   - اللغة
   - القائمة
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - customized-locale-list
 ---
 

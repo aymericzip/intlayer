@@ -23,14 +23,15 @@ export const PageLayout: FC<PageLayoutProps> = ({
   ...props
 }) => (
   <IntlayerClientProvider locale={locale}>
-    <IntlayerMarkdownProvider>
-      <RootHTMLLayout locale={locale} className={className}>
-        <ThemeProvider>
-          <PageContentLayout {...props} className={mainClassName}>
-            {children}
-          </PageContentLayout>
-        </ThemeProvider>
-      </RootHTMLLayout>
-    </IntlayerMarkdownProvider>
+    <RootHTMLLayout locale={locale} className={className}>
+      {/* ThemeProvider must be inside PageContentLayout */}
+      <ThemeProvider>
+        {/* PageContentLayout must be inside ThemeProvider (Navbar) */}
+        <PageContentLayout {...props} className={mainClassName}>
+          {/* IntlayerMarkdownProvider must be inside ThemeProvider */}
+          <IntlayerMarkdownProvider>{children}</IntlayerMarkdownProvider>
+        </PageContentLayout>
+      </ThemeProvider>
+    </RootHTMLLayout>
   </IntlayerClientProvider>
 );

@@ -41,7 +41,7 @@ export const AIABTestingSection: FC = () => {
           </Tag>
 
           {/* Main Title */}
-          <h2 className="mb-6 max-w-5xl font-normal text-4xl text-text leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <h2 className="mb-6 max-w-5xl font-bold text-3xl text-text leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
             {title}
           </h2>
 

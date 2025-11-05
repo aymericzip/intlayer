@@ -15,8 +15,7 @@ keywords:
   - ön-derleme
   - otomasyon
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - build-error-ci-cd
 ---
 

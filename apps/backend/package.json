@@ -117,7 +117,6 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "esbuild-fix-imports-plugin": "1.0.22",
     "intlayer": "workspace:*",
     "rimraf": "6.0.1",
     "tsdown": "0.15.11",

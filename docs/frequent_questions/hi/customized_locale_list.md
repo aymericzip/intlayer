@@ -15,8 +15,7 @@ keywords:
   - लोकल
   - सूची
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - customized-locale-list
 ---
 

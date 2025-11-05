@@ -10,8 +10,7 @@ keywords:
   - konfiguration
   - paketmanager
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - bun-set-up
 ---
 

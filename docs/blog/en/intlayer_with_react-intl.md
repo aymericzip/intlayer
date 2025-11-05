@@ -49,10 +49,6 @@ While Intlayer provides an excellent standalone i18n solution (see our [React in
 
 This guide shows you how to leverage Intlayer's superior content declaration system while maintaining compatibility with react-intl.
 
-## Table of Contents
-
-<TOC/>
-
 ## Step-by-Step Guide to Set Up Intlayer with react-intl
 
 ### Step 1: Install Dependencies

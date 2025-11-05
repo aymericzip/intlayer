@@ -5,6 +5,7 @@ import type {
   InputHTMLAttributes,
   ReactNode,
 } from 'react';
+import { cn } from '../../utils/cn';
 
 export const checkboxVariants = cva('', {
   variants: {
@@ -78,6 +79,7 @@ export type CheckboxProps = Omit<
   > & {
     size?: CheckboxSize | `${CheckboxSize}`;
     color?: CheckboxColor | `${CheckboxColor}`;
+    labelClassName?: string;
   };
 
 const Input: FC<CheckboxProps> = ({
@@ -88,6 +90,7 @@ const Input: FC<CheckboxProps> = ({
   name,
   variant,
   className,
+  labelClassName,
   ...props
 }) => (
   <input
@@ -109,7 +112,10 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
   return label ? (
     <label
       htmlFor={id ?? name}
-      className="flex cursor-pointer items-center gap-x-4 font-medium text-sm"
+      className={cn(
+        'flex w-full cursor-pointer items-center gap-x-4 font-medium text-sm',
+        props.labelClassName
+      )}
     >
       <Input id={id ?? name} {...props} />
       {label}

@@ -15,8 +15,7 @@ keywords:
   - предварительная сборка
   - автоматизация
 slugs:
-  - doc
-  - faq
+  - frequent-questions
   - build-error-ci-cd
 ---
 
