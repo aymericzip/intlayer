@@ -2,27 +2,40 @@
 
 import { extractErrorMessage } from '@intlayer/config/client';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { AnalyzerLoading } from './Analyzer/AnalyzerLoading';
 import { AnalyzerForm } from './Analyzer/Form/AnalyzerForm';
 import { useAnalyzerUrlSchema } from './Analyzer/Form/useAnalyzerUrlSchema';
-import { AnalyzerResults } from './Analyzer/Results/AnalyzerResults';
+import { AnalyzerPageResults } from './Analyzer/Results/AnalyzerPageResults';
+import { AnalyzerSiteResults } from './Analyzer/Results/AnalyzerSiteResults';
+import { RobotsSection } from './Analyzer/Results/RobotsSection';
+import { SitemapSection } from './Analyzer/Results/SitemapSection';
+import type {
+  AuditEvent,
+  DomainData,
+  MergedData,
+} from './Analyzer/Results/types';
 
 export const LocalizationAnalyzer: FC = () => {
-  const { steps } = useIntlayer('localization-analyzer');
-  const [data, setData] = usePersistedStore<any>(
-    'localization-analyzer-data',
-    null
-  );
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
+  const [stepsMessage, setStepsMessage] = useState<string>('');
+  const [score, setScore] = useState<number>(0);
+
+  const [domainData, setDomainData] = usePersistedStore<
+    Partial<DomainData> | undefined
+  >('localization-analyzer-domain-data', undefined);
+  const [mergedData, setMergedData] = usePersistedStore<MergedData>(
+    'localization-analyzer-data',
+    {}
+  );
+
   const urlSchema = useAnalyzerUrlSchema();
-  const [currentStep, setCurrentStep] = useState('');
+
   const eventSourceRef = useRef<EventSource | null>(null);
-  const [partialSummary, setPartialSummary] = useState<Record<string, any>>({});
+
   const { params } = useSearchParamState({
     auto_start: { type: 'boolean', fallbackValue: false },
     url: { type: 'string', fallbackValue: '' },
@@ -39,18 +52,22 @@ export const LocalizationAnalyzer: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!data && params.auto_start && params.url) {
+    if (
+      Object.keys(mergedData).length === 0 &&
+      params.auto_start &&
+      params.url
+    ) {
       try {
         // Validate the URL (adjust schema call as needed)
-        urlSchema.parse({ url: params.url }); // or urlSchema.parse(url)
+        urlSchema.parse({ url: params.url });
       } catch (error) {
         setError(`Invalid URL: ${error}`);
         return;
       }
 
-      handleAnalyze(params.url); // or decodeURIComponent(url) if necessary
+      handleAnalyze(params.url);
     }
-  }, [params.auto_start]);
+  }, [params.auto_start, params.url]);
 
   const handleAnalyze = async (url: string) => {
     // Close any existing EventSource connection
@@ -59,12 +76,12 @@ export const LocalizationAnalyzer: FC = () => {
       eventSourceRef.current = null;
     }
 
-    setLoading(true);
-    setData(null);
     setError(null);
+    setIsLoading(true);
     setProgress(0);
-    setCurrentStep('');
-    setPartialSummary({});
+    setStepsMessage('');
+    setMergedData({});
+    setDomainData(undefined);
 
     try {
       const eventSource = new EventSource(
@@ -74,35 +91,49 @@ export const LocalizationAnalyzer: FC = () => {
 
       eventSource.onmessage = (event) => {
         try {
-          const message = JSON.parse(event.data);
+          const message: AuditEvent = JSON.parse(event.data);
 
-          if (message.type === 'progress') {
-            setProgress(message.progress);
-            // Use the step index to get the localized step message
-            if (message.step !== undefined && steps[message.step]) {
-              setCurrentStep(steps[message.step]);
-            } else if (message.message) {
-              // Fallback to message from server if step index not available
-              setCurrentStep(message.message);
-            }
-          } else if (message.type === 'data') {
-            // Update partial summary as fields come in
-            setPartialSummary((prev) => ({
+          if (message.globalError) {
+            setError(message.globalError);
+            eventSource.close();
+            eventSourceRef.current = null;
+            setIsLoading(false);
+            return;
+          }
+
+          if (message.message) {
+            setStepsMessage(message.message);
+          }
+          if (message.progress) {
+            setProgress(message.progress ?? 0);
+          }
+          if (message.score) {
+            setScore(message.score);
+          }
+          if (typeof message.type === 'string') {
+            setMergedData((prev) => ({
               ...prev,
-              [message.field]: message.value,
+              [message.type!]: {
+                status: message.status,
+                data: message.data,
+              },
             }));
-          } else if (message.type === 'complete') {
-            setData(message.data);
-            setPartialSummary(message.data.summary || {});
-            setProgress(100);
-            eventSource.close();
-            eventSourceRef.current = null;
-            setLoading(false);
-          } else if (message.type === 'error') {
-            setError(message.error || 'Failed to analyze site.');
-            eventSource.close();
-            eventSourceRef.current = null;
-            setLoading(false);
+          }
+
+          if (message.domainData) {
+            setDomainData((prev) => ({ ...prev, ...message.domainData }));
+          }
+
+          // Check if analysis is complete (only when progress reaches 100)
+          if (message.progress === 100) {
+            setIsLoading(false);
+            // Keep connection open briefly to ensure all messages are received
+            setTimeout(() => {
+              if (eventSourceRef.current) {
+                eventSourceRef.current.close();
+                eventSourceRef.current = null;
+              }
+            }, 1000);
           }
         } catch (err) {
           console.error('Failed to parse SSE message:', err);
@@ -114,31 +145,52 @@ export const LocalizationAnalyzer: FC = () => {
         setError('Connection error while analyzing site.');
         eventSource.close();
         eventSourceRef.current = null;
-        setLoading(false);
+        setIsLoading(false);
       };
     } catch (error) {
-      setData(null);
+      setMergedData({});
       setError(extractErrorMessage(error));
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
+  const hasData = mergedData && Object.keys(mergedData).length > 0;
+
+  console.log('mergedData', mergedData);
+
   return (
     <div className="flex w-full flex-col items-center justify-center p-6 text-center">
-      <AnalyzerForm onAnalyze={handleAnalyze} loading={loading} />
+      <AnalyzerForm onAnalyze={handleAnalyze} loading={isLoading} />
 
-      {loading && (
-        <AnalyzerLoading progress={progress} currentStep={currentStep} />
-      )}
-
-      {(data ?? Object.keys(partialSummary).length > 0) && (
-        <AnalyzerResults
-          data={data ?? { summary: partialSummary }}
-          url={params.url}
-          loading={loading}
-          partialSummary={partialSummary}
+      {isLoading && (
+        <AnalyzerLoading
+          progress={progress}
+          currentStep={stepsMessage ?? 'Analyzing...'}
         />
       )}
+
+      {hasData && (
+        <div className="mt-10 w-full max-w-2xl rounded-2xl bg-card p-6 shadow-md">
+          <AnalyzerSiteResults
+            domainData={domainData}
+            score={score}
+            isLoading={isLoading}
+          />
+
+          <AnalyzerPageResults
+            data={mergedData}
+            url={params.url}
+            isLoading={isLoading}
+          />
+
+          <RobotsSection data={mergedData} isLoading={isLoading} />
+
+          <SitemapSection data={mergedData} isLoading={isLoading} />
+
+          {/* <PageGroupsList domainData={domainData} onSelect={() => null} /> */}
+        </div>
+      )}
+
       {error && <p className="text-error">{error}</p>}
     </div>
   );

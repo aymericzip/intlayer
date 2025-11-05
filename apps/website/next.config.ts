@@ -44,6 +44,7 @@ const secureHeaders = {
         'data:',
         `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
         `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
+        `${process.env.NEXT_PUBLIC_SCANNER_API_URL}`,
         'fonts.googleapis.com',
         '*.facebook.net',
         '*.facebook.com',
@@ -152,6 +153,20 @@ const dashboardHeaders = [
   ...headersList,
 ];
 
+const scannerHeaders = [
+  ...createSecureHeaders({
+    ...secureHeaders,
+    contentSecurityPolicy: {
+      ...secureHeaders.contentSecurityPolicy,
+      directives: {
+        ...secureHeaders.contentSecurityPolicy.directives,
+        imgSrc: ['*'],
+      },
+    },
+  }),
+  ...headersList,
+];
+
 const nextConfig: NextConfig = {
   // Ensure the full @intlayer/docs package (including markdown assets) is shipped with the server bundle
   serverExternalPackages: ['@intlayer/backend', '@intlayer/docs'],
@@ -200,6 +215,10 @@ const nextConfig: NextConfig = {
   },
 
   headers: () => [
+    {
+      source: '/i18n-seo-scanner',
+      headers: scannerHeaders,
+    },
     {
       source: '/dashboard/:path*',
       headers: dashboardHeaders,
