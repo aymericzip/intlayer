@@ -24,11 +24,32 @@ history:
 
 # Traduisez votre site Next.js 16 avec Intlayer | Internationalisation (i18n)
 
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
 <iframe title="La meilleure solution i18n pour Next.js ? Découvrez Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-Voir le [Modèle d’Application](https://github.com/aymericzip/intlayer-next-16-template) sur GitHub.
+  </TabItem>
+  <TabItem label="Code" value="code">
 
-## Qu’est-ce qu’Intlayer ?
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-next-16-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+Voir le [Modèle d'Application](https://github.com/aymericzip/intlayer-next-16-template) sur GitHub.
+
+## Table des matières
+
+<TOC/>
+
+## Qu'est-ce qu'Intlayer ?
 
 **Intlayer** est une bibliothèque d'internationalisation (i18n) innovante et open-source conçue pour simplifier la prise en charge multilingue dans les applications web modernes. Intlayer s'intègre parfaitement avec le dernier framework **Next.js 16**, y compris son puissant **App Router**. Il est optimisé pour fonctionner avec les **Server Components** pour un rendu efficace et est entièrement compatible avec [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).
 

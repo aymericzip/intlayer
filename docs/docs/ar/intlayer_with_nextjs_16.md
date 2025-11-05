@@ -24,9 +24,30 @@ history:
 
 # ترجمة موقع Next.js 16 الخاص بك باستخدام Intlayer | التدويل (i18n)
 
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
 <iframe title="أفضل حل i18n لـ Next.js؟ اكتشف Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
+  </TabItem>
+  <TabItem label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-next-16-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
 شاهد [قالب التطبيق](https://github.com/aymericzip/intlayer-next-16-template) على GitHub.
+
+## جدول المحتويات
+
+<TOC/>
 
 ## ما هو Intlayer؟
 

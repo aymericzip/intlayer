@@ -24,9 +24,30 @@ history:
 
 # Intlayer를 사용하여 Next.js 16 웹사이트 번역하기 | 국제화(i18n)
 
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
 <iframe title="Next.js를 위한 최고의 i18n 솔루션? Intlayer를 발견하세요" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
+  </TabItem>
+  <TabItem label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-next-16-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-next-16-template)을 확인하세요.
+
+## 목차
+
+<TOC/>
 
 ## Intlayer란 무엇인가요?
 
