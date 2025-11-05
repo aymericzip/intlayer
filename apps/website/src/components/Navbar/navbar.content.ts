@@ -57,7 +57,7 @@ export const navbarContent = {
         tr: 'Şirket logosu - Ana sayfaya git',
         pl: 'Logo firmy - przejdź do strony głównej',
         id: 'Logo perusahaan - Buka beranda',
-        vi: 'Logo công ty - Về trang chủ',
+        vi: 'Logo công ty - Đến trang chủ', // Previously "Về trang chủ", but "Đến trang chủ" is more standard for "Go to home page"
       }),
       url: PagesRoutes.Home,
     },
@@ -81,7 +81,7 @@ export const navbarContent = {
           tr: 'Ana Sayfa',
           pl: 'Strona główna',
           id: 'Beranda',
-          vi: 'Home',
+          vi: 'Trang chủ',
         }),
         url: PagesRoutes.Home,
         label: t({
@@ -101,7 +101,7 @@ export const navbarContent = {
           tr: 'Ana sayfaya git',
           pl: 'Przejdź do strony głównej',
           id: 'Buka beranda',
-          vi: 'Đi tới trang chủ',
+          vi: 'Đến trang chủ',
         }),
       },
       {
@@ -143,10 +143,9 @@ export const navbarContent = {
           tr: "Playground'a git",
           pl: 'Przejdź do piaskownicy',
           id: 'Buka Playground',
-          vi: 'Đi tới Playground',
+          vi: 'Đến Playground',
         }),
       },
-
       // {
       //   id: 'pricing',
       //   title: t({
@@ -200,7 +199,7 @@ export const navbarContent = {
           tr: 'Dashboard',
           pl: 'Panel',
           id: 'Dashboard',
-          vi: 'Dashboard',
+          vi: 'Bảng điều khiển',
         }),
         url: PagesRoutes.Dashboard,
         label: t({
@@ -220,7 +219,7 @@ export const navbarContent = {
           tr: 'Dashboardne git',
           pl: 'Przejdź do panelu',
           id: 'Buka Dashboard',
-          vi: 'Đi tới Dashboard',
+          vi: 'Đi đến bảng điều khiển',
         }),
       },
       {
@@ -242,7 +241,7 @@ export const navbarContent = {
           tr: 'Doküman',
           pl: 'Dokumentacja',
           id: 'Dokumentasi',
-          vi: 'Doc',
+          vi: 'Tài liệu',
         }),
         url: PagesRoutes.Doc,
         label: t({
@@ -262,7 +261,7 @@ export const navbarContent = {
           tr: 'Dokümantasyon sayfasına git',
           pl: 'Przejdź do dokumentacji',
           id: 'Buka halaman dokumentasi',
-          vi: 'Đi tới trang tài liệu',
+          vi: 'Đi đến trang tài liệu',
         }),
       },
       {
@@ -304,7 +303,7 @@ export const navbarContent = {
           tr: 'Bloga git',
           pl: 'Przejdź do bloga',
           id: 'Buka blog',
-          vi: 'Đi tới Blog',
+          vi: 'Đến trang blog',
         }),
       },
     ],
@@ -329,7 +328,7 @@ export const navbarContent = {
         tr: 'Github deposuna git',
         pl: 'Przejdź do repozytorium na GitHubie',
         id: 'Buka repositori GitHub',
-        vi: 'Đi tới repo GitHub',
+        vi: 'Đi đến kho GitHub',
       }),
       gitHubLogoAlt: t({
         en: 'Github logo',
@@ -348,7 +347,7 @@ export const navbarContent = {
         tr: 'Github logosu',
         pl: 'Logo GitHuba',
         id: 'Logo GitHub',
-        vi: 'Logo GitHub',
+        vi: 'Biểu tượng GitHub',
       }),
     },
     discord: {
@@ -372,7 +371,7 @@ export const navbarContent = {
         tr: 'Discord sunucusuna git',
         pl: 'Przejdź do serwera Discord',
         id: 'Buka server Discord',
-        vi: 'Tham gia server Discord',
+        vi: 'Tham gia máy chủ Discord',
       }),
     },
 
@@ -454,7 +453,7 @@ export const navbarContent = {
         tr: 'Giriş sayfasına git',
         pl: 'Przejdź do strony logowania',
         id: 'Buka halaman masuk',
-        vi: 'Đi tới trang đăng nhập',
+        vi: 'Đi đến trang đăng nhập',
       }),
     },
   },
