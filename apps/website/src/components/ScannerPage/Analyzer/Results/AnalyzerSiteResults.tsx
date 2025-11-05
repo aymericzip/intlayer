@@ -97,14 +97,16 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
           isLoading={isLoading && !domainData?.image}
           renderChildren={false}
         >
-          <Image
-            src={domainData?.image ?? ''}
-            alt={messages.websitePreview.value}
-            width={300}
-            height={180}
-            unoptimized
-            className="rounded-xl border-4 border-neutral"
-          />
+          {domainData?.image && (
+            <Image
+              src={domainData?.image}
+              alt={messages.websitePreview.value}
+              width={300}
+              height={180}
+              unoptimized
+              className="rounded-xl border-4 border-neutral"
+            />
+          )}
         </Skeleton>
 
         <div className="flex-1 text-left">
