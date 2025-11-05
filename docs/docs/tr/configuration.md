@@ -42,6 +42,12 @@ Intlayer yapılandırma dosyaları, uluslararasılaştırma, ara katman (middlew
 
 ---
 
+## İçindekiler
+
+<TOC/>
+
+---
+
 ## Yapılandırma Dosyası Desteği
 
 Intlayer, JSON, JS, MJS ve TS yapılandırma dosyası formatlarını kabul eder:

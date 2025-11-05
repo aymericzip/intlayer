@@ -42,6 +42,12 @@ Les fichiers de configuration d'Intlayer permettent de personnaliser divers aspe
 
 ---
 
+## Table des matières
+
+<TOC/>
+
+---
+
 ## Formats de fichiers de configuration supportés
 
 Intlayer accepte les formats de fichiers de configuration JSON, JS, MJS et TS :

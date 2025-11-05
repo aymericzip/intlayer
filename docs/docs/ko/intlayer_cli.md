@@ -27,6 +27,14 @@ history:
 
 # Intlayer CLI
 
+---
+
+## 목차
+
+<TOC/>
+
+---
+
 ## 패키지 설치
 
 npm을 사용하여 필요한 패키지를 설치하세요:
@@ -372,7 +380,6 @@ npx intlayer doc translate
   > 예시: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
 
 - **`--skip-if-modified-before [skipIfModifiedBefore]`**: 지정한 시간 이전에 수정된 파일은 건너뜁니다.
-
   - "2025-12-05"와 같은 절대 시간 (문자열 또는 Date 객체)일 수 있습니다.
   - `1 * 60 * 60 * 1000` (1시간)과 같은 상대 시간(ms)일 수 있습니다.
   - 이 옵션은 `fs.stat` 메서드를 사용하여 파일의 수정 시간을 확인합니다. 따라서 Git이나 다른 도구가 파일을 수정한 경우 영향을 받을 수 있습니다.
@@ -380,7 +387,6 @@ npx intlayer doc translate
   > 예시: `npx intlayer doc translate --skip-if-modified-before "2025-12-05"`
 
 - **`--skip-if-modified-after [skipIfModifiedAfter]`**: 지정한 시간 이내에 수정된 파일은 건너뜁니다.
-
   - 절대 시간으로 "2025-12-05" (문자열 또는 Date 객체) 형태일 수 있습니다.
   - 상대 시간으로 ms 단위 `1 * 60 * 60 * 1000` (1시간) 형태일 수 있습니다.
   - 이 옵션은 `fs.stat` 메서드를 사용하여 파일의 수정 시간을 확인합니다. 따라서 Git이나 파일을 수정하는 다른 도구에 의해 영향을 받을 수 있습니다.
@@ -431,7 +437,6 @@ npx intlayer doc translate
 **사용자 지정 지침 옵션:**
 
 - **`--custom-instructions [customInstructions]`**: 프롬프트에 추가되는 사용자 지정 지침입니다. 포맷팅, URL 번역 등 특정 규칙을 적용하는 데 유용합니다.
-
   - "2025-12-05"와 같은 절대 시간(문자열 또는 Date 객체)일 수 있습니다.
   - 밀리초 단위의 상대 시간 `1 * 60 * 60 * 1000` (1시간)일 수 있습니다.
   - 이 옵션은 `fs.stat` 메서드를 사용하여 파일의 수정 시간을 확인합니다. 따라서 Git이나 파일을 수정하는 다른 도구의 영향 받을 수 있습니다.

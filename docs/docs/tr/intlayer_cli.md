@@ -27,6 +27,14 @@ history:
 
 # Intlayer CLI
 
+---
+
+## İçindekiler
+
+<TOC/>
+
+---
+
 ## Paketi Yükleyin
 
 Gerekli paketleri npm kullanarak yükleyin:

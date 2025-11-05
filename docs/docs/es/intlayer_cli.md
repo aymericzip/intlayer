@@ -27,6 +27,14 @@ history:
 
 # Intlayer CLI
 
+---
+
+## Índice
+
+<TOC/>
+
+---
+
 ## Instalar Paquete
 
 Instala los paquetes necesarios usando npm:
@@ -372,7 +380,6 @@ npx intlayer doc translate
   > Ejemplo: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
 
 - **`--skip-if-modified-before [skipIfModifiedBefore]`**: Omitir el archivo si ha sido modificado antes del tiempo dado.
-
   - Puede ser un tiempo absoluto como "2025-12-05" (cadena o Date)
   - Puede ser un tiempo relativo en ms `1 * 60 * 60 * 1000` (1 hora)
   - Esta opción verifica la hora de actualización del archivo usando el método `fs.stat`. Por lo tanto, podría verse afectada por Git u otras herramientas que modifiquen el archivo.
@@ -380,7 +387,6 @@ npx intlayer doc translate
   > Ejemplo: `npx intlayer doc translate --skip-if-modified-before "2025-12-05"`
 
 - **`--skip-if-modified-after [skipIfModifiedAfter]`**: Omitir el archivo si ha sido modificado dentro del tiempo dado.
-
   - Puede ser una hora absoluta como "2025-12-05" (cadena o Date)
   - Puede ser una hora relativa en ms `1 * 60 * 60 * 1000` (1 hora)
   - Esta opción verifica la hora de actualización del archivo usando el método `fs.stat`. Por lo tanto, podría verse afectada por Git u otras herramientas que modifiquen el archivo.
@@ -431,7 +437,6 @@ npx intlayer doc translate
 **Opciones de instrucciones personalizadas:**
 
 - **`--custom-instructions [customInstructions]`**: Instrucciones personalizadas añadidas al prompt. Útil para aplicar reglas específicas respecto al formato, traducción de URLs, etc.
-
   - Puede ser un tiempo absoluto como "2025-12-05" (cadena o Date)
   - Puede ser un tiempo relativo en ms `1 * 60 * 60 * 1000` (1 hora)
   - Esta opción verifica la hora de actualización del archivo usando el método `fs.stat`. Por lo tanto, podría verse afectada por Git u otras herramientas que modifiquen el archivo.

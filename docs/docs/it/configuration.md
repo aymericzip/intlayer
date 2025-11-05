@@ -39,6 +39,12 @@ I file di configurazione di Intlayer permettono la personalizzazione di vari asp
 
 ---
 
+## Indice
+
+<TOC/>
+
+---
+
 ## Formati di File di Configurazione Supportati
 
 Intlayer accetta formati di file di configurazione JSON, JS, MJS e TS:

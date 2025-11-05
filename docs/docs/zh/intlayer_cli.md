@@ -27,6 +27,14 @@ history:
 
 # Intlayer CLI
 
+---
+
+## 目录
+
+<TOC/>
+
+---
+
 ## 安装包
 
 使用 npm 安装必要的包：
@@ -371,7 +379,6 @@ npx intlayer doc translate
   > 示例：`npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
 
 - **`--skip-if-modified-before [skipIfModifiedBefore]`**：如果文件在指定时间之前被修改，则跳过该文件。
-
   - 可以是绝对时间，如 "2025-12-05"（字符串或日期对象）
   - 也可以是相对时间，单位为毫秒，例如 `1 * 60 * 60 * 1000`（1小时）
   - 此选项通过 `fs.stat` 方法检查文件的更新时间，因此可能会受到 Git 或其他修改文件工具的影响。
@@ -379,7 +386,6 @@ npx intlayer doc translate
   > 示例：`npx intlayer doc translate --skip-if-modified-before "2025-12-05"`
 
 - **`--skip-if-modified-after [skipIfModifiedAfter]`**：如果文件在指定时间内被修改，则跳过该文件。
-
   - 可以是绝对时间，如 "2025-12-05"（字符串或日期对象）
   - 可以是相对时间，单位为毫秒，例如 `1 * 60 * 60 * 1000`（1 小时）
   - 此选项通过 `fs.stat` 方法检查文件的更新时间，因此可能会受到 Git 或其他修改文件工具的影响。
@@ -430,7 +436,6 @@ npx intlayer doc translate
 **自定义指令选项：**
 
 - **`--custom-instructions [customInstructions]`**：添加到提示中的自定义指令。用于应用有关格式、URL 翻译等的特定规则。
-
   - 可以是绝对时间，如 "2025-12-05"（字符串或日期）
   - 可以是相对时间，单位为毫秒，如 `1 * 60 * 60 * 1000`（1 小时）
   - 此选项通过 `fs.stat` 方法检查文件的更新时间，因此可能会受到 Git 或其他修改文件工具的影响。

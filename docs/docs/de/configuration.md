@@ -39,6 +39,12 @@ Intlayer-Konfigurationsdateien ermöglichen die Anpassung verschiedener Aspekte 
 
 ---
 
+## Inhaltsverzeichnis
+
+<TOC/>
+
+---
+
 ## Unterstützte Konfigurationsdateiformate
 
 Intlayer akzeptiert JSON-, JS-, MJS- und TS-Konfigurationsdateiformate:

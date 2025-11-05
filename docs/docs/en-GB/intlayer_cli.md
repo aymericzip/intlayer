@@ -27,6 +27,14 @@ history:
 
 # Intlayer CLI
 
+---
+
+## Table of Contents
+
+<TOC/>
+
+---
+
 ## Install Package
 
 Install the necessary packages using npm:
@@ -373,7 +381,6 @@ npx intlayer doc translate
   > Example: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
 
 - **`--skip-if-modified-before [skipIfModifiedBefore]`**: Skip the file if it has been modified before the specified time.
-
   - Can be an absolute time such as "2025-12-05" (string or Date)
   - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
   - This option checks the update time of the file using the `fs.stat` method. Therefore, it could be affected by Git or other tools that modify the file.
@@ -381,7 +388,6 @@ npx intlayer doc translate
   > Example: `npx intlayer doc translate --skip-if-modified-before "2025-12-05"`
 
 - **`--skip-if-modified-after [skipIfModifiedAfter]`**: Skip the file if it has been modified within the specified time.
-
   - Can be an absolute time such as "2025-12-05" (string or Date)
   - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
   - This option checks the update time of the file using the `fs.stat` method. Therefore, it could be affected by Git or other tools that modify the file.
@@ -432,7 +438,6 @@ npx intlayer doc translate
 **Custom instructions options:**
 
 - **`--custom-instructions [customInstructions]`**: Custom instructions added to the prompt. Useful to apply specific rules regarding formatting, URLs translation, etc.
-
   - Can be an absolute time such as "2025-12-05" (string or Date)
   - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
   - This option checks the update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.

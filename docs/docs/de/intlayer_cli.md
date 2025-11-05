@@ -27,6 +27,14 @@ history:
 
 # Intlayer CLI
 
+---
+
+## Inhaltsverzeichnis
+
+<TOC/>
+
+---
+
 ## Paket installieren
 
 Installieren Sie die notwendigen Pakete mit npm:
@@ -373,7 +381,6 @@ npx intlayer doc translate
   > Beispiel: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
 
 - **`--skip-if-modified-before [skipIfModifiedBefore]`**: Überspringe die Datei, wenn sie vor dem angegebenen Zeitpunkt geändert wurde.
-
   - Kann eine absolute Zeit wie "2025-12-05" sein (String oder Date)
   - Kann eine relative Zeit in ms sein `1 * 60 * 60 * 1000` (1 Stunde)
   - Diese Option prüft die Aktualisierungszeit der Datei mit der Methode `fs.stat`. Daher kann sie durch Git oder andere Tools, die die Datei ändern, beeinflusst werden.
@@ -381,7 +388,6 @@ npx intlayer doc translate
   > Beispiel: `npx intlayer doc translate --skip-if-modified-before "2025-12-05"`
 
 - **`--skip-if-modified-after [skipIfModifiedAfter]`**: Überspringe die Datei, wenn sie innerhalb des angegebenen Zeitraums geändert wurde.
-
   - Kann eine absolute Zeit sein wie "2025-12-05" (String oder Date)
   - Kann eine relative Zeit in ms sein `1 * 60 * 60 * 1000` (1 Stunde)
   - Diese Option überprüft die Aktualisierungszeit der Datei mit der Methode `fs.stat`. Daher kann sie durch Git oder andere Tools, die die Datei ändern, beeinflusst werden.
@@ -432,7 +438,6 @@ npx intlayer doc translate
 **Optionen für benutzerdefinierte Anweisungen:**
 
 - **`--custom-instructions [customInstructions]`**: Benutzerdefinierte Anweisungen, die dem Prompt hinzugefügt werden. Nützlich, um spezifische Regeln bezüglich Formatierung, URL-Übersetzung usw. anzuwenden.
-
   - Kann eine absolute Zeit wie "2025-12-05" (String oder Datum) sein
   - Kann eine relative Zeit in ms `1 * 60 * 60 * 1000` (1 Stunde) sein
   - Diese Option überprüft die Aktualisierungszeit der Datei mit der Methode `fs.stat`. Daher kann sie von Git oder anderen Tools beeinflusst werden, die die Datei ändern.

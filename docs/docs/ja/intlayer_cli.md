@@ -27,6 +27,14 @@ history:
 
 # Intlayer CLI
 
+---
+
+## 目次
+
+<TOC/>
+
+---
+
 ## パッケージのインストール
 
 npmを使って必要なパッケージをインストールします：
@@ -374,7 +382,6 @@ npx intlayer doc translate
   > 例: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
 
 - **`--skip-if-modified-before [skipIfModifiedBefore]`**: 指定した日時より前に変更されたファイルをスキップします。
-
   - "2025-12-05" のような絶対日時（文字列またはDateオブジェクト）を指定可能
   - `1 * 60 * 60 * 1000`（1時間）のような相対時間（ミリ秒）も指定可能
   - このオプションは `fs.stat` メソッドを使用してファイルの更新日時をチェックします。そのため、Gitやその他のツールによるファイルの変更に影響を受ける可能性があります。
@@ -382,7 +389,6 @@ npx intlayer doc translate
   > 例: `npx intlayer doc translate --skip-if-modified-before "2025-12-05"`
 
 - **`--skip-if-modified-after [skipIfModifiedAfter]`**: 指定した日時以降に変更されたファイルをスキップします。
-
   - 絶対時間として "2025-12-05"（文字列またはDateオブジェクト）を指定可能
   - ミリ秒単位の相対時間として `1 * 60 * 60 * 1000`（1時間）を指定可能
   - このオプションは `fs.stat` メソッドを使ってファイルの更新時間をチェックします。そのため、Gitやその他のファイルを変更するツールの影響を受ける可能性があります。
@@ -433,7 +439,6 @@ npx intlayer doc translate
 **カスタム指示オプション:**
 
 - **`--custom-instructions [customInstructions]`**: プロンプトに追加されるカスタム指示。フォーマットやURLの翻訳など、特定のルールを適用するのに便利です。
-
   - 絶対時間として "2025-12-05"（文字列またはDate型）を指定可能
   - ミリ秒単位の相対時間として `1 * 60 * 60 * 1000`（1時間）を指定可能
   - このオプションは `fs.stat` メソッドを使ってファイルの更新時間をチェックします。そのため、Gitやその他のツールによるファイルの変更に影響を受ける可能性があります。

@@ -39,6 +39,12 @@ Os arquivos de configuração do Intlayer permitem a personalização de vários
 
 ---
 
+## Índice
+
+<TOC/>
+
+---
+
 ## Suporte a Arquivos de Configuração
 
 O Intlayer aceita formatos de arquivos de configuração JSON, JS, MJS e TS:
