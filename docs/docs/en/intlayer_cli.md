@@ -306,7 +306,7 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
 **Output options:**
 
-- \*\*`--new-dictionaries-path` : Path to the directory where the new dictionaries will be saved. If not specified, the news dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` fields is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
+- **`--new-dictionaries-path`** : Path to the directory where the new dictionaries will be saved. If not specified, the news dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` fields is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
 
 **Log options:**
 
