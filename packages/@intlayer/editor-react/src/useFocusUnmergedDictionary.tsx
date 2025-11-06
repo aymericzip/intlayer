@@ -27,21 +27,16 @@ const mergedKeyPathToUnmergedKeyPath = (
   dictionaries: Dictionary[],
   locale: Locale
 ): UnmergedKeyPath | undefined => {
-  console.log('test2', { keyPath, dictionaries, locale });
-
   // If we have a dictionary, verify the path exists
   // Try to find the correct position for the translation key
   // by checking which path actually exists in the dictionary
   for (const dictionary of dictionaries) {
-    console.log('test2', { dictionary });
     try {
       const result = getContentNodeByKeyPath(
         dictionary.content,
         keyPath ?? [],
         locale
       );
-
-      console.log('test2', { result });
 
       if (result) {
         return { keyPath, dictionaryLocalId: dictionary.localId };
