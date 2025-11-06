@@ -40,14 +40,23 @@ See a concrete comparison with next-intl in our [next-i18next vs. next-intl vs. 
 
 While Intlayer provides an excellent standalone i18n solution (see our [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)), you might want to combine it with next-i18next for several reasons:
 
-1. **Existing codebase**: You have an established next-i18next implementation and want to gradually migrate to Intlayer's improved developer experience.
-2. **Legacy requirements**: Your project requires compatibility with existing i18next plugins or workflows.
-3. **Team familiarity**: Your team is comfortable with next-i18next but wants better content management.
-4. **Using Intlayer features**: You want to use Intlayer features like content declaration, translation automation, testing translations, and more.
+Intlayer offers a rich set of **advanced features** that go beyond traditional i18n tools. It helps you:
 
-**For that, Intlayer can be implemented as an adapter for next-i18next to help automating your JSON translations in CLI or CI/CD pipelines, testing your translations, and more.**
+- **Automatically detect and fill missing translations** to streamline localization.
+- **Test and validate your translations** directly in your development or CI/CD workflows.
+- **Manage content per component**, enabling a clean, scalable, and maintainable structure across your app.
+- **Externalize your content**, making it easily editable by your whole team (developers, translators, and content managers).
 
-This guide shows you how to leverage Intlayer's superior content declaration system while maintaining compatibility with next-i18next.
+However, **i18next** remains an excellent and widely adopted i18n solution thanks to its **mature ecosystem**, **broad community support**, and **extensive plugin compatibility**.
+
+By combining **Intlayer** with **i18next**, you get the best of both worlds — i18next’s stability and ecosystem maturity, with Intlayer’s modern content management, automation, and developer experience improvements.
+
+This guide explains how to leverage Intlayer as an **adapter for i18next**, allowing you to:
+
+- Gradually migrate from i18next to Intlayer.
+- Keep existing i18next plugins and workflows.
+- Automate your JSON translations in CLI or CI/CD pipelines.
+- Test, sync, and manage translations more effectively.
 
 ---
 

@@ -36,16 +36,25 @@ See a concrete comparison with react-i18next in our [react-i18next vs. react-int
 
 ## Why Combine Intlayer with react-i18next?
 
-While Intlayer provides an excellent standalone i18n solution (see our [React integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)), you might want to combine it with react-i18next for several reasons:
+While Intlayer provides an excellent standalone i18n solution (see our [React integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md)), you might want to combine it with react-i18next for several reasons.
 
-1. **Existing codebase**: You have an established react-i18next implementation and want to gradually migrate to Intlayer's improved developer experience.
-2. **Legacy requirements**: Your project requires compatibility with existing react-i18next plugins or workflows.
-3. **Team familiarity**: Your team is comfortable with react-i18next but wants better content management.
-4. **Using Intlayer features**: You want to use Intlayer features like content declaration, translation automation, testing translations, and more.
+Intlayer offers a rich set of **advanced features** that go beyond traditional i18n tools. It helps you:
 
-**For that, Intlayer can be implemented as an adapter for react-i18next to help automate your JSON translations in CLI or CI/CD pipelines, test your translations, and more.**
+- **Automatically detect and fill missing translations** to streamline localization.
+- **Test and validate your translations** directly in your development or CI/CD workflows.
+- **Manage content per component**, enabling a clean, scalable, and maintainable structure across your app.
+- **Externalize your content**, making it easily editable by your whole team (developers, translators, and content managers).
 
-This guide shows you how to leverage Intlayer's superior content declaration system whilst maintaining compatibility with react-i18next.
+However, **react-i18next** remains an excellent and widely adopted i18n solution thanks to its **mature ecosystem**, **broad community support**, and **extensive plugin compatibility**.
+
+By combining **Intlayer** with **react-i18next**, you get the best of both worlds — react-i18next’s stability and ecosystem maturity, with Intlayer’s modern content management, automation, and developer experience improvements.
+
+This guide explains how to leverage Intlayer as an **adapter for react-i18next**, allowing you to:
+
+- Gradually migrate from react-i18next to Intlayer.
+- Keep existing react-i18next plugins and workflows.
+- Automate your JSON translations in CLI or CI/CD pipelines.
+- Test, sync, and manage translations more effectively.
 
 ## Table of Contents
 

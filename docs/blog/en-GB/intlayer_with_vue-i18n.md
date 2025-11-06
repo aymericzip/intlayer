@@ -38,16 +38,25 @@ See a concrete comparison with vue-i18n in our [vue-i18n vs. Intlayer](https://g
 
 ## Why Combine Intlayer with vue-i18n?
 
-While Intlayer provides an excellent standalone i18n solution (see our [Vue.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+vue.md)), you might want to combine it with vue-i18n for several reasons:
+While Intlayer provides an excellent standalone i18n solution (see our [Vue.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+vue.md)), you might want to combine it with vue-i18n for several reasons.
 
-1. **Existing codebase**: You have an established vue-i18n implementation and want to gradually migrate to Intlayer's improved developer experience.
-2. **Legacy requirements**: Your project requires compatibility with existing vue-i18n plugins or workflows.
-3. **Team familiarity**: Your team is comfortable with vue-i18n but wants better content management.
-4. **Using Intlayer features**: You want to use Intlayer features like content declaration, translation automation, testing translations, and more.
+Intlayer offers a rich set of **advanced features** that go beyond traditional i18n tools. It helps you:
 
-**For that, Intlayer can be implemented as an adapter for vue-i18n to help automate your JSON translations in CLI or CI/CD pipelines, test your translations, and more.**
+- **Automatically detect and fill missing translations** to streamline localization.
+- **Test and validate your translations** directly in your development or CI/CD workflows.
+- **Manage content per component**, enabling a clean, scalable, and maintainable structure across your app.
+- **Externalize your content**, making it easily editable by your whole team (developers, translators, and content managers).
 
-This guide shows you how to leverage Intlayer's superior content declaration system whilst maintaining compatibility with vue-i18n.
+However, **vue-i18n** remains an excellent and widely adopted i18n solution thanks to its **mature ecosystem**, **broad community support**, and **extensive plugin compatibility**.
+
+By combining **Intlayer** with **vue-i18n**, you get the best of both worlds — vue-i18n’s stability and ecosystem maturity, with Intlayer’s modern content management, automation, and developer experience improvements.
+
+This guide explains how to leverage Intlayer as an **adapter for vue-i18n**, allowing you to:
+
+- Gradually migrate from vue-i18n to Intlayer.
+- Keep existing vue-i18n plugins and workflows.
+- Automate your JSON translations in CLI or CI/CD pipelines.
+- Test, sync, and manage translations more effectively.
 
 ---
 
