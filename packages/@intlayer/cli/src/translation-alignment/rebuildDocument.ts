@@ -34,9 +34,11 @@ export const identifySegmentsToReview = ({
         action.frenchIndex !== null
           ? frenchBlocks[action.frenchIndex].content
           : null;
+
       segmentsToReview.push({ englishBlock, frenchBlockText, actionIndex });
     } else if (action.kind === 'insert_new') {
       const englishBlock = englishBlocks[action.englishIndex];
+
       segmentsToReview.push({
         englishBlock,
         frenchBlockText: null,
@@ -63,6 +65,7 @@ export const mergeReviewedSegments = (
       outputParts.push(frenchBlocks[action.frenchIndex].content);
     } else if (action.kind === 'review' || action.kind === 'insert_new') {
       const reviewedContent = reviewedSegments.get(actionIndex);
+
       if (reviewedContent !== undefined) {
         outputParts.push(reviewedContent);
       } else {
