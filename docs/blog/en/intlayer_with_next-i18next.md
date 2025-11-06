@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-10-29
+updatedAt: 2025-11-06
 title: Intlayer and next-i18next
 description: Integrate Intlayer with next-i18next for a comprehensive Next.js internationalization solution
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - blog
   - intlayer-with-next-i18next
 history:
+  - version: 7.0.7
+    date: 2025-11-06
+    changes: Add AI provider support doc
   - version: 7.0.6
     date: 2025-11-01
     changes: Add loadJSON plugin
@@ -165,6 +168,57 @@ export default config;
 ```
 
 This will load all the JSON files in the `src` directory that match the pattern `{key}.i18n.json` and load them as Intlayer dictionaries.
+
+---
+
+### Step 4: Set up AI provider
+
+Intlayer unlocks a set of advanced automation and developer-friendly features for your i18next workflow.
+
+- **Automatic detection and filling of missing translations**: Intlayer scans your JSON dictionaries, finds untranslated or missing keys, and translates only those, so 99% of your JSON remains untouched.
+- **Chunked translation for large JSON files**: When your translation files are very large, Intlayer automatically splits processing into manageable chunks, translating them independently to avoid API limits and memory issues.
+- **Namespace parallelization**: If you have hundreds of namespaces (or files), Intlayer parallelizes the translation tasks, efficiently speeding up your CI/CD or bulk translation operations.
+- **Flexible AI provider support**: Choose your preferred AI provider (e.g., OpenAI, Claude, Gemini), simply by configuring credentials. Use your own API key, and switch providers as needed.
+- **Resilient AI response handling**: Intlayer can handle edge cases where your AI provider returns text as either a string or an object, even auto-retrying when the format is inconsistent.
+- **CLI & CI/CD ready**: Run Intlayer’s checks and auto-filling directly in your tests or pipelines, making your localization process robust and automated.
+- **Integrates on top of your existing setup**: You don’t need to change your i18next or Next.js foundation. Intlayer works as an add-on plugin to your current setup, giving you all of these benefits with minimal migration.
+
+Here is an example of how to set up the AI provider:
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  ai: {
+    provider: "openai",
+    model: "gpt-5-mini",
+    apiKey: process.env.OPENAI_API_KEY,
+  },
+  plugins: [
+    syncJSON({
+      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
+    }),
+  ],
+};
+
+export default config;
+```
+
+Then you can execute the following command to fill your translations:
+
+```bash
+npx intlayer fill
+```
+
+This will fill your translations with the AI provider you have configured.
+
+> See all the available AI providers in the [Intlayer AI configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#ai-configuration).
+> See all the available commands in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
 
 ---
 
