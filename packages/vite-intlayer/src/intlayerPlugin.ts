@@ -9,6 +9,17 @@ import {
 import type { PluginOption } from 'vite';
 import { intlayerPrune } from './intlayerPrunePlugin';
 
+export type IntlayerPluginOptions = GetConfigurationOptions & {
+  /**
+   * If true, wipes the entire .intlayer folder on dev server startup
+   * to guarantee a fresh build from source files. Useful when dealing
+   * with stale cache or key changes made while the server was offline.
+   *
+   * @default false
+   */
+  cleanOnStartup?: boolean;
+};
+
 /**
  * @deprecated Rename to intlayer instead
  *
@@ -22,9 +33,11 @@ import { intlayerPrune } from './intlayerPrunePlugin';
  * ```
  *  */
 export const intlayerPlugin = (
-  configOptions?: GetConfigurationOptions
+  configOptions?: IntlayerPluginOptions
 ): PluginOption => {
-  const intlayerConfig = getConfiguration(configOptions);
+  const { cleanOnStartup = false, ...intlayerConfigOptions } =
+    configOptions || {};
+  const intlayerConfig = getConfiguration(intlayerConfigOptions);
   const { watch: isWatchMode } = intlayerConfig.content;
   const { optimize } = intlayerConfig.build;
 
@@ -68,7 +81,10 @@ export const intlayerPlugin = (
 
       buildStart: async () => {
         // Code to run when Vite build starts
-        await prepareIntlayer(intlayerConfig);
+        await prepareIntlayer(intlayerConfig, {
+          clean: cleanOnStartup,
+          forceRun: cleanOnStartup,
+        });
       },
     },
   ];
