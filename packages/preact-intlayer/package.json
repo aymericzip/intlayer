@@ -1,6 +1,6 @@
 {
   "name": "preact-intlayer",
-  "version": "7.0.7",
+  "version": "7.0.8",
   "private": false,
   "description": "Easily internationalize i18n your Preact applications with type-safe multilingual content management.",
   "keywords": [
@@ -110,7 +110,7 @@
     "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "preact": "10.26.4"
+    "preact": ">=8.0.0"
   },
   "engines": {
     "node": ">=14.18"
