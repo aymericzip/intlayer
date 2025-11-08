@@ -99,8 +99,6 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   };
 
   const handlePushDictionary = () => {
-    if (!editedContent?.[dictionary.localId!]) return;
-
     const updatedDictionary = {
       ...dictionary,
       ...editedContent?.[dictionary.localId!],
@@ -111,7 +109,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       {
         onSuccess: (res) => {
           if (res) {
-            setLocaleDictionary(editedContent?.[dictionary.localId!]);
+            setLocaleDictionary(updatedDictionary);
             restoreEditedContent(dictionary.localId!);
             onSave?.();
           }

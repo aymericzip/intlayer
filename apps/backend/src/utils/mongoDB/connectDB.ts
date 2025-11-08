@@ -5,11 +5,11 @@ import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
 import { TagModel } from '@models/tag.model';
 import { UserModel } from '@models/user.model';
-import mongoose from 'mongoose';
+import { connect } from 'mongoose';
 
 export const connectDB = async () => {
   try {
-    const client = await mongoose.connect(
+    const client = await connect(
       `mongodb+srv://${process.env.DB_ID}:${process.env.DB_MDP}@${process.env.DB_CLUSTER}/?retryWrites=true&w=majority&appName=Cluster0`
     );
 
