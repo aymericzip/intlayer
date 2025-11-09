@@ -1,5 +1,5 @@
+import { BackgroundLayout } from '@components/BackgroundLayout';
 import { AsideNavigation } from '@components/DocPage/AsideNavigation/AsideNavigation';
-// import { BackgroundLayout } from '@components/BackgroundLayout';
 import type { LocalesValues } from 'intlayer';
 import type { FC, ReactNode } from 'react';
 import { BlogBreadCrumb } from './BlogBreadCrumb';
@@ -31,14 +31,16 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
           className="relative m-auto mb-3 h-full w-auto max-w-6xl flex-1 grow rounded-xl bg-background px-4 pb-24 max-md:pl-16 md:px-10"
           id="content"
         >
-          {/* <BackgroundLayout /> */}
-          <BlogBreadCrumb
-            className="mt-12 ml-10"
-            activeSections={activeSections}
-            blogData={blogData}
-            locale={locale}
-          />
-          {children}
+          <BackgroundLayout className="max-md:-ml-16 md:-ml-10 z-0" />
+          <div className="relative z-1">
+            <BlogBreadCrumb
+              className="mt-12 ml-10"
+              activeSections={activeSections}
+              blogData={blogData}
+              locale={locale}
+            />
+            {children}
+          </div>
         </article>
 
         <aside className="flex-none max-lg:hidden">
