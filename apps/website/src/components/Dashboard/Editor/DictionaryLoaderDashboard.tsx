@@ -16,6 +16,7 @@ export const DictionaryLoaderDashboard: FC = () => {
     // Wait for the locale dictionaries to be loaded for security
     if (Object.keys(localeDictionaries ?? {}).length === 0) return;
     if (isMerged) return;
+    if (!data) return;
 
     const dictionariesList: Record<LocalDictionaryId, Dictionary> =
       Object.fromEntries(
