@@ -119,13 +119,11 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   };
 
   const handleDeleteDictionary = () => {
-    if (!(dictionary as unknown as DistantDictionary).id) return;
+    if (!dictionary.id) return;
 
     deleteDictionary(
       {
-        dictionaryId: (
-          dictionary as unknown as DistantDictionary
-        ).id.toString(),
+        dictionaryId: dictionary.id,
       },
       {
         onSuccess: (res) => {
