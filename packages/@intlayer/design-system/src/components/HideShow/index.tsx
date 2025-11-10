@@ -29,6 +29,10 @@ export interface HideShowProps {
   onCopyError?: (error: Error) => void;
 }
 
+// Insert zero-width spaces every N chars so Safari can wrap long runs
+const insertBreaks = (str: string, groupSize = 6) =>
+  str.replace(new RegExp(`.{1,${groupSize}}`, 'g'), '$&\u200b');
+
 export const HideShow: FC<HideShowProps> = ({
   text,
   className,
@@ -44,7 +48,7 @@ export const HideShow: FC<HideShowProps> = ({
     if (visiblePrefixChars <= 0) return maskChar.repeat(text.length);
     const prefix = text.slice(0, visiblePrefixChars);
     const remaining = Math.max(0, text.length - visiblePrefixChars);
-    return prefix + maskChar.repeat(remaining);
+    return insertBreaks(`${prefix}${maskChar.repeat(remaining)}`);
   }, [text, visiblePrefixChars, maskChar]);
 
   useEffect(() => {
