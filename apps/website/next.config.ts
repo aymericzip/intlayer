@@ -216,14 +216,18 @@ const nextConfig: NextConfig = {
   },
 
   headers: () => [
+    // {
+    //   source: '/i18n-seo-scanner',
+    //   headers: scannerHeaders,
+    // },
     {
-      source: '/i18n-seo-scanner',
+      source: '/:locale/i18n-seo-scanner',
       headers: scannerHeaders,
     },
-    {
-      source: '/dashboard/:path*',
-      headers: dashboardHeaders,
-    },
+    // {
+    //   source: '/dashboard/:path*',
+    //   headers: dashboardHeaders,
+    // },
     {
       source: '/:locale/dashboard/:path*',
       headers: dashboardHeaders,
