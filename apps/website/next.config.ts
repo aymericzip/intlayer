@@ -216,18 +216,10 @@ const nextConfig: NextConfig = {
   },
 
   headers: () => [
-    // {
-    //   source: '/i18n-seo-scanner',
-    //   headers: scannerHeaders,
-    // },
     {
       source: '/:locale/i18n-seo-scanner',
       headers: scannerHeaders,
     },
-    // {
-    //   source: '/dashboard/:path*',
-    //   headers: dashboardHeaders,
-    // },
     {
       source: '/:locale/dashboard/:path*',
       headers: dashboardHeaders,
@@ -250,46 +242,30 @@ const nextConfig: NextConfig = {
         destination: '/:locale/doc/environment/tanstack-start',
         permanent: true,
       },
+      {
+        source: '/environment/nextjs/next-with-Page-Router',
+        destination: '/environment/nextjs/next-with-page-router',
+      },
+      {
+        source: '/:locale/environment/nextjs/next-with-Page-Router',
+        destination: '/:locale/environment/nextjs/next-with-page-router',
+      },
     ];
   },
   async rewrites() {
     return {
       beforeFiles: [
-        // Map localized markdown doc URLs to the raw route, force plain text for broad client compatibility
         {
           source: '/:locale/doc/:path*.md',
           destination: '/:locale/doc/raw/:path*?format=txt',
         },
-        // Map default (no-locale) markdown doc URLs to English by default, force plain text
-        {
-          source: '/doc/:path*.md',
-          destination: '/en/doc/raw/:path*?format=txt',
-        },
-        // Map localized markdown blog URLs to the raw route, force plain text
         {
           source: '/:locale/blog/:path*.md',
           destination: '/:locale/blog/raw/:path*?format=txt',
         },
-        // Map default (no-locale) markdown blog URLs to English by default, force plain text
-        {
-          source: '/blog/:path*.md',
-          destination: '/en/blog/raw/:path*?format=txt',
-        },
         {
           source: '/:locale/frequent-questions/:path*.md',
           destination: '/:locale/frequent-questions/raw/:path*?format=txt',
-        },
-        {
-          source: '/frequent-questions/:path*.md',
-          destination: '/en/frequent-questions/raw/:path*?format=txt',
-        },
-        {
-          source: '/environment/nextjs/next-with-Page-Router',
-          destination: '/environment/nextjs/next-with-page-router',
-        },
-        {
-          source: '/:locale/environment/nextjs/next-with-Page-Router',
-          destination: '/:locale/environment/nextjs/next-with-page-router',
         },
       ],
     };
