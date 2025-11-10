@@ -26,10 +26,18 @@ export const loadServer: LoadServer = ({ isLocal }) => {
   });
 
   if (isLocal) {
-    loadCLITools(server);
+    try {
+      loadCLITools(server);
+    } catch (error) {
+      console.error('Error loading CLI tools:', error);
+    }
   }
 
-  loadDocsTools(server);
+  try {
+    loadDocsTools(server);
+  } catch (error) {
+    console.error('Error loading docs tools:', error);
+  }
 
   return server;
 };

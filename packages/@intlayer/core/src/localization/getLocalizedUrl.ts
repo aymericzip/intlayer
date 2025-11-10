@@ -1,6 +1,5 @@
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types';
-
 import { getMultilingualUrls } from './getMultilingualUrls';
 
 /**

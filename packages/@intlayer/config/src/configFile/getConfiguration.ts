@@ -38,7 +38,22 @@ export type GetConfigurationAndFilePathResult = {
 export const getConfigurationAndFilePath = (
   options?: GetConfigurationOptions
 ): GetConfigurationAndFilePathResult => {
-  const baseDir = options?.baseDir ?? getPackageJsonPath().baseDir;
+  let baseDir: string | undefined;
+
+  try {
+    // Can fail in some environments (e.g. MCP server, VScode extension)
+    baseDir = options?.baseDir ?? getPackageJsonPath().baseDir;
+  } catch (_err) {
+    // Return default config if the package.json is not found
+    return {
+      configuration: buildConfigurationFields(
+        {},
+        options?.baseDir,
+        options?.logFunctions
+      ),
+      configurationFilePath: undefined,
+    };
+  }
 
   const cachedConfiguration =
     cache.get<GetConfigurationAndFilePathResult>(options);

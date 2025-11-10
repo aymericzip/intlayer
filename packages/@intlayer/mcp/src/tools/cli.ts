@@ -351,7 +351,6 @@ export const loadCLITools: LoadCLITools = async (server) => {
     async (props) => {
       try {
         const missingTranslations = listMissingTranslations(
-          undefined,
           props?.configOptions
         );
         return {

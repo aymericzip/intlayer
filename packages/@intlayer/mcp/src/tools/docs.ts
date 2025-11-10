@@ -1,3 +1,4 @@
+import type { DocKey } from '@intlayer/docs';
 import {
   getDoc,
   getDocBySlug,
@@ -17,16 +18,26 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
     'Get the list of docs names and their metadata to get more details about what doc to retrieve',
     {},
     async () => {
-      const docsMetadataRecord = await getDocMetadataRecord();
+      try {
+        const docsMetadataRecord = await getDocMetadataRecord();
 
-      return {
-        content: [
-          {
-            type: 'text',
-            text: JSON.stringify(docsMetadataRecord, null, 2),
-          },
-        ],
-      };
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(docsMetadataRecord, null, 2),
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            { type: 'text', text: `Get doc list failed: ${errorMessage}` },
+          ],
+        };
+      }
     }
   );
 
@@ -37,10 +48,18 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
       docKey: z.enum(docsKeys as [string, ...string[]]),
     },
     async ({ docKey }) => {
-      const doc = await getDoc(docKey as any);
-      return {
-        content: [{ type: 'text', text: doc }],
-      };
+      try {
+        const doc = await getDoc(docKey as DocKey);
+        return {
+          content: [{ type: 'text', text: doc }],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [{ type: 'text', text: `Get doc failed: ${errorMessage}` }],
+        };
+      }
     }
   );
 
@@ -63,10 +82,20 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
       description: 'Get an array of docs by their slugs',
     },
     async ({ slug, strict }) => {
-      const doc = await getDocBySlug(slug, undefined, strict);
-      return {
-        content: doc.map((d) => ({ type: 'text', text: d })),
-      };
+      try {
+        const doc = await getDocBySlug(slug, undefined, strict);
+        return {
+          content: doc.map((d) => ({ type: 'text', text: d })),
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            { type: 'text', text: `Get doc by slug failed: ${errorMessage}` },
+          ],
+        };
+      }
     }
   );
 };
