@@ -2,7 +2,7 @@
 
 import { Loader } from '@intlayer/design-system';
 import { useSession } from '@intlayer/design-system/hooks';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { type FC, useEffect } from 'react';
 import { PagesRoutes } from '@/Routes';
 import {
@@ -15,6 +15,7 @@ type AuthenticationBarrierPropsClient = Omit<
   'sessionToken' | 'redirectionFunction'
 > & {
   redirectionRoute?: PagesRoutes | string;
+  originUrl?: string;
 };
 
 export const AuthenticationBarrierClient: FC<
@@ -25,8 +26,10 @@ export const AuthenticationBarrierClient: FC<
   session: sessionProp,
   accessRule,
   isEnabled,
+  originUrl,
 }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { session: sessionClient, setSession } = useSession(sessionProp);
   const isLoading = sessionClient === undefined && sessionProp === undefined;
 
@@ -37,16 +40,33 @@ export const AuthenticationBarrierClient: FC<
   }, [sessionClient, sessionProp, setSession]);
 
   useEffect(() => {
-    if (typeof sessionClient !== 'undefined') {
-      accessValidation(
-        accessRule,
-        sessionClient,
-        router.push,
-        redirectionRoute,
-        isEnabled
-      );
-    }
-  }, [accessRule, redirectionRoute, sessionClient, isEnabled]);
+    if (typeof sessionClient === 'undefined') return;
+    if (isEnabled === false) return;
+
+    // Avoid auto-redirect (ex: /login -> /login)
+    const samePath =
+      typeof window !== 'undefined' &&
+      (redirectionRoute === pathname || redirectionRoute === originUrl);
+
+    if (samePath) return;
+
+    // Use replace to avoid stacking the history
+    accessValidation(
+      accessRule,
+      sessionClient,
+      (url) => router.replace(url),
+      redirectionRoute,
+      isEnabled
+    );
+  }, [
+    accessRule,
+    redirectionRoute,
+    sessionClient,
+    isEnabled,
+    pathname,
+    originUrl,
+    router,
+  ]);
 
   return <Loader isLoading={isLoading}>{children}</Loader>;
 };

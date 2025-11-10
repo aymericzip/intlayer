@@ -28,11 +28,14 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = async ({
     `${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(data.pathname)}`;
   const localizedRedirectionURL = getLocalizedUrl(redirectURL, locale);
 
+  // Enable the server barrier only if the session is known (even null)
+  const serverEnabled = typeof props.session !== 'undefined';
+
   return (
     <AuthenticationBarrierServer
       {...props}
       redirectionRoute={localizedRedirectionURL}
-      isEnabled={false} // We disable the barrier on the server side to avoid infinite re-renders
+      isEnabled={serverEnabled}
     >
       <AuthenticationBarrierClient
         {...props}
