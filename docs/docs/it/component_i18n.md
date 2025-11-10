@@ -181,6 +181,6 @@ Consulta i confronti e i modelli nel riepilogo focalizzato su Next.js: https://i
 - React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
 - TanStack Start: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
 - Configurazione Next.js: https://intlayer.org/doc/environment/nextjs
-- Perché Intlayer vs. next-intl vs. next-i18next: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- Perché Intlayer vs. next-intl vs. next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
 
 Queste pagine includono la configurazione end-to-end, i provider, il routing e gli helper SEO.

@@ -181,6 +181,6 @@ Next.js-केंद्रित राउंडअप में तुलना
 - React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
 - TanStack स्टार्ट: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
 - Next.js सेटअप: https://intlayer.org/doc/environment/nextjs
-- क्यों Intlayer बनाम next-intl बनाम next-i18next: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- क्यों Intlayer बनाम next-intl बनाम next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
 
 इन पृष्ठों में एंड-टू-एंड सेटअप, प्रोवाइडर्स, रूटिंग, और SEO हेल्पर्स शामिल हैं।

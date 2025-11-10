@@ -2,7 +2,7 @@
 createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: Jak internacjonalizować aplikację Next.js za pomocą next-i18next
-description: Konfiguracja i18n z next-i18next: najlepsze praktyki i wskazówki SEO dla wielojęzycznych aplikacji Next.js, obejmujące internacjonalizację, organizację treści i konfigurację techniczną.
+description: Konfiguracja i18n z next-i18next -  najlepsze praktyki i wskazówki SEO dla wielojęzycznych aplikacji Next.js, obejmujące internacjonalizację, organizację treści i konfigurację techniczną.
 slugs:
   - blog
   - nextjs-internationalization-using-next-i18next

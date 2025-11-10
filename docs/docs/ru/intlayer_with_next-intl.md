@@ -38,7 +38,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-intl-template
 
 ## Настройка вашего приложения с использованием next-intl
 
-Установите зависимости next-intl:
+Установите зависимости next-intl -
 
 ```bash packageManager="npm"
 npm install next-intl

@@ -181,6 +181,6 @@ Lihat perbandingan dan pola dalam rangkuman yang berfokus pada Next.js: https://
 - React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
 - Mulai TanStack: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
 - Setup Next.js: https://intlayer.org/doc/environment/nextjs
-- Mengapa Intlayer dibandingkan dengan next-intl dan next-i18next: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- Mengapa Intlayer dibandingkan dengan next-intl dan next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
 
 Halaman-halaman ini mencakup setup menyeluruh, penyedia, routing, dan helper SEO.

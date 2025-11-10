@@ -38,7 +38,7 @@ Những nội dung chúng ta sẽ đề cập:
 
 ## Cài đặt ứng dụng của bạn sử dụng next-intl
 
-Cài đặt các dependencies của next-intl:
+Cài đặt các dependencies của next-intl -
 
 ```bash packageManager="npm"
 npm install next-intl

@@ -2,7 +2,7 @@
 createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: Cách quốc tế hóa ứng dụng Next.js của bạn bằng next-i18next
-description: Thiết lập i18n với next-i18next: các thực hành tốt nhất và mẹo SEO cho ứng dụng Next.js đa ngôn ngữ, bao gồm quốc tế hóa, tổ chức nội dung và thiết lập kỹ thuật.
+description: Thiết lập i18n với next-i18next -  các thực hành tốt nhất và mẹo SEO cho ứng dụng Next.js đa ngôn ngữ, bao gồm quốc tế hóa, tổ chức nội dung và thiết lập kỹ thuật.
 slugs:
   - blog
   - nextjs-internationalization-using-next-i18next

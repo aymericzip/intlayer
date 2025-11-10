@@ -181,6 +181,6 @@ Next.js odaklı karşılaştırmalar ve kalıplar için bakınız: https://intla
 - React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
 - TanStack Başlangıç: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
 - Next.js kurulumu: https://intlayer.org/doc/environment/nextjs
-- Neden Intlayer vs. next-intl vs. next-i18next: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- Neden Intlayer vs. next-intl vs. next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
 
 Bu sayfalar uçtan uca kurulum, sağlayıcılar, yönlendirme ve SEO yardımcılarını içerir.

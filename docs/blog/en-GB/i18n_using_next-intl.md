@@ -2,7 +2,7 @@
 createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: How to internationalise your Next.js application using next-intl
-description: Set up i18n with next-intl: best practices and SEO tips for multilingual Next.js apps, covering internationalisation, content organisation, and technical setup.
+description: Set up i18n with next-intl - best practices and SEO tips for multilingual Next.js apps, covering internationalisation, content organisation, and technical setup.
 slugs:
   - blog
   - nextjs-internationalization-using-next-intl

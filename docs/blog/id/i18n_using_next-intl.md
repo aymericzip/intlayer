@@ -2,7 +2,7 @@
 createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: Cara menginternasionalisasi aplikasi Next.js Anda menggunakan next-intl
-description: Mengatur i18n dengan next-intl: praktik terbaik dan tips SEO untuk aplikasi Next.js multibahasa, mencakup internasionalisasi, organisasi konten, dan pengaturan teknis.
+description: Mengatur i18n dengan next-intl - praktik terbaik dan tips SEO untuk aplikasi Next.js multibahasa, mencakup internasionalisasi, organisasi konten, dan pengaturan teknis.
 slugs:
   - blog
   - nextjs-internationalization-using-next-intl

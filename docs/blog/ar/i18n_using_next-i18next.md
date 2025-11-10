@@ -2,7 +2,7 @@
 createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: كيفية تعريب تطبيق Next.js الخاص بك باستخدام next-i18next
-description: إعداد i18n باستخدام next-i18next: أفضل الممارسات ونصائح تحسين محركات البحث لتطبيقات Next.js متعددة اللغات، تغطي التعريب، تنظيم المحتوى، والإعداد الفني.
+description: إعداد i18n باستخدام next-i18next -  أفضل الممارسات ونصائح تحسين محركات البحث لتطبيقات Next.js متعددة اللغات، تغطي التعريب، تنظيم المحتوى، والإعداد الفني.
 slugs:
   - blog
   - nextjs-internationalization-using-next-i18next

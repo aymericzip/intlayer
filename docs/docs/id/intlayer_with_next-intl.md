@@ -38,7 +38,7 @@ Apa yang akan kita bahas:
 
 ## Siapkan aplikasi Anda menggunakan next-intl
 
-Pasang dependensi next-intl:
+Pasang dependensi next-intl -
 
 ```bash packageManager="npm"
 npm install next-intl

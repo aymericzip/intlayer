@@ -179,4 +179,4 @@ Consejo: Para metadatos de página y SEO, también puedes obtener contenido con 
 - React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
 - TanStack Start: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
 - Configuración Next.js: https://intlayer.org/doc/environment/nextjs
-- Por qué Intlayer vs. next-intl vs. next-i18next: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- Por qué Intlayer vs. next-intl vs. next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer

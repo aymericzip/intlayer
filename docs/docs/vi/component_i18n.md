@@ -181,6 +181,6 @@ Xem các so sánh và mẫu trong bài tổng hợp tập trung vào Next.js: ht
 - React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
 - Bắt đầu với TanStack: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
 - Cài đặt Next.js: https://intlayer.org/doc/environment/nextjs
-- Tại sao chọn Intlayer thay vì next-intl hay next-i18next: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- Tại sao chọn Intlayer thay vì next-intl hay next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
 
 Các trang này bao gồm thiết lập end-to-end, providers, routing và trợ giúp SEO.

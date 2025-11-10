@@ -181,6 +181,6 @@ export function ClientComponent() {
 - React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
 - TanStack Start: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
 - Настройка Next.js: https://intlayer.org/doc/environment/nextjs
-- Почему Intlayer вместо next-intl или next-i18next: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- Почему Intlayer вместо next-intl или next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
 
 Эти страницы включают полную настройку, провайдеры, маршрутизацию и помощники SEO.

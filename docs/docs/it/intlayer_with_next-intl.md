@@ -38,7 +38,7 @@ Cosa tratteremo:
 
 ## Configura la tua applicazione usando next-intl
 
-Installa le dipendenze di next-intl:
+Installa le dipendenze di next-intl -
 
 ```bash packageManager="npm"
 npm install next-intl

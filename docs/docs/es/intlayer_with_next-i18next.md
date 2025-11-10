@@ -43,7 +43,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-templat
 
 ## 1) Estructura del proyecto
 
-Instala las dependencias de next-i18next:
+Instala las dependencias de next-i18next -
 
 ```bash packageManager="npm"
 npm install next-i18next i18next react-i18next i18next-resources-to-backend
