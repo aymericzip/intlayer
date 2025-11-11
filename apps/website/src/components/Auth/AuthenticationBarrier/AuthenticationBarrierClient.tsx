@@ -30,27 +30,22 @@ export const AuthenticationBarrierClient: FC<
 }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { session: sessionClient, setSession } = useSession(sessionProp);
+
+  const { session: sessionClient } = useSession(sessionProp);
+
   const isLoading = sessionClient === undefined && sessionProp === undefined;
 
   useEffect(() => {
-    if (!sessionClient && sessionProp) {
-      setSession(sessionProp ?? null);
-    }
-  }, [sessionClient, sessionProp, setSession]);
-
-  useEffect(() => {
-    if (typeof sessionClient === 'undefined') return;
+    // Do nothing if we have explicitly disabled it (the server has already made a decision)
     if (isEnabled === false) return;
+    if (typeof sessionClient === 'undefined') return;
 
-    // Avoid auto-redirect (ex: /login -> /login)
     const samePath =
       typeof window !== 'undefined' &&
       (redirectionRoute === pathname || redirectionRoute === originUrl);
 
     if (samePath) return;
 
-    // Use replace to avoid stacking the history
     accessValidation(
       accessRule,
       sessionClient,

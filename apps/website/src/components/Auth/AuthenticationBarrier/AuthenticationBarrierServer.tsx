@@ -22,6 +22,9 @@ export const AuthenticationBarrierServer: FC<
   accessRule,
   isEnabled,
 }) => {
+  // Do nothing if we have explicitly disabled it
+  if (isEnabled === false) return children;
+
   if (typeof session !== 'undefined') {
     accessValidation(
       accessRule,

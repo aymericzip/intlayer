@@ -22,14 +22,17 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = async ({
   ...props
 }) => {
   const data = await getQueryParams();
+
   const redirectURL =
     redirectionRoute ??
     data.redirectUrl ??
     `${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(data.pathname)}`;
+
   const localizedRedirectionURL = getLocalizedUrl(redirectURL, locale);
 
-  // Enable the server barrier only if the session is known (even null)
+  // If the server has a value (even null), it decides; otherwise, the client decides.
   const serverEnabled = typeof props.session !== 'undefined';
+  const clientEnabled = !serverEnabled;
 
   return (
     <AuthenticationBarrierServer
@@ -40,6 +43,7 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = async ({
       <AuthenticationBarrierClient
         {...props}
         redirectionRoute={localizedRedirectionURL}
+        isEnabled={clientEnabled}
       >
         {children}
       </AuthenticationBarrierClient>
