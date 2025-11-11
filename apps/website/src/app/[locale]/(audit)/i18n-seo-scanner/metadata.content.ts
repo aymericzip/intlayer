@@ -7,7 +7,7 @@ const metadataContent = {
     title: t({
       en: 'i18n Audit SEO Scanner | Intlayer',
       'en-GB': 'i18n Audit SEO Scanner | Intlayer',
-      fr: 'Scanner SEO daudit i18n | Intlayer',
+      fr: "Scanner SEO d'audit i18n | Intlayer",
       es: 'Escáner SEO de auditoría i18n | Intlayer',
       de: 'i18n Audit-SEO-Scanner | Intlayer',
       ru: 'Сканер SEO i18n аудита | Intlayer',
