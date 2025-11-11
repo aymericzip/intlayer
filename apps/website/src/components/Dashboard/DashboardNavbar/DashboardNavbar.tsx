@@ -57,7 +57,7 @@ const shouldHaveProjectRoutes = [
   PagesRoutes.Dashboard_Tags,
 ] as string[];
 
-const shouldHaveAdminRoutes = [PagesRoutes.Admin] as string[];
+const shouldHaveAdminRoutes = [PagesRoutes.Admin_Users] as string[];
 
 export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const { pathWithoutLocale } = useLocale();
@@ -66,15 +66,15 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const { isMobile } = useDevice();
   const { scrollY } = useScrollY();
 
+  const isSuperAdmin =
+    roles?.some((role: string) => role.toLowerCase() === 'admin') ?? false;
+
   const filteredLinks = links
     .filter(
       (el) => !shouldHaveOrganizationRoutes.includes(el.url) || !!organization
     )
     .filter((el) => !shouldHaveProjectRoutes.includes(el.url) || !!project)
-    .filter(
-      (el) =>
-        !shouldHaveAdminRoutes.includes(el.url) || roles?.includes('admin')
-    );
+    .filter((el) => !shouldHaveAdminRoutes.includes(el.url) || isSuperAdmin);
 
   return (
     <Container
@@ -147,7 +147,8 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
               variant="invisible-link"
               className="flex px-4 py-0.5"
               aria-current={
-                getCleanTabSelector(pathWithoutLocale) === url
+                getCleanTabSelector(pathWithoutLocale) ===
+                getCleanTabSelector(url)
                   ? 'page'
                   : undefined
               }

@@ -39,7 +39,7 @@ export const accessValidation = (
   if (
     session?.user &&
     accessRuleArray?.includes('admin') &&
-    !session.user?.role?.includes('admin')
+    (session.user?.role !== 'admin' || !session?.roles?.includes('admin'))
   ) {
     redirectionFunction(redirectionRoute);
   }

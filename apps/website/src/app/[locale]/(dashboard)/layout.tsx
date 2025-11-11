@@ -58,14 +58,8 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
       footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
     >
       <DashboardHydrationBoundary dehydratedState={dehydratedState}>
-        <AuthenticationBarrier
-          accessRule="authenticated"
-          session={session} // Don't preset the session on the client side to avoid infinite re-renders
-          locale={locale}
-        >
-          <WarmupClient />
-          {children}
-        </AuthenticationBarrier>
+        <WarmupClient />
+        {children}
       </DashboardHydrationBoundary>
     </PageLayout>
   );
@@ -73,7 +67,7 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
 
 const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
-  const { session } = await getSessionData();
+  const { session, hasSessionToken } = await getSessionData();
 
   const queryClient = new QueryClient();
 
@@ -121,14 +115,23 @@ const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
 
   const dehydratedState = dehydrate(queryClient);
 
+  // If there's a session token but no session data, pass undefined to let client fetch fresh data
+  const sessionToPass = hasSessionToken && !session ? undefined : session;
+
   return (
-    <DashboardLayoutContent
+    <AuthenticationBarrier
+      accessRule="authenticated"
+      session={sessionToPass}
       locale={locale}
-      session={session}
-      dehydratedState={dehydratedState}
     >
-      {children}
-    </DashboardLayoutContent>
+      <DashboardLayoutContent
+        locale={locale}
+        session={session}
+        dehydratedState={dehydratedState}
+      >
+        {children}
+      </DashboardLayoutContent>
+    </AuthenticationBarrier>
   );
 };
 

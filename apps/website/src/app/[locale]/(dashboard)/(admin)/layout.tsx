@@ -15,7 +15,7 @@ const AdminLayout: NextLayoutIntlayer = async ({ children, params }) => {
 
   return (
     <AuthenticationBarrier
-      accessRule="authenticated"
+      accessRule="admin"
       session={session as SessionAPI}
       locale={locale}
     >
