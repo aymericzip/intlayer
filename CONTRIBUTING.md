@@ -88,7 +88,7 @@ Or if you want to build all packages, you can use the following command:
 bun run build
 ```
 
-> ⏱️ On Github Actions, building all packages usualy take around 2 to 4 minutes.
+> ⏱️ On Github Actions, building all packages usually take around 2 to 4 minutes.
 > ⏱️ On old environment, building all packages can be really slow and can take more than 10 minutes.
 
 To pick a package and build it, without having to navigate in the repository, you can use the following command:
