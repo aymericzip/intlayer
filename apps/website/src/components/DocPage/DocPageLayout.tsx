@@ -34,18 +34,19 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
           className="relative m-auto mb-3 h-full w-auto max-w-6xl flex-1 grow rounded-xl bg-background px-4 pb-24 max-md:pl-16 md:px-10"
           id="content"
         >
-          <BackgroundLayout className="max-md:-ml-16 md:-ml-10 z-0" />
-          <div className="relative z-1">
-            {displayBreadCrumb && (
-              <DocBreadCrumb
-                className="mt-12 ml-10"
-                activeSections={activeSections}
-                docData={docData}
-                locale={locale}
-              />
-            )}
-            {children}
-          </div>
+          {/* remove background layout for now */}
+          {/* <BackgroundLayout className="max-md:-ml-16 md:-ml-10 z-0" />
+          <div className="relative z-1"> */}
+          {displayBreadCrumb && (
+            <DocBreadCrumb
+              className="mt-12 ml-10"
+              activeSections={activeSections}
+              docData={docData}
+              locale={locale}
+            />
+          )}
+          {children}
+          {/* </div> */}
         </article>
 
         <aside className="flex-none max-lg:hidden">
