@@ -50,6 +50,8 @@ export enum PagesRoutes {
   Blog_Search = '/blog/search',
   Blog_What_is_i18n = '/blog/what-is-internationalization',
 
+  FrequentQuestions = '/frequent-questions',
+
   PrivacyPolicy = '/privacy-notice',
   TermsOfService = '/terms-of-service',
 

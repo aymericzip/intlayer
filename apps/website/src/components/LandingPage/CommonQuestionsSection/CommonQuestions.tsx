@@ -5,6 +5,7 @@ import { Container, MaxHeightSmoother } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 const QuestionItem: FC<{
   question: IntlayerNode;
@@ -122,7 +123,8 @@ const useResponsiveColumns = (): number => {
 };
 
 export const CommonQuestionsSection: FC = () => {
-  const { content, title } = useIntlayer('common-questions');
+  const { content, title, allFrequentQuestionLink } =
+    useIntlayer('common-questions');
 
   // Determine the number of columns based on the current breakpoint.
   const numberOfColumns = useResponsiveColumns();
@@ -137,7 +139,7 @@ export const CommonQuestionsSection: FC = () => {
       <div
         itemScope
         itemType="https://schema.org/FAQPage"
-        className="mt-2 flex w-full flex-row items-start justify-center gap-x-6"
+        className="my-3 flex w-full flex-row items-start justify-center gap-x-6"
       >
         {columns.map((column, colIndex) => (
           <div key={colIndex} className="flex flex-col gap-6">
@@ -151,6 +153,15 @@ export const CommonQuestionsSection: FC = () => {
           </div>
         ))}
       </div>
+
+      <Link
+        href={PagesRoutes.FrequentQuestions}
+        label={allFrequentQuestionLink.label.value}
+        color="neutral"
+        className=""
+      >
+        {allFrequentQuestionLink.text}
+      </Link>
     </section>
   );
 };

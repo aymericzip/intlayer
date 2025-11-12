@@ -19,7 +19,6 @@ const FrequentQuestionPage = async ({
     slugs,
     locale
   );
-  console.log({ frequentQuestionsData });
 
   const filteredBlogsData = frequentQuestionsData.filter(
     (blog) => blog.slugs.length === slugs.length + 1
