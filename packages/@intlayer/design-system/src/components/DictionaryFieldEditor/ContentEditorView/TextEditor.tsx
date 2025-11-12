@@ -239,7 +239,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
                 {getLocaleName(translationKey, locale)}
               </td>
             </tr>
-            <tr>
+            <tr className="flex">
               <td className="w-full">
                 <TextEditorContainer
                   section={
@@ -463,7 +463,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
         <tbody className="flex w-full flex-col gap-2">
           {(section as unknown as ContentNode[]).map((subSection, index) => (
             <Fragment key={JSON.stringify(subSection)}>
-              <tr className="mt-2 flex w-full justify-between gap-2 p-2">
+              <tr className="mt-2 flex w-full items-center justify-between gap-2 p-2">
                 <span className="text-xs">{String(index)}</span>
                 <Button
                   label={removeElement.label.value}
@@ -706,7 +706,7 @@ const NestedTextEditor: FC<TextEditorProps> = ({
   const childrenKeyPath = [...keyPath, { type: NodeType.Nested }] as KeyPath[];
 
   return (
-    <div className="w-full p-2">
+    <div className="flex w-full flex-col gap-4 p-2">
       <Label>Dictionary key</Label>
       <ContentEditorInputBase
         aria-label="Edit field"
