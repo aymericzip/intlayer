@@ -22,7 +22,7 @@
     "@tailwindcss/vite": "4.1.16",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
-    "@vitejs/plugin-react": "5.1.0",
+    "@vitejs/plugin-react": "5.1.1",
     "@vitejs/plugin-react-swc": "^4.1.0",
     "autoprefixer": "10.4.21",
     "intlayer-editor": "workspace:*",
