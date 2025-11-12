@@ -74,7 +74,8 @@ Sometimes, the package manager keep an old version of the sub-packages in the lo
 
 ```bash
 rm -rf package-lock.json node_modules
-npm install
+
+npm install # or yarn install or pnpm install or bun pm install
 ```
 
 3. Check global installation
@@ -84,19 +85,19 @@ We recommend to install `intlayer` or `intlayer-cli` globally to access the CLI 
 **Check if a package is installed globally**
 
 ```bash
-npm list -g --depth=0
+npm list -g --depth=3 | grep intlayer
 ```
 
 ```bash
-npm list -g --depth=0 | grep intlayer
+yarn global list --depth=3 | grep intlayer
 ```
 
 ```bash
-yarn global list
+pnpm list -g --depth=3 | grep intlayer
 ```
 
 ```bash
-pnpm list -g --depth=0
+bun pm ls -g --depth=3 | grep intlayer
 ```
 
 **Fix potential global dependency conflicts**
@@ -111,6 +112,10 @@ yarn global remove intlayer intlayer-cli
 
 ```bash
 pnpm remove -g intlayer intlayer-cli
+```
+
+```bash
+bun pm rm -g intlayer intlayer-cli
 ```
 
 5. Try cleaning the cache
@@ -129,4 +134,20 @@ yarn cache clean
 
 ```bash
 pnpm cache clean
+```
+
+```bash
+bun pm cache clean
+```
+
+6. Try removing the `.intlayer` folder
+
+Intlayer cache a bundled version of his version itself in the `.intlayer/cache` folder.
+
+This cache can be corrupted if the version of intlayer is not the same as the version of the cached version.
+
+You can try to remove the `.intlayer` folder and retry the build.
+
+```bash
+rm -rf .intlayer
 ```
