@@ -52,7 +52,7 @@ WORKDIR /workspace/packages/@intlayer/design-system
 RUN bun run build:intlayer
 
 # Build Storybook
-RUN bun run build:storybook
+# RUN bun run build:storybook
 
 ENV NODE_ENV=production
 
