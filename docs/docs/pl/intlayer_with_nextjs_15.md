@@ -853,11 +853,6 @@ module.exports = metadataContent;
     },
   },
 };
-        "es": "Generado por create next app",
-      },
-    },
-  },
-};
 ```
 
 ````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
@@ -953,41 +948,42 @@ const { getIntlayer, getMultilingualUrls } = require("intlayer");
 const generateMetadata = async ({ params }) => {
   const { locale } = await params;
 
-const metadata = getIntlayer("page-metadata", locale);
+  const metadata = getIntlayer("page-metadata", locale);
 
-/**
- * Generuje obiekt zawierający wszystkie adresy URL dla każdej lokalizacji.
- *
- * Przykład:
- * ```ts
- *  getMultilingualUrls('/about');
- *
- *  // Zwraca
- *  // {
- *  //   en: '/about',
- *  //   fr: '/fr/about',
- *  //   es: '/es/about'
- *  // }
- * ```
- */
-const multilingualUrls = getMultilingualUrls("/");
-const localizedUrl = multilingualUrls[locale];
+  /**
+   * Generuje obiekt zawierający wszystkie adresy URL dla każdej lokalizacji.
+   *
+   * Przykład:
+   * ```ts
+   *  getMultilingualUrls('/about');
+   *
+   *  // Zwraca
+   *  // {
+   *  //   en: '/about',
+   *  //   fr: '/fr/about',
+   *  //   es: '/es/about'
+   *  // }
+   * ```
+   */
+  const multilingualUrls = getMultilingualUrls("/");
+  const localizedUrl = multilingualUrls[locale];
 
-return {
-  ...metadata,
-  alternates: {
-    canonical: localizedUrl,
-    languages: { ...multilingualUrls, "x-default": "/" },
-  },
-  openGraph: {
-    url: localizedUrl,
-  },
-};
+  return {
+    ...metadata,
+    alternates: {
+      canonical: localizedUrl,
+      languages: { ...multilingualUrls, "x-default": "/" },
+    },
+    openGraph: {
+      url: localizedUrl,
+    },
+  };
 };
 
 module.exports = { generateMetadata };
 
-// ... Reszta kodu```
+// ... Reszta kodu
+````
 
 > Zauważ, że funkcja `getIntlayer` importowana z `next-intlayer` zwraca Twoją zawartość opakowaną w `IntlayerNode`, co umożliwia integrację z edytorem wizualnym. Natomiast funkcja `getIntlayer` importowana z `intlayer` zwraca Twoją zawartość bezpośrednio, bez dodatkowych właściwości.
 
@@ -1571,7 +1567,7 @@ const Link = ({ href, children, ...props }) => {
 #### Jak to działa
 
 - **Wykrywanie linków zewnętrznych**:
-Funkcja pomocnicza `checkIsExternalLink` określa, czy URL jest zewnętrzny. Linki zewnętrzne pozostają niezmienione, ponieważ nie wymagają lokalizacji.
+  Funkcja pomocnicza `checkIsExternalLink` określa, czy URL jest zewnętrzny. Linki zewnętrzne pozostają niezmienione, ponieważ nie wymagają lokalizacji.
 
 - **Pobieranie bieżącej lokalizacji**:
   Hook `useLocale` dostarcza aktualną lokalizację (np. `fr` dla języka francuskiego).
@@ -1698,4 +1694,7 @@ Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj si
 ### Idź dalej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyodrębnić swoją zawartość, korzystając z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
-````
+
+```
+
+```
