@@ -25,11 +25,16 @@ COPY \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/intlayer-editor \
-    --exclude=docs \
+    --exclude=docs/assets \
+    --exclude=docs/docs \
+    --exclude=docs/blog \
+    --exclude=docs/frequent_questions \
+    --exclude=docs/legal \
     --exclude=apps/website \
     --exclude=plugins \
     --exclude=examples \
     . .
+    
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
 RUN bun install --ignore-scripts --filter=./packages/@intlayer/design-system
