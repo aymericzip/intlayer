@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.19.0
 
-FROM oven/bun:1.3.1-alpine AS builder
+FROM oven/bun:1.3.2-alpine AS builder
 
 # Create app directory
 WORKDIR /workspace
@@ -30,12 +30,6 @@ COPY \
     --exclude=plugins \
     --exclude=examples \
     . .
-
-COPY docs/docs/en/                 docs/docs/en/
-COPY docs/blog/en/                 docs/blog/en/
-COPY docs/frequent_questions/en/   docs/frequent_questions/en/
-COPY docs/legal/en/                docs/legal/en/
-    
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
 RUN bun install --ignore-scripts --filter=./packages/@intlayer/design-system
