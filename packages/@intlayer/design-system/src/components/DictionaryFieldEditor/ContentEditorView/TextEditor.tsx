@@ -235,10 +235,12 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
         {localesList.map((translationKey) => (
           <Fragment key={translationKey}>
             <tr className="mt-2 w-full p-2 text-xs">
-              <td>{getLocaleName(translationKey, locale)}</td>
+              <td className="w-full">
+                {getLocaleName(translationKey, locale)}
+              </td>
             </tr>
             <tr>
-              <td>
+              <td className="w-full">
                 <TextEditorContainer
                   section={
                     content[translationKey] ??
@@ -380,7 +382,7 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
         {['true', 'false', 'fallback'].map((condKey) => (
           <Fragment key={condKey}>
             <tr key={condKey} className="mt-2 block w-full p-2 text-xs">
-              <td>{String(condKey)}</td>
+              <td className="w-full">{String(condKey)}</td>
             </tr>
             <tr key={condKey} className="block w-full">
               <TextEditorContainer
@@ -420,7 +422,7 @@ const GenderTextEditor: FC<TextEditorProps> = ({
         {['male', 'female', 'fallback'].map((condKey) => (
           <Fragment key={condKey}>
             <tr key={condKey} className="mt-2 block w-full p-2 text-xs">
-              <td>{String(condKey)}</td>
+              <td className="w-full">{String(condKey)}</td>
             </tr>
             <tr key={condKey} className="block w-full">
               <TextEditorContainer
@@ -571,7 +573,7 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
                   key={JSON.stringify(subSection)}
                   className="mt-2 p-2 text-xs"
                 >
-                  <td>{String(key)}</td>
+                  <td className="w-full">{String(key)}</td>
                 </tr>
                 <tr key={JSON.stringify(subSection)} className="block w-full">
                   <TextEditor
