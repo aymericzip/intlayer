@@ -13,9 +13,9 @@
     "@astrojs/mdx": "4.3.7",
     "@astrojs/react": "4.4.0",
     "@astrojs/vue": "5.1.1",
-    "@tailwindcss/vite": "4.1.16",
+    "@tailwindcss/vite": "4.1.17",
     "@types/canvas-confetti": "1.9.0",
-    "@types/react-dom": "19.2.2",
+    "@types/react-dom": "19.2.3",
     "astro": "5.14.7",
     "astro-intlayer": "workspace:*",
     "canvas-confetti": "1.9.3",
@@ -23,7 +23,7 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-intlayer": "workspace:*",
-    "tailwindcss": "4.1.16",
+    "tailwindcss": "4.1.17",
     "vue": "3.5.22"
   }
 }

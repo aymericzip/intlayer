@@ -19,14 +19,14 @@
     "react-router-dom": "7.9.5"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "4.1.16",
-    "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.2",
+    "@tailwindcss/vite": "4.1.17",
+    "@types/react": "19.2.4",
+    "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.1",
     "@vitejs/plugin-react-swc": "^4.1.0",
     "autoprefixer": "10.4.21",
     "intlayer-editor": "workspace:*",
-    "tailwindcss": "4.1.16",
+    "tailwindcss": "4.1.17",
     "typescript": "5.9.3",
     "vite": "7.2.0",
     "vite-intlayer": "workspace:*"

@@ -80,7 +80,7 @@
   "devDependencies": {
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@solidjs/testing-library": "0.8.10",
-    "@testing-library/jest-dom": "6.6.4",
+    "@testing-library/jest-dom": "6.9.1",
     "@testing-library/user-event": "14.6.1",
     "@types/js-cookie": "3.0.6",
     "@types/node": "24.10.1",

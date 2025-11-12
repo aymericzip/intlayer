@@ -19,7 +19,7 @@
     "@intlayer/sync-json-plugin": "workspace:*",
     "@types/lodash": "4.17.5",
     "@types/node": "20.14.5",
-    "@types/react": "19.2.2",
+    "@types/react": "19.2.4",
     "intlayer": "workspace:*",
     "typescript": "5.9.3"
   }
