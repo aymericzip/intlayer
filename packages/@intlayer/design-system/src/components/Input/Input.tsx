@@ -18,18 +18,17 @@ export const inputVariants = cva(
       variant: {
         default: [
           'text-text',
-          'bg-white dark:bg-neutral-950',
+          'bg-neutral-50 dark:bg-neutral-950',
 
           // Focus ring + animation
           'focus-visible:outline-none',
 
           'focus-visible:ring-3',
-          'focus-visible:ring-neutral-200',
-          'dark:focus-visible:ring-neutral-500',
+          'focus-visible:ring-neutral-100',
+          'dark:focus-visible:ring-neutral-700',
 
-          'focus-visible:ring-offset-2',
           'focus-visible:ring-offset-white',
-          'dark:focus-visible:ring-offset-neutral-500',
+          'dark:focus-visible:ring-offset-neutral-700',
 
           // Remove any weird box-shadow
           '[box-shadow:none] focus:[box-shadow:none]',
@@ -42,7 +41,7 @@ export const inputVariants = cva(
         ].join(' '),
       },
       size: {
-        md: 'px-2 py-3',
+        md: 'px-2 py-3 md:py-2',
         lg: 'p-4',
       },
       validationStyleEnabled: {

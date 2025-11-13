@@ -67,7 +67,7 @@ export const ProjectList: FC = () => {
             <ul className="flex w-full flex-wrap gap-3">
               {projects.map((project) => (
                 <li
-                  className="flex w-full max-w-sm flex-col gap-3 rounded-lg border border-neutral p-6"
+                  className="flex w-full max-w-sm flex-col gap-3 rounded-lg border border-neutral bg-background p-6"
                   key={String(project.id)}
                 >
                   <h2 className="font-bold">{project.name}</h2>

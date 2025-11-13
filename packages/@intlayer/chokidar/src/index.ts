@@ -1,4 +1,3 @@
-export { prepareStaticDictionary as processContentDeclarationContent } from '../../core/src/deepTransformPlugins/processContentDeclarationContent';
 export { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 export { cleanOutputDir } from './cleanOutputDir';
 export {

@@ -72,11 +72,12 @@ const SelectTrigger: FC<
       'text-text',
 
       // Focus ring
+      'ring-0',
       'focus-visible:outline-none',
       'focus-visible:ring-3',
       'focus-visible:ring-neutral-200',
       'dark:focus-visible:ring-neutral-500',
-      'focus-visible:ring-offset-2',
+
       'focus-visible:ring-offset-white',
       'dark:focus-visible:ring-offset-neutral-500',
 

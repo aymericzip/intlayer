@@ -3,7 +3,7 @@
 import { Container, Form, H3, useForm } from '@intlayer/design-system';
 import { useSession, useUpdateUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import type { FC } from 'react';
+import { type FC, useEffect } from 'react';
 import {
   type ProfileFormData,
   useProfileFormSchema,
@@ -24,10 +24,16 @@ export const ProfileForm: FC = () => {
     updateUser({ ...data, id: String(user.id) });
   };
 
+  useEffect(() => {
+    if (user) {
+      form.reset(user);
+    }
+  }, [form.reset, user]);
+
   return (
     <Container
       roundedSize="xl"
-      className="flex size-full max-w-md justify-center p-6"
+      className="flex size-full max-w-md justify-center"
     >
       <H3 className="mb-8"> {title}</H3>
       <Form

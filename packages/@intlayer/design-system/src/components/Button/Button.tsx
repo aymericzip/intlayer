@@ -108,52 +108,81 @@ const buttonVariants = cva(
       },
       color: {
         [`${ButtonColor.PRIMARY}`]:
-          'text-primary *:text-text-light focus:ring-primary-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-primary-500/50',
+          'text-primary *:text-text-light focus:ring-primary-500 aria-selected:ring-6 aria-selected:ring-primary-500/50',
         [`${ButtonColor.SECONDARY}`]:
-          'text-secondary *:text-text-light focus:ring-secondary-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-secondary-500/50',
+          'text-secondary *:text-text-light focus:ring-secondary-500 aria-selected:ring-6 aria-selected:ring-secondary-500/50',
         [`${ButtonColor.DESTRUCTIVE}`]:
-          'text-destructive *:text-text-light focus:ring-destructive-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-destructive-500/50',
+          'text-destructive *:text-text-light focus:ring-destructive-500 aria-selected:ring-6 aria-selected:ring-destructive-500/50',
         [`${ButtonColor.NEUTRAL}`]:
-          'text-neutral *:text-text-light focus:ring-neutral-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-neutral-500/50',
+          'text-neutral *:text-text-light focus:ring-neutral-500 aria-selected:ring-6 aria-selected:ring-neutral-500/50',
         [`${ButtonColor.CARD}`]:
-          'text-card *:text-text-light focus:ring-card-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-card-500/50',
+          'text-card *:text-text-light focus:ring-card-500 aria-selected:ring-6 aria-selected:ring-card-500/50',
         [`${ButtonColor.LIGHT}`]:
-          'text-white *:text-text-light focus:ring-white/50 aria-[selected=true]:ring-6 aria-[selected=true]:ring-white/50',
+          'text-white *:text-text-light focus:ring-white/50 aria-selected:ring-6 aria-selected:ring-white/50',
         [`${ButtonColor.DARK}`]:
-          'text-neutral-800 *:text-text-light focus:ring-neutral-800/50 aria-[selected=true]:ring-6 aria-[selected=true]:ring-neutral-800/50',
+          'text-neutral-800 *:text-text-light focus:ring-neutral-800/50 aria-selected:ring-6 aria-selected:ring-neutral-800/50',
         [`${ButtonColor.TEXT}`]:
-          'text-text *:text-text-opposite focus:ring-neutral-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-neutral-500/50',
+          'text-text *:text-text-opposite focus:ring-neutral-500 aria-selected:ring-6 aria-selected:ring-neutral-500/50',
         [`${ButtonColor.CURRENT}`]:
-          'text-current *:text-text-light focus:ring-current/50 aria-[selected=true]:ring-6 aria-[selected=true]:ring-current/50',
+          'text-current *:text-text-light focus:ring-current/50 aria-selected:ring-6 aria-selected:ring-current/50',
         [`${ButtonColor.TEXT_INVERSE}`]:
-          'text-text-opposite *:text-text focus:ring-neutral-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-neutral-500/50',
+          'text-text-opposite *:text-text focus:ring-neutral-500 aria-selected:ring-6 aria-selected:ring-neutral-500/50',
         [`${ButtonColor.ERROR}`]:
-          'text-error *:text-text-light focus:ring-error/50 aria-[selected=true]:ring-6 aria-[selected=true]:ring-error/50',
+          'text-error *:text-text-light focus:ring-error/50 aria-selected:ring-6 aria-selected:ring-error/50',
         [`${ButtonColor.SUCCESS}`]:
-          'text-success *:text-text-light focus:ring-success/50 aria-[selected=true]:ring-6 aria-[selected=true]:ring-success/50',
+          'text-success *:text-text-light focus:ring-success/50 aria-selected:ring-6 aria-selected:ring-success/50',
         [`${ButtonColor.CUSTOM}`]:
-          'focus:ring-primary-500 aria-[selected=true]:ring-6 aria-[selected=true]:ring-primary-500/50',
+          'focus:ring-primary-500 aria-selected:ring-6 aria-selected:ring-primary-500/50',
       },
       variant: {
-        [`${ButtonVariant.DEFAULT}`]:
-          'rounded-lg bg-current hover:bg-current/90',
-        [`${ButtonVariant.NONE}`]:
-          'border-none bg-current/0 text-inherit hover:bg-current/0',
-        [`${ButtonVariant.OUTLINE}`]:
-          '*:!text-current rounded-lg border-[1.5px] border-current bg-current/0 hover:bg-current/30',
-        [`${ButtonVariant.LINK}`]:
-          '*:!text-current h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent hover:underline',
-        [`${ButtonVariant.INVISIBLE_LINK}`]:
-          '*:!text-current h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent',
-        [`${ButtonVariant.HOVERABLE}`]:
-          '*:!text-current rounded-lg border-none bg-current/0 transition hover:bg-current/10 aria-[current]:bg-current/5',
-        [`${ButtonVariant.FADE}`]:
-          '*:!text-current rounded-lg border-none bg-current/10 transition hover:bg-current/20 aria-[current]:bg-current/5',
+        [ButtonVariant.DEFAULT]: [
+          'rounded-lg bg-current',
+          'hover:bg-current/90',
 
-        [`${ButtonVariant.INPUT}`]: [
-          '*:!text-current w-full select-text resize-none rounded-xl border-2 bg-input-background text-input-text text-sm shadow-none outline-0 transition-all',
-          'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
-          'aria-[invalid=true]:border-error',
+          // Hover ring (similar spirit to your input)
+          'hover:ring-4', // width
+          'hover:ring-neutral-200', // light mode ring color
+          'hover:ring-offset-white',
+
+          // Dark mode ring
+          'dark:hover:ring-neutral-500',
+          'dark:hover:ring-offset-neutral-500',
+        ],
+
+        [ButtonVariant.OUTLINE]: [
+          'rounded-lg border-[1.5px] border-current bg-current/0 *:text-current!',
+          'hover:bg-current/10',
+
+          // Same hover ring behavior as DEFAULT for coherence
+          'hover:ring-4',
+          'hover:ring-current/20',
+          'hover:ring-offset-white',
+          'dark:hover:ring-offset-neutral-900',
+        ],
+
+        [ButtonVariant.NONE]:
+          'border-none bg-current/0 text-inherit hover:bg-current/0',
+
+        [ButtonVariant.LINK]:
+          'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent hover:underline',
+
+        [ButtonVariant.INVISIBLE_LINK]:
+          'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent',
+
+        [ButtonVariant.HOVERABLE]:
+          'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/10 aria-[current]:bg-current/5',
+
+        [ButtonVariant.FADE]:
+          'rounded-lg border-none bg-current/10 transition *:text-current! hover:bg-current/20 aria-[current]:bg-current/5',
+
+        [ButtonVariant.INPUT]: [
+          'w-full select-text resize-none rounded-xl text-base shadow-none outline-none',
+          'ring-0 transition-shadow duration-100 md:text-sm',
+          'bg-neutral-50 text-text dark:bg-neutral-950',
+          'focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-neutral-100 dark:focus-visible:ring-neutral-700',
+          'focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-700',
+          '[box-shadow:none] focus:[box-shadow:none]',
+          'aria-invalid:border-error',
           'disabled:opacity-50',
         ],
       },

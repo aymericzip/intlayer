@@ -439,11 +439,12 @@ const MultiSelectTrigger: FC<
         'text-text',
 
         // Focus ring
+        'ring-0',
         'focus-within:outline-none',
         'focus-within:ring-3',
         'focus-within:ring-neutral-200',
         'dark:focus-within:ring-neutral-500',
-        'focus-within:ring-offset-2',
+
         'focus-within:ring-offset-white',
         'dark:focus-within:ring-offset-neutral-500',
 

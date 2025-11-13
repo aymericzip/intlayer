@@ -9,7 +9,7 @@ export const PackageManagerSelector: FC = () => {
 
   return (
     <Select value={packageManager} onValueChange={setPackageManager}>
-      <Select.Trigger>
+      <Select.Trigger className="py-1">
         <Select.Value placeholder="Package Manager" />
       </Select.Trigger>
       <Select.Content>

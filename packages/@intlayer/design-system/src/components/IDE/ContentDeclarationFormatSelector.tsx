@@ -13,7 +13,7 @@ export const ContentDeclarationFormatSelector: FC = () => {
       value={contentDeclarationFormat}
       onValueChange={setContentDeclarationFormat}
     >
-      <Select.Trigger>
+      <Select.Trigger className="py-1">
         <Select.Value placeholder="Dictionary Format" />
       </Select.Trigger>
       <Select.Content>

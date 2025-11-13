@@ -231,19 +231,19 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                 <H1 isClickable={true} {...props} />
               ),
               h2: (props: ComponentProps<typeof H2>) => (
-                <H2 isClickable={true} {...props} />
+                <H2 isClickable={true} className="mt-16" {...props} />
               ),
               h3: (props: ComponentProps<typeof H3>) => (
-                <H3 isClickable={true} {...props} />
+                <H3 isClickable={true} className="mt-5" {...props} />
               ),
               h4: (props: ComponentProps<typeof H4>) => (
-                <H4 isClickable={true} {...props} />
+                <H4 isClickable={true} className="mt-3" {...props} />
               ),
               h5: (props: ComponentProps<typeof H5>) => (
-                <H5 isClickable={true} {...props} />
+                <H5 isClickable={true} className="mt-3" {...props} />
               ),
               h6: (props: ComponentProps<typeof H6>) => (
-                <H6 isClickable={true} {...props} />
+                <H6 isClickable={true} className="mt-3" {...props} />
               ),
 
               code: (

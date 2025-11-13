@@ -91,7 +91,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
             <ul className="flex w-full flex-wrap gap-3">
               {organizations.map((organization) => (
                 <li
-                  className="flex w-full max-w-sm flex-col gap-3 rounded-lg border border-neutral p-6"
+                  className="flex w-full max-w-sm flex-col gap-3 rounded-lg border border-neutral bg-background p-6"
                   key={String(organization.id)}
                 >
                   <h2 className="font-bold">{organization.name}</h2>

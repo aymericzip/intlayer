@@ -16,7 +16,7 @@ export const CodeFormatSelector: FC = () => {
         setContentDeclarationFormat(value as typeof codeFormat);
       }}
     >
-      <Select.Trigger>
+      <Select.Trigger className="py-1">
         <Select.Value placeholder="Code Format" />
       </Select.Trigger>
       <Select.Content>
