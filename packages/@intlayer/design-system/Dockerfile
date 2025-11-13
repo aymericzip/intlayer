@@ -7,6 +7,9 @@ FROM oven/bun:1.3.2-alpine AS builder
 
 RUN apk add --no-cache nodejs npm
 
+# Put the repo in /workspace
+WORKDIR /workspace
+
 # Now copy the rest of the monorepo, excluding heavy/irrelevant folders
 COPY \
   --exclude=packages/@intlayer/mcp \
@@ -46,11 +49,15 @@ RUN bun x turbo run build:ci --filter=./packages/@intlayer/design-system
 # Build dictionaries then Storybook
 WORKDIR /workspace/packages/@intlayer/design-system
 
-# Build the intlayer package
-RUN bun run build:intlayer
+# Build the intlayer dictionaries (optional if turbo already did what you need)
+RUN bun x intlayer build
+
+# CMD ["bun", "x", "storybook"]
 
 # Build Storybook to a deterministic path to simplify the copy in the next stage
-RUN bun x storybook build
+ENV STORYBOOK_TELEMETRY=false
+ENV STORYBOOK_STATIC=true
+RUN bun x storybook build --disable-telemetry
 
 ########################
 # 2) Runtime
