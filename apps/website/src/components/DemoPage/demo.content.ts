@@ -172,6 +172,7 @@ const demoContent = {
   description:
     'Content declaration for the demo page showcasing the Intlayer visual editor. Includes tutorial steps and markdown-supported landing paragraph designed to guide users through content editing with real-time updates and multilingual support.',
   tags: ['demo', 'visual editor', 'content editing', 'landing page'],
+  id: '6915ef430d71b9e77f6ee221',
 } satisfies Dictionary;
 
 export default demoContent;

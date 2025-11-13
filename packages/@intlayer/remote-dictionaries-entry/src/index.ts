@@ -6,19 +6,12 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
+import type { DictionaryAPI } from '@intlayer/backend';
 import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config';
 import config from '@intlayer/config/built';
-import type {
-  Dictionary,
-  DictionaryKeys,
-  IntlayerConfig,
-  StrictModeLocaleMap,
-} from '@intlayer/types';
+import type { DictionaryKey, IntlayerConfig } from '@intlayer/types';
 
-export type RemoteDictionaries = Record<
-  DictionaryKeys,
-  StrictModeLocaleMap<Dictionary>
->;
+export type RemoteDictionaries = Record<DictionaryKey, DictionaryAPI[]>;
 
 type GetRemoteDictionaries = (
   configuration?: IntlayerConfig
@@ -31,10 +24,7 @@ export const getRemoteDictionaries: GetRemoteDictionaries = (
 
   // Always use cjs for dictionaries entry as it uses require
   const dictionariesPath = join(content.mainDir, `remote_dictionaries.cjs`);
-  let dictionaries: Record<
-    DictionaryKeys,
-    StrictModeLocaleMap<Dictionary>
-  > = {};
+  let dictionaries: Record<DictionaryKey, DictionaryAPI[]> = {};
 
   if (existsSync(dictionariesPath)) {
     // Clear cache for dynamic_dictionaries.cjs and all its dependencies (JSON files)

@@ -3,7 +3,7 @@ import { getIntlayerAPIProxy } from '@intlayer/api';
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config';
 import { getRemoteDictionaries } from '@intlayer/remote-dictionaries-entry';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary, DictionaryId, DictionaryKey } from '@intlayer/types';
 import { fetchDistantDictionaries } from '../fetchDistantDictionaries';
 import type { DictionariesStatus } from '../loadDictionaries/loadDictionaries';
 import { sortAlphabetically } from '../utils/sortAlphabetically';
@@ -25,7 +25,7 @@ export const loadRemoteDictionaries = async (
     onStopRemoteCheck?: () => void;
     onError?: (error: Error) => void;
   }
-): Promise<DictionaryAPI[]> => {
+): Promise<Dictionary[]> => {
   const { editor } = configuration;
   const remoteDictionariesRecord = getRemoteDictionaries(configuration);
 
@@ -42,28 +42,56 @@ export const loadRemoteDictionaries = async (
     const getDictionariesKeysResult =
       await intlayerAPI.dictionary.getDictionariesUpdateTimestamp();
 
-    const distantDictionaryUpdateTimeStamp: Record<string, number> | null =
-      getDictionariesKeysResult.data;
+    const distantDictionaryUpdateTimeStamp: Record<
+      DictionaryId,
+      { key: DictionaryKey; updatedAt: number }
+    > | null = getDictionariesKeysResult.data;
 
     if (!distantDictionaryUpdateTimeStamp) {
       throw new Error('No distant dictionaries found');
     }
 
-    const dictionariesKeysToFetch = Object.entries(
+    const dictionariesIdToFetch = Object.entries(
       distantDictionaryUpdateTimeStamp
-    )
-      .filter(([dictionaryKey, remoteUpdatedAt]) => {
-        // If remote doesn't provide updatedAt, fetch to be safe
-        if (!remoteUpdatedAt) return true;
+    ).filter(([dictionaryId, data]) => {
+      // If remote doesn't provide updatedAt, fetch to be safe
+      if (!data.updatedAt) return true;
 
-        // If no local cache exists, fetch
-        const local = (remoteDictionariesRecord as any)[dictionaryKey];
-        if (!local) return true;
+      // If no local cache exists, fetch
+      const local: Dictionary | undefined = remoteDictionariesRecord[
+        data.key
+      ]?.find((dictionary) => dictionary.id === dictionaryId);
+      if (!local) return true;
 
-        const localUpdatedAtRaw = (local as any)?.updatedAt as
-          | number
-          | string
-          | undefined;
+      const localUpdatedAtRaw = (local as any)?.updatedAt as
+        | number
+        | string
+        | undefined;
+
+      const localUpdatedAt =
+        typeof localUpdatedAtRaw === 'number'
+          ? localUpdatedAtRaw
+          : localUpdatedAtRaw
+            ? new Date(localUpdatedAtRaw).getTime()
+            : undefined;
+
+      // If local timestamp missing or older than remote, fetch
+      if (typeof localUpdatedAt !== 'number') return true;
+
+      return data.updatedAt > localUpdatedAt;
+    });
+
+    const flatRemoteDictionariesRecord: DictionaryAPI[] = Object.values(
+      remoteDictionariesRecord
+    ).flat();
+
+    const cachedDictionaries: Dictionary[] =
+      flatRemoteDictionariesRecord.filter((dictionary) => {
+        const remoteUpdatedAt =
+          distantDictionaryUpdateTimeStamp[dictionary.id!].updatedAt;
+
+        const localUpdatedAtRaw = dictionary.updatedAt;
+
         const localUpdatedAt =
           typeof localUpdatedAtRaw === 'number'
             ? localUpdatedAtRaw
@@ -71,47 +99,28 @@ export const loadRemoteDictionaries = async (
               ? new Date(localUpdatedAtRaw).getTime()
               : undefined;
 
-        // If local timestamp missing or older than remote, fetch
-        if (typeof localUpdatedAt !== 'number') return true;
-        return remoteUpdatedAt > localUpdatedAt;
-      })
-      .map(([dictionaryKey]) => dictionaryKey);
-
-    const cachedDictionaries = Object.entries(remoteDictionariesRecord)
-      .filter(([key, dictionary]) => {
-        const remoteUpdatedAt = distantDictionaryUpdateTimeStamp[key];
-        const localUpdatedAtRaw = (dictionary as any)?.updatedAt as
-          | number
-          | string
-          | undefined;
-        const localUpdatedAt =
-          typeof localUpdatedAtRaw === 'number'
-            ? localUpdatedAtRaw
-            : localUpdatedAtRaw
-              ? new Date(localUpdatedAtRaw).getTime()
-              : undefined;
         // Consider as cached/imported when local exists and is up-to-date or newer
         return (
           typeof localUpdatedAt === 'number' &&
           typeof remoteUpdatedAt === 'number' &&
           localUpdatedAt >= remoteUpdatedAt
         );
-      })
-      .map(([, dictionary]) => dictionary as any);
+      });
 
     // Report cached as already imported
     if (cachedDictionaries.length > 0) {
       onStatusUpdate?.(
-        cachedDictionaries.map((d) => ({
-          dictionaryKey: d.key,
+        cachedDictionaries.map((dictionary) => ({
+          dictionaryKey: dictionary.key,
           type: 'remote',
           status: 'imported',
         }))
       );
     }
 
-    const orderedDistantDictionaryKeys =
-      dictionariesKeysToFetch.sort(sortAlphabetically);
+    const orderedDistantDictionaryKeys = dictionariesIdToFetch
+      .map(([, data]) => data.key)
+      .sort(sortAlphabetically);
 
     // Report pending for keys to be fetched so totals are visible immediately
     if (orderedDistantDictionaryKeys.length > 0) {
@@ -131,9 +140,9 @@ export const loadRemoteDictionaries = async (
       onStatusUpdate
     );
 
-    const distantDictionaries: DictionaryAPI[] = formatDistantDictionaries(
+    const distantDictionaries: Dictionary[] = formatDistantDictionaries(
       distantDictionariesData
-    ) as DictionaryAPI[];
+    );
 
     return [...cachedDictionaries, ...distantDictionaries];
   } catch (error) {

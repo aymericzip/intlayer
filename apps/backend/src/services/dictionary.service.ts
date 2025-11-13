@@ -218,46 +218,6 @@ export const createDictionary = async (
   return await DictionaryModel.create(dictionary);
 };
 
-type GetExistingDictionaryResult = {
-  existingDictionariesKey: string[];
-  newDictionariesKey: string[];
-};
-
-/**
- * Gets the existing dictionaries from the provided list of keys.
- * @param dictionariesKeys - List of dictionary keys to check.
- * @param projectId - The ID of the project to check the dictionaries against.
- * @returns The existing dictionaries and the new dictionaries.
- */
-export const getExistingDictionaryKey = async (
-  dictionariesKeys: string[],
-  projectId: string | Types.ObjectId
-): Promise<GetExistingDictionaryResult> => {
-  // Fetch dictionaries from the database where the key is in the provided list
-  const existingDictionaries = await DictionaryModel.find({
-    key: { $in: dictionariesKeys },
-    projectIds: projectId,
-  });
-
-  // Map existing dictionaries to a LocalDictionary object
-  const existingDictionariesKey: string[] = [];
-  const newDictionariesKey: string[] = [];
-
-  for (const key of dictionariesKeys) {
-    const isDictionaryExist = existingDictionaries.some(
-      (dictionary) => dictionary.key === key
-    );
-
-    if (isDictionaryExist) {
-      existingDictionariesKey.push(key);
-    } else {
-      newDictionariesKey.push(key);
-    }
-  }
-
-  return { existingDictionariesKey, newDictionariesKey };
-};
-
 /**
  * Updates an existing dictionary in the database by its ID.
  * @param dictionaryId - The ID of the dictionary to update.
@@ -308,34 +268,29 @@ export const updateDictionaryByKey = async (
   dictionary: Partial<Dictionary>,
   projectId: string | Types.ObjectId
 ): Promise<DictionaryDocument> => {
-  const dictionaryObject = ensureMongoDocumentToObject(dictionary);
-  const dictionaryToUpdate = removeObjectKeys(dictionaryObject, [
-    'id',
-  ]) as unknown as Partial<Dictionary>;
+  const existing = await DictionaryModel.findOne({
+    key: dictionaryKey,
+    projectIds: projectId,
+  });
 
-  const updatedKeys = Object.keys(dictionaryToUpdate) as DictionaryFields;
-  const errors = await validateDictionary(dictionaryToUpdate, updatedKeys);
-
-  if (Object.keys(errors).length > 0) {
-    throw new GenericError('DICTIONARY_INVALID_FIELDS', {
-      dictionaryKey,
-      projectId,
-      errors,
-    });
-  }
-
-  const result = await DictionaryModel.updateOne(
-    { key: dictionaryKey, projectIds: projectId },
-    dictionaryToUpdate
-  );
-
-  if (result.matchedCount === 0) {
+  if (!existing) {
     throw new GenericError('DICTIONARY_UPDATE_FAILED', { dictionaryKey });
   }
 
-  const updatedDictionary = await getDictionaryByKey(dictionaryKey, projectId);
+  const dictionaryObject = ensureMongoDocumentToObject(dictionary);
+  const dictionaryToUpdate = removeObjectKeys(dictionaryObject, [
+    'id',
+  ]) as Partial<Dictionary>;
 
-  return updatedDictionary;
+  // Optional: run your validateDictionary on dictionaryToUpdate here
+
+  // Apply updated fields onto the existing doc
+  Object.assign(existing, dictionaryToUpdate);
+
+  // Save – this will trigger timestamps on parent + subdocs
+  await existing.save();
+
+  return existing;
 };
 
 /**

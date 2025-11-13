@@ -78,18 +78,21 @@ const formatContentDeclaration = async (
 
   let result: Dictionary = {
     key: dictionary.key,
-    content,
+    id: dictionary.id,
+    title: dictionary.title,
+    description: dictionary.description,
+    tags: dictionary.tags,
     locale: dictionary.locale,
     fill: dictionary.fill,
     filled: dictionary.filled,
-    tags: dictionary.tags,
-    title: dictionary.title,
-    description: dictionary.description,
     priority: dictionary.priority,
+    live: dictionary.live,
+    version: dictionary.version,
+    content,
   };
 
   /**
-   * Add $schema to the dictionary
+   * Add $schema to JSON dictionaries
    */
   const extension = (
     dictionary.filePath ? extname(dictionary.filePath) : '.json'
@@ -151,10 +154,7 @@ export const writeContentDeclaration = async (
 
   if (existingDictionary?.filePath) {
     // Compare existing dictionary content with new dictionary content
-    const isSameContent = deepEqual(
-      existingDictionary.content,
-      dictionary.content
-    );
+    const isSameContent = deepEqual(existingDictionary, dictionary);
 
     const filePath = resolve(
       configuration.content.baseDir,

@@ -1,7 +1,10 @@
+import { isDeepStrictEqual } from 'node:util';
 import * as eventListener from '@controllers/eventListener.controller';
 import type {
   ContentNode,
+  DictionaryId,
   Dictionary as LocalDictionary,
+  LocalDictionaryId,
 } from '@intlayer/types';
 import { logger } from '@logger';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
@@ -34,6 +37,24 @@ import type {
 export type GetDictionariesParams =
   FiltersAndPagination<DictionaryFiltersParams>;
 export type GetDictionariesResult = PaginatedResponse<DictionaryAPI>;
+
+const removeMetadata = <T extends Record<string, any>>(obj: T): T => {
+  if (Array.isArray(obj)) {
+    return obj.map(removeMetadata) as unknown as T;
+  }
+
+  if (obj && typeof obj === 'object') {
+    const clone: T = {} as T;
+    for (const key in obj) {
+      if (key !== 'metadata') {
+        clone[key] = removeMetadata(obj[key]);
+      }
+    }
+    return clone as T;
+  }
+
+  return obj as T;
+};
 
 /**
  * Retrieves a list of dictionaries based on filters and pagination.
@@ -151,7 +172,7 @@ export const getDictionariesKeys = async (
 };
 
 export type GetDictionariesUpdateTimestampResult = ResponseData<
-  Record<string, number>
+  Record<DictionaryId, { key: string; updatedAt: number }>
 >;
 
 /**
@@ -190,12 +211,17 @@ export const getDictionariesUpdateTimestamp = async (
     const dictionariesUpdateTimestamp = dictionaries.reduce(
       (acc, dictionary) => ({
         ...acc,
-        [dictionary.key]: new Date(dictionary.updatedAt).getTime(),
+        [dictionary.id]: {
+          key: dictionary.key,
+          updatedAt: new Date(dictionary.updatedAt).getTime(),
+        },
       }),
       {}
     );
 
-    const responseData = formatResponse<Record<string, number>>({
+    const responseData = formatResponse<
+      Record<string, { key: string; updatedAt: number }>
+    >({
       data: dictionariesUpdateTimestamp,
     });
 
@@ -312,7 +338,13 @@ export const addDictionary = async (
     title: dictionaryData.title,
     description: dictionaryData.description,
     content: new Map([
-      ['v1', { content: dictionaryData.content ?? ({} as ContentNode) }],
+      [
+        'v1',
+        {
+          // Remove metadata as markdown metadata are dynamic data inserted at build time
+          content: removeMetadata(dictionaryData.content ?? {}) as ContentNode,
+        },
+      ],
     ]),
     creatorId: user.id,
     projectIds: dictionaryData.projectIds ?? [String(project.id)],
@@ -361,9 +393,22 @@ export type PushDictionariesBody = {
   dictionaries: LocalDictionary[];
 };
 type PushDictionariesResultData = {
-  newDictionaries: string[];
-  updatedDictionaries: string[];
-  error: { dictionaryId: string; message: string }[];
+  newDictionaries: {
+    key: string;
+    localId: LocalDictionaryId;
+    id: string | undefined;
+  }[];
+  updatedDictionaries: {
+    key: string;
+    localId: LocalDictionaryId;
+    id: string | undefined;
+  }[];
+  error: {
+    id: string | undefined;
+    key: string;
+    localId: LocalDictionaryId | undefined;
+    message: string;
+  }[];
 };
 export type PushDictionariesResult = ResponseData<PushDictionariesResultData>;
 
@@ -379,8 +424,8 @@ export const pushDictionaries = async (
   _next: NextFunction
 ): Promise<void> => {
   const { project, user, roles } = res.locals;
+
   const dictionaryData = req.body.dictionaries;
-  const dictionariesKeys = dictionaryData.map((dictionary) => dictionary.key);
 
   if (
     typeof dictionaryData === 'object' &&
@@ -410,21 +455,17 @@ export const pushDictionaries = async (
   }
 
   try {
-    const { existingDictionariesKey, newDictionariesKey } =
-      await dictionaryService.getExistingDictionaryKey(
-        dictionariesKeys,
-        project.id
-      );
-
-    const existingDictionaries = dictionaryData.filter((dictionary) =>
-      existingDictionariesKey.includes(dictionary.key)
+    const existingDictionaries = dictionaryData.filter(
+      (dictionary) => dictionary.id !== undefined
     );
-    const newDictionaries = dictionaryData.filter((dictionary) =>
-      newDictionariesKey.includes(dictionary.key)
+    const newDictionaries = dictionaryData.filter(
+      (dictionary) => dictionary.id === undefined
     );
 
-    const newDictionariesResult: DictionaryAPI[] = [];
-    const updatedDictionariesResult: DictionaryAPI[] = [];
+    const newDictionariesResult: PushDictionariesResultData['newDictionaries'] =
+      [];
+    const updatedDictionariesResult: PushDictionariesResultData['updatedDictionaries'] =
+      [];
     const errorResult: PushDictionariesResultData['error'] = [];
 
     for (const dictionaryDataEl of newDictionaries) {
@@ -434,7 +475,15 @@ export const pushDictionaries = async (
         projectIds: [String(project.id)],
         creatorId: user.id,
         content: new Map([
-          ['v1', { content: dictionaryDataEl.content ?? ({} as ContentNode) }],
+          // Remove metadata as markdown metadata are dynamic data inserted at build time
+
+          [
+            'v1',
+            {
+              content:
+                removeMetadata(dictionaryDataEl.content) ?? ({} as ContentNode),
+            },
+          ],
         ]),
         key: dictionaryDataEl.key,
       };
@@ -442,80 +491,83 @@ export const pushDictionaries = async (
       try {
         const newDictionary =
           await dictionaryService.createDictionary(dictionary);
-        newDictionariesResult.push(mapDictionaryToAPI(newDictionary));
+        newDictionariesResult.push({
+          key: newDictionary.key,
+          localId: dictionaryDataEl.localId!,
+          id: newDictionary.id,
+        });
       } catch (error) {
-        ErrorHandler.handleAppErrorResponse(res, error as AppError);
-        return;
+        errorResult.push({
+          id: dictionaryDataEl.id!,
+          key: dictionaryDataEl.key,
+          localId: dictionaryDataEl.localId!,
+          message: (error as AppError).message,
+        });
       }
     }
 
-    if (existingDictionariesKey.length >= 0) {
-      const existingDictionariesDB =
-        await dictionaryService.getDictionariesByKeys(
-          existingDictionariesKey,
+    for (const dictionaryDataEl of existingDictionaries) {
+      const remoteDictionary = await dictionaryService.getDictionaryById(
+        dictionaryDataEl.id!
+      );
+
+      // Remove metadata as markdown metadata are dynamic data inserted at build time
+      const cleanedContent = removeMetadata(dictionaryDataEl.content);
+
+      const versionList = [...(remoteDictionary.content.keys() ?? [])];
+      const lastVersion = versionList[versionList.length - 1];
+
+      const lastContent =
+        (remoteDictionary.content.get(lastVersion)
+          ?.content as DictionaryAPI['content']) ?? null;
+
+      const isSameContent = isDeepStrictEqual(lastContent, cleanedContent);
+
+      const newContent: VersionedContent = new Map(remoteDictionary.content);
+
+      if (!isSameContent) {
+        const newContentVersion =
+          dictionaryService.incrementVersion(remoteDictionary);
+
+        newContent.set(newContentVersion, {
+          // Remove metadata as markdown metadata are dynamic data inserted at build time
+          content: cleanedContent,
+        });
+      }
+
+      const dictionary: DictionaryData = {
+        ...ensureMongoDocumentToObject(remoteDictionary),
+        ...dictionaryDataEl,
+        content: newContent,
+        projectIds: [String(project.id)],
+        creatorId: user.id,
+        key: remoteDictionary.key,
+      };
+
+      try {
+        const updatedDictionary = await dictionaryService.updateDictionaryByKey(
+          remoteDictionary.key,
+          dictionary,
           project.id
         );
-
-      for (const dictionaryDataEl of existingDictionaries) {
-        const existingDictionaryDB = existingDictionariesDB.find(
-          (dictionaryDB) => dictionaryDB.key === dictionaryDataEl.key
-        )!;
-
-        const versionList = [...(existingDictionaryDB.content.keys() ?? [])];
-        const lastVersion = versionList[versionList.length - 1];
-
-        const lastContent =
-          (existingDictionaryDB.content.get(lastVersion)
-            ?.content as DictionaryAPI['content']) ?? null;
-
-        const isSameContent =
-          JSON.stringify(lastContent) ===
-          JSON.stringify(dictionaryDataEl.content);
-
-        let newContent: VersionedContent = existingDictionaryDB.content;
-
-        if (!isSameContent) {
-          const newContentVersion =
-            dictionaryService.incrementVersion(existingDictionaryDB);
-
-          existingDictionaryDB.content.set(newContentVersion, {
-            content: dictionaryDataEl.content ?? ({} as ContentNode),
-          });
-
-          newContent = existingDictionaryDB.content;
-        }
-
-        const dictionary: DictionaryData = {
-          ...ensureMongoDocumentToObject(existingDictionaryDB),
-          ...dictionaryDataEl,
-          content: newContent,
-          projectIds: [String(project.id)],
-          creatorId: user.id,
+        updatedDictionariesResult.push({
+          key: updatedDictionary.key,
+          localId: dictionaryDataEl.localId!,
+          id: updatedDictionary.id,
+        });
+      } catch (error) {
+        errorResult.push({
+          id: dictionaryDataEl.id!,
           key: dictionaryDataEl.key,
-        };
-
-        try {
-          const updatedDictionary =
-            await dictionaryService.updateDictionaryByKey(
-              dictionaryDataEl.key,
-              dictionary,
-              project.id
-            );
-          updatedDictionariesResult.push(mapDictionaryToAPI(updatedDictionary));
-        } catch (error) {
-          ErrorHandler.handleAppErrorResponse(res, error as AppError);
-          return;
-        }
+          localId: dictionaryDataEl.localId!,
+          message: (error as AppError).message,
+        });
       }
     }
 
     const result: PushDictionariesResultData = {
-      newDictionaries: newDictionariesResult.map(
-        (dictionary) => dictionary.key
-      ),
-      updatedDictionaries: updatedDictionariesResult.map(
-        (dictionary) => dictionary.key
-      ),
+      newDictionaries: newDictionariesResult,
+      updatedDictionaries: updatedDictionariesResult,
       error: errorResult,
     };
 

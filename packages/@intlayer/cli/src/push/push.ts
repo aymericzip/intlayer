@@ -8,6 +8,7 @@ import {
   listGitFiles,
   parallelize,
   prepareIntlayer,
+  writeContentDeclaration,
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
@@ -15,8 +16,8 @@ import {
   getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
-import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { Dictionary } from '@intlayer/types';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PushLogger, type PushStatus } from '../pushLog';
 import { checkCMSAuth } from '../utils/checkAccess';
 
@@ -34,6 +35,21 @@ type DictionariesStatus = {
   status: 'pending' | 'pushing' | 'modified' | 'pushed' | 'unknown' | 'error';
   error?: Error;
   errorMessage?: string;
+};
+
+// Print per-dictionary summary similar to loadDictionaries
+const statusIconsAndColors = {
+  pushed: { icon: '✔', color: ANSIColors.GREEN },
+  modified: { icon: '✔', color: ANSIColors.GREEN },
+  error: { icon: '✖', color: ANSIColors.RED },
+  default: { icon: '⏲', color: ANSIColors.BLUE },
+};
+
+const getIconAndColor = (status: DictionariesStatus['status']) => {
+  return (
+    statusIconsAndColors[status as keyof typeof statusIconsAndColors] ??
+    statusIconsAndColors.default
+  );
 };
 
 /**
@@ -60,9 +76,13 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
     const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 
-    const dictionariesRecord = getDictionaries(config);
-    let dictionaries: Dictionary[] = Object.values(dictionariesRecord);
-    const existingDictionariesKeys: string[] = Object.keys(dictionariesRecord);
+    const unmergedDictionariesRecord = getUnmergedDictionaries(config);
+    let dictionaries: Dictionary[] = Object.values(
+      unmergedDictionariesRecord
+    ).flat();
+    const existingDictionariesKeys: string[] = Object.keys(
+      unmergedDictionariesRecord
+    );
 
     if (options?.dictionaries) {
       // Check if the provided dictionaries exist
@@ -105,7 +125,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
       return;
     }
 
-    appLogger('Pushing dictionaries:', {});
+    appLogger('Pushing dictionaries:');
 
     // Prepare dictionaries statuses
     const dictionariesStatuses: DictionariesStatus[] = dictionaries.map(
@@ -139,16 +159,41 @@ export const push = async (options?: PushOptions): Promise<void> => {
           statusObj.dictionary,
         ]);
 
-        const updatedDictionaries = pushResult.data?.updatedDictionaries || [];
-        const newDictionaries = pushResult.data?.newDictionaries || [];
+        const updatedDictionaries = pushResult.data?.updatedDictionaries ?? [];
+        const newDictionaries = pushResult.data?.newDictionaries ?? [];
 
-        if (updatedDictionaries.includes(statusObj.dictionary.key)) {
+        const allDictionaries = [...updatedDictionaries, ...newDictionaries];
+
+        for (const remoteDictionaryData of allDictionaries) {
+          const localDictionary = unmergedDictionariesRecord[
+            remoteDictionaryData.key
+          ]?.find(
+            (dictionary) => dictionary.localId === remoteDictionaryData.localId
+          );
+
+          if (!localDictionary) continue;
+
+          await writeContentDeclaration(
+            { ...localDictionary, id: remoteDictionaryData.id },
+            config
+          );
+        }
+
+        if (
+          updatedDictionaries.some(
+            (dictionary) => dictionary.key === statusObj.dictionary.key
+          )
+        ) {
           statusObj.status = 'modified';
           successfullyPushedDictionaries.push(statusObj.dictionary);
           logger.update([
             { dictionaryKey: statusObj.dictionary.key, status: 'modified' },
           ]);
-        } else if (newDictionaries.includes(statusObj.dictionary.key)) {
+        } else if (
+          newDictionaries.some(
+            (dictionary) => dictionary.key === statusObj.dictionary.key
+          )
+        ) {
           statusObj.status = 'pushed';
           successfullyPushedDictionaries.push(statusObj.dictionary);
           logger.update([
@@ -173,36 +218,10 @@ export const push = async (options?: PushOptions): Promise<void> => {
     // Stop the logger and render final state
     logger.finish();
 
-    // Print per-dictionary summary similar to loadDictionaries
-    const iconFor = (status: DictionariesStatus['status']) => {
-      switch (status) {
-        case 'pushed':
-        case 'modified':
-          return '✔';
-        case 'error':
-          return '✖';
-        default:
-          return '⏲';
-      }
-    };
-
-    const colorFor = (status: DictionariesStatus['status']) => {
-      switch (status) {
-        case 'pushed':
-        case 'modified':
-          return ANSIColors.GREEN;
-        case 'error':
-          return ANSIColors.RED;
-        default:
-          return ANSIColors.BLUE;
-      }
-    };
-
-    for (const s of dictionariesStatuses) {
-      const icon = iconFor(s.status);
-      const color = colorFor(s.status);
+    for (const dictionaryStatus of dictionariesStatuses) {
+      const { icon, color } = getIconAndColor(dictionaryStatus.status);
       appLogger(
-        ` - ${s.dictionary.key} ${ANSIColors.GREY}[${color}${icon} ${s.status}${ANSIColors.GREY}]${ANSIColors.RESET}`
+        ` - ${dictionaryStatus.dictionary.key} ${ANSIColors.GREY}[${color}${icon} ${dictionaryStatus.status}${ANSIColors.GREY}]${ANSIColors.RESET}`
       );
     }
 

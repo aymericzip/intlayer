@@ -45,6 +45,7 @@ export const writeJSFile = async (
       // Filter out undefined values
       Object.fromEntries(
         Object.entries({
+          id: mergedDictionary.id,
           locale: mergedDictionary.locale,
           filled: mergedDictionary.filled,
           fill: mergedDictionary.fill,

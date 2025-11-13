@@ -7,7 +7,7 @@ import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 
-const groupDictionariesByKey = (
+export const groupDictionariesByKey = (
   dictionaries: Dictionary[]
 ): Record<string, Dictionary[]> =>
   dictionaries.reduce(

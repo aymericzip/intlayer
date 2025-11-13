@@ -3259,7 +3259,52 @@ const addMissingRequires = (
 };
 
 /**
- * Updates dictionary metadata properties (title, description, tags) in the root object
+ * Serializes a metadata value to its string representation for code generation
+ * Handles: boolean, number, string, and array of strings
+ */
+const serializeMetadataValue = (value: unknown): string => {
+  if (Array.isArray(value)) {
+    return `[${value.map((item) => JSON.stringify(item)).join(', ')}]`;
+  }
+  if (typeof value === 'boolean' || typeof value === 'number') {
+    return String(value);
+  }
+  return JSON.stringify(value);
+};
+
+/**
+ * Updates a single property in the root object if the value has changed
+ */
+const updateMetadataProperty = (
+  rootObject: ObjectLiteralExpression,
+  propertyName: string,
+  value: unknown
+): boolean => {
+  const property = rootObject.getProperty(propertyName);
+  const serializedValue = serializeMetadataValue(value);
+
+  if (property && Node.isPropertyAssignment(property)) {
+    const currentValue = property.getInitializer()?.getText();
+
+    if (currentValue !== serializedValue) {
+      property.setInitializer(serializedValue);
+      return true;
+    }
+  } else if (!property) {
+    rootObject.addPropertyAssignment({
+      name: propertyName,
+      initializer: serializedValue,
+    });
+    return true;
+  }
+
+  return false;
+};
+
+/**
+ * Updates dictionary metadata properties in the root object
+ * Supports: id, locale, filled, fill, title, description, tags, version, priority, live
+ * and any future fields that may be added
  */
 const updateDictionaryMetadata = (
   rootObject: ObjectLiteralExpression,
@@ -3267,71 +3312,27 @@ const updateDictionaryMetadata = (
 ): boolean => {
   let changed = false;
 
-  // Update title
+  // List of metadata properties to update (excluding 'key' and 'content')
+  const metadataProperties: (keyof Dictionary)[] = [
+    'id',
+    'locale',
+    'filled',
+    'fill',
+    'title',
+    'description',
+    'tags',
+    'version',
+    'priority',
+    'live',
+  ];
 
-  if (dictionary.title !== undefined) {
-    const titleProperty = rootObject.getProperty('title');
-    const titleValue = JSON.stringify(dictionary.title);
+  for (const prop of metadataProperties) {
+    const value = dictionary[prop];
 
-    if (titleProperty && Node.isPropertyAssignment(titleProperty)) {
-      const currentTitle = titleProperty.getInitializer()?.getText();
-
-      if (currentTitle !== titleValue) {
-        titleProperty.setInitializer(titleValue);
+    if (value !== undefined) {
+      if (updateMetadataProperty(rootObject, prop as string, value)) {
         changed = true;
       }
-    } else {
-      rootObject.addPropertyAssignment({
-        name: 'title',
-        initializer: titleValue,
-      });
-      changed = true;
-    }
-  }
-
-  // Update description
-
-  if (dictionary.description !== undefined) {
-    const descriptionProperty = rootObject.getProperty('description');
-    const descriptionValue = JSON.stringify(dictionary.description);
-
-    if (descriptionProperty && Node.isPropertyAssignment(descriptionProperty)) {
-      const currentDescription = descriptionProperty
-        .getInitializer()
-        ?.getText();
-
-      if (currentDescription !== descriptionValue) {
-        descriptionProperty.setInitializer(descriptionValue);
-        changed = true;
-      }
-    } else {
-      rootObject.addPropertyAssignment({
-        name: 'description',
-        initializer: descriptionValue,
-      });
-      changed = true;
-    }
-  }
-
-  // Update tags
-
-  if (dictionary.tags !== undefined) {
-    const tagsProperty = rootObject.getProperty('tags');
-    const tagsValue = `[${dictionary.tags.map((tag) => JSON.stringify(tag)).join(', ')}]`;
-
-    if (tagsProperty && Node.isPropertyAssignment(tagsProperty)) {
-      const currentTags = tagsProperty.getInitializer()?.getText();
-
-      if (currentTags !== tagsValue) {
-        tagsProperty.setInitializer(tagsValue);
-        changed = true;
-      }
-    } else {
-      rootObject.addPropertyAssignment({
-        name: 'tags',
-        initializer: tagsValue,
-      });
-      changed = true;
     }
   }
 
