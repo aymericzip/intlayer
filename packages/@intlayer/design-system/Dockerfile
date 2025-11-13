@@ -3,11 +3,9 @@
 ########################
 # 1) Build stage
 ########################
-FROM node:22-alpine AS builder
+FROM oven/bun:1.3.2-alpine AS builder
 
-RUN npm install -g bun@1.3.2
-
-WORKDIR /workspace
+RUN apk add --no-cache nodejs npm
 
 # Now copy the rest of the monorepo, excluding heavy/irrelevant folders
 COPY \
@@ -51,8 +49,8 @@ WORKDIR /workspace/packages/@intlayer/design-system
 # Build the intlayer package
 RUN bun run build:intlayer
 
-# Build Storybook
-RUN bun run build:storybook
+# Build Storybook to a deterministic path to simplify the copy in the next stage
+RUN bun x storybook build
 
 ########################
 # 2) Runtime
