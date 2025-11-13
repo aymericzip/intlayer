@@ -100,7 +100,7 @@
     "pwa-asset-generator": "8.1.2",
     "raw-loader": "4.0.2",
     "tailwindcss": "4.1.17",
-    "tsdown": "0.16.3",
+    "tsdown": "0.16.4",
     "typescript": "5.9.3"
   },
   "peerDependencies": {
