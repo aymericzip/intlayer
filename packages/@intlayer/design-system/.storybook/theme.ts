@@ -1,10 +1,11 @@
 import { create } from '@storybook/theming/create';
 
-export default create({
+const theme = create({
   base: 'light',
   brandTitle: 'Intlayer Design System',
   brandUrl: 'https://intlayer.org',
-  brandImage:
-    'https://github.com/aymericzip/intlayer/raw/refs/heads/main/packages/@intlayer/design-system/src/components/Logo/logo_with_text.svg',
+  brandImage: '/logo_with_text.svg',
   brandTarget: '_self',
-});
+}) as ReturnType<typeof create>;
+
+export default theme;

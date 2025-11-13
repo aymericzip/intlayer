@@ -12,6 +12,7 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
   ],
+  staticDirs: ['./static'],
   framework: {
     name: '@storybook/react-vite',
     options: {},
