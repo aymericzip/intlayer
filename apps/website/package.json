@@ -72,7 +72,7 @@
     "fuse.js": "7.1.0",
     "intlayer": "^7.0.5",
     "lucide-react": "0.553.0",
-    "next": "16.0.1",
+    "next": "16.0.2",
     "next-intlayer": "workspace:*",
     "next-secure-headers": "2.2.0",
     "next-themes": "0.4.6",
