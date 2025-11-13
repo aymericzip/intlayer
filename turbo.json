@@ -39,6 +39,11 @@
     },
     "typecheck": {
       "outputs": []
+    },
+    "publish": {
+      "dependsOn": ["build", "prepublish"],
+      "cache": false,
+      "outputs": []
     }
   }
 }

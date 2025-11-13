@@ -35,10 +35,6 @@
   "scripts": {
     "build": "turbo build --filter=./packages/** --filter=./docs --filter=./apps/backend",
     "build:ci": "turbo build:ci --filter=./packages/** --filter=./docs --filter=./apps/backend",
-    "changeset": "changeset",
-    "changeset:publish": "npm run changeset:publish:node",
-    "changeset:publish:node": "changeset publish --tag canary",
-    "changeset:version": "changeset version",
     "check": "biome check .",
     "check:fix": "biome check --write .",
     "clean": "turbo clean --filter=./packages/** --filter=./docs --filter=./apps/backend",
@@ -63,6 +59,8 @@
     "lint:fix": "biome lint --write .",
     "prepare": "husky",
     "prepublish": "turbo prepublish --filter=./packages/** --filter=./docs --filter=./apps/backend",
+    "publish": "turbo publish --filter=./packages/**",
+    "publish:ci": "bun run prepublish && bun run publish",
     "test": "turbo test --filter=./packages/** --filter=./docs --filter=./apps/backend --concurrency=2",
     "test:pick": "bun ./scripts/script-pick.mjs --command test",
     "typecheck": "turbo typecheck --filter=./packages/** --filter=./docs --filter=./apps/backend --concurrency=1"
@@ -73,7 +71,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.5",
-    "@changesets/cli": "^2.29.7",
     "@commitlint/cli": "20.1.0",
     "@commitlint/config-conventional": "20.0.0",
     "@commitlint/types": "20.0.0",
