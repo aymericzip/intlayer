@@ -52,26 +52,26 @@ WORKDIR /workspace/packages/@intlayer/design-system
 # Build the intlayer dictionaries (optional if turbo already did what you need)
 RUN bun x intlayer build
 
-# CMD ["bun", "x", "storybook"]
+CMD ["bun", "x", "storybook"]
 
-# Build Storybook to a deterministic path to simplify the copy in the next stage
-ENV STORYBOOK_TELEMETRY=false
-ENV STORYBOOK_STATIC=true
-RUN bun x storybook build --disable-telemetry
+# # Build Storybook to a deterministic path to simplify the copy in the next stage
+# ENV STORYBOOK_TELEMETRY=false
+# ENV STORYBOOK_STATIC=true
+# RUN bun x storybook build --disable-telemetry
 
-########################
-# 2) Runtime
-########################
-FROM node:22-alpine
+# ########################
+# # 2) Runtime
+# ########################
+# FROM node:22-alpine
 
-WORKDIR /www
+# WORKDIR /www
 
-RUN npm install -g serve
+# RUN npm install -g serve
 
-# Copy the built static site
-COPY --from=builder /workspace/packages/@intlayer/design-system/storybook-static .
+# # Copy the built static site
+# COPY --from=builder /workspace/packages/@intlayer/design-system/storybook-static .
 
-EXPOSE 6006
+# EXPOSE 6006
 
-# -f foreground, -p port, -h doc root
-CMD ["serve", ".", "-l", "6006"]
+# # -f foreground, -p port, -h doc root
+# CMD ["serve", ".", "-l", "6006"]
