@@ -799,6 +799,7 @@
         "@storybook/addon-interactions": "8.6.14",
         "@storybook/addon-links": "8.6.14",
         "@storybook/addon-onboarding": "8.6.14",
+        "@storybook/addon-themes": "^8.6.14",
         "@storybook/blocks": "8.6.14",
         "@storybook/builder-vite": "8.6.14",
         "@storybook/manager-api": "8.6.14",
@@ -3487,6 +3488,8 @@
     "@storybook/addon-onboarding": ["@storybook/addon-onboarding@8.6.14", "", { "peerDependencies": { "storybook": "^8.6.14" } }, "sha512-bHdHiGJFigVcSzMIsNLHY5IODZHr+nKwyz5/QOZLMkLcGH2IaUbOJfm4RyGOaTTPsUtAKbdsVXNEG3Otf+qO9A=="],
 
     "@storybook/addon-outline": ["@storybook/addon-outline@8.6.14", "", { "dependencies": { "@storybook/global": "^5.0.0", "ts-dedent": "^2.0.0" }, "peerDependencies": { "storybook": "^8.6.14" } }, "sha512-CW857JvN6OxGWElqjlzJO2S69DHf+xO3WsEfT5mT3ZtIjmsvRDukdWfDU9bIYUFyA2lFvYjncBGjbK+I91XR7w=="],
+
+    "@storybook/addon-themes": ["@storybook/addon-themes@8.6.14", "", { "dependencies": { "ts-dedent": "^2.0.0" }, "peerDependencies": { "storybook": "^8.6.14" } }, "sha512-/HJCgskA3OFGectuoLEBQ3JX1nQhE7lnpSv5gH13CWyyaMEk/mP8JYF1uO25YQqwGuSgL2gaEox+aK7UmglAmQ=="],
 
     "@storybook/addon-toolbars": ["@storybook/addon-toolbars@8.6.14", "", { "peerDependencies": { "storybook": "^8.6.14" } }, "sha512-W/wEXT8h3VyZTVfWK/84BAcjAxTdtRiAkT2KAN0nbSHxxB5KEM1MjKpKu2upyzzMa3EywITqbfy4dP6lpkVTwQ=="],
 

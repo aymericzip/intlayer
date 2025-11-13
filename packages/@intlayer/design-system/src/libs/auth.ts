@@ -1,6 +1,7 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types';
 import { createAuthClient } from 'better-auth/client';
+import { twoFactorClient } from 'better-auth/client/plugins';
 
 type AuthClient = ReturnType<typeof createAuthClient>;
 
@@ -46,6 +47,7 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     return createAuthClient({
       baseURL: backendURL,
       withCredentials: true, // makes fetch forward cookies
+      plugins: [twoFactorClient()],
     });
   };
 

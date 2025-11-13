@@ -427,12 +427,36 @@ const MultiSelectTrigger: FC<
   return (
     <div
       className={cn(
-        'flex w-full flex-col gap-3 rounded-lg p-1 py-2',
-        'flex w-full items-center justify-between whitespace-nowrap border border-input px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-        'w-full select-text resize-none rounded-xl border-2 bg-input-background px-2 py-1 text-input-text text-sm shadow-none outline-0 transition-all',
-        'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
-        'aria-[invalid=true]:border-error',
+        // Base layout
+        'flex w-full flex-col gap-3',
+        'select-text rounded-xl text-base shadow-none outline-none md:text-sm',
+
+        // Spacing
+        'px-2 py-2',
+
+        // Background and text
+        'bg-white dark:bg-neutral-950',
+        'text-text',
+
+        // Focus ring
+        'focus-within:outline-none',
+        'focus-within:ring-3',
+        'focus-within:ring-neutral-200',
+        'dark:focus-within:ring-neutral-500',
+        'focus-within:ring-offset-2',
+        'focus-within:ring-offset-white',
+        'dark:focus-within:ring-offset-neutral-500',
+
+        // Remove box-shadow
+        '[box-shadow:none]',
+
+        // States
+        'disabled:cursor-not-allowed disabled:opacity-50',
+        'aria-invalid:border-error',
+
+        // Validation styles
         validationStyleEnabled && 'valid:border-success invalid:border-error',
+
         className
       )}
       {...props}
@@ -511,7 +535,20 @@ const MultiSelectContent: FC<HTMLAttributes<HTMLDivElement>> = ({
 const MultiSelectList: typeof Command.List = ({ className, children }) => (
   <Command.List
     className={cn(
-      'absolute top-0 z-10 flex w-full flex-col gap-2 rounded-lg border border-muted bg-input-background p-2 shadow-md transition-colors',
+      // Base layout
+      'absolute top-0 z-10 flex w-full flex-col gap-2',
+      'rounded-xl p-2 shadow-md',
+
+      // Background and text
+      'bg-white dark:bg-neutral-950',
+      'text-text',
+
+      // Border
+      'border border-neutral-200 dark:border-neutral-800',
+
+      // Transitions
+      'transition-colors',
+
       className
     )}
   >
@@ -544,11 +581,19 @@ const MultiSelectItem: FC<
         setInputValue('');
       }}
       className={cn(
-        'flex cursor-pointer justify-between rounded-lg px-2 py-1 transition-colors',
+        // Base layout
+        'flex cursor-pointer justify-between',
+        'rounded-lg px-2 py-1',
+
+        // Hover and transitions
+        'transition-colors',
         'hover:bg-neutral/10',
-        className,
+
+        // States
         isIncluded && 'opacity-50',
-        props.disabled && 'cursor-not-allowed opacity-50'
+        props.disabled && 'cursor-not-allowed opacity-50',
+
+        className
       )}
       onMouseDown={mousePreventDefault}
     >

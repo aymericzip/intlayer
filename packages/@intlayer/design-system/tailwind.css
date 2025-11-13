@@ -111,16 +111,44 @@
   --color-white: rgba(255, 255, 255);
 
   --color-black: rgba(0, 0, 0);
-
-  --color-input-background: rgba(255, 255, 255);
-  --color-input-text: rgba(18, 18, 18);
-  --color-input-border: rgba(216, 216, 216);
-  --color-input-border-hover: rgba(201, 201, 201);
-  --color-input-border-focus: rgba(189, 189, 189);
-  --color-input-border-disabled: rgba(255, 255, 255);
 }
 
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@variant dark (:where([data-theme="dark"], [data-theme="dark"] *) &);
+@variant light (:where([data-theme="light"], [data-theme="light"] *) &);
+
+:root,
+[data-theme="light"] {
+  --font-sans: "Figtree Variable", sans-serif;
+
+  --color-background: rgba(255, 255, 255);
+  --color-background-opposite: rgba(18, 18, 18);
+
+  --color-text: rgba(18, 18, 18);
+  --color-text-opposite: rgba(255, 255, 255);
+  --color-text-dark: rgba(255, 255, 255);
+  --color-text-light: rgba(18, 18, 18);
+
+  --color-card: rgba(231, 231, 231);
+  --color-card-hover: rgba(231, 231, 231);
+
+  --color-hypertext: rgba(232, 121, 249);
+  --color-hypertext-hover: rgba(197, 101, 212);
+  --color-hypertext-active: rgba(232, 121, 249);
+
+  --color-shadow: rgba(18, 18, 18);
+
+  --color-primary: rgba(232, 121, 249);
+  --color-secondary: rgba(255, 230, 109);
+  --color-destructive: rgba(251, 125, 60);
+  --color-neutral: rgba(93, 93, 93);
+
+  --color-success: rgba(0, 204, 102);
+  --color-warning: rgba(214, 153, 66);
+  --color-error: rgba(181, 24, 13);
+
+  --color-white: rgba(255, 255, 255);
+  --color-black: rgba(0, 0, 0);
+}
 
 [data-theme="dark"] {
   --font-sans: "Figtree Variable", sans-serif;
@@ -151,13 +179,6 @@
 
   --color-white: rgba(255, 255, 255);
   --color-black: rgba(0, 0, 0);
-
-  --color-input-background: rgba(61, 61, 61);
-  --color-input-text: rgba(246, 246, 246);
-  --color-input-border: rgba(79, 79, 79);
-  --color-input-border-hover: rgba(93, 93, 93);
-  --color-input-border-focus: rgba(176, 176, 176);
-  --color-input-border-disabled: rgba(61, 61, 61);
 }
 
 @plugin '@tailwindcss/aspect-ratio';

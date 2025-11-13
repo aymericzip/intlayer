@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { z } from 'zod/v4';
 import { Select } from '../Select';
+import { MultiSelect } from '../Select/Multiselect';
 import { Form, useForm } from '.';
 
 type FormStoryArgs = {
@@ -98,6 +99,17 @@ export const Default: Story = {
               <Select.Item value="system">System</Select.Item>
             </Select.Content>
           </Form.Select>
+
+          <Form.MultiSelect name="languages" label="Languages">
+            <MultiSelect.Trigger>
+              <MultiSelect.Input placeholder="Select languages" />
+            </MultiSelect.Trigger>
+            <MultiSelect.Content>
+              <MultiSelect.List>
+                <MultiSelect.Item value="english">English</MultiSelect.Item>
+              </MultiSelect.List>
+            </MultiSelect.Content>
+          </Form.MultiSelect>
 
           <Form.Checkbox
             name="acceptTerms"

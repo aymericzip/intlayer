@@ -60,11 +60,37 @@ const SelectTrigger: FC<
 > = ({ validationStyleEnabled = false, className, children, ...props }) => (
   <SelectPrimitive.Trigger
     className={cn(
-      'flex w-full items-center justify-between whitespace-nowrap rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-      'w-full select-text resize-none rounded-xl border-2 bg-input-background px-2 py-1 text-input-text text-sm shadow-none outline-0 transition-all',
-      'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
-      'aria-[invalid=true]:border-error',
+      // Base layout and typography
+      'flex w-full items-center justify-between whitespace-nowrap',
+      'select-text rounded-xl text-base shadow-none outline-none md:text-sm',
+
+      // Spacing
+      'px-2 py-3',
+
+      // Background and text
+      'bg-white dark:bg-neutral-950',
+      'text-text',
+
+      // Focus ring
+      'focus-visible:outline-none',
+      'focus-visible:ring-3',
+      'focus-visible:ring-neutral-200',
+      'dark:focus-visible:ring-neutral-500',
+      'focus-visible:ring-offset-2',
+      'focus-visible:ring-offset-white',
+      'dark:focus-visible:ring-offset-neutral-500',
+
+      // Remove box-shadow
+      '[box-shadow:none] focus:[box-shadow:none]',
+
+      // States
+      'disabled:cursor-not-allowed disabled:opacity-50',
+      'aria-invalid:border-error',
+      '[&>span]:line-clamp-1',
+
+      // Validation styles
       validationStyleEnabled && 'valid:border-success invalid:border-error',
+
       className
     )}
     {...props}
@@ -149,10 +175,30 @@ export const SelectContent: FC<
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       className={cn(
-        'w-full select-text resize-none rounded-xl border-2 bg-input-background p-1 text-input-text text-sm shadow-none outline-0 transition-all',
-        'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-96 min-w-[8rem] overflow-hidden border shadow-md data-[state=closed]:animate-out data-[state=open]:animate-in',
+        // Base styles
+        'relative z-50 max-h-96 min-w-32 overflow-hidden',
+        'rounded-xl shadow-md',
+
+        // Background and text
+        'bg-white dark:bg-neutral-950',
+        'text-text',
+
+        // Border
+        'border border-neutral-200 dark:border-neutral-800',
+
+        // Animations
+        'data-[state=closed]:animate-out data-[state=open]:animate-in',
+        'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+        'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
+        'data-[side=bottom]:slide-in-from-top-2',
+        'data-[side=left]:slide-in-from-right-2',
+        'data-[side=right]:slide-in-from-left-2',
+        'data-[side=top]:slide-in-from-bottom-2',
+
+        // Positioning adjustments
         position === 'popper' &&
           'data-[side=left]:-translate-x-1 data-[side=top]:-translate-y-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1',
+
         className
       )}
       position={position}
@@ -163,7 +209,7 @@ export const SelectContent: FC<
         className={cn(
           'p-1',
           position === 'popper' &&
-            'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]'
+            'h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width)'
         )}
       >
         {children}
@@ -226,7 +272,7 @@ const SelectItem: FC<ComponentProps<typeof SelectPrimitive.Item>> = ({
 }) => (
   <SelectPrimitive.Item
     className={cn(
-      'relative flex w-full cursor-pointer select-none items-center rounded-lg py-1.5 pr-8 pl-2 text-sm outline-hidden focus:bg-neutral/10 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'relative flex w-full cursor-pointer select-none items-center rounded-lg py-1.5 pr-8 pl-2 text-sm outline-hidden focus:bg-neutral/10 data-disabled:pointer-events-none data-disabled:opacity-50',
       className
     )}
     {...props}
@@ -261,7 +307,11 @@ export const SelectSeparator: FC<
   ComponentProps<typeof SelectPrimitive.Separator>
 > = ({ className, ...props }) => (
   <SelectPrimitive.Separator
-    className={cn('-mx-1 my-1 h-px bg-red-300', className)}
+    className={cn(
+      '-mx-1 my-1 h-px',
+      'bg-neutral-200 dark:bg-neutral-800',
+      className
+    )}
     {...props}
   />
 );

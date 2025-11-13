@@ -111,6 +111,9 @@
     "formatter": {
       "indentStyle": "space",
       "indentWidth": 2
+    },
+    "parser": {
+      "tailwindDirectives": true
     }
   },
   "assist": {
