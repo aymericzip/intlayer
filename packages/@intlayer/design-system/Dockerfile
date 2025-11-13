@@ -52,7 +52,7 @@ WORKDIR /workspace/packages/@intlayer/design-system
 # Build the intlayer dictionaries (optional if turbo already did what you need)
 RUN bun x intlayer build
 
-CMD ["bun", "x", "storybook"]
+CMD ["bun", "run", "storybook"]
 
 # # Build Storybook to a deterministic path to simplify the copy in the next stage
 # ENV STORYBOOK_TELEMETRY=false
