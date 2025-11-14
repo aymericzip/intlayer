@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.19.0
+# syntax=docker/dockerfile:1.20.0
 
 
 # FROM oven/bun:1.3.2-alpine AS builder
