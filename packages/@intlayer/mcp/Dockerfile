@@ -73,6 +73,12 @@ USER app
 # Expose the API port 
 EXPOSE 3000
 
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+  CMD \
+    curl -f http://localhost:3000/health || exit 1
+
+
 # Option 1: Use mcp-proxy (recommended - simpler)
 CMD ["bun", "run", "start:sse"]
 

@@ -52,7 +52,13 @@ WORKDIR /workspace/packages/@intlayer/design-system
 # Build the intlayer dictionaries (optional if turbo already did what you need)
 RUN bun x intlayer build
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+  CMD \
+    curl -f http://localhost:6006/ || exit 1
+
 CMD ["bun", "run", "storybook"]
+
+
 
 # # Build Storybook to a deterministic path to simplify the copy in the next stage
 # ENV STORYBOOK_TELEMETRY=false

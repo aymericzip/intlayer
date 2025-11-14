@@ -105,4 +105,11 @@ USER app
 # Expose the API port (defaults to 3100 via .env, can be overridden)
 EXPOSE 3000
 
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+  CMD \
+    curl -f http://localhost:3000/ || exit 1 && \
+    curl -f http://localhost:3000/doc/environment/nextjs || exit 1
+
+
 CMD ["bun", "x", "next", "start"] 
