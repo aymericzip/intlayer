@@ -7,45 +7,58 @@ import type {
 } from 'react';
 import { cn } from '../../utils/cn';
 
-export const checkboxVariants = cva('', {
-  variants: {
-    variant: {
-      default: [
-        'pointer rounded border-2 bg-input-background text-input-text shadow-none outline-0 transition-all',
-        'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
-        'checked:border-checkbox-checked-border checked:bg-checkbox-checked',
-        'disabled:opacity-50',
-      ],
+export const checkboxVariants = cva(
+  [
+    'appearance-none',
+    'pointer relative rounded-md border-2 bg-input-background text-input-text shadow-none transition-all duration-100',
+    'border-input-border hover:border-input-border-hover focus:border-input-border-focus',
+    'focus:outline-0 focus:[box-shadow:none]',
+    'checked:border-current checked:bg-current checked:hover:bg-current/80',
+    'ring-current/20 ring-offset-current',
+    'hover:bg-current/20',
+    'disabled:opacity-50',
+    'ring-0 ring-offset-0 hover:ring-3! focus-visible:ring-4',
+
+    // centered custom checkmark with text-opposite color
+    "checked:before:absolute checked:before:inset-0 checked:before:content-['✓']",
+    'checked:before:flex checked:before:items-center checked:before:justify-center',
+    'checked:before:text-text-opposite/80',
+  ].join(' '),
+  {
+    variants: {
+      variant: {
+        default: '',
+      },
+      size: {
+        sm: 'size-4',
+        md: 'size-5',
+        lg: 'size-6',
+      },
+      color: {
+        primary: 'accent-primary',
+        secondary: 'accent-secondary',
+        destructive: 'accent-destructive',
+        neutral: 'accent-neutral',
+        light: 'accent-light',
+        text: 'accent-text',
+        dark: 'accent-dark',
+        error: 'accent-error',
+        success: 'accent-success',
+        custom: 'accent-custom',
+      },
+      validationStyleEnabled: {
+        disabled: '',
+        enabled: 'valid:border-success invalid:border-error',
+      },
     },
-    size: {
-      sm: 'size-4',
-      md: 'size-5',
-      lg: 'size-6',
+    defaultVariants: {
+      variant: 'default',
+      color: 'primary',
+      validationStyleEnabled: 'disabled',
+      size: 'md',
     },
-    color: {
-      primary: 'accent-primary',
-      secondary: 'accent-secondary',
-      destructive: 'accent-destructive',
-      neutral: 'accent-neutral',
-      light: 'accent-light',
-      text: 'accent-text',
-      dark: 'accent-dark',
-      error: 'accent-error',
-      success: 'accent-success',
-      custom: 'accent-custom',
-    },
-    validationStyleEnabled: {
-      disabled: '',
-      enabled: 'valid:border-success invalid:border-error',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-    color: 'primary',
-    validationStyleEnabled: 'disabled',
-    size: 'md',
-  },
-});
+  }
+);
 
 export enum CheckboxSize {
   SM = 'sm',
@@ -90,18 +103,20 @@ const Input: FC<CheckboxProps> = ({
   name,
   variant,
   className,
-  labelClassName,
+  labelClassName, // eslint-disable-line @typescript-eslint/no-unused-vars
   ...props
 }) => (
   <input
     type="checkbox"
-    className={checkboxVariants({
-      variant,
-      size,
-      color,
-      validationStyleEnabled: validationStyleEnabled ? 'enabled' : 'disabled',
-      className,
-    })}
+    className={cn(
+      checkboxVariants({
+        variant,
+        size,
+        color,
+        validationStyleEnabled: validationStyleEnabled ? 'enabled' : 'disabled',
+      }),
+      className
+    )}
     {...props}
   />
 );

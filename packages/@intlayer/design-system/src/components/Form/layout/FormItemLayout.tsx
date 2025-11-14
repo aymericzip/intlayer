@@ -18,7 +18,7 @@ export const FormItemLayout: FC<FormItemLayoutProps> = ({
   showErrorMessage = true,
   htmlFor,
 }) => (
-  <Form.Item id={htmlFor} className="flex w-full flex-col gap-2 p-2">
+  <Form.Item className="flex w-full flex-col gap-2 p-2">
     {(description || label) && (
       <div className="flex flex-col gap-1 p-1 leading-none">
         {label && (
