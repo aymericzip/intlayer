@@ -10,14 +10,15 @@ import { cn } from '../../utils/cn';
 export const checkboxVariants = cva(
   [
     'appearance-none',
-    'pointer relative rounded-md border-2 bg-input-background text-input-text shadow-none transition-all duration-100',
-    'border-input-border hover:border-input-border-hover focus:border-input-border-focus',
-    'focus:outline-0 focus:[box-shadow:none]',
+    'pointer relative rounded-md border-2',
+    'focus:outline-0',
     'checked:border-current checked:bg-current checked:hover:bg-current/80',
     'ring-current/20 ring-offset-current',
     'hover:bg-current/20',
     'disabled:opacity-50',
-    'ring-0 ring-offset-0 hover:ring-3! focus-visible:ring-4',
+
+    // Ring + animation
+    'ring-0 transition-all duration-300 ease-in-out hover:ring-4 focus-visible:ring-6',
 
     // centered custom checkmark with text-opposite color
     "checked:before:absolute checked:before:inset-0 checked:before:content-['✓']",
@@ -30,9 +31,9 @@ export const checkboxVariants = cva(
         default: '',
       },
       size: {
-        sm: 'size-4',
-        md: 'size-5',
-        lg: 'size-6',
+        sm: 'size-4 rounded-md',
+        md: 'size-5 rounded-lg',
+        lg: 'size-6 rounded-xl',
       },
       color: {
         primary: 'accent-primary',
@@ -103,7 +104,7 @@ const Input: FC<CheckboxProps> = ({
   name,
   variant,
   className,
-  labelClassName, // eslint-disable-line @typescript-eslint/no-unused-vars
+  labelClassName,
   ...props
 }) => (
   <input
