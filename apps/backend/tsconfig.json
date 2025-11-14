@@ -14,6 +14,7 @@
     "moduleResolution": "Bundler",
     "module": "Preserve",
     "outDir": "dist",
+    "skipLibCheck": true,
     "paths": {
       "@controllers/*": ["src/controllers/*"],
       "@models/*": ["src/models/*"],
