@@ -16,8 +16,9 @@ import {
 import { betterAuth, type OmitId } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
-import { customSession } from 'better-auth/plugins';
+import { customSession, lastLoginMethod, twoFactor } from 'better-auth/plugins';
 import type { MongoClient } from 'mongodb';
+import { Types } from 'mongoose';
 import type { OrganizationAPI } from '@/types/organization.types';
 import type { ProjectAPI } from '@/types/project.types';
 import type {
@@ -134,6 +135,12 @@ export const getAuth = (dbClient: MongoClient): Auth => {
         },
       },
 
+      database: {
+        generateId() {
+          return new Types.ObjectId().toString();
+        },
+      },
+
       // 3️⃣  (optional) turn off the automatic __Secure‑ prefix in non‑prod
       // useSecureCookies: false,
     },
@@ -196,6 +203,23 @@ export const getAuth = (dbClient: MongoClient): Auth => {
 
         return mapSessionToAPI(formattedSession);
       }),
+      lastLoginMethod({
+        storeInDatabase: true, // adds user.lastLoginMethod in DB and session
+        schema: {
+          user: {
+            lastLoginMethod: 'lastLoginMethod', // Custom field name
+          },
+        },
+      }),
+      // twoFactor({
+      //   enabled: true,
+      //   sendCode: async ({ user, code }) => {
+      //     logger.info('sending two factor code', { email: user.email });
+      //     await sendEmail({
+      //       type: 'twoFactor',
+      //     });
+      //   },
+      // }),
     ],
 
     emailAndPassword: {
