@@ -74,7 +74,7 @@ export const OrganizationDropdown: FC = () => {
           <Container
             padding="lg"
             transparency="none"
-            roundedSize="lg"
+            roundedSize="xl"
             className="gap-2"
           >
             <div className="flex flex-col gap-3">

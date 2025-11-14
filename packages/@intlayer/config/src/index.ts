@@ -42,6 +42,7 @@ export {
   localCache,
   setCache,
 } from './utils/cache';
+export { camelCaseToSentence } from './utils/camelCaseToSentence';
 export { clearModuleCache } from './utils/clearModuleCache';
 export {
   configESMxCJSRequire,
@@ -51,5 +52,6 @@ export {
 export { extractErrorMessage } from './utils/extractErrorMessage';
 export { getExtension } from './utils/getExtension';
 export { getPackageJsonPath } from './utils/getPackageJsonPath';
+export { kebabCaseToCamelCase } from './utils/kebabCaseToCamelCase';
 export { logStack } from './utils/logStack';
 export { normalizePath } from './utils/normalizePath';

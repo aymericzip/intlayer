@@ -73,38 +73,40 @@ export const TagList: FC = () => {
       <div className="flex-1">
         <Container
           roundedSize="xl"
-          className="m-auto flex w-full max-w-[400px] flex-col justify-center gap-2 p-6"
+          className="m-auto flex min-h-60 w-full max-w-[400px] flex-col justify-center gap-2 p-6"
         >
           <Loader isLoading={isPending}>
-            {tags.length === 0 && (
-              <span className="m-auto text-neutral text-sm">
-                {noTagView.title}
-              </span>
-            )}
-            {tags.map((tag: any) => (
-              <Button
-                key={String(tag.key)}
-                label="Select tag"
-                IconRight={ChevronRight}
-                variant="hoverable"
-                color="text"
-                onClick={() => {
-                  router.push(`${PagesRoutes.Dashboard_Tags}/${tag.key}`);
-                }}
-              >
-                <div className="flex flex-col gap-2 p-2">
-                  {tag.name && (
-                    <strong className="text-wrap text-sm">{tag.name}</strong>
-                  )}
-                  {tag.key && <span>{tag.key}</span>}
-                  {tag.description && (
-                    <span className="line-clamp-2 text-wrap text-neutral">
-                      {tag.description}
-                    </span>
-                  )}
-                </div>
-              </Button>
-            ))}
+            <div className="flex flex-1 flex-col gap-2">
+              {tags.length === 0 && (
+                <span className="m-auto text-neutral text-sm">
+                  {noTagView.title}
+                </span>
+              )}
+              {tags.map((tag: any) => (
+                <Button
+                  key={String(tag.key)}
+                  label="Select tag"
+                  IconRight={ChevronRight}
+                  variant="hoverable"
+                  color="text"
+                  onClick={() => {
+                    router.push(`${PagesRoutes.Dashboard_Tags}/${tag.key}`);
+                  }}
+                >
+                  <div className="flex flex-col gap-2 p-2">
+                    {tag.name && (
+                      <strong className="text-wrap text-sm">{tag.name}</strong>
+                    )}
+                    {tag.key && <span>{tag.key}</span>}
+                    {tag.description && (
+                      <span className="line-clamp-2 text-wrap text-neutral">
+                        {tag.description}
+                      </span>
+                    )}
+                  </div>
+                </Button>
+              ))}
+            </div>
           </Loader>
           <Button
             label={createTagButton.ariaLabel.value}

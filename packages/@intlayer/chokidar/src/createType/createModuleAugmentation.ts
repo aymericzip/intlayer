@@ -1,10 +1,9 @@
 import { mkdir } from 'node:fs/promises';
 import { basename, extname, join, relative } from 'node:path';
-import { normalizePath } from '@intlayer/config';
+import { kebabCaseToCamelCase, normalizePath } from '@intlayer/config';
 import type { IntlayerConfig, Locale } from '@intlayer/types';
 import fg from 'fast-glob';
 import { getFileHash } from '../utils/getFileHash';
-import { kebabCaseToCamelCase } from '../utils/kebabCaseToCamelCase';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 
 export const getTypeName = (key: string): string =>

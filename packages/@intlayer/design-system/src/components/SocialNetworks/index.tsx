@@ -49,11 +49,11 @@ const socialNetworks = [
     component: <InstagramLogo className="h-auto max-h-full max-w-full" />,
     label: 'Instagram',
   },
-  {
-    href: 'https://www.facebook.com/intlayer',
-    component: <FacebookLogo className="h-auto max-h-full max-w-full" />,
-    label: 'Facebook',
-  },
+  // {
+  //   href: 'https://www.facebook.com/intlayer',
+  //   component: <FacebookLogo className="h-auto max-h-full max-w-full" />,
+  //   label: 'Facebook',
+  // },
 ];
 
 type SocialNetworksProps = {

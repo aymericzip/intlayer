@@ -61,14 +61,14 @@ const SelectTrigger: FC<
   <SelectPrimitive.Trigger
     className={cn(
       // Base layout and typography
-      'flex w-full items-center justify-between whitespace-nowrap',
+      'flex w-full cursor-pointer items-center justify-between whitespace-nowrap',
       'select-text rounded-xl text-base shadow-none outline-none md:text-sm',
 
       // Spacing
-      'px-2 py-3',
+      'px-2 py-3 md:py-2',
 
       // Background and text
-      'bg-white dark:bg-neutral-950',
+      'bg-neutral-50 dark:bg-neutral-950',
       'text-text',
 
       // Focus ring

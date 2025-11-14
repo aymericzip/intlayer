@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { LucideIcon } from 'lucide-react';
 import type { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
+import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
 
 /**
@@ -17,29 +18,17 @@ export enum ButtonSize {
   ICON_XL = 'icon-xl',
 }
 
-/**
- * Icon positioning within the button
- */
-export enum ButtonIconPosition {
-  LEFT = 'left',
-  RIGHT = 'right',
-}
-
-const buttonIconVariants = cva('', {
+const buttonIconVariants = cva('flex-none shrink-0', {
   variants: {
     size: {
-      [`${ButtonSize.SM}`]: '-translate-y-1/2 absolute top-1/2 size-3',
-      [`${ButtonSize.MD}`]: '-translate-y-1/2 absolute top-1/2 size-4',
-      [`${ButtonSize.LG}`]: '-translate-y-1/2 absolute top-1/2 size-5',
-      [`${ButtonSize.XL}`]: '-translate-y-1/2 absolute top-1/2 size-6',
+      [`${ButtonSize.SM}`]: 'size-3',
+      [`${ButtonSize.MD}`]: 'size-4',
+      [`${ButtonSize.LG}`]: 'size-5',
+      [`${ButtonSize.XL}`]: 'size-6',
       [`${ButtonSize.ICON_SM}`]: 'size-3',
       [`${ButtonSize.ICON_MD}`]: 'size-4',
       [`${ButtonSize.ICON_LG}`]: 'size-5',
       [`${ButtonSize.ICON_XL}`]: 'size-6',
-    },
-    position: {
-      [`${ButtonIconPosition.LEFT}`]: 'left-3',
-      [`${ButtonIconPosition.RIGHT}`]: 'right-3',
     },
   },
   defaultVariants: {
@@ -93,7 +82,7 @@ export enum ButtonTextAlign {
  * Enhanced button variants with improved accessibility and focus states
  */
 const buttonVariants = cva(
-  'relative cursor-pointer truncate whitespace-nowrap font-medium transition-all duration-200 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'relative inline-flex cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
@@ -108,74 +97,66 @@ const buttonVariants = cva(
       },
       color: {
         [`${ButtonColor.PRIMARY}`]:
-          'text-primary *:text-text-light focus:ring-primary-500 aria-selected:ring-6 aria-selected:ring-primary-500/50',
+          'hover-primary-500/20 text-primary ring-primary-500/20 *:text-text-light',
         [`${ButtonColor.SECONDARY}`]:
-          'text-secondary *:text-text-light focus:ring-secondary-500 aria-selected:ring-6 aria-selected:ring-secondary-500/50',
+          'hover-secondary-500/20 text-secondary ring-secondary-500/20 *:text-text-light',
         [`${ButtonColor.DESTRUCTIVE}`]:
-          'text-destructive *:text-text-light focus:ring-destructive-500 aria-selected:ring-6 aria-selected:ring-destructive-500/50',
+          'hover-destructive-500/20 text-destructive ring-destructive-500/20 *:text-text-light',
         [`${ButtonColor.NEUTRAL}`]:
-          'text-neutral *:text-text-light focus:ring-neutral-500 aria-selected:ring-6 aria-selected:ring-neutral-500/50',
+          'hover-neutral-500/20 text-neutral ring-neutral-500/20 *:text-text-light',
         [`${ButtonColor.CARD}`]:
-          'text-card *:text-text-light focus:ring-card-500 aria-selected:ring-6 aria-selected:ring-card-500/50',
+          'hover-card-500/20 text-card ring-card-500/20 *:text-text-light',
         [`${ButtonColor.LIGHT}`]:
-          'text-white *:text-text-light focus:ring-white/50 aria-selected:ring-6 aria-selected:ring-white/50',
+          'hover-white-500/20 text-white ring-white/20 *:text-text-light',
         [`${ButtonColor.DARK}`]:
-          'text-neutral-800 *:text-text-light focus:ring-neutral-800/50 aria-selected:ring-6 aria-selected:ring-neutral-800/50',
+          'hover-neutral-500/20 text-neutral-800 ring-neutral-800/50 *:text-text-light',
         [`${ButtonColor.TEXT}`]:
-          'text-text *:text-text-opposite focus:ring-neutral-500 aria-selected:ring-6 aria-selected:ring-neutral-500/50',
+          'hover-neutral-500/20 text-text ring-neutral-500/20 *:text-text-opposite',
         [`${ButtonColor.CURRENT}`]:
-          'text-current *:text-text-light focus:ring-current/50 aria-selected:ring-6 aria-selected:ring-current/50',
+          'hover-current-500/20 text-current ring-current/20 *:text-text-light',
         [`${ButtonColor.TEXT_INVERSE}`]:
-          'text-text-opposite *:text-text focus:ring-neutral-500 aria-selected:ring-6 aria-selected:ring-neutral-500/50',
+          'hover-neutral-500/20 text-text-opposite ring-neutral-500/20 *:text-text',
         [`${ButtonColor.ERROR}`]:
-          'text-error *:text-text-light focus:ring-error/50 aria-selected:ring-6 aria-selected:ring-error/50',
+          'hover-error-500/20 text-error ring-error/20 *:text-text-light',
         [`${ButtonColor.SUCCESS}`]:
-          'text-success *:text-text-light focus:ring-success/50 aria-selected:ring-6 aria-selected:ring-success/50',
-        [`${ButtonColor.CUSTOM}`]:
-          'focus:ring-primary-500 aria-selected:ring-6 aria-selected:ring-primary-500/50',
+          'hover-success-500/20 text-success ring-success/20 *:text-text-light',
+        [`${ButtonColor.CUSTOM}`]: '',
       },
       variant: {
-        [ButtonVariant.DEFAULT]: [
+        [`${ButtonVariant.DEFAULT}`]: [
           'rounded-lg bg-current',
           'hover:bg-current/90',
 
           // Hover ring (similar spirit to your input)
-          'hover:ring-4', // width
-          'hover:ring-neutral-200', // light mode ring color
-          'hover:ring-offset-white',
-
-          // Dark mode ring
-          'dark:hover:ring-neutral-500',
-          'dark:hover:ring-offset-neutral-500',
+          'hover:ring-6', // width
+          'aria-selected:ring-6',
         ],
 
-        [ButtonVariant.OUTLINE]: [
+        [`${ButtonVariant.OUTLINE}`]: [
           'rounded-lg border-[1.5px] border-current bg-current/0 *:text-current!',
           'hover:bg-current/10',
 
           // Same hover ring behavior as DEFAULT for coherence
-          'hover:ring-4',
-          'hover:ring-current/20',
-          'hover:ring-offset-white',
-          'dark:hover:ring-offset-neutral-900',
+          'hover:ring-6',
+          'aria-selected:ring-6',
         ],
 
-        [ButtonVariant.NONE]:
+        [`${ButtonVariant.NONE}`]:
           'border-none bg-current/0 text-inherit hover:bg-current/0',
 
-        [ButtonVariant.LINK]:
+        [`${ButtonVariant.LINK}`]:
           'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent hover:underline',
 
-        [ButtonVariant.INVISIBLE_LINK]:
+        [`${ButtonVariant.INVISIBLE_LINK}`]:
           'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent',
 
-        [ButtonVariant.HOVERABLE]:
+        [`${ButtonVariant.HOVERABLE}`]:
           'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/10 aria-[current]:bg-current/5',
 
-        [ButtonVariant.FADE]:
+        [`${ButtonVariant.FADE}`]:
           'rounded-lg border-none bg-current/10 transition *:text-current! hover:bg-current/20 aria-[current]:bg-current/5',
 
-        [ButtonVariant.INPUT]: [
+        [`${ButtonVariant.INPUT}`]: [
           'w-full select-text resize-none rounded-xl text-base shadow-none outline-none',
           'ring-0 transition-shadow duration-100 md:text-sm',
           'bg-neutral-50 text-text dark:bg-neutral-950',
@@ -188,33 +169,22 @@ const buttonVariants = cva(
       },
 
       textAlign: {
-        [`${ButtonTextAlign.LEFT}`]: 'text-left',
-        [`${ButtonTextAlign.CENTER}`]: 'text-center',
-        [`${ButtonTextAlign.RIGHT}`]: 'text-right',
+        [`${ButtonTextAlign.LEFT}`]: 'justify-start text-left',
+        [`${ButtonTextAlign.CENTER}`]: 'justify-center text-center',
+        [`${ButtonTextAlign.RIGHT}`]: 'justify-end text-right',
       },
 
       isFullWidth: {
         true: 'w-full',
         false: '',
       },
-
-      hasIconLeft: {
-        true: 'px-12',
-        false: '',
-      },
-      hasIconRight: {
-        true: 'pr-8',
-        false: '',
-      },
     },
     defaultVariants: {
-      variant: ButtonVariant.DEFAULT,
-      size: ButtonSize.MD,
-      color: ButtonColor.CUSTOM,
-      textAlign: ButtonTextAlign.CENTER,
+      variant: `${ButtonVariant.DEFAULT}`,
+      size: `${ButtonSize.MD}`,
+      color: `${ButtonColor.CUSTOM}`,
+      textAlign: `${ButtonTextAlign.CENTER}`,
       isFullWidth: false,
-      hasIconRight: false,
-      hasIconLeft: false,
     },
   }
 );
@@ -326,7 +296,7 @@ export type ButtonProps = DetailedHTMLProps<
  *
  * // Destructive action button
  * <Button
- *   variant={ButtonVariant.OUTLINE}
+ *   variant={`${ButtonVariant.OUTLINE}`}
  *   color={ButtonColor.DESTRUCTIVE}
  *   label="Delete item permanently"
  *   aria-describedby="delete-warning"
@@ -356,11 +326,11 @@ export const Button: FC<ButtonProps> = ({
   'aria-expanded': ariaExpanded,
   'aria-haspopup': ariaHasPopup,
   'aria-pressed': ariaPressed,
-
   ...props
 }) => {
   const isLink =
-    variant === ButtonVariant.LINK || variant === ButtonVariant.INVISIBLE_LINK;
+    variant === `${ButtonVariant.LINK}` ||
+    variant === `${ButtonVariant.INVISIBLE_LINK}`;
   const isIconOnly = !children && (Icon || IconRight);
 
   const accessibilityProps = {
@@ -376,6 +346,12 @@ export const Button: FC<ButtonProps> = ({
     'aria-selected': isSelected,
   };
 
+  const isSquareButton =
+    size === ButtonSize.ICON_SM ||
+    size === ButtonSize.ICON_MD ||
+    size === ButtonSize.ICON_LG ||
+    size === ButtonSize.ICON_XL;
+
   return (
     <button
       disabled={isLoading || disabled}
@@ -389,13 +365,6 @@ export const Button: FC<ButtonProps> = ({
         textAlign:
           textAlign ??
           (IconRight ? ButtonTextAlign.LEFT : ButtonTextAlign.CENTER),
-        hasIconLeft: Boolean(
-          typeof children !== 'undefined' &&
-            (typeof Icon !== 'undefined' || isLoading)
-        ),
-        hasIconRight: Boolean(
-          typeof children !== 'undefined' && typeof IconRight !== 'undefined'
-        ),
         className,
       })}
       {...accessibilityProps}
@@ -405,25 +374,35 @@ export const Button: FC<ButtonProps> = ({
         <Icon
           className={buttonIconVariants({
             size,
-            className: iconClassName,
-            position: ButtonIconPosition.LEFT,
+            className: cn(!isSquareButton && 'mr-3', iconClassName),
           })}
           aria-hidden="true"
         />
       )}
 
-      <Loader
-        className={buttonIconVariants({
-          size,
-          className: iconClassName,
-          position: ButtonIconPosition.LEFT,
-        })}
-        isLoading={isLoading}
-        aria-hidden="true"
-        data-testid="loader"
-      />
+      <div
+        className={cn(
+          'flex w-0 items-center justify-center transition-[width] duration-300',
+          isLoading && size === ButtonSize.SM && 'w-3',
+          isLoading && size === ButtonSize.MD && 'w-4',
+          isLoading && size === ButtonSize.LG && 'w-5',
+          isLoading && size === ButtonSize.XL && 'w-6'
+        )}
+      >
+        <Loader
+          className={buttonIconVariants({
+            size,
+            className: cn(!isSquareButton && 'mr-3', iconClassName),
+          })}
+          isLoading={isLoading}
+          aria-hidden="true"
+          data-testid="loader"
+        />
+      </div>
 
-      {children && <span>{children}</span>}
+      {children && (
+        <span className="flex-1 truncate whitespace-nowrap">{children}</span>
+      )}
 
       {!children && isIconOnly && <span className="sr-only">{label}</span>}
 
@@ -431,8 +410,7 @@ export const Button: FC<ButtonProps> = ({
         <IconRight
           className={buttonIconVariants({
             size,
-            className: iconClassName,
-            position: ButtonIconPosition.RIGHT,
+            className: cn(!isSquareButton && 'ml-3', iconClassName),
           })}
           aria-hidden="true"
         />

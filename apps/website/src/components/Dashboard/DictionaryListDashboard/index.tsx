@@ -82,47 +82,49 @@ export const DictionaryListDashboardContent: FC = () => {
       <div className="flex-1">
         <Container
           roundedSize="xl"
-          className="m-auto flex w-full max-w-[400px] flex-col justify-center gap-2 p-6"
+          className="m-auto flex min-h-60 w-full max-w-[400px] flex-col justify-center gap-2 p-6"
         >
           <Loader isLoading={isPending}>
-            {data?.data?.length === 0 && (
-              <span className="m-auto text-neutral text-sm">
-                {noDictionaryView.title}
-              </span>
-            )}
-            {data?.data?.map((dictionary) => (
-              <Button
-                key={getStableId(dictionary)}
-                label={selectDictionaryButton.label.value}
-                variant="hoverable"
-                color="text"
-                IconRight={ChevronRight}
-                onClick={() => {
-                  setFocusedContent({
-                    dictionaryKey: dictionary.key,
-                    dictionaryLocalId: dictionary.localId,
-                    keyPath: [],
-                  });
-                  router.push(
-                    `${PagesRoutes.Dashboard_Content}/${dictionary.key}`
-                  );
-                }}
-              >
-                <div className="flex flex-col gap-2 p-2">
-                  {dictionary.title && (
-                    <strong className="text-wrap text-sm">
-                      {dictionary.title}
-                    </strong>
-                  )}
-                  {dictionary.key && <span>{dictionary.key}</span>}
-                  {dictionary.description && (
-                    <span className="line-clamp-2 text-wrap text-neutral">
-                      {dictionary.description}
-                    </span>
-                  )}
-                </div>
-              </Button>
-            ))}
+            <div className="flex flex-1 flex-col gap-2">
+              {data?.data?.length === 0 && (
+                <span className="m-auto text-neutral text-sm">
+                  {noDictionaryView.title}
+                </span>
+              )}
+              {data?.data?.map((dictionary) => (
+                <Button
+                  key={getStableId(dictionary)}
+                  label={selectDictionaryButton.label.value}
+                  variant="hoverable"
+                  color="text"
+                  IconRight={ChevronRight}
+                  onClick={() => {
+                    setFocusedContent({
+                      dictionaryKey: dictionary.key,
+                      dictionaryLocalId: dictionary.localId,
+                      keyPath: [],
+                    });
+                    router.push(
+                      `${PagesRoutes.Dashboard_Content}/${dictionary.key}`
+                    );
+                  }}
+                >
+                  <div className="flex flex-col gap-2 p-2">
+                    {dictionary.title && (
+                      <strong className="text-wrap text-sm">
+                        {dictionary.title}
+                      </strong>
+                    )}
+                    {dictionary.key && <span>{dictionary.key}</span>}
+                    {dictionary.description && (
+                      <span className="line-clamp-2 text-wrap text-neutral">
+                        {dictionary.description}
+                      </span>
+                    )}
+                  </div>
+                </Button>
+              ))}
+            </div>
           </Loader>
           <Button
             label={createDictionaryButton.ariaLabel.value}

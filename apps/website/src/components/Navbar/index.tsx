@@ -103,7 +103,7 @@ export const Navbar: FC = () => {
             href={github.url.value}
             variant="button-outlined"
             color="text"
-            className="group/github !rounded-2xl leading-6"
+            className="group/github rounded-2xl! leading-6"
           >
             <GithubLogo width={25} />
             GitHub
@@ -119,7 +119,7 @@ export const Navbar: FC = () => {
               color="text"
               label={logoutContent.label.value}
               onClick={handleLogOut}
-              className="!rounded-2xl text-center font-medium leading-6"
+              className="rounded-2xl! text-center font-medium leading-6"
               size="md"
             >
               {logoutContent.title}
@@ -130,7 +130,7 @@ export const Navbar: FC = () => {
               href={login.url.value}
               variant="button"
               color="text"
-              className="!rounded-2xl text-center font-medium leading-6"
+              className="rounded-2xl! text-center font-medium leading-6"
             >
               {login.title}
             </Link>
@@ -139,7 +139,7 @@ export const Navbar: FC = () => {
       }
       rightItemsMobile={
         <div className="flex gap-2">
-          <LocaleSwitcher panelProps={{ className: '-left-16' }} />
+          <LocaleSwitcher />
           <SwitchThemeSwitcher />
           {isAuthenticated && (
             <Avatar
@@ -152,7 +152,7 @@ export const Navbar: FC = () => {
       }
       rightItemsDesktop={
         <>
-          <LocaleSwitcher panelProps={{ className: '-left-16' }} />
+          <LocaleSwitcher />
           <SwitchThemeSwitcher />
           <a
             aria-label={discord.label.value}
@@ -167,7 +167,7 @@ export const Navbar: FC = () => {
             label={github.label.value}
             href={github.url.value}
             color="custom"
-            className="group/github !bg-text !text-text-opposite flex cursor-pointer items-center gap-2 rounded-full p-1"
+            className="group/github flex cursor-pointer items-center gap-2 rounded-full bg-text p-1 text-text-opposite"
           >
             <GithubLogo width={25} />
             <StarIcon

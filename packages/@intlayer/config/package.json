@@ -40,7 +40,6 @@
     ".": {
       "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.cjs",
-      "browser": "./dist/cjs/client.mjs",
       "import": "./dist/esm/index.mjs"
     },
     "./client": {

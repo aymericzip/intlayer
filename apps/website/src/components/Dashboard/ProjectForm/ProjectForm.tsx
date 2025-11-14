@@ -27,10 +27,7 @@ export const ProjectFormContent: FC = () => {
     return (
       <div className="flex size-full max-w-5xl flex-col items-center justify-center gap-4">
         {!isProjectAdmin && isProjectMember && (
-          <Container
-            roundedSize="xl"
-            className="flex size-full justify-center p-6"
-          >
+          <Container roundedSize="xl" className="flex size-full justify-center">
             <p className="text-neutral text-sm">{noAdminMessage}</p>
           </Container>
         )}
@@ -39,19 +36,19 @@ export const ProjectFormContent: FC = () => {
           <div className="mb-auto flex flex-col gap-4">
             <Container
               roundedSize="xl"
-              className="z-20 flex size-full justify-center p-6"
+              className="z-20 flex size-full justify-center"
             >
               <ProjectEditionForm />
             </Container>
             <Container
               roundedSize="xl"
-              className="flex size-full justify-center p-6"
+              className="flex size-full justify-center"
             >
               <AccessKeyForm />
             </Container>
             <Container
               roundedSize="xl"
-              className="flex size-full justify-center p-6"
+              className="flex size-full justify-center"
             >
               <DeleteProjectModal
                 isOpen={isDeletionModalOpen}
@@ -74,13 +71,13 @@ export const ProjectFormContent: FC = () => {
           <div className="mb-auto flex flex-col gap-4">
             <Container
               roundedSize="xl"
-              className="z-20 flex size-full justify-center p-6"
+              className="z-20 flex size-full justify-center"
             >
               <ConfigDetails projectConfig={project.configuration} />
             </Container>
             <Container
               roundedSize="xl"
-              className="z-10 flex size-full justify-center p-6"
+              className="z-10 flex size-full justify-center"
             >
               <MembersForm />
             </Container>

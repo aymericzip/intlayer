@@ -43,10 +43,10 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
   return (
     <div className="flex flex-col gap-4">
       <H3>{title}</H3>
-      <div>
+      <div className="flex flex-col gap-4">
         <H4>{i18nSection.title}</H4>
-        <div>
-          <H5 className="mb-3">{i18nSection.localeListTitle}</H5>
+        <div className="flex flex-col gap-4">
+          <H5>{i18nSection.localeListTitle}</H5>
 
           <div className="flex flex-row flex-wrap gap-2">
             {projectConfig.internationalization.locales.map((localeEl) => (
@@ -55,7 +55,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
               </Tag>
             ))}
           </div>
-          <H5 className="mb-3">{i18nSection.defaultLocaleTitle}</H5>
+          <H5>{i18nSection.defaultLocaleTitle}</H5>
 
           <Tag size="sm">
             {getLocaleName(
@@ -66,8 +66,8 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
         </div>
 
         <H4>{editorSection.title}</H4>
-        <div>
-          <H5 className="mb-3">{editorSection.applicationURL.title}</H5>
+        <div className="flex flex-col gap-4">
+          <H5>{editorSection.applicationURL.title}</H5>
           <Tag size="sm">
             {projectConfig.editor.applicationURL ? (
               <Link
@@ -82,7 +82,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
             )}
           </Tag>
 
-          <H5 className="mb-3">{editorSection.cmsURL.title}</H5>
+          <H5>{editorSection.cmsURL.title}</H5>
           {projectConfig.editor.cmsURL ? (
             <Tag size="sm">
               <Link

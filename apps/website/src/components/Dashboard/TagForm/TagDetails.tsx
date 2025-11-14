@@ -1,6 +1,13 @@
 'use client';
 
-import { Button, Container, H2, Loader } from '@intlayer/design-system';
+import {
+  Button,
+  ButtonColor,
+  ButtonVariant,
+  Container,
+  H2,
+  Loader,
+} from '@intlayer/design-system';
 import { useGetTags } from '@intlayer/design-system/hooks';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -52,19 +59,14 @@ export const TagDetails: FC<TagDetailsProps> = ({ tagKey }) => {
       <div className="flex items-center gap-2">
         <Button
           onClick={() => router.push(PagesRoutes.Dashboard_Tags)}
-          variant="hoverable"
-          size="icon-md"
-          color="text"
-          id="return-to-tag-list"
+          variant={ButtonVariant.HOVERABLE}
+          className="z-10 mr-auto ml-5"
+          color={ButtonColor.TEXT}
           Icon={ArrowLeft}
           label={returnToTagList.label.value}
-        />
-        <label
-          className="cursor-pointer text-xs hover:underline"
-          htmlFor="return-to-tag-list"
         >
           {returnToTagList.text}
-        </label>
+        </Button>
       </div>
 
       <TagDetailsContent tagKey={tagKey} />

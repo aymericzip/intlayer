@@ -1,3 +1,4 @@
+import { camelCaseToSentence } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import {
   getContentNodeByKeyPath,
@@ -19,7 +20,6 @@ import type { ContentNode, Dictionary } from 'intlayer';
 import { ChevronRight, Plus } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { camelCaseToSentence } from '../../../utils/camelCase';
 import { Accordion } from '../../Accordion';
 import {
   Button,

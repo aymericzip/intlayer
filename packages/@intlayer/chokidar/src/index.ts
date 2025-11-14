@@ -49,7 +49,6 @@ export {
   getExtensionFromFormat,
   getFormatFromExtension,
 } from './utils/getFormatFromExtension';
-export { kebabCaseToCamelCase } from './utils/kebabCaseToCamelCase';
 export { parallelize } from './utils/parallelize';
 export {
   getGlobalLimiter,

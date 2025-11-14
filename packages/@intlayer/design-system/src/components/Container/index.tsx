@@ -33,10 +33,11 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     },
     padding: {
       none: 'p-0',
-      sm: 'px-4 py-6',
-      md: 'px-6 py-8',
-      lg: 'px-8 py-10',
-      xl: 'px-10 py-12',
+      sm: 'px-2 py-4',
+      md: 'px-4 py-6',
+      lg: 'px-6 py-8',
+      xl: 'px-8 py-10',
+      '2xl': 'px-10 py-12',
     },
     separator: {
       without: '',
@@ -60,7 +61,7 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     background: {
       none: 'bg-inherit',
       hoverable:
-        '!bg-opacity-5 hover:!bg-opacity-10 focus:!bg-opacity-10 aria-selected:!bg-opacity-15 backdrop-blur-0 hover:backdrop-blur focus:backdrop-blur aria-selected:backdrop-blur',
+        'bg-opacity-5! backdrop-blur-0 hover:bg-opacity-10! hover:backdrop-blur focus:bg-opacity-10! focus:backdrop-blur aria-selected:bg-opacity-15! aria-selected:backdrop-blur',
       with: '',
     },
     gap: {
@@ -77,7 +78,7 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     border: 'none',
     borderColor: 'text',
     transparency: 'md',
-    padding: 'none',
+    padding: 'md',
     separator: 'without',
     gap: 'none',
   },

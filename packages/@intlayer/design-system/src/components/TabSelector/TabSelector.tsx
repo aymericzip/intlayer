@@ -102,8 +102,7 @@ export const TabSelector = <T extends TabSelectorItemProps>({
   const indicatorRef = useRef<HTMLDivElement | null>(null);
   const { choiceIndicatorPosition, calculatePosition } = useItemSelector(
     optionsRefs,
-    undefined,
-    hoverable
+    { isHoverable: hoverable }
   );
 
   useEffect(() => {

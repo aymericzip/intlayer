@@ -11,10 +11,17 @@ type StyleState = {
 const selectorDefault = (option: HTMLElement) =>
   option?.getAttribute('aria-selected') === 'true';
 
+type Options = {
+  selector?: (option: HTMLElement, index: number) => boolean;
+  isHoverable?: boolean;
+};
+
 export const useItemSelector = (
   optionsRefs: RefObject<HTMLElement[]>,
-  selector: (option: HTMLElement, index: number) => boolean = selectorDefault,
-  isHoverable = false
+  { selector = selectorDefault, isHoverable = false }: Options = {
+    selector: selectorDefault,
+    isHoverable: false,
+  }
 ) => {
   const [choiceIndicatorPosition, setChoiceIndicatorPosition] =
     useState<StyleState | null>(null);

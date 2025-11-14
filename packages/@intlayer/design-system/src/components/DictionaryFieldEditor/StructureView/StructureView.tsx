@@ -1,5 +1,6 @@
 'use client';
 
+import { camelCaseToSentence } from '@intlayer/config';
 import {
   getDefaultNode,
   getNodeChildren,
@@ -21,7 +22,6 @@ import type { ContentNode } from 'intlayer';
 import { Plus, Trash } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { camelCaseToSentence } from '../../../utils/camelCase';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../../Button';
 import { Container } from '../../Container';
 import { EditableFieldInput } from '../../EditableField';

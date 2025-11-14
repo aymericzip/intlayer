@@ -14,24 +14,24 @@
   --color-card: rgba(231, 231, 231);
   --color-card-hover: rgba(231, 231, 231);
 
-  --color-hypertext: rgba(232, 121, 249);
+  --color-hypertext: rgba(203, 235, 64);
   --color-hypertext-hover: rgba(197, 101, 212);
-  --color-hypertext-active: rgba(232, 121, 249);
+  --color-hypertext-active: rgba(203, 235, 64);
 
   --color-shadow: rgba(18, 18, 18);
 
-  --color-primary: rgba(232, 121, 249);
-  --color-primary-50: rgba(254, 244, 255);
-  --color-primary-100: rgba(252, 232, 255);
-  --color-primary-200: rgba(248, 208, 254);
-  --color-primary-300: rgba(241, 171, 252);
-  --color-primary-400: rgba(232, 121, 249);
-  --color-primary-500: rgba(197, 101, 212);
-  --color-primary-600: rgba(163, 81, 175);
-  --color-primary-700: rgba(128, 61, 139);
-  --color-primary-800: rgba(93, 41, 102);
-  --color-primary-900: rgba(59, 21, 65);
-  --color-primary-950: rgba(24, 1, 28);
+  --color-primary: rgba(203, 235, 64);
+  --color-primary-50: rgba(249, 253, 230);
+  --color-primary-100: rgba(238, 248, 186);
+  --color-primary-200: rgba(226, 243, 143);
+  --color-primary-300: rgba(215, 239, 105);
+  --color-primary-400: rgba(203, 235, 64);
+  --color-primary-500: rgba(182, 211, 57);
+  --color-primary-600: rgba(153, 177, 48);
+  --color-primary-700: rgba(116, 134, 37);
+  --color-primary-800: rgba(92, 106, 29);
+  --color-primary-900: rgba(67, 77, 21);
+  --color-primary-950: rgba(40, 46, 12);
 
   --color-secondary: rgba(255, 230, 109);
   --color-secondary-50: rgba(254, 251, 232);
@@ -77,7 +77,7 @@
   --color-success-100: rgba(252, 232, 255);
   --color-success-200: rgba(248, 208, 254);
   --color-success-300: rgba(241, 171, 252);
-  --color-success-400: rgba(232, 121, 249);
+  --color-success-400: rgba(203, 235, 64);
   --color-success-500: rgba(197, 101, 212);
   --color-success-600: rgba(163, 81, 175);
   --color-success-700: rgba(128, 61, 139);
@@ -131,13 +131,13 @@
   --color-card: rgba(231, 231, 231);
   --color-card-hover: rgba(231, 231, 231);
 
-  --color-hypertext: rgba(232, 121, 249);
+  --color-hypertext: rgba(203, 235, 64);
   --color-hypertext-hover: rgba(197, 101, 212);
-  --color-hypertext-active: rgba(232, 121, 249);
+  --color-hypertext-active: rgba(203, 235, 64);
 
   --color-shadow: rgba(18, 18, 18);
 
-  --color-primary: rgba(232, 121, 249);
+  --color-primary: rgba(203, 235, 64);
   --color-secondary: rgba(255, 230, 109);
   --color-destructive: rgba(251, 125, 60);
   --color-neutral: rgba(93, 93, 93);
@@ -162,13 +162,13 @@
   --color-card: rgba(39, 39, 39);
   --color-card-hover: rgba(79, 79, 79);
 
-  --color-hypertext: rgba(232, 121, 249);
+  --color-hypertext: rgba(203, 235, 64);
   --color-hypertext-hover: rgba(197, 101, 212);
-  --color-hypertext-active: rgba(232, 121, 249);
+  --color-hypertext-active: rgba(203, 235, 64);
 
   --color-shadow: rgba(18, 18, 18);
 
-  --color-primary: rgba(232, 121, 249);
+  --color-primary: rgba(203, 235, 64);
   --color-secondary: rgba(255, 230, 109);
   --color-destructive: rgba(251, 125, 60);
   --color-neutral: rgba(93, 93, 93);

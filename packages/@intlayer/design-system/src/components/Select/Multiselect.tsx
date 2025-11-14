@@ -429,13 +429,13 @@ const MultiSelectTrigger: FC<
       className={cn(
         // Base layout
         'flex w-full flex-col gap-3',
-        'select-text rounded-xl text-base shadow-none outline-none md:text-sm',
+        'cursor-pointer select-text rounded-xl text-base shadow-none outline-none md:text-sm',
 
         // Spacing
-        'px-2 py-2',
+        'px-2 py-3 md:py-2',
 
         // Background and text
-        'bg-white dark:bg-neutral-950',
+        'bg-neutral-50 dark:bg-neutral-950',
         'text-text',
 
         // Focus ring

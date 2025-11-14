@@ -9,7 +9,6 @@ import {
   type PanelProps,
 } from '@intlayer/design-system';
 import { MoveVertical } from 'lucide-react';
-import { usePathname } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useRef } from 'react';
 import { useLocaleSearch } from './useLocaleSearch';
@@ -74,13 +73,16 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           identifier={DROPDOWN_IDENTIFIER}
           isOverable
           isFocusable
+          align="end"
           {...panelProps}
         >
           <Container
             className="max-h-[80vh] min-w-28"
             separator="y"
             role="listbox"
+            roundedSize="xl"
             transparency="sm"
+            padding="none"
             aria-label={languageListLabel.value}
           >
             <div className="p-3">

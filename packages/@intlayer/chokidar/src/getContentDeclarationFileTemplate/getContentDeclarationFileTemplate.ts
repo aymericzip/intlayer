@@ -1,6 +1,6 @@
 import { readAsset } from 'utils:asset';
+import { kebabCaseToCamelCase } from '@intlayer/config';
 import type { Format } from '../utils/getFormatFromExtension';
-import { kebabCaseToCamelCase } from '../utils/kebabCaseToCamelCase';
 
 export const getContentDeclarationFileTemplate = async (
   key: string,

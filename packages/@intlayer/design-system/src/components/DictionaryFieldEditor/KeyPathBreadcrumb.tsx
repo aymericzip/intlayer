@@ -1,3 +1,4 @@
+import { camelCaseToSentence } from '@intlayer/config';
 import type { KeyPath, Locale } from '@intlayer/types';
 import type { FC } from 'react';
 import { Breadcrumb, type BreadcrumbLink } from '../Breadcrumb';
@@ -16,7 +17,10 @@ export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
   locale,
 }) => {
   const formattedKeyPath: BreadcrumbLink[] = [
-    { text: dictionaryKey, onClick: () => onClickKeyPath([]) },
+    {
+      text: camelCaseToSentence(dictionaryKey),
+      onClick: () => onClickKeyPath([]),
+    },
     ...keyPath.map((el, index) => ({
       onClick: () =>
         onClickKeyPath(

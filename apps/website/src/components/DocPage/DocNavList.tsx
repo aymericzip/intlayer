@@ -202,12 +202,14 @@ export const DocNavList: FC<DocNavListProps> = ({
         )}
         roundedSize="none"
         transparency="sm"
+        padding="none"
       >
         <div className="relative h-full max-w-80">
           <Container
             transparency="sm"
             className="sticky top-[3.6rem] z-10 m-auto pt-4"
             roundedSize="none"
+            padding="none"
           >
             <div
               className={cn(

@@ -38,9 +38,9 @@ export const ItemLayout: FC<ItemWrapperProps> = ({
           <div className="flex w-full items-center justify-between">
             <span
               className={cn(
-                level === 0 && 'text-2xl',
-                level === 1 && 'text-xl',
-                level === 2 && 'text-lg',
+                level === 0 && 'text-lg',
+                level === 1 && 'text-md',
+                level === 2 && 'text-md',
                 level >= 3 && 'text-base'
               )}
             >
@@ -58,7 +58,7 @@ export const ItemLayout: FC<ItemWrapperProps> = ({
         </div>
       }
     >
-      {children}
+      <div className="size-full px-2">{children}</div>
     </Accordion>
   </div>
 );

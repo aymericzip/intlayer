@@ -28,19 +28,19 @@ const OrganizationFormContent: FC = () => {
           <div className="mb-auto flex flex-col gap-4">
             <Container
               roundedSize="xl"
-              className="flex size-full justify-center p-6"
+              className="flex size-full justify-center"
             >
               <OrganizationEditionForm />
             </Container>
             <Container
               roundedSize="xl"
-              className="flex size-full justify-center p-6"
+              className="flex size-full justify-center"
             >
               <PlanDetails />
             </Container>
             <Container
               roundedSize="xl"
-              className="z-10 flex size-full justify-center p-6"
+              className="z-10 flex size-full justify-center"
             >
               <DeleteOrganizationModal
                 isOpen={isDeletionModalOpen}
@@ -63,7 +63,7 @@ const OrganizationFormContent: FC = () => {
           <div className="mb-auto flex flex-col gap-4">
             <Container
               roundedSize="xl"
-              className="flex size-full justify-center p-6"
+              className="flex size-full justify-center"
             >
               <MembersForm />
             </Container>
@@ -79,7 +79,7 @@ const OrganizationFormContent: FC = () => {
 
   if (isSuccess && !isPending) {
     return (
-      <Container roundedSize="xl" className="flex justify-center p-6">
+      <Container roundedSize="xl" className="flex justify-center">
         <Modal
           isOpen={isCreationModalOpen}
           onClose={() => setIsCreationModalOpen(false)}

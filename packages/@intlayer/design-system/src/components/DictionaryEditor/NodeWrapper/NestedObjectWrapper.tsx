@@ -1,3 +1,4 @@
+import { camelCaseToSentence } from '@intlayer/config';
 import { isSameKeyPath } from '@intlayer/core';
 import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
 import { type FC, memo, useMemo } from 'react';
@@ -28,7 +29,7 @@ export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = memo(
         <ItemLayout
           level={keyPath.length}
           key={key}
-          title={key}
+          title={camelCaseToSentence(key)}
           description=""
           isSelected={isSelected}
           onClick={(e) => {

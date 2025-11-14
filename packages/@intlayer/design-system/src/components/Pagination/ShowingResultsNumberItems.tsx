@@ -18,8 +18,14 @@ export const ShowingResultsNumberItems: FC<ShowingResultsNumberItemsProps> = ({
   const { showingResults } = useIntlayer('pagination');
   const number = useNumber();
 
-  const start: number = Math.max(totalItems, (currentPage - 1) * pageSize + 1);
-  const end: number = Math.min(currentPage * pageSize, totalItems);
+  // Guard against weird inputs
+  const safePageSize = Math.max(1, pageSize);
+  const totalPages = Math.max(1, Math.ceil(totalItems / safePageSize));
+  const page = Math.min(Math.max(1, currentPage), totalPages);
+
+  const start =
+    totalItems === 0 ? 0 : Math.min((page - 1) * safePageSize + 1, totalItems);
+  const end = totalItems === 0 ? 0 : Math.min(page * safePageSize, totalItems);
 
   return (
     <div className="text-neutral-600 text-sm dark:text-neutral-400">

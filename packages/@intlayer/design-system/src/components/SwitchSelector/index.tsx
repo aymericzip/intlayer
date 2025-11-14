@@ -28,6 +28,7 @@ export type SwitchSelectorProps<T = boolean> = {
   defaultValue?: T;
   onChange?: (choice: T) => void;
   className?: string;
+  hoverable?: boolean;
 } & VariantProps<typeof switchSelectorVariant> &
   VariantProps<typeof choiceVariant>;
 
@@ -42,22 +43,22 @@ export enum SwitchSelectorColor {
 }
 
 const switchSelectorVariant = cva(
-  'flex w-fit flex-row gap-2 rounded-full border-[1.5px] p-[1.5px]',
+  'flex w-fit cursor-pointer flex-row gap-2 rounded-full border-[1.5px] p-[1.5px]',
   {
     variants: {
       color: {
-        [SwitchSelectorColor.PRIMARY]: 'border-primary text-primary',
-        [SwitchSelectorColor.SECONDARY]: 'border-secondary text-secondary',
-        [SwitchSelectorColor.DESTRUCTIVE]:
+        [`${SwitchSelectorColor.PRIMARY}`]: 'border-primary text-primary',
+        [`${SwitchSelectorColor.SECONDARY}`]: 'border-secondary text-secondary',
+        [`${SwitchSelectorColor.DESTRUCTIVE}`]:
           'border-destructive bg-destructive text-destructive',
-        [SwitchSelectorColor.NEUTRAL]: 'border-neutral text-neutral',
-        [SwitchSelectorColor.LIGHT]: 'border-white text-white',
-        [SwitchSelectorColor.DARK]: 'border-neutral-800 text-neutral-800',
-        [SwitchSelectorColor.TEXT]: 'border-text text-text',
+        [`${SwitchSelectorColor.NEUTRAL}`]: 'border-neutral text-neutral',
+        [`${SwitchSelectorColor.LIGHT}`]: 'border-white text-white',
+        [`${SwitchSelectorColor.DARK}`]: 'border-neutral-800 text-neutral-800',
+        [`${SwitchSelectorColor.TEXT}`]: 'border-text text-text',
       },
     },
     defaultVariants: {
-      color: SwitchSelectorColor.PRIMARY,
+      color: `${SwitchSelectorColor.PRIMARY}`,
     },
   }
 );
@@ -69,17 +70,17 @@ export enum SwitchSelectorSize {
 }
 
 const choiceVariant = cva(
-  'z-1 w-full flex-1 cursor-pointer font-medium text-sm transition-all duration-300 ease-in-out aria-selected:cursor-default aria-selected:text-text-opposite motion-reduce:transition-none',
+  'z-1 w-full flex-1 cursor-pointer font-medium text-sm transition-all duration-300 ease-in-out aria-selected:cursor-default data-[indicator=true]:text-text-opposite motion-reduce:transition-none',
   {
     variants: {
       size: {
-        [SwitchSelectorSize.SM]: 'px-2 py-1 text-xs',
-        [SwitchSelectorSize.MD]: 'p-2 text-sm',
-        [SwitchSelectorSize.LG]: 'p-4 text-base',
+        [`${SwitchSelectorSize.SM}`]: 'px-2 py-1 text-xs',
+        [`${SwitchSelectorSize.MD}`]: 'p-2 text-sm',
+        [`${SwitchSelectorSize.LG}`]: 'p-4 text-base',
       },
     },
     defaultVariants: {
-      size: SwitchSelectorSize.MD,
+      size: `${SwitchSelectorSize.MD}`,
     },
   }
 );
@@ -89,14 +90,20 @@ const indicatorVariant = cva(
   {
     variants: {
       color: {
-        [SwitchSelectorColor.PRIMARY]: 'bg-primary aria-selected:text-text',
-        [SwitchSelectorColor.SECONDARY]: 'bg-secondary aria-selected:text-text',
-        [SwitchSelectorColor.DESTRUCTIVE]:
-          'bg-destructive aria-selected:text-text',
-        [SwitchSelectorColor.NEUTRAL]: 'bg-neutral aria-selected:text-white',
-        [SwitchSelectorColor.LIGHT]: 'bg-white aria-selected:text-black',
-        [SwitchSelectorColor.DARK]: 'bg-neutral-800 aria-selected:text-white',
-        [SwitchSelectorColor.TEXT]: 'bg-text aria-selected:text-text-opposite',
+        [`${SwitchSelectorColor.PRIMARY}`]:
+          'bg-primary data-[indicator=true]:text-text',
+        [`${SwitchSelectorColor.SECONDARY}`]:
+          'bg-secondary data-[indicator=true]:text-text',
+        [`${SwitchSelectorColor.DESTRUCTIVE}`]:
+          'bg-destructive data-[indicator=true]:text-text',
+        [`${SwitchSelectorColor.NEUTRAL}`]:
+          'bg-neutral data-[indicator=true]:text-white',
+        [`${SwitchSelectorColor.LIGHT}`]:
+          'bg-white data-[indicator=true]:text-black',
+        [`${SwitchSelectorColor.DARK}`]:
+          'bg-neutral-800 data-[indicator=true]:text-white',
+        [`${SwitchSelectorColor.TEXT}`]:
+          'bg-text data-[indicator=true]:text-text-opposite',
       },
     },
   }
@@ -127,13 +134,26 @@ export const SwitchSelector = <T,>({
   color = SwitchSelectorColor.PRIMARY,
   size = SwitchSelectorSize.MD,
   className,
+  hoverable = true,
 }: SwitchSelectorProps<T>) => {
   const [valueState, setValue] = useState<T>(
     value ?? defaultValue ?? choices[0].value
   );
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   const optionsRefs = useRef<HTMLButtonElement[]>([]);
   const indicatorRef = useRef<HTMLDivElement | null>(null);
-  const { choiceIndicatorPosition } = useItemSelector(optionsRefs);
+  const { choiceIndicatorPosition } = useItemSelector(optionsRefs, {
+    isHoverable: hoverable,
+  });
+
+  const selectedIndex = choices.findIndex(
+    (choice) => choice.value === valueState
+  );
+
+  // The indicator follows hover if hoverable, otherwise the selected option
+  const indicatorIndex =
+    hoverable && hoveredIndex !== null ? hoveredIndex : selectedIndex;
 
   const handleChange = (newValue: T) => {
     setValue(newValue);
@@ -160,7 +180,8 @@ export const SwitchSelector = <T,>({
           const isKeyOfKey =
             typeof value === 'string' || typeof value === 'number';
 
-          const isSelected = value === valueState;
+          const isSelected = index === selectedIndex;
+          const isIndicatorOwner = index === indicatorIndex;
 
           return (
             <button
@@ -173,16 +194,21 @@ export const SwitchSelector = <T,>({
               key={isKeyOfKey ? value : index}
               role="tab"
               onClick={() => handleChange(value)}
-              aria-selected={isSelected}
+              aria-selected={isSelected ? 'true' : undefined}
+              data-indicator={isIndicatorOwner ? 'true' : undefined}
               disabled={isSelected}
+              tabIndex={isSelected ? 0 : -1}
               ref={(el) => {
                 optionsRefs.current[index] = el!;
               }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
               {content}
             </button>
           );
         })}
+
         {choiceIndicatorPosition && (
           <div
             className={cn(
