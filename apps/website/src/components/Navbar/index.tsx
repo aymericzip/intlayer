@@ -167,7 +167,7 @@ export const Navbar: FC = () => {
             label={github.label.value}
             href={github.url.value}
             color="custom"
-            className="group/github flex cursor-pointer items-center gap-2 rounded-full bg-text p-1 text-text-opposite"
+            className="group/github flex cursor-pointer items-center gap-2 rounded-full bg-text p-1 text-text-opposite hover:bg-text/90"
           >
             <GithubLogo width={25} />
             <StarIcon

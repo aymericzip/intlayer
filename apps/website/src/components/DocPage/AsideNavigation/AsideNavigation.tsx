@@ -26,7 +26,6 @@ export const AsideNavigation: FC = (props) => {
       <Container
         roundedSize="none"
         transparency="sm"
-        padding="none"
         className={cn(
           isHidden ? 'h-[100px]' : 'h-full',
           'sticky top-[60px] rounded-bl-xl'
@@ -38,7 +37,6 @@ export const AsideNavigation: FC = (props) => {
             transparency="sm"
             className="sticky top-14 z-10"
             roundedSize="none"
-            padding="none"
           >
             <div className="relative flex flex-col items-center pt-2">
               <MaxWidthSmoother isHidden={isHidden}>
@@ -78,7 +76,6 @@ export const AsideNavigation: FC = (props) => {
                 <Container
                   className="justify-bottom size-full text-sm"
                   transparency="sm"
-                  padding="none"
                 >
                   <ChatBot
                     additionalButtons={
@@ -105,7 +102,6 @@ export const AsideNavigation: FC = (props) => {
         size="xl"
         onClose={() => setIsModalOpen(false)}
         roundedSize="2xl"
-        padding="none"
         className="relative m-auto h-[calc(95vh-100px)] overflow-hidden"
         disableScroll
         hasCloseButton

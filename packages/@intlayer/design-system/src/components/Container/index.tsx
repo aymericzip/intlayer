@@ -78,7 +78,7 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     border: 'none',
     borderColor: 'text',
     transparency: 'md',
-    padding: 'md',
+    padding: 'none',
     separator: 'without',
     gap: 'none',
   },

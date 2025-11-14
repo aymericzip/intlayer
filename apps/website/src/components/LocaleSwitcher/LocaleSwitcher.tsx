@@ -82,7 +82,6 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
             role="listbox"
             roundedSize="xl"
             transparency="sm"
-            padding="none"
             aria-label={languageListLabel.value}
           >
             <div className="p-3">

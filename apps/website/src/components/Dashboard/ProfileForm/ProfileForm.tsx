@@ -33,6 +33,7 @@ export const ProfileForm: FC = () => {
   return (
     <Container
       roundedSize="xl"
+      padding="md"
       className="flex size-full max-w-md justify-center"
     >
       <H3 className="mb-8"> {title}</H3>

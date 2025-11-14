@@ -15,7 +15,6 @@ const ProfileDashboardPageContent: FC = () => {
       <div className="relative flex size-full flex-1 flex-col items-center">
         <div className="flex size-full flex-1 flex-col items-center justify-center gap-10 p-10">
           <ProfileForm />
-          <ProfileForm />
         </div>
         <BackgroundLayout />
       </div>

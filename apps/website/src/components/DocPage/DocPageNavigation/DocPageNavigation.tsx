@@ -23,7 +23,7 @@ export const DocPageNavigation: FC<DocPageNavigationProps> = ({
   return (
     <div className="mt-3 flex flex-row flex-wrap justify-between gap-3 px-10 text-sm">
       {prevDoc && (
-        <Container className="max-w-1/2 flex-1" padding="none">
+        <Container className="max-w-1/2 flex-1">
           <Link
             href={prevDoc?.url}
             label={goToPreviousSection.label.value}
@@ -36,7 +36,7 @@ export const DocPageNavigation: FC<DocPageNavigationProps> = ({
         </Container>
       )}
       {nextDoc && (
-        <Container className="ml-auto max-w-1/2 flex-1" padding="none">
+        <Container className="ml-auto max-w-1/2 flex-1">
           <Link
             href={nextDoc?.url}
             label={goToNextSection.label.value}

@@ -28,23 +28,24 @@ const LocalCard: FC<{ locale: string }> = ({ locale, ...props }) => (
     className="group z-10 mx-8 inline-flex shrink-0 transition-transform duration-300 hover:scale-105"
     {...props}
   >
-    <Container roundedSize="xl">
-      <div className="flex flex-row items-center gap-5 p-3">
-        <Flag
-          locale={locale as Locale}
-          className="max-h-5 max-w-5 rounded-sm grayscale-[80%] transition duration-300 group-hover:grayscale-0"
-          width={640}
-          height={480}
-          loading="lazy"
-        />
-        <span
-          dir={getHTMLTextDir(locale as Locale)}
-          lang={locale as Locale}
-          className="flex text-nowrap"
-        >
-          {getLocaleName(locale as Locale)}
-        </span>
-      </div>
+    <Container
+      roundedSize="xl"
+      className="flex flex-row items-center gap-5 p-3"
+    >
+      <Flag
+        locale={locale as Locale}
+        className="max-h-5 max-w-5 rounded-sm grayscale-80 transition duration-300 group-hover:grayscale-0"
+        width={640}
+        height={480}
+        loading="lazy"
+      />
+      <span
+        dir={getHTMLTextDir(locale as Locale)}
+        lang={locale as Locale}
+        className="flex text-nowrap"
+      >
+        {getLocaleName(locale as Locale)}
+      </span>
     </Container>
   </div>
 );

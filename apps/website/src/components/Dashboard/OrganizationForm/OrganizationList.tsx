@@ -111,6 +111,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
             </ul>
           ) : (
             <Container
+              padding="md"
               roundedSize="xl"
               className="m-auto flex justify-center p-6"
             >
