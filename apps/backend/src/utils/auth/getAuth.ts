@@ -135,12 +135,6 @@ export const getAuth = (dbClient: MongoClient): Auth => {
         },
       },
 
-      database: {
-        generateId() {
-          return new Types.ObjectId().toString();
-        },
-      },
-
       // 3️⃣  (optional) turn off the automatic __Secure‑ prefix in non‑prod
       // useSecureCookies: false,
     },
