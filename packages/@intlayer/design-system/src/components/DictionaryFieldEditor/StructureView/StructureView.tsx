@@ -1,6 +1,6 @@
 'use client';
 
-import { camelCaseToSentence } from '@intlayer/config';
+import { camelCaseToSentence } from '@intlayer/config/client';
 import {
   getDefaultNode,
   getNodeChildren,

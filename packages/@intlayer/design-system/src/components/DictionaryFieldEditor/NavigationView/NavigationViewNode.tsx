@@ -1,5 +1,5 @@
-import { camelCaseToSentence } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
+import { camelCaseToSentence } from '@intlayer/config/client';
 import {
   getContentNodeByKeyPath,
   getEmptyNode,

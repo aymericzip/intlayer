@@ -1,4 +1,4 @@
-import { camelCaseToSentence } from '@intlayer/config';
+import { camelCaseToSentence } from '@intlayer/config/client';
 import type { KeyPath, Locale } from '@intlayer/types';
 import type { FC } from 'react';
 import { Breadcrumb, type BreadcrumbLink } from '../Breadcrumb';

@@ -1,4 +1,4 @@
-import { camelCaseToSentence } from '@intlayer/config';
+import { camelCaseToSentence } from '@intlayer/config/client';
 import { isSameKeyPath } from '@intlayer/core';
 import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
 import { type FC, memo, useMemo } from 'react';
