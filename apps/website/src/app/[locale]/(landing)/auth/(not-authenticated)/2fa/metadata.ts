@@ -7,10 +7,7 @@ export const generateMetadata = async ({
   params,
 }: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
-  const { title, description, keywords } = getIntlayer(
-    'login-metadata',
-    locale
-  );
+  const { title, description, keywords } = getIntlayer('2fa-metadata', locale);
 
   return {
     title,

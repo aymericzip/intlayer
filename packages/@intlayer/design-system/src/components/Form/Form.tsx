@@ -10,6 +10,7 @@ import { CheckboxElement } from './elements/CheckboxElement';
 import { EditableFieldInputElement } from './elements/EditableFieldInputElement';
 import { EditableFieldTextAreaElement } from './elements/EditableFieldTextAreaElement';
 import { MultiSelectElement } from './elements/MultiselectElement';
+import { OTPElement } from './elements/OTPElement';
 import { SelectElement } from './elements/SelectElement';
 import { SwitchSelectorElement } from './elements/SwitchSelectorElement';
 import { Form as FormRoot } from './FormBase';
@@ -39,6 +40,7 @@ type FormType = typeof FormRoot & {
   EditableFieldInput: typeof EditableFieldInputElement;
   EditableFieldTextArea: typeof EditableFieldTextAreaElement;
   SwitchSelector: typeof SwitchSelectorElement;
+  OTP: typeof OTPElement;
 };
 
 /**
@@ -78,3 +80,4 @@ Form.MultiSelect = MultiSelectElement;
 Form.EditableFieldInput = EditableFieldInputElement;
 Form.EditableFieldTextArea = EditableFieldTextAreaElement;
 Form.SwitchSelector = SwitchSelectorElement;
+Form.OTP = OTPElement;

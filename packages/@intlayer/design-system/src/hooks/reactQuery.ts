@@ -269,6 +269,15 @@ export const useVerifyTotp = () => {
   });
 };
 
+export const useVerifyBackupCode = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useMutation({
+    mutationKey: ['verifyBackupCode'],
+    mutationFn: (args: Parameters<AuthAPI['verifyBackupCode']>[0]) =>
+      intlayerAuth.verifyBackupCode(args),
+  });
+};
+
 /**
  * User
  */

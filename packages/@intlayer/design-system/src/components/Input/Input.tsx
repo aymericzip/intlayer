@@ -19,16 +19,14 @@ export const inputVariants = cva(
         default: [
           'text-text',
           'bg-neutral-50 dark:bg-neutral-950',
+          'ring-neutral-100 dark:ring-neutral-700',
+          'ring-offset-neutral-100 dark:ring-offset-neutral-700',
 
           // Focus ring + animation
           'focus-visible:outline-none',
 
+          'disabled:ring-0',
           'focus-visible:ring-3',
-          'focus-visible:ring-neutral-100',
-          'dark:focus-visible:ring-neutral-700',
-
-          'focus-visible:ring-offset-white',
-          'dark:focus-visible:ring-offset-neutral-700',
 
           // Remove any weird box-shadow
           '[box-shadow:none] focus:[box-shadow:none]',

@@ -3,6 +3,7 @@ export * from './useAuth';
 export * from './useDevice';
 export * from './useGetElementOrWindow';
 export * from './useHorizontalSwipe';
+export * from './useIntlayerAPI';
 export * from './useIsDarkMode';
 export * from './useIsMounted';
 export * from './useItemSelector';

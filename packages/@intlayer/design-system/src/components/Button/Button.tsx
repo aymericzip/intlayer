@@ -81,7 +81,7 @@ export enum ButtonTextAlign {
 /**
  * Enhanced button variants with improved accessibility and focus states
  */
-const buttonVariants = cva(
+export const buttonVariants = cva(
   'relative inline-flex cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
@@ -157,14 +157,32 @@ const buttonVariants = cva(
           'rounded-lg border-none bg-current/10 transition *:text-current! hover:bg-current/20 aria-[current]:bg-current/5',
 
         [`${ButtonVariant.INPUT}`]: [
+          // base styles
+          'text-text',
           'w-full select-text resize-none rounded-xl text-base shadow-none outline-none',
-          'ring-0 transition-shadow duration-100 md:text-sm',
-          'bg-neutral-50 text-text dark:bg-neutral-950',
-          'focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-neutral-100 dark:focus-visible:ring-neutral-700',
-          'focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-700',
-          '[box-shadow:none] focus:[box-shadow:none]',
-          'aria-invalid:border-error',
+          'transition-shadow duration-100 md:text-sm',
+          'ring-0', // base ring
           'disabled:opacity-50',
+
+          'text-text',
+          'bg-neutral-50 dark:bg-neutral-950',
+          'hover:bg-neutral-100/90 dark:hover:bg-neutral-900/90',
+          'ring-neutral-100 dark:ring-neutral-700',
+
+          // Hover ring (similar spirit to your input)
+          'hover:ring-4', // width
+          'aria-selected:ring-6',
+          'focus-visible:ring-3',
+          'disabled:ring-0',
+
+          // Focus ring + animation
+          'focus-visible:outline-none',
+
+          // Remove any weird box-shadow
+          '[box-shadow:none] focus:[box-shadow:none]',
+
+          // aria-invalid border color
+          'aria-invalid:border-error',
         ],
       },
 
@@ -201,7 +219,7 @@ export type ButtonProps = DetailedHTMLProps<
      * Accessible label for screen readers and assistive technologies.
      * This is required for accessibility compliance.
      */
-    label: string;
+    label: string | null;
 
     /**
      * Optional icon to display on the left side of the button
@@ -334,7 +352,7 @@ export const Button: FC<ButtonProps> = ({
   const isIconOnly = !children && (Icon || IconRight);
 
   const accessibilityProps = {
-    'aria-label': isIconOnly ? label : undefined,
+    'aria-label': isIconOnly ? (label ?? undefined) : undefined,
     'aria-labelledby': !isIconOnly ? undefined : undefined,
     'aria-describedby': ariaDescribedBy,
     'aria-expanded': ariaExpanded,

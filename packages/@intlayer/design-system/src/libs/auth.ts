@@ -1,13 +1,20 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types';
 import { createAuthClient } from 'better-auth/client';
-import { twoFactorClient } from 'better-auth/client/plugins';
+import { passkeyClient, twoFactorClient } from 'better-auth/client/plugins';
 
 const getAuthClient = (backendURL: string) =>
   createAuthClient({
     baseURL: backendURL,
     withCredentials: true, // makes fetch forward cookies
-    plugins: [twoFactorClient()],
+    plugins: [
+      twoFactorClient({
+        onTwoFactorRedirect: () => {
+          window.location.href = '/auth/2fa';
+        },
+      }),
+      passkeyClient(),
+    ],
   });
 
 type AuthClient = ReturnType<typeof getAuthClient>;
@@ -41,6 +48,7 @@ export interface AuthAPI {
   enableTwoFactor: AuthClient['twoFactor']['enable'];
   disableTwoFactor: AuthClient['twoFactor']['disable'];
   verifyTotp: AuthClient['twoFactor']['verifyTotp'];
+  verifyBackupCode: AuthClient['twoFactor']['verifyBackupCode'];
 }
 
 export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
@@ -184,6 +192,14 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     >;
   };
 
+  const verifyBackupCode: AuthClient['twoFactor']['verifyBackupCode'] = async (
+    ...args: Parameters<AuthClient['twoFactor']['verifyBackupCode']>
+  ) => {
+    return client.twoFactor.verifyBackupCode(...args) as ReturnType<
+      AuthClient['twoFactor']['verifyBackupCode']
+    >;
+  };
+
   return {
     getAuthClient: () => client,
     signInEmail,
@@ -213,5 +229,6 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     enableTwoFactor,
     disableTwoFactor,
     verifyTotp,
+    verifyBackupCode,
   };
 };
