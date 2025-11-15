@@ -242,6 +242,33 @@ export const useGetUserByAccount = () => {
   });
 };
 
+export const useEnableTwoFactor = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useMutation({
+    mutationKey: ['enableTwoFactor'],
+    mutationFn: (args: Parameters<AuthAPI['enableTwoFactor']>[0]) =>
+      intlayerAuth.enableTwoFactor(args),
+  });
+};
+
+export const useDisableTwoFactor = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useMutation({
+    mutationKey: ['disableTwoFactor'],
+    mutationFn: (args: Parameters<AuthAPI['disableTwoFactor']>[0]) =>
+      intlayerAuth.disableTwoFactor(args),
+  });
+};
+
+export const useVerifyTotp = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useMutation({
+    mutationKey: ['verifyTotp'],
+    mutationFn: (args: Parameters<AuthAPI['verifyTotp']>[0]) =>
+      intlayerAuth.verifyTotp(args),
+  });
+};
+
 /**
  * User
  */

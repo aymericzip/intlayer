@@ -36,7 +36,7 @@ export const ProjectFormContent: FC = () => {
           </Container>
         )}
 
-        <div className="grid w-full gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-2 lg:gap-x-20">
+        <div className="grid w-full justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-2 lg:gap-x-16">
           <div className="mb-auto flex flex-col gap-4">
             <Container
               roundedSize="xl"

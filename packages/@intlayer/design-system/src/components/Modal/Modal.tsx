@@ -3,7 +3,7 @@
 import { cva } from 'class-variance-authority';
 import { motion as m } from 'framer-motion';
 import { X } from 'lucide-react';
-import type { FC, ReactNode } from 'react';
+import { type FC, type ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetElementOrWindow, useScrollBlockage } from '../../hooks/index';
 import { cn } from '../../utils/cn';
@@ -65,7 +65,7 @@ type ModalProps = {
  * Defines responsive sizing and scrollable content for modal containers
  */
 const modalVariants = cva(
-  'cursor-default justify-center overflow-auto py-3 shadow-sm',
+  'cursor-default justify-center overflow-auto p-3 shadow-sm',
   {
     variants: {
       size: {
@@ -176,6 +176,20 @@ export const Modal: FC<ModalProps> = ({
 
   useScrollBlockage({ key: 'modal', disableScroll: isOpen && disableScroll });
 
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen && onClose) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, onClose]);
+
   if (!containerElement) return <></>;
 
   const hasTitle = typeof title === 'string';
@@ -202,58 +216,54 @@ export const Modal: FC<ModalProps> = ({
       }}
       aria-hidden={!isOpen}
     >
-      <div className="flex justify-center p-4">
-        <MotionModal
-          onClick={(e) => e.stopPropagation()}
-          initial={{ scale: isOpen ? 0.5 : 1 }}
-          animate={{ scale: isOpen ? 1 : 0.5 }}
-          transition={{ duration: 0.3 }}
-          className={modalVariants({
-            size,
-            className,
-          })}
-          role="dialog"
-          aria-modal
-          roundedSize="2xl"
-          {...props}
+      <MotionModal
+        onClick={(e) => e.stopPropagation()}
+        initial={{ scale: isOpen ? 0.5 : 1 }}
+        animate={{ scale: isOpen ? 1 : 0.5 }}
+        transition={{ duration: 0.3 }}
+        className={modalVariants({
+          size,
+          className,
+        })}
+        role="dialog"
+        aria-modal
+        roundedSize="2xl"
+        {...props}
+      >
+        <div
+          className={cn(
+            'cursor-default',
+            hasCloseButton && hasTitle
+              ? `flex items-start`
+              : hasCloseButton
+                ? `flex justify-end`
+                : hasTitle
+                  ? `items-center`
+                  : `hidden`
+          )}
         >
-          <div
-            className={cn(
-              'cursor-default px-4',
-              hasCloseButton && hasTitle
-                ? `flex items-center justify-center`
-                : hasCloseButton
-                  ? `flex items-center justify-end`
-                  : hasTitle
-                    ? `items-center`
-                    : `hidden`
-            )}
-          >
-            {hasTitle && (
-              <H3 className="ml-4 flex items-center justify-center font-bold text-lg">
-                {title}
-              </H3>
-            )}
-            {hasCloseButton && (
-              <Button
-                variant={ButtonVariant.HOVERABLE}
-                color={ButtonColor.TEXT}
-                label="Close modal"
-                className="ml-auto"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClose?.();
-                }}
-                Icon={X}
-                size={ButtonSize.ICON_MD}
-              />
-            )}
-          </div>
-          <div className="flex flex-1 flex-col items-center overflow-auto">
-            {children}
-          </div>
-        </MotionModal>
-      </div>
+          {hasTitle && (
+            <H3 className="mt-2 mb-4 ml-4 flex items-center justify-center font-bold text-lg">
+              {title}
+            </H3>
+          )}
+          {hasCloseButton && (
+            <Button
+              variant={ButtonVariant.HOVERABLE}
+              color={ButtonColor.TEXT}
+              label="Close modal"
+              className="ml-auto"
+              onClick={(e) => {
+                e.stopPropagation();
+                onClose?.();
+              }}
+              Icon={X}
+              size={ButtonSize.ICON_MD}
+            />
+          )}
+        </div>
+        <div className="flex flex-1 flex-col items-center">{children}</div>
+      </MotionModal>
     </m.div>,
     containerElement
   );

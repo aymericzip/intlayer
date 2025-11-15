@@ -20,6 +20,7 @@ export type User = OmitId<UserData & BetterAuthUser> & {
   };
   customerId?: string; // Stripe customer ID
   role?: string;
+  lastLoginMethod?: 'email' | 'google' | 'github';
   lang?: string;
   createdAt: Date;
   updatedAt: Date;

@@ -16,7 +16,6 @@ export const SignInForm: FC<{
   const emailInputRef = useRef<HTMLInputElement>(null);
 
   const onSubmitSuccess = ({ email, password, rememberMe }: SignIn) => {
-    console.log({ email, password, rememberMe });
     login({
       email,
       password,

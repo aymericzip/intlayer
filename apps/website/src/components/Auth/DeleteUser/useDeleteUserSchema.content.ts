@@ -1,0 +1,72 @@
+import { type Dictionary, t } from 'intlayer';
+
+export const deleteUserSchemaContent = {
+  key: 'delete-user-schema',
+  content: {
+    requiredErrorEmail: t({
+      en: 'Please enter your email address',
+      'en-GB': 'Please enter your email address',
+      fr: 'Veuillez saisir votre adresse e-mail',
+      es: 'Por favor, ingrese su dirección de correo electrónico',
+      de: 'Bitte geben Sie Ihre E-Mail-Adresse ein',
+      ja: 'メールアドレスを入力してください',
+      ko: '이메일 주소를 입력해 주세요',
+      zh: '请输入您的电子邮件地址',
+      it: 'Per favore, inserisci il tuo indirizzo email',
+      pt: 'Por favor, insira seu endereço de e-mail',
+      hi: 'कृपया अपना ईमेल पता दर्ज करें',
+      ar: 'يرجى إدخال عنوان بريدك الإلكتروني',
+      ru: 'Пожалуйста, введите ваш адрес электронной почты',
+      tr: 'Lütfen e-posta adresinizi girin',
+      pl: 'Proszę podać swój adres e-mail',
+      id: 'Silakan masukkan alamat email Anda',
+      vi: 'Vui lòng nhập địa chỉ email của bạn',
+    }),
+
+    invalidTypeErrorEmail: t({
+      en: 'Please enter a valid email address',
+      'en-GB': 'Please enter a valid email address',
+      fr: 'Veuillez saisir une adresse e-mail valide',
+      es: 'Por favor, ingrese una dirección de correo electrónico válida',
+      de: 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
+      ja: '有効なメールアドレスを入力してください',
+      ko: '유효한 이메일 주소를 입력해 주세요',
+      zh: '请输入有效的电子邮件地址',
+      it: 'Per favore, inserisci un indirizzo email valido',
+      pt: 'Por favor, insira um endereço de e-mail válido',
+      hi: 'कृपया एक मान्य ईमेल पता दर्ज करें',
+      ar: 'يرجى إدخال عنوان بريد إلكتروني صالح',
+      ru: 'Пожалуйста, введите корректный адрес электронной почты',
+      tr: 'Lütfen geçerli bir e-posta adresi girin',
+      pl: 'Proszę podać poprawny adres e-mail',
+      id: 'Silakan masukkan alamat email yang valid',
+      vi: 'Vui lòng nhập một địa chỉ email hợp lệ',
+    }),
+
+    emailMismatchError: t({
+      en: 'The email address does not match your account',
+      'en-GB': 'The email address does not match your account',
+      fr: "L'adresse e-mail ne correspond pas à votre compte",
+      es: 'La dirección de correo electrónico no coincide con su cuenta',
+      de: 'Die E-Mail-Adresse stimmt nicht mit Ihrem Konto überein',
+      ja: 'メールアドレスがアカウントと一致しません',
+      ko: '이메일 주소가 계정과 일치하지 않습니다',
+      zh: '电子邮件地址与您的账户不匹配',
+      it: "L'indirizzo email non corrisponde al tuo account",
+      pt: 'O endereço de e-mail não corresponde à sua conta',
+      hi: 'ईमेल पता आपके खाते से मेल नहीं खाता',
+      ar: 'عنوان البريد الإلكتروني لا يتطابق مع حسابك',
+      ru: 'Адрес электронной почты не совпадает с вашей учетной записью',
+      tr: 'E-posta adresi hesabınızla eşleşmiyor',
+      pl: 'Adres e-mail nie pasuje do Twojego konta',
+      id: 'Alamat email tidak sesuai dengan akun Anda',
+      vi: 'Địa chỉ email không khớp với tài khoản của bạn',
+    }),
+  },
+  title: 'Delete user form validation schema',
+  description:
+    'Validation messages for the delete user form, including required, type, and match errors for email field.',
+  tags: ['form validation', 'authentication', 'delete user'],
+} satisfies Dictionary;
+
+export default deleteUserSchemaContent;

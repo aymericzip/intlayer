@@ -279,7 +279,7 @@ export const AccessKeyForm: FC = () => {
         onSubmitError={() => Promise.resolve()}
         {...form}
       >
-        <H3 className="mb-8"> {title}</H3>
+        <H3> {title}</H3>
         <span className="text-neutral text-sm">{description}</span>
         {project?.oAuth2Access.map((accessKey) => (
           <AccessKeyItem key={String(accessKey.id)} value={accessKey} />

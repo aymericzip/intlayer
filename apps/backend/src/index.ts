@@ -60,6 +60,7 @@ const startServer = async () => {
     path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
   });
 
+  console.log(0);
   // Parse incoming requests with cookies
   app.use(cookieParser());
 
@@ -69,6 +70,7 @@ const startServer = async () => {
   // Rate limiter
   app.use(/(.*)/, ipLimiter);
 
+  console.log(1);
   // Connect to MongoDB
   const dbClient = await connectDB();
 
@@ -82,6 +84,7 @@ const startServer = async () => {
   // Compress all HTTP responses
   app.use(compression());
 
+  console.log(2);
   // Parse incoming requests with urlencoded payloads
   app.use(express.urlencoded({ extended: true }));
 
@@ -101,7 +104,10 @@ const startServer = async () => {
 
   // Session Auth
   const auth = getAuth(dbClient as any);
-  app.all('/api/auth/{*any}', toNodeHandler(auth));
+  app.all('/api/auth/*splat', toNodeHandler(auth));
+  app.all('/api/auth/two-factor/enable', () =>
+    console.log('two-factor/enable')
+  );
   app.use(/(.*)/, authMiddleware(auth));
 
   // oAuth2 Auth

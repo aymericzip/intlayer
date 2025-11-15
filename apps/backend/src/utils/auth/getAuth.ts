@@ -17,8 +17,8 @@ import { betterAuth, type OmitId } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
 import { customSession, lastLoginMethod, twoFactor } from 'better-auth/plugins';
+import { passkey } from 'better-auth/plugins/passkey';
 import type { MongoClient } from 'mongodb';
-import { Types } from 'mongoose';
 import type { OrganizationAPI } from '@/types/organization.types';
 import type { ProjectAPI } from '@/types/project.types';
 import type {
@@ -205,15 +205,8 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           },
         },
       }),
-      // twoFactor({
-      //   enabled: true,
-      //   sendCode: async ({ user, code }) => {
-      //     logger.info('sending two factor code', { email: user.email });
-      //     await sendEmail({
-      //       type: 'twoFactor',
-      //     });
-      //   },
-      // }),
+      passkey(),
+      twoFactor(),
     ],
 
     emailAndPassword: {

@@ -46,6 +46,19 @@ export const userSchema = new Schema<UserSchema>(
       default: 'user',
       required: false,
     },
+    lastLoginMethod: {
+      type: String,
+      enum: ['email', 'google', 'github'],
+      required: false,
+    },
+    lang: {
+      type: String,
+      required: false,
+    },
+    dateOfBirth: {
+      type: Date,
+      required: false,
+    },
   },
   {
     timestamps: true,
