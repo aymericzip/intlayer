@@ -56,8 +56,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
   CMD \
     curl -f http://localhost:6006/ || exit 1
 
-CMD ["bun", "run", "storybook"]
-
+CMD ["bun", "run", "start"]
 
 
 # # Build Storybook to a deterministic path to simplify the copy in the next stage
