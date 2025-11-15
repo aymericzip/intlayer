@@ -33,6 +33,7 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
           color="custom"
           onClick={() => setIsModalOpen(true)}
           isFullWidth={false}
+          className="mb-1"
         >
           {searchButton.text}
         </Button>

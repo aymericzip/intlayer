@@ -170,9 +170,9 @@ export const buttonVariants = cva(
           'ring-neutral-100 dark:ring-neutral-700',
 
           // Hover ring (similar spirit to your input)
-          'hover:ring-4', // width
-          'aria-selected:ring-6',
-          'focus-visible:ring-3',
+          'hover:ring-3', // width
+          'aria-selected:ring-4',
+          'focus-visible:ring-2',
           'disabled:ring-0',
 
           // Focus ring + animation
