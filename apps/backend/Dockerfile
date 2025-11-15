@@ -2,6 +2,8 @@
 
 FROM oven/bun:1.3.2-alpine AS builder
 
+RUN apk add --no-cache curl
+
 # Create app directory
 WORKDIR /workspace
 

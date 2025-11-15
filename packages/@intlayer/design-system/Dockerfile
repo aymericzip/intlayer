@@ -5,7 +5,7 @@
 ########################
 FROM oven/bun:1.3.2-alpine AS builder
 
-RUN apk add --no-cache nodejs npm
+RUN apk add --no-cache nodejs npm curl
 
 # Put the repo in /workspace
 WORKDIR /workspace
