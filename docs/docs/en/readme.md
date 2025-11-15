@@ -30,6 +30,8 @@
   </a>
 </p>
 
+<!-- new line checking healthcheck  -->
+
 ![Watch the video](https://github.com/aymericzip/intlayer/blob/main/docs/assets/demo_video.gif)
 
 <a href="https://intlayer.org/doc/concept/content">
