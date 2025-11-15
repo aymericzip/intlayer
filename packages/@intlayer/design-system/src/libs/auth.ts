@@ -10,7 +10,13 @@ const getAuthClient = (backendURL: string) =>
     plugins: [
       twoFactorClient({
         onTwoFactorRedirect: () => {
-          window.location.href = '/auth/2fa';
+          // Preserve redirect_url when redirecting to 2FA
+          const searchParams = new URLSearchParams(window.location.search);
+          const redirectUrl = searchParams.get('redirect_url');
+          const twoFaUrl = redirectUrl
+            ? `/auth/2fa?redirect_url=${encodeURIComponent(redirectUrl)}`
+            : '/auth/2fa';
+          window.location.href = twoFaUrl;
         },
       }),
       passkeyClient(),

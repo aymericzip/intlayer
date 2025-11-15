@@ -2,7 +2,7 @@
 
 import { Form, useForm } from '@intlayer/design-system';
 import { useVerifyBackupCode } from '@intlayer/design-system/hooks';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import z from 'zod';
@@ -15,6 +15,7 @@ type BackupCodeFormData = z.infer<typeof backupCodeSchema>;
 
 export const BackupCodeTab: FC = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { codeLabel, codePlaceholder, verifyButton } =
     useIntlayer('backup-code-tab');
 
@@ -29,7 +30,9 @@ export const BackupCodeTab: FC = () => {
   const handleBackupCodeVerification = async (data: BackupCodeFormData) => {
     verifyBackupCode(data, {
       onSuccess: () => {
-        router.push('/');
+        // Redirect to the original destination or home
+        const redirectUrl = searchParams.get('redirect_url');
+        router.push(redirectUrl ?? '/');
       },
     });
   };
