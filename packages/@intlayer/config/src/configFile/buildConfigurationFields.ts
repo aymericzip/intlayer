@@ -15,7 +15,7 @@ import type {
   PatternsContentConfig,
   RoutingConfig,
 } from '@intlayer/types';
-import { version } from '@intlayer/types/package.json' with { type: 'json' };
+import packageJson from '@intlayer/types/package.json' with { type: 'json' };
 import {
   CACHE,
   IMPORT_MODE,
@@ -761,7 +761,7 @@ export const buildConfigurationFields = (
     plugins: customConfiguration?.plugins,
     metadata: {
       name: 'Intlayer',
-      version,
+      version: packageJson.version,
       doc: `https://intlayer.org/docs`,
     },
   } as IntlayerConfig;
