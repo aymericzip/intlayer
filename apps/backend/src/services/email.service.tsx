@@ -4,6 +4,11 @@ import {
   InviteUserEmailFR,
 } from '@emails/InviteUserEmail';
 import {
+  MagicLinkEmailEN,
+  MagicLinkEmailES,
+  MagicLinkEmailFR,
+} from '@emails/MagicLinkEmail';
+import {
   OAuthTokenCreatedEmailEN,
   OAuthTokenCreatedEmailES,
   OAuthTokenCreatedEmailFR,
@@ -128,6 +133,24 @@ const getEmailComponents = (locale?: Locale) =>
           en: 'Welcome to Intlayer!',
           fr: 'Bienvenue chez Intlayer!',
           es: '¡Bienvenido a Intlayer!',
+        },
+        locale
+      ),
+    },
+    magicLink: {
+      template: t(
+        {
+          en: MagicLinkEmailEN,
+          fr: MagicLinkEmailFR,
+          es: MagicLinkEmailES,
+        },
+        locale
+      ),
+      subject: t(
+        {
+          en: 'Sign in to Intlayer',
+          fr: 'Connectez-vous à Intlayer',
+          es: 'Inicia sesión en Intlayer',
         },
         locale
       ),

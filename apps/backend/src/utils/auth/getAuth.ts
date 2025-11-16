@@ -1,3 +1,4 @@
+// import { sso } from '@better-auth/sso';
 import { sendVerificationUpdate } from '@controllers/user.controller';
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
@@ -17,6 +18,7 @@ import { betterAuth, type OmitId } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
 import { customSession, lastLoginMethod, twoFactor } from 'better-auth/plugins';
+import { magicLink } from 'better-auth/plugins/magic-link';
 import { passkey } from 'better-auth/plugins/passkey';
 import type { MongoClient } from 'mongodb';
 import type { OrganizationAPI } from '@/types/organization.types';
@@ -204,9 +206,30 @@ export const getAuth = (dbClient: MongoClient): Auth => {
             lastLoginMethod: 'lastLoginMethod', // Custom field name
           },
         },
+        customResolveMethod: (context) => {
+          // When user clicks the magic link
+          if (context.path === '/magic-link/verify') {
+            return 'magic-link';
+          }
+
+          // Fallback to default behavior for everything else
+          return null;
+        },
       }),
       passkey(),
       twoFactor(),
+      magicLink({
+        sendMagicLink: async ({ email, url }) => {
+          logger.info('sending magic link', { email, url });
+          await sendEmail({
+            type: 'magicLink',
+            to: email,
+            username: email.split('@')[0],
+            magicLink: url,
+          });
+        },
+      }),
+      // sso(),
     ],
 
     emailAndPassword: {

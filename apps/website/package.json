@@ -49,6 +49,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@better-auth/sso": "^1.3.34",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",

@@ -88,6 +88,8 @@ const startServer = async () => {
   // CORS
   app.use(cors(corsOptions));
 
+  app.use(logAPIRequestURL);
+
   // Liveness check
   app.get('/', (_req, res) => {
     res.send(
@@ -101,7 +103,9 @@ const startServer = async () => {
 
   // Session Auth
   const auth = getAuth(dbClient as any);
-  app.all('/api/auth/*splat', toNodeHandler(auth));
+
+  // app.all(/(.*)/, (req) => console.log(req));
+  app.all('/api/auth/{*rest}', toNodeHandler(auth));
   app.use(/(.*)/, authMiddleware(auth));
 
   // oAuth2 Auth

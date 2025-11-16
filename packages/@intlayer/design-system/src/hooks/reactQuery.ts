@@ -313,6 +313,14 @@ export const useListPasskeys = () => {
   });
 };
 
+export const useSignInMagicLink = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useMutation({
+    mutationKey: ['signInMagicLink'],
+    mutationFn: (args?: any) => intlayerAuth.signInMagicLink(args),
+  });
+};
+
 /**
  * User
  */

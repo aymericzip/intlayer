@@ -1,7 +1,11 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types';
 import { createAuthClient } from 'better-auth/client';
-import { passkeyClient, twoFactorClient } from 'better-auth/client/plugins';
+import {
+  magicLinkClient,
+  passkeyClient,
+  twoFactorClient,
+} from 'better-auth/client/plugins';
 
 const getAuthClient = (backendURL: string) =>
   createAuthClient({
@@ -20,6 +24,7 @@ const getAuthClient = (backendURL: string) =>
         },
       }),
       passkeyClient(),
+      magicLinkClient(),
     ],
   });
 
@@ -59,6 +64,7 @@ export interface AuthAPI {
   signInPasskey: AuthClient['signIn']['passkey'];
   deletePasskey: AuthClient['passkey']['deletePasskey'];
   listPasskeys: () => Promise<any>;
+  signInMagicLink: AuthClient['signIn']['magicLink'];
 }
 
 export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
@@ -179,7 +185,7 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
   };
 
   const enableTwoFactor: AuthClient['twoFactor']['enable'] = async (
-    ...args: Parameters<AuthClient['twoFactor']['enable']>
+    ...args
   ) => {
     return client.twoFactor.enable(...args) as ReturnType<
       AuthClient['twoFactor']['enable']
@@ -187,23 +193,21 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
   };
 
   const disableTwoFactor: AuthClient['twoFactor']['disable'] = async (
-    ...args: Parameters<AuthClient['twoFactor']['disable']>
+    ...args
   ) => {
     return client.twoFactor.disable(...args) as ReturnType<
       AuthClient['twoFactor']['disable']
     >;
   };
 
-  const verifyTotp: AuthClient['twoFactor']['verifyTotp'] = async (
-    ...args: Parameters<AuthClient['twoFactor']['verifyTotp']>
-  ) => {
+  const verifyTotp: AuthClient['twoFactor']['verifyTotp'] = async (...args) => {
     return client.twoFactor.verifyTotp(...args) as ReturnType<
       AuthClient['twoFactor']['verifyTotp']
     >;
   };
 
   const verifyBackupCode: AuthClient['twoFactor']['verifyBackupCode'] = async (
-    ...args: Parameters<AuthClient['twoFactor']['verifyBackupCode']>
+    ...args
   ) => {
     return client.twoFactor.verifyBackupCode(...args) as ReturnType<
       AuthClient['twoFactor']['verifyBackupCode']
@@ -229,6 +233,14 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     return client.$fetch('/passkey/list-user-passkeys', {
       method: 'GET',
     });
+  };
+
+  const signInMagicLink: AuthClient['signIn']['magicLink'] = async (
+    ...args
+  ) => {
+    return client.signIn.magicLink(...args) as ReturnType<
+      AuthClient['signIn']['magicLink']
+    >;
   };
 
   return {
@@ -265,5 +277,6 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     signInPasskey,
     deletePasskey,
     listPasskeys,
+    signInMagicLink,
   };
 };

@@ -2,8 +2,9 @@
 
 import { Form, useForm } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import type { FC, ReactNode, RefObject } from 'react';
+import type { FC, RefObject } from 'react';
 import { ExternalsLoginButtons } from '../../ExternalsLoginButtons';
+import { MagicLinkButton } from '../../MagicLinkButton';
 import { PasskeyButton } from '../../PassKeyButton';
 import { type SignIn, useSignInSchema } from './useSignInSchema';
 
@@ -52,7 +53,6 @@ export const SignInForm: FC<SignInFormProps> = ({
     loginButton,
     signUpLink,
     rememberMeCheckbox,
-    or,
   } = useIntlayer('sign-in');
 
   return (
@@ -128,7 +128,10 @@ export const SignInForm: FC<SignInFormProps> = ({
       </Form>
       <Separator />
       <div className="space-y-6">
-        <PasskeyButton />
+        <div className="relative flex flex-col justify-center gap-y-3">
+          <PasskeyButton />
+          <MagicLinkButton />
+        </div>
         <ExternalsLoginButtons />
       </div>
     </>
