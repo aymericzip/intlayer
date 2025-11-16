@@ -906,7 +906,7 @@ export const InputIndicator: FC<
 > = ({ ref, ...props }) => (
   <div
     data-indicator
-    className="absolute top-0 z-0 h-8 h-full w-auto rounded-xl bg-neutral-100 ring-4 ring-neutral-100 transition-[left,width] duration-300 ease-in-out [corner-shape:squircle] supports-[corner-shape\:squircle]:rounded-2xl motion-reduce:transition-none dark:bg-neutral-700 dark:ring-neutral-700"
+    className="absolute top-0 z-0 h-8 h-full w-auto rounded-xl bg-neutral-100 ring-4 ring-neutral-100 transition-[left,width] duration-300 ease-in-out [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl motion-reduce:transition-none dark:bg-neutral-700 dark:ring-neutral-700"
     ref={ref}
     {...props}
   />
