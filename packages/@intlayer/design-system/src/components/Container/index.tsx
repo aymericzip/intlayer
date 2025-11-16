@@ -20,7 +20,7 @@ export const containerVariants = cva(
         sm: 'rounded-sm supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-md',
         md: 'rounded-md supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-lg',
         lg: 'rounded-lg supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-xl',
-        xl: 'rounded-xl supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-2xl',
+        xl: 'rounded-xl [supports-[corner-shape:squircle]:rounded-2xl]',
         '2xl':
           'rounded-2xl supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-3xl',
         '3xl':

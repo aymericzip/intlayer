@@ -2,7 +2,7 @@
 
 import { Form, useForm } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import type { FC, RefObject } from 'react';
+import type { FC, ReactNode, RefObject } from 'react';
 import { ExternalsLoginButtons } from '../../ExternalsLoginButtons';
 import { PasskeyButton } from '../../PassKeyButton';
 import { type SignIn, useSignInSchema } from './useSignInSchema';
@@ -15,6 +15,18 @@ type SignInFormProps = {
   onSubmitError?: (error: Error) => void;
   emailInputRef?: RefObject<HTMLInputElement | null>;
   isLoading?: boolean;
+};
+
+const Separator: FC = () => {
+  const { or } = useIntlayer('sign-in');
+
+  return (
+    <div className="mb-3 flex w-full items-center gap-3 text-center text-base">
+      <div className="h-px w-full bg-neutral" />
+      <div className="text-neutral">{or}</div>
+      <div className="h-px w-full bg-neutral" />
+    </div>
+  );
 };
 
 export const SignInForm: FC<SignInFormProps> = ({
@@ -40,7 +52,7 @@ export const SignInForm: FC<SignInFormProps> = ({
     loginButton,
     signUpLink,
     rememberMeCheckbox,
-    orContinueWith,
+    or,
   } = useIntlayer('sign-in');
 
   return (
@@ -114,19 +126,10 @@ export const SignInForm: FC<SignInFormProps> = ({
           </Form.Button>
         </span>
       </Form>
-      <div className="space-y-3">
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
-              {orContinueWith}
-            </span>
-          </div>
-        </div>
-        <PasskeyButton />
+      <Separator />
+      <div className="space-y-6">
         <ExternalsLoginButtons />
+        <PasskeyButton />
       </div>
     </>
   );

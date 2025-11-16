@@ -3,25 +3,6 @@ import { type Dictionary, t } from 'intlayer';
 export const externalsLoginButtonsContent = {
   key: 'externals-login-buttons',
   content: {
-    span: t({
-      ar: 'أو',
-      de: 'oder',
-      en: 'or',
-      'en-GB': 'or',
-      es: 'o',
-      fr: 'ou',
-      hi: 'या',
-      it: 'o',
-      ja: 'または',
-      ko: '또는',
-      pt: 'ou',
-      ru: 'или',
-      tr: 'veya',
-      zh: '或',
-      pl: 'lub',
-      id: 'atau',
-      vi: 'hoặc',
-    }),
     github: {
       label: t({
         en: 'Sign in with GitHub',

@@ -2,6 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import type { LucideIcon } from 'lucide-react';
 import type { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
 import { cn } from '../../utils/cn';
+import { ContainerRoundedSize } from '../Container';
 import { Loader } from '../Loader';
 
 /**
@@ -27,8 +28,8 @@ const buttonIconVariants = cva('flex-none shrink-0', {
       [`${ButtonSize.XL}`]: 'size-6',
       [`${ButtonSize.ICON_SM}`]: 'size-3',
       [`${ButtonSize.ICON_MD}`]: 'size-4',
-      [`${ButtonSize.ICON_LG}`]: 'size-5',
-      [`${ButtonSize.ICON_XL}`]: 'size-6',
+      [`${ButtonSize.ICON_LG}`]: 'size-4',
+      [`${ButtonSize.ICON_XL}`]: 'size-5',
     },
   },
   defaultVariants: {
@@ -122,6 +123,25 @@ export const buttonVariants = cva(
           'hover-success-500/20 text-success ring-success/20 *:text-text-light',
         [`${ButtonColor.CUSTOM}`]: '',
       },
+      roundedSize: {
+        [`${ContainerRoundedSize.NONE}`]: ['rounded-none'],
+        [`${ContainerRoundedSize.SM}`]: [
+          'rounded-xl [supports-[corner-shape:squircle]:rounded-2xl]',
+          '[supports-[corner-shape:squircle]:rounded-4xl]',
+        ],
+        [`${ContainerRoundedSize.MD}`]: [
+          'rounded-xl [supports-[corner-shape:squircle]:rounded-2xl]',
+          '[supports-[corner-shape:squircle]:rounded-4xl]',
+        ],
+        [`${ContainerRoundedSize.LG}`]: [
+          'rounded-2xl [supports-[corner-shape:squircle]:rounded-3xl]',
+          '[supports-[corner-shape:squircle]:rounded-5xl]',
+        ],
+        [`${ContainerRoundedSize.XL}`]: [
+          'rounded-3xl [supports-[corner-shape:squircle]:rounded-4xl]',
+          '[supports-[corner-shape:squircle]:rounded-6xl]',
+        ],
+      },
       variant: {
         [`${ButtonVariant.DEFAULT}`]: [
           'bg-current',
@@ -130,10 +150,6 @@ export const buttonVariants = cva(
           // Hover ring (similar spirit to your input)
           'hover:ring-6', // width
           'aria-selected:ring-6',
-
-          // Corner shape
-          'rounded-xl supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-2xl',
-          '[supports-[corner-shape:squircle]:rounded-4xl]',
         ],
 
         [`${ButtonVariant.OUTLINE}`]: [
@@ -143,10 +159,6 @@ export const buttonVariants = cva(
           // Same hover ring behavior as DEFAULT for coherence
           'hover:ring-6',
           'aria-selected:ring-6',
-
-          // Corner shape
-          'rounded-xl supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-2xl',
-          '[supports-[corner-shape:squircle]:rounded-4xl]',
         ],
 
         [`${ButtonVariant.NONE}`]:
@@ -209,6 +221,7 @@ export const buttonVariants = cva(
       variant: `${ButtonVariant.DEFAULT}`,
       size: `${ButtonSize.MD}`,
       color: `${ButtonColor.CUSTOM}`,
+      roundedSize: `${ContainerRoundedSize.MD}`,
       textAlign: `${ButtonTextAlign.CENTER}`,
       isFullWidth: false,
     },
@@ -343,6 +356,7 @@ export const Button: FC<ButtonProps> = ({
   isActive = false,
   isSelected = false,
   isFullWidth = false,
+  roundedSize,
   textAlign,
   disabled,
   label,
@@ -388,6 +402,7 @@ export const Button: FC<ButtonProps> = ({
         size,
         color,
         isFullWidth,
+        roundedSize,
         textAlign:
           textAlign ??
           (IconRight ? ButtonTextAlign.LEFT : ButtonTextAlign.CENTER),

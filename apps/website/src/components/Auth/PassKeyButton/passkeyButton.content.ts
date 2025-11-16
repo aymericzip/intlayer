@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 
 const passkeyButtonContent = {
   key: 'passkey-button',
@@ -14,6 +14,6 @@ const passkeyButtonContent = {
       es: 'Iniciar sesión con llave',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default passkeyButtonContent;

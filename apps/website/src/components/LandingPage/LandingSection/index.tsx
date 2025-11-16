@@ -2,6 +2,12 @@
 
 import { Link } from '@components/Link/Link';
 import {
+  Button,
+  ButtonColor,
+  ButtonSize,
+  ButtonVariant,
+  CodeBlock,
+  Container,
   LinkColor,
   LinkVariant,
   Tag,
@@ -13,11 +19,14 @@ import { motion } from 'framer-motion';
 import packageJSON from 'intlayer/package.json' with { type: 'json' };
 import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
+import { useTheme } from 'next-themes';
 import { type FC, useState } from 'react';
 import { PagesRoutes } from '@/Routes';
 import { TechLogos } from './TechLogos';
 
 const SHOW_WHATS_NEW = true;
+
+const ContainerMotion = motion(Container);
 
 export const LandingSection: FC = () => {
   const {
@@ -30,9 +39,12 @@ export const LandingSection: FC = () => {
     supportButton,
     getStartedButton,
     availableFor,
+    copyButton,
   } = useIntlayer('landing-section');
 
+  const { theme } = useTheme();
   const [copied, setCopied] = useState(false);
+  const isDarkMode = theme === 'dark';
 
   function copyToClipboard(
     _event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -101,41 +113,38 @@ export const LandingSection: FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="mx-auto mb-8 max-w-2xl text-center font-medium text-neutral-600 text-sm leading-relaxed sm:text-lg lg:mb-12 dark:text-neutral-200"
+            className="mx-auto max-w-2xl text-center font-medium text-neutral-600 text-sm leading-relaxed sm:text-lg lg:mb-12 dark:text-neutral-200"
           >
             {description}
           </motion.p>
 
           {/* Bloc de code copiable */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+          <ContainerMotion
+            initial={{ opacity: 0, y: 0 }}
+            animate={{ opacity: 1, y: -30 }}
             transition={{ delay: 0.7, duration: 0.6 }}
-            className="mx-auto mb-6 w-full max-w-2xl lg:mb-10"
+            roundedSize="2xl"
+            className="m-auto mt-24 max-w-2xl flex-row items-center p-1 pl-6"
           >
-            <div className="relative rounded-2xl bg-neutral-900 p-4 font-mono text-neutral-100 text-sm shadow-md">
-              <div className="flex items-center justify-between">
-                <code className="truncate">npm install intlayer</code>
-                <button
-                  onClick={copyToClipboard}
-                  className="ml-3 rounded-md bg-neutral-800 px-3 py-1 font-medium text-neutral-300 text-xs transition hover:bg-neutral-700"
-                >
-                  {copied ? (
-                    <Check className="h-4 w-4 text-green-400" />
-                  ) : (
-                    <Copy className="h-4 w-4" />
-                  )}
-                </button>
-              </div>
-            </div>
-          </motion.div>
+            <CodeBlock lang="bash" isDarkMode={isDarkMode}>
+              npm install intlayer
+            </CodeBlock>
+            <Button
+              variant={ButtonVariant.HOVERABLE}
+              color={ButtonColor.NEUTRAL}
+              size={ButtonSize.ICON_XL}
+              onClick={copyToClipboard}
+              Icon={copied ? Check : Copy}
+              label={copyButton.value}
+            />
+          </ContainerMotion>
 
           {/* Action Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="mb-6 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 lg:mb-10"
+            className="mt-10 mb-6 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 lg:mb-10"
           >
             <Link
               href="https://github.com/aymericzip/intlayer"
