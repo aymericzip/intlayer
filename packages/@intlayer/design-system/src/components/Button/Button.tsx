@@ -132,8 +132,8 @@ export const buttonVariants = cva(
           'aria-selected:ring-6',
 
           // Corner shape
-          'rounded-xl supports-[corner-shape:squircle]:rounded-2xl',
-          '[corner-shape:squircle]',
+          'rounded-xl supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-2xl',
+          '[supports-[corner-shape:squircle]:rounded-4xl]',
         ],
 
         [`${ButtonVariant.OUTLINE}`]: [
@@ -145,8 +145,8 @@ export const buttonVariants = cva(
           'aria-selected:ring-6',
 
           // Corner shape
-          'rounded-xl supports-[corner-shape:squircle]:rounded-2xl',
-          '[corner-shape:squircle]',
+          'rounded-xl supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-2xl',
+          '[supports-[corner-shape:squircle]:rounded-4xl]',
         ],
 
         [`${ButtonVariant.NONE}`]:
@@ -167,7 +167,7 @@ export const buttonVariants = cva(
         [`${ButtonVariant.INPUT}`]: [
           // base styles
           'text-text',
-          'w-full select-text resize-none rounded-2xl text-base shadow-none outline-none [corner-shape:squircle]',
+          'w-full select-text resize-none rounded-2xl text-base shadow-none outline-none [supports-[corner-shape:squircle]:rounded-4xl]',
           'transition-shadow duration-100 md:text-sm',
           'ring-0', // base ring
           'disabled:opacity-50',

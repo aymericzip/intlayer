@@ -432,8 +432,8 @@ const MultiSelectTrigger: FC<
         'cursor-pointer select-text text-base shadow-none outline-none md:text-sm',
 
         // Corner shape
-        'rounded-xl supports-[corner-shape:squircle]:rounded-2xl',
-        '[corner-shape:squircle]',
+        'rounded-xl supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-2xl',
+        '[supports-[corner-shape:squircle]:rounded-4xl]',
 
         // Spacing
         'px-2 py-3 md:py-2',

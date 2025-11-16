@@ -26,7 +26,7 @@ export const checkboxVariants = cva(
     'checked:before:text-text-opposite/80',
 
     // Corner shape
-    'rounded-xl supports-[corner-shape:squircle]:rounded-2xl',
+    'rounded-xl supports-[corner-shape:squircle]:rounded-4xl',
     '[corner-shape:squircle]',
   ].join(' '),
   {

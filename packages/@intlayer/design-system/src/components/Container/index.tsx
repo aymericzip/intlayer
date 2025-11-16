@@ -12,18 +12,20 @@ import { cn } from '../../utils/cn';
  * Provides flexible styling options for background, padding, borders, and layout
  */
 export const containerVariants = cva(
-  'flex flex-col text-text backdrop-blur [corner-shape:squircle]',
+  'flex flex-col text-text backdrop-blur [supports-[corner-shape:squircle]:rounded-4xl]',
   {
     variants: {
       roundedSize: {
         none: 'rounded-none',
-        sm: 'rounded-sm supports-[corner-shape:squircle]:rounded-md',
-        md: 'rounded-md supports-[corner-shape:squircle]:rounded-lg',
-        lg: 'rounded-lg supports-[corner-shape:squircle]:rounded-xl',
-        xl: 'rounded-xl supports-[corner-shape:squircle]:rounded-2xl',
-        '2xl': 'rounded-2xl supports-[corner-shape:squircle]:rounded-3xl',
-        '3xl': 'rounded-3xl supports-[corner-shape:squircle]:rounded-4xl',
-        full: 'rounded-full supports-[corner-shape:squircle]:rounded-full',
+        sm: 'rounded-sm supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-md',
+        md: 'rounded-md supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-lg',
+        lg: 'rounded-lg supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-xl',
+        xl: 'rounded-xl supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-2xl',
+        '2xl':
+          'rounded-2xl supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-3xl',
+        '3xl':
+          'rounded-3xl supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-4xl',
+        full: 'rounded-full supports-[supports-[corner-shape:squircle]:rounded-4xl]:rounded-full',
       },
       transparency: {
         none: 'bg-card',
