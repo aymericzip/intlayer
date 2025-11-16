@@ -10,6 +10,7 @@ import {
   useSession,
   useUpdateUser,
 } from '@intlayer/design-system/hooks';
+import { cn } from '@utils/cn';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import {
@@ -49,8 +50,14 @@ export const ProfileForm: FC = () => {
 
   return (
     <div className="flex size-full max-w-5xl flex-col items-center justify-center gap-4">
-      <div className="grid w-full justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-2 lg:gap-x-16">
-        <div className="flex size-full w-full flex-col gap-10">
+      <div
+        className={cn(
+          'grid w-full grid-cols-1 justify-evenly gap-x-5 gap-y-4 lg:gap-x-16',
+          user?.lastLoginMethod === 'email' &&
+            'max-md:grid-cols-1 md:grid-cols-2'
+        )}
+      >
+        <div className="m-auto flex size-full w-full max-w-xl flex-col gap-10">
           <Container roundedSize="xl" padding="md">
             <H3 className="mb-8"> {title}</H3>
             <Form
@@ -91,7 +98,8 @@ export const ProfileForm: FC = () => {
             <DeleteUser />
           </Container>
         </div>
-        {user?.lastLoginMethod === 'email' && (
+        {(user?.lastLoginMethod === 'email' ||
+          user?.lastLoginMethod === 'passkey') && (
           <div className="flex w-full flex-col gap-10">
             <Container roundedSize="xl" padding="md">
               <H3 className="mb-8">{changePasswordTitle}</H3>
