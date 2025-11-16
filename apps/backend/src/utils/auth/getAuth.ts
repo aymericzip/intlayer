@@ -229,7 +229,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     },
     accountLinking: {
       enabled: true, // allow linking in general
-      trustedProviders: ['google', 'github'], // optional: auto‑link when Google verifies the e‑mail
+      trustedProviders: ['google', 'github', 'linkedin'], // optional: auto‑link when Google verifies the e‑mail
     },
     emailVerification: {
       autoSignInAfterVerification: true,
@@ -271,6 +271,10 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       github: {
         clientId: process.env.GITHUB_CLIENT_ID as string,
         clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      },
+      linkedin: {
+        clientId: process.env.LINKEDIN_CLIENT_ID as string,
+        clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
       },
     },
 

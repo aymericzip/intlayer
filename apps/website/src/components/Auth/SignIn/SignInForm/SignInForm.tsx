@@ -128,8 +128,8 @@ export const SignInForm: FC<SignInFormProps> = ({
       </Form>
       <Separator />
       <div className="space-y-6">
-        <ExternalsLoginButtons />
         <PasskeyButton />
+        <ExternalsLoginButtons />
       </div>
     </>
   );

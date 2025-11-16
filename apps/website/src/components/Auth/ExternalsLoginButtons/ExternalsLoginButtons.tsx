@@ -7,6 +7,7 @@ import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import { GithubLogo } from './assets/GithubLogo';
 import { GoogleLogo } from './assets/GoogleLogo';
+import { LinkedInLogo } from './assets/LinkedInLogo';
 
 export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
   onLogin,
@@ -72,6 +73,39 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
   );
 };
 
+export const LinkedInLoginButton: FC<ExternalsLoginButtonsProps> = ({
+  onLogin,
+}) => {
+  const { user } = useUser();
+  const externalsLoginButtons = useIntlayer('externals-login-buttons');
+  const loginWithLinkedIn = async () => {
+    const origin = window.location.href;
+
+    await getAuthAPI().signInSocial({
+      provider: 'linkedin',
+      callbackURL: origin,
+    });
+  };
+
+  useEffect(() => {
+    if (user?.email) {
+      onLogin?.();
+    }
+  }, [user]);
+
+  return (
+    <Button
+      className="bg-blue-800/80! text-white ring-blue-600/20 hover:bg-blue-800! dark:bg-blue-400/80!"
+      label={externalsLoginButtons.linkedin.label.value}
+      Icon={LinkedInLogo}
+      onClick={loginWithLinkedIn}
+      color="custom"
+    >
+      {externalsLoginButtons.linkedin.label}
+    </Button>
+  );
+};
+
 type ExternalsLoginButtonsProps = {
   onLogin?: () => void;
 };
@@ -80,7 +114,8 @@ export const ExternalsLoginButtons: FC<ExternalsLoginButtonsProps> = (
   props
 ) => (
   <div className="relative flex flex-col justify-center gap-y-3">
-    <GoogleLoginButton {...props} />
     <GitHubLoginButton {...props} />
+    <GoogleLoginButton {...props} />
+    <LinkedInLoginButton {...props} />
   </div>
 );
