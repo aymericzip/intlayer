@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  Tag,
-  useForm,
-} from '@intlayer/design-system';
+import { Button, Form, Modal, Tag, useForm } from '@intlayer/design-system';
 import {
   useDisableTwoFactor,
   useEnableTwoFactor,
@@ -15,11 +8,13 @@ import {
   useVerifyTotp,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import type { FC, FormEvent } from 'react';
+import type { FC } from 'react';
 import { useState } from 'react';
 import QRCode from 'react-qr-code';
 import {
   type TwoFactorAuthForm,
+  type TwoFactorAuthOTPSchema,
+  useTwoFactorAuthOTPSchema,
   useTwoFactorAuthSchema,
 } from './useTwoFactorAuthSchema';
 
@@ -255,34 +250,41 @@ const QRCodeVerification: FC<{
   isVerifying: boolean;
 }> = ({ data, onVerify, isVerifying }) => {
   const { qrCode } = useIntlayer('two-factor-auth');
-  const [code, setCode] = useState('');
+  const TwoFactorAuthOTPSchema = useTwoFactorAuthOTPSchema();
+  const { form } = useForm(TwoFactorAuthOTPSchema, {
+    defaultValues: {
+      code: '',
+    },
+  });
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (code.length === 6) {
-      onVerify(code);
-    }
+  const handleSubmit = (data: TwoFactorAuthOTPSchema) => {
+    onVerify(data.code);
   };
 
   return (
     <div className="mt-6 flex w-full flex-col gap-6">
-      <p className="text-neutral text-sm">{qrCode.description}</p>
+      <p className="m-auto max-w-sm text-neutral text-sm">
+        {qrCode.description}
+      </p>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div className="mx-auto w-fit max-w-sm items-center justify-center rounded-lg bg-white p-4">
+      <Form
+        {...form}
+        schema={TwoFactorAuthOTPSchema}
+        onSubmitSuccess={handleSubmit}
+        className="flex flex-col gap-4"
+      >
+        <div className="mx-auto w-fit items-center justify-center rounded-lg bg-white p-4">
           <QRCode size={256} value={data.totpURI} />
         </div>
-        <div className="flex flex-col gap-2">
+
+        <div className="m-auto my-6 flex max-w-sm flex-col gap-2">
           <label htmlFor="verification-code" className="font-medium text-sm">
             {qrCode.codeLabel}
           </label>
-          <Input
+          <Form.OTP
             id="verification-code"
+            name="code"
             type="text"
-            value={code}
-            onChange={(e) =>
-              setCode(e.target.value.replace(/\D/g, '').slice(0, 6))
-            }
             placeholder={qrCode.codePlaceholder.value}
             maxLength={6}
           />
@@ -292,13 +294,12 @@ const QRCodeVerification: FC<{
           type="submit"
           color="text"
           isLoading={isVerifying}
-          disabled={isVerifying || code.length !== 6}
           label={qrCode.submitButton.value}
           className="w-full"
         >
           {qrCode.submitButton}
         </Button>
-      </form>
+      </Form>
     </div>
   );
 };

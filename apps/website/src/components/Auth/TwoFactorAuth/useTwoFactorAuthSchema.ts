@@ -22,3 +22,20 @@ export const useTwoFactorAuthSchema = () => {
 export type TwoFactorAuthForm = z.infer<
   ReturnType<typeof useTwoFactorAuthSchema>
 >;
+
+export const useTwoFactorAuthOTPSchema = () => {
+  const { invalidTypeErrorOTP } = useIntlayer('two-factor-auth-schema');
+
+  return z
+    .object({
+      code: z.string().length(6),
+    })
+    .refine((data) => data.code.length === 6, {
+      message: invalidTypeErrorOTP.value,
+      path: ['code'],
+    });
+};
+
+export type TwoFactorAuthOTPSchema = z.infer<
+  ReturnType<typeof useTwoFactorAuthOTPSchema>
+>;
