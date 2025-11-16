@@ -117,7 +117,11 @@ export const Default: Story = {
             inputLabel="I accept the terms and conditions"
           />
 
-          <Form.Button type="submit">Submit</Form.Button>
+          <Form.OTP name="otp" label="OTP" maxLength={6} />
+
+          <Form.Button type="submit" label="Button Label" color="text">
+            Submit
+          </Form.Button>
         </Form>
       </div>
     );

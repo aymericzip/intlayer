@@ -21,10 +21,13 @@ const preview: Preview = {
   decorators: [
     (Story, context: StoryContext) => {
       const theme = context.globals.theme || 'dark';
+      const isDark = theme === 'dark';
 
       return (
         <ThemeProvider theme={theme}>
-          <Story />
+          <div className={`min-h-screen bg-background p-4 text-text`}>
+            <Story />
+          </div>
         </ThemeProvider>
       );
     },

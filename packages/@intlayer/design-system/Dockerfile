@@ -3,9 +3,11 @@
 ########################
 # 1) Build stage
 ########################
-FROM oven/bun:1.3.2-alpine AS builder
+FROM node:22-alpine AS builder
 
-RUN apk add --no-cache nodejs npm curl
+RUN npm install -g bun@1.3.2
+
+RUN apk add --no-cache nodejs npm
 
 # Put the repo in /workspace
 WORKDIR /workspace
@@ -38,7 +40,7 @@ COPY \
   . .
 
 # Install only what's needed for the design-system package
-RUN bun install --ignore-scripts --filter=./packages/@intlayer/design-system
+RUN bun install
 
 # CLI you rely on
 RUN bun add -g intlayer-cli@latest
@@ -56,27 +58,32 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
   CMD \
     curl -f http://localhost:6006/ || exit 1
 
-CMD ["bun", "run", "start"]
 
 
-# # Build Storybook to a deterministic path to simplify the copy in the next stage
-# ENV STORYBOOK_TELEMETRY=false
-# ENV STORYBOOK_STATIC=true
-# RUN bun x storybook build --disable-telemetry
+# Build Storybook to a deterministic path to simplify the copy in the next stage
+ENV STORYBOOK_TELEMETRY=false
+ENV STORYBOOK_STATIC=true
+RUN bun x storybook build --disable-telemetry
 
-# ########################
-# # 2) Runtime
-# ########################
-# FROM node:22-alpine
+########################
+# 2) Runtime
+########################
+FROM node:22-alpine
 
-# WORKDIR /www
+RUN npm install -g bun@1.3.2
+RUN apk add --no-cache curl
 
-# RUN npm install -g serve
+WORKDIR /www
 
-# # Copy the built static site
-# COPY --from=builder /workspace/packages/@intlayer/design-system/storybook-static .
 
-# EXPOSE 6006
+# Copy the built static site
+COPY --from=builder /workspace/packages/@intlayer/design-system/storybook-static .
 
-# # -f foreground, -p port, -h doc root
-# CMD ["serve", ".", "-l", "6006"]
+EXPOSE 6006
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+  CMD \
+    curl -f http://localhost:6006/ || exit 1
+
+# -f foreground, -p port, -h doc root
+CMD ["bun", "x", "serve", ".", "-l", "6006"]

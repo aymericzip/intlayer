@@ -17,9 +17,9 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {},
   },
-  async viteFinal(config, { configType }) {
-    config.server = {
-      ...config.server,
+  async viteFinal(baseConfig, { configType }) {
+    baseConfig.server = {
+      ...baseConfig.server,
       host: true,
       allowedHosts: ['storybook.intlayer.org', 'localhost', '127.0.0.1'],
     };
@@ -33,9 +33,32 @@ const config: StorybookConfig = {
 
     const viteConfig = defineConfig(() => ({
       plugins: [intlayer(), tailwindcss()],
+      build: {
+        // Optional: avoid the sourcemap location spam
+        sourcemap: false,
+
+        // Optional: silence the “chunks > 500kB” warning
+        chunkSizeWarningLimit: 1500,
+
+        rollupOptions: {
+          onwarn(warning, defaultHandler) {
+            // Hide `"use client"` warnings
+            if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;
+
+            // Hide eval warning from Storybook runtime
+            // if (warning.code === 'EVAL') return;
+
+            // Hide sourcemap reporting noise (Vite 5+)
+            // if (warning.code === 'SOURCEMAP_ERROR') return;
+
+            // Let everything else through
+            defaultHandler(warning);
+          },
+        },
+      },
     }));
 
-    return mergeConfig(config, viteConfig(env));
+    return mergeConfig(baseConfig, viteConfig(env));
   },
 };
 
