@@ -88,8 +88,6 @@ const startServer = async () => {
   // CORS
   app.use(cors(corsOptions));
 
-  app.use(logAPIRequestURL);
-
   // Liveness check
   app.get('/', (_req, res) => {
     res.send(
