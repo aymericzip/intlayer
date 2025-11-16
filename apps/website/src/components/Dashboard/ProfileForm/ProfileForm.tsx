@@ -2,9 +2,14 @@
 
 import { ChangePasswordForm } from '@components/Auth/ChangePassword';
 import { DeleteUser } from '@components/Auth/DeleteUser';
+import { PasskeyManagement } from '@components/Auth/PasskeyManagement';
 import { TwoFactorAuth } from '@components/Auth/TwoFactorAuth';
 import { Container, Form, H3, useForm } from '@intlayer/design-system';
-import { useSession, useUpdateUser } from '@intlayer/design-system/hooks';
+import {
+  useListPasskeys,
+  useSession,
+  useUpdateUser,
+} from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import {
@@ -24,8 +29,11 @@ export const ProfileForm: FC = () => {
     editButton,
     changePasswordTitle,
     twoFactorTitle,
+    passkeyTitle,
   } = useIntlayer('profile-form');
   const { mutate: updateUser, isPending } = useUpdateUser();
+  const { data: passkeysData, refetch: refetchPasskeys } = useListPasskeys();
+  const passkeys = passkeysData?.data ?? [];
 
   const onSubmitSuccess = (data: ProfileFormData) => {
     if (!user) return;
@@ -92,6 +100,14 @@ export const ProfileForm: FC = () => {
             <Container roundedSize="xl" padding="md">
               <H3 className="mb-8">{twoFactorTitle}</H3>
               <TwoFactorAuth />
+            </Container>
+            <Container roundedSize="xl" padding="md">
+              <H3 className="mb-8">{passkeyTitle}</H3>
+              <PasskeyManagement
+                passkeys={passkeys}
+                onPasskeyAdded={refetchPasskeys}
+                onPasskeyDeleted={refetchPasskeys}
+              />
             </Container>
           </div>
         )}

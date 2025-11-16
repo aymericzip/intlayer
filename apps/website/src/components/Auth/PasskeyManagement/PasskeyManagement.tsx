@@ -24,7 +24,6 @@ export const PasskeyManagement: FC<PasskeyManagementProps> = ({
   const { mutate: deletePasskey } = useDeletePasskey();
 
   const {
-    title,
     description,
     noPasskeysTitle,
     noPasskeysDescription,
@@ -54,7 +53,6 @@ export const PasskeyManagement: FC<PasskeyManagementProps> = ({
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="font-semibold text-2xl">{title}</h2>
         <p className="text-neutral-600 dark:text-neutral-400">{description}</p>
       </div>
 
@@ -79,7 +77,13 @@ export const PasskeyManagement: FC<PasskeyManagementProps> = ({
         </div>
       )}
 
-      <Button onClick={() => setIsModalOpen(true)}>{addPasskeyButton}</Button>
+      <Button
+        color="text"
+        onClick={() => setIsModalOpen(true)}
+        label={addPasskeyButton.value}
+      >
+        {addPasskeyButton}
+      </Button>
 
       <AddPasskeyModal
         isOpen={isModalOpen}

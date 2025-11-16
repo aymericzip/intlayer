@@ -58,6 +58,7 @@ export interface AuthAPI {
   addPasskey: AuthClient['passkey']['addPasskey'];
   signInPasskey: AuthClient['signIn']['passkey'];
   deletePasskey: AuthClient['passkey']['deletePasskey'];
+  listPasskeys: () => Promise<any>;
 }
 
 export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
@@ -223,6 +224,13 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     return client.passkey.deletePasskey(...args);
   };
 
+  const listPasskeys = async () => {
+    // @ts-ignore - listPasskeys may not be typed yet
+    return client.$fetch('/passkey/list-user-passkeys', {
+      method: 'GET',
+    });
+  };
+
   return {
     getAuthClient: () => client,
     signInEmail,
@@ -256,5 +264,6 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     addPasskey,
     signInPasskey,
     deletePasskey,
+    listPasskeys,
   };
 };

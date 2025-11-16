@@ -305,6 +305,14 @@ export const useDeletePasskey = () => {
   });
 };
 
+export const useListPasskeys = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useQuery({
+    queryKey: ['listPasskeys'],
+    queryFn: () => intlayerAuth.listPasskeys(),
+  });
+};
+
 /**
  * User
  */

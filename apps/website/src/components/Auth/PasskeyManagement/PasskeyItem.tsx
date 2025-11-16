@@ -12,7 +12,7 @@ type PasskeyItemProps = {
 
 export const PasskeyItem: FC<PasskeyItemProps> = ({ passkey, onDelete }) => {
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const { createdAt, deleteButton, confirmDelete, cancelButton } =
+  const { createdAt, deletePasskeyButton, confirmDelete, cancelButton } =
     useIntlayer('passkey-item');
 
   const handleDelete = () => {
@@ -26,10 +26,10 @@ export const PasskeyItem: FC<PasskeyItemProps> = ({ passkey, onDelete }) => {
   const formattedDate = new Date(passkey.createdAt).toLocaleDateString();
 
   return (
-    <Container className="p-4">
+    <Container className="p-4" roundedSize="xl">
       <div className="flex items-center justify-between gap-4">
         <div className="flex-1 space-y-1">
-          <h3 className="font-semibold">{passkey.name}</h3>
+          <h4 className="font-semibold">{passkey.name}</h4>
           <p className="text-neutral-600 text-sm dark:text-neutral-400">
             {createdAt} {formattedDate}
           </p>
@@ -38,7 +38,7 @@ export const PasskeyItem: FC<PasskeyItemProps> = ({ passkey, onDelete }) => {
           {showConfirmation ? (
             <>
               <Button
-                variant="destructive"
+                variant="hoverable"
                 size="sm"
                 onClick={handleDelete}
                 label={confirmDelete.value}
@@ -56,12 +56,14 @@ export const PasskeyItem: FC<PasskeyItemProps> = ({ passkey, onDelete }) => {
             </>
           ) : (
             <Button
-              variant="destructive"
+              variant="hoverable"
               size="sm"
+              color="error"
+              className="text-text hover:text-error"
               onClick={handleDelete}
-              label={deleteButton.value}
+              label={deletePasskeyButton.text.value}
             >
-              {deleteButton}
+              {deletePasskeyButton.text}
             </Button>
           )}
         </div>
