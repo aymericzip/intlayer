@@ -1,7 +1,7 @@
 import { useLocation } from '@tanstack/react-router';
 import { getHTMLTextDir, getLocaleName, getPathWithoutLocale } from 'intlayer';
 import type { FC } from 'react';
-import { setLocaleCookie, useIntlayer, useLocale } from 'react-intlayer';
+import { setLocaleInStorage, useIntlayer, useLocale } from 'react-intlayer';
 
 import { LocalizedLink, type To } from './localized-link';
 
@@ -20,7 +20,7 @@ export const LocaleSwitcher: FC = () => {
           <LocalizedLink
             aria-current={localeEl === locale ? 'page' : undefined}
             aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
-            onClick={() => setLocaleCookie(localeEl)}
+            onClick={() => setLocaleInStorage(localeEl)}
             params={{ locale: localeEl }}
             to={pathWithoutLocale as To}
           >

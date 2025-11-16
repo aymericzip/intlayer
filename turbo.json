@@ -44,6 +44,16 @@
       "dependsOn": ["build", "prepublish"],
       "cache": false,
       "outputs": []
+    },
+    "publish:canary": {
+      "dependsOn": ["build", "prepublish"],
+      "cache": false,
+      "outputs": []
+    },
+    "publish:latest": {
+      "dependsOn": ["build", "prepublish"],
+      "cache": false,
+      "outputs": []
     }
   }
 }

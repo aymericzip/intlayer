@@ -65,6 +65,7 @@ export {
   getMultilingualUrls,
   getNesting,
   getPathWithoutLocale,
+  getPrefix,
   getTranslation,
   /**
    * @deprecated Use `getTranslation` instead.

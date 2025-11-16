@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2025-11-16
 title: getLocalizedUrl Function Documentation | intlayer
 description: See how to use the getLocalizedUrl function for intlayer package
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - intlayer
   - getLocalizedUrl
 history:
+  - version: 7.1.0
+    date: 2025-11-16
+    changes: Refactored to use options parameter with mode instead of prefixDefault
   - version: 5.5.10
     date: 2025-06-29
     changes: Init history
@@ -33,9 +36,10 @@ The `getLocalizedUrl` function generates a localized URL by prefixing the given 
 **Key Features:**
 
 - Only 2 parameters are required: `url` and `currentLocale`
-- 3 optional parameters: `locales`, `defaultLocale`, and `prefixDefault`
+- Optional `options` object with `locales`, `defaultLocale`, and `mode`
 - Uses your project's internationalization configuration as defaults
 - Can be used with minimal parameters for simple cases or fully customized for complex scenarios
+- Supports multiple routing modes: `prefix-no-default`, `prefix-all`, `no-prefix`, and `search-params`
 
 ---
 
@@ -45,9 +49,11 @@ The `getLocalizedUrl` function generates a localized URL by prefixing the given 
 getLocalizedUrl(
   url: string,                   // Required
   currentLocale: Locales,        // Required
-  locales?: Locales[],           // Optional
-  defaultLocale?: Locales,       // Optional
-  prefixDefault?: boolean        // Optional
+  options?: {                    // Optional
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
 ): string
 ```
 
@@ -69,23 +75,30 @@ getLocalizedUrl(
 
 ### Optional Parameters
 
-- `locales?: Locales[]`
-  - **Description**: Array of supported locales. If not provided, uses the configured locales from your project configuration.
-  - **Type**: `Locales[]`
+- `options?: object`
+  - **Description**: Configuration object for URL localization behavior.
+  - **Type**: `object`
   - **Required**: No (Optional)
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
 
-- `defaultLocale?: Locales`
-  - **Description**: The default locale for the application. If not provided, uses the configured default locale from your project configuration.
-  - **Type**: `Locales`
-  - **Required**: No (Optional)
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
+  - `options.locales?: Locales[]`
+    - **Description**: Array of supported locales. If not provided, uses the configured locales from your project configuration.
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
 
-- `prefixDefault?: boolean`
-  - **Description**: Whether to prefix the URL for the default locale. If not provided, uses the configured value from your project configuration.
-  - **Type**: `boolean`
-  - **Required**: No (Optional)
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
+  - `options.defaultLocale?: Locales`
+    - **Description**: The default locale for the application. If not provided, uses the configured default locale from your project configuration.
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: The URL routing mode for locale handling. If not provided, uses the configured mode from your project configuration.
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: No prefix for default locale, prefix for all others
+      - `prefix-all`: Prefix for all locales including default
+      - `no-prefix`: No locale prefix in URL
+      - `search-params`: Use query parameters for locale (e.g., `?locale=fr`)
 
 ### Returns
 
@@ -103,12 +116,12 @@ When you have configured your project with internationalization settings, you ca
 ```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
 
-// Uses your project's configuration for locales, defaultLocale, and prefixDefault
+// Uses your project's configuration for locales, defaultLocale, and mode
 getLocalizedUrl("/about", Locales.FRENCH);
-// Output: "/fr/about" (assuming French is supported in your config)
+// Output: "/fr/about" (assuming French is supported and mode is 'prefix-no-default')
 
 getLocalizedUrl("/about", Locales.ENGLISH);
-// Output: "/about" or "/en/about" (depending on your prefixDefault setting)
+// Output: "/about" or "/en/about" (depending on your mode setting)
 ```
 
 ```javascript codeFormat="esm"
@@ -129,23 +142,26 @@ getLocalizedUrl("/about", Locales.FRENCH);
 
 ### Advanced Usage (With Optional Parameters)
 
-You can override the default configuration by providing optional parameters:
+You can override the default configuration by providing the optional `options` parameter:
 
-### Relative URLs (All Parameters Specified)
+### Relative URLs (All Options Specified)
 
 ```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
 
 // Explicitly providing all optional parameters
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // locales
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
+getLocalizedUrl("/about", Locales.FRENCH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
 // Output: "/fr/about" for the French locale
+
+getLocalizedUrl("/about", Locales.ENGLISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
 // Output: "/about" for the default (English) locale
 ```
 
@@ -153,32 +169,24 @@ getLocalizedUrl(
 import { getLocalizedUrl, Locales } from "intlayer";
 
 // Explicitly providing all optional parameters
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // locales
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
+getLocalizedUrl("/about", Locales.FRENCH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
 // Output: "/fr/about" for the French locale
-// Output: "/about" for the default (English) locale
 ```
 
 ```javascript codeFormat="commonjs"
 const { getLocalizedUrl, Locales } = require("intlayer");
 
 // Explicitly providing all optional parameters
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // locales
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
+getLocalizedUrl("/about", Locales.FRENCH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
 // Output: "/fr/about" for the French locale
-// Output: "/about" for the default (English) locale
 ```
 
 ### Partial Configuration Override
@@ -188,60 +196,64 @@ You can also provide only some of the optional parameters. The function will use
 ```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
 
-// Only override the locales, use project config for defaultLocale and prefixDefault
-getLocalizedUrl(
-  "/about",
-  Locales.SPANISH,
-  [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH] // Only specify locales
-);
+// Only override the locales, use project config for defaultLocale and mode
+getLocalizedUrl("/about", Locales.SPANISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+});
 
-// Only override prefixDefault, use project config for locales and defaultLocale
-getLocalizedUrl(
-  "/about",
-  Locales.ENGLISH,
-  undefined, // Use project config for locales
-  undefined, // Use project config for defaultLocale
-  true // Force prefix for default locale
-);
+// Only override mode, use project config for locales and defaultLocale
+getLocalizedUrl("/about", Locales.ENGLISH, {
+  mode: "prefix-all", // Force prefix for all locales including default
+});
+
+// Override multiple options
+getLocalizedUrl("/about", Locales.FRENCH, {
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params", // Use query parameters: /about?locale=fr
+});
 ```
 
 ### Absolute URLs
 
 ```typescript
-getLocalizedUrl(
-  "https://example.com/about",
-  Locales.FRENCH, // Current Locale
-  [Locales.ENGLISH, Locales.FRENCH], // Supported Locales
-  Locales.ENGLISH, // Default Locale
-  false // Prefix Default Locale
-); // Output: "https://example.com/fr/about" for the French
+getLocalizedUrl("https://example.com/about", Locales.FRENCH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: "https://example.com/fr/about" for the French
 
-getLocalizedUrl(
-  "https://example.com/about",
-  Locales.ENGLISH, // Current Locale
-  [Locales.ENGLISH, Locales.FRENCH], // Supported Locales
-  Locales.ENGLISH, // Default Locale
-  false // Prefix Default Locale
-); // Output: "https://example.com/about" for the English
+getLocalizedUrl("https://example.com/about", Locales.ENGLISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: "https://example.com/about" for the English (no prefix for default)
 
-getLocalizedUrl(
-  "https://example.com/about",
-  Locales.ENGLISH, // Current Locale
-  [Locales.ENGLISH, Locales.FRENCH], // Supported Locales
-  Locales.ENGLISH, // Default Locale
-  true // Prefix Default Locale
-); // Output: "https://example.com/en/about" for the English
+getLocalizedUrl("https://example.com/about", Locales.ENGLISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-all",
+});
+// Output: "https://example.com/en/about" for the English (prefix for all)
+
+getLocalizedUrl("https://example.com/about", Locales.FRENCH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params",
+});
+// Output: "https://example.com/about?locale=fr" (using query parameters)
 ```
 
 ### Unsupported Locale
 
 ```typescript
-getLocalizedUrl(
-  "/about",
-  Locales.ITALIAN, // Current Locale
-  [Locales.ENGLISH, Locales.FRENCH], // Supported Locales
-  Locales.ENGLISH // Default Locale
-); // Output: "/about" (no prefix applied for unsupported locale)
+getLocalizedUrl("/about", Locales.ITALIAN, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: "/about" (no prefix applied for unsupported locale)
 ```
 
 ---
@@ -249,13 +261,20 @@ getLocalizedUrl(
 ## Edge Cases
 
 - **No Locale Segment:**
-  - If the URL does not contain any locale segment, the function safely prefixes the appropriate locale.
+  - If the URL does not contain any locale segment, the function safely prefixes the appropriate locale based on the routing mode.
 
 - **Default Locale:**
-  - When `prefixDefault` is `false`, the function does not prefix the URL for the default locale.
+  - When `mode` is `'prefix-no-default'`, the function does not prefix the URL for the default locale.
+  - When `mode` is `'prefix-all'`, the function prefixes all locales including the default.
 
 - **Unsupported Locales:**
   - For locales not listed in `locales`, the function does not apply any prefix.
+
+- **Routing Modes:**
+  - `'prefix-no-default'`: Default locale has no prefix, others do (e.g., `/about`, `/fr/about`)
+  - `'prefix-all'`: All locales have prefixes (e.g., `/en/about`, `/fr/about`)
+  - `'no-prefix'`: No locale prefixes in URLs (locale handled elsewhere)
+  - `'search-params'`: Locale specified via query parameter (e.g., `/about?locale=fr`)
 
 ---
 

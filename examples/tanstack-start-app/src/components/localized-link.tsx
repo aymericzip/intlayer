@@ -1,4 +1,5 @@
 import { Link, type LinkComponentProps } from '@tanstack/react-router';
+import { getPrefix } from 'intlayer';
 import type { FC } from 'react';
 import { useLocale } from 'react-intlayer';
 
@@ -35,7 +36,7 @@ export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
     <Link
       {...props}
       params={{
-        locale,
+        locale: getPrefix(locale),
         ...(typeof props?.params === 'object' ? props?.params : {}),
       }}
       to={`/${LOCALE_ROUTE}${props.to}` as LinkComponentProps['to']}
