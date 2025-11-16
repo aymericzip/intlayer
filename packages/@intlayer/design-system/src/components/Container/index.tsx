@@ -17,13 +17,13 @@ export const containerVariants = cva(
     variants: {
       roundedSize: {
         none: 'rounded-none',
-        sm: 'rounded-sm',
-        md: 'rounded-md',
-        lg: 'rounded-lg',
-        xl: 'rounded-xl',
-        '2xl': 'rounded-2xl',
-        '3xl': 'rounded-3xl',
-        full: 'rounded-full',
+        sm: 'rounded-sm supports-[corner-shape:squircle]:rounded-md',
+        md: 'rounded-md supports-[corner-shape:squircle]:rounded-lg',
+        lg: 'rounded-lg supports-[corner-shape:squircle]:rounded-xl',
+        xl: 'rounded-xl supports-[corner-shape:squircle]:rounded-2xl',
+        '2xl': 'rounded-2xl supports-[corner-shape:squircle]:rounded-3xl',
+        '3xl': 'rounded-3xl supports-[corner-shape:squircle]:rounded-4xl',
+        full: 'rounded-full supports-[corner-shape:squircle]:rounded-full',
       },
       transparency: {
         none: 'bg-card',

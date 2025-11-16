@@ -429,7 +429,11 @@ const MultiSelectTrigger: FC<
       className={cn(
         // Base layout
         'flex w-full flex-col gap-3',
-        'cursor-pointer select-text rounded-xl text-base shadow-none outline-none md:text-sm',
+        'cursor-pointer select-text text-base shadow-none outline-none md:text-sm',
+
+        // Corner shape
+        'rounded-xl supports-[corner-shape:squircle]:rounded-2xl',
+        '[corner-shape:squircle]',
 
         // Spacing
         'px-2 py-3 md:py-2',

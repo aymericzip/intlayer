@@ -82,7 +82,7 @@ export enum ButtonTextAlign {
  * Enhanced button variants with improved accessibility and focus states
  */
 export const buttonVariants = cva(
-  'relative inline-flex cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 [corner-shape:squircle] focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'relative inline-flex cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
@@ -124,21 +124,29 @@ export const buttonVariants = cva(
       },
       variant: {
         [`${ButtonVariant.DEFAULT}`]: [
-          'rounded-lg bg-current',
+          'bg-current',
           'hover:bg-current/90',
 
           // Hover ring (similar spirit to your input)
           'hover:ring-6', // width
           'aria-selected:ring-6',
+
+          // Corner shape
+          'rounded-xl supports-[corner-shape:squircle]:rounded-2xl',
+          '[corner-shape:squircle]',
         ],
 
         [`${ButtonVariant.OUTLINE}`]: [
-          'rounded-lg border-[1.5px] border-current bg-current/0 *:text-current!',
+          'rounded-2xl border-[1.5px] border-current bg-current/0 *:text-current!',
           'hover:bg-current/10',
 
           // Same hover ring behavior as DEFAULT for coherence
           'hover:ring-6',
           'aria-selected:ring-6',
+
+          // Corner shape
+          'rounded-xl supports-[corner-shape:squircle]:rounded-2xl',
+          '[corner-shape:squircle]',
         ],
 
         [`${ButtonVariant.NONE}`]:
@@ -159,7 +167,7 @@ export const buttonVariants = cva(
         [`${ButtonVariant.INPUT}`]: [
           // base styles
           'text-text',
-          'w-full select-text resize-none rounded-xl text-base shadow-none outline-none',
+          'w-full select-text resize-none rounded-2xl text-base shadow-none outline-none [corner-shape:squircle]',
           'transition-shadow duration-100 md:text-sm',
           'ring-0', // base ring
           'disabled:opacity-50',

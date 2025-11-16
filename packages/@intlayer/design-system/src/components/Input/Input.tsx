@@ -8,10 +8,14 @@ const cn = (...classes: (string | undefined | false | null)[]) =>
 export const inputVariants = cva(
   [
     // base styles
-    'w-full select-text resize-none rounded-xl text-base shadow-none outline-none [corner-shape:squircle]',
+    'w-full select-text resize-none text-base shadow-none outline-none',
     'transition-shadow duration-100 md:text-sm',
     'ring-0', // base ring
     'disabled:opacity-50',
+
+    // Corner shape
+    'rounded-xl supports-[corner-shape:squircle]:rounded-2xl',
+    '[corner-shape:squircle]',
   ].join(' '),
   {
     variants: {

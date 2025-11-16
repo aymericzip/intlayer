@@ -62,7 +62,11 @@ const SelectTrigger: FC<
     className={cn(
       // Base layout and typography
       'flex w-full cursor-pointer items-center justify-between whitespace-nowrap',
-      'select-text rounded-xl text-base shadow-none outline-none md:text-sm',
+      'select-text text-base shadow-none outline-none md:text-sm',
+
+      // Corner shape
+      'rounded-xl supports-[corner-shape:squircle]:rounded-2xl',
+      '[corner-shape:squircle]',
 
       // Spacing
       'px-2 py-3 md:py-2',
