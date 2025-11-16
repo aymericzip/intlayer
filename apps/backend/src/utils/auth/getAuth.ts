@@ -276,6 +276,17 @@ export const getAuth = (dbClient: MongoClient): Auth => {
         clientId: process.env.LINKEDIN_CLIENT_ID as string,
         clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
       },
+      // socialProviders: {
+      //   apple: {
+      //     clientId: process.env.APPLE_CLIENT_ID as string,
+      //     clientSecret: process.env.APPLE_CLIENT_SECRET as string,
+      //     // Optional
+      //     appBundleIdentifier: process.env
+      //       .APPLE_APP_BUNDLE_IDENTIFIER as string,
+      //   },
+      // },
+      // // Add appleid.apple.com to trustedOrigins for Sign In with Apple flows
+      // trustedOrigins: ['https://appleid.apple.com'],
     },
 
     logger: {

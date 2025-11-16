@@ -5,6 +5,7 @@ import { useUser } from '@intlayer/design-system/hooks';
 import { getAuthAPI } from '@intlayer/design-system/libs';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
+import { AppleLogo } from './assets/AppleLogo';
 import { GithubLogo } from './assets/GithubLogo';
 import { GoogleLogo } from './assets/GoogleLogo';
 import { LinkedInLogo } from './assets/LinkedInLogo';
@@ -106,16 +107,54 @@ export const LinkedInLoginButton: FC<ExternalsLoginButtonsProps> = ({
   );
 };
 
+export const AppleLoginButton: FC<ExternalsLoginButtonsProps> = ({
+  onLogin,
+}) => {
+  const { user } = useUser();
+  const externalsLoginButtons = useIntlayer('externals-login-buttons');
+  const loginWithApple = async () => {
+    const origin = window.location.href;
+
+    await getAuthAPI().signInSocial({
+      provider: 'apple',
+      callbackURL: origin,
+    });
+  };
+
+  useEffect(() => {
+    if (user?.email) {
+      onLogin?.();
+    }
+  }, [user]);
+
+  return (
+    <Button
+      className="bg-black text-white ring-gray-600/20 hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-100"
+      label={externalsLoginButtons.apple.label.value}
+      Icon={AppleLogo}
+      onClick={loginWithApple}
+      color="custom"
+    >
+      {externalsLoginButtons.apple.label}
+    </Button>
+  );
+};
+
 type ExternalsLoginButtonsProps = {
   onLogin?: () => void;
 };
 
 export const ExternalsLoginButtons: FC<ExternalsLoginButtonsProps> = (
   props
-) => (
-  <div className="relative flex flex-col justify-center gap-y-3">
-    <GitHubLoginButton {...props} />
-    <GoogleLoginButton {...props} />
-    <LinkedInLoginButton {...props} />
-  </div>
-);
+) => {
+  // const { isIOS, isMac } = useDevice();
+
+  return (
+    <div className="relative flex flex-col justify-center gap-y-3">
+      <GitHubLoginButton {...props} />
+      <GoogleLoginButton {...props} />
+      <LinkedInLoginButton {...props} />
+      {/* {(isIOS || isMac) && <AppleLoginButton {...props} />} */}
+    </div>
+  );
+};

@@ -51,6 +51,28 @@ export const checkIsIphoneOrSafariDevice = (): boolean | undefined => {
   return isSafari && isAppleDevice; // true for mac-Safari & iOS-Safari
 };
 
+export const checkIsIOS = (): boolean | undefined => {
+  if (typeof window === 'undefined') return;
+
+  const userAgent = window.navigator?.userAgent;
+
+  if (typeof userAgent === 'undefined') return;
+
+  // Check for iOS devices: iPhone, iPad, iPod
+  return /iP(?:hone|ad|od)/.test(userAgent);
+};
+
+export const checkIsMac = (): boolean | undefined => {
+  if (typeof window === 'undefined') return;
+
+  const userAgent = window.navigator?.userAgent;
+
+  if (typeof userAgent === 'undefined') return;
+
+  // Check for macOS/Mac devices
+  return /Macintosh|MacIntel|Mac OS X/.test(userAgent);
+};
+
 export const checkIsMobileScreen = (
   breakpoint: number
 ): boolean | undefined => {
@@ -63,6 +85,8 @@ type UseDeviceState = {
   isMobileScreen: boolean | undefined;
   isMobileUserAgent: boolean | undefined;
   isMobile: boolean | undefined;
+  isIOS: boolean | undefined;
+  isMac: boolean | undefined;
 };
 
 export const calculateIsMobile = (breakpoint: SizeType | number = 'md') => {
@@ -71,11 +95,15 @@ export const calculateIsMobile = (breakpoint: SizeType | number = 'md') => {
   const isMobileUserAgent = checkIsMobileUserAgent();
   const isMobileScreen = checkIsMobileScreen(breakpointValue);
   const isMobile = isMobileScreen ?? isMobileUserAgent;
+  const isIOS = checkIsIOS();
+  const isMac = checkIsMac();
 
   return {
     isMobileScreen, // Is the screen width within a mobile breakpoint.
     isMobileUserAgent, // Is the user agent indicative of a mobile device.
     isMobile, // Combines both checks to determine if the device is mobile.
+    isIOS, // Is the device running iOS (iPhone, iPad, iPod).
+    isMac, // Is the device a Mac computer (macOS).
   };
 };
 
