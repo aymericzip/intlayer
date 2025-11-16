@@ -71,8 +71,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "uuid": "13.0.0"
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "24.10.1",

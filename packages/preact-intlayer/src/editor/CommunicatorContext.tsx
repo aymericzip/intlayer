@@ -1,14 +1,14 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-
 import {
   type ComponentChildren,
   createContext,
   type FunctionComponent,
 } from 'preact';
 import { useContext, useMemo, useRef } from 'preact/hooks';
-import { v4 as uuid } from 'uuid'; // if you prefer a UUID library
+
+const randomUUID = () => Math.random().toString(36).slice(2);
 
 export type UseCrossPlatformStateProps = {
   postMessage: typeof window.postMessage;
@@ -38,7 +38,7 @@ export const CommunicatorProvider: FunctionComponent<
   CommunicatorProviderProps
 > = ({ children, allowedOrigins, postMessage }) => {
   // Create a stable, unique ID for the lifetime of this app/iframe instance.
-  const senderIdRef = useRef(uuid());
+  const senderIdRef = useRef(randomUUID());
 
   const value = useMemo(
     () => ({ postMessage, allowedOrigins, senderId: senderIdRef.current }),

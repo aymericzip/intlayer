@@ -126,7 +126,6 @@
     "rimraf": "6.1.0",
     "tsdown": "0.16.4",
     "typescript": "5.9.3",
-    "uuid": "13.0.0",
     "vitest": "4.0.8"
   },
   "peerDependencies": {

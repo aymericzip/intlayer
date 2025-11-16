@@ -8,7 +8,6 @@ import {
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
-import { v4 as uuid } from 'uuid'; // if you prefer a UUID library
 import { PagesRoutes } from '@/Routes';
 import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
@@ -16,6 +15,8 @@ import {
   type ChatCompletionRequestMessage,
   MessagesList,
 } from './MessagesList';
+
+const uuid = () => Math.random().toString(36).slice(2);
 
 type AskDocQuestionResult =
   | {

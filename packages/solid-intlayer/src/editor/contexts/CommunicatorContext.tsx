@@ -1,5 +1,4 @@
 import configuration from '@intlayer/config/built';
-
 import {
   type Component,
   createContext,
@@ -8,20 +7,13 @@ import {
   useContext,
 } from 'solid-js';
 
-// Simple UUID generator to replace the uuid dependency
-const generateId = () => {
-  return 'xxxx-xxxx-xxxx-yxxx'.replace(/[xy]/g, (c) => {
-    const r = (Math.random() * 16) | 0;
-    const v = c === 'x' ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-};
-
 export type UseCrossPlatformStateProps = {
   postMessage: typeof window.postMessage;
   allowedOrigins?: string[];
   senderId: string;
 };
+
+const randomUUID = () => Math.random().toString(36).slice(2);
 
 const { editor } = configuration;
 
@@ -43,7 +35,7 @@ export const CommunicatorProvider: Component<CommunicatorProviderProps> = (
   props
 ) => {
   // Create a stable, unique ID for the lifetime of this app/iframe instance.
-  const senderId = generateId();
+  const senderId = randomUUID();
 
   const value = createMemo(() => ({
     postMessage: props.postMessage,

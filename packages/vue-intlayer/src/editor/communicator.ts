@@ -1,6 +1,7 @@
 import configuration from '@intlayer/config/built';
-import { v4 as uuid } from 'uuid';
 import { type App, inject, reactive } from 'vue';
+
+const randomUUID = () => Math.random().toString(36).slice(2);
 
 /**
  * Interface defining a cross-frame communicator
@@ -50,7 +51,7 @@ export const createCommunicator = (
   instance = reactive({
     ...defaultValue,
     ...options,
-    senderId: uuid(),
+    senderId: randomUUID(),
   });
 
   return instance;

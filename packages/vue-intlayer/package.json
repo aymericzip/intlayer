@@ -89,8 +89,7 @@
     "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "js-cookie": "3.0.5",
-    "uuid": "13.0.0"
+    "js-cookie": "3.0.5"
   },
   "devDependencies": {
     "@types/js-cookie": "3.0.6",
