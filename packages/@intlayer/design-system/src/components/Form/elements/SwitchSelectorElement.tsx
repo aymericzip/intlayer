@@ -20,6 +20,36 @@ type SwitchSelectorElementProps = Omit<
     children?: ReactNode;
   };
 
+const SwitchSelectorFieldContent = ({
+  field,
+  name,
+  label,
+  description,
+  isRequired,
+  info,
+  showErrorMessage,
+  children,
+  ...props
+}: Omit<SwitchSelectorElementProps, 'control'> & { field: any }) => {
+  const { error } = useFormField();
+
+  return (
+    <FormItemLayout
+      htmlFor={name}
+      label={label}
+      description={description}
+      isRequired={isRequired}
+      info={info}
+      showErrorMessage={showErrorMessage}
+      aria-invalid={!!error}
+    >
+      <SwitchSelector {...field} {...props}>
+        {children}
+      </SwitchSelector>
+    </FormItemLayout>
+  );
+};
+
 export const SwitchSelectorElement = ({
   name,
   description,
@@ -36,25 +66,20 @@ export const SwitchSelectorElement = ({
     <Form.Field
       control={control}
       name={name}
-      render={({ field }) => {
-        const { error } = useFormField();
-
-        return (
-          <FormItemLayout
-            htmlFor={name}
-            label={label}
-            description={description}
-            isRequired={isRequired}
-            info={info}
-            showErrorMessage={showErrorMessage}
-            aria-invalid={!!error}
-          >
-            <SwitchSelector {...field} {...props}>
-              {children}
-            </SwitchSelector>
-          </FormItemLayout>
-        );
-      }}
+      render={({ field }) => (
+        <SwitchSelectorFieldContent
+          field={field}
+          name={name}
+          label={label}
+          description={description}
+          isRequired={isRequired}
+          info={info}
+          showErrorMessage={showErrorMessage}
+          {...props}
+        >
+          {children}
+        </SwitchSelectorFieldContent>
+      )}
     />
   );
 };

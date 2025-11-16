@@ -20,6 +20,40 @@ type SelectElementsProps = Omit<
     children?: ReactNode;
   };
 
+const MultiSelectFieldContent = ({
+  field,
+  name,
+  label,
+  description,
+  isRequired,
+  info,
+  showErrorMessage,
+  children,
+  ...props
+}: Omit<SelectElementsProps, 'control'> & { field: any }) => {
+  const { error } = useFormField();
+
+  return (
+    <FormItemLayout
+      htmlFor={name}
+      label={label}
+      description={description}
+      isRequired={isRequired}
+      info={info}
+      showErrorMessage={showErrorMessage}
+      aria-invalid={!!error}
+    >
+      <MultiSelect
+        onValueChange={field.onChange}
+        values={field.value}
+        {...props}
+      >
+        {children}
+      </MultiSelect>
+    </FormItemLayout>
+  );
+};
+
 export const MultiSelectElement = ({
   name,
   description,
@@ -36,29 +70,20 @@ export const MultiSelectElement = ({
     <Form.Field
       control={control}
       name={name}
-      render={({ field }) => {
-        const { error } = useFormField();
-
-        return (
-          <FormItemLayout
-            htmlFor={name}
-            label={label}
-            description={description}
-            isRequired={isRequired}
-            info={info}
-            showErrorMessage={showErrorMessage}
-            aria-invalid={!!error}
-          >
-            <MultiSelect
-              onValueChange={field.onChange}
-              values={field.value}
-              {...props}
-            >
-              {children}
-            </MultiSelect>
-          </FormItemLayout>
-        );
-      }}
+      render={({ field }) => (
+        <MultiSelectFieldContent
+          field={field}
+          name={name}
+          label={label}
+          description={description}
+          isRequired={isRequired}
+          info={info}
+          showErrorMessage={showErrorMessage}
+          {...props}
+        >
+          {children}
+        </MultiSelectFieldContent>
+      )}
     />
   );
 };

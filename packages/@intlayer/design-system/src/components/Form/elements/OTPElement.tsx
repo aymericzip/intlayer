@@ -1,6 +1,6 @@
 'use client';
 
-import { type ComponentProps, type ReactNode, useRef } from 'react';
+import { type ComponentProps, type ReactNode, useEffect, useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useItemSelector } from '../../../hooks';
 import {
@@ -53,6 +53,10 @@ const OTPFieldContent = ({
       isHoverable: true,
     }
   );
+
+  useEffect(() => {
+    calculatePosition();
+  }, []);
 
   return (
     <FormItemLayout

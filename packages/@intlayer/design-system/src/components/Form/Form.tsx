@@ -11,6 +11,7 @@ import { EditableFieldInputElement } from './elements/EditableFieldInputElement'
 import { EditableFieldTextAreaElement } from './elements/EditableFieldTextAreaElement';
 import { MultiSelectElement } from './elements/MultiselectElement';
 import { OTPElement } from './elements/OTPElement';
+import { SearchInputElement } from './elements/SearchInputElement';
 import { SelectElement } from './elements/SelectElement';
 import { SwitchSelectorElement } from './elements/SwitchSelectorElement';
 import { Form as FormRoot } from './FormBase';
@@ -41,6 +42,7 @@ type FormType = typeof FormRoot & {
   EditableFieldTextArea: typeof EditableFieldTextAreaElement;
   SwitchSelector: typeof SwitchSelectorElement;
   OTP: typeof OTPElement;
+  SearchInput: typeof SearchInputElement;
 };
 
 /**
@@ -81,3 +83,4 @@ Form.EditableFieldInput = EditableFieldInputElement;
 Form.EditableFieldTextArea = EditableFieldTextAreaElement;
 Form.SwitchSelector = SwitchSelectorElement;
 Form.OTP = OTPElement;
+Form.SearchInput = SearchInputElement;

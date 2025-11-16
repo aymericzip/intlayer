@@ -81,7 +81,14 @@ export const Default: Story = {
             isRequired
           />
 
-          <Form.InputPassword name="password" label="Password" isRequired />
+          <Form.InputPassword
+            name="password"
+            label="Password"
+            isRequired
+            autoComplete="new-password"
+          />
+
+          <Form.OTP name="otp" label="OTP" maxLength={6} />
 
           <Form.TextArea
             name="bio"
@@ -111,13 +118,17 @@ export const Default: Story = {
             </MultiSelect.Content>
           </Form.MultiSelect>
 
+          <Form.SearchInput
+            name="search"
+            label="Search"
+            placeholder="Search..."
+          />
+
           <Form.Checkbox
             name="acceptTerms"
             label="Terms"
             inputLabel="I accept the terms and conditions"
           />
-
-          <Form.OTP name="otp" label="OTP" maxLength={6} />
 
           <Form.Button type="submit" label="Button Label" color="text">
             Submit

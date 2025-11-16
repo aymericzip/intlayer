@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { ComponentProps, FC } from 'react';
 import { AutoSizedTextArea } from '../../TextArea/AutoSizeTextArea';
 import { FormElement, type FormElementProps } from './FormElement';
 
@@ -6,7 +6,7 @@ type AutoSizedTextAreaElementsProps = Omit<
   FormElementProps<typeof AutoSizedTextArea>,
   'Element'
 > &
-  React.ComponentProps<typeof AutoSizedTextArea> & {
+  ComponentProps<typeof AutoSizedTextArea> & {
     name: string;
   };
 
