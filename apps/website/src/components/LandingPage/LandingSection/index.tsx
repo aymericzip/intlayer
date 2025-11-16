@@ -14,13 +14,14 @@ import {
   TagBorder,
   TagColor,
   TagSize,
+  useCopyToClipboard,
 } from '@intlayer/design-system';
 import { motion } from 'framer-motion';
 import packageJSON from 'intlayer/package.json' with { type: 'json' };
 import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 import { TechLogos } from './TechLogos';
 
@@ -43,17 +44,9 @@ export const LandingSection: FC = () => {
   } = useIntlayer('landing-section');
 
   const { theme } = useTheme();
-  const [copied, setCopied] = useState(false);
   const isDarkMode = theme === 'dark';
+  const { isCopied, copy } = useCopyToClipboard('npm install intlayer');
 
-  function copyToClipboard(
-    _event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void {
-    navigator.clipboard.writeText('npm install intlayer').then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    });
-  }
   return (
     <section className="relative flex min-h-[calc(100vh-64px)] w-full flex-col px-4 md:px-8 lg:px-12">
       <div className="flex flex-1 flex-col items-center justify-center text-center">
@@ -118,7 +111,7 @@ export const LandingSection: FC = () => {
             {description}
           </motion.p>
 
-          {/* Bloc de code copiable */}
+          {/* Copyable code block */}
           <ContainerMotion
             initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: -30 }}
@@ -133,8 +126,8 @@ export const LandingSection: FC = () => {
               variant={ButtonVariant.HOVERABLE}
               color={ButtonColor.NEUTRAL}
               size={ButtonSize.ICON_XL}
-              onClick={copyToClipboard}
-              Icon={copied ? Check : Copy}
+              onClick={copy}
+              Icon={isCopied ? Check : Copy}
               label={copyButton.value}
             />
           </ContainerMotion>

@@ -48,7 +48,7 @@ export interface CopyToClipboardProps extends PropsWithChildren {
   /**
    * Callback function called when copy operation succeeds
    */
-  onCopySuccess?: (e: MouseEvent | KeyboardEvent) => void;
+  onCopySuccess?: () => void;
 
   /**
    * Callback function called when copy operation fails
@@ -67,6 +67,38 @@ export interface CopyToClipboardProps extends PropsWithChildren {
    */
   preventDefault?: boolean;
 }
+
+export const useCopyToClipboard = (
+  text?: string,
+  feedbackDuration = 2000,
+  onCopySuccess?: () => void,
+  onCopyError?: (error: Error) => void
+) => {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const copy = async () => {
+    if (!text) return;
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        onCopyError?.(new Error('Clipboard API not supported in this browser'));
+        return;
+      }
+
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), feedbackDuration);
+      onCopySuccess?.();
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Failed to copy to clipboard';
+      onCopyError?.(error instanceof Error ? error : new Error(errorMessage));
+    }
+  };
+
+  return { isCopied, copy };
+};
 
 /**
  * CopyToClipboard Component
@@ -111,49 +143,25 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
   disable,
   preventDefault = true,
 }) => {
-  const [isCopied, setIsCopied] = useState(false);
+  const { isCopied, copy } = useCopyToClipboard(
+    text,
+    feedbackDuration,
+    onCopySuccess,
+    onCopyError
+  );
 
   if (disable) return <span className={className}>{children}</span>;
-
-  const handleCopy = async (e: MouseEvent | KeyboardEvent) => {
-    e.preventDefault();
-
-    if (!text) return;
-
-    try {
-      if (preventDefault) {
-        e.preventDefault();
-      }
-
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(text);
-      } else {
-        // Fallback for older browsers
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        document.body.removeChild(textArea);
-      }
-
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), feedbackDuration);
-      onCopySuccess?.(e);
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : 'Failed to copy to clipboard';
-      onCopyError?.(error instanceof Error ? error : new Error(errorMessage));
-    }
-  };
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === ' ') {
       handleCopy(event);
     }
+  };
+
+  const handleCopy = (event: MouseEvent | KeyboardEvent) => {
+    if (preventDefault) event.preventDefault();
+
+    copy();
   };
 
   const currentAriaLabel = isCopied ? ariaCopiedLabel : ariaLabel;
