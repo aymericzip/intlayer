@@ -65,8 +65,7 @@ const SelectTrigger: FC<
       'select-text text-base shadow-none outline-none md:text-sm',
 
       // Corner shape
-      'rounded-xl [supports-[corner-shape:squircle]:rounded-2xl]',
-      '[supports-[corner-shape:squircle]:rounded-4xl]',
+      'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
 
       // Spacing
       'px-2 py-3 md:py-2',

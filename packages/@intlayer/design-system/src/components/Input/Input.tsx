@@ -14,8 +14,7 @@ export const inputVariants = cva(
     'disabled:opacity-50',
 
     // Corner shape
-    'rounded-xl [supports-[corner-shape:squircle]:rounded-2xl]',
-    '[supports-[corner-shape:squircle]:rounded-4xl]',
+    'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
   ].join(' '),
   {
     variants: {

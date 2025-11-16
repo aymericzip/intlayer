@@ -124,23 +124,15 @@ export const buttonVariants = cva(
         [`${ButtonColor.CUSTOM}`]: '',
       },
       roundedSize: {
-        [`${ContainerRoundedSize.NONE}`]: ['rounded-none'],
-        [`${ContainerRoundedSize.SM}`]: [
-          'rounded-xl [supports-[corner-shape:squircle]:rounded-2xl]',
-          '[supports-[corner-shape:squircle]:rounded-4xl]',
-        ],
-        [`${ContainerRoundedSize.MD}`]: [
-          'rounded-xl [supports-[corner-shape:squircle]:rounded-2xl]',
-          '[supports-[corner-shape:squircle]:rounded-4xl]',
-        ],
-        [`${ContainerRoundedSize.LG}`]: [
-          'rounded-2xl [supports-[corner-shape:squircle]:rounded-3xl]',
-          '[supports-[corner-shape:squircle]:rounded-5xl]',
-        ],
-        [`${ContainerRoundedSize.XL}`]: [
-          'rounded-3xl [supports-[corner-shape:squircle]:rounded-4xl]',
-          '[supports-[corner-shape:squircle]:rounded-6xl]',
-        ],
+        [`${ContainerRoundedSize.NONE}`]: 'rounded-none',
+        [`${ContainerRoundedSize.SM}`]:
+          'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
+        [`${ContainerRoundedSize.MD}`]:
+          'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
+        [`${ContainerRoundedSize.LG}`]:
+          'rounded-2xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl',
+        [`${ContainerRoundedSize.XL}`]:
+          'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
       },
       variant: {
         [`${ButtonVariant.DEFAULT}`]: [
@@ -179,7 +171,7 @@ export const buttonVariants = cva(
         [`${ButtonVariant.INPUT}`]: [
           // base styles
           'text-text',
-          'w-full select-text resize-none rounded-2xl text-base shadow-none outline-none [supports-[corner-shape:squircle]:rounded-4xl]',
+          'w-full select-text resize-none rounded-2xl text-base shadow-none outline-none supports-[corner-shape:squircle]:rounded-4xl',
           'transition-shadow duration-100 md:text-sm',
           'ring-0', // base ring
           'disabled:opacity-50',
