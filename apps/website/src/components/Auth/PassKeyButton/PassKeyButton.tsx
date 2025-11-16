@@ -1,43 +1,48 @@
 'use client';
 
 import { Button } from '@intlayer/design-system';
-import { useSession } from '@intlayer/design-system/hooks';
+import { useSession, useSignInPasskey } from '@intlayer/design-system/hooks';
 import { getAuthAPI } from '@intlayer/design-system/libs';
 import { useRouter } from 'next/navigation';
+import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 
 export const PasskeyButton: FC = () => {
   const router = useRouter();
-  const { fetchSession } = useSession();
+  const { revalidateSession } = useSession();
   const authClient = getAuthAPI().getAuthClient();
+  const { mutate: signInPasskey } = useSignInPasskey();
+  const { text, ariaLabel } = useIntlayer('passkey-button');
 
   useEffect(() => {
     authClient.signIn.passkey(
       { autoFill: true },
       {
         onSuccess() {
-          fetchSession();
+          revalidateSession();
           router.push('/');
         },
       }
     );
-  }, [router, fetchSession]);
+  }, [router, revalidateSession, authClient]);
+
+  const handleSignIn = () => {
+    signInPasskey(undefined, {
+      onSuccess: () => {
+        revalidateSession();
+        router.push('/');
+      },
+    });
+  };
 
   return (
     <Button
       variant="outline"
       className="w-full"
-      label="Use Passkey"
-      onClick={() =>
-        authClient.signIn.passkey(undefined, {
-          onSuccess() {
-            fetchSession();
-            router.push('/');
-          },
-        })
-      }
+      label={ariaLabel.value}
+      onClick={handleSignIn}
     >
-      Use Passkey
+      {text}
     </Button>
   );
 };

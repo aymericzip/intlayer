@@ -278,6 +278,33 @@ export const useVerifyBackupCode = () => {
   });
 };
 
+export const useAddPasskey = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useMutation({
+    mutationKey: ['addPasskey'],
+    mutationFn: (args: Parameters<AuthAPI['addPasskey']>[0]) =>
+      intlayerAuth.addPasskey(args),
+  });
+};
+
+export const useSignInPasskey = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useMutation({
+    mutationKey: ['signInPasskey'],
+    mutationFn: (args?: Parameters<AuthAPI['signInPasskey']>[0]) =>
+      intlayerAuth.signInPasskey(args),
+  });
+};
+
+export const useDeletePasskey = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useMutation({
+    mutationKey: ['deletePasskey'],
+    mutationFn: (args: Parameters<AuthAPI['deletePasskey']>[0]) =>
+      intlayerAuth.deletePasskey(args),
+  });
+};
+
 /**
  * User
  */

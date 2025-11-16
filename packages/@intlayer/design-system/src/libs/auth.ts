@@ -55,6 +55,9 @@ export interface AuthAPI {
   disableTwoFactor: AuthClient['twoFactor']['disable'];
   verifyTotp: AuthClient['twoFactor']['verifyTotp'];
   verifyBackupCode: AuthClient['twoFactor']['verifyBackupCode'];
+  addPasskey: AuthClient['passkey']['addPasskey'];
+  signInPasskey: AuthClient['signIn']['passkey'];
+  deletePasskey: AuthClient['passkey']['deletePasskey'];
 }
 
 export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
@@ -206,6 +209,20 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     >;
   };
 
+  const addPasskey: AuthClient['passkey']['addPasskey'] = async (...args) => {
+    return client.passkey.addPasskey(...args);
+  };
+
+  const signInPasskey: AuthClient['signIn']['passkey'] = async (...args) => {
+    return client.signIn.passkey(...args);
+  };
+
+  const deletePasskey: AuthClient['passkey']['deletePasskey'] = async (
+    ...args
+  ) => {
+    return client.passkey.deletePasskey(...args);
+  };
+
   return {
     getAuthClient: () => client,
     signInEmail,
@@ -236,5 +253,8 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     disableTwoFactor,
     verifyTotp,
     verifyBackupCode,
+    addPasskey,
+    signInPasskey,
+    deletePasskey,
   };
 };
