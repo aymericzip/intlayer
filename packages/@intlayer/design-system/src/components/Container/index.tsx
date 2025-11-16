@@ -11,78 +11,81 @@ import { cn } from '../../utils/cn';
  * Container component variants using class-variance-authority
  * Provides flexible styling options for background, padding, borders, and layout
  */
-export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
-  variants: {
-    roundedSize: {
-      none: 'rounded-none',
-      sm: 'rounded-sm',
-      md: 'rounded-md',
-      lg: 'rounded-lg',
-      xl: 'rounded-xl',
-      '2xl': 'rounded-2xl',
-      '3xl': 'rounded-3xl',
-      full: 'rounded-full',
+export const containerVariants = cva(
+  'flex flex-col text-text backdrop-blur [corner-shape:squircle]',
+  {
+    variants: {
+      roundedSize: {
+        none: 'rounded-none',
+        sm: 'rounded-sm',
+        md: 'rounded-md',
+        lg: 'rounded-lg',
+        xl: 'rounded-xl',
+        '2xl': 'rounded-2xl',
+        '3xl': 'rounded-3xl',
+        full: 'rounded-full',
+      },
+      transparency: {
+        none: 'bg-card',
+        sm: 'bg-card/95',
+        md: 'bg-card/70',
+        lg: 'bg-card/40',
+        xl: 'bg-card/20',
+        full: '',
+      },
+      padding: {
+        none: 'p-0',
+        sm: 'px-2 py-4',
+        md: 'px-4 py-6',
+        lg: 'px-6 py-8',
+        xl: 'px-8 py-10',
+        '2xl': 'px-10 py-12',
+      },
+      separator: {
+        without: '',
+        x: 'divide-x divide-dashed divide-text/20',
+        y: 'divide-y divide-dashed divide-text/20',
+        both: 'divide-x divide-y divide-dashed divide-text/20',
+      },
+      border: {
+        none: '',
+        with: 'border-[1.5px]',
+      },
+      borderColor: {
+        primary: 'border-primary',
+        secondary: 'border-secondary',
+        neutral: 'border-neutral',
+        text: 'border-text',
+        error: 'border-error',
+        warning: 'border-warning',
+        success: 'border-success',
+      },
+      background: {
+        none: 'bg-inherit',
+        hoverable:
+          'bg-opacity-5! backdrop-blur-0 hover:bg-opacity-10! hover:backdrop-blur focus:bg-opacity-10! focus:backdrop-blur aria-selected:bg-opacity-15! aria-selected:backdrop-blur',
+        with: '',
+      },
+      gap: {
+        none: 'gap-0',
+        sm: 'gap-1',
+        md: 'gap-3',
+        lg: 'gap-5',
+        xl: 'gap-8',
+        '2xl': 'gap-10',
+      },
     },
-    transparency: {
-      none: 'bg-card',
-      sm: 'bg-card/95',
-      md: 'bg-card/70',
-      lg: 'bg-card/40',
-      xl: 'bg-card/20',
-      full: '',
+    defaultVariants: {
+      roundedSize: 'md',
+      border: 'none',
+      borderColor: 'text',
+      transparency: 'md',
+      padding: 'none',
+      separator: 'without',
+      gap: 'none',
     },
-    padding: {
-      none: 'p-0',
-      sm: 'px-2 py-4',
-      md: 'px-4 py-6',
-      lg: 'px-6 py-8',
-      xl: 'px-8 py-10',
-      '2xl': 'px-10 py-12',
-    },
-    separator: {
-      without: '',
-      x: 'divide-x divide-dashed divide-text/20',
-      y: 'divide-y divide-dashed divide-text/20',
-      both: 'divide-x divide-y divide-dashed divide-text/20',
-    },
-    border: {
-      none: '',
-      with: 'border-[1.5px]',
-    },
-    borderColor: {
-      primary: 'border-primary',
-      secondary: 'border-secondary',
-      neutral: 'border-neutral',
-      text: 'border-text',
-      error: 'border-error',
-      warning: 'border-warning',
-      success: 'border-success',
-    },
-    background: {
-      none: 'bg-inherit',
-      hoverable:
-        'bg-opacity-5! backdrop-blur-0 hover:bg-opacity-10! hover:backdrop-blur focus:bg-opacity-10! focus:backdrop-blur aria-selected:bg-opacity-15! aria-selected:backdrop-blur',
-      with: '',
-    },
-    gap: {
-      none: 'gap-0',
-      sm: 'gap-1',
-      md: 'gap-3',
-      lg: 'gap-5',
-      xl: 'gap-8',
-      '2xl': 'gap-10',
-    },
-  },
-  defaultVariants: {
-    roundedSize: 'md',
-    border: 'none',
-    borderColor: 'text',
-    transparency: 'md',
-    padding: 'none',
-    separator: 'without',
-    gap: 'none',
-  },
-});
+  }
+);
 
 /** Available rounded corner sizes for the container */
 export enum ContainerRoundedSize {

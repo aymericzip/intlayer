@@ -8,7 +8,7 @@ const cn = (...classes: (string | undefined | false | null)[]) =>
 export const inputVariants = cva(
   [
     // base styles
-    'w-full select-text resize-none rounded-xl text-base shadow-none outline-none',
+    'w-full select-text resize-none rounded-xl text-base shadow-none outline-none [corner-shape:squircle]',
     'transition-shadow duration-100 md:text-sm',
     'ring-0', // base ring
     'disabled:opacity-50',

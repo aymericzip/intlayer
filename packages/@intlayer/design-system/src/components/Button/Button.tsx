@@ -82,7 +82,7 @@ export enum ButtonTextAlign {
  * Enhanced button variants with improved accessibility and focus states
  */
 export const buttonVariants = cva(
-  'relative inline-flex cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'relative inline-flex cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 [corner-shape:squircle] focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
