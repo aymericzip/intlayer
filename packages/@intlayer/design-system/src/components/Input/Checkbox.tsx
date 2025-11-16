@@ -10,7 +10,7 @@ import { cn } from '../../utils/cn';
 export const checkboxVariants = cva(
   [
     'appearance-none',
-    'pointer relative rounded-md border-2',
+    'pointer relative border-2',
     'focus:outline-0',
     'checked:border-current checked:bg-current checked:hover:bg-current/80',
     'ring-current/20 ring-offset-current',
@@ -24,6 +24,10 @@ export const checkboxVariants = cva(
     "checked:before:absolute checked:before:inset-0 checked:before:content-['✓']",
     'checked:before:flex checked:before:items-center checked:before:justify-center',
     'checked:before:text-text-opposite/80',
+
+    // Corner shape
+    'rounded-xl supports-[corner-shape:squircle]:rounded-2xl',
+    '[corner-shape:squircle]',
   ].join(' '),
   {
     variants: {
