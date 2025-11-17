@@ -338,10 +338,17 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 ): Promise<NextConfig & T> => {
   const { isBuildCommand, isDevCommand } = getCommandsEvent();
 
+  console.log('isDevCommand', isDevCommand);
+  console.log('isBuildCommand', isBuildCommand);
+
   // Only call prepareIntlayer during `dev` or `build` (not during `start`)
-  if (isBuildCommand || isDevCommand) {
+  if (isDevCommand || isBuildCommand) {
     const intlayerConfig = getConfiguration(configOptions);
-    await prepareIntlayer(intlayerConfig);
+
+    await prepareIntlayer(intlayerConfig, {
+      forceRun: isBuildCommand,
+      clean: isBuildCommand,
+    });
   }
 
   return withIntlayerSync(nextConfig, configOptions);

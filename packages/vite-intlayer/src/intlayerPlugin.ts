@@ -25,36 +25,45 @@ export const intlayerPlugin = (
   configOptions?: GetConfigurationOptions
 ): PluginOption => {
   const intlayerConfig = getConfiguration(configOptions);
-  const { watch: isWatchMode } = intlayerConfig.content;
   const { optimize } = intlayerConfig.build;
+
+  const alias = getAlias({
+    configuration: intlayerConfig,
+    formatter: (value: string) => resolve(value),
+  });
+
+  const aliasPackages = Object.keys(alias);
 
   const plugins: PluginOption[] = [
     {
       name: 'vite-intlayer-plugin',
 
-      config: (config) => {
+      config: async (config, env) => {
+        const isDevCommand =
+          env.command === 'serve' && env.mode === 'development';
+        const isBuildCommand = env.command === 'build';
+
+        // Code to run when Vite build starts
+        if (isDevCommand || isBuildCommand) {
+          await prepareIntlayer(intlayerConfig, {
+            forceRun: isBuildCommand,
+            clean: isBuildCommand,
+          });
+        }
+
         // Update Vite's resolve alias
         config.resolve = {
           ...config.resolve,
           alias: {
             ...config.resolve?.alias,
-            ...getAlias({
-              configuration: intlayerConfig,
-              formatter: (value: string) => resolve(value),
-            }),
+            ...alias,
           },
         };
 
-        if (isWatchMode) {
-          config.optimizeDeps = {
-            ...config.optimizeDeps,
-            exclude: [
-              ...(config.optimizeDeps?.exclude ?? []),
-              '@intlayer/dictionaries-entry',
-              '@intlayer/config/built',
-            ],
-          };
-        }
+        config.optimizeDeps = {
+          ...config.optimizeDeps,
+          exclude: [...(config.optimizeDeps?.exclude ?? []), ...aliasPackages],
+        };
 
         return config;
       },
@@ -64,11 +73,6 @@ export const intlayerPlugin = (
           // Start watching (assuming watch is also async)
           watch({ configuration: intlayerConfig });
         }
-      },
-
-      buildStart: async () => {
-        // Code to run when Vite build starts
-        await prepareIntlayer(intlayerConfig);
       },
     },
   ];

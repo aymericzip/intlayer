@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import {
   ANSIColors,
-  cacheMemory,
+  cacheDisk,
   checkVersionsConsistency,
   colorize,
   getAppLogger,
@@ -49,11 +49,15 @@ export const prepareIntlayer = async (
   );
 
   // Clean output dir if the intlayer version has changed
-  const intlayerCacheVersion = cacheMemory.get('intlayer-version');
-  if (intlayerCacheVersion !== packageJson.version) {
+  const versionCache = cacheDisk(configuration, ['intlayer-version']);
+  const intlayerCacheVersion = await versionCache.get();
+  if (
+    clean ||
+    (intlayerCacheVersion && intlayerCacheVersion !== packageJson.version)
+  ) {
     await cleanOutputDir(configuration);
   }
-  cacheMemory.set('intlayer-version', packageJson.version);
+  await versionCache.set(packageJson.version);
 
   // Skip preparation if it has already been done recently
   await runOnce(
@@ -67,10 +71,6 @@ export const prepareIntlayer = async (
         'Preparing Intlayer',
         colorize(`(v${packageJson.version})`, ANSIColors.GREY_DARK),
       ]);
-
-      if (clean) {
-        await cleanOutputDir(configuration);
-      }
 
       await writeConfiguration(configuration);
 

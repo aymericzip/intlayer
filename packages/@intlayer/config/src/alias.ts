@@ -103,5 +103,5 @@ export const getAlias = ({
     '@intlayer/dynamic-dictionaries-entry': fixedDynamicDictionariesPath,
     '@intlayer/fetch-dictionaries-entry': fixedFetchDictionariesPath,
     '@intlayer/config/built': fixedConfigurationPath,
-  };
+  } as const;
 };
