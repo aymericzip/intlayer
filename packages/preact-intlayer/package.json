@@ -1,6 +1,6 @@
 {
   "name": "preact-intlayer",
-  "version": "7.1.0",
+  "version": "7.1.1-canary.0",
   "private": false,
   "description": "Easily internationalize i18n your Preact applications with type-safe multilingual content management.",
   "keywords": [
