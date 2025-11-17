@@ -188,5 +188,10 @@
     "react-intlayer": "workspace:*",
     "tailwind-merge": "3.4.0",
     "zustand": "4.5.7"
+  },
+  "peerDependenciesMeta": {
+    "@intlayer/backend": {
+      "optional": true
+    }
   }
 }
