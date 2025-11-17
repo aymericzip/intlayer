@@ -1,7 +1,7 @@
 import { writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import {
-  diskCache,
+  cacheDisk,
   getProjectRequire,
   loadExternalFile,
 } from '@intlayer/config';
@@ -35,7 +35,7 @@ export const loadContentDeclarations = async (
 ): Promise<Dictionary[]> => {
   const { build, content } = configuration;
 
-  const { set, isValid } = diskCache(configuration, ['intlayer-bundle'], {
+  const { set, isValid } = cacheDisk(configuration, ['intlayer-bundle'], {
     ttlMs: 1000 * 60 * 60 * 24 * 5, // 5 days
   });
 
