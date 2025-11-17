@@ -43,11 +43,18 @@ export const intlayerPlugin = (
           env.command === 'serve' && env.mode === 'development';
         const isBuildCommand = env.command === 'build';
 
-        // Code to run when Vite build starts
+        // Only call prepareIntlayer during `dev` or `build` (not during `start`)
+        // If prod: clean and rebuild once
+        // If dev: rebuild only once if it's more than 1 hour since last rebuild
         if (isDevCommand || isBuildCommand) {
+          const intlayerConfig = getConfiguration(configOptions);
+
+          // prepareIntlayer use runOnce to ensure to run only once because will run twice on client and server side otherwise
           await prepareIntlayer(intlayerConfig, {
-            forceRun: isBuildCommand,
             clean: isBuildCommand,
+            cacheTimeoutMs: isBuildCommand
+              ? 1000 * 30 // 30 seconds for build (to ensure to rebuild all dictionaries)
+              : 1000 * 60 * 60, // 1 hour for dev (default cache timeout)
           });
         }
 

@@ -22,24 +22,20 @@ type PrepareIntlayerOptions = {
   clean?: boolean;
   format?: ('cjs' | 'esm')[];
   forceRun?: boolean;
+  cacheTimeoutMs?: number;
   onIsCached?: () => void | Promise<void>;
 };
 
 const DEFAULT_PREPARE_INTLAYER_OPTIONS = {
   clean: false,
   format: ['cjs', 'esm'],
-  forceRun: false,
+  cacheTimeoutMs: 1000 * 60 * 60, // 1 hour
 } satisfies PrepareIntlayerOptions;
 
 export const prepareIntlayer = async (
   configuration: IntlayerConfig,
   options?: PrepareIntlayerOptions
 ) => {
-  const { clean, format, forceRun, onIsCached } = {
-    ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
-    ...(options ?? {}),
-  };
-
   checkVersionsConsistency(configuration);
   const appLogger = getAppLogger(configuration);
 
@@ -47,23 +43,28 @@ export const prepareIntlayer = async (
     configuration.content.cacheDir,
     'intlayer-prepared.lock'
   );
-
   // Clean output dir if the intlayer version has changed
   const versionCache = cacheDisk(configuration, ['intlayer-version']);
   const intlayerCacheVersion = await versionCache.get();
-  if (
-    clean ||
-    (intlayerCacheVersion && intlayerCacheVersion !== packageJson.version)
-  ) {
-    await cleanOutputDir(configuration);
-  }
-  await versionCache.set(packageJson.version);
+  const isCorrectVersion = Boolean(
+    intlayerCacheVersion && intlayerCacheVersion === packageJson.version
+  );
+
+  const { clean, format, forceRun, onIsCached, cacheTimeoutMs } = {
+    ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
+    forceRun: !isCorrectVersion,
+    ...(options ?? {}),
+  };
 
   // Skip preparation if it has already been done recently
   await runOnce(
     sentinelPath,
     async () => {
-      const { plugins } = configuration;
+      if (clean || !isCorrectVersion) {
+        await cleanOutputDir(configuration);
+      }
+
+      await versionCache.set(packageJson.version);
 
       const preparationStartMs = Date.now();
 
@@ -182,7 +183,7 @@ export const prepareIntlayer = async (
 
       // Plugin transformation
       // Allow plugins to post-process the final build output (e.g., write back ICU JSON)
-      for await (const plugin of plugins ?? []) {
+      for await (const plugin of configuration.plugins ?? []) {
         const { unmergedDictionaries, mergedDictionaries } = dictionariesOutput;
 
         await plugin.afterBuild?.({
@@ -206,7 +207,7 @@ export const prepareIntlayer = async (
     {
       forceRun,
       onIsCached,
-      cacheTimeoutMs: 1000 * 60 * 60, // 1 hour
+      cacheTimeoutMs,
     }
   );
 };
