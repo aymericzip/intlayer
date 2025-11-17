@@ -32,7 +32,7 @@
     "@testing-library/user-event": "14.6.1",
     "@types/jest": "30.0.0",
     "@types/node": "24.10.1",
-    "@types/react": "19.2.4",
+    "@types/react": "19.2.5",
     "@types/react-dom": "19.2.3",
     "intlayer": "workspace:*",
     "intlayer-cli": "workspace:*",
@@ -47,7 +47,7 @@
     "web-vitals": "5.1.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "4.1.16",
+    "@tailwindcss/postcss": "4.1.17",
     "intlayer-editor": "workspace:*",
     "tailwindcss": "4.0.17"
   }

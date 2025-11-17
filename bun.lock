@@ -182,13 +182,6 @@
         "typescript": "5.9.3",
         "vitest": "4.0.8",
       },
-      "peerDependencies": {
-        "@intlayer/api": "workspace:*",
-        "@intlayer/cli": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/types": "workspace:*",
-      },
     },
     "examples/angular-app": {
       "name": "angular-app-19",
@@ -581,8 +574,6 @@
       },
       "peerDependencies": {
         "@intlayer/backend": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/types": "workspace:*",
         "intlayer-editor": "workspace:*",
       },
       "optionalPeers": [
@@ -617,10 +608,6 @@
         "typescript": "5.9.3",
         "vitest": "4.0.8",
       },
-      "peerDependencies": {
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/config": "workspace:*",
-      },
     },
     "packages/@intlayer/chokidar": {
       "name": "@intlayer/chokidar",
@@ -654,13 +641,6 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/api": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/dictionaries-entry": "workspace:*",
-        "@intlayer/remote-dictionaries-entry": "workspace:*",
-        "@intlayer/types": "workspace:*",
-        "@intlayer/unmerged-dictionaries-entry": "workspace:*",
         "fast-glob": "3.3.3",
       },
     },
@@ -689,15 +669,6 @@
         "tsdown": "0.16.4",
         "typescript": "5.9.3",
         "vitest": "4.0.8",
-      },
-      "peerDependencies": {
-        "@intlayer/api": "workspace:*",
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/dictionaries-entry": "workspace:*",
-        "@intlayer/remote-dictionaries-entry": "workspace:*",
-        "@intlayer/types": "workspace:*",
-        "@intlayer/unmerged-dictionaries-entry": "workspace:*",
       },
     },
     "packages/@intlayer/config": {
@@ -748,13 +719,6 @@
         "tsdown": "0.16.4",
         "typescript": "5.9.3",
         "vitest": "4.0.8",
-      },
-      "peerDependencies": {
-        "@intlayer/api": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/dictionaries-entry": "workspace:*",
-        "@intlayer/types": "workspace:*",
-        "@intlayer/unmerged-dictionaries-entry": "workspace:*",
       },
     },
     "packages/@intlayer/design-system": {
@@ -834,13 +798,7 @@
       },
       "peerDependencies": {
         "@better-fetch/fetch": "1.1.18",
-        "@intlayer/api": "workspace:*",
         "@intlayer/backend": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/dictionaries-entry": "workspace:*",
-        "@intlayer/editor-react": "workspace:*",
-        "@intlayer/types": "workspace:*",
         "@monaco-editor/react": "4.7.0",
         "@tanstack/react-query": "5.90.8",
         "clsx": "2.1.1",
@@ -853,6 +811,9 @@
         "tailwind-merge": "3.4.0",
         "zustand": "4.5.7",
       },
+      "optionalPeers": [
+        "@intlayer/backend",
+      ],
     },
     "packages/@intlayer/dictionaries-entry": {
       "name": "@intlayer/dictionaries-entry",
@@ -861,6 +822,7 @@
         "@intlayer/config": "workspace:*",
       },
       "devDependencies": {
+        "@intlayer/types": "workspace:*",
         "@types/node": "24.10.1",
         "@utils/ts-config": "workspace:*",
         "@utils/ts-config-types": "workspace:*",
@@ -869,10 +831,6 @@
         "tsdown": "0.16.4",
         "typescript": "5.9.3",
         "vitest": "4.0.8",
-      },
-      "peerDependencies": {
-        "@intlayer/config": "workspace:*",
-        "@intlayer/types": "workspace:*",
       },
     },
     "packages/@intlayer/dynamic-dictionaries-entry": {
@@ -882,6 +840,7 @@
         "@intlayer/config": "workspace:*",
       },
       "devDependencies": {
+        "@intlayer/types": "workspace:*",
         "@types/node": "24.10.1",
         "@utils/ts-config": "workspace:*",
         "@utils/ts-config-types": "workspace:*",
@@ -890,11 +849,6 @@
         "tsdown": "0.16.4",
         "typescript": "5.9.3",
         "vitest": "4.0.8",
-      },
-      "peerDependencies": {
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/types": "workspace:*",
       },
     },
     "packages/@intlayer/editor": {
@@ -936,10 +890,6 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/types": "workspace:*",
-        "@intlayer/unmerged-dictionaries-entry": "workspace:*",
         "react": ">=16.0.0",
         "react-dom": ">=16.0.0",
       },
@@ -949,6 +899,8 @@
       "version": "7.1.0",
       "dependencies": {
         "@intlayer/config": "workspace:*",
+        "@intlayer/core": "workspace:*",
+        "@intlayer/types": "workspace:*",
       },
       "devDependencies": {
         "@types/node": "24.10.1",
@@ -959,11 +911,6 @@
         "tsdown": "0.16.4",
         "typescript": "5.9.3",
         "vitest": "4.0.8",
-      },
-      "peerDependencies": {
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/types": "workspace:*",
       },
     },
     "packages/@intlayer/mcp": {
@@ -981,6 +928,7 @@
         "zod": "3.25.76",
       },
       "devDependencies": {
+        "@intlayer/types": "workspace:*",
         "@modelcontextprotocol/inspector": "0.17.2",
         "@types/express": "5.0.5",
         "@types/node": "24.10.1",
@@ -992,12 +940,6 @@
         "typescript": "5.9.3",
         "vitest": "4.0.8",
       },
-      "peerDependencies": {
-        "@intlayer/cli": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/docs": "workspace:*",
-        "@intlayer/types": "workspace:*",
-      },
     },
     "packages/@intlayer/remote-dictionaries-entry": {
       "name": "@intlayer/remote-dictionaries-entry",
@@ -1006,6 +948,7 @@
         "@intlayer/config": "workspace:*",
       },
       "devDependencies": {
+        "@intlayer/types": "workspace:*",
         "@types/node": "24.10.1",
         "@utils/ts-config": "workspace:*",
         "@utils/ts-config-types": "workspace:*",
@@ -1014,11 +957,6 @@
         "tsdown": "0.16.4",
         "typescript": "5.9.3",
         "vitest": "4.0.8",
-      },
-      "peerDependencies": {
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/types": "workspace:*",
       },
     },
     "packages/@intlayer/swc": {
@@ -1046,6 +984,7 @@
         "@intlayer/config": "workspace:*",
       },
       "devDependencies": {
+        "@intlayer/types": "workspace:*",
         "@types/node": "24.10.1",
         "@utils/ts-config": "workspace:*",
         "@utils/ts-config-types": "workspace:*",
@@ -1054,10 +993,6 @@
         "tsdown": "0.16.4",
         "typescript": "5.9.3",
         "vitest": "4.0.8",
-      },
-      "peerDependencies": {
-        "@intlayer/config": "workspace:*",
-        "@intlayer/types": "workspace:*",
       },
     },
     "packages/@intlayer/webpack": {
@@ -1084,10 +1019,6 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/api": "workspace:*",
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/types": "workspace:*",
         "webpack": "5.99.9",
       },
     },
@@ -1118,11 +1049,6 @@
       "peerDependencies": {
         "@angular/common": "15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
         "@angular/core": "15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/dictionaries-entry": "workspace:*",
-        "@intlayer/types": "workspace:*",
         "rxjs": "6.0.0 || ^7.0.0",
       },
     },
@@ -1148,12 +1074,7 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/types": "workspace:*",
         "astro": ">=4.0.0",
-        "vite-intlayer": "workspace:*",
       },
     },
     "packages/express-intlayer": {
@@ -1179,12 +1100,6 @@
         "tsdown": "0.16.4",
         "typescript": "5.9.3",
         "vitest": "4.0.8",
-      },
-      "peerDependencies": {
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/types": "workspace:*",
       },
     },
     "packages/intlayer": {
@@ -1285,14 +1200,6 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/design-system": "workspace:*",
-        "@intlayer/dictionaries-entry": "workspace:*",
-        "@intlayer/editor-react": "workspace:*",
-        "@intlayer/types": "workspace:*",
-        "@intlayer/unmerged-dictionaries-entry": "workspace:*",
         "clsx": "2.1.1",
         "framer-motion": "12.23.24",
         "intlayer": "workspace:*",
@@ -1327,10 +1234,6 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/types": "workspace:*",
         "@lynx-js/rspeedy": ">=0.5.0",
         "@rsbuild/core": ">=1.2.0",
       },
@@ -1363,15 +1266,9 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/dictionaries-entry": "workspace:*",
-        "@intlayer/types": "workspace:*",
-        "@intlayer/webpack": "workspace:*",
         "next": ">=14.0.0",
         "react": ">=16.0.0",
         "react-dom": ">=16.0.0",
-        "react-intlayer": "workspace:*",
       },
     },
     "packages/nuxt-intlayer": {
@@ -1397,14 +1294,8 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/types": "workspace:*",
         "@nuxt/kit": ">=3.0.0",
         "@nuxt/schema": ">=3.0.0",
-        "vite-intlayer": "workspace:*",
-        "vue-intlayer": "workspace:*",
       },
     },
     "packages/preact-intlayer": {
@@ -1430,13 +1321,6 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/api": "workspace:*",
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/editor": "workspace:*",
-        "@intlayer/types": "workspace:*",
-        "@intlayer/unmerged-dictionaries-entry": "workspace:*",
         "preact": ">=8.0.0",
       },
     },
@@ -1467,12 +1351,6 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/api": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/editor-react": "workspace:*",
-        "@intlayer/types": "workspace:*",
-        "@intlayer/unmerged-dictionaries-entry": "workspace:*",
         "react": ">=16.0.0",
         "react-dom": ">=16.0.0",
       },
@@ -1502,10 +1380,6 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/types": "workspace:*",
         "expo": ">=52",
         "metro-resolver": ">=0.80",
         "react": ">=18.0.0",
@@ -1541,9 +1415,6 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/config": "workspace:*",
-        "@intlayer/types": "workspace:*",
-        "@intlayer/webpack": "workspace:*",
         "webpack": ">=5.0.0",
       },
     },
@@ -1576,12 +1447,6 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/api": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/editor": "workspace:*",
-        "@intlayer/types": "workspace:*",
-        "@intlayer/unmerged-dictionaries-entry": "workspace:*",
         "solid-js": ">=1.0.0",
       },
     },
@@ -1609,11 +1474,6 @@
         "vitest": "4.0.8",
       },
       "peerDependencies": {
-        "@intlayer/api": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/editor": "workspace:*",
-        "@intlayer/types": "workspace:*",
         "svelte": ">=5.0.0",
       },
     },
@@ -1643,11 +1503,6 @@
       },
       "peerDependencies": {
         "@babel/core": ">=6.0.0",
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/dictionaries-entry": "workspace:*",
-        "@intlayer/types": "workspace:*",
         "vite": ">=4.0.0",
       },
       "optionalPeers": [
@@ -1682,12 +1537,6 @@
         "vue-tsc": "3.1.1",
       },
       "peerDependencies": {
-        "@intlayer/api": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/editor": "workspace:*",
-        "@intlayer/types": "workspace:*",
-        "@intlayer/unmerged-dictionaries-entry": "workspace:*",
         "intlayer": "workspace:*",
         "vue": ">=3.0.0",
       },
@@ -1714,11 +1563,6 @@
         "tsdown": "0.16.4",
         "typescript": "5.9.3",
         "vitest": "4.0.8",
-      },
-      "peerDependencies": {
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/types": "workspace:*",
       },
     },
     "utils/ts-config": {
