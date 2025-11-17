@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { cache } from './cache';
+import { cacheMemory } from './cacheMemory';
 
 export const isESModule = typeof import.meta.url === 'string';
 
@@ -14,7 +14,7 @@ type PackageJsonPathCache = {
 export const getPackageJsonPath = (
   startDir: string = process.cwd()
 ): PackageJsonPathCache => {
-  const checkedCache = cache.get<PackageJsonPathCache>(
+  const checkedCache = cacheMemory.get<PackageJsonPathCache>(
     'packageJsonPath',
     startDir
   );
@@ -27,7 +27,7 @@ export const getPackageJsonPath = (
     const packageJsonPath = join(currentDir, 'package.json');
 
     if (existsSync(packageJsonPath)) {
-      cache.set('packageJsonPath', startDir, {
+      cacheMemory.set('packageJsonPath', startDir, {
         packageJsonPath,
         baseDir: currentDir,
       });

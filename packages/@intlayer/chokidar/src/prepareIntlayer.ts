@@ -1,10 +1,10 @@
 import { join } from 'node:path';
 import {
   ANSIColors,
+  cacheMemory,
+  checkVersionsConsistency,
   colorize,
   getAppLogger,
-  getCache,
-  setCache,
 } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json' with { type: 'json' };
 import type { IntlayerConfig } from '@intlayer/types';
@@ -39,6 +39,8 @@ export const prepareIntlayer = async (
     ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
     ...(options ?? {}),
   };
+
+  checkVersionsConsistency(configuration);
   const appLogger = getAppLogger(configuration);
 
   const sentinelPath = join(
@@ -47,11 +49,11 @@ export const prepareIntlayer = async (
   );
 
   // Clean output dir if the intlayer version has changed
-  const intlayerCacheVersion = getCache('intlayer-version');
+  const intlayerCacheVersion = cacheMemory.get('intlayer-version');
   if (intlayerCacheVersion !== packageJson.version) {
     await cleanOutputDir(configuration);
   }
-  setCache('intlayer-version', packageJson.version);
+  cacheMemory.set('intlayer-version', packageJson.version);
 
   // Skip preparation if it has already been done recently
   await runOnce(

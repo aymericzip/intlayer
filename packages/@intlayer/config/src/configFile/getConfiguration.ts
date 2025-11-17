@@ -7,7 +7,7 @@ import type {
 import merge from 'deepmerge';
 import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
 import { logger } from '../logger';
-import { cache } from '../utils/cache';
+import { cacheMemory } from '../utils/cacheMemory';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
@@ -56,7 +56,7 @@ export const getConfigurationAndFilePath = (
   }
 
   const cachedConfiguration =
-    cache.get<GetConfigurationAndFilePathResult>(options);
+    cacheMemory.get<GetConfigurationAndFilePathResult>(options);
 
   if (cachedConfiguration) return cachedConfiguration;
 
@@ -114,7 +114,7 @@ export const getConfigurationAndFilePath = (
     options?.override ?? {}
   ) as IntlayerConfig;
 
-  cache.set(options, {
+  cacheMemory.set(options, {
     configuration,
     configurationFilePath,
   });

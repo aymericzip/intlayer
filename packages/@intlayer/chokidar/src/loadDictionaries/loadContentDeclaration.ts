@@ -1,9 +1,9 @@
 import { writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import {
+  diskCache,
   getProjectRequire,
   loadExternalFile,
-  localCache,
 } from '@intlayer/config';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
@@ -35,7 +35,7 @@ export const loadContentDeclarations = async (
 ): Promise<Dictionary[]> => {
   const { build, content } = configuration;
 
-  const { set, isValid } = localCache(configuration, ['intlayer-bundle'], {
+  const { set, isValid } = diskCache(configuration, ['intlayer-bundle'], {
     ttlMs: 1000 * 60 * 60 * 24 * 5, // 5 days
   });
 

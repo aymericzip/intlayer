@@ -35,14 +35,10 @@ export {
   x,
 } from './logger';
 export { retryManager } from './retryManager';
-export {
-  cache,
-  clearCache,
-  getCache,
-  localCache,
-  setCache,
-} from './utils/cache';
+export { cacheDisk } from './utils/cacheDisk';
+export { cacheMemory } from './utils/cacheMemory';
 export { camelCaseToSentence } from './utils/camelCaseToSentence';
+export { checkVersionsConsistency } from './utils/checkVersionsConsistency';
 export { clearModuleCache } from './utils/clearModuleCache';
 export {
   configESMxCJSRequire,
