@@ -27,6 +27,7 @@ export const InputPassword: FC<InputPasswordProps> = (props) => {
 
       <button
         data-testid="eye-icon"
+        type="button"
         className="absolute right-2 h-full flex-row items-center"
         onClick={handlePasswordReveal}
         aria-label={isPasswordRevealed ? 'Hide password' : 'Show password'}

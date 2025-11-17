@@ -76,7 +76,7 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     },
   },
   defaultVariants: {
-    roundedSize: 'md',
+    roundedSize: 'lg',
     border: 'none',
     borderColor: 'text',
     transparency: 'md',
@@ -216,8 +216,8 @@ export const Container: FC<ContainerProps> = ({
         background,
         borderColor,
         gap,
-        className,
-      })
+      }),
+      className
     )}
     {...props}
   >

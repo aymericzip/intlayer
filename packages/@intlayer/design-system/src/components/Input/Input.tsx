@@ -35,9 +35,7 @@ export const inputVariants = cva(
           // aria-invalid border color
           'aria-invalid:border-error',
         ].join(' '),
-        invisible: [
-          'border-none bg-inherit text-inherit outline-none ring-0',
-        ].join(' '),
+        invisible: 'border-none bg-inherit text-inherit outline-none ring-0',
       },
       size: {
         md: 'px-2 py-3 md:py-2',
@@ -93,7 +91,7 @@ export const Input: FC<InputProps> = ({
         size,
         validationStyleEnabled: validationStyleEnabled ? 'enabled' : 'disabled',
       }),
-      className // <- merged *outside* cva
+      className
     )}
     {...props}
   />

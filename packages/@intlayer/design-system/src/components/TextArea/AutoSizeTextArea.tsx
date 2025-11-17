@@ -158,11 +158,7 @@ export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
     <TextArea
       ref={setRef}
       onChange={handleChange}
-      className={cn(
-        'overflow-y-auto',
-        autoSize ? 'resize-none' : '',
-        className
-      )}
+      className={cn('overflow-y-auto', autoSize && 'resize-none', className)}
       {...props}
     />
   );

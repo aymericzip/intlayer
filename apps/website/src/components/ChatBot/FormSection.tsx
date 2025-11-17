@@ -56,7 +56,6 @@ export const FormSection: FC<FormSectionProps> = ({
         maxRows={10}
         placeholder={textArea.placeholder.value}
         aria-label={textArea.label.value}
-        className="scrollbar-hide h-10 w-full rounded-3xl border-none px-4 py-2"
         onKeyDown={
           // Submit the form when the user presses the Enter key
           (e) => {
