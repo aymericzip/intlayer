@@ -2,7 +2,7 @@
 
 import { Container, Input, Label } from '@intlayer/design-system';
 import { motion } from 'framer-motion';
-import { getLocaleName, Locales } from 'intlayer';
+import { getLocaleName, type Locale, Locales } from 'intlayer';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 
@@ -47,8 +47,8 @@ export const MultilingualSection: FC<MultilingualSectionProps> = ({
       <Container
         background="none"
         border
-        roundedSize="xl"
-        className="w-full gap-2 p-2"
+        roundedSize="2xl"
+        className="w-full gap-2 px-4 py-2"
       >
         <Label color="neutral" className="text-sm">
           {getLocaleName(Locales.ENGLISH, currentLocale)}
