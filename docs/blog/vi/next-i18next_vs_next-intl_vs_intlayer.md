@@ -1418,9 +1418,9 @@ export const config = {
 Intlayer cung cấp xử lý middleware tích hợp sẵn thông qua cấu hình gói `next-intlayer`.
 
 ```ts fileName="src/middleware.ts"
-import { intlayerMiddleware } from "next-intlayer/middleware";
+import { intlayerProxy } from "next-intlayer/proxy";
 
-export const middleware = intlayerMiddleware();
+export const middleware = intlayerProxy();
 
 // áp dụng middleware này chỉ cho các tệp trong thư mục app
 export const config = {

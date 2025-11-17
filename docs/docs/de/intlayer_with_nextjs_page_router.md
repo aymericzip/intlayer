@@ -151,7 +151,7 @@ export default withIntlayer(nextConfig);
 Richten Sie Middleware ein, um die bevorzugte Sprache des Benutzers automatisch zu erkennen und zu verarbeiten:
 
 ```typescript fileName="src/middleware.ts" codeFormat="typescript"
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+export { intlayerProxy as middleware } from "next-intlayer/middleware";
 
 export const config = {
   matcher:
@@ -160,7 +160,7 @@ export const config = {
 ```
 
 ```javascript fileName="src/middleware.mjs" codeFormat="esm"
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+export { intlayerProxy as middleware } from "next-intlayer/middleware";
 
 export const config = {
   matcher:
@@ -169,14 +169,14 @@ export const config = {
 ```
 
 ```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
-const { intlayerMiddleware } = require("next-intlayer/middleware");
+const { intlayerProxy } = require("next-intlayer/middleware");
 
 const config = {
   matcher:
     "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
 };
 
-module.exports = { middleware: intlayerMiddleware, config };
+module.exports = { middleware: intlayerProxy, config };
 ```
 
 > Passen Sie den Parameter `matcher` an, um die Routen Ihrer Anwendung abzudecken. Weitere Details finden Sie in der [Next.js-Dokumentation zur Konfiguration des Matchers](https://nextjs.org/docs/app/building-your-application/routing/middleware).

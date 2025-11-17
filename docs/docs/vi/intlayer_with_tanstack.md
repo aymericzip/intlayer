@@ -487,15 +487,15 @@ function LayoutComponent() {
 
 ### Bước 11: Thêm middleware (Tùy chọn)
 
-Bạn cũng có thể sử dụng `intlayerMiddleware` để thêm routing phía server vào ứng dụng của bạn. Plugin này sẽ tự động phát hiện locale hiện tại dựa trên URL và thiết lập cookie locale phù hợp. Nếu không có locale nào được chỉ định, plugin sẽ xác định locale phù hợp nhất dựa trên ngôn ngữ trình duyệt của người dùng. Nếu không phát hiện được locale nào, nó sẽ chuyển hướng đến locale mặc định.
+Bạn cũng có thể sử dụng `intlayerProxy` để thêm routing phía server vào ứng dụng của bạn. Plugin này sẽ tự động phát hiện locale hiện tại dựa trên URL và thiết lập cookie locale phù hợp. Nếu không có locale nào được chỉ định, plugin sẽ xác định locale phù hợp nhất dựa trên ngôn ngữ trình duyệt của người dùng. Nếu không phát hiện được locale nào, nó sẽ chuyển hướng đến locale mặc định.
 
-> Lưu ý rằng để sử dụng `intlayerMiddleware` trong môi trường production, bạn cần chuyển gói `vite-intlayer` từ `devDependencies` sang `dependencies`.
+> Lưu ý rằng để sử dụng `intlayerProxy` trong môi trường production, bạn cần chuyển gói `vite-intlayer` từ `devDependencies` sang `dependencies`.
 
 ```typescript {3,7} fileName="vite.config.ts"
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss từ "@tailwindcss/vite";
 import { defineConfig } từ "vite";
-import { intlayer, intlayerMiddleware } từ "vite-intlayer";
+import { intlayer, intlayerProxy } từ "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
@@ -504,7 +504,7 @@ export default defineConfig({
     reactRouter(),
     tsconfigPaths(),
     intlayer(),
-    intlayerMiddleware(),
+    intlayerProxy(),
   ],
 });
 ```

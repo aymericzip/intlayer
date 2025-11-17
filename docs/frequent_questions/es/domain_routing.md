@@ -107,7 +107,7 @@ function changeLanguage(target: Locale) {
 
 ## Beneficios del enrutamiento basado en dominios
 
-1. **Configuración más sencilla**: No es necesario configurar `intlayerMiddleware`, `generateStaticParams`, `react-router` o `vue-router`
+1. **Configuración más sencilla**: No es necesario configurar `intlayerProxy`, `generateStaticParams`, `react-router` o `vue-router`
 2. **Mejor SEO**: Cada idioma tiene su propio dominio
 3. **URLs más limpias**: No hay prefijo de idioma en la ruta
 4. **Mantenimiento más sencillo**: Cada despliegue de idioma es independiente

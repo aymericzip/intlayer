@@ -1059,38 +1059,38 @@ const App = () => (
 module.exports = App;
 ```
 
-En paralelo, también puedes usar el `intlayerMiddleware` para agregar enrutamiento del lado del servidor a tu aplicación. Este plugin detectará automáticamente la configuración regional actual basada en la URL y establecerá la cookie de configuración regional apropiada. Si no se especifica ninguna configuración regional, el plugin determinará la configuración regional más adecuada según las preferencias de idioma del navegador del usuario. Si no se detecta ninguna configuración regional, redirigirá a la configuración regional predeterminada.
+En paralelo, también puedes usar el `intlayerProxy` para agregar enrutamiento del lado del servidor a tu aplicación. Este plugin detectará automáticamente la configuración regional actual basada en la URL y establecerá la cookie de configuración regional apropiada. Si no se especifica ninguna configuración regional, el plugin determinará la configuración regional más adecuada según las preferencias de idioma del navegador del usuario. Si no se detecta ninguna configuración regional, redirigirá a la configuración regional predeterminada.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
-import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [preact(), intlayer(), intlayerMiddleware()],
+  plugins: [preact(), intlayer(), intlayerProxy()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
-import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [preact(), intlayer(), intlayerMiddleware()],
+  plugins: [preact(), intlayer(), intlayerProxy()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const preact = require("@preact/preset-vite");
-const { intlayer, intlayerMiddleware } = require("vite-intlayer");
+const { intlayer, intlayerProxy } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [preact(), intlayer(), intlayerMiddleware()],
+  plugins: [preact(), intlayer(), intlayerProxy()],
 });
 ```
 

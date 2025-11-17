@@ -108,7 +108,7 @@ function changeLanguage(target: Locale) {
 
 ## فوائد التوجيه المعتمد على النطاق
 
-1. **تكوين أبسط**: لا حاجة لتكوين `intlayerMiddleware`، `generateStaticParams`، `react-router`، أو `vue-router`
+1. **تكوين أبسط**: لا حاجة لتكوين `intlayerProxy`، `generateStaticParams`، `react-router`، أو `vue-router`
 2. **تحسين محركات البحث (SEO)**: لكل لغة نطاق خاص بها
 3. **عناوين URL أنظف**: لا يوجد بادئة للغة في المسار
 4. **صيانة أسهل**: كل نشر للغة مستقل

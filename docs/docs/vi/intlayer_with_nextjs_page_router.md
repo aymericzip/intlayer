@@ -165,7 +165,7 @@ export default withIntlayer(nextConfig);
 Thiết lập middleware để tự động phát hiện và xử lý ngôn ngữ ưu tiên của người dùng:
 
 ```typescript fileName="src/middleware.ts" codeFormat="typescript"
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+export { intlayerProxy as middleware } from "next-intlayer/middleware";
 
 export const config = {
   matcher:
@@ -174,7 +174,7 @@ export const config = {
 ```
 
 ```javascript fileName="src/middleware.mjs" codeFormat="esm"
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+export { intlayerProxy as middleware } from "next-intlayer/middleware";
 
 export const config = {
   matcher:
@@ -183,14 +183,14 @@ export const config = {
 ```
 
 ```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
-const { intlayerMiddleware } = require("next-intlayer/middleware");
+const { intlayerProxy } = require("next-intlayer/middleware");
 
 const config = {
   matcher:
     "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
 };
 
-module.exports = { middleware: intlayerMiddleware, config };
+module.exports = { middleware: intlayerProxy, config };
 ```
 
 > Điều chỉnh tham số `matcher` để phù hợp với các route của ứng dụng bạn. Để biết thêm chi tiết, tham khảo tài liệu [Next.js về cấu hình matcher](https://nextjs.org/docs/app/building-your-application/routing/middleware).

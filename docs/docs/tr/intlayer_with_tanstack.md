@@ -481,15 +481,15 @@ function LayoutComponent() {
 
 ### Adım 11: Middleware Ekleme (İsteğe Bağlı)
 
-Uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerMiddleware`'i de kullanabilirsiniz. Bu eklenti, URL'ye göre mevcut yerel ayarı otomatik olarak algılar ve uygun yerel ayar çerezini ayarlar. Hiçbir yerel ayar belirtilmemişse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirler. Hiçbir yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirme yapar.
+Uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy`'i de kullanabilirsiniz. Bu eklenti, URL'ye göre mevcut yerel ayarı otomatik olarak algılar ve uygun yerel ayar çerezini ayarlar. Hiçbir yerel ayar belirtilmemişse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirler. Hiçbir yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirme yapar.
 
-> Üretimde `intlayerMiddleware` kullanmak için, `vite-intlayer` paketini `devDependencies`'den `dependencies`'e geçirmeniz gerektiğini unutmayın.
+> Üretimde `intlayerProxy` kullanmak için, `vite-intlayer` paketini `devDependencies`'den `dependencies`'e geçirmeniz gerektiğini unutmayın.
 
 ```typescript {3,7} fileName="vite.config.ts"
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import { intlayer, intlayerProxy } from "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
@@ -498,7 +498,7 @@ export default defineConfig({
     reactRouter(),
     tsconfigPaths(),
     intlayer(),
-    intlayerMiddleware(),
+    intlayerProxy(),
   ],
 });
 ```

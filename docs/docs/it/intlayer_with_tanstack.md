@@ -488,15 +488,15 @@ function LayoutComponent() {
 
 ### Passo 11: Aggiungere middleware (Opzionale)
 
-Puoi anche utilizzare `intlayerMiddleware` per aggiungere il routing lato server alla tua applicazione. Questo plugin rileverà automaticamente la locale corrente basandosi sull'URL e imposterà il cookie della locale appropriata. Se non viene specificata alcuna locale, il plugin determinerà la locale più adatta in base alle preferenze linguistiche del browser dell'utente. Se non viene rilevata alcuna locale, verrà effettuato un reindirizzamento alla locale predefinita.
+Puoi anche utilizzare `intlayerProxy` per aggiungere il routing lato server alla tua applicazione. Questo plugin rileverà automaticamente la locale corrente basandosi sull'URL e imposterà il cookie della locale appropriata. Se non viene specificata alcuna locale, il plugin determinerà la locale più adatta in base alle preferenze linguistiche del browser dell'utente. Se non viene rilevata alcuna locale, verrà effettuato un reindirizzamento alla locale predefinita.
 
-> Nota che per utilizzare `intlayerMiddleware` in produzione, è necessario spostare il pacchetto `vite-intlayer` da `devDependencies` a `dependencies`.
+> Nota che per utilizzare `intlayerProxy` in produzione, è necessario spostare il pacchetto `vite-intlayer` da `devDependencies` a `dependencies`.
 
 ```typescript {3,7} fileName="vite.config.ts"
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import { intlayer, intlayerProxy } from "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
@@ -505,7 +505,7 @@ export default defineConfig({
     reactRouter(),
     tsconfigPaths(),
     intlayer(),
-    intlayerMiddleware(),
+    intlayerProxy(),
   ],
 });
 ```

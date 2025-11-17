@@ -476,15 +476,15 @@ function LayoutComponent() {
 
 ### الخطوة 11: إضافة الوسيط (اختياري)
 
-يمكنك أيضًا استخدام `intlayerMiddleware` لإضافة التوجيه من جانب الخادم إلى تطبيقك. سيقوم هذا الملحق تلقائيًا بالكشف عن اللغة الحالية بناءً على عنوان URL وتعيين ملف تعريف الارتباط الخاص باللغة المناسبة. إذا لم يتم تحديد لغة، فسيحدد الملحق اللغة الأنسب بناءً على تفضيلات لغة متصفح المستخدم. وإذا لم يتم الكشف عن أي لغة، فسيتم إعادة التوجيه إلى اللغة الافتراضية.
+يمكنك أيضًا استخدام `intlayerProxy` لإضافة التوجيه من جانب الخادم إلى تطبيقك. سيقوم هذا الملحق تلقائيًا بالكشف عن اللغة الحالية بناءً على عنوان URL وتعيين ملف تعريف الارتباط الخاص باللغة المناسبة. إذا لم يتم تحديد لغة، فسيحدد الملحق اللغة الأنسب بناءً على تفضيلات لغة متصفح المستخدم. وإذا لم يتم الكشف عن أي لغة، فسيتم إعادة التوجيه إلى اللغة الافتراضية.
 
-> لاحظ أنه لاستخدام `intlayerMiddleware` في بيئة الإنتاج، تحتاج إلى نقل حزمة `vite-intlayer` من `devDependencies` إلى `dependencies`.
+> لاحظ أنه لاستخدام `intlayerProxy` في بيئة الإنتاج، تحتاج إلى نقل حزمة `vite-intlayer` من `devDependencies` إلى `dependencies`.
 
 ```typescript {3,7} fileName="vite.config.ts"
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import { intlayer, intlayerProxy } from "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
@@ -493,7 +493,7 @@ export default defineConfig({
     reactRouter(),
     tsconfigPaths(),
     intlayer(),
-    intlayerMiddleware(),
+    intlayerProxy(),
   ],
 });
 ```

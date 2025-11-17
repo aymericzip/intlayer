@@ -107,7 +107,7 @@ function changeLanguage(target: Locale) {
 
 ## Benefits of domain-based routing
 
-1. **Simpler configuration**: No need to configure `intlayerMiddleware`, `generateStaticParams`, `react-router`, or `vue-router`
+1. **Simpler configuration**: No need to configure `intlayerProxy`, `generateStaticParams`, `react-router`, or `vue-router`
 2. **Better SEO**: Each language has its own domain
 3. **Cleaner URLs**: No locale prefix in the path
 4. **Easier maintenance**: Each language deployment is independent

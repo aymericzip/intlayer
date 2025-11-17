@@ -108,7 +108,7 @@ function changeLanguage(target: Locale) {
 
 ## डोमेन-आधारित रूटिंग के लाभ
 
-1. **सरल कॉन्फ़िगरेशन**: `intlayerMiddleware`, `generateStaticParams`, `react-router`, या `vue-router` को कॉन्फ़िगर करने की आवश्यकता नहीं
+1. **सरल कॉन्फ़िगरेशन**: `intlayerProxy`, `generateStaticParams`, `react-router`, या `vue-router` को कॉन्फ़िगर करने की आवश्यकता नहीं
 2. **बेहतर SEO**: प्रत्येक भाषा का अपना डोमेन होता है
 3. **साफ-सुथरे URL**: पथ में कोई लोकेल उपसर्ग नहीं होता
 4. **आसान रखरखाव**: प्रत्येक भाषा की तैनाती स्वतंत्र होती है

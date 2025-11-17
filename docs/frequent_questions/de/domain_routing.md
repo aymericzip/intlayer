@@ -107,7 +107,7 @@ function changeLanguage(target: Locale) {
 
 ## Vorteile des domänenbasierten Routings
 
-1. **Einfachere Konfiguration**: Keine Notwendigkeit, `intlayerMiddleware`, `generateStaticParams`, `react-router` oder `vue-router` zu konfigurieren
+1. **Einfachere Konfiguration**: Keine Notwendigkeit, `intlayerProxy`, `generateStaticParams`, `react-router` oder `vue-router` zu konfigurieren
 2. **Bessere SEO**: Jede Sprache hat ihre eigene Domain
 3. **Sauberere URLs**: Kein Sprachpräfix im Pfad
 4. **Einfachere Wartung**: Jede Sprachbereitstellung ist unabhängig

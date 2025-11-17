@@ -468,15 +468,15 @@ function LayoutComponent() {
 
 ### 第11步：添加中间件（可选）
 
-您还可以使用 `intlayerMiddleware` 为您的应用程序添加服务器端路由。该插件将根据 URL 自动检测当前语言环境，并设置相应的语言环境 Cookie。如果未指定语言环境，插件将根据用户浏览器的语言偏好确定最合适的语言环境。如果未检测到语言环境，它将重定向到默认语言环境。
+您还可以使用 `intlayerProxy` 为您的应用程序添加服务器端路由。该插件将根据 URL 自动检测当前语言环境，并设置相应的语言环境 Cookie。如果未指定语言环境，插件将根据用户浏览器的语言偏好确定最合适的语言环境。如果未检测到语言环境，它将重定向到默认语言环境。
 
-> 注意，要在生产环境中使用 `intlayerMiddleware`，您需要将 `vite-intlayer` 包从 `devDependencies` 切换到 `dependencies`。
+> 注意，要在生产环境中使用 `intlayerProxy`，您需要将 `vite-intlayer` 包从 `devDependencies` 切换到 `dependencies`。
 
 ```typescript {3,7} fileName="vite.config.ts"
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import { intlayer, intlayerProxy } from "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
@@ -485,7 +485,7 @@ export default defineConfig({
     reactRouter(),
     tsconfigPaths(),
     intlayer(),
-    intlayerMiddleware(),
+    intlayerProxy(),
   ],
 });
 ```

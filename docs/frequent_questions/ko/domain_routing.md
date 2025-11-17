@@ -107,7 +107,7 @@ function changeLanguage(target: Locale) {
 
 ## 도메인 기반 라우팅의 장점
 
-1. **더 간단한 구성**: `intlayerMiddleware`, `generateStaticParams`, `react-router` 또는 `vue-router`를 구성할 필요가 없습니다.
+1. **더 간단한 구성**: `intlayerProxy`, `generateStaticParams`, `react-router` 또는 `vue-router`를 구성할 필요가 없습니다.
 2. **더 나은 SEO**: 각 언어마다 고유한 도메인을 가집니다
 3. **더 깔끔한 URL**: 경로에 로케일 접두사가 없습니다
 4. **더 쉬운 유지보수**: 각 언어별 배포가 독립적입니다

@@ -1398,9 +1398,9 @@ export const config = {
 Intlayer menyediakan penanganan middleware bawaan melalui konfigurasi paket `next-intlayer`.
 
 ```ts fileName="src/middleware.ts"
-import { intlayerMiddleware } from "next-intlayer/middleware";
+import { intlayerProxy } from "next-intlayer/proxy";
 
-export const middleware = intlayerMiddleware();
+export const middleware = intlayerProxy();
 
 // menerapkan middleware ini hanya pada file di direktori app
 export const config = {

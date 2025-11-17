@@ -1399,9 +1399,9 @@ export const config = {
 Intlayer zapewnia wbudowane zarządzanie middleware za pomocą konfiguracji pakietu `next-intlayer`.
 
 ```ts fileName="src/middleware.ts"
-import { intlayerMiddleware } from "next-intlayer/middleware";
+import { intlayerProxy } from "next-intlayer/proxy";
 
-export const middleware = intlayerMiddleware();
+export const middleware = intlayerProxy();
 
 // stosuje ten middleware tylko do plików w katalogu app
 export const config = {

@@ -107,7 +107,7 @@ function changeLanguage(target: Locale) {
 
 ## Vantaggi del routing basato sul dominio
 
-1. **Configurazione più semplice**: Non è necessario configurare `intlayerMiddleware`, `generateStaticParams`, `react-router` o `vue-router`
+1. **Configurazione più semplice**: Non è necessario configurare `intlayerProxy`, `generateStaticParams`, `react-router` o `vue-router`
 2. **Migliore SEO**: Ogni lingua ha il proprio dominio
 3. **URL più puliti**: Nessun prefisso di localizzazione nel percorso
 4. **Manutenzione più semplice**: Ogni distribuzione linguistica è indipendente

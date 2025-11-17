@@ -149,7 +149,7 @@ export default withIntlayer(nextConfig);
 قم بإعداد الوسيط لاكتشاف ومعالجة اللغة المفضلة للمستخدم تلقائيًا:
 
 ```typescript fileName="src/middleware.ts" codeFormat="typescript"
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+export { intlayerProxy as middleware } from "next-intlayer/middleware";
 
 export const config = {
   matcher:
@@ -158,7 +158,7 @@ export const config = {
 ```
 
 ```javascript fileName="src/middleware.mjs" codeFormat="esm"
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+export { intlayerProxy as middleware } from "next-intlayer/middleware";
 
 export const config = {
   matcher:
@@ -167,14 +167,14 @@ export const config = {
 ```
 
 ```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
-const { intlayerMiddleware } = require("next-intlayer/middleware");
+const { intlayerProxy } = require("next-intlayer/middleware");
 
 const config = {
   matcher:
     "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
 };
 
-module.exports = { middleware: intlayerMiddleware, config };
+module.exports = { middleware: intlayerProxy, config };
 ```
 
 > قم بتعديل معامل `matcher` ليتناسب مع مسارات تطبيقك. لمزيد من التفاصيل، راجع [وثائق Next.js حول تكوين matcher](https://nextjs.org/docs/app/building-your-application/routing/middleware).

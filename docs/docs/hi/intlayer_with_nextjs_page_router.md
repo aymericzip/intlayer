@@ -151,7 +151,7 @@ export default withIntlayer(nextConfig);
 मिडलवेयर सेट करें ताकि उपयोगकर्ता की पसंदीदा स्थानीय भाषा को स्वचालित रूप से पहचानकर संभाला जा सके:
 
 ```typescript fileName="src/middleware.ts" codeFormat="typescript"
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+export { intlayerProxy as middleware } from "next-intlayer/middleware";
 
 export const config = {
   matcher:
@@ -160,7 +160,7 @@ export const config = {
 ```
 
 ```javascript fileName="src/middleware.mjs" codeFormat="esm"
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+export { intlayerProxy as middleware } from "next-intlayer/middleware";
 
 export const config = {
   matcher:
@@ -169,14 +169,14 @@ export const config = {
 ```
 
 ```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
-const { intlayerMiddleware } = require("next-intlayer/middleware");
+const { intlayerProxy } = require("next-intlayer/middleware");
 
 const config = {
   matcher:
     "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
 };
 
-module.exports = { middleware: intlayerMiddleware, config };
+module.exports = { middleware: intlayerProxy, config };
 ```
 
 > अपने एप्लिकेशन के रूट्स से मेल खाने के लिए `matcher` पैरामीटर को अनुकूलित करें। अधिक जानकारी के लिए, [Next.js दस्तावेज़ीकरण में matcher को कॉन्फ़िगर करने](https://nextjs.org/docs/app/building-your-application/routing/middleware) पर जाएं।

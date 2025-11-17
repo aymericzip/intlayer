@@ -107,7 +107,7 @@ function changeLanguage(target: Locale) {
 
 ## Alan adına göre yönlendirmenin avantajları
 
-1. **Daha basit yapılandırma**: `intlayerMiddleware`, `generateStaticParams`, `react-router` veya `vue-router` yapılandırmaya gerek yok
+1. **Daha basit yapılandırma**: `intlayerProxy`, `generateStaticParams`, `react-router` veya `vue-router` yapılandırmaya gerek yok
 2. **Daha iyi SEO**: Her dilin kendi domaini olur
 3. **Daha temiz URL'ler**: Yolda dil öneki yok
 4. **Daha kolay bakım**: Her dil dağıtımı bağımsızdır

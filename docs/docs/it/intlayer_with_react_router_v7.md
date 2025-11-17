@@ -405,18 +405,18 @@ export default function RootLayout() {
 
 ### Passo 11: Aggiungere il middleware (Opzionale)
 
-Puoi anche utilizzare `intlayerMiddleware` per aggiungere il routing lato server alla tua applicazione. Questo plugin rileverà automaticamente la lingua corrente basandosi sull'URL e imposterà il cookie della lingua appropriata. Se non viene specificata alcuna lingua, il plugin determinerà la lingua più adatta in base alle preferenze linguistiche del browser dell'utente. Se non viene rilevata alcuna lingua, verrà effettuato un reindirizzamento alla lingua predefinita.
+Puoi anche utilizzare `intlayerProxy` per aggiungere il routing lato server alla tua applicazione. Questo plugin rileverà automaticamente la lingua corrente basandosi sull'URL e imposterà il cookie della lingua appropriata. Se non viene specificata alcuna lingua, il plugin determinerà la lingua più adatta in base alle preferenze linguistiche del browser dell'utente. Se non viene rilevata alcuna lingua, verrà effettuato un reindirizzamento alla lingua predefinita.
 
-> Nota che per utilizzare `intlayerMiddleware` in produzione, è necessario spostare il pacchetto `vite-intlayer` da `devDependencies` a `dependencies`.
+> Nota che per utilizzare `intlayerProxy` in produzione, è necessario spostare il pacchetto `vite-intlayer` da `devDependencies` a `dependencies`.
 
 ```typescript {3,7} fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerMiddleware()],
+  plugins: [react(), intlayer(), intlayerProxy()],
 });
 ```
 

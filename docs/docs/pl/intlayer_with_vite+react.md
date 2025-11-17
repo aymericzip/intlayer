@@ -807,40 +807,40 @@ const App = () => (
 );
 ```
 
-Równolegle możesz również użyć `intlayerMiddleware`, aby dodać routing po stronie serwera do swojej aplikacji. Ten plugin automatycznie wykryje bieżącą lokalizację na podstawie URL i ustawi odpowiedni cookie lokalizacji. Jeśli lokalizacja nie jest określona, plugin wybierze najbardziej odpowiednią lokalizację na podstawie preferencji językowych przeglądarki użytkownika. Jeśli żadna lokalizacja nie zostanie wykryta, nastąpi przekierowanie do domyślnej lokalizacji.
+Równolegle możesz również użyć `intlayerProxy`, aby dodać routing po stronie serwera do swojej aplikacji. Ten plugin automatycznie wykryje bieżącą lokalizację na podstawie URL i ustawi odpowiedni cookie lokalizacji. Jeśli lokalizacja nie jest określona, plugin wybierze najbardziej odpowiednią lokalizację na podstawie preferencji językowych przeglądarki użytkownika. Jeśli żadna lokalizacja nie zostanie wykryta, nastąpi przekierowanie do domyślnej lokalizacji.
 
-> Uwaga: aby używać `intlayerMiddleware` w produkcji, musisz przenieść pakiet `vite-intlayer` z `devDependencies` do `dependencies`.
+> Uwaga: aby używać `intlayerProxy` w produkcji, musisz przenieść pakiet `vite-intlayer` z `devDependencies` do `dependencies`.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerMiddleware()],
+  plugins: [react(), intlayer(), intlayerProxy()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerMiddleware()],
+  plugins: [react(), intlayer(), intlayerProxy()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const react = require("@vitejs/plugin-react-swc");
-const { intlayer, intlayerMiddleware } = require("vite-intlayer");
+const { intlayer, intlayerProxy } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [react(), intlayer(), intlayerMiddleware()],
+  plugins: [react(), intlayer(), intlayerProxy()],
 });
 ```
 

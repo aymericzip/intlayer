@@ -107,7 +107,7 @@ function changeLanguage(target: Locale) {
 
 ## Lợi ích của định tuyến dựa trên tên miền
 
-1. **Cấu hình đơn giản hơn**: Không cần cấu hình `intlayerMiddleware`, `generateStaticParams`, `react-router`, hoặc `vue-router`
+1. **Cấu hình đơn giản hơn**: Không cần cấu hình `intlayerProxy`, `generateStaticParams`, `react-router`, hoặc `vue-router`
 2. **SEO tốt hơn**: Mỗi ngôn ngữ có tên miền riêng
 3. **URL sạch hơn**: Không có tiền tố ngôn ngữ trong đường dẫn
 4. **Dễ bảo trì hơn**: Mỗi triển khai ngôn ngữ là độc lập

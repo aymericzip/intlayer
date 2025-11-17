@@ -107,7 +107,7 @@ function changeLanguage(target: Locale) {
 
 ## 基于域名路由的优势
 
-1. **配置更简单**：无需配置 `intlayerMiddleware`、`generateStaticParams`、`react-router` 或 `vue-router`
+1. **配置更简单**：无需配置 `intlayerProxy`、`generateStaticParams`、`react-router` 或 `vue-router`
 2. **更好的SEO**：每种语言都有自己的域名
 3. **更简洁的URL**：路径中没有语言前缀
 4. **更易维护**：每种语言的部署相互独立

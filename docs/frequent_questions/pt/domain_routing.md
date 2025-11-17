@@ -107,7 +107,7 @@ function changeLanguage(target: Locale) {
 
 ## Benefícios do roteamento baseado em domínio
 
-1. **Configuração mais simples**: Não é necessário configurar `intlayerMiddleware`, `generateStaticParams`, `react-router` ou `vue-router`
+1. **Configuração mais simples**: Não é necessário configurar `intlayerProxy`, `generateStaticParams`, `react-router` ou `vue-router`
 2. **Melhor SEO**: Cada idioma possui seu próprio domínio
 3. **URLs mais limpas**: Sem prefixo de localidade no caminho
 4. **Manutenção mais fácil**: Cada implantação de idioma é independente

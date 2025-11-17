@@ -404,18 +404,18 @@ export default function RootLayout() {
 
 ### 第11步：添加中间件（可选）
 
-你也可以使用 `intlayerMiddleware` 为你的应用添加服务器端路由。该插件会根据 URL 自动检测当前的语言环境，并设置相应的语言环境 cookie。如果未指定语言环境，插件将根据用户浏览器的语言偏好确定最合适的语言环境。如果仍未检测到语言环境，则会重定向到默认语言环境。
+你也可以使用 `intlayerProxy` 为你的应用添加服务器端路由。该插件会根据 URL 自动检测当前的语言环境，并设置相应的语言环境 cookie。如果未指定语言环境，插件将根据用户浏览器的语言偏好确定最合适的语言环境。如果仍未检测到语言环境，则会重定向到默认语言环境。
 
-> 注意，要在生产环境中使用 `intlayerMiddleware`，你需要将 `vite-intlayer` 包从 `devDependencies` 切换到 `dependencies`。
+> 注意，要在生产环境中使用 `intlayerProxy`，你需要将 `vite-intlayer` 包从 `devDependencies` 切换到 `dependencies`。
 
 ```typescript {3,7} fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerMiddleware()],
+  plugins: [react(), intlayer(), intlayerProxy()],
 });
 ```
 

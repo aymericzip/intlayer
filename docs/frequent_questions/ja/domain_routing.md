@@ -107,7 +107,7 @@ function changeLanguage(target: Locale) {
 
 ## ドメインベースのルーティングの利点
 
-1. **設定が簡単**: `intlayerMiddleware`、`generateStaticParams`、`react-router`、`vue-router` の設定が不要
+1. **設定が簡単**: `intlayerProxy`、`generateStaticParams`、`react-router`、`vue-router` の設定が不要
 2. **より良いSEO**: 各言語が独自のドメインを持つ
 3. **よりクリーンなURL**: パスにロケールのプレフィックスがない
 4. **メンテナンスが容易**: 各言語のデプロイが独立している

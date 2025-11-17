@@ -107,7 +107,7 @@ function changeLanguage(target: Locale) {
 
 ## Zalety routingu opartego na domenach
 
-1. **Prostsza konfiguracja**: Nie ma potrzeby konfigurowania `intlayerMiddleware`, `generateStaticParams`, `react-router` ani `vue-router`
+1. **Prostsza konfiguracja**: Nie ma potrzeby konfigurowania `intlayerProxy`, `generateStaticParams`, `react-router` ani `vue-router`
 2. **Lepsze SEO**: Każdy język ma własną domenę
 3. **Czystsze adresy URL**: Brak prefiksu lokalizacji w ścieżce
 4. **Łatwiejsza konserwacja**: Każde wdrożenie języka jest niezależne
