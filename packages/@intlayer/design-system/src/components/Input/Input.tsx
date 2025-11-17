@@ -22,14 +22,14 @@ export const inputVariants = cva(
         default: [
           'text-text',
           'bg-neutral-50 dark:bg-neutral-950',
-          'ring-neutral-100/20 dark:ring-neutral-700/20',
-          'ring-offset-neutral-100/20 dark:ring-offset-neutral-700/20',
+          'ring-neutral-100/50 dark:ring-neutral-700/50',
+          'ring-offset-neutral-100/50 dark:ring-offset-neutral-700/50',
 
           // Focus ring + animation
           'focus-visible:outline-none',
 
           'disabled:ring-0',
-          'hover:ring-2',
+          'hover:ring-3',
           'focus-visible:ring-4',
 
           // Remove any weird box-shadow
