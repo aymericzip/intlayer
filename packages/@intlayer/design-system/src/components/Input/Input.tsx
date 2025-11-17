@@ -9,7 +9,7 @@ export const inputVariants = cva(
   [
     // base styles
     'w-full select-text resize-none text-base shadow-none outline-none',
-    'transition-shadow duration-100 md:text-sm',
+    'transition-shadow duration-300 md:text-sm',
     'ring-0', // base ring
     'disabled:opacity-50',
 
@@ -22,14 +22,15 @@ export const inputVariants = cva(
         default: [
           'text-text',
           'bg-neutral-50 dark:bg-neutral-950',
-          'ring-neutral-100 dark:ring-neutral-700',
-          'ring-offset-neutral-100 dark:ring-offset-neutral-700',
+          'ring-neutral-100/20 dark:ring-neutral-700/20',
+          'ring-offset-neutral-100/20 dark:ring-offset-neutral-700/20',
 
           // Focus ring + animation
           'focus-visible:outline-none',
 
           'disabled:ring-0',
-          'focus-visible:ring-3',
+          'hover:ring-2',
+          'focus-visible:ring-4',
 
           // Remove any weird box-shadow
           '[box-shadow:none] focus:[box-shadow:none]',
