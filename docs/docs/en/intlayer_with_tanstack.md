@@ -157,6 +157,12 @@ function LayoutComponent() {
 }
 ```
 
+> Here, `{-$locale}` is a dynamic route parameter that gets replaced with the current locale. This notation makes the slot optional, allowing it to work with routing modes such as `'prefix-no-default'` etc.
+
+> Be aware that this slot may cause issues if you use multiple dynamic segments in the same route (e.g., `/{-$locale}/other-path/$anotherDynamicPath/...`).
+> For the `'prefix-all'` mode, you may prefer switching the slot to `$locale` instead.
+> For the `'no-prefix'` or `'search-params'` mode, you can remove the slot entirely.
+
 ### Step 6: Declare Your Content
 
 Create and manage your content declarations to store translations:
