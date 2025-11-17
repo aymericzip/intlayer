@@ -278,7 +278,7 @@ Gwiazdki na GitHub są silnym wskaźnikiem popularności projektu, zaufania spo�
 
 Gwiazdy na GitHubie są silnym wskaźnikiem popularności projektu, zaufania społeczności oraz jego długoterminowej istotności. Choć nie są bezpośrednią miarą jakości technicznej, odzwierciedlają, ilu deweloperów uważa projekt za użyteczny, śledzi jego rozwój i jest skłonnych go przyjąć. Przy szacowaniu wartości projektu, gwiazdy pomagają porównać zainteresowanie różnymi alternatywami oraz dostarczają wglądu w rozwój ekosystemu.
 
-[![Wykres historii gwiazdek](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=i18next/i18next&repos=i18next/next-i18next&repos=lingui/js-lingui&repos=amannn/next-intl&repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&aymericzip/intlayer)
+[![Wykres historii gwiazdek](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=i18next/i18next&repos=i18next/next-i18next&repos=lingui/js-lingui&repos=amannn/next-intl&repos=intlify/vue-i18n&repo=opral/monorepo&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/monorepo&aymericzip/intlayer)
 
 ---
 

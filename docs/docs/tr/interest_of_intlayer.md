@@ -275,7 +275,7 @@ Bu yaklaşım şunları yapmanıza izin verir:
 
 GitHub yıldızları, bir projenin popülaritesinin, topluluk güveninin ve uzun vadeli öneminin güçlü bir göstergesidir. Teknik kalitenin doğrudan bir ölçüsü olmasa da, kaç geliştiricinin projeyi yararlı bulduğunu, ilerlemesini takip ettiğini ve muhtemelen benimsediğini yansıtır. Bir projenin değerini tahmin etmek için yıldızlar, alternatifler arasındaki çekişmeyi karşılaştırmaya ve ekosistem büyümesine ilişkin içgörüler sağlamaya yardımcı olur.
 
-[![Yıldız Geçmişi Grafiği](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=i18next/i18next&repos=i18next/next-i18next&repos=lingui/js-lingui&repos=amannn/next-intl&repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&aymericzip/intlayer)
+[![Yıldız Geçmişi Grafiği](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=i18next/i18next&repos=i18next/next-i18next&repos=lingui/js-lingui&repos=amannn/next-intl&repos=intlify/vue-i18n&repo=opral/monorepo&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/monorepo&aymericzip/intlayer)
 
 ---
 

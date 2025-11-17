@@ -276,7 +276,7 @@ Pendekatan ini memungkinkan Anda untuk:
 
 Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komunitas, dan relevansi jangka panjang. Meskipun bukan ukuran langsung dari kualitas teknis, bintang tersebut mencerminkan berapa banyak pengembang yang menganggap proyek ini berguna, mengikuti perkembangannya, dan kemungkinan akan mengadopsinya. Untuk memperkirakan nilai sebuah proyek, bintang membantu membandingkan daya tarik di antara alternatif dan memberikan wawasan tentang pertumbuhan ekosistem.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=i18next/i18next&repos=i18next/next-i18next&repos=lingui/js-lingui&repos=amannn/next-intl&repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=i18next/i18next&repos=i18next/next-i18next&repos=lingui/js-lingui&repos=amannn/next-intl&repos=intlify/vue-i18n&repo=opral/monorepo&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/monorepo&aymericzip/intlayer)
 
 ---
 

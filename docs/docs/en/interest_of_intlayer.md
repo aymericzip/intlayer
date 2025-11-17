@@ -276,7 +276,7 @@ This approach allows you to:
 
 GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=i18next/i18next&repos=i18next/next-i18next&repos=lingui/js-lingui&repos=amannn/next-intl&repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=i18next/i18next&repos=i18next/next-i18next&repos=lingui/js-lingui&repos=amannn/next-intl&repos=intlify/vue-i18n&repo=opral/monorepo&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/monorepo&aymericzip/intlayer)
 
 ---
 
