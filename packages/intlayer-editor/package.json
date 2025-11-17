@@ -132,14 +132,6 @@
     "vitest": "4.0.8"
   },
   "peerDependencies": {
-    "@intlayer/chokidar": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/design-system": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*",
-    "@intlayer/editor-react": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "clsx": "2.1.1",
     "framer-motion": "12.23.24",
     "intlayer": "workspace:*",

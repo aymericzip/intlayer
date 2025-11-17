@@ -94,11 +94,6 @@
     "vitest": "4.0.8"
   },
   "peerDependencies": {
-    "@intlayer/api": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/editor": "workspace:*",
-    "@intlayer/types": "workspace:*",
     "svelte": ">=5.0.0"
   },
   "engines": {

@@ -86,8 +86,6 @@
   },
   "peerDependencies": {
     "@intlayer/backend": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/types": "workspace:*",
     "intlayer-editor": "workspace:*"
   },
   "peerDependenciesMeta": {

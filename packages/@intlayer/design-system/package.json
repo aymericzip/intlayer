@@ -170,13 +170,7 @@
   },
   "peerDependencies": {
     "@better-fetch/fetch": "1.1.18",
-    "@intlayer/api": "workspace:*",
     "@intlayer/backend": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*",
-    "@intlayer/editor-react": "workspace:*",
-    "@intlayer/types": "workspace:*",
     "@monaco-editor/react": "4.7.0",
     "@tanstack/react-query": "5.90.8",
     "clsx": "2.1.1",

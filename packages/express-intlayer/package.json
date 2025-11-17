@@ -95,12 +95,6 @@
     "typescript": "5.9.3",
     "vitest": "4.0.8"
   },
-  "peerDependencies": {
-    "@intlayer/chokidar": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/types": "workspace:*"
-  },
   "engines": {
     "node": ">=14.18"
   },

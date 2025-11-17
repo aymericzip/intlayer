@@ -130,12 +130,6 @@
     "vitest": "4.0.8"
   },
   "peerDependencies": {
-    "@intlayer/api": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/editor-react": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0"
   },

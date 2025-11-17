@@ -95,14 +95,8 @@
     "vitest": "4.0.8"
   },
   "peerDependencies": {
-    "@intlayer/chokidar": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/types": "workspace:*",
     "@nuxt/kit": ">=3.0.0",
-    "@nuxt/schema": ">=3.0.0",
-    "vite-intlayer": "workspace:*",
-    "vue-intlayer": "workspace:*"
+    "@nuxt/schema": ">=3.0.0"
   },
   "engines": {
     "node": ">=14.18"

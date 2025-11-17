@@ -97,10 +97,6 @@
     "vitest": "4.0.8"
   },
   "peerDependencies": {
-    "@intlayer/api": "workspace:*",
-    "@intlayer/chokidar": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/types": "workspace:*",
     "webpack": "5.99.9"
   },
   "engines": {

@@ -107,10 +107,6 @@
     "vitest": "4.0.8"
   },
   "peerDependencies": {
-    "@intlayer/chokidar": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/types": "workspace:*",
     "expo": ">=52",
     "metro-resolver": ">=0.80",
     "react": ">=18.0.0",

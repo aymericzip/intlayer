@@ -76,7 +76,9 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@intlayer/config": "workspace:*"
+    "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
+    "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "24.10.1",
@@ -87,11 +89,6 @@
     "tsdown": "0.16.4",
     "typescript": "5.9.3",
     "vitest": "4.0.8"
-  },
-  "peerDependencies": {
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/types": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

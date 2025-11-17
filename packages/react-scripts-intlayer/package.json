@@ -100,9 +100,6 @@
     "vitest": "4.0.8"
   },
   "peerDependencies": {
-    "@intlayer/config": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "@intlayer/webpack": "workspace:*",
     "webpack": ">=5.0.0"
   },
   "engines": {

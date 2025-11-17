@@ -105,6 +105,7 @@
     "zod": "3.25.76"
   },
   "devDependencies": {
+    "@intlayer/types": "workspace:*",
     "@modelcontextprotocol/inspector": "0.17.2",
     "@types/express": "5.0.5",
     "@types/node": "24.10.1",
@@ -115,12 +116,6 @@
     "tsdown": "0.16.4",
     "typescript": "5.9.3",
     "vitest": "4.0.8"
-  },
-  "peerDependencies": {
-    "@intlayer/cli": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/docs": "workspace:*",
-    "@intlayer/types": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

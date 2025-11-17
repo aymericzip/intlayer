@@ -88,15 +88,6 @@
     "typescript": "5.9.3",
     "vitest": "4.0.8"
   },
-  "peerDependencies": {
-    "@intlayer/api": "workspace:*",
-    "@intlayer/chokidar": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*",
-    "@intlayer/remote-dictionaries-entry": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*"
-  },
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"
   }

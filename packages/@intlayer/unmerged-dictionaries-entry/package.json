@@ -74,6 +74,7 @@
     "@intlayer/config": "workspace:*"
   },
   "devDependencies": {
+    "@intlayer/types": "workspace:*",
     "@types/node": "24.10.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
@@ -82,10 +83,6 @@
     "tsdown": "0.16.4",
     "typescript": "5.9.3",
     "vitest": "4.0.8"
-  },
-  "peerDependencies": {
-    "@intlayer/config": "workspace:*",
-    "@intlayer/types": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

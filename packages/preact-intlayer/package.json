@@ -103,13 +103,6 @@
     "vitest": "4.0.8"
   },
   "peerDependencies": {
-    "@intlayer/api": "workspace:*",
-    "@intlayer/chokidar": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/editor": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "preact": ">=8.0.0"
   },
   "engines": {
