@@ -78,7 +78,33 @@ rm -rf package-lock.json node_modules
 npm install # or yarn install or pnpm install or bun pm install
 ```
 
-3. Check global installation
+3. Check local dependencies versions
+
+It can happen that your package manager keep an old version of the sub-packages in the lockfile in cache.
+
+Example `intlayer@7.0.0` > `@intlayer/config@7.0.0` > `@intlayer/dictionary-entry@6.0.0`.
+
+To detect a mismatch between the local dependencies versions and the sub-packages versions, you can use the following command:
+
+```bash
+npm list --depth=3 | grep intlayer
+```
+
+```bash
+yarn list --depth=3 | grep intlayer
+```
+
+```bash
+pnpm list --depth=3 | grep intlayer
+```
+
+```bash
+bun pm ls --depth=3 | grep intlayer
+```
+
+> On windows, replace `| grep intlayer` by `| findstr intlayer` or using PowerShell with `Select-String -Pattern "intlayer"`.
+
+4. Check global installation
 
 We recommend to install `intlayer` or `intlayer-cli` globally to access the CLI commands. If the global version is not the same as the local version, the package manager may consider the wrong version.
 
@@ -99,6 +125,8 @@ pnpm list -g --depth=3 | grep intlayer
 ```bash
 bun pm ls -g --depth=3 | grep intlayer
 ```
+
+> On windows, replace `| grep intlayer` by `| findstr intlayer` or using PowerShell with `Select-String -Pattern "intlayer"`.
 
 **Fix potential global dependency conflicts**
 

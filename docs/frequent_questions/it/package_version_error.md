@@ -84,19 +84,19 @@ Consigliamo di installare `intlayer` o `intlayer-cli` globalmente per accedere a
 **Controllare se un pacchetto è installato globalmente**
 
 ```bash
-npm list -g --depth=0
+npm list -g --depth=3 | grep intlayer
 ```
 
 ```bash
-npm list -g --depth=0 | grep intlayer
+yarn global list --depth=3 | grep intlayer
 ```
 
 ```bash
-yarn global list
+pnpm list -g --depth=3 | grep intlayer
 ```
 
 ```bash
-pnpm list -g --depth=0
+bun pm ls -g --depth=3 | grep intlayer
 ```
 
 **Risolvi potenziali conflitti di dipendenze globali**
