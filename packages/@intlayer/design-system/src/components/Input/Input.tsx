@@ -9,7 +9,7 @@ export const inputVariants = cva(
   [
     // base styles
     'w-full select-text resize-none text-base shadow-none outline-none',
-    'transition-shadow duration-300 md:text-sm',
+    'transition-all duration-300 md:text-sm',
     'ring-0', // base ring
     'disabled:opacity-50',
 
