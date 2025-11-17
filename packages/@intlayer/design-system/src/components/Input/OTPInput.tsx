@@ -894,7 +894,7 @@ export const InputOTPSlot: FC<InputOTPSlotProps> = ({
 export const InputOTPSeparator: FC<ComponentProps<'div'>> = (props) => (
   <div
     aria-hidden
-    className="z-0 table h-0.5 w-3 rounded-full bg-text/50"
+    className="z-0 table h-0.5 w-3 rounded-full bg-border text-text/20"
     {...props}
   >
     <MinusIcon />
@@ -906,7 +906,7 @@ export const InputIndicator: FC<
 > = ({ ref, ...props }) => (
   <div
     data-indicator
-    className="absolute top-0 z-0 h-full w-auto rounded-xl bg-text/10 ring-4 ring-text/20 transition-[left,width] duration-300 ease-in-out [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl motion-reduce:transition-none"
+    className="absolute top-0 z-0 h-full w-auto rounded-xl bg-text/20 ring-4 ring-text/20 transition-[left,width] duration-300 ease-in-out [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl motion-reduce:transition-none"
     ref={ref}
     {...props}
   />
