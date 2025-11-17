@@ -1,6 +1,6 @@
 {
   "name": "preact-intlayer",
-  "version": "7.0.9",
+  "version": "7.1.0",
   "private": false,
   "description": "Easily internationalize i18n your Preact applications with type-safe multilingual content management.",
   "keywords": [
@@ -76,6 +76,9 @@
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --tag canary || true",
+    "publish:latest": "bun publish --tag latest || true",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
@@ -87,8 +90,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "js-cookie": "3.0.5"
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "24.10.1",

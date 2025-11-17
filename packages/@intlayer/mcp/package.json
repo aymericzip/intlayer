@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/mcp",
-  "version": "7.0.9",
+  "version": "7.1.0",
   "private": false,
   "description": "Intlayer MCP server. Handle MCP to help IDE to use Intlayer. It build, fill, pull, push, dictionaries",
   "keywords": [
@@ -80,6 +80,9 @@
     "manange:permissions:mjs": "node -e \"require('fs').chmodSync('dist/esm/server/stdio.mjs', 0o755); require('fs').chmodSync('dist/esm/server/sse.mjs', 0o755)\"",
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
     "prepublish": "cp -f ../../../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --tag canary || true",
+    "publish:latest": "bun publish --tag latest || true",
     "start": "bun start:stdio",
     "start:client": "npx node dist/cjs/client/sse.cjs",
     "start:docker": "docker run --rm -p 3000:3000 --name intlayer-mcp-app intlayer-mcp",

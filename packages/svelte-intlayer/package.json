@@ -1,6 +1,6 @@
 {
   "name": "svelte-intlayer",
-  "version": "7.0.9",
+  "version": "7.1.0",
   "private": false,
   "description": "Easily internationalize i18n your Svelte applications with type-safe multilingual content management.",
   "keywords": [
@@ -66,6 +66,9 @@
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --tag canary || true",
+    "publish:latest": "bun publish --tag latest || true",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
@@ -75,12 +78,10 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "js-cookie": "3.0.5"
+    "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "6.1.4",
-    "@types/js-cookie": "3.0.6",
     "@types/node": "24.10.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

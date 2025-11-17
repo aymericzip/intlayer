@@ -35,13 +35,11 @@ Wenn Sie dies richtig machen, schaffen Sie ein benutzerfreundlicheres Erlebnis f
 Wenn Sie sich entscheiden, mehrere Sprachversionen zu haben, benötigen Sie einen klaren, konsistenten Weg, um die URLs Ihrer Website zu organisieren. Jede Sprache (oder Region) sollte ihre eigene einzigartige „Adresse“ im Internet haben. Im Folgenden finden Sie drei gängige Möglichkeiten, mehrsprachige Websites zu strukturieren:
 
 1. Länderspezifische Top-Level-Domains (ccTLDs)
-
    - Beispiel: `example.fr`, `example.de`
    - **Vorteile:** Sendet ein starkes Signal an Suchmaschinen, welches Land der Inhalt anspricht (z.B. `.fr` = Frankreich).
    - **Nachteile:** Die Verwaltung mehrerer Domains kann teurer und komplizierter sein.
 
 2. **Subdomains**
-
    - **Beispiel:** `fr.example.com`, `de.example.com`
    - **Vorteile:** Jede Sprache „lebt“ auf ihrer eigenen Subdomain, was es relativ einfach macht, Sprachen hinzuzufügen oder zu entfernen.
    - **Nachteile:** Suchmaschinen behandeln Subdomains manchmal als separate Seiten, was die Autorität Ihrer Hauptdomain verwässern kann.

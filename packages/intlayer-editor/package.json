@@ -1,6 +1,6 @@
 {
   "name": "intlayer-editor",
-  "version": "7.0.9",
+  "version": "7.1.0",
   "private": false,
   "description": "Integrate the Intlayer visual editor into your Intlayer projects, enabling CMS-like content management with multilingual support.",
   "keywords": [
@@ -74,6 +74,9 @@
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "preview": "vite preview --config ./client/vite.config.ts",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --tag canary || true",
+    "publish:latest": "bun publish --tag latest || true",
     "start": "bun server/dist/esm/index.mjs",
     "start:client": "vite preview --config ./client/vite.config.ts",
     "start:server": "bun --watch  --hot ./server/dist/esm/index.mjs",

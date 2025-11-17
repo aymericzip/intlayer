@@ -230,12 +230,13 @@ type RemoveLocaleFromString<S extends string> = CollapseDoubleSlashes<
 
 export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
   const { locale } = useLocale();
+  const { localePrefix } = getPrefix(locale);
 
   return (
     <Link
       {...props}
       params={{
-        locale,
+        locale: localePrefix,
         ...(typeof props?.params === "object" ? props?.params : {}),
       }}
       to={`/${LOCALE_ROUTE}${props.to}` as LinkComponentProps["to"]}
@@ -362,8 +363,13 @@ function RouteComponent() {
 import type { FC } from "react";
 
 import { useLocation } from "@tanstack/react-router";
-import { getHTMLTextDir, getLocaleName, getPathWithoutLocale } from "intlayer";
-import { setLocaleCookie, useIntlayer, useLocale } from "react-intlayer";
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getPathWithoutLocale,
+  getPrefix,
+} from "intlayer";
+import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
 
 import { LocalizedLink, To } from "./localized-link";
 
@@ -382,7 +388,7 @@ export const LocaleSwitcher: FC = () => {
           <LocalizedLink
             aria-current={localeEl === locale ? "page" : undefined} // 当前语言时设置 aria-current 为 page
             aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`} // 设置无障碍标签，显示语言切换器标签和语言名称
-            onClick={() => setLocaleCookie(localeEl)} // 点击时设置语言 cookie
+            onClick={() => setLocaleInStorage(localeEl)} // 点击时设置语言 cookie
             params={{ locale: localeEl }} // 传递语言参数
             to={pathWithoutLocale as To} // 跳转到不带语言前缀的路径
           >

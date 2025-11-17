@@ -1,6 +1,6 @@
 {
   "name": "lynx-intlayer",
-  "version": "7.0.9",
+  "version": "7.1.0",
   "private": false,
   "description": "A Lynx plugin for seamless internationalization (i18n) and localization (l10n) of your mobile app.",
   "keywords": [
@@ -78,6 +78,9 @@
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --tag canary || true",
+    "publish:latest": "bun publish --tag latest || true",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit --project tsconfig.types.json"

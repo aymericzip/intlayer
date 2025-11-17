@@ -27,10 +27,12 @@ export const useLocalizedNavigate = () => {
   const { locale } = useLocale();
 
   const localizedNavigate: LocalizedNavigate = (args: any) => {
+    const { localePrefix } = getPrefix(locale);
+
     if (typeof args === 'string') {
       return navigate({
         to: `/${LOCALE_ROUTE}${args}`,
-        params: { locale: getPrefix(locale) },
+        params: { locale: localePrefix },
       });
     }
 
@@ -40,7 +42,7 @@ export const useLocalizedNavigate = () => {
 
     return navigate({
       to: localizedTo,
-      params: { locale: getPrefix(locale), ...rest } as any,
+      params: { locale: localePrefix, ...rest } as any,
     });
   };
 

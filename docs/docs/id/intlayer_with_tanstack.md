@@ -242,12 +242,13 @@ type RemoveLocaleFromString<S extends string> = CollapseDoubleSlashes<
 
 export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
   const { locale } = useLocale();
+  const { localePrefix } = getPrefix(locale);
 
   return (
     <Link
       {...props}
       params={{
-        locale,
+        locale: localePrefix,
         ...(typeof props?.params === "object" ? props?.params : {}),
       }}
       to={`/${LOCALE_ROUTE}${props.to}` as LinkComponentProps["to"]}
@@ -374,8 +375,13 @@ Buat komponen untuk memungkinkan pengguna mengganti bahasa:
 import type { FC } from "react";
 
 import { useLocation } from "@tanstack/react-router";
-import { getHTMLTextDir, getLocaleName, getPathWithoutLocale } from "intlayer";
-import { setLocaleCookie, useIntlayer, useLocale } from "react-intlayer";
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getPathWithoutLocale,
+  getPrefix,
+} from "intlayer";
+import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
 
 import { LocalizedLink, To } from "./localized-link";
 
@@ -394,9 +400,8 @@ export const LocaleSwitcher: FC = () => {
           <LocalizedLink
             aria-current={localeEl === locale ? "page" : undefined}
             aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
-            onClick={() => setLocaleCookie(localeEl)}
-            params={{ locale: localeEl }}
-            to={pathWithoutLocale as To}
+            onClick={() => setLocaleInStorage(localeEl)}
+            params={{ locale: getPrefix(localeEl).localePrefix }}
           >
             <span>
               {/* Locale - misalnya FR */}

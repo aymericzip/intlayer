@@ -1,6 +1,6 @@
 {
   "name": "solid-intlayer",
-  "version": "7.0.9",
+  "version": "7.1.0",
   "private": false,
   "description": "Easily internationalize i18n your Solid applications with type-safe multilingual content management.",
   "keywords": [
@@ -65,6 +65,9 @@
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --tag canary || true",
+    "publish:latest": "bun publish --tag latest || true",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
@@ -74,15 +77,13 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "js-cookie": "3.0.5"
+    "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@solidjs/testing-library": "0.8.10",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/user-event": "14.6.1",
-    "@types/js-cookie": "3.0.6",
     "@types/node": "24.10.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

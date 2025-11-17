@@ -3,6 +3,7 @@ import { DefaultValues } from '@intlayer/config/client';
 import type { LocalesValues } from '@intlayer/types';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 import { getPathWithoutLocale } from './getPathWithoutLocale';
+import { getPrefix } from './getPrefix';
 
 /**
  * Generate URL by prefixing the given URL with the referenced locale or adding search parameters
@@ -73,14 +74,6 @@ export const getLocalizedUrl = (
     ? new URL(urlWithoutLocale)
     : new URL(urlWithoutLocale, 'http://example.com');
 
-  // Extract the pathname from the parsed URL
-  let pathname = parsedUrl.pathname;
-
-  // Ensure the pathname starts with a '/'
-  if (!pathname.startsWith('/')) {
-    pathname = `/${pathname}`;
-  }
-
   // Prepare the base URL (protocol + host) if it's absolute
   const baseUrl = isAbsoluteUrl
     ? `${parsedUrl.protocol}//${parsedUrl.host}`
@@ -92,7 +85,9 @@ export const getLocalizedUrl = (
     searchParams.set('locale', currentLocale.toString());
 
     const queryString = searchParams.toString();
-    const pathWithQuery = queryString ? `${pathname}?${queryString}` : pathname;
+    const pathWithQuery = queryString
+      ? `${parsedUrl.pathname}?${queryString}`
+      : parsedUrl.pathname;
 
     if (isAbsoluteUrl) {
       return `${baseUrl}${pathWithQuery}${parsedUrl.hash}`;
@@ -101,15 +96,16 @@ export const getLocalizedUrl = (
     return `${pathWithQuery}${parsedUrl.hash}`;
   }
 
-  // Prefix-based routing (prefix-all or prefix-no-default)
-  const isDefaultLocale =
-    currentLocale?.toString() === defaultLocale?.toString();
-
-  const shouldPrefix =
-    mode === 'prefix-all' || (mode === 'prefix-no-default' && !isDefaultLocale);
+  const { prefix } = getPrefix(currentLocale, {
+    defaultLocale,
+    mode,
+  });
 
   // Construct the new pathname with or without the locale prefix
-  let localizedPath = shouldPrefix ? `/${currentLocale}${pathname}` : pathname;
+  let localizedPath = `/${prefix}${parsedUrl.pathname}`;
+
+  // Remove double slashes
+  localizedPath = localizedPath.replaceAll(/\/+/g, '/');
 
   // Remove trailing slash for non-root paths
   if (localizedPath.length > 1 && localizedPath.endsWith('/')) {

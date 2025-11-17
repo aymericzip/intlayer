@@ -10,7 +10,10 @@ describe('getPrefix', () => {
         defaultLocale: Locales.ENGLISH,
         mode: 'prefix-all',
       });
-      expect(result).toBe(`${Locales.ENGLISH}/`);
+      expect(result).toEqual({
+        prefix: `${Locales.ENGLISH}/`,
+        localePrefix: Locales.ENGLISH,
+      });
     });
 
     it('should return prefix with trailing slash for non-default locale', () => {
@@ -18,25 +21,34 @@ describe('getPrefix', () => {
         defaultLocale: Locales.FRENCH,
         mode: 'prefix-all',
       });
-      expect(result).toBe(`${Locales.FRENCH}/`);
+      expect(result).toEqual({
+        prefix: `${Locales.FRENCH}/`,
+        localePrefix: Locales.FRENCH,
+      });
     });
 
     it('should work with different locales', () => {
-      const result = getPrefix('it' as LocalesValues, {
-        defaultLocale: 'it' as LocalesValues,
+      const result = getPrefix('it', {
+        defaultLocale: 'it',
         mode: 'prefix-all',
       });
-      expect(result).toBe('it/');
+      expect(result).toEqual({
+        prefix: 'it/',
+        localePrefix: 'it',
+      });
     });
   });
 
   describe('prefix-no-default mode', () => {
-    it('should return empty string when locale matches default locale', () => {
+    it('should return empty strings when locale matches default locale', () => {
       const result = getPrefix(Locales.ENGLISH, {
         defaultLocale: Locales.ENGLISH,
         mode: 'prefix-no-default',
       });
-      expect(result).toBe('');
+      expect(result).toEqual({
+        prefix: '',
+        localePrefix: undefined,
+      });
     });
 
     it('should return prefix when locale does not match default locale', () => {
@@ -44,69 +56,93 @@ describe('getPrefix', () => {
         defaultLocale: Locales.ENGLISH,
         mode: 'prefix-no-default',
       });
-      expect(result).toBe(`${Locales.ENGLISH}/`);
+      expect(result).toEqual({
+        prefix: `${Locales.FRENCH}/`,
+        localePrefix: Locales.FRENCH,
+      });
     });
 
-    it('should return empty string for default locale even with different locale param', () => {
+    it('should return empty strings for default locale even with different locale param', () => {
       const result = getPrefix(Locales.FRENCH, {
         defaultLocale: Locales.FRENCH,
         mode: 'prefix-no-default',
       });
-      expect(result).toBe('');
+      expect(result).toEqual({
+        prefix: '',
+        localePrefix: undefined,
+      });
     });
   });
 
   describe('search-params mode', () => {
-    it('should return empty string for default locale', () => {
+    it('should return empty strings for default locale', () => {
       const result = getPrefix(Locales.ENGLISH, {
         defaultLocale: Locales.ENGLISH,
         mode: 'search-params',
       });
-      expect(result).toBe('');
+      expect(result).toEqual({
+        prefix: '',
+        localePrefix: undefined,
+      });
     });
 
-    it('should return empty string for non-default locale', () => {
+    it('should return empty strings for non-default locale', () => {
       const result = getPrefix(Locales.FRENCH, {
         defaultLocale: Locales.ENGLISH,
         mode: 'search-params',
       });
-      expect(result).toBe('');
+      expect(result).toEqual({
+        prefix: '',
+        localePrefix: undefined,
+      });
     });
   });
 
   describe('no-prefix mode', () => {
-    it('should return empty string for default locale', () => {
+    it('should return empty strings for default locale', () => {
       const result = getPrefix(Locales.ENGLISH, {
         defaultLocale: Locales.ENGLISH,
         mode: 'no-prefix',
       });
-      expect(result).toBe('');
+      expect(result).toEqual({
+        prefix: '',
+        localePrefix: undefined,
+      });
     });
 
-    it('should return empty string for non-default locale', () => {
+    it('should return empty strings for non-default locale', () => {
       const result = getPrefix(Locales.FRENCH, {
         defaultLocale: Locales.ENGLISH,
         mode: 'no-prefix',
       });
-      expect(result).toBe('');
+      expect(result).toEqual({
+        prefix: '',
+        localePrefix: undefined,
+      });
     });
   });
 
   describe('edge cases', () => {
     it('should handle undefined locale parameter', () => {
-      const result = getPrefix(undefined, {
+      const result = getPrefix(undefined as unknown as LocalesValues, {
         defaultLocale: Locales.ENGLISH,
         mode: 'prefix-all',
       });
-      expect(result).toBe(`${Locales.ENGLISH}/`);
+      expect(result).toEqual({
+        prefix: '',
+        localePrefix: undefined,
+      });
     });
 
     it('should work with string locale values', () => {
-      const result = getPrefix('en-US' as LocalesValues, {
-        defaultLocale: 'en-US' as LocalesValues,
+      const result = getPrefix('en-US', {
+        defaultLocale: 'en-US',
         mode: 'prefix-all',
       });
-      expect(result).toBe('en-US/');
+      expect(result).toEqual({
+        prefix: 'en-US/',
+        localePrefix: 'en-US',
+      });
     });
 
     it('should handle missing mode parameter', () => {
@@ -114,7 +150,8 @@ describe('getPrefix', () => {
         defaultLocale: Locales.ENGLISH,
       });
       // Should use default routing mode from configuration
-      expect(typeof result).toBe('string');
+      expect(result).toHaveProperty('prefix');
+      expect(result).toHaveProperty('localePrefix');
     });
 
     it('should handle missing defaultLocale parameter', () => {
@@ -122,7 +159,8 @@ describe('getPrefix', () => {
         mode: 'prefix-all',
       });
       // Should use default locale from configuration
-      expect(typeof result).toBe('string');
+      expect(result).toHaveProperty('prefix');
+      expect(result).toHaveProperty('localePrefix');
     });
 
     it('should return prefix when locale differs from default', () => {
@@ -130,23 +168,10 @@ describe('getPrefix', () => {
         defaultLocale: Locales.ENGLISH,
         mode: 'prefix-no-default',
       });
-      expect(result).toBe(`${Locales.ENGLISH}/`);
-    });
-
-    it('should handle addSlash parameter', () => {
-      const withSlash = getPrefix(Locales.ENGLISH, {
-        defaultLocale: Locales.ENGLISH,
-        mode: 'prefix-all',
-        addSlash: true,
+      expect(result).toEqual({
+        prefix: `${Locales.SPANISH}/`,
+        localePrefix: Locales.SPANISH,
       });
-      expect(withSlash).toBe(`${Locales.ENGLISH}/`);
-
-      const withoutSlash = getPrefix(Locales.ENGLISH, {
-        defaultLocale: Locales.ENGLISH,
-        mode: 'prefix-all',
-        addSlash: false,
-      });
-      expect(withoutSlash).toBe(`${Locales.ENGLISH}`);
     });
   });
 });

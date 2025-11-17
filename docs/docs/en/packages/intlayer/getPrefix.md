@@ -28,13 +28,13 @@ history:
 
 ## Description
 
-The `getPrefix` function determines the URL prefix for a given locale based on the routing mode configuration. It compares the locale with the default locale and returns the appropriate prefix string (e.g., `'en/'`) or an empty string.
+The `getPrefix` function determines the URL prefix for a given locale based on the routing mode configuration. It compares the locale with the default locale and returns an object containing three different prefix formats for flexible URL construction.
 
 **Key Features:**
 
-- Takes a locale as the first parameter (optional)
-- Optional `options` object with `defaultLocale`, `mode`, and `addSlash`
-- Returns a prefix string that can be used for URL construction
+- Takes a locale as the first parameter (required)
+- Optional `options` object with `defaultLocale` and `mode`
+- Returns an object with `prefix`, and `localePrefix` properties
 - Supports all routing modes: `prefix-no-default`, `prefix-all`, `no-prefix`, and `search-params`
 - Lightweight utility for determining when to add locale prefixes
 
@@ -44,26 +44,27 @@ The `getPrefix` function determines the URL prefix for a given locale based on t
 
 ```typescript
 getPrefix(
-  locale?: Locales,              // Optional
+  locale: Locales,               // Required
   options?: {                    // Optional
     defaultLocale?: Locales;
     mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
-    addSlash?: boolean;
   }
-): string
+): GetPrefixResult
+
+type GetPrefixResult = {
+  prefix: string;   // e.g., 'fr/' or ''
+  localePrefix?: Locale; // e.g., 'fr' or undefined
+}
 ```
 
 ---
 
 ## Parameters
 
-### Optional Parameters
-
-- `locale?: Locales`
-  - **Description**: The locale to check for prefix. If not provided, uses the configured default locale.
+- `locale: Locales`
+  - **Description**: The locale to generate the prefix for. If the value is falsy (undefined, null, empty string), the function returns an empty string.
   - **Type**: `Locales`
-  - **Required**: No (Optional)
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
+  - **Required**: Yes
 
 - `options?: object`
   - **Description**: Configuration object for prefix determination.
@@ -80,20 +81,17 @@ getPrefix(
     - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
     - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
     - **Modes**:
-      - `prefix-no-default`: Returns empty string when locale matches default locale
-      - `prefix-all`: Returns prefix with default locale
-      - `no-prefix`: Returns empty string (no prefix in URLs)
-      - `search-params`: Returns empty string (locale in query parameters)
-
-  - `options.addSlash?: boolean`
-    - **Description**: Whether to add a trailing slash to the prefix. If `true`, returns `'en/'`; if `false`, returns `'en'`.
-    - **Type**: `boolean`
-    - **Default**: `true`
+      - `prefix-no-default`: Returns empty strings when locale matches default locale
+      - `prefix-all`: Returns prefix for all locales including default
+      - `no-prefix`: Returns empty strings (no prefix in URLs)
+      - `search-params`: Returns empty strings (locale in query parameters)
 
 ### Returns
 
-- **Type**: `string`
-- **Description**: The prefix string for the default locale (e.g., `'en/'`, `'fr/'`) or an empty string.
+- **Type**: `GetPrefixResult`
+- **Description**: An object containing three different prefix formats:
+  - `prefix`: The path prefix with trailing slash (e.g., `'fr/'`, `''`)
+  - `localePrefix`: The locale identifier without slashes (e.g., `'fr'`, `undefined`)
 
 ---
 
@@ -109,26 +107,28 @@ getPrefix(Locales.ENGLISH, {
   defaultLocale: Locales.ENGLISH,
   mode: "prefix-all",
 });
-// Returns: 'en/'
+// Returns: { prefix: 'en/', localePrefix: 'en' }
 
 // Check prefix for French locale
 getPrefix(Locales.FRENCH, {
   defaultLocale: Locales.ENGLISH,
   mode: "prefix-no-default",
 });
-// Returns: 'en/'
+// Returns: { prefix: 'fr/', localePrefix: 'fr' }
 ```
 
 ```javascript codeFormat="esm"
 import { getPrefix, Locales } from "intlayer";
 
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" }); // Returns: "en/"
+getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
+// Returns: { prefix: '', localePrefix: undefined }
 ```
 
 ```javascript codeFormat="commonjs"
 const { getPrefix, Locales } = require("intlayer");
 
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" }); // Returns: "en/"
+getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
+// Returns: { prefix: '', localePrefix: undefined }
 ```
 
 ### Different Routing Modes
@@ -141,29 +141,28 @@ getPrefix(Locales.ENGLISH, {
   mode: "prefix-all",
   defaultLocale: Locales.ENGLISH,
 });
-// Returns: "en/"
+// Returns: { prefix: '/en', localePrefix: 'en' }
 
 // prefix-no-default: No prefix when locale matches default
 getPrefix(Locales.ENGLISH, {
   mode: "prefix-no-default",
   defaultLocale: Locales.ENGLISH,
 });
-// Returns: ""
+// Returns: { prefix: '', localePrefix: undefined }
 
 // prefix-no-default: Returns prefix when locale differs from default
 getPrefix(Locales.FRENCH, {
   mode: "prefix-no-default",
   defaultLocale: Locales.ENGLISH,
 });
-// Returns: "en/"
+// Returns: { prefix: 'fr/', localePrefix: 'fr' }
 
 // no-prefix & search-params: Never returns prefix
-getPrefix(Locales.ENGLISH, { mode: "no-prefix" }); // Returns: ""
-getPrefix(Locales.ENGLISH, { mode: "search-params" }); // Returns: ""
+getPrefix(Locales.ENGLISH, { mode: "no-prefix" });
+// Returns: { prefix: '', localePrefix: undefined }
 
-// Without trailing slash
-getPrefix(Locales.ENGLISH, { mode: "prefix-all", addSlash: false });
-// Returns: "en" (without trailing slash)
+getPrefix(Locales.ENGLISH, { mode: "search-params" });
+// Returns: { prefix: '', localePrefix: undefined }
 ```
 
 ### Practical Example
@@ -173,9 +172,18 @@ import { getPrefix, Locales } from "intlayer";
 
 // Build URLs with the appropriate prefix for a specific locale
 const locale = Locales.FRENCH;
-const prefix = getPrefix(locale, { defaultLocale: Locales.ENGLISH });
-const url = `/${prefix}about`.replace(/\/+/g, "/");
-// Result: "/en/about" if French is not default
+const { prefix, localePrefix } = getPrefix(locale, {
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+
+// Using prefix for path construction
+const url1 = `/${prefix}about`.replace(/\/+/g, "/");
+// Result: "/fr/about"
+
+// Using localePrefix for locale identification
+console.log(`Current locale: ${localePrefix}`);
+// Output: "Current locale: fr"
 ```
 
 ---
@@ -190,12 +198,16 @@ const url = `/${prefix}about`.replace(/\/+/g, "/");
 ## TypeScript
 
 ```typescript
+type GetPrefixResult = {
+  prefix: string; // The path prefix with trailing slash (e.g., 'fr/' or '')
+  localePrefix?: Locale; // The locale identifier without slashes (e.g., 'fr' or undefined)
+};
+
 function getPrefix(
-  locale?: Locales,
+  locale: Locales,
   options?: {
     defaultLocale?: Locales;
     mode?: "prefix-no-default" | "prefix-all" | "no-prefix" | "search-params";
-    addSlash?: boolean;
   }
-): string;
+): GetPrefixResult;
 ```

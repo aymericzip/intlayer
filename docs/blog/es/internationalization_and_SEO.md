@@ -35,13 +35,11 @@ Cuando lo haces bien, crearás una experiencia mucho más amigable para los habl
 Si decides tener varias versiones en idiomas, necesitarás una manera clara y consistente de organizar las URLs de tu sitio. Cada idioma (o región) debería tener su propia “dirección” única en internet. A continuación, se presentan tres formas comunes de estructurar sitios web multilingües:
 
 1. Dominios de Nivel Superior de Código de País (ccTLDs)
-
    - Ejemplo: `example.fr`, `example.de`
    - **Pros:** Envía una fuerte señal a los motores de búsqueda sobre a qué país está destinado el contenido (por ejemplo, `.fr` = Francia).
    - **Contras:** Gestionar múltiples dominios puede ser más costoso y complicado.
 
 2. **Subdominios**
-
    - **Ejemplo:** `fr.example.com`, `de.example.com`
    - **Pros:** Cada idioma “vive” en su propio subdominio, lo que facilita agregar o eliminar idiomas.
    - **Contras:** A veces, los motores de búsqueda tratan a los subdominios como sitios separados, lo que puede diluir la autoridad de tu dominio principal.
@@ -95,7 +93,6 @@ En tu HTML, agregarás algo como:
 - **Localización** significa adaptar el formato del contenido, la moneda, las medidas y las referencias culturales para una audiencia local. Por ejemplo, si estás apuntando a Francia, usarías `€` en lugar de `You are an expert in internationalization and content management. Your task is to translate the following documentation into the specified locales.
 
 1. **Requirement:**
-
    - Solo debes traducir el texto y los títulos del archivo.
    - No debes alterar la estructura del archivo.
    - No debes alterar la lógica del código de los elementos de código.
@@ -107,7 +104,6 @@ En tu HTML, agregarás algo como:
    - Debes asegurarte de no olvidar traducir ningún contenido
 
 2. **Locales:**
-
    - Archivo de base: en: Inglés (EE.UU.)
    - Locales deseados: {{locale}} : {{localeName}}
 

@@ -35,13 +35,11 @@ slugs:
 如果您决定拥有多个语言版本，您将需要一种清晰、一致的方式来组织网站的 URL。每种语言（或地区）都应该在互联网上有其独特的“地址”。以下是三种常见的多语言网站结构方式：
 
 1. 国家代码顶级域名（ccTLDs）
-
    - 示例：`example.fr`，`example.de`
    - **优点：** 向搜索引擎发送关于内容目标国家的强烈信号（例如，`.fr` = 法国）。
    - **缺点：** 管理多个域名可能会更昂贵且复杂。
 
 2. **子域名**
-
    - **示例：** `fr.example.com`，`de.example.com`
    - **优点：** 每种语言“生活”在其自己的子域名上，相对容易添加或删除语言。
    - **缺点：** 搜索引擎有时将子域名视为独立网站，这可能会稀释主域名的权威性。
@@ -95,7 +93,6 @@ slugs:
 - **本地化** 是指将内容的格式、货币、测量和文化参考调整为当地受众。例如，如果您针对法国，您将使用 `€` 而不是 `You are an expert in internationalization and content management. Your task is to translate the following documentation into the specified locales.
 
 1. **Requirement:**
-
    - You should only translate the text, and titles of the file.
    - You should not alter the structure of the file.
    - You should not alter the code logic of code elements.
@@ -107,7 +104,6 @@ slugs:
    - You should be sure to do not forgot to translate any content
 
 2. **Locales:**
-
    - Base file locale: en: English (US)
    - Desired Locales: {{locale}} : {{localeName}}
 

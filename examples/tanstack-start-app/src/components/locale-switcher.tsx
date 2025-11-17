@@ -1,5 +1,10 @@
 import { useLocation } from '@tanstack/react-router';
-import { getHTMLTextDir, getLocaleName, getPathWithoutLocale } from 'intlayer';
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getPathWithoutLocale,
+  getPrefix,
+} from 'intlayer';
 import type { FC } from 'react';
 import { setLocaleInStorage, useIntlayer, useLocale } from 'react-intlayer';
 
@@ -21,7 +26,7 @@ export const LocaleSwitcher: FC = () => {
             aria-current={localeEl === locale ? 'page' : undefined}
             aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
             onClick={() => setLocaleInStorage(localeEl)}
-            params={{ locale: localeEl }}
+            params={{ locale: getPrefix(localeEl).localePrefix }}
             to={pathWithoutLocale as To}
           >
             <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">

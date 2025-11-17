@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/editor-react",
-  "version": "7.0.9",
+  "version": "7.1.0",
   "private": false,
   "description": "Provides the states, contexts, hooks and components to interact with the Intlayer editor for a React application",
   "keywords": [
@@ -62,6 +62,9 @@
     "lint:fix": "biome lint --write .",
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
     "prepublish": "cp -f ../../../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --tag canary || true",
+    "publish:latest": "bun publish --tag latest || true",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit --project tsconfig.types.json"

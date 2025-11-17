@@ -35,13 +35,11 @@ slugs:
 Если вы решите иметь несколько языковых версий, вам понадобится ясный и последовательный способ организации URL вашего сайта. У каждого языка (или региона) должен быть свой уникальный «адрес» в интернете. Ниже приведены три распространённых способа структурирования многоязычных веб-сайтов:
 
 1. Доменные имена с кодом страны (ccTLD)
-
    - Пример: `example.fr`, `example.de`
    - **Плюсы:** Является сильным сигналом для поисковых систем о том, какой стране целевой контент (например, `.fr` = Франция).
    - **Минусы:** Управление несколькими доменами может быть дороже и сложнее.
 
 2. **Субдомены**
-
    - **Пример:** `fr.example.com`, `de.example.com`
    - **Плюсы:** Каждый язык «живет» на своем собственном субдомене, что не очень сложно добавлять или удалять языки.
    - **Минусы:** Поисковые системы иногда рассматривают субдомены как отдельные сайты, что может размывать авторитет вашего основного домена.
@@ -95,7 +93,6 @@ slugs:
 - **Локализация** означает адаптацию формата контента, валюты, измерений и культурных ссылок для местной аудитории. Например, если вы ориентируетесь на Францию, вы используете `€` вместо `You are an expert in internationalization and content management. Your task is to translate the following documentation into the specified locales.
 
 1. **Requirement:**
-
    - You should only translate the text, and titles of the file.
    - You should not alter the structure of the file.
    - You should not alter the code logic of code elements.
@@ -107,7 +104,6 @@ slugs:
    - You should be sure to do not forgot to translate any content
 
 2. **Locales:**
-
    - Base file locale: en: English (US)
    - Desired Locales: {{locale}} : {{localeName}}
 

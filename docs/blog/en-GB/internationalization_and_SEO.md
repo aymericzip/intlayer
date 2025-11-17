@@ -35,13 +35,11 @@ When you do this right, you’ll create a far more user-friendly experience for 
 If you decide to have multiple language versions, you’ll need a clear, consistent way to organise your site’s URLs. Each language (or region) should have its own unique “address” on the internet. Below are three common ways to structure multilingual websites:
 
 1. Country-Code Top-Level Domains (ccTLDs)
-
    - Example: `example.fr`, `example.de`
    - **Pros:** Sends a strong signal to search engines about which country the content targets (e.g., `.fr` = France).
    - **Cons:** Managing multiple domains can be more expensive and complicated.
 
 2. **Subdomains**
-
    - **Example:** `fr.example.com`, `de.example.com`
    - **Pros:** Each language “lives” on its own subdomain, making it relatively easy to add or remove languages.
    - **Cons:** Search engines sometimes treat subdomains as separate sites, so it can dilute your main domain’s authority.

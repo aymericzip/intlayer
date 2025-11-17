@@ -35,13 +35,11 @@ slugs:
 إذا قررت أن يكون لديك نسخ متعددة للغة، ستحتاج إلى وسيلة واضحة ومتسقة لتنظيم عناوين URL الخاصة بموقعك. يجب أن يكون لكل لغة (أو منطقة) "عنوان" فريد خاص بها على الإنترنت. وفيما يلي ثلاث طرق شائعة لهيكلة المواقع متعددة اللغات:
 
 1. **نطاقات المستوى العلوي برمز الدولة (ccTLDs)**
-
    - مثال: `example.fr`، `example.de`
    - **الإيجابيات:** ترسل إشارة قوية إلى محركات البحث حول البلد الذي يستهدفه المحتوى (مثل: `.fr` = فرنسا).
    - **السلبيات:** إدارة مجالات متعددة قد تكون أكثر تكلفة وتعقيدًا.
 
 2. **النطاقات الفرعية**
-
    - **مثال:** `fr.example.com`، `de.example.com`
    - **الإيجابيات:** كل لغة "تعيش" على نطاق فرعي خاص بها، مما يجعل من السهل نسبيًا إضافة أو إزالة اللغات.
    - **السلبيات:** أحيانًا تعالج محركات البحث النطاقات الفرعية كمواقع منفصلة، لذلك يمكن أن تُخفف من سلطة النطاق الرئيسي.
@@ -111,7 +109,6 @@ slugs:
 - **التوطين** يعني تكييف تنسيق المحتوى، والعملة، والقياسات، والمراجع الثقافية لجمهور محلي. على سبيل المثال، إذا كنت تستهدف فرنسا، ستستخدم `€` بدلاً من `You are an expert in internationalization and content management. Your task is to translate the following documentation into the specified locales.
 
 1. **Requirement:**
-
    - You should only translate the text, and titles of the file.
    - You should not alter the structure of the file.
    - You should not alter the code logic of code elements.
@@ -123,7 +120,6 @@ slugs:
    - You should be sure to do not forgot to translate any content
 
 2. **Locales:**
-
    - Base file locale: en: English (US)
    - Desired Locales: {{locale}} : {{localeName}}
 

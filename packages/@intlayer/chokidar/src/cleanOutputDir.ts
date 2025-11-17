@@ -1,48 +1,41 @@
-import { existsSync, rmSync } from 'node:fs';
+import { existsSync } from 'node:fs';
+import { rm } from 'node:fs/promises';
 import { getAppLogger } from '@intlayer/config/client';
 import type { IntlayerConfig } from '@intlayer/types';
 
-export const cleanOutputDir = (configuration: IntlayerConfig) => {
+export const cleanOutputDir = async (configuration: IntlayerConfig) => {
   const {
     dictionariesDir,
     unmergedDictionariesDir,
     dynamicDictionariesDir,
+    remoteDictionariesDir,
+    fetchDictionariesDir,
     mainDir,
     typesDir,
     configDir,
+    cacheDir,
   } = configuration.content;
 
   const appLogger = getAppLogger(configuration);
 
-  if (existsSync(dictionariesDir)) {
-    // Delete the dictionary directory
-    rmSync(dictionariesDir, { recursive: true });
-  }
+  const directoriesToClean: string[] = [
+    dictionariesDir, // Merged dictionaries
+    unmergedDictionariesDir, // Unmerged dictionaries
+    dynamicDictionariesDir, // Dynamic dictionaries
+    remoteDictionariesDir, // Remote dictionaries
+    fetchDictionariesDir, // Fetch dictionaries
+    mainDir, // Main files
+    typesDir, // Types
+    configDir, // Configuration
+    cacheDir, // Cache
+  ];
 
-  if (existsSync(unmergedDictionariesDir)) {
-    // Delete the unmerged dictionaries directory
-    rmSync(unmergedDictionariesDir, { recursive: true });
-  }
-
-  if (existsSync(dynamicDictionariesDir)) {
-    // Delete the dynamic dictionaries directory
-    rmSync(dynamicDictionariesDir, { recursive: true });
-  }
-
-  // Delete the main directory
-  if (existsSync(mainDir)) {
-    rmSync(mainDir, { recursive: true });
-  }
-
-  // Delete the types directory
-  if (existsSync(typesDir)) {
-    rmSync(typesDir, { recursive: true });
-  }
-
-  // Delete the config directory
-  if (existsSync(configDir)) {
-    rmSync(configDir, { recursive: true });
-  }
+  // Execute all deletions in parallel
+  await Promise.all(
+    directoriesToClean
+      .filter((dir) => existsSync(dir))
+      .map((dir) => rm(dir, { recursive: true, force: true }))
+  );
 
   appLogger('Output directory cleaned', {
     isVerbose: true,

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/design-system",
-  "version": "7.0.9",
+  "version": "7.1.0",
   "private": false,
   "description": "Intlayer design system, including UI components used in the Intlayer editor, website, and visual editor/CMS.",
   "keywords": [
@@ -84,6 +84,9 @@
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "preview": "vite preview",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --tag canary || true",
+    "publish:latest": "bun publish --tag latest || true",
     "start": "bun storybook -p 6006 --no-open --host 0.0.0.0",
     "start:serve": "bun x serve ./storybook-static -l 6006",
     "storybook": "storybook dev -p 6006",

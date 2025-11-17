@@ -35,13 +35,11 @@ Quando fai questo nel modo giusto, creerai un'esperienza molto più user-friendl
 Se decidi di avere più versioni linguistiche, avrai bisogno di un modo chiaro e coerente per organizzare gli URL del tuo sito. Ogni lingua (o regione) dovrebbe avere il proprio “indirizzo” unico su Internet. Ecco tre modi comuni per strutturare siti web multilingue:
 
 1. Domini di primo livello con codice paese (ccTLD)
-
    - Esempio: `example.fr`, `example.de`
    - **Pro:** Invia un forte segnale ai motori di ricerca riguardo a quale paese è destinato il contenuto (ad esempio, `.fr` = Francia).
    - **Contro:** Gestire più domini può essere più costoso e complicato.
 
 2. **Sottodomini**
-
    - **Esempio:** `fr.example.com`, `de.example.com`
    - **Pro:** Ogni lingua “vive” su un proprio sottodominio, rendendo relativamente facile aggiungere o rimuovere lingue.
    - **Contro:** A volte i motori di ricerca trattano i sottodomini come siti separati, quindi può diluire l'autorità del tuo dominio principale.

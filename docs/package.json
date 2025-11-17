@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/docs",
-  "version": "7.0.9",
+  "version": "7.1.0",
   "private": false,
   "description": "Intlayer documentation",
   "keywords": [
@@ -58,6 +58,9 @@
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --tag canary || true",
+    "publish:latest": "bun publish --tag latest || true",
     "review": "bun tools/review.ts",
     "serve": "webpack serve --config ./webpack.config.ts",
     "test": "vitest run",

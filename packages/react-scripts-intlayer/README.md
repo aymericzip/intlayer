@@ -171,8 +171,9 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 <details open>
 <summary style="font-size:16px; font-weight:bold;">🌐 Environment</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/environment/nextjs" rel=''>Intlayer with Next.js 15</a>
+  <li><a href="https://intlayer.org/doc/environment/nextjs" rel=''>Intlayer with Next.js 16</a>
     <ul>
+      <li><a href="https://intlayer.org/doc/environment/nextjs/15" rel=''>Next.js 15</a></li>
       <li><a href="https://intlayer.org/doc/environment/nextjs/14" rel=''>Next.js 14 (App Router)</a></li>
       <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-Page-Router" rel=''>Next.js Page Router</a></li>
     </ul>

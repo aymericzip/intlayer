@@ -317,7 +317,7 @@ import {
   getLocalizedUrl,
   getPathWithoutLocale,
 } from "intlayer";
-import { setLocaleCookie, useIntlayer, useLocale } from "react-intlayer";
+import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
 import { Link, useLocation } from "react-router";
 
 export const LocaleSwitcher: FC = () => {
@@ -335,7 +335,7 @@ export const LocaleSwitcher: FC = () => {
           <Link
             aria-current={localeItem === locale ? "page" : undefined}
             aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeItem)}`}
-            onClick={() => setLocaleCookie(localeItem)}
+            onClick={() => setLocale(localeItem)}
             to={getLocalizedUrl(pathWithoutLocale, localeItem)}
           >
             <span>

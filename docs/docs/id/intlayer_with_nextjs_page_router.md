@@ -1081,7 +1081,6 @@ import Link from "next/link";
 
 const LocaleSwitcher: FC = () => {
   const { locale, pathWithoutLocale, availableLocales } = useLocalePageRouter();
-  const { setLocaleCookie } = useLocaleCookie();
 
   return (
     <div>
@@ -1093,7 +1092,7 @@ const LocaleSwitcher: FC = () => {
             hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocaleCookie(localeItem)}
+            onClick={() => setLocale(localeItem)}
           >
             <span>
               {/* Locale - misal FR */}
@@ -1131,7 +1130,6 @@ import Link from "next/link";
 
 const LocaleSwitcher = () => {
   const { locale, pathWithoutLocale, availableLocales } = useLocalePageRouter();
-  const { setLocaleCookie } = useLocaleCookie();
 
   return (
     <div>
@@ -1143,7 +1141,7 @@ const LocaleSwitcher = () => {
             hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocaleCookie(localeItem)}
+            onClick={() => setLocale(localeItem)}
           >
             <span>
               {/* Locale - misal FR */}
@@ -1181,7 +1179,6 @@ const Link = require("next/link");
 
 const LocaleSwitcher = () => {
   const { locale, pathWithoutLocale, availableLocales } = useLocalePageRouter();
-  const { setLocaleCookie } = useLocaleCookie();
 
   return (
     <select>
@@ -1191,7 +1188,7 @@ const LocaleSwitcher = () => {
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocaleCookie(localeItem)}
+            onClick={() => setLocale(localeItem)}
           >
             <span>
               {/* Locale - misal FR */}

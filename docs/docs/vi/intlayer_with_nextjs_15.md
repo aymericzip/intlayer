@@ -365,6 +365,7 @@ const inter = Inter({ subsets: ["latin"] });
 const LocaleLayout = async ({ children, params: { locale } }) => {
 const { locale } = await params;
 return (
+
 <html lang={locale} dir={getHTMLTextDir(locale)}>
 <body className={inter.className}>{children}</body>
 </html>

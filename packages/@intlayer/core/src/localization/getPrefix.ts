@@ -1,5 +1,29 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
+import type { Locale, LocalesValues } from '@intlayer/types';
+
+export type GetPrefixOptions = {
+  defaultLocale?: LocalesValues;
+  mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+};
+
+export type GetPrefixResult = {
+  /**
+   * The complete base URL path with leading and trailing slashes.
+   *
+   * @example
+   * // https://example.com/fr/about -> '/fr'
+   * // https://example.com/about -> ''
+   */
+  prefix: string;
+  /**
+   * The locale identifier without slashes.
+   *
+   * @example
+   * // https://example.com/fr/about -> 'fr'
+   * // https://example.com/about -> undefined
+   */
+  localePrefix: Locale | undefined;
+};
 
 /**
  * Determines the URL prefix for a given locale based on the routing mode configuration.
@@ -9,50 +33,64 @@ import type { LocalesValues } from '@intlayer/types';
  * ```ts
  *  // prefix-no-default mode with default locale
  *  getPrefix('en', { defaultLocale: 'en', mode: 'prefix-no-default' })
- *     // Returns ''
+ *     // Returns { prefix: '', localePrefix: undefined }
  *
  *  // prefix-no-default mode with non-default locale
  *  getPrefix('fr', { defaultLocale: 'en', mode: 'prefix-no-default' })
- *     // Returns 'en/'
+ *     // Returns { prefix: '/fr', localePrefix: 'fr' }
  *
  *  // prefix-all mode
  *  getPrefix('en', { defaultLocale: 'en', mode: 'prefix-all' })
- *     // Returns 'en/'
+ *     // Returns { prefix: '/en', localePrefix: locale }
  *
  *  // search-params mode
  *  getPrefix('en', { defaultLocale: 'en', mode: 'search-params' })
- *     // Returns ''
+ *     // Returns { prefix: '', localePrefix: undefined }
  *
  *  // no-prefix mode
  *  getPrefix('en', { defaultLocale: 'en', mode: 'no-prefix' })
- *     // Returns ''
+ *     // Returns { prefix: '', localePrefix: undefined }
  * ```
  *
  * @param locale - The locale to check for prefix. If not provided, uses configured default locale.
  * @param options - Configuration options
  * @param options.defaultLocale - The default locale. Defaults to configured default locale.
  * @param options.mode - URL routing mode for locale handling. Defaults to configured mode.
- * @param options.addSlash - Whether to add a trailing slash to the prefix. Defaults to true.
- * @returns The prefix string for the given locale (e.g., 'en/', 'fr/') or an empty string.
+ * @returns An object containing pathPrefix, prefix, and localePrefix for the given locale.
  */
 export const getPrefix = (
-  locale?: LocalesValues,
+  locale: LocalesValues,
   options: {
     defaultLocale?: LocalesValues;
     mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
-    addSlash?: boolean;
   } = {}
-): string => {
+): GetPrefixResult => {
   const {
     defaultLocale = configuration?.internationalization?.defaultLocale,
     mode = configuration?.routing?.mode,
-    addSlash = true,
   } = options;
+
+  if (!locale) {
+    return {
+      prefix: '',
+      localePrefix: undefined,
+    };
+  }
 
   // Handle prefix-based modes (prefix-all or prefix-no-default)
   const shouldPrefix =
     mode === 'prefix-all' ||
     (mode === 'prefix-no-default' && defaultLocale !== locale);
 
-  return shouldPrefix ? `${defaultLocale}${addSlash ? '/' : ''}` : '';
+  if (shouldPrefix) {
+    return {
+      prefix: `${locale}/`,
+      localePrefix: locale as Locale,
+    };
+  }
+
+  return {
+    prefix: '',
+    localePrefix: undefined,
+  };
 };

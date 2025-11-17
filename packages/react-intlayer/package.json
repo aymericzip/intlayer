@@ -1,6 +1,6 @@
 {
   "name": "react-intlayer",
-  "version": "7.0.9",
+  "version": "7.1.0",
   "private": false,
   "description": "Easily internationalize i18n your React applications with type-safe multilingual content management.",
   "keywords": [
@@ -99,6 +99,9 @@
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --tag canary || true",
+    "publish:latest": "bun publish --tag latest || true",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
@@ -111,12 +114,10 @@
     "@intlayer/editor-react": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "intlayer": "workspace:*",
-    "js-cookie": "3.0.5"
+    "intlayer": "workspace:*"
   },
   "devDependencies": {
     "@craco/types": "7.1.0",
-    "@types/js-cookie": "3.0.6",
     "@types/node": "24.10.1",
     "@types/react": ">=16.0.0",
     "@types/react-dom": ">=16.0.0",
