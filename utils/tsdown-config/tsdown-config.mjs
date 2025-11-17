@@ -28,6 +28,8 @@ export const isExternal = (id) => {
 
   if (id.startsWith('node:')) return true;
 
+  if (['fsevents'].includes(id)) return true;
+
   return false;
 };
 
