@@ -1,6 +1,7 @@
 import type { IntlayerConfig } from '@intlayer/types';
 import packageJson from '@intlayer/types/package.json' with { type: 'json' };
-import { getAppLogger } from '../logger';
+import { ANSIColors, colorize, getAppLogger } from '../logger';
+import { compareVersions } from './compareVersions';
 
 const packages = {
   '@intlayer/types': () => import('@intlayer/types/package.json'),
@@ -75,8 +76,14 @@ export const checkVersionsConsistency = async (
     return;
   }
 
-  const expectedVersion =
-    packagesMap[packagesMap.length - 1]?.version ?? packageJson.version;
+  // Find the highest version among all packages
+  const expectedVersion = packagesMap.reduce((latestVersion, pkg) => {
+    if (!latestVersion) return pkg.version;
+
+    return compareVersions(pkg.version, '>', latestVersion)
+      ? pkg.version
+      : latestVersion;
+  }, packageJson.version);
 
   const inconsistentPackages = packagesMap.filter(
     ({ version }) => version !== expectedVersion
@@ -85,13 +92,23 @@ export const checkVersionsConsistency = async (
   if (inconsistentPackages.length === 0) return;
 
   logger(
-    `Versions are not consistent. The expected version (based on the latest listed package) is ${expectedVersion}. See how to fix it here: https://intlayer.org/frequent-questions/package-version-error`,
+    colorize(
+      `Versions are not consistent. The expected version (based on the latest listed package) is ${expectedVersion}. Activate verbose mode to see the list of inconsistent packages. See how to fix it here: https://intlayer.org/frequent-questions/package-version-error`,
+      ANSIColors.GREY
+    ),
     { level: 'warn' }
   );
 
   for (const { name, version } of inconsistentPackages) {
-    logger(`- ${name} - version: ${version} - expected: ${expectedVersion}`, {
-      level: 'warn',
-    });
+    logger(
+      colorize(
+        `- ${name} - version: ${version} - expected: ${expectedVersion}`,
+        ANSIColors.GREY
+      ),
+      {
+        level: 'warn',
+        isVerbose: true,
+      }
+    );
   }
 };

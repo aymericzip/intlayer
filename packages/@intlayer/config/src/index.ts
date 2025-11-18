@@ -40,6 +40,7 @@ export { cacheMemory } from './utils/cacheMemory';
 export { camelCaseToSentence } from './utils/camelCaseToSentence';
 export { checkVersionsConsistency } from './utils/checkVersionsConsistency';
 export { clearModuleCache } from './utils/clearModuleCache';
+export { compareVersions } from './utils/compareVersions';
 export {
   configESMxCJSRequire,
   getProjectRequire,

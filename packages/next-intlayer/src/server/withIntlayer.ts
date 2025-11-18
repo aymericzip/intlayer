@@ -1,6 +1,7 @@
 import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
+  compareVersions,
   type GetConfigurationOptions,
   getAlias,
   getAppLogger,
@@ -16,7 +17,6 @@ import fg from 'fast-glob';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import nextPackageJSON from 'next/package.json' with { type: 'json' };
-import { compareVersions } from './compareVersion';
 
 const isGteNext13 = compareVersions(nextPackageJSON.version, '≥', '13.0.0');
 const isGteNext15 = compareVersions(nextPackageJSON.version, '≥', '15.0.0');
