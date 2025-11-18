@@ -36,7 +36,7 @@ export const prepareIntlayer = async (
   configuration: IntlayerConfig,
   options?: PrepareIntlayerOptions
 ) => {
-  checkVersionsConsistency(configuration);
+  await checkVersionsConsistency(configuration);
   const appLogger = getAppLogger(configuration);
 
   const sentinelPath = join(

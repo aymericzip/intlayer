@@ -1,7 +1,6 @@
 import type { IntlayerConfig } from '@intlayer/types';
 import packageJson from '@intlayer/types/package.json' with { type: 'json' };
 import { getAppLogger } from '../logger';
-import { getProjectRequire } from './ESMxCJSHelpers';
 
 const packages = [
   '@intlayer/types',
@@ -43,32 +42,52 @@ const packages = [
   'plugins/sync-json-plugin',
 ];
 
-export const checkVersionsConsistency = (configuration: IntlayerConfig) => {
-  const projectRequire = getProjectRequire();
+export const checkVersionsConsistency = async (
+  configuration: IntlayerConfig
+) => {
   const logger = getAppLogger(configuration);
-  const inconsistentPackages: { name: string; version: string }[] = [];
+  const packagesMap = (
+    await Promise.all(
+      packages.map(async (packageName) => {
+        try {
+          const pkgJson = await import(`${packageName}/package.json`, {
+            with: { type: 'json' },
+          }).then((mod) => mod.default);
 
-  try {
-    for (const pkg of packages) {
-      const pkgJson = projectRequire(pkg).packageJson;
-      if (pkgJson.version !== packageJson.version) {
-        inconsistentPackages.push({ name: pkg, version: pkgJson.version });
-      }
-    }
-  } catch (_error) {
-    // Cant find, it's ok
+          return { name: packageName, version: pkgJson.version };
+        } catch {
+          // Can't find, it's ok
+        }
+
+        return null;
+      })
+    )
+  ).filter(
+    (packageData): packageData is { name: string; version: string } =>
+      packageData !== null
+  );
+
+  if (packagesMap.length === 0) {
+    return;
   }
 
-  if (inconsistentPackages.length > 0) {
-    logger(
-      'Versions are not consistent. Some packages are not using the same version as the main Intlayer package. It may cause issues. See how to fix it here: https://intlayer.org/frequent-questions/package-version-error',
-      { level: 'warn' }
-    );
-    for (const { name, version } of inconsistentPackages) {
-      logger(
-        `- ${name} - version: ${version} - expected: ${packageJson.version}`,
-        { level: 'warn' }
-      );
-    }
+  const expectedVersion =
+    packagesMap[packagesMap.length - 1]?.version ?? packageJson.version;
+
+  const inconsistentPackages = packagesMap.filter(
+    ({ version }) => version !== expectedVersion
+  );
+
+  if (inconsistentPackages.length === 0) return;
+
+  logger(
+    `Versions are not consistent. The expected version (based on the latest listed package) is ${expectedVersion}. See how to fix it here: https://intlayer.org/frequent-questions/package-version-error`,
+    { level: 'warn' }
+  );
+
+  for (const { name, version } of inconsistentPackages) {
+    logger(`- ${name} - version: ${version} - expected: ${expectedVersion}`, {
+      level: 'warn',
+    });
   }
 };
