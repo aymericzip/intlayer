@@ -16,7 +16,10 @@ import { createModuleAugmentation, createTypes } from './createType/index';
 import { listDictionaries } from './listDictionariesPath';
 import { loadDictionaries } from './loadDictionaries/loadDictionaries';
 import { runOnce } from './utils/runOnce';
-import { writeConfiguration } from './writeConfiguration';
+import {
+  isCachedConfigurationUpToDate,
+  writeConfiguration,
+} from './writeConfiguration';
 
 type PrepareIntlayerOptions = {
   clean?: boolean;
@@ -36,7 +39,6 @@ export const prepareIntlayer = async (
   configuration: IntlayerConfig,
   options?: PrepareIntlayerOptions
 ) => {
-  await checkVersionsConsistency(configuration);
   const appLogger = getAppLogger(configuration);
 
   const sentinelPath = join(
@@ -50,9 +52,11 @@ export const prepareIntlayer = async (
     intlayerCacheVersion && intlayerCacheVersion === packageJson.version
   );
 
+  const isConfigSimilar = await isCachedConfigurationUpToDate(configuration);
+
   const { clean, format, forceRun, onIsCached, cacheTimeoutMs } = {
     ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
-    forceRun: !isCorrectVersion,
+    forceRun: !isCorrectVersion || !isConfigSimilar,
     ...(options ?? {}),
   };
 
@@ -60,6 +64,8 @@ export const prepareIntlayer = async (
   await runOnce(
     sentinelPath,
     async () => {
+      await checkVersionsConsistency(configuration);
+
       if (clean || !isCorrectVersion) {
         await cleanOutputDir(configuration);
       }
