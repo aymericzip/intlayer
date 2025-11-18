@@ -20,6 +20,7 @@ const localizationAnalyzerContent = {
       id: 'Analisis skor lokalisasi global situs web Anda',
       vi: 'Phân tích điểm số bản địa hóa toàn cầu của trang web của bạn',
       ar: 'حلل درجة التوطين العالمية لموقعك',
+      'en-GB': "Analyse Your Website's Global Localisation Score",
     }),
     description: t({
       en: 'Quickly and for free, evaluate the localization quality of your website. Analyze principal multilingual elements to get a comprehensive score and actionable insights for improving your reach.',
@@ -38,6 +39,8 @@ const localizationAnalyzerContent = {
       id: 'Evaluasi kualitas lokalisasi situs web Anda dengan cepat dan gratis. Analisis elemen multibahasa utama untuk mendapatkan skor komprehensif dan wawasan yang dapat ditindaklanjuti guna meningkatkan jangkauan Anda.',
       vi: 'Đánh giá nhanh và miễn phí chất lượng bản địa hóa của trang web của bạn. Phân tích các yếu tố đa ngôn ngữ chính để nhận điểm số tổng thể và thông tin hữu ích nhằm nâng cao phạm vi tiếp cận.',
       ar: 'قيّم بسرعة وبالمجان جودة التوطين لموقعك الإلكتروني. حلّل العناصر الرئيسية متعددة اللغات للحصول على درجة شاملة ورؤى قابلة للتنفيذ لتحسين وصولك.',
+      'en-GB':
+        'Quickly and free of charge, evaluate the localisation quality of your website. Analyse key multilingual elements to get a comprehensive score and actionable insights to improve your reach.',
     }),
     error: t({
       en: 'Unable to analyze site.',
@@ -56,6 +59,7 @@ const localizationAnalyzerContent = {
       id: 'Tidak dapat menganalisis situs.',
       vi: 'Không thể phân tích trang web.',
       ar: 'يتعذر تحليل الموقع.',
+      'en-GB': 'Unable to analyse site.',
     }),
   },
   title: 'Localization Analyzer texts',

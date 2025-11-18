@@ -20,6 +20,7 @@ export const browserContent = {
       tr: 'Gömülü tarayıcı',
       pl: 'Osadzona przeglądarka',
       id: 'Peramban tertanam',
+      vi: 'Trình duyệt nhúng',
     }),
     urlLabel: t({
       en: 'URL address bar',
@@ -38,6 +39,7 @@ export const browserContent = {
       tr: 'URL adres çubuğu',
       pl: 'Pasek adresu URL',
       id: 'Bilah alamat URL',
+      vi: 'Thanh địa chỉ URL',
     }),
     urlPlaceholder: 'https://example.com',
     errorMessage: t({
@@ -57,6 +59,7 @@ export const browserContent = {
       tr: 'Geçersiz URL. "https://example.com" gibi bir şey deneyin.',
       pl: 'Nieprawidłowy adres URL. Wypróbuj coś w rodzaju "https://example.com".',
       id: 'URL tidak valid. Coba misalnya "https://example.com".',
+      vi: 'URL không hợp lệ. Thử ví dụ như "https://example.com".',
     }),
     reloadButtonTitle: t({
       en: 'Reload page',
@@ -75,6 +78,7 @@ export const browserContent = {
       tr: 'Sayfayı yenile',
       pl: 'Przeładuj stronę',
       id: 'Muat ulang halaman',
+      vi: 'Tải lại trang',
     }),
     iframeTitle: t({
       en: 'Embedded web page',
@@ -93,6 +97,7 @@ export const browserContent = {
       tr: 'Gömülü web sayfası',
       pl: 'Osadzona strona internetowa',
       id: 'Halaman web tertanam',
+      vi: 'Trang web được nhúng',
     }),
   },
   title: 'Embedded browser component',

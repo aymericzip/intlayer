@@ -1,5 +1,5 @@
 import type { Dictionary } from 'intlayer';
-import { enu, t } from 'intlayer';
+import { t } from 'intlayer';
 
 const contributorsListContent = {
   key: 'contributors-list',
@@ -20,6 +20,8 @@ const contributorsListContent = {
       ar: 'مساهمات',
       'en-GB': 'contributions',
       pl: 'wkłady',
+      id: 'kontribusi',
+      vi: 'Đóng góp',
     }),
   },
   title: 'Contributors list',

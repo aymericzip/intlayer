@@ -20,6 +20,7 @@ const auditPageContent = {
       id: 'Analisis Skor Lokalisasi Global Situs Web Anda',
       vi: 'Phân tích điểm số bản địa hóa toàn cầu của trang web của bạn',
       ar: 'حلّل درجة التوطين العالمية لموقعك',
+      'en-GB': "Analyse Your Website's Global Localisation Score",
     }),
     description: t({
       en: 'Quickly and for free, evaluate the localization quality of your website. Analyze principal multilingual elements of your website to get a comprehensive score and actionable insights for improving your reach.',
@@ -38,6 +39,8 @@ const auditPageContent = {
       id: 'Evaluasi kualitas lokalisasi situs web Anda dengan cepat dan gratis. Analisis elemen multibahasa utama situs Anda untuk mendapatkan skor komprehensif dan wawasan yang dapat ditindaklanjuti guna meningkatkan jangkauan Anda.',
       vi: 'Đánh giá nhanh và miễn phí chất lượng bản địa hóa trang web của bạn. Phân tích các yếu tố đa ngôn ngữ chính để có điểm số tổng quan và những gợi ý thực tiễn giúp cải thiện phạm vi tiếp cận.',
       ar: 'قيّم بسرعة ومجانًا جودة التوطين في موقعك الإلكتروني. حلّل العناصر المتعددة اللغات الرئيسية في موقعك للحصول على درجة شاملة ورؤى قابلة للتنفيذ لتحسين مدى الوصول.',
+      'en-GB':
+        'Quickly and at no cost, evaluate the localisation quality of your website. Analyse key multilingual elements of your website to obtain a comprehensive score and actionable insights to improve your reach.',
     }),
     goToScanner: {
       text: t({

@@ -15,7 +15,6 @@ export const DictionaryLoaderPlayground: FC = () => {
         .flat()
         .map((dictionary) => [dictionary.localId, dictionary])
     );
-    console.dir({ test: 'test', dictionariesList });
     setLocaleDictionaries(dictionariesList);
   }, []);
 
