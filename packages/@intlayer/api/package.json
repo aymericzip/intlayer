@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/api",
-  "version": "7.1.1-canary.0",
+  "version": "7.1.1-canary.1",
   "private": false,
   "description": "SDK for interacting with the Intlayer API, enabling content auditing, and managing organizations, projects, and users.",
   "keywords": [
