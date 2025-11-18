@@ -83,7 +83,6 @@
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "chokidar": "3.6.0",
     "crypto-js": "4.2.0",
-    "deep-equal": "2.2.3",
     "deepmerge": "4.3.1",
     "fast-glob": "3.3.3",
     "simple-git": "3.28.0",
@@ -91,7 +90,6 @@
   },
   "devDependencies": {
     "@types/crypto-js": "4.2.2",
-    "@types/deep-equal": "1.0.4",
     "@types/node": "24.10.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

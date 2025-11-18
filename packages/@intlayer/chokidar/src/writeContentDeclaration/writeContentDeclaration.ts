@@ -1,5 +1,6 @@
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, join, resolve } from 'node:path';
+import { isDeepStrictEqual } from 'node:util';
 import {
   getFilteredLocalesDictionary,
   getPerLocaleDictionary,
@@ -11,7 +12,6 @@ import type {
   LocalesValues,
 } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
-import deepEqual from 'deep-equal';
 import {
   type Extension,
   getFormatFromExtension,
@@ -154,7 +154,7 @@ export const writeContentDeclaration = async (
 
   if (existingDictionary?.filePath) {
     // Compare existing dictionary content with new dictionary content
-    const isSameContent = deepEqual(existingDictionary, dictionary);
+    const isSameContent = isDeepStrictEqual(existingDictionary, dictionary);
 
     const filePath = resolve(
       configuration.content.baseDir,
