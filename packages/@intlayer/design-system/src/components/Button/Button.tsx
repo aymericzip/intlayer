@@ -183,7 +183,7 @@ export const buttonVariants = cva(
           // Hover ring (similar spirit to your input)
           'hover:ring-3', // width
           'aria-selected:ring-4',
-          'focus-visible:ring-2',
+          'focus-visible:ring-3',
           'disabled:ring-0',
 
           // Focus ring + animation
