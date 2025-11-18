@@ -36,15 +36,21 @@ type TranslateDictionaryOptions = {
   aiOptions?: AIOptions;
   fillMetadata?: boolean;
   onHandle?: ReturnType<typeof import('@intlayer/chokidar').getGlobalLimiter>;
+  onSuccess?: () => void;
+  onError?: (error: unknown) => void;
+  getAbortError?: () => Error | null;
 };
 
 const hasMissingMetadata = (dictionary: Dictionary) =>
   !dictionary.description || !dictionary.title || !dictionary.tags;
 
 const CHUNK_SIZE = 7000; // GPT-5 Mini safe input size
-const GLOBAL_MAX_RETRY = 2;
+const GROUP_MAX_RETRY = 2;
 const MAX_RETRY = 3;
 const RETRY_DELAY = 1000 * 10; // 10 seconds
+
+const MAX_FOLLOWING_ERRORS = 10; // 10 errors in a row, hard exit the process
+let followingErrors = 0;
 
 export const translateDictionary = async (
   task: TranslationTask,
@@ -58,10 +64,33 @@ export const translateDictionary = async (
     mode: 'complete',
     fillMetadata: true,
     ...options,
+  } as const;
+
+  const ensureNotAborted = () => {
+    const abortError = options?.getAbortError?.();
+    if (abortError) {
+      throw abortError;
+    }
+  };
+
+  const notifySuccess = () => {
+    followingErrors = 0;
+    options?.onSuccess?.();
+  };
+
+  const notifyError = (error: unknown) => {
+    if (!options?.onError) return;
+    try {
+      options.onError(error);
+    } catch (abortError) {
+      throw abortError;
+    }
   };
 
   const result = await retryManager(
     async () => {
+      ensureNotAborted();
+
       const unmergedDictionariesRecord = getUnmergedDictionaries(configuration);
 
       const baseUnmergedDictionary: Dictionary | undefined =
@@ -99,11 +128,18 @@ export const translateDictionary = async (
           }
         );
 
-        const runAudit = async () =>
-          await intlayerAPI.ai.auditContentDeclarationMetadata({
-            fileContent: JSON.stringify(defaultLocaleDictionary),
-            aiOptions,
-          });
+        const runAudit = async () => {
+          ensureNotAborted();
+          try {
+            return await intlayerAPI.ai.auditContentDeclarationMetadata({
+              fileContent: JSON.stringify(defaultLocaleDictionary),
+              aiOptions,
+            });
+          } catch (error) {
+            notifyError(error);
+            throw error;
+          }
+        };
 
         const metadataResult = options?.onHandle
           ? await options.onHandle(runAudit)
@@ -210,11 +246,13 @@ export const translateDictionary = async (
           const presetOutputContent = reduceObjectFormat(
             targetLocaleDictionary.content,
             chunkContent
-          );
+          ) as unknown as JSON;
 
           const executeTranslation = async () => {
             return await retryManager(
               async () => {
+                ensureNotAborted();
+
                 const translationResult = await intlayerAPI.ai.translateJSON({
                   entryFileContent: chunkContent as unknown as JSON,
                   presetOutputContent,
@@ -242,12 +280,15 @@ export const translateDictionary = async (
                   );
                 }
 
+                notifySuccess();
                 return translationResult.data.fileContent;
               },
               {
                 maxRetry: MAX_RETRY,
                 delay: RETRY_DELAY,
                 onError: ({ error, attempt, maxRetry }) => {
+                  notifyError(error);
+
                   const chunkPreset = createChunkPreset(
                     chunk.index,
                     chunk.total
@@ -258,6 +299,15 @@ export const translateDictionary = async (
                       level: 'error',
                     }
                   );
+
+                  followingErrors += 1;
+
+                  if (followingErrors >= MAX_FOLLOWING_ERRORS) {
+                    appLogger(`There is something wrong.`, {
+                      level: 'error',
+                    });
+                    process.exit(1); // 1 for error
+                  }
                 },
               }
             )();
@@ -320,7 +370,7 @@ export const translateDictionary = async (
       };
     },
     {
-      maxRetry: GLOBAL_MAX_RETRY,
+      maxRetry: GROUP_MAX_RETRY,
       delay: RETRY_DELAY,
       onError: ({ error, attempt, maxRetry }) => {
         appLogger(
