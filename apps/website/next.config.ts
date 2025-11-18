@@ -221,7 +221,15 @@ const nextConfig: NextConfig = {
       headers: scannerHeaders,
     },
     {
+      source: '/i18n-seo-scanner',
+      headers: scannerHeaders,
+    },
+    {
       source: '/:locale/dashboard/:path*',
+      headers: dashboardHeaders,
+    },
+    {
+      source: '/dashboard/:path*',
       headers: dashboardHeaders,
     },
     {
