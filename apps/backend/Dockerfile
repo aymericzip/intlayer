@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1.20.0
 
-FROM oven/bun:1.3.2-alpine AS builder
+FROM node:22-alpine AS builder
+
+RUN npm install -g bun@1.3.2
 
 RUN apk add --no-cache curl
 
@@ -74,7 +76,7 @@ USER app
 # Expose the API port
 EXPOSE 3100
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+HEALTHCHECK --interval=120s --timeout=10s --start-period=120s --retries=3 \
   CMD \
     curl -f http://localhost:3100/ || exit 1
 
