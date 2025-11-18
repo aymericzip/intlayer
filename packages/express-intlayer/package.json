@@ -1,6 +1,6 @@
 {
   "name": "express-intlayer",
-  "version": "7.1.1-canary.1",
+  "version": "7.1.3",
   "private": false,
   "description": "Manage internationalization i18n in a simple way for express application.",
   "keywords": [
