@@ -30,6 +30,29 @@ type SentinelData = {
   timestamp: number;
 };
 
+const writeSentinelFile = async (
+  sentinelFilePath: string,
+  currentTimestamp: number
+) => {
+  try {
+    // Ensure the directory exists before writing the file
+    await mkdir(dirname(sentinelFilePath), { recursive: true });
+
+    // O_EXCL ensures only the *first* process can create the file
+    const data: SentinelData = {
+      version: packageJson.version,
+      timestamp: currentTimestamp,
+    };
+    await writeFile(sentinelFilePath, JSON.stringify(data), { flag: 'wx' });
+  } catch (err: any) {
+    if (err.code === 'EEXIST') {
+      // Another process already created it → we're done
+      return;
+    }
+    throw err; // unexpected FS error
+  }
+};
+
 /**
  * Ensures a callback function runs only once within a specified time window across multiple processes.
  * Uses a sentinel file to coordinate execution and prevent duplicate work.
@@ -112,23 +135,15 @@ export const runOnce = async (
     }
   }
 
+  // Write sentinel file before to block parallel processes
+  writeSentinelFile(sentinelFilePath, currentTimestamp);
+
   try {
-    // Ensure the directory exists before writing the file
-    await mkdir(dirname(sentinelFilePath), { recursive: true });
+    await callback();
 
-    // O_EXCL ensures only the *first* process can create the file
-    const data: SentinelData = {
-      version: packageJson.version,
-      timestamp: currentTimestamp,
-    };
-    await writeFile(sentinelFilePath, JSON.stringify(data), { flag: 'wx' });
-  } catch (err: any) {
-    if (err.code === 'EEXIST') {
-      // Another process already created it → we're done
-      return;
-    }
-    throw err; // unexpected FS error
+    // Write sentinel file after to ensure the first one has not been removed with cleanOutputDir
+    writeSentinelFile(sentinelFilePath, currentTimestamp);
+  } catch {
+    await unlink(sentinelFilePath); // Remove sentinel file if an error occurs
   }
-
-  await callback();
 };
