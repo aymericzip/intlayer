@@ -31,13 +31,12 @@ type RemoveLocaleFromString<S extends string> = CollapseDoubleSlashes<
 
 export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
   const { locale } = useLocale();
-  const { localePrefix } = getPrefix(locale);
 
   return (
     <Link
       {...props}
       params={{
-        locale: localePrefix,
+        locale: getPrefix(locale).localePrefix,
         ...(typeof props?.params === 'object' ? props?.params : {}),
       }}
       to={`/${LOCALE_ROUTE}${props.to}` as LinkComponentProps['to']}

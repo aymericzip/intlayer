@@ -101,14 +101,27 @@ export default config;
 أضف مكون intlayer الإضافي إلى تكوينك:
 
 ```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+import viteTsConfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+const config = defineConfig({
+  plugins: [
+    nitro(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    tanstackStart(),
+    viteReact(),
+    intlayer(), // To make intlayer work
+    intlayerProxy(), // To redirect the user to his own locale
+  ],
 });
+
+export default config;
 ```
 
 > يُستخدم مكون Vite الإضافي `intlayer()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ومراقبتها في وضع التطوير. كما يعرّف متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر ألقابًا لتحسين الأداء.
@@ -134,7 +147,7 @@ function LayoutComponent() {
   const { locale } = Route.useParams();
 
   return (
-    <IntlayerProvider locale={defaultLocale}>
+    <IntlayerProvider locale={locale ?? defaultLocale}>
       <Outlet />
     </IntlayerProvider>
   );
@@ -515,6 +528,32 @@ export default defineConfig({
   ],
 }
 ```
+
+---
+
+### الخطوة 13: تكييف Nitro (اختياري)
+
+إذا كنت تستخدم Nitro لإخراج الإنتاج الخاص بك، فلن يقوم nitro بتضمين دليل `.intlayer` في دليل الإخراج. تحتاج إلى نسخه يدويًا.
+
+مثال باستخدام سكريبت البناء:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "build": "vite build && cpr .intlayer .output/.intlayer", // نسخ مجلد .intlayer
+    "serve": "vite preview",
+  },
+}
+```
+
+> يُستخدم cpr لتكييف الأمر لجعله يعمل على Windows.
+> ستحتاج إلى تثبيت أداة `cpr` لاستخدام هذا الأمر.
+>
+> - `npm install --save-dev cpr`
+> - `yarn add --dev cpr`
+> - `pnpm add --save-dev cpr`
+> - `bun add --save-dev cpr`
 
 ---
 

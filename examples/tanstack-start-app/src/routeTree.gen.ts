@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root';
-import { Route as Char123LocaleChar125AboutIndexRouteImport } from './routes/{-$locale}/about/index';
 import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index';
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route';
 
@@ -25,34 +24,25 @@ const Char123LocaleChar125IndexRoute =
     path: '/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any);
-const Char123LocaleChar125AboutIndexRoute =
-  Char123LocaleChar125AboutIndexRouteImport.update({
-    id: '/about/',
-    path: '/about/',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
 
 export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute;
-  '/{-$locale}/about': typeof Char123LocaleChar125AboutIndexRoute;
 }
 export interface FileRoutesByTo {
   '/{-$locale}': typeof Char123LocaleChar125IndexRoute;
-  '/{-$locale}/about': typeof Char123LocaleChar125AboutIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute;
-  '/{-$locale}/about/': typeof Char123LocaleChar125AboutIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/{-$locale}' | '/{-$locale}/' | '/{-$locale}/about';
+  fullPaths: '/{-$locale}' | '/{-$locale}/';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/{-$locale}' | '/{-$locale}/about';
-  id: '__root__' | '/{-$locale}' | '/{-$locale}/' | '/{-$locale}/about/';
+  to: '/{-$locale}';
+  id: '__root__' | '/{-$locale}' | '/{-$locale}/';
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -75,25 +65,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport;
       parentRoute: typeof Char123LocaleChar125RouteRoute;
     };
-    '/{-$locale}/about/': {
-      id: '/{-$locale}/about/';
-      path: '/about';
-      fullPath: '/{-$locale}/about';
-      preLoaderRoute: typeof Char123LocaleChar125AboutIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
   }
 }
 
 interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute;
-  Char123LocaleChar125AboutIndexRoute: typeof Char123LocaleChar125AboutIndexRoute;
 }
 
 const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
   {
     Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
-    Char123LocaleChar125AboutIndexRoute: Char123LocaleChar125AboutIndexRoute,
   };
 
 const Char123LocaleChar125RouteRouteWithChildren =

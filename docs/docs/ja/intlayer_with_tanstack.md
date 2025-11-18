@@ -105,14 +105,27 @@ export default config;
 設定にintlayerプラグインを追加します:
 
 ```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+import viteTsConfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+const config = defineConfig({
+  plugins: [
+    nitro(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    tanstackStart(),
+    viteReact(),
+    intlayer(), // To make intlayer work
+    intlayerProxy(), // To redirect the user to his own locale
+  ],
 });
+
+export default config;
 ```
 
 > `intlayer()` Viteプラグインは、IntlayerをViteと統合するために使用されます。これにより、コンテンツ宣言ファイルのビルドが保証され、開発モードで監視されます。また、Viteアプリケーション内でIntlayerの環境変数を定義します。さらに、パフォーマンス最適化のためのエイリアスも提供します。
@@ -138,7 +151,7 @@ function LayoutComponent() {
   const { locale } = Route.useParams();
 
   return (
-    <IntlayerProvider locale={defaultLocale}>
+    <IntlayerProvider locale={locale ?? defaultLocale}>
       <Outlet />
     </IntlayerProvider>
   );
@@ -510,6 +523,32 @@ TypeScriptの設定に自動生成された型が含まれていることを確�
   ],
 }
 ```
+
+---
+
+### ステップ13: Nitroの調整（任意）
+
+本番出力にNitroを使用している場合、nitroは出力ディレクトリに `.intlayer` ディレクトリを含めません。手動でコピーする必要があります。
+
+ビルドスクリプトを使用した例：
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "build": "vite build && cpr -r .intlayer .output/.intlayer", // .intlayerフォルダをコピー
+    "serve": "vite preview",
+  },
+}
+```
+
+> cprはWindowsで機能するようにコマンドを適応させるために使用されます。
+> このコマンドを使用するには、`cpr` ユーティリティをインストールする必要があります。
+>
+> - `npm install --save-dev cpr`
+> - `yarn add --dev cpr`
+> - `pnpm add --save-dev cpr`
+> - `bun add --save-dev cpr`
 
 ---
 

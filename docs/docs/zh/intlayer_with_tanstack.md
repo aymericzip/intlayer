@@ -102,14 +102,27 @@ export default config;
 将 intlayer 插件添加到您的配置中：
 
 ```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+import viteTsConfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+const config = defineConfig({
+  plugins: [
+    nitro(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    tanstackStart(),
+    viteReact(),
+    intlayer(), // To make intlayer work
+    intlayerProxy(), // To redirect the user to his own locale
+  ],
 });
+
+export default config;
 ```
 
 > `intlayer()` Vite 插件用于将 Intlayer 集成到 Vite 中。它确保构建内容声明文件并在开发模式下监视它们。它在 Vite 应用中定义了 Intlayer 环境变量。此外，它还提供别名以优化性能。
@@ -135,7 +148,7 @@ function LayoutComponent() {
   const { locale } = Route.useParams();
 
   return (
-    <IntlayerProvider locale={defaultLocale}>
+    <IntlayerProvider locale={locale ?? defaultLocale}>
       <Outlet />
     </IntlayerProvider>
   );
@@ -507,6 +520,32 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
   ],
 }
 ```
+
+---
+
+### 第13步：调整 Nitro（可选）
+
+如果您在生产输出中使用 Nitro，nitro 将不会在输出目录中包含 `.intlayer` 目录。您需要手动复制它。
+
+使用构建脚本的示例：
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "build": "vite build && cpr -r .intlayer .output/.intlayer", // 复制 .intlayer 文件夹
+    "serve": "vite preview",
+  },
+}
+```
+
+> cpr 用于调整命令以使其在 Windows 上运行。
+> 您需要安装 `cpr` 实用程序才能使用此命令。
+>
+> - `npm install --save-dev cpr`
+> - `yarn add --dev cpr`
+> - `pnpm add --save-dev cpr`
+> - `bun add --save-dev cpr`
 
 ---
 

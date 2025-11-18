@@ -106,14 +106,27 @@ export default config;
 Aggiungi il plugin intlayer nella tua configurazione:
 
 ```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+import viteTsConfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+const config = defineConfig({
+  plugins: [
+    nitro(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    tanstackStart(),
+    viteReact(),
+    intlayer(), // To make intlayer work
+    intlayerProxy(), // To redirect the user to his own locale
+  ],
 });
+
+export default config;
 ```
 
 > Il plugin Vite `intlayer()` viene utilizzato per integrare Intlayer con Vite. Garantisce la creazione dei file di dichiarazione dei contenuti e li monitora in modalità sviluppo. Definisce le variabili d'ambiente di Intlayer all'interno dell'applicazione Vite. Inoltre, fornisce alias per ottimizzare le prestazioni.
@@ -139,7 +152,7 @@ function LayoutComponent() {
   const { locale } = Route.useParams();
 
   return (
-    <IntlayerProvider locale={defaultLocale}>
+    <IntlayerProvider locale={locale ?? defaultLocale}>
       <Outlet />
     </IntlayerProvider>
   );
@@ -527,6 +540,32 @@ Assicurati che la tua configurazione di TypeScript includa i tipi generati autom
   ],
 }
 ```
+
+---
+
+### Passo 13: Adattare Nitro (Opzionale)
+
+Se stai utilizzando Nitro per il tuo output di produzione, nitro non includerà la directory `.intlayer` nella directory di output. Devi copiarla manualmente.
+
+Esempio utilizzando lo script di build:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "build": "vite build && cpr .intlayer .output/.intlayer", // Copia cartella .intlayer
+    "serve": "vite preview",
+  },
+}
+```
+
+> cpr è usato per adattare il comando e farlo funzionare su Windows.
+> Dovrai installare l'utilità `cpr` per utilizzare questo comando.
+>
+> - `npm install --save-dev cpr`
+> - `yarn add --dev cpr`
+> - `pnpm add --save-dev cpr`
+> - `bun add --save-dev cpr`
 
 ---
 

@@ -4,45 +4,43 @@ import { useLocale } from 'react-intlayer';
 import { LOCALE_ROUTE } from '@/components/localized-link';
 import type { FileRouteTypes } from '@/routeTree.gen';
 
-type StripLocalePrefix<T extends string> = T extends
-  | `/${typeof LOCALE_ROUTE}`
-  | `/${typeof LOCALE_ROUTE}/`
-  ? '/'
-  : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
-    ? `/${Rest}`
-    : never;
-
-type LocalizedTo = StripLocalePrefix<FileRouteTypes['to']>;
-
-type LocalizedNavigate = {
-  (to: LocalizedTo): ReturnType<ReturnType<typeof useNavigate>>;
-  (
-    opts: { to: LocalizedTo } & Record<string, unknown>
-  ): ReturnType<ReturnType<typeof useNavigate>>;
-};
-
 export const useLocalizedNavigate = () => {
   const navigate = useNavigate();
 
   const { locale } = useLocale();
 
-  const localizedNavigate: LocalizedNavigate = (args: any) => {
-    const { localePrefix } = getPrefix(locale);
+  type StripLocalePrefix<T extends string> = T extends
+    | `/${typeof LOCALE_ROUTE}`
+    | `/${typeof LOCALE_ROUTE}/`
+    ? '/'
+    : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
+      ? `/${Rest}`
+      : never;
 
+  type LocalizedTo = StripLocalePrefix<FileRouteTypes['to']>;
+
+  interface LocalizedNavigate {
+    (to: LocalizedTo): ReturnType<typeof navigate>;
+    (
+      opts: { to: LocalizedTo } & Record<string, unknown>
+    ): ReturnType<typeof navigate>;
+  }
+
+  const localizedNavigate: LocalizedNavigate = (args: any) => {
     if (typeof args === 'string') {
       return navigate({
         to: `/${LOCALE_ROUTE}${args}`,
-        params: { locale: localePrefix },
+        params: { locale: getPrefix(locale).localePrefix },
       });
     }
 
     const { to, ...rest } = args;
 
-    const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
+    const localizedTo = `/${LOCALE_ROUTE}${to}`;
 
     return navigate({
       to: localizedTo,
-      params: { locale: localePrefix, ...rest } as any,
+      params: { locale: getPrefix(locale).localePrefix, ...rest },
     });
   };
 

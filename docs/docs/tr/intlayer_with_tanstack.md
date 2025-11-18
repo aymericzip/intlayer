@@ -106,14 +106,27 @@ export default config;
 Yapılandırmanıza intlayer eklentisini ekleyin:
 
 ```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+import viteTsConfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+const config = defineConfig({
+  plugins: [
+    nitro(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    tanstackStart(),
+    viteReact(),
+    intlayer(), // To make intlayer work
+    intlayerProxy(), // To redirect the user to his own locale
+  ],
 });
+
+export default config;
 ```
 
 > `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve geliştirme modunda bunları izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca performansı optimize etmek için takma adlar sağlar.
@@ -139,7 +152,7 @@ function LayoutComponent() {
   const { locale } = Route.useParams();
 
   return (
-    <IntlayerProvider locale={defaultLocale}>
+    <IntlayerProvider locale={locale ?? defaultLocale}>
       <Outlet />
     </IntlayerProvider>
   );
@@ -520,6 +533,32 @@ TypeScript yapılandırmanızın otomatik oluşturulan türleri içerdiğinden e
   ],
 }
 ```
+
+---
+
+### Adım 13: Nitro'yu Uyarlama (İsteğe Bağlı)
+
+Üretim çıktınız için Nitro kullanıyorsanız, nitro çıktı dizinine `.intlayer` dizinini dahil etmeyecektir. Manuel olarak kopyalamanız gerekir.
+
+Build script kullanarak örnek:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "build": "vite build && cpr .intlayer .output/.intlayer", // .intlayer klasörünü kopyala
+    "serve": "vite preview",
+  },
+}
+```
+
+> cpr, komutu Windows'ta çalışır hale getirmek için kullanılır.
+> Bu komutu kullanmak için `cpr` yardımcı programını yüklemeniz gerekir.
+>
+> - `npm install --save-dev cpr`
+> - `yarn add --dev cpr`
+> - `pnpm add --save-dev cpr`
+> - `bun add --save-dev cpr`
 
 ---
 

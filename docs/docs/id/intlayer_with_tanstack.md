@@ -114,14 +114,27 @@ export default config;
 Tambahkan plugin intlayer ke dalam konfigurasi Anda:
 
 ```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+import viteTsConfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+const config = defineConfig({
+  plugins: [
+    nitro(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    tanstackStart(),
+    viteReact(),
+    intlayer(), // To make intlayer work
+    intlayerProxy(), // To redirect the user to his own locale
+  ],
 });
+
+export default config;
 ```
 
 > Plugin Vite `intlayer()` digunakan untuk mengintegrasikan Intlayer dengan Vite. Plugin ini memastikan pembuatan file deklarasi konten dan memantau file tersebut dalam mode pengembangan. Plugin ini juga mendefinisikan variabel lingkungan Intlayer di dalam aplikasi Vite. Selain itu, plugin ini menyediakan alias untuk mengoptimalkan performa.
@@ -147,7 +160,7 @@ function LayoutComponent() {
   const { locale } = Route.useParams();
 
   return (
-    <IntlayerProvider locale={defaultLocale}>
+    <IntlayerProvider locale={locale ?? defaultLocale}>
       <Outlet />
     </IntlayerProvider>
   );
@@ -518,6 +531,32 @@ Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara oto
   ],
 }
 ```
+
+---
+
+### Langkah 13: Menyesuaikan Nitro (Opsional)
+
+Jika Anda menggunakan Nitro untuk output produksi Anda, nitro tidak akan menyertakan direktori `.intlayer` dalam direktori output. Anda perlu menyalinnya secara manual.
+
+Contoh menggunakan script build:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "build": "vite build && cpr -r .intlayer .output/.intlayer", // Salin folder .intlayer
+    "serve": "vite preview",
+  },
+}
+```
+
+> cpr digunakan untuk mengadaptasi perintah agar berfungsi di Windows.
+> Anda harus menginstal utilitas `cpr` untuk menggunakan perintah ini.
+>
+> - `npm install --save-dev cpr`
+> - `yarn add --dev cpr`
+> - `pnpm add --save-dev cpr`
+> - `bun add --save-dev cpr`
 
 ---
 

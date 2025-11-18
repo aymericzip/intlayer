@@ -1,11 +1,12 @@
 {
-  "projectName": ".",
+  "projectName": "test",
   "mode": "file-router",
   "typescript": true,
   "tailwind": true,
-  "packageManager": "bun",
+  "packageManager": "npm",
+  "addOnOptions": {},
   "git": true,
   "version": 1,
   "framework": "react-cra",
-  "chosenAddOns": ["eslint", "start"]
+  "chosenAddOns": ["nitro", "start"]
 }

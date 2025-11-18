@@ -101,14 +101,27 @@ export default config;
 구성에 intlayer 플러그인을 추가하세요:
 
 ```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+import viteTsConfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+const config = defineConfig({
+  plugins: [
+    nitro(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    tanstackStart(),
+    viteReact(),
+    intlayer(), // To make intlayer work
+    intlayerProxy(), // To redirect the user to his own locale
+  ],
 });
+
+export default config;
 ```
 
 > `intlayer()` Vite 플러그인은 Intlayer를 Vite와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일을 빌드하고 개발 모드에서 이를 모니터링합니다. 또한 Vite 애플리케이션 내에서 Intlayer 환경 변수를 정의합니다. 추가로, 성능 최적화를 위한 별칭(alias)도 제공합니다.
@@ -134,7 +147,7 @@ function LayoutComponent() {
   const { locale } = Route.useParams();
 
   return (
-    <IntlayerProvider locale={defaultLocale}>
+    <IntlayerProvider locale={locale ?? defaultLocale}>
       <Outlet />
     </IntlayerProvider>
   );
@@ -515,6 +528,32 @@ TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하
   ],
 }
 ```
+
+---
+
+### 13단계: Nitro 조정 (선택 사항)
+
+프로덕션 출력에 Nitro를 사용하는 경우, nitro는 출력 디렉토리에 `.intlayer` 디렉토리를 포함하지 않습니다. 수동으로 복사해야 합니다.
+
+빌드 스크립트를 사용한 예제:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "build": "vite build && cpr -r .intlayer .output/.intlayer", // .intlayer 폴더 복사
+    "serve": "vite preview",
+  },
+}
+```
+
+> cpr은 Windows에서 작동하도록 명령을 조정하는 데 사용됩니다.
+> 이 명령을 사용하려면 `cpr` 유틸리티를 설치해야 합니다.
+>
+> - `npm install --save-dev cpr`
+> - `yarn add --dev cpr`
+> - `pnpm add --save-dev cpr`
+> - `bun add --save-dev cpr`
 
 ---
 

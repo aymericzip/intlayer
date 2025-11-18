@@ -1,48 +1,102 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer } from 'intlayer';
+import {
+  Route as RouteIcon,
+  Server,
+  Shield,
+  Sparkles,
+  Waves,
+  Zap,
+} from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
 
-import { LocaleSwitcher } from '@/components/locale-switcher';
-import { LocalizedLink } from '@/components/localized-link';
-import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
+export const Route = createFileRoute('/{-$locale}/')({ component: App });
 
-export const Route = createFileRoute('/{-$locale}/')({
-  component: RouteComponent,
-  head: ({ params }) => {
-    const { locale } = params;
-    const metaContent = getIntlayer('app', locale);
+function App() {
+  const {
+    logoAlt,
+    heroSubtitle,
+    heroDescription,
+    docButtonLabel,
+    guideTextPrefix,
+    features: featureTranslations,
+  } = useIntlayer('app');
 
-    return {
-      meta: [
-        { title: metaContent.title },
-        { content: metaContent.meta.description, name: 'description' },
-      ],
-    };
-  },
-});
+  const featureIconComponents = [
+    () => <Zap className="h-12 w-12 text-cyan-400" />,
+    () => <Server className="h-12 w-12 text-cyan-400" />,
+    () => <RouteIcon className="h-12 w-12 text-cyan-400" />,
+    () => <Shield className="h-12 w-12 text-cyan-400" />,
+    () => <Waves className="h-12 w-12 text-cyan-400" />,
+    () => <Sparkles className="h-12 w-12 text-cyan-400" />,
+  ];
 
-function RouteComponent() {
-  const content = useIntlayer('app');
-  const navigate = useLocalizedNavigate();
+  const features = featureTranslations.map((featureTranslation, index) => ({
+    icon: featureIconComponents[index](),
+    title: featureTranslation.title.value,
+    description: featureTranslation.description.value,
+  }));
 
   return (
-    <div className="grid h-screen place-items-center">
-      <div className="flex flex-col items-center gap-4 text-center">
-        {content.title}
-        <LocaleSwitcher />
-        <div className="flex gap-4">
-          <LocalizedLink to="/">{content.links.home}</LocalizedLink>
-          <LocalizedLink to="/about">{content.links.about}</LocalizedLink>
+    <div className="min-h-screen bg-linear-to-b from-slate-900 via-slate-800 to-slate-900">
+      <section className="relative overflow-hidden px-6 py-20 text-center">
+        <div className="absolute inset-0 bg-linear-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10"></div>
+        <div className="relative mx-auto max-w-5xl">
+          <div className="mb-6 flex items-center justify-center gap-6">
+            <img
+              src="/tanstack-circle-logo.png"
+              alt={logoAlt.value}
+              className="h-24 w-24 md:h-32 md:w-32"
+            />
+            <h1 className="font-black text-6xl text-white tracking-[-0.08em] md:text-7xl">
+              <span className="text-gray-300">TANSTACK</span>{' '}
+              <span className="bg-linear-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                START
+              </span>
+            </h1>
+          </div>
+          <p className="mb-4 font-light text-2xl text-gray-300 md:text-3xl">
+            {heroSubtitle.value}
+          </p>
+          <p className="mx-auto mb-8 max-w-3xl text-gray-400 text-lg">
+            {heroDescription.value}
+          </p>
+          <div className="flex flex-col items-center gap-4">
+            <a
+              href="https://tanstack.com/start"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg bg-cyan-500 px-8 py-3 font-semibold text-white shadow-cyan-500/50 shadow-lg transition-colors hover:bg-cyan-600"
+            >
+              {docButtonLabel.value}
+            </a>
+            <p className="mt-2 text-gray-400 text-sm">
+              {guideTextPrefix.value}
+              <code className="rounded bg-slate-700 px-2 py-1 text-cyan-400">
+                /src/routes/index.tsx
+              </code>
+            </p>
+          </div>
         </div>
-        <div className="flex gap-4">
-          <button onClick={() => navigate({ to: '/' })}>
-            {content.links.home}
-          </button>
-          <button onClick={() => navigate({ to: '/about' })}>
-            {content.links.about}
-          </button>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-16">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature) => (
+            <div
+              key={feature.title}
+              className="rounded-xl border border-slate-700 bg-slate-800/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-cyan-500/50 hover:shadow-cyan-500/10 hover:shadow-lg"
+            >
+              <div className="mb-4">{feature.icon}</div>
+              <h3 className="mb-3 font-semibold text-white text-xl">
+                {feature.title}
+              </h3>
+              <p className="text-gray-400 leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
+          ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 }

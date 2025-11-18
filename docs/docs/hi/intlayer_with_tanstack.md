@@ -106,14 +106,27 @@ export default config;
 अपने कॉन्फ़िगरेशन में intlayer प्लगइन जोड़ें:
 
 ```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+import viteTsConfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+const config = defineConfig({
+  plugins: [
+    nitro(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    tanstackStart(),
+    viteReact(),
+    intlayer(), // To make intlayer work
+    intlayerProxy(), // To redirect the user to his own locale
+  ],
 });
+
+export default config;
 ```
 
 > `intlayer()` Vite प्लगइन का उपयोग Intlayer को Vite के साथ एकीकृत करने के लिए किया जाता है। यह कंटेंट घोषणा फ़ाइलों के निर्माण को सुनिश्चित करता है और विकास मोड में उनकी निगरानी करता है। यह Vite एप्लिकेशन के भीतर Intlayer पर्यावरण चर को परिभाषित करता है। इसके अतिरिक्त, यह प्रदर्शन को अनुकूलित करने के लिए उपनाम प्रदान करता है।
@@ -139,7 +152,7 @@ function LayoutComponent() {
   const { locale } = Route.useParams();
 
   return (
-    <IntlayerProvider locale={defaultLocale}>
+    <IntlayerProvider locale={locale ?? defaultLocale}>
       <Outlet />
     </IntlayerProvider>
   );
@@ -506,6 +519,32 @@ Intlayer टाइपस्क्रिप्ट के लाभ प्रा�
   ],
 }
 ```
+
+---
+
+### चरण 13: Nitro को अनुकूलित करें (वैकल्पिक)
+
+यदि आप अपने उत्पादन आउटपुट के लिए Nitro का उपयोग कर रहे हैं, तो nitro आउटपुट डायरेक्टरी में `.intlayer` डायरेक्टरी को शामिल नहीं करेगा। आपको इसे मैन्युअल रूप से कॉपी करना होगा।
+
+बिल्ड स्क्रिप्ट का उपयोग करते हुए उदाहरण:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "build": "vite build && cpr .intlayer .output/.intlayer", // .intlayer फ़ोल्डर कॉपी करें
+    "serve": "vite preview",
+  },
+}
+```
+
+> cpr का उपयोग कमांड को Windows पर काम करने के लिए अनुकूलित करने के लिए किया जाता है।
+> इस कमांड का उपयोग करने के लिए आपको `cpr` उपयोगिता इंस्टॉल करनी होगी।
+>
+> - `npm install --save-dev cpr`
+> - `yarn add --dev cpr`
+> - `pnpm add --save-dev cpr`
+> - `bun add --save-dev cpr`
 
 ---
 

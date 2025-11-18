@@ -114,14 +114,27 @@ export default config;
 Thêm plugin intlayer vào cấu hình của bạn:
 
 ```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+import viteTsConfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+const config = defineConfig({
+  plugins: [
+    nitro(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    tanstackStart(),
+    viteReact(),
+    intlayer(), // To make intlayer work
+    intlayerProxy(), // To redirect the user to his own locale
+  ],
 });
+
+export default config;
 ```
 
 > Plugin Vite `intlayer()` được sử dụng để tích hợp Intlayer với Vite. Nó đảm bảo việc xây dựng các file khai báo nội dung và giám sát chúng trong chế độ phát triển. Nó định nghĩa các biến môi trường Intlayer trong ứng dụng Vite. Ngoài ra, nó cung cấp các alias để tối ưu hiệu suất.
@@ -147,7 +160,7 @@ function LayoutComponent() {
   const { locale } = Route.useParams();
 
   return (
-    <IntlayerProvider locale={defaultLocale}>
+    <IntlayerProvider locale={locale ?? defaultLocale}>
       <Outlet />
     </IntlayerProvider>
   );
@@ -526,6 +539,32 @@ Intlayer sử dụng module augmentation để tận dụng các lợi ích củ
   ],
 }
 ```
+
+---
+
+### Bước 13: Điều chỉnh Nitro (Tùy chọn)
+
+Nếu bạn đang sử dụng Nitro cho đầu ra sản xuất của mình, nitro sẽ không bao gồm thư mục `.intlayer` trong thư mục đầu ra. Bạn cần sao chép nó thủ công.
+
+Ví dụ sử dụng script build:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "build": "vite build && cpr .intlayer .output/.intlayer", // Sao chép thư mục .intlayer
+    "serve": "vite preview",
+  },
+}
+```
+
+> cpr được sử dụng để điều chỉnh lệnh để làm cho nó hoạt động trên Windows.
+> Bạn sẽ phải cài đặt tiện ích `cpr` để sử dụng lệnh này.
+>
+> - `npm install --save-dev cpr`
+> - `yarn add --dev cpr`
+> - `pnpm add --save-dev cpr`
+> - `bun add --save-dev cpr`
 
 ---
 

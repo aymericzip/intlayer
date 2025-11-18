@@ -36,7 +36,8 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": "./target/wasm32-wasip1/release/intlayer_swc_plugin.wasm"
+    ".": "./target/wasm32-wasip1/release/intlayer_swc_plugin.wasm",
+    "./package.json": "./package.json"
   },
   "main": "target/wasm32-wasip1/release/intlayer_swc_plugin.wasm",
   "files": [

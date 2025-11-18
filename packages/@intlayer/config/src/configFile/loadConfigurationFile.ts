@@ -12,6 +12,21 @@ const filterValidConfiguration = (
   return configuration;
 };
 
+const getAliases = (
+  options?: Omit<LoadExternalFileOptions, 'configuration'>
+) => {
+  // Can fail if CJS hot removed from the module (e.g. in Tanstack Start + Nitro)
+  try {
+    return {
+      ...options?.aliases,
+      // Replace intlayer with @intlayer/types to avoid circular dependency intlayer -> @intlayer/config -> intlayer
+      intlayer: configESMxCJSRequire.resolve('@intlayer/types'),
+    };
+  } catch {
+    return options?.aliases;
+  }
+};
+
 /**
  * Load the configuration file from the given path
  * Example of configuration file: intlayer.config.js
@@ -24,11 +39,7 @@ export const loadConfigurationFile = (
 ): CustomIntlayerConfig | undefined => {
   const fileContent = loadExternalFileSync(configFilePath, {
     ...options,
-    aliases: {
-      ...options?.aliases,
-      // Replace intlayer with @intlayer/types to avoid circular dependency intlayer -> @intlayer/config -> intlayer
-      intlayer: configESMxCJSRequire.resolve('@intlayer/types'),
-    },
+    aliases: getAliases(options),
   });
 
   return filterValidConfiguration(fileContent);

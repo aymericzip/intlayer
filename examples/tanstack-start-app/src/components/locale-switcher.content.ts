@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const localeSwitcherContent = {
   content: {
@@ -7,11 +7,13 @@ const localeSwitcherContent = {
       es: 'Lista de idiomas',
       fr: 'Liste de langues',
     }),
-    localeSwitcherLabel: t({
-      en: 'Select language',
-      es: 'Seleccionar idioma',
-      fr: 'Sélectionner la langue',
-    }),
+    localeSwitcherLabel: insert(
+      t({
+        en: 'Select language {{language}}',
+        es: 'Seleccionar idioma {{language}}',
+        fr: 'Sélectionner la langue {{language}}',
+      })
+    ),
   },
   key: 'locale-switcher',
 } satisfies Dictionary;
