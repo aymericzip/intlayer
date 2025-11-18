@@ -216,26 +216,21 @@ const nextConfig: NextConfig = {
   },
 
   headers: () => [
-    {
-      source: '/:locale/i18n-seo-scanner',
-      headers: scannerHeaders,
-    },
-    {
-      source: '/i18n-seo-scanner',
-      headers: scannerHeaders,
-    },
-    {
-      source: '/:locale/dashboard/:path*',
-      headers: dashboardHeaders,
-    },
-    {
-      source: '/dashboard/:path*',
-      headers: dashboardHeaders,
-    },
+    // 1. Catch-all FIRST
     {
       // All page routes, not the api ones
       source: '/:path((?!api).*)*',
       headers: defaultHeaders,
+    },
+    // 2. Scanner overrides catch-all
+    {
+      source: '/:locale/i18n-seo-scanner',
+      headers: scannerHeaders,
+    },
+    // 3. Dashboard overrides both
+    {
+      source: '/:locale/dashboard/:path*',
+      headers: dashboardHeaders,
     },
   ],
   async redirects() {
