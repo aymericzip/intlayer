@@ -894,7 +894,7 @@ export const InputOTPSlot: FC<InputOTPSlotProps> = ({
 export const InputOTPSeparator: FC<ComponentProps<'div'>> = (props) => (
   <div
     aria-hidden
-    className="z-0 table h-0.5 w-3 rounded-full bg-border text-text/20"
+    className="z-0 table h-0.5 w-3 rounded-full bg-border text-text/50"
     {...props}
   >
     <MinusIcon />

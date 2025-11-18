@@ -178,7 +178,6 @@ export const buttonVariants = cva(
 
           'text-text',
           'bg-neutral-50 dark:bg-neutral-950',
-          'hover:bg-neutral-100/90 dark:hover:bg-neutral-900/90',
           'ring-neutral-100 dark:ring-neutral-700',
 
           // Hover ring (similar spirit to your input)
