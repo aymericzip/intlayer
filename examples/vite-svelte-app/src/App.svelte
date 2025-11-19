@@ -1,12 +1,20 @@
 <script lang="ts">
-import { useEditor, useIntlayer } from 'svelte-intlayer';
+import {
+  setIntlayerMarkdown,
+  useIntlayer,
+  useIntlayerEditor,
+} from 'svelte-intlayer';
 import viteLogo from '/vite.svg';
 import svelteLogo from './assets/svelte.svg';
 import Counter from './lib/Counter.svelte';
 import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
 
-useEditor();
+useIntlayerEditor();
+setIntlayerMarkdown({ renderMarkdown: (markdown) => markdown });
+
 const content = useIntlayer('app');
+
+$: console.log($content.markdownContent.metadata);
 </script>
 
 
@@ -36,6 +44,18 @@ const content = useIntlayer('app');
   <p class="read-the-docs">
     <svelte:component this={$content.readTheDocs} />
   </p>
+
+  <div>
+    <h2>Markdown content</h2>
+    <!-- render the markdown content as a string -->
+  {$content.markdownContent}
+    <h2>Markdown component</h2>
+    <!-- render the markdown content as a component -->
+    <svelte:component this={$content.markdownContent} />
+    <h2>Markdown Metadata</h2>
+    <!-- render the metadata of the markdown content -->
+    {$content.markdownContent.metadata.title}
+  </div>
 </main>
 
 <style>

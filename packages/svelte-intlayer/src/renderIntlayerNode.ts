@@ -4,9 +4,18 @@ type IntlayerNodeProps = {
   value: any;
   component: any;
   props: Record<string, any>;
+  additionalProps?: Record<string, any>;
 };
 
-export const renderIntlayerNode = (args: IntlayerNodeProps) => {
+export type IntlayerNode<T = any, P = Record<string, any>> = {
+  new (...args: any[]): any;
+  (anchor: any, props: any): any;
+  value: T;
+} & P;
+
+export const renderIntlayerNode = <T = any, P = Record<string, any>>(
+  args: IntlayerNodeProps
+): IntlayerNode<T, P> => {
   const isClassComponent = Boolean(IntlayerNodeWrapper.prototype?.$destroy);
 
   let Node: any;
@@ -48,6 +57,10 @@ export const renderIntlayerNode = (args: IntlayerNodeProps) => {
     value: () => args.value?.toString() ?? '',
     writable: false,
   });
+
+  if (args.additionalProps) {
+    Object.assign(Node, args.additionalProps);
+  }
 
   return Node;
 };

@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, md, t } from 'intlayer';
 
 const appContent = {
   key: 'app',
@@ -33,6 +33,10 @@ const appContent = {
       fr: 'Cliquez sur les logos Vite et Svelte pour en savoir plus',
       es: 'Haga clic en los logotipos de Vite y Svelte para obtener más información',
     }),
+
+    markdownContent: md(
+      '---\ntitle: test\n\n---\n\n## My title 2 \n\nLorem Ipsum k'
+    ),
   },
 } satisfies Dictionary;
 
