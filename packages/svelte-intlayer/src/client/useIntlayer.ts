@@ -18,7 +18,7 @@ import { intlayerStore } from './intlayerStore';
 export const useIntlayer = <T extends DictionaryKeys>(
   key: T,
   locale?: LocalesValues
-): DeepTransformContent<DictionaryRegistryContent<T>> => {
+): Readable<DeepTransformContent<DictionaryRegistryContent<T>>> => {
   const context = getIntlayerContext();
 
   // Create a derived store that reactively updates when locale changes
