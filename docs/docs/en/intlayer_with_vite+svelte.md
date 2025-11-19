@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2025-11-19
 title: How to translate your Vite and Svelte app – i18n guide 2025
 description: Discover how to make your Vite and Svelte website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -14,8 +14,11 @@ slugs:
   - doc
   - environment
   - vite-and-svelte
-# applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 history:
+  - version: 5.5.11
+    date: 2025-11-19
+    changes: Update doc
   - version: 5.5.10
     date: 2025-06-29
     changes: Init history
@@ -24,8 +27,6 @@ history:
 # Translate your Vite and Svelte website using Intlayer | Internationalization (i18n)
 
 > This package is in development. See the [issue](https://github.com/aymericzip/intlayer/issues/114) for more information. Show your interest in Intlayer for Svelte by liking the issue
-
-<!-- See [Application Template](https://github.com/aymericzip/intlayer-solid-template) on GitHub. -->
 
 ## Table of Contents
 
@@ -45,6 +46,16 @@ With Intlayer, you can:
 ---
 
 ## Step-by-Step Guide to Set Up Intlayer in a Vite and Svelte Application
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+See [Application Template](https://github.com/aymericzip/intlayer-vite-svelte-template) on GitHub.
 
 ### Step 1: Install Dependencies
 
@@ -79,7 +90,7 @@ yarn add vite-intlayer --save-dev
 
 Create a config file to configure the languages of your application:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -97,80 +108,20 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Your other locales
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Your other locales
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > Through this configuration file, you can set up localized URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ### Step 3: Integrate Intlayer in Your Vite Configuration
 
 Add the intlayer plugin into your configuration.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const react = require("@vitejs/plugin-react-swc");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
-  plugins: [react(), intlayer()],
+  plugins: [svelte(), intlayer()],
 });
 ```
 
@@ -185,7 +136,13 @@ import { t, type Dictionary } from "intlayer";
 
 const appContent = {
   key: "app",
-  content: {},
+  content: {
+    title: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola mundo",
+    }),
+  },
 } satisfies Dictionary;
 
 export default appContent;
@@ -197,7 +154,13 @@ import { t } from "intlayer";
 /** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
-  content: {},
+  content: {
+    title: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola mundo",
+    }),
+  },
 };
 
 export default appContent;
@@ -209,7 +172,13 @@ const { t } = require("intlayer");
 /** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
-  content: {},
+  content: {
+    title: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola mundo",
+    }),
+  },
 };
 
 module.exports = appContent;
@@ -219,7 +188,16 @@ module.exports = appContent;
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "app",
-  "content": {}
+  "content": {
+    "title": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Hello World",
+        "fr": "Bonjour le monde",
+        "es": "Hola mundo"
+      }
+    }
+  }
 }
 ```
 
@@ -229,13 +207,48 @@ module.exports = appContent;
 
 ### Step 5: Utilize Intlayer in Your Code
 
-[to complete]
+```svelte fileName="src/App.svelte"
+<script>
+  import { useIntlayer } from "svelte-intlayer";
+
+  const content = useIntlayer("app");
+</script>
+
+<h1>{$content.title}</h1>
+
+```
 
 ### (Optional) Step 6: Change the language of your content
 
-[to complete]
+```svelte fileName="src/App.svelte"
+<script lang="ts">
+import  { getLocaleName } from 'intlayer';
+import { useLocale } from 'svelte-intlayer';
 
-### (Optional) Step 7: Add localized Routing to your application
+// Get locale information and setLocale function
+const { locale, availableLocales, setLocale } = useLocale();
+
+// Handle locale change
+const changeLocale = (event: Event) => {
+  const target = event.target as HTMLSelectElement;
+  const newLocale = target.value;
+  console.log('changeLocale', newLocale);
+  setLocale(newLocale);
+};
+</script>
+
+<div>
+  <select value={$locale} on:change={changeLocale}>
+    {#each availableLocales ?? [] as loc}
+      <option value={loc}>
+        {getLocaleName(loc)}
+      </option>
+    {/each}
+  </select>
+</div>
+```
+
+<!-- ### (Optional) Step 7: Add localized Routing to your application
 
 [to complete]
 
@@ -249,7 +262,7 @@ module.exports = appContent;
 
 ### (Optional) Step 10: Creating a Localized Link Component
 
-[to complete]
+[to complete] -->
 
 ### Git Configuration
 
