@@ -7,7 +7,8 @@
     "build": "vite build",
     "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start:editor": "npx intlayer-editor start --with 'vite dev'"
   },
   "dependencies": {
     "intlayer": "workspace:*",

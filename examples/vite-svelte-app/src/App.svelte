@@ -1,16 +1,24 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+import { useIntlayer } from 'svelte-intlayer';
+import viteLogo from '/vite.svg';
+import svelteLogo from './assets/svelte.svg';
+import Counter from './lib/Counter.svelte';
+import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
+
+const content = useIntlayer('app');
 </script>
 
 <main>
+  <div class="locale-switcher-container">
+    <LocaleSwitcher />
+  </div>
+  
   <div>
     <a href="https://vite.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
+      <img src={viteLogo} class="logo" alt={$content.viteLogo} />
     </a>
     <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
+      <img src={svelteLogo} class="logo svelte" alt={$content.svelteLogo} />
     </a>
   </div>
   <h1>Vite + Svelte</h1>
@@ -20,15 +28,21 @@
   </div>
 
   <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
+    {$content.checkOut[0]} <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, {$content.checkOut[1]}
   </p>
 
   <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
+    {$content.readTheDocs}
   </p>
 </main>
 
 <style>
+  .locale-switcher-container {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+  }
+
   .logo {
     height: 6em;
     padding: 1.5em;

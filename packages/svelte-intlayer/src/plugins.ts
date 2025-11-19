@@ -1,23 +1,26 @@
-import type { Plugins } from '@intlayer/core';
-
+import type {
+  DeepTransformContent as DeepTransformContentCore,
+  IInterpreterPluginState as IInterpreterPluginStateCore,
+  Plugins,
+} from '@intlayer/core';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
 /**
  * Interface for Svelte-specific plugin functionality
  * This interface can be augmented to add more Svelte-specific transformations
  */
-export interface IInterpreterPluginSvelte<T> {
+export type IInterpreterPluginState = IInterpreterPluginStateCore & {
   /** Any Svelte-specific properties can be added here */
-  svelteRendered?: T;
-}
+  // svelteRendered?: true;
+};
 
 /**
  * Type that represents the deep transformation of content for Svelte
  * This applies Svelte-specific transformations recursively to all content
  */
-export type DeepTransformContent<T> = T extends object
-  ? {
-      [K in keyof T]: DeepTransformContent<T[K]>;
-    } & IInterpreterPluginSvelte<T>
-  : T;
+export type DeepTransformContent<
+  T,
+  L extends LocalesValues = DeclaredLocales,
+> = DeepTransformContentCore<T, IInterpreterPluginState, L>;
 
 /**
  * Svelte-specific node plugins for handling basic content types
