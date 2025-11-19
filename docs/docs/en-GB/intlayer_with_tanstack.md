@@ -108,7 +108,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 
 const config = defineConfig({
@@ -119,8 +119,7 @@ const config = defineConfig({
     }),
     tanstackStart(),
     viteReact(),
-    intlayer(), // To make intlayer work
-    intlayerProxy(), // To redirect the user to his own locale
+    intlayer(), // To add
   ],
 });
 
