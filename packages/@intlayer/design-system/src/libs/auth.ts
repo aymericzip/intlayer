@@ -30,6 +30,12 @@ const getAuthClient = (backendURL: string) =>
 
 type AuthClient = ReturnType<typeof getAuthClient>;
 
+// Redeclare it because of type inference issues
+export type MagicLinkSignInInput = {
+  email: string;
+  callbackURL: string;
+};
+
 export interface AuthAPI {
   getAuthClient: () => AuthClient;
   signInEmail: AuthClient['signIn']['email'];
@@ -64,7 +70,9 @@ export interface AuthAPI {
   signInPasskey: AuthClient['signIn']['passkey'];
   deletePasskey: AuthClient['passkey']['deletePasskey'];
   listPasskeys: () => Promise<any>;
-  signInMagicLink: AuthClient['signIn']['magicLink'];
+  signInMagicLink: (
+    input: MagicLinkSignInInput
+  ) => ReturnType<BaseClient['signIn']['magicLink']>;
 }
 
 export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
