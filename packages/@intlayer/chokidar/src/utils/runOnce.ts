@@ -118,9 +118,7 @@ export const runOnce = async (
     if (shouldRebuild) {
       try {
         await unlink(sentinelFilePath);
-      } catch (err: any) {
-        if (err.code !== 'ENOENT') throw err;
-      }
+      } catch {}
       // Fall through to create new sentinel and rebuild
     } else {
       await onIsCached?.();
@@ -144,6 +142,8 @@ export const runOnce = async (
     // Write sentinel file after to ensure the first one has not been removed with cleanOutputDir
     writeSentinelFile(sentinelFilePath, currentTimestamp);
   } catch {
-    await unlink(sentinelFilePath); // Remove sentinel file if an error occurs
+    try {
+      await unlink(sentinelFilePath); // Remove sentinel file if an error occurs
+    } catch {}
   }
 };
