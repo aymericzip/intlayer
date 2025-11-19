@@ -2,7 +2,7 @@ import { join } from 'node:path';
 import {
   ANSIColors,
   cacheDisk,
-  checkVersionsConsistency,
+  // checkVersionsConsistency,
   colorize,
   getAppLogger,
 } from '@intlayer/config';
@@ -64,7 +64,8 @@ export const prepareIntlayer = async (
   await runOnce(
     sentinelPath,
     async () => {
-      await checkVersionsConsistency(configuration);
+      // comment because of issue with next and webpack
+      // await checkVersionsConsistency(configuration);
 
       if (clean || !isCorrectVersion) {
         await cleanOutputDir(configuration);
