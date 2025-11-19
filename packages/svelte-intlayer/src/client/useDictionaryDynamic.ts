@@ -1,6 +1,7 @@
 import type {
   Dictionary,
   DictionaryKeys,
+  Locale,
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types';
@@ -33,7 +34,7 @@ export const useDictionaryDynamic = <
     // Load dictionary for the target locale asynchronously
     const loadDictionary = async () => {
       try {
-        const dictionaryLoader = dictionaryPromise[targetLocale];
+        const dictionaryLoader = dictionaryPromise[targetLocale as Locale];
         if (dictionaryLoader) {
           const loadedDictionary = await dictionaryLoader();
           dictionaryStore.set(loadedDictionary);

@@ -4,13 +4,16 @@ import type {
   Plugins,
 } from '@intlayer/core';
 import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
+import { ContentSelectorWrapper } from './editor';
+import { renderIntlayerNode } from './renderIntlayerNode';
+
 /**
  * Interface for Svelte-specific plugin functionality
  * This interface can be augmented to add more Svelte-specific transformations
  */
 export type IInterpreterPluginState = IInterpreterPluginStateCore & {
   /** Any Svelte-specific properties can be added here */
-  // svelteRendered?: true;
+  intlayerNode: true;
 };
 
 /**
@@ -23,23 +26,6 @@ export type DeepTransformContent<
 > = DeepTransformContentCore<T, IInterpreterPluginState, L>;
 
 /**
- * Svelte-specific node plugins for handling basic content types
- * These plugins handle strings, numbers, and bigints in Svelte applications
- */
-export const svelteNodePlugins: Plugins = {
-  id: 'svelte-node-plugin',
-  canHandle: (node) =>
-    typeof node === 'bigint' ||
-    typeof node === 'string' ||
-    typeof node === 'number',
-  transform: (node, { children, ...rest }) => {
-    // For Svelte, we can return the raw content as Svelte handles reactivity automatically
-    // In more complex scenarios, you might want to wrap content in Svelte components
-    return children ?? node;
-  },
-};
-
-/**
  * Basic Intlayer node plugins for content handling
  * These handle the core content transformation logic
  */
@@ -49,11 +35,19 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'bigint' ||
     typeof node === 'string' ||
     typeof node === 'number',
-  transform: (node, { children, ...rest }) => {
-    // Return the processed children or the node itself
-    return children ?? node;
-  },
+  transform: (node, { children, ...rest }) =>
+    renderIntlayerNode({
+      value: children ?? node,
+      component: ContentSelectorWrapper,
+      props: rest,
+    }),
 };
+
+/**
+ * Svelte-specific node plugins for handling basic content types
+ * These plugins handle strings, numbers, and bigints in Svelte applications
+ */
+export const svelteNodePlugins: Plugins = intlayerNodePlugins;
 
 /**
  * Markdown plugin for handling markdown content in Svelte
@@ -67,3 +61,9 @@ export const markdownPlugin: Plugins = {
     return node;
   },
 };
+
+export interface IInterpreterPluginSvelte<T> {
+  intlayerNode: T extends string | number
+    ? ReturnType<typeof renderIntlayerNode>
+    : never;
+}

@@ -1,12 +1,14 @@
 <script lang="ts">
-import { useIntlayer } from 'svelte-intlayer';
+import { useEditor, useIntlayer } from 'svelte-intlayer';
 import viteLogo from '/vite.svg';
 import svelteLogo from './assets/svelte.svg';
 import Counter from './lib/Counter.svelte';
 import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
 
+useEditor();
 const content = useIntlayer('app');
 </script>
+
 
 <main>
   <div class="locale-switcher-container">
@@ -21,18 +23,18 @@ const content = useIntlayer('app');
       <img src={svelteLogo} class="logo svelte" alt={$content.svelteLogo} />
     </a>
   </div>
-  <h1>Vite + Svelte</h1>
+  <h1><svelte:component this={$content.title} /></h1>
 
   <div class="card">
     <Counter />
   </div>
 
   <p>
-    {$content.checkOut[0]} <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, {$content.checkOut[1]}
+    <svelte:component this={$content.checkOut[0]} /> <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, <svelte:component this={$content.checkOut[1]} />
   </p>
 
   <p class="read-the-docs">
-    {$content.readTheDocs}
+    <svelte:component this={$content.readTheDocs} />
   </p>
 </main>
 

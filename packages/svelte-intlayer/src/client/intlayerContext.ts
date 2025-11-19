@@ -4,6 +4,7 @@ import { getContext, setContext } from 'svelte';
 export interface IntlayerContextType {
   locale: LocalesValues;
   setLocale: (locale: LocalesValues) => void;
+  isCookieEnabled?: boolean;
 }
 
 const INTLAYER_CONTEXT_KEY = Symbol('intlayer');

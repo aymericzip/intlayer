@@ -1481,6 +1481,7 @@
         "@intlayer/core": "workspace:*",
         "@intlayer/editor": "workspace:*",
         "@intlayer/types": "workspace:*",
+        "@intlayer/unmerged-dictionaries-entry": "workspace:*",
       },
       "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "6.1.4",

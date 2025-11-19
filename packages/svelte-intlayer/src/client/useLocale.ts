@@ -1,13 +1,23 @@
 import configuration from '@intlayer/config/built';
+import type { LocalesValues } from '@intlayer/types';
 import { derived } from 'svelte/store';
 import { getIntlayerContext } from './intlayerContext';
 import { intlayerStore } from './intlayerStore';
+import { setLocaleInStorage } from './useLocaleStorage';
+
+type useLocaleProps = {
+  isCookieEnabled?: boolean;
+  onLocaleChange?: (locale: LocalesValues) => void;
+};
 
 /**
  * Hook to get and set the current locale in Svelte applications
  * @returns Readable store with current locale and setter function
  */
-export const useLocale = () => {
+export const useLocale = ({
+  isCookieEnabled,
+  onLocaleChange,
+}: useLocaleProps = {}) => {
   const context = getIntlayerContext();
   const { defaultLocale, locales: availableLocales } =
     configuration?.internationalization ?? {};
@@ -17,9 +27,20 @@ export const useLocale = () => {
     return {
       locale: derived(
         [intlayerStore],
-        ([$store]) => context.locale || $store.locale
+        ([$store]) => context.locale ?? $store.locale
       ),
-      setLocale: context.setLocale,
+      setLocale: (locale: LocalesValues) => {
+        context.setLocale(locale);
+
+        setLocaleInStorage(
+          locale,
+          isCookieEnabled ?? context?.isCookieEnabled ?? true
+        );
+
+        onLocaleChange?.(locale);
+      },
+      defaultLocale,
+      availableLocales,
     };
   }
 

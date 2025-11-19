@@ -1,5 +1,5 @@
 <script lang="ts">
-import  { getLocaleName } from 'intlayer';
+import { getLocaleName } from 'intlayer';
 import { useLocale } from 'svelte-intlayer';
 
 // Get locale information and setLocale function
@@ -9,7 +9,6 @@ const { locale, availableLocales, setLocale } = useLocale();
 const changeLocale = (event: Event) => {
   const target = event.target as HTMLSelectElement;
   const newLocale = target.value;
-  console.log('changeLocale', newLocale);
   setLocale(newLocale);
 };
 </script>

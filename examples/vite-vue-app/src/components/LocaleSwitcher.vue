@@ -34,7 +34,6 @@ const selectedLocale = ref(locale.value);
 
 // Update the locale when the selection changes
 const changeLocale = () => {
-  console.log('changeLocale', selectedLocale.value);
   setLocale(selectedLocale.value);
 };
 

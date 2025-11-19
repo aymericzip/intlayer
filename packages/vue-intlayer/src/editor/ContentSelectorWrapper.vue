@@ -20,7 +20,6 @@ import ContentSelector from '../UI/ContentSelector.vue';
 import { useCommunicator } from './communicator';
 import { useEditorEnabled } from './editorEnabled';
 import { useFocusDictionary } from './focusDictionary';
-import { useEditor } from './useEditor';
 
 /**
  * Combine your NodeProps (which include dictionaryKey & keyPath)
@@ -33,8 +32,6 @@ const props = defineProps<Props>();
 const focusDictionary = useFocusDictionary();
 const editorEnabled = useEditorEnabled();
 const communicator = useCommunicator();
-
-useEditor();
 
 const filteredKeyPath = computed(() =>
   props.keyPath.filter((key) => key.type !== NodeType.Translation)

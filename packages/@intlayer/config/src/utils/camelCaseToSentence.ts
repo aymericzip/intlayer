@@ -1,5 +1,6 @@
 export const camelCaseToSentence = (value: string): string => {
   if (!value) return '';
+  if (typeof value !== 'string') return '';
 
   // Insert space before all caps that follow lowercase letters
   const withSpaces = value

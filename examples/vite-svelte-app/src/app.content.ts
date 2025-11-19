@@ -3,6 +3,7 @@ import { type Dictionary, t } from 'intlayer';
 const appContent = {
   key: 'app',
   content: {
+    title: 'Vite + Svelte',
     viteLogoAlt: t({
       en: 'Vite Logo',
       fr: 'Logo Vite',
@@ -13,11 +14,7 @@ const appContent = {
       fr: 'Logo Svelte',
       es: 'Logo de Svelte',
     }),
-    title: t({
-      en: 'Vite + Svelte',
-      fr: 'Vite + Svelte',
-      es: 'Vite + Svelte',
-    }),
+
     checkOut: [
       t({
         en: 'Check out ',
