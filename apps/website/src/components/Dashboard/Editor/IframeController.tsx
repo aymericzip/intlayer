@@ -44,6 +44,7 @@ export const IframeController: FC<{
           'size-full flex-1 overflow-hidden rounded-lg',
           loading && 'hidden'
         )}
+        sandbox="allow-scripts allow-same-origin"
         ref={iframeRef}
         onLoad={() => {
           setLoading(false);

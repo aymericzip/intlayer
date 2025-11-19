@@ -63,6 +63,7 @@ export const IframeController: FC<{
       <iframe
         src={`${editor.applicationURL}${applicationPath}`}
         title="Intlayer Application"
+        sandbox="allow-scripts allow-same-origin"
         className={cn('size-full', loading && 'hidden')}
         ref={iframeRef}
         onLoad={() => {
