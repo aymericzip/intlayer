@@ -3,51 +3,44 @@ import packageJson from '@intlayer/types/package.json' with { type: 'json' };
 import { ANSIColors, colorize, getAppLogger } from '../logger';
 import { compareVersions } from './compareVersions';
 
-const packages = {
-  '@intlayer/types': () => import('@intlayer/types/package.json'),
-  '@intlayer/config': () => import('@intlayer/config/package.json'),
-  '@intlayer/dictionaries-entry': () =>
-    import('@intlayer/dictionaries-entry/package.json'),
-  '@intlayer/unmerged-dictionaries-entry': () =>
-    import('@intlayer/unmerged-dictionaries-entry/package.json'),
-  '@intlayer/dynamic-dictionaries-entry': () =>
-    import('@intlayer/dynamic-dictionaries-entry/package.json'),
-  '@intlayer/remote-dictionaries-entry': () =>
-    import('@intlayer/remote-dictionaries-entry/package.json'),
-  '@intlayer/fetch-dictionaries-entry': () =>
-    import('@intlayer/fetch-dictionaries-entry/package.json'),
-  '@intlayer/api': () => import('@intlayer/api/package.json'),
-  '@intlayer/chokidar': () => import('@intlayer/chokidar/package.json'),
-  '@intlayer/webpack': () => import('@intlayer/webpack/package.json'),
-  '@intlayer/editor': () => import('@intlayer/editor/package.json'),
-  '@intlayer/cli': () => import('@intlayer/cli/package.json'),
-  '@intlayer/babel': () => import('@intlayer/babel/package.json'),
-  '@intlayer/swc': () => import('@intlayer/swc/package.json'),
-  '@intlayer/editor-react': () => import('@intlayer/editor-react/package.json'),
-  intlayer: () => import('intlayer/package.json'),
-  '@intlayer/mcp': () => import('@intlayer/mcp/package.json'),
-  'intlayer-cli': () => import('intlayer-cli/package.json'),
-  'express-intlayer': () => import('express-intlayer/package.json'),
-  '@intlayer/backend': () => import('@intlayer/backend/package.json'),
-  'react-intlayer': () => import('react-intlayer/package.json'),
-  'next-intlayer': () => import('next-intlayer/package.json'),
-  'react-scripts-intlayer': () => import('react-scripts-intlayer/package.json'),
-  'vue-intlayer': () => import('vue-intlayer/package.json'),
-  'solid-intlayer': () => import('solid-intlayer/package.json'),
-  'svelte-intlayer': () => import('svelte-intlayer/package.json'),
-  'preact-intlayer': () => import('preact-intlayer/package.json'),
-  'angular-intlayer': () => import('angular-intlayer/package.json'),
-  'vite-intlayer': () => import('vite-intlayer/package.json'),
-  'nuxt-intlayer': () => import('nuxt-intlayer/package.json'),
-  'astro-intlayer': () => import('astro-intlayer/package.json'),
-  'react-native-intlayer': () => import('react-native-intlayer/package.json'),
-  'lynx-intlayer': () => import('lynx-intlayer/package.json'),
-  '@intlayer/design-system': () =>
-    import('@intlayer/design-system/package.json'),
-  'intlayer-editor': () => import('intlayer-editor/package.json'),
-  '@intlayer/sync-json-plugin': () =>
-    import('@intlayer/sync-json-plugin/package.json'),
-} as const;
+const packages = [
+  '@intlayer/types',
+  '@intlayer/config',
+  '@intlayer/dictionaries-entry',
+  '@intlayer/unmerged-dictionaries-entry',
+  '@intlayer/dynamic-dictionaries-entry',
+  '@intlayer/remote-dictionaries-entry',
+  '@intlayer/fetch-dictionaries-entry',
+  '@intlayer/api',
+  '@intlayer/chokidar',
+  '@intlayer/webpack',
+  '@intlayer/editor',
+  '@intlayer/cli',
+  '@intlayer/babel',
+  '@intlayer/swc',
+  '@intlayer/editor-react',
+  'intlayer',
+  '@intlayer/mcp',
+  'intlayer-cli',
+  'express-intlayer',
+  '@intlayer/backend',
+  'react-intlayer',
+  'next-intlayer',
+  'react-scripts-intlayer',
+  'vue-intlayer',
+  'solid-intlayer',
+  'svelte-intlayer',
+  'preact-intlayer',
+  'angular-intlayer',
+  'vite-intlayer',
+  'nuxt-intlayer',
+  'astro-intlayer',
+  'react-native-intlayer',
+  'lynx-intlayer',
+  '@intlayer/design-system',
+  'intlayer-editor',
+  '@intlayer/sync-json-plugin',
+] as const;
 
 export const checkVersionsConsistency = async (
   configuration: IntlayerConfig
@@ -55,20 +48,20 @@ export const checkVersionsConsistency = async (
   const logger = getAppLogger(configuration);
   const packagesMap = (
     await Promise.all(
-      Object.entries(packages).map(async ([packageName, packageFn]) => {
+      packages.map(async (packageName) => {
         try {
-          const pkgJson = await packageFn();
+          const pkgJson = await import(`${packageName}/package.json`);
 
           return { name: packageName, version: pkgJson.version };
         } catch {
           // Can't find, it's ok
         }
-
-        return null;
       })
     )
   ).filter(
-    (packageData): packageData is { name: string; version: string } =>
+    (
+      packageData
+    ): packageData is { name: (typeof packages)[number]; version: string } =>
       packageData !== null
   );
 
