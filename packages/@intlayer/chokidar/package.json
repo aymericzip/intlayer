@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/chokidar",
-  "version": "7.1.5",
+  "version": "7.1.7",
   "private": false,
   "description": "Uses chokidar to scan and build Intlayer declaration files into dictionaries based on Intlayer configuration.",
   "keywords": [
