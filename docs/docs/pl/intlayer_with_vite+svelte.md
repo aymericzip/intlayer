@@ -145,23 +145,23 @@ Dodaj wtyczkę intlayer do swojej konfiguracji.
 
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer()],
+  plugins: [svelte(), intlayer()],
 });
 ```
 
 ```javascript fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer()],
+  plugins: [svelte(), intlayer()],
 });
 ```
 
@@ -187,7 +187,13 @@ import { t, type Dictionary } from "intlayer";
 
 const appContent = {
   key: "app",
-  content: {},
+  content: {
+    title: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola mundo",
+    }),
+  },
 } satisfies Dictionary;
 
 export default appContent;
@@ -199,7 +205,13 @@ import { t } from "intlayer";
 /** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
-  content: {},
+  content: {
+    title: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola mundo",
+    }),
+  },
 };
 
 export default appContent;
@@ -212,7 +224,13 @@ const { t } = require("intlayer");
 // Deklaracja zawartości aplikacji
 const appContent = {
   key: "app",
-  content: {},
+  content: {
+    title: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola mundo",
+    }),
+  },
 };
 
 module.exports = appContent;
@@ -222,7 +240,16 @@ module.exports = appContent;
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "app",
-  "content": {}
+  "content": {
+    "title": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Hello World",
+        "fr": "Bonjour le monde",
+        "es": "Hola mundo"
+      }
+    }
+  }
 }
 ```
 
