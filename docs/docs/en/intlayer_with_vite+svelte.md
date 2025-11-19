@@ -232,7 +232,6 @@ const { locale, availableLocales, setLocale } = useLocale();
 const changeLocale = (event: Event) => {
   const target = event.target as HTMLSelectElement;
   const newLocale = target.value;
-  console.log('changeLocale', newLocale);
   setLocale(newLocale);
 };
 </script>
@@ -246,6 +245,41 @@ const changeLocale = (event: Event) => {
     {/each}
   </select>
 </div>
+```
+
+### (Optional) Step 7: Render Markdown
+
+Intlayer supports rendering Markdown content directly in your Svelte application. By default, Markdown is treated as plain text. To convert Markdown into rich HTML, you can integrate `@humanspeak/svelte-markdown`, or a other markdown parser.
+
+> To see how to declare markdown content using the `intlayer` package, see the [markdown doc](https://github.com/aymericzip/intlayer/tree/main/docs/en/dictionary/markdown.md).
+
+```svelte fileName="src/App.svelte"
+<script>
+  import { setIntlayerMarkdown } from "svelte-intlayer";
+
+  setIntlayerMarkdown((markdown) =>
+   // render the markdown content as a string
+   return markdown;
+  );
+</script>
+
+<h1>{$content.markdownContent}</h1>
+```
+
+> You can also access your markdown front-matter data using the `content.markdownContent.metadata.xxx` property.
+
+### (Optional) Step 8: Set up the intlayer editor / CMS
+
+To set up the intlayer editor, you must follow the [intlayer editor documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
+
+To set up the intlayer CMS, you must follow the [intlayer CMS documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+In parallel, in your Svelte application, you must add the following line in a layout, or at the root of your application:
+
+```svelte fileName="src/layout.svelte"
+import { useIntlayerEditor } from "svelte-intlayer";
+
+useIntlayerEditor();
 ```
 
 <!-- ### (Optional) Step 7: Add localized Routing to your application
@@ -295,5 +329,3 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-
----
