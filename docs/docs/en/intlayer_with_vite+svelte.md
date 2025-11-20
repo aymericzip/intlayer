@@ -214,8 +214,15 @@ module.exports = appContent;
   const content = useIntlayer("app");
 </script>
 
-<h1>{$content.title}</h1>
+<div>
 
+
+<!-- Render content as simple content  -->
+<h1>{$content.title}</h1>
+<!-- To render the content editable using the editor -->
+<h1><svelte:component this={$content.title} /></h1>
+<!-- To render the content as a string -->
+<div aria-label={$content.title.value}></div>
 ```
 
 ### (Optional) Step 6: Change the language of your content
@@ -282,13 +289,165 @@ import { useIntlayerEditor } from "svelte-intlayer";
 useIntlayerEditor();
 ```
 
-<!-- ### (Optional) Step 7: Add localized Routing to your application
+### (Optional) Step 7: Add localized Routing to your application
 
-[to complete]
+To handle localized routing in your Svelte application, you can use `svelte-spa-router` along with Intlayer's `localeFlatMap` to generate routes for each locale.
+
+First, install `svelte-spa-router`:
+
+```bash packageManager="npm"
+npm install svelte-spa-router
+```
+
+```bash packageManager="pnpm"
+pnpm add svelte-spa-router
+```
+
+```bash packageManager="yarn"
+yarn add svelte-spa-router
+```
+
+```bash packageManager="bun"
+bun add svelte-spa-router
+```
+
+Then, create a `Router.svelte` file to define your routes:
+
+```svelte fileName="src/Router.svelte"
+<script lang="ts">
+import { localeFlatMap } from "intlayer";
+import Router from "svelte-spa-router";
+import { wrap } from "svelte-spa-router/wrap";
+import App from "./App.svelte";
+
+const routes = Object.fromEntries(
+    localeFlatMap(({locale, urlPrefix}) => [
+    [
+        urlPrefix || '/',
+        wrap({
+            component: App as any,
+            props: {
+                locale,
+            },
+        }),
+    ],
+    ])
+);
+</script>
+
+<Router {routes} />
+```
+
+Update your `main.ts` to mount the `Router` component instead of `App`:
+
+```typescript fileName="src/main.ts"
+import { mount } from "svelte";
+import Router from "./Router.svelte";
+
+const app = mount(Router, {
+  target: document.getElementById("app")!,
+});
+
+export default app;
+```
+
+Finally, update your `App.svelte` to receive the `locale` prop and use it with `useIntlayer`:
+
+```svelte fileName="src/App.svelte"
+<script lang="ts">
+import type { Locale } from 'intlayer';
+import { useIntlayer } from 'svelte-intlayer';
+import Counter from './lib/Counter.svelte';
+import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
+
+export let locale: Locale;
+
+$: content = useIntlayer('app', locale);
+</script>
+
+<main>
+  <div class="locale-switcher-container">
+    <LocaleSwitcher currentLocale={locale} />
+  </div>
+
+  <!-- ... rest of your app ... -->
+</main>
+```
+
+#### Configure Server-Side Routing (Optional)
+
+In parallel, you can also use the `intlayerProxy` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
+
+> Note that to use the `intlayerProxy` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
+
+```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [svelte(), intlayer(), intlayerProxy()],
+});
+```
+
+```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
+import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [svelte(), intlayer(), intlayerProxy()],
+});
+```
+
+```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
+const { defineConfig } = require("vite");
+const { svelte } = require("@sveltejs/vite-plugin-svelte");
+const { intlayer, intlayerProxy } = require("vite-intlayer");
+
+// https://vitejs.dev/config/
+module.exports = defineConfig({
+  plugins: [svelte(), intlayer(), intlayerProxy()],
+});
+```
 
 ### (Optional) Step 8: Change the URL when the locale changes
 
-[to complete]
+To allow users to switch languages and update the URL accordingly, you can create a `LocaleSwitcher` component. This component will use `getLocalizedUrl` from `intlayer` and `push` from `svelte-spa-router`.
+
+```svelte fileName="src/lib/LocaleSwitcher.svelte"
+<script lang="ts">
+import { getLocaleName, getLocalizedUrl } from "intlayer";
+import { useLocale } from "svelte-intlayer";
+import { push } from "svelte-spa-router";
+
+export let currentLocale: string | undefined = undefined;
+
+// Get locale information
+const { locale, availableLocales } = useLocale();
+
+// Handle locale change
+const changeLocale = (event: Event) => {
+  const target = event.target as HTMLSelectElement;
+  const newLocale = target.value;
+  const currentUrl = window.location.pathname;
+  const url = getLocalizedUrl( currentUrl, newLocale);
+  push(url);
+};
+</script>
+
+<div class="locale-switcher">
+  <select value={currentLocale ?? $locale} onchange={changeLocale}>
+    {#each availableLocales ?? [] as loc}
+      <option value={loc}>
+        {getLocaleName(loc)}
+      </option>
+    {/each}
+  </select>
+</div>
+```
 
 ### (Optional) Step 9: Switch the HTML Language and Direction Attributes
 
@@ -296,7 +455,7 @@ useIntlayerEditor();
 
 ### (Optional) Step 10: Creating a Localized Link Component
 
-[to complete] -->
+<!-- [to complete] -->
 
 ### Git Configuration
 
