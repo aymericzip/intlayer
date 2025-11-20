@@ -1,5 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { App } from 'vue';
+import type { IntlayerProvider } from '../client';
 import { installCommunicator } from './communicator';
 import { installDictionariesRecord } from './dictionariesRecord';
 import { installEditedContent } from './editedContent';
@@ -43,7 +44,7 @@ const postMessage = (data: any) => {
  */
 export const installIntlayerEditor = (
   app: App,
-  localeProvider?: import('../client').IntlayerProvider
+  localeProvider?: IntlayerProvider
 ): void => {
   /* ---------------------------------------------------------------------
    * 1. Base providers – always on

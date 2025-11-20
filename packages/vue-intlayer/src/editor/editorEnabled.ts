@@ -14,7 +14,7 @@ import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 
 /* ------------------------------------------------------------------ */
-/*  public type – identical to the React version                       */
+/*  public type – identical to the React version                      */
 /* ------------------------------------------------------------------ */
 export type EditorEnabledStateProps = {
   settingEnabled: Ref<boolean>;

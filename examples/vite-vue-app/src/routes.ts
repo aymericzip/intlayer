@@ -1,6 +1,7 @@
 import {
   configuration,
   getPathWithoutLocale,
+  getPrefix,
   type Locale,
   localeFlatMap,
 } from 'intlayer';
@@ -11,7 +12,7 @@ import RootView from './views/root/Root.vue';
 import TestView from './views/test/TestView.vue';
 
 // Get internationalization configuration
-const { internationalization, middleware } = configuration;
+const { internationalization } = configuration;
 const { defaultLocale } = internationalization;
 
 const routes = localeFlatMap((localizedData) => [
@@ -41,8 +42,6 @@ const routes = localeFlatMap((localizedData) => [
   },
 ]);
 
-console.log('routes', routes);
-
 // Create the router instance
 export const router = createRouter({
   history: createWebHistory(),
@@ -64,10 +63,6 @@ router.beforeEach((to, _from, next) => {
     // Optional: handle 404 or redirect to default locale
     client.setLocale(defaultLocale);
 
-    if (middleware.prefixDefault) {
-      next(`/${defaultLocale}${getPathWithoutLocale(to.path)}`);
-    } else {
-      next(getPathWithoutLocale(to.path));
-    }
+    next(`${getPrefix(defaultLocale).prefix}${getPathWithoutLocale(to.path)}`);
   }
 });

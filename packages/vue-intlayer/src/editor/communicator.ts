@@ -80,9 +80,6 @@ export const useCommunicator = (): Communicator => {
     console.warn(
       'useCommunicator: inject can only be used in setup(). Returning default communicator.'
     );
-    return {
-      postMessage: () => null,
-      senderId: '',
-    };
+    return defaultValue;
   }
 };

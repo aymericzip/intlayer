@@ -15,27 +15,27 @@ const subscribers = new Map<string, Set<AnyFn>>();
 let windowListenerAttached = false;
 
 /** Helper to add/remove a callback for a key */
-function addSubscriber(key: string, cb: AnyFn) {
+const addSubscriber = (key: string, cb: AnyFn) => {
   let set = subscribers.get(key);
   if (!set) {
     set = new Set();
     subscribers.set(key, set);
   }
   set.add(cb);
-}
+};
 
-function removeSubscriber(key: string, cb: AnyFn) {
+const removeSubscriber = (key: string, cb: AnyFn) => {
   const set = subscribers.get(key);
   if (!set) return;
   set.delete(cb);
   if (set.size === 0) subscribers.delete(key);
-}
+};
 
 /** The one global window listener */
-function ensureGlobalListener(
+const ensureGlobalListener = (
   allowedOrigins: string[] | undefined,
   selfId: string
-) {
+) => {
   if (windowListenerAttached) return;
   if (!window) return;
 
@@ -51,11 +51,13 @@ function ensureGlobalListener(
       allowedOrigins.some((o) => compareUrls(o, event.origin))
     ) {
       // broadcast to everyone interested in this key
-      subscribers.get(type)?.forEach((cb) => cb(data));
+      subscribers.get(type)?.forEach((cb) => {
+        cb(data);
+      });
     }
   });
   windowListenerAttached = true;
-}
+};
 // ---------- end module-level code ----------
 
 /**
@@ -71,7 +73,7 @@ export const useCrossFrameMessageListener = <S>(
   onEventTriggered?: (data: S) => void
 ) => {
   // Communicator is the same for everyone, so it’s fine to call every time.
-  const { allowedOrigins, postMessage, senderId } = useCommunicator();
+  const { allowedOrigins, postMessage, senderId } = useCommunicator() ?? {};
 
   // --- 1. make sure the global listener exists ----
   ensureGlobalListener(allowedOrigins, senderId);
