@@ -1,6 +1,6 @@
 {
   "name": "angular-intlayer",
-  "version": "7.1.8",
+  "version": "7.1.9",
   "private": false,
   "description": "Easily internationalize i18n your Angular applications with type-safe multilingual content management.",
   "keywords": [
