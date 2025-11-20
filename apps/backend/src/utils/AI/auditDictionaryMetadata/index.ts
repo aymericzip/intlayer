@@ -61,7 +61,7 @@ export const auditDictionaryMetadata = async ({
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
     ...aiConfig,
-    messages: [{ role: 'system', content: prompt }],
+    messages: [{ role: 'user', content: prompt }],
   });
 
   logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
