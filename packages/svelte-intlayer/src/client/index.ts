@@ -2,7 +2,7 @@ export { getBrowserLocale } from './getBrowserLocale';
 export { getIntlayerContext, setIntlayerContext } from './intlayerContext';
 export type { IntlayerStoreType } from './intlayerStore';
 export { intlayerStore } from './intlayerStore';
-export { setupIntlayer } from './setupIntlayer';
+export { setupIntlayer } from './setupIntlayer.svelte';
 export { useDictionary } from './useDictionary';
 export { useDictionaryAsync } from './useDictionaryAsync';
 export { useDictionaryDynamic } from './useDictionaryDynamic';
