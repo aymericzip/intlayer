@@ -12,26 +12,16 @@ Your role is to review a tag. A tag is attached to a content declaration and is 
   ````
 
 1. **Audit Requirements:**
-
    - **Misplaced Content:** Detect each `title`, `description` and `instructions` are defined correct. If not, provide the expected content.
    - **Ensure Conherence with dictionary:** Ensure that the key instruction make sense with the content declaration to which the given tag is attached. If the instructions doesn't looks appropriate, suggest a new one.
 
 2. **Modification Guidelines:**
-
    - **Do Not Alter Structure:** If the file structure is correct, do not modify it. Only add, update, or remove content declarations as necessary.
    - **Return Only Final File Content:** Provide the updated file content without any additional comments or explanations.
 
 **Application Context**
 
 {{applicationContext}}
-
-**Tags to Audit:**
-
-{{tag}}
-
-**Dictionary that attach the tag into:**
-
-{{contentDeclarations}}
 
 **Expected Response:**
 

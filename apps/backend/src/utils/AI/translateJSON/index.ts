@@ -89,7 +89,6 @@ export const translateJSON = async ({
     formatLocaleWithName(entryLocale)
   )
     .replace('{{outputLocale}}', formatLocaleWithName(outputLocale))
-    .replace('{{entryFileContent}}', JSON.stringify(entryFileContent))
     .replace('{{presetOutputContent}}', JSON.stringify(presetOutputContent))
     .replace('{{dictionaryDescription}}', dictionaryDescription ?? '')
     .replace('{{applicationContext}}', applicationContext ?? '')
@@ -99,7 +98,17 @@ export const translateJSON = async ({
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
     ...aiConfig,
-    messages: [{ role: 'user', content: prompt }],
+    messages: [
+      { role: 'system', content: prompt },
+      {
+        role: 'user',
+        content: [
+          '**Entry Content to Translate:**',
+          '- Given Language: {{entryLocale}}',
+          JSON.stringify(entryFileContent),
+        ].join('\n'),
+      },
+    ],
   });
 
   logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);

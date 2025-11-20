@@ -71,9 +71,3 @@ export default metadataContent;
 Here the list of existing tags as a context to help you to pick related ones.
 
 {{tags}}
-
-**Content declaration to describe:**
-
-This is the content declaration that you should consider to describe:
-
-{{contentDeclaration}}

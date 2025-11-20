@@ -86,14 +86,19 @@ export const auditDictionary = async ({
       `{${otherLocales.map(formatLocaleWithName).join(', ')}}`
     )
     .replace('{{filePath}}', filePath ?? '')
-    .replace('{{fileContent}}', fileContent)
     .replace('{{applicationContext}}', applicationContext ?? '')
     .replace('{{tagsInstructions}}', formatTagInstructions(tags));
 
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
     ...aiConfig,
-    messages: [{ role: 'user', content: prompt }],
+    messages: [
+      { role: 'system', content: prompt },
+      {
+        role: 'user',
+        content: ['**File to Audit:**', fileContent].join('\n'),
+      },
+    ],
   });
 
   logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);

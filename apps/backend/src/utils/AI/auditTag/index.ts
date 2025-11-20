@@ -41,13 +41,22 @@ export const auditTag = async ({
     tag.description ?? ''
   )
     .replace('{{tag.key}}', tag.key)
-    .replace('{{dictionaries}}', JSON.stringify(dictionaries, null, 2))
     .replace('{{applicationContext}}', applicationContext ?? '');
 
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
     ...aiConfig,
-    messages: [{ role: 'user', content: prompt }],
+    messages: [
+      { role: 'system', content: prompt },
+      {
+        role: 'user',
+        content: [
+          '**Tag to audit:**',
+          'This is the tag that you should consider to audit:',
+          JSON.stringify(tag),
+        ].join('\n'),
+      },
+    ],
   });
 
   logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);

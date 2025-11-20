@@ -9,11 +9,9 @@ You are an expert in internationalization, copy writing and content management. 
 - **KeyPath** The KeyPath correspond to to the path to retrieve the targeted element from the `content` key of the dictionary file.
 
 2.  **Locales:**
-
     - Required Locales: {{otherLocales}}
 
 3.  **Audit Requirements:**
-
     - **Consistency:** Ensure that all keys have translations for all specified locales.
     - **Incoherence:** Ensure that all content is coherent and not misspelled.
     - **Missing Content:** Identify any missing translations and specify the expected content.
@@ -21,7 +19,6 @@ You are an expert in internationalization, copy writing and content management. 
     - **Type Compliance:** Verify that the content types match the declarations (e.g., strings, string arrays).
 
 4.  **Modification Guidelines:**
-
     - **Return Only the Targeted Content:** Provide the updated targeted content as plain text without any markdown, additional comments or explanations.
     - **Consider the locale context:** If the targeted field correspond to a specific language, contains similar languages, as `zh` or `en-GB`, consider return the content in this specified language.
     - **Fix Incoherent Content:** If the content is inconsistent, misspelled, understandable, or contains errors, fix it by providing a more accurate content.
@@ -29,9 +26,7 @@ You are an expert in internationalization, copy writing and content management. 
     - **Respect the tags instructions:** If the tags instructions are provided, ensure that the audited file adheres to them.
 
 5.  **Example Scenario:**
-
     - **Example 1:**
-
       - **Input File:**
 
       ```typescript
@@ -58,7 +53,6 @@ You are an expert in internationalization, copy writing and content management. 
         Desarrolladores, Gestores de Contenido
 
     - **Example 2:**
-
       - **Input File:**
 
       ```typescript
@@ -95,15 +89,12 @@ You are an expert in internationalization, copy writing and content management. 
       - **Input target:**
 
       `[{type: "object", key: "audienceType"},{type: "enumeration", key: ">2"},{type: "translation", key: "es"}]`
-
       - **Expected Output:**
 
       Desarrolladores, Gestores de Contenido
-
       - **Input target:**
 
       `[{type: "object", key: "audienceType"},{type: "enumeration", key: "1"},{type: "translation", key: "fr"}]`
-
       - **Expected Output:**
 
       Développeurs, Responsables de contenu
@@ -115,10 +106,6 @@ You are an expert in internationalization, copy writing and content management. 
 **Tags Instructions:**
 
 {{tagsInstructions}}
-
-**File to Audit:**
-
-{{fileContent}}
 
 **KeyPath:**
 

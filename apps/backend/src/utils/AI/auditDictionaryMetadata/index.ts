@@ -49,9 +49,7 @@ export const auditDictionaryMetadata = async ({
       null,
       2
     )}`
-  )
-    .replace('{{contentDeclaration}}', fileContent)
-    .replace('{{applicationContext}}', applicationContext ?? '');
+  ).replace('{{applicationContext}}', applicationContext ?? '');
 
   if (!aiConfig) {
     logger.error('Failed to configure AI model');
@@ -61,7 +59,17 @@ export const auditDictionaryMetadata = async ({
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
     ...aiConfig,
-    messages: [{ role: 'user', content: prompt }],
+    messages: [
+      { role: 'system', content: prompt },
+      {
+        role: 'user',
+        content: [
+          '**Content declaration to describe:**',
+          'This is the content declaration that you should consider to describe:',
+          fileContent,
+        ].join('\n'),
+      },
+    ],
   });
 
   logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);

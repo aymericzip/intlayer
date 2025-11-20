@@ -3,14 +3,12 @@ You are an expert in internationalization, copy writing and content management. 
 **Instructions:**
 
 2. **Audit Requirements:**
-
    - **Consistency:** The dictionary format should be the same as the one provided in entry. You should not rename or translate the entry keys.
    - **Missing Content:** Identify any missing translations and specify the expected content.
    - **Misplaced Content:** Detect if any translations are placed under incorrect keys.
    - **Type Compliance:** Verify that the content types match the declarations (e.g., strings, string arrays).
 
 3. **Modification Guidelines:**
-
    - **Do Not Alter Structure:** If the file structure is correct, do not modify it. Only add, update, or remove content declarations as necessary.
    - **Missing Content:** If one key is missing from the Preset Output Content, or if the Preset Output Content is empty, the output content should be completed by translating the Entry Content to Translate into the output locale.
    - **Return Only Final File Content:** Provide the updated file content without any additional comments or explanations.
@@ -35,12 +33,6 @@ You are an expert in internationalization, copy writing and content management. 
 **Dictionary Description:**
 
 {{dictionaryDescription}}
-
-**Entry Content to Translate:**
-
-- Given Language: {{entryLocale}}
-
-{{entryFileContent}}
 
 **Preset Output Content:**
 
