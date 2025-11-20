@@ -101,7 +101,7 @@ const getModel = (
   defaultModel?: Model
 ): Model => {
   // Set default models based on provider
-  const fallBackModel: Model = defaultModel ?? 'chatgpt-4o-latest';
+  const fallBackModel: Model = defaultModel ?? 'gpt-5-mini';
 
   switch (provider) {
     case AIProvider.OPENAI:

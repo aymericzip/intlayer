@@ -58,18 +58,6 @@ type VectorStoreEl = {
 const vectorStore: VectorStoreEl[] = [];
 
 /*
- * Ask question AI configuration
- */
-const MODEL: AIOptions['model'] = 'chatgpt-4o-latest'; // Model to use for chat completions
-const MODEL_TEMPERATURE: AIOptions['temperature'] = 0.1; // Temperature to use for chat completions
-
-export const aiDefaultOptions: AIOptions = {
-  provider: AIProvider.OPENAI,
-  model: MODEL,
-  temperature: MODEL_TEMPERATURE,
-};
-
-/*
  * Embedding model configuration
  */
 const EMBEDDING_MODEL: OpenAI.EmbeddingModel = 'text-embedding-3-large'; // Model to use for embedding generation
