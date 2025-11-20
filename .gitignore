@@ -34,3 +34,6 @@ workbox-*.js
 
 # turbo
 .turbo
+
+# svelte
+.svelte-kit

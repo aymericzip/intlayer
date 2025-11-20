@@ -1,7 +1,6 @@
 {
   "name": "svelte-intlayer",
   "version": "7.1.8",
-  "private": false,
   "description": "Easily internationalize i18n your Svelte applications with type-safe multilingual content management.",
   "keywords": [
     "intlayer",
@@ -36,29 +35,25 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.mjs"
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
-  "module": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "package.json": [
-        "./package.json"
-      ]
-    }
-  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "./dist",
     "./package.json"
   ],
   "scripts": {
-    "build": "vite build",
-    "build:ci": "vite build",
+    "build": "svelte-package -i src -o dist",
+    "build:ci": "svelte-package -i src -o dist",
+    "check": "svelte-check --tsconfig ./tsconfig.types.json",
     "clean": "rimraf ./dist .turbo",
-    "dev": "vite build --watch",
+    "dev": "svelte-package -i src -o dist --watch",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
     "lint": "biome lint .",
@@ -80,16 +75,18 @@
     "@intlayer/unmerged-dictionaries-entry": "workspace:*"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "6.1.4",
+    "@sveltejs/package": "^2.5.4",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
     "@types/node": "24.10.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.0",
+    "svelte": "^5.0.0",
+    "svelte-check": "^4.0.0",
     "tsdown": "0.16.5",
     "typescript": "5.9.3",
-    "vite": "7.2.2",
-    "vite-plugin-dts": "4.5.4",
+    "vite": "^5.0.0",
     "vitest": "4.0.10"
   },
   "peerDependencies": {
@@ -97,8 +94,5 @@
   },
   "engines": {
     "node": ">=14.18"
-  },
-  "bug": {
-    "url": "https://github.com/aymericzip/intlayer/issues"
   }
 }
