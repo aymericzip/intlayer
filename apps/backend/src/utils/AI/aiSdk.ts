@@ -105,10 +105,10 @@ const getModel = (
 
   switch (provider) {
     case AIProvider.OPENAI:
-      defaultModel = 'chatgpt-4o-latest';
+      defaultModel = 'gpt-5-mini';
       break;
     case AIProvider.ANTHROPIC:
-      defaultModel = 'claude-3-haiku-20240307';
+      defaultModel = 'claude-sonnet-4-5-20250929';
       break;
     case AIProvider.MISTRAL:
       defaultModel = 'mistral-large-latest';
@@ -117,7 +117,7 @@ const getModel = (
       defaultModel = 'deepseek-coder';
       break;
     case AIProvider.GEMINI:
-      defaultModel = 'gemini-1.5-pro';
+      defaultModel = 'gemini-2.5-flash';
       break;
   }
 
