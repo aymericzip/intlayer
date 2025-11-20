@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2025-11-19
 title: How to translate your Vite and Svelte app – i18n guide 2025
 description: Discover how to make your Vite and Svelte website multilingual. Follow the documentation to internationalise (i18n) and translate it.
 keywords:
@@ -14,18 +14,23 @@ slugs:
   - doc
   - environment
   - vite-and-svelte
-# applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 history:
+  - version: 5.5.11
+    date: 2025-11-19
+    changes: Update doc
   - version: 5.5.10
     date: 2025-06-29
     changes: Init history
 ---
 
-# Getting Started Internationalising (i18n) with Intlayer and Vite and Svelte
+# Translate your Vite and Svelte website using Intlayer | Internationalisation (i18n)
 
 > This package is in development. See the [issue](https://github.com/aymericzip/intlayer/issues/114) for more information. Show your interest in Intlayer for Svelte by liking the issue
 
-<!-- See [Application Template](https://github.com/aymericzip/intlayer-solid-template) on GitHub. -->
+## Table of Contents
+
+<TOC/>
 
 ## What is Intlayer?
 
@@ -41,6 +46,16 @@ With Intlayer, you can:
 ---
 
 ## Step-by-Step Guide to Set Up Intlayer in a Vite and Svelte Application
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalise your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+See [Application Template](https://github.com/aymericzip/intlayer-vite-svelte-template) on GitHub.
 
 ### Step 1: Install Dependencies
 
@@ -61,9 +76,14 @@ yarn add intlayer svelte-intlayer
 yarn add vite-intlayer --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer svelte-intlayer
+bun add vite-intlayer --save-dev
+```
+
 - **intlayer**
 
-  The core package that provides internationalisation tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
+  The core package that provides internationalisation tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
 
 - **svelte-intlayer**
   The package that integrates Intlayer with Svelte applications. It provides context providers and hooks for Svelte internationalisation.
@@ -75,7 +95,7 @@ yarn add vite-intlayer --save-dev
 
 Create a config file to configure the languages of your application:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -93,51 +113,13 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Your other locales
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Your other locales
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > Through this configuration file, you can set up localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
 ### Step 3: Integrate Intlayer in Your Vite Configuration
 
 Add the intlayer plugin into your configuration.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { intlayer } from "vite-intlayer";
@@ -145,28 +127,6 @@ import { intlayer } from "vite-intlayer";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [svelte(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [svelte(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const react = require("@vitejs/plugin-react-swc");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
-  plugins: [react(), intlayer()],
 });
 ```
 
@@ -197,6 +157,7 @@ export default appContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// Define the content dictionary for the app
 const appContent = {
   key: "app",
   content: {
@@ -215,6 +176,7 @@ export default appContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
+// Define the content dictionary for the app
 const appContent = {
   key: "app",
   content: {
@@ -248,35 +210,255 @@ module.exports = appContent;
 
 > Your content declarations can be defined anywhere in your application as soon as they are included in the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md).
+> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
 ### Step 5: Utilise Intlayer in Your Code
 
-[to complete]
+```svelte fileName="src/App.svelte"
+<script>
+  import { useIntlayer } from "svelte-intlayer";
 
-### (Optional) Step 6: Change the Language of Your Content
+  const content = useIntlayer("app");
+</script>
 
-[to complete]
+<div>
 
-### (Optional) Step 7: Add Localised Routing to Your Application
 
-[to complete]
+<!-- Render content as simple content  -->
+<h1>{$content.title}</h1>
+<!-- To render the content editable using the editor -->
+<h1><svelte:component this={$content.title} /></h1>
+<!-- To render the content as a string -->
+<div aria-label={$content.title.value}></div>
+```
 
-### (Optional) Step 8: Change the URL When the Locale Changes
+### (Optional) Step 6: Change the language of your content
 
-[to complete]
+```svelte fileName="src/App.svelte"
+<script lang="ts">
+import  { getLocaleName } from 'intlayer';
+import { useLocale } from 'svelte-intlayer';
 
-### (Optional) Step 9: Switch the HTML Language and Direction Attributes
+// Get locale information and setLocale function
+const { locale, availableLocales, setLocale } = useLocale();
 
-[to complete]
+// Handle locale change
+const changeLocale = (event: Event) => {
+  const target = event.target as HTMLSelectElement;
+  const newLocale = target.value;
+  setLocale(newLocale);
+};
+</script>
 
-### (Optional) Step 10: Creating a Localised Link Component
+<div>
+  <select value={$locale} on:change={changeLocale}>
+    {#each availableLocales ?? [] as loc}
+      <option value={loc}>
+        {getLocaleName(loc)}
+      </option>
+    {/each}
+  </select>
+</div>
+```
 
-[to complete]
+### (Optional) Step 7: Render Markdown
+
+Intlayer supports rendering Markdown content directly in your Svelte application. By default, Markdown is treated as plain text. To convert Markdown into rich HTML, you can integrate `@humanspeak/svelte-markdown`, or another markdown parser.
+
+> To see how to declare markdown content using the `intlayer` package, see the [markdown doc](https://github.com/aymericzip/intlayer/tree/main/docs/docs/en-GB/dictionary/markdown.md).
+
+```svelte fileName="src/App.svelte"
+<script>
+  import { setIntlayerMarkdown } from "svelte-intlayer";
+
+  setIntlayerMarkdown((markdown) =>
+   // render the markdown content as a string
+   return markdown;
+  );
+</script>
+
+<h1>{$content.markdownContent}</h1>
+```
+
+> You can also access your markdown front-matter data using the `content.markdownContent.metadata.xxx` property.
+
+### (Optional) Step 8: Set up the intlayer editor / CMS
+
+To set up the intlayer editor, you must follow the [intlayer editor documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md).
+
+To set up the intlayer CMS, you must follow the [intlayer CMS documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
+
+In parallel, in your Svelte application, you must add the following line in a layout, or at the root of your application:
+
+```svelte fileName="src/layout.svelte"
+import { useIntlayerEditor } from "svelte-intlayer";
+
+useIntlayerEditor();
+```
+
+### (Optional) Step 7: Add localised Routing to your application
+
+To handle localised routing in your Svelte application, you can use `svelte-spa-router` along with Intlayer's `localeFlatMap` to generate routes for each locale.
+
+First, install `svelte-spa-router`:
+
+```bash packageManager="npm"
+npm install svelte-spa-router
+```
+
+```bash packageManager="pnpm"
+pnpm add svelte-spa-router
+```
+
+```bash packageManager="yarn"
+yarn add svelte-spa-router
+```
+
+```bash packageManager="bun"
+bun add svelte-spa-router
+```
+
+Then, create a `Router.svelte` file to define your routes:
+
+```svelte fileName="src/Router.svelte"
+<script lang="ts">
+import { localeFlatMap } from "intlayer";
+import Router from "svelte-spa-router";
+import { wrap } from "svelte-spa-router/wrap";
+import App from "./App.svelte";
+
+const routes = Object.fromEntries(
+    localeFlatMap(({locale, urlPrefix}) => [
+    [
+        urlPrefix || '/',
+        wrap({
+            component: App as any,
+            props: {
+                locale,
+            },
+        }),
+    ],
+    ])
+);
+</script>
+
+<Router {routes} />
+```
+
+Update your `main.ts` to mount the `Router` component instead of `App`:
+
+```typescript fileName="src/main.ts"
+import { mount } from "svelte";
+import Router from "./Router.svelte";
+
+const app = mount(Router, {
+  target: document.getElementById("app")!,
+});
+
+export default app;
+```
+
+Finally, update your `App.svelte` to receive the `locale` prop and use it with `useIntlayer`:
+
+```svelte fileName="src/App.svelte"
+<script lang="ts">
+import type { Locale } from 'intlayer';
+import { useIntlayer } from 'svelte-intlayer';
+import Counter from './lib/Counter.svelte';
+import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
+
+export let locale: Locale;
+
+$: content = useIntlayer('app', locale);
+</script>
+
+<main>
+  <div class="locale-switcher-container">
+    <LocaleSwitcher currentLocale={locale} />
+  </div>
+
+  <!-- ... rest of your app ... -->
+</main>
+```
+
+#### Configure Server-Side Routing (Optional)
+
+In parallel, you can also use the `intlayerProxy` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
+
+> Note that to use the `intlayerProxy` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
+
+```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [svelte(), intlayer(), intlayerProxy()],
+});
+```
+
+```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
+import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [svelte(), intlayer(), intlayerProxy()],
+});
+```
+
+```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
+const { defineConfig } = require("vite");
+const { svelte } = require("@sveltejs/vite-plugin-svelte");
+const { intlayer, intlayerProxy } = require("vite-intlayer");
+
+// https://vitejs.dev/config/
+module.exports = defineConfig({
+  plugins: [svelte(), intlayer(), intlayerProxy()],
+});
+```
+
+### (Optional) Step 8: Change the URL when the locale changes
+
+To allow users to switch languages and update the URL accordingly, you can create a `LocaleSwitcher` component. This component will use `getLocalizedUrl` from `intlayer` and `push` from `svelte-spa-router`.
+
+```svelte fileName="src/lib/LocaleSwitcher.svelte"
+<script lang="ts">
+import { getLocaleName, getLocalizedUrl } from "intlayer";
+import { useLocale } from "svelte-intlayer";
+import { push } from "svelte-spa-router";
+
+export let currentLocale: string | undefined = undefined;
+
+// Get locale information
+const { locale, availableLocales } = useLocale();
+
+// Handle locale change
+const changeLocale = (event: Event) => {
+  const target = event.target as HTMLSelectElement;
+  const newLocale = target.value;
+  const currentUrl = window.location.pathname;
+  const url = getLocalizedUrl(currentUrl, newLocale);
+  push(url);
+};
+</script>
+
+<div class="locale-switcher">
+  <select value={currentLocale ?? $locale} onchange={changeLocale}>
+    {#each availableLocales ?? [] as loc}
+      <option value={loc}>
+        {getLocaleName(loc)}
+      </option>
+    {/each}
+  </select>
+</div>
+```
 
 ### Git Configuration
 
-It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
+It is recommended to ignore the files generated by Intlayer. This prevents you from committing them to your Git repository.
 
 To do this, you can add the following instructions to your `.gitignore` file:
 
@@ -287,7 +469,7 @@ To do this, you can add the following instructions to your `.gitignore` file:
 
 ### VS Code Extension
 
-To enhance your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
+To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
 
 [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
@@ -305,5 +487,3 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
-
----

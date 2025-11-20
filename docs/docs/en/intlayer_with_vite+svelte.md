@@ -76,6 +76,11 @@ yarn add intlayer svelte-intlayer
 yarn add vite-intlayer --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer svelte-intlayer
+bun add vite-intlayer --save-dev
+```
+
 - **intlayer**
 
   The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
@@ -449,13 +454,26 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
-### (Optional) Step 9: Switch the HTML Language and Direction Attributes
+### (Optional) Step 9: Internationalized Links
 
-[to complete]
+For SEO, it is recommended to prefix your routes with the locale (e.g., `/about`, `/fr/about`).
 
-### (Optional) Step 10: Creating a Localized Link Component
+```svelte fileName="src/lib/components/Link.svelte"
+<script lang="ts">
+  import { getLocalizedUrl } from "intlayer";
+  import { useLocale } from 'svelte-intlayer';
 
-<!-- [to complete] -->
+  export let href = "";
+  const { locale } = useLocale();
+
+  // Helper to prefix URL
+  $: localizedHref = getLocalizedUrl(href, $locale);
+</script>
+
+<a href={localizedHref}>
+  <slot />
+</a>
+```
 
 ### Git Configuration
 
