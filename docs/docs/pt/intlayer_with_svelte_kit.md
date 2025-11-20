@@ -44,6 +44,14 @@ Com o Intlayer, você pode:
 
 Para começar, crie um novo projeto SvelteKit. Aqui está a estrutura final que iremos criar:
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-sveltekit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ```bash
 .
 ├── intlayer.config.ts

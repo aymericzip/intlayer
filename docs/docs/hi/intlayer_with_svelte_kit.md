@@ -42,6 +42,14 @@ Intlayer के साथ, आप कर सकते हैं:
 
 ## SvelteKit एप्लिकेशन में Intlayer सेटअप करने के लिए चरण-दर-चरण मार्गदर्शिका
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-sveltekit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 शुरू करने के लिए, एक नया SvelteKit प्रोजेक्ट बनाएं। यहाँ अंतिम संरचना है जिसे हम बनाएंगे:
 
 ```bash

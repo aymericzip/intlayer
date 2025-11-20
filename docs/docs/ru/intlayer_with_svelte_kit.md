@@ -42,6 +42,14 @@ history:
 
 ## Пошаговое руководство по настройке Intlayer в приложении SvelteKit
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-sveltekit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 Для начала создайте новый проект SvelteKit. Вот итоговая структура, которую мы создадим:
 
 ```bash

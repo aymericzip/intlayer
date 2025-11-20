@@ -42,6 +42,14 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
 
 ## SvelteKit 애플리케이션에서 Intlayer 설정 단계별 가이드
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-sveltekit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 시작하려면 새 SvelteKit 프로젝트를 생성하세요. 다음은 우리가 만들 최종 구조입니다:
 
 ```bash
