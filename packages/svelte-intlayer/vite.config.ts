@@ -68,9 +68,8 @@ export default defineConfig({
     },
     rollupOptions: {
       // external,
-      external: (id) => {
-        return external.includes(id) || /^svelte/.test(id);
-      },
+      external: (id) => external.includes(id) || /^svelte(\/|$)/.test(id),
+
       output: [
         {
           format: 'es',
@@ -78,12 +77,12 @@ export default defineConfig({
           globals,
           exports: 'named',
         },
-        {
-          format: 'cjs',
-          entryFileNames: ({ name }) => `cjs/${name}.cjs`,
-          globals,
-          exports: 'named',
-        },
+        // {
+        //   format: 'cjs',
+        //   entryFileNames: ({ name }) => `cjs/${name}.cjs`,
+        //   globals,
+        //   exports: 'named',
+        // },
       ],
     },
   },
