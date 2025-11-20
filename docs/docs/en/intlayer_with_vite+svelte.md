@@ -26,8 +26,6 @@ history:
 
 # Translate your Vite and Svelte website using Intlayer | Internationalization (i18n)
 
-> This package is in development. See the [issue](https://github.com/aymericzip/intlayer/issues/114) for more information. Show your interest in Intlayer for Svelte by liking the issue
-
 ## Table of Contents
 
 <TOC/>

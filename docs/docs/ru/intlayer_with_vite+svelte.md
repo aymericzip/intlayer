@@ -26,8 +26,6 @@ history:
 
 # Перевод вашего сайта на Vite и Svelte с использованием Intlayer | Интернационализация (i18n)
 
-> Этот пакет находится в разработке. Подробнее смотрите в [issue](https://github.com/aymericzip/intlayer/issues/114). Покажите свой интерес к Intlayer для Svelte, поставив лайк этому issue.
-
 ## Содержание
 
 <TOC/>

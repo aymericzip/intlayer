@@ -26,8 +26,6 @@ history:
 
 # Übersetzen Sie Ihre Vite- und Svelte-Website mit Intlayer | Internationalisierung (i18n)
 
-> Dieses Paket befindet sich in der Entwicklung. Weitere Informationen finden Sie im [Issue](https://github.com/aymericzip/intlayer/issues/114). Zeigen Sie Ihr Interesse an Intlayer für Svelte, indem Sie das Issue liken.
-
 ## Inhaltsverzeichnis
 
 <TOC/>
@@ -87,7 +85,6 @@ bun add vite-intlayer --save-dev
 
   Das Kernpaket, das Internationalisierungswerkzeuge für Konfigurationsmanagement, Übersetzung, [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md), Transpilierung und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md) bereitstellt.
 
-- **svelte-intlayer**
 - **svelte-intlayer**  
   Das Paket, das Intlayer in Svelte-Anwendungen integriert. Es stellt Context-Provider und Hooks für die Internationalisierung in Svelte bereit.
 
@@ -395,25 +392,15 @@ Parallel dazu können Sie auch den `intlayerProxy` verwenden, um serverseitiges 
 
 > Hinweis: Um den `intlayerProxy` in der Produktion zu verwenden, müssen Sie das Paket `vite-intlayer` von `devDependencies` zu `dependencies` verschieben.
 
-````typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
-import { defineConfig } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-In der Zwischenzeit können Sie auch das `intlayerProxy` verwenden, um serverseitiges Routing zu Ihrer Anwendung hinzuzufügen. Dieses Plugin erkennt automatisch die aktuelle Locale basierend auf der URL und setzt das entsprechende Locale-Cookie. Wenn keine Locale angegeben ist, bestimmt das Plugin die passendste Locale basierend auf den Spracheinstellungen des Browsers des Benutzers. Wenn keine Locale erkannt wird, erfolgt eine Weiterleitung zur Standard-Locale.
-
-> Hinweis: Um `intlayerProxy` in der Produktion zu verwenden, müssen Sie das Paket `vite-intlayer` von `devDependencies` zu `dependencies` verschieben.
-
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [svelte(), intlayer(), intlayerProxy()],
 });
-````
+```
 
 ```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";

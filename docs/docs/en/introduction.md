@@ -200,6 +200,8 @@ We’ve built Intlayer with flexibility in mind, offering seamless integration a
 - **[Intlayer with Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+preact.md)**
 - **[Intlayer with Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+vue.md)**
 - **[Intlayer with Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md)**
+- **[Intlayer with Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+svelte.md)**
+- **[Intlayer with SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_svelte_kit.md)**
 - **[Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md)**
 - **[Intlayer with NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nestjs.md)**
 - **[Intlayer with Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_angular.md)**

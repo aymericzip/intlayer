@@ -26,8 +26,6 @@ history:
 
 # Dịch trang web Vite và Svelte của bạn bằng Intlayer | Quốc tế hóa (i18n)
 
-> Gói này đang trong quá trình phát triển. Xem [vấn đề](https://github.com/aymericzip/intlayer/issues/114) để biết thêm thông tin. Thể hiện sự quan tâm của bạn đến Intlayer cho Svelte bằng cách thích vấn đề này
-
 ## Mục lục
 
 <TOC/>

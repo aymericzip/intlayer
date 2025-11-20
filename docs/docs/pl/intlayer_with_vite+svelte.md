@@ -26,8 +26,6 @@ history:
 
 # Przetłumacz swoją stronę Vite i Svelte za pomocą Intlayer | Internacjonalizacja (i18n)
 
-> Ten pakiet jest w trakcie rozwoju. Zobacz [zgłoszenie](https://github.com/aymericzip/intlayer/issues/114) po więcej informacji. Pokaż swoje zainteresowanie Intlayer dla Svelte, lajkując to zgłoszenie
-
 ## Spis treści
 
 <TOC/>

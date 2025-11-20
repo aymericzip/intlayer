@@ -47,7 +47,13 @@ export const useLocale = ({
   // Fallback to global store
   return {
     locale: intlayerStore.getLocale(),
-    setLocale: intlayerStore.setLocale,
+    setLocale: (locale: LocalesValues) => {
+      intlayerStore.setLocale(locale);
+
+      setLocaleInStorage(locale, isCookieEnabled ?? true);
+
+      onLocaleChange?.(locale);
+    },
     defaultLocale,
     availableLocales,
   };

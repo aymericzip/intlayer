@@ -26,8 +26,6 @@ history:
 
 # Intlayer का उपयोग करके अपनी Vite और Svelte वेबसाइट का अनुवाद करें | अंतरराष्ट्रीयकरण (i18n)
 
-> यह पैकेज विकासाधीन है। अधिक जानकारी के लिए [issue](https://github.com/aymericzip/intlayer/issues/114) देखें। Svelte के लिए Intlayer में अपनी रुचि दिखाने के लिए इस issue को लाइक करें
-
 ## सामग्री तालिका
 
 <TOC/>

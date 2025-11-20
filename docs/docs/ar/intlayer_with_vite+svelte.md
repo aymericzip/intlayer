@@ -26,8 +26,6 @@ history:
 
 # ترجمة موقعك الإلكتروني باستخدام Vite و Svelte عبر Intlayer | التدويل (i18n)
 
-> هذه الحزمة قيد التطوير. راجع [المشكلة](https://github.com/aymericzip/intlayer/issues/114) لمزيد من المعلومات. أظهر اهتمامك بـ Intlayer لـ Svelte من خلال الإعجاب بالمشكلة
-
 ## جدول المحتويات
 
 <TOC/>

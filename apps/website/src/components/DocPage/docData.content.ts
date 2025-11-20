@@ -678,6 +678,12 @@ const docDataContent: Dictionary = {
             vi: 'Vite và Svelte',
           }),
           default: getDocMetadata('./docs/en/intlayer_with_vite+svelte.md'),
+          subSections: {
+            'vite-and-svelte-kit': {
+              title: 'SvelteKit',
+              default: getDocMetadata('./docs/en/intlayer_with_svelte_kit.md'),
+            },
+          },
         },
         'vite-and-preact': {
           title: t({

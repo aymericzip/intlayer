@@ -26,8 +26,6 @@ history:
 
 # 使用 Intlayer 翻译您的 Vite 和 Svelte 网站 | 国际化 (i18n)
 
-> 该包仍在开发中。更多信息请参见[issue](https://github.com/aymericzip/intlayer/issues/114)。通过点赞该 issue 来表达您对 Svelte 版 Intlayer 的兴趣。
-
 ## 目录
 
 <TOC/>

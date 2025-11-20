@@ -26,8 +26,6 @@ history:
 
 # Intlayer を使って Vite と Svelte のウェブサイトを翻訳する | 国際化（i18n）
 
-> このパッケージは開発中です。詳細は[issue](https://github.com/aymericzip/intlayer/issues/114)をご覧ください。Svelte向けIntlayerに関心がある場合は、issueに「いいね」をして応援してください。
-
 ## 目次
 
 <TOC/>

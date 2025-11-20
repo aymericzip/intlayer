@@ -346,7 +346,7 @@ export type AiConfig = {
    *
    * Default: 'openai'
    */
-  provider?: string;
+  provider?: 'openai' | 'anthropic' | 'mistral' | 'deepseek' | 'gemini';
 
   /**
    * API model

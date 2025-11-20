@@ -26,8 +26,6 @@ history:
 
 # Traduisez votre site Vite et Svelte avec Intlayer | Internationalisation (i18n)
 
-> Ce package est en cours de développement. Consultez le [problème](https://github.com/aymericzip/intlayer/issues/114) pour plus d'informations. Montrez votre intérêt pour Intlayer pour Svelte en aimant ce problème.
-
 ## Table des matières
 
 <TOC/>
@@ -387,15 +385,6 @@ En parallèle, vous pouvez également utiliser le `intlayerProxy` pour ajouter u
 
 > Notez que pour utiliser le `intlayerProxy` en production, vous devez déplacer le paquet `vite-intlayer` de `devDependencies` vers `dependencies`.
 
-````typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
-import { defineConfig } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-En parallèle, vous pouvez également utiliser le `intlayerProxy` pour ajouter un routage côté serveur à votre application. Ce plugin détectera automatiquement la locale courante en fonction de l'URL et définira le cookie de locale approprié. Si aucune locale n'est spécifiée, le plugin déterminera la locale la plus appropriée en fonction des préférences linguistiques du navigateur de l'utilisateur. Si aucune locale n'est détectée, il redirigera vers la locale par défaut.
-
-> Notez que pour utiliser le `intlayerProxy` en production, vous devez déplacer le package `vite-intlayer` de `devDependencies` vers `dependencies`.
-
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
@@ -405,7 +394,7 @@ import { intlayer, intlayerProxy } from "vite-intlayer";
 export default defineConfig({
   plugins: [svelte(), intlayer(), intlayerProxy()],
 });
-````
+```
 
 ```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
