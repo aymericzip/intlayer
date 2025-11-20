@@ -1,23 +1,21 @@
 <script lang="ts">
-  import type { KeyPath, LocalesValues, ContentNode } from '@intlayer/types';
-  import { getMarkdownMetadata, getContentNodeByKeyPath } from '@intlayer/core';
-  import { useLocale } from '../client/useLocale';
+import { getContentNodeByKeyPath, getMarkdownMetadata } from '@intlayer/core';
+import type { ContentNode, KeyPath, Locale } from '@intlayer/types';
+import { useLocale } from '../client/useLocale';
 
-  export let dictionaryKey: string;
-  export let keyPath: KeyPath[];
-  export let locale: LocalesValues | undefined = undefined;
-  export let value: string;
-  export let metadataKeyPath: KeyPath[];
+export const locale: Locale | undefined = undefined;
+export let value: string;
+export let metadataKeyPath: KeyPath[];
 
-  const { locale: contextLocale } = useLocale();
+const { locale: contextLocale } = useLocale();
 
-  $: metadata = getMarkdownMetadata(value);
-  $: currentLocale = locale ?? $contextLocale;
-  $: metadataEl = getContentNodeByKeyPath(
-    metadata as ContentNode,
-    metadataKeyPath,
-    currentLocale
-  );
+$: metadata = getMarkdownMetadata(value);
+$: currentLocale = locale ?? $contextLocale;
+$: metadataEl = getContentNodeByKeyPath(
+  metadata as ContentNode,
+  metadataKeyPath,
+  currentLocale
+);
 </script>
 
 {metadataEl}

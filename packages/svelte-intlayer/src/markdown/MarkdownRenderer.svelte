@@ -1,16 +1,11 @@
 <script lang="ts">
-  import type { KeyPath, LocalesValues } from '@intlayer/types';
-  import { getMarkdownContext } from './context';
+import { getMarkdownContext } from './context';
 
-  export let dictionaryKey: string;
-  export let keyPath: KeyPath[];
-  export let locale: LocalesValues | undefined = undefined;
-  export let value: string;
+export let value: string;
 
-  const { renderMarkdown } = getMarkdownContext();
+const { renderMarkdown } = getMarkdownContext();
 
-  $: htmlContent = renderMarkdown(value);
+$: htmlContent = renderMarkdown(value);
 </script>
 
-<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 {@html htmlContent}
