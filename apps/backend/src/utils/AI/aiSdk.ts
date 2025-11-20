@@ -98,41 +98,36 @@ const getModel = (
   provider: AIProvider,
   userApiKey: string,
   userModel?: Model,
-  defaultModel?: Model
+  defaultModel: Model = 'gpt-5-mini'
 ): Model => {
-  // Set default models based on provider
-  const fallBackModel: Model = defaultModel ?? 'gpt-5-mini';
+  // If the user uses their own API key, allow custom model selection
+  if (userApiKey) {
+    if (provider && provider === AIProvider.OPENAI) {
+      return userModel!;
+    }
 
-  switch (provider) {
-    case AIProvider.OPENAI:
-      defaultModel = 'gpt-5-mini';
-      break;
-    case AIProvider.ANTHROPIC:
-      defaultModel = 'claude-sonnet-4-5-20250929';
-      break;
-    case AIProvider.MISTRAL:
-      defaultModel = 'mistral-large-latest';
-      break;
-    case AIProvider.DEEPSEEK:
-      defaultModel = 'deepseek-coder';
-      break;
-    case AIProvider.GEMINI:
-      defaultModel = 'gemini-2.5-flash';
-      break;
+    switch (provider) {
+      case AIProvider.ANTHROPIC:
+        return 'claude-sonnet-4-5-20250929';
+      case AIProvider.MISTRAL:
+        return 'mistral-large-latest';
+      case AIProvider.DEEPSEEK:
+        return 'deepseek-coder';
+      case AIProvider.GEMINI:
+        return 'gemini-2.5-flash';
+      default:
+        return defaultModel;
+    }
   }
 
-  // If the user use his own API, let him use the model he wants
-  if (Boolean(userApiKey) && Boolean(userModel)) {
-    return userModel!;
-  }
-
-  if (userModel) {
+  // Guard: Prevent custom model usage without a user API key
+  if (userModel || provider) {
     throw new Error(
       'The user should use his own API key to use a custom model'
     );
   }
 
-  return fallBackModel;
+  return defaultModel;
 };
 
 export type AIConfig = Omit<Parameters<typeof generateText>[0], 'prompt'>;
