@@ -21,18 +21,17 @@ import nextPackageJSON from 'next/package.json' with { type: 'json' };
 const isGteNext13 = compareVersions(nextPackageJSON.version, '≥', '13.0.0');
 const isGteNext15 = compareVersions(nextPackageJSON.version, '≥', '15.0.0');
 const isGteNext16 = compareVersions(nextPackageJSON.version, '≥', '16.0.0');
+const isTurbopackStable = compareVersions(
+  nextPackageJSON.version,
+  '≥',
+  '15.3.0'
+);
 
 const isTurbopackEnabledFromCommand = isGteNext16
   ? // Next@16 enable turbopack by default, and offer the possibility to disable it if --webpack flag is used
     !process.env.npm_lifecycle_script?.includes('--webpack')
   : // Next@15 use --turbopack flag, Next@14 use --turbo flag
     process.env.npm_lifecycle_script?.includes('--turbo');
-
-const isTurbopackStable = compareVersions(
-  nextPackageJSON.version,
-  '≥',
-  '15.3.0'
-);
 
 // Check if SWC plugin is available
 const getIsSwcPluginAvailable = (intlayerConfig: IntlayerConfig) => {
