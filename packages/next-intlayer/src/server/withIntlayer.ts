@@ -22,7 +22,7 @@ const isGteNext13 = compareVersions(nextPackageJSON.version, '≥', '13.0.0');
 const isGteNext15 = compareVersions(nextPackageJSON.version, '≥', '15.0.0');
 const isGteNext16 = compareVersions(nextPackageJSON.version, '≥', '16.0.0');
 
-const isTurbopackEnabled = isGteNext16
+const isTurbopackEnabledFromCommand = isGteNext16
   ? // Next@16 enable turbopack by default, and offer the possibility to disable it if --webpack flag is used
     !process.env.npm_lifecycle_script?.includes('--webpack')
   : // Next@15 use --turbopack flag, Next@14 use --turbo flag
@@ -48,7 +48,8 @@ const getIsSwcPluginAvailable = (intlayerConfig: IntlayerConfig) => {
 
 const resolvePluginPath = (
   pluginPath: string,
-  intlayerConfig: IntlayerConfig
+  intlayerConfig: IntlayerConfig,
+  isTurbopackEnabled: boolean
 ): string => {
   const requireFunction = intlayerConfig.build?.require ?? getProjectRequire();
   const pluginPathResolved = requireFunction?.resolve(pluginPath);
@@ -168,6 +169,10 @@ const getCommandsEvent = () => {
 
 type WebpackParams = Parameters<NextJsWebpackConfig>;
 
+type WithIntlayerOptions = GetConfigurationOptions & {
+  isTurbopackEnabled?: boolean;
+};
+
 /**
  * A Next.js plugin that adds the intlayer configuration to the webpack configuration
  * and sets the environment variables
@@ -181,13 +186,16 @@ type WebpackParams = Parameters<NextJsWebpackConfig>;
  */
 export const withIntlayerSync = <T extends Partial<NextConfig>>(
   nextConfig: T = {} as T,
-  configOptions?: GetConfigurationOptions
+  configOptions?: WithIntlayerOptions
 ): NextConfig & T => {
   if (typeof nextConfig !== 'object') {
     nextConfig = {} as T;
   }
 
   const intlayerConfig = getConfiguration(configOptions);
+
+  const isTurbopackEnabled =
+    configOptions?.isTurbopackEnabled ?? isTurbopackEnabledFromCommand;
 
   const { isBuildCommand, isDevCommand } = getCommandsEvent();
 
