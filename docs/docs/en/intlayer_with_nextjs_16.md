@@ -197,7 +197,7 @@ module.exports = withIntlayer(nextConfig);
 
 > The `withIntlayer()` function is a promise function. It allows to prepare the intlayer dictionaries before the build starts. If you want to use it with other plugins, you can await it. Example:
 >
-> ```tsx
+> ```ts
 > const nextConfig = await withIntlayer(nextConfig);
 > const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
 >
@@ -206,11 +206,19 @@ module.exports = withIntlayer(nextConfig);
 >
 > If you want to use it synchronously, you can use the `withIntlayerSync()` function. Example:
 >
-> ```tsx
+> ```ts
 > const nextConfig = withIntlayerSync(nextConfig);
 > const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
 >
 > export default nextConfigWithOtherPlugins;
+> ```
+
+> Intlayer automatically detects whether your project is using **webpack** or **Turbopack** based on the command-line flags `--webpack`, `--turbo`, or `--turbopack`, as well as your current **Next.js version**.
+>
+> Since `next>=16`, if you are using **Rspack**, you must explicitly force Intlayer to use the webpack configuration by disabling Turbopack:
+>
+> ```ts
+> withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
 ### Step 4: Define Dynamic Locale Routes

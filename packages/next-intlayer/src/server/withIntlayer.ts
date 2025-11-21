@@ -193,8 +193,16 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
 
   const intlayerConfig = getConfiguration(configOptions);
 
-  const isTurbopackEnabled =
-    configOptions?.enableTurbopack ?? isTurbopackEnabledFromCommand;
+  let isTurbopackEnabled = configOptions?.enableTurbopack;
+  if (isTurbopackEnabled === undefined) {
+    // Force Webpack if a custom webpack config is present
+    if (typeof nextConfig.webpack === 'undefined') {
+      // Fallback to checking the command line
+      isTurbopackEnabled = isTurbopackEnabledFromCommand;
+    } else {
+      isTurbopackEnabled = false;
+    }
+  }
 
   const { isBuildCommand, isDevCommand } = getCommandsEvent();
 
@@ -269,6 +277,12 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
             config = nextConfig.webpack(config, options);
           }
 
+          // Rspack set external as false by default
+          // Overwrite it to allow pushing the desired externals
+          if (config.externals === false) {
+            config.externals = [];
+          }
+
           // Mark these modules as externals
           config.externals.push({
             esbuild: 'esbuild',
@@ -296,6 +310,7 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
 
           // Activate watch mode webpack plugin
           if (isDevCommand && isServer && nextRuntime === 'nodejs') {
+            // Optional as rspack not support plugin yet
             config.plugins.push(new IntlayerPlugin(intlayerConfig));
           }
 
