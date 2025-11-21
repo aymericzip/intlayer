@@ -208,16 +208,15 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
   }
 
   const intlayerConfig = getConfiguration(configOptions);
+  const logger = getAppLogger(intlayerConfig);
 
-  let isTurbopackEnabled = configOptions?.enableTurbopack;
-  if (isTurbopackEnabled === undefined) {
-    // Force Webpack if a custom webpack config is present
-    if (typeof nextConfig.webpack === 'undefined') {
-      // Fallback to checking the command line
-      isTurbopackEnabled = isTurbopackEnabledFromCommand;
-    } else {
-      isTurbopackEnabled = false;
-    }
+  const isTurbopackEnabled =
+    configOptions?.enableTurbopack ?? isTurbopackEnabledFromCommand;
+
+  if (isTurbopackEnabled && typeof nextConfig.webpack !== 'undefined') {
+    logger(
+      'Turbopack is enabled but a custom webpack config is present. It will be ignored.'
+    );
   }
 
   const { isBuildCommand, isDevCommand } = getCommandsEvent();
