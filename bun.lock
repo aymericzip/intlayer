@@ -37,7 +37,7 @@
     },
     "apps/backend": {
       "name": "@intlayer/backend",
-      "version": "7.2.0",
+      "version": "7.2.1-canary.0",
       "dependencies": {
         "@ai-sdk/anthropic": "2.0.45",
         "@ai-sdk/deepseek": "1.0.28",
@@ -97,7 +97,7 @@
     },
     "apps/website": {
       "name": "website",
-      "version": "7.2.0",
+      "version": "7.2.1-canary.0",
       "dependencies": {
         "@better-auth/sso": "^1.3.34",
         "@intlayer/api": "workspace:*",
@@ -584,7 +584,7 @@
     },
     "packages/@intlayer/api": {
       "name": "@intlayer/api",
-      "version": "7.2.0",
+      "version": "7.2.1-canary.0",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -609,7 +609,7 @@
     },
     "packages/@intlayer/babel": {
       "name": "@intlayer/babel",
-      "version": "7.2.0",
+      "version": "7.2.1-canary.0",
       "dependencies": {
         "@babel/core": "7.20.5",
         "@babel/generator": "7.27.0",
@@ -747,7 +747,7 @@
     },
     "packages/@intlayer/design-system": {
       "name": "@intlayer/design-system",
-      "version": "7.2.0",
+      "version": "7.2.1-canary.0",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
         "@intlayer/api": "workspace:*",
@@ -842,7 +842,7 @@
     },
     "packages/@intlayer/dictionaries-entry": {
       "name": "@intlayer/dictionaries-entry",
-      "version": "7.2.0",
+      "version": "7.2.1-canary.0",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -860,7 +860,7 @@
     },
     "packages/@intlayer/dynamic-dictionaries-entry": {
       "name": "@intlayer/dynamic-dictionaries-entry",
-      "version": "7.2.0",
+      "version": "7.2.1-canary.0",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -878,7 +878,7 @@
     },
     "packages/@intlayer/editor": {
       "name": "@intlayer/editor",
-      "version": "7.2.0",
+      "version": "7.2.1-canary.0",
       "devDependencies": {
         "@types/node": "24.10.1",
         "@utils/ts-config": "workspace:*",
@@ -968,7 +968,7 @@
     },
     "packages/@intlayer/remote-dictionaries-entry": {
       "name": "@intlayer/remote-dictionaries-entry",
-      "version": "7.2.0",
+      "version": "7.2.1-canary.0",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1266,7 +1266,7 @@
     },
     "packages/next-intlayer": {
       "name": "next-intlayer",
-      "version": "7.2.0",
+      "version": "7.2.1-canary.0",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1352,7 +1352,7 @@
     },
     "packages/react-intlayer": {
       "name": "react-intlayer",
-      "version": "7.2.0",
+      "version": "7.2.1-canary.0",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
