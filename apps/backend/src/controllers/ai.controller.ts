@@ -436,7 +436,6 @@ export const askDocQuestion = async (
   try {
     aiConfig = await getAIConfig(res, {
       userOptions: {},
-      defaultOptions: askDocQuestionUtil.aiDefaultOptions,
       accessType: ['public'],
     });
   } catch (_error) {
