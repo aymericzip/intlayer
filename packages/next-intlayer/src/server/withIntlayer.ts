@@ -341,7 +341,7 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
  */
 export const withIntlayer = async <T extends Partial<NextConfig>>(
   nextConfig: T = {} as T,
-  configOptions?: GetConfigurationOptions
+  configOptions?: WithIntlayerOptions
 ): Promise<NextConfig & T> => {
   const { isBuildCommand, isDevCommand } = getCommandsEvent();
 
