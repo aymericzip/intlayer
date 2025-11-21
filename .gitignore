@@ -37,3 +37,6 @@ workbox-*.js
 
 # svelte
 .svelte-kit
+
+# cursor
+.cursor/worktree
