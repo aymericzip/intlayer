@@ -170,7 +170,7 @@ const getCommandsEvent = () => {
 type WebpackParams = Parameters<NextJsWebpackConfig>;
 
 type WithIntlayerOptions = GetConfigurationOptions & {
-  isTurbopackEnabled?: boolean;
+  enableTurbopack?: boolean;
 };
 
 /**
@@ -195,7 +195,7 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
   const intlayerConfig = getConfiguration(configOptions);
 
   const isTurbopackEnabled =
-    configOptions?.isTurbopackEnabled ?? isTurbopackEnabledFromCommand;
+    configOptions?.enableTurbopack ?? isTurbopackEnabledFromCommand;
 
   const { isBuildCommand, isDevCommand } = getCommandsEvent();
 
