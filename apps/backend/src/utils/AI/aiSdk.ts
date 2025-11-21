@@ -103,7 +103,7 @@ const getModel = (
   // If the user uses their own API key, allow custom model selection
   if (userApiKey) {
     if (provider && provider === AIProvider.OPENAI) {
-      return userModel!;
+      return userModel ?? defaultModel;
     }
 
     switch (provider) {
@@ -165,6 +165,8 @@ export const getAIConfig = async (
     ...userOptions,
   } satisfies AIOptions;
 
+  console.log({ aiOptions, defaultOptions, userOptions });
+
   const apiKey = getAPIKey(res, accessType, aiOptions);
 
   // Check if API key is provided
@@ -178,6 +180,8 @@ export const getAIConfig = async (
     aiOptions.model,
     defaultOptions?.model
   );
+
+  console.log({ selectedModel });
 
   const protectedOptions = {
     ...aiOptions,
