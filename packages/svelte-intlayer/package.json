@@ -71,7 +71,8 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
-    "@intlayer/types": "workspace:*"
+    "@intlayer/types": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.4",

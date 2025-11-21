@@ -50,6 +50,18 @@ export const createDictionaryRecordClient = () => {
 export const installDictionariesRecord = (app: App) => {
   const client = createDictionaryRecordClient();
 
+  // Load dictionaries dynamically to do not impact the bundle, and send them to the editor
+  import('@intlayer/unmerged-dictionaries-entry').then((mod) => {
+    const unmergedDictionaries = mod.getUnmergedDictionaries();
+    const dictionariesList = Object.fromEntries(
+      Object.values(unmergedDictionaries)
+        .flat()
+        .map((dictionary) => [dictionary.localId, dictionary])
+    );
+
+    client.setLocaleDictionaries(dictionariesList);
+  });
+
   app.provide(INTLAYER_DICTIONARIES_RECORD_SYMBOL, client);
 };
 
