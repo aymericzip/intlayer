@@ -287,8 +287,7 @@ export const intlayerBabelPlugin = (babel: {
           // Check if this is the correct file to transform
           if (
             state.opts.replaceDictionaryEntry &&
-            (filename === state.opts.dictionariesEntryPath ||
-              filename === state.opts.unmergedDictionariesEntryPath)
+            filename === state.opts.dictionariesEntryPath
           ) {
             state._isDictEntry = true;
 

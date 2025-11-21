@@ -351,10 +351,6 @@ impl<'a> VisitMut for TransformVisitor<'a> {
             }
         }
     }
-
-
-
-
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -385,16 +381,11 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
     // short-circuit the dictionaries entry file  ─────────────────────
     if cfg.replace_dictionary_entry.unwrap_or(false) {
         let is_main_entry = filename == cfg.dictionaries_entry_path;
-        let is_unmerged_entry = filename == cfg.unmerged_dictionaries_entry_path;
 
-        if is_main_entry || is_unmerged_entry {
+        if is_main_entry {
             
-            // 1. Determine the function name based on the file
-            let func_name = if is_main_entry {
-                "getDictionaries"
-            } else {
-                "getUnmergedDictionaries"
-            };
+            // FIX 1: Removed redundant `if` expression
+            let func_name = "getDictionaries";
 
             // 2. Create: export default {}
             let default_export = ModuleItem::ModuleDecl(ModuleDecl::ExportDefaultExpr(
@@ -412,6 +403,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                 span: DUMMY_SP,
                 decl: Decl::Var(Box::new(VarDecl {
                     span: DUMMY_SP,
+                    ctxt: SyntaxContext::empty(), // FIX 2: Added ctxt
                     kind: VarDeclKind::Const,
                     declare: false,
                     decls: vec![VarDeclarator {
@@ -422,6 +414,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                         }),
                         init: Some(Box::new(Expr::Arrow(ArrowExpr {
                             span: DUMMY_SP,
+                            ctxt: SyntaxContext::empty(), // FIX 3: Added ctxt
                             params: vec![],
                             is_async: false,
                             is_generator: false,

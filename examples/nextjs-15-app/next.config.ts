@@ -1,6 +1,6 @@
 import { withIntlayer } from 'next-intlayer/server';
 
-const RETURN_BUNDLE_ANALYZER = false;
+const RETURN_BUNDLE_ANALYZER = true;
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: RETURN_BUNDLE_ANALYZER,
