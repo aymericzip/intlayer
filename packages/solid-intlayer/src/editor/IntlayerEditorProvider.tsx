@@ -1,11 +1,8 @@
 import configuration from '@intlayer/config/built';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import type { Component, ParentProps } from 'solid-js';
-import { onMount } from 'solid-js';
 import {
   EditorProvider,
   useCrossURLPathSetter,
-  useDictionariesRecordActions,
   useEditorEnabled,
   useIframeClickInterceptor,
 } from './contexts';
@@ -20,21 +17,6 @@ const IntlayerEditorHooksEnabled: Component = () => {
    * Click Messages
    */
   useIframeClickInterceptor();
-
-  /**
-   * Sent local dictionaries to editor
-   */
-  const { setLocaleDictionaries } = useDictionariesRecordActions() ?? {};
-  onMount(() => {
-    const unmergedDictionaries = getUnmergedDictionaries();
-    const dictionariesList = Object.fromEntries(
-      Object.values(unmergedDictionaries)
-        .flat()
-        .map((dictionary) => [dictionary.localId, dictionary])
-    );
-
-    setLocaleDictionaries?.(dictionariesList);
-  });
 
   return <></>;
 };

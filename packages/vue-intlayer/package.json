@@ -90,8 +90,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*"
+    "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "24.10.1",

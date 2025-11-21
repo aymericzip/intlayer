@@ -4,13 +4,10 @@ import configuration from '@intlayer/config/built';
 import {
   EditorProvider,
   useCrossURLPathSetter,
-  useDictionariesRecordActions,
   useEditorEnabled,
   useIframeClickInterceptor,
 } from '@intlayer/editor-react';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import type { FC, PropsWithChildren } from 'react';
-import { useEffect } from 'react';
 
 const IntlayerEditorHooksEnabled: FC = () => {
   /**
@@ -22,21 +19,6 @@ const IntlayerEditorHooksEnabled: FC = () => {
    * Click Messages
    */
   useIframeClickInterceptor();
-
-  /**
-   * Sent local dictionaries to editor
-   */
-  const { setLocaleDictionaries } = useDictionariesRecordActions();
-  useEffect(() => {
-    const unmergedDictionaries = getUnmergedDictionaries();
-    const dictionariesList = Object.fromEntries(
-      Object.values(unmergedDictionaries)
-        .flat()
-        .map((dictionary) => [dictionary.localId, dictionary])
-    );
-
-    setLocaleDictionaries(dictionariesList);
-  }, []);
 
   return <></>;
 };

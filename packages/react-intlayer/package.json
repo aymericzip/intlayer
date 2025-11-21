@@ -110,10 +110,8 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "intlayer": "workspace:*"
   },
   "devDependencies": {
