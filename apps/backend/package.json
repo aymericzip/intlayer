@@ -37,12 +37,11 @@
   "exports": {
     ".": {
       "types": "./dist/types/export.d.ts",
-      "require": "./dist/cjs/export.cjs",
-      "import": "./dist/esm/export.mjs"
+      "import": "./dist/esm/export.mjs",
+      "default": "./dist/esm/export.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/export.cjs",
   "module": "dist/esm/export.mjs",
   "types": "dist/types/export.d.ts",
   "files": [

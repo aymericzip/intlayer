@@ -1,4 +1,4 @@
-import { options } from '@utils/tsdown-config';
+import { esmOptions, typesOptions } from '@utils/tsdown-config';
 import { defineConfig } from 'tsdown';
 
-export default defineConfig(options);
+export default defineConfig([esmOptions, typesOptions]);
