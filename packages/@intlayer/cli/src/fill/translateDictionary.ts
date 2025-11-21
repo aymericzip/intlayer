@@ -66,31 +66,13 @@ export const translateDictionary = async (
     ...options,
   } as const;
 
-  const ensureNotAborted = () => {
-    const abortError = options?.getAbortError?.();
-    if (abortError) {
-      throw abortError;
-    }
-  };
-
   const notifySuccess = () => {
     followingErrors = 0;
     options?.onSuccess?.();
   };
 
-  const notifyError = (error: unknown) => {
-    if (!options?.onError) return;
-    try {
-      options.onError(error);
-    } catch (abortError) {
-      throw abortError;
-    }
-  };
-
   const result = await retryManager(
     async () => {
-      ensureNotAborted();
-
       const unmergedDictionariesRecord = getUnmergedDictionaries(configuration);
 
       const baseUnmergedDictionary: Dictionary | undefined =
@@ -129,14 +111,12 @@ export const translateDictionary = async (
         );
 
         const runAudit = async () => {
-          ensureNotAborted();
           try {
             return await intlayerAPI.ai.auditContentDeclarationMetadata({
               fileContent: JSON.stringify(defaultLocaleDictionary),
               aiOptions,
             });
           } catch (error) {
-            notifyError(error);
             throw error;
           }
         };
@@ -147,8 +127,6 @@ export const translateDictionary = async (
 
         metadata = metadataResult.data?.fileContent;
       }
-
-      let dictionaryToProcess = baseUnmergedDictionary;
 
       const translatedContent: Partial<Record<Locale, Dictionary['content']>> =
         {};
@@ -163,6 +141,9 @@ export const translateDictionary = async (
          * { test2: t({ ar: 'Hello', en: 'Hello' }) } -> { test2: t({ ar: 'Hello', en: 'Hello' }) }
          *
          */
+        // Reset to base dictionary for each locale to ensure we filter from the original
+        let dictionaryToProcess = baseUnmergedDictionary;
+
         if (mode === 'complete') {
           // Remove all nodes that don't have any content to translate
           dictionaryToProcess = getFilterMissingTranslationsDictionary(
@@ -251,8 +232,6 @@ export const translateDictionary = async (
           const executeTranslation = async () => {
             return await retryManager(
               async () => {
-                ensureNotAborted();
-
                 const translationResult = await intlayerAPI.ai.translateJSON({
                   entryFileContent: chunkContent as unknown as JSON,
                   presetOutputContent,
@@ -287,14 +266,12 @@ export const translateDictionary = async (
                 maxRetry: MAX_RETRY,
                 delay: RETRY_DELAY,
                 onError: ({ error, attempt, maxRetry }) => {
-                  notifyError(error);
-
                   const chunkPreset = createChunkPreset(
                     chunk.index,
                     chunk.total
                   );
                   appLogger(
-                    `${task.dictionaryPreset}${localePreset}${chunkPreset} ${colorize('Error filling:', ANSIColors.RED)} ${colorize(error, ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
+                    `${task.dictionaryPreset}${localePreset}${chunkPreset} ${colorize('Error filling:', ANSIColors.RED)} ${colorize(typeof error === 'string' ? error : JSON.stringify(error), ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
                     {
                       level: 'error',
                     }
@@ -372,22 +349,20 @@ export const translateDictionary = async (
     {
       maxRetry: GROUP_MAX_RETRY,
       delay: RETRY_DELAY,
-      onError: ({ error, attempt, maxRetry }) => {
+      onError: ({ error, attempt, maxRetry }) =>
         appLogger(
-          `${task.dictionaryPreset} ${colorize('Error fill command:', ANSIColors.RED)} ${colorize(error, ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
+          `${task.dictionaryPreset} ${colorize('Error fill command:', ANSIColors.RED)} ${colorize(typeof error === 'string' ? error : JSON.stringify(error), ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
           {
             level: 'error',
           }
-        );
-      },
-      onMaxTryReached: ({ error }) => {
+        ),
+      onMaxTryReached: ({ error }) =>
         appLogger(
-          `${task.dictionaryPreset} ${colorize('Maximum number of retries reached:', ANSIColors.RED)} ${colorize(error, ANSIColors.GREY_DARK)}`,
+          `${task.dictionaryPreset} ${colorize('Maximum number of retries reached:', ANSIColors.RED)} ${colorize(typeof error === 'string' ? error : JSON.stringify(error), ANSIColors.GREY_DARK)}`,
           {
             level: 'error',
           }
-        );
-      },
+        ),
     }
   )();
 
