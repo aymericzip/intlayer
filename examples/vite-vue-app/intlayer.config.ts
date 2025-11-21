@@ -26,8 +26,8 @@ const config: IntlayerConfig = {
     applicationContext: 'This is a test application',
   },
   build: {
-    // optimize: true,
-    // importMode: 'async',
+    optimize: true,
+    importMode: 'static',
   },
 };
 

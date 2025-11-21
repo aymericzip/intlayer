@@ -638,7 +638,7 @@ const buildBuildFields = (
    * - In most cases, "dynamic" will be used for React applications, "async" for Vue.js applications.
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    */
-  optimize: customConfiguration?.optimize ?? OPTIMIZE,
+  optimize: customConfiguration?.optimize,
 
   /**
    * Indicates the mode of import to use for the dictionaries.

@@ -1,12 +1,21 @@
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import vue from '@vitejs/plugin-vue';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import { intlayer, intlayerProxy } from 'vite-intlayer';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayer(), intlayerProxy()],
+  plugins: [
+    vue(),
+    intlayer(),
+    intlayerProxy(),
+    visualizer({
+      emitFile: true,
+      filename: 'stats.html',
+    }),
+  ],
 
   resolve: {
     dedupe: ['vue'],

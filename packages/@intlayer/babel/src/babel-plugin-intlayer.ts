@@ -63,6 +63,14 @@ type State = PluginPass & {
      */
     dictionariesEntryPath: string;
     /**
+     * The path to the unmerged dictionaries entry file.
+     */
+    unmergedDictionariesEntryPath: string;
+    /**
+     * The path to the unmerged dictionaries directory.
+     */
+    unmergedDictionariesDir: string;
+    /**
      * The path to the dictionaries directory.
      */
     dynamicDictionariesDir: string;
@@ -117,7 +125,10 @@ type State = PluginPass & {
  * and prefixes an underscore so the generated identifiers never collide
  * with user-defined ones.
  */
-const makeIdent = (key: string, t: typeof BabelTypes): BabelTypes.Identifier => {
+const makeIdent = (
+  key: string,
+  t: typeof BabelTypes
+): BabelTypes.Identifier => {
   const hash = getFileHash(key);
   return t.identifier(`_${hash}`);
 };
@@ -237,11 +248,11 @@ const computeImport = (
  * const content2 = getIntlayer(_dicHash);
  * ```
  */
-export const intlayerBabelPlugin = (
-  babel: { types: typeof BabelTypes }
-): PluginObj<State> => {
+export const intlayerBabelPlugin = (babel: {
+  types: typeof BabelTypes;
+}): PluginObj<State> => {
   const { types: t } = babel;
-  
+
   return {
     name: 'babel-plugin-intlayer-transform',
 
@@ -267,21 +278,39 @@ export const intlayerBabelPlugin = (
     },
 
     visitor: {
-      /* 0. If this file *is* the dictionaries entry, short-circuit: export {} */
+      /* If this file *is* the dictionaries entry, short-circuit: export {} */
       Program: {
         enter(programPath, state) {
-          const filename = state.file.opts.filename!;
+          // Safe access to filename
+          const filename = state.file.opts.filename;
+
+          // Check if this is the correct file to transform
           if (
             state.opts.replaceDictionaryEntry &&
-            filename === state.opts.dictionariesEntryPath
+            (filename === state.opts.dictionariesEntryPath ||
+              filename === state.opts.unmergedDictionariesEntryPath)
           ) {
             state._isDictEntry = true;
-            // Replace all existing statements with: export default {}
-            programPath.node.body = [
-              t.exportDefaultDeclaration(t.objectExpression([])),
-            ];
-            // Stop further traversal for this plugin – nothing else to transform
-            programPath.stop();
+
+            // 3. Traverse the program to surgically remove/edit specific parts
+            programPath.traverse({
+              // Step A: Remove all import statements (cleaning up 'sssss.json')
+              ImportDeclaration(path) {
+                path.remove();
+              },
+
+              // Step B: Find the variable definition and empty the object
+              VariableDeclarator(path) {
+                // We look for: const x = { ... }
+                if (t.isObjectExpression(path.node.init)) {
+                  // Set the object properties to an empty array: {}
+                  path.node.init.properties = [];
+                }
+              },
+            });
+
+            // (Optional) Stop other plugins from processing this file further if needed
+            // programPath.stop();
           }
         },
 
@@ -348,7 +377,9 @@ export const intlayerBabelPlugin = (
           if (!imports.length) return;
 
           /* Keep "use client" / "use server" directives at the very top. */
-          const bodyPaths = programPath.get('body') as NodePath<BabelTypes.Statement>[];
+          const bodyPaths = programPath.get(
+            'body'
+          ) as NodePath<BabelTypes.Statement>[];
           let insertPos = 0;
           for (const stmtPath of bodyPaths) {
             const stmt = stmtPath.node;

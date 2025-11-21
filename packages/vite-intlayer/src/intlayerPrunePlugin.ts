@@ -1,6 +1,8 @@
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { intlayerBabelPlugin } from '@intlayer/babel';
+import { runOnce } from '@intlayer/chokidar';
+import { getAppLogger } from '@intlayer/config';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types';
 import fg from 'fast-glob';
@@ -10,12 +12,14 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
   try {
     const localeRequire = createRequire(import.meta.url);
     const babel = localeRequire('@babel/core');
+    const logger = getAppLogger(intlayerConfig);
 
-    const { optimize, importMode, traversePattern } = intlayerConfig.build;
+    const { importMode, traversePattern, optimize } = intlayerConfig.build;
 
     const {
       dictionariesDir,
       dynamicDictionariesDir,
+      unmergedDictionariesDir,
       fetchDictionariesDir,
       mainDir,
       baseDir,
@@ -28,6 +32,10 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
       .map((file) => join(baseDir, file));
 
     const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
+    const unmergedDictionariesEntryPath = join(
+      mainDir,
+      'unmerged_dictionaries.mjs'
+    );
     const dynamicDictionariesEntryPath = join(
       mainDir,
       'dynamic_dictionaries.mjs'
@@ -36,6 +44,7 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
     const filesList = [
       ...filesListPattern,
       dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
+      unmergedDictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
     ];
 
     const dictionaries = getDictionaries();
@@ -46,6 +55,29 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
     return {
       name: 'vite-intlayer-babel-transform',
       enforce: 'post', // Run after other transformations as vue
+      apply: (_config, env) => {
+        // Only apply babel plugin if optimize is enabled
+
+        const isBuild = env.command === 'build';
+        const isEnabled = optimize ?? isBuild;
+
+        if (isEnabled) {
+          runOnce(
+            join(
+              baseDir,
+              '.intlayer',
+              'cache',
+              'intlayer-prune-plugin-enabled.lock'
+            ),
+            () => logger('Build optimization enabled'),
+            {
+              cacheTimeoutMs: 1000 * 10, // 10 seconds
+            }
+          );
+        }
+
+        return isEnabled;
+      },
       transform(code, id) {
         /**
          * Transform file as
@@ -56,8 +88,8 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
          * Prevention for virtual file
          */
         const filename = id.split('?', 1)[0];
+
         if (!filesList.includes(filename)) return null;
-        if (!optimize) return null;
 
         const result = babel.transformSync(code, {
           filename,
@@ -67,12 +99,14 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
               {
                 dictionariesDir,
                 dictionariesEntryPath,
+                unmergedDictionariesEntryPath,
+                unmergedDictionariesDir,
                 dynamicDictionariesDir,
                 dynamicDictionariesEntryPath,
                 fetchDictionariesDir,
                 importMode,
                 filesList,
-                replaceDictionaryEntry: false,
+                replaceDictionaryEntry: true,
                 liveSyncKeys,
               },
             ],

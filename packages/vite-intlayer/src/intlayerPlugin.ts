@@ -25,7 +25,6 @@ export const intlayerPlugin = (
   configOptions?: GetConfigurationOptions
 ): PluginOption => {
   const intlayerConfig = getConfiguration(configOptions);
-  const { optimize } = intlayerConfig.build;
 
   const alias = getAlias({
     configuration: intlayerConfig,
@@ -47,8 +46,6 @@ export const intlayerPlugin = (
         // If prod: clean and rebuild once
         // If dev: rebuild only once if it's more than 1 hour since last rebuild
         if (isDevCommand || isBuildCommand) {
-          const intlayerConfig = getConfiguration(configOptions);
-
           // prepareIntlayer use runOnce to ensure to run only once because will run twice on client and server side otherwise
           await prepareIntlayer(intlayerConfig, {
             clean: isBuildCommand,
@@ -85,9 +82,7 @@ export const intlayerPlugin = (
   ];
 
   // Add Babel transform plugin if enabled
-  if (optimize) {
-    plugins.push(intlayerPrune(intlayerConfig));
-  }
+  plugins.push(intlayerPrune(intlayerConfig));
 
   return plugins;
 };

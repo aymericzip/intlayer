@@ -48,6 +48,13 @@ struct PluginConfig {
     #[serde(rename = "dictionariesEntryPath")]
     dictionaries_entry_path: String,
 
+    #[serde(rename = "unmergedDictionariesDir")]
+    unmerged_dictionaries_dir: String,
+
+    /// Path to the unmerged dictionaries entry file
+    #[serde(rename = "unmergedDictionariesEntryPath")]
+    unmerged_dictionaries_entry_path: String,
+
     /// Directory that contains `<key>.mjs` files for dynamic imports
     #[serde(rename = "dynamicDictionariesDir")]
     dynamic_dictionaries_dir: String,
@@ -355,7 +362,7 @@ impl<'a> VisitMut for TransformVisitor<'a> {
 // ─────────────────────────────────────────────────────────────────────────────
 #[plugin_transform]
 pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata) -> Program {
-    // 1) read and parse plugin options
+    // read and parse plugin options
     let cfg: PluginConfig = match metadata
         .get_transform_plugin_config()
         .and_then(|raw| serde_json::from_str(&raw).ok())
@@ -364,32 +371,80 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
         None => return program, // no / bad config ⇒ noop
     };
 
-    // 2) skip files outside the configured roots
+    // skip files outside the configured roots
     let filename = match metadata.get_context(&TransformPluginMetadataContextKind::Filename) {
         Some(f) => f,
         None => return program,
     };
 
-    // ── 2.a  skip file if not in files_list (when files_list is not empty)  ──
+    // skip file if not in files_list (when files_list is not empty)  ──
     if !cfg.files_list.is_empty() && !cfg.files_list.contains(&filename) {
         return program; // skip processing this file
     }
 
-    // ── 2.b  short-circuit the dictionaries entry file  ─────────────────────
-    if cfg.replace_dictionary_entry.unwrap_or(false) && filename == cfg.dictionaries_entry_path {
-        return Program::Module(Module {
-            span: DUMMY_SP,
-            body: vec![ModuleItem::ModuleDecl(ModuleDecl::ExportDefaultExpr(
+    // short-circuit the dictionaries entry file  ─────────────────────
+    if cfg.replace_dictionary_entry.unwrap_or(false) {
+        let is_main_entry = filename == cfg.dictionaries_entry_path;
+        let is_unmerged_entry = filename == cfg.unmerged_dictionaries_entry_path;
+
+        if is_main_entry || is_unmerged_entry {
+            
+            // 1. Determine the function name based on the file
+            let func_name = if is_main_entry {
+                "getDictionaries"
+            } else {
+                "getUnmergedDictionaries"
+            };
+
+            // 2. Create: export default {}
+            let default_export = ModuleItem::ModuleDecl(ModuleDecl::ExportDefaultExpr(
                 ExportDefaultExpr {
                     span: DUMMY_SP,
                     expr: Box::new(Expr::Object(ObjectLit {
                         span: DUMMY_SP,
-                        props: Vec::new(),   // `{}`  ➜  export default {}
+                        props: Vec::new(),
                     })),
                 },
-            ))],
-            shebang: None,
-        });
+            ));
+
+            // 3. Create: export const getDictionaries = () => ({});
+            let named_export = ModuleItem::ModuleDecl(ModuleDecl::ExportDecl(ExportDecl {
+                span: DUMMY_SP,
+                decl: Decl::Var(Box::new(VarDecl {
+                    span: DUMMY_SP,
+                    kind: VarDeclKind::Const,
+                    declare: false,
+                    decls: vec![VarDeclarator {
+                        span: DUMMY_SP,
+                        name: Pat::Ident(BindingIdent {
+                            id: Ident::new(Atom::from(func_name), DUMMY_SP, SyntaxContext::empty()),
+                            type_ann: None,
+                        }),
+                        init: Some(Box::new(Expr::Arrow(ArrowExpr {
+                            span: DUMMY_SP,
+                            params: vec![],
+                            is_async: false,
+                            is_generator: false,
+                            type_params: None,
+                            return_type: None,
+                            // body is: () => ({})
+                            body: Box::new(BlockStmtOrExpr::Expr(Box::new(Expr::Object(ObjectLit {
+                                span: DUMMY_SP,
+                                props: Vec::new(),
+                            })))),
+                        }))),
+                        definite: false,
+                    }],
+                })),
+            }));
+
+            // Return a new module containing both exports
+            return Program::Module(Module {
+                span: DUMMY_SP,
+                body: vec![default_export, named_export], 
+                shebang: None,
+            });
+        }
     }
 
     // 3) run visitor

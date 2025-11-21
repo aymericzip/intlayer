@@ -1,4 +1,4 @@
-export const OPTIMIZE = process.env.NODE_ENV === 'production';
+export const OPTIMIZE = undefined;
 
 export const IMPORT_MODE = 'static';
 

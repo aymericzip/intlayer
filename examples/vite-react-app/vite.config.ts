@@ -1,6 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react-swc';
-// import { visualizer } from 'rollup-plugin-visualizer';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import { intlayer, intlayerProxy } from 'vite-intlayer';
 
@@ -11,9 +11,9 @@ export default defineConfig({
     intlayer(),
     intlayerProxy(),
     tailwindcss(),
-    // visualizer({
-    //   emitFile: true,
-    //   filename: 'stats.html',
-    // }),
+    visualizer({
+      emitFile: true,
+      filename: 'stats.html',
+    }),
   ],
 });

@@ -62,18 +62,24 @@ const resolvePluginPath = (
 };
 
 const getPruneConfig = (
-  intlayerConfig: IntlayerConfig
+  intlayerConfig: IntlayerConfig,
+  isBuildCommand: boolean,
+  isTurbopackEnabled: boolean
 ): Partial<NextConfig> => {
   const { optimize, traversePattern, importMode } = intlayerConfig.build;
   const {
     dictionariesDir,
+    unmergedDictionariesDir,
     dynamicDictionariesDir,
     fetchDictionariesDir,
     mainDir,
     baseDir,
   } = intlayerConfig.content;
+  const logger = getAppLogger(intlayerConfig);
 
-  if (!optimize) return {};
+  if (!(optimize ?? isBuildCommand)) {
+    return {};
+  }
 
   if (!isGteNext13) return {};
 
@@ -81,11 +87,9 @@ const getPruneConfig = (
 
   if (!isSwcPluginAvailable) return {};
 
-  const logger = getAppLogger(intlayerConfig);
-
   runOnce(
     join(baseDir, '.intlayer', 'cache', 'intlayer-prune-plugin-enabled.lock'),
-    () => logger('Intlayer prune plugin is enabled'),
+    () => logger('Build optimization enabled'),
     {
       cacheTimeoutMs: 1000 * 10, // 10 seconds
     }
@@ -96,6 +100,11 @@ const getPruneConfig = (
   const dynamicDictionariesEntryPath = join(
     mainDir,
     'dynamic_dictionaries.mjs'
+  );
+
+  const unmergedDictionariesEntryPath = join(
+    mainDir,
+    'unmerged_dictionaries.mjs'
   );
 
   const fetchDictionariesEntryPath = join(mainDir, 'fetch_dictionaries.mjs');
@@ -109,6 +118,7 @@ const getPruneConfig = (
   const filesList = [
     ...filesListPattern,
     dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
+    unmergedDictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
   ];
 
   const dictionaries = getDictionaries(intlayerConfig);
@@ -121,17 +131,23 @@ const getPruneConfig = (
     experimental: {
       swcPlugins: [
         [
-          resolvePluginPath('@intlayer/swc', intlayerConfig),
+          resolvePluginPath(
+            '@intlayer/swc',
+            intlayerConfig,
+            isTurbopackEnabled
+          ),
           {
             dictionariesDir,
             dictionariesEntryPath,
+            unmergedDictionariesEntryPath,
+            unmergedDictionariesDir,
             dynamicDictionariesDir,
             dynamicDictionariesEntryPath,
             fetchDictionariesDir,
             fetchDictionariesEntryPath,
             importMode,
             filesList,
-            replaceDictionaryEntry: false,
+            replaceDictionaryEntry: true,
             liveSyncKeys,
           } as any,
         ],
@@ -322,11 +338,11 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     return config;
   };
 
-  let pruneConfig: Partial<NextConfig> = {};
-
-  if (isBuildCommand) {
-    pruneConfig = getPruneConfig(intlayerConfig);
-  }
+  const pruneConfig: Partial<NextConfig> = getPruneConfig(
+    intlayerConfig,
+    isBuildCommand,
+    isTurbopackEnabled ?? false
+  );
 
   const intlayerNextConfig: Partial<NextConfig> = merge(
     pruneConfig,

@@ -392,7 +392,7 @@ export type BuildConfig = {
   /**
    * Indicates if the build should be optimized
    *
-   * Default: process.env.NODE_ENV === 'production'
+   * Default: undefined
    *
    * If true, the build will be optimized.
    * If false, the build will not be optimized.
@@ -406,7 +406,7 @@ export type BuildConfig = {
    * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    */
-  optimize: boolean;
+  optimize?: boolean;
 
   /**
    * Indicates the mode of import to use for the dictionaries.
