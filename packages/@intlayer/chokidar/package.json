@@ -85,8 +85,8 @@
     "crypto-js": "4.2.0",
     "deepmerge": "4.3.1",
     "fast-glob": "3.3.3",
-    "simple-git": "3.28.0",
-    "ts-morph": "27.0.0"
+    "simple-git": "3.30.0",
+    "ts-morph": "27.0.2"
   },
   "devDependencies": {
     "@types/crypto-js": "4.2.2",
@@ -94,10 +94,10 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "rimraf": "6.1.0",
-    "tsdown": "0.16.5",
+    "rimraf": "6.1.2",
+    "tsdown": "0.16.6",
     "typescript": "5.9.3",
-    "vitest": "4.0.10"
+    "vitest": "4.0.12"
   },
   "peerDependencies": {
     "fast-glob": "3.3.3"

@@ -99,10 +99,10 @@
     "@utils/tsdown-config": "workspace:*",
     "expo": "54.0.12",
     "metro-resolver": "0.82.0",
-    "rimraf": "6.1.0",
-    "tsdown": "0.16.5",
+    "rimraf": "6.1.2",
+    "tsdown": "0.16.6",
     "typescript": "5.9.3",
-    "vitest": "4.0.10"
+    "vitest": "4.0.12"
   },
   "peerDependencies": {
     "@lynx-js/rspeedy": ">=0.5.0",

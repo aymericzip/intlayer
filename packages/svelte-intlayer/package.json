@@ -81,13 +81,13 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "rimraf": "6.1.0",
+    "rimraf": "6.1.2",
     "svelte": "^5.0.0",
     "svelte-check": "^4.0.0",
-    "tsdown": "0.16.5",
+    "tsdown": "0.16.6",
     "typescript": "5.9.3",
     "vite": "^5.0.0",
-    "vitest": "4.0.10"
+    "vitest": "4.0.12"
   },
   "peerDependencies": {
     "svelte": ">=5.0.0"
