@@ -727,7 +727,7 @@
     },
     "packages/@intlayer/core": {
       "name": "@intlayer/core",
-      "version": "7.2.1",
+      "version": "7.2.2",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -862,7 +862,7 @@
     },
     "packages/@intlayer/dynamic-dictionaries-entry": {
       "name": "@intlayer/dynamic-dictionaries-entry",
-      "version": "7.2.1",
+      "version": "7.2.2",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1268,7 +1268,7 @@
     },
     "packages/next-intlayer": {
       "name": "next-intlayer",
-      "version": "7.2.1",
+      "version": "7.2.2",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
