@@ -1,3 +1,7 @@
+/**
+ * Convert a string to sentence case
+ * e.g. 'my-new-component' → 'My new component'
+ */
 export const camelCaseToSentence = (value: string): string => {
   if (!value) return '';
   if (typeof value !== 'string') return '';
