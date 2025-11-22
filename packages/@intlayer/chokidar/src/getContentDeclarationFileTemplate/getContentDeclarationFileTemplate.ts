@@ -32,19 +32,23 @@ export const getContentDeclarationFileTemplate = async (
   const fileParamsString = Object.entries(fileParams)
     .filter(([, value]) => value !== undefined)
     .map(([key, value]) => {
+      const formattedKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key)
+        ? key
+        : JSON.stringify(key);
+
       if (typeof value === 'object') {
-        return `\n  '${key}': ${JSON.stringify(value)},`;
+        return `\n  ${formattedKey}: ${JSON.stringify(value)},`;
       }
 
       if (typeof value === 'boolean' || typeof value === 'number') {
-        return `\n  '${key}': ${value},`;
+        return `\n  ${formattedKey}: ${value},`;
       }
 
       if (typeof value === 'string') {
-        return `\n  '${key}': '${value}',`;
+        return `\n  ${formattedKey}: ${JSON.stringify(value)},`;
       }
 
-      return `\n  '${key}': ${value},`;
+      return `\n  ${formattedKey}: ${value},`;
     })
     .join('');
 

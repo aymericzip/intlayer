@@ -3280,7 +3280,10 @@ const updateMetadataProperty = (
   propertyName: string,
   value: unknown
 ): boolean => {
-  const property = rootObject.getProperty(propertyName);
+  const property =
+    rootObject.getProperty(propertyName) ||
+    rootObject.getProperty(`'${propertyName}'`) ||
+    rootObject.getProperty(`"${propertyName}"`);
   const serializedValue = serializeMetadataValue(value);
 
   if (property && Node.isPropertyAssignment(property)) {

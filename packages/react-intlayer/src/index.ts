@@ -30,5 +30,7 @@ export {
   useLocaleCookie,
   useLocaleStorage,
 } from './client/useLocaleStorage';
+export { getDictionary } from './getDictionary';
+export { getIntlayer } from './getIntlayer';
 export type { IntlayerNode } from './IntlayerNode';
 export { MarkdownProvider } from './markdown/index';

@@ -16,13 +16,10 @@ export {
   useLocaleCookie,
   useLocaleStorage,
 } from 'react-intlayer';
-export {
-  IntlayerClientProvider,
-  type IntlayerClientProviderProps,
-  useLocale,
-  useLocalePageRouter,
-} from './client/index';
+export * from './client/index';
 export { generateStaticParams } from './generateStaticParams';
+export * from './getDictionary';
+export * from './getIntlayer';
 export type {
   LocalParams,
   LocalPromiseParams,

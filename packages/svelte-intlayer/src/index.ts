@@ -8,6 +8,7 @@ declare module '@intlayer/core' {
 export * from './client';
 export * from './getDictionary';
 export * from './getIntlayer';
+export * from './markdown';
 export * from './plugins';
 
 import { useEditor } from './editor';

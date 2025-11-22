@@ -1,6 +1,14 @@
 export { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 export { cleanOutputDir } from './cleanOutputDir';
 export {
+  extractContent,
+  extractIntlayer,
+  type PackageName,
+  transformComponent,
+  transformFiles,
+  writeContent,
+} from './compiler/index';
+export {
   createDictionaryEntryPoint,
   generateDictionaryListContent,
   getBuiltDictionariesPath,

@@ -19,6 +19,7 @@ import { push } from './push/push';
 import { pushConfig } from './pushConfig';
 import { reviewDoc } from './reviewDoc';
 import { testMissingTranslations } from './test';
+import { transform } from './transform';
 import { translateDoc } from './translateDoc';
 import { getParentPackageJSON } from './utils/getParentPackageJSON';
 import { watchContentDeclaration } from './watch';
@@ -751,6 +752,25 @@ export const setAPI = (): Command => {
       envFile: options.envFile,
     });
   });
+
+  /**
+   * TRANSFORM
+   */
+  const transformProgram = program
+    .command('transform')
+    .alias('trans')
+    .description('Transform components to use Intlayer');
+
+  transformProgram
+    .option('-f, --file [files...]', 'List of files to transform')
+    .action((options) => {
+      transform({
+        files: options.file,
+        configOptions: extractConfigOptions(options),
+      });
+    });
+
+  applyConfigOptions(transformProgram);
 
   program.parse(process.argv);
 
