@@ -1,15 +1,6 @@
 export { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 export { cleanOutputDir } from './cleanOutputDir';
 export {
-  extractContent,
-  extractDictionaryKey,
-  extractIntlayer,
-  type PackageName,
-  transformComponent,
-  transformFiles,
-  writeContent,
-} from './compiler';
-export {
   createDictionaryEntryPoint,
   generateDictionaryListContent,
   getBuiltDictionariesPath,
@@ -42,6 +33,15 @@ export {
 } from './loadDictionaries';
 export { prepareIntlayer } from './prepareIntlayer';
 export { reduceDictionaryContent } from './reduceDictionaryContent/reduceDictionaryContent';
+export {
+  extractContent,
+  extractDictionaryKey,
+  extractIntlayer,
+  type PackageName,
+  transformComponent,
+  transformFiles,
+  writeContent,
+} from './transformFiles';
 export {
   assembleJSON,
   chunkJSON,
