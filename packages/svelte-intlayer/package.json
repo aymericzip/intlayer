@@ -75,6 +75,7 @@
     "@intlayer/unmerged-dictionaries-entry": "workspace:*"
   },
   "devDependencies": {
+    "@sveltejs/adapter-auto": "^7.0.0",
     "@sveltejs/package": "^2.5.4",
     "@sveltejs/vite-plugin-svelte": "^4.0.0",
     "@types/node": "24.10.1",
