@@ -1,4 +1,6 @@
 export {
+  getDictionary,
+  getIntlayer,
   IntlayerClientContext,
   type IntlayerNode,
   localeCookie,
@@ -18,8 +20,6 @@ export {
 } from 'react-intlayer';
 export * from './client/index';
 export { generateStaticParams } from './generateStaticParams';
-export * from './getDictionary';
-export * from './getIntlayer';
 export type {
   LocalParams,
   LocalPromiseParams,
