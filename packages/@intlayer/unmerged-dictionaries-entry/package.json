@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/unmerged-dictionaries-entry",
-  "version": "7.2.2",
+  "version": "7.2.3",
   "private": false,
   "description": "Provides the entry path for Intlayer dictionaries, solving filesystem retrieval issues for bundlers like Webpack and Rollup.",
   "keywords": [
