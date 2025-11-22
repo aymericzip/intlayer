@@ -2,12 +2,13 @@ export { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictiona
 export { cleanOutputDir } from './cleanOutputDir';
 export {
   extractContent,
+  extractDictionaryKey,
   extractIntlayer,
   type PackageName,
   transformComponent,
   transformFiles,
   writeContent,
-} from './compiler/index';
+} from './compiler';
 export {
   createDictionaryEntryPoint,
   generateDictionaryListContent,

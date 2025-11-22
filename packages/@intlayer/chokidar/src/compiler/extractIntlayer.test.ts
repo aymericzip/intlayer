@@ -8,8 +8,7 @@ import {
 import { join } from 'node:path';
 import { getConfiguration } from '@intlayer/config';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { writeContentDeclaration } from '../writeContentDeclaration';
-import { extractIntlayer } from './index';
+import { extractIntlayer } from './transformFiles';
 
 // Mock dependencies
 vi.mock('@intlayer/config', async () => {
