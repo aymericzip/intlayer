@@ -557,8 +557,9 @@ export const load: Load = ({ params }) => {
 	let { children, data }: { children: Snippet, data: LayoutData } = $props();
 
 	// Inicjalizuj Intlayer z lokalizacją z trasy
-	setupIntlayer(data.locale);
-
+  $effect(() => {
+      setupIntlayer(data.locale);
+  });
 	// Użyj słownika zawartości layoutu
 	const layoutContent = useIntlayer('layout');
 </script>

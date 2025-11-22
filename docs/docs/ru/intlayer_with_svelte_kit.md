@@ -555,8 +555,9 @@ export const load: Load = ({ params }) => {
 	let { children, data }: { children: Snippet, data: LayoutData } = $props();
 
 	// Инициализация Intlayer с локалью из маршрута
-	setupIntlayer(data.locale);
-
+  $effect(() => {
+      setupIntlayer(data.locale);
+  });
 	// Использование словаря контента для layout
 	const layoutContent = useIntlayer('layout');
 </script>

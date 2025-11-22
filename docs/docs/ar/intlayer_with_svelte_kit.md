@@ -555,8 +555,9 @@ export const load: Load = ({ params }) => {
 	let { children, data }: { children: Snippet, data: LayoutData } = $props();
 
 	// تهيئة Intlayer باستخدام اللغة من المسار
-	setupIntlayer(data.locale);
-
+  $effect(() => {
+      setupIntlayer(data.locale);
+  });
 	// استخدام قاموس محتوى التخطيط
 	const layoutContent = useIntlayer('layout');
 </script>

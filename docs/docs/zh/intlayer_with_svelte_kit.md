@@ -555,8 +555,9 @@ export const load: Load = ({ params }) => {
 	let { children, data }: { children: Snippet, data: LayoutData } = $props();
 
 	// 使用路由中的 locale 初始化 Intlayer
-	setupIntlayer(data.locale);
-
+  $effect(() => {
+      setupIntlayer(data.locale);
+  });
 	// 使用布局内容字典
 	const layoutContent = useIntlayer('layout');
 </script>

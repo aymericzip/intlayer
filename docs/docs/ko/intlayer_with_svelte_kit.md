@@ -555,8 +555,9 @@ export const load: Load = ({ params }) => {
 	let { children, data }: { children: Snippet, data: LayoutData } = $props();
 
 	// 경로에서 로케일로 Intlayer 초기화
-	setupIntlayer(data.locale);
-
+  $effect(() => {
+      setupIntlayer(data.locale);
+  });
 	// 레이아웃 콘텐츠 사전 사용
 	const layoutContent = useIntlayer('layout');
 </script>

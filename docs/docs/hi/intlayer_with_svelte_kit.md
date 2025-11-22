@@ -555,8 +555,9 @@ export const load: Load = ({ params }) => {
 	let { children, data }: { children: Snippet, data: LayoutData } = $props();
 
 	// रूट से locale के साथ Intlayer को इनिशियलाइज़ करें
-	setupIntlayer(data.locale);
-
+  $effect(() => {
+      setupIntlayer(data.locale);
+  });
 	// लेआउट सामग्री शब्दकोश का उपयोग करें
 	const layoutContent = useIntlayer('layout');
 </script>
