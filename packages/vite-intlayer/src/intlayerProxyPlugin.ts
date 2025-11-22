@@ -427,7 +427,7 @@ export const intlayerProxy = (
     name: 'vite-intlayer-middleware-plugin',
     configureServer: (server) => {
       server.middlewares.use((req, res, next) => {
-        // 1. Bypass assets and special Vite endpoints
+        // Bypass assets and special Vite endpoints
         if (
           req.url?.startsWith('/node_modules') ||
           /**
@@ -453,18 +453,18 @@ export const intlayerProxy = (
           return next();
         }
 
-        // 2. Parse original URL for path and query
+        // Parse original URL for path and query
         const parsedUrl = parse(req.url ?? '/', true);
         const originalPath = parsedUrl.pathname ?? '/';
         const searchParams = parsedUrl.search ?? '';
 
-        // 3. Attempt to read the locale from storage (cookies, localStorage, etc.)
+        // Attempt to read the locale from storage (cookies, localStorage, etc.)
         const storageLocale = getStorageLocale(req);
 
-        // 4. Check if there's a locale prefix in the path
+        // Check if there's a locale prefix in the path
         const pathLocale = getPathLocale(originalPath);
 
-        // 5. If noPrefix is true, we skip prefix logic altogether
+        // If noPrefix is true, we skip prefix logic altogether
         if (noPrefix) {
           handleNoPrefix({
             req,
@@ -477,7 +477,7 @@ export const intlayerProxy = (
           return;
         }
 
-        // 6. Otherwise, handle prefix logic
+        // Otherwise, handle prefix logic
         handlePrefix({
           req,
           res,
