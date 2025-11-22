@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-01-27
+updatedAt: 2025-11-22
 title: CLI
 description: Odkryj, jak używać Intlayer CLI do zarządzania swoją wielojęzyczną stroną internetową. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: Dodaj polecenie transform
   - version: 7.1.0
     date: 2025-11-05
     changes: Dodano opcję skipIfExists do polecenia translate
@@ -428,6 +431,39 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 ```
 
 To polecenie przetłumaczy zawartość z angielskiego na francuski i hiszpański dla wszystkich plików deklaracji zawartości w katalogu `src/home/` używając modelu GPT-3.5 Turbo.
+
+### Przekształć komponenty
+
+```bash
+npx intlayer transform
+```
+
+To polecenie analizuje pliki kodu, aby pomóc w migracji istniejących komponentów do używania Intlayer. Obsługuje interaktywny wybór plików lub wskazywanie konkretnych plików.
+
+##### Aliasy:
+
+- `npx intlayer trans`
+
+##### Argumenty:
+
+**Opcje wyboru plików:**
+
+- **`-f, --file [files...]`**: Lista konkretnych plików do przekształcenia. Jeśli nie podano, CLI przeskanuje pasujące pliki (`**/*.{tsx,jsx,vue,svelte,ts,js}`) i poprosi o wybór, które przekształcić.
+
+  > Przykład: `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**Opcje wyjścia:**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: Katalog do zapisania wygenerowanych plików deklaracji zawartości.
+
+  > Przykład: `npx intlayer transform -o src/content`
+
+**Opcje konfiguracji:**
+
+- **`--base-dir`**: Określ katalog bazowy projektu.
+- **`--env`**: Określ środowisko.
+- **`--env-file`**: Podaj niestandardowy plik środowiskowy.
+- **`--verbose`**: Włącz szczegółowe logowanie.
 
 ### Testuj brakujące tłumaczenia
 

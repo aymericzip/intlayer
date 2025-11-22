@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-07-11
+updatedAt: 2025-11-22
 title: CLI
 description: Scopri come utilizzare la CLI di Intlayer per gestire il tuo sito web multilingue. Segui i passaggi in questa documentazione online per configurare il tuo progetto in pochi minuti.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: Aggiungere comando transform
   - version: 5.5.11
     date: 2025-07-11
     changes: Aggiornamento della documentazione dei parametri dei comandi CLI
@@ -306,6 +309,39 @@ Questo comando analizza i tuoi file di dichiarazione dei contenuti per individua
 ##### Esempio:
 
 Questo comando tradurrà il contenuto dall'inglese al francese e allo spagnolo per tutti i file di dichiarazione del contenuto nella directory `src/home/` utilizzando il modello GPT-3.5 Turbo.
+
+### Trasformare i componenti
+
+```bash
+npx intlayer transform
+```
+
+Questo comando analizza i tuoi file di codice per aiutare a migrare i componenti esistenti per utilizzare Intlayer. Supporta la selezione interattiva dei file o il targeting di file specifici.
+
+##### Alias:
+
+- `npx intlayer trans`
+
+##### Argomenti:
+
+**Opzioni di selezione file:**
+
+- **`-f, --file [files...]`**: Elenco di file specifici da trasformare. Se non fornito, la CLI scannerà i file corrispondenti (`**/*.{tsx,jsx,vue,svelte,ts,js}`) e ti chiederà di selezionare quali trasformare.
+
+  > Esempio: `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**Opzioni di output:**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: Directory per salvare i file di dichiarazione del contenuto generati.
+
+  > Esempio: `npx intlayer transform -o src/content`
+
+**Opzioni di configurazione:**
+
+- **`--base-dir`**: Specificare la directory base per il progetto.
+- **`--env`**: Specificare l'ambiente.
+- **`--env-file`**: Fornire un file di ambiente personalizzato.
+- **`--verbose`**: Abilitare la registrazione dettagliata.
 
 ### Gestire la Configurazione
 

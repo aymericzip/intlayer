@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-01-27
+updatedAt: 2025-11-22
 title: CLI
 description: Khám phá cách sử dụng Intlayer CLI để quản lý trang web đa ngôn ngữ của bạn. Làm theo các bước trong tài liệu trực tuyến này để thiết lập dự án của bạn trong vài phút.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: Thêm lệnh transform
   - version: 6.1.4
     date: 2025-01-27
     changes: Thêm bí danh cho các đối số và lệnh CLI
@@ -425,6 +428,39 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 ```
 
 Lệnh này sẽ dịch nội dung từ tiếng Anh sang tiếng Pháp và tiếng Tây Ban Nha cho tất cả các file khai báo nội dung trong thư mục `src/home/` sử dụng mô hình GPT-3.5 Turbo.
+
+### Chuyển đổi thành phần
+
+```bash
+npx intlayer transform
+```
+
+Lệnh này phân tích các file mã của bạn để giúp di chuyển các thành phần hiện có sang sử dụng Intlayer. Nó hỗ trợ lựa chọn file tương tác hoặc nhắm mục tiêu file cụ thể.
+
+##### Bí danh:
+
+- `npx intlayer trans`
+
+##### Đối số:
+
+**Tùy chọn lựa chọn file:**
+
+- **`-f, --file [files...]`**: Danh sách các file cụ thể cần chuyển đổi. Nếu không được cung cấp, CLI sẽ quét các file khớp (`**/*.{tsx,jsx,vue,svelte,ts,js}`) và nhắc bạn chọn file nào cần chuyển đổi.
+
+  > Ví dụ: `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**Tùy chọn đầu ra:**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: Thư mục để lưu các file khai báo nội dung đã tạo.
+
+  > Ví dụ: `npx intlayer transform -o src/content`
+
+**Tùy chọn cấu hình:**
+
+- **`--base-dir`**: Chỉ định thư mục cơ sở cho dự án.
+- **`--env`**: Chỉ định môi trường.
+- **`--env-file`**: Cung cấp file môi trường tùy chỉnh.
+- **`--verbose`**: Bật ghi log chi tiết.
 
 ### Kiểm tra bản dịch còn thiếu
 

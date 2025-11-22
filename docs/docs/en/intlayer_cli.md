@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-01-27
+updatedAt: 2025-11-22
 title: CLI
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: Add transform command
   - version: 7.1.0
     date: 2025-11-05
     changes: Add skipIfExists option to translate command
@@ -429,6 +432,39 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 
 This command will translate content from English to French and Spanish for all content declaration files in the `src/home/` directory using the GPT-3.5 Turbo model.
 
+### Transform components
+
+```bash
+npx intlayer transform
+```
+
+This command analyzes your code files to help migrate existing components to use Intlayer. It supports interactive file selection or specific file targeting.
+
+##### Aliases:
+
+- `npx intlayer trans`
+
+##### Arguments:
+
+**File selection options:**
+
+- **`-f, --file [files...]`**: List of specific files to transform. If not provided, the CLI will scan for matching files (`**/*.{tsx,jsx,vue,svelte,ts,js}`) and prompt you to select which ones to transform.
+
+  > Example: `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**Output options:**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: Directory to save the generated content declaration files.
+
+  > Example: `npx intlayer transform -o src/content`
+
+**Configuration options:**
+
+- **`--base-dir`**: Specify the base directory for the project.
+- **`--env`**: Specify the environment.
+- **`--env-file`**: Provide a custom environment file.
+- **`--verbose`**: Enable verbose logging.
+
 ### Test missing translations
 
 ```bash
@@ -730,6 +766,7 @@ If you activated one of the git options, the command will only review the part o
   "intlayer:fill": "npx intlayer fill",
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
+  "intlayer:transform": "npx intlayer transform",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -806,6 +843,7 @@ import {
   testMissingTranslations,
   docTranslate,
   docReview,
+  transform,
 } from "@intlayer/cli";
 
 push();
@@ -823,6 +861,8 @@ testMissingTranslations();
 docTranslate();
 // ...
 docReview();
+// ...
+transform();
 // ...
 ```
 

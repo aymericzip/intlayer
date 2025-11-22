@@ -13,6 +13,7 @@ import fg from 'fast-glob';
 
 type TransformOptions = {
   files?: string[];
+  outputContentDeclarations?: string;
   configOptions?: GetConfigurationOptions;
 };
 
@@ -139,5 +140,6 @@ export const transform = async (options: TransformOptions) => {
 
   await transformFiles(absoluteFiles, packageName, {
     configOptions: options.configOptions,
+    outputDir: options.outputContentDeclarations,
   });
 };

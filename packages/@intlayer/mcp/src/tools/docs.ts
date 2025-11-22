@@ -13,10 +13,13 @@ type LoadDocsTools = (server: McpServer) => Promise<void>;
 export const loadDocsTools: LoadDocsTools = async (server) => {
   const docsKeys = getDocsKeys();
 
-  server.tool(
+  server.registerTool(
     'get-doc-list',
-    'Get the list of docs names and their metadata to get more details about what doc to retrieve',
-    {},
+    {
+      description:
+        'Get the list of docs names and their metadata to get more details about what doc to retrieve',
+      inputSchema: {},
+    },
     async () => {
       try {
         const docsMetadataRecord = await getDocMetadataRecord();
@@ -41,11 +44,14 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
     }
   );
 
-  server.tool(
+  server.registerTool(
     'get-doc',
-    'Get a doc by his key. Example: `./docs/en/getting-started.md`. List all docs metadata first to get more details about what doc key to retrieve.',
     {
-      docKey: z.enum(docsKeys as [string, ...string[]]),
+      description:
+        'Get a doc by his key. Example: `./docs/en/getting-started.md`. List all docs metadata first to get more details about what doc key to retrieve.',
+      inputSchema: {
+        docKey: z.enum(docsKeys as [string, ...string[]]),
+      },
     },
     async ({ docKey }) => {
       try {
@@ -63,23 +69,25 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
     }
   );
 
-  server.tool(
+  server.registerTool(
     'get-doc-by-slug',
-    'Get an array of docs by their slugs. If not slug is provided, return all docs (1.2Mb). List all docs metadata first to get more details about what doc to retrieve.',
     {
-      slug: z
-        .union([z.string(), z.array(z.string())])
-        .optional()
-        .describe(
-          'Slug of the docs. If not provided, return all docs. If not provided, return all docs.'
-        ),
-      strict: z
-        .boolean()
-        .optional()
-        .describe(
-          'Strict mode - only return docs that match all slugs, by excluding additional slugs'
-        ),
-      description: 'Get an array of docs by their slugs',
+      description:
+        'Get an array of docs by their slugs. If not slug is provided, return all docs (1.2Mb). List all docs metadata first to get more details about what doc to retrieve.',
+      inputSchema: {
+        slug: z
+          .union([z.string(), z.array(z.string())])
+          .optional()
+          .describe(
+            'Slug of the docs. If not provided, return all docs. If not provided, return all docs.'
+          ),
+        strict: z
+          .boolean()
+          .optional()
+          .describe(
+            'Strict mode - only return docs that match all slugs, by excluding additional slugs'
+          ),
+      },
     },
     async ({ slug, strict }) => {
       try {

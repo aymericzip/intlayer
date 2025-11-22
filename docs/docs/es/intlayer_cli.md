@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-07-11
+updatedAt: 2025-11-22
 title: CLI
 description: Descubre cómo usar el CLI de Intlayer para gestionar tu sitio web multilingüe. Sigue los pasos en esta documentación en línea para configurar tu proyecto en pocos minutos.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: Agregar comando transform
   - version: 5.5.11
     date: 2025-07-11
     changes: Actualización de la documentación de parámetros de comandos CLI
@@ -310,6 +313,39 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 ```
 
 Este comando traducirá el contenido del inglés al francés y español para todos los archivos de declaración de contenido en el directorio `src/home/` usando el modelo GPT-3.5 Turbo.
+
+### Transformar componentes
+
+```bash
+npx intlayer transform
+```
+
+Este comando analiza tus archivos de código para ayudar a migrar componentes existentes para usar Intlayer. Admite selección interactiva de archivos o apuntar a archivos específicos.
+
+##### Alias:
+
+- `npx intlayer trans`
+
+##### Argumentos:
+
+**Opciones de selección de archivos:**
+
+- **`-f, --file [files...]`**: Lista de archivos específicos a transformar. Si no se proporciona, el CLI escaneará archivos coincidentes (`**/*.{tsx,jsx,vue,svelte,ts,js}`) y te pedirá que selecciones cuáles transformar.
+
+  > Ejemplo: `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**Opciones de salida:**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: Directorio para guardar los archivos de declaración de contenido generados.
+
+  > Ejemplo: `npx intlayer transform -o src/content`
+
+**Opciones de configuración:**
+
+- **`--base-dir`**: Especificar el directorio base para el proyecto.
+- **`--env`**: Especificar el entorno.
+- **`--env-file`**: Proporcionar un archivo de entorno personalizado.
+- **`--verbose`**: Habilitar el registro detallado.
 
 ### Gestionar Configuración
 

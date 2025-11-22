@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-07-11
+updatedAt: 2025-11-22
 title: CLI
 description: Entdecken Sie, wie Sie die Intlayer CLI verwenden, um Ihre mehrsprachige Website zu verwalten. Folgen Sie den Schritten in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: Transform-Befehl hinzufügen
   - version: 5.5.11
     date: 2025-07-11
     changes: Aktualisierung der Dokumentation zu CLI-Befehlsparametern
@@ -311,6 +314,39 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 ```
 
 Dieser Befehl übersetzt Inhalte von Englisch ins Französische und Spanische für alle Inhaltsdeklarationsdateien im Verzeichnis `src/home/` unter Verwendung des GPT-3.5 Turbo Modells.
+
+### Komponenten transformieren
+
+```bash
+npx intlayer transform
+```
+
+Dieser Befehl analysiert Ihre Codedateien, um bei der Migration bestehender Komponenten zur Verwendung von Intlayer zu helfen. Er unterstützt interaktive Dateiauswahl oder das Anvisieren spezifischer Dateien.
+
+##### Aliase:
+
+- `npx intlayer trans`
+
+##### Argumente:
+
+**Dateiauswahl-Optionen:**
+
+- **`-f, --file [files...]`**: Liste spezifischer Dateien, die transformiert werden sollen. Wenn nicht angegeben, scannt die CLI nach passenden Dateien (`**/*.{tsx,jsx,vue,svelte,ts,js}`) und fordert Sie auf, auszuwählen, welche transformiert werden sollen.
+
+  > Beispiel: `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**Ausgabeoptionen:**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: Verzeichnis zum Speichern der generierten Content-Deklarationsdateien.
+
+  > Beispiel: `npx intlayer transform -o src/content`
+
+**Konfigurationsoptionen:**
+
+- **`--base-dir`**: Geben Sie das Basisverzeichnis für das Projekt an.
+- **`--env`**: Geben Sie die Umgebung an.
+- **`--env-file`**: Geben Sie eine benutzerdefinierte Umgebungsdatei an.
+- **`--verbose`**: Aktivieren Sie ausführliche Protokollierung.
 
 ### Konfiguration verwalten
 

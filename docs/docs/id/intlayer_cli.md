@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-01-27
+updatedAt: 2025-11-22
 title: CLI
 description: Temukan cara menggunakan Intlayer CLI untuk mengelola situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi daring ini untuk mengatur proyek Anda dalam beberapa menit.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: Tambahkan perintah transform
   - version: 6.1.4
     date: 2025-01-27
     changes: Menambahkan alias untuk argumen dan perintah CLI
@@ -425,6 +428,39 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 ```
 
 Perintah ini akan menerjemahkan konten dari bahasa Inggris ke bahasa Perancis dan Spanyol untuk semua file deklarasi konten di direktori `src/home/` menggunakan model GPT-3.5 Turbo.
+
+### Transformasi komponen
+
+```bash
+npx intlayer transform
+```
+
+Perintah ini menganalisis file kode Anda untuk membantu memigrasikan komponen yang ada untuk menggunakan Intlayer. Ini mendukung pemilihan file interaktif atau menargetkan file tertentu.
+
+##### Alias:
+
+- `npx intlayer trans`
+
+##### Argumen:
+
+**Opsi pemilihan file:**
+
+- **`-f, --file [files...]`**: Daftar file tertentu untuk ditransformasi. Jika tidak disediakan, CLI akan memindai file yang cocok (`**/*.{tsx,jsx,vue,svelte,ts,js}`) dan meminta Anda untuk memilih mana yang akan ditransformasi.
+
+  > Contoh: `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**Opsi output:**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: Direktori untuk menyimpan file deklarasi konten yang dihasilkan.
+
+  > Contoh: `npx intlayer transform -o src/content`
+
+**Opsi konfigurasi:**
+
+- **`--base-dir`**: Tentukan direktori dasar untuk proyek.
+- **`--env`**: Tentukan lingkungan.
+- **`--env-file`**: Berikan file lingkungan khusus.
+- **`--verbose`**: Aktifkan logging verbose.
 
 ### Uji terjemahan yang hilang
 

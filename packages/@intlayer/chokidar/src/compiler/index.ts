@@ -1,5 +1,5 @@
 import { execSync } from 'node:child_process';
-import { basename, dirname, extname, join, relative } from 'node:path';
+import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 import {
   camelCaseToKebabCase,
   colorizePath,
@@ -168,12 +168,13 @@ export const writeContent = async (
   extractedContent: Record<string, string>,
   componentKey: string,
   filePath: string,
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  outputDir?: string
 ) => {
   const { defaultLocale } = configuration.internationalization;
   const { baseDir } = configuration.content;
 
-  const dirName = dirname(filePath);
+  const dirName = outputDir ? resolve(outputDir) : dirname(filePath);
   const ext = extname(filePath);
   const baseName = basename(filePath, ext);
 
@@ -343,6 +344,7 @@ export const transformComponent = async (
 
 type ExtractIntlayer = {
   configOptions?: GetConfigurationOptions;
+  outputDir?: string;
 };
 
 export type PackageName =
@@ -352,7 +354,8 @@ export type PackageName =
   | 'preact-intlayer'
   | 'solid-intlayer'
   | 'angular-intlayer'
-  | 'svelte-intlayer';
+  | 'svelte-intlayer'
+  | 'express-intlayer';
 
 export const extractIntlayer = async (
   filePath: string,
@@ -399,7 +402,8 @@ export const extractIntlayer = async (
     extractedContent,
     componentKey,
     filePath,
-    configuration
+    configuration,
+    options?.outputDir
   );
   const relativeContentFilePath = relative(
     configuration.content.baseDir,

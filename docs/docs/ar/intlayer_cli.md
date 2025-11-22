@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-07-11
+updatedAt: 2025-11-22
 title: CLI
 description: اكتشف كيفية استخدام واجهة الأوامر الخاصة بـ Intlayer لإدارة موقعك متعدد اللغات. اتبع الخطوات في هذه الوثائق عبر الإنترنت لإعداد مشروعك في دقائق قليلة.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: إضافة أمر transform
   - version: 5.5.11
     date: 2025-07-11
     changes: تحديث توثيق معلمات أوامر CLI
@@ -310,6 +313,39 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 ```
 
 سيقوم هذا الأمر بترجمة المحتوى من الإنجليزية إلى الفرنسية والإسبانية لجميع ملفات إعلان المحتوى في دليل `src/home/` باستخدام نموذج GPT-3.5 Turbo.
+
+### تحويل المكونات
+
+```bash
+npx intlayer transform
+```
+
+يقوم هذا الأمر بتحليل ملفات الكود الخاصة بك للمساعدة في ترحيل المكونات الموجودة لاستخدام Intlayer. يدعم اختيار الملفات التفاعلي أو استهداف ملفات محددة.
+
+##### الأسماء المستعارة:
+
+- `npx intlayer trans`
+
+##### الوسائط:
+
+**خيارات اختيار الملفات:**
+
+- **`-f, --file [files...]`**: قائمة بالملفات المحددة للتحويل. إذا لم يتم توفيرها، سيقوم CLI بفحص الملفات المطابقة (`**/*.{tsx,jsx,vue,svelte,ts,js}`) وسيطالبك باختيار الملفات المراد تحويلها.
+
+  > مثال: `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**خيارات الإخراج:**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: الدليل لحفظ ملفات إعلان المحتوى المُنشأة.
+
+  > مثال: `npx intlayer transform -o src/content`
+
+**خيارات التكوين:**
+
+- **`--base-dir`**: تحديد الدليل الأساسي للمشروع.
+- **`--env`**: تحديد البيئة.
+- **`--env-file`**: توفير ملف بيئة مخصص.
+- **`--verbose`**: تفعيل التسجيل المفصل.
 
 ### إدارة التكوين
 

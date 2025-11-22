@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-07-11
+updatedAt: 2025-11-22
 title: CLI
 description: Découvrez comment utiliser le CLI Intlayer pour gérer votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: Ajouter la commande transform
   - version: 5.5.11
     date: 2025-07-11
     changes: Mise à jour de la documentation des paramètres des commandes CLI
@@ -310,6 +313,39 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 ```
 
 Cette commande traduira le contenu de l'anglais vers le français et l'espagnol pour tous les fichiers de déclaration de contenu dans le répertoire `src/home/` en utilisant le modèle GPT-3.5 Turbo.
+
+### Transformer les composants
+
+```bash
+npx intlayer transform
+```
+
+Cette commande analyse vos fichiers de code pour aider à migrer les composants existants vers l'utilisation d'Intlayer. Elle prend en charge la sélection interactive de fichiers ou le ciblage de fichiers spécifiques.
+
+##### Alias :
+
+- `npx intlayer trans`
+
+##### Arguments :
+
+**Options de sélection de fichiers :**
+
+- **`-f, --file [files...]`** : Liste de fichiers spécifiques à transformer. Si non fourni, le CLI scannera les fichiers correspondants (`**/*.{tsx,jsx,vue,svelte,ts,js}`) et vous invitera à sélectionner ceux à transformer.
+
+  > Exemple : `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**Options de sortie :**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`** : Répertoire pour enregistrer les fichiers de déclaration de contenu générés.
+
+  > Exemple : `npx intlayer transform -o src/content`
+
+**Options de configuration :**
+
+- **`--base-dir`** : Spécifier le répertoire de base pour le projet.
+- **`--env`** : Spécifier l'environnement.
+- **`--env-file`** : Fournir un fichier d'environnement personnalisé.
+- **`--verbose`** : Activer la journalisation détaillée.
 
 ### Gérer la configuration
 

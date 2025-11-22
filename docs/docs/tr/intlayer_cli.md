@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2025-11-22
 title: CLI
 description: Çok dilli web sitenizi yönetmek için Intlayer CLI'yi nasıl kullanacağınızı keşfedin. Bu çevrimiçi dokümantasyondaki adımları takip ederek projenizi birkaç dakikada kurun.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: transform komutu ekle
   - version: 5.5.11
     date: 2025-07-11
     changes: CLI komut parametreleri dokümantasyonunu güncelle
@@ -310,6 +313,39 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 ```
 
 Bu komut `src/home/` dizinindeki tüm içerik bildirim dosyaları için içeriği İngilizce'den Fransızca ve İspanyolca'ya GPT-3.5 Turbo modeli kullanarak çevirecektir.
+
+### Bileşenleri dönüştür
+
+```bash
+npx intlayer transform
+```
+
+Bu komut, mevcut bileşenleri Intlayer kullanmaya geçirmeye yardımcı olmak için kod dosyalarınızı analiz eder. İnteraktif dosya seçimi veya belirli dosya hedefleme desteği sağlar.
+
+##### Takma adlar:
+
+- `npx intlayer trans`
+
+##### Argümanlar:
+
+**Dosya seçim seçenekleri:**
+
+- **`-f, --file [files...]`**: Dönüştürülecek belirli dosyaların listesi. Sağlanmazsa, CLI eşleşen dosyaları (`**/*.{tsx,jsx,vue,svelte,ts,js}`) tarayacak ve hangilerini dönüştüreceğinizi seçmenizi isteyecektir.
+
+  > Örnek: `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**Çıktı seçenekleri:**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: Oluşturulan içerik bildirim dosyalarını kaydetmek için dizin.
+
+  > Örnek: `npx intlayer transform -o src/content`
+
+**Yapılandırma seçenekleri:**
+
+- **`--base-dir`**: Proje için temel dizini belirtin.
+- **`--env`**: Ortamı belirtin.
+- **`--env-file`**: Özel bir ortam dosyası sağlayın.
+- **`--verbose`**: Ayrıntılı günlüğe kaydetmeyi etkinleştirin.
 
 ### Konfigürasyonu Yönetin
 

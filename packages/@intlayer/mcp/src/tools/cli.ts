@@ -5,6 +5,7 @@ import {
   listMissingTranslations,
   pull,
   push,
+  transform,
 } from '@intlayer/cli';
 import { Locales, type LogConfig } from '@intlayer/types';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
@@ -13,16 +14,19 @@ import z from 'zod/v3';
 type LoadCLITools = (server: McpServer) => Promise<void>;
 
 export const loadCLITools: LoadCLITools = async (server) => {
-  server.tool(
+  server.registerTool(
     'intlayer-build',
-    'Build the dictionaries. List all content declarations files `.content.{ts,tsx,js,json,...}` to update the content callable using the `useIntlayer` hook.',
     {
-      watch: z.boolean().optional().describe('Watch for changes'),
-      baseDir: z.string().optional().describe('Base directory'),
-      env: z.string().optional().describe('Environment'),
-      envFile: z.string().optional().describe('Environment file'),
-      verbose: z.boolean().optional().describe('Verbose output'),
-      prefix: z.string().optional().describe('Log prefix'),
+      description:
+        'Build the dictionaries. List all content declarations files `.content.{ts,tsx,js,json,...}` to update the content callable using the `useIntlayer` hook.',
+      inputSchema: {
+        watch: z.boolean().optional().describe('Watch for changes'),
+        baseDir: z.string().optional().describe('Base directory'),
+        env: z.string().optional().describe('Environment'),
+        envFile: z.string().optional().describe('Environment file'),
+        verbose: z.boolean().optional().describe('Verbose output'),
+        prefix: z.string().optional().describe('Log prefix'),
+      },
     },
     async ({ watch, baseDir, env, envFile, verbose, prefix }) => {
       try {
@@ -69,60 +73,63 @@ export const loadCLITools: LoadCLITools = async (server) => {
     }
   );
 
-  server.tool(
+  server.registerTool(
     'intlayer-fill',
-    'Fill the dictionaries with missing translations / review translations using Intlayer servers',
     {
-      sourceLocale: z
-        .nativeEnum(Locales.ALL_LOCALES)
-        .optional()
-        .describe('Source locale'),
-      outputLocales: z
-        .union([
-          z.nativeEnum(Locales.ALL_LOCALES),
-          z.array(z.nativeEnum(Locales.ALL_LOCALES)),
-        ])
-        .optional()
-        .describe('Output locales'),
-      file: z
-        .union([z.string(), z.array(z.string())])
-        .optional()
-        .describe('File path'),
-      mode: z.enum(['complete', 'review']).optional().describe('Fill mode'),
-      keys: z
-        .union([z.string(), z.array(z.string())])
-        .optional()
-        .describe('Keys to include'),
-      excludedKeys: z
-        .union([z.string(), z.array(z.string())])
-        .optional()
-        .describe('Keys to exclude'),
-      pathFilter: z
-        .union([z.string(), z.array(z.string())])
-        .optional()
-        .describe('Path filter'),
-      gitOptions: z
-        .object({
-          gitDiff: z.boolean().optional(),
-          gitDiffBase: z.string().optional(),
-          gitDiffCurrent: z.string().optional(),
-          uncommitted: z.boolean().optional(),
-          unpushed: z.boolean().optional(),
-          untracked: z.boolean().optional(),
-        })
-        .optional()
-        .describe('Git options'),
-      aiOptions: z
-        .object({
-          provider: z.string().optional(),
-          temperature: z.number().optional(),
-          model: z.string().optional(),
-          apiKey: z.string().optional(),
-          customPrompt: z.string().optional(),
-          applicationContext: z.string().optional(),
-        })
-        .optional()
-        .describe('AI options'),
+      description:
+        'Fill the dictionaries with missing translations / review translations using Intlayer servers',
+      inputSchema: {
+        sourceLocale: z
+          .nativeEnum(Locales.ALL_LOCALES)
+          .optional()
+          .describe('Source locale'),
+        outputLocales: z
+          .union([
+            z.nativeEnum(Locales.ALL_LOCALES),
+            z.array(z.nativeEnum(Locales.ALL_LOCALES)),
+          ])
+          .optional()
+          .describe('Output locales'),
+        file: z
+          .union([z.string(), z.array(z.string())])
+          .optional()
+          .describe('File path'),
+        mode: z.enum(['complete', 'review']).optional().describe('Fill mode'),
+        keys: z
+          .union([z.string(), z.array(z.string())])
+          .optional()
+          .describe('Keys to include'),
+        excludedKeys: z
+          .union([z.string(), z.array(z.string())])
+          .optional()
+          .describe('Keys to exclude'),
+        pathFilter: z
+          .union([z.string(), z.array(z.string())])
+          .optional()
+          .describe('Path filter'),
+        gitOptions: z
+          .object({
+            gitDiff: z.boolean().optional(),
+            gitDiffBase: z.string().optional(),
+            gitDiffCurrent: z.string().optional(),
+            uncommitted: z.boolean().optional(),
+            unpushed: z.boolean().optional(),
+            untracked: z.boolean().optional(),
+          })
+          .optional()
+          .describe('Git options'),
+        aiOptions: z
+          .object({
+            provider: z.string().optional(),
+            temperature: z.number().optional(),
+            model: z.string().optional(),
+            apiKey: z.string().optional(),
+            customPrompt: z.string().optional(),
+            applicationContext: z.string().optional(),
+          })
+          .optional()
+          .describe('AI options'),
+      },
     },
     async (props) => {
       try {
@@ -166,33 +173,35 @@ export const loadCLITools: LoadCLITools = async (server) => {
     }
   );
 
-  server.tool(
+  server.registerTool(
     'intlayer-push',
-    'Push local dictionaries to the server',
     {
-      deleteLocaleDictionary: z
-        .boolean()
-        .optional()
-        .describe('Delete local dictionary after push'),
-      keepLocaleDictionary: z
-        .boolean()
-        .optional()
-        .describe('Keep local dictionary after push'),
-      dictionaries: z
-        .array(z.string())
-        .optional()
-        .describe('List of dictionaries to push'),
-      gitOptions: z
-        .object({
-          gitDiff: z.boolean().optional(),
-          gitDiffBase: z.string().optional(),
-          gitDiffCurrent: z.string().optional(),
-          uncommitted: z.boolean().optional(),
-          unpushed: z.boolean().optional(),
-          untracked: z.boolean().optional(),
-        })
-        .optional()
-        .describe('Git options'),
+      description: 'Push local dictionaries to the server',
+      inputSchema: {
+        deleteLocaleDictionary: z
+          .boolean()
+          .optional()
+          .describe('Delete local dictionary after push'),
+        keepLocaleDictionary: z
+          .boolean()
+          .optional()
+          .describe('Keep local dictionary after push'),
+        dictionaries: z
+          .array(z.string())
+          .optional()
+          .describe('List of dictionaries to push'),
+        gitOptions: z
+          .object({
+            gitDiff: z.boolean().optional(),
+            gitDiffBase: z.string().optional(),
+            gitDiffCurrent: z.string().optional(),
+            uncommitted: z.boolean().optional(),
+            unpushed: z.boolean().optional(),
+            untracked: z.boolean().optional(),
+          })
+          .optional()
+          .describe('Git options'),
+      },
     },
     async (props) => {
       try {
@@ -236,18 +245,20 @@ export const loadCLITools: LoadCLITools = async (server) => {
     }
   );
 
-  server.tool(
+  server.registerTool(
     'intlayer-pull',
-    'Pull dictionaries from the CMS',
     {
-      dictionaries: z
-        .array(z.string())
-        .optional()
-        .describe('List of dictionaries to pull'),
-      newDictionariesPath: z
-        .string()
-        .optional()
-        .describe('Path to save new dictionaries'),
+      description: 'Pull dictionaries from the CMS',
+      inputSchema: {
+        dictionaries: z
+          .array(z.string())
+          .optional()
+          .describe('List of dictionaries to pull'),
+        newDictionariesPath: z
+          .string()
+          .optional()
+          .describe('Path to save new dictionaries'),
+      },
     },
     async (props) => {
       try {
@@ -276,28 +287,31 @@ export const loadCLITools: LoadCLITools = async (server) => {
     }
   );
 
-  server.tool(
+  server.registerTool(
     'intlayer-content-list',
-    'List the content declaration (.content.{ts,tsx,js,json,...}) files present in the project. That files contain the multilingual content of the application and are used to build the dictionaries.',
     {
-      configOptions: z
-        .object({
-          baseDir: z.string().optional(),
-          env: z.string().optional(),
-          envFile: z.string().optional(),
-          override: z
-            .object({
-              log: z
-                .object({
-                  prefix: z.string().optional(),
-                  verbose: z.boolean().optional(),
-                })
-                .optional(),
-            })
-            .optional(),
-        })
-        .optional()
-        .describe('Configuration options'),
+      description:
+        'List the content declaration (.content.{ts,tsx,js,json,...}) files present in the project. That files contain the multilingual content of the application and are used to build the dictionaries.',
+      inputSchema: {
+        configOptions: z
+          .object({
+            baseDir: z.string().optional(),
+            env: z.string().optional(),
+            envFile: z.string().optional(),
+            override: z
+              .object({
+                log: z
+                  .object({
+                    prefix: z.string().optional(),
+                    verbose: z.boolean().optional(),
+                  })
+                  .optional(),
+              })
+              .optional(),
+          })
+          .optional()
+          .describe('Configuration options'),
+      },
     },
     async (props) => {
       try {
@@ -325,28 +339,31 @@ export const loadCLITools: LoadCLITools = async (server) => {
     }
   );
 
-  server.tool(
+  server.registerTool(
     'intlayer-content-test',
-    'Test if there are missing translations in the content declaration files. That files contain the multilingual content of the application and are used to build the dictionaries.',
     {
-      configOptions: z
-        .object({
-          baseDir: z.string().optional(),
-          env: z.string().optional(),
-          envFile: z.string().optional(),
-          override: z
-            .object({
-              log: z
-                .object({
-                  prefix: z.string().optional(),
-                  verbose: z.boolean().optional(),
-                })
-                .optional(),
-            })
-            .optional(),
-        })
-        .optional()
-        .describe('Configuration options'),
+      description:
+        'Test if there are missing translations in the content declaration files. That files contain the multilingual content of the application and are used to build the dictionaries.',
+      inputSchema: {
+        configOptions: z
+          .object({
+            baseDir: z.string().optional(),
+            env: z.string().optional(),
+            envFile: z.string().optional(),
+            override: z
+              .object({
+                log: z
+                  .object({
+                    prefix: z.string().optional(),
+                    verbose: z.boolean().optional(),
+                  })
+                  .optional(),
+              })
+              .optional(),
+          })
+          .optional()
+          .describe('Configuration options'),
+      },
     },
     async (props) => {
       try {
@@ -369,6 +386,75 @@ export const loadCLITools: LoadCLITools = async (server) => {
             {
               type: 'text',
               text: `Content test failed: ${errorMessage}`,
+            },
+          ],
+        };
+      }
+    }
+  );
+
+  server.registerTool(
+    'intlayer-transform',
+    {
+      description:
+        'Transform an existing component to use Intlayer. Trigger this action to transform an existing component to be multilingual. If the component does not exist, create a normal React component including text in JSX, and then trigger this tool to transform it.',
+      inputSchema: {
+        file: z
+          .union([z.string(), z.array(z.string())])
+          .optional()
+          .describe('List of files to transform'),
+        outputContentDeclarations: z
+          .string()
+          .optional()
+          .describe('Path to output content declaration files'),
+        configOptions: z
+          .object({
+            baseDir: z.string().optional(),
+            env: z.string().optional(),
+            envFile: z.string().optional(),
+            override: z
+              .object({
+                log: z
+                  .object({
+                    prefix: z.string().optional(),
+                    verbose: z.boolean().optional(),
+                  })
+                  .optional(),
+              })
+              .optional(),
+          })
+          .optional()
+          .describe('Configuration options'),
+      },
+    },
+    async (props) => {
+      try {
+        await transform({
+          files: Array.isArray(props.file)
+            ? props.file
+            : props.file
+              ? [props.file]
+              : undefined,
+          outputContentDeclarations: props.outputContentDeclarations,
+          configOptions: props.configOptions,
+        });
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: 'Transform successful.',
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Transform failed: ${errorMessage}`,
             },
           ],
         };

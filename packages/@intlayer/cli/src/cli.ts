@@ -763,9 +763,14 @@ export const setAPI = (): Command => {
 
   transformProgram
     .option('-f, --file [files...]', 'List of files to transform')
+    .option(
+      '-o, --output-content-declarations [outputContentDeclarations]',
+      'Path to output content declaration files'
+    )
     .action((options) => {
       transform({
         files: options.file,
+        outputContentDeclarations: options.outputContentDeclarations,
         configOptions: extractConfigOptions(options),
       });
     });

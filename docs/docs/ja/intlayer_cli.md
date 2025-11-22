@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-07-11
+updatedAt: 2025-11-22
 title: CLI
 description: Intlayer CLIを使用して多言語ウェブサイトを管理する方法をご紹介します。このオンラインドキュメントの手順に従って、数分でプロジェクトをセットアップしましょう。
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: transformコマンドを追加
   - version: 5.5.11
     date: 2025-07-11
     changes: CLIコマンドパラメータのドキュメントを更新
@@ -312,6 +315,39 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 ```
 
 このコマンドは、`src/home/` ディレクトリ内のすべてのコンテンツ宣言ファイルに対して、GPT-3.5 Turboモデルを使用して英語からフランス語およびスペイン語への翻訳を行います。
+
+### コンポーネントの変換
+
+```bash
+npx intlayer transform
+```
+
+このコマンドは、既存のコンポーネントをIntlayerを使用するように移行するために、コードファイルを分析します。対話的なファイル選択または特定のファイルのターゲット指定をサポートします。
+
+##### エイリアス：
+
+- `npx intlayer trans`
+
+##### 引数：
+
+**ファイル選択オプション：**
+
+- **`-f, --file [files...]`**: 変換する特定のファイルのリスト。指定しない場合、CLIは一致するファイル（`**/*.{tsx,jsx,vue,svelte,ts,js}`）をスキャンし、変換するファイルを選択するよう促します。
+
+  > 例: `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**出力オプション：**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: 生成されたコンテンツ宣言ファイルを保存するディレクトリ。
+
+  > 例: `npx intlayer transform -o src/content`
+
+**設定オプション：**
+
+- **`--base-dir`**: プロジェクトのベースディレクトリを指定します。
+- **`--env`**: 環境を指定します。
+- **`--env-file`**: カスタム環境ファイルを提供します。
+- **`--verbose`**: 詳細なログ出力を有効にします。
 
 ### 設定の管理
 

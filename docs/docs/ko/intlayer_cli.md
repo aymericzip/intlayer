@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-07-11
+updatedAt: 2025-11-22
 title: CLI
 description: Intlayer CLI를 사용하여 다국어 웹사이트를 관리하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 만에 프로젝트를 설정할 수 있습니다.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: transform 명령어 추가
   - version: 5.5.11
     date: 2025-07-11
     changes: CLI 명령어 매개변수 문서 업데이트
@@ -310,6 +313,39 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 ```
 
 이 명령어는 `src/home/` 디렉토리에 있는 모든 콘텐츠 선언 파일을 대상으로 GPT-3.5 Turbo 모델을 사용하여 영어에서 프랑스어와 스페인어로 콘텐츠를 번역합니다.
+
+### 컴포넌트 변환
+
+```bash
+npx intlayer transform
+```
+
+이 명령어는 기존 컴포넌트를 Intlayer를 사용하도록 마이그레이션하는 데 도움을 주기 위해 코드 파일을 분석합니다. 대화형 파일 선택 또는 특정 파일 타겟팅을 지원합니다.
+
+##### 별칭:
+
+- `npx intlayer trans`
+
+##### 인수:
+
+**파일 선택 옵션:**
+
+- **`-f, --file [files...]`**: 변환할 특정 파일 목록. 제공되지 않으면 CLI가 일치하는 파일(`**/*.{tsx,jsx,vue,svelte,ts,js}`)을 스캔하고 변환할 파일을 선택하도록 요청합니다.
+
+  > 예시: `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**출력 옵션:**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: 생성된 콘텐츠 선언 파일을 저장할 디렉토리.
+
+  > 예시: `npx intlayer transform -o src/content`
+
+**구성 옵션:**
+
+- **`--base-dir`**: 프로젝트의 기본 디렉토리를 지정합니다.
+- **`--env`**: 환경을 지정합니다.
+- **`--env-file`**: 사용자 정의 환경 파일을 제공합니다.
+- **`--verbose`**: 상세한 로깅을 활성화합니다.
 
 ### 구성 관리
 

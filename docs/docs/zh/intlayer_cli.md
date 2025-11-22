@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-07-11
+updatedAt: 2025-11-22
 title: CLI
 description: 了解如何使用 Intlayer CLI 来管理您的多语言网站。按照本在线文档中的步骤，几分钟内即可设置您的项目。
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.2.3
+    date: 2025-11-22
+    changes: 添加 transform 命令
   - version: 5.5.11
     date: 2025-07-11
     changes: 更新 CLI 命令参数文档
@@ -309,6 +312,39 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 ```
 
 此命令将使用 GPT-3.5 Turbo 模型，将 `src/home/` 目录下所有内容声明文件的内容从英语翻译成法语和西班牙语。
+
+### 转换组件
+
+```bash
+npx intlayer transform
+```
+
+此命令分析您的代码文件，以帮助将现有组件迁移到使用 Intlayer。它支持交互式文件选择或指定特定文件。
+
+##### 别名：
+
+- `npx intlayer trans`
+
+##### 参数：
+
+**文件选择选项：**
+
+- **`-f, --file [files...]`**: 要转换的特定文件列表。如果未提供，CLI 将扫描匹配的文件（`**/*.{tsx,jsx,vue,svelte,ts,js}`）并提示您选择要转换的文件。
+
+  > 示例: `npx intlayer transform -f src/components/MyComponent.tsx`
+
+**输出选项：**
+
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: 保存生成的内容声明文件的目录。
+
+  > 示例: `npx intlayer transform -o src/content`
+
+**配置选项：**
+
+- **`--base-dir`**: 指定项目的基础目录。
+- **`--env`**: 指定环境。
+- **`--env-file`**: 提供自定义环境文件。
+- **`--verbose`**: 启用详细日志记录。
 
 ### 管理配置
 

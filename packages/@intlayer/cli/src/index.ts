@@ -10,4 +10,5 @@ export * from './push/push';
 export * from './pushConfig';
 export * from './reviewDoc';
 export * from './test';
+export * from './transform';
 export * from './translateDoc';
