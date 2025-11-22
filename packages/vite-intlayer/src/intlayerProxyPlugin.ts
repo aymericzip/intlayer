@@ -14,6 +14,23 @@ import type { Locale } from '@intlayer/types';
 /* @ts-ignore - Vite types error */
 import type { Connect, Plugin } from 'vite';
 
+type IntlayerProxyPluginOptions = {
+  /**
+   * A function that allows you to ignore specific requests from the intlayer proxy.
+   *
+   * @example
+   * ```ts
+   * export default defineConfig({
+   *   plugins: [ intlayerProxyPlugin({ ignore: (req) => req.url?.startsWith('/api') }) ],
+   * });
+   * ```
+   *
+   * @param req - The incoming request.
+   * @returns A boolean value indicating whether to ignore the request.
+   */
+  ignore?: (req: IncomingMessage) => boolean;
+};
+
 /**
  *
  * A Vite plugin that integrates a logic similar to the Next.js intlayer middleware.
@@ -24,7 +41,8 @@ import type { Connect, Plugin } from 'vite';
  * });
  */
 export const intlayerProxy = (
-  configOptions?: GetConfigurationOptions
+  configOptions?: GetConfigurationOptions,
+  options?: IntlayerProxyPluginOptions
 ): Plugin => {
   const intlayerConfig = getConfiguration(configOptions);
 
@@ -429,6 +447,8 @@ export const intlayerProxy = (
       server.middlewares.use((req, res, next) => {
         // Bypass assets and special Vite endpoints
         if (
+          // Custom ignore function
+          (options?.ignore?.(req) ?? false) ||
           req.url?.startsWith('/node_modules') ||
           /**
            * /^@vite/            # HMR client and helpers
@@ -442,7 +462,7 @@ export const intlayerProxy = (
            * /^__open-in-editor$
            * /^__manifest$       # Remix/RR7 lazyRouteDiscovery
            */
-          req.url?.startsWith('/__') ||
+          req.url?.startsWith('/_') ||
           /**
            * ./myFile.js
            */
