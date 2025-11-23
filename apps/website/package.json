@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "7.2.3",
+  "version": "7.2.4",
   "private": true,
   "description": "Intlayer Website include the landing page and the documentation of the intlayer project.",
   "keywords": [

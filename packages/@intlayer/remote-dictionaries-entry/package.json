@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/remote-dictionaries-entry",
-  "version": "7.2.3",
+  "version": "7.2.4",
   "private": false,
   "description": "Provides the entry path for Intlayer remote dictionaries, solving filesystem retrieval issues for bundlers like Webpack and Rollup.",
   "keywords": [
