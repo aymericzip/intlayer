@@ -57,11 +57,15 @@ export const prepareIntlayer = async (
 
   const dictionariesWithStats = await listDictionariesWithStats(configuration);
 
-  const sentinelStats = await stat(sentinelPath);
-  const isDictionaryChanged = dictionariesWithStats.some(
-    (dictionary) =>
-      dictionary.stats.mtime.getTime() > sentinelStats.mtime.getTime()
-  );
+  let isDictionaryChanged = false;
+
+  try {
+    const sentinelStats = await stat(sentinelPath);
+    isDictionaryChanged = dictionariesWithStats.some(
+      (dictionary) =>
+        dictionary.stats.mtime.getTime() > sentinelStats.mtime.getTime()
+    );
+  } catch {}
 
   const { clean, format, forceRun, onIsCached, cacheTimeoutMs } = {
     ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
