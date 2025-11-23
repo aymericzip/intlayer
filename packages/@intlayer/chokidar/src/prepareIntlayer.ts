@@ -55,10 +55,11 @@ export const prepareIntlayer = async (
 
   const isConfigSimilar = await isCachedConfigurationUpToDate(configuration);
 
+  // Check if any dictionary has been changed to force a new rebuild
   const dictionariesWithStats = await listDictionariesWithStats(configuration);
-
   let isDictionaryChanged = false;
   try {
+    // Try catch as sentinel file may not exist yet
     const sentinelStats = await stat(sentinelPath);
     isDictionaryChanged = dictionariesWithStats.some(
       (dictionary) =>

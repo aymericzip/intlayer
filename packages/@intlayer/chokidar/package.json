@@ -81,11 +81,14 @@
     "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
+    "@vue/compiler-sfc": "^3.5.24",
     "chokidar": "3.6.0",
     "crypto-js": "4.2.0",
     "deepmerge": "4.3.1",
     "fast-glob": "3.3.3",
+    "magic-string": "^0.30.21",
     "simple-git": "3.30.0",
+    "svelte": "^5.43.14",
     "ts-morph": "27.0.2"
   },
   "devDependencies": {
