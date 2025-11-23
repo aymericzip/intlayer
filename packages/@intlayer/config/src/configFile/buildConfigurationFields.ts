@@ -19,7 +19,6 @@ import packageJson from '@intlayer/types/package.json' with { type: 'json' };
 import {
   CACHE,
   IMPORT_MODE,
-  OPTIMIZE,
   OUTPUT_FORMAT,
   TRAVERSE_PATTERN,
 } from '../defaultValues/build';

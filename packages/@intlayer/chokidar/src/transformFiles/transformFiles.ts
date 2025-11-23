@@ -306,36 +306,61 @@ export const transformComponent = async (
   }
 
   // Insert Imports
-  const importSource =
+  const isClientComponent =
+    packageName === 'next-intlayer' &&
+    (sourceFile.getText().includes('"use client"') ||
+      sourceFile.getText().includes("'use client'"));
+
+  // Determine import sources
+  const useIntlayerSource =
     packageName === 'next-intlayer'
-      ? sourceFile.getText().includes('"use client"') ||
-        sourceFile.getText().includes("'use client'")
+      ? isClientComponent
         ? 'next-intlayer'
         : 'next-intlayer/server'
       : packageName;
 
-  const existingImport = sourceFile.getImportDeclaration(
-    (d) => d.getModuleSpecifierValue() === importSource
-  );
+  // getIntlayer is always from 'next-intlayer' for next-intlayer package
+  const getIntlayerSource =
+    packageName === 'next-intlayer' ? 'next-intlayer' : packageName;
 
-  const namedImports = new Set<string>();
-  if (injectedUseIntlayer) namedImports.add('useIntlayer');
-  if (injectedGetIntlayer) namedImports.add('getIntlayer');
+  // Handle useIntlayer import
+  if (injectedUseIntlayer) {
+    const existingUseIntlayerImport = sourceFile.getImportDeclaration(
+      (d) => d.getModuleSpecifierValue() === useIntlayerSource
+    );
 
-  if (namedImports.size > 0) {
-    if (!existingImport) {
+    if (!existingUseIntlayerImport) {
       sourceFile.addImportDeclaration({
-        namedImports: Array.from(namedImports),
-        moduleSpecifier: importSource,
+        namedImports: ['useIntlayer'],
+        moduleSpecifier: useIntlayerSource,
       });
     } else {
-      const currentNamedImports = existingImport
+      const currentNamedImports = existingUseIntlayerImport
         .getNamedImports()
         .map((n) => n.getName());
-      for (const name of namedImports) {
-        if (!currentNamedImports.includes(name)) {
-          existingImport.addNamedImport(name);
-        }
+      if (!currentNamedImports.includes('useIntlayer')) {
+        existingUseIntlayerImport.addNamedImport('useIntlayer');
+      }
+    }
+  }
+
+  // Handle getIntlayer import (always from 'next-intlayer' for next-intlayer package)
+  if (injectedGetIntlayer) {
+    const existingGetIntlayerImport = sourceFile.getImportDeclaration(
+      (d) => d.getModuleSpecifierValue() === getIntlayerSource
+    );
+
+    if (!existingGetIntlayerImport) {
+      sourceFile.addImportDeclaration({
+        namedImports: ['getIntlayer'],
+        moduleSpecifier: getIntlayerSource,
+      });
+    } else {
+      const currentNamedImports = existingGetIntlayerImport
+        .getNamedImports()
+        .map((n) => n.getName());
+      if (!currentNamedImports.includes('getIntlayer')) {
+        existingGetIntlayerImport.addNamedImport('getIntlayer');
       }
     }
   }
