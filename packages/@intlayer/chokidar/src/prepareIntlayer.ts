@@ -58,7 +58,6 @@ export const prepareIntlayer = async (
   const dictionariesWithStats = await listDictionariesWithStats(configuration);
 
   let isDictionaryChanged = false;
-
   try {
     const sentinelStats = await stat(sentinelPath);
     isDictionaryChanged = dictionariesWithStats.some(
