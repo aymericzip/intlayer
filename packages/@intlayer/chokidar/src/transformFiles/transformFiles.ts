@@ -2,6 +2,7 @@ import { execSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 import {
+  ANSIColors,
   camelCaseToKebabCase,
   colorizePath,
   type GetConfigurationOptions,
@@ -9,9 +10,6 @@ import {
   getConfiguration,
 } from '@intlayer/config';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
-import { parse as parseVue } from '@vue/compiler-sfc';
-import MagicString from 'magic-string';
-import * as svelteCompiler from 'svelte/compiler'; // Works for Svelte 3/4/5
 import { Node, Project, type SourceFile, SyntaxKind } from 'ts-morph';
 import { writeContentDeclaration } from '../writeContentDeclaration';
 import { detectFormatCommand } from '../writeContentDeclaration/detectFormatCommand';
@@ -268,218 +266,6 @@ const processReactFile = async (
 };
 
 // ==========================================
-// 3. Vue Strategy
-// ==========================================
-
-const processVueFile = async (
-  filePath: string,
-  componentKey: string,
-  packageName: string
-) => {
-  const code = await fs.readFile(filePath, 'utf-8');
-  const sfc = parseVue(code);
-  const magic = new MagicString(code);
-
-  const extractedContent: Record<string, string> = {};
-  const existingKeys = new Set<string>();
-
-  // 3a. Template Extraction
-  if (sfc.descriptor.template) {
-    const walkVueAst = (node: any) => {
-      if (node.type === 2) {
-        // NodeTypes.TEXT
-        const text = node.content;
-        if (shouldExtract(text)) {
-          const key = generateKey(text, existingKeys);
-          existingKeys.add(key);
-          extractedContent[key] = text.replace(/\s+/g, ' ').trim();
-          magic.overwrite(
-            node.loc.start.offset,
-            node.loc.end.offset,
-            `{{ content.${key} }}`
-          );
-        }
-      } else if (node.type === 1) {
-        // NodeTypes.ELEMENT
-        node.props.forEach((prop: any) => {
-          if (
-            prop.type === 6 && // NodeTypes.ATTRIBUTE
-            ATTRIBUTES_TO_EXTRACT.includes(prop.name) &&
-            prop.value
-          ) {
-            const text = prop.value.content;
-            if (shouldExtract(text)) {
-              const key = generateKey(text, existingKeys);
-              existingKeys.add(key);
-              extractedContent[key] = text.trim();
-              magic.overwrite(
-                prop.loc.start.offset,
-                prop.loc.end.offset,
-                `:${prop.name}="content.${key}"`
-              );
-            }
-          }
-        });
-      }
-
-      if (node.children) {
-        node.children.forEach(walkVueAst);
-      }
-    };
-    walkVueAst(sfc.descriptor.template.ast);
-  }
-
-  // 3b. Script Extraction
-  const scriptBlock = sfc.descriptor.scriptSetup || sfc.descriptor.script;
-  if (scriptBlock) {
-    const scriptContent = scriptBlock.content;
-    const scriptOffset = scriptBlock.loc.start.offset;
-    const project = new Project({ skipAddingFilesFromTsConfig: true });
-    const sourceFile = project.createSourceFile('temp.ts', scriptContent);
-
-    const { extractedContent: scriptExtracted, replacements } =
-      extractTsContent(sourceFile, existingKeys);
-    Object.assign(extractedContent, scriptExtracted);
-
-    for (const { node, key } of replacements) {
-      // Calculate absolute pos
-      const start = scriptOffset + node.getStart();
-      const end = scriptOffset + node.getEnd();
-      magic.overwrite(start, end, `content.${key}`);
-    }
-  }
-
-  if (Object.keys(extractedContent).length === 0) return null;
-
-  // Inject Script
-  const importStmt = `import { useIntlayer } from '${packageName}';`;
-  const contentDecl = `const content = useIntlayer('${componentKey}');`;
-
-  if (sfc.descriptor.scriptSetup) {
-    magic.appendLeft(
-      sfc.descriptor.scriptSetup.loc.start.offset,
-      `\n${importStmt}\n${contentDecl}\n`
-    );
-  } else if (sfc.descriptor.script) {
-    magic.appendLeft(
-      sfc.descriptor.script.loc.start.offset,
-      `\n${importStmt}\n${contentDecl}\n`
-    );
-  } else {
-    magic.prepend(`<script setup>\n${importStmt}\n${contentDecl}\n</script>\n`);
-  }
-
-  await fs.writeFile(filePath, magic.toString());
-  return extractedContent;
-};
-
-// ==========================================
-// 4. Svelte Strategy
-// ==========================================
-
-const processSvelteFile = async (
-  filePath: string,
-  componentKey: string,
-  packageName: string
-) => {
-  const code = await fs.readFile(filePath, 'utf-8');
-  // @ts-ignore
-  const ast = svelteCompiler.parse(code);
-  const magic = new MagicString(code);
-
-  const extractedContent: Record<string, string> = {};
-  const existingKeys = new Set<string>();
-
-  // 4a. Template Extraction
-  const walkSvelte = (node: any) => {
-    if (node.type === 'Text') {
-      const text = node.data;
-      if (shouldExtract(text)) {
-        const key = generateKey(text, existingKeys);
-        existingKeys.add(key);
-        extractedContent[key] = text.replace(/\s+/g, ' ').trim();
-        magic.overwrite(node.start, node.end, `{$content.${key}}`);
-      }
-    } else if (
-      node.type === 'Attribute' &&
-      ATTRIBUTES_TO_EXTRACT.includes(node.name)
-    ) {
-      if (
-        node.value &&
-        node.value.length === 1 &&
-        node.value[0].type === 'Text'
-      ) {
-        const text = node.value[0].data;
-        if (shouldExtract(text)) {
-          const key = generateKey(text, existingKeys);
-          existingKeys.add(key);
-          extractedContent[key] = text.trim();
-          magic.overwrite(
-            node.start,
-            node.end,
-            `${node.name}={$content.${key}}`
-          );
-        }
-      }
-    }
-
-    if (node.children) node.children.forEach(walkSvelte);
-    else if (node.fragment?.children)
-      node.fragment.children.forEach(walkSvelte);
-    if (node.attributes) node.attributes.forEach(walkSvelte);
-  };
-
-  walkSvelte(ast.html);
-
-  // 4b. Script Extraction
-  const scriptRegex = /<script[^>]*>([\s\S]*?)<\/script>/;
-  const match = scriptRegex.exec(code);
-  let scriptExtractedKeys = 0;
-
-  if (match) {
-    const scriptContent = match[1];
-    // Offset: index + length of opening tag. match[0] is whole tag, match[1] is content.
-    // match.index is start of <script...
-    const openTagLength = match[0].indexOf(scriptContent);
-    const scriptOffset = match.index + openTagLength;
-
-    const project = new Project({ skipAddingFilesFromTsConfig: true });
-    const sourceFile = project.createSourceFile('temp.ts', scriptContent);
-
-    const { extractedContent: scriptExtracted, replacements } =
-      extractTsContent(sourceFile, existingKeys);
-    Object.assign(extractedContent, scriptExtracted);
-    scriptExtractedKeys = Object.keys(scriptExtracted).length;
-
-    for (const { node, key } of replacements) {
-      const start = scriptOffset + node.getStart();
-      const end = scriptOffset + node.getEnd();
-      magic.overwrite(start, end, `get(content).${key}`);
-    }
-  }
-
-  if (Object.keys(extractedContent).length === 0) return null;
-
-  // Inject Script
-  const importStmt = `import { useIntlayer } from '${packageName}';`;
-  const getImportStmt = `import { get } from 'svelte/store';`;
-  const callStmt = `const content = useIntlayer('${componentKey}');`;
-
-  if (match) {
-    const scriptContentStart = match.index + match[0].indexOf('>') + 1;
-    magic.appendLeft(
-      scriptContentStart,
-      `\n  ${importStmt}\n  ${scriptExtractedKeys > 0 ? getImportStmt : ''}\n  ${callStmt}\n`
-    );
-  } else {
-    magic.prepend(`<script>\n  ${importStmt}\n  ${callStmt}\n</script>\n`);
-  }
-
-  await fs.writeFile(filePath, magic.toString());
-  return extractedContent;
-};
-
-// ==========================================
 // 5. Main Dispatcher
 // ==========================================
 
@@ -521,19 +307,56 @@ export const extractIntlayer = async (
 
   let extractedContent: Record<string, string> | null = null;
 
-  // --- DISPATCH BASED ON EXTENSION ---
   if (ext === '.vue') {
-    extractedContent = await processVueFile(
-      filePath,
-      componentKey,
-      packageName
-    );
+    try {
+      const { processVueFile } = await import('@intlayer/vue-transformer');
+      extractedContent = await processVueFile(
+        filePath,
+        componentKey,
+        packageName,
+        {
+          generateKey,
+          shouldExtract,
+          extractTsContent,
+        }
+      );
+    } catch (error: any) {
+      if (
+        error.code === 'ERR_MODULE_NOT_FOUND' ||
+        error.message?.includes('Cannot find module')
+      ) {
+        throw new Error(
+          `Please install ${colorizePath('@intlayer/vue-transformer', ANSIColors.YELLOW)} to process Vue files.`
+        );
+      }
+      throw error;
+    }
   } else if (ext === '.svelte') {
-    extractedContent = await processSvelteFile(
-      filePath,
-      componentKey,
-      packageName
-    );
+    try {
+      const { processSvelteFile } = await import(
+        '@intlayer/svelte-transformer'
+      );
+      extractedContent = await processSvelteFile(
+        filePath,
+        componentKey,
+        packageName,
+        {
+          generateKey,
+          shouldExtract,
+          extractTsContent,
+        }
+      );
+    } catch (error: any) {
+      if (
+        error.code === 'ERR_MODULE_NOT_FOUND' ||
+        error.message?.includes('Cannot find module')
+      ) {
+        throw new Error(
+          `Please install ${colorizePath('@intlayer/svelte-transformer', ANSIColors.YELLOW)} to process Svelte files.`
+        );
+      }
+      throw error;
+    }
   } else if (['.tsx', '.jsx', '.ts', '.js'].includes(ext)) {
     extractedContent = await processReactFile(
       filePath,

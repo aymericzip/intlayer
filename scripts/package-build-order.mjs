@@ -37,4 +37,6 @@ export const packageBuildOrder = [
   'packages/@intlayer/design-system',
   'packages/intlayer-editor',
   'plugins/sync-json-plugin',
+  'plugins/vue-transformer',
+  'plugins/svelte-transformer',
 ];
