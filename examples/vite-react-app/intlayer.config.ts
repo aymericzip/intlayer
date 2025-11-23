@@ -15,7 +15,7 @@ const config: IntlayerConfig = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
   content: {
-    contentDir: ['../../'],
+    // contentDir: ['../../'],
   },
   log: {
     mode: 'verbose',
