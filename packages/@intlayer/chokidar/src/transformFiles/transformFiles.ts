@@ -441,17 +441,17 @@ export const extractIntlayer = async (
   // 3. Transform component
   await transformComponent(sourceFile, replacements, componentKey, packageName);
 
-  const formatCommand = detectFormatCommand(configuration);
+  try {
+    const formatCommand = detectFormatCommand(configuration);
 
-  if (formatCommand) {
-    try {
+    if (formatCommand) {
       execSync(formatCommand.replace('{{file}}', filePath), {
         stdio: 'inherit',
         cwd: baseDir,
       });
-    } catch (error) {
-      console.error(error);
     }
+  } catch (error) {
+    console.error(error);
   }
 
   const relativeFilePath = relative(baseDir, filePath);
