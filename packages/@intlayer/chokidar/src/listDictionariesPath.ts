@@ -1,3 +1,4 @@
+import { stat } from 'node:fs/promises';
 import type { IntlayerConfig } from '@intlayer/types';
 import fg from 'fast-glob';
 
@@ -17,4 +18,14 @@ export const listDictionaries = async (
   );
 
   return files;
+};
+
+export const listDictionariesWithStats = async (
+  configuration: IntlayerConfig
+) => {
+  const files = await listDictionaries(configuration);
+
+  return Promise.all(
+    files.map(async (file) => ({ path: file, stats: await stat(file) }))
+  );
 };

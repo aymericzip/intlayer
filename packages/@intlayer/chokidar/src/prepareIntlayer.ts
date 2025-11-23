@@ -1,3 +1,4 @@
+import { stat } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
   ANSIColors,
@@ -13,7 +14,7 @@ import { writeRemoteDictionary } from './buildIntlayerDictionary/writeRemoteDict
 import { cleanOutputDir } from './cleanOutputDir';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
 import { createModuleAugmentation, createTypes } from './createType/index';
-import { listDictionaries } from './listDictionariesPath';
+import { listDictionariesWithStats } from './listDictionariesPath';
 import { loadDictionaries } from './loadDictionaries/loadDictionaries';
 import { runOnce } from './utils/runOnce';
 import {
@@ -54,9 +55,17 @@ export const prepareIntlayer = async (
 
   const isConfigSimilar = await isCachedConfigurationUpToDate(configuration);
 
+  const dictionariesWithStats = await listDictionariesWithStats(configuration);
+
+  const sentinelStats = await stat(sentinelPath);
+  const isDictionaryChanged = dictionariesWithStats.some(
+    (dictionary) =>
+      dictionary.stats.mtime.getTime() > sentinelStats.mtime.getTime()
+  );
+
   const { clean, format, forceRun, onIsCached, cacheTimeoutMs } = {
     ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
-    forceRun: !isCorrectVersion || !isConfigSimilar,
+    forceRun: !isCorrectVersion || !isConfigSimilar || isDictionaryChanged,
     ...(options ?? {}),
   };
 
@@ -97,9 +106,14 @@ export const prepareIntlayer = async (
         }
       );
 
-      const files: string[] = await listDictionaries(configuration);
+      const contentDeclarationPaths = dictionariesWithStats.map(
+        (dictionary) => dictionary.path
+      );
 
-      const dictionaries = await loadDictionaries(files, configuration);
+      const dictionaries = await loadDictionaries(
+        contentDeclarationPaths,
+        configuration
+      );
 
       const dictionariesLoadedTime = Date.now();
 

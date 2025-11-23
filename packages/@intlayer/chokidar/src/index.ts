@@ -17,7 +17,10 @@ export { getContentDeclarationFileTemplate } from './getContentDeclarationFileTe
 export { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 export { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
 export { handleUnlinkedContentDeclarationFile } from './handleUnlinkedContentDeclarationFile';
-export { listDictionaries } from './listDictionariesPath';
+export {
+  listDictionaries,
+  listDictionariesWithStats,
+} from './listDictionariesPath';
 export {
   type DiffMode,
   type ListGitFilesOptions,
