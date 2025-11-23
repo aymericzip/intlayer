@@ -191,7 +191,8 @@ const processReactFile = async (
   filePath: string,
   componentKey: string,
   packageName: string,
-  project: Project
+  project: Project,
+  save: boolean = true
 ) => {
   let sourceFile: SourceFile;
   try {
@@ -261,7 +262,9 @@ const processReactFile = async (
     }
   });
 
-  await sourceFile.save();
+  if (save) {
+    await sourceFile.save();
+  }
   return extractedContent;
 };
 
@@ -282,14 +285,19 @@ export type PackageName =
 export type ExtractIntlayerOptions = {
   configOptions?: GetConfigurationOptions;
   outputDir?: string;
+  codeOnly?: boolean;
+  declarationOnly?: boolean;
 };
 
 export const extractIntlayer = async (
   filePath: string,
   packageName: PackageName,
-  options?: { configOptions?: GetConfigurationOptions; outputDir?: string },
+  options?: ExtractIntlayerOptions,
   project?: Project
 ) => {
+  const saveComponent = !options?.declarationOnly;
+  const writeContent = !options?.codeOnly;
+
   const configuration = getConfiguration(options?.configOptions);
   const appLogger = getAppLogger(configuration);
   const { baseDir } = configuration.content;
@@ -309,7 +317,9 @@ export const extractIntlayer = async (
 
   if (ext === '.vue') {
     try {
-      const { processVueFile } = await import('@intlayer/vue-transformer');
+      const { processVueFile } = (await import(
+        '@intlayer/vue-transformer'
+      )) as any;
       extractedContent = await processVueFile(
         filePath,
         componentKey,
@@ -318,7 +328,8 @@ export const extractIntlayer = async (
           generateKey,
           shouldExtract,
           extractTsContent,
-        }
+        },
+        saveComponent
       );
     } catch (error: any) {
       if (
@@ -333,9 +344,9 @@ export const extractIntlayer = async (
     }
   } else if (ext === '.svelte') {
     try {
-      const { processSvelteFile } = await import(
+      const { processSvelteFile } = (await import(
         '@intlayer/svelte-transformer'
-      );
+      )) as any;
       extractedContent = await processSvelteFile(
         filePath,
         componentKey,
@@ -344,7 +355,8 @@ export const extractIntlayer = async (
           generateKey,
           shouldExtract,
           extractTsContent,
-        }
+        },
+        saveComponent
       );
     } catch (error: any) {
       if (
@@ -362,7 +374,8 @@ export const extractIntlayer = async (
       filePath,
       componentKey,
       packageName,
-      _project
+      _project,
+      saveComponent
     );
   }
 
@@ -372,34 +385,40 @@ export const extractIntlayer = async (
   }
 
   // Shared Write Logic
-  const contentFilePath = await writeContentHelper(
-    extractedContent,
-    componentKey,
-    filePath,
-    configuration,
-    options?.outputDir
-  );
+  if (writeContent) {
+    const contentFilePath = await writeContentHelper(
+      extractedContent,
+      componentKey,
+      filePath,
+      configuration,
+      options?.outputDir
+    );
 
-  const relativeContentFilePath = relative(
-    configuration.content.baseDir,
-    contentFilePath
-  );
-  appLogger(`Created content file: ${colorizePath(relativeContentFilePath)}`);
-
-  // Optional: Format
-  try {
-    const formatCommand = detectFormatCommand(configuration);
-    if (formatCommand) {
-      execSync(formatCommand.replace('{{file}}', filePath), {
-        stdio: 'ignore', // Silent
-        cwd: baseDir,
-      });
-    }
-  } catch {
-    // Ignore format errors
+    const relativeContentFilePath = relative(
+      configuration.content.baseDir,
+      contentFilePath
+    );
+    appLogger(`Created content file: ${colorizePath(relativeContentFilePath)}`);
   }
 
-  appLogger(`Updated component: ${colorizePath(relative(baseDir, filePath))}`);
+  // Optional: Format
+  if (saveComponent) {
+    try {
+      const formatCommand = detectFormatCommand(configuration);
+      if (formatCommand) {
+        execSync(formatCommand.replace('{{file}}', filePath), {
+          stdio: 'ignore', // Silent
+          cwd: baseDir,
+        });
+      }
+    } catch {
+      // Ignore format errors
+    }
+
+    appLogger(
+      `Updated component: ${colorizePath(relative(baseDir, filePath))}`
+    );
+  }
 };
 
 export const transformFiles = async (

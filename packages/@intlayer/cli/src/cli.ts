@@ -767,11 +767,15 @@ export const setAPI = (): Command => {
       '-o, --output-content-declarations [outputContentDeclarations]',
       'Path to output content declaration files'
     )
+    .option('--code-only', 'Only transform the component code', false)
+    .option('--declaration-only', 'Only generate content declaration', false)
     .action((options) => {
       transform({
         files: options.file,
         outputContentDeclarations: options.outputContentDeclarations,
         configOptions: extractConfigOptions(options),
+        codeOnly: options.codeOnly,
+        declarationOnly: options.declarationOnly,
       });
     });
 

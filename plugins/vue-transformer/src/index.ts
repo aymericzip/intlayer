@@ -35,7 +35,8 @@ export const processVueFile = async (
   filePath: string,
   componentKey: string,
   packageName: string,
-  tools: Tools
+  tools: Tools,
+  save: boolean = true
 ) => {
   const { generateKey, shouldExtract, extractTsContent } = tools;
   const code = await readFile(filePath, 'utf-8');
@@ -131,6 +132,8 @@ export const processVueFile = async (
     magic.prepend(`<script setup>\n${importStmt}\n${contentDecl}\n</script>\n`);
   }
 
-  await writeFile(filePath, magic.toString());
+  if (save) {
+    await writeFile(filePath, magic.toString());
+  }
   return extractedContent;
 };

@@ -15,6 +15,8 @@ type TransformOptions = {
   files?: string[];
   outputContentDeclarations?: string;
   configOptions?: GetConfigurationOptions;
+  codeOnly?: boolean;
+  declarationOnly?: boolean;
 };
 
 // Helper to read package.json dependencies
@@ -141,5 +143,7 @@ export const transform = async (options: TransformOptions) => {
   await transformFiles(absoluteFiles, packageName, {
     configOptions: options.configOptions,
     outputDir: options.outputContentDeclarations,
+    codeOnly: options.codeOnly,
+    declarationOnly: options.declarationOnly,
   });
 };

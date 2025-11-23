@@ -458,12 +458,27 @@ This command analyzes your code files to help migrate existing components to use
 
   > Example: `npx intlayer transform -o src/content`
 
+- **`--code-only`**: Only transform the component code (do not write content declaration).
+
+  > Example: `npx intlayer transform --code-only`
+
+- **`--declaration-only`**: Only generate content declaration (do not rewrite component).
+
+  > Example: `npx intlayer transform --declaration-only`
+
 **Configuration options:**
 
 - **`--base-dir`**: Specify the base directory for the project.
 - **`--env`**: Specify the environment.
 - **`--env-file`**: Provide a custom environment file.
 - **`--verbose`**: Enable verbose logging.
+
+**Required plugins:**
+
+The transform command works without additional plugin on TypeScript / JSX files. However, it requires the following plugins to be installed for Vue and Svelte projects:
+
+- **`@intlayer/vue-transformer`**: For Vue files.
+- **`@intlayer/svelte-transformer`**: For Svelte files.
 
 ### Test missing translations
 
