@@ -53,6 +53,25 @@ const readLocale = (
 };
 
 export const blogEntry = {
+  './blog/en/compiler_vs_declarative_i18n.md': {
+    en: readLocale('compiler_vs_declarative_i18n.md', 'en'),
+    ru: readLocale('compiler_vs_declarative_i18n.md', 'ru'),
+    ja: readLocale('compiler_vs_declarative_i18n.md', 'ja'),
+    fr: readLocale('compiler_vs_declarative_i18n.md', 'fr'),
+    ko: readLocale('compiler_vs_declarative_i18n.md', 'ko'),
+    zh: readLocale('compiler_vs_declarative_i18n.md', 'zh'),
+    es: readLocale('compiler_vs_declarative_i18n.md', 'es'),
+    de: readLocale('compiler_vs_declarative_i18n.md', 'de'),
+    ar: readLocale('compiler_vs_declarative_i18n.md', 'ar'),
+    it: readLocale('compiler_vs_declarative_i18n.md', 'it'),
+    'en-GB': readLocale('compiler_vs_declarative_i18n.md', 'en-GB'),
+    pt: readLocale('compiler_vs_declarative_i18n.md', 'pt'),
+    hi: readLocale('compiler_vs_declarative_i18n.md', 'hi'),
+    tr: readLocale('compiler_vs_declarative_i18n.md', 'tr'),
+    pl: readLocale('compiler_vs_declarative_i18n.md', 'pl'),
+    id: readLocale('compiler_vs_declarative_i18n.md', 'id'),
+    vi: readLocale('compiler_vs_declarative_i18n.md', 'vi'),
+  } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/i18n_using_next-i18next.md': {
     en: readLocale('i18n_using_next-i18next.md', 'en'),
     ru: readLocale('i18n_using_next-i18next.md', 'ru'),
