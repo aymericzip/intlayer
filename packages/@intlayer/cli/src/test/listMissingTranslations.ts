@@ -4,13 +4,12 @@ import {
 } from '@intlayer/config';
 import { getMissingLocalesContentFromDictionary } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary, Locale } from '@intlayer/types';
+import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
-export const listMissingTranslations = (
-  configurationOptions?: GetConfigurationOptions
+export const listMissingTranslationsWithConfig = (
+  configuration: IntlayerConfig
 ) => {
-  const configuration = getConfiguration(configurationOptions);
   const unmergedDictionariesRecord = getUnmergedDictionaries(configuration);
   const mergedDictionaries = getDictionaries(configuration);
 
@@ -33,7 +32,7 @@ export const listMissingTranslations = (
       (dictionary) => !dictionary.locale
     );
 
-    // 2 - Test all by merging all dictionaries to ensure no per-locale dictionary is missing
+    // Test all by merging all dictionaries to ensure no per-locale dictionary is missing
     for (const dictionary of multilingualDictionary) {
       const missingLocales = getMissingLocalesContentFromDictionary(
         dictionary,
@@ -83,4 +82,12 @@ export const listMissingTranslations = (
   );
 
   return { missingTranslations, missingLocales, missingRequiredLocales };
+};
+
+export const listMissingTranslations = (
+  configurationOptions?: GetConfigurationOptions
+) => {
+  const configuration = getConfiguration(configurationOptions);
+
+  return listMissingTranslationsWithConfig(configuration);
 };

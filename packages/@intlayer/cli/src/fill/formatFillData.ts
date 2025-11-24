@@ -8,7 +8,7 @@ export type FillData = {
 };
 
 export const formatFillData = (
-  autoFillField: Fill,
+  fillField: Fill,
   localeList: LocalesValues[],
   filePath: string,
   dictionaryKey: string,
@@ -18,13 +18,13 @@ export const formatFillData = (
 
   const baseDir = configuration.content.baseDir;
 
-  if (!autoFillField) return outputContentDeclarationFile;
+  if (!fillField) return outputContentDeclarationFile;
 
-  if (typeof autoFillField === 'string') {
-    if (autoFillField.includes('{{locale}}')) {
+  if (typeof fillField === 'string') {
+    if (fillField.includes('{{locale}}')) {
       const output = localeList.map((locale) => {
         const formattedFilePath = formatAutoFilledFilePath(
-          autoFillField,
+          fillField,
           dictionaryKey,
           filePath,
           baseDir,
@@ -41,7 +41,7 @@ export const formatFillData = (
       outputContentDeclarationFile.push(...output);
     } else {
       const formattedFilePath = formatAutoFilledFilePath(
-        autoFillField,
+        fillField,
         dictionaryKey,
         filePath,
         baseDir
@@ -57,19 +57,17 @@ export const formatFillData = (
     return outputContentDeclarationFile;
   }
 
-  if (typeof autoFillField === 'object') {
-    const localeList = Object.keys(autoFillField).filter(
+  if (typeof fillField === 'object') {
+    const localeList = Object.keys(fillField).filter(
       (locale) =>
-        typeof autoFillField[locale as keyof typeof autoFillField] === 'string'
+        typeof fillField[locale as keyof typeof fillField] === 'string'
     ) as LocalesValues[];
 
     const output: FillData[] = localeList
-      .filter((locale) =>
-        Boolean(autoFillField[locale as keyof typeof autoFillField])
-      )
+      .filter((locale) => Boolean(fillField[locale as keyof typeof fillField]))
       .map((locale) => {
         const formattedFilePath = formatAutoFilledFilePath(
-          autoFillField[locale as keyof typeof autoFillField] as string,
+          fillField[locale as keyof typeof fillField] as string,
           dictionaryKey,
           filePath,
           baseDir,

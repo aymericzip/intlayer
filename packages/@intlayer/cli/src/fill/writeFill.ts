@@ -29,13 +29,20 @@ export const writeFill = async (
     return;
   }
 
-  const autoFillOptions =
-    contentDeclarationFile.fill ?? configuration.dictionary?.fill ?? false;
+  let fillOptions: Fill | undefined =
+    contentDeclarationFile.fill ?? configuration.dictionary?.fill;
 
   if (
-    typeof autoFillOptions === 'boolean' &&
-    (autoFillOptions as boolean) === false
+    typeof fillOptions === 'undefined' &&
+    typeof contentDeclarationFile.locale === 'string'
   ) {
+    // If it's a per-locale dictionary, we create another file to fill the content
+    fillOptions = './{{key}}.filled.content.json';
+  } else {
+    fillOptions = true;
+  }
+
+  if ((fillOptions as boolean) === false) {
     appLogger(
       `Auto fill is disabled for '${colorizeKey(fullDictionary.key)}'`,
       {
@@ -49,15 +56,15 @@ export const writeFill = async (
     outputLocales ?? configuration.internationalization.locales
   ).filter((locale) => !parentLocales?.includes(locale));
 
-  const autoFillData: FillData[] = formatFillData(
-    autoFillOptions as Fill,
+  const fillData: FillData[] = formatFillData(
+    fillOptions as Fill,
     localeList,
     filePath,
     fullDictionary.key,
     configuration
   );
 
-  for await (const output of autoFillData) {
+  for await (const output of fillData) {
     if (!output.filePath) {
       appLogger(
         `No file path found for auto filled content declaration for '${colorizeKey(fullDictionary.key)}'`,

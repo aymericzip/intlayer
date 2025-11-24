@@ -150,10 +150,11 @@ export const fill = async (options?: FillOptions): Promise<void> => {
 
       const { dictionaryOutput, sourceLocale } = translationTaskResult;
 
-      // fix impossible && condition
       const isFillOtherFile =
         typeof dictionaryOutput.fill === 'string' ||
-        typeof dictionaryOutput.fill === 'object';
+        typeof dictionaryOutput.fill === 'object' ||
+        (typeof dictionaryOutput.locale === 'string' &&
+          dictionaryOutput.fill !== false);
 
       if (isFillOtherFile) {
         await writeFill(
@@ -166,17 +167,8 @@ export const fill = async (options?: FillOptions): Promise<void> => {
         await writeContentDeclaration(dictionaryOutput, configuration);
 
         if (dictionaryOutput.filePath) {
-          const dictionaryPreset = colon(
-            [
-              ' - ',
-              colorize('[', ANSIColors.GREY_DARK),
-              colorizeKey(dictionaryOutput.key),
-              colorize(']', ANSIColors.GREY_DARK),
-            ].join(''),
-            { colSize: 15 }
-          );
           appLogger(
-            `${dictionaryPreset} Content declaration written to ${formatPath(basename(dictionaryOutput.filePath))}`,
+            `${task.dictionaryPreset} Content declaration written to ${formatPath(basename(dictionaryOutput.filePath))}`,
             { level: 'info' }
           );
         }

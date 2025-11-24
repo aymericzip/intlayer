@@ -8,10 +8,7 @@ import {
   colorizePath,
   getAppLogger,
 } from '@intlayer/config';
-import {
-  getFilterTranslationsOnlyDictionary,
-  getMissingLocalesContentFromDictionary,
-} from '@intlayer/core';
+import { getFilterTranslationsOnlyDictionary } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type {
   Dictionary,
@@ -20,6 +17,7 @@ import type {
   Locale,
 } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+import { listMissingTranslationsWithConfig } from '../test';
 
 export type TranslationTask = {
   dictionaryKey: string;
@@ -47,8 +45,11 @@ export const listTranslationsTasks = (
     localIds.includes(dictionary.localId!)
   );
 
+  const { missingTranslations } =
+    listMissingTranslationsWithConfig(configuration);
+
   const maxKeyLength = Math.max(
-    ...dictionariesToProcess.map((dict) => dict.key.length)
+    ...dictionariesToProcess.map((dictionary) => dictionary.key.length)
   );
 
   const translationTasks: TranslationTask[] = [];
@@ -118,43 +119,12 @@ export const listTranslationsTasks = (
     let outputLocalesList: Locale[] = outputLocales as Locale[];
 
     if (mode === 'complete') {
-      const isEmptyDictionary =
-        typeof targetUnmergedDictionary.content === 'object' &&
-        Object.keys(targetUnmergedDictionary.content).length === 0;
-
-      const isPerLocale = Boolean(targetUnmergedDictionary.locale);
-
-      if (isPerLocale) {
-        const dictionaryLocale = targetUnmergedDictionary.locale as Locale;
-
-        if (isEmptyDictionary) {
-          // Empty per-locale dictionary: only include its own locale if requested
-          outputLocalesList = outputLocales.includes(dictionaryLocale)
-            ? [dictionaryLocale]
-            : [];
-        } else {
-          // Non-empty per-locale dictionary: include only if its locale is missing
-          const missingLocales = getMissingLocalesContentFromDictionary(
-            targetUnmergedDictionary,
-            outputLocales
-          );
-
-          outputLocalesList = missingLocales.includes(dictionaryLocale)
-            ? [dictionaryLocale]
-            : [];
-        }
-      } else {
-        // Not per-locale: use all missing locales (or all requested if empty)
-        if (isEmptyDictionary) {
-          outputLocalesList = outputLocales as Locale[];
-        } else {
-          const missingLocales = getMissingLocalesContentFromDictionary(
-            targetUnmergedDictionary,
-            outputLocales
-          );
-          outputLocalesList = missingLocales as Locale[];
-        }
-      }
+      outputLocalesList =
+        missingTranslations
+          .find(
+            (missingTranslation) => missingTranslation.key === dictionaryKey
+          )
+          ?.locales.filter((locale) => outputLocales.includes(locale)) ?? [];
     }
 
     if (outputLocalesList.length === 0) {

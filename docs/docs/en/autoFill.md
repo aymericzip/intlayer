@@ -34,6 +34,26 @@ history:
 
 **Autofill content declaration files** in your CI are a way to speed up your development workflow.
 
+## Understanding the behavior
+
+The `fill` command includes two modes:
+
+- **Complete**: Automatically fill all missing content for each locale and edit the current file, or another file if specified. That say, complete mode will skip the translation of existing content, if already translated.
+- **Review**: Automatically fill **all** content for each locale and generate for a specific file, or another file if specified.
+
+The will command will process all your locale content declaration files. That say, it will not process your remote content from the CMS. The CMS includes its own translations management.
+If you use plugins as `@intlayer/sync-json-plugin`, Intlayer will transform the JSON files into a locale content declaration files. That say, they will be processed by the `fill` command.
+
+The new generated files include a `filled` instruction as dictionary metadata. This instruction will be used by Intlayer to know if the file has been autofilled or not, and skip this file from being translated again if present.
+
+Intlayer will also consider the following instruction for autofill:
+
+- From your `.content.{ts|js|json}` → `fill` instruction
+- From your configuration file `.intlayer.config.ts` → `dictionary.fill` instruction
+- Will be set to `true` by default otherwise
+
+For per-locale content declaration files, the `true` instruction will be replaced by `./{{fileName}}.fill.content.json`. This is because the a per-locale content declaration file cannot receive additional localized content. So it will generate a new file to do not overwrite the existing file.
+
 ## Default Behavior
 
 By default, `fill` is set to `true` globally, which means Intlayer will automatically fill all content files and edit the file itself. This behavior can be customized in several ways:
@@ -42,8 +62,10 @@ By default, `fill` is set to `true` globally, which means Intlayer will automati
 
 1. **`fill: true` (default)** - Automatically fill all locales and edit the current file
 2. **`fill: false`** - Disable auto-fill for this content file
-3. **`fill: "path/to/file"`** - Create/update the specified file without editing the current one
-4. **`fill: { [key in Locales]?: string }`** - Create/update the specified file for each locale
+3. **`fill: "./relative/path/to/file"`** - Create/update the specified file without editing the current one by pointing to a relative path resolved based on the location of the current file
+4. **`fill: "/absolute/path/to/file"`** - Create/update the specified file without editing the current one by pointing to an relative path resolved based on the location of base directory (field `baseDir` in the configuration file `.intlayer.config.ts`)
+5. **`fill: "C:\\absolute\path\to\file"`** - Create/update the specified file without editing the current one by pointing to an absolute path resolved based on your operating system
+6. **`fill: { [key in Locales]?: string }`** - Create/update the specified file for each locale
 
 ### v7 Behavior Changes
 
