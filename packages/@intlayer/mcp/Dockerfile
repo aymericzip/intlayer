@@ -11,7 +11,6 @@ WORKDIR /workspace
 # Remove directories to keep the image slim
 COPY \
     --exclude=packages/@intlayer/babel \
-    --exclude=packages/@intlayer/ai \
     --exclude=packages/@intlayer/webpack \
     --exclude=packages/@intlayer/editor \
     --exclude=packages/@intlayer/editor-react \
