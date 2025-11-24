@@ -50,7 +50,7 @@ export const setupAI = async (
           colorize('Using your API key, you can install the', ANSIColors.GREY),
           colorize('@intlayer/ai', ANSIColors.GREY_LIGHT),
           colorize(
-            'package to run the process locally, with no dependency of the Intlayer server',
+            'package to run the process locally, with no dependency on the Intlayer server',
             ANSIColors.GREY
           ),
         ],
