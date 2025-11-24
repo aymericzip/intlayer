@@ -1,0 +1,132 @@
+---
+createdAt: 2024-08-11
+updatedAt: 2025-11-22
+title: Перевод документа
+description: Узнайте, как автоматически переводить файлы документации с помощью сервисов AI-перевода.
+keywords:
+  - Перевод
+  - Документ
+  - Документация
+  - AI
+  - CLI
+  - Intlayer
+slugs:
+  - doc
+  - concept
+  - cli
+  - doc-translate
+---
+
+# Перевод документа
+
+Команда `doc translate` автоматически переводит файлы документации с базового языка на целевые языки с использованием сервисов AI-перевода.
+
+```bash
+npx intlayer doc translate
+```
+
+## Аргументы:
+
+**Опции списка файлов:**
+
+- **`--doc-pattern [docPattern...]`**: Глобальные шаблоны для выбора файлов документации, которые нужно перевести.
+
+  > Пример: `npx intlayer doc translate --doc-pattern "docs/**/*.md" "src/**/*.mdx"`
+
+- **`--excluded-glob-pattern [excludedGlobPattern...]`**: Глобальные шаблоны для исключения файлов из перевода.
+
+  > Пример: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
+
+- **`--skip-if-modified-before [skipIfModifiedBefore]`**: Пропустить файл, если он был изменён до указанного времени.
+  - Может быть абсолютным временем, например "2025-12-05" (строка или Date)
+  - Может быть относительным временем в миллисекундах `1 * 60 * 60 * 1000` (1 час)
+  - Эта опция проверяет время обновления файла с помощью метода `fs.stat`. Поэтому она может быть затронута Git или другими инструментами, которые изменяют файл.
+
+  > Пример: `npx intlayer doc translate --skip-if-modified-before "2025-12-05"`
+
+- **`--skip-if-modified-after [skipIfModifiedAfter]`**: Пропустить файл, если он был изменён в течение указанного времени.
+  - Может быть абсолютным временем, например "2025-12-05" (строка или Date)
+  - Может быть относительным временем в миллисекундах `1 * 60 * 60 * 1000` (1 час)
+  - Эта опция проверяет время обновления файла с помощью метода `fs.stat`. Поэтому она может быть затронута Git или другими инструментами, которые изменяют файл.
+
+  > Пример: `npx intlayer doc translate --skip-if-modified-after "2025-12-05"`
+
+- **`--skip-if-exists`**: Пропустить файл, если он уже существует.
+
+  > Пример: `npx intlayer doc translate --skip-if-exists`
+
+**Опции вывода записей:**
+
+- **`--locales [locales...]`**: Целевые локали для перевода документации.
+
+  > Пример: `npx intlayer doc translate --locales fr es de`
+
+- **`--base-locale [baseLocale]`**: Исходная локаль для перевода.
+
+  > Пример: `npx intlayer doc translate --base-locale en`
+
+**Опции обработки файлов:**
+
+- **`--nb-simultaneous-file-processed [nbSimultaneousFileProcessed]`**: Количество файлов, обрабатываемых одновременно для перевода.
+
+  > Пример: `npx intlayer doc translate --nb-simultaneous-file-processed 5`
+
+**Опции ИИ:**
+
+- **`--model [model]`**: Модель ИИ, используемая для перевода (например, `gpt-3.5-turbo`).
+- **`--provider [provider]`**: Провайдер ИИ, используемый для перевода.
+- **`--temperature [temperature]`**: Параметр температуры для модели ИИ.
+- **`--api-key [apiKey]`**: Предоставьте свой собственный API-ключ для сервиса ИИ.
+- **`--application-context [applicationContext]`**: Предоставьте дополнительный контекст для перевода ИИ.
+- **`--custom-prompt [prompt]`**: Настройка базового запроса, используемого для перевода. (Примечание: для большинства случаев рекомендуется использовать опцию `--custom-instructions`, так как она обеспечивает лучший контроль над поведением перевода.)
+
+  > Пример: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "Мое приложение — магазин для кошек"`
+
+**Опции переменных окружения:**
+
+- **`--env`**: Указать окружение (например, `development`, `production`).
+- **`--env-file [envFile]`**: Указать пользовательский файл окружения для загрузки переменных.
+- **`--base-dir`**: Указать базовую директорию проекта.
+- **`--no-cache`**: Отключить кэш.
+
+  > Пример: `npx intlayer doc translate --base-dir ./docs --env-file .env.production.local`
+
+**Опции логирования:**
+
+- **`--verbose`**: Включить подробное логирование для отладки. (по умолчанию включено при использовании CLI)
+
+  > Пример: `npx intlayer doc translate --verbose`
+
+**Опции пользовательских инструкций:**
+
+- **`--custom-instructions [customInstructions]`**: Пользовательские инструкции, добавляемые в запрос. Полезно для применения специфических правил касательно форматирования, перевода URL и т.д.
+  - Может быть абсолютное время, например "2025-12-05" (строка или объект Date)
+  - Может быть относительное время в миллисекундах `1 * 60 * 60 * 1000` (1 час)
+  - Эта опция проверяет время обновления файла с помощью метода `fs.stat`. Поэтому может быть затронута Git или другими инструментами, которые изменяют файл.
+
+  > Пример: `npx intlayer doc translate --custom-instructions "Избегайте перевода URL и сохраняйте формат markdown"`
+
+  > Пример: `npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
+
+**Опции Git:**
+
+- **`--git-diff`**: Запускать только для словарей, которые содержат изменения от базовой ветки (по умолчанию `origin/main`) до текущей ветки (по умолчанию: `HEAD`).
+- **`--git-diff-base`**: Указать базовую ссылку для git diff (по умолчанию `origin/main`).
+- **`--git-diff-current`**: Указать текущую ссылку для git diff (по умолчанию `HEAD`).
+- **`--uncommitted`**: Включать незафиксированные изменения.
+- **`--unpushed`**: Включать изменения, не отправленные в удалённый репозиторий.
+- **`--untracked`**: Включать неотслеживаемые файлы.
+
+  > Пример: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
+  > Пример: `npx intlayer doc translate --uncommitted --unpushed --untracked`
+
+> Обратите внимание, что путь к выходному файлу будет определяться путем замены следующих шаблонов
+>
+> - `/{{baseLocale}}/` на `/{{locale}}/` (Unix)
+> - `\{{baseLocale}}\` на `\{{locale}}\` (Windows)
+> - `_{{baseLocale}}.` на `_{{locale}}.`
+> - `{{baseLocale}}_` на `{{locale}}_`
+> - `.{{baseLocaleName}}.` на `.{{localeName}}.`
+>
+> Если шаблон не найден, к расширению файла будет добавлено `.{{locale}}`. Например, `./my/file.md` будет переведен в `./my/file.fr.md` для французской локали.
