@@ -145,6 +145,72 @@ const docDataContent: Dictionary = {
         cli: {
           title: 'CLI',
           default: getDocMetadata('./docs/en/cli/index.md'),
+          subSections: {
+            list: {
+              title: 'List',
+              default: getDocMetadata('./docs/en/cli/list.md'),
+            },
+            test: {
+              title: 'Test',
+              default: getDocMetadata('./docs/en/cli/test.md'),
+            },
+            fill: {
+              title: 'Fill',
+              default: getDocMetadata('./docs/en/cli/fill.md'),
+            },
+            build: {
+              title: 'Build',
+              default: getDocMetadata('./docs/en/cli/build.md'),
+            },
+            watch: {
+              title: 'Watch',
+              default: getDocMetadata('./docs/en/cli/watch.md'),
+            },
+            version: {
+              title: 'Version',
+              default: getDocMetadata('./docs/en/cli/version.md'),
+            },
+            push: {
+              title: 'Push',
+              default: getDocMetadata('./docs/en/cli/push.md'),
+            },
+            pull: {
+              title: 'Pull',
+              default: getDocMetadata('./docs/en/cli/pull.md'),
+            },
+            configuration: {
+              title: 'Configuration',
+              default: getDocMetadata('./docs/en/cli/configuration.md'),
+            },
+            debug: {
+              title: 'Debug',
+              default: getDocMetadata('./docs/en/cli/debug.md'),
+            },
+            'doc-review': {
+              title: 'Doc Review',
+              default: getDocMetadata('./docs/en/cli/doc-review.md'),
+            },
+            'doc-translate': {
+              title: 'Doc Translate',
+              default: getDocMetadata('./docs/en/cli/doc-translate.md'),
+            },
+            editor: {
+              title: 'Editor',
+              default: getDocMetadata('./docs/en/cli/editor.md'),
+            },
+            live: {
+              title: 'Live',
+              default: getDocMetadata('./docs/en/cli/live.md'),
+            },
+            sdk: {
+              title: 'SDK',
+              default: getDocMetadata('./docs/en/cli/sdk.md'),
+            },
+            transform: {
+              title: 'Transform',
+              default: getDocMetadata('./docs/en/cli/transform.md'),
+            },
+          },
         },
         editor: {
           title: t({
