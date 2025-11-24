@@ -176,7 +176,6 @@ export default config;
 ```plaintext fileName=".gitignore"
 # Intlayerによって生成されたファイルを無視する
 .intlayer
-intl
 ```
 
 これらのファイルはビルドプロセス中に自動的に再生成されるため、リポジトリにコミットする必要はありません。

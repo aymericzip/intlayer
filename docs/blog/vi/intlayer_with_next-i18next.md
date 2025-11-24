@@ -176,7 +176,6 @@ Loại trừ các file được tạo tự động khỏi việc kiểm soát ph
 ```plaintext fileName=".gitignore"
 # Bỏ qua các file được tạo bởi Intlayer
 .intlayer
-intl
 ```
 
 Các file này được tự động tạo lại trong quá trình build và không cần phải commit vào kho mã của bạn.

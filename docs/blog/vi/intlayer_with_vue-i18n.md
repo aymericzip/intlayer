@@ -166,7 +166,6 @@ Loại trừ các tệp được tạo tự động khỏi kiểm soát phiên b
 ```plaintext fileName=".gitignore"
 # Bỏ qua các tệp được tạo bởi Intlayer
 .intlayer
-intl
 ```
 
 Các tệp này được tạo lại tự động trong quá trình xây dựng và không cần phải cam kết vào kho lưu trữ của bạn.

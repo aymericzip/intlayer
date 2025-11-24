@@ -176,7 +176,6 @@ Kecualikan file yang dihasilkan dari kontrol versi:
 ```plaintext fileName=".gitignore"
 # Abaikan file yang dihasilkan oleh Intlayer
 .intlayer
-intl
 ```
 
 File-file ini secara otomatis dihasilkan ulang selama proses build dan tidak perlu dikomit ke repositori Anda.

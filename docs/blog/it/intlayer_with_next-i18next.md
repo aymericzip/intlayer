@@ -176,7 +176,6 @@ Escludi i file generati dal controllo di versione:
 ```plaintext fileName=".gitignore"
 # Ignora i file generati da Intlayer
 .intlayer
-intl
 ```
 
 Questi file vengono rigenerati automaticamente durante il processo di build e non devono essere aggiunti al tuo repository.

@@ -166,7 +166,6 @@ Oluşturulan dosyaları sürüm kontrolünden hariç tutun:
 ```plaintext fileName=".gitignore"
 # Intlayer tarafından oluşturulan dosyaları yoksay
 .intlayer
-intl
 ```
 
 Bu dosyalar derleme sürecinde otomatik olarak yeniden oluşturulur ve depoza gönderilmesine gerek yoktur.

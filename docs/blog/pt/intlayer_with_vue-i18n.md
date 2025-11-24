@@ -166,7 +166,6 @@ Exclua arquivos gerados do controle de versão:
 ```plaintext fileName=".gitignore"
 # Ignorar arquivos gerados pelo Intlayer
 .intlayer
-intl
 ```
 
 Esses arquivos são automaticamente regenerados durante o processo de build e não precisam ser comitados no seu repositório.

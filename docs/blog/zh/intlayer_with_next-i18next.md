@@ -176,7 +176,6 @@ export default config;
 ```plaintext fileName=".gitignore"
 # 忽略 Intlayer 生成的文件
 .intlayer
-intl
 ```
 
 这些文件会在构建过程中自动重新生成，无需提交到您的代码仓库。

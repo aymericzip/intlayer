@@ -176,7 +176,6 @@ export default config;
 ```plaintext fileName=".gitignore"
 # تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
 .intlayer
-intl
 ```
 
 يتم إعادة إنشاء هذه الملفات تلقائيًا أثناء عملية البناء ولا تحتاج إلى الالتزام بها في مستودعك.

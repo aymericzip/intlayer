@@ -187,7 +187,6 @@ Wyklucz generowane pliki z kontroli wersji:
 ```plaintext fileName=".gitignore"
 # Ignoruj pliki generowane przez Intlayer
 .intlayer
-intl
 ```
 
 Te pliki są automatycznie generowane podczas procesu budowania i nie muszą być zatwierdzane do Twojego repozytorium.

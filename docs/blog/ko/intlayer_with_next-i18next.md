@@ -176,7 +176,6 @@ export default config;
 ```plaintext fileName=".gitignore"
 # Intlayer에서 생성된 파일 무시
 .intlayer
-intl
 ```
 
 이 파일들은 빌드 과정에서 자동으로 다시 생성되므로 저장소에 커밋할 필요가 없습니다.

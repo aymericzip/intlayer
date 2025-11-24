@@ -176,7 +176,6 @@ Exclure les fichiers générés du contrôle de version :
 ```plaintext fileName=".gitignore"
 # Ignorer les fichiers générés par Intlayer
 .intlayer
-intl
 ```
 
 Ces fichiers sont automatiquement régénérés lors du processus de build et n'ont pas besoin d'être commités dans votre dépôt.

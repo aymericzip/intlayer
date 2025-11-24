@@ -166,7 +166,6 @@ export default config;
 ```plaintext fileName=".gitignore"
 # Игнорировать файлы, сгенерированные Intlayer
 .intlayer
-intl
 ```
 
 Эти файлы автоматически пересоздаются в процессе сборки и не требуют добавления в ваш репозиторий.

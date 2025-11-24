@@ -177,7 +177,6 @@ Schließen Sie generierte Dateien von der Versionskontrolle aus:
 ```plaintext fileName=".gitignore"
 # Dateien ignorieren, die von Intlayer generiert werden
 .intlayer
-intl
 ```
 
 Diese Dateien werden während des Build-Prozesses automatisch neu generiert und müssen nicht in Ihr Repository eingecheckt werden.
