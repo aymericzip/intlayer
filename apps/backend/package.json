@@ -73,13 +73,8 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "2.0.45",
-    "@ai-sdk/deepseek": "1.0.29",
-    "@ai-sdk/google": "2.0.40",
-    "@ai-sdk/mistral": "2.0.24",
-    "@ai-sdk/openai": "2.0.71",
+    "@intlayer/ai": "workspace:*",
     "@react-email/components": "1.0.1",
-    "ai": "5.0.98",
     "better-auth": "1.3.34",
     "compression": "1.8.1",
     "cookie-parser": "1.4.7",
@@ -126,6 +121,6 @@
     "tsdown": "0.16.6",
     "tsx": "^4.20.6",
     "typescript": "5.9.3",
-    "vitest": "4.0.12"
+    "vitest": "4.0.13"
   }
 }

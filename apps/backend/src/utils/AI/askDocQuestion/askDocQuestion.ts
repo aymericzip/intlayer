@@ -1,9 +1,9 @@
 import { readAsset } from 'utils:asset';
+import type { AIConfig, ChatCompletionRequestMessage } from '@intlayer/ai';
+import { streamText } from '@intlayer/ai';
 import { getMarkdownMetadata } from '@intlayer/core';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
-import { streamText } from 'ai';
 import { OpenAI } from 'openai';
-import type { AIConfig, ChatCompletionRequestMessage } from '../aiSdk';
 
 const readEmbeddingsForFile = (fileKey: string): Record<string, number[]> => {
   try {

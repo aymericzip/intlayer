@@ -1,11 +1,11 @@
 import { readAsset } from 'utils:asset';
+import type { AIConfig, AIOptions } from '@intlayer/ai';
+import { generateText } from '@intlayer/ai';
 import { getLocaleName } from '@intlayer/core';
 import { type Locale, Locales } from '@intlayer/types';
 import { logger } from '@logger';
 import { extractJson } from '@utils/extractJSON';
-import { generateText } from 'ai';
 import type { Tag } from '@/types/tag.types';
-import type { AIConfig, AIOptions } from '../aiSdk';
 
 export type AuditOptions = {
   fileContent: string;

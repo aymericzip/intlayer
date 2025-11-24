@@ -82,7 +82,7 @@
     "rimraf": "6.1.2",
     "tsdown": "0.16.6",
     "typescript": "5.9.3",
-    "vitest": "4.0.12"
+    "vitest": "4.0.13"
   },
   "engines": {
     "node": ">=14.18"

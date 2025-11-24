@@ -10,7 +10,6 @@ import type {
   ToolModelMessage,
   UserModelMessage,
 } from 'ai';
-import type { Response } from 'express';
 
 type AnthropicModel = Parameters<typeof anthropic>[0];
 type DeepSeekModel = Parameters<typeof deepseek>[0];
@@ -68,9 +67,9 @@ export type ChatCompletionRequestMessage = {
 type AccessType = 'apiKey' | 'registered_user' | 'premium_user' | 'public';
 
 const getAPIKey = (
-  res: Response,
   accessType: AccessType[],
-  aiOptions?: AIOptions
+  aiOptions?: AIOptions,
+  isAuthenticated: boolean = false
 ) => {
   const defaultApiKey = process.env.OPENAI_API_KEY;
 
@@ -82,12 +81,12 @@ const getAPIKey = (
     return aiOptions?.apiKey;
   }
 
-  if (accessType.includes('registered_user') && res.locals.user) {
+  if (accessType.includes('registered_user') && isAuthenticated) {
     return aiOptions?.apiKey ?? defaultApiKey;
   }
 
   // TODO: Implement premium user access
-  if (accessType.includes('premium_user') && res.locals.user) {
+  if (accessType.includes('premium_user') && isAuthenticated) {
     return aiOptions?.apiKey ?? defaultApiKey;
   }
 
@@ -149,8 +148,8 @@ export type AIConfigOptions = {
  * @returns Configured AI model ready to use with generateText
  */
 export const getAIConfig = async (
-  res: Response,
-  options: AIConfigOptions
+  options: AIConfigOptions,
+  isAuthenticated: boolean = false
 ): Promise<AIConfig> => {
   const {
     userOptions,
@@ -165,9 +164,7 @@ export const getAIConfig = async (
     ...userOptions,
   } satisfies AIOptions;
 
-  console.log({ aiOptions, defaultOptions, userOptions });
-
-  const apiKey = getAPIKey(res, accessType, aiOptions);
+  const apiKey = getAPIKey(accessType, aiOptions, isAuthenticated);
 
   // Check if API key is provided
   if (!apiKey) {
@@ -180,8 +177,6 @@ export const getAIConfig = async (
     aiOptions.model,
     defaultOptions?.model
   );
-
-  console.log({ selectedModel });
 
   const protectedOptions = {
     ...aiOptions,

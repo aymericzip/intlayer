@@ -5,7 +5,6 @@ import { getMarkdownMetadata } from '@intlayer/core';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import dotenv from 'dotenv';
 import { OpenAI } from 'openai';
-import { type AIOptions, AIProvider } from '../aiSdk';
 
 const OUTPUT_EMBEDDINGS_DIR = 'src/utils/AI/askDocQuestion/embeddings';
 const __dirname = dirname(fileURLToPath(import.meta.url));

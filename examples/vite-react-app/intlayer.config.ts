@@ -11,8 +11,13 @@ const config: IntlayerConfig = {
     cmsURL: 'http://localhost:3000',
     editorURL: 'http://localhost:8000',
     backendURL: 'http://localhost:3100',
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // clientId: process.env.INTLAYER_CLIENT_ID,
+    // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+  ai: {
+    provider: 'openai',
+    // apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: 'This is a test application',
   },
   content: {
     // contentDir: ['../../'],

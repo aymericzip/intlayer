@@ -1,7 +1,11 @@
 import { readAsset } from 'utils:asset';
+import {
+  type AIConfig,
+  type AIOptions,
+  AIProvider,
+  generateText,
+} from '@intlayer/ai';
 import { logger } from '@logger';
-import { generateText } from 'ai';
-import { type AIConfig, type AIOptions, AIProvider } from '../aiSdk';
 
 export type AutocompleteOptions = {
   text: string;

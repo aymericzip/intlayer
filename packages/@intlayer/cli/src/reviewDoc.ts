@@ -20,9 +20,9 @@ import {
 import type { Locale } from '@intlayer/types';
 import fg from 'fast-glob';
 import { reviewFileBlockAware } from './reviewDocBlockAware';
-import { checkAIAccess } from './utils/checkAccess';
 import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
 import { getOutputFilePath } from './utils/getOutputFilePath';
+import { setupAI } from './utils/setupAI';
 
 type ReviewDocOptions = {
   docPattern: string[];
@@ -60,9 +60,11 @@ export const reviewDoc = async ({
   const configuration = getConfiguration(configOptions);
   const appLogger = getAppLogger(configuration);
 
-  const hasCMSAuth = await checkAIAccess(configuration, aiOptions);
+  const aiResult = await setupAI(configuration, aiOptions);
 
-  if (!hasCMSAuth) return;
+  if (!aiResult?.hasAIAccess) return;
+
+  const { aiClient, aiConfig } = aiResult;
 
   if (nbSimultaneousFileProcessed && nbSimultaneousFileProcessed > 10) {
     appLogger(
@@ -154,7 +156,9 @@ export const reviewDoc = async ({
         aiOptions,
         configOptions,
         customInstructions,
-        changedLines
+        changedLines,
+        aiClient,
+        aiConfig
       );
     })
   );

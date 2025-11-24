@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { dirname, join, relative } from 'node:path';
 import { readAsset } from 'utils:asset';
-import type { AIOptions } from '@intlayer/api';
+import type { AIConfig, AIOptions } from '@intlayer/ai';
 import {
   formatLocale,
   formatPath,
@@ -24,11 +24,11 @@ import {
 import type { IntlayerConfig, Locale } from '@intlayer/types';
 import fg from 'fast-glob';
 import { chunkText } from './utils/calculateChunks';
-import { checkAIAccess } from './utils/checkAccess';
 import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
 import { chunkInference } from './utils/chunkInference';
 import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
 import { getOutputFilePath } from './utils/getOutputFilePath';
+import { type AIClient, setupAI } from './utils/setupAI';
 
 /**
  * Translate a single file for a given locale
@@ -40,7 +40,9 @@ export const translateFile = async (
   baseLocale: Locale,
   configuration: IntlayerConfig,
   aiOptions?: AIOptions,
-  customInstructions?: string
+  customInstructions?: string,
+  aiClient?: AIClient,
+  aiConfig?: AIConfig
 ) => {
   try {
     const appLogger = getAppLogger(configuration, {
@@ -116,7 +118,9 @@ export const translateFile = async (
             { role: 'user', content: fileToTranslateCurrentChunk },
           ],
           aiOptions,
-          configuration
+          configuration,
+          aiClient,
+          aiConfig
         );
 
         appLogger(
@@ -210,9 +214,11 @@ export const translateDoc = async ({
     ignore: excludedGlobPattern,
   });
 
-  const hasCMSAuth = await checkAIAccess(configuration, aiOptions);
+  const aiResult = await setupAI(configuration, aiOptions);
 
-  if (!hasCMSAuth) return;
+  if (!aiResult?.hasAIAccess) return;
+
+  const { aiClient, aiConfig } = aiResult;
 
   if (gitOptions) {
     const gitChangedFiles = await listGitFiles(gitOptions);
@@ -287,7 +293,9 @@ export const translateDoc = async ({
         baseLocale,
         configuration,
         aiOptions,
-        customInstructions
+        customInstructions,
+        aiClient,
+        aiConfig
       );
     })
   );

@@ -1,9 +1,11 @@
-import { readAsset } from 'utils:asset';
+import {
+  type AIConfig,
+  type AIOptions,
+  type AuditFileResultData,
+  auditDictionaryMetadata as auditDictionaryMetadataAI,
+} from '@intlayer/ai';
 import { logger } from '@logger';
-import { extractJson } from '@utils/extractJSON';
-import { generateText } from 'ai';
 import type { Tag } from '@/types/tag.types';
-import type { AIConfig, AIOptions } from '../aiSdk';
 
 export type AuditOptions = {
   fileContent: string;
@@ -12,17 +14,7 @@ export type AuditOptions = {
   applicationContext?: string;
 };
 
-export type AuditFileResultData = {
-  fileContent: {
-    title: string;
-    description: string;
-    tags: string[];
-  };
-  tokenUsed: number;
-};
-
-// The prompt template to send to AI models
-const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
+export type { AuditFileResultData };
 
 export const aiDefaultOptions: AIOptions = {
   // Keep default options
@@ -33,49 +25,14 @@ export const aiDefaultOptions: AIOptions = {
  * The prompt includes details about the project's locales, file paths of content declarations,
  * and requests for identifying issues or inconsistencies.
  */
-export const auditDictionaryMetadata = async ({
-  tags,
-  fileContent,
-  applicationContext,
-  aiConfig,
-}: AuditOptions): Promise<AuditFileResultData | undefined> => {
-  // Prepare the prompt for AI by replacing placeholders with actual values.
-  const prompt = CHAT_GPT_PROMPT.replace(
-    '{{tags}}',
-    `${JSON.stringify(
-      tags
-        .map(({ key, description }) => `- ${key}: ${description}`)
-        .join('\n\n'),
-      null,
-      2
-    )}`
-  ).replace('{{applicationContext}}', applicationContext ?? '');
+export const auditDictionaryMetadata = async (
+  options: AuditOptions
+): Promise<AuditFileResultData | undefined> => {
+  const result = await auditDictionaryMetadataAI(options);
 
-  if (!aiConfig) {
-    logger.error('Failed to configure AI model');
-    return undefined;
+  if (result) {
+    logger.info(`${result.tokenUsed} tokens used in the request`);
   }
 
-  // Use the AI SDK to generate the completion
-  const { text: newContent, usage } = await generateText({
-    ...aiConfig,
-    messages: [
-      { role: 'system', content: prompt },
-      {
-        role: 'user',
-        content: [
-          '**Content declaration to describe:**',
-          'This is the content declaration that you should consider to describe:',
-          fileContent,
-        ].join('\n'),
-      },
-    ],
-  });
-
-  logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
-
-  return {
-    fileContent: extractJson(newContent),
-    tokenUsed: usage?.totalTokens ?? 0,
-  };
+  return result;
 };

@@ -1,10 +1,8 @@
-import {
-  type AIOptions,
-  getIntlayerAPIProxy,
-  type Messages,
-} from '@intlayer/api';
+import type { AIConfig, AIOptions } from '@intlayer/ai';
+import { getIntlayerAPIProxy, type Messages } from '@intlayer/api';
 import { retryManager } from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
+import type { AIClient } from './setupAI';
 
 type ChunkInferenceResult = {
   fileContent: string;
@@ -18,11 +16,33 @@ type ChunkInferenceResult = {
 export const chunkInference = async (
   messages: Messages,
   aiOptions?: AIOptions,
-  configuration?: IntlayerConfig
+  configuration?: IntlayerConfig,
+  aiClient?: AIClient,
+  aiConfig?: AIConfig
 ): Promise<ChunkInferenceResult> => {
   let lastResult: ChunkInferenceResult;
 
   await retryManager(async () => {
+    if (aiClient && aiConfig) {
+      const response = await aiClient.customQuery({
+        aiConfig,
+        messages,
+      });
+
+      if (!response) {
+        throw new Error('No response from AI API');
+      }
+
+      const { fileContent, tokenUsed } = response;
+
+      lastResult = {
+        fileContent: processContent(fileContent),
+        tokenUsed,
+      };
+
+      return;
+    }
+
     const api = getIntlayerAPIProxy(undefined, configuration);
 
     const response = await api.ai.customQuery({
@@ -36,29 +56,31 @@ export const chunkInference = async (
 
     const { fileContent, tokenUsed } = response.data;
 
-    const newContent = fileContent
-      .replaceAll('///chunksStart///', '')
-      .replaceAll('///chunkStart///', '')
-      .replaceAll('///chunksEnd///', '')
-      .replaceAll('///chunkEnd///', '')
-      .replaceAll('///chunksStart///', '')
-      .replaceAll('chunkStart///', '')
-      .replaceAll('chunksEnd///', '')
-      .replaceAll('chunkEnd///', '')
-      .replaceAll('///chunksStart', '')
-      .replaceAll('///chunkStart', '')
-      .replaceAll('///chunksEnd', '')
-      .replaceAll('///chunkEnd', '')
-      .replaceAll('chunksStart', '')
-      .replaceAll('chunkStart', '')
-      .replaceAll('chunksEnd', '')
-      .replaceAll('chunkEnd', '');
-
     lastResult = {
-      fileContent: newContent,
+      fileContent: processContent(fileContent),
       tokenUsed,
     };
   })();
 
   return lastResult!;
+};
+
+const processContent = (content: string) => {
+  return content
+    .replaceAll('///chunksStart///', '')
+    .replaceAll('///chunkStart///', '')
+    .replaceAll('///chunksEnd///', '')
+    .replaceAll('///chunkEnd///', '')
+    .replaceAll('///chunksStart///', '')
+    .replaceAll('chunkStart///', '')
+    .replaceAll('chunksEnd///', '')
+    .replaceAll('chunkEnd///', '')
+    .replaceAll('///chunksStart', '')
+    .replaceAll('///chunkStart', '')
+    .replaceAll('///chunksEnd', '')
+    .replaceAll('///chunkEnd', '')
+    .replaceAll('chunksStart', '')
+    .replaceAll('chunkStart', '')
+    .replaceAll('chunksEnd', '')
+    .replaceAll('chunkEnd', '');
 };

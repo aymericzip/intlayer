@@ -1,14 +1,14 @@
-import type { KeyPath, Locale } from '@intlayer/types';
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
-import { getDictionariesByTags } from '@services/dictionary.service';
-import * as tagService from '@services/tag.service';
-import { getTagsByKeys } from '@services/tag.service';
 import {
   type AIConfig,
   type AIOptions,
   type ChatCompletionRequestMessage,
   getAIConfig,
-} from '@utils/AI/aiSdk';
+} from '@intlayer/ai';
+import type { KeyPath, Locale } from '@intlayer/types';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
+import { getDictionariesByTags } from '@services/dictionary.service';
+import * as tagService from '@services/tag.service';
+import { getTagsByKeys } from '@services/tag.service';
 import * as askDocQuestionUtil from '@utils/AI/askDocQuestion/askDocQuestion';
 import * as auditContentDeclarationUtil from '@utils/AI/auditDictionary';
 import * as auditContentDeclarationFieldUtil from '@utils/AI/auditDictionaryField';
@@ -56,11 +56,14 @@ export const customQuery = async (
 
   let aiConfig: AIConfig;
   try {
-    aiConfig = await getAIConfig(res, {
-      userOptions: aiOptions,
-      defaultOptions: customQueryUtil.aiDefaultOptions,
-      accessType: ['registered_user', 'apiKey'],
-    });
+    aiConfig = await getAIConfig(
+      {
+        userOptions: aiOptions,
+        defaultOptions: customQueryUtil.aiDefaultOptions,
+        accessType: ['registered_user', 'apiKey'],
+      },
+      !!res.locals.user
+    );
   } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
@@ -109,11 +112,14 @@ export const translateJSON = async (
 
   let aiConfig: AIConfig;
   try {
-    aiConfig = await getAIConfig(res, {
-      userOptions: aiOptions,
-      defaultOptions: translateJSONUtil.aiDefaultOptions,
-      accessType: ['registered_user', 'apiKey'],
-    });
+    aiConfig = await getAIConfig(
+      {
+        userOptions: aiOptions,
+        defaultOptions: translateJSONUtil.aiDefaultOptions,
+        accessType: ['registered_user', 'apiKey'],
+      },
+      !!res.locals.user
+    );
   } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
@@ -176,11 +182,14 @@ export const auditContentDeclaration = async (
 
   let aiConfig: AIConfig;
   try {
-    aiConfig = await getAIConfig(res, {
-      userOptions: aiOptions,
-      defaultOptions: auditContentDeclarationUtil.aiDefaultOptions,
-      accessType: ['registered_user', 'apiKey'],
-    });
+    aiConfig = await getAIConfig(
+      {
+        userOptions: aiOptions,
+        defaultOptions: auditContentDeclarationUtil.aiDefaultOptions,
+        accessType: ['registered_user', 'apiKey'],
+      },
+      !!res.locals.user
+    );
   } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
@@ -245,11 +254,14 @@ export const auditContentDeclarationField = async (
 
   let aiConfig: AIConfig;
   try {
-    aiConfig = await getAIConfig(res, {
-      userOptions: aiOptions,
-      defaultOptions: auditContentDeclarationFieldUtil.aiDefaultOptions,
-      accessType: ['registered_user', 'apiKey'],
-    });
+    aiConfig = await getAIConfig(
+      {
+        userOptions: aiOptions,
+        defaultOptions: auditContentDeclarationFieldUtil.aiDefaultOptions,
+        accessType: ['registered_user', 'apiKey'],
+      },
+      !!res.locals.user
+    );
   } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
@@ -313,11 +325,14 @@ export const auditContentDeclarationMetadata = async (
 
   let aiConfig: AIConfig;
   try {
-    aiConfig = await getAIConfig(res, {
-      userOptions: aiOptions,
-      defaultOptions: auditContentDeclarationMetadataUtil.aiDefaultOptions,
-      accessType: ['registered_user', 'apiKey'],
-    });
+    aiConfig = await getAIConfig(
+      {
+        userOptions: aiOptions,
+        defaultOptions: auditContentDeclarationMetadataUtil.aiDefaultOptions,
+        accessType: ['registered_user', 'apiKey'],
+      },
+      !!res.locals.user
+    );
   } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
@@ -377,11 +392,14 @@ export const auditTag = async (
 
   let aiConfig: AIConfig;
   try {
-    aiConfig = await getAIConfig(res, {
-      userOptions: aiOptions,
-      defaultOptions: auditTagUtil.aiDefaultOptions,
-      accessType: ['registered_user', 'apiKey'],
-    });
+    aiConfig = await getAIConfig(
+      {
+        userOptions: aiOptions,
+        defaultOptions: auditTagUtil.aiDefaultOptions,
+        accessType: ['registered_user', 'apiKey'],
+      },
+      !!res.locals.user
+    );
   } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
@@ -434,10 +452,13 @@ export const askDocQuestion = async (
 
   let aiConfig: AIConfig;
   try {
-    aiConfig = await getAIConfig(res, {
-      userOptions: {},
-      accessType: ['public'],
-    });
+    aiConfig = await getAIConfig(
+      {
+        userOptions: {},
+        accessType: ['public'],
+      },
+      !!res.locals.user
+    );
   } catch (_error) {
     ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
     return;
@@ -537,11 +558,14 @@ export const autocomplete = async (
 
     let aiConfig: AIConfig;
     try {
-      aiConfig = await getAIConfig(res, {
-        userOptions: aiOptions,
-        defaultOptions: autocompleteUtil.aiDefaultOptions,
-        accessType: ['public'],
-      });
+      aiConfig = await getAIConfig(
+        {
+          userOptions: aiOptions,
+          defaultOptions: autocompleteUtil.aiDefaultOptions,
+          accessType: ['public'],
+        },
+        !!res.locals.user
+      );
     } catch (_error) {
       ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
       return;

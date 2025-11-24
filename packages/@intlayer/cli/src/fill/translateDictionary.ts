@@ -1,4 +1,5 @@
 import { basename } from 'node:path';
+import type { AIConfig } from '@intlayer/ai';
 import { type AIOptions, getIntlayerAPIProxy } from '@intlayer/api';
 import {
   chunkJSON,
@@ -26,6 +27,7 @@ import {
 } from '@intlayer/core';
 import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+import type { AIClient } from '../utils/setupAI';
 import type { TranslationTask } from './listTranslationsTasks';
 
 type TranslateDictionaryResult = TranslationTask & {
@@ -40,6 +42,8 @@ type TranslateDictionaryOptions = {
   onSuccess?: () => void;
   onError?: (error: unknown) => void;
   getAbortError?: () => Error | null;
+  aiClient?: AIClient;
+  aiConfig?: AIConfig;
 };
 
 const hasMissingMetadata = (dictionary: Dictionary) =>
@@ -61,7 +65,7 @@ export const translateDictionary = async (
   const appLogger = getAppLogger(configuration);
   const intlayerAPI = getIntlayerAPIProxy(undefined, configuration);
 
-  const { mode, aiOptions, fillMetadata } = {
+  const { mode, aiOptions, fillMetadata, aiClient, aiConfig } = {
     mode: 'complete',
     fillMetadata: true,
     ...options,
@@ -112,14 +116,21 @@ export const translateDictionary = async (
         );
 
         const runAudit = async () => {
-          try {
-            return await intlayerAPI.ai.auditContentDeclarationMetadata({
+          if (aiClient && aiConfig) {
+            const result = await aiClient.auditDictionaryMetadata({
               fileContent: JSON.stringify(defaultLocaleDictionary),
-              aiOptions,
+              aiConfig,
             });
-          } catch (error) {
-            throw error;
+
+            return {
+              data: result,
+            };
           }
+
+          return await intlayerAPI.ai.auditContentDeclarationMetadata({
+            fileContent: JSON.stringify(defaultLocaleDictionary),
+            aiOptions,
+          });
         };
 
         const metadataResult = options?.onHandle
@@ -247,6 +258,38 @@ export const translateDictionary = async (
             const executeTranslation = async () => {
               return await retryManager(
                 async () => {
+                  if (aiClient && aiConfig) {
+                    const translationResult = await aiClient.translateJSON({
+                      entryFileContent: chunkContent as unknown as JSON,
+                      presetOutputContent,
+                      dictionaryDescription:
+                        dictionaryToProcess.description ??
+                        metadata?.description ??
+                        '',
+                      entryLocale: task.sourceLocale,
+                      outputLocale: targetLocale,
+                      mode,
+                      aiConfig,
+                    });
+
+                    if (!translationResult) {
+                      throw new Error('No content result');
+                    }
+
+                    const { isIdentic } = verifyIdenticObjectFormat(
+                      translationResult.fileContent,
+                      chunkContent
+                    );
+                    if (!isIdentic) {
+                      throw new Error(
+                        'Translation result does not match expected format'
+                      );
+                    }
+
+                    notifySuccess();
+                    return translationResult.fileContent;
+                  }
+
                   const translationResult = await intlayerAPI.ai.translateJSON({
                     entryFileContent: chunkContent as unknown as JSON,
                     presetOutputContent,

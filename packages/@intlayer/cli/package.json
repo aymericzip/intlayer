@@ -67,6 +67,7 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",
+    "@intlayer/ai": "workspace:*",
     "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
@@ -87,7 +88,7 @@
     "rimraf": "6.1.2",
     "tsdown": "0.16.6",
     "typescript": "5.9.3",
-    "vitest": "4.0.12"
+    "vitest": "4.0.13"
   },
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"

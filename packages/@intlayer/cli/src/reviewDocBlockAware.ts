@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { readAsset } from 'utils:asset';
+import type { AIConfig } from '@intlayer/ai';
 import type { AIOptions } from '@intlayer/api';
 import { formatLocale, formatPath } from '@intlayer/chokidar';
 import {
@@ -22,6 +23,7 @@ import {
 } from './translation-alignment/pipeline';
 import { chunkInference } from './utils/chunkInference';
 import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
+import type { AIClient } from './utils/setupAI';
 
 /**
  * Review a file using block-aware alignment.
@@ -40,7 +42,9 @@ export const reviewFileBlockAware = async (
   aiOptions?: AIOptions,
   configOptions?: GetConfigurationOptions,
   customInstructions?: string,
-  changedLines?: number[]
+  changedLines?: number[],
+  aiClient?: AIClient,
+  aiConfig?: AIConfig
 ) => {
   const configuration = getConfiguration(configOptions);
   const applicationLogger = getAppLogger(configuration);
@@ -131,7 +135,9 @@ export const reviewFileBlockAware = async (
           { role: 'user', content: englishBlock.content },
         ],
         aiOptions,
-        configuration
+        configuration,
+        aiClient,
+        aiConfig
       );
 
       applicationLogger(

@@ -1,6 +1,11 @@
 import type { AIOptions } from '@intlayer/api';
 import { getIntlayerAPIProxy } from '@intlayer/api';
-import { extractErrorMessage, getAppLogger } from '@intlayer/config';
+import {
+  ANSIColors,
+  colorize,
+  extractErrorMessage,
+  getAppLogger,
+} from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
 
 export const checkCMSAuth = async (
@@ -56,9 +61,26 @@ export const checkAIAccess = async (
 
   // User need to provide either his own AI API key or the CMS auth
   if (!hasCMSAuth) {
-    appLogger('AI options or API key not provided.', {
-      level: 'error',
-    });
+    appLogger(
+      [
+        'AI options or API key not provided. You can either retreive the CMS access key on',
+        colorize('https://intlayer.org/dahboard', ANSIColors.GREY),
+        colorize('(see doc:', ANSIColors.GREY_DARK),
+        colorize('https://intlayer.org/doc/concept/cms', ANSIColors.GREY),
+        colorize(')', ANSIColors.GREY_DARK),
+        '. Alternatively, you can add your own OpenAI API key in the settings',
+        colorize('(see doc:', ANSIColors.GREY_DARK),
+        colorize(
+          'https://intlayer.org/doc/concept/configuration',
+          ANSIColors.GREY
+        ),
+        colorize(')', ANSIColors.GREY_DARK),
+        '.',
+      ],
+      {
+        level: 'error',
+      }
+    );
 
     return false;
   }

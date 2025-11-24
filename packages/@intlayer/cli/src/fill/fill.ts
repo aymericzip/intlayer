@@ -10,7 +10,6 @@ import {
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
-  colon,
   colorize,
   colorizeKey,
   colorizePath,
@@ -23,7 +22,7 @@ import {
   type GetTargetDictionaryOptions,
   getTargetUnmergedDictionaries,
 } from '../getTargetDictionary';
-import { checkAIAccess } from '../utils/checkAccess';
+import { setupAI } from '../utils/setupAI';
 import {
   listTranslationsTasks,
   type TranslationTask,
@@ -68,9 +67,11 @@ export const fill = async (options?: FillOptions): Promise<void> => {
     ? ensureArray(options.outputLocales)
     : locales;
 
-  const hasAIAccess = await checkAIAccess(configuration, options?.aiOptions);
+  const aiResult = await setupAI(configuration, options?.aiOptions);
 
-  if (!hasAIAccess) return;
+  if (!aiResult?.hasAIAccess) return;
+
+  const { aiClient, aiConfig } = aiResult;
 
   const targetUnmergedDictionaries =
     await getTargetUnmergedDictionaries(options);
@@ -143,6 +144,8 @@ export const fill = async (options?: FillOptions): Promise<void> => {
           aiOptions: options?.aiOptions,
           fillMetadata: !options?.skipMetadata,
           onHandle: globalLimiter, // <= AI calls go through here
+          aiClient,
+          aiConfig,
         }
       );
 
