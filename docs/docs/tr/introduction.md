@@ -148,7 +148,7 @@ Intlayer, modern web geliştirmenin ihtiyaçlarını karşılamak için çeşitl
 - **Uluslararasılaştırma Desteği**: Uygulamanızın küresel erişimini yerleşik uluslararasılaştırma desteğiyle artırın.
 - **Görsel Düzenleyici**: Intlayer için tasarlanmış düzenleyici eklentileriyle geliştirme iş akışınızı iyileştirin. [Görsel Düzenleyici Rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)'ne göz atın.
 - **Konfigürasyon Esnekliği**: Kapsamlı konfigürasyon seçenekleriyle kurulumunuzu özelleştirin. [Konfigürasyon Rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)'nde ayrıntıları bulun.
-- **Gelişmiş CLI Araçları**: Intlayer'ın komut satırı arayüzünü kullanarak projelerinizi verimli bir şekilde yönetin. [CLI Araçları Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)'nda yetenekleri keşfedin.
+- **Gelişmiş CLI Araçları**: Intlayer'ın komut satırı arayüzünü kullanarak projelerinizi verimli bir şekilde yönetin. [CLI Araçları Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)'nda yetenekleri keşfedin.
 
 ## Temel Kavramlar
 

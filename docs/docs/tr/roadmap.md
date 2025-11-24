@@ -280,7 +280,7 @@ Intlayer içerik bildirmek için **TypeScript** (ayrıca JavaScript) ve **JSON**
 
 > Kaynaklar:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
 
 ---
 

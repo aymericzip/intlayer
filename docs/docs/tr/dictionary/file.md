@@ -213,7 +213,7 @@ Bu kurulum, içeriğin kullanıcının dil tercihine göre dinamik olarak alınm
 
 Intlayer'da dosya gömmenin yapılandırılması ve kullanımı hakkında daha fazla ayrıntı için aşağıdaki kaynaklara başvurun:
 
-- [Intlayer CLI Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)
+- [Intlayer CLI Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
 - [React Intlayer Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md)
 - [Next Intlayer Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
 - [Markdown İçerik Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)

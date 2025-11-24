@@ -144,7 +144,7 @@ const docDataContent: Dictionary = {
         },
         cli: {
           title: 'CLI',
-          default: getDocMetadata('./docs/en/intlayer_cli.md'),
+          default: getDocMetadata('./docs/en/cli/index.md'),
         },
         editor: {
           title: t({

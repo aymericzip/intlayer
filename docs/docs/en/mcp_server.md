@@ -49,7 +49,7 @@ By enabling the Intlayer MCP Server in your IDE, you unlock:
 - **Smart CLI Integration**
   Access and run Intlayer CLI commands directly from your IDE interface. Using the MCP server, you can let your AI assistant run commands like `intlayer dictionaries build` to update your dictionaries, or `intlayer dictionaries fill` to fill your missing translations.
 
-  > View the full list of commands and options in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
+  > View the full list of commands and options in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
 
 ## Local server (stdio) vs Remote server (SSE)
 
@@ -163,7 +163,6 @@ Follow the [official documentation](https://platform.openai.com/docs/mcp#test-an
 4. Select `MCP Server`
 5. Click on `Add new`
 6. Fill the following fields:
-
    - URL: `https://mcp.intlayer.org`
    - Label: `Intlayer MCP Server`
    - Name: `intlayer-mcp-server`

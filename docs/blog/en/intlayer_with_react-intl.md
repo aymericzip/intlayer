@@ -212,7 +212,7 @@ npx intlayer fill
 This will fill your translations with the AI provider you have configured.
 
 > See all the available AI providers in the [Intlayer AI configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#ai-configuration).
-> See all the available commands in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
+> See all the available commands in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
 
 ---
 

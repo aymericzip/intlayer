@@ -316,4 +316,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### Otomatik Çeviri Oluşturma
 
-Eksik çevirileri tercih ettiğiniz servisler temelinde otomatik olarak doldurmak için [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)'yi kullanın.
+Eksik çevirileri tercih ettiğiniz servisler temelinde otomatik olarak doldurmak için [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)'yi kullanın.

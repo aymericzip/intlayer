@@ -49,7 +49,7 @@ IDE'nizde Intlayer MCP Sunucusunu etkinleştirerek şunları açığa çıkarır
 - **Akıllı CLI Entegrasyonu**
   Intlayer CLI komutlarına IDE arayüzünüzden doğrudan erişin ve çalıştırın. MCP sunucusunu kullanarak, AI asistanınızın `intlayer dictionaries build` gibi komutları çalıştırarak sözlüklerinizi güncellemesine veya eksik çevirilerinizi doldurmak için `intlayer dictionaries fill` kullanmasına izin verebilirsiniz.
 
-  > Komutların ve seçeneklerin tam listesini [Intlayer CLI dokümantasyonunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) görüntüleyin.
+  > Komutların ve seçeneklerin tam listesini [Intlayer CLI dokümantasyonunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) görüntüleyin.
 
 ## Yerel sunucu (stdio) vs Uzak sunucu (SSE)
 

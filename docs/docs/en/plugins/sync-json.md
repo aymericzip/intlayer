@@ -326,7 +326,7 @@ The synchronized JSON files will be considered as other `.content` files. That m
 - `intlayer content push` to push the synchronized JSON files
 - `intlayer content pull` to pull the synchronized JSON files
 
-See [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) for more details.
+See [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) for more details.
 
 ## Limitations (current)
 

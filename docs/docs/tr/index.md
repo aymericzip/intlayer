@@ -41,7 +41,7 @@ Intlayer, uygulamanızı çevirmek için esnek, modern bir yaklaşım sunar. Bel
 - **[Konfigürasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)**  
   Intlayer'ı projenizin ihtiyaçlarına göre özelleştirin. Ara yazılım seçeneklerini, dizin yapılarını ve gelişmiş ayarları keşfedin.
 
-- **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)**  
+- **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)**  
   Komut satırı aracımızı kullanarak içeriği ve çevirileri yönetin. İçeriği itmeyi ve çekmeyi, çevirileri otomatikleştirmeyi ve daha fazlasını keşfedin.
 
 - **[Intlayer Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**  
