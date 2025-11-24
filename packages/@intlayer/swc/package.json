@@ -50,8 +50,8 @@
     "clean": "",
     "prepublishOnly": "cargo build-wasip1 --release",
     "publish": "bun publish || true",
-    "publish:canary": "bun publish --tag canary || true",
-    "publish:latest": "bun publish --tag latest || true",
+    "publish:canary": "bun publish --access public --tag canary || true",
+    "publish:latest": "bun publish --access public --tag latest || true",
     "reset": "",
     "test": ""
   },

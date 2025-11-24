@@ -59,15 +59,14 @@
     "lint:fix": "biome lint --write .",
     "prepublish": "cp -f ../../../README.md ./README.md",
     "publish": "bun publish || true",
-    "publish:canary": "bun publish --tag canary || true",
-    "publish:latest": "bun publish --tag latest || true",
+    "publish:canary": "bun publish --access public --tag canary || true",
+    "publish:latest": "bun publish --access public --tag latest || true",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",
-    "@intlayer/ai": "workspace:*",
     "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
@@ -89,6 +88,14 @@
     "tsdown": "0.16.6",
     "typescript": "5.9.3",
     "vitest": "4.0.13"
+  },
+  "peerDependencies": {
+    "@intlayer/ai": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@intlayer/ai": {
+      "optional": true
+    }
   },
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"
