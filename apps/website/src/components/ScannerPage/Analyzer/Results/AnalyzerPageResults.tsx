@@ -67,7 +67,7 @@ export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
         <Link href={url} label={urlText.label.value} color="text">
           {url}
         </Link>
-        <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 border-neutral border-t border-dashed pt-2 sm:grid-cols-3">
+        <div className="mt-3 grid grid-cols-1 xs:grid-cols-2 gap-x-4 gap-y-2 border-neutral border-t border-dashed pt-2 sm:grid-cols-3">
           {fieldsList.map((item) => (
             <FieldItem
               key={item.key}

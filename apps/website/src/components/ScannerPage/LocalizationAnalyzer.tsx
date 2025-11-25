@@ -2,6 +2,7 @@
 
 import { extractErrorMessage } from '@intlayer/config/client';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
+import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { AnalyzerLoading } from './Analyzer/AnalyzerLoading';
@@ -18,6 +19,9 @@ import type {
 } from './Analyzer/Results/types';
 
 export const LocalizationAnalyzer: FC = () => {
+  const { globalError: globalErrorMessage } = useIntlayer(
+    'localization-analyzer'
+  );
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [progress, setProgress] = usePersistedStore<number>(
@@ -114,7 +118,7 @@ export const LocalizationAnalyzer: FC = () => {
 
           if (typeof message.globalError === 'string') {
             console.error(message.globalError);
-            setError('An error occurred while analyzing the site.');
+            setError(globalErrorMessage);
             eventSource.close();
             eventSourceRef.current = null;
             setIsLoading(false);
@@ -182,7 +186,7 @@ export const LocalizationAnalyzer: FC = () => {
   const hasData = mergedData && Object.keys(mergedData).length > 0;
 
   return (
-    <div className="flex w-full flex-col items-center justify-center p-6 text-center">
+    <div className="flex w-full flex-col items-center justify-center py-6 text-center">
       <AnalyzerForm onAnalyze={handleAnalyze} loading={isLoading} />
 
       {isLoading && (

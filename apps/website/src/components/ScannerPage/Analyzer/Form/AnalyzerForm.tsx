@@ -40,7 +40,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
       schema={urlSchema}
       onSubmitSuccess={onSubmitSuccess}
       className={cn(
-        'flex w-full max-w-lg flex-row gap-2 rounded-2xl bg-card p-2 shadow-sm',
+        'flex w-full max-w-lg flex-col gap-2 rounded-2xl bg-card p-2 shadow-sm md:flex-row',
         className
       )}
       {...form}
@@ -61,7 +61,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
           variant="fade"
           color="custom"
           isLoading={isSubmitting || loading}
-          className="rounded-xl px-5 py-2 font-medium"
+          className="w-full rounded-xl px-5 py-2 font-medium"
         >
           {loading ? button.analyzing : button.analyze}
         </Form.Button>

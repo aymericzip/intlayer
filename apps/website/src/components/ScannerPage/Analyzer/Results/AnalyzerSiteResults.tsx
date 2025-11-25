@@ -93,7 +93,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
 
       <div className="flex items-center gap-8">
         <Skeleton
-          className="h-[180px] w-[300px] rounded-xl border-4"
+          className="h-[180px] w-[300px] max-w-[30vw] rounded-xl border-4"
           isLoading={isLoading && !domainData?.image}
           renderChildren={false}
         >
@@ -104,7 +104,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
               width={300}
               height={180}
               unoptimized
-              className="rounded-xl border-4 border-neutral"
+              className="max-w-[30vw] rounded-xl border-4 border-neutral"
             />
           )}
         </Skeleton>
