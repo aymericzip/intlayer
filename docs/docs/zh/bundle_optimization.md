@@ -153,9 +153,13 @@ const content = useIntlayer("my-key");
 // 优化后的代码（动态）
 const content = useDictionaryAsync({
   en: () =>
-    import(".intlayer/dynamic_dictionary/en.json").then((mod) => mod.default),
+    import(".intlayer/dynamic_dictionary/my-key/en.json").then(
+      (mod) => mod.default
+    ),
   fr: () =>
-    import(".intlayer/dynamic_dictionary/fr.json").then((mod) => mod.default),
+    import(".intlayer/dynamic_dictionary/my-key/fr.json").then(
+      (mod) => mod.default
+    ),
 });
 ```
 
