@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/backend",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "private": false,
   "description": "Intlayer Backend is a an application that allow you to manage your Intlayer content and interact with the intlayer editor.",
   "keywords": [
@@ -49,6 +49,7 @@
     "./package.json"
   ],
   "scripts": {
+    "_prepublish": "cp -f ../../README.md ./README.md",
     "prebuild": "tsx scripts/generate-embeddings.ts",
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
@@ -62,7 +63,7 @@
     "format:fix": "biome format --write .",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
-    "prepublish": "cp -f ../../README.md ./README.md",
+    "prepublish": "echo prepublish temporally disabled to avoid rewrite readme",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
     "publish:latest": "bun publish --access public --tag latest || true",

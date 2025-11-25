@@ -1,6 +1,6 @@
 {
   "name": "angular-intlayer",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "private": false,
   "description": "Easily internationalize i18n your Angular applications with type-safe multilingual content management.",
   "keywords": [
@@ -67,6 +67,7 @@
     "./package.json"
   ],
   "scripts": {
+    "_prepublish": "cp -f ../../README.md ./README.md",
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist .turbo",
@@ -75,7 +76,7 @@
     "format:fix": "biome format --write .",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
-    "prepublish": "cp -f ../../README.md ./README.md",
+    "prepublish": "echo prepublish temporally disabled to avoid rewrite readme",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
     "publish:latest": "bun publish --access public --tag latest || true",

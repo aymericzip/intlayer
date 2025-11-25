@@ -1,6 +1,6 @@
 {
   "name": "svelte-intlayer",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "description": "Easily internationalize i18n your Svelte applications with type-safe multilingual content management.",
   "keywords": [
     "intlayer",
@@ -49,6 +49,7 @@
     "./package.json"
   ],
   "scripts": {
+    "_prepublish": "cp -f ../../README.md ./README.md",
     "build": "svelte-package -i src -o dist",
     "build:ci": "svelte-package -i src -o dist",
     "check": "svelte-check --tsconfig ./tsconfig.types.json",
@@ -58,7 +59,7 @@
     "format:fix": "biome format --write .",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
-    "prepublish": "cp -f ../../README.md ./README.md",
+    "prepublish": "echo prepublish temporally disabled to avoid rewrite readme",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
     "publish:latest": "bun publish --access public --tag latest || true",

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/mcp",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "private": false,
   "description": "Intlayer MCP server. Handle MCP to help IDE to use Intlayer. It build, fill, pull, push, dictionaries",
   "keywords": [
@@ -67,6 +67,7 @@
     "./package.json"
   ],
   "scripts": {
+    "_prepublish": "cp -f ../../../README.md ./README.md",
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist .turbo",
@@ -79,7 +80,7 @@
     "manange:permissions:cjs": "node -e \"require('fs').chmodSync('dist/cjs/server/stdio.cjs', 0o755); require('fs').chmodSync('dist/cjs/server/sse.cjs', 0o755)\"",
     "manange:permissions:mjs": "node -e \"require('fs').chmodSync('dist/esm/server/stdio.mjs', 0o755); require('fs').chmodSync('dist/esm/server/sse.mjs', 0o755)\"",
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
-    "prepublish": "cp -f ../../../README.md ./README.md",
+    "prepublish": "echo prepublish temporally disabled to avoid rewrite readme",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
     "publish:latest": "bun publish --access public --tag latest || true",

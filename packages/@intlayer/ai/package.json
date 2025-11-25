@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/ai",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "private": false,
   "description": "SDK that provides AI capabilities for Intlayer applications",
   "keywords": [
@@ -55,6 +55,7 @@
     "./package.json"
   ],
   "scripts": {
+    "_prepublish": "cp -f ../../../README.md ./README.md",
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist .turbo",
@@ -63,7 +64,7 @@
     "format:fix": "biome format --write .",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
-    "prepublish": "cp -f ../../../README.md ./README.md",
+    "prepublish": "echo prepublish temporally disabled to avoid rewrite readme",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
     "publish:latest": "bun publish --access public --tag latest || true",

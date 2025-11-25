@@ -1,6 +1,6 @@
 {
   "name": "intlayer-monorepo",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "private": false,
   "description": "Intlayer monorepo - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "homepage": "https://intlayer.org",
@@ -59,8 +59,7 @@
     "lint:fix": "biome lint --write .",
     "prepare": "husky",
     "prepare:publish": "bun run clean && bun install && bun run build",
-    "prepublish_": "turbo prepublish --filter=./packages/** --filter=./docs --filter=./apps/backend",
-    "prepublish": "echo prepublish temporarily disabled to not rewrite the README.md files",
+    "prepublish_": "turbo prepublish --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/**",
     "publish": "turbo publish --filter=./packages/** --filter=./docs --filter=./apps/backend",
     "publish:canary": "bun run prepare:publish && turbo publish:canary --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/**",
     "publish:ci": "bun run prepublish && bun run publish",
