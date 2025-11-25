@@ -1,6 +1,8 @@
 import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
+  ANSIColors,
+  colorize,
   compareVersions,
   type GetConfigurationOptions,
   getAlias,
@@ -85,7 +87,21 @@ const getPruneConfig = (
 
   const isSwcPluginAvailable = getIsSwcPluginAvailable(intlayerConfig);
 
-  if (!isSwcPluginAvailable) return {};
+  if (!isSwcPluginAvailable) {
+    logger([
+      colorize('Recommended: Install', ANSIColors.GREY),
+      colorize('@intlayer/swc', ANSIColors.GREY_LIGHT),
+      colorize(
+        'package to enable build optimization. See documentation: ',
+        ANSIColors.GREY
+      ),
+      colorize(
+        'https://intlayer.org/docs/en/bundle_optimization',
+        ANSIColors.GREY_LIGHT
+      ),
+    ]);
+    return {};
+  }
 
   runOnce(
     join(baseDir, '.intlayer', 'cache', 'intlayer-prune-plugin-enabled.lock'),
