@@ -102,8 +102,10 @@ const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
   } = options;
 
   const configuration = getConfiguration();
+  const { ai } = configuration;
 
   return removeUndefined({
+    ...ai,
     apiKey: apiKey ?? configuration.ai?.apiKey,
     provider: provider ?? (configuration.ai?.provider as AIOptions['provider']),
     model: model ?? configuration.ai?.model,

@@ -386,7 +386,7 @@ export type AiConfig = {
    * Example: 'This is a website for a company that sells products online.'
    */
   applicationContext?: string;
-};
+} & Record<string, any>;
 
 export type BuildConfig = {
   /**

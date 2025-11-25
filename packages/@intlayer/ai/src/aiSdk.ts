@@ -46,6 +46,8 @@ export enum AIProvider {
   GEMINI = 'gemini',
 }
 
+export type ReasoningEffort = 'minimal' | 'low' | 'medium' | 'high' | 'none';
+
 /**
  * Common options for all AI providers
  */
@@ -93,7 +95,7 @@ const getAPIKey = (
   return undefined;
 };
 
-const getModel = (
+const getModelName = (
   provider: AIProvider,
   userApiKey: string,
   userModel?: Model,
@@ -129,7 +131,59 @@ const getModel = (
   return defaultModel;
 };
 
-export type AIConfig = Omit<Parameters<typeof generateText>[0], 'prompt'>;
+const getLanguageModel = (
+  aiOptions: AIOptions,
+  apiKey: string,
+  defaultModel?: Model
+) => {
+  const selectedModel = getModelName(
+    aiOptions.provider as AIProvider,
+    apiKey,
+    aiOptions.model,
+    defaultModel
+  );
+
+  switch (aiOptions.provider) {
+    case AIProvider.OPENAI: {
+      return createOpenAI({
+        apiKey,
+      })(selectedModel);
+    }
+
+    case AIProvider.ANTHROPIC: {
+      return createAnthropic({
+        apiKey,
+      })(selectedModel);
+    }
+
+    case AIProvider.MISTRAL: {
+      return createMistral({
+        apiKey,
+      })(selectedModel);
+    }
+
+    case AIProvider.DEEPSEEK: {
+      return createDeepSeek({
+        apiKey,
+      })(selectedModel);
+    }
+
+    case AIProvider.GEMINI: {
+      return createGoogleGenerativeAI({
+        apiKey,
+      })(selectedModel);
+    }
+
+    default: {
+      throw new Error(`Provider ${aiOptions.provider} not supported`);
+    }
+  }
+};
+
+export type AIConfig = Omit<Parameters<typeof generateText>[0], 'prompt'> & {
+  reasoningEffort?: ReasoningEffort;
+  textVerbosity?: 'low' | 'medium' | 'high';
+};
 
 const DEFAULT_PROVIDER: AIProvider = AIProvider.OPENAI as AIProvider;
 const DEFAULT_TEMPERATURE: number = 1; // ChatGPT 5 accept only temperature 1
@@ -171,64 +225,14 @@ export const getAIConfig = async (
     throw new Error(`API key for ${aiOptions.provider} is missing`);
   }
 
-  const selectedModel = getModel(
-    aiOptions.provider,
+  const languageModel = getLanguageModel(
+    aiOptions,
     apiKey,
-    aiOptions.model,
     defaultOptions?.model
   );
 
-  const protectedOptions = {
-    ...aiOptions,
-    apiKey,
-    model: selectedModel,
-  } satisfies AIOptions;
-
-  let languageModel: AIConfig['model'];
-
-  switch (protectedOptions.provider) {
-    case AIProvider.OPENAI: {
-      languageModel = createOpenAI({
-        apiKey,
-      })(selectedModel);
-      break;
-    }
-
-    case AIProvider.ANTHROPIC: {
-      languageModel = createAnthropic({
-        apiKey,
-      })(selectedModel);
-      break;
-    }
-
-    case AIProvider.MISTRAL: {
-      languageModel = createMistral({
-        apiKey,
-      })(selectedModel);
-      break;
-    }
-
-    case AIProvider.DEEPSEEK: {
-      languageModel = createDeepSeek({
-        apiKey,
-      })(selectedModel);
-      break;
-    }
-
-    case AIProvider.GEMINI: {
-      languageModel = createGoogleGenerativeAI({
-        apiKey,
-      })(selectedModel);
-      break;
-    }
-
-    default: {
-      throw new Error(`Provider ${protectedOptions.provider} not supported`);
-    }
-  }
-
   return {
     model: languageModel,
-    temperature: protectedOptions.temperature,
+    temperature: aiOptions.temperature,
   };
 };

@@ -12,6 +12,9 @@ type SetupAIResult = {
   hasAIAccess: boolean;
 };
 
+// Disable warnings from the AI SDK
+globalThis.AI_SDK_LOG_WARNINGS = false;
+
 /**
  * Checks if the @intlayer/ai package is available and configured when an API key is provided.
  * If API key is present but package is missing, logs a warning.
@@ -32,11 +35,8 @@ export const setupAI = async (
 
       const aiConfig = await aiClient.getAIConfig({
         userOptions: aiOptions,
+        accessType: ['public'],
       });
-
-      if (!aiConfig) {
-        throw new Error('AI configuration is missing');
-      }
 
       return {
         aiClient,
