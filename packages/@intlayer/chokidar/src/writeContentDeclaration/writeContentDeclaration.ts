@@ -251,14 +251,5 @@ const writeFileWithDirectories = async (
       'intlayer-prepared.lock'
     );
     await rm(sentinelPath, { recursive: true });
-  } catch (error) {
-    if (
-      error &&
-      typeof error === 'object' &&
-      'code' in error &&
-      (error as { code: string }).code !== 'ENOENT'
-    ) {
-      throw error;
-    }
-  }
+  } catch {}
 };
