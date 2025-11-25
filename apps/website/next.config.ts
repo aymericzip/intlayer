@@ -1,6 +1,5 @@
 import type { NextConfig } from 'next';
 import { withIntlayer } from 'next-intlayer/server';
-import withPWA from 'next-pwa';
 import { createSecureHeaders } from 'next-secure-headers';
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -232,6 +231,23 @@ const nextConfig: NextConfig = {
       source: '/:locale/dashboard/:path*',
       headers: dashboardHeaders,
     },
+    {
+      source: '/sw.js',
+      headers: [
+        {
+          key: 'Content-Type',
+          value: 'application/javascript; charset=utf-8',
+        },
+        {
+          key: 'Cache-Control',
+          value: 'no-cache, no-store, must-revalidate',
+        },
+        {
+          key: 'Content-Security-Policy',
+          value: "default-src 'self'; script-src 'self'",
+        },
+      ],
+    },
   ],
   async redirects() {
     return [
@@ -277,13 +293,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-const nextConfigPWA: NextConfig = withPWA({
-  disable: process.env.ENABLE_SERVICE_WORKER !== 'true',
-  dest: 'public',
-  register: true,
-  skipWaiting: true,
-})(nextConfig);
-
-const config: Promise<NextConfig> = withIntlayer(nextConfigPWA);
+const config: Promise<NextConfig> = withIntlayer(nextConfig);
 
 export default config;
