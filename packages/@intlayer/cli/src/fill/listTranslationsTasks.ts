@@ -69,6 +69,12 @@ export const listTranslationsTasks = (
     const dictionaryLocalId = targetUnmergedDictionary.localId!;
     const mainDictionaryToProcess: Dictionary =
       mergedDictionariesRecord[dictionaryKey];
+    const dictionaryFilled = targetUnmergedDictionary.filled ?? false;
+
+    if (dictionaryFilled === true) {
+      continue;
+    }
+
     const dictionaryFill =
       targetUnmergedDictionary.fill ?? configuration.dictionary?.fill ?? false;
 
@@ -148,6 +154,5 @@ export const listTranslationsTasks = (
   }
 
   // Return the list of tasks to execute
-
   return translationTasks;
 };

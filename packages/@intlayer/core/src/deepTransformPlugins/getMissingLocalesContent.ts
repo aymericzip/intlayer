@@ -10,6 +10,36 @@ import type { DeepTransformContent, NodeProps, Plugins } from '../interpreter';
 import { deepTransformNode } from '../interpreter/getContent/deepTransform';
 import type { TranslationContent } from '../transpiler';
 
+const getDeepKeyPaths = (obj: any, prefix: string[] = []): string[][] => {
+  if (typeof obj !== 'object' || obj === null) {
+    return [];
+  }
+
+  return Object.keys(obj).flatMap((key) => {
+    const newPath = [...prefix, key];
+    return [newPath, ...getDeepKeyPaths(obj[key], newPath)];
+  });
+};
+
+const hasDeepKeyPath = (obj: any, keyPath: string[]): boolean => {
+  let current = obj;
+  for (const key of keyPath) {
+    if (
+      current === undefined ||
+      current === null ||
+      typeof current !== 'object'
+    ) {
+      return false;
+    }
+    if (!(key in current)) {
+      return false;
+    }
+    current = current[key];
+  }
+
+  return true;
+};
+
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const checkMissingLocalesPlugin = (
   locales: Locale[],
@@ -19,18 +49,33 @@ export const checkMissingLocalesPlugin = (
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Translation,
   transform: (node: TranslationContent, props, deepTransformNode) => {
+    const translations = node[NodeType.Translation] as Record<string, any>;
+    const allKeys = new Set<string>();
+
     for (const locale of locales) {
-      if (
-        !node[NodeType.Translation][
-          locale as keyof (typeof node)[NodeType.Translation]
-        ]
-      ) {
+      if (translations[locale]) {
+        getDeepKeyPaths(translations[locale]).forEach((path) => {
+          allKeys.add(JSON.stringify(path));
+        });
+      }
+    }
+
+    for (const locale of locales) {
+      if (!translations[locale]) {
         onMissingLocale(locale);
+        continue;
+      }
+
+      for (const pathStr of allKeys) {
+        const path = JSON.parse(pathStr);
+        if (!hasDeepKeyPath(translations[locale], path)) {
+          onMissingLocale(locale);
+          break;
+        }
       }
     }
 
     // Continue traversal inside the translation values, but avoid re-applying this plugin on the same node
-    const translations = node[NodeType.Translation] as Record<string, any>;
     for (const key in translations) {
       const child = translations[key];
       deepTransformNode(child, {

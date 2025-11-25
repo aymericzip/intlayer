@@ -201,4 +201,36 @@ describe('getMissingLocalesContent', () => {
 
     expect(result.sort()).toEqual([Locales.SPANISH].sort());
   });
+
+  it('should detect missing keys when translation values are objects with different structures', () => {
+    const data = {
+      home: {
+        nodeType: NodeType.Translation,
+        [NodeType.Translation]: {
+          en: {
+            title: 'Home',
+            description: 'Home page description',
+            welcome: 'Welcome',
+          },
+          es: {
+            welcome: 'Bienvenido',
+            // Missing: title, description
+          },
+          fr: {}, // Missing: all keys
+        },
+      },
+    };
+
+    const result = getMissingLocalesContent(
+      data as unknown as ContentNode,
+      [Locales.ENGLISH, Locales.SPANISH, Locales.FRENCH],
+      {
+        dictionaryKey: 'home',
+        keyPath: [],
+      }
+    );
+
+    // es is missing title and description, fr is missing all keys
+    expect(result.sort()).toEqual([Locales.SPANISH, Locales.FRENCH].sort());
+  });
 });

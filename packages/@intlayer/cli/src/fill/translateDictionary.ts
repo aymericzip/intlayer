@@ -191,7 +191,7 @@ export const translateDictionary = async (
               formatLocale(targetLocale),
               colorize(']', ANSIColors.GREY_DARK),
             ].join(''),
-            { colSize: 10 }
+            { colSize: 18 }
           );
 
           const createChunkPreset = (
@@ -258,8 +258,10 @@ export const translateDictionary = async (
             const executeTranslation = async () => {
               return await retryManager(
                 async () => {
+                  let translationResult: any;
+
                   if (aiClient && aiConfig) {
-                    const translationResult = await aiClient.translateJSON({
+                    translationResult = await aiClient.translateJSON({
                       entryFileContent: chunkContent as unknown as JSON,
                       presetOutputContent,
                       dictionaryDescription:
@@ -271,54 +273,40 @@ export const translateDictionary = async (
                       mode,
                       aiConfig,
                     });
-
-                    if (!translationResult) {
-                      throw new Error('No content result');
-                    }
-
-                    const { isIdentic } = verifyIdenticObjectFormat(
-                      translationResult.fileContent,
-                      chunkContent
-                    );
-                    if (!isIdentic) {
-                      throw new Error(
-                        'Translation result does not match expected format'
-                      );
-                    }
-
-                    notifySuccess();
-                    return translationResult.fileContent;
+                  } else {
+                    translationResult = await intlayerAPI.ai
+                      .translateJSON({
+                        entryFileContent: chunkContent as unknown as JSON,
+                        presetOutputContent,
+                        dictionaryDescription:
+                          dictionaryToProcess.description ??
+                          metadata?.description ??
+                          '',
+                        entryLocale: task.sourceLocale,
+                        outputLocale: targetLocale,
+                        mode,
+                        aiOptions,
+                      })
+                      .then((result) => result.data);
                   }
 
-                  const translationResult = await intlayerAPI.ai.translateJSON({
-                    entryFileContent: chunkContent as unknown as JSON,
-                    presetOutputContent,
-                    dictionaryDescription:
-                      dictionaryToProcess.description ??
-                      metadata?.description ??
-                      '',
-                    entryLocale: task.sourceLocale,
-                    outputLocale: targetLocale,
-                    mode,
-                    aiOptions,
-                  });
-
-                  if (!translationResult.data?.fileContent) {
+                  if (!translationResult?.fileContent) {
                     throw new Error('No content result');
                   }
 
                   const { isIdentic } = verifyIdenticObjectFormat(
-                    translationResult.data.fileContent,
+                    translationResult.fileContent,
                     chunkContent
                   );
                   if (!isIdentic) {
+                    console.log(translationResult.fileContent);
                     throw new Error(
                       'Translation result does not match expected format'
                     );
                   }
 
                   notifySuccess();
-                  return translationResult.data.fileContent;
+                  return translationResult.fileContent;
                 },
                 {
                   maxRetry: MAX_RETRY,
@@ -411,7 +399,12 @@ export const translateDictionary = async (
         }
       );
 
-      if (baseUnmergedDictionary.locale) {
+      if (
+        baseUnmergedDictionary.locale &&
+        (baseUnmergedDictionary.fill === true ||
+          baseUnmergedDictionary.fill === undefined) &&
+        baseUnmergedDictionary.location === 'local'
+      ) {
         const dictionaryFilePath = baseUnmergedDictionary
           .filePath!.split('.')
           .slice(0, -1);

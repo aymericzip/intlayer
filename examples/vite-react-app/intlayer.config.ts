@@ -16,7 +16,7 @@ const config: IntlayerConfig = {
   },
   ai: {
     provider: 'openai',
-    // apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.OPENAI_API_KEY,
     applicationContext: 'This is a test application',
   },
   content: {

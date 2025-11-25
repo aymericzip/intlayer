@@ -29,18 +29,8 @@ export const writeFill = async (
     return;
   }
 
-  let fillOptions: Fill | undefined =
-    contentDeclarationFile.fill ?? configuration.dictionary?.fill;
-
-  if (
-    typeof fillOptions === 'undefined' &&
-    typeof contentDeclarationFile.locale === 'string'
-  ) {
-    // If it's a per-locale dictionary, we create another file to fill the content
-    fillOptions = './{{key}}.filled.content.json';
-  } else {
-    fillOptions = true;
-  }
+  const fillOptions: Fill | undefined =
+    contentDeclarationFile.fill ?? configuration.dictionary?.fill ?? true;
 
   if ((fillOptions as boolean) === false) {
     appLogger(

@@ -30,7 +30,7 @@ export const formatAutoFilledFilePath = (
 
   // Replace placeholders in autoFillField
   let result: string = autoFillField
-    .replace(/\{\{key\}\}/g, originalFileName) // Use original filename, not dictionaryKey
+    .replace(/\{\{key\}\}/g, dictionaryKey) // Use original filename, not dictionaryKey
     .replace(/\{\{fileName\}\}/g, originalFileName);
 
   if (locale) {
