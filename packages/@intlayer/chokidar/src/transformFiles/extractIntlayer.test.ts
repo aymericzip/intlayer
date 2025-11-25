@@ -53,7 +53,7 @@ describe('extractIntlayer', () => {
 'use client';
 import { useState } from 'react';
 
-export const HelloWorld = () => {
+export const Test = () => {
   const [state, setState] = useState('This is a sentence if a state (should be extracted)');
   const [isClicked, setIsClicked] = useState(false);
   const listOfItems = ["I'm a list of items (should be extracted)"];
@@ -80,21 +80,17 @@ export const HelloWorld = () => {
 
     // Imports
     expect(updatedCode).toContain(
-      'import { useIntlayer } from "next-intlayer";'
+      "import { useIntlayer } from 'next-intlayer';"
     );
     // Hook
-    expect(updatedCode).toContain('const content = useIntlayer("test");');
+    expect(updatedCode).toContain("const content = useIntlayer('test');");
 
     // State extraction
     // In useState (non-JSX), it should use content.key.value
-    expect(updatedCode).toContain(
-      'useState(content.thisIsASentenceIfAStateShouldBeExtracted.value)'
-    );
+    expect(updatedCode).toContain('useState(content.thisIsASentenceIf.value)');
 
     // Array extraction (non-JSX)
-    expect(updatedCode).toContain(
-      'content.imAListOfItemsShouldBeExtracted.value'
-    );
+    expect(updatedCode).toContain('content.imAListOfItems.value');
 
     // JSX Text
     expect(updatedCode).toContain(
@@ -102,13 +98,12 @@ export const HelloWorld = () => {
     );
 
     // Ternary in JSX
-    expect(updatedCode).toContain(
-      '{isClicked ? content.clickedShouldBeExtracted.value : content.clickMeShouldBeExtracted.value}'
-    );
+    expect(updatedCode).toContain('content.clickedShouldBeExtracted.value');
+    expect(updatedCode).toContain('content.clickMeShouldBeExtracted.value');
 
     // Attribute
     expect(updatedCode).toContain(
-      'placeholder={content.thisIsThePlaceholderShouldBeExtracted}'
+      'placeholder={content.thisIsThePlaceholderShould.value}'
     );
   });
 

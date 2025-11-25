@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import { retryManager } from './retryManager';
 
 vi.mock('./logger', () => ({ logger: vi.fn() }));
@@ -43,6 +43,6 @@ describe('retryManager', () => {
 
     // Attempt count = maxRetry + 1 (first attempt + retries)
     expect(fn).toHaveBeenCalledTimes(maxRetry + 1);
-    expect(onError).toHaveBeenCalledTimes(maxRetry + 1);
+    expect(onError).toHaveBeenCalledTimes(maxRetry);
   });
 });

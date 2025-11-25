@@ -60,13 +60,13 @@
     "prepare": "husky",
     "prepare:publish": "bun run clean && bun install && bun run build",
     "prepublish_": "turbo prepublish --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/**",
-    "publish": "turbo publish --filter=./packages/** --filter=./docs --filter=./apps/backend",
+    "publish": "turbo publish --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/**",
     "publish:canary": "bun run prepare:publish && turbo publish:canary --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/**",
     "publish:ci": "bun run prepublish && bun run publish",
     "publish:latest": "bun run prepare:publish && turbo publish:latest --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/**",
-    "test": "turbo test --filter=./packages/** --filter=./docs --filter=./apps/backend --concurrency=2",
+    "test": "turbo test --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/** --concurrency=2",
     "test:pick": "bun ./scripts/script-pick.mjs --command test",
-    "typecheck": "turbo typecheck --filter=./packages/** --filter=./docs --filter=./apps/backend --concurrency=1"
+    "typecheck": "turbo typecheck --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/** --concurrency=1"
   },
   "overrides": {
     "next": "16.0.4",
