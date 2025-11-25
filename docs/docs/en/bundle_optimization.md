@@ -31,6 +31,10 @@ For example, an application with 10 pages translated into 10 languages might res
 
 **Intlayer solves this problem through build-time optimization.** It analyzes your code to detect which dictionaries are actually used per component and reinjects only the necessary content into your bundle.
 
+## Table of Contents
+
+<TOC />
+
 ## How It Works
 
 Intlayer uses a **per-component approach**. Unlike global JSON files, your content is defined alongside or within your components. During the build process, Intlayer:

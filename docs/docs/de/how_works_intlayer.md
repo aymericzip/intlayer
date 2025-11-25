@@ -139,7 +139,7 @@ Das `vue-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpret
 
 Das `nuxt-intlayer`-Paket ist ein Nuxt-Modul, um Intlayer-Wörterbücher in Nuxt-Anwendungen nutzbar zu machen. Es integriert wesentliche Funktionen, damit Intlayer in einer Nuxt-Umgebung funktioniert, wie z. B. Übersetzungs-Middleware, Routing oder die Konfiguration der `nuxt.config.js`-Datei.
 
-### svelte-intlayer (WIP)
+### svelte-intlayer
 
 Das `svelte-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Svelte-Anwendungen nutzbar zu machen.
 

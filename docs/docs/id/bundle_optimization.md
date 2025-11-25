@@ -31,6 +31,10 @@ Misalnya, sebuah aplikasi dengan 10 halaman yang diterjemahkan ke dalam 10 bahas
 
 **Intlayer menyelesaikan masalah ini melalui optimasi saat build.** Intlayer menganalisis kode Anda untuk mendeteksi kamus mana yang benar-benar digunakan per komponen dan hanya menyuntikkan kembali konten yang diperlukan ke dalam bundle Anda.
 
+## Daftar Isi
+
+<TOC />
+
 ## Cara Kerjanya
 
 Intlayer menggunakan **pendekatan per-komponen**. Berbeda dengan file JSON global, konten Anda didefinisikan berdampingan atau di dalam komponen Anda. Selama proses build, Intlayer:

@@ -142,7 +142,7 @@ Intlayer, çeviri sürecinde belirli bir rolü olan birkaç paketten oluşur. İ
 
 `nuxt-intlayer` paketi, Intlayer sözlüklerini Nuxt uygulamalarında kullanılabilir hale getirmek için bir Nuxt modülü olarak kullanılır. Çeviri ara yazılımı, yönlendirme veya `nuxt.config.js` dosyası konfigürasyonu gibi Intlayer'ı bir Nuxt ortamında çalışacak şekilde yapmak için gerekli özellikleri entegre eder.
 
-### svelte-intlayer (WIP)
+### svelte-intlayer
 
 `svelte-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Svelte uygulamalarında kullanılabilir hale getirmek için kullanılır.
 

@@ -31,6 +31,10 @@ Zum Beispiel kann eine Anwendung mit 10 Seiten, die in 10 Sprachen übersetzt si
 
 **Intlayer löst dieses Problem durch Optimierung zur Build-Zeit.** Es analysiert Ihren Code, um zu erkennen, welche Wörterbücher tatsächlich pro Komponente verwendet werden, und injiziert nur den notwendigen Inhalt in Ihr Bundle zurück.
 
+## Inhaltsverzeichnis
+
+<TOC />
+
 ## Funktionsweise
 
 Intlayer verwendet einen **pro-Komponente-Ansatz**. Im Gegensatz zu globalen JSON-Dateien wird Ihr Inhalt neben oder innerhalb Ihrer Komponenten definiert. Während des Build-Prozesses:

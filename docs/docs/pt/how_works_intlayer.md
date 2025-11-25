@@ -140,7 +140,7 @@ O pacote `vue-intlayer` é usado para interpretar os dicionários do Intlayer e 
 
 O pacote `nuxt-intlayer` é um módulo Nuxt para tornar os dicionários do Intlayer utilizáveis em aplicações Nuxt. Ele integra recursos essenciais para fazer o Intlayer funcionar em um ambiente Nuxt, como middleware de tradução, roteamento e a configuração do arquivo `nuxt.config.js`.
 
-### svelte-intlayer (WIP)
+### svelte-intlayer
 
 O pacote `svelte-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Svelte.
 

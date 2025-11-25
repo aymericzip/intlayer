@@ -31,6 +31,10 @@ JSON dosyalarına dayanan geleneksel i18n çözümlerinde en yaygın zorluklarda
 
 **Intlayer bu sorunu derleme zamanı optimizasyonu ile çözer.** Kodunuzu analiz ederek her bileşen için hangi sözlüklerin gerçekten kullanıldığını tespit eder ve yalnızca gerekli içeriği paketinizin içine yeniden enjekte eder.
 
+## İçindekiler
+
+<TOC />
+
 ## Nasıl Çalışır
 
 Intlayer, **bileşen başına yaklaşım** kullanır. Küresel JSON dosyalarının aksine, içeriğiniz bileşenlerinizin yanında veya içinde tanımlanır. Derleme sürecinde Intlayer:

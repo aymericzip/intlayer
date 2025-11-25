@@ -146,7 +146,7 @@ Pakiet `vue-intlayer` jest używany do interpretacji słowników Intlayer i umo�
 
 Pakiet `nuxt-intlayer` jest modułem Nuxt, który umożliwia korzystanie ze słowników Intlayer w aplikacjach Nuxt. Integruje on niezbędne funkcje, aby Intlayer działał w środowisku Nuxt, takie jak middleware tłumaczeń, routing czy konfiguracja pliku `nuxt.config.js`.
 
-### svelte-intlayer (WIP)
+### svelte-intlayer
 
 Pakiet `svelte-intlayer` jest używany do interpretacji słowników Intlayer i umożliwia ich użycie w aplikacjach Svelte.
 

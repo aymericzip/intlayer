@@ -142,7 +142,7 @@ El paquete `vue-intlayer` se utiliza para interpretar los diccionarios de Intlay
 
 El paquete `nuxt-intlayer` es un módulo de Nuxt para hacer que los diccionarios de Intlayer sean utilizables en aplicaciones Nuxt. Integra características esenciales para que Intlayer funcione en un entorno Nuxt, como middleware de traducción, enrutamiento o la configuración del archivo `nuxt.config.js`.
 
-### svelte-intlayer (WIP)
+### svelte-intlayer
 
 El paquete `svelte-intlayer` se utiliza para interpretar los diccionarios de Intlayer y hacerlos utilizables en aplicaciones Svelte.
 

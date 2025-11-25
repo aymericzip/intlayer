@@ -146,7 +146,7 @@ Paket `vue-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan memb
 
 Paket `nuxt-intlayer` adalah modul Nuxt untuk membuat kamus Intlayer dapat digunakan dalam aplikasi Nuxt. Paket ini mengintegrasikan fitur-fitur penting agar Intlayer dapat bekerja di lingkungan Nuxt, seperti middleware terjemahan, routing, atau konfigurasi file `nuxt.config.js`.
 
-### svelte-intlayer (WIP)
+### svelte-intlayer
 
 Paket `svelte-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Svelte.
 

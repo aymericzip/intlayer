@@ -31,6 +31,10 @@ Par exemple, une application avec 10 pages traduites en 10 langues peut entraîn
 
 **Intlayer résout ce problème grâce à une optimisation au moment de la compilation.** Il analyse votre code pour détecter quels dictionnaires sont réellement utilisés par composant et réinjecte uniquement le contenu nécessaire dans votre bundle.
 
+## Table des matières
+
+<TOC />
+
 ## Comment ça fonctionne
 
 Intlayer utilise une **approche par composant**. Contrairement aux fichiers JSON globaux, votre contenu est défini à côté ou à l'intérieur de vos composants. Lors du processus de build, Intlayer :

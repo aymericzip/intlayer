@@ -31,6 +31,10 @@ Na przykład aplikacja z 10 stronami przetłumaczonymi na 10 języków może sku
 
 **Intlayer rozwiązuje ten problem poprzez optymalizację w czasie kompilacji.** Analizuje Twój kod, aby wykryć, które słowniki są faktycznie używane w poszczególnych komponentach i wstrzykuje do pakietu tylko niezbędną zawartość.
 
+## Spis treści
+
+<TOC />
+
 ## Jak to działa
 
 Intlayer stosuje **podejście per-komponent**. W przeciwieństwie do globalnych plików JSON, Twoja zawartość jest definiowana obok lub wewnątrz komponentów. Podczas procesu budowania Intlayer:

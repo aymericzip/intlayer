@@ -31,6 +31,10 @@ Ví dụ, một ứng dụng có 10 trang được dịch sang 10 ngôn ngữ c�
 
 **Intlayer giải quyết vấn đề này thông qua tối ưu hóa thời gian build.** Nó phân tích mã của bạn để phát hiện các từ điển thực sự được sử dụng cho từng component và chỉ tái chèn nội dung cần thiết vào bundle của bạn.
 
+## Mục lục
+
+<TOC />
+
 ## Cách Hoạt Động
 
 Intlayer sử dụng **phương pháp theo từng component**. Khác với các tệp JSON toàn cục, nội dung của bạn được định nghĩa kèm theo hoặc bên trong các component. Trong quá trình build, Intlayer:
