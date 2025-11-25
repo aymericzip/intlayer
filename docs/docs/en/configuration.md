@@ -654,6 +654,8 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
   - _Default_: None
   - _Description_: Provides additional context about your application to the AI model, helping it generate more accurate and contextually appropriate translations. This can include information about your app's domain, target audience, tone, or specific terminology.
 
+> If you provide additional parameters, Intlayer will pass them to the AI model as context. It can be used to customize the reasoning effort, text verbosity, etc
+
 ### Build Configuration
 
 Settings that control how Intlayer optimizes and builds your application's internationalization.
