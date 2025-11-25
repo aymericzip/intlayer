@@ -42,6 +42,10 @@ history:
 
 ## 功能
 
+![提取内容](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **提取内容** – 从您的 React / Vue / Svelte 组件中提取内容
+
 ![填充词典](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **即时导航** – 点击 `useIntlayer` 键时，快速跳转到正确的内容文件。

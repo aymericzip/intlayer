@@ -42,6 +42,10 @@ Tautan ekstensi: [https://marketplace.visualstudio.com/items?itemName=Intlayer.i
 
 ## Fitur
 
+![Ekstrak konten](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **Ekstrak Konten** – Ekstrak konten dari komponen React / Vue / Svelte Anda
+
 ![Isi kamus](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Navigasi Instan** – Melompat dengan cepat ke file konten yang benar saat mengklik kunci `useIntlayer`.

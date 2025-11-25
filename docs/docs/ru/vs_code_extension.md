@@ -42,6 +42,10 @@ history:
 
 ## Возможности
 
+![Извлечение контента](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **Извлечение контента** – Извлекайте контент из ваших компонентов React / Vue / Svelte
+
 ![Заполнение словарей](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Мгновенная навигация** – Быстрый переход к нужному файлу контента при клике на ключ `useIntlayer`.

@@ -42,6 +42,10 @@ Link all'estensione: [https://marketplace.visualstudio.com/items?itemName=Intlay
 
 ## Funzionalità
 
+![Estrai contenuto](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **Estrai Contenuto** – Estrai contenuto dai tuoi componenti React / Vue / Svelte
+
 ![Riempi dizionari](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Navigazione Istantanea** – Passa rapidamente al file di contenuto corretto cliccando su una chiave `useIntlayer`.

@@ -42,6 +42,10 @@ history:
 
 ## 기능
 
+![콘텐츠 추출](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **콘텐츠 추출** – React / Vue / Svelte 컴포넌트에서 콘텐츠를 추출합니다
+
 ![사전 채우기](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **즉시 탐색** – `useIntlayer` 키를 클릭하면 올바른 콘텐츠 파일로 빠르게 이동합니다.

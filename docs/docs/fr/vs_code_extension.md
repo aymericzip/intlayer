@@ -42,6 +42,10 @@ Lien de l'extension : [https://marketplace.visualstudio.com/items?itemName=Intla
 
 ## Fonctionnalités
 
+![Extraire le contenu](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **Extraire le contenu** – Extrayez le contenu de vos composants React / Vue / Svelte
+
 ![Remplir les dictionnaires](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Navigation instantanée** – Accédez rapidement au fichier de contenu correct en cliquant sur une clé `useIntlayer`.

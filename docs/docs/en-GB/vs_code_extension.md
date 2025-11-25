@@ -42,6 +42,10 @@ Extension link: [https://marketplace.visualstudio.com/items?itemName=Intlayer.in
 
 ## Features
 
+![Extract content](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **Extract Content** – Extract content from your React / Vue / Svelte components
+
 ![Fill dictionaries](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Instant Navigation** – Quickly jump to the correct content file when clicking on a `useIntlayer` key.

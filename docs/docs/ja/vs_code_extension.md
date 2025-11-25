@@ -42,6 +42,10 @@ history:
 
 ## 機能
 
+![コンテンツを抽出](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **コンテンツを抽出** – React / Vue / Svelte コンポーネントからコンテンツを抽出します
+
 ![辞書を埋める](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **インスタントナビゲーション** – `useIntlayer` キーをクリックすると、正しいコンテンツファイルに素早くジャンプします。

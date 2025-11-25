@@ -42,6 +42,10 @@ Link do rozszerzenia: [https://marketplace.visualstudio.com/items?itemName=Intla
 
 ## Funkcje
 
+![Wyodrębnij zawartość](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **Wyodrębnij Zawartość** – Wyodrębnij zawartość z komponentów React / Vue / Svelte
+
 ![Wypełnianie słowników](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Natychmiastowa Nawigacja** – Szybko przejdź do odpowiedniego pliku z treścią, klikając na klucz `useIntlayer`.

@@ -42,6 +42,10 @@ history:
 
 ## विशेषताएँ
 
+![सामग्री निकालें](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **सामग्री निकालें** – अपने React / Vue / Svelte घटकों से सामग्री निकालें
+
 ![शब्दकोश भरें](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **तत्काल नेविगेशन** – `useIntlayer` कुंजी पर क्लिक करने पर सही सामग्री फ़ाइल पर तेजी से जाएं।

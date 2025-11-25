@@ -42,6 +42,10 @@ history:
 
 ## الميزات
 
+![استخراج المحتوى](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **استخراج المحتوى** – استخرج المحتوى من مكونات React / Vue / Svelte الخاصة بك
+
 ![ملء القواميس](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **التنقل الفوري** – القفز بسرعة إلى ملف المحتوى الصحيح عند النقر على مفتاح `useIntlayer`.

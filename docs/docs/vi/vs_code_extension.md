@@ -42,6 +42,10 @@ Liên kết tiện ích mở rộng: [https://marketplace.visualstudio.com/items
 
 ## Tính năng
 
+![Trích xuất nội dung](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **Trích xuất Nội dung** – Trích xuất nội dung từ các thành phần React / Vue / Svelte của bạn
+
 ![Điền từ điển](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Điều hướng tức thì** – Nhảy nhanh đến tệp nội dung chính xác khi nhấp vào khóa `useIntlayer`.

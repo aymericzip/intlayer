@@ -42,6 +42,10 @@ Enlace de la extensión: [https://marketplace.visualstudio.com/items?itemName=In
 
 ## Funcionalidades
 
+![Extraer contenido](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **Extraer Contenido** – Extrae contenido de tus componentes React / Vue / Svelte
+
 ![Rellenar diccionarios](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Navegación Instantánea** – Salta rápidamente al archivo de contenido correcto al hacer clic en una clave `useIntlayer`.

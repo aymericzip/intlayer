@@ -16,6 +16,9 @@ slugs:
   - doc
   - vs-code-extension
 history:
+  - version: 7.3.0
+    date: 2025-11-25
+    changes: Add extract content command
   - version: 6.1.5
     date: 2025-09-30
     changes: Add demo gif
@@ -41,6 +44,10 @@ history:
 Extension link: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
 
 ## Features
+
+![Extract content](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **Extract Content** – Extract content from your React / Vue / Svelte components
 
 ![Fill dictionaries](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 

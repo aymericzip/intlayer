@@ -42,6 +42,10 @@ Eklenti bağlantısı: [https://marketplace.visualstudio.com/items?itemName=Intl
 
 ## Özellikler
 
+![İçerik çıkar](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_extract_content.gif?raw=true)
+
+- **İçerik Çıkar** – React / Vue / Svelte bileşenlerinizden içerik çıkarın
+
 ![Sözlükleri doldur](https://github.com/aymericzip/intlayer-vs-code-extension/blob/master/assets/vscode_extention_fill_active_dictionary.gif?raw=true)
 
 - **Anında Gezinme** – `useIntlayer` anahtarına tıkladığınızda doğru içerik dosyasına hızlıca atlayın.
