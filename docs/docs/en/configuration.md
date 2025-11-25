@@ -670,9 +670,10 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
 - **optimize**:
   - _Type_: `boolean`
-  - _Default_: `process.env.NODE_ENV === 'production'`
+  - _Default_: `undefined`
   - _Description_: Controls whether the build should be optimized.
-  - _Example_: `true`
+  - _Example_: `process.env.NODE_ENV === 'production'`
+  - _Note_: By default, the build optimization is not fixed. If not set, Intlayer will trigger the build optimization on the build of your application (vite / nextjs / etc). Setting it to `true` will force the build optimization, including during dev mode. Setting it to `false` will disable the build optimization.
   - _Note_: When enabled, Intlayer will replace all calls of dictionaries to optimize chunking. That way the final bundle will import only the dictionaries that are used. All imports will stay as static import to avoid async processing when loading the dictionaries.
   - _Note_: Intlayer will replace all calls of `useIntlayer` with the defined mode by the `importMode` option and `getIntlayer` with `getDictionary`.
   - _Note_: This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
