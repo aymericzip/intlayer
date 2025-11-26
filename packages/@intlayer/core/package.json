@@ -42,6 +42,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./markdown/processor": {
+      "types": "./dist/types/markdown/processor.d.ts",
+      "require": "./dist/cjs/markdown/processor.cjs",
+      "import": "./dist/esm/markdown/processor.mjs"
+    },
     "./file": {
       "types": "./dist/types/transpiler/file/file.d.ts",
       "node": {
@@ -66,6 +71,9 @@
     "*": {
       ".": [
         "./dist/types/index.d.ts"
+      ],
+      "markdown/processor": [
+        "./dist/types/markdown/processor.d.ts"
       ],
       "file": [
         "./dist/types/transpiler/file/file.d.ts"

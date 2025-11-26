@@ -61,6 +61,11 @@
       "require": "./dist/cjs/editor/index.cjs",
       "import": "./dist/esm/editor/index.mjs"
     },
+    "./markdown": {
+      "types": "./src/markdown/index.ts",
+      "require": "./src/markdown/index.ts",
+      "import": "./src/markdown/index.ts"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -79,6 +84,9 @@
       ],
       "editor": [
         "./dist/types/editor/index.d.ts"
+      ],
+      "markdown": [
+        "./src/markdown/index.ts"
       ],
       "package.json": [
         "./package.json"
@@ -114,7 +122,8 @@
     "@intlayer/editor-react": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "intlayer": "workspace:*"
+    "intlayer": "workspace:*",
+    "@emotion/react": "^11.13.3"
   },
   "devDependencies": {
     "@craco/types": "7.1.0",
