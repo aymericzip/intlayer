@@ -24,7 +24,12 @@ const secureHeaders = {
         'cdn.jsdelivr.net',
         "'unsafe-inline'",
       ],
-      scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
+      scriptSrc: [
+        "'self'",
+        "'unsafe-eval'",
+        "'unsafe-inline'",
+        '*.youtube.com',
+      ],
       scriptSrcElem: [
         "'self'",
         'data:',
@@ -37,6 +42,7 @@ const secureHeaders = {
         '*.stripe.com',
         'cdn.jsdelivr.net',
         '*.ahrefs.com',
+        '*.youtube.com',
       ],
       connectSrc: [
         "'self'",
