@@ -14,9 +14,8 @@ keywords:
   - Derleyici
   - Deklaratif
 slugs:
-  - compiler-vs-declarative-i18n
   - blog
-  - i18n
+  - compiler-vs-declarative-i18n
 ---
 
 # Derleyici Tabanlı i18n İçin ve Karşı Argümanlar

@@ -40,3 +40,6 @@ workbox-*.js
 
 # cursor
 .cursor/worktree
+
+# _ folder
+_*

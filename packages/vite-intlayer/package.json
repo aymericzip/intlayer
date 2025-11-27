@@ -98,10 +98,18 @@
   },
   "peerDependencies": {
     "@babel/core": ">=6.0.0",
+    "@intlayer/svelte-compiler": "workspace:*",
+    "@intlayer/vue-compiler": "workspace:*",
     "vite": ">=4.0.0"
   },
   "peerDependenciesMeta": {
     "@babel/core": {
+      "optional": true
+    },
+    "@intlayer/svelte-compiler": {
+      "optional": true
+    },
+    "@intlayer/vue-compiler": {
       "optional": true
     }
   },

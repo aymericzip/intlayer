@@ -1,0 +1,111 @@
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "comp-test",
+  "title": "Component test content",
+  "description": "Multilingual content for a test component used to verify text extraction. Contains example strings, placeholders, aria-labels, option texts, a sample paragraph, and call-to-action labels for the comp-test component.",
+  "tags": ["component", "test", "content", "extraction", "local"],
+  "content": {
+    "helloWorld2ShouldBe": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Hello World 2 (should be extracted)",
+        "fr": "Bonjour le monde 2 (devrait être extrait)",
+        "es": "Hola Mundo 2 (debe extraerse)"
+      }
+    },
+    "clickMeShouldBeExtracted": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Click me (should be extracted)",
+        "fr": "Cliquez ici (devrait être extrait)",
+        "es": "Haz clic en mí (debe extraerse)"
+      }
+    },
+    "thisTextShouldBeExtracted": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This text should be extracted",
+        "fr": "Ce texte doit être extrait",
+        "es": "Este texto debe extraerse"
+      }
+    },
+    "thisIsAParagraphOn": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is a paragraph on several lines. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "fr": "Ceci est un paragraphe sur plusieurs lignes. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "es": "Este es un párrafo en varias líneas. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      }
+    },
+    "thisIsAStringIncluding": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is a string including '\"!@#$%^&*()_+-=[]{`{}`} special characters:",
+        "fr": "Ceci est une chaîne incluant '\\\"!@#$%^&*()_+-=[]",
+        "es": "Esta es una cadena que incluye '\\\"!@#$%^&*()_+-=[]"
+      }
+    },
+    "thisIsTheTextOf2": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is the text of the option 3 (should be extracted)",
+        "fr": "Ceci est le texte de l'option 3 (devrait être extrait)",
+        "es": "Este es el texto de la opción 3 (debe extraerse)"
+      }
+    },
+    "thisIsTheTextOf1": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is the text of the option 2 (should be extracted)",
+        "fr": "Ceci est le texte de l'option 2 (devrait être extrait)",
+        "es": "Este es el texto de la opción 2 (debe extraerse)"
+      }
+    },
+    "thisIsTheTextOf": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is the text of the option 1 (should be extracted)",
+        "fr": "Ceci est le texte de l'option 1 (devrait être extrait)",
+        "es": "Este es el texto de la opción 1 (debe extraerse)"
+      }
+    },
+    "thisIsTheAriaLabel1": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is the aria-label (should be extracted)"
+      }
+    },
+    "thisIsTheAriaLabel": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is the aria-label (should be extracted)",
+        "fr": "Ceci est l'aria-label (devrait être extrait)",
+        "es": "Esta es la aria-label (debe extraerse)"
+      }
+    },
+    "thisIsThePlaceholderShould": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is the placeholder (should be extracted)",
+        "fr": "Ceci est le texte de l'espace réservé (devrait être extrait)",
+        "es": "Este es el marcador de posición (debe extraerse)"
+      }
+    },
+    "thisIsATestShould": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is a test (should be extracted)",
+        "fr": "Ceci est un test (devrait être extrait)",
+        "es": "Esto es una prueba (debe extraerse)"
+      }
+    },
+    "helloWorldShouldBeExtracted": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Hello World (should be extracted)",
+        "fr": "Bonjour le monde (devrait être extrait)",
+        "es": "Hola Mundo (debe extraerse)"
+      }
+    }
+  }
+}

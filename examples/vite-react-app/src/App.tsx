@@ -5,6 +5,7 @@ import viteLogo from '/vite.svg';
 import reactLogo from './assets/react.svg';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
 import { LocaleRouter } from './Router';
+import HelloWorld from './Test';
 
 const AppContent: FC = () => {
   const [count, setCount] = useState(0);
@@ -44,6 +45,7 @@ const AppContent: FC = () => {
 const App: FC = () => (
   <LocaleRouter>
     <AppContent />
+    <HelloWorld />
   </LocaleRouter>
 );
 

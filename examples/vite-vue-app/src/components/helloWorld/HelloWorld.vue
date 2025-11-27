@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useIntlayer } from 'vue-intlayer';
+import Test from '../test/Test.vue';
 
 defineProps({
   msg: Object,
@@ -27,6 +28,8 @@ const countRef = ref(0);
     </button>
     <p v-html="edit"></p>
   </div>
+
+  <Test />
 
   <mdTest />
 

@@ -91,11 +91,12 @@ export const loadExternalFile = async (
   const safeProjectRequire = options?.projectRequire ?? getProjectRequire();
 
   try {
-    if (fileExtension === 'json') {
+    if (fileExtension === '.json') {
       // Remove cache to force getting fresh content
       delete safeProjectRequire.cache[safeProjectRequire.resolve(filePath)];
       // Assume JSON
-      return safeProjectRequire(filePath);
+      const result = safeProjectRequire(filePath);
+      return result;
     }
 
     // Rest is JS, MJS or TS

@@ -33,6 +33,7 @@ export const HelloWorld: FC = () => {
   return (
     <div>
       <h1>Hello World (should be extracted)</h1>
+      <h1>I'm a test (should be extracted)</h1>
       <p>This is a test (should be extracted)</p>
       <button onClick={() => setIsClicked(true)}>
         {isClicked

@@ -4,7 +4,11 @@ const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
-
+  ai: {
+    provider: 'openai',
+    apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: 'This is a test application',
+  },
   editor: {
     enabled: true,
     applicationURL: 'http://localhost:5173',

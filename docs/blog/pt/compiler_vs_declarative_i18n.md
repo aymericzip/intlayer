@@ -14,9 +14,8 @@ keywords:
   - Compilador
   - Declarativo
 slugs:
-  - compiler-vs-declarative-i18n
   - blog
-  - i18n
+  - compiler-vs-declarative-i18n
 ---
 
 # O Caso a Favor e Contra a i18n Baseada em Compilador

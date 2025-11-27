@@ -14,9 +14,8 @@ keywords:
   - المترجم
   - تدويني
 slugs:
-  - compiler-vs-declarative-i18n
   - blog
-  - i18n
+  - compiler-vs-declarative-i18n
 ---
 
 # الحجج المؤيدة والمعارضة للتدويل المعتمد على المترجم

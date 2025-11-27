@@ -59,6 +59,8 @@ WORKDIR /workspace
 # Remove directories to keep the image slim
 COPY \
     --exclude=packages/@intlayer/mcp \
+    --exclude=packages/@intlayer/vue-compiler \
+    --exclude=packages/@intlayer/svelte-compiler \
     --exclude=packages/intlayer-cli \
     --exclude=packages/react-scripts-intlayer \
     --exclude=packages/vue-intlayer \

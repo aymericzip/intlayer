@@ -14,9 +14,8 @@ keywords:
   - कंपाइलर
   - घोषणात्मक
 slugs:
-  - compiler-vs-declarative-i18n
   - blog
-  - i18n
+  - compiler-vs-declarative-i18n
 ---
 
 # कंपाइलर-आधारित i18n के पक्ष और विपक्ष

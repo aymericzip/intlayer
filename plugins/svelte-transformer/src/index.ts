@@ -38,14 +38,13 @@ export const processSvelteFile = async (
 ) => {
   const { generateKey, shouldExtract, extractTsContent } = tools;
   const code = await readFile(filePath, 'utf-8');
-  // @ts-ignore
+
   const ast = svelteCompiler.parse(code);
   const magic = new MagicString(code);
 
   const extractedContent: Record<string, string> = {};
   const existingKeys = new Set<string>();
 
-  // 4a. Template Extraction
   const walkSvelte = (node: any) => {
     if (node.type === 'Text') {
       const text = node.data;
@@ -86,7 +85,6 @@ export const processSvelteFile = async (
 
   walkSvelte(ast.html);
 
-  // 4b. Script Extraction
   const scriptRegex = /<script[^>]*>([\s\S]*?)<\/script>/;
   const match = scriptRegex.exec(code);
   let scriptExtractedKeys = 0;

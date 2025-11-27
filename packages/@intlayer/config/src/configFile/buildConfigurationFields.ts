@@ -4,6 +4,7 @@ import type {
   BaseContentConfig,
   BaseDerivedConfig,
   BuildConfig,
+  CompilerConfig,
   ContentConfig,
   CustomIntlayerConfig,
   DictionaryConfig,
@@ -22,6 +23,12 @@ import {
   OUTPUT_FORMAT,
   TRAVERSE_PATTERN,
 } from '../defaultValues/build';
+import {
+  COMPILER_ENABLED,
+  COMPILER_EXCLUDE_PATTERN,
+  COMPILER_OUTPUT_DIR,
+  COMPILER_TRANSFORM_PATTERN,
+} from '../defaultValues/compiler';
 import {
   CACHE_DIR,
   CONFIG_DIR,
@@ -706,6 +713,32 @@ const buildBuildFields = (
   require: customConfiguration?.require,
 });
 
+const buildCompilerFields = (
+  customConfiguration?: Partial<CompilerConfig>
+): CompilerConfig => ({
+  /**
+   * Indicates if the compiler should be enabled
+   */
+  enabled: customConfiguration?.enabled ?? COMPILER_ENABLED,
+
+  /**
+   * Pattern to traverse the code to optimize.
+   */
+  transformPattern:
+    customConfiguration?.transformPattern ?? COMPILER_TRANSFORM_PATTERN,
+
+  /**
+   * Pattern to exclude from the optimization.
+   */
+  excludePattern:
+    customConfiguration?.excludePattern ?? COMPILER_EXCLUDE_PATTERN,
+
+  /**
+   * Output directory for the optimized dictionaries.
+   */
+  outputDir: customConfiguration?.outputDir ?? COMPILER_OUTPUT_DIR,
+});
+
 const buildDictionaryFields = (
   customConfiguration?: Partial<DictionaryConfig>
 ): DictionaryConfig => ({
@@ -744,6 +777,8 @@ export const buildConfigurationFields = (
 
   const buildConfig = buildBuildFields(customConfiguration?.build);
 
+  const compilerConfig = buildCompilerFields(customConfiguration?.compiler);
+
   const dictionaryConfig = buildDictionaryFields(
     customConfiguration?.dictionary
   );
@@ -756,6 +791,7 @@ export const buildConfigurationFields = (
     log: logConfig,
     ai: aiConfig,
     build: buildConfig,
+    compiler: compilerConfig,
     dictionary: dictionaryConfig,
     plugins: customConfiguration?.plugins,
     metadata: {

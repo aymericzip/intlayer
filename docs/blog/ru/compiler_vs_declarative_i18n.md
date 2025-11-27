@@ -14,9 +14,8 @@ keywords:
   - Компилятор
   - Декларативный
 slugs:
-  - compiler-vs-declarative-i18n
   - blog
-  - i18n
+  - compiler-vs-declarative-i18n
 ---
 
 # Аргументы за и против интернационализации на основе компилятора

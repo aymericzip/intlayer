@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import Test2 from './Test2.vue
+import Test2 from './Test2.vue';
 
 // This component is used to test the `intlayer transform command`
 // The values here should be extracted
@@ -79,7 +79,7 @@ const randomFunction = () => {
     </p>
     <span>{{ state }}</span>
     <img
-      src="/should-not-be-extracted.svg"
+      src="https://example.com/should-not-be-extracted.svg"
       alt="This text should be extracted"
     />
     <button @click="handleClick">Click me (should be extracted)</button>

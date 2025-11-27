@@ -14,9 +14,8 @@ keywords:
   - Trình Biên Dịch
   - Khai Báo
 slugs:
-  - compiler-vs-declarative-i18n
   - blog
-  - i18n
+  - compiler-vs-declarative-i18n
 ---
 
 # Lập Luận Ủng Hộ và Phản Đối i18n Dựa Trên Trình Biên Dịch

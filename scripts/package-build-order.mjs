@@ -16,6 +16,8 @@ export const packageBuildOrder = [
   'packages/@intlayer/swc',
   'packages/@intlayer/editor-react',
   'packages/@intlayer/ai',
+  'packages/@intlayer/vue-compiler',
+  'packages/@intlayer/svelte-compiler',
   'packages/intlayer',
   'docs',
   'packages/@intlayer/mcp',

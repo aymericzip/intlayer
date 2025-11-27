@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import vue from '@vitejs/plugin-vue';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
-import { intlayer, intlayerProxy } from 'vite-intlayer';
+import { intlayer, intlayerCompiler, intlayerProxy } from 'vite-intlayer';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,6 +11,7 @@ export default defineConfig({
     vue(),
     intlayer(),
     intlayerProxy(),
+    intlayerCompiler(),
     visualizer({
       emitFile: true,
       filename: 'stats.html',

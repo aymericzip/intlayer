@@ -10,7 +10,8 @@ const randomFunction = () => {
 // The values here should be extracted
 let state = 'This is a sentence if a state (should be extracted)';
 
-const isClicked = false;
+// biome-ignore lint/style/useConst: Svelte props need let
+let isClicked = false;
 
 // The values here should be extracted
 const listOfItems = [
@@ -34,7 +35,7 @@ const handleClick = () => {
 <div>
   <h1>Hello World (should be extracted)</h1>
   <p>This is a test (should be extracted)</p>
-  <button on:click={() => (isClicked = true)}>
+  <button on:click={() => {isClicked = true}}>
     {isClicked
       ? 'Clicked (should be extracted)'
       : 'Click me (should be extracted)'}

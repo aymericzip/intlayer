@@ -493,6 +493,49 @@ export type BuildConfig = {
   require?: NodeJS.Require;
 };
 
+export type CompilerConfig = {
+  /**
+   * Indicates if the compiler should be enabled
+   */
+  enabled: boolean;
+
+  /**
+   * Pattern to traverse the code to optimize.
+   *
+   * Allows to avoid to traverse the code that is not relevant to the optimization.
+   * Improve build performance.
+   *
+   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']
+   *
+   * Example: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**\/node_modules/**']`
+   *
+   * Note:
+   * - This option will be ignored if `optimize` is disabled.
+   * - Use glob pattern.
+   */
+  transformPattern: string | string[];
+
+  /**
+   * Pattern to exclude from the optimization.
+   *
+   * Allows to exclude files from the optimization.
+   *
+   * Default: ['**\/node_modules/**']
+   *
+   * Example: `['**\/node_modules/**', '!**\/node_modules/react/**']`
+   */
+  excludePattern: string | string[];
+
+  /**
+   * Output directory for the optimized dictionaries.
+   *
+   * Default: 'compiler'
+   *
+   * The directory where the optimized dictionaries will be stored.
+   */
+  outputDir: string;
+};
+
 /**
  * Custom configuration that can be provided to override default settings
  */
@@ -536,6 +579,11 @@ export type CustomIntlayerConfig = {
    * Custom build configuration
    */
   build?: Partial<BuildConfig>;
+
+  /**
+   * Custom compiler configuration
+   */
+  compiler?: Partial<CompilerConfig>;
 
   /**
    * Custom plugins configuration
@@ -598,6 +646,11 @@ export type IntlayerConfig = {
    * Build configuration
    */
   build: BuildConfig;
+
+  /**
+   * Compiler configuration
+   */
+  compiler: CompilerConfig;
 
   /**
    * Plugins configuration

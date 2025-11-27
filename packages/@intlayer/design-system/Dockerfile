@@ -15,6 +15,8 @@ WORKDIR /workspace
 # Now copy the rest of the monorepo, excluding heavy/irrelevant folders
 COPY \
   --exclude=packages/@intlayer/mcp \
+  --exclude=packages/@intlayer/vue-compiler \
+  --exclude=packages/@intlayer/svelte-compiler \
   --exclude=packages/@intlayer/swc \
   --exclude=packages/intlayer-cli \
   --exclude=packages/react-scripts-intlayer \

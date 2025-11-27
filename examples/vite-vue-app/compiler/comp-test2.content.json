@@ -1,0 +1,25 @@
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "comp-test2",
+  "title": "Component test 2",
+  "description": "Localization/content declaration for the component comp-test2. Contains English strings for helloWorld2ShouldBe and thisIsATest2.",
+  "tags": ["component", "test", "localization", "comp-test2"],
+  "content": {
+    "helloWorld2ShouldBe": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Hello World 2 (should be extracted)",
+        "fr": "Bonjour le monde 2 (doit être extrait)",
+        "es": "Hola Mundo 2 (debería extraerse)"
+      }
+    },
+    "thisIsATest2": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is a test 2 (should be extracted)",
+        "fr": "Ceci est un test 2 (doit être extrait)",
+        "es": "Esta es una prueba 2 (debería extraerse)"
+      }
+    }
+  }
+}

@@ -42,21 +42,21 @@ export const listContentDeclaration = (
 
   const rows = listContentDeclarationRows(options);
 
-  const lines = rows.map((r) =>
+  const lines = rows.map((row) =>
     [
-      colon(` - ${colorizeKey(r.key)}`, {
-        colSize: rows.map((r) => r.key.length),
+      colon(` - ${colorizeKey(row.key)}`, {
+        colSize: rows.map((row) => row.key.length),
         maxSize: 60,
       }),
       ' - ',
-      formatPath(r.path),
+      formatPath(row.path),
     ].join('')
   );
 
   appLogger(`Content declaration files:`);
 
-  lines.forEach((l) => {
-    appLogger(l, {
+  lines.forEach((line) => {
+    appLogger(line, {
       level: 'info',
     });
   });

@@ -14,9 +14,8 @@ keywords:
   - 컴파일러
   - 선언적
 slugs:
-  - compiler-vs-declarative-i18n
   - blog
-  - i18n
+  - compiler-vs-declarative-i18n
 ---
 
 # 컴파일러 기반 i18n에 대한 찬반 논쟁

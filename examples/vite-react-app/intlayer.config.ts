@@ -20,10 +20,15 @@ const config: IntlayerConfig = {
     applicationContext: 'This is a test application',
   },
   content: {
-    // contentDir: ['../../'],
+    contentDir: ['./src', './compiler'],
   },
   log: {
     mode: 'verbose',
+  },
+  compiler: {
+    enabled: true,
+    transformPattern: ['**/*.{ts,tsx}'],
+    outputDir: './compiler',
   },
   routing: {
     storage: ['cookie', 'localStorage', 'header'],

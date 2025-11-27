@@ -8,6 +8,7 @@ import viteLogo from '/vite.svg';
 import svelteLogo from './assets/svelte.svg';
 import Counter from './lib/Counter.svelte';
 import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
+import Test from './Test.svelte';
 
 useIntlayerEditor();
 setIntlayerMarkdown({ renderMarkdown: (markdown) => markdown });
@@ -56,6 +57,7 @@ $: console.log($content.markdownContent.metadata);
     <!-- render the metadata of the markdown content -->
     {$content.markdownContent.metadata.title}
   </div>
+  <Test />
 </main>
 
 <style>

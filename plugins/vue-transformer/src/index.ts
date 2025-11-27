@@ -46,7 +46,6 @@ export const processVueFile = async (
   const extractedContent: Record<string, string> = {};
   const existingKeys = new Set<string>();
 
-  // 3a. Template Extraction
   if (sfc.descriptor.template) {
     const walkVueAst = (node: any) => {
       if (node.type === 2) {
@@ -92,7 +91,6 @@ export const processVueFile = async (
     walkVueAst(sfc.descriptor.template.ast);
   }
 
-  // 3b. Script Extraction
   const scriptBlock = sfc.descriptor.scriptSetup || sfc.descriptor.script;
   if (scriptBlock) {
     const scriptContent = scriptBlock.content;

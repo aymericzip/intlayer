@@ -14,9 +14,8 @@ keywords:
   - 编译器
   - 声明式
 slugs:
-  - compiler-vs-declarative-i18n
   - blog
-  - i18n
+  - compiler-vs-declarative-i18n
 ---
 
 # 支持与反对编译器驱动国际化的观点

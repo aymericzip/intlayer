@@ -41,6 +41,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./compiler": {
+      "types": "./dist/types/compiler.d.ts",
+      "require": "./dist/cjs/compiler.cjs",
+      "import": "./dist/esm/compiler.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",

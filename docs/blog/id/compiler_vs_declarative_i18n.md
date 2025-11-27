@@ -14,9 +14,8 @@ keywords:
   - Compiler
   - Deklaratif
 slugs:
-  - compiler-vs-declarative-i18n
   - blog
-  - i18n
+  - compiler-vs-declarative-i18n
 ---
 
 # Argumen Mendukung dan Menentang i18n Berbasis Compiler

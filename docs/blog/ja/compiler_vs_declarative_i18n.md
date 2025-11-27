@@ -14,9 +14,8 @@ keywords:
   - コンパイラー
   - 宣言型
 slugs:
-  - compiler-vs-declarative-i18n
   - blog
-  - i18n
+  - compiler-vs-declarative-i18n
 ---
 
 # コンパイラー型i18nの賛否
