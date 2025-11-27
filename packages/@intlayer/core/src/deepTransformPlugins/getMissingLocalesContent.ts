@@ -15,6 +15,12 @@ const getDeepKeyPaths = (obj: any, prefix: string[] = []): string[][] => {
     return [];
   }
 
+  // Skip array indices - arrays of different lengths shouldn't trigger missing translations
+  // Each locale can have arrays with different numbers of elements (e.g., keywords)
+  if (Array.isArray(obj)) {
+    return [];
+  }
+
   return Object.keys(obj).flatMap((key) => {
     const newPath = [...prefix, key];
     return [newPath, ...getDeepKeyPaths(obj[key], newPath)];

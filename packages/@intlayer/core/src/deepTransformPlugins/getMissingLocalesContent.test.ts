@@ -233,4 +233,83 @@ describe('getMissingLocalesContent', () => {
     // es is missing title and description, fr is missing all keys
     expect(result.sort()).toEqual([Locales.SPANISH, Locales.FRENCH].sort());
   });
+
+  it('should NOT flag locales as missing when arrays have different lengths', () => {
+    // This reproduces the bug with website.content.ts where different locales
+    // have different numbers of keywords (e.g., 'en' has 12 items, 'fr' has 13)
+    const data = {
+      keywords: {
+        nodeType: NodeType.Translation,
+        [NodeType.Translation]: {
+          en: ['translation', 'localization', 'multilingual'],
+          fr: [
+            'Traduction',
+            'Localisation',
+            'Multilingue',
+            'SEO', // Extra item
+          ],
+          es: ['Traducción', 'Localización'],
+        },
+      },
+    };
+
+    const result = getMissingLocalesContent(
+      data as unknown as ContentNode,
+      [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+      {
+        dictionaryKey: 'keywords',
+        keyPath: [],
+      }
+    );
+
+    // All locales have translations, just different array lengths - should be empty
+    expect(result).toEqual([]);
+  });
+
+  it('should still detect missing locales when one locale has no array at all', () => {
+    const data = {
+      keywords: {
+        nodeType: NodeType.Translation,
+        [NodeType.Translation]: {
+          en: ['translation', 'localization'],
+          // fr is completely missing
+        },
+      },
+    };
+
+    const result = getMissingLocalesContent(
+      data as unknown as ContentNode,
+      [Locales.ENGLISH, Locales.FRENCH],
+      {
+        dictionaryKey: 'keywords',
+        keyPath: [],
+      }
+    );
+
+    expect(result).toEqual([Locales.FRENCH]);
+  });
+
+  it('should handle arrays of objects without comparing array lengths', () => {
+    const data = {
+      items: {
+        nodeType: NodeType.Translation,
+        [NodeType.Translation]: {
+          en: [{ name: 'Item 1' }, { name: 'Item 2' }, { name: 'Item 3' }],
+          fr: [{ name: 'Article 1' }, { name: 'Article 2' }],
+        },
+      },
+    };
+
+    const result = getMissingLocalesContent(
+      data as unknown as ContentNode,
+      [Locales.ENGLISH, Locales.FRENCH],
+      {
+        dictionaryKey: 'items',
+        keyPath: [],
+      }
+    );
+
+    // Both locales have arrays, just different lengths - should be empty
+    expect(result).toEqual([]);
+  });
 });
