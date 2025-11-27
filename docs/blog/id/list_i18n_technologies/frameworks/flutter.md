@@ -115,28 +115,6 @@ Repository: [https://pub.dev/packages/flutter_i18n](https://pub.dev/packages/flu
 
 ---
 
-### 4. Intlayer
-
-Situs Web: [https://intlayer.org/](https://intlayer.org/)
-
-**Ikhtisar**  
-**Intlayer** adalah solusi i18n open-source yang bertujuan untuk menyederhanakan dukungan multibahasa di berbagai framework, termasuk **Flutter**. Solusi ini menekankan pendekatan deklaratif, pengetikan yang kuat, dan dukungan SSR di ekosistem lain meskipun SSR tidak umum di Flutter standar, Anda mungkin menemukan sinergi jika proyek Anda menggunakan Flutter web atau framework lanjutan.
-
-**Fitur Utama**
-
-- **Terjemahan Deklaratif**: Mendefinisikan kamus terjemahan baik di tingkat widget atau dalam file terpusat untuk arsitektur yang lebih bersih.
-- **TypeScript & Autocompletion (Web)**: Meskipun fitur ini terutama menguntungkan framework web, pendekatan terjemahan yang bertipe tetap dapat membimbing kode terstruktur di Flutter.
-- **Pemuatan Asinkron**: Memuat aset terjemahan secara dinamis, yang berpotensi mengurangi ukuran bundel awal untuk aplikasi multi-bahasa.
-- **Integrasi dengan Flutter**: Integrasi dasar dapat diatur untuk memanfaatkan pendekatan Intlayer dalam terjemahan yang terstruktur.
-
-**Pertimbangan**
-
-- **Kematangan Spesifik Flutter**: Meskipun berkembang, komunitas Intlayer untuk Flutter lebih kecil, sehingga Anda mungkin menemukan lebih sedikit tutorial atau contoh kode dibandingkan dengan perpustakaan lain.
-- **SSR**: Perpustakaan ini sangat mendukung SSR dalam konteks berbasis web, tetapi penggunaan SSR di Flutter lebih bersifat khusus (misalnya, Flutter web atau pendekatan server kustom).
-- **Pengaturan Kustom**: Membutuhkan konfigurasi awal agar sesuai dengan alur `MaterialApp` atau `CupertinoApp` di Flutter.
-
----
-
 ### Pemikiran Akhir
 
 Saat mengevaluasi pendekatan i18n untuk Flutter:

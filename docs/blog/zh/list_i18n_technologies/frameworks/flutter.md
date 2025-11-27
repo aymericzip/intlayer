@@ -114,28 +114,6 @@ Repository: [https://pub.dev/packages/flutter_i18n](https://pub.dev/packages/flu
 
 ---
 
-### 4. Intlayer
-
-Website: [https://intlayer.org/](https://intlayer.org/)
-
-**概述**  
-**Intlayer** 是一个开源的 i18n 解决方案，旨在简化多个框架（包括 **Flutter**）的多语言支持。它强调声明式方法、强类型和在其他生态系统中的 SSR 支持, , 尽管 SSR 在标准 Flutter 中并不常见，如果您的项目使用 Flutter web 或高级框架，您可能会发现协同效应。
-
-**主要特性**
-
-- **声明式翻译**：在小部件级或集中文件中定义翻译字典，以便于更清晰的架构。
-- **TypeScript 与自动完成（Web）**：尽管此功能主要有利于 Web 框架，但类型化翻译方法仍可以指导 Flutter 中的结构化代码。
-- **异步加载**：动态加载翻译资源，潜在减少多语言应用的初始包大小。
-- **与 Flutter 的集成**：可以设置基本集成，以利用 Intlayer 方法进行结构化翻译。
-
-**考虑事项**
-
-- **Flutter 特定成熟度**：虽然在增长，Intlayer 的 Flutter 社区较小，因此您可能发现比其他库更少的教程或代码示例。
-- **SSR**：该库强烈支持在基于 Web 的上下文中的 SSR，但 Flutter 的 SSR 使用更具专业性（例如，Flutter web 或自定义服务器的方法）。
-- **自定义设置**：需要初始配置以适应 Flutter 的 `MaterialApp` 或 `CupertinoApp` 流程。
-
----
-
 ### 最后想法
 
 在评估 Flutter 的 i18n 方法时：

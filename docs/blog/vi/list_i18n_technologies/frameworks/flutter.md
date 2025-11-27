@@ -115,28 +115,6 @@ Kho lưu trữ: [https://pub.dev/packages/flutter_i18n](https://pub.dev/packages
 
 ---
 
-### 4. Intlayer
-
-Website: [https://intlayer.org/](https://intlayer.org/)
-
-**Tổng quan**  
-**Intlayer** là một giải pháp i18n mã nguồn mở nhằm đơn giản hóa việc hỗ trợ đa ngôn ngữ trên nhiều framework khác nhau, bao gồm cả **Flutter**. Nó nhấn mạnh cách tiếp cận khai báo, kiểu dữ liệu mạnh mẽ và hỗ trợ SSR trong các hệ sinh thái khác, mặc dù SSR không phổ biến trong Flutter tiêu chuẩn, bạn có thể tìm thấy sự kết hợp nếu dự án của bạn sử dụng Flutter web hoặc các framework nâng cao.
-
-**Tính năng chính**
-
-- **Dịch khai báo**: Định nghĩa từ điển dịch thuật ở cấp widget hoặc trong một tệp tập trung để kiến trúc sạch hơn.
-- **TypeScript & Tự động hoàn thành (Web)**: Mặc dù tính năng này chủ yếu có lợi cho các framework web, cách tiếp cận dịch có kiểu vẫn có thể hướng dẫn mã có cấu trúc trong Flutter.
-- **Tải Không Đồng Bộ**: Tải tài nguyên dịch thuật một cách động, có thể giảm kích thước gói ban đầu cho các ứng dụng đa ngôn ngữ.
-- **Tích Hợp với Flutter**: Có thể thiết lập tích hợp cơ bản để tận dụng phương pháp Intlayer cho các bản dịch có cấu trúc.
-
-**Những Điều Cần Lưu Ý**
-
-- **Mức Độ Trưởng Thành Riêng Cho Flutter**: Mặc dù đang phát triển, cộng đồng Intlayer dành cho Flutter còn nhỏ, nên bạn có thể tìm thấy ít hướng dẫn hoặc ví dụ mã hơn so với các thư viện khác.
-- **SSR**: Thư viện hỗ trợ mạnh mẽ SSR trong các bối cảnh web, nhưng việc sử dụng SSR trong Flutter mang tính chuyên biệt hơn (ví dụ: Flutter web hoặc các phương pháp máy chủ tùy chỉnh).
-- **Cấu Hình Tùy Chỉnh**: Cần cấu hình ban đầu để phù hợp với luồng `MaterialApp` hoặc `CupertinoApp` của Flutter.
-
----
-
 ### Những Suy Nghĩ Cuối Cùng
 
 Khi đánh giá một phương pháp i18n cho Flutter:

@@ -115,28 +115,6 @@ Depo: [https://pub.dev/packages/flutter_i18n](https://pub.dev/packages/flutter_i
 
 ---
 
-### 4. Intlayer
-
-Web sitesi: [https://intlayer.org/](https://intlayer.org/)
-
-**Genel Bakış**  
-**Intlayer**, **Flutter** dahil olmak üzere birden fazla çerçevede çok dilli desteği basitleştirmeyi amaçlayan açık kaynaklı bir i18n çözümüdür. Bildirimsel bir yaklaşım, güçlü yazma ve diğer ekosistemlerde SSR desteği vurgular, ancak SSR Flutter'da tipik değildir, Flutter web veya gelişmiş çerçeveler kullanıyorsanız sinerji bulabilirsiniz.
-
-**Ana Özellikler**
-
-- **Bildirimsel Çeviri**: Çeviri sözlüklerini widget düzeyinde veya merkezileştirilmiş bir dosyada tanımlayın, daha temiz mimari için.
-- **TypeScript ve Otomatik Tamamlama (Web)**: Bu özellik çoğunlukla web çerçevelerinden faydalanırken, yazılan çeviri yaklaşımı Flutter'da yapılandırılmış kod için rehberlik edebilir.
-- **Asenkron Yükleme**: Çeviri varlıklarını dinamik olarak yükleyin, potansiyel olarak çok dilli uygulamalar için ilk paket boyutunu azaltın.
-- **Flutter ile Entegrasyon**: Flutter'ın `MaterialApp` veya `CupertinoApp` akışına sığdırmak için temel entegrasyon kurulabilir.
-
-**Dikkat Edilmesi Gerekenler**
-
-- **Flutter'a Özel Olgunluk**: Büyüyen olmasına rağmen, Intlayer'ın Flutter topluluğu daha küçük, bu yüzden diğer kütüphanelere kıyasla daha az öğretici veya kod örneği bulabilirsiniz.
-- **SSR**: Kütüphane web tabanlı bağlamlarda SSR'yi güçlü bir şekilde destekler, ancak Flutter'ın SSR kullanımı daha özeldir (örneğin, Flutter web veya özel sunucu yaklaşımları).
-- **Özel Kurulum**: Flutter'ın `MaterialApp` veya `CupertinoApp` akışına sığdırmak için ilk yapılandırma gerektirir.
-
----
-
 ### Son Düşünceler
 
 Flutter için bir i18n yaklaşımı değerlendirirken:
