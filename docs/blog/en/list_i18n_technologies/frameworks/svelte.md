@@ -50,7 +50,23 @@ Translating a Svelte application can present several hurdles:
 
 Svelte doesn’t provide a native, built-in i18n solution (as Angular does), but the community has created a variety of robust libraries and patterns. Below are several popular approaches.
 
-### 1. svelte-i18n
+### 1. Intlayer
+
+> Website: [https://intlayer.org/](https://intlayer.org/)
+
+**Overview**  
+**Intlayer** is an open-source i18n solution that aims to simplify multi-language support across multiple frameworks, including **Svelte**. It emphasizes a declarative approach, strong typing, and SSR support in other ecosystems, although SSR is not typical in standard Svelte.
+
+**Key Features**
+
+- **Declarative Translation**: Define translation dictionaries either at the widget level or in a centralized file for a cleaner architecture.
+- **TypeScript & Autocompletion (Web)**: While this feature primarily benefits web frameworks, the typed translation approach can still guide structured code in Svelte.
+- **Asynchronous Loading**: Load translation assets dynamically, potentially reducing the initial bundle size for multi-language apps.
+- **Integration with Svelte**: A basic integration can be set up to leverage the Intlayer approach for structured translations.
+
+---
+
+### 2. svelte-i18n
 
 Repository: [https://github.com/kaisermann/svelte-i18n](https://github.com/kaisermann/svelte-i18n)
 
@@ -72,7 +88,7 @@ Repository: [https://github.com/kaisermann/svelte-i18n](https://github.com/kaise
 
 ---
 
-### 2. svelte-intl-precompile
+### 3. svelte-intl-precompile
 
 Repository: [https://github.com/cibernox/svelte-intl-precompile](https://github.com/cibernox/svelte-intl-precompile)
 
@@ -94,7 +110,7 @@ Repository: [https://github.com/cibernox/svelte-intl-precompile](https://github.
 
 ---
 
-### 3. i18next with Svelte / SvelteKit
+### 4. i18next with Svelte / SvelteKit
 
 Website: [https://www.i18next.com/](https://www.i18next.com/)
 
