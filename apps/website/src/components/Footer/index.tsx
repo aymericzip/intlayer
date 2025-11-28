@@ -12,7 +12,7 @@ export const Footer: FC = () => {
   const links: LinkGroup[] = content.map((section) => ({
     title: section.title,
     links: section.links.map((link) => {
-      const isLocaleLink = link.href.value.startsWith('/');
+      const isLocaleLink = link.href.value?.startsWith('/') ?? false;
       return {
         text: link.text,
         href: isLocaleLink
