@@ -1,4 +1,6 @@
 ---
+createdAt: 2024-12-06
+updatedAt: 2025-09-22
 title: Next.js 14 and App Router uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: Next.js 14 ile Intlayer entegrasyonu. Next.js 14 uygulamanızda çok dilli içerik yönetimi için Intlayer'ı nasıl kuracağınızı ve kullanacağınızı öğrenin.
 keywords:

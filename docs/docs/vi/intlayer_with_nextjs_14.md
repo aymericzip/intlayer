@@ -17,7 +17,6 @@ slugs:
   - 14
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 history:
-  - version: 7.0.6
   - version: 6.2.0
     date: 2025-10-09
     changes: Thêm tài liệu cho hook `useLocale` với tùy chọn `onLocaleChange`
@@ -26,7 +25,7 @@ history:
     changes: Thêm tài liệu cho hàm `getLocale` trên các hành động server
   - version: 5.6.2
     date: 2025-09-22
-  changes: Thêm tài liệu cho helper `multipleMiddlewares`
+    changes: Thêm tài liệu cho helper `multipleMiddlewares`
   - version: 5.6.0
     date: 2025-07-06
     changes: Chuyển hàm `withIntlayer()` thành hàm dựa trên promise

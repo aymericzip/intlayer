@@ -3,6 +3,14 @@ createdAt: 2025-01-02
 updatedAt: 2025-10-29
 title: Come automatizzare le traduzioni JSON di next-intl usando Intlayer
 description: Automatizza le tue traduzioni JSON con Intlayer e next-intl per una migliore internazionalizzazione nelle applicazioni Next.js.
+keywords:
+  - Intlayer
+  - next-intl
+  - Internationalization
+  - Blog
+  - Next.js
+  - JavaScript
+  - React
 slugs:
   - blog
   - intlayer-with-next-intl

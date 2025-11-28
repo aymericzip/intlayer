@@ -3,6 +3,13 @@ createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: next-intl を使った Next.js アプリケーションの国際化方法
 description: next-intl を使った i18n の設定方法：多言語対応の Next.js アプリ向けのベストプラクティスと SEO のヒント、国際化、コンテンツの整理、技術的セットアップを網羅。
+keywords:
+  - next-intl
+  - Internationalization
+  - Blog
+  - Next.js
+  - JavaScript
+  - React
 slugs:
   - blog
   - nextjs-internationalization-using-next-intl

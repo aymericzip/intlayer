@@ -17,7 +17,6 @@ slugs:
   - 14
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 history:
-  - version: 7.0.6
   - version: 6.2.0
     date: 2025-10-09
     changes: Menambahkan dokumentasi untuk hook `useLocale` dengan opsi `onLocaleChange`
@@ -26,7 +25,7 @@ history:
     changes: Menambahkan dokumentasi untuk fungsi `getLocale` pada server actions
   - version: 5.6.2
     date: 2025-09-22
-  changes: Menambahkan dokumentasi untuk helper `multipleMiddlewares`
+    changes: Menambahkan dokumentasi untuk helper `multipleMiddlewares`
   - version: 5.6.0
     date: 2025-07-06
     changes: Mengubah fungsi `withIntlayer()` menjadi fungsi berbasis promise

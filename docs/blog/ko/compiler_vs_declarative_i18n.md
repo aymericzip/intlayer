@@ -2,7 +2,7 @@
 createdAt: 2025-11-24
 updatedAt: 2025-11-24
 title: 컴파일러 기반 i18n 대 선언적 i18n
-description: "매직" 컴파일러 기반 국제화와 명시적 선언적 콘텐츠 관리 간의 아키텍처적 트레이드오프 탐구.
+description: '"매직" 컴파일러 기반 국제화와 명시적 선언적 콘텐츠 관리 간의 아키텍처적 트레이드오프 탐구.'
 keywords:
   - Intlayer
   - 국제화

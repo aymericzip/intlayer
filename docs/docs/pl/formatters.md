@@ -32,7 +32,6 @@ history:
     date: 2025-08-20
     changes: Dodano dokumentację formattera listy
   - version: 5.8.0
-  - version: 5.8.0
     date: 2025-08-20
     changes: Dodano dodatkowe narzędzia Intl (DisplayNames, Collator, PluralRules)
   - version: 5.8.0

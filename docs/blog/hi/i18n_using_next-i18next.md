@@ -3,6 +3,14 @@ createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: next-i18next का उपयोग करके अपने Next.js एप्लिकेशन का अंतरराष्ट्रीयकरण कैसे करें
 description: next-i18next के साथ i18n सेट करें: बहुभाषी Next.js ऐप्स के लिए सर्वोत्तम प्रथाएं और SEO सुझाव, जिसमें अंतरराष्ट्रीयकरण, सामग्री संगठन, और तकनीकी सेटअप शामिल हैं।
+keywords:
+  - next-i18next
+  - i18next
+  - Internationalization
+  - Blog
+  - Next.js
+  - JavaScript
+  - React
 slugs:
   - blog
   - nextjs-internationalization-using-next-i18next

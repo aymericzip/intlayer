@@ -3,6 +3,13 @@ createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: Как интернационализировать ваше приложение Next.js с помощью next-intl
 description: Настройка i18n с next-intl - лучшие практики и советы по SEO для многоязычных приложений Next.js, охватывающие интернационализацию, организацию контента и техническую настройку.
+keywords:
+  - next-intl
+  - Internationalization
+  - Blog
+  - Next.js
+  - JavaScript
+  - React
 slugs:
   - blog
   - nextjs-internationalization-using-next-intl

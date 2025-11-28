@@ -26,7 +26,7 @@ history:
     changes: Dodano wzmiankę o funkcji `withIntlayerSync()`
   - version: 6.2.0
     date: 2025-10-09
-  changes: Dodano dokumentację dla hooka `useLocale` z opcją `onLocaleChange`
+    changes: Dodano dokumentację dla hooka `useLocale` z opcją `onLocaleChange`
   - version: 5.6.6
     date: 2025-10-02
     changes: Dodano dokumentację dla funkcji `getLocale` w akcjach serwerowych

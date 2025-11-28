@@ -17,7 +17,6 @@ slugs:
   - 14
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 history:
-  - version: 7.0.6
   - version: 6.2.0
     date: 2025-10-09
     changes: Added docs for `useLocale` hook with `onLocaleChange` option

@@ -26,7 +26,7 @@ history:
     changes: Thêm đề cập đến hàm `withIntlayerSync()`
   - version: 6.2.0
     date: 2025-10-09
-  changes: Thêm tài liệu cho hook `useLocale` với tùy chọn `onLocaleChange`
+    changes: Thêm tài liệu cho hook `useLocale` với tùy chọn `onLocaleChange`
   - version: 5.6.6
     date: 2025-10-02
     changes: Thêm tài liệu cho hàm `getLocale` trong các hành động server

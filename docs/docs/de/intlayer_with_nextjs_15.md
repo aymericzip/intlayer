@@ -19,7 +19,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 5.5.10
-    date: 29.06.2025
+    date: 2025-06-29
     changes: Initiale Historie
 ---
 

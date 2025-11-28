@@ -3,6 +3,14 @@ createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: Wie Sie Ihre Next.js-Anwendung mit next-i18next internationalisieren
 description: Richten Sie i18n mit next-i18next ein: Best Practices und SEO-Tipps für mehrsprachige Next.js-Apps, einschließlich Internationalisierung, Inhaltsorganisation und technischer Einrichtung.
+keywords:
+  - next-i18next
+  - i18next
+  - Internationalization
+  - Blog
+  - Next.js
+  - JavaScript
+  - React
 slugs:
   - blog
   - nextjs-internationalization-using-next-i18next

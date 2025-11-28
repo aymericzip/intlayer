@@ -21,7 +21,7 @@ slugs:
   - useI18n
 history:
   - version: 6.0.0
-    date: 29-06-2025
+    date: 2025-06-29
     changes: Initial writing of `useI18n` hook documentation
 ---
 

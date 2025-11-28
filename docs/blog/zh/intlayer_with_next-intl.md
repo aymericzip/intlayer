@@ -3,6 +3,14 @@ createdAt: 2025-01-02
 updatedAt: 2025-10-29
 title: 如何使用 Intlayer 自动化您的 next-intl JSON 翻译
 description: 使用 Intlayer 和 next-intl 自动化您的 JSON 翻译，提升 Next.js 应用的国际化体验。
+keywords:
+  - Intlayer
+  - next-intl
+  - Internationalization
+  - Blog
+  - Next.js
+  - JavaScript
+  - React
 slugs:
   - blog
   - intlayer-with-next-intl

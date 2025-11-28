@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
-title: CLI
+title: CLI - All Intlayer CLI commands for your multilingual website
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
   - CLI
@@ -52,7 +52,7 @@ history:
     changes: Init history
 ---
 
-# Intlayer CLI
+# Intlayer CLI - All Intlayer CLI commands for your multilingual website
 
 ---
 

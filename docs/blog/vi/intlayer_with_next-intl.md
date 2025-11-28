@@ -3,6 +3,14 @@ createdAt: 2025-01-02
 updatedAt: 2025-10-29
 title: Cách tự động hóa bản dịch JSON next-intl của bạn bằng Intlayer
 description: Tự động hóa bản dịch JSON của bạn với Intlayer và next-intl để nâng cao khả năng quốc tế hóa trong các ứng dụng Next.js.
+keywords:
+  - Intlayer
+  - next-intl
+  - Internationalization
+  - Blog
+  - Next.js
+  - JavaScript
+  - React
 slugs:
   - blog
   - intlayer-with-next-intl

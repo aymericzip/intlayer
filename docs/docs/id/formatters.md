@@ -32,7 +32,6 @@ history:
     date: 2025-08-20
     changes: Menambahkan dokumentasi list formatter
   - version: 5.8.0
-  - version: 5.8.0
     date: 2025-08-20
     changes: Menambahkan utilitas Intl tambahan (DisplayNames, Collator, PluralRules)
   - version: 5.8.0

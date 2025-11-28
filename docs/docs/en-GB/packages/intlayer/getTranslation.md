@@ -20,7 +20,7 @@ slugs:
   - getTranslation
 history:
   - version: 5.5.10
-    date: 29-06-2025
+    date: 2025-06-29
     changes: Initial history
 ---
 
@@ -35,13 +35,11 @@ The `getTranslationContent` function retrieves the content corresponding to a sp
 ## Parameters
 
 - `languageContent: CustomizableLanguageContent<Content>`
-
   - **Description**: An object containing translations for various locales. Each key represents a locale, and its value is the corresponding content.
   - **Type**: `CustomizableLanguageContent<Content>`
     - `Content` can be any type, defaulting to `string`.
 
 - `locale: Locales`
-
   - **Description**: The locale for which content is to be retrieved.
   - **Type**: `Locales`
 

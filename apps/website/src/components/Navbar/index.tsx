@@ -26,7 +26,8 @@ const SwitchThemeSwitcher = dynamic(
   { ssr: false }
 );
 
-const getCleanChoice = (path: string): string => {
+const getCleanChoice = (path?: string): string => {
+  if (!path) return '';
   const components = path.split('/');
   return components.slice(0, 2).join('/');
 };

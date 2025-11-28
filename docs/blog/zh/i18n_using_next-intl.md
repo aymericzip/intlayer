@@ -3,6 +3,13 @@ createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: 如何使用 next-intl 国际化你的 Next.js 应用
 description: 使用 next-intl 设置 i18n：多语言 Next.js 应用的最佳实践和 SEO 提示，涵盖国际化、内容组织和技术设置。
+keywords:
+  - next-intl
+  - Internationalization
+  - Blog
+  - Next.js
+  - JavaScript
+  - React
 slugs:
   - blog
   - nextjs-internationalization-using-next-intl

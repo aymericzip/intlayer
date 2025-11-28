@@ -3,6 +3,14 @@ createdAt: 2025-01-02
 updatedAt: 2025-10-29
 title: Cara mengotomatisasi terjemahan JSON next-intl Anda menggunakan Intlayer
 description: Otomatiskan terjemahan JSON Anda dengan Intlayer dan next-intl untuk peningkatan internasionalisasi dalam aplikasi Next.js.
+keywords:
+  - Intlayer
+  - next-intl
+  - Internationalization
+  - Blog
+  - Next.js
+  - JavaScript
+  - React
 slugs:
   - blog
   - intlayer-with-next-intl

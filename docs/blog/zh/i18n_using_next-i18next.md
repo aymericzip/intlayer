@@ -3,6 +3,14 @@ createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: 如何使用 next-i18next 国际化您的 Next.js 应用
 description: 使用 next-i18next 设置国际化：多语言 Next.js 应用的最佳实践和 SEO 技巧，涵盖国际化、内容组织和技术设置。
+keywords:
+  - next-i18next
+  - i18next
+  - Internationalization
+  - Blog
+  - Next.js
+  - JavaScript
+  - React
 slugs:
   - blog
   - nextjs-internationalization-using-next-i18next
