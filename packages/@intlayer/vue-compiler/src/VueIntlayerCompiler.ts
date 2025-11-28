@@ -1,6 +1,6 @@
 import { createRequire } from 'node:module';
 import { join, relative } from 'node:path';
-import { intlayerBabelPlugin } from '@intlayer/babel';
+import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
 import { watch as chokidarWatch, prepareIntlayer } from '@intlayer/chokidar';
 import {
   type GetConfigurationOptions,
@@ -105,8 +105,6 @@ export type VueIntlayerVitePlugin = {
 export const createVueIntlayerCompiler = (
   options?: VueIntlayerCompilerOptions
 ): VueIntlayerVitePlugin => {
-  const pluginName = 'vue-intlayer-compiler';
-
   // Private state
   let config: IntlayerConfig;
   let logger: ReturnType<typeof getAppLogger>;
@@ -115,6 +113,7 @@ export const createVueIntlayerCompiler = (
   let hmrVersion = -1;
   const lastSourceTriggeredWrite = 0;
   let filesList: string[] = [];
+  // @ts-expect-error - @babel/core is a peer dependency
   let babel: typeof import('@babel/core') | null = null;
   let liveSyncKeys: string[] = [];
 
@@ -351,7 +350,7 @@ export const createVueIntlayerCompiler = (
         filename,
         plugins: [
           [
-            intlayerBabelPlugin,
+            intlayerOptimizeBabelPlugin,
             {
               dictionariesDir,
               dictionariesEntryPath,
@@ -417,7 +416,7 @@ export const createVueIntlayerCompiler = (
   };
 
   return {
-    name: pluginName,
+    name: 'vue-intlayer-compiler',
     enforce: 'post', // Run after Vue plugin
     configResolved,
     buildStart,

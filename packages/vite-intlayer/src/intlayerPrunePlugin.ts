@@ -1,6 +1,6 @@
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
-import { intlayerBabelPlugin } from '@intlayer/babel';
+import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
 import { runOnce } from '@intlayer/chokidar';
 import { getAppLogger } from '@intlayer/config';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
@@ -47,7 +47,7 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
       unmergedDictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
     ];
 
-    const dictionaries = getDictionaries();
+    const dictionaries = getDictionaries(intlayerConfig);
     const liveSyncKeys = Object.values(dictionaries)
       .filter((dictionary) => dictionary.live)
       .map((dictionary) => dictionary.key);
@@ -95,8 +95,9 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
           filename,
           plugins: [
             [
-              intlayerBabelPlugin,
+              intlayerOptimizeBabelPlugin,
               {
+                optimize,
                 dictionariesDir,
                 dictionariesEntryPath,
                 unmergedDictionariesEntryPath,

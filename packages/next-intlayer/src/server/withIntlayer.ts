@@ -79,7 +79,10 @@ const getPruneConfig = (
   } = intlayerConfig.content;
   const logger = getAppLogger(intlayerConfig);
 
-  if (!(optimize ?? isBuildCommand)) {
+  if (optimize === false) {
+    return {};
+  }
+  if (optimize === undefined && !isBuildCommand) {
     return {};
   }
 

@@ -37,9 +37,12 @@ export {
 export { prepareIntlayer } from './prepareIntlayer';
 export { reduceDictionaryContent } from './reduceDictionaryContent/reduceDictionaryContent';
 export {
+  ATTRIBUTES_TO_EXTRACT,
   extractDictionaryKey,
   extractIntlayer,
+  generateKey,
   type PackageName,
+  shouldExtract,
   transformFiles,
 } from './transformFiles';
 export {

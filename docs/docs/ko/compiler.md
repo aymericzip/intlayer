@@ -109,19 +109,23 @@ npm install @intlayer/babel
 
 #### 구성
 
-`babel.config.js`(또는 `babel.config.json`) 파일을 업데이트하여 추출 플러그인을 포함하세요. Intlayer 구성을 자동으로 로드하는 헬퍼 함수 `getCompilerOptions`를 제공합니다.
+`babel.config.js`(또는 `babel.config.json`) 파일을 업데이트하여 추출 플러그인을 포함하세요. Intlayer 구성을 자동으로 로드하는 헬퍼 함수 `getExtractPluginOptions`를 제공합니다.
 
 ```js fileName="babel.config.js"
-const { intlayerExtractBabelPlugin } = require("@intlayer/babel");
-const { getCompilerOptions } = require("@intlayer/babel/compiler");
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
 
 module.exports = {
   presets: ["next/babel"],
   plugins: [
-    [
-      intlayerExtractBabelPlugin,
-      getCompilerOptions(), // intlayer.config.ts에서 옵션을 자동으로 로드합니다
-    ],
+    // Extract content from components into dictionaries
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    // Optimize imports by replacing useIntlayer with direct dictionary imports
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
   ],
 };
 ```

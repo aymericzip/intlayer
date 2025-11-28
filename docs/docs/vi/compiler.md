@@ -109,19 +109,23 @@ npm install @intlayer/babel
 
 #### Cấu hình
 
-Cập nhật `babel.config.js` (hoặc `babel.config.json`) của bạn để bao gồm plugin trích xuất. Chúng tôi cung cấp một helper `getCompilerOptions` để tự động tải cấu hình Intlayer của bạn.
+Cập nhật `babel.config.js` (hoặc `babel.config.json`) của bạn để bao gồm plugin trích xuất. Chúng tôi cung cấp một helper `getExtractPluginOptions` để tự động tải cấu hình Intlayer của bạn.
 
 ```js fileName="babel.config.js"
-const { intlayerExtractBabelPlugin } = require("@intlayer/babel");
-const { getCompilerOptions } = require("@intlayer/babel/compiler");
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
 
 module.exports = {
   presets: ["next/babel"],
   plugins: [
-    [
-      intlayerExtractBabelPlugin,
-      getCompilerOptions(), // Tự động tải các tùy chọn từ intlayer.config.ts
-    ],
+    // Extract content from components into dictionaries
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    // Optimize imports by replacing useIntlayer with direct dictionary imports
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
   ],
 };
 ```

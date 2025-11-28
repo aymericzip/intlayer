@@ -1,6 +1,6 @@
 import { createRequire } from 'node:module';
 import { join, relative } from 'node:path';
-import { intlayerBabelPlugin } from '@intlayer/babel';
+import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
 import { watch as chokidarWatch, prepareIntlayer } from '@intlayer/chokidar';
 import {
   type GetConfigurationOptions,
@@ -115,6 +115,8 @@ export const createSvelteIntlayerCompiler = (
   let hmrVersion = -1;
   const lastSourceTriggeredWrite = 0;
   let filesList: string[] = [];
+
+  // @ts-expect-error - @babel/core is a peer dependency
   let babel: typeof import('@babel/core') | null = null;
   let liveSyncKeys: string[] = [];
 
@@ -347,7 +349,7 @@ export const createSvelteIntlayerCompiler = (
         filename,
         plugins: [
           [
-            intlayerBabelPlugin,
+            intlayerOptimizeBabelPlugin,
             {
               dictionariesDir,
               dictionariesEntryPath,

@@ -109,19 +109,23 @@ npm install @intlayer/babel
 
 #### Configuração
 
-Atualize seu `babel.config.js` (ou `babel.config.json`) para incluir o plugin de extração. Fornecemos um helper `getCompilerOptions` para carregar automaticamente sua configuração do Intlayer.
+Atualize seu `babel.config.js` (ou `babel.config.json`) para incluir o plugin de extração. Fornecemos um helper `getExtractPluginOptions` para carregar automaticamente sua configuração do Intlayer.
 
 ```js fileName="babel.config.js"
-const { intlayerExtractBabelPlugin } = require("@intlayer/babel");
-const { getCompilerOptions } = require("@intlayer/babel/compiler");
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
 
 module.exports = {
   presets: ["next/babel"],
   plugins: [
-    [
-      intlayerExtractBabelPlugin,
-      getCompilerOptions(), // Carrega automaticamente as opções do intlayer.config.ts
-    ],
+    // Extract content from components into dictionaries
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    // Optimize imports by replacing useIntlayer with direct dictionary imports
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
   ],
 };
 ```

@@ -48,28 +48,13 @@ struct PluginConfig {
     #[serde(rename = "dictionariesEntryPath")]
     dictionaries_entry_path: String,
 
-    #[serde(rename = "unmergedDictionariesDir")]
-    unmerged_dictionaries_dir: String,
-
-    /// Path to the unmerged dictionaries entry file
-    #[serde(rename = "unmergedDictionariesEntryPath")]
-    unmerged_dictionaries_entry_path: String,
-
     /// Directory that contains `<key>.mjs` files for dynamic imports
     #[serde(rename = "dynamicDictionariesDir")]
     dynamic_dictionaries_dir: String,
 
-    /// Path to the dynamic dictionaries entry file
-    #[serde(rename = "dynamicDictionariesEntryPath")]
-    dynamic_dictionaries_entry_path: String,
-
     /// Directory that contains `<key>.mjs` files for live/fetch imports
     #[serde(rename = "fetchDictionariesDir")]
     fetch_dictionaries_dir: String,
-
-    /// Path to the live/fetch dictionaries entry file
-    #[serde(rename = "fetchDictionariesEntryPath")]
-    fetch_dictionaries_entry_path: String,
 
     /// Import mode for the plugin: "static", "dynamic", or "live"
     #[serde(rename = "importMode")]

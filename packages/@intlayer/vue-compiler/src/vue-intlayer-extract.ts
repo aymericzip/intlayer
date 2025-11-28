@@ -260,7 +260,10 @@ export const intlayerVueExtract = async (
 
   try {
     const vueSfc = await import('@vue/compiler-sfc');
-    parseVue = vueSfc.parse;
+    // Type assertion needed because Vue's SFCParseResult uses `null` for optional properties
+    // while our VueParseResult uses `undefined` (optional). This is safe since we check
+    // for truthy values before accessing template/script properties.
+    parseVue = vueSfc.parse as unknown as (code: string) => VueParseResult;
   } catch {
     console.warn(
       'Vue extraction: @vue/compiler-sfc not found. Install it to enable Vue content extraction.'

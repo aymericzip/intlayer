@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/babel",
-  "version": "7.3.1",
+  "version": "7.3.2",
   "private": false,
   "description": "A Babel plugin for Intlayer that transforms declaration files and provides internationalization features during the build process according to the Intlayer configuration.",
   "keywords": [
@@ -40,11 +40,6 @@
       "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
-    },
-    "./compiler": {
-      "types": "./dist/types/compiler.d.ts",
-      "require": "./dist/cjs/compiler.cjs",
-      "import": "./dist/esm/compiler.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -91,9 +86,11 @@
     "@intlayer/types": "workspace:*",
     "@types/babel__core": "7.20.5",
     "@types/babel__generator": "7.27.0",
-    "@types/babel__traverse": "7.28.0"
+    "@types/babel__traverse": "7.28.0",
+    "fast-glob": "3.3.3"
   },
   "devDependencies": {
+    "@intlayer/dictionaries-entry": "workspace:*",
     "@types/crypto-js": "4.2.2",
     "@types/node": "24.10.1",
     "@utils/ts-config": "workspace:*",
@@ -103,6 +100,14 @@
     "tsdown": "0.16.6",
     "typescript": "5.9.3",
     "vitest": "4.0.13"
+  },
+  "peerDependencies": {
+    "@intlayer/dictionaries-entry": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@intlayer/dictionaries-entry": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=14.18"

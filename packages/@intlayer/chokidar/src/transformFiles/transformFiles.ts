@@ -16,10 +16,13 @@ import { detectFormatCommand } from '../writeContentDeclaration/detectFormatComm
 import { extractDictionaryKey } from './extractDictionaryKey';
 
 // ==========================================
-// 1. Shared Utilities
+// 1. Shared Utilities (exported for reuse in babel plugin)
 // ==========================================
 
-const ATTRIBUTES_TO_EXTRACT = [
+/**
+ * Attributes that should be extracted for localization
+ */
+export const ATTRIBUTES_TO_EXTRACT = [
   'title',
   'placeholder',
   'alt',
@@ -27,7 +30,10 @@ const ATTRIBUTES_TO_EXTRACT = [
   'label',
 ];
 
-const shouldExtract = (text: string): boolean => {
+/**
+ * Default function to determine if a string should be extracted for localization
+ */
+export const shouldExtract = (text: string): boolean => {
   const trimmed = text.trim();
   if (!trimmed) return false;
   if (!trimmed.includes(' ')) return false;
@@ -38,7 +44,13 @@ const shouldExtract = (text: string): boolean => {
   return true;
 };
 
-const generateKey = (text: string, existingKeys: Set<string>): string => {
+/**
+ * Generate a unique key from text for use as a dictionary key
+ */
+export const generateKey = (
+  text: string,
+  existingKeys: Set<string>
+): string => {
   const maxWords = 5;
   let key = text
     .replace(/\s+/g, ' ')

@@ -1,4 +1,5 @@
 import configuration from '@intlayer/config/built';
+import { getAppLogger } from '@intlayer/config/client';
 import type {
   ContentNode,
   DeclaredLocales,
@@ -33,10 +34,30 @@ export const getContent = <
   locale?: L
 ) => {
   const defaultLocale = configuration?.internationalization?.defaultLocale;
+  const importMode = configuration?.build?.importMode;
 
   const plugins: Plugins[] = [
     insertionPlugin,
-    translationPlugin(locale ?? defaultLocale, defaultLocale),
+    translationPlugin(
+      locale ?? defaultLocale,
+      defaultLocale,
+      (locale, fallback, keyPath) => {
+        const logger = getAppLogger();
+        if (
+          process.env.NODE_ENV === 'development' &&
+          importMode === 'dynamic'
+        ) {
+          logger(
+            [
+              `The locale ${locale} is not found, using fallback ${fallback}. Key path: ${keyPath.join('.')}.`,
+              `In dynamic mode, intlayer will not load the fallback content in production, it will throw an error, or lead to undefined content.`,
+              'You can detect missing content using the `npx intlayer test` command',
+            ],
+            { level: 'error' }
+          );
+        }
+      }
+    ),
     enumerationPlugin,
     conditionPlugin,
     nestedPlugin,

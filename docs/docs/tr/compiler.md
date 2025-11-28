@@ -109,19 +109,23 @@ npm install @intlayer/babel
 
 #### Konfigürasyon
 
-`babel.config.js` (veya `babel.config.json`) dosyanızı, extraction (çıkarma) eklentisini içerecek şekilde güncelleyin. Intlayer yapılandırmanızı otomatik olarak yüklemek için bir yardımcı `getCompilerOptions` sağlıyoruz.
+`babel.config.js` (veya `babel.config.json`) dosyanızı, extraction (çıkarma) eklentisini içerecek şekilde güncelleyin. Intlayer yapılandırmanızı otomatik olarak yüklemek için bir yardımcı `getExtractPluginOptions` sağlıyoruz.
 
 ```js fileName="babel.config.js"
-const { intlayerExtractBabelPlugin } = require("@intlayer/babel");
-const { getCompilerOptions } = require("@intlayer/babel/compiler");
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
 
 module.exports = {
   presets: ["next/babel"],
   plugins: [
-    [
-      intlayerExtractBabelPlugin,
-      getCompilerOptions(), // intlayer.config.ts dosyasından seçenekleri otomatik olarak yükler
-    ],
+    // Extract content from components into dictionaries
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    // Optimize imports by replacing useIntlayer with direct dictionary imports
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
   ],
 };
 ```

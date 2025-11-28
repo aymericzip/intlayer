@@ -109,19 +109,23 @@ npm install @intlayer/babel
 
 #### 配置
 
-更新您的 `babel.config.js`（或 `babel.config.json`）以包含提取插件。我们提供了一个辅助函数 `getCompilerOptions`，用于自动加载您的 Intlayer 配置。
+更新您的 `babel.config.js`（或 `babel.config.json`）以包含提取插件。我们提供了一个辅助函数 `getExtractPluginOptions`，用于自动加载您的 Intlayer 配置。
 
 ```js fileName="babel.config.js"
-const { intlayerExtractBabelPlugin } = require("@intlayer/babel");
-const { getCompilerOptions } = require("@intlayer/babel/compiler");
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
 
 module.exports = {
   presets: ["next/babel"],
   plugins: [
-    [
-      intlayerExtractBabelPlugin,
-      getCompilerOptions(), // 自动从 intlayer.config.ts 加载选项
-    ],
+    // Extract content from components into dictionaries
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    // Optimize imports by replacing useIntlayer with direct dictionary imports
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
   ],
 };
 ```

@@ -62,7 +62,12 @@ export type TranslationCond<T, S, L extends LocalesValues> = T extends {
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const translationPlugin = (
   locale: LocalesValues,
-  fallback?: LocalesValues
+  fallback?: LocalesValues,
+  onContentNotFound?: (
+    locale: LocalesValues,
+    fallback: LocalesValues,
+    keyPath: KeyPath[]
+  ) => void
 ): Plugins => ({
   id: 'translation-plugin',
   canHandle: (node) =>
@@ -85,7 +90,9 @@ export const translationPlugin = (
       );
     }
 
-    return getTranslation(result, locale, fallback);
+    return getTranslation(result, locale, fallback, (locale, fallback) => {
+      onContentNotFound?.(locale, fallback, props.keyPath);
+    });
   },
 });
 
