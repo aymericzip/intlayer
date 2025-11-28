@@ -28,7 +28,7 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
     const filesListPattern = fg.sync(traversePattern, {
       cwd: baseDir,
       ignore: ['*.map'],
-      absolute: true, // Return absolute paths directly to handle both relative and absolute patterns
+      absolute: true,
     });
 
     const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
@@ -133,7 +133,6 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
         });
 
         if (result?.code) {
-          // console.log('result.code', result.code);
           return {
             code: result.code,
             map: result.map,

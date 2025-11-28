@@ -1,3 +1,5 @@
+import configuration from '@intlayer/config/built';
+import { getAppLogger } from '@intlayer/config/client';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type {
   DeclaredLocales,
@@ -29,6 +31,16 @@ export const getIntlayer = <
   const dictionary = dictionaries[key as T] as DictionaryRegistryElement<T>;
 
   if (!dictionary) {
+    if (configuration.build.optimize) {
+      const logger = getAppLogger(configuration);
+      logger(
+        'Build optimization is enabled, the dictionary may have been purged. You can disable build optimization, or configure the traversePattern to include the current component.',
+        {
+          level: 'error',
+          isVerbose: true,
+        }
+      );
+    }
     throw new Error(`Dictionary ${key as string} not found`, dictionaries);
   }
 

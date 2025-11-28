@@ -36,6 +36,4 @@ const config: IntlayerConfig = {
   },
 };
 
-console.log(config);
-
 export default config;
