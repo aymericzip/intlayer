@@ -490,6 +490,28 @@ const docDataContent: Dictionary = {
           }),
           default: getDocMetadata('./docs/en/per_locale_file.md'),
         },
+        compiler: {
+          title: t({
+            en: 'Compiler',
+            'en-GB': 'Compiler',
+            fr: 'Compilateur',
+            es: 'Compilador',
+            de: 'Compiler',
+            it: 'Compilatore',
+            ja: 'コンパイラー',
+            ko: '컴파일러',
+            zh: '编译器',
+            pt: 'Compilador',
+            hi: 'कंपाइलर',
+            ar: 'محرر',
+            ru: 'Компилятор',
+            tr: 'Derleyici',
+            pl: 'Kompilator',
+            id: 'Kompilator',
+            vi: 'Biên dịch',
+          }),
+          default: getDocMetadata('./docs/en/compiler.md'),
+        },
         'auto-fill': {
           title: t({
             en: 'Auto Fill',
