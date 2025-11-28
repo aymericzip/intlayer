@@ -90,9 +90,7 @@ export const translationPlugin = (
       );
     }
 
-    return getTranslation(result, locale, fallback, (locale, fallback) => {
-      onContentNotFound?.(locale, fallback, props.keyPath);
-    });
+    return getTranslation(result, locale, fallback);
   },
 });
 

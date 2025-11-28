@@ -343,6 +343,25 @@ describe('getPerLocaleDictionary', () => {
           fr: 'test fr',
           es: undefined,
         }),
+        group: {
+          title: t({
+            en: 'English group',
+            fr: 'Groupe français',
+            es: undefined,
+          }),
+          items: [
+            t({
+              en: 'Item en 1',
+              fr: 'Item fr 1',
+              es: undefined,
+            }),
+            t({
+              en: 'Item en 2',
+              fr: 'Item fr 2',
+              es: undefined,
+            }),
+          ],
+        },
       },
     } satisfies Dictionary;
 
@@ -355,6 +374,9 @@ describe('getPerLocaleDictionary', () => {
     expect(result.key).toBe('test-undefined-locale');
     expect(result.locale).toBe(Locales.SPANISH);
     expect(result.content.title).toBe('test en');
+    expect(result.content.group.title).toBe('English group');
+    expect(result.content.group.items[0]).toBe('Item en 1');
+    expect(result.content.group.items[1]).toBe('Item en 2');
   });
 
   it('should handle en-GB locale correctly', () => {
@@ -376,5 +398,100 @@ describe('getPerLocaleDictionary', () => {
       'CMS',
       'Content Management System',
     ]);
+  });
+
+  it('should fallback to language subtag when locale variant is not available (en-GB -> en)', () => {
+    const dictionaryWithOnlyBaseLocale = {
+      key: 'test-subtag-fallback',
+      content: {
+        title: t({
+          en: 'English content',
+          fr: 'Contenu français',
+        }),
+      },
+    } satisfies Dictionary;
+
+    // Request en-GB, but only 'en' exists - should fallback to 'en' via subtag matching
+    const result = getPerLocaleDictionary(
+      dictionaryWithOnlyBaseLocale,
+      'en-GB'
+    );
+
+    expect(result.key).toBe('test-subtag-fallback');
+    expect(result.locale).toBe('en-GB');
+    expect(result.content.title).toBe('English content');
+  });
+
+  it('should fallback to language subtag for fallback locale as well', () => {
+    const dictionaryWithOnlyBaseLocale = {
+      key: 'test-subtag-fallback-chain',
+      content: {
+        title: t({
+          en: 'English content',
+          fr: 'Contenu français',
+        }),
+      },
+    } satisfies Dictionary;
+
+    // Request 'de' (not available), fallback to 'en-GB' (not available), should resolve to 'en'
+    const result = getPerLocaleDictionary(
+      dictionaryWithOnlyBaseLocale,
+      'de',
+      'en-GB'
+    );
+
+    expect(result.key).toBe('test-subtag-fallback-chain');
+    expect(result.locale).toBe('de');
+    expect(result.content.title).toBe('English content');
+  });
+
+  it('should deep merge with fallback when locale has undefined nested values', () => {
+    const dictionaryWithPartialLocale = {
+      key: 'test-deep-merge-fallback',
+      content: {
+        nested: t({
+          en: { url: { label: 'Go to URL' } },
+          fr: { url: { label: undefined } },
+        }),
+      },
+    } satisfies Dictionary;
+
+    // Request 'fr' which exists but has undefined nested values - should merge with 'en' fallback
+    const result = getPerLocaleDictionary(
+      dictionaryWithPartialLocale,
+      'fr',
+      'en'
+    );
+
+    expect(result.key).toBe('test-deep-merge-fallback');
+    expect(result.locale).toBe('fr');
+    // The undefined label in fr should be filled from en fallback
+    expect(result.content.nested).toEqual({ url: { label: 'Go to URL' } });
+  });
+
+  it('should preserve locale values when they exist and only fill undefined from fallback', () => {
+    const dictionaryWithMixedContent = {
+      key: 'test-mixed-content',
+      content: {
+        data: t({
+          en: { title: 'English Title', description: 'English Description' },
+          fr: { title: 'Titre Français', description: undefined },
+        }),
+      },
+    } satisfies Dictionary;
+
+    const result = getPerLocaleDictionary(
+      dictionaryWithMixedContent,
+      'fr',
+      'en'
+    );
+
+    expect(result.key).toBe('test-mixed-content');
+    expect(result.locale).toBe('fr');
+    // title should stay French, description should fallback to English
+    expect(result.content.data).toEqual({
+      title: 'Titre Français',
+      description: 'English Description',
+    });
   });
 });
