@@ -34,27 +34,33 @@
   "exports": {
     ".": {
       "types": "./dist/types/components/index.d.ts",
-      "import": "./dist/esm/components/index.mjs"
+      "import": "./dist/esm/components/index.mjs",
+      "default": "./dist/esm/components/index.mjs"
     },
     "./*": {
       "types": "./dist/types/components/*/index.d.ts",
-      "import": "./dist/esm/components/*/index.mjs"
+      "import": "./dist/esm/components/*/index.mjs",
+      "default": "./dist/esm/components/*/index.mjs"
     },
     "./hooks": {
       "types": "./dist/types/hooks/index.d.ts",
-      "import": "./dist/esm/hooks/index.mjs"
+      "import": "./dist/esm/hooks/index.mjs",
+      "default": "./dist/esm/hooks/index.mjs"
     },
     "./providers": {
       "types": "./dist/types/providers/index.d.ts",
-      "import": "./dist/esm/providers/index.mjs"
+      "import": "./dist/esm/providers/index.mjs",
+      "default": "./dist/esm/providers/index.mjs"
     },
     "./libs": {
       "types": "./dist/types/libs/index.d.ts",
-      "import": "./dist/esm/libs/index.mjs"
+      "import": "./dist/esm/libs/index.mjs",
+      "default": "./dist/esm/libs/index.mjs"
     },
     "./tailwind-config": {
       "types": "./dist/types/tailwind.config.d.ts",
-      "import": "./dist/esm/tailwind.config.mjs"
+      "import": "./dist/esm/tailwind.config.mjs",
+      "default": "./dist/esm/tailwind.config.mjs"
     },
     "./css": "./tailwind.css",
     "./tw-source.css": "./tw-source.css",
