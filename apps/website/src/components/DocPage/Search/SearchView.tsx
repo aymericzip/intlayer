@@ -142,7 +142,7 @@ export const SearchView: FC<{
   const isNoResult = !isFetching && results.length === 0 && search.length > 0;
 
   return (
-    <div className="relative w-full p-4">
+    <div className="relative flex w-full flex-col p-4">
       <div className="flex items-center gap-1">
         <Search />
         <Input
@@ -155,7 +155,7 @@ export const SearchView: FC<{
           ref={inputRef}
         />
       </div>
-      <div className="mt-4">
+      <div className="mt-4 flex flex-1 flex-col overflow-y-auto">
         {isNoResult && (
           <p className="text-center text-neutral text-sm">{noContentText}</p>
         )}
