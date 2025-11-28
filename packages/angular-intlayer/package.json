@@ -101,9 +101,9 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.2",
-    "tsdown": "0.16.6",
+    "tsdown": "0.16.8",
     "typescript": "5.9.3",
-    "vitest": "4.0.13"
+    "vitest": "4.0.14"
   },
   "peerDependencies": {
     "@angular/common": "15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",

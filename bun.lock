@@ -5,7 +5,7 @@
     "": {
       "name": "intlayer-monorepo",
       "devDependencies": {
-        "@biomejs/biome": "2.3.7",
+        "@biomejs/biome": "2.3.8",
         "@commitlint/cli": "20.1.0",
         "@commitlint/config-conventional": "20.0.0",
         "@commitlint/types": "20.0.0",
@@ -22,17 +22,17 @@
         "husky": "9.1.7",
         "lint-staged": "16.2.7",
         "minimist": "1.2.8",
-        "prettier": "3.6.2",
+        "prettier": "3.7.1",
         "prettier-plugin-packagejson": "^2.5.19",
         "rimraf": "6.1.2",
         "rollup-plugin-visualizer": "6.0.5",
         "svelte-check": "^4.3.4",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "tslib": "^2.8.1",
         "turbo": "2.6.1",
         "typescript": "5.9.3",
         "vite-tsconfig-paths": "5.1.4",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "apps/backend": {
@@ -84,10 +84,10 @@
         "intlayer": "workspace:*",
         "npm-run-all": "^4.1.5",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "tsx": "^4.20.6",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "apps/website": {
@@ -144,7 +144,7 @@
         "pwa-asset-generator": "8.1.2",
         "raw-loader": "4.0.2",
         "tailwindcss": "4.1.17",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
       },
       "optionalDependencies": {
@@ -174,10 +174,10 @@
         "@utils/tsdown-config": "workspace:*",
         "fast-glob": "3.3.3",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "tsx": "^4.20.6",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "examples/angular-app": {
@@ -254,7 +254,7 @@
         "@utils/ts-config": "workspace:*",
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
       },
     },
@@ -611,9 +611,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/@intlayer/api": {
@@ -628,9 +628,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "@intlayer/backend": "workspace:*",
@@ -666,9 +666,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "@intlayer/dictionaries-entry": "workspace:*",
@@ -702,9 +702,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "@intlayer/svelte-transformer": "workspace:*",
@@ -738,9 +738,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "@intlayer/ai": "workspace:*",
@@ -764,9 +764,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "intlayer": "workspace:*",
@@ -794,9 +794,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/@intlayer/design-system": {
@@ -868,12 +868,12 @@
         "rimraf": "6.1.2",
         "storybook": "8.6.14",
         "tailwindcss": "4.1.17",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
         "vite": "7.2.2",
         "vite-intlayer": "workspace:*",
         "vite-plugin-dts": "4.5.4",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "@better-fetch/fetch": "1.1.18",
@@ -907,9 +907,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/@intlayer/dynamic-dictionaries-entry": {
@@ -925,9 +925,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/@intlayer/editor": {
@@ -939,9 +939,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/@intlayer/editor-react": {
@@ -964,9 +964,9 @@
         "react": ">=16.0.0",
         "react-dom": ">=16.0.0",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "react": ">=16.0.0",
@@ -987,9 +987,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/@intlayer/mcp": {
@@ -1015,9 +1015,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/@intlayer/remote-dictionaries-entry": {
@@ -1033,9 +1033,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/@intlayer/svelte-compiler": {
@@ -1061,9 +1061,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "@babel/core": ">=6.0.0",
@@ -1088,9 +1088,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/@intlayer/unmerged-dictionaries-entry": {
@@ -1106,9 +1106,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/@intlayer/vue-compiler": {
@@ -1134,9 +1134,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "@babel/core": ">=6.0.0",
@@ -1167,9 +1167,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "webpack": "5.99.9",
@@ -1195,9 +1195,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "@angular/common": "15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
@@ -1222,9 +1222,9 @@
         "@utils/tsdown-config": "workspace:*",
         "fast-glob": "3.3.3",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "astro": ">=4.0.0",
@@ -1250,9 +1250,9 @@
         "@utils/tsdown-config": "workspace:*",
         "express": "5.1.0",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/intlayer": {
@@ -1273,9 +1273,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/intlayer-cli": {
@@ -1294,9 +1294,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "packages/intlayer-editor": {
@@ -1348,10 +1348,10 @@
         "babel-plugin-react-compiler": "^1.0.0",
         "globals": "16.5.0",
         "tailwindcss": "4.1.17",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
         "vite": "7.2.2",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "clsx": "2.1.1",
@@ -1383,9 +1383,9 @@
         "expo": "54.0.12",
         "metro-resolver": "0.82.0",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "@lynx-js/rspeedy": ">=0.5.0",
@@ -1415,9 +1415,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "next": ">=14.0.0",
@@ -1443,9 +1443,9 @@
         "@utils/tsdown-config": "workspace:*",
         "fast-glob": "3.3.3",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "@nuxt/kit": ">=3.0.0",
@@ -1470,9 +1470,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "preact": ">=8.0.0",
@@ -1500,9 +1500,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "react": ">=16.0.0",
@@ -1529,9 +1529,9 @@
         "metro-resolver": "0.82.0",
         "react": ">=18.0.0",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "expo": ">=52",
@@ -1564,9 +1564,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "webpack": ">=5.0.0",
@@ -1593,12 +1593,12 @@
         "@utils/tsdown-config": "workspace:*",
         "jsdom": "26.1.0",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
         "vite": "7.2.2",
         "vite-plugin-dts": "4.5.4",
         "vite-plugin-solid": "2.11.6",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "solid-js": ">=1.0.0",
@@ -1626,10 +1626,10 @@
         "rimraf": "6.1.2",
         "svelte": "^5.0.0",
         "svelte-check": "^4.0.0",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
         "vite": "^5.0.0",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "svelte": ">=5.0.0",
@@ -1655,9 +1655,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
       "peerDependencies": {
         "@babel/core": ">=6.0.0",
@@ -1691,11 +1691,11 @@
         "ajv": "^8.17.1",
         "fast-glob": "3.3.3",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
         "vite": "7.2.2",
         "vite-plugin-dts": "4.5.4",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
         "vue-tsc": "3.1.1",
       },
       "peerDependencies": {
@@ -1720,9 +1720,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "plugins/sync-json-plugin": {
@@ -1741,9 +1741,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "plugins/vue-transformer": {
@@ -1760,9 +1760,9 @@
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",
         "rimraf": "6.1.2",
-        "tsdown": "0.16.6",
+        "tsdown": "0.16.8",
         "typescript": "5.9.3",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
       },
     },
     "utils/ts-config": {
@@ -2173,23 +2173,23 @@
 
     "@better-fetch/fetch": ["@better-fetch/fetch@1.1.18", "", {}, "sha512-rEFOE1MYIsBmoMJtQbl32PGHHXuG2hDxvEd7rUHE0vCBoFQVSDqaVs9hkZEtHCxRoY+CljXKFCOuJ8uxqw1LcA=="],
 
-    "@biomejs/biome": ["@biomejs/biome@2.3.7", "", { "optionalDependencies": { "@biomejs/cli-darwin-arm64": "2.3.7", "@biomejs/cli-darwin-x64": "2.3.7", "@biomejs/cli-linux-arm64": "2.3.7", "@biomejs/cli-linux-arm64-musl": "2.3.7", "@biomejs/cli-linux-x64": "2.3.7", "@biomejs/cli-linux-x64-musl": "2.3.7", "@biomejs/cli-win32-arm64": "2.3.7", "@biomejs/cli-win32-x64": "2.3.7" }, "bin": { "biome": "bin/biome" } }, "sha512-CTbAS/jNAiUc6rcq94BrTB8z83O9+BsgWj2sBCQg9rD6Wkh2gjfR87usjx0Ncx0zGXP1NKgT7JNglay5Zfs9jw=="],
+    "@biomejs/biome": ["@biomejs/biome@2.3.8", "", { "optionalDependencies": { "@biomejs/cli-darwin-arm64": "2.3.8", "@biomejs/cli-darwin-x64": "2.3.8", "@biomejs/cli-linux-arm64": "2.3.8", "@biomejs/cli-linux-arm64-musl": "2.3.8", "@biomejs/cli-linux-x64": "2.3.8", "@biomejs/cli-linux-x64-musl": "2.3.8", "@biomejs/cli-win32-arm64": "2.3.8", "@biomejs/cli-win32-x64": "2.3.8" }, "bin": { "biome": "bin/biome" } }, "sha512-Qjsgoe6FEBxWAUzwFGFrB+1+M8y/y5kwmg5CHac+GSVOdmOIqsAiXM5QMVGZJ1eCUCLlPZtq4aFAQ0eawEUuUA=="],
 
-    "@biomejs/cli-darwin-arm64": ["@biomejs/cli-darwin-arm64@2.3.7", "", { "os": "darwin", "cpu": "arm64" }, "sha512-LirkamEwzIUULhXcf2D5b+NatXKeqhOwilM+5eRkbrnr6daKz9rsBL0kNZ16Hcy4b8RFq22SG4tcLwM+yx/wFA=="],
+    "@biomejs/cli-darwin-arm64": ["@biomejs/cli-darwin-arm64@2.3.8", "", { "os": "darwin", "cpu": "arm64" }, "sha512-HM4Zg9CGQ3txTPflxD19n8MFPrmUAjaC7PQdLkugeeC0cQ+PiVrd7i09gaBS/11QKsTDBJhVg85CEIK9f50Qww=="],
 
-    "@biomejs/cli-darwin-x64": ["@biomejs/cli-darwin-x64@2.3.7", "", { "os": "darwin", "cpu": "x64" }, "sha512-Q4TO633kvrMQkKIV7wmf8HXwF0dhdTD9S458LGE24TYgBjSRbuhvio4D5eOQzirEYg6eqxfs53ga/rbdd8nBKg=="],
+    "@biomejs/cli-darwin-x64": ["@biomejs/cli-darwin-x64@2.3.8", "", { "os": "darwin", "cpu": "x64" }, "sha512-lUDQ03D7y/qEao7RgdjWVGCu+BLYadhKTm40HkpJIi6kn8LSv5PAwRlew/DmwP4YZ9ke9XXoTIQDO1vAnbRZlA=="],
 
-    "@biomejs/cli-linux-arm64": ["@biomejs/cli-linux-arm64@2.3.7", "", { "os": "linux", "cpu": "arm64" }, "sha512-inHOTdlstUBzgjDcx0ge71U4SVTbwAljmkfi3MC5WzsYCRhancqfeL+sa4Ke6v2ND53WIwCFD5hGsYExoI3EZQ=="],
+    "@biomejs/cli-linux-arm64": ["@biomejs/cli-linux-arm64@2.3.8", "", { "os": "linux", "cpu": "arm64" }, "sha512-Uo1OJnIkJgSgF+USx970fsM/drtPcQ39I+JO+Fjsaa9ZdCN1oysQmy6oAGbyESlouz+rzEckLTF6DS7cWse95g=="],
 
-    "@biomejs/cli-linux-arm64-musl": ["@biomejs/cli-linux-arm64-musl@2.3.7", "", { "os": "linux", "cpu": "arm64" }, "sha512-/afy8lto4CB8scWfMdt+NoCZtatBUF62Tk3ilWH2w8ENd5spLhM77zKlFZEvsKJv9AFNHknMl03zO67CiklL2Q=="],
+    "@biomejs/cli-linux-arm64-musl": ["@biomejs/cli-linux-arm64-musl@2.3.8", "", { "os": "linux", "cpu": "arm64" }, "sha512-PShR4mM0sjksUMyxbyPNMxoKFPVF48fU8Qe8Sfx6w6F42verbwRLbz+QiKNiDPRJwUoMG1nPM50OBL3aOnTevA=="],
 
-    "@biomejs/cli-linux-x64": ["@biomejs/cli-linux-x64@2.3.7", "", { "os": "linux", "cpu": "x64" }, "sha512-fJMc3ZEuo/NaMYo5rvoWjdSS5/uVSW+HPRQujucpZqm2ZCq71b8MKJ9U4th9yrv2L5+5NjPF0nqqILCl8HY/fg=="],
+    "@biomejs/cli-linux-x64": ["@biomejs/cli-linux-x64@2.3.8", "", { "os": "linux", "cpu": "x64" }, "sha512-QDPMD5bQz6qOVb3kiBui0zKZXASLo0NIQ9JVJio5RveBEFgDgsvJFUvZIbMbUZT3T00M/1wdzwWXk4GIh0KaAw=="],
 
-    "@biomejs/cli-linux-x64-musl": ["@biomejs/cli-linux-x64-musl@2.3.7", "", { "os": "linux", "cpu": "x64" }, "sha512-CQUtgH1tIN6e5wiYSJqzSwJumHYolNtaj1dwZGCnZXm2PZU1jOJof9TsyiP3bXNDb+VOR7oo7ZvY01If0W3iFQ=="],
+    "@biomejs/cli-linux-x64-musl": ["@biomejs/cli-linux-x64-musl@2.3.8", "", { "os": "linux", "cpu": "x64" }, "sha512-YGLkqU91r1276uwSjiUD/xaVikdxgV1QpsicT0bIA1TaieM6E5ibMZeSyjQ/izBn4tKQthUSsVZacmoJfa3pDA=="],
 
-    "@biomejs/cli-win32-arm64": ["@biomejs/cli-win32-arm64@2.3.7", "", { "os": "win32", "cpu": "arm64" }, "sha512-aJAE8eCNyRpcfx2JJAtsPtISnELJ0H4xVVSwnxm13bzI8RwbXMyVtxy2r5DV1xT3WiSP+7LxORcApWw0LM8HiA=="],
+    "@biomejs/cli-win32-arm64": ["@biomejs/cli-win32-arm64@2.3.8", "", { "os": "win32", "cpu": "arm64" }, "sha512-H4IoCHvL1fXKDrTALeTKMiE7GGWFAraDwBYFquE/L/5r1927Te0mYIGseXi4F+lrrwhSWbSGt5qPFswNoBaCxg=="],
 
-    "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.3.7", "", { "os": "win32", "cpu": "x64" }, "sha512-pulzUshqv9Ed//MiE8MOUeeEkbkSHVDVY5Cz5wVAnH1DUqliCQG3j6s1POaITTFqFfo7AVIx2sWdKpx/GS+Nqw=="],
+    "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.3.8", "", { "os": "win32", "cpu": "x64" }, "sha512-RguzimPoZWtBapfKhKjcWXBVI91tiSprqdBYu7tWhgN8pKRZhw24rFeNZTNf6UiBfjCYCi9eFQs/JzJZIhuK4w=="],
 
     "@borewit/text-codec": ["@borewit/text-codec@0.1.1", "", {}, "sha512-5L/uBxmjaCIX5h8Z+uu+kA9BQLkc/Wl06UGR5ajNRxu+/XjonB5i8JpgFMrPj3LXTCPA0pv8yxUvbUi+QthGGA=="],
 
@@ -4095,19 +4095,19 @@
 
     "@vitejs/plugin-vue-jsx": ["@vitejs/plugin-vue-jsx@4.2.0", "", { "dependencies": { "@babel/core": "^7.27.1", "@babel/plugin-transform-typescript": "^7.27.1", "@rolldown/pluginutils": "^1.0.0-beta.9", "@vue/babel-plugin-jsx": "^1.4.0" }, "peerDependencies": { "vite": "^5.0.0 || ^6.0.0", "vue": "^3.0.0" } }, "sha512-DSTrmrdLp+0LDNF77fqrKfx7X0ErRbOcUAgJL/HbSesqQwoUvUQ4uYQqaex+rovqgGcoPqVk+AwUh3v9CuiYIw=="],
 
-    "@vitest/expect": ["@vitest/expect@4.0.13", "", { "dependencies": { "@standard-schema/spec": "^1.0.0", "@types/chai": "^5.2.2", "@vitest/spy": "4.0.13", "@vitest/utils": "4.0.13", "chai": "^6.2.1", "tinyrainbow": "^3.0.3" } }, "sha512-zYtcnNIBm6yS7Gpr7nFTmq8ncowlMdOJkWLqYvhr/zweY6tFbDkDi8BPPOeHxEtK1rSI69H7Fd4+1sqvEGli6w=="],
+    "@vitest/expect": ["@vitest/expect@4.0.14", "", { "dependencies": { "@standard-schema/spec": "^1.0.0", "@types/chai": "^5.2.2", "@vitest/spy": "4.0.14", "@vitest/utils": "4.0.14", "chai": "^6.2.1", "tinyrainbow": "^3.0.3" } }, "sha512-RHk63V3zvRiYOWAV0rGEBRO820ce17hz7cI2kDmEdfQsBjT2luEKB5tCOc91u1oSQoUOZkSv3ZyzkdkSLD7lKw=="],
 
-    "@vitest/mocker": ["@vitest/mocker@4.0.13", "", { "dependencies": { "@vitest/spy": "4.0.13", "estree-walker": "^3.0.3", "magic-string": "^0.30.21" }, "peerDependencies": { "msw": "^2.4.9", "vite": "^6.0.0 || ^7.0.0-0" }, "optionalPeers": ["msw", "vite"] }, "sha512-eNCwzrI5djoauklwP1fuslHBjrbR8rqIVbvNlAnkq1OTa6XT+lX68mrtPirNM9TnR69XUPt4puBCx2Wexseylg=="],
+    "@vitest/mocker": ["@vitest/mocker@4.0.14", "", { "dependencies": { "@vitest/spy": "4.0.14", "estree-walker": "^3.0.3", "magic-string": "^0.30.21" }, "peerDependencies": { "msw": "^2.4.9", "vite": "^6.0.0 || ^7.0.0-0" }, "optionalPeers": ["msw", "vite"] }, "sha512-RzS5NujlCzeRPF1MK7MXLiEFpkIXeMdQ+rN3Kk3tDI9j0mtbr7Nmuq67tpkOJQpgyClbOltCXMjLZicJHsH5Cg=="],
 
-    "@vitest/pretty-format": ["@vitest/pretty-format@4.0.13", "", { "dependencies": { "tinyrainbow": "^3.0.3" } }, "sha512-ooqfze8URWbI2ozOeLDMh8YZxWDpGXoeY3VOgcDnsUxN0jPyPWSUvjPQWqDGCBks+opWlN1E4oP1UYl3C/2EQA=="],
+    "@vitest/pretty-format": ["@vitest/pretty-format@4.0.14", "", { "dependencies": { "tinyrainbow": "^3.0.3" } }, "sha512-SOYPgujB6TITcJxgd3wmsLl+wZv+fy3av2PpiPpsWPZ6J1ySUYfScfpIt2Yv56ShJXR2MOA6q2KjKHN4EpdyRQ=="],
 
-    "@vitest/runner": ["@vitest/runner@4.0.13", "", { "dependencies": { "@vitest/utils": "4.0.13", "pathe": "^2.0.3" } }, "sha512-9IKlAru58wcVaWy7hz6qWPb2QzJTKt+IOVKjAx5vb5rzEFPTL6H4/R9BMvjZ2ppkxKgTrFONEJFtzvnyEpiT+A=="],
+    "@vitest/runner": ["@vitest/runner@4.0.14", "", { "dependencies": { "@vitest/utils": "4.0.14", "pathe": "^2.0.3" } }, "sha512-BsAIk3FAqxICqREbX8SetIteT8PiaUL/tgJjmhxJhCsigmzzH8xeadtp7LRnTpCVzvf0ib9BgAfKJHuhNllKLw=="],
 
-    "@vitest/snapshot": ["@vitest/snapshot@4.0.13", "", { "dependencies": { "@vitest/pretty-format": "4.0.13", "magic-string": "^0.30.21", "pathe": "^2.0.3" } }, "sha512-hb7Usvyika1huG6G6l191qu1urNPsq1iFc2hmdzQY3F5/rTgqQnwwplyf8zoYHkpt7H6rw5UfIw6i/3qf9oSxQ=="],
+    "@vitest/snapshot": ["@vitest/snapshot@4.0.14", "", { "dependencies": { "@vitest/pretty-format": "4.0.14", "magic-string": "^0.30.21", "pathe": "^2.0.3" } }, "sha512-aQVBfT1PMzDSA16Y3Fp45a0q8nKexx6N5Amw3MX55BeTeZpoC08fGqEZqVmPcqN0ueZsuUQ9rriPMhZ3Mu19Ag=="],
 
-    "@vitest/spy": ["@vitest/spy@4.0.13", "", {}, "sha512-hSu+m4se0lDV5yVIcNWqjuncrmBgwaXa2utFLIrBkQCQkt+pSwyZTPFQAZiiF/63j8jYa8uAeUZ3RSfcdWaYWw=="],
+    "@vitest/spy": ["@vitest/spy@4.0.14", "", {}, "sha512-JmAZT1UtZooO0tpY3GRyiC/8W7dCs05UOq9rfsUUgEZEdq+DuHLmWhPsrTt0TiW7WYeL/hXpaE07AZ2RCk44hg=="],
 
-    "@vitest/utils": ["@vitest/utils@4.0.13", "", { "dependencies": { "@vitest/pretty-format": "4.0.13", "tinyrainbow": "^3.0.3" } }, "sha512-ydozWyQ4LZuu8rLp47xFUWis5VOKMdHjXCWhs1LuJsTNKww+pTHQNK4e0assIB9K80TxFyskENL6vCu3j34EYA=="],
+    "@vitest/utils": ["@vitest/utils@4.0.14", "", { "dependencies": { "@vitest/pretty-format": "4.0.14", "tinyrainbow": "^3.0.3" } }, "sha512-hLqXZKAWNg8pI+SQXyXxWCTOpA3MvsqcbVeNgSi8x/CSN2wi26dSzn1wrOhmCmFjEvN9p8/kLFRHa6PI8jHazw=="],
 
     "@volar/language-core": ["@volar/language-core@2.4.26", "", { "dependencies": { "@volar/source-map": "2.4.26" } }, "sha512-hH0SMitMxnB43OZpyF1IFPS9bgb2I3bpCh76m2WEK7BE0A0EzpYsRp0CCH2xNKshr7kacU5TQBLYn4zj7CG60A=="],
 
@@ -6805,7 +6805,7 @@
 
     "prelude-ls": ["prelude-ls@1.2.1", "", {}, "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g=="],
 
-    "prettier": ["prettier@3.6.2", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ=="],
+    "prettier": ["prettier@3.7.1", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-RWKXE4qB3u5Z6yz7omJkjWwmTfLdcbv44jUVHC5NpfXwFGzvpQM798FGv/6WNK879tc+Cn0AAyherCl1KjbyZQ=="],
 
     "prettier-plugin-packagejson": ["prettier-plugin-packagejson@2.5.20", "", { "dependencies": { "sort-package-json": "3.5.0", "synckit": "0.11.11" }, "peerDependencies": { "prettier": ">= 1.16.0" }, "optionalPeers": ["prettier"] }, "sha512-G8cowPh+QmJJECTZlrPDKWkVVcwrFjF2rGcw546w3N8blLoc4szSs8UUPfFVxHUNLUjiru71Ah83g1lZkeK9Bw=="],
 
@@ -7593,7 +7593,7 @@
 
     "tsconfig-paths-webpack-plugin": ["tsconfig-paths-webpack-plugin@4.2.0", "", { "dependencies": { "chalk": "^4.1.0", "enhanced-resolve": "^5.7.0", "tapable": "^2.2.1", "tsconfig-paths": "^4.1.2" } }, "sha512-zbem3rfRS8BgeNK50Zz5SIQgXzLafiHjOwUAvk/38/o1jHn/V5QAgVUcz884or7WYcPaH3N2CIfUc2u0ul7UcA=="],
 
-    "tsdown": ["tsdown@0.16.6", "", { "dependencies": { "ansis": "^4.2.0", "cac": "^6.7.14", "chokidar": "^4.0.3", "diff": "^8.0.2", "empathic": "^2.0.0", "hookable": "^5.5.3", "obug": "^2.1.0", "rolldown": "1.0.0-beta.51", "rolldown-plugin-dts": "^0.18.0", "semver": "^7.7.3", "tinyexec": "^1.0.2", "tinyglobby": "^0.2.15", "tree-kill": "^1.2.2", "unconfig-core": "^7.4.1", "unrun": "^0.2.11" }, "peerDependencies": { "@arethetypeswrong/core": "^0.18.1", "@vitejs/devtools": "^0.0.0-alpha.17", "publint": "^0.3.0", "typescript": "^5.0.0", "unplugin-lightningcss": "^0.4.0", "unplugin-unused": "^0.5.0" }, "optionalPeers": ["@arethetypeswrong/core", "@vitejs/devtools", "publint", "typescript", "unplugin-lightningcss", "unplugin-unused"], "bin": { "tsdown": "dist/run.mjs" } }, "sha512-g3xHEnGdfwJTlXhEkqww3Q/KlCfyNFw4rnzuQ9Gqw8T2xjDYrw94qmSw5wYYTAW5zV1sEfWDlfgxZo5mmtu0NQ=="],
+    "tsdown": ["tsdown@0.16.8", "", { "dependencies": { "ansis": "^4.2.0", "cac": "^6.7.14", "chokidar": "^5.0.0", "diff": "^8.0.2", "empathic": "^2.0.0", "hookable": "^5.5.3", "obug": "^2.1.1", "rolldown": "1.0.0-beta.52", "rolldown-plugin-dts": "^0.18.1", "semver": "^7.7.3", "tinyexec": "^1.0.2", "tinyglobby": "^0.2.15", "tree-kill": "^1.2.2", "unconfig-core": "^7.4.1", "unrun": "^0.2.13" }, "peerDependencies": { "@arethetypeswrong/core": "^0.18.1", "@vitejs/devtools": "^0.0.0-alpha.18", "publint": "^0.3.0", "typescript": "^5.0.0", "unplugin-lightningcss": "^0.4.0", "unplugin-unused": "^0.5.0" }, "optionalPeers": ["@arethetypeswrong/core", "@vitejs/devtools", "publint", "typescript", "unplugin-lightningcss", "unplugin-unused"], "bin": { "tsdown": "dist/run.mjs" } }, "sha512-6ANw9mgU9kk7SvTBKvpDu/DVJeAFECiLUSeL5M7f5Nm5H97E7ybxmXT4PQ23FySYn32y6OzjoAH/lsWCbGzfLA=="],
 
     "tslib": ["tslib@2.8.1", "", {}, "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w=="],
 
@@ -7839,7 +7839,7 @@
 
     "vitefu": ["vitefu@1.1.1", "", { "peerDependencies": { "vite": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0-beta.0" }, "optionalPeers": ["vite"] }, "sha512-B/Fegf3i8zh0yFbpzZ21amWzHmuNlLlmJT6n7bu5e+pCHUKQIfXSYokrqOBGEMMe9UG2sostKQF9mml/vYaWJQ=="],
 
-    "vitest": ["vitest@4.0.13", "", { "dependencies": { "@vitest/expect": "4.0.13", "@vitest/mocker": "4.0.13", "@vitest/pretty-format": "4.0.13", "@vitest/runner": "4.0.13", "@vitest/snapshot": "4.0.13", "@vitest/spy": "4.0.13", "@vitest/utils": "4.0.13", "debug": "^4.4.3", "es-module-lexer": "^1.7.0", "expect-type": "^1.2.2", "magic-string": "^0.30.21", "pathe": "^2.0.3", "picomatch": "^4.0.3", "std-env": "^3.10.0", "tinybench": "^2.9.0", "tinyexec": "^0.3.2", "tinyglobby": "^0.2.15", "tinyrainbow": "^3.0.3", "vite": "^6.0.0 || ^7.0.0", "why-is-node-running": "^2.3.0" }, "peerDependencies": { "@edge-runtime/vm": "*", "@opentelemetry/api": "^1.9.0", "@types/debug": "^4.1.12", "@types/node": "^20.0.0 || ^22.0.0 || >=24.0.0", "@vitest/browser-playwright": "4.0.13", "@vitest/browser-preview": "4.0.13", "@vitest/browser-webdriverio": "4.0.13", "@vitest/ui": "4.0.13", "happy-dom": "*", "jsdom": "*" }, "optionalPeers": ["@edge-runtime/vm", "@opentelemetry/api", "@types/debug", "@types/node", "@vitest/browser-playwright", "@vitest/browser-preview", "@vitest/browser-webdriverio", "@vitest/ui", "happy-dom", "jsdom"], "bin": { "vitest": "vitest.mjs" } }, "sha512-QSD4I0fN6uZQfftryIXuqvqgBxTvJ3ZNkF6RWECd82YGAYAfhcppBLFXzXJHQAAhVFyYEuFTrq6h0hQqjB7jIQ=="],
+    "vitest": ["vitest@4.0.14", "", { "dependencies": { "@vitest/expect": "4.0.14", "@vitest/mocker": "4.0.14", "@vitest/pretty-format": "4.0.14", "@vitest/runner": "4.0.14", "@vitest/snapshot": "4.0.14", "@vitest/spy": "4.0.14", "@vitest/utils": "4.0.14", "es-module-lexer": "^1.7.0", "expect-type": "^1.2.2", "magic-string": "^0.30.21", "obug": "^2.1.1", "pathe": "^2.0.3", "picomatch": "^4.0.3", "std-env": "^3.10.0", "tinybench": "^2.9.0", "tinyexec": "^0.3.2", "tinyglobby": "^0.2.15", "tinyrainbow": "^3.0.3", "vite": "^6.0.0 || ^7.0.0", "why-is-node-running": "^2.3.0" }, "peerDependencies": { "@edge-runtime/vm": "*", "@opentelemetry/api": "^1.9.0", "@types/node": "^20.0.0 || ^22.0.0 || >=24.0.0", "@vitest/browser-playwright": "4.0.14", "@vitest/browser-preview": "4.0.14", "@vitest/browser-webdriverio": "4.0.14", "@vitest/ui": "4.0.14", "happy-dom": "*", "jsdom": "*" }, "optionalPeers": ["@edge-runtime/vm", "@opentelemetry/api", "@types/node", "@vitest/browser-playwright", "@vitest/browser-preview", "@vitest/browser-webdriverio", "@vitest/ui", "happy-dom", "jsdom"], "bin": { "vitest": "vitest.mjs" } }, "sha512-d9B2J9Cm9dN9+6nxMnnNJKJCtcyKfnHj15N6YNJfaFHRLua/d3sRKU9RuKmO9mB0XdFtUizlxfz/VPbd3OxGhw=="],
 
     "vlq": ["vlq@1.0.1", "", {}, "sha512-gQpnTgkubC6hQgdIcRdYGDSDc+SaujOdyesZQMv6JlfQee/9Mp0Qhnys6WxDWvQnL5WZdT7o2Ul187aSt0Rq+w=="],
 
@@ -8689,6 +8689,8 @@
 
     "@radix-ui/react-tooltip/@radix-ui/react-slot": ["@radix-ui/react-slot@1.2.3", "", { "dependencies": { "@radix-ui/react-compose-refs": "1.1.2" }, "peerDependencies": { "@types/react": "*", "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc" }, "optionalPeers": ["@types/react"] }, "sha512-aeNmHnBxbi2St0au6VBVC7JXFlhLlOnvIIlePNniyUNAClzmtAUEY8/pBiK3iHjufOlwA+c20/8jngo7xcrg8A=="],
 
+    "@react-email/render/prettier": ["prettier@3.6.2", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ=="],
+
     "@react-native/babel-plugin-codegen/@babel/traverse": ["@babel/traverse@7.28.5", "", { "dependencies": { "@babel/code-frame": "^7.27.1", "@babel/generator": "^7.28.5", "@babel/helper-globals": "^7.28.0", "@babel/parser": "^7.28.5", "@babel/template": "^7.27.2", "@babel/types": "^7.28.5", "debug": "^4.3.1" } }, "sha512-TCCj4t55U90khlYkVV/0TfkJkAkUg3jZFA3Neb7unZT8CPok7iiRfaX0F+WnqWqt7OxhOn0uBKXCw4lbL8W0aQ=="],
 
     "@react-native/babel-plugin-codegen/@react-native/codegen": ["@react-native/codegen@0.81.5", "", { "dependencies": { "@babel/core": "^7.25.2", "@babel/parser": "^7.25.3", "glob": "^7.1.1", "hermes-parser": "0.29.1", "invariant": "^2.2.4", "nullthrows": "^1.1.1", "yargs": "^17.6.2" } }, "sha512-a2TDA03Up8lpSa9sh5VRGCQDXgCTOyDOFH+aqyinxp1HChG8uk89/G+nkJ9FPd0rqgi25eCTR16TWdS3b+fA6g=="],
@@ -8738,6 +8740,8 @@
     "@react-router/dev/lodash": ["lodash@4.17.21", "", {}, "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="],
 
     "@react-router/dev/pathe": ["pathe@1.1.2", "", {}, "sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ=="],
+
+    "@react-router/dev/prettier": ["prettier@3.6.2", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ=="],
 
     "@react-router/dev/react-refresh": ["react-refresh@0.14.2", "", {}, "sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA=="],
 
@@ -8890,6 +8894,8 @@
     "@tanstack/directive-functions-plugin/@tanstack/router-utils": ["@tanstack/router-utils@1.133.19", "", { "dependencies": { "@babel/core": "^7.27.4", "@babel/generator": "^7.27.5", "@babel/parser": "^7.27.5", "@babel/preset-typescript": "^7.27.1", "ansis": "^4.1.0", "diff": "^8.0.2", "pathe": "^2.0.3", "tinyglobby": "^0.2.15" } }, "sha512-WEp5D2gPxvlLDRXwD/fV7RXjYtqaqJNXKB/L6OyZEbT+9BG/Ib2d7oG9GSUZNNMGPGYAlhBUOi3xutySsk6rxA=="],
 
     "@tanstack/router-generator/@tanstack/router-utils": ["@tanstack/router-utils@1.133.19", "", { "dependencies": { "@babel/core": "^7.27.4", "@babel/generator": "^7.27.5", "@babel/parser": "^7.27.5", "@babel/preset-typescript": "^7.27.1", "ansis": "^4.1.0", "diff": "^8.0.2", "pathe": "^2.0.3", "tinyglobby": "^0.2.15" } }, "sha512-WEp5D2gPxvlLDRXwD/fV7RXjYtqaqJNXKB/L6OyZEbT+9BG/Ib2d7oG9GSUZNNMGPGYAlhBUOi3xutySsk6rxA=="],
+
+    "@tanstack/router-generator/prettier": ["prettier@3.6.2", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ=="],
 
     "@tanstack/router-generator/zod": ["zod@3.25.76", "", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
 
@@ -10147,7 +10153,9 @@
 
     "tsconfig-paths-webpack-plugin/chalk": ["chalk@4.1.2", "", { "dependencies": { "ansi-styles": "^4.1.0", "supports-color": "^7.1.0" } }, "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA=="],
 
-    "tsdown/chokidar": ["chokidar@4.0.3", "", { "dependencies": { "readdirp": "^4.0.1" } }, "sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA=="],
+    "tsdown/chokidar": ["chokidar@5.0.0", "", { "dependencies": { "readdirp": "^5.0.0" } }, "sha512-TQMmc3w+5AxjpL8iIiwebF73dRDF4fBIieAqGn9RGCWaEVwQ6Fb2cGe31Yns0RRIzii5goJ1Y7xbMwo1TxMplw=="],
+
+    "tsdown/rolldown": ["rolldown@1.0.0-beta.52", "", { "dependencies": { "@oxc-project/types": "=0.99.0", "@rolldown/pluginutils": "1.0.0-beta.52" }, "optionalDependencies": { "@rolldown/binding-android-arm64": "1.0.0-beta.52", "@rolldown/binding-darwin-arm64": "1.0.0-beta.52", "@rolldown/binding-darwin-x64": "1.0.0-beta.52", "@rolldown/binding-freebsd-x64": "1.0.0-beta.52", "@rolldown/binding-linux-arm-gnueabihf": "1.0.0-beta.52", "@rolldown/binding-linux-arm64-gnu": "1.0.0-beta.52", "@rolldown/binding-linux-arm64-musl": "1.0.0-beta.52", "@rolldown/binding-linux-x64-gnu": "1.0.0-beta.52", "@rolldown/binding-linux-x64-musl": "1.0.0-beta.52", "@rolldown/binding-openharmony-arm64": "1.0.0-beta.52", "@rolldown/binding-wasm32-wasi": "1.0.0-beta.52", "@rolldown/binding-win32-arm64-msvc": "1.0.0-beta.52", "@rolldown/binding-win32-ia32-msvc": "1.0.0-beta.52", "@rolldown/binding-win32-x64-msvc": "1.0.0-beta.52" }, "bin": { "rolldown": "bin/cli.mjs" } }, "sha512-Hbnpljue+JhMJrlOjQ1ixp9me7sUec7OjFvS+A1Qm8k8Xyxmw3ZhxFu7LlSXW1s9AX3POE9W9o2oqCEeR5uDmg=="],
 
     "tsutils/tslib": ["tslib@1.14.1", "", {}, "sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg=="],
 
@@ -12923,7 +12931,39 @@
 
     "tsconfig-paths-webpack-plugin/chalk/supports-color": ["supports-color@7.2.0", "", { "dependencies": { "has-flag": "^4.0.0" } }, "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="],
 
-    "tsdown/chokidar/readdirp": ["readdirp@4.1.2", "", {}, "sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg=="],
+    "tsdown/chokidar/readdirp": ["readdirp@5.0.0", "", {}, "sha512-9u/XQ1pvrQtYyMpZe7DXKv2p5CNvyVwzUB6uhLAnQwHMSgKMBR62lc7AHljaeteeHXn11XTAaLLUVZYVZyuRBQ=="],
+
+    "tsdown/rolldown/@oxc-project/types": ["@oxc-project/types@0.99.0", "", {}, "sha512-LLDEhXB7g1m5J+woRSgfKsFPS3LhR9xRhTeIoEBm5WrkwMxn6eZ0Ld0c0K5eHB57ChZX6I3uSmmLjZ8pcjlRcw=="],
+
+    "tsdown/rolldown/@rolldown/binding-android-arm64": ["@rolldown/binding-android-arm64@1.0.0-beta.52", "", { "os": "android", "cpu": "arm64" }, "sha512-MBGIgysimZPqTDcLXI+i9VveijkP5C3EAncEogXhqfax6YXj1Tr2LY3DVuEOMIjWfMPMhtQSPup4fSTAmgjqIw=="],
+
+    "tsdown/rolldown/@rolldown/binding-darwin-arm64": ["@rolldown/binding-darwin-arm64@1.0.0-beta.52", "", { "os": "darwin", "cpu": "arm64" }, "sha512-MmKeoLnKu1d9j6r19K8B+prJnIZ7u+zQ+zGQ3YHXGnr41rzE3eqQLovlkvoZnRoxDGPA4ps0pGiwXy6YE3lJyg=="],
+
+    "tsdown/rolldown/@rolldown/binding-darwin-x64": ["@rolldown/binding-darwin-x64@1.0.0-beta.52", "", { "os": "darwin", "cpu": "x64" }, "sha512-qpHedvQBmIjT8zdnjN3nWPR2qjQyJttbXniCEKKdHeAbZG9HyNPBUzQF7AZZGwmS9coQKL+hWg9FhWzh2dZ2IA=="],
+
+    "tsdown/rolldown/@rolldown/binding-freebsd-x64": ["@rolldown/binding-freebsd-x64@1.0.0-beta.52", "", { "os": "freebsd", "cpu": "x64" }, "sha512-dDp7WbPapj/NVW0LSiH/CLwMhmLwwKb3R7mh2kWX+QW85X1DGVnIEyKh9PmNJjB/+suG1dJygdtdNPVXK1hylg=="],
+
+    "tsdown/rolldown/@rolldown/binding-linux-arm-gnueabihf": ["@rolldown/binding-linux-arm-gnueabihf@1.0.0-beta.52", "", { "os": "linux", "cpu": "arm" }, "sha512-9e4l6vy5qNSliDPqNfR6CkBOAx6PH7iDV4OJiEJzajajGrVy8gc/IKKJUsoE52G8ud8MX6r3PMl97NfwgOzB7g=="],
+
+    "tsdown/rolldown/@rolldown/binding-linux-arm64-gnu": ["@rolldown/binding-linux-arm64-gnu@1.0.0-beta.52", "", { "os": "linux", "cpu": "arm64" }, "sha512-V48oDR84feRU2KRuzpALp594Uqlx27+zFsT6+BgTcXOtu7dWy350J1G28ydoCwKB+oxwsRPx2e7aeQnmd3YJbQ=="],
+
+    "tsdown/rolldown/@rolldown/binding-linux-arm64-musl": ["@rolldown/binding-linux-arm64-musl@1.0.0-beta.52", "", { "os": "linux", "cpu": "arm64" }, "sha512-ENLmSQCWqSA/+YN45V2FqTIemg7QspaiTjlm327eUAMeOLdqmSOVVyrQexJGNTQ5M8sDYCgVAig2Kk01Ggmqaw=="],
+
+    "tsdown/rolldown/@rolldown/binding-linux-x64-gnu": ["@rolldown/binding-linux-x64-gnu@1.0.0-beta.52", "", { "os": "linux", "cpu": "x64" }, "sha512-klahlb2EIFltSUubn/VLjuc3qxp1E7th8ukayPfdkcKvvYcQ5rJztgx8JsJSuAKVzKtNTqUGOhy4On71BuyV8g=="],
+
+    "tsdown/rolldown/@rolldown/binding-linux-x64-musl": ["@rolldown/binding-linux-x64-musl@1.0.0-beta.52", "", { "os": "linux", "cpu": "x64" }, "sha512-UuA+JqQIgqtkgGN2c/AQ5wi8M6mJHrahz/wciENPTeI6zEIbbLGoth5XN+sQe2pJDejEVofN9aOAp0kaazwnVg=="],
+
+    "tsdown/rolldown/@rolldown/binding-openharmony-arm64": ["@rolldown/binding-openharmony-arm64@1.0.0-beta.52", "", { "os": "none", "cpu": "arm64" }, "sha512-1BNQW8u4ro8bsN1+tgKENJiqmvc+WfuaUhXzMImOVSMw28pkBKdfZtX2qJPADV3terx+vNJtlsgSGeb3+W6Jiw=="],
+
+    "tsdown/rolldown/@rolldown/binding-wasm32-wasi": ["@rolldown/binding-wasm32-wasi@1.0.0-beta.52", "", { "dependencies": { "@napi-rs/wasm-runtime": "^1.0.7" }, "cpu": "none" }, "sha512-K/p7clhCqJOQpXGykrFaBX2Dp9AUVIDHGc+PtFGBwg7V+mvBTv/tsm3LC3aUmH02H2y3gz4y+nUTQ0MLpofEEg=="],
+
+    "tsdown/rolldown/@rolldown/binding-win32-arm64-msvc": ["@rolldown/binding-win32-arm64-msvc@1.0.0-beta.52", "", { "os": "win32", "cpu": "arm64" }, "sha512-a4EkXBtnYYsKipjS7QOhEBM4bU5IlR9N1hU+JcVEVeuTiaslIyhWVKsvf7K2YkQHyVAJ+7/A9BtrGqORFcTgng=="],
+
+    "tsdown/rolldown/@rolldown/binding-win32-ia32-msvc": ["@rolldown/binding-win32-ia32-msvc@1.0.0-beta.52", "", { "os": "win32", "cpu": "ia32" }, "sha512-5ZXcYyd4GxPA6QfbGrNcQjmjbuLGvfz6728pZMsQvGHI+06LT06M6TPtXvFvLgXtexc+OqvFe1yAIXJU1gob/w=="],
+
+    "tsdown/rolldown/@rolldown/binding-win32-x64-msvc": ["@rolldown/binding-win32-x64-msvc@1.0.0-beta.52", "", { "os": "win32", "cpu": "x64" }, "sha512-tzpnRQXJrSzb8Z9sm97UD3cY0toKOImx+xRKsDLX4zHaAlRXWh7jbaKBePJXEN7gNw7Nm03PBNwphdtA8KSUYQ=="],
+
+    "tsdown/rolldown/@rolldown/pluginutils": ["@rolldown/pluginutils@1.0.0-beta.52", "", {}, "sha512-/L0htLJZbaZFL1g9OHOblTxbCYIGefErJjtYOwgl9ZqNx27P3L0SDfjhhHIss32gu5NWgnxuT2a2Hnnv6QGHKA=="],
 
     "unifont/css-tree/mdn-data": ["mdn-data@2.12.2", "", {}, "sha512-IEn+pegP1aManZuckezWCO+XZQDplx1366JoVhTpMpBB1sPey/SbveZQUosKiKiGYjg1wH4pMlNgXbCiYgihQA=="],
 
