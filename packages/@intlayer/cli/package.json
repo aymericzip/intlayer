@@ -71,6 +71,7 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/types": "workspace:*",
@@ -80,7 +81,6 @@
     "fast-glob": "3.3.3"
   },
   "devDependencies": {
-    "@intlayer/core": "workspace:*",
     "@types/node": "24.10.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
