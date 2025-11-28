@@ -1,61 +1,5 @@
 import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
-
-/**
- * Deep merges two objects, filling undefined values in target with values from source.
- * Only fills in undefined values, preserving all existing values in target.
- */
-const deepMergeUndefined = <T>(target: T, source: T): T => {
-  // If target is undefined, return source
-  if (target === undefined) {
-    return source;
-  }
-
-  // If source is undefined or target is not an object, return target
-  if (
-    source === undefined ||
-    typeof target !== 'object' ||
-    target === null ||
-    typeof source !== 'object' ||
-    source === null
-  ) {
-    return target;
-  }
-
-  // Handle arrays
-  if (Array.isArray(target) && Array.isArray(source)) {
-    return target.map((item, index) =>
-      deepMergeUndefined(item, source[index])
-    ) as T;
-  }
-
-  // Handle objects
-  const result = { ...target } as Record<string, unknown>;
-  for (const key of Object.keys(source as object)) {
-    const targetValue = (target as Record<string, unknown>)[key];
-    const sourceValue = (source as Record<string, unknown>)[key];
-    result[key] = deepMergeUndefined(targetValue, sourceValue);
-  }
-  return result as T;
-};
-
-/**
- * Tries to get content for a locale, including trying the base locale subtag.
- * Returns undefined if not found.
- */
-const getLocaleContent = <Content>(
-  languageContent: StrictModeLocaleMap<Content>,
-  locale: LocalesValues
-): Content | undefined => {
-  let result = languageContent[locale as keyof typeof languageContent];
-
-  // Try base locale subtag (e.g., 'en' from 'en-GB')
-  if (locale.includes('-') && result === undefined) {
-    const baseLocale = locale.split('-')[0];
-    result = languageContent[baseLocale as keyof typeof languageContent];
-  }
-
-  return result;
-};
+import deepMerge from 'deepmerge';
 
 /**
  *
@@ -83,25 +27,88 @@ export const getTranslation = <Content = string>(
   locale: LocalesValues,
   fallback?: LocalesValues
 ): Content => {
-  const localeContent = getLocaleContent(languageContent, locale);
-  const fallbackContent = fallback
-    ? getLocaleContent(languageContent, fallback)
-    : undefined;
+  const results: Content[] = [];
 
-  // If we have locale content
-  if (localeContent !== undefined) {
-    // Deep merge with fallback to fill undefined nested values
-    if (fallbackContent !== undefined) {
-      return deepMergeUndefined(localeContent, fallbackContent);
+  const getContent = (loc: string) =>
+    languageContent[loc as keyof typeof languageContent];
+
+  // 1. Get Target Content
+  const content = getContent(locale);
+  if (typeof content === 'string') {
+    return content;
+  } else if (content !== undefined) {
+    results.push(content);
+  }
+
+  // 2. Get Target Generic Content (e.g. 'en' from 'en-US')
+  if (locale.includes('-')) {
+    const genericLocale = locale.split('-')[0];
+    if (genericLocale in languageContent) {
+      const genericContent = getContent(genericLocale);
+
+      if (typeof genericContent === 'string') {
+        // If we haven't found specific content yet, return generic string
+        if (results.length === 0) return genericContent;
+      } else if (genericContent !== undefined) {
+        results.push(genericContent);
+      }
     }
-    return localeContent as Content;
   }
 
-  // If locale content not found, use fallback
-  if (fallbackContent !== undefined) {
-    return fallbackContent as Content;
+  // 3. Get Fallback Content
+  if (fallback !== undefined && fallback !== locale) {
+    // 3a. Fallback Specific
+    if (fallback in languageContent) {
+      const fallbackContent = getContent(fallback);
+
+      if (typeof fallbackContent === 'string') {
+        if (results.length === 0) return fallbackContent;
+      } else if (fallbackContent !== undefined) {
+        results.push(fallbackContent);
+      }
+    }
+
+    // 3b. Fallback Generic (The missing piece: e.g. 'en' from 'en-GB' fallback)
+    if (fallback.includes('-')) {
+      const genericFallback = fallback.split('-')[0];
+      const genericLocale = locale.split('-')[0];
+
+      // Only add if it's different from the target generic (to avoid duplication)
+      // and exists in the dictionary
+      if (
+        genericFallback !== genericLocale &&
+        genericFallback in languageContent
+      ) {
+        const genericFallbackContent = getContent(genericFallback);
+
+        if (typeof genericFallbackContent === 'string') {
+          if (results.length === 0) return genericFallbackContent;
+        } else if (genericFallbackContent !== undefined) {
+          results.push(genericFallbackContent);
+        }
+      }
+    }
   }
 
-  // Return undefined instead of throwing when no translation found
-  return undefined as Content;
+  if (results.length === 0) {
+    return undefined as Content;
+  }
+
+  // Reverse so precedence is correct for deepmerge:
+  // [FallbackGeneric, Fallback, Generic, Target]
+  // deepmerge.all applies right-most on top of others.
+  results.reverse();
+
+  // Clean undefined values so they don't overwrite fallbacks
+  const cleanResults = results.map((item) => {
+    if (typeof item === 'object' && item !== null) {
+      return JSON.parse(JSON.stringify(item));
+    }
+    return item;
+  });
+
+  // Merge with array overwrite strategy
+  return deepMerge.all(cleanResults, {
+    arrayMerge: (_destinationArray, sourceArray) => sourceArray,
+  }) as Content;
 };
