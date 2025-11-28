@@ -21,7 +21,6 @@ export { getProjectRoutes } from '@routes/project.routes';
 export { getUserRoutes } from '@routes/user.routes';
 
 // Utils
-export * from '@utils/AI/aiSdk';
 export * from '@utils/auth/getAuth';
 export * from '@utils/httpStatusCodes';
 export * from '@utils/responseData';
