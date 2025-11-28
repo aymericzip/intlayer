@@ -6,6 +6,7 @@ const analyzerResultsContent = {
     url: {
       label: t({
         en: 'Go to URL',
+        'en-GB': 'Go to URL',
         fr: "Aller à l'URL",
         es: 'Ir a la URL',
         de: 'Zur URL gehen',
@@ -26,6 +27,7 @@ const analyzerResultsContent = {
     score: {
       title: t({
         en: 'Score',
+        'en-GB': 'Score',
         fr: 'Score',
         es: 'Puntuación',
         de: 'Bewertung',
@@ -47,6 +49,7 @@ const analyzerResultsContent = {
       '100': {
         label: t({
           en: 'Perfect',
+          'en-GB': 'Perfect',
           fr: 'Parfait',
           es: 'Perfecto',
           de: 'Perfekt',
@@ -68,6 +71,7 @@ const analyzerResultsContent = {
       '>=90': {
         label: t({
           en: 'Good',
+          'en-GB': 'Good',
           fr: 'Bon',
           es: 'Bueno',
           de: 'Gut',
@@ -89,6 +93,7 @@ const analyzerResultsContent = {
       '>=70': {
         label: t({
           en: 'Average',
+          'en-GB': 'Average',
           fr: 'Moyen',
           es: 'Promedio',
           de: 'Mittel',
@@ -110,6 +115,7 @@ const analyzerResultsContent = {
       fallback: {
         label: t({
           en: 'Poor',
+          'en-GB': 'Poor',
           fr: 'Mauvais',
           es: 'Malo',
           de: 'Schlecht',
@@ -132,6 +138,7 @@ const analyzerResultsContent = {
     messages: {
       noTitle: t({
         en: 'No title',
+        'en-GB': 'No title',
         fr: 'Aucun titre',
         es: 'Sin título',
         de: 'Kein Titel',
@@ -150,6 +157,7 @@ const analyzerResultsContent = {
       }),
       noDescription: t({
         en: 'No meta description available.',
+        'en-GB': 'No meta description available.',
         fr: 'Aucune méta description disponible.',
         es: 'No hay descripción meta disponible.',
         de: 'Keine Meta-Beschreibung verfügbar.',
@@ -168,6 +176,7 @@ const analyzerResultsContent = {
       }),
       websitePreview: t({
         en: 'Website preview',
+        'en-GB': 'Website preview',
         fr: 'Aperçu du site web',
         es: 'Vista previa del sitio web',
         de: 'Webseitenvorschau',
@@ -186,6 +195,7 @@ const analyzerResultsContent = {
       }),
       noUrlFound: t({
         en: 'No URLs found',
+        'en-GB': 'No URLs found',
         fr: 'Aucune URL trouvée',
         es: 'No se encontraron URL',
         de: 'Keine URLs gefunden',
@@ -206,6 +216,7 @@ const analyzerResultsContent = {
     fields: {
       langTag: t({
         en: 'Lang tag',
+        'en-GB': 'Lang tag',
         fr: 'Balise de langue',
         es: 'Etiqueta de idioma',
         de: 'Sprach-Tag',
@@ -225,6 +236,7 @@ const analyzerResultsContent = {
       hreflangs: 'Hreflangs',
       currentLocale: t({
         en: 'Current locale',
+        'en-GB': 'Current locale',
         fr: 'Locale actuelle',
         es: 'Idioma actual',
         de: 'Aktuelle Sprache',
@@ -247,6 +259,7 @@ const analyzerResultsContent = {
 
       allAnchorsLocalized: t({
         en: 'All anchors localized',
+        'en-GB': 'All anchors localized',
         fr: 'Tous les ancres localisées',
         es: 'Todos los anclajes localizados',
         de: 'Alle Anker lokalisiert',
@@ -265,6 +278,7 @@ const analyzerResultsContent = {
       }),
       localeCount: t({
         en: 'Locale count',
+        'en-GB': 'Locale count',
         fr: 'Nombre de langues',
         es: 'Número de idiomas',
         de: 'Anzahl der Sprachen',
@@ -283,6 +297,7 @@ const analyzerResultsContent = {
       }),
       // langSelector: t({
       //   en: 'Lang selector',
+      //   'en-GB': 'Lang selector',
       //   fr: 'Sélecteur de langue',
       //   es: 'Selector de idioma',
       //   de: 'Sprachauswahl',
@@ -301,6 +316,7 @@ const analyzerResultsContent = {
       // }),
       // flags: t({
       //   en: 'Flags',
+      //   'en-GB': 'Flags',
       //   fr: 'Drapeaux',
       //   es: 'Banderas',
       //   de: 'Flaggen',
@@ -319,6 +335,7 @@ const analyzerResultsContent = {
       // }),
       canonical: t({
         en: 'Canonical',
+        'en-GB': 'Canonical',
         fr: 'Canonique',
         es: 'Canónica',
         de: 'Kanonisch',
@@ -337,6 +354,7 @@ const analyzerResultsContent = {
       }),
       localizedUrls: t({
         en: 'Localized URLs',
+        'en-GB': 'Localized URLs',
         fr: 'URLs localisées',
         es: 'URLs localizadas',
         de: 'Lokalisierte URLs',
@@ -355,6 +373,7 @@ const analyzerResultsContent = {
       }),
       localizedLinks: t({
         en: 'Localized links',
+        'en-GB': 'Localized links',
         fr: 'Liens localisés',
         es: 'Enlaces localizados',
         de: 'Lokalisierte Links',
@@ -376,6 +395,15 @@ const analyzerResultsContent = {
       langTag: md(
         t({
           en: [
+            'The `lang` attribute on the `<html>` tag declares the primary language of the page. This helps search engines and browsers understand the content language.',
+            '',
+            '```html',
+            '<html lang="en">',
+            '```',
+            '',
+            '**Why it matters:** Essential for SEO and accessibility. Screen readers use it to pronounce content correctly.',
+          ].join('\n'),
+          'en-GB': [
             'The `lang` attribute on the `<html>` tag declares the primary language of the page. This helps search engines and browsers understand the content language.',
             '',
             '```html',
@@ -533,6 +561,15 @@ const analyzerResultsContent = {
             '```',
             '',
             "**Best practice:** Include an `x-default` for users whose language you don't support.",
+          ].join('\n'),
+          'en-GB': [
+            'Hreflang links tell search engines about alternative language versions of your page. They prevent duplicate content issues and help serve the right language to users.',
+            '',
+            '```html',
+            '<link rel="alternate" hreflang="en" href="https://example.com/en" />',
+            '<link rel="alternate" hreflang="fr" href="https://example.com/fr" />',
+            '<link rel="alternate" hreflang="x-default" href="https://example.com/" />',
+            '```',
           ].join('\n'),
           fr: [
             'Les liens hreflang indiquent aux moteurs de recherche les versions linguistiques alternatives de votre page. Ils évitent les problèmes de contenu dupliqué et aident à servir la bonne langue aux utilisateurs.',
@@ -710,6 +747,13 @@ const analyzerResultsContent = {
             '',
             '**Note:** Should match one of the hreflang values and be a valid ISO 639-1 language code.',
           ].join('\n'),
+          'en-GB': [
+            'The detected locale of the current page based on the HTML `lang` attribute. This is the language code that represents the page content.',
+            '',
+            '**Examples:** `en`, `fr`, `de`, `es-MX`, `pt-BR`',
+            '',
+            '**Note:** Should match one of the hreflang values and be a valid ISO 639-1 language code.',
+          ].join('\n'),
           fr: [
             "La locale détectée de la page actuelle basée sur l'attribut HTML `lang`. C'est le code de langue qui représente le contenu de la page.",
             '',
@@ -824,6 +868,11 @@ const analyzerResultsContent = {
             '',
             '**Impact:** Missing lang attribute negatively affects SEO and accessibility. Browsers and assistive technologies rely on it.',
           ].join('\n'),
+          'en-GB': [
+            'Whether the HTML document has a valid `lang` attribute present. This indicates if the page explicitly declares its language.',
+            '',
+            '**Impact:** Missing lang attribute negatively affects SEO and accessibility. Browsers and assistive technologies rely on it.',
+          ].join('\n'),
           fr: [
             'Si le document HTML a un attribut `lang` valide présent. Cela indique si la page déclare explicitement sa langue.',
             '',
@@ -904,6 +953,17 @@ const analyzerResultsContent = {
       htmlDir: md(
         t({
           en: [
+            'The `dir` attribute on the `<html>` tag specifies the text directionality of the content. This is essential for languages that are written right-to-left (RTL).',
+            '',
+            '```html',
+            '<html lang="ar" dir="rtl">',
+            '<html lang="en" dir="ltr">',
+            '```',
+            '',
+            '**Why it matters:** Critical for proper rendering of RTL languages like Arabic, Hebrew, Persian, and Urdu. Improves readability and user experience.',
+            '**Values:** `ltr` (left-to-right), `rtl` (right-to-left), or `auto`.',
+          ].join('\n'),
+          'en-GB': [
             'The `dir` attribute on the `<html>` tag specifies the text directionality of the content. This is essential for languages that are written right-to-left (RTL).',
             '',
             '```html',
@@ -1095,6 +1155,15 @@ const analyzerResultsContent = {
             '**Best practice:** Always include `x-default` in multilingual sites. It should point to a language selector page or your primary language version.',
             "**Why it matters:** Ensures international users get directed to an appropriate page even if their language isn't specifically supported.",
           ].join('\n'),
+          'en-GB': [
+            "Indicates whether the page includes an `x-default` hreflang tag. This tag specifies a default/fallback page for users whose language preferences don't match any specific hreflang.",
+            '',
+            '```html',
+            '<link rel="alternate" hreflang="x-default" href="https://example.com/" />',
+            '<link rel="alternate" hreflang="en" href="https://example.com/en/" />',
+            '<link rel="alternate" hreflang="fr" href="https://example.com/fr/" />',
+            '```',
+          ].join('\n'),
           fr: [
             'Indique si la page inclut une balise hreflang `x-default`. Cette balise spécifie une page par défaut/de secours pour les utilisateurs dont les préférences linguistiques ne correspondent à aucun hreflang spécifique.',
             '',
@@ -1281,6 +1350,20 @@ const analyzerResultsContent = {
       allAnchorsLocalized: md(
         t({
           en: [
+            'Checks if all internal links on the page include a locale prefix in their path (e.g., `/en/`, `/fr/`). This is crucial for proper language routing.',
+            '',
+            '```html',
+            '<!-- Good -->',
+            '<a href="/en/about">About</a>',
+            '<a href="/fr/about">À propos</a>',
+            '',
+            '<!-- Bad -->',
+            '<a href="/about">About</a>',
+            '```',
+            '',
+            '**Why it matters:** Ensures consistent language experience and proper URL structure for multilingual sites.',
+          ].join('\n'),
+          'en-GB': [
             'Checks if all internal links on the page include a locale prefix in their path (e.g., `/en/`, `/fr/`). This is crucial for proper language routing.',
             '',
             '```html',
@@ -1516,6 +1599,14 @@ const analyzerResultsContent = {
             '',
             '**Impact on score:** Higher locale count generally improves your internationalization readiness.',
           ].join('\n'),
+          'en-GB': [
+            'The total number of different languages/locales your website supports. This is detected from hreflang tags and alternate links.',
+            '',
+            '**Ideal:** Multiple locales (2+) indicate a truly internationalized site.',
+            '**Single locale:** May indicate the site is only available in one language.',
+            '',
+            '**Impact on score:** Higher locale count generally improves your internationalization readiness.',
+          ].join('\n'),
           fr: [
             'Le nombre total de langues/locales différentes que votre site web supporte. Ceci est détecté à partir des balises hreflang et des liens alternatifs.',
             '',
@@ -1647,6 +1738,13 @@ const analyzerResultsContent = {
       //       '',
       //       '**UX importance:** Essential for user-friendly multilingual sites. Users should easily find and switch languages.',
       //     ].join('\n'),
+      //     'en-GB': [
+      //       'Detects whether the page has a visible language selector UI component. This allows users to switch between different language versions.',
+      //       '',
+      //       '**Examples:** Dropdown menus, flag icons, language codes (EN, FR, ES), or language names.',
+      //       '',
+      //       '**UX importance:** Essential for user-friendly multilingual sites. Users should easily find and switch languages.',
+      //     ].join('\n'),
       //     fr: [
       //       "Détecte si la page a un composant d'interface de sélecteur de langue visible. Cela permet aux utilisateurs de basculer entre différentes versions linguistiques.",
       //       '',
@@ -1762,6 +1860,12 @@ const analyzerResultsContent = {
       //       '**Note:** Flags represent countries, not languages. For example, English is spoken in many countries beyond the UK.',
       //       '**Better alternative:** Use language names or codes (EN, FR, ES) for clarity.',
       //     ].join('\n'),
+      //     'en-GB': [
+      //       'Indicates if flag icons are used on the page, typically as part of the language selector. While common, flags can be controversial for representing languages.',
+      //       '',
+      //       '**Note:** Flags represent countries, not languages. For example, English is spoken in many countries beyond the UK.',
+      //       '**Better alternative:** Use language names or codes (EN, FR, ES) for clarity.',
+      //     ].join('\n'),
       //     fr: [
       //       'Indique si des icônes de drapeaux sont utilisées sur la page, généralement dans le cadre du sélecteur de langue. Bien que courants, les drapeaux peuvent être controversés pour représenter les langues.',
       //       '',
@@ -1857,6 +1961,15 @@ const analyzerResultsContent = {
       canonical: md(
         t({
           en: [
+            'A canonical tag tells search engines which version of a URL is the "master" copy. Critical for avoiding duplicate content penalties in multilingual sites.',
+            '',
+            '```html',
+            '<link rel="canonical" href="https://example.com/en/page" />',
+            '```',
+            '',
+            '**Best practice:** Each language version should have its own canonical pointing to itself, not to another language.',
+          ].join('\n'),
+          'en-GB': [
             'A canonical tag tells search engines which version of a URL is the "master" copy. Critical for avoiding duplicate content penalties in multilingual sites.',
             '',
             '```html',
@@ -2005,6 +2118,16 @@ const analyzerResultsContent = {
       localizedUrls: md(
         t({
           en: [
+            'Whether the site uses localized URL structures with language/locale prefixes. Common patterns include subdirectories (`/en/`, `/fr/`) or subdomains (`en.site.com`).',
+            '',
+            '**URL structure strategies:**',
+            '- Subdirectories: `example.com/en/page` (recommended)',
+            '- Subdomains: `en.example.com/page`',
+            '- ccTLDs: `example.co.uk` (country-specific)',
+            '',
+            '**SEO benefit:** Clear structure helps search engines understand language targeting.',
+          ].join('\n'),
+          'en-GB': [
             'Whether the site uses localized URL structures with language/locale prefixes. Common patterns include subdirectories (`/en/`, `/fr/`) or subdomains (`en.site.com`).',
             '',
             '**URL structure strategies:**',
@@ -2175,6 +2298,12 @@ const analyzerResultsContent = {
             '**Good practice:** Cross-link between language versions using hreflang alternates and language switchers.',
             '**Helps with:** User navigation between languages and search engine discovery of all versions.',
           ].join('\n'),
+          'en-GB': [
+            'Checks if the site contains links to localized content. This indicates proper internal linking between language versions.',
+            '',
+            '**Good practice:** Cross-link between language versions using hreflang alternates and language switchers.',
+            '**Helps with:** User navigation between languages and search engine discovery of all versions.',
+          ].join('\n'),
           fr: [
             'Vérifie si le site contient des liens vers du contenu localisé. Cela indique un lien interne approprié entre les versions linguistiques.',
             '',
@@ -2273,6 +2402,7 @@ const analyzerResultsContent = {
       sitemap: 'sitemap.xml',
       selectedPages: t({
         en: 'Selected pages',
+        'en-GB': 'Selected pages',
         fr: 'Pages sélectionnées',
         es: 'Páginas seleccionadas',
         de: 'Ausgewählte Seiten',
@@ -2293,6 +2423,7 @@ const analyzerResultsContent = {
     robotsLabels: {
       accessible: t({
         en: 'Accessible',
+        'en-GB': 'Accessible',
         fr: 'Accessible ',
         es: 'Accesible',
         de: 'Zugänglich',
@@ -2311,6 +2442,7 @@ const analyzerResultsContent = {
       }),
       disallowWithoutLocaleAlternates: t({
         en: 'Disallow w/o locale alternates',
+        'en-GB': 'Disallow w/o locale alternates',
         fr: 'Interdire sans alternates de locale',
         es: 'Prohibir sin alternates de idioma',
         de: 'Verboten ohne Sprachalternativen',
@@ -2330,6 +2462,17 @@ const analyzerResultsContent = {
       accessibleDescription: md(
         t({
           en: [
+            'The `robots.txt` file is a text file that tells search engine crawlers which pages or sections of your website they can or cannot access.',
+            '',
+            '```txt',
+            'User-agent: *',
+            'Disallow: /admin/',
+            'Allow: /',
+            '```',
+            '',
+            '**Why it matters:** Essential for controlling crawler access and protecting sensitive areas while allowing important content to be indexed.',
+          ].join('\n'),
+          'en-GB': [
             'The `robots.txt` file is a text file that tells search engine crawlers which pages or sections of your website they can or cannot access.',
             '',
             '```txt',
@@ -2516,6 +2659,13 @@ const analyzerResultsContent = {
             '',
             '**Best practice:** Ensure all disallowed paths have locale equivalents if your site uses URL-based localization.',
           ].join('\n'),
+          'en-GB': [
+            'Paths that are disallowed in `robots.txt` but have no equivalent locale-specific versions. This can indicate incomplete internationalization.',
+            '',
+            "**Example issue:** If `/admin/` is disallowed but there's no `/en/admin/`, `/fr/admin/`, etc., it may suggest the site structure doesn't consistently use locale prefixes.",
+            '',
+            '**Best practice:** Ensure all disallowed paths have locale equivalents if your site uses URL-based localization.',
+          ].join('\n'),
           fr: [
             "Chemins interdits dans `robots.txt` mais qui n'ont pas de versions équivalentes spécifiques à la locale. Cela peut indiquer une internationalisation incomplète.",
             '',
@@ -2627,6 +2777,7 @@ const analyzerResultsContent = {
     sitemapLabels: {
       urlsDiscovered: t({
         en: 'URLs discovered',
+        'en-GB': 'URLs discovered',
         fr: 'URLs découvertes',
         es: 'URLs descubiertas',
         de: 'URLs gefunden',
@@ -2645,6 +2796,7 @@ const analyzerResultsContent = {
       }),
       alternatesPresent: t({
         en: 'Alternates present',
+        'en-GB': 'Alternates present',
         fr: 'Alternates présents',
         es: 'Alternates presentes',
         de: 'Alternativen vorhanden',
@@ -2663,6 +2815,7 @@ const analyzerResultsContent = {
       }),
       xDefaultPresent: t({
         en: 'x-default present',
+        'en-GB': 'x-default present',
         fr: 'x-default présent',
         es: 'x-default presente',
         de: 'x-default vorhanden',
@@ -2682,6 +2835,12 @@ const analyzerResultsContent = {
       urlsDiscoveredDescription: md(
         t({
           en: [
+            'The total number of URLs found in your `sitemap.xml` file(s). Sitemaps help search engines discover and index all pages on your website.',
+            '',
+            '**Good practice:** Keep sitemaps up-to-date and organized. For large sites, use sitemap index files that reference multiple sitemaps.',
+            '**Impact:** More discovered URLs mean better coverage for search engine indexing.',
+          ].join('\n'),
+          'en-GB': [
             'The total number of URLs found in your `sitemap.xml` file(s). Sitemaps help search engines discover and index all pages on your website.',
             '',
             '**Good practice:** Keep sitemaps up-to-date and organized. For large sites, use sitemap index files that reference multiple sitemaps.',
@@ -2782,6 +2941,19 @@ const analyzerResultsContent = {
       alternatesPresentDescription: md(
         t({
           en: [
+            'Indicates whether your sitemap includes `<xhtml:link>` elements with alternate language versions. This tells search engines about all language variations of each page.',
+            '',
+            '```xml',
+            '<url>',
+            '  <loc>https://example.com/en/page</loc>',
+            '  <xhtml:link rel="alternate" hreflang="en" href="https://example.com/en/page"/>',
+            '  <xhtml:link rel="alternate" hreflang="fr" href="https://example.com/fr/page"/>',
+            '</url>',
+            '```',
+            '',
+            '**Best practice:** Include alternates in sitemap to help search engines understand the relationship between language versions.',
+          ].join('\n'),
+          'en-GB': [
             'Indicates whether your sitemap includes `<xhtml:link>` elements with alternate language versions. This tells search engines about all language variations of each page.',
             '',
             '```xml',
@@ -3003,6 +3175,16 @@ const analyzerResultsContent = {
             '**Best practice:** Point `x-default` to a language selector page or your most universal language version (often English).',
             '**Important:** Every set of hreflang alternates should include an `x-default`.',
           ].join('\n'),
+          'en-GB': [
+            "The `x-default` hreflang tag specifies a default page for users whose language isn't explicitly targeted. It's a fallback for international users.",
+            '',
+            '```xml',
+            '<xhtml:link rel="alternate" hreflang="x-default" href="https://example.com/" />',
+            '```',
+            '',
+            '**Best practice:** Point `x-default` to a language selector page or your most universal language version (often English).',
+            '**Important:** Every set of hreflang alternates should include an `x-default`.',
+          ].join('\n'),
           fr: [
             "La balise hreflang `x-default` spécifie une page par défaut pour les utilisateurs dont la langue n'est pas explicitement ciblée. C'est un repli pour les utilisateurs internationaux.",
             '',
@@ -3159,6 +3341,7 @@ const analyzerResultsContent = {
     actions: {
       analyzeSelectedPages: t({
         en: 'Analyze selected pages',
+        'en-GB': 'Analyze selected pages',
         fr: 'Analyser les pages sélectionnées',
         es: 'Analizar páginas seleccionadas',
         de: 'Ausgewählte Seiten analysieren',
@@ -3177,6 +3360,7 @@ const analyzerResultsContent = {
       }),
       cancel: t({
         en: 'Cancel',
+        'en-GB': 'Cancel',
         fr: 'Annuler',
         es: 'Cancelar',
         de: 'Abbrechen',
@@ -3195,6 +3379,7 @@ const analyzerResultsContent = {
       }),
       analyzing: t({
         en: 'Analyzing...',
+        'en-GB': 'Analyzing...',
         fr: 'Analyse en cours...',
         es: 'Analizando...',
         de: 'Analysiere...',
@@ -3214,6 +3399,7 @@ const analyzerResultsContent = {
     },
     otherPagesDetected: t({
       en: 'other pages detected',
+      'en-GB': 'other pages detected',
       fr: 'autres pages détectées',
       es: 'otras páginas detectadas',
       de: 'andere Seiten gefunden',
@@ -3232,6 +3418,7 @@ const analyzerResultsContent = {
     }),
     searchUrlPlaceholder: t({
       en: 'Search URL...',
+      'en-GB': 'Search URL...',
       fr: 'Rechercher URL...',
       es: 'Buscar URL...',
       de: 'URL suchen...',
