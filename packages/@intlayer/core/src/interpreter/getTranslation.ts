@@ -2,6 +2,66 @@ import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
 import deepMerge from 'deepmerge';
 
 /**
+ * Check if a value is a plain object that can be safely merged.
+ * Returns false for Promises, React elements, class instances, etc.
+ */
+const isMergeableObject = (value: unknown): boolean => {
+  if (value === null || typeof value !== 'object') {
+    return false;
+  }
+
+  // Don't merge Promises (e.g., Next.js 15+ params)
+  if (value instanceof Promise || typeof (value as any).then === 'function') {
+    return false;
+  }
+
+  // Don't merge React elements
+  if ((value as any).$$typeof !== undefined) {
+    return false;
+  }
+
+  // Only merge plain objects and arrays
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null || Array.isArray(value);
+};
+
+/**
+ * Recursively removes undefined values from an object.
+ * Handles circular references by tracking visited objects.
+ */
+const removeUndefinedValues = <T>(
+  object: T,
+  visited = new WeakSet<object>()
+): T => {
+  if (typeof object !== 'object' || object === null) {
+    return object;
+  }
+
+  // Handle circular references - return original to avoid infinite recursion
+  if (visited.has(object)) {
+    return object;
+  }
+  visited.add(object);
+
+  // Don't process non-mergeable objects (Promises, React elements, etc.)
+  if (!isMergeableObject(object)) {
+    return object;
+  }
+
+  if (Array.isArray(object)) {
+    return object.map((item) => removeUndefinedValues(item, visited)) as T;
+  }
+
+  const result: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(object)) {
+    if (value !== undefined) {
+      result[key] = removeUndefinedValues(value, visited);
+    }
+  }
+  return result as T;
+};
+
+/**
  *
  * Allow to pick a content based on a locale.
  * If not locale found, it will return the content related to the default locale.
@@ -100,15 +160,11 @@ export const getTranslation = <Content = string>(
   results.reverse();
 
   // Clean undefined values so they don't overwrite fallbacks
-  const cleanResults = results.map((item) => {
-    if (typeof item === 'object' && item !== null) {
-      return JSON.parse(JSON.stringify(item));
-    }
-    return item;
-  });
+  const cleanResults = results.map((item) => removeUndefinedValues(item));
 
-  // Merge with array overwrite strategy
+  // Merge with array overwrite strategy and safe object checking
   return deepMerge.all(cleanResults, {
     arrayMerge: (_destinationArray, sourceArray) => sourceArray,
+    isMergeableObject,
   }) as Content;
 };

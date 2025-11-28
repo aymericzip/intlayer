@@ -387,7 +387,7 @@
         "@types/react": "^19",
         "@types/react-dom": "^19",
         "intlayer-editor": "workspace:*",
-        "next-rspack": "^16.0.3",
+        "next-rspack": "^16.0.5",
         "tailwindcss": "^4",
         "typescript": "^5",
       },

@@ -183,4 +183,4 @@
 
 @plugin '@tailwindcss/aspect-ratio';
 
-@source "./**/*.{ts,tsx,jsx,mjx,js,cjs,cjx,mjs,mjx,svg}";
+@source "./src/**/*.{ts,tsx,svg}";
