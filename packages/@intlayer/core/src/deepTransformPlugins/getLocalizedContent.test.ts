@@ -1,4 +1,5 @@
 import type { Dictionary } from '@intlayer/types';
+import { Locales } from '@intlayer/types';
 import { describe, expect, it } from 'vitest';
 import { t } from '../transpiler';
 import { getPerLocaleDictionary } from './getLocalizedContent';
@@ -331,6 +332,29 @@ describe('getPerLocaleDictionary', () => {
 
     expect(result.key).toBe('website-structured-data');
     expect(result.content.keywords).toBeUndefined();
+  });
+
+  it('should fallback to English when locale exists but value is undefined', () => {
+    const dictionaryWithUndefinedLocale = {
+      key: 'test-undefined-locale',
+      content: {
+        title: t({
+          en: 'test en',
+          fr: 'test fr',
+          es: undefined,
+        }),
+      },
+    } satisfies Dictionary;
+
+    const result = getPerLocaleDictionary(
+      dictionaryWithUndefinedLocale,
+      Locales.SPANISH,
+      Locales.ENGLISH
+    );
+
+    expect(result.key).toBe('test-undefined-locale');
+    expect(result.locale).toBe(Locales.SPANISH);
+    expect(result.content.title).toBe('test en');
   });
 
   it('should handle en-GB locale correctly', () => {
