@@ -45,12 +45,9 @@ export const CompilerSection: FC<CompilerSectionProps> = ({
   );
 
   return (
-    <div className="flex size-full max-h-[50vh] flex-1 scale-90 flex-row rounded-3xl bg-neutral-200 [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl dark:bg-neutral-950">
+    <div className="flex size-full max-h-[440px] flex-1 scale-90 flex-row rounded-3xl bg-neutral-200 [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl dark:bg-neutral-950">
       <WithResizer initialWidth={300}>
-        <IDE
-          {...ideProps}
-          className="mx-auto max-h-[440px] flex-1 rounded-r-none! text-xs"
-        />
+        <IDE {...ideProps} className="mx-auto flex-1 rounded-r-none! text-xs" />
       </WithResizer>
       <VisualEditorSection scrollProgress={scrollProgress} />
     </div>
