@@ -1,6 +1,5 @@
 ```tsx
 // src/components/Component.tsx
-import { useIntlayer } from "react-intlayer";
 
 export const Component = () => {
   return (
