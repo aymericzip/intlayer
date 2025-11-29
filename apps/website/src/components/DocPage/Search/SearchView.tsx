@@ -46,7 +46,7 @@ const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
       variant="hoverable"
       color="text"
       id={doc.url}
-      href={doc.url}
+      href={doc.url.replace(process.env.NEXT_PUBLIC_URL ?? '', '')}
       className="w-full max-w-full"
       onClick={onClickLink}
     >
