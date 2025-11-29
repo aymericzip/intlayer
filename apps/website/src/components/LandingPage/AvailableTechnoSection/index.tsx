@@ -102,66 +102,82 @@ const LogoItem: FC<LogoItemProps> = ({
   );
 };
 
-const logos = [
+const logosRow1 = [
   {
-    Logo: ViteLogo,
+    Logo: ReactLogo,
     route: PagesRoutes.Doc_Environment_ViteAndReact,
     initialPost: {
       scale: 1.5,
       x: -200,
-      y: -100,
-    },
-    label: 'vite',
-  },
-  {
-    Logo: ReactLogo,
-    route: PagesRoutes.Doc_Environment_CRA,
-    initialPost: {
-      scale: 1.7,
-      x: 0,
-      y: 0,
+      y: -60,
     },
     label: 'react',
-  },
-  {
-    Logo: VuejsLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndVue,
-    initialPost: {
-      scale: 1.5,
-      x: 200,
-      y: -100,
-    },
-    label: 'vue',
-  },
-  {
-    Logo: NextJSLogo,
-    route: PagesRoutes.Doc_Environment_NextJS_15,
-    initialPost: {
-      scale: 1.5,
-      x: -200,
-      y: -100,
-    },
-    label: 'nextjs',
   },
   {
     Logo: PreactLogo,
     route: PagesRoutes.Doc_Environment_ViteAndPreact,
     initialPost: {
-      scale: 1.2,
-      x: 0,
-      y: 30,
+      scale: 1.4,
+      x: 200,
+      y: -60,
     },
     label: 'preact',
+  },
+] as const;
+
+const logosRow2 = [
+  {
+    Logo: VuejsLogo,
+    route: PagesRoutes.Doc_Environment_ViteAndVue,
+    initialPost: {
+      scale: 1.5,
+      x: -350,
+      y: -30,
+    },
+    label: 'vue',
   },
   {
     Logo: NuxtLogo,
     route: PagesRoutes.Doc_Environment_NuxtAndVue,
     initialPost: {
-      scale: 1.2,
-      x: 200,
-      y: -100,
+      scale: 1.3,
+      x: 0,
+      y: 60,
     },
     label: 'nuxt',
+  },
+  {
+    Logo: SvelteLogo,
+    route: PagesRoutes.Doc_Environment_ViteAndSvelte,
+    initialPost: {
+      scale: 1.3,
+      x: 350,
+      y: -30,
+    },
+    label: 'svelte',
+  },
+] as const;
+
+const logosRow3 = [
+  {
+    Logo: NextJSLogo,
+    route: PagesRoutes.Doc_Environment_NextJS_15,
+    initialPost: {
+      scale: 1.5,
+      x: -250,
+      y: 60,
+    },
+    label: 'nextjs',
+  },
+  {
+    Logo: ViteLogo,
+    route: PagesRoutes.Doc_Environment_ViteAndReact,
+    initialPost: {
+      scale: 1.5,
+      x: 250,
+      y: 60,
+    },
+    label: 'vite',
   },
 ] as const;
 
@@ -170,29 +186,19 @@ const comingSoonData = [
     Logo: SolidLogo,
     route: PagesRoutes.Doc_Environment_ViteAndSolid,
     initialPost: {
-      scale: 1,
-      x: -200,
-      y: 0,
+      scale: 1.2,
+      x: -80,
+      y: 40,
     },
     label: 'solid',
-  },
-  {
-    Logo: SvelteLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndSvelte,
-    initialPost: {
-      scale: 1,
-      x: 0,
-      y: 50,
-    },
-    label: 'svelte',
   },
   {
     Logo: AngularLogo,
     route: PagesRoutes.Doc_Environment_Angular,
     initialPost: {
-      scale: 1,
-      x: 200,
-      y: 0,
+      scale: 1.2,
+      x: 80,
+      y: 40,
     },
     label: 'angular',
   },
@@ -224,29 +230,62 @@ export const AvailableTechnoSection: FC = () => {
       className="z-10 flex w-full flex-col items-center justify-center"
     >
       <h2 className="mb-3 text-lg text-neutral-500">{availableOn}</h2>
-      <motion.div className="mt-[30px] grid h-76 w-2/3 grid-cols-3 justify-items-center gap-0 p-0 sm:w-1/3">
-        {logos.map((logoConfig, index) => (
-          <LogoItem
-            key={logoConfig.label}
-            {...logoConfig}
-            animationProgress={animationProgress}
-            outputRange={[0, 0.15]}
-            animationDelay={index * 0.15}
-            label={icons[logoConfig.label].label.value}
-            getXPosition={getXPosition}
-            isMobile={isMobile}
-          />
-        ))}
-      </motion.div>
+      <div className="mt-4 flex flex-col items-center gap-6">
+        {/* Row 1 */}
+        <motion.div className="flex justify-center gap-x-12">
+          {logosRow1.map((logoConfig, index) => (
+            <LogoItem
+              key={logoConfig.label}
+              {...logoConfig}
+              animationProgress={animationProgress}
+              outputRange={[0, 0.1]}
+              animationDelay={index * 0.15}
+              label={icons[logoConfig.label].label.value}
+              getXPosition={getXPosition}
+              isMobile={isMobile}
+            />
+          ))}
+        </motion.div>
+        {/* Row 2 */}
+        <motion.div className="flex justify-center gap-x-12">
+          {logosRow2.map((logoConfig, index) => (
+            <LogoItem
+              key={logoConfig.label}
+              {...logoConfig}
+              animationProgress={animationProgress}
+              outputRange={[0.05, 0.15]}
+              animationDelay={index * 0.15}
+              label={icons[logoConfig.label].label.value}
+              getXPosition={getXPosition}
+              isMobile={isMobile}
+            />
+          ))}
+        </motion.div>
+        {/* Row 3 */}
+        <motion.div className="flex justify-center gap-x-12">
+          {logosRow3.map((logoConfig, index) => (
+            <LogoItem
+              key={logoConfig.label}
+              {...logoConfig}
+              animationProgress={animationProgress}
+              outputRange={[0.1, 0.2]}
+              animationDelay={index * 0.15}
+              label={icons[logoConfig.label].label.value}
+              getXPosition={getXPosition}
+              isMobile={isMobile}
+            />
+          ))}
+        </motion.div>
+      </div>
 
-      <h2 className="mt-5 mb-3 text-lg text-neutral-500">{comingSoon}</h2>
-      <motion.div className="mt-[30px] grid h-56 w-2/3 grid-cols-3 justify-items-center gap-0 p-0 sm:w-1/3">
+      <h2 className="mt-8 mb-3 text-lg text-neutral-500">{comingSoon}</h2>
+      <motion.div className="mt-4 flex justify-center gap-x-12">
         {comingSoonData.map((logoConfig, index) => (
           <LogoItem
             key={logoConfig.label}
             {...logoConfig}
             animationProgress={animationProgress}
-            outputRange={[0.15, 0.3]}
+            outputRange={[0.15, 0.25]}
             animationDelay={index * 0.15}
             label={icons[logoConfig.label].label.value}
             logoClassName="grayscale-70"
