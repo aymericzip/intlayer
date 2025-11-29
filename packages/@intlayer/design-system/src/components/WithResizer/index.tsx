@@ -167,7 +167,51 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(initialWidth);
-  const [isResizing, setIsResizing] = useState(false);
+
+  const resizeState = useRef({
+    startX: 0,
+    startWidth: 0,
+    factor: 1,
+  });
+
+  // Handler to resize the div
+  const resize = useCallback(
+    (mouseMoveEvent: MouseEvent | TouchEvent) => {
+      if (resizeState.current.startWidth === 0) return;
+
+      let clientX = 0;
+      if (mouseMoveEvent instanceof MouseEvent) {
+        clientX = mouseMoveEvent.clientX;
+      } else if (
+        typeof TouchEvent !== 'undefined' &&
+        mouseMoveEvent instanceof TouchEvent
+      ) {
+        clientX = mouseMoveEvent.touches[0].clientX;
+      }
+
+      const { startX, startWidth, factor } = resizeState.current;
+      const delta = (clientX - startX) / factor;
+      const newWidth = startWidth + delta;
+
+      const constrainedWidth = Math.max(
+        Math.min(newWidth, maxWidth ?? Infinity),
+        minWidth
+      );
+
+      setWidth(constrainedWidth);
+    },
+    [maxWidth, minWidth]
+  );
+
+  // Handler to stop resizing
+  const stopResizing = useCallback(() => {
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+    window.removeEventListener('mousemove', resize);
+    window.removeEventListener('mouseup', stopResizing);
+    window.removeEventListener('touchmove', resize);
+    window.removeEventListener('touchend', stopResizing);
+  }, [resize]);
 
   // Handler to start resizing
   const startResizing = useCallback(
@@ -176,47 +220,40 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         | React.MouseEvent<HTMLDivElement>
         | React.TouchEvent<HTMLDivElement>
     ) => {
-      setIsResizing(true);
       mouseDownEvent.preventDefault();
-    },
-    []
-  );
-
-  // Handler to stop resizing
-  const stopResizing = useCallback(() => {
-    setIsResizing(false);
-  }, []);
-
-  // Handler to resize the div
-  const resize = useCallback(
-    (mouseMoveEvent: MouseEvent | TouchEvent) => {
       const container = containerRef.current;
-      if (isResizing && container && parent) {
-        const { left: containerLeft } = container.getBoundingClientRect();
 
-        let clientX = 0;
-        if (mouseMoveEvent instanceof MouseEvent) {
-          clientX = mouseMoveEvent.clientX;
-        } else if (mouseMoveEvent instanceof TouchEvent) {
-          clientX = mouseMoveEvent.touches[0].clientX;
-        }
+      if (!container) return;
 
-        const newWidth = clientX - containerLeft;
-        const correctedWidth = Math.max(newWidth, 0);
+      const { width: rectWidth } = container.getBoundingClientRect();
+      const offsetWidth = container.offsetWidth;
+      const factor = offsetWidth > 0 ? rectWidth / offsetWidth : 1;
 
-        setWidth(correctedWidth);
+      let clientX = 0;
+      if ('touches' in mouseDownEvent) {
+        clientX = mouseDownEvent.touches[0].clientX;
+      } else {
+        clientX = mouseDownEvent.clientX;
       }
+
+      resizeState.current = {
+        startX: clientX,
+        startWidth: offsetWidth,
+        factor,
+      };
+
+      document.body.style.cursor = 'ew-resize';
+      document.body.style.userSelect = 'none';
+
+      window.addEventListener('mousemove', resize, { passive: true });
+      window.addEventListener('mouseup', stopResizing);
+      window.addEventListener('touchmove', resize, { passive: true });
+      window.addEventListener('touchend', stopResizing);
     },
-    [isResizing]
+    [resize, stopResizing]
   );
 
-  // Add event listeners for mouse move and mouse up
   useEffect(() => {
-    window.addEventListener('mousemove', resize, { passive: true });
-    window.addEventListener('mouseup', stopResizing);
-    window.addEventListener('touchmove', resize, { passive: true });
-    window.addEventListener('touchend', stopResizing);
-
     return () => {
       window.removeEventListener('mousemove', resize);
       window.removeEventListener('mouseup', stopResizing);
@@ -228,11 +265,11 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   return (
     <div
       className={cn(
-        minWidth && `max-w-[${maxWidth}px]`,
-        maxWidth && `min-w-[${minWidth}px]`,
-        'relative h-full w-full max-w-[80%] cursor-ew-resize border-neutral-200 border-r-[2px] transition dark:border-neutral-950',
+        'relative h-full w-full max-w-[80%] shrink-0 cursor-ew-resize border-neutral-200 border-r-[2px] transition dark:border-neutral-950',
         'after:-translate-y-1/2 after:absolute after:top-1/2 after:right-0 after:block after:h-10 after:w-2 after:translate-x-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
-        'active:border-neutral-400 active:after:bg-neutral-400 dark:active:border-neutral-600 active:dark:after:bg-neutral-600'
+        'active:border-neutral-400 active:after:bg-neutral-400 dark:active:border-neutral-600 active:dark:after:bg-neutral-600',
+        minWidth && `min-w-[${minWidth}px]`,
+        maxWidth && `max-w-[${maxWidth}px]`
       )}
       style={{
         width: `${width}px`,
@@ -247,7 +284,9 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       role="slider"
       tabIndex={0}
     >
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: This div stops event propagation to prevent content clicks from triggering resize */}
       <div
+        role="presentation"
         className="absolute top-0 left-0 size-full cursor-default overflow-hidden"
         onMouseDown={(e) => e.stopPropagation()}
         onTouchStart={(e) => e.stopPropagation()}
