@@ -15,6 +15,9 @@ slugs:
   - concept
   - per-locale-file
 history:
+  - version: 7.3.1
+    date: 2025-11-29
+    changes: Add global configuration for per-locale files
   - version: 5.5.10
     date: 2025-06-29
     changes: Init history
@@ -32,83 +35,6 @@ This flexibility enables:
 - Easy migration from other i18n tools
 - Support for automated translation workflows
 - Clear organization of translations into separate, locale-specific files
-
-## Single File with Multiple Translations
-
-This format is ideal for:
-
-- Quick iteration in code.
-- Seamless integration with the CMS.
-
-This is the recommended approach for most use cases. It centralizes translations, making it easy to iterate and integrate with the CMS.
-
-```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
-import { t, type Dictionary } from "intlayer";
-
-const helloWorldContent = {
-  key: "hello-world",
-  content: {
-    multilingualContent: t({
-      en: "Title of my component",
-      es: "Título de mi componente",
-    }),
-  },
-} satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  content: {
-    multilingualContent: t({
-      en: "Title of my component",
-      es: "Título de mi componente",
-    }),
-  },
-};
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.content.cjs" contentDeclarationFormat="json"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  content: {
-    multilingualContent: t({
-      en: "Title of my component",
-      es: "Título de mi componente",
-    }),
-  },
-};
-
-module.exports = helloWorldContent;
-```
-
-```json fileName="hello-world.content.ts" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "hello-world",
-  "content": {
-    "multilingualContent": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Title of my component",
-        "es": "Título de mi componente"
-      }
-    }
-  }
-}
-```
-
-> Recommended: This format is best when using Intlayer's visual editor or managing translations directly in the code.
 
 ## Per-Locale Format
 
@@ -224,6 +150,101 @@ module.exports = helloWorldContent;
 > Important: Make sure the locale field is defined. It tells Intlayer which language the file represents.
 
 > Note: In both cases, the content declaration file must follow the naming pattern `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` to be recognized by Intlayer. The `.[locale]` suffix is optional and used only as a naming convention.
+
+### Global Configuration for Per-Locale Files
+
+You can configure the global configuration for per-locale files by adding the following to your `intlayer.config.ts` file:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+Using this configuration, all per-locale files will be generated with the default locale set to English. It also include generation of `.content` files using the `transform` command, and the compiler. (See [Compiler](https://intlayer.org/doc/compiler) or [Transform](https://intlayer.org/doc/concept/cli/transform) for more information.)
+
+## Single File with Multiple Translations
+
+This format is ideal for:
+
+- Quick iteration in code.
+- Seamless integration with the CMS.
+
+This is the recommended approach for most use cases. It centralizes translations, making it easy to iterate and integrate with the CMS.
+
+```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
+import { t, type Dictionary } from "intlayer";
+
+const helloWorldContent = {
+  key: "hello-world",
+  content: {
+    multilingualContent: t({
+      en: "Title of my component",
+      es: "Título de mi componente",
+    }),
+  },
+} satisfies Dictionary;
+
+export default helloWorldContent;
+```
+
+```js fileName="hello-world.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
+
+/** @type {import('intlayer').Dictionary} */
+const helloWorldContent = {
+  key: "hello-world",
+  content: {
+    multilingualContent: t({
+      en: "Title of my component",
+      es: "Título de mi componente",
+    }),
+  },
+};
+
+export default helloWorldContent;
+```
+
+```js fileName="hello-world.content.cjs" contentDeclarationFormat="json"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').Dictionary} */
+const helloWorldContent = {
+  key: "hello-world",
+  content: {
+    multilingualContent: t({
+      en: "Title of my component",
+      es: "Título de mi componente",
+    }),
+  },
+};
+
+module.exports = helloWorldContent;
+```
+
+```json fileName="hello-world.content.ts" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "hello-world",
+  "content": {
+    "multilingualContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Title of my component",
+        "es": "Título de mi componente"
+      }
+    }
+  }
+}
+```
+
+> Recommended: This format is best when using Intlayer's visual editor or managing translations directly in the code.
 
 ## Mixing Formats
 
