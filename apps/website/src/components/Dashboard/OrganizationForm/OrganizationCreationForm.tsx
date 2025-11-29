@@ -45,7 +45,6 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
     <Form
       schema={organizationSchema}
       onSubmitSuccess={onSubmitSuccess}
-      className="w-full max-w-[400px] py-10"
       {...form}
     >
       <Form.Input

@@ -34,12 +34,7 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
     });
 
   return (
-    <Form
-      schema={ProjectSchema}
-      onSubmitSuccess={onSubmitSuccess}
-      className="w-full max-w-[400px] py-10"
-      {...form}
-    >
+    <Form schema={ProjectSchema} onSubmitSuccess={onSubmitSuccess} {...form}>
       <Form.Input
         name="name"
         label={nameInput.label}
