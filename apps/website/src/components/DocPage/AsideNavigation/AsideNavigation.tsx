@@ -39,7 +39,10 @@ export const AsideNavigation: FC = (props) => {
             roundedSize="none"
           >
             <div className="relative flex flex-col items-center pt-2">
-              <MaxWidthSmoother isHidden={isHidden}>
+              <MaxWidthSmoother
+                isHidden={isHidden}
+                className="w-full max-w-full"
+              >
                 <div className="flex h-5 w-full flex-row items-center justify-center gap-5">
                   <SocialNetworks className="flex h-full w-3.5 items-center justify-center" />
                 </div>
@@ -57,15 +60,23 @@ export const AsideNavigation: FC = (props) => {
                   )}
                   onClick={() => setIsHidden((isHidden) => !isHidden)}
                 />
-                <MaxWidthSmoother isHidden={isHidden}>
+                <MaxWidthSmoother
+                  isHidden={isHidden}
+                  className="w-full max-w-full"
+                >
                   <h2 className="ml-3 text-nowrap font-bold">{title}</h2>
                 </MaxWidthSmoother>
                 <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur" />
               </div>
             </div>
           </Container>
-          <div className="flex h-screen max-h-[calc(100vh-8rem)] w-full flex-1 md:sticky md:top-28 md:pt-0">
-            <MaxWidthSmoother isHidden={isHidden}>
+          <div
+            className={cn(
+              'flex h-screen max-h-[calc(100vh-8rem)] w-full flex-1 md:sticky md:top-28 md:pt-0',
+              isHidden && 'opacity-0'
+            )}
+          >
+            <MaxWidthSmoother isHidden={isHidden} className="w-full max-w-full">
               <div className="pl-5">
                 <NavTitles />
               </div>
