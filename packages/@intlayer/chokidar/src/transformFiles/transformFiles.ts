@@ -77,6 +77,14 @@ export const generateKey = (
   return key;
 };
 
+/**
+ * Translation node structure used in multilingual dictionaries
+ */
+type TranslationNode = {
+  nodeType: 'translation';
+  translation: Record<string, string>;
+};
+
 const writeContentHelper = async (
   extractedContent: Record<string, string>,
   componentKey: string,
@@ -87,6 +95,8 @@ const writeContentHelper = async (
   const { defaultLocale } = configuration.internationalization;
   const { baseDir } = configuration.content;
 
+  const isPerLocaleFile = configuration?.dictionary?.locale;
+
   const dirName = outputDir ? resolve(outputDir) : dirname(filePath);
   const ext = extname(filePath);
   const baseName = basename(filePath, ext);
@@ -95,12 +105,34 @@ const writeContentHelper = async (
   const contentFilePath = join(dirName, `${contentBaseName}.content.ts`);
   const relativeContentFilePath = relative(baseDir, contentFilePath);
 
-  const dictionary: Dictionary = {
-    key: componentKey,
-    content: extractedContent,
-    locale: defaultLocale,
-    filePath: relativeContentFilePath,
-  };
+  let dictionary: Dictionary;
+
+  if (isPerLocaleFile) {
+    // Per-locale format: simple string content with locale property
+    dictionary = {
+      key: componentKey,
+      content: extractedContent,
+      locale: defaultLocale,
+      filePath: relativeContentFilePath,
+    };
+  } else {
+    // Multilingual format: content wrapped in translation nodes, no locale property
+    const multilingualContent: Record<string, TranslationNode> = {};
+    for (const [key, value] of Object.entries(extractedContent)) {
+      multilingualContent[key] = {
+        nodeType: 'translation',
+        translation: {
+          [defaultLocale]: value,
+        },
+      };
+    }
+
+    dictionary = {
+      key: componentKey,
+      content: multilingualContent,
+      filePath: relativeContentFilePath,
+    };
+  }
 
   const relativeDir = relative(baseDir, dirName);
   await writeContentDeclaration(dictionary, configuration, {

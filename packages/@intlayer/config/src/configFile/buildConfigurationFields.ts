@@ -748,6 +748,43 @@ const buildDictionaryFields = (
    * Default: true
    */
   fill: customConfiguration?.fill ?? FILL,
+
+  /**
+   * Transform the dictionary in a per-locale dictionary.
+   * Each field declared in a per-locale dictionary will be transformed in a translation node.
+   * If missing, the dictionary will be treated as a multilingual dictionary.
+   */
+  locale: customConfiguration?.locale,
+
+  /**
+   * The title of the dictionary.
+   */
+  title: customConfiguration?.title,
+
+  /**
+   * The description of the dictionary.
+   */
+  description: customConfiguration?.description,
+
+  /**
+   * Tags to categorize the dictionaries.
+   */
+  tags: customConfiguration?.tags,
+
+  /**
+   * The priority of the dictionary.
+   */
+  priority: customConfiguration?.priority,
+
+  /**
+   * Indicates if the dictionary should be live synced.
+   */
+  live: customConfiguration?.live,
+
+  /**
+   * The version of the dictionary.
+   */
+  version: customConfiguration?.version,
 });
 
 /**

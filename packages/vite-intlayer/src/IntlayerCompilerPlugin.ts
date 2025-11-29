@@ -159,12 +159,12 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
   };
 
   /**
-   * Merge extracted content with existing dictionary, preserving translations.
+   * Merge extracted content with existing dictionary for multilingual format.
    * - Keys in extracted but not in existing: added with default locale only
    * - Keys in both: preserve existing translations, update default locale value
    * - Keys in existing but not in extracted: removed (no longer in source)
    */
-  const mergeWithExistingDictionary = (
+  const mergeWithExistingMultilingualDictionary = (
     extractedContent: Record<string, string>,
     existingDictionary: Dictionary | null,
     defaultLocale: string
@@ -208,6 +208,68 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
             [defaultLocale]: value,
           },
         };
+        logger(
+          `${colorize('Compiler:', ANSIColors.GREY_DARK)} Added new key "${key}"`,
+          {
+            level: 'info',
+            isVerbose: true,
+          }
+        );
+      }
+    }
+
+    // Log removed keys
+    if (existingContent) {
+      const removedKeys = Object.keys(existingContent).filter(
+        (key) => !(key in extractedContent)
+      );
+      for (const key of removedKeys) {
+        logger(
+          `${colorize('Compiler:', ANSIColors.GREY_DARK)} Removed key "${key}" (no longer in source)`,
+          {
+            level: 'info',
+            isVerbose: true,
+          }
+        );
+      }
+    }
+
+    return mergedContent;
+  };
+
+  /**
+   * Merge extracted content with existing dictionary for per-locale format.
+   * - Keys in extracted but not in existing: added
+   * - Keys in both: update value
+   * - Keys in existing but not in extracted: removed (no longer in source)
+   */
+  const mergeWithExistingPerLocaleDictionary = (
+    extractedContent: Record<string, string>,
+    existingDictionary: Dictionary | null,
+    defaultLocale: string
+  ): Record<string, string> => {
+    const mergedContent: Record<string, string> = {};
+    const existingContent = existingDictionary?.content as
+      | Record<string, string>
+      | undefined;
+
+    for (const [key, value] of Object.entries(extractedContent)) {
+      const existingValue = existingContent?.[key];
+
+      if (existingValue && typeof existingValue === 'string') {
+        const isUpdated = existingValue !== value;
+
+        mergedContent[key] = value;
+
+        if (isUpdated) {
+          logger(
+            `${colorize('Compiler:', ANSIColors.GREY_DARK)} Updated "${key}" [${defaultLocale}]: "${existingValue?.slice(0, 30)}..." → "${value.slice(0, 30)}..."`,
+            { level: 'info', isVerbose: true }
+          );
+        }
+      } else {
+        // New key
+        mergedContent[key] = value;
         logger(
           `${colorize('Compiler:', ANSIColors.GREY_DARK)} Added new key "${key}"`,
           {
@@ -398,13 +460,23 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
    * - New keys are added with the default locale only
    * - Existing keys preserve their translations, with default locale updated
    * - Keys no longer in source are removed
+   *
+   * Dictionary format:
+   * - Per-locale: When config.dictionary.locale is set, content is simple strings with locale property
+   * - Multilingual: When not set, content is wrapped in translation nodes without locale property
    */
   const writeAndBuildDictionary = async (
     result: ExtractResult
   ): Promise<void> => {
-    const { dictionaryKey, content, locale } = result;
+    const { dictionaryKey, content } = result;
 
     const outputDir = getOutputDir();
+    const { defaultLocale } = config.internationalization;
+
+    // Check if per-locale format is configured
+    // When config.dictionary.locale is set, use per-locale format (simple strings with locale property)
+    // Otherwise, use multilingual format (content wrapped in TranslationNode objects)
+    const isPerLocaleFile = Boolean(config?.dictionary?.locale);
 
     // Ensure output directory exists
     await mkdir(outputDir, { recursive: true });
@@ -412,35 +484,68 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
     // Read existing dictionary to preserve translations and metadata
     const existingDictionary = await readExistingDictionary(dictionaryKey);
 
-    // Merge extracted content with existing translations
-    const mergedContent = mergeWithExistingDictionary(
-      content,
-      existingDictionary,
-      locale
+    const relativeFilePath = join(
+      relative(config.content.baseDir, outputDir),
+      `${dictionaryKey}.content.json`
     );
 
-    // Create the merged dictionary, preserving existing metadata
-    const mergedDictionary: Dictionary = {
-      // Preserve existing metadata (title, description, tags, etc.)
-      ...(existingDictionary && {
-        $schema: existingDictionary.$schema,
-        id: existingDictionary.id,
-        title: existingDictionary.title,
-        description: existingDictionary.description,
-        tags: existingDictionary.tags,
-        fill: existingDictionary.fill,
-        filled: existingDictionary.filled,
-        priority: existingDictionary.priority,
-        version: existingDictionary.version,
-      }),
-      // Required fields
-      key: dictionaryKey,
-      content: mergedContent,
-      filePath: join(
-        relative(config.content.baseDir, outputDir),
-        `${dictionaryKey}.content.json`
-      ),
-    };
+    // Build dictionary based on format - matching transformFiles.ts behavior
+    let mergedDictionary: Dictionary;
+
+    if (isPerLocaleFile) {
+      // Per-locale format: simple string content with locale property
+      const mergedContent = mergeWithExistingPerLocaleDictionary(
+        content,
+        existingDictionary,
+        defaultLocale
+      );
+
+      mergedDictionary = {
+        // Preserve existing metadata (title, description, tags, etc.)
+        ...(existingDictionary && {
+          $schema: existingDictionary.$schema,
+          id: existingDictionary.id,
+          title: existingDictionary.title,
+          description: existingDictionary.description,
+          tags: existingDictionary.tags,
+          fill: existingDictionary.fill,
+          filled: existingDictionary.filled,
+          priority: existingDictionary.priority,
+          version: existingDictionary.version,
+        }),
+        // Required fields
+        key: dictionaryKey,
+        content: mergedContent,
+        locale: defaultLocale,
+        filePath: relativeFilePath,
+      };
+    } else {
+      // Multilingual format: content wrapped in translation nodes, no locale property
+      const mergedContent = mergeWithExistingMultilingualDictionary(
+        content,
+        existingDictionary,
+        defaultLocale
+      );
+
+      mergedDictionary = {
+        // Preserve existing metadata (title, description, tags, etc.)
+        ...(existingDictionary && {
+          $schema: existingDictionary.$schema,
+          id: existingDictionary.id,
+          title: existingDictionary.title,
+          description: existingDictionary.description,
+          tags: existingDictionary.tags,
+          fill: existingDictionary.fill,
+          filled: existingDictionary.filled,
+          priority: existingDictionary.priority,
+          version: existingDictionary.version,
+        }),
+        // Required fields
+        key: dictionaryKey,
+        content: mergedContent,
+        filePath: relativeFilePath,
+      };
+    }
 
     try {
       const writeResult = await writeContentDeclaration(
