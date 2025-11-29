@@ -234,7 +234,7 @@ export const AllRoundedSizes: Story = {
  */
 export const TransparencyLevels: Story = {
   render: () => (
-    <div className="relative rounded-lg bg-gradient-to-br from-blue-100 to-purple-100 p-8">
+    <div className="relative rounded-lg bg-linear-to-br from-blue-100 to-purple-100 p-8">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
         {Object.values(ContainerTransparency).map((transparency) => (
           <Container

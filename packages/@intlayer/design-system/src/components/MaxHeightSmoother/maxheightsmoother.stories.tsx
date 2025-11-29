@@ -51,7 +51,7 @@ type Story = StoryObj<typeof MaxHeightSmoother>;
 
 // Sample content for demonstrations
 const sampleContent = (
-  <div className="rounded-lg bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+  <div className="rounded-lg bg-linear-to-br from-blue-50 to-indigo-100 p-4">
     <h3 className="mb-3 font-semibold text-gray-800 text-lg">
       Expandable Content
     </h3>
@@ -473,7 +473,7 @@ export const CustomStyling: Story = {
     isOverable: true,
     minHeight: 100,
     className:
-      'bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200 rounded-xl shadow-lg hover:shadow-xl transition-shadow',
+      'bg-linear-to-br from-orange-50 to-red-50 border-2 border-orange-200 rounded-xl shadow-lg hover:shadow-xl transition-shadow',
     children: (
       <div className="p-6">
         <h3 className="mb-3 font-bold text-orange-800 text-xl">

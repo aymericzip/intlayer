@@ -622,7 +622,7 @@ export const DashboardWidgets: Story = {
               <div className="h-2 w-2 rounded-full bg-green-500"></div>
             </div>
 
-            <div className="flex h-48 items-center justify-center rounded-lg bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20">
+            <div className="flex h-48 items-center justify-center rounded-lg bg-linear-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20">
               <div className="text-center text-gray-600 dark:text-gray-400">
                 <div className="mb-2 text-3xl">📊</div>
                 <div className="text-sm">Interactive Chart</div>

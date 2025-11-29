@@ -176,7 +176,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
                 ])}
                 onClick={() => setIsHidden((isHidden) => !isHidden)}
               />
-              <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b from-card/90 backdrop-blur" />
+              <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur" />
             </div>
           </Container>
 

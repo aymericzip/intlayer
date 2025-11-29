@@ -60,7 +60,7 @@ export const AsideNavigation: FC = (props) => {
                 <MaxWidthSmoother isHidden={isHidden}>
                   <h2 className="ml-3 text-nowrap font-bold">{title}</h2>
                 </MaxWidthSmoother>
-                <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b from-card/90 backdrop-blur" />
+                <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur" />
               </div>
             </div>
           </Container>

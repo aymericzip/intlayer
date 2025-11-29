@@ -231,7 +231,7 @@ export const DocNavList: FC<DocNavListProps> = ({
               />
               <div
                 className={cn(
-                  'absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b from-card/90 backdrop-blur',
+                  'absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur',
                   isHidden && 'hidden'
                 )}
               />

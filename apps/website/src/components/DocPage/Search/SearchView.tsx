@@ -142,8 +142,8 @@ export const SearchView: FC<{
   const isNoResult = !isFetching && results.length === 0 && search.length > 0;
 
   return (
-    <div className="relative flex w-full flex-col p-4">
-      <div className="flex items-center gap-1">
+    <>
+      <div className="relative flex w-full items-center gap-1">
         <Search />
         <Input
           type="search"
@@ -155,11 +155,10 @@ export const SearchView: FC<{
           ref={inputRef}
         />
       </div>
-      <div className="mt-4 flex flex-1 flex-col overflow-y-auto">
+      <div className="mt-8 flex flex-1 flex-col overflow-y-auto">
         {isNoResult && (
           <p className="text-center text-neutral text-sm">{noContentText}</p>
         )}
-
         {results.length > 0 && (
           <ul className="flex flex-col gap-10">
             {results.map((result) => (
@@ -171,6 +170,6 @@ export const SearchView: FC<{
         )}
         <Loader isLoading={isFetching} />
       </div>
-    </div>
+    </>
   );
 };

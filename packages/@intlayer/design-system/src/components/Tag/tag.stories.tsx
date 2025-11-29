@@ -630,7 +630,7 @@ export const UserProfileTags: Story = {
       <div className="max-w-2xl space-y-8">
         <div className="rounded-lg border border-gray-200 bg-white p-6">
           <div className="mb-6 flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 font-bold text-white text-xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-purple-600 font-bold text-white text-xl">
               JD
             </div>
             <div>

@@ -39,7 +39,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: (
-      <div className="flex h-full items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex h-full items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100">
         <div className="p-6 text-center">
           <h1 className="mb-4 font-bold text-2xl text-gray-800">
             KeyboardScreenAdapter Demo
@@ -307,7 +307,7 @@ export const SearchInterface: Story = {
 // Styling Variations
 export const CustomStyling: Story = {
   args: {
-    className: 'bg-gradient-to-br from-purple-50 to-pink-50',
+    className: 'bg-linear-to-br from-purple-50 to-pink-50',
     children: (
       <div className="flex h-full items-center justify-center p-8">
         <div className="w-full max-w-md rounded-xl bg-white/80 p-8 shadow-xl backdrop-blur-sm">

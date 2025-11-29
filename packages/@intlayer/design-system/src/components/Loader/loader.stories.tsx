@@ -142,7 +142,7 @@ export const CustomStyling: Story = {
   args: {
     isLoading: true,
     className:
-      'min-h-[300px] bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg border-2 border-blue-200',
+      'min-h-[300px] bg-linear-to-br from-blue-50 to-indigo-100 rounded-lg border-2 border-blue-200',
   },
   parameters: {
     docs: {
