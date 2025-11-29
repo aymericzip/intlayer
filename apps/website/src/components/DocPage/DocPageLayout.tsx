@@ -31,12 +31,9 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
       </aside>
       <div className="flex flex-1 flex-row">
         <article
-          className="relative m-auto mb-3 h-full w-auto max-w-6xl flex-1 grow rounded-xl bg-background px-4 pb-24 max-md:pl-16 md:px-10"
+          className="relative m-auto mb-3 w-auto max-w-6xl flex-1 grow overflow-auto rounded-xl bg-background px-4 pb-24 max-md:pl-16 md:max-h-[calc(100vh-4rem)] md:px-10"
           id="content"
         >
-          {/* remove background layout for now */}
-          {/* <BackgroundLayout className="max-md:-ml-16 md:-ml-10 z-0" />
-          <div className="relative z-1"> */}
           {displayBreadCrumb && (
             <DocBreadCrumb
               className="mt-12 ml-10"
@@ -46,7 +43,6 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
             />
           )}
           {children}
-          {/* </div> */}
         </article>
 
         <aside className="flex-none max-lg:hidden">

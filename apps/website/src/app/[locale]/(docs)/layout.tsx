@@ -8,7 +8,7 @@ const LandingLayout: NextLayoutIntlayer<{
   const { locale } = await params;
 
   return (
-    <PageLayout locale={locale}>
+    <PageLayout locale={locale} className="bg-card">
       <EmailRegistrationToast />
       {children}
     </PageLayout>
