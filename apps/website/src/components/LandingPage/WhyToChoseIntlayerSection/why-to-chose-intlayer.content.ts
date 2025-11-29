@@ -13,8 +13,8 @@ const whyToChoseIntlayerContent = {
   key: 'why-to-chose-intlayer-section',
   content: {
     title: t({
-      en: 'Why to chose Inlyayer?',
-      'en-GB': 'Why to chose Inlyayer?',
+      en: 'Why to chose Intlayer?',
+      'en-GB': 'Why to chose Intlayer?',
       fr: 'Pourquoi choisir Intlayer ?',
       es: '¿Por qué elegir Intlayer?',
       de: 'Warum Intlayer wählen?',
