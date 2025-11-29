@@ -304,6 +304,13 @@ const DynamicVisualEditorSection = dynamic(
   }
 );
 
+const DynamicCompilerSection = dynamic(
+  () => import('./CompilerSection').then((mod) => mod.CompilerSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
 /* -------------------------------------------------------------------------- */
 /*                       FeaturesSection Wrapper Example                      */
 /* -------------------------------------------------------------------------- */
@@ -335,6 +342,11 @@ export const FeaturesSection: FC = () => {
           return {
             ...sectionData,
             children: <DynamicMarkdownSection scrollProgress={progress} />,
+          };
+        case 'compiler':
+          return {
+            ...sectionData,
+            children: <DynamicCompilerSection scrollProgress={progress} />,
           };
         // case 'autocomplete':
         //   return {

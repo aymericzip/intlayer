@@ -67,7 +67,7 @@ export const IDE: FC<IDEProps> = ({
       transparency="none"
       {...props}
     >
-      <div className="flex w-auto flex-row items-center justify-start gap-1 rounded-t-3xl bg-neutral-200 text-neutral text-xs dark:bg-neutral-950">
+      <div className="flex w-auto flex-row items-center justify-start gap-1 bg-neutral-200 text-neutral text-xs dark:bg-neutral-950">
         <div className="mx-2 flex items-center justify-start gap-2 p-1">
           <div className="size-3 rounded-full bg-red-500" />
           <div className="size-3 rounded-full bg-yellow-500" />
