@@ -55,28 +55,6 @@ const docDataContent: Dictionary = {
       }),
       default: getDocMetadata('./docs/en/introduction.md'),
     },
-    roadmap: {
-      title: t({
-        en: 'Roadmap',
-        'en-GB': 'Roadmap',
-        fr: 'Feuille de route',
-        es: 'Hoja de ruta',
-        de: 'Roadmap',
-        it: 'Roadmap',
-        ja: 'ロードマップ',
-        ko: '로드맵',
-        zh: '路线图',
-        pt: 'Roteiro',
-        hi: 'रोडमैप',
-        ar: 'خريطة الطريق',
-        ru: 'Дорожная карта',
-        tr: 'Yol Haritası',
-        pl: 'Roadmap',
-        id: 'Roadmap',
-        vi: 'Roadmap',
-      }),
-      default: getDocMetadata('./docs/en/roadmap.md'),
-    },
     concept: {
       title: t({
         en: 'Concept',
