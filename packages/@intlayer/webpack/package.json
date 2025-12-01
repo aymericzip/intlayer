@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/webpack",
-  "version": "7.3.3",
+  "version": "7.3.4",
   "private": false,
   "description": "Webpack plugin for seamless integration with Intlayer, enhancing JavaScript apps built with React, Next.js and more.",
   "keywords": [
