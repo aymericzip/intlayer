@@ -58,7 +58,9 @@ const Title: FC = () => {
     contentId: 'content',
   });
 
+  const contentElement = useGetElementById('content');
   const { activeParent } = useActiveSection({
+    contentElement,
     headings: topLevelHeadings,
     headingMap,
   });
