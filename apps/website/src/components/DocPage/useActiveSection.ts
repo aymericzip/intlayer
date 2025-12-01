@@ -1,6 +1,8 @@
+import { useGetElementOrWindow } from '@intlayer/design-system/hooks';
 import { type RefObject, useEffect, useState } from 'react';
 
 type UseActiveSectionOptions = {
+  contentElement: HTMLElement | null;
   /** All headings to track */
   headings: HTMLElement[];
   /** Map of parent headings to their children */
@@ -24,18 +26,22 @@ type UseActiveSectionReturn = {
  * @returns Object containing active parent and child headings
  */
 export const useActiveSection = ({
+  contentElement,
   headings,
   headingMap,
   navRef,
   scrollOffset,
 }: UseActiveSectionOptions): UseActiveSectionReturn => {
+  const containerElement = useGetElementOrWindow(contentElement ?? undefined);
   const [activeParent, setActiveParent] = useState<HTMLElement | null>(null);
   const [activeChild, setActiveChild] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
     const getActiveSection = () => {
-      const offset = scrollOffset ?? window.innerHeight / 3;
-      const scrollY = window.scrollY + offset;
+      const offset =
+        scrollOffset ??
+        (containerElement as unknown as Window)?.innerHeight / 3;
+      const scrollY = (containerElement as unknown as Window)?.scrollY + offset;
 
       // Find the last heading that is above the scroll position
       const newActiveParent = headings.findLast(
@@ -67,15 +73,22 @@ export const useActiveSection = ({
 
     // Event listeners for various triggers
     navigationElement?.addEventListener('click', getActiveSection);
-    window.addEventListener('scroll', getActiveSection, { passive: true });
-    window.addEventListener('resize', getActiveSection, { passive: true });
-    window.addEventListener('orientationchange', getActiveSection);
+    containerElement?.addEventListener('scroll', getActiveSection, {
+      passive: true,
+    });
+    containerElement?.addEventListener('resize', getActiveSection, {
+      passive: true,
+    });
+    containerElement?.addEventListener('orientationchange', getActiveSection);
 
     return () => {
       navigationElement?.removeEventListener('click', getActiveSection);
-      window.removeEventListener('scroll', getActiveSection);
-      window.removeEventListener('resize', getActiveSection);
-      window.removeEventListener('orientationchange', getActiveSection);
+      containerElement?.removeEventListener('scroll', getActiveSection);
+      containerElement?.removeEventListener('resize', getActiveSection);
+      containerElement?.removeEventListener(
+        'orientationchange',
+        getActiveSection
+      );
     };
   }, [headings, headingMap, activeParent, navRef, scrollOffset]);
 

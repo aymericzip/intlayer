@@ -1,6 +1,11 @@
 'use client';
 
 import { useCallback, useSyncExternalStore } from 'react';
+import { useGetElementOrWindow } from './useGetElementOrWindow';
+
+type UseScrollYProps = {
+  element?: HTMLElement;
+};
 
 type UseScrollYResult = {
   scrollY: number;
@@ -16,32 +21,60 @@ const INITIAL_SCROLL_STATE: UseScrollYResult = {
 
 let lastSnapshot: UseScrollYResult = INITIAL_SCROLL_STATE;
 
-export const useScrollY = (): UseScrollYResult => {
-  const subscribe = useCallback((onChange: () => void) => {
-    if (typeof window === 'undefined') return () => {};
-    let raf = 0;
+export const useScrollY = (props?: UseScrollYProps): UseScrollYResult => {
+  const { element } = props ?? {};
 
-    const handler = () => {
-      if (raf) return;
-      raf = window.requestAnimationFrame(() => {
-        raf = 0;
-        onChange();
-      });
-    };
+  const containerElement = useGetElementOrWindow(element);
 
-    window.addEventListener('scroll', handler, { passive: true });
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      if (typeof window === 'undefined' || !containerElement) return () => {};
+      let raf = 0;
 
-    return () => {
-      window.removeEventListener('scroll', handler);
-      if (raf) window.cancelAnimationFrame(raf);
-    };
-  }, []);
+      const handler = () => {
+        if (raf) return;
+        raf = window.requestAnimationFrame(() => {
+          raf = 0;
+          onChange();
+        });
+      };
+
+      containerElement.addEventListener('scroll', handler, { passive: true });
+
+      return () => {
+        containerElement.removeEventListener('scroll', handler);
+        if (raf) window.cancelAnimationFrame(raf);
+      };
+    },
+    [containerElement]
+  );
 
   const getSnapshot = (): UseScrollYResult => {
-    if (typeof window === 'undefined') {
+    if (typeof window === 'undefined' || !containerElement) {
       return INITIAL_SCROLL_STATE; // SSR/hydration-safe
     }
 
+    // Handle custom element
+    if (containerElement instanceof HTMLElement) {
+      const scrollY = containerElement.scrollTop;
+      const scrollHeight = containerElement.scrollHeight;
+      const clientHeight = containerElement.clientHeight;
+      const scrollYMax = Math.max(0, scrollHeight - clientHeight);
+      const scrollPercentage = scrollYMax > 0 ? scrollY / scrollYMax : 0;
+
+      if (
+        lastSnapshot.scrollY === scrollY &&
+        lastSnapshot.scrollPercentage === scrollPercentage &&
+        lastSnapshot.scrollYMax === scrollYMax
+      ) {
+        return lastSnapshot;
+      }
+
+      lastSnapshot = { scrollY, scrollPercentage, scrollYMax };
+      return lastSnapshot;
+    }
+
+    // Handle window
     const doc = document.documentElement;
     const body = document.body;
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
+import { useGetElementById } from '@intlayer/design-system/hooks';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useRef } from 'react';
 import { useActiveSection } from '../useActiveSection';
@@ -51,8 +52,10 @@ export const NavTitles: FC = () => {
     contentId: 'content',
   });
 
+  const contentElement = useGetElementById('content');
   // Use the custom hook to detect active sections
   const { activeParent, activeChild } = useActiveSection({
+    contentElement,
     headings: topLevelHeadings,
     headingMap,
     navRef,

@@ -1,6 +1,6 @@
 'use client';
 
-import { useScrollY } from '@intlayer/design-system/hooks';
+import { useGetElementById, useScrollY } from '@intlayer/design-system/hooks';
 import type { FC, SVGProps } from 'react';
 import { useActiveSection } from './useActiveSection';
 import { useTitlesTree } from './useTitlesTree';
@@ -11,7 +11,8 @@ const RADIUS_CENTER = RADIUS - BORDER_WIDTH;
 
 export const ScrollWell: FC<SVGProps<SVGSVGElement>> = (props) => {
   // scrollPercentage goes from 0 to 1
-  const { scrollPercentage } = useScrollY();
+  const contentElement = useGetElementById('content');
+  const { scrollPercentage } = useScrollY({ element: contentElement });
 
   const circumference = 2 * Math.PI * RADIUS_CENTER;
   const strokeDasharray = circumference;

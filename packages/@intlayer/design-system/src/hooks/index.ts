@@ -1,6 +1,7 @@
 export * from './reactQuery';
 export * from './useAuth';
 export * from './useDevice';
+export * from './useGetElementById';
 export * from './useGetElementOrWindow';
 export * from './useHorizontalSwipe';
 export * from './useIntlayerAPI';
