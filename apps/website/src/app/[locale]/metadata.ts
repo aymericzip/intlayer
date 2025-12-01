@@ -15,7 +15,8 @@ export const generateMetadata = async ({
   return {
     title,
     description,
-    applicationName: 'i18n Solution & CMS for React, Next.js, Vue | Intlayer',
+    applicationName:
+      'i18n Solution & CMS for React, Next.js, Vue, Svelte | Intlayer',
     authors: [
       {
         name: 'Intlayer',
