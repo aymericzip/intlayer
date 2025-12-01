@@ -43,7 +43,7 @@ Thus, Compiler-based i18n was born.
 > **Example of compiler-based i18n:**
 >
 > - Paraglide (Tree-shaken modules that compile each message to a tiny ESM function so bundlers can drop unused locales and keys automatically. You import messages as functions instead of doing string-key lookups.)
-> - LinguiJS (Macro-to-function compiler that rewrites message macros like `<Trans>` into plain JS function calls at build time. You get ICU/MessageFormat syntax with a very small runtime footprint.)
+> - LinguiJS (Macro-to-function compiler that rewrites message macros like `<Trans>` into plain JS function calls at build time. You get ICU/MessageFormat syntax with a small runtime footprint.)
 > - Lingo.dev (Focuses on automating the localization pipeline by injecting translated content directly during the build of your React application. It can auto-generate translations using AI and integrate directly into CI/CD.)
 > - Wuchale (Svelte-first preprocessor that extracts inline text in .svelte files and compiles it into zero-wrapper translation functions. It avoids string keys, and separates the content extraction logic completely from the main application runtime.)
 > - Intlayer (Compiler / Extract CLI that parses your components, generates typed dictionaries, and can optionally rewrite code to use explicit Intlayer content. The goal is to use the compiler for velocity while keeping a declarative, framework-agnostic core.)
