@@ -32,7 +32,11 @@ const getCleanChoice = (path?: string): string => {
   return components.slice(0, 2).join('/');
 };
 
-export const Navbar: FC = () => {
+type NavbarProps = {
+  mobileRollable?: boolean;
+};
+
+export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
   const {
     logo,
     sections,
@@ -61,6 +65,7 @@ export const Navbar: FC = () => {
         </Link>
       }
       selectedChoice={selectedChoice}
+      mobileRollable={mobileRollable}
       desktopSections={Object.values(sections).map(
         ({ id, url, label, title }) => (
           <Link

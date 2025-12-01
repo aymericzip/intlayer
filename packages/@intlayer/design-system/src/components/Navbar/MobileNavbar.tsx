@@ -25,6 +25,8 @@ type MobileNavbarProps<T extends TabSelectorItemProps> = {
   bottomSections?: ReactElement<T>[];
   /** Right-aligned items in the collapsed header (e.g., search, notifications) */
   rightItems?: ReactNode;
+  /** Whether the navbar should be rollable (default: true) */
+  rollable?: boolean;
 };
 
 /**
@@ -50,12 +52,12 @@ const bgStyle =
 /**
  * Mobile Navigation Bar Component
  *
- * A sophisticated mobile-first navigation component with collapsible full-screen menu,
+ * A sophisticated mobile-first navigation component with rollable full-screen menu,
  * scroll-aware behavior, and smooth animations. Optimized for touch interactions and
  * mobile user experience patterns.
  *
  * Features:
- * - Collapsible hamburger menu with full-screen overlay
+ * - rollable hamburger menu with full-screen overlay
  * - Auto-hide on scroll down, show on scroll up for screen space optimization
  * - Background scroll prevention when menu is open
  * - Staggered animations for smooth menu item reveals
@@ -123,7 +125,7 @@ const bgStyle =
  *
  * @template T - Tab properties type extending TabProps for type safety
  * @param props - MobileNavbar component props
- * @returns Mobile navigation with collapsible full-screen menu
+ * @returns Mobile navigation with rollable full-screen menu
  */
 export const MobileNavbar = <T extends TabSelectorItemProps>({
   logo,
@@ -132,6 +134,7 @@ export const MobileNavbar = <T extends TabSelectorItemProps>({
   bottomChildren,
   bottomSections = [],
   rightItems,
+  rollable = true,
 }: MobileNavbarProps<T>) => {
   const [isHidden, setIsHidden] = useState<boolean>(false);
   const [isUnrolled, setIsUnrolled] = useState<boolean>(false);
@@ -139,14 +142,14 @@ export const MobileNavbar = <T extends TabSelectorItemProps>({
   const navRef = useRef<HTMLDivElement>(null);
 
   useScrollBlockage({
-    disableScroll: isUnrolled,
+    disableScroll: rollable,
     key: 'mobile_nav',
   });
 
   useScrollDetection({
     onScrollUp: () => setIsHidden(false),
     onScrollDown: () => setIsHidden(true),
-    isEnabled: !isUnrolled,
+    isEnabled: !isUnrolled && rollable,
   });
 
   const backDivHeight = !isHidden ? (navRef.current?.clientHeight ?? 0) : 0;

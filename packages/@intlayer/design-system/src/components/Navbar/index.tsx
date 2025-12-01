@@ -29,6 +29,8 @@ type NavbarProps<T extends TabSelectorItemProps> = {
   rightItemsDesktop?: ReactNode;
   /** Right-aligned items for mobile navbar */
   rightItemsMobile?: ReactNode;
+  /** Whether the mobile navbar should be rollable (default: true) */
+  mobileRollable?: boolean;
 };
 
 /**
@@ -97,6 +99,7 @@ export const Navbar = <T extends TabSelectorItemProps>({
   rightItemsDesktop,
   rightItemsMobile,
   selectedChoice,
+  mobileRollable = true,
 }: NavbarProps<T>) => {
   const { isMobile } = useDevice('lg');
   const isMoUnted = useIsMounted();
@@ -111,6 +114,7 @@ export const Navbar = <T extends TabSelectorItemProps>({
       bottomSections={mobileBottomSections}
       logo={logo}
       rightItems={rightItemsMobile}
+      rollable={mobileRollable}
     />
   ) : (
     <DesktopNavbar

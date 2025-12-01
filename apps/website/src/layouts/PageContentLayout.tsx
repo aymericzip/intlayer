@@ -9,6 +9,7 @@ export type PageContentLayoutProps = DetailedHTMLProps<
 > & {
   footer?: ReactNode;
   navbar?: ReactNode;
+  mobileRollable?: boolean;
 };
 
 export const PageContentLayout: FC<PageContentLayoutProps> = ({
@@ -16,10 +17,11 @@ export const PageContentLayout: FC<PageContentLayoutProps> = ({
   children,
   footer,
   className,
+  mobileRollable,
   ...props
 }) => (
   <>
-    {navbar ?? <Navbar />}
+    {navbar ?? <Navbar mobileRollable={mobileRollable} />}
     <main
       className={cn('relative flex w-full flex-1 flex-col', className)}
       {...props}
