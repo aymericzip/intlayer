@@ -61,6 +61,14 @@ export const NavTitles: FC = () => {
     navRef,
   });
 
+  console.log({
+    topLevelHeadings,
+    headingMap,
+    activeParent,
+    activeChild,
+    contentElement,
+  });
+
   return (
     <nav ref={navRef}>
       <ul className="flex max-h-[calc(100vh-8rem)] flex-1 flex-col gap-3 overflow-auto pt-8 pr-3 pb-20 text-sm">

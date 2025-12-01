@@ -38,15 +38,28 @@ export const useActiveSection = ({
 
   useEffect(() => {
     const getActiveSection = () => {
+      // Check if we're using a scrollable container or window
+      const isWindow = !contentElement;
+
       const offset =
         scrollOffset ??
-        (containerElement as unknown as Window)?.innerHeight / 3;
-      const scrollY = (containerElement as unknown as Window)?.scrollY + offset;
+        (isWindow
+          ? window.innerHeight / 3
+          : (contentElement?.clientHeight ?? 0) / 3);
+
+      const scrollPosition = isWindow
+        ? window.scrollY
+        : (contentElement?.scrollTop ?? 0);
+
+      const scrollY = scrollPosition + offset;
 
       // Find the last heading that is above the scroll position
-      const newActiveParent = headings.findLast(
-        (heading) => heading.offsetTop < scrollY
-      );
+      const newActiveParent = headings.findLast((heading) => {
+        const headingTop = isWindow
+          ? heading.offsetTop
+          : heading.offsetTop - (contentElement?.offsetTop ?? 0);
+        return headingTop < scrollY;
+      });
 
       if (newActiveParent) {
         if (newActiveParent.id !== activeParent?.id) {
@@ -55,9 +68,12 @@ export const useActiveSection = ({
 
         // Find active child within the active parent's children
         const children = headingMap.get(newActiveParent) ?? [];
-        const activeChildHeading = children.findLast(
-          (child) => child.offsetTop < scrollY
-        );
+        const activeChildHeading = children.findLast((child) => {
+          const childTop = isWindow
+            ? child.offsetTop
+            : child.offsetTop - (contentElement?.offsetTop ?? 0);
+          return childTop < scrollY;
+        });
 
         setActiveChild(activeChildHeading ?? null);
       } else {
@@ -90,7 +106,15 @@ export const useActiveSection = ({
         getActiveSection
       );
     };
-  }, [headings, headingMap, activeParent, navRef, scrollOffset]);
+  }, [
+    contentElement,
+    containerElement,
+    headings,
+    headingMap,
+    activeParent,
+    navRef,
+    scrollOffset,
+  ]);
 
   return {
     activeParent,
