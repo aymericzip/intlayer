@@ -48,6 +48,8 @@ type WithResizerProps = {
   maxWidth?: number;
   /** Minimum allowed width in pixels */
   minWidth?: number;
+  /** Position of the resize handle (default: 'right') */
+  handlePosition?: 'left' | 'right';
 };
 
 /**
@@ -163,6 +165,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   initialWidth,
   maxWidth,
   minWidth = 0,
+  handlePosition = 'right',
   children,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -191,7 +194,9 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
 
       const { startX, startWidth, factor } = resizeState.current;
       const delta = (clientX - startX) / factor;
-      const newWidth = startWidth + delta;
+      // Invert delta for left handle (moving left decreases width, moving right increases width)
+      const adjustedDelta = handlePosition === 'left' ? -delta : delta;
+      const newWidth = startWidth + adjustedDelta;
 
       const constrainedWidth = Math.max(
         Math.min(newWidth, maxWidth ?? Infinity),
@@ -200,7 +205,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
 
       setWidth(constrainedWidth);
     },
-    [maxWidth, minWidth]
+    [maxWidth, minWidth, handlePosition]
   );
 
   // Handler to stop resizing
@@ -265,8 +270,16 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   return (
     <div
       className={cn(
-        'relative h-full w-full max-w-[80%] shrink-0 cursor-ew-resize border-neutral-200 border-r-[2px] transition dark:border-neutral-950',
-        'after:-translate-y-1/2 after:absolute after:top-1/2 after:right-0 after:block after:h-10 after:w-2 after:translate-x-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
+        'relative h-full w-full max-w-[80%] shrink-0 cursor-ew-resize border-neutral-200 transition dark:border-neutral-950',
+        handlePosition === 'right'
+          ? [
+              'border-r-[2px]',
+              'after:-translate-y-1/2 after:absolute after:top-1/2 after:right-0 after:block after:h-10 after:w-2 after:translate-x-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
+            ]
+          : [
+              'border-l-[2px]',
+              'after:-translate-y-1/2 after:-translate-x-1/2 after:absolute after:top-1/2 after:left-0 after:block after:h-10 after:w-2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
+            ],
         'active:border-neutral-400 active:after:bg-neutral-400 dark:active:border-neutral-600 active:dark:after:bg-neutral-600',
         minWidth && `min-w-[${minWidth}px]`,
         maxWidth && `max-w-[${maxWidth}px]`
