@@ -379,7 +379,7 @@ const handleDefaultLocaleRedirect = (
     !prefixDefault &&
     pathLocale === defaultLocale
   ) {
-    let pathWithoutLocale = pathname.slice(`/${pathLocale}`.length) ?? '/';
+    let pathWithoutLocale = pathname.slice(`/${pathLocale}`.length) || '/';
 
     const basePathTrailingSlash = basePath.endsWith('/');
 
@@ -397,7 +397,7 @@ const handleDefaultLocaleRedirect = (
       pathWithoutLocale += request.nextUrl.search;
     }
 
-    return rewriteUrl(request, `${basePath}${pathWithoutLocale}`, pathLocale);
+    return redirectUrl(request, `${basePath}${pathWithoutLocale}`);
   }
 
   // If prefixing default locale is required or pathLocale is not the defaultLocale
