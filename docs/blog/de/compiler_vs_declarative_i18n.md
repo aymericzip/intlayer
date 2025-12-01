@@ -26,7 +26,11 @@ Kürzlich ist eine neue Welle von **"compilerbasierten" i18n-Tools** aufgetaucht
 
 Aber wie bei allen Abstraktionen in der Softwareentwicklung hat Magie ihren Preis.
 
-In diesem Blogbeitrag werden wir den Wandel von deklarativen Bibliotheken hin zu compilerbasierten Ansätzen untersuchen, die versteckten architektonischen Schulden, die sie mit sich bringen, und warum der „langweilige“ Weg für professionelle Anwendungen vielleicht immer noch der beste ist.
+In diesem Blogbeitrag werden wir den Wandel von deklarativen Bibliotheken hin zu compilerbasierten Ansätzen untersuchen, die versteckten architektonischen Schulden, die sie mit sich bringen, und warum der „langweilige" Weg für professionelle Anwendungen vielleicht immer noch der beste ist.
+
+## Inhaltsverzeichnis
+
+<TOC/>
 
 ## Eine kurze Geschichte der Internationalisierung
 

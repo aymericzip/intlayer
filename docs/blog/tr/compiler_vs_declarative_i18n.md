@@ -28,6 +28,10 @@ Ancak yazılım mühendisliğindeki tüm soyutlamalarda olduğu gibi, sihrin de 
 
 Bu blog yazısında, deklaratif kütüphanelerden derleyici tabanlı yaklaşımlara geçişi, beraberinde getirdikleri gizli mimari borçları ve neden "sıkıcı" yolun profesyonel uygulamalar için hâlâ en iyi yol olabileceğini inceleyeceğiz.
 
+## İçindekiler
+
+<TOC/>
+
 ## Uluslararasılaştırmanın Kısa Tarihi
 
 Nerede olduğumuzu anlamak için, nereden başladığımıza bakmalıyız.

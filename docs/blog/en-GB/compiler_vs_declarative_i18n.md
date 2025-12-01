@@ -28,6 +28,10 @@ But as with all abstractions in software engineering, magic comes with a price.
 
 In this blog post, we will explore the shift from declarative libraries to compiler-based approaches, the hidden architectural debts they introduce, and why the "boring" way might still be the best way for professional applications.
 
+## Table of Contents
+
+<TOC/>
+
 ## A Brief History of Internationalisation
 
 To understand where we are, we must look back at where we started.

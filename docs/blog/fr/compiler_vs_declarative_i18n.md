@@ -26,9 +26,13 @@ Récemment, une nouvelle vague d’**outils i18n basés sur un compilateur** a �
 
 Mais comme pour toutes les abstractions en ingénierie logicielle, la magie a un prix.
 
-Dans cet article de blog, nous allons explorer le passage des bibliothèques déclaratives aux approches basées sur un compilateur, les dettes architecturales cachées qu’elles introduisent, et pourquoi la méthode « ennuyeuse » pourrait encore être la meilleure pour les applications professionnelles.
+Dans cet article de blog, nous allons explorer le passage des bibliothèques déclaratives aux approches basées sur un compilateur, les dettes architecturales cachées qu'elles introduisent, et pourquoi la méthode « ennuyeuse » pourrait encore être la meilleure pour les applications professionnelles.
 
-## Un bref historique de l’internationalisation
+## Table des matières
+
+<TOC/>
+
+## Un bref historique de l'internationalisation
 
 Pour comprendre où nous en sommes, il faut revenir à nos débuts.
 

@@ -28,6 +28,10 @@ Nhưng như với tất cả các trừu tượng trong kỹ thuật phần mề
 
 Trong bài blog này, chúng ta sẽ khám phá sự chuyển dịch từ các thư viện khai báo sang các phương pháp dựa trên trình biên dịch, các khoản nợ kiến trúc ẩn mà chúng mang lại, và lý do tại sao cách "nhàm chán" có thể vẫn là cách tốt nhất cho các ứng dụng chuyên nghiệp.
 
+## Mục lục
+
+<TOC/>
+
 ## Lược Sử Ngắn Gọn về Quốc Tế Hóa
 
 Để hiểu được vị trí hiện tại, chúng ta phải nhìn lại nơi chúng ta đã bắt đầu.

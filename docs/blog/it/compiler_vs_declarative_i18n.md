@@ -28,6 +28,10 @@ Ma come per tutte le astrazioni nell'ingegneria del software, la magia ha un pre
 
 In questo post del blog, esploreremo il passaggio dalle librerie dichiarative agli approcci basati su compiler, i debiti architetturali nascosti che introducono e perché il modo "noioso" potrebbe ancora essere il migliore per applicazioni professionali.
 
+## Indice
+
+<TOC/>
+
 ## Una breve storia dell'internazionalizzazione
 
 Per capire dove siamo, dobbiamo guardare indietro a dove siamo partiti.

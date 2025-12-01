@@ -28,6 +28,10 @@ Mas, como em todas as abstrações na engenharia de software, mágica tem um pre
 
 Neste post do blog, exploraremos a transição de bibliotecas declarativas para abordagens baseadas em compilador, as dívidas arquiteturais ocultas que elas introduzem e por que o jeito "chato" ainda pode ser o melhor para aplicações profissionais.
 
+## Índice
+
+<TOC/>
+
 ## Uma Breve História da Internacionalização
 
 Para entender onde estamos, precisamos olhar para onde começamos.

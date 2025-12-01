@@ -26,7 +26,11 @@ Niedawno pojawiła się nowa fala **narzędzi i18n opartych na kompilatorze**, o
 
 Ale jak to bywa ze wszystkimi abstrakcjami w inżynierii oprogramowania, magia ma swoją cenę.
 
-W tym wpisie na blogu przeanalizujemy przejście od bibliotek deklaratywnych do podejść opartych na kompilatorze, ukryte długi architektoniczne, które wprowadzają, oraz dlaczego „nudny” sposób może nadal być najlepszym rozwiązaniem dla profesjonalnych aplikacji.
+W tym wpisie na blogu przeanalizujemy przejście od bibliotek deklaratywnych do podejść opartych na kompilatorze, ukryte długi architektoniczne, które wprowadzają, oraz dlaczego „nudny" sposób może nadal być najlepszym rozwiązaniem dla profesjonalnych aplikacji.
+
+## Spis treści
+
+<TOC/>
 
 ## Krótka historia internacjonalizacji
 

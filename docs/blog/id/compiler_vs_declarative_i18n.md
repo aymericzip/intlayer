@@ -28,6 +28,10 @@ Namun seperti semua abstraksi dalam rekayasa perangkat lunak, keajaiban datang d
 
 Dalam posting blog ini, kita akan mengeksplorasi pergeseran dari pustaka deklaratif ke pendekatan berbasis compiler, utang arsitektural tersembunyi yang mereka perkenalkan, dan mengapa cara yang "membosankan" mungkin masih menjadi cara terbaik untuk aplikasi profesional.
 
+## Daftar Isi
+
+<TOC/>
+
 ## Sejarah Singkat Internasionalisasi
 
 Untuk memahami posisi kita saat ini, kita harus melihat kembali dari mana kita memulai.

@@ -28,6 +28,10 @@ Pero como con todas las abstracciones en la ingeniería de software, la magia ti
 
 En esta publicación del blog, exploraremos el cambio de las bibliotecas declarativas a los enfoques basados en compiladores, las deudas arquitectónicas ocultas que introducen y por qué la forma "aburrida" podría seguir siendo la mejor para aplicaciones profesionales.
 
+## Tabla de contenidos
+
+<TOC/>
+
 ## Una breve historia de la internacionalización
 
 Para entender dónde estamos, debemos mirar hacia atrás y ver dónde comenzamos.
