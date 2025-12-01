@@ -1,4 +1,3 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
 import { EmailRegistrationToast } from '@components/EmailRegistrationToast';
 import { getIntlayer, type LocalesValues } from 'intlayer';
 import type { FC, ReactNode } from 'react';
@@ -31,7 +30,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
       </aside>
       <div className="flex flex-1 flex-row">
         <article
-          className="relative m-auto mb-3 max-h-screen w-auto max-w-6xl flex-1 grow overflow-auto rounded-xl bg-background px-4 pb-24 max-md:pl-16 md:max-h-[calc(100vh-4rem)] md:px-10"
+          className="relative m-auto mb-3 h-full max-h-screen w-auto max-w-6xl flex-1 grow overflow-auto rounded-xl bg-background px-4 pb-24 max-md:pl-16 md:max-h-[calc(100vh-4rem)] md:px-10"
           id="content"
         >
           {displayBreadCrumb && (
