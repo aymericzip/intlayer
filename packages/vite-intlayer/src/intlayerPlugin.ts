@@ -33,18 +33,6 @@ export const intlayerPlugin = (
 
   const aliasPackages = Object.keys(alias);
 
-  // Define packages that must be bundled (not externalized) for aliases to work
-  const modulesToBundle = [
-    'intlayer',
-    'react-intlayer',
-    'next-intlayer',
-    'vite-intlayer',
-    '@intlayer/core',
-    '@intlayer/config',
-    '@intlayer/utils',
-    ...aliasPackages,
-  ];
-
   const plugins: PluginOption[] = [
     {
       name: 'vite-intlayer-plugin',
@@ -95,7 +83,8 @@ export const intlayerPlugin = (
             ...config.ssr,
             noExternal: [
               ...(currentNoExternal as (string | RegExp)[]),
-              ...modulesToBundle,
+              // Regex to bundle all intlayer related packages
+              /(^@intlayer\/|intlayer$)/,
             ],
           };
         }
