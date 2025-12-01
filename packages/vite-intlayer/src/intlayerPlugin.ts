@@ -33,6 +33,18 @@ export const intlayerPlugin = (
 
   const aliasPackages = Object.keys(alias);
 
+  // Define packages that must be bundled (not externalized) for aliases to work
+  const modulesToBundle = [
+    'intlayer',
+    'react-intlayer',
+    'next-intlayer',
+    'vite-intlayer',
+    '@intlayer/core',
+    '@intlayer/config',
+    '@intlayer/utils',
+    ...aliasPackages,
+  ];
+
   const plugins: PluginOption[] = [
     {
       name: 'vite-intlayer-plugin',
@@ -68,6 +80,25 @@ export const intlayerPlugin = (
           ...config.optimizeDeps,
           exclude: [...(config.optimizeDeps?.exclude ?? []), ...aliasPackages],
         };
+
+        // Update Vite's SSR Externalization
+        // We must ensure that intlayer packages are processed by Vite (bundled)
+        // so that the aliases defined above are actually applied
+        if (config.ssr?.noExternal !== true) {
+          const currentNoExternal = Array.isArray(config.ssr?.noExternal)
+            ? config.ssr.noExternal
+            : config.ssr?.noExternal
+              ? [config.ssr.noExternal]
+              : [];
+
+          config.ssr = {
+            ...config.ssr,
+            noExternal: [
+              ...(currentNoExternal as (string | RegExp)[]),
+              ...modulesToBundle,
+            ],
+          };
+        }
 
         return config;
       },
