@@ -49,7 +49,7 @@ export const ProfileForm: FC = () => {
   }, [form.reset, user]);
 
   return (
-    <div className="flex size-full max-w-5xl flex-col items-center justify-center gap-4">
+    <div className="flex max-w-5xl flex-col items-center justify-center gap-4">
       <div
         className={cn(
           'grid w-full grid-cols-1 justify-evenly gap-x-5 gap-y-4 lg:gap-x-16',
