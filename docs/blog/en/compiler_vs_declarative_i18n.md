@@ -177,6 +177,8 @@ Compilers often hash the text (e.g., `"Hello World"` -> `x7f2a`). Your translati
 
 By choosing a compiler-based approach, you lock yourself into the underlying platform. For example, certain compilers are not available for all bundlers (such as Vite, Turbopack, or Metro). This can make future migrations difficult, and you may need to adopt multiple solutions to cover all your applications.
 
+But more broadly, even without the constraints of a specific bundler, every i18n solution introduces its own conventions for declaring and managing content. As a result, any i18n approach inherently creates some level of vendor lock-in to that particular solution. In addition, several major i18n libraries are sponsored, funded, or backed by companies operating in the localization industry.
+
 ## The Other Side: Risks of the Declarative Approach
 
 To be fair, the traditional declarative way isn't perfect either. It has its own set of "footguns."
