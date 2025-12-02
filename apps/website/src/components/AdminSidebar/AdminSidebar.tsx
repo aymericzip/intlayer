@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Container, MaxWidthSmoother } from '@intlayer/design-system';
+import { Button, Container } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import {
@@ -100,11 +100,14 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ className }) => {
                     aria-label={item.label}
                   >
                     <item.icon className="size-4 min-w-4" />
-                    <MaxWidthSmoother
-                      isHidden={Boolean(isCollapsed || isMobile)}
+                    <span
+                      className={cn(
+                        'max-w-64 truncate transition-all duration-500 ease-in-out',
+                        isCollapsed && 'max-w-0'
+                      )}
                     >
-                      <span className="ml-3 truncate">{item.title}</span>
-                    </MaxWidthSmoother>
+                      <span className="ml-3">{item.title}</span>
+                    </span>
                   </Link>
                 </li>
               ))}
