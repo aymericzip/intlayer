@@ -61,6 +61,11 @@
       "require": "./dist/cjs/editor/index.cjs",
       "import": "./dist/esm/editor/index.mjs"
     },
+    "./markdown": {
+      "types": "./dist/types/markdown/processor.d.ts",
+      "require": "./dist/cjs/markdown/processor.cjs",
+      "import": "./dist/esm/markdown/processor.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",

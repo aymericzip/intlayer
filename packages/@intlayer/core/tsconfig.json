@@ -1,8 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@utils/ts-config",
-  "include": ["**/*"],
-  "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./types"]
-  }
+  "extends": "../../../utils/ts-config/tsconfig.json",
+  "include": ["**/*"]
 }

@@ -1,6 +1,6 @@
 import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
 import type { BundledLanguage } from 'shiki/bundle/web';
-import { MarkdownProcessor } from '../MarkDownRender/processor';
+import { MarkdownProcessor } from 'react-intlayer/markdown';
 import { Code } from './Code';
 
 type MarkdownRendererProps = {
