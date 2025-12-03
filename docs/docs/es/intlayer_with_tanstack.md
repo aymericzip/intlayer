@@ -134,7 +134,7 @@ Configura tu diseño raíz y los diseños específicos por localización:
 #### Diseño Raíz
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
@@ -384,16 +384,16 @@ import {
   getLocaleName,
   getPathWithoutLocale,
   getPrefix,
+  Locales,
 } from "intlayer";
-import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
+import { useLocale } from "react-intlayer";
 
 import { LocalizedLink, To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
-  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
   const { pathname } = useLocation();
 
-  const { availableLocales, locale } = useLocale();
+  const { availableLocales, locale, setLocale } = useLocale();
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
@@ -403,25 +403,24 @@ export const LocaleSwitcher: FC = () => {
         <li key={localeEl}>
           <LocalizedLink
             aria-current={localeEl === locale ? "page" : undefined}
-            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
-            onClick={() => setLocaleInStorage(localeEl)}
+            onClick={() => setLocale(localeEl)}
             params={{ locale: getPrefix(localeEl).localePrefix }}
           >
             <span>
               {/* Localización - por ejemplo FR */}
-              {localeItem}
+              {localeEl}
             </span>
             <span>
               {/* Idioma en su propia localización - por ejemplo Français */}
-              {getLocaleName(localeItem, locale)}
+              {getLocaleName(localeEl, locale)}
             </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
               {/* Idioma en la localización actual - por ejemplo Francés con la localización actual configurada en Locales.SPANISH */}
-              {getLocaleName(localeItem)}
+              {getLocaleName(localeEl)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
               {/* Idioma en inglés - por ejemplo French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
             </span>
           </LocalizedLink>
         </li>
@@ -456,7 +455,7 @@ export const useI18nHTMLAttributes = () => {
 Luego úsalo en tu componente raíz:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // importar el hook
@@ -507,7 +506,33 @@ export default defineConfig({
 
 ---
 
-### Paso 12: Configurar TypeScript (Opcional)
+### Paso 12: Internacionalizar tus Metadatos (Opcional)
+
+También puedes usar el hook `getIntlayer` para acceder a tus diccionarios de contenido en toda tu aplicación:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import { getIntlayer } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const metaContent = getIntlayer("page-metadata", locale);
+
+    return {
+      meta: [
+        { title: metaContent.title },
+        { content: metaContent.description, name: "description" },
+      ],
+    };
+  },
+});
+```
+
+---
+
+### Paso 13: Configurar TypeScript (Opcional)
 
 Intlayer utiliza la ampliación de módulos para aprovechar las ventajas de TypeScript y fortalecer tu base de código.
 
@@ -522,32 +547,6 @@ Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerado
   ],
 }
 ```
-
----
-
-### Paso 13: Adaptar Nitro (Opcional)
-
-Si estás utilizando Nitro para tu salida de producción, nitro no incluirá el directorio `.intlayer` en el directorio de salida. Necesitas copiarlo manualmente.
-
-Ejemplo usando script de build:
-
-```json5 fileName="package.json"
-{
-  "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build && cpr .intlayer .output/.intlayer", // Copiar carpeta .intlayer
-    "serve": "vite preview",
-  },
-}
-```
-
-> cpr se utiliza para adaptar el comando y hacer que funcione en Windows.
-> Tendrás que instalar la utilidad `cpr` para usar este comando.
->
-> - `npm install --save-dev cpr`
-> - `yarn add --dev cpr`
-> - `pnpm add --save-dev cpr`
-> - `bun add --save-dev cpr`
 
 ---
 

@@ -132,7 +132,7 @@ export default config;
 #### 루트 레이아웃
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
@@ -389,16 +389,16 @@ import {
   getLocaleName,
   getPathWithoutLocale,
   getPrefix,
+  Locales,
 } from "intlayer";
-import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
+import { useLocale } from "react-intlayer";
 
 import { LocalizedLink, To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
-  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
   const { pathname } = useLocation();
 
-  const { availableLocales, locale } = useLocale();
+  const { availableLocales, locale, setLocale } = useLocale();
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
@@ -408,25 +408,24 @@ export const LocaleSwitcher: FC = () => {
         <li key={localeEl}>
           <LocalizedLink
             aria-current={localeEl === locale ? "page" : undefined}
-            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
-            onClick={() => setLocaleInStorage(localeEl)}
+            onClick={() => setLocale(localeEl)}
             params={{ locale: getPrefix(localeEl).localePrefix }}
           >
             <span>
               {/* 로케일 - 예: FR */}
-              {localeItem}
+              {localeEl}
             </span>
             <span>
               {/* 해당 로케일 내 언어 - 예: Français */}
-              {getLocaleName(localeItem, locale)}
+              {getLocaleName(localeEl, locale)}
             </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
               {/* 현재 로케일 내 언어 - 예: 현재 로케일이 Locales.SPANISH일 때 Francés */}
-              {getLocaleName(localeItem)}
+              {getLocaleName(localeEl)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
               {/* 영어로 된 언어 - 예: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
             </span>
           </LocalizedLink>
         </li>
@@ -461,7 +460,7 @@ export const useI18nHTMLAttributes = () => {
 그런 다음 루트 컴포넌트에서 사용하세요:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // 훅을 임포트합니다.
@@ -512,7 +511,33 @@ export default defineConfig({
 
 ---
 
-### 12단계: TypeScript 구성 (선택 사항)
+### 12단계: 메타데이터 국제화 (선택 사항)
+
+애플리케이션 전체에서 콘텐츠 사전에 액세스하기 위해 `getIntlayer` 훅을 사용할 수도 있습니다:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import { getIntlayer } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const metaContent = getIntlayer("page-metadata", locale);
+
+    return {
+      meta: [
+        { title: metaContent.title },
+        { content: metaContent.description, name: "description" },
+      ],
+    };
+  },
+});
+```
+
+---
+
+### 13단계: TypeScript 구성 (선택 사항)
 
 Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 활용하고 코드베이스를 더욱 견고하게 만듭니다.
 
@@ -527,32 +552,6 @@ TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하
   ],
 }
 ```
-
----
-
-### 13단계: Nitro 조정 (선택 사항)
-
-프로덕션 출력에 Nitro를 사용하는 경우, nitro는 출력 디렉토리에 `.intlayer` 디렉토리를 포함하지 않습니다. 수동으로 복사해야 합니다.
-
-빌드 스크립트를 사용한 예제:
-
-```json5 fileName="package.json"
-{
-  "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build && cpr -r .intlayer .output/.intlayer", // .intlayer 폴더 복사
-    "serve": "vite preview",
-  },
-}
-```
-
-> cpr은 Windows에서 작동하도록 명령을 조정하는 데 사용됩니다.
-> 이 명령을 사용하려면 `cpr` 유틸리티를 설치해야 합니다.
->
-> - `npm install --save-dev cpr`
-> - `yarn add --dev cpr`
-> - `pnpm add --save-dev cpr`
-> - `bun add --save-dev cpr`
 
 ---
 

@@ -133,7 +133,7 @@ export default config;
 #### 根布局
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
@@ -380,16 +380,16 @@ import {
   getLocaleName,
   getPathWithoutLocale,
   getPrefix,
+  Locales,
 } from "intlayer";
-import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
+import { useLocale } from "react-intlayer";
 
 import { LocalizedLink, To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
-  const { localeSwitcherLabel } = useIntlayer("locale-switcher"); // 使用 useIntlayer 钩子获取语言切换器标签
-  const { pathname } = useLocation(); // 获取当前路径名
+  const { pathname } = useLocation();
 
-  const { availableLocales, locale } = useLocale(); // 获取可用语言列表和当前语言
+  const { availableLocales, locale, setLocale } = useLocale();
 
   const pathWithoutLocale = getPathWithoutLocale(pathname); // 获取不带语言前缀的路径
 
@@ -398,27 +398,26 @@ export const LocaleSwitcher: FC = () => {
       {availableLocales.map((localeEl) => (
         <li key={localeEl}>
           <LocalizedLink
-            aria-current={localeEl === locale ? "page" : undefined} // 当前语言时设置 aria-current 为 page
-            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`} // 设置无障碍标签，显示语言切换器标签和语言名称
-            onClick={() => setLocaleInStorage(localeEl)} // 点击时设置语言 cookie
-            params={{ locale: localeEl }} // 传递语言参数
+            aria-current={localeEl === locale ? "page" : undefined}
+            onClick={() => setLocale(localeEl)}
+            params={{ locale: getPrefix(localeEl).localePrefix }}
             to={pathWithoutLocale as To} // 跳转到不带语言前缀的路径
           >
             <span>
               {/* 语言环境 - 例如 FR */}
-              {localeItem}
+              {localeEl}
             </span>
             <span>
               {/* 语言在其自身语言环境中的名称 - 例如 Français */}
-              {getLocaleName(localeItem, locale)}
+              {getLocaleName(localeEl, locale)}
             </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
               {/* 语言在当前语言环境中的名称 - 例如当前语言环境为 Locales.SPANISH 时显示 Francés */}
-              {getLocaleName(localeItem)}
+              {getLocaleName(localeEl)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
               {/* 语言的英文名称 - 例如 French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
             </span>
           </LocalizedLink>
         </li>
@@ -453,7 +452,7 @@ export const useI18nHTMLAttributes = () => {
 然后在你的根组件中使用它：
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // 导入钩子
@@ -504,7 +503,33 @@ export default defineConfig({
 
 ---
 
-### 第12步：配置 TypeScript（可选）
+### 第12步：国际化您的元数据（可选）
+
+您还可以使用 `getIntlayer` 钩子在整个应用程序中访问您的内容字典：
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import { getIntlayer } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const metaContent = getIntlayer("page-metadata", locale);
+
+    return {
+      meta: [
+        { title: metaContent.title },
+        { content: metaContent.description, name: "description" },
+      ],
+    };
+  },
+});
+```
+
+---
+
+### 第13步：配置 TypeScript（可选）
 
 Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库更健壮。
 
@@ -519,32 +544,6 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
   ],
 }
 ```
-
----
-
-### 第13步：调整 Nitro（可选）
-
-如果您在生产输出中使用 Nitro，nitro 将不会在输出目录中包含 `.intlayer` 目录。您需要手动复制它。
-
-使用构建脚本的示例：
-
-```json5 fileName="package.json"
-{
-  "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build && cpr -r .intlayer .output/.intlayer", // 复制 .intlayer 文件夹
-    "serve": "vite preview",
-  },
-}
-```
-
-> cpr 用于调整命令以使其在 Windows 上运行。
-> 您需要安装 `cpr` 实用程序才能使用此命令。
->
-> - `npm install --save-dev cpr`
-> - `yarn add --dev cpr`
-> - `pnpm add --save-dev cpr`
-> - `bun add --save-dev cpr`
 
 ---
 

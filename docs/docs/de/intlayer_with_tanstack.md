@@ -136,7 +136,7 @@ Richten Sie Ihr Root-Layout und sprachspezifische Layouts ein:
 #### Root-Layout
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
@@ -393,16 +393,16 @@ import {
   getLocaleName,
   getPathWithoutLocale,
   getPrefix,
+  Locales,
 } from "intlayer";
-import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
+import { useLocale } from "react-intlayer";
 
 import { LocalizedLink, To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
-  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
   const { pathname } = useLocation();
 
-  const { availableLocales, locale } = useLocale();
+  const { availableLocales, locale, setLocale } = useLocale();
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
@@ -412,25 +412,24 @@ export const LocaleSwitcher: FC = () => {
         <li key={localeEl}>
           <LocalizedLink
             aria-current={localeEl === locale ? "page" : undefined}
-            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
-            onClick={() => setLocaleInStorage(localeEl)}
+            onClick={() => setLocale(localeEl)}
             params={{ locale: getPrefix(localeEl).localePrefix }}
           >
             <span>
               {/* Gebietsschema - z.B. FR */}
-              {localeItem}
+              {localeEl}
             </span>
             <span>
               {/* Sprache in ihrem eigenen Gebietsschema - z.B. Français */}
-              {getLocaleName(localeItem, locale)}
+              {getLocaleName(localeEl, locale)}
             </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
               {/* Sprache im aktuellen Gebietsschema - z.B. Francés mit aktuellem Gebietsschema auf Locales.SPANISH gesetzt */}
-              {getLocaleName(localeItem)}
+              {getLocaleName(localeEl)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
               {/* Sprache auf Englisch - z.B. French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
             </span>
           </LocalizedLink>
         </li>
@@ -465,7 +464,7 @@ export const useI18nHTMLAttributes = () => {
 Dann verwende ihn in deiner Root-Komponente:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // importiere den Hook
@@ -516,7 +515,33 @@ export default defineConfig({
 
 ---
 
-### Schritt 12: TypeScript konfigurieren (optional)
+### Schritt 12: Metadaten internationalisieren (optional)
+
+Sie können auch den `getIntlayer` Hook verwenden, um in Ihrer gesamten Anwendung auf Ihre Inhaltswörterbücher zuzugreifen:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import { getIntlayer } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const metaContent = getIntlayer("page-metadata", locale);
+
+    return {
+      meta: [
+        { title: metaContent.title },
+        { content: metaContent.description, name: "description" },
+      ],
+    };
+  },
+});
+```
+
+---
+
+### Schritt 13: TypeScript konfigurieren (optional)
 
 Intlayer verwendet Module Augmentation, um die Vorteile von TypeScript zu nutzen und Ihren Code robuster zu machen.
 
@@ -531,32 +556,6 @@ Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generiert
   ],
 }
 ```
-
----
-
-### Schritt 13: Nitro anpassen (Optional)
-
-Wenn Sie Nitro für Ihre Produktionsausgabe verwenden, wird nitro das Verzeichnis `.intlayer` nicht in das Ausgabeverzeichnis einschließen. Sie müssen es manuell kopieren.
-
-Beispiel mit Build-Skript:
-
-```json5 fileName="package.json"
-{
-  "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build && cpr .intlayer .output/.intlayer", // .intlayer-Ordner kopieren
-    "serve": "vite preview",
-  },
-}
-```
-
-> cpr wird verwendet, um den Befehl anzupassen, damit er unter Windows funktioniert.
-> Sie müssen das `cpr`-Dienstprogramm installieren, um diesen Befehl zu verwenden.
->
-> - `npm install --save-dev cpr`
-> - `yarn add --dev cpr`
-> - `pnpm add --save-dev cpr`
-> - `bun add --save-dev cpr`
 
 ---
 

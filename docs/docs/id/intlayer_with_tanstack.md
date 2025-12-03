@@ -145,7 +145,7 @@ Atur layout root Anda dan layout khusus locale:
 #### Layout Root
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
@@ -392,16 +392,16 @@ import {
   getLocaleName,
   getPathWithoutLocale,
   getPrefix,
+  Locales,
 } from "intlayer";
-import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
+import { useLocale } from "react-intlayer";
 
 import { LocalizedLink, To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
-  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
   const { pathname } = useLocation();
 
-  const { availableLocales, locale } = useLocale();
+  const { availableLocales, locale, setLocale } = useLocale();
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
@@ -411,25 +411,24 @@ export const LocaleSwitcher: FC = () => {
         <li key={localeEl}>
           <LocalizedLink
             aria-current={localeEl === locale ? "page" : undefined}
-            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
-            onClick={() => setLocaleInStorage(localeEl)}
+            onClick={() => setLocale(localeEl)}
             params={{ locale: getPrefix(localeEl).localePrefix }}
           >
             <span>
               {/* Locale - misalnya FR */}
-              {localeItem}
+              {localeEl}
             </span>
             <span>
               {/* Bahasa dalam Locale-nya sendiri - misalnya Français */}
-              {getLocaleName(localeItem, locale)}
+              {getLocaleName(localeEl, locale)}
             </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
               {/* Bahasa dalam Locale saat ini - misalnya Francés dengan locale saat ini disetel ke Locales.SPANISH */}
-              {getLocaleName(localeItem)}
+              {getLocaleName(localeEl)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
               {/* Bahasa dalam bahasa Inggris - misalnya French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
             </span>
           </LocalizedLink>
         </li>
@@ -464,7 +463,7 @@ export const useI18nHTMLAttributes = () => {
 Kemudian gunakan di komponen root Anda:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // impor hook
@@ -515,7 +514,33 @@ export default defineConfig({
 
 ---
 
-### Langkah 12: Konfigurasi TypeScript (Opsional)
+### Langkah 12: Internasionalisasi Metadata Anda (Opsional)
+
+Anda juga dapat menggunakan hook `getIntlayer` untuk mengakses kamus konten Anda di seluruh aplikasi:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import { getIntlayer } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const metaContent = getIntlayer("page-metadata", locale);
+
+    return {
+      meta: [
+        { title: metaContent.title },
+        { content: metaContent.description, name: "description" },
+      ],
+    };
+  },
+});
+```
+
+---
+
+### Langkah 13: Konfigurasi TypeScript (Opsional)
 
 Intlayer menggunakan module augmentation untuk mendapatkan manfaat dari TypeScript dan membuat codebase Anda lebih kuat.
 
@@ -530,32 +555,6 @@ Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara oto
   ],
 }
 ```
-
----
-
-### Langkah 13: Menyesuaikan Nitro (Opsional)
-
-Jika Anda menggunakan Nitro untuk output produksi Anda, nitro tidak akan menyertakan direktori `.intlayer` dalam direktori output. Anda perlu menyalinnya secara manual.
-
-Contoh menggunakan script build:
-
-```json5 fileName="package.json"
-{
-  "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build && cpr -r .intlayer .output/.intlayer", // Salin folder .intlayer
-    "serve": "vite preview",
-  },
-}
-```
-
-> cpr digunakan untuk mengadaptasi perintah agar berfungsi di Windows.
-> Anda harus menginstal utilitas `cpr` untuk menggunakan perintah ini.
->
-> - `npm install --save-dev cpr`
-> - `yarn add --dev cpr`
-> - `pnpm add --save-dev cpr`
-> - `bun add --save-dev cpr`
 
 ---
 

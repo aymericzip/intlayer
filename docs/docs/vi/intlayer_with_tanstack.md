@@ -145,7 +145,7 @@ Thiết lập layout gốc của bạn và các layout theo ngôn ngữ cụ th�
 #### Layout Gốc
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
@@ -400,16 +400,16 @@ import {
   getLocaleName,
   getPathWithoutLocale,
   getPrefix,
+  Locales,
 } from "intlayer";
-import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
+import { useLocale } from "react-intlayer";
 
 import { LocalizedLink, To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
-  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
   const { pathname } = useLocation();
 
-  const { availableLocales, locale } = useLocale();
+  const { availableLocales, locale, setLocale } = useLocale();
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
@@ -419,25 +419,24 @@ export const LocaleSwitcher: FC = () => {
         <li key={localeEl}>
           <LocalizedLink
             aria-current={localeEl === locale ? "page" : undefined}
-            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
-            onClick={() => setLocaleInStorage(localeEl)}
+            onClick={() => setLocale(localeEl)}
             params={{ locale: getPrefix(localeEl).localePrefix }}
           >
             <span>
               {/* Mã ngôn ngữ - ví dụ: FR */}
-              {localeItem}
+              {localeEl}
             </span>
             <span>
               {/* Ngôn ngữ theo mã ngôn ngữ của chính nó - ví dụ: Français */}
-              {getLocaleName(localeItem, locale)}
+              {getLocaleName(localeEl, locale)}
             </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
               {/* Ngôn ngữ theo mã ngôn ngữ hiện tại - ví dụ: Francés khi mã ngôn ngữ hiện tại là Locales.SPANISH */}
-              {getLocaleName(localeItem)}
+              {getLocaleName(localeEl)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
               {/* Ngôn ngữ bằng tiếng Anh - ví dụ: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
             </span>
           </LocalizedLink>
         </li>
@@ -472,7 +471,7 @@ export const useI18nHTMLAttributes = () => {
 Sau đó sử dụng nó trong component gốc của bạn:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // nhập hook
@@ -523,7 +522,33 @@ export default defineConfig({
 
 ---
 
-### Bước 12: Cấu hình TypeScript (Tùy chọn)
+### Bước 12: Quốc tế hóa siêu dữ liệu của bạn (Tùy chọn)
+
+Bạn cũng có thể sử dụng hook `getIntlayer` để truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import { getIntlayer } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const metaContent = getIntlayer("page-metadata", locale);
+
+    return {
+      meta: [
+        { title: metaContent.title },
+        { content: metaContent.description, name: "description" },
+      ],
+    };
+  },
+});
+```
+
+---
+
+### Bước 13: Cấu hình TypeScript (Tùy chọn)
 
 Intlayer sử dụng module augmentation để tận dụng các lợi ích của TypeScript và làm cho codebase của bạn mạnh mẽ hơn.
 
@@ -538,32 +563,6 @@ Intlayer sử dụng module augmentation để tận dụng các lợi ích củ
   ],
 }
 ```
-
----
-
-### Bước 13: Điều chỉnh Nitro (Tùy chọn)
-
-Nếu bạn đang sử dụng Nitro cho đầu ra sản xuất của mình, nitro sẽ không bao gồm thư mục `.intlayer` trong thư mục đầu ra. Bạn cần sao chép nó thủ công.
-
-Ví dụ sử dụng script build:
-
-```json5 fileName="package.json"
-{
-  "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build && cpr .intlayer .output/.intlayer", // Sao chép thư mục .intlayer
-    "serve": "vite preview",
-  },
-}
-```
-
-> cpr được sử dụng để điều chỉnh lệnh để làm cho nó hoạt động trên Windows.
-> Bạn sẽ phải cài đặt tiện ích `cpr` để sử dụng lệnh này.
->
-> - `npm install --save-dev cpr`
-> - `yarn add --dev cpr`
-> - `pnpm add --save-dev cpr`
-> - `bun add --save-dev cpr`
 
 ---
 

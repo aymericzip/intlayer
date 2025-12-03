@@ -137,7 +137,7 @@ Kök düzeninizi ve yerel dile özgü düzenlerinizi ayarlayın:
 #### Kök Düzen
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
@@ -394,16 +394,16 @@ import {
   getLocaleName,
   getPathWithoutLocale,
   getPrefix,
+  Locales,
 } from "intlayer";
-import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
+import { useLocale } from "react-intlayer";
 
 import { LocalizedLink, To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
-  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
   const { pathname } = useLocation();
 
-  const { availableLocales, locale } = useLocale();
+  const { availableLocales, locale, setLocale } = useLocale();
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
@@ -412,26 +412,25 @@ export const LocaleSwitcher: FC = () => {
       {availableLocales.map((localeEl) => (
         <li key={localeEl}>
           <LocalizedLink
-            aria-current={localeEl === locale ? "sayfa" : undefined}
-            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
-            onClick={() => setLocaleInStorage(localeEl)}
+            aria-current={localeEl === locale ? "page" : undefined}
+            onClick={() => setLocale(localeEl)}
             params={{ locale: getPrefix(localeEl).localePrefix }}
           >
             <span>
               {/* Dil Kodu - örn. FR */}
-              {localeItem}
+              {localeEl}
             </span>
             <span>
               {/* Dil kendi yerelinde - örn. Français */}
-              {getLocaleName(localeItem, locale)}
+              {getLocaleName(localeEl, locale)}
             </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
               {/* Dil mevcut yerelde - örn. Francés, mevcut yerel Locales.SPANISH olarak ayarlanmış */}
-              {getLocaleName(localeItem)}
+              {getLocaleName(localeEl)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
               {/* Dil İngilizce olarak - örn. French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
             </span>
           </LocalizedLink>
         </li>
@@ -466,7 +465,7 @@ export const useI18nHTMLAttributes = () => {
 Sonra bunu kök bileşeninizde kullanın:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // hook'u içe aktar
@@ -517,7 +516,33 @@ export default defineConfig({
 
 ---
 
-### Adım 12: TypeScript Yapılandırması (İsteğe Bağlı)
+### Adım 12: Meta Verilerinizi Uluslararasılaştırın (İsteğe Bağlı)
+
+Uygulamanız genelinde içerik sözlüklerinize erişmek için `getIntlayer` hook'unu da kullanabilirsiniz:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import { getIntlayer } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const metaContent = getIntlayer("page-metadata", locale);
+
+    return {
+      meta: [
+        { title: metaContent.title },
+        { content: metaContent.description, name: "description" },
+      ],
+    };
+  },
+});
+```
+
+---
+
+### Adım 13: TypeScript Yapılandırması (İsteğe Bağlı)
 
 Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
 
@@ -532,32 +557,6 @@ TypeScript yapılandırmanızın otomatik oluşturulan türleri içerdiğinden e
   ],
 }
 ```
-
----
-
-### Adım 13: Nitro'yu Uyarlama (İsteğe Bağlı)
-
-Üretim çıktınız için Nitro kullanıyorsanız, nitro çıktı dizinine `.intlayer` dizinini dahil etmeyecektir. Manuel olarak kopyalamanız gerekir.
-
-Build script kullanarak örnek:
-
-```json5 fileName="package.json"
-{
-  "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build && cpr .intlayer .output/.intlayer", // .intlayer klasörünü kopyala
-    "serve": "vite preview",
-  },
-}
-```
-
-> cpr, komutu Windows'ta çalışır hale getirmek için kullanılır.
-> Bu komutu kullanmak için `cpr` yardımcı programını yüklemeniz gerekir.
->
-> - `npm install --save-dev cpr`
-> - `yarn add --dev cpr`
-> - `pnpm add --save-dev cpr`
-> - `bun add --save-dev cpr`
 
 ---
 

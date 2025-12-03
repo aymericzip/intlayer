@@ -136,7 +136,7 @@ export default config;
 #### ルートレイアウト
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
@@ -384,16 +384,16 @@ import {
   getLocaleName,
   getPathWithoutLocale,
   getPrefix,
+  Locales,
 } from "intlayer";
-import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
+import { useLocale } from "react-intlayer";
 
 import { LocalizedLink, To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
-  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
   const { pathname } = useLocation();
 
-  const { availableLocales, locale } = useLocale();
+  const { availableLocales, locale, setLocale } = useLocale();
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
@@ -403,25 +403,24 @@ export const LocaleSwitcher: FC = () => {
         <li key={localeEl}>
           <LocalizedLink
             aria-current={localeEl === locale ? "page" : undefined}
-            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
-            onClick={() => setLocaleInStorage(localeEl)}
+            onClick={() => setLocale(localeEl)}
             params={{ locale: getPrefix(localeEl).localePrefix }}
           >
             <span>
               {/* ロケール - 例: FR */}
-              {localeItem}
+              {localeEl}
             </span>
             <span>
               {/* 自身のロケールでの言語名 - 例: Français */}
-              {getLocaleName(localeItem, locale)}
+              {getLocaleName(localeEl, locale)}
             </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
               {/* 現在のロケールでの言語名 - 例: Locales.SPANISHに設定された場合のFrancés */}
-              {getLocaleName(localeItem)}
+              {getLocaleName(localeEl)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
               {/* 英語での言語名 - 例: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
             </span>
           </LocalizedLink>
         </li>
@@ -456,7 +455,7 @@ export const useI18nHTMLAttributes = () => {
 次に、ルートコンポーネントでこれを使用します：
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // フックをインポート
@@ -507,7 +506,33 @@ export default defineConfig({
 
 ---
 
-### ステップ12: TypeScriptの設定（任意）
+### ステップ12: メタデータの国際化（任意）
+
+アプリケーション全体でコンテンツ辞書にアクセスするために、`getIntlayer` フックを使用することもできます：
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import { getIntlayer } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const metaContent = getIntlayer("page-metadata", locale);
+
+    return {
+      meta: [
+        { title: metaContent.title },
+        { content: metaContent.description, name: "description" },
+      ],
+    };
+  },
+});
+```
+
+---
+
+### ステップ13: TypeScriptの設定（任意）
 
 Intlayerはモジュール拡張を使用して、TypeScriptの利点を活かし、コードベースを強化します。
 
@@ -522,32 +547,6 @@ TypeScriptの設定に自動生成された型が含まれていることを確�
   ],
 }
 ```
-
----
-
-### ステップ13: Nitroの調整（任意）
-
-本番出力にNitroを使用している場合、nitroは出力ディレクトリに `.intlayer` ディレクトリを含めません。手動でコピーする必要があります。
-
-ビルドスクリプトを使用した例：
-
-```json5 fileName="package.json"
-{
-  "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build && cpr -r .intlayer .output/.intlayer", // .intlayerフォルダをコピー
-    "serve": "vite preview",
-  },
-}
-```
-
-> cprはWindowsで機能するようにコマンドを適応させるために使用されます。
-> このコマンドを使用するには、`cpr` ユーティリティをインストールする必要があります。
->
-> - `npm install --save-dev cpr`
-> - `yarn add --dev cpr`
-> - `pnpm add --save-dev cpr`
-> - `bun add --save-dev cpr`
 
 ---
 

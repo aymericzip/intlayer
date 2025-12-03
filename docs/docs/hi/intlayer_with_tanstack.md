@@ -137,7 +137,7 @@ export default config;
 #### रूट लेआउट
 
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
@@ -380,16 +380,16 @@ import {
   getLocaleName,
   getPathWithoutLocale,
   getPrefix,
+  Locales,
 } from "intlayer";
-import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
+import { useLocale } from "react-intlayer";
 
 import { LocalizedLink, To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
-  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
   const { pathname } = useLocation();
 
-  const { availableLocales, locale } = useLocale();
+  const { availableLocales, locale, setLocale } = useLocale();
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
@@ -399,25 +399,24 @@ export const LocaleSwitcher: FC = () => {
         <li key={localeEl}>
           <LocalizedLink
             aria-current={localeEl === locale ? "page" : undefined}
-            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeEl)}`}
-            onClick={() => setLocaleInStorage(localeEl)}
+            onClick={() => setLocale(localeEl)}
             params={{ locale: getPrefix(localeEl).localePrefix }}
           >
             <span>
               {/* लोकल - उदाहरण के लिए FR */}
-              {localeItem}
+              {localeEl}
             </span>
             <span>
               {/* अपनी लोकल में भाषा - उदाहरण के लिए Français */}
-              {getLocaleName(localeItem, locale)}
+              {getLocaleName(localeEl, locale)}
             </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+            <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
               {/* वर्तमान लोकल में भाषा - उदाहरण के लिए Francés जब वर्तमान लोकल Locales.SPANISH सेट हो */}
-              {getLocaleName(localeItem)}
+              {getLocaleName(localeEl)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
               {/* अंग्रेज़ी में भाषा - उदाहरण के लिए French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
+              {getLocaleName(localeEl, Locales.ENGLISH)}
             </span>
           </LocalizedLink>
         </li>
@@ -452,7 +451,7 @@ export const useI18nHTMLAttributes = () => {
 फिर इसे अपने रूट कॉम्पोनेंट में उपयोग करें:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { IntlayerProvider, useLocale } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // हुक को इम्पोर्ट करें
@@ -503,7 +502,33 @@ export default defineConfig({
 
 ---
 
-### चरण 12: टाइपस्क्रिप्ट कॉन्फ़िगर करें (वैकल्पिक)
+### चरण 12: अपने मेटाडेटा को अंतर्राष्ट्रीयकृत करें (वैकल्पिक)
+
+आप अपने एप्लिकेशन में अपनी सामग्री शब्दकोशों तक पहुंचने के लिए `getIntlayer` हुक का भी उपयोग कर सकते हैं:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import { getIntlayer } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const metaContent = getIntlayer("page-metadata", locale);
+
+    return {
+      meta: [
+        { title: metaContent.title },
+        { content: metaContent.description, name: "description" },
+      ],
+    };
+  },
+});
+```
+
+---
+
+### चरण 13: टाइपस्क्रिप्ट कॉन्फ़िगर करें (वैकल्पिक)
 
 Intlayer टाइपस्क्रिप्ट के लाभ प्राप्त करने और आपके कोडबेस को मजबूत बनाने के लिए मॉड्यूल ऑगमेंटेशन का उपयोग करता है।
 
@@ -518,32 +543,6 @@ Intlayer टाइपस्क्रिप्ट के लाभ प्रा�
   ],
 }
 ```
-
----
-
-### चरण 13: Nitro को अनुकूलित करें (वैकल्पिक)
-
-यदि आप अपने उत्पादन आउटपुट के लिए Nitro का उपयोग कर रहे हैं, तो nitro आउटपुट डायरेक्टरी में `.intlayer` डायरेक्टरी को शामिल नहीं करेगा। आपको इसे मैन्युअल रूप से कॉपी करना होगा।
-
-बिल्ड स्क्रिप्ट का उपयोग करते हुए उदाहरण:
-
-```json5 fileName="package.json"
-{
-  "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build && cpr .intlayer .output/.intlayer", // .intlayer फ़ोल्डर कॉपी करें
-    "serve": "vite preview",
-  },
-}
-```
-
-> cpr का उपयोग कमांड को Windows पर काम करने के लिए अनुकूलित करने के लिए किया जाता है।
-> इस कमांड का उपयोग करने के लिए आपको `cpr` उपयोगिता इंस्टॉल करनी होगी।
->
-> - `npm install --save-dev cpr`
-> - `yarn add --dev cpr`
-> - `pnpm add --save-dev cpr`
-> - `bun add --save-dev cpr`
 
 ---
 
