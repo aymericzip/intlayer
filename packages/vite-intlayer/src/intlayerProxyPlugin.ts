@@ -39,6 +39,7 @@ type IntlayerProxyPluginOptions = {
  * export default defineConfig({
  *   plugins: [ intlayerProxyPlugin() ],
  * });
+ *
  */
 export const intlayerProxy = (
   configOptions?: GetConfigurationOptions,
@@ -478,11 +479,18 @@ export const intlayerProxy = (
         const originalPath = parsedUrl.pathname ?? '/';
         const searchParams = parsedUrl.search ?? '';
 
+        // Check if there's a locale prefix in the path FIRST
+        const pathLocale = getPathLocale(originalPath);
+
         // Attempt to read the locale from storage (cookies, localStorage, etc.)
         const storageLocale = getStorageLocale(req);
 
-        // Check if there's a locale prefix in the path
-        const pathLocale = getPathLocale(originalPath);
+        // CRITICAL FIX: If there's a valid pathLocale, it takes precedence over storage
+        // This prevents race conditions when cookies are stale during locale switches
+        const effectiveStorageLocale =
+          pathLocale && supportedLocales.includes(pathLocale)
+            ? pathLocale
+            : storageLocale;
 
         // If noPrefix is true, we skip prefix logic altogether
         if (noPrefix) {
@@ -492,7 +500,7 @@ export const intlayerProxy = (
             next,
             originalPath,
             searchParams,
-            storageLocale,
+            storageLocale: effectiveStorageLocale,
           });
           return;
         }
@@ -505,7 +513,7 @@ export const intlayerProxy = (
           originalPath,
           searchParams,
           pathLocale,
-          storageLocale,
+          storageLocale: effectiveStorageLocale,
         });
       });
     },
