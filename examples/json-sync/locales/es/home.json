@@ -1,6 +1,60 @@
 {
+  "title": "Inicio",
+  "description": "Descripción de la página de inicio",
   "welcome": "Bienvenido",
   "greeting": "¡Hola mundo!",
   "aboutPage": "Página Acerca de",
-  "documentation": "Documentación"
+  "documentation": "Documentación",
+  "hero": {
+    "title": "Bienvenido a Nuestra Plataforma",
+    "subtitle": "Construyendo el futuro, una innovación a la vez",
+    "cta": {
+      "primary": "Comenzar",
+      "secondary": "Saber Más"
+    }
+  },
+  "features": {
+    "title": "Por Qué Elegirnos",
+    "subtitle": "Descubre qué nos hace diferentes",
+    "items": {
+      "feature1": {
+        "title": "Rendimiento Rápido",
+        "description": "Tiempos de respuesta ultrarrápidos y rendimiento optimizado para la mejor experiencia de usuario."
+      },
+      "feature2": {
+        "title": "Seguro y Confiable",
+        "description": "Seguridad de nivel empresarial con garantía de tiempo de actividad del 99.9%."
+      },
+      "feature3": {
+        "title": "Fácil de Usar",
+        "description": "Interfaz intuitiva diseñada para usuarios de todos los niveles de habilidad."
+      },
+      "feature4": {
+        "title": "Soporte 24/7",
+        "description": "Atención al cliente las 24 horas para ayudarte cuando lo necesites."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Lo Que Dicen Nuestros Clientes",
+    "items": {
+      "testimonial1": {
+        "quote": "Esta plataforma ha transformado cómo trabajamos. ¡Muy recomendado!",
+        "author": "Sarah Johnson",
+        "role": "Gerente de Producto"
+      },
+      "testimonial2": {
+        "quote": "La mejor inversión que hemos hecho este año. ¡Servicio excepcional!",
+        "author": "Michael Chen",
+        "role": "CTO"
+      }
+    }
+  },
+  "stats": {
+    "title": "Nuestro Impacto",
+    "users": "Usuarios Activos",
+    "projects": "Proyectos Completados",
+    "countries": "Países Atendidos",
+    "satisfaction": "Satisfacción del Cliente"
+  }
 }

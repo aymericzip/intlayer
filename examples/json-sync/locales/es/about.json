@@ -1,5 +1,43 @@
 {
   "title": "Acerca de",
   "description": "Descripción de la página Acerca de",
-  "counter": {}
+  "counter": {
+    "label": "Contador",
+    "increment": "Incrementar",
+    "decrement": "Decrementar",
+    "reset": "Restablecer"
+  },
+  "team": {
+    "title": "Nuestro Equipo",
+    "subtitle": "Conoce a las personas increíbles detrás de nuestro éxito",
+    "members": {
+      "founder": {
+        "name": "John Doe",
+        "role": "Fundador y CEO",
+        "bio": "John tiene más de 15 años de experiencia en tecnología e innovación. Fundó la empresa con la visión de revolucionar la industria."
+      },
+      "cto": {
+        "name": "Jane Smith",
+        "role": "Directora de Tecnología",
+        "bio": "Jane es una entusiasta de la tecnología con experiencia en computación en la nube y sistemas distribuidos. Lidera nuestro equipo de ingeniería."
+      }
+    }
+  },
+  "mission": {
+    "title": "Nuestra Misión",
+    "content": "Estamos dedicados a crear soluciones innovadoras que tengan un impacto positivo en la vida de las personas. Nuestra misión es construir productos que sean poderosos y accesibles."
+  },
+  "values": {
+    "title": "Nuestros Valores",
+    "innovation": "Innovación",
+    "integrity": "Integridad",
+    "excellence": "Excelencia",
+    "collaboration": "Colaboración"
+  },
+  "contact": {
+    "title": "Ponte en Contacto",
+    "email": "Envíanos un correo",
+    "phone": "Llámanos",
+    "address": "Visítanos"
+  }
 }

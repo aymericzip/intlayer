@@ -4,5 +4,57 @@
   "welcome": "Welcome",
   "greeting": "Hello, world!",
   "aboutPage": "About Page",
-  "documentation": "Documentation"
+  "documentation": "Documentation",
+  "hero": {
+    "title": "Welcome to Our Platform",
+    "subtitle": "Building the future, one innovation at a time",
+    "cta": {
+      "primary": "Get Started",
+      "secondary": "Learn More"
+    }
+  },
+  "features": {
+    "title": "Why Choose Us",
+    "subtitle": "Discover what makes us different",
+    "items": {
+      "feature1": {
+        "title": "Fast Performance",
+        "description": "Lightning-fast response times and optimized performance for the best user experience."
+      },
+      "feature2": {
+        "title": "Secure & Reliable",
+        "description": "Enterprise-grade security with 99.9% uptime guarantee."
+      },
+      "feature3": {
+        "title": "Easy to Use",
+        "description": "Intuitive interface designed for users of all skill levels."
+      },
+      "feature4": {
+        "title": "24/7 Support",
+        "description": "Round-the-clock customer support to help you whenever you need it."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "What Our Customers Say",
+    "items": {
+      "testimonial1": {
+        "quote": "This platform has transformed how we work. Highly recommended!",
+        "author": "Sarah Johnson",
+        "role": "Product Manager"
+      },
+      "testimonial2": {
+        "quote": "The best investment we've made this year. Outstanding service!",
+        "author": "Michael Chen",
+        "role": "CTO"
+      }
+    }
+  },
+  "stats": {
+    "title": "Our Impact",
+    "users": "Active Users",
+    "projects": "Completed Projects",
+    "countries": "Countries Served",
+    "satisfaction": "Customer Satisfaction"
+  }
 }

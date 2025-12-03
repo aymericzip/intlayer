@@ -3,6 +3,41 @@
   "description": "About page description",
   "counter": {
     "label": "Counter",
-    "increment": "Increment"
+    "increment": "Increment",
+    "decrement": "Decrement",
+    "reset": "Reset"
+  },
+  "team": {
+    "title": "Our Team",
+    "subtitle": "Meet the amazing people behind our success",
+    "members": {
+      "founder": {
+        "name": "John Doe",
+        "role": "Founder & CEO",
+        "bio": "John has over 15 years of experience in technology and innovation. He founded the company with a vision to revolutionize the industry."
+      },
+      "cto": {
+        "name": "Jane Smith",
+        "role": "Chief Technology Officer",
+        "bio": "Jane is a tech enthusiast with expertise in cloud computing and distributed systems. She leads our engineering team."
+      }
+    }
+  },
+  "mission": {
+    "title": "Our Mission",
+    "content": "We are dedicated to creating innovative solutions that make a positive impact on people's lives. Our mission is to build products that are both powerful and accessible."
+  },
+  "values": {
+    "title": "Our Values",
+    "innovation": "Innovation",
+    "integrity": "Integrity",
+    "excellence": "Excellence",
+    "collaboration": "Collaboration"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "email": "Email us",
+    "phone": "Call us",
+    "address": "Visit us"
   }
 }
