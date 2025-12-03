@@ -21,7 +21,6 @@ export * from './logger';
 export { retryManager } from './retryManager';
 export { cacheDisk } from './utils/cacheDisk';
 export { cacheMemory } from './utils/cacheMemory';
-export { checkVersionsConsistency } from './utils/checkVersionsConsistency';
 export { clearModuleCache } from './utils/clearModuleCache';
 export { compareVersions } from './utils/compareVersions';
 export {
