@@ -501,11 +501,11 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
+    intlayerProxy(), // Proxy powinno być umieszczone przed serwerem, jeśli używasz Nitro
     tailwindcss(),
     reactRouter(),
     tsconfigPaths(),
     intlayer(),
-    intlayerProxy(),
   ],
 });
 ```
