@@ -8,12 +8,12 @@ import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 const config = defineConfig({
   plugins: [
+    intlayerProxy(),
     nitro(),
     viteTsConfigPaths({
       projects: ['./tsconfig.json'],
     }),
     intlayer(),
-    // intlayerProxy(),
     tailwindcss(),
     tanstackStart(),
     viteReact(),

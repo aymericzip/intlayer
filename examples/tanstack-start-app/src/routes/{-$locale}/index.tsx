@@ -1,12 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  Route as RouteIcon,
-  Server,
-  Shield,
-  Sparkles,
-  Waves,
-  Zap,
-} from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
 
 export const Route = createFileRoute('/{-$locale}/')({ component: App });
@@ -21,17 +13,8 @@ function App() {
     features: featureTranslations,
   } = useIntlayer('app');
 
-  const featureIconComponents = [
-    () => <Zap className="h-12 w-12 text-cyan-400" />,
-    () => <Server className="h-12 w-12 text-cyan-400" />,
-    () => <RouteIcon className="h-12 w-12 text-cyan-400" />,
-    () => <Shield className="h-12 w-12 text-cyan-400" />,
-    () => <Waves className="h-12 w-12 text-cyan-400" />,
-    () => <Sparkles className="h-12 w-12 text-cyan-400" />,
-  ];
-
   const features = featureTranslations.map((featureTranslation, index) => ({
-    icon: featureIconComponents[index](),
+    icon: '',
     title: featureTranslation.title.value,
     description: featureTranslation.description.value,
   }));

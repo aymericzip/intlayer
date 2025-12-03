@@ -1,14 +1,4 @@
 import { Link } from '@tanstack/react-router';
-import {
-  ChevronDown,
-  ChevronRight,
-  Home,
-  Menu,
-  Network,
-  SquareFunction,
-  StickyNote,
-  X,
-} from 'lucide-react';
 import { useState } from 'react';
 
 export default function Header() {
@@ -24,9 +14,7 @@ export default function Header() {
           onClick={() => setIsOpen(true)}
           className="rounded-lg p-2 transition-colors hover:bg-gray-700"
           aria-label="Open menu"
-        >
-          <Menu size={24} />
-        </button>
+        ></button>
         <h1 className="ml-4 font-semibold text-xl">
           <Link to="/">
             <img
@@ -49,9 +37,7 @@ export default function Header() {
             onClick={() => setIsOpen(false)}
             className="rounded-lg p-2 transition-colors hover:bg-gray-800"
             aria-label="Close menu"
-          >
-            <X size={24} />
-          </button>
+          ></button>
         </div>
 
         <nav className="flex-1 overflow-y-auto p-4">
@@ -64,7 +50,6 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <Home size={20} />
             <span className="font-medium">Home</span>
           </Link>
 
@@ -79,7 +64,6 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <SquareFunction size={20} />
             <span className="font-medium">Start - Server Functions</span>
           </Link>
 
@@ -92,7 +76,6 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <Network size={20} />
             <span className="font-medium">Start - API Request</span>
           </Link>
 
@@ -106,7 +89,6 @@ export default function Header() {
                   'flex-1 flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
               }}
             >
-              <StickyNote size={20} />
               <span className="font-medium">Start - SSR Demos</span>
             </Link>
             <button
@@ -117,13 +99,7 @@ export default function Header() {
                   StartSSRDemo: !prev.StartSSRDemo,
                 }))
               }
-            >
-              {groupedExpanded.StartSSRDemo ? (
-                <ChevronDown size={20} />
-              ) : (
-                <ChevronRight size={20} />
-              )}
-            </button>
+            ></button>
           </div>
           {groupedExpanded.StartSSRDemo && (
             <div className="ml-4 flex flex-col">
@@ -136,7 +112,6 @@ export default function Header() {
                     'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
                 }}
               >
-                <StickyNote size={20} />
                 <span className="font-medium">SPA Mode</span>
               </Link>
 
@@ -149,7 +124,6 @@ export default function Header() {
                     'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
                 }}
               >
-                <StickyNote size={20} />
                 <span className="font-medium">Full SSR</span>
               </Link>
 
@@ -162,7 +136,6 @@ export default function Header() {
                     'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
                 }}
               >
-                <StickyNote size={20} />
                 <span className="font-medium">Data Only</span>
               </Link>
             </div>
