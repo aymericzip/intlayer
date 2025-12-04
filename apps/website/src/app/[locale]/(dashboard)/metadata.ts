@@ -1,5 +1,5 @@
 import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
 import { PagesRoutes } from '@/Routes';
 

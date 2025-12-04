@@ -25,7 +25,7 @@ export const ProjectFormContent: FC = () => {
 
   if (project) {
     return (
-      <div className="flex size-full max-w-5xl flex-col items-center justify-center gap-4">
+      <div className="flex max-w-5xl flex-col items-center justify-center gap-4">
         {!isProjectAdmin && isProjectMember && (
           <Container
             roundedSize="xl"

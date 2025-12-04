@@ -32,7 +32,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
   const { github, logo } = useIntlayer('dashboard-footer');
 
   return (
-    <footer className="flex flex-auto flex-row flex-wrap items-center gap-4 overflow-auto p-6">
+    <footer className="flex flex-auto flex-row flex-wrap items-center gap-4 overflow-auto px-6 py-3">
       <Link href={logo.url.value} label={logo.label.value} color="text">
         <Logo width={80} height={80} className="size-6" />
       </Link>
