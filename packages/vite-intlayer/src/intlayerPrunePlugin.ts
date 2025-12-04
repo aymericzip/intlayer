@@ -28,7 +28,6 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
     const filesListPattern = fg
       .sync(traversePattern, {
         cwd: baseDir,
-        ignore: ['*.map'],
       })
       .map((file) => {
         if (isAbsolute(file)) {
