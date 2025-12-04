@@ -27,7 +27,7 @@ const chosenCommand = args.command ?? 'build';
 
 // Queue system for handling multiple changes
 let buildTimeout = null;
-let pendingChanges = new Set();
+const pendingChanges = new Set();
 const DEBOUNCE_DELAY = 1000; // 1 second delay
 
 /**
@@ -60,7 +60,9 @@ const runBuild = (paths) => {
           : `${normalizedPkg}/`;
         return normalizedPath.startsWith(pkgPath);
       });
-      filteredPackages.forEach((pkg) => packagesToRebuild.add(pkg));
+      filteredPackages.forEach((pkg) => {
+        packagesToRebuild.add(pkg);
+      });
     }
 
     for (const pkg of packagesToRebuild) {
@@ -75,7 +77,6 @@ const runBuild = (paths) => {
         console.error(
           `\n[ERROR] Command "${chosenCommand}" failed in ${pkg}. Continuing to watch...\n`
         );
-        continue; // Do not exit; just move to the next package
       }
     }
     console.info(`\n[SUCCESS] Command "${chosenCommand}" completed.\n`);
@@ -124,6 +125,7 @@ const startWatcher = () => {
         '**/dist/**',
         '**/build/**',
         '**/.next/**',
+        '**/*.svelte-kit/**',
         '**/.intlayer/**',
         '**/tsup.config.bundled_*.mjs',
         '**/*.test.*',
