@@ -25,9 +25,12 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: 'This is a test application',
   },
+  compiler: {
+    enabled: false,
+  },
   build: {
     optimize: true,
-    importMode: 'static',
+    importMode: 'dynamic',
   },
 };
 

@@ -8,8 +8,8 @@ import { intlayer, intlayerCompiler, intlayerProxy } from 'vite-intlayer';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
     intlayer(),
+    vue(),
     intlayerProxy(),
     intlayerCompiler(),
     visualizer({

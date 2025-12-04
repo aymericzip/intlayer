@@ -2,6 +2,7 @@
 import LocaleSwitcher from '@components/LocaleSwitcher.vue';
 import RouterLink from '@components/RouterLink.vue';
 import { useI18nHTMLAttributes } from '@composables/useI18nHTMLAttributes';
+import { Suspense } from 'vue';
 import { useEditor } from 'vue-intlayer';
 
 // Apply HTML language attributes based on current locale
@@ -10,13 +11,17 @@ useEditor();
 </script>
 
 <template>
-  <nav>
-    <RouterLink to="/">Root</RouterLink>
-    <RouterLink to="/home">Home</RouterLink>
-    <RouterLink to="/test">Test</RouterLink>
-    <LocaleSwitcher />
-  </nav>
-  <RouterView />
+    <Suspense fallback="Loading..."  >
+      <div>
+        <nav>
+          <RouterLink to="/">Root</RouterLink>
+          <RouterLink to="/home">Home</RouterLink>
+          <RouterLink to="/test">Test</RouterLink>
+          <LocaleSwitcher />
+        </nav>
+        <RouterView />
+     </div>
+   </Suspense>
 </template>
 
 <style>

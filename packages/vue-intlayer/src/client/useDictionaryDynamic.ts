@@ -1,41 +1,22 @@
-import configuration from '@intlayer/config/built';
 import type {
   Dictionary,
   DictionaryKeys,
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types';
-import { computed, inject } from 'vue';
-import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
-import { useDictionary } from './useDictionary';
-import { useLoadDynamic } from './useLoadDynamic';
+import type { MaybeRefOrGetter } from 'vue';
+import { useDictionaryAsync } from './useDictionaryAsync';
 
 /**
  * On the server side, Hook that transform a dictionary and return the content
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useDictionaryDynamic = <
+export const useDictionaryDynamic = async <
   T extends Dictionary,
   K extends DictionaryKeys,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
-  key: K,
-  locale?: LocalesValues
-) => {
-  const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
-
-  const localeTarget = computed(
-    () =>
-      locale ??
-      intlayer?.locale?.value ??
-      configuration?.internationalization.defaultLocale
-  );
-
-  const dictionary = useLoadDynamic<T>(
-    `${String(key)}.${localeTarget.value}`,
-    dictionaryPromise[localeTarget.value]?.()
-  ) as T;
-
-  return useDictionary(dictionary, localeTarget as any);
-};
+  _key: K,
+  locale?: MaybeRefOrGetter<LocalesValues>
+) => await useDictionaryAsync(dictionaryPromise, locale);
