@@ -168,9 +168,9 @@
     "rimraf": "6.1.2",
     "storybook": "8.6.14",
     "tailwindcss": "4.1.17",
-    "tsdown": "0.16.8",
+    "tsdown": "0.17.0",
     "typescript": "5.9.3",
-    "vite": "7.2.2",
+    "vite": "7.2.6",
     "vite-intlayer": "workspace:*",
     "vite-plugin-dts": "4.5.4",
     "vitest": "4.0.14"
