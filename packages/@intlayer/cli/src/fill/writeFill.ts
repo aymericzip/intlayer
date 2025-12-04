@@ -8,6 +8,7 @@ import { colorizeKey, getAppLogger } from '@intlayer/config';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { Dictionary, Fill, IntlayerConfig, Locale } from '@intlayer/types';
 import { type FillData, formatFillData } from './formatFillData';
+import { getAvailableLocalesInDictionary } from './getAvailableLocalesInDictionary';
 
 export const writeFill = async (
   contentDeclarationFile: Dictionary,
@@ -42,9 +43,29 @@ export const writeFill = async (
     return;
   }
 
-  const localeList: Locale[] = (
+  const requestedLocales: Locale[] = (
     outputLocales ?? configuration.internationalization.locales
   ).filter((locale) => !parentLocales?.includes(locale));
+
+  // Get locales that actually have translations in the content
+  const availableLocales = getAvailableLocalesInDictionary(
+    contentDeclarationFile
+  );
+
+  // Only write files for locales that have actual translations
+  const localeList = requestedLocales.filter((locale) =>
+    availableLocales.includes(locale)
+  );
+
+  if (localeList.length === 0) {
+    appLogger(
+      `No translations available for dictionary '${colorizeKey(fullDictionary.key)}'`,
+      {
+        level: 'info',
+      }
+    );
+    return;
+  }
 
   const fillData: FillData[] = formatFillData(
     fillOptions as Fill,

@@ -25,6 +25,9 @@ const config: IntlayerConfig = {
   log: {
     mode: 'verbose',
   },
+  dictionary: {
+    fill: './{{fileName}}.{{locale}}.content.json',
+  },
   compiler: {
     enabled: true,
     transformPattern: ['**/*.{ts,tsx}'],

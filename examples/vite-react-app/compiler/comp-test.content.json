@@ -16,7 +16,9 @@
     "imATestShouldBe": {
       "nodeType": "translation",
       "translation": {
-        "en": "I'm a test (should be extracted)"
+        "en": "I'm a test (should be extracted)",
+        "fr": "Je suis un test (devrait être extrait)",
+        "es": "Soy una prueba (debería ser extraída)"
       }
     },
     "thisIsATestShould": {

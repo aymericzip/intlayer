@@ -28,6 +28,8 @@ import {
 import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import type { AIClient } from '../utils/setupAI';
+import { deepMergeContent } from './deepMergeContent';
+import { getFilterMissingContentPerLocale } from './getFilterMissingContentPerLocale';
 import type { TranslationTask } from './listTranslationsTasks';
 
 type TranslateDictionaryResult = TranslationTask & {
@@ -154,31 +156,57 @@ export const translateDictionary = async (
           // Reset to base dictionary for each locale to ensure we filter from the original
           let dictionaryToProcess = structuredClone(baseUnmergedDictionary);
 
-          if (
-            mode === 'complete' &&
-            typeof baseUnmergedDictionary.locale !== 'string'
-          ) {
-            // Remove all nodes that don't have any content to translate
-            dictionaryToProcess = getFilterMissingTranslationsDictionary(
-              dictionaryToProcess,
-              targetLocale
-            );
-          }
-
-          dictionaryToProcess = getPerLocaleDictionary(
-            dictionaryToProcess,
-            task.sourceLocale
-          );
-
           let targetLocaleDictionary: Dictionary;
 
           if (typeof baseUnmergedDictionary.locale === 'string') {
-            targetLocaleDictionary = {
+            // For per-locale files, the content is already in simple JSON format (not translation nodes)
+            // The base dictionary is already the source locale content
+
+            // Load the existing target locale dictionary
+            const targetLocaleFilePath =
+              baseUnmergedDictionary.filePath?.replace(
+                new RegExp(`/${task.sourceLocale}/`, 'g'),
+                `/${targetLocale}/`
+              );
+
+            // Find the target locale dictionary in unmerged dictionaries
+            const targetUnmergedDictionary = targetLocaleFilePath
+              ? unmergedDictionariesRecord[task.dictionaryKey]?.find(
+                  (dict) =>
+                    dict.filePath === targetLocaleFilePath &&
+                    dict.locale === targetLocale
+                )
+              : undefined;
+
+            targetLocaleDictionary = targetUnmergedDictionary ?? {
               key: baseUnmergedDictionary.key,
               content: {},
-              filePath: baseUnmergedDictionary.filePath,
+              filePath: targetLocaleFilePath,
+              locale: targetLocale,
             };
+
+            // In complete mode, filter out already translated content
+            if (mode === 'complete') {
+              dictionaryToProcess = getFilterMissingContentPerLocale(
+                dictionaryToProcess,
+                targetUnmergedDictionary
+              );
+            }
           } else {
+            // For multilingual dictionaries
+            if (mode === 'complete') {
+              // Remove all nodes that don't have any content to translate
+              dictionaryToProcess = getFilterMissingTranslationsDictionary(
+                dictionaryToProcess,
+                targetLocale
+              );
+            }
+
+            dictionaryToProcess = getPerLocaleDictionary(
+              dictionaryToProcess,
+              task.sourceLocale
+            );
+
             targetLocaleDictionary = getPerLocaleDictionary(
               baseUnmergedDictionary,
               targetLocale
@@ -259,6 +287,11 @@ export const translateDictionary = async (
               return await retryManager(
                 async () => {
                   let translationResult: any;
+
+                  console.dir(
+                    { chunkContent, presetOutputContent },
+                    { depth: null }
+                  );
 
                   if (aiClient && aiConfig) {
                     translationResult = await aiClient.translateJSON({
@@ -361,7 +394,17 @@ export const translateDictionary = async (
             }))
           );
 
-          return [targetLocale, merged.content] as const;
+          // For per-locale files, merge the newly translated content with existing target content
+          let finalContent = merged.content;
+          if (typeof baseUnmergedDictionary.locale === 'string') {
+            // Deep merge: existing content + newly translated content
+            finalContent = deepMergeContent(
+              targetLocaleDictionary.content ?? {},
+              merged.content
+            );
+          }
+
+          return [targetLocale, finalContent] as const;
         })
       );
 

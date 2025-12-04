@@ -153,15 +153,32 @@ export const fill = async (options?: FillOptions): Promise<void> => {
 
       const { dictionaryOutput, sourceLocale } = translationTaskResult;
 
-      const isFillOtherFile =
+      // Determine if we should write to separate files
+      // - If dictionary has explicit fill setting (string or object), use it
+      // - If dictionary is per-locale AND has no explicit fill=false, use global fill config
+      // - If dictionary is multilingual (no locale property), always write to same file
+      const hasDictionaryLevelFill =
         typeof dictionaryOutput.fill === 'string' ||
-        typeof dictionaryOutput.fill === 'object' ||
-        (typeof dictionaryOutput.locale === 'string' &&
-          dictionaryOutput.fill !== false);
+        typeof dictionaryOutput.fill === 'object';
+
+      const isPerLocale = typeof dictionaryOutput.locale === 'string';
+
+      const effectiveFill = hasDictionaryLevelFill
+        ? dictionaryOutput.fill
+        : isPerLocale
+          ? (configuration.dictionary?.fill ?? true)
+          : false; // Multilingual dictionaries don't use fill by default
+
+      const isFillOtherFile =
+        typeof effectiveFill === 'string' || typeof effectiveFill === 'object';
 
       if (isFillOtherFile) {
         await writeFill(
-          dictionaryOutput,
+          {
+            ...dictionaryOutput,
+            // Ensure fill is set on the dictionary for writeFill to use
+            fill: effectiveFill,
+          },
           outputLocales,
           [sourceLocale],
           configuration
