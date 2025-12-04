@@ -128,9 +128,11 @@ const getPruneConfig = (
 
   const fetchDictionariesEntryPath = join(mainDir, 'fetch_dictionaries.mjs');
 
-  const filesListPattern = fg.sync(traversePattern, {
-    cwd: baseDir,
-  });
+  const filesListPattern = fg
+    .sync(traversePattern, {
+      cwd: baseDir,
+    })
+    .map((file) => join(baseDir, file));
 
   const filesList = [
     ...filesListPattern,
