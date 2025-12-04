@@ -202,7 +202,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
       className="relative z-0 w-screen"
       style={{
         // Make the entire container as tall as the number of sections * 150vh
-        height: `${nbSections * 110}vh`,
+        height: `${nbSections * 125}vh`,
       }}
       ref={containerRef}
     >
@@ -311,6 +311,13 @@ const DynamicCompilerSection = dynamic(
   }
 );
 
+const DynamicTestSection = dynamic(
+  () => import('./TestSection').then((mod) => mod.TestSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
 /* -------------------------------------------------------------------------- */
 /*                       FeaturesSection Wrapper Example                      */
 /* -------------------------------------------------------------------------- */
@@ -342,6 +349,11 @@ export const FeaturesSection: FC = () => {
           return {
             ...sectionData,
             children: <DynamicMarkdownSection scrollProgress={progress} />,
+          };
+        case 'test':
+          return {
+            ...sectionData,
+            children: <DynamicTestSection scrollProgress={progress} />,
           };
         case 'compiler':
           return {

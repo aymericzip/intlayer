@@ -32,16 +32,7 @@ const config: CustomIntlayerConfig = {
     requiredLocales: [Locales.ENGLISH],
     strictMode: 'strict',
   },
-  dictionary: {
-    fill: './{{fileName}}.content.json',
-    title: 'Website',
-    description: 'Website description',
-    tags: ['website', 'intlayer'],
-    version: '1.0.0',
-    priority: 1,
-    live: true,
-    locale: Locales.ENGLISH,
-  },
+
   routing: {
     mode: 'prefix-no-default',
   },

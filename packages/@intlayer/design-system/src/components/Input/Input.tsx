@@ -73,8 +73,8 @@ export type InputProps = DetailedHTMLProps<
     VariantProps<typeof inputVariants>,
     'validationStyleEnabled' | 'variant' | 'size'
   > & {
-    variant?: InputVariant;
-    size?: InputSize;
+    variant?: InputVariant | `${InputVariant}`;
+    size?: InputSize | `${InputSize}`;
   };
 
 export const Input: FC<InputProps> = ({
