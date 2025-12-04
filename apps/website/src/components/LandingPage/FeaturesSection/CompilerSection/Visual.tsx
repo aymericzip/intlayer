@@ -14,6 +14,7 @@ export const VisualEditorSection: FC<VisualEditorSectionProps> = ({
   scrollProgress,
 }) => {
   const { availableLocales } = useLocale();
+  const [isControlled, setIsControlled] = useState(false);
   const [locale, setLocale] = useState<string>(Locales.ENGLISH);
   const { title, paragraph, selectPlaceholder } = useIntlayer(
     'compiler-section',
@@ -21,6 +22,8 @@ export const VisualEditorSection: FC<VisualEditorSectionProps> = ({
   );
 
   useEffect(() => {
+    if (isControlled) return;
+
     if (scrollProgress > 1) {
       setLocale(Locales.RUSSIAN);
     } else if (scrollProgress > 0.9) {
@@ -32,7 +35,7 @@ export const VisualEditorSection: FC<VisualEditorSectionProps> = ({
     } else {
       setLocale(Locales.ENGLISH);
     }
-  }, [scrollProgress]);
+  }, [scrollProgress, isControlled]);
 
   return (
     <div className="relative z-0 flex size-full flex-col justify-center gap-10 overflow-hidden rounded-r-2xl bg-neutral-50 p-6 text-center dark:bg-neutral-950">
@@ -40,8 +43,11 @@ export const VisualEditorSection: FC<VisualEditorSectionProps> = ({
       <p className="text-neutral text-sm">{paragraph}</p>
       <div className="absolute right-6 bottom-6">
         <Select
-          defaultValue={locale}
-          onValueChange={(value) => setLocale(value)}
+          value={locale}
+          onValueChange={(value) => {
+            setIsControlled(true);
+            setLocale(value);
+          }}
         >
           <Select.Trigger className="ml-auto py-1 text-sm">
             <Select.Value placeholder={selectPlaceholder.value} />
