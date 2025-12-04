@@ -63,6 +63,9 @@ export const renderIntlayerNode = <
     valueOf: () => rawRef.value,
     [Symbol.toPrimitive]: () => rawRef.value,
 
+    /* JSON serialization - prevents circular reference errors */
+    toJSON: () => rawRef.value,
+
     /* reactive getter/setter for the primitive value */
     get raw() {
       return rawRef.value;

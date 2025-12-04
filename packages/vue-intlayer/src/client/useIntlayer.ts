@@ -1,3 +1,4 @@
+import configuration from '@intlayer/config/built';
 import type {
   DictionaryKeys,
   DictionaryRegistryContent,
@@ -51,13 +52,11 @@ export const useIntlayer = <T extends DictionaryKeys>(
   locale?: MaybeRefOrGetter<LocalesValues | null | undefined>
 ): DeepTransformContent<DictionaryRegistryContent<T>> => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
-  if (!intlayer)
-    throw new Error('useIntlayer must be used under <IntlayerProvider>');
 
   // normalize provider locale
-  const providerLocale = isRef(intlayer.locale)
+  const providerLocale = isRef(intlayer?.locale)
     ? intlayer.locale
-    : ref(intlayer.locale as any);
+    : ref(intlayer?.locale ?? configuration.internationalization.defaultLocale);
 
   // which locale to use (reactive)
   const localeTarget = computed<LocalesValues>(() => {
