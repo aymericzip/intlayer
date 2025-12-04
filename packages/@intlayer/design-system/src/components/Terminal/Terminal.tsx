@@ -165,7 +165,7 @@ export const Terminal: FC<TerminalProps> = ({
 
       {/* Input area */}
       <Container className="p-2">
-        <span className="text-neutral">~/Desktop</span>
+        <span className="text-neutral">~/Desktop/MyApp</span>
         <Input
           className="m-0.5 w-full"
           variant="invisible"
