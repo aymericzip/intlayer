@@ -9,7 +9,9 @@ import {
   computed,
   inject,
   isRef,
+  type MaybeRefOrGetter,
   ref,
+  shallowRef,
   toValue,
   watch,
 } from 'vue';
@@ -27,8 +29,8 @@ export const useDictionary = <
   T extends Dictionary,
   L extends LocalesValues = DeclaredLocales,
 >(
-  dictionary: T,
-  locale?: L
+  dictionary: MaybeRefOrGetter<T>,
+  locale?: MaybeRefOrGetter<L>
 ) => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
 
@@ -44,12 +46,12 @@ export const useDictionary = <
   });
 
   // single reactive source for the entire content tree
-  const source = ref<any>({});
+  const source = shallowRef<any>({});
 
   watch(
     [() => toValue(dictionary) as T, () => localeTarget.value],
-    ([_key, locale]) => {
-      source.value = getDictionary(dictionary, locale);
+    ([newDictionary, locale]) => {
+      source.value = getDictionary(newDictionary, locale);
     },
     { immediate: true, flush: 'sync' }
   );

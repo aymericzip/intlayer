@@ -12,7 +12,9 @@ import {
   inject,
   isRef,
   type MaybeRefOrGetter,
+  markRaw,
   ref,
+  shallowRef,
   toValue,
   watch,
 } from 'vue';
@@ -32,18 +34,20 @@ export const isComponentLike = (v: any) =>
 
 /** Wrap a getter into a lightweight functional component */
 export const toComponent = (getter: () => any) =>
-  defineComponent({
-    name: 'IntlayerLeaf',
-    setup() {
-      return () => {
-        const v = getter();
-        if (v == null) return null;
-        if (isComponentLike(v)) return h(v as any);
-        // Render primitives/strings/arrays as text/children
-        return Array.isArray(v) ? h('span', v as any) : v;
-      };
-    },
-  });
+  markRaw(
+    defineComponent({
+      name: 'IntlayerLeaf',
+      setup() {
+        return () => {
+          const v = getter();
+          if (v == null) return null;
+          if (isComponentLike(v)) return h(v as any);
+          // Render primitives/strings/arrays as text/children
+          return Array.isArray(v) ? h('span', v as any) : v;
+        };
+      },
+    })
+  );
 
 // --- proxy factory --------------------------------------------------------
 
@@ -65,7 +69,7 @@ export const useIntlayer = <T extends DictionaryKeys>(
   });
 
   // single reactive source for the entire content tree
-  const source = ref<any>({});
+  const source = shallowRef<any>({});
 
   watch(
     [() => toValue(key) as T, () => localeTarget.value],

@@ -4,7 +4,7 @@ import type {
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types';
-import { computed, inject } from 'vue';
+import { computed, inject, type MaybeRefOrGetter, ref, watch } from 'vue';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
 
@@ -15,7 +15,7 @@ import { useDictionary } from './useDictionary';
  */
 export const useDictionaryAsync = async <T extends Dictionary>(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
-  locale?: LocalesValues
+  locale?: MaybeRefOrGetter<LocalesValues>
 ) => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
 
@@ -26,10 +26,23 @@ export const useDictionaryAsync = async <T extends Dictionary>(
       configuration?.internationalization.defaultLocale
   );
 
-  const dictionary =
-    await dictionaryPromise[
+  const dictionary = ref<T>(
+    (await dictionaryPromise[
       localeTarget.value as keyof typeof dictionaryPromise
-    ]?.();
+    ]?.()) as T
+  );
 
-  return useDictionary(dictionary as T, localeTarget as any);
+  watch(
+    () => localeTarget.value,
+    async (locale) => {
+      const newDictionary =
+        await dictionaryPromise[locale as keyof typeof dictionaryPromise]?.();
+
+      if (newDictionary) {
+        dictionary.value = newDictionary as T;
+      }
+    }
+  );
+
+  return useDictionary(dictionary, localeTarget as any);
 };
