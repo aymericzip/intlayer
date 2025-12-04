@@ -1,4 +1,4 @@
-import { join } from 'node:path';
+import { isAbsolute, join } from 'node:path';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -71,7 +71,12 @@ export const getOptimizePluginOptions = (
     .sync(traversePattern, {
       cwd: baseDir,
     })
-    .map((file) => join(baseDir, file));
+    .map((file) => {
+      if (isAbsolute(file)) {
+        return file;
+      }
+      return join(baseDir, file);
+    });
 
   const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
   const unmergedDictionariesEntryPath = join(

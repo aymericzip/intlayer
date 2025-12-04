@@ -1,4 +1,4 @@
-import { join, relative, resolve } from 'node:path';
+import { isAbsolute, join, relative, resolve } from 'node:path';
 import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
   ANSIColors,
@@ -132,7 +132,13 @@ const getPruneConfig = (
     .sync(traversePattern, {
       cwd: baseDir,
     })
-    .map((file) => join(baseDir, file));
+    .map((file) => {
+      if (isAbsolute(file)) {
+        return file;
+      }
+
+      return join(baseDir, file);
+    });
 
   const filesList = [
     ...filesListPattern,

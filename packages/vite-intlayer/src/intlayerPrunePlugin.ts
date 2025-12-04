@@ -1,5 +1,5 @@
 import { createRequire } from 'node:module';
-import { join } from 'node:path';
+import { isAbsolute, join } from 'node:path';
 import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
 import { runOnce } from '@intlayer/chokidar';
 import { getAppLogger } from '@intlayer/config';
@@ -25,11 +25,17 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
       baseDir,
     } = intlayerConfig.content;
 
-    const filesListPattern = fg.sync(traversePattern, {
-      cwd: baseDir,
-      ignore: ['*.map'],
-      absolute: true,
-    });
+    const filesListPattern = fg
+      .sync(traversePattern, {
+        cwd: baseDir,
+        ignore: ['*.map'],
+      })
+      .map((file) => {
+        if (isAbsolute(file)) {
+          return file;
+        }
+        return join(baseDir, file);
+      });
 
     const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
     const unmergedDictionariesEntryPath = join(
