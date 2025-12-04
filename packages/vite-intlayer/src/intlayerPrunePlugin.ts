@@ -64,7 +64,8 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
         // Only apply babel plugin if optimize is enabled
 
         const isBuild = env.command === 'build';
-        const isEnabled = (optimize ?? true) && isBuild;
+        const isEnabled =
+          (optimize === undefined && isBuild) || optimize === true;
 
         if (isEnabled) {
           runOnce(
