@@ -55,4 +55,6 @@ export const installIntlayer = (
   app.provide(INTLAYER_SYMBOL, client);
 
   installIntlayerEditor(app, client);
+
+  return app;
 };
