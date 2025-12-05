@@ -69,6 +69,17 @@ export const intlayerPrune = (
          */
         name: 'vite-intlayer-simple-transform',
         enforce: 'pre', // Run before Vue so Vue sees the 'await'
+        apply: (_config, env) => {
+          // Only apply babel plugin if optimize is enabled
+
+          const isBuild = env.command === 'build';
+          const isEnabled =
+            (optimize === undefined && isBuild) || optimize === true;
+          const isAsync = importMode === 'dynamic' || importMode === 'live';
+
+          return isEnabled && isAsync;
+        },
+
         transform(code, id) {
           // 1. Only process .vue files
           // The await injection is only needed for Vue to trigger async component compilation
