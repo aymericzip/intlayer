@@ -570,53 +570,47 @@ Vueアプリケーションにローカライズされたルーティングを�
 まず、Vue Routerをインストールします：
 
 ```bash packageManager="npm"
-npm install intlayer vue-router
+npm install vue-router
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer vue-router
+pnpm add vue-router
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer vue-router
+yarn add vue-router
 ```
 
 次に、ロケールベースのルーティングを処理するルーター設定を作成します：
 
 ```js fileName="src/router/index.ts"
 import {
-  configuration,
-  getPathWithoutLocale,
   localeFlatMap,
-  type Locales,
+  type Locale,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
 
-// 国際化設定を取得
-const { internationalization, middleware } = configuration;
-const { defaultLocale } = internationalization;
-
 /**
  * ロケール固有のパスとメタデータを持つルートを宣言します。
  */
-const routes = localeFlatMap((localizedData) => [
+const routes = localeFlatMap(({ urlPrefix, locale }) => [
   {
-    path: `${localizedData.urlPrefix}/`,
-    name: `Root-${localizedData.locale}`,
+    path: `${urlPrefix}/`,
+    name: `Root-${locale}`,
     component: RootView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
   {
-    path: `${localizedData.urlPrefix}/home`,
-    name: `Home-${localizedData.locale}`,
+    path: `${urlPrefix}/home`,
+    name: `Home-${locale}`,
     component: HomeView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
 ]);
@@ -631,23 +625,11 @@ export const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const client = createIntlayerClient();
 
-  const metaLocale = to.meta.locale as Locales | undefined;
+  const metaLocale = to.meta.locale as Locale;
 
-  if (metaLocale) {
-    // ルートのメタに定義されたロケールを再利用
-    client.setLocale(metaLocale);
-    next();
-  } else {
-    // フォールバック: メタにロケールがない場合、おそらく一致しないルート
-    // オプション: 404を処理するか、デフォルトのロケールにリダイレクトする
-    client.setLocale(defaultLocale);
-
-    if (middleware.prefixDefault) {
-      next(`/${defaultLocale}${getPathWithoutLocale(to.path)}`);
-    } else {
-      next(getPathWithoutLocale(to.path));
-    }
-  }
+  // ルートのメタに定義されたロケールを再利用
+  client.setLocale(metaLocale);
+  next();
 });
 ```
 
@@ -785,7 +767,7 @@ watch(
 ヒント: SEOとアクセシビリティを向上させるために、ステップ10で示したように、ローカライズされたページへのリンクには `<a href="/fr/home" hreflang="fr">` のようなタグを使用してください。これにより、検索エンジンは言語別のURLを正しく検出しインデックス化できます。SPAの動作を維持するためには、@click.preventでデフォルトのナビゲーションを防止し、useLocaleでロケールを変更し、Vue Routerを使ってプログラム的にナビゲートすることが可能です。
 
 ```html
-<ol class="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+<ol>
   <li>
     <a
       hreflang="x-default"

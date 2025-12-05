@@ -584,53 +584,47 @@ Contoh:
 Pertama, instal Vue Router:
 
 ```bash packageManager="npm"
-npm install intlayer vue-router
+npm install vue-router
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer vue-router
+pnpm add vue-router
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer vue-router
+yarn add vue-router
 ```
 
 Lalu, buat konfigurasi router yang menangani routing berbasis locale:
 
 ```js fileName="src/router/index.ts"
 import {
-  configuration,
-  getPathWithoutLocale,
   localeFlatMap,
-  type Locales,
+  type Locale,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
 
-// Mendapatkan konfigurasi internasionalisasi
-const { internationalization, middleware } = configuration;
-const { defaultLocale } = internationalization;
-
 /**
  * Mendeklarasikan routes dengan path dan metadata spesifik locale.
  */
-const routes = localeFlatMap((localizedData) => [
+const routes = localeFlatMap(({ urlPrefix, locale }) => [
   {
-    path: `${localizedData.urlPrefix}/`,
-    name: `Root-${localizedData.locale}`,
+    path: `${urlPrefix}/`,
+    name: `Root-${locale}`,
     component: RootView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
   {
-    path: `${localizedData.urlPrefix}/home`,
-    name: `Home-${localizedData.locale}`,
+    path: `${urlPrefix}/home`,
+    name: `Home-${locale}`,
     component: HomeView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
 ]);
@@ -645,23 +639,11 @@ export const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const client = createIntlayerClient();
 
-  const metaLocale = to.meta.locale as Locales | undefined;
+  const metaLocale = to.meta.locale as Locale;
 
-  if (metaLocale) {
-    // Gunakan kembali locale yang didefinisikan di meta route
-    client.setLocale(metaLocale);
-    next();
-  } else {
-    // Cadangan: tidak ada locale di meta, kemungkinan route tidak cocok
-    // Opsional: tangani 404 atau redirect ke locale default
-    client.setLocale(defaultLocale);
-
-    if (middleware.prefixDefault) {
-      next(`/${defaultLocale}${getPathWithoutLocale(to.path)}`);
-    } else {
-      next(getPathWithoutLocale(to.path));
-    }
-  }
+  // Gunakan kembali locale yang didefinisikan di meta route
+  client.setLocale(metaLocale);
+  next();
 });
 ```
 
@@ -793,7 +775,7 @@ watch(
 Tip: Untuk SEO dan aksesibilitas yang lebih baik, gunakan tag seperti `<a href="/fr/home" hreflang="fr">` untuk menautkan ke halaman yang dilokalkan, seperti yang ditunjukkan pada Langkah 10. Ini memungkinkan mesin pencari menemukan dan mengindeks URL spesifik bahasa dengan benar. Untuk mempertahankan perilaku SPA, Anda dapat mencegah navigasi default dengan @click.prevent, mengubah locale menggunakan useLocale, dan menavigasi secara programatik menggunakan Vue Router.
 
 ```html
-<ol class="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+<ol>
   <li>
     <a
       hreflang="x-default"

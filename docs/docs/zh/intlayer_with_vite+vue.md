@@ -566,53 +566,47 @@ const content = useIntlayer("app"); // 创建相关的 intlayer 声明文件
 首先，安装 Vue Router：
 
 ```bash packageManager="npm"
-npm install intlayer vue-router
+npm install vue-router
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer vue-router
+pnpm add vue-router
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer vue-router
+yarn add vue-router
 ```
 
 然后，创建一个处理基于语言环境路由的路由配置：
 
 ```js fileName="src/router/index.ts"
 import {
-  configuration,
-  getPathWithoutLocale,
   localeFlatMap,
-  type Locales,
+  type Locale,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
 
-// 获取国际化配置
-const { internationalization, middleware } = configuration;
-const { defaultLocale } = internationalization;
-
 /**
  * 声明带有语言环境特定路径和元数据的路由。
  */
-const routes = localeFlatMap((localizedData) => [
+const routes = localeFlatMap(({ urlPrefix, locale }) => [
   {
-    path: `${localizedData.urlPrefix}/`,
-    name: `Root-${localizedData.locale}`,
+    path: `${urlPrefix}/`,
+    name: `Root-${locale}`,
     component: RootView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
   {
-    path: `${localizedData.urlPrefix}/home`,
-    name: `Home-${localizedData.locale}`,
+    path: `${urlPrefix}/home`,
+    name: `Home-${locale}`,
     component: HomeView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
 ]);
@@ -627,23 +621,11 @@ export const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const client = createIntlayerClient();
 
-  const metaLocale = to.meta.locale as Locales | undefined;
+  const metaLocale = to.meta.locale as Locale;
 
-  if (metaLocale) {
-    // 重用路由元信息中定义的语言环境
-    client.setLocale(metaLocale);
-    next();
-  } else {
-    // 回退：元信息中没有语言环境，可能是未匹配的路由
-    // 可选：处理 404 或重定向到默认语言环境
-    client.setLocale(defaultLocale);
-
-    if (middleware.prefixDefault) {
-      next(`/${defaultLocale}${getPathWithoutLocale(to.path)}`);
-    } else {
-      next(getPathWithoutLocale(to.path));
-    }
-  }
+  // 重用路由元信息中定义的语言环境
+  client.setLocale(metaLocale);
+  next();
 });
 ```
 
@@ -773,7 +755,7 @@ watch(
 提示：为了更好的 SEO 和可访问性，使用如 `<a href="/fr/home" hreflang="fr">` 这样的标签来链接到本地化页面，如步骤10所示。这允许搜索引擎正确发现和索引特定语言的 URL。为了保持 SPA 行为，可以通过 @click.prevent 阻止默认导航，使用 useLocale 更改语言环境，并通过 Vue Router 编程式导航。
 
 ```html
-<ol class="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+<ol>
   <li>
     <a
       hreflang="x-default"

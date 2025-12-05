@@ -567,53 +567,47 @@ Ví dụ:
 Trước tiên, cài đặt Vue Router:
 
 ```bash packageManager="npm"
-npm install intlayer vue-router
+npm install vue-router
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer vue-router
+pnpm add vue-router
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer vue-router
+yarn add vue-router
 ```
 
 Sau đó, tạo một cấu hình router xử lý định tuyến dựa trên ngôn ngữ:
 
 ```js fileName="src/router/index.ts"
 import {
-  configuration,
-  getPathWithoutLocale,
   localeFlatMap,
-  type Locales,
+  type Locale,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
 
-// Lấy cấu hình quốc tế hóa
-const { internationalization, middleware } = configuration;
-const { defaultLocale } = internationalization;
-
 /**
  * Khai báo các route với đường dẫn và metadata theo từng ngôn ngữ.
  */
-const routes = localeFlatMap((localizedData) => [
+const routes = localeFlatMap(({ urlPrefix, locale }) => [
   {
-    path: `${localizedData.urlPrefix}/`,
-    name: `Root-${localizedData.locale}`,
+    path: `${urlPrefix}/`,
+    name: `Root-${locale}`,
     component: RootView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
   {
-    path: `${localizedData.urlPrefix}/home`,
-    name: `Home-${localizedData.locale}`,
+    path: `${urlPrefix}/home`,
+    name: `Home-${locale}`,
     component: HomeView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
 ]);
@@ -628,23 +622,11 @@ export const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const client = createIntlayerClient();
 
-  const metaLocale = to.meta.locale as Locales | undefined;
+  const metaLocale = to.meta.locale as Locale;
 
-  if (metaLocale) {
-    // Tái sử dụng locale đã định nghĩa trong meta của route
-    client.setLocale(metaLocale);
-    next();
-  } else {
-    // Trường hợp fallback: không có locale trong meta, có thể là route không khớp
-    // Tùy chọn: xử lý 404 hoặc chuyển hướng về locale mặc định
-    client.setLocale(defaultLocale);
-
-    if (middleware.prefixDefault) {
-      next(`/${defaultLocale}${getPathWithoutLocale(to.path)}`);
-    } else {
-      next(getPathWithoutLocale(to.path));
-    }
-  }
+  // Tái sử dụng locale đã định nghĩa trong meta của route
+  client.setLocale(metaLocale);
+  next();
 });
 ```
 
@@ -776,7 +758,7 @@ watch(
 Mẹo: Để cải thiện SEO và khả năng truy cập, hãy sử dụng thẻ như `<a href="/fr/home" hreflang="fr">` để liên kết đến các trang đã được địa phương hóa, như được trình bày trong Bước 10. Điều này cho phép các công cụ tìm kiếm phát hiện và lập chỉ mục các URL theo ngôn ngữ một cách chính xác. Để giữ nguyên hành vi SPA, bạn có thể ngăn chặn điều hướng mặc định với @click.prevent, thay đổi locale bằng useLocale, và điều hướng chương trình bằng Vue Router.
 
 ```html
-<ol class="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+<ol>
   <li>
     <a
       hreflang="x-default"

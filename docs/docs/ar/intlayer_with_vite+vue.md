@@ -542,53 +542,47 @@ const content = useIntlayer("app"); // أنشئ ملف إعلان intlayer ال�
 أولاً، قم بتثبيت Vue Router:
 
 ```bash packageManager="npm"
-npm install intlayer vue-router
+npm install vue-router
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer vue-router
+pnpm add vue-router
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer vue-router
+yarn add vue-router
 ```
 
 ثم، قم بإنشاء تكوين جهاز التوجيه الذي يتعامل مع التوجيه بناءً على اللغة:
 
 ```js fileName="src/router/index.ts"
 import {
-  configuration,
-  getPathWithoutLocale,
   localeFlatMap,
-  type Locales,
+  type Locale,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
 
-// الحصول على إعدادات التدويل
-const { internationalization, middleware } = configuration;
-const { defaultLocale } = internationalization;
-
 /**
  * إعلان المسارات مع مسارات وبيانات وصفية خاصة بكل لغة.
  */
-const routes = localeFlatMap((localizedData) => [
+const routes = localeFlatMap(({ urlPrefix, locale }) => [
   {
-    path: `${localizedData.urlPrefix}/`,
-    name: `Root-${localizedData.locale}`,
+    path: `${urlPrefix}/`,
+    name: `Root-${locale}`,
     component: RootView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
   {
-    path: `${localizedData.urlPrefix}/home`,
-    name: `Home-${localizedData.locale}`,
+    path: `${urlPrefix}/home`,
+    name: `Home-${locale}`,
     component: HomeView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
 ]);
@@ -603,23 +597,11 @@ export const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const client = createIntlayerClient();
 
-  const metaLocale = to.meta.locale as Locales | undefined;
+  const metaLocale = to.meta.locale as Locale;
 
-  if (metaLocale) {
-    // إعادة استخدام اللغة المعرفة في بيانات الراوتر
-    client.setLocale(metaLocale);
-    next();
-  } else {
-    // الحالة الافتراضية: لا توجد لغة في البيانات، ربما مسار غير مطابق
-    // اختياري: التعامل مع خطأ 404 أو إعادة التوجيه إلى اللغة الافتراضية
-    client.setLocale(defaultLocale);
-
-    if (middleware.prefixDefault) {
-      next(`/${defaultLocale}${getPathWithoutLocale(to.path)}`);
-    } else {
-      next(getPathWithoutLocale(to.path));
-    }
-  }
+  // إعادة استخدام اللغة المعرفة في بيانات الراوتر
+  client.setLocale(metaLocale);
+  next();
 });
 ```
 
@@ -757,7 +739,7 @@ watch(
 نصيحة: لتحسين تحسين محركات البحث (SEO) وسهولة الوصول، استخدم الوسوم مثل `<a href="/fr/home" hreflang="fr">` للربط بالصفحات المترجمة، كما هو موضح في الخطوة 10. هذا يسمح لمحركات البحث باكتشاف وفهرسة عناوين URL الخاصة بكل لغة بشكل صحيح. للحفاظ على سلوك تطبيق الصفحة الواحدة (SPA)، يمكنك منع التنقل الافتراضي باستخدام @click.prevent، وتغيير اللغة باستخدام useLocale، والتنقل برمجياً باستخدام Vue Router.
 
 ```html
-<ol class="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+<ol>
   <li>
     <a
       hreflang="x-default"

@@ -545,53 +545,47 @@ Vue एप्लिकेशन में स्थानीयकृत रा�
 सबसे पहले, Vue Router इंस्टॉल करें:
 
 ```bash packageManager="npm"
-npm install intlayer vue-router
+npm install vue-router
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer vue-router
+pnpm add vue-router
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer vue-router
+yarn add vue-router
 ```
 
 फिर, एक राउटर कॉन्फ़िगरेशन बनाएं जो स्थानीय-आधारित रूटिंग को संभालता है:
 
 ```js fileName="src/router/index.ts"
 import {
-  configuration,
-  getPathWithoutLocale,
   localeFlatMap,
-  type Locales,
+  type Locale,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
 
-// अंतरराष्ट्रीयकरण कॉन्फ़िगरेशन प्राप्त करें
-const { internationalization, middleware } = configuration;
-const { defaultLocale } = internationalization;
-
 /**
  * स्थानीय-विशिष्ट पथ और मेटाडेटा के साथ रूट्स घोषित करें।
  */
-const routes = localeFlatMap((localizedData) => [
+const routes = localeFlatMap(({ urlPrefix, locale }) => [
   {
-    path: `${localizedData.urlPrefix}/`,
-    name: `Root-${localizedData.locale}`,
+    path: `${urlPrefix}/`,
+    name: `Root-${locale}`,
     component: RootView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
   {
-    path: `${localizedData.urlPrefix}/home`,
-    name: `Home-${localizedData.locale}`,
+    path: `${urlPrefix}/home`,
+    name: `Home-${locale}`,
     component: HomeView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
 ]);
@@ -606,23 +600,11 @@ export const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const client = createIntlayerClient();
 
-  const metaLocale = to.meta.locale as Locales | undefined;
+  const metaLocale = to.meta.locale as Locale;
 
-  if (metaLocale) {
-    // रूट मेटा में परिभाषित स्थानीयता का पुन: उपयोग करें
-    client.setLocale(metaLocale);
-    next();
-  } else {
-    // फॉलबैक: मेटा में कोई स्थानीयता नहीं, संभवतः अनमिलित रूट
-    // वैकल्पिक: 404 को संभालें या डिफ़ॉल्ट स्थानीयता पर पुनः निर्देशित करें
-    client.setLocale(defaultLocale);
-
-    if (middleware.prefixDefault) {
-      next(`/${defaultLocale}${getPathWithoutLocale(to.path)}`);
-    } else {
-      next(getPathWithoutLocale(to.path));
-    }
-  }
+  // रूट मेटा में परिभाषित स्थानीयता का पुन: उपयोग करें
+  client.setLocale(metaLocale);
+  next();
 });
 ```
 
@@ -760,7 +742,7 @@ watch(
 टिप: बेहतर SEO और पहुँच के लिए, स्थानीयकृत पृष्ठों से लिंक करने के लिए `<a href="/fr/home" hreflang="fr">` जैसे टैग का उपयोग करें, जैसा कि चरण 10 में दिखाया गया है। इससे खोज इंजन भाषा-विशिष्ट URL को सही ढंग से खोज और अनुक्रमित कर सकते हैं। SPA व्यवहार बनाए रखने के लिए, आप @click.prevent के साथ डिफ़ॉल्ट नेविगेशन को रोक सकते हैं, useLocale का उपयोग करके स्थानीयता बदल सकते हैं, और Vue Router का उपयोग करके प्रोग्रामेटिक रूप से नेविगेट कर सकते हैं।
 
 ```html
-<ol class="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+<ol>
   <li>
     <a
       hreflang="x-default"

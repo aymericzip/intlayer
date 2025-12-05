@@ -574,53 +574,47 @@ Vue 애플리케이션에 지역화된 라우팅을 추가하는 것은 일반�
 먼저, Vue Router를 설치하세요:
 
 ```bash packageManager="npm"
-npm install intlayer vue-router
+npm install vue-router
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer vue-router
+pnpm add vue-router
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer vue-router
+yarn add vue-router
 ```
 
 그런 다음, 로케일 기반 라우팅을 처리하는 라우터 구성을 만듭니다:
 
 ```js fileName="src/router/index.ts"
 import {
-  configuration,
-  getPathWithoutLocale,
   localeFlatMap,
-  type Locales,
+  type Locale,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
 
-// 국제화 구성 가져오기
-const { internationalization, middleware } = configuration;
-const { defaultLocale } = internationalization;
-
 /**
  * 로케일별 경로와 메타데이터를 가진 라우트를 선언합니다.
  */
-const routes = localeFlatMap((localizedData) => [
+const routes = localeFlatMap(({ urlPrefix, locale }) => [
   {
-    path: `${localizedData.urlPrefix}/`,
-    name: `Root-${localizedData.locale}`,
+    path: `${urlPrefix}/`,
+    name: `Root-${locale}`,
     component: RootView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
   {
-    path: `${localizedData.urlPrefix}/home`,
-    name: `Home-${localizedData.locale}`,
+    path: `${urlPrefix}/home`,
+    name: `Home-${locale}`,
     component: HomeView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
 ]);
@@ -635,23 +629,11 @@ export const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const client = createIntlayerClient();
 
-  const metaLocale = to.meta.locale as Locales | undefined;
+  const metaLocale = to.meta.locale as Locale;
 
-  if (metaLocale) {
-    // 라우트 메타에 정의된 로케일 재사용
-    client.setLocale(metaLocale);
-    next();
-  } else {
-    // 대체 처리: 메타에 로케일이 없거나, 일치하지 않는 라우트일 가능성
-    // 선택 사항: 404 처리 또는 기본 로케일로 리디렉션
-    client.setLocale(defaultLocale);
-
-    if (middleware.prefixDefault) {
-      next(`/${defaultLocale}${getPathWithoutLocale(to.path)}`);
-    } else {
-      next(getPathWithoutLocale(to.path));
-    }
-  }
+  // 라우트 메타에 정의된 로케일 재사용
+  client.setLocale(metaLocale);
+  next();
 });
 ```
 
@@ -789,7 +771,7 @@ watch(
 팁: 더 나은 SEO 및 접근성을 위해, 10단계에서 보여준 것처럼 `<a href="/fr/home" hreflang="fr">`와 같은 태그를 사용하여 지역화된 페이지에 링크하세요. 이렇게 하면 검색 엔진이 언어별 URL을 올바르게 발견하고 색인화할 수 있습니다. SPA 동작을 유지하려면 @click.prevent로 기본 내비게이션을 방지하고, useLocale을 사용해 로케일을 변경하며, Vue Router를 통해 프로그래밍 방식으로 이동할 수 있습니다.
 
 ```html
-<ol class="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+<ol>
   <li>
     <a
       hreflang="x-default"

@@ -590,53 +590,47 @@ Przykład:
 Najpierw zainstaluj Vue Router:
 
 ```bash packageManager="npm"
-npm install intlayer vue-router
+npm install vue-router
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer vue-router
+pnpm add vue-router
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer vue-router
+yarn add vue-router
 ```
 
 Następnie utwórz konfigurację routera, która obsługuje routing oparty na lokalizacji:
 
 ```js fileName="src/router/index.ts"
 import {
-  configuration,
-  getPathWithoutLocale,
   localeFlatMap,
-  type Locales,
+  type Locale,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
 
-// Pobierz konfigurację internacjonalizacji
-const { internationalization, middleware } = configuration;
-const { defaultLocale } = internationalization;
-
 /**
  * Zadeklaruj trasy z lokalizowanymi ścieżkami i metadanymi.
  */
-const routes = localeFlatMap((localizedData) => [
+const routes = localeFlatMap(({ urlPrefix, locale }) => [
   {
-    path: `${localizedData.urlPrefix}/`,
-    name: `Root-${localizedData.locale}`,
+    path: `${urlPrefix}/`,
+    name: `Root-${locale}`,
     component: RootView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
   {
-    path: `${localizedData.urlPrefix}/home`,
-    name: `Home-${localizedData.locale}`,
+    path: `${urlPrefix}/home`,
+    name: `Home-${locale}`,
     component: HomeView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
 ]);
@@ -651,23 +645,11 @@ export const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const client = createIntlayerClient();
 
-  const metaLocale = to.meta.locale as Locales | undefined;
+  const metaLocale = to.meta.locale as Locale;
 
-  if (metaLocale) {
-    // Ponowne użycie lokalizacji zdefiniowanej w meta trasy
-    client.setLocale(metaLocale);
-    next();
-  } else {
-    // Domyślne zachowanie: brak lokalizacji w meta, możliwa nieznaleziona trasa
-    // Opcjonalnie: obsłuż 404 lub przekieruj do domyślnej lokalizacji
-    client.setLocale(defaultLocale);
-
-    if (middleware.prefixDefault) {
-      next(`/${defaultLocale}${getPathWithoutLocale(to.path)}`);
-    } else {
-      next(getPathWithoutLocale(to.path));
-    }
-  }
+  // Ponowne użycie lokalizacji zdefiniowanej w meta trasy
+  client.setLocale(metaLocale);
+  next();
 });
 ```
 
@@ -799,7 +781,7 @@ watch(
 Wskazówka: Dla lepszego SEO i dostępności używaj tagów takich jak `<a href="/fr/home" hreflang="fr">` do linkowania do stron zlokalizowanych, jak pokazano w Kroku 10. Pozwala to wyszukiwarkom na prawidłowe wykrywanie i indeksowanie adresów URL specyficznych dla języka. Aby zachować zachowanie SPA, możesz zapobiec domyślnej nawigacji za pomocą @click.prevent, zmienić lokalizację używając useLocale oraz programowo nawigować za pomocą Vue Router.
 
 ```html
-<ol class="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+<ol>
   <li>
     <a
       hreflang="x-default"

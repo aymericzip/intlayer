@@ -537,53 +537,47 @@ Exemple :
 Tout d'abord, installez Vue Router :
 
 ```bash packageManager="npm"
-npm install intlayer vue-router
+npm install vue-router
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer vue-router
+pnpm add vue-router
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer vue-router
+yarn add vue-router
 ```
 
 Ensuite, créez une configuration de routeur qui gère le routage basé sur la locale :
 
 ```js fileName="src/router/index.ts"
 import {
-  configuration,
-  getPathWithoutLocale,
   localeFlatMap,
-  type Locales,
+  type Locale,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
 
-// Obtenir la configuration d'internationalisation
-const { internationalization, middleware } = configuration;
-const { defaultLocale } = internationalization;
-
 /**
  * Déclarez les routes avec des chemins et des métadonnées spécifiques à la locale.
  */
-const routes = localeFlatMap((localizedData) => [
+const routes = localeFlatMap(({ urlPrefix, locale }) => [
   {
-    path: `${localizedData.urlPrefix}/`,
-    name: `Root-${localizedData.locale}`,
+    path: `${urlPrefix}/`,
+    name: `Root-${locale}`,
     component: RootView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
   {
-    path: `${localizedData.urlPrefix}/home`,
-    name: `Home-${localizedData.locale}`,
+    path: `${urlPrefix}/home`,
+    name: `Home-${locale}`,
     component: HomeView,
     meta: {
-      locale: localizedData.locale,
+      locale,
     },
   },
 ]);
@@ -598,23 +592,11 @@ export const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const client = createIntlayerClient();
 
-  const metaLocale = to.meta.locale as Locales | undefined;
+  const metaLocale = to.meta.locale as Locale;
 
-  if (metaLocale) {
-    // Réutiliser la locale définie dans les métadonnées de la route
-    client.setLocale(metaLocale);
-    next();
-  } else {
-    // Repli : pas de locale dans les métadonnées, route possiblement non trouvée
-    // Optionnel : gérer les erreurs 404 ou rediriger vers la locale par défaut
-    client.setLocale(defaultLocale);
-
-    if (middleware.prefixDefault) {
-      next(`/${defaultLocale}${getPathWithoutLocale(to.path)}`);
-    } else {
-      next(getPathWithoutLocale(to.path));
-    }
-  }
+  // Réutiliser la locale définie dans les métadonnées de la route
+  client.setLocale(metaLocale);
+  next();
 });
 ```
 
@@ -752,7 +734,7 @@ watch(
 Astuce : Pour un meilleur SEO et une meilleure accessibilité, utilisez des balises telles que `<a href="/fr/home" hreflang="fr">` pour lier les pages localisées, comme montré à l'étape 10. Cela permet aux moteurs de recherche de découvrir et d'indexer correctement les URL spécifiques à chaque langue. Pour préserver le comportement SPA, vous pouvez empêcher la navigation par défaut avec @click.prevent, changer la locale en utilisant useLocale, et naviguer de manière programmatique avec Vue Router.
 
 ```html
-<ol class="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+<ol>
   <li>
     <a
       hreflang="x-default"
