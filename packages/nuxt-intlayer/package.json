@@ -1,6 +1,6 @@
 {
   "name": "nuxt-intlayer",
-  "version": "7.3.7",
+  "version": "7.3.8",
   "private": false,
   "description": "Easily internationalize i18n your Nuxt applications with type-safe multilingual content management.",
   "keywords": [
