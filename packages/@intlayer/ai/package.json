@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/ai",
-  "version": "7.3.6",
+  "version": "7.3.7",
   "private": false,
   "description": "SDK that provides AI capabilities for Intlayer applications",
   "keywords": [
