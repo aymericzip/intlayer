@@ -70,8 +70,9 @@ export const intlayerPrune = (
         name: 'vite-intlayer-simple-transform',
         enforce: 'pre', // Run before Vue so Vue sees the 'await'
         transform(code, id) {
-          // 1. Only process .vue (and maybe .ts/.js) files
-          if (!id.endsWith('.vue') && !id.match(/\.[jt]sx?$/)) return null;
+          // 1. Only process .vue files
+          // The await injection is only needed for Vue to trigger async component compilation
+          if (!id.endsWith('.vue')) return null;
 
           // 2. Check if the file actually uses the composable to avoid unnecessary work
           if (!code.includes('useIntlayer')) return null;
