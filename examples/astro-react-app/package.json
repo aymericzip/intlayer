@@ -20,8 +20,8 @@
     "astro-intlayer": "workspace:*",
     "canvas-confetti": "1.9.3",
     "intlayer": "workspace:*",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
     "react-intlayer": "workspace:*",
     "tailwindcss": "4.1.17",
     "vue": "3.5.22"

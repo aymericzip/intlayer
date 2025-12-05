@@ -13,14 +13,14 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
     "react-intlayer": "workspace:*",
     "react-router-dom": "7.9.5"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.1.17",
-    "@types/react": "19.2.5",
+    "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.1",
     "@vitejs/plugin-react-swc": "^4.1.0",
