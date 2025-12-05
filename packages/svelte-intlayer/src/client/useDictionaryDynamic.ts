@@ -1,58 +1,126 @@
 import type {
   Dictionary,
   DictionaryKeys,
-  Locale,
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types';
-import { derived, type Readable, writable } from 'svelte/store';
+import { derived, type Readable } from 'svelte/store';
+import { getDictionary } from '../getDictionary';
+import type { DeepTransformContent } from '../plugins';
 import { getIntlayerContext } from './intlayerContext';
 import { intlayerStore } from './intlayerStore';
 
+// Proxy that returns itself for any property access to handle nested paths during loading
+const recursiveProxy: any = new Proxy(() => {}, {
+  get: (_target, prop) => {
+    if (prop === Symbol.toPrimitive) {
+      return () => undefined;
+    }
+    if (prop === 'toString') {
+      return () => '';
+    }
+    if (prop === 'then') {
+      return undefined;
+    }
+    return recursiveProxy;
+  },
+  apply: () => recursiveProxy,
+});
+
 /**
- * Svelte hook for handling dynamic dictionary loading
- * @param dictionaryPromise Promise-based dictionary content
- * @param key Dictionary key for caching
- * @param locale Target locale (optional)
- * @returns Reactive store with loaded dictionary content
+ * Svelte hook for dynamic dictionary loading
+ * Loads dictionary content asynchronously and returns a reactive store.
+ *
+ * @param dictionaryPromise - Object mapping locales to import functions (e.g. { en: () => import(...) })
+ * @param locale - Optional fixed locale. If not provided, follows the global intlayerStore.
+ * @returns Readable store with the loaded dictionary content
  */
-export const useDictionaryDynamic = <
-  T extends Dictionary,
-  K extends DictionaryKeys,
->(
+export function useDictionaryDynamic<T extends Dictionary>(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
-  key: K,
+  _key: DictionaryKeys,
   locale?: LocalesValues
-): Readable<T | null> => {
+): Readable<
+  DeepTransformContent<T['content']> & {
+    isLoading: boolean;
+    error: Error | null;
+  }
+> {
   const context = getIntlayerContext();
-  const dictionaryStore = writable<T | null>(null);
 
-  // Create a derived store that loads the dictionary when locale changes
-  return derived([intlayerStore], ([$store]) => {
-    const targetLocale = locale ?? context?.locale ?? $store.locale;
+  const localeStore = derived(
+    intlayerStore,
+    ($store) => locale ?? context?.locale ?? $store.locale
+  );
 
-    // Load dictionary for the target locale asynchronously
-    const loadDictionary = async () => {
-      try {
-        const dictionaryLoader = dictionaryPromise[targetLocale as Locale];
-        if (dictionaryLoader) {
-          const loadedDictionary = await dictionaryLoader();
-          dictionaryStore.set(loadedDictionary);
-        } else {
-          dictionaryStore.set(null);
+  return derived(
+    localeStore,
+    ($locale, set) => {
+      // Set loading state immediately with proxy
+      set(
+        new Proxy(
+          { isLoading: true, error: null },
+          {
+            get: (_target, prop) => {
+              if (prop === 'isLoading') return true;
+              if (prop === 'error') return null;
+              // For any other property, return the recursive proxy
+              // to allow nested access without errors
+              return recursiveProxy;
+            },
+          }
+        ) as any
+      );
+
+      let isCancelled = false;
+
+      const load = async () => {
+        try {
+          // Access the loader for the current locale
+          // dictionaryPromise is indexed by locale
+          const loader =
+            dictionaryPromise[$locale as keyof typeof dictionaryPromise];
+
+          if (!loader) {
+            return;
+          }
+
+          const dict = await loader();
+
+          if (isCancelled) return;
+
+          const content = getDictionary(dict, $locale);
+
+          set({
+            ...content,
+            isLoading: false,
+            error: null,
+          } as any);
+        } catch (error) {
+          if (isCancelled) return;
+          console.error(error);
+          set({
+            isLoading: false,
+            error: error as Error,
+          } as any);
         }
-      } catch (error) {
-        console.error(
-          `Failed to load dictionary for key: ${String(key)}`,
-          error
-        );
-        dictionaryStore.set(null);
+      };
+
+      load();
+
+      return () => {
+        isCancelled = true;
+      };
+    },
+    // Initial value
+    new Proxy(
+      { isLoading: true, error: null },
+      {
+        get: (_target, prop) => {
+          if (prop === 'isLoading') return true;
+          if (prop === 'error') return null;
+          return recursiveProxy;
+        },
       }
-    };
-
-    loadDictionary();
-
-    // Return the current state, actual loading happens asynchronously
-    return null;
-  });
-};
+    ) as any
+  );
+}
