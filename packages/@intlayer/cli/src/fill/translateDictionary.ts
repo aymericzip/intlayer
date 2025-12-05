@@ -288,11 +288,6 @@ export const translateDictionary = async (
                 async () => {
                   let translationResult: any;
 
-                  console.dir(
-                    { chunkContent, presetOutputContent },
-                    { depth: null }
-                  );
-
                   if (aiClient && aiConfig) {
                     translationResult = await aiClient.translateJSON({
                       entryFileContent: chunkContent as unknown as JSON,
@@ -332,7 +327,6 @@ export const translateDictionary = async (
                     chunkContent
                   );
                   if (!isIdentic) {
-                    console.log(translationResult.fileContent);
                     throw new Error(
                       'Translation result does not match expected format'
                     );
