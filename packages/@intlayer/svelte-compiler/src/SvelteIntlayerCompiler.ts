@@ -1,14 +1,17 @@
 import { createRequire } from 'node:module';
 import { join, relative } from 'node:path';
 import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
-import { watch as chokidarWatch, prepareIntlayer } from '@intlayer/chokidar';
+import {
+  buildFilesList,
+  watch as chokidarWatch,
+  prepareIntlayer,
+} from '@intlayer/chokidar';
 import {
   type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
 import type { CompilerConfig, IntlayerConfig } from '@intlayer/types';
-import fg from 'fast-glob';
 
 /**
  * Mode of the compiler
@@ -127,39 +130,20 @@ export const createSvelteIntlayerCompiler = (
    * Build the list of files to transform based on configuration patterns
    * Includes Svelte-specific patterns
    */
-  const buildFilesList = async (): Promise<void> => {
+  const buildFilesListFn = async (): Promise<void> => {
     const { traversePattern } = config.build;
-    const { baseDir, mainDir } = config.content;
+    const { baseDir, mainDir, fileExtensions } = config.content;
 
-    const transformPattern =
-      customCompilerConfig?.transformPattern ?? traversePattern;
-    const excludePattern = customCompilerConfig?.excludePattern ?? [
-      '**/node_modules/**',
-    ];
-
-    // Add Svelte file patterns
-    const patterns = Array.isArray(transformPattern)
-      ? transformPattern
-      : [transformPattern];
-    const sveltePatterns = patterns.map((p) => {
-      // Ensure Svelte files are included
-      if (p.includes('.svelte') || p.includes('{')) {
-        return p;
-      }
-      // Add .svelte extension to patterns
-      return p.replace(/\{([^}]+)\}/, (_, exts) => `{${exts},svelte}`);
+    const filesListPattern = buildFilesList({
+      transformPattern:
+        customCompilerConfig?.transformPattern ?? traversePattern,
+      excludePattern: [
+        ...(customCompilerConfig?.excludePattern ?? []),
+        '**/node_modules/**',
+        ...fileExtensions.map((pattern) => `**/*${pattern}`),
+      ],
+      baseDir,
     });
-
-    const excludePatterns = Array.isArray(excludePattern)
-      ? excludePattern
-      : [excludePattern];
-
-    const filesListPattern = fg
-      .sync([...new Set([...patterns, ...sveltePatterns])], {
-        cwd: baseDir,
-        ignore: excludePatterns,
-      })
-      .map((file) => join(baseDir, file));
 
     const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
     const unmergedDictionariesEntryPath = join(
@@ -211,7 +195,7 @@ export const createSvelteIntlayerCompiler = (
     }
 
     // Build files list for transformation
-    await buildFilesList();
+    await buildFilesListFn();
 
     // Load live sync keys
     await loadLiveSyncKeys();

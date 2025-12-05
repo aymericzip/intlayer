@@ -1,4 +1,5 @@
 import { basename, dirname, extname } from 'node:path';
+import { parse, types as t, traverse } from '@babel/core';
 
 /* ────────────────────────────────────────── constants ───────────────────── */
 
@@ -356,21 +357,97 @@ export const intlayerSvelteExtract = async (
     extractedContent[key] = value;
   }
 
+  // Extract script content
+  const scriptRegex = /<script[^>]*>([\s\S]*?)<\/script>/;
+  const scriptMatch = scriptRegex.exec(code);
+  let hasScriptExtraction = false;
+  const scriptContent = scriptMatch ? scriptMatch[1] : '';
+
+  if (scriptMatch) {
+    // Calculate offset: scriptMatch.index is start of <script...
+    // We need to find the end of the opening tag >
+    const openTagEndIndex = scriptMatch[0].indexOf('>') + 1;
+    const offset = scriptMatch.index + openTagEndIndex;
+
+    try {
+      const ast = parse(scriptContent, {
+        parserOpts: {
+          sourceType: 'module',
+          plugins: ['typescript', 'jsx'],
+        },
+      });
+
+      traverse(ast, {
+        StringLiteral(path) {
+          if (path.parentPath.isImportDeclaration()) return;
+          if (path.parentPath.isExportDeclaration()) return;
+          if (path.parentPath.isImportSpecifier()) return;
+          if (path.parentPath.isObjectProperty() && path.key === 'key') return;
+
+          if (path.parentPath.isCallExpression()) {
+            const callee = path.parentPath.node.callee;
+            if (
+              t.isMemberExpression(callee) &&
+              t.isIdentifier(callee.object) &&
+              callee.object.name === 'console'
+            ) {
+              return;
+            }
+            if (
+              t.isIdentifier(callee) &&
+              (callee.name === 'useIntlayer' || callee.name === 't')
+            ) {
+              return;
+            }
+
+            // Check for dynamic import import()
+            if (callee.type === 'Import') return;
+
+            // Check for require()
+            if (t.isIdentifier(callee) && callee.name === 'require') return;
+          }
+
+          const text = path.node.value;
+          if (shouldExtract(text)) {
+            const key = generateKey(text, existingKeys);
+            existingKeys.add(key);
+            extractedContent[key] = text.trim();
+            hasScriptExtraction = true;
+
+            if (path.node.start != null && path.node.end != null) {
+              magic.overwrite(
+                offset + path.node.start,
+                offset + path.node.end,
+                `get(content).${key}`
+              );
+            }
+          }
+        },
+      });
+    } catch (e) {
+      console.warn(
+        `Svelte extraction: Failed to parse script content for ${filename}`,
+        e
+      );
+    }
+  }
+
   // If nothing was extracted, return null
   if (Object.keys(extractedContent).length === 0) {
     return null;
   }
-
-  // Find existing script tag
-  const scriptRegex = /<script[^>]*>([\s\S]*?)<\/script>/;
-  const scriptMatch = scriptRegex.exec(code);
-  const scriptContent = scriptMatch ? scriptMatch[1] : '';
 
   // Check if useIntlayer is already imported
   const hasUseIntlayerImport =
     /import\s*{[^}]*useIntlayer[^}]*}\s*from\s*['"][^'"]+['"]/.test(
       scriptContent
     ) || /import\s+useIntlayer\s+from\s*['"][^'"]+['"]/.test(scriptContent);
+
+  // Check if get is already imported from svelte/store
+  const hasGetImport =
+    /import\s*{[^}]*get[^}]*}\s*from\s*['"]svelte\/store['"]/.test(
+      scriptContent
+    );
 
   // Check if content variable is already declared with useIntlayer
   const hasContentDeclaration = /const\s+content\s*=\s*useIntlayer\s*\(/.test(
@@ -386,12 +463,20 @@ export const intlayerSvelteExtract = async (
   const importStmt = hasUseIntlayerImport
     ? ''
     : `import { useIntlayer } from '${packageName}';`;
+
+  const getImportStmt =
+    hasScriptExtraction && !hasGetImport
+      ? `import { get } from 'svelte/store';`
+      : '';
+
   const contentDecl = hasContentDeclaration
     ? ''
     : `const content = useIntlayer('${dictionaryKey}');`;
 
   // Build injection string
-  const injectionParts = [importStmt, contentDecl].filter(Boolean);
+  const injectionParts = [importStmt, getImportStmt, contentDecl].filter(
+    Boolean
+  );
   if (injectionParts.length === 0) {
     return null;
   }
@@ -404,7 +489,9 @@ export const intlayerSvelteExtract = async (
     magic.appendLeft(scriptContentStart, injection);
   } else {
     // No script block, create one
-    magic.prepend(`<script>\n  ${importStmt}\n  ${contentDecl}\n</script>\n\n`);
+    magic.prepend(
+      `<script>\n  ${importStmt}\n  ${hasScriptExtraction ? "import { get } from 'svelte/store';" : ''}\n  ${contentDecl}\n</script>\n\n`
+    );
   }
 
   // Call the onExtract callback with extracted content

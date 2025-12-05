@@ -1,4 +1,5 @@
 import { basename, dirname, extname } from 'node:path';
+import { parse, types as t, traverse } from '@babel/core';
 
 /* ────────────────────────────────────────── constants ───────────────────── */
 
@@ -334,6 +335,75 @@ export const intlayerVueExtract = async (
     };
 
     walkVueAst(sfc.descriptor.template.ast);
+  }
+
+  // Extract script content
+  const scriptBlock = sfc.descriptor.scriptSetup ?? sfc.descriptor.script;
+
+  if (scriptBlock) {
+    const scriptContent = scriptBlock.content;
+    const offset = scriptBlock.loc.start.offset;
+
+    try {
+      const ast = parse(scriptContent, {
+        parserOpts: {
+          sourceType: 'module',
+          plugins: ['typescript', 'jsx'],
+        },
+      });
+
+      traverse(ast, {
+        StringLiteral(path) {
+          if (path.parentPath.isImportDeclaration()) return;
+          if (path.parentPath.isExportDeclaration()) return;
+          if (path.parentPath.isImportSpecifier()) return;
+          if (path.parentPath.isObjectProperty() && path.key === 'key') return;
+
+          if (path.parentPath.isCallExpression()) {
+            const callee = path.parentPath.node.callee;
+            if (
+              t.isMemberExpression(callee) &&
+              t.isIdentifier(callee.object) &&
+              callee.object.name === 'console'
+            ) {
+              return;
+            }
+            if (
+              t.isIdentifier(callee) &&
+              (callee.name === 'useIntlayer' || callee.name === 't')
+            ) {
+              return;
+            }
+
+            // Check for dynamic import import()
+            if (callee.type === 'Import') return;
+
+            // Check for require()
+            if (t.isIdentifier(callee) && callee.name === 'require') return;
+          }
+
+          const text = path.node.value;
+          if (shouldExtract(text)) {
+            const key = generateKey(text, existingKeys);
+            existingKeys.add(key);
+            extractedContent[key] = text.trim();
+
+            if (path.node.start != null && path.node.end != null) {
+              magic.overwrite(
+                offset + path.node.start,
+                offset + path.node.end,
+                `content.${key}`
+              );
+            }
+          }
+        },
+      });
+    } catch (e) {
+      console.warn(
+        `Vue extraction: Failed to parse script content for ${filename}`,
+        e
+      );
+    }
   }
 
   // If nothing was extracted, return null

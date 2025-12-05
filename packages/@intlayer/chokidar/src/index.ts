@@ -46,6 +46,10 @@ export {
   transformFiles,
 } from './transformFiles';
 export {
+  type BuildFilesListOptions,
+  buildFilesList,
+} from './utils/buildFilesList';
+export {
   assembleJSON,
   chunkJSON,
   type JSONObject,

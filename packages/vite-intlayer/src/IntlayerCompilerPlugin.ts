@@ -8,6 +8,7 @@ import {
 } from '@intlayer/babel';
 import {
   buildDictionary,
+  buildFilesList,
   prepareIntlayer,
   writeContentDeclaration,
 } from '@intlayer/chokidar';
@@ -25,7 +26,6 @@ import type {
   Dictionary,
   IntlayerConfig,
 } from '@intlayer/types';
-import fg from 'fast-glob';
 
 /**
  * Translation node structure used in dictionaries
@@ -93,8 +93,75 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
   // Promise to track dictionary writing (for synchronization)
   let pendingDictionaryWrite: Promise<void> | null = null;
 
+  // Track recently processed files to prevent infinite loops
+  // Key: file path, Value: timestamp of last processing
+  const recentlyProcessedFiles = new Map<string, number>();
+  // Track recently written dictionaries to prevent duplicate writes
+  // Key: dictionary key, Value: hash of content that was written
+  const recentDictionaryContent = new Map<string, string>();
+  // Debounce window in milliseconds - skip re-processing files within this window
+  const DEBOUNCE_MS = 500;
+
   const configOptions = options?.configOptions;
   const customCompilerConfig = options?.compilerConfig;
+
+  /**
+   * Check if a file was recently processed (within debounce window)
+   * and should be skipped to prevent infinite loops
+   */
+  const wasRecentlyProcessed = (filePath: string): boolean => {
+    const lastProcessed = recentlyProcessedFiles.get(filePath);
+    if (!lastProcessed) return false;
+
+    const now = Date.now();
+    return now - lastProcessed < DEBOUNCE_MS;
+  };
+
+  /**
+   * Mark a file as recently processed
+   */
+  const markAsProcessed = (filePath: string): void => {
+    recentlyProcessedFiles.set(filePath, Date.now());
+
+    // Clean up old entries to prevent memory leaks
+    const now = Date.now();
+    for (const [path, timestamp] of recentlyProcessedFiles.entries()) {
+      if (now - timestamp > DEBOUNCE_MS * 2) {
+        recentlyProcessedFiles.delete(path);
+      }
+    }
+  };
+
+  /**
+   * Create a simple hash of content for comparison
+   * Used to detect if dictionary content has actually changed
+   */
+  const hashContent = (content: Record<string, string>): string => {
+    return JSON.stringify(
+      Object.keys(content)
+        .sort()
+        .map((k) => [k, content[k]])
+    );
+  };
+
+  /**
+   * Check if dictionary content has changed since last write
+   */
+  const hasDictionaryContentChanged = (
+    dictionaryKey: string,
+    content: Record<string, string>
+  ): boolean => {
+    const newHash = hashContent(content);
+    const previousHash = recentDictionaryContent.get(dictionaryKey);
+
+    if (previousHash === newHash) {
+      return false;
+    }
+
+    // Update the stored hash
+    recentDictionaryContent.set(dictionaryKey, newHash);
+    return true;
+  };
 
   /**
    * Get compiler config from intlayer config or custom options
@@ -112,8 +179,11 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
         customCompilerConfig?.transformPattern ??
         rawConfig.compiler?.transformPattern ??
         config.build.traversePattern,
-      excludePattern: customCompilerConfig?.excludePattern ??
-        rawConfig.compiler?.excludePattern ?? ['**/node_modules/**'],
+      excludePattern: [
+        ...(customCompilerConfig?.excludePattern ?? []),
+        '**/node_modules/**',
+        ...config.content.fileExtensions.map((pattern) => `*${pattern}`),
+      ],
       outputDir:
         customCompilerConfig?.outputDir ??
         rawConfig.compiler?.outputDir ??
@@ -302,23 +372,23 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
   /**
    * Build the list of files to transform based on configuration patterns
    */
-  const buildFilesList = async (): Promise<void> => {
-    const { baseDir } = config.content;
+  const buildFilesListFn = async (): Promise<void> => {
+    const { baseDir, fileExtensions } = config.content;
     const compilerConfig = getCompilerConfig();
 
-    const patterns = Array.isArray(compilerConfig.transformPattern)
-      ? compilerConfig.transformPattern
-      : [compilerConfig.transformPattern];
     const excludePatterns = Array.isArray(compilerConfig.excludePattern)
       ? compilerConfig.excludePattern
       : [compilerConfig.excludePattern];
 
-    filesList = fg
-      .sync(patterns, {
-        cwd: baseDir,
-        ignore: excludePatterns,
-      })
-      .map((file) => join(baseDir, file));
+    filesList = buildFilesList({
+      transformPattern: compilerConfig.transformPattern,
+      excludePattern: [
+        ...excludePatterns,
+        '**/node_modules/**',
+        ...fileExtensions.map((pattern) => `**/*${pattern}`),
+      ],
+      baseDir,
+    });
   };
 
   /**
@@ -339,7 +409,7 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
     }
 
     // Build files list for transformation
-    await buildFilesList();
+    await buildFilesListFn();
   };
 
   /**
@@ -423,6 +493,23 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
     const isTransformableFile = filesList.some((f) => f === file);
 
     if (isTransformableFile) {
+      // Check if this file was recently processed to prevent infinite loops
+      // When a component is transformed, it writes a dictionary, which triggers HMR,
+      // which would re-transform the component - this debounce prevents that loop
+      if (wasRecentlyProcessed(file)) {
+        logger(
+          `${colorize('Compiler:', ANSIColors.GREY_DARK)} Skipping re-transform of ${colorizePath(relative(projectRoot, file))} (recently processed)`,
+          {
+            level: 'info',
+            isVerbose: true,
+          }
+        );
+        return undefined;
+      }
+
+      // Mark file as being processed before transformation
+      markAsProcessed(file);
+
       // Invalidate all affected modules to ensure re-transform
       for (const mod of modules) {
         server.moduleGraph.invalidateModule(mod);
@@ -469,6 +556,18 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
     result: ExtractResult
   ): Promise<void> => {
     const { dictionaryKey, content } = result;
+
+    // Skip if content hasn't changed - prevents infinite loops during HMR
+    if (!hasDictionaryContentChanged(dictionaryKey, content)) {
+      logger(
+        `${colorize('Compiler:', ANSIColors.GREY_DARK)} Skipping dictionary ${colorizeKey(dictionaryKey)} (content unchanged)`,
+        {
+          level: 'info',
+          isVerbose: true,
+        }
+      );
+      return;
+    }
 
     const outputDir = getOutputDir();
     const { defaultLocale } = config.internationalization;

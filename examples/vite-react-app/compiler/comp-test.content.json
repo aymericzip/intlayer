@@ -2,15 +2,71 @@
   "$schema": "https://intlayer.org/schema.json",
   "key": "comp-test",
   "title": "Component test",
-  "description": "Content dictionary for the 'comp-test' component. Contains English UI strings for testing and extraction, including labels, placeholders, aria-labels, option texts, buttons and a paragraph.",
-  "tags": ["component", "test", "ui strings", "i18n", "content extraction"],
+  "description": "Content declarations for the comp-test component. Contains various UI strings (sentences, lists, button labels, placeholders, aria-labels, option texts, and paragraphs) used for localization and testing.",
+  "tags": ["component", "test", "ui", "localization"],
   "content": {
+    "thisIsASentenceIf": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is a sentence if a state (should be extracted)",
+        "fr": "Ceci est une phrase si un état (devrait être extrait)",
+        "es": "Esta es una frase si hay un estado (debe extraerse)"
+      }
+    },
+    "imAListOfItems": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "I'm a list of items (should be extracted as returned by the function)",
+        "fr": "Je suis une liste d'éléments (devrait être extrait tel que retourné par la fonction)",
+        "es": "Soy una lista de elementos (debe extraerse tal como la devuelve la función)"
+      }
+    },
+    "imAListOfItems1": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "I'm a list of items (should be extracted as returned by the function)",
+        "fr": "Je suis une liste d'éléments (devrait être extrait tel que retourné par la fonction)",
+        "es": "Soy una lista de elementos (debe extraerse tal como la devuelve la función)"
+      }
+    },
+    "imASecondListOf": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "I'm a second list of items",
+        "fr": "Je suis une deuxième liste d'éléments",
+        "es": "Soy una segunda lista de elementos"
+      }
+    },
+    "imASecondListOf1": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "I'm a second list of items",
+        "fr": "Je suis une deuxième liste d'éléments",
+        "es": "Soy una segunda lista de elementos"
+      }
+    },
+    "imASecondListOf2": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "I'm a second list of items",
+        "fr": "Je suis une deuxième liste d'éléments",
+        "es": "Soy una segunda lista de elementos"
+      }
+    },
+    "thisIsASentenceIf1": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is a sentence if a state changed. Because state is returned as reactNode, this sentence should be extracted",
+        "fr": "Ceci est une phrase si un état a changé. Puisque l'état est renvoyé en tant que ReactNode, cette phrase devrait être extraite",
+        "es": "Esta es una frase si el estado cambió. Dado que el estado se devuelve como reactNode, esta frase debe extraerse"
+      }
+    },
     "helloWorldShouldBeExtracted": {
       "nodeType": "translation",
       "translation": {
         "en": "Hello World (should be extracted)",
         "fr": "Bonjour le monde (devrait être extrait)",
-        "es": "Hola Mundo (debería extraerse)"
+        "es": "Hola Mundo (debe extraerse)"
       }
     },
     "imATestShouldBe": {
@@ -18,7 +74,7 @@
       "translation": {
         "en": "I'm a test (should be extracted)",
         "fr": "Je suis un test (devrait être extrait)",
-        "es": "Soy una prueba (debería ser extraída)"
+        "es": "Soy una prueba (debe extraerse)"
       }
     },
     "thisIsATestShould": {
@@ -26,15 +82,31 @@
       "translation": {
         "en": "This is a test (should be extracted)",
         "fr": "Ceci est un test (devrait être extrait)",
-        "es": "Esta es una prueba (debería extraerse)"
+        "es": "Esto es una prueba (debe extraerse)"
+      }
+    },
+    "clickedShouldBeExtracted": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Clicked (should be extracted)",
+        "fr": "Cliqué (devrait être extrait)",
+        "es": "Pulsado (debe extraerse)"
+      }
+    },
+    "clickMeShouldBeExtracted": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Click me (should be extracted)",
+        "fr": "Cliquez-moi (devrait être extrait)",
+        "es": "Haz clic aquí (debe extraerse)"
       }
     },
     "thisIsThePlaceholderShould": {
       "nodeType": "translation",
       "translation": {
         "en": "This is the placeholder (should be extracted)",
-        "fr": "Ceci est le texte du placeholder (devrait être extrait)",
-        "es": "Este es el marcador de posición (debería extraerse)"
+        "fr": "Ceci est le placeholder (devrait être extrait)",
+        "es": "Este es el texto del placeholder (debe extraerse)"
       }
     },
     "thisIsTheAriaLabel": {
@@ -42,7 +114,7 @@
       "translation": {
         "en": "This is the aria-label (should be extracted)",
         "fr": "Ceci est l'aria-label (devrait être extrait)",
-        "es": "Este es el aria-label (debería extraerse)"
+        "es": "Esto es el aria-label (debe extraerse)"
       }
     },
     "thisIsTheTextOf": {
@@ -50,7 +122,7 @@
       "translation": {
         "en": "This is the text of the option 1 (should be extracted)",
         "fr": "Ceci est le texte de l'option 1 (devrait être extrait)",
-        "es": "Este es el texto de la opción 1 (debería extraerse)"
+        "es": "Este es el texto de la opción 1 (debe extraerse)"
       }
     },
     "thisIsTheTextOf1": {
@@ -58,7 +130,7 @@
       "translation": {
         "en": "This is the text of the option 2 (should be extracted)",
         "fr": "Ceci est le texte de l'option 2 (devrait être extrait)",
-        "es": "Este es el texto de la opción 2 (debería extraerse)"
+        "es": "Este es el texto de la opción 2 (debe extraerse)"
       }
     },
     "thisIsTheTextOf2": {
@@ -66,15 +138,15 @@
       "translation": {
         "en": "This is the text of the option 3 (should be extracted)",
         "fr": "Ceci est le texte de l'option 3 (devrait être extrait)",
-        "es": "Este es el texto de la opción 3 (debería extraerse)"
+        "es": "Este es el texto de la opción 3 (debe extraerse)"
       }
     },
     "thisIsAStringIncluding": {
       "nodeType": "translation",
       "translation": {
         "en": "This is a string including '\"!@#$%^&*()_+-=[]",
-        "fr": "Ceci est une chaîne comprenant '\\\"!@#$%^&*()_+-=[]",
-        "es": "Esta es una cadena que incluye '\\\"!@#$%^&*()_+-=[]"
+        "fr": "Ceci est une chaîne incluant '\"!@#$%^&*()_+-=[]",
+        "es": "Esta es una cadena que incluye '\"!@#$%^&*()_+-=[]"
       }
     },
     "thisIsAParagraphOn": {
@@ -90,15 +162,15 @@
       "translation": {
         "en": "This text should be extracted",
         "fr": "Ce texte devrait être extrait",
-        "es": "Este texto debería extraerse"
+        "es": "Este texto debe extraerse"
       }
     },
-    "clickMeShouldBeExtracted": {
+    "clickMeShouldBeExtracted1": {
       "nodeType": "translation",
       "translation": {
         "en": "Click me (should be extracted)",
-        "fr": "Cliquez ici (devrait être extrait)",
-        "es": "Haz clic en mí (debería extraerse)"
+        "fr": "Cliquez-moi (devrait être extrait)",
+        "es": "Haz clic aquí (debe extraerse)"
       }
     },
     "helloWorld2ShouldBe": {
@@ -106,7 +178,7 @@
       "translation": {
         "en": "Hello World 2 (should be extracted)",
         "fr": "Bonjour le monde 2 (devrait être extrait)",
-        "es": "Hola Mundo 2 (debería extraerse)"
+        "es": "Hola Mundo 2 (debe extraerse)"
       }
     },
     "helloWorld2ShouldBe1": {
@@ -114,7 +186,7 @@
       "translation": {
         "en": "Hello World 2 (should be extracted)",
         "fr": "Bonjour le monde 2 (devrait être extrait)",
-        "es": "Hola Mundo 2 (debería extraerse)"
+        "es": "Hola Mundo 2 (debe extraerse)"
       }
     },
     "thisIsATest2": {
@@ -122,7 +194,15 @@
       "translation": {
         "en": "This is a test 2 (should be extracted)",
         "fr": "Ceci est un test 2 (devrait être extrait)",
-        "es": "Esta es una prueba 2 (debería extraerse)"
+        "es": "Esta es una prueba 2 (debe extraerse)"
+      }
+    },
+    "thisIsARandomFunction": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is a random function return should be extracted because it's returned by the function",
+        "fr": "Ceci est le retour d'une fonction aléatoire qui devrait être extrait car il est renvoyé par la fonction",
+        "es": "Esta es la devolución de una función aleatoria; debe extraerse porque la función la devuelve"
       }
     }
   }

@@ -68,6 +68,10 @@ type State = PluginPass & {
   _hasUseIntlayerImport?: boolean;
   /** The local name for useIntlayer (in case it's aliased) */
   _useIntlayerLocalName?: string;
+  /** Whether we already have getIntlayer imported */
+  _hasGetIntlayerImport?: boolean;
+  /** The local name for getIntlayer (in case it's aliased) */
+  _getIntlayerLocalName?: string;
   /** The variable name to use for content (content or _compContent if content is already used) */
   _contentVarName?: string;
   /** Set of function start positions that have extracted content (only inject hooks into these) */
@@ -174,6 +178,8 @@ export const intlayerExtractBabelPlugin = (babel: {
       this._hasJSX = false;
       this._hasUseIntlayerImport = false;
       this._useIntlayerLocalName = 'useIntlayer';
+      this._hasGetIntlayerImport = false;
+      this._getIntlayerLocalName = 'getIntlayer';
       this._contentVarName = 'content'; // Will be updated in Program.enter if 'content' is already used
 
       const filename = this.file.opts.filename;
@@ -214,6 +220,10 @@ export const intlayerExtractBabelPlugin = (babel: {
           if (importedName === 'useIntlayer') {
             state._hasUseIntlayerImport = true;
             state._useIntlayerLocalName = spec.local.name;
+          }
+          if (importedName === 'getIntlayer') {
+            state._hasGetIntlayerImport = true;
+            state._getIntlayerLocalName = spec.local.name;
           }
         }
       },
@@ -316,6 +326,79 @@ export const intlayerExtractBabelPlugin = (babel: {
         }
       },
 
+      /* Extract String Literals in code (variables, props, etc.) */
+      StringLiteral(path, state) {
+        if (!state._isIncluded) return;
+        if (path.parentPath.isJSXAttribute()) return; // Already handled
+        if (path.parentPath.isImportDeclaration()) return;
+        if (path.parentPath.isExportDeclaration()) return;
+        if (path.parentPath.isImportSpecifier()) return;
+        // Check if it is a key in an object property
+        if (path.parentPath.isObjectProperty() && path.key === 'key') return;
+
+        // Check if it is a call expression to console or useIntlayer
+        if (path.parentPath.isCallExpression()) {
+          const callee = path.parentPath.node.callee;
+
+          // Check for console.log/error/etc
+          if (
+            t.isMemberExpression(callee) &&
+            t.isIdentifier(callee.object) &&
+            callee.object.name === 'console'
+          ) {
+            return;
+          }
+
+          // Check for useIntlayer('key')
+          if (
+            t.isIdentifier(callee) &&
+            callee.name === state._useIntlayerLocalName
+          ) {
+            return;
+          }
+
+          // Check for getIntlayer('key')
+          if (
+            t.isIdentifier(callee) &&
+            callee.name === state._getIntlayerLocalName
+          ) {
+            return;
+          }
+
+          // Check for dynamic import import()
+          if (callee.type === 'Import') return;
+
+          // Check for require()
+          if (t.isIdentifier(callee) && callee.name === 'require') return;
+        }
+
+        const text = path.node.value;
+        const shouldExtract = state.opts.shouldExtract ?? defaultShouldExtract;
+
+        if (shouldExtract(text)) {
+          const key = generateKey(text, state._existingKeys!);
+          state._existingKeys!.add(key);
+
+          // Collect extracted content
+          state._extractedContent![key] = text.trim();
+
+          // Track which function has extracted content
+          const funcParent = path.getFunctionParent();
+          if (funcParent?.node.start != null) {
+            state._functionsWithExtractedContent!.add(funcParent.node.start);
+          }
+
+          // Replace with content.key or _compContent.key
+          path.replaceWith(
+            t.memberExpression(
+              t.identifier(state._contentVarName!),
+              t.identifier(key),
+              false
+            )
+          );
+        }
+      },
+
       /* Inject useIntlayer hook at program exit */
       Program: {
         enter(programPath, state) {
@@ -369,41 +452,11 @@ export const intlayerExtractBabelPlugin = (babel: {
             });
           }
 
-          // Find insertion point (after directives and imports)
-          const bodyPaths = programPath.get(
-            'body'
-          ) as NodePath<BabelTypes.Statement>[];
+          // Track what we need to inject
+          let needsUseIntlayer = false;
+          let needsGetIntlayer = false;
 
-          // Add useIntlayer import if not already present
-          if (!state._hasUseIntlayerImport) {
-            const importDeclaration = t.importDeclaration(
-              [
-                t.importSpecifier(
-                  t.identifier('useIntlayer'),
-                  t.identifier('useIntlayer')
-                ),
-              ],
-              t.stringLiteral(packageName!)
-            );
-
-            // Find the best position for import (after directives but before other imports)
-            let importInsertPos = 0;
-            for (const stmtPath of bodyPaths) {
-              const stmt = stmtPath.node;
-              if (
-                t.isExpressionStatement(stmt) &&
-                t.isStringLiteral(stmt.expression)
-              ) {
-                importInsertPos += 1;
-                continue;
-              }
-              break;
-            }
-
-            programPath.node.body.splice(importInsertPos, 0, importDeclaration);
-          }
-
-          // Now inject useIntlayer hook only into functions that have extracted content
+          // Now inject hooks only into functions that have extracted content
           const functionsWithContent = state._functionsWithExtractedContent!;
 
           programPath.traverse({
@@ -414,7 +467,9 @@ export const intlayerExtractBabelPlugin = (babel: {
                 funcPath.node.start != null &&
                 functionsWithContent.has(funcPath.node.start)
               ) {
-                injectHookIntoFunction(funcPath, state, t);
+                const type = injectHookIntoFunction(funcPath, state, t);
+                if (type === 'hook') needsUseIntlayer = true;
+                if (type === 'core') needsGetIntlayer = true;
               }
             },
 
@@ -430,16 +485,77 @@ export const intlayerExtractBabelPlugin = (babel: {
                   init.start != null &&
                   functionsWithContent.has(init.start)
                 ) {
-                  injectHookIntoArrowOrExpression(
+                  const type = injectHookIntoArrowOrExpression(
                     varPath as NodePath<BabelTypes.VariableDeclarator>,
                     init,
                     state,
                     t
                   );
+                  if (type === 'hook') needsUseIntlayer = true;
+                  if (type === 'core') needsGetIntlayer = true;
                 }
               }
             },
           });
+
+          // Add imports if needed
+          if (needsUseIntlayer || needsGetIntlayer) {
+            const bodyPaths = programPath.get(
+              'body'
+            ) as NodePath<BabelTypes.Statement>[];
+
+            // Find the best position for import (after directives but before other imports)
+            let importInsertPos = 0;
+            for (const stmtPath of bodyPaths) {
+              const stmt = stmtPath.node;
+              if (
+                t.isExpressionStatement(stmt) &&
+                t.isStringLiteral(stmt.expression)
+              ) {
+                importInsertPos += 1;
+                continue;
+              }
+              break;
+            }
+
+            // Inject useIntlayer import
+            if (needsUseIntlayer && !state._hasUseIntlayerImport) {
+              const importDeclaration = t.importDeclaration(
+                [
+                  t.importSpecifier(
+                    t.identifier('useIntlayer'),
+                    t.identifier('useIntlayer')
+                  ),
+                ],
+                t.stringLiteral(packageName!)
+              );
+              programPath.node.body.splice(
+                importInsertPos,
+                0,
+                importDeclaration
+              );
+              // adjust position for next import
+              importInsertPos++;
+            }
+
+            // Inject getIntlayer import
+            if (needsGetIntlayer && !state._hasGetIntlayerImport) {
+              const importDeclaration = t.importDeclaration(
+                [
+                  t.importSpecifier(
+                    t.identifier('getIntlayer'),
+                    t.identifier('getIntlayer')
+                  ),
+                ],
+                t.stringLiteral(packageName!)
+              );
+              programPath.node.body.splice(
+                importInsertPos,
+                0,
+                importDeclaration
+              );
+            }
+          }
         },
       },
     },
@@ -448,14 +564,15 @@ export const intlayerExtractBabelPlugin = (babel: {
 
 /**
  * Inject useIntlayer hook into a function declaration
+ * Returns 'hook' if useIntlayer was injected (or needed), 'core' if getIntlayer was injected, or null.
  */
 const injectHookIntoFunction = (
   funcPath: NodePath<BabelTypes.FunctionDeclaration>,
   state: State,
   t: typeof BabelTypes
-) => {
+): 'hook' | 'core' | null => {
   const body = funcPath.node.body;
-  if (!t.isBlockStatement(body)) return;
+  if (!t.isBlockStatement(body)) return null;
 
   // Check if this function returns JSX
   let returnsJSX = false;
@@ -468,38 +585,71 @@ const injectHookIntoFunction = (
     },
   });
 
-  if (!returnsJSX) return;
-
   const contentVarName = state._contentVarName!;
 
-  // Check if hook with this specific variable name is already injected
-  const hasHook = body.body.some(
-    (stmt) =>
-      t.isVariableDeclaration(stmt) &&
-      stmt.declarations.some(
-        (decl) =>
-          t.isIdentifier(decl.id) &&
-          decl.id.name === contentVarName &&
-          t.isCallExpression(decl.init) &&
-          t.isIdentifier(decl.init.callee) &&
-          decl.init.callee.name === state._useIntlayerLocalName
-      )
-  );
+  if (returnsJSX) {
+    // Inject useIntlayer
 
-  if (hasHook) return;
+    // Check if hook with this specific variable name is already injected
+    const hasHook = body.body.some(
+      (stmt) =>
+        t.isVariableDeclaration(stmt) &&
+        stmt.declarations.some(
+          (decl) =>
+            t.isIdentifier(decl.id) &&
+            decl.id.name === contentVarName &&
+            t.isCallExpression(decl.init) &&
+            t.isIdentifier(decl.init.callee) &&
+            decl.init.callee.name === state._useIntlayerLocalName
+        )
+    );
 
-  // Inject: const content = useIntlayer('dictionary-key');
-  // or: const _compContent = useIntlayer('comp-dictionary-key');
-  const hookCall = t.variableDeclaration('const', [
-    t.variableDeclarator(
-      t.identifier(contentVarName),
-      t.callExpression(t.identifier(state._useIntlayerLocalName!), [
-        t.stringLiteral(state._dictionaryKey!),
-      ])
-    ),
-  ]);
+    if (hasHook) return 'hook';
 
-  body.body.unshift(hookCall);
+    // Inject: const content = useIntlayer('dictionary-key');
+    const hookCall = t.variableDeclaration('const', [
+      t.variableDeclarator(
+        t.identifier(contentVarName),
+        t.callExpression(t.identifier(state._useIntlayerLocalName!), [
+          t.stringLiteral(state._dictionaryKey!),
+        ])
+      ),
+    ]);
+
+    body.body.unshift(hookCall);
+    return 'hook';
+  } else {
+    // Inject getIntlayer
+
+    // Check if getIntlayer call with this variable name is already injected
+    const hasCall = body.body.some(
+      (stmt) =>
+        t.isVariableDeclaration(stmt) &&
+        stmt.declarations.some(
+          (decl) =>
+            t.isIdentifier(decl.id) &&
+            decl.id.name === contentVarName &&
+            t.isCallExpression(decl.init) &&
+            t.isIdentifier(decl.init.callee) &&
+            decl.init.callee.name === state._getIntlayerLocalName
+        )
+    );
+
+    if (hasCall) return 'core';
+
+    // Inject: const content = getIntlayer('dictionary-key');
+    const call = t.variableDeclaration('const', [
+      t.variableDeclarator(
+        t.identifier(contentVarName),
+        t.callExpression(t.identifier(state._getIntlayerLocalName!), [
+          t.stringLiteral(state._dictionaryKey!),
+        ])
+      ),
+    ]);
+
+    body.body.unshift(call);
+    return 'core';
+  }
 };
 
 /**
@@ -510,7 +660,7 @@ const injectHookIntoArrowOrExpression = (
   init: BabelTypes.ArrowFunctionExpression | BabelTypes.FunctionExpression,
   state: State,
   t: typeof BabelTypes
-) => {
+): 'hook' | 'core' | null => {
   const body = init.body;
   const contentVarName = state._contentVarName!;
 
@@ -518,7 +668,6 @@ const injectHookIntoArrowOrExpression = (
   if (t.isJSXElement(body) || t.isJSXFragment(body)) {
     // Transform: () => <div>...</div>
     // To: () => { const content = useIntlayer('key'); return <div>...</div>; }
-    // or: () => { const _compContent = useIntlayer('comp-key'); return <div>...</div>; }
     const hookCall = t.variableDeclaration('const', [
       t.variableDeclarator(
         t.identifier(contentVarName),
@@ -530,10 +679,25 @@ const injectHookIntoArrowOrExpression = (
 
     const returnStmt = t.returnStatement(body);
     init.body = t.blockStatement([hookCall, returnStmt]);
-    return;
+    return 'hook';
   }
 
-  if (!t.isBlockStatement(body)) return;
+  if (!t.isBlockStatement(body)) {
+    // Transform: () => "string"
+    // To: () => { const content = getIntlayer('key'); return "string"; }
+    const call = t.variableDeclaration('const', [
+      t.variableDeclarator(
+        t.identifier(contentVarName),
+        t.callExpression(t.identifier(state._getIntlayerLocalName!), [
+          t.stringLiteral(state._dictionaryKey!),
+        ])
+      ),
+    ]);
+
+    const returnStmt = t.returnStatement(body);
+    init.body = t.blockStatement([call, returnStmt]);
+    return 'core';
+  }
 
   // Check if this function returns JSX
   let returnsJSX = false;
@@ -546,34 +710,61 @@ const injectHookIntoArrowOrExpression = (
     },
   });
 
-  if (!returnsJSX) return;
+  if (returnsJSX) {
+    // Inject useIntlayer
+    const hasHook = body.body.some(
+      (stmt) =>
+        t.isVariableDeclaration(stmt) &&
+        stmt.declarations.some(
+          (decl) =>
+            t.isIdentifier(decl.id) &&
+            decl.id.name === contentVarName &&
+            t.isCallExpression(decl.init) &&
+            t.isIdentifier(decl.init.callee) &&
+            decl.init.callee.name === state._useIntlayerLocalName
+        )
+    );
 
-  // Check if hook with this specific variable name is already injected
-  const hasHook = body.body.some(
-    (stmt) =>
-      t.isVariableDeclaration(stmt) &&
-      stmt.declarations.some(
-        (decl) =>
-          t.isIdentifier(decl.id) &&
-          decl.id.name === contentVarName &&
-          t.isCallExpression(decl.init) &&
-          t.isIdentifier(decl.init.callee) &&
-          decl.init.callee.name === state._useIntlayerLocalName
-      )
-  );
+    if (hasHook) return 'hook';
 
-  if (hasHook) return;
+    const hookCall = t.variableDeclaration('const', [
+      t.variableDeclarator(
+        t.identifier(contentVarName),
+        t.callExpression(t.identifier(state._useIntlayerLocalName!), [
+          t.stringLiteral(state._dictionaryKey!),
+        ])
+      ),
+    ]);
 
-  // Inject: const content = useIntlayer('dictionary-key');
-  // or: const _compContent = useIntlayer('comp-dictionary-key');
-  const hookCall = t.variableDeclaration('const', [
-    t.variableDeclarator(
-      t.identifier(contentVarName),
-      t.callExpression(t.identifier(state._useIntlayerLocalName!), [
-        t.stringLiteral(state._dictionaryKey!),
-      ])
-    ),
-  ]);
+    body.body.unshift(hookCall);
+    return 'hook';
+  } else {
+    // Inject getIntlayer
+    const hasCall = body.body.some(
+      (stmt) =>
+        t.isVariableDeclaration(stmt) &&
+        stmt.declarations.some(
+          (decl) =>
+            t.isIdentifier(decl.id) &&
+            decl.id.name === contentVarName &&
+            t.isCallExpression(decl.init) &&
+            t.isIdentifier(decl.init.callee) &&
+            decl.init.callee.name === state._getIntlayerLocalName
+        )
+    );
 
-  body.body.unshift(hookCall);
+    if (hasCall) return 'core';
+
+    const call = t.variableDeclaration('const', [
+      t.variableDeclarator(
+        t.identifier(contentVarName),
+        t.callExpression(t.identifier(state._getIntlayerLocalName!), [
+          t.stringLiteral(state._dictionaryKey!),
+        ])
+      ),
+    ]);
+
+    body.body.unshift(call);
+    return 'core';
+  }
 };

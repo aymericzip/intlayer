@@ -23,14 +23,16 @@ const config: IntlayerConfig = {
   ai: {
     provider: 'openai',
     apiKey: process.env.OPENAI_API_KEY,
+    model: 'gpt-5-mini',
     applicationContext: 'This is a test application',
   },
   compiler: {
-    enabled: false,
+    enabled: true,
+    outputDir: './compiler',
   },
   build: {
     optimize: true,
-    importMode: 'dynamic',
+    // importMode: 'dynamic',
   },
 };
 

@@ -1,14 +1,17 @@
 import { createRequire } from 'node:module';
 import { join, relative } from 'node:path';
 import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
-import { watch as chokidarWatch, prepareIntlayer } from '@intlayer/chokidar';
+import {
+  buildFilesList,
+  watch as chokidarWatch,
+  prepareIntlayer,
+} from '@intlayer/chokidar';
 import {
   type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
 import type { CompilerConfig, IntlayerConfig } from '@intlayer/types';
-import fg from 'fast-glob';
 
 /**
  * Mode of the compiler
@@ -124,39 +127,20 @@ export const createVueIntlayerCompiler = (
    * Build the list of files to transform based on configuration patterns
    * Includes Vue-specific patterns
    */
-  const buildFilesList = async (): Promise<void> => {
+  const buildFilesListFn = async (): Promise<void> => {
     const { traversePattern } = config.build;
-    const { baseDir, mainDir } = config.content;
+    const { baseDir, mainDir, fileExtensions } = config.content;
 
-    const transformPattern =
-      customCompilerConfig?.transformPattern ?? traversePattern;
-    const excludePattern = customCompilerConfig?.excludePattern ?? [
-      '**/node_modules/**',
-    ];
-
-    // Add Vue file patterns
-    const patterns = Array.isArray(transformPattern)
-      ? transformPattern
-      : [transformPattern];
-    const vuePatterns = patterns.map((p) => {
-      // Ensure Vue files are included
-      if (p.includes('.vue') || p.includes('{')) {
-        return p;
-      }
-      // Add .vue extension to patterns
-      return p.replace(/\{([^}]+)\}/, (_, exts) => `{${exts},vue}`);
+    const filesListPattern = buildFilesList({
+      transformPattern:
+        customCompilerConfig?.transformPattern ?? traversePattern,
+      excludePattern: [
+        ...(customCompilerConfig?.excludePattern ?? []),
+        '**/node_modules/**',
+        ...fileExtensions.map((pattern) => `**/*${pattern}`),
+      ],
+      baseDir,
     });
-
-    const excludePatterns = Array.isArray(excludePattern)
-      ? excludePattern
-      : [excludePattern];
-
-    const filesListPattern = fg
-      .sync([...new Set([...patterns, ...vuePatterns])], {
-        cwd: baseDir,
-        ignore: excludePatterns,
-      })
-      .map((file) => join(baseDir, file));
 
     const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
     const unmergedDictionariesEntryPath = join(
@@ -208,7 +192,7 @@ export const createVueIntlayerCompiler = (
     }
 
     // Build files list for transformation
-    await buildFilesList();
+    await buildFilesListFn();
 
     // Load live sync keys
     await loadLiveSyncKeys();

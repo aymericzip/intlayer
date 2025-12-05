@@ -26,7 +26,7 @@ export const getFormatFromExtension = (extension: Extension): Format => {
       return 'json';
   }
 
-  return 'esm';
+  return 'ts';
 };
 
 export const getExtensionFromFormat = (format: Format): Extension => {
@@ -41,5 +41,5 @@ export const getExtensionFromFormat = (format: Format): Extension => {
       return '.mjs';
   }
 
-  return '.mjs';
+  return '.ts';
 };
