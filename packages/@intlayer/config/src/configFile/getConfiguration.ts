@@ -68,7 +68,7 @@ export const getConfigurationAndFilePath = (
     logConfigFileResult(baseDir, numCustomConfiguration, configurationFilePath);
   }
 
-  let storedConfiguration: IntlayerConfig | undefined;
+  let storedConfiguration: IntlayerConfig;
 
   if (configurationFilePath) {
     // Load the custom configuration
@@ -91,6 +91,13 @@ export const getConfigurationAndFilePath = (
       options?.baseDir,
       options?.logFunctions
     );
+  } else {
+    // No configuration file found, use default configuration
+    storedConfiguration = buildConfigurationFields(
+      {},
+      options?.baseDir,
+      options?.logFunctions
+    );
   }
 
   // Log warning if multiple configuration files are found
@@ -105,9 +112,9 @@ export const getConfigurationAndFilePath = (
     : {};
 
   const configWithProjectRequire = merge(
-    storedConfiguration ?? {},
+    storedConfiguration,
     projectRequireConfig
-  ) as CustomIntlayerConfig;
+  ) as IntlayerConfig;
 
   const configuration = merge(
     configWithProjectRequire,
