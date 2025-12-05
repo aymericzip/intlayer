@@ -27,7 +27,7 @@ import { TechLogos } from './TechLogos';
 
 const SHOW_WHATS_NEW = true;
 
-const ContainerMotion = motion(Container);
+const ContainerMotion = motion.create(Container);
 
 export const LandingSection: FC = () => {
   const {
