@@ -18,6 +18,9 @@ slugs:
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 history:
+  - version: 7.3.9
+    date: 2025-12-05
+    changes: Add step 13: Retrieve the locale in your server actions (Optional)
   - version: 5.8.1
     date: 2025-09-09
     changes: Добавлено для Tanstack Start
@@ -529,7 +532,55 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### Шаг 13: Настройка TypeScript (необязательно)
+### Шаг 13: Получение локали в серверных действиях (необязательно)
+
+Вы можете захотеть получить доступ к текущей локали внутри ваших серверных действий или конечных точек API.
+Вы можете сделать это с помощью помощника `getLocale` из `intlayer`.
+
+Вот пример использования серверных функций TanStack Start:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createServerFn } from "@tanstack/react-start";
+import {
+  getRequestHeader,
+  getRequestHeaders,
+} from "@tanstack/react-start/server";
+import { getCookie, getIntlayer, getLocale } from "intlayer";
+
+export const getLocaleServer = createServerFn().handler(async () => {
+  const locale = await getLocale({
+    // Получить cookie из запроса (по умолчанию: 'INTLAYER_LOCALE')
+    getCookie: (name) => {
+      const cookieString = getRequestHeader("cookie");
+
+      return getCookie(name, cookieString);
+    },
+    // Получить заголовок из запроса (по умолчанию: 'x-intlayer-locale')
+    getHeader: (name) => getRequestHeader(name),
+    // Резервный вариант с использованием согласования Accept-Language
+    getAllHeaders: async () => {
+      const headers = getRequestHeaders();
+      const result: Record<string, string> = {};
+
+      // Преобразовать TypedHeaders в простой Record<string, string>
+      for (const [key, value] of headers.entries()) {
+        result[key] = value;
+      }
+
+      return result;
+    },
+  });
+
+  // Получить контент с помощью getIntlayer()
+  const content = getIntlayer("app", locale);
+
+  return { locale, content };
+});
+```
+
+---
+
+### Шаг 14: Настройка TypeScript (необязательно)
 
 Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать вашу кодовую базу более надежной.
 

@@ -1,6 +1,7 @@
 import configuration from '@intlayer/config/built';
 import type { CookiesAttributes, Locale, LocalesValues } from '@intlayer/types';
 import { getStorageAttributes } from '../getStorageAttributes';
+import { getCookie } from './getCookie';
 
 type CookieBuildAttributes = {
   /**
@@ -132,37 +133,11 @@ export const getLocaleFromStorage = (
     try {
       const fromOption = options?.getCookie?.(name);
 
-      if (fromOption !== null) return fromOption;
+      if (fromOption !== null && fromOption !== undefined) return fromOption;
     } catch {}
 
     // Fallback to browser cookie parsing
-    try {
-      const cookieString = document.cookie ?? '';
-
-      if (!cookieString) return;
-
-      const pairs = cookieString.split(';');
-
-      for (let i = 0; i < pairs.length; i++) {
-        const part = pairs[i].trim();
-
-        if (!part) continue;
-
-        const equalIndex = part.indexOf('=');
-        const key = equalIndex >= 0 ? part.substring(0, equalIndex) : part;
-
-        if (key === name) {
-          const rawValue =
-            equalIndex >= 0 ? part.substring(equalIndex + 1) : '';
-
-          try {
-            return decodeURIComponent(rawValue);
-          } catch {
-            return rawValue;
-          }
-        }
-      }
-    } catch {}
+    return getCookie(name);
   };
 
   // 1) Check cookies first

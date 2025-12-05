@@ -18,6 +18,9 @@ slugs:
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 history:
+  - version: 7.3.9
+    date: 2025-12-05
+    changes: Add step 13: Retrieve the locale in your server actions (Optional)
   - version: 5.8.1
     date: 2025-09-09
     changes: Ajout pour Tanstack Start
@@ -536,7 +539,55 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### Étape 13 : Configurer TypeScript (Optionnel)
+### Étape 13 : Récupérer la locale dans vos actions serveur (Optionnel)
+
+Vous voudrez peut-être accéder à la locale actuelle depuis l'intérieur de vos actions serveur ou points de terminaison API.
+Vous pouvez le faire en utilisant l'assistant `getLocale` de `intlayer`.
+
+Voici un exemple utilisant les fonctions serveur de TanStack Start :
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createServerFn } from "@tanstack/react-start";
+import {
+  getRequestHeader,
+  getRequestHeaders,
+} from "@tanstack/react-start/server";
+import { getCookie, getIntlayer, getLocale } from "intlayer";
+
+export const getLocaleServer = createServerFn().handler(async () => {
+  const locale = await getLocale({
+    // Récupérer le cookie depuis la requête (défaut : 'INTLAYER_LOCALE')
+    getCookie: (name) => {
+      const cookieString = getRequestHeader("cookie");
+
+      return getCookie(name, cookieString);
+    },
+    // Récupérer l'en-tête depuis la requête (défaut : 'x-intlayer-locale')
+    getHeader: (name) => getRequestHeader(name),
+    // Repli utilisant la négociation Accept-Language
+    getAllHeaders: async () => {
+      const headers = getRequestHeaders();
+      const result: Record<string, string> = {};
+
+      // Convertir les TypedHeaders en un simple Record<string, string>
+      for (const [key, value] of headers.entries()) {
+        result[key] = value;
+      }
+
+      return result;
+    },
+  });
+
+  // Récupérer du contenu en utilisant getIntlayer()
+  const content = getIntlayer("app", locale);
+
+  return { locale, content };
+});
+```
+
+---
+
+### Étape 14 : Configurer TypeScript (Optionnel)
 
 Intlayer utilise l'augmentation de module pour bénéficier de TypeScript et renforcer votre base de code.
 

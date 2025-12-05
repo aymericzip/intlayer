@@ -49,6 +49,7 @@ export {
   enu,
   gender,
   getBrowserLocale,
+  getCookie,
   getDictionary,
   getEnumeration,
   /**
@@ -57,6 +58,7 @@ export {
   getEnumeration as getEnumerationContent,
   getHTMLTextDir,
   getIntlayer,
+  getLocale,
   getLocaleFromPath,
   getLocaleFromStorage,
   getLocaleLang,

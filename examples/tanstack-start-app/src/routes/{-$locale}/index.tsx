@@ -1,7 +1,42 @@
 import { createFileRoute } from '@tanstack/react-router';
+import {
+  getRequestHeader,
+  getRequestHeaders,
+} from '@tanstack/react-start/server';
+import { getCookie, getLocale } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 
 export const Route = createFileRoute('/{-$locale}/')({ component: App });
+
+import { createServerFn } from '@tanstack/react-start';
+
+// GET request (default)
+export const getData = createServerFn().handler(async () => {
+  const locale = await getLocale({
+    // Get the cookie from the request (default: 'INTLAYER_LOCALE')
+    getCookie: (name) => {
+      const cookieString = getRequestHeader('cookie');
+
+      return getCookie(name, cookieString);
+    },
+    // Get the header from the request (default: 'x-intlayer-locale')
+    getHeader: (name) => getRequestHeader(name),
+    // Fallback using Accept-Language negotiation
+    getAllHeaders: async () => {
+      const headers = getRequestHeaders();
+      const result: Record<string, string> = {};
+
+      // Convert the TypedHeaders into a plain Record<string, string>
+      for (const [key, value] of headers.entries()) {
+        result[key] = value;
+      }
+
+      return result;
+    },
+  });
+
+  return { message: 'Hello from server!' };
+});
 
 function App() {
   const {
@@ -12,6 +47,8 @@ function App() {
     guideTextPrefix,
     features: featureTranslations,
   } = useIntlayer('app');
+
+  const { data } = getData();
 
   const features = featureTranslations.map((featureTranslation, index) => ({
     icon: '',

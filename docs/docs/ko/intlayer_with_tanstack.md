@@ -18,6 +18,9 @@ slugs:
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 history:
+  - version: 7.3.9
+    date: 2025-12-05
+    changes: Add step 13: Retrieve the locale in your server actions (Optional)
   - version: 5.8.1
     date: 2025-09-09
     changes: Tanstack Start용 추가
@@ -537,7 +540,55 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### 13단계: TypeScript 구성 (선택 사항)
+### Step 13: Retrieve the locale in your server actions (Optional)
+
+You may want to access the current locale from inside your server actions or API endpoints.
+You can do this using the `getLocale` helper from `intlayer`.
+
+Here's an example using TanStack Start's server functions:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createServerFn } from "@tanstack/react-start";
+import {
+  getRequestHeader,
+  getRequestHeaders,
+} from "@tanstack/react-start/server";
+import { getCookie, getIntlayer, getLocale } from "intlayer";
+
+export const getLocaleServer = createServerFn().handler(async () => {
+  const locale = await getLocale({
+    // Get the cookie from the request (default: 'INTLAYER_LOCALE')
+    getCookie: (name) => {
+      const cookieString = getRequestHeader("cookie");
+
+      return getCookie(name, cookieString);
+    },
+    // Get the header from the request (default: 'x-intlayer-locale')
+    getHeader: (name) => getRequestHeader(name),
+    // Fallback using Accept-Language negotiation
+    getAllHeaders: async () => {
+      const headers = getRequestHeaders();
+      const result: Record<string, string> = {};
+
+      // Convert the TypedHeaders into a plain Record<string, string>
+      for (const [key, value] of headers.entries()) {
+        result[key] = value;
+      }
+
+      return result;
+    },
+  });
+
+  // Retrieve some content using getIntlayer()
+  const content = getIntlayer("app", locale);
+
+  return { locale, content };
+});
+```
+
+---
+
+### 14단계: TypeScript 구성 (선택 사항)
 
 Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 활용하고 코드베이스를 더욱 견고하게 만듭니다.
 
