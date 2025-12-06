@@ -1,6 +1,6 @@
 {
   "name": "next-intlayer",
-  "version": "7.3.10",
+  "version": "7.3.11",
   "private": false,
   "description": "Simplify internationalization i18n in Next.js with context providers, hooks, locale detection, and multilingual content integration.",
   "keywords": [
