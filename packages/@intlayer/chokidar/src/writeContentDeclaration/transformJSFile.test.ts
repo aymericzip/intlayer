@@ -7,7 +7,7 @@ import {
   type Dictionary,
   Locales,
 } from '@intlayer/types';
-import deepmerge from 'deepmerge';
+import { defu } from 'defu';
 import { describe, expect, it, vi } from 'vitest';
 import { transformJSFile } from './transformJSFile';
 
@@ -36,11 +36,14 @@ const { default: initialFileContent } = await import('./_test.content');
 
 describe('transformJSFile', () => {
   it('add new string entries', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        title: 'Hello',
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          title: 'Hello',
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -49,15 +52,18 @@ describe('transformJSFile', () => {
   });
 
   it('add new translation entries', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        title: t({
-          en: 'Hello',
-          fr: 'Bonjour',
-          es: 'Hola',
-        }),
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          title: t({
+            en: 'Hello',
+            fr: 'Bonjour',
+            es: 'Hola',
+          }),
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -68,15 +74,18 @@ describe('transformJSFile', () => {
   });
 
   it('update existing translation entries', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        welcomeMessage: t({
-          en: 'Hello',
-          fr: 'Bonjour',
-          es: 'Hola',
-        }),
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          welcomeMessage: t({
+            en: 'Hello',
+            fr: 'Bonjour',
+            es: 'Hola',
+          }),
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -87,8 +96,7 @@ describe('transformJSFile', () => {
   });
 
   it('add new translation entries in an array', async () => {
-    const dictionary: Dictionary = deepmerge(
-      initialFileContent,
+    const dictionary: Dictionary = defu(
       {
         content: {
           arrayOfTranslations: [
@@ -103,9 +111,7 @@ describe('transformJSFile', () => {
           ],
         },
       },
-      {
-        arrayMerge: (_destinationArray, sourceArray) => sourceArray,
-      }
+      initialFileContent
     );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
@@ -120,13 +126,16 @@ describe('transformJSFile', () => {
   });
 
   it('add new primitive entries (number, boolean, null)', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
+    // Note: defu skips null values by design, so we construct the dictionary directly
+    const dictionary: Dictionary = {
+      ...initialFileContent,
       content: {
+        ...initialFileContent.content,
         newNumber: 42,
         newBoolean: true,
         newNull: null as any,
       },
-    });
+    };
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -136,14 +145,17 @@ describe('transformJSFile', () => {
   });
 
   it('supports hyphenated locale keys and keeps proper quoting', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        hyphenTrans: t({
-          en: 'Hi',
-          'en-GB': 'Hello',
-        }),
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          hyphenTrans: t({
+            en: 'Hi',
+            'en-GB': 'Hello',
+          }),
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -153,12 +165,15 @@ describe('transformJSFile', () => {
   });
 
   it('skips translation updates when values are not plain strings', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        // Simulate non-string translation values; implementation should skip
-        badTrans: t({ en: 123 as any }),
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          // Simulate non-string translation values; implementation should skip
+          badTrans: t({ en: 123 as any }),
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -166,14 +181,17 @@ describe('transformJSFile', () => {
   });
 
   it('update translation entries locale in an array or translation', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        contentMultilingual: t({
-          en: 'Hello 3',
-          fr: 'Bonjour 3',
-        }),
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          contentMultilingual: t({
+            en: 'Hello 3',
+            fr: 'Bonjour 3',
+          }),
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -182,11 +200,14 @@ describe('transformJSFile', () => {
   });
 
   it('update translation entries locale in an markdown', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        markdownMultilingual: md(t({ en: 'Hello 3', fr: 'Bonjour 3' })),
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          markdownMultilingual: md(t({ en: 'Hello 3', fr: 'Bonjour 3' })),
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -196,11 +217,14 @@ describe('transformJSFile', () => {
   });
 
   it('update translation entries locale in an markdown', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        markdownMultilingual2: md(t({ en: 'Hello 3', fr: 'Bonjour 3' })),
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          markdownMultilingual2: md(t({ en: 'Hello 3', fr: 'Bonjour 3' })),
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -242,11 +266,14 @@ describe('transformJSFile', () => {
   });
 
   it('adds enum node', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        enumTest: enu({ '0': 'none', '1': 'one', '>1': 'many' }),
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          enumTest: enu({ '0': 'none', '1': 'one', '>1': 'many' }),
+        },
       },
-    });
+      initialFileContent
+    );
     const result = await transformJSFile(initialFileContentString, dictionary);
     expect(result).toContain('enumTest: enu({');
     expect(result).toContain('"0": "none"');
@@ -255,26 +282,32 @@ describe('transformJSFile', () => {
   });
 
   it('adds markdown nodes (inline and from file)', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        mdInline: md('# Title'),
-        mdFromFile: md(file('./file.md')),
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          mdInline: md('# Title'),
+          mdFromFile: md(file('./file.md')),
+        },
       },
-    });
+      initialFileContent
+    );
     const result = await transformJSFile(initialFileContentString, dictionary);
     expect(result).toContain('mdInline: md("# Title")');
     expect(result).toContain('mdFromFile: md(file("./file.md"))');
   });
 
   it('adds cond, gender, insert, and nest nodes', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        condNode: cond({ true: 'y', false: 'n', fallback: 'f' }),
-        genderNode: gender({ male: 'm', female: 'f', fallback: 'x' }),
-        insertNode: insert('Hello {{name}}'),
-        nestNode: nest('code'),
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          condNode: cond({ true: 'y', false: 'n', fallback: 'f' }),
+          genderNode: gender({ male: 'm', female: 'f', fallback: 'x' }),
+          insertNode: insert('Hello {{name}}'),
+          nestNode: nest('code'),
+        },
       },
-    });
+      initialFileContent
+    );
     const result = await transformJSFile(initialFileContentString, dictionary);
     expect(result).toContain('condNode: cond({');
     expect(result).toContain('"true": "y"');
@@ -289,8 +322,7 @@ describe('transformJSFile', () => {
   });
 
   it('adds a new string element to an existing array', async () => {
-    const dictionary: Dictionary = deepmerge(
-      initialFileContent,
+    const dictionary: Dictionary = defu(
       {
         content: {
           arrayContent: [
@@ -303,9 +335,7 @@ describe('transformJSFile', () => {
           ],
         },
       },
-      {
-        arrayMerge: (_destinationArray, sourceArray) => sourceArray,
-      }
+      initialFileContent
     );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
@@ -315,16 +345,19 @@ describe('transformJSFile', () => {
   });
 
   it('creates a new array property with a t() node element', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        arrayWithTranslations: [
-          t({
-            en: 'Hello',
-            fr: 'Bonjour',
-          }),
-        ],
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          arrayWithTranslations: [
+            t({
+              en: 'Hello',
+              fr: 'Bonjour',
+            }),
+          ],
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -335,11 +368,14 @@ describe('transformJSFile', () => {
   });
 
   it('update translation entries with fallback locale', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        welcomeMessage: 'Hello',
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          welcomeMessage: 'Hello',
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(
       initialFileContentString,
@@ -554,11 +590,14 @@ describe('transformJSFile', () => {
   });
 
   it('update translation entries with fallback locale', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        welcomeMessage: 'Hello',
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          welcomeMessage: 'Hello',
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -567,11 +606,14 @@ describe('transformJSFile', () => {
   });
 
   it('update translation entries with fallback locale in an array', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        arrayOfTranslations: ['Hello 3', 'Hello 2'],
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          arrayOfTranslations: ['Hello 3', 'Hello 2'],
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -580,11 +622,14 @@ describe('transformJSFile', () => {
   });
 
   it('update translation entries with fallback locale in an array or translation', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        arrayOfTranslations: ['Hello 3', 'Hello 2'],
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          arrayOfTranslations: ['Hello 3', 'Hello 2'],
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -593,11 +638,14 @@ describe('transformJSFile', () => {
   });
 
   it('update translation entries locale in an array of translations', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        translationOfArray: ['Hello 3', 'Hello 2'],
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          translationOfArray: ['Hello 3', 'Hello 2'],
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 
@@ -607,11 +655,14 @@ describe('transformJSFile', () => {
   });
 
   it('update translation entries locale in an markdown with fallback locale', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        markdownMultilingual: md('Hello 3'),
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          markdownMultilingual: md('Hello 3'),
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(
       initialFileContentString,
@@ -625,11 +676,14 @@ describe('transformJSFile', () => {
   });
 
   it('update translation entries locale in an markdown with fallback locale', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        markdownMultilingual2: md('Hello 3'),
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          markdownMultilingual2: md('Hello 3'),
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(
       initialFileContentString,
@@ -643,26 +697,29 @@ describe('transformJSFile', () => {
   });
 
   it('updates nested translations within conditional nodes', async () => {
-    const dictionary: Dictionary = deepmerge(initialFileContent, {
-      content: {
-        expandCollapseToggle: cond({
-          true: t({
-            en: 'Show all',
-            fr: 'Afficher tout',
-            es: 'Mostrar todo',
-            de: 'Mehr anzeigen',
-            pl: 'Pokaż wszystko',
+    const dictionary: Dictionary = defu(
+      {
+        content: {
+          expandCollapseToggle: cond({
+            true: t({
+              en: 'Show all',
+              fr: 'Afficher tout',
+              es: 'Mostrar todo',
+              de: 'Mehr anzeigen',
+              pl: 'Pokaż wszystko',
+            }),
+            false: t({
+              en: 'Show less',
+              fr: 'Afficher moins',
+              es: 'Mostrar menos',
+              de: 'Weniger anzeigen',
+              pl: 'Pokaż mniej',
+            }),
           }),
-          false: t({
-            en: 'Show less',
-            fr: 'Afficher moins',
-            es: 'Mostrar menos',
-            de: 'Weniger anzeigen',
-            pl: 'Pokaż mniej',
-          }),
-        }),
+        },
       },
-    });
+      initialFileContent
+    );
 
     const result = await transformJSFile(initialFileContentString, dictionary);
 

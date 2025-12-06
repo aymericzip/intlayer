@@ -68,7 +68,7 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "clsx": "2.1.1",
     "cobe": "0.6.5",
-    "deepmerge": "4.3.1",
+    "defu": "6.1.4",
     "framer-motion": "12.23.25",
     "fuse.js": "7.1.0",
     "intlayer": "workspace:*",

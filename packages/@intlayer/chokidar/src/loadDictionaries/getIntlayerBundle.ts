@@ -70,7 +70,7 @@ export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
   );
 
   const replaceModules = {
-    deepmerge: localRequire.resolve('deepmerge'),
+    defu: configPackageRequire.resolve('defu'),
     esbuild: configPackageRequire.resolve('esbuild'),
     '@intlayer/config/built': configurationPath,
     '@intlayer/config': localRequire.resolve('@intlayer/config'),

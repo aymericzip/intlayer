@@ -4,7 +4,7 @@ import type {
   IntlayerConfig,
   LogFunctions,
 } from '@intlayer/types';
-import merge from 'deepmerge';
+import { defu } from 'defu';
 import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
 import { logger } from '../logger';
 import { cacheMemory } from '../utils/cacheMemory';
@@ -111,14 +111,14 @@ export const getConfigurationAndFilePath = (
       }
     : {};
 
-  const configWithProjectRequire = merge(
-    storedConfiguration,
-    projectRequireConfig
+  const configWithProjectRequire = defu(
+    projectRequireConfig,
+    storedConfiguration
   ) as IntlayerConfig;
 
-  const configuration = merge(
-    configWithProjectRequire,
-    options?.override ?? {}
+  const configuration = defu(
+    options?.override ?? {},
+    configWithProjectRequire
   ) as IntlayerConfig;
 
   cacheMemory.set(options, {

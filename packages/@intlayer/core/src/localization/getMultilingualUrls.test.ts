@@ -324,6 +324,7 @@ describe('getMultilingualUrls', () => {
   describe('edge cases', () => {
     it('should handle empty locales array', () => {
       const result = getMultilingualUrls('/about', {
+        locales: [],
         defaultLocale: Locales.ENGLISH,
         mode: 'prefix-no-default',
       });

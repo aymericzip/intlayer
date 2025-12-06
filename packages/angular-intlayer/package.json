@@ -92,7 +92,7 @@
     "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/webpack": "workspace:*",
-    "deepmerge": "4.3.1"
+    "defu": "6.1.4"
   },
   "devDependencies": {
     "@types/node": "24.10.1",

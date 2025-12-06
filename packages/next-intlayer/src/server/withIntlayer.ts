@@ -14,7 +14,7 @@ import {
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types';
 import { IntlayerPlugin } from '@intlayer/webpack';
-import merge from 'deepmerge';
+import { defu } from 'defu';
 import fg from 'fast-glob';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
@@ -368,13 +368,13 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     isTurbopackEnabled ?? false
   );
 
-  const intlayerNextConfig: Partial<NextConfig> = merge(
-    pruneConfig,
-    getNewConfig()
+  const intlayerNextConfig: Partial<NextConfig> = defu(
+    getNewConfig(),
+    pruneConfig
   );
 
   // Merge the new config with the user's config
-  const result = merge(nextConfig, intlayerNextConfig) as NextConfig & T;
+  const result = defu(intlayerNextConfig, nextConfig) as NextConfig & T;
 
   return result;
 };

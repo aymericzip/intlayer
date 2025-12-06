@@ -1,28 +1,55 @@
 import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
-import deepMerge from 'deepmerge';
 
 /**
- * Check if a value is a plain object that can be safely merged.
+ * Check if a value is a plain object that can be safely processed.
  * Returns false for Promises, React elements, class instances, etc.
  */
-const isMergeableObject = (value: unknown): boolean => {
+const isPlainObject = (value: unknown): boolean => {
   if (value === null || typeof value !== 'object') {
     return false;
   }
 
-  // Don't merge Promises (e.g., Next.js 15+ params)
+  // Don't process Promises (e.g., Next.js 15+ params)
   if (value instanceof Promise || typeof (value as any).then === 'function') {
     return false;
   }
 
-  // Don't merge React elements
+  // Don't process React elements
   if ((value as any).$$typeof !== undefined) {
     return false;
   }
 
-  // Only merge plain objects and arrays
+  // Only process plain objects and arrays
   const proto = Object.getPrototypeOf(value);
   return proto === Object.prototype || proto === null || Array.isArray(value);
+};
+
+/**
+ * Recursively merges two objects.
+ * Resembles the behavior of `defu` but respects `isPlainObject` to avoid merging React elements.
+ * Arrays are replaced, not merged.
+ */
+const deepMergeObjects = (target: any, source: any): any => {
+  if (target === undefined) return source;
+  if (source === undefined) return target;
+
+  if (Array.isArray(target)) return target;
+
+  if (isPlainObject(target) && isPlainObject(source)) {
+    const result = { ...target };
+    for (const key of Object.keys(source)) {
+      if (key === '__proto__' || key === 'constructor') continue;
+
+      if (Object.hasOwn(target, key)) {
+        result[key] = deepMergeObjects(target[key], source[key]);
+      } else {
+        result[key] = source[key];
+      }
+    }
+    return result;
+  }
+
+  return target;
 };
 
 /**
@@ -43,8 +70,8 @@ const removeUndefinedValues = <T>(
   }
   visited.add(object);
 
-  // Don't process non-mergeable objects (Promises, React elements, etc.)
-  if (!isMergeableObject(object)) {
+  // Don't process non-plain objects (Promises, React elements, etc.)
+  if (!isPlainObject(object)) {
     return object;
   }
 
@@ -154,17 +181,25 @@ export const getTranslation = <Content = string>(
     return undefined as Content;
   }
 
-  // Reverse so precedence is correct for deepmerge:
-  // [FallbackGeneric, Fallback, Generic, Target]
-  // deepmerge.all applies right-most on top of others.
-  results.reverse();
-
   // Clean undefined values so they don't overwrite fallbacks
+  // Order: [Target, Generic, Fallback, FallbackGeneric]
+  // defu first argument takes precedence, so Target wins
   const cleanResults = results.map((item) => removeUndefinedValues(item));
 
-  // Merge with array overwrite strategy and safe object checking
-  return deepMerge.all(cleanResults, {
-    arrayMerge: (_destinationArray, sourceArray) => sourceArray,
-    isMergeableObject,
-  }) as Content;
+  // If only one result, return it directly (no merging needed)
+  if (cleanResults.length === 1) {
+    return cleanResults[0];
+  }
+
+  // If the first result is an array, return it directly (arrays replace, don't merge)
+  // defu would incorrectly convert arrays to objects with numeric keys
+  if (Array.isArray(cleanResults[0])) {
+    return cleanResults[0];
+  }
+
+  // Merge objects with custom merge - first argument takes precedence
+  // Cast to object[] since by this point we've already returned early for strings, arrays, and single results
+  return (cleanResults as object[]).reduce((acc, curr) =>
+    deepMergeObjects(acc, curr)
+  ) as Content;
 };
