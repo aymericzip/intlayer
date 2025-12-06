@@ -435,23 +435,26 @@ To change the language of your content, you can use the `setLocale` function pro
 Create a component to switch between languages:
 
 ```vue fileName="components/LocaleSwitcher.vue"
-<template>
-  <div class="locale-switcher">
-    <select v-model="selectedLocale" @change="changeLocale">
-      <option v-for="loc in availableLocales" :key="loc" :value="loc">
-        {{ getLocaleName(loc) }}
-      </option>
-    </select>
-  </div>
-</template>
-
 <script setup lang="ts">
+import { getLocaleName, getLocalizedUrl } from "intlayer";
 import { ref, watch } from "vue";
-import { getLocaleName } from "intlayer";
 import { useLocale } from "vue-intlayer";
+import { useRouter } from "vue-router";
+
+// Get Vue Router
+const router = useRouter();
 
 // Get locale information and setLocale function
-const { locale, availableLocales, setLocale } = useLocale();
+const { locale, availableLocales, setLocale } = useLocale({
+  onLocaleChange: (newLocale) => {
+    // Get current route and create a localized URL
+    const currentPath = router.currentRoute.value.fullPath;
+    const localizedPath = getLocalizedUrl(currentPath, newLocale);
+
+    // Navigate to the localized route without reloading the page
+    router.push(localizedPath);
+  },
+});
 
 // Track the selected locale with a ref
 const selectedLocale = ref(locale.value);
@@ -467,19 +470,6 @@ watch(
   }
 );
 </script>
-</template>
-
-<style scoped>
-.locale-switcher {
-  margin: 1rem 0;
-}
-
-select {
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  border: 1px solid #ccc;
-}
-</style>
 ```
 
 Then, use this component in your pages or layout:
@@ -548,15 +538,9 @@ The `nuxt-intlayer` module will automatically:
 To ensure that your application's navigation respects the current locale, you can create a custom `LocalizedLink` component. This component automatically prefixes internal URLs with the current language.
 
 ```vue fileName="components/LocalizedLink.vue"
-<template>
-  <NuxtLink :to="localizedHref" v-bind="$attrs">
-    <slot />
-  </NuxtLink>
-</template>
-
 <script setup lang="ts">
-import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
+import { computed } from "vue";
 import { useLocale } from "vue-intlayer";
 
 const props = defineProps({
@@ -576,11 +560,24 @@ const localizedHref = computed(() =>
   isExternalLink.value ? props.to : getLocalizedUrl(props.to, locale.value)
 );
 </script>
+
+<template>
+  <NuxtLink :to="localizedHref" v-bind="$attrs">
+    <slot />
+  </NuxtLink>
+</template>
 ```
 
 Then use this component throughout your application:
 
 ```vue fileName="pages/index.vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+import LocalizedLink from "~/components/LocalizedLink.vue";
+
+const content = useIntlayer("home");
+</script>
+
 <template>
   <div>
     <LocalizedLink to="/about">
@@ -591,13 +588,6 @@ Then use this component throughout your application:
     </LocalizedLink>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-import LocalizedLink from "~/components/LocalizedLink.vue";
-
-const content = useIntlayer("home");
-</script>
 ```
 
 ### (Optional) Step 9: Handle Metadata and SEO

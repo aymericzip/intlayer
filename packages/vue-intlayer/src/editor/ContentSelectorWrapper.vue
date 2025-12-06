@@ -1,16 +1,3 @@
-<template>
-  <ContentSelector
-    v-if="editorEnabled?.enabled.value"
-    @press="handleSelect"
-    :isSelecting="isSelected"
-    @hover="handleHover"
-    @unhover="handleUnhover"
-  >
-    <slot />
-  </ContentSelector>
-  <slot v-else />
-</template>
-
 <script setup lang="ts">
 import { isSameKeyPath, type NodeProps } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
@@ -77,3 +64,16 @@ const handleUnhover = () => {
   });
 };
 </script>
+
+<template>
+  <ContentSelector
+    v-if="editorEnabled?.enabled.value"
+    @press="handleSelect"
+    :isSelecting="isSelected"
+    @hover="handleHover"
+    @unhover="handleUnhover"
+  >
+    <slot />
+  </ContentSelector>
+  <slot v-else />
+</template>

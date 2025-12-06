@@ -1,12 +1,6 @@
-<template>
-  <a :href="localizedHref" v-bind="$attrs">
-    <slot />
-  </a>
-</template>
-
 <script setup lang="ts">
-import { computed } from 'vue';
 import { getLocalizedUrl } from 'intlayer';
+import { computed } from 'vue';
 import { useLocale } from 'vue-intlayer';
 
 const props = defineProps({
@@ -26,3 +20,9 @@ const localizedHref = computed(() =>
   isExternalLink.value ? props.href : getLocalizedUrl(props.href, locale.value)
 );
 </script>
+
+<template>
+  <a :href="localizedHref" v-bind="$attrs">
+    <slot />
+  </a>
+</template>

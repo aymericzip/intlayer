@@ -482,19 +482,9 @@ To change the language of your content, you can use the `setLocale` function pro
 Create a component to switch between languages:
 
 ```vue fileName="src/components/LocaleSwitcher.vue"
-<template>
-  <div class="locale-switcher">
-    <select v-model="selectedLocale" @change="changeLocale">
-      <option v-for="loc in availableLocales" :key="loc" :value="loc">
-        {{ getLocaleName(loc) }}
-      </option>
-    </select>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { ref, watch } from "vue";
 import { getLocaleName } from "intlayer";
+import { ref, watch } from "vue";
 import { useLocale } from "vue-intlayer";
 
 // Get locale information and setLocale function
@@ -514,6 +504,16 @@ watch(
   }
 );
 </script>
+
+<template>
+  <div class="locale-switcher">
+    <select v-model="selectedLocale" @change="changeLocale">
+      <option v-for="loc in availableLocales" :key="loc" :value="loc">
+        {{ getLocaleName(loc) }}
+      </option>
+    </select>
+  </div>
+</template>
 ```
 
 Then, use this component in your App.vue:
@@ -696,21 +696,11 @@ module.exports = defineConfig({
 To automatically update the URL when the user changes the language, you can modify the `LocaleSwitcher` component to use Vue Router:
 
 ```vue fileName="src/components/LocaleSwitcher.vue"
-<template>
-  <div class="locale-switcher">
-    <select v-model="selectedLocale" @change="changeLocale">
-      <option v-for="loc in availableLocales" :key="loc" :value="loc">
-        {{ getLocaleName(loc) }}
-      </option>
-    </select>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { useRouter } from "vue-router";
 import { Locales, getLocaleName, getLocalizedUrl } from "intlayer";
+import { ref, watch } from "vue";
 import { useLocale } from "vue-intlayer";
+import { useRouter } from "vue-router";
 
 // Get Vue Router
 const router = useRouter();
@@ -743,6 +733,16 @@ watch(
   }
 );
 </script>
+
+<template>
+  <div class="locale-switcher">
+    <select v-model="selectedLocale" @change="changeLocale">
+      <option v-for="loc in availableLocales" :key="loc" :value="loc">
+        {{ getLocaleName(loc) }}
+      </option>
+    </select>
+  </div>
+</template>
 ```
 
 Tip: For better SEO and accessibility, use tags as `<a href="/fr/home" hreflang="fr">` to link to localized pages, as shown in Step 10. This allows search engines to discover and index language-specific URLs properly. To preserve SPA behavior, you can prevent the default navigation with @click.prevent, change the locale using useLocale, and programmatically navigate using Vue Router.
@@ -852,15 +852,9 @@ This behavior is useful for several reasons:
 - **Maintainability**: Centralizing the localization logic in a single component simplifies the management of URLs, making your codebase easier to maintain and extend as your application grows.
 
 ```vue fileName="src/components/Link.vue"
-<template>
-  <a :href="localizedHref" v-bind="$attrs">
-    <slot />
-  </a>
-</template>
-
 <script setup lang="ts">
-import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
+import { computed } from "vue";
 import { useLocale } from "vue-intlayer";
 
 const props = defineProps({
@@ -880,20 +874,20 @@ const localizedHref = computed(() =>
   isExternalLink.value ? props.href : getLocalizedUrl(props.href, locale.value)
 );
 </script>
+
+<template>
+  <a :href="localizedHref" v-bind="$attrs">
+    <slot />
+  </a>
+</template>
 ```
 
 For use with Vue Router, create a router-specific version:
 
 ```vue fileName="src/components/RouterLink.vue"
-<template>
-  <router-link :to="localizedTo" v-bind="$attrs">
-    <slot />
-  </router-link>
-</template>
-
 <script setup lang="ts">
-import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
+import { computed } from "vue";
 import { useLocale } from "vue-intlayer";
 
 const props = defineProps({
@@ -918,11 +912,22 @@ const localizedTo = computed(() => {
   }
 });
 </script>
+
+<template>
+  <router-link :to="localizedTo" v-bind="$attrs">
+    <slot />
+  </router-link>
+</template>
 ```
 
 Use these components in your application:
 
 ```vue fileName="src/App.vue"
+<script setup lang="ts">
+import Link from "@components/Link.vue";
+import RouterLink from "@components/RouterLink.vue";
+</script>
+
 <template>
   <div>
     <!-- Vue router  -->
@@ -933,11 +938,6 @@ Use these components in your application:
     <Link href="/home">Home</Link>
   </div>
 </template>
-
-<script setup lang="ts">
-import Link from "@components/Link.vue";
-import RouterLink from "@components/RouterLink.vue";
-</script>
 ```
 
 ### (Optional) Step 11: Render Markdown
@@ -975,17 +975,17 @@ installIntlayerMarkdown(app, (markdown) => {
 Once registered, you can use the component-based syntax to display the Markdown content directly:
 
 ```vue
-<template>
-  <div>
-    <myMarkdownContent />
-  </div>
-</template>
-
 <script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 
 const { myMarkdownContent } = useIntlayer("my-component");
 </script>
+
+<template>
+  <div>
+    <myMarkdownContent />
+  </div>
+</template>
 ```
 
 ### Configure TypeScript

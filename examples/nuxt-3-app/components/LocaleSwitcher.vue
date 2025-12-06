@@ -1,18 +1,8 @@
-<template>
-  <div class="locale-switcher">
-    <select v-model="selectedLocale" @change="changeLocale">
-      <option v-for="loc in availableLocales" :key="loc" :value="loc">
-        {{ getLocaleName(loc) }}
-      </option>
-    </select>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { useRouter } from 'vue-router';
 import { getLocaleName, getLocalizedUrl } from 'intlayer';
+import { ref, watch } from 'vue';
 import { useLocale } from 'vue-intlayer';
+import { useRouter } from 'vue-router';
 
 // Get Vue Router
 const router = useRouter();
@@ -43,3 +33,13 @@ watch(
   }
 );
 </script>
+
+<template>
+  <div class="locale-switcher">
+    <select v-model="selectedLocale" @change="changeLocale">
+      <option v-for="loc in availableLocales" :key="loc" :value="loc">
+        {{ getLocaleName(loc) }}
+      </option>
+    </select>
+  </div>
+</template>

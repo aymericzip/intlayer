@@ -1,12 +1,6 @@
-<template>
-  <router-link :to="localizedTo" v-bind="$attrs">
-    <slot />
-  </router-link>
-</template>
-
 <script setup lang="ts">
-import { computed } from 'vue';
 import { getLocalizedUrl } from 'intlayer';
+import { computed } from 'vue';
 import { useLocale } from 'vue-intlayer';
 
 const props = defineProps({
@@ -31,3 +25,9 @@ const localizedTo = computed(() => {
   }
 });
 </script>
+
+<template>
+  <router-link :to="localizedTo" v-bind="$attrs">
+    <slot />
+  </router-link>
+</template>

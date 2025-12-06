@@ -1,13 +1,3 @@
-<template>
-  <div class="locale-switcher">
-    <select v-model="selectedLocale" @change="changeLocale">
-      <option v-for="loc in availableLocales" :key="loc" :value="loc">
-        {{ getLocaleName(loc) }}
-      </option>
-    </select>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { getLocaleName, getLocalizedUrl } from 'intlayer';
 import { ref, watch } from 'vue';
@@ -45,3 +35,13 @@ watch(
   }
 );
 </script>
+
+<template>
+  <div class="locale-switcher">
+    <select v-model="selectedLocale" @change="changeLocale">
+      <option v-for="loc in availableLocales" :key="loc" :value="loc">
+        {{ getLocaleName(loc) }}
+      </option>
+    </select>
+  </div>
+</template>

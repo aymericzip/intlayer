@@ -1,8 +1,3 @@
-<template>
-  <!-- Just render the text/HTML -->
-  <renderedContent />
-</template>
-
 <script setup lang="ts">
 import { getContent } from '@intlayer/core';
 import type { ContentNode, KeyPath, Locale } from '@intlayer/types';
@@ -60,3 +55,8 @@ const renderedContent = computed(() => {
   return rawContent.value as string;
 });
 </script>
+
+<template>
+  <!-- Just render the text/HTML -->
+  <renderedContent />
+</template>
