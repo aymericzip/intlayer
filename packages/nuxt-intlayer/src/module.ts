@@ -3,7 +3,7 @@ import { prepareIntlayer, watch } from '@intlayer/chokidar';
 import { getAlias, getConfiguration } from '@intlayer/config';
 import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { NuxtModule } from '@nuxt/schema';
-import { intlayerMiddleware, intlayerPrune } from 'vite-intlayer';
+import { intlayerProxy, intlayerPrune } from 'vite-intlayer';
 
 // @ts-ignore fix instantiation is excessively deep and possibly infinite
 export const module: NuxtModule = defineNuxtModule({
@@ -39,11 +39,11 @@ export const module: NuxtModule = defineNuxtModule({
       if (isServer) {
         // We only need the middleware on the server side during development
         // viteConfig.plugins can be undefined at this stage
-        (viteConfig.plugins ?? []).push(intlayerMiddleware() as any);
+        (viteConfig.plugins ?? []).push(intlayerProxy());
       }
       if (optimize) {
         // viteConfig.plugins can be undefined at this stage
-        viteConfig.plugins?.push(intlayerPrune(configuration) as any);
+        viteConfig.plugins?.push(intlayerPrune(configuration));
       }
     });
 
@@ -52,7 +52,7 @@ export const module: NuxtModule = defineNuxtModule({
 
     // // Equivalent to configureServer in Vite plugin
     nuxt.hook('ready', async () => {
-      if (configuration.content.watch) {
+      if (configuration.content.watch && nuxt.options.dev) {
         // Start watching when dev server is ready
         watch({ configuration });
       }
