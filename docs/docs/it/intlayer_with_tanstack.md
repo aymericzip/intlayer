@@ -53,6 +53,27 @@ Con Intlayer, puoi:
 
 ## Guida passo-passo per configurare Intlayer in un'applicazione Tanstack Start
 
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
+<iframe title="La migliore soluzione i18n per Tanstack Start? Scopri Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </TabItem>
+  <TabItem label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Come internazionalizzare la tua applicazione usando Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+Vedi il [Template dell'applicazione](https://github.com/aymericzip/intlayer-tanstack-start-template) su GitHub.
+
 ### Passo 1: Creare il progetto
 
 Inizia creando un nuovo progetto TanStack Start seguendo la guida [Start new project](https://tanstack.com/start/latest/docs/framework/react/quick-start) sul sito di TanStack Start.

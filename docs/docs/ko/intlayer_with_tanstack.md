@@ -50,6 +50,27 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
 
 ## Tanstack Start 애플리케이션에서 Intlayer 설정 단계별 가이드
 
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
+<iframe title="Tanstack Start를 위한 최고의 i18n 솔루션? Intlayer를 발견하세요" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </TabItem>
+  <TabItem label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-tanstack-start-template)을 참조하세요.
+
 ### 1단계: 프로젝트 생성
 
 TanStack Start 웹사이트의 [새 프로젝트 시작하기](https://tanstack.com/start/latest/docs/framework/react/quick-start) 가이드를 따라 새 TanStack Start 프로젝트를 생성합니다.

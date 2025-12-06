@@ -40,6 +40,27 @@ history:
 
 ## 在 Vite 和 Vue 应用中设置 Intlayer 的分步指南
 
+<Tab defaultTab="video">
+  <TabItem label="视频" value="video">
+  
+<iframe title="The best i18n solution for Vite and Vue? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </TabItem>
+  <TabItem label="代码" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-vue-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-vite-vue-template)。
+
 ### 第一步：安装依赖
 
 使用 npm 安装所需的包：

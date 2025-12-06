@@ -42,8 +42,25 @@ Dzięki Intlayer możesz:
 
 ## Przewodnik krok po kroku, jak skonfigurować Intlayer w aplikacji Vite i Vue
 
+<Tab defaultTab="video">
+  <TabItem label="Wideo" value="video">
+  
+<iframe title="The best i18n solution for Vite and Vue? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </TabItem>
+  <TabItem label="Kod" value="code">
+
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-vite-vue-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
 Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-vite-vue-template) na GitHub.
 
 ### Krok 1: Instalacja zależności

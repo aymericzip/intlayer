@@ -40,6 +40,27 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
 
 ## Vite와 Vue 애플리케이션에서 Intlayer 설정 단계별 가이드
 
+<Tab defaultTab="video">
+  <TabItem label="비디오" value="video">
+  
+<iframe title="The best i18n solution for Vite and Vue? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </TabItem>
+  <TabItem label="코드" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-vue-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-vite-vue-template)을 확인하세요.
+
 ### 1단계: 의존성 설치
 
 npm을 사용하여 필요한 패키지를 설치하세요:

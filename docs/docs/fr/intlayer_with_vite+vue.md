@@ -23,8 +23,6 @@ history:
 
 # Traduire votre Vite and Vue avec Intlayer | Internationalisation (i18n)
 
-Voir le [Modèle d'application](https://github.com/aymericzip/intlayer-vite-vue-template) sur GitHub.
-
 ## Qu'est-ce que Intlayer ?
 
 **Intlayer** est une bibliothèque d'internationalisation (i18n) innovante et open-source conçue pour simplifier la prise en charge multilingue dans les applications web modernes.
@@ -39,6 +37,27 @@ Avec Intlayer, vous pouvez :
 ---
 
 ## Guide étape par étape pour configurer Intlayer dans une application Vite et Vue
+
+<Tab defaultTab="video">
+  <TabItem label="Vidéo" value="video">
+  
+<iframe title="The best i18n solution for Vite and Vue? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </TabItem>
+  <TabItem label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-vue-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+Voir le [Modèle d'application](https://github.com/aymericzip/intlayer-vite-vue-template) sur GitHub.
 
 ### Étape 1 : Installer les dépendances
 

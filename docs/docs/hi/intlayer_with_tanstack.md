@@ -53,6 +53,27 @@ Intlayer के साथ, आप कर सकते हैं:
 
 ## Tanstack Start एप्लिकेशन में Intlayer सेटअप करने के लिए चरण-दर-चरण मार्गदर्शिका
 
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
+<iframe title="Tanstack Start के लिए सर्वश्रेष्ठ i18n समाधान? Intlayer खोजें" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </TabItem>
+  <TabItem label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Intlayer का उपयोग करके अपने एप्लिकेशन को अंतर्राष्ट्रीयकृत कैसे करें"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+GitHub पर [एप्लिकेशन टेम्पलेट](https://github.com/aymericzip/intlayer-tanstack-start-template) देखें।
+
 ### चरण 1: प्रोजेक्ट बनाएं
 
 TanStack Start वेबसाइट पर उपलब्ध [Start new project](https://tanstack.com/start/latest/docs/framework/react/quick-start) गाइड का पालन करके एक नया TanStack Start प्रोजेक्ट बनाएं।
