@@ -121,6 +121,7 @@ const startWatcher = () => {
     {
       ignoreInitial: true,
       ignored: [
+        'examples/**',
         '**/node_modules/**',
         '**/dist/**',
         '**/build/**',
