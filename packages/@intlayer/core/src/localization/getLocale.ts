@@ -1,18 +1,21 @@
 import configuration from '@intlayer/config/built';
-import { getLocaleFromStorage, localeDetector } from '@intlayer/core';
-import { type Locale, Locales } from '@intlayer/types';
+import { DefaultValues } from '@intlayer/config/client';
+import { getLocaleFromStorage, localeResolver } from '@intlayer/core';
+import type { Locale } from '@intlayer/types';
+import { getPreferredLanguages } from './localeDetector';
 
 export type RequestContext = {
   getHeader?: (name: string) => string | null | undefined;
   getCookie?: (name: string) => string | null | undefined;
-  getAllHeaders?: () =>
-    | Record<string, string>
-    | Promise<Record<string, string>>;
 };
 
 export const getLocale = async (ctx: RequestContext = {}): Promise<Locale> => {
   const defaultLocale =
-    configuration?.internationalization?.defaultLocale ?? Locales.ENGLISH;
+    configuration?.internationalization?.defaultLocale ??
+    DefaultValues.Internationalization.DEFAULT_LOCALE;
+  const availableLocales =
+    configuration?.internationalization?.locales ??
+    DefaultValues.Internationalization.LOCALES;
 
   // Try locale from storage (cookie or header)
   const storedLocale = getLocaleFromStorage({
@@ -20,13 +23,31 @@ export const getLocale = async (ctx: RequestContext = {}): Promise<Locale> => {
     getHeader: ctx.getHeader,
   });
 
-  if (storedLocale) return storedLocale as Locale;
+  if (storedLocale) {
+    return storedLocale;
+  }
 
   // Fallback to Accept-Language negotiation
-  const allHeaders = (await ctx.getAllHeaders?.()) ?? (ctx.getHeader ? {} : {}); // fallback empty object if none provided
+  const acceptLanguageHeader = ctx.getHeader?.('accept-language');
 
-  const userFallbackLocale = localeDetector(allHeaders);
-  if (userFallbackLocale) return userFallbackLocale as Locale;
+  if (!acceptLanguageHeader) {
+    return defaultLocale;
+  }
+
+  const preferredLocaleStrings = getPreferredLanguages(
+    acceptLanguageHeader,
+    availableLocales
+  );
+
+  const userFallbackLocale = localeResolver(
+    preferredLocaleStrings,
+    availableLocales,
+    defaultLocale
+  );
+
+  if (userFallbackLocale) {
+    return userFallbackLocale;
+  }
 
   // Default locale
   return defaultLocale;

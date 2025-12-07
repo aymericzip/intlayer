@@ -205,7 +205,7 @@ const compareMatchResults = (a: MatchResult, b: MatchResult): number => {
  * Derives the list of preferred languages based on the Accept-Language header
  * and an optional list of available languages.
  */
-const getPreferredLanguages = (
+export const getPreferredLanguages = (
   acceptHeader: string | undefined,
   availableLanguages?: string[]
 ): string[] => {

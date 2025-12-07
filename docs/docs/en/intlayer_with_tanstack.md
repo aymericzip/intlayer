@@ -597,19 +597,8 @@ export const getLocaleServer = createServerFn().handler(async () => {
       return getCookie(name, cookieString);
     },
     // Get the header from the request (default: 'x-intlayer-locale')
-    getHeader: (name) => getRequestHeader(name),
     // Fallback using Accept-Language negotiation
-    getAllHeaders: async () => {
-      const headers = getRequestHeaders();
-      const result: Record<string, string> = {};
-
-      // Convert the TypedHeaders into a plain Record<string, string>
-      for (const [key, value] of headers.entries()) {
-        result[key] = value;
-      }
-
-      return result;
-    },
+    getHeader: (name) => getRequestHeader(name),
   });
 
   // Retrieve some content using getIntlayer()
