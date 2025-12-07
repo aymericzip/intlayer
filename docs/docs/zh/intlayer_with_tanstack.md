@@ -17,6 +17,7 @@ slugs:
   - environment
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
+youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.3.9
     date: 2025-12-05
