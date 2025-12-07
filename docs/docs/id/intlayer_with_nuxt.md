@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-06-29
-title: Cara menerjemahkan aplikasi Nuxt dan Vue Anda – panduan i18n 2025
+updatedAt: 2025-12-07
+title: Cara Menerjemahkan Aplikasi Nuxt dan Vue Anda – Panduan i18n 2025
 description: Temukan cara membuat situs web Nuxt dan Vue Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi
@@ -14,8 +14,12 @@ slugs:
   - doc
   - environment
   - nuxt-and-vue
-applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
+applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
+youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
 history:
+  - version: 7.3.11
+    date: 2025-12-07
+    changes: Memperbarui LocaleSwitcher, SEO, metadata
   - version: 5.5.10
     date: 2025-06-29
     changes: Inisialisasi riwayat
@@ -23,38 +27,57 @@ history:
 
 # Terjemahkan situs web Nuxt dan Vue Anda menggunakan Intlayer | Internasionalisasi (i18n)
 
-Lihat [Application Template](https://github.com/aymericzip/intlayer-nuxt-template) di GitHub.
-
 ## Daftar Isi
 
 <TOC/>
 
 ## Apa itu Intlayer?
 
-**Intlayer** adalah pustaka internasionalisasi (i18n) open-source yang inovatif, dirancang untuk menyederhanakan dukungan multibahasa dalam aplikasi web modern.
+**Intlayer** adalah pustaka internasionalisasi (i18n) sumber terbuka yang inovatif, dirancang untuk menyederhanakan dukungan multibahasa dalam aplikasi web modern.
 
 Dengan Intlayer, Anda dapat:
 
 - **Mengelola terjemahan dengan mudah** menggunakan kamus deklaratif di tingkat komponen.
 - **Melokalkan metadata**, rute, dan konten secara dinamis.
-- **Memastikan dukungan TypeScript** dengan tipe yang dihasilkan secara otomatis, meningkatkan autocompletion dan deteksi kesalahan.
-- **Memanfaatkan fitur canggih**, seperti deteksi dan pergantian locale secara dinamis.
+- **Menjamin dukungan TypeScript** dengan tipe yang dihasilkan secara otomatis, meningkatkan autocompletion dan deteksi kesalahan.
+- **Memanfaatkan fitur canggih**, seperti deteksi dan pengalihan locale secara dinamis.
 
 ---
 
-## Panduan Langkah demi Langkah untuk Mengatur Intlayer dalam Aplikasi Nuxt
+## Panduan Langkah demi Langkah untuk Mengatur Intlayer di Aplikasi Nuxt
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cara Menginternasionalisasi aplikasi Anda menggunakan Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-### Langkah 1: Instalasi Dependensi
+### Langkah 1: Pasang Dependensi
 
-Instal paket yang diperlukan menggunakan npm:
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
+<iframe title="Cara menerjemahkan aplikasi Nuxt dan Vue Anda menggunakan Intlayer? Temukan Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </TabItem>
+  <TabItem label="Kode" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Cara Menginternasionalisasi aplikasi Anda menggunakan Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-nuxt-4-template) di GitHub.
+
+Pasang paket yang diperlukan menggunakan npm:
 
 ```bash packageManager="npm"
 npm install intlayer vue-intlayer
@@ -73,12 +96,10 @@ yarn add --save-dev nuxt-intlayer
 
 - **intlayer**
 
-- **intlayer**
-
-  Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpile, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+  Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpile, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 - **vue-intlayer**
-  Paket yang mengintegrasikan Intlayer dengan aplikasi Vue. Ini menyediakan composables untuk komponen Vue.
+  Paket yang mengintegrasikan Intlayer dengan aplikasi Vue. Ini adalah composables untuk komponen Vue.
 
 - **nuxt-intlayer**
   Modul Nuxt yang mengintegrasikan Intlayer dengan aplikasi Nuxt. Modul ini menyediakan pengaturan otomatis, middleware untuk deteksi locale, manajemen cookie, dan pengalihan URL.
@@ -100,9 +121,6 @@ const config: IntlayerConfig = {
     ],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    contentDir: ["."], // Karena secara default Intlayer akan memantau file deklarasi konten dari direktori `./src`
-  },
 };
 
 export default config;
@@ -111,6 +129,7 @@ export default config;
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
 import { Locales } from "intlayer";
 
+javascript fileName="intlayer.config.mjs" codeFormat="esm"
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
@@ -121,9 +140,6 @@ const config = {
       // Locale lain milik Anda
     ],
     defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    contentDir: ["."],
   },
 };
 
@@ -143,9 +159,6 @@ const config = {
       // Locale lain milik Anda
     ],
     defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    contentDir: ["."],
   },
 };
 
@@ -173,213 +186,40 @@ export default defineNuxtConfig({
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
-```tsx fileName="components/helloWorld.content.ts" contentDeclarationFormat="typescript"
-import { t, type Dictionary } from "intlayer";
+```tsx fileName="content/home-page.content.ts" contentDeclarationFormat="typescript"
+import { type Dictionary, t } from "intlayer";
 
-const helloWorldContent = {
-  key: "helloworld",
+const content = {
+  key: "home-page",
   content: {
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+    title: t({
+      en: "Hello world",
+      fr: "Bonjour le monde",
+      es: "Hola mundo",
     }),
-    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-    nuxtIntlayer: t({
-      en: "Dokumentasi Nuxt Intlayer",
-      fr: "Documentation de Nuxt Intlayer",
-      es: "Documentación de Nuxt Intlayer",
+    metaTitle: t({
+      en: "Welcome | My Application",
+      fr: "Bienvenue | Mon Application",
+      es: "Bienvenido | Mi Aplicación",
     }),
-    learnMore: t({
-      en: "Pelajari lebih lanjut tentang Nuxt di ",
-      fr: "En savoir plus sur Nuxt dans la ",
-      es: "Aprenda más sobre Nuxt en la ",
-    }),
-    nuxtDocs: t({
-      en: "Dokumentasi Nuxt",
-      fr: "Documentation Nuxt",
-      es: "Documentación de Nuxt",
-    }),
-    readTheDocs: t({
-      en: "Klik logo Nuxt untuk mempelajari lebih lanjut",
-      fr: "Cliquez sur le logo Nuxt pour en savoir plus",
-      es: "Haga clic en el logotipo de Nuxt para obtener más información",
-      id: "Klik logo Nuxt untuk mempelajari lebih lanjut",
+    metaDescription: t({
+      en: "Discover your multilingual Nuxt app homepage powered by Intlayer.",
+      fr: "Découvrez la page d'accueil multilingue de votre application Nuxt propulsée par Intlayer.",
+      es: "Descubre la página de inicio multilingüe de tu aplicación Nuxt impulsada por Intlayer.",
     }),
   },
 } satisfies Dictionary;
 
-export default helloWorldContent;
+export default content;
 ```
 
-```javascript fileName="components/helloWorld.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
+> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda selama termasuk dalam direktori `contentDir` (secara default, `./src`). Dan sesuai dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "helloworld",
-  content: {
-    count: t({
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-      id: "jumlah adalah ",
-    }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-      id: "Edit <code>components/HelloWorld.vue</code> dan simpan untuk menguji HMR",
-    }),
-    checkOut: t({
-      en: "Check out ",
-      fr: "Vérifiez ",
-      es: "Compruebe ",
-      id: "Periksa ",
-    }),
-    nuxtIntlayer: t({
-      en: "Nuxt Intlayer documentation",
-      fr: "Documentation de Nuxt Intlayer",
-      es: "Documentación de Nuxt Intlayer",
-      id: "Dokumentasi Nuxt Intlayer",
-    }),
-    learnMore: t({
-      en: "Learn more about Nuxt in the ",
-      fr: "En savoir plus sur Nuxt dans la ",
-      es: "Aprenda más sobre Nuxt en la ",
-      id: "Pelajari lebih lanjut tentang Nuxt di ",
-    }),
-    nuxtDocs: t({
-      en: "Nuxt Documentation",
-      fr: "Documentation Nuxt",
-      es: "Documentación de Nuxt",
-      id: "Dokumentasi Nuxt",
-    }),
-    readTheDocs: t({
-      en: "Click on the Nuxt logo to learn more",
-      fr: "Cliquez sur le logo Nuxt pour en savoir plus",
-      es: "Haga clic en el logotipo de Nuxt para obtener más información",
-      id: "Klik logo Nuxt untuk mempelajari lebih lanjut",
-    }),
-  },
-};
-
-export default helloWorldContent;
-```
-
-```javascript fileName="components/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "helloworld",
-  content: {
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es ", id: "jumlah adalah " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-      id: "Edit <code>components/HelloWorld.vue</code> dan simpan untuk menguji HMR",
-    }),
-    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe ", id: "Periksa " }),
-    nuxtIntlayer: t({
-      en: "Nuxt Intlayer documentation",
-      fr: "Documentation de Nuxt Intlayer",
-      es: "Documentación de Nuxt Intlayer",
-      id: "Dokumentasi Nuxt Intlayer",
-    }),
-      es: "Dokumentasi Nuxt Intlayer",
-    }),
-    learnMore: t({
-      en: "Pelajari lebih lanjut tentang Nuxt di ",
-      fr: "En savoir plus sur Nuxt dans la ",
-      es: "Aprenda más sobre Nuxt en la ",
-    }),
-    nuxtDocs: t({
-      en: "Dokumentasi Nuxt",
-      fr: "Documentation Nuxt",
-      es: "Documentación de Nuxt",
-    }),
-    readTheDocs: t({
-      en: "Klik logo Nuxt untuk mempelajari lebih lanjut",
-      fr: "Cliquez sur le logo Nuxt pour en savoir plus",
-      es: "Haga clic en el logotipo de Nuxt para obtener más información",
-    }),
-  },
-};
-
-module.exports = helloWorldContent;
-```
-
-```json fileName="components/helloWorld.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "helloworld",
-  "content": {
-    "count": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "count is ",
-        "fr": "le compte est ",
-        "es": "el recuento es ",
-        "id": "jumlahnya adalah "
-      }
-    },
-    "edit": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-        "fr": "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-        "es": "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-        "id": "Edit <code>components/HelloWorld.vue</code> dan simpan untuk menguji HMR"
-      }
-    },
-    "checkOut": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Check out ",
-        "fr": "Vérifiez ",
-        "es": "Compruebe ",
-        "id": "Periksa "
-      }
-    },
-    "nuxtIntlayer": {
-      "nodeType": "translation",
-      "translation": {
-        "id": "Dokumentasi Nuxt Intlayer"
-      }
-    },
-    "learnMore": {
-      "nodeType": "translation",
-      "translation": {
-        "id": "Pelajari lebih lanjut tentang Nuxt di "
-      }
-    },
-    "nuxtDocs": {
-      "nodeType": "translation",
-      "translation": {
-        "id": "Dokumentasi Nuxt"
-      }
-    },
-    "readTheDocs": {
-      "nodeType": "translation",
-      "translation": {
-        "id": "Klik pada logo Nuxt untuk mempelajari lebih lanjut",
-        "id": "Klik pada logo Nuxt untuk mempelajari lebih lanjut"
-      }
-    }
-  }
-}
-```
-
-> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda selama mereka termasuk dalam direktori `contentDir` (secara default, `./src`). Dan sesuai dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
-
-> Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
+> Untuk informasi lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
 ### Langkah 5: Gunakan Intlayer dalam Kode Anda
 
-Akses kamus konten Anda di seluruh aplikasi Nuxt Anda menggunakan composable `useIntlayer`:
+Akses kamus konten Anda di seluruh aplikasi Nuxt menggunakan composable `useIntlayer`:
 
 ```vue fileName="components/HelloWorld.vue"
 <script setup lang="ts">
@@ -432,7 +272,7 @@ const countRef = ref(0);
 
 Intlayer menawarkan berbagai API untuk mengakses konten Anda:
 
-- **Sintaks berbasis komponen** (direkomendasikan):  
+- **Sintaks berbasis komponen** (direkomendasikan):
   Gunakan sintaks `<myContent />`, atau `<Component :is="myContent" />` untuk merender konten sebagai Node Intlayer. Ini terintegrasi dengan mulus dengan [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) dan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
 
 - **Sintaks berbasis string**:  
@@ -444,70 +284,60 @@ Intlayer menawarkan berbagai API untuk mengakses konten Anda:
 - **Sintaks destrukturisasi**:  
   Composable `useIntlayer` mengembalikan sebuah Proxy dengan konten. Proxy ini dapat didestrukturisasi untuk mengakses konten sambil menjaga reaktivitas.
   - Gunakan `const content = useIntlayer("myContent");` dan `{{ content.myContent }}` / `<content.myContent />`.
-  - Atau gunakan `const { myContent } = useIntlayer("myContent");` dan `{{ myContent}}` / `<myContent/>` untuk mendestrukturisasi konten.
+  - Atau gunakan `const { myContent } = useIntlayer("myContent");` dan `{{ myContent}}` / `<myContent/>` untuk mendestruktur konten.
 
 ### (Opsional) Langkah 6: Ubah bahasa konten Anda
 
-Untuk mengubah bahasa konten Anda, Anda dapat menggunakan fungsi `setLocale` yang disediakan oleh composable `useLocale`. Fungsi ini memungkinkan Anda mengatur locale aplikasi dan memperbarui konten sesuai dengan locale tersebut.
+Untuk mengubah bahasa konten Anda, Anda dapat menggunakan fungsi `setLocale` yang disediakan oleh composable `useLocale`. Fungsi ini memungkinkan Anda untuk mengatur locale aplikasi dan memperbarui konten sesuai dengan itu.
 
-Buat sebuah komponen untuk beralih antar bahasa:
+Buat komponen untuk beralih antar bahasa menggunakan `NuxtLink`. **Menggunakan tautan daripada tombol untuk pergantian locale adalah praktik terbaik untuk SEO dan keterlihatan halaman**, karena memungkinkan mesin pencari untuk merayapi dan mengindeks semua versi terlokalisasi dari halaman Anda:
 
 ```vue fileName="components/LocaleSwitcher.vue"
-<template>
-  <div class="locale-switcher">
-    <select v-model="selectedLocale" @change="changeLocale">
-      <option v-for="loc in availableLocales" :key="loc" :value="loc">
-        {{ getLocaleName(loc) }}
-      </option>
-    </select>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { getLocaleName } from "intlayer";
+import { getLocaleName, getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
 
-// Mendapatkan informasi locale dan fungsi setLocale
+// Nuxt secara otomatis mengimpor useRoute
+const route = useRoute();
 const { locale, availableLocales, setLocale } = useLocale();
-
-// Melacak locale yang dipilih dengan ref
-const selectedLocale = ref(locale.value);
-
-// Memperbarui locale saat pilihan berubah
-const changeLocale = () => setLocale(selectedLocale.value);
-
-// Menjaga selectedLocale tetap sinkron dengan locale global
-watch(
-  () => locale.value,
-  (newLocale) => {
-    selectedLocale.value = newLocale;
-  }
-);
 </script>
+
+<template>
+  <nav class="locale-switcher">
+    <NuxtLink
+      v-for="localeEl in availableLocales"
+      :key="localeEl"
+      :to="getLocalizedUrl(route.fullPath, localeEl)"
+      class="locale-link"
+      :class="{ 'active-locale': localeEl === locale }"
+      @click="setLocale(localeEl)"
+    >
+      {{ getLocaleName(localeEl) }}
+    </NuxtLink>
+  </nav>
 </template>
-
-<style scoped>
-.locale-switcher {
-  margin: 1rem 0;
-}
-
-select {
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  border: 1px solid #ccc;
-}
-</style>
 ```
 
-Kemudian, gunakan komponen ini di halaman atau layout Anda:
+> Menggunakan `NuxtLink` dengan atribut `href` yang tepat (melalui `getLocalizedUrl`) memastikan bahwa mesin pencari dapat menemukan semua varian bahasa dari halaman Anda. Ini lebih disukai dibandingkan dengan pengalihan locale hanya menggunakan JavaScript, yang mungkin tidak diikuti oleh perayap mesin pencari.
+
+Kemudian, atur `app.vue` Anda untuk menggunakan layout:
 
 ```vue fileName="app.vue"
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+```
 
-const content = useIntlayer("app"); // Buat file deklarasi intlayer terkait
+### (Opsional) Langkah 6b: Buat Layout dengan Navigasi
+
+Layout Nuxt memungkinkan Anda mendefinisikan struktur umum untuk halaman Anda. Buat layout default yang mencakup locale switcher dan navigasi:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 </script>
 
 <template>
@@ -516,13 +346,18 @@ const content = useIntlayer("app"); // Buat file deklarasi intlayer terkait
       <LocaleSwitcher />
     </header>
     <main>
-      <NuxtPage />
+      <slot />
     </main>
+
+    <Links href="/">Beranda</Links>
+    <Links href="/about">Tentang</Links>
   </div>
 </template>
 ```
 
-### (Opsional) Langkah 7: Tambahkan Routing yang dilokalisasi ke aplikasi Anda
+Komponen `Links` (ditunjukkan di bawah) memastikan bahwa tautan navigasi internal secara otomatis dilokalkan.
+
+### (Opsional) Langkah 7: Tambahkan Routing yang Dilokalkan ke aplikasi Anda
 
 Nuxt secara otomatis menangani routing yang dilokalkan saat menggunakan modul `nuxt-intlayer`. Ini membuat rute untuk setiap bahasa secara otomatis berdasarkan struktur direktori halaman Anda.
 
@@ -536,22 +371,57 @@ pages/
     └── index.vue      → /contact, /fr/contact, /es/contact
 ```
 
-Untuk membuat halaman yang dilokalkan, cukup buat file Vue Anda di direktori `pages/`:
+Untuk membuat halaman yang dilokalkan, cukup buat file Vue Anda di direktori `pages/`. Berikut adalah dua contoh halaman:
+
+**Halaman Beranda (`pages/index.vue`):**
+
+```vue fileName="pages/index.vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const content = useIntlayer("home-page");
+
+useHead({
+  title: content.metaTitle.value,
+  meta: [
+    {
+      name: "description",
+      content: content.metaDescription.value,
+    },
+  ],
+});
+</script>
+
+<template>
+  <h1><content.title /></h1>
+</template>
+```
+
+**Halaman Tentang (`pages/about.vue`):**
 
 ```vue fileName="pages/about.vue"
 <script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 
-const content = useIntlayer("about");
+const content = useIntlayer("about-page");
+
+useHead({
+  title: content.metaTitle.raw, // Gunakan .raw untuk akses string primitif
+  meta: [
+    {
+      name: "description",
+      content: content.metaDescription.raw, // Gunakan .raw untuk akses string primitif
+    },
+  ],
+});
 </script>
 
 <template>
-  <div>
-    <h1>{{ content.title }}</h1>
-    <p>{{ content.description }}</p>
-  </div>
+  <h1><content.title /></h1>
 </template>
 ```
+
+> Catatan: `useHead` diimpor secara otomatis di Nuxt. Anda dapat mengakses nilai konten menggunakan `.value` (reaktif) atau `.raw` (string primitif) sesuai kebutuhan Anda.
 
 Modul `nuxt-intlayer` secara otomatis akan:
 
@@ -559,194 +429,225 @@ Modul `nuxt-intlayer` secara otomatis akan:
 - Menangani pergantian locale melalui URL
 - Mengatur atribut `<html lang="">` yang sesuai
 - Mengelola cookie locale
-- Mengarahkan pengguna ke URL yang dilokalisasi dengan tepat
+- Mengarahkan pengguna ke URL lokal yang sesuai
 
-### (Opsional) Langkah 8: Membuat Komponen Tautan yang Dilokalisasi
+### (Opsional) Langkah 8: Membuat Komponen Link yang Dilokalkan
 
-Untuk memastikan navigasi aplikasi Anda menghormati locale saat ini, Anda dapat membuat komponen `LocalizedLink` khusus. Komponen ini secara otomatis menambahkan prefix bahasa saat ini pada URL internal.
+Untuk memastikan navigasi aplikasi Anda menghormati locale saat ini, Anda dapat membuat komponen `Links` kustom. Komponen ini secara otomatis menambahkan prefix bahasa saat ini pada URL internal, yang sangat penting untuk **SEO dan keterlihatan halaman**.
 
-```vue fileName="components/LocalizedLink.vue"
-<template>
-  <NuxtLink :to="localizedHref" v-bind="$attrs">
-    <slot />
-  </NuxtLink>
-</template>
-
+```vue fileName="components/Links.vue"
 <script setup lang="ts">
-import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
 
-const props = defineProps({
-  to: {
-    type: String,
-    required: true,
-  },
+interface Props {
+  href: string;
+  locale?: string;
+}
+
+const props = defineProps<Props>();
+
+const { locale: currentLocale } = useLocale();
+
+// Hitung path akhir
+const finalPath = computed(() => {
+  // 1. Periksa apakah link bersifat eksternal
+  const isExternal = /^https?:\/\//.test(props.href || "");
+
+  // 2. Jika eksternal, kembalikan apa adanya (NuxtLink menangani pembuatan tag <a>)
+  if (isExternal) return props.href;
+
+  // 3. Jika internal, lokalize URL-nya
+  const targetLocale = props.locale || currentLocale.value;
+  return getLocalizedUrl(props.href, targetLocale);
 });
-
-const { locale } = useLocale();
-
-// Periksa apakah tautan bersifat eksternal
-const isExternalLink = computed(() => /^https?:\/\//.test(props.to || ""));
-
-// Buat href yang dilokalkan untuk tautan internal
-const localizedHref = computed(() =>
-  isExternalLink.value ? props.to : getLocalizedUrl(props.to, locale.value)
-);
 </script>
+
+<template>
+  <NuxtLink :to="finalPath" v-bind="$attrs">
+    <slot />
+  </NuxtLink>
+</template>
 ```
 
 Kemudian gunakan komponen ini di seluruh aplikasi Anda:
 
-```vue fileName="pages/index.vue"
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
 <template>
   <div>
-    <LocalizedLink to="/about">
-      {{ content.aboutLink }}
-    </LocalizedLink>
-    <LocalizedLink to="/contact">
-      {{ content.contactLink }}
-    </LocalizedLink>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Beranda</Links>
+    <Links href="/about">Tentang</Links>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-import LocalizedLink from "~/components/LocalizedLink.vue";
-
-const content = useIntlayer("home");
-</script>
 ```
+
+> Dengan menggunakan `NuxtLink` dengan path yang dilokalkan, Anda memastikan bahwa:
+>
+> - Mesin pencari dapat merayapi dan mengindeks semua versi bahasa dari halaman Anda
+> - Pengguna dapat membagikan URL yang dilokalkan secara langsung
+> - Riwayat browser berfungsi dengan benar dengan URL yang diawali locale
 
 ### (Opsional) Langkah 9: Menangani Metadata dan SEO
 
-Nuxt menyediakan kemampuan SEO yang sangat baik. Anda dapat menggunakan Intlayer untuk menangani metadata yang dilokalisasi:
+Nuxt menyediakan kemampuan SEO yang sangat baik melalui composable `useHead` (diimpor otomatis). Anda dapat menggunakan Intlayer untuk menangani metadata yang dilokalkan menggunakan accessor `.raw` atau `.value` untuk mendapatkan nilai string primitif:
 
 ```vue fileName="pages/about.vue"
 <script setup lang="ts">
-import { useSeoMeta } from "nuxt/app";
-import { getIntlayer } from "intlayer";
-import { useLocale } from "vue-intlayer";
+import { useIntlayer } from "vue-intlayer";
 
-const { locale } = useLocale();
-const content = getIntlayer("about-meta", locale.value);
+// useHead diimpor otomatis di Nuxt
+const content = useIntlayer("about-page");
 
-useSeoMeta({
-  title: content.title,
-  description: content.description,
+useHead({
+  title: content.metaTitle.raw, // Gunakan .raw untuk akses string primitif
+  meta: [
+    {
+      name: "description",
+      content: content.metaDescription.raw, // Gunakan .raw untuk akses string primitif
+    },
+  ],
 });
 </script>
 
 <template>
-  <div>
-    <h1>{{ content.pageTitle }}</h1>
-    <p>{{ content.pageContent }}</p>
-  </div>
+  <h1><content.title /></h1>
 </template>
 ```
 
+> Sebagai alternatif, Anda dapat menggunakan fungsi `import { getIntlayer } from "intlayer"` untuk mendapatkan konten tanpa reaktivitas Vue.
+
+> **Mengakses nilai konten:**
+>
+> - Gunakan `.raw` untuk mendapatkan nilai string primitif (non-reaktif)
+> - Gunakan `.value` untuk mendapatkan nilai reaktif
+> - Gunakan sintaks komponen `<content.key />` untuk dukungan Visual Editor
+
 Buat deklarasi konten yang sesuai:
 
-```ts fileName="pages/about-meta.content.ts"
+```ts fileName="pages/about-page.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
-import type { useSeoMeta } from "nuxt/app";
 
-const aboutMetaContent = {
-  key: "about-meta",
+const aboutPageContent = {
+  key: "about-page",
   content: {
-    title: t({
-      en: "About Us - My Company",
+    metaTitle: t({
+      en: "Tentang Kami - Perusahaan Saya",
       fr: "À Propos - Ma Société",
       es: "Acerca de Nosotros - Mi Empresa",
-      id: "Tentang Kami - Perusahaan Saya",
     }),
-    description: t({
-      en: "Learn more about our company and our mission",
+    metaDescription: t({
+      en: "Pelajari lebih lanjut tentang perusahaan kami dan misi kami",
       fr: "En savoir plus sur notre société et notre mission",
       es: "Conozca más sobre nuestra empresa y nuestra misión",
-      id: "Pelajari lebih lanjut tentang perusahaan kami dan misi kami",
+    }),
+    title: t({
+      en: "Tentang Kami",
+      fr: "À Propos",
+      es: "Acerca de Nosotros",
     }),
   },
-} satisfies Dictionary<Parameters<typeof useSeoMeta>[0]>;
+} satisfies Dictionary;
 
-export default aboutMetaContent;
+export default aboutPageContent;
 ```
 
-```typescript fileName="pages/about-meta.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="pages/about-page.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
-const aboutMetaContent = {
-  key: "about-meta",
+const aboutPageContent = {
+  key: "about-page",
   content: {
-    title: t({
-      id: "Tentang Kami - Perusahaan Saya",
-      zh: "关于我们 - 我的公司",
-      en: "About Us - My Company",
+    metaTitle: t({
+      en: "Tentang Kami - Perusahaan Saya",
       fr: "À Propos - Ma Société",
       es: "Acerca de Nosotros - Mi Empresa",
     }),
-    description: t({
-      id: "Pelajari lebih lanjut tentang perusahaan kami dan misi kami",
-      zh: "了解更多关于我们公司和我们的使命",
-      en: "Learn more about our company and our mission",
+    metaDescription: t({
+      en: "Pelajari lebih lanjut tentang perusahaan kami dan misi kami",
       fr: "En savoir plus sur notre société et notre mission",
       es: "Conozca más sobre nuestra empresa y nuestra misión",
+    }),
+    title: t({
+      en: "Tentang Kami",
+      fr: "À Propos",
+      es: "Acerca de Nosotros",
     }),
   },
 };
 
-export default aboutMetaContent;
+export default aboutPageContent;
 ```
 
-```typescript fileName="pages/about-meta.content.js" contentDeclarationFormat="cjs"
+```javascript fileName="pages/about-page.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
-const aboutMetaContent = {
-  key: "about-meta",
+const aboutPageContent = {
+  key: "about-page",
   content: {
-    title: t({
-      id: "Tentang Kami - Perusahaan Saya",
-      zh: "关于我们 - 我的公司",
-      en: "About Us - My Company",
+    metaTitle: t({
+      en: "Tentang Kami - Perusahaan Saya",
       fr: "À Propos - Ma Société",
       es: "Acerca de Nosotros - Mi Empresa",
     }),
-    description: t({
-      zh: "了解更多关于我们公司和我们的使命",
-      en: "Learn more about our company and our mission",
+    metaDescription: t({
+      en: "Pelajari lebih lanjut tentang perusahaan kami dan misi kami",
       fr: "En savoir plus sur notre société et notre mission",
       es: "Conozca más sobre nuestra empresa y nuestra misión",
-      id: "Pelajari lebih lanjut tentang perusahaan kami dan misi kami",
+    }),
+    title: t({
+      en: "Tentang Kami",
+      fr: "À Propos",
+      es: "Acerca de Nosotros",
     }),
   },
 };
 
-module.exports = aboutMetaContent;
+module.exports = aboutPageContent;
 ```
 
-```json fileName="pages/about-meta.content.json" contentDeclarationFormat="json"
+```json fileName="pages/about-page.content.json" contentDeclarationFormat="json"
 {
-  "key": "about-meta",
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "about-page",
   "content": {
-    "title": {
+    "metaTitle": {
       "nodeType": "translation",
-      "translations": {
-        "zh": "关于我们 - 我的公司",
-        "en": "About Us - My Company",
+      "translation": {
+        "en": "Tentang Kami - Perusahaan Saya",
         "fr": "À Propos - Ma Société",
-        "es": "Acerca de Nosotros - Mi Empresa",
-        "id": "Tentang Kami - Perusahaan Saya"
+        "es": "Acerca de Nosotros - Mi Empresa"
       }
     },
-    "description": {
+    "metaDescription": {
       "nodeType": "translation",
-      "translations": {
-        "zh": "了解更多关于我们公司和我们的使命",
+      "translation": {
         "en": "Learn more about our company and our mission",
         "fr": "En savoir plus sur notre société et notre mission",
-        "es": "Conozca más sobre nuestra empresa y nuestra misión"
+        "es": "Conozca más sobre nuestra empresa y nuestra misión",
+        "id": "Pelajari lebih lanjut tentang perusahaan kami dan misi kami"
+      }
+    },
+    "title": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "About Us",
+        "fr": "À Propos",
+        "es": "Acerca de Nosotros",
+        "id": "Tentang Kami"
       }
     }
   }
@@ -759,7 +660,7 @@ Intlayer menggunakan module augmentation untuk mendapatkan manfaat dari TypeScri
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Kesalahan terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara otomatis.
 
@@ -775,7 +676,7 @@ Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara oto
 
 ### Konfigurasi Git
 
-Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda untuk menghindari meng-commit file tersebut ke repository Git Anda.
+Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda menghindari meng-commit file tersebut ke repositori Git Anda.
 
 Untuk melakukannya, Anda dapat menambahkan instruksi berikut ke file `.gitignore` Anda:
 
@@ -793,7 +694,7 @@ Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat meng
 Ekstensi ini menyediakan:
 
 - **Autocompletion** untuk kunci terjemahan.
-- **Deteksi kesalahan secara real-time** untuk terjemahan yang hilang.
+- **Deteksi kesalahan waktu nyata** untuk terjemahan yang hilang.
 - **Pratinjau inline** dari konten yang diterjemahkan.
 - **Aksi cepat** untuk dengan mudah membuat dan memperbarui terjemahan.
 
@@ -804,5 +705,3 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokument
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-
----

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-06-29
-title: 如何翻译您的Nuxt and Vue应用 – i18n指南 2025
+updatedAt: 2025-12-07
+title: 如何翻译您的 Nuxt 和 Vue 应用 – 2025 年 i18n 指南
 description: 了解如何使您的 Nuxt 和 Vue 网站支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化
@@ -14,16 +14,22 @@ slugs:
   - doc
   - environment
   - nuxt-and-vue
-applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
+applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
+youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
 history:
+  - version: 7.3.11
+    date: 2025-12-07
+    changes: 更新 LocaleSwitcher、SEO、元数据
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: 初始化历史记录
 ---
 
-# 使用Intlayer翻译您的Nuxt and Vue | 国际化(i18n)
+# 使用 Intlayer 翻译您的 Nuxt 和 Vue 网站 | 国际化 (i18n)
 
-请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-nuxt-template)。
+## 目录
+
+<TOC/>
 
 ## 什么是 Intlayer？
 
@@ -33,16 +39,45 @@ history:
 
 - **通过组件级声明式字典轻松管理翻译**。
 - **动态本地化元数据、路由和内容**。
-- **确保 TypeScript 支持**，通过自动生成的类型提升自动补全和错误检测。
+- **确保 TypeScript 支持**，通过自动生成类型，提升自动补全和错误检测能力。
 - **享受高级功能**，如动态语言环境检测和切换。
 
 ---
 
 ## 在 Nuxt 应用中设置 Intlayer 的分步指南
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="演示 CodeSandbox - 如何使用 Intlayer 实现应用国际化"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ### 第一步：安装依赖
 
-使用 npm 安装所需的包：
+<Tab defaultTab="video">
+  <TabItem label="视频" value="video">
+  
+<iframe title="如何使用 Intlayer 翻译你的 Nuxt 和 Vue 应用？探索 Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </TabItem>
+  <TabItem label="代码" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="演示 CodeSandbox - 如何使用 Intlayer 实现应用国际化"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+查看 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-nuxt-4-template)。
+
+使用 npm 安装必要的包：
 
 ```bash packageManager="npm"
 npm install intlayer vue-intlayer
@@ -61,15 +96,15 @@ yarn add --save-dev nuxt-intlayer
 
 - **intlayer**
 
-  核心包，提供国际化工具，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)、转译以及[命令行工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
+  核心包，提供国际化工具，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译以及[CLI命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
 
 - **vue-intlayer**
-  将 Intlayer 集成到 Vue 应用中的包。它为 Vue 组件提供了组合式函数。
+  将 Intlayer 集成到 Vue 应用中的包。它提供了 Vue 组件的组合式函数。
 
 - **nuxt-intlayer**
   集成 Intlayer 与 Nuxt 应用的 Nuxt 模块。它提供自动设置、用于语言环境检测的中间件、Cookie 管理和 URL 重定向。
 
-### 第 2 步：配置您的项目
+### 第2步：配置您的项目
 
 创建一个配置文件来配置您应用的语言：
 
@@ -86,9 +121,6 @@ const config: IntlayerConfig = {
     ],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    contentDir: ["."], // 因为默认情况下 Intlayer 会监视来自 `./src` 目录的内容声明文件
-  },
 };
 
 export default config;
@@ -98,19 +130,15 @@ export default config;
 import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
-// 配置对象定义
 const config = {
   internationalization: {
     locales: [
-      Locales.ENGLISH, // 英语
-      Locales.FRENCH, // 法语
-      Locales.SPANISH, // 西班牙语
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
       // 你的其他语言
     ],
-    defaultLocale: Locales.ENGLISH, // 默认语言为英语
-  },
-  content: {
-    contentDir: ["."], // 内容目录设置为当前目录
+    defaultLocale: Locales.ENGLISH,
   },
 };
 
@@ -121,28 +149,24 @@ export default config;
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
-// 配置对象定义
 const config = {
   internationalization: {
     locales: [
-      Locales.ENGLISH, // 英语
-      Locales.FRENCH, // 法语
-      Locales.SPANISH, // 西班牙语
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
       // 你的其他语言
     ],
-    defaultLocale: Locales.ENGLISH, // 默认语言为英语
-  },
-  content: {
-    contentDir: ["."],
+    defaultLocale: Locales.ENGLISH,
   },
 };
 
 module.exports = config;
 ```
 
-> 通过此配置文件，您可以设置本地化的 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+> 通过此配置文件，您可以设置本地化的 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名，禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-### 第3步：在您的 Nuxt 配置中集成 Intlayer
+### 第三步：在您的 Nuxt 配置中集成 Intlayer
 
 将 intlayer 模块添加到您的 Nuxt 配置中：
 
@@ -161,262 +185,40 @@ export default defineNuxtConfig({
 
 创建并管理您的内容声明以存储翻译：
 
-```tsx fileName="components/helloWorld.content.ts" contentDeclarationFormat="typescript"
-import { t, type Dictionary } from "intlayer";
+```tsx fileName="content/home-page.content.ts" contentDeclarationFormat="typescript"
+import { type Dictionary, t } from "intlayer";
 
-const helloWorldContent = {
-  key: "helloworld",
+const content = {
+  key: "home-page",
   content: {
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+    title: t({
+      en: "Hello world",
+      fr: "Bonjour le monde",
+      es: "Hola mundo",
     }),
-    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-    nuxtIntlayer: t({
-      en: "Nuxt Intlayer documentation",
-      fr: "Documentation de Nuxt Intlayer",
-      es: "Documentación de Nuxt Intlayer",
+    metaTitle: t({
+      en: "Welcome | My Application",
+      fr: "Bienvenue | Mon Application",
+      es: "Bienvenido | Mi Aplicación",
     }),
-    learnMore: t({
-      en: "Learn more about Nuxt in the ",
-      fr: "En savoir plus sur Nuxt dans la ",
-      es: "Aprenda más sobre Nuxt en la ",
-    }),
-    nuxtDocs: t({
-      en: "Nuxt Documentation",
-      fr: "Documentation Nuxt",
-      es: "Documentación de Nuxt",
-    }),
-    readTheDocs: t({
-      en: "Click on the Nuxt logo to learn more",
-      fr: "Cliquez sur le logo Nuxt pour en savoir plus",
-      es: "Haga clic en el logotipo de Nuxt para obtener más información",
+    metaDescription: t({
+      en: "Discover your multilingual Nuxt app homepage powered by Intlayer.",
+      fr: "Découvrez la page d'accueil multilingue de votre application Nuxt propulsée par Intlayer.",
+      es: "Descubre la página de inicio multilingüe de tu aplicación Nuxt impulsada por Intlayer.",
     }),
   },
 } satisfies Dictionary;
 
-export default helloWorldContent;
+export default content;
 ```
 
-```javascript fileName="components/helloWorld.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
+> 您的内容声明可以定义在应用程序中的任何位置，只要它们包含在 `contentDir` 目录中（默认是 `./src`），并且匹配内容声明文件扩展名（默认是 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
 
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "helloworld",
-  content: {
-    count: t({ zh: "计数是 ", en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-    edit: t({
-      zh: "编辑 <code>components/HelloWorld.vue</code> 并保存以测试 HMR",
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-    }),
-    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-    nuxtIntlayer: t({
-      en: "Nuxt Intlayer documentation",
-      fr: "Documentation de Nuxt Intlayer",
-      es: "Documentación de Nuxt Intlayer",
-    }),
-    learnMore: t({
-      en: "Learn more about Nuxt in the ",
-      fr: "En savoir plus sur Nuxt dans la ",
-      es: "Aprenda más sobre Nuxt en la ",
-    }),
-    nuxtDocs: t({
-      en: "Nuxt Documentation",
-      fr: "Documentation Nuxt",
-      es: "Documentación de Nuxt",
-    }),
-    readTheDocs: t({
-      en: "Click on the Nuxt logo to learn more",
-      fr: "Cliquez sur le logo Nuxt pour en savoir plus",
-      es: "Haga clic en el logotipo de Nuxt para obtener más información",
-    }),
-  },
-};
-
-export default helloWorldContent;
-      fr: "Cliquez sur le logo Nuxt pour en savoir plus",
-      es: "Haga clic en el logotipo de Nuxt para obtener más información",
-    }),
-  },
-} satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```javascript fileName="components/helloWorld.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "helloworld",
-  content: {
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-    }),
-    checkOut: t({
-      en: "Check out ",
-      zh: "查看 ",
-      fr: "Vérifiez ",
-      es: "Compruebe ",
-    }),
-    nuxtIntlayer: t({
-      en: "Nuxt Intlayer documentation",
-      zh: "Nuxt Intlayer 文档",
-      fr: "Documentation de Nuxt Intlayer",
-      es: "Documentación de Nuxt Intlayer",
-    }),
-    learnMore: t({
-      en: "Learn more about Nuxt in the ",
-      zh: "在此了解更多关于 Nuxt 的信息 ",
-      fr: "En savoir plus sur Nuxt dans la ",
-      es: "Aprenda más sobre Nuxt en la ",
-    }),
-    nuxtDocs: t({
-      en: "Nuxt Documentation",
-      zh: "Nuxt 文档",
-      fr: "Documentation Nuxt",
-      es: "Documentación de Nuxt",
-    }),
-    readTheDocs: t({
-      en: "Click on the Nuxt logo to learn more",
-      zh: "点击 Nuxt 标志了解更多",
-      fr: "Cliquez sur le logo Nuxt pour en savoir plus",
-      es: "Haga clic en el logotipo de Nuxt para obtener más información",
-    }),
-  },
-};
-
-export default helloWorldContent;
-```
-
-```javascript fileName="components/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "helloworld",
-  content: {
-    count: t({
-      zh: "计数是 ",
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-    edit: t({
-      zh: "编辑 <code>components/HelloWorld.vue</code> 并保存以测试 HMR",
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-    }),
-    checkOut: t({
-      zh: "查看 ",
-      en: "Check out ",
-      fr: "Vérifiez ",
-      es: "Compruebe ",
-    }),
-    nuxtIntlayer: t({
-      zh: "Nuxt Intlayer 文档",
-      en: "Nuxt Intlayer documentation",
-      fr: "Documentation de Nuxt Intlayer",
-      es: "Nuxt Intlayer 文档",
-    }),
-    learnMore: t({
-      en: "了解更多关于 Nuxt 的信息，请访问 ",
-      fr: "En savoir plus sur Nuxt dans la ",
-      es: "Aprenda más sobre Nuxt en la ",
-    }),
-    nuxtDocs: t({
-      en: "Nuxt 文档",
-      fr: "Documentation Nuxt",
-      es: "Documentación de Nuxt",
-    }),
-    readTheDocs: t({
-      en: "点击 Nuxt 标志了解更多",
-      fr: "Cliquez sur le logo Nuxt pour en savoir plus",
-      es: "Haga clic en el logotipo de Nuxt para obtener más información",
-    }),
-  },
-};
-
-module.exports = helloWorldContent;
-```
-
-```json fileName="components/helloWorld.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "helloworld",
-  "content": {
-    "count": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "count is ",
-        "fr": "le compte est ",
-        "es": "el recuento es ",
-        "zh": "计数是 "
-      }
-    },
-    "edit": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-        "fr": "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-        "es": "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-        "zh": "编辑 <code>components/HelloWorld.vue</code> 并保存以测试 HMR"
-      }
-    },
-    "checkOut": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Check out ",
-        "fr": "Vérifiez ",
-        "es": "Compruebe ",
-        "zh": "查看 "
-      }
-    },
-    "nuxtIntlayer": {
-      "nodeType": "translation",
-      "translation": {
-        "zh": "Nuxt Intlayer 文档"
-      }
-    },
-    "learnMore": {
-      "nodeType": "translation",
-      "translation": {
-        "zh": "在这里了解更多关于 Nuxt 的信息"
-      }
-    },
-    "nuxtDocs": {
-      "nodeType": "translation",
-      "translation": {
-        "zh": "Nuxt 文档"
-      }
-    },
-    "readTheDocs": {
-      "nodeType": "translation",
-      "translation": {
-        "zh": "点击 Nuxt 标志了解更多"
-        "es": "Haga clic en el logotipo de Nuxt para obtener más información"
-      }
-    }
-  }
-}
-```
-
-> 您的内容声明可以定义在应用程序的任何位置，只要它们包含在 `contentDir` 目录中（默认是 `./src`），并且匹配内容声明文件的扩展名（默认是 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
-
-> 更多详情，请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
+> 更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
 ### 第5步：在代码中使用 Intlayer
 
-在整个 Nuxt 应用中，使用 `useIntlayer` 组合函数访问您的内容字典：
+在整个 Nuxt 应用中使用 `useIntlayer` 组合式函数访问您的内容字典：
 
 ```vue fileName="components/HelloWorld.vue"
 <script setup lang="ts">
@@ -424,7 +226,7 @@ import { ref } from "vue";
 import { useIntlayer } from "vue-intlayer";
 
 defineProps({
-  msg: String,
+  msg: String, // 消息属性
 });
 
 const {
@@ -435,8 +237,8 @@ const {
   learnMore,
   nuxtDocs,
   readTheDocs,
-} = useIntlayer("helloworld");
-const countRef = ref(0);
+} = useIntlayer("helloworld"); // 使用名为 "helloworld" 的内容字典
+const countRef = ref(0); // 计数引用
 </script>
 
 <template>
@@ -465,12 +267,12 @@ const countRef = ref(0);
 </template>
 ```
 
-#### 在 Intlayer 中访问内容
+#### 访问 Intlayer 中的内容
 
 Intlayer 提供了多种 API 来访问您的内容：
 
 - **基于组件的语法**（推荐）：
-  使用 `<myContent />` 或 `<Component :is="myContent" />` 语法将内容渲染为 Intlayer 节点。这与[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)和[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)无缝集成。
+  使用 `<myContent />` 或 `<Component :is="myContent" />` 语法将内容渲染为 Intlayer 节点。这与[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)和[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)无缝集成。
 
 - **基于字符串的语法**：
   使用 `{{ myContent }}` 将内容渲染为纯文本，不支持可视化编辑器。
@@ -479,72 +281,62 @@ Intlayer 提供了多种 API 来访问您的内容：
   使用 `<div v-html="myContent" />` 将内容渲染为原始 HTML，不支持可视化编辑器。
 
 - **解构语法**：
-  `useIntlayer` 组合式函数返回一个带有内容的 Proxy。这个 Proxy 可以被解构以访问内容，同时保持响应性。
-- 使用 `const content = useIntlayer("myContent");` 和 `{{ content.myContent }}` / `<content.myContent />`。
-- 或者使用 `const { myContent } = useIntlayer("myContent");` 和 `{{ myContent }}` / `<myContent/>` 来解构内容。
+  `useIntlayer` 组合函数返回一个包含内容的 Proxy。该 Proxy 可以被解构以访问内容，同时保持响应性。
+  - 使用 `const content = useIntlayer("myContent");` 以及 `{{ content.myContent }}` / `<content.myContent />`。
+  - 或者使用 `const { myContent } = useIntlayer("myContent");` 以及 `{{ myContent}}` / `<myContent/>` 来解构内容。
 
-### （可选）步骤 6：更改内容的语言
+### （可选）步骤6：更改内容语言
 
-要更改内容的语言，可以使用 `useLocale` 组合式函数提供的 `setLocale` 函数。该函数允许你设置应用的语言环境并相应地更新内容。
+要更改内容的语言，可以使用 `useLocale` 组合函数提供的 `setLocale` 函数。该函数允许您设置应用程序的语言环境并相应地更新内容。
 
-创建一个用于切换语言的组件：
+创建一个组件，使用 `NuxtLink` 在语言之间切换。**使用链接而非按钮进行语言切换是 SEO 和页面可发现性的最佳实践**，因为这允许搜索引擎抓取并索引页面的所有本地化版本：
 
 ```vue fileName="components/LocaleSwitcher.vue"
-<template>
-  <div class="locale-switcher">
-    <select v-model="selectedLocale" @change="changeLocale">
-      <option v-for="loc in availableLocales" :key="loc" :value="loc">
-        {{ getLocaleName(loc) }}
-      </option>
-    </select>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { getLocaleName } from "intlayer";
+import { getLocaleName, getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
 
-// 获取语言信息和 setLocale 函数
+// Nuxt 自动导入 useRoute
+const route = useRoute();
 const { locale, availableLocales, setLocale } = useLocale();
-
-// 使用 ref 跟踪选中的语言
-const selectedLocale = ref(locale.value);
-
-// 当选择变化时更新语言
-const changeLocale = () => setLocale(selectedLocale.value);
-
-// 保持 selectedLocale 与全局语言同步
-watch(
-  () => locale.value,
-  (newLocale) => {
-    selectedLocale.value = newLocale;
-  }
-);
 </script>
+
+<template>
+  <nav class="locale-switcher">
+    <NuxtLink
+      v-for="localeEl in availableLocales"
+      :key="localeEl"
+      :to="getLocalizedUrl(route.fullPath, localeEl)"
+      class="locale-link"
+      :class="{ 'active-locale': localeEl === locale }"
+      @click="setLocale(localeEl)"
+    >
+      {{ getLocaleName(localeEl) }}
+    </NuxtLink>
+  </nav>
 </template>
-
-<style scoped>
-.locale-switcher {
-  margin: 1rem 0;
-}
-
-select {
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  border: 1px solid #ccc;
-}
-</style>
 ```
 
-然后，在你的页面或布局中使用此组件：
+> 使用带有正确 `href` 属性（通过 `getLocalizedUrl`）的 `NuxtLink` 确保搜索引擎能够发现您页面的所有语言版本。这比仅使用 JavaScript 的语言切换更优，因为搜索引擎爬虫可能无法跟踪后者。
+
+然后，设置您的 `app.vue` 以使用布局：
 
 ```vue fileName="app.vue"
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+```
 
-const content = useIntlayer("app"); // 创建相关的 intlayer 声明文件
+### （可选）步骤 6b：创建带导航的布局
+
+Nuxt 布局允许您为页面定义一个通用结构。创建一个包含语言切换器和导航的默认布局：
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 </script>
 
 <template>
@@ -553,15 +345,20 @@ const content = useIntlayer("app"); // 创建相关的 intlayer 声明文件
       <LocaleSwitcher />
     </header>
     <main>
-      <NuxtPage />
+      <slot />
     </main>
+
+    <Links href="/">首页</Links>
+    <Links href="/about">关于</Links>
   </div>
 </template>
 ```
 
-### （可选）步骤 7：为你的应用添加本地化路由
+`Links` 组件（如下所示）确保内部导航链接会自动本地化。
 
-Nuxt 在使用 `nuxt-intlayer` 模块时会自动处理本地化路由。它会根据你的页面目录结构自动为每种语言创建路由。
+### （可选）步骤 7：为您的应用添加本地化路由
+
+当使用 `nuxt-intlayer` 模块时，Nuxt 会自动处理本地化路由。它会根据您的页面目录结构自动为每种语言创建路由。
 
 示例：
 
@@ -573,212 +370,284 @@ pages/
     └── index.vue      → /contact, /fr/contact, /es/contact
 ```
 
-要创建本地化页面，只需在 `pages/` 目录中创建你的 Vue 文件：
+要创建本地化页面，只需在 `pages/` 目录中创建您的 Vue 文件。以下是两个示例页面：
+
+**主页 (`pages/index.vue`):**
+
+```vue fileName="pages/index.vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const content = useIntlayer("home-page");
+
+useHead({
+  title: content.metaTitle.value,
+  meta: [
+    {
+      name: "description",
+      content: content.metaDescription.value,
+    },
+  ],
+});
+</script>
+
+<template>
+  <h1><content.title /></h1>
+</template>
+```
+
+**关于页面 (`pages/about.vue`):**
 
 ```vue fileName="pages/about.vue"
 <script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 
-const content = useIntlayer("about");
+const content = useIntlayer("about-page");
+
+useHead({
+  title: content.metaTitle.raw, // 使用 .raw 访问原始字符串
+  meta: [
+    {
+      name: "description",
+      content: content.metaDescription.raw, // 使用 .raw 访问原始字符串
+    },
+  ],
+});
 </script>
 
 <template>
-  <div>
-    <h1>{{ content.title }}</h1>
-    <p>{{ content.description }}</p>
-  </div>
+  <h1><content.title /></h1>
 </template>
 ```
+
+> 注意：`useHead` 在 Nuxt 中是自动导入的。你可以根据需要使用 `.value`（响应式）或 `.raw`（原始字符串）来访问内容值。
 
 `nuxt-intlayer` 模块将自动：
 
 - 检测用户的首选语言环境
-- 通过 URL 处理语言环境切换
-- 设置合适的 `<html lang="">` 属性
-- 管理语言环境的 Cookie
+- 通过 URL 处理语言切换
+- 设置适当的 `<html lang="">` 属性
+- 管理语言环境 Cookie
 - 将用户重定向到相应的本地化 URL
 
 ### （可选）步骤 8：创建本地化链接组件
 
-为了确保您的应用导航遵循当前语言环境，您可以创建一个自定义的 `LocalizedLink` 组件。该组件会自动为内部链接添加当前语言的前缀。
+为了确保您的应用程序导航遵循当前的语言环境，您可以创建一个自定义的 `Links` 组件。该组件会自动为内部 URL 添加当前语言前缀，这对于 **SEO 和页面可发现性** 至关重要。
 
-```vue fileName="components/LocalizedLink.vue"
-<template>
-  <NuxtLink :to="localizedHref" v-bind="$attrs">
-    <slot />
-  </NuxtLink>
-</template>
-
+```vue fileName="components/Links.vue"
 <script setup lang="ts">
-import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
 
-const props = defineProps({
-  to: {
-    type: String,
-    required: true,
-  },
+interface Props {
+  href: string;
+  locale?: string;
+}
+
+const props = defineProps<Props>();
+
+const { locale: currentLocale } = useLocale();
+
+// 计算最终路径
+const finalPath = computed(() => {
+  // 1. 检查链接是否为外部链接
+  const isExternal = /^https?:\/\//.test(props.href || "");
+
+  // 2. 如果是外部链接，原样返回（NuxtLink 负责生成 <a> 标签）
+  if (isExternal) return props.href;
+
+  // 3. 如果是内部链接，则本地化 URL
+  const targetLocale = props.locale || currentLocale.value;
+  return getLocalizedUrl(props.href, targetLocale);
 });
-
-const { locale } = useLocale();
-
-// 检查链接是否为外部链接
-const isExternalLink = computed(() => /^https?:\/\//.test(props.to || ""));
-
-// 为内部链接创建本地化的 href
-const localizedHref = computed(() =>
-  isExternalLink.value ? props.to : getLocalizedUrl(props.to, locale.value)
-);
 </script>
+
+<template>
+  <NuxtLink :to="finalPath" v-bind="$attrs">
+    <slot />
+  </NuxtLink>
+</template>
 ```
 
 然后在整个应用中使用此组件：
 
-```vue fileName="pages/index.vue"
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
 <template>
   <div>
-    <LocalizedLink to="/about">
-      {{ content.aboutLink }}
-    </LocalizedLink>
-    <LocalizedLink to="/contact">
-      {{ content.contactLink }}
-    </LocalizedLink>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">首页</Links>
+    <Links href="/about">关于</Links>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-import LocalizedLink from "~/components/LocalizedLink.vue";
-
-const content = useIntlayer("home");
-</script>
 ```
 
-### （可选）第9步：处理元数据和SEO
+> 通过使用带有本地化路径的 `NuxtLink`，您可以确保：
+>
+> - 搜索引擎能够抓取并索引您页面的所有语言版本
+> - 用户可以直接分享本地化的 URL
+> - 浏览器历史记录能正确处理带有语言前缀的 URL
 
-Nuxt 提供了出色的SEO功能。您可以使用 Intlayer 来处理本地化的元数据：
+### （可选）步骤 9：处理元数据和 SEO
+
+Nuxt 通过 `useHead` 组合式函数（自动导入）提供了出色的 SEO 功能。您可以使用 Intlayer 处理本地化的元数据，使用 `.raw` 或 `.value` 访问器获取原始字符串值：
 
 ```vue fileName="pages/about.vue"
 <script setup lang="ts">
-import { useSeoMeta } from "nuxt/app";
-import { getIntlayer } from "intlayer";
-import { useLocale } from "vue-intlayer";
+import { useIntlayer } from "vue-intlayer";
 
-const { locale } = useLocale();
-const content = getIntlayer("about-meta", locale.value);
+// useHead 在 Nuxt 中自动导入
+const content = useIntlayer("about-page");
 
-useSeoMeta({
-  title: content.title,
-  description: content.description,
+useHead({
+  title: content.metaTitle.raw, // 使用 .raw 获取原始字符串
+  meta: [
+    {
+      name: "description",
+      content: content.metaDescription.raw, // 使用 .raw 获取原始字符串值
+    },
+  ],
 });
 </script>
 
 <template>
-  <div>
-    <h1>{{ content.pageTitle }}</h1>
-    <p>{{ content.pageContent }}</p>
-  </div>
+  <h1><content.title /></h1>
 </template>
 ```
 
+> 或者，你可以使用 `import { getIntlayer } from "intlayer"` 函数来获取内容，且不带 Vue 响应性。
+
+> **访问内容值：**
+>
+> - 使用 `.raw` 获取原始字符串值（非响应式）
+> - 使用 `.value` 获取响应式值
+> - 使用 `<content.key />` 组件语法以支持可视化编辑器
+
 创建对应的内容声明：
 
-```ts fileName="pages/about-meta.content.ts"
+```ts fileName="pages/about-page.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
-import type { useSeoMeta } from "nuxt/app";
 
-const aboutMetaContent = {
-  key: "about-meta",
+const aboutPageContent = {
+  key: "about-page",
   content: {
-    title: t({
-      zh: "关于我们 - 我的公司",
-      en: "About Us - My Company",
+    metaTitle: t({
+      en: "关于我们 - 我的公司",
       fr: "À Propos - Ma Société",
       es: "Acerca de Nosotros - Mi Empresa",
     }),
-    description: t({
-      zh: "了解更多关于我们公司和我们的使命",
-      en: "Learn more about our company and our mission",
+    metaDescription: t({
+      en: "了解更多关于我们公司及我们的使命",
       fr: "En savoir plus sur notre société et notre mission",
       es: "Conozca más sobre nuestra empresa y nuestra misión",
     }),
+    title: t({
+      en: "关于我们",
+      fr: "À Propos",
+      es: "Acerca de Nosotros",
+    }),
   },
-} satisfies Dictionary<Parameters<typeof useSeoMeta>[0]>;
+} satisfies Dictionary;
 
-export default aboutMetaContent;
+export default aboutPageContent;
 ```
 
-```typescript fileName="pages/about-meta.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="pages/about-page.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
-const aboutMetaContent = {
-  key: "about-meta",
+const aboutPageContent = {
+  key: "about-page",
   content: {
-    title: t({
-      zh: "关于我们 - 我的公司",
-      en: "About Us - My Company",
+    metaTitle: t({
+      en: "关于我们 - 我的公司",
       fr: "À Propos - Ma Société",
       es: "Acerca de Nosotros - Mi Empresa",
     }),
-    description: t({
+    metaDescription: t({
       zh: "了解更多关于我们公司和我们的使命",
       en: "Learn more about our company and our mission",
       fr: "En savoir plus sur notre société et notre mission",
       es: "Conozca más sobre nuestra empresa y nuestra misión",
     }),
+    title: t({
+      zh: "关于我们",
+      en: "About Us",
+      fr: "À Propos",
+      es: "Acerca de Nosotros",
+    }),
   },
 };
 
-export default aboutMetaContent;
+export default aboutPageContent;
 ```
 
-```typescript fileName="pages/about-meta.content.js" contentDeclarationFormat="cjs"
+```javascript fileName="pages/about-page.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
-const aboutMetaContent = {
-  key: "about-meta",
+const aboutPageContent = {
+  key: "about-page",
   content: {
-    title: t({
+    metaTitle: t({
       zh: "关于我们 - 我的公司",
       en: "About Us - My Company",
       fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
+      es: "关于我们 - 我的公司",
     }),
-    description: t({
-      zh: "了解更多关于我们公司和我们的使命",
-      en: "Learn more about our company and our mission",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
+    metaDescription: t({
+      en: "了解更多关于我们的公司和我们的使命",
+      fr: "了解更多关于我们的公司和我们的使命",
+      es: "了解更多关于我们的公司和我们的使命",
+    }),
+    title: t({
+      en: "关于我们",
+      fr: "关于我们",
+      es: "关于我们",
     }),
   },
 };
 
-module.exports = aboutMetaContent;
+module.exports = aboutPageContent;
 ```
 
-```json fileName="pages/about-meta.content.json" contentDeclarationFormat="json"
+```json fileName="pages/about-page.content.json" contentDeclarationFormat="json"
 {
-  "key": "about-meta",
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "about-page",
   "content": {
-    "title": {
+    "metaTitle": {
       "nodeType": "translation",
-      "translations": {
-        "zh": "关于我们 - 我的公司",
-        "en": "About Us - My Company",
-        "fr": "À Propos - Ma Société",
-        "es": "Acerca de Nosotros - Mi Empresa"
+      "translation": {
+        "en": "关于我们 - 我的公司",
+        "fr": "关于我们 - 我的公司",
+        "es": "关于我们 - 我的公司"
       }
     },
-    "description": {
+    "metaDescription": {
       "nodeType": "translation",
-      "translations": {
-        "zh": "了解更多关于我们公司和我们的使命",
-        "en": "Learn more about our company and our mission",
+      "translation": {
+        "en": "了解更多关于我们公司及我们的使命",
         "fr": "En savoir plus sur notre société et notre mission",
         "es": "Conozca más sobre nuestra empresa y nuestra misión"
+      }
+    },
+    "title": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "关于我们",
+        "fr": "À Propos",
+        "es": "Acerca de Nosotros"
       }
     }
   }
@@ -787,11 +656,11 @@ module.exports = aboutMetaContent;
 
 ### 配置 TypeScript
 
-Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库更加强大。
+Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库更强大。
 
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+![自动完成](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![翻译错误](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 确保您的 TypeScript 配置包含自动生成的类型。
 
@@ -824,17 +693,15 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 
 该扩展提供：
 
-- **翻译键的自动补全**。
-- **实时错误检测**，用于缺失的翻译。
-- **内联预览**，展示翻译内容。
-- **快速操作**，轻松创建和更新翻译。
+- 翻译键的 **自动补全**。
+- 缺失翻译的 **实时错误检测**。
+- 翻译内容的 **内联预览**。
+- 轻松创建和更新翻译的 **快速操作**。
 
-有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
-
----
-
-### 深入了解
-
-要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
 
 ---
+
+### 更进一步
+
+要进一步提升，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。

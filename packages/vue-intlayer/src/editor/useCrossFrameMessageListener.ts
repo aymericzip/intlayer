@@ -1,11 +1,7 @@
 import { compareUrls, type MessageKey } from '@intlayer/editor';
-import {
-  getCurrentInstance,
-  onScopeDispose, // <-- works in & outside components
-} from 'vue';
+import { getCurrentInstance, onScopeDispose } from 'vue';
 import { useCommunicator } from './communicator';
 
-// ---------- module-level singletons ----------
 type AnyFn = (data: unknown) => void;
 
 /** Map<key, Set<callback>> */
@@ -37,7 +33,7 @@ const ensureGlobalListener = (
   selfId: string
 ) => {
   if (windowListenerAttached) return;
-  if (!window) return;
+  if (typeof window === 'undefined') return;
 
   window.addEventListener('message', (event) => {
     const { type, data, senderId } = event.data ?? {};
@@ -58,7 +54,6 @@ const ensureGlobalListener = (
   });
   windowListenerAttached = true;
 };
-// ---------- end module-level code ----------
 
 /**
  * useCrossFrameMessageListener
@@ -75,10 +70,10 @@ export const useCrossFrameMessageListener = <S>(
   // Communicator is the same for everyone, so it’s fine to call every time.
   const { allowedOrigins, postMessage, senderId } = useCommunicator() ?? {};
 
-  // --- 1. make sure the global listener exists ----
+  // make sure the global listener exists
   ensureGlobalListener(allowedOrigins, senderId);
 
-  // --- 2. register this caller’s callback (if any) ---
+  // register this caller’s callback (if any)
   if (onEventTriggered) {
     addSubscriber(key, onEventTriggered as AnyFn);
 
@@ -94,7 +89,7 @@ export const useCrossFrameMessageListener = <S>(
     }
   }
 
-  // --- 3. return a wrapper that tags outgoing messages with our key ---
+  // return a wrapper that tags outgoing messages with our key
   const postMessageWrapper = (data?: S) => {
     postMessage({ type: key, data, senderId });
   };

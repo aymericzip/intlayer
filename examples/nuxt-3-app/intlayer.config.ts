@@ -1,14 +1,9 @@
 import { type IntlayerConfig, Locales } from 'intlayer';
 
-/** @type {import('intlayer').IntlayerConfig} */
-
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    contentDir: ['.'], // Because by default Intayer will watch content declaration files from the `./src` directory
   },
   editor: {
     enabled: true,
@@ -18,6 +13,9 @@ const config: IntlayerConfig = {
     backendURL: 'http://localhost:3100',
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+  routing: {
+    mode: 'prefix-no-default',
   },
 };
 

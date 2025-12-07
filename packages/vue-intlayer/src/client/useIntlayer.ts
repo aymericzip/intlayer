@@ -7,12 +7,9 @@ import type {
 import {
   type ComputedRef,
   computed,
-  defineComponent,
-  h,
   inject,
   isRef,
   type MaybeRefOrGetter,
-  markRaw,
   ref,
   shallowRef,
   toValue,
@@ -21,33 +18,14 @@ import {
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
-
-// --- helpers --------------------------------------------------------------
-
-export const atPath = (obj: any, path: (string | number)[]) =>
-  path.reduce((acc, k) => (acc == null ? undefined : acc[k as any]), obj);
-
-export const isObjectLike = (v: any) => v != null && typeof v === 'object';
-export const isComponentLike = (v: any) =>
-  typeof v === 'function' ||
-  (isObjectLike(v) && ('render' in v || 'setup' in v));
-
-/** Wrap a getter into a lightweight functional component */
-export const toComponent = (getter: () => any) =>
-  markRaw(
-    defineComponent({
-      name: 'IntlayerLeaf',
-      setup() {
-        return () => {
-          const v = getter();
-          if (v == null) return null;
-          if (isComponentLike(v)) return h(v as any);
-          // Render primitives/strings/arrays as text/children
-          return Array.isArray(v) ? h('span', v as any) : v;
-        };
-      },
-    })
-  );
+import {
+  atPath,
+  createIntlayerLeafProxy,
+  isComponentLike,
+  isIntlayerNode,
+  isObjectLike,
+  toComponent,
+} from './useDictionary';
 
 // --- proxy factory --------------------------------------------------------
 
@@ -113,7 +91,15 @@ export const useIntlayer = <T extends DictionaryKeys>(
         if (isObjectLike(snapshot) && !isComponentLike(snapshot)) {
           return makeProxy(nextPath); // nested proxy
         }
-        // Leaf: return a computed ref (templates auto-unwrap)
+
+        // For IntlayerNode leaves, use special proxy for nice .value access
+        if (isIntlayerNode(snapshot)) {
+          return createIntlayerLeafProxy(
+            computed(() => atPath(source.value, nextPath))
+          );
+        }
+
+        // For other component-like things or primitives, return computed ref
         return computed(() => atPath(source.value, nextPath));
       },
 

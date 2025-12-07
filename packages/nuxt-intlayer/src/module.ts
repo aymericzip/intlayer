@@ -1,9 +1,8 @@
-import { resolve } from 'node:path';
-import { prepareIntlayer, watch } from '@intlayer/chokidar';
-import { getAlias, getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config';
+import { getPrefix } from '@intlayer/core';
 import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { NuxtModule } from '@nuxt/schema';
-import { intlayerProxy, intlayerPrune } from 'vite-intlayer';
+import { intlayer, intlayerProxy } from 'vite-intlayer';
 
 // @ts-ignore fix instantiation is excessively deep and possibly infinite
 export const module: NuxtModule = defineNuxtModule({
@@ -13,7 +12,6 @@ export const module: NuxtModule = defineNuxtModule({
   setup(_options, nuxt) {
     const configuration = getConfiguration();
 
-    const { optimize } = configuration.build;
     /**
      * -------------------------------------------------
      *  RUNTIME PLUGIN REGISTRATION
@@ -41,30 +39,9 @@ export const module: NuxtModule = defineNuxtModule({
         // viteConfig.plugins can be undefined at this stage
         (viteConfig.plugins ?? []).push(intlayerProxy());
       }
-      if (optimize) {
-        // viteConfig.plugins can be undefined at this stage
-        viteConfig.plugins?.push(intlayerPrune(configuration));
-      }
+
+      viteConfig.plugins?.push(intlayer());
     });
-
-    // // Equivalent to buildStart in Vite plugin
-    nuxt.hook('build:before', async () => prepareIntlayer(configuration));
-
-    // // Equivalent to configureServer in Vite plugin
-    nuxt.hook('ready', async () => {
-      if (configuration.content.watch && nuxt.options.dev) {
-        // Start watching when dev server is ready
-        watch({ configuration });
-      }
-    });
-
-    nuxt.options.alias = {
-      ...nuxt.options.alias,
-      ...getAlias({
-        configuration,
-        formatter: (value: string) => resolve(value),
-      }),
-    };
 
     // After setting up aliases, extend Nuxt pages with locale-aware routes
     nuxt.hook('pages:extend', (pages) => {
@@ -73,17 +50,14 @@ export const module: NuxtModule = defineNuxtModule({
         routing: { mode },
       } = configuration;
 
-      // Derived flags from routing.mode
-      const noPrefix = mode === 'no-prefix' || mode === 'search-params';
-      const prefixDefault = mode === 'prefix-all';
-
-      // If noPrefix strategy is enabled we keep Nuxt original routing untouched
-      if (noPrefix) return;
-
       // Build a RegExp string with supported locales (e.g. "en|fr|de") to ensure the param only accepts known locales
-      const filteredLocales = prefixDefault
-        ? locales
-        : locales.filter((locale) => locale !== defaultLocale);
+      const filteredLocales = locales.filter((locale) => {
+        const { localePrefix } = getPrefix(locale, {
+          mode,
+          defaultLocale,
+        });
+        return localePrefix !== undefined;
+      });
       const localeGroupRegex = filteredLocales.map(String).join('|');
 
       // If no locales remain to prefix (e.g., only default locale and prefixDefault is false) skip extension

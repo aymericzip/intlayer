@@ -19,7 +19,6 @@ slugs:
   - environment
   - vite-and-react
   - react-router-v7-fs-routes
-  - fs-routes
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template-fs-routes
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:

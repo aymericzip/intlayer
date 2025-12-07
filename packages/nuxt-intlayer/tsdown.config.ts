@@ -1,15 +1,15 @@
 import { getOptions, isExternal } from '@utils/tsdown-config';
-import { defineConfig } from 'tsdown';
+import { defineConfig, type UserConfig } from 'tsdown';
 
-export default defineConfig(
-  getOptions({
-    all: {
-      external: (id: string) => {
-        // Nuxt virtual modules that are resolved at runtime
-        if (id.startsWith('#')) return true;
+const [esm, , types] = getOptions({
+  all: {
+    external: (id: string) => {
+      // Nuxt virtual modules that are resolved at runtime
+      if (id.startsWith('#')) return true;
 
-        return isExternal(id);
-      },
+      return isExternal(id);
     },
-  })
-);
+  },
+});
+
+export default defineConfig([esm, types] as UserConfig[]);

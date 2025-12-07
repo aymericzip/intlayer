@@ -4,7 +4,7 @@ export type IntlayerNode<T = string> = {
   raw: T; // primitive value (reactive)
   render: () => VNode; // component renderer
   toString: () => T; // string interpolation
-  value: T; // <content.title.value />
+  value: T;
   __update: (next: IntlayerNode<T>) => void; // invoked by useIntlayer
 };
 
@@ -74,8 +74,10 @@ export const renderIntlayerNode = <
       rawRef.value = val;
     },
 
-    /* circular ref for the ".value" trick */
-    value: undefined as never,
+    /* .value returns the primitive value */
+    get value() {
+      return rawRef.value;
+    },
 
     /* called by useIntlayer when the dictionary entry changes */
     __update(next: IntlayerNode<T>) {
@@ -87,9 +89,6 @@ export const renderIntlayerNode = <
 
     ...additionalProps,
   });
-
-  /* finish the circular reference */
-  (node as any).value = node;
 
   /* make sure Vue never tries to proxy the component object itself */
   return markRaw(node);

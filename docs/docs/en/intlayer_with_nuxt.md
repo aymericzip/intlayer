@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-06-29
+updatedAt: 2025-12-07
 title: How to translate your Nuxt and Vue app – i18n guide 2025
 description: Discover how to make your Nuxt and Vue website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -14,16 +14,18 @@ slugs:
   - doc
   - environment
   - nuxt-and-vue
-applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
+applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
+youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
 history:
+  - version: 7.3.11
+    date: 2025-12-07
+    changes: Update LocaleSwitcher, SEO, metadata
   - version: 5.5.10
     date: 2025-06-29
     changes: Init history
 ---
 
 # Translate your Nuxt and Vue website using Intlayer | Internationalization (i18n)
-
-See [Application Template](https://github.com/aymericzip/intlayer-nuxt-template) on GitHub.
 
 ## Table of Contents
 
@@ -45,7 +47,7 @@ With Intlayer, you can:
 ## Step-by-Step Guide to Set Up Intlayer in a Nuxt Application
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -53,6 +55,27 @@ With Intlayer, you can:
 />
 
 ### Step 1: Install Dependencies
+
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
+<iframe title="How to translate your Nuxt and Vue app using Intlayer? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </TabItem>
+  <TabItem label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+See [Application Template](https://github.com/aymericzip/intlayer-nuxt-4-template) on GitHub.
 
 Install the necessary packages using npm:
 
@@ -98,9 +121,6 @@ const config: IntlayerConfig = {
     ],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    contentDir: ["."], // Because by default Intayer will watch content declaration files from the `./src` directory
-  },
 };
 
 export default config;
@@ -120,9 +140,6 @@ const config = {
     ],
     defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    contentDir: ["."],
-  },
 };
 
 export default config;
@@ -141,9 +158,6 @@ const config = {
       // Your other locales
     ],
     defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    contentDir: ["."],
   },
 };
 
@@ -171,188 +185,31 @@ export default defineNuxtConfig({
 
 Create and manage your content declarations to store translations:
 
-```tsx fileName="components/helloWorld.content.ts" contentDeclarationFormat="typescript"
-import { t, type Dictionary } from "intlayer";
+```tsx fileName="content/home-page.content.ts" contentDeclarationFormat="typescript"
+import { type Dictionary, t } from "intlayer";
 
-const helloWorldContent = {
-  key: "helloworld",
+const content = {
+  key: "home-page",
   content: {
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+    title: t({
+      en: "Hello world",
+      fr: "Bonjour le monde",
+      es: "Hola mundo",
     }),
-    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-    nuxtIntlayer: t({
-      en: "Nuxt Intlayer documentation",
-      fr: "Documentation de Nuxt Intlayer",
-      es: "Documentación de Nuxt Intlayer",
+    metaTitle: t({
+      en: "Welcome | My Application",
+      fr: "Bienvenue | Mon Application",
+      es: "Bienvenido | Mi Aplicación",
     }),
-    learnMore: t({
-      en: "Learn more about Nuxt in the ",
-      fr: "En savoir plus sur Nuxt dans la ",
-      es: "Aprenda más sobre Nuxt en la ",
-    }),
-    nuxtDocs: t({
-      en: "Nuxt Documentation",
-      fr: "Documentation Nuxt",
-      es: "Documentación de Nuxt",
-    }),
-    readTheDocs: t({
-      en: "Click on the Nuxt logo to learn more",
-      fr: "Cliquez sur le logo Nuxt pour en savoir plus",
-      es: "Haga clic en el logotipo de Nuxt para obtener más información",
+    metaDescription: t({
+      en: "Discover your multilingual Nuxt app homepage powered by Intlayer.",
+      fr: "Découvrez la page d'accueil multilingue de votre application Nuxt propulsée par Intlayer.",
+      es: "Descubre la página de inicio multilingüe de tu aplicación Nuxt impulsada por Intlayer.",
     }),
   },
 } satisfies Dictionary;
 
-export default helloWorldContent;
-```
-
-```javascript fileName="components/helloWorld.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "helloworld",
-  content: {
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-    }),
-    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-    nuxtIntlayer: t({
-      en: "Nuxt Intlayer documentation",
-      fr: "Documentation de Nuxt Intlayer",
-      es: "Documentación de Nuxt Intlayer",
-    }),
-    learnMore: t({
-      en: "Learn more about Nuxt in the ",
-      fr: "En savoir plus sur Nuxt dans la ",
-      es: "Aprenda más sobre Nuxt en la ",
-    }),
-    nuxtDocs: t({
-      en: "Nuxt Documentation",
-      fr: "Documentation Nuxt",
-      es: "Documentación de Nuxt",
-    }),
-    readTheDocs: t({
-      en: "Click on the Nuxt logo to learn more",
-      fr: "Cliquez sur le logo Nuxt pour en savoir plus",
-      es: "Haga clic en el logotipo de Nuxt para obtener más información",
-    }),
-  },
-};
-
-export default helloWorldContent;
-```
-
-```javascript fileName="components/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "helloworld",
-  content: {
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-    }),
-    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-    nuxtIntlayer: t({
-      en: "Nuxt Intlayer documentation",
-      fr: "Documentation de Nuxt Intlayer",
-      es: "Documentación de Nuxt Intlayer",
-    }),
-    learnMore: t({
-      en: "Learn more about Nuxt in the ",
-      fr: "En savoir plus sur Nuxt dans la ",
-      es: "Aprenda más sobre Nuxt en la ",
-    }),
-    nuxtDocs: t({
-      en: "Nuxt Documentation",
-      fr: "Documentation Nuxt",
-      es: "Documentación de Nuxt",
-    }),
-    readTheDocs: t({
-      en: "Click on the Nuxt logo to learn more",
-      fr: "Cliquez sur le logo Nuxt pour en savoir plus",
-      es: "Haga clic en el logotipo de Nuxt para obtener más información",
-    }),
-  },
-};
-
-module.exports = helloWorldContent;
-```
-
-```json fileName="components/helloWorld.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "helloworld",
-  "content": {
-    "count": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "count is ",
-        "fr": "le compte est ",
-        "es": "el recuento es "
-      }
-    },
-    "edit": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-        "fr": "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-        "es": "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR"
-      }
-    },
-    "checkOut": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Check out ",
-        "fr": "Vérifiez ",
-        "es": "Compruebe "
-      }
-    },
-    "nuxtIntlayer": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Nuxt Intlayer documentation",
-        "fr": "Documentation de Nuxt Intlayer",
-        "es": "Documentación de Nuxt Intlayer"
-      }
-    },
-    "learnMore": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Learn more about Nuxt in the ",
-        "fr": "En savoir plus sur Nuxt dans la ",
-        "es": "Aprenda más sobre Nuxt en la "
-      }
-    },
-    "nuxtDocs": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Nuxt Documentation",
-        "fr": "Documentation Nuxt",
-        "es": "Documentación de Nuxt"
-      }
-    },
-    "readTheDocs": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Click on the Nuxt logo to learn more",
-        "fr": "Cliquez sur le logo Nuxt pour en savoir plus",
-        "es": "Haga clic en el logotipo de Nuxt para obtener más información"
-      }
-    }
-  }
-}
+export default content;
 ```
 
 > Your content declarations can be defined anywhere in your application as long as they are included in the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
@@ -432,54 +289,54 @@ Intlayer offers different APIs to access your content:
 
 To change the language of your content, you can use the `setLocale` function provided by the `useLocale` composable. This function allows you to set the locale of the application and update the content accordingly.
 
-Create a component to switch between languages:
+Create a component to switch between languages using `NuxtLink`. **Using links instead of buttons for locale switching is a best practice for SEO and page discoverability**, as it allows search engines to crawl and index all localized versions of your pages:
 
 ```vue fileName="components/LocaleSwitcher.vue"
 <script setup lang="ts">
 import { getLocaleName, getLocalizedUrl } from "intlayer";
-import { ref, watch } from "vue";
 import { useLocale } from "vue-intlayer";
-import { useRouter } from "vue-router";
 
-// Get Vue Router
-const router = useRouter();
-
-// Get locale information and setLocale function
-const { locale, availableLocales, setLocale } = useLocale({
-  onLocaleChange: (newLocale) => {
-    // Get current route and create a localized URL
-    const currentPath = router.currentRoute.value.fullPath;
-    const localizedPath = getLocalizedUrl(currentPath, newLocale);
-
-    // Navigate to the localized route without reloading the page
-    router.push(localizedPath);
-  },
-});
-
-// Track the selected locale with a ref
-const selectedLocale = ref(locale.value);
-
-// Update the locale when the selection changes
-const changeLocale = () => setLocale(selectedLocale.value);
-
-// Keep the selectedLocale in sync with the global locale
-watch(
-  () => locale.value,
-  (newLocale) => {
-    selectedLocale.value = newLocale;
-  }
-);
+// Nuxt auto-imports useRoute
+const route = useRoute();
+const { locale, availableLocales, setLocale } = useLocale();
 </script>
+
+<template>
+  <nav class="locale-switcher">
+    <NuxtLink
+      v-for="localeEl in availableLocales"
+      :key="localeEl"
+      :to="getLocalizedUrl(route.fullPath, localeEl)"
+      class="locale-link"
+      :class="{ 'active-locale': localeEl === locale }"
+      @click="setLocale(localeEl)"
+    >
+      {{ getLocaleName(localeEl) }}
+    </NuxtLink>
+  </nav>
+</template>
 ```
 
-Then, use this component in your pages or layout:
+> Using `NuxtLink` with proper `href` attributes (via `getLocalizedUrl`) ensures that search engines can discover all language variants of your pages. This is preferable to JavaScript-only locale switching, which search engine crawlers may not follow.
+
+Then, set up your `app.vue` to use layouts:
 
 ```vue fileName="app.vue"
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+```
 
-const content = useIntlayer("app"); // Create related intlayer declaration file
+### (Optional) Step 6b: Create a Layout with Navigation
+
+Nuxt layouts allow you to define a common structure for your pages. Create a default layout that includes the locale switcher and navigation:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 </script>
 
 <template>
@@ -488,11 +345,16 @@ const content = useIntlayer("app"); // Create related intlayer declaration file
       <LocaleSwitcher />
     </header>
     <main>
-      <NuxtPage />
+      <slot />
     </main>
+
+    <Links href="/">Home</Links>
+    <Links href="/about">About</Links>
   </div>
 </template>
 ```
+
+The `Links` component (shown below) ensures that internal navigation links are automatically localized.
 
 ### (Optional) Step 7: Add localized Routing to your application
 
@@ -508,22 +370,57 @@ pages/
     └── index.vue      → /contact, /fr/contact, /es/contact
 ```
 
-To create a localized page, simply create your Vue files in the `pages/` directory:
+To create localized pages, simply create your Vue files in the `pages/` directory. Here are two example pages:
+
+**Home page (`pages/index.vue`):**
+
+```vue fileName="pages/index.vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const content = useIntlayer("home-page");
+
+useHead({
+  title: content.metaTitle.value,
+  meta: [
+    {
+      name: "description",
+      content: content.metaDescription.value,
+    },
+  ],
+});
+</script>
+
+<template>
+  <h1><content.title /></h1>
+</template>
+```
+
+**About page (`pages/about.vue`):**
 
 ```vue fileName="pages/about.vue"
 <script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 
-const content = useIntlayer("about");
+const content = useIntlayer("about-page");
+
+useHead({
+  title: content.metaTitle.raw, // Use .raw for primitive string access
+  meta: [
+    {
+      name: "description",
+      content: content.metaDescription.raw, // Use .raw for primitive string access
+    },
+  ],
+});
 </script>
 
 <template>
-  <div>
-    <h1>{{ content.title }}</h1>
-    <p>{{ content.description }}</p>
-  </div>
+  <h1><content.title /></h1>
 </template>
 ```
+
+> Note: `useHead` is auto-imported in Nuxt. You can access content values using either `.value` (reactive) or `.raw` (primitive string) depending on your needs.
 
 The `nuxt-intlayer` module will automatically:
 
@@ -535,34 +432,38 @@ The `nuxt-intlayer` module will automatically:
 
 ### (Optional) Step 8: Creating a Localized Link Component
 
-To ensure that your application's navigation respects the current locale, you can create a custom `LocalizedLink` component. This component automatically prefixes internal URLs with the current language.
+To ensure that your application's navigation respects the current locale, you can create a custom `Links` component. This component automatically prefixes internal URLs with the current language, which is essential for **SEO and page discoverability**.
 
-```vue fileName="components/LocalizedLink.vue"
+```vue fileName="components/Links.vue"
 <script setup lang="ts">
 import { getLocalizedUrl } from "intlayer";
-import { computed } from "vue";
 import { useLocale } from "vue-intlayer";
 
-const props = defineProps({
-  to: {
-    type: String,
-    required: true,
-  },
+interface Props {
+  href: string;
+  locale?: string;
+}
+
+const props = defineProps<Props>();
+
+const { locale: currentLocale } = useLocale();
+
+// Compute the final path
+const finalPath = computed(() => {
+  // 1. Check if the link is external
+  const isExternal = /^https?:\/\//.test(props.href || "");
+
+  // 2. If external, return as is (NuxtLink handles the <a> tag generation)
+  if (isExternal) return props.href;
+
+  // 3. If internal, localize the URL
+  const targetLocale = props.locale || currentLocale.value;
+  return getLocalizedUrl(props.href, targetLocale);
 });
-
-const { locale } = useLocale();
-
-// Check if the link is external
-const isExternalLink = computed(() => /^https?:\/\//.test(props.to || ""));
-
-// Create a localized href for internal links
-const localizedHref = computed(() =>
-  isExternalLink.value ? props.to : getLocalizedUrl(props.to, locale.value)
-);
 </script>
 
 <template>
-  <NuxtLink :to="localizedHref" v-bind="$attrs">
+  <NuxtLink :to="finalPath" v-bind="$attrs">
     <slot />
   </NuxtLink>
 </template>
@@ -570,148 +471,180 @@ const localizedHref = computed(() =>
 
 Then use this component throughout your application:
 
-```vue fileName="pages/index.vue"
+```vue fileName="layouts/default.vue"
 <script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-import LocalizedLink from "~/components/LocalizedLink.vue";
-
-const content = useIntlayer("home");
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 </script>
 
 <template>
   <div>
-    <LocalizedLink to="/about">
-      {{ content.aboutLink }}
-    </LocalizedLink>
-    <LocalizedLink to="/contact">
-      {{ content.contactLink }}
-    </LocalizedLink>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Home</Links>
+    <Links href="/about">About</Links>
   </div>
 </template>
 ```
 
+> By using `NuxtLink` with localized paths, you ensure that:
+>
+> - Search engines can crawl and index all language versions of your pages
+> - Users can share localized URLs directly
+> - Browser history works correctly with locale-prefixed URLs
+
 ### (Optional) Step 9: Handle Metadata and SEO
 
-Nuxt provides excellent SEO capabilities. You can use Intlayer to handle localized metadata:
+Nuxt provides excellent SEO capabilities via the `useHead` composable (auto-imported). You can use Intlayer to handle localized metadata using the `.raw` or `.value` accessor to get the primitive string value:
 
 ```vue fileName="pages/about.vue"
 <script setup lang="ts">
-import { useSeoMeta } from "nuxt/app";
-import { getIntlayer } from "intlayer";
-import { useLocale } from "vue-intlayer";
+import { useIntlayer } from "vue-intlayer";
 
-const { locale } = useLocale();
-const content = getIntlayer("about-meta", locale.value);
+// useHead is auto-imported in Nuxt
+const content = useIntlayer("about-page");
 
-useSeoMeta({
-  title: content.title,
-  description: content.description,
+useHead({
+  title: content.metaTitle.raw, // Use .raw for primitive string access
+  meta: [
+    {
+      name: "description",
+      content: content.metaDescription.raw, // Use .raw for primitive string access
+    },
+  ],
 });
 </script>
 
 <template>
-  <div>
-    <h1>{{ content.pageTitle }}</h1>
-    <p>{{ content.pageContent }}</p>
-  </div>
+  <h1><content.title /></h1>
 </template>
 ```
 
+> Alternatively, you can use the `import { getIntlayer } from "intlayer"` function to get the content without Vue reactivity.
+
+> **Accessing content values:**
+>
+> - Use `.raw` to get the primitive string value (non-reactive)
+> - Use `.value` to get the reactive value
+> - Use `<content.key />` component syntax for Visual Editor support
+
 Create the corresponding content declaration:
 
-```ts fileName="pages/about-meta.content.ts"
+```ts fileName="pages/about-page.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
-import type { useSeoMeta } from "nuxt/app";
 
-const aboutMetaContent = {
-  key: "about-meta",
+const aboutPageContent = {
+  key: "about-page",
   content: {
-    title: t({
+    metaTitle: t({
       en: "About Us - My Company",
       fr: "À Propos - Ma Société",
       es: "Acerca de Nosotros - Mi Empresa",
     }),
-    description: t({
+    metaDescription: t({
       en: "Learn more about our company and our mission",
       fr: "En savoir plus sur notre société et notre mission",
       es: "Conozca más sobre nuestra empresa y nuestra misión",
     }),
+    title: t({
+      en: "About Us",
+      fr: "À Propos",
+      es: "Acerca de Nosotros",
+    }),
   },
-} satisfies Dictionary<Parameters<typeof useSeoMeta>[0]>;
+} satisfies Dictionary;
 
-export default aboutMetaContent;
+export default aboutPageContent;
 ```
 
-```typescript fileName="pages/about-meta.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="pages/about-page.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
-const aboutMetaContent = {
-  key: "about-meta",
+const aboutPageContent = {
+  key: "about-page",
   content: {
-    title: t({
-      zh: "关于我们 - 我的公司",
+    metaTitle: t({
       en: "About Us - My Company",
       fr: "À Propos - Ma Société",
       es: "Acerca de Nosotros - Mi Empresa",
     }),
-    description: t({
-      zh: "了解更多关于我们公司和我们的使命",
+    metaDescription: t({
       en: "Learn more about our company and our mission",
       fr: "En savoir plus sur notre société et notre mission",
       es: "Conozca más sobre nuestra empresa y nuestra misión",
     }),
+    title: t({
+      en: "About Us",
+      fr: "À Propos",
+      es: "Acerca de Nosotros",
+    }),
   },
 };
 
-export default aboutMetaContent;
+export default aboutPageContent;
 ```
 
-```typescript fileName="pages/about-meta.content.js" contentDeclarationFormat="cjs"
+```javascript fileName="pages/about-page.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
-const aboutMetaContent = {
-  key: "about-meta",
+const aboutPageContent = {
+  key: "about-page",
   content: {
-    title: t({
-      zh: "关于我们 - 我的公司",
+    metaTitle: t({
       en: "About Us - My Company",
       fr: "À Propos - Ma Société",
       es: "Acerca de Nosotros - Mi Empresa",
     }),
-    description: t({
-      zh: "了解更多关于我们公司和我们的使命",
+    metaDescription: t({
       en: "Learn more about our company and our mission",
       fr: "En savoir plus sur notre société et notre mission",
       es: "Conozca más sobre nuestra empresa y nuestra misión",
     }),
+    title: t({
+      en: "About Us",
+      fr: "À Propos",
+      es: "Acerca de Nosotros",
+    }),
   },
 };
 
-module.exports = aboutMetaContent;
+module.exports = aboutPageContent;
 ```
 
-```json fileName="pages/about-meta.content.json" contentDeclarationFormat="json"
+```json fileName="pages/about-page.content.json" contentDeclarationFormat="json"
 {
-  "key": "about-meta",
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "about-page",
   "content": {
-    "title": {
+    "metaTitle": {
       "nodeType": "translation",
-      "translations": {
-        "zh": "关于我们 - 我的公司",
+      "translation": {
         "en": "About Us - My Company",
         "fr": "À Propos - Ma Société",
         "es": "Acerca de Nosotros - Mi Empresa"
       }
     },
-    "description": {
+    "metaDescription": {
       "nodeType": "translation",
-      "translations": {
-        "zh": "了解更多关于我们公司和我们的使命",
+      "translation": {
         "en": "Learn more about our company and our mission",
         "fr": "En savoir plus sur notre société et notre mission",
         "es": "Conozca más sobre nuestra empresa y nuestra misión"
+      }
+    },
+    "title": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "About Us",
+        "fr": "À Propos",
+        "es": "Acerca de Nosotros"
       }
     }
   }
@@ -769,5 +702,3 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-
----

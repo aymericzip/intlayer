@@ -1,0 +1,22 @@
+{
+  "name": "intlayer-nuxt-4",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "postinstall": "nuxt prepare",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "intlayer": "workspace:*",
+    "nuxt": "^4.2.1",
+    "vue": "^3.5.25",
+    "vue-intlayer": "workspace:*",
+    "vue-router": "^4.6.3"
+  },
+  "devDependencies": {
+    "nuxt-intlayer": "workspace:*"
+  }
+}

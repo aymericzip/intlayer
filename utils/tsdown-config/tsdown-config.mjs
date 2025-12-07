@@ -33,7 +33,7 @@ export const isExternal = (id) => {
   return false;
 };
 
-/** @type {import('tsdown').Options} */
+/** @type {import('tsdown').UserConfig} */
 export const commonOptions = {
   entry: [
     'src/**/*.{ts,tsx,js,jsx,mts,cts,vue,svelte,astro}',
@@ -58,21 +58,21 @@ export const commonOptions = {
   plugins: [AssetPlugin()],
 };
 
-/** @type {import('tsdown').Options} */
+/** @type {import('tsdown').UserConfig} */
 export const cjsOptions = {
   ...commonOptions,
   format: ['cjs'],
   outDir: 'dist/cjs',
 };
 
-/** @type {import('tsdown').Options} */
+/** @type {import('tsdown').UserConfig} */
 export const esmOptions = {
   ...commonOptions,
   format: ['esm'],
   outDir: 'dist/esm',
 };
 
-/** @type {import('tsdown').Options} */
+/** @type {import('tsdown').UserConfig} */
 export const typesOptions = {
   ...commonOptions,
   outDir: 'dist/types',
@@ -88,11 +88,11 @@ export const typesOptions = {
   tsconfig: './tsconfig.types.json',
 };
 
-/** @type {import('tsdown').Options[]} */
+/** @type {import('tsdown').UserConfig[]} */
 // ESM runs first to emit assets to dist/assets, then CJS and types reuse them
 export const options = [esmOptions, cjsOptions, typesOptions];
 
-/** @type {(options: { all?: Partial<import('tsdown').Options>, cjs?: Partial<import('tsdown').Options>, esm?: Partial<import('tsdown').Options>, types?: Partial<import('tsdown').Options> }) => import('tsdown').Options[]} */
+/** @type {(options: { all?: Partial<import('tsdown').UserConfig>, cjs?: Partial<import('tsdown').UserConfig>, esm?: Partial<import('tsdown').UserConfig>, types?: Partial<import('tsdown').UserConfig> }) => import('tsdown').UserConfig[]} */
 export const getOptions = ({
   all: customOptions,
   cjs: cjsCustomOptions,
