@@ -1,0 +1,40 @@
+{
+  "name": "react-router-intlayer-fs",
+  "private": true,
+  "description": "A React Router v7 + Intlayer i18n example project",
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "intlayer:build": "intlayer build",
+    "start": "react-router-serve ./build/server/index.js",
+    "typecheck": "react-router typegen && tsc"
+  },
+  "dependencies": {
+    "@react-router/node": "7.7.1",
+    "@react-router/serve": "7.7.1",
+    "intlayer": "workspace:*",
+    "isbot": "5.1.27",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "react-intlayer": "workspace:*",
+    "react-router": "7.9.3",
+    "react-router-dom": "7.7.1"
+  },
+  "devDependencies": {
+    "@react-router/dev": "7.7.1",
+    "@react-router/fs-routes": "7.7.1",
+    "@tailwindcss/vite": "4.1.16",
+    "@types/node": "20",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "tailwindcss": "4.1.4",
+    "typescript": "5.9.3",
+    "vite": "7.2.6",
+    "vite-intlayer": "workspace:*",
+    "vite-tsconfig-paths": "5.1.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

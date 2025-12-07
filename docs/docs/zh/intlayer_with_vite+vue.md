@@ -15,6 +15,7 @@ slugs:
   - environment
   - vite-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
+youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
 history:
   - version: 5.5.10
     date: 2025-06-29

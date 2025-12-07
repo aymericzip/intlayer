@@ -664,6 +664,12 @@ const docDataContent: Dictionary = {
                 './docs/en/intlayer_with_react_router_v7.md'
               ),
             },
+            'react-router-v7-fs-routes': {
+              title: 'React Router v7 (fs-routes)',
+              default: getDocMetadata(
+                './docs/en/intlayer_with_react_router_v7_fs_routes.md'
+              ),
+            },
           },
         },
         'tanstack-start': {

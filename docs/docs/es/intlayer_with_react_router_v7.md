@@ -18,6 +18,7 @@ slugs:
   - vite-and-react
   - react-router-v7
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
+youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 6.1.5
     date: 2025-10-03
@@ -30,6 +31,10 @@ history:
 # Traduce tu React Router v7 con Intlayer | Internacionalización (i18n)
 
 Esta guía demuestra cómo integrar **Intlayer** para una internacionalización fluida en proyectos con React Router v7, con enrutamiento consciente del locale, soporte para TypeScript y prácticas modernas de desarrollo.
+
+## Table of Contents
+
+<TOC/>
 
 ## ¿Qué es Intlayer?
 
@@ -74,6 +79,29 @@ pnpm add vite-intlayer --save-dev
   Incluye el plugin de Vite para integrar Intlayer con el [empaquetador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), así como middleware para detectar el locale preferido del usuario, gestionar cookies y manejar la redirección de URLs.
 
 ### Paso 2: Configuración de tu proyecto
+
+## Guía paso a paso para configurar Intlayer en una aplicación React Router v7 con rutas basadas en el sistema de archivos
+
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
+<iframe title="How to translate your React Router v7 (fs-routes) app using Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </TabItem>
+  <TabItem label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-react-router-v7-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
 
 Crea un archivo de configuración para configurar los idiomas de tu aplicación:
 
@@ -260,7 +288,7 @@ export const LocalizedLink: FC<LinkProps> = (props) => {
 En caso de que desees navegar a las rutas localizadas, puedes usar el hook `useLocalizedNavigate`:
 
 ```tsx fileName="app/hooks/useLocalizedNavigate.ts"
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 import { type NavigateOptions, type To, useNavigate } from "react-router";
 
 import { locacalizeTo } from "~/components/localized-link";
@@ -318,6 +346,7 @@ import {
   getLocaleName,
   getLocalizedUrl,
   getPathWithoutLocale,
+  Locales,
 } from "intlayer";
 import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
 import { Link, useLocation } from "react-router";
@@ -411,13 +440,13 @@ También puedes usar el `intlayerProxy` para agregar enrutamiento del lado del s
 > Ten en cuenta que para usar el `intlayerProxy` en producción, necesitas cambiar el paquete `vite-intlayer` de `devDependencies` a `dependencies`.
 
 ```typescript {3,7} fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
 import { intlayer, intlayerProxy } from "vite-intlayer";
+import tsconfigPaths from "vite-tsconfig-paths";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerProxy()],
+  plugins: [reactRouter(), tsconfigPaths(), intlayer(), intlayerProxy()],
 });
 ```
 

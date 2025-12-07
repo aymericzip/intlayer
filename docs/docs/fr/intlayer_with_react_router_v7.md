@@ -18,6 +18,7 @@ slugs:
   - vite-and-react
   - react-router-v7
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
+youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 6.1.5
     date: 2025-10-03
@@ -30,6 +31,10 @@ history:
 # Traduire votre React Router v7 avec Intlayer | Internationalisation (i18n)
 
 Ce guide montre comment intégrer **Intlayer** pour une internationalisation fluide dans les projets React Router v7 avec un routage sensible à la locale, la prise en charge de TypeScript, et des pratiques de développement modernes.
+
+## Table of Contents
+
+<TOC/>
 
 ## Qu'est-ce que Intlayer ?
 
@@ -74,6 +79,29 @@ pnpm add vite-intlayer --save-dev
   Comprend le plugin Vite pour intégrer Intlayer avec le [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), ainsi que des middlewares pour détecter la locale préférée de l'utilisateur, gérer les cookies, et gérer la redirection des URL.
 
 ### Étape 2 : Configuration de votre projet
+
+## Guide étape par étape pour configurer Intlayer dans une application React Router v7 avec des routes basées sur le système de fichiers
+
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
+<iframe title="How to translate your React Router v7 (fs-routes) app using Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </TabItem>
+  <TabItem label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-react-router-v7-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
 
 Créez un fichier de configuration pour configurer les langues de votre application :
 
@@ -260,7 +288,7 @@ export const LocalizedLink: FC<LinkProps> = (props) => {
 Dans le cas où vous souhaitez naviguer vers les routes localisées, vous pouvez utiliser le hook `useLocalizedNavigate` :
 
 ```tsx fileName="app/hooks/useLocalizedNavigate.ts"
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 import { type NavigateOptions, type To, useNavigate } from "react-router";
 
 import { locacalizeTo } from "~/components/localized-link";
@@ -318,6 +346,7 @@ import {
   getLocaleName,
   getLocalizedUrl,
   getPathWithoutLocale,
+  Locales,
 } from "intlayer";
 import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
 import { Link, useLocation } from "react-router";
@@ -389,7 +418,7 @@ Puis utilisez-le dans votre composant racine :
 
 ```tsx fileName="app/routes/layout.tsx"
 import { Outlet } from "react-router";
-import { IntlayerProvider } from "intlayer";
+import { IntlayerProvider } from "react-intlayer";
 
 import { useI18nHTMLAttributes } from "app/hooks/useI18nHTMLAttributes"; // importer le hook
 
@@ -411,13 +440,13 @@ Vous pouvez également utiliser le `intlayerProxy` pour ajouter un routage côt�
 > Notez que pour utiliser le `intlayerProxy` en production, vous devez déplacer le package `vite-intlayer` de `devDependencies` vers `dependencies`.
 
 ```typescript {3,7} fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
 import { intlayer, intlayerProxy } from "vite-intlayer";
+import tsconfigPaths from "vite-tsconfig-paths";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerProxy()],
+  plugins: [reactRouter(), tsconfigPaths(), intlayer(), intlayerProxy()],
 });
 ```
 
