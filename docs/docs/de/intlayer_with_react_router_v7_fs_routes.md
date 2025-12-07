@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-12-07
 updatedAt: 2025-12-07
-title: Wie Sie Ihre React Router v7 (fs-routes) übersetzen – i18n-Leitfaden 2025
+title: Wie Sie Ihre React Router v7 (File-System Routes) übersetzen – i18n-Leitfaden 2025
 description: Erfahren Sie, wie Sie Internationalisierung (i18n) zu Ihrer React Router v7-Anwendung mit Intlayer und dateisystembasiertem Routing hinzufügen. Folgen Sie dieser umfassenden Anleitung, um Ihre App mehrsprachig mit lokalisierungsbewusstem Routing zu machen.
 keywords:
   - Internationalisierung
@@ -28,7 +28,7 @@ history:
     changes: Init history
 ---
 
-# Übersetzen Sie Ihre React Router v7 (fs-routes) mit Intlayer | Internationalisierung (i18n)
+# Übersetzen Sie Ihre React Router v7 (File-System Routes) mit Intlayer | Internationalisierung (i18n)
 
 Diese Anleitung zeigt, wie Sie **Intlayer** für nahtlose Internationalisierung in React Router v7-Projekten mit **dateisystembasiertem Routing** (`@react-router/fs-routes`) mit lokalisierungsbewusstem Routing, TypeScript-Unterstützung und modernen Entwicklungsmethoden integrieren.
 
@@ -55,7 +55,7 @@ Mit Intlayer können Sie:
 <Tab defaultTab="video">
   <TabItem label="Video" value="video">
   
-<iframe title="How to translate your React Router v7 (fs-routes) app using Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="How to translate your React Router v7 (File-System Routes) app using Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </TabItem>
   <TabItem label="Code" value="code">
