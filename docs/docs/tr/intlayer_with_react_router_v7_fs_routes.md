@@ -1,5 +1,5 @@
 ---
-createdAt: 2025-09-04
+createdAt: 2025-12-07
 updatedAt: 2025-12-07
 title: React Router v7 (fs-routes) uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
 description: React Router v7 uygulamanıza Intlayer kullanarak dosya sistemi tabanlı yönlendirme ile uluslararasılaştırmayı (i18n) nasıl ekleyeceğinizi öğrenin. Uygulamanızı yerel dil farkındalıklı yönlendirme ile çok dilli hale getirmek için bu kapsamlı rehberi takip edin.

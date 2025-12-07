@@ -1,5 +1,5 @@
 ---
-createdAt: 2025-09-04
+createdAt: 2025-12-07
 updatedAt: 2025-12-07
 title: React Router v7（fs-routes）アプリを翻訳する方法 – i18nガイド 2025
 description: Intlayerを使用してReact Router v7アプリケーションにファイルシステムベースのルーティングで国際化（i18n）を追加する方法を学びます。ロケール対応ルーティングでアプリを多言語化するための包括的なガイドに従ってください。
