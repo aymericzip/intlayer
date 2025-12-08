@@ -19,7 +19,7 @@ slugs:
   - environment
   - vite-and-react
   - react-router-v7-fs-routes
-applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template-fs-routes
+applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.3.4
@@ -60,7 +60,7 @@ Mit Intlayer können Sie:
   <TabItem label="Code" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-react-router-v7-template-fs-routes?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://stackblitz.com/github/aymericzip/intlayer-react-router-v7-fs-routes-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -70,7 +70,7 @@ Mit Intlayer können Sie:
   </TabItem>
 </Tab>
 
-See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template-fs-routes) on GitHub.
+See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template) on GitHub.
 
 ### Schritt 1: Abhängigkeiten installieren
 
