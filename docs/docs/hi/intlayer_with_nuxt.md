@@ -15,7 +15,7 @@ slugs:
   - environment
   - nuxt-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
-youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
+youtubeVideo: https://www.youtube.com/watch?v=JDbgHkwjkd4
 history:
   - version: 7.3.11
     date: 2025-12-07
@@ -46,20 +46,10 @@ Intlayer के साथ, आप कर सकते हैं:
 
 ## Nuxt एप्लिकेशन में Intlayer सेटअप करने के लिए चरण-दर-चरण मार्गदर्शिका
 
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="डेमो कोडसैंडबॉक्स - Intlayer का उपयोग करके अपने एप्लिकेशन का अंतरराष्ट्रीयकरण कैसे करें"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-### चरण 1: Dependencies इंस्टॉल करें
-
 <Tab defaultTab="video">
   <TabItem label="वीडियो" value="video">
   
-<iframe title="अपने Nuxt और Vue ऐप को Intlayer का उपयोग करके कैसे अनुवादित करें? Intlayer की खोज करें" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="अपने Nuxt और Vue ऐप को Intlayer का उपयोग करके कैसे अनुवादित करें? Intlayer की खोज करें" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/JDbgHkwjkd4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </TabItem>
   <TabItem label="कोड" value="code">
@@ -76,6 +66,8 @@ Intlayer के साथ, आप कर सकते हैं:
 </Tab>
 
 GitHub पर [एप्लिकेशन टेम्पलेट](https://github.com/aymericzip/intlayer-nuxt-4-template) देखें।
+
+### चरण 1: Dependencies इंस्टॉल करें
 
 npm का उपयोग करके आवश्यक पैकेज इंस्टॉल करें:
 

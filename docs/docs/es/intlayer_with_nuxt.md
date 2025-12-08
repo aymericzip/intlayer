@@ -15,7 +15,7 @@ slugs:
   - environment
   - nuxt-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
-youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
+youtubeVideo: https://www.youtube.com/watch?v=JDbgHkwjkd4
 history:
   - version: 7.3.11
     date: 2025-12-07
@@ -46,20 +46,10 @@ Con Intlayer, puedes:
 
 ## Guía paso a paso para configurar Intlayer en una aplicación Nuxt
 
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Cómo internacionalizar tu aplicación usando Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-### Paso 1: Instalar Dependencias
-
 <Tab defaultTab="video">
   <TabItem label="Video" value="video">
   
-<iframe title="¿Cómo traducir tu aplicación Nuxt y Vue usando Intlayer? Descubre Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="¿Cómo traducir tu aplicación Nuxt y Vue usando Intlayer? Descubre Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/JDbgHkwjkd4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </TabItem>
   <TabItem label="Código" value="code">
@@ -76,6 +66,8 @@ Con Intlayer, puedes:
 </Tab>
 
 Consulta la [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-nuxt-4-template) en GitHub.
+
+### Paso 1: Instalar Dependencias
 
 Instala los paquetes necesarios usando npm:
 

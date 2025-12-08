@@ -15,7 +15,7 @@ slugs:
   - environment
   - nuxt-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
-youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
+youtubeVideo: https://www.youtube.com/watch?v=JDbgHkwjkd4
 history:
   - version: 7.3.11
     date: 2025-12-07
@@ -46,20 +46,10 @@ history:
 
 ## 在 Nuxt 应用中设置 Intlayer 的分步指南
 
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="演示 CodeSandbox - 如何使用 Intlayer 实现应用国际化"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-### 第一步：安装依赖
-
 <Tab defaultTab="video">
   <TabItem label="视频" value="video">
   
-<iframe title="如何使用 Intlayer 翻译你的 Nuxt 和 Vue 应用？探索 Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="如何使用 Intlayer 翻译你的 Nuxt 和 Vue 应用？探索 Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/JDbgHkwjkd4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </TabItem>
   <TabItem label="代码" value="code">
@@ -74,6 +64,8 @@ history:
 
   </TabItem>
 </Tab>
+
+### 第一步：安装依赖
 
 查看 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-nuxt-4-template)。
 

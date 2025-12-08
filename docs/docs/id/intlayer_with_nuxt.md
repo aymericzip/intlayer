@@ -15,7 +15,7 @@ slugs:
   - environment
   - nuxt-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
-youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
+youtubeVideo: https://www.youtube.com/watch?v=JDbgHkwjkd4
 history:
   - version: 7.3.11
     date: 2025-12-07
@@ -46,20 +46,10 @@ Dengan Intlayer, Anda dapat:
 
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer di Aplikasi Nuxt
 
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Cara Menginternasionalisasi aplikasi Anda menggunakan Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-### Langkah 1: Pasang Dependensi
-
 <Tab defaultTab="video">
   <TabItem label="Video" value="video">
   
-<iframe title="Cara menerjemahkan aplikasi Nuxt dan Vue Anda menggunakan Intlayer? Temukan Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Cara menerjemahkan aplikasi Nuxt dan Vue Anda menggunakan Intlayer? Temukan Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/JDbgHkwjkd4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </TabItem>
   <TabItem label="Kode" value="code">
@@ -76,6 +66,8 @@ Dengan Intlayer, Anda dapat:
 </Tab>
 
 Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-nuxt-4-template) di GitHub.
+
+### Langkah 1: Pasang Dependensi
 
 Pasang paket yang diperlukan menggunakan npm:
 

@@ -15,7 +15,7 @@ slugs:
   - environment
   - nuxt-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
-youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
+youtubeVideo: https://www.youtube.com/watch?v=JDbgHkwjkd4
 history:
   - version: 7.3.11
     date: 2025-12-07
@@ -46,20 +46,10 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
 
 ## Nuxt 애플리케이션에서 Intlayer 설정 단계별 가이드
 
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="데모 CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-### 1단계: 의존성 설치
-
 <Tab defaultTab="video">
   <TabItem label="비디오" value="video">
   
-<iframe title="Intlayer를 사용하여 Nuxt 및 Vue 앱을 번역하는 방법? Intlayer 알아보기" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Intlayer를 사용하여 Nuxt 및 Vue 앱을 번역하는 방법? Intlayer 알아보기" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/JDbgHkwjkd4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </TabItem>
   <TabItem label="코드" value="code">
@@ -76,6 +66,8 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
 </Tab>
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-nuxt-4-template)을 확인하세요.
+
+### 1단계: 의존성 설치
 
 npm을 사용하여 필요한 패키지를 설치하세요:
 
