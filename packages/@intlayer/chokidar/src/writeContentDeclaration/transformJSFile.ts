@@ -3529,6 +3529,7 @@ export const transformJSFile = async (
       const contentProperty = rootObject.getProperty('content');
       let contentObject: ObjectLiteralExpression | undefined;
       let isContentArrayInSource = false;
+      let isContentCallExpression = false;
 
       if (contentProperty && Node.isPropertyAssignment(contentProperty)) {
         contentObject = contentProperty.getInitializerIfKind(
@@ -3538,6 +3539,10 @@ export const transformJSFile = async (
         isContentArrayInSource = !!contentProperty.getInitializerIfKind(
           SyntaxKind.ArrayLiteralExpression
         );
+        // Detect if the source file defines content as a function call (e.g. t(...))
+        const initializer = contentProperty.getInitializer();
+        isContentCallExpression =
+          !!initializer && Node.isCallExpression(initializer);
       }
 
       const effectiveFallbackLocale: string =
@@ -3573,6 +3578,24 @@ export const transformJSFile = async (
         );
 
         if (contentChanged) changed = true;
+      } else if (isContentCallExpression) {
+        // New behavior: content is a function call (e.g. t(...)) in source
+        // We treat the dictionary.content as the complex content node
+        const nodeType = getNodeType(dictionary.content as ContentNode);
+
+        if (nodeType) {
+          const contentChanged = processComplexContent(
+            rootObject,
+            'content',
+            dictionary.content as ContentNode,
+            getExistingPropertyNames(rootObject),
+            effectiveFallbackLocale,
+            requiredImports,
+            sourceFile
+          );
+
+          if (contentChanged) changed = true;
+        }
       }
     }
 

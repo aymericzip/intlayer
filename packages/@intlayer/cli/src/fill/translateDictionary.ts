@@ -245,8 +245,20 @@ export const translateDictionary = async (
             }
           );
 
+          const isContentStructured =
+            (typeof dictionaryToProcess.content === 'object' &&
+              dictionaryToProcess.content !== null) ||
+            Array.isArray(dictionaryToProcess.content);
+
+          const contentToProcess = isContentStructured
+            ? dictionaryToProcess.content
+            : {
+                __INTLAYER_ROOT_PRIMITIVE_CONTENT__:
+                  dictionaryToProcess.content,
+              };
+
           const chunkedJsonContent: JsonChunk[] = chunkJSON(
-            dictionaryToProcess.content,
+            contentToProcess as unknown as Record<string, any>,
             CHUNK_SIZE
           );
 
@@ -279,7 +291,12 @@ export const translateDictionary = async (
             // Reconstruct partial JSON content from this chunk's patches
             const chunkContent = reconstructFromSingleChunk(chunk);
             const presetOutputContent = reduceObjectFormat(
-              targetLocaleDictionary.content,
+              isContentStructured
+                ? targetLocaleDictionary.content
+                : {
+                    __INTLAYER_ROOT_PRIMITIVE_CONTENT__:
+                      targetLocaleDictionary.content,
+                  },
               chunkContent
             ) as unknown as JSON;
 
@@ -390,11 +407,17 @@ export const translateDictionary = async (
 
           // For per-locale files, merge the newly translated content with existing target content
           let finalContent = merged.content;
+
+          if (!isContentStructured) {
+            finalContent = (finalContent as any)
+              ?.__INTLAYER_ROOT_PRIMITIVE_CONTENT__;
+          }
+
           if (typeof baseUnmergedDictionary.locale === 'string') {
             // Deep merge: existing content + newly translated content
             finalContent = deepMergeContent(
               targetLocaleDictionary.content ?? {},
-              merged.content
+              finalContent
             );
           }
 
