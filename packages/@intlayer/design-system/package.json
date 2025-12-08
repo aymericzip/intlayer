@@ -174,7 +174,7 @@
     "vite": "7.2.6",
     "vite-intlayer": "workspace:*",
     "vite-plugin-dts": "4.5.4",
-    "vitest": "4.0.14"
+    "vitest": "4.0.15"
   },
   "peerDependencies": {
     "@better-fetch/fetch": "1.1.18",

@@ -98,7 +98,7 @@
     "rimraf": "6.1.2",
     "tsdown": "0.16.8",
     "typescript": "5.9.3",
-    "vitest": "4.0.14"
+    "vitest": "4.0.15"
   },
   "peerDependencies": {
     "@intlayer/svelte-transformer": "workspace:*",
