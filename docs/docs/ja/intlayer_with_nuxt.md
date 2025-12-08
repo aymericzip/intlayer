@@ -648,26 +648,6 @@ module.exports = aboutPageContent;
 }
 ```
 
-### TypeScriptの設定
-
-Intlayerはモジュール拡張を使用してTypeScriptの利点を活かし、コードベースをより強固にします。
-
-![オートコンプリート](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-TypeScriptの設定に自動生成された型が含まれていることを確認してください。
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 既存のTypeScript設定
-  "include": [
-    // ... 既存のTypeScript設定
-    ".intlayer/**/*.ts", // 自動生成された型を含める
-  ],
-}
-```
-
 ### Gitの設定
 
 Intlayerによって生成されたファイルは無視することを推奨します。これにより、Gitリポジトリへの不要なコミットを防ぐことができます。

@@ -646,26 +646,6 @@ module.exports = aboutPageContent;
 }
 ```
 
-### تكوين TypeScript
-
-يستخدم Intlayer توسيع الوحدات (module augmentation) للاستفادة من TypeScript وجعل قاعدة الكود الخاصة بك أقوى.
-
-![الإكمال التلقائي](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![خطأ في الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع التي تم إنشاؤها تلقائيًا.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... تكوينات TypeScript الحالية الخاصة بك
-  "include": [
-    // ... تكوينات TypeScript الحالية الخاصة بك
-    ".intlayer/**/*.ts", // تضمين الأنواع التي تم إنشاؤها تلقائيًا
-  ],
-}
-```
-
 ### تكوين Git
 
 يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. هذا يسمح لك بتجنب الالتزام بها في مستودع Git الخاص بك.

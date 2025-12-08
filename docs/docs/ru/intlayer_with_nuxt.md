@@ -646,26 +646,6 @@ module.exports = aboutPageContent;
 }
 ```
 
-### Настройка TypeScript
-
-Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать вашу кодовую базу более надежной.
-
-![Автозаполнение](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Убедитесь, что ваша конфигурация TypeScript включает автогенерируемые типы.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Ваши существующие настройки TypeScript
-  "include": [
-    // ... Ваши существующие настройки TypeScript
-    ".intlayer/**/*.ts", // Включить автогенерируемые типы
-  ],
-}
-```
-
 ### Конфигурация Git
 
 Рекомендуется игнорировать файлы, сгенерированные Intlayer. Это позволит избежать их коммита в ваш Git-репозиторий.

@@ -649,26 +649,6 @@ module.exports = aboutPageContent;
 }
 ```
 
-### Konfiguracja TypeScript
-
-Intlayer używa rozszerzania modułów, aby korzystać z zalet TypeScript i wzmocnić Twoją bazę kodu.
-
-![Autouzupełnianie](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Błąd tłumaczenia](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Upewnij się, że Twoja konfiguracja TypeScript zawiera automatycznie generowane typy.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Twoje istniejące konfiguracje TypeScript
-  "include": [
-    // ... Twoje istniejące konfiguracje TypeScript
-    ".intlayer/**/*.ts", // Dołącz automatycznie generowane typy
-  ],
-}
-```
-
 ### Konfiguracja Git
 
 Zaleca się ignorowanie plików generowanych przez Intlayer. Pozwala to uniknąć ich zatwierdzania do repozytorium Git.

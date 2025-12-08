@@ -12,6 +12,21 @@ export const module: NuxtModule = defineNuxtModule({
   setup(_options, nuxt) {
     const configuration = getConfiguration();
 
+    nuxt.options.typescript = nuxt.options.typescript || {};
+    nuxt.options.typescript.tsConfig = nuxt.options.typescript.tsConfig || {};
+    nuxt.options.typescript.tsConfig.include =
+      nuxt.options.typescript.tsConfig.include || [];
+
+    if (
+      !nuxt.options.typescript.tsConfig.include.includes(
+        '../.intlayer/types/**/*.ts'
+      )
+    ) {
+      nuxt.options.typescript.tsConfig.include.push(
+        '../.intlayer/types/**/*.ts'
+      );
+    }
+
     /**
      * -------------------------------------------------
      *  RUNTIME PLUGIN REGISTRATION

@@ -646,26 +646,6 @@ module.exports = aboutPageContent;
 }
 ```
 
-### 配置 TypeScript
-
-Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库更强大。
-
-![自动完成](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![翻译错误](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-确保您的 TypeScript 配置包含自动生成的类型。
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 您现有的 TypeScript 配置
-  "include": [
-    // ... 您现有的 TypeScript 配置
-    ".intlayer/**/*.ts", // 包含自动生成的类型
-  ],
-}
-```
-
 ### Git 配置
 
 建议忽略 Intlayer 生成的文件。这样可以避免将它们提交到您的 Git 仓库中。

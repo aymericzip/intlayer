@@ -649,26 +649,6 @@ module.exports = aboutPageContent;
 }
 ```
 
-### TypeScript कॉन्फ़िगर करें
-
-Intlayer TypeScript के लाभ प्राप्त करने और आपके कोडबेस को मजबूत बनाने के लिए module augmentation का उपयोग करता है।
-
-![ऑटोकंप्लीशन](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-सुनिश्चित करें कि आपकी TypeScript कॉन्फ़िगरेशन में ऑटो-जनरेटेड टाइप्स शामिल हैं।
-
-```json5 fileName="tsconfig.json"
-{
-  // ... आपकी मौजूदा TypeScript कॉन्फ़िगरेशन
-  "include": [
-    // ... आपकी मौजूदा TypeScript कॉन्फ़िगरेशन
-    ".intlayer/**/*.ts", // ऑटो-जनरेटेड टाइप्स शामिल करें
-  ],
-}
-```
-
 ### Git कॉन्फ़िगरेशन
 
 यह अनुशंसित है कि Intlayer द्वारा जनरेट की गई फाइलों को अनदेखा किया जाए। इससे आप इन्हें अपनी Git रिपॉजिटरी में कमिट करने से बच सकते हैं।

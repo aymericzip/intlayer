@@ -648,26 +648,6 @@ module.exports = aboutPageContent;
 }
 ```
 
-### TypeScript 구성
-
-Intlayer는 모듈 증강(module augmentation)을 사용하여 TypeScript의 이점을 활용하고 코드베이스를 더욱 견고하게 만듭니다.
-
-![자동완성](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-TypeScript 설정에 자동 생성된 타입들이 포함되어 있는지 확인하세요.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 기존 TypeScript 설정
-  "include": [
-    // ... 기존 TypeScript 설정
-    ".intlayer/**/*.ts", // 자동 생성된 타입 포함
-  ],
-}
-```
-
 ### Git 설정
 
 Intlayer가 생성하는 파일들은 Git 저장소에 커밋하지 않도록 무시하는 것이 권장됩니다.

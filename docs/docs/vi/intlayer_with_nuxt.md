@@ -643,26 +643,6 @@ module.exports = aboutPageContent;
 }
 ```
 
-### Cấu hình TypeScript
-
-Intlayer sử dụng module augmentation để tận dụng các lợi ích của TypeScript và làm cho codebase của bạn mạnh mẽ hơn.
-
-![Tự động hoàn thành](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Lỗi dịch thuật](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tạo tự động.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Các cấu hình TypeScript hiện có của bạn
-  "include": [
-    // ... Các cấu hình TypeScript hiện có của bạn
-    ".intlayer/**/*.ts", // Bao gồm các kiểu được tạo tự động
-  ],
-}
-```
-
 ### Cấu hình Git
 
 Khuyến nghị bỏ qua các tệp được tạo bởi Intlayer. Điều này giúp bạn tránh việc commit chúng vào kho Git của mình.
