@@ -1,4 +1,6 @@
 // import { sso } from '@better-auth/sso';
+
+import { passkey } from '@better-auth/passkey';
 import { sendVerificationUpdate } from '@controllers/user.controller';
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
@@ -19,7 +21,6 @@ import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
 import { customSession, lastLoginMethod, twoFactor } from 'better-auth/plugins';
 import { magicLink } from 'better-auth/plugins/magic-link';
-import { passkey } from 'better-auth/plugins/passkey';
 import type { MongoClient } from 'mongodb';
 import type { OrganizationAPI } from '@/types/organization.types';
 import type { ProjectAPI } from '@/types/project.types';

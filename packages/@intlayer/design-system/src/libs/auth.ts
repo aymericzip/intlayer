@@ -1,11 +1,8 @@
+import { passkeyClient } from '@better-auth/passkey/client';
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types';
 import { createAuthClient } from 'better-auth/client';
-import {
-  magicLinkClient,
-  passkeyClient,
-  twoFactorClient,
-} from 'better-auth/client/plugins';
+import { magicLinkClient, twoFactorClient } from 'better-auth/client/plugins';
 
 const getAuthClient = (backendURL: string) =>
   createAuthClient({

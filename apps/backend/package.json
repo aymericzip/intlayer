@@ -74,6 +74,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
+    "@better-auth/passkey": "1.4.5",
     "@intlayer/ai": "workspace:*",
     "@react-email/components": "1.0.1",
     "better-auth": "1.4.5",
