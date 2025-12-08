@@ -27,8 +27,6 @@ import {
   toComponent,
 } from './useDictionary';
 
-// --- proxy factory --------------------------------------------------------
-
 export const useIntlayer = <T extends DictionaryKeys>(
   key: T,
   locale?: MaybeRefOrGetter<LocalesValues | null | undefined>
