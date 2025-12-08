@@ -50,7 +50,7 @@
   ],
   "scripts": {
     "_prepublish": "cp -f ../../README.md ./README.md",
-    "prebuild": "tsx scripts/generate-embeddings.ts",
+    "prebuild": "bun scripts/generate-embeddings.ts",
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist .turbo",
@@ -58,7 +58,7 @@
     "dev:build": "tsdown --config tsdown.config.ts --watch",
     "dev:runtime": "node --watch ./dist/esm/index.mjs",
     "email": "email dev --dir ./src/emails",
-    "embeddings:generate": "tsx scripts/generate-embeddings.ts",
+    "embeddings:generate": "bun scripts/generate-embeddings.ts",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
     "lint": "biome lint .",
@@ -120,7 +120,6 @@
     "npm-run-all": "^4.1.5",
     "rimraf": "6.1.2",
     "tsdown": "0.16.8",
-    "tsx": "^4.20.6",
     "typescript": "5.9.3",
     "vitest": "4.0.14"
   }
