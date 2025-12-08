@@ -1,6 +1,6 @@
 {
   "name": "svelte-intlayer",
-  "version": "7.3.11",
+  "version": "7.3.12",
   "description": "Easily internationalize i18n your Svelte applications with type-safe multilingual content management.",
   "keywords": [
     "intlayer",
