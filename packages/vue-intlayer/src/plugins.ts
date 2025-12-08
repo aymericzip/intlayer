@@ -10,7 +10,10 @@ import { NodeType } from '@intlayer/types';
 import { h } from 'vue';
 import { ContentSelectorWrapper } from './editor';
 import { useMarkdown } from './markdown/installIntlayerMarkdown';
-import { renderIntlayerNode } from './renderIntlayerNode';
+import {
+  type IntlayerNode as IntlayerNodeCore,
+  renderIntlayerNode,
+} from './renderIntlayerNode';
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -20,11 +23,7 @@ export type IntlayerNodeCond<T> = T extends number | string
   ? IntlayerNode<T>
   : never;
 
-export interface IntlayerNode<T, P = {}> {
-  value: T;
-  children?: any;
-  additionalProps?: P;
-}
+export type IntlayerNode<T, P = {}> = IntlayerNodeCore<T> & P;
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const intlayerNodePlugins: Plugins = {
