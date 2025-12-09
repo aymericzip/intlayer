@@ -17,7 +17,7 @@ const DictionaryDashboardPageContent: FC<DictionaryDashboardPageProps> = ({
     <>
       <h1 className="border-neutral border-b-[0.5px] p-10 text-3xl">{title}</h1>
       <div className="relative flex flex-1 flex-col items-center">
-        <div className="flex flex-1 flex-col items-center justify-center p-10">
+        <div className="flex w-full flex-1 flex-col items-center justify-center p-10">
           <TagDetails tagKey={tagKey} />
         </div>
         <BackgroundLayout />

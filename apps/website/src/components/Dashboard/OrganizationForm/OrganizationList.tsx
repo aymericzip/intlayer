@@ -86,7 +86,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
         className="max-w-md"
       />
       <Loader isLoading={isPending}>
-        <div className="flex flex-1 flex-col items-center justify-center p-10">
+        <div className="flex w-full flex-1 flex-col items-center justify-center p-10">
           {organizations.length > 0 ? (
             <ul className="flex w-full flex-wrap gap-3">
               {organizations.map((organization) => (
