@@ -67,9 +67,17 @@ export const prepareIntlayer = async (
     );
   } catch {}
 
+  const hasPluginLoadDictionaries = configuration.plugins?.some((plugin) =>
+    Boolean(plugin.loadDictionaries)
+  ); // Disable cache if any plugin because it can have custom behavior
+
   const { clean, format, forceRun, onIsCached, cacheTimeoutMs } = {
     ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
-    forceRun: !isCorrectVersion || !isConfigSimilar || isDictionaryChanged,
+    forceRun:
+      !isCorrectVersion ||
+      !isConfigSimilar ||
+      isDictionaryChanged ||
+      hasPluginLoadDictionaries,
     ...(options ?? {}),
   };
 

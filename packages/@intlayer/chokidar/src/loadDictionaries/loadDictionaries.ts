@@ -254,6 +254,7 @@ export const loadDictionaries = async (
       }
     );
   }
+
   const remoteDictionariesTime = Date.now();
 
   const pluginDictionariesTime = Date.now();
