@@ -22,6 +22,7 @@ slugs:
   - doc
   - plugin
   - sync-json
+youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 6.1.6
     date: 2025-10-05
@@ -29,6 +30,8 @@ history:
 ---
 
 ## Sync JSON (pontes i18n)
+
+<iframe title="Como manter suas traduções JSON sincronizadas com Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Use o Intlayer como um complemento para sua pilha i18n existente. Este plugin mantém suas mensagens JSON sincronizadas com os dicionários Intlayer para que você possa:
 

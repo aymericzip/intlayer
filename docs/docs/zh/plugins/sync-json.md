@@ -22,6 +22,7 @@ slugs:
   - doc
   - plugin
   - sync-json
+youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 6.1.6
     date: 2025-10-05
@@ -29,6 +30,8 @@ history:
 ---
 
 ## 同步 JSON（i18n 桥接）
+
+<iframe title="如何保持您的 JSON 翻译与 Intlayer 同步" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 将 Intlayer 作为您现有 i18n 体系的附加组件使用。此插件可使您的 JSON 消息与 Intlayer 字典保持同步，从而您可以：
 

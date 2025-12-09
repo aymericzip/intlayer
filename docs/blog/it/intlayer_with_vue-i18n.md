@@ -15,6 +15,7 @@ keywords:
 slugs:
   - blog
   - intlayer-with-vue-i18n
+youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.0.6
     date: 2025-11-01
@@ -25,6 +26,8 @@ history:
 ---
 
 # Internazionalizzazione (i18n) in Vue.js con vue-i18n e Intlayer
+
+<iframe title="Come automatizzare le traduzioni JSON di vue-i18n usando Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Indice
 

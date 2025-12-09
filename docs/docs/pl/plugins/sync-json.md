@@ -22,6 +22,7 @@ slugs:
   - doc
   - plugin
   - sync-json
+youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 6.1.6
     date: 2025-10-05
@@ -29,6 +30,8 @@ history:
 ---
 
 # Sync JSON (mosty i18n)
+
+<iframe title="Jak zachować synchronizację tłumaczeń JSON z Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Użyj Intlayer jako dodatku do istniejącego stosu i18n. Ta wtyczka utrzymuje synchronizację Twoich komunikatów JSON ze słownikami Intlayer, dzięki czemu możesz:
 

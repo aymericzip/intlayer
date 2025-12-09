@@ -17,6 +17,7 @@ keywords:
 slugs:
   - blog
   - intlayer-with-react-i18next
+youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.0.6
     date: 2025-11-01
@@ -27,6 +28,8 @@ history:
 ---
 
 # Intlayer를 사용하여 react-i18next JSON 번역 자동화하는 방법
+
+<iframe title="Intlayer를 사용하여 react-i18next JSON 번역 자동화하는 방법" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Intlayer란 무엇인가요?
 

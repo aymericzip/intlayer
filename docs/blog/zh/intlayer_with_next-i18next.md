@@ -15,6 +15,7 @@ keywords:
 slugs:
   - blog
   - intlayer-with-next-i18next
+youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.0.6
     date: 2025-11-01
@@ -25,6 +26,8 @@ history:
 ---
 
 # 使用 next-i18next 和 Intlayer 实现 Next.js 国际化 (i18n)
+
+<iframe title="如何使用 Intlayer 自动化您的 next-i18next JSON 翻译" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## 目录
 

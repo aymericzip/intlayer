@@ -22,6 +22,7 @@ slugs:
   - doc
   - plugin
   - sync-json
+youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 6.1.6
     date: 2025-10-05
@@ -29,6 +30,8 @@ history:
 ---
 
 ## مزامنة JSON (جسور التدويل)
+
+<iframe title="كيفية الحفاظ على مزامنة ترجمات JSON الخاصة بك مع Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 استخدم Intlayer كمكون إضافي إلى نظام التدويل (i18n) الحالي لديك. يحافظ هذا المكون على مزامنة رسائل JSON الخاصة بك مع قواميس Intlayer بحيث يمكنك:
 

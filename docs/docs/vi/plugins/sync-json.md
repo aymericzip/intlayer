@@ -22,6 +22,7 @@ slugs:
   - doc
   - plugin
   - sync-json
+youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 6.1.6
     date: 2025-10-05
@@ -29,6 +30,8 @@ history:
 ---
 
 # Đồng bộ JSON (cầu nối i18n)
+
+<iframe title="Cách giữ bản dịch JSON của bạn đồng bộ với Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Sử dụng Intlayer như một tiện ích bổ sung cho bộ công cụ i18n hiện có của bạn. Plugin này giữ cho các thông điệp JSON của bạn đồng bộ với từ điển Intlayer để bạn có thể:
 
