@@ -139,8 +139,11 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
       locale={locale}
       navbar={<DashboardNavbar />}
       footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
-      className="h-screen max-h-screen overflow-hidden bg-card"
+      className="dashboard-theme h-screen max-h-screen overflow-hidden bg-card"
       mainClassName="min-h-0"
+      htmlProps={{
+        style: { fontSize: '75%' },
+      }}
     >
       <DashboardHydrationBoundary dehydratedState={dehydratedState}>
         <WarmupClient />
@@ -149,7 +152,7 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
             items={filteredNavItems}
             collapseButtonLabel={collapseButton.label.value}
           />
-          <div className="mr-3 min-h-0 flex-1 overflow-auto rounded-2xl bg-background p-3">
+          <div className="mr-3 flex min-h-0 flex-1 flex-col overflow-auto rounded-2xl bg-background p-3">
             {children}
           </div>
         </div>

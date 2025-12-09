@@ -3,6 +3,18 @@
 @import "./shiki.css";
 @import "./monaco.css";
 
+@layer base {
+  /* 1. Standard Scale (Landing Page) */
+  :root {
+    --text-3xl: 1.875rem; /* 30px */
+    --text-3xl-leading: 2.25rem; /* 36px */
+
+    /* Add text-base for context */
+    --text-base: 1rem; /* 16px */
+    --text-base-leading: 1.5rem; /* 24px */
+  }
+}
+
 @keyframes infiniteScroll {
   from {
     transform: translateX(0);

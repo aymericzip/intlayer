@@ -13,6 +13,8 @@ type PageLayoutProps = IntlayerServerProviderProps &
   Omit<PageContentLayoutProps, 'className'> & {
     className?: string;
     mainClassName?: string;
+    htmlProps?: HTMLProps<HTMLHtmlElement>;
+    bodyProps?: HTMLProps<HTMLBodyElement>;
   };
 
 export const PageLayout: FC<PageLayoutProps> = ({
@@ -21,10 +23,17 @@ export const PageLayout: FC<PageLayoutProps> = ({
   className,
   mainClassName,
   mobileRollable,
+  htmlProps,
+  bodyProps,
   ...props
 }) => (
   <IntlayerClientProvider locale={locale}>
-    <RootHTMLLayout locale={locale} className={className}>
+    <RootHTMLLayout
+      locale={locale}
+      className={className}
+      bodyProps={bodyProps}
+      {...htmlProps}
+    >
       {/* ThemeProvider must be inside PageContentLayout */}
       <ThemeProvider>
         {/* PageContentLayout must be inside ThemeProvider (Navbar) */}
