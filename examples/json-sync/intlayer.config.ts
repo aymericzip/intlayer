@@ -7,7 +7,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   ai: {
-    model: 'gpt-5-mini',
+    model: 'gpt-3.5-turbo',
     apiKey: process.env.OPENAI_API_KEY,
   },
   plugins: [

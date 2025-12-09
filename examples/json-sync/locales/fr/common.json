@@ -40,5 +40,8 @@
     "placeholder": "Rechercher...",
     "noResults": "Aucun résultat trouvé",
     "results": "résultats trouvés"
+  },
+  "test": {
+    "test": "test"
   }
 }

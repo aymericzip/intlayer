@@ -1,0 +1,395 @@
+{
+  "meta": {
+    "appName": "Chunking Stress Test App",
+    "version": "1.0.0",
+    "environment": "development",
+    "build": {
+      "timestamp": "2025-12-09T12:00:00Z",
+      "commit": "a8f3c92d1a8f3c92d1a8f3c92d",
+      "branch": "main"
+    }
+  },
+  "actions": {
+    "common": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "update": "Update",
+      "close": "Close",
+      "confirm": "Confirm",
+      "search": "Search",
+      "reset": "Reset",
+      "submit": "Submit",
+      "next": "Next",
+      "previous": "Previous",
+      "refresh": "Refresh"
+    },
+    "bulk": {
+      "bulkDelete": "Delete selected",
+      "bulkUpdate": "Update selected",
+      "bulkExport": "Export selected",
+      "bulkArchive": "Archive selected"
+    },
+    "navigation": {
+      "goBack": "Go back",
+      "goForward": "Go forward",
+      "goHome": "Go to home",
+      "openSettings": "Open settings"
+    }
+  },
+  "messages": {
+    "global": {
+      "loading": "Loading...",
+      "processing": "Processing...",
+      "success": "Operation completed successfully.",
+      "error": "An unexpected error occurred.",
+      "networkError": "Network error.",
+      "unauthorized": "Unauthorized access.",
+      "forbidden": "Forbidden action.",
+      "notFound": "Resource not found."
+    },
+    "crud": {
+      "create": {
+        "pending": "Creating resource...",
+        "success": "Resource created.",
+        "error": "Failed to create resource."
+      },
+      "update": {
+        "pending": "Updating resource...",
+        "success": "Resource updated.",
+        "error": "Failed to update resource."
+      },
+      "delete": {
+        "pending": "Deleting resource...",
+        "success": "Resource deleted.",
+        "error": "Failed to delete resource."
+      }
+    },
+    "validation": {
+      "required": "This field is required.",
+      "minLength": "Minimum length not met.",
+      "maxLength": "Maximum length exceeded.",
+      "email": "Invalid email address.",
+      "password": {
+        "weak": "Password is too weak.",
+        "mismatch": "Passwords do not match."
+      }
+    }
+  },
+  "languages": {
+    "available": [
+      "en",
+      "fr",
+      "es",
+      "de",
+      "it",
+      "pt",
+      "ru",
+      "zh",
+      "ja",
+      "ko",
+      "ar"
+    ],
+    "labels": {
+      "en": "English",
+      "fr": "French",
+      "es": "Spanish",
+      "de": "German",
+      "it": "Italian",
+      "pt": "Portuguese",
+      "ru": "Russian",
+      "zh": "Chinese",
+      "ja": "Japanese",
+      "ko": "Korean",
+      "ar": "Arabic"
+    }
+  },
+  "navbar": {
+    "primary": {
+      "home": "Home",
+      "about": "About",
+      "docs": "Documentation",
+      "blog": "Blog",
+      "dashboard": "Dashboard",
+      "pricing": "Pricing",
+      "contact": "Contact"
+    },
+    "secondary": {
+      "profile": "Profile",
+      "settings": "Settings",
+      "notifications": "Notifications",
+      "billing": "Billing",
+      "support": "Support",
+      "logout": "Log out"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Log in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Log in",
+      "errors": {
+        "invalid": "Invalid credentials",
+        "locked": "Account is locked",
+        "expired": "Session expired"
+      }
+    },
+    "register": {
+      "title": "Register",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Create account"
+    },
+    "reset": {
+      "title": "Reset password",
+      "email": "Email",
+      "submit": "Send reset link"
+    }
+  },
+  "settings": {
+    "general": {
+      "language": "Language",
+      "timezone": "Timezone",
+      "dateFormat": "Date format"
+    },
+    "appearance": {
+      "theme": {
+        "label": "Theme",
+        "options": {
+          "light": "Light",
+          "dark": "Dark",
+          "system": "System"
+        }
+      },
+      "density": {
+        "label": "Density",
+        "options": {
+          "compact": "Compact",
+          "comfortable": "Comfortable",
+          "spacious": "Spacious"
+        }
+      }
+    },
+    "performance": {
+      "animations": true,
+      "lazyLoading": true,
+      "cache": true
+    },
+    "privacy": {
+      "tracking": false,
+      "personalization": true,
+      "ads": false
+    }
+  },
+  "tables": {
+    "users": {
+      "columns": [
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "role",
+        "createdAt",
+        "updatedAt",
+        "status"
+      ],
+      "filters": {
+        "role": ["admin", "editor", "viewer"],
+        "status": ["active", "suspended", "deleted"]
+      },
+      "actions": ["edit", "delete", "suspend", "resetPassword"]
+    },
+    "projects": {
+      "columns": [
+        "id",
+        "name",
+        "owner",
+        "visibility",
+        "createdAt",
+        "updatedAt",
+        "contributors",
+        "status"
+      ],
+      "filters": {
+        "visibility": ["public", "private"],
+        "status": ["active", "archived"]
+      }
+    }
+  },
+  "notifications": {
+    "types": {
+      "system": {
+        "maintenance": "Scheduled maintenance",
+        "outage": "Service outage",
+        "update": "System update"
+      },
+      "social": {
+        "newFollower": "New follower",
+        "newComment": "New comment",
+        "newMention": "You were mentioned"
+      },
+      "billing": {
+        "invoiceCreated": "Invoice created",
+        "paymentFailed": "Payment failed",
+        "subscriptionUpdated": "Subscription updated"
+      }
+    }
+  },
+  "files": {
+    "limits": {
+      "maxSizeMb": 50,
+      "allowedTypes": [
+        "image/png",
+        "image/jpeg",
+        "image/webp",
+        "application/pdf",
+        "application/zip",
+        "text/csv"
+      ]
+    },
+    "ui": {
+      "upload": "Upload file",
+      "download": "Download file",
+      "delete": "Delete file",
+      "rename": "Rename file",
+      "move": "Move file",
+      "preview": "Preview file"
+    }
+  },
+  "api": {
+    "errors": {
+      "400": "Bad Request",
+      "401": "Unauthorized",
+      "403": "Forbidden",
+      "404": "Not Found",
+      "409": "Conflict",
+      "422": "Unprocessable Entity",
+      "429": "Too Many Requests",
+      "500": "Internal Server Error",
+      "502": "Bad Gateway",
+      "503": "Service Unavailable",
+      "504": "Gateway Timeout"
+    },
+    "rateLimits": {
+      "public": {
+        "requestsPerMinute": 60,
+        "burst": 20
+      },
+      "authenticated": {
+        "requestsPerMinute": 300,
+        "burst": 100
+      },
+      "admin": {
+        "requestsPerMinute": 1000,
+        "burst": 300
+      }
+    }
+  },
+  "reports": {
+    "types": ["daily", "weekly", "monthly", "quarterly", "yearly"],
+    "exports": {
+      "pdf": true,
+      "csv": true,
+      "xlsx": true,
+      "json": true
+    },
+    "metrics": [
+      "users",
+      "sessions",
+      "retention",
+      "conversion",
+      "revenue",
+      "bounceRate",
+      "engagement"
+    ]
+  },
+  "onboarding": {
+    "steps": [
+      {
+        "id": "welcome",
+        "title": "Welcome",
+        "description": "Welcome to the platform.",
+        "skippable": false
+      },
+      {
+        "id": "profile",
+        "title": "Complete profile",
+        "description": "Fill in your personal information.",
+        "skippable": false
+      },
+      {
+        "id": "preferences",
+        "title": "Set preferences",
+        "description": "Choose your application preferences.",
+        "skippable": true
+      },
+      {
+        "id": "invite",
+        "title": "Invite your team",
+        "description": "Invite collaborators.",
+        "skippable": true
+      },
+      {
+        "id": "finish",
+        "title": "Finish",
+        "description": "You're all set!",
+        "skippable": false
+      }
+    ]
+  },
+  "permissions": {
+    "roles": {
+      "superAdmin": {
+        "can": [
+          "read",
+          "create",
+          "update",
+          "delete",
+          "manageUsers",
+          "manageBilling",
+          "manageRoles",
+          "accessAuditLogs"
+        ]
+      },
+      "admin": {
+        "can": [
+          "read",
+          "create",
+          "update",
+          "delete",
+          "manageUsers",
+          "manageBilling"
+        ]
+      },
+      "editor": {
+        "can": ["read", "create", "update"]
+      },
+      "viewer": {
+        "can": ["read"]
+      }
+    }
+  },
+  "cache": {
+    "strategies": {
+      "staleWhileRevalidate": true,
+      "cacheFirst": true,
+      "networkFirst": false
+    },
+    "ttl": {
+      "short": 60,
+      "medium": 300,
+      "long": 3600,
+      "veryLong": 86400
+    }
+  },
+  "featureFlags": {
+    "newDashboard": true,
+    "betaEditor": false,
+    "realtimeAnalytics": true,
+    "aiAssistant": false,
+    "newBilling": true
+  }
+}

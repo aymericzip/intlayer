@@ -23,7 +23,6 @@ import {
   getMultilingualDictionary,
   getPerLocaleDictionary,
   insertContentInDictionary,
-  mergeDictionaries,
 } from '@intlayer/core';
 import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
@@ -31,6 +30,7 @@ import type { AIClient } from '../utils/setupAI';
 import { deepMergeContent } from './deepMergeContent';
 import { getFilterMissingContentPerLocale } from './getFilterMissingContentPerLocale';
 import type { TranslationTask } from './listTranslationsTasks';
+import { mergeChunks } from './mergeChunks';
 
 type TranslateDictionaryResult = TranslationTask & {
   dictionaryOutput: Dictionary | null;
@@ -398,12 +398,12 @@ export const translateDictionary = async (
             });
 
           // Merge partial JSON objects produced from each chunk into a single object
-          const merged = mergeDictionaries(
-            chunkResult.map((chunk) => ({
-              ...dictionaryToProcess,
-              content: chunk,
-            }))
-          );
+          const mergedContent = mergeChunks(chunkResult);
+
+          const merged = {
+            ...dictionaryToProcess,
+            content: mergedContent,
+          };
 
           // For per-locale files, merge the newly translated content with existing target content
           let finalContent = merged.content;
