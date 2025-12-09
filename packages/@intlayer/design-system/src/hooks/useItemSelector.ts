@@ -2,11 +2,21 @@
 
 import { type RefObject, useEffect, useState } from 'react';
 
-type StyleState = {
+export type ItemSelectorOrientation = 'horizontal' | 'vertical';
+
+type HorizontalStyleState = {
   left: number;
   width: number;
   opacity: number;
 };
+
+type VerticalStyleState = {
+  top: number;
+  height: number;
+  opacity: number;
+};
+
+type StyleState = HorizontalStyleState | VerticalStyleState;
 
 const selectorDefault = (option: HTMLElement) =>
   option?.getAttribute('aria-selected') === 'true';
@@ -14,13 +24,19 @@ const selectorDefault = (option: HTMLElement) =>
 type Options = {
   selector?: (option: HTMLElement, index: number) => boolean;
   isHoverable?: boolean;
+  orientation?: ItemSelectorOrientation;
 };
 
 export const useItemSelector = (
   optionsRefs: RefObject<HTMLElement[]>,
-  { selector = selectorDefault, isHoverable = false }: Options = {
+  {
+    selector = selectorDefault,
+    isHoverable = false,
+    orientation = 'horizontal',
+  }: Options = {
     selector: selectorDefault,
     isHoverable: false,
+    orientation: 'horizontal',
   }
 ) => {
   const [choiceIndicatorPosition, setChoiceIndicatorPosition] =
@@ -40,23 +56,43 @@ export const useItemSelector = (
     }
 
     if (!targetElement) {
-      setChoiceIndicatorPosition((prev) => ({
-        left: 0,
-        width: 0,
-        ...prev,
-        opacity: 0,
-      }));
+      if (orientation === 'vertical') {
+        setChoiceIndicatorPosition((prev) => ({
+          top: 0,
+          height: 0,
+          ...prev,
+          opacity: 0,
+        }));
+      } else {
+        setChoiceIndicatorPosition((prev) => ({
+          left: 0,
+          width: 0,
+          ...prev,
+          opacity: 0,
+        }));
+      }
       return;
     }
 
-    const left = targetElement.offsetLeft;
-    const width = targetElement.offsetWidth;
+    if (orientation === 'vertical') {
+      const top = targetElement.offsetTop;
+      const height = targetElement.offsetHeight;
 
-    setChoiceIndicatorPosition({
-      left,
-      width,
-      opacity: 1,
-    });
+      setChoiceIndicatorPosition({
+        top,
+        height,
+        opacity: 1,
+      });
+    } else {
+      const left = targetElement.offsetLeft;
+      const width = targetElement.offsetWidth;
+
+      setChoiceIndicatorPosition({
+        left,
+        width,
+        opacity: 1,
+      });
+    }
   };
 
   useEffect(() => {
@@ -157,7 +193,7 @@ export const useItemSelector = (
         option?.removeEventListener('mouseleave', handleMouseLeave);
       });
     };
-  }, [optionsRefs, selector, hoveredItem, itemsLength]);
+  }, [optionsRefs, selector, hoveredItem, itemsLength, orientation]);
 
-  return { choiceIndicatorPosition, calculatePosition };
+  return { choiceIndicatorPosition, calculatePosition, orientation };
 };

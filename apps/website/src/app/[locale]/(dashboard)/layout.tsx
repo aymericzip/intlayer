@@ -1,6 +1,10 @@
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
+import {
+  DashboardSidebar,
+  type SidebarNavigationItem,
+} from '@components/Dashboard/DashboardSidebar';
 import type { SessionAPI } from '@intlayer/backend';
 import { PageLayout } from '@layouts/PageLayout';
 import {
@@ -12,6 +16,7 @@ import type { LocalesValues } from 'intlayer';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 import { getServerIntlayerAPI } from '@/utils/getServerIntlayerAPI';
 import { getSessionData } from '@/utils/getSessionData';
 import { DashboardHydrationBoundary } from './DashboardHydrationBoundary';
@@ -23,6 +28,19 @@ export const revalidate = 0;
 export const fetchCache = 'force-no-store';
 
 export { generateMetadata } from './metadata';
+
+const shouldHaveOrganizationRoutes = [
+  PagesRoutes.Dashboard_Projects,
+  PagesRoutes.Dashboard_Tags,
+] as string[];
+
+const shouldHaveProjectRoutes = [
+  PagesRoutes.Dashboard_Editor,
+  PagesRoutes.Dashboard_Content,
+  PagesRoutes.Dashboard_Tags,
+] as string[];
+
+const shouldHaveAdminRoutes = [PagesRoutes.Admin_Users] as string[];
 
 type DashboardLayoutContentProps = {
   children: React.ReactNode;
@@ -37,29 +55,107 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
   session,
   dehydratedState,
 }) => {
-  const { navbarLinks, footerLinks } = useIntlayer('dashboard-navbar-content');
+  const { collapseButton, navigation } = useIntlayer('dashboard-sidebar');
+  const { footerLinks } = useIntlayer('dashboard-navbar-content');
 
-  const formattedNavbarLinks = navbarLinks.map((el) => ({
-    url: el.url.value,
-    label: el.label.value,
-    title: el.title.value,
-  }));
+  const { organization, project, roles } = session ?? {};
+  const isSuperAdmin =
+    roles?.some((role: string) => role.toLowerCase() === 'admin') ?? false;
 
-  const formattedFooterLinks = footerLinks.map((el) => ({
-    href: el.href.value,
-    label: el.label.value,
-    text: el.text.value,
-  }));
+  const navigationItems: SidebarNavigationItem[] = [
+    {
+      key: 'editor',
+      href: PagesRoutes.Dashboard_Editor,
+      icon: 'PenTool',
+      label: navigation.editor.label.value,
+      title: navigation.editor.title.value,
+    },
+    {
+      key: 'content',
+      href: PagesRoutes.Dashboard_Content,
+      icon: 'FileText',
+      label: navigation.content.label.value,
+      title: navigation.content.title.value,
+    },
+    {
+      key: 'tags',
+      href: PagesRoutes.Dashboard_Tags,
+      icon: 'Tags',
+      label: navigation.tags.label.value,
+      title: navigation.tags.title.value,
+    },
+    {
+      key: 'projects',
+      href: PagesRoutes.Dashboard_Projects,
+      icon: 'FolderKanban',
+      label: navigation.projects.label.value,
+      title: navigation.projects.title.value,
+    },
+    {
+      key: 'organization',
+      href: PagesRoutes.Dashboard_Organization,
+      icon: 'Building2',
+      label: navigation.organization.label.value,
+      title: navigation.organization.title.value,
+    },
+    {
+      key: 'profile',
+      href: PagesRoutes.Dashboard_Profile,
+      icon: 'User',
+      label: navigation.profile.label.value,
+      title: navigation.profile.title.value,
+    },
+    {
+      key: 'admin',
+      href: PagesRoutes.Admin_Users,
+      icon: 'Shield',
+      label: navigation.admin.label.value,
+      title: navigation.admin.title.value,
+    },
+  ];
+
+  // Filter navigation items based on session context
+  const filteredNavItems = navigationItems
+    .filter(
+      (el) => !shouldHaveOrganizationRoutes.includes(el.href) || !!organization
+    )
+    .filter((el) => !shouldHaveProjectRoutes.includes(el.href) || !!project)
+    .filter((el) => !shouldHaveAdminRoutes.includes(el.href) || isSuperAdmin);
+
+  const formattedFooterLinks = footerLinks.map(
+    (el: {
+      href: { value: string };
+      label: { value: string };
+      text: { value: string };
+    }) => ({
+      href: el.href.value,
+      label: el.label.value,
+      text: el.text.value,
+    })
+  );
 
   return (
     <PageLayout
       locale={locale}
-      navbar={<DashboardNavbar links={formattedNavbarLinks} />}
+      navbar={<DashboardNavbar />}
       footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
+      className="dashboard-theme h-screen max-h-screen overflow-hidden bg-card"
+      mainClassName="min-h-0"
+      htmlProps={{
+        style: { fontSize: '75%' },
+      }}
     >
       <DashboardHydrationBoundary dehydratedState={dehydratedState}>
         <WarmupClient />
-        {children}
+        <div className="flex min-h-0 w-full flex-1">
+          <DashboardSidebar
+            items={filteredNavItems}
+            collapseButtonLabel={collapseButton.label.value}
+          />
+          <div className="mr-3 flex min-h-0 flex-1 flex-col overflow-auto rounded-2xl bg-background p-3">
+            {children}
+          </div>
+        </div>
       </DashboardHydrationBoundary>
     </PageLayout>
   );

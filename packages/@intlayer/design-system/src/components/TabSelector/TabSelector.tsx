@@ -9,7 +9,10 @@ import {
   useEffect,
   useRef,
 } from 'react';
-import { useItemSelector } from '../../hooks';
+import {
+  type ItemSelectorOrientation,
+  useItemSelector,
+} from '../../hooks/useItemSelector';
 import { cn } from '../../utils/cn';
 
 export enum TabSelectorColor {
@@ -43,7 +46,7 @@ const tabSelectorVariant = cva(
 );
 
 const indicatorVariant = cva(
-  'absolute top-0 z-[-1] h-full w-auto rounded-lg transition-[left,width] duration-300 ease-in-out motion-reduce:transition-none',
+  'absolute z-[-1] rounded-lg duration-300 ease-in-out motion-reduce:transition-none',
   {
     variants: {
       color: {
@@ -55,6 +58,13 @@ const indicatorVariant = cva(
         dark: 'bg-neutral-800/10 aria-selected:text-white',
         text: 'bg-text/10 aria-selected:text-text-opposite',
       },
+      orientation: {
+        horizontal: 'top-0 h-full w-auto transition-[left,width]',
+        vertical: 'left-0 h-auto w-full transition-[top,height]',
+      },
+    },
+    defaultVariants: {
+      orientation: 'horizontal',
     },
   }
 );
@@ -68,6 +78,7 @@ export type TabSelectorProps<T extends TabSelectorItemProps> = {
   selectedChoice: T['key'];
   onTabClick?: (choice: T['key']) => void;
   hoverable?: boolean;
+  orientation?: ItemSelectorOrientation;
 } & HTMLAttributes<HTMLElement> &
   Omit<VariantProps<typeof tabSelectorVariant>, 'color'> & {
     color?: TabSelectorColor | `${TabSelectorColor}`;
@@ -96,13 +107,14 @@ export const TabSelector = <T extends TabSelectorItemProps>({
   onTabClick,
   color = TabSelectorColor.PRIMARY,
   hoverable = false,
+  orientation = 'horizontal',
   className,
 }: TabSelectorProps<T>) => {
   const optionsRefs = useRef<HTMLElement[]>([]);
   const indicatorRef = useRef<HTMLDivElement | null>(null);
   const { choiceIndicatorPosition, calculatePosition } = useItemSelector(
     optionsRefs,
-    { isHoverable: hoverable }
+    { isHoverable: hoverable, orientation }
   );
 
   useEffect(() => {
@@ -117,7 +129,7 @@ export const TabSelector = <T extends TabSelectorItemProps>({
         }),
         className
       )}
-      aria-orientation="horizontal"
+      aria-orientation={orientation}
       aria-multiselectable="false"
       role="tablist"
     >
@@ -146,6 +158,7 @@ export const TabSelector = <T extends TabSelectorItemProps>({
           className={cn(
             indicatorVariant({
               color,
+              orientation,
             })
           )}
           style={choiceIndicatorPosition}

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/backend",
-  "version": "7.3.13",
+  "version": "7.3.8",
   "private": false,
   "description": "Intlayer Backend is a an application that allow you to manage your Intlayer content and interact with the intlayer editor.",
   "keywords": [
@@ -50,7 +50,7 @@
   ],
   "scripts": {
     "_prepublish": "cp -f ../../README.md ./README.md",
-    "prebuild": "bun scripts/generate-embeddings.ts",
+    "prebuild": "tsx scripts/generate-embeddings.ts",
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist .turbo",
@@ -58,7 +58,7 @@
     "dev:build": "tsdown --config tsdown.config.ts --watch",
     "dev:runtime": "node --watch ./dist/esm/index.mjs",
     "email": "email dev --dir ./src/emails",
-    "embeddings:generate": "bun scripts/generate-embeddings.ts",
+    "embeddings:generate": "tsx scripts/generate-embeddings.ts",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
     "lint": "biome lint .",
@@ -74,10 +74,11 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@better-auth/passkey": "1.4.5",
+    "@better-auth/core": "1.4.6",
+    "@better-auth/passkey": "1.4.6",
     "@intlayer/ai": "workspace:*",
     "@react-email/components": "1.0.1",
-    "better-auth": "1.4.5",
+    "better-auth": "1.4.6",
     "compression": "1.8.1",
     "cookie-parser": "1.4.7",
     "cors": "2.8.5",
@@ -121,7 +122,8 @@
     "npm-run-all": "^4.1.5",
     "rimraf": "6.1.2",
     "tsdown": "0.16.8",
+    "tsx": "^4.20.6",
     "typescript": "5.9.3",
-    "vitest": "4.0.15"
+    "vitest": "4.0.14"
   }
 }

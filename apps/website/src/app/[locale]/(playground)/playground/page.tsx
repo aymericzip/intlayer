@@ -33,7 +33,7 @@ const PlaygroundContent: FC = () => {
         <p className="m-auto my-3 max-w-3xl px-10 text-neutral text-sm">
           {description}
         </p>
-        <div className="relative flex size-full flex-1 flex-col items-center px-10 pb-5">
+        <div className="relative flex flex-1 flex-col items-center px-10 pb-5">
           <ConfigurationProvider configuration={configuration}>
             <Editor
               configuration={configuration}

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/docs",
-  "version": "7.3.13",
+  "version": "7.3.8",
   "private": false,
   "description": "Intlayer documentation",
   "keywords": [
@@ -49,7 +49,7 @@
   ],
   "scripts": {
     "_prepublish": "cp -f ../README.md ./README.md",
-    "prebuild": "bun tools/generateEntry.ts",
+    "prebuild": "tsx tools/generateEntry.ts",
     "build": "tsdown --config tsdown.config.ts",
     "build:ci": "tsdown --config tsdown.config.ts",
     "clean": "rimraf ./dist .turbo",
@@ -65,9 +65,9 @@
     "review": "bun tools/review.ts",
     "serve": "webpack serve --config ./webpack.config.ts",
     "test": "vitest run",
-    "test:markdown": "bun tools/markdownFormatting.ts",
+    "test:markdown": "tsx tools/markdownFormatting.ts",
     "test:watch": "vitest",
-    "translate": "bun tools/translate.ts",
+    "translate": "tsx tools/translate.ts",
     "transpile": "webpack --config ./webpack.config.ts",
     "typecheck": "tsc --noEmit --project tsconfig.types.json",
     "watch": "webpack --config ./webpack.config.ts --watch"
@@ -87,8 +87,9 @@
     "fast-glob": "3.3.3",
     "rimraf": "6.1.2",
     "tsdown": "0.16.8",
+    "tsx": "^4.20.6",
     "typescript": "5.9.3",
-    "vitest": "4.0.15"
+    "vitest": "4.0.14"
   },
   "engines": {
     "node": ">=14.18"
