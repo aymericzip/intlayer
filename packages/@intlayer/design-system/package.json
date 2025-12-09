@@ -119,7 +119,7 @@
     "@shikijs/transformers": "3.19.0",
     "@tanstack/react-query": "5.90.12",
     "@tanstack/react-query-devtools": "5.91.1",
-    "better-auth": "1.4.5",
+    "better-auth": "1.4.6",
     "bun": "^1.3.2",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
