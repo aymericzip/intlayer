@@ -171,10 +171,10 @@
     "tailwindcss": "4.1.17",
     "tsdown": "0.16.8",
     "typescript": "5.9.3",
-    "vite": "7.2.2",
+    "vite": "7.2.7",
     "vite-intlayer": "workspace:*",
     "vite-plugin-dts": "4.5.4",
-    "vitest": "4.0.14"
+    "vitest": "4.0.15"
   },
   "peerDependencies": {
     "@better-fetch/fetch": "1.1.18",

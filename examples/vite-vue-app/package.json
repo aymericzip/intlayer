@@ -12,7 +12,7 @@
   "dependencies": {
     "intlayer": "workspace:*",
     "markdown-it": "14.1.0",
-    "vue": "3.5.22",
+    "vue": "3.5.25",
     "vue-intlayer": "workspace:*",
     "vue-router": "4.6.3"
   },
@@ -22,7 +22,7 @@
     "@vitejs/plugin-vue": "6.0.1",
     "@vue/tsconfig": "^0.8.1",
     "intlayer-editor": "workspace:*",
-    "vite": "7.2.2",
+    "vite": "7.2.7",
     "vite-intlayer": "workspace:*",
     "vue-demi": "0.14.10"
   }
