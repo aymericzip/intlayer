@@ -189,9 +189,9 @@ export const Pagination: FC<PaginationProps> = ({
               disabled={disabled}
               label={`Go to page ${page}`}
               className={cn(
-                'flex aspect-square h-8 w-8 min-w-0 items-center justify-center p-0',
-                size === 'sm' && 'h-6 w-6',
-                size === 'lg' && 'h-10 w-10',
+                'flex aspect-square h-8 w-8 min-w-0 items-center justify-center p-0 text-sm',
+                size === 'sm' && 'h-6 w-6 text-xs',
+                size === 'lg' && 'h-10 w-10 text-base',
                 isActive && 'font-semibold'
               )}
             >
