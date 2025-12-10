@@ -30,17 +30,15 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
           className="relative mb-3 h-full max-h-screen w-auto flex-1 grow overflow-auto rounded-xl bg-background px-4 pb-24 max-md:pl-16 md:max-h-[calc(100vh-4rem)] md:px-10"
           id="content"
         >
-          {/* remove background layout for now */}
-          {/* <BackgroundLayout className="max-md:-ml-16 md:-ml-10 z-0" />
-          <div className="relative z-1"> */}
-          <BlogBreadCrumb
-            className="mt-12 ml-10"
-            activeSections={activeSections}
-            blogData={blogData}
-            locale={locale}
-          />
-          {children}
-          {/* </div> */}
+          <div className="m-auto max-w-3xl">
+            <BlogBreadCrumb
+              className="mt-12 ml-10"
+              activeSections={activeSections}
+              blogData={blogData}
+              locale={locale}
+            />
+            {children}
+          </div>
         </article>
 
         <aside className="flex-none max-lg:hidden">
