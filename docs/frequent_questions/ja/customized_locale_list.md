@@ -56,7 +56,7 @@ const config: IntlayerConfig = {
 `useLocale` フックを使用する場合、`availableLocales` オプションがロケールリストへのアクセス設定に使用されることに注意してください。
 
 ```ts
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 const { availableLocales } = useLocale();
 

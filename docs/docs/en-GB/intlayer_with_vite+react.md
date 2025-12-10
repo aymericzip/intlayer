@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2024-03-07
+updatedAt: 2025-12-10
 title: How to translate your Vite and React app – i18n guide 2025
 description: Learn how to add internationalisation (i18n) to your Vite and React application using Intlayer. Follow this guide to make your app multilingual.
 keywords:
@@ -16,22 +16,18 @@ slugs:
   - environment
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
-youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 5.5.10
     date: 2025-06-29
     changes: Init history
 ---
 
-# Getting Started Internationalising (i18n) with Intlayer and Vite and React
+# Translate your Vite and React website using Intlayer | Internationalization (i18n)
 
 ## Table of Contents
 
 <TOC/>
-
-<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-See [Application Template](https://github.com/aymericzip/intlayer-vite-react-template) on GitHub.
 
 ## What is Intlayer?
 
@@ -47,6 +43,27 @@ With Intlayer, you can:
 ---
 
 ## Step-by-Step Guide to Set Up Intlayer in a Vite and React Application
+
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
+<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </TabItem>
+  <TabItem label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+See [Application Template](https://github.com/aymericzip/intlayer-vite-react-template) on GitHub.
 
 ### Step 1: Install Dependencies
 
@@ -68,8 +85,7 @@ yarn add vite-intlayer --save-dev
 ```
 
 - **intlayer**
-
-  The core package that provides internationalisation tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
+  The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md).
 
 - **react-intlayer**
   The package that integrates Intlayer with React applications. It provides context providers and hooks for React internationalisation.
@@ -137,7 +153,7 @@ const config = {
 module.exports = config;
 ```
 
-> Through this configuration file, you can set up localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+> Through this configuration file, you can set up localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ### Step 3: Integrate Intlayer in Your Vite Configuration
 
@@ -254,13 +270,13 @@ const appContent = {
   key: "app",
   content: {
     viteLogo: t({
-      'en-GB': "Vite logo",
+      "en-GB": "Vite logo",
       en: "Vite logo",
       fr: "Logo Vite",
       es: "Logo Vite",
     }),
     reactLogo: t({
-      'en-GB': "React logo",
+      "en-GB": "React logo",
       en: "React logo",
       fr: "Logo React",
       es: "Logo React",
@@ -269,24 +285,24 @@ const appContent = {
     title: "Vite + React",
 
     count: t({
-      'en-GB': "count is ",
+      "en-GB": "count is ",
       en: "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
     }),
 
-    edit: t<ReactNode>({
-      // Remember to import React if you use a React node in your content
-      'en-GB': (
-        <>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </>
-      ),
-      en: (
-        <>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </>
-      ),
+    edit:
+      t <
+      ReactNode >
+      {
+        // Remember to import React if you use a React node in your content
+        "en-GB": (
+          <>
+            Edit <code>src/App.tsx</code> and save to test HMR
+          </>
+        ),
+        en: (
+          <>
             Edit <code>src/App.tsx</code> and save to test HMR
           </>
         ),
@@ -303,7 +319,7 @@ const appContent = {
       },
 
     readTheDocs: t({
-      'en-GB': "Click on the Vite and React logos to learn more",
+      "en-GB": "Click on the Vite and React logos to learn more",
       en: "Click on the Vite and React logos to learn more",
       fr: "Cliquez sur les logos Vite et React pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y React para obtener más información",
@@ -447,7 +463,7 @@ module.exports = appContent;
 
 > Your content declarations can be defined anywhere in your application as soon as they are included in the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md).
+> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
 > If your content file includes TSX code, you should consider importing `import React from "react";` in your content file.
 
@@ -804,7 +820,6 @@ const { locales, defaultLocale } = internationalization;
 
 /**
  * A component that handles localisation and wraps children with the appropriate locale context.
-/**
  * It manages URL-based locale detection and validation.
  */
 const AppLocalized = ({ children, locale }) => {
@@ -1005,7 +1020,11 @@ const LocaleRouter = ({ children }) => (
     </Routes>
   </BrowserRouter>
 );
+
+exports.LocaleRouter = LocaleRouter;
 ```
+
+> Note: If you use `routing.mode: 'no-prefix' | 'search-params'`, you probably don't need to use the `localeMap` function.
 
 Then, you can use the `LocaleRouter` component in your application:
 
@@ -1047,6 +1066,8 @@ const App = () => (
 ```
 
 In parallel, you can also use the `intlayerProxy` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
+
+> Note that to use the `intlayerProxy` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -1280,14 +1301,14 @@ const LocaleSwitcher = () => {
 
 > Documentation references:
 >
-> - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/packages/react-intlayer/useLocale.md)
-> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/packages/intlayer/getLocalizedUrl.md)
+> - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md)
+> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getLocalizedUrl.md)
 > - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
-> - [`lang` attribute`](https://developer.mozilla.org/en-GB/docs/Web/HTML/Global_attributes/lang)
-> - [`dir` attribute`](https://developer.mozilla.org/en-GB/docs/Web/HTML/Global_attributes/dir)
-> - [`aria-current` attribute`](https://developer.mozilla.org/en-GB/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+> - [`lang` attribute](https://developer.mozilla.org/en-GB/docs/Web/HTML/Global_attributes/lang)
+> - [`dir` attribute](https://developer.mozilla.org/en-GB/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` attribute](https://developer.mozilla.org/en-GB/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 Below is the updated **Step 9** with added explanations and refined code examples:
 
@@ -1461,36 +1482,6 @@ By applying these changes, your application will:
 
 ### (Optional) Step 10: Creating a Localised Link Component
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
-import "./App.css";
-
-const AppContent: FC = () => {
-  // Apply the hook to update the <html> tag's lang and dir attributes based on the locale.
-  useI18nHTMLAttributes();
-
-  // ... Rest of your component
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-module.exports = App;
-```
-
-By applying these changes, your application will:
-
-- Ensure the **language** (`lang`) attribute correctly reflects the current locale, which is important for SEO and browser behaviour.
-- Adjust the **text direction** (`dir`) according to the locale, enhancing readability and usability for languages with different reading orders.
-- Provide a more **accessible** experience, as assistive technologies depend on these attributes to function optimally.
-
-### (Optional) Step 10: Creating a Localised Link Component
-
 To ensure that your application’s navigation respects the current locale, you can create a custom `Link` component. This component automatically prefixes internal URLs with the current language. For example, when a French-speaking user clicks on a link to the "About" page, they are redirected to `/fr/about` instead of `/about`.
 
 This behaviour is useful for several reasons:
@@ -1510,15 +1501,14 @@ import {
 } from "react";
 import { useLocale } from "react-intlayer";
 
-export interface LinkProps
-  extends DetailedHTMLProps<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {}
+export interface LinkProps extends DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+> {}
 
 /**
  * Utility function to check whether a given URL is external.
- * If the URL starts with http:// or https://, it is considered external.
+ * If the URL starts with http:// or https://, it's considered external.
  */
 export const checkIsExternalLink = (href?: string): boolean =>
   /^https?:\/\//.test(href ?? "");
@@ -1526,14 +1516,14 @@ export const checkIsExternalLink = (href?: string): boolean =>
 /**
  * A custom Link component that adapts the href attribute based on the current locale.
  * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
- * This ensures that navigation remains within the same locale context.
+ * This ensures that navigation stays within the same locale context.
  */
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ href, children, ...props }, ref) => {
     const { locale } = useLocale();
     const isExternalLink = checkIsExternalLink(href);
 
-    // If the link is internal and a valid href is provided, get the localised URL.
+    // If the link is internal and a valid href is provided, get the localized URL.
     const hrefI18n =
       href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
@@ -1688,5 +1678,3 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
-
----

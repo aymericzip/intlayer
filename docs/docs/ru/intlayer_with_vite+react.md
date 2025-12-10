@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2024-03-07
-title: Как перевести ваше Vite and React – руководство i18n 2025
+updatedAt: 2025-12-10
+title: Как перевести ваше приложение на Vite и React – руководство по i18n 2025
 description: Узнайте, как добавить интернационализацию (i18n) в ваше приложение на Vite и React с помощью Intlayer. Следуйте этому руководству, чтобы сделать ваше приложение многоязычным.
 keywords:
   - Интернационализация
@@ -16,22 +16,18 @@ slugs:
   - environment
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
-youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 5.5.10
     date: 2025-06-29
     changes: Инициализация истории
 ---
 
-# Начало работы с интернационализацией (i18n) с Intlayer, Vite и React
+# Перевод вашего сайта на Vite и React с помощью Intlayer | Интернационализация (i18n)
 
 ## Содержание
 
 <TOC/>
-
-<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-vite-react-template) на GitHub.
 
 ## Что такое Intlayer?
 
@@ -47,6 +43,27 @@ history:
 ---
 
 ## Пошаговое руководство по настройке Intlayer в приложении на Vite и React
+
+<Tab defaultTab="video">
+  <TabItem label="Видео" value="video">
+  
+<iframe title="Лучшee решение для i18n в Vite и React? Откройте для себя Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </TabItem>
+  <TabItem label="Код" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демонстрация CodeSandbox — Как интернационализировать ваше приложение с помощью Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+Смотрите [Application Template](https://github.com/aymericzip/intlayer-vite-react-template) на GitHub.
 
 ### Шаг 1: Установка зависимостей
 
@@ -68,14 +85,13 @@ yarn add vite-intlayer --save-dev
 ```
 
 - **intlayer**
-
-  Основной пакет, предоставляющий инструменты интернационализации для управления конфигурацией, перевода, [объявления контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md), транспиляции и [CLI-команд](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md).
+  Основной пакет, предоставляющий инструменты интернационализации для управления конфигурацией, перевода, [объявления контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md), транспиляции и [CLI-команд](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).
 
 - **react-intlayer**
   Пакет, который интегрирует Intlayer с приложением на React. Он предоставляет провайдеры контекста и хуки для интернационализации в React.
 
 - **vite-intlayer**
-  Включает плагин Vite для интеграции Intlayer с [сборщиком Vite](https://vite.dev/guide/why.html#why-bundle-for-production), а также промежуточное ПО для определения предпочтительной локали пользователя, управления куки и обработки перенаправления URL.
+  Включает плагин Vite для интеграции Intlayer с [сборщиком Vite](https://vite.dev/guide/why.html#why-bundle-for-production), а также middleware для определения предпочтительной локали пользователя, управления куки и обработки перенаправления URL.
 
 ### Шаг 2: Конфигурация вашего проекта
 
@@ -137,7 +153,7 @@ const config = {
 module.exports = config;
 ```
 
-> Через этот файл конфигурации вы можете настроить локализованные URL-адреса, перенаправление в промежуточном ПО, имена cookie, расположение и расширение ваших деклараций контента, отключить логи Intlayer в консоли и многое другое. Для полного списка доступных параметров обратитесь к [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
+> Через этот файл конфигурации вы можете настроить локализованные URL-адреса, перенаправление в middleware, имена cookie, расположение и расширение ваших деклараций контента, отключить логи Intlayer в консоли и многое другое. Для полного списка доступных параметров обратитесь к [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
 ### Шаг 3: Интеграция Intlayer в вашу конфигурацию Vite
 
@@ -245,12 +261,14 @@ const appContent = {
   key: "app",
   content: {
     viteLogo: t({
-      en: "Логотип Vite",
+      ru: "Логотип Vite",
+      en: "Vite logo",
       fr: "Logo Vite",
       es: "Logo Vite",
     }),
     reactLogo: t({
-      en: "Логотип React",
+      ru: "Логотип React",
+      en: "React logo",
       fr: "Logo React",
       es: "Logo React",
     }),
@@ -258,7 +276,8 @@ const appContent = {
     title: "Vite + React",
 
     count: t({
-      en: "счет: ",
+      ru: "счет: ",
+      en: "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
     }),
@@ -268,9 +287,15 @@ const appContent = {
       ReactNode >
       {
         // Не забудьте импортировать React, если используете React-узел в вашем контенте
+        ru: (
+          <>
+            Редактируйте <code>src/App.tsx</code> и сохраните, чтобы проверить
+            HMR
+          </>
+        ),
         en: (
           <>
-            Edit <code>src/App.tsx</code> и сохраните, чтобы проверить HMR
+            Edit <code>src/App.tsx</code> and save to test HMR
           </>
         ),
         fr: (
@@ -286,7 +311,8 @@ const appContent = {
       },
 
     readTheDocs: t({
-      en: "Нажмите на логотипы Vite и React, чтобы узнать больше",
+      ru: "Нажмите на логотипы Vite и React, чтобы узнать больше",
+      en: "Click on the Vite and React logos to learn more",
       fr: "Cliquez sur les logos Vite et React pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y React para obtener más información",
     }),
@@ -418,7 +444,7 @@ module.exports = appContent;
 
 > Ваши объявления контента могут быть определены в любом месте вашего приложения, как только они включены в каталог `contentDir` (по умолчанию, `./src`). И соответствуют расширению файла объявления контента (по умолчанию, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> Для получения дополнительной информации обратитесь к [документации по объявлениям контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md).
+> Для получения дополнительной информации обратитесь к [документации по объявлению контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
 
 > Если ваш файл контента включает код TSX, рекомендуется импортировать `import React from "react";` в вашем файле контента.
 
@@ -574,7 +600,7 @@ module.exports = App;
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-> Чтобы узнать больше о хуке `useIntlayer`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useIntlayer.md).
+Чтобы узнать больше о хуке `useIntlayer`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useIntlayer.md).
 
 ### (Необязательно) Шаг 6: Изменение языка вашего контента
 
@@ -630,7 +656,7 @@ const LocaleSwitcher = () => {
 
 ### (Необязательно) Шаг 7: Добавьте локализованную маршрутизацию в ваше приложение
 
-Цель этого шага - создать уникальные маршруты для каждого языка. Это полезно для SEO и URL, дружественных к SEO.
+Цель этого шага — создать уникальные маршруты для каждого языка. Это полезно для SEO и SEO-дружественных URL.
 Пример:
 
 ```plaintext
@@ -644,82 +670,10 @@ const LocaleSwitcher = () => {
 Чтобы добавить локализованную маршрутизацию в ваше приложение, вы можете создать компонент `LocaleRouter`, который оборачивает маршруты вашего приложения и обрабатывает маршрутизацию на основе локали. Вот пример с использованием [React Router](https://reactrouter.com/home):
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
-// Импорт необходимых зависимостей и функций
-import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // Утилиты и типы из 'intlayer'
+import { localeMap } from "intlayer"; // Утилиты и типы из 'intlayer'
 import type { FC, PropsWithChildren } from "react"; // Типы React для функциональных компонентов и пропсов
 import { IntlayerProvider } from "react-intlayer"; // Провайдер для контекста интернационализации
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // Компоненты роутера для управления навигацией
-
-// Деструктуризация конфигурации из Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * Компонент, который обрабатывает локализацию и оборачивает дочерние элементы в соответствующий контекст локали.
- * Управляет определением и проверкой локали на основе URL.
- */
-const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
-  children,
-  locale,
-}) => {
-  const { pathname, search } = useLocation(); // Получить текущий путь URL
-
-  // Определить текущую локаль, используя локаль по умолчанию, если не указана
-  const currentLocale = locale ?? defaultLocale;
-
-  // Удалить префикс локали из пути для формирования базового пути
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Текущий путь URL
-  );
-
-  /**
-   * Если middleware.prefixDefault равно true, префикс локали по умолчанию должен всегда присутствовать.
-   */
-  if (middleware.prefixDefault) {
-    // Проверить валидность локали
-    if (!locale || !locales.includes(locale)) {
-      // Перенаправить на локаль по умолчанию с обновлённым путем
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Заменить текущую запись истории новой
-        />
-      );
-    }
-
-    // Обернуть дочерние элементы в IntlayerProvider и установить текущую локаль
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Когда middleware.prefixDefault равно false, локаль по умолчанию не префиксируется.
-     * Убедиться, что текущая локаль действительна и не является локалью по умолчанию.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Исключить локаль по умолчанию
-        )
-        .includes(currentLocale) // Проверить, находится ли текущая локаль в списке допустимых локалей
-    ) {
-      // Перенаправить на путь без префикса локали
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Обернуть дочерние элементы в IntlayerProvider и установить текущую локаль
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+import { BrowserRouter, Route, Routes } from "react-router-dom"; // Компоненты роутера для управления навигацией
 
 /**
  * Компонент маршрутизатора, который настраивает маршруты для конкретных локалей.
@@ -728,255 +682,80 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
     <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // Шаблон маршрута для захвата локали (например, /en/, /fr/) и соответствия всем последующим путям
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Оборачивает дочерние элементы с управлением локалью
-          />
-        ))}
-
-      {
-        // Если префикс для локали по умолчанию отключен, рендерить дочерние элементы напрямую по корневому пути
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Оборачивает дочерние элементы с управлением локалью
-          />
-        )
-      }
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // Шаблон маршрута для захвата локали (например, /en/, /fr/) и соответствия всем последующим путям
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // Оборачивает дочерние элементы с управлением локалью
+        />
+      ))}
     </Routes>
   </BrowserRouter>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
-// Импорт необходимых зависимостей и функций
-import { configuration, getPathWithoutLocale } from "intlayer"; // Утилиты и типы из 'intlayer'
-// Утилиты и типы из 'intlayer'
-import { IntlayerProvider } from "react-intlayer"; // Провайдер для контекста интернационализации
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // Компоненты роутера для управления навигацией
-
-// Деструктуризация конфигурации из Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * Компонент, который обрабатывает локализацию и оборачивает дочерние элементы в соответствующий контекст локали.
- * Он управляет определением и проверкой локали на основе URL.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // Получить текущий путь URL
-
-  // Определить текущую локаль, используя локаль по умолчанию, если не указана
-  const currentLocale = locale ?? defaultLocale;
-
-  // Удалить префикс локали из пути для построения базового пути
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Текущий путь URL
-  );
-
-  /**
-   * Если middleware.prefixDefault равно true, префикс локали по умолчанию должен всегда присутствовать.
-   */
-  if (middleware.prefixDefault) {
-    // Проверить локаль
-    if (!locale || !locales.includes(locale)) {
-      // Перенаправить на локаль по умолчанию с обновлённым путем
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Заменить текущую запись в истории на новую
-        />
-      );
-    }
-
-    // Обернуть дочерние элементы в IntlayerProvider и установить текущую локаль
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Когда middleware.prefixDefault равно false, префикс для локали по умолчанию не используется.
-     * Убедиться, что текущая локаль действительна и не является локалью по умолчанию.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Исключить локаль по умолчанию
-        )
-        .includes(currentLocale) // Проверить, находится ли текущая локаль в списке допустимых локалей
-    ) {
-      // Перенаправить на путь без префикса локали
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Обернуть дочерние элементы в IntlayerProvider и установить текущую локаль
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+import { localeMap } from 'intlayer'; // Утилиты и типы из 'intlayer'
+import type { FC, PropsWithChildren } from 'react'; // Типы React для функциональных компонентов и пропсов
+import { IntlayerProvider } from 'react-intlayer'; // Провайдер для контекста интернационализации
+import { BrowserRouter, Route, Routes } from 'react-router-dom'; // Компоненты роутера для управления навигацией
 
 /**
  * Компонент маршрутизатора, который настраивает маршруты для конкретных локалей.
  * Использует React Router для управления навигацией и рендеринга локализованных компонентов.
  */
-export const LocaleRouter = ({ children }) => (
+export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
     <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // Шаблон маршрута для захвата локали (например, /en/, /fr/) и сопоставления всех последующих путей
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Оборачивает дочерние элементы с управлением локалью
-          />
-        ))}
-
-      {
-        // Если префикс для локали по умолчанию отключен, рендерить дочерние элементы напрямую по корневому пути
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Оборачивает дочерние элементы с управлением локалью
-          />
-        )
-      }
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // Шаблон маршрута для захвата локали (например, /en/, /fr/) и сопоставления всех последующих путей
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // Оборачивает дочерние элементы с управлением локалью
+        />
+      ))}
     </Routes>
   </BrowserRouter>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
-// Импорт необходимых зависимостей и функций
-const { configuration, getPathWithoutLocale } = require("intlayer"); // Утилиты и типы из 'intlayer'
-const { IntlayerProvider, useLocale } = require("react-intlayer"); // Провайдер для контекста интернационализации
-const {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} = require("react-router-dom"); // Компоненты роутера для управления навигацией
-
-// Деструктуризация конфигурации из Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * Компонент, который обрабатывает локализацию и оборачивает дочерние элементы в соответствующий контекст локали.
- * Управляет определением и проверкой локали на основе URL.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // Получить текущий путь URL
-
-  // Определить текущую локаль, используя локаль по умолчанию, если не указана
-  const currentLocale = locale ?? defaultLocale;
-
-  // Удалить префикс локали из пути для построения базового пути
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Текущий путь URL
-  );
-
-  /**
-   * Если middleware.prefixDefault равно true, локаль по умолчанию всегда должна иметь префикс.
-   */
-  if (middleware.prefixDefault) {
-    // Проверить валидность локали
-    if (!locale || !locales.includes(locale)) {
-      // Перенаправить на локаль по умолчанию с обновлённым путём
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Заменить текущую запись истории на новую
-        />
-      );
-    }
-
-    // Обернуть дочерние элементы в IntlayerProvider и установить текущую локаль
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Когда middleware.prefixDefault равно false, префикс для локали по умолчанию не добавляется.
-     * Убедиться, что текущая локаль валидна и не является локалью по умолчанию.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Исключить локаль по умолчанию
-        )
-        .includes(currentLocale) // Проверить, что текущая локаль есть в списке валидных локалей
-    ) {
-      // Перенаправить на путь без префикса локали
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Обернуть дочерние элементы в IntlayerProvider и установить текущую локаль
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+const { localeMap } = require("intlayer"); // Утилиты и типы из 'intlayer'
+const React = require("react"); // Импорт React
+const { IntlayerProvider } = require("react-intlayer"); // Провайдер для контекста интернационализации
+const { BrowserRouter, Route, Routes } = require("react-router-dom"); // Компоненты роутера для управления навигацией
 
 /**
  * Компонент роутера, который настраивает маршруты для конкретных локалей.
  * Использует React Router для управления навигацией и отображения локализованных компонентов.
  */
-const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // Шаблон маршрута для захвата локали (например, /en/, /fr/) и всех последующих путей
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Оборачивает дочерние элементы с управлением локалью
-          />
-        ))}
+const LocaleRouter = ({ children }) =>
+  React.createElement(
+    BrowserRouter,
+    {},
+    React.createElement(
+      Routes,
+      {},
+      localeMap(({ locale, urlPrefix }) =>
+        React.createElement(Route, {
+          path: `${urlPrefix}/*`,
+          key: locale,
+          element: React.createElement(IntlayerProvider, { locale }, children),
+        })
+      )
+    )
+  );
 
-      {
-        // Если префикс для локали по умолчанию отключен, рендерить дочерние элементы напрямую по корневому пути
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Оборачивает дочерние элементы с управлением локалью
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
+exports.LocaleRouter = LocaleRouter;
 ```
+
+> Примечание: если вы используете `routing.mode: 'no-prefix' | 'search-params'`, скорее всего, вам не нужно использовать функцию `localeMap`.
 
 Затем вы можете использовать компонент `LocaleRouter` в вашем приложении:
 
@@ -1018,6 +797,8 @@ const App = () => (
 ```
 
 Параллельно вы также можете использовать `intlayerProxy` для добавления маршрутизации на стороне сервера в ваше приложение. Этот плагин автоматически определит текущую локаль на основе URL и установит соответствующее cookie с локалью. Если локаль не указана, плагин определит наиболее подходящую локаль на основе языковых предпочтений браузера пользователя. Если локаль не будет обнаружена, произойдет перенаправление на локаль по умолчанию.
+
+Обратите внимание, что для использования `intlayerProxy` в продакшене необходимо переместить пакет `vite-intlayer` из `devDependencies` в `dependencies`.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -1254,11 +1035,11 @@ const LocaleSwitcher = () => {
 > - [`useLocale` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md)
 > - [`getLocaleName` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocaleName.md)
 > - [`getLocalizedUrl` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getHTMLTextDir.md)
-> - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
-> - [`lang` attribute](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/lang)
-> - [`dir` attribute`](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/dir)
-> - [`aria-current` attribute`](https://developer.mozilla.org/ru/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+> - [`getHTMLTextDir` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getHTMLTextDir.md)
+> - [`hrefLang` атрибут](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+> - [`lang` атрибут](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/lang)
+> - [`dir` атрибут](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` атрибут](https://developer.mozilla.org/ru/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 Ниже приведён обновлённый **Шаг 9** с дополнительными объяснениями и уточнёнными примерами кода:
 
@@ -1427,36 +1208,6 @@ module.exports = App;
 Применяя эти изменения, ваше приложение будет:
 
 - Обеспечивать корректное отражение текущей локали в атрибуте **language** (`lang`), что важно для SEO и поведения браузера.
-- Регулировать **направление текста** (`dir`) в соответствии с локалью, улучшая читаемость и удобство для языков с разным порядком чтения.
-- Обеспечивать более **доступный** опыт, так как вспомогательные технологии зависят от этих атрибутов для оптимальной работы.
-
-### (Необязательно) Шаг 10: Создание локализованного компонента ссылки
-
-```tsx fileName="src/App.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
-import "./App.css";
-
-const AppContent: FC = () => {
-  // Примените хук для обновления атрибутов lang и dir тега <html> в зависимости от локали.
-  useI18nHTMLAttributes();
-
-  // ... Остальная часть вашего компонента
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-module.exports = App;
-```
-
-Применяя эти изменения, ваше приложение будет:
-
-- Обеспечивать корректное отражение текущей локали в атрибуте **языка** (`lang`), что важно для SEO и поведения браузера.
 - Настраивать **направление текста** (`dir`) в соответствии с локалью, улучшая читаемость и удобство использования для языков с разным порядком чтения.
 - Обеспечивать более **доступный** опыт, так как вспомогательные технологии зависят от этих атрибутов для оптимальной работы.
 
@@ -1466,7 +1217,7 @@ module.exports = App;
 
 Такое поведение полезно по нескольким причинам:
 
-- **SEO и удобство для пользователя**: Локализованные URL помогают поисковым системам правильно индексировать страницы на разных языках и предоставлять пользователям контент на предпочитаемом языке.
+- **SEO и удобство для пользователя**: Локализованные URL помогают поисковым системам правильно индексировать страницы на конкретном языке и предоставлять пользователям контент на предпочитаемом языке.
 - **Последовательность**: Используя локализованную ссылку по всему приложению, вы гарантируете, что навигация остаётся в рамках текущей локали, предотвращая неожиданные переключения языка.
 - **Поддерживаемость**: Централизация логики локализации в одном компоненте упрощает управление URL-адресами, делая ваш код более удобным для поддержки и расширения по мере роста приложения.
 
@@ -1481,11 +1232,10 @@ import {
 } from "react";
 import { useLocale } from "react-intlayer";
 
-export interface LinkProps
-  extends DetailedHTMLProps<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {}
+export interface LinkProps extends DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+> {}
 
 /**
  * Вспомогательная функция для проверки, является ли данный URL внешним.
@@ -1634,8 +1384,7 @@ Intlayer использует расширение модулей (module augmen
 
 Для этого вы можете добавить следующие инструкции в ваш файл `.gitignore`:
 
-```plaintext
-# Переведите ваш Vite and React с Intlayer | Интернационализация (i18n)
+```# Игнорировать файлы, сгенерированные Intlayer
 .intlayer
 ```
 
@@ -1659,5 +1408,3 @@ Intlayer использует расширение модулей (module augmen
 ### Продвинутые возможности
 
 Для расширения возможностей вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешний [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
----

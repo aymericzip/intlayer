@@ -56,7 +56,7 @@ Faites attention, toutes les langues incluses dans l'option `availableLocales` d
 Notez que si vous utilisez le hook `useLocale`, l'option `availableLocales` sera utilisée pour définir l'accès à la liste des langues.
 
 ```ts
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 const { availableLocales } = useLocale();
 

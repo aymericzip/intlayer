@@ -56,7 +56,7 @@ Be cautious: all locales included in the `availableLocales` option should also b
 Note that if you use the `useLocale` hook, the `availableLocales` option will be used to set access to the locale list.
 
 ```ts
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 const { availableLocales } = useLocale();
 

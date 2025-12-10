@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2024-03-07
-title: كيفية ترجمة تطبيق Vite and React – دليل i18n 2025
+updatedAt: 2025-12-10
+title: كيفية ترجمة تطبيق Vite و React – دليل i18n 2025
 description: تعلّم كيفية إضافة التدويل (i18n) إلى تطبيق Vite و React الخاص بك باستخدام Intlayer. اتبع هذا الدليل لجعل تطبيقك متعدد اللغات.
 keywords:
   - التدويل
@@ -16,22 +16,18 @@ slugs:
   - environment
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
-youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 5.5.10
     date: 2025-06-29
     changes: بداية السجل
 ---
 
-# البدء في التدويل (i18n) باستخدام Intlayer و Vite و React
+# ترجمة موقعك الإلكتروني المبني بـ Vite و React باستخدام Intlayer | التدويل (i18n)
 
 ## جدول المحتويات
 
 <TOC/>
-
-<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-راجع [نموذج التطبيق](https://github.com/aymericzip/intlayer-vite-react-template) على GitHub.
 
 ## ما هو Intlayer؟
 
@@ -47,6 +43,27 @@ history:
 ---
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Vite و React
+
+<Tab defaultTab="video">
+  <TabItem label="فيديو" value="video">
+  
+<iframe title="أفضل حل للترجمة الدولية لـ Vite و React؟ اكتشف Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </TabItem>
+  <TabItem label="الرمز" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="مثال على CodeSandbox - كيفية تعريب تطبيقك باستخدام Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+انظر [نموذج التطبيق](https://github.com/aymericzip/intlayer-vite-react-template) على GitHub.
 
 ### الخطوة 1: تثبيت التبعيات
 
@@ -68,8 +85,7 @@ yarn add vite-intlayer --save-dev
 ```
 
 - **intlayer**
-
-  الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، و[إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md)، والترجمة البرمجية، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+  الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، و[إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)، والترجمة البرمجية، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
 
 - **react-intlayer**
   الحزمة التي تدمج Intlayer مع تطبيق React. توفر مزودي السياق (context providers) وخطافات (hooks) لتدويل React.
@@ -137,7 +153,7 @@ const config = {
 module.exports = config;
 ```
 
-> من خلال ملف التهيئة هذا، يمكنك إعداد عناوين URL محلية، وإعادة توجيه الوسيط، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+> من خلال ملف التهيئة هذا، يمكنك إعداد عناوين URL محلية، وإعادة توجيه الوسيط، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ### الخطوة 3: دمج Intlayer في تهيئة Vite الخاصة بك
 
@@ -176,7 +192,7 @@ module.exports = defineConfig({
 });
 ```
 
-> يتم استخدام مكون Vite الإضافي `intlayer()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يعرّف متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء.
+يتم استخدام مكون Vite الإضافي `intlayer()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يعرّف متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء.
 
 ### الخطوة 4: إعلان المحتوى الخاص بك
 
@@ -419,7 +435,7 @@ module.exports = appContent;
 
 > يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك بمجرد تضمينها في دليل `contentDir` (افتراضيًا، `./src`). ويجب أن تطابق امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
+> لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
 > إذا كان ملف المحتوى الخاص بك يتضمن كود TSX، يجب أن تفكر في استيراد `import React from "react";` في ملف المحتوى الخاص بك.
 
@@ -574,7 +590,7 @@ module.exports = App;
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-> لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md).
+> لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md).
 
 ### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
 
@@ -626,7 +642,7 @@ const LocaleSwitcher = () => {
 };
 ```
 
-> لمعرفة المزيد عن الخطاف `useLocale`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md).
+> لمعرفة المزيد عن الخطاف `useLocale`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md).
 
 ### (اختياري) الخطوة 7: إضافة التوجيه المحلي إلى تطبيقك
 
@@ -639,87 +655,15 @@ const LocaleSwitcher = () => {
 - https://example.com/fr/about
 ```
 
-> بشكل افتراضي، لا يتم إضافة بادئة للمسارات للغة الافتراضية. إذا كنت ترغب في إضافة بادئة للغة الافتراضية، يمكنك تعيين الخيار `middleware.prefixDefault` إلى `true` في إعداداتك. راجع [توثيق الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) لمزيد من المعلومات.
+> بشكل افتراضي، لا يتم إضافة بادئة للمسارات للغة الافتراضية. إذا كنت ترغب في إضافة بادئة للغة الافتراضية، يمكنك تعيين الخيار `middleware.prefixDefault` إلى `true` في إعداداتك. راجع [توثيق الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) لمزيد من المعلومات.
 
 لإضافة التوجيه المحلي إلى تطبيقك، يمكنك إنشاء مكون `LocaleRouter` الذي يلف مسارات تطبيقك ويتعامل مع التوجيه بناءً على اللغة. إليك مثالًا باستخدام [React Router](https://reactrouter.com/home):
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
-// استيراد التبعيات والوظائف اللازمة
-import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // دوال مساعدة وأنواع من 'intlayer'
+import { localeMap } from "intlayer"; // دوال مساعدة وأنواع من 'intlayer'
 import type { FC, PropsWithChildren } from "react"; // أنواع React للمكونات الوظيفية والخصائص
 import { IntlayerProvider } from "react-intlayer"; // مزود سياق التدويل
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // مكونات الموجه لإدارة التنقل
-
-// تفكيك التكوين من Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * مكون يتعامل مع التدويل ويغلف الأطفال بسياق اللغة المناسب.
- * يدير اكتشاف اللغة بناءً على عنوان URL والتحقق منها.
- */
-const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
-  children,
-  locale,
-}) => {
-  const { pathname, search } = useLocation(); // الحصول على مسار URL الحالي
-
-  // تحديد اللغة الحالية، والرجوع إلى اللغة الافتراضية إذا لم يتم توفيرها
-  const currentLocale = locale ?? defaultLocale;
-
-  // إزالة بادئة اللغة من المسار لبناء مسار أساسي
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // مسار URL الحالي
-  );
-
-  /**
-   * إذا كانت middleware.prefixDefault صحيحة، يجب دائمًا إضافة بادئة اللغة الافتراضية.
-   */
-  if (middleware.prefixDefault) {
-    // التحقق من صحة اللغة
-    if (!locale || !locales.includes(locale)) {
-      // إعادة التوجيه إلى اللغة الافتراضية مع المسار المحدث
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // استبدال الإدخال الحالي في السجل بالإدخال الجديد
-        />
-      );
-    }
-
-    // تغليف العناصر الفرعية بـ IntlayerProvider وتعيين اللغة الحالية
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * عندما تكون middleware.prefixDefault خاطئة، لا يتم إضافة بادئة للغة الافتراضية.
-     * تأكد من أن اللغة الحالية صالحة وليست اللغة الافتراضية.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // استبعاد اللغة الافتراضية
-        )
-        .includes(currentLocale) // التحقق مما إذا كانت اللغة الحالية موجودة في قائمة اللغات الصالحة
-    ) {
-      // إعادة التوجيه إلى المسار بدون بادئة اللغة
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // تغليف العناصر الفرعية بـ IntlayerProvider وتعيين اللغة الحالية
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+import { BrowserRouter, Route, Routes } from "react-router-dom"; // مكونات الموجه لإدارة التنقل
 
 /**
  * مكون راوتر يقوم بإعداد مسارات خاصة بكل لغة.
@@ -728,255 +672,80 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
     <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // نمط المسار لالتقاط اللغة (مثل /en/، /fr/) ومطابقة جميع المسارات التالية
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // يلف الأطفال بإدارة اللغة
-          />
-        ))}
-
-      {
-        // إذا كان تعطيل بادئة اللغة الافتراضية، يتم عرض الأطفال مباشرة في المسار الجذري
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // يلف الأطفال بإدارة اللغة
-          />
-        )
-      }
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // نمط المسار لالتقاط اللغة (مثل /en/، /fr/) ومطابقة جميع المسارات التالية
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // يلف الأطفال بإدارة اللغة
+        />
+      ))}
     </Routes>
   </BrowserRouter>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
-// استيراد التبعيات والوظائف اللازمة
-import { configuration, getPathWithoutLocale } from "intlayer"; // وظائف وأصناف مساعدة من 'intlayer'
-// وظائف وأصناف مساعدة من 'intlayer'
-import { IntlayerProvider } from "react-intlayer"; // مزود لسياق التدويل
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // مكونات الموجه لإدارة التنقل
-
-// تفكيك التكوين من Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * مكون يتعامل مع التدويل ويغلف الأطفال بسياق اللغة المناسب.
- * يدير اكتشاف اللغة بناءً على عنوان URL والتحقق من صحتها.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // الحصول على مسار URL الحالي
-
-  // تحديد اللغة الحالية، والرجوع إلى اللغة الافتراضية إذا لم يتم توفيرها
-  const currentLocale = locale ?? defaultLocale;
-
-  // إزالة بادئة اللغة من المسار لبناء مسار أساسي
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // مسار URL الحالي
-  );
-
-  /**
-   * إذا كانت middleware.prefixDefault صحيحة، يجب دائمًا إضافة بادئة اللغة الافتراضية.
-   */
-  if (middleware.prefixDefault) {
-    // التحقق من صحة اللغة
-    if (!locale || !locales.includes(locale)) {
-      // إعادة التوجيه إلى اللغة الافتراضية مع المسار المحدث
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // استبدال إدخال السجل الحالي بالإدخال الجديد
-        />
-      );
-    }
-
-    // تغليف العناصر الفرعية بمزود Intlayer وتعيين اللغة الحالية
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * عندما تكون middleware.prefixDefault خاطئة، لا يتم إضافة بادئة للغة الافتراضية.
-     * تأكد من أن اللغة الحالية صالحة وليست اللغة الافتراضية.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // استبعاد اللغة الافتراضية
-        )
-        .includes(currentLocale) // التحقق مما إذا كانت اللغة الحالية موجودة في قائمة اللغات الصالحة
-    ) {
-      // إعادة التوجيه إلى المسار بدون بادئة اللغة
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // تغليف العناصر الفرعية بمزود Intlayer وتعيين اللغة الحالية
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+import { localeMap } from 'intlayer'; // وظائف وأصناف مساعدة من 'intlayer'
+import type { FC, PropsWithChildren } from 'react'; // أنواع React للمكونات الوظيفية والخصائص
+import { IntlayerProvider } from 'react-intlayer'; // مزود لسياق التدويل
+import { BrowserRouter, Route, Routes } from 'react-router-dom'; // مكونات الموجه لإدارة التنقل
 
 /**
  * مكون راوتر يقوم بإعداد مسارات خاصة بكل لغة.
  * يستخدم React Router لإدارة التنقل وعرض المكونات المحلية.
  */
-export const LocaleRouter = ({ children }) => (
+export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
     <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // نمط المسار لالتقاط اللغة (مثل /en/، /fr/) ومطابقة جميع المسارات التالية
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // يلف الأطفال بإدارة اللغة
-          />
-        ))}
-
-      {
-        // إذا كان تعطيل بادئة اللغة الافتراضية، يتم عرض الأطفال مباشرة في المسار الجذري
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // يلف الأطفال بإدارة اللغة
-          />
-        )
-      }
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // نمط المسار لالتقاط اللغة (مثل /en/، /fr/) ومطابقة جميع المسارات التالية
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // يلف الأطفال بإدارة اللغة
+        />
+      ))}
     </Routes>
   </BrowserRouter>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
-// استيراد التبعيات والوظائف اللازمة
-const { configuration, getPathWithoutLocale } = require("intlayer"); // وظائف مساعدة وأنواع من 'intlayer'
-const { IntlayerProvider, useLocale } = require("react-intlayer"); // موفر لسياق التدويل
-const {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} = require("react-router-dom"); // مكونات الموجه لإدارة التنقل
-
-// تفكيك التكوين من Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * مكون يتعامل مع التدويل ويغلف الأطفال بسياق اللغة المناسب.
- * يدير اكتشاف اللغة بناءً على عنوان URL والتحقق منها.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // الحصول على مسار URL الحالي
-
-  // تحديد اللغة الحالية، والرجوع إلى اللغة الافتراضية إذا لم يتم توفيرها
-  const currentLocale = locale ?? defaultLocale;
-
-  // إزالة بادئة اللغة من المسار لبناء مسار أساسي
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // مسار URL الحالي
-  );
-
-  /**
-   * إذا كانت middleware.prefixDefault صحيحة، يجب دائمًا إضافة بادئة اللغة الافتراضية.
-   */
-  if (middleware.prefixDefault) {
-    // التحقق من صحة اللغة
-    if (!locale || !locales.includes(locale)) {
-      // إعادة التوجيه إلى اللغة الافتراضية مع المسار المحدث
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // استبدال الإدخال الحالي في السجل بالإدخال الجديد
-        />
-      );
-    }
-
-    // تغليف العناصر الفرعية بمزود Intlayer وتعيين اللغة الحالية
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * عندما تكون middleware.prefixDefault خاطئة، لا يتم إضافة بادئة للغة الافتراضية.
-     * تأكد من أن اللغة الحالية صالحة وليست اللغة الافتراضية.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // استبعاد اللغة الافتراضية
-        )
-        .includes(currentLocale) // التحقق مما إذا كانت اللغة الحالية ضمن قائمة اللغات الصالحة
-    ) {
-      // إعادة التوجيه إلى المسار بدون بادئة اللغة
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // تغليف العناصر الفرعية بمزود Intlayer وتعيين اللغة الحالية
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+const { localeMap } = require("intlayer"); // وظائف مساعدة وأنواع من 'intlayer'
+const React = require("react"); // استيراد React
+const { IntlayerProvider } = require("react-intlayer"); // موفر لسياق التدويل
+const { BrowserRouter, Route, Routes } = require("react-router-dom"); // مكونات الموجه لإدارة التنقل
 
 /**
  * مكون راوتر يقوم بإعداد مسارات خاصة بكل لغة.
  * يستخدم React Router لإدارة التنقل وعرض المكونات المترجمة.
  */
-const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // نمط المسار لالتقاط اللغة (مثل /en/، /fr/) ومطابقة جميع المسارات التالية
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // يلف الأطفال مع إدارة اللغة
-          />
-        ))}
+const LocaleRouter = ({ children }) =>
+  React.createElement(
+    BrowserRouter,
+    {},
+    React.createElement(
+      Routes,
+      {},
+      localeMap(({ locale, urlPrefix }) =>
+        React.createElement(Route, {
+          path: `${urlPrefix}/*`,
+          key: locale,
+          element: React.createElement(IntlayerProvider, { locale }, children),
+        })
+      )
+    )
+  );
 
-      {
-        // إذا تم تعطيل إضافة بادئة اللغة الافتراضية، يتم عرض الأطفال مباشرة في المسار الجذري
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // يلف الأطفال مع إدارة اللغة
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
+exports.LocaleRouter = LocaleRouter;
 ```
+
+> ملاحظة: إذا كنت تستخدم `routing.mode: 'no-prefix' | 'search-params'`، فمن المحتمل ألا تحتاج إلى استخدام دالة `localeMap`.
 
 ثم يمكنك استخدام مكون `LocaleRouter` في تطبيقك:
 
@@ -1018,6 +787,8 @@ const App = () => (
 ```
 
 بالتوازي، يمكنك أيضًا استخدام `intlayerProxy` لإضافة التوجيه من جانب الخادم إلى تطبيقك. سيقوم هذا المكون الإضافي بالكشف تلقائيًا عن اللغة الحالية بناءً على عنوان URL وتعيين ملف تعريف الارتباط المناسب للغة. إذا لم يتم تحديد لغة، فسيحدد المكون الإضافي اللغة الأنسب بناءً على تفضيلات لغة متصفح المستخدم. إذا لم يتم الكشف عن أي لغة، فسيتم إعادة التوجيه إلى اللغة الافتراضية.
+
+> يرجى ملاحظة أنه لاستخدام `intlayerProxy` في بيئة الإنتاج، تحتاج إلى نقل حزمة `vite-intlayer` من `devDependencies` إلى `dependencies`.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -1251,14 +1022,14 @@ const LocaleSwitcher = () => {
 
 > مراجع التوثيق:
 >
-> - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md)
-> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getHTMLTextDir.md)
+> - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
+> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
 > - [`lang` attribute](https://developer.mozilla.org/ar/docs/Web/HTML/Global_attributes/lang)
-> - [`dir` attribute`](https://developer.mozilla.org/ar/docs/Web/HTML/Global_attributes/dir)
-> - [`aria-current` attribute`](https://developer.mozilla.org/ar/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+> - [`dir` attribute](https://developer.mozilla.org/ar/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` attribute](https://developer.mozilla.org/ar/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 فيما يلي الخطوة التاسعة المحدثة مع توضيحات إضافية وأمثلة كود محسنة:
 
@@ -1451,11 +1222,10 @@ import {
 } from "react";
 import { useLocale } from "react-intlayer";
 
-export interface LinkProps
-  extends DetailedHTMLProps<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {}
+export interface LinkProps extends DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+> {}
 
 /**
  * دالة مساعدة للتحقق مما إذا كان عنوان URL معين خارجيًا.
@@ -1582,9 +1352,9 @@ Link.displayName = "Link";
 
 يستخدم Intlayer توسيع الوحدات (module augmentation) للاستفادة من TypeScript وجعل قاعدة الشيفرة الخاصة بك أقوى.
 
-![نص بديل](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![الإكمال التلقائي](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![نص بديل](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![خطأ في الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع التي تم إنشاؤها تلقائيًا.
 
@@ -1604,8 +1374,8 @@ Link.displayName = "Link";
 
 للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
 
-```plaintext
-# ترجم Vite and React باستخدام Intlayer | التدويل (i18n)
+```plaintext fileName=".gitignore"
+# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
 
@@ -1628,6 +1398,4 @@ Link.displayName = "Link";
 
 ### التقدم أكثر
 
-للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
----
+للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).

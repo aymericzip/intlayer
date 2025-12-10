@@ -56,7 +56,7 @@ Dikkat: `availableLocales`'a eklediğiniz tüm diller, `locales` içinde de olma
 Eğer `useLocale` hook'unu kullanırsanız, `availableLocales` seçeneği dil listesini belirler.
 
 ```ts
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 const { availableLocales } = useLocale();
 

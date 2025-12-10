@@ -237,7 +237,7 @@ export default appContent;
 import type { FC } from "react";
 
 import { Link, type LinkComponentProps } from "@tanstack/react-router";
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 export const LOCALE_ROUTE = "{-$locale}" as const;
 

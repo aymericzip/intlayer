@@ -56,7 +56,7 @@ const config: IntlayerConfig = {
 请注意，如果你使用 `useLocale` 钩子，`availableLocales` 选项将用于设置对语言环境列表的访问权限。
 
 ```ts
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 const { availableLocales } = useLocale();
 

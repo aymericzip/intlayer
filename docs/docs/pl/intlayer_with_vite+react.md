@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2024-03-07
+updatedAt: 2025-12-10
 title: Jak przetłumaczyć swoją aplikację Vite i React – przewodnik i18n 2025
 description: Dowiedz się, jak dodać internacjonalizację (i18n) do swojej aplikacji Vite i React za pomocą Intlayer. Postępuj zgodnie z tym przewodnikiem, aby uczynić swoją aplikację wielojęzyczną.
 keywords:
@@ -85,10 +85,7 @@ yarn add vite-intlayer --save-dev
 ```
 
 - **intlayer**
-
-- **intlayer**
-
-  Podstawowy pakiet, który dostarcza narzędzia do internacjonalizacji do zarządzania konfiguracją, tłumaczeń, [deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md), transpilecji oraz [poleceń CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_cli.md).
+  Główny pakiet dostarczający narzędzia do internacjonalizacji dla zarządzania konfiguracją, tłumaczeń, [deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md), transpilecji oraz [poleceń CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md).
 
 - **react-intlayer**
   Pakiet integrujący Intlayer z aplikacją React. Zapewnia dostawców kontekstu oraz hooki do internacjonalizacji w React.
@@ -464,7 +461,7 @@ module.exports = appContent;
 }
 ```
 
-> Twoje deklaracje zawartości mogą być definiowane w dowolnym miejscu w aplikacji, pod warunkiem, że zostaną umieszczone w katalogu `contentDir` (domyślnie `./src`). I będą miały rozszerzenie pliku deklaracji zawartości (domyślnie `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Twoje deklaracje zawartości mogą być definiowane w dowolnym miejscu w aplikacji, pod warunkiem, że zostaną umieszczone w katalogu `contentDir` (domyślnie `./src`) i będą miały rozszerzenie pliku deklaracji zawartości (domyślnie `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
 > Aby uzyskać więcej szczegółów, zapoznaj się z [dokumentacją deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
@@ -688,7 +685,7 @@ Przykład:
 
 > Domyślnie trasy nie mają prefiksu dla domyślnej lokalizacji. Jeśli chcesz dodać prefiks dla domyślnej lokalizacji, możesz ustawić opcję `middleware.prefixDefault` na `true` w swojej konfiguracji. Więcej informacji znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-Aby dodać lokalizowane routingi do swojej aplikacji, możesz utworzyć komponent `LocaleRouter`, który opakuje trasy Twojej aplikacji i obsłuży routing oparty na lokalizacji. Oto przykład z użyciem [React Router](https://reactrouter.com/home):
+Aby dodać lokalizowany routing do swojej aplikacji, możesz utworzyć komponent `LocaleRouter`, który opakuje trasy Twojej aplikacji i obsłuży routing oparty na lokalizacji. Oto przykład z użyciem [React Router](https://reactrouter.com/home):
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 import { localeMap } from "intlayer"; // Funkcje narzędziowe i typy z 'intlayer'
@@ -709,6 +706,16 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           path={`${urlPrefix}/*`}
           key={locale}
           element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // Opakowuje dzieci zarządzaniem lokalizacją
+        />
+      ))}
+    </Routes>
+  </BrowserRouter>
+);
+```
+
+```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 import { localeMap } from 'intlayer'; // Funkcje narzędziowe i typy z 'intlayer'
 import type { FC, PropsWithChildren } from 'react'; // Typy React dla komponentów funkcyjnych i propsów
 import { IntlayerProvider } from 'react-intlayer'; // Provider dla kontekstu internacjonalizacji
@@ -716,7 +723,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'; // Komponenty r
 
 /**
  * Komponent routera, który ustawia trasy specyficzne dla lokalizacji.
- * Używa React Router do zarządzania nawigacją i renderowania lokalizowanych komponentów.
+ * Używa React Router do zarządzania nawigacją i renderowania zlokalizowanych komponentów.
  */
 export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
@@ -728,7 +735,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           key={locale}
           element={
             <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
-          } // Opakowuje dzieci zarządzaniem lokalizacją
+          } // Owinie dzieci w zarządzanie lokalizacją
         />
       ))}
     </Routes>
@@ -1049,8 +1056,8 @@ const LocaleSwitcher = () => {
 > - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
 > - [`lang` attribute](https://developer.mozilla.org/pl/docs/Web/HTML/Global_attributes/lang)
-> - [`dir` attribute`](https://developer.mozilla.org/pl/docs/Web/HTML/Global_attributes/dir)
-> - [`aria-current` attribute`](https://developer.mozilla.org/pl/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+> - [`dir` attribute](https://developer.mozilla.org/pl/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` attribute](https://developer.mozilla.org/pl/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 Poniżej znajduje się zaktualizowany **Krok 9** z dodatkowymi wyjaśnieniami i dopracowanymi przykładami kodu:
 
@@ -1231,9 +1238,9 @@ module.exports = App;
 
 Wprowadzając te zmiany, twoja aplikacja:
 
-- Zapewni, że atrybut **language** (`lang`) poprawnie odzwierciedla aktualną lokalizację, co jest ważne dla SEO i zachowania przeglądarki.
-- Dostosuje **kierunek tekstu** (`dir`) zgodnie z lokalizacją, poprawiając czytelność i użyteczność dla języków o różnych kierunkach czytania.
-- Zapewni bardziej **dostępne** doświadczenie, ponieważ technologie wspomagające polegają na tych atrybutach, aby działać optymalnie.
+- Upewnij się, że atrybut **language** (`lang`) poprawnie odzwierciedla aktualną lokalizację, co jest ważne dla SEO i zachowania przeglądarki.
+- Dostosuj **kierunek tekstu** (`dir`) zgodnie z lokalizacją, poprawiając czytelność i użyteczność dla języków o różnych kierunkach czytania.
+- Zapewnij bardziej **dostępne** doświadczenie, ponieważ technologie wspomagające polegają na tych atrybutach, aby działać optymalnie.
 
 ### (Opcjonalny) Krok 10: Tworzenie lokalizowanego komponentu Link
 
@@ -1256,11 +1263,10 @@ import {
 } from "react";
 import { useLocale } from "react-intlayer";
 
-export interface LinkProps
-  extends DetailedHTMLProps<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {}
+export interface LinkProps extends DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+> {}
 
 /**
  * Funkcja pomocnicza do sprawdzania, czy dany URL jest zewnętrzny.
@@ -1434,5 +1440,3 @@ Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj si
 ### Idź dalej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyodrębnić swoją zawartość, korzystając z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
-
----

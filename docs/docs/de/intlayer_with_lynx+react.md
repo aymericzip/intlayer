@@ -410,7 +410,7 @@ Um die Sprache innerhalb Ihrer Komponenten zu wechseln, können Sie die `setLoca
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 import { type FC } from "react";
 import { getLocaleName } from "intlayer";
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 export const LocaleSwitcher: FC = () => {
   const { setLocale, availableLocales, locale } = useLocale();

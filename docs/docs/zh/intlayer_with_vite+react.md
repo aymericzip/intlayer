@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2024-03-07
-title: 如何翻译您的Vite and React应用 – i18n指南 2025
+updatedAt: 2025-12-10
+title: 如何翻译您的 Vite 和 React 应用 – 2025 年 i18n 指南
 description: 学习如何使用 Intlayer 为您的 Vite 和 React 应用添加国际化 (i18n)。按照本指南使您的应用支持多语言。
 keywords:
   - 国际化
@@ -16,26 +16,22 @@ slugs:
   - environment
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
-youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 5.5.10
     date: 2025-06-29
     changes: 初始化历史
 ---
 
-# 使用 Intlayer 结合 Vite 和 React 开始国际化 (i18n)
+# 使用 Intlayer 翻译您的 Vite 和 React 网站 | 国际化 (i18n)
 
 ## 目录
 
 <TOC/>
 
-<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-vite-react-template)。
-
 ## 什么是 Intlayer？
 
-**Intlayer** 是一个创新的开源国际化 (i18n) 库，旨在简化现代 Web 应用的多语言支持。
+**Intlayer** 是一个创新的开源国际化 (i18n) 库，旨在简化现代 Web 应用中的多语言支持。
 
 使用 Intlayer，您可以：
 
@@ -47,6 +43,27 @@ history:
 ---
 
 ## 在 Vite 和 React 应用中设置 Intlayer 的分步指南
+
+<Tab defaultTab="video">
+  <TabItem label="视频" value="video">
+  
+<iframe title="Vite 和 React 最佳的国际化解决方案？探索 Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </TabItem>
+  <TabItem label="代码" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="演示 CodeSandbox - 如何使用 Intlayer 国际化您的应用程序"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+请参阅 GitHub 上的 [Application Template](https://github.com/aymericzip/intlayer-vite-react-template)。
 
 ### 第一步：安装依赖
 
@@ -69,13 +86,13 @@ yarn add vite-intlayer --save-dev
 
 - **intlayer**
 
-  核心包，提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)、转译和[CLI命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)的国际化工具。
+核心包，提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和[CLI命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)的国际化工具。
 
 - **react-intlayer**
   将 Intlayer 集成到 React 应用中的包。它提供了用于 React 国际化的上下文提供者和钩子。
 
 - **vite-intlayer**
-  包含用于将 Intlayer 集成到[Vite 打包工具](https://vite.dev/guide/why.html#why-bundle-for-production)的 Vite 插件，以及用于检测用户首选语言环境、管理 Cookie 和处理 URL 重定向的中间件。
+  包含用于将 Intlayer 集成到 [Vite 打包工具](https://vite.dev/guide/why.html#why-bundle-for-production) 的 Vite 插件，以及用于检测用户首选语言环境、管理 Cookie 和处理 URL 重定向的中间件。
 
 ### 第2步：配置您的项目
 
@@ -417,9 +434,9 @@ module.exports = appContent;
 }
 ```
 
-> 您的内容声明可以定义在应用程序中的任何位置，只要它们被包含在 `contentDir` 目录中（默认是 `./src`）。并且匹配内容声明文件的扩展名（默认是 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
+> 您的内容声明可以定义在应用程序中的任何位置，只要它们被包含在 `contentDir` 目录中（默认是 `./src`），并且匹配内容声明文件的扩展名（默认是 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
 
-> 更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
+> 更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
 > 如果您的内容文件包含 TSX 代码，您应考虑在内容文件中导入 `import React from "react";`。
 
@@ -638,82 +655,10 @@ const LocaleSwitcher = () => {
 要为您的应用添加本地化路由，您可以创建一个 `LocaleRouter` 组件，包裹应用的路由并处理基于语言的路由。以下是使用 [React Router](https://reactrouter.com/home) 的示例：
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
-// 导入必要的依赖和函数
-import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // 来自 'intlayer' 的实用函数和类型
+import { localeMap } from "intlayer"; // 来自 'intlayer' 的实用函数和类型
 import type { FC, PropsWithChildren } from "react"; // React 中函数组件和属性的类型
 import { IntlayerProvider } from "react-intlayer"; // 国际化上下文提供者
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // 用于管理导航的路由组件
-
-// 从 Intlayer 中解构配置
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * 一个处理本地化的组件，使用适当的语言环境上下文包裹子组件。
- * 它管理基于 URL 的语言环境检测和验证。
- */
-const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
-  children,
-  locale,
-}) => {
-  const { pathname, search } = useLocation(); // 获取当前的URL路径
-
-  // 确定当前的语言环境，如果未提供则回退到默认语言环境
-  const currentLocale = locale ?? defaultLocale;
-
-  // 移除路径中的语言环境前缀以构建基础路径
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // 当前的URL路径
-  );
-
-  /**
-   * 如果 middleware.prefixDefault 为 true，则默认语言环境应始终带有前缀。
-   */
-  if (middleware.prefixDefault) {
-    // 验证语言环境
-    if (!locale || !locales.includes(locale)) {
-      // 重定向到带有更新路径的默认语言环境
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 替换当前的历史记录条目为新的条目
-        />
-      );
-    }
-
-    // 使用 IntlayerProvider 包裹子组件并设置当前语言环境
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * 当 middleware.prefixDefault 为 false 时，默认语言环境不带前缀。
-     * 确保当前语言环境有效且不是默认语言环境。
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // 排除默认语言环境
-        )
-        .includes(currentLocale) // 检查当前语言环境是否在有效语言列表中
-    ) {
-      // 重定向到无语言前缀的路径
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // 使用 IntlayerProvider 包裹子组件并设置当前语言环境
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+import { BrowserRouter, Route, Routes } from "react-router-dom"; // 用于管理导航的路由组件
 
 /**
  * 一个设置特定语言路由的路由组件。
@@ -722,256 +667,80 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
     <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // 路由模式用于捕获语言环境（例如 /en/，/fr/）并匹配所有后续路径
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 使用语言环境管理包装子组件
-          />
-        ))}
-
-      {
-        // 如果禁用默认语言环境前缀，则直接在根路径渲染子组件
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 使用语言环境管理包装子组件
-          />
-        )
-      }
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // 路由模式用于捕获语言环境（例如 /en/，/fr/）并匹配所有后续路径
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // 使用语言环境管理包装子组件
+        />
+      ))}
     </Routes>
   </BrowserRouter>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
-// 导入必要的依赖和函数
-import { configuration, getPathWithoutLocale } from "intlayer"; // 来自 'intlayer' 的工具函数和类型
-// 来自 'intlayer' 的工具函数和类型
-import { IntlayerProvider } from "react-intlayer"; // 国际化上下文的提供者
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // 用于管理导航的路由组件
-
-// 从 Intlayer 配置中解构
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
+import { localeMap } from 'intlayer'; // 来自 'intlayer' 的工具函数和类型
+import type { FC, PropsWithChildren } from 'react'; // React 函数组件和属性类型
+import { IntlayerProvider } from 'react-intlayer'; // 国际化上下文提供者
+import { BrowserRouter, Route, Routes } from 'react-router-dom'; // 用于管理导航的路由组件
 
 /**
- * 一个处理本地化的组件，使用适当的语言环境上下文包裹子组件。
-/**
- * 它管理基于 URL 的语言检测和验证。
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // 获取当前的 URL 路径
-
-  // 确定当前语言，如果未提供则回退到默认语言
-  const currentLocale = locale ?? defaultLocale;
-
-  // 从路径中移除语言前缀以构造基础路径
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // 当前 URL 路径
-  );
-
-  /**
-   * 如果 middleware.prefixDefault 为 true，则默认语言应始终带有前缀。
-   */
-  if (middleware.prefixDefault) {
-    // 验证语言
-    if (!locale || !locales.includes(locale)) {
-      // 重定向到带有更新路径的默认语言
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 替换当前的历史记录条目为新的条目
-        />
-      );
-    }
-
-    // 使用 IntlayerProvider 包裹子组件并设置当前语言环境
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * 当 middleware.prefixDefault 为 false 时，默认语言环境不带前缀。
-     * 确保当前语言环境有效且不是默认语言环境。
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // 排除默认语言环境
-        )
-        .includes(currentLocale) // 检查当前语言是否在有效语言列表中
-    ) {
-      // 重定向到不带语言前缀的路径
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // 使用 IntlayerProvider 包裹子组件并设置当前语言
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-/**
- * 一个设置特定语言路由的路由组件。
+ * 一个设置特定语言环境路由的路由组件。
  * 它使用 React Router 来管理导航并渲染本地化组件。
  */
-export const LocaleRouter = ({ children }) => (
+export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
     <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // 路由模式用于捕获语言环境（例如 /en/，/fr/）并匹配所有后续路径
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 使用语言环境管理包装子组件
-          />
-        ))}
-
-      {
-        // 如果禁用默认语言环境的前缀，则直接在根路径渲染子组件
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 使用语言环境管理包装子组件
-          />
-        )
-      }
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // 路由模式用于捕获语言环境（例如 /en/，/fr/）并匹配所有后续路径
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // 使用语言环境管理包装子组件
+        />
+      ))}
     </Routes>
   </BrowserRouter>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
-// 导入必要的依赖和函数
-const { configuration, getPathWithoutLocale } = require("intlayer"); // 来自 'intlayer' 的实用函数和类型
-const { IntlayerProvider, useLocale } = require("react-intlayer"); // 国际化上下文的提供者
-const {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} = require("react-router-dom"); // 用于管理导航的路由组件
-
-// 从 Intlayer 中解构配置
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * 一个处理本地化的组件，使用适当的语言环境上下文包裹子组件。
- * 它管理基于 URL 的语言环境检测和验证。
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // 获取当前的 URL 路径
-
-  // 确定当前的语言环境，如果未提供则使用默认语言环境
-  const currentLocale = locale ?? defaultLocale;
-
-  // 移除路径中的语言环境前缀以构建基础路径
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // 当前的 URL 路径
-  );
-
-  /**
-   * 如果 middleware.prefixDefault 为 true，则默认语言环境应始终带有前缀。
-   */
-  if (middleware.prefixDefault) {
-    // 验证语言环境
-    if (!locale || !locales.includes(locale)) {
-      // 重定向到带有默认语言环境的更新路径
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 替换当前的历史记录条目为新的条目
-        />
-      );
-    }
-
-    // 使用 IntlayerProvider 包裹子组件并设置当前语言环境
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * 当 middleware.prefixDefault 为 false 时，默认语言环境不带前缀。
-     * 确保当前语言环境有效且不是默认语言环境。
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // 排除默认语言环境
-        )
-        .includes(currentLocale) // 检查当前语言环境是否在有效语言环境列表中
-    ) {
-      // 重定向到不带语言前缀的路径
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // 使用 IntlayerProvider 包裹子组件并设置当前语言环境
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+const { localeMap } = require("intlayer"); // 来自 'intlayer' 的实用函数和类型
+const React = require("react"); // 导入 React
+const { IntlayerProvider } = require("react-intlayer"); // 国际化上下文的提供者
+const { BrowserRouter, Route, Routes } = require("react-router-dom"); // 用于管理导航的路由组件
 
 /**
  * 一个设置特定语言环境路由的路由组件。
  * 它使用 React Router 来管理导航并渲染本地化组件。
  */
-const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // 路由模式用于捕获语言环境（例如 /en/，/fr/）并匹配所有后续路径
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 使用本地化管理包装子组件
-          />
-        ))}
+const LocaleRouter = ({ children }) =>
+  React.createElement(
+    BrowserRouter,
+    {},
+    React.createElement(
+      Routes,
+      {},
+      localeMap(({ locale, urlPrefix }) =>
+        React.createElement(Route, {
+          path: `${urlPrefix}/*`,
+          key: locale,
+          element: React.createElement(IntlayerProvider, { locale }, children),
+        })
+      )
+    )
+  );
 
-      {
-        // 如果禁用默认语言前缀，则直接在根路径渲染子组件
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 使用本地化管理包装子组件
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
+exports.LocaleRouter = LocaleRouter;
 ```
+
+> 注意：如果您使用 `routing.mode: 'no-prefix' | 'search-params'`，您可能不需要使用 `localeMap` 函数。
 
 然后，您可以在应用中使用 `LocaleRouter` 组件：
 
@@ -1013,6 +782,8 @@ const App = () => (
 ```
 
 同时，您还可以使用 `intlayerProxy` 为您的应用程序添加服务器端路由。该插件将根据 URL 自动检测当前语言环境并设置相应的语言环境 Cookie。如果未指定语言环境，插件将根据用户浏览器的语言偏好确定最合适的语言环境。如果未检测到任何语言环境，它将重定向到默认语言环境。
+
+> 请注意，要在生产环境中使用 `intlayerProxy`，您需要将 `vite-intlayer` 包从 `devDependencies` 切换到 `dependencies`。
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -1300,7 +1071,7 @@ export const useI18nHTMLAttributes = () => {
 
 ```jsx fileName="src/hooks/useI18nHTMLAttributes.msx" codeFormat="esm"
 import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 /**
@@ -1308,7 +1079,7 @@ import { getHTMLTextDir } from "intlayer";
  * - `lang`：通知浏览器和搜索引擎页面的语言。
  * - `dir`：确保正确的阅读顺序（例如，英文为 'ltr'，阿拉伯文为 'rtl'）。
  *
- * 此动态更新对于正确的文本渲染、无障碍访问和SEO至关重要。
+ * 此动态更新对于正确的文本渲染、无障碍访问和 SEO 至关重要。
  */
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
@@ -1348,32 +1119,6 @@ const useI18nHTMLAttributes = () => {
 };
 
 module.exports = { useI18nHTMLAttributes };
-```
-
-#### 在您的应用程序中使用该 Hook
-
-将该 Hook 集成到您的主组件中，以便在语言环境更改时更新 HTML 属性：
-
-```tsx fileName="src/App.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
-import "./App.css";
-
-const AppContent: FC = () => {
-  // 应用该 Hook，根据当前语言环境更新 <html> 标签的 lang 和 dir 属性。
-  useI18nHTMLAttributes();
-
-  // ... 组件的其余部分
-};
-
-const App: FC = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-export default App;
 ```
 
 #### 在您的应用程序中使用 Hook
@@ -1445,31 +1190,6 @@ const App = () => (
 module.exports = App;
 ```
 
-通过应用这些更改，您的应用程序将：
-
-- 确保 **语言** (`lang`) 属性正确反映当前语言环境，这对 SEO 和浏览器行为非常重要。
-- 根据语言环境调整 **文本方向** (`dir`)，提升对不同阅读顺序语言的可读性和可用性。
-- 提供更 **无障碍** 的体验，因为辅助技术依赖这些属性以实现最佳功能。
-
-### （可选）步骤 10：创建本地化链接组件
-
-```tsx fileName="src/App.tsx" codeFormat="typescript"
-// 应用该钩子以根据当前语言环境更新 <html> 标签的 lang 和 dir 属性。
-useI18nHTMLAttributes();
-
-// ... 组件的其余部分
-};
-
-const App = () => (
-<IntlayerProvider>
-<AppContent />
-</IntlayerProvider>
-);
-
-module.exports = App;
-
-```
-
 通过应用这些更改，您的应用将能够：
 
 - 确保 **语言** (`lang`) 属性正确反映当前的语言环境，这对于 SEO 和浏览器行为非常重要。
@@ -1497,11 +1217,10 @@ import {
 } from "react";
 import { useLocale } from "react-intlayer";
 
-export interface LinkProps
-  extends DetailedHTMLProps<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {}
+export interface LinkProps extends DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+> {}
 
 /**
  * 工具函数，用于检查给定的 URL 是否为外部链接。
@@ -1650,8 +1369,8 @@ Intlayer 使用模块增强（module augmentation）来利用 TypeScript 的优�
 
 为此，您可以在 `.gitignore` 文件中添加以下指令：
 
-```plaintext
-# 使用Intlayer翻译您的Vite and React | 国际化(i18n)
+```plaintext fileName=".gitignore"
+# 忽略 Intlayer 生成的文件
 .intlayer
 ```
 
@@ -1675,5 +1394,3 @@ Intlayer 使用模块增强（module augmentation）来利用 TypeScript 的优�
 ### 深入了解
 
 要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
-
----

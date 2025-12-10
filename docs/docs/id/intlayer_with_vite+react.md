@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2024-03-07
+updatedAt: 2025-12-10
 title: Cara menerjemahkan aplikasi Vite dan React Anda – panduan i18n 2025
 description: Pelajari cara menambahkan internasionalisasi (i18n) ke aplikasi Vite dan React Anda menggunakan Intlayer. Ikuti panduan ini untuk membuat aplikasi Anda multibahasa.
 keywords:
@@ -85,10 +85,7 @@ yarn add vite-intlayer --save-dev
 ```
 
 - **intlayer**
-
-- **intlayer**
-
-  Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpile, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+  Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpile, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 - **react-intlayer**
   Paket yang mengintegrasikan Intlayer dengan aplikasi React. Paket ini menyediakan context providers dan hooks untuk internasionalisasi React.
@@ -1212,7 +1209,7 @@ Dengan menerapkan perubahan ini, aplikasi Anda akan:
 
 ### (Opsional) Langkah 10: Membuat Komponen Link yang Dilokalkan
 
-Untuk memastikan navigasi aplikasi Anda menghormati locale saat ini, Anda dapat membuat komponen `Link` kustom. Komponen ini secara otomatis menambahkan prefix bahasa saat ini pada URL internal, sehingga. Misalnya, ketika pengguna berbahasa Prancis mengklik tautan ke halaman "About", mereka akan diarahkan ke `/fr/about` bukan `/about`.
+Untuk memastikan navigasi aplikasi Anda menghormati locale saat ini, Anda dapat membuat komponen `Link` kustom. Komponen ini secara otomatis menambahkan prefix bahasa saat ini pada URL internal, sehingga, misalnya, ketika pengguna berbahasa Prancis mengklik tautan ke halaman "About", mereka akan diarahkan ke `/fr/about` bukan `/about`.
 
 Perilaku ini berguna untuk beberapa alasan:
 
@@ -1231,11 +1228,10 @@ import {
 } from "react";
 import { useLocale } from "react-intlayer";
 
-export interface LinkProps
-  extends DetailedHTMLProps<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {}
+export interface LinkProps extends DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+> {}
 
 /**
  * Fungsi utilitas untuk memeriksa apakah URL yang diberikan bersifat eksternal.
@@ -1409,5 +1405,3 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokument
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-
----

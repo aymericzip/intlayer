@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2024-03-07
-title: Como traduzir seu Vite and React – guia i18n 2025
+updatedAt: 2025-12-10
+title: Como traduzir sua aplicação Vite e React – guia i18n 2025
 description: Aprenda como adicionar internacionalização (i18n) à sua aplicação Vite e React usando Intlayer. Siga este guia para tornar seu app multilíngue.
 keywords:
   - Internacionalização
@@ -16,22 +16,18 @@ slugs:
   - environment
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
-youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 5.5.10
     date: 2025-06-29
     changes: Histórico inicial
 ---
 
-# Começando a Internacionalizar (i18n) com Intlayer, Vite e React
+# Traduza seu site Vite e React usando Intlayer | Internacionalização (i18n)
 
 ## Índice
 
 <TOC/>
-
-<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-vite-react-template) no GitHub.
 
 ## O que é Intlayer?
 
@@ -47,6 +43,27 @@ Com o Intlayer, você pode:
 ---
 
 ## Guia Passo a Passo para Configurar o Intlayer em uma Aplicação Vite e React
+
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
+<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </TabItem>
+  <TabItem label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-vite-react-template) no GitHub.
 
 ### Passo 1: Instalar Dependências
 
@@ -68,14 +85,13 @@ yarn add vite-intlayer --save-dev
 ```
 
 - **intlayer**
-
-  O pacote principal que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md), transpiração e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md).
+  O pacote principal que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md), transpiração e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md).
 
 - **react-intlayer**
   O pacote que integra o Intlayer com aplicações React. Ele fornece provedores de contexto e hooks para internacionalização em React.
 
 - **vite-intlayer**
-  Inclui o plugin Vite para integrar o Intlayer com o [empacotador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), além de middleware para detectar a localidade preferida do usuário, gerenciar cookies e lidar com redirecionamento de URL.
+  Inclui o plugin Vite para integrar o Intlayer com o [empacotador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), além de middleware para detectar a localidade preferida do utilizador, gerir cookies e tratar o redirecionamento de URL.
 
 ### Passo 2: Configuração do seu projeto
 
@@ -137,7 +153,7 @@ const config = {
 module.exports = config;
 ```
 
-> Através deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento de middleware, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desabilitar logs do Intlayer no console e muito mais. Para uma lista completa dos parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
+> Através deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento de middleware, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desabilitar logs do Intlayer no console e muito mais. Para uma lista completa dos parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ### Passo 3: Integre o Intlayer na sua Configuração do Vite
 
@@ -429,7 +445,7 @@ module.exports = appContent;
 
 > Suas declarações de conteúdo podem ser definidas em qualquer lugar da sua aplicação assim que forem incluídas no diretório `contentDir` (por padrão, `./src`). E devem corresponder à extensão do arquivo de declaração de conteúdo (por padrão, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
+> Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
 > Se seu arquivo de conteúdo incluir código TSX, você deve considerar importar `import React from "react";` no seu arquivo de conteúdo.
 
@@ -649,87 +665,15 @@ Exemplo:
 - https://example.com/fr/about
 ```
 
-> Por padrão, as rotas não são prefixadas para o idioma padrão. Se você quiser prefixar o idioma padrão, pode definir a opção `middleware.prefixDefault` como `true` na sua configuração. Veja a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md) para mais informações.
+> Por padrão, as rotas não são prefixadas para o idioma padrão. Se você quiser prefixar o idioma padrão, pode definir a opção `middleware.prefixDefault` como `true` na sua configuração. Veja a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) para mais informações.
 
 Para adicionar roteamento localizado à sua aplicação, você pode criar um componente `LocaleRouter` que envolve as rotas da sua aplicação e gerencia o roteamento baseado no idioma. Aqui está um exemplo usando [React Router](https://reactrouter.com/home):
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
-// Importando dependências e funções necessárias
-import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
+import { localeMap } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
 import type { FC, PropsWithChildren } from "react"; // Tipos React para componentes funcionais e props
 import { IntlayerProvider } from "react-intlayer"; // Provedor para contexto de internacionalização
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // Componentes do roteador para gerenciar navegação
-
-// Desestruturando configuração do Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * Um componente que gerencia a localização e envolve os filhos com o contexto de local apropriado.
- * Ele gerencia a detecção e validação da localidade baseada na URL.
- */
-const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
-  children,
-  locale,
-}) => {
-  const { pathname, search } = useLocation(); // Obtém o caminho atual da URL
-
-  // Determina o idioma atual, usando o padrão caso não seja fornecido
-  const currentLocale = locale ?? defaultLocale;
-
-  // Remove o prefixo do idioma do caminho para construir um caminho base
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Caminho atual da URL
-  );
-
-  /**
-   * Se middleware.prefixDefault for true, o idioma padrão deve sempre ser prefixado.
-   */
-  if (middleware.prefixDefault) {
-    // Valida o idioma
-    if (!locale || !locales.includes(locale)) {
-      // Redireciona para o idioma padrão com o caminho atualizado
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Substitui a entrada atual do histórico pela nova
-        />
-      );
-    }
-
-    // Envolve os filhos com o IntlayerProvider e define a localidade atual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Quando middleware.prefixDefault é falso, a localidade padrão não é prefixada.
-     * Assegura que a localidade atual seja válida e não a localidade padrão.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Exclui a localidade padrão
-        )
-        .includes(currentLocale) // Verifica se o idioma atual está na lista de idiomas válidos
-    ) {
-      // Redireciona para o caminho sem o prefixo do idioma
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Envolve os filhos com o IntlayerProvider e define o idioma atual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+import { BrowserRouter, Route, Routes } from "react-router-dom"; // Componentes do roteador para gerenciar navegação
 
 /**
  * Um componente de roteador que configura rotas específicas por idioma.
@@ -738,255 +682,80 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
     <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // Padrão de rota para capturar a localidade (ex.: /en/, /fr/) e corresponder a todos os caminhos subsequentes
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Envolve os filhos com o gerenciamento de localidade
-          />
-        ))}
-
-      {
-        // Se o prefixo da localidade padrão estiver desativado, renderiza os filhos diretamente na raiz
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Envolve os filhos com o gerenciamento de localidade
-          />
-        )
-      }
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // Padrão de rota para capturar o idioma (ex: /en/, /fr/) e corresponder a todos os caminhos subsequentes
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // Envolve os filhos com o gerenciamento de idioma
+        />
+      ))}
     </Routes>
   </BrowserRouter>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
-// Importando dependências e funções necessárias
-import { configuration, getPathWithoutLocale } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
-// Funções utilitárias e tipos do 'intlayer'
-import { IntlayerProvider } from "react-intlayer"; // Provedor para contexto de internacionalização
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // Componentes do roteador para gerenciar navegação
-
-// Desestruturando configuração do Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
+import { localeMap } from 'intlayer'; // Funções utilitárias e tipos do 'intlayer'
+import type { FC, PropsWithChildren } from 'react'; // Tipos React para componentes funcionais e props
+import { IntlayerProvider } from 'react-intlayer'; // Provedor para contexto de internacionalização
+import { BrowserRouter, Route, Routes } from 'react-router-dom'; // Componentes do roteador para gerenciar navegação
 
 /**
- * Um componente que gerencia a localização e envolve os filhos com o contexto de local apropriado.
- * Ele gerencia a detecção e validação da localidade baseada na URL.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // Obtém o caminho atual da URL
-
-  // Determina a localidade atual, usando a localidade padrão caso não seja fornecida
-  const currentLocale = locale ?? defaultLocale;
-
-  // Remove o prefixo da localidade do caminho para construir um caminho base
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Caminho atual da URL
-  );
-
-  /**
-   * Se middleware.prefixDefault for verdadeiro, a localidade padrão deve sempre ser prefixada.
-   */
-  if (middleware.prefixDefault) {
-    // Valida a localidade
-    if (!locale || !locales.includes(locale)) {
-      // Redireciona para a localidade padrão com o caminho atualizado
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Substitui a entrada atual do histórico pela nova
-        />
-      );
-    }
-
-    // Envolve os filhos com o IntlayerProvider e define a localidade atual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Quando middleware.prefixDefault é falso, a localidade padrão não é prefixada.
-     * Garante que a localidade atual seja válida e não a localidade padrão.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Exclui a localidade padrão
-        )
-        .includes(currentLocale) // Verifica se a localidade atual está na lista de localidades válidas
-    ) {
-      // Redireciona para o caminho sem o prefixo da localidade
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Envolve os filhos com o IntlayerProvider e define a localidade atual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-/**
- * Um componente de roteador que configura rotas específicas por localidade.
+ * Um componente de roteador que configura rotas específicas por idioma.
  * Ele usa o React Router para gerenciar a navegação e renderizar componentes localizados.
  */
-export const LocaleRouter = ({ children }) => (
+export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
     <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // Padrão de rota para capturar a localidade (ex.: /en/, /fr/) e corresponder a todos os caminhos subsequentes
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Envolve os filhos com o gerenciamento de localidade
-          />
-        ))}
-
-      {
-        // Se o prefixo da localidade padrão estiver desativado, renderiza os filhos diretamente na raiz
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Envolve os filhos com o gerenciamento de localidade
-          />
-        )
-      }
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // Padrão de rota para capturar o idioma (ex: /en/, /fr/) e corresponder a todos os caminhos subsequentes
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // Envolve os filhos com o gerenciamento de idioma
+        />
+      ))}
     </Routes>
   </BrowserRouter>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
-// Importando dependências e funções necessárias
-const { configuration, getPathWithoutLocale } = require("intlayer"); // Funções utilitárias e tipos do 'intlayer'
-const { IntlayerProvider, useLocale } = require("react-intlayer"); // Provedor para contexto de internacionalização
-const {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} = require("react-router-dom"); // Componentes do roteador para gerenciar navegação
-
-// Desestruturando configuração do Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
+const { localeMap } = require("intlayer"); // Funções utilitárias e tipos do 'intlayer'
+const React = require("react"); // Importar React
+const { IntlayerProvider } = require("react-intlayer"); // Provedor para contexto de internacionalização
+const { BrowserRouter, Route, Routes } = require("react-router-dom"); // Componentes do roteador para gerenciar navegação
 
 /**
- * Um componente que gerencia a localização e envolve os filhos com o contexto de localidade apropriado.
- * Ele gerencia a detecção e validação da localidade baseada na URL.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // Obtém o caminho atual da URL
-
-  // Determina o locale atual, usando o padrão caso não seja fornecido
-  const currentLocale = locale ?? defaultLocale;
-
-  // Remove o prefixo do locale do caminho para construir um caminho base
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Caminho atual da URL
-  );
-
-  /**
-   * Se middleware.prefixDefault for true, o locale padrão deve sempre ser prefixado.
-   */
-  if (middleware.prefixDefault) {
-    // Valida o locale
-    if (!locale || !locales.includes(locale)) {
-      // Redireciona para o locale padrão com o caminho atualizado
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Substitui a entrada atual do histórico pela nova
-        />
-      );
-    }
-
-    // Envolve os filhos com o IntlayerProvider e define o locale atual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Quando middleware.prefixDefault é falso, o locale padrão não é prefixado.
-     * Garante que o locale atual seja válido e não o locale padrão.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Exclui o locale padrão
-        )
-        .includes(currentLocale) // Verifica se o locale atual está na lista de locales válidos
-    ) {
-      // Redireciona para o caminho sem o prefixo do locale
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Envolve os filhos com o IntlayerProvider e define o locale atual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-/**
- * Um componente de roteador que configura rotas específicas por locale.
+ * Um componente de roteador que configura rotas específicas por idioma.
  * Ele usa o React Router para gerenciar a navegação e renderizar componentes localizados.
  */
-const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // Padrão de rota para capturar o locale (ex: /en/, /fr/) e corresponder a todos os caminhos subsequentes
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Envolve os filhos com o gerenciamento de locale
-          />
-        ))}
+const LocaleRouter = ({ children }) =>
+  React.createElement(
+    BrowserRouter,
+    {},
+    React.createElement(
+      Routes,
+      {},
+      localeMap(({ locale, urlPrefix }) =>
+        React.createElement(Route, {
+          path: `${urlPrefix}/*`,
+          key: locale,
+          element: React.createElement(IntlayerProvider, { locale }, children),
+        })
+      )
+    )
+  );
 
-      {
-        // Se o prefixo para o locale padrão estiver desabilitado, renderiza os filhos diretamente na raiz
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Envolve os filhos com o gerenciamento de locale
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
+exports.LocaleRouter = LocaleRouter;
 ```
+
+> Nota: Se você usar `routing.mode: 'no-prefix' | 'search-params'`, provavelmente não precisará usar a função `localeMap`.
 
 Então, você pode usar o componente `LocaleRouter` na sua aplicação:
 
@@ -1027,7 +796,9 @@ const App = () => (
 );
 ```
 
-Paralelamente, você também pode usar o `intlayerProxy` para adicionar roteamento no lado do servidor à sua aplicação. Este plugin detectará automaticamente o idioma atual com base na URL e definirá o cookie de idioma apropriado. Se nenhum idioma for especificado, o plugin determinará o idioma mais adequado com base nas preferências de idioma do navegador do usuário. Se nenhum idioma for detectado, ele redirecionará para o idioma padrão.
+Paralelamente, você também pode usar o `intlayerProxy` para adicionar roteamento no lado do servidor à sua aplicação. Este plugin detectará automaticamente a localidade atual com base na URL e definirá o cookie de localidade apropriado. Se nenhuma localidade for especificada, o plugin determinará a localidade mais adequada com base nas preferências de idioma do navegador do usuário. Se nenhuma localidade for detectada, ele redirecionará para a localidade padrão.
+
+> Observe que para usar o `intlayerProxy` em produção, você precisa mover o pacote `vite-intlayer` de `devDependencies` para `dependencies`.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -1261,10 +1032,10 @@ const LocaleSwitcher = () => {
 
 > Referências da documentação:
 >
-> - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md)
-> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getHTMLTextDir.md)
+> - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
+> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
 > - [`lang` attribute](https://developer.mozilla.org/pt-BR/docs/Web/HTML/Global_attributes/lang)
 > - [`dir` attribute`](https://developer.mozilla.org/pt-BR/docs/Web/HTML/Global_attributes/dir)
@@ -1276,7 +1047,7 @@ Abaixo está o **Passo 9** atualizado com explicações adicionais e exemplos de
 
 ### (Opcional) Passo 9: Alterar os atributos de idioma e direção do HTML
 
-Quando sua aplicação suporta múltiplos idiomas, é crucial atualizar os atributos `lang` e `dir` da tag `<html>` para corresponder ao idioma atual. Fazer isso garante:
+Quando sua aplicação suporta múltiplos idiomas, é crucial atualizar os atributos `lang` e `dir` da tag `<html>` para corresponder ao locale atual. Fazer isso garante:
 
 - **Acessibilidade**: Leitores de tela e tecnologias assistivas dependem do atributo `lang` correto para pronunciar e interpretar o conteúdo com precisão.
 - **Renderização de Texto**: O atributo `dir` (direção) assegura que o texto seja exibido na ordem correta (por exemplo, da esquerda para a direita para inglês, da direita para a esquerda para árabe ou hebraico), o que é essencial para a legibilidade.
@@ -1461,11 +1232,10 @@ import {
 } from "react";
 import { useLocale } from "react-intlayer";
 
-export interface LinkProps
-  extends DetailedHTMLProps<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {}
+export interface LinkProps extends DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+> {}
 
 /**
  * Função utilitária para verificar se uma URL é externa.
@@ -1614,8 +1384,8 @@ Certifique-se de que sua configuração do TypeScript inclua os tipos gerados au
 
 Para isso, você pode adicionar as seguintes instruções ao seu arquivo `.gitignore`:
 
-```plaintext
-# Traduza seu Vite and React com Intlayer | Internacionalização (i18n)
+```plaintext fileName=".gitignore"
+# Ignore os arquivos gerados pelo Intlayer
 .intlayer
 ```
 
@@ -1639,5 +1409,3 @@ Para mais detalhes sobre como usar a extensão, consulte a [documentação da Ex
 ### Avançar Mais
 
 Para avançar mais, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
-
----

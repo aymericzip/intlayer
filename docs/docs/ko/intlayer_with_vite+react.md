@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2024-03-07
-title: Vite and React 앱 번역하는 방법 – i18n 가이드 2025
+updatedAt: 2025-12-10
+title: Vite 및 React 앱 번역하는 방법 – i18n 가이드 2025
 description: Intlayer를 사용하여 Vite 및 React 애플리케이션에 국제화(i18n)를 추가하는 방법을 배우세요. 이 가이드를 따라 앱을 다국어로 만드세요.
 keywords:
   - 국제화
@@ -16,7 +16,7 @@ slugs:
   - environment
   - vite-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
-youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
+youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 5.5.10
     date: 2025-06-29
@@ -29,13 +29,9 @@ history:
 
 <TOC/>
 
-<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-vite-react-template)을 참조하세요.
-
 ## Intlayer란?
 
-**Intlayer**는 최신 웹 애플리케이션에서 다국어 지원을 간소화하기 위해 설계된 혁신적이고 오픈 소스인 국제화(i18n) 라이브러리입니다.
+**Intlayer**는 최신 웹 애플리케이션에서 다국어 지원을 간소화하기 위해 설계된 혁신적이고 오픈 소스 국제화(i18n) 라이브러리입니다.
 
 Intlayer를 사용하면 다음을 할 수 있습니다:
 
@@ -47,6 +43,27 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
 ---
 
 ## Vite 및 React 애플리케이션에서 Intlayer 설정 단계별 가이드
+
+<Tab defaultTab="video">
+  <TabItem label="비디오" value="video">
+  
+<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </TabItem>
+  <TabItem label="코드" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+GitHub에서 [Application Template](https://github.com/aymericzip/intlayer-vite-react-template)을 참조하세요.
 
 ### 1단계: 의존성 설치
 
@@ -69,7 +86,7 @@ yarn add vite-intlayer --save-dev
 
 - **intlayer**
 
-  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md), 트랜스파일링 및 [CLI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 위한 국제화 도구를 제공하는 핵심 패키지입니다.
+구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md), 트랜스파일링 및 [CLI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 위한 국제화 도구를 제공하는 핵심 패키지입니다.
 
 - **react-intlayer**
   Intlayer를 React 애플리케이션과 통합하는 패키지로, React 국제화를 위한 컨텍스트 프로바이더와 훅을 제공합니다.
@@ -422,7 +439,7 @@ module.exports = appContent;
 
 > 애플리케이션 내 어디에서든 `contentDir` 디렉토리(기본값: `./src`)에 포함되면 콘텐츠 선언을 정의할 수 있습니다. 그리고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)와 일치해야 합니다.
 
-> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)를 참조하세요.
+> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
 > 콘텐츠 파일에 TSX 코드가 포함된 경우, 콘텐츠 파일에 `import React from "react";`를 가져오는 것을 고려해야 합니다.
 
@@ -641,82 +658,10 @@ const LocaleSwitcher = () => {
 애플리케이션에 지역화된 라우팅을 추가하려면, 애플리케이션의 라우트를 감싸고 로케일 기반 라우팅을 처리하는 `LocaleRouter` 컴포넌트를 생성할 수 있습니다. 다음은 [React Router](https://reactrouter.com/home)를 사용한 예제입니다:
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
-// 필요한 의존성과 함수들을 임포트합니다
-import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer'에서 제공하는 유틸리티 함수 및 타입
+import { localeMap } from "intlayer"; // 'intlayer'에서 제공하는 유틸리티 함수 및 타입
 import type { FC, PropsWithChildren } from "react"; // 함수형 컴포넌트 및 props 타입
 import { IntlayerProvider } from "react-intlayer"; // 국제화 컨텍스트를 위한 프로바이더
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // 네비게이션 관리를 위한 라우터 컴포넌트
-
-// Intlayer에서 설정값 구조 분해 할당
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * 로컬라이제이션을 처리하고 자식 컴포넌트를 적절한 로케일 컨텍스트로 감싸는 컴포넌트입니다.
- * URL 기반 로케일 감지 및 검증을 관리합니다.
- */
-const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
-  children,
-  locale,
-}) => {
-  const { pathname, search } = useLocation(); // 현재 URL 경로를 가져옵니다.
-
-  // 현재 로케일을 결정하며, 제공되지 않은 경우 기본 로케일로 대체합니다.
-  const currentLocale = locale ?? defaultLocale;
-
-  // 경로에서 로케일 접두사를 제거하여 기본 경로를 만듭니다.
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // 현재 URL 경로
-  );
-
-  /**
-   * middleware.prefixDefault가 true인 경우, 기본 로케일은 항상 접두사로 붙어야 합니다.
-   */
-  if (middleware.prefixDefault) {
-    // 로케일 유효성 검사
-    if (!locale || !locales.includes(locale)) {
-      // 업데이트된 경로와 함께 기본 로케일로 리다이렉트합니다.
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 현재 기록 항목을 새 항목으로 교체합니다
-        />
-      );
-    }
-
-    // 자식 컴포넌트를 IntlayerProvider로 감싸고 현재 로케일을 설정합니다
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * middleware.prefixDefault가 false일 때, 기본 로케일은 접두사가 붙지 않습니다.
-     * 현재 로케일이 유효하며 기본 로케일이 아님을 확인합니다.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // 기본 로케일 제외
-        )
-        .includes(currentLocale) // 현재 로케일이 유효한 로케일 목록에 있는지 확인
-    ) {
-      // 로케일 접두어가 없는 경로로 리디렉션
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // IntlayerProvider로 자식 컴포넌트를 감싸고 현재 로케일 설정
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+import { BrowserRouter, Route, Routes } from "react-router-dom"; // 네비게이션 관리를 위한 라우터 컴포넌트
 
 /**
  * 로케일별 경로를 설정하는 라우터 컴포넌트입니다.
@@ -725,256 +670,80 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
     <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // 로케일을 캡처하는 경로 패턴 (예: /en/, /fr/) 및 이후 모든 경로와 매칭
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 로케일 관리를 위해 children을 래핑
-          />
-        ))}
-
-      {
-        // 기본 로케일 접두어 사용이 비활성화된 경우, 루트 경로에서 직접 children을 렌더링
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 로케일 관리를 위해 children을 래핑
-          />
-        )
-      }
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // 로케일을 캡처하는 경로 패턴 (예: /en/, /fr/) 및 이후 모든 경로와 매칭
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // 로케일 관리를 위해 children을 래핑
+        />
+      ))}
     </Routes>
   </BrowserRouter>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
-// 필요한 의존성과 함수들을 임포트합니다.
-import { configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer'에서 제공하는 유틸리티 함수와 타입
-// 'intlayer'에서 제공하는 유틸리티 함수와 타입
-import { IntlayerProvider } from "react-intlayer"; // 국제화 컨텍스트를 위한 프로바이더
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // 네비게이션 관리를 위한 라우터 컴포넌트들
-
-// Intlayer에서 설정을 구조 분해 할당합니다.
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * 로컬라이제이션을 처리하고 자식 컴포넌트를 적절한 로케일 컨텍스트로 감싸는 컴포넌트입니다.
-/**
- * URL 기반 로케일 감지 및 검증을 관리합니다.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // 현재 URL 경로를 가져옵니다.
-
-  // 현재 로케일을 결정하며, 제공되지 않은 경우 기본 로케일로 대체합니다.
-  const currentLocale = locale ?? defaultLocale;
-
-  // 경로에서 로케일 접두사를 제거하여 기본 경로를 구성합니다.
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // 현재 URL 경로
-  );
-
-  /**
-   * middleware.prefixDefault가 true인 경우, 기본 로케일은 항상 접두사로 붙어야 합니다.
-   */
-  if (middleware.prefixDefault) {
-    // 로케일을 검증합니다.
-    if (!locale || !locales.includes(locale)) {
-      // 업데이트된 경로와 함께 기본 로케일로 리다이렉트합니다.
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 현재 기록 항목을 새 항목으로 교체합니다
-        />
-      );
-    }
-
-    // 자식 컴포넌트를 IntlayerProvider로 감싸고 현재 로케일을 설정합니다
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * middleware.prefixDefault가 false일 때, 기본 로케일은 접두사가 붙지 않습니다.
-     * 현재 로케일이 유효하며 기본 로케일이 아님을 확인합니다.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // 기본 로케일 제외
-        )
-        .includes(currentLocale) // 현재 로케일이 유효한 로케일 목록에 있는지 확인
-    ) {
-      // 로케일 접두사가 없는 경로로 리디렉션
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // IntlayerProvider로 자식 컴포넌트를 감싸고 현재 로케일 설정
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+import { localeMap } from 'intlayer'; // 'intlayer'에서 제공하는 유틸리티 함수와 타입
+import type { FC, PropsWithChildren } from 'react'; // 함수형 컴포넌트와 props 타입을 위한 React 타입
+import { IntlayerProvider } from 'react-intlayer'; // 국제화 컨텍스트를 위한 프로바이더
+import { BrowserRouter, Route, Routes } from 'react-router-dom'; // 네비게이션 관리를 위한 라우터 컴포넌트들
 
 /**
  * 로케일별 경로를 설정하는 라우터 컴포넌트입니다.
  * React Router를 사용하여 내비게이션을 관리하고 로컬라이즈된 컴포넌트를 렌더링합니다.
  */
-export const LocaleRouter = ({ children }) => (
+export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
     <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // 로케일을 캡처하는 라우트 패턴 (예: /en/, /fr/) 및 이후 모든 경로와 매칭
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 자식 컴포넌트를 로케일 관리로 감쌈
-          />
-        ))}
-
-      {
-        // 기본 로케일 접두어 사용이 비활성화된 경우, 루트 경로에서 자식 컴포넌트를 직접 렌더링
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 자식 컴포넌트를 로케일 관리로 감쌈
-          />
-        )
-      }
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // 로케일을 캡처하는 라우트 패턴 (예: /en/, /fr/) 및 이후 모든 경로와 매칭
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // 자식 컴포넌트를 로케일 관리로 감쌈
+        />
+      ))}
     </Routes>
   </BrowserRouter>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
-// 필요한 종속성과 함수들을 가져옵니다.
-const { configuration, getPathWithoutLocale } = require("intlayer"); // 'intlayer'에서 제공하는 유틸리티 함수 및 타입
-const { IntlayerProvider, useLocale } = require("react-intlayer"); // 국제화 컨텍스트를 위한 프로바이더
-const {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} = require("react-router-dom"); // 내비게이션 관리를 위한 라우터 컴포넌트
-
-// Intlayer에서 설정을 구조 분해 할당합니다.
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * 로컬라이제이션을 처리하고 자식 컴포넌트를 적절한 로케일 컨텍스트로 감싸는 컴포넌트입니다.
- * URL 기반 로케일 감지 및 검증을 관리합니다.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // 현재 URL 경로를 가져옵니다.
-
-  // 현재 로케일을 결정하며, 제공되지 않은 경우 기본 로케일로 대체합니다.
-  const currentLocale = locale ?? defaultLocale;
-
-  // 경로에서 로케일 접두사를 제거하여 기본 경로를 만듭니다.
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // 현재 URL 경로
-  );
-
-  /**
-   * middleware.prefixDefault가 true인 경우, 기본 로케일은 항상 접두사로 붙어야 합니다.
-   */
-  if (middleware.prefixDefault) {
-    // 로케일을 검증합니다.
-    if (!locale || !locales.includes(locale)) {
-      // 업데이트된 경로와 함께 기본 로케일로 리다이렉트합니다.
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 현재 기록 항목을 새 항목으로 교체
-        />
-      );
-    }
-
-    // 자식 컴포넌트를 IntlayerProvider로 감싸고 현재 로케일을 설정
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * middleware.prefixDefault가 false일 때, 기본 로케일은 접두사가 붙지 않습니다.
-     * 현재 로케일이 유효하며 기본 로케일이 아님을 확인합니다.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // 기본 로케일 제외
-        )
-        .includes(currentLocale) // 현재 로케일이 유효한 로케일 목록에 포함되어 있는지 확인
-    ) {
-      // 로케일 접두사가 없는 경로로 리디렉션합니다.
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // 자식 컴포넌트를 IntlayerProvider로 감싸고 현재 로케일을 설정합니다.
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+const { localeMap } = require("intlayer"); // 'intlayer'에서 제공하는 유틸리티 함수 및 타입
+const React = require("react"); // React를 가져옵니다
+const { IntlayerProvider } = require("react-intlayer"); // 국제화 컨텍스트를 위한 프로바이더
+const { BrowserRouter, Route, Routes } = require("react-router-dom"); // 내비게이션 관리를 위한 라우터 컴포넌트
 
 /**
  * 로케일별 경로를 설정하는 라우터 컴포넌트입니다.
  * React Router를 사용하여 내비게이션을 관리하고 로컬라이즈된 컴포넌트를 렌더링합니다.
  */
-const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // 로케일을 캡처하는 경로 패턴 (예: /en/, /fr/) 및 이후 모든 경로와 매칭합니다.
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 자식 컴포넌트를 로케일 관리로 감쌈
-          />
-        ))}
+const LocaleRouter = ({ children }) =>
+  React.createElement(
+    BrowserRouter,
+    {},
+    React.createElement(
+      Routes,
+      {},
+      localeMap(({ locale, urlPrefix }) =>
+        React.createElement(Route, {
+          path: `${urlPrefix}/*`,
+          key: locale,
+          element: React.createElement(IntlayerProvider, { locale }, children),
+        })
+      )
+    )
+  );
 
-      {
-        // 기본 로케일 접두어 사용이 비활성화된 경우, 루트 경로에서 자식 컴포넌트를 직접 렌더링
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 자식 컴포넌트를 로케일 관리로 감쌈
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
+exports.LocaleRouter = LocaleRouter;
 ```
+
+> 참고: `routing.mode: 'no-prefix' | 'search-params'`를 사용하는 경우, 아마도 `localeMap` 함수를 사용할 필요가 없습니다.
 
 그런 다음, 애플리케이션에서 `LocaleRouter` 컴포넌트를 사용할 수 있습니다:
 
@@ -1015,7 +784,9 @@ const App = () => (
 );
 ```
 
-병행하여, `intlayerProxy`을 사용하여 애플리케이션에 서버 사이드 라우팅을 추가할 수도 있습니다. 이 플러그인은 URL을 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않은 경우, 플러그인은 사용자의 브라우저 언어 설정을 기반으로 가장 적합한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리디렉션합니다.
+병행하여, `intlayerProxy`를 사용하여 애플리케이션에 서버 사이드 라우팅을 추가할 수도 있습니다. 이 플러그인은 URL을 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않은 경우, 플러그인은 사용자의 브라우저 언어 설정을 기반으로 가장 적합한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리디렉션합니다.
+
+- 프로덕션 환경에서 `intlayerProxy`를 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 변경해야 합니다.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -1449,11 +1220,10 @@ import {
 } from "react";
 import { useLocale } from "react-intlayer";
 
-export interface LinkProps
-  extends DetailedHTMLProps<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {}
+export interface LinkProps extends DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+> {}
 
 /**
  * 주어진 URL이 외부 링크인지 확인하는 유틸리티 함수입니다.
@@ -1598,12 +1368,12 @@ TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하
 
 ### Git 설정
 
-Intlayer가 생성한 파일들은 Git 저장소에 커밋하지 않도록 무시하는 것이 권장됩니다.
+Intlayer가 생성한 파일들은 Git 저장소에 커밋하지 않도록 무시하는 것이 권장됩니다. 이렇게 하면 해당 파일들을 Git 저장소에 커밋하는 것을 방지할 수 있습니다.
 
 이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
 
-```plaintext
-# Intlayer로 Vite and React 번역하기 | 국제화(i18n)
+```plaintext fileName=".gitignore"
+# Intlayer에서 생성된 파일 무시하기
 .intlayer
 ```
 
@@ -1616,9 +1386,9 @@ Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS 
 이 확장 프로그램은 다음 기능을 제공합니다:
 
 - 번역 키에 대한 **자동 완성**.
-- **실시간 오류 감지**로 누락된 번역을 확인할 수 있습니다.
-- **인라인 미리보기**를 통해 번역된 내용을 바로 확인할 수 있습니다.
-- **빠른 작업**으로 번역을 쉽게 생성하고 업데이트할 수 있습니다.
+- 누락된 번역에 대한 **실시간 오류 감지**.
+- 번역된 내용의 **인라인 미리보기**.
+- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
 
 확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
 
@@ -1627,5 +1397,3 @@ Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS 
 ### 더 나아가기
 
 더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
-
----

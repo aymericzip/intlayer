@@ -56,7 +56,7 @@ const config: IntlayerConfig = {
 ध्यान दें कि यदि आप `useLocale` हुक का उपयोग करते हैं, तो `availableLocales` विकल्प का उपयोग लोकल सूची तक पहुंच सेट करने के लिए किया जाएगा।
 
 ```ts
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 const { availableLocales } = useLocale();
 

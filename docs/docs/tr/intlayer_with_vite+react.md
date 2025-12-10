@@ -1,8 +1,8 @@
 ---
-createdAt: 2025-09-07
-updatedAt: 2025-09-07
-title: Vite and React uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
-description: Intlayer kullanarak Vite ve React uygulamanıza i18n eklemeyi öğrenin. Bu kılavuzu takip ederek uygulamanızı çok dilli hale getirin.
+createdAt: 2024-03-07
+updatedAt: 2025-12-10
+title: Vite ve React uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
+description: Intlayer kullanarak Vite ve React uygulamanıza uluslararasılaştırma (i18n) eklemeyi öğrenin. Bu kılavuzu takip ederek uygulamanızı çok dilli hale getirin.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -23,15 +23,11 @@ history:
     changes: Geçmiş başlatıldı
 ---
 
-# Intlayer ile Vite and React çevirin | Uluslararasılaştırma (i18n)
+# Intlayer ile Vite ve React sitenizi çevirin | Uluslararasılaştırma (i18n)
 
 ## İçindekiler
 
 <TOC/>
-
-<iframe title="Vite ve React için en iyi i18n çözümü? Intlayer'ı keşfedin" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-vite-react-template)'na bakın.
 
 ## Intlayer Nedir?
 
@@ -47,6 +43,27 @@ Intlayer ile şunları yapabilirsiniz:
 ---
 
 ## Vite ve React Uygulamasında Intlayer Kurulumu İçin Adım Adım Kılavuz
+
+<Tab defaultTab="video">
+  <TabItem label="Video" value="video">
+  
+<iframe title="Vite ve React için en iyi i18n çözümü? Intlayer'ı keşfedin" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </TabItem>
+  <TabItem label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </TabItem>
+</Tab>
+
+GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-vite-react-template)'na bakın.
 
 ### Adım 1: Bağımlılıkları Kurma
 
@@ -68,14 +85,13 @@ yarn add vite-intlayer --save-dev
 ```
 
 - **intlayer**
-
-  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), dönüştürme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) için uluslararasılaştırma araçları sağlayan çekirdek paket.
+  Yapılandırma yönetimi, çeviri, [içerik beyanı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), transpile etme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) için uluslararasılaştırma araçları sağlayan temel paket.
 
 - **react-intlayer**
-  React uygulamasıyla Intlayer'ı entegre eden paket. React uluslararasılaştırması için bağlam sağlayıcıları ve kancalar sağlar.
+  React uygulamasıyla Intlayer'ı entegre eden paket. React uluslararasılaştırması için bağlam sağlayıcıları ve hook'lar sağlar.
 
 - **vite-intlayer**
-  [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) ile Intlayer'ı entegre etmek için Vite eklentisini ve kullanıcının tercih ettiği yerel ayarı algılamak, çerezleri yönetmek ve URL yönlendirmesi yapmak için middleware'i içerir.
+  [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) ile Intlayer'ı entegre etmek için Vite eklentisini ve kullanıcının tercih ettiği yerel ayarı algılamak, çerezleri yönetmek ve URL yönlendirmesini işlemek için middleware'i içerir.
 
 ### Adım 2: Projenizi Yapılandırma
 
@@ -137,7 +153,7 @@ const config = {
 module.exports = config;
 ```
 
-> Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'leri, middleware yönlendirmesini, çerez adlarını, içerik bildiriminizin konumunu ve uzantısını, Intlayer günlüklerini konsolda devre dışı bırakmayı ve daha fazlasını ayarlayabilirsiniz. Kullanılabilir parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
+> Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'leri, middleware yönlendirmesini, çerez adlarını, içerik bildirimlerinizin konumunu ve uzantısını, Intlayer günlüklerini konsolda devre dışı bırakmayı ve daha fazlasını ayarlayabilirsiniz. Kullanılabilir parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
 ### Adım 3: Intlayer'ı Vite Yapılandırmanıza Entegre Etme
 
@@ -176,7 +192,7 @@ module.exports = defineConfig({
 });
 ```
 
-> `intlayer()` Vite eklentisi, Vite ile Intlayer'ı entegre etmek için kullanılır. İçerik bildirimi dosyalarının oluşturulmasını sağlar ve bunları geliştirme modunda izler. Ayrıca Intlayer ortam değişkenlerini Vite uygulaması içinde tanımlar. Ek olarak, performansı optimize etmek için takma adlar sağlar.
+> `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve geliştirme modunda bunları izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca, performansı optimize etmek için takma adlar sağlar.
 
 ### Adım 4: İçeriğinizi Bildirin
 
@@ -412,11 +428,11 @@ module.exports = appContent;
 }
 ```
 
-> İçerik bildiriminiz uygulamanızın herhangi bir yerine yerleştirilebilir, yeter ki `contentDir` dizinine dahil edilsin (varsayılan olarak `./src`). Ve içerik bildirimi dosya uzantısı ile eşleşsin (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> İçerik bildiriminiz, uygulamanızın herhangi bir yerinde tanımlanabilir; yeter ki `contentDir` dizinine dahil edilsin (varsayılan olarak `./src`). Ayrıca içerik bildirimi dosya uzantısı ile eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> Daha fazla ayrıntı için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
+> Daha fazla ayrıntı için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
 
-> İçerik dosyanız TSX kodu içeriyorsa, `import React from "react";`'ı içerik dosyanıza dahil etmeyi düşünün.
+> İçerik dosyanız TSX kodu içeriyorsa, `import React from "react";` ifadesini içerik dosyanıza dahil etmeyi düşünmelisiniz.
 
 ### Adım 5: Kodunuzda Intlayer'ı Kullanın
 
@@ -563,17 +579,17 @@ const App = () => (
 module.exports = App;
 ```
 
-> İçeriğinizi bir `string` niteliğinde kullanmak istediğinizde, `alt`, `title`, `href`, `aria-label` vb. gibi, işlevin değerini çağırmanız gerekir:
+> İçeriğinizi `alt`, `title`, `href`, `aria-label` gibi bir `string` özniteliğinde kullanmak istiyorsanız, fonksiyonun değerini çağırmanız gerekir, örneğin:
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-> `useIntlayer` kancası hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md) bakın.
+> `useIntlayer` kancası hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md) bakın.
 
 ### (İsteğe Bağlı) Adım 6: İçeriğinizin Dilini Değiştirin
 
-İçeriğinizin dilini değiştirmek için `useLocale` kancasından sağlanan `setLocale` işlevini kullanabilirsiniz. Bu işlev uygulamanın yerel ayarını ayarlamanıza ve içeriği buna göre güncellemenize olanak tanır.
+İçeriğinizin dilini değiştirmek için `useLocale` kancasından sağlanan `setLocale` fonksiyonunu kullanabilirsiniz. Bu fonksiyon, uygulamanın yerel ayarını belirlemenize ve içeriği buna göre güncellemenize olanak tanır.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -621,11 +637,11 @@ const LocaleSwitcher = () => {
 };
 ```
 
-> `useLocale` kancası hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) bakın.
+> `useLocale` kancası hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md) bakın.
 
 ### (İsteğe Bağlı) Adım 7: Uygulamanıza Yerelleştirilmiş Yönlendirme Ekleyin
 
-Bu adımın amacı, her dil için benzersiz rotalar oluşturmaktır. Bu, SEO ve SEO dostu URL'ler için kullanışlıdır.
+Bu adımın amacı, her dil için benzersiz rotalar oluşturmaktır. Bu, SEO ve SEO dostu URL'ler için faydalıdır.
 Örnek:
 
 ```plaintext
@@ -639,82 +655,10 @@ Bu adımın amacı, her dil için benzersiz rotalar oluşturmaktır. Bu, SEO ve 
 Uygulamanıza yerelleştirilmiş yönlendirme eklemek için, uygulamanızın rotalarını saran ve yerel ayar tabanlı yönlendirmeyi yöneten bir `LocaleRouter` bileşeni oluşturabilirsiniz. [React Router](https://reactrouter.com/home) kullanarak bir örnek aşağıda verilmiştir:
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
-// Gerekli bağımlılıkları ve işlevleri içe aktar
-import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // Intlayer'dan yardımcı işlevler ve türler
+import { localeMap } from "intlayer"; // Intlayer'dan yardımcı işlevler ve türler
 import type { FC, PropsWithChildren } from "react"; // React türleri işlevsel bileşenler ve props için
 import { IntlayerProvider } from "react-intlayer"; // Uluslararasılaştırma bağlam sağlayıcısı
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // Navigasyonu yönetmek için yönlendirici bileşenleri
-
-// Intlayer'dan yapılandırmayı çıkar
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * Yerelleştirme ve uygun yerel ayar bağlamıyla çocukları saran bir bileşen.
- * URL tabanlı yerel ayar algılama ve doğrulama yönetir.
- */
-const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
-  children,
-  locale,
-}) => {
-  const { pathname, search } = useLocation(); // Geçerli URL yolunu al
-
-  // Sağlanmadıysa varsayılan yerel ayara geri dön
-  const currentLocale = locale ?? defaultLocale;
-
-  // Temel bir yol oluşturmak için yoldan yerel ayar önekini kaldır
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Geçerli URL yolu
-  );
-
-  /**
-   * middleware.prefixDefault true ise, varsayılan yerel ayar her zaman öneklenmelidir.
-   */
-  if (middleware.prefixDefault) {
-    // Yerel ayarı doğrula
-    if (!locale || !locales.includes(locale)) {
-      // Güncellenmiş yol ile varsayılan yerel ayara yönlendir
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Geçerli geçmiş girişini yenisiyle değiştir
-        />
-      );
-    }
-
-    // Geçerli yerel ayarı ayarlayarak çocukları IntlayerProvider ile sar
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * middleware.prefixDefault false olduğunda, varsayılan yerel ayar öneklenmez.
-     * Geçerli yerel ayar geçerli olduğundan ve varsayılan yerel ayar olmadığından emin ol.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Varsayılan yerel ayarı hariç tut
-        )
-        .includes(currentLocale) // Geçerli yerel ayar geçerli yerel ayarlar listesinde mi kontrol et
-    ) {
-      // Yerel ayar öneki olmadan yola yönlendir
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Geçerli yerel ayarı ayarlayarak çocukları IntlayerProvider ile sar
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+import { BrowserRouter, Route, Routes } from "react-router-dom"; // Navigasyonu yönetmek için yönlendirici bileşenleri
 
 /**
  * Yerel ayar özel rotaları ayarlayan bir yönlendirici bileşen.
@@ -723,255 +667,80 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
     <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // Yerel ayarı yakalayan rota deseni (örneğin, /en/, /fr/) ve sonraki tüm yolları eşleştir
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Yerel ayar yönetimiyle çocukları sar
-          />
-        ))}
-
-      {
-        // Varsayılan yerel ayar öneki devre dışı bırakılmışsa, kök yolda çocukları doğrudan işle
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Yerel ayar yönetimiyle çocukları sar
-          />
-        )
-      }
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // Yerel ayarı yakalayan rota deseni (örneğin, /en/, /fr/) ve sonraki tüm yolları eşleştir
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // Yerel ayar yönetimiyle çocukları sar
+        />
+      ))}
     </Routes>
   </BrowserRouter>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
-// Gerekli bağımlılıkları ve işlevleri içe aktar
-import { configuration, getPathWithoutLocale } from "intlayer"; // Intlayer'dan yardımcı işlevler ve türler
-// Intlayer'dan yardımcı işlevler ve türler
-import { IntlayerProvider } from "react-intlayer"; // Uluslararasılaştırma bağlam sağlayıcısı
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // Navigasyonu yönetmek için yönlendirici bileşenleri
-
-// Intlayer'dan yapılandırmayı çıkar
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * Yerelleştirme ve uygun yerel ayar bağlamıyla çocukları saran bir bileşen.
- * URL tabanlı yerel ayar algılama ve doğrulama yönetir.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // Geçerli URL yolunu al
-
-  // Sağlanmadıysa varsayılan yerel ayara geri dön
-  const currentLocale = locale ?? defaultLocale;
-
-  // Temel bir yol oluşturmak için yoldan yerel ayar önekini kaldır
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Geçerli URL yolu
-  );
-
-  /**
-   * middleware.prefixDefault true ise, varsayılan yerel ayar her zaman öneklenmelidir.
-   */
-  if (middleware.prefixDefault) {
-    // Yerel ayarı doğrula
-    if (!locale || !locales.includes(locale)) {
-      // Güncellenmiş yol ile varsayılan yerel ayara yönlendir
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Geçerli geçmiş girişini yenisiyle değiştir
-        />
-      );
-    }
-
-    // Geçerli yerel ayarı ayarlayarak çocukları IntlayerProvider ile sar
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * middleware.prefixDefault false olduğunda, varsayılan yerel ayar öneklenmez.
-     * Geçerli yerel ayar geçerli olduğundan ve varsayılan yerel ayar olmadığından emin ol.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Varsayılan yerel ayarı hariç tut
-        )
-        .includes(currentLocale) // Geçerli yerel ayar geçerli yerel ayarlar listesinde mi kontrol et
-    ) {
-      // Yerel ayar öneki olmadan yola yönlendir
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Geçerli yerel ayarı ayarlayarak çocukları IntlayerProvider ile sar
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+import { localeMap } from 'intlayer'; // Intlayer'dan yardımcı işlevler ve türler
+import type { FC, PropsWithChildren } from 'react'; // React türleri işlevsel bileşenler ve props için
+import { IntlayerProvider } from 'react-intlayer'; // Uluslararasılaştırma bağlam sağlayıcısı
+import { BrowserRouter, Route, Routes } from 'react-router-dom'; // Navigasyonu yönetmek için yönlendirici bileşenleri
 
 /**
  * Yerel ayar özel rotaları ayarlayan bir yönlendirici bileşen.
  * React Router kullanarak navigasyonu yönetir ve yerelleştirilmiş bileşenleri işler.
  */
-export const LocaleRouter = ({ children }) => (
+export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
     <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // Yerel ayarı yakalayan rota deseni (örneğin, /en/, /fr/) ve sonraki tüm yolları eşleştir
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Yerel ayar yönetimiyle çocukları sar
-          />
-        ))}
-
-      {
-        // Varsayılan yerel ayar öneki devre dışı bırakılmışsa, kök yolda çocukları doğrudan işle
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Yerel ayar yönetimiyle çocukları sar
-          />
-        )
-      }
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          // Yerel ayarı yakalayan rota deseni (örneğin, /en/, /fr/) ve sonraki tüm yolları eşleştir
+          path={`${urlPrefix}/*`}
+          key={locale}
+          element={
+            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+          } // Yerel ayar yönetimiyle çocukları sar
+        />
+      ))}
     </Routes>
   </BrowserRouter>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
-// Gerekli bağımlılıkları ve işlevleri içe aktar
-const { configuration, getPathWithoutLocale } = require("intlayer"); // Intlayer'dan yardımcı işlevler ve türler
-const { IntlayerProvider, useLocale } = require("react-intlayer"); // Uluslararasılaştırma bağlam sağlayıcısı
-const {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} = require("react-router-dom"); // Navigasyonu yönetmek için yönlendirici bileşenleri
-
-// Intlayer'dan yapılandırmayı çıkar
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * Yerelleştirme ve uygun yerel ayar bağlamıyla çocukları saran bir bileşen.
- * URL tabanlı yerel ayar algılama ve doğrulama yönetir.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // Geçerli URL yolunu al
-
-  // Sağlanmadıysa varsayılan yerel ayara geri dön
-  const currentLocale = locale ?? defaultLocale;
-
-  // Temel bir yol oluşturmak için yoldan yerel ayar önekini kaldır
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Geçerli URL yolu
-  );
-
-  /**
-   * middleware.prefixDefault true ise, varsayılan yerel ayar her zaman öneklenmelidir.
-   */
-  if (middleware.prefixDefault) {
-    // Yerel ayarı doğrula
-    if (!locale || !locales.includes(locale)) {
-      // Güncellenmiş yol ile varsayılan yerel ayara yönlendir
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Geçerli geçmiş girişini yenisiyle değiştir
-        />
-      );
-    }
-
-    // Geçerli yerel ayarı ayarlayarak çocukları IntlayerProvider ile sar
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * middleware.prefixDefault false olduğunda, varsayılan yerel ayar öneklenmez.
-     * Geçerli yerel ayar geçerli olduğundan ve varsayılan yerel ayar olmadığından emin ol.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Varsayılan yerel ayarı hariç tut
-        )
-        .includes(currentLocale) // Geçerli yerel ayar geçerli yerel ayarlar listesinde mi kontrol et
-    ) {
-      // Yerel ayar öneki olmadan yola yönlendir
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Geçerli yerel ayarı ayarlayarak çocukları IntlayerProvider ile sar
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
+const { localeMap } = require("intlayer"); // Intlayer'dan yardımcı işlevler ve türler
+const React = require("react"); // React'i içe aktar
+const { IntlayerProvider } = require("react-intlayer"); // Uluslararasılaştırma bağlam sağlayıcısı
+const { BrowserRouter, Route, Routes } = require("react-router-dom"); // Navigasyonu yönetmek için yönlendirici bileşenleri
 
 /**
  * Yerel ayar özel rotaları ayarlayan bir yönlendirici bileşen.
  * React Router kullanarak navigasyonu yönetir ve yerelleştirilmiş bileşenleri işler.
  */
-const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // Yerel ayarı yakalayan rota deseni (örneğin, /en/, /fr/) ve sonraki tüm yolları eşleştir
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Yerel ayar yönetimiyle çocukları sar
-          />
-        ))}
+const LocaleRouter = ({ children }) =>
+  React.createElement(
+    BrowserRouter,
+    {},
+    React.createElement(
+      Routes,
+      {},
+      localeMap(({ locale, urlPrefix }) =>
+        React.createElement(Route, {
+          path: `${urlPrefix}/*`,
+          key: locale,
+          element: React.createElement(IntlayerProvider, { locale }, children),
+        })
+      )
+    )
+  );
 
-      {
-        // Varsayılan yerel ayar öneki devre dışı bırakılmışsa, kök yolda çocukları doğrudan işle
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Yerel ayar yönetimiyle çocukları sar
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
+exports.LocaleRouter = LocaleRouter;
 ```
+
+> Not: `routing.mode: 'no-prefix' | 'search-params'` kullanıyorsanız, muhtemelen `localeMap` fonksiyonunu kullanmanıza gerek yoktur.
 
 Ardından, `LocaleRouter` bileşenini uygulamanızda kullanabilirsiniz:
 
@@ -1012,9 +781,9 @@ const App = () => (
 );
 ```
 
-Paralel olarak, uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy`'i de kullanabilirsiniz. Bu eklenti, URL'ye göre geçerli yerel ayarı otomatik olarak algılar ve uygun yerel ayar çerezini ayarlar. Hiç yerel ayar belirtilmezse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirler. Hiç yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirir.
+Paralel olarak, uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy`'yi de kullanabilirsiniz. Bu eklenti, URL'ye göre geçerli yerel ayarı otomatik olarak algılar ve uygun yerel ayar çerezini ayarlar. Hiç yerel ayar belirtilmezse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirler. Hiç yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirir.
 
-> Not: Üretimde `intlayerProxy`'i kullanmak için `vite-intlayer` paketini `devDependencies`'den `dependencies`'e taşımalısınız.
+> Not: Üretimde `intlayerProxy`'i kullanmak için `vite-intlayer` paketini `devDependencies`'den `dependencies`'e taşımanız gerekir.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -1051,7 +820,7 @@ module.exports = defineConfig({
 
 ### (İsteğe Bağlı) Adım 8: Yerel ayar değiştiğinde URL'yi değiştirin
 
-Yerel ayar değiştiğinde URL'yi değiştirmek için `useLocale` kancasından sağlanan `onLocaleChange` prop'unu kullanabilirsiniz. Paralel olarak, URL yolunu güncellemek için `useLocation` ve `useNavigate` kancalarını `react-router-dom`'dan kullanabilirsiniz.
+Yerel ayar değiştiğinde URL'yi değiştirmek için `useLocale` kancasından sağlanan `onLocaleChange` prop'unu kullanabilirsiniz. Paralel olarak, URL yolunu güncellemek için `react-router-dom`'dan `useLocation` ve `useNavigate` kancalarını kullanabilirsiniz.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import { useLocation, useNavigate } from "react-router-dom";
@@ -1263,7 +1032,7 @@ Aşağıda **güncellenmiş Adım 9** açıklamalar ve iyileştirilmiş kod örn
 
 ### (İsteğe Bağlı) Adım 9: HTML Dil ve Yön Niteliklerini Değiştirin
 
-Uygulamanız birden fazla dili desteklediğinde, geçerli yerel ayar ile eşleşmesi için `<html>` etiketinin `lang` ve `dir` niteliklerini güncellemek önemlidir. Bunu yapmak şunları sağlar:
+Uygulamanız birden fazla dili desteklediğinde, geçerli yerel ayar ile eşleşmesi için `<html>` etiketinin `lang` ve `dir` niteliklerini güncellemek çok önemlidir. Bunu yapmak şunları sağlar:
 
 - **Erişilebilirlik**: Ekran okuyucular ve yardımcı teknolojiler, içeriği doğru şekilde telaffuz etmek ve yorumlamak için doğru `lang` niteliğine güvenir.
 - **Metin İşleme**: `dir` (yön) niteliği, metnin doğru sırada işlenmesini sağlar (örneğin, İngilizce için soldan sağa, Arapça veya İbranice için sağdan sola), okunabilirlik için gereklidir.
@@ -1277,13 +1046,13 @@ Geçerli yerel ayara göre HTML niteliklerini yöneten özel bir kanca oluşturu
 
 ```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
 import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 /**
  * Geçerli yerel ayara göre HTML <html> etiketinin `lang` ve `dir` niteliklerini günceller.
  * - `lang`: Tarayıcılara ve arama motorlarına sayfanın dilini bildirir.
- * - `dir`: Geçerli yerel ayara göre doğru okuma sırasını (örneğin, İngilizce için 'ltr', Arapça için 'rtl') sağlar.
+ * - `dir`: Doğru okuma sırasını sağlar (örneğin, İngilizce için 'ltr', Arapça için 'rtl').
  *
  * Bu dinamik güncelleme, uygun metin işleme, erişilebilirlik ve SEO için gereklidir.
  */
@@ -1291,7 +1060,7 @@ export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   useEffect(() => {
-    // Geçerli yerel ayara dil niteliğini ayarla
+    // Geçerli yerel ayara dil niteliğini güncelle
     document.documentElement.lang = locale;
 
     // Geçerli yerel ayara göre metin yönünü ayarla
@@ -1308,7 +1077,7 @@ import { getHTMLTextDir } from "intlayer";
 /**
  * Geçerli yerel ayara göre HTML <html> etiketinin `lang` ve `dir` niteliklerini günceller.
  * - `lang`: Tarayıcılara ve arama motorlarına sayfanın dilini bildirir.
- * - `dir`: Geçerli yerel ayara göre doğru okuma sırasını (örneğin, İngilizce için 'ltr', Arapça için 'rtl') sağlar.
+ * - `dir`: Doğru okuma sırasını sağlar (örneğin, İngilizce için 'ltr', Arapça için 'rtl').
  *
  * Bu dinamik güncelleme, uygun metin işleme, erişilebilirlik ve SEO için gereklidir.
  */
@@ -1316,10 +1085,10 @@ export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   useEffect(() => {
-    // Geçerli yerel ayara dil niteliğini ayarla
+    // Dil niteliğini geçerli yerel ayara güncelle
     document.documentElement.lang = locale;
 
-    // Geçerli yerel ayara göre metin yönünü ayarla
+    // Metin yönünü geçerli yerel ayara göre ayarla
     document.documentElement.dir = getHTMLTextDir(locale);
   }, [locale]);
 };
@@ -1327,13 +1096,13 @@ export const useI18nHTMLAttributes = () => {
 
 ```jsx fileName="src/hooks/useI18nHTMLAttributes.csx" codeFormat="commonjs"
 const { useEffect } = require("react");
-const { useLocale } = require("react-intlayer";
+const { useLocale } = require("react-intlayer");
 const { getHTMLTextDir } = require("intlayer");
 
 /**
  * Geçerli yerel ayara göre HTML <html> etiketinin `lang` ve `dir` niteliklerini günceller.
  * - `lang`: Tarayıcılara ve arama motorlarına sayfanın dilini bildirir.
- * - `dir`: Geçerli yerel ayara göre doğru okuma sırasını (örneğin, İngilizce için 'ltr', Arapça için 'rtl') sağlar.
+ * - `dir`: Doğru okuma sırasını sağlar (örneğin, İngilizce için 'ltr', Arapça için 'rtl').
  *
  * Bu dinamik güncelleme, uygun metin işleme, erişilebilirlik ve SEO için gereklidir.
  */
@@ -1341,10 +1110,10 @@ const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   useEffect(() => {
-    // Geçerli yerel ayara dil niteliğini ayarla
+    // Dil niteliğini geçerli yerel ayara güncelle
     document.documentElement.lang = locale;
 
-    // Geçerli yerel ayara göre metin yönünü ayarla
+    // Metin yönünü geçerli yerel ayara göre ayarla
     document.documentElement.dir = getHTMLTextDir(locale);
   }, [locale]);
 };
@@ -1427,15 +1196,15 @@ Bu değişiklikleri uygulayarak uygulamanız şunları sağlayacak:
 - **Metin yönü** (`dir`) niteliği, farklı okuma sıralarına sahip diller için okunabilirliği ve kullanılabilirliği geliştirecek.
 - Daha **erişilebilir** bir deneyim sağlayacak, çünkü yardımcı teknolojiler bu niteliklere optimum şekilde çalışmak için güvenir.
 
-### (İsteğe Bağlı) Adım 10: Yerelleştirilmiş Bağlantı Bileşeni Oluşturun
+### (İsteğe Bağlı) Adım 10: Yerelleştirilmiş Bağlantı Bileşeni Oluşturma
 
-Uygulamanızın navigasyonu geçerli yerel ayarı saygı gösterdiğinden emin olmak için özel bir `Link` bileşeni oluşturabilirsiniz. Bu bileşen dahili URL'leri otomatik olarak geçerli dille önekler, böylece. Örneğin, bir Fransızca konuşan kullanıcı "Hakkında" sayfasına giden bir bağlantıya tıkladığında, `/about` yerine `/fr/about`'a yönlendirilir.
+Uygulamanızın navigasyonunun geçerli yerel ayara uygun olmasını sağlamak için özel bir `Link` bileşeni oluşturabilirsiniz. Bu bileşen, dahili URL'lerin önüne otomatik olarak geçerli dili ekler. Örneğin, Fransızca konuşan bir kullanıcı "Hakkında" sayfasına giden bir bağlantıya tıkladığında, `/about` yerine `/fr/about` adresine yönlendirilir.
 
 Bu davranış çeşitli nedenlerle kullanışlıdır:
 
-- **SEO ve Kullanıcı Deneyimi**: Yerelleştirilmiş URL'ler, arama motorlarının dil özel sayfalarını doğru şekilde indekslemesine yardımcı olur ve kullanıcılara tercih ettikleri dilde içerik sunar.
-- **Tutarlılık**: Uygulamanız boyunca yerelleştirilmiş bir bağlantı kullanarak, navigasyonun aynı yerel ayar bağlamında kalmasını garanti edersiniz, beklenmedik dil anahtarlarını önlersiniz.
-- **Bakım Kolaylığı**: URL mantığını tek bir bileşende merkezileştirmek, yönetimini basitleştirir, uygulamanız büyüdükçe kod tabanınızı daha kolay yönetilebilir hale getirir.
+- **SEO ve Kullanıcı Deneyimi**: Yerelleştirilmiş URL'ler, arama motorlarının dil özelindeki sayfaları doğru şekilde indekslemesine yardımcı olur ve kullanıcılara tercih ettikleri dilde içerik sunar.
+- **Tutarlılık**: Uygulamanız boyunca yerelleştirilmiş bir bağlantı kullanarak, gezinmenin mevcut yerel ayar içinde kalmasını garanti eder, beklenmedik dil değişimlerini önlersiniz.
+- **Bakım Kolaylığı**: Yerelleştirme mantığını tek bir bileşende merkezileştirmek, URL yönetimini basitleştirir ve uygulamanız büyüdükçe kod tabanınızı daha kolay yönetilebilir ve genişletilebilir hale getirir.
 
 Aşağıda TypeScript'te yerelleştirilmiş bir `Link` bileşeninin uygulanması verilmiştir:
 
@@ -1448,30 +1217,29 @@ import {
 } from "react";
 import { useLocale } from "react-intlayer";
 
-export interface LinkProps
-  extends DetailedHTMLProps<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  > {}
+export interface LinkProps extends DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+> {}
 
 /**
- * Verilen URL'nin harici olup olmadığını belirleyen yardımcı işlev.
- * URL http:// veya https:// ile başlıyorsa harici olarak kabul edilir.
+ * Verilen URL'nin harici olup olmadığını kontrol eden yardımcı işlev.
+ * URL http:// veya https:// ile başlıyorsa, harici olarak kabul edilir.
  */
 export const checkIsExternalLink = (href?: string): boolean =>
   /^https?:\/\//.test(href ?? "");
 
 /**
- * Geçerli yerel ayara göre href niteliğini uyarlayan özel bir Link bileşeni.
- * Dahili bağlantılar için `getLocalizedUrl` kullanarak URL'yi yerel ayar ile önekler (örneğin, /fr/about).
- * Bu, navigasyonun aynı yerel ayar bağlamında kalmasını sağlar.
+ * Geçerli yerel ayara göre href özniteliğini uyarlayan özel bir Link bileşeni.
+ * Dahili bağlantılar için, URL'yi yerel ayar ile öneklemek üzere `getLocalizedUrl` kullanır (örneğin, /fr/about).
+ * Bu, gezinmenin aynı yerel bağlamda kalmasını sağlar.
  */
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ href, children, ...props }, ref) => {
     const { locale } = useLocale();
     const isExternalLink = checkIsExternalLink(href);
 
-    // Dahili bağlantıysa ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi al.
+    // Bağlantı dahiliyse ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi al.
     const hrefI18n =
       href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
@@ -1561,23 +1329,23 @@ Link.displayName = "Link";
 
 #### Nasıl Çalışır
 
-- **Harici Bağlantıları Algılama**:
+- **Harici Bağlantıları Algılama**:  
   Yardımcı işlev `checkIsExternalLink`, bir URL'nin harici olup olmadığını belirler. Harici bağlantılar değişmeden bırakılır çünkü yerelleştirmeye ihtiyaçları yoktur.
 
-- **Geçerli Yerel Ayarı Alma**:
+- **Geçerli Yerel Ayarı Alma**:  
   `useLocale` kancası geçerli yerel ayarı sağlar (örneğin, `fr` Fransızca için).
 
-- **URL'yi Yerelleştirme**:
-  Dahili bağlantılar için (yani harici olmayan), `getLocalizedUrl`, URL'yi geçerli yerel ayar ile otomatik olarak önekler. Bu, `href` olarak `/about` geçildiğinde, kullanıcının Fransızca'da olduğu durumda `/fr/about`'a dönüştürülmesi anlamına gelir.
+- **URL'yi Yerelleştirme**:  
+  Dahili bağlantılar için (yani harici olmayan), `getLocalizedUrl` URL'yi geçerli yerel ayar ile otomatik olarak önekler. Bu, kullanıcınız Fransızca ise, `href` olarak `/about` geçildiğinde bunun `/fr/about`'a dönüşeceği anlamına gelir.
 
-- **Bağlantıyı Döndürme**:
+- **Bağlantıyı Döndürme**:  
   Bileşen, yerelleştirilmiş URL ile bir `<a>` etiketi döndürür, böylece navigasyon yerel ayar ile tutarlı kalır.
 
-Bu `Link` bileşenini uygulamanız boyunca entegre ederek, dil farkındalığı olan tutarlı bir kullanıcı deneyimi sağlar ve aynı zamanda iyileştirilmiş SEO ve kullanılabilirlik avantajlarından yararlanırsınız.
+Bu `Link` bileşenini uygulamanız boyunca entegre ederek, dil farkındalığı olan tutarlı bir kullanıcı deneyimi sağlarsınız ve aynı zamanda iyileştirilmiş SEO ve kullanılabilirlik avantajlarından yararlanırsınız.
 
 ### TypeScript Yapılandırın
 
-Intlayer, modül genişletmesi kullanarak TypeScript avantajlarından yararlanır.
+Intlayer, modül genişletmesi kullanarak TypeScript avantajlarından yararlanır ve kod tabanınızı daha güçlü hale getirir.
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
@@ -1597,9 +1365,9 @@ Otomatik oluşturulan türleri TypeScript yapılandırmanıza dahil edin.
 
 ### Git Yapılandırması
 
-Intlayer tarafından oluşturulan dosyaları Git deponuza kaydetmekten kaçınmak için bunları yok saymanız önerilir. Bu, bunları Git deponuza kaydetmekten kaçınmanıza olanak tanır.
+Intlayer tarafından oluşturulan dosyaların yok sayılması önerilir. Bu, bu dosyaların Git deponuza işlenmesini önlemenize olanak tanır.
 
-Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
 
 ```plaintext
 # Intlayer tarafından oluşturulan dosyaları yok say
@@ -1608,23 +1376,21 @@ Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
 
 ### VS Code Uzantısı
 
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısı**'nı kurun.
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısı**'nı kurabilirsiniz.
 
 [VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Bu uzantı şunları sağlar:
 
 - **Çeviri anahtarları için otomatik tamamlama**.
-- **Eksik çeviriler için gerçek zamanlı hata algılama**.
+- **Eksik çeviriler için gerçek zamanlı hata tespiti**.
 - **Çevrilmiş içeriğin satır içi önizlemeleri**.
-- **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
+- **Çevirileri kolayca oluşturmak ve güncellemek için hızlı işlemler**.
 
-Uzantıyı kullanma hakkında daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
+Uzantının nasıl kullanılacağına dair daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
 
 ---
 
 ### Daha Fazla İlerle
 
-Daha fazla ilerlemek için [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak dışa aktarmayı uygulayabilirsiniz.
-
----
+Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.

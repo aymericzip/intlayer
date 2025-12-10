@@ -56,7 +56,7 @@ Fai attenzione, tutte le localizzazioni incluse nell'opzione `availableLocales` 
 Nota che se usi l'hook `useLocale`, l'opzione `availableLocales` sarà utilizzata per impostare l'accesso alla lista delle localizzazioni.
 
 ```ts
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 const { availableLocales } = useLocale();
 

@@ -56,7 +56,7 @@ const config: IntlayerConfig = {
 لاحظ أنه إذا كنت تستخدم الخطاف `useLocale`، فسيتم استخدام خيار `availableLocales` لتحديد الوصول إلى قائمة اللغات.
 
 ```ts
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 const { availableLocales } = useLocale();
 

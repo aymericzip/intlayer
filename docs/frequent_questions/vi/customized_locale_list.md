@@ -56,7 +56,7 @@ Hãy cẩn thận, tất cả các locale được bao gồm trong tùy chọn `
 Lưu ý rằng nếu bạn sử dụng hook `useLocale`, tùy chọn `availableLocales` sẽ được sử dụng để thiết lập quyền truy cập vào danh sách locale.
 
 ```ts
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 const { availableLocales } = useLocale();
 

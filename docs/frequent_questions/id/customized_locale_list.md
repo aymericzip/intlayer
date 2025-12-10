@@ -56,7 +56,7 @@ Berhati-hatilah, semua locale yang termasuk dalam opsi `availableLocales` harus 
 Perlu dicatat bahwa jika Anda menggunakan hook `useLocale`, opsi `availableLocales` akan digunakan untuk mengatur akses ke daftar locale.
 
 ```ts
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 const { availableLocales } = useLocale();
 

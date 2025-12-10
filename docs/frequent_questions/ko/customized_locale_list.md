@@ -56,7 +56,7 @@ const config: IntlayerConfig = {
 `useLocale` 훅을 사용하는 경우, `availableLocales` 옵션이 로케일 목록에 대한 접근 권한을 설정하는 데 사용된다는 점에 유의하세요.
 
 ```ts
-import { useLocale } from "intlayer";
+import { useLocale } from "react-intlayer";
 
 const { availableLocales } = useLocale();
 
