@@ -3,7 +3,7 @@ export const OPTIMIZE = undefined;
 export const IMPORT_MODE = 'static';
 
 export const TRAVERSE_PATTERN = [
-  '**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}',
+  '**/*.{tsx,ts,js,mjs,cjs,jsx,mjx,cjx,vue,svelte,svte}',
   '!**/node_modules/**',
 ];
 
