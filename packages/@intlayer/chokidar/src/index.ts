@@ -58,6 +58,10 @@ export {
 } from './utils/chunkJSON';
 export { formatLocale, formatPath } from './utils/formatter';
 export { getChunk } from './utils/getChunk';
+export {
+  getComponentTransformPattern,
+  getComponentTransformPatternSync,
+} from './utils/getComponentTransformPattern';
 export { getFileHash } from './utils/getFileHash';
 export {
   type Extension,

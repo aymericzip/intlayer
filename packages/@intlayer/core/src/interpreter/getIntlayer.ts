@@ -31,14 +31,23 @@ export const getIntlayer = <
   const dictionary = dictionaries[key as T] as DictionaryRegistryElement<T>;
 
   if (!dictionary) {
-    if (configuration.build.optimize) {
+    if (
+      configuration.build.optimize === true ||
+      (configuration.build.optimize === undefined &&
+        process.env.NODE_ENV === 'production')
+    ) {
       const logger = getAppLogger(configuration);
+
       logger(
         'Build optimization is enabled, the dictionary may have been purged. You can disable build optimization, or configure the traversePattern to include the current component.',
         {
           level: 'error',
           isVerbose: true,
         }
+      );
+      throw new Error(
+        `Dictionary ${key as string} not found - Build optimization is enabled, the dictionary may have been purged. You can disable build optimization, or configure the 'traversePattern' to include the current component.`,
+        dictionaries
       );
     }
     throw new Error(`Dictionary ${key as string} not found`, dictionaries);

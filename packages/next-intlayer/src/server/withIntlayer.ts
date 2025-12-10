@@ -1,5 +1,9 @@
-import { isAbsolute, join, relative, resolve } from 'node:path';
-import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
+import { join, relative, resolve } from 'node:path';
+import {
+  getComponentTransformPatternSync,
+  prepareIntlayer,
+  runOnce,
+} from '@intlayer/chokidar';
 import {
   ANSIColors,
   colorize,
@@ -15,7 +19,6 @@ import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import { defu } from 'defu';
-import fg from 'fast-glob';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import nextPackageJSON from 'next/package.json' with { type: 'json' };
@@ -68,7 +71,7 @@ const getPruneConfig = (
   isBuildCommand: boolean,
   isTurbopackEnabled: boolean
 ): Partial<NextConfig> => {
-  const { optimize, traversePattern, importMode } = intlayerConfig.build;
+  const { optimize, importMode } = intlayerConfig.build;
   const {
     dictionariesDir,
     unmergedDictionariesDir,
@@ -128,17 +131,7 @@ const getPruneConfig = (
 
   const fetchDictionariesEntryPath = join(mainDir, 'fetch_dictionaries.mjs');
 
-  const filesListPattern = fg
-    .sync(traversePattern, {
-      cwd: baseDir,
-    })
-    .map((file) => {
-      if (isAbsolute(file)) {
-        return file;
-      }
-
-      return join(baseDir, file);
-    });
+  const filesListPattern = getComponentTransformPatternSync(intlayerConfig);
 
   const filesList = [
     ...filesListPattern,
