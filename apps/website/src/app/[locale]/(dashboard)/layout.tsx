@@ -2,10 +2,9 @@ import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/Au
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
 import {
-  DashboardSidebar,
+  DashboardSidebarClient,
   type SidebarNavigationItem,
 } from '@components/Dashboard/DashboardSidebar';
-import type { SessionAPI } from '@intlayer/backend';
 import { PageLayout } from '@layouts/PageLayout';
 import {
   type DehydratedState,
@@ -29,38 +28,19 @@ export const fetchCache = 'force-no-store';
 
 export { generateMetadata } from './metadata';
 
-const shouldHaveOrganizationRoutes = [
-  PagesRoutes.Dashboard_Projects,
-  PagesRoutes.Dashboard_Tags,
-] as string[];
-
-const shouldHaveProjectRoutes = [
-  PagesRoutes.Dashboard_Editor,
-  PagesRoutes.Dashboard_Content,
-  PagesRoutes.Dashboard_Tags,
-] as string[];
-
-const shouldHaveAdminRoutes = [PagesRoutes.Admin_Users] as string[];
-
 type DashboardLayoutContentProps = {
   children: React.ReactNode;
   locale: LocalesValues;
-  session: SessionAPI | null;
   dehydratedState: DehydratedState;
 };
 
 const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
   children,
   locale,
-  session,
   dehydratedState,
 }) => {
   const { collapseButton, navigation } = useIntlayer('dashboard-sidebar');
   const { footerLinks } = useIntlayer('dashboard-navbar-content');
-
-  const { organization, project, roles } = session ?? {};
-  const isSuperAdmin =
-    roles?.some((role: string) => role.toLowerCase() === 'admin') ?? false;
 
   const navigationItems: SidebarNavigationItem[] = [
     {
@@ -114,14 +94,6 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
     },
   ];
 
-  // Filter navigation items based on session context
-  const filteredNavItems = navigationItems
-    .filter(
-      (el) => !shouldHaveOrganizationRoutes.includes(el.href) || !!organization
-    )
-    .filter((el) => !shouldHaveProjectRoutes.includes(el.href) || !!project)
-    .filter((el) => !shouldHaveAdminRoutes.includes(el.href) || isSuperAdmin);
-
   const formattedFooterLinks = footerLinks.map(
     (el: {
       href: { value: string };
@@ -148,8 +120,8 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
       <DashboardHydrationBoundary dehydratedState={dehydratedState}>
         <WarmupClient />
         <div className="flex min-h-0 w-full flex-1">
-          <DashboardSidebar
-            items={filteredNavItems}
+          <DashboardSidebarClient
+            items={navigationItems}
             collapseButtonLabel={collapseButton.label.value}
           />
           <div className="mr-3 flex min-h-0 flex-1 flex-col overflow-auto rounded-2xl bg-background p-3">
@@ -220,11 +192,7 @@ const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
       session={sessionToPass}
       locale={locale}
     >
-      <DashboardLayoutContent
-        locale={locale}
-        session={session}
-        dehydratedState={dehydratedState}
-      >
+      <DashboardLayoutContent locale={locale} dehydratedState={dehydratedState}>
         {children}
       </DashboardLayoutContent>
     </AuthenticationBarrier>
