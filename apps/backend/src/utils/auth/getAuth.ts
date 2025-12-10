@@ -142,7 +142,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       // useSecureCookies: false,
     },
 
-    secret: process.env.AUTH_SECRET as string,
+    secret: process.env.BETTER_AUTH_SECRET as string,
     session: {
       modelName: 'sessions',
       id: 'id',
