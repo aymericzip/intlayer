@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2025-12-11
 title: Tanstack Startアプリを翻訳する方法 – i18nガイド 2025
 description: Intlayerを使ってTanstack Startアプリケーションに国際化（i18n）を追加する方法を学びます。ロケール対応ルーティングで多言語対応アプリを作成するための包括的なガイドです。
 keywords:

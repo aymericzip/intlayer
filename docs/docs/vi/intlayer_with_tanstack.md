@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2025-12-11
 title: Cách dịch ứng dụng Tanstack Start của bạn – hướng dẫn i18n 2025
 description: Tìm hiểu cách thêm quốc tế hóa (i18n) vào ứng dụng Tanstack Start của bạn bằng cách sử dụng Intlayer. Theo dõi hướng dẫn toàn diện này để làm cho ứng dụng của bạn đa ngôn ngữ với định tuyến nhận biết locale.
 keywords:
