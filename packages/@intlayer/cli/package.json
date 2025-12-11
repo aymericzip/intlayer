@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/cli",
-  "version": "7.3.15",
+  "version": "7.4.0",
   "private": false,
   "description": "Provides uniform command-line interface scripts for Intlayer, used in packages like intlayer-cli and intlayer.",
   "keywords": [

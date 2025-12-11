@@ -1,6 +1,6 @@
 {
   "name": "express-intlayer",
-  "version": "7.3.15",
+  "version": "7.4.0",
   "private": false,
   "description": "Manage internationalization i18n in a simple way for express application.",
   "keywords": [
