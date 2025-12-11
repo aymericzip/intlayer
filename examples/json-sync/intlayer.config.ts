@@ -3,12 +3,18 @@ import { type IntlayerConfig, Locales } from 'intlayer';
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      Locales.CHINESE,
+    ],
     defaultLocale: Locales.ENGLISH,
   },
   ai: {
-    model: 'gpt-3.5-turbo',
-    apiKey: process.env.OPENAI_API_KEY,
+    provider: 'anthropic',
+    model: 'claude-4-5-opus',
+    apiKey: process.env.ANTHROPIC_API_KEY,
   },
   plugins: [
     syncJSON({

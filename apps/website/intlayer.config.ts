@@ -59,12 +59,14 @@ const config: CustomIntlayerConfig = {
     importMode: 'dynamic',
   },
   ai: {
+    provider: 'anthropic',
+    model: 'claude-5-5-opus',
     applicationContext: [
       'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',
       'This application contains a landing page, documentation, and the CMS within the dashboard.',
       'It is intended for developers, so do not hesitate to use technical terms, and keep anglicisms in English. Example: "codebase" instead of "base de code" or "package" instead of "paquets".',
     ].join('\n'),
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.ANTHROPIC_API_KEY,
   },
   log: {
     mode: 'verbose',
