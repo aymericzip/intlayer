@@ -59,18 +59,20 @@ export type GetPrefixResult = {
  * @returns An object containing pathPrefix, prefix, and localePrefix for the given locale.
  */
 export const getPrefix = (
-  locale: LocalesValues,
+  locale: LocalesValues | undefined,
   options: {
     defaultLocale?: LocalesValues;
+    locales?: LocalesValues[];
     mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
   } = {}
 ): GetPrefixResult => {
   const {
     defaultLocale = configuration?.internationalization?.defaultLocale,
     mode = configuration?.routing?.mode,
+    locales = configuration?.internationalization?.locales,
   } = options;
 
-  if (!locale) {
+  if (!locale || !locales.includes(locale)) {
     return {
       prefix: '',
       localePrefix: undefined,
