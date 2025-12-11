@@ -1,11 +1,8 @@
-import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
+import { LocalizedLink } from './localized-link';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [groupedExpanded, setGroupedExpanded] = useState<
-    Record<string, boolean>
-  >({});
 
   return (
     <>
@@ -14,15 +11,16 @@ export default function Header() {
           onClick={() => setIsOpen(true)}
           className="rounded-lg p-2 transition-colors hover:bg-gray-700"
           aria-label="Open menu"
+          type="button"
         ></button>
         <h1 className="ml-4 font-semibold text-xl">
-          <Link to="/">
+          <LocalizedLink to="/">
             <img
               src="/tanstack-word-logo-white.svg"
               alt="TanStack Logo"
               className="h-10"
             />
-          </Link>
+          </LocalizedLink>
         </h1>
       </header>
 
@@ -37,11 +35,14 @@ export default function Header() {
             onClick={() => setIsOpen(false)}
             className="rounded-lg p-2 transition-colors hover:bg-gray-800"
             aria-label="Close menu"
-          ></button>
+            type="button"
+          >
+            <span className="sr-only">Close menu</span>
+          </button>
         </div>
 
         <nav className="flex-1 overflow-y-auto p-4">
-          <Link
+          <LocalizedLink
             to="/"
             onClick={() => setIsOpen(false)}
             className="mb-2 flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
@@ -51,12 +52,10 @@ export default function Header() {
             }}
           >
             <span className="font-medium">Home</span>
-          </Link>
+          </LocalizedLink>
 
-          {/* Demo Links Start */}
-
-          <Link
-            to="/demo/start/server-funcs"
+          <LocalizedLink
+            to="/about"
             onClick={() => setIsOpen(false)}
             className="mb-2 flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
             activeProps={{
@@ -64,84 +63,8 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <span className="font-medium">Start - Server Functions</span>
-          </Link>
-
-          <Link
-            to="/demo/start/api-request"
-            onClick={() => setIsOpen(false)}
-            className="mb-2 flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
-          >
-            <span className="font-medium">Start - API Request</span>
-          </Link>
-
-          <div className="flex flex-row justify-between">
-            <Link
-              to="/demo/start/ssr"
-              onClick={() => setIsOpen(false)}
-              className="mb-2 flex flex-1 items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
-              activeProps={{
-                className:
-                  'flex-1 flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-              }}
-            >
-              <span className="font-medium">Start - SSR Demos</span>
-            </Link>
-            <button
-              className="rounded-lg p-2 transition-colors hover:bg-gray-800"
-              onClick={() =>
-                setGroupedExpanded((prev) => ({
-                  ...prev,
-                  StartSSRDemo: !prev.StartSSRDemo,
-                }))
-              }
-            ></button>
-          </div>
-          {groupedExpanded.StartSSRDemo && (
-            <div className="ml-4 flex flex-col">
-              <Link
-                to="/demo/start/ssr/spa-mode"
-                onClick={() => setIsOpen(false)}
-                className="mb-2 flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
-                activeProps={{
-                  className:
-                    'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-                }}
-              >
-                <span className="font-medium">SPA Mode</span>
-              </Link>
-
-              <Link
-                to="/demo/start/ssr/full-ssr"
-                onClick={() => setIsOpen(false)}
-                className="mb-2 flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
-                activeProps={{
-                  className:
-                    'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-                }}
-              >
-                <span className="font-medium">Full SSR</span>
-              </Link>
-
-              <Link
-                to="/demo/start/ssr/data-only"
-                onClick={() => setIsOpen(false)}
-                className="mb-2 flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
-                activeProps={{
-                  className:
-                    'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-                }}
-              >
-                <span className="font-medium">Data Only</span>
-              </Link>
-            </div>
-          )}
-
-          {/* Demo Links End */}
+            <span className="font-medium">About</span>
+          </LocalizedLink>
         </nav>
       </aside>
     </>

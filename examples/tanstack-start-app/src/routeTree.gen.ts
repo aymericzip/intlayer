@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root';
+import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404';
+import { Route as Char123LocaleChar125AboutRouteImport } from './routes/{-$locale}/about';
 import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index';
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route';
 
@@ -24,25 +26,51 @@ const Char123LocaleChar125IndexRoute =
     path: '/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any);
+const Char123LocaleChar125AboutRoute =
+  Char123LocaleChar125AboutRouteImport.update({
+    id: '/about',
+    path: '/about',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any);
+const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
+  id: '/404',
+  path: '/404',
+  getParentRoute: () => Char123LocaleChar125RouteRoute,
+} as any);
 
 export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
+  '/{-$locale}/about': typeof Char123LocaleChar125AboutRoute;
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute;
 }
 export interface FileRoutesByTo {
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
+  '/{-$locale}/about': typeof Char123LocaleChar125AboutRoute;
   '/{-$locale}': typeof Char123LocaleChar125IndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
+  '/{-$locale}/about': typeof Char123LocaleChar125AboutRoute;
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/{-$locale}' | '/{-$locale}/';
+  fullPaths:
+    | '/{-$locale}'
+    | '/{-$locale}/404'
+    | '/{-$locale}/about'
+    | '/{-$locale}/';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/{-$locale}';
-  id: '__root__' | '/{-$locale}' | '/{-$locale}/';
+  to: '/{-$locale}/404' | '/{-$locale}/about' | '/{-$locale}';
+  id:
+    | '__root__'
+    | '/{-$locale}'
+    | '/{-$locale}/404'
+    | '/{-$locale}/about'
+    | '/{-$locale}/';
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -65,15 +93,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport;
       parentRoute: typeof Char123LocaleChar125RouteRoute;
     };
+    '/{-$locale}/about': {
+      id: '/{-$locale}/about';
+      path: '/about';
+      fullPath: '/{-$locale}/about';
+      preLoaderRoute: typeof Char123LocaleChar125AboutRouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
+    '/{-$locale}/404': {
+      id: '/{-$locale}/404';
+      path: '/404';
+      fullPath: '/{-$locale}/404';
+      preLoaderRoute: typeof Char123LocaleChar125404RouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
   }
 }
 
 interface Char123LocaleChar125RouteRouteChildren {
+  Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route;
+  Char123LocaleChar125AboutRoute: typeof Char123LocaleChar125AboutRoute;
   Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute;
 }
 
 const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
   {
+    Char123LocaleChar125404Route: Char123LocaleChar125404Route,
+    Char123LocaleChar125AboutRoute: Char123LocaleChar125AboutRoute,
     Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
   };
 
