@@ -1,13 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import {
-  createFileRoute,
-  HeadContent,
-  Outlet,
-  redirect,
-  Scripts,
-} from '@tanstack/react-router';
-import { configuration, getPrefix } from 'intlayer';
-import { IntlayerProvider } from 'react-intlayer';
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import { validatePrefix } from 'intlayer';
+import { IntlayerProvider, useLocale } from 'react-intlayer';
 
 import Header from '@/components/Header';
 import { LocaleSwitcher } from '@/components/locale-switcher';
@@ -16,59 +10,54 @@ import { NotFoundComponent } from './404';
 
 const queryClient = new QueryClient();
 
-const { locales, defaultLocale } = configuration.internationalization;
-const { mode } = configuration.routing;
-
 export const Route = createFileRoute('/{-$locale}')({
-  beforeLoad: async ({ params }) => {
+  beforeLoad: ({ params }) => {
     // Get locale from route params (not from server headers, as beforeLoad runs on both client and server)
     const localeParam = params.locale;
 
     // If no locale provided (optional param), it's valid (will use default)
     // In prefix-all mode, the locale is required to be a valid locale
-    const { localePrefix } = getPrefix(localeParam, {
-      mode,
-      locales,
-      defaultLocale,
-    });
-    if (localePrefix === localeParam && localeParam === undefined) return;
+    const { isValid, localePrefix } = validatePrefix(localeParam);
 
-    // Check if the provided locale is valid
-    const isValidLocale = locales.some((localeEl) => localeEl === localeParam);
-
-    if (!isValidLocale) {
-      throw redirect({
-        to: '/{-$locale}/404',
-        params: { locale: undefined }, // Locale param is undefined in routing.mode = 'prefix-no-default', but can be changed by defaultLocale in routing.mode = 'prefix-all'
-      });
+    if (isValid) {
+      // If locale is valid, continue
+      return;
     }
+
+    throw redirect({
+      to: '/{-$locale}/404',
+      params: { locale: localePrefix },
+    });
   },
   component: RouteComponent,
-  notFoundComponent: NotFoundComponent,
+  notFoundComponent: NotFoundLayout,
 });
 
 function RouteComponent() {
+  const { defaultLocale } = useLocale();
   const { locale } = Route.useParams();
 
   useI18nHTMLAttributes();
 
   return (
-    <html lang={locale ?? defaultLocale}>
-      <head>
-        <HeadContent />
-      </head>
-      <body>
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <QueryClientProvider client={queryClient}>
         <Header />
+        <Outlet />
+        <LocaleSwitcher />
+      </QueryClientProvider>
+    </IntlayerProvider>
+  );
+}
 
-        <IntlayerProvider locale={locale ?? defaultLocale}>
-          <QueryClientProvider client={queryClient}>
-            <Outlet />
-            <LocaleSwitcher />
-          </QueryClientProvider>
-        </IntlayerProvider>
+function NotFoundLayout() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
 
-        <Scripts />
-      </body>
-    </html>
+  return (
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <NotFoundComponent />
+      <LocaleSwitcher />
+    </IntlayerProvider>
   );
 }

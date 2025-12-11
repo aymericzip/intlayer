@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.4.0
+    date: 2025-12-11
+    changes: Wprowadzenie validatePrefix oraz dodanie kroku 14: Obsługa stron 404 z lokalizowanymi trasami.
   - version: 7.3.9
     date: 2025-12-05
-    changes: Add step 13: Retrieve the locale in your server actions (Optional)
+    changes: Dodany krok 13: Pobieranie lokalizacji w akcjach serwerowych (Opcjonalnie)
   - version: 6.5.2
     date: 2025-10-03
     changes: Aktualizacja dokumentacji
@@ -590,7 +593,134 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Krok 14: Konfiguracja TypeScript (opcjonalnie)
+### Krok 14: Zarządzanie stronami nie znalezionymi (opcjonalnie)
+
+Gdy użytkownik odwiedza nieistniejącą stronę, możesz wyświetlić niestandardową stronę "nie znaleziono", a prefiks locale może wpływać na sposób wyzwalania strony "nie znaleziono".
+
+#### Zrozumienie obsługi 404 w TanStack Router z prefiksami locale
+
+W TanStack Router obsługa stron 404 z zlokalizowanymi trasami wymaga podejścia wielowarstwowego:
+
+1. **Dedykowana trasa 404**: Konkretna trasa do wyświetlenia interfejsu 404
+2. **Walidacja na poziomie trasy**: Weryfikuje prefiksy locale i przekierowuje nieprawidłowe do 404
+3. **Trasa catch-all**: Przechwytuje wszystkie niedopasowane ścieżki w segmencie locale
+
+```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+// To tworzy dedykowaną trasę /[locale]/404
+// Jest używana zarówno jako bezpośrednia trasa, jak i importowana jako komponent w innych plikach
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// Eksportowane osobno, aby można było ponownie użyć w notFoundComponent i trasach catch-all
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
+
+```tsx fileName="src/routes/__root.tsx"
+import { createRootRoute } from "@tanstack/react-router";
+
+// Trasa główna służy jako układ najwyższego poziomu
+// Nie obsługuje 404 bezpośrednio - to jest delegowane do tras potomnych
+// To utrzymuje główną trasę prostą i pozwala trasom świadomym locale zarządzać własną logiką 404
+export const Route = createRootRoute({
+  component: Outlet,
+});
+```
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { IntlayerProvider, useLocale } from "react-intlayer";
+
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { NotFoundComponent } from "./404";
+
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad uruchamia się przed renderowaniem trasy (zarówno na serwerze, jak i kliencie)
+  // To idealne miejsce do walidacji prefiksu locale
+  beforeLoad: ({ params }) => {
+    // Pobierz locale z parametrów trasy (nie z nagłówków serwera, ponieważ beforeLoad działa zarówno na kliencie, jak i serwerze)
+    const localeParam = params.locale;
+
+    // validatePrefix sprawdza, czy locale jest prawidłowe zgodnie z konfiguracją intlayer
+    // Zwraca: { isValid: boolean, localePrefix: string }
+    // - isValid: true, jeśli prefiks pasuje do skonfigurowanego locale (lub jest pusty, gdy prefiks jest opcjonalny)
+    // - localePrefix: zwalidowany prefiks lub domyślny prefiks locale do przekierowań
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (isValid) {
+      // Locale jest prawidłowe, pozwól trasie renderować się normalnie
+      return;
+    }
+
+    // Nieprawidłowy prefiks locale (np. /xyz/about, gdzie "xyz" nie jest prawidłowym locale)
+    // Przekieruj do strony 404 z prawidłowym prefiksem locale
+    // To zapewnia, że strona 404 jest nadal prawidłowo zlokalizowana
+    throw redirect({
+      to: "/{-$locale}/404",
+      params: { locale: localePrefix },
+    });
+  },
+  component: RouteComponent,
+  // notFoundComponent jest wywoływane, gdy trasa potomna nie istnieje
+  // np. /en/nieistniejaca-strona wyzwala to w układzie /en
+  notFoundComponent: NotFoundLayout,
+});
+
+function RouteComponent() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    // Owiń cały segment locale w IntlayerProvider
+    // Powraca do defaultLocale, gdy parametr locale jest undefined (tryb opcjonalnego prefiksu)
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
+}
+
+// NotFoundLayout owija komponent 404 w IntlayerProvider
+// To zapewnia, że tłumaczenia nadal działają na stronie 404
+function NotFoundLayout() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <NotFoundComponent />
+      {/* Dołącz LocaleSwitcher, aby użytkownicy mogli zmieniać język nawet na 404 */}
+      <LocaleSwitcher />
+    </IntlayerProvider>
+  );
+}
+```
+
+```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+import { NotFoundComponent } from "./404";
+
+// Trasa $ (splat/catch-all) pasuje do każdej ścieżki, która nie pasuje do innych tras
+// np. /en/jakas/gleboko/zagniezdzona/niewazna/sciezka
+// To zapewnia, że WSZYSTKIE niedopasowane ścieżki w locale wyświetlają stronę 404
+// Bez tego niedopasowane głębokie ścieżki mogą wyświetlać pustą stronę lub błąd
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
+```
+
+---
+
+### Krok 15: Konfiguracja TypeScript (opcjonalnie)
 
 Intlayer używa rozszerzenia modułów (module augmentation), aby wykorzystać zalety TypeScript i wzmocnić Twoją bazę kodu.
 

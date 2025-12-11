@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.4.0
+    date: 2025-12-11
+    changes: Memperkenalkan validatePrefix dan menambah langkah 14: Menangani halaman 404 dengan rute terlokalisasi.
   - version: 7.3.9
     date: 2025-12-05
-    changes: Add step 13: Retrieve the locale in your server actions (Optional)
+    changes: Menambah langkah 13: Mengambil locale di server actions Anda (Opsional)
   - version: 6.5.2
     date: 2025-10-03
     changes: Memperbarui dokumen
@@ -592,7 +595,134 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Langkah 14: Konfigurasi TypeScript (Opsional)
+### Langkah 14: Mengelola halaman tidak ditemukan (Opsional)
+
+Ketika pengguna mengunjungi halaman yang tidak ada, Anda dapat menampilkan halaman tidak ditemukan yang disesuaikan dan awalan locale dapat mempengaruhi cara halaman tidak ditemukan dipicu.
+
+#### Memahami Penanganan 404 TanStack Router dengan Awalan Locale
+
+Di TanStack Router, menangani halaman 404 dengan rute yang dilokalisasi memerlukan pendekatan berlapis:
+
+1. **Rute 404 khusus**: Rute spesifik untuk menampilkan UI 404
+2. **Validasi tingkat rute**: Memvalidasi awalan locale dan mengarahkan ulang yang tidak valid ke 404
+3. **Rute catch-all**: Menangkap semua jalur yang tidak cocok dalam segmen locale
+
+```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+// Ini membuat rute khusus /[locale]/404
+// Digunakan baik sebagai rute langsung maupun diimpor sebagai komponen di file lain
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// Diekspor secara terpisah agar dapat digunakan kembali di notFoundComponent dan rute catch-all
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
+
+```tsx fileName="src/routes/__root.tsx"
+import { createRootRoute } from "@tanstack/react-router";
+
+// Rute root berfungsi sebagai tata letak tingkat atas
+// Tidak menangani 404 secara langsung - itu didelegasikan ke rute anak
+// Ini menjaga root tetap sederhana dan memungkinkan rute yang sadar locale mengelola logika 404 mereka sendiri
+export const Route = createRootRoute({
+  component: Outlet,
+});
+```
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { IntlayerProvider, useLocale } from "react-intlayer";
+
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { NotFoundComponent } from "./404";
+
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad berjalan sebelum rute dirender (baik di server maupun klien)
+  // Ini adalah tempat ideal untuk memvalidasi awalan locale
+  beforeLoad: ({ params }) => {
+    // Dapatkan locale dari parameter rute (bukan dari header server, karena beforeLoad berjalan di klien dan server)
+    const localeParam = params.locale;
+
+    // validatePrefix memeriksa apakah locale valid menurut konfigurasi intlayer Anda
+    // Mengembalikan: { isValid: boolean, localePrefix: string }
+    // - isValid: true jika awalan cocok dengan locale yang dikonfigurasi (atau kosong ketika awalan opsional)
+    // - localePrefix: awalan yang divalidasi atau awalan locale default untuk pengalihan
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (isValid) {
+      // Locale valid, izinkan rute untuk dirender secara normal
+      return;
+    }
+
+    // Awalan locale tidak valid (misalnya, /xyz/about di mana "xyz" bukan locale yang valid)
+    // Alihkan ke halaman 404 dengan awalan locale yang valid
+    // Ini memastikan halaman 404 masih dilokalkan dengan benar
+    throw redirect({
+      to: "/{-$locale}/404",
+      params: { locale: localePrefix },
+    });
+  },
+  component: RouteComponent,
+  // notFoundComponent dipanggil ketika rute anak tidak ada
+  // misalnya, /en/halaman-tidak-ada memicu ini dalam tata letak /en
+  notFoundComponent: NotFoundLayout,
+});
+
+function RouteComponent() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    // Bungkus seluruh segmen locale dengan IntlayerProvider
+    // Kembali ke defaultLocale ketika parameter locale adalah undefined (mode awalan opsional)
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
+}
+
+// NotFoundLayout membungkus komponen 404 dengan IntlayerProvider
+// Ini memastikan terjemahan masih berfungsi di halaman 404
+function NotFoundLayout() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <NotFoundComponent />
+      {/* Sertakan LocaleSwitcher agar pengguna dapat mengubah bahasa bahkan di 404 */}
+      <LocaleSwitcher />
+    </IntlayerProvider>
+  );
+}
+```
+
+```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+import { NotFoundComponent } from "./404";
+
+// Rute $ (splat/catch-all) cocok dengan jalur apa pun yang tidak cocok dengan rute lain
+// misalnya, /en/beberapa/jalur/bersarang/mendalam/tidak-valid
+// Ini memastikan SEMUA jalur yang tidak cocok dalam locale menampilkan halaman 404
+// Tanpa ini, jalur dalam yang tidak cocok mungkin menampilkan halaman kosong atau kesalahan
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
+```
+
+---
+
+### Langkah 15: Konfigurasi TypeScript (Opsional)
 
 Intlayer menggunakan module augmentation untuk mendapatkan manfaat dari TypeScript dan membuat codebase Anda lebih kuat.
 

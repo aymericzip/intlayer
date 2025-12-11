@@ -19,7 +19,6 @@ export const Route = createFileRoute('/{-$locale}/')({
 import { createServerFn } from '@tanstack/react-start';
 import { getIntlayer } from 'intlayer';
 
-// GET request (default)
 export const getData = createServerFn().handler(async () => {
   const locale = await getLocale();
 

@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.4.0
+    date: 2025-12-11
+    changes: Introdotto validatePrefix e aggiunto il passaggio 14: Gestione delle pagine 404 con rotte localizzate.
   - version: 7.3.9
     date: 2025-12-05
-    changes: Add step 13: Retrieve the locale in your server actions (Optional)
+    changes: Aggiunto passaggio 13: Recupera la lingua locale nelle server actions (Opzionale)
   - version: 6.5.2
     date: 2025-10-03
     changes: Aggiornamento documentazione
@@ -622,7 +625,134 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Passo 14: Configurare TypeScript (Opzionale)
+### Passo 14: Gestire le pagine non trovate (Opzionale)
+
+Quando un utente visita una pagina inesistente, puoi visualizzare una pagina personalizzata di non trovata e il prefisso locale può influenzare il modo in cui viene attivata la pagina di non trovata.
+
+#### Comprendere la gestione 404 di TanStack Router con prefissi locale
+
+In TanStack Router, gestire le pagine 404 con route localizzate richiede un approccio multistrato:
+
+1. **Route 404 dedicata**: Una route specifica per visualizzare l'interfaccia utente 404
+2. **Validazione a livello di route**: Valida i prefissi locale e reindirizza quelli non validi a 404
+3. **Route catch-all**: Cattura tutti i percorsi non corrispondenti all'interno del segmento locale
+
+```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+// Questo crea una route dedicata /[locale]/404
+// Viene utilizzata sia come route diretta che importata come componente in altri file
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// Esportato separatamente in modo che possa essere riutilizzato in notFoundComponent e route catch-all
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
+
+```tsx fileName="src/routes/__root.tsx"
+import { createRootRoute } from "@tanstack/react-router";
+
+// La route radice funge da layout di livello superiore
+// Non gestisce i 404 direttamente - questo è delegato alle route figlie
+// Questo mantiene la radice semplice e consente alle route consapevoli della locale di gestire la propria logica 404
+export const Route = createRootRoute({
+  component: Outlet,
+});
+```
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { IntlayerProvider, useLocale } from "react-intlayer";
+
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { NotFoundComponent } from "./404";
+
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad viene eseguito prima che la route venga renderizzata (sia sul server che sul client)
+  // È il posto ideale per validare il prefisso della locale
+  beforeLoad: ({ params }) => {
+    // Ottieni la locale dai parametri della route (non dagli header del server, poiché beforeLoad viene eseguito sia sul client che sul server)
+    const localeParam = params.locale;
+
+    // validatePrefix verifica se la locale è valida secondo la tua configurazione intlayer
+    // Restituisce: { isValid: boolean, localePrefix: string }
+    // - isValid: true se il prefisso corrisponde a una locale configurata (o è vuoto quando il prefisso è opzionale)
+    // - localePrefix: il prefisso validato o il prefisso della locale predefinito per i reindirizzamenti
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (isValid) {
+      // La locale è valida, consenti alla route di renderizzarsi normalmente
+      return;
+    }
+
+    // Prefisso della locale non valido (ad esempio, /xyz/about dove "xyz" non è una locale valida)
+    // Reindirizza alla pagina 404 con un prefisso della locale valido
+    // Questo assicura che la pagina 404 sia ancora correttamente localizzata
+    throw redirect({
+      to: "/{-$locale}/404",
+      params: { locale: localePrefix },
+    });
+  },
+  component: RouteComponent,
+  // notFoundComponent viene chiamato quando una route figlia non esiste
+  // ad esempio, /en/pagina-inesistente attiva questo all'interno del layout /en
+  notFoundComponent: NotFoundLayout,
+});
+
+function RouteComponent() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    // Avvolgi l'intero segmento della locale con IntlayerProvider
+    // Torna a defaultLocale quando il parametro locale è undefined (modalità prefisso opzionale)
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
+}
+
+// NotFoundLayout avvolge il componente 404 con IntlayerProvider
+// Questo assicura che le traduzioni funzionino ancora sulla pagina 404
+function NotFoundLayout() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <NotFoundComponent />
+      {/* Includi LocaleSwitcher in modo che gli utenti possano cambiare lingua anche su 404 */}
+      <LocaleSwitcher />
+    </IntlayerProvider>
+  );
+}
+```
+
+```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+import { NotFoundComponent } from "./404";
+
+// La route $ (splat/catch-all) corrisponde a qualsiasi percorso che non corrisponde ad altre route
+// ad esempio, /en/qualche/percorso/profondamente/annidato/non-valido
+// Questo assicura che TUTTI i percorsi non corrispondenti all'interno di una locale mostrino la pagina 404
+// Senza questo, i percorsi profondi non corrispondenti potrebbero mostrare una pagina vuota o un errore
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
+```
+
+---
+
+### Passo 15: Configurare TypeScript (Opzionale)
 
 Intlayer utilizza l'augmentation dei moduli per sfruttare i vantaggi di TypeScript e rendere il tuo codice più robusto.
 

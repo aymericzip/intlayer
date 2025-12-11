@@ -11,3 +11,4 @@ export { getPrefix } from './getPrefix';
 export { localeDetector } from './localeDetector';
 export { localeFlatMap, localeMap, localeRecord } from './localeMapper';
 export { localeResolver } from './localeResolver';
+export { validatePrefix } from './validatePrefix';

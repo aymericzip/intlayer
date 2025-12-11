@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.4.0
+    date: 2025-12-11
+    changes: validatePrefix'i tanıt ve 14. adımı ekle: Yerelleştirilmiş rotalarla 404 sayfalarını ele alma.
   - version: 7.3.9
     date: 2025-12-05
-    changes: Add step 13: Retrieve the locale in your server actions (Optional)
+    changes: 13. adımı ekle: Sunucu işlemlerinde locale bilgisini almak (Opsiyonel)
   - version: 6.5.2
     date: 2025-10-03
     changes: Doküman güncellemesi
@@ -604,7 +607,134 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Adım 14: TypeScript Yapılandırması (İsteğe Bağlı)
+### Adım 14: Bulunamayan sayfaları yönetme (İsteğe Bağlı)
+
+Bir kullanıcı var olmayan bir sayfayı ziyaret ettiğinde, özel bir bulunamadı sayfası gösterebilirsiniz ve yerel ayar öneki, bulunamadı sayfasının tetiklenme şeklini etkileyebilir.
+
+#### TanStack Router'ın Yerel Ayar Önekleriyle 404 İşlemesini Anlama
+
+TanStack Router'da yerelleştirilmiş rotalarla 404 sayfalarını işlemek, çok katmanlı bir yaklaşım gerektirir:
+
+1. **Özel 404 rotası**: 404 kullanıcı arayüzünü göstermek için özel bir rota
+2. **Rota düzeyinde doğrulama**: Yerel ayar öneklerini doğrular ve geçersiz olanları 404'e yönlendirir
+3. **Catch-all rotası**: Yerel ayar segmenti içindeki eşleşmeyen tüm yolları yakalar
+
+```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+// Bu, özel bir /[locale]/404 rotası oluşturur
+// Hem doğrudan bir rota olarak kullanılır hem de diğer dosyalarda bir bileşen olarak içe aktarılır
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// notFoundComponent ve catch-all rotalarında yeniden kullanılabilmesi için ayrı olarak dışa aktarılır
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
+
+```tsx fileName="src/routes/__root.tsx"
+import { createRootRoute } from "@tanstack/react-router";
+
+// Kök rota, en üst düzey düzen olarak hizmet eder
+// 404'leri doğrudan işlemez - bu, alt rotalara devredilir
+// Bu, kökü basit tutar ve yerel ayar farkında rotaların kendi 404 mantığını yönetmesine izin verir
+export const Route = createRootRoute({
+  component: Outlet,
+});
+```
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { IntlayerProvider, useLocale } from "react-intlayer";
+
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { NotFoundComponent } from "./404";
+
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad, rota render edilmeden önce çalışır (hem sunucuda hem de istemcide)
+  // Yerel ayar önekini doğrulamak için ideal yerdir
+  beforeLoad: ({ params }) => {
+    // Yerel ayarı rota parametrelerinden al (sunucu başlıklarından değil, çünkü beforeLoad hem istemcide hem de sunucuda çalışır)
+    const localeParam = params.locale;
+
+    // validatePrefix, yerel ayarın intlayer yapılandırmanıza göre geçerli olup olmadığını kontrol eder
+    // Döndürür: { isValid: boolean, localePrefix: string }
+    // - isValid: önek yapılandırılmış bir yerel ayarla eşleşiyorsa (veya önek isteğe bağlı olduğunda boşsa) true
+    // - localePrefix: doğrulanmış önek veya yönlendirmeler için varsayılan yerel ayar öneki
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (isValid) {
+      // Yerel ayar geçerli, rotanın normal şekilde render edilmesine izin ver
+      return;
+    }
+
+    // Geçersiz yerel ayar öneki (örn. "xyz" geçerli bir yerel ayar olmadığında /xyz/about)
+    // Geçerli bir yerel ayar öneki ile 404 sayfasına yönlendir
+    // Bu, 404 sayfasının hala düzgün şekilde yerelleştirildiğini garanti eder
+    throw redirect({
+      to: "/{-$locale}/404",
+      params: { locale: localePrefix },
+    });
+  },
+  component: RouteComponent,
+  // notFoundComponent, bir alt rota mevcut olmadığında çağrılır
+  // örn. /en/var-olmayan-sayfa bunu /en düzeni içinde tetikler
+  notFoundComponent: NotFoundLayout,
+});
+
+function RouteComponent() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    // Tüm yerel ayar segmentini IntlayerProvider ile sar
+    // Yerel ayar parametresi undefined olduğunda defaultLocale'e geri döner (isteğe bağlı önek modu)
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
+}
+
+// NotFoundLayout, 404 bileşenini IntlayerProvider ile sarar
+// Bu, çevirilerin 404 sayfasında hala çalışmasını sağlar
+function NotFoundLayout() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <NotFoundComponent />
+      {/* Kullanıcıların 404'te bile dil değiştirebilmesi için LocaleSwitcher'ı dahil et */}
+      <LocaleSwitcher />
+    </IntlayerProvider>
+  );
+}
+```
+
+```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+import { NotFoundComponent } from "./404";
+
+// $ (splat/catch-all) rotası, diğer rotalarla eşleşmeyen herhangi bir yolu eşleştirir
+// örn. /en/bazı/derin/iç içe/geçersiz/yol
+// Bu, bir yerel ayar içindeki TÜM eşleşmeyen yolların 404 sayfasını göstermesini sağlar
+// Bu olmadan, eşleşmeyen derin yollar boş bir sayfa veya hata gösterebilir
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
+```
+
+---
+
+### Adım 15: TypeScript Yapılandırması (İsteğe Bağlı)
 
 Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
 

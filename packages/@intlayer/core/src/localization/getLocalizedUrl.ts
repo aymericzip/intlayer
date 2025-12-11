@@ -50,13 +50,17 @@ export const getLocalizedUrl = (
     mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
   } = {}
 ): string => {
-  const {
-    locales = configuration?.internationalization?.locales ??
-      DefaultValues.Internationalization.LOCALES,
-    defaultLocale = configuration?.internationalization?.defaultLocale ??
+  const { defaultLocale, mode, locales } = {
+    defaultLocale:
+      configuration?.internationalization?.defaultLocale ??
       DefaultValues.Internationalization.DEFAULT_LOCALE,
-    mode = configuration?.routing?.mode ?? DefaultValues.Routing.ROUTING_MODE,
-  } = options;
+    mode: configuration?.routing?.mode ?? DefaultValues.Routing.ROUTING_MODE,
+    locales:
+      configuration?.internationalization?.locales ??
+      DefaultValues.Internationalization.LOCALES,
+    ...options,
+  };
+
   // Remove any existing locale segment from the URL
   const urlWithoutLocale = getPathWithoutLocale(url, locales);
 

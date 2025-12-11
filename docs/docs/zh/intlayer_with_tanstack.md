@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.4.0
+    date: 2025-12-11
+    changes: 引入 validatePrefix 并添加步骤 14: 处理带有本地化路由的 404 页面。
   - version: 7.3.9
     date: 2025-12-05
-    changes: Add step 13: Retrieve the locale in your server actions (Optional)
+    changes: 添加步骤 13: 在您的 server actions 中获取 locale (可选)
   - version: 5.8.1
     date: 2025-09-09
     changes: 为 Tanstack Start 添加支持
@@ -591,7 +594,134 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### 第14步：配置 TypeScript（可选）
+### 第14步：管理未找到的页面（可选）
+
+当用户访问不存在的页面时，您可以显示自定义的未找到页面，并且区域设置前缀可能会影响未找到页面的触发方式。
+
+#### 了解 TanStack Router 使用区域设置前缀的 404 处理
+
+在 TanStack Router 中，使用本地化路由处理 404 页面需要采用多层方法：
+
+1. **专用 404 路由**：用于显示 404 UI 的特定路由
+2. **路由级验证**：验证区域设置前缀并将无效的前缀重定向到 404
+3. **捕获所有路由**：捕获区域设置段内任何不匹配的路径
+
+```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+// 这将创建一个专用的 /[locale]/404 路由
+// 它既作为直接路由使用，也可以在其他文件中作为组件导入
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// 单独导出，以便可以在 notFoundComponent 和 catch-all 路由中重用
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
+
+```tsx fileName="src/routes/__root.tsx"
+import { createRootRoute } from "@tanstack/react-router";
+
+// 根路由作为顶级布局
+// 它不直接处理 404 - 这被委托给子路由
+// 这使根路由保持简单，并让区域设置感知的路由管理自己的 404 逻辑
+export const Route = createRootRoute({
+  component: Outlet,
+});
+```
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { IntlayerProvider, useLocale } from "react-intlayer";
+
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { NotFoundComponent } from "./404";
+
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad 在路由渲染之前运行（在服务器和客户端上）
+  // 这是验证区域设置前缀的理想位置
+  beforeLoad: ({ params }) => {
+    // 从路由参数获取区域设置（不是从服务器标头，因为 beforeLoad 在客户端和服务器上都会运行）
+    const localeParam = params.locale;
+
+    // validatePrefix 检查区域设置是否根据您的 intlayer 配置有效
+    // 返回: { isValid: boolean, localePrefix: string }
+    // - isValid: 如果前缀匹配配置的区域设置（或当前缀可选时为空），则为 true
+    // - localePrefix: 已验证的前缀或用于重定向的默认区域设置前缀
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (isValid) {
+      // 区域设置有效，允许路由正常渲染
+      return;
+    }
+
+    // 无效的区域设置前缀（例如，/xyz/about 其中 "xyz" 不是有效的区域设置）
+    // 重定向到具有有效区域设置前缀的 404 页面
+    // 这确保 404 页面仍然正确本地化
+    throw redirect({
+      to: "/{-$locale}/404",
+      params: { locale: localePrefix },
+    });
+  },
+  component: RouteComponent,
+  // notFoundComponent 在子路由不存在时被调用
+  // 例如，/en/不存在的页面 在 /en 布局内触发此操作
+  notFoundComponent: NotFoundLayout,
+});
+
+function RouteComponent() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    // 用 IntlayerProvider 包装整个区域设置段
+    // 当区域设置参数为 undefined 时回退到 defaultLocale（可选前缀模式）
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
+}
+
+// NotFoundLayout 用 IntlayerProvider 包装 404 组件
+// 这确保翻译在 404 页面上仍然有效
+function NotFoundLayout() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <NotFoundComponent />
+      {/* 包含 LocaleSwitcher，以便用户即使在 404 页面上也可以更改语言 */}
+      <LocaleSwitcher />
+    </IntlayerProvider>
+  );
+}
+```
+
+```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+import { NotFoundComponent } from "./404";
+
+// $ (splat/catch-all) 路由匹配任何与其他路由不匹配的路径
+// 例如，/en/某个/深度/嵌套/无效/路径
+// 这确保区域设置内所有不匹配的路径都显示 404 页面
+// 没有这个，不匹配的深层路径可能会显示空白页面或错误
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
+```
+
+---
+
+### 第15步：配置 TypeScript（可选）
 
 Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库更健壮。
 

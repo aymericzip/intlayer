@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.4.0
+    date: 2025-12-11
+    changes: validatePrefix पेश किया गया और चरण 14 जोड़ा गया: स्थानीयकृत रूट्स के साथ 404 पेज हैंडल करना।
   - version: 7.3.9
     date: 2025-12-05
-    changes: Add step 13: Retrieve the locale in your server actions (Optional)
+    changes: चरण 13 जोड़ा गया: सर्वर एक्शन्स में अपनी भाषा (locale) प्राप्त करें (वैकल्पिक)
   - version: 6.5.2
     date: 2025-10-03
     changes: दस्तावेज़ अपडेट
@@ -590,7 +593,134 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### चरण 14: टाइपस्क्रिप्ट कॉन्फ़िगर करें (वैकल्पिक)
+### चरण 14: पृष्ठ नहीं मिले प्रबंधित करें (वैकल्पिक)
+
+जब कोई उपयोगकर्ता एक मौजूदा नहीं पृष्ठ पर जाता है, तो आप एक कस्टम पृष्ठ नहीं मिला प्रदर्शित कर सकते हैं और लोकेल उपसर्ग पृष्ठ नहीं मिला के ट्रिगर होने के तरीके को प्रभावित कर सकता है।
+
+#### लोकेल उपसर्गों के साथ TanStack Router के 404 हैंडलिंग को समझना
+
+TanStack Router में, स्थानीयकृत रूट के साथ 404 पृष्ठों को हैंडल करने के लिए एक बहु-परत दृष्टिकोण की आवश्यकता होती है:
+
+1. **समर्पित 404 रूट**: 404 UI प्रदर्शित करने के लिए एक विशिष्ट रूट
+2. **रूट-स्तरीय सत्यापन**: लोकेल उपसर्गों को सत्यापित करता है और अमान्य को 404 पर रीडायरेक्ट करता है
+3. **कैच-ऑल रूट**: लोकेल सेगमेंट के भीतर किसी भी मैच न होने वाले पथ को कैप्चर करता है
+
+```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+// यह एक समर्पित /[locale]/404 रूट बनाता है
+// इसका उपयोग एक प्रत्यक्ष रूट के रूप में और अन्य फ़ाइलों में एक घटक के रूप में आयात किया जाता है
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// अलग से निर्यात किया गया ताकि इसे notFoundComponent और catch-all रूट में पुन: उपयोग किया जा सके
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
+
+```tsx fileName="src/routes/__root.tsx"
+import { createRootRoute } from "@tanstack/react-router";
+
+// रूट रूट शीर्ष-स्तरीय लेआउट के रूप में कार्य करता है
+// यह 404 को सीधे हैंडल नहीं करता - यह चाइल्ड रूट को सौंपा जाता है
+// यह रूट को सरल रखता है और लोकेल-जागरूक रूट को अपने स्वयं के 404 तर्क को प्रबंधित करने देता है
+export const Route = createRootRoute({
+  component: Outlet,
+});
+```
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { IntlayerProvider, useLocale } from "react-intlayer";
+
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { NotFoundComponent } from "./404";
+
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad रूट रेंडर होने से पहले चलता है (सर्वर और क्लाइंट दोनों पर)
+  // लोकेल उपसर्ग को मान्य करने के लिए यह आदर्श स्थान है
+  beforeLoad: ({ params }) => {
+    // रूट पैरामीटर से लोकेल प्राप्त करें (सर्वर हेडर से नहीं, क्योंकि beforeLoad क्लाइंट और सर्वर दोनों पर चलता है)
+    const localeParam = params.locale;
+
+    // validatePrefix जांचता है कि लोकेल आपकी intlayer कॉन्फ़िग के अनुसार मान्य है या नहीं
+    // रिटर्न: { isValid: boolean, localePrefix: string }
+    // - isValid: true यदि उपसर्ग एक कॉन्फ़िग किए गए लोकेल से मेल खाता है (या खाली है जब उपसर्ग वैकल्पिक है)
+    // - localePrefix: मान्य उपसर्ग या रीडायरेक्ट के लिए डिफ़ॉल्ट लोकेल उपसर्ग
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (isValid) {
+      // लोकेल मान्य है, रूट को सामान्य रूप से रेंडर करने की अनुमति दें
+      return;
+    }
+
+    // अमान्य लोकेल उपसर्ग (उदा., /xyz/about जहां "xyz" एक मान्य लोकेल नहीं है)
+    // मान्य लोकेल उपसर्ग के साथ 404 पृष्ठ पर रीडायरेक्ट करें
+    // यह सुनिश्चित करता है कि 404 पृष्ठ अभी भी ठीक से स्थानीयकृत है
+    throw redirect({
+      to: "/{-$locale}/404",
+      params: { locale: localePrefix },
+    });
+  },
+  component: RouteComponent,
+  // notFoundComponent तब कहा जाता है जब एक चाइल्ड रूट मौजूद नहीं होता
+  // उदा., /en/अस्तित्वहीन-पृष्ठ /en लेआउट के भीतर इसे ट्रिगर करता है
+  notFoundComponent: NotFoundLayout,
+});
+
+function RouteComponent() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    // पूरे लोकेल सेगमेंट को IntlayerProvider के साथ लपेटें
+    // जब लोकेल पैरामीटर undefined हो तो defaultLocale पर वापस जाता है (वैकल्पिक उपसर्ग मोड)
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
+}
+
+// NotFoundLayout 404 घटक को IntlayerProvider के साथ लपेटता है
+// यह सुनिश्चित करता है कि अनुवाद 404 पृष्ठ पर अभी भी काम करते हैं
+function NotFoundLayout() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <NotFoundComponent />
+      {/* LocaleSwitcher शामिल करें ताकि उपयोगकर्ता 404 पर भी भाषा बदल सकें */}
+      <LocaleSwitcher />
+    </IntlayerProvider>
+  );
+}
+```
+
+```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+import { NotFoundComponent } from "./404";
+
+// $ (splat/catch-all) रूट किसी भी पथ से मेल खाता है जो अन्य रूट से मेल नहीं खाता
+// उदा., /en/कुछ/गहराई/से/निहित/अमान्य/पथ
+// यह सुनिश्चित करता है कि लोकेल के भीतर सभी बेमेल पथ 404 पृष्ठ दिखाते हैं
+// इसके बिना, बेमेल गहरे पथ एक खाली पृष्ठ या त्रुटि दिखा सकते हैं
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
+```
+
+---
+
+### चरण 15: टाइपस्क्रिप्ट कॉन्फ़िगर करें (वैकल्पिक)
 
 Intlayer टाइपस्क्रिप्ट के लाभ प्राप्त करने और आपके कोडबेस को मजबूत बनाने के लिए मॉड्यूल ऑगमेंटेशन का उपयोग करता है।
 

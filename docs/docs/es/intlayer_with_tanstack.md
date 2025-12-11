@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.4.0
+    date: 2025-12-11
+    changes: Introduce validatePrefix y añade el paso 14: Cómo gestionar páginas 404 con rutas localizadas.
   - version: 7.3.9
     date: 2025-12-05
-    changes: Add step 13: Retrieve the locale in your server actions (Optional)
+    changes: Añade el paso 13: Obtener la configuración regional en tus server actions (Opcional)
   - version: 5.8.1
     date: 2025-09-09
     changes: Añadido para Tanstack Start
@@ -605,7 +608,134 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Paso 14: Configurar TypeScript (Opcional)
+### Paso 14: Gestionar páginas no encontradas (Opcional)
+
+Cuando un usuario visita una página que no existe, puedes mostrar una página personalizada de no encontrada y el prefijo de configuración regional puede afectar la forma en que se activa la página de no encontrada.
+
+#### Entender el manejo de 404 de TanStack Router con prefijos de configuración regional
+
+En TanStack Router, manejar páginas 404 con rutas localizadas requiere un enfoque de múltiples capas:
+
+1. **Ruta 404 dedicada**: Una ruta específica para mostrar la UI de 404
+2. **Validación a nivel de ruta**: Valida los prefijos de configuración regional y redirige los inválidos a 404
+3. **Ruta catch-all**: Captura cualquier ruta no coincidente dentro del segmento de configuración regional
+
+```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+// Esto crea una ruta dedicada /[locale]/404
+// Se usa tanto como una ruta directa como importada como componente en otros archivos
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// Exportado por separado para que pueda reutilizarse en notFoundComponent y rutas catch-all
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
+
+```tsx fileName="src/routes/__root.tsx"
+import { createRootRoute } from "@tanstack/react-router";
+
+// La ruta raíz sirve como el diseño de nivel superior
+// No maneja los 404 directamente - eso se delega a las rutas hijas
+// Esto mantiene la raíz simple y permite que las rutas conscientes de la configuración regional gestionen su propia lógica 404
+export const Route = createRootRoute({
+  component: Outlet,
+});
+```
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { IntlayerProvider, useLocale } from "react-intlayer";
+
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { NotFoundComponent } from "./404";
+
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad se ejecuta antes de que la ruta se renderice (tanto en el servidor como en el cliente)
+  // Es el lugar ideal para validar el prefijo de configuración regional
+  beforeLoad: ({ params }) => {
+    // Obtener la configuración regional de los parámetros de la ruta (no de los encabezados del servidor, ya que beforeLoad se ejecuta tanto en el cliente como en el servidor)
+    const localeParam = params.locale;
+
+    // validatePrefix verifica si la configuración regional es válida según tu configuración de intlayer
+    // Retorna: { isValid: boolean, localePrefix: string }
+    // - isValid: true si el prefijo coincide con una configuración regional configurada (o está vacío cuando el prefijo es opcional)
+    // - localePrefix: el prefijo validado o el prefijo de configuración regional predeterminado para redirecciones
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (isValid) {
+      // La configuración regional es válida, permitir que la ruta se renderice normalmente
+      return;
+    }
+
+    // Prefijo de configuración regional inválido (p. ej., /xyz/about donde "xyz" no es una configuración regional válida)
+    // Redirigir a la página 404 con un prefijo de configuración regional válido
+    // Esto asegura que la página 404 siga estando correctamente localizada
+    throw redirect({
+      to: "/{-$locale}/404",
+      params: { locale: localePrefix },
+    });
+  },
+  component: RouteComponent,
+  // notFoundComponent se llama cuando una ruta hija no existe
+  // p. ej., /en/pagina-inexistente activa esto dentro del diseño /en
+  notFoundComponent: NotFoundLayout,
+});
+
+function RouteComponent() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    // Envuelve todo el segmento de configuración regional con IntlayerProvider
+    // Vuelve a defaultLocale cuando el parámetro locale es undefined (modo de prefijo opcional)
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
+}
+
+// NotFoundLayout envuelve el componente 404 con IntlayerProvider
+// Esto asegura que las traducciones sigan funcionando en la página 404
+function NotFoundLayout() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <NotFoundComponent />
+      {/* Incluir LocaleSwitcher para que los usuarios puedan cambiar el idioma incluso en 404 */}
+      <LocaleSwitcher />
+    </IntlayerProvider>
+  );
+}
+```
+
+```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+import { NotFoundComponent } from "./404";
+
+// La ruta $ (splat/catch-all) coincide con cualquier ruta que no coincida con otras rutas
+// p. ej., /en/algun/ruta/profunda/anidada/invalida
+// Esto asegura que TODAS las rutas no coincidentes dentro de una configuración regional muestren la página 404
+// Sin esto, las rutas profundas no coincidentes podrían mostrar una página en blanco o un error
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
+```
+
+---
+
+### Paso 15: Configurar TypeScript (Opcional)
 
 Intlayer utiliza la ampliación de módulos para aprovechar las ventajas de TypeScript y fortalecer tu base de código.
 

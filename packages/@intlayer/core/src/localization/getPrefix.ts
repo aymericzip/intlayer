@@ -1,4 +1,5 @@
 import configuration from '@intlayer/config/built';
+import { DefaultValues } from '@intlayer/config/client';
 import type { Locale, LocalesValues } from '@intlayer/types';
 
 export type GetPrefixOptions = {
@@ -66,11 +67,16 @@ export const getPrefix = (
     mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
   } = {}
 ): GetPrefixResult => {
-  const {
-    defaultLocale = configuration?.internationalization?.defaultLocale,
-    mode = configuration?.routing?.mode,
-    locales = configuration?.internationalization?.locales,
-  } = options;
+  const { defaultLocale, mode, locales } = {
+    defaultLocale:
+      configuration?.internationalization?.defaultLocale ??
+      DefaultValues.Internationalization.DEFAULT_LOCALE,
+    mode: configuration?.routing?.mode ?? DefaultValues.Routing.ROUTING_MODE,
+    locales:
+      configuration?.internationalization?.locales ??
+      DefaultValues.Internationalization.LOCALES,
+    ...options,
+  };
 
   if (!locale || !locales.includes(locale)) {
     return {

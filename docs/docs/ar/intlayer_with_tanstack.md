@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.4.0
+    date: 2025-12-11
+    changes: أضف validatePrefix وشرح خطوة 14: معالجة صفحات 404 مع الطرق المعتمدة على اللغة.
   - version: 7.3.9
     date: 2025-12-05
-    changes: Add step 13: Retrieve the locale in your server actions (Optional)
+    changes: أضف خطوة 13: كيفية جلب اللغة الحالية داخل عمليات الخادم (اختياري)
   - version: 5.8.1
     date: 2025-09-09
     changes: أضيف لـ Tanstack Start
@@ -599,7 +602,134 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### الخطوة 14: تكوين TypeScript (اختياري)
+### الخطوة 14: إدارة الصفحات غير الموجودة (اختياري)
+
+عندما يزور المستخدم صفحة غير موجودة، يمكنك عرض صفحة مخصصة "غير موجودة" وقد يؤثر بادئة اللغة على طريقة تشغيل صفحة "غير موجودة".
+
+#### فهم معالجة 404 في TanStack Router مع بادئات اللغة
+
+في TanStack Router، يتطلب التعامل مع صفحات 404 باستخدام المسارات المترجمة نهجًا متعدد الطبقات:
+
+1. **مسار 404 مخصص**: مسار محدد لعرض واجهة المستخدم 404
+2. **التحقق على مستوى المسار**: يتحقق من بادئات اللغة ويعيد توجيه غير الصالحة إلى 404
+3. **مسار catch-all**: يلتقط أي مسارات غير متطابقة داخل مقطع اللغة
+
+```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+// هذا ينشئ مسارًا مخصصًا /[locale]/404
+// يتم استخدامه كمسار مباشر واستيراده كعنصر في ملفات أخرى
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// يتم تصديره بشكل منفصل حتى يمكن إعادة استخدامه في notFoundComponent والمسارات catch-all
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
+
+```tsx fileName="src/routes/__root.tsx"
+import { createRootRoute } from "@tanstack/react-router";
+
+// المسار الجذري يعمل كتخطيط على المستوى الأعلى
+// لا يتعامل مع 404 مباشرة - يتم تفويض ذلك إلى المسارات الفرعية
+// هذا يحافظ على الجذر بسيطًا ويتيح للمسارات الواعية باللغة إدارة منطق 404 الخاص بها
+export const Route = createRootRoute({
+  component: Outlet,
+});
+```
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { IntlayerProvider, useLocale } from "react-intlayer";
+
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { NotFoundComponent } from "./404";
+
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad يعمل قبل عرض المسار (على كل من الخادم والعميل)
+  // إنه المكان المثالي للتحقق من بادئة اللغة
+  beforeLoad: ({ params }) => {
+    // الحصول على اللغة من معاملات المسار (وليس من رؤوس الخادم، حيث يعمل beforeLoad على كل من العميل والخادم)
+    const localeParam = params.locale;
+
+    // validatePrefix يتحقق مما إذا كانت اللغة صالحة وفقًا لتكوين intlayer الخاص بك
+    // إرجاع: { isValid: boolean, localePrefix: string }
+    // - isValid: true إذا كانت البادئة تطابق لغة مُكوَّنة (أو فارغة عندما تكون البادئة اختيارية)
+    // - localePrefix: البادئة المُتحقق منها أو بادئة اللغة الافتراضية لإعادة التوجيه
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (isValid) {
+      // اللغة صالحة، السماح للمسار بالعرض بشكل طبيعي
+      return;
+    }
+
+    // بادئة لغة غير صالحة (على سبيل المثال، /xyz/about حيث "xyz" ليست لغة صالحة)
+    // إعادة التوجيه إلى صفحة 404 ببادئة لغة صالحة
+    // يضمن هذا أن صفحة 404 لا تزال محلية بشكل صحيح
+    throw redirect({
+      to: "/{-$locale}/404",
+      params: { locale: localePrefix },
+    });
+  },
+  component: RouteComponent,
+  // يتم استدعاء notFoundComponent عندما لا يوجد مسار فرعي
+  // على سبيل المثال، /en/صفحة-غير-موجودة يطلق هذا داخل تخطيط /en
+  notFoundComponent: NotFoundLayout,
+});
+
+function RouteComponent() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    // لف كامل مقطع اللغة بـ IntlayerProvider
+    // يعود إلى defaultLocale عندما تكون معلمة اللغة undefined (وضع البادئة الاختياري)
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
+}
+
+// NotFoundLayout يلف عنصر 404 بـ IntlayerProvider
+// يضمن هذا أن الترجمات لا تزال تعمل على صفحة 404
+function NotFoundLayout() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <NotFoundComponent />
+      {/* تضمين LocaleSwitcher حتى يتمكن المستخدمون من تغيير اللغة حتى على 404 */}
+      <LocaleSwitcher />
+    </IntlayerProvider>
+  );
+}
+```
+
+```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+import { NotFoundComponent } from "./404";
+
+// المسار $ (splat/catch-all) يطابق أي مسار لا يطابق المسارات الأخرى
+// على سبيل المثال، /en/بعض/المسار/المتداخل/بعمق/غير-صالح
+// يضمن هذا أن جميع المسارات غير المتطابقة داخل اللغة تعرض صفحة 404
+// بدون هذا، قد تعرض المسارات العميقة غير المتطابقة صفحة فارغة أو خطأ
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
+```
+
+---
+
+### الخطوة 15: تكوين TypeScript (اختياري)
 
 يستخدم Intlayer توسيع الوحدات (module augmentation) للاستفادة من TypeScript وجعل قاعدة الشيفرة الخاصة بك أقوى.
 

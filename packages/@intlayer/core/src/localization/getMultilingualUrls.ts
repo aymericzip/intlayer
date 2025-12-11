@@ -1,4 +1,5 @@
 import configuration from '@intlayer/config/built';
+import { DefaultValues } from '@intlayer/config/client';
 import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
 import { getLocalizedUrl } from './getLocalizedUrl';
 
@@ -44,11 +45,16 @@ export const getMultilingualUrls = (
     mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
   } = {}
 ): StrictModeLocaleMap<string> => {
-  const {
-    locales = configuration?.internationalization?.locales,
-    defaultLocale = configuration?.internationalization?.defaultLocale,
-    mode = configuration?.routing?.mode,
-  } = options;
+  const { defaultLocale, mode, locales } = {
+    defaultLocale:
+      configuration?.internationalization?.defaultLocale ??
+      DefaultValues.Internationalization.DEFAULT_LOCALE,
+    mode: configuration?.routing?.mode ?? DefaultValues.Routing.ROUTING_MODE,
+    locales:
+      configuration?.internationalization?.locales ??
+      DefaultValues.Internationalization.LOCALES,
+    ...options,
+  };
 
   // Generate multilingual URLs by iterating over each locale and calling getLocalizedUrl
   const multilingualUrls = (locales ?? []).reduce<StrictModeLocaleMap<string>>(

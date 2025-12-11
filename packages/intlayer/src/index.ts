@@ -89,6 +89,7 @@ export {
   setLocaleInStorage,
   t,
   units,
+  validatePrefix,
 } from '@intlayer/core';
 export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser
 

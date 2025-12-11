@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.4.0
+    date: 2025-12-11
+    changes: Ajout de validatePrefix et étape 14 : gestion des pages 404 avec routes localisées.
   - version: 7.3.9
     date: 2025-12-05
-    changes: Add step 13: Retrieve the locale in your server actions (Optional)
+    changes: Ajout de l’étape 13 : récupération de la locale dans vos server actions (optionnel)
   - version: 5.8.1
     date: 2025-09-09
     changes: Ajout pour Tanstack Start
@@ -609,7 +612,134 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Étape 14 : Configurer TypeScript (Optionnel)
+### Étape 14 : Gérer les pages non trouvées (Optionnel)
+
+Lorsqu'un utilisateur visite une page inexistante, vous pouvez afficher une page personnalisée de non trouvée et le préfixe de locale peut affecter la façon dont la page de non trouvée est déclenchée.
+
+#### Comprendre la gestion des 404 de TanStack Router avec les préfixes de locale
+
+Dans TanStack Router, la gestion des pages 404 avec des routes localisées nécessite une approche multicouche :
+
+1. **Route 404 dédiée** : Une route spécifique pour afficher l'interface utilisateur 404
+2. **Validation au niveau de la route** : Valide les préfixes de locale et redirige ceux qui sont invalides vers 404
+3. **Route catch-all** : Capture tous les chemins non correspondants dans le segment de locale
+
+```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+// Ceci crée une route dédiée /[locale]/404
+// Elle est utilisée à la fois comme route directe et importée comme composant dans d'autres fichiers
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// Exporté séparément pour pouvoir être réutilisé dans notFoundComponent et les routes catch-all
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
+
+```tsx fileName="src/routes/__root.tsx"
+import { createRootRoute } from "@tanstack/react-router";
+
+// La route racine sert de mise en page de niveau supérieur
+// Elle ne gère pas les 404 directement - c'est délégué aux routes enfants
+// Cela garde la racine simple et permet aux routes conscientes de la locale de gérer leur propre logique 404
+export const Route = createRootRoute({
+  component: Outlet,
+});
+```
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { IntlayerProvider, useLocale } from "react-intlayer";
+
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { NotFoundComponent } from "./404";
+
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad s'exécute avant que la route ne soit rendue (à la fois sur le serveur et le client)
+  // C'est l'endroit idéal pour valider le préfixe de locale
+  beforeLoad: ({ params }) => {
+    // Obtenir la locale depuis les paramètres de route (pas depuis les en-têtes du serveur, car beforeLoad s'exécute à la fois sur le client et le serveur)
+    const localeParam = params.locale;
+
+    // validatePrefix vérifie si la locale est valide selon votre configuration intlayer
+    // Retourne : { isValid: boolean, localePrefix: string }
+    // - isValid: true si le préfixe correspond à une locale configurée (ou est vide lorsque le préfixe est optionnel)
+    // - localePrefix: le préfixe validé ou le préfixe de locale par défaut pour les redirections
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (isValid) {
+      // La locale est valide, permettre à la route de se rendre normalement
+      return;
+    }
+
+    // Préfixe de locale invalide (p. ex., /xyz/about où "xyz" n'est pas une locale valide)
+    // Rediriger vers la page 404 avec un préfixe de locale valide
+    // Cela garantit que la page 404 est toujours correctement localisée
+    throw redirect({
+      to: "/{-$locale}/404",
+      params: { locale: localePrefix },
+    });
+  },
+  component: RouteComponent,
+  // notFoundComponent est appelé lorsqu'une route enfant n'existe pas
+  // p. ex., /en/page-inexistante déclenche ceci dans la mise en page /en
+  notFoundComponent: NotFoundLayout,
+});
+
+function RouteComponent() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    // Envelopper tout le segment de locale avec IntlayerProvider
+    // Revient à defaultLocale lorsque le paramètre locale est undefined (mode préfixe optionnel)
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
+}
+
+// NotFoundLayout enveloppe le composant 404 avec IntlayerProvider
+// Cela garantit que les traductions fonctionnent toujours sur la page 404
+function NotFoundLayout() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <NotFoundComponent />
+      {/* Inclure LocaleSwitcher pour que les utilisateurs puissent changer de langue même sur 404 */}
+      <LocaleSwitcher />
+    </IntlayerProvider>
+  );
+}
+```
+
+```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+import { NotFoundComponent } from "./404";
+
+// La route $ (splat/catch-all) correspond à tout chemin qui ne correspond pas à d'autres routes
+// p. ex., /en/quelque/chemin/profond/imbriqué/invalide
+// Cela garantit que TOUS les chemins non correspondants dans une locale affichent la page 404
+// Sans cela, les chemins profonds non correspondants pourraient afficher une page blanche ou une erreur
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
+```
+
+---
+
+### Étape 15 : Configurer TypeScript (Optionnel)
 
 Intlayer utilise l'augmentation de module pour bénéficier de TypeScript et renforcer votre base de code.
 

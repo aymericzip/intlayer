@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.4.0
+    date: 2025-12-11
+    changes: validatePrefix 도입 및 14단계 추가: 현지화된 라우트로 404 페이지 처리.
   - version: 7.3.9
     date: 2025-12-05
-    changes: Add step 13: Retrieve the locale in your server actions (Optional)
+    changes: 13단계 추가: 서버 액션에서 locale 가져오기 (선택 사항)
   - version: 5.8.1
     date: 2025-09-09
     changes: Tanstack Start용 추가
@@ -599,7 +602,134 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### 14단계: TypeScript 구성 (선택 사항)
+### 14단계: 찾을 수 없는 페이지 관리 (선택 사항)
+
+사용자가 존재하지 않는 페이지를 방문할 때 사용자 정의 찾을 수 없음 페이지를 표시할 수 있으며, 로케일 접두사는 찾을 수 없음 페이지가 트리거되는 방식에 영향을 줄 수 있습니다.
+
+#### 로케일 접두사로 TanStack Router의 404 처리 이해하기
+
+TanStack Router에서 현지화된 경로로 404 페이지를 처리하려면 다층 접근 방식이 필요합니다:
+
+1. **전용 404 경로**: 404 UI를 표시하는 특정 경로
+2. **경로 수준 검증**: 로케일 접두사를 검증하고 잘못된 접두사를 404로 리디렉션
+3. **Catch-all 경로**: 로케일 세그먼트 내에서 일치하지 않는 모든 경로를 캡처
+
+```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+// 이것은 전용 /[locale]/404 경로를 생성합니다
+// 직접 경로로 사용되거나 다른 파일에서 컴포넌트로 가져올 수 있습니다
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// notFoundComponent 및 catch-all 경로에서 재사용할 수 있도록 별도로 내보냅니다
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
+
+```tsx fileName="src/routes/__root.tsx"
+import { createRootRoute } from "@tanstack/react-router";
+
+// 루트 경로는 최상위 레이아웃 역할을 합니다
+// 404를 직접 처리하지 않습니다 - 이것은 자식 경로에 위임됩니다
+// 이것은 루트를 단순하게 유지하고 로케일 인식 경로가 자체 404 로직을 관리할 수 있게 합니다
+export const Route = createRootRoute({
+  component: Outlet,
+});
+```
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+import { IntlayerProvider, useLocale } from "react-intlayer";
+
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { NotFoundComponent } from "./404";
+
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad는 경로가 렌더링되기 전에 실행됩니다 (서버와 클라이언트 모두에서)
+  // 로케일 접두사를 검증하기에 이상적인 장소입니다
+  beforeLoad: ({ params }) => {
+    // 경로 매개변수에서 로케일 가져오기 (서버 헤더에서 가져오지 않음, beforeLoad는 클라이언트와 서버 모두에서 실행되기 때문)
+    const localeParam = params.locale;
+
+    // validatePrefix는 로케일이 intlayer 구성에 따라 유효한지 확인합니다
+    // 반환: { isValid: boolean, localePrefix: string }
+    // - isValid: 접두사가 구성된 로케일과 일치하면 true (또는 접두사가 선택 사항일 때 비어 있음)
+    // - localePrefix: 검증된 접두사 또는 리디렉션을 위한 기본 로케일 접두사
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (isValid) {
+      // 로케일이 유효합니다. 경로가 정상적으로 렌더링되도록 허용합니다
+      return;
+    }
+
+    // 잘못된 로케일 접두사 (예: "xyz"가 유효한 로케일이 아닌 /xyz/about)
+    // 유효한 로케일 접두사가 있는 404 페이지로 리디렉션
+    // 이것은 404 페이지가 여전히 제대로 현지화되도록 보장합니다
+    throw redirect({
+      to: "/{-$locale}/404",
+      params: { locale: localePrefix },
+    });
+  },
+  component: RouteComponent,
+  // notFoundComponent는 자식 경로가 존재하지 않을 때 호출됩니다
+  // 예: /en/존재하지-않는-페이지가 /en 레이아웃 내에서 이를 트리거합니다
+  notFoundComponent: NotFoundLayout,
+});
+
+function RouteComponent() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    // 전체 로케일 세그먼트를 IntlayerProvider로 래핑
+    // 로케일 매개변수가 undefined일 때 defaultLocale로 폴백 (선택적 접두사 모드)
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
+}
+
+// NotFoundLayout는 404 컴포넌트를 IntlayerProvider로 래핑합니다
+// 이것은 404 페이지에서 번역이 여전히 작동하도록 보장합니다
+function NotFoundLayout() {
+  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams();
+
+  return (
+    <IntlayerProvider locale={locale ?? defaultLocale}>
+      <NotFoundComponent />
+      {/* 사용자가 404에서도 언어를 변경할 수 있도록 LocaleSwitcher 포함 */}
+      <LocaleSwitcher />
+    </IntlayerProvider>
+  );
+}
+```
+
+```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+
+import { NotFoundComponent } from "./404";
+
+// $ (splat/catch-all) 경로는 다른 경로와 일치하지 않는 모든 경로와 일치합니다
+// 예: /en/어떤/깊게/중첩된/유효하지-않은/경로
+// 이것은 로케일 내의 일치하지 않는 모든 경로가 404 페이지를 표시하도록 보장합니다
+// 이것이 없으면 일치하지 않는 깊은 경로가 빈 페이지나 오류를 표시할 수 있습니다
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
+```
+
+---
+
+### 15단계: TypeScript 구성 (선택 사항)
 
 Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 활용하고 코드베이스를 더욱 견고하게 만듭니다.
 
