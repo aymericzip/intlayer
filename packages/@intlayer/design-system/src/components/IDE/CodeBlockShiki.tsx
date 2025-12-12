@@ -141,6 +141,7 @@ export const CodeBlockShiki: FC<CodeBlockShikiProps> = ({
 
   return (
     <div
+      className="min-w-0 max-w-full overflow-auto bg-transparent [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&_pre::-webkit-scrollbar]:hidden [&_pre]:[-ms-overflow-style:none] [&_pre]:[scrollbar-width:none]"
       style={{
         backgroundColor: 'transparent',
         minWidth: 0,

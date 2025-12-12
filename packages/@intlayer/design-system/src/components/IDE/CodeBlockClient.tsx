@@ -4,7 +4,7 @@ import { cn } from '../../utils/cn';
 
 export const CodeDefault: FC<{ children: string }> = ({ children }) => (
   <div className="min-w-0 max-w-full overflow-x-auto">
-    <pre className="min-w-0 max-w-full overflow-x-auto">
+    <pre className="min-w-0 max-w-full overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       <code>
         {children.split('\n').map((line, index) => (
           <span

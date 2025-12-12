@@ -39,6 +39,7 @@ export const VisualEditorSection: FC = () => {
           target="_blank"
           variant="button"
           color="text"
+          roundedSize="full"
           label={gotToPlaygroundButton.label.value}
         >
           <span className="flex items-center justify-center gap-2">
