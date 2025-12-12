@@ -7,6 +7,9 @@ import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC, PropsWithChildren } from 'react';
+import { generateMetadata } from './metadata';
+
+export { generateMetadata };
 
 const getContributors = async () => {
   let contributors: Contributor[] = [];
