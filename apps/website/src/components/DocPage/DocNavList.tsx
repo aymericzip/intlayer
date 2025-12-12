@@ -41,6 +41,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
       href={href}
       variant="hoverable"
       color="text"
+      roundedSize="lg"
       isActive={isActive}
       className={cn(
         'flex w-full text-nowrap p-2 text-left font-bold transition-color',

@@ -30,6 +30,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
               aria-current={isActive ? 'location' : undefined}
               color="text"
               variant="hoverable"
+              roundedSize="lg"
               className="flex text-wrap p-2 transition-colors"
             >
               {h3.innerText}
@@ -61,14 +62,6 @@ export const NavTitles: FC = () => {
     navRef,
   });
 
-  console.log({
-    topLevelHeadings,
-    headingMap,
-    activeParent,
-    activeChild,
-    contentElement,
-  });
-
   return (
     <nav ref={navRef}>
       <ul className="flex max-h-[calc(100vh-8rem)] flex-1 flex-col gap-3 overflow-auto pt-8 pr-3 pb-20 text-sm">
@@ -84,6 +77,7 @@ export const NavTitles: FC = () => {
                 label={`${linkLabel}: ${h2.innerText}`}
                 href={`${pathWithoutLocale}#${id}`}
                 color="text"
+                roundedSize="lg"
                 variant="hoverable"
                 isActive={isActive}
                 className="flex text-wrap p-2 transition-colors"
