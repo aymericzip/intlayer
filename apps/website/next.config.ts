@@ -267,16 +267,6 @@ const nextConfig: NextConfig = {
         destination: '/:locale/doc/environment/tanstack-start',
         permanent: true,
       },
-      {
-        source: '/environment/nextjs/next-with-Page-Router',
-        destination: '/environment/nextjs/next-with-page-router',
-        permanent: true,
-      },
-      {
-        source: '/:locale/environment/nextjs/next-with-Page-Router',
-        destination: '/:locale/environment/nextjs/next-with-page-router',
-        permanent: true,
-      },
     ];
   },
   async rewrites() {
