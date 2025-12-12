@@ -40,7 +40,6 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
           <div key={key1}>
             <OptionalLink
               href={sectionDefault?.relativeUrl ?? ''}
-              className="p-0 pl-3"
               label={key1}
               isActive={isActive}
             >

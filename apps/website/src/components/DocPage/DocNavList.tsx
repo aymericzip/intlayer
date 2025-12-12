@@ -29,7 +29,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
     return (
       <span
         className={cn(
-          'flex w-full text-nowrap p-2 text-left font-bold text-neutral transition-color',
+          'flex w-full truncate text-nowrap p-2 text-left font-bold text-neutral transition-color',
           className
         )}
         {...props}
@@ -44,7 +44,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
       roundedSize="lg"
       isActive={isActive}
       className={cn(
-        'flex w-full text-nowrap p-2 text-left font-bold transition-color',
+        'flex w-full truncate text-nowrap p-2 text-left font-bold transition-color',
         className
       )}
       onClick={(e) => e.stopPropagation()}
@@ -78,7 +78,6 @@ export const DocNavListContent: FC<DocNavListProps> = ({
               href={sectionDefault?.relativeUrl ?? ''}
               label={key1}
               isActive={isActive}
-              className="p-0 pl-3"
             >
               {section1Data.title}
             </OptionalLink>
