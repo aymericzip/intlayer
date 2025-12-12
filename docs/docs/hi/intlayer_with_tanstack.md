@@ -624,17 +624,6 @@ export function NotFoundComponent() {
 }
 ```
 
-```tsx fileName="src/routes/__root.tsx"
-import { createRootRoute } from "@tanstack/react-router";
-
-// रूट रूट शीर्ष-स्तरीय लेआउट के रूप में कार्य करता है
-// यह 404 को सीधे हैंडल नहीं करता - यह चाइल्ड रूट को सौंपा जाता है
-// यह रूट को सरल रखता है और लोकेल-जागरूक रूट को अपने स्वयं के 404 तर्क को प्रबंधित करने देता है
-export const Route = createRootRoute({
-  component: Outlet,
-});
-```
-
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";

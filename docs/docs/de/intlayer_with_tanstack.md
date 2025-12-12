@@ -648,17 +648,6 @@ export function NotFoundComponent() {
 }
 ```
 
-```tsx fileName="src/routes/__root.tsx"
-import { createRootRoute } from "@tanstack/react-router";
-
-// Die Root-Route dient als Layout auf oberster Ebene
-// Sie behandelt 404s nicht direkt - das wird an untergeordnete Routen delegiert
-// Dies hält die Root einfach und ermöglicht es locale-bewussten Routen, ihre eigene 404-Logik zu verwalten
-export const Route = createRootRoute({
-  component: Outlet,
-});
-```
-
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";

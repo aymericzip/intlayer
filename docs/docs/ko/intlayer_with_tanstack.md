@@ -633,17 +633,6 @@ export function NotFoundComponent() {
 }
 ```
 
-```tsx fileName="src/routes/__root.tsx"
-import { createRootRoute } from "@tanstack/react-router";
-
-// 루트 경로는 최상위 레이아웃 역할을 합니다
-// 404를 직접 처리하지 않습니다 - 이것은 자식 경로에 위임됩니다
-// 이것은 루트를 단순하게 유지하고 로케일 인식 경로가 자체 404 로직을 관리할 수 있게 합니다
-export const Route = createRootRoute({
-  component: Outlet,
-});
-```
-
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";

@@ -624,17 +624,6 @@ export function NotFoundComponent() {
 }
 ```
 
-```tsx fileName="src/routes/__root.tsx"
-import { createRootRoute } from "@tanstack/react-router";
-
-// Trasa główna służy jako układ najwyższego poziomu
-// Nie obsługuje 404 bezpośrednio - to jest delegowane do tras potomnych
-// To utrzymuje główną trasę prostą i pozwala trasom świadomym locale zarządzać własną logiką 404
-export const Route = createRootRoute({
-  component: Outlet,
-});
-```
-
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";

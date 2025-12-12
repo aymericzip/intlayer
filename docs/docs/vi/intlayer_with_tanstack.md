@@ -634,17 +634,6 @@ export function NotFoundComponent() {
 }
 ```
 
-```tsx fileName="src/routes/__root.tsx"
-import { createRootRoute } from "@tanstack/react-router";
-
-// Tuyến đường gốc phục vụ như bố cục cấp cao nhất
-// Nó không xử lý 404 trực tiếp - điều đó được ủy quyền cho các tuyến đường con
-// Điều này giữ cho gốc đơn giản và cho phép các tuyến đường nhận biết locale quản lý logic 404 của riêng chúng
-export const Route = createRootRoute({
-  component: Outlet,
-});
-```
-
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";

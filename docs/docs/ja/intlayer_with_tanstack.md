@@ -628,17 +628,6 @@ export function NotFoundComponent() {
 }
 ```
 
-```tsx fileName="src/routes/__root.tsx"
-import { createRootRoute } from "@tanstack/react-router";
-
-// ルートルートは最上位レイアウトとして機能します
-// 404を直接処理しません - それは子ルートに委任されます
-// これにより、ルートをシンプルに保ち、ロケール対応ルートが独自の404ロジックを管理できるようになります
-export const Route = createRootRoute({
-  component: Outlet,
-});
-```
-
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";

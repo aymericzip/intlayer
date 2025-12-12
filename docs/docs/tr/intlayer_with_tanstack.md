@@ -638,17 +638,6 @@ export function NotFoundComponent() {
 }
 ```
 
-```tsx fileName="src/routes/__root.tsx"
-import { createRootRoute } from "@tanstack/react-router";
-
-// Kök rota, en üst düzey düzen olarak hizmet eder
-// 404'leri doğrudan işlemez - bu, alt rotalara devredilir
-// Bu, kökü basit tutar ve yerel ayar farkında rotaların kendi 404 mantığını yönetmesine izin verir
-export const Route = createRootRoute({
-  component: Outlet,
-});
-```
-
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";

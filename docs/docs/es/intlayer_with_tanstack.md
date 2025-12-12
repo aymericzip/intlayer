@@ -639,17 +639,6 @@ export function NotFoundComponent() {
 }
 ```
 
-```tsx fileName="src/routes/__root.tsx"
-import { createRootRoute } from "@tanstack/react-router";
-
-// La ruta raíz sirve como el diseño de nivel superior
-// No maneja los 404 directamente - eso se delega a las rutas hijas
-// Esto mantiene la raíz simple y permite que las rutas conscientes de la configuración regional gestionen su propia lógica 404
-export const Route = createRootRoute({
-  component: Outlet,
-});
-```
-
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";

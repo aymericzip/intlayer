@@ -625,17 +625,6 @@ export function NotFoundComponent() {
 }
 ```
 
-```tsx fileName="src/routes/__root.tsx"
-import { createRootRoute } from "@tanstack/react-router";
-
-// 根路由作为顶级布局
-// 它不直接处理 404 - 这被委托给子路由
-// 这使根路由保持简单，并让区域设置感知的路由管理自己的 404 逻辑
-export const Route = createRootRoute({
-  component: Outlet,
-});
-```
-
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";

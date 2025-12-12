@@ -633,17 +633,6 @@ export function NotFoundComponent() {
 }
 ```
 
-```tsx fileName="src/routes/__root.tsx"
-import { createRootRoute } from "@tanstack/react-router";
-
-// المسار الجذري يعمل كتخطيط على المستوى الأعلى
-// لا يتعامل مع 404 مباشرة - يتم تفويض ذلك إلى المسارات الفرعية
-// هذا يحافظ على الجذر بسيطًا ويتيح للمسارات الواعية باللغة إدارة منطق 404 الخاص بها
-export const Route = createRootRoute({
-  component: Outlet,
-});
-```
-
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";
