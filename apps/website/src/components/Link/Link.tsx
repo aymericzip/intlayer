@@ -14,6 +14,8 @@ import type { FC } from 'react';
 
 export type LinkProps = LinkUIProps & NextLinkProps;
 
+const domain = process.env.NEXT_PUBLIC_DOMAIN;
+
 export const Link: FC<LinkProps> = (props) => {
   const {
     variant = 'default',
@@ -32,18 +34,29 @@ export const Link: FC<LinkProps> = (props) => {
   } = props;
   const { locale: currentLocale } = useLocale();
   const locale = localeProp ?? currentLocale;
-  const isExternalLink = isExternalLinkProp ?? checkIsExternalLink(props);
-  const isPageSection = isPageSectionProp ?? hrefProp?.startsWith('#') ?? false;
+
+  // Normalize internal links: convert https://intlayer.org/xxx to /xxx
+  let normalizedHref = hrefProp;
+  if (typeof hrefProp === 'string' && domain && hrefProp.startsWith(domain)) {
+    normalizedHref = hrefProp.replace(domain, '') || '/';
+  }
+
+  // Check if external link using normalized href
+  const propsWithNormalizedHref = { ...props, href: normalizedHref };
+  const isExternalLink =
+    isExternalLinkProp ?? checkIsExternalLink(propsWithNormalizedHref);
+  const isPageSection =
+    isPageSectionProp ?? normalizedHref?.startsWith('#') ?? false;
   const isChildrenString = typeof children === 'string';
 
-  const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
+  const href =
+    locale && normalizedHref && !isExternalLink && !isPageSection
+      ? getLocalizedUrl(normalizedHref, locale)
+      : normalizedHref;
+
+  const rel = isExternalLink ? 'noopener noreferrer' : undefined;
 
   const target = isExternalLink ? '_blank' : '_self';
-
-  const href =
-    locale && hrefProp && !isExternalLink && !isPageSection
-      ? getLocalizedUrl(hrefProp, locale)
-      : hrefProp;
 
   return (
     <NextLink
