@@ -2,6 +2,7 @@
 
 import { Link } from '@components/Link/Link';
 import { Avatar, H2 } from '@intlayer/design-system';
+import { useDevice } from '@intlayer/design-system/hooks';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import {
@@ -162,8 +163,13 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   seeAllLink,
   seeAllHref,
 }) => {
+  const { isMobile } = useDevice();
   const positions = generateCloudPositions(contributors.length);
   const sectionRef = useRef<HTMLElement>(null);
+
+  if (isMobile) {
+    return <></>;
+  }
 
   return (
     <section ref={sectionRef} className="relative mx-10 w-full py-20 md:py-32">
@@ -181,11 +187,15 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
             <Link
               href={seeAllHref}
               label={seeAllLink}
-              color="neutral"
-              className="inline-flex items-center gap-2"
+              color="text"
+              variant="button"
+              roundedSize="full"
+              className="flex w-fit"
             >
-              {seeAllLink}
-              <ArrowRight className="size-4" />
+              <span className="flex items-center gap-2">
+                {seeAllLink}
+                <ArrowRight className="size-4" />
+              </span>
             </Link>
           </div>
         </div>

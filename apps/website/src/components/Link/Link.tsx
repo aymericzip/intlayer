@@ -14,7 +14,7 @@ import type { FC } from 'react';
 
 export type LinkProps = LinkUIProps & NextLinkProps;
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN;
+const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN;
 
 export const Link: FC<LinkProps> = (props) => {
   const {
@@ -30,6 +30,8 @@ export const Link: FC<LinkProps> = (props) => {
     isExternalLink: isExternalLinkProp,
     isPageSection: isPageSectionProp,
     href: hrefProp,
+    roundedSize,
+    size,
     ...otherProps
   } = props;
   const { locale: currentLocale } = useLocale();
@@ -37,8 +39,8 @@ export const Link: FC<LinkProps> = (props) => {
 
   // Normalize internal links: convert https://intlayer.org/xxx to /xxx
   let normalizedHref = hrefProp;
-  if (typeof hrefProp === 'string' && domain && hrefProp.startsWith(domain)) {
-    normalizedHref = hrefProp.replace(domain, '') || '/';
+  if (typeof hrefProp === 'string' && DOMAIN && hrefProp.startsWith(DOMAIN)) {
+    normalizedHref = hrefProp.replace(DOMAIN, '') || '/';
   }
 
   // Check if external link using normalized href
@@ -58,6 +60,8 @@ export const Link: FC<LinkProps> = (props) => {
 
   const target = isExternalLink ? '_blank' : '_self';
 
+  const isButton = variant === 'button' || variant === 'button-outlined';
+
   return (
     <NextLink
       prefetch={prefetch}
@@ -71,16 +75,15 @@ export const Link: FC<LinkProps> = (props) => {
           variant,
           color,
           underlined,
+          roundedSize,
+          size,
           className,
         })
       )}
       {...otherProps}
     >
-      {variant === 'button' ? (
-        <span className="size-full">{children}</span>
-      ) : (
-        children
-      )}
+      {isButton ? <span className={className}>{children}</span> : children}
+
       {isExternalLink && isChildrenString && (
         <ExternalLink className="ml-2 inline-block size-4" />
       )}

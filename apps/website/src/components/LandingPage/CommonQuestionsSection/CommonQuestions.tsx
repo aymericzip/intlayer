@@ -3,6 +3,7 @@
 import { Link } from '@components/Link/Link';
 import { Container, MaxHeightSmoother } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
+import { ArrowRight } from 'lucide-react';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
 import { PagesRoutes } from '@/Routes';
@@ -157,10 +158,15 @@ export const CommonQuestionsSection: FC = () => {
       <Link
         href={PagesRoutes.FrequentQuestions}
         label={allFrequentQuestionLink.label.value}
-        color="neutral"
-        className=""
+        color="text"
+        variant="button"
+        roundedSize="full"
+        className="flex w-auto"
       >
-        {allFrequentQuestionLink.text}
+        <span className="flex items-center gap-2">
+          {allFrequentQuestionLink.text}
+          <ArrowRight className="size-4" />
+        </span>
       </Link>
     </section>
   );

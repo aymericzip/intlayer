@@ -65,13 +65,12 @@ export const AIABTestingSection: FC = () => {
               variant={LinkVariant.BUTTON}
               color={LinkColor.CUSTOM}
               label={ctaButton.label.value}
-              className="rounded-full px-4 py-2 hover:scale-105"
+              roundedSize="full"
+              size="lg"
             >
               <span className="flex items-center gap-2">
-                <span className="block text-lg">{ctaButton.text}</span>
-                <span className="block">
-                  <ArrowRightIcon width={20} height={20} />
-                </span>
+                {ctaButton.text}
+                <ArrowRightIcon width={20} height={20} />
               </span>
             </Link>
           </m.div>

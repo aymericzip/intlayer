@@ -104,19 +104,19 @@ export const buttonVariants = cva(
         [`${ButtonColor.DESTRUCTIVE}`]:
           'hover-destructive-500/20 text-destructive ring-destructive-500/20 *:text-text-light',
         [`${ButtonColor.NEUTRAL}`]:
-          'hover-neutral-500/20 text-neutral ring-neutral-500/20 *:text-text-light',
+          'text-neutral ring-neutral-500/20 *:text-text-light',
         [`${ButtonColor.CARD}`]:
           'hover-card-500/20 text-card ring-card-500/20 *:text-text-light',
         [`${ButtonColor.LIGHT}`]:
           'hover-white-500/20 text-white ring-white/20 *:text-text-light',
         [`${ButtonColor.DARK}`]:
-          'hover-neutral-500/20 text-neutral-800 ring-neutral-800/50 *:text-text-light',
+          'text-neutral-800 ring-neutral-800/50 *:text-text-light',
         [`${ButtonColor.TEXT}`]:
-          'hover-neutral-500/20 text-text ring-neutral-500/20 *:text-text-opposite',
+          'text-text ring-neutral-500/20 *:text-text-opposite',
         [`${ButtonColor.CURRENT}`]:
           'hover-current-500/20 text-current ring-current/20 *:text-text-light',
         [`${ButtonColor.TEXT_INVERSE}`]:
-          'hover-neutral-500/20 text-text-opposite ring-neutral-500/20 *:text-text',
+          'text-text-opposite ring-neutral-500/20 *:text-text',
         [`${ButtonColor.ERROR}`]:
           'hover-error-500/20 text-error ring-error/20 *:text-text-light',
         [`${ButtonColor.SUCCESS}`]:
@@ -133,6 +133,7 @@ export const buttonVariants = cva(
           'rounded-2xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl',
         [`${ContainerRoundedSize.XL}`]:
           'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
+        [`${ContainerRoundedSize.FULL}`]: 'rounded-full',
       },
       variant: {
         [`${ButtonVariant.DEFAULT}`]: [

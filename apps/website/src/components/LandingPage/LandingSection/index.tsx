@@ -22,7 +22,7 @@ import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
+import { ExternalLinks, PagesRoutes } from '@/Routes';
 import { TechLogos } from './TechLogos';
 
 const SHOW_WHATS_NEW = true;
@@ -140,36 +140,28 @@ export const LandingSection: FC = () => {
             className="mt-10 mb-6 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 lg:mb-10"
           >
             <Link
-              href="https://github.com/aymericzip/intlayer"
-              variant={LinkVariant.BUTTON}
-              // color={LinkColor.DARK}
+              href={ExternalLinks.Github}
+              variant={LinkVariant.BUTTON_OUTLINED}
+              color={LinkColor.TEXT}
               label={supportButton.value}
-              className="rounded-full border-2 border-neutral-300 bg-transparent px-4 py-2 hover:scale-105 hover:bg-transparent dark:border-neutral-600"
               isExternalLink
+              size="lg"
+              roundedSize="full"
             >
-              <span className="flex items-center justify-center gap-2 text-text">
-                {/* <span className="block">
-                <Github width={20} height={20} />
-              </span> */}
-                <span className="block text-sm sm:text-lg">
-                  {supportButton}
-                </span>
-              </span>
+              <span className="block text-sm sm:text-lg">{supportButton}</span>
             </Link>
 
             <Link
               href={PagesRoutes.Doc}
               variant={LinkVariant.BUTTON}
-              color={LinkColor.CUSTOM}
+              color={LinkColor.TEXT}
               label={getStartedButton.value}
-              className="rounded-full px-4 py-2 hover:scale-105"
+              size="xl"
+              roundedSize="full"
+              className="flex flex-row items-center justify-center gap-2"
             >
-              <span className="flex items-center justify-center gap-2">
-                <span className="block text-sm sm:text-lg">
-                  {getStartedButton}
-                </span>
-                <ArrowRight width={15} height={15} />
-              </span>
+              {getStartedButton}
+              <ArrowRight width={15} height={15} />
             </Link>
           </motion.div>
 
