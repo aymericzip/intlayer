@@ -49,12 +49,29 @@ const getFloatDistance = (sizeIndex: number): string => {
   return '12px'; // Medium
 };
 
+// Z-index for 3D effect: bigger avatars (closer) in front, smaller avatars (further) behind
+const getZIndex = (sizeIndex: number): number => {
+  switch (sizeIndex) {
+    case 1:
+      return 30; // Biggest -> front
+    case 0:
+      return 20; // Medium
+    case 3:
+      return 15; // Medium-Small
+    case 2:
+      return 10; // Smallest -> back
+    default:
+      return 10;
+  }
+};
+
 const ContributorAvatar: FC<ContributorAvatarProps> = memo(
   ({ contributor, index, position, dragConstraintsRef }) => {
     // 0: Med, 1: Big, 2: Small, 3: Med-Small
     const sizeIndex = (index + contributor.login.length) % sizeVariants.length;
     const sizeClass = sizeVariants[sizeIndex];
     const floatDistance = getFloatDistance(sizeIndex);
+    const zIndex = getZIndex(sizeIndex);
 
     // Desync float animation using index and login hash for variety
     // Slower duration: 6s to 10.5s (50% slower)
@@ -98,6 +115,7 @@ const ContributorAvatar: FC<ContributorAvatarProps> = memo(
           damping: 18,
         }}
         className="absolute cursor-grab select-none"
+        style={{ zIndex }}
         draggable={false}
         onDragStart={(e) => e.preventDefault()}
       >
