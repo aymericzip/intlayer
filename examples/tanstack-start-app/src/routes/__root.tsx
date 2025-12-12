@@ -34,14 +34,12 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html >
-    <head>
-      <HeadContent />
-      <Scripts />
-    </head>
-    <body>
-      {children}
-    </body>
-  </html>
+    <html lang="en">
+      <head>
+        <HeadContent />
+        <Scripts />
+      </head>
+      <body>{children}</body>
+    </html>
   );
 }
