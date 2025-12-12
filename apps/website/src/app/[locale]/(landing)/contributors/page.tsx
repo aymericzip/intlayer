@@ -11,7 +11,7 @@ import { generateMetadata } from './metadata';
 
 export { generateMetadata };
 
-const getContributors = async () => {
+export const getContributors = async () => {
   let contributors: Contributor[] = [];
   try {
     const response = await fetch(

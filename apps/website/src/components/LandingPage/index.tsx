@@ -67,6 +67,13 @@ const DynamicAIABTestingSection = dynamic(
   }
 );
 
+const DynamicContributorSection = dynamic(
+  () => import('./ContributorSection').then((mod) => mod.ContributorSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
 export const LandingPage: FC = () => (
   <>
     <div className="flex flex-col gap-10">
@@ -84,6 +91,7 @@ export const LandingPage: FC = () => (
       <DynamicAIABTestingSection />
       <DynamicAvailableTechnoSection />
       <DynamicDemoSection />
+      <DynamicContributorSection />
       <CommonQuestionsSection />
     </div>
 

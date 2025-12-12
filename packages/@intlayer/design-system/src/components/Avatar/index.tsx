@@ -37,6 +37,19 @@ const sizeVariants = {
 } as const;
 
 /**
+ * Icon size variants for the default user icon
+ */
+const iconSizeVariants: Record<AvatarProps['size'] & string, number> = {
+  sm: 14,
+  md: 25,
+  lg: 30,
+  xl: 40,
+};
+
+const getIconSize = (size: AvatarProps['size']): number =>
+  iconSizeVariants[size ?? 'md'];
+
+/**
  * @description Gets the capital letters from a name.
  * @param name - The name to extract capitals from.
  * @param separator - The separator to split the name (default is an empty string, which splits by each character).
@@ -204,18 +217,16 @@ export const Avatar: FC<AvatarProps> = ({
               className="size-full rounded-full object-cover"
               src={src}
               srcSet={src}
-              alt={alt || `Avatar of ${fullname}`}
+              alt={alt ?? `Avatar of ${fullname}`}
               width={59}
               height={59}
               loading="lazy"
+              draggable={false}
             />
           )}
 
           {displayInitials && (
-            <div
-              className="flex size-full items-center justify-center gap-[0.1rem] font-bold text-sm max-md:py-1"
-              aria-label={`Initials for ${fullname}`}
-            >
+            <div className="flex size-full items-center justify-center gap-[0.1rem] font-bold text-sm max-md:py-1">
               {capitals?.map((capital, index) => (
                 <span key={`${capital}-${index}`}>{capital}</span>
               ))}
@@ -223,27 +234,10 @@ export const Avatar: FC<AvatarProps> = ({
           )}
 
           {displayUserIcon && (
-            <User
-              size={
-                size === 'sm'
-                  ? 14
-                  : size === 'md'
-                    ? 25
-                    : size === 'lg'
-                      ? 30
-                      : 40
-              }
-              aria-label="Default user icon"
-            />
+            <User size={getIconSize(size)} aria-label="Default user icon" />
           )}
         </div>
       </div>
-
-      {isClickable && (
-        <span id="avatar-description" className="sr-only">
-          Click to view profile
-        </span>
-      )}
     </Container>
   );
 };
