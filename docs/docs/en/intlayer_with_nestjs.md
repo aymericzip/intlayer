@@ -2,7 +2,7 @@
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
 title: How to translate your Nest backend – i18n guide 2025
-description: Discover how to make your vite backend multilingual. Follow the documentation to internationalize (i18n) and translate it.
+description: Discover how to make your NestJS backend multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
   - Internationalization
   - Documentation
@@ -15,7 +15,6 @@ slugs:
   - environment
   - nest
 applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
-author: AydinTheFirst
 history:
   - version: 5.8.0
     date: 2025-09-09

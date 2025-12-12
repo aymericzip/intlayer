@@ -2,7 +2,7 @@
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
 title: Cara menerjemahkan backend Nest Anda – panduan i18n 2025
-description: Temukan cara membuat backend vite Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
+description: Temukan cara membuat backend NestJS Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi
   - Dokumentasi

@@ -2,7 +2,7 @@
 createdAt: 2024-03-07
 updatedAt: 2025-10-03
 title: Astroアプリを翻訳する方法 – i18nガイド 2025
-description: Intlayerを使用してViteとReactアプリケーションに国際化（i18n）を追加する方法を学びます。このガイドに従ってアプリを多言語対応にしましょう。
+description: Intlayerを使用してAstroウェブサイトに国際化（i18n）を追加する方法を学びます。このガイドに従ってサイトを多言語対応にしましょう。
 keywords:
   - 国際化
   - ドキュメント

@@ -2,7 +2,7 @@
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
 title: Cómo traducir tu Nest backend – guía i18n 2025
-description: Descubre cómo hacer que tu backend vite sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
+description: Descubre cómo hacer que tu backend NestJS sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:
   - Internacionalización
   - Documentación

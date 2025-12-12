@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
 title: Cách dịch backend Express của bạn – Hướng dẫn i18n 2025
-description: Khám phá cách làm cho backend vite của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
+description: Khám phá cách làm cho backend Express của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa
   - Tài liệu

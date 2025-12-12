@@ -2,7 +2,7 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Cómo traducir tu Express backend – guía i18n 2025
-description: Descubre cómo hacer que tu backend de vite sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
+description: Descubre cómo hacer que tu backend de Express sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:
   - Internacionalización
   - Documentación

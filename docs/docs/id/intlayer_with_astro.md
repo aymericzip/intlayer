@@ -2,7 +2,7 @@
 createdAt: 2024-03-07
 updatedAt: 2025-10-03
 title: Cara menerjemahkan aplikasi Astro Anda – panduan i18n 2025
-description: Pelajari cara menambahkan internasionalisasi (i18n) ke aplikasi Vite dan React Anda menggunakan Intlayer. Ikuti panduan ini untuk membuat aplikasi Anda multibahasa.
+description: Pelajari cara menambahkan internasionalisasi (i18n) ke situs web Astro Anda menggunakan Intlayer. Ikuti panduan ini untuk membuat situs web Anda multibahasa.
 keywords:
   - Internasionalisasi
   - Dokumentasi

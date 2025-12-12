@@ -2,7 +2,7 @@
 createdAt: 2024-03-07
 updatedAt: 2025-10-03
 title: Cách dịch ứng dụng Astro của bạn – Hướng dẫn i18n 2025
-description: Tìm hiểu cách thêm quốc tế hóa (i18n) vào ứng dụng Vite và Astro của bạn bằng Intlayer. Làm theo hướng dẫn này để làm cho ứng dụng của bạn đa ngôn ngữ.
+description: Tìm hiểu cách thêm quốc tế hóa (i18n) vào trang web Astro của bạn bằng Intlayer. Làm theo hướng dẫn này để làm cho trang web của bạn đa ngôn ngữ.
 keywords:
   - Quốc tế hóa
   - Tài liệu

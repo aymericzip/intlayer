@@ -2,7 +2,7 @@
 createdAt: 2024-03-07
 updatedAt: 2025-10-03
 title: 如何翻译您的Astro应用 – i18n指南 2025
-description: 学习如何使用 Intlayer 为您的 Vite 和 React 应用添加国际化（i18n）。按照本指南使您的应用支持多语言。
+description: 学习如何使用 Intlayer 为您的 Astro 网站添加国际化（i18n）。按照本指南使您的网站支持多语言。
 keywords:
   - 国际化
   - 文档

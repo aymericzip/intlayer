@@ -2,7 +2,7 @@
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
 title: Express backend uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
-description: Vite arka ucunuzu çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
+description: Express arka ucunuzu çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

@@ -2,7 +2,7 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Comment traduire votre Express backend – guide i18n 2025
-description: Découvrez comment rendre votre backend vite multilingue. Suivez la documentation pour l’internationaliser (i18n) et le traduire.
+description: Découvrez comment rendre votre backend Express multilingue. Suivez la documentation pour l’internationaliser (i18n) et le traduire.
 keywords:
   - Internationalisation
   - Documentation

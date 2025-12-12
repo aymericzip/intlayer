@@ -2,7 +2,7 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 如何翻译您的Express backend应用 – i18n指南 2025
-description: 了解如何使您的 vite 后端实现多语言。请遵循文档进行国际化（i18n）和翻译。
+description: 了解如何使您的 Express 后端实现多语言。请遵循文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化
   - 文档

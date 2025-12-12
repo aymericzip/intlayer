@@ -2,7 +2,7 @@
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
 title: 如何翻译您的Nest backend应用 – i18n指南 2025
-description: 了解如何使你的 vite 后端支持多语言。按照文档进行国际化（i18n）和翻译。
+description: 了解如何使你的 NestJS 后端支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化
   - 文档

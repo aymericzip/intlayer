@@ -2,7 +2,7 @@
 createdAt: 2024-03-07
 updatedAt: 2025-10-03
 title: How to translate your Astro app – i18n guide 2025
-description: Learn how to add internationalization (i18n) to your Vite and React application using Intlayer. Follow this guide to make your app multilingual.
+description: Learn how to add internationalization (i18n) to your Astro website using Intlayer. Follow this guide to make your site multilingual.
 keywords:
   - Internationalization
   - Documentation

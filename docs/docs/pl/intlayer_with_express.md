@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
 title: Jak przetłumaczyć backend Express – przewodnik i18n 2025
-description: Dowiedz się, jak uczynić swój backend vite wielojęzycznym. Postępuj zgodnie z dokumentacją, aby internacjonalizować (i18n) i tłumaczyć.
+description: Dowiedz się, jak uczynić swój backend Express wielojęzycznym. Postępuj zgodnie z dokumentacją, aby internacjonalizować (i18n) i tłumaczyć.
 keywords:
   - Internacjonalizacja
   - Dokumentacja

@@ -2,7 +2,7 @@
 createdAt: 2025-09-09
 updatedAt: 2025-09-09
 title: Cách dịch backend Nest của bạn – Hướng dẫn i18n 2025
-description: Khám phá cách làm cho backend vite của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
+description: Khám phá cách làm cho backend NestJS của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa
   - Tài liệu
