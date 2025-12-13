@@ -1,11 +1,12 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { Avatar, H2 } from '@intlayer/design-system';
+import { Avatar, DiscordLogo, H2 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { useIntlayer } from 'next-intlayer';
 import {
   type CSSProperties,
   type FC,
@@ -13,6 +14,7 @@ import {
   type RefObject,
   useRef,
 } from 'react';
+import { ExternalLinks, PagesRoutes } from '@/Routes';
 
 type Contributor = {
   login: string;
@@ -24,10 +26,6 @@ type Contributor = {
 
 type ContributorCloudProps = {
   contributors: Contributor[];
-  title: string;
-  subtitle: string;
-  seeAllLink: string;
-  seeAllHref: string;
 };
 
 type ContributorAvatarProps = {
@@ -170,11 +168,10 @@ const generateCloudPositions = (count: number) => {
 
 export const ContributorCloud: FC<ContributorCloudProps> = ({
   contributors,
-  title,
-  subtitle,
-  seeAllLink,
-  seeAllHref,
 }) => {
+  const { discordLinkLabel, seeAllLink, title, subtitle } = useIntlayer(
+    'contributor-section'
+  );
   const { isMobile } = useDevice();
   const positions = generateCloudPositions(contributors.length);
   const sectionRef = useRef<HTMLElement>(null);
@@ -194,20 +191,35 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
             <H2 className="mb-3 font-bold text-3xl sm:text-4xl">{title}</H2>
             <p className="text-base text-neutral">{subtitle}</p>
 
-            {/* Link to contributors page */}
-            <Link
-              href={seeAllHref}
-              label={seeAllLink}
-              color="text"
-              variant="button"
-              roundedSize="full"
-              className="flex w-fit"
-            >
-              <span className="flex items-center gap-2">
-                {seeAllLink}
-                <ArrowRight className="size-4" />
-              </span>
-            </Link>
+            <div className="flex gap-2">
+              <Link
+                href={ExternalLinks.Discord}
+                label={discordLinkLabel.value}
+                color="text"
+                variant="button-outlined"
+                roundedSize="full"
+                className="flex w-fit"
+              >
+                <span className="flex items-center gap-2">
+                  <DiscordLogo className="size-4" />
+                  {discordLinkLabel}
+                </span>
+              </Link>
+
+              <Link
+                href={PagesRoutes.Contributors}
+                label={seeAllLink.value}
+                color="text"
+                variant="button"
+                roundedSize="full"
+                className="flex w-fit"
+              >
+                <span className="flex items-center gap-2">
+                  {seeAllLink}
+                  <ArrowRight className="size-4" />
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

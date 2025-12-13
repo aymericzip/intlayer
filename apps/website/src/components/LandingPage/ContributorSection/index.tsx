@@ -1,4 +1,3 @@
-import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import { getContributors } from '@/app/[locale]/(landing)/contributors/page';
 import { PagesRoutes } from '@/Routes';
@@ -29,8 +28,6 @@ const contributors = await getContributors()
   .then((array) => array.slice(0, 40));
 
 export const ContributorSection: FC = () => {
-  const { title, subtitle, seeAllLink } = useIntlayer('contributor-section');
-
   if (contributors.length === 0) {
     return null;
   }
@@ -38,9 +35,6 @@ export const ContributorSection: FC = () => {
   return (
     <ContributorCloud
       contributors={contributors}
-      title={title}
-      subtitle={subtitle}
-      seeAllLink={seeAllLink}
       seeAllHref={PagesRoutes.Contributors}
     />
   );
