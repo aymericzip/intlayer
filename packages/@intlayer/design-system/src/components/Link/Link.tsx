@@ -108,7 +108,7 @@ export const linkVariants = cva(
           'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.5px] border-current text-center font-medium text-text ring-0 *:text-text hover:bg-current/20 hover:ring-6 aria-selected:ring-6',
 
         [`${LinkVariant.HOVERABLE}`]:
-          'block rounded-lg border-none bg-current/0 hover:bg-current/20 aria-[current]:bg-current/5',
+          'block rounded-lg border-none bg-current/0 hover:bg-current/10 aria-[current]:bg-current/5',
       },
       roundedSize: {
         [`${LinkRoundedSize.NONE}`]: 'rounded-none',
@@ -154,39 +154,24 @@ export const linkVariants = cva(
     },
     // Compound variants handle height and padding
     compoundVariants: [
+      // Min height and padding for button variants
       {
-        variant: [
-          LinkVariant.BUTTON,
-          LinkVariant.BUTTON_OUTLINED,
-          LinkVariant.HOVERABLE,
-        ],
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
         size: LinkSize.SM,
         class: 'min-h-7 px-3 max-md:py-1',
       },
       {
-        variant: [
-          LinkVariant.BUTTON,
-          LinkVariant.BUTTON_OUTLINED,
-          LinkVariant.HOVERABLE,
-        ],
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
         size: LinkSize.MD,
         class: 'min-h-8 px-6 max-md:py-2',
       },
       {
-        variant: [
-          LinkVariant.BUTTON,
-          LinkVariant.BUTTON_OUTLINED,
-          LinkVariant.HOVERABLE,
-        ],
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
         size: LinkSize.LG,
         class: 'min-h-10 px-8 max-md:py-3',
       },
       {
-        variant: [
-          LinkVariant.BUTTON,
-          LinkVariant.BUTTON_OUTLINED,
-          LinkVariant.HOVERABLE,
-        ],
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
         size: LinkSize.XL,
         class: 'min-h-11 px-10 max-md:py-4',
       },
@@ -246,7 +231,7 @@ export const linkVariants = cva(
     defaultVariants: {
       variant: LinkVariant.DEFAULT,
       color: LinkColor.PRIMARY,
-      roundedSize: LinkRoundedSize.NONE,
+      roundedSize: LinkRoundedSize.MD,
       underlined: LinkUnderlined.DEFAULT,
       size: LinkSize.MD,
     },
