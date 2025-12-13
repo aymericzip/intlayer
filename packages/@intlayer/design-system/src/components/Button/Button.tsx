@@ -147,7 +147,7 @@ export const buttonVariants = cva(
 
         [`${ButtonVariant.OUTLINE}`]: [
           'rounded-2xl border-[1.5px] border-current bg-current/0 *:text-current!',
-          'hover:bg-current/10',
+          'hover:bg-current/20',
 
           // Same hover ring behavior as DEFAULT for coherence
           'hover:ring-6',
@@ -164,10 +164,10 @@ export const buttonVariants = cva(
           'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent',
 
         [`${ButtonVariant.HOVERABLE}`]:
-          'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/10 aria-[current]:bg-current/5',
+          'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/20 aria-[current]:bg-current/5',
 
         [`${ButtonVariant.FADE}`]:
-          'rounded-lg border-none bg-current/10 transition *:text-current! hover:bg-current/20 aria-[current]:bg-current/5',
+          'rounded-lg border-none bg-current/20 transition *:text-current! hover:bg-current/20 aria-[current]:bg-current/5',
 
         [`${ButtonVariant.INPUT}`]: [
           // base styles

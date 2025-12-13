@@ -63,7 +63,7 @@ export const AIABTestingSection: FC = () => {
               target="_blank"
               rel={undefined}
               variant={LinkVariant.BUTTON}
-              color={LinkColor.CUSTOM}
+              color={LinkColor.TEXT}
               label={ctaButton.label.value}
               roundedSize="full"
               size="lg"

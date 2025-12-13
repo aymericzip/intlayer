@@ -102,10 +102,10 @@ export const linkVariants = cva(
           'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0',
 
         [`${LinkVariant.BUTTON}`]:
-          'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current text-center font-medium text-text ring-0 ring-neutral/20 *:text-text-opposite hover:bg-current/90 hover:ring-6 aria-selected:ring-6',
+          'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current text-center font-medium text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-6 aria-selected:ring-6',
 
         [`${LinkVariant.BUTTON_OUTLINED}`]:
-          'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.5px] border-current text-center font-medium text-text ring-0 ring-neutral/20 *:text-text hover:bg-current/10 hover:ring-6 aria-selected:ring-6',
+          'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.5px] border-current text-center font-medium text-text ring-0 *:text-text hover:bg-current/10 hover:ring-6 aria-selected:ring-6',
 
         [`${LinkVariant.HOVERABLE}`]:
           'block rounded-lg border-none bg-current/0 hover:bg-current/20 aria-[current]:bg-current/5',
@@ -155,24 +155,91 @@ export const linkVariants = cva(
     // Compound variants handle height and padding
     compoundVariants: [
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        variant: [
+          LinkVariant.BUTTON,
+          LinkVariant.BUTTON_OUTLINED,
+          LinkVariant.HOVERABLE,
+        ],
         size: LinkSize.SM,
         class: 'min-h-7 px-3 max-md:py-1',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        variant: [
+          LinkVariant.BUTTON,
+          LinkVariant.BUTTON_OUTLINED,
+          LinkVariant.HOVERABLE,
+        ],
         size: LinkSize.MD,
         class: 'min-h-8 px-6 max-md:py-2',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        variant: [
+          LinkVariant.BUTTON,
+          LinkVariant.BUTTON_OUTLINED,
+          LinkVariant.HOVERABLE,
+        ],
         size: LinkSize.LG,
         class: 'min-h-10 px-8 max-md:py-3',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        variant: [
+          LinkVariant.BUTTON,
+          LinkVariant.BUTTON_OUTLINED,
+          LinkVariant.HOVERABLE,
+        ],
         size: LinkSize.XL,
         class: 'min-h-11 px-10 max-md:py-4',
+      },
+      // Ring color variants for button (Chrome bug fix: ring-current/20 doesn't work properly)
+      {
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        color: LinkColor.PRIMARY,
+        class: 'ring-primary/20',
+      },
+      {
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        color: LinkColor.SECONDARY,
+        class: 'ring-secondary/20',
+      },
+      {
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        color: LinkColor.DESTRUCTIVE,
+        class: 'ring-destructive/20',
+      },
+      {
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        color: LinkColor.NEUTRAL,
+        class: 'ring-neutral/20',
+      },
+      {
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        color: LinkColor.LIGHT,
+        class: 'ring-white/20',
+      },
+      {
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        color: LinkColor.DARK,
+        class: 'ring-neutral-800/20',
+      },
+      {
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        color: LinkColor.TEXT,
+        class: 'ring-text/20',
+      },
+      {
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        color: LinkColor.TEXT_INVERSE,
+        class: 'ring-text-opposite/20',
+      },
+      {
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        color: LinkColor.ERROR,
+        class: 'ring-error/20',
+      },
+      {
+        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
+        color: LinkColor.SUCCESS,
+        class: 'ring-success/20',
       },
     ],
 
