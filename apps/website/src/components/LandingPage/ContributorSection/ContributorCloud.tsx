@@ -11,9 +11,7 @@ import {
   type FC,
   memo,
   type RefObject,
-  useMemo,
   useRef,
-  useState,
 } from 'react';
 
 type Contributor = {
@@ -140,8 +138,6 @@ const ContributorAvatar: FC<ContributorAvatarProps> = memo(
   }
 );
 
-ContributorAvatar.displayName = 'ContributorAvatar';
-
 // Generate cloud positions using Phyllotaxis (Sunflower) pattern
 // Positioned on the left side (center at ~30% horizontally)
 const generateCloudPositions = (count: number) => {
@@ -155,8 +151,8 @@ const generateCloudPositions = (count: number) => {
   const cY = count > 1 ? maxRadiusY / Math.sqrt(count - 1) : 0;
 
   // Center at 30% horizontally (left side), 50% vertically
-  const centerX = 30;
-  const centerY = 50;
+  const centerX = 25;
+  const centerY = 40;
 
   for (let i = 0; i < count; i++) {
     const r = Math.sqrt(i);
@@ -193,7 +189,6 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
           <div className="pointer-events-none relative flex-1">
             {/* Invisible spacer to maintain layout */}
           </div>
-
           <div className="pointer-events-auto relative z-0 flex-1 space-y-6">
             <H2 className="mb-3 font-bold text-3xl sm:text-4xl">{title}</H2>
             <p className="text-base text-neutral">{subtitle}</p>
