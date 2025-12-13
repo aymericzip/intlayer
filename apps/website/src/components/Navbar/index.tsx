@@ -173,7 +173,8 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             label={github.label.value}
             href={github.url.value}
             color="custom"
-            className="group/github flex cursor-pointer items-center gap-2 rounded-full bg-text p-1 text-text-opposite hover:bg-text/90"
+            roundedSize="full"
+            className="group/github flex cursor-pointer items-center gap-2 bg-text p-1 text-text-opposite hover:bg-text/90"
           >
             <GithubLogo width={25} />
             <StarIcon
