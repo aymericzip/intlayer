@@ -64,78 +64,81 @@ const getZIndex = (sizeIndex: number): number => {
   }
 };
 
-const ContributorAvatar: FC<ContributorAvatarProps> = memo(
-  ({ contributor, index, position, dragConstraintsRef }) => {
-    // 0: Med, 1: Big, 2: Small, 3: Med-Small
-    const sizeIndex = (index + contributor.login.length) % sizeVariants.length;
-    const sizeClass = sizeVariants[sizeIndex];
-    const floatDistance = getFloatDistance(sizeIndex);
-    const zIndex = getZIndex(sizeIndex);
+const ContributorAvatar: FC<ContributorAvatarProps> = ({
+  contributor,
+  index,
+  position,
+  dragConstraintsRef,
+}) => {
+  // 0: Med, 1: Big, 2: Small, 3: Med-Small
+  const sizeIndex = (index + contributor.login.length) % sizeVariants.length;
+  const sizeClass = sizeVariants[sizeIndex];
+  const floatDistance = getFloatDistance(sizeIndex);
+  const zIndex = getZIndex(sizeIndex);
 
-    // Desync float animation using index and login hash for variety
-    // Slower duration: 6s to 10.5s (50% slower)
-    const floatDelay = (
-      (index * 0.7 + contributor.login.length * 0.3) %
-      5
-    ).toFixed(2);
-    const floatDuration = (6 + (index % 4) * 1.5).toFixed(1);
+  // Desync float animation using index and login hash for variety
+  // Slower duration: 6s to 10.5s (50% slower)
+  const floatDelay = (
+    (index * 0.7 + contributor.login.length * 0.3) %
+    5
+  ).toFixed(2);
+  const floatDuration = (6 + (index % 4) * 1.5).toFixed(1);
 
-    return (
-      <motion.div
-        drag
-        dragConstraints={dragConstraintsRef}
-        dragMomentum
-        dragElastic={0.05}
-        dragTransition={{
-          power: 0.2,
-          timeConstant: 100,
-          bounceStiffness: 300,
-          bounceDamping: 50,
-        }}
-        whileDrag={{ scale: 1.1, cursor: 'grabbing', zIndex: 50 }}
-        whileHover={{ scale: 1.05, zIndex: 40 }}
-        initial={{
-          left: `${position.x}%`,
-          top: `${position.y}%`,
-          opacity: 0,
-          scale: 0,
-        }}
-        whileInView={{
-          opacity: 1,
-          scale: 1,
-        }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{
-          duration: 0.6,
-          delay: index * 0.015,
-          type: 'spring',
-          stiffness: 120,
-          damping: 18,
-        }}
-        className="absolute cursor-grab select-none"
-        style={{ zIndex }}
-        draggable={false}
-        onDragStart={(e) => e.preventDefault()}
-      >
-        <Avatar
-          src={contributor.avatar_url}
-          alt={contributor.login}
-          style={
-            {
-              animationDelay: `${floatDelay}s`,
-              animationDuration: `${floatDuration}s`,
-              '--float-distance': floatDistance,
-            } as CSSProperties
-          }
-          className={cn(
-            sizeClass,
-            `pointer-events-none animate-float select-none border-2 border-background object-cover shadow-md transition-shadow hover:shadow-xl dark:border-neutral-800`
-          )}
-        />
-      </motion.div>
-    );
-  }
-);
+  return (
+    <motion.div
+      drag
+      dragConstraints={dragConstraintsRef}
+      dragMomentum
+      dragElastic={0.05}
+      dragTransition={{
+        power: 0.2,
+        timeConstant: 100,
+        bounceStiffness: 300,
+        bounceDamping: 50,
+      }}
+      whileDrag={{ scale: 1.1, cursor: 'grabbing', zIndex: 50 }}
+      whileHover={{ scale: 1.05, zIndex: 40 }}
+      initial={{
+        left: `${position.x}%`,
+        top: `${position.y}%`,
+        opacity: 0,
+        scale: 0,
+      }}
+      whileInView={{
+        opacity: 1,
+        scale: 1,
+      }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.015,
+        type: 'spring',
+        stiffness: 120,
+        damping: 18,
+      }}
+      className="absolute cursor-grab select-none"
+      style={{ zIndex }}
+      draggable={false}
+      onDragStart={(e) => e.preventDefault()}
+    >
+      <Avatar
+        src={contributor.avatar_url}
+        alt={contributor.login}
+        style={
+          {
+            animationDelay: `${floatDelay}s`,
+            animationDuration: `${floatDuration}s`,
+            '--float-distance': floatDistance,
+          } as CSSProperties
+        }
+        className={cn(
+          sizeClass,
+          `pointer-events-none animate-float select-none border-2 border-background object-cover shadow-md transition-shadow hover:shadow-xl dark:border-neutral-800`
+        )}
+      />
+    </motion.div>
+  );
+};
 
 // Generate cloud positions using Phyllotaxis (Sunflower) pattern
 // Positioned on the left side (center at ~30% horizontally)

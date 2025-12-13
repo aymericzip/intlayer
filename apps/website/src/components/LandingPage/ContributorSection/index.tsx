@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 import { getContributors } from '@/app/[locale]/(landing)/contributors/page';
-import { PagesRoutes } from '@/Routes';
 import { ContributorCloud } from './ContributorCloud';
 
 type Contributor = {
@@ -32,10 +31,5 @@ export const ContributorSection: FC = () => {
     return null;
   }
 
-  return (
-    <ContributorCloud
-      contributors={contributors}
-      seeAllHref={PagesRoutes.Contributors}
-    />
-  );
+  return <ContributorCloud contributors={contributors} />;
 };
