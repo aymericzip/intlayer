@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-10-05
+updatedAt: 2025-12-13
 title: Plugin Sinkronisasi JSON
 description: Sinkronkan kamus Intlayer dengan file JSON i18n pihak ketiga (i18next, next-intl, react-intl, vue-i18n, dan lainnya). Pertahankan i18n Anda yang sudah ada sambil menggunakan Intlayer untuk mengelola, menerjemahkan, dan menguji pesan Anda.
 keywords:
@@ -24,12 +24,15 @@ slugs:
   - sync-json
 youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: Menambahkan dukungan format ICU dan i18next
   - version: 6.1.6
     date: 2025-10-05
     changes: Dokumentasi awal plugin Sinkronisasi JSON
 ---
 
-# Sinkronisasi JSON (jembatan i18n)
+# Sinkronisasi JSON (jembatan i18n) - Sinkronisasi JSON dengan dukungan ICU / i18next
 
 <iframe title="Cara menjaga terjemahan JSON Anda tetap sinkron dengan Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
@@ -105,7 +108,25 @@ syncJSON({
   source: ({ key, locale }) => string, // wajib
   location?: string, // label opsional, default: "plugin"
   priority?: number, // prioritas opsional untuk resolusi konflik, default: 0
+  format?: 'intlayer' | 'icu' | 'i18next', // formatter opsional, default: 'intlayer'
 });
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Menentukan formatter yang akan digunakan untuk konten kamus saat menyinkronkan file JSON. Ini memungkinkan penggunaan berbagai sintaks pemformatan pesan yang kompatibel dengan berbagai pustaka i18n.
+
+- `'intlayer'`: Formatter Intlayer default (default).
+- `'icu'`: Menggunakan pemformatan pesan ICU (kompatibel dengan pustaka seperti react-intl, vue-i18n).
+- `'i18next'`: Menggunakan pemformatan pesan i18next (kompatibel dengan i18next, next-i18next, Solid-i18next).
+
+**Contoh:**
+
+```ts
+syncJSON({
+  source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+  format: "i18next", // Gunakan pemformatan i18next untuk kompatibilitas
+}),
 ```
 
 ## Beberapa sumber JSON dan prioritas
@@ -134,6 +155,7 @@ export default defineConfig({
   plugins: [
     // Sumber JSON utama (prioritas tertinggi)
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
       location: "main-translations",
       priority: 10,
@@ -141,6 +163,7 @@ export default defineConfig({
 
     // Sumber JSON cadangan (prioritas lebih rendah)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `./fallback-locales/${locale}.json`,
       location: "fallback-translations",
       priority: 5,
@@ -148,6 +171,7 @@ export default defineConfig({
 
     // Sumber JSON Legacy (prioritas terendah)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `/my/other/app/legacy/${locale}/messages.json`,
       location: "legacy-translations",
       priority: 1,
@@ -178,6 +202,7 @@ import { syncJSON } from "@intlayer/sync-json-plugin";
 export default {
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

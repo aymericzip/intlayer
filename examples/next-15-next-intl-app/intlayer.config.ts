@@ -16,11 +16,13 @@ const config: IntlayerConfig = {
 
   plugins: [
     loadJSON({
-      source: ({ key }) => `./src/**/en.i18n.json`,
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
       locale: Locales.ENGLISH,
+      format: 'intlayer',
       priority: 1,
     }),
     syncJSON({
+      format: 'icu',
       source: ({ locale }) => `./messages/${locale}.json`,
     }),
   ],

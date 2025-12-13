@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: 콘텐츠 파일
 description: 콘텐츠 선언 파일의 확장자를 사용자 정의하는 방법을 배우세요. 이 문서를 따라 프로젝트에서 조건을 효율적으로 구현하세요.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: ICU 및 i18next 형식 지원 추가
   - version: 6.0.0
     date: 2025-09-20
     changes: 필드 문서 추가
@@ -383,6 +386,46 @@ content: { /* ... */ }
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+사전 콘텐츠에 사용할 포맷터를 지정합니다. 이를 통해 다양한 메시지 포맷팅 구문을 사용할 수 있습니다.
+
+- `'intlayer'`: 기본 Intlayer 포맷터.
+- `'icu'`: ICU 메시지 포맷팅을 사용합니다.
+- `'i18next'`: i18next 메시지 포맷팅을 사용합니다.
+
+**예시:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+사전 콘텐츠에 사용할 포맷터를 지정합니다. 이를 통해 다양한 메시지 포맷팅 구문을 사용할 수 있습니다.
+
+- `'intlayer'`: 기본 Intlayer 포맷터.
+- `'icu'`: ICU 메시지 포맷팅을 사용합니다.
+- `'i18next'`: i18next 메시지 포맷팅을 사용합니다.
+
+**예시:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

@@ -419,6 +419,7 @@ const config: IntlayerConfig = {
   plugins: [
     // حافظ على هيكل المجلد لكل مساحة أسماء متزامنًا مع Intlayer
     syncJSON({
+      format: "icu",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

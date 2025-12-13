@@ -108,6 +108,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
     }),
   ],
@@ -159,6 +160,7 @@ const config: IntlayerConfig = {
      * 로케일 디렉토리 내 JSON 파일에 출력 및 번역을 다시 작성하고 로드합니다.
      */
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
       priority: 0,
     }),

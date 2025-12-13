@@ -421,6 +421,7 @@ const config: IntlayerConfig = {
   plugins: [
     // Синхронизируйте структуру папок по namespace с Intlayer
     syncJSON({
+      format: "icu",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`, // путь к JSON-файлам с переводами
     }),
   ],

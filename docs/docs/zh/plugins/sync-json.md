@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-10-05
+updatedAt: 2025-12-13
 title: 同步 JSON 插件
 description: 将 Intlayer 字典与第三方 i18n JSON 文件（如 i18next、next-intl、react-intl、vue-i18n 等）同步。保持您现有的 i18n，同时使用 Intlayer 管理、翻译和测试您的消息。
 keywords:
@@ -24,12 +24,15 @@ slugs:
   - sync-json
 youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: 添加 ICU 和 i18next 格式支持
   - version: 6.1.6
     date: 2025-10-05
     changes: 初始同步 JSON 插件文档
 ---
 
-## 同步 JSON（i18n 桥接）
+# 同步 JSON（i18n 桥接）- 支持 ICU / i18next 的同步 JSON
 
 <iframe title="如何保持您的 JSON 翻译与 Intlayer 同步" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
@@ -105,7 +108,25 @@ syncJSON({
   source: ({ key, locale }) => string, // 必填
   location?: string, // 可选标签，默认值："plugin"
   priority?: number, // 可选优先级，用于冲突解决，默认值：0
+  format?: 'intlayer' | 'icu' | 'i18next', // 可选格式化器，默认值：'intlayer'
 });
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+指定在同步 JSON 文件时用于字典内容的格式化器。这允许使用与各种 i18n 库兼容的不同消息格式化语法。
+
+- `'intlayer'`: 默认的 Intlayer 格式化器（默认值）。
+- `'icu'`: 使用 ICU 消息格式化（与 react-intl、vue-i18n 等库兼容）。
+- `'i18next'`: 使用 i18next 消息格式化（与 i18next、next-i18next、Solid-i18next 兼容）。
+
+**示例：**
+
+```ts
+syncJSON({
+  source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+  format: "i18next", // 使用 i18next 格式化以保持兼容性
+}),
 ```
 
 ## 多个 JSON 源和优先级
@@ -134,6 +155,7 @@ export default defineConfig({
   plugins: [
     // 主要 JSON 源（最高优先级）
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
       location: "main-translations",
       priority: 10,
@@ -141,6 +163,7 @@ export default defineConfig({
 
     // 备用 JSON 源（较低优先级）
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `./fallback-locales/${locale}.json`,
       location: "fallback-translations",
       priority: 5,
@@ -148,6 +171,7 @@ export default defineConfig({
 
     // 旧版 JSON 源（最低优先级）
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `/my/other/app/legacy/${locale}/messages.json`,
       location: "legacy-translations",
       priority: 1,
@@ -178,6 +202,7 @@ import { syncJSON } from "@intlayer/sync-json-plugin";
 export default {
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

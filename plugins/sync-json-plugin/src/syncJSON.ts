@@ -1,9 +1,10 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
+import { formatDictionaryOutput } from '@intlayer/chokidar';
 import { getProjectRequire } from '@intlayer/config';
 import type {
-  ContentNode,
   Dictionary,
+  DictionaryFormat,
   IntlayerConfig,
   LocalDictionaryId,
   Locale,
@@ -230,10 +231,19 @@ type SyncJSONPluginOptions = {
    *
    */
   priority?: number;
+
+  /**
+   * The format of the dictionaries created by the plugin.
+   *
+   * Default: 'intlayer'
+   *
+   * The format of the dictionaries created by the plugin.
+   */
+  format?: DictionaryFormat;
 };
 
 export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
-  const { location, priority } = {
+  const { location, priority, format } = {
     location: 'plugin',
     priority: 0,
     ...options,
@@ -276,6 +286,7 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
           key,
           locale,
           fill,
+          format,
           localId: `${key}::${location}::${filePath}` as LocalDictionaryId,
           location: location as Dictionary['location'],
           filled:
@@ -310,7 +321,7 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
     },
     afterBuild: async ({ dictionaries, configuration }) => {
       // Dynamic import to avoid circular dependency as core package import config, that load esbuild, that load the config file, that load the plugin
-      const { getLocalizedContent } = await import('@intlayer/core');
+      const { getPerLocaleDictionary } = await import('@intlayer/core');
       const { parallelize } = await import('@intlayer/chokidar');
 
       const locales = configuration.internationalization.locales;
@@ -337,31 +348,31 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
           locale,
         });
 
+        const localizedDictionary = getPerLocaleDictionary(dictionary, locale);
+
+        // Restore the original format from plugin options for output formatting
+        const dictionaryWithFormat = {
+          ...localizedDictionary,
+          format,
+        };
+
+        const formattedOutput = formatDictionaryOutput(dictionaryWithFormat);
+
         // Remove function, Symbol, etc. as it can be written as JSON
-        const flatContent = JSON.parse(JSON.stringify(dictionary.content));
+        const content = JSON.parse(JSON.stringify(formattedOutput.content));
 
-        const localizedContent = getLocalizedContent(
-          flatContent as unknown as ContentNode,
-          locale,
-          {
-            dictionaryKey: key,
-            keyPath: [],
-          }
-        );
-
-        // The file is empty, don't write it
         if (
-          typeof localizedContent === 'undefined' ||
-          (typeof localizedContent === 'object' &&
-            Object.keys(localizedContent as Record<string, unknown>).length ===
-              0)
-        )
+          typeof content === 'undefined' ||
+          (typeof content === 'object' &&
+            Object.keys(content as Record<string, unknown>).length === 0)
+        ) {
           return;
+        }
 
         // Ensure directory exists before writing the file
         await mkdir(dirname(builderPath), { recursive: true });
 
-        const stringContent = JSON.stringify(localizedContent, null, 2);
+        const stringContent = JSON.stringify(content, null, 2);
 
         await writeFile(
           builderPath,

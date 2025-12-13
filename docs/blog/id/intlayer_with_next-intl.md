@@ -95,6 +95,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
+      format: "icu",
       source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
     }),
   ],
@@ -144,6 +145,7 @@ const config: IntlayerConfig = {
      * Akan memuat, dan menulis output serta terjemahan kembali ke file JSON di direktori locales
      */
     syncJSON({
+      format: "icu",
       source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
       priority: 0,
     }),

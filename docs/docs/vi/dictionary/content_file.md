@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: Tệp Nội Dung
 description: Tìm hiểu cách tùy chỉnh các phần mở rộng cho các tệp khai báo nội dung của bạn. Theo dõi tài liệu này để triển khai các điều kiện một cách hiệu quả trong dự án của bạn.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: Thêm hỗ trợ định dạng ICU và i18next
   - version: 7.0.0
     date: 2025-10-23
     changes: Đổi tên `autoFill` thành `fill`
@@ -384,6 +387,26 @@ Mảng các chuỗi dùng để phân loại và tổ chức các từ điển. 
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Chỉ định bộ định dạng để sử dụng cho nội dung từ điển. Điều này cho phép sử dụng các cú pháp định dạng thông báo khác nhau.
+
+- `'intlayer'`: Bộ định dạng Intlayer mặc định.
+- `'icu'`: Sử dụng định dạng thông báo ICU.
+- `'i18next'`: Sử dụng định dạng thông báo i18next.
+
+**Ví dụ:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

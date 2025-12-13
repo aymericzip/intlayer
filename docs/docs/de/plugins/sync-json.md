@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-10-05
+updatedAt: 2025-12-13
 title: Sync JSON Plugin
 description: Synchronisieren Sie Intlayer-Wörterbücher mit Drittanbieter-i18n-JSON-Dateien (i18next, next-intl, react-intl, vue-i18n und mehr). Behalten Sie Ihr bestehendes i18n bei und verwenden Sie Intlayer, um Ihre Nachrichten zu verwalten, zu übersetzen und zu testen.
 keywords:
@@ -24,12 +24,15 @@ slugs:
   - sync-json
 youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: Unterstützung für ICU- und i18next-Formate hinzugefügt
   - version: 6.1.6
     date: 2025-10-05
     changes: Erste Dokumentation des Sync JSON Plugins
 ---
 
-# Sync JSON (i18n-Brücken)
+# Sync JSON (i18n-Brücken) - Sync JSON mit ICU / i18next-Unterstützung
 
 <iframe title="Wie Sie Ihre JSON-Übersetzungen mit Intlayer synchronisiert halten" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
@@ -105,7 +108,25 @@ syncJSON({
   source: ({ key, locale }) => string, // erforderlich
   location?: string, // optionales Label, Standard: "plugin"
   priority?: number, // optionale Priorität zur Konfliktlösung, Standard: 0
+  format?: 'intlayer' | 'icu' | 'i18next', // optionaler Formatierer, Standard: 'intlayer'
 });
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Gibt den Formatierer an, der für den Wörterbuchinhalt bei der Synchronisierung von JSON-Dateien verwendet werden soll. Dies ermöglicht die Verwendung verschiedener Nachrichtenformatierungssyntaxen, die mit verschiedenen i18n-Bibliotheken kompatibel sind.
+
+- `'intlayer'`: Der Standard-Intlayer-Formatierer (Standard).
+- `'icu'`: Verwendet ICU-Nachrichtenformatierung (kompatibel mit Bibliotheken wie react-intl, vue-i18n).
+- `'i18next'`: Verwendet i18next-Nachrichtenformatierung (kompatibel mit i18next, next-i18next, Solid-i18next).
+
+**Beispiel:**
+
+```ts
+syncJSON({
+  source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+  format: "i18next", // i18next-Formatierung für Kompatibilität verwenden
+}),
 ```
 
 ## Mehrere JSON-Quellen und Priorität
@@ -134,6 +155,7 @@ export default defineConfig({
   plugins: [
     // Primäre JSON-Quelle (höchste Priorität)
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
       location: "main-translations",
       priority: 10,
@@ -141,6 +163,7 @@ export default defineConfig({
 
     // Fallback-JSON-Quelle (niedrigere Priorität)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `./fallback-locales/${locale}.json`,
       location: "fallback-translations",
       priority: 5,
@@ -148,6 +171,7 @@ export default defineConfig({
 
     // Legacy-JSON-Quelle (niedrigste Priorität)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `/my/other/app/legacy/${locale}/messages.json`,
       location: "legacy-translations",
       priority: 1,
@@ -178,6 +202,7 @@ import { syncJSON } from "@intlayer/sync-json-plugin";
 export default {
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

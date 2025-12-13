@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-10-05
+updatedAt: 2025-12-13
 title: مكون مزامنة JSON
 description: مزامنة قواميس Intlayer مع ملفات JSON الخاصة بالتدويل من طرف ثالث (i18next، next-intl، react-intl، vue-i18n، والمزيد). احتفظ بنظام التدويل الحالي لديك أثناء استخدام Intlayer لإدارة وترجمة واختبار رسائلك.
 keywords:
@@ -24,12 +24,15 @@ slugs:
   - sync-json
 youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: إضافة دعم تنسيقات ICU و i18next
   - version: 6.1.6
     date: 2025-10-05
     changes: الوثائق الأولية لمكون مزامنة JSON
 ---
 
-## مزامنة JSON (جسور التدويل)
+# مزامنة JSON (جسور التدويل) - مزامنة JSON مع دعم ICU / i18next
 
 <iframe title="كيفية الحفاظ على مزامنة ترجمات JSON الخاصة بك مع Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
@@ -105,7 +108,25 @@ syncJSON({
   source: ({ key, locale }) => string, // مطلوب
   location?: string, // تسمية اختيارية، الافتراضي: "plugin"
   priority?: number, // أولوية اختيارية لحل التعارضات، الافتراضي: 0
+  format?: 'intlayer' | 'icu' | 'i18next', // مُنسق اختياري، الافتراضي: 'intlayer'
 });
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+يحدد المُنسق الذي سيتم استخدامه لمحتوى القاموس عند مزامنة ملفات JSON. يسمح هذا باستخدام صيغ تنسيق رسائل مختلفة متوافقة مع مكتبات i18n مختلفة.
+
+- `'intlayer'`: مُنسق Intlayer الافتراضي (الافتراضي).
+- `'icu'`: يستخدم تنسيق رسائل ICU (متوافق مع مكتبات مثل react-intl، vue-i18n).
+- `'i18next'`: يستخدم تنسيق رسائل i18next (متوافق مع i18next، next-i18next، Solid-i18next).
+
+**مثال:**
+
+```ts
+syncJSON({
+  source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+  format: "i18next", // استخدام تنسيق i18next للتوافق
+}),
 ```
 
 ## مصادر JSON متعددة والأولوية
@@ -134,6 +155,7 @@ export default defineConfig({
   plugins: [
     // المصدر الأساسي لملفات JSON (الأولوية الأعلى)
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
       location: "main-translations",
       priority: 10,
@@ -141,6 +163,7 @@ export default defineConfig({
 
     // المصدر الاحتياطي لملفات JSON (أولوية أقل)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `./fallback-locales/${locale}.json`,
       location: "fallback-translations",
       priority: 5,
@@ -148,6 +171,7 @@ export default defineConfig({
 
     // المصدر القديم لملفات JSON (الأولوية الأدنى)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `/my/other/app/legacy/${locale}/messages.json`,
       location: "legacy-translations",
       priority: 1,
@@ -178,6 +202,7 @@ import { syncJSON } from "@intlayer/sync-json-plugin";
 export default {
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

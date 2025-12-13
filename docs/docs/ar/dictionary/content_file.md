@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: ملف المحتوى
 description: تعلّم كيفية تخصيص الامتدادات لملفات إعلان المحتوى الخاصة بك. اتبع هذا التوثيق لتنفيذ الشروط بكفاءة في مشروعك.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: إضافة دعم تنسيقات ICU و i18next
   - version: 6.0.0
     date: 2025-09-20
     changes: إضافة توثيق الحقول
@@ -384,6 +387,26 @@ module.exports = {
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+يحدد المُنسق الذي سيتم استخدامه لمحتوى القاموس. يسمح هذا باستخدام صيغ تنسيق رسائل مختلفة.
+
+- `'intlayer'`: مُنسق Intlayer الافتراضي.
+- `'icu'`: يستخدم تنسيق رسائل ICU.
+- `'i18next'`: يستخدم تنسيق رسائل i18next.
+
+**مثال:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

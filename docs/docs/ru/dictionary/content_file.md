@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: Файл контента
 description: Узнайте, как настраивать расширения для ваших файлов декларации контента. Следуйте этой документации, чтобы эффективно реализовывать условия в вашем проекте.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: Добавлена поддержка форматов ICU и i18next
   - version: 6.0.0
     date: 2025-09-20
     changes: Добавлена документация по полям
@@ -383,6 +386,46 @@ Intlayer поддерживает различные типы содержимо
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Указывает форматтер, который будет использоваться для содержимого словаря. Это позволяет использовать различные синтаксисы форматирования сообщений.
+
+- `'intlayer'`: Форматтер Intlayer по умолчанию.
+- `'icu'`: Использует форматирование сообщений ICU.
+- `'i18next'`: Использует форматирование сообщений i18next.
+
+**Пример:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Указывает форматтер для использования содержимого словаря. Это позволяет использовать различные синтаксисы форматирования сообщений.
+
+- `'intlayer'`: Форматтер Intlayer по умолчанию.
+- `'icu'`: Использует форматирование сообщений ICU.
+- `'i18next'`: Использует форматирование сообщений i18next.
+
+**Пример:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

@@ -42,6 +42,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./messageFormat": {
+      "types": "./dist/types/messageFormat/index.d.ts",
+      "require": "./dist/cjs/messageFormat/index.cjs",
+      "import": "./dist/esm/messageFormat/index.mjs"
+    },
     "./file": {
       "types": "./dist/types/transpiler/file/file.d.ts",
       "node": {

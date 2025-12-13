@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: Berkas Konten
 description: Pelajari cara menyesuaikan ekstensi untuk berkas deklarasi konten Anda. Ikuti dokumentasi ini untuk mengimplementasikan kondisi secara efisien dalam proyek Anda.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: Menambahkan dukungan format ICU dan i18next
   - version: 7.0.0
     date: 2025-10-23
     changes: Mengganti nama `autoFill` menjadi `fill`
@@ -384,6 +387,26 @@ Array string untuk mengkategorikan dan mengorganisir kamus. Tag memberikan konte
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Menentukan formatter yang akan digunakan untuk konten kamus. Ini memungkinkan penggunaan sintaks pemformatan pesan yang berbeda.
+
+- `'intlayer'`: Formatter Intlayer default.
+- `'icu'`: Menggunakan pemformatan pesan ICU.
+- `'i18next'`: Menggunakan pemformatan pesan i18next.
+
+**Contoh:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

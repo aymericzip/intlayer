@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: İçerik Dosyası
 description: İçerik bildirim dosyalarınız için uzantıları nasıl özelleştireceğinizi öğrenin. Projenizde koşulları verimli bir şekilde uygulamak için bu dokümantasyonu takip edin.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: ICU ve i18next format desteği eklendi
   - version: 6.0.0
     date: 2025-09-20
     changes: Alanlar dokümantasyonu eklendi
@@ -382,6 +385,46 @@ Sözlükleri kategorize etmek ve düzenlemek için kullanılan string dizisi. Et
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Sözlük içeriği için kullanılacak formatlayıcıyı belirtir. Bu, farklı mesaj formatlama sözdizimlerini kullanmanıza olanak tanır.
+
+- `'intlayer'`: Varsayılan Intlayer formatlayıcısı.
+- `'icu'`: ICU mesaj formatlamasını kullanır.
+- `'i18next'`: i18next mesaj formatlamasını kullanır.
+
+**Örnek:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Sözlük içeriği için kullanılacak formatörü belirtir. Bu, farklı mesaj formatlama sözdizimlerini kullanmaya olanak tanır.
+
+- `'intlayer'`: Varsayılan Intlayer formatörü.
+- `'icu'`: ICU mesaj formatlamasını kullanır.
+- `'i18next'`: i18next mesaj formatlamasını kullanır.
+
+**Örnek:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-10-05
+updatedAt: 2025-12-13
 title: Wtyczka Sync JSON
 description: Synchronizuj słowniki Intlayer z zewnętrznymi plikami JSON i18n (i18next, next-intl, react-intl, vue-i18n i inne). Zachowaj istniejące i18n, korzystając z Intlayer do zarządzania, tłumaczenia i testowania swoich komunikatów.
 keywords:
@@ -29,7 +29,7 @@ history:
     changes: Pierwsza dokumentacja wtyczki Sync JSON
 ---
 
-# Sync JSON (mosty i18n)
+# Sync JSON (mosty i18n) - Sync JSON z obsługą ICU / i18next
 
 <iframe title="Jak zachować synchronizację tłumaczeń JSON z Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
@@ -105,7 +105,25 @@ syncJSON({
   source: ({ key, locale }) => string, // wymagane
   location?: string, // opcjonalna etykieta, domyślnie: "plugin"
   priority?: number, // opcjonalny priorytet do rozstrzygania konfliktów, domyślnie: 0
+  format?: 'intlayer' | 'icu' | 'i18next', // opcjonalny formatator, domyślnie: 'intlayer'
 });
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Określa formatator, który będzie używany do zawartości słownika podczas synchronizacji plików JSON. Pozwala to na używanie różnych składni formatowania wiadomości zgodnych z różnymi bibliotekami i18n.
+
+- `'intlayer'`: Domyślny formatator Intlayer (domyślnie).
+- `'icu'`: Używa formatowania wiadomości ICU (zgodne z bibliotekami takimi jak react-intl, vue-i18n).
+- `'i18next'`: Używa formatowania wiadomości i18next (zgodne z i18next, next-i18next, Solid-i18next).
+
+**Przykład:**
+
+```ts
+syncJSON({
+  source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+  format: "i18next", // Użyj formatowania i18next dla zgodności
+}),
 ```
 
 ## Wiele źródeł JSON i priorytet
@@ -134,6 +152,7 @@ export default defineConfig({
   plugins: [
     // Główne źródło JSON (najwyższy priorytet)
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
       location: "main-translations",
       priority: 10,
@@ -141,6 +160,7 @@ export default defineConfig({
 
     // Zapasowe źródło JSON (niższy priorytet)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `./fallback-locales/${locale}.json`,
       location: "fallback-translations",
       priority: 5,
@@ -148,6 +168,7 @@ export default defineConfig({
 
     // Źródło JSON dziedziczone (najniższy priorytet)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `/my/other/app/legacy/${locale}/messages.json`,
       location: "legacy-translations",
       priority: 1,
@@ -178,6 +199,7 @@ import { syncJSON } from "@intlayer/sync-json-plugin";
 export default {
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

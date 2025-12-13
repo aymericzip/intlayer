@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-10-05
+updatedAt: 2025-12-13
 title: Plugin Đồng bộ JSON
 description: Đồng bộ từ điển Intlayer với các tệp JSON i18n của bên thứ ba (i18next, next-intl, react-intl, vue-i18n và nhiều hơn nữa). Giữ nguyên i18n hiện có của bạn trong khi sử dụng Intlayer để quản lý, dịch và kiểm tra các thông điệp của bạn.
 keywords:
@@ -24,12 +24,15 @@ slugs:
   - sync-json
 youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: Thêm hỗ trợ định dạng ICU và i18next
   - version: 6.1.6
     date: 2025-10-05
     changes: Tài liệu Plugin Đồng bộ JSON ban đầu
 ---
 
-# Đồng bộ JSON (cầu nối i18n)
+# Đồng bộ JSON (cầu nối i18n) - Đồng bộ JSON với hỗ trợ ICU / i18next
 
 <iframe title="Cách giữ bản dịch JSON của bạn đồng bộ với Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
@@ -105,7 +108,25 @@ syncJSON({
   source: ({ key, locale }) => string, // bắt buộc
   location?: string, // nhãn tùy chọn, mặc định: "plugin"
   priority?: number, // ưu tiên tùy chọn để giải quyết xung đột, mặc định: 0
+  format?: 'intlayer' | 'icu' | 'i18next', // bộ định dạng tùy chọn, mặc định: 'intlayer'
 });
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Chỉ định bộ định dạng sẽ được sử dụng cho nội dung từ điển khi đồng bộ hóa các tệp JSON. Điều này cho phép sử dụng các cú pháp định dạng thông báo khác nhau tương thích với các thư viện i18n khác nhau.
+
+- `'intlayer'`: Bộ định dạng Intlayer mặc định (mặc định).
+- `'icu'`: Sử dụng định dạng thông báo ICU (tương thích với các thư viện như react-intl, vue-i18n).
+- `'i18next'`: Sử dụng định dạng thông báo i18next (tương thích với i18next, next-i18next, Solid-i18next).
+
+**Ví dụ:**
+
+```ts
+syncJSON({
+  source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+  format: "i18next", // Sử dụng định dạng i18next để tương thích
+}),
 ```
 
 ## Nhiều nguồn JSON và ưu tiên
@@ -134,6 +155,7 @@ export default defineConfig({
   plugins: [
     // Nguồn JSON chính (ưu tiên cao nhất)
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
       location: "main-translations",
       priority: 10,
@@ -141,6 +163,7 @@ export default defineConfig({
 
     // Nguồn JSON dự phòng (ưu tiên thấp hơn)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `./fallback-locales/${locale}.json`,
       location: "fallback-translations",
       priority: 5,
@@ -148,6 +171,7 @@ export default defineConfig({
 
     // Nguồn JSON kế thừa (ưu tiên thấp nhất)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `/my/other/app/legacy/${locale}/messages.json`,
       location: "legacy-translations",
       priority: 1,
@@ -178,6 +202,7 @@ import { syncJSON } from "@intlayer/sync-json-plugin";
 export default {
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`, // nguồn tệp JSON đồng bộ theo khóa và ngôn ngữ
     }),
   ],

@@ -8,5 +8,51 @@
   },
   "PageLayout": {
     "pageTitle": "next-intl"
+  },
+  "ICUExamples": {
+    "plural": {
+      "items": "{count, plural, =0 {Keine Artikel} =1 {Ein Artikel} other {# Artikel}}",
+      "messages": "{messageCount, plural, =0 {Sie haben keine Nachrichten} =1 {Sie haben eine Nachricht} other {Sie haben # Nachrichten}}",
+      "unread": "{unreadCount, plural, =0 {Keine ungelesenen Nachrichten} =1 {# ungelesene Nachricht} other {# ungelesene Nachrichten}}"
+    },
+    "gender": {
+      "welcome": "{gender, select, male {Willkommen, mein Herr!} female {Willkommen, meine Dame!} other {Willkommen!}}",
+      "invitation": "{gender, select, male {Er ist eingeladen} female {Sie ist eingeladen} other {Sie sind eingeladen}}",
+      "possession": "{gender, select, male {Sein Konto} female {Ihr Konto} other {Ihr Konto}}"
+    },
+    "insert": {
+      "greeting": "Hallo, {name}!",
+      "formattedNumber": "Preis: {price, number, currency}",
+      "formattedDate": "Heute ist der {date, date, long}",
+      "formattedTime": "Aktuelle Zeit: {time, time, short}",
+      "percentage": "Fortschritt: {progress, number, percent}",
+      "complex": "Benutzer {name} hat {count, plural, =0 {keine} =1 {eine} other {#}} {itemType, select, message {Nachricht} notification {Benachrichtigung} other {Artikel}}{count, plural, =0 {} =1 {} other {}}"
+    },
+    "combined": {
+      "userMessages": "{gender, select, male {Er hat} female {Sie hat} other {Sie haben}} {count, plural, =0 {keine Nachrichten} =1 {eine Nachricht} other {# Nachrichten}}",
+      "itemCount": "Sie haben {count, plural, =0 {keine Artikel} =1 {einen Artikel} other {# Artikel}} in Ihrem {category, select, cart {Warenkorb} wishlist {Wunschliste} other {Liste}}",
+      "notification": "{userName} {gender, select, male {hat} female {hat} other {hat}} {itemCount, plural, =0 {nichts} =1 {einen Artikel} other {# Artikel}} mit Ihnen am {date, date, medium} geteilt"
+    },
+    "select": {
+      "status": "{status, select, active {Aktiv} inactive {Inaktiv} pending {Ausstehend} other {Unbekannt}}",
+      "role": "{role, select, admin {Administrator} user {Benutzer} guest {Gast} other {Unbekannte Rolle}}",
+      "priority": "{priority, select, high {Hohe Priorität} medium {Mittlere Priorität} low {Niedrige Priorität} other {Normale Priorität}}"
+    },
+    "numberFormatting": {
+      "currency": "Gesamt: {amount, number, currency}",
+      "decimal": "Wert: {value, number}",
+      "percent": "Fertigstellung: {percentage, number, percent}",
+      "compact": "Aufrufe: {views, number, compactShort}"
+    },
+    "dateTimeFormatting": {
+      "dateShort": "{date, date, short}",
+      "dateMedium": "{date, date, medium}",
+      "dateLong": "{date, date, long}",
+      "dateFull": "{date, date, full}",
+      "timeShort": "{time, time, short}",
+      "timeMedium": "{time, time, medium}",
+      "timeLong": "{time, time, long}",
+      "dateTime": "{datetime, date, medium} um {datetime, time, short}"
+    }
   }
 }

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-10-05
+updatedAt: 2025-12-13
 title: JSON Senkronizasyon Eklentisi
 description: Intlayer sözlüklerini üçüncü taraf i18n JSON dosyalarıyla (i18next, next-intl, react-intl, vue-i18n ve daha fazlası) senkronize edin. Mevcut i18n yapınızı koruyarak Intlayer ile mesajlarınızı yönetin, çevirin ve test edin.
 keywords:
@@ -24,12 +24,15 @@ slugs:
   - sync-json
 youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: ICU ve i18next format desteği eklendi
   - version: 6.1.6
     date: 2025-10-05
     changes: İlk JSON Senkronizasyon Eklentisi dokümantasyonu
 ---
 
-# JSON Senkronizasyonu (i18n köprüleri)
+# JSON Senkronizasyonu (i18n köprüleri) - ICU / i18next desteği ile JSON Senkronizasyonu
 
 <iframe title="JSON çevirilerinizi Intlayer ile nasıl senkronize tutarsınız" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
@@ -105,7 +108,25 @@ syncJSON({
   source: ({ key, locale }) => string, // zorunlu
   location?: string, // isteğe bağlı etiket, varsayılan: "plugin"
   priority?: number, // isteğe bağlı öncelik, çakışma çözümü için, varsayılan: 0
+  format?: 'intlayer' | 'icu' | 'i18next', // isteğe bağlı formatlayıcı, varsayılan: 'intlayer'
 });
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+JSON dosyalarını senkronize ederken sözlük içeriği için kullanılacak formatlayıcıyı belirtir. Bu, çeşitli i18n kütüphaneleriyle uyumlu farklı mesaj formatlama sözdizimlerini kullanmanıza olanak tanır.
+
+- `'intlayer'`: Varsayılan Intlayer formatlayıcısı (varsayılan).
+- `'icu'`: ICU mesaj formatlamasını kullanır (react-intl, vue-i18n gibi kütüphanelerle uyumlu).
+- `'i18next'`: i18next mesaj formatlamasını kullanır (i18next, next-i18next, Solid-i18next ile uyumlu).
+
+**Örnek:**
+
+```ts
+syncJSON({
+  source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+  format: "i18next", // Uyumluluk için i18next formatlaması kullan
+}),
 ```
 
 ## Birden fazla JSON kaynağı ve öncelik
@@ -135,6 +156,7 @@ export default defineConfig({
   plugins: [
     // Birincil JSON kaynağı (en yüksek öncelik)
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
       location: "main-translations",
       priority: 10,
@@ -142,6 +164,7 @@ export default defineConfig({
 
     // Yedek JSON kaynağı (daha düşük öncelik)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `./fallback-locales/${locale}.json`,
       location: "fallback-translations",
       priority: 5,
@@ -149,6 +172,7 @@ export default defineConfig({
 
     // Eski JSON kaynağı (en düşük öncelik)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `/my/other/app/legacy/${locale}/messages.json`,
       location: "legacy-translations",
       priority: 1,
@@ -179,6 +203,7 @@ import { syncJSON } from "@intlayer/sync-json-plugin";
 export default {
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

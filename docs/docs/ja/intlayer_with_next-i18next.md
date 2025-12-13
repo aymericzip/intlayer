@@ -580,6 +580,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `./locales/${locale}.json`,
     }),
   ],

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: Content File
 description: Learn how to customize the extensions for your content declaration files. Follow this documentation to implement conditions efficiently in your project.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: Add ICU and i18next format support
   - version: 7.0.0
     date: 2025-10-23
     changes: Rename `autoFill` to `fill`
@@ -384,6 +387,26 @@ Array of strings for categorizing and organizing dictionaries. Tags provide addi
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Specifies the formatter to use for the dictionary content. This allows using different message formatting syntaxes.
+
+- `'intlayer'`: The default Intlayer formatter.
+- `'icu'`: Uses ICU message formatting.
+- `'i18next'`: Uses i18next message formatting.
+
+**Example:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

@@ -108,6 +108,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
     }),
   ],
@@ -159,6 +160,7 @@ const config: IntlayerConfig = {
      * Загрузит, а также запишет результаты и переводы обратно в JSON-файлы в директории локалей
      */
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
       priority: 0,
     }),

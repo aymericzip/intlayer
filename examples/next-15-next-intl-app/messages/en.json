@@ -8,5 +8,51 @@
   },
   "PageLayout": {
     "pageTitle": "next-intl"
+  },
+  "ICUExamples": {
+    "plural": {
+      "items": "{count, plural, =0 {No items} =1 {One item} other {# items}}",
+      "messages": "{messageCount, plural, =0 {You have no messages} =1 {You have one message} other {You have # messages}}",
+      "unread": "{unreadCount, plural, =0 {No unread messages} =1 {# unread message} other {# unread messages}}"
+    },
+    "gender": {
+      "welcome": "{gender, select, male {Welcome, sir!} female {Welcome, madam!} other {Welcome!}}",
+      "invitation": "{gender, select, male {He is invited} female {She is invited} other {They are invited}}",
+      "possession": "{gender, select, male {His account} female {Her account} other {Their account}}"
+    },
+    "insert": {
+      "greeting": "Hello, {name}!",
+      "formattedNumber": "Price: {price, number, currency}",
+      "formattedDate": "Today is {date, date, long}",
+      "formattedTime": "Current time: {time, time, short}",
+      "percentage": "Progress: {progress, number, percent}",
+      "complex": "User {name} has {count, plural, =0 {no} =1 {one} other {#}} {itemType, select, message {message} notification {notification} other {item}}{count, plural, =0 {} =1 {} other {s}}"
+    },
+    "combined": {
+      "userMessages": "{gender, select, male {He has} female {She has} other {They have}} {count, plural, =0 {no messages} =1 {one message} other {# messages}}",
+      "itemCount": "You have {count, plural, =0 {no items} =1 {one item} other {# items}} in your {category, select, cart {cart} wishlist {wishlist} other {list}}",
+      "notification": "{userName} {gender, select, male {shared} female {shared} other {shared}} {itemCount, plural, =0 {nothing} =1 {an item} other {# items}} with you on {date, date, medium}"
+    },
+    "select": {
+      "status": "{status, select, active {Active} inactive {Inactive} pending {Pending} other {Unknown}}",
+      "role": "{role, select, admin {Administrator} user {User} guest {Guest} other {Unknown role}}",
+      "priority": "{priority, select, high {High priority} medium {Medium priority} low {Low priority} other {Normal priority}}"
+    },
+    "numberFormatting": {
+      "currency": "Total: {amount, number, currency}",
+      "decimal": "Value: {value, number}",
+      "percent": "Completion: {percentage, number, percent}",
+      "compact": "Views: {views, number, compactShort}"
+    },
+    "dateTimeFormatting": {
+      "dateShort": "{date, date, short}",
+      "dateMedium": "{date, date, medium}",
+      "dateLong": "{date, date, long}",
+      "dateFull": "{date, date, full}",
+      "timeShort": "{time, time, short}",
+      "timeMedium": "{time, time, medium}",
+      "timeLong": "{time, time, long}",
+      "dateTime": "{datetime, date, medium} at {datetime, time, short}"
+    }
   }
 }

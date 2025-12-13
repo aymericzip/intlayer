@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-10-05
+updatedAt: 2025-12-13
 title: सिंक JSON प्लगइन
 description: Intlayer शब्दकोशों को तृतीय-पक्ष i18n JSON फ़ाइलों (i18next, next-intl, react-intl, vue-i18n, और अन्य) के साथ सिंक्रनाइज़ करें। अपने मौजूदा i18n को बनाए रखें जबकि Intlayer का उपयोग करके अपने संदेशों का प्रबंधन, अनुवाद और परीक्षण करें।
 keywords:
@@ -24,12 +24,15 @@ slugs:
   - sync-json
 youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: ICU और i18next प्रारूप समर्थन जोड़ा गया
   - version: 6.1.6
     date: 2025-10-05
     changes: प्रारंभिक सिंक JSON प्लगइन दस्तावेज़ीकरण
 ---
 
-## सिंक JSON (i18n ब्रिजेस)
+# सिंक JSON (i18n ब्रिजेस) - ICU / i18next समर्थन के साथ सिंक JSON
 
 <iframe title="Intlayer के साथ अपने JSON अनुवादों को सिंक में कैसे रखें" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
@@ -105,7 +108,25 @@ syncJSON({
   source: ({ key, locale }) => string, // आवश्यक
   location?: string, // वैकल्पिक लेबल, डिफ़ॉल्ट: "plugin"
   priority?: number, // संघर्ष समाधान के लिए वैकल्पिक प्राथमिकता, डिफ़ॉल्ट: 0
+  format?: 'intlayer' | 'icu' | 'i18next', // वैकल्पिक फ़ॉर्मेटर, डिफ़ॉल्ट: 'intlayer'
 });
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+JSON फ़ाइलों को सिंक्रनाइज़ करते समय शब्दकोश सामग्री के लिए उपयोग किए जाने वाले फ़ॉर्मेटर को निर्दिष्ट करता है। यह विभिन्न i18n लाइब्रेरी के साथ संगत विभिन्न संदेश फ़ॉर्मेटिंग सिंटैक्स का उपयोग करने की अनुमति देता है।
+
+- `'intlayer'`: डिफ़ॉल्ट Intlayer फ़ॉर्मेटर (डिफ़ॉल्ट)।
+- `'icu'`: ICU संदेश फ़ॉर्मेटिंग का उपयोग करता है (react-intl, vue-i18n जैसी लाइब्रेरी के साथ संगत)।
+- `'i18next'`: i18next संदेश फ़ॉर्मेटिंग का उपयोग करता है (i18next, next-i18next, Solid-i18next के साथ संगत)।
+
+**उदाहरण:**
+
+```ts
+syncJSON({
+  source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+  format: "i18next", // संगतता के लिए i18next फ़ॉर्मेटिंग का उपयोग करें
+}),
 ```
 
 ## कई JSON स्रोत और प्राथमिकता
@@ -134,6 +155,7 @@ export default defineConfig({
   plugins: [
     // प्राथमिक JSON स्रोत (सबसे उच्च प्राथमिकता)
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
       location: "main-translations",
       priority: 10,
@@ -141,6 +163,7 @@ export default defineConfig({
 
     // फॉलबैक JSON स्रोत (कम प्राथमिकता)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `./fallback-locales/${locale}.json`,
       location: "fallback-translations",
       priority: 5,
@@ -148,6 +171,7 @@ export default defineConfig({
 
     // लेगेसी JSON स्रोत (सबसे कम प्राथमिकता)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `/my/other/app/legacy/${locale}/messages.json`,
       location: "legacy-translations",
       priority: 1,
@@ -178,6 +202,7 @@ import { syncJSON } from "@intlayer/sync-json-plugin";
 export default {
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

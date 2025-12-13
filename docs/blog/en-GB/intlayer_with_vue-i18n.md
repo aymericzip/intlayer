@@ -107,6 +107,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
+      format: "vue-i18n",
       source: ({ key, locale }) => `./src/locales/${locale}/${key}.json`,
     }),
   ],
@@ -158,6 +159,7 @@ const config: IntlayerConfig = {
      * Will load, and write the output and translations back to the JSON files in the locales directory
      */
     syncJSON({
+      format: "vue-i18n",
       source: ({ key, locale }) => `./src/locales/${locale}/${key}.json`,
       priority: 0,
     }),

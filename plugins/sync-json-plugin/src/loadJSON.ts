@@ -2,6 +2,7 @@ import { isAbsolute, join, relative, resolve } from 'node:path';
 import { getProjectRequire } from '@intlayer/config';
 import type {
   Dictionary,
+  DictionaryFormat,
   IntlayerConfig,
   LocalDictionaryId,
   Locale,
@@ -173,14 +174,26 @@ type LoadJSONPluginOptions = {
    *
    */
   priority?: number;
+
+  /**
+   * The format of the dictionary content.
+   *
+   * @example
+   * ```ts
+   * loadJSON({
+   *   format: 'icu',
+   * })
+   * ```
+   */
+  format?: DictionaryFormat;
 };
 
 export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
-  const { location, priority, locale } = {
+  const { location, priority, locale, format } = {
     location: 'plugin',
     priority: 0,
     ...options,
-  };
+  } as const;
 
   return {
     name: 'load-json',
@@ -222,6 +235,7 @@ export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
           key,
           locale: usedLocale,
           fill: filePath,
+          format,
           localId: `${key}::${location}::${filePath}` as LocalDictionaryId,
           location: location as Dictionary['location'],
           filled:

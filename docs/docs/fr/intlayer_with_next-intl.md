@@ -419,6 +419,7 @@ const config: IntlayerConfig = {
   plugins: [
     // Gardez votre structure de dossiers par namespace synchronisée avec Intlayer
     syncJSON({
+      format: "icu",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

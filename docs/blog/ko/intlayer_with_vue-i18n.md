@@ -98,6 +98,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
+      format: "vue-i18n",
       source: ({ key, locale }) => `./src/locales/${locale}/${key}.json`, // JSON 파일 경로 지정
     }),
   ],
@@ -149,6 +150,7 @@ const config: IntlayerConfig = {
      * locales 디렉토리 내 JSON 파일에 출력 및 번역을 다시 작성하고 로드합니다
      */
     syncJSON({
+      format: "vue-i18n",
       source: ({ key, locale }) => `./src/locales/${locale}/${key}.json`,
       priority: 0,
     }),

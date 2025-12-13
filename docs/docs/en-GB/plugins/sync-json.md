@@ -24,12 +24,15 @@ slugs:
   - sync-json
 youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: Add ICU and i18next format support
   - version: 6.1.6
     date: 2025-10-05
     changes: Initial Sync JSON plugin documentation
 ---
 
-## Sync JSON (i18n bridges)
+# Sync JSON (i18n bridges) - Sync JSON with ICU / i18next support
 
 <iframe title="How to keep your JSON translations in sync with Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
@@ -105,7 +108,25 @@ syncJSON({
   source: ({ key, locale }) => string, // required
   location?: string, // optional label, default: "plugin"
   priority?: number, // optional priority for conflict resolution, default: 0
+  format?: 'intlayer' | 'icu' | 'i18next', // optional formatter, default: 'intlayer'
 });
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Specifies the formatter to use for the dictionary content when synchronising JSON files. This allows using different message formatting syntaxes compatible with various i18n libraries.
+
+- `'intlayer'`: The default Intlayer formatter (default).
+- `'icu'`: Uses ICU message formatting (compatible with libraries like react-intl, vue-i18n).
+- `'i18next'`: Uses i18next message formatting (compatible with i18next, next-i18next, Solid-i18next).
+
+**Example:**
+
+```ts
+syncJSON({
+  source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+  format: "i18next", // Use i18next formatting for compatibility
+}),
 ```
 
 ## Multiple JSON sources and priority
@@ -134,6 +155,7 @@ export default defineConfig({
   plugins: [
     // Primary JSON source (highest priority)
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
       location: "main-translations",
       priority: 10,
@@ -141,6 +163,7 @@ export default defineConfig({
 
     // Fallback JSON source (lower priority)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `./fallback-locales/${locale}.json`,
       location: "fallback-translations",
       priority: 5,
@@ -148,6 +171,7 @@ export default defineConfig({
 
     // Legacy JSON source (lowest priority)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `/my/other/app/legacy/${locale}/messages.json`,
       location: "legacy-translations",
       priority: 1,
@@ -178,6 +202,7 @@ import { syncJSON } from "@intlayer/sync-json-plugin";
 export default {
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

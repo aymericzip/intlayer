@@ -103,6 +103,7 @@ export const getLocalizedUrl = (
   const { prefix } = getPrefix(currentLocale, {
     defaultLocale,
     mode,
+    locales,
   });
 
   // Construct the new pathname with or without the locale prefix

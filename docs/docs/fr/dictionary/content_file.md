@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: Fichier de Contenu
 description: Apprenez à personnaliser les extensions pour vos fichiers de déclaration de contenu. Suivez cette documentation pour implémenter efficacement des conditions dans votre projet.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: Ajout du support des formats ICU et i18next
   - version: 6.0.0
     date: 2025-09-20
     changes: Ajout de la documentation des champs
@@ -381,6 +384,26 @@ Tableau de chaînes de caractères pour catégoriser et organiser les dictionnai
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Spécifie le formateur à utiliser pour le contenu du dictionnaire. Cela permet d'utiliser différentes syntaxes de formatage de messages.
+
+- `'intlayer'`: Le formateur Intlayer par défaut.
+- `'icu'`: Utilise le formatage de messages ICU.
+- `'i18next'`: Utilise le formatage de messages i18next.
+
+**Exemple :**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

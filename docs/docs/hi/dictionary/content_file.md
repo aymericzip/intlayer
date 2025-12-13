@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: कंटेंट फ़ाइल
 description: अपनी कंटेंट घोषणा फ़ाइलों के एक्सटेंशनों को कस्टमाइज़ करना सीखें। अपने प्रोजेक्ट में शर्तों को कुशलतापूर्वक लागू करने के लिए इस दस्तावेज़ का पालन करें।
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: ICU और i18next प्रारूप समर्थन जोड़ा
   - version: 6.0.0
     date: 2025-09-20
     changes: फ़ील्ड्स दस्तावेज़ीकरण जोड़ा
@@ -383,6 +386,26 @@ Intlayer में एक शब्दकोश `Dictionary` प्रकार 
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+शब्दकोश सामग्री के लिए उपयोग करने के लिए फ़ॉर्मेटर निर्दिष्ट करता है। यह विभिन्न संदेश फ़ॉर्मेटिंग सिंटैक्स का उपयोग करने की अनुमति देता है।
+
+- `'intlayer'`: डिफ़ॉल्ट Intlayer फ़ॉर्मेटर।
+- `'icu'`: ICU संदेश फ़ॉर्मेटिंग का उपयोग करता है।
+- `'i18next'`: i18next संदेश फ़ॉर्मेटिंग का उपयोग करता है।
+
+**उदाहरण:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

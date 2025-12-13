@@ -7,6 +7,7 @@ import {
 } from '@intlayer/config/client';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
+import { formatDictionaries } from '../formatDictionary';
 import { loadContentDeclarations } from './loadContentDeclaration';
 import { loadRemoteDictionaries } from './loadRemoteDictionaries';
 import { DictionariesLogger } from './log';
@@ -88,11 +89,11 @@ const printSummary = (configuration: IntlayerConfig) => {
 
   // Aggregate by dictionary key
   const byKey = new Map<string, StatusRecord>();
-  for (const s of loadDictionariesStatus) {
-    const rec = byKey.get(s.dictionaryKey) ?? {};
-    if (s.type === 'local') rec.local = s.status;
-    if (s.type === 'remote') rec.remote = s.status;
-    byKey.set(s.dictionaryKey, rec);
+  for (const status of loadDictionariesStatus) {
+    const rec = byKey.get(status.dictionaryKey) ?? {};
+    if (status.type === 'local') rec.local = status.status;
+    if (status.type === 'remote') rec.remote = status.status;
+    byKey.set(status.dictionaryKey, rec);
   }
 
   const keys = Array.from(byKey.keys()).sort((a, b) => a.localeCompare(b));
@@ -201,9 +202,14 @@ export const loadDictionaries = async (
     }
   );
 
-  const pluginDictionaries: Dictionary[] = (
-    await Promise.all(loadPluginDictionariesPromise)
-  ).flat();
+  const pluginDictionaries: Dictionary[] = await Promise.all(
+    loadPluginDictionariesPromise as Promise<Dictionary[]>[]
+  )
+    .then((dictionaries) => dictionaries.flat())
+    .then((dictionaries) =>
+      filterInvalidDictionaries(dictionaries, configuration)
+    )
+    .then((dictionaries) => formatDictionaries(dictionaries));
 
   const files = Array.isArray(contentDeclarationsPaths)
     ? contentDeclarationsPaths
@@ -213,19 +219,18 @@ export const loadDictionaries = async (
     files,
     configuration,
     setLoadDictionariesStatus
-  );
+  )
+    .then((dictionaries) =>
+      filterInvalidDictionaries(dictionaries, configuration)
+    )
+    .then((dictionaries) => formatDictionaries(dictionaries));
 
   const localDictionariesTime = Date.now();
 
-  const filteredLocalDictionaries = filterInvalidDictionaries(
-    localDictionaries,
-    configuration
-  );
-
-  const localDictionariesStatus = filteredLocalDictionaries.map(
-    (dict) =>
+  const localDictionariesStatus = localDictionaries.map(
+    (dictionary) =>
       ({
-        dictionaryKey: dict.key,
+        dictionaryKey: dictionary.key,
         type: 'local',
         status: 'built',
       }) as const
@@ -243,6 +248,7 @@ export const loadDictionaries = async (
   }
 
   let remoteDictionaries: Dictionary[] = [];
+
   if (hasRemoteDictionaries) {
     remoteDictionaries = await loadRemoteDictionaries(
       configuration,
@@ -252,7 +258,11 @@ export const loadDictionaries = async (
         onStopRemoteCheck: () => logger.stopRemoteCheck(),
         onError: (e) => logger.setRemoteError(e),
       }
-    );
+    )
+      .then((dictionaries) =>
+        filterInvalidDictionaries(dictionaries, configuration)
+      )
+      .then((dictionaries) => formatDictionaries(dictionaries));
   }
 
   const remoteDictionariesTime = Date.now();
@@ -265,7 +275,7 @@ export const loadDictionaries = async (
   printSummary(configuration);
 
   return {
-    localDictionaries: filteredLocalDictionaries,
+    localDictionaries,
     remoteDictionaries,
     pluginDictionaries,
     time: {

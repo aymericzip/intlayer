@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: Plik z Treścią
 description: Dowiedz się, jak dostosować rozszerzenia dla plików deklaracji treści. Postępuj zgodnie z tą dokumentacją, aby efektywnie wdrażać warunki w swoim projekcie.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: Dodano obsługę formatów ICU i i18next
   - version: 7.0.0
     date: 2025-10-23
     changes: Zmiana nazwy `autoFill` na `fill`
@@ -384,6 +387,26 @@ Tablica łańcuchów znaków służąca do kategoryzacji i organizacji słownik�
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Określa formatter do użycia dla zawartości słownika. Pozwala to na używanie różnych składni formatowania wiadomości.
+
+- `'intlayer'`: Domyślny formatter Intlayer.
+- `'icu'`: Używa formatowania wiadomości ICU.
+- `'i18next'`: Używa formatowania wiadomości i18next.
+
+**Przykład:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

@@ -581,6 +581,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `./locales/${locale}.json`, // JSON स्रोत फ़ाइल पथ
     }),
   ],

@@ -421,6 +421,7 @@ const config: IntlayerConfig = {
   plugins: [
     // 保持每个命名空间的文件夹结构与 Intlayer 同步
     syncJSON({
+      format: "icu",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

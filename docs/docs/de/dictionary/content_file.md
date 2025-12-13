@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: Inhaltsdatei
 description: Erfahren Sie, wie Sie die Erweiterungen für Ihre Inhaltsdeklarationsdateien anpassen können. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihrem Projekt umzusetzen.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: Unterstützung für ICU- und i18next-Formate hinzugefügt
   - version: 6.0.0
     date: 2025-09-20
     changes: Felddokumentation hinzugefügt
@@ -383,6 +386,26 @@ Array von Zeichenketten zur Kategorisierung und Organisation von Wörterbüchern
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Gibt den Formatierer an, der für den Wörterbuchinhalt verwendet werden soll. Dies ermöglicht die Verwendung verschiedener Nachrichtenformatierungssyntaxen.
+
+- `'intlayer'`: Der Standard-Intlayer-Formatierer.
+- `'icu'`: Verwendet ICU-Nachrichtenformatierung.
+- `'i18next'`: Verwendet i18next-Nachrichtenformatierung.
+
+**Beispiel:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

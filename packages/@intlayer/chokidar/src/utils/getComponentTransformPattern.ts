@@ -1,6 +1,6 @@
+import path from 'node:path';
 import type { IntlayerConfig } from '@intlayer/types';
 import fg from 'fast-glob';
-import path from 'path';
 
 /**
  * Helper to remove directories that are subdirectories of others in the list.

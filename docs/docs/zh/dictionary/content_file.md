@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: 内容文件
 description: 学习如何自定义内容声明文件的扩展。按照本指南高效地在项目中实现条件。
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: 添加 ICU 和 i18next 格式支持
   - version: 6.0.0
     date: 2025-09-20
     changes: 添加字段文档
@@ -383,6 +386,46 @@ Intlayer 中的字典由 `Dictionary` 类型定义，包含多个控制其行为
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+指定用于字典内容的格式化器。这允许使用不同的消息格式化语法。
+
+- `'intlayer'`: 默认的 Intlayer 格式化器。
+- `'icu'`: 使用 ICU 消息格式化。
+- `'i18next'`: 使用 i18next 消息格式化。
+
+**示例：**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+指定用于字典内容的格式化器。这允许使用不同的消息格式化语法。
+
+- `'intlayer'`: 默认的 Intlayer 格式化器。
+- `'icu'`: 使用 ICU 消息格式化。
+- `'i18next'`: 使用 i18next 消息格式化。
+
+**示例：**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

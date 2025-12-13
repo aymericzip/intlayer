@@ -7,6 +7,7 @@ describe('getPrefix', () => {
   describe('prefix-all mode', () => {
     it('should return prefix with trailing slash for default locale', () => {
       const result = getPrefix(Locales.ENGLISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
         defaultLocale: Locales.ENGLISH,
         mode: 'prefix-all',
       });
@@ -18,6 +19,7 @@ describe('getPrefix', () => {
 
     it('should return prefix with trailing slash for non-default locale', () => {
       const result = getPrefix(Locales.FRENCH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
         defaultLocale: Locales.FRENCH,
         mode: 'prefix-all',
       });
@@ -29,6 +31,7 @@ describe('getPrefix', () => {
 
     it('should work with different locales', () => {
       const result = getPrefix('it', {
+        locales: ['it' as LocalesValues],
         defaultLocale: 'it',
         mode: 'prefix-all',
       });
@@ -42,6 +45,7 @@ describe('getPrefix', () => {
   describe('prefix-no-default mode', () => {
     it('should return empty strings when locale matches default locale', () => {
       const result = getPrefix(Locales.ENGLISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
         defaultLocale: Locales.ENGLISH,
         mode: 'prefix-no-default',
       });
@@ -53,6 +57,7 @@ describe('getPrefix', () => {
 
     it('should return prefix when locale does not match default locale', () => {
       const result = getPrefix(Locales.FRENCH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
         defaultLocale: Locales.ENGLISH,
         mode: 'prefix-no-default',
       });
@@ -64,6 +69,7 @@ describe('getPrefix', () => {
 
     it('should return empty strings for default locale even with different locale param', () => {
       const result = getPrefix(Locales.FRENCH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
         defaultLocale: Locales.FRENCH,
         mode: 'prefix-no-default',
       });
@@ -77,6 +83,7 @@ describe('getPrefix', () => {
   describe('search-params mode', () => {
     it('should return empty strings for default locale', () => {
       const result = getPrefix(Locales.ENGLISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
         defaultLocale: Locales.ENGLISH,
         mode: 'search-params',
       });
@@ -88,6 +95,7 @@ describe('getPrefix', () => {
 
     it('should return empty strings for non-default locale', () => {
       const result = getPrefix(Locales.FRENCH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
         defaultLocale: Locales.ENGLISH,
         mode: 'search-params',
       });
@@ -101,6 +109,7 @@ describe('getPrefix', () => {
   describe('no-prefix mode', () => {
     it('should return empty strings for default locale', () => {
       const result = getPrefix(Locales.ENGLISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
         defaultLocale: Locales.ENGLISH,
         mode: 'no-prefix',
       });
@@ -112,6 +121,7 @@ describe('getPrefix', () => {
 
     it('should return empty strings for non-default locale', () => {
       const result = getPrefix(Locales.FRENCH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
         defaultLocale: Locales.ENGLISH,
         mode: 'no-prefix',
       });
@@ -125,6 +135,7 @@ describe('getPrefix', () => {
   describe('edge cases', () => {
     it('should handle undefined locale parameter', () => {
       const result = getPrefix(undefined as unknown as LocalesValues, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
         defaultLocale: Locales.ENGLISH,
         mode: 'prefix-all',
       });
@@ -136,6 +147,7 @@ describe('getPrefix', () => {
 
     it('should work with string locale values', () => {
       const result = getPrefix('en-US', {
+        locales: ['en-US' as LocalesValues],
         defaultLocale: 'en-US',
         mode: 'prefix-all',
       });
@@ -147,6 +159,7 @@ describe('getPrefix', () => {
 
     it('should handle missing mode parameter', () => {
       const result = getPrefix(Locales.ENGLISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
         defaultLocale: Locales.ENGLISH,
       });
       // Should use default routing mode from configuration
@@ -156,6 +169,7 @@ describe('getPrefix', () => {
 
     it('should handle missing defaultLocale parameter', () => {
       const result = getPrefix(Locales.ENGLISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
         mode: 'prefix-all',
       });
       // Should use default locale from configuration
@@ -165,6 +179,7 @@ describe('getPrefix', () => {
 
     it('should return prefix when locale differs from default', () => {
       const result = getPrefix(Locales.SPANISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
         defaultLocale: Locales.ENGLISH,
         mode: 'prefix-no-default',
       });

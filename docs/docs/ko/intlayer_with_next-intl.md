@@ -419,6 +419,7 @@ const config: IntlayerConfig = {
   plugins: [
     // 네임스페이스별 폴더 구조를 Intlayer와 동기화 상태로 유지하세요
     syncJSON({
+      format: "icu",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: コンテンツファイル
 description: コンテンツ宣言ファイルの拡張機能をカスタマイズする方法を学びます。このドキュメントに従って、プロジェクトで効率的に条件を実装しましょう。
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: ICUおよびi18next形式のサポートを追加
   - version: 6.0.0
     date: 2025-09-20
     changes: フィールドのドキュメントを追加
@@ -384,6 +387,26 @@ Intlayerの辞書は`Dictionary`型で定義され、その動作を制御する
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+辞書コンテンツに使用するフォーマッターを指定します。これにより、異なるメッセージフォーマット構文を使用できます。
+
+- `'intlayer'`: デフォルトのIntlayerフォーマッター。
+- `'icu'`: ICUメッセージフォーマットを使用します。
+- `'i18next'`: i18nextメッセージフォーマットを使用します。
+
+**例：**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

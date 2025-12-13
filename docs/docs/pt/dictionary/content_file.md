@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-09-20
+updatedAt: 2025-12-13
 title: Arquivo de Conteúdo
 description: Aprenda como personalizar as extensões para seus arquivos de declaração de conteúdo. Siga esta documentação para implementar condições de forma eficiente em seu projeto.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: Adicionado suporte para formatos ICU e i18next
   - version: 6.0.0
     date: 2025-09-20
     changes: Adição da documentação dos campos
@@ -384,6 +387,26 @@ Array de strings para categorizar e organizar dicionários. As tags fornecem con
   key: "about-page-meta",
   tags: ["metadata", "about-page", "seo"],
   content: { /* ... */ }
+}
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Especifica o formatador a ser usado para o conteúdo do dicionário. Isso permite usar diferentes sintaxes de formatação de mensagens.
+
+- `'intlayer'`: O formatador Intlayer padrão.
+- `'icu'`: Usa formatação de mensagens ICU.
+- `'i18next'`: Usa formatação de mensagens i18next.
+
+**Exemplo:**
+
+```typescript
+{
+  key: "my-dictionary",
+  format: "icu",
+  content: {
+    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
+  }
 }
 ```
 

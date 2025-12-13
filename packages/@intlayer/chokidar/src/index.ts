@@ -13,6 +13,12 @@ export { createTypes } from './createType';
 export { createModuleAugmentation } from './createType/createModuleAugmentation';
 export { fetchDistantDictionaries } from './fetchDistantDictionaries';
 export { isInvalidDictionary } from './filterInvalidDictionaries';
+export {
+  formatDictionaries,
+  formatDictionariesOutput,
+  formatDictionary,
+  formatDictionaryOutput,
+} from './formatDictionary';
 export { getContentDeclarationFileTemplate } from './getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 export { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 export { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';

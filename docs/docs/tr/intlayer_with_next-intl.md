@@ -419,6 +419,7 @@ const config: IntlayerConfig = {
   plugins: [
     // Namespace başına klasör yapınızı Intlayer ile senkronize tutun
     syncJSON({
+      format: "icu",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],

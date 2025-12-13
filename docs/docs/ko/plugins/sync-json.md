@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-10-05
+updatedAt: 2025-12-13
 title: Sync JSON 플러그인
 description: Intlayer 사전을 서드파티 i18n JSON 파일(i18next, next-intl, react-intl, vue-i18n 등)과 동기화합니다. 기존 i18n을 유지하면서 Intlayer를 사용하여 메시지를 관리, 번역 및 테스트할 수 있습니다.
 keywords:
@@ -24,12 +24,15 @@ slugs:
   - sync-json
 youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 7.5.0
+    date: 2025-12-13
+    changes: ICU 및 i18next 형식 지원 추가
   - version: 6.1.6
     date: 2025-10-05
     changes: Sync JSON 플러그인 초기 문서화
 ---
 
-# Sync JSON (i18n 브리지)
+# Sync JSON (i18n 브리지) - ICU / i18next 지원이 포함된 Sync JSON
 
 <iframe title="Intlayer와 JSON 번역을 동기화 상태로 유지하는 방법" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
@@ -105,7 +108,25 @@ syncJSON({
   source: ({ key, locale }) => string, // 필수
   location?: string, // 선택적 레이블, 기본값: "plugin"
   priority?: number, // 충돌 해결을 위한 선택적 우선순위, 기본값: 0
+  format?: 'intlayer' | 'icu' | 'i18next', // 선택적 포맷터, 기본값: 'intlayer'
 });
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+JSON 파일을 동기화할 때 사전 콘텐츠에 사용할 포맷터를 지정합니다. 이를 통해 다양한 i18n 라이브러리와 호환되는 다양한 메시지 포맷팅 구문을 사용할 수 있습니다.
+
+- `'intlayer'`: 기본 Intlayer 포맷터 (기본값).
+- `'icu'`: ICU 메시지 포맷팅을 사용합니다 (react-intl, vue-i18n과 같은 라이브러리와 호환).
+- `'i18next'`: i18next 메시지 포맷팅을 사용합니다 (i18next, next-i18next, Solid-i18next와 호환).
+
+**예시:**
+
+```ts
+syncJSON({
+  source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+  format: "i18next", // 호환성을 위해 i18next 포맷팅 사용
+}),
 ```
 
 ## 여러 JSON 소스 및 우선순위
@@ -134,6 +155,7 @@ export default defineConfig({
   plugins: [
     // 주요 JSON 소스 (가장 높은 우선순위)
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
       location: "main-translations",
       priority: 10,
@@ -141,6 +163,7 @@ export default defineConfig({
 
     // 대체 JSON 소스 (낮은 우선순위)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `./fallback-locales/${locale}.json`,
       location: "fallback-translations",
       priority: 5,
@@ -148,6 +171,7 @@ export default defineConfig({
 
     // 레거시 JSON 소스 (가장 낮은 우선순위)
     syncJSON({
+      format: "i18next",
       source: ({ locale }) => `/my/other/app/legacy/${locale}/messages.json`,
       location: "legacy-translations",
       priority: 1,
@@ -178,6 +202,7 @@ import { syncJSON } from "@intlayer/sync-json-plugin";
 export default {
   plugins: [
     syncJSON({
+      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
