@@ -3,6 +3,7 @@
 import { Link } from '@components/Link/Link';
 import { Avatar, H2 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
+import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import {
@@ -10,7 +11,9 @@ import {
   type FC,
   memo,
   type RefObject,
+  useMemo,
   useRef,
+  useState,
 } from 'react';
 
 type Contributor = {
@@ -96,14 +99,12 @@ const ContributorAvatar: FC<ContributorAvatarProps> = memo(
         whileDrag={{ scale: 1.1, cursor: 'grabbing', zIndex: 50 }}
         whileHover={{ scale: 1.05, zIndex: 40 }}
         initial={{
-          left: '15%',
-          top: '50%',
+          left: `${position.x}%`,
+          top: `${position.y}%`,
           opacity: 0,
           scale: 0,
         }}
         animate={{
-          left: `${position.x}%`,
-          top: `${position.y}%`,
           opacity: 1,
           scale: 1,
         }}
@@ -119,25 +120,21 @@ const ContributorAvatar: FC<ContributorAvatarProps> = memo(
         draggable={false}
         onDragStart={(e) => e.preventDefault()}
       >
-        {/* Wrapper for CSS animation to avoid conflict with framer-motion drag transform */}
-        <div className="-translate-x-1/2 -translate-y-1/2 transform">
-          <div
-            className="animate-float"
-            style={
-              {
-                animationDelay: `${floatDelay}s`,
-                animationDuration: `${floatDuration}s`,
-                '--float-distance': floatDistance,
-              } as CSSProperties
-            }
-          >
-            <Avatar
-              src={contributor.avatar_url}
-              alt={contributor.login}
-              className={`${sizeClass} pointer-events-none select-none border-2 border-background object-cover shadow-md transition-shadow hover:shadow-xl dark:border-neutral-800`}
-            />
-          </div>
-        </div>
+        <Avatar
+          src={contributor.avatar_url}
+          alt={contributor.login}
+          style={
+            {
+              animationDelay: `${floatDelay}s`,
+              animationDuration: `${floatDuration}s`,
+              '--float-distance': floatDistance,
+            } as CSSProperties
+          }
+          className={cn(
+            sizeClass,
+            `pointer-events-none animate-float select-none border-2 border-background object-cover shadow-md transition-shadow hover:shadow-xl dark:border-neutral-800`
+          )}
+        />
       </motion.div>
     );
   }
@@ -190,7 +187,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   }
 
   return (
-    <section ref={sectionRef} className="relative mx-10 w-full py-20 md:py-32">
+    <section ref={sectionRef} className="relative w-full py-20 md:py-32">
       <div className="pointer-events-none mx-auto max-w-7xl p-5 px-4 md:px-8 lg:px-16">
         <div className="flex min-h-40 flex-col gap-12 md:flex-row md:items-center">
           <div className="pointer-events-none relative flex-1">
