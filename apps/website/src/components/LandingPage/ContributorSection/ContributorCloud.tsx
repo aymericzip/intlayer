@@ -102,10 +102,11 @@ const ContributorAvatar: FC<ContributorAvatarProps> = memo(
           opacity: 0,
           scale: 0,
         }}
-        animate={{
+        whileInView={{
           opacity: 1,
           scale: 1,
         }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{
           duration: 0.6,
           delay: index * 0.015,
