@@ -10,7 +10,7 @@ export const inputVariants = cva(
     // base styles
     'w-full select-text resize-none text-base shadow-none outline-none',
     'transition-all duration-300 md:text-sm',
-    'ring-0', // base ring
+    'ring-0',
     'disabled:opacity-50',
 
     // Corner shape
@@ -22,7 +22,7 @@ export const inputVariants = cva(
         default: [
           'text-text',
           'bg-neutral-50 dark:bg-neutral-950',
-          'ring-text/20',
+          'ring-text/10',
 
           // Focus ring
           'disabled:ring-0',

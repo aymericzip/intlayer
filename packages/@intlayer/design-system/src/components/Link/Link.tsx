@@ -102,10 +102,10 @@ export const linkVariants = cva(
           'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0',
 
         [`${LinkVariant.BUTTON}`]:
-          'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current text-center font-medium text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-6 aria-selected:ring-6',
+          'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current text-center font-medium text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5',
 
         [`${LinkVariant.BUTTON_OUTLINED}`]:
-          'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.5px] border-current text-center font-medium text-text ring-0 *:text-text hover:bg-current/20 hover:ring-6 aria-selected:ring-6',
+          'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.5px] border-current text-center font-medium text-text ring-0 *:text-text hover:bg-current/20 hover:ring-5 aria-selected:ring-5',
 
         [`${LinkVariant.HOVERABLE}`]:
           'block rounded-lg border-none bg-current/0 hover:bg-current/10 aria-[current]:bg-current/5',

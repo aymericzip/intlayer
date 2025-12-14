@@ -110,13 +110,12 @@ export const buttonVariants = cva(
         [`${ButtonColor.LIGHT}`]:
           'hover-white-500/20 text-white ring-white/20 *:text-text-light',
         [`${ButtonColor.DARK}`]:
-          'text-neutral-800 ring-neutral-800/50 *:text-text-light',
-        [`${ButtonColor.TEXT}`]:
-          'text-text ring-neutral-500/20 *:text-text-opposite',
+          'text-neutral-800 ring-text-light/50 *:text-text-light',
+        [`${ButtonColor.TEXT}`]: 'text-text ring-text/20 *:text-text-opposite',
         [`${ButtonColor.CURRENT}`]:
-          'hover-current-500/20 text-current ring-current/20 *:text-text-light',
+          'hover-current-500/10 text-current ring-current/10 *:text-text-light',
         [`${ButtonColor.TEXT_INVERSE}`]:
-          'text-text-opposite ring-neutral-500/20 *:text-text',
+          'text-text-opposite ring-text-opposite/20 *:text-text',
         [`${ButtonColor.ERROR}`]:
           'hover-error-500/20 text-error ring-error/20 *:text-text-light',
         [`${ButtonColor.SUCCESS}`]:
@@ -139,19 +138,15 @@ export const buttonVariants = cva(
         [`${ButtonVariant.DEFAULT}`]: [
           'bg-current',
           'hover:bg-current/90',
-
-          // Hover ring (similar spirit to your input)
-          'hover:ring-6', // width
-          'aria-selected:ring-6',
+          'hover:ring-5',
+          'aria-selected:ring-5',
         ],
 
         [`${ButtonVariant.OUTLINE}`]: [
           'rounded-2xl border-[1.5px] border-current bg-current/0 *:text-current!',
           'hover:bg-current/20',
-
-          // Same hover ring behavior as DEFAULT for coherence
-          'hover:ring-6',
-          'aria-selected:ring-6',
+          'hover:ring-5',
+          'aria-selected:ring-5',
         ],
 
         [`${ButtonVariant.NONE}`]:
