@@ -45,7 +45,7 @@ export const runParallel = (proc?: string | string[]): ParallelHandle => {
     cwd: process.cwd(),
     stdio: 'inherit' as const,
     env: childEnv,
-    shell: false,
+    shell: isWin,
   };
 
   // Spawn the child process
