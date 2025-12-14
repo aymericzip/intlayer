@@ -85,7 +85,7 @@ const LogoItem: FC<{
   <Link href={route} label={label} color="custom">
     <Logo
       className={cn(
-        'size-12 flex-shrink-0 opacity-70 transition-opacity duration-200 hover:opacity-100 sm:size-14 md:size-16 lg:size-18',
+        'size-12 shrink-0 opacity-70 transition-opacity duration-200 hover:opacity-100 sm:size-14 md:size-16 lg:size-18',
         className
       )}
     />
@@ -93,7 +93,7 @@ const LogoItem: FC<{
 );
 
 export const TechLogos: FC = () => (
-  <div className="mt-6 w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_170px,_black_calc(100%-170px),transparent_100%)]">
+  <div className="mask-[linear-gradient(to_right,transparent_0,black_170px,black_calc(100%-170px),transparent_100%)] w-full overflow-hidden">
     <div className="horizontal-loop-4 inline-flex items-center whitespace-nowrap">
       {logos.map((logo, index) => (
         <div key={`${logo.key}-${index}-1`} className="mx-6 sm:mx-12 md:mx-16">

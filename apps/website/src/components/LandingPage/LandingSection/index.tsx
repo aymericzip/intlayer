@@ -172,7 +172,7 @@ export const LandingSection: FC = () => {
             transition={{ delay: 1.0, duration: 0.6 }}
             className="-ml-[50vw] -mr-[50vw] relative right-1/2 left-1/2 mt-8 w-screen text-center"
           >
-            <p className="mb-6 font-medium text-sm text-text tracking-wider sm:text-base">
+            <p className="font-medium text-sm text-text tracking-wider sm:text-base">
               {availableFor}
             </p>
             <TechLogos />
