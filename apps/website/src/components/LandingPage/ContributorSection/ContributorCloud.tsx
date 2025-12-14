@@ -10,7 +10,6 @@ import {
   type CSSProperties,
   type FC,
   type RefObject,
-  useCallback,
   useEffect,
   useRef,
   useState,
@@ -169,66 +168,23 @@ const generateCloudPositions = (count: number) => {
   return positions;
 };
 
-// Custom hook to track layout changes and force constraint recalculation
-const useLayoutStabilized = (ref: RefObject<HTMLElement | null>) => {
-  const [layoutKey, setLayoutKey] = useState(0);
-  const lastRectRef = useRef<{ top: number; height: number } | null>(null);
-
-  const checkAndUpdate = useCallback(() => {
-    if (!ref.current) return;
-
-    const rect = ref.current.getBoundingClientRect();
-    const currentRect = {
-      top: Math.round(rect.top),
-      height: Math.round(rect.height),
-    };
-
-    // Check if position/size changed significantly (more than 5px)
-    if (
-      !lastRectRef.current ||
-      Math.abs(lastRectRef.current.top - currentRect.top) > 5 ||
-      Math.abs(lastRectRef.current.height - currentRect.height) > 5
-    ) {
-      lastRectRef.current = currentRect;
-      setLayoutKey((k) => k + 1);
-    }
-  }, [ref]);
+// Custom hook to trigger a re-render when layout stabilizes (during initial load only)
+// This ensures Framer Motion has correct drag constraints after other sections load
+const useLayoutStabilized = () => {
+  const [, forceRender] = useState(0);
 
   useEffect(() => {
-    if (!ref.current) return;
-
-    // Initial check
-    checkAndUpdate();
-
-    // Watch for resize changes on the section itself
-    const resizeObserver = new ResizeObserver(checkAndUpdate);
-    resizeObserver.observe(ref.current);
-
-    // Watch for layout changes on the document body (other sections loading)
-    const bodyObserver = new ResizeObserver(checkAndUpdate);
-    bodyObserver.observe(document.body);
-
-    // Also check on scroll (for lazy-loaded content triggered by scroll)
-    const handleScroll = () => {
-      requestAnimationFrame(checkAndUpdate);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    // Periodic check for the first few seconds (catch any delayed renders)
-    const intervals = [100, 300, 500, 1000, 2000, 3000];
-    const timeouts = intervals.map((delay) =>
-      setTimeout(checkAndUpdate, delay)
+    // Only run checks during the initial load period (first 3 seconds)
+    // to catch other sections appearing/loading
+    const checkIntervals = [1500];
+    const timeouts = checkIntervals.map((delay) =>
+      setTimeout(() => forceRender((n) => n + 1), delay)
     );
 
     return () => {
-      resizeObserver.disconnect();
-      bodyObserver.disconnect();
-      window.removeEventListener('scroll', handleScroll);
       timeouts.forEach(clearTimeout);
     };
-  }, [ref, checkAndUpdate]);
-
-  return layoutKey;
+  }, []);
 };
 
 export const ContributorCloud: FC<ContributorCloudProps> = ({
@@ -240,8 +196,9 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   const positions = generateCloudPositions(contributors.length);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Watch for layout changes (other sections appearing) and force constraint recalculation
-  const layoutKey = useLayoutStabilized(sectionRef);
+  // Trigger re-renders during initial load to ensure Framer Motion
+  // measures correct drag constraints after other sections load
+  useLayoutStabilized();
 
   return (
     <section
@@ -297,7 +254,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
 
         return (
           <ContributorAvatar
-            key={`${contributor.login}-${layoutKey}`}
+            key={contributor.login}
             contributor={contributor}
             index={index}
             position={position}
