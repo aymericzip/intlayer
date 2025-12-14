@@ -12,6 +12,7 @@ import { OrganizationCreationForm } from './OrganizationCreationForm';
 import { OrganizationEditionForm } from './OrganizationEditionForm';
 import { OrganizationList } from './OrganizationList';
 import { PlanDetails } from './Plan/PlanDetails';
+import { SSOSettings } from './SSO';
 
 const OrganizationFormContent: FC = () => {
   const { session } = useSession();
@@ -39,6 +40,13 @@ const OrganizationFormContent: FC = () => {
               className="flex size-full justify-center"
             >
               <PlanDetails />
+            </Container>
+            <Container
+              roundedSize="xl"
+              padding="md"
+              className="flex size-full justify-center"
+            >
+              <SSOSettings />
             </Container>
             <Container
               roundedSize="xl"

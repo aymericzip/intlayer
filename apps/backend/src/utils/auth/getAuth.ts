@@ -1,6 +1,5 @@
-// import { sso } from '@better-auth/sso';
-
 import { passkey } from '@better-auth/passkey';
+import { sso } from '@better-auth/sso';
 import { sendVerificationUpdate } from '@controllers/user.controller';
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
@@ -230,7 +229,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           });
         },
       }),
-      // sso(),
+      sso(),
     ],
 
     emailAndPassword: {

@@ -321,6 +321,15 @@ export const useSignInMagicLink = () => {
   });
 };
 
+export const useSignInSSO = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useMutation({
+    mutationKey: ['signInSSO'],
+    mutationFn: (args: Parameters<AuthAPI['signInSSO']>[0]) =>
+      intlayerAuth.signInSSO(args),
+  });
+};
+
 /**
  * User
  */

@@ -7,6 +7,46 @@ import { Schema } from 'mongoose';
 import type { OrganizationSchema } from '@/types/organization.types';
 import { planSchema } from './plans.schema';
 
+// SAML Configuration sub-schema
+const samlConfigSchema = new Schema(
+  {
+    idpEntityId: { type: String },
+    idpSSOUrl: { type: String },
+    idpCertificate: { type: String },
+    idpSLOUrl: { type: String },
+  },
+  { _id: false }
+);
+
+// OIDC Configuration sub-schema
+const oidcConfigSchema = new Schema(
+  {
+    issuer: { type: String },
+    clientId: { type: String },
+    clientSecret: { type: String },
+    scopes: { type: [String], default: ['openid', 'profile', 'email'] },
+    authorizationEndpoint: { type: String },
+    tokenEndpoint: { type: String },
+    userinfoEndpoint: { type: String },
+  },
+  { _id: false }
+);
+
+// SSO Configuration sub-schema
+const ssoConfigSchema = new Schema(
+  {
+    enabled: { type: Boolean, default: false },
+    providerType: { type: String, enum: ['saml', 'oidc'] },
+    providerId: { type: String },
+    domains: { type: [String], default: [] },
+    samlConfig: { type: samlConfigSchema },
+    oidcConfig: { type: oidcConfigSchema },
+    enforceSSO: { type: Boolean, default: false },
+    allowPasswordLogin: { type: Boolean, default: true },
+  },
+  { _id: false }
+);
+
 export const organizationSchema = new Schema<OrganizationSchema>(
   {
     name: {
@@ -34,6 +74,9 @@ export const organizationSchema = new Schema<OrganizationSchema>(
     },
     plan: {
       type: planSchema,
+    },
+    ssoConfig: {
+      type: ssoConfigSchema,
     },
   },
   {

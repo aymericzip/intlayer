@@ -1,4 +1,5 @@
 import { passkeyClient } from '@better-auth/passkey/client';
+import { ssoClient } from '@better-auth/sso/client';
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types';
 import { createAuthClient } from 'better-auth/client';
@@ -22,6 +23,7 @@ const getAuthClient = (backendURL: string) =>
       }),
       passkeyClient(),
       magicLinkClient() as never,
+      ssoClient(),
     ],
   });
 
@@ -65,6 +67,8 @@ export interface AuthAPI {
     // Redeclare it because of type inference issues
     input: { email: string; callbackURL: string }
   ) => any;
+  // SSO methods
+  signInSSO: AuthClient['sso']['signIn'];
 }
 
 export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
@@ -119,8 +123,10 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     return client.getSession(...args);
   };
 
-  const forgetPassword: AuthClient['forgetPassword'] = async (...args) => {
-    return client.forgetPassword(...args);
+  const forgetPassword: AuthClient['requestPasswordReset'] = async (
+    ...args
+  ) => {
+    return client.requestPasswordReset(...args);
   };
 
   const sendVerificationEmail: AuthClient['sendVerificationEmail'] = async (
@@ -240,6 +246,11 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     return (client.signIn as any).magicLink(...args);
   };
 
+  // SSO methods
+  const signInSSO: AuthClient['sso']['signIn'] = async (...args) => {
+    return client.sso.signIn(...args);
+  };
+
   return {
     getAuthClient: () => client,
     signInEmail,
@@ -275,5 +286,6 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     deletePasskey,
     listPasskeys,
     signInMagicLink,
+    signInSSO,
   };
 };

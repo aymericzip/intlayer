@@ -104,6 +104,7 @@
   },
   "dependencies": {
     "@better-auth/passkey": "1.4.5",
+    "@better-auth/sso": "1.4.7",
     "@hookform/resolvers": "5.2.2",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
@@ -119,7 +120,7 @@
     "@shikijs/transformers": "3.19.0",
     "@tanstack/react-query": "5.90.12",
     "@tanstack/react-query-devtools": "5.91.1",
-    "better-auth": "1.4.6",
+    "better-auth": "1.4.7",
     "bun": "^1.3.2",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
