@@ -2,7 +2,6 @@
 
 import { Link } from '@components/Link/Link';
 import { Avatar, DiscordLogo, H2 } from '@intlayer/design-system';
-import { useIsMounted } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
@@ -11,8 +10,10 @@ import {
   type CSSProperties,
   type FC,
   type RefObject,
+  useCallback,
   useEffect,
   useRef,
+  useState,
 } from 'react';
 import { ExternalLinks, PagesRoutes } from '@/Routes';
 
@@ -168,6 +169,68 @@ const generateCloudPositions = (count: number) => {
   return positions;
 };
 
+// Custom hook to track layout changes and force constraint recalculation
+const useLayoutStabilized = (ref: RefObject<HTMLElement | null>) => {
+  const [layoutKey, setLayoutKey] = useState(0);
+  const lastRectRef = useRef<{ top: number; height: number } | null>(null);
+
+  const checkAndUpdate = useCallback(() => {
+    if (!ref.current) return;
+
+    const rect = ref.current.getBoundingClientRect();
+    const currentRect = {
+      top: Math.round(rect.top),
+      height: Math.round(rect.height),
+    };
+
+    // Check if position/size changed significantly (more than 5px)
+    if (
+      !lastRectRef.current ||
+      Math.abs(lastRectRef.current.top - currentRect.top) > 5 ||
+      Math.abs(lastRectRef.current.height - currentRect.height) > 5
+    ) {
+      lastRectRef.current = currentRect;
+      setLayoutKey((k) => k + 1);
+    }
+  }, [ref]);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    // Initial check
+    checkAndUpdate();
+
+    // Watch for resize changes on the section itself
+    const resizeObserver = new ResizeObserver(checkAndUpdate);
+    resizeObserver.observe(ref.current);
+
+    // Watch for layout changes on the document body (other sections loading)
+    const bodyObserver = new ResizeObserver(checkAndUpdate);
+    bodyObserver.observe(document.body);
+
+    // Also check on scroll (for lazy-loaded content triggered by scroll)
+    const handleScroll = () => {
+      requestAnimationFrame(checkAndUpdate);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Periodic check for the first few seconds (catch any delayed renders)
+    const intervals = [100, 300, 500, 1000, 2000, 3000];
+    const timeouts = intervals.map((delay) =>
+      setTimeout(checkAndUpdate, delay)
+    );
+
+    return () => {
+      resizeObserver.disconnect();
+      bodyObserver.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+      timeouts.forEach(clearTimeout);
+    };
+  }, [ref, checkAndUpdate]);
+
+  return layoutKey;
+};
+
 export const ContributorCloud: FC<ContributorCloudProps> = ({
   contributors,
 }) => {
@@ -177,9 +240,8 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   const positions = generateCloudPositions(contributors.length);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Add a rerender because of an issue on the dragging delimitation
-  // re-trigger sectionRef recalculation
-  useIsMounted();
+  // Watch for layout changes (other sections appearing) and force constraint recalculation
+  const layoutKey = useLayoutStabilized(sectionRef);
 
   return (
     <section
@@ -235,7 +297,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
 
         return (
           <ContributorAvatar
-            key={contributor.login}
+            key={`${contributor.login}-${layoutKey}`}
             contributor={contributor}
             index={index}
             position={position}
