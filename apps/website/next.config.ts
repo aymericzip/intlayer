@@ -277,12 +277,24 @@ const nextConfig: NextConfig = {
           destination: '/:locale/doc/raw/:path*?format=txt',
         },
         {
+          source: '/doc/:path*.md',
+          destination: '/en/doc/raw/:path*?format=txt',
+        },
+        {
           source: '/:locale/blog/:path*.md',
           destination: '/:locale/blog/raw/:path*?format=txt',
         },
         {
+          source: '/blog/:path*.md',
+          destination: '/en/blog/raw/:path*?format=txt',
+        },
+        {
           source: '/:locale/frequent-questions/:path*.md',
           destination: '/:locale/frequent-questions/raw/:path*?format=txt',
+        },
+        {
+          source: '/frequent-questions/:path*.md',
+          destination: '/en/frequent-questions/raw/:path*?format=txt',
         },
       ],
     };
