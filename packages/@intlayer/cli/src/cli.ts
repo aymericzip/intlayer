@@ -8,6 +8,7 @@ import type {
   DiffMode,
   ListGitFilesOptions,
 } from '../../chokidar/dist/types/listGitFiles';
+import { login } from './auth/login';
 import { build } from './build';
 import { getConfig } from './config';
 import { startEditor } from './editor';
@@ -245,6 +246,32 @@ export const setAPI = (): Command => {
       // Keeping output minimal to align with common CLI behavior
       console.log(packageJson.version ?? 'unknown');
     });
+
+  /**
+   * AUTH
+   */
+  const loginCmd = program
+    .command('login')
+    .description('Login to Intlayer')
+    .option('--cms-url [cmsUrl]', 'CMS URL');
+
+  applyConfigOptions(loginCmd);
+
+  loginCmd.action((options) => {
+    const configOptions = extractConfigOptions(options) ?? {
+      override: {
+        log: {
+          prefix: '',
+          verbose: true,
+        },
+      },
+    };
+
+    return login({
+      cmsUrl: options.cmsUrl,
+      configOptions,
+    });
+  });
 
   /**
    * DICTIONARIES

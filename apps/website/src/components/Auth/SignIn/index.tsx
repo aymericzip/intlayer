@@ -2,7 +2,7 @@
 
 import { useLogin } from '@intlayer/design-system/hooks';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { type FC, useRef } from 'react';
+import { type FC, useEffect, useRef } from 'react';
 import { PagesRoutes } from '@/Routes';
 import { type SignIn, SignInForm as SignInFormUI } from './SignInForm/index';
 
@@ -14,6 +14,16 @@ export const SignInForm: FC<{
   const searchParams = useSearchParams();
   const email = searchParams.get('email');
   const emailInputRef = useRef<HTMLInputElement>(null);
+
+  // If callbackUrl is provided but redirect_url is not in the URL,
+  // add it to the current URL so 2FA redirect can preserve it
+  useEffect(() => {
+    if (callbackUrl && !searchParams.get('redirect_url')) {
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('redirect_url', callbackUrl);
+      window.history.replaceState({}, '', currentUrl.toString());
+    }
+  }, [callbackUrl, searchParams]);
 
   const onSubmitSuccess = ({ email, password, rememberMe }: SignIn) => {
     login({
