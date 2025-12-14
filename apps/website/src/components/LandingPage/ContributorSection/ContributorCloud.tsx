@@ -6,14 +6,7 @@ import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import {
-  type CSSProperties,
-  type FC,
-  type RefObject,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { type CSSProperties, type FC, type RefObject, useRef } from 'react';
 import { ExternalLinks, PagesRoutes } from '@/Routes';
 
 type Contributor = {
@@ -85,6 +78,7 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
 
   return (
     <motion.div
+      layout
       drag
       dragConstraints={dragConstraintsRef}
       dragMomentum
@@ -168,25 +162,6 @@ const generateCloudPositions = (count: number) => {
   return positions;
 };
 
-// Custom hook to trigger a re-render when layout stabilizes (during initial load only)
-// This ensures Framer Motion has correct drag constraints after other sections load
-const useLayoutStabilized = () => {
-  const [, forceRender] = useState(0);
-
-  useEffect(() => {
-    // Only run checks during the initial load period (first 3 seconds)
-    // to catch other sections appearing/loading
-    const checkIntervals = [1500];
-    const timeouts = checkIntervals.map((delay) =>
-      setTimeout(() => forceRender((n) => n + 1), delay)
-    );
-
-    return () => {
-      timeouts.forEach(clearTimeout);
-    };
-  }, []);
-};
-
 export const ContributorCloud: FC<ContributorCloudProps> = ({
   contributors,
 }) => {
@@ -195,10 +170,6 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   );
   const positions = generateCloudPositions(contributors.length);
   const sectionRef = useRef<HTMLElement>(null);
-
-  // Trigger re-renders during initial load to ensure Framer Motion
-  // measures correct drag constraints after other sections load
-  useLayoutStabilized();
 
   return (
     <section
