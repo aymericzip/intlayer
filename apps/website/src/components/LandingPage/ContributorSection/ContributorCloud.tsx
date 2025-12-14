@@ -6,7 +6,13 @@ import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type CSSProperties, type FC, type RefObject, useRef } from 'react';
+import {
+  type CSSProperties,
+  type FC,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { ExternalLinks, PagesRoutes } from '@/Routes';
 
 type Contributor = {
@@ -25,33 +31,33 @@ type ContributorAvatarProps = {
   contributor: Contributor;
   index: number;
   position: { x: number; y: number };
-  dragConstraintsRef: RefObject<HTMLElement | null>;
+  containerSize: { width: number; height: number } | null; // Changed: Pass size instead of ref
 };
 
+// ... [Keep sizeVariants, getFloatDistance, getZIndex as they were] ...
 const sizeVariants = [
-  'size-10 md:size-12', // Medium
-  'size-12 md:size-14', // Large (Biggest)
-  'size-8 md:size-10', // Small (Smallest)
-  'size-9 md:size-11', // Medium-Small
+  'size-10 md:size-12',
+  'size-12 md:size-14',
+  'size-8 md:size-10',
+  'size-9 md:size-11',
 ];
 
 const getFloatDistance = (sizeIndex: number): string => {
-  if (sizeIndex === 1) return '20px'; // Biggest
-  if (sizeIndex === 2) return '8px'; // Smallest
-  return '12px'; // Medium
+  if (sizeIndex === 1) return '20px';
+  if (sizeIndex === 2) return '8px';
+  return '12px';
 };
 
-// Z-index for 3D effect: bigger avatars (closer) in front, smaller avatars (further) behind
 const getZIndex = (sizeIndex: number): number => {
   switch (sizeIndex) {
     case 1:
-      return 30; // Biggest -> front
+      return 30;
     case 0:
-      return 20; // Medium
+      return 20;
     case 3:
-      return 15; // Medium-Small
+      return 15;
     case 2:
-      return 10; // Smallest -> back
+      return 10;
     default:
       return 10;
   }
@@ -61,28 +67,61 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
   contributor,
   index,
   position,
-  dragConstraintsRef,
+  containerSize,
 }) => {
+  const elementRef = useRef<HTMLDivElement>(null);
+  const [constraints, setConstraints] = useState({
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  });
+
   const sizeIndex = (index + contributor.login.length) % sizeVariants.length;
   const sizeClass = sizeVariants[sizeIndex];
   const floatDistance = getFloatDistance(sizeIndex);
   const zIndex = getZIndex(sizeIndex);
 
-  // Desync float animation using index and login hash for variety
-  // Slower duration: 6s to 10.5s (50% slower)
   const floatDelay = (
     (index * 0.7 + contributor.login.length * 0.3) %
     5
   ).toFixed(2);
   const floatDuration = (6 + (index % 4) * 1.5).toFixed(1);
 
+  // Calculate constraints relative to the container size
+  // This runs whenever the container resizes, fixing the "pop" issue
+  useEffect(() => {
+    if (!containerSize || !elementRef.current) return;
+
+    const { width: containerW, height: containerH } = containerSize;
+
+    // We need the element's actual size in pixels to calculate boundaries
+    const elementW = elementRef.current.offsetWidth;
+    const elementH = elementRef.current.offsetHeight;
+
+    // Convert the percentage position (from props) to pixels
+    const initialLeftPx = (position.x / 100) * containerW;
+    const initialTopPx = (position.y / 100) * containerH;
+
+    setConstraints({
+      // How far can I go left? (Negative value to reach 0)
+      left: -initialLeftPx,
+      // How far can I go right? (Remaining space minus my width)
+      right: containerW - initialLeftPx - elementW,
+      // How far can I go up?
+      top: -initialTopPx,
+      // How far can I go down?
+      bottom: containerH - initialTopPx - elementH,
+    });
+  }, [containerSize, position]);
+
   return (
     <motion.div
-      layout
+      ref={elementRef} // Attach local ref to measure self
       drag
-      dragConstraints={dragConstraintsRef}
+      dragConstraints={constraints} // Use calculated pixel object instead of Ref
       dragMomentum
-      dragElastic={0.05}
+      dragElastic={0.1}
       dragTransition={{
         power: 0.2,
         timeConstant: 100,
@@ -111,7 +150,6 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
       }}
       className="absolute cursor-grab select-none"
       style={{ zIndex }}
-      draggable={false}
       onDragStart={(e) => e.preventDefault()}
     >
       <Avatar
@@ -133,29 +171,22 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
   );
 };
 
-// Generate cloud positions using Phyllotaxis (Sunflower) pattern
-// Positioned on the left side (center at ~30% horizontally)
+// ... [Keep generateCloudPositions] ...
 const generateCloudPositions = (count: number) => {
   const positions = [];
-  const goldenAngle = Math.PI * (3 - Math.sqrt(5)); // ~2.399 radians (137.5 degrees)
-
-  // Max radius - separate X and Y for elliptical distribution
+  const goldenAngle = Math.PI * (3 - Math.sqrt(5));
   const maxRadiusX = 20;
   const maxRadiusY = 30;
   const cX = count > 1 ? maxRadiusX / Math.sqrt(count - 1) : 0;
   const cY = count > 1 ? maxRadiusY / Math.sqrt(count - 1) : 0;
-
-  // Center at 30% horizontally (left side), 50% vertically
   const centerX = 25;
   const centerY = 40;
 
   for (let i = 0; i < count; i++) {
     const r = Math.sqrt(i);
     const angle = i * goldenAngle;
-
     const x = centerX + cX * r * Math.cos(angle);
     const y = centerY + cY * r * Math.sin(angle);
-
     positions.push({ x, y });
   }
 
@@ -171,20 +202,55 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   const positions = generateCloudPositions(contributors.length);
   const sectionRef = useRef<HTMLElement>(null);
 
+  // State to track the exact pixel size of the container
+  const [containerSize, setContainerSize] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
+
+  // ResizeObserver to detect layout shifts (including "pops" from other sections)
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const updateSize = () => {
+      if (sectionRef.current) {
+        setContainerSize({
+          width: sectionRef.current.offsetWidth,
+          height: sectionRef.current.offsetHeight,
+        });
+      }
+    };
+
+    // Initial measurement
+    updateSize();
+
+    // Watch for size changes
+    const resizeObserver = new ResizeObserver(updateSize);
+    resizeObserver.observe(sectionRef.current);
+
+    // Also watch body for global shifts that might affect layout flow
+    // (Optional, but helps if the section size depends on viewport)
+    const bodyObserver = new ResizeObserver(updateSize);
+    bodyObserver.observe(document.body);
+
+    return () => {
+      resizeObserver.disconnect();
+      bodyObserver.disconnect();
+    };
+  }, []);
+
   return (
     <section
       ref={sectionRef}
       className="relative w-full py-20 max-md:hidden md:py-32"
     >
       <div className="pointer-events-none mx-auto max-w-7xl p-5 px-4 md:px-8 lg:px-16">
+        {/* ... [Content remains exactly the same] ... */}
         <div className="flex min-h-40 flex-col gap-12 md:flex-row md:items-center">
-          <div className="pointer-events-none relative flex-1">
-            {/* Invisible spacer to maintain layout */}
-          </div>
+          <div className="pointer-events-none relative flex-1"></div>
           <div className="pointer-events-auto relative z-0 flex-1 space-y-6">
             <H2 className="mb-3 font-bold text-3xl sm:text-4xl">{title}</H2>
             <p className="text-base text-neutral">{subtitle}</p>
-
             <div className="flex gap-2">
               <Link
                 href={ExternalLinks.Discord}
@@ -199,7 +265,6 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
                   {discordLinkLabel}
                 </span>
               </Link>
-
               <Link
                 href={PagesRoutes.Contributors}
                 label={seeAllLink.value}
@@ -218,7 +283,6 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
         </div>
       </div>
 
-      {/* Avatars layer - positioned absolutely to allow dragging across entire section */}
       {contributors.map((contributor, index) => {
         const position = positions[index];
         if (!position) return null;
@@ -229,7 +293,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
             contributor={contributor}
             index={index}
             position={position}
-            dragConstraintsRef={sectionRef}
+            containerSize={containerSize} // Pass the dynamic size
           />
         );
       })}
