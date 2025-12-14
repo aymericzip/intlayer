@@ -2,7 +2,7 @@
 
 import { Link } from '@components/Link/Link';
 import { Avatar, DiscordLogo, H2 } from '@intlayer/design-system';
-import { useDevice } from '@intlayer/design-system/hooks';
+import { useIsMounted } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
@@ -10,8 +10,8 @@ import { useIntlayer } from 'next-intlayer';
 import {
   type CSSProperties,
   type FC,
-  memo,
   type RefObject,
+  useEffect,
   useRef,
 } from 'react';
 import { ExternalLinks, PagesRoutes } from '@/Routes';
@@ -70,7 +70,6 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
   position,
   dragConstraintsRef,
 }) => {
-  // 0: Med, 1: Big, 2: Small, 3: Med-Small
   const sizeIndex = (index + contributor.login.length) % sizeVariants.length;
   const sizeClass = sizeVariants[sizeIndex];
   const floatDistance = getFloatDistance(sizeIndex);
@@ -175,16 +174,18 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   const { discordLinkLabel, seeAllLink, title, subtitle } = useIntlayer(
     'contributor-section'
   );
-  const { isMobile } = useDevice();
   const positions = generateCloudPositions(contributors.length);
   const sectionRef = useRef<HTMLElement>(null);
 
-  if (isMobile) {
-    return <></>;
-  }
+  // Add a rerender because of an issue on the dragging delimitation
+  // re-trigger sectionRef recalculation
+  useIsMounted();
 
   return (
-    <section ref={sectionRef} className="relative w-full py-20 md:py-32">
+    <section
+      ref={sectionRef}
+      className="relative w-full py-20 max-md:hidden md:py-32"
+    >
       <div className="pointer-events-none mx-auto max-w-7xl p-5 px-4 md:px-8 lg:px-16">
         <div className="flex min-h-40 flex-col gap-12 md:flex-row md:items-center">
           <div className="pointer-events-none relative flex-1">
