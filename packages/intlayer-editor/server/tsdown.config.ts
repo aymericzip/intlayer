@@ -8,6 +8,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const options: Options[] = getOptions({
   all: {
     outDir: `${__dirname}/dist`,
+    entry: ['./src/**/*.ts'],
   },
 });
 

@@ -19,10 +19,10 @@
     "astro": "5.16.4",
     "astro-intlayer": "workspace:*",
     "intlayer": "workspace:*",
-    "react": "19.2.1",
-    "react-dom": "19.2.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-intlayer": "workspace:*",
-    "tailwindcss": "4.1.17",
+    "tailwindcss": "4.1.18",
     "vue": "3.5.25"
   }
 }

@@ -28,7 +28,7 @@
     "autoprefixer": "10.4.21",
     "intlayer-editor": "workspace:*",
     "postcss": "8.5.6",
-    "tailwindcss": "4.1.17",
+    "tailwindcss": "4.1.18",
     "typescript": "5.9.3"
   }
 }

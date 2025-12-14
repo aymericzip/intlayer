@@ -70,8 +70,8 @@
   },
   "overrides": {
     "next": "16.0.10",
-    "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.8",
@@ -96,7 +96,7 @@
     "rimraf": "6.1.2",
     "rollup-plugin-visualizer": "6.0.5",
     "svelte-check": "^4.3.4",
-    "tsdown": "0.16.8",
+    "tsdown": "0.17.4",
     "tslib": "^2.8.1",
     "turbo": "2.6.3",
     "typescript": "5.9.3",

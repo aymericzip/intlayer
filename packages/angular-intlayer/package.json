@@ -95,13 +95,13 @@
     "defu": "6.1.4"
   },
   "devDependencies": {
-    "@types/node": "24.10.1",
+    "@types/node": "25.0.2",
     "@types/webpack": "5.28.5",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.2",
-    "tsdown": "0.16.8",
+    "tsdown": "0.17.4",
     "typescript": "5.9.3",
     "vitest": "4.0.15"
   },

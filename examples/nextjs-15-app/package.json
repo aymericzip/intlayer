@@ -19,19 +19,19 @@
     "markdown-to-jsx": "7.7.17",
     "next": "15.5.6",
     "next-intlayer": "workspace:*",
-    "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
     "@next/bundle-analyzer": "15.5.6",
-    "@tailwindcss/postcss": "4.1.17",
-    "@types/node": "24.10.1",
+    "@tailwindcss/postcss": "4.1.18",
+    "@types/node": "25.0.2",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "intlayer-editor": "workspace:*",
     "postcss": "8.5.6",
-    "tailwindcss": "4.1.17",
+    "tailwindcss": "4.1.18",
     "typescript": "5.9.3"
   }
 }

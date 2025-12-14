@@ -22,10 +22,10 @@
     "@tanstack/router-plugin": "1.136.8",
     "intlayer": "workspace:*",
     "nitro": "latest",
-    "react": "19.2.1",
-    "react-dom": "19.2.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-intlayer": "workspace:*",
-    "tailwindcss": "4.1.17",
+    "tailwindcss": "4.1.18",
     "vite-tsconfig-paths": "5.1.4"
   },
   "devDependencies": {

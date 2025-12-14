@@ -95,7 +95,7 @@
     "@intlayer/unmerged-dictionaries-entry": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "24.10.1",
+    "@types/node": "25.0.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
@@ -103,7 +103,7 @@
     "ajv": "^8.17.1",
     "fast-glob": "3.3.3",
     "rimraf": "6.1.2",
-    "tsdown": "0.16.8",
+    "tsdown": "0.17.4",
     "typescript": "5.9.3",
     "vite": "7.2.7",
     "vite-plugin-dts": "4.5.4",
