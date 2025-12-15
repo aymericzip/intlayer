@@ -2,7 +2,7 @@
 
 import { Link } from '@components/Link/Link';
 import { Button, Container, TabSelector } from '@intlayer/design-system';
-import { useDevice } from '@intlayer/design-system/hooks';
+import { useDevice, useSession } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import { useLocale } from 'next-intlayer';
 import { type FC, useState } from 'react';
-import type { ExternalLinks, PagesRoutes } from '@/Routes';
+import { type ExternalLinks, PagesRoutes } from '@/Routes';
 
 // Map icon names to components - must be done in client component
 const iconMap: Record<string, LucideIcon> = {
@@ -31,6 +31,19 @@ const iconMap: Record<string, LucideIcon> = {
   User,
   Shield,
 };
+
+const shouldHaveOrganizationRoutes = [
+  PagesRoutes.Dashboard_Projects,
+  PagesRoutes.Dashboard_Tags,
+] as string[];
+
+const shouldHaveProjectRoutes = [
+  PagesRoutes.Dashboard_Editor,
+  PagesRoutes.Dashboard_Content,
+  PagesRoutes.Dashboard_Tags,
+] as string[];
+
+const shouldHaveAdminRoutes = [PagesRoutes.Admin_Users] as string[];
 
 export type SidebarNavigationItem = {
   key: string;
@@ -77,6 +90,19 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { isMobile } = useDevice('sm');
   const { pathWithoutLocale } = useLocale();
+  const { session } = useSession();
+
+  const { organization, project, roles } = session ?? {};
+  const isSuperAdmin =
+    roles?.some((role: string) => role.toLowerCase() === 'admin') ?? false;
+
+  // Filter navigation items based on session context
+  const filteredNavItems = items
+    .filter(
+      (el) => !shouldHaveOrganizationRoutes.includes(el.href) || !!organization
+    )
+    .filter((el) => !shouldHaveProjectRoutes.includes(el.href) || !!project)
+    .filter((el) => !shouldHaveAdminRoutes.includes(el.href) || isSuperAdmin);
 
   const selectedPath = getCleanPath(pathWithoutLocale);
 
@@ -86,7 +112,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
       <nav className="fixed inset-x-0 bottom-0 z-50 border-neutral-200 border-t bg-card/80 px-2 py-2 backdrop-blur-sm dark:border-neutral-800">
         <TabSelector
           selectedChoice={selectedPath}
-          tabs={items.map((item) => {
+          tabs={filteredNavItems.map((item) => {
             const IconComponent = iconMap[item.icon];
 
             return (
@@ -151,7 +177,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
         <nav className="flex-1 overflow-y-auto">
           <TabSelector
             selectedChoice={selectedPath}
-            tabs={items.map((item) => {
+            tabs={filteredNavItems.map((item) => {
               const IconComponent = iconMap[item.icon];
               return (
                 <Link

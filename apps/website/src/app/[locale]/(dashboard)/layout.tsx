@@ -2,7 +2,7 @@ import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/Au
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
 import {
-  DashboardSidebarClient,
+  DashboardSidebar,
   type SidebarNavigationItem,
 } from '@components/Dashboard/DashboardSidebar';
 import { PageLayout } from '@layouts/PageLayout';
@@ -120,7 +120,7 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
       <DashboardHydrationBoundary dehydratedState={dehydratedState}>
         <WarmupClient />
         <div className="flex min-h-0 w-full flex-1">
-          <DashboardSidebarClient
+          <DashboardSidebar
             items={navigationItems}
             collapseButtonLabel={collapseButton.label.value}
           />
