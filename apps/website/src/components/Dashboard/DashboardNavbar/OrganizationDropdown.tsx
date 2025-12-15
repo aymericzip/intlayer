@@ -75,7 +75,7 @@ export const OrganizationDropdown: FC = () => {
             padding="lg"
             transparency="none"
             roundedSize="xl"
-            className="gap-2 border border-text/20"
+            className="gap-2 border border-text/10"
           >
             <div className="flex flex-col gap-3">
               <span className="font-bold">{selectOrganizationInstruction}</span>

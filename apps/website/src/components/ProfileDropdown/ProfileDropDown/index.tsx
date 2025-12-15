@@ -25,7 +25,7 @@ export const ProfileDropDown: FC<ProfileDropDownProps> = ({
       align="end"
     >
       <Container
-        className="min-w-[100px] p-6 shadow-lg"
+        className="min-w-[100px] border border-text/10 p-6"
         transparency="sm"
         roundedSize="xl"
       >
