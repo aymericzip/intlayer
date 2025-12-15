@@ -86,7 +86,7 @@ const choiceVariant = cva(
 );
 
 const indicatorVariant = cva(
-  'absolute top-0 z-[-1] h-full w-auto rounded-full transition-[left,width] duration-300 ease-in-out motion-reduce:transition-none',
+  'absolute top-0 z-0 h-full w-auto rounded-full transition-[left,width] duration-300 ease-in-out motion-reduce:transition-none',
   {
     variants: {
       color: {

@@ -11,11 +11,7 @@ import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Button, ButtonColor, ButtonVariant } from '../Button';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
-import {
-  SwitchSelector,
-  SwitchSelectorColor,
-  SwitchSelectorSize,
-} from '../SwitchSelector';
+import { SwitchSelector } from '../SwitchSelector';
 import { ContentEditor } from './ContentEditor';
 import { DictionaryDetailsForm } from './DictionaryDetails/DictionaryDetailsForm';
 import { JSONEditor } from './JSONEditor';
@@ -86,9 +82,8 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
         <SwitchSelector
           defaultValue={editorView}
           onChange={(value) => setEditorView(value)}
-          color={SwitchSelectorColor.TEXT}
-          size={SwitchSelectorSize.SM}
-          className="m-auto w-full max-w-xl"
+          color="text"
+          size="sm"
           choices={[
             {
               content: 'Details',
