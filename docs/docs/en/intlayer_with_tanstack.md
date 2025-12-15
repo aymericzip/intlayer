@@ -220,17 +220,17 @@ const appContent = {
       }),
     },
     meta: {
+      title: t({
+        en: "Welcome to Intlayer + TanStack Router",
+        es: "Bienvenido a Intlayer + TanStack Router",
+        fr: "Bienvenue à Intlayer + TanStack Router",
+      }),
       description: t({
         en: "This is an example of using Intlayer with TanStack Router",
         es: "Este es un ejemplo de uso de Intlayer con TanStack Router",
         fr: "Ceci est un exemple d'utilisation d'Intlayer avec TanStack Router",
       }),
     },
-    title: t({
-      en: "Welcome to Intlayer + TanStack Router",
-      es: "Bienvenido a Intlayer + TanStack Router",
-      fr: "Bienvenue à Intlayer + TanStack Router",
-    }),
   },
   key: "app",
 } satisfies Dictionary;
@@ -512,10 +512,11 @@ function LayoutComponent() {
   useI18nHTMLAttributes(); // add this line
 
   const { locale } = Route.useParams();
+  const { defaultLocale } = useLocale();
 
   return (
     <IntlayerProvider
-      locale={locale} // If no locale included as a parameter, the default locale will be used
+      locale={locale ?? defaultLocale} // If no locale included as a parameter, the default locale will be used
     >
       <Outlet />
     </IntlayerProvider>
