@@ -3,7 +3,6 @@
 import { getIntlayer } from '@intlayer/core';
 import type { LocalesValues } from '@intlayer/types';
 import { cva, type VariantProps } from 'class-variance-authority';
-import type { __DictionaryRegistry } from 'intlayer';
 import { ChevronRightIcon } from 'lucide-react';
 import { type FC, Fragment, type HTMLAttributes, type ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -101,6 +100,7 @@ const LinkLink: FC<LinkLinkProps> = ({
         {...props}
         label={`${linkLabel} ${children}`}
         itemID={href}
+        size="sm"
       >
         <span itemProp="name">{children}</span>
       </Link>
