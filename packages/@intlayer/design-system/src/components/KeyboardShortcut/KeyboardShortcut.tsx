@@ -248,11 +248,11 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
 
       // Trigger callback if shortcut matches
       if (onTriggered && matchesShortcut(event, keys)) {
-        // Only prevent default for shortcuts with modifiers or special keys
-        // Allow "/" to work naturally when in input fields
-        if (!isInputField || event.ctrlKey || event.metaKey || event.altKey) {
-          event.preventDefault();
+        // Don't trigger shortcuts when typing in input fields
+        if (isInputField) {
+          return;
         }
+        event.preventDefault();
         onTriggered();
       }
     };
@@ -274,12 +274,6 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
   }, [keys, onTriggered]);
 
   if (!display) return null;
-
-  const sizeClasses = {
-    sm: 'text-xs',
-    md: 'text-sm',
-    lg: 'text-base',
-  };
 
   /**
    * Check if a key is currently pressed
@@ -312,7 +306,9 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
         'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
         'font-medium font-sans',
         'border-1 border-neutral/20 text-neutral',
-        sizeClasses[size],
+        size === 'sm' && 'text-xs',
+        size === 'md' && 'text-sm',
+        size === 'lg' && 'text-base',
         className
       )}
     >
@@ -321,7 +317,7 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
         const displayKey = getDisplayKey(key);
         return (
           <span key={keyId} className="inline-flex items-center">
-            {index > 0 && <span>+</span>}
+            {index > 0 && <span className="text-neutral/50">+</span>}
             <span
               className={cn(
                 'min-w-4 px-0.5',
