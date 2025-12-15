@@ -246,7 +246,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
                 />
                 <PopoverStatic.Detail identifier="blog-nav-collapse">
                   <KeyboardShortcut
-                    shortcut="⌘ + K"
+                    shortcut="Alt + ArrowLeft"
                     onTriggered={() => setIsHidden((isHidden) => !isHidden)}
                     size="sm"
                   />

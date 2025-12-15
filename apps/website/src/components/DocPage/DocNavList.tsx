@@ -298,7 +298,7 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
                 />
                 <PopoverStatic.Detail identifier="doc-nav-collapse">
                   <KeyboardShortcut
-                    shortcut="⌘ + K"
+                    shortcut="Alt + ArrowLeft"
                     onTriggered={() => setIsHidden((isHidden) => !isHidden)}
                     size="sm"
                   />

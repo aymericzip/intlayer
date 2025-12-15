@@ -11,6 +11,7 @@ export enum KeyList {
   '⌘' = '⌘',
   Ctrl = 'Ctrl',
   Alt = 'Alt',
+  '⌥' = '⌥',
   Shift = 'Shift',
   Meta = 'Meta',
   F = 'F',
@@ -48,6 +49,10 @@ export enum KeyList {
   ArrowDown = 'ArrowDown',
   ArrowLeft = 'ArrowLeft',
   ArrowRight = 'ArrowRight',
+  '↑' = '↑',
+  '↓' = '↓',
+  '←' = '←',
+  '→' = '→',
 }
 
 /**
@@ -86,8 +91,17 @@ const normalizeKey = (key: string): string => {
     Ctrl: 'Control',
     Control: 'Control',
     Alt: 'Alt',
+    '⌥': 'Alt',
     Shift: 'Shift',
     Meta: 'Meta',
+    '↑': 'ArrowUp',
+    '↓': 'ArrowDown',
+    '←': 'ArrowLeft',
+    '→': 'ArrowRight',
+    ArrowUp: 'ArrowUp',
+    ArrowDown: 'ArrowDown',
+    ArrowLeft: 'ArrowLeft',
+    ArrowRight: 'ArrowRight',
   };
 
   return keyMap[key] || key;
@@ -118,32 +132,68 @@ const matchesShortcut = (event: KeyboardEvent, keys: string[]): boolean => {
   // Find the non-modifier key
   const nonModifierKey = keys.find(
     (key) =>
-      !['⌘', 'Ctrl', 'Control', 'Alt', 'Shift', 'Meta'].includes(
+      !['⌘', 'Ctrl', 'Control', 'Alt', '⌥', 'Shift', 'Meta'].includes(
         normalizeKey(key)
       )
   );
 
   if (!nonModifierKey) return false;
 
-  // Compare the main key (case-insensitive for letters)
-  return event.key.toLowerCase() === nonModifierKey.toLowerCase();
+  // Normalize the key for comparison
+  const normalizedNonModifierKey = normalizeKey(nonModifierKey);
+
+  // Compare the main key
+  // For arrow keys, compare directly with event.key
+  if (normalizedNonModifierKey.startsWith('Arrow')) {
+    return event.key === normalizedNonModifierKey;
+  }
+
+  // For other keys, compare case-insensitive
+  return event.key.toLowerCase() === normalizedNonModifierKey.toLowerCase();
 };
 
 /**
- * Get display shortcut based on OS (Mac uses ⌘, others use Ctrl)
+ * Get display key symbol for better visual representation
+ */
+const getDisplayKey = (key: string): string => {
+  const displayMap: Record<string, string> = {
+    ArrowUp: '↑',
+    ArrowDown: '↓',
+    ArrowLeft: '←',
+    ArrowRight: '→',
+  };
+
+  return displayMap[key] || key;
+};
+
+/**
+ * Get display shortcut based on OS (Mac uses ⌘ and ⌥, others use Ctrl and Alt)
  */
 const getDisplayShortcut = (shortcut: string, isMac: boolean): string => {
+  let result = shortcut;
+
   if (isMac) {
-    return shortcut.replace(/Ctrl/g, '⌘');
+    result = result.replace(/Ctrl/g, '⌘');
+    result = result.replace(/Alt/g, '⌥');
+  } else {
+    result = result.replace(/⌘/g, 'Ctrl');
+    result = result.replace(/⌥/g, 'Alt');
   }
-  return shortcut.replace(/⌘/g, 'Ctrl');
+
+  // Replace arrow key names with symbols
+  result = result.replace(/ArrowUp/g, '↑');
+  result = result.replace(/ArrowDown/g, '↓');
+  result = result.replace(/ArrowLeft/g, '←');
+  result = result.replace(/ArrowRight/g, '→');
+
+  return result;
 };
 
 /**
  * KeyboardShortcut Component
  *
  * A reusable component that displays keyboard shortcuts and listens for key combinations.
- * Automatically adapts to Mac (⌘) and Windows/Linux (Ctrl) conventions.
+ * Automatically adapts to Mac (⌘, ⌥) and Windows/Linux (Ctrl, Alt) conventions.
  *
  * @example
  * ```tsx
@@ -167,6 +217,13 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      // Don't trigger shortcuts when typing in input fields
+      const target = event.target as HTMLElement;
+      const isInputField =
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.isContentEditable;
+
       // Update pressed keys state for visual feedback
       const currentKey = event.key;
       const normalizedEventKeys = new Set<string>();
@@ -174,17 +231,28 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
       // Add modifier keys
       if (event.metaKey) normalizedEventKeys.add('⌘');
       if (event.ctrlKey) normalizedEventKeys.add('Ctrl');
-      if (event.altKey) normalizedEventKeys.add('Alt');
+      if (event.altKey) normalizedEventKeys.add(isMac ? '⌥' : 'Alt');
       if (event.shiftKey) normalizedEventKeys.add('Shift');
 
       // Add the main key
-      normalizedEventKeys.add(currentKey.toUpperCase());
+      if (currentKey.startsWith('Arrow')) {
+        // For arrow keys, add both the key name and the symbol
+        normalizedEventKeys.add(currentKey);
+        const arrowSymbol = getDisplayKey(currentKey);
+        normalizedEventKeys.add(arrowSymbol);
+      } else {
+        normalizedEventKeys.add(currentKey.toUpperCase());
+      }
 
       setPressedKeys(normalizedEventKeys);
 
       // Trigger callback if shortcut matches
       if (onTriggered && matchesShortcut(event, keys)) {
-        event.preventDefault();
+        // Only prevent default for shortcuts with modifiers or special keys
+        // Allow "/" to work naturally when in input fields
+        if (!isInputField || event.ctrlKey || event.metaKey || event.altKey) {
+          event.preventDefault();
+        }
         onTriggered();
       }
     };
@@ -218,12 +286,22 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
    */
   const isKeyPressed = (key: string): boolean => {
     const upperKey = key.toUpperCase();
+    const normalizedKey = normalizeKey(key);
+
     return (
       pressedKeys.has(key) ||
       pressedKeys.has(upperKey) ||
+      pressedKeys.has(normalizedKey) ||
       // Check for modifier key matches
       (key === '⌘' && pressedKeys.has('Meta')) ||
-      (key === 'Ctrl' && pressedKeys.has('Control'))
+      (key === 'Ctrl' && pressedKeys.has('Control')) ||
+      (key === '⌥' && pressedKeys.has('Alt')) ||
+      (key === 'Alt' && pressedKeys.has('Alt')) ||
+      // Check for arrow key symbols
+      (key === '←' && pressedKeys.has('ArrowLeft')) ||
+      (key === '→' && pressedKeys.has('ArrowRight')) ||
+      (key === '↑' && pressedKeys.has('ArrowUp')) ||
+      (key === '↓' && pressedKeys.has('ArrowDown'))
     );
   };
 
@@ -240,13 +318,17 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
     >
       {keys.map((key, index) => {
         const keyId = `${key}-${index}-${shortcut}`;
+        const displayKey = getDisplayKey(key);
         return (
           <span key={keyId} className="inline-flex items-center">
             {index > 0 && <span>+</span>}
             <span
-              className={cn('min-w-4 px-0.5', isKeyPressed(key) && 'text-text')}
+              className={cn(
+                'min-w-4 px-0.5',
+                isKeyPressed(key) && 'scale-120 font-bold text-text'
+              )}
             >
-              {key}
+              {displayKey}
             </span>
           </span>
         );

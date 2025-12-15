@@ -68,7 +68,7 @@ export const AsideNavigation: FC = (props) => {
                     xAlign="end"
                   >
                     <KeyboardShortcut
-                      shortcut="⌘ + R"
+                      shortcut="Alt + ArrowRight"
                       onTriggered={() => setIsHidden((isHidden) => !isHidden)}
                       size="sm"
                     />
