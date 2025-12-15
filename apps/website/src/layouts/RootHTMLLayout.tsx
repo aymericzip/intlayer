@@ -1,10 +1,12 @@
 import { cn } from '@utils/cn';
+import type { LocalesValues } from 'intlayer';
 import { getHTMLTextDir } from 'intlayer';
 import { Inter } from 'next/font/google';
-import type { FC } from 'react';
+import type { FC, HTMLProps } from 'react';
 
 export type LocalParams = HTMLProps<HTMLHtmlElement> & {
   bodyProps?: HTMLProps<HTMLBodyElement>;
+  locale: LocalesValues;
 };
 
 const inter = Inter({ subsets: ['latin'] });
@@ -42,7 +44,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({
     <body
       className={cn(
         inter.className,
-        'relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition',
+        'relative size-full flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex md:min-h-screen',
         className
       )}
       {...bodyProps}

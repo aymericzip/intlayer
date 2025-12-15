@@ -106,7 +106,6 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
               </Link>
             );
           })}
-          orientation="vertical"
           hoverable
           color="text"
           className="justify-around"
