@@ -54,6 +54,7 @@ type ChatBotProps = {
   additionalButtons?: ReactNode;
   displayRelatedFiles?: boolean;
   stateReloaderTrigger?: any;
+  isActive?: boolean;
 };
 
 type DiscussionStore = {
@@ -66,6 +67,7 @@ export const ChatBot: FC<ChatBotProps> = ({
   additionalButtons,
   displayRelatedFiles = true,
   stateReloaderTrigger,
+  isActive = false,
 }) => {
   const [hasReachedRateLimit, setHasReachedRateLimit] = useState(false);
   const { mutate: askDocQuestion, isPending } = useAskDocQuestion();
@@ -156,7 +158,7 @@ export const ChatBot: FC<ChatBotProps> = ({
         onSuccess: () => {
           setHasReachedRateLimit(false);
         },
-        onError: (errorMessage) => {
+        onError: (errorMessage: any) => {
           let error: any;
 
           // If json is valid, parse it
@@ -256,6 +258,7 @@ export const ChatBot: FC<ChatBotProps> = ({
           clear={handleClear}
           nbMessages={(discussion?.storedPrompt ?? []).length}
           additionalButtons={additionalButtons}
+          isActive={isActive}
         />
       </div>
     </div>

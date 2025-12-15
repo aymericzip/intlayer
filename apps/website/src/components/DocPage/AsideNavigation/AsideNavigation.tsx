@@ -131,7 +131,7 @@ export const AsideNavigation: FC = (props) => {
         disableScroll
         hasCloseButton
       >
-        <ChatBot stateReloaderTrigger={isModalOpen} />
+        <ChatBot stateReloaderTrigger={isModalOpen} isActive={isModalOpen} />
       </Modal>
     </>
   );

@@ -26,13 +26,13 @@ export const ChatBotModal: FC = () => {
       >
         {isModalOpen && (
           <Suspense fallback={<Loader />}>
-            <ChatBot />
+            <ChatBot isActive={isModalOpen} />
           </Suspense>
         )}
       </Modal>
       <Button
         Icon={Bot}
-        className="!fixed !rounded-full right-5 bottom-5 z-50 opacity-70 hover:scale-110"
+        className="fixed! right-5 bottom-5 z-50 rounded-full! opacity-70 hover:scale-110"
         color="text"
         size="icon-xl"
         label={button.label.value}

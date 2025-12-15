@@ -152,11 +152,16 @@ export const SearchView: FC<{
   // Focus input when modal opens using setTimeout
   // This waits for the browser's paint cycle and the modal animation
   useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout> | undefined;
+
     if (isOpen) {
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         inputRef.current?.focus();
       }, 50);
     }
+    return () => {
+      if (timeout) clearTimeout(timeout);
+    };
   }, [isOpen]);
 
   // Handle keyboard navigation
