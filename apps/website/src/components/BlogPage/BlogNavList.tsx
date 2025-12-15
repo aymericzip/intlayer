@@ -72,7 +72,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           }
                           label={key2}
                           isOpen={isActive}
-                          className="!py-0 !pl-0"
+                          className="py-0! pl-0!"
                         >
                           <div className="pl-3 text-sm">
                             {subSections2 &&
@@ -95,6 +95,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                           ''
                                         }
                                         isActive={isActive}
+                                        className="block w-full flex-row items-center text-nowrap p-2 text-left text-xs transition-colors hover:text-text"
                                       >
                                         {section3Data.title}
                                       </OptionalLink>
@@ -107,7 +108,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                       ) : (
                         <OptionalLink
                           href={sectionDefault?.relativeUrl ?? ''}
-                          className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
+                          className="block w-full flex-row items-center text-nowrap p-2 text-left text-xs transition-colors hover:text-text"
                           label={key2}
                           isActive={isActive}
                         >

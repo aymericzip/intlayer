@@ -102,13 +102,14 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                               label={key2}
                               href={sectionDefault?.relativeUrl ?? ''}
                               isActive={isActive}
+                              className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
                             >
                               {section2Data?.title}
                             </OptionalLink>
                           }
                           label={key2}
                           isOpen={isActive ? true : undefined}
-                          className="!py-0 !pl-0"
+                          className="py-0! pl-0!"
                         >
                           <div className="pl-3 text-sm">
                             {subSections2 &&
@@ -131,6 +132,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                                           ''
                                         }
                                         isActive={isActive}
+                                        className="block w-full flex-row items-center text-nowrap p-2 text-left text-xs transition-colors hover:text-text"
                                       >
                                         {section3Data.title}
                                       </OptionalLink>
