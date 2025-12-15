@@ -44,7 +44,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({
     <body
       className={cn(
         inter.className,
-        'relative size-full flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex md:min-h-screen',
+        'relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex',
         className
       )}
       {...bodyProps}

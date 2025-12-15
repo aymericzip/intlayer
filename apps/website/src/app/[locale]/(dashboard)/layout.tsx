@@ -120,7 +120,7 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
       locale={locale}
       navbar={<DashboardNavbar />}
       footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
-      className="dashboard-theme bg-card md:h-screen md:max-h-screen md:overflow-hidden"
+      className="dashboard-theme h-screen max-h-screen bg-card md:overflow-hidden"
       mainClassName="min-h-0"
       htmlProps={{
         style: { fontSize: '75%' },
@@ -133,7 +133,7 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
             items={navigationItems}
             collapseButtonLabel={collapseButton.label.value}
           />
-          <div className="flex min-h-0 flex-1 flex-col rounded-2xl bg-background p-3 md:overflow-auto">
+          <div className="flex min-h-0 flex-1 flex-col rounded-2xl bg-background p-3 md:mr-2 md:overflow-auto">
             {children}
           </div>
         </div>

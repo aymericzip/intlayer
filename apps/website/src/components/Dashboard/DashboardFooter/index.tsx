@@ -34,7 +34,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
   const { isMobile } = useDevice('sm');
 
   return (
-    <footer className="flex flex-auto flex-wrap items-center gap-4 overflow-auto px-6 py-1 max-md:pb-20 md:flex-row">
+    <footer className="flex flex-auto flex-wrap items-center gap-4 overflow-auto px-6 py-1 max-md:mt-4 max-md:pb-20 md:flex-row">
       <div className="flex flex-row flex-wrap items-center justify-center gap-x-4 gap-y-2 max-md:max-w-1/4">
         <Link href={logo.url.value} label={logo.label.value} color="text">
           <Logo width={80} height={80} className="size-6" />

@@ -36,6 +36,9 @@ export const ProfileForm: FC = () => {
   const { data: passkeysData, refetch: refetchPasskeys } = useListPasskeys();
   const passkeys = passkeysData?.data ?? [];
 
+  const hasPasswordColumn =
+    user?.lastLoginMethod === 'email' || user?.lastLoginMethod === 'passkey';
+
   const onSubmitSuccess = (data: ProfileFormData) => {
     if (!user) return;
 
@@ -49,15 +52,19 @@ export const ProfileForm: FC = () => {
   }, [form.reset, user]);
 
   return (
-    <div className="flex max-w-5xl flex-col items-center justify-center gap-4">
+    <div className="flex w-full max-w-5xl flex-col items-center justify-center gap-4">
       <div
         className={cn(
           'grid w-full grid-cols-1 justify-evenly gap-x-5 gap-y-4 lg:gap-x-16',
-          user?.lastLoginMethod === 'email' &&
-            'max-md:grid-cols-1 md:grid-cols-2'
+          hasPasswordColumn && 'max-md:grid-cols-1 md:grid-cols-2'
         )}
       >
-        <div className="m-auto flex size-full w-full max-w-xl flex-col gap-10">
+        <div
+          className={cn(
+            'm-auto flex size-full w-full max-w-2xl flex-col gap-10',
+            hasPasswordColumn && 'm-auto max-w-xl'
+          )}
+        >
           <Container roundedSize="xl" padding="md">
             <H3 className="mb-8"> {title}</H3>
             <Form
@@ -98,8 +105,7 @@ export const ProfileForm: FC = () => {
             <DeleteUser />
           </Container>
         </div>
-        {(user?.lastLoginMethod === 'email' ||
-          user?.lastLoginMethod === 'passkey') && (
+        {hasPasswordColumn && (
           <div className="flex w-full flex-col gap-10">
             <Container roundedSize="xl" padding="md">
               <H3 className="mb-8">{changePasswordTitle}</H3>

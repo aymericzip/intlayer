@@ -16,7 +16,7 @@ export const DashboardNavbar: FC = () => {
 
   return (
     <Container
-      className="fixed top-0 z-50 flex w-full flex-col gap-3 p-4 md:sticky"
+      className="sticky top-0 z-50 flex w-full flex-col gap-3 p-4"
       roundedSize="none"
     >
       <div className="flex justify-between">

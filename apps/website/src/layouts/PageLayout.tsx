@@ -1,7 +1,8 @@
+import type { LocalesValues } from 'intlayer';
 import { IntlayerClientProvider } from 'next-intlayer';
 import type { IntlayerServerProviderProps } from 'next-intlayer/server';
 import { ThemeProvider } from 'next-themes';
-import type { FC } from 'react';
+import type { FC, HTMLProps } from 'react';
 import { IntlayerMarkdownProvider } from '@/providers/IntlayerMarkdownProvider';
 import {
   PageContentLayout,
@@ -15,6 +16,7 @@ type PageLayoutProps = IntlayerServerProviderProps &
     mainClassName?: string;
     htmlProps?: HTMLProps<HTMLHtmlElement>;
     bodyProps?: HTMLProps<HTMLBodyElement>;
+    locale: LocalesValues;
   };
 
 export const PageLayout: FC<PageLayoutProps> = ({
