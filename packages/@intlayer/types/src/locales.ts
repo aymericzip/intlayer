@@ -192,6 +192,14 @@ export const FRENCH_FRANCE = 'fr-FR' as const;
 export const FRENCH_LUXEMBOURG = 'fr-LU' as const;
 /** French language as used in the Principality of Monaco */
 export const FRENCH_PRINCIPALITY_OF_MONACO = 'fr-MC' as const;
+/** Irish language */
+export const IRISH = 'ga' as const;
+/** Irish language as used in Ireland */
+export const IRISH_IRELAND = 'ga-IE' as const;
+/** Scottish Gaelic language */
+export const SCOTTISH_GAELIC = 'gd' as const;
+/** Scottish Gaelic language as used in United Kingdom */
+export const SCOTTISH_GAELIC_UNITED_KINGDOM = 'gd-GB' as const;
 /** Galician language */
 export const GALICIAN = 'gl' as const;
 /** Galician language as used in Spain */
@@ -260,6 +268,10 @@ export const KOREAN_KOREA = 'ko-KR' as const;
 export const KONKANI = 'kok' as const;
 /** Konkani language as used in India */
 export const KONKANI_INDIA = 'kok-IN' as const;
+/** Kurdish language */
+export const KURDISH = 'ku' as const;
+/** Kurdish language as used in Turkey */
+export const KURDISH_TURKEY = 'ku-TR' as const;
 /** Kyrgyz language */
 export const KYRGYZ = 'ky' as const;
 /** Kyrgyz language as used in Kyrgyzstan */
@@ -298,6 +310,12 @@ export const MALAY_MALAYSIA = 'ms-MY' as const;
 export const MALTESE = 'mt' as const;
 /** Maltese language as used in Malta */
 export const MALTESE_MALTA = 'mt-MT' as const;
+/** Malayalam language */
+export const MALAYALAM = 'ml' as const;
+/** Malayalam language as used in India */
+export const MALAYALAM_INDIA = 'ml-IN' as const;
+/** Norwegian language */
+export const NORWEGIAN = 'no' as const;
 /** Norwegian (Bokmål) language */
 export const NORWEGIAN_BOKMAL = 'nb' as const;
 /** Norwegian (Bokmål) language as used in Norway */
@@ -308,6 +326,8 @@ export const DUTCH = 'nl' as const;
 export const DUTCH_BELGIUM = 'nl-BE' as const;
 /** Dutch language as used in the Netherlands */
 export const DUTCH_NETHERLANDS = 'nl-NL' as const;
+/** Norwegian (Nynorsk) language */
+export const NORWEGIAN_NYNORSK = 'nn' as const;
 /** Norwegian (Nynorsk) language as used in Norway */
 export const NORWEGIAN_NYNORSK_NORWAY = 'nn-NO' as const;
 /** Northern Sotho language */
@@ -344,10 +364,18 @@ export const QUECHUA_PERU = 'qu-PE' as const;
 export const ROMANIAN = 'ro' as const;
 /** Romanian language as used in Romania */
 export const ROMANIAN_ROMANIA = 'ro-RO' as const;
+/** Romanian language as used in Moldova */
+export const ROMANIAN_MOLDOVA = 'ro-MD' as const;
+/** Romansh language */
+export const ROMANSH = 'rm' as const;
+/** Romansh language as used in Switzerland */
+export const ROMANSH_SWITZERLAND = 'rm-CH' as const;
 /** Russian language */
 export const RUSSIAN = 'ru' as const;
 /** Russian language as used in Russia */
 export const RUSSIAN_RUSSIA = 'ru-RU' as const;
+/** Russian language as used in Moldova */
+export const RUSSIAN_MOLDOVA = 'ru-MD' as const;
 /** Sanskrit language */
 export const SANSKRIT = 'sa' as const;
 /** Sanskrit language as used in India */
@@ -360,6 +388,14 @@ export const SAMI_NORTHERN_FINLAND = 'se-FI' as const;
 export const SAMI_NORTHERN_NORWAY = 'se-NO' as const;
 /** Northern Sami language as used in Sweden */
 export const SAMI_NORTHERN_SWEDEN = 'se-SE' as const;
+/** Upper Sorbian language */
+export const UPPER_SORBIAN = 'hsb' as const;
+/** Upper Sorbian language as used in Germany */
+export const UPPER_SORBIAN_GERMANY = 'hsb-DE' as const;
+/** Lower Sorbian language */
+export const LOWER_SORBIAN = 'dsb' as const;
+/** Lower Sorbian language as used in Germany */
+export const LOWER_SORBIAN_GERMANY = 'dsb-DE' as const;
 /** Slovak language */
 export const SLOVAK = 'sk' as const;
 /** Slovak language as used in Slovakia */
@@ -438,6 +474,10 @@ export const UZBEK_LATIN_UZBEKISTAN = 'uz-UZ' as const;
 export const VIETNAMESE = 'vi' as const;
 /** Vietnamese language as used in Viet Nam */
 export const VIETNAMESE_VIET_NAM = 'vi-VN' as const;
+/** Venda language */
+export const VENDA = 've' as const;
+/** Venda language as used in South Africa */
+export const VENDA_SOUTH_AFRICA = 've-ZA' as const;
 /** Xhosa language */
 export const XHOSA = 'xh' as const;
 /** Xhosa language as used in South Africa */
@@ -484,6 +524,10 @@ export const LAO_LAOS = 'lo-LA' as const;
 export const YORUBA = 'yo' as const;
 /** Yoruba language as used in Nigeria */
 export const YORUBA_NIGERIA = 'yo-NG' as const;
+/** Yiddish language */
+export const YIDDISH = 'yi' as const;
+/** Yiddish language as used in worldwide Jewish communities */
+export const YIDDISH_WORLD = 'yi-001' as const;
 /** Amharic language */
 export const AMHARIC = 'am' as const;
 /** Amharic language as used in Ethiopia */
@@ -656,6 +700,10 @@ export const ALL_LOCALES = {
   FRENCH_FRANCE,
   FRENCH_LUXEMBOURG,
   FRENCH_PRINCIPALITY_OF_MONACO,
+  IRISH,
+  IRISH_IRELAND,
+  SCOTTISH_GAELIC,
+  SCOTTISH_GAELIC_UNITED_KINGDOM,
   GALICIAN,
   GALICIAN_SPAIN,
   GUJARATI,
@@ -690,6 +738,8 @@ export const ALL_LOCALES = {
   KOREAN_KOREA,
   KONKANI,
   KONKANI_INDIA,
+  KURDISH,
+  KURDISH_TURKEY,
   KYRGYZ,
   KYRGYZ_KYRGYZSTAN,
   LITHUANIAN,
@@ -709,11 +759,15 @@ export const ALL_LOCALES = {
   MALAY_MALAYSIA,
   MALTESE,
   MALTESE_MALTA,
+  MALAYALAM,
+  MALAYALAM_INDIA,
+  NORWEGIAN,
   NORWEGIAN_BOKMAL,
   NORWEGIAN_BOKMAL_NORWAY,
   DUTCH,
   DUTCH_BELGIUM,
   DUTCH_NETHERLANDS,
+  NORWEGIAN_NYNORSK,
   NORWEGIAN_NYNORSK_NORWAY,
   NORTHERN_SOTHO,
   NORTHERN_SOTHO_SOUTH_AFRICA,
@@ -732,14 +786,22 @@ export const ALL_LOCALES = {
   QUECHUA_PERU,
   ROMANIAN,
   ROMANIAN_ROMANIA,
+  ROMANIAN_MOLDOVA,
+  ROMANSH,
+  ROMANSH_SWITZERLAND,
   RUSSIAN,
   RUSSIAN_RUSSIA,
+  RUSSIAN_MOLDOVA,
   SANSKRIT,
   SANSKRIT_INDIA,
   SAMI_NORTHERN,
   SAMI_NORTHERN_FINLAND,
   SAMI_NORTHERN_NORWAY,
   SAMI_NORTHERN_SWEDEN,
+  UPPER_SORBIAN,
+  UPPER_SORBIAN_GERMANY,
+  LOWER_SORBIAN,
+  LOWER_SORBIAN_GERMANY,
   SLOVAK,
   SLOVAK_SLOVAKIA,
   SLOVENIAN,
@@ -779,6 +841,8 @@ export const ALL_LOCALES = {
   UZBEK_LATIN_UZBEKISTAN,
   VIETNAMESE,
   VIETNAMESE_VIET_NAM,
+  VENDA,
+  VENDA_SOUTH_AFRICA,
   XHOSA,
   XHOSA_SOUTH_AFRICA,
   CHINESE,
@@ -802,6 +866,8 @@ export const ALL_LOCALES = {
   LAO_LAOS,
   YORUBA,
   YORUBA_NIGERIA,
+  YIDDISH,
+  YIDDISH_WORLD,
   AMHARIC,
   AMHARIC_ETHIOPIA,
   NEPALI,
