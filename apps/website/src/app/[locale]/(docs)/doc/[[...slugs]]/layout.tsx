@@ -71,7 +71,7 @@ const DocLayout: NextLayoutIntlayer<DocProps> = async ({
   const { locale, slugs } = await params;
 
   return (
-    <DocPageLayout activeSections={slugs} locale={locale}>
+    <DocPageLayout activeSlugs={['doc', ...slugs]} locale={locale}>
       {children}
     </DocPageLayout>
   );

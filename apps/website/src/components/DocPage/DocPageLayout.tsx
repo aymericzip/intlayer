@@ -8,7 +8,7 @@ import type { Section } from './types';
 
 type DocPageLayoutProps = {
   children?: ReactNode;
-  activeSections?: string[];
+  activeSlugs?: string[];
   locale: LocalesValues;
   displayAsideNavigation?: boolean;
   displayBreadCrumb?: boolean;
@@ -17,7 +17,7 @@ type DocPageLayoutProps = {
 export const DocPageLayout: FC<DocPageLayoutProps> = ({
   children,
   locale,
-  activeSections = ['get-started'],
+  activeSlugs = ['get-started'],
   displayAsideNavigation = true,
   displayBreadCrumb = true,
 }) => {
@@ -26,7 +26,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   return (
     <div className="flex max-w-screen flex-1 border-b-[0.5px] bg-card max-md:flex-col">
       <aside className="flex-none">
-        <DocNavList docData={docData} activeSections={activeSections} />
+        <DocNavList docData={docData} activeSlugs={activeSlugs} />
       </aside>
       <div className="flex flex-1 flex-row">
         <article
@@ -37,7 +37,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
             {displayBreadCrumb && (
               <DocBreadCrumb
                 className="mt-12 ml-10"
-                activeSections={activeSections}
+                activeSections={activeSlugs}
                 docData={docData}
                 locale={locale}
               />

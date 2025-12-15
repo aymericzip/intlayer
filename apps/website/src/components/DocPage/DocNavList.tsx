@@ -14,6 +14,7 @@ import { cn } from '@utils/cn';
 import { ArrowLeftToLine, Bot } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type ComponentProps, type FC, useState } from 'react';
+import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
 import { PagesRoutes } from '@/Routes';
 import type { Section } from './types';
 
@@ -55,22 +56,62 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
 
 type DocNavListProps = {
   docData: Section;
-  activeSections: string[];
+  activeSlugs: string[];
 };
 
 export const DocNavListContent: FC<DocNavListProps> = ({
   docData,
-  activeSections,
+  activeSlugs,
 }) => {
   const { blogButton, chatBotButton } = useIntlayer('doc-nav-list');
+  const navRef = useScrollPositionPersistence<HTMLElement>(
+    'doc-nav-scroll-position'
+  );
 
   return (
-    <nav className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pt-8 pb-20">
+    <nav
+      ref={navRef}
+      className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pt-8 pb-20"
+    >
       {Object.keys(docData).map((key1) => {
         const section1Data = docData[key1];
         const sectionDefault = section1Data.default;
         const subSections = section1Data.subSections;
-        const isActive = key1 === activeSections[0];
+        const slugs = sectionDefault?.slugs ?? [];
+
+        // Check if this section's own slugs match
+        const isSelfActive =
+          slugs.length > 0 &&
+          slugs.every((segment, index) => segment === activeSlugs[index]);
+
+        // Check if any subsection at any level matches
+        const isSubSectionActive = Object.values(subSections ?? {}).some(
+          (subSection2) => {
+            const subSlugs2 = subSection2.default?.slugs ?? [];
+            const isLevel2Active =
+              subSlugs2.length > 0 &&
+              subSlugs2.every(
+                (segment, index) => segment === activeSlugs[index]
+              );
+
+            // Check level 3 subsections
+            const isLevel3Active = Object.values(
+              subSection2.subSections ?? {}
+            ).some((subSection3) => {
+              const subSlugs3 = subSection3.default?.slugs ?? [];
+              return (
+                subSlugs3.length > 0 &&
+                subSlugs3.every(
+                  (segment, index) => segment === activeSlugs[index]
+                )
+              );
+            });
+
+            return isLevel2Active || isLevel3Active;
+          }
+        );
+
+        const isActive = isSelfActive || isSubSectionActive;
 
         return (
           <div key={key1}>
@@ -90,8 +131,29 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                   const subSections2 = section2Data.subSections;
                   const hasSubsections =
                     subSections2 && Object.keys(subSections2).length > 0;
-                  const isActive =
-                    key1 === activeSections[0] && key2 === activeSections[1];
+                  const slugs = sectionDefault?.slugs ?? [];
+
+                  // Check if this section's own slugs match
+                  const isSelfActive =
+                    slugs.length > 0 &&
+                    slugs.every(
+                      (segment, index) => segment === activeSlugs[index]
+                    );
+
+                  // Check if any subsection's slugs match (level 3)
+                  const isSubSectionActive = Object.values(
+                    subSections2 ?? {}
+                  ).some((subSection) => {
+                    const subSlugs = subSection.default?.slugs ?? [];
+                    return (
+                      subSlugs.length > 0 &&
+                      subSlugs.every(
+                        (segment, index) => segment === activeSlugs[index]
+                      )
+                    );
+                  });
+
+                  const isActive = isSelfActive || isSubSectionActive;
 
                   return (
                     <li key={key2}>
@@ -117,11 +179,14 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                                 <div className="flex flex-col items-start gap-2 p-1 text-neutral transition-colors hover:text-text">
                                   {Object.keys(subSections2).map((key3) => {
                                     const section3Data = subSections2[key3];
-
+                                    const slugs =
+                                      section3Data.default?.slugs ?? [];
                                     const isActive =
-                                      key1 === activeSections[0] &&
-                                      key2 === activeSections[1] &&
-                                      key3 === activeSections[2];
+                                      slugs.length > 0 &&
+                                      slugs.every(
+                                        (segment, index) =>
+                                          segment === activeSlugs[index]
+                                      );
 
                                     return (
                                       <OptionalLink
@@ -180,10 +245,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
   );
 };
 
-export const DocNavList: FC<DocNavListProps> = ({
-  docData,
-  activeSections,
-}) => {
+export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
   const { isMobile } = useDevice();
   const [isHidden, setIsHidden] = useState(isMobile);
   const { collapseButton } = useIntlayer('doc-nav-list');
@@ -245,7 +307,7 @@ export const DocNavList: FC<DocNavListProps> = ({
               <div className="relative overflow-hidden">
                 <DocNavListContent
                   docData={docData}
-                  activeSections={activeSections}
+                  activeSlugs={activeSlugs}
                 />
               </div>
             </MaxWidthSmoother>

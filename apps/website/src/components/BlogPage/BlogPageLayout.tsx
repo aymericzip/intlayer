@@ -7,7 +7,7 @@ import { getBlogData } from './blogData';
 
 type BlogPageLayoutProps = {
   children?: ReactNode;
-  activeSections?: string[];
+  activeSlugs?: string[];
   locale: LocalesValues;
   displayAsideNavigation?: boolean;
 };
@@ -15,7 +15,7 @@ type BlogPageLayoutProps = {
 export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
   children,
   locale,
-  activeSections = [],
+  activeSlugs = [],
   displayAsideNavigation = true,
 }) => {
   const blogData = getBlogData(locale);
@@ -23,7 +23,7 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
   return (
     <div className="flex max-w-screen flex-1 border-b-[0.5px] bg-card max-md:flex-col">
       <aside className="flex-none">
-        <BlogNavList blogData={blogData} activeSections={activeSections} />
+        <BlogNavList blogData={blogData} activeSlugs={activeSlugs} />
       </aside>
       <div className="flex flex-1 flex-row">
         <article
@@ -33,7 +33,7 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
           <div className="m-auto max-w-3xl">
             <BlogBreadCrumb
               className="mt-12 ml-10"
-              activeSections={activeSections}
+              activeSections={activeSlugs}
               blogData={blogData}
               locale={locale}
             />

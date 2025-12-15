@@ -71,7 +71,7 @@ const BlogLayout: NextLayoutIntlayer<BlogProps> = async ({
   const { locale, slugs } = await params;
 
   return (
-    <BlogPageLayout activeSections={slugs} locale={locale}>
+    <BlogPageLayout activeSlugs={['blog', ...slugs]} locale={locale}>
       {children}
     </BlogPageLayout>
   );

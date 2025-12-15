@@ -14,27 +14,68 @@ import { cn } from '@utils/cn';
 import { ArrowLeftToLine } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
 import { PagesRoutes } from '@/Routes';
 import type { Section } from './types';
 
 type BlogNavListProps = {
   blogData: Section;
-  activeSections: string[];
+  activeSlugs: string[];
 };
 
 export const BlogNavListContent: FC<BlogNavListProps> = ({
   blogData,
-  activeSections,
+  activeSlugs,
 }) => {
   const { docButton } = useIntlayer('blog-nav-list');
+  const navRef = useScrollPositionPersistence<HTMLElement>(
+    'blog-nav-scroll-position'
+  );
 
   return (
-    <nav className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pt-8 pb-20">
+    <nav
+      ref={navRef}
+      className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pt-8 pb-20"
+    >
       {Object.keys(blogData).map((key1) => {
         const section1Data = blogData[key1];
         const sectionDefault = section1Data.default;
         const subSections = section1Data.subSections;
-        const isActive = key1 === activeSections[0];
+        const slugs = sectionDefault?.slugs ?? [];
+
+        // Check if this section's own slugs match
+        const isSelfActive =
+          slugs.length > 0 &&
+          slugs.every((segment, index) => segment === activeSlugs[index]);
+
+        // Check if any subsection at any level matches
+        const isSubSectionActive = Object.values(subSections ?? {}).some(
+          (subSection2) => {
+            const subSlugs2 = subSection2.default?.slugs ?? [];
+            const isLevel2Active =
+              subSlugs2.length > 0 &&
+              subSlugs2.every(
+                (segment, index) => segment === activeSlugs[index]
+              );
+
+            // Check level 3 subsections
+            const isLevel3Active = Object.values(
+              subSection2.subSections ?? {}
+            ).some((subSection3) => {
+              const subSlugs3 = subSection3.default?.slugs ?? [];
+              return (
+                subSlugs3.length > 0 &&
+                subSlugs3.every(
+                  (segment, index) => segment === activeSlugs[index]
+                )
+              );
+            });
+
+            return isLevel2Active || isLevel3Active;
+          }
+        );
+
+        const isActive = isSelfActive || isSubSectionActive;
 
         return (
           <div key={key1}>
@@ -54,8 +95,29 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                   const subSections2 = section2Data.subSections;
                   const hasSubsections =
                     subSections2 && Object.keys(subSections2).length > 0;
-                  const isActive =
-                    key1 === activeSections[0] && key2 === activeSections[1];
+                  const slugs = sectionDefault?.slugs ?? [];
+
+                  // Check if this section's own slugs match
+                  const isSelfActive =
+                    slugs.length > 0 &&
+                    slugs.every(
+                      (segment, index) => segment === activeSlugs[index]
+                    );
+
+                  // Check if any subsection's slugs match (level 3)
+                  const isSubSectionActive = Object.values(
+                    subSections2 ?? {}
+                  ).some((subSection) => {
+                    const subSlugs = subSection.default?.slugs ?? [];
+                    return (
+                      subSlugs.length > 0 &&
+                      subSlugs.every(
+                        (segment, index) => segment === activeSlugs[index]
+                      )
+                    );
+                  });
+
+                  const isActive = isSelfActive || isSubSectionActive;
 
                   return (
                     <li key={key2}>
@@ -71,7 +133,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                             </OptionalLink>
                           }
                           label={key2}
-                          isOpen={isActive}
+                          isOpen={isActive ? true : undefined}
                           className="py-0! pl-0!"
                         >
                           <div className="pl-3 text-sm">
@@ -80,11 +142,14 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                 <div className="flex flex-col items-start gap-2 p-1 text-neutral transition-colors hover:text-text">
                                   {Object.keys(subSections2).map((key3) => {
                                     const section3Data = subSections2[key3];
-
+                                    const slugs =
+                                      section3Data.default?.slugs ?? [];
                                     const isActive =
-                                      key1 === activeSections[0] &&
-                                      key2 === activeSections[1] &&
-                                      key3 === activeSections[2];
+                                      slugs.length > 0 &&
+                                      slugs.every(
+                                        (segment, index) =>
+                                          segment === activeSlugs[index]
+                                      );
 
                                     return (
                                       <OptionalLink
@@ -134,7 +199,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
 
 export const BlogNavList: FC<BlogNavListProps> = ({
   blogData,
-  activeSections,
+  activeSlugs,
 }) => {
   const { isMobile } = useDevice();
   const [isHidden, setIsHidden] = useState(isMobile);
@@ -185,7 +250,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
               <div className="relative overflow-hidden">
                 <BlogNavListContent
                   blogData={blogData}
-                  activeSections={activeSections}
+                  activeSlugs={activeSlugs}
                 />
               </div>
             </MaxWidthSmoother>
