@@ -2,7 +2,15 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
-import type { FC, HTMLAttributes } from 'react';
+import {
+  type ComponentProps,
+  type FC,
+  type HTMLAttributes,
+  type RefObject,
+  useEffect,
+  useRef,
+} from 'react';
+import { useItemSelector } from '../../hooks';
 import { cn } from '../../utils/cn';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 
@@ -107,13 +115,29 @@ const generatePageNumbers = (
   return pages;
 };
 
+const selector = (option: HTMLElement) =>
+  option?.getAttribute('aria-current') === 'true';
+
 const getButtonSize = (size?: PaginationSize | `${PaginationSize}` | null) => {
-  return size === PaginationSize.SM
-    ? ButtonSize.ICON_SM
-    : size === PaginationSize.LG
-      ? ButtonSize.ICON_LG
-      : ButtonSize.ICON_MD;
+  if (size === PaginationSize.SM) {
+    return ButtonSize.ICON_SM;
+  } else if (size === PaginationSize.LG) {
+    return ButtonSize.ICON_LG;
+  } else {
+    return ButtonSize.ICON_MD;
+  }
 };
+
+const InputIndicator: FC<
+  ComponentProps<'div'> & { ref: RefObject<HTMLDivElement | null> }
+> = ({ ref, ...props }) => (
+  <div
+    data-indicator
+    className="absolute top-0 z-0 h-full w-auto rounded-xl bg-text/20 ring-4 ring-text/10 transition-[left,width] duration-300 ease-in-out [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl motion-reduce:transition-none"
+    ref={ref}
+    {...props}
+  />
+);
 
 export const Pagination: FC<PaginationProps> = ({
   currentPage,
@@ -139,6 +163,24 @@ export const Pagination: FC<PaginationProps> = ({
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages;
 
+  const optionsRefs = useRef<HTMLElement[]>([]);
+  const indicatorRef = useRef<HTMLDivElement | null>(null);
+  const { choiceIndicatorPosition, calculatePosition } = useItemSelector(
+    optionsRefs,
+    {
+      selector,
+      isHoverable: true,
+    }
+  );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      calculatePosition();
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [currentPage, calculatePosition]);
+
   if (totalPages <= 1) return null;
 
   const handlePageChange = (page: number) => {
@@ -152,67 +194,94 @@ export const Pagination: FC<PaginationProps> = ({
       className={cn(paginationVariants({ size, variant }), className)}
       {...props}
     >
-      {showPrevNext && (
-        <Button
-          variant={ButtonVariant.OUTLINE}
-          size={buttonSize}
-          color={ButtonColor.TEXT}
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={disabled || isFirstPage}
-          label="Go to previous page"
-          Icon={ChevronLeft}
-          className="min-w-0 px-2"
-        />
-      )}
+      <div className="relative flex items-center gap-1">
+        {choiceIndicatorPosition && (
+          <InputIndicator style={choiceIndicatorPosition} ref={indicatorRef} />
+        )}
 
-      <div className="flex items-center gap-1 max-md:gap-0.5">
-        {pageNumbers.map((page) => {
-          if (page === 'ellipsis') {
+        {showPrevNext && (
+          <Button
+            variant={ButtonVariant.OUTLINE}
+            size={buttonSize}
+            color={ButtonColor.TEXT}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={disabled || isFirstPage}
+            label="Go to previous page"
+            Icon={ChevronLeft}
+            ref={(el) => {
+              if (el) optionsRefs.current[0] = el;
+            }}
+            className="min-w-0 px-2"
+          />
+        )}
+
+        <div className="flex items-center gap-1 max-md:gap-0.5">
+          {pageNumbers.map((page, index) => {
+            if (page === 'ellipsis') {
+              return (
+                <div
+                  key={`ellipsis-${page}-${index}`}
+                  className="flex h-8 min-w-8 items-center justify-center px-1"
+                >
+                  <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
+                </div>
+              );
+            }
+
+            const isActive = page === currentPage;
+            // Calculate ref index: offset by 1 if showPrevNext, then count only non-ellipsis items
+            const refIndex =
+              (showPrevNext ? 1 : 0) +
+              pageNumbers.slice(0, index).filter((p) => p !== 'ellipsis')
+                .length;
+
             return (
-              <div
-                key={`ellipsis-${page}`}
-                className="flex h-8 min-w-8 items-center justify-center px-1"
+              <Button
+                key={page}
+                variant={
+                  isActive ? ButtonVariant.DEFAULT : ButtonVariant.OUTLINE
+                }
+                size={buttonSize}
+                color={ButtonColor.TEXT}
+                onClick={() => handlePageChange(page)}
+                disabled={disabled}
+                label={`Go to page ${page}`}
+                aria-current={isActive ? 'true' : 'false'}
+                ref={(el) => {
+                  if (el) optionsRefs.current[refIndex] = el;
+                }}
+                className={cn(
+                  'flex aspect-square h-8 w-8 min-w-0 items-center justify-center p-0 text-sm',
+                  size === 'sm' && 'h-6 w-6 text-xs',
+                  size === 'lg' && 'h-10 w-10 text-base',
+                  isActive && 'font-semibold'
+                )}
               >
-                <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
-              </div>
+                {page}
+              </Button>
             );
-          }
+          })}
+        </div>
 
-          const isActive = page === currentPage;
-          return (
-            <Button
-              key={page}
-              variant={isActive ? ButtonVariant.DEFAULT : ButtonVariant.OUTLINE}
-              size={buttonSize}
-              color={ButtonColor.TEXT}
-              onClick={() => handlePageChange(page)}
-              disabled={disabled}
-              label={`Go to page ${page}`}
-              className={cn(
-                'flex aspect-square h-8 w-8 min-w-0 items-center justify-center p-0 text-sm',
-                size === 'sm' && 'h-6 w-6 text-xs',
-                size === 'lg' && 'h-10 w-10 text-base',
-                isActive && 'font-semibold'
-              )}
-            >
-              {page}
-            </Button>
-          );
-        })}
+        {showPrevNext && (
+          <Button
+            variant={ButtonVariant.OUTLINE}
+            size={buttonSize}
+            color={ButtonColor.TEXT}
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={disabled || isLastPage}
+            label="Go to next page"
+            Icon={ChevronRight}
+            ref={(el) => {
+              const lastRefIndex =
+                (showPrevNext ? 1 : 0) +
+                pageNumbers.filter((p) => p !== 'ellipsis').length;
+              if (el) optionsRefs.current[lastRefIndex] = el;
+            }}
+            className="min-w-0 px-2"
+          />
+        )}
       </div>
-
-      {showPrevNext && (
-        <Button
-          variant={ButtonVariant.OUTLINE}
-          size={buttonSize}
-          color={ButtonColor.TEXT}
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={disabled || isLastPage}
-          label="Go to next page"
-          Icon={ChevronRight}
-          className="min-w-0 px-2"
-        />
-      )}
     </div>
   );
 };

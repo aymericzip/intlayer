@@ -22,7 +22,7 @@ export const inputVariants = cva(
         default: [
           'text-text',
           'bg-neutral-50 dark:bg-neutral-950',
-          'ring-text/10',
+          'ring-text/20',
 
           // Focus ring
           'disabled:ring-0',
