@@ -1,13 +1,18 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { Button, Container, TabSelector } from '@intlayer/design-system';
+import {
+  Button,
+  Container,
+  KeyboardShortcut,
+  PopoverStatic,
+  TabSelector,
+} from '@intlayer/design-system';
 import { useDevice, useSession } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowLeftToLine,
-  ArrowRightFromLine,
   Book,
   Building2,
   FileText,
@@ -241,15 +246,27 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
             isCollapsed ? 'justify-center' : 'justify-end'
           )}
         >
-          <Button
-            Icon={isCollapsed ? ArrowRightFromLine : ArrowLeftToLine}
-            size="icon-md"
-            variant="hoverable"
-            className="p-3"
-            color="text"
-            label={collapseButtonLabel}
-            onClick={() => setIsCollapsed((prev) => !prev)}
-          />
+          <PopoverStatic identifier="dashboard-nav-collapse">
+            <Button
+              Icon={ArrowLeftToLine}
+              size="icon-md"
+              variant="hoverable"
+              className={cn([
+                'p-3 transition-transform',
+                isCollapsed && 'rotate-180',
+              ])}
+              color="text"
+              label={collapseButtonLabel}
+              onClick={() => setIsCollapsed((prev) => !prev)}
+            />
+            <PopoverStatic.Detail identifier="dashboard-nav-collapse">
+              <KeyboardShortcut
+                shortcut="Alt + ArrowLeft"
+                onTriggered={() => setIsCollapsed((prev) => !prev)}
+                size="sm"
+              />
+            </PopoverStatic.Detail>
+          </PopoverStatic>
         </div>
 
         <nav className="flex-1 overflow-y-auto">
