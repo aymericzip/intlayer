@@ -242,7 +242,7 @@ const Panel: FC<PanelProps> = ({
 }) => (
   <div
     className={cn(
-      'absolute top-[calc(100%+0.5rem)] z-[1000] min-w-full',
+      'absolute top-[calc(100%+0.5rem)] z-100 min-w-full',
       align === DropDownAlign.START && 'left-0',
       align === DropDownAlign.END && 'right-0',
       className

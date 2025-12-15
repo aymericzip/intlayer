@@ -70,7 +70,7 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
             padding="lg"
             transparency="none"
             roundedSize="xl"
-            className="gap-2"
+            className="gap-2 border border-text/20"
           >
             <div className="flex flex-col gap-3">
               <span className="font-bold">{selectProjectInstruction}</span>
