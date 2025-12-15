@@ -83,7 +83,6 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           defaultValue={editorView}
           onChange={(value) => setEditorView(value)}
           color="text"
-          size="sm"
           choices={[
             {
               content: 'Details',
