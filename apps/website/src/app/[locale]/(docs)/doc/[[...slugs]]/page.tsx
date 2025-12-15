@@ -76,7 +76,7 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
         history={docData.history ?? []}
       />
 
-      <DocumentationRender id="content">{docContent}</DocumentationRender>
+      <DocumentationRender>{docContent}</DocumentationRender>
       <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />
     </IntlayerServerProvider>
   );

@@ -7,7 +7,9 @@ import {
   Button,
   ClickOutsideDiv,
   Container,
+  KeyboardShortcut,
   MaxWidthSmoother,
+  PopoverStatic,
 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
@@ -229,18 +231,27 @@ export const BlogNavList: FC<BlogNavListProps> = ({
               ])}
             >
               <SearchTrigger isMini={isHidden} />
-              <Button
-                Icon={ArrowLeftToLine}
-                size="icon-md"
-                variant="hoverable"
-                color="text"
-                label={collapseButton.label.value}
-                className={cn([
-                  'transition-transform',
-                  isHidden && 'rotate-180',
-                ])}
-                onClick={() => setIsHidden((isHidden) => !isHidden)}
-              />
+              <PopoverStatic identifier="blog-nav-collapse">
+                <Button
+                  Icon={ArrowLeftToLine}
+                  size="icon-md"
+                  variant="hoverable"
+                  color="text"
+                  label={collapseButton.label.value}
+                  className={cn([
+                    'transition-transform',
+                    isHidden && 'rotate-180',
+                  ])}
+                  onClick={() => setIsHidden((isHidden) => !isHidden)}
+                />
+                <PopoverStatic.Detail identifier="blog-nav-collapse">
+                  <KeyboardShortcut
+                    shortcut="⌘ + K"
+                    onTriggered={() => setIsHidden((isHidden) => !isHidden)}
+                    size="sm"
+                  />
+                </PopoverStatic.Detail>
+              </PopoverStatic>
               <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur" />
             </div>
           </Container>

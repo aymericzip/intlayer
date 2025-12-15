@@ -26,6 +26,7 @@ export * from './IDE';
 export * from './InformationTag';
 export * from './Input';
 export * from './KeyboardScreenAdapter';
+export * from './KeyboardShortcut';
 export * from './Label';
 export * from './Link';
 export * from './Loader';

@@ -1,6 +1,11 @@
 'use client';
 
-import { Button, Modal } from '@intlayer/design-system';
+import {
+  Button,
+  KeyboardShortcut,
+  Modal,
+  PopoverStatic,
+} from '@intlayer/design-system';
 import { Search } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
@@ -17,14 +22,23 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
   return (
     <>
       {isMini ? (
-        <Button
-          label={searchButton.label.value}
-          Icon={Search}
-          variant="hoverable"
-          size="icon-md"
-          color="text"
-          onClick={() => setIsModalOpen(true)}
-        />
+        <PopoverStatic identifier="search-trigger">
+          <Button
+            label={searchButton.label.value}
+            Icon={Search}
+            variant="hoverable"
+            size="icon-md"
+            color="text"
+            onClick={() => setIsModalOpen(true)}
+          />
+          <PopoverStatic.Detail identifier="search-trigger">
+            <KeyboardShortcut
+              shortcut="⌘ + F"
+              onTriggered={() => setIsModalOpen(true)}
+              size="sm"
+            />
+          </PopoverStatic.Detail>
+        </PopoverStatic>
       ) : (
         <Button
           label={searchButton.label.value}
@@ -33,9 +47,17 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
           color="custom"
           onClick={() => setIsModalOpen(true)}
           isFullWidth={false}
-          className="mb-1"
+          className="mb-1 pr-1.5"
         >
-          {searchButton.text}
+          <span className="flex w-full items-center gap-2">
+            {searchButton.text}
+            <KeyboardShortcut
+              shortcut="⌘ + F"
+              onTriggered={() => setIsModalOpen(true)}
+              size="sm"
+              className="ml-auto"
+            />
+          </span>
         </Button>
       )}
       <Modal

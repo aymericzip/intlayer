@@ -248,7 +248,7 @@ const Detail = forwardRef<HTMLDivElement, DetailProps>(
       aria-labelledby={`unrollable-panel-button-${identifier}`}
       id={`unrollable-panel-${identifier}`}
       className={cn(
-        'absolute z-[1000] min-w-full rounded-md ring-1 ring-neutral',
+        'absolute z-50 min-w-full rounded-md ring-1 ring-neutral',
 
         /* Positioning */
         xAlign === 'start' && 'left-0',

@@ -25,8 +25,8 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
 
   return (
     <div className="flex max-w-screen flex-1 border-b-[0.5px] bg-card max-md:flex-col">
-      <aside className="flex-none">
-        <DocNavList docData={docData} activeSlugs={activeSlugs} />
+      <aside className="z-10 flex-none">
+        <DocNavList docData={docData} activeSlugs={['doc', ...activeSlugs]} />
       </aside>
       <div className="flex flex-1 flex-row">
         <article

@@ -5,8 +5,10 @@ import {
   Button,
   Container,
   HeightResizer,
+  KeyboardShortcut,
   MaxWidthSmoother,
   Modal,
+  PopoverStatic,
   SocialNetworks,
 } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
@@ -48,18 +50,30 @@ export const AsideNavigation: FC = (props) => {
                 </div>
               </MaxWidthSmoother>
               <div className="relative flex w-full flex-row items-center pt-2">
-                <Button
-                  Icon={ArrowRightToLine}
-                  size="icon-md"
-                  variant="hoverable"
-                  color="text"
-                  label={collapseButton.label.value}
-                  className={cn(
-                    'transition-transform max-md:hidden',
-                    isHidden && 'rotate-180'
-                  )}
-                  onClick={() => setIsHidden((isHidden) => !isHidden)}
-                />
+                <PopoverStatic identifier="aside-nav-collapse">
+                  <Button
+                    Icon={ArrowRightToLine}
+                    size="icon-md"
+                    variant="hoverable"
+                    color="text"
+                    label={collapseButton.label.value}
+                    className={cn(
+                      'transition-transform max-md:hidden',
+                      isHidden && 'rotate-180'
+                    )}
+                    onClick={() => setIsHidden((isHidden) => !isHidden)}
+                  />
+                  <PopoverStatic.Detail
+                    identifier="aside-nav-collapse"
+                    xAlign="end"
+                  >
+                    <KeyboardShortcut
+                      shortcut="⌘ + R"
+                      onTriggered={() => setIsHidden((isHidden) => !isHidden)}
+                      size="sm"
+                    />
+                  </PopoverStatic.Detail>
+                </PopoverStatic>
                 <MaxWidthSmoother
                   isHidden={isHidden}
                   className="w-full max-w-full"
