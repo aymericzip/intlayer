@@ -33,7 +33,7 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
           />
           <PopoverStatic.Detail identifier="search-trigger">
             <KeyboardShortcut
-              shortcut="⌘ + F"
+              shortcut="/"
               onTriggered={() => setIsModalOpen(true)}
               size="sm"
             />
@@ -52,7 +52,7 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
           <span className="flex w-full items-center gap-2">
             {searchButton.text}
             <KeyboardShortcut
-              shortcut="⌘ + F"
+              shortcut="/"
               onTriggered={() => setIsModalOpen(true)}
               size="sm"
               className="ml-auto"
