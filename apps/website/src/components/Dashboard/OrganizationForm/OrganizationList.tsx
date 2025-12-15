@@ -91,21 +91,30 @@ export const OrganizationList: FC<OrganizationListProps> = ({
             <ul className="flex w-full flex-wrap gap-3">
               {organizations.map((organization) => (
                 <li
-                  className="flex w-full max-w-sm flex-col gap-3 rounded-lg border border-neutral bg-background p-6"
+                  className="flex w-full max-w-sm flex-col rounded-lg"
                   key={String(organization.id)}
                 >
-                  <h2 className="font-bold">{organization.name}</h2>
-                  <Button
-                    onClick={() => handleSelectOrganization(organization.id)}
-                    label={selectButton.ariaLabel.value}
-                    color="text"
-                    isSelected={selectedOrganizationId === organization.id}
-                    className="mt-auto"
+                  <Container
+                    padding="md"
+                    roundedSize="xl"
+                    border
+                    borderColor="neutral"
+                    className="gap-3"
                   >
-                    {String(selectedOrganizationId) === String(organization.id)
-                      ? selectButton.selected.value
-                      : selectButton.unselected.value}
-                  </Button>
+                    <h2 className="font-bold">{organization.name}</h2>
+                    <Button
+                      onClick={() => handleSelectOrganization(organization.id)}
+                      label={selectButton.ariaLabel.value}
+                      color="text"
+                      isSelected={selectedOrganizationId === organization.id}
+                      className="mt-auto"
+                    >
+                      {String(selectedOrganizationId) ===
+                      String(organization.id)
+                        ? selectButton.selected.value
+                        : selectButton.unselected.value}
+                    </Button>
+                  </Container>
                 </li>
               ))}
             </ul>

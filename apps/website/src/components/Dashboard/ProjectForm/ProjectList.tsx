@@ -1,5 +1,6 @@
 'use client';
 
+import type { ProjectAPI } from '@intlayer/backend';
 import {
   Button,
   Container,
@@ -18,6 +19,7 @@ import { Plus } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
 import { NoProjectView } from './NoProjectView';
+import { ProjectCard } from './ProjectCard';
 import { ProjectCreationForm } from './ProjectCreationForm';
 
 export const ProjectList: FC = () => {
@@ -63,22 +65,19 @@ export const ProjectList: FC = () => {
 
       <Loader isLoading={isPending}>
         {projects.length > 0 ? (
-          <div className="flex w-full flex-1 flex-col items-center p-10">
+          <div className="flex w-full flex-1 flex-col items-center justify-center p-10">
             <ul className="flex w-full flex-wrap gap-3">
-              {projects.map((project) => (
+              {projects.map((project: ProjectAPI) => (
                 <li
-                  className="flex w-full max-w-sm flex-col gap-3 rounded-lg border border-neutral bg-background p-6"
+                  className="flex w-full max-w-sm flex-col gap-3 rounded-lg"
                   key={String(project.id)}
                 >
-                  <h2 className="font-bold">{project.name}</h2>
-                  <Button
-                    onClick={() => handleSelectProject(String(project.id))}
-                    label={selectButton.label.value}
-                    color="text"
-                    className="mt-auto"
-                  >
-                    {selectButton.text}
-                  </Button>
+                  <ProjectCard
+                    project={project}
+                    onSelect={handleSelectProject}
+                    selectButtonLabel={selectButton.label.value}
+                    selectButtonText={selectButton.text}
+                  />
                 </li>
               ))}
             </ul>

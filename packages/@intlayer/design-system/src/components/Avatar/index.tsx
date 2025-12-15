@@ -27,29 +27,6 @@ export interface AvatarProps extends Omit<ComponentProps<'button'>, 'onClick'> {
 }
 
 /**
- * Size variants for the avatar
- */
-const sizeVariants = {
-  sm: 'size-6',
-  md: 'size-9',
-  lg: 'size-12',
-  xl: 'size-16',
-} as const;
-
-/**
- * Icon size variants for the default user icon
- */
-const iconSizeVariants: Record<AvatarProps['size'] & string, number> = {
-  sm: 14,
-  md: 25,
-  lg: 30,
-  xl: 40,
-};
-
-const getIconSize = (size: AvatarProps['size']): number =>
-  iconSizeVariants[size ?? 'md'];
-
-/**
  * @description Gets the capital letters from a name.
  * @param name - The name to extract capitals from.
  * @param separator - The separator to split the name (default is an empty string, which splits by each character).
@@ -144,7 +121,6 @@ export const Avatar: FC<AvatarProps> = ({
     isLoggedIn && !displayLoader && !displayAvatar && !displayInitials;
 
   const isClickable = onClick !== undefined;
-  const sizeClass = sizeVariants[size];
 
   // Accessibility attributes
   const accessibilityProps = useMemo(() => {
@@ -188,7 +164,10 @@ export const Avatar: FC<AvatarProps> = ({
       isClickable={isClickable}
       className={cn(
         `rounded-full border-[1.5px] border-text p-[1.5px]`,
-        sizeClass,
+        size === 'sm' && 'size-7 border-[1px] p-[1px]',
+        size === 'md' && 'size-9',
+        size === 'lg' && 'size-12',
+        size === 'xl' && 'size-16',
         isClickable &&
           `cursor-pointer hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`,
         !isClickable &&
@@ -229,7 +208,15 @@ export const Avatar: FC<AvatarProps> = ({
           )}
 
           {displayUserIcon && (
-            <User size={getIconSize(size)} aria-label="Default user icon" />
+            <User
+              size={cn(
+                size === 'sm' && 14,
+                size === 'md' && 25,
+                size === 'lg' && 30,
+                size === 'xl' && 40
+              )}
+              aria-label="Default user icon"
+            />
           )}
         </div>
       </div>
