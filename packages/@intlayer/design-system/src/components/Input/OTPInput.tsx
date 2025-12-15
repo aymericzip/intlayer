@@ -901,13 +901,10 @@ export const InputOTPSeparator: FC<ComponentProps<'div'>> = (props) => (
   </div>
 );
 
-export const InputIndicator: FC<
-  ComponentProps<'div'> & { ref: RefObject<HTMLDivElement | null> }
-> = ({ ref, ...props }) => (
+export const InputIndicator: FC<ComponentProps<'div'>> = (props) => (
   <div
     data-indicator
     className="absolute top-0 z-0 h-full w-auto rounded-xl bg-text/20 ring-4 ring-text/20 transition-[left,width] duration-300 ease-in-out [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl motion-reduce:transition-none"
-    ref={ref}
     {...props}
   />
 );

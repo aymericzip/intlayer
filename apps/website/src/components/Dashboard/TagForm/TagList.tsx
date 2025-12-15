@@ -10,14 +10,33 @@ import {
   SearchInput,
   ShowingResultsNumberItems,
 } from '@intlayer/design-system';
-import { useGetTags, useSearch } from '@intlayer/design-system/hooks';
+import {
+  useGetTags,
+  useItemSelector,
+  useSearch,
+} from '@intlayer/design-system/hooks';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, Suspense, useEffect, useState } from 'react';
+import {
+  type ComponentProps,
+  type FC,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { PagesRoutes } from '@/Routes';
 import { TagCreationForm } from './TagCreationForm';
+
+const InputIndicator: FC<ComponentProps<'div'>> = (props) => (
+  <div
+    data-indicator
+    className="absolute top-0 z-0 h-auto w-full rounded-xl bg-text/10 transition-[left,width,top,height,opacity] duration-300 ease-in-out [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl motion-reduce:transition-none"
+    {...props}
+  />
+);
 
 export const TagList: FC = () => {
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
@@ -46,6 +65,12 @@ export const TagList: FC = () => {
   const totalItems: number = (tagResponse as any)?.total_items ?? 0;
   const currentPage: number = params.page;
   const itemsPerPage: number = params.pageSize;
+
+  const optionsRefs = useRef<HTMLElement[]>([]);
+  const { choiceIndicatorPosition } = useItemSelector(optionsRefs, {
+    isHoverable: true,
+    orientation: 'vertical',
+  });
 
   const handlePageChange = (page: number) => {
     setParam('page', page);
@@ -76,21 +101,29 @@ export const TagList: FC = () => {
           className="m-auto flex min-h-60 w-full max-w-[400px] flex-col justify-center gap-2 p-6"
         >
           <Loader isLoading={isPending}>
-            <div className="flex flex-1 flex-col gap-2">
+            <div className="relative flex flex-1 flex-col gap-2">
               {tags.length === 0 && (
                 <span className="m-auto text-neutral text-sm">
                   {noTagView.title}
                 </span>
               )}
-              {tags.map((tag: any) => (
+              {choiceIndicatorPosition && (
+                <InputIndicator style={choiceIndicatorPosition} />
+              )}
+              {tags.map((tag: any, index: number) => (
                 <Button
                   key={String(tag.key)}
                   label="Select tag"
                   IconRight={ChevronRight}
-                  variant="hoverable"
+                  variant="invisible-link"
                   color="text"
                   onClick={() => {
                     router.push(`${PagesRoutes.Dashboard_Tags}/${tag.key}`);
+                  }}
+                  ref={(el) => {
+                    if (el) {
+                      optionsRefs.current[index] = el;
+                    }
                   }}
                 >
                   <div className="flex flex-col gap-2 p-2">

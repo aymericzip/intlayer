@@ -1,6 +1,6 @@
 import { User } from 'lucide-react';
 import type { ComponentProps, FC, HTMLAttributes } from 'react';
-import { forwardRef, useMemo } from 'react';
+import { useMemo } from 'react';
 import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
 
@@ -71,18 +71,16 @@ export const getCapitals = (name: string, separator = ' '): string[] => {
 /**
  * Container component that renders either a button or div based on interactivity
  */
-const Container = forwardRef<
-  HTMLElement,
+const Container: FC<
   HTMLAttributes<HTMLElement> & {
     isClickable: boolean;
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   }
->(({ isClickable, onClick, ...props }, ref) => {
+> = ({ isClickable, onClick, ...props }) => {
   if (isClickable && onClick) {
     return (
       <button
         {...(props as ComponentProps<'button'>)}
-        ref={ref as React.Ref<HTMLButtonElement>}
         onClick={onClick}
         type="button"
       />
@@ -92,15 +90,12 @@ const Container = forwardRef<
   return (
     <div
       {...(props as ComponentProps<'div'>)}
-      ref={ref as React.Ref<HTMLDivElement>}
       role={
         props.tabIndex !== undefined || props['aria-label'] ? 'img' : undefined
       }
     />
   );
-});
-
-Container.displayName = 'AvatarContainer';
+};
 
 /**
  * Avatar component that displays user profile images, initials, or a default user icon.

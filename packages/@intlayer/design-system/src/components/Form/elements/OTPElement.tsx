@@ -45,7 +45,6 @@ const OTPFieldContent = ({
   const { error } = useFormField();
 
   const optionsRefs = useRef<HTMLElement[]>([]);
-  const indicatorRef = useRef<HTMLDivElement | null>(null);
   const { choiceIndicatorPosition, calculatePosition } = useItemSelector(
     optionsRefs,
     {
@@ -120,10 +119,7 @@ const OTPFieldContent = ({
               />
             </InputOTPGroup>
             {choiceIndicatorPosition && (
-              <InputIndicator
-                style={choiceIndicatorPosition}
-                ref={indicatorRef}
-              />
+              <InputIndicator style={choiceIndicatorPosition} />
             )}
           </>
         )}

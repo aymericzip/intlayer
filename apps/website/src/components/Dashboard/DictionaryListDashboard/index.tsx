@@ -11,13 +11,23 @@ import {
   SearchInput,
   ShowingResultsNumberItems,
 } from '@intlayer/design-system';
-import { useGetDictionaries, useSearch } from '@intlayer/design-system/hooks';
+import {
+  useGetDictionaries,
+  useItemSelector,
+  useSearch,
+} from '@intlayer/design-system/hooks';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, Suspense, useState } from 'react';
+import {
+  type ComponentProps,
+  type FC,
+  Suspense,
+  useRef,
+  useState,
+} from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { PagesRoutes } from '@/Routes';
 
@@ -30,6 +40,14 @@ const getStableId = (dictionary: Dictionary) => {
 
   return String(id);
 };
+
+const InputIndicator: FC<ComponentProps<'div'>> = (props) => (
+  <div
+    data-indicator
+    className="absolute top-0 z-0 h-auto w-full rounded-xl bg-text/10 transition-[left,width,top,height,opacity] duration-300 ease-in-out [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl motion-reduce:transition-none"
+    {...props}
+  />
+);
 
 export const DictionaryListDashboardContent: FC = () => {
   const { setFocusedContent } = useFocusUnmergedDictionary();
@@ -54,6 +72,12 @@ export const DictionaryListDashboardContent: FC = () => {
     search,
   });
   const router = useRouter();
+
+  const optionsRefs = useRef<HTMLElement[]>([]);
+  const { choiceIndicatorPosition } = useItemSelector(optionsRefs, {
+    isHoverable: true,
+    orientation: 'vertical',
+  });
 
   const totalPages: number = data?.total_pages ?? 1;
   const totalItems: number = data?.total_items ?? 0;
@@ -85,19 +109,24 @@ export const DictionaryListDashboardContent: FC = () => {
           className="m-auto flex min-h-60 w-full max-w-[400px] flex-col justify-center gap-2 p-6"
         >
           <Loader isLoading={isPending}>
-            <div className="flex flex-1 flex-col gap-2">
+            <div className="relative flex flex-1 flex-col gap-2">
               {data?.data?.length === 0 && (
                 <span className="m-auto text-neutral text-sm">
                   {noDictionaryView.title}
                 </span>
               )}
-              {data?.data?.map((dictionary) => (
+              {choiceIndicatorPosition && (
+                <InputIndicator style={choiceIndicatorPosition} />
+              )}
+
+              {data?.data?.map((dictionary, index) => (
                 <Button
                   key={getStableId(dictionary)}
                   label={selectDictionaryButton.label.value}
-                  variant="hoverable"
+                  variant="invisible-link"
                   color="text"
                   IconRight={ChevronRight}
+                  data-selected="false"
                   onClick={() => {
                     setFocusedContent({
                       dictionaryKey: dictionary.key,
@@ -107,6 +136,11 @@ export const DictionaryListDashboardContent: FC = () => {
                     router.push(
                       `${PagesRoutes.Dashboard_Content}/${dictionary.key}`
                     );
+                  }}
+                  ref={(el) => {
+                    if (el) {
+                      optionsRefs.current[index] = el;
+                    }
                   }}
                 >
                   <div className="flex flex-col gap-2 p-2">

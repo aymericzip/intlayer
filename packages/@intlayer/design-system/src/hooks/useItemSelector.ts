@@ -1,6 +1,6 @@
 'use client';
 
-import { type RefObject, useEffect, useState } from 'react';
+import { type RefObject, useEffect, useRef, useState } from 'react';
 
 export type ItemSelectorOrientation = 'horizontal' | 'vertical';
 
@@ -43,6 +43,8 @@ export const useItemSelector = (
     useState<StyleState | null>(null);
 
   const [hoveredItem, setHoveredItem] = useState<HTMLElement | null>(null);
+  const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastPositionRef = useRef<StyleState | null>(null);
 
   const itemsLength = optionsRefs.current.length;
 
@@ -51,25 +53,39 @@ export const useItemSelector = (
 
     if (hoveredItem) {
       targetElement = hoveredItem;
+      // Clear any pending hide timeout when hovering over an item
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+        hideTimeoutRef.current = null;
+      }
     } else {
       targetElement = optionsRefs.current.find(selector) ?? null;
     }
 
     if (!targetElement) {
+      // Keep previous position but set opacity to 0
       if (orientation === 'vertical') {
-        setChoiceIndicatorPosition((prev) => ({
-          top: 0,
-          height: 0,
-          ...prev,
-          opacity: 0,
-        }));
+        setChoiceIndicatorPosition((prev) => {
+          const verticalPrev = prev as VerticalStyleState | null;
+          const newPosition: VerticalStyleState = {
+            top: verticalPrev?.top ?? 0,
+            height: verticalPrev?.height ?? 0,
+            opacity: 0,
+          };
+          lastPositionRef.current = newPosition;
+          return newPosition;
+        });
       } else {
-        setChoiceIndicatorPosition((prev) => ({
-          left: 0,
-          width: 0,
-          ...prev,
-          opacity: 0,
-        }));
+        setChoiceIndicatorPosition((prev) => {
+          const horizontalPrev = prev as HorizontalStyleState | null;
+          const newPosition: HorizontalStyleState = {
+            left: horizontalPrev?.left ?? 0,
+            width: horizontalPrev?.width ?? 0,
+            opacity: 0,
+          };
+          lastPositionRef.current = newPosition;
+          return newPosition;
+        });
       }
       return;
     }
@@ -78,20 +94,24 @@ export const useItemSelector = (
       const top = targetElement.offsetTop;
       const height = targetElement.offsetHeight;
 
-      setChoiceIndicatorPosition({
+      const newPosition = {
         top,
         height,
         opacity: 1,
-      });
+      };
+      setChoiceIndicatorPosition(newPosition);
+      lastPositionRef.current = newPosition;
     } else {
       const left = targetElement.offsetLeft;
       const width = targetElement.offsetWidth;
 
-      setChoiceIndicatorPosition({
+      const newPosition = {
         left,
         width,
         opacity: 1,
-      });
+      };
+      setChoiceIndicatorPosition(newPosition);
+      lastPositionRef.current = newPosition;
     }
   };
 
@@ -154,11 +174,25 @@ export const useItemSelector = (
 
     // Add hover event listeners
     const handleMouseEnter = (event: Event) => {
+      // Clear any pending hide timeout
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+        hideTimeoutRef.current = null;
+      }
       setHoveredItem(event.currentTarget as HTMLElement);
     };
 
     const handleMouseLeave = () => {
-      setHoveredItem(null);
+      // Clear any existing timeout
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+      }
+
+      // Keep the indicator at its current position for 150ms
+      // before removing the hovered item
+      hideTimeoutRef.current = setTimeout(() => {
+        setHoveredItem(null);
+      }, 150); // 150ms delay before hiding
     };
 
     if (isHoverable) {
@@ -173,6 +207,11 @@ export const useItemSelector = (
     }
 
     return () => {
+      // Clear any pending hide timeout
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+      }
+
       // Cleanup window event listeners
       window.removeEventListener('resize', calculatePosition);
       window.removeEventListener('DOMContentLoaded', calculatePosition);

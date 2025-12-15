@@ -94,7 +94,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
             <ol className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
               {searchResults.map(
                 ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
-                  <li className="py-1" key={localeItem}>
+                  <li className="py-1 pr-3" key={localeItem}>
                     <Link
                       label={`${switchTo.value} ${currentLocaleName}`}
                       href={pathWithoutLocale}
