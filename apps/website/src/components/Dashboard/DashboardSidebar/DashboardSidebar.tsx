@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowLeftToLine,
   ArrowRightFromLine,
+  Book,
   Building2,
   FileText,
   FolderKanban,
@@ -24,6 +25,7 @@ import { type ExternalLinks, PagesRoutes } from '@/Routes';
 // Map icon names to components - must be done in client component
 const iconMap: Record<string, LucideIcon> = {
   PenTool,
+  Book,
   FileText,
   Tags,
   FolderKanban,
@@ -47,10 +49,11 @@ const shouldHaveAdminRoutes = [PagesRoutes.Admin_Users] as string[];
 
 export type SidebarNavigationItem = {
   key: string;
-  href: string | PagesRoutes | ExternalLinks;
-  icon: keyof typeof iconMap;
+  href?: string | PagesRoutes | ExternalLinks;
+  icon?: keyof typeof iconMap;
   label: string;
   title: string;
+  items?: SidebarNavigationItem[];
 };
 
 export type DashboardSidebarProps = {
@@ -61,12 +64,10 @@ export type DashboardSidebarProps = {
 
 const getCleanPath = (path: string): string => {
   // Remove leading "/" if present
-  if (path.startsWith('/')) {
-    path = path.substring(1);
-  }
+  const cleanPath = path.startsWith('/') ? path.substring(1) : path;
 
   // Split the path into components
-  const components = path.split('/');
+  const components = cleanPath.split('/');
 
   // If more than two components, keep only the first two
   if (components.length > 2) {
@@ -79,7 +80,74 @@ const getCleanPath = (path: string): string => {
   }
 
   // Return the path as is for other cases
-  return path;
+  return cleanPath;
+};
+
+type FlatSidebarItem = SidebarNavigationItem & {
+  level: number;
+  isLastChild?: boolean;
+};
+
+const filterItems = (
+  nodes: SidebarNavigationItem[],
+  context: {
+    hasOrganization: boolean;
+    hasProject: boolean;
+    isSuperAdmin: boolean;
+  }
+): SidebarNavigationItem[] => {
+  return (
+    nodes
+      .filter((el) => {
+        const href = el.href as string;
+        // Check permissions if href is restricted
+        if (href) {
+          if (
+            shouldHaveOrganizationRoutes.includes(href) &&
+            !context.hasOrganization
+          )
+            return false;
+          if (shouldHaveProjectRoutes.includes(href) && !context.hasProject)
+            return false;
+          if (shouldHaveAdminRoutes.includes(href) && !context.isSuperAdmin)
+            return false;
+        }
+
+        return true;
+      })
+      .map((item) => ({
+        ...item,
+        items: item.items ? filterItems(item.items, context) : undefined,
+      }))
+      // Keep item if it has passed filter OR if it has children
+      .filter((item) => {
+        // If it has children, keep it.
+        if (item.items && item.items.length > 0) return true;
+        // If it has no children but had an href and passed the permission check, keep it.
+        if (item.href) return true;
+        return false;
+      })
+  );
+};
+
+const flattenItems = (
+  nodes: SidebarNavigationItem[],
+  level = 0
+): FlatSidebarItem[] => {
+  const result: FlatSidebarItem[] = [];
+
+  for (let i = 0; i < nodes.length; i++) {
+    const item = nodes[i];
+    const isLastChild = i === nodes.length - 1;
+
+    result.push({ ...item, level, isLastChild });
+
+    if (item.items) {
+      result.push(...flattenItems(item.items, level + 1));
+    }
+  }
+
+  return result;
 };
 
 export const DashboardSidebar: FC<DashboardSidebarProps> = ({
@@ -97,35 +165,45 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
     roles?.some((role: string) => role.toLowerCase() === 'admin') ?? false;
 
   // Filter navigation items based on session context
-  const filteredNavItems = items
-    .filter(
-      (el) => !shouldHaveOrganizationRoutes.includes(el.href) || !!organization
-    )
-    .filter((el) => !shouldHaveProjectRoutes.includes(el.href) || !!project)
-    .filter((el) => !shouldHaveAdminRoutes.includes(el.href) || isSuperAdmin);
+  const filteredNavItems = filterItems(items, {
+    hasOrganization: !!organization,
+    hasProject: !!project,
+    isSuperAdmin,
+  });
 
-  const selectedPath = getCleanPath(pathWithoutLocale);
+  const flatNavItems = flattenItems(filteredNavItems);
 
-  // Mobile: render bottom navigation
+  const cleanPath = getCleanPath(pathWithoutLocale);
+  let activeKey = cleanPath;
+  let maxLevel = -1;
+
+  // Optimized active key lookup
+  for (const item of flatNavItems) {
+    if (item.href && getCleanPath(item.href) === cleanPath) {
+      if (item.level > maxLevel) {
+        maxLevel = item.level;
+        activeKey = item.key;
+      }
+    }
+  }
+
   if (isMobile) {
     return (
       <nav className="fixed inset-x-0 bottom-0 z-50 border-neutral-200 border-t bg-card/80 px-2 py-2 backdrop-blur-sm dark:border-neutral-800">
         <TabSelector
-          selectedChoice={selectedPath}
-          tabs={filteredNavItems.map((item) => {
-            const IconComponent = iconMap[item.icon];
+          selectedChoice={activeKey}
+          tabs={flatNavItems.map((item) => {
+            const IconComponent = item.icon ? iconMap[item.icon] : null;
 
             return (
               <Link
-                key={getCleanPath(item.href)}
-                href={item.href}
+                key={item.key}
+                href={item.href ?? '#'}
                 label={item.label}
                 color="text"
                 variant="invisible-link"
                 className="flex flex-col items-center gap-1 px-2 py-1.5"
-                aria-current={
-                  selectedPath === getCleanPath(item.href) ? 'page' : undefined
-                }
+                aria-current={activeKey === item.key ? 'page' : undefined}
               >
                 {IconComponent && <IconComponent className="size-5" />}
                 <span className="text-[10px]">{item.title}</span>
@@ -176,26 +254,38 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
 
         <nav className="flex-1 overflow-y-auto">
           <TabSelector
-            selectedChoice={selectedPath}
-            tabs={filteredNavItems.map((item) => {
-              const IconComponent = iconMap[item.icon];
+            selectedChoice={activeKey}
+            tabs={flatNavItems.map((item) => {
+              const IconComponent = item.icon ? iconMap[item.icon] : null;
+              const isChild = item.level > 0;
+
               return (
                 <Link
-                  key={getCleanPath(item.href)}
-                  href={item.href}
+                  key={item.key}
+                  href={item.href ?? '#'}
                   label={item.label}
                   color="text"
                   variant="invisible-link"
                   className={cn(
-                    'flex w-full items-center justify-center rounded-lg px-2 py-2',
-                    !isCollapsed && 'justify-start gap-3 px-3'
+                    'relative flex w-full items-center justify-center rounded-lg px-2 py-2',
+                    !isCollapsed && 'justify-start gap-3 px-4',
+                    // Indentation
+                    !isCollapsed && isChild && 'pl-10'
                   )}
-                  aria-current={
-                    selectedPath === getCleanPath(item.href)
-                      ? 'page'
-                      : undefined
-                  }
+                  aria-current={activeKey === item.key ? 'page' : undefined}
                 >
+                  {/* Tree Visuals */}
+                  {!isCollapsed && isChild && (
+                    <div className="absolute top-0 left-4 h-full w-4 scale-110">
+                      <div className="pointer-events-none relative h-full w-4">
+                        <div className="absolute top-0 left-0 h-1/2 w-3 rounded-bl-lg border-text/60 border-b border-l" />
+                        {!item.isLastChild && (
+                          <div className="absolute top-1/2 left-0 h-1/2 w-px bg-text/60" />
+                        )}
+                      </div>
+                    </div>
+                  )}
+
                   {IconComponent && (
                     <IconComponent className="size-4 shrink-0" />
                   )}

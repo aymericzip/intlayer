@@ -44,18 +44,27 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
 
   const navigationItems: SidebarNavigationItem[] = [
     {
-      key: 'editor',
+      key: 'content-group',
       href: PagesRoutes.Dashboard_Editor,
-      icon: 'PenTool',
-      label: navigation.editor.label.value,
-      title: navigation.editor.title.value,
-    },
-    {
-      key: 'content',
-      href: PagesRoutes.Dashboard_Content,
       icon: 'FileText',
       label: navigation.content.label.value,
       title: navigation.content.title.value,
+      items: [
+        {
+          key: 'editor',
+          href: PagesRoutes.Dashboard_Editor,
+          icon: 'PenTool',
+          label: navigation.editor.label.value,
+          title: navigation.editor.title.value,
+        },
+        {
+          key: 'dictionaries',
+          href: PagesRoutes.Dashboard_Content,
+          icon: 'Book',
+          label: navigation.dictionaries.label.value,
+          title: navigation.dictionaries.title.value,
+        },
+      ],
     },
     {
       key: 'tags',
