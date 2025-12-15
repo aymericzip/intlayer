@@ -61,7 +61,7 @@ export const ProfileForm: FC = () => {
       >
         <div
           className={cn(
-            'm-auto flex size-full w-full max-w-2xl flex-col gap-10',
+            'm-auto flex size-full w-full max-w-xl flex-col gap-10',
             hasPasswordColumn && 'm-auto max-w-xl'
           )}
         >

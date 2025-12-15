@@ -63,7 +63,7 @@ export const ProjectList: FC = () => {
 
       <Loader isLoading={isPending}>
         {projects.length > 0 ? (
-          <div className="flex w-full flex-1 flex-col items-center justify-center p-10">
+          <div className="flex w-full flex-1 flex-col items-center p-10">
             <ul className="flex w-full flex-wrap gap-3">
               {projects.map((project) => (
                 <li
