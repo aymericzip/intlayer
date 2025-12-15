@@ -12,7 +12,7 @@ import type { BlogMetadata, DocMetadata } from '@intlayer/docs';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { getIntlayer } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useEffect, useRef, useState } from 'react';
 
@@ -27,11 +27,13 @@ const fuseOptions: IFuseOptions<DocMetadata> = {
   threshold: 0.02, // Defines how fuzzy the matching should be (lower is more strict)
 };
 
-const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
-  doc,
-  onClickLink,
-}) => {
+const SearchResultItem: FC<{
+  doc: DocMetadata;
+  onClickLink: () => void;
+  isSelected: boolean;
+}> = ({ doc, onClickLink, isSelected }) => {
   const { searchResultItemButton } = useIntlayer('doc-search-view');
+  const itemRef = useRef<HTMLAnchorElement>(null);
 
   const breadcrumbLinks: BreadcrumbLink[] = doc.url
     .split('/')
@@ -40,14 +42,26 @@ const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
       return { text: path };
     });
 
+  // Scroll into view when selected
+  useEffect(() => {
+    if (isSelected && itemRef.current) {
+      itemRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
+    }
+  }, [isSelected]);
+
   return (
     <Link
+      ref={itemRef}
       label={searchResultItemButton.label.value}
       variant="hoverable"
       color="text"
       id={doc.url}
       href={doc.url.replace(process.env.NEXT_PUBLIC_URL ?? '', '')}
       className="w-full max-w-full"
+      isActive={isSelected}
       onClick={onClickLink}
     >
       <div className="flex items-center justify-between gap-2 text-wrap p-3">
@@ -67,17 +81,23 @@ export const SearchView: FC<{
   isOpen?: boolean;
 }> = ({ onClickLink = () => {}, isOpen = false }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
   const searchQueryParam = useSearchParams().get('search');
   const [results, setResults] = useState<DocMetadata[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const { search, setSearch } = useSearch({
     defaultValue: searchQueryParam,
-    onClear: () => setResults([]),
+    onClear: () => {
+      setResults([]);
+      setSelectedIndex(-1);
+    },
     onSearch: (searchQuery: string) => {
       const fuseSearchResults = fuse
         .search(searchQuery)
         .map((result) => result.item);
 
       setResults(fuseSearchResults);
+      setSelectedIndex(-1);
     },
   });
   const { data: searchDocData, isFetching } = useSearchDoc({
@@ -139,6 +159,37 @@ export const SearchView: FC<{
     }
   }, [isOpen]);
 
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (results.length === 0) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSelectedIndex((prev) =>
+          prev < results.length - 1 ? prev + 1 : prev
+        );
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : -1));
+      } else if (e.key === 'Enter' && selectedIndex >= 0) {
+        e.preventDefault();
+        const selectedDoc = results[selectedIndex];
+        if (selectedDoc) {
+          const href = selectedDoc.url.replace(
+            process.env.NEXT_PUBLIC_URL ?? '',
+            ''
+          );
+          router.push(href);
+          onClickLink();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [results, selectedIndex, router, onClickLink]);
+
   const isNoResult = !isFetching && results.length === 0 && search.length > 0;
 
   return (
@@ -161,9 +212,13 @@ export const SearchView: FC<{
         )}
         {results.length > 0 && (
           <ul className="flex flex-col gap-10">
-            {results.map((result) => (
+            {results.map((result, index) => (
               <li key={result.url}>
-                <SearchResultItem doc={result} onClickLink={onClickLink} />
+                <SearchResultItem
+                  doc={result}
+                  onClickLink={onClickLink}
+                  isSelected={index === selectedIndex}
+                />
               </li>
             ))}
           </ul>
