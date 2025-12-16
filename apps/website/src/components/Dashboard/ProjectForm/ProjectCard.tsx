@@ -45,7 +45,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({
       {project.membersIds.length > 0 && (
         <div className="flex flex-row items-center gap-1">
           <div className="-space-x-2 flex flex-row">
-            {[...displayedUsers, ...displayedUsers].map((user) => (
+            {displayedUsers.map((user) => (
               <Avatar
                 key={String(user.id)}
                 src={user.image ?? undefined}
