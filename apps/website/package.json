@@ -61,8 +61,6 @@
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@monaco-editor/react": "4.7.0",
     "@next/third-parties": "16.0.10",
-    "@serwist/next": "^9.2.3",
-    "@serwist/window": "^9.2.3",
     "@stripe/react-stripe-js": "5.3.0",
     "@stripe/stripe-js": "8.4.0",
     "@tanstack/react-query": "5.90.12",
@@ -84,10 +82,9 @@
     "react-hook-form": "7.68.0",
     "react-qr-code": "^2.0.18",
     "react-spring": "10.0.3",
-    "serwist": "^9.2.3",
     "sharp": "0.34.5",
     "tailwind-merge": "3.4.0",
-    "zod": "4.1.13"
+    "zod": "4.2.1"
   },
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
@@ -102,7 +99,7 @@
     "pwa-asset-generator": "8.1.2",
     "raw-loader": "4.0.2",
     "tailwindcss": "4.1.18",
-    "tsdown": "0.17.4",
+    "tsdown": "0.18.0",
     "typescript": "5.9.3"
   },
   "peerDependencies": {

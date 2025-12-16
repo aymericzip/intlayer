@@ -1,4 +1,3 @@
-import withSerwistInit from '@serwist/next';
 import type { NextConfig } from 'next';
 import { withIntlayer } from 'next-intlayer/server';
 import { createSecureHeaders } from 'next-secure-headers';
@@ -175,7 +174,7 @@ const scannerHeaders = [
   ...headersList,
 ];
 
-let nextConfig: NextConfig = {
+const nextConfig: NextConfig = {
   // Ensure the full @intlayer/docs package (including markdown assets) is shipped with the server bundle
   serverExternalPackages: ['@intlayer/backend', '@intlayer/docs'],
   transpilePackages: ['@intlayer/design-system', 'shiki'],
@@ -303,16 +302,4 @@ let nextConfig: NextConfig = {
   },
 };
 
-const withSerwist = withSerwistInit({
-  swSrc: 'src/app/sw.ts',
-  swDest: 'public/sw.js',
-  cacheOnNavigation: true,
-  reloadOnOnline: true,
-  // disable: isDev,
-});
-
-nextConfig = withSerwist(nextConfig);
-
-nextConfig = withIntlayer(nextConfig);
-
-export default nextConfig;
+export default withIntlayer(nextConfig);

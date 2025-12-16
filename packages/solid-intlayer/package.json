@@ -91,7 +91,7 @@
     "@utils/tsdown-config": "workspace:*",
     "jsdom": "26.1.0",
     "rimraf": "6.1.2",
-    "tsdown": "0.17.4",
+    "tsdown": "0.18.0",
     "typescript": "5.9.3",
     "vite": "7.2.7",
     "vite-plugin-dts": "4.5.4",

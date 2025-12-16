@@ -96,7 +96,7 @@
     "rimraf": "6.1.2",
     "rollup-plugin-visualizer": "6.0.5",
     "svelte-check": "^4.3.4",
-    "tsdown": "0.17.4",
+    "tsdown": "0.18.0",
     "tslib": "^2.8.1",
     "turbo": "2.6.3",
     "typescript": "5.9.3",
