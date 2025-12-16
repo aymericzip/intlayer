@@ -271,7 +271,13 @@ export const translateDoc = async ({
 
       // check if the file exist, otherwise create it
       if (!existsSync(outputFilePath)) {
-        appLogger(`File ${outputFilePath} does not exist, creating it...`);
+        const relativePath = relative(
+          configuration.content.baseDir,
+          outputFilePath
+        );
+        appLogger(
+          `File ${formatPath(relativePath)} does not exist, creating it...`
+        );
         mkdirSync(dirname(outputFilePath), { recursive: true });
         writeFileSync(outputFilePath, '');
       }
