@@ -73,7 +73,7 @@ export const badgeVariants = cva(
         [BadgeVariant.NONE]:
           'border-none bg-opacity-0 text-inherit hover:bg-opacity-0',
         [BadgeVariant.OUTLINE]:
-          'rounded-lg border-[1.5px] bg-opacity-0 hover:bg-opacity-30',
+          'rounded-lg border-[1.3px] bg-opacity-0 hover:bg-opacity-30',
         [BadgeVariant.HOVERABLE]:
           'rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10',
       },

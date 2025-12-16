@@ -23,6 +23,8 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
         'rounded-2xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl',
       '3xl':
         'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
+      '4xl':
+        'rounded-4xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[2.5rem]',
       full: 'rounded-full [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-full',
     },
     transparency: {
@@ -49,7 +51,7 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     },
     border: {
       none: '',
-      with: 'border-[1.5px]',
+      with: 'border-[1.3px]',
     },
     borderColor: {
       primary: 'border-primary',
@@ -93,8 +95,10 @@ export enum ContainerRoundedSize {
   MD = 'md',
   LG = 'lg',
   XL = 'xl',
-  TWO_XL = '2xl',
-  THREE_XL = '3xl',
+  '2xl' = '2xl',
+  '3xl' = '3xl',
+  '4xl' = '4xl',
+  '5xl' = '5xl',
   FULL = 'full',
 }
 
@@ -150,7 +154,7 @@ export enum ContainerGap {
   MD = 'md',
   LG = 'lg',
   XL = 'xl',
-  TWO_XL = '2xl',
+  '2xl' = '2xl',
 }
 
 /** Container component props extending HTML div attributes */

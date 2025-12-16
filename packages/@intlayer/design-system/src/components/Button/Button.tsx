@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import type { LucideIcon } from 'lucide-react';
 import type { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
 import { cn } from '../../utils/cn';
-import { ContainerRoundedSize } from '../Container';
+import { ContainerRoundedSize as ButtonRoundedSize } from '../Container';
 import { Loader } from '../Loader';
 
 /**
@@ -123,16 +123,24 @@ export const buttonVariants = cva(
         [`${ButtonColor.CUSTOM}`]: '',
       },
       roundedSize: {
-        [`${ContainerRoundedSize.NONE}`]: 'rounded-none',
-        [`${ContainerRoundedSize.SM}`]:
+        [`${ButtonRoundedSize.NONE}`]: 'rounded-none',
+        [`${ButtonRoundedSize.SM}`]:
           'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
-        [`${ContainerRoundedSize.MD}`]:
+        [`${ButtonRoundedSize.MD}`]:
           'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
-        [`${ContainerRoundedSize.LG}`]:
+        [`${ButtonRoundedSize.LG}`]:
           'rounded-2xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl',
-        [`${ContainerRoundedSize.XL}`]:
+        [`${ButtonRoundedSize.XL}`]:
           'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
-        [`${ContainerRoundedSize.FULL}`]: 'rounded-full',
+        [`${ButtonRoundedSize['2xl']}`]:
+          'rounded-4xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[2.5rem]',
+        [`${ButtonRoundedSize['3xl']}`]:
+          'rounded-[2.5rem] [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[3rem]',
+        [`${ButtonRoundedSize['4xl']}`]:
+          'rounded-[3rem] [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[4rem]',
+        [`${ButtonRoundedSize['5xl']}`]:
+          'rounded-[4rem] [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[5rem]',
+        [`${ButtonRoundedSize.FULL}`]: 'rounded-full',
       },
       variant: {
         [`${ButtonVariant.DEFAULT}`]: [
@@ -143,9 +151,9 @@ export const buttonVariants = cva(
         ],
 
         [`${ButtonVariant.OUTLINE}`]: [
-          'rounded-2xl border-[1.5px] border-current bg-current/0 *:text-current!',
-          'hover:bg-current/20',
-          'hover:ring-5',
+          'rounded-2xl border-[1.3px] border-current bg-current/0 *:text-current!',
+          'hover:bg-current/20 focus-visible:bg-current/20',
+          'hover:ring-5 focus-visible:ring-5',
           'aria-selected:ring-5',
         ],
 
@@ -208,7 +216,7 @@ export const buttonVariants = cva(
       variant: `${ButtonVariant.DEFAULT}`,
       size: `${ButtonSize.MD}`,
       color: `${ButtonColor.CUSTOM}`,
-      roundedSize: `${ContainerRoundedSize.MD}`,
+      roundedSize: `${ButtonRoundedSize.MD}`,
       textAlign: `${ButtonTextAlign.CENTER}`,
       isFullWidth: false,
     },

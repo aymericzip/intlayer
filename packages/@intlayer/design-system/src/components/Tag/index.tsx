@@ -229,14 +229,14 @@ const containerVariants = cva('w-fit backdrop-blur', {
     },
     size: {
       [`${TagSize.XS}`]: 'border-[1.2px] px-2 py-0.5 text-xs',
-      [`${TagSize.SM}`]: 'border-[1.5px] px-2 py-0.5 text-sm',
+      [`${TagSize.SM}`]: 'border-[1.3px] px-2 py-0.5 text-sm',
       [`${TagSize.MD}`]: 'border-2 px-2 py-1 text-base',
       [`${TagSize.LG}`]: 'border-2 px-3 py-2 text-lg',
       [`${TagSize.XL}`]: 'border-2 px-3 py-2 text-xl',
     },
     border: {
       [`${TagBorder.NONE}`]: 'border-none',
-      [`${TagBorder.WITH}`]: 'border-[1.5px] border-text',
+      [`${TagBorder.WITH}`]: 'border-[1.3px] border-text',
     },
     background: {
       [`${TagBackground.NONE}`]: 'bg-none',

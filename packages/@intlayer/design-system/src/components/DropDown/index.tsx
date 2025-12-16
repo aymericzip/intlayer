@@ -124,7 +124,11 @@ const Trigger: FC<TriggerProps> = ({
   ...props
 }) => (
   <Button
-    className={cn('w-full cursor-pointer', className)}
+    className={cn([
+      'w-full cursor-pointer',
+      'group-focus-within/dropdown:bg-current/20 group-focus-within/dropdown:ring-4',
+      className,
+    ])}
     label={label ?? `Open panel ${identifier}`}
     aria-haspopup="true"
     aria-controls={`dropdown-panel-${identifier}`}
@@ -133,10 +137,6 @@ const Trigger: FC<TriggerProps> = ({
       // Ensure focus behavior is consistent across all mobile browsers
       (e.currentTarget as HTMLButtonElement).focus();
     }}
-    // onBlur={(e) => {
-    //   // Default behavior: ensure the trigger is unfocused when leaving the dropdown
-    //   e.currentTarget.blur();
-    // }}
     variant="none"
     {...props}
   >

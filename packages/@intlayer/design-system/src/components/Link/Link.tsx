@@ -105,7 +105,7 @@ export const linkVariants = cva(
           'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current text-center font-medium text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5',
 
         [`${LinkVariant.BUTTON_OUTLINED}`]:
-          'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.5px] border-current text-center font-medium text-text ring-0 *:text-text hover:bg-current/20 hover:ring-5 aria-selected:ring-5',
+          'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current text-center font-medium text-text ring-0 *:text-text hover:bg-current/20 hover:ring-5 aria-selected:ring-5',
 
         [`${LinkVariant.HOVERABLE}`]:
           'block rounded-lg border-none bg-current/0 hover:bg-current/10 aria-[current]:bg-current/5',
@@ -352,8 +352,6 @@ export const Link: FC<LinkProps> = (props) => {
       ? getLocalizedUrl(hrefProp, locale)
       : hrefProp;
 
-  const isButton = variant === 'button' || variant === 'button-outlined';
-
   return (
     <a
       href={href}
@@ -368,12 +366,12 @@ export const Link: FC<LinkProps> = (props) => {
           roundedSize,
           underlined,
           size,
-          className: isButton ? undefined : className,
+          className,
         })
       )}
       {...otherProps}
     >
-      {isButton ? <span className={className}>{children}</span> : children}
+      {children}
 
       {isExternalLink && isChildrenString && (
         <ExternalLink className="ml-2 inline-block size-4" />

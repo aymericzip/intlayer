@@ -163,7 +163,7 @@ export const Avatar: FC<AvatarProps> = ({
     <Container
       isClickable={isClickable}
       className={cn(
-        `rounded-full border-[1.5px] border-text p-[1.5px]`,
+        `rounded-full border-[1.3px] border-text p-[1.5px]`,
         size === 'sm' && 'size-7 border-[1px] p-[1px]',
         size === 'md' && 'size-9',
         size === 'lg' && 'size-12',

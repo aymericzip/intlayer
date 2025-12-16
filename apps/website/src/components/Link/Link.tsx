@@ -60,8 +60,6 @@ export const Link: FC<LinkProps> = (props) => {
 
   const target = isExternalLink ? '_blank' : '_self';
 
-  const isButton = variant === 'button' || variant === 'button-outlined';
-
   return (
     <NextLink
       prefetch={prefetch}
@@ -82,7 +80,7 @@ export const Link: FC<LinkProps> = (props) => {
       )}
       {...otherProps}
     >
-      {isButton ? <span className={className}>{children}</span> : children}
+      {children}
 
       {isExternalLink && isChildrenString && (
         <ExternalLink className="ml-2 inline-block size-4" />

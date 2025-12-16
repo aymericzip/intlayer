@@ -160,8 +160,11 @@ export const LandingSection: FC = () => {
               roundedSize="full"
               className="flex flex-row items-center justify-center gap-2"
             >
-              {getStartedButton}
-              <ArrowRight width={15} height={15} />
+              <span className="block text-sm sm:text-lg">
+                {getStartedButton}
+              </span>
+
+              <ArrowRight width={20} height={20} />
             </Link>
           </motion.div>
 

@@ -160,21 +160,25 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
         <>
           <LocaleSwitcher />
           <SwitchThemeSwitcher />
-          <a
-            aria-label={discord.label.value}
+          <Link
+            label={discord.label.value}
             href={discord.url.value}
             target="_blank"
+            color="text"
+            variant="button-outlined"
+            roundedSize="full"
             rel="noopener noreferrer nofollow"
-            className="flex cursor-pointer items-center gap-2 rounded-full border-[1.5px] border-text p-1.5 hover:bg-text/10"
+            className="flex cursor-pointer items-center gap-2 rounded-full border-[1.3px] p-1.5"
           >
             <DiscordLogo width={20} className="aspect-square h-auto" />
-          </a>
+          </Link>
           <Link
             label={github.label.value}
             href={github.url.value}
-            color="custom"
+            color="text"
+            variant="button"
             roundedSize="full"
-            className="group/github flex cursor-pointer items-center gap-2 bg-text p-1 text-text-opposite hover:bg-text/90"
+            className="group/github flex cursor-pointer items-center gap-1 p-0.5"
           >
             <GithubLogo width={25} />
             <StarIcon

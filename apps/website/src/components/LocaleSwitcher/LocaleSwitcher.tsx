@@ -52,16 +52,19 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   };
 
   return (
-    <div className="flex rounded-xl border border-text text-text transition-colors">
+    <div className="flex rounded-xl text-text transition-colors">
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
         <DropDown.Trigger
           identifier={DROPDOWN_IDENTIFIER}
           aria-label={localeSwitcherLabel.value}
           size="sm"
-          className="!px-0"
+          className="!px-0 p-1"
+          variant="outline"
+          color="text"
+          roundedSize="5xl"
           onClick={handleFocusInput}
         >
-          <div className="flex w-full items-center justify-between text-text">
+          <div className="flex w-full items-center justify-between">
             <div className="text-nowrap px-2 text-base">{localeName}</div>
             <MoveVertical className="w-5 self-center" />
           </div>

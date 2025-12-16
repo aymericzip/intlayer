@@ -43,7 +43,7 @@ export enum SwitchSelectorColor {
 }
 
 const switchSelectorVariant = cva(
-  'flex w-fit cursor-pointer flex-row gap-2 rounded-full border-[1.5px] p-[1.5px]',
+  'flex w-fit cursor-pointer flex-row gap-2 rounded-full border-[1.3px] p-[1.5px]',
   {
     variants: {
       color: {
