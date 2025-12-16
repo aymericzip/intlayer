@@ -121,7 +121,7 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
       navbar={<DashboardNavbar />}
       footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
       className="dashboard-theme h-screen max-h-screen bg-card md:overflow-hidden"
-      mainClassName="min-h-0"
+      mainClassName="md:min-h-0"
       htmlProps={{
         style: { fontSize: '75%' },
       }}
