@@ -91,7 +91,7 @@
     "compression": "1.8.1",
     "cookie-parser": "1.4.7",
     "cors": "2.8.5",
-    "express": "5.1.0",
+    "express": "5.2.1",
     "express-intlayer": "workspace:*",
     "helmet": "8.1.0",
     "mime": "4.1.0"
@@ -105,7 +105,7 @@
     "@types/compression": "1.8.1",
     "@types/cookie-parser": "1.4.10",
     "@types/cors": "2.8.19",
-    "@types/express": "5.0.5",
+    "@types/express": "5.0.6",
     "@types/node": "25.0.2",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
@@ -129,7 +129,7 @@
     "typescript": "5.9.3",
     "vite": "7.2.7",
     "vite-intlayer": "workspace:*",
-    "vitest": "4.0.15"
+    "vitest": "4.0.16"
   },
   "engines": {
     "node": ">=14.18"

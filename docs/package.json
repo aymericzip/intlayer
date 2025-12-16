@@ -89,7 +89,7 @@
     "tsdown": "0.18.0",
     "tsx": "^4.20.6",
     "typescript": "5.9.3",
-    "vitest": "4.0.15"
+    "vitest": "4.0.16"
   },
   "engines": {
     "node": ">=14.18"

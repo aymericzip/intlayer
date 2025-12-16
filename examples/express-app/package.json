@@ -30,14 +30,14 @@
     "test": ""
   },
   "dependencies": {
-    "express": "5.1.0",
+    "express": "5.2.1",
     "express-intlayer": "workspace:*",
     "intlayer": "workspace:*"
   },
   "devDependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/webpack": "workspace:*",
-    "@types/express": "5.0.5",
+    "@types/express": "5.0.6",
     "@types/node": "25.0.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

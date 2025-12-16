@@ -38,7 +38,7 @@
     "typescript": "5.9.3",
     "vite": "7.2.7",
     "vite-intlayer": "workspace:*",
-    "vitest": "4.0.15",
+    "vitest": "4.0.16",
     "web-vitals": "5.1.0"
   }
 }
