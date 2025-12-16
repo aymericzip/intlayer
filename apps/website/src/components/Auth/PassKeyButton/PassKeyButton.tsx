@@ -2,27 +2,27 @@
 
 import { Button } from '@intlayer/design-system';
 import { useSession, useSignInPasskey } from '@intlayer/design-system/hooks';
-import { getAuthAPI } from '@intlayer/design-system/libs';
 import { Key } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 
 export const PasskeyButton: FC = () => {
-  const router = useRouter();
   const { revalidateSession } = useSession();
-  const authClient = getAuthAPI().getAuthClient();
-  const { mutate: signInPasskey } = useSignInPasskey();
+  const { mutate: signInPasskey, isPending } = useSignInPasskey();
   const { text, ariaLabel } = useIntlayer('passkey-button');
 
   useEffect(() => {
-    authClient.signIn.passkey(
-      { autoFill: true },
-      {
-        onSuccess: () => revalidateSession(),
-      }
-    );
-  }, [router, revalidateSession, authClient]);
+    const timeout = setTimeout(() => {
+      signInPasskey(
+        { autoFill: true },
+        {
+          onSuccess: () => revalidateSession(),
+        }
+      );
+    }, 100);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   const handleSignIn = () => {
     signInPasskey(
@@ -41,6 +41,7 @@ export const PasskeyButton: FC = () => {
       Icon={Key}
       label={ariaLabel.value}
       onClick={handleSignIn}
+      isLoading={isPending}
     >
       {text}
     </Button>
