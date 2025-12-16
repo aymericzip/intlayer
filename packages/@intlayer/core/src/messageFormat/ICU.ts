@@ -2,6 +2,35 @@ import { type Dictionary, NodeType } from '@intlayer/types';
 import { deepTransformNode } from '../interpreter';
 import { enu, gender, insert } from '../transpiler';
 
+/**
+ * ICU MessageFormat Converter
+ *
+ * This module converts between ICU MessageFormat and Intlayer's internal format.
+ *
+ * IMPORTANT: Two different formats are used:
+ *
+ * 1. ICU MessageFormat (external format):
+ *    - Simple variables: {name}
+ *    - Formatted variables: {amount, number, currency}
+ *    - Plural: {count, plural, =0 {none} other {# items}}
+ *    - Select: {gender, select, male {He} female {She} other {They}}
+ *
+ * 2. Intlayer Internal Format:
+ *    - Simple variables: {{name}}  (double braces for clarity and to distinguish from literal text)
+ *    - Formatted variables: {amount, number, currency}  (keeps ICU format)
+ *    - Plural: enu({ 0: 'none', fallback: '{{count}} items' })
+ *    - Select/Gender: gender({ male: 'He', female: 'She', fallback: 'They' })
+ *
+ * Conversion flow:
+ * - ICU → Intlayer: {name} → {{name}}
+ * - Intlayer → ICU: {{name}} → {name}
+ *
+ * The double braces in Intlayer format serve to:
+ * - Distinguish variables from literal text containing braces
+ * - Work with getInsertion() runtime function which expects {{var}} patterns
+ * - Provide clear visual distinction in content dictionaries
+ */
+
 // Types for our AST
 type ICUNode =
   | string
@@ -191,10 +220,12 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
         str += node;
       } else if (typeof node !== 'string' && node.type === 'argument') {
         if (node.format) {
+          // Formatted variables keep ICU format: {var, type, style}
           str += `{${node.name}, ${node.format.type}${
             node.format.style ? `, ${node.format.style}` : ''
           }}`;
         } else {
+          // Simple variables use Intlayer format: {{var}}
           str += `{{${node.name}}}`;
         }
       }
@@ -210,12 +241,14 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
     if (typeof node === 'string') return node; // already handled
     if (node.type === 'argument') {
       if (node.format) {
+        // Formatted variables keep ICU format: {var, type, style}
         return insert(
           `{${node.name}, ${node.format.type}${
             node.format.style ? `, ${node.format.style}` : ''
           }}`
         );
       }
+      // Simple variables use Intlayer format: {{var}}
       return insert(`{{${node.name}}}`);
     }
     if (node.type === 'plural') {
@@ -239,7 +272,7 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
         }
         // Handle # in plural value
         // For plural, we need to pass the variable name down or replace #
-        // Intlayer uses {{n}} (or whatever var name)
+        // Intlayer uses {{n}} (or whatever var name) for simple variables
         // We should replace # with {{n}} in the string parts of val
         const replacedVal = val.map((v) => {
           if (typeof v === 'string') {
@@ -316,12 +349,15 @@ const intlayerToIcuPlugin = {
         node.nodeType === 'composite')) ||
     Array.isArray(node),
   transform: (node: any, props: any, next: any) => {
+    // Convert Intlayer's double-brace format {{var}} to ICU's single-brace format {var}
     if (typeof node === 'string') {
       return node.replace(/\{\{([^}]+)\}\}/g, '{$1}');
     }
 
     if (node.nodeType === NodeType.Insertion) {
-      // insert("Hello {{name}}") -> "Hello {name}"
+      // Convert Intlayer format to ICU format:
+      // - {{name}} → {name}  (simple variable)
+      // - {amount, number, currency} → {amount, number, currency}  (formatted variable, already in ICU format)
       return node.insertion.replace(/\{\{([^}]+)\}\}/g, '{$1}');
     }
 

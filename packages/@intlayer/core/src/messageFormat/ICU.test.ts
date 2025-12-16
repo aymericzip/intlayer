@@ -177,7 +177,7 @@ describe('ICU Formatter', () => {
 
       const result = intlayerToICUFormatter(input);
       expect(result).toContain('{gender, select,');
-      // The array should be joined
+      // The array should be joined - ICU format uses single braces {var}, not double braces {{var}}
       expect(result).toContain(
         'male {{n, plural, =0 {He has no cars} other {He has many cars}}}'
       );

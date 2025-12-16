@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { enu, gender, insert } from '../transpiler';
+import {
+  type EnumerationContentState,
+  enu,
+  gender,
+  insert,
+} from '../transpiler';
 import {
   i18nextToIntlayerFormatter,
   intlayerToI18nextFormatter,
@@ -30,7 +35,7 @@ describe('i18next', () => {
           '1': 'one item',
           fallback: '{{count}} items',
           __intlayer_icu_var: 'count',
-        })
+        } as EnumerationContentState<any>)
       );
     });
 
@@ -48,7 +53,7 @@ describe('i18next', () => {
           '>=4': 'many items',
           fallback: '{{count}} items',
           __intlayer_icu_var: 'count',
-        })
+        } as EnumerationContentState<any>)
       );
     });
 
