@@ -103,6 +103,10 @@ Para ver como configurar os locais disponíveis ou outros parâmetros, consulte 
 
 ## Executar comandos intlayer
 
+### Autenticação
+
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/login.md)** - Autenticar-se com o CMS do Intlayer e obter credenciais de acesso
+
 ### Comandos Principais
 
 - **[Construir Dicionários](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/build.md)** - Construa seus dicionários a partir dos arquivos de declaração de conteúdo
@@ -144,6 +148,7 @@ Para ver como configurar os locais disponíveis ou outros parâmetros, consulte 
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

@@ -103,6 +103,10 @@ Intlayer поддерживает несколько форматов конфи
 
 ## Запуск команд intlayer
 
+### Аутентификация
+
+- **[Вход](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/login.md)** - Аутентификация в Intlayer CMS и получение учетных данных доступа
+
 ### Основные команды
 
 - **[Сборка словарей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/build.md)** - Сборка ваших словарей из файлов декларации контента
@@ -144,6 +148,7 @@ Intlayer поддерживает несколько форматов конфи
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

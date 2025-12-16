@@ -103,6 +103,10 @@ Intlayer は複数の設定ファイル形式をサポートしています：
 
 ## intlayer コマンドの実行
 
+### 認証
+
+- **[ログイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/login.md)** - Intlayer CMSで認証し、アクセス認証情報を取得する
+
 ### コアコマンド
 
 - **[辞書のビルド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/build.md)** - コンテンツ宣言ファイルから辞書をビルドします
@@ -144,6 +148,7 @@ Intlayer は複数の設定ファイル形式をサポートしています：
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

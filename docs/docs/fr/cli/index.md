@@ -103,6 +103,10 @@ Pour voir comment configurer les locales disponibles, ou d'autres paramètres, r
 
 ## Exécuter les commandes intlayer
 
+### Authentification
+
+- **[Connexion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/login.md)** - S'authentifier avec le CMS Intlayer et obtenir les identifiants d'accès
+
 ### Commandes principales
 
 - **[Construire les dictionnaires](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/build.md)** - Construisez vos dictionnaires à partir des fichiers de déclaration de contenu
@@ -144,6 +148,7 @@ Pour voir comment configurer les locales disponibles, ou d'autres paramètres, r
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

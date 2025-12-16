@@ -103,6 +103,10 @@ pnpm add intlayer-cli -g
 
 ## تشغيل أوامر intlayer
 
+### المصادقة
+
+- **[تسجيل الدخول](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/login.md)** - المصادقة مع نظام إدارة المحتوى Intlayer والحصول على بيانات الاعتماد
+
 ### الأوامر الأساسية
 
 - **[بناء القواميس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/build.md)** - بناء قواميسك من ملفات إعلان المحتوى
@@ -144,6 +148,7 @@ pnpm add intlayer-cli -g
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

@@ -103,6 +103,10 @@ Aby zobaczyć, jak skonfigurować dostępne lokalizacje lub inne parametry, zapo
 
 ## Uruchamianie poleceń intlayer
 
+### Uwierzytelnianie
+
+- **[Logowanie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/login.md)** - Uwierzytelnij się w Intlayer CMS i uzyskaj dane dostępowe
+
 ### Podstawowe polecenia
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/build.md)** - Buduj swoje słowniki z plików deklaracji treści
@@ -144,6 +148,7 @@ Aby zobaczyć, jak skonfigurować dostępne lokalizacje lub inne parametry, zapo
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

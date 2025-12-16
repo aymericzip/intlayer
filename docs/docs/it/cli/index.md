@@ -103,6 +103,10 @@ Per vedere come configurare le localizzazioni disponibili o altri parametri, con
 
 ## Esegui i comandi di intlayer
 
+### Autenticazione
+
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/login.md)** - Autenticati con il CMS di Intlayer e ottieni le credenziali di accesso
+
 ### Comandi principali
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/build.md)** - Costruisci i tuoi dizionari dai file di dichiarazione dei contenuti
@@ -139,6 +143,7 @@ Per vedere come configurare le localizzazioni disponibili o altri parametri, con
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

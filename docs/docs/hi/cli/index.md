@@ -103,6 +103,10 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
 
 ## intlayer कमांड चलाएँ
 
+### प्रमाणीकरण
+
+- **[लॉगिन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/login.md)** - Intlayer CMS के साथ प्रमाणित करें और पहुंच क्रेडेंशियल प्राप्त करें
+
 ### मुख्य कमांड्स
 
 - **[शब्दकोश बनाएं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/build.md)** - कंटेंट घोषणा फ़ाइलों से अपने शब्दकोश बनाएं
@@ -144,6 +148,7 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

@@ -103,6 +103,10 @@ Intlayer는 여러 구성 파일 형식을 지원합니다:
 
 ## intlayer 명령 실행
 
+### 인증
+
+- **[로그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/login.md)** - Intlayer CMS로 인증하고 액세스 자격 증명 받기
+
 ### 핵심 명령
 
 - **[사전 빌드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/build.md)** - 콘텐츠 선언 파일에서 사전을 빌드합니다.
@@ -144,6 +148,7 @@ Intlayer는 여러 구성 파일 형식을 지원합니다:
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

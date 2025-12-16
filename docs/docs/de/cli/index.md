@@ -103,6 +103,10 @@ Um zu sehen, wie verfügbare Sprachen oder andere Parameter konfiguriert werden,
 
 ## Intlayer-Befehle ausführen
 
+### Authentifizierung
+
+- **[Anmelden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/login.md)** - Bei Intlayer CMS authentifizieren und Zugangsdaten erhalten
+
 ### Kernbefehle
 
 - **[Dictionaries erstellen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/build.md)** – Erstellen Sie Ihre Wörterbücher aus Inhaltsdeklarationsdateien
@@ -144,6 +148,7 @@ Um zu sehen, wie verfügbare Sprachen oder andere Parameter konfiguriert werden,
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

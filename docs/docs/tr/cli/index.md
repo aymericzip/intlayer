@@ -103,6 +103,10 @@ Mevcut yerellerin veya diğer parametrelerin nasıl yapılandırılacağını g�
 
 ## Intlayer komutlarını çalıştırma
 
+### Kimlik Doğrulama
+
+- **[Giriş Yap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/login.md)** - Intlayer CMS ile kimlik doğrulama yapın ve erişim kimlik bilgilerini alın
+
 ### Temel Komutlar
 
 - **[Sözlükleri Derle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/build.md)** - İçerik beyan dosyalarından sözlüklerinizi derleyin
@@ -144,6 +148,7 @@ Mevcut yerellerin veya diğer parametrelerin nasıl yapılandırılacağını g�
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

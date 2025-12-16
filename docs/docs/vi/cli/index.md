@@ -103,6 +103,10 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình:
 
 ## Chạy các lệnh intlayer
 
+### Xác thực
+
+- **[Đăng nhập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/login.md)** - Xác thực với Intlayer CMS và lấy thông tin đăng nhập
+
 ### Các Lệnh Cơ Bản
 
 - **[Xây dựng Từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/build.md)** - Xây dựng từ điển của bạn từ các tệp khai báo nội dung
@@ -144,6 +148,7 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình:
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

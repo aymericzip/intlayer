@@ -149,6 +149,10 @@ const docDataContent: Dictionary = {
               title: 'Version',
               default: getDocMetadata('./docs/en/cli/version.md'),
             },
+            login: {
+              title: 'Login',
+              default: getDocMetadata('./docs/en/cli/login.md'),
+            },
             push: {
               title: 'Push',
               default: getDocMetadata('./docs/en/cli/push.md'),

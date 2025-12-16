@@ -103,6 +103,10 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 ## Run intlayer commands
 
+### Authentication
+
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/login.md)** - Authenticate with the Intlayer CMS and get access credentials
+
 ### Core Commands
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/build.md)** - Build your dictionaries from content declaration files
@@ -144,6 +148,7 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

@@ -103,6 +103,10 @@ Intlayer 支持多种配置文件格式：
 
 ## 运行 intlayer 命令
 
+### 身份验证
+
+- **[登录](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/login.md)** - 使用 Intlayer CMS 进行身份验证并获取访问凭据
+
 ### 核心命令
 
 - **[构建字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/build.md)** - 从内容声明文件构建字典
@@ -149,6 +153,7 @@ Intlayer 支持多种配置文件格式：
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",

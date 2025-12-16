@@ -103,6 +103,10 @@ Untuk melihat cara mengonfigurasi locale yang tersedia, atau parameter lainnya, 
 
 ## Menjalankan perintah intlayer
 
+### Autentikasi
+
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/login.md)** - Autentikasi dengan Intlayer CMS dan dapatkan kredensial akses
+
 ### Perintah Inti
 
 - **[Bangun Kamus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/build.md)** - Bangun kamus Anda dari file deklarasi konten
@@ -144,6 +148,7 @@ Untuk melihat cara mengonfigurasi locale yang tersedia, atau parameter lainnya, 
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",
