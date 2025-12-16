@@ -46,3 +46,4 @@ next-env.d.ts
 # Serwist
 public/sw*
 public/swe-worker*
+public/workbox-*.js

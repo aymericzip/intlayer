@@ -1,7 +1,6 @@
 'use client';
 
-import { Serwist } from '@serwist/window';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 /**
  * Hook to register the Serwist service worker.
@@ -11,38 +10,12 @@ import { useEffect, useRef } from 'react';
  * For manual update UI, track state in your component instead.
  */
 export const useServiceWorker = () => {
-  const serwistRef = useRef<Serwist | undefined>(undefined);
-  const hasRegisteredRef = useRef(false);
-
   useEffect(() => {
-    // Only register once
-    if (hasRegisteredRef.current) return;
-
-    if (
-      typeof window !== 'undefined' &&
-      'serviceWorker' in navigator &&
-      process.env.NODE_ENV === 'production'
-    ) {
-      const sw = new Serwist('/sw.js', { scope: '/' });
-
-      // Optional: Log when an update is available
-      const handleWaiting = () => {
-        console.log(
-          '[ServiceWorker] Update available. Will activate on next page load.'
-        );
-      };
-
-      sw.addEventListener('waiting', handleWaiting);
-
-      // Register the service worker
-      sw.register();
-      serwistRef.current = sw;
-      hasRegisteredRef.current = true;
-
-      // Cleanup event listener on unmount
-      return () => {
-        sw.removeEventListener('waiting', handleWaiting);
-      };
+    if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then((registration) => console.log('SW Registered'))
+        .catch((err) => console.error('SW Failed', err));
     }
   }, []);
 };

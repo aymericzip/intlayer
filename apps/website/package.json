@@ -35,7 +35,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "next build",
+    "build": "next build && bun scripts/generate-sw.ts",
     "build:webpack": "next build --webpack",
     "dev": "intlayer watch --with 'next dev --turbopack'",
     "dev:webpack": "next dev",
@@ -84,6 +84,7 @@
     "react-spring": "10.0.3",
     "sharp": "0.34.5",
     "tailwind-merge": "3.4.0",
+    "workbox-build": "^7.4.0",
     "zod": "4.2.1"
   },
   "devDependencies": {

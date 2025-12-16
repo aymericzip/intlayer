@@ -3,7 +3,6 @@ import { withIntlayer } from 'next-intlayer/server';
 import { createSecureHeaders } from 'next-secure-headers';
 
 const isProd = process.env.NODE_ENV === 'production';
-const isDev = process.env.NODE_ENV === 'development';
 
 const secureHeaders = {
   contentSecurityPolicy: {
