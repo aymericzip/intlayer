@@ -2,7 +2,8 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["@serwist/next/typings"],
+    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
     "allowJs": true,
     "skipLibCheck": false,
     "strict": true,
@@ -30,5 +31,5 @@
     }
   },
   "include": ["**/*", ".next/types/**/*.ts", ".intlayer/**/*.ts"],
-  "exclude": ["node_modules", ".next"]
+  "exclude": ["node_modules", ".next", "public/sw.js"]
 }

@@ -107,6 +107,7 @@ export const generateMetadata = async ({
     bookmarks: null,
     category: 'Development Tools',
     classification: 'Developers',
+    manifest: '/manifest.json',
     other: undefined,
   };
 };

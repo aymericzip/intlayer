@@ -1,38 +1,48 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Serwist } from '@serwist/window';
+import { useEffect, useRef } from 'react';
 
-const registerServiceWorker = async () => {
-  // Pre-check: verify the service worker file is accessible and has correct MIME type
-  const response = await fetch('/sw.js', { method: 'HEAD' });
-  const contentType = response.headers.get('content-type');
-
-  if (!response.ok) {
-    throw new Error(`Service worker file not found: ${response.status}`);
-  }
-
-  if (contentType && !contentType.includes('javascript')) {
-    throw new Error(
-      `Service worker has invalid MIME type: ${contentType}. Expected application/javascript.`
-    );
-  }
-
-  return await navigator.serviceWorker.register('/sw.js', {
-    scope: '/',
-    type: 'classic',
-    updateViaCache: 'none',
-  });
-};
-
+/**
+ * Hook to register the Serwist service worker.
+ * Zero-rerender: purely side-effect based, no state tracking.
+ *
+ * When an update is available, the SW automatically activates on next page load.
+ * For manual update UI, track state in your component instead.
+ */
 export const useServiceWorker = () => {
-  // const isServiceWorkerEnabled = process.env.NODE_ENV === 'production';
+  const serwistRef = useRef<Serwist | undefined>(undefined);
+  const hasRegisteredRef = useRef(false);
 
   useEffect(() => {
-    // if (isServiceWorkerEnabled && 'serviceWorker' in navigator) {
-    //   registerServiceWorker().catch((err) => {
-    //     // Log the error but don't throw - SW is optional functionality
-    //     console.warn('Service worker registration failed:', err.message);
-    //   });
-    // }
+    // Only register once
+    if (hasRegisteredRef.current) return;
+
+    if (
+      typeof window !== 'undefined' &&
+      'serviceWorker' in navigator &&
+      process.env.NODE_ENV === 'production'
+    ) {
+      const sw = new Serwist('/sw.js', { scope: '/' });
+
+      // Optional: Log when an update is available
+      const handleWaiting = () => {
+        console.log(
+          '[ServiceWorker] Update available. Will activate on next page load.'
+        );
+      };
+
+      sw.addEventListener('waiting', handleWaiting);
+
+      // Register the service worker
+      sw.register();
+      serwistRef.current = sw;
+      hasRegisteredRef.current = true;
+
+      // Cleanup event listener on unmount
+      return () => {
+        sw.removeEventListener('waiting', handleWaiting);
+      };
+    }
   }, []);
 };
