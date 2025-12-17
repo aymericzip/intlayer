@@ -43,8 +43,8 @@ export const LandingSection: FC = () => {
     copyButton,
   } = useIntlayer('landing-section');
 
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { resolvedTheme } = useTheme();
+  const isDarkMode = resolvedTheme === 'dark';
   const { isCopied, copy } = useCopyToClipboard('npm install intlayer');
 
   return (
@@ -90,7 +90,6 @@ export const LandingSection: FC = () => {
           >
             {title}
           </motion.h1>
-
           {/* Subtitle */}
           <motion.h2
             initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
@@ -100,7 +99,6 @@ export const LandingSection: FC = () => {
           >
             {subheading}
           </motion.h2>
-
           {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -110,7 +108,6 @@ export const LandingSection: FC = () => {
           >
             {description}
           </motion.p>
-
           {/* Copyable code block */}
           <ContainerMotion
             initial={{ opacity: 0, y: 0 }}
@@ -131,7 +128,6 @@ export const LandingSection: FC = () => {
               label={copyButton.value}
             />
           </ContainerMotion>
-
           {/* Action Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -167,7 +163,6 @@ export const LandingSection: FC = () => {
               <ArrowRight width={20} height={20} />
             </Link>
           </motion.div>
-
           {/* Available For Section - Full Viewport Width */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}

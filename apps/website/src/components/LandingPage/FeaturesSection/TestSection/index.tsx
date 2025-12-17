@@ -9,8 +9,8 @@ type TestSectionProps = {
 
 export const TestSection: FC<TestSectionProps> = ({ scrollProgress }) => {
   const content = useIntlayer('test-section');
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { resolvedTheme } = useTheme();
+  const isDarkMode = resolvedTheme === 'dark';
   const nbItems = content.length - 2;
   const itemsToShow = Math.floor(nbItems * scrollProgress + 1);
   const [additionalContent, setAdditionalContent] = useState('');

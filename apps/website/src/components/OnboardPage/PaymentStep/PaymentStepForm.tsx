@@ -235,7 +235,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
     pickANewProductButton,
   } = useIntlayer('payment-step');
 
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const router = useRouter();
   const params = useSearchParams();
   const promoCode = params.get('promoCode') ?? undefined;
@@ -255,7 +255,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
   };
   const clientSecret = invoice?.confirmation_secret?.client_secret;
 
-  const isDarkMode = theme === 'dark';
+  const isDarkMode = resolvedTheme === 'dark';
 
   const appearance = isDarkMode ? appearanceDark : appearanceLight;
 

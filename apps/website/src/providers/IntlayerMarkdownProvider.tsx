@@ -9,8 +9,8 @@ import type { ComponentProps, FC, Fragment, PropsWithChildren } from 'react';
 export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   return (
     <MarkdownProvider

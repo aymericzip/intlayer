@@ -55,8 +55,8 @@ export const EventTag: FC<{
   event?: AuditEvent;
   isLoading?: boolean;
 }> = ({ event, id, isLoading }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { resolvedTheme } = useTheme();
+  const isDarkMode = resolvedTheme === 'dark';
   const details =
     event?.data?.errorsDetails ??
     event?.data?.warningsDetails ??
