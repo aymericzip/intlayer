@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.0
+    date: 2025-12-17
+    changes: Thêm tùy chọn `buildMode`
   - version: 7.0.0
     date: 2025-10-25
     changes: Thêm cấu hình `dictionary`
@@ -665,6 +668,15 @@ Các tùy chọn build áp dụng cho các plugin `@intlayer/babel` và `@intlay
 > Khi được tối ưu hóa, Intlayer sẽ thay thế các lệnh gọi từ điển để tối ưu hóa việc chia nhỏ, do đó gói cuối cùng chỉ nhập các từ điển thực sự được sử dụng.
 
 #### Thuộc tính
+
+- **mode**:
+  - _Kiểu_: `'auto' | 'manual'`
+  - _Mặc định_: `'auto'`
+  - _Mô tả_: Điều khiển chế độ build.
+  - _Ví dụ_: `'manual'`
+  - _Lưu ý_: Nếu 'auto', build sẽ được bật tự động khi ứng dụng được build.
+  - _Lưu ý_: Nếu 'manual', build sẽ chỉ được đặt khi lệnh build được thực thi.
+  - _Lưu ý_: Có thể được sử dụng để vô hiệu hóa build từ điển, ví dụ khi nên tránh thực thi trong môi trường Node.js.
 
 - **optimize**:
   - _Kiểu_: `boolean`

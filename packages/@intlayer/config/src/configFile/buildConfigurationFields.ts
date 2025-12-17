@@ -18,6 +18,7 @@ import type {
 } from '@intlayer/types';
 import packageJson from '@intlayer/types/package.json' with { type: 'json' };
 import {
+  BUILD_MODE,
   CACHE,
   IMPORT_MODE,
   OUTPUT_FORMAT,
@@ -626,6 +627,18 @@ const buildAiFields = (customConfiguration?: Partial<AiConfig>): AiConfig => ({
 const buildBuildFields = (
   customConfiguration?: Partial<BuildConfig>
 ): BuildConfig => ({
+  /**
+   * Indicates the mode of the build
+   *
+   * Default: 'auto'
+   *
+   * If 'auto', the build will be enabled automatically when the application is built.
+   * If 'manual', the build will be set only when the build command is executed.
+   *
+   * Can be used to disable dictionaries build, for instance when execution on Node.js environment should be avoided.
+   */
+  mode: customConfiguration?.mode ?? BUILD_MODE,
+
   /**
    * Indicates if the build should be optimized
    *

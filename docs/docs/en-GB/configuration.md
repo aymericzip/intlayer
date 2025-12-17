@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.0
+    date: 2025-12-17
+    changes: Add `buildMode` option
   - version: 6.0.0
     date: 2025-09-16
     changes: Add `live` import mode
@@ -527,6 +530,15 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 > When optimised, Intlayer will replace dictionary calls to optimise chunking, so the final bundle only imports dictionaries that are actually used.
 
 #### Properties
+
+- **mode**:
+  - _Type_: `'auto' | 'manual'`
+  - _Default_: `'auto'`
+  - _Description_: Controls the mode of the build.
+  - _Example_: `'manual'`
+  - _Note_: If 'auto', the build will be enabled automatically when the application is built.
+  - _Note_: If 'manual', the build will be set only when the build command is executed.
+  - _Note_: Can be used to disable dictionaries build, for instance when execution on Node.js environment should be avoided.
 
 - **optimize**:
   - _Type_: `boolean`

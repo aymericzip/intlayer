@@ -390,6 +390,18 @@ export type AiConfig = {
 
 export type BuildConfig = {
   /**
+   * Indicates the mode of the build
+   *
+   * Default: 'auto'
+   *
+   * If 'auto', the build will be enabled automatically when the application is built.
+   * If 'manual', the build will be set only when the build command is executed.
+   *
+   * Can be used to disable dictionaries build, for instance when execution on Node.js environment should be avoided.
+   */
+  mode: 'auto' | 'manual';
+
+  /**
    * Indicates if the build should be optimized
    *
    * Default: undefined

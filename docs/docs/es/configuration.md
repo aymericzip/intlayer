@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.0
+    date: 2025-12-17
+    changes: Añadir opción `buildMode`
   - version: 6.0.0
     date: 2025-09-16
     changes: Añadido modo de importación `live`
@@ -523,6 +526,15 @@ Las opciones de compilación se aplican a los plugins `@intlayer/babel` y `@intl
 > Cuando está optimizado, Intlayer reemplazará las llamadas a diccionarios para optimizar el particionado, de modo que el paquete final solo importe los diccionarios que realmente se usan.
 
 #### Propiedades
+
+- **mode**:
+  - _Tipo_: `'auto' | 'manual'`
+  - _Por defecto_: `'auto'`
+  - _Descripción_: Controla el modo de la compilación.
+  - _Ejemplo_: `'manual'`
+  - _Nota_: Si 'auto', la compilación se habilitará automáticamente cuando se construya la aplicación.
+  - _Nota_: Si 'manual', la compilación se establecerá solo cuando se ejecute el comando de compilación.
+  - _Nota_: Puede usarse para deshabilitar la compilación de diccionarios, por ejemplo cuando se debe evitar la ejecución en un entorno Node.js.
 
 - **optimize**:
   - _Tipo_: `boolean`

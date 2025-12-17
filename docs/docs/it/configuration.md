@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.0
+    date: 2025-12-17
+    changes: Aggiunta opzione `buildMode`
   - version: 6.0.0
     date: 2025-09-16
     changes: Aggiunta modalità di importazione `live`
@@ -523,6 +526,15 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
 > Quando ottimizzato, Intlayer sostituirà le chiamate ai dizionari per ottimizzare il chunking, in modo che il bundle finale importi solo i dizionari effettivamente utilizzati.
 
 #### Proprietà
+
+- **mode**:
+  - _Tipo_: `'auto' | 'manual'`
+  - _Predefinito_: `'auto'`
+  - _Descrizione_: Controlla la modalità della build.
+  - _Esempio_: `'manual'`
+  - _Nota_: Se 'auto', la build sarà abilitata automaticamente quando l'applicazione viene costruita.
+  - _Nota_: Se 'manual', la build sarà impostata solo quando viene eseguito il comando di build.
+  - _Nota_: Può essere utilizzato per disabilitare la build dei dizionari, ad esempio quando l'esecuzione in un ambiente Node.js dovrebbe essere evitata.
 
 - **optimize**:
   - _Tipo_: `boolean`

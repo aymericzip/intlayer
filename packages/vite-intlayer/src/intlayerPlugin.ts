@@ -38,6 +38,8 @@ export const intlayerPlugin = (
       name: 'vite-intlayer-plugin',
 
       config: async (config, env) => {
+        const { mode } = intlayerConfig.build;
+
         const isDevCommand =
           env.command === 'serve' && env.mode === 'development';
         const isBuildCommand = env.command === 'build';
@@ -45,7 +47,7 @@ export const intlayerPlugin = (
         // Only call prepareIntlayer during `dev` or `build` (not during `start`)
         // If prod: clean and rebuild once
         // If dev: rebuild only once if it's more than 1 hour since last rebuild
-        if (isDevCommand || isBuildCommand) {
+        if (isDevCommand || isBuildCommand || mode === 'auto') {
           // prepareIntlayer use runOnce to ensure to run only once because will run twice on client and server side otherwise
           await prepareIntlayer(intlayerConfig, {
             clean: isBuildCommand,

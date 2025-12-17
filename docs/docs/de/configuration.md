@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.0
+    date: 2025-12-17
+    changes: Hinzufügen der Option `buildMode`
   - version: 6.0.0
     date: 2025-09-16
     changes: `live` Importmodus hinzugefügt
@@ -524,6 +527,15 @@ Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
 > Wenn optimiert, ersetzt Intlayer Wörterbuchaufrufe, um das Chunking zu optimieren, sodass das endgültige Bundle nur die tatsächlich verwendeten Wörterbücher importiert.
 
 #### Eigenschaften
+
+- **mode**:
+  - _Typ_: `'auto' | 'manual'`
+  - _Standard_: `'auto'`
+  - _Beschreibung_: Steuert den Modus des Builds.
+  - _Beispiel_: `'manual'`
+  - _Hinweis_: Wenn 'auto', wird der Build automatisch aktiviert, wenn die Anwendung gebaut wird.
+  - _Hinweis_: Wenn 'manual', wird der Build nur gesetzt, wenn der Build-Befehl ausgeführt wird.
+  - _Hinweis_: Kann verwendet werden, um die Erstellung von Wörterbüchern zu deaktivieren, z.B. wenn die Ausführung in einer Node.js-Umgebung vermieden werden sollte.
 
 - **optimize**:
   - _Typ_: `boolean`

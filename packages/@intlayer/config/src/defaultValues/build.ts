@@ -1,3 +1,5 @@
+export const BUILD_MODE = 'auto';
+
 export const OPTIMIZE = undefined;
 
 export const IMPORT_MODE = 'static';

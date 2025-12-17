@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.0
+    date: 2025-12-17
+    changes: Dodano opcję `buildMode`
   - version: 7.0.0
     date: 2025-10-25
     changes: Dodano konfigurację `dictionary`
@@ -665,6 +668,15 @@ Opcje budowania dotyczą wtyczek `@intlayer/babel` oraz `@intlayer/swc`.
 > Po optymalizacji Intlayer zastąpi wywołania słowników, aby zoptymalizować podział na części (chunking), dzięki czemu finalny pakiet zaimportuje tylko te słowniki, które są faktycznie używane.
 
 #### Właściwości
+
+- **mode**:
+  - _Typ_: `'auto' | 'manual'`
+  - _Domyślnie_: `'auto'`
+  - _Opis_: Kontroluje tryb budowania.
+  - _Przykład_: `'manual'`
+  - _Uwaga_: Jeśli 'auto', budowanie zostanie włączone automatycznie podczas budowania aplikacji.
+  - _Uwaga_: Jeśli 'manual', budowanie zostanie ustawione tylko po wykonaniu polecenia budowania.
+  - _Uwaga_: Może być używane do wyłączenia budowania słowników, na przykład gdy należy unikać wykonywania w środowisku Node.js.
 
 - **optimize**:
   - _Typ_: `boolean`

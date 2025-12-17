@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.0
+    date: 2025-12-17
+    changes: `buildMode` seçeneği eklendi
   - version: 6.0.0
     date: 2025-09-16
     changes: `live` import modu eklendi
@@ -525,6 +528,15 @@ Derleme seçenekleri `@intlayer/babel` ve `@intlayer/swc` eklentilerine uygulan�
 > Optimize edildiğinde, Intlayer chunking'i optimize etmek için sözlük çağrılarını değiştirir, böylece nihai paket yalnızca gerçekten kullanılan sözlükleri import eder.
 
 #### Özellikler
+
+- **mode**:
+  - _Tür_: `'auto' | 'manual'`
+  - _Varsayılan_: `'auto'`
+  - _Açıklama_: Derleme modunu kontrol eder.
+  - _Örnek_: `'manual'`
+  - _Not_: 'auto' ise, uygulama derlendiğinde derleme otomatik olarak etkinleştirilir.
+  - _Not_: 'manual' ise, derleme yalnızca derleme komutu çalıştırıldığında ayarlanır.
+  - _Not_: Sözlük derlemesini devre dışı bırakmak için kullanılabilir, örneğin Node.js ortamında yürütmeden kaçınılması gerektiğinde.
 
 - **optimize**:
   - _Tür_: `boolean`

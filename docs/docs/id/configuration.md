@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.0
+    date: 2025-12-17
+    changes: Menambahkan opsi `buildMode`
   - version: 7.0.0
     date: 2025-10-25
     changes: Menambahkan konfigurasi `dictionary`
@@ -665,6 +668,15 @@ Opsi build berlaku untuk plugin `@intlayer/babel` dan `@intlayer/swc`.
 > Saat dioptimalkan, Intlayer akan mengganti panggilan kamus untuk mengoptimalkan chunking, sehingga bundel akhir hanya mengimpor kamus yang benar-benar digunakan.
 
 #### Properti
+
+- **mode**:
+  - _Tipe_: `'auto' | 'manual'`
+  - _Default_: `'auto'`
+  - _Deskripsi_: Mengontrol mode build.
+  - _Contoh_: `'manual'`
+  - _Catatan_: Jika 'auto', build akan diaktifkan secara otomatis saat aplikasi dibangun.
+  - _Catatan_: Jika 'manual', build akan disetel hanya ketika perintah build dieksekusi.
+  - _Catatan_: Dapat digunakan untuk menonaktifkan build kamus, misalnya ketika eksekusi di lingkungan Node.js harus dihindari.
 
 - **optimize**:
   - _Tipe_: `boolean`

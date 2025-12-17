@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.0
+    date: 2025-12-17
+    changes: 添加 `buildMode` 选项
   - version: 6.0.0
     date: 2025-09-16
     changes: 添加 `live` 导入模式
@@ -527,6 +530,15 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择。目前支持�
 > 在优化模式下，Intlayer 会替换字典调用以优化代码分块，因此最终打包只会导入实际使用的字典。
 
 #### 属性
+
+- **mode**：
+  - _类型_：`'auto' | 'manual'`
+  - _默认值_：`'auto'`
+  - _描述_：控制构建的模式。
+  - _示例_：`'manual'`
+  - _注意_：如果为 'auto'，构建将在应用程序构建时自动启用。
+  - _注意_：如果为 'manual'，构建仅在执行构建命令时设置。
+  - _注意_：可用于禁用字典构建，例如当应避免在 Node.js 环境中执行时。
 
 - **optimize**：
   - _类型_：`boolean`
