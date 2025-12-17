@@ -11,9 +11,7 @@ import {
   dehydrate,
   QueryClient,
 } from '@tanstack/react-query';
-import { cn } from '@utils/cn';
 import type { LocalesValues } from 'intlayer';
-import { Inter } from 'next/font/google';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
@@ -22,12 +20,6 @@ import { getServerIntlayerAPI } from '@/utils/getServerIntlayerAPI';
 import { getSessionData } from '@/utils/getSessionData';
 import { DashboardHydrationBoundary } from './DashboardHydrationBoundary';
 import { WarmupClient } from './dashboard/WarmupClient';
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  preload: true,
-});
 
 export const runtime = 'nodejs'; // ensure Node runtime
 export const dynamic = 'force-dynamic'; // make sure request cookies are read
@@ -128,10 +120,7 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
       locale={locale}
       navbar={<DashboardNavbar />}
       footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
-      className={cn(
-        'dashboard-theme h-screen max-h-screen bg-card md:overflow-hidden',
-        inter.className
-      )}
+      className="dashboard-theme h-screen max-h-screen bg-card md:overflow-hidden"
       mainClassName="md:min-h-0"
       htmlProps={{
         style: { fontSize: '75%' },

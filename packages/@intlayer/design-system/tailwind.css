@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Figtree Variable", sans-serif;
+  --font-sans: "Inter", sans-serif;
 
   --color-background: rgba(255, 255, 255);
   --color-background-opposite: rgba(18, 18, 18);
@@ -118,7 +118,7 @@
 
 :root,
 [data-theme="light"] {
-  --font-sans: "Figtree Variable", sans-serif;
+  --font-sans: "Inter", sans-serif;
 
   --color-background: rgba(255, 255, 255);
   --color-background-opposite: rgba(18, 18, 18);
@@ -151,7 +151,7 @@
 }
 
 [data-theme="dark"] {
-  --font-sans: "Figtree Variable", sans-serif;
+  --font-sans: "Inter", sans-serif;
 
   --color-background: rgba(23, 23, 23);
   --color-background-opposite: rgba(255, 255, 255);

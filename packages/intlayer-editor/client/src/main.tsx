@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
-import './assets/fonts/Figtree-VariableFont.ttf';
+import './assets/fonts/Inter-VariableFont.ttf';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(

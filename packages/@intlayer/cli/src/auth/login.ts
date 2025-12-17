@@ -102,7 +102,7 @@ export const login = async (options: LoginOptions) => {
                     --color-card: rgba(39, 39, 39);
                     --color-text: rgba(255, 245, 237);
                     --color-neutral: rgba(93, 93, 93);
-                    --font-sans: "Figtree Variable", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
                   }
                   
                   * {
