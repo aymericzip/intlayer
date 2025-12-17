@@ -103,7 +103,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                       label={switchTo({ locale: localeItem }).value}
                       href={pathWithoutLocale}
                       locale={localeItem}
-                      isActive={locale === localeItem}
+                      isActive={locale === localeItem} // Add aria-current="page" for accessibility
                       variant="hoverable"
                       color="text"
                       replace // Will ensure that the "go back" browser button will redirect to the previous page
