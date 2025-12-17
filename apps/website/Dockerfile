@@ -93,7 +93,7 @@ WORKDIR /workspace/apps/website
 ENV NODE_ENV=production
 
 # Build the Next.js website
-RUN bun x next build
+RUN bun x next build && bun scripts/generate-sw.ts
 
 WORKDIR /workspace
 
