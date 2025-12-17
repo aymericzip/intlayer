@@ -125,7 +125,7 @@ export const viewport: Viewport = {
   ],
   width: 'device-width',
   height: 'device-height',
-  initialScale: 0.7,
+  initialScale: 1,
   // minimumScale: 3,
   // maximumScale: 3,
   // userScalable: true,
