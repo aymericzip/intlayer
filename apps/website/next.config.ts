@@ -115,30 +115,10 @@ const secureHeaders = {
   referrerPolicy: 'same-origin',
 } as const;
 
-const headersList = [
+const globalHeaders = [
   {
     key: 'Cache-Control',
     value: 'public, max-age=60, stale-while-revalidate=30',
-  },
-  {
-    // Apply these headers to all routes in your assets folder
-    source: '/assets/:path*',
-    headers: [
-      {
-        key: 'Cache-Control',
-        value: 'public, max-age=31536000, immutable',
-      },
-    ],
-  },
-  {
-    // Matching specific file extensions directly if they are in root or subfolders
-    source: '/:path*(.mp4|.webp|.png|.jpg)',
-    headers: [
-      {
-        key: 'Cache-Control',
-        value: 'public, max-age=31536000, immutable',
-      },
-    ],
   },
   { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
   { key: 'Cross-Origin-Embedder-Policy', value: 'same-origin' },
@@ -158,9 +138,12 @@ const headersList = [
     key: 'Permissions-Policy',
     value: 'fullscreen=(self)',
   },
-] as const;
+];
 
-const defaultHeaders = [...createSecureHeaders(secureHeaders), ...headersList];
+const defaultHeaders = [
+  ...createSecureHeaders(secureHeaders),
+  ...globalHeaders,
+];
 
 const dashboardHeaders = [
   ...createSecureHeaders({
@@ -175,7 +158,7 @@ const dashboardHeaders = [
       },
     },
   }),
-  ...headersList,
+  ...globalHeaders,
 ];
 
 const scannerHeaders = [
@@ -190,7 +173,7 @@ const scannerHeaders = [
       },
     },
   }),
-  ...headersList,
+  ...globalHeaders,
 ];
 
 const nextConfig: NextConfig = {
@@ -241,21 +224,40 @@ const nextConfig: NextConfig = {
   },
 
   headers: () => [
-    // 1. Catch-all FIRST
+    // Catch-all FIRST
     {
       // All page routes, not the api ones
       source: '/:path((?!api).*)*',
       headers: defaultHeaders,
     },
-    // 2. Scanner overrides catch-all
+    // Scanner overrides catch-all
     {
       source: '/:locale/i18n-seo-scanner',
       headers: scannerHeaders,
     },
-    // 3. Dashboard overrides both
+    // Dashboard overrides both
     {
       source: '/:locale/dashboard/:path*',
       headers: dashboardHeaders,
+    },
+    // Static asset caching (more specific, so placed after general routes)
+    {
+      source: '/assets/:path*',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'public, max-age=31536000, immutable',
+        },
+      ],
+    },
+    {
+      source: '/:path*(.mp4|.webp|.png|.jpg)',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'public, max-age=31536000, immutable',
+        },
+      ],
     },
   ],
   async redirects() {
