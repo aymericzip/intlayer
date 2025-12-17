@@ -6,9 +6,9 @@ import { intlayerPolyfill } from './intlayerPolyfill';
 
 intlayerPolyfill();
 
-type IntlayerProviderProps = Pick<
+type IntlayerProviderProps = Omit<
   IntlayerProviderPropsBase,
-  'children' | 'defaultLocale'
+  'disableEditor' | 'isCookieEnabled'
 >;
 
 export const IntlayerProvider = ({
