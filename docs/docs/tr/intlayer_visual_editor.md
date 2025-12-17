@@ -24,7 +24,7 @@ history:
 
 # Intlayer Görsel Düzenleyici Dokümantasyonu
 
-<iframe title="Web Uygulamanız İçin Görsel Düzenleyici + CMS: Intlayer Açıklaması" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Web Uygulamanız İçin Görsel Düzenleyici + CMS: Intlayer Açıklaması" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Intlayer Görsel Düzenleyici, web sitenizi bir iframe içine sararak içerik bildirim dosyalarınızla görsel düzenleyici kullanarak etkileşim kurmanıza olanak tanıyan bir araçtır.
 

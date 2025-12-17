@@ -31,7 +31,7 @@ history:
 
 # Intlayer 콘텐츠 관리 시스템(CMS) 문서
 
-<iframe title="웹 앱을 위한 비주얼 에디터 + CMS: Intlayer 설명" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="웹 앱을 위한 비주얼 에디터 + CMS: Intlayer 설명" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Intlayer CMS는 Intlayer 프로젝트의 콘텐츠를 외부화할 수 있게 해주는 애플리케이션입니다.
 

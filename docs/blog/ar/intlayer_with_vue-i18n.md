@@ -27,7 +27,7 @@ history:
 
 # التدويل في Vue.js (i18n) باستخدام vue-i18n و Intlayer
 
-<iframe title="كيفية أتمتة ترجمات JSON الخاصة بـ vue-i18n باستخدام Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="كيفية أتمتة ترجمات JSON الخاصة بـ vue-i18n باستخدام Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## جدول المحتويات
 

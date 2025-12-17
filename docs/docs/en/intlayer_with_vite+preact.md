@@ -1467,8 +1467,7 @@ import { useLocale, useLocation, route } from "preact-intlayer"; // Assuming use
 import type { JSX } from "preact"; // For HTMLAttributes
 import { forwardRef } from "preact/compat"; // For forwarding refs
 
-export interface LocalizedLinkProps
-  extends JSX.HTMLAttributes<HTMLAnchorElement> {
+export interface LocalizedLinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   replace?: boolean; // Optional: to replace history state
 }

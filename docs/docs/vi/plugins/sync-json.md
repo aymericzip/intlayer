@@ -34,7 +34,7 @@ history:
 
 # Đồng bộ JSON (cầu nối i18n) - Đồng bộ JSON với hỗ trợ ICU / i18next
 
-<iframe title="Cách giữ bản dịch JSON của bạn đồng bộ với Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Cách giữ bản dịch JSON của bạn đồng bộ với Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Sử dụng Intlayer như một tiện ích bổ sung cho bộ công cụ i18n hiện có của bạn. Plugin này giữ cho các thông điệp JSON của bạn đồng bộ với từ điển Intlayer để bạn có thể:
 

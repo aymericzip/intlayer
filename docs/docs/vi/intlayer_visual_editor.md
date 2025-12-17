@@ -33,7 +33,7 @@ history:
 
 # Tài liệu Trình chỉnh sửa trực quan Intlayer
 
-<iframe title="Trình chỉnh sửa trực quan + CMS cho ứng dụng web của bạn: Giải thích Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Trình chỉnh sửa trực quan + CMS cho ứng dụng web của bạn: Giải thích Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Trình chỉnh sửa trực quan Intlayer là một công cụ bao bọc trang web của bạn để tương tác với các tệp khai báo nội dung của bạn bằng cách sử dụng trình chỉnh sửa trực quan.
 

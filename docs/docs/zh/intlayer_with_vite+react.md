@@ -47,7 +47,7 @@ history:
 <Tab defaultTab="video">
   <TabItem label="视频" value="video">
   
-<iframe title="Vite 和 React 最佳的国际化解决方案？探索 Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+<iframe title="Vite 和 React 最佳的国际化解决方案？探索 Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
   </TabItem>
   <TabItem label="代码" value="code">

@@ -31,7 +31,7 @@ history:
 
 # Intlayer 内容管理系统（CMS）文档
 
-<iframe title="适用于您的 Web 应用的可视化编辑器 + CMS：Intlayer 详解" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="适用于您的 Web 应用的可视化编辑器 + CMS：Intlayer 详解" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Intlayer CMS 是一个应用程序，允许您将 Intlayer 项目的内容外部化。
 

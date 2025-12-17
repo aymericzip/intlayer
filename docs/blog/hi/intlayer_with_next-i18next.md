@@ -27,7 +27,7 @@ history:
 
 # next-i18next और Intlayer के साथ Next.js अंतरराष्ट्रीयकरण (i18n)
 
-<iframe title="Intlayer का उपयोग करके अपने next-i18next JSON अनुवादों को स्वचालित कैसे करें" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Intlayer का उपयोग करके अपने next-i18next JSON अनुवादों को स्वचालित कैसे करें" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## सामग्री सूची
 

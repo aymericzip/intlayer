@@ -34,7 +34,7 @@ history:
 
 # Sync JSON (i18n 브리지) - ICU / i18next 지원이 포함된 Sync JSON
 
-<iframe title="Intlayer와 JSON 번역을 동기화 상태로 유지하는 방법" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Intlayer와 JSON 번역을 동기화 상태로 유지하는 방법" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 기존 i18n 스택에 Intlayer를 애드온으로 사용하세요. 이 플러그인은 JSON 메시지를 Intlayer 사전과 동기화하여 다음을 할 수 있습니다:
 

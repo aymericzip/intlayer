@@ -34,7 +34,7 @@ history:
 
 # مزامنة JSON (جسور التدويل) - مزامنة JSON مع دعم ICU / i18next
 
-<iframe title="كيفية الحفاظ على مزامنة ترجمات JSON الخاصة بك مع Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="كيفية الحفاظ على مزامنة ترجمات JSON الخاصة بك مع Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 استخدم Intlayer كمكون إضافي إلى نظام التدويل (i18n) الحالي لديك. يحافظ هذا المكون على مزامنة رسائل JSON الخاصة بك مع قواميس Intlayer بحيث يمكنك:
 

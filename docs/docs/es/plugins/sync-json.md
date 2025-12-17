@@ -34,7 +34,7 @@ history:
 
 # Sincronización JSON (puentes i18n) - Sincronización JSON con soporte ICU / i18next
 
-<iframe title="Cómo mantener tus traducciones JSON sincronizadas con Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Cómo mantener tus traducciones JSON sincronizadas con Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Usa Intlayer como un complemento para tu stack i18n existente. Este plugin mantiene tus mensajes JSON sincronizados con los diccionarios de Intlayer para que puedas:
 

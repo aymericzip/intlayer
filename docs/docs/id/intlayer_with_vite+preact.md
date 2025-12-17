@@ -1510,8 +1510,7 @@ import { forwardRef } from "preact/compat";
 /**
  * Props untuk LocalizedLink - mewarisi atribut anchor + beberapa properti ekstra.
  */
-export interface LocalizedLinkProps
-  extends JSX.HTMLAttributes<HTMLAnchorElement> {
+export interface LocalizedLinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   replace?: boolean; // Opsional: untuk mengganti state history
 }

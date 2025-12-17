@@ -34,7 +34,7 @@ history:
 
 # Sync JSON (i18n-Brücken) - Sync JSON mit ICU / i18next-Unterstützung
 
-<iframe title="Wie Sie Ihre JSON-Übersetzungen mit Intlayer synchronisiert halten" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Wie Sie Ihre JSON-Übersetzungen mit Intlayer synchronisiert halten" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Verwenden Sie Intlayer als Ergänzung zu Ihrem bestehenden i18n-Stack. Dieses Plugin hält Ihre JSON-Nachrichten mit den Intlayer-Wörterbüchern synchron, sodass Sie:
 

@@ -33,7 +33,7 @@ history:
 
 # Dokumentasi Intlayer Visual Editor
 
-<iframe title="Editor Visual + CMS untuk Aplikasi Web Anda: Penjelasan Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Editor Visual + CMS untuk Aplikasi Web Anda: Penjelasan Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Intlayer Visual Editor adalah alat yang akan membungkus situs web Anda untuk berinteraksi dengan file deklarasi konten Anda menggunakan editor visual.
 

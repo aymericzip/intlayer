@@ -25,7 +25,7 @@ history:
 
 # 使用Intlayer翻译您的Next.js 15 | 国际化(i18n)
 
-<iframe title="Next.js 最佳国际化解决方案？探索 Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Next.js 最佳国际化解决方案？探索 Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-next-15-template)。
 

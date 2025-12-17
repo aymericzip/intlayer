@@ -31,7 +31,7 @@ history:
 
 # Documentation du Système de Gestion de Contenu (CMS) Intlayer
 
-<iframe title="Éditeur Visuel + CMS pour votre application Web : Intlayer expliqué" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Éditeur Visuel + CMS pour votre application Web : Intlayer expliqué" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Le CMS Intlayer est une application qui vous permet d'externaliser le contenu d'un projet Intlayer.
 

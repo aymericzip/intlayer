@@ -21,7 +21,7 @@ export const DemoYoutube: FC = () => {
   )}&controls=0&rel=1`;
 
   return (
-    <div className="m-auto aspect-video w-full overflow-hidden rounded-lg border-0">
+    <div className="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0">
       {isLoaded ? (
         <iframe
           title="Demo YouTube - How to Internationalize your application using Intlayer"

@@ -1503,8 +1503,7 @@ import { forwardRef } from "preact/compat";
 export const checkIsExternalLink = (href?: string) =>
   /^https?:\/\//.test(href ?? "");
 
-export interface LocalizedLinkProps
-  extends JSX.HTMLAttributes<HTMLAnchorElement> {
+export interface LocalizedLinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   replace?: boolean;
 }

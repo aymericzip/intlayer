@@ -1505,8 +1505,7 @@ import { useLocale, useLocation, route } from "preact-intlayer"; // Zakładając
 import type { JSX } from "preact"; // Dla HTMLAttributes
 import { forwardRef } from "preact/compat"; // Dla przekazywania referencji
 
-export interface LocalizedLinkProps
-  extends JSX.HTMLAttributes<HTMLAnchorElement> {
+export interface LocalizedLinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   replace?: boolean; // Opcjonalne: do zastąpienia stanu historii
 }

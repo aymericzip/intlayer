@@ -25,7 +25,7 @@ history:
 
 # Traduce tu Next.js 15 con Intlayer | Internacionalización (i18n)
 
-<iframe title="¿La mejor solución i18n para Next.js? Descubre Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="¿La mejor solución i18n para Next.js? Descubre Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Consulta la [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-next-15-template) en GitHub.
 

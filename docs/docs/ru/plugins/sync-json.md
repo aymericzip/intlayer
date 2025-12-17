@@ -34,7 +34,7 @@ history:
 
 # Синхронизация JSON (мосты i18n) - Синхронизация JSON с поддержкой ICU / i18next
 
-<iframe title="Как поддерживать синхронизацию ваших JSON-переводов с Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Как поддерживать синхронизацию ваших JSON-переводов с Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Используйте Intlayer в качестве дополнения к вашему существующему стеку i18n. Этот плагин поддерживает синхронизацию ваших JSON-сообщений со словарями Intlayer, чтобы вы могли:
 
