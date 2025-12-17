@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/vue-transformer",
-  "version": "7.5.0-canary.0",
+  "version": "7.5.0-canary.1",
   "private": false,
   "description": "A transformer for Intlayer that extract strings from Vue components.",
   "keywords": [
