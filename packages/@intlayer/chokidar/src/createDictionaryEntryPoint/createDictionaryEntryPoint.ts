@@ -13,6 +13,7 @@ import { getBuiltUnmergedDictionariesPath } from './getBuiltUnmergedDictionaries
 const writeDictionaryFiles = async (
   paths: Promise<string[]>,
   fileName: string,
+  importType: 'json' | 'javascript',
   functionName: string,
   format: 'cjs' | 'esm',
   configuration = getConfiguration()
@@ -20,6 +21,7 @@ const writeDictionaryFiles = async (
   const content = generateDictionaryListContent(
     await paths,
     functionName,
+    importType,
     format,
     configuration
   );
@@ -46,41 +48,68 @@ export const createDictionaryEntryPoint = async (
   await mkdir(mainDir, { recursive: true });
 
   const writeOperations = [
-    ...outputFormats.map((format) => ({
-      paths: getBuiltRemoteDictionariesPath(configuration),
-      functionName: 'getRemoteDictionaries',
-      fileName: 'remote_dictionaries' as const,
-      format,
-    })),
-    ...outputFormats.map((format) => ({
-      paths: getBuiltDictionariesPath(configuration),
-      functionName: 'getDictionaries',
-      fileName: 'dictionaries' as const,
-      format,
-    })),
-    ...outputFormats.map((format) => ({
-      paths: getBuiltUnmergedDictionariesPath(configuration),
-      functionName: 'getUnmergedDictionaries',
-      fileName: 'unmerged_dictionaries' as const,
-      format,
-    })),
-    ...outputFormats.map((format) => ({
-      paths: getBuiltDynamicDictionariesPath(configuration, format),
-      functionName: 'getDynamicDictionaries',
-      fileName: 'dynamic_dictionaries' as const,
-      format,
-    })),
-    ...outputFormats.map((format) => ({
-      paths: getBuiltFetchDictionariesPath(configuration, format),
-      functionName: 'getFetchDictionaries',
-      fileName: 'fetch_dictionaries' as const,
-      format,
-    })),
+    ...outputFormats.map(
+      (format) =>
+        ({
+          paths: getBuiltDictionariesPath(configuration),
+          importType: 'json',
+          functionName: 'getDictionaries',
+          fileName: 'dictionaries' as const,
+          format,
+        }) as const
+    ),
+    ...outputFormats.map(
+      (format) =>
+        ({
+          paths: getBuiltUnmergedDictionariesPath(configuration),
+          importType: 'json',
+          functionName: 'getUnmergedDictionaries',
+          fileName: 'unmerged_dictionaries' as const,
+          format,
+        }) as const
+    ),
+    ...outputFormats.map(
+      (format) =>
+        ({
+          paths: getBuiltDynamicDictionariesPath(configuration, format),
+          importType: 'javascript',
+          functionName: 'getDynamicDictionaries',
+          fileName: 'dynamic_dictionaries' as const,
+          format,
+        }) as const
+    ),
+    ...outputFormats.map(
+      (format) =>
+        ({
+          paths: getBuiltFetchDictionariesPath(configuration, format),
+          importType: 'javascript',
+          functionName: 'getFetchDictionaries',
+          fileName: 'fetch_dictionaries' as const,
+          format,
+        }) as const
+    ),
+    ...outputFormats.map(
+      (format) =>
+        ({
+          paths: getBuiltRemoteDictionariesPath(configuration),
+          importType: 'json',
+          functionName: 'getRemoteDictionaries',
+          fileName: 'remote_dictionaries' as const,
+          format,
+        }) as const
+    ),
   ];
 
   await parallelize(
     writeOperations,
-    async ({ paths, fileName, format, functionName }) =>
-      writeDictionaryFiles(paths, fileName, functionName, format, configuration)
+    async ({ paths, fileName, format, functionName, importType }) =>
+      writeDictionaryFiles(
+        paths,
+        fileName,
+        importType,
+        functionName,
+        format,
+        configuration
+      )
   );
 };

@@ -8,6 +8,7 @@ import { getFileHash } from '../utils/getFileHash';
 export const generateDictionaryListContent = (
   dictionaries: string[],
   functionName: string,
+  importType: 'json' | 'javascript',
   format: 'cjs' | 'esm' = 'esm',
   configuration = getConfiguration()
 ): string => {
@@ -24,7 +25,7 @@ export const generateDictionaryListContent = (
   // Import all dictionaries
   dictionariesRef.forEach((dictionary) => {
     if (format === 'esm')
-      content += `import ${dictionary.hash} from '${dictionary.relativePath}' with { type: 'json' };\n`;
+      content += `import ${dictionary.hash} from '${dictionary.relativePath}'${importType === 'json' ? " with { type: 'json' }" : ''};\n`;
     if (format === 'cjs')
       content += `const ${dictionary.hash} = require('${dictionary.relativePath}');\n`;
   });
