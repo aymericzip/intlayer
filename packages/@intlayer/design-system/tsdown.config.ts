@@ -1,6 +1,6 @@
 import svgr from '@svgr/rollup';
 import { getOptions } from '@utils/tsdown-config';
-import { defineConfig, type Options } from 'tsdown';
+import { defineConfig, type UserConfig } from 'tsdown';
 
 // Plugin to inject React import into SVG files that use React.createElement
 const injectReactPlugin = () => ({
@@ -33,7 +33,7 @@ const injectReactPlugin = () => ({
   },
 });
 
-const options: Options[] = getOptions({
+const options: UserConfig[] = getOptions({
   all: {
     platform: 'neutral',
     plugins: [

@@ -16,10 +16,8 @@ export const VisualEditorSection: FC<VisualEditorSectionProps> = ({
   const { availableLocales } = useLocale();
   const [isControlled, setIsControlled] = useState(false);
   const [locale, setLocale] = useState<string>(Locales.ENGLISH);
-  const { title, paragraph, selectPlaceholder } = useIntlayer(
-    'compiler-section',
-    locale
-  );
+  const { title, paragraph, selectPlaceholder, localeSelectorTrigger } =
+    useIntlayer('compiler-section', locale);
 
   useEffect(() => {
     if (isControlled) return;
@@ -49,7 +47,10 @@ export const VisualEditorSection: FC<VisualEditorSectionProps> = ({
             setLocale(value);
           }}
         >
-          <Select.Trigger className="ml-auto py-1 text-sm">
+          <Select.Trigger
+            className="ml-auto py-1 text-sm"
+            aria-label={localeSelectorTrigger.value}
+          >
             <Select.Value placeholder={selectPlaceholder.value} />
           </Select.Trigger>
           <Select.Content>

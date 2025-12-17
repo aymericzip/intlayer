@@ -1,4 +1,5 @@
 import type { FC, PropsWithChildren } from 'react';
+
 import '@/globals.css';
 import '@/shiki.css';
 

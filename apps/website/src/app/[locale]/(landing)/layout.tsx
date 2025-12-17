@@ -3,7 +3,12 @@ import { PageLayout } from '@layouts/PageLayout';
 import { Figtree } from 'next/font/google';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 
-const figtree = Figtree({ subsets: ['latin'] });
+const figtree = Figtree({
+  subsets: ['latin'],
+  weight: ['400', '600'],
+  display: 'swap',
+  preload: true,
+});
 
 const LandingLayout: NextLayoutIntlayer<{
   isSpecial: boolean;

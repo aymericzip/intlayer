@@ -5,6 +5,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';
 import { Input } from '../Input';
@@ -88,6 +89,7 @@ export const Terminal: FC<TerminalProps> = ({
   onSubmit,
   ...props
 }) => {
+  const content = useIntlayer('terminal');
   const lines = useMemo(() => children.split('\n'), [children]);
   const [inputValue, setInputValue] = useState('');
 
@@ -128,7 +130,7 @@ export const Terminal: FC<TerminalProps> = ({
                 type="button"
                 onClick={onClose}
                 className="text-neutral transition-colors hover:text-text"
-                aria-label="Close tab"
+                aria-label={content.closeTab.value}
               >
                 ×
               </button>
@@ -170,6 +172,7 @@ export const Terminal: FC<TerminalProps> = ({
           className="m-0.5 w-full"
           variant="invisible"
           value={inputValue}
+          aria-label={content.terminalInput.value}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
         />

@@ -113,12 +113,32 @@ const secureHeaders = {
       }
     : {}),
   referrerPolicy: 'same-origin',
-};
+} as const;
 
 const headersList = [
   {
     key: 'Cache-Control',
     value: 'public, max-age=60, stale-while-revalidate=30',
+  },
+  {
+    // Apply these headers to all routes in your assets folder
+    source: '/assets/:path*',
+    headers: [
+      {
+        key: 'Cache-Control',
+        value: 'public, max-age=31536000, immutable',
+      },
+    ],
+  },
+  {
+    // Matching specific file extensions directly if they are in root or subfolders
+    source: '/:path*(.mp4|.webp|.png|.jpg)',
+    headers: [
+      {
+        key: 'Cache-Control',
+        value: 'public, max-age=31536000, immutable',
+      },
+    ],
   },
   { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
   { key: 'Cross-Origin-Embedder-Policy', value: 'same-origin' },
@@ -138,7 +158,7 @@ const headersList = [
     key: 'Permissions-Policy',
     value: 'fullscreen=(self)',
   },
-];
+] as const;
 
 const defaultHeaders = [...createSecureHeaders(secureHeaders), ...headersList];
 

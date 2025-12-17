@@ -105,6 +105,8 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                       isActive={locale === localeItem}
                       variant="hoverable"
                       color="text"
+                      role="option"
+                      aria-selected={locale === localeItem}
                       replace // Will ensure that the "go back" browser button will redirect to the previous page
                       onClick={() => setLocale(localeItem)}
                     >

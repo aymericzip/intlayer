@@ -13,7 +13,7 @@
     "@astrojs/mdx": "4.3.12",
     "@astrojs/react": "4.4.2",
     "@astrojs/vue": "5.1.3",
-    "@tailwindcss/vite": "4.1.17",
+    "@tailwindcss/vite": "4.1.18",
     "@types/canvas-confetti": "1.9.0",
     "@types/react-dom": "19.2.3",
     "astro": "5.16.4",
