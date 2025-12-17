@@ -113,7 +113,7 @@ const secureHeaders = {
       }
     : {}),
   referrerPolicy: 'same-origin',
-} as const;
+} satisfies Parameters<typeof createSecureHeaders>[0];
 
 const globalHeaders = [
   {
@@ -184,10 +184,21 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: true,
   // cacheComponents: true,
   images: {
+    // Ensure long-lived caching for optimized remote images (e.g. YouTube thumbnails)
+    // This is a minimum TTL; upstream headers may be higher.
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'avatars.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'yt3.ggpht.com',
       },
     ],
   },
