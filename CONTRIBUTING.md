@@ -35,7 +35,7 @@ git clone git@github.com:{username}/intlayer.git
 #### Installing packages manager
 
 ```sh
-npm install -g bun@1.3.4
+npm install -g bun@1.3.5
 ```
 
 or visit [https://bun.com/docs/installation](https://bun.com/docs/installation) for installation instructions.

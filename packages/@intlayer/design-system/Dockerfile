@@ -5,7 +5,7 @@
 ########################
 FROM node:22-alpine AS builder
 
-RUN npm install -g bun@1.3.4
+RUN npm install -g bun@1.3.5
 
 RUN apk add --no-cache nodejs npm
 
@@ -72,7 +72,7 @@ RUN bun x storybook build --disable-telemetry
 ########################
 FROM node:22-alpine
 
-RUN npm install -g bun@1.3.4
+RUN npm install -g bun@1.3.5
 RUN apk add --no-cache curl
 
 WORKDIR /www
