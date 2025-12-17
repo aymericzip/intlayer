@@ -273,6 +273,16 @@ const nextConfig: NextConfig = {
         },
       ],
     },
+    // Ahrefs analytics script proxy - long cache for performance
+    {
+      source: '/proxy/ahrefs/analytics.js',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'public, max-age=86400, stale-while-revalidate=604800',
+        },
+      ],
+    },
   ],
   async redirects() {
     return [
@@ -290,6 +300,13 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return {
+      afterFiles: [
+        // Proxy Ahrefs analytics script for better caching control
+        {
+          source: '/proxy/ahrefs/analytics.js',
+          destination: 'https://analytics.ahrefs.com/analytics.js',
+        },
+      ],
       beforeFiles: [
         {
           source: '/:locale/doc/:path*.md',
