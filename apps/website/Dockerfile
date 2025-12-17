@@ -93,7 +93,7 @@ WORKDIR /workspace/apps/website
 ENV NODE_ENV=production
 
 # Build the Next.js website
-RUN bun x next build
+RUN bun run --bun next build
 
 WORKDIR /workspace
 
@@ -117,4 +117,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
     curl -f http://localhost:3000/doc/environment/nextjs || exit 1
 
 
-CMD ["bun", "x", "next", "start"] 
+CMD ["bun", "run", "--bun", "start"]
