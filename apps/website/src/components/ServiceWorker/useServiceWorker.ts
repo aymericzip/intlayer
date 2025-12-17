@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-const isActive = true || process.env.NODE_ENV === 'production';
+const isActive = process.env.NODE_ENV === 'production';
 
 /**
  * Hook to register the Serwist service worker.
@@ -16,7 +16,6 @@ export const useServiceWorker = () => {
     if ('serviceWorker' in navigator && isActive) {
       navigator.serviceWorker
         .register('/sw.js')
-        .then((registration) => console.log('SW Registered'))
         .catch((err) => console.error('SW Failed', err));
     }
   }, []);
