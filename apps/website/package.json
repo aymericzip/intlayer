@@ -35,7 +35,8 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "bun run --bun next build && bun scripts/generate-sw.ts",
+    "build": "bun run --bun next build",
+    "postbuild": "bun scripts/generate-sw.ts",
     "build:webpack": "bun run --bun next build --webpack",
     "dev": "intlayer watch --with 'next dev --turbopack'",
     "dev:webpack": "bun run --bun next dev --webpack",
