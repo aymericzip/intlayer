@@ -5,7 +5,6 @@ import type { NextLayoutIntlayer } from 'next-intlayer';
 
 const figtree = Figtree({
   subsets: ['latin'],
-  weight: ['400', '600'],
   display: 'swap',
   preload: true,
 });
