@@ -1,15 +1,18 @@
 'use client';
 
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { Select } from '../Select';
 import { useCodeContext } from './CodeContext';
 
 export const PackageManagerSelector: FC = () => {
   const { packageManager, setPackageManager } = useCodeContext();
+  const { packageManager: packageManagerContent } =
+    useIntlayer('code-selectors');
 
   return (
     <Select value={packageManager} onValueChange={setPackageManager}>
-      <Select.Trigger className="py-1">
+      <Select.Trigger className="py-1" aria-label={packageManagerContent.label}>
         <Select.Value placeholder="Package Manager" />
       </Select.Trigger>
       <Select.Content>

@@ -1,0 +1,76 @@
+import { type Dictionary, t } from 'intlayer';
+
+const selectorsContent = {
+  key: 'code-selectors',
+  content: {
+    packageManager: {
+      label: t({
+        en: 'Select package manager',
+        es: 'Seleccionar gestor de paquetes',
+        pt: 'Selecionar gerenciador de pacotes',
+        fr: 'Sélectionner le gestionnaire de paquets',
+        de: 'Paketmanager auswählen',
+        it: 'Seleziona il gestore dei pacchetti',
+        ja: 'パッケージマネージャーを選択',
+        ko: '패키지 관리자 선택',
+        zh: '选择包管理器',
+        hi: 'पैकेज प्रबंधक चुनें',
+        'en-GB': 'Select package manager',
+        ru: 'Выбрать менеджер пакетов',
+        ar: 'اختر مدير الحزم',
+        tr: 'Paket yöneticisi seç',
+        pl: 'Wybierz menedżera pakietów',
+        id: 'Pilih pengelola paket',
+        vi: 'Chọn trình quản lý gói',
+      }),
+    },
+    codeFormat: {
+      label: t({
+        en: 'Select code format',
+        es: 'Seleccionar formato de código',
+        pt: 'Selecionar formato de código',
+        fr: 'Sélectionner le format de code',
+        de: 'Code-Format auswählen',
+        it: 'Seleziona il formato del codice',
+        ja: 'コード形式を選択',
+        ko: '코드 형식 선택',
+        zh: '选择代码格式',
+        hi: 'कोड प्रारूप चुनें',
+        'en-GB': 'Select code format',
+        ru: 'Выбрать формат кода',
+        ar: 'اختر تنسيق الكود',
+        tr: 'Kod formatı seç',
+        pl: 'Wybierz format kodu',
+        id: 'Pilih format kode',
+        vi: 'Chọn định dạng mã',
+      }),
+    },
+    contentDeclarationFormat: {
+      label: t({
+        en: 'Select dictionary format',
+        es: 'Seleccionar formato de diccionario',
+        pt: 'Selecionar formato de dicionário',
+        fr: 'Sélectionner le format de dictionnaire',
+        de: 'Wörterbuchformat auswählen',
+        it: 'Seleziona il formato del dizionario',
+        ja: '辞書形式を選択',
+        ko: '사전 형식 선택',
+        zh: '选择字典格式',
+        hi: 'शब्दकोश प्रारूप चुनें',
+        'en-GB': 'Select dictionary format',
+        ru: 'Выбрать формат словаря',
+        ar: 'اختر تنسيق القاموس',
+        tr: 'Sözlük formatı seç',
+        pl: 'Wybierz format słownika',
+        id: 'Pilih format kamus',
+        vi: 'Chọn định dạng từ điển',
+      }),
+    },
+  },
+  title: 'Code selector accessibility labels',
+  description:
+    'Accessible labels for code block selector buttons used by screen readers.',
+  tags: ['accessibility', 'code block', 'design system'],
+} satisfies Dictionary;
+
+export default selectorsContent;
