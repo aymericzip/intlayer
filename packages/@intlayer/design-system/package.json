@@ -103,7 +103,7 @@
     "typecheck_": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@better-auth/passkey": "1.4.5",
+    "@better-auth/passkey": "1.4.7",
     "@better-auth/sso": "1.4.7",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
