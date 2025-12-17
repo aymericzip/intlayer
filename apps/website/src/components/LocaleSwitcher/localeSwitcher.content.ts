@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const localeSwitcherContent = {
   key: 'locale-switcher',
@@ -60,25 +60,27 @@ const localeSwitcherContent = {
       id: 'Daftar bahasa',
       vi: 'Danh sách ngôn ngữ',
     }),
-    switchTo: t({
-      ar: 'التبديل إلى',
-      de: 'Wechseln Sie zu',
-      en: 'Switch to',
-      'en-GB': 'Switch to',
-      es: 'Cambiar a',
-      fr: 'Passer à',
-      hi: 'स्विच करें',
-      it: 'Passa a',
-      ja: 'に切り替える',
-      ko: '전환',
-      pt: 'Mudar para',
-      ru: 'Переключиться на',
-      tr: 'Geçiş yap',
-      zh: '切换到',
-      pl: 'Zmień na',
-      id: 'Beralih ke',
-      vi: 'Chuyển sang',
-    }),
+    switchTo: insert(
+      t({
+        en: 'Switch to {{locale}}',
+        'en-GB': 'Switch to {{locale}}',
+        ar: 'التبديل إلى {{locale}}',
+        de: 'Zu {{locale}} wechseln',
+        es: 'Cambiar a {{locale}}',
+        fr: 'Passer à {{locale}}',
+        hi: '{{locale}} पर स्विच करें',
+        it: 'Passa a {{locale}}',
+        ja: '{{locale}} に切り替える',
+        ko: '{{locale}}로 전환',
+        pt: 'Mudar para {{locale}}',
+        ru: 'Переключиться на {{locale}}',
+        tr: "{{locale}}'ye geç",
+        zh: '切换到 {{locale}}',
+        pl: 'Przełącz na {{locale}}',
+        id: 'Beralih ke {{locale}}',
+        vi: 'Chuyển sang {{locale}}',
+      })
+    ),
     searchInput: {
       text: t({
         en: 'Search Locale',

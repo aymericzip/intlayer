@@ -80,10 +80,8 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           <Container
             className="max-h-[80vh] min-w-28 border border-text/5"
             separator="y"
-            role="listbox"
             roundedSize="xl"
             transparency="sm"
-            aria-label={languageListLabel.value}
           >
             <div className="p-3">
               <Input
@@ -94,19 +92,20 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                 ref={inputRef}
               />
             </div>
-            <ol className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
+            <ul
+              className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1"
+              aria-label={languageListLabel.value}
+            >
               {searchResults.map(
                 ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
                   <li className="py-1 pr-3" key={localeItem}>
                     <Link
-                      label={`${switchTo.value} ${currentLocaleName}`}
+                      label={switchTo({ locale: localeItem }).value}
                       href={pathWithoutLocale}
                       locale={localeItem}
                       isActive={locale === localeItem}
                       variant="hoverable"
                       color="text"
-                      role="option"
-                      aria-selected={locale === localeItem}
                       replace // Will ensure that the "go back" browser button will redirect to the previous page
                       onClick={() => setLocale(localeItem)}
                     >
@@ -130,7 +129,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                   </li>
                 )
               )}
-            </ol>
+            </ul>
           </Container>
         </DropDown.Panel>
       </DropDown>
