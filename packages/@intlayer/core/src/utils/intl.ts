@@ -79,7 +79,7 @@ const createCachedConstructor = <T extends new (...args: any[]) => any>(
       typeof (Intl as any)?.DisplayNames !== 'function'
     ) {
       if (process.env.NODE_ENV === 'development') {
-        console.warn(
+        throw new Error(
           [
             `// Intl.DisplayNames is not supported; falling back to raw locale (${locales}). `,
             `// Consider adding a polyfill as https://formatjs.io/docs/polyfills/intl-displaynames/`,
