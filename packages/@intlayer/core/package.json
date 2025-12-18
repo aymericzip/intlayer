@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/core",
-  "version": "7.5.0-canary.1",
+  "version": "7.5.0",
   "private": false,
   "description": "Includes core Intlayer functions like translation, dictionary, and utility functions shared across multiple packages.",
   "keywords": [

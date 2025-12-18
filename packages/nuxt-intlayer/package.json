@@ -1,6 +1,6 @@
 {
   "name": "nuxt-intlayer",
-  "version": "7.5.0-canary.1",
+  "version": "7.5.0",
   "private": false,
   "description": "Easily internationalize i18n your Nuxt applications with type-safe multilingual content management.",
   "keywords": [
