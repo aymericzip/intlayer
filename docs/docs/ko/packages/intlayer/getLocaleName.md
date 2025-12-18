@@ -19,6 +19,9 @@ slugs:
   - intlayer
   - getLocaleName
 history:
+  - version: 7.5.0
+    date: 2025-12-18
+    changes: React Native 및 구형 환경용 polyfills 추가
   - version: 5.5.10
     date: 2025-06-29
     changes: 초기 이력
@@ -33,7 +36,6 @@ history:
 ## 매개변수
 
 - `displayLocale: Locales`
-
   - **설명**: 대상 로케일의 이름이 표시될 로케일입니다.
   - **타입**: 유효한 로케일을 나타내는 열거형 또는 문자열입니다.
 
@@ -117,3 +119,17 @@ getLocaleName("unknown-locale"); // 출력: "Unknown locale"
 - 함수는 기본적으로 `displayLocale` 자신의 이름을 반환합니다.
 - **번역 누락:**
   - `localeNameTranslations`에 `targetLocale` 또는 특정 `displayLocale`에 대한 항목이 없으면, 함수는 `ownLocalesName`을 사용하거나 `"Unknown locale"`을 반환합니다.
+
+## React Native 및 구형 환경용 Polyfills
+
+`getLocaleName` 함수는 `Intl.DisplayNames` API에 의존하며, 이 API는 React Native나 구형 JavaScript 환경에서는 사용할 수 없습니다. 이러한 환경에서 `getLocaleName`을 사용하는 경우 polyfills를 추가해야 합니다.
+
+애플리케이션 초기에 polyfills를 가져오세요. 가능하면 진입점 파일(예: `index.js`, `App.tsx`, 또는 `main.tsx`)에서 수행하세요:
+
+```typescript
+import "intl";
+import "@formatjs/intl-locale/polyfill";
+import "@formatjs/intl-displaynames/polyfill";
+```
+
+자세한 내용은 [FormatJS polyfills 문서](https://formatjs.io/docs/polyfills/intl-displaynames/)를 참조하세요.

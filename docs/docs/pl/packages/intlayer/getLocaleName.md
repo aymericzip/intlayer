@@ -19,6 +19,9 @@ slugs:
   - intlayer
   - getLocaleName
 history:
+  - version: 7.5.0
+    date: 2025-12-18
+    changes: Dodaj polyfills dla React Native i starszych środowisk
   - version: 5.5.10
     date: 2025-06-29
     changes: Inicjalizacja historii
@@ -116,3 +119,17 @@ getLocaleName("unknown-locale"); // Wynik: "Unknown locale"
   - Funkcja domyślnie zwraca własną nazwę `displayLocale`.
 - **Brakujące tłumaczenia:**
   - Jeśli `localeNameTranslations` nie zawiera wpisu dla `targetLocale` lub konkretnego `displayLocale`, funkcja korzysta z `ownLocalesName` lub zwraca `"Unknown locale"`.
+
+## Polyfills dla React Native i starszych środowisk
+
+Funkcja `getLocaleName` zależy od API `Intl.DisplayNames`, które nie jest dostępne w React Native lub starszych środowiskach JavaScript. Jeśli używasz `getLocaleName` w tych środowiskach, musisz dodać polyfills.
+
+Zaimportuj polyfills wcześnie w swojej aplikacji, najlepiej w pliku punktu wejścia (np. `index.js`, `App.tsx` lub `main.tsx`):
+
+```typescript
+import "intl";
+import "@formatjs/intl-locale/polyfill";
+import "@formatjs/intl-displaynames/polyfill";
+```
+
+Aby uzyskać więcej szczegółów, zobacz [dokumentację polyfills FormatJS](https://formatjs.io/docs/polyfills/intl-displaynames/).

@@ -79,7 +79,7 @@ const createCachedConstructor = <T extends new (...args: any[]) => any>(
       typeof (Intl as any)?.DisplayNames !== 'function'
     ) {
       if (process.env.NODE_ENV === 'development') {
-        const messge = [
+        const message = [
           `// Intl.DisplayNames is not supported; falling back to raw locale (${locales}). `,
           `// Consider adding a polyfill as https://formatjs.io/docs/polyfills/intl-displaynames/`,
           ``,
@@ -99,8 +99,8 @@ const createCachedConstructor = <T extends new (...args: any[]) => any>(
           `import '@formatjs/intl-datetimeformat/locale-data/fr';`,
         ].join('\n');
 
-        console.warn(messge);
-        throw new Error(messge);
+        console.warn(message);
+        throw new Error(message);
       }
       return locales as any;
     }
