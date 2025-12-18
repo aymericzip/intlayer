@@ -89,9 +89,12 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
   ));
 
   return (
-    <nav>
+    <nav className="relative">
       <Container
-        className={cn('m-auto w-auto border-text/20 border-b p-4', className)}
+        className={cn(
+          'm-auto flex w-auto self-start border-text/20 border-b p-4',
+          className
+        )}
         roundedSize="none"
         transparency="full"
       >

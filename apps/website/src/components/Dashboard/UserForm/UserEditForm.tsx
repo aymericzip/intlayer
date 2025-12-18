@@ -225,63 +225,64 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
               <Form
                 schema={UserEditSchema}
                 onSubmitSuccess={onSubmitSuccess}
-                className="grid grid-cols-1 gap-4 md:grid-cols-2"
                 {...form}
               >
-                <Form.Input
-                  name="name"
-                  label={formLabels.name}
-                  placeholder={formLabels.namePlaceholder.value}
-                  isRequired
-                />
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <Form.Input
+                    name="name"
+                    label={formLabels.name}
+                    placeholder={formLabels.namePlaceholder.value}
+                    isRequired
+                  />
 
-                <Form.Input
-                  name="email"
-                  type="email"
-                  label={formLabels.email}
-                  placeholder={formLabels.emailPlaceholder.value}
-                  isRequired
-                />
+                  <Form.Input
+                    name="email"
+                    type="email"
+                    label={formLabels.email}
+                    placeholder={formLabels.emailPlaceholder.value}
+                    isRequired
+                  />
 
-                <Form.MultiSelect
-                  name="organizationIds"
-                  label={formLabels.organizations.value}
-                  placeholder={formLabels.organizationsPlaceholder.value}
-                  className="md:col-span-2"
-                >
-                  <MultiSelect.Trigger
-                    getBadgeValue={(value) => getOrganizationName(value)}
+                  <Form.MultiSelect
+                    name="organizationIds"
+                    label={formLabels.organizations.value}
+                    placeholder={formLabels.organizationsPlaceholder.value}
+                    className=""
                   >
-                    <MultiSelect.Input
-                      placeholder={formLabels.organizationsPlaceholder.value}
-                    />
-                  </MultiSelect.Trigger>
-                  <MultiSelect.Content>
-                    <MultiSelect.List>
-                      {organizations.map((org: any) => {
-                        const isLastMember = isLastMemberInOrg(org.id);
-                        return (
-                          <MultiSelect.Item key={org.id} value={org.id}>
-                            <div className="flex w-full items-center justify-between">
-                              <span>{org.name}</span>
-                              {isLastMember && (
-                                <Badge
-                                  variant={BadgeVariant.OUTLINE}
-                                  color={BadgeColor.DESTRUCTIVE}
-                                  className="ml-2 text-xs"
-                                >
-                                  {formLabels.lastMember}
-                                </Badge>
-                              )}
-                            </div>
-                          </MultiSelect.Item>
-                        );
-                      })}
-                    </MultiSelect.List>
-                  </MultiSelect.Content>
-                </Form.MultiSelect>
+                    <MultiSelect.Trigger
+                      getBadgeValue={(value) => getOrganizationName(value)}
+                    >
+                      <MultiSelect.Input
+                        placeholder={formLabels.organizationsPlaceholder.value}
+                      />
+                    </MultiSelect.Trigger>
+                    <MultiSelect.Content>
+                      <MultiSelect.List>
+                        {organizations.map((org: any) => {
+                          const isLastMember = isLastMemberInOrg(org.id);
+                          return (
+                            <MultiSelect.Item key={org.id} value={org.id}>
+                              <div className="flex w-full items-center justify-between">
+                                <span>{org.name}</span>
+                                {isLastMember && (
+                                  <Badge
+                                    variant={BadgeVariant.OUTLINE}
+                                    color={BadgeColor.DESTRUCTIVE}
+                                    className="ml-2 text-xs"
+                                  >
+                                    {formLabels.lastMember}
+                                  </Badge>
+                                )}
+                              </div>
+                            </MultiSelect.Item>
+                          );
+                        })}
+                      </MultiSelect.List>
+                    </MultiSelect.Content>
+                  </Form.MultiSelect>
+                </div>
 
-                <div className="grid grid-cols-1 gap-4 border-neutral-200 border-t pt-4 md:col-span-2 md:grid-cols-2 dark:border-neutral-700">
+                <div className="m-3 grid grid-cols-1 gap-4 border-neutral-200 border-t pt-4 md:col-span-2 md:grid-cols-2 dark:border-neutral-700">
                   <div>
                     <div className="mb-1 block font-medium text-neutral-600 text-sm dark:text-neutral-400">
                       {formLabels.createdAt}
@@ -313,7 +314,6 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
                     updateOrganizationMembersByIdMutation.isPending
                   }
                   color="text"
-                  className="md:col-span-2"
                 >
                   {formLabels.updateButton}
                 </Form.Button>

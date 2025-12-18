@@ -46,7 +46,7 @@ export const DiscussionAdminDetail: FC<DiscussionAdminDetailProps> = ({
   }));
 
   return (
-    <div className="flex size-full min-h-[700px] flex-col px-10">
+    <div className="flex size-full min-h-[700px] flex-col">
       {messages.length === 0 && !isPending ? (
         <div className="p-6 text-neutral-500 dark:text-neutral-400">
           {noDiscussionFound}

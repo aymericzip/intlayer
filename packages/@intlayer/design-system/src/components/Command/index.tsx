@@ -16,10 +16,7 @@ export const CommandRoot: FC<ComponentProps<typeof CommandPrimitive>> = ({
   ...props
 }) => (
   <CommandPrimitive
-    className={cn(
-      'flex size-full flex-col overflow-hidden rounded-md',
-      className
-    )}
+    className={cn('flex flex-col overflow-hidden rounded-md', className)}
     {...props}
   />
 );

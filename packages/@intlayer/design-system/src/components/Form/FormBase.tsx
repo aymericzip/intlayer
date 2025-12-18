@@ -67,7 +67,7 @@ export const Form = <T extends ZodObject>({
   return (
     <FormProvider {...props}>
       <form
-        className={cn('flex size-full flex-col gap-y-6', className)}
+        className={cn('flex flex-col gap-y-6', className)}
         onSubmit={props.handleSubmit(onSubmit)}
         autoComplete={autoComplete ? 'on' : 'off'}
         noValidate
