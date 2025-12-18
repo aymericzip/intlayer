@@ -13,7 +13,7 @@ export const DemoYoutube: FC = () => {
         className="h-full w-full"
         allow="autoplay; gyroscope;"
         loading="lazy"
-        src={`https://www.youtube.com/embed/${videoIdEN}?autoplay=1&controls=0&rel=1`}
+        src={`https://www.youtube.com/embed/${videoIdEN}`}
       />
     </div>
   );
