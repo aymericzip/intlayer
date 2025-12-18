@@ -37,9 +37,19 @@ import configuration from '@intlayer/config/built';
  */
 const getConfiguration = () => configuration;
 
+const locales = configuration.internationalization.locales;
+const requiredLocales = configuration.internationalization.requiredLocales;
+const defaultLocale = configuration.internationalization.defaultLocale;
+
 // Reexport here for CJS compatibility
 // Fix ReferenceError: Cannot access 'xxx' before initialization
-export { configuration, getConfiguration };
+export {
+  configuration,
+  getConfiguration,
+  locales,
+  requiredLocales,
+  defaultLocale,
+};
 
 export {
   compact,
