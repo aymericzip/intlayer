@@ -17,6 +17,8 @@ type Dir = 'ltr' | 'rtl' | 'auto';
  */
 export const getHTMLTextDir = (locale?: LocalesValues): Dir => {
   switch (locale) {
+    case Locales.HEBREW:
+    case Locales.HEBREW_ISRAEL:
     case Locales.ARABIC:
     case Locales.FARSI:
     case Locales.URDU:
