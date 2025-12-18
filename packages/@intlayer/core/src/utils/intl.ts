@@ -79,27 +79,28 @@ const createCachedConstructor = <T extends new (...args: any[]) => any>(
       typeof (Intl as any)?.DisplayNames !== 'function'
     ) {
       if (process.env.NODE_ENV === 'development') {
-        throw new Error(
-          [
-            `// Intl.DisplayNames is not supported; falling back to raw locale (${locales}). `,
-            `// Consider adding a polyfill as https://formatjs.io/docs/polyfills/intl-displaynames/`,
-            ``,
-            `import 'intl';`,
-            `import '@formatjs/intl-getcanonicallocales/polyfill';`,
-            `import '@formatjs/intl-locale/polyfill';`,
-            `import '@formatjs/intl-pluralrules/polyfill';`,
-            `import '@formatjs/intl-displaynames/polyfill';`,
-            `import '@formatjs/intl-listformat/polyfill';`,
-            `import '@formatjs/intl-numberformat/polyfill';`,
-            `import '@formatjs/intl-relativetimeformat/polyfill';`,
-            `import '@formatjs/intl-datetimeformat/polyfill';`,
-            ``,
-            `// Optionally add locale data`,
-            `import '@formatjs/intl-pluralrules/locale-data/fr';`,
-            `import '@formatjs/intl-numberformat/locale-data/fr';`,
-            `import '@formatjs/intl-datetimeformat/locale-data/fr';`,
-          ].join('\n')
-        );
+        const messge = [
+          `// Intl.DisplayNames is not supported; falling back to raw locale (${locales}). `,
+          `// Consider adding a polyfill as https://formatjs.io/docs/polyfills/intl-displaynames/`,
+          ``,
+          `import 'intl';`,
+          `import '@formatjs/intl-displaynames/polyfill';`,
+          `import '@formatjs/intl-getcanonicallocales/polyfill';`,
+          `import '@formatjs/intl-locale/polyfill';`,
+          `import '@formatjs/intl-pluralrules/polyfill';`,
+          `import '@formatjs/intl-listformat/polyfill';`,
+          `import '@formatjs/intl-numberformat/polyfill';`,
+          `import '@formatjs/intl-relativetimeformat/polyfill';`,
+          `import '@formatjs/intl-datetimeformat/polyfill';`,
+          ``,
+          `// Optionally add locale data`,
+          `import '@formatjs/intl-pluralrules/locale-data/fr';`,
+          `import '@formatjs/intl-numberformat/locale-data/fr';`,
+          `import '@formatjs/intl-datetimeformat/locale-data/fr';`,
+        ].join('\n');
+
+        console.warn(messge);
+        throw new Error(messge);
       }
       return locales as any;
     }
