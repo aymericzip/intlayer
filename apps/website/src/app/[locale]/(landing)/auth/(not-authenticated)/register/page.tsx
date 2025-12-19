@@ -16,7 +16,7 @@ const SignUpPageContent: FC = () => {
         <Container
           className="w-full max-w-md justify-center gap-16 p-10 text-2xl"
           padding="xl"
-          roundedSize="xl"
+          roundedSize="3xl"
           transparency="sm"
         >
           <div className="flex flex-col gap-3 text-center">
