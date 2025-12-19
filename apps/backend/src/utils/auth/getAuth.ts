@@ -216,7 +216,10 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           return null;
         },
       }),
-      passkey(),
+      passkey({
+        rpID: process.env.BACKEND_URL,
+        rpName: 'Intlayer',
+      }),
       twoFactor(),
       magicLink({
         sendMagicLink: async ({ email, url }) => {
