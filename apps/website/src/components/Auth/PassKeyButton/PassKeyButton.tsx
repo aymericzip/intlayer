@@ -1,28 +1,32 @@
 'use client';
 
 import { Button } from '@intlayer/design-system';
-import { useSession, useSignInPasskey } from '@intlayer/design-system/hooks';
+import {
+  useIsMounted,
+  useSession,
+  useSignInPasskey,
+} from '@intlayer/design-system/hooks';
 import { Key } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useEffect } from 'react';
+import type { FC } from 'react';
 
 export const PasskeyButton: FC = () => {
   const { revalidateSession } = useSession();
   const { mutate: signInPasskey, isPending } = useSignInPasskey();
   const { text, ariaLabel } = useIntlayer('passkey-button');
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      signInPasskey(
-        { autoFill: true },
-        {
-          onSuccess: () => revalidateSession(),
-        }
-      );
-    }, 100);
-
-    return () => clearTimeout(timeout);
-  }, []);
+  // useEffect(() => {
+  //   // Check if the browser supports WebAuthn and Conditional UI
+  //   signInPasskey(
+  //     { autoFill: true },
+  //     {
+  //       onSuccess: () => revalidateSession(),
+  //       onError: () => {
+  //         // No need to handle errors
+  //       },
+  //     }
+  //   );
+  // }, []);
 
   const handleSignIn = () => {
     signInPasskey(
