@@ -217,7 +217,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
         },
       }),
       passkey({
-        rpID: process.env.BACKEND_URL,
+        rpID: process.env.DOMAIN,
         rpName: 'Intlayer',
       }),
       twoFactor(),
