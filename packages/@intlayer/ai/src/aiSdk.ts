@@ -46,6 +46,17 @@ export enum AIProvider {
   GEMINI = 'gemini',
 }
 
+export type OpenAIProviderOptions = { 
+  baseURL:string
+};
+
+// Add provider options here.
+
+export type ProviderOptionsMap = {
+  [AIProvider.OPENAI]: OpenAIProviderOptions; 
+};
+
+
 export type ReasoningEffort = 'minimal' | 'low' | 'medium' | 'high' | 'none';
 
 /**
@@ -53,6 +64,7 @@ export type ReasoningEffort = 'minimal' | 'low' | 'medium' | 'high' | 'none';
  */
 export type AIOptions = {
   provider?: AIProvider;
+  options?: Partial<ProviderOptionsMap>;
   model?: Model;
   temperature?: number;
   apiKey?: string;
@@ -147,6 +159,7 @@ const getLanguageModel = (
     case AIProvider.OPENAI: {
       return createOpenAI({
         apiKey,
+        baseURL: aiOptions?.options?.[AIProvider.OPENAI]?.baseURL || "https://api.openai.com/v1"
       })(selectedModel);
     }
 
