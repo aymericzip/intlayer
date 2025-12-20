@@ -1,5 +1,4 @@
 import { type ContentNode, NodeType, type TypedNode } from '@intlayer/types';
-import { isValidElement } from '../utils/isValidReactElement';
 
 /**
  * Type guard to check if content is a TypedNode
@@ -36,10 +35,6 @@ export const getNodeType = (content: ContentNode): NodeType => {
 
   if (Array.isArray(content)) {
     return NodeType.Array;
-  }
-
-  if (isValidElement(content)) {
-    return NodeType.ReactNode;
   }
 
   if (typeof content === 'number') {

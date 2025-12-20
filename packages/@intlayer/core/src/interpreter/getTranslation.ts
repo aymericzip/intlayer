@@ -14,7 +14,7 @@ const isPlainObject = (value: unknown): boolean => {
     return false;
   }
 
-  // Don't process React elements
+  // Don't process non-plain objects
   if ((value as any).$$typeof !== undefined) {
     return false;
   }

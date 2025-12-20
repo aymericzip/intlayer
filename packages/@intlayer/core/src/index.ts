@@ -10,6 +10,5 @@ export * from './utils/checkIsURLAbsolute';
 export * from './utils/getCookie';
 export * from './utils/intl';
 export * from './utils/isSameKeyPath';
-export * from './utils/isValidReactElement';
 export * from './utils/localeStorage';
 export * from './utils/parseYaml';

@@ -27,8 +27,10 @@ export const removeContentNodeByKeyPath = (
 
     if (
       keyObj.type === NodeType.Markdown ||
-      keyObj.type === NodeType.ReactNode ||
-      keyObj.type === NodeType.Insertion ||
+      (keyObj.type !== NodeType.Object &&
+        keyObj.type !== NodeType.Array &&
+        keyObj.type !== NodeType.Nested &&
+        keyObj.type === NodeType.Insertion) ||
       keyObj.type === NodeType.File
     ) {
       lastKey = keyObj.type;

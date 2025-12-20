@@ -2766,6 +2766,7 @@ export const compiler = (
  * A simple HOC for easy React use. Feed the markdown content as a direct child
  * and the rest is taken care of automatically.
  */
+
 export const MarkdownProcessor: FC<
   Omit<HTMLAttributes<Element>, 'children'> & {
     children: string;
