@@ -55,7 +55,7 @@ export type AIOptions = {
   provider?: AIProvider;
   model?: Model;
   temperature?: number;
-  baseURL?:string
+  baseURL?: string;
   apiKey?: string;
   applicationContext?: string;
 };
@@ -144,39 +144,41 @@ const getLanguageModel = (
     defaultModel
   );
 
+  const baseURL = aiOptions.baseURL;
+
   switch (aiOptions.provider) {
     case AIProvider.OPENAI: {
       return createOpenAI({
         apiKey,
-        baseURL:aiOptions.baseURL
+        baseURL,
       })(selectedModel);
     }
 
     case AIProvider.ANTHROPIC: {
       return createAnthropic({
         apiKey,
-        baseURL:aiOptions.baseURL
+        baseURL,
       })(selectedModel);
     }
 
     case AIProvider.MISTRAL: {
       return createMistral({
         apiKey,
-        baseURL:aiOptions.baseURL
+        baseURL,
       })(selectedModel);
     }
 
     case AIProvider.DEEPSEEK: {
       return createDeepSeek({
         apiKey,
-        baseURL:aiOptions.baseURL
+        baseURL,
       })(selectedModel);
     }
 
     case AIProvider.GEMINI: {
       return createGoogleGenerativeAI({
         apiKey,
-        baseURL:aiOptions.baseURL
+        baseURL,
       })(selectedModel);
     }
 
