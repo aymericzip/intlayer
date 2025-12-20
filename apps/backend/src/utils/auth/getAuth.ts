@@ -307,6 +307,10 @@ export const getAuth = (dbClient: MongoClient): Auth => {
         clientId: process.env.LINKEDIN_CLIENT_ID as string,
         clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
       },
+      microsoft: {
+        clientId: process.env.MICROSOFT_CLIENT_ID as string,
+        clientSecret: process.env.MICROSOFT_CLIENT_SECRET as string,
+      },
       // socialProviders: {
       //   apple: {
       //     clientId: process.env.APPLE_CLIENT_ID as string,
