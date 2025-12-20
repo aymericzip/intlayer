@@ -515,6 +515,13 @@ Intlayer admite múltiples proveedores de IA para una mayor flexibilidad y elecc
   - _Por defecto_: Ninguno
   - _Descripción_: Proporciona contexto adicional sobre su aplicación al modelo de IA, ayudándole a generar traducciones más precisas y contextualmente apropiadas. Esto puede incluir información sobre el dominio de su aplicación, público objetivo, tono o terminología específica.
 
+- **baseURL**:
+  - _Tipo_: `string`
+  - _Por defecto_: Ninguno
+  - _Descripción_: La URL base para la API de IA.
+  - _Ejemplo_: `'https://api.openai.com/v1'`
+  - _Nota_: Puede usarse para apuntar a un endpoint de API de IA local o personalizado.
+
 ### Configuración de compilación
 
 Configuraciones que controlan cómo Intlayer optimiza y construye la internacionalización de su aplicación.

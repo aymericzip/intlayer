@@ -519,6 +519,13 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
   - _Default_: None
   - _Description_: Provides additional context about your application to the AI model, assisting it in generating more accurate and contextually appropriate translations. This can include information about your app's domain, target audience, tone, or specific terminology.
 
+- **baseURL**:
+  - _Type_: `string`
+  - _Default_: None
+  - _Description_: The base URL for the AI API.
+  - _Example_: `'https://api.openai.com/v1'`
+  - _Note_: Can be used to point to a local, or custom AI API endpoint.
+
 ### Build Configuration
 
 Settings that control how Intlayer optimises and builds your application's internationalisation.

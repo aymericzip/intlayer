@@ -517,6 +517,13 @@ Intlayer, artırılmış esneklik ve seçenek için birden fazla AI sağlayıcı
   - _Varsayılan_: Yok
   - _Açıklama_: AI modeline uygulamanız hakkında ek bağlam sağlar, böylece daha doğru ve bağlama uygun çeviriler oluşturmasına yardımcı olur. Bu, uygulamanızın alanı, hedef kitlesi, tonu veya belirli terminolojisi hakkında bilgiler içerebilir.
 
+- **baseURL**:
+  - _Tür_: `string`
+  - _Varsayılan_: Yok
+  - _Açıklama_: AI API için temel URL.
+  - _Örnek_: `'https://api.openai.com/v1'`
+  - _Not_: Yerel veya özel bir AI API uç noktasını işaret etmek için kullanılabilir.
+
 ### Derleme Yapılandırması
 
 Intlayer'ın uygulamanızın uluslararasılaştırmasını nasıl optimize edip derleyeceğini kontrol eden ayarlar.

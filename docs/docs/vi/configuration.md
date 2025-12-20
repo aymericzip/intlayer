@@ -657,6 +657,13 @@ Intlayer hỗ trợ nhiều nhà cung cấp AI để tăng tính linh hoạt và
   - _Mặc định_: Không có
   - _Mô tả_: Cung cấp bối cảnh bổ sung về ứng dụng của bạn cho mô hình AI, giúp nó tạo ra các bản dịch chính xác hơn và phù hợp với ngữ cảnh. Điều này có thể bao gồm thông tin về lĩnh vực ứng dụng, đối tượng mục tiêu, giọng điệu hoặc thuật ngữ cụ thể của bạn.
 
+- **baseURL**:
+  - _Kiểu_: `string`
+  - _Mặc định_: Không có
+  - _Mô tả_: URL cơ sở cho API AI.
+  - _Ví dụ_: `'https://api.openai.com/v1'`
+  - _Lưu ý_: Có thể được sử dụng để trỏ đến một điểm cuối API AI cục bộ hoặc tùy chỉnh.
+
 ### Cấu hình Build
 
 Các thiết lập kiểm soát cách Intlayer tối ưu hóa và xây dựng tính quốc tế hóa của ứng dụng bạn.

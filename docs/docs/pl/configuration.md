@@ -657,6 +657,13 @@ Intlayer obsługuje wielu dostawców AI, aby zapewnić większą elastyczność 
   - _Domyślnie_: Brak
   - _Opis_: Dostarcza dodatkowy kontekst dotyczący Twojej aplikacji dla modelu AI, pomagając mu generować dokładniejsze i kontekstowo odpowiednie tłumaczenia. Może to obejmować informacje o domenie aplikacji, docelowej grupie odbiorców, tonie lub specyficznej terminologii.
 
+- **baseURL**:
+  - _Typ_: `string`
+  - _Domyślnie_: Brak
+  - _Opis_: Podstawowy URL dla API AI.
+  - _Przykład_: `'https://api.openai.com/v1'`
+  - _Uwaga_: Może być używany do wskazania lokalnego lub niestandardowego punktu końcowego API AI.
+
 ### Konfiguracja Budowania
 
 Ustawienia kontrolujące, jak Intlayer optymalizuje i buduje internacjonalizację Twojej aplikacji.

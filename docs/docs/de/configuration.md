@@ -516,6 +516,13 @@ Intlayer unterstützt mehrere KI-Anbieter für erhöhte Flexibilität und Auswah
   - _Standard_: Keine
   - _Beschreibung_: Bietet dem KI-Modell zusätzlichen Kontext zu Ihrer Anwendung, um genauere und kontextuell passendere Übersetzungen zu erzeugen. Dies kann Informationen über die Domäne Ihrer App, die Zielgruppe, den Tonfall oder spezifische Terminologie umfassen.
 
+- **baseURL**:
+  - _Typ_: `string`
+  - _Standard_: Keine
+  - _Beschreibung_: Die Basis-URL für die KI-API.
+  - _Beispiel_: `'https://api.openai.com/v1'`
+  - _Hinweis_: Kann verwendet werden, um auf einen lokalen oder benutzerdefinierten KI-API-Endpunkt zu verweisen.
+
 ### Build-Konfiguration
 
 Einstellungen, die steuern, wie Intlayer die Internationalisierung Ihrer Anwendung optimiert und baut.

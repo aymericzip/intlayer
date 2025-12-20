@@ -515,6 +515,13 @@ Intlayer supporta più provider AI per una maggiore flessibilità e scelta. I pr
   - _Predefinito_: Nessuno
   - _Descrizione_: Fornisce un contesto aggiuntivo sulla tua applicazione al modello AI, aiutandolo a generare traduzioni più accurate e contestualmente appropriate. Questo può includere informazioni sul dominio della tua app, il pubblico target, il tono o terminologia specifica.
 
+- **baseURL**:
+  - _Tipo_: `string`
+  - _Predefinito_: Nessuno
+  - _Descrizione_: L'URL di base per l'API AI.
+  - _Esempio_: `'https://api.openai.com/v1'`
+  - _Nota_: Può essere utilizzato per puntare a un endpoint API AI locale o personalizzato.
+
 ### Configurazione della Build
 
 Impostazioni che controllano come Intlayer ottimizza e costruisce l'internazionalizzazione della tua applicazione.

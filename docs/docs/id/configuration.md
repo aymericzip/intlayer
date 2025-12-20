@@ -657,6 +657,13 @@ Intlayer mendukung beberapa provider AI untuk fleksibilitas dan pilihan yang leb
   - _Default_: Tidak ada
   - _Deskripsi_: Memberikan konteks tambahan tentang aplikasi Anda kepada model AI, membantu menghasilkan terjemahan yang lebih akurat dan sesuai konteks. Ini dapat mencakup informasi tentang domain aplikasi Anda, audiens target, nada, atau terminologi khusus.
 
+- **baseURL**:
+  - _Tipe_: `string`
+  - _Default_: Tidak ada
+  - _Deskripsi_: URL dasar untuk API AI.
+  - _Contoh_: `'https://api.openai.com/v1'`
+  - _Catatan_: Dapat digunakan untuk menunjuk ke endpoint API AI lokal atau kustom.
+
 ### Konfigurasi Build
 
 Pengaturan yang mengontrol bagaimana Intlayer mengoptimalkan dan membangun internasionalisasi aplikasi Anda.

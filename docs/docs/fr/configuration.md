@@ -519,6 +519,13 @@ Intlayer prend en charge plusieurs fournisseurs d'IA pour une flexibilité et un
   - _Par défaut_ : Aucun
   - _Description_ : Fournit un contexte supplémentaire sur votre application au modèle d'IA, l'aidant à générer des traductions plus précises et contextuellement appropriées. Cela peut inclure des informations sur le domaine de votre application, le public cible, le ton ou une terminologie spécifique.
 
+- **baseURL** :
+  - _Type_ : `string`
+  - _Par défaut_ : Aucun
+  - _Description_ : L'URL de base pour l'API d'IA.
+  - _Exemple_ : `'https://api.openai.com/v1'`
+  - _Note_ : Peut être utilisé pour pointer vers un point de terminaison d'API d'IA local ou personnalisé.
+
 ### Configuration de la compilation
 
 Paramètres qui contrôlent la manière dont Intlayer optimise et construit l'internationalisation de votre application.
