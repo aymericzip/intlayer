@@ -67,15 +67,10 @@ export interface AuthAPI {
     // Redeclare it because of type inference issues
     input: { email: string; callbackURL: string }
   ) => any;
-  signInSSOSAML: AuthClient['sso']['saml2']['sp']['metadata'];
-  signInSSOSAMLLogin: (input: {
-    providerId: string;
-    callbackURL?: string;
-  }) => Promise<{ url: string }>;
-  signInSSOOIDCLogin: (input: {
-    providerId: string;
-    callbackURL?: string;
-  }) => Promise<{ url: string }>;
+  registerSSO: AuthClient['sso']['register'];
+  listSSOProviders: () => Promise<any>;
+  deleteSSOProvider: (args: { providerId: string }) => Promise<any>;
+  signInSSO: AuthClient['signIn']['sso'];
 }
 
 export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
@@ -248,40 +243,24 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     });
   };
 
-  // it fix type inference issues
   const signInMagicLink: any = async (...args: any[]) => {
     return (client.signIn as any).magicLink(...args);
   };
 
-  // SSO methods
-  const signInSSOSAML: AuthClient['sso']['saml2']['sp']['metadata'] = async (
-    ...args
-  ) => {
-    return client.sso.saml2.sp.metadata(...args);
+  const signInSSO: AuthClient['signIn']['sso'] = async (...args) => {
+    return client.signIn.sso(...args);
   };
 
-  const signInSSOSAMLLogin = async (input: {
-    providerId: string;
-    callbackURL?: string;
-  }) => {
-    const result = await client.sso.saml2.sp.login({
-      providerId: input.providerId,
-      callbackURL: input.callbackURL,
-    });
-    return result;
+  const registerSSO: AuthClient['sso']['register'] = async (...args) => {
+    return client.sso.register(...args);
   };
 
-  const signInSSOOIDCLogin = async (input: {
-    providerId: string;
-    callbackURL?: string;
-  }) => {
-    // Use the SSO client's login method for OIDC
-    // @ts-ignore - oidc may not be typed in the SSO client
-    const result = await client.sso.oidc?.login?.({
-      providerId: input.providerId,
-      callbackURL: input.callbackURL,
-    });
-    return result;
+  const listSSOProviders = async () => {
+    // Not implemented yet
+  };
+
+  const deleteSSOProvider = async (args: { providerId: string }) => {
+    // Not implemented yet
   };
 
   return {
@@ -319,8 +298,9 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     deletePasskey,
     listPasskeys,
     signInMagicLink,
-    signInSSOSAML,
-    signInSSOSAMLLogin,
-    signInSSOOIDCLogin,
+    signInSSO,
+    registerSSO,
+    listSSOProviders,
+    deleteSSOProvider,
   };
 };

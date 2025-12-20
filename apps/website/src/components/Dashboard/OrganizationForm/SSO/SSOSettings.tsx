@@ -1,76 +1,92 @@
 'use client';
 
 import {
+  Button,
   Container,
   Form,
   H3,
   H4,
-  MaxHeightSmoother,
+  Loader,
   useForm,
+  useToast,
 } from '@intlayer/design-system';
 import {
+  useDeleteSSOProvider,
+  useListSSOProviders,
+  useRegisterSSO,
   useSession,
-  useUpdateOrganization,
 } from '@intlayer/design-system/hooks';
+import { Trash2 } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useMemo, useState } from 'react';
 import { z } from 'zod/v4';
 
-// Define SSO config schema - avoiding .default() to prevent value/defaultValue conflicts
+// SSO Provider type from better-auth
+type SSOProvider = {
+  id: string;
+  providerId: string;
+  issuer: string;
+  domain: string;
+  oidcConfig?: string;
+  samlConfig?: string;
+  organizationId?: string;
+  userId: string;
+};
+
+// Define SSO config schema for registration
 const useSSOConfigSchema = () => {
   return z.object({
     enabled: z.boolean(),
-    providerType: z.enum(['saml', 'oidc']).optional(),
-    domains: z.string().optional(), // Will be converted to array
+    providerType: z.enum(['saml', 'oidc']),
+    domain: z.string().min(1, 'Domain is required'),
     samlConfig: z
       .object({
-        idpEntityId: z.string().optional(),
-        idpSSOUrl: z.url().optional().or(z.literal('')),
-        idpCertificate: z.string().optional(),
+        issuer: z.string().min(1),
+        entryPoint: z.url(),
+        cert: z.string().min(1),
       })
       .optional(),
     oidcConfig: z
       .object({
-        issuer: z.url().optional().or(z.literal('')),
-        clientId: z.string().optional(),
-        clientSecret: z.string().optional(),
+        issuer: z.url(),
+        clientId: z.string().min(1),
+        clientSecret: z.string().min(1),
       })
       .optional(),
-    enforceSSO: z.boolean(),
-    allowPasswordLogin: z.boolean(),
   });
 };
 
 type SSOFormData = z.infer<ReturnType<typeof useSSOConfigSchema>>;
 
 // Default values for SSO form
-const defaultSSOValues: SSOFormData = {
+const defaultSSOValues: Partial<SSOFormData> = {
   enabled: false,
-  providerType: undefined,
-  domains: '',
+  providerType: 'oidc',
+  domain: '',
   samlConfig: undefined,
   oidcConfig: undefined,
-  enforceSSO: false,
-  allowPasswordLogin: true,
 };
 
 export const SSOSettings: FC = () => {
   const { session } = useSession();
   const { organization, roles } = session ?? {};
   const isOrganizationAdmin = roles?.includes('org_admin');
+  const { toast } = useToast();
 
   const SSOConfigSchema = useSSOConfigSchema();
-  const { mutate: updateOrganization, isPending } = useUpdateOrganization();
+  const { mutate: registerSSO, isPending: isPendingRegisterSSO } =
+    useRegisterSSO();
+  const { mutate: deleteSSOProvider, isPending: isPendingDelete } =
+    useDeleteSSOProvider();
+  const { data: ssoProvidersData, isLoading: isLoadingProviders } =
+    useListSSOProviders();
 
   const { form, isSubmitting } = useForm(SSOConfigSchema, {
     defaultValues: defaultSSOValues,
   });
 
-  const [showAdvanced, setShowAdvanced] = useState(false);
   const [ssoEnabled, setSsoEnabled] = useState(false);
-  const [providerType, setProviderType] = useState<'saml' | 'oidc' | undefined>(
-    undefined
-  );
+  const [providerType, setProviderType] = useState<'saml' | 'oidc'>('oidc');
 
   const {
     title,
@@ -83,73 +99,150 @@ export const SSOSettings: FC = () => {
     domainsDescription,
     samlConfig: samlConfigContent,
     oidcConfig: oidcConfigContent,
-    advancedSettings,
     saveButton,
   } = useIntlayer('sso-settings');
 
-  // Subscribe to form changes
+  // Get existing SSO provider for this organization
+  const existingProvider = useMemo(() => {
+    if (!ssoProvidersData?.data || !organization?.id) return null;
+    return (ssoProvidersData.data as SSOProvider[]).find(
+      (provider) => provider.organizationId === organization.id
+    );
+  }, [ssoProvidersData?.data, organization?.id]);
+
+  // Subscribe to form changes for enabled and provider type
   useEffect(() => {
     const subscription = form.watch((values) => {
       setSsoEnabled(Boolean(values.enabled));
-      setProviderType(values.providerType as 'saml' | 'oidc' | undefined);
+      if (values.providerType) {
+        setProviderType(values.providerType as 'saml' | 'oidc');
+      }
     });
     return () => subscription.unsubscribe();
   }, [form]);
 
-  const onSubmitSuccess = (data: SSOFormData) => {
-    // Convert domains string to array
-    const domainsArray = data.domains
-      ? data.domains
-          .split(',')
-          .map((d) => d.trim())
-          .filter(Boolean)
-      : [];
+  // Set enabled to true if there's an existing provider
+  useEffect(() => {
+    if (existingProvider) {
+      form.setValue('enabled', true);
+      setSsoEnabled(true);
+    }
+  }, [existingProvider, form]);
 
-    updateOrganization({
-      ssoConfig: {
-        enabled: data.enabled,
-        providerType: data.providerType,
-        domains: domainsArray,
-        samlConfig:
-          data.providerType === 'saml'
-            ? {
-                idpEntityId: data.samlConfig?.idpEntityId ?? '',
-                idpSSOUrl: data.samlConfig?.idpSSOUrl ?? '',
-                idpCertificate: data.samlConfig?.idpCertificate ?? '',
-              }
-            : undefined,
-        oidcConfig:
-          data.providerType === 'oidc'
-            ? {
-                issuer: data.oidcConfig?.issuer ?? '',
-                clientId: data.oidcConfig?.clientId ?? '',
-                clientSecret: data.oidcConfig?.clientSecret ?? '',
-              }
-            : undefined,
-        enforceSSO: data.enforceSSO,
-        allowPasswordLogin: data.allowPasswordLogin,
-      },
-    });
+  // Handle form submission - register SSO provider with better-auth
+  const onSubmitSuccess = async (data: SSOFormData) => {
+    if (!organization?.id) {
+      toast({
+        title: 'Error',
+        description: 'Organization not found',
+        variant: 'error',
+      });
+      return;
+    }
+
+    // Generate a unique provider ID for this organization
+    const providerId = `${organization.id}-${data.providerType}`;
+
+    try {
+      // If there's an existing provider, delete it first
+      if (existingProvider) {
+        await new Promise<void>((resolve, reject) => {
+          deleteSSOProvider(
+            { providerId: existingProvider.providerId },
+            {
+              onSuccess: () => resolve(),
+              onError: (error: Error) => reject(error),
+            }
+          );
+        });
+      }
+
+      // Register the new SSO provider
+      const registrationData: any = {
+        providerId,
+        domain: data.domain.toLowerCase().trim(),
+        organizationId: organization.id,
+      };
+
+      if (data.providerType === 'oidc' && data.oidcConfig) {
+        registrationData.issuer = data.oidcConfig.issuer;
+        registrationData.oidcConfig = {
+          clientId: data.oidcConfig.clientId,
+          clientSecret: data.oidcConfig.clientSecret,
+        };
+      } else if (data.providerType === 'saml' && data.samlConfig) {
+        registrationData.issuer = data.samlConfig.issuer;
+        registrationData.samlConfig = {
+          entryPoint: data.samlConfig.entryPoint,
+          cert: data.samlConfig.cert,
+        };
+      }
+
+      registerSSO(registrationData, {
+        onSuccess: () => {
+          toast({
+            title: 'SSO Configured',
+            description: 'SSO provider has been registered successfully',
+            variant: 'success',
+          });
+        },
+        onError: (error: Error) => {
+          toast({
+            title: 'Error',
+            description: error.message || 'Failed to register SSO provider',
+            variant: 'error',
+          });
+        },
+      });
+    } catch (err) {
+      toast({
+        title: 'Error',
+        description:
+          err instanceof Error
+            ? err.message
+            : 'Failed to configure SSO provider',
+        variant: 'error',
+      });
+    }
   };
 
-  useEffect(() => {
-    if (organization?.ssoConfig) {
-      const ssoConfig = organization.ssoConfig;
-      const formValues = {
-        enabled: ssoConfig.enabled ?? false,
-        providerType: ssoConfig.providerType,
-        domains: ssoConfig.domains?.join(', ') ?? '',
-        samlConfig: ssoConfig.samlConfig,
-        oidcConfig: ssoConfig.oidcConfig,
-        enforceSSO: ssoConfig.enforceSSO ?? false,
-        allowPasswordLogin: ssoConfig.allowPasswordLogin ?? true,
-      };
-      form.reset(formValues);
-      // Also sync local state
-      setSsoEnabled(formValues.enabled);
-      setProviderType(formValues.providerType as 'saml' | 'oidc' | undefined);
-    }
-  }, [form.reset, organization]);
+  // Handle delete SSO provider
+  const handleDeleteProvider = () => {
+    if (!existingProvider) return;
+
+    deleteSSOProvider(
+      { providerId: existingProvider.providerId },
+      {
+        onSuccess: () => {
+          toast({
+            title: 'SSO Removed',
+            description: 'SSO provider has been removed successfully',
+            variant: 'success',
+          });
+          // Reset form
+          form.reset(defaultSSOValues);
+        },
+        onError: (error: Error) => {
+          toast({
+            title: 'Error',
+            description: error.message || 'Failed to remove SSO provider',
+            variant: 'error',
+          });
+        },
+      }
+    );
+  };
+
+  // Determine provider type from existing provider
+  const existingProviderType = existingProvider?.samlConfig ? 'saml' : 'oidc';
+
+  if (isLoadingProviders) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -177,148 +270,153 @@ export const SSOSettings: FC = () => {
 
         {ssoEnabled && (
           <>
-            {/* Provider Type */}
-            <div className="mt-4">
-              <span className="font-medium text-sm">{providerTypeLabel}</span>
-              <Form.SwitchSelector
-                name="providerType"
-                className="mt-2"
-                size="sm"
-                color="text"
-                disabled={!isOrganizationAdmin}
-                choices={[
-                  { value: 'saml', content: providerTypeOptions.saml },
-                  { value: 'oidc', content: providerTypeOptions.oidc },
-                ]}
-              />
-            </div>
-
-            {/* Domains */}
-            <div className="mt-4">
-              <Form.Input
-                name="domains"
-                label={domainsLabel}
-                placeholder={domainsPlaceholder.value}
-                disabled={!isOrganizationAdmin}
-              />
-              <p className="mt-1 text-neutral text-xs dark:text-neutral-dark">
-                {domainsDescription}
-              </p>
-            </div>
-
-            {/* SAML Configuration */}
-            {providerType === 'saml' && (
+            {/* Show existing provider info */}
+            {existingProvider && (
               <Container
                 border
                 borderColor="text"
-                className="mt-6 p-4"
+                className="mt-4 bg-card p-4"
                 roundedSize="2xl"
               >
-                <H4 className="mb-4">{samlConfigContent.title}</H4>
-                <div className="flex flex-col gap-4">
-                  <Form.Input
-                    name="samlConfig.idpEntityId"
-                    label={samlConfigContent.idpEntityIdLabel}
-                    placeholder={samlConfigContent.idpEntityIdPlaceholder.value}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <H4 className="mb-1">Current SSO Provider</H4>
+                    <p className="text-neutral text-sm dark:text-neutral-dark">
+                      <strong>Type:</strong>{' '}
+                      {existingProviderType === 'saml' ? 'SAML 2.0' : 'OIDC'}
+                      <br />
+                      <strong>Domain:</strong> {existingProvider.domain}
+                      <br />
+                      <strong>Provider ID:</strong>{' '}
+                      {existingProvider.providerId}
+                    </p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    color="error"
+                    Icon={Trash2}
+                    onClick={handleDeleteProvider}
+                    isLoading={isPendingDelete}
                     disabled={!isOrganizationAdmin}
-                  />
-                  <Form.Input
-                    name="samlConfig.idpSSOUrl"
-                    label={samlConfigContent.idpSSOUrlLabel}
-                    placeholder={samlConfigContent.idpSSOUrlPlaceholder.value}
-                    disabled={!isOrganizationAdmin}
-                  />
-                  <Form.AutoSizedTextArea
-                    name="samlConfig.idpCertificate"
-                    label={samlConfigContent.idpCertificateLabel}
-                    placeholder={
-                      samlConfigContent.idpCertificatePlaceholder.value
-                    }
-                    rows={10}
-                    disabled={!isOrganizationAdmin}
-                  />
+                    label="Remove SSO provider"
+                  >
+                    Remove
+                  </Button>
                 </div>
               </Container>
             )}
 
-            {/* OIDC Configuration */}
-            {providerType === 'oidc' && (
-              <Container
-                border
-                borderColor="text"
-                className="mt-6 p-4"
-                roundedSize="2xl"
-              >
-                <H4 className="mb-4">{oidcConfigContent.title}</H4>
-                <div className="flex flex-col gap-4">
-                  <Form.Input
-                    name="oidcConfig.issuer"
-                    label={oidcConfigContent.issuerLabel}
-                    placeholder={oidcConfigContent.issuerPlaceholder.value}
+            {/* Show registration form only if no existing provider */}
+            {!existingProvider && (
+              <>
+                {/* Provider Type */}
+                <div className="mt-4">
+                  <span className="font-medium text-sm">
+                    {providerTypeLabel}
+                  </span>
+                  <Form.SwitchSelector
+                    name="providerType"
+                    className="mt-2"
+                    size="sm"
+                    color="text"
                     disabled={!isOrganizationAdmin}
-                  />
-                  <Form.Input
-                    name="oidcConfig.clientId"
-                    label={oidcConfigContent.clientIdLabel}
-                    placeholder={oidcConfigContent.clientIdPlaceholder.value}
-                    disabled={!isOrganizationAdmin}
-                  />
-                  <Form.Input
-                    name="oidcConfig.clientSecret"
-                    label={oidcConfigContent.clientSecretLabel}
-                    placeholder={
-                      oidcConfigContent.clientSecretPlaceholder.value
-                    }
-                    type="password"
-                    disabled={!isOrganizationAdmin}
+                    choices={[
+                      { value: 'oidc', content: providerTypeOptions.oidc },
+                      { value: 'saml', content: providerTypeOptions.saml },
+                    ]}
                   />
                 </div>
-              </Container>
+
+                {/* Domain */}
+                <div className="mt-4">
+                  <Form.Input
+                    name="domain"
+                    label={domainsLabel}
+                    placeholder={domainsPlaceholder.value}
+                    disabled={!isOrganizationAdmin}
+                  />
+                  <p className="mt-1 text-neutral text-xs dark:text-neutral-dark">
+                    {domainsDescription}
+                  </p>
+                </div>
+
+                {/* SAML Configuration */}
+                {providerType === 'saml' && (
+                  <Container
+                    border
+                    borderColor="text"
+                    className="mt-6 p-4"
+                    roundedSize="2xl"
+                  >
+                    <H4 className="mb-4">{samlConfigContent.title}</H4>
+                    <div className="flex flex-col gap-4">
+                      <Form.Input
+                        name="samlConfig.issuer"
+                        label={samlConfigContent.idpEntityIdLabel}
+                        placeholder={
+                          samlConfigContent.idpEntityIdPlaceholder.value
+                        }
+                        disabled={!isOrganizationAdmin}
+                      />
+                      <Form.Input
+                        name="samlConfig.entryPoint"
+                        label={samlConfigContent.idpSSOUrlLabel}
+                        placeholder={
+                          samlConfigContent.idpSSOUrlPlaceholder.value
+                        }
+                        disabled={!isOrganizationAdmin}
+                      />
+                      <Form.AutoSizedTextArea
+                        name="samlConfig.cert"
+                        label={samlConfigContent.idpCertificateLabel}
+                        placeholder={
+                          samlConfigContent.idpCertificatePlaceholder.value
+                        }
+                        rows={10}
+                        disabled={!isOrganizationAdmin}
+                      />
+                    </div>
+                  </Container>
+                )}
+
+                {/* OIDC Configuration */}
+                {providerType === 'oidc' && (
+                  <Container
+                    border
+                    borderColor="text"
+                    className="mt-6 p-4"
+                    roundedSize="2xl"
+                  >
+                    <H4 className="mb-4">{oidcConfigContent.title}</H4>
+                    <div className="flex flex-col gap-4">
+                      <Form.Input
+                        name="oidcConfig.issuer"
+                        label={oidcConfigContent.issuerLabel}
+                        placeholder={oidcConfigContent.issuerPlaceholder.value}
+                        disabled={!isOrganizationAdmin}
+                      />
+                      <Form.Input
+                        name="oidcConfig.clientId"
+                        label={oidcConfigContent.clientIdLabel}
+                        placeholder={
+                          oidcConfigContent.clientIdPlaceholder.value
+                        }
+                        disabled={!isOrganizationAdmin}
+                      />
+                      <Form.Input
+                        name="oidcConfig.clientSecret"
+                        label={oidcConfigContent.clientSecretLabel}
+                        placeholder={
+                          oidcConfigContent.clientSecretPlaceholder.value
+                        }
+                        type="password"
+                        disabled={!isOrganizationAdmin}
+                      />
+                    </div>
+                  </Container>
+                )}
+              </>
             )}
-
-            {/* Advanced Settings */}
-            <div className="mt-6">
-              <button
-                type="button"
-                onClick={() => setShowAdvanced(!showAdvanced)}
-                className="font-medium text-sm dark:text-primary-dark"
-                color="text"
-              >
-                {showAdvanced ? '▼' : '▶'} {advancedSettings.title}
-              </button>
-              <MaxHeightSmoother isHidden={!showAdvanced} minHeight={0}>
-                <Container
-                  border
-                  borderColor="text"
-                  className="mt-4 flex flex-col gap-4 p-4"
-                  roundedSize="2xl"
-                >
-                  {/* Enforce SSO */}
-                  <div>
-                    <Form.Checkbox
-                      name="enforceSSO"
-                      inputLabel={advancedSettings.enforceSSOLabel}
-                      disabled={!isOrganizationAdmin}
-                    />
-                    <p className="ml-6 text-neutral text-xs dark:text-neutral-dark">
-                      {advancedSettings.enforceSSODescription}
-                    </p>
-                  </div>
-
-                  {/* Allow Password Login */}
-                  <div>
-                    <Form.Checkbox
-                      name="allowPasswordLogin"
-                      inputLabel={advancedSettings.allowPasswordLoginLabel}
-                      disabled={!isOrganizationAdmin}
-                    />
-                    <p className="ml-6 text-neutral text-xs dark:text-neutral-dark">
-                      {advancedSettings.allowPasswordLoginDescription}
-                    </p>
-                  </div>
-                </Container>
-              </MaxHeightSmoother>
-            </div>
           </>
         )}
 
@@ -327,7 +425,7 @@ export const SSOSettings: FC = () => {
           type="submit"
           color="text"
           disabled={!isOrganizationAdmin}
-          isLoading={isSubmitting || isPending}
+          isLoading={isSubmitting || isPendingRegisterSSO}
           label={saveButton.ariaLabel.value}
         >
           {saveButton.text}

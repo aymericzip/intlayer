@@ -22,7 +22,6 @@ import type {
   GetDictionariesParams,
   GetDictionaryParams,
   GetDictionaryQuery,
-  GetOrganizationSSOConfigBody,
   GetOrganizationsParams,
   GetPricingBody,
   GetPricingResult,
@@ -44,6 +43,7 @@ import type {
   UpdateProjectMembersBody,
   UpdateUserBody,
 } from '@intlayer/backend';
+
 import { useConfiguration } from '@intlayer/editor-react';
 import {
   type UseQueryOptions,
@@ -322,30 +322,46 @@ export const useSignInMagicLink = () => {
   });
 };
 
-export const useSignInSSOSAML = () => {
+export const useRegisterSSO = () => {
+  const intlayerAuth = useIntlayerAuth();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ['registerSSO'],
+    mutationFn: (args: Parameters<AuthAPI['registerSSO']>[0]) =>
+      intlayerAuth.registerSSO(args),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['ssoProviders'] });
+    },
+  });
+};
+
+export const useSignInSSO = () => {
   const intlayerAuth = useIntlayerAuth();
   return useMutation({
     mutationKey: ['signInSSO'],
-    mutationFn: (args: Parameters<AuthAPI['signInSSOSAML']>[0]) =>
-      intlayerAuth.signInSSOSAML(args),
+    mutationFn: (args: Parameters<AuthAPI['signInSSO']>[0]) =>
+      intlayerAuth.signInSSO(args),
   });
 };
 
-export const useSignInSSOSAMLLogin = () => {
+export const useListSSOProviders = () => {
   const intlayerAuth = useIntlayerAuth();
-  return useMutation({
-    mutationKey: ['signInSSOSAMLLogin'],
-    mutationFn: (args: Parameters<AuthAPI['signInSSOSAMLLogin']>[0]) =>
-      intlayerAuth.signInSSOSAMLLogin(args),
+  return useQuery({
+    queryKey: ['ssoProviders'],
+    queryFn: () => intlayerAuth.listSSOProviders(),
   });
 };
 
-export const useSignInSSOOIDCLogin = () => {
+export const useDeleteSSOProvider = () => {
   const intlayerAuth = useIntlayerAuth();
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationKey: ['signInSSOOIDCLogin'],
-    mutationFn: (args: Parameters<AuthAPI['signInSSOOIDCLogin']>[0]) =>
-      intlayerAuth.signInSSOOIDCLogin(args),
+    mutationKey: ['deleteSSOProvider'],
+    mutationFn: (args: Parameters<AuthAPI['deleteSSOProvider']>[0]) =>
+      intlayerAuth.deleteSSOProvider(args),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['ssoProviders'] });
+    },
   });
 };
 
@@ -421,16 +437,6 @@ export const useGetOrganizations = (filters?: GetOrganizationsParams) => {
       intlayerOAuth.organization.getOrganizations(filters, { signal }),
     // placeholderData: keepPreviousData,
     requireUser: true,
-  });
-};
-
-export const useGetOrganizationSSOConfig = () => {
-  const intlayerOAuth = useIntlayerOAuth();
-
-  return useMutation({
-    mutationKey: ['organization', 'sso'],
-    mutationFn: (args: GetOrganizationSSOConfigBody) =>
-      intlayerOAuth.organization.getOrganizationSSOConfig(args),
   });
 };
 

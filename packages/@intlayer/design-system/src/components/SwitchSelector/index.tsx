@@ -29,6 +29,7 @@ export type SwitchSelectorProps<T = boolean> = {
   onChange?: (choice: T) => void;
   className?: string;
   hoverable?: boolean;
+  disabled?: boolean;
 } & VariantProps<typeof switchSelectorVariant> &
   VariantProps<typeof choiceVariant>;
 
@@ -56,9 +57,14 @@ const switchSelectorVariant = cva(
         [`${SwitchSelectorColor.DARK}`]: 'border-neutral-800 text-neutral-800',
         [`${SwitchSelectorColor.TEXT}`]: 'border-text text-text',
       },
+      disabled: {
+        true: 'cursor-not-allowed opacity-50',
+        false: '',
+      },
     },
     defaultVariants: {
       color: `${SwitchSelectorColor.PRIMARY}`,
+      disabled: false,
     },
   }
 );
@@ -135,6 +141,7 @@ export const SwitchSelector = <T,>({
   size = SwitchSelectorSize.MD,
   className,
   hoverable = true,
+  disabled = false,
 }: SwitchSelectorProps<T>) => {
   const [valueState, setValue] = useState<T>(
     value ?? defaultValue ?? choices[0].value
@@ -169,9 +176,11 @@ export const SwitchSelector = <T,>({
     <div
       className={switchSelectorVariant({
         color,
+        disabled,
         className,
       })}
       role="tablist"
+      aria-disabled={disabled ? 'true' : undefined}
     >
       <div className="relative flex size-full flex-row items-center justify-center">
         {choices.map((choice, index) => {
@@ -189,20 +198,21 @@ export const SwitchSelector = <T,>({
               className={cn(
                 choiceVariant({
                   size,
-                })
+                }),
+                disabled && 'cursor-not-allowed'
               )}
               key={isKeyOfKey ? value : index}
               role="tab"
               onClick={() => handleChange(value)}
               aria-selected={isSelected ? 'true' : undefined}
               data-indicator={isIndicatorOwner ? 'true' : undefined}
-              disabled={isSelected}
+              disabled={disabled || isSelected}
               tabIndex={isSelected ? 0 : -1}
               ref={(el) => {
                 optionsRefs.current[index] = el!;
               }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              onMouseEnter={() => !disabled && setHoveredIndex(index)}
+              onMouseLeave={() => !disabled && setHoveredIndex(null)}
             >
               {content}
             </button>
