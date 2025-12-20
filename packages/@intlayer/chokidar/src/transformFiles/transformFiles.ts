@@ -93,7 +93,7 @@ const writeContentHelper = async (
   outputDir?: string
 ) => {
   const { defaultLocale } = configuration.internationalization;
-  const { baseDir } = configuration.content;
+  const { baseDir, fileExtensions } = configuration.content;
 
   const isPerLocaleFile = configuration?.dictionary?.locale;
 
@@ -102,7 +102,10 @@ const writeContentHelper = async (
   const baseName = basename(filePath, ext);
   const contentBaseName = baseName.charAt(0).toLowerCase() + baseName.slice(1);
 
-  const contentFilePath = join(dirName, `${contentBaseName}.content.ts`);
+  const contentFilePath = join(
+    dirName,
+    `${contentBaseName}.${fileExtensions[0]}`
+  );
   const relativeContentFilePath = relative(baseDir, contentFilePath);
 
   let dictionary: Dictionary;
