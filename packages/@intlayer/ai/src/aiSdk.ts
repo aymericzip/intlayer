@@ -46,17 +46,6 @@ export enum AIProvider {
   GEMINI = 'gemini',
 }
 
-export type OpenAIProviderOptions = { 
-  baseURL:string
-};
-
-// Add provider options here.
-
-export type ProviderOptionsMap = {
-  [AIProvider.OPENAI]: OpenAIProviderOptions; 
-};
-
-
 export type ReasoningEffort = 'minimal' | 'low' | 'medium' | 'high' | 'none';
 
 /**
@@ -64,9 +53,9 @@ export type ReasoningEffort = 'minimal' | 'low' | 'medium' | 'high' | 'none';
  */
 export type AIOptions = {
   provider?: AIProvider;
-  options?: Partial<ProviderOptionsMap>;
   model?: Model;
   temperature?: number;
+  baseURL?:string
   apiKey?: string;
   applicationContext?: string;
 };
@@ -159,31 +148,35 @@ const getLanguageModel = (
     case AIProvider.OPENAI: {
       return createOpenAI({
         apiKey,
-        baseURL: aiOptions?.options?.[AIProvider.OPENAI]?.baseURL || "https://api.openai.com/v1"
+        baseURL:aiOptions.baseURL
       })(selectedModel);
     }
 
     case AIProvider.ANTHROPIC: {
       return createAnthropic({
         apiKey,
+        baseURL:aiOptions.baseURL
       })(selectedModel);
     }
 
     case AIProvider.MISTRAL: {
       return createMistral({
         apiKey,
+        baseURL:aiOptions.baseURL
       })(selectedModel);
     }
 
     case AIProvider.DEEPSEEK: {
       return createDeepSeek({
         apiKey,
+        baseURL:aiOptions.baseURL
       })(selectedModel);
     }
 
     case AIProvider.GEMINI: {
       return createGoogleGenerativeAI({
         apiKey,
+        baseURL:aiOptions.baseURL
       })(selectedModel);
     }
 
