@@ -56,17 +56,22 @@ const defaultSSOValues: SSOFormData = {
 
 export const SSOSettings: FC = () => {
   const { session } = useSession();
-  const { organization } = session ?? {};
+  const { organization, roles } = session ?? {};
+  const isOrganizationAdmin = roles?.includes('org_admin');
+
   const SSOConfigSchema = useSSOConfigSchema();
   const { mutate: updateOrganization, isPending } = useUpdateOrganization();
+
   const { form, isSubmitting } = useForm(SSOConfigSchema, {
     defaultValues: defaultSSOValues,
   });
+
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [ssoEnabled, setSsoEnabled] = useState(false);
   const [providerType, setProviderType] = useState<'saml' | 'oidc' | undefined>(
     undefined
   );
+
   const {
     title,
     description,
@@ -163,7 +168,11 @@ export const SSOSettings: FC = () => {
       >
         {/* Enable SSO Checkbox */}
         <Container border borderColor="text" className="p-4" roundedSize="2xl">
-          <Form.Checkbox name="enabled" inputLabel={enabledLabel} />
+          <Form.Checkbox
+            name="enabled"
+            inputLabel={enabledLabel}
+            disabled={!isOrganizationAdmin}
+          />
         </Container>
 
         {ssoEnabled && (
@@ -176,6 +185,7 @@ export const SSOSettings: FC = () => {
                 className="mt-2"
                 size="sm"
                 color="text"
+                disabled={!isOrganizationAdmin}
                 choices={[
                   { value: 'saml', content: providerTypeOptions.saml },
                   { value: 'oidc', content: providerTypeOptions.oidc },
@@ -189,6 +199,7 @@ export const SSOSettings: FC = () => {
                 name="domains"
                 label={domainsLabel}
                 placeholder={domainsPlaceholder.value}
+                disabled={!isOrganizationAdmin}
               />
               <p className="mt-1 text-neutral text-xs dark:text-neutral-dark">
                 {domainsDescription}
@@ -209,19 +220,22 @@ export const SSOSettings: FC = () => {
                     name="samlConfig.idpEntityId"
                     label={samlConfigContent.idpEntityIdLabel}
                     placeholder={samlConfigContent.idpEntityIdPlaceholder.value}
+                    disabled={!isOrganizationAdmin}
                   />
                   <Form.Input
                     name="samlConfig.idpSSOUrl"
                     label={samlConfigContent.idpSSOUrlLabel}
                     placeholder={samlConfigContent.idpSSOUrlPlaceholder.value}
+                    disabled={!isOrganizationAdmin}
                   />
-                  <Form.TextArea
+                  <Form.AutoSizedTextArea
                     name="samlConfig.idpCertificate"
                     label={samlConfigContent.idpCertificateLabel}
                     placeholder={
                       samlConfigContent.idpCertificatePlaceholder.value
                     }
-                    rows={6}
+                    rows={10}
+                    disabled={!isOrganizationAdmin}
                   />
                 </div>
               </Container>
@@ -241,11 +255,13 @@ export const SSOSettings: FC = () => {
                     name="oidcConfig.issuer"
                     label={oidcConfigContent.issuerLabel}
                     placeholder={oidcConfigContent.issuerPlaceholder.value}
+                    disabled={!isOrganizationAdmin}
                   />
                   <Form.Input
                     name="oidcConfig.clientId"
                     label={oidcConfigContent.clientIdLabel}
                     placeholder={oidcConfigContent.clientIdPlaceholder.value}
+                    disabled={!isOrganizationAdmin}
                   />
                   <Form.Input
                     name="oidcConfig.clientSecret"
@@ -254,6 +270,7 @@ export const SSOSettings: FC = () => {
                       oidcConfigContent.clientSecretPlaceholder.value
                     }
                     type="password"
+                    disabled={!isOrganizationAdmin}
                   />
                 </div>
               </Container>
@@ -281,6 +298,7 @@ export const SSOSettings: FC = () => {
                     <Form.Checkbox
                       name="enforceSSO"
                       inputLabel={advancedSettings.enforceSSOLabel}
+                      disabled={!isOrganizationAdmin}
                     />
                     <p className="ml-6 text-neutral text-xs dark:text-neutral-dark">
                       {advancedSettings.enforceSSODescription}
@@ -292,6 +310,7 @@ export const SSOSettings: FC = () => {
                     <Form.Checkbox
                       name="allowPasswordLogin"
                       inputLabel={advancedSettings.allowPasswordLoginLabel}
+                      disabled={!isOrganizationAdmin}
                     />
                     <p className="ml-6 text-neutral text-xs dark:text-neutral-dark">
                       {advancedSettings.allowPasswordLoginDescription}
@@ -307,6 +326,7 @@ export const SSOSettings: FC = () => {
           className="mt-6 w-full"
           type="submit"
           color="text"
+          disabled={!isOrganizationAdmin}
           isLoading={isSubmitting || isPending}
           label={saveButton.ariaLabel.value}
         >

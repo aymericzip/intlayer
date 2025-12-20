@@ -14,7 +14,9 @@ import {
 
 export const OrganizationEditionForm: FC = () => {
   const { session } = useSession();
-  const { organization } = session ?? {};
+  const { organization, roles } = session ?? {};
+  const isOrganizationAdmin = roles?.includes('org_admin');
+
   const OrganizationSchema = useOrganizationSchema();
   const { mutate: updateOrganization, isPending } = useUpdateOrganization();
   const { form, isSubmitting } = useForm(OrganizationSchema);
@@ -45,12 +47,14 @@ export const OrganizationEditionForm: FC = () => {
           placeholder={nameInput.placeholder.value}
           isRequired
           defaultValue={organization?.name}
+          disabled={!isOrganizationAdmin}
         />
 
         <Form.Button
           className="mt-12 w-full"
           type="submit"
           color="text"
+          disabled={!isOrganizationAdmin}
           isLoading={isSubmitting || isPending}
           label={editButton.ariaLabel.value}
         >

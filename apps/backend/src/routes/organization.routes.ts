@@ -2,6 +2,7 @@ import {
   addOrganization,
   addOrganizationMember,
   deleteOrganization,
+  getOrganizationSSOConfig,
   getOrganizations,
   selectOrganization,
   unselectOrganization,
@@ -68,6 +69,11 @@ export const getOrganizationRoutes = () =>
       url: `${baseURL()}/logout`,
       method: 'POST',
     },
+    getOrganizationSSOConfig: {
+      urlModel: '/sso',
+      url: `${baseURL()}/sso`,
+      method: 'POST',
+    },
   }) satisfies Routes;
 
 organizationRouter.get(
@@ -107,4 +113,9 @@ organizationRouter.put(
 organizationRouter.post(
   getOrganizationRoutes().unselectOrganization.urlModel,
   unselectOrganization
+);
+
+organizationRouter.post(
+  getOrganizationRoutes().getOrganizationSSOConfig.urlModel,
+  getOrganizationSSOConfig
 );

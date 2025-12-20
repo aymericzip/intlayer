@@ -41,7 +41,7 @@ export interface AuthAPI {
   resetPassword: AuthClient['resetPassword'];
   verifyEmailSession: AuthClient['verifyEmail'];
   getSession: AuthClient['getSession'];
-  forgetPassword: AuthClient['forgetPassword'];
+  forgetPassword: AuthClient['requestPasswordReset'];
   sendVerificationEmail: AuthClient['sendVerificationEmail'];
   changeEmail: AuthClient['changeEmail'];
   deleteUser: AuthClient['deleteUser'];
@@ -67,8 +67,15 @@ export interface AuthAPI {
     // Redeclare it because of type inference issues
     input: { email: string; callbackURL: string }
   ) => any;
-  // SSO methods
-  signInSSO: AuthClient['sso']['signIn'];
+  signInSSOSAML: AuthClient['sso']['saml2']['sp']['metadata'];
+  signInSSOSAMLLogin: (input: {
+    providerId: string;
+    callbackURL?: string;
+  }) => Promise<{ url: string }>;
+  signInSSOOIDCLogin: (input: {
+    providerId: string;
+    callbackURL?: string;
+  }) => Promise<{ url: string }>;
 }
 
 export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
@@ -247,8 +254,34 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
   };
 
   // SSO methods
-  const signInSSO: AuthClient['sso']['signIn'] = async (...args) => {
-    return client.sso.signIn(...args);
+  const signInSSOSAML: AuthClient['sso']['saml2']['sp']['metadata'] = async (
+    ...args
+  ) => {
+    return client.sso.saml2.sp.metadata(...args);
+  };
+
+  const signInSSOSAMLLogin = async (input: {
+    providerId: string;
+    callbackURL?: string;
+  }) => {
+    const result = await client.sso.saml2.sp.login({
+      providerId: input.providerId,
+      callbackURL: input.callbackURL,
+    });
+    return result;
+  };
+
+  const signInSSOOIDCLogin = async (input: {
+    providerId: string;
+    callbackURL?: string;
+  }) => {
+    // Use the SSO client's login method for OIDC
+    // @ts-ignore - oidc may not be typed in the SSO client
+    const result = await client.sso.oidc?.login?.({
+      providerId: input.providerId,
+      callbackURL: input.callbackURL,
+    });
+    return result;
   };
 
   return {
@@ -286,6 +319,8 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     deletePasskey,
     listPasskeys,
     signInMagicLink,
-    signInSSO,
+    signInSSOSAML,
+    signInSSOSAMLLogin,
+    signInSSOOIDCLogin,
   };
 };

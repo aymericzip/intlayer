@@ -3,26 +3,7 @@ import { type Dictionary, t } from 'intlayer';
 const passkeyButtonContent = {
   key: 'passkey-button',
   content: {
-    text: t({
-      en: 'Use Passkey',
-      'en-GB': 'Use Passkey',
-      fr: 'Utiliser une clé',
-      es: 'Usar llave',
-      de: 'Passkey verwenden',
-      ja: 'パスキーを使う',
-      ko: '패스키 사용',
-      zh: '使用通行密钥',
-      it: 'Usa Passkey',
-      pt: 'Usar Passkey',
-      hi: 'पासकी का उपयोग करें',
-      ar: 'استخدم Passkey',
-      ru: 'Использовать Passkey',
-      tr: 'Passkey Kullan',
-      pl: 'Użyj Passkey',
-      nl: 'Gebruik Passkey',
-      id: 'Gunakan Passkey',
-      vi: 'Sử dụng Passkey',
-    }),
+    text: 'Passkey',
     ariaLabel: t({
       en: 'Sign in with passkey',
       'en-GB': 'Sign in with passkey',

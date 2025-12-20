@@ -1,7 +1,10 @@
 'use client';
 
 import { Form, Modal } from '@intlayer/design-system';
-import { useDeleteOrganization } from '@intlayer/design-system/hooks';
+import {
+  useDeleteOrganization,
+  useSession,
+} from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -18,6 +21,9 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
   onDelete,
   isOpen,
 }) => {
+  const { session } = useSession();
+  const { roles } = session ?? {};
+  const isOrganizationAdmin = roles?.includes('org_admin');
   const { mutate: deleteOrganization, isPending: isDeleting } =
     useDeleteOrganization();
   const { confirmButton, cancelButton, description, title } = useIntlayer(
@@ -60,7 +66,7 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
             color="error"
             className="w-auto"
             isLoading={isDeleting}
-            disabled={isDeleting}
+            disabled={!isOrganizationAdmin}
             onClick={handleDelete}
           >
             {confirmButton.text}

@@ -12,7 +12,7 @@ import {
 export const usePersistedStore = <S>(
   key: string,
   initialState?: S | (() => S)
-): [S, Dispatch<SetStateAction<S>>, () => void] => {
+): [S, Dispatch<SetStateAction<S>>, () => void, () => void] => {
   const [state, setState] = useState<S>(() => {
     // If you have an initial value on the client, send a message out immediately
     if (initialState !== undefined) {
@@ -42,7 +42,11 @@ export const usePersistedStore = <S>(
   useEffect(() => {
     const persistedState = localStorage?.getItem(key);
 
-    if (persistedState && state === undefined) {
+    if (
+      persistedState &&
+      persistedState !== 'undefined' &&
+      state === undefined
+    ) {
       try {
         setState(JSON.parse(persistedState));
       } catch (e) {
@@ -65,9 +69,12 @@ export const usePersistedStore = <S>(
             ? (valueOrUpdater as (prevVal: S) => S)(prev)
             : valueOrUpdater;
 
-        localStorage?.setItem(key, JSON.stringify(newValue));
+        if (newValue && newValue !== 'undefined') {
+          localStorage?.setItem(key, JSON.stringify(newValue));
+          return newValue;
+        }
 
-        return newValue;
+        return prev;
       });
     },
     [key, setState]
@@ -80,8 +87,13 @@ export const usePersistedStore = <S>(
     }
   }, [key, setState]);
 
+  const clearState = useCallback(() => {
+    localStorage?.removeItem(key);
+    setState(undefined as S);
+  }, [key]);
+
   return useMemo(
-    () => [state, setStateWrapper, loadState],
-    [state, setStateWrapper, loadState]
+    () => [state, setStateWrapper, loadState, clearState],
+    [state, setStateWrapper, loadState, clearState]
   );
 };

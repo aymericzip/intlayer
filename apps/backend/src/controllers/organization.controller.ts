@@ -770,3 +770,75 @@ export const unselectOrganization = async (
     return;
   }
 };
+
+export type GetOrganizationSSOConfigBody = {
+  email?: string;
+  domain?: string;
+};
+export type GetOrganizationSSOConfigResult = ResponseData<{
+  ssoConfig: Partial<OrganizationAPI['ssoConfig']>;
+} | null>;
+
+/**
+ * Retrieves the SSO configuration for an organization by email domain.
+ * This endpoint is public.
+ */
+export const getOrganizationSSOConfig = async (
+  req: Request<any, any, GetOrganizationSSOConfigBody>,
+  res: ResponseWithSession<GetOrganizationSSOConfigResult>,
+  _next: NextFunction
+): Promise<void> => {
+  const { email, domain: domainFromReq } = req.body;
+
+  let domain = domainFromReq;
+
+  if (!domain && email) {
+    domain = email.split('@')[1];
+  }
+
+  if (!domain) {
+    ErrorHandler.handleGenericErrorResponse(res, 'INVALID_REQUEST_BODY');
+    return;
+  }
+
+  try {
+    const organization =
+      await organizationService.findOrganizationBySSODomain(domain);
+
+    if (!organization || !organization.ssoConfig?.enabled) {
+      const responseData = formatResponse<{ ssoConfig: null }>({
+        data: { ssoConfig: null },
+      });
+      res.json(responseData as any);
+      return;
+    }
+
+    // Only return minimal info needed for login
+    const ssoConfig = {
+      enabled: true,
+      providerType: organization.ssoConfig.providerType,
+      providerId: organization.ssoConfig.providerId,
+      domains: organization.ssoConfig.domains,
+    };
+
+    const responseData = formatResponse<{ ssoConfig: typeof ssoConfig }>({
+      message: t({
+        en: 'SSO configuration retrieved successfully',
+        fr: 'Configuration SSO récupérée avec succès',
+        es: 'Configuración SSO recuperada con éxito',
+      }),
+      description: t({
+        en: 'The SSO configuration has been retrieved successfully',
+        fr: 'La configuration SSO a été récupérée avec succès',
+        es: 'La configuración SSO ha sido recuperada con éxito',
+      }),
+      data: { ssoConfig },
+    });
+
+    res.json(responseData as any);
+    return;
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};

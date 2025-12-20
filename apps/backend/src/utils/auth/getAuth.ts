@@ -2,6 +2,7 @@ import { passkey } from '@better-auth/passkey';
 import { sso } from '@better-auth/sso';
 import { sendVerificationUpdate } from '@controllers/user.controller';
 import { logger } from '@logger';
+import { OrganizationModel } from '@models/organization.model';
 import { sendEmail } from '@services/email.service';
 import { getOrganizationById } from '@services/organization.service';
 import { getProjectById } from '@services/project.service';
@@ -103,7 +104,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
 
         if (!user) return;
 
-        if (['/verify-email'].includes(path)) {
+        if (path.includes('/verify-email')) {
           sendVerificationUpdate(user as unknown as User);
           logger.info('SSE verification update sent', {
             email: user.email,
@@ -155,6 +156,8 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     plugins: [
       customSession(async ({ session }) => {
         const typedSession = session as unknown as SessionDataApi;
+
+        await auth.api.callbackSSOSAML;
 
         let userAPI: UserAPI | null = null;
         let organizationAPI: OrganizationAPI | null = null;
@@ -232,7 +235,9 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           });
         },
       }),
-      sso(),
+      sso({
+        organizationProvisioning: {},
+      }),
     ],
 
     emailAndPassword: {

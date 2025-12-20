@@ -74,6 +74,8 @@ export type {
   GetOAuth2TokenResult,
   GetOrganizationParam,
   GetOrganizationResult,
+  GetOrganizationSSOConfigBody,
+  GetOrganizationSSOConfigResult,
   GetOrganizationsParams,
   GetOrganizationsResult,
   GetPricingBody,

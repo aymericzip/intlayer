@@ -3,9 +3,11 @@
 import { Form, useForm } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, RefObject } from 'react';
+import { useEffect, useState } from 'react';
 import { ExternalsLoginButtons } from '../../ExternalsLoginButtons';
 import { MagicLinkButton } from '../../MagicLinkButton';
 import { PasskeyButton } from '../../PassKeyButton';
+import { SSOButton } from '../../SSOButton';
 import { type SignIn, useSignInSchema } from './useSignInSchema';
 
 type SignInFormProps = {
@@ -46,6 +48,7 @@ export const SignInForm: FC<SignInFormProps> = ({
       email: defaultEmail,
     },
   });
+  const [email, setEmail] = useState<string | undefined>(defaultEmail);
   const {
     emailInput,
     passwordInput,
@@ -54,6 +57,14 @@ export const SignInForm: FC<SignInFormProps> = ({
     signUpLink,
     rememberMeCheckbox,
   } = useIntlayer('sign-in');
+
+  // Watch email field changes
+  useEffect(() => {
+    const subscription = form.watch((values) => {
+      setEmail(values.email);
+    });
+    return () => subscription.unsubscribe();
+  }, [form]);
 
   return (
     <>
@@ -129,6 +140,7 @@ export const SignInForm: FC<SignInFormProps> = ({
       <Separator />
       <div className="space-y-6">
         <div className="relative flex flex-col justify-center gap-y-3">
+          <SSOButton email={email} />
           <PasskeyButton />
           <MagicLinkButton />
         </div>

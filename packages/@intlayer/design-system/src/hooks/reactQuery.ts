@@ -22,6 +22,7 @@ import type {
   GetDictionariesParams,
   GetDictionaryParams,
   GetDictionaryQuery,
+  GetOrganizationSSOConfigBody,
   GetOrganizationsParams,
   GetPricingBody,
   GetPricingResult,
@@ -321,12 +322,30 @@ export const useSignInMagicLink = () => {
   });
 };
 
-export const useSignInSSO = () => {
+export const useSignInSSOSAML = () => {
   const intlayerAuth = useIntlayerAuth();
   return useMutation({
     mutationKey: ['signInSSO'],
-    mutationFn: (args: Parameters<AuthAPI['signInSSO']>[0]) =>
-      intlayerAuth.signInSSO(args),
+    mutationFn: (args: Parameters<AuthAPI['signInSSOSAML']>[0]) =>
+      intlayerAuth.signInSSOSAML(args),
+  });
+};
+
+export const useSignInSSOSAMLLogin = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useMutation({
+    mutationKey: ['signInSSOSAMLLogin'],
+    mutationFn: (args: Parameters<AuthAPI['signInSSOSAMLLogin']>[0]) =>
+      intlayerAuth.signInSSOSAMLLogin(args),
+  });
+};
+
+export const useSignInSSOOIDCLogin = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useMutation({
+    mutationKey: ['signInSSOOIDCLogin'],
+    mutationFn: (args: Parameters<AuthAPI['signInSSOOIDCLogin']>[0]) =>
+      intlayerAuth.signInSSOOIDCLogin(args),
   });
 };
 
@@ -402,6 +421,16 @@ export const useGetOrganizations = (filters?: GetOrganizationsParams) => {
       intlayerOAuth.organization.getOrganizations(filters, { signal }),
     // placeholderData: keepPreviousData,
     requireUser: true,
+  });
+};
+
+export const useGetOrganizationSSOConfig = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['organization', 'sso'],
+    mutationFn: (args: GetOrganizationSSOConfigBody) =>
+      intlayerOAuth.organization.getOrganizationSSOConfig(args),
   });
 };
 
