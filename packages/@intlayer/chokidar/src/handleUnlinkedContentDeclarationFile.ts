@@ -1,6 +1,7 @@
 import { getAppLogger } from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
+import { cleanRemovedContentDeclaration } from './cleanRemovedContentDeclaration';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
 import { createTypes } from './createType';
 import { createModuleAugmentation } from './createType/createModuleAugmentation';
@@ -22,6 +23,10 @@ export const handleUnlinkedContentDeclarationFile = async (
   const files: string[] = await listDictionaries(config);
 
   const localeDictionaries = await loadLocalDictionaries(files, config);
+
+  localeDictionaries.forEach(async (dictionary) => {
+    await cleanRemovedContentDeclaration(filePath, dictionary.key, config);
+  });
 
   const dictionariesOutput = await buildDictionary(localeDictionaries, config);
 

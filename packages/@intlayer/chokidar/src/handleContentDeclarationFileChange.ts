@@ -1,6 +1,7 @@
 import { getAppLogger } from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
+import { cleanRemovedContentDeclaration } from './cleanRemovedContentDeclaration';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
 import { getBuiltDictionariesPath } from './createDictionaryEntryPoint/getBuiltDictionariesPath';
 import { createTypes } from './createType';
@@ -20,6 +21,10 @@ export const handleContentDeclarationFileChange = async (
   });
 
   const localeDictionaries = await loadLocalDictionaries(filePath, config);
+
+  localeDictionaries.forEach(async (dictionary) => {
+    await cleanRemovedContentDeclaration(filePath, dictionary.key, config);
+  });
 
   const dictionariesOutput = await buildDictionary(localeDictionaries, config);
   const updatedDictionariesPaths = Object.values(

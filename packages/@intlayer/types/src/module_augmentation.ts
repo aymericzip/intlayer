@@ -13,10 +13,13 @@ export type DictionaryKeys = keyof __DictionaryRegistry extends never
   : keyof __DictionaryRegistry;
 
 // --- Dictionaries ---
-export type DictionaryRegistry =
-  __DictionaryRegistry[keyof __DictionaryRegistry] extends never
-    ? Record<string, Dictionary>
-    : __DictionaryRegistry;
+export type DictionaryRegistry = {
+  //  Map over the specific keys (like 'test') and force them to be Dictionary
+  [K in keyof __DictionaryRegistry]: Dictionary;
+} & {
+  // Add an index signature to handle dynamic access and ensure Object.values works
+  [key: string]: Dictionary;
+};
 
 export type DictionaryRegistryElement<T extends DictionaryKeys> = [
   string,
@@ -31,8 +34,8 @@ export type DictionaryRegistryContent<T extends PropertyKey> = [T] extends [
 ]
   ? __DictionaryRegistry[T] extends { content: infer C }
     ? C
-    : any
-  : any;
+    : Dictionary // Optional: stricter internal fallback
+  : Dictionary; // <--- CHANGE THIS: was 'any', now 'Dictionary'
 
 // --- Derived unions from registries ---
 
