@@ -44,6 +44,7 @@ export enum AIProvider {
   MISTRAL = 'mistral',
   DEEPSEEK = 'deepseek',
   GEMINI = 'gemini',
+  OLLAMA = 'ollama',
 }
 
 export type ReasoningEffort = 'minimal' | 'low' | 'medium' | 'high' | 'none';
@@ -103,9 +104,13 @@ const getModelName = (
   defaultModel: Model = 'gpt-5-mini'
 ): Model => {
   // If the user uses their own API key, allow custom model selection
-  if (userApiKey) {
-    if (provider && provider === AIProvider.OPENAI) {
+  if (userApiKey || provider === AIProvider.OLLAMA) {
+    if (provider === AIProvider.OPENAI) {
       return userModel ?? defaultModel;
+    }
+
+    if (userModel) {
+      return userModel;
     }
 
     switch (provider) {
@@ -117,6 +122,8 @@ const getModelName = (
         return 'deepseek-coder';
       case AIProvider.GEMINI:
         return 'gemini-2.5-flash';
+      case AIProvider.OLLAMA:
+        return '';
       default:
         return defaultModel;
     }
@@ -180,6 +187,16 @@ const getLanguageModel = (
         apiKey,
         baseURL,
       })(selectedModel);
+    }
+
+    case AIProvider.OLLAMA: {
+      // Ollama compatible mode:
+      const ollama = createOpenAI({
+        baseURL: baseURL ?? 'http://localhost:11434/v1',
+        apiKey: 'ollama', // Required but unused by Ollama
+      });
+
+      return ollama.chat(selectedModel);
     }
 
     default: {
