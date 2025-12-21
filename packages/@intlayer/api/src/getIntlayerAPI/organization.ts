@@ -9,8 +9,6 @@ import type {
   DeleteOrganizationResult,
   GetOrganizationParam,
   GetOrganizationResult,
-  GetOrganizationSSOConfigBody,
-  GetOrganizationSSOConfigResult,
   GetOrganizationsParams,
   GetOrganizationsResult,
   SelectOrganizationParam,
