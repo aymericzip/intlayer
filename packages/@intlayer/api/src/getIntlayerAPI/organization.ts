@@ -207,27 +207,7 @@ export const getOrganizationAPI = (
       }
     );
 
-  /**
-   * Retrieves the SSO configuration for an organization by email domain.
-   * This endpoint is public.
-   * @param body - The body containing the email.
-   */
-  const getOrganizationSSOConfig = async (
-    body: GetOrganizationSSOConfigBody,
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<GetOrganizationSSOConfigResult>(
-      `${ORGANIZATION_API_ROUTE}/sso`,
-      authAPIOptions,
-      otherOptions,
-      {
-        method: 'POST',
-        body,
-      }
-    );
-
   return {
-    getOrganizationSSOConfig,
     getOrganizations,
     getOrganization,
     addOrganization,
