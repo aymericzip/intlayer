@@ -50,7 +50,9 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
                 dictionaryLocalId: dictionary.localId,
                 keyPath: [],
               });
-              router.push(`${PagesRoutes.Dashboard_Content}/${dictionary.key}`);
+              router.push(
+                `${PagesRoutes.Dashboard_Dictionaries}/${dictionary.key}`
+              );
             }}
           >
             <div className="flex flex-col gap-2 p-2">

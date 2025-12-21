@@ -134,7 +134,7 @@ export const DictionaryListDashboardContent: FC = () => {
                       keyPath: [],
                     });
                     router.push(
-                      `${PagesRoutes.Dashboard_Content}/${dictionary.key}`
+                      `${PagesRoutes.Dashboard_Dictionaries}/${dictionary.key}`
                     );
                   }}
                   ref={(el) => {

@@ -24,7 +24,7 @@ export const DashboardPageContent: FC<DashboardPageContentProps> = ({
 
   useEffect(() => {
     if (session?.organization && session?.project) {
-      router.push(getLocalizedUrl(PagesRoutes.Dashboard_Content, locale));
+      router.push(getLocalizedUrl(PagesRoutes.Dashboard_Dictionaries, locale));
     } else if (session?.organization) {
       router.push(getLocalizedUrl(PagesRoutes.Dashboard_Projects, locale));
     } else {

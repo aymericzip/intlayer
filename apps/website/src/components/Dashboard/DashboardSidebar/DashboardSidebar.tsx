@@ -46,7 +46,7 @@ const shouldHaveOrganizationRoutes = [
 
 const shouldHaveProjectRoutes = [
   PagesRoutes.Dashboard_Editor,
-  PagesRoutes.Dashboard_Content,
+  PagesRoutes.Dashboard_Dictionaries,
   PagesRoutes.Dashboard_Tags,
 ] as string[];
 

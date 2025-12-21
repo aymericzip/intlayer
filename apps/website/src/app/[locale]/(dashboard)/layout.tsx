@@ -59,7 +59,7 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
         },
         {
           key: 'dictionaries',
-          href: PagesRoutes.Dashboard_Content,
+          href: PagesRoutes.Dashboard_Dictionaries,
           icon: 'Book',
           label: navigation.dictionaries.label.value,
           title: navigation.dictionaries.title.value,

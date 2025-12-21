@@ -54,7 +54,7 @@ const dashboardNavbarContent = {
         }),
       },
       {
-        url: PagesRoutes.Dashboard_Content,
+        url: PagesRoutes.Dashboard_Dictionaries,
         label: t({
           en: 'Go to content dashboard',
           'en-GB': 'Go to content dashboard',

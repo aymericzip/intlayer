@@ -36,7 +36,7 @@ export const getPathWithoutLocale = (
 
   let fixedInputUrl = inputUrl;
 
-  if (inputUrl.endsWith('/')) {
+  if (inputUrl?.endsWith('/')) {
     fixedInputUrl = inputUrl.slice(0, -1);
   }
 

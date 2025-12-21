@@ -21,7 +21,7 @@ import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
  * @param inputUrl - The complete URL string or pathname to process.
  * @returns The detected locale or default (en) if no locale is found
  */
-export const getLocaleFromPath = (inputUrl: string): Locale => {
+export const getLocaleFromPath = (inputUrl: string = '/'): Locale => {
   // Define supported locales array
   const { defaultLocale, locales } = configuration?.internationalization ?? {};
 
@@ -34,7 +34,7 @@ export const getLocaleFromPath = (inputUrl: string): Locale => {
 
   let fixedInputUrl = inputUrl;
 
-  if (inputUrl.endsWith('/')) {
+  if (inputUrl?.endsWith('/')) {
     fixedInputUrl = inputUrl.slice(0, -1);
   }
 

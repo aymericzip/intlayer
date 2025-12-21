@@ -29,12 +29,12 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
             <DictionaryFieldEditor
               dictionary={dictionary}
               onClickDictionaryList={() =>
-                router.push(PagesRoutes.Dashboard_Content)
+                router.push(PagesRoutes.Dashboard_Dictionaries)
               }
               isDarkMode={resolvedTheme === 'dark'}
               mode={['remote']}
               onDelete={() => {
-                router.push(PagesRoutes.Dashboard_Content);
+                router.push(PagesRoutes.Dashboard_Dictionaries);
               }}
             />
           )}
