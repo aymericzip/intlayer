@@ -343,6 +343,7 @@ export const translateDictionary = async (
                     translationResult.fileContent,
                     chunkContent
                   );
+
                   if (!isIdentic) {
                     throw new Error(
                       'Translation result does not match expected format'
@@ -496,7 +497,7 @@ export const translateDictionary = async (
       delay: RETRY_DELAY,
       onError: ({ error, attempt, maxRetry }) =>
         appLogger(
-          `${task.dictionaryPreset} ${colorize('Error fill command:', ANSIColors.RED)} ${colorize(typeof error === 'string' ? error : JSON.stringify(error), ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
+          `${task.dictionaryPreset} ${colorize('Error:', ANSIColors.RED)} ${colorize(typeof error === 'string' ? error : JSON.stringify(error), ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
           {
             level: 'error',
           }

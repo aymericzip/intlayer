@@ -19,6 +19,7 @@
     "react-router-dom": "7.9.5"
   },
   "devDependencies": {
+    "@intlayer/ai": "workspace:*",
     "@tailwindcss/vite": "4.1.18",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",

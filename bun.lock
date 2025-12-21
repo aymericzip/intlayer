@@ -566,6 +566,7 @@
         "react-router-dom": "7.9.5",
       },
       "devDependencies": {
+        "@intlayer/ai": "workspace:*",
         "@tailwindcss/vite": "4.1.18",
         "@types/react": "19.2.7",
         "@types/react-dom": "19.2.3",
@@ -636,7 +637,7 @@
     },
     "packages/@intlayer/ai": {
       "name": "@intlayer/ai",
-      "version": "7.5.2-canary.0",
+      "version": "7.5.2-canary.1",
       "dependencies": {
         "@ai-sdk/anthropic": "2.0.56",
         "@ai-sdk/deepseek": "1.0.32",
@@ -648,6 +649,7 @@
         "@intlayer/core": "workspace:*",
         "@intlayer/types": "workspace:*",
         "ai": "5.0.116",
+        "zod": "^4.2.1",
       },
       "devDependencies": {
         "@types/node": "25.0.3",

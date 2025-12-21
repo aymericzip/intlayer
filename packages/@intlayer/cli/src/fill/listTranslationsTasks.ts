@@ -135,7 +135,7 @@ export const listTranslationsTasks = (
 
     if (outputLocalesList.length === 0) {
       appLogger(
-        `${dictionaryPreset} No locales to fill, Skipping ${colorizePath(basename(targetUnmergedDictionary.filePath))}`,
+        `${dictionaryPreset} ${colorize('No locales to fill, Skipping', ANSIColors.GREY_DARK)} ${colorizePath(basename(targetUnmergedDictionary.filePath))}`,
         {
           level: 'warn',
         }

@@ -21,47 +21,6 @@ After completion, provide only the final title, description and tags fields in a
 
 Correct this fields if they are misspelled or do not match the expected content, and / or complete missing title / description / tags.
 
-**Example of expected response:**
-
-The following case is just an example of expected behavior:
-
-- Example of entry:
-
-```ts
-import { t, type Dictionary } from "intlayer";
-import { Metadata } from "next";
-
-const metadataContent = {
-  key: "pricing-metadata",
-  title: "",
-  description:
-    "here a description that doesn't make any sense and should be replaced",
-  content: {
-    title: t({
-      en: "Pricing | Intlayer",
-    }),
-    description: t({
-      en: "Discover our pricing plans and get access to premium features with Intlayer. Choose the plan that suits you best.",
-    }),
-    keywords: t<string[]>({
-      en: ["Pricing", "Subscription"],
-    }),
-  },
-} satisfies Dictionary<Metadata>;
-
-export default metadataContent;
-```
-
-- Example of response:
-
-```json
-{
-  "title": "Pricing page metadata",
-  "description": "Metadata related to the pricing page, includes title, description, keywords, metadata for SEO purpose. It will help search engines understand the content of the page.",
-  "tags": ["page metadata", "pricing page"]
-}
-```
-
 **Application Context**
 
 {{applicationContext}}

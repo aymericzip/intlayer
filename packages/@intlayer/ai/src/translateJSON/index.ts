@@ -1,18 +1,18 @@
 import { readAsset } from 'utils:asset';
 import { getLocaleName } from '@intlayer/core';
 import { type Locale, Locales } from '@intlayer/types';
-import { generateText } from 'ai';
+import { generateObject } from 'ai';
+import { z } from 'zod';
 import { type AIConfig, type AIOptions, AIProvider } from '../aiSdk';
-import { extractJson } from '../utils/extractJSON';
 
 type Tag = {
   key: string;
   description?: string;
 };
 
-export type TranslateJSONOptions = {
-  entryFileContent: JSON;
-  presetOutputContent: JSON;
+export type TranslateJSONOptions<T> = {
+  entryFileContent: T;
+  presetOutputContent: Partial<T>;
   dictionaryDescription?: string;
   entryLocale: Locale;
   outputLocale: Locale;
@@ -22,8 +22,8 @@ export type TranslateJSONOptions = {
   applicationContext?: string;
 };
 
-export type TranslateJSONResultData = {
-  fileContent: string;
+export type TranslateJSONResultData<T> = {
+  fileContent: T;
   tokenUsed: number;
 };
 
@@ -67,12 +67,49 @@ const getModeInstructions = (mode: 'complete' | 'review'): string => {
   return 'Mode: "Review" - Fill missing content and review existing keys from the preset content. If a key from the entry is missing in the output, it must be translated to the target language and added. If you detect misspelled content, or content that should be reformulated, correct it. If a translation is not coherent with the desired language, translate it.';
 };
 
+const jsonToZod = (content: any): z.ZodTypeAny => {
+  // Base case: content is a string (the translation target)
+  if (typeof content === 'string') {
+    return z.string();
+  }
+
+  // Base cases: primitives often preserved in i18n files (e.g. strict numbers/booleans)
+  if (typeof content === 'number') {
+    return z.number();
+  }
+  if (typeof content === 'boolean') {
+    return z.boolean();
+  }
+
+  // Recursive case: Array
+  if (Array.isArray(content)) {
+    // If array is empty, we assume array of strings as default for i18n
+    if (content.length === 0) {
+      return z.array(z.string());
+    }
+    // We assume all items in the array share the structure of the first item
+    return z.array(jsonToZod(content[0]));
+  }
+
+  // Recursive case: Object
+  if (typeof content === 'object' && content !== null) {
+    const shape: Record<string, z.ZodTypeAny> = {};
+    for (const key in content) {
+      shape[key] = jsonToZod(content[key]);
+    }
+    return z.object(shape);
+  }
+
+  // Fallback
+  return z.any();
+};
+
 /**
  * TranslateJSONs a content declaration file by constructing a prompt for AI models.
  * The prompt includes details about the project's locales, file paths of content declarations,
  * and requests for identifying issues or inconsistencies.
  */
-export const translateJSON = async ({
+export const translateJSON = async <T>({
   entryFileContent,
   presetOutputContent,
   dictionaryDescription,
@@ -82,12 +119,18 @@ export const translateJSON = async ({
   tags,
   mode,
   applicationContext,
-}: TranslateJSONOptions): Promise<TranslateJSONResultData | undefined> => {
+}: TranslateJSONOptions<T>): Promise<
+  TranslateJSONResultData<T> | undefined
+> => {
   const promptFile = readAsset('./PROMPT.md');
+
+  const formattedEntryLocale = formatLocaleWithName(entryLocale);
+  const formattedOutputLocale = formatLocaleWithName(outputLocale);
+
   // Prepare the prompt for AI by replacing placeholders with actual values.
   const prompt = promptFile
-    .replace('{{entryLocale}}', formatLocaleWithName(entryLocale))
-    .replace('{{outputLocale}}', formatLocaleWithName(outputLocale))
+    .replace('{{entryLocale}}', formattedEntryLocale)
+    .replace('{{outputLocale}}', formattedOutputLocale)
     .replace('{{presetOutputContent}}', JSON.stringify(presetOutputContent))
     .replace('{{dictionaryDescription}}', dictionaryDescription ?? '')
     .replace('{{applicationContext}}', applicationContext ?? '')
@@ -95,15 +138,21 @@ export const translateJSON = async ({
     .replace('{{modeInstructions}}', getModeInstructions(mode));
 
   // Use the AI SDK to generate the completion
-  const { text: newContent, usage } = await generateText({
+  const { object, usage } = await generateObject({
     ...aiConfig,
+    schema: jsonToZod(entryFileContent),
     messages: [
       { role: 'system', content: prompt },
       {
         role: 'user',
+        // KEY CHANGE: Explicitly repeating instructions in the user message
         content: [
-          '**Entry Content to Translate:**',
-          '- Given Language: {{entryLocale}}',
+          `# Translation Request`,
+          `Please translate the following JSON content.`,
+          `- **From:** ${formattedEntryLocale}`,
+          `- **To:** ${formattedOutputLocale}`,
+          ``,
+          `## Entry Content:`,
           JSON.stringify(entryFileContent),
         ].join('\n'),
       },
@@ -111,7 +160,7 @@ export const translateJSON = async ({
   });
 
   return {
-    fileContent: extractJson(newContent),
+    fileContent: object as T,
     tokenUsed: usage?.totalTokens ?? 0,
   };
 };

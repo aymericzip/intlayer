@@ -193,7 +193,7 @@ const getLanguageModel = (
       // Ollama compatible mode:
       const ollama = createOpenAI({
         baseURL: baseURL ?? 'http://localhost:11434/v1',
-        apiKey: 'ollama', // Required but unused by Ollama
+        apiKey: apiKey ?? 'ollama', // Required but unused by Ollama
       });
 
       return ollama.chat(selectedModel);

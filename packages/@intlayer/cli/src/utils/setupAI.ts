@@ -1,5 +1,10 @@
 import type { AIConfig, AIOptions } from '@intlayer/ai';
-import { ANSIColors, colorize, getAppLogger } from '@intlayer/config';
+import {
+  ANSIColors,
+  colorize,
+  getAppLogger,
+  type logger,
+} from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
 import { checkAIAccess } from './checkAccess';
 
@@ -14,6 +19,17 @@ type SetupAIResult = {
 
 // Disable warnings from the AI SDK
 globalThis.AI_SDK_LOG_WARNINGS = false;
+
+const logAIConfig = (aiOptions: AIOptions, appLogger: typeof logger) => {
+  appLogger([
+    colorize('Provider:', ANSIColors.GREY_DARK),
+    colorize(aiOptions?.provider ?? '(default)', ANSIColors.BLUE),
+    colorize('- Model:', ANSIColors.GREY_DARK),
+    colorize(aiOptions?.model ?? '(default)', ANSIColors.BLUE),
+    colorize('- API Key:', ANSIColors.GREY_DARK),
+    colorize(aiOptions?.apiKey ? '✓' : '(not set)', ANSIColors.BLUE),
+  ]);
+};
 
 /**
  * Checks if the @intlayer/ai package is available and configured when an API key is provided.
@@ -33,10 +49,17 @@ export const setupAI = async (
       // Dynamically import the AI package if an API key is provided
       const aiClient = await import('@intlayer/ai');
 
+      appLogger([
+        colorize('@intlayer/ai', ANSIColors.GREY_LIGHT),
+        colorize('found - Run process locally', ANSIColors.GREY_DARK),
+      ]);
+
       const aiConfig = await aiClient.getAIConfig({
         userOptions: aiOptions,
         accessType: ['public'],
       });
+
+      logAIConfig(aiOptions, appLogger);
 
       return {
         aiClient,
@@ -60,6 +83,8 @@ export const setupAI = async (
       );
     }
   }
+
+  logAIConfig(aiOptions ?? {}, appLogger);
 
   return {
     isCustomAI: false,

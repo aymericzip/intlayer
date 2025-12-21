@@ -15,8 +15,8 @@ const config: IntlayerConfig = {
     // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
   ai: {
-    provider: 'openai',
-    model: 'gpt-5-mini',
+    provider: 'ollama',
+    model: 'mistral-nemo',
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: 'This is a test application',
   },
