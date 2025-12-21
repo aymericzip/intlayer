@@ -94,13 +94,14 @@ export const customQuery = async (
 };
 
 export type TranslateJSONBody = Omit<
-  ReplaceAIConfigByOptions<translateJSONUtil.TranslateJSONOptions>,
+  ReplaceAIConfigByOptions<translateJSONUtil.TranslateJSONOptions<JSON>>,
   'tags'
 > & {
   tagsKeys?: string[];
 };
-export type TranslateJSONResult =
-  ResponseData<translateJSONUtil.TranslateJSONResultData>;
+export type TranslateJSONResult = ResponseData<
+  translateJSONUtil.TranslateJSONResultData<JSON>
+>;
 
 export const translateJSON = async (
   req: Request<TranslateJSONBody>,
@@ -132,7 +133,7 @@ export const translateJSON = async (
       tags = await getTagsByKeys(tagsKeys, project.organizationId);
     }
 
-    const auditResponse = await translateJSONUtil.translateJSON({
+    const auditResponse = await translateJSONUtil.translateJSON<any>({
       ...rest,
       aiConfig,
       applicationContext: aiOptions?.applicationContext,
@@ -144,10 +145,11 @@ export const translateJSON = async (
       return;
     }
 
-    const responseData =
-      formatResponse<translateJSONUtil.TranslateJSONResultData>({
-        data: auditResponse,
-      });
+    const responseData = formatResponse<
+      translateJSONUtil.TranslateJSONResultData<any>
+    >({
+      data: auditResponse,
+    });
 
     res.json(responseData);
     return;

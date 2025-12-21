@@ -10,7 +10,7 @@ type Tag = {
   description?: string;
 };
 
-export type TranslateJSONOptions<T> = {
+export type TranslateJSONOptions<T = JSON> = {
   entryFileContent: T;
   presetOutputContent: Partial<T>;
   dictionaryDescription?: string;
@@ -22,7 +22,7 @@ export type TranslateJSONOptions<T> = {
   applicationContext?: string;
 };
 
-export type TranslateJSONResultData<T> = {
+export type TranslateJSONResultData<T = JSON> = {
   fileContent: T;
   tokenUsed: number;
 };

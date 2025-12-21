@@ -14,7 +14,9 @@ export const isInvalidDictionary = (
 
   if (!dictionary) return false;
 
-  const isLocal = Boolean(dictionary.location === 'local');
+  const isLocal = Boolean(
+    dictionary.location === 'local' || typeof dictionary.filePath === 'string'
+  );
   const location = isLocal ? 'Local' : 'Remote';
   const hasKey = Boolean(dictionary.key);
   const hasContent = Boolean(dictionary.content);
@@ -23,9 +25,7 @@ export const isInvalidDictionary = (
     appLogger(`${location} dictionary has no key`, {
       level: 'error',
     });
-    appLogger(JSON.stringify(dictionary, null, 2), {
-      level: 'error',
-    });
+
     return false;
   }
 
