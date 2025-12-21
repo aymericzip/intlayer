@@ -1,12 +1,5 @@
-import type { DashboardFooterProps } from '@components/Dashboard/DashboardFooter';
-import type { NavbarProps } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
 import { type Dictionary, t } from 'intlayer';
 import { PagesRoutes } from '@/Routes';
-
-type Content = {
-  navbarLinks: NavbarProps['links'];
-  footerLinks: DashboardFooterProps['links'];
-};
 
 const dashboardNavbarContent = {
   key: 'dashboard-navbar-content',
@@ -513,6 +506,6 @@ const dashboardNavbarContent = {
   description:
     'Defines the navigation structure for the Intlayer dashboard, including top navigation links to editor, content, tags, projects, organization, profile, and admin pages, along with footer links to external sections like home, documentation, privacy notice, and terms of service.',
   tags: ['dashboard', 'navigation', 'navbar'],
-} satisfies Dictionary<Content>;
+} satisfies Dictionary;
 
 export default dashboardNavbarContent;

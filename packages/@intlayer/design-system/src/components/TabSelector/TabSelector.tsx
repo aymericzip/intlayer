@@ -26,7 +26,7 @@ export enum TabSelectorColor {
 }
 
 const tabSelectorVariant = cva(
-  'relative flex size-full flex-row items-center gap-2',
+  'relative z-0 flex size-full flex-row items-center gap-2',
   {
     variants: {
       color: {
@@ -46,7 +46,7 @@ const tabSelectorVariant = cva(
 );
 
 const indicatorVariant = cva(
-  'absolute z-[-1] rounded-lg duration-300 ease-in-out motion-reduce:transition-none',
+  '-z-1 absolute rounded-lg duration-300 ease-in-out motion-reduce:transition-none',
   {
     variants: {
       color: {

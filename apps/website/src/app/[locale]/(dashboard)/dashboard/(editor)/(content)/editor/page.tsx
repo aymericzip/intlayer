@@ -2,26 +2,19 @@ import { BackgroundLayout } from '@components/BackgroundLayout';
 import { Editor } from '@components/Dashboard/Editor';
 import { DictionaryLoaderDashboard } from '@components/Dashboard/Editor/DictionaryLoaderDashboard';
 import type { NextPageIntlayer } from 'next-intlayer';
-import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { IntlayerServerProvider } from 'next-intlayer/server';
 import type { FC } from 'react';
 
 export { generateMetadata } from './metadata';
 
 const OrganizationDashboardPageContent: FC = () => {
-  const { title } = useIntlayer('editor-dashboard-page');
-
   return (
-    <>
-      <h1 className="border-neutral border-b-[0.5px] p-6 pl-10 text-3xl">
-        {title}
-      </h1>
-      <div className="relative flex flex-1 flex-col items-center">
-        <BackgroundLayout />
-        <div className="flex size-full flex-1 flex-col items-center justify-center p-1.5">
-          <Editor DictionariesLoader={DictionaryLoaderDashboard} />
-        </div>
+    <div className="relative flex flex-1 flex-col items-center">
+      <BackgroundLayout />
+      <div className="flex size-full flex-1 flex-col items-center justify-center p-2">
+        <Editor DictionariesLoader={DictionaryLoaderDashboard} />
       </div>
-    </>
+    </div>
   );
 };
 
