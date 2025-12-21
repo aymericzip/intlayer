@@ -620,8 +620,29 @@ const buildAiFields = (customConfiguration?: Partial<AiConfig>): AiConfig => ({
 
   /**
    * Application context
+   *
+   * Default: undefined
+   *
+   * The application context.
+   *
+   * Example: `'My application context'`
+   *
+   * Note: Can be used to provide additional context about the application to the AI model. You can add more rules (e.g. "You should not transform urls").
    */
   applicationContext: customConfiguration?.applicationContext,
+
+  /**
+   * Base URL for the AI API
+   *
+   * Default: undefined
+   *
+   * The base URL for the AI API.
+   *
+   * Example: `'http://localhost:5000'`
+   *
+   * Note: Can be used to point to a local, or custom AI API endpoint.
+   */
+  baseURL: customConfiguration?.baseURL,
 });
 
 const buildBuildFields = (
