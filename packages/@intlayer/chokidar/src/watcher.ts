@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises';
 import { basename } from 'node:path';
 import {
   type GetConfigurationOptions,
@@ -11,6 +12,7 @@ import { handleAdditionalContentDeclarationFile } from './handleAdditionalConten
 import { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
 import { handleUnlinkedContentDeclarationFile } from './handleUnlinkedContentDeclarationFile';
 import { prepareIntlayer } from './prepareIntlayer';
+import { writeContentDeclaration } from './writeContentDeclaration';
 
 const recentlyAddedFiles = new Set<string>();
 
@@ -26,10 +28,12 @@ export const watch = (options?: WatchOptions) => {
     options?.configuration ?? getConfiguration(options?.configOptions);
   const appLogger = getAppLogger(configuration);
 
-  const { watch: isWatchMode, watchedFilesPatternWithPath } =
-    configuration.content;
+  const {
+    watch: isWatchMode,
+    watchedFilesPatternWithPath,
+    fileExtensions,
+  } = configuration.content;
 
-  /** @ts-ignore remove error Expected 0-1 arguments, but got 2. */
   return chokidarWatch(watchedFilesPatternWithPath, {
     persistent: isWatchMode, // Make the watcher persistent
     ignoreInitial: true, // Process existing files
@@ -48,6 +52,29 @@ export const watch = (options?: WatchOptions) => {
     .on('add', async (filePath) => {
       const fileName = basename(filePath);
       recentlyAddedFiles.add(fileName);
+
+      const fileContent = await readFile(filePath, 'utf-8');
+
+      const isEmpty = fileContent === '';
+
+      // Fill template content declaration file if it is empty
+      if (isEmpty) {
+        // Extract name from filename by removing any configured extension
+        // e.g., "example.content.ts" -> "example" or "example.i18n.json" -> "example"
+        const extensionPattern = fileExtensions
+          .map((ext) => ext.replace(/\./g, '\\.'))
+          .join('|');
+        const name = fileName.replace(new RegExp(`(${extensionPattern})$`), '');
+
+        await writeContentDeclaration(
+          {
+            key: name,
+            content: {},
+            filePath,
+          },
+          configuration
+        );
+      }
 
       await handleAdditionalContentDeclarationFile(filePath, configuration);
 

@@ -183,6 +183,7 @@ export const writeContentDeclaration = async (
       configuration.content.baseDir,
       dictionary.filePath
     );
+
     await writeFileWithDirectories(
       filePath,
       formattedContentDeclaration,

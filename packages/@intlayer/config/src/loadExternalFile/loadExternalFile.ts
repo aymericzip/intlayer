@@ -60,7 +60,7 @@ export const loadExternalFileSync = (
     });
 
     if (typeof fileContent === 'undefined') {
-      logger(`File file could not be loaded. Path : ${filePath}`);
+      logger(`File could not be loaded. Path : ${filePath}`);
       return undefined;
     }
 
@@ -122,7 +122,7 @@ export const loadExternalFile = async (
     });
 
     if (typeof fileContent === 'undefined') {
-      logger(`File file could not be loaded. Path : ${colorizePath(filePath)}`);
+      logger(`File could not be loaded. Path : ${colorizePath(filePath)}`);
       return undefined;
     }
 

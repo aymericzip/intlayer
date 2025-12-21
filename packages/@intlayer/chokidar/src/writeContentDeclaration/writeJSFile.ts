@@ -62,7 +62,16 @@ export const writeJSFile = async (
     await writeFile(filePath, template, 'utf-8');
   }
 
-  const fileContent = await readFile(filePath, 'utf-8');
+  let fileContent = await readFile(filePath, 'utf-8');
+
+  if (fileContent === '') {
+    const format = getFormatFromExtension(extname(filePath) as Extension);
+
+    fileContent = await getContentDeclarationFileTemplate(
+      mergedDictionary.key,
+      format
+    );
+  }
 
   const finalCode = await transformJSFile(fileContent, dictionary);
 
