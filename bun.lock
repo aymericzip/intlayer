@@ -120,14 +120,14 @@
         "framer-motion": "12.23.26",
         "fuse.js": "7.1.0",
         "intlayer": "workspace:*",
-        "lucide-react": "0.561.0",
+        "lucide-react": "0.562.0",
         "next": "16.1.0",
         "next-intlayer": "workspace:*",
         "next-secure-headers": "2.2.0",
         "next-themes": "0.4.6",
         "react": "19.2.3",
         "react-dom": "19.2.3",
-        "react-hook-form": "7.68.0",
+        "react-hook-form": "7.69.0",
         "react-qr-code": "^2.0.18",
         "react-spring": "10.0.3",
         "sharp": "0.34.5",
@@ -637,7 +637,7 @@
     },
     "packages/@intlayer/ai": {
       "name": "@intlayer/ai",
-      "version": "7.5.2-canary.1",
+      "version": "7.5.2-canary.0",
       "dependencies": {
         "@ai-sdk/anthropic": "2.0.56",
         "@ai-sdk/deepseek": "1.0.32",
@@ -649,7 +649,6 @@
         "@intlayer/core": "workspace:*",
         "@intlayer/types": "workspace:*",
         "ai": "5.0.116",
-        "zod": "^4.2.1",
       },
       "devDependencies": {
         "@types/node": "25.0.3",
@@ -923,10 +922,10 @@
         "framer-motion": "12.23.26",
         "fuse.js": "7.1.0",
         "intlayer": "workspace:*",
-        "lucide-react": "0.561.0",
+        "lucide-react": "0.562.0",
         "react": ">=16.0.0",
         "react-dom": ">=16.0.0",
-        "react-hook-form": "7.68.0",
+        "react-hook-form": "7.69.0",
         "react-intlayer": "workspace:*",
         "shiki": "3.20.0",
         "tailwind-merge": "3.4.0",
@@ -1382,7 +1381,7 @@
         "fuse.js": "7.1.0",
         "globals": "16.5.0",
         "intlayer": "workspace:*",
-        "lucide-react": "0.561.0",
+        "lucide-react": "0.562.0",
         "react": "19.2.3",
         "react-dom": "19.2.3",
         "react-intlayer": "workspace:*",
@@ -6077,7 +6076,7 @@
 
     "lru-cache": ["lru-cache@5.1.1", "", { "dependencies": { "yallist": "^3.0.2" } }, "sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w=="],
 
-    "lucide-react": ["lucide-react@0.561.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-Y59gMY38tl4/i0qewcqohPdEbieBy7SovpBL9IFebhc2mDd8x4PZSOsiFRkpPcOq6bj1r/mjH/Rk73gSlIJP2A=="],
+    "lucide-react": ["lucide-react@0.562.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-82hOAu7y0dbVuFfmO4bYF1XEwYk/mEbM5E+b1jgci/udUBEE/R7LF5Ip0CCEmXe8AybRM8L+04eP+LGZeDvkiw=="],
 
     "lynx-intlayer": ["lynx-intlayer@workspace:packages/lynx-intlayer"],
 
@@ -6969,7 +6968,7 @@
 
     "react-error-overlay": ["react-error-overlay@6.1.0", "", {}, "sha512-SN/U6Ytxf1QGkw/9ve5Y+NxBbZM6Ht95tuXNMKs8EJyFa/Vy/+Co3stop3KBHARfn/giv+Lj1uUnTfOJ3moFEQ=="],
 
-    "react-hook-form": ["react-hook-form@7.68.0", "", { "peerDependencies": { "react": "^16.8.0 || ^17 || ^18 || ^19" } }, "sha512-oNN3fjrZ/Xo40SWlHf1yCjlMK417JxoSJVUXQjGdvdRCU07NTFei1i1f8ApUAts+IVh14e4EdakeLEA+BEAs/Q=="],
+    "react-hook-form": ["react-hook-form@7.69.0", "", { "peerDependencies": { "react": "^16.8.0 || ^17 || ^18 || ^19" } }, "sha512-yt6ZGME9f4F6WHwevrvpAjh42HMvocuSnSIHUGycBqXIJdhqGSPQzTpGF+1NLREk/58IdPxEMfPcFCjlMhclGw=="],
 
     "react-intlayer": ["react-intlayer@workspace:packages/react-intlayer"],
 
