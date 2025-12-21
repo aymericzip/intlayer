@@ -20,7 +20,6 @@ export const ProjectFormContent: FC = () => {
 
   const { project } = session ?? {};
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
-  const { isPending } = useGetProjects();
   const { noAdminMessage, deleteProjectButton } = useIntlayer('project-form');
 
   if (project) {
@@ -94,10 +93,6 @@ export const ProjectFormContent: FC = () => {
         </div>
       </div>
     );
-  }
-
-  if (isPending) {
-    return <Loader />;
   }
 
   return <ProjectList />;
