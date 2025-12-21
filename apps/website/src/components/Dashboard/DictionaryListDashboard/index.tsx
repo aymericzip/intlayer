@@ -25,6 +25,7 @@ import {
   type ComponentProps,
   type FC,
   Suspense,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -74,10 +75,17 @@ export const DictionaryListDashboardContent: FC = () => {
   const router = useRouter();
 
   const optionsRefs = useRef<HTMLElement[]>([]);
-  const { choiceIndicatorPosition } = useItemSelector(optionsRefs, {
-    isHoverable: true,
-    orientation: 'vertical',
-  });
+  const { choiceIndicatorPosition, calculatePosition } = useItemSelector(
+    optionsRefs,
+    {
+      isHoverable: true,
+      orientation: 'vertical',
+    }
+  );
+
+  useEffect(() => {
+    calculatePosition();
+  }, [data?.data]);
 
   const totalPages: number = data?.total_pages ?? 1;
   const totalItems: number = data?.total_items ?? 0;

@@ -67,10 +67,17 @@ export const TagList: FC = () => {
   const itemsPerPage: number = params.pageSize;
 
   const optionsRefs = useRef<HTMLElement[]>([]);
-  const { choiceIndicatorPosition } = useItemSelector(optionsRefs, {
-    isHoverable: true,
-    orientation: 'vertical',
-  });
+  const { choiceIndicatorPosition, calculatePosition } = useItemSelector(
+    optionsRefs,
+    {
+      isHoverable: true,
+      orientation: 'vertical',
+    }
+  );
+
+  useEffect(() => {
+    calculatePosition();
+  }, [tags]);
 
   const handlePageChange = (page: number) => {
     setParam('page', page);
