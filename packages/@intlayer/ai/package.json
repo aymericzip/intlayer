@@ -73,16 +73,16 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "2.0.45",
-    "@ai-sdk/deepseek": "1.0.29",
-    "@ai-sdk/google": "2.0.40",
-    "@ai-sdk/mistral": "2.0.24",
-    "@ai-sdk/openai": "2.0.71",
+    "@ai-sdk/anthropic": "2.0.56",
+    "@ai-sdk/deepseek": "1.0.32",
+    "@ai-sdk/google": "2.0.51",
+    "@ai-sdk/mistral": "2.0.26",
+    "@ai-sdk/openai": "2.0.88",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "ai": "5.0.98"
+    "ai": "5.0.116"
   },
   "devDependencies": {
     "@types/node": "25.0.3",
@@ -90,7 +90,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.2",
-    "tsdown": "0.18.1",
+    "tsdown": "0.18.2",
     "typescript": "5.9.3",
     "vitest": "4.0.16"
   },
