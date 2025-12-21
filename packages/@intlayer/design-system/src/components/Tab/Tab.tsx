@@ -163,6 +163,7 @@ const TabComponent = ({
                   aria-selected={isActive}
                   aria-controls={`tabpanel-${value}`}
                   id={`tab-${value}`}
+                  type="button"
                 >
                   {label}
                 </button>
