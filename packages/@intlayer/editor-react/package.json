@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/editor-react",
-  "version": "7.5.1",
+  "version": "7.5.2-canary.0",
   "private": false,
   "description": "Provides the states, contexts, hooks and components to interact with the Intlayer editor for a React application",
   "keywords": [
