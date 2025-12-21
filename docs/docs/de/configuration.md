@@ -486,7 +486,7 @@ Intlayer unterstützt mehrere KI-Anbieter für erhöhte Flexibilität und Auswah
   - _Typ_: `string`
   - _Standard_: `'openai'`
   - _Beschreibung_: Der Anbieter, der für die KI-Funktionen von Intlayer verwendet wird.
-  - _Optionen_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _Optionen_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
   - _Beispiel_: `'anthropic'`
   - _Hinweis_: Verschiedene Anbieter können unterschiedliche API-Schlüssel erfordern und haben unterschiedliche Preismodelle.
 

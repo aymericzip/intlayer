@@ -627,7 +627,7 @@ Intlayer obsługuje wielu dostawców AI, aby zapewnić większą elastyczność 
   - _Typ_: `string`
   - _Domyślnie_: `'openai'`
   - _Opis_: Dostawca używany do funkcji AI w Intlayer.
-  - _Opcje_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _Opcje_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
   - _Przykład_: `'anthropic'`
   - _Uwaga_: Różni dostawcy mogą wymagać różnych kluczy API i mieć różne modele cenowe.
 

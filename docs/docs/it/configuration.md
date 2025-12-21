@@ -485,7 +485,7 @@ Intlayer supporta più provider AI per una maggiore flessibilità e scelta. I pr
   - _Tipo_: `string`
   - _Predefinito_: `'openai'`
   - _Descrizione_: Il provider da utilizzare per le funzionalità AI di Intlayer.
-  - _Opzioni_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _Opzioni_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
   - _Esempio_: `'anthropic'`
   - _Nota_: Diversi provider potrebbero richiedere chiavi API differenti e avere modelli di prezzo diversi.
 

@@ -488,7 +488,7 @@ Intlayer, artırılmış esneklik ve seçenek için birden fazla AI sağlayıcı
   - _Tür_: `string`
   - _Varsayılan_: `'openai'`
   - _Açıklama_: Intlayer'ın AI özellikleri için kullanılacak sağlayıcı.
-  - _Seçenekler_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _Seçenekler_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
   - _Örnek_: `'anthropic'`
   - _Not_: Farklı sağlayıcılar farklı API anahtarları gerektirebilir ve farklı fiyatlandırma modellerine sahip olabilir.
 

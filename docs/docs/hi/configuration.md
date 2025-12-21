@@ -485,7 +485,7 @@ Intlayer बेहतर लचीलापन और विकल्प के 
   - _प्रकार_: `string`
   - _डिफ़ॉल्ट_: `'openai'`
   - _विवरण_: Intlayer की AI सुविधाओं के लिए उपयोग करने वाला प्रदाता।
-  - _विकल्प_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _विकल्प_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
   - _उदाहरण_: `'anthropic'`
   - _नोट_: विभिन्न प्रदाताओं के लिए अलग-अलग API कुंजी और मूल्य निर्धारण मॉडल हो सकते हैं।
 

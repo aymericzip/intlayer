@@ -485,7 +485,7 @@ Intlayer admite múltiples proveedores de IA para una mayor flexibilidad y elecc
   - _Tipo_: `string`
   - _Predeterminado_: `'openai'`
   - _Descripción_: El proveedor a utilizar para las funciones de IA de Intlayer.
-  - _Opciones_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _Opciones_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
   - _Ejemplo_: `'anthropic'`
   - _Nota_: Diferentes proveedores pueden requerir diferentes claves API y tener distintos modelos de precios.
 

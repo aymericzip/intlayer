@@ -486,7 +486,7 @@ Intlayerは、柔軟性と選択肢を高めるために複数のAIプロバイ�
   - _タイプ_: `string`
   - _デフォルト_: `'openai'`
   - _説明_: IntlayerのAI機能に使用するプロバイダー。
-  - _オプション_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _オプション_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
   - _例_: `'anthropic'`
   - _注意_: プロバイダーによっては異なるAPIキーが必要であり、料金体系も異なる場合があります。
 

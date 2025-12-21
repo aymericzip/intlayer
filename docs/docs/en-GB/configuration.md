@@ -489,7 +489,7 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
   - _Type_: `string`
   - _Default_: `'openai'`
   - _Description_: The provider to use for the AI features of Intlayer.
-  - _Options_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _Options_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
   - _Example_: `'anthropic'`
   - _Note_: Different providers may require different API keys and have different pricing models.
 
