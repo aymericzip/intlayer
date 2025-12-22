@@ -1,8 +1,9 @@
 'use client';
 
-import { Container, Loader } from '@intlayer/design-system';
+import { Browser, Container, Loader } from '@intlayer/design-system';
 import {
   useConfiguration,
+  useCrossURLPathState,
   useGetEditorEnabledState,
   useIframeClickMerger,
   usePostEditorEnabledState,
@@ -24,6 +25,11 @@ export const IframeController: FC<{
   useEditedContentPersistence();
   useIframeClickMerger();
 
+  const [iframePath] = useCrossURLPathState(undefined, {
+    receive: true,
+    emit: false,
+  });
+
   const [loading, setLoading] = useState(false);
 
   if (!editor.applicationURL) {
@@ -37,9 +43,10 @@ export const IframeController: FC<{
   return (
     <div className="contents size-full flex-1">
       <Loader isLoading={loading} />
-      <iframe
-        src={editor.applicationURL}
-        title="Intlayer Application"
+      <Browser
+        path={iframePath}
+        initialUrl={editor.applicationURL}
+        domainRestriction={editor.applicationURL}
         className={cn(
           'size-full flex-1 overflow-hidden rounded-lg',
           loading && 'hidden'

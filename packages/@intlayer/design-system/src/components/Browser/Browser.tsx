@@ -1,12 +1,14 @@
 'use client';
 
 import { cva } from 'class-variance-authority';
-import { RotateCw } from 'lucide-react';
+import { ArrowLeft, ArrowRight, RotateCw } from 'lucide-react';
 import {
   type CSSProperties,
-  type FC,
   type FormEvent,
+  type HTMLAttributes,
+  type RefObject,
   useEffect,
+  useImperativeHandle,
   useRef,
   useState,
 } from 'react';
@@ -32,158 +34,241 @@ const browserVariants = cva(
 );
 
 export type BrowserProps = {
-  /** Initial URL to load in the iframe */
   initialUrl?: string;
-  /** Additional CSS classes for the container */
+  path?: string;
   className?: string;
-  /** Inline styles for the container */
   style?: CSSProperties;
-  /** Size of the browser window */
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  /** Accessible label for screen readers describing the browser purpose */
   'aria-label'?: string;
-  /** Sandbox attribute for the iframe to control security restrictions */
   sandbox?: string;
-};
+  ref?: RefObject<HTMLIFrameElement | null>;
+  domainRestriction?: string;
+} & HTMLAttributes<HTMLIFrameElement>;
 
-/**
- * Browser component that renders an iframe with a visible, editable URL bar.
- * Allows users to view, edit, and navigate to different URLs within an embedded browser interface.
- *
- * Features:
- * - Editable URL bar with strict validation (before navigation)
- * - Automatic protocol addition (adds https:// if missing)
- * - Integrated reload button inside the URL input
- * - Error handling with visual feedback for invalid URLs
- * - Responsive iframe with standardized sizes
- * - Full accessibility support with ARIA attributes
- * - Sandbox security for iframe content
- * - Dark-themed UI matching modern browser aesthetics
- * - Cross-browser compatibility (Chrome, Firefox, Safari)
- *
- * @example
- * // Basic usage
- * <Browser initialUrl="https://example.com" size="md" />
- *
- * @example
- * // With custom size and styling
- * <Browser
- *   initialUrl="https://example.com"
- *   size="lg"
- *   className="shadow-2xl"
- *   aria-label="Documentation viewer"
- * />
- *
- * @example
- * // For content preview
- * <Browser
- *   initialUrl="https://youtube.com/embed/VIDEO_ID"
- *   size="xl"
- *   aria-label="Video content browser"
- * />
- *
- * @example
- * // With custom sandbox restrictions
- * <Browser
- *   initialUrl="https://example.com"
- *   sandbox="allow-scripts allow-same-origin"
- *   aria-label="Restricted content browser"
- * />
- *
- * @param initialUrl - The initial URL to load in the iframe (default: 'https://example.com')
- * @param className - Additional CSS classes for the main container element
- * @param style - Inline CSS styles for the main container element
- * @param size - Size of the browser window: 'xs' (400px), 'sm' (500px), 'md' (600px), 'lg' (800px), 'xl' (1000px). Defaults to 'md'
- * @param aria-label - Accessible label for screen readers describing the browser's purpose (default: 'Embedded browser')
- * @param sandbox - Sandbox attribute for the iframe to control security restrictions (default: 'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads')
- */
-export const Browser: FC<BrowserProps> = ({
+export const Browser = ({
   initialUrl = 'https://example.com',
+  path,
   className,
   style,
   size = 'md',
   'aria-label': ariaLabel,
   sandbox = 'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads',
-}) => {
+  ref,
+  domainRestriction,
+  ...props
+}: BrowserProps) => {
+  // --- State -----------------------------------------------------------------
   const [inputUrl, setInputUrl] = useState(initialUrl);
   const [currentUrl, setCurrentUrl] = useState(initialUrl);
-  const [error, setError] = useState<string | null>(null);
-  const [submitted, setSubmitted] = useState(false); // show errors only after attempt
-  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Load internationalized content
+  // History Management
+  const [history, setHistory] = useState<string[]>([initialUrl]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [error, setError] = useState<string | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const internalIframeRef = useRef<HTMLIFrameElement>(null);
+
+  useImperativeHandle(ref, () => internalIframeRef.current!, []);
   const content = useIntlayer('browser');
 
+  // --- Effects ---------------------------------------------------------------
+
+  // Reset everything if initialUrl changes completely
   useEffect(() => {
     setInputUrl(initialUrl);
     setCurrentUrl(initialUrl);
+    setHistory([initialUrl]);
+    setCurrentIndex(0);
     setError(null);
     setSubmitted(false);
   }, [initialUrl]);
 
-  // --- Validation helpers ----------------------------------------------------
-  const isValidHostname = (host: string) => {
-    // allowed chars
-    if (!/^[a-z0-9.-]+$/i.test(host)) return false;
-    // no leading/trailing dot or hyphen
-    if (/^[-.]/.test(host) || /[-.]$/.test(host)) return false;
-    // no double dots
-    if (host.includes('..')) return false;
-    // must have at least one dot
-    if (!host.includes('.')) return false;
+  // Sync external path changes with the URL bar and History
+  useEffect(() => {
+    if (!path) return;
 
+    try {
+      const baseOrigin = domainRestriction ?? initialUrl;
+      const origin = new URL(baseOrigin).origin;
+      const fullUrl = `${origin}${path}`;
+
+      // 1. Update Input
+      setInputUrl(fullUrl);
+
+      // 2. Check internal iframe state to avoid reload if already there
+      let isAlreadyAtUrl = false;
+      if (internalIframeRef.current?.contentWindow) {
+        try {
+          const currentIframeHref =
+            internalIframeRef.current.contentWindow.location.href;
+          if (new URL(currentIframeHref).href === new URL(fullUrl).href) {
+            isAlreadyAtUrl = true;
+          }
+        } catch {
+          // Cross-origin access ignored
+        }
+      }
+
+      // 3. Navigate if needed (Push to history)
+      if (!isAlreadyAtUrl) {
+        // If the path prop forces a change, we treat it as a new navigation
+        setCurrentUrl(fullUrl);
+
+        // Update History Stack
+        setHistory((prev) => {
+          const newHistory = prev.slice(0, currentIndex + 1);
+          newHistory.push(fullUrl);
+          return newHistory;
+        });
+        setCurrentIndex((prev) => prev + 1);
+      }
+
+      setError(null);
+    } catch {
+      // Ignore invalid paths
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [path, domainRestriction, initialUrl]); // Removed currentIndex dependency to prevent loops
+
+  // --- Navigation Logic ------------------------------------------------------
+
+  const handleNavigateTo = (url: string) => {
+    try {
+      const validated = normalizeUrl(url);
+
+      // If we are navigating to the exact same URL, just reload
+      if (validated === currentUrl) {
+        handleReload();
+        return;
+      }
+
+      setCurrentUrl(validated);
+      setInputUrl(validated);
+      setError(null);
+
+      // Update History: Slice future if we went back, then push new
+      const newHistory = history.slice(0, currentIndex + 1);
+      newHistory.push(validated);
+      setHistory(newHistory);
+      setCurrentIndex(newHistory.length - 1);
+    } catch (e) {
+      if (
+        e instanceof Error &&
+        e.message === 'URL does not match allowed domain' &&
+        domainRestriction
+      ) {
+        setError(
+          content.domainRestrictionError?.value ??
+            `Only URLs from ${domainRestriction} are allowed.`
+        );
+      } else {
+        setError(content.errorMessage.value);
+      }
+    }
+  };
+
+  const handleBack = () => {
+    if (currentIndex > 0) {
+      const newIndex = currentIndex - 1;
+      const prevUrl = history[newIndex];
+      setCurrentIndex(newIndex);
+      setCurrentUrl(prevUrl);
+      setInputUrl(prevUrl);
+      setError(null);
+    }
+  };
+
+  const handleForward = () => {
+    if (currentIndex < history.length - 1) {
+      const newIndex = currentIndex + 1;
+      const nextUrl = history[newIndex];
+      setCurrentIndex(newIndex);
+      setCurrentUrl(nextUrl);
+      setInputUrl(nextUrl);
+      setError(null);
+    }
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitted(true);
+    handleNavigateTo(inputUrl);
+  };
+
+  const handleReload = () => {
+    if (internalIframeRef.current) {
+      // Create a clean reload effect
+      const src = internalIframeRef.current.src;
+      internalIframeRef.current.src = '';
+      setTimeout(() => {
+        if (internalIframeRef.current) internalIframeRef.current.src = src;
+      }, 50);
+    }
+  };
+
+  // --- Validation Helpers ----------------------------------------------------
+  const isValidHostname = (host: string) => {
+    if (host === 'localhost') return true;
+    if (/^(\d{1,3}\.){3}\d{1,3}$/.test(host)) return true;
+    if (/^[a-f0-9:]+$/i.test(host)) return true;
+    if (!/^[a-z0-9.-]+$/i.test(host)) return false;
+    if (/^[-.]/.test(host) || /[-.]$/.test(host)) return false;
+    if (host.includes('..')) return false;
+    if (!host.includes('.')) return false;
     return true;
+  };
+
+  const getRestrictionOrigin = (): URL | null => {
+    if (!domainRestriction) return null;
+    try {
+      return new URL(domainRestriction);
+    } catch {
+      return null;
+    }
   };
 
   const normalizeUrl = (raw: string) => {
     const trimmed = raw.trim();
     if (!trimmed || /\s/.test(trimmed)) throw new Error('Invalid');
 
-    // Add https:// if protocol is missing
-    const candidate = /^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(trimmed)
-      ? trimmed
-      : `https://${trimmed}`;
+    const restrictionOrigin = getRestrictionOrigin();
+    const isRelativePath = trimmed.startsWith('/') && !trimmed.startsWith('//');
 
+    if (isRelativePath) {
+      if (restrictionOrigin) {
+        return new URL(`${restrictionOrigin.origin}${trimmed}`).toString();
+      }
+      return new URL(`${new URL(currentUrl).origin}${trimmed}`).toString();
+    }
+
+    const hasProtocol = /^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(trimmed);
+    const candidate = hasProtocol ? trimmed : `https://${trimmed}`;
     const url = new URL(candidate);
 
     if (url.protocol !== 'http:' && url.protocol !== 'https:') {
       throw new Error('Only http(s) is allowed');
     }
 
-    if (!isValidHostname(url.hostname)) {
-      throw new Error('Invalid host');
+    if (!isValidHostname(url.hostname)) throw new Error('Invalid host');
+
+    if (restrictionOrigin) {
+      const urlMatches =
+        url.hostname === restrictionOrigin.hostname &&
+        url.protocol === restrictionOrigin.protocol &&
+        (restrictionOrigin.port === '' ||
+          url.port === restrictionOrigin.port ||
+          url.host === restrictionOrigin.host);
+
+      if (!urlMatches) throw new Error('URL does not match allowed domain');
     }
 
     return url.toString();
   };
 
-  const validateAndNavigate = (url: string) => {
-    try {
-      const validated = normalizeUrl(url);
-      setCurrentUrl(validated);
-      setInputUrl(validated);
-      setError(null);
-    } catch {
-      setError(content.errorMessage.value);
-    }
-  };
-  // --------------------------------------------------------------------------
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitted(true);
-    validateAndNavigate(inputUrl);
-  };
-
-  const handleReload = () => {
-    if (iframeRef.current) {
-      const url = iframeRef.current.src;
-      iframeRef.current.src = '';
-      iframeRef.current.src = url;
-    }
-  };
-
   const showError = submitted && !!error;
+  const canGoBack = currentIndex > 0;
+  const canGoForward = currentIndex < history.length - 1;
 
   return (
     <section
@@ -192,7 +277,43 @@ export const Browser: FC<BrowserProps> = ({
       aria-label={ariaLabel ?? content.ariaLabel.value}
     >
       {/* Top bar */}
-      <div className="relative z-10 flex shrink-0 flex-col gap-1 rounded-t-xl bg-neutral-900 px-4 py-2.5 shadow-[0_3px_4px_0_rgba(0,0,0,0.25)]">
+      <div className="relative z-10 flex shrink-0 items-center gap-3 rounded-t-xl bg-neutral-900 px-4 py-2.5">
+        {/* Navigation Controls */}
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={handleBack}
+            disabled={!canGoBack}
+            className={cn(
+              'flex h-8 w-8 items-center justify-center rounded-md text-neutral-400 transition-colors',
+              canGoBack
+                ? 'hover:bg-neutral-800 hover:text-neutral-200'
+                : 'cursor-not-allowed opacity-40'
+            )}
+            aria-label="Go back"
+            title="Go back"
+          >
+            <ArrowLeft size={18} />
+          </button>
+
+          <button
+            type="button"
+            onClick={handleForward}
+            disabled={!canGoForward}
+            className={cn(
+              'flex h-8 w-8 items-center justify-center rounded-md text-neutral-400 transition-colors',
+              canGoForward
+                ? 'hover:bg-neutral-800 hover:text-neutral-200'
+                : 'cursor-not-allowed opacity-40'
+            )}
+            aria-label="Go forward"
+            title="Go forward"
+          >
+            <ArrowRight size={18} />
+          </button>
+        </div>
+
+        {/* URL Bar */}
         <form onSubmit={handleSubmit} className="relative flex-1" noValidate>
           <label htmlFor="browser-url" className="sr-only">
             {content.urlLabel.value}
@@ -222,7 +343,7 @@ export const Browser: FC<BrowserProps> = ({
             aria-describedby={showError ? 'browser-url-error' : undefined}
           />
 
-          {/* Absolutely positioned button inside the input */}
+          {/* Reload Button */}
           <button
             type="button"
             onClick={handleReload}
@@ -239,33 +360,36 @@ export const Browser: FC<BrowserProps> = ({
             <RotateCw size={18} className="text-neutral-400" strokeWidth={2} />
           </button>
 
-          {/* invisible submit to allow Enter to work semantically */}
+          {/* invisible submit */}
           <button type="submit" className="sr-only absolute" tabIndex={-1} />
         </form>
 
-        {/* subtle inline error text */}
+        {/* Error Message Tooltip */}
         {showError && (
-          <p
-            id="browser-url-error"
-            role="alert"
-            aria-live="assertive"
-            className="px-1 text-red-400 text-xs"
-          >
-            {error}
-          </p>
+          <div className="absolute top-full left-4 z-20 mt-1">
+            <p
+              id="browser-url-error"
+              role="alert"
+              aria-live="assertive"
+              className="rounded-md bg-red-900/90 px-3 py-1.5 text-red-100 text-xs shadow-md backdrop-blur-sm"
+            >
+              {error}
+            </p>
+          </div>
         )}
       </div>
 
       {/* Iframe */}
       <div className="relative z-0 min-h-0 w-full flex-1 overflow-hidden rounded-b-xl bg-background">
         <iframe
-          ref={iframeRef}
+          ref={internalIframeRef}
           src={currentUrl}
           title={content.iframeTitle.value}
           className="h-full w-full rounded-b-xl border-0"
           sandbox={sandbox}
           loading="lazy"
           aria-live="polite"
+          {...props}
         />
       </div>
     </section>
