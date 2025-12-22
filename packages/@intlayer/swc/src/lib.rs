@@ -229,8 +229,9 @@ impl<'a> VisitMut for TransformVisitor<'a> {
             // First argument must be a string literal
             let Some(first_arg) = call.args.first_mut() else { return };
             let Expr::Lit(Lit::Str(Str { value, .. })) = &*first_arg.expr else { return };
-            
-            let key = value.to_string();
+
+            // Wtf8Atom -> string (string literals should be valid UTF-8)
+            let key = value.as_wtf8().to_string_lossy().into_owned();
 
             // Remember the key globally (optional)
             if let Ok(mut set) = INTLAYER_KEYS.lock() {
@@ -291,12 +292,15 @@ impl<'a> VisitMut for TransformVisitor<'a> {
         import.visit_mut_children_with(self);
 
         let pkg = import.src.value.clone();
-        if !PACKAGE_LIST.iter().any(|a| a == &pkg) {
+        let pkg_atom = pkg.to_atom_lossy();
+        let pkg_atom = pkg_atom.as_ref();
+
+        if !PACKAGE_LIST.iter().any(|a| a == pkg_atom) {
             return;
         }
 
         // Determine if this package supports dynamic imports
-        let package_supports_dynamic = PACKAGE_LIST_DYNAMIC.iter().any(|a| a == &pkg);
+        let package_supports_dynamic = PACKAGE_LIST_DYNAMIC.iter().any(|a| a == pkg_atom);
         let should_use_dynamic_helpers = (self.import_mode == "dynamic" || self.import_mode == "live") && package_supports_dynamic;
         
         if should_use_dynamic_helpers {
@@ -446,7 +450,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
             match item {
                 ModuleItem::Stmt(Stmt::Expr(ExprStmt { expr, .. })) => {
                     if let Expr::Lit(Lit::Str(Str { value, .. })) = &**expr {
-                        let v = value.as_ref();
+                        let v = value.as_wtf8().to_string_lossy();
                         if v == "use client" || v == "use server" {
                             insert_pos = 1;
                             continue;        // still inside the directive block
@@ -498,7 +502,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                                 ).into()),
                                 value: Box::new(Expr::Lit(Lit::Str(Str {
                                     span: DUMMY_SP,
-                                    value: Atom::from("json"),
+                                    value: Atom::from("json").into(),
                                     raw: None,
                                 }))),
                             })))

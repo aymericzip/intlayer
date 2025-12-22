@@ -18,7 +18,7 @@ regex = "1.10.6"
 once_cell = "1.19.0"
 parking_lot = "0.12.3"
 pathdiff = "0.2"
-swc_core = { version = "26.2.2", features = [
+swc_core = { version = "49.0.0", features = [
   "ecma_codegen",
   "ecma_plugin_transform",
   "ecma_utils",
@@ -29,6 +29,7 @@ swc_core = { version = "26.2.2", features = [
 ] }
 twox-hash = "2.1.0"
 base62 = "2.2.1"
+swc_common = { version = "=18.0.0" }
 
 # .cargo/config.toml defines few alias to build plugin.
 # cargo build-wasip1 generates wasm32-wasip1 binary
