@@ -1,4 +1,4 @@
-//! intlayer-swc-plugin – fixed for swc_core 26 / swc 11
+//! intlayer-swc-plugin – fixed for swc_core 53+ (Next.js 16.1+)
 
 use serde::Deserialize;
 use std::{
@@ -230,7 +230,7 @@ impl<'a> VisitMut for TransformVisitor<'a> {
             let Some(first_arg) = call.args.first_mut() else { return };
             let Expr::Lit(Lit::Str(Str { value, .. })) = &*first_arg.expr else { return };
             
-            let key = value.to_string();
+            let key = value.as_str().unwrap_or_default().to_string();
 
             // Remember the key globally (optional)
             if let Ok(mut set) = INTLAYER_KEYS.lock() {
@@ -290,13 +290,16 @@ impl<'a> VisitMut for TransformVisitor<'a> {
     fn visit_mut_import_decl(&mut self, import: &mut ImportDecl) {
         import.visit_mut_children_with(self);
 
-        let pkg = import.src.value.clone();
-        if !PACKAGE_LIST.iter().any(|a| a == &pkg) {
+        let pkg_atom = &import.src.value;
+        let pkg_str = pkg_atom.as_str().unwrap_or_default();
+
+        // FIX: Compare the unpacked string slice against the static Atom string
+        if !PACKAGE_LIST.iter().any(|a| a.as_str() == pkg_str) {
             return;
         }
 
         // Determine if this package supports dynamic imports
-        let package_supports_dynamic = PACKAGE_LIST_DYNAMIC.iter().any(|a| a == &pkg);
+        let package_supports_dynamic = PACKAGE_LIST_DYNAMIC.iter().any(|a| a.as_str() == pkg_str);
         let should_use_dynamic_helpers = (self.import_mode == "dynamic" || self.import_mode == "live") && package_supports_dynamic;
         
         if should_use_dynamic_helpers {
@@ -369,7 +372,6 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
 
         if is_main_entry {
             
-            // FIX 1: Removed redundant `if` expression
             let func_name = "getDictionaries";
 
             // 2. Create: export default {}
@@ -388,7 +390,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                 span: DUMMY_SP,
                 decl: Decl::Var(Box::new(VarDecl {
                     span: DUMMY_SP,
-                    ctxt: SyntaxContext::empty(), // FIX 2: Added ctxt
+                    ctxt: SyntaxContext::empty(),
                     kind: VarDeclKind::Const,
                     declare: false,
                     decls: vec![VarDeclarator {
@@ -399,7 +401,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                         }),
                         init: Some(Box::new(Expr::Arrow(ArrowExpr {
                             span: DUMMY_SP,
-                            ctxt: SyntaxContext::empty(), // FIX 3: Added ctxt
+                            ctxt: SyntaxContext::empty(),
                             params: vec![],
                             is_async: false,
                             is_generator: false,
@@ -440,14 +442,15 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
         let fetch_dictionaries_dir = cfg.fetch_dictionaries_dir.to_owned();
 
         // 4.a  where should we inject?  ─────────────────────────────────────
-        //     keep all leading `'use …'` strings at the top
+        //      keep all leading `'use …'` strings at the top
         let mut insert_pos = 0;
         for item in body.iter() {
             match item {
                 ModuleItem::Stmt(Stmt::Expr(ExprStmt { expr, .. })) => {
                     if let Expr::Lit(Lit::Str(Str { value, .. })) = &**expr {
-                        let v = value.as_ref();
-                        if v == "use client" || v == "use server" {
+                        // FIX: handle Option<&str>
+                        let v = value.as_str();
+                        if v == Some("use client") || v == Some("use server") {
                             insert_pos = 1;
                             continue;        // still inside the directive block
                         }
@@ -455,7 +458,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                 }
                 _ => {}
             }
-            break;                           // first non-directive stmt reached
+            break;                            // first non-directive stmt reached
         }
 
         // 4.b  inject static imports after the directives  ─────────────────────
@@ -498,7 +501,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                                 ).into()),
                                 value: Box::new(Expr::Lit(Lit::Str(Str {
                                     span: DUMMY_SP,
-                                    value: Atom::from("json"),
+                                    value: Atom::from("json").into(),
                                     raw: None,
                                 }))),
                             })))
