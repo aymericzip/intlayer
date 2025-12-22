@@ -10,11 +10,16 @@ import type { IntlayerConfig } from '@intlayer/types';
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 import { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
+import { handleContentDeclarationFileMoved } from './handleContentDeclarationFileMoved';
 import { handleUnlinkedContentDeclarationFile } from './handleUnlinkedContentDeclarationFile';
 import { prepareIntlayer } from './prepareIntlayer';
 import { writeContentDeclaration } from './writeContentDeclaration';
 
-const recentlyAddedFiles = new Set<string>();
+// Map to track files that were recently unlinked: oldPath -> { timer, timestamp }
+const pendingUnlinks = new Map<
+  string,
+  { timer: NodeJS.Timeout; oldPath: string }
+>();
 
 type WatchOptions = ChokidarOptions & {
   configuration?: IntlayerConfig;
@@ -24,7 +29,7 @@ type WatchOptions = ChokidarOptions & {
 
 // Initialize chokidar watcher (non-persistent)
 export const watch = (options?: WatchOptions) => {
-  const configuration =
+  const configuration: IntlayerConfig =
     options?.configuration ?? getConfiguration(options?.configOptions);
   const appLogger = getAppLogger(configuration);
 
@@ -51,34 +56,73 @@ export const watch = (options?: WatchOptions) => {
   })
     .on('add', async (filePath) => {
       const fileName = basename(filePath);
-      recentlyAddedFiles.add(fileName);
+      let isMove = false;
 
-      const fileContent = await readFile(filePath, 'utf-8');
+      // 1. Check if this Add corresponds to a pending Unlink (Move/Rename detection)
+      // Heuristic:
+      // - Priority A: Exact basename match (Moved to different folder)
+      // - Priority B: Single entry in pendingUnlinks (Renamed file)
+      let matchedOldPath: string | undefined;
 
-      const isEmpty = fileContent === '';
+      // Search for basename match
+      for (const [oldPath] of pendingUnlinks) {
+        if (basename(oldPath) === fileName) {
+          matchedOldPath = oldPath;
+          break;
+        }
+      }
 
-      // Fill template content declaration file if it is empty
-      if (isEmpty) {
-        // Extract name from filename by removing any configured extension
-        // e.g., "example.content.ts" -> "example" or "example.i18n.json" -> "example"
-        const extensionPattern = fileExtensions
-          .map((ext) => ext.replace(/\./g, '\\.'))
-          .join('|');
-        const name = fileName.replace(new RegExp(`(${extensionPattern})$`), '');
+      // If no basename match, but exactly one file was recently unlinked, assume it's a rename
+      if (!matchedOldPath && pendingUnlinks.size === 1) {
+        matchedOldPath = pendingUnlinks.keys().next().value;
+      }
 
-        await writeContentDeclaration(
-          {
-            key: name,
-            content: {},
-            filePath,
-          },
+      if (matchedOldPath) {
+        // It is a move! Cancel the unlink handler
+        const pending = pendingUnlinks.get(matchedOldPath);
+        if (pending) {
+          clearTimeout(pending.timer);
+          pendingUnlinks.delete(matchedOldPath);
+        }
+
+        isMove = true;
+        appLogger(`File moved from ${matchedOldPath} to ${filePath}`);
+
+        await handleContentDeclarationFileMoved(
+          matchedOldPath,
+          filePath,
           configuration
         );
       }
 
-      await handleAdditionalContentDeclarationFile(filePath, configuration);
+      // 2. If it's NOT a move, perform standard "New File" logic
+      if (!isMove) {
+        const fileContent = await readFile(filePath, 'utf-8');
+        const isEmpty = fileContent === '';
 
-      setTimeout(() => recentlyAddedFiles.delete(fileName), 1000); // Allow time for unlink to trigger if it's a move
+        // Fill template content declaration file if it is empty
+        if (isEmpty) {
+          const extensionPattern = fileExtensions
+            .map((ext) => ext.replace(/\./g, '\\.'))
+            .join('|');
+          const name = fileName.replace(
+            new RegExp(`(${extensionPattern})$`),
+            ''
+          );
+
+          await writeContentDeclaration(
+            {
+              key: name,
+              content: {},
+              filePath,
+            },
+            configuration
+          );
+        }
+      }
+
+      // 3. Always ensure the file is processed (both for moves and adds)
+      await handleAdditionalContentDeclarationFile(filePath, configuration);
     })
     .on(
       'change',
@@ -86,16 +130,14 @@ export const watch = (options?: WatchOptions) => {
         await handleContentDeclarationFileChange(filePath, configuration)
     )
     .on('unlink', async (filePath) => {
-      setTimeout(async () => {
-        const fileName = basename(filePath);
-
-        if (recentlyAddedFiles.has(fileName)) {
-          // The file was moved, so ignore unlink
-          return;
-        }
-
+      // Delay unlink processing to see if an 'add' event occurs (indicating a move)
+      const timer = setTimeout(async () => {
+        // If timer fires, the file was genuinely removed
+        pendingUnlinks.delete(filePath);
         await handleUnlinkedContentDeclarationFile(filePath, configuration);
-      }, 300); // Allow time for unlink to trigger if it's a move
+      }, 200); // 200ms window to catch the 'add' event
+
+      pendingUnlinks.set(filePath, { timer, oldPath: filePath });
     })
     .on('error', async (error) => {
       appLogger(`Watcher error: ${error}`, {
@@ -113,7 +155,7 @@ export const buildAndWatchIntlayer = async (options?: WatchOptions) => {
   const configuration =
     options?.configuration ?? getConfiguration(options?.configOptions);
 
-  if (!options?.skipPrepare) {
+  if (!skipPrepare) {
     await prepareIntlayer(configuration, { forceRun: true });
   }
 
@@ -121,7 +163,6 @@ export const buildAndWatchIntlayer = async (options?: WatchOptions) => {
     const appLogger = getAppLogger(configuration);
 
     appLogger('Watching Intlayer content declarations');
-    // Start watching (assuming watch is also async)
     watch({ ...rest, configuration });
   }
 };

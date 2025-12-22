@@ -20,42 +20,50 @@ export const handleContentDeclarationFileChange = async (
     isVerbose: true,
   });
 
-  const localeDictionaries = await loadLocalDictionaries(filePath, config);
+  const allDictionariesPaths: string[] = await getBuiltDictionariesPath(config);
 
-  localeDictionaries.forEach(async (dictionary) => {
-    await cleanRemovedContentDeclaration(filePath, dictionary.key, config);
-  });
+  const localeDictionaries = await loadLocalDictionaries(filePath, config);
 
   const dictionariesOutput = await buildDictionary(localeDictionaries, config);
   const updatedDictionariesPaths = Object.values(
     dictionariesOutput?.mergedDictionaries ?? {}
   ).map((dictionary) => dictionary.dictionaryPath);
 
-  const allDictionariesPaths: string[] = await getBuiltDictionariesPath(config);
+  const { excludeKeys, hasRebuilt } = await cleanRemovedContentDeclaration(
+    filePath,
+    localeDictionaries.map((dictionary) => dictionary.key),
+    config
+  );
 
-  createTypes(updatedDictionariesPaths, config);
-  appLogger('TypeScript types built', {
-    isVerbose: true,
-  });
+  const hasNewDictionaries = updatedDictionariesPaths.some(
+    (updatedDictionaryPath) =>
+      !allDictionariesPaths.includes(updatedDictionaryPath)
+  );
 
-  if (
-    updatedDictionariesPaths.some(
-      (updatedDictionaryPath) =>
-        !allDictionariesPaths.includes(updatedDictionaryPath)
-    )
-  ) {
-    await createDictionaryEntryPoint(config);
+  // Rebuild artifacts if we cleaned up old files (hasRebuilt) OR if new files were added (hasNewDictionaries)
+  if (hasRebuilt || hasNewDictionaries) {
+    // If hasRebuilt is true, cleanRemovedContentDeclaration has already updated the entry point
+    // to remove the old keys (and it likely included the new ones if they were already on disk).
+    // If NOT hasRebuilt, we explicitly need to update the entry point to include the new dictionaries.
+    if (!hasRebuilt) {
+      await createDictionaryEntryPoint(config, { excludeKeys });
+      appLogger('Dictionary list built', {
+        isVerbose: true,
+      });
+    }
 
-    appLogger('Dictionary list built', {
+    // Always regenerate types and module augmentation when keys change (rename or add)
+    await createTypes(updatedDictionariesPaths, config);
+    appLogger('TypeScript types built', {
+      isVerbose: true,
+    });
+
+    await createModuleAugmentation(config);
+
+    appLogger('Module augmentation built', {
       isVerbose: true,
     });
   }
-
-  createModuleAugmentation(config);
-
-  appLogger('Module augmentation built', {
-    isVerbose: true,
-  });
 
   // Plugin transformation
   // Allow plugins to post-process the final build output (e.g., write back ICU JSON)

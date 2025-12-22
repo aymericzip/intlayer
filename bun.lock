@@ -377,6 +377,7 @@
       "dependencies": {
         "@intlayer/babel": "workspace:*",
         "@intlayer/swc": "workspace:*",
+        "fuse.js": "7.1.0",
         "intlayer": "workspace:*",
         "next": "16.1.0",
         "next-intlayer": "workspace:*",

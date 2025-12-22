@@ -1,8 +1,8 @@
+import { normalize } from 'node:path';
 import { getAppLogger } from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { cleanRemovedContentDeclaration } from './cleanRemovedContentDeclaration';
-import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
 import { createTypes } from './createType';
 import { createModuleAugmentation } from './createType/createModuleAugmentation';
 import { listDictionaries } from './listDictionariesPath';
@@ -22,11 +22,13 @@ export const handleUnlinkedContentDeclarationFile = async (
 
   const files: string[] = await listDictionaries(config);
 
-  const localeDictionaries = await loadLocalDictionaries(files, config);
+  const existingFiles = files.filter(
+    (file) => normalize(file) !== normalize(filePath)
+  );
 
-  localeDictionaries.forEach(async (dictionary) => {
-    await cleanRemovedContentDeclaration(filePath, dictionary.key, config);
-  });
+  const localeDictionaries = await loadLocalDictionaries(existingFiles, config);
+
+  await cleanRemovedContentDeclaration(filePath, [], config);
 
   const dictionariesOutput = await buildDictionary(localeDictionaries, config);
 
@@ -35,8 +37,6 @@ export const handleUnlinkedContentDeclarationFile = async (
   ).map((dictionary) => dictionary.dictionaryPath);
 
   await createTypes(dictionariesPaths, config);
-
-  await createDictionaryEntryPoint();
 
   appLogger('Dictionaries rebuilt', {
     isVerbose: true,

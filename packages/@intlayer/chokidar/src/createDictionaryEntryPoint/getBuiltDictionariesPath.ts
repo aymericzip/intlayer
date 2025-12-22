@@ -1,4 +1,5 @@
 import { existsSync, mkdirSync } from 'node:fs';
+import { basename } from 'node:path';
 import { normalizePath } from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
 import fg from 'fast-glob';
@@ -7,7 +8,8 @@ import fg from 'fast-glob';
  * This function generates a list of dictionaries in the main directory
  */
 export const getBuiltDictionariesPath = async (
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  excludeKeys: string[] = []
 ) => {
   const { dictionariesDir, mainDir } = configuration.content;
 
@@ -20,5 +22,8 @@ export const getBuiltDictionariesPath = async (
     `${normalizePath(dictionariesDir)}/**/*.json`
   );
 
-  return dictionariesPath;
+  return dictionariesPath.filter((path) => {
+    const key = basename(path, '.json');
+    return !excludeKeys.includes(key);
+  });
 };

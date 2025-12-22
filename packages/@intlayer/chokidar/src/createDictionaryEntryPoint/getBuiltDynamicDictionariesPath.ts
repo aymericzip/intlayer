@@ -1,4 +1,5 @@
 import { existsSync, mkdirSync } from 'node:fs';
+import { basename } from 'node:path';
 import { normalizePath } from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
 import fg from 'fast-glob';
@@ -8,7 +9,8 @@ import fg from 'fast-glob';
  */
 export const getBuiltDynamicDictionariesPath = async (
   configuration: IntlayerConfig,
-  format: 'cjs' | 'esm' = 'esm'
+  format: 'cjs' | 'esm' = 'esm',
+  excludeKeys: string[] = []
 ) => {
   const { dynamicDictionariesDir, mainDir } = configuration.content;
 
@@ -23,5 +25,8 @@ export const getBuiltDynamicDictionariesPath = async (
     `${normalizePath(dynamicDictionariesDir)}/**/*.${extension}`
   );
 
-  return dictionariesPath;
+  return dictionariesPath.filter((path) => {
+    const key = basename(path, `.${extension}`);
+    return !excludeKeys.includes(key);
+  });
 };

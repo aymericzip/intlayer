@@ -35,13 +35,19 @@ const writeDictionaryFiles = async (
   );
 };
 
+export type CreateDictionaryEntryPointOptions = {
+  formats?: ('cjs' | 'esm')[];
+  excludeKeys?: string[];
+};
+
 /**
  * This function generates a list of dictionaries in the main directory
  */
 export const createDictionaryEntryPoint = async (
   configuration = getConfiguration(),
-  formats?: ('cjs' | 'esm')[]
+  options: CreateDictionaryEntryPointOptions = {}
 ) => {
+  const { formats, excludeKeys = [] } = options;
   const outputFormats = formats ?? configuration.build.outputFormat;
   const { mainDir } = configuration.content;
 
@@ -51,7 +57,7 @@ export const createDictionaryEntryPoint = async (
     ...outputFormats.map(
       (format) =>
         ({
-          paths: getBuiltDictionariesPath(configuration),
+          paths: getBuiltDictionariesPath(configuration, excludeKeys),
           importType: 'json',
           functionName: 'getDictionaries',
           fileName: 'dictionaries' as const,
@@ -61,7 +67,7 @@ export const createDictionaryEntryPoint = async (
     ...outputFormats.map(
       (format) =>
         ({
-          paths: getBuiltUnmergedDictionariesPath(configuration),
+          paths: getBuiltUnmergedDictionariesPath(configuration, excludeKeys),
           importType: 'json',
           functionName: 'getUnmergedDictionaries',
           fileName: 'unmerged_dictionaries' as const,
@@ -71,7 +77,11 @@ export const createDictionaryEntryPoint = async (
     ...outputFormats.map(
       (format) =>
         ({
-          paths: getBuiltDynamicDictionariesPath(configuration, format),
+          paths: getBuiltDynamicDictionariesPath(
+            configuration,
+            format,
+            excludeKeys
+          ),
           importType: 'javascript',
           functionName: 'getDynamicDictionaries',
           fileName: 'dynamic_dictionaries' as const,
@@ -81,7 +91,11 @@ export const createDictionaryEntryPoint = async (
     ...outputFormats.map(
       (format) =>
         ({
-          paths: getBuiltFetchDictionariesPath(configuration, format),
+          paths: getBuiltFetchDictionariesPath(
+            configuration,
+            format,
+            excludeKeys
+          ),
           importType: 'javascript',
           functionName: 'getFetchDictionaries',
           fileName: 'fetch_dictionaries' as const,
@@ -91,7 +105,7 @@ export const createDictionaryEntryPoint = async (
     ...outputFormats.map(
       (format) =>
         ({
-          paths: getBuiltRemoteDictionariesPath(configuration),
+          paths: getBuiltRemoteDictionariesPath(configuration, excludeKeys),
           importType: 'json',
           functionName: 'getRemoteDictionaries',
           fileName: 'remote_dictionaries' as const,
