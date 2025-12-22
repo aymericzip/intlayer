@@ -346,13 +346,26 @@ impl<'a> VisitMut for TransformVisitor<'a> {
 // ─────────────────────────────────────────────────────────────────────────────
 #[plugin_transform]
 pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata) -> Program {
+
+ 
     // read and parse plugin options
     let cfg: PluginConfig = match metadata
         .get_transform_plugin_config()
         .and_then(|raw| serde_json::from_str(&raw).ok())
     {
-        Some(c) => c,
-        None => return program, // no / bad config ⇒ noop
+        Some(c) => {
+            // --- ADD THIS LOG BLOCK ---
+            if DEBUG_LOG {
+                println!("[swc-intlayer] Parsed Configuration:\n{:#?}", c);
+            }
+            c
+        },
+        None => {
+            if DEBUG_LOG {
+                println!("[swc-intlayer] Warning: No config found or failed to parse. Noop.");
+            }
+            return program;
+        },
     };
 
     // skip files outside the configured roots
@@ -360,11 +373,26 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
         Some(f) => f,
         None => return program,
     };
-
+    
     // skip file if not in files_list (when files_list is not empty)  ──
-    if !cfg.files_list.is_empty() && !cfg.files_list.contains(&filename) {
-        return program; // skip processing this file
+    if !cfg.files_list.is_empty() {
+        let is_included = cfg.files_list.iter().any(|target| {
+            filename.ends_with(target) || target.ends_with(&filename)
+        });
+    
+        if !is_included {
+            if DEBUG_LOG {
+                // Log exactly what comparison failed
+                println!("[swc-intlayer] skipping: {} (not in files_list)", filename);
+            }
+            return program;
+        }
+ 
+        if DEBUG_LOG {
+            println!("[swc-intlayer] processing file: {}", filename);
+        }
     }
+
 
     // short-circuit the dictionaries entry file  ─────────────────────
     if cfg.replace_dictionary_entry.unwrap_or(false) {
@@ -428,13 +456,23 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
     }
 
     // 3) run visitor
+    if DEBUG_LOG {
+        println!("[swc-intlayer] [{}] step 3: running visitor...", filename);
+    }
     let import_mode = cfg.import_mode.unwrap_or("static".to_string());
     let live_sync_keys_set: HashSet<String> = cfg.live_sync_keys.into_iter().collect();
     let mut visitor = TransformVisitor::new(&cfg.dictionaries_dir, &cfg.dynamic_dictionaries_dir, import_mode.clone(), &live_sync_keys_set);
     program.visit_mut_with(&mut visitor);
+    if DEBUG_LOG {
+        println!("[swc-intlayer] [{}] step 3: visitor done. static_imports={}, dynamic_imports={}", 
+            filename, visitor.new_static_imports.len(), visitor.new_dynamic_imports.len());
+    }
 
     // ── 4) inject JSON/MJS imports (if any) ───────────────────────────────────
     if let Program::Module(Module { body, .. }) = &mut program {
+        if DEBUG_LOG {
+            println!("[swc-intlayer] [{}] step 4: injecting imports...", filename);
+        }
 
         // save the strings so we don't need `visitor` inside the loop
         let dictionaries_dir = visitor.dictionaries_dir.to_owned();
@@ -460,26 +498,59 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
             }
             break;                            // first non-directive stmt reached
         }
+        if DEBUG_LOG {
+            println!("[swc-intlayer] [{}] step 4a: insert_pos={}", filename, insert_pos);
+        }
 
         // 4.b  inject static imports after the directives  ─────────────────────
+        if DEBUG_LOG {
+            println!("[swc-intlayer] [{}] step 4b: injecting {} static imports...", filename, visitor.new_static_imports.len());
+        }
         for (key, ident) in visitor.new_static_imports.clone().into_iter().rev() {
             let file_path = Path::new(&filename);
+            // Ensure we are getting the directory of the current file
+            let file_dir = file_path.parent().unwrap_or_else(|| Path::new("."));
+            
             let dict_file = Path::new(&dictionaries_dir).join(format!("{}.json", key));
 
-            // Compute a relative path FROM the source file's directory TO the JSON file
-            let relative = diff_paths(&dict_file, file_path.parent().unwrap())
-                .unwrap_or_else(|| PathBuf::from(&dict_file));
-
-            // If it doesn't start with "./" or "../", add "./"
-            let import_path = {
-                let s = relative.to_string_lossy();
-                if s.starts_with("./") || s.starts_with("../") {
+            // Handle path compatibility: if dict_file is absolute and filename is relative,
+            // we need to make dict_file relative by finding the common base
+            let dict_for_diff = if dict_file.is_absolute() && !file_path.is_absolute() {
+                // Get the first component of the relative filename (e.g., "examples")
+                if let Some(first_component) = file_path.components().next() {
+                    let first_str = first_component.as_os_str().to_string_lossy();
+                    // Find this component in the absolute path and strip everything before it
+                    let dict_str = dict_file.to_string_lossy();
+                    if let Some(pos) = dict_str.find(&format!("/{}/", first_str)) {
+                        PathBuf::from(&dict_str[pos + 1..])
+                    } else if let Some(pos) = dict_str.find(&format!("\\{}\\", first_str)) {
+                        // Windows path support
+                        PathBuf::from(&dict_str[pos + 1..])
+                    } else {
+                        dict_file.clone()
+                    }
+                } else {
+                    dict_file.clone()
+                }
+            } else {
+                dict_file.clone()
+            };
+                        
+            // Compute a relative path
+            let import_path = if let Some(rel) = diff_paths(&dict_for_diff, file_dir) {
+                let s = rel.to_string_lossy();
+                if s.starts_with('.') {
                     s.into_owned()
                 } else {
                     format!("./{}", s)
                 }
+            } else {
+                // Fallback: If diff_paths fails, use the absolute path 
+                // WITHOUT the leading "./"
+                dict_file.to_string_lossy().into_owned()
             };
-
+            
+            // Now inject using `import_path`
             body.insert(
                 insert_pos,
                 ModuleItem::ModuleDecl(ModuleDecl::Import(ImportDecl {
@@ -514,26 +585,57 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
             insert_pos += 1;                 // keep later injected imports in order
         }
 
+        if DEBUG_LOG {
+            println!("[swc-intlayer] [{}] step 4b: done", filename);
+        }
+
         // 4.c  inject dynamic/fetch imports after the static imports  ──────────
+        if DEBUG_LOG {
+            println!("[swc-intlayer] [{}] step 4c: injecting {} dynamic imports...", filename, visitor.new_dynamic_imports.len());
+        }
         for (key, ident) in visitor.new_dynamic_imports.clone().into_iter().rev() {
             let file_path = Path::new(&filename);
+            let file_dir = file_path.parent().unwrap_or_else(|| Path::new("."));
             let ident_name: &str = ident.sym.as_ref();
             let is_live_ident = ident_name.ends_with("_fetch");
             let target_dir = if is_live_ident { &fetch_dictionaries_dir } else { &dynamic_dictionaries_dir };
             let dict_file = Path::new(target_dir).join(format!("{}.mjs", key));
 
-            // Compute a relative path FROM the source file's directory TO the MJS file
-            let relative = diff_paths(&dict_file, file_path.parent().unwrap())
-                .unwrap_or_else(|| PathBuf::from(&dict_file));
+            // Handle path compatibility: if dict_file is absolute and filename is relative,
+            // we need to make dict_file relative by finding the common base
+            let dict_for_diff = if dict_file.is_absolute() && !file_path.is_absolute() {
+                // Get the first component of the relative filename (e.g., "examples")
+                if let Some(first_component) = file_path.components().next() {
+                    let first_str = first_component.as_os_str().to_string_lossy();
+                    // Find this component in the absolute path and strip everything before it
+                    let dict_str = dict_file.to_string_lossy();
+                    if let Some(pos) = dict_str.find(&format!("/{}/", first_str)) {
+                        PathBuf::from(&dict_str[pos + 1..])
+                    } else if let Some(pos) = dict_str.find(&format!("\\{}\\", first_str)) {
+                        // Windows path support
+                        PathBuf::from(&dict_str[pos + 1..])
+                    } else {
+                        dict_file.clone()
+                    }
+                } else {
+                    dict_file.clone()
+                }
+            } else {
+                dict_file.clone()
+            };
 
-            // If it doesn't start with "./" or "../", add "./"
-            let import_path = {
-                let s = relative.to_string_lossy();
-                if s.starts_with("./") || s.starts_with("../") {
+            // Compute a relative path
+            let import_path = if let Some(rel) = diff_paths(&dict_for_diff, file_dir) {
+                let s = rel.to_string_lossy();
+                if s.starts_with('.') {
                     s.into_owned()
                 } else {
                     format!("./{}", s)
                 }
+            } else {
+                // Fallback: If diff_paths fails, use the absolute path 
+                // WITHOUT the leading "./"
+                dict_file.to_string_lossy().into_owned()
             };
 
             body.insert(
@@ -555,6 +657,8 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
         }
 
         if DEBUG_LOG {
+            println!("[swc-intlayer] [{}] step 4c: done", filename);
+            println!("[swc-intlayer] [{}] step 5: emitting code for debug...", filename);
             // ── 5) print entire transformed file as JS ──────────────────────────
             {
                 // Create a fresh SourceMap just for codegen (no real sourcemaps needed here)
@@ -574,10 +678,20 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                 let code = String::from_utf8(buf)
                     .expect("swc-intlayer: emitted code was not valid UTF-8");
                 
-                    println!("\n[swc-intlayer] final code for {}:\n{}\n", filename, code);
+                // Only print first 500 chars to avoid flooding logs with large files
+                let truncated = if code.len() > 500 {
+                    format!("{}...\n[truncated, total {} chars]", &code[..500], code.len())
+                } else {
+                    code
+                };
+                println!("\n[swc-intlayer] final code for {}:\n{}\n", filename, truncated);
             }
+            println!("[swc-intlayer] [{}] step 5: done", filename);
         }
     }
 
+    if DEBUG_LOG {
+        println!("[swc-intlayer] [{}] transform complete", filename);
+    }
     program
 }
