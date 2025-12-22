@@ -1,6 +1,6 @@
 {
   "name": "intlayer-monorepo",
-  "version": "7.5.3",
+  "version": "7.5.4",
   "private": false,
   "description": "Intlayer monorepo - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "homepage": "https://intlayer.org",

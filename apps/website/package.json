@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "7.5.3",
+  "version": "7.5.4",
   "private": true,
   "description": "Intlayer Website include the landing page and the documentation of the intlayer project.",
   "keywords": [
@@ -38,7 +38,7 @@
     "build": "bun run --bun next build",
     "postbuild": "bun scripts/generate-sw.ts",
     "build:webpack": "bun run --bun next build --webpack",
-    "dev": "intlayer watch --with 'next dev --turbopack'",
+    "dev": "intlayer watch --with 'next dev'",
     "dev:webpack": "bun run --bun next dev --webpack",
     "editor": "intlayer-editor start --bun",
     "generate-pwa-assets": "pwa-asset-generator --preset minimal ../../packages/@intlayer/design-system/src/components/Logo/logo_circle_wite.svg ./public/assets/",
