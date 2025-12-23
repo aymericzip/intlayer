@@ -196,15 +196,15 @@ const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const sessionToPass = hasSessionToken && !session ? undefined : session;
 
   return (
-    <AuthenticationBarrier
-      accessRule="authenticated"
-      session={sessionToPass}
-      locale={locale}
-    >
-      <DashboardLayoutContent locale={locale} dehydratedState={dehydratedState}>
+    <DashboardLayoutContent locale={locale} dehydratedState={dehydratedState}>
+      <AuthenticationBarrier
+        accessRule="authenticated"
+        session={sessionToPass}
+        locale={locale}
+      >
         {children}
-      </DashboardLayoutContent>
-    </AuthenticationBarrier>
+      </AuthenticationBarrier>
+    </DashboardLayoutContent>
   );
 };
 
