@@ -27,6 +27,7 @@ export const inputVariants = cva(
           // Focus ring
           'disabled:ring-0',
           'hover:ring-3',
+          'focus-within:ring-4',
           'focus-visible:outline-none focus-visible:ring-4',
 
           // Remove any weird box-shadow

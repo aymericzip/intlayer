@@ -14,6 +14,8 @@ import {
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../utils/cn';
+import { Button } from '../Button';
+import { Input, inputVariants } from '../Input';
 
 const browserVariants = cva(
   'flex w-full flex-col overflow-hidden rounded-xl bg-background shadow-[0_4px_12px_rgba(0,0,0,0.4),0_0_1px_rgba(0,0,0,0.2)]',
@@ -283,50 +285,49 @@ export const Browser = ({
       <div className="relative z-10 flex shrink-0 items-center gap-3 rounded-t-xl bg-neutral-900 px-4 py-2.5">
         {/* Navigation Controls */}
         <div className="flex items-center gap-1">
-          <button
+          <Button
             type="button"
             onClick={handleBack}
             disabled={!canGoBack}
-            className={cn(
-              'flex h-8 w-8 items-center justify-center rounded-md text-neutral-400 transition-colors',
-              canGoBack
-                ? 'hover:bg-neutral-800 hover:text-neutral-200'
-                : 'cursor-not-allowed opacity-40'
-            )}
-            aria-label="Go back"
-            title="Go back"
-          >
-            <ArrowLeft size={18} />
-          </button>
-
-          <button
+            variant="hoverable"
+            size="icon-xl"
+            label={content.backButtonLabel.value}
+            Icon={ArrowLeft}
+          />
+          <Button
             type="button"
             onClick={handleForward}
             disabled={!canGoForward}
-            className={cn(
-              'flex h-8 w-8 items-center justify-center rounded-md text-neutral-400 transition-colors',
-              canGoForward
-                ? 'hover:bg-neutral-800 hover:text-neutral-200'
-                : 'cursor-not-allowed opacity-40'
-            )}
-            aria-label="Go forward"
-            title="Go forward"
-          >
-            <ArrowRight size={18} />
-          </button>
+            variant="hoverable"
+            size="icon-xl"
+            label={content.forwardButtonLabel.value}
+            Icon={ArrowRight}
+          />
         </div>
 
         {/* URL Bar */}
-        <form onSubmit={handleSubmit} className="relative flex-1" noValidate>
+        <form
+          onSubmit={handleSubmit}
+          noValidate
+          className={cn(
+            inputVariants(),
+            'flex w-full gap-2 p-1!',
+            'bg-neutral-950 text-text/50',
+            'placeholder:text-neutral/80',
+            'rounded-xl'
+          )}
+        >
           <label htmlFor="browser-url" className="sr-only">
             {content.urlLabel.value}
           </label>
-          <input
+          <Input
             id="browser-url"
             type="text"
             inputMode="url"
             spellCheck={false}
             autoCapitalize="off"
+            variant="invisible"
+            className="ml-3 p-0! text-base!"
             autoCorrect="off"
             value={inputUrl}
             onChange={(e) => {
@@ -334,34 +335,20 @@ export const Browser = ({
               if (showError) setError(null);
             }}
             placeholder={content.urlPlaceholder.value}
-            className={cn(
-              'w-full rounded-lg px-4 py-2 pr-11 text-sm leading-[1.4]',
-              'bg-neutral-950 text-neutral-300',
-              'placeholder:text-neutral-400',
-              'transition-all focus:outline-none focus:ring-1 focus:ring-neutral-400/30',
-              showError ? 'border border-red-500' : 'border border-transparent'
-            )}
             aria-label={content.urlLabel.value}
             aria-invalid={showError}
             aria-describedby={showError ? 'browser-url-error' : undefined}
           />
 
-          {/* Reload Button */}
-          <button
+          <Button
             type="button"
             onClick={handleReload}
-            className={cn(
-              '-translate-y-1/2 absolute top-1/2 right-2',
-              'flex h-8 w-8 items-center justify-center rounded-md',
-              'transition-colors hover:bg-neutral-800',
-              'focus:outline-none focus:ring-1 focus:ring-neutral-400/30'
-            )}
-            title={content.reloadButtonTitle.value}
-            aria-label={content.reloadButtonTitle.value}
-            tabIndex={0}
-          >
-            <RotateCw size={18} className="text-neutral-400" strokeWidth={2} />
-          </button>
+            variant="hoverable"
+            size="icon-xl"
+            className="p-2!"
+            label={'content.reloadButtonTitle.value'}
+            Icon={RotateCw}
+          />
 
           {/* invisible submit */}
           <button type="submit" className="sr-only absolute" tabIndex={-1} />
