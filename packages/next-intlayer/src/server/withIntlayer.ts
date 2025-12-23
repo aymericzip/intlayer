@@ -93,29 +93,34 @@ const getPruneConfig = (
 
   const isSwcPluginAvailable = getIsSwcPluginAvailable(intlayerConfig);
 
-  if (!isSwcPluginAvailable) {
-    logger([
-      colorize('Recommended: Install', ANSIColors.GREY),
-      colorize('@intlayer/swc', ANSIColors.GREY_LIGHT),
-      colorize(
-        'package to enable build optimization. See documentation: ',
-        ANSIColors.GREY
-      ),
-      colorize(
-        'https://intlayer.org/docs/en/bundle_optimization',
-        ANSIColors.GREY_LIGHT
-      ),
-    ]);
-    return {};
-  }
-
   runOnce(
     join(baseDir, '.intlayer', 'cache', 'intlayer-prune-plugin-enabled.lock'),
-    () => logger('Build optimization enabled'),
+    () => {
+      if (isSwcPluginAvailable) {
+        logger('Build optimization enabled');
+      } else {
+        logger([
+          colorize('Recommended: Install', ANSIColors.GREY),
+          colorize('@intlayer/swc', ANSIColors.GREY_LIGHT),
+          colorize(
+            'package to enable build optimization. See documentation: ',
+            ANSIColors.GREY
+          ),
+          colorize(
+            'https://intlayer.org/docs/en/bundle_optimization',
+            ANSIColors.GREY_LIGHT
+          ),
+        ]);
+      }
+    },
     {
-      cacheTimeoutMs: 1000 * 10, // 10 seconds
+      cacheTimeoutMs: 1000 * 30, // 30 seconds
     }
   );
+
+  if (!isSwcPluginAvailable) {
+    return {};
+  }
 
   const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
 
