@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/svelte-compiler",
-  "version": "7.5.5",
+  "version": "7.5.6",
   "private": false,
   "description": "Vite-compatible compiler plugin for Svelte with Intlayer, providing HMR support, file transformation, and optimized dictionary loading for Svelte applications.",
   "keywords": [

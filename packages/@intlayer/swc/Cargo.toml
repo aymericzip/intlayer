@@ -1,6 +1,6 @@
 [package]
 name = "intlayer-swc-plugin"
-version = "5.5.2"
+version = "7.5.6"
 edition = "2021"
 
 [lib]
