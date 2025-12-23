@@ -1,0 +1,27 @@
+import { BackgroundLayout } from '@components/BackgroundLayout';
+import { ContentDashboard } from '@components/Dashboard/ContentDashboard';
+import type { NextPageIntlayer } from 'next-intlayer';
+import { IntlayerServerProvider } from 'next-intlayer/server';
+
+type DictionaryDashboardPageProps = {
+  dictionaryKey: string;
+};
+
+const DictionaryDashboardPage: NextPageIntlayer<
+  DictionaryDashboardPageProps
+> = async ({ params }) => {
+  const { locale, dictionaryKey } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <div className="relative flex flex-1 flex-col items-center">
+        <div className="flex size-full flex-1 flex-col items-center p-10 pt-0">
+          <ContentDashboard dictionaryKey={dictionaryKey} />
+        </div>
+        <BackgroundLayout />
+      </div>
+    </IntlayerServerProvider>
+  );
+};
+
+export default DictionaryDashboardPage;

@@ -1,8 +1,7 @@
 'use client';
 
 import { Button, TabSelector } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
-import { Book, type LucideIcon, PenTool } from 'lucide-react';
+import { Book, PenTool } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
