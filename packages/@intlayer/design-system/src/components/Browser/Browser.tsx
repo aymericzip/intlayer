@@ -93,10 +93,10 @@ export const Browser = ({
       const origin = new URL(baseOrigin).origin;
       const fullUrl = `${origin}${path}`;
 
-      // 1. Update Input
+      // Update Input (Always update the visual bar)
       setInputUrl(fullUrl);
 
-      // 2. Check internal iframe state to avoid reload if already there
+      // Check internal iframe state to avoid reload if already there
       let isAlreadyAtUrl = false;
       if (internalIframeRef.current?.contentWindow) {
         try {
@@ -110,12 +110,10 @@ export const Browser = ({
         }
       }
 
-      // 3. Navigate if needed (Push to history)
-      if (!isAlreadyAtUrl) {
-        // If the path prop forces a change, we treat it as a new navigation
-        setCurrentUrl(fullUrl);
-
-        // Update History Stack
+      // Update History Stack
+      // We perform this check regardless of `isAlreadyAtUrl`.
+      // If the path changed (even internally), we want to record it in the arrow stack.
+      if (history[currentIndex] !== fullUrl) {
         setHistory((prev) => {
           const newHistory = prev.slice(0, currentIndex + 1);
           newHistory.push(fullUrl);
@@ -124,11 +122,16 @@ export const Browser = ({
         setCurrentIndex((prev) => prev + 1);
       }
 
+      // Navigate (Update src) only if NOT already there
+      // This prevents the iframe from refreshing when the user navigated inside it.
+      if (!isAlreadyAtUrl) {
+        setCurrentUrl(fullUrl);
+      }
+
       setError(null);
     } catch {
       // Ignore invalid paths
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path, domainRestriction, initialUrl]); // Removed currentIndex dependency to prevent loops
 
   // --- Navigation Logic ------------------------------------------------------
