@@ -41,7 +41,6 @@ export const organizationSchema = new Schema<OrganizationSchema>(
     },
     domain: {
       type: String,
-      required: true,
     },
   },
   {
