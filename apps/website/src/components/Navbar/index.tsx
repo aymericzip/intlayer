@@ -136,7 +136,6 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
               href={login.url.value}
               variant="button"
               color="text"
-              className="rounded-2xl! text-center font-medium leading-6"
             >
               {login.title}
             </Link>

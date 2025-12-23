@@ -3,7 +3,9 @@
 import { getLocalizedUrl } from '@intlayer/core';
 import {
   checkIsExternalLink,
+  isTextChildren,
   type LinkProps as LinkUIProps,
+  LinkVariant,
   linkVariants,
 } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
@@ -49,7 +51,10 @@ export const Link: FC<LinkProps> = (props) => {
     isExternalLinkProp ?? checkIsExternalLink(propsWithNormalizedHref);
   const isPageSection =
     isPageSectionProp ?? normalizedHref?.startsWith('#') ?? false;
-  const isChildrenString = typeof children === 'string';
+
+  const isChildrenString = isTextChildren(children);
+  const isButton =
+    variant === LinkVariant.BUTTON || variant === LinkVariant.BUTTON_OUTLINED;
 
   const href =
     locale && normalizedHref && !isExternalLink && !isPageSection
@@ -80,7 +85,7 @@ export const Link: FC<LinkProps> = (props) => {
       )}
       {...otherProps}
     >
-      {children}
+      {isButton && isChildrenString ? <span>{children}</span> : children}
 
       {isExternalLink && isChildrenString && (
         <ExternalLink className="ml-2 inline-block size-4" />

@@ -2,7 +2,13 @@ import { getLocalizedUrl } from '@intlayer/core';
 import type { LocalesValues } from '@intlayer/types';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ExternalLink, MoveRight } from 'lucide-react';
-import type { AnchorHTMLAttributes, DetailedHTMLProps, FC } from 'react';
+import {
+  type AnchorHTMLAttributes,
+  type DetailedHTMLProps,
+  type FC,
+  isValidElement,
+  type ReactNode,
+} from 'react';
 import { cn } from '../../utils/cn';
 
 /**
@@ -313,6 +319,27 @@ export const checkIsExternalLink = ({
   return isExternalLink;
 };
 
+export const isTextChildren = (children: ReactNode): boolean => {
+  // Direct string or number
+  if (typeof children === 'string' || typeof children === 'number') {
+    return true;
+  }
+
+  // Array (e.g., {'A'} {'B'}) - check if every item is text
+  if (Array.isArray(children)) {
+    return children.every(isTextChildren);
+  }
+
+  // Fragment - check its children recursively
+  if (isValidElement(children)) {
+    return isTextChildren(
+      (children.props as { children?: ReactNode }).children
+    );
+  }
+
+  return false;
+};
+
 /**
  * Link Component
  *
@@ -341,7 +368,9 @@ export const Link: FC<LinkProps> = (props) => {
   const isExternalLink = isExternalLinkProp ?? checkIsExternalLink(props);
   const isPageSection = isPageSectionProp ?? hrefProp?.startsWith('#') ?? false;
 
-  const isChildrenString = typeof children === 'string';
+  const isChildrenString = isTextChildren(children);
+  const isButton =
+    variant === LinkVariant.BUTTON || variant === LinkVariant.BUTTON_OUTLINED;
 
   const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
 
@@ -371,7 +400,7 @@ export const Link: FC<LinkProps> = (props) => {
       )}
       {...otherProps}
     >
-      {children}
+      {isButton && isChildrenString ? <span>{children}</span> : children}
 
       {isExternalLink && isChildrenString && (
         <ExternalLink className="ml-2 inline-block size-4" />
