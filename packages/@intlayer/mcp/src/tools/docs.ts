@@ -16,9 +16,13 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
   server.registerTool(
     'get-doc-list',
     {
+      title: 'Get Doc List',
       description:
         'Get the list of docs names and their metadata to get more details about what doc to retrieve',
       inputSchema: {},
+      annotations: {
+        readOnlyHint: true,
+      },
     },
     async () => {
       try {
@@ -47,10 +51,14 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
   server.registerTool(
     'get-doc',
     {
+      title: 'Get Doc by Key',
       description:
         'Get a doc by his key. Example: `./docs/en/getting-started.md`. List all docs metadata first to get more details about what doc key to retrieve.',
       inputSchema: {
         docKey: z.enum(docsKeys as [string, ...string[]]),
+      },
+      annotations: {
+        readOnlyHint: true,
       },
     },
     async ({ docKey }) => {
@@ -72,6 +80,7 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
   server.registerTool(
     'get-doc-by-slug',
     {
+      title: 'Get Doc by Slug',
       description:
         'Get an array of docs by their slugs. If not slug is provided, return all docs (1.2Mb). List all docs metadata first to get more details about what doc to retrieve.',
       inputSchema: {
@@ -87,6 +96,9 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
           .describe(
             'Strict mode - only return docs that match all slugs, by excluding additional slugs'
           ),
+      },
+      annotations: {
+        readOnlyHint: true,
       },
     },
     async ({ slug, strict }) => {

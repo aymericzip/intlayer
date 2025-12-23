@@ -17,6 +17,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
     'intlayer-build',
     {
+      title: 'Build Dictionaries',
       description:
         'Build the dictionaries. List all content declarations files `.content.{ts,tsx,js,json,...}` to update the content callable using the `useIntlayer` hook.',
       inputSchema: {
@@ -26,6 +27,9 @@ export const loadCLITools: LoadCLITools = async (server) => {
         envFile: z.string().optional().describe('Environment file'),
         verbose: z.boolean().optional().describe('Verbose output'),
         prefix: z.string().optional().describe('Log prefix'),
+      },
+      annotations: {
+        destructiveHint: true,
       },
     },
     async ({ watch, baseDir, env, envFile, verbose, prefix }) => {
@@ -76,6 +80,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
     'intlayer-fill',
     {
+      title: 'Fill Translations',
       description:
         'Fill the dictionaries with missing translations / review translations using Intlayer servers',
       inputSchema: {
@@ -130,6 +135,9 @@ export const loadCLITools: LoadCLITools = async (server) => {
           .optional()
           .describe('AI options'),
       },
+      annotations: {
+        destructiveHint: true,
+      },
     },
     async (props) => {
       try {
@@ -176,6 +184,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
     'intlayer-push',
     {
+      title: 'Push Dictionaries',
       description: 'Push local dictionaries to the server',
       inputSchema: {
         deleteLocaleDictionary: z
@@ -201,6 +210,9 @@ export const loadCLITools: LoadCLITools = async (server) => {
           })
           .optional()
           .describe('Git options'),
+      },
+      annotations: {
+        destructiveHint: true,
       },
     },
     async (props) => {
@@ -248,6 +260,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
     'intlayer-pull',
     {
+      title: 'Pull Dictionaries',
       description: 'Pull dictionaries from the CMS',
       inputSchema: {
         dictionaries: z
@@ -258,6 +271,9 @@ export const loadCLITools: LoadCLITools = async (server) => {
           .string()
           .optional()
           .describe('Path to save new dictionaries'),
+      },
+      annotations: {
+        destructiveHint: true,
       },
     },
     async (props) => {
@@ -290,6 +306,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
     'intlayer-content-list',
     {
+      title: 'List Content Declarations',
       description:
         'List the content declaration (.content.{ts,tsx,js,json,...}) files present in the project. That files contain the multilingual content of the application and are used to build the dictionaries.',
       inputSchema: {
@@ -311,6 +328,9 @@ export const loadCLITools: LoadCLITools = async (server) => {
           })
           .optional()
           .describe('Configuration options'),
+      },
+      annotations: {
+        readOnlyHint: true,
       },
     },
     async (props) => {
@@ -342,6 +362,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
     'intlayer-content-test',
     {
+      title: 'Test Translations',
       description:
         'Test if there are missing translations in the content declaration files. That files contain the multilingual content of the application and are used to build the dictionaries.',
       inputSchema: {
@@ -363,6 +384,9 @@ export const loadCLITools: LoadCLITools = async (server) => {
           })
           .optional()
           .describe('Configuration options'),
+      },
+      annotations: {
+        readOnlyHint: true,
       },
     },
     async (props) => {
@@ -396,6 +420,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
     'intlayer-transform',
     {
+      title: 'Transform Component',
       description:
         'Transform an existing component to use Intlayer. Trigger this action to transform an existing component to be multilingual. If the component does not exist, create a normal React component including text in JSX, and then trigger this tool to transform it.',
       inputSchema: {
@@ -425,6 +450,9 @@ export const loadCLITools: LoadCLITools = async (server) => {
           })
           .optional()
           .describe('Configuration options'),
+      },
+      annotations: {
+        destructiveHint: true,
       },
     },
     async (props) => {
