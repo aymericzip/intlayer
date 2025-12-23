@@ -15,7 +15,11 @@ keywords:
 slugs:
   - blog
   - intlayer-with-react-intl
+youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 7.0.7
+    date: 2025-11-06
+    changes: AI sağlayıcı desteği dokümantasyonu eklendi
   - version: 7.0.6
     date: 2025-11-01
     changes: loadJSON eklentisi eklendi
