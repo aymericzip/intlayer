@@ -380,12 +380,12 @@ export const Browser = ({
       </div>
 
       {/* Iframe */}
-      <div className="relative z-0 min-h-0 w-full flex-1 overflow-hidden rounded-b-xl bg-background">
+      <div className="relative z-0 flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-b-xl bg-background">
         <iframe
           ref={internalIframeRef}
           src={currentUrl}
           title={content.iframeTitle.value}
-          className="h-full w-full rounded-b-xl border-0"
+          className="size-full flex-1"
           sandbox={sandbox}
           loading="lazy"
           aria-live="polite"
