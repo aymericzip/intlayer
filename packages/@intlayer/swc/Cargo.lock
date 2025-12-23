@@ -677,7 +677,7 @@ dependencies = [
 
 [[package]]
 name = "intlayer-swc-plugin"
-version = "5.5.2"
+version = "7.5.6"
 dependencies = [
  "base62",
  "data-encoding",
