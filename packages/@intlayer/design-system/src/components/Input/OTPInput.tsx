@@ -667,7 +667,7 @@ export const OTPInput: FC<OTPInputProps> = ({
       inputMode={inputMode}
       pattern={regexp?.source}
       aria-placeholder={placeholder}
-      className="-z-10 pointer-events-auto absolute inset-0 flex h-full border-0 border-transparent bg-transparent text-center font-mono text-transparent tabular-nums leading-none tracking-[-.5em] caret-transparent opacity-100 shadow-none outline-none"
+      className="pointer-events-auto absolute inset-0 -z-10 flex h-full border-0 border-transparent bg-transparent text-center font-mono text-transparent tabular-nums leading-none tracking-[-.5em] caret-transparent opacity-100 shadow-none outline-none"
       style={dynamicInputStyle}
       maxLength={maxLength}
       value={value}
@@ -871,7 +871,7 @@ export const InputOTPSlot: FC<InputOTPSlotProps> = ({
 
   return (
     <Button
-      aria-active={isActive}
+      isSelected={isActive}
       variant="input"
       color="custom"
       tabIndex={-1}

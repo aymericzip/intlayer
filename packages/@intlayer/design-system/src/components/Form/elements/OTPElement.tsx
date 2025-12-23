@@ -27,7 +27,7 @@ type OTPElementsProps = Omit<FormElementProps<typeof InputOTP>, 'Element'> &
   };
 
 const selector = (option: HTMLElement) =>
-  option?.getAttribute('aria-active') === 'true';
+  option?.getAttribute('aria-selected') === 'true';
 
 const OTPFieldContent = ({
   field,
