@@ -95,11 +95,6 @@ ENV NODE_ENV=production
 # Build the Next.js website
 RUN bun x next build && bun scripts/generate-sw.ts
 
-WORKDIR /workspace
-
-# Remove .ts, .tsx and .map files only within src/** directories, ignoring node_modules, so configuration files like intlayer.config.ts are kept
-RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
-
 WORKDIR /workspace/apps/website
 
 # Create and use a non-root user for security
