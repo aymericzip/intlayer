@@ -36,7 +36,7 @@ export const inputVariants = cva(
           // aria-invalid border color
           'aria-invalid:border-error',
         ].join(' '),
-        invisible: 'border-none bg-inherit text-inherit outline-none ring-0',
+        invisible: 'border-none text-inherit outline-none ring-0',
       },
       size: {
         md: 'px-2 py-3 md:py-2',

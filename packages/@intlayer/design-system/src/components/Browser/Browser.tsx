@@ -282,7 +282,7 @@ export const Browser = ({
       aria-label={ariaLabel ?? content.ariaLabel.value}
     >
       {/* Top bar */}
-      <div className="relative z-10 flex shrink-0 items-center gap-3 rounded-t-xl bg-neutral-900 px-4 py-2.5">
+      <div className="relative z-10 flex shrink-0 items-center gap-3 rounded-t-xl bg-text/20 px-4 py-2.5">
         {/* Navigation Controls */}
         <div className="flex items-center gap-1">
           <Button
@@ -311,10 +311,8 @@ export const Browser = ({
           noValidate
           className={cn(
             inputVariants(),
-            'flex w-full gap-2 p-1!',
-            'bg-neutral-950 text-text/50',
-            'placeholder:text-neutral/80',
-            'rounded-xl'
+            'flex w-full gap-2 rounded-xl p-1! supports-[corner-shape:squircle]:rounded-2xl',
+            'bg-neutral/10 text-text/50 placeholder:text-neutral/80'
           )}
         >
           <label htmlFor="browser-url" className="sr-only">
