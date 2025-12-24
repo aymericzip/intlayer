@@ -32,7 +32,7 @@ import bolivia from './bo.svg';
 import brazil from './br.svg';
 // import bahamas from './bs.svg';
 // import bouvetIsland from './bv.svg';
-// import botswana from './bw.svg';
+import botswana from './bw.svg';
 import belarus from './by.svg';
 import belize from './bz.svg';
 import canada from './ca.svg';
@@ -50,13 +50,14 @@ import china from './cn.svg';
 import colombia from './co.svg';
 // import clippertonIsland from './cp.svg';
 import costaRica from './cr.svg';
-// import cuba from './cu.svg';
-// import caboVerde from './cv.svg';
+import cuba from './cu.svg';
+import caboVerde from './cv.svg';
 // import curaçao from './cw.svg';
 // import christmasIsland from './cx.svg';
 // import cyprus from './cy.svg';
 import czechRepublic from './cz.svg';
 import germany from './de.svg';
+import djibouti from './dj.svg';
 // import diegoGarcia from './dg.svg';
 // import djibouti from './dj.svg';
 import denmark from './dk.svg';
@@ -73,7 +74,6 @@ import spain from './es.svg';
 import catalonia from './es-ct.svg';
 import galicia from './es-ga.svg';
 import basqueCountry from './es-pv.svg';
-// import mozambique from './mz.svg';
 // import ascensionIsland from './sh-ac.svg';
 // import canaryIslands from './ic.svg';
 // import pacificCommunity from './pc.svg';
@@ -97,7 +97,7 @@ import wales from './gb-wls.svg';
 import georgia from './ge.svg';
 // import frenchGuiana from './gf.svg';
 // import guernsey from './gg.svg';
-// import ghana from './gh.svg';
+import ghana from './gh.svg';
 // import gibraltar from './gi.svg';
 // import greenland from './gl.svg';
 // import gambia from './gm.svg';
@@ -106,6 +106,13 @@ import georgia from './ge.svg';
 // import equatorialGuinea from './gq.svg';
 import greece from './gr.svg';
 import guatemala from './gt.svg';
+// import caymanIslands from './ky.svg';
+// import chad from './td.svg';
+// import eswatini from './sz.svg';
+// import frenchPolynesia from './pf.svg';
+// import frenchSouthernTerritories from './tf.svg';
+// import guam from './gu.svg';
+import guineaBissau from './gw.svg';
 import hongKong from './hk.svg';
 import honduras from './hn.svg';
 import croatia from './hr.svg';
@@ -125,27 +132,9 @@ import japan from './jp.svg';
 import kenya from './ke.svg';
 import kyrgyzstan from './kg.svg';
 import cambodia from './kh.svg';
+import comoros from './km.svg';
 import southKorea from './kr.svg';
 import kuwait from './kw.svg';
-// import caymanIslands from './ky.svg';
-// import chad from './td.svg';
-// import eswatini from './sz.svg';
-// import frenchPolynesia from './pf.svg';
-// import frenchSouthernTerritories from './tf.svg';
-// import guam from './gu.svg';
-// import guineaBissau from './gw.svg';
-// import guyana from './gy.svg';
-// import haiti from './ht.svg';
-// import heardIslandAndMcdonaldIslands from './hm.svg';
-// import togo from './tg.svg';
-// import tajikistan from './tj.svg';
-// import tokelau from './tk.svg';
-// import timorLeste from './tl.svg';
-// import turkmenistan from './tm.svg';
-// import tonga from './to.svg';
-// import tuvalu from './tv.svg';
-// import tanzania from './tz.svg';
-// import uganda from './ug.svg';
 // import unitedStatesMinorOutlyingIslands from './um.svg';
 // import unitedNations from './un.svg';
 // import holySee from './va.svg';
@@ -158,16 +147,15 @@ import lebanon from './lb.svg';
 // import lesotho from './ls.svg';
 // import liberia from './lr.svg';
 import liechtenstein from './li.svg';
+import sriLanka from './lk.svg';
 import lithuania from './lt.svg';
 import luxembourg from './lu.svg';
 import latvia from './lv.svg';
 import libya from './ly.svg';
-// import madagascar from './mg.svg';
-// import malawi from './mw.svg';
-// import mali from './ml.svg';
-// import marshallIslands from './mh.svg';
-// import martinique from './mq.svg';
-// import mauritania from './mr.svg';
+// import montenegro from './me.svg';
+// import montserrat from './ms.svg';
+import morocco from './ma.svg';
+import monaco from './mc.svg';
 // import mauritius from './mu.svg';
 // import saintVincentAndTheGrenadines from './vc.svg';
 // import virginIslandsBritish from './vg.svg';
@@ -177,19 +165,22 @@ import libya from './ly.svg';
 // import samoa from './ws.svg';
 // import kosovo from './xk.svg';
 // import mayotte from './yt.svg';
-// import moldova from './md.svg';
-// import montenegro from './me.svg';
-// import montserrat from './ms.svg';
-import morocco from './ma.svg';
-import monaco from './mc.svg';
+import moldova from './md.svg';
 import northMacedonia from './mk.svg';
 import myanmar from './mm.svg';
 import mongolia from './mn.svg';
 import macau from './mo.svg';
+// import madagascar from './mg.svg';
+// import malawi from './mw.svg';
+// import mali from './ml.svg';
+// import marshallIslands from './mh.svg';
+// import martinique from './mq.svg';
+import mauritania from './mr.svg';
 import malta from './mt.svg';
 import maldives from './mv.svg';
 import mexico from './mx.svg';
 import malaysia from './my.svg';
+import mozambique from './mz.svg';
 import nigeria from './ng.svg';
 import nicaragua from './ni.svg';
 import netherlands from './nl.svg';
@@ -203,6 +194,7 @@ import philippines from './ph.svg';
 import pakistan from './pk.svg';
 import poland from './pl.svg';
 import puertoRico from './pr.svg';
+import palestine from './ps.svg';
 import portugal from './pt.svg';
 import paraguay from './py.svg';
 import qatar from './qa.svg';
@@ -210,18 +202,34 @@ import romania from './ro.svg';
 import serbia from './rs.svg';
 import russia from './ru.svg';
 import saudiArabia from './sa.svg';
+import sudan from './sd.svg';
 import sweden from './se.svg';
 import singapore from './sg.svg';
 import slovenia from './si.svg';
 import slovakia from './sk.svg';
+import somalia from './so.svg';
+import saoTomeAndPrincipe from './st.svg';
 import elSalvador from './sv.svg';
 import syria from './sy.svg';
+import chad from './td.svg';
 import thailand from './th.svg';
+// import guyana from './gy.svg';
+// import haiti from './ht.svg';
+// import heardIslandAndMcdonaldIslands from './hm.svg';
+// import togo from './tg.svg';
+// import tajikistan from './tj.svg';
+// import tokelau from './tk.svg';
+import timorLeste from './tl.svg';
 import tunisia from './tn.svg';
 import türkiye from './tr.svg';
 import trinidadAndTobago from './tt.svg';
 import taiwan from './tw.svg';
+// import turkmenistan from './tm.svg';
+// import tonga from './to.svg';
+// import tuvalu from './tv.svg';
+import tanzania from './tz.svg';
 import ukraine from './ua.svg';
+import uganda from './ug.svg';
 import unitedStatesOfAmerica from './us.svg';
 import uruguay from './uy.svg';
 import uzbekistan from './uz.svg';
@@ -285,6 +293,10 @@ export const FAROESE = faroeIslands;
 export const GALICIAN = galicia;
 /** Gujarati language flag */
 export const GUJARATI = india;
+/** Irish language flag */
+export const IRISH = ireland;
+/** Scottish Gaelic language flag */
+export const SCOTTISH_GAELIC = unitedKingdom;
 /** Hebrew language flag */
 export const HEBREW = israel;
 /** Hindi language flag */
@@ -313,6 +325,8 @@ export const KANNADA = india;
 export const KOREAN = southKorea;
 /** Konkani language flag */
 export const KONKANI = india;
+/** Kurdish language flag */
+export const KURDISH = türkiye; // Kurdish is spoken in multiple countries, using Turkey as default
 /** Kyrgyz language flag */
 export const KYRGYZ = kyrgyzstan;
 /** Lithuanian language flag */
@@ -329,10 +343,16 @@ export const MONGOLIAN = mongolia;
 export const MARATHI = india;
 /** Malay language flag */
 export const MALAY = malaysia;
+/** Malayalam language flag */
+export const MALAYALAM = india;
 /** Maltese language flag */
 export const MALTESE = malta;
+/** Norwegian language flag */
+export const NORWEGIAN = norway;
 /** Norwegian (Bokmål) language flag */
 export const NORWEGIAN_BOKMAL = norway;
+/** Norwegian (Nynorsk) language flag */
+export const NORWEGIAN_NYNORSK = norway;
 /** Dutch language flag */
 export const DUTCH = netherlands;
 /** Northern Sotho language flag */
@@ -347,12 +367,18 @@ export const PASHTO = afghanistan;
 export const QUECHUA = peru;
 /** Romanian language flag */
 export const ROMANIAN = romania;
+/** Romansh language flag */
+export const ROMANSH = switzerland;
 /** Russian language flag */
 export const RUSSIAN = russia;
 /** Sanskrit language flag */
 export const SANSKRIT = india;
 /** Sami (Northern) language flag */
 export const SAMI_NORTHERN = norway; // No specific flag, assuming Norway
+/** Upper Sorbian language flag */
+export const UPPER_SORBIAN = germany;
+/** Lower Sorbian language flag */
+export const LOWER_SORBIAN = germany;
 /** Slovak language flag */
 export const SLOVAK = slovakia;
 /** Slovenian language flag */
@@ -393,8 +419,16 @@ export const URDU = pakistan;
 export const UZBEK_LATIN = uzbekistan;
 /** Vietnamese language flag */
 export const VIETNAMESE = vietnam;
+/** Venda language flag */
+export const VENDA = southAfrica;
 /** Xhosa language flag */
 export const XHOSA = southAfrica;
+/** Yiddish language flag */
+export const YIDDISH = israel; // Yiddish is a Jewish language, using Israel as flag
+/** Sinhala language flag */
+export const SINHALA = sriLanka;
+/** Chinese language flag */
+export const CHINESE = china;
 /** Chinese (Simplified) language flag */
 export const CHINESE_SIMPLIFIED = china;
 /** Chinese (Traditional) language flag */
@@ -439,6 +473,20 @@ export const ARABIC_SYRIA = syria;
 export const ARABIC_TUNISIA = tunisia;
 /** Arabic (Yemen) language flag */
 export const ARABIC_YEMEN = yemen;
+/** Arabic (Mauritania) language flag */
+export const ARABIC_MAURITANIA = mauritania;
+/** Arabic (Palestine) language flag */
+export const ARABIC_PALESTINE = palestine;
+/** Arabic (Sudan) language flag */
+export const ARABIC_SUDAN = sudan;
+/** Arabic (Djibouti) language flag */
+export const ARABIC_DJIBOUTI = djibouti;
+/** Arabic (Somalia) language flag */
+export const ARABIC_SOMALIA = somalia;
+/** Arabic (Chad) language flag */
+export const ARABIC_CHAD = chad;
+/** Arabic (Comoros) language flag */
+export const ARABIC_COMOROS = comoros;
 
 // Regional variants - Azeri
 /** Azeri (Latin, Azerbaijan) language flag */
@@ -519,6 +567,28 @@ export const ENGLISH_UNITED_STATES = unitedStatesOfAmerica;
 export const ENGLISH_SOUTH_AFRICA = southAfrica;
 /** English (Zimbabwe) language flag */
 export const ENGLISH_ZIMBABWE = zimbabwe;
+/** English (India) language flag */
+export const ENGLISH_INDIA = india;
+/** English (Singapore) language flag */
+export const ENGLISH_SINGAPORE = singapore;
+/** English (Hong Kong) language flag */
+export const ENGLISH_HONG_KONG = hongKong;
+/** English (Nigeria) language flag */
+export const ENGLISH_NIGERIA = nigeria;
+/** English (Pakistan) language flag */
+export const ENGLISH_PAKISTAN = pakistan;
+/** English (Malaysia) language flag */
+export const ENGLISH_MALAYSIA = malaysia;
+/** English (Botswana) language flag */
+export const ENGLISH_BOTSWANA = botswana;
+/** English (Kenya) language flag */
+export const ENGLISH_KENYA = kenya;
+/** English (Tanzania) language flag */
+export const ENGLISH_TANZANIA = tanzania;
+/** English (Ghana) language flag */
+export const ENGLISH_GHANA = ghana;
+/** English (Uganda) language flag */
+export const ENGLISH_UGANDA = uganda;
 
 // Regional variants - Spanish
 /** Spanish (Argentina) language flag */
@@ -559,6 +629,10 @@ export const SPANISH_EL_SALVADOR = elSalvador;
 export const SPANISH_URUGUAY = uruguay;
 /** Spanish (Venezuela) language flag */
 export const SPANISH_VENEZUELA = venezuela;
+/** Spanish (Cuba) language flag */
+export const SPANISH_CUBA = cuba;
+/** Spanish (United States) language flag */
+export const SPANISH_UNITED_STATES = unitedStatesOfAmerica;
 
 // Regional variants - Estonian
 /** Estonian (Estonia) language flag */
@@ -593,6 +667,14 @@ export const FRENCH_FRANCE = france;
 export const FRENCH_LUXEMBOURG = luxembourg;
 /** French (Monaco) language flag */
 export const FRENCH_PRINCIPALITY_OF_MONACO = monaco;
+
+// Regional variants - Irish
+/** Irish (Ireland) language flag */
+export const IRISH_IRELAND = ireland;
+
+// Regional variants - Scottish Gaelic
+/** Scottish Gaelic (United Kingdom) language flag */
+export const SCOTTISH_GAELIC_UNITED_KINGDOM = unitedKingdom;
 
 // Regional variants - Galician
 /** Galician (Spain) language flag */
@@ -700,19 +782,21 @@ export const MALAY_MALAYSIA = malaysia;
 /** Maltese (Malta) language flag */
 export const MALTESE_MALTA = malta;
 
+// Regional variants - Malayalam
+/** Malayalam (India) language flag */
+export const MALAYALAM_INDIA = india;
+
 // Regional variants - Norwegian
 /** Norwegian (Bokmål, Norway) language flag */
 export const NORWEGIAN_BOKMAL_NORWAY = norway;
+/** Norwegian (Nynorsk, Norway) language flag */
+export const NORWEGIAN_NYNORSK_NORWAY = norway;
 
 // Regional variants - Dutch
 /** Dutch (Belgium) language flag */
 export const DUTCH_BELGIUM = belgium;
 /** Dutch (Netherlands) language flag */
 export const DUTCH_NETHERLANDS = netherlands;
-
-// Regional variants - Norwegian Nynorsk
-/** Norwegian (Nynorsk, Norway) language flag */
-export const NORWEGIAN_NYNORSK_NORWAY = norway;
 
 // Regional variants - Northern Sotho
 /** Northern Sotho (South Africa) language flag */
@@ -735,6 +819,18 @@ export const PASHTO_AFGHANISTAN = afghanistan;
 export const PORTUGUESE_BRAZIL = brazil;
 /** Portuguese (Portugal) language flag */
 export const PORTUGUESE_PORTUGAL = portugal;
+/** Portuguese (Guinea-Bissau) language flag */
+export const PORTUGUESE_GUINEA_BISSAU = guineaBissau;
+/** Portuguese (Mozambique) language flag */
+export const PORTUGUESE_MOZAMBIQUE = mozambique;
+/** Portuguese (São Tomé and Príncipe) language flag */
+export const PORTUGUESE_SAO_TOME_AND_PRINCIPE = saoTomeAndPrincipe;
+/** Portuguese (Cape Verde) language flag */
+export const PORTUGUESE_CAPE_VERDE = caboVerde;
+/** Portuguese (Timor-Leste) language flag */
+export const PORTUGUESE_TIMOR_LESTE = timorLeste;
+/** Portuguese (Macau) language flag */
+export const PORTUGUESE_MACAU = macau;
 
 // Regional variants - Quechua
 /** Quechua (Bolivia) language flag */
@@ -747,10 +843,18 @@ export const QUECHUA_PERU = peru;
 // Regional variants - Romanian
 /** Romanian (Romania) language flag */
 export const ROMANIAN_ROMANIA = romania;
+/** Romanian (Moldova) language flag */
+export const ROMANIAN_MOLDOVA = moldova;
+
+// Regional variants - Romansh
+/** Romansh (Switzerland) language flag */
+export const ROMANSH_SWITZERLAND = switzerland;
 
 // Regional variants - Russian
 /** Russian (Russia) language flag */
 export const RUSSIAN_RUSSIA = russia;
+/** Russian (Moldova) language flag */
+export const RUSSIAN_MOLDOVA = moldova;
 
 // Regional variants - Sanskrit
 /** Sanskrit (India) language flag */
@@ -763,6 +867,14 @@ export const SAMI_NORTHERN_FINLAND = finland;
 export const SAMI_NORTHERN_NORWAY = norway;
 /** Sami (Northern, Sweden) language flag */
 export const SAMI_NORTHERN_SWEDEN = sweden;
+
+// Regional variants - Upper Sorbian
+/** Upper Sorbian (Germany) language flag */
+export const UPPER_SORBIAN_GERMANY = germany;
+
+// Regional variants - Lower Sorbian
+/** Lower Sorbian (Germany) language flag */
+export const LOWER_SORBIAN_GERMANY = germany;
 
 // Regional variants - Slovak
 /** Slovak (Slovakia) language flag */
@@ -781,6 +893,12 @@ export const ALBANIAN_ALBANIA = albania;
 export const SERBIAN_LATIN_BOSNIA_AND_HERZEGOVINA = bosniaAndHerzegovina;
 /** Serbian (Latin, Serbia and Montenegro) language flag */
 export const SERBIAN_LATIN_SERBIA_AND_MONTENEGRO = serbia;
+/** Serbian (Cyrillic) language flag */
+export const SERBIAN_CYRILLIC = serbia;
+/** Serbian (Cyrillic, Serbia) language flag */
+export const SERBIAN_CYRILLIC_SERBIA = serbia;
+/** Serbian (Cyrillic, Bosnia and Herzegovina) language flag */
+export const SERBIAN_CYRILLIC_BOSNIA_AND_HERZEGOVINA = bosniaAndHerzegovina;
 
 // Regional variants - Swahili
 /** Swahili (Kenya) language flag */
@@ -822,6 +940,10 @@ export const TATAR_RUSSIA = russia;
 /** Tsoga language flag */
 export const TSOGA = unknown; // No specific flag
 
+// Regional variants - Kurdish
+/** Kurdish (Turkey) language flag */
+export const KURDISH_TURKEY = türkiye;
+
 // Regional variants - Ukrainian
 /** Ukrainian (Ukraine) language flag */
 export const UKRAINIAN_UKRAINE = ukraine;
@@ -842,9 +964,15 @@ export const VIETNAMESE_VIET_NAM = vietnam;
 /** Xhosa (South Africa) language flag */
 export const XHOSA_SOUTH_AFRICA = southAfrica;
 
+// Regional variants - Venda
+/** Venda (South Africa) language flag */
+export const VENDA_SOUTH_AFRICA = southAfrica;
+
+// Regional variants - Yiddish
+/** Yiddish (World) language flag */
+export const YIDDISH_WORLD = israel;
+
 // Regional variants - Chinese
-/** Chinese language flag */
-export const CHINESE = china;
 /** Chinese (Simplified, China) language flag */
 export const CHINESE_SIMPLIFIED_CHINA = china;
 /** Chinese (Hong Kong) language flag */
@@ -853,10 +981,16 @@ export const CHINESE_HONG_KONG = hongKong;
 export const CHINESE_MACAU = macau;
 /** Chinese (Singapore) language flag */
 export const CHINESE_SINGAPORE = singapore;
+/** Chinese (Taiwan) language flag */
+export const CHINESE_TAIWAN = taiwan;
 
 // Regional variants - Zulu
 /** Zulu (South Africa) language flag */
 export const ZULU_SOUTH_AFRICA = southAfrica;
+
+// Regional variants - Sinhala
+/** Sinhala (Sri Lanka) language flag */
+export const SINHALA_SRI_LANKA = sriLanka;
 
 // Regional variants - Bengali
 /** Bengali language flag */
@@ -946,6 +1080,7 @@ export const ALL_FLAGS = {
   KANNADA,
   KOREAN,
   KONKANI,
+  KURDISH,
   KYRGYZ,
   LITHUANIAN,
   LATVIAN,
@@ -955,7 +1090,10 @@ export const ALL_FLAGS = {
   MARATHI,
   MALAY,
   MALTESE,
+  MALAYALAM,
+  NORWEGIAN,
   NORWEGIAN_BOKMAL,
+  NORWEGIAN_NYNORSK,
   DUTCH,
   NORTHERN_SOTHO,
   PUNJABI,
@@ -963,13 +1101,17 @@ export const ALL_FLAGS = {
   PASHTO,
   QUECHUA,
   ROMANIAN,
+  ROMANSH,
   RUSSIAN,
   SANSKRIT,
   SAMI_NORTHERN,
+  UPPER_SORBIAN,
+  LOWER_SORBIAN,
   SLOVAK,
   SLOVENIAN,
   ALBANIAN,
   SERBIAN_LATIN,
+  SERBIAN_CYRILLIC,
   SWEDISH,
   SWEDISH_FINLAND,
   SWEDISH_SWEDEN,
@@ -986,10 +1128,16 @@ export const ALL_FLAGS = {
   URDU,
   UZBEK_LATIN,
   VIETNAMESE,
+  VENDA,
   XHOSA,
+  YIDDISH,
+  CHINESE,
   CHINESE_SIMPLIFIED,
   CHINESE_TRADITIONAL,
   ZULU,
+  IRISH,
+  SCOTTISH_GAELIC,
+  SINHALA,
   AFRIKAANS_SOUTH_AFRICA,
   ARABIC_UNITED_ARAB_EMIRATES,
   ARABIC_BAHRAIN,
@@ -1007,6 +1155,13 @@ export const ALL_FLAGS = {
   ARABIC_SYRIA,
   ARABIC_TUNISIA,
   ARABIC_YEMEN,
+  ARABIC_MAURITANIA,
+  ARABIC_PALESTINE,
+  ARABIC_SUDAN,
+  ARABIC_DJIBOUTI,
+  ARABIC_SOMALIA,
+  ARABIC_CHAD,
+  ARABIC_COMOROS,
   AZERI_LATIN_AZERBAIJAN,
   BELARUSIAN_BELARUS,
   BULGARIAN_BULGARIA,
@@ -1035,6 +1190,17 @@ export const ALL_FLAGS = {
   ENGLISH_UNITED_STATES,
   ENGLISH_SOUTH_AFRICA,
   ENGLISH_ZIMBABWE,
+  ENGLISH_INDIA,
+  ENGLISH_SINGAPORE,
+  ENGLISH_HONG_KONG,
+  ENGLISH_NIGERIA,
+  ENGLISH_PAKISTAN,
+  ENGLISH_MALAYSIA,
+  ENGLISH_BOTSWANA,
+  ENGLISH_KENYA,
+  ENGLISH_TANZANIA,
+  ENGLISH_GHANA,
+  ENGLISH_UGANDA,
   SPANISH_ARGENTINA,
   SPANISH_BOLIVIA,
   SPANISH_CHILE,
@@ -1054,6 +1220,8 @@ export const ALL_FLAGS = {
   SPANISH_EL_SALVADOR,
   SPANISH_URUGUAY,
   SPANISH_VENEZUELA,
+  SPANISH_CUBA,
+  SPANISH_UNITED_STATES,
   ESTONIAN_ESTONIA,
   BASQUE_SPAIN,
   FARSI_IRAN,
@@ -1103,20 +1271,33 @@ export const ALL_FLAGS = {
   PASHTO_AFGHANISTAN,
   PORTUGUESE_BRAZIL,
   PORTUGUESE_PORTUGAL,
+  PORTUGUESE_GUINEA_BISSAU,
+  PORTUGUESE_MOZAMBIQUE,
+  PORTUGUESE_SAO_TOME_AND_PRINCIPE,
+  PORTUGUESE_CAPE_VERDE,
+  PORTUGUESE_TIMOR_LESTE,
+  PORTUGUESE_MACAU,
   QUECHUA_BOLIVIA,
   QUECHUA_ECUADOR,
   QUECHUA_PERU,
   ROMANIAN_ROMANIA,
+  ROMANIAN_MOLDOVA,
+  ROMANSH_SWITZERLAND,
   RUSSIAN_RUSSIA,
+  RUSSIAN_MOLDOVA,
   SANSKRIT_INDIA,
   SAMI_NORTHERN_FINLAND,
   SAMI_NORTHERN_NORWAY,
   SAMI_NORTHERN_SWEDEN,
+  UPPER_SORBIAN_GERMANY,
+  LOWER_SORBIAN_GERMANY,
   SLOVAK_SLOVAKIA,
   SLOVENIAN_SLOVENIA,
   ALBANIAN_ALBANIA,
   SERBIAN_LATIN_BOSNIA_AND_HERZEGOVINA,
   SERBIAN_LATIN_SERBIA_AND_MONTENEGRO,
+  SERBIAN_CYRILLIC_SERBIA,
+  SERBIAN_CYRILLIC_BOSNIA_AND_HERZEGOVINA,
   SWAHILI_KENYA,
   SYRIAC_SYRIA,
   TAMIL_INDIA,
@@ -1127,17 +1308,24 @@ export const ALL_FLAGS = {
   TURKISH_TURKEY,
   TATAR_RUSSIA,
   TSOGA,
+  KURDISH_TURKEY,
   UKRAINIAN_UKRAINE,
   URDU_ISLAMIC_REPUBLIC_OF_PAKISTAN,
   UZBEK_LATIN_UZBEKISTAN,
   VIETNAMESE_VIET_NAM,
   XHOSA_SOUTH_AFRICA,
-  CHINESE,
+  VENDA_SOUTH_AFRICA,
+  YIDDISH_WORLD,
   CHINESE_SIMPLIFIED_CHINA,
   CHINESE_HONG_KONG,
   CHINESE_MACAU,
   CHINESE_SINGAPORE,
+  CHINESE_TAIWAN,
   ZULU_SOUTH_AFRICA,
+  IRISH_IRELAND,
+  SCOTTISH_GAELIC_UNITED_KINGDOM,
+  MALAYALAM_INDIA,
+  SINHALA_SRI_LANKA,
   BENGALI,
   BENGALI_BANGLADESH,
   BENGALI_INDIA,
