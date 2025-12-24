@@ -2,12 +2,14 @@ import { camelCaseToSentence } from '@intlayer/config/client';
 import type { KeyPath, Locale } from '@intlayer/types';
 import type { FC } from 'react';
 import { Breadcrumb, type BreadcrumbLink } from '../Breadcrumb';
+import type { LinkColor } from '../Link';
 
 type KeyPathBreadcrumbProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
   onClickKeyPath: (keyPath: KeyPath[]) => void;
   locale?: Locale;
+  color?: LinkColor | `${LinkColor}`;
 };
 
 export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
@@ -15,6 +17,7 @@ export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
   dictionaryKey,
   onClickKeyPath,
   locale,
+  color,
 }) => {
   const formattedKeyPath: BreadcrumbLink[] = [
     {
@@ -39,6 +42,7 @@ export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
       links={formattedKeyPath}
       locale={locale}
       elementType="location"
+      color={color}
     />
   );
 };

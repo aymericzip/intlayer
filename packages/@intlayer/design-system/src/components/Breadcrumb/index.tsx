@@ -48,6 +48,29 @@ type LinkLinkProps = {
 >;
 
 /**
+ * Maps LinkColor to corresponding Tailwind text color classes
+ */
+const getColorClass = (color?: LinkColor | `${LinkColor}`): string => {
+  if (!color) return '';
+
+  const colorMap: Record<LinkColor, string> = {
+    [LinkColor.PRIMARY]: 'text-primary',
+    [LinkColor.SECONDARY]: 'text-secondary',
+    [LinkColor.DESTRUCTIVE]: 'text-destructive',
+    [LinkColor.NEUTRAL]: 'text-neutral',
+    [LinkColor.LIGHT]: 'text-white',
+    [LinkColor.DARK]: 'text-neutral-800',
+    [LinkColor.TEXT]: 'text-text',
+    [LinkColor.TEXT_INVERSE]: 'text-text-opposite',
+    [LinkColor.ERROR]: 'text-error',
+    [LinkColor.SUCCESS]: 'text-success',
+    [LinkColor.CUSTOM]: '',
+  };
+
+  return colorMap[color as LinkColor] || '';
+};
+
+/**
  * Breadcrumb variant styles using class-variance-authority
  */
 const breadcrumbVariants = cva('flex flex-row flex-wrap items-center text-sm', {
@@ -320,6 +343,8 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
 
           const text = (link as DetailedBreadcrumbLink).text ?? link;
 
+          const separatorColorClass = getColorClass(color);
+
           if (isTruncated) {
             return (
               <Fragment key={`truncated-${text}`}>
@@ -328,7 +353,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
                 </li>
                 {!isLastLink && (
                   <li aria-hidden="true" className="flex items-center">
-                    {separator}
+                    <span className={cn(separatorColorClass)}>{separator}</span>
                   </li>
                 )}
               </Fragment>
@@ -400,7 +425,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
             <Fragment key={text}>
               {listElement}
               <li aria-hidden="true" className="flex items-center">
-                {separator}
+                <span className={cn(separatorColorClass)}>{separator}</span>
               </li>
             </Fragment>
           );

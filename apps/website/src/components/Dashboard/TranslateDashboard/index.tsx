@@ -23,6 +23,7 @@ import {
   type FlattenedDictionaryNode,
   flattenDictionary,
 } from '@/utils/flattenDictionary';
+import { SaveAllButton } from './SaveAllButton';
 
 const TranslateRow: FC<{
   node: FlattenedDictionaryNode;
@@ -38,6 +39,7 @@ const TranslateRow: FC<{
             dictionaryKey={dictionary.key}
             keyPath={keyPath}
             onClickKeyPath={() => {}}
+            color="neutral"
           />
         </div>
         <div className="flex w-full flex-1 gap-2">
@@ -89,15 +91,23 @@ const TranslateDashboardList: FC = () => {
 
   const { selectedLocales } = useLocaleSwitcherContent();
 
+  const allLoadedDictionaries: Record<string, Dictionary> = {};
+  data?.pages.forEach((page: any) => {
+    (page.data as Dictionary[]).forEach((dict) => {
+      if (dict.localId) {
+        allLoadedDictionaries[dict.localId] = dict;
+      }
+    });
+  });
+
   const flattenedNodes =
     data?.pages.flatMap((page: any) =>
       (page.data as Dictionary[]).flatMap((dict) => flattenDictionary(dict))
     ) ?? [];
 
   return (
-    // "h-screen" or a fixed height is crucial for the parent of a virtual list if not using WindowScroll.
-    // "min-h-0" prevents flex child from growing indefinitely.
-    <div className="flex size-full flex-1 flex-col gap-6 overflow-hidden">
+    <div className="relative flex size-full flex-1 flex-col gap-6 overflow-hidden">
+      <SaveAllButton dictionaries={allLoadedDictionaries} />
       <div className="flex w-full shrink-0 items-center justify-between gap-4 px-10 pt-6">
         <SearchInput
           placeholder={searchPlaceholder.value}
@@ -149,9 +159,26 @@ const TranslateDashboardList: FC = () => {
                       <div className="h-4" /> // Spacer at bottom
                     ),
                 }}
-                itemContent={(_index, node) => (
-                  <TranslateRow node={node} selectedLocales={selectedLocales} />
-                )}
+                itemContent={(index, node) => {
+                  const prevNode = index > 0 ? flattenedNodes[index - 1] : null;
+                  const isNewDictionary =
+                    !prevNode ||
+                    prevNode.dictionary.key !== node.dictionary.key;
+
+                  return (
+                    <>
+                      {isNewDictionary && (
+                        <span className="flex justify-center gap-3 border-neutral/40 border-t px-10 py-3 text-lg text-neutral">
+                          {node.dictionary.key}
+                        </span>
+                      )}
+                      <TranslateRow
+                        node={node}
+                        selectedLocales={selectedLocales}
+                      />
+                    </>
+                  );
+                }}
               />
             ) : (
               <div className="flex h-full items-center justify-center px-10">

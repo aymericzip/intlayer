@@ -145,13 +145,23 @@ const Trigger: FC<TriggerProps> = ({
 );
 
 /**
- * Alignment options for the dropdown panel relative to the trigger
+ * Horizontal alignment options for the dropdown panel relative to the trigger
  */
 export enum DropDownAlign {
   /** Align panel to the start (left in LTR, right in RTL) of the trigger */
   START = 'start',
   /** Align panel to the end (right in LTR, left in RTL) of the trigger */
   END = 'end',
+}
+
+/**
+ * Vertical alignment options for the dropdown panel relative to the trigger
+ */
+export enum DropDownYAlign {
+  /** Position panel below the trigger (default) */
+  BELOW = 'below',
+  /** Position panel above the trigger */
+  ABOVE = 'above',
 }
 
 /**
@@ -192,6 +202,12 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
    * @default DropDownAlign.START
    */
   align?: DropDownAlign | `${DropDownAlign}`;
+
+  /**
+   * Vertical alignment of the panel relative to the trigger
+   * @default DropDownYAlign.BELOW
+   */
+  yAlign?: DropDownYAlign | `${DropDownYAlign}`;
 }
 
 /**
@@ -221,6 +237,11 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
  * <DropDown.Panel identifier="menu" align={DropDownAlign.END} isOverable>
  *   <div>Right-aligned content</div>
  * </DropDown.Panel>
+ *
+ * // Panel opening above the trigger
+ * <DropDown.Panel identifier="menu" yAlign={DropDownYAlign.ABOVE} isOverable>
+ *   <div>Content appears above</div>
+ * </DropDown.Panel>
  * ```
  *
  * @component
@@ -236,15 +257,20 @@ const Panel: FC<PanelProps> = ({
   isOverable = false,
   isFocusable = false,
   align = DropDownAlign.START,
+  yAlign = DropDownYAlign.BELOW,
   identifier,
   className,
   ...props
 }) => (
   <div
     className={cn(
-      'absolute top-[calc(100%+0.5rem)] z-100 min-w-full',
+      'absolute z-100 min-w-full',
+      /* Horizontal positioning */
       align === DropDownAlign.START && 'left-0',
       align === DropDownAlign.END && 'right-0',
+      /* Vertical positioning */
+      yAlign === DropDownYAlign.BELOW && 'top-[calc(100%+0.5rem)]',
+      yAlign === DropDownYAlign.ABOVE && 'bottom-[calc(100%+0.5rem)]',
       className
     )}
     aria-hidden={isHidden}

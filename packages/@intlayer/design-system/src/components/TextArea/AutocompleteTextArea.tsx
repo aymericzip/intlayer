@@ -250,7 +250,8 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
     if (debouncedText.length > 3) {
       // Only fetch if user typed more than 3 chars and has paused
       setSuggestion('');
-      fetchSuggestion();
+      // TODO: Uncomment this when the autocomplete works well enough
+      // fetchSuggestion();
     } else {
       // If typed less than threshold, clear the suggestion
       setSuggestion('');
