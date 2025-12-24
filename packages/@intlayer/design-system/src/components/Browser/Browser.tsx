@@ -17,24 +17,6 @@ import { cn } from '../../utils/cn';
 import { Button } from '../Button';
 import { Input, inputVariants } from '../Input';
 
-const browserVariants = cva(
-  'flex w-full flex-col overflow-hidden rounded-xl bg-background shadow-[0_4px_12px_rgba(0,0,0,0.4),0_0_1px_rgba(0,0,0,0.2)]',
-  {
-    variants: {
-      size: {
-        xs: 'h-[400px]',
-        sm: 'h-[500px]',
-        md: 'h-[600px]',
-        lg: 'h-[800px]',
-        xl: 'h-[1000px]',
-      },
-    },
-    defaultVariants: {
-      size: 'md',
-    },
-  }
-);
-
 export type BrowserProps = {
   initialUrl?: string;
   path?: string;
@@ -277,12 +259,15 @@ export const Browser = ({
 
   return (
     <section
-      className={cn(browserVariants({ size }), className)}
+      className={cn(
+        'flex w-full flex-col overflow-hidden rounded-xl bg-background shadow-[0_4px_12px_rgba(0,0,0,0.4),0_0_1px_rgba(0,0,0,0.2)]',
+        className
+      )}
       style={style}
       aria-label={ariaLabel ?? content.ariaLabel.value}
     >
       {/* Top bar */}
-      <div className="relative z-10 flex shrink-0 items-center gap-3 rounded-t-xl bg-text/20 px-4 py-2.5">
+      <div className="relative z-10 flex shrink-0 items-center gap-3 rounded-t-xl bg-text/20 px-4 py-2">
         {/* Navigation Controls */}
         <div className="flex items-center gap-1">
           <Button
@@ -290,7 +275,7 @@ export const Browser = ({
             onClick={handleBack}
             disabled={!canGoBack}
             variant="hoverable"
-            size="icon-xl"
+            size="icon-md"
             label={content.backButtonLabel.value}
             Icon={ArrowLeft}
           />
@@ -299,7 +284,7 @@ export const Browser = ({
             onClick={handleForward}
             disabled={!canGoForward}
             variant="hoverable"
-            size="icon-xl"
+            size="icon-md"
             label={content.forwardButtonLabel.value}
             Icon={ArrowRight}
           />
@@ -311,7 +296,7 @@ export const Browser = ({
           noValidate
           className={cn(
             inputVariants(),
-            'flex w-full gap-2 rounded-xl p-1! supports-[corner-shape:squircle]:rounded-2xl',
+            'flex w-full gap-2 rounded-xl p-0.5! supports-[corner-shape:squircle]:rounded-2xl',
             'bg-neutral/10 text-text/50 placeholder:text-neutral/80'
           )}
         >
@@ -325,7 +310,8 @@ export const Browser = ({
             spellCheck={false}
             autoCapitalize="off"
             variant="invisible"
-            className="ml-3 p-0! text-base!"
+            className="ml-3 p-0!"
+            size="sm"
             autoCorrect="off"
             value={inputUrl}
             onChange={(e) => {
@@ -342,8 +328,8 @@ export const Browser = ({
             type="button"
             onClick={handleReload}
             variant="hoverable"
-            size="icon-xl"
-            className="p-2!"
+            size="icon-md"
+            className="p-1!"
             label={'content.reloadButtonTitle.value'}
             Icon={RotateCw}
           />

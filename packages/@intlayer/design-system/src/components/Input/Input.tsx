@@ -39,6 +39,7 @@ export const inputVariants = cva(
         invisible: 'border-none text-inherit outline-none ring-0',
       },
       size: {
+        sm: 'px-2 py-2 text-sm md:py-1.5 md:text-xs',
         md: 'px-2 py-3 md:py-2',
         lg: 'p-4',
       },
@@ -65,18 +66,12 @@ export enum InputSize {
   LG = 'lg',
 }
 
-export type InputProps = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
+export type InputProps = Omit<
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+  'size'
 > & {
   validationStyleEnabled?: boolean;
-} & Omit<
-    VariantProps<typeof inputVariants>,
-    'validationStyleEnabled' | 'variant' | 'size'
-  > & {
-    variant?: InputVariant | `${InputVariant}`;
-    size?: InputSize | `${InputSize}`;
-  };
+} & Omit<VariantProps<typeof inputVariants>, 'validationStyleEnabled'>;
 
 export const Input: FC<InputProps> = ({
   validationStyleEnabled = false,
