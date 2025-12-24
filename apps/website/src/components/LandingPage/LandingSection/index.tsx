@@ -140,7 +140,7 @@ export const LandingSection: FC = () => {
               variant={LinkVariant.BUTTON_OUTLINED}
               color={LinkColor.TEXT}
               label={supportButton.value}
-              isExternalLink
+              isExternalLink={false}
               size="lg"
               roundedSize="full"
             >
@@ -168,7 +168,7 @@ export const LandingSection: FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0, duration: 0.6 }}
-            className="-ml-[50vw] -mr-[50vw] relative right-1/2 left-1/2 mt-8 w-screen text-center"
+            className="relative right-1/2 left-1/2 mt-8 -mr-[50vw] -ml-[50vw] w-screen text-center"
           >
             <p className="font-medium text-sm text-text tracking-wider sm:text-base">
               {availableFor}
