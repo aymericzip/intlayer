@@ -267,7 +267,7 @@ export const Browser = ({
       aria-label={ariaLabel ?? content.ariaLabel.value}
     >
       {/* Top bar */}
-      <div className="relative z-10 flex shrink-0 items-center gap-3 rounded-t-xl bg-text/20 px-4 py-2">
+      <div className="relative z-10 flex shrink-0 items-center gap-3 rounded-t-xl bg-text/15 px-4 py-2">
         {/* Navigation Controls */}
         <div className="flex items-center gap-1">
           <Button
