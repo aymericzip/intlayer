@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, TabSelector } from '@intlayer/design-system';
-import { Book, PenTool } from 'lucide-react';
+import { Book, Globe, PenTool } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
@@ -21,6 +21,11 @@ const EditorContentLayout: FC<EditorContentLayoutProps> = ({ children }) => {
       label: tabLabels.editor,
       value: PagesRoutes.Dashboard_Editor,
       icon: PenTool,
+    },
+    {
+      label: tabLabels.translate,
+      value: PagesRoutes.Dashboard_Translate,
+      icon: Globe,
     },
     {
       label: tabLabels.dictionaries,

@@ -58,6 +58,13 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
           title: navigation.editor.title.value,
         },
         {
+          key: 'translate',
+          href: PagesRoutes.Dashboard_Translate,
+          icon: 'Globe',
+          label: navigation.translate.label.value,
+          title: navigation.translate.title.value,
+        },
+        {
           key: 'dictionaries',
           href: PagesRoutes.Dashboard_Dictionaries,
           icon: 'Book',

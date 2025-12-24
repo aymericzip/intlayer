@@ -9,6 +9,7 @@ export enum PagesRoutes {
   Scanner = '/i18n-seo-scanner',
 
   Dashboard_Editor = '/dashboard/editor',
+  Dashboard_Translate = '/dashboard/translate',
   Dashboard_Dictionaries = '/dashboard/dictionary',
   Dashboard_Projects = '/dashboard/projects',
   Dashboard_Tags = '/dashboard/tags',

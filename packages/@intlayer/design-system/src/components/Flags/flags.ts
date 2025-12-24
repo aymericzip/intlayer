@@ -548,7 +548,7 @@ export const ENGLISH_BELIZE = belize;
 /** English (Canada) language flag */
 export const ENGLISH_CANADA = canada;
 /** English (Caribbean) language flag */
-export const ENGLISH_CARIBBEAN = unknown; // No specific flag
+export const ENGLISH_CARIBBEAN = jamaica; // Using Jamaica as representative of English-speaking Caribbean
 /** English (United Kingdom) language flag */
 export const ENGLISH_UNITED_KINGDOM = unitedKingdom;
 /** English (Ireland) language flag */

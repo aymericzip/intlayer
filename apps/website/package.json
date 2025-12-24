@@ -83,6 +83,7 @@
     "react-hook-form": "7.69.0",
     "react-qr-code": "^2.0.18",
     "react-spring": "10.0.3",
+    "react-virtuoso": "^4.17.0",
     "sharp": "0.34.5",
     "tailwind-merge": "3.4.0",
     "zod": "4.2.1"

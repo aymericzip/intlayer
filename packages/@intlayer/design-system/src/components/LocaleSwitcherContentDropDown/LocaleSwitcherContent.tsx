@@ -132,17 +132,19 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
   };
 
   return (
-    <div
-      className="rounded-xl border border-text text-text transition-colors"
-      aria-label={localeSwitcherLabel.value}
-    >
+    <div className="rounded-xl border border-text text-text transition-colors">
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
-        <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER}>
+        <DropDown.Trigger
+          identifier={DROPDOWN_IDENTIFIER}
+          label={localeSwitcherLabel.value}
+          className="p-0!"
+          roundedSize="3xl"
+        >
           <div className="flex w-full items-center justify-between">
             <div className="px-2 py-1">
-              <Globe size={18} />
+              <Globe size={16} />
             </div>
-            <MoveVertical className="self-center" size={18} />
+            <MoveVertical className="self-center" size={16} />
           </div>
         </DropDown.Trigger>
 
@@ -154,7 +156,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
           {...panelProps}
         >
           <Container
-            className="max-h-[80vh] min-w-28"
+            className="max-h-[60vh] min-w-28"
             separator="y"
             role="listbox"
             transparency="sm"

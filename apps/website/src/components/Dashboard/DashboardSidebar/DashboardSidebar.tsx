@@ -17,6 +17,7 @@ import {
   Building2,
   FileText,
   FolderKanban,
+  Globe,
   type LucideIcon,
   PenTool,
   Shield,
@@ -37,6 +38,7 @@ const iconMap: Record<string, LucideIcon> = {
   Building2,
   User,
   Shield,
+  Globe,
 };
 
 const shouldHaveOrganizationRoutes = [
@@ -46,6 +48,7 @@ const shouldHaveOrganizationRoutes = [
 
 const shouldHaveProjectRoutes = [
   PagesRoutes.Dashboard_Editor,
+  PagesRoutes.Dashboard_Translate,
   PagesRoutes.Dashboard_Dictionaries,
   PagesRoutes.Dashboard_Tags,
 ] as string[];
@@ -198,7 +201,9 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
         <TabSelector
           selectedChoice={activeKey}
           tabs={flatNavItems.map((item) => {
-            const IconComponent = item.icon ? iconMap[item.icon] : null;
+            const IconComponent = item.icon
+              ? (iconMap[item.icon] ?? null)
+              : null;
 
             return (
               <Link
@@ -268,12 +273,13 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
             </PopoverStatic.Detail>
           </PopoverStatic>
         </div>
-
         <nav className="flex-1 overflow-y-auto">
           <TabSelector
             selectedChoice={activeKey}
             tabs={flatNavItems.map((item) => {
-              const IconComponent = item.icon ? iconMap[item.icon] : null;
+              const IconComponent = item.icon
+                ? (iconMap[item.icon] ?? null)
+                : null;
               const isChild = item.level > 0;
 
               return (

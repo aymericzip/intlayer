@@ -47,6 +47,7 @@ import type {
 import { useConfiguration } from '@intlayer/editor-react';
 import {
   type UseQueryOptions,
+  useInfiniteQuery,
   useMutation,
   useQuery,
   useQueryClient,
@@ -771,6 +772,38 @@ export const useGetDictionaries = (
     requireUser: true,
     requireOrganization: true,
     requireProject: true,
+    ...options,
+  });
+};
+
+export const useInfiniteGetDictionaries = (
+  filters?: Omit<GetDictionariesParams, 'page'>,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const { enable } = useAuthEnable({
+    requireUser: true,
+    requireOrganization: true,
+    requireProject: true,
+  });
+
+  return useInfiniteQuery({
+    queryKey: ['dictionaries', 'infinite', filters],
+    queryFn: async ({ pageParam = 1, signal }) => {
+      const res = await intlayerOAuth.dictionary.getDictionaries(
+        { ...filters, page: pageParam },
+        { signal }
+      );
+      return res;
+    },
+    getNextPageParam: (lastPage) => {
+      if (lastPage.data.length === 0) return undefined;
+      const currentPage = lastPage.page ?? 1;
+      const totalPages = lastPage.total_pages ?? 1;
+      return currentPage < totalPages ? currentPage + 1 : undefined;
+    },
+    initialPageParam: 1,
+    enabled: options?.enabled === false ? false : enable,
     ...options,
   });
 };
