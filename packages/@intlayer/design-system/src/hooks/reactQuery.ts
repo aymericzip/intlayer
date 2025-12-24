@@ -860,7 +860,7 @@ export const usePushDictionaries = () => {
   return useMutation({
     mutationKey: ['dictionaries'],
     mutationFn: (args: PushDictionariesBody) =>
-      intlayerOAuth.dictionary.pushDictionaries(args),
+      intlayerOAuth.dictionary.pushDictionaries(args.dictionaries),
     meta: {
       invalidateQueries: [['dictionaries'], ['dictionariesKeys']],
     },

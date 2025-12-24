@@ -425,7 +425,21 @@ export const pushDictionaries = async (
 ): Promise<void> => {
   const { project, user, roles } = res.locals;
 
-  const dictionaryData = req.body.dictionaries;
+  // Normalize the input: handle both { dictionaries: [...] } and { dictionaries: { dictionaries: [...] } }
+  // The latter can happen due to client-side double-wrapping issues
+  let dictionaryData = req.body.dictionaries;
+  if (
+    dictionaryData &&
+    !Array.isArray(dictionaryData) &&
+    typeof dictionaryData === 'object' &&
+    'dictionaries' in dictionaryData &&
+    Array.isArray(
+      (dictionaryData as unknown as PushDictionariesBody).dictionaries
+    )
+  ) {
+    dictionaryData = (dictionaryData as unknown as PushDictionariesBody)
+      .dictionaries;
+  }
 
   if (
     typeof dictionaryData === 'object' &&
