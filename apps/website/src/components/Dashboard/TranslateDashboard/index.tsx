@@ -79,7 +79,7 @@ const TranslateRow: FC<{
 };
 
 const TranslateDashboardList: FC = () => {
-  const { searchPlaceholder } = useIntlayer('dictionary-list');
+  const { searchPlaceholder, noDictionaries } = useIntlayer('dictionary-list');
   const { setSearch } = useSearch({});
   const { locale: currentLocale } = useLocale();
   const [search, setInternalSearch] = useState('');
@@ -128,7 +128,7 @@ const TranslateDashboardList: FC = () => {
         {/* Virtualized List Container */}
         <div className="flex-1">
           <Loader isLoading={isPending}>
-            {flattenedNodes.length > 0 && (
+            {flattenedNodes.length > 0 ? (
               <Virtuoso
                 className="h-full"
                 data={flattenedNodes}
@@ -149,10 +149,16 @@ const TranslateDashboardList: FC = () => {
                       <div className="h-4" /> // Spacer at bottom
                     ),
                 }}
-                itemContent={(index, node) => (
+                itemContent={(_index, node) => (
                   <TranslateRow node={node} selectedLocales={selectedLocales} />
                 )}
               />
+            ) : (
+              <div className="flex h-full items-center justify-center px-10">
+                <p className="text-center text-text/60">
+                  {noDictionaries.value}
+                </p>
+              </div>
             )}
           </Loader>
         </div>
