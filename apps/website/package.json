@@ -38,7 +38,7 @@
     "build": "bun run --bun next build",
     "postbuild": "bun scripts/generate-sw.ts",
     "build:webpack": "bun run --bun next build --webpack",
-    "dev": "intlayer watch --with 'next dev'",
+    "dev": "intlayer watch --with 'bun run --bun next dev'",
     "dev:webpack": "bun run --bun next dev --webpack",
     "editor": "intlayer-editor start --bun",
     "generate-pwa-assets": "pwa-asset-generator --preset minimal ../../packages/@intlayer/design-system/src/components/Logo/logo_circle_wite.svg ./public/assets/",
@@ -46,7 +46,7 @@
     "prettier:fix": "prettier . --write",
     "serve": "npx intlayer serve --bun",
     "start": "bun run --bun next start",
-    "start:editor": "npx intlayer-editor start --with 'next dev --bun'",
+    "start:editor": "npx intlayer-editor start --with 'bun run --bun next dev'",
     "test": "vitest run"
   },
   "dependencies": {
