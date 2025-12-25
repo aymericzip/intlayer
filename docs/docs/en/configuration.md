@@ -621,6 +621,7 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **ollama**
 
 #### Properties
 
