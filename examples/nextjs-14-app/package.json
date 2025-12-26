@@ -25,7 +25,7 @@
     "@tailwindcss/postcss": "4.1.15",
     "@types/react": "18.3.26",
     "@types/react-dom": "18.3.1",
-    "autoprefixer": "10.4.21",
+    "autoprefixer": "10.4.23",
     "intlayer-editor": "workspace:*",
     "postcss": "8.5.6",
     "tailwindcss": "4.1.18",

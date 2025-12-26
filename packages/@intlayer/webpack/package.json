@@ -83,8 +83,8 @@
     "@intlayer/types": "workspace:*",
     "crypto-js": "4.2.0",
     "fast-glob": "3.3.3",
-    "webpack": "5.99.9",
-    "webpack-dev-server": "5.2.0"
+    "webpack": "5.104.1",
+    "webpack-dev-server": "5.2.2"
   },
   "devDependencies": {
     "@types/crypto-js": "4.2.2",
@@ -93,12 +93,12 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.2",
-    "tsdown": "0.18.2",
+    "tsdown": "0.18.3",
     "typescript": "5.9.3",
     "vitest": "4.0.16"
   },
   "peerDependencies": {
-    "webpack": "5.99.9"
+    "webpack": "5.104.1"
   },
   "engines": {
     "node": ">=14.18"

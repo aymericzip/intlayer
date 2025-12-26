@@ -96,9 +96,9 @@
     "rimraf": "6.1.2",
     "rollup-plugin-visualizer": "6.0.5",
     "svelte-check": "^4.3.4",
-    "tsdown": "0.18.2",
+    "tsdown": "0.18.3",
     "tslib": "^2.8.1",
-    "turbo": "2.7.1",
+    "turbo": "2.7.2",
     "typescript": "5.9.3",
     "vite-tsconfig-paths": "6.0.3",
     "vitest": "4.0.16"
