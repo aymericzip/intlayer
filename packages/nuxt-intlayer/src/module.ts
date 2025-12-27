@@ -49,11 +49,11 @@ export const module: NuxtModule = defineNuxtModule({
 
     // // Inject the intlayer middleware plugin into Nuxt's Vite config
     nuxt.hook('vite:extendConfig', (viteConfig, { isServer }) => {
-      // if (isServer) {
-      //   // We only need the middleware on the server side during development
-      //   // viteConfig.plugins can be undefined at this stage
-      //   (viteConfig.plugins ?? []).push(intlayerProxy());
-      // }
+      if (isServer) {
+        // We only need the middleware on the server side during development
+        // viteConfig.plugins can be undefined at this stage
+        (viteConfig.plugins ?? []).push(intlayerProxy());
+      }
 
       viteConfig.plugins?.push(intlayer());
     });
