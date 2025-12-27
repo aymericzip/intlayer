@@ -239,15 +239,15 @@ Konwencje nazewnictwa:
 #### Komponent Layoutu
 
 ```tsx fileName="app/root.tsx"
-import { defaultLocale } from "intlayer";
+import { getLocaleFromPath } from "intlayer";
 import { IntlayerProvider } from "react-intlayer";
 import {
   isRouteErrorResponse,
-  Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "react-router";
 
 import type { Route } from "./+types/root";
@@ -256,19 +256,17 @@ import "./app.css";
 
 // links and ErrorBoundary code
 
-export default function App({ params }: Route.ComponentProps) {
-  return (
-    <IntlayerProvider locale={params.locale}>
-      <Outlet />
-    </IntlayerProvider>
-  );
+export async function loader({ request }: Route.LoaderArgs) {
+  const locale = getLocaleFromPath(request.url);
+
+  return { locale };
 }
 
 export function Layout({
   children,
-  params,
 }: { children: React.ReactNode } & Route.ComponentProps) {
-  const locale = params?.locale || defaultLocale;
+  const data = useLoaderData<typeof loader>();
+  const { locale } = data;
 
   return (
     <html lang={locale}>
@@ -279,7 +277,7 @@ export function Layout({
         <Links />
       </head>
       <body>
-        {children}
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
