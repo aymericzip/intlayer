@@ -196,12 +196,13 @@ export default routes;
 #### ファイル構造
 
 ```bash
-app/routes/
-├── ($locale)._layout.tsx        # ロケールルートのレイアウトラッパー
-├── ($locale)._index.tsx         # ホームページ (/:locale?)
-├── ($locale)._index.content.ts  # ホームページのコンテンツ
-├── ($locale).about.tsx          # アバウトページ (/:locale?/about)
-└── ($locale).about.content.ts   # アバウトページのコンテンツ
+app/
+├── root.tsx                         # ロケールルートのレイアウトラッパー
+└──routes/
+    ├── ($locale)._index.tsx         # ホームページ (/, /es, など)
+    ├── ($locale)._index.content.ts  # ホームページのコンテンツ
+    ├── ($locale).about.tsx          # アバウトページ (/about, /es/about, など)
+    └── ($locale).about.content.ts   # アバウトページのコンテンツ
 ```
 
 命名規則：
@@ -213,23 +214,52 @@ app/routes/
 
 #### レイアウトコンポーネント
 
-```tsx fileName="app/routes/($locale)._layout.tsx"
+```tsx fileName="app/root.tsx"
+import { defaultLocale } from "intlayer";
 import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
+import {
+  isRouteErrorResponse,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from "react-router";
 
-import { useI18nHTMLAttributes } from "~/hooks/useI18nHTMLAttributes";
+import type { Route } from "./+types/root";
 
-import type { Route } from "./+types/($locale)._layout";
+import "./app.css";
 
-export default function RootLayout({ params }: Route.ComponentProps) {
-  useI18nHTMLAttributes();
+// links and ErrorBoundary code
 
-  const { locale } = params;
-
+export default function App({ params }: Route.ComponentProps) {
   return (
-    <IntlayerProvider locale={locale}>
+    <IntlayerProvider locale={params.locale}>
       <Outlet />
     </IntlayerProvider>
+  );
+}
+
+export function Layout({
+  children,
+  params,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const locale = params?.locale || defaultLocale;
+
+  return (
+    <html lang={locale}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
   );
 }
 ```
@@ -486,7 +516,7 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-このフックは、ステップ5で示したレイアウトコンポーネント（`($locale)._layout.tsx`）で既に使用されています。
+このフックは、ステップ5で示したレイアウトコンポーネント（`root.tsx`）で既に使用されています。
 
 ### ステップ10: ミドルウェアを追加する（オプション）
 

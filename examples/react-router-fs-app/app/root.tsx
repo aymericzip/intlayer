@@ -1,3 +1,5 @@
+import { defaultLocale } from 'intlayer';
+import { IntlayerProvider } from 'react-intlayer';
 import {
   isRouteErrorResponse,
   Links,
@@ -24,8 +26,13 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export default function App() {
-  return <Outlet />;
+// 2. Wrap the Outlet with the Provider and pass the locale
+export default function App({ params }: Route.ComponentProps) {
+  return (
+    <IntlayerProvider locale={params.locale}>
+      <Outlet />
+    </IntlayerProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -57,9 +64,14 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   );
 }
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({
+  children,
+  params,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const locale = params?.locale || defaultLocale;
+
   return (
-    <html>
+    <html lang={locale}>
       <head>
         <meta charSet="utf-8" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />

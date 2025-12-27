@@ -197,12 +197,13 @@ export default routes;
 #### Структура файлов
 
 ```bash
-app/routes/
-├── ($locale)._layout.tsx        # Обертка layout для маршрутов локали
-├── ($locale)._index.tsx         # Главная страница (/:locale?)
-├── ($locale)._index.content.ts  # Контент главной страницы
-├── ($locale).about.tsx          # Страница "О нас" (/:locale?/about)
-└── ($locale).about.content.ts   # Контент страницы "О нас"
+app/
+├── root.tsx                         # Обертка layout для маршрутов локали
+└──routes/
+    ├── ($locale)._index.tsx         # Главная страница (/, /es, и т.д.)
+    ├── ($locale)._index.content.ts  # Контент главной страницы
+    ├── ($locale).about.tsx          # Страница "О нас" (/about, /es/about, и т.д.)
+    └── ($locale).about.content.ts   # Контент страницы "О нас"
 ```
 
 Соглашения об именовании:
@@ -214,23 +215,52 @@ app/routes/
 
 #### Компонент Layout
 
-```tsx fileName="app/routes/($locale)._layout.tsx"
+```tsx fileName="app/root.tsx"
+import { defaultLocale } from "intlayer";
 import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
+import {
+  isRouteErrorResponse,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from "react-router";
 
-import { useI18nHTMLAttributes } from "~/hooks/useI18nHTMLAttributes";
+import type { Route } from "./+types/root";
 
-import type { Route } from "./+types/($locale)._layout";
+import "./app.css";
 
-export default function RootLayout({ params }: Route.ComponentProps) {
-  useI18nHTMLAttributes();
+// links and ErrorBoundary code
 
-  const { locale } = params;
-
+export default function App({ params }: Route.ComponentProps) {
   return (
-    <IntlayerProvider locale={locale}>
+    <IntlayerProvider locale={params.locale}>
       <Outlet />
     </IntlayerProvider>
+  );
+}
+
+export function Layout({
+  children,
+  params,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const locale = params?.locale || defaultLocale;
+
+  return (
+    <html lang={locale}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
   );
 }
 ```
@@ -486,7 +516,7 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-Этот хук уже используется в компоненте layout (`($locale)._layout.tsx`), показанном в Шаге 5.
+Этот хук уже используется в компоненте layout (`root.tsx`), показанном в Шаге 5.
 
 ### Шаг 10: Добавьте middleware (необязательно)
 

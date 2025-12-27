@@ -220,12 +220,13 @@ Utwórz następujące pliki w katalogu `app/routes/`:
 #### Struktura plików
 
 ```bash
-app/routes/
-├── ($locale)._layout.tsx        # Opakowanie layoutu dla tras lokalizacji
-├── ($locale)._index.tsx         # Strona główna (/:locale?)
-├── ($locale)._index.content.ts  # Zawartość strony głównej
-├── ($locale).about.tsx          # Strona O nas (/:locale?/about)
-└── ($locale).about.content.ts   # Zawartość strony O nas
+app/
+├── root.tsx                         # Opakowanie layoutu dla tras lokalizacji
+└──routes/
+    ├── ($locale)._index.tsx         # Strona główna (/, /es, itd.)
+    ├── ($locale)._index.content.ts  # Zawartość strony głównej
+    ├── ($locale).about.tsx          # Strona O nas (/about, /es/about, itd.)
+    └── ($locale).about.content.ts   # Zawartość strony O nas
 ```
 
 Konwencje nazewnictwa:
@@ -237,23 +238,52 @@ Konwencje nazewnictwa:
 
 #### Komponent Layoutu
 
-```tsx fileName="app/routes/($locale)._layout.tsx"
+```tsx fileName="app/root.tsx"
+import { defaultLocale } from "intlayer";
 import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
+import {
+  isRouteErrorResponse,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from "react-router";
 
-import { useI18nHTMLAttributes } from "~/hooks/useI18nHTMLAttributes";
+import type { Route } from "./+types/root";
 
-import type { Route } from "./+types/($locale)._layout";
+import "./app.css";
 
-export default function RootLayout({ params }: Route.ComponentProps) {
-  useI18nHTMLAttributes();
+// links and ErrorBoundary code
 
-  const { locale } = params;
-
+export default function App({ params }: Route.ComponentProps) {
   return (
-    <IntlayerProvider locale={locale}>
+    <IntlayerProvider locale={params.locale}>
       <Outlet />
     </IntlayerProvider>
+  );
+}
+
+export function Layout({
+  children,
+  params,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const locale = params?.locale || defaultLocale;
+
+  return (
+    <html lang={locale}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
   );
 }
 ```

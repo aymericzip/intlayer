@@ -195,12 +195,13 @@ Dosya sistemi yönlendirmesi ile, noktalar (`.`) yol segmentlerini temsil eden v
 #### Dosya Yapısı
 
 ```bash
-app/routes/
-├── ($locale)._layout.tsx        # Yerel rota için layout sarmalayıcı
-├── ($locale)._index.tsx         # Ana sayfa (/:locale?)
-├── ($locale)._index.content.ts  # Ana sayfa içeriği
-├── ($locale).about.tsx          # Hakkında sayfası (/:locale?/about)
-└── ($locale).about.content.ts   # Hakkında sayfası içeriği
+app/
+├── root.tsx                         # Yerel rota için layout sarmalayıcı
+└──routes/
+    ├── ($locale)._index.tsx         # Ana sayfa (/, /es, vb.)
+    ├── ($locale)._index.content.ts  # Ana sayfa içeriği
+    ├── ($locale).about.tsx          # Hakkında sayfası (/about, /es/about, vb.)
+    └── ($locale).about.content.ts   # Hakkında sayfası içeriği
 ```
 
 Adlandırma kuralları:
@@ -212,23 +213,52 @@ Adlandırma kuralları:
 
 #### Layout Bileşeni
 
-```tsx fileName="app/routes/($locale)._layout.tsx"
+```tsx fileName="app/root.tsx"
+import { defaultLocale } from "intlayer";
 import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
+import {
+  isRouteErrorResponse,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from "react-router";
 
-import { useI18nHTMLAttributes } from "~/hooks/useI18nHTMLAttributes";
+import type { Route } from "./+types/root";
 
-import type { Route } from "./+types/($locale)._layout";
+import "./app.css";
 
-export default function RootLayout({ params }: Route.ComponentProps) {
-  useI18nHTMLAttributes();
+// links and ErrorBoundary code
 
-  const { locale } = params;
-
+export default function App({ params }: Route.ComponentProps) {
   return (
-    <IntlayerProvider locale={locale}>
+    <IntlayerProvider locale={params.locale}>
       <Outlet />
     </IntlayerProvider>
+  );
+}
+
+export function Layout({
+  children,
+  params,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const locale = params?.locale || defaultLocale;
+
+  return (
+    <html lang={locale}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
   );
 }
 ```
@@ -484,7 +514,7 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-Bu hook, Adım 5'te gösterilen layout bileşeninde (`($locale)._layout.tsx`) zaten kullanılmaktadır.
+Bu hook, Adım 5'te gösterilen layout bileşeninde (`root.tsx`) zaten kullanılmaktadır.
 
 ### Adım 10: Middleware ekleyin (İsteğe bağlı)
 

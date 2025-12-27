@@ -197,12 +197,13 @@ Erstellen Sie die folgenden Dateien in Ihrem Verzeichnis `app/routes/`:
 #### Dateistruktur
 
 ```bash
-app/routes/
-├── ($locale)._layout.tsx        # Layout-Wrapper für Locale-Routen
-├── ($locale)._index.tsx         # Startseite (/:locale?)
-├── ($locale)._index.content.ts  # Startseiten-Inhalt
-├── ($locale).about.tsx          # Über-Seite (/:locale?/about)
-└── ($locale).about.content.ts   # Über-Seiten-Inhalt
+app/
+├── root.tsx                         # Layout-Wrapper für Locale-Routen
+└──routes/
+    ├── ($locale)._index.tsx         # Startseite (/, /es, etc.)
+    ├── ($locale)._index.content.ts  # Startseiten-Inhalt
+    ├── ($locale).about.tsx          # Über-Seite (/about, /es/about, etc.)
+    └── ($locale).about.content.ts   # Über-Seiten-Inhalt
 ```
 
 Die Namenskonventionen:
@@ -214,23 +215,52 @@ Die Namenskonventionen:
 
 #### Layout-Komponente
 
-```tsx fileName="app/routes/($locale)._layout.tsx"
+```tsx fileName="app/root.tsx"
+import { defaultLocale } from "intlayer";
 import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
+import {
+  isRouteErrorResponse,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from "react-router";
 
-import { useI18nHTMLAttributes } from "~/hooks/useI18nHTMLAttributes";
+import type { Route } from "./+types/root";
 
-import type { Route } from "./+types/($locale)._layout";
+import "./app.css";
 
-export default function RootLayout({ params }: Route.ComponentProps) {
-  useI18nHTMLAttributes();
+// links and ErrorBoundary code
 
-  const { locale } = params;
-
+export default function App({ params }: Route.ComponentProps) {
   return (
-    <IntlayerProvider locale={locale}>
+    <IntlayerProvider locale={params.locale}>
       <Outlet />
     </IntlayerProvider>
+  );
+}
+
+export function Layout({
+  children,
+  params,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const locale = params?.locale || defaultLocale;
+
+  return (
+    <html lang={locale}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
   );
 }
 ```
@@ -486,7 +516,7 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-Dieser Hook wird bereits in der Layout-Komponente (`($locale)._layout.tsx`) verwendet, die in Schritt 5 gezeigt wird.
+Dieser Hook wird bereits in der Layout-Komponente (`root.tsx`) verwendet, die in Schritt 5 gezeigt wird.
 
 ### Schritt 10: Middleware hinzufügen (Optional)
 
