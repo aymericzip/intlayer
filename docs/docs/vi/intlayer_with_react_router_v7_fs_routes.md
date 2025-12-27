@@ -32,6 +32,8 @@ history:
 
 Hướng dẫn này trình bày cách tích hợp **Intlayer** để thực hiện quốc tế hóa liền mạch trong các dự án React Router v7 với định tuyến nhận biết locale, hỗ trợ TypeScript và các thực hành phát triển hiện đại.
 
+Đối với định tuyến phía máy khách, hãy tham khảo hướng dẫn [Intlayer với React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_react_router_v7.md).
+
 ## Table of Contents
 
 <TOC/>

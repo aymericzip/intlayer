@@ -1,67 +1,96 @@
+import { DefaultValues } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
-import { type Locale, Locales } from '@intlayer/types';
+import type { Locale, LocalesValues, RoutingConfig } from '@intlayer/types';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 
+type GetLocaleFromPathOptions = {
+  defaultLocale?: LocalesValues;
+  locales?: LocalesValues[];
+  mode?: RoutingConfig['mode'];
+};
+
 /**
- * Extracts the locale segment from the given URL or pathname if present.
- * If no locale is present, returns the default locale (en).
+ * Extracts the locale segment from the given URL or pathname based on the routing mode.
  *
- * Example:
- *
- * ```ts
- * getLocaleFromPath('/en/dashboard') // Returns 'en'
- * getLocaleFromPath('/fr/dashboard') // Returns 'fr'
- * getLocaleFromPath('/dashboard') // Returns 'en'
- * getLocaleFromPath('dashboard') // Returns 'en'
- * getLocaleFromPath('https://example.com/es/dashboard') // Returns 'es'
- * getLocaleFromPath('https://example.com/fr/dashboard') // Returns 'fr'
- * getLocaleFromPath('https://example.com/dashboard') // Returns 'en'
- * ```
+ * Mode Behaviors:
+ * - 'prefix-no-default': Checks path prefiIf no prefix found, assumes default locale.
+ * - 'prefix-all': Checks path prefix.
+ * - 'search-params': Checks for 'locale' query parameter.
+ * - 'no-prefix': Returns undefined (or default if fallback is true).
  *
  * @param inputUrl - The complete URL string or pathname to process.
- * @returns The detected locale or default (en) if no locale is found
+ * @returns The detected locale, default locale (if fallback/implicit), or undefined.
  */
-export const getLocaleFromPath = (inputUrl: string = '/'): Locale => {
-  // Define supported locales array
-  const { defaultLocale, locales } = configuration?.internationalization ?? {};
+export const getLocaleFromPath = (
+  inputUrl: string = '/',
+  options?: GetLocaleFromPathOptions
+): Locale | undefined => {
+  const { defaultLocale, locales, mode } = {
+    defaultLocale:
+      configuration?.internationalization?.defaultLocale ??
+      DefaultValues.Internationalization.DEFAULT_LOCALE,
+    mode: configuration?.routing?.mode ?? DefaultValues.Routing.ROUTING_MODE,
+    locales:
+      configuration?.internationalization?.locales ??
+      DefaultValues.Internationalization.LOCALES,
+    ...options,
+  };
 
   if (!defaultLocale || !locales) {
-    return Locales.ENGLISH;
+    return DefaultValues.Internationalization.DEFAULT_LOCALE;
   }
 
-  // Determine if the original URL is absolute (includes protocol)
+  // Prepare the URL object
   const isAbsoluteUrl = checkIsURLAbsolute(inputUrl);
-
   let fixedInputUrl = inputUrl;
 
-  if (inputUrl?.endsWith('/')) {
+  if (inputUrl?.endsWith('/') && inputUrl.length > 1) {
     fixedInputUrl = inputUrl.slice(0, -1);
   }
 
-  // Initialize a URL object if the URL is absolute
   // For relative URLs, use a dummy base to leverage the URL API
   const url = isAbsoluteUrl
     ? new URL(fixedInputUrl)
     : new URL(fixedInputUrl, 'http://example.com');
 
-  const pathname = url.pathname;
+  // Handle 'search-params' mode
+  // Example: /dashboard?locale=fr
+  if (mode === 'search-params') {
+    const localeParam = url.searchParams.get('locale');
 
-  // Ensure the pathname starts with '/'
-  if (!pathname.startsWith('/')) {
-    // If not, return the default locale
-    return defaultLocale;
+    if (localeParam && locales.includes(localeParam)) {
+      return localeParam as Locale;
+    }
+
+    return defaultLocale as Locale;
   }
 
-  // Split the pathname to extract the first segment
-  const pathSegments = pathname.split('/');
-  const firstSegment = pathSegments[1]; // The segment after the first '/'
+  // Handle 'no-prefix' mode
+  // The locale is not stored in the URL path.
+  if (mode === 'no-prefix') {
+    return defaultLocale as Locale;
+  }
 
-  // Check if the first segment is a supported locale
-  if (firstSegment && locales.includes(firstSegment as Locale)) {
-    // Return the detected locale
+  // Handle Prefix Modes ('prefix-all' | 'prefix-no-default')
+  const pathname = url.pathname;
+
+  // Split the pathname to extract the first segment
+  // pathSegments[0] is empty string because path starts with /
+  const pathSegments = pathname.split('/');
+  const firstSegment = pathSegments[1];
+
+  // Check if the first segment is a valid supported locale
+  const isSegmentLocale = firstSegment && locales.includes(firstSegment);
+
+  if (isSegmentLocale) {
     return firstSegment as Locale;
   }
 
-  // Return the default locale if no locale is found in the path
-  return defaultLocale;
+  // If the first segment is NOT a locale (e./dashboard), handle based on mode
+  if (mode === 'prefix-no-default') {
+    // In this mode, absence of a prefix implies the default locale
+    return defaultLocale as Locale;
+  }
+
+  return undefined;
 };

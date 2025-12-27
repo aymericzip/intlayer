@@ -31,6 +31,8 @@ history:
 
 Bu rehber, React Router v7 projelerinde **dosya sistemi tabanlı yönlendirme** (`@react-router/fs-routes`) kullanarak yerel dil farkındalıklı yönlendirme, TypeScript desteği ve modern geliştirme uygulamaları ile sorunsuz uluslararasılaştırma için **Intlayer**'ın nasıl entegre edileceğini gösterir.
 
+İstemci tarafı yönlendirme için, [Intlayer ile React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_react_router_v7.md) rehberine bakın.
+
 ## Table of Contents
 
 <TOC/>
@@ -241,7 +243,7 @@ export function Layout({
   children,
 }: { children: React.ReactNode } & Route.ComponentProps) {
   const data = useLoaderData<typeof loader>();
-  const { locale } = data;
+  const { locale } = data ?? {};
 
   return (
     <html lang={locale}>
@@ -264,10 +266,33 @@ export function Layout({
 #### İndeks Sayfası
 
 ```tsx fileName="app/routes/($locale)._index.tsx"
+import { getIntlayer, validatePrefix } from "intlayer";
 import { useIntlayer } from "react-intlayer";
-import { LocalizedLink } from "~/components/localized-link";
+import { data } from "react-router";
+
+import { LocaleSwitcher } from "~/components/locale-switcher";
+import { Navbar } from "~/components/navbar";
 
 import type { Route } from "./+types/($locale)._index";
+
+export const loader = ({ params }: Route.LoaderArgs) => {
+  const { locale } = params;
+
+  const { isValid } = validatePrefix(locale);
+
+  if (!isValid) {
+    throw data("Locale not supported", { status: 404 });
+  }
+};
+
+export const meta: Route.MetaFunction = ({ params }) => {
+  const content = getIntlayer("page", params.locale);
+
+  return [
+    { title: content.title },
+    { content: content.description, name: "description" },
+  ];
+};
 
 export default function Page() {
   const { title, description, aboutLink } = useIntlayer("page");
@@ -287,10 +312,33 @@ export default function Page() {
 #### Hakkında Sayfası
 
 ```tsx fileName="app/routes/($locale).about.tsx"
+import { getIntlayer, validatePrefix } from "intlayer";
 import { useIntlayer } from "react-intlayer";
-import { LocalizedLink } from "~/components/localized-link";
+import { data } from "react-router";
+
+import { LocaleSwitcher } from "~/components/locale-switcher";
+import { Navbar } from "~/components/navbar";
 
 import type { Route } from "./+types/($locale).about";
+
+export const loader = ({ params }: Route.LoaderArgs) => {
+  const { locale } = params;
+
+  const { isValid } = validatePrefix(locale);
+
+  if (!isValid) {
+    throw data("Locale not supported", { status: 404 });
+  }
+};
+
+export const meta: Route.MetaFunction = ({ params }) => {
+  const content = getIntlayer("about", params.locale);
+
+  return [
+    { title: content.title },
+    { content: content.description, name: "description" },
+  ];
+};
 
 export default function AboutPage() {
   const { title, content, homeLink } = useIntlayer("about");

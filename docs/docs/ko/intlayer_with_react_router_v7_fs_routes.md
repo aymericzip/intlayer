@@ -32,6 +32,8 @@ history:
 
 이 가이드는 React Router v7 프로젝트에서 로케일 인식 라우팅, TypeScript 지원 및 최신 개발 방식을 활용하여 **Intlayer**를 통합해 원활한 국제화(i18n)를 구현하는 방법을 보여줍니다.
 
+클라이언트 사이드 라우팅의 경우 [Intlayer와 React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_router_v7.md) 가이드를 참조하세요.
+
 ## Table of Contents
 
 <TOC/>

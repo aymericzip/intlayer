@@ -32,6 +32,8 @@ history:
 
 Panduan ini menunjukkan cara mengintegrasikan **Intlayer** untuk internasionalisasi yang mulus dalam proyek React Router v7 dengan routing yang mendukung locale, dukungan TypeScript, dan praktik pengembangan modern.
 
+Untuk routing sisi klien, lihat panduan [Intlayer dengan React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_router_v7.md).
+
 ## Table of Contents
 
 <TOC/>

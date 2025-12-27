@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2025-10-03
+updatedAt: 2025-12-27
 title: Как перевести ваше React Router v7 – руководство i18n 2025
 description: Узнайте, как добавить интернационализацию (i18n) в ваше приложение на React Router v7 с помощью Intlayer. Следуйте этому подробному руководству, чтобы сделать ваше приложение многоязычным с маршрутизацией, учитывающей локаль.
 keywords:
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.6
+    date: 2025-12-27
+    changes: Обновить Layout и обработать 404
   - version: 6.1.5
     date: 2025-10-03
     changes: Обновлена документация
@@ -173,10 +176,8 @@ export default defineConfig({
 import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 
 export default [
-  layout("routes/layout.tsx", [
-    route("/:lang?", "routes/page.tsx"), // Локализованная главная страница
-    route("/:lang?/about", "routes/about/page.tsx"), // Локализованная страница "О нас"
-  ]),
+  route("/:lang?", "routes/page.tsx"), // Локализованная главная страница
+  route("/:lang?/about", "routes/about/page.tsx"), // Локализованная страница "О нас"
 ] satisfies RouteConfig;
 ```
 
@@ -186,19 +187,50 @@ export default [
 
 #### Корневой Layout
 
-```tsx fileName="app/routes/layout.tsx"
+```tsx fileName="app/root.tsx"
+import { getLocaleFromPath } from "intlayer";
 import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
+import {
+  data,
+  Meta,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+} from "react-router";
+import type { Route } from "./+types/root";
 
-import type { Route } from "./+types/layout";
+// ... Unchanged App, links and ErrorBoundary code
 
-export default function RootLayout({ params }: Route.ComponentProps) {
-  const { locale } = params;
+export async function loader({ request }: Route.LoaderArgs) {
+  const locale = getLocaleFromPath(request.url);
+
+  if (!locale) {
+    throw data("Language not supported", { status: 404 });
+  }
+
+  return { locale };
+}
+
+export function Layout({
+  children,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const data = useLoaderData<typeof loader>();
+  const { locale } = data ?? {};
 
   return (
-    <IntlayerProvider locale={locale}>
-      <Outlet />
-    </IntlayerProvider>
+    <html lang={locale}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
   );
 }
 ```
@@ -312,9 +344,34 @@ export const useLocalizedNavigate = () => {
 
 #### Локализованная главная страница
 
-```tsx fileName="app/routes/[lang]/page.tsx"
+```tsx fileName="app/routes/page.tsx"
+import { getIntlayer, validatePrefix } from "intlayer";
 import { useIntlayer } from "react-intlayer";
-import { LocalizedLink } from "~/components/localized-link";
+import { data } from "react-router";
+
+import { LocaleSwitcher } from "~/components/locale-switcher";
+
+import { Navbar } from "~/components/navbar";
+import type { Route } from "./+types/page";
+
+export const loader = ({ params }: Route.LoaderArgs) => {
+  const { locale } = params;
+
+  const { isValid } = validatePrefix(locale);
+
+  if (!isValid) {
+    throw data("Locale not supported", { status: 404 });
+  }
+};
+
+export const meta: Route.MetaFunction = ({ params }) => {
+  const content = getIntlayer("page", params.locale);
+
+  return [
+    { title: content.title },
+    { content: content.description, name: "description" },
+  ];
+};
 
 export default function Page() {
   const { title, description, aboutLink } = useIntlayer("page");

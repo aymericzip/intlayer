@@ -32,6 +32,8 @@ history:
 
 يوضح هذا الدليل كيفية دمج **Intlayer** لتحقيق التدويل السلس في مشاريع React Router v7 مع توجيه يدعم اللغة المحلية، ودعم TypeScript، وممارسات تطوير حديثة.
 
+للحصول على التوجيه من جانب العميل، راجع دليل [Intlayer مع React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_router_v7.md).
+
 ## Table of Contents
 
 <TOC/>

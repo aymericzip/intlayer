@@ -1,6 +1,7 @@
 import { getLocaleFromPath } from 'intlayer';
 import { IntlayerProvider } from 'react-intlayer';
 import {
+  data,
   isRouteErrorResponse,
   Links,
   Meta,
@@ -63,6 +64,10 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 export async function loader({ request }: Route.LoaderArgs) {
   const locale = getLocaleFromPath(request.url);
 
+  if (!locale) {
+    throw data('Language not supported', { status: 404 });
+  }
+
   return { locale };
 }
 
@@ -70,7 +75,7 @@ export function Layout({
   children,
 }: { children: React.ReactNode } & Route.ComponentProps) {
   const data = useLoaderData<typeof loader>();
-  const { locale } = data;
+  const { locale } = data ?? {};
 
   return (
     <html lang={locale}>

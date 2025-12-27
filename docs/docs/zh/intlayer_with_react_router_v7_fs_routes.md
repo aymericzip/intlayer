@@ -32,6 +32,8 @@ history:
 
 本指南演示了如何在 React Router v7 项目中集成 **Intlayer**，实现无缝国际化，支持基于区域的路由、TypeScript 支持以及现代开发实践。
 
+对于客户端路由，请参阅 [Intlayer 与 React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_router_v7.md) 指南。
+
 ## Table of Contents
 
 <TOC/>

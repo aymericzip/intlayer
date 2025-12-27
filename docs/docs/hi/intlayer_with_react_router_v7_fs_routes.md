@@ -32,6 +32,8 @@ history:
 
 यह गाइड दिखाता है कि कैसे **Intlayer** को React Router v7 प्रोजेक्ट्स में seamless अंतरराष्ट्रीयकरण के लिए एकीकृत किया जाए, जिसमें locale-aware रूटिंग, TypeScript समर्थन, और आधुनिक विकास प्रथाएँ शामिल हैं।
 
+क्लाइंट-साइड रूटिंग के लिए, [Intlayer के साथ React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_react_router_v7.md) गाइड देखें।
+
 ## Table of Contents
 
 <TOC/>

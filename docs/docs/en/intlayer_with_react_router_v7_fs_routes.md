@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-07
-updatedAt: 2025-12-07
+updatedAt: 2025-12-27
 title: How to translate your React Router v7 (File-System Routes) app – i18n guide 2025
 description: Learn how to add internationalization (i18n) to your React Router v7 application using Intlayer with file-system based routing. Follow this comprehensive guide to make your app multilingual with locale-aware routing.
 keywords:
@@ -22,6 +22,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.6
+    date: 2025-12-27
+    changes: Update Layout and handle 404
   - version: 7.3.4
     date: 2025-12-08
     changes: Init history
@@ -30,6 +33,8 @@ history:
 # Translate your React Router v7 (File-System Routes) website using Intlayer | Internationalization (i18n)
 
 This guide demonstrates how to integrate **Intlayer** for seamless internationalization in React Router v7 projects using **file-system based routing** (`@react-router/fs-routes`) with locale-aware routing, TypeScript support, and modern development practices.
+
+For client-side routing, refer to the [Intlayer with React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_router_v7.md) guide.
 
 ## Table of Contents
 
@@ -241,7 +246,7 @@ export function Layout({
   children,
 }: { children: React.ReactNode } & Route.ComponentProps) {
   const data = useLoaderData<typeof loader>();
-  const { locale } = data;
+  const { locale } = data ?? {};
 
   return (
     <html lang={locale}>
@@ -264,10 +269,33 @@ export function Layout({
 #### Index Page
 
 ```tsx fileName="app/routes/($locale)._index.tsx"
+import { getIntlayer, validatePrefix } from "intlayer";
 import { useIntlayer } from "react-intlayer";
-import { LocalizedLink } from "~/components/localized-link";
+import { data } from "react-router";
+
+import { LocaleSwitcher } from "~/components/locale-switcher";
+import { Navbar } from "~/components/navbar";
 
 import type { Route } from "./+types/($locale)._index";
+
+export const loader = ({ params }: Route.LoaderArgs) => {
+  const { locale } = params;
+
+  const { isValid } = validatePrefix(locale);
+
+  if (!isValid) {
+    throw data("Locale not supported", { status: 404 });
+  }
+};
+
+export const meta: Route.MetaFunction = ({ params }) => {
+  const content = getIntlayer("page", params.locale);
+
+  return [
+    { title: content.title },
+    { content: content.description, name: "description" },
+  ];
+};
 
 export default function Page() {
   const { title, description, aboutLink } = useIntlayer("page");
@@ -287,10 +315,33 @@ export default function Page() {
 #### About Page
 
 ```tsx fileName="app/routes/($locale).about.tsx"
+import { getIntlayer, validatePrefix } from "intlayer";
 import { useIntlayer } from "react-intlayer";
-import { LocalizedLink } from "~/components/localized-link";
+import { data } from "react-router";
+
+import { LocaleSwitcher } from "~/components/locale-switcher";
+import { Navbar } from "~/components/navbar";
 
 import type { Route } from "./+types/($locale).about";
+
+export const loader = ({ params }: Route.LoaderArgs) => {
+  const { locale } = params;
+
+  const { isValid } = validatePrefix(locale);
+
+  if (!isValid) {
+    throw data("Locale not supported", { status: 404 });
+  }
+};
+
+export const meta: Route.MetaFunction = ({ params }) => {
+  const content = getIntlayer("about", params.locale);
+
+  return [
+    { title: content.title },
+    { content: content.description, name: "description" },
+  ];
+};
 
 export default function AboutPage() {
   const { title, content, homeLink } = useIntlayer("about");
