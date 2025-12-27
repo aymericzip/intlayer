@@ -1,5 +1,4 @@
 import configuration from '@intlayer/config/built';
-import { getAppLogger } from '@intlayer/config/client';
 import type {
   ContentNode,
   DeclaredLocales,
@@ -40,7 +39,7 @@ export const getContent = <
     translationPlugin(locale ?? defaultLocale, defaultLocale),
     enumerationPlugin,
     conditionPlugin,
-    nestedPlugin,
+    nestedPlugin(locale ?? defaultLocale),
     filePlugin,
     ...(nodeProps.plugins ?? []),
   ];

@@ -305,13 +305,16 @@ export type NestedCond<T, S, L> = T extends {
   : never;
 
 /** Nested plugin. Replaces node with the result of `getNesting`. */
-export const nestedPlugin: Plugins = {
+export const nestedPlugin = (locale?: LocalesValues): Plugins => ({
   id: 'nested-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Nested,
   transform: (node: NestedContent, props) =>
-    getNesting(node.nested.dictionaryKey, node.nested.path, props),
-};
+    getNesting(node.nested.dictionaryKey, node.nested.path, {
+      ...props,
+      locale: (locale ?? props.locale) as Locale,
+    }),
+});
 
 // /** ---------------------------------------------
 //  *  FILE PLUGIN
