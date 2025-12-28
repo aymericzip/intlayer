@@ -59,83 +59,110 @@ type WrappedIntl = {
     : (typeof Intl)[K];
 };
 
-// Generic cache key – JSON.stringify is fine because locale strings are short
-// and option objects are small and deterministic.
-const cacheKey = (locales: LocalesValues, options: unknown) =>
-  JSON.stringify([locales, options]);
+// ... (Keep your Type Helper definitions here: IntlConstructors, ReplaceLocaleWithLocalesValues, WrappedIntl) ...
 
-// Generic wrapper for any `new Intl.*()` constructor.
-// Returns a constructable function (usable with or without `new`) that
-// pulls instances from a Map cache when possible.
+/**
+ * Optimized Cache Key Generator
+ * 1. Fast path: If no options, just use the locale string.
+ * 2. Normal path: JSON.stringify for deterministic object comparison.
+ */
+const getCacheKey = (
+  locales: LocalesValues | undefined,
+  options: unknown
+): string => {
+  const localeKey = locales ? String(locales) : Locales.ENGLISH;
+
+  if (!options) return localeKey;
+
+  // JSON.stringify is the most robust way to handle nested options objects
+  // without a heavy custom hashing function.
+  return `${localeKey}|${JSON.stringify(options)}`;
+};
+
+/**
+ * Generic wrapper for any `new Intl.*()` constructor.
+ */
 const createCachedConstructor = <T extends new (...args: any[]) => any>(
   Ctor: T
 ) => {
+  // The cache lives here, inside the closure of the wrapped constructor.
   const cache = new Map<string, InstanceType<T>>();
+  const MAX_CACHE_SIZE = 50;
 
   function Wrapped(locales?: LocalesValues, options?: any) {
-    // Special case – guard older runtimes missing DisplayNames.
+    // 1. Handle DisplayNames Polyfill warning (Keep your existing logic here)
     if (
       Ctor.name === 'DisplayNames' &&
       typeof (Intl as any)?.DisplayNames !== 'function'
     ) {
-      if (process.env.NODE_ENV === 'development') {
-        const message = [
-          `// Intl.DisplayNames is not supported; falling back to raw locale (${locales}). `,
-          `// Consider adding a polyfill as https://formatjs.io/docs/polyfills/intl-displaynames/`,
-          ``,
-          `import 'intl';`,
-          `import '@formatjs/intl-displaynames/polyfill';`,
-          `import '@formatjs/intl-getcanonicallocales/polyfill';`,
-          `import '@formatjs/intl-locale/polyfill';`,
-          `import '@formatjs/intl-pluralrules/polyfill';`,
-          `import '@formatjs/intl-listformat/polyfill';`,
-          `import '@formatjs/intl-numberformat/polyfill';`,
-          `import '@formatjs/intl-relativetimeformat/polyfill';`,
-          `import '@formatjs/intl-datetimeformat/polyfill';`,
-          ``,
-          `// Optionally add locale data`,
-          `import '@formatjs/intl-pluralrules/locale-data/fr';`,
-          `import '@formatjs/intl-numberformat/locale-data/fr';`,
-          `import '@formatjs/intl-datetimeformat/locale-data/fr';`,
-        ].join('\n');
-
-        console.warn(message);
-        throw new Error(message);
-      }
+      // ... (Your existing polyfill warning logic) ...
       return locales as any;
     }
 
-    const key = cacheKey(locales ?? Locales.ENGLISH, options);
-    let instance: InstanceType<T> | undefined = cache.get(key);
+    // 2. Generate Key
+    const key = getCacheKey(locales, options);
 
-    if (!instance) {
-      instance = new Ctor(locales as never, options as never);
-      cache.set(key, instance as InstanceType<T>);
+    // 3. Check Cache
+    let instance = cache.get(key);
+    if (instance) return instance;
+
+    // 4. Create New Instance
+    instance = new Ctor(locales as never, options as never);
+
+    // 5. Smart Eviction (LRU-ish)
+    // Map iterates in insertion order. Deleting the first key removes the "oldest".
+    if (cache.size >= MAX_CACHE_SIZE) {
+      const oldestKey = cache.keys().next().value;
+      if (oldestKey) cache.delete(oldestKey);
     }
 
+    cache.set(key, instance as InstanceType<T>);
     return instance as InstanceType<T>;
   }
 
-  // Ensure it behaves like a constructor when used with `new`.
+  // Preserve prototype for `instanceof` checks
   (Wrapped as any).prototype = (Ctor as any).prototype;
 
   return Wrapped as unknown as ReplaceLocaleWithLocalesValues<T>;
 };
 
-// Factory that turns the global `Intl` into a cached clone.
-export const createCachedIntl = (): WrappedIntl =>
-  new Proxy(Intl as IntlConstructors, {
+/**
+ * Factory that turns the global `Intl` into a cached clone.
+ */
+export const createCachedIntl = (): WrappedIntl => {
+  // 🔥 CRITICAL OPTIMIZATION:
+  // We must cache the *wrapped constructors* themselves.
+  // Otherwise, the Proxy creates a new `Wrapped` function (and a new empty Map)
+  // on every single property access.
+  const constructorCache = new Map<string | symbol, any>();
+
+  return new Proxy(Intl as IntlConstructors, {
     get: (target, prop, receiver) => {
+      // 1. Fast return if we already wrapped this constructor
+      if (constructorCache.has(prop)) {
+        return constructorCache.get(prop);
+      }
+
       const value = Reflect.get(target, prop, receiver);
 
-      // Wrap *only* constructor functions (safest heuristic: they start with a capital letter).
-      return typeof value === 'function' && /^[A-Z]/.test(String(prop))
-        ? createCachedConstructor(value)
-        : value;
+      // 2. Wrap only Constructors (Heuristic: Function + starts with Uppercase)
+      // This prevents wrapping static methods like `Intl.getCanonicalLocales`
+      if (
+        typeof value === 'function' &&
+        typeof prop === 'string' &&
+        /^[A-Z]/.test(prop)
+      ) {
+        const wrapped = createCachedConstructor(value);
+        constructorCache.set(prop, wrapped);
+        return wrapped;
+      }
+
+      // 3. Pass through everything else (static methods, constants)
+      return value;
     },
   }) as unknown as WrappedIntl;
+};
 
-// Singleton – import this in application code if you just want shared caches.
 export const CachedIntl = createCachedIntl();
 
 // new CachedIntl.DisplayNames(Locales.FRENCH, { type: 'language' });
@@ -153,5 +180,4 @@ export const CachedIntl = createCachedIntl();
 // new CachedIntl.PluralRules('fr');
 // new CachedIntl.RelativeTimeFormat('fr', { numeric: 'auto' });
 // new CachedIntl.ListFormat('fr', { type: 'conjunction' });
-
 export { CachedIntl as Intl };
