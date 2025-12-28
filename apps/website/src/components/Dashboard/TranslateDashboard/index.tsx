@@ -1,7 +1,8 @@
 'use client';
 
-import { getLocaleName } from '@intlayer/core';
+import { getEmptyNode, getLocaleName, getNodeType } from '@intlayer/core';
 import {
+  Button,
   KeyPathBreadcrumb,
   Loader,
   LocaleSwitcherContent,
@@ -14,15 +15,21 @@ import {
   useInfiniteGetDictionaries,
   useSearch,
 } from '@intlayer/design-system/hooks';
-import { useConfiguration } from '@intlayer/editor-react';
-import { type Dictionary, type LocalesValues, NodeType } from '@intlayer/types';
+import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
+import {
+  type Dictionary,
+  type KeyPath,
+  type LocalesValues,
+  NodeType,
+} from '@intlayer/types';
+import { Plus } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { type FC, Suspense, useState } from 'react';
-import { Virtuoso } from 'react-virtuoso';
+import { type FC, Suspense, useMemo, useState } from 'react';
+import { GroupedVirtuoso } from 'react-virtuoso';
 import {
   type FlattenedDictionaryNode,
   flattenDictionary,
-} from '@/utils/flattenDictionary';
+} from './flattenDictionary';
 import { SaveAllButton } from './SaveAllButton';
 
 const TranslateRow: FC<{
@@ -30,21 +37,69 @@ const TranslateRow: FC<{
   selectedLocales: LocalesValues[];
 }> = ({ node, selectedLocales }) => {
   const { dictionary, keyPath, content, nodeType } = node;
+  const { addEditedContent } = useEditedContent();
+  const configuration = useConfiguration();
+  const { defaultLocale } = configuration.internationalization;
+  const { addTranslation } = useIntlayer('dictionary-list');
 
-  if (nodeType === NodeType.Translation) {
+  const isMultilingual =
+    nodeType === NodeType.Translation ||
+    (nodeType === NodeType.Insertion &&
+      getNodeType((content as any).content) === NodeType.Translation);
+
+  if (isMultilingual) {
     return (
-      <div className="flex w-full flex-col items-start gap-2 border-white/5 border-b p-4 px-10 last:border-none">
+      <div className="flex w-full flex-col items-start gap-2 px-10 py-4">
         <div className="shrink-0 pt-2">
           <KeyPathBreadcrumb
+            showDictionaryKey={false}
             dictionaryKey={dictionary.key}
             keyPath={keyPath}
-            onClickKeyPath={() => {}}
             color="neutral"
           />
         </div>
         <div className="flex w-full flex-1 gap-2">
           {selectedLocales.map((locale) => {
             const translationContent = (content as any)?.[nodeType]?.[locale];
+
+            if (typeof translationContent === 'undefined') {
+              return (
+                <div
+                  key={locale}
+                  className="mt-5 mb-auto flex min-w-md flex-1 justify-center"
+                >
+                  <Button
+                    label={addTranslation.value}
+                    variant="fade"
+                    Icon={Plus}
+                    color="neutral"
+                    onClick={() => {
+                      // Get content from default locale or the first available key as a reference
+                      const contentMap = (content as any)?.[nodeType] ?? {};
+                      const referenceContent =
+                        contentMap[defaultLocale] ??
+                        contentMap[Object.keys(contentMap)[0]];
+
+                      // Create an empty node based on the reference structure
+                      const newContent = getEmptyNode(referenceContent);
+                      const newKeyPath = [
+                        ...keyPath,
+                        { type: nodeType, key: locale },
+                      ];
+
+                      addEditedContent(
+                        dictionary.localId!,
+                        newContent,
+                        newKeyPath as KeyPath[]
+                      );
+                    }}
+                  >
+                    {addTranslation}
+                  </Button>
+                </div>
+              );
+            }
+
             return (
               <div key={locale} className="min-w-md flex-1">
                 <TextEditor
@@ -61,15 +116,16 @@ const TranslateRow: FC<{
   }
 
   return (
-    <div className="flex w-full flex-col items-start gap-2 border-white/5 border-b p-4 last:border-none">
-      <div className="w-1/4 min-w-64 shrink-0 pt-2">
+    <div className="flex w-full max-w-5xl flex-col items-start gap-2 px-10 py-4">
+      <div className="shrink-0 pt-2">
         <KeyPathBreadcrumb
+          showDictionaryKey={false}
           dictionaryKey={dictionary.key}
           keyPath={keyPath}
-          onClickKeyPath={() => {}}
+          color="neutral"
         />
       </div>
-      <div className="flex-1">
+      <div className="w-full flex-1">
         <TextEditor
           section={content}
           keyPath={keyPath}
@@ -100,13 +156,49 @@ const TranslateDashboardList: FC = () => {
     });
   });
 
-  const flattenedNodes =
+  const flattenedNodes: FlattenedDictionaryNode[] =
     data?.pages.flatMap((page: any) =>
-      (page.data as Dictionary[]).flatMap((dict) => flattenDictionary(dict))
+      (page.data as Dictionary[]).flatMap(flattenDictionary)
     ) ?? [];
 
+  // Transform flat nodes into groups structure
+  const { groupCounts, groupKeys } = useMemo(() => {
+    if (!flattenedNodes || flattenedNodes.length === 0) {
+      return { groupCounts: [], groupKeys: [] };
+    }
+
+    const counts: number[] = [];
+    const keys: string[] = [];
+
+    let currentKey: string | null = null;
+    let currentCount = 0;
+
+    flattenedNodes.forEach((node) => {
+      const key = node.dictionary.key;
+
+      if (key !== currentKey) {
+        if (currentKey !== null) {
+          counts.push(currentCount);
+          keys.push(currentKey);
+        }
+        currentKey = key;
+        currentCount = 1;
+      } else {
+        currentCount++;
+      }
+    });
+
+    // Push the final group
+    if (currentKey !== null) {
+      counts.push(currentCount);
+      keys.push(currentKey);
+    }
+
+    return { groupCounts: counts, groupKeys: keys };
+  }, [flattenedNodes]);
+
   return (
-    <div className="relative flex size-full flex-1 flex-col gap-6 overflow-hidden">
+    <div className="relative flex size-full flex-1 flex-col gap-2 overflow-hidden">
       <SaveAllButton dictionaries={allLoadedDictionaries} />
       <div className="flex w-full shrink-0 items-center justify-between gap-4 px-10 pt-6">
         <SearchInput
@@ -124,11 +216,11 @@ const TranslateDashboardList: FC = () => {
 
       <div className="flex min-h-0 flex-1 flex-col">
         {/* Header Row - Keep this outside Virtuoso so it sticks to top */}
-        <div className="flex shrink-0 gap-2 border-neutral/40 border-b px-10">
+        <div className="flex shrink-0 gap-2 border-card border-b px-10">
           {selectedLocales.map((locale) => (
             <div
               key={locale}
-              className="min-w-md flex-1 py-2 font-medium text-white/60"
+              className="min-w-md flex-1 py-2 font-medium text-neutral"
             >
               {getLocaleName(locale, currentLocale)}
             </div>
@@ -139,10 +231,28 @@ const TranslateDashboardList: FC = () => {
         <div className="flex-1">
           <Loader isLoading={isPending}>
             {flattenedNodes.length > 0 ? (
-              <Virtuoso
+              <GroupedVirtuoso
                 className="h-full"
-                data={flattenedNodes}
-                // Increase overscan to pre-render items off-screen for smoother scrolling
+                groupCounts={groupCounts}
+                groupContent={(index) => (
+                  <div
+                    className={`flex w-full ${
+                      // Add border and spacing for all groups except the first one
+                      index > 0 ? 'border-card border-t' : ''
+                    }`}
+                  >
+                    <div className="flex w-auto justify-center overflow-hidden rounded-br-2xl bg-background/80 px-16 pt-2 pb-1 text-neutral backdrop-blur">
+                      {groupKeys[index]}
+                    </div>
+                  </div>
+                )}
+                itemContent={(index) => (
+                  // GroupedVirtuoso handles the global index mapping for you automatically
+                  <TranslateRow
+                    node={flattenedNodes[index]}
+                    selectedLocales={selectedLocales}
+                  />
+                )}
                 overscan={500}
                 endReached={() => {
                   if (hasNextPage && !isFetchingNextPage) {
@@ -156,35 +266,13 @@ const TranslateDashboardList: FC = () => {
                         <Loader />
                       </div>
                     ) : (
-                      <div className="h-4" /> // Spacer at bottom
+                      <div className="h-4" />
                     ),
-                }}
-                itemContent={(index, node) => {
-                  const prevNode = index > 0 ? flattenedNodes[index - 1] : null;
-                  const isNewDictionary =
-                    !prevNode ||
-                    prevNode.dictionary.key !== node.dictionary.key;
-
-                  return (
-                    <>
-                      {isNewDictionary && (
-                        <span className="flex justify-center gap-3 border-neutral/40 border-t px-10 py-3 text-lg text-neutral">
-                          {node.dictionary.key}
-                        </span>
-                      )}
-                      <TranslateRow
-                        node={node}
-                        selectedLocales={selectedLocales}
-                      />
-                    </>
-                  );
                 }}
               />
             ) : (
               <div className="flex h-full items-center justify-center px-10">
-                <p className="text-center text-text/60">
-                  {noDictionaries.value}
-                </p>
+                <p className="text-center text-neutral">{noDictionaries}</p>
               </div>
             )}
           </Loader>

@@ -4,7 +4,7 @@ import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
 import { Locales, type LocalesValues } from '@intlayer/types';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { Check, Globe, MoveVertical } from 'lucide-react';
-import { type FC, useCallback, useMemo, useRef, useState } from 'react';
+import { type FC, useMemo, useRef, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { usePersistedStore } from '../../hooks';
 import {
@@ -54,6 +54,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
   const { availableLocales, selectedLocales, setSelectedLocales } =
     useLocaleSwitcherContent();
 
+  // 1. Memoize the list construction so it doesn't rebuild every render
   const multilingualAvailableLocales: MultilingualAvailableLocales[] = useMemo(
     () =>
       availableLocales.map((localeEl) => {
@@ -70,15 +71,15 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
     [availableLocales, locale]
   );
 
-  const [results, setResults] = useState<MultilingualAvailableLocales[]>(
-    multilingualAvailableLocales
-  );
+  // 2. State for Search Query only (Source of Truth)
+  const [searchQuery, setSearchQuery] = useState('');
+
   const [seeAllLocales, setSeeAllLocales] = usePersistedStore(
     'locale-content-selector-see-all-locales',
     false
   );
 
-  // Create a new Fuse instance with the options and documentation data
+  // 3. Memoize Fuse instance
   const fuse = useMemo(() => {
     const fuseOptions: IFuseOptions<MultilingualAvailableLocales> = {
       keys: [
@@ -87,26 +88,18 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
         { name: 'currentLocaleName', weight: 0.2 },
         { name: 'locale', weight: 0.2 },
       ],
-      threshold: 0.02, // Defines how fuzzy the matching should be (lower is more strict)
+      threshold: 0.02,
     };
-
     return new Fuse(multilingualAvailableLocales, fuseOptions);
   }, [multilingualAvailableLocales]);
 
-  const handleSearch = useCallback(
-    (searchQuery: string) => {
-      if (searchQuery) {
-        // Perform search on every input change
-        const searchResults = fuse
-          .search(searchQuery)
-          .map((result) => result.item);
-        setResults(searchResults);
-      } else {
-        setResults(multilingualAvailableLocales);
-      }
-    },
-    [fuse, multilingualAvailableLocales]
-  );
+  // 4. Derive results from Search Query
+  const results = useMemo(() => {
+    if (!searchQuery) {
+      return multilingualAvailableLocales;
+    }
+    return fuse.search(searchQuery).map((result) => result.item);
+  }, [searchQuery, multilingualAvailableLocales, fuse]);
 
   const handleClickLocale = (localeItem: LocalesValues) => {
     if (isMultilingual) {
@@ -124,6 +117,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
 
   const handleSeeAllLocales = (value: boolean) => {
     setSeeAllLocales(value);
+
     if (value) {
       setSelectedLocales(availableLocales);
     } else {
@@ -168,7 +162,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
             {isMultilingual && (
               <div className="m-auto p-2">
                 <SwitchSelector
-                  defaultValue={false}
+                  defaultValue={seeAllLocales} // Ensure this uses the persisted state
                   onChange={handleSeeAllLocales}
                   color={SwitchSelectorColor.TEXT}
                   size={SwitchSelectorSize.SM}
@@ -194,7 +188,8 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                     type="search"
                     aria-label={searchInput.ariaLabel.value}
                     placeholder={searchInput.placeholder.value}
-                    onChange={(e) => handleSearch(e.target.value)}
+                    // Update search query state directly
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     ref={inputRef}
                   />
                 </div>

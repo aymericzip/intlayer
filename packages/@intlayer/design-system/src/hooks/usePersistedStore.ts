@@ -69,7 +69,7 @@ export const usePersistedStore = <S>(
             ? (valueOrUpdater as (prevVal: S) => S)(prev)
             : valueOrUpdater;
 
-        if (newValue && newValue !== 'undefined') {
+        if (newValue !== 'undefined') {
           localStorage?.setItem(key, JSON.stringify(newValue));
           return newValue;
         }

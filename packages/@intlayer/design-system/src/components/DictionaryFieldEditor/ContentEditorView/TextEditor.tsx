@@ -289,56 +289,66 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
             return (
               <Fragment key={enumKey}>
                 <tr className="mt-2 w-full">
-                  <div className="flex flex-1">
-                    <Button
-                      label={removeEnumeration.label.value}
-                      variant={ButtonVariant.HOVERABLE}
-                      color={ButtonColor.TEXT}
-                      Icon={Trash}
-                      className="ml-auto"
-                      onClick={() =>
-                        addEditedContent(
-                          dictionary.localId!,
-                          undefined,
-                          childrenKeyPath
-                        )
-                      }
-                    >
-                      {removeEnumeration.text}
-                    </Button>
-                  </div>
+                  <td className="w-full">
+                    <div className="flex flex-1">
+                      <Button
+                        label={removeEnumeration.label.value}
+                        variant={ButtonVariant.HOVERABLE}
+                        color={ButtonColor.TEXT}
+                        Icon={Trash}
+                        className="ml-auto"
+                        onClick={() =>
+                          addEditedContent(
+                            dictionary.localId!,
+                            undefined,
+                            childrenKeyPath
+                          )
+                        }
+                      >
+                        {removeEnumeration.text}
+                      </Button>
+                    </div>
+                  </td>
                 </tr>
                 <tr className="w-full p-2">
-                  <EnumKeyInput
-                    value={enumKey}
-                    onChange={(value) => {
-                      const preValueContent = (
-                        section as EnumerationContent<string>
-                      )[NodeType.Enumeration];
-                      const newValueContent = renameKey(
-                        preValueContent,
-                        enumKey as keyof typeof preValueContent,
-                        value
-                      );
-                      const newValue = {
-                        ...(section as EnumerationContent<string>),
-                        [NodeType.Enumeration]: newValueContent,
-                      };
+                  <td className="w-full">
+                    <EnumKeyInput
+                      value={enumKey}
+                      onChange={(value) => {
+                        const preValueContent = (
+                          section as EnumerationContent<string>
+                        )[NodeType.Enumeration];
+                        const newValueContent = renameKey(
+                          preValueContent,
+                          enumKey as keyof typeof preValueContent,
+                          value
+                        );
+                        const newValue = {
+                          ...(section as EnumerationContent<string>),
+                          [NodeType.Enumeration]: newValueContent,
+                        };
 
-                      addEditedContent(dictionary.localId!, newValue, keyPath);
-                    }}
-                  />
+                        addEditedContent(
+                          dictionary.localId!,
+                          newValue,
+                          keyPath
+                        );
+                      }}
+                    />
+                  </td>
                 </tr>
                 <tr className="block w-full">
-                  <TextEditor
-                    section={
-                      content[enumKey as keyof typeof content] ??
-                      getEmptyNode(content[firstKey])
-                    }
-                    keyPath={childrenKeyPath}
-                    dictionary={dictionary}
-                    renderSection={renderSection}
-                  />
+                  <td className="w-full">
+                    <TextEditor
+                      section={
+                        content[enumKey as keyof typeof content] ??
+                        getEmptyNode(content[firstKey])
+                      }
+                      keyPath={childrenKeyPath}
+                      dictionary={dictionary}
+                      renderSection={renderSection}
+                    />
+                  </td>
                 </tr>
               </Fragment>
             );
@@ -385,21 +395,23 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
               <td className="w-full">{String(condKey)}</td>
             </tr>
             <tr key={condKey} className="block w-full">
-              <TextEditorContainer
-                section={
-                  content[condKey as keyof typeof content] ??
-                  getEmptyNode(content.true)
-                }
-                keyPath={[
-                  ...keyPath,
-                  {
-                    type: NodeType.Condition,
-                    key: condKey,
-                  } as KeyPath,
-                ]}
-                dictionary={dictionary}
-                renderSection={renderSection}
-              />
+              <td className="w-full">
+                <TextEditorContainer
+                  section={
+                    content[condKey as keyof typeof content] ??
+                    getEmptyNode(content.true)
+                  }
+                  keyPath={[
+                    ...keyPath,
+                    {
+                      type: NodeType.Condition,
+                      key: condKey,
+                    } as KeyPath,
+                  ]}
+                  dictionary={dictionary}
+                  renderSection={renderSection}
+                />
+              </td>
             </tr>
           </Fragment>
         ))}
@@ -425,21 +437,23 @@ const GenderTextEditor: FC<TextEditorProps> = ({
               <td className="w-full">{String(condKey)}</td>
             </tr>
             <tr key={condKey} className="block w-full">
-              <TextEditorContainer
-                section={
-                  content[condKey as keyof typeof content] ??
-                  getEmptyNode(content.male)
-                }
-                keyPath={[
-                  ...keyPath,
-                  {
-                    type: NodeType.Gender,
-                    key: condKey,
-                  } as KeyPath,
-                ]}
-                dictionary={dictionary}
-                renderSection={renderSection}
-              />
+              <td className="w-full">
+                <TextEditorContainer
+                  section={
+                    content[condKey as keyof typeof content] ??
+                    getEmptyNode(content.male)
+                  }
+                  keyPath={[
+                    ...keyPath,
+                    {
+                      type: NodeType.Gender,
+                      key: condKey,
+                    } as KeyPath,
+                  ]}
+                  dictionary={dictionary}
+                  renderSection={renderSection}
+                />
+              </td>
             </tr>
           </Fragment>
         ))}
@@ -463,50 +477,56 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
         <tbody className="flex w-full flex-col gap-2">
           {(section as unknown as ContentNode[]).map((subSection, index) => (
             <Fragment key={JSON.stringify(subSection)}>
-              <tr className="mt-2 flex w-full items-center justify-between gap-2 p-2">
-                <span className="text-xs">{String(index)}</span>
-                <Button
-                  label={removeElement.label.value}
-                  variant={ButtonVariant.HOVERABLE}
-                  color={ButtonColor.NEUTRAL}
-                  className="ml-auto"
-                  textAlign={ButtonTextAlign.LEFT}
-                  onClick={() => {
-                    const newKeyPath: KeyPath[] = [
-                      ...keyPath,
-                      {
-                        type: NodeType.Array,
-                        key: (section as unknown as ContentNode[]).length,
-                      },
-                    ];
-                    addEditedContent(
-                      dictionary.localId!,
-                      undefined,
-                      newKeyPath
-                    );
-                  }}
-                  Icon={Trash}
-                >
-                  {removeElement.text}
-                </Button>
+              <tr className="mt-2 w-full p-2">
+                <td className="w-full">
+                  <div className="flex w-full items-center justify-between gap-2">
+                    <span className="text-xs">{String(index)}</span>
+                    <Button
+                      label={removeElement.label.value}
+                      variant={ButtonVariant.HOVERABLE}
+                      color={ButtonColor.NEUTRAL}
+                      className="ml-auto"
+                      textAlign={ButtonTextAlign.LEFT}
+                      onClick={() => {
+                        const newKeyPath: KeyPath[] = [
+                          ...keyPath,
+                          {
+                            type: NodeType.Array,
+                            key: (section as unknown as ContentNode[]).length,
+                          },
+                        ];
+                        addEditedContent(
+                          dictionary.localId!,
+                          undefined,
+                          newKeyPath
+                        );
+                      }}
+                      Icon={Trash}
+                    >
+                      {removeElement.text}
+                    </Button>
+                  </div>
+                </td>
               </tr>
 
               <tr className="block w-full">
-                <TextEditorContainer
-                  section={
-                    subSection ??
-                    getEmptyNode((section as unknown as ContentNode[])[0])
-                  }
-                  keyPath={[
-                    ...keyPath,
-                    {
-                      type: NodeType.Array,
-                      key: index,
-                    },
-                  ]}
-                  dictionary={dictionary}
-                  renderSection={renderSection}
-                />
+                <td className="w-full">
+                  <TextEditorContainer
+                    section={
+                      subSection ??
+                      getEmptyNode((section as unknown as ContentNode[])[0])
+                    }
+                    keyPath={[
+                      ...keyPath,
+                      {
+                        type: NodeType.Array,
+                        key: index,
+                      },
+                    ]}
+                    dictionary={dictionary}
+                    renderSection={renderSection}
+                  />
+                </td>
               </tr>
             </Fragment>
           ))}
@@ -576,12 +596,14 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
                   <td className="w-full">{String(key)}</td>
                 </tr>
                 <tr key={JSON.stringify(subSection)} className="block w-full">
-                  <TextEditor
-                    section={subSection}
-                    keyPath={childKeyPath}
-                    dictionary={dictionary}
-                    renderSection={renderSection}
-                  />
+                  <td className="w-full">
+                    <TextEditor
+                      section={subSection}
+                      keyPath={childKeyPath}
+                      dictionary={dictionary}
+                      renderSection={renderSection}
+                    />
+                  </td>
                 </tr>
               </Fragment>
             );
@@ -762,10 +784,10 @@ export const TextEditor: FC<TextEditorProps> = ({
 
   if (nodeType === NodeType.ReactNode) {
     return (
-      <>
-        <span>[React Node]</span>
-        <span className="text-neutral text-xs">{tsxNotEditable}</span>
-      </>
+      <div className="flex w-full flex-col gap-2">
+        <span>(React Node)</span>
+        <span className="flex text-neutral text-xs">{tsxNotEditable}</span>
+      </div>
     );
   }
 
