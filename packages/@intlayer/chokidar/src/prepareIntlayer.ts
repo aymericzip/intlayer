@@ -179,11 +179,11 @@ export const prepareIntlayer = async (
         configuration
       );
 
-      const dictionariesPaths = Object.values(
+      const dictionariesToBuild = Object.values(
         dictionariesOutput?.mergedDictionaries ?? {}
-      ).map((dictionary) => dictionary.dictionaryPath);
+      ).map((dictionary) => dictionary.dictionary);
 
-      await createTypes(dictionariesPaths, configuration);
+      await createTypes(dictionariesToBuild, configuration);
 
       await createDictionaryEntryPoint(configuration);
 

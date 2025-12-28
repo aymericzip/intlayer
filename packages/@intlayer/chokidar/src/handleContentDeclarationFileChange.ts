@@ -25,9 +25,12 @@ export const handleContentDeclarationFileChange = async (
   const localeDictionaries = await loadLocalDictionaries(filePath, config);
 
   const dictionariesOutput = await buildDictionary(localeDictionaries, config);
-  const updatedDictionariesPaths = Object.values(
+  const updatedDictionaries = Object.values(
     dictionariesOutput?.mergedDictionaries ?? {}
-  ).map((dictionary) => dictionary.dictionaryPath);
+  );
+  const updatedDictionariesPaths = updatedDictionaries.map(
+    (dictionary) => dictionary.dictionaryPath
+  );
 
   const { excludeKeys, hasRebuilt } = await cleanRemovedContentDeclaration(
     filePath,
@@ -40,7 +43,8 @@ export const handleContentDeclarationFileChange = async (
       !allDictionariesPaths.includes(updatedDictionaryPath)
   );
 
-  // Rebuild artifacts if we cleaned up old files (hasRebuilt) OR if new files were added (hasNewDictionaries)
+  // Rebuild Entry Point & Module Augmentation
+  // These only need to be updated if the *list* of dictionaries changed (Add/Remove/Rename)
   if (hasRebuilt || hasNewDictionaries) {
     // If hasRebuilt is true, cleanRemovedContentDeclaration has already updated the entry point
     // to remove the old keys (and it likely included the new ones if they were already on disk).
@@ -51,15 +55,22 @@ export const handleContentDeclarationFileChange = async (
         isVerbose: true,
       });
     }
+  }
 
-    // Always regenerate types and module augmentation when keys change (rename or add)
-    await createTypes(updatedDictionariesPaths, config);
-    appLogger('TypeScript types built', {
-      isVerbose: true,
-    });
+  // Rebuild Types
+  // Always regenerate types when a file changes, as the content structure (interface) might have changed
+  // even if the key is the same.
+  const dictionariesToBuild = updatedDictionaries.map(
+    (dictionary) => dictionary.dictionary
+  );
 
+  await createTypes(dictionariesToBuild, config);
+  appLogger('TypeScript types built', {
+    isVerbose: true,
+  });
+
+  if (hasNewDictionaries) {
     await createModuleAugmentation(config);
-
     appLogger('Module augmentation built', {
       isVerbose: true,
     });

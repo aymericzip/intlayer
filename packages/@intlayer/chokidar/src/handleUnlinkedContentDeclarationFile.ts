@@ -32,11 +32,11 @@ export const handleUnlinkedContentDeclarationFile = async (
 
   const dictionariesOutput = await buildDictionary(localeDictionaries, config);
 
-  const dictionariesPaths = Object.values(
+  const dictionariesToBuild = Object.values(
     dictionariesOutput?.mergedDictionaries ?? {}
-  ).map((dictionary) => dictionary.dictionaryPath);
+  ).map((dictionary) => dictionary.dictionary);
 
-  await createTypes(dictionariesPaths, config);
+  await createTypes(dictionariesToBuild, config);
 
   appLogger('Dictionaries rebuilt', {
     isVerbose: true,
