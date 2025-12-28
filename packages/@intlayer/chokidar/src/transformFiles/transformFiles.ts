@@ -364,9 +364,7 @@ export const extractIntlayer = async (
 
   if (ext === '.vue') {
     try {
-      const { processVueFile } = (await import(
-        '@intlayer/vue-transformer'
-      )) as any;
+      const { processVueFile } = await import('@intlayer/vue-transformer');
       extractedContent = await processVueFile(
         filePath,
         componentKey,
