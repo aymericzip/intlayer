@@ -104,7 +104,7 @@ export const buttonVariants = cva(
         [`${ButtonColor.DESTRUCTIVE}`]:
           'hover-destructive-500/20 text-destructive ring-destructive-500/20 *:text-text-light',
         [`${ButtonColor.NEUTRAL}`]:
-          'text-neutral ring-neutral-500/20 *:text-text-light',
+          'text-neutral ring-neutral-500/5 *:text-text-light',
         [`${ButtonColor.CARD}`]:
           'hover-card-500/20 text-card ring-card-500/20 *:text-text-light',
         [`${ButtonColor.LIGHT}`]:
@@ -169,9 +169,11 @@ export const buttonVariants = cva(
         [`${ButtonVariant.HOVERABLE}`]:
           'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/20 aria-[current]:bg-current/5',
 
-        [`${ButtonVariant.FADE}`]:
-          'rounded-lg border-none bg-current/20 transition *:text-current! hover:bg-current/20 aria-[current]:bg-current/5',
-
+        [`${ButtonVariant.FADE}`]: [
+          'rounded-lg border-none bg-current/10 ring-current/5 transition *:text-current! hover:bg-current/20 aria-[current]:bg-current/5',
+          'hover:ring-5 focus-visible:ring-5',
+          'aria-selected:ring-5',
+        ],
         [`${ButtonVariant.INPUT}`]: [
           // base styles
           'text-text',
