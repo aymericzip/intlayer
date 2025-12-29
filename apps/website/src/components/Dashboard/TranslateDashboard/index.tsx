@@ -118,9 +118,7 @@ const TranslateRow: FC<{
                 <TextEditor
                   section={translationContent}
                   keyPath={[...keyPath, { type: nodeType, key: locale } as any]}
-                  dictionary={
-                    editedContent?.[dictionary.localId!] ?? dictionary
-                  }
+                  dictionary={dictionary}
                 />
               </div>
             );
