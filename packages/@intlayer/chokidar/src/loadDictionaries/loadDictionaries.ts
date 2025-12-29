@@ -211,6 +211,8 @@ export const loadDictionaries = async (
     )
     .then((dictionaries) => formatDictionaries(dictionaries));
 
+  const pluginDictionariesTime = Date.now();
+
   const files = Array.isArray(contentDeclarationsPaths)
     ? contentDeclarationsPaths
     : [contentDeclarationsPaths];
@@ -267,8 +269,6 @@ export const loadDictionaries = async (
 
   const remoteDictionariesTime = Date.now();
 
-  const pluginDictionariesTime = Date.now();
-
   // Stop spinner and show final progress line(s)
   logger.finish();
 
@@ -279,9 +279,9 @@ export const loadDictionaries = async (
     remoteDictionaries,
     pluginDictionaries,
     time: {
-      localDictionaries: localDictionariesTime - loadDictionariesStartTime,
+      localDictionaries: localDictionariesTime - pluginDictionariesTime,
       remoteDictionaries: remoteDictionariesTime - localDictionariesTime,
-      pluginDictionaries: pluginDictionariesTime - remoteDictionariesTime,
+      pluginDictionaries: pluginDictionariesTime - loadDictionariesStartTime,
     },
   };
 };
