@@ -44,5 +44,3 @@ export const WarmupClient: FC = () => {
 
   return null;
 };
-
-export default WarmupClient;

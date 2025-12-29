@@ -104,7 +104,7 @@ export const TagList: FC = () => {
       />
       <div className="flex-1">
         <Container
-          roundedSize="xl"
+          roundedSize="4xl"
           className="m-auto flex min-h-60 w-full max-w-[400px] flex-col justify-center gap-2 p-6"
         >
           <Loader isLoading={isPending}>

@@ -235,12 +235,12 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
         {localesList.map((translationKey) => (
           <Fragment key={translationKey}>
             <tr className="mt-2 w-full p-2 text-xs">
-              <td className="w-full">
+              <td className="flex w-full">
                 {getLocaleName(translationKey, locale)}
               </td>
             </tr>
             <tr className="flex">
-              <td className="w-full">
+              <td className="flex w-full">
                 <TextEditorContainer
                   section={
                     content[translationKey] ??
@@ -289,7 +289,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
             return (
               <Fragment key={enumKey}>
                 <tr className="mt-2 w-full">
-                  <td className="w-full">
+                  <td className="flex w-full">
                     <div className="flex flex-1">
                       <Button
                         label={removeEnumeration.label.value}
@@ -311,7 +311,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                   </td>
                 </tr>
                 <tr className="w-full p-2">
-                  <td className="w-full">
+                  <td className="flex w-full">
                     <EnumKeyInput
                       value={enumKey}
                       onChange={(value) => {
@@ -338,7 +338,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                   </td>
                 </tr>
                 <tr className="block w-full">
-                  <td className="w-full">
+                  <td className="flex w-full">
                     <TextEditor
                       section={
                         content[enumKey as keyof typeof content] ??
@@ -392,10 +392,10 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
         {['true', 'false', 'fallback'].map((condKey) => (
           <Fragment key={condKey}>
             <tr key={condKey} className="mt-2 block w-full p-2 text-xs">
-              <td className="w-full">{String(condKey)}</td>
+              <td className="flex w-full">{String(condKey)}</td>
             </tr>
             <tr key={condKey} className="block w-full">
-              <td className="w-full">
+              <td className="flex w-full">
                 <TextEditorContainer
                   section={
                     content[condKey as keyof typeof content] ??
@@ -434,10 +434,10 @@ const GenderTextEditor: FC<TextEditorProps> = ({
         {['male', 'female', 'fallback'].map((condKey) => (
           <Fragment key={condKey}>
             <tr key={condKey} className="mt-2 block w-full p-2 text-xs">
-              <td className="w-full">{String(condKey)}</td>
+              <td className="flex w-full">{String(condKey)}</td>
             </tr>
             <tr key={condKey} className="block w-full">
-              <td className="w-full">
+              <td className="flex w-full">
                 <TextEditorContainer
                   section={
                     content[condKey as keyof typeof content] ??
@@ -478,7 +478,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
           {(section as unknown as ContentNode[]).map((subSection, index) => (
             <Fragment key={JSON.stringify(subSection)}>
               <tr className="mt-2 w-full p-2">
-                <td className="w-full">
+                <td className="flex w-full">
                   <div className="flex w-full items-center justify-between gap-2">
                     <span className="text-xs">{String(index)}</span>
                     <Button
@@ -510,7 +510,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
               </tr>
 
               <tr className="block w-full">
-                <td className="w-full">
+                <td className="flex w-full">
                   <TextEditorContainer
                     section={
                       subSection ??
@@ -593,10 +593,10 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
                   key={JSON.stringify(subSection)}
                   className="mt-2 p-2 text-xs"
                 >
-                  <td className="w-full">{String(key)}</td>
+                  <td className="flex w-full">{String(key)}</td>
                 </tr>
                 <tr key={JSON.stringify(subSection)} className="block w-full">
-                  <td className="w-full">
+                  <td className="flex w-full">
                     <TextEditor
                       section={subSection}
                       keyPath={childKeyPath}

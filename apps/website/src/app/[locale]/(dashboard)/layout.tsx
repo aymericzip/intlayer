@@ -19,7 +19,7 @@ import { PagesRoutes } from '@/Routes';
 import { getServerIntlayerAPI } from '@/utils/getServerIntlayerAPI';
 import { getSessionData } from '@/utils/getSessionData';
 import { DashboardHydrationBoundary } from './DashboardHydrationBoundary';
-import { WarmupClient } from './dashboard/WarmupClient';
+import { WarmupClient } from './WarmupClient';
 
 export const runtime = 'nodejs'; // ensure Node runtime
 export const dynamic = 'force-dynamic'; // make sure request cookies are read
