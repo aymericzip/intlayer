@@ -7,5 +7,5 @@ export const getInsertionValues = (content: string): string[] => {
   if (matches.length === 0) return [];
 
   // Extract field names from matches and return as an object with the field names
-  return matches.map((match) => match[1]);
+  return [...new Set(matches.map((match) => match[1]))];
 };
