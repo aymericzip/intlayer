@@ -63,7 +63,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({
           <LocaleSwitcherContent />
         </div>
       </div>
-      <div className="flex gap-2 max-md:flex-col">
+      <div className="flex flex-1 gap-2 overflow-auto max-md:flex-col">
         {typeof section === 'object' &&
           section &&
           !isEditableBaseSection &&

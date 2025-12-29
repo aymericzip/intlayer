@@ -13,8 +13,8 @@ export const HelloWorld: FC = () => {
 
   // The values here should be extracted
   const listOfItems = [
-    "I'm a list of items (should be extracted as returned by the function)",
-    "I'm a list of items (should be extracted as returned by the function)",
+    "I'm a list of items (should be extracted as returned by the function) (1)",
+    "I'm a list of items (should be extracted as returned by the function) (2)",
   ];
 
   const secondListOfItems = [

@@ -5,17 +5,18 @@ import {
   DictionaryEditor,
   DictionaryFieldEditor,
   Modal,
+  Popover,
   RightDrawer,
+  SaveForm,
   Tag,
   useRightDrawerStore,
 } from '@intlayer/design-system';
 import {
-  type FileContent,
   useDictionariesRecord,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import type { Locale } from '@intlayer/types';
-import { Pencil } from 'lucide-react';
+import { PencilRuler } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
@@ -23,118 +24,6 @@ import {
   getDrawerIdentifier,
   useDictionaryEditionDrawer,
 } from './useDictionaryEditionDrawer';
-
-type DictionaryEditionDrawerContentProps = {
-  focusedContent: FileContent;
-  locale: Locale;
-  identifier: string;
-  handleOnBack: () => void;
-  isDarkMode?: boolean;
-};
-
-export const DictionaryEditionDrawerContent: FC<
-  DictionaryEditionDrawerContentProps
-> = ({ locale, identifier, handleOnBack, isDarkMode }) => {
-  const {
-    modalTitle,
-    openDictionaryEditor,
-    noDictionaryFocused,
-    focusedDictionaryNotFound,
-  } = useIntlayer('dictionary-edition-drawer');
-  const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false);
-  const { focusedContent } = useDictionaryEditionDrawer(identifier);
-  const { localeDictionaries } = useDictionariesRecord();
-
-  const onClickDictionaryList = () => {
-    setEditionModalOpen(false);
-    handleOnBack();
-  };
-
-  const dictionaryKey = focusedContent?.dictionaryKey;
-  const dictionaryLocalId = focusedContent?.dictionaryLocalId;
-
-  if (!dictionaryKey)
-    return (
-      <span className="mx-auto my-10 text-neutral text-sm">
-        {noDictionaryFocused}
-      </span>
-    );
-
-  const dictionary = Object.values(localeDictionaries ?? {}).find(
-    (dictionary) => dictionary.localId === dictionaryLocalId
-  );
-
-  if (!dictionary)
-    return (
-      <span className="mx-auto my-10 text-neutral text-sm">
-        {focusedDictionaryNotFound}
-      </span>
-    );
-
-  return (
-    <>
-      <Modal
-        isOpen={editionModalOpen}
-        onClose={() => setEditionModalOpen(false)}
-        hasCloseButton
-        title={modalTitle.value}
-        size="xl"
-        transparency="lg"
-      >
-        <div className="size-full px-3 pt-5">
-          <DictionaryFieldEditor
-            dictionary={dictionary}
-            onClickDictionaryList={onClickDictionaryList}
-            isDarkMode={isDarkMode}
-            mode={['remote']}
-            onDelete={() => {
-              setEditionModalOpen(false);
-              handleOnBack();
-            }}
-            onSave={() => {
-              setEditionModalOpen(false);
-            }}
-          />
-        </div>
-      </Modal>
-
-      <div className="mb-5 flex w-full px-3">
-        <h3 className="w-full text-center text-lg">
-          {dictionary.title ? dictionary.title : dictionary.key}
-        </h3>
-
-        <Button
-          variant="hoverable"
-          color="text"
-          size="icon-md"
-          IconRight={Pencil}
-          label={openDictionaryEditor.label.value}
-          onClick={() => setEditionModalOpen(true)}
-        />
-      </div>
-      <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-text/20 border-b border-dashed pb-3">
-        <Tag color="text" roundedSize="full" size="xs">
-          {dictionary.key}
-        </Tag>
-        {dictionary.filePath && (
-          <Tag color="blue" roundedSize="full" size="xs">
-            {dictionary.filePath.split('/').pop()}
-          </Tag>
-        )}
-        {dictionary.id && (
-          <Tag color="purple" roundedSize="full" size="xs">
-            remote
-          </Tag>
-        )}
-      </div>
-      <DictionaryEditor
-        dictionary={dictionary}
-        locale={locale}
-        mode={['remote']}
-      />
-    </>
-  );
-};
 
 type DictionaryEditionDrawerProps = DictionaryEditionDrawerControllerProps & {
   dictionaryKey: string;
@@ -146,10 +35,15 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   dictionaryKey,
   isDarkMode,
 }) => {
-  const { backButtonText } = useIntlayer('dictionary-edition-drawer');
+  const { backButtonText, openDictionaryEditor, modalTitle } = useIntlayer(
+    'dictionary-edition-drawer'
+  );
   const id = getDrawerIdentifier(dictionaryKey);
+  const { noDictionaryFocused, focusedDictionaryNotFound } = useIntlayer(
+    'dictionary-edition-drawer'
+  );
 
-  const { focusedContent, close } = useDictionaryEditionDrawer(dictionaryKey);
+  const { close } = useDictionaryEditionDrawer(dictionaryKey);
   const { openDictionaryListDrawer } = useRightDrawerStore((s) => ({
     openDictionaryListDrawer: () => s.open(dictionaryListDrawerIdentifier),
   }));
@@ -159,6 +53,34 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
     openDictionaryListDrawer();
   };
 
+  const { localeDictionaries } = useDictionariesRecord();
+  const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
+
+  const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false);
+
+  const onClickDictionaryList = () => {
+    setEditionModalOpen(false);
+    handleOnBack();
+  };
+
+  if (!focusedContent.dictionaryKey)
+    return (
+      <span className="mx-auto my-10 text-neutral text-sm">
+        {noDictionaryFocused}
+      </span>
+    );
+
+  const dictionary = Object.values(localeDictionaries ?? {}).find(
+    (dictionary) => dictionary.localId === focusedContent?.dictionaryLocalId
+  );
+
+  if (!dictionary)
+    return (
+      <span className="mx-auto my-10 text-neutral text-sm">
+        {focusedDictionaryNotFound}
+      </span>
+    );
+
   return (
     <RightDrawer
       identifier={id}
@@ -167,15 +89,85 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
         text: backButtonText.value,
       }}
       onClose={close}
+      header={
+        <>
+          <header className="mb-5 flex w-full px-3">
+            <h3 className="w-full text-center text-lg">
+              {dictionary.title ? dictionary.title : dictionary.key}
+            </h3>
+
+            <Popover identifier="open-dictionary-editor">
+              <Button
+                variant="hoverable"
+                color="text"
+                size="icon-md"
+                IconRight={PencilRuler}
+                label={openDictionaryEditor.label.value}
+                onClick={() => setEditionModalOpen(true)}
+              />
+              <Popover.Detail identifier="open-dictionary-editor">
+                <span className="whitespace-nowrap p-2 text-neutral text-xs">
+                  Open Dictionary in Editor
+                </span>
+              </Popover.Detail>
+            </Popover>
+          </header>
+
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-text/20 border-b border-dashed pb-3">
+            <Tag color="text" roundedSize="full" size="xs">
+              {dictionary.key}
+            </Tag>
+            {dictionary.filePath && (
+              <Tag color="blue" roundedSize="full" size="xs">
+                {dictionary.filePath.split('/').pop()}
+              </Tag>
+            )}
+            {dictionary.id && (
+              <Tag color="purple" roundedSize="full" size="xs">
+                remote
+              </Tag>
+            )}
+          </div>
+        </>
+      }
+      footer={
+        <SaveForm
+          dictionary={dictionary}
+          mode={['remote']}
+          className="mb-4 flex-col px-3"
+          onDelete={() => setFocusedContent(null)}
+        />
+      }
     >
       {focusedContent && (
-        <DictionaryEditionDrawerContent
-          focusedContent={focusedContent}
-          locale={locale}
-          identifier={id}
-          handleOnBack={handleOnBack}
-          isDarkMode={isDarkMode}
-        />
+        <>
+          <Modal
+            isOpen={editionModalOpen}
+            onClose={() => setEditionModalOpen(false)}
+            hasCloseButton
+            title={modalTitle.value}
+            size="xl"
+            transparency="lg"
+          >
+            <div className="size-full px-3 pt-5">
+              <DictionaryFieldEditor
+                dictionary={dictionary}
+                onClickDictionaryList={onClickDictionaryList}
+                isDarkMode={isDarkMode}
+                mode={['remote']}
+                onDelete={() => {
+                  setEditionModalOpen(false);
+                  handleOnBack();
+                }}
+                onSave={() => {
+                  setEditionModalOpen(false);
+                }}
+              />
+            </div>
+          </Modal>
+
+          <DictionaryEditor dictionary={dictionary} locale={locale} />
+        </>
       )}
     </RightDrawer>
   );

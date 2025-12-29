@@ -92,6 +92,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         onSuccess: () => {
           setLocaleDictionary(editedContent?.[dictionary.localId!]);
           restoreEditedContent(dictionary.localId!);
+          setIsFormatAlertModalOpen(false);
           onSave?.();
         },
       }
@@ -141,6 +142,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         isOpen={isFormatAlertModalOpen}
         title={confirmation.title.value}
         size={ModalSize.MD}
+        onClose={() => setIsFormatAlertModalOpen(false)}
       >
         <form className="size-full px-3">
           <p className="py-4 text-neutral text-sm">{confirmation.message}</p>

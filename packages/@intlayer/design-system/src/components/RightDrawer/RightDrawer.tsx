@@ -3,16 +3,20 @@
 import { ChevronLeft, X } from 'lucide-react';
 import {
   type FC,
+  type KeyboardEventHandler,
   type MouseEventHandler,
   type ReactNode,
   useEffect,
   useRef,
 } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { useDevice } from '../../hooks/useDevice';
 import { useScrollBlockage } from '../../hooks/useScrollBlockage';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 import { Container } from '../Container';
+import { KeyboardShortcut } from '../KeyboardShortcut';
 import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
+import { Popover } from '../Popover';
 import { isElementAtTopAndNotCovered } from './isElementAtTopAndNotCovered';
 import { useRightDrawerStore } from './useRightDrawerStore';
 
@@ -24,7 +28,7 @@ import { useRightDrawerStore } from './useRightDrawerStore';
 type BackButtonProps = {
   /** Callback function triggered when the back button is clicked */
   onBack: () => void;
-  /** Optional custom text for the back button. Defaults to "Go back" if not provided */
+  /** Optional custom text for the back buttoDefaults to "Go back" if not provided */
   text?: string;
 };
 
@@ -36,23 +40,11 @@ type BackButtonProps = {
 type RightDrawerProps = {
   /**
    * Title displayed in the drawer header
-   * @example
-   * ```tsx
-   * <RightDrawer title="User Settings" identifier="settings">
-   *   Content here
-   * </RightDrawer>
-   * ```
    */
   title?: ReactNode;
 
   /**
-   * Unique identifier for the drawer instance. Required for store management
-   * @example
-   * ```tsx
-   * <RightDrawer identifier="user-profile" title="Profile">
-   *   Profile content
-   * </RightDrawer>
-   * ```
+   * Unique identifier for the drawer instancRequired for store management
    */
   identifier: string;
 
@@ -61,176 +53,48 @@ type RightDrawerProps = {
 
   /**
    * Optional header content displayed below the title
-   * @example
-   * ```tsx
-   * <RightDrawer
-   *   title="Settings"
-   *   header={<div className="text-sm opacity-80">Configure your preferences</div>}
-   *   identifier="settings"
-   * >
-   *   Settings content
-   * </RightDrawer>
-   * ```
    */
   header?: ReactNode;
 
   /**
+   * Optional footer content pinned to the bottom of the drawer
+   */
+  footer?: ReactNode;
+
+  /**
    * Whether the drawer should close when clicking outside of it
    * @default true
-   * @example
-   * ```tsx
-   * <RightDrawer closeOnOutsideClick={false} identifier="persistent">
-   *   This drawer requires explicit close action
-   * </RightDrawer>
-   * ```
    */
   closeOnOutsideClick?: boolean;
 
   /**
    * Configuration for an optional back button in the drawer header
-   * @example
-   * ```tsx
-   * <RightDrawer
-   *   backButton={{
-   *     text: "Back to List",
-   *     onBack: () => navigate('/list')
-   *   }}
-   *   identifier="detail-view"
-   * >
-   *   Detail content
-   * </RightDrawer>
-   * ```
    */
   backButton?: BackButtonProps;
 
   /**
-   * External control for the open state. When provided, overrides internal store state
-   * @example
-   * ```tsx
-   * const [isOpen, setIsOpen] = useState(false);
-   *
-   * <RightDrawer
-   *   isOpen={isOpen}
-   *   onClose={() => setIsOpen(false)}
-   *   identifier="controlled"
-   * >
-   *   Controlled drawer content
-   * </RightDrawer>
-   * ```
+   * External control for the open statWhen provided, overrides internal store state
    */
   isOpen?: boolean;
 
   /**
    * Callback function triggered when the drawer is closed
-   * @example
-   * ```tsx
-   * <RightDrawer
-   *   onClose={() => console.log('Drawer closed')}
-   *   identifier="tracked"
-   * >
-   *   Content with close tracking
-   * </RightDrawer>
-   * ```
    */
   onClose?: () => void;
 };
 
-/**
- * RightDrawer - A slide-out drawer panel that appears from the right side of the screen
- *
- * A versatile drawer component that provides an overlay panel for displaying secondary content,
- * forms, details, or navigation. Features responsive design that adapts to mobile devices,
- * configurable close behavior, and integrated state management through Zustand store.
- *
- * ## Key Features
- * - **Responsive Design**: Full-width on mobile, fixed 400px width on desktop
- * - **State Management**: Built-in Zustand store for managing multiple drawer instances
- * - **Accessibility**: Proper ARIA attributes, keyboard navigation, and focus management
- * - **Flexible Layout**: Customizable header, title, and content areas
- * - **Click Outside**: Configurable outside click detection for auto-closing
- * - **Scroll Management**: Automatic body scroll blocking when open
- *
- * ## Use Cases
- * - Navigation menus and sidebars
- * - Detail panels and forms
- * - Settings and configuration interfaces
- * - Shopping carts and checkout processes
- * - User profiles and account management
- * - Multi-step workflows and wizards
- *
- * ## Accessibility
- * - **Focus Management**: Traps focus within the drawer when open
- * - **Keyboard Navigation**: Escape key closes the drawer
- * - **Screen Reader Support**: Proper ARIA labels and announcements
- * - **Touch Support**: Mobile-optimized touch interactions
- *
- * ## State Management
- * The component uses a Zustand store (`useRightDrawerStore`) to manage drawer state:
- * - Multiple drawers can be managed simultaneously using unique identifiers
- * - External components can open/close drawers using the store
- * - Supports both controlled (via props) and uncontrolled (via store) patterns
- *
- * @example
- * Basic usage with store management:
- * ```tsx
- * // Opening the drawer from another component
- * const { open } = useRightDrawerStore();
- *
- * <button onClick={() => open('user-menu')}>
- *   Open Menu
- * </button>
- *
- * <RightDrawer identifier="user-menu" title="User Menu">
- *   <nav>Navigation items here</nav>
- * </RightDrawer>
- * ```
- *
- * @example
- * Controlled drawer with external state:
- * ```tsx
- * const [showDrawer, setShowDrawer] = useState(false);
- *
- * <RightDrawer
- *   identifier="controlled-drawer"
- *   title="Settings"
- *   isOpen={showDrawer}
- *   onClose={() => setShowDrawer(false)}
- *   closeOnOutsideClick={false}
- * >
- *   <SettingsForm onSave={() => setShowDrawer(false)} />
- * </RightDrawer>
- * ```
- *
- * @example
- * Complex drawer with back button and header:
- * ```tsx
- * <RightDrawer
- *   identifier="product-detail"
- *   title="Product Details"
- *   header={
- *     <div className="text-sm text-gray-600">
- *       SKU: {product.sku} | Stock: {product.stock}
- *     </div>
- *   }
- *   backButton={{
- *     text: "Back to Catalog",
- *     onBack: () => navigate('/catalog')
- *   }}
- * >
- *   <ProductDetailView product={product} />
- * </RightDrawer>
- * ```
- */
 export const RightDrawer: FC<RightDrawerProps> = ({
   title,
   identifier,
   children,
   header,
+  footer,
   closeOnOutsideClick = true,
   backButton,
   isOpen: isOpenProp,
   onClose,
 }) => {
+  const content = useIntlayer('right-drawer');
   const { isMobile } = useDevice('md');
   const panelRef = useRef<HTMLDivElement>(null);
   const childrenContainerRef = useRef<HTMLDivElement>(null);
@@ -244,19 +108,15 @@ export const RightDrawer: FC<RightDrawerProps> = ({
     key: identifier ? `right_drawer_${identifier}` : 'right_drawer',
   });
 
+  // Handle Click Outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       try {
         if (!panelRef.current) return;
 
-        // Check if drawer is open and click outside is enabled
         const isClickAble = isOpen && closeOnOutsideClick;
-
-        // Check if click is outside the drawer panel
         const isClickOutside =
           event.target && !panelRef.current.contains(event.target as Node);
-
-        // Check if event propagation has been stopped
         const isAtTopAndVisible = isElementAtTopAndNotCovered(panelRef.current);
 
         if (
@@ -274,7 +134,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
     window.addEventListener('mousedown', handleClickOutside);
     return () => window.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen, closeDrawer, onClose, closeOnOutsideClick, identifier]); // Make sure the effect runs only if isOpen or close changes
+  }, [isOpen, closeDrawer, onClose, closeOnOutsideClick, identifier]);
 
   const onCloseRef = useRef(onClose);
   useEffect(() => {
@@ -283,8 +143,6 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
   useEffect(() => {
     if (isOpenProp === undefined) return;
-
-    // prevent redundant set → re-render → effect loop
     if (isOpenProp === storeIsOpen) return;
 
     if (isOpenProp) {
@@ -296,14 +154,26 @@ export const RightDrawer: FC<RightDrawerProps> = ({
   }, [isOpenProp, storeIsOpen, identifier, openDrawer, closeDrawer]);
 
   const handleSpareSpaceClick: MouseEventHandler<HTMLDivElement> = (e) => {
-    // Check if the click trigger the background
     if (e.target !== e.currentTarget) {
       return;
     }
-
     if (isMobile) {
       closeDrawer(identifier);
       onClose?.();
+    }
+  };
+
+  // Handle Keyboard on Spare Space (Linter Fix)
+  const handleSpareSpaceKeyDown: KeyboardEventHandler<HTMLDivElement> = (e) => {
+    if (e.target !== e.currentTarget) return;
+
+    // Allow closing via Enter or Space if focused on the spare area
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (isMobile) {
+        closeDrawer(identifier);
+        onClose?.();
+      }
     }
   };
 
@@ -315,14 +185,15 @@ export const RightDrawer: FC<RightDrawerProps> = ({
           ref={panelRef}
           roundedSize="none"
         >
-          <div className="flex flex-col gap-3 p-6">
+          {/* Header */}
+          <div className="flex shrink-0 flex-col gap-3 px-6 pt-6">
             <div className="flex justify-between gap-3">
               <div>
                 {backButton && (
                   <Button
                     variant={ButtonVariant.HOVERABLE}
                     color={ButtonColor.TEXT}
-                    label={backButton.text ?? 'Go back'}
+                    label={backButton.text ?? content.goBack.value}
                     onClick={backButton.onBack}
                     Icon={ChevronLeft}
                   >
@@ -331,18 +202,36 @@ export const RightDrawer: FC<RightDrawerProps> = ({
                 )}
               </div>
               <div>
-                <Button
-                  variant={ButtonVariant.HOVERABLE}
-                  color={ButtonColor.TEXT}
-                  label="Close"
-                  className="ml-auto"
-                  onClick={() => {
-                    closeDrawer(identifier);
-                    onClose?.();
-                  }}
-                  Icon={X}
-                  size={ButtonSize.ICON_MD}
-                />
+                <Popover identifier="close-drawer">
+                  <Button
+                    variant={ButtonVariant.HOVERABLE}
+                    color={ButtonColor.TEXT}
+                    label="Close"
+                    className="ml-auto"
+                    onClick={() => {
+                      closeDrawer(identifier);
+                      onClose?.();
+                    }}
+                    Icon={X}
+                    size={ButtonSize.ICON_MD}
+                  />
+
+                  <Popover.Detail identifier="close-drawer">
+                    <div className="flex items-center gap-2 p-2">
+                      <span className="whitespace-nowrap text-neutral text-xs">
+                        {content.closeDrawer}
+                      </span>
+                      <KeyboardShortcut
+                        shortcut="Escape"
+                        size="sm"
+                        onTriggered={() => {
+                          closeDrawer(identifier);
+                          onClose?.();
+                        }}
+                      />
+                    </div>
+                  </Popover.Detail>
+                </Popover>
               </div>
             </div>
             {title && (
@@ -353,16 +242,23 @@ export const RightDrawer: FC<RightDrawerProps> = ({
             {header}
           </div>
 
-          <div className="flex h-full flex-col overflow-y-auto p-2">
+          {/* Body */}
+          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto p-2">
+            {/** biome-ignore lint/a11y/useSemanticElements: This div is used to handle the spare space click and keydown events */}
             <div
-              className="flex flex-1 flex-col"
+              className="flex flex-1 flex-col outline-none"
               onClick={handleSpareSpaceClick}
+              onKeyDown={handleSpareSpaceKeyDown}
               ref={childrenContainerRef}
-              role="region"
+              role="button" // Semantically acts as a button area
+              tabIndex={0} // Makes it focusable to receive key events
             >
               {children}
             </div>
           </div>
+
+          {/* Footer */}
+          {footer && <div className="shrink-0">{footer}</div>}
         </Container>
       </MaxWidthSmoother>
     </div>

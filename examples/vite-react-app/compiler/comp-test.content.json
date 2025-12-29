@@ -16,7 +16,7 @@
     "imAListOfItems": {
       "nodeType": "translation",
       "translation": {
-        "en": "I'm a list of items (should be extracted as returned by the function)",
+        "en": "I'm a list of items (should be extracted as returned by the function) (1)",
         "fr": "Je suis une liste d'éléments (devrait être extrait tel que retourné par la fonction)",
         "es": "Soy una lista de elementos (debe extraerse tal como la devuelve la función)"
       }
@@ -24,7 +24,7 @@
     "imAListOfItems1": {
       "nodeType": "translation",
       "translation": {
-        "en": "I'm a list of items (should be extracted as returned by the function)",
+        "en": "I'm a list of items (should be extracted as returned by the function) (2)",
         "fr": "Je suis une liste d'éléments (devrait être extrait tel que retourné par la fonction)",
         "es": "Soy una lista de elementos (debe extraerse tal como la devuelve la función)"
       }

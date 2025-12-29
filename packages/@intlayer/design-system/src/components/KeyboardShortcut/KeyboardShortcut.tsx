@@ -217,62 +217,59 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Don't trigger shortcuts when typing in input fields
+      // 1. Identify input fields
       const target = event.target as HTMLElement;
       const isInputField =
         target.tagName === 'INPUT' ||
         target.tagName === 'TEXTAREA' ||
         target.isContentEditable;
 
-      // Update pressed keys state for visual feedback
+      // ... (Your existing key visualization logic here) ...
+      // Note: Copied your key tracking logic for context
       const currentKey = event.key;
       const normalizedEventKeys = new Set<string>();
-
-      // Add modifier keys
       if (event.metaKey) normalizedEventKeys.add('⌘');
       if (event.ctrlKey) normalizedEventKeys.add('Ctrl');
       if (event.altKey) normalizedEventKeys.add(isMac ? '⌥' : 'Alt');
       if (event.shiftKey) normalizedEventKeys.add('Shift');
 
-      // Add the main key
       if (currentKey.startsWith('Arrow')) {
-        // For arrow keys, add both the key name and the symbol
         normalizedEventKeys.add(currentKey);
-        const arrowSymbol = getDisplayKey(currentKey);
-        normalizedEventKeys.add(arrowSymbol);
+        normalizedEventKeys.add(getDisplayKey(currentKey));
       } else {
         normalizedEventKeys.add(currentKey.toUpperCase());
       }
-
       setPressedKeys(normalizedEventKeys);
 
-      // Trigger callback if shortcut matches
+      // 2. Trigger callback if shortcut matches
       if (onTriggered && matchesShortcut(event, keys)) {
-        // Don't trigger shortcuts when typing in input fields
-        if (isInputField) {
+        // FIX: Check if the required shortcut is "Escape"
+        const isEscapeShortcut = keys.includes('Escape');
+
+        // Only block if it is an input field AND the shortcut is NOT Escape
+        if (isInputField && !isEscapeShortcut) {
           return;
         }
+
         event.preventDefault();
         onTriggered();
       }
     };
 
     const handleKeyUp = () => {
-      // Clear pressed keys when any key is released
       setPressedKeys(new Set());
     };
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
-    window.addEventListener('blur', handleKeyUp); // Clear on window blur
+    window.addEventListener('blur', handleKeyUp);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
       window.removeEventListener('blur', handleKeyUp);
     };
-  }, [keys, onTriggered]);
-
+  }, [keys, onTriggered, isMac]);
   if (!display) return null;
 
   /**

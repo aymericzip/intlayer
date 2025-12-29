@@ -67,7 +67,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     <LocaleSwitcherContentProvider
       availableLocales={config?.internationalization.locales ?? []}
     >
-      <div className="flex size-full flex-col gap-6 px-2">
+      <div className="relative flex size-full flex-col gap-6 px-2">
         <Button
           onClick={onClickDictionaryList}
           variant={ButtonVariant.HOVERABLE}
@@ -83,6 +83,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           defaultValue={editorView}
           onChange={(value) => setEditorView(value)}
           color="text"
+          size="sm"
           choices={[
             {
               content: 'Details',

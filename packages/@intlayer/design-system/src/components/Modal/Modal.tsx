@@ -64,28 +64,25 @@ type ModalProps = {
  * Class name variants for different modal sizes using class-variance-authority
  * Defines responsive sizing and scrollable content for modal containers
  */
-const modalVariants = cva(
-  'flex cursor-default flex-col overflow-hidden p-3 shadow-sm',
-  {
-    variants: {
-      size: {
-        /** Small modal: height auto, max-height 30vh, width 95vw, max-width xl */
-        sm: 'h-auto max-h-[30vh] w-[95vw] max-w-xl',
-        /** Medium modal: height auto, max-height 50vh, width 95vw, max-width xl */
-        md: 'h-auto max-h-[50vh] w-[95vw] max-w-xl',
-        /** Large modal: height auto, max-height 70vh, width 95vw, max-width 2xl */
-        lg: 'h-auto max-h-[70vh] w-[95vw] max-w-2xl',
-        /** Extra large modal: height auto, max-height 95vh, width 95vw, max-width 6xl */
-        xl: 'h-auto max-h-[95vh] w-[95vw] max-w-6xl',
-        /** Unset modal: height auto, max-height 95vh, width 95vw, no max-width */
-        unset: 'h-auto max-h-[95vh] w-[95vw]',
-      },
+const modalVariants = cva('flex cursor-default flex-col p-3 shadow-sm', {
+  variants: {
+    size: {
+      /** Small modal: height auto, max-height 30vh, width 95vw, max-width xl */
+      sm: 'h-auto max-h-[30vh] w-[95vw] max-w-xl',
+      /** Medium modal: height auto, max-height 50vh, width 95vw, max-width xl */
+      md: 'h-auto max-h-[50vh] w-[95vw] max-w-xl',
+      /** Large modal: height auto, max-height 70vh, width 95vw, max-width 2xl */
+      lg: 'h-auto max-h-[70vh] w-[95vw] max-w-2xl',
+      /** Extra large modal: height auto, max-height 95vh, width 95vw, max-width 6xl */
+      xl: 'h-auto max-h-[95vh] w-[95vw] max-w-6xl',
+      /** Unset modal: height auto, max-height 95vh, width 95vw, no max-width */
+      unset: 'h-auto max-h-[95vh] w-[95vw]',
     },
-    defaultVariants: {
-      size: 'unset',
-    },
-  }
-);
+  },
+  defaultVariants: {
+    size: 'unset',
+  },
+});
 
 /**
  * Motion-enabled modal component with Framer Motion support
@@ -262,9 +259,7 @@ export const Modal: FC<ModalProps> = ({
             />
           )}
         </div>
-        <div className="flex w-full flex-1 flex-col overflow-hidden">
-          {children}
-        </div>
+        <div className="flex w-full flex-1 flex-col">{children}</div>
       </MotionModal>
     </m.div>,
     containerElement

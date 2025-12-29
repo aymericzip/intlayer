@@ -32,14 +32,12 @@ export const DictionaryListDrawer: FC = () => {
   const { setSearch, search } = useSearch();
 
   // Create Fuse instance for searching dictionaries
-  const fuse = useMemo(() => {
-    const dictionariesArray = Object.values(localeDictionaries);
-    return new Fuse(dictionariesArray, {
-      keys: ['key', 'title', 'filePath', 'description', 'tags'],
-      threshold: 0.3,
-      includeScore: true,
-    });
-  }, [localeDictionaries]);
+  const dictionariesArray = Object.values(localeDictionaries);
+  const fuse = new Fuse(dictionariesArray, {
+    keys: ['key', 'title', 'filePath', 'description', 'tags'],
+    threshold: 0.3,
+    includeScore: true,
+  });
 
   // Filter dictionaries based on search
   const filteredDictionaries = useMemo(() => {
@@ -68,14 +66,16 @@ export const DictionaryListDrawer: FC = () => {
     <RightDrawer
       title={drawerTitle.label.value}
       identifier={dictionaryListDrawerIdentifier}
+      header={
+        <div className="p-3 pb-4">
+          <SearchInput
+            placeholder="Search dictionaries"
+            onChange={(e) => setSearch(e.target.value)}
+            type="search"
+          />
+        </div>
+      }
     >
-      <div className="p-3 pb-4">
-        <SearchInput
-          placeholder="Search dictionaries"
-          onChange={(e) => setSearch(e.target.value)}
-          type="search"
-        />
-      </div>
       <ul className="flex flex-col gap-1">
         {filteredDictionaries.map((dictionary) => (
           <li key={dictionary.localId!} className="w-full">
