@@ -1,3 +1,4 @@
+import { DictionaryLoaderDashboard } from '@components/Dashboard/Editor/DictionaryLoaderDashboard';
 import { TranslateDashboard } from '@components/Dashboard/TranslateDashboard';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
@@ -10,6 +11,7 @@ const TranslateDashboardPage: NextPageIntlayer = async ({ params }) => {
   return (
     <IntlayerServerProvider locale={locale}>
       <div className="relative flex flex-1 flex-col items-center">
+        <DictionaryLoaderDashboard />
         <TranslateDashboard />
       </div>
     </IntlayerServerProvider>

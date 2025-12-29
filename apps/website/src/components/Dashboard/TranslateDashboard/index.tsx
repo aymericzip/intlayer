@@ -1,6 +1,11 @@
 'use client';
 
-import { getEmptyNode, getLocaleName, getNodeType } from '@intlayer/core';
+import {
+  getContentNodeByKeyPath,
+  getEmptyNode,
+  getLocaleName,
+  getNodeType,
+} from '@intlayer/core';
 import {
   Button,
   KeyPathBreadcrumb,
@@ -15,16 +20,15 @@ import {
   useInfiniteGetDictionaries,
   useSearch,
 } from '@intlayer/design-system/hooks';
-import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
 import {
-  type Dictionary,
-  type KeyPath,
-  type LocalesValues,
-  NodeType,
-} from '@intlayer/types';
+  useConfiguration,
+  useDictionariesRecordActions,
+  useEditedContent,
+} from '@intlayer/editor-react';
+import { type Dictionary, type LocalesValues, NodeType } from '@intlayer/types';
 import { Plus } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { type FC, Suspense, useMemo, useState } from 'react';
+import { type FC, Suspense, useEffect, useMemo, useState } from 'react';
 import { GroupedVirtuoso } from 'react-virtuoso';
 import {
   type FlattenedDictionaryNode,
@@ -36,16 +40,23 @@ const TranslateRow: FC<{
   node: FlattenedDictionaryNode;
   selectedLocales: LocalesValues[];
 }> = ({ node, selectedLocales }) => {
-  const { dictionary, keyPath, content, nodeType } = node;
-  const { addEditedContent } = useEditedContent();
+  const { dictionary, keyPath, content: originalContent, nodeType } = node;
+  const { editedContent, addEditedContent } = useEditedContent();
   const configuration = useConfiguration();
   const { defaultLocale } = configuration.internationalization;
   const { addTranslation } = useIntlayer('dictionary-list');
 
+  // Use edited content if available, otherwise fall back to original content from node
+  const editedDictionaryContent = editedContent?.[dictionary.localId!]?.content;
+  const content =
+    typeof editedDictionaryContent === 'undefined'
+      ? originalContent
+      : getContentNodeByKeyPath(editedDictionaryContent, keyPath);
+
   const isMultilingual =
     nodeType === NodeType.Translation ||
     (nodeType === NodeType.Insertion &&
-      getNodeType((content as any).content) === NodeType.Translation);
+      getNodeType((originalContent as any).content) === NodeType.Translation);
 
   if (isMultilingual) {
     return (
@@ -81,16 +92,18 @@ const TranslateRow: FC<{
                         contentMap[Object.keys(contentMap)[0]];
 
                       // Create an empty node based on the reference structure
-                      const newContent = getEmptyNode(referenceContent);
-                      const newKeyPath = [
-                        ...keyPath,
-                        { type: nodeType, key: locale },
-                      ];
+                      const newContent = {
+                        ...((editedContent as Record<string, any>) ?? {}),
+                        [nodeType]: {
+                          ...contentMap,
+                          [locale]: getEmptyNode(referenceContent),
+                        },
+                      };
 
                       addEditedContent(
                         dictionary.localId!,
                         newContent,
-                        newKeyPath as KeyPath[]
+                        keyPath
                       );
                     }}
                   >
@@ -105,7 +118,9 @@ const TranslateRow: FC<{
                 <TextEditor
                   section={translationContent}
                   keyPath={[...keyPath, { type: nodeType, key: locale } as any]}
-                  dictionary={dictionary}
+                  dictionary={
+                    editedContent?.[dictionary.localId!] ?? dictionary
+                  }
                 />
               </div>
             );
@@ -141,20 +156,37 @@ const TranslateDashboardList: FC = () => {
   const { setSearch } = useSearch({});
   const { locale: currentLocale } = useLocale();
   const [search, setInternalSearch] = useState('');
+  const { setLocaleDictionaries } = useDictionariesRecordActions() ?? {};
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
     useInfiniteGetDictionaries({ search, pageSize: 3 });
 
   const { selectedLocales } = useLocaleSwitcherContent();
 
-  const allLoadedDictionaries: Record<string, Dictionary> = {};
-  data?.pages.forEach((page: any) => {
-    (page.data as Dictionary[]).forEach((dict) => {
-      if (dict.localId) {
-        allLoadedDictionaries[dict.localId] = dict;
-      }
+  const allLoadedDictionaries: Record<string, Dictionary> = useMemo(() => {
+    const result: Record<string, Dictionary> = {};
+    data?.pages.forEach((page: any) => {
+      (page.data as Dictionary[]).forEach((dict) => {
+        if (dict.localId) {
+          result[dict.localId] = dict;
+        }
+      });
     });
-  });
+    return result;
+  }, [data?.pages]);
+
+  // Populate localeDictionaries context so addEditedContent can work properly
+  useEffect(() => {
+    if (
+      setLocaleDictionaries &&
+      Object.keys(allLoadedDictionaries).length > 0
+    ) {
+      setLocaleDictionaries((prev) => ({
+        ...prev,
+        ...allLoadedDictionaries,
+      }));
+    }
+  }, [allLoadedDictionaries, setLocaleDictionaries]);
 
   const flattenedNodes: FlattenedDictionaryNode[] =
     data?.pages.flatMap((page: any) =>
