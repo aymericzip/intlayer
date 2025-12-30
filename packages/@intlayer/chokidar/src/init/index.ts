@@ -129,7 +129,7 @@ export const initIntlayer = async () => {
     const gitignoreContent = await readFileFromRoot(gitignorePath);
 
     if (!gitignoreContent.includes('intlayer')) {
-      const newContent = `${gitignoreContent}\n\n# Intlayer\n.intlayer\n`;
+      const newContent = `${gitignoreContent}\n# Intlayer\n.intlayer\n`;
       await writeFileToRoot(gitignorePath, newContent);
       logger(
         `${v} Added ${colorizePath('.intlayer')} to ${colorizePath(gitignorePath)}`
