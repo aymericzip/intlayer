@@ -15,6 +15,14 @@
   }
 }
 
+@keyframes shrink-title {
+  to {
+    font-size: 1.2rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.6rem;
+  }
+}
+
 @keyframes infiniteScroll {
   from {
     transform: translateX(0);

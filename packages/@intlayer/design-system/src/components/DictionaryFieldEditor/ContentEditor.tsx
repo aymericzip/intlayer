@@ -63,7 +63,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({
           <LocaleSwitcherContent />
         </div>
       </div>
-      <div className="flex flex-1 gap-2 overflow-auto max-md:flex-col">
+      <div className="flex flex-1 gap-2 overflow-visible max-md:flex-col">
         {typeof section === 'object' &&
           section &&
           !isEditableBaseSection &&
@@ -71,7 +71,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({
             <Container
               border
               background="none"
-              className="top-6 flex h-full flex-col items-start gap-0.5 overflow-auto p-2 md:sticky md:max-w-[50%]"
+              className="top-30 flex h-full flex-col items-start gap-0.5 overflow-auto p-2 md:sticky md:max-w-[50%]"
               roundedSize="xl"
               transparency="sm"
             >

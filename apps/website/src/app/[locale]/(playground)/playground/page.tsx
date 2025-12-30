@@ -27,7 +27,19 @@ const PlaygroundContent: FC = () => {
 
   return (
     <>
-      <h1 className="border-neutral border-b-[0.5px] p-6 pl-10 text-3xl">
+      <h1
+        className="sticky top-0 z-50 border-neutral border-b-[0.5px] bg-background p-6 pl-10 text-3xl"
+        style={{
+          // Indique que l'animation suit le scroll de la page
+          animationTimeline: 'scroll()',
+          // L'animation se joue entre 0px et 100px de scroll
+          animationRange: '0 50px',
+          // Nom de l'animation (définie dans ton CSS global ou via Tailwind config)
+          animationName: 'shrink-title',
+          animationFillMode: 'both',
+          animationTimingFunction: 'linear',
+        }}
+      >
         {title}
       </h1>
       <div className="relative flex size-full flex-1 flex-col">
