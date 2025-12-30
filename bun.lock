@@ -37,7 +37,7 @@
     },
     "apps/backend": {
       "name": "@intlayer/backend",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@better-auth/core": "1.4.7",
         "@better-auth/passkey": "1.4.7",
@@ -95,7 +95,7 @@
     },
     "apps/website": {
       "name": "website",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@better-auth/sso": "1.4.7",
         "@intlayer/api": "workspace:*",
@@ -164,7 +164,7 @@
     },
     "docs": {
       "name": "@intlayer/docs",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -639,7 +639,7 @@
     },
     "packages/@intlayer/ai": {
       "name": "@intlayer/ai",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@ai-sdk/anthropic": "2.0.56",
         "@ai-sdk/deepseek": "1.0.32",
@@ -666,7 +666,7 @@
     },
     "packages/@intlayer/api": {
       "name": "@intlayer/api",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -691,7 +691,7 @@
     },
     "packages/@intlayer/babel": {
       "name": "@intlayer/babel",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@babel/core": "7.20.5",
         "@babel/generator": "7.27.0",
@@ -727,7 +727,7 @@
     },
     "packages/@intlayer/chokidar": {
       "name": "@intlayer/chokidar",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -765,7 +765,7 @@
     },
     "packages/@intlayer/cli": {
       "name": "@intlayer/cli",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@clack/prompts": "^0.11.0",
         "@intlayer/api": "workspace:*",
@@ -799,7 +799,7 @@
     },
     "packages/@intlayer/config": {
       "name": "@intlayer/config",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/types": "workspace:*",
         "defu": "6.1.4",
@@ -827,7 +827,7 @@
     },
     "packages/@intlayer/core": {
       "name": "@intlayer/core",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -849,7 +849,7 @@
     },
     "packages/@intlayer/design-system": {
       "name": "@intlayer/design-system",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@better-auth/passkey": "1.4.7",
         "@better-auth/sso": "1.4.7",
@@ -941,7 +941,7 @@
     },
     "packages/@intlayer/dictionaries-entry": {
       "name": "@intlayer/dictionaries-entry",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -959,7 +959,7 @@
     },
     "packages/@intlayer/dynamic-dictionaries-entry": {
       "name": "@intlayer/dynamic-dictionaries-entry",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -977,7 +977,7 @@
     },
     "packages/@intlayer/editor": {
       "name": "@intlayer/editor",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "devDependencies": {
         "@types/node": "25.0.3",
         "@utils/ts-config": "workspace:*",
@@ -991,7 +991,7 @@
     },
     "packages/@intlayer/editor-react": {
       "name": "@intlayer/editor-react",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1039,7 +1039,7 @@
     },
     "packages/@intlayer/mcp": {
       "name": "@intlayer/mcp",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "bin": "dist/cjs/server/stdio.cjs",
       "dependencies": {
         "@intlayer/cli": "workspace:*",
@@ -1067,7 +1067,7 @@
     },
     "packages/@intlayer/remote-dictionaries-entry": {
       "name": "@intlayer/remote-dictionaries-entry",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1085,7 +1085,7 @@
     },
     "packages/@intlayer/svelte-compiler": {
       "name": "@intlayer/svelte-compiler",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -1122,11 +1122,11 @@
     },
     "packages/@intlayer/swc": {
       "name": "@intlayer/swc",
-      "version": "7.5.8",
+      "version": "7.5.9",
     },
     "packages/@intlayer/types": {
       "name": "@intlayer/types",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "devDependencies": {
         "@types/node": "25.0.3",
         "@utils/ts-config": "workspace:*",
@@ -1140,7 +1140,7 @@
     },
     "packages/@intlayer/unmerged-dictionaries-entry": {
       "name": "@intlayer/unmerged-dictionaries-entry",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1158,7 +1158,7 @@
     },
     "packages/@intlayer/vue-compiler": {
       "name": "@intlayer/vue-compiler",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -1195,7 +1195,7 @@
     },
     "packages/@intlayer/webpack": {
       "name": "@intlayer/webpack",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1222,7 +1222,7 @@
     },
     "packages/angular-intlayer": {
       "name": "angular-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1252,7 +1252,7 @@
     },
     "packages/astro-intlayer": {
       "name": "astro-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1277,7 +1277,7 @@
     },
     "packages/express-intlayer": {
       "name": "express-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1302,7 +1302,7 @@
     },
     "packages/intlayer": {
       "name": "intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "bin": {
         "intlayer": "./dist/cjs/cli/script.cjs",
       },
@@ -1325,7 +1325,7 @@
     },
     "packages/intlayer-cli": {
       "name": "intlayer-cli",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -1346,7 +1346,7 @@
     },
     "packages/intlayer-editor": {
       "name": "intlayer-editor",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "bin": {
         "intlayer-editor": "./bin/intlayer-editor.mjs",
       },
@@ -1400,7 +1400,7 @@
     },
     "packages/lynx-intlayer": {
       "name": "lynx-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1459,7 +1459,7 @@
     },
     "packages/nuxt-intlayer": {
       "name": "nuxt-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1485,7 +1485,7 @@
     },
     "packages/preact-intlayer": {
       "name": "preact-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/chokidar": "workspace:*",
@@ -1511,7 +1511,7 @@
     },
     "packages/react-intlayer": {
       "name": "react-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1542,7 +1542,7 @@
     },
     "packages/react-native-intlayer": {
       "name": "react-native-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1573,7 +1573,7 @@
     },
     "packages/react-scripts-intlayer": {
       "name": "react-scripts-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "bin": {
         "react-scripts-intlayer": "./dist/cjs/cli/react-scripts-intlayer.cjs",
       },
@@ -1605,7 +1605,7 @@
     },
     "packages/solid-intlayer": {
       "name": "solid-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1637,7 +1637,7 @@
     },
     "packages/svelte-intlayer": {
       "name": "svelte-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1668,7 +1668,7 @@
     },
     "packages/vite-intlayer": {
       "name": "vite-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@babel/core": "7.28.4",
         "@intlayer/babel": "workspace:*",
@@ -1703,7 +1703,7 @@
     },
     "packages/vue-intlayer": {
       "name": "vue-intlayer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1738,7 +1738,7 @@
     },
     "plugins/svelte-transformer": {
       "name": "@intlayer/svelte-transformer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "magic-string": "^0.30.8",
         "svelte": "^4.2.12",
@@ -1757,7 +1757,7 @@
     },
     "plugins/sync-json-plugin": {
       "name": "@intlayer/sync-json-plugin",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1778,7 +1778,7 @@
     },
     "plugins/vue-transformer": {
       "name": "@intlayer/vue-transformer",
-      "version": "7.5.8",
+      "version": "7.5.9",
       "dependencies": {
         "@vue/compiler-sfc": "^3.4.21",
         "magic-string": "^0.30.8",

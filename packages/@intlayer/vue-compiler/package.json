@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/vue-compiler",
-  "version": "7.5.8",
+  "version": "7.5.9",
   "private": false,
   "description": "Vite-compatible compiler plugin for Vue with Intlayer, providing HMR support, file transformation, and optimized dictionary loading for Vue applications.",
   "keywords": [
