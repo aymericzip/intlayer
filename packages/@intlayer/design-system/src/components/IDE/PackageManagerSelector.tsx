@@ -7,13 +7,16 @@ import { useCodeContext } from './CodeContext';
 
 export const PackageManagerSelector: FC = () => {
   const { packageManager, setPackageManager } = useCodeContext();
-  const { packageManager: packageManagerContent } =
-    useIntlayer('code-selectors');
+  const content = useIntlayer('code-selectors');
+  useIntlayer('code-selectors');
 
   return (
     <Select value={packageManager} onValueChange={setPackageManager}>
-      <Select.Trigger className="py-1" aria-label={packageManagerContent.label}>
-        <Select.Value placeholder="Package Manager" />
+      <Select.Trigger
+        className="py-1!"
+        aria-label={content.packageManager.label.value}
+      >
+        <Select.Value placeholder={content.packageManager.placeholder.value} />
       </Select.Trigger>
       <Select.Content>
         <Select.Item value="npm">npm</Select.Item>

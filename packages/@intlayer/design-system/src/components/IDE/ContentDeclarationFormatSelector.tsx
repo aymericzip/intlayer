@@ -8,8 +8,7 @@ import { useCodeContext } from './CodeContext';
 export const ContentDeclarationFormatSelector: FC = () => {
   const { contentDeclarationFormat, setContentDeclarationFormat } =
     useCodeContext();
-  const { contentDeclarationFormat: contentDeclarationFormatContent } =
-    useIntlayer('code-selectors');
+  const content = useIntlayer('code-selectors');
 
   return (
     <Select
@@ -17,10 +16,12 @@ export const ContentDeclarationFormatSelector: FC = () => {
       onValueChange={setContentDeclarationFormat}
     >
       <Select.Trigger
-        className="py-1"
-        aria-label={contentDeclarationFormatContent.label}
+        className="py-1!"
+        aria-label={content.contentDeclarationFormat.label.value}
       >
-        <Select.Value placeholder="Dictionary Format" />
+        <Select.Value
+          placeholder={content.contentDeclarationFormat.placeholder.value}
+        />
       </Select.Trigger>
       <Select.Content>
         <Select.Item value="typescript">TypeScript</Select.Item>

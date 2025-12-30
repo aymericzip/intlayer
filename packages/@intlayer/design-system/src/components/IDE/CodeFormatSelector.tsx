@@ -8,7 +8,7 @@ import { useCodeContext } from './CodeContext';
 export const CodeFormatSelector: FC = () => {
   const { codeFormat, setCodeFormat, setContentDeclarationFormat } =
     useCodeContext();
-  const { codeFormat: codeFormatContent } = useIntlayer('code-selectors');
+  const content = useIntlayer('code-selectors');
 
   return (
     <Select
@@ -18,8 +18,11 @@ export const CodeFormatSelector: FC = () => {
         setContentDeclarationFormat(value as typeof codeFormat);
       }}
     >
-      <Select.Trigger className="py-1" aria-label={codeFormatContent.label}>
-        <Select.Value placeholder="Code Format" />
+      <Select.Trigger
+        className="py-1!"
+        aria-label={content.codeFormat.label.value}
+      >
+        <Select.Value placeholder={content.codeFormat.placeholder.value} />
       </Select.Trigger>
       <Select.Content>
         <Select.Item value="typescript">TypeScript</Select.Item>
