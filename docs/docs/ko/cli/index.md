@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2025-12-30
 title: CLI
 description: Intlayer CLI를 사용하여 다국어 웹사이트를 관리하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 만에 프로젝트를 설정할 수 있습니다.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init 명령어 추가
   - version: 7.2.3
     date: 2025-11-22
     changes: transform 명령어 추가
@@ -131,6 +134,7 @@ Intlayer는 여러 구성 파일 형식을 지원합니다:
 
 ### 구성
 
+- **[Intlayer 초기화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/init.md)** - 자동 구성으로 프로젝트에 Intlayer 설정
 - **[구성 관리](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/configuration.md)** - Intlayer 구성을 CMS에서 가져오고 푸시
 
 ### 문서 관리
@@ -152,6 +156,7 @@ Intlayer는 여러 구성 파일 형식을 지원합니다:
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:init": "npx intlayer init",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

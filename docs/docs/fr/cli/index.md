@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2025-12-30
 title: CLI
 description: Découvrez comment utiliser le CLI Intlayer pour gérer votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Ajout de la commande init
   - version: 7.2.3
     date: 2025-11-22
     changes: Ajout de la commande transform
@@ -131,6 +134,7 @@ Pour voir comment configurer les locales disponibles, ou d'autres paramètres, r
 
 ### Configuration
 
+- **[Initialiser Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/init.md)** - Configurer Intlayer dans votre projet avec une configuration automatique
 - **[Gérer la configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/configuration.md)** - Récupérer et pousser votre configuration Intlayer vers le CMS
 
 ### Gestion de la documentation
@@ -152,6 +156,7 @@ Pour voir comment configurer les locales disponibles, ou d'autres paramètres, r
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:init": "npx intlayer init",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

@@ -280,7 +280,8 @@ export const setAPI = (): Command => {
   program
     .command('init')
     .description('Initialize Intlayer in the project')
-    .action(() => init());
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action((options) => init(options.projectRoot));
 
   /**
    * DICTIONARIES

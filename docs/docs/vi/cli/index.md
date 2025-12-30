@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2025-12-30
 title: CLI
 description: Khám phá cách sử dụng Intlayer CLI để quản lý trang web đa ngôn ngữ của bạn. Làm theo các bước trong tài liệu trực tuyến này để thiết lập dự án của bạn trong vài phút.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Thêm lệnh init
   - version: 7.2.3
     date: 2025-11-22
     changes: Thêm lệnh transform
@@ -132,6 +135,7 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình:
 
 ### Cấu hình
 
+- **[Khởi tạo Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/init.md)** - Thiết lập Intlayer trong dự án của bạn với cấu hình tự động
 - **[Quản lý Cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/configuration.md)** - Lấy và đẩy cấu hình Intlayer của bạn lên CMS
 
 ### Quản lý Tài liệu
@@ -153,6 +157,7 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình:
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:init": "npx intlayer init",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

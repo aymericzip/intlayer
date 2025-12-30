@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2025-12-30
 title: CLI
 description: اكتشف كيفية استخدام واجهة الأوامر Intlayer CLI لإدارة موقعك متعدد اللغات. اتبع الخطوات في هذه الوثائق الإلكترونية لإعداد مشروعك في دقائق قليلة.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: إضافة أمر init
   - version: 7.2.3
     date: 2025-11-22
     changes: إضافة أمر transform
@@ -131,6 +134,7 @@ bun add intlayer-cli -g
 
 ### التهيئة
 
+- **[تهيئة Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/init.md)** - إعداد Intlayer في مشروعك مع التهيئة التلقائية
 - **[إدارة التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/configuration.md)** - الحصول على تهيئة Intlayer الخاصة بك ودفعها إلى نظام إدارة المحتوى (CMS)
 
 ### إدارة الوثائق
@@ -152,6 +156,7 @@ bun add intlayer-cli -g
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:init": "npx intlayer init",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

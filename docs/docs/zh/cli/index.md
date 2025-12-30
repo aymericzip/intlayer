@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2025-12-30
 title: CLI
 description: 了解如何使用 Intlayer CLI 来管理您的多语言网站。按照本在线文档中的步骤，几分钟内即可设置您的项目。
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: 添加 init 命令
   - version: 7.2.3
     date: 2025-11-22
     changes: 添加 transform 命令
@@ -131,6 +134,7 @@ Intlayer 支持多种配置文件格式：
 
 ### 配置
 
+- **[初始化 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/init.md)** - 在您的项目中通过自动配置设置 Intlayer
 - **[管理配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/configuration.md)** - 获取并推送您的 Intlayer 配置到 CMS
 
 ### 文档管理
@@ -157,6 +161,7 @@ Intlayer 支持多种配置文件格式：
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:init": "npx intlayer init",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

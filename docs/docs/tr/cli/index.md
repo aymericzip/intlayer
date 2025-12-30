@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2025-12-30
 title: CLI
 description: Çok dilli web sitenizi yönetmek için Intlayer CLI'nın nasıl kullanılacağını keşfedin. Projenizi birkaç dakika içinde kurmak için bu çevrimiçi dokümantördeki adımları izleyin.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init komutu eklendi
   - version: 7.2.3
     date: 2025-11-22
     changes: Transform komutu eklendi
@@ -131,6 +134,7 @@ Mevcut yerellerin veya diğer parametrelerin nasıl yapılandırılacağını g�
 
 ### Konfigürasyon
 
+- **[Intlayer'i Başlat](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/init.md)** - Projenizde otomatik konfigürasyon ile Intlayer'ı kurun
 - **[Konfigürasyonu Yönet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/configuration.md)** - Intlayer konfigürasyonunuzu CMS'ye alın ve gönderin
 
 ### Dokümantasyon Yönetimi
@@ -152,6 +156,7 @@ Mevcut yerellerin veya diğer parametrelerin nasıl yapılandırılacağını g�
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:init": "npx intlayer init",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

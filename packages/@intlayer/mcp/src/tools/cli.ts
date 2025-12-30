@@ -20,14 +20,16 @@ export const loadCLITools: LoadCLITools = async (server) => {
     {
       title: 'Initialize Intlayer',
       description: 'Initialize Intlayer in the project',
-      inputSchema: {},
+      inputSchema: {
+        projectRoot: z.string().describe('Project root directory'),
+      },
       annotations: {
         destructiveHint: true,
       },
     },
-    async () => {
+    async ({ projectRoot }) => {
       try {
-        await init();
+        await init(projectRoot);
 
         return {
           content: [

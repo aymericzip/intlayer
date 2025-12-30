@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2025-12-30
 title: CLI
 description: Temukan cara menggunakan Intlayer CLI untuk mengelola situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi daring ini untuk mengatur proyek Anda dalam beberapa menit.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Menambahkan perintah init
   - version: 7.2.3
     date: 2025-11-22
     changes: Menambahkan perintah transform
@@ -131,6 +134,7 @@ Untuk melihat cara mengonfigurasi locale yang tersedia, atau parameter lainnya, 
 
 ### Konfigurasi
 
+- **[Inisialisasi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/init.md)** - Siapkan Intlayer di proyek Anda dengan konfigurasi otomatis
 - **[Kelola Konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/configuration.md)** - Dapatkan dan dorong konfigurasi Intlayer Anda ke CMS
 
 ### Manajemen Dokumentasi
@@ -152,6 +156,7 @@ Untuk melihat cara mengonfigurasi locale yang tersedia, atau parameter lainnya, 
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:init": "npx intlayer init",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
