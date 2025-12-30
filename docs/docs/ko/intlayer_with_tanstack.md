@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-12-11
-title: Tanstack Start 앱 번역하는 방법 – i18n 가이드 2025
+updatedAt: 2025-12-30
+title: Tanstack Start 앱 번역하는 방법 – i18n 가이드 2026
 description: Intlayer를 사용하여 Tanstack Start 애플리케이션에 국제화(i18n)를 추가하는 방법을 배우세요. 로케일 인식 라우팅으로 앱을 다국어 지원으로 만드는 종합 가이드를 따르세요.
 keywords:
   - 국제화
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init 명령어 추가
   - version: 7.4.0
     date: 2025-12-11
     changes: validatePrefix 도입 및 14단계 추가: 현지화된 라우트로 404 페이지 처리.

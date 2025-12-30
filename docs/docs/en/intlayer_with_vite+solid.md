@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: How to translate your Vite and Solid app – i18n guide 2025
+updatedAt: 2025-12-30
+title: How to translate your Vite and Solid app – i18n guide 2026
 description: Discover how to make your Vite and Solid website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
   - Internationalization
@@ -16,6 +16,9 @@ slugs:
   - vite-and-solid
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Add init command
   - version: 5.5.10
     date: 2025-06-29
     changes: Init history

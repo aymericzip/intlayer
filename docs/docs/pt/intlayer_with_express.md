@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
-title: Como traduzir seu Express backend – guia i18n 2025
+updatedAt: 2025-12-30
+title: Como traduzir seu Express backend – guia i18n 2026
 description: Descubra como tornar seu backend Express multilíngue. Siga a documentação para internacionalizar (i18n) e traduzi-lo.
 keywords:
   - Internacionalização
@@ -15,6 +15,9 @@ slugs:
   - environment
   - express
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Adicionar comando init
   - version: 5.5.10
     date: 2025-06-29
     changes: Histórico inicial

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
-title: Как перевести ваше Nest backend – руководство i18n 2025
+updatedAt: 2025-12-30
+title: Как перевести ваше Nest backend – руководство i18n 2026
 description: Узнайте, как сделать ваш NestJS бэкенд многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
 author: AydinTheFirst
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Добавить команду init
   - version: 5.8.0
     date: 2025-09-09
     changes: Начальная версия документа

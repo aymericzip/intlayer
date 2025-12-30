@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-06-29
-title: Comment traduire votre Next.js 15 – guide i18n 2025
+updatedAt: 2025-12-30
+title: Comment traduire votre Next.js 15 – guide i18n 2026
 description: Découvrez comment rendre votre site Next.js 15 multilingue. Suivez la documentation pour internationaliser (i18n) et traduire votre site.
 keywords:
   - Internationalisation
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Ajouter la commande init
   - version: 5.5.10
     date: 2025-06-29
     changes: Historique initial

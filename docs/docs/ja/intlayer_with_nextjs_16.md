@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-10-26
+updatedAt: 2025-12-30
 title: Next.js 16アプリの翻訳方法 – 2025年版i18nガイド
 description: Next.js 16のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: initコマンドを追加
   - version: 7.0.0
     date: 2025-06-29
     changes: 履歴の初期化

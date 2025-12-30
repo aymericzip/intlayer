@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-11-01
-title: How to translate your Next.js 16 app – i18n guide 2025
+updatedAt: 2025-12-30
+title: How to translate your Next.js 16 app – i18n guide 2026
 description: Discover how to make your Next.js 16 website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
   - Internationalization
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Add init command
   - version: 7.0.6
     date: 2025-11-01
     changes: Added mention of `x-default` in `alternates` object

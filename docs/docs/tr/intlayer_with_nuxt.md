@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-07
-title: Nuxt ve Vue uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
+title: Nuxt ve Vue uygulamanızı nasıl çevirirsiniz – i18n rehberi 2026
 description: Nuxt ve Vue web sitenizi çok dilli hale nasıl getireceğinizi keşfedin. Uluslararasılaştırma (i18n) ve çeviri için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma

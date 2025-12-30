@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: Wie Sie Ihre Vite and Vue übersetzen – i18n-Leitfaden 2025
+updatedAt: 2025-12-30
+title: Wie Sie Ihre Vite and Vue übersetzen – i18n-Leitfaden 2026
 description: Entdecken Sie, wie Sie Ihre Vite- und Vue-Website mehrsprachig machen. Folgen Sie der Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
 youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Init-Befehl hinzufügen
   - version: 5.5.10
     date: 2025-06-29
     changes: Historie initialisiert

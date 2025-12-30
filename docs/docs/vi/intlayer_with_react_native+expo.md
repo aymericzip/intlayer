@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-10-02
-title: Cách dịch ứng dụng React Native và Expo của bạn – Hướng dẫn i18n 2025
+updatedAt: 2025-12-30
+title: Cách dịch ứng dụng React Native và Expo của bạn – Hướng dẫn i18n 2026
 description: Khám phá cách làm cho trang web React Native và Expo của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa
@@ -16,6 +16,9 @@ slugs:
   - react-native-and-expo
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Thêm lệnh init
   - version: 6.1.6
     date: 2025-10-02
     changes: Thêm phần debug

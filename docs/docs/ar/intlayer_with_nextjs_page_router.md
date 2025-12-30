@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
-updatedAt: 2025-06-29
-title: كيفية ترجمة تطبيق Next.js and Page Router – دليل i18n 2025
+updatedAt: 2025-12-30
+title: كيفية ترجمة تطبيق Next.js and Page Router – دليل i18n 2026
 description: اكتشف كيفية جعل موقعك الذي يستخدم Next.js و Page Router متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل
@@ -17,6 +17,9 @@ slugs:
   - nextjs
   - next-with-page-router
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: إضافة أمر init
   - version: 5.5.10
     date: 2025-06-29
     changes: بدء التاريخ

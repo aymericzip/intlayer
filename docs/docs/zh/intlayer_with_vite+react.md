@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-12-10
+updatedAt: 2025-12-30
 title: 如何翻译您的 Vite 和 React 应用 – 2025 年 i18n 指南
 description: 学习如何使用 Intlayer 为您的 Vite 和 React 应用添加国际化 (i18n)。按照本指南使您的应用支持多语言。
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: 添加 init 命令
   - version: 5.5.10
     date: 2025-06-29
     changes: 初始化历史

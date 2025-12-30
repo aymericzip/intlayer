@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
-title: Cách dịch backend Nest của bạn – Hướng dẫn i18n 2025
+updatedAt: 2025-12-30
+title: Cách dịch backend Nest của bạn – Hướng dẫn i18n 2026
 description: Khám phá cách làm cho backend NestJS của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
 author: AydinTheFirst
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Thêm lệnh init
   - version: 5.8.0
     date: 2025-09-09
     changes: Tài liệu ban đầu

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2025-11-20
-title: Como traduzir sua aplicação SvelteKit – guia i18n 2025
+updatedAt: 2025-12-30
+title: Como traduzir sua aplicação SvelteKit – guia i18n 2026
 description: Descubra como tornar seu site SvelteKit multilíngue. Siga a documentação para internacionalizar (i18n) e traduzir usando Server-Side Rendering (SSR).
 keywords:
   - Internacionalização
@@ -16,6 +16,9 @@ slugs:
   - sveltekit
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Adicionar comando init
   - version: 7.1.10
     date: 2025-11-20
     changes: Histórico inicial

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: अपना Vite and Preact ऐप कैसे अनुवाद करें – i18n गाइड 2025
+updatedAt: 2025-12-30
+title: अपना Vite and Preact ऐप कैसे अनुवाद करें – i18n गाइड 2026
 description: जानें कि अपनी Vite और Preact वेबसाइट को बहुभाषी कैसे बनाएं। अंतरराष्ट्रीयकरण (i18n) और अनुवाद के लिए दस्तावेज़ का पालन करें।
 keywords:
   - अंतरराष्ट्रीयकरण
@@ -16,6 +16,9 @@ slugs:
   - vite-and-preact
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init कमांड जोड़ें
   - version: 5.5.10
     date: 2025-06-29
     changes: प्रारंभिक इतिहास

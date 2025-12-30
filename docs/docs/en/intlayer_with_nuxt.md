@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-12-07
-title: How to translate your Nuxt and Vue app – i18n guide 2025
+updatedAt: 2025-12-30
+title: How to translate your Nuxt and Vue app – i18n guide 2026
 description: Discover how to make your Nuxt and Vue website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
   - Internationalization
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
 youtubeVideo: https://www.youtube.com/watch?v=nhUcUAVQ6eQ
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Add init command
   - version: 7.3.13
     date: 2025-12-08
     changes: Unused TypeScript configuration

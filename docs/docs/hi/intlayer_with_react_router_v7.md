@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2025-12-27
-title: अपना React Router v7 ऐप कैसे अनुवाद करें – i18n गाइड 2025
+updatedAt: 2025-12-30
+title: अपना React Router v7 ऐप कैसे अनुवाद करें – i18n गाइड 2026
 description: जानें कि कैसे Intlayer का उपयोग करके अपने React Router v7 एप्लिकेशन में अंतरराष्ट्रीयकरण (i18n) जोड़ें। इस व्यापक गाइड का पालन करें ताकि आपका ऐप बहुभाषी और locale-aware रूटिंग के साथ हो।
 keywords:
   - अंतरराष्ट्रीयकरण
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init कमांड जोड़ें
   - version: 7.5.6
     date: 2025-12-27
     changes: लेआउट अपडेट करें और 404 को हैंडल करें

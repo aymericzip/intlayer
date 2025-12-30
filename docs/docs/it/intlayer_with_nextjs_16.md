@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-10-26
-title: Come tradurre la tua app Next.js 16 – Guida i18n 2025
+updatedAt: 2025-12-30
+title: Come tradurre la tua app Next.js 16 – Guida i18n 2026
 description: Scopri come rendere il tuo sito Next.js 16 multilingue. Segui la documentazione per internazionalizzare (i18n) e tradurlo.
 keywords:
   - Internazionalizzazione
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Aggiungi comando init
   - version: 7.0.0
     date: 2025-06-29
     changes: Inizio cronologia

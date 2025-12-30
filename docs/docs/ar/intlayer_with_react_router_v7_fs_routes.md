@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2025-10-03
-title: كيفية ترجمة تطبيق React Router v7 – دليل i18n 2025
+updatedAt: 2025-12-30
+title: كيفية ترجمة تطبيق React Router v7 – دليل i18n 2026
 description: تعلّم كيفية إضافة التدويل (i18n) إلى تطبيق React Router v7 الخاص بك باستخدام Intlayer. اتبع هذا الدليل الشامل لجعل تطبيقك متعدد اللغات مع توجيه يدعم اللغة المحلية.
 keywords:
   - التدويل
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: إضافة أمر init
   - version: 6.1.5
     date: 2025-10-03
     changes: تحديث الوثيقة

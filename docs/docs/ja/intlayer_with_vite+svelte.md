@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-11-19
-title: Vite と Svelte アプリの翻訳方法 – i18n ガイド 2025
+updatedAt: 2025-12-30
+title: Vite と Svelte アプリの翻訳方法 – i18n ガイド 2026
 description: Vite と Svelte のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のドキュメントに従ってください。
 keywords:
   - 国際化
@@ -16,6 +16,9 @@ slugs:
   - vite-and-svelte
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: initコマンドを追加
   - version: 5.5.11
     date: 2025-11-19
     changes: ドキュメント更新

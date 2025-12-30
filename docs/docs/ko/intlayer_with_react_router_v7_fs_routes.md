@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2025-10-03
-title: React Router v7 앱 번역하는 방법 – i18n 가이드 2025
+updatedAt: 2025-12-30
+title: React Router v7 앱 번역하는 방법 – i18n 가이드 2026
 description: Intlayer를 사용하여 React Router v7 애플리케이션에 국제화(i18n)를 추가하는 방법을 배우세요. 로케일 인식 라우팅으로 앱을 다국어로 만드는 종합 가이드를 따르세요.
 keywords:
   - 국제화
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init 명령어 추가
   - version: 6.1.5
     date: 2025-10-03
     changes: 문서 업데이트

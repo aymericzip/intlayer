@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-10-03
-title: 如何翻译您的Astro应用 – i18n指南 2025
+updatedAt: 2025-12-30
+title: 如何翻译您的Astro应用 – i18n指南 2026
 description: 学习如何使用 Intlayer 为您的 Astro 网站添加国际化（i18n）。按照本指南使您的网站支持多语言。
 keywords:
   - 国际化
@@ -17,6 +17,9 @@ slugs:
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: 添加 init 命令
   - version: 6.2.0
     date: 2025-10-03
     changes: 针对 Astro 集成、配置和使用进行了更新

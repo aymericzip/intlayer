@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: Wie Sie Ihre Vite and Solid übersetzen – i18n-Leitfaden 2025
+updatedAt: 2025-12-30
+title: Wie Sie Ihre Vite and Solid übersetzen – i18n-Leitfaden 2026
 description: Entdecken Sie, wie Sie Ihre Vite- und Solid-Website mehrsprachig gestalten. Folgen Sie der Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung
@@ -16,6 +16,9 @@ slugs:
   - vite-and-solid
 # applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Init-Befehl hinzufügen
   - version: 5.5.10
     date: 2025-06-29
     changes: Initiale Historie

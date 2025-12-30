@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: Wie Sie Ihre Angular übersetzen – i18n-Leitfaden 2025
+updatedAt: 2025-12-30
+title: Wie Sie Ihre Angular übersetzen – i18n-Leitfaden 2026
 description: Erfahren Sie, wie Sie Ihre mit Angular erstellte Website mehrsprachig gestalten können. Folgen Sie der Dokumentation zur Internationalisierung (i18n) und Übersetzung.
 keywords:
   - Internationalisierung
@@ -15,6 +15,9 @@ slugs:
   - angular
 # applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Init-Befehl hinzufügen
   - version: 5.5.10
     date: 2025-06-29
     changes: Initiale Historie

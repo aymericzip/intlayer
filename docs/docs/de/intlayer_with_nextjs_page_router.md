@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
-updatedAt: 2025-06-29
-title: Wie Sie Ihre Next.js and Page Router übersetzen – i18n-Leitfaden 2025
+updatedAt: 2025-12-30
+title: Wie Sie Ihre Next.js and Page Router übersetzen – i18n-Leitfaden 2026
 description: Entdecken Sie, wie Sie Ihre Next.js-Website mit Page Router mehrsprachig machen. Folgen Sie der Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung
@@ -17,6 +17,9 @@ slugs:
   - nextjs
   - next-with-page-router
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Init-Befehl hinzufügen
   - version: 5.5.10
     date: 2025-06-29
     changes: Historie initialisiert

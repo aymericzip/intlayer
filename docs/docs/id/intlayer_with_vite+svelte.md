@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-11-19
-title: Cara menerjemahkan aplikasi Vite dan Svelte Anda – panduan i18n 2025
+updatedAt: 2025-12-30
+title: Cara menerjemahkan aplikasi Vite dan Svelte Anda – panduan i18n 2026
 description: Temukan cara membuat situs web Vite dan Svelte Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi
@@ -16,6 +16,9 @@ slugs:
   - vite-and-svelte
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Tambahkan perintah init
   - version: 5.5.11
     date: 2025-11-19
     changes: Memperbarui dokumen

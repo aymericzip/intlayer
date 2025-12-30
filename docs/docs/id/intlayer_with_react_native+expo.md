@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-10-02
-title: Cara menerjemahkan aplikasi React Native dan Expo Anda – panduan i18n 2025
+updatedAt: 2025-12-30
+title: Cara menerjemahkan aplikasi React Native dan Expo Anda – panduan i18n 2026
 description: Temukan cara membuat situs web React Native dan Expo Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi
@@ -16,6 +16,9 @@ slugs:
   - react-native-and-expo
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Tambahkan perintah init
   - version: 6.1.6
     date: 2025-10-02
     changes: Menambahkan bagian debug

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-10-03
-title: Astro uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
+updatedAt: 2025-12-30
+title: Astro uygulamanızı nasıl çevirirsiniz – i18n rehberi 2026
 description: Intlayer kullanarak Astro web sitenize uluslararasılaştırma (i18n) nasıl eklenir öğrenin. Sitenizi çok dilli yapmak için bu kılavuzu takip edin.
 keywords:
   - Uluslararasılaştırma
@@ -17,6 +17,9 @@ slugs:
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init komutu ekle
   - version: 6.2.0
     date: 2025-10-03
     changes: Astro entegrasyonu, yapılandırma, kullanım için güncelleme

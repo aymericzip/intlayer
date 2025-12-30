@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-06-29
-title: React Native and Expoアプリを翻訳する方法 – i18nガイド 2025
+updatedAt: 2025-12-30
+title: React Native and Expoアプリを翻訳する方法 – i18nガイド 2026
 description: React Native と Expo のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
 keywords:
   - 国際化
@@ -16,6 +16,9 @@ slugs:
   - react-native-and-expo
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: initコマンドを追加
   - version: 5.5.10
     date: 2025-06-29
     changes: 履歴初期化

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-10-25
-updatedAt: 2025-10-26
+updatedAt: 2025-12-30
 title: 如何翻译您的 Next.js 16 应用 – 2025 年国际化 (i18n) 指南
 description: 了解如何让您的 Next.js 16 网站支持多语言。按照文档进行国际化 (i18n) 和翻译。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: 添加 init 命令
   - version: 7.0.0
     date: 2025-06-29
     changes: 初始化历史记录

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-11-19
-title: Como traduzir sua aplicação Vite e Svelte – guia i18n 2025
+updatedAt: 2025-12-30
+title: Como traduzir sua aplicação Vite e Svelte – guia i18n 2026
 description: Descubra como tornar seu site Vite e Svelte multilíngue. Siga a documentação para internacionalizar (i18n) e traduzir.
 keywords:
   - Internacionalização
@@ -16,6 +16,9 @@ slugs:
   - vite-and-svelte
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Adicionar comando init
   - version: 5.5.11
     date: 2025-11-19
     changes: Atualização da documentação

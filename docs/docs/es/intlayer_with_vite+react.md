@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-12-10
-title: Cómo traducir tu aplicación Vite y React – guía i18n 2025
+updatedAt: 2025-12-30
+title: Cómo traducir tu aplicación Vite y React – guía i18n 2026
 description: Aprende cómo agregar internacionalización (i18n) a tu aplicación Vite y React usando Intlayer. Sigue esta guía para hacer tu aplicación multilingüe.
 keywords:
   - Internacionalización
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Agregar comando init
   - version: 5.5.10
     date: 2025-06-29
     changes: Historial inicial

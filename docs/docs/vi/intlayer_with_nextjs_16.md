@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-10-26
-title: Cách dịch ứng dụng Next.js 16 của bạn – Hướng dẫn i18n 2025
+updatedAt: 2025-12-30
+title: Cách dịch ứng dụng Next.js 16 của bạn – Hướng dẫn i18n 2026
 description: Khám phá cách làm cho trang web Next.js 16 của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Thêm lệnh init
   - version: 7.0.0
     date: 2025-06-29
     changes: Khởi tạo lịch sử

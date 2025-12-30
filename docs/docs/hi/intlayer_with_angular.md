@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: अपना Angular ऐप कैसे अनुवाद करें – i18n गाइड 2025
+updatedAt: 2025-12-30
+title: अपना Angular ऐप कैसे अनुवाद करें – i18n गाइड 2026
 description: जानें कि Angular की वेबसाइट को बहुभाषी कैसे बनाएं। इसे अंतर्राष्ट्रीय (i18n) और अनुवादित करने के लिए प्रलेखन का पालन करें।
 keywords:
   - अंतर्राष्ट्रीयकरण
@@ -15,6 +15,9 @@ slugs:
   - angular
 applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init कमांड जोड़ें
   - version: 5.5.10
     date: 2025-06-29
     changes: प्रारंभिक इतिहास

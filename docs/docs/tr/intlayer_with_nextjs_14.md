@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-09-22
-title: Next.js 14 and App Router uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
+updatedAt: 2025-12-30
+title: Next.js 14 and App Router uygulamanızı nasıl çevirirsiniz – i18n rehberi 2026
 description: Next.js 14 ile Intlayer entegrasyonu. Next.js 14 uygulamanızda çok dilli içerik yönetimi için Intlayer'ı nasıl kuracağınızı ve kullanacağınızı öğrenin.
 keywords:
   - nextjs
@@ -17,6 +17,9 @@ slugs:
   - nextjs
   - 14
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init komutu ekle
   - version: 5.6.0
     date: 2025-07-06
     changes: `withIntlayer()` fonksiyonunu promise tabanlı fonksiyona dönüştür

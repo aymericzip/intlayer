@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-25
-updatedAt: 2025-11-01
-title: Jak przetłumaczyć swoją aplikację Next.js 15 – przewodnik i18n 2025
+updatedAt: 2025-12-30
+title: Jak przetłumaczyć swoją aplikację Next.js 15 – przewodnik i18n 2026
 description: Dowiedz się, jak uczynić swoją stronę Next.js 15 wielojęzyczną. Postępuj zgodnie z dokumentacją, aby zinternacjonalizować (i18n) i przetłumaczyć ją.
 keywords:
   - Internacjonalizacja
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Dodaj polecenie init
   - version: 7.0.6
     date: 2025-11-01
     changes: Dodano wzmiankę o `x-default` w obiekcie `alternates`

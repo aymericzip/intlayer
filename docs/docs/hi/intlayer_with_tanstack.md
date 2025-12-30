@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-12-11
-title: अपना Tanstack Start ऐप कैसे अनुवाद करें – i18n गाइड 2025
+updatedAt: 2025-12-30
+title: अपना Tanstack Start ऐप कैसे अनुवाद करें – i18n गाइड 2026
 description: जानें कि अपने Tanstack Start एप्लिकेशन में Intlayer का उपयोग करके अंतरराष्ट्रीयकरण (i18n) कैसे जोड़ें। इस व्यापक गाइड का पालन करें ताकि आपका ऐप बहुभाषी और लोकल-आधारित रूटिंग के साथ हो।
 keywords:
   - अंतरराष्ट्रीयकरण
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init कमांड जोड़ें
   - version: 7.4.0
     date: 2025-12-11
     changes: validatePrefix पेश किया गया और चरण 14 जोड़ा गया: स्थानीयकृत रूट्स के साथ 404 पेज हैंडल करना।

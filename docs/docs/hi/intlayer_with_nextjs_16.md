@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-25
-updatedAt: 2025-10-26
-title: अपने Next.js 16 ऐप का अनुवाद कैसे करें – i18n गाइड 2025
+updatedAt: 2025-12-30
+title: अपने Next.js 16 ऐप का अनुवाद कैसे करें – i18n गाइड 2026
 description: जानें कि अपनी Next.js 16 वेबसाइट को बहुभाषी कैसे बनाएं। अंतरराष्ट्रीयकरण (i18n) और अनुवाद के लिए दस्तावेज़ का पालन करें।
 keywords:
   - अंतरराष्ट्रीयकरण
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init कमांड जोड़ें
   - version: 7.0.0
     date: 2025-06-29
     changes: प्रारंभिक इतिहास

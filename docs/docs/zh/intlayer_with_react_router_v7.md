@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2025-12-27
-title: 如何翻译您的React Router v7应用 – i18n指南 2025
+updatedAt: 2025-12-30
+title: 如何翻译您的React Router v7应用 – i18n指南 2026
 description: 学习如何使用 Intlayer 为您的 React Router v7 应用添加国际化（i18n）。按照本综合指南，使您的应用支持多语言和基于区域的路由。
 keywords:
   - 国际化
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: 添加 init 命令
   - version: 7.5.6
     date: 2025-12-27
     changes: 更新布局和处理404

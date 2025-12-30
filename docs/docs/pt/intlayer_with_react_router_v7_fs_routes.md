@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-12-07
-updatedAt: 2025-12-07
-title: Como traduzir sua aplicação React Router v7 (File-System Routes) – guia i18n 2025
+updatedAt: 2025-12-30
+title: Como traduzir sua aplicação React Router v7 (File-System Routes) – guia i18n 2026
 description: Aprenda como adicionar internacionalização (i18n) à sua aplicação React Router v7 usando Intlayer com roteamento baseado em sistema de arquivos. Siga este guia completo para tornar sua aplicação multilíngue com roteamento consciente de localidade.
 keywords:
   - Internacionalização
@@ -22,6 +22,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Adicionar comando init
   - version: 7.3.4
     date: 2025-12-08
     changes: Histórico inicial

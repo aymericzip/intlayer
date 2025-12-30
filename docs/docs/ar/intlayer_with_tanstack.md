@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-12-11
-title: كيفية ترجمة تطبيق Tanstack Start – دليل i18n 2025
+updatedAt: 2025-12-30
+title: كيفية ترجمة تطبيق Tanstack Start – دليل i18n 2026
 description: تعلّم كيفية إضافة التدويل (i18n) إلى تطبيق Tanstack Start الخاص بك باستخدام Intlayer. اتبع هذا الدليل الشامل لجعل تطبيقك متعدد اللغات مع توجيه يعتمد على اللغة.
 keywords:
   - التدويل
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: إضافة أمر init
   - version: 7.4.0
     date: 2025-12-11
     changes: أضف validatePrefix وشرح خطوة 14: معالجة صفحات 404 مع الطرق المعتمدة على اللغة.

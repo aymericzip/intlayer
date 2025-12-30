@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2025-10-05
-title: Cara menerjemahkan Next.js 15 Anda menggunakan next-i18next – panduan i18n 2025
+title: Cara menerjemahkan Next.js 15 Anda menggunakan next-i18next – panduan i18n 2026
 description: Panduan praktis dan siap produksi untuk menginternasionalisasi aplikasi Next.js 15 App Router dengan i18next/next-i18next dan meningkatkan dengan Intlayer.
 keywords:
   - Internasionalisasi

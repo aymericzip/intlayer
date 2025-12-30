@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-06-29
-title: كيفية ترجمة تطبيق Next.js 15 – دليل i18n 2025
+updatedAt: 2025-12-30
+title: كيفية ترجمة تطبيق Next.js 15 – دليل i18n 2026
 description: اكتشف كيفية جعل موقعك الإلكتروني Next.js 15 متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: إضافة أمر init
   - version: 5.5.10
     date: 2025-06-29
     changes: بداية التاريخ

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
-title: Wie Sie Ihre Express backend übersetzen – i18n-Leitfaden 2025
+updatedAt: 2025-12-30
+title: Wie Sie Ihre Express backend übersetzen – i18n-Leitfaden 2026
 description: Entdecken Sie, wie Sie Ihre Express-Backend mehrsprachig gestalten können. Befolgen Sie die Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung
@@ -15,6 +15,9 @@ slugs:
   - environment
   - express
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Init-Befehl hinzufügen
   - version: 5.5.10
     date: 2025-06-29
     changes: Initiale Historie

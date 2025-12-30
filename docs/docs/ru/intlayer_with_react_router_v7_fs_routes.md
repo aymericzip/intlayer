@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-12-07
-updatedAt: 2025-12-07
-title: Как перевести ваше React Router v7 (File-System Routes) – руководство i18n 2025
+updatedAt: 2025-12-30
+title: Как перевести ваше React Router v7 (File-System Routes) – руководство i18n 2026
 description: Узнайте, как добавить интернационализацию (i18n) в ваше приложение на React Router v7 с помощью Intlayer с маршрутизацией на основе файловой системы. Следуйте этому подробному руководству, чтобы сделать ваше приложение многоязычным с маршрутизацией, учитывающей локаль.
 keywords:
   - Интернационализация
@@ -22,6 +22,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Добавить команду init
   - version: 7.3.4
     date: 2025-12-08
     changes: Init history

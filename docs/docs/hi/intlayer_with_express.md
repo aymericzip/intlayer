@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
-title: अपना Express backend ऐप कैसे अनुवाद करें – i18n गाइड 2025
+updatedAt: 2025-12-30
+title: अपना Express backend ऐप कैसे अनुवाद करें – i18n गाइड 2026
 description: जानें कि कैसे अपने Express बैकएंड को बहुभाषी बनाया जाए। इसे अंतर्राष्ट्रीय बनाने (i18n) और अनुवाद करने के लिए दस्तावेज़ का पालन करें।
 keywords:
   - आंतरराष्ट्रीयकरण
@@ -15,6 +15,9 @@ slugs:
   - environment
   - express
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init कमांड जोड़ें
   - version: 5.5.10
     date: 2025-06-29
     changes: इतिहास प्रारंभ

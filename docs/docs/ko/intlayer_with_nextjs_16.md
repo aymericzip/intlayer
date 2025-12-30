@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-10-25
-updatedAt: 2025-10-26
+updatedAt: 2025-12-30
 title: Next.js 16 앱 번역 방법 – 2025 i18n 가이드
 description: Next.js 16 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역을 위한 문서를 따라가세요.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init 명령어 추가
   - version: 7.0.0
     date: 2025-06-29
     changes: 초기 기록

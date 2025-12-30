@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
-updatedAt: 2025-06-29
-title: Cara menerjemahkan aplikasi Next.js dan Page Router Anda – panduan i18n 2025
+updatedAt: 2025-12-30
+title: Cara menerjemahkan aplikasi Next.js dan Page Router Anda – panduan i18n 2026
 description: Temukan cara membuat situs web Next.js Anda yang menggunakan Page Router menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi
@@ -17,6 +17,9 @@ slugs:
   - nextjs
   - next-with-page-router
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Tambahkan perintah init
   - version: 5.6.0
     date: 2025-07-06
     changes: Mengubah fungsi `withIntlayer()` menjadi fungsi berbasis promise

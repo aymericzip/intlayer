@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-11-19
-title: Wie Sie Ihre Vite- und Svelte-App übersetzen – i18n-Anleitung 2025
+updatedAt: 2025-12-30
+title: Wie Sie Ihre Vite- und Svelte-App übersetzen – i18n-Anleitung 2026
 description: Entdecken Sie, wie Sie Ihre Vite- und Svelte-Website mehrsprachig gestalten. Folgen Sie der Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung
@@ -16,6 +16,9 @@ slugs:
   - vite-and-svelte
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Init-Befehl hinzufügen
   - version: 5.5.11
     date: 2025-11-19
     changes: Dokumentation aktualisiert

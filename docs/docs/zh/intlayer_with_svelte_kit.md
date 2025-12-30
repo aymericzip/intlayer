@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2025-11-20
+updatedAt: 2025-12-30
 title: 如何翻译您的 SvelteKit 应用 – 2025 年国际化 (i18n) 指南
 description: 了解如何使您的 SvelteKit 网站支持多语言。按照文档使用服务器端渲染 (SSR) 进行国际化 (i18n) 和翻译。
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - sveltekit
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: 添加 init 命令
   - version: 7.1.10
     date: 2025-11-20
     changes: 初始化历史记录

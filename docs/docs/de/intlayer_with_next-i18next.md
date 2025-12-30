@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2025-10-05
-title: Wie Sie Ihre Next.js 15 mit next-i18next übersetzen – i18n Anleitung 2025
+title: Wie Sie Ihre Next.js 15 mit next-i18next übersetzen – i18n Anleitung 2026
 description: Eine praxisorientierte, produktionsreife Anleitung zur Internationalisierung einer Next.js 15 App Router App mit i18next/next-i18next und zur Erweiterung mit Intlayer.
 keywords:
   - Internationalisierung

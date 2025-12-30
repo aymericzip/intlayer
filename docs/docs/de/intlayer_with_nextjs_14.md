@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
-title: Wie Sie Ihre Next.js 14 and App Router übersetzen – i18n-Leitfaden 2025
+title: Wie Sie Ihre Next.js 14 and App Router übersetzen – i18n-Leitfaden 2026
 description: Entdecken Sie, wie Sie Ihre Next.js 14 App Router-Website mehrsprachig gestalten. Befolgen Sie die Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung

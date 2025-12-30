@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2025-11-20
-title: كيفية ترجمة تطبيق SvelteKit الخاص بك – دليل i18n 2025
+updatedAt: 2025-12-30
+title: كيفية ترجمة تطبيق SvelteKit الخاص بك – دليل i18n 2026
 description: اكتشف كيفية جعل موقع SvelteKit الخاص بك متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته باستخدام العرض من جانب الخادم (SSR).
 keywords:
   - التدويل
@@ -16,6 +16,9 @@ slugs:
   - sveltekit
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: إضافة أمر init
   - version: 7.1.10
     date: 2025-11-20
     changes: بدء التاريخ

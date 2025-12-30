@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
-updatedAt: 2025-06-29
-title: अपना Next.js and Page Router ऐप कैसे अनुवाद करें – i18n गाइड 2025
+updatedAt: 2025-12-30
+title: अपना Next.js and Page Router ऐप कैसे अनुवाद करें – i18n गाइड 2026
 description: जानें कि कैसे आप Page Router का उपयोग करने वाली अपनी Next.js वेबसाइट को बहुभाषी बना सकते हैं। अंतरराष्ट्रीयकरण (i18n) और अनुवाद के लिए दस्तावेज़ का पालन करें।
 keywords:
   - अंतरराष्ट्रीयकरण
@@ -17,6 +17,9 @@ slugs:
   - nextjs
   - next-with-page-router
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init कमांड जोड़ें
   - version: 5.5.10
     date: 2025-06-29
     changes: प्रारंभिक इतिहास

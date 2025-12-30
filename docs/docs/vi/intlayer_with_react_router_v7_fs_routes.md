@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2025-10-03
-title: Cách dịch ứng dụng React Router v7 của bạn – hướng dẫn i18n 2025
+updatedAt: 2025-12-30
+title: Cách dịch ứng dụng React Router v7 của bạn – hướng dẫn i18n 2026
 description: Tìm hiểu cách thêm quốc tế hóa (i18n) vào ứng dụng React Router v7 của bạn bằng Intlayer. Theo dõi hướng dẫn toàn diện này để làm cho ứng dụng của bạn đa ngôn ngữ với định tuyến nhận biết locale.
 keywords:
   - Quốc tế hóa
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Thêm lệnh init
   - version: 6.1.5
     date: 2025-10-03
     changes: Cập nhật tài liệu

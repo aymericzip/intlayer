@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
-title: Next.js 15 uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
+updatedAt: 2025-12-30
+title: Next.js 15 uygulamanızı nasıl çevirirsiniz – i18n rehberi 2026
 description: Next.js 15 web sitenizi çok dilli hale getirmeyi öğrenin. Next.js 15 uygulamanızda uluslararasılaştırma (i18n) ve çeviri yapmak için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init komutu ekle
   - version: 5.6.0
     date: 2025-07-06
     changes: `withIntlayer()` fonksiyonunu promise tabanlı fonksiyona dönüştür

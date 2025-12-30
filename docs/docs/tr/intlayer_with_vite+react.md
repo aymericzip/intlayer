@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-12-10
-title: Vite ve React uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
+updatedAt: 2025-12-30
+title: Vite ve React uygulamanızı nasıl çevirirsiniz – i18n rehberi 2026
 description: Intlayer kullanarak Vite ve React uygulamanıza uluslararasılaştırma (i18n) eklemeyi öğrenin. Bu kılavuzu takip ederek uygulamanızı çok dilli hale getirin.
 keywords:
   - Uluslararasılaştırma
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init komutu ekle
   - version: 5.5.10
     date: 2025-06-29
     changes: Geçmiş başlatıldı

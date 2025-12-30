@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-12-11
-title: How to translate your Tanstack Start app – i18n guide 2025
+updatedAt: 2025-12-30
+title: How to translate your Tanstack Start app – i18n guide 2026
 description: Learn how to add internationalisation (i18n) to your Tanstack Start application using Intlayer. Follow this comprehensive guide to make your app multilingual with locale-aware routing.
 keywords:
   - Internationalisation
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Add init command
   - version: 7.4.0
     date: 2025-12-11
     changes: Introduce validatePrefix and add step 14: Handling 404 pages with localized routes.

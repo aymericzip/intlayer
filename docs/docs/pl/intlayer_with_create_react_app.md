@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
-title: Jak przetłumaczyć swoją aplikację Create React App – przewodnik i18n 2025
+updatedAt: 2025-12-30
+title: Jak przetłumaczyć swoją aplikację Create React App – przewodnik i18n 2026
 description: Dowiedz się, jak uczynić swoją stronę Create React App (CRA) wielojęzyczną. Postępuj zgodnie z dokumentacją, aby zrealizować internacjonalizację (i18n) i tłumaczenie.
 keywords:
   - Internacjonalizacja
@@ -17,6 +17,9 @@ slugs:
   - create-react-app
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Dodaj polecenie init
   - version: 5.5.10
     date: 2025-06-29
     changes: Inicjalizacja historii

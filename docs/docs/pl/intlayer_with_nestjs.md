@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
-title: Jak przetłumaczyć backend Nest – przewodnik i18n 2025
+updatedAt: 2025-12-30
+title: Jak przetłumaczyć backend Nest – przewodnik i18n 2026
 description: Dowiedz się, jak uczynić swój backend NestJS wielojęzycznym. Postępuj zgodnie z dokumentacją, aby internacjonalizować (i18n) i tłumaczyć.
 keywords:
   - Internacjonalizacja
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
 author: AydinTheFirst
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Dodaj polecenie init
   - version: 5.8.0
     date: 2025-09-09
     changes: Dokumentacja początkowa

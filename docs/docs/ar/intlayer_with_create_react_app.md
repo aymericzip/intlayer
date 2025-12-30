@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
-title: كيفية ترجمة تطبيق Create React App – دليل i18n 2025
+updatedAt: 2025-12-30
+title: كيفية ترجمة تطبيق Create React App – دليل i18n 2026
 description: اكتشف كيفية جعل موقع Create React App (CRA) الخاص بك متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
 keywords:
   - التدويل
@@ -17,6 +17,9 @@ slugs:
   - create-react-app
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: إضافة أمر init
   - version: 5.5.10
     date: 2025-06-29
     changes: بدء التاريخ

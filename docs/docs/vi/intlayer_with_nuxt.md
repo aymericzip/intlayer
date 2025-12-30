@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-07
-title: Cách dịch ứng dụng Nuxt và Vue của bạn – Hướng dẫn i18n 2025
+title: Cách dịch ứng dụng Nuxt và Vue của bạn – Hướng dẫn i18n 2026
 description: Khám phá cách làm cho trang web Nuxt và Vue của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa

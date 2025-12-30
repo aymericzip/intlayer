@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-10-03
-title: Astroアプリを翻訳する方法 – i18nガイド 2025
+updatedAt: 2025-12-30
+title: Astroアプリを翻訳する方法 – i18nガイド 2026
 description: Intlayerを使用してAstroウェブサイトに国際化（i18n）を追加する方法を学びます。このガイドに従ってサイトを多言語対応にしましょう。
 keywords:
   - 国際化
@@ -17,6 +17,9 @@ slugs:
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: initコマンドを追加
   - version: 6.2.0
     date: 2025-10-03
     changes: Astro統合、設定、使用法のリフレッシュ

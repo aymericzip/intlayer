@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-11-19
-title: Как перевести ваше приложение на Vite и Svelte – руководство по i18n 2025
+updatedAt: 2025-12-30
+title: Как перевести ваше приложение на Vite и Svelte – руководство по i18n 2026
 description: Узнайте, как сделать ваш сайт на Vite и Svelte многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация
@@ -16,6 +16,9 @@ slugs:
   - vite-and-svelte
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Добавить команду init
   - version: 5.5.11
     date: 2025-11-19
     changes: Обновление документации

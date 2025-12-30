@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-11-19
-title: अपने Vite और Svelte ऐप का अनुवाद कैसे करें – i18n गाइड 2025
+updatedAt: 2025-12-30
+title: अपने Vite और Svelte ऐप का अनुवाद कैसे करें – i18n गाइड 2026
 description: जानें कि अपनी Vite और Svelte वेबसाइट को बहुभाषी कैसे बनाएं। अंतरराष्ट्रीयकरण (i18n) और अनुवाद के लिए दस्तावेज़ का पालन करें।
 keywords:
   - अंतरराष्ट्रीयकरण
@@ -16,6 +16,9 @@ slugs:
   - vite-and-svelte
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init कमांड जोड़ें
   - version: 5.5.11
     date: 2025-11-19
     changes: दस्तावेज़ अपडेट करें

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2025-06-29
-title: Jak przetłumaczyć swoją aplikację mobilną Lynx i React – przewodnik i18n 2025
+updatedAt: 2025-12-30
+title: Jak przetłumaczyć swoją aplikację mobilną Lynx i React – przewodnik i18n 2026
 description: Dowiedz się, jak uczynić swoją aplikację mobilną Lynx i React wielojęzyczną. Postępuj zgodnie z dokumentacją, aby zinternacjonalizować (i18n) i przetłumaczyć aplikację.
 keywords:
   - Internacjonalizacja
@@ -17,6 +17,9 @@ slugs:
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Dodaj polecenie init
   - version: 5.5.10
     date: 2025-06-29
     changes: Inicjalizacja historii

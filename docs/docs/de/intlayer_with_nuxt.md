@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-07
-title: So übersetzen Sie Ihre Nuxt- und Vue-App – i18n-Anleitung 2025
+title: So übersetzen Sie Ihre Nuxt- und Vue-App – i18n-Anleitung 2026
 description: Entdecken Sie, wie Sie Ihre Nuxt- und Vue-Website mehrsprachig gestalten. Folgen Sie der Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung

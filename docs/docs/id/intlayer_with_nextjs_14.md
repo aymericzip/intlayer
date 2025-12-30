@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-09-22
-title: Cara Menerjemahkan Next.js 14 dan App Router Anda – Panduan i18n 2025
+updatedAt: 2025-12-30
+title: Cara Menerjemahkan Next.js 14 dan App Router Anda – Panduan i18n 2026
 description: Temukan cara membuat situs web Next.js 14 App Router Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi
@@ -17,6 +17,9 @@ slugs:
   - 14
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Tambahkan perintah init
   - version: 6.2.0
     date: 2025-10-09
     changes: Menambahkan dokumentasi untuk hook `useLocale` dengan opsi `onLocaleChange`

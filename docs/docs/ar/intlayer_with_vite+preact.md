@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: كيفية ترجمة تطبيق Vite and Preact – دليل i18n 2025
+updatedAt: 2025-12-30
+title: كيفية ترجمة تطبيق Vite and Preact – دليل i18n 2026
 description: اكتشف كيفية جعل موقعك باستخدام Vite و Preact متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل
@@ -16,6 +16,9 @@ slugs:
   - vite-and-preact
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: إضافة أمر init
   - version: 5.5.10
     date: 2025-06-29
     changes: بداية التاريخ

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2025-12-27
-title: Jak przetłumaczyć aplikację React Router v7 – przewodnik i18n 2025
+updatedAt: 2025-12-30
+title: Jak przetłumaczyć aplikację React Router v7 – przewodnik i18n 2026
 description: Dowiedz się, jak dodać internacjonalizację (i18n) do swojej aplikacji React Router v7 za pomocą Intlayer. Postępuj zgodnie z tym kompleksowym przewodnikiem, aby uczynić swoją aplikację wielojęzyczną z routingiem uwzględniającym lokalizację.
 keywords:
   - Internacjonalizacja
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Dodaj polecenie init
   - version: 7.5.6
     date: 2025-12-27
     changes: Zaktualizuj Layout i obsłuż 404

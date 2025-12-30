@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-10-03
-title: How to translate your Astro app – i18n guide 2025
+updatedAt: 2025-12-30
+title: How to translate your Astro app – i18n guide 2026
 description: Learn how to add internationalisation (i18n) to your Astro website using Intlayer. Follow this guide to make your site multilingual.
 keywords:
   - Internationalisation
@@ -17,6 +17,9 @@ slugs:
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Add init command
   - version: 6.2.0
     date: 2025-10-03
     changes: Refresh for Astro integration, config, usage

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
-title: كيفية ترجمة تطبيق Express backend – دليل i18n 2025
+updatedAt: 2025-12-30
+title: كيفية ترجمة تطبيق Express backend – دليل i18n 2026
 description: اكتشف كيفية جعل الواجهة الخلفية لـ Express متعددة اللغات. اتبع الوثائق لتدويل (i18n) وترجمتها.
 keywords:
   - دولية
@@ -15,6 +15,9 @@ slugs:
   - environment
   - express
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: إضافة أمر init
   - version: 5.5.10
     date: 2025-06-29
     changes: بداية التاريخ

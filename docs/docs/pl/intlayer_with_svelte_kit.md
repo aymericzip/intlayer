@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2025-11-20
-title: Jak przetłumaczyć swoją aplikację SvelteKit – przewodnik i18n 2025
+updatedAt: 2025-12-30
+title: Jak przetłumaczyć swoją aplikację SvelteKit – przewodnik i18n 2026
 description: Dowiedz się, jak uczynić swoją stronę SvelteKit wielojęzyczną. Postępuj zgodnie z dokumentacją, aby zinternacjonalizować (i18n) i przetłumaczyć ją za pomocą Server-Side Rendering (SSR).
 keywords:
   - Internacjonalizacja
@@ -16,6 +16,9 @@ slugs:
   - sveltekit
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Dodaj polecenie init
   - version: 7.1.10
     date: 2025-11-20
     changes: Inicjalizacja historii

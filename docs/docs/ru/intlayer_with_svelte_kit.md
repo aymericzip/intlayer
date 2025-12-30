@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2025-11-20
-title: Как перевести ваше приложение SvelteKit – руководство по i18n 2025
+updatedAt: 2025-12-30
+title: Как перевести ваше приложение SvelteKit – руководство по i18n 2026
 description: Узнайте, как сделать ваш сайт на SvelteKit многоязычным. Следуйте документации по интернационализации (i18n) и переводу с использованием серверного рендеринга (SSR).
 keywords:
   - Интернационализация
@@ -16,6 +16,9 @@ slugs:
   - sveltekit
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Добавить команду init
   - version: 7.1.10
     date: 2025-11-20
     changes: Инициализация истории

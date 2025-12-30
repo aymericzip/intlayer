@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
-title: React Native and Expo uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
+updatedAt: 2025-12-30
+title: React Native and Expo uygulamanızı nasıl çevirirsiniz – i18n rehberi 2026
 description: React Native ve Expo web sitenizi çok dilli hale getirmeyi öğrenin. Uluslararasılaştırma (i18n) ve çeviri yapmak için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma
@@ -16,6 +16,9 @@ slugs:
   - react-native-and-expo
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init komutu ekle
   - version: 5.5.10
     date: 2025-06-29
     changes: Geçmişi başlat

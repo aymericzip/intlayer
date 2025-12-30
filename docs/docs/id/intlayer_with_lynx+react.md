@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2025-06-29
-title: Cara menerjemahkan aplikasi mobile Lynx dan React Anda – panduan i18n 2025
+updatedAt: 2025-12-30
+title: Cara menerjemahkan aplikasi mobile Lynx dan React Anda – panduan i18n 2026
 description: Temukan cara membuat aplikasi mobile Lynx dan React Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi
@@ -17,6 +17,9 @@ slugs:
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Tambahkan perintah init
   - version: 5.5.10
     date: 2025-06-29
     changes: Inisialisasi riwayat

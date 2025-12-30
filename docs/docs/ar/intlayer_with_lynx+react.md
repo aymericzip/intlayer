@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2025-06-29
-title: كيفية ترجمة تطبيق Lynx and React mobile app – دليل i18n 2025
+updatedAt: 2025-12-30
+title: كيفية ترجمة تطبيق Lynx and React mobile app – دليل i18n 2026
 description: اكتشف كيفية جعل موقعك الذي يستخدم Lynx و React مع Page Router متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
 keywords:
   - التدويل
@@ -17,6 +17,9 @@ slugs:
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: إضافة أمر init
   - version: 5.5.10
     date: 2025-06-29
     changes: بدء السجل

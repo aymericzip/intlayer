@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-12-11
-title: Cách dịch ứng dụng Tanstack Start của bạn – hướng dẫn i18n 2025
+updatedAt: 2025-12-30
+title: Cách dịch ứng dụng Tanstack Start của bạn – hướng dẫn i18n 2026
 description: Tìm hiểu cách thêm quốc tế hóa (i18n) vào ứng dụng Tanstack Start của bạn bằng cách sử dụng Intlayer. Theo dõi hướng dẫn toàn diện này để làm cho ứng dụng của bạn đa ngôn ngữ với định tuyến nhận biết locale.
 keywords:
   - Quốc tế hóa
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Thêm lệnh init
   - version: 7.4.0
     date: 2025-12-11
     changes: Giới thiệu validatePrefix và thêm bước 14: Xử lý trang 404 với các tuyến đường được bản địa hóa.

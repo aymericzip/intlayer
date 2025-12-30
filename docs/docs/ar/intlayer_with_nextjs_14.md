@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
-title: كيفية ترجمة تطبيق Next.js 14 and App Router – دليل i18n 2025
+title: كيفية ترجمة تطبيق Next.js 14 and App Router – دليل i18n 2026
 description: اكتشف كيفية جعل موقع Next.js 14 App Router الخاص بك متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدوين الدولي

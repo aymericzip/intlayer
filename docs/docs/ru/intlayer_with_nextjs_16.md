@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-25
-updatedAt: 2025-10-26
-title: Как перевести ваше приложение Next.js 16 – руководство по i18n 2025
+updatedAt: 2025-12-30
+title: Как перевести ваше приложение Next.js 16 – руководство по i18n 2026
 description: Узнайте, как сделать ваш сайт на Next.js 16 многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Добавить команду init
   - version: 7.0.0
     date: 2025-06-29
     changes: Инициализация истории

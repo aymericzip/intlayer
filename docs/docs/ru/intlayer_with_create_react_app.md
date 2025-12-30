@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
-title: Как перевести ваше Create React App – руководство i18n 2025
+updatedAt: 2025-12-30
+title: Как перевести ваше Create React App – руководство i18n 2026
 description: Узнайте, как сделать ваш сайт Create React App (CRA) многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация
@@ -17,6 +17,9 @@ slugs:
   - create-react-app
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Добавить команду init
   - version: 5.5.10
     date: 2025-06-29
     changes: Инициализация истории

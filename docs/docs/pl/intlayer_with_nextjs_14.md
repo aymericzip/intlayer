@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-09-22
-title: Jak przetłumaczyć swoją stronę Next.js 14 i App Router – przewodnik i18n 2025
+updatedAt: 2025-12-30
+title: Jak przetłumaczyć swoją stronę Next.js 14 i App Router – przewodnik i18n 2026
 description: Dowiedz się, jak uczynić swoją stronę Next.js 14 App Router wielojęzyczną. Postępuj zgodnie z dokumentacją, aby ją internacjonalizować (i18n) i tłumaczyć.
 keywords:
   - Internacjonalizacja
@@ -17,6 +17,9 @@ slugs:
   - 14
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Dodaj polecenie init
   - version: 6.2.0
     date: 2025-10-09
     changes: Dodano dokumentację dla hooka `useLocale` z opcją `onLocaleChange`

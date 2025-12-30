@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-12-11
-title: 如何翻译您的Tanstack Start应用 – i18n指南 2025
+updatedAt: 2025-12-30
+title: 如何翻译您的Tanstack Start应用 – i18n指南 2026
 description: 学习如何使用 Intlayer 为您的 Tanstack Start 应用添加国际化 (i18n)。按照本综合指南，使您的应用支持多语言并具备基于区域设置的路由功能。
 keywords:
   - 国际化
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: 添加 init 命令
   - version: 7.4.0
     date: 2025-12-11
     changes: 引入 validatePrefix 并添加步骤 14: 处理带有本地化路由的 404 页面。

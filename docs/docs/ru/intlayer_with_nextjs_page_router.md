@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
-updatedAt: 2025-06-29
-title: Как перевести ваше Next.js and Page Router – руководство i18n 2025
+updatedAt: 2025-12-30
+title: Как перевести ваше Next.js and Page Router – руководство i18n 2026
 description: Узнайте, как сделать ваш сайт на Next.js с использованием Page Router многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация
@@ -17,6 +17,9 @@ slugs:
   - nextjs
   - next-with-page-router
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Добавить команду init
   - version: 5.5.10
     date: 2025-06-29
     changes: Инициализация истории

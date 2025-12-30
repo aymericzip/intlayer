@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: 如何翻译您的Vite and Preact应用 – i18n指南 2025
+updatedAt: 2025-12-30
+title: 如何翻译您的Vite and Preact应用 – i18n指南 2026
 description: 了解如何使您的 Vite 和 Preact 网站支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化
@@ -16,6 +16,9 @@ slugs:
   - vite-and-preact
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: 添加 init 命令
   - version: 5.5.10
     date: 2025-06-29
     changes: 初始化历史

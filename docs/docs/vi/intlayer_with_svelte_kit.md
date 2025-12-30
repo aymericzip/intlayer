@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2025-11-20
-title: Cách dịch ứng dụng SvelteKit của bạn – hướng dẫn i18n 2025
+updatedAt: 2025-12-30
+title: Cách dịch ứng dụng SvelteKit của bạn – hướng dẫn i18n 2026
 description: Khám phá cách làm cho trang web SvelteKit của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó bằng cách sử dụng Server-Side Rendering (SSR).
 keywords:
   - Quốc tế hóa
@@ -16,6 +16,9 @@ slugs:
   - sveltekit
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Thêm lệnh init
   - version: 7.1.10
     date: 2025-11-20
     changes: Khởi tạo lịch sử

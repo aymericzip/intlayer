@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
-title: كيفية ترجمة تطبيق Nest backend – دليل i18n 2025
+updatedAt: 2025-12-30
+title: كيفية ترجمة تطبيق Nest backend – دليل i18n 2026
 description: اكتشف كيفية جعل خلفية NestJS الخاصة بك متعددة اللغات. اتبع الوثائق لتدويل (i18n) وترجمتها.
 keywords:
   - التدويل
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
 author: AydinTheFirst
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: إضافة أمر init
   - version: 5.8.0
     date: 2025-09-09
     changes: الوثيقة الأولية

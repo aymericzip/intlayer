@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-12-10
-title: Как перевести ваше приложение на Vite и React – руководство по i18n 2025
+updatedAt: 2025-12-30
+title: Как перевести ваше приложение на Vite и React – руководство по i18n 2026
 description: Узнайте, как добавить интернационализацию (i18n) в ваше приложение на Vite и React с помощью Intlayer. Следуйте этому руководству, чтобы сделать ваше приложение многоязычным.
 keywords:
   - Интернационализация
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Добавить команду init
   - version: 5.5.10
     date: 2025-06-29
     changes: Инициализация истории

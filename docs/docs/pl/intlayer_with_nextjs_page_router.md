@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
-updatedAt: 2025-06-29
-title: Jak przetłumaczyć swoją aplikację Next.js i Page Router – przewodnik i18n 2025
+updatedAt: 2025-12-30
+title: Jak przetłumaczyć swoją aplikację Next.js i Page Router – przewodnik i18n 2026
 description: Dowiedz się, jak uczynić swoją stronę Next.js korzystającą z Page Router wielojęzyczną. Postępuj zgodnie z dokumentacją, aby zrealizować internacjonalizację (i18n) i tłumaczenie.
 keywords:
   - Internacjonalizacja
@@ -17,6 +17,9 @@ slugs:
   - nextjs
   - next-with-page-router
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Dodaj polecenie init
   - version: 5.6.0
     date: 2025-07-06
     changes: Przekształcenie funkcji `withIntlayer()` na funkcję opartą na promise

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
-title: Next.js and Page Router uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
+updatedAt: 2025-12-30
+title: Next.js and Page Router uygulamanızı nasıl çevirirsiniz – i18n rehberi 2026
 description: Next.js Sayfa Yönlendirici kullanarak web sitenizi çok dilli hale getirmeyi öğrenin. Next.js uygulamanızda uluslararasılaştırma (i18n) ve çeviri yapmak için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma
@@ -17,6 +17,9 @@ slugs:
   - nextjs
   - next-with-page-router
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: init komutu ekle
   - version: 5.6.0
     date: 2025-07-06
     changes: `withIntlayer()` fonksiyonunu promise tabanlı fonksiyona dönüştür

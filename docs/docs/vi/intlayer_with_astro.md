@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-10-03
-title: Cách dịch ứng dụng Astro của bạn – Hướng dẫn i18n 2025
+updatedAt: 2025-12-30
+title: Cách dịch ứng dụng Astro của bạn – Hướng dẫn i18n 2026
 description: Tìm hiểu cách thêm quốc tế hóa (i18n) vào trang web Astro của bạn bằng Intlayer. Làm theo hướng dẫn này để làm cho trang web của bạn đa ngôn ngữ.
 keywords:
   - Quốc tế hóa
@@ -17,6 +17,9 @@ slugs:
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Thêm lệnh init
   - version: 6.2.0
     date: 2025-10-03
     changes: Làm mới hướng dẫn tích hợp Astro, cấu hình, cách sử dụng

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-10-03
-title: Jak przetłumaczyć swoją aplikację Astro – przewodnik i18n 2025
+updatedAt: 2025-12-30
+title: Jak przetłumaczyć swoją aplikację Astro – przewodnik i18n 2026
 description: Dowiedz się, jak dodać internacjonalizację (i18n) do swojej strony Astro za pomocą Intlayer. Postępuj zgodnie z tym przewodnikiem, aby uczynić swoją stronę wielojęzyczną.
 keywords:
   - Internacjonalizacja
@@ -17,6 +17,9 @@ slugs:
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Dodaj polecenie init
   - version: 6.2.0
     date: 2025-10-03
     changes: Odświeżenie integracji z Astro, konfiguracji, użytkowania
@@ -27,7 +30,7 @@ history:
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyodrębnić swoją zawartość, korzystając z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).---
 createdAt: 2024-03-07
 updatedAt: 2025-10-03
-title: Jak przetłumaczyć swoją aplikację Astro – przewodnik i18n 2025
+title: Jak przetłumaczyć swoją aplikację Astro – przewodnik i18n 2026
 description: Dowiedz się, jak dodać internacjonalizację (i18n) do swojej strony Astro za pomocą Intlayer. Postępuj zgodnie z tym przewodnikiem, aby uczynić swoją stronę wielojęzyczną.
 keywords:
 

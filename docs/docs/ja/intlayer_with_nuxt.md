@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-07
-title: Nuxt と Vue アプリを翻訳する方法 – i18n ガイド 2025
+title: Nuxt と Vue アプリを翻訳する方法 – i18n ガイド 2026
 description: Nuxt と Vue のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
 keywords:
   - 国際化

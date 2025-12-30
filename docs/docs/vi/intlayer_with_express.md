@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
-title: Cách dịch backend Express của bạn – Hướng dẫn i18n 2025
+updatedAt: 2025-12-30
+title: Cách dịch backend Express của bạn – Hướng dẫn i18n 2026
 description: Khám phá cách làm cho backend Express của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa
@@ -15,6 +15,9 @@ slugs:
   - environment
   - express
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Thêm lệnh init
   - version: 5.5.10
     date: 2025-06-29
     changes: Khởi tạo lịch sử

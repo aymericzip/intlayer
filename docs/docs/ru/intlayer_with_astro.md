@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-10-03
-title: Как перевести ваше Astro – руководство i18n 2025
+updatedAt: 2025-12-30
+title: Как перевести ваше Astro – руководство i18n 2026
 description: Узнайте, как добавить интернационализацию (i18n) на ваш сайт Astro с помощью Intlayer. Следуйте этому руководству, чтобы сделать ваш сайт многоязычным.
 keywords:
   - Интернационализация
@@ -17,6 +17,9 @@ slugs:
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: Добавить команду init
   - version: 6.2.0
     date: 2025-10-03
     changes: Обновление для интеграции с Astro, конфигурация, использование

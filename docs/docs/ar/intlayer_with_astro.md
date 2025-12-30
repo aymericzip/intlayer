@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-10-03
-title: كيفية ترجمة تطبيق Astro – دليل i18n 2025
+updatedAt: 2025-12-30
+title: كيفية ترجمة تطبيق Astro – دليل i18n 2026
 description: تعلّم كيفية إضافة التدويل (i18n) إلى موقع Astro الخاص بك باستخدام Intlayer. اتبع هذا الدليل لجعل موقعك متعدد اللغات.
 keywords:
   - التدويل
@@ -17,6 +17,9 @@ slugs:
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: إضافة أمر init
   - version: 6.2.0
     date: 2025-10-03
     changes: تحديث لتكامل Astro، الإعدادات، الاستخدام
