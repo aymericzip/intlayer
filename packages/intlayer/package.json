@@ -80,6 +80,7 @@
     "dev": "tsdown --config tsdown.config.ts --watch",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
+    "postinstall": "npx intlayer init",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "prepublish": "echo prepublish temporally disabled to avoid rewrite readme",

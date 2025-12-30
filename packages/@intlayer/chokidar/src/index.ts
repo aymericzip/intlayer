@@ -23,6 +23,7 @@ export { getContentDeclarationFileTemplate } from './getContentDeclarationFileTe
 export { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 export { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
 export { handleUnlinkedContentDeclarationFile } from './handleUnlinkedContentDeclarationFile';
+export { initIntlayer } from './init/index';
 export {
   listDictionaries,
   listDictionariesWithStats,

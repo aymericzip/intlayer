@@ -13,6 +13,7 @@ import { build } from './build';
 import { getConfig } from './config';
 import { startEditor } from './editor';
 import { type FillOptions, fill } from './fill/fill';
+import { init } from './init';
 import { listContentDeclaration } from './listContentDeclaration';
 import { liveSync } from './liveSync';
 import { pull } from './pull';
@@ -272,6 +273,14 @@ export const setAPI = (): Command => {
       configOptions,
     });
   });
+
+  /**
+   * INIT
+   */
+  program
+    .command('init')
+    .description('Initialize Intlayer in the project')
+    .action(() => init());
 
   /**
    * DICTIONARIES

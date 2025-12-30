@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { dirname, extname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import {
@@ -11,6 +12,16 @@ import { getPackageJsonPath } from '..';
 import { getLoader } from './bundleFile';
 
 export type ESBuildPlugin = Plugin;
+
+const getTsConfigPath = (filePath: string): string | undefined => {
+  const tsconfigPath = join(
+    getPackageJsonPath(dirname(filePath)).baseDir,
+    'tsconfig.json'
+  );
+
+  // Only return the tsconfig path if it exists
+  return existsSync(tsconfigPath) ? tsconfigPath : undefined;
+};
 
 const getTransformationOptions = (filePath: string): BuildOptions => ({
   loader: {
@@ -30,10 +41,7 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
   write: false,
   packages: 'external',
   bundle: true,
-  tsconfig: join(
-    getPackageJsonPath(dirname(filePath)).baseDir,
-    'tsconfig.json'
-  ),
+  tsconfig: getTsConfigPath(filePath),
   define: {
     'import.meta.url': JSON.stringify(pathToFileURL(filePath).href),
   },

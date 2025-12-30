@@ -1,6 +1,7 @@
 import {
   build,
   fill,
+  init,
   listContentDeclarationRows,
   listMissingTranslations,
   pull,
@@ -14,6 +15,43 @@ import z from 'zod/v3';
 type LoadCLITools = (server: McpServer) => Promise<void>;
 
 export const loadCLITools: LoadCLITools = async (server) => {
+  server.registerTool(
+    'intlayer-init',
+    {
+      title: 'Initialize Intlayer',
+      description: 'Initialize Intlayer in the project',
+      inputSchema: {},
+      annotations: {
+        destructiveHint: true,
+      },
+    },
+    async () => {
+      try {
+        await init();
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: 'Initialization successful.',
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Initialization failed: ${errorMessage}`,
+            },
+          ],
+        };
+      }
+    }
+  );
+
   server.registerTool(
     'intlayer-build',
     {

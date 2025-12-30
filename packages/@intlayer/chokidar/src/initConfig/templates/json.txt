@@ -1,0 +1,7 @@
+{
+  "internationalization": {
+    "locales": ["en"],
+    "defaultLocale": "en"
+  }
+}
+

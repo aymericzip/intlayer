@@ -30,6 +30,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*", ".next/types/**/*.ts", ".intlayer/**/*.ts"],
+  "include": ["**/*", ".intlayer/**/*.ts", ".intlayer/types/**/*.ts"],
   "exclude": ["node_modules", ".next", "public/sw.js"]
 }

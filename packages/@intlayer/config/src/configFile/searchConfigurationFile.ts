@@ -3,15 +3,14 @@ import { resolve } from 'node:path';
 import { logger } from '../logger';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 
-const EXTENSION = ['ts', 'js', 'json', 'cjs', 'mjs', ''];
-const CONFIGURATION_FILE_NAME_1 = 'intlayer.config';
-const CONFIGURATION_FILE_NAME_2 = '.intlayerrc';
-
-const intLayerConfigFiles = EXTENSION.filter(
-  (extension) => extension !== ''
-).map((ext) => `${CONFIGURATION_FILE_NAME_1}.${ext}`);
-
-const configurationFiles = [...intLayerConfigFiles, CONFIGURATION_FILE_NAME_2];
+export const configurationFilesCandidates = [
+  'intlayer.config.ts',
+  'intlayer.config.js',
+  'intlayer.config.json',
+  'intlayer.config.cjs',
+  'intlayer.config.mjs',
+  '.intlayerrc',
+] as const;
 
 type SearchConfigurationFileResult = {
   configurationFilePath?: string;
@@ -37,7 +36,7 @@ export const searchConfigurationFile = (
 
   const { baseDir } = getPackageJsonPath(startDir);
 
-  for (const fileName of configurationFiles) {
+  for (const fileName of configurationFilesCandidates) {
     try {
       const filePath = resolve(baseDir, fileName);
 
