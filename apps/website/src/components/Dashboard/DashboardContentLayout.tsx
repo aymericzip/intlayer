@@ -13,7 +13,7 @@ export const DashboardContentLayout: FC<DashboardContentLayoutProps> = ({
 }) => (
   <>
     <h1
-      className="sticky top-0 z-50 border-neutral border-b-[0.5px] bg-background p-6 pl-10 text-3xl"
+      className="sticky top-0 z-30 border-neutral border-b-[0.5px] bg-background p-6 pl-10 text-3xl"
       style={{
         // Indicates that the animation follows the page scroll
         animationTimeline: 'scroll()',
