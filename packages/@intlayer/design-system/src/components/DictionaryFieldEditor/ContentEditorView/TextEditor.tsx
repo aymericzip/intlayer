@@ -284,8 +284,9 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
           ).map((enumKey) => {
             const childrenKeyPath = [
               ...keyPath,
-              { type: NodeType.Enumeration },
+              { type: NodeType.Enumeration, key: enumKey },
             ] as KeyPath[];
+
             return (
               <Fragment key={enumKey}>
                 <tr className="mt-2 w-full">
@@ -293,10 +294,11 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                     <div className="flex flex-1">
                       <Button
                         label={removeEnumeration.label.value}
-                        variant={ButtonVariant.HOVERABLE}
-                        color={ButtonColor.TEXT}
+                        variant="hoverable"
+                        size="sm"
+                        color="error"
+                        className="ml-auto text-neutral hover:text-error"
                         Icon={Trash}
-                        className="ml-auto"
                         onClick={() =>
                           addEditedContent(
                             dictionary.localId!,
@@ -318,6 +320,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                         const preValueContent = (
                           section as EnumerationContent<string>
                         )[NodeType.Enumeration];
+
                         const newValueContent = renameKey(
                           preValueContent,
                           enumKey as keyof typeof preValueContent,
@@ -327,6 +330,8 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                           ...(section as EnumerationContent<string>),
                           [NodeType.Enumeration]: newValueContent,
                         };
+
+                        console.log('newValue', newValue);
 
                         addEditedContent(
                           dictionary.localId!,
@@ -483,16 +488,16 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
                     <span className="text-xs">{String(index)}</span>
                     <Button
                       label={removeElement.label.value}
-                      variant={ButtonVariant.HOVERABLE}
-                      color={ButtonColor.NEUTRAL}
-                      className="ml-auto"
-                      textAlign={ButtonTextAlign.LEFT}
+                      variant="hoverable"
+                      size="sm"
+                      color="error"
+                      className="ml-auto text-neutral hover:text-error"
                       onClick={() => {
                         const newKeyPath: KeyPath[] = [
                           ...keyPath,
                           {
                             type: NodeType.Array,
-                            key: (section as unknown as ContentNode[]).length,
+                            key: index, // Fixed: Use index instead of length
                           },
                         ];
                         addEditedContent(
@@ -543,7 +548,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
             ...keyPath,
             {
               type: NodeType.Array,
-              key: (section as unknown as ContentNode[]).length,
+              key: (section as unknown as ContentNode[]).length, // Keeps length for adding new items
             },
           ];
           addEditedContent(

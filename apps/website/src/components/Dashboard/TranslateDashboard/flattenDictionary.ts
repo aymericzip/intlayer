@@ -1,4 +1,4 @@
-import { getNodeChildren, getNodeType } from '@intlayer/core';
+import { getNodeType } from '@intlayer/core';
 import {
   type ContentNode,
   type Dictionary,
@@ -21,8 +21,7 @@ export const flattenDictionary = (
   const traverse = (node: ContentNode, keyPath: KeyPath[]) => {
     const nodeType = getNodeType(node);
 
-    // 1. Terminal Leafs (Primitives & Translations)
-    // We ALWAYS stop here. We never want to see "en-GB" in the list view.
+    // Terminal Leafs (Primitives, Translations & ReactNodes)
     if (
       nodeType === NodeType.Translation ||
       nodeType === NodeType.ReactNode ||
@@ -39,26 +38,70 @@ export const flattenDictionary = (
       return;
     }
 
-    // 2. Structural Containers (Pure Objects & Arrays)
-    // We ALWAYS traverse these to find the content inside.
+    // Arrays (Unified Logic)
+    if (nodeType === NodeType.Array) {
+      const arrayContent = node as unknown as ContentNode[];
+
+      const hasComplexChildren = arrayContent.some((value) => {
+        const childType = getNodeType(value);
+        return (
+          childType === NodeType.Object ||
+          childType === NodeType.Array ||
+          childType === NodeType.Translation ||
+          childType === NodeType.Markdown ||
+          childType === NodeType.Insertion
+        );
+      });
+
+      if (hasComplexChildren) {
+        arrayContent.forEach((value, index) => {
+          traverse(value, [...keyPath, { type: NodeType.Array, key: index }]);
+        });
+        return;
+      }
+
+      flattened.push({
+        dictionary,
+        keyPath,
+        content: node,
+        nodeType,
+      });
+      return;
+    }
+
+    // Objects
     if (nodeType === NodeType.Object) {
       const obj = node as unknown as Record<string, ContentNode>;
-      Object.entries(obj).forEach(([key, value]) => {
-        traverse(value, [...keyPath, { type: NodeType.Object, key }]);
+      const entries = Object.entries(obj);
+
+      const hasComplexChildren = entries.some(([_, value]) => {
+        const childType = getNodeType(value);
+        return (
+          childType === NodeType.Object ||
+          childType === NodeType.Array ||
+          childType === NodeType.Translation ||
+          childType === NodeType.Markdown ||
+          childType === NodeType.Insertion
+        );
+      });
+
+      if (hasComplexChildren) {
+        entries.forEach(([key, value]) => {
+          traverse(value, [...keyPath, { type: NodeType.Object, key }]);
+        });
+        return;
+      }
+
+      flattened.push({
+        dictionary,
+        keyPath,
+        content: node,
+        nodeType,
       });
       return;
     }
 
-    if (nodeType === NodeType.Array) {
-      const arr = node as unknown as ContentNode[];
-      arr.forEach((value, index) => {
-        traverse(value, [...keyPath, { type: NodeType.Array, key: index }]);
-      });
-      return;
-    }
-
-    // 3. Intlayer Wrappers (Markdown, Insertion, Condition, Enumeration, etc.)
-    // These are the tricky ones.
+    // Intlayer Wrappers (Markdown, Insertion, etc.)
     if (
       nodeType === NodeType.Markdown ||
       nodeType === NodeType.Enumeration ||
@@ -68,37 +111,28 @@ export const flattenDictionary = (
       nodeType === NodeType.Nested ||
       nodeType === NodeType.File
     ) {
-      const innerContent = getNodeChildren(node as any);
-      const innerType = getNodeType(innerContent);
+      // Explicitly handle Insertion and Markdown to traverse into Translation content
+      // This bypasses generic getNodeChildren/wrapperKey lookup which may be flaky for these types
+      if (nodeType === NodeType.Insertion || nodeType === NodeType.Markdown) {
+        const contentKey =
+          nodeType === NodeType.Insertion ? 'insertion' : 'markdown';
+        const innerContent = (node as Record<string, any>)[contentKey];
 
-      // CRITICAL CHECK:
-      // If the content inside is a Translation (or primitive), we STOP.
-      // We want the Editor to display the Wrapper (e.g. Markdown), and let the Editor handle the Translation inside.
-      // This prevents breadcrumbs like: Key > Markdown > Translation > en-GB
-      if (
-        innerType === NodeType.Translation ||
-        innerType === NodeType.Text ||
-        innerType === NodeType.Number ||
-        innerType === NodeType.Boolean ||
-        innerType === NodeType.File // File inside Markdown
-      ) {
-        flattened.push({
-          dictionary,
-          keyPath,
-          content: node,
-          nodeType,
-        });
-        return;
+        // Ensure we only traverse if the inner content is a Translation
+        if (
+          innerContent &&
+          getNodeType(innerContent) === NodeType.Translation
+        ) {
+          traverse(innerContent, [
+            ...keyPath,
+            { type: nodeType, key: contentKey },
+          ]);
+
+          return;
+        }
       }
 
-      // If the content inside is a complex Object/Array, we MIGHT need to traverse.
-      // Example: A Condition containing complex objects in its cases.
-      // However, usually, the Editor components (EnumerationTextEditor, etc.) handle their own keys.
-      // So usually, we treat Intlayer Nodes as Leafs.
-
-      // If you really want to flatten nested objects inside wrappers (rare),
-      // you would uncomment the traversal below.
-      // But for 99% of cases, pushing the node here is the correct behavior for the Dashboard.
+      // Default to leaf for unknown complex wrappers or if no Translation found inside
       flattened.push({
         dictionary,
         keyPath,

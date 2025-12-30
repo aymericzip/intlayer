@@ -126,19 +126,49 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     if (nodeType === NodeType.Array) {
       return (
         <div className="flex flex-col justify-between gap-2">
-          {(section as unknown as ContentNode[]).map((_, index) => {
+          {(section as unknown as ContentNode[]).map((subSection, index) => {
             const childKeyPath: KeyPath[] = [
               ...keyPath,
               { type: NodeType.Array, key: index },
             ];
 
+            const isEditableSubSection = getIsEditableSection(subSection);
+
+            if (isEditableSubSection) {
+              return (
+                <Button
+                  key={JSON.stringify(childKeyPath)}
+                  label={`${goToField.label.value} ${index}`}
+                  variant={ButtonVariant.HOVERABLE}
+                  color={ButtonColor.TEXT}
+                  className="w-full"
+                  onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                  IconRight={ChevronRight}
+                  isActive={getIsSelected(childKeyPath)}
+                >
+                  Item {index}
+                </Button>
+              );
+            }
+
             return (
-              <NavigationViewNode
+              <Accordion
                 key={JSON.stringify(childKeyPath)}
-                keyPath={childKeyPath}
-                section={sectionProp}
-                dictionary={dictionary}
-              />
+                label={`${goToField.label.value} ${index}`}
+                header={`Item ${index}`}
+                isActive={getIsSelected(childKeyPath)}
+                onClick={() => setFocusedContentKeyPath(childKeyPath)}
+              >
+                <div className="mt-2 flex w-full max-w-full">
+                  <div className="flex-1 pl-10">
+                    <NavigationViewNode
+                      keyPath={childKeyPath}
+                      section={sectionProp}
+                      dictionary={dictionary}
+                    />
+                  </div>
+                </div>
+              </Accordion>
             );
           })}
 

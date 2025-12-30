@@ -46,6 +46,10 @@ const TranslateRow: FC<{
   const { defaultLocale } = configuration.internationalization;
   const { addTranslation } = useIntlayer('dictionary-list');
 
+  if (JSON.stringify(keyPath).includes('myMultilingualInsertion')) {
+    console.log({ originalContent });
+  }
+
   // Use edited content if available, otherwise fall back to original content from node
   const editedDictionaryContent = editedContent?.[dictionary.localId!]?.content;
   const content =
@@ -53,12 +57,7 @@ const TranslateRow: FC<{
       ? originalContent
       : getContentNodeByKeyPath(editedDictionaryContent, keyPath);
 
-  const isMultilingual =
-    nodeType === NodeType.Translation ||
-    (nodeType === NodeType.Insertion &&
-      getNodeType((originalContent as any).content) === NodeType.Translation);
-
-  if (isMultilingual) {
+  if (nodeType === NodeType.Translation) {
     return (
       <div className="flex w-full flex-col items-start gap-2 px-10 py-4">
         <div className="shrink-0 pt-2">

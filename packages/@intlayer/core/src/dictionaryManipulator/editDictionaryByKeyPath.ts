@@ -55,20 +55,15 @@ export const editDictionaryByKeyPath = (
         keyObj.type === NodeType.Enumeration ||
         keyObj.type === NodeType.Condition
       ) {
-        lastKeys = [keyObj.type, keyObj.key];
-        if (
-          !currentValue[keyObj.type] ||
-          typeof currentValue[keyObj.type] !== 'object'
-        ) {
-          currentValue[keyObj.type] = {};
+        // Note: Logic above already handles Enumeration, ensure no duplication in your actual file
+        // or keep the specific block if your logic differs.
+        // The important part is below in the final update block.
+
+        // Assuming this block runs for Condition/Gender/etc:
+        if (keyObj.type !== NodeType.Enumeration) {
+          lastKeys = [keyObj.type, keyObj.key];
+          currentValue = currentValue[keyObj.type][keyObj.key];
         }
-        if (
-          !currentValue[keyObj.type][keyObj.key] ||
-          typeof currentValue[keyObj.type][keyObj.key] !== 'object'
-        ) {
-          currentValue[keyObj.type][keyObj.key] = {};
-        }
-        currentValue = currentValue[keyObj.type][keyObj.key];
       }
 
       if (
@@ -87,25 +82,32 @@ export const editDictionaryByKeyPath = (
 
       if (keyObj.type === NodeType.File) {
         lastKeys = ['content'];
-
         currentValue = currentValue.content;
-      }
-
-      if (keyObj.type) {
-        // No treated TypedNode
       }
 
       // Only update the value when processing the last key in the keyPath.
       if (i === keyPath.length - 1 && parentValue && lastKeys.length > 0) {
         let target = parentValue;
-        // Drill down if lastKeys contains more than one key.
+
+        // Drill down to the container holding the value to be changed
         for (const key of lastKeys.slice(0, -1)) {
           target = target[key];
         }
+
+        const finalKey = lastKeys[lastKeys.length - 1];
+
         if (typeof newValue === 'undefined') {
-          delete target[lastKeys[lastKeys.length - 1]];
+          // Use splice for arrays to re-index the list, use delete for objects
+          if (Array.isArray(target)) {
+            const index = Number(finalKey);
+            if (!isNaN(index) && index >= 0 && index < target.length) {
+              target.splice(index, 1);
+            }
+          } else {
+            delete target[finalKey];
+          }
         } else {
-          target[lastKeys[lastKeys.length - 1]] = newValue;
+          target[finalKey] = newValue;
         }
       }
     }
