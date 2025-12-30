@@ -52,6 +52,10 @@ pnpm add next-intl
 yarn add next-intl
 ```
 
+```bash packageManager="bun"
+bun add next-intl
+```
+
 ```bash
 .
 ├── locales
@@ -402,6 +406,11 @@ yarn add intlayer @intlayer/sync-json-plugin --dev
 
 ```bash packageManager="pnpm"
 pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bunx intlayer init
 ```
 
 创建 intlayer 配置文件：

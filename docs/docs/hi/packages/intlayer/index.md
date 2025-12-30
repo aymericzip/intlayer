@@ -39,14 +39,22 @@ history:
 
 ```bash packageManager="npm"
 npm install intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer
+bunx intlayer init
 ```
 
 ### Intlayer को कॉन्फ़िगर करें

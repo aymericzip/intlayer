@@ -80,6 +80,10 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 ## Yapılandırma
 
 Intlayer yapılandırma dosyanızda düzenleyici ayarlarını özelleştirebilirsiniz:

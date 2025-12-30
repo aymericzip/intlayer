@@ -80,6 +80,10 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 ## Configurazione
 
 Nel file di configurazione di Intlayer, puoi personalizzare le impostazioni dell'editor:

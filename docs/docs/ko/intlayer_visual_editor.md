@@ -82,6 +82,10 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 ## 구성
 
 Intlayer 구성 파일에서 편집기 설정을 사용자 정의할 수 있습니다:

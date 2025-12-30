@@ -85,12 +85,20 @@ Install the necessary packages using your preferred package manager:
 npm install intlayer react-intlayer
 npm install vite-intlayer --save-dev
 npm install @react-router/fs-routes --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add vite-intlayer --save-dev
 pnpm add @react-router/fs-routes --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+bun add @react-router/fs-routes --dev
+bunx intlayer init
 ```
 
 - **intlayer**

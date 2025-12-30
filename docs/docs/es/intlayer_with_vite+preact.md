@@ -49,16 +49,25 @@ Instala los paquetes necesarios usando npm:
 ```bash packageManager="npm"
 npm install intlayer preact-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer preact-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer preact-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer preact-intlayer
+bun add vite-intlayer --dev
+bunx intlayer init
 ```
 
 - **intlayer**
@@ -633,10 +642,12 @@ Primero, instale `preact-iso`:
 
 ```bash packageManager="npm"
 npm install preact-iso
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add preact-iso
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
@@ -1459,8 +1470,7 @@ import { useLocale, useLocation, route } from "preact-intlayer"; // Asumiendo qu
 import type { JSX } from "preact"; // Para HTMLAttributes
 import { forwardRef } from "preact/compat"; // Para reenviar refs
 
-export interface LocalizedLinkProps
-  extends JSX.HTMLAttributes<HTMLAnchorElement> {
+export interface LocalizedLinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   replace?: boolean; // Opcional: para reemplazar el estado del historial
 }

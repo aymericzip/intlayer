@@ -49,16 +49,25 @@ history:
 ```bash packageManager="npm"
 npm install intlayer preact-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer preact-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer preact-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer preact-intlayer
+bun add vite-intlayer --dev
+bunx intlayer init
 ```
 
 - **intlayer**
@@ -682,10 +691,12 @@ module.exports = LocaleSwitcher;
 
 ```bash packageManager="npm"
 npm install preact-iso
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add preact-iso
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
@@ -1504,8 +1515,7 @@ import { useLocale, useLocation, route } from "preact-intlayer"; // 假设 useLo
 import type { JSX } from "preact"; // 用于 HTMLAttributes
 import { forwardRef } from "preact/compat"; // 用于转发 refs
 
-export interface LocalizedLinkProps
-  extends JSX.HTMLAttributes<HTMLAnchorElement> {
+export interface LocalizedLinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   replace?: boolean; // 可选：替换历史记录状态
 }

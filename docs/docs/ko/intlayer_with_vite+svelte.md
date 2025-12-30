@@ -62,21 +62,25 @@ npm을 사용하여 필요한 패키지를 설치하세요:
 ```bash packageManager="npm"
 npm install intlayer svelte-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer svelte-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer svelte-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer svelte-intlayer
 bun add vite-intlayer --save-dev
+bunx intlayer init
 ```
 
 - **intlayer**
@@ -300,14 +304,17 @@ Svelte 애플리케이션에서 지역화된 라우팅을 처리하려면, `svel
 
 ```bash packageManager="npm"
 npm install svelte-spa-router
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add svelte-spa-router
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add svelte-spa-router
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"

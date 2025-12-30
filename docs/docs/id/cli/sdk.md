@@ -31,6 +31,10 @@ yarn add @intlayer/cli --save-dev
 pnpm add @intlayer/cli --save-dev
 ```
 
+```bash packageManager="bun"
+bun add @intlayer/cli --dev
+```
+
 Contoh penggunaan:
 
 ```ts

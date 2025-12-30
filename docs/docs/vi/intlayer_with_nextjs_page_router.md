@@ -54,14 +54,22 @@ Cài đặt các gói cần thiết bằng trình quản lý gói bạn ưa thí
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer next-intlayer
+bunx intlayer init
 ```
 
 - **intlayer**
@@ -1428,14 +1436,22 @@ Khi sử dụng `next-intlayer`, các từ điển được bao gồm trong bund
 
 ```bash packageManager="npm"
 npm install @intlayer/swc --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add @intlayer/swc --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add @intlayer/swc --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add @intlayer/swc --dev
+bunx intlayer init
 ```
 
 > Lưu ý: Tối ưu hóa này chỉ có sẵn cho Next.js 13 trở lên.

@@ -263,7 +263,12 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                         'plaintext') as BundledLanguage
                     }
                     fileName={props.fileName}
-                    showHeader={Boolean(props.fileName)}
+                    showHeader={Boolean(
+                      props.fileName ||
+                        props.packageManager ||
+                        props.codeFormat ||
+                        props.contentDeclarationFormat
+                    )}
                   />
                 ),
 

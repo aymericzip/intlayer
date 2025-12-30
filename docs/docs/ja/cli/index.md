@@ -78,6 +78,10 @@ yarn add intlayer-cli -g
 pnpm add intlayer-cli -g
 ```
 
+```bash packageManager="bun"
+bun add intlayer-cli -g
+```
+
 > もし `intlayer` パッケージがすでにインストールされている場合、CLIは自動的にインストールされます。このステップはスキップ可能です。
 
 ## intlayer-cli パッケージ

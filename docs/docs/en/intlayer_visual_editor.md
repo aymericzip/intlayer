@@ -89,6 +89,10 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 With the `--with` flag, you can start the editor in parallel with another command:
 
 ```json5 fileName="package.json"

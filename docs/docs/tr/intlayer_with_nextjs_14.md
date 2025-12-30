@@ -43,14 +43,22 @@ Bu kılavuzu takip etmek için aşağıdaki araçlara ihtiyacınız olacak:
 
 ```bash packageManager="npm"
 npm install next-intlayer intlayer --save
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add next-intlayer intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add next-intlayer intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add next-intlayer intlayer --save
+bunx intlayer init
 ```
 
 ## Adım 2: Intlayer Yapılandırma Dosyası Oluşturma
@@ -966,14 +974,22 @@ Bu optimizasyonu etkinleştirmek için, `@intlayer/swc` paketini kurun. Kurulduk
 
 ```bash packageManager="npm"
 npm install @intlayer/swc --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add @intlayer/swc --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add @intlayer/swc --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add @intlayer/swc --dev
+bunx intlayer init
 ```
 
 > Not: Bu optimizasyon sadece Next.js 13 ve üzeri için kullanılabilir.

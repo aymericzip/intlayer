@@ -53,6 +53,11 @@ yarn add react-intlayer
 pnpm add react-intlayer
 ```
 
+```bash packageManager="bun"
+bun add react-intlayer
+bunx intlayer init
+```
+
 ## Exemple d'utilisation
 
 Avec Intlayer, vous pouvez déclarer votre contenu de manière structurée n'importe où dans votre base de code.

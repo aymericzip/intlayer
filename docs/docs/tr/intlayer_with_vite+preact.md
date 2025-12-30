@@ -49,16 +49,25 @@ Gerekli paketleri npm kullanarak kurun:
 ```bash packageManager="npm"
 npm install intlayer preact-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer preact-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer preact-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer preact-intlayer
+bun add vite-intlayer --dev
+bunx intlayer init
 ```
 
 - **intlayer**
@@ -615,10 +624,12 @@ Uygulamanıza yerelleştirilmiş yönlendirme eklemek için, uygulamanızın rot
 
 ```bash packageManager="npm"
 npm install preact-iso
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add preact-iso
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
@@ -1434,8 +1445,7 @@ import { useLocale, useLocation, route } from "preact-intlayer"; // preact-intla
 import type { JSX } from "preact"; // HTMLAttributes için
 import { forwardRef } from "preact/compat"; // Ref'leri iletmek için
 
-export interface LocalizedLinkProps
-  extends JSX.HTMLAttributes<HTMLAnchorElement> {
+export interface LocalizedLinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   replace?: boolean; // İsteğe bağlı: geçmiş durumunu değiştir
 }

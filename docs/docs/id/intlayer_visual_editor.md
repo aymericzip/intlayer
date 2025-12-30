@@ -89,6 +89,10 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 Dengan flag `--with`, Anda dapat memulai editor secara paralel dengan perintah lain:
 
 ```json5 fileName="package.json"

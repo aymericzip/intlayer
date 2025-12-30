@@ -62,18 +62,22 @@ Intlayer は優れた単独の i18n ソリューションを提供します（[V
 
 ```bash packageManager="npm"
 npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer @intlayer/sync-json-plugin --dev
+bunx intlayer init
 ```
 
 **パッケージの説明:**

@@ -73,14 +73,22 @@ Gerekli paketleri npm ile yükleyin:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer next-intlayer
+bunx intlayer init
 ```
 
 - **intlayer**
@@ -1559,14 +1567,22 @@ Bu optimizasyonu etkinleştirmek için `@intlayer/swc` paketini yükleyin. Yükl
 
 ```bash packageManager="npm"
 npm install @intlayer/swc --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add @intlayer/swc --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add @intlayer/swc --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add @intlayer/swc --dev
+bunx intlayer init
 ```
 
 > Not: Bu optimizasyon yalnızca Next.js 13 ve üzeri sürümler için kullanılabilir.

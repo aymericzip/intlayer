@@ -47,14 +47,22 @@ npm을 사용하여 필요한 패키지를 설치하세요:
 
 ```bash packageManager="npm"
 npm install intlayer angular-intlayer @intlayer/webpack
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer angular-intlayer @intlayer/webpack
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer angular-intlayer @intlayer/webpack
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer angular-intlayer @intlayer/webpack
+bunx intlayer init
 ```
 
 - **intlayer**

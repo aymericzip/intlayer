@@ -62,21 +62,25 @@ Gerekli paketleri npm kullanarak yükleyin:
 ```bash packageManager="npm"
 npm install intlayer svelte-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer svelte-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer svelte-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer svelte-intlayer
 bun add vite-intlayer --save-dev
+bunx intlayer init
 ```
 
 - **intlayer**
@@ -302,14 +306,17 @@ Svelte uygulamanızda yerelleştirilmiş yönlendirmeyi yönetmek için, `svelte
 
 ```bash packageManager="npm"
 npm install svelte-spa-router
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add svelte-spa-router
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add svelte-spa-router
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"

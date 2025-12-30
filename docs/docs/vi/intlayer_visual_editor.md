@@ -89,6 +89,10 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 Với cờ `--with`, bạn có thể khởi động trình chỉnh sửa song song với một lệnh khác:
 
 ```json5 fileName="package.json"

@@ -53,6 +53,11 @@ yarn add next-intlayer
 pnpm add next-intlayer
 ```
 
+```bash packageManager="bun"
+bun add next-intlayer
+bunx intlayer init
+```
+
 ## Ejemplo de uso
 
 Con Intlayer, puedes declarar tu contenido de manera estructurada en cualquier parte de tu base de código.

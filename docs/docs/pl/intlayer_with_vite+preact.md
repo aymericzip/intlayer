@@ -64,16 +64,25 @@ Zainstaluj niezbędne pakiety za pomocą npm:
 ```bash packageManager="npm"
 npm install intlayer preact-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer preact-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer preact-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer preact-intlayer
+bun add vite-intlayer --dev
+bunx intlayer init
 ```
 
 - **intlayer**
@@ -651,10 +660,12 @@ Najpierw zainstaluj `preact-iso`:
 
 ```bash packageManager="npm"
 npm install preact-iso
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add preact-iso
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"

@@ -52,6 +52,11 @@ npm을 사용하여 필요한 패키지를 설치합니다:
 npm install intlayer next-intlayer
 ```
 
+```bash packageManager="bun"
+bun add intlayer next-intlayer
+bunx intlayer init
+```
+
 ```/bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
 ```
@@ -1422,14 +1427,22 @@ Link.displayName = 'Link';
 
 ```bash packageManager="npm"
 npm install @intlayer/swc --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add @intlayer/swc --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add @intlayer/swc --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add @intlayer/swc --dev
+bunx intlayer init
 ```
 
 > 참고: 이 최적화는 Next.js 13 이상에서만 사용할 수 있습니다.

@@ -57,6 +57,10 @@ pnpm add next-i18next i18next react-i18next i18next-resources-to-backend
 yarn add next-i18next i18next react-i18next i18next-resources-to-backend
 ```
 
+```bash packageManager="bun"
+bun add next-i18next i18next react-i18next i18next-resources-to-backend
+```
+
 명확한 구조로 시작하세요. 메시지는 locale과 namespace별로 분리해서 유지하세요.
 
 ```bash
@@ -553,14 +557,22 @@ intlayer 의존성을 설치하세요:
 
 ```bash packageManager="npm"
 npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bunx intlayer init
 ```
 
 ```ts fileName="intlayer.config.ts"
