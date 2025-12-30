@@ -1,6 +1,6 @@
 {
   "name": "intlayer",
-  "version": "7.5.7",
+  "version": "7.5.8",
   "private": false,
   "description": "Manage internationalization i18n in a simple way, through TypeScript, declaration file, declare your multilingual content every where in your code.",
   "keywords": [
@@ -80,7 +80,6 @@
     "dev": "tsdown --config tsdown.config.ts --watch",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
-    "postinstall": "npx intlayer init",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "prepublish": "echo prepublish temporally disabled to avoid rewrite readme",
