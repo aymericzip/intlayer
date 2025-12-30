@@ -37,9 +37,12 @@ export function useSession(
       // Narrow to the public shape we want to expose
       return result.data as unknown as SessionAPI;
     },
-    staleTime: 0,
+    // Session data rarely changes during navigation, so keep it fresh for 1 minute
+    // This prevents unnecessary refetches when navigating between pages
+    staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
-    refetchOnMount: 'always',
+    // Only refetch if data is stale (not on every mount)
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     enabled: !sessionProp,

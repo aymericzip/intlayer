@@ -14,12 +14,12 @@ import { useToast } from '../components/Toaster';
 const defaultQueryOptions: DefaultOptions = {
   queries: {
     retry: 1,
-    staleTime: 0,
+    // Keep data fresh for 30 seconds to avoid unnecessary refetches during navigation
+    staleTime: 30 * 1000,
     // Give the cache a little breathing room across route transitions:
     gcTime: 5 * 60 * 1000, // e.g. 5 minutes
-    // You likely want to refetch on mount if data is stale (default is true).
-    // Remove your overrides or force it:
-    refetchOnMount: 'always',
+    // Only refetch on mount if data is stale (not every single mount)
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
   },
