@@ -123,10 +123,7 @@ export const flattenDictionary = (
           innerContent &&
           getNodeType(innerContent) === NodeType.Translation
         ) {
-          traverse(innerContent, [
-            ...keyPath,
-            { type: nodeType, key: contentKey },
-          ]);
+          traverse(innerContent, [...keyPath, { type: nodeType }]);
 
           return;
         }
