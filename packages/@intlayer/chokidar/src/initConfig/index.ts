@@ -1,6 +1,6 @@
-import { readFile, writeFile } from 'node:fs/promises';
-import { dirname, join, relative } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { writeFile } from 'node:fs/promises';
+import { join, relative } from 'node:path';
+import { readAsset } from 'utils:asset';
 import {
   colorizePath,
   type configurationFilesCandidates,
@@ -13,36 +13,27 @@ import {
  * UTILITIES
  */
 const rootDir = process.cwd();
-export const isESModule = typeof import.meta.url === 'string';
-
-const currentFileDir = isESModule
-  ? dirname(fileURLToPath(import.meta.url))
-  : __dirname;
 
 // Helper to write a file
 const writeFileToRoot = async (filePath: string, content: string) =>
   await writeFile(join(rootDir, filePath), content, 'utf8');
-
-// Helper to read a template file
-const readTemplate = async (templatePath: string) =>
-  await readFile(join(currentFileDir, 'templates', templatePath), 'utf8');
 
 type ConfigFormat = 'ts' | 'cjs' | 'mjs' | 'js' | 'json';
 
 const getTemplatePath = (format: ConfigFormat) => {
   switch (format) {
     case 'ts':
-      return 'ts.txt';
+      return './templates/ts.txt';
     case 'cjs':
-      return 'cjs.txt';
+      return './templates/cjs.txt';
     case 'mjs':
-      return 'mjs.txt';
+      return './templates/mjs.txt';
     case 'js':
-      return 'js.txt';
+      return './templates/mjs.txt';
     case 'json':
-      return 'json.txt';
+      return './templates/json.txt';
     default:
-      return 'ts.txt';
+      return './templates/ts.txt';
   }
 };
 
@@ -67,7 +58,7 @@ export const initConfig = async (
   const extension = format.split('.').pop() as ConfigFormat;
 
   const templatePath = getTemplatePath(extension);
-  const configContent = await readTemplate(templatePath);
+  const configContent = readAsset(templatePath);
 
   await writeFileToRoot(format, configContent);
   logger(`Created ${format}`);

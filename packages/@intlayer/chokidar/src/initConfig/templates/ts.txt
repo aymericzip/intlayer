@@ -1,16 +1,10 @@
 import { type IntlayerConfig, Locales } from 'intlayer';
 
-const getIntlayerConfig = (): IntlayerConfig => {
-  const config: IntlayerConfig = {
-    internationalization: {
-      locales: [Locales.ENGLISH],
-      defaultLocale: Locales.ENGLISH,
-    },
-  };
-
-  return config;
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH],
+    defaultLocale: Locales.ENGLISH,
+  },
 };
-
-const config = getIntlayerConfig();
 
 export default config;
