@@ -1,5 +1,6 @@
 'use client';
 
+import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
 import { Button, TabSelector } from '@intlayer/design-system';
 import { Book, Globe, PenTool } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -39,22 +40,7 @@ const EditorContentLayout: FC<EditorContentLayoutProps> = ({ children }) => {
     tabItems[0].value;
 
   return (
-    <>
-      <h1
-        className="sticky top-0 z-50 border-neutral border-b-[0.5px] bg-background p-6 pl-10 text-3xl"
-        style={{
-          // Indique que l'animation suit le scroll de la page
-          animationTimeline: 'scroll()',
-          // L'animation se joue entre 0px et 100px de scroll
-          animationRange: '0 50px',
-          // Nom de l'animation (définie dans ton CSS global ou via Tailwind config)
-          animationName: 'shrink-title',
-          animationFillMode: 'both',
-          animationTimingFunction: 'linear',
-        }}
-      >
-        {title}
-      </h1>
+    <DashboardContentLayout title={title}>
       <div className="mr-3 ml-auto flex justify-end gap-2 py-3">
         <TabSelector
           selectedChoice={currentTabValue}
@@ -78,7 +64,7 @@ const EditorContentLayout: FC<EditorContentLayoutProps> = ({ children }) => {
         />
       </div>
       {children}
-    </>
+    </DashboardContentLayout>
   );
 };
 

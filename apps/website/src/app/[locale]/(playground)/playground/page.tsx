@@ -1,4 +1,5 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
+import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
 import { Editor } from '@components/Dashboard/Editor';
 import { DictionaryLoaderPlayground } from '@components/Dashboard/Editor/DictionaryLoaderPlayground';
 import baseConfiguration from '@intlayer/config/built';
@@ -26,37 +27,20 @@ const PlaygroundContent: FC = () => {
   };
 
   return (
-    <>
-      <h1
-        className="sticky top-0 z-50 border-neutral border-b-[0.5px] bg-background p-6 pl-10 text-3xl"
-        style={{
-          // Indique que l'animation suit le scroll de la page
-          animationTimeline: 'scroll()',
-          // L'animation se joue entre 0px et 100px de scroll
-          animationRange: '0 50px',
-          // Nom de l'animation (définie dans ton CSS global ou via Tailwind config)
-          animationName: 'shrink-title',
-          animationFillMode: 'both',
-          animationTimingFunction: 'linear',
-        }}
-      >
-        {title}
-      </h1>
-      <div className="relative flex size-full flex-1 flex-col">
-        <BackgroundLayout />
-        <p className="m-auto my-3 max-w-3xl px-10 text-neutral text-sm">
-          {description}
-        </p>
-        <div className="relative flex flex-1 flex-col items-center px-10 pb-5">
-          <ConfigurationProvider configuration={configuration}>
-            <Editor
-              configuration={configuration}
-              DictionariesLoader={DictionaryLoaderPlayground}
-            />
-          </ConfigurationProvider>
-        </div>
+    <DashboardContentLayout title={title}>
+      <BackgroundLayout />
+      <p className="m-auto my-3 max-w-3xl px-10 text-neutral text-sm">
+        {description}
+      </p>
+      <div className="relative flex flex-1 flex-col items-center px-10 pb-5">
+        <ConfigurationProvider configuration={configuration}>
+          <Editor
+            configuration={configuration}
+            DictionariesLoader={DictionaryLoaderPlayground}
+          />
+        </ConfigurationProvider>
       </div>
-    </>
+    </DashboardContentLayout>
   );
 };
 

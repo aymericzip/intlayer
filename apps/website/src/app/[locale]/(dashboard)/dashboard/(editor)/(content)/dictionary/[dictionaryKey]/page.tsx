@@ -14,12 +14,10 @@ const DictionaryDashboardPage: NextPageIntlayer<
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <div className="relative flex flex-1 flex-col items-center">
-        <div className="flex size-full flex-1 flex-col items-center p-10 pt-0">
-          <ContentDashboard dictionaryKey={dictionaryKey} />
-        </div>
-        <BackgroundLayout />
+      <div className="flex size-full flex-1 flex-col items-center p-10 pt-0">
+        <ContentDashboard dictionaryKey={dictionaryKey} />
       </div>
+      <BackgroundLayout />
     </IntlayerServerProvider>
   );
 };

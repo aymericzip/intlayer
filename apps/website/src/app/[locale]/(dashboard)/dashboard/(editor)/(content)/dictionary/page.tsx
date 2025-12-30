@@ -9,9 +9,7 @@ const ContentDashboardPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <div className="relative flex flex-1 flex-col items-center">
-        <DictionaryListDashboard />
-      </div>
+      <DictionaryListDashboard />
     </IntlayerServerProvider>
   );
 };
