@@ -5,11 +5,6 @@ import type { SessionAPI } from '@intlayer/backend';
 import { getSessionData } from '@utils/getSessionData';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 
-export const runtime = 'nodejs'; // ensure Node runtime
-export const dynamic = 'force-dynamic'; // make sure request cookies are read
-export const revalidate = 0;
-export const fetchCache = 'force-no-store';
-
 const AdminLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
   const { session } = await getSessionData();

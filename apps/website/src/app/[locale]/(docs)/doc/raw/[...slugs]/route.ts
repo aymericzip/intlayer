@@ -13,8 +13,6 @@ type RouteContext = {
   }>;
 };
 
-export const dynamic = 'force-dynamic';
-
 async function findDocMetadata(
   slugs: string | string[],
   locale: string

@@ -21,11 +21,6 @@ import { getSessionData } from '@/utils/getSessionData';
 import { DashboardHydrationBoundary } from './DashboardHydrationBoundary';
 import { WarmupClient } from './WarmupClient';
 
-export const runtime = 'nodejs'; // ensure Node runtime
-export const dynamic = 'force-dynamic'; // make sure request cookies are read
-export const revalidate = 0;
-export const fetchCache = 'force-no-store';
-
 export { generateMetadata } from './metadata';
 
 type DashboardLayoutContentProps = {

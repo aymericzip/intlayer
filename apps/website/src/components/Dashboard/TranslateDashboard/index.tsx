@@ -4,20 +4,22 @@ import {
   getContentNodeByKeyPath,
   getEmptyNode,
   getLocaleName,
-  getNodeType,
 } from '@intlayer/core';
 import {
   Button,
+  KeyboardShortcut,
   KeyPathBreadcrumb,
   Loader,
   LocaleSwitcherContent,
   LocaleSwitcherContentProvider,
+  PopoverStatic,
   SearchInput,
   TextEditor,
   useLocaleSwitcherContent,
 } from '@intlayer/design-system';
 import {
   useInfiniteGetDictionaries,
+  usePersistedStore,
   useSearch,
 } from '@intlayer/design-system/hooks';
 import {
@@ -26,10 +28,10 @@ import {
   useEditedContent,
 } from '@intlayer/editor-react';
 import { type Dictionary, type LocalesValues, NodeType } from '@intlayer/types';
-import { Plus } from 'lucide-react';
+import { ArrowUp, Plus } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { type FC, Suspense, useEffect, useMemo, useState } from 'react';
-import { GroupedVirtuoso } from 'react-virtuoso';
+import { type FC, Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { GroupedVirtuoso, type GroupedVirtuosoHandle } from 'react-virtuoso';
 import {
   type FlattenedDictionaryNode,
   flattenDictionary,
@@ -40,17 +42,17 @@ const TranslateRow: FC<{
   node: FlattenedDictionaryNode;
   selectedLocales: LocalesValues[];
 }> = ({ node, selectedLocales }) => {
-  const { dictionary, keyPath, content: originalContent, nodeType } = node;
   const { editedContent, addEditedContent } = useEditedContent();
   const configuration = useConfiguration();
   const { defaultLocale } = configuration.internationalization;
   const { addTranslation } = useIntlayer('dictionary-list');
 
-  if (JSON.stringify(keyPath).includes('myMultilingualInsertion')) {
-    console.log({ originalContent });
+  if (!node) {
+    return <></>;
   }
 
-  // Use edited content if available, otherwise fall back to original content from node
+  const { dictionary, keyPath, content: originalContent, nodeType } = node;
+
   const editedDictionaryContent = editedContent?.[dictionary.localId!]?.content;
   const content =
     typeof editedDictionaryContent === 'undefined'
@@ -84,13 +86,11 @@ const TranslateRow: FC<{
                     Icon={Plus}
                     color="neutral"
                     onClick={() => {
-                      // Get content from default locale or the first available key as a reference
                       const contentMap = (content as any)?.[nodeType] ?? {};
                       const referenceContent =
                         contentMap[defaultLocale] ??
                         contentMap[Object.keys(contentMap)[0]];
 
-                      // Create an empty node based on the reference structure
                       const newContent = {
                         ...((editedContent as Record<string, any>) ?? {}),
                         [nodeType]: {
@@ -149,11 +149,22 @@ const TranslateRow: FC<{
 };
 
 const TranslateDashboardList: FC = () => {
-  const { searchPlaceholder, noDictionaries } = useIntlayer('dictionary-list');
+  const { searchPlaceholder, noDictionaries, scrollToTop } =
+    useIntlayer('dictionary-list');
   const { setSearch } = useSearch({});
   const { locale: currentLocale } = useLocale();
   const [search, setInternalSearch] = useState('');
   const { setLocaleDictionaries } = useDictionariesRecordActions() ?? {};
+  const [currentDictionaryKey, setCurrentDictionaryKey] = useState<string>('');
+
+  const [initialTopIndex, setInitialTopIndex] = usePersistedStore(
+    'intlayer-dashboard-scroll-index',
+    0
+  );
+
+  // Refs for syncing scroll
+  const virtuosoRef = useRef<GroupedVirtuosoHandle>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
     useInfiniteGetDictionaries({ search, pageSize: 3 });
@@ -172,7 +183,6 @@ const TranslateDashboardList: FC = () => {
     return result;
   }, [data?.pages]);
 
-  // Populate localeDictionaries context so addEditedContent can work properly
   useEffect(() => {
     if (
       setLocaleDictionaries &&
@@ -190,8 +200,14 @@ const TranslateDashboardList: FC = () => {
       (page.data as Dictionary[]).flatMap(flattenDictionary)
     ) ?? [];
 
-  // Transform flat nodes into groups structure
-  const { groupCounts, groupKeys } = useMemo(() => {
+  // though rangeChanged usually handles this once the list mounts.
+  useEffect(() => {
+    if (flattenedNodes.length > 0 && initialTopIndex < flattenedNodes.length) {
+      setCurrentDictionaryKey(flattenedNodes[initialTopIndex]?.dictionary.key);
+    }
+  }, [flattenedNodes, initialTopIndex]);
+
+  const { groupCounts } = useMemo(() => {
     if (!flattenedNodes || flattenedNodes.length === 0) {
       return { groupCounts: [], groupKeys: [] };
     }
@@ -217,7 +233,6 @@ const TranslateDashboardList: FC = () => {
       }
     });
 
-    // Push the final group
     if (currentKey !== null) {
       counts.push(currentCount);
       keys.push(currentKey);
@@ -236,76 +251,106 @@ const TranslateDashboardList: FC = () => {
             setSearch(e.target.value);
             setInternalSearch(e.target.value);
           }}
-          className="max-w-md"
+          className="max-w-md flex-1"
         />
-        <div className="flex items-center gap-2">
-          <LocaleSwitcherContent />
-        </div>
+        <LocaleSwitcherContent />
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col">
-        {/* Header Row - Keep this outside Virtuoso so it sticks to top */}
-        <div className="flex shrink-0 gap-2 border-card border-b px-10">
-          {selectedLocales.map((locale) => (
-            <div
-              key={locale}
-              className="min-w-md flex-1 py-2 font-medium text-neutral"
-            >
-              {getLocaleName(locale, currentLocale)}
-            </div>
-          ))}
+        <div className="flex w-full items-center gap-6 border-card border-b px-10 py-2">
+          <PopoverStatic identifier="scroll-to-top">
+            <Button
+              label={scrollToTop.value}
+              variant="hoverable"
+              color="text"
+              size="icon-xl"
+              Icon={ArrowUp}
+            />
+            <PopoverStatic.Detail identifier="scroll-to-top">
+              <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral">
+                {scrollToTop}
+                <KeyboardShortcut
+                  shortcut="Alt + ArrowUp"
+                  onTriggered={() => {
+                    setInitialTopIndex(0);
+
+                    virtuosoRef.current?.scrollToIndex({
+                      index: 0,
+                      align: 'start',
+                    });
+                  }}
+                  size="sm"
+                />
+              </span>
+            </PopoverStatic.Detail>
+          </PopoverStatic>
+
+          <span className="ml-4">{currentDictionaryKey}</span>
         </div>
 
-        {/* Virtualized List Container */}
-        <div className="flex-1">
-          <Loader isLoading={isPending}>
-            {flattenedNodes.length > 0 ? (
-              <GroupedVirtuoso
-                className="h-full"
-                groupCounts={groupCounts}
-                groupContent={(index) => (
-                  <div
-                    className={`flex w-full ${
-                      // Add border and spacing for all groups except the first one
-                      index > 0 ? 'border-card border-t' : ''
-                    }`}
-                  >
-                    <div className="flex w-auto justify-center overflow-hidden rounded-br-2xl bg-background/80 px-16 pt-2 pb-1 text-neutral backdrop-blur">
-                      {groupKeys[index]}
-                    </div>
-                  </div>
-                )}
-                itemContent={(index) => (
-                  // GroupedVirtuoso handles the global index mapping for you automatically
-                  <TranslateRow
-                    node={flattenedNodes[index]}
-                    selectedLocales={selectedLocales}
-                  />
-                )}
-                overscan={500}
-                endReached={() => {
-                  if (hasNextPage && !isFetchingNextPage) {
-                    fetchNextPage();
-                  }
-                }}
-                components={{
-                  Footer: () =>
-                    isFetchingNextPage ? (
-                      <div className="flex justify-center p-4">
-                        <Loader />
-                      </div>
-                    ) : (
-                      <div className="h-4" />
-                    ),
-                }}
-              />
-            ) : (
-              <div className="flex h-full items-center justify-center px-10">
-                <p className="text-center text-neutral">{noDictionaries}</p>
+        <div
+          ref={headerRef}
+          className="flex w-full shrink-0 items-center overflow-x-hidden bg-background px-10 py-2"
+        >
+          {/* Matches TranslateRow Structure (flex-1 gap-2) */}
+          <div className="flex w-full flex-1 gap-2">
+            {selectedLocales.map((locale) => (
+              <div
+                key={locale}
+                className="ml-4 min-w-md flex-1 font-medium text-neutral"
+                suppressHydrationWarning
+              >
+                {getLocaleName(locale, currentLocale)}
               </div>
-            )}
-          </Loader>
+            ))}
+          </div>
         </div>
+        <Loader isLoading={isPending}>
+          {flattenedNodes.length > 0 ? (
+            <GroupedVirtuoso
+              ref={virtuosoRef}
+              groupCounts={groupCounts}
+              initialTopMostItemIndex={initialTopIndex}
+              onScroll={(e) => {
+                if (headerRef.current) {
+                  headerRef.current.scrollLeft = (
+                    e.target as HTMLElement
+                  ).scrollLeft;
+                }
+              }}
+              rangeChanged={({ startIndex }) => {
+                setInitialTopIndex(startIndex);
+              }}
+              groupContent={() => <div className="my-4 border-card border-b" />}
+              itemContent={(index) => (
+                <TranslateRow
+                  node={flattenedNodes[index]}
+                  selectedLocales={selectedLocales}
+                />
+              )}
+              overscan={500}
+              endReached={() => {
+                if (hasNextPage && !isFetchingNextPage) {
+                  fetchNextPage();
+                }
+              }}
+              components={{
+                Footer: () =>
+                  isFetchingNextPage ? (
+                    <div className="flex justify-center p-4">
+                      <Loader />
+                    </div>
+                  ) : (
+                    <div className="h-4" />
+                  ),
+              }}
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center px-10">
+              <p className="text-center text-neutral">{noDictionaries}</p>
+            </div>
+          )}
+        </Loader>
       </div>
     </div>
   );

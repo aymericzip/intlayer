@@ -7,8 +7,6 @@ type RouteContext = {
   };
 };
 
-export const dynamic = 'force-dynamic';
-
 export async function GET(request: Request, context: RouteContext) {
   try {
     const { locale, slugs } = context.params;
