@@ -232,31 +232,34 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
   return (
     <table className="w-full">
       <tbody className="flex w-full flex-col gap-2">
-        {localesList.map((translationKey) => (
-          <Fragment key={translationKey}>
-            <tr className="mt-2 w-full p-2 text-xs">
-              <td className="flex w-full">
-                {getLocaleName(translationKey, locale)}
-              </td>
-            </tr>
-            <tr className="flex">
-              <td className="flex w-full">
-                <TextEditorContainer
-                  section={
-                    content[translationKey] ??
-                    getEmptyNode(content[defaultLocale])
-                  }
-                  keyPath={[
-                    ...keyPath,
-                    { type: NodeType.Translation, key: translationKey },
-                  ]}
-                  dictionary={dictionary}
-                  renderSection={renderSection}
-                />
-              </td>
-            </tr>
-          </Fragment>
-        ))}
+        {localesList.map((translationKey) => {
+          const uniqueKey = `${JSON.stringify(keyPath)}-translation-${translationKey}`;
+          return (
+            <Fragment key={uniqueKey}>
+              <tr className="mt-2 w-full p-2 text-xs">
+                <td className="flex w-full">
+                  {getLocaleName(translationKey, locale)}
+                </td>
+              </tr>
+              <tr className="flex">
+                <td className="flex w-full">
+                  <TextEditorContainer
+                    section={
+                      content[translationKey] ??
+                      getEmptyNode(content[defaultLocale])
+                    }
+                    keyPath={[
+                      ...keyPath,
+                      { type: NodeType.Translation, key: translationKey },
+                    ]}
+                    dictionary={dictionary}
+                    renderSection={renderSection}
+                  />
+                </td>
+              </tr>
+            </Fragment>
+          );
+        })}
       </tbody>
     </table>
   );
@@ -286,9 +289,10 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
               ...keyPath,
               { type: NodeType.Enumeration, key: enumKey },
             ] as KeyPath[];
+            const uniqueKey = `${JSON.stringify(keyPath)}-enumeration-${enumKey}`;
 
             return (
-              <Fragment key={enumKey}>
+              <Fragment key={uniqueKey}>
                 <tr className="mt-2 w-full">
                   <td className="flex w-full">
                     <div className="flex flex-1">
@@ -394,32 +398,35 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
   return (
     <table className="w-full">
       <tbody className="flex w-full flex-col gap-2">
-        {['true', 'false', 'fallback'].map((condKey) => (
-          <Fragment key={condKey}>
-            <tr key={condKey} className="mt-2 block w-full p-2 text-xs">
-              <td className="flex w-full">{String(condKey)}</td>
-            </tr>
-            <tr key={condKey} className="block w-full">
-              <td className="flex w-full">
-                <TextEditorContainer
-                  section={
-                    content[condKey as keyof typeof content] ??
-                    getEmptyNode(content.true)
-                  }
-                  keyPath={[
-                    ...keyPath,
-                    {
-                      type: NodeType.Condition,
-                      key: condKey,
-                    } as KeyPath,
-                  ]}
-                  dictionary={dictionary}
-                  renderSection={renderSection}
-                />
-              </td>
-            </tr>
-          </Fragment>
-        ))}
+        {['true', 'false', 'fallback'].map((condKey) => {
+          const uniqueKey = `${JSON.stringify(keyPath)}-condition-${condKey}`;
+          return (
+            <Fragment key={uniqueKey}>
+              <tr className="mt-2 block w-full p-2 text-xs">
+                <td className="flex w-full">{String(condKey)}</td>
+              </tr>
+              <tr className="block w-full">
+                <td className="flex w-full">
+                  <TextEditorContainer
+                    section={
+                      content[condKey as keyof typeof content] ??
+                      getEmptyNode(content.true)
+                    }
+                    keyPath={[
+                      ...keyPath,
+                      {
+                        type: NodeType.Condition,
+                        key: condKey,
+                      } as KeyPath,
+                    ]}
+                    dictionary={dictionary}
+                    renderSection={renderSection}
+                  />
+                </td>
+              </tr>
+            </Fragment>
+          );
+        })}
       </tbody>
     </table>
   );
@@ -436,32 +443,35 @@ const GenderTextEditor: FC<TextEditorProps> = ({
   return (
     <table className="w-full">
       <tbody className="flex w-full flex-col gap-2">
-        {['male', 'female', 'fallback'].map((condKey) => (
-          <Fragment key={condKey}>
-            <tr key={condKey} className="mt-2 block w-full p-2 text-xs">
-              <td className="flex w-full">{String(condKey)}</td>
-            </tr>
-            <tr key={condKey} className="block w-full">
-              <td className="flex w-full">
-                <TextEditorContainer
-                  section={
-                    content[condKey as keyof typeof content] ??
-                    getEmptyNode(content.male)
-                  }
-                  keyPath={[
-                    ...keyPath,
-                    {
-                      type: NodeType.Gender,
-                      key: condKey,
-                    } as KeyPath,
-                  ]}
-                  dictionary={dictionary}
-                  renderSection={renderSection}
-                />
-              </td>
-            </tr>
-          </Fragment>
-        ))}
+        {['male', 'female', 'fallback'].map((condKey) => {
+          const uniqueKey = `${JSON.stringify(keyPath)}-gender-${condKey}`;
+          return (
+            <Fragment key={uniqueKey}>
+              <tr className="mt-2 block w-full p-2 text-xs">
+                <td className="flex w-full">{String(condKey)}</td>
+              </tr>
+              <tr className="block w-full">
+                <td className="flex w-full">
+                  <TextEditorContainer
+                    section={
+                      content[condKey as keyof typeof content] ??
+                      getEmptyNode(content.male)
+                    }
+                    keyPath={[
+                      ...keyPath,
+                      {
+                        type: NodeType.Gender,
+                        key: condKey,
+                      } as KeyPath,
+                    ]}
+                    dictionary={dictionary}
+                    renderSection={renderSection}
+                  />
+                </td>
+              </tr>
+            </Fragment>
+          );
+        })}
       </tbody>
     </table>
   );
@@ -480,61 +490,64 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
     <div className="flex flex-col gap-2">
       <table className="w-full">
         <tbody className="flex w-full flex-col gap-2">
-          {(section as unknown as ContentNode[]).map((subSection, index) => (
-            <Fragment key={JSON.stringify(subSection)}>
-              <tr className="mt-2 w-full p-2">
-                <td className="flex w-full">
-                  <div className="flex w-full items-center justify-between gap-2">
-                    <span className="text-xs">{String(index)}</span>
-                    <Button
-                      label={removeElement.label.value}
-                      variant="hoverable"
-                      size="sm"
-                      color="error"
-                      className="ml-auto text-neutral hover:text-error"
-                      onClick={() => {
-                        const newKeyPath: KeyPath[] = [
-                          ...keyPath,
-                          {
-                            type: NodeType.Array,
-                            key: index, // Fixed: Use index instead of length
-                          },
-                        ];
-                        addEditedContent(
-                          dictionary.localId!,
-                          undefined,
-                          newKeyPath
-                        );
-                      }}
-                      Icon={Trash}
-                    >
-                      {removeElement.text}
-                    </Button>
-                  </div>
-                </td>
-              </tr>
+          {(section as unknown as ContentNode[]).map((subSection, index) => {
+            const uniqueKey = `${JSON.stringify(keyPath)}-array-${index}`;
+            return (
+              <Fragment key={uniqueKey}>
+                <tr className="mt-2 w-full p-2">
+                  <td className="flex w-full">
+                    <div className="flex w-full items-center justify-between gap-2">
+                      <span className="text-xs">{String(index)}</span>
+                      <Button
+                        label={removeElement.label.value}
+                        variant="hoverable"
+                        size="sm"
+                        color="error"
+                        className="ml-auto text-neutral hover:text-error"
+                        onClick={() => {
+                          const newKeyPath: KeyPath[] = [
+                            ...keyPath,
+                            {
+                              type: NodeType.Array,
+                              key: index, // Fixed: Use index instead of length
+                            },
+                          ];
+                          addEditedContent(
+                            dictionary.localId!,
+                            undefined,
+                            newKeyPath
+                          );
+                        }}
+                        Icon={Trash}
+                      >
+                        {removeElement.text}
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
 
-              <tr className="block w-full">
-                <td className="flex w-full">
-                  <TextEditorContainer
-                    section={
-                      subSection ??
-                      getEmptyNode((section as unknown as ContentNode[])[0])
-                    }
-                    keyPath={[
-                      ...keyPath,
-                      {
-                        type: NodeType.Array,
-                        key: index,
-                      },
-                    ]}
-                    dictionary={dictionary}
-                    renderSection={renderSection}
-                  />
-                </td>
-              </tr>
-            </Fragment>
-          ))}
+                <tr className="block w-full">
+                  <td className="flex w-full">
+                    <TextEditorContainer
+                      section={
+                        subSection ??
+                        getEmptyNode((section as unknown as ContentNode[])[0])
+                      }
+                      keyPath={[
+                        ...keyPath,
+                        {
+                          type: NodeType.Array,
+                          key: index,
+                        },
+                      ]}
+                      dictionary={dictionary}
+                      renderSection={renderSection}
+                    />
+                  </td>
+                </tr>
+              </Fragment>
+            );
+          })}
         </tbody>
       </table>
       <Button
@@ -591,16 +604,14 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
             const subSection =
               typedSection[key as keyof typeof section] ??
               getEmptyNode(typedSection[firstKey]);
+            const uniqueKey = `${JSON.stringify(keyPath)}-object-${key}`;
 
             return (
-              <Fragment key={key}>
-                <tr
-                  key={JSON.stringify(subSection)}
-                  className="mt-2 p-2 text-xs"
-                >
+              <Fragment key={uniqueKey}>
+                <tr className="mt-2 p-2 text-xs">
                   <td className="flex w-full">{String(key)}</td>
                 </tr>
-                <tr key={JSON.stringify(subSection)} className="block w-full">
+                <tr className="block w-full">
                   <td className="flex w-full">
                     <TextEditor
                       section={subSection}
