@@ -420,7 +420,7 @@ export const Button: FC<ButtonProps> = ({
 
       <div
         className={cn(
-          'flex w-0 items-center justify-center transition-[width] duration-300',
+          'flex items-center justify-center transition-[width] duration-300',
           isLoading && size === ButtonSize.SM && 'w-3',
           isLoading && size === ButtonSize.MD && 'w-4',
           isLoading && size === ButtonSize.LG && 'w-5',
