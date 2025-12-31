@@ -886,7 +886,7 @@ export const useDeleteDictionary = () => {
   return useMutation({
     mutationKey: ['dictionaries'],
     mutationFn: (args: DeleteDictionaryParam) =>
-      intlayerOAuth.dictionary.deleteDictionary(args),
+      intlayerOAuth.dictionary.deleteDictionary(args.dictionaryId),
     meta: {
       invalidateQueries: [['dictionaries'], ['dictionariesKeys']],
     },
