@@ -255,7 +255,10 @@ export const ObjectView: FC<ObjectViewProps> = ({
     <div className="flex flex-col gap-2 overflow-y-auto">
       <ul className="mr-auto flex flex-col gap-4">
         {Object.keys(section).map((key) => (
-          <li key={key} className="flex w-full">
+          <li
+            key={`${JSON.stringify(keyPath)}-object-${key}`}
+            className="flex w-full"
+          >
             <NodeView
               sectionKey={key}
               section={section?.[key as keyof typeof section]}
