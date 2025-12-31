@@ -79,9 +79,9 @@ export const LandingPage: FC = () => (
     <div className="flex flex-col gap-10">
       <BackgroundLayout>
         <LandingSection />
-        <DynamicWhyToChoseIntlayerSection />
+        <DynamicFeaturesSection />
       </BackgroundLayout>
-      <DynamicFeaturesSection />
+      <DynamicWhyToChoseIntlayerSection />
       <div className="relative w-full overflow-hidden bg-neutral/5 py-16 dark:bg-neutral-900/10">
         <DynamicAuditSection />
         <DynamicLanguageSection />
