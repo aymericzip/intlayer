@@ -15,6 +15,9 @@ export const NoApplicationURLView: FC = () => {
         label={documentationLink.label.value}
         href="https://intlayer.org/doc/concept/configuration#editor-configuration"
         color="text"
+        variant="button"
+        className="ml-auto"
+        isExternalLink
       >
         {documentationLink.text}
       </Link>

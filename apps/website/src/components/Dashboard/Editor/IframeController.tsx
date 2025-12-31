@@ -34,7 +34,7 @@ export const IframeController: FC<{
 
   if (!editor.applicationURL) {
     return (
-      <Container className="flex max-w-xl flex-col gap-4 p-6">
+      <Container className="max-w-xl" padding="xl" roundedSize="2xl">
         <NoApplicationURLView />
       </Container>
     );
