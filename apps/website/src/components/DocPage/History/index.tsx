@@ -27,10 +27,8 @@ export const History: FC<HistoryProps> = ({
   history = [],
 }) => {
   const formatDate = useDate();
-  const { locale, defaultLocale, setLocale } = useLocale();
+  const { defaultLocale, setLocale } = useLocale();
   const { message, link, versionHistory } = useIntlayer('doc-history');
-
-  if (locale === defaultLocale) return <></>;
 
   const localizedUrl = getLocalizedUrl(pageUrl, defaultLocale);
 
