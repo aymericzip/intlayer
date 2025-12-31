@@ -11,7 +11,11 @@ export const NoApplicationURLView: FC = () => {
 
   return (
     <div className="flex flex-1 items-center justify-center">
-      <Container className="flex max-w-xl flex-col gap-2 rounded-2xl px-8 pt-2 pb-4 text-sm">
+      <Container
+        className="flex max-w-xl flex-col gap-2 rounded-2xl text-sm"
+        padding="xl"
+        roundedSize="2xl"
+      >
         <H3 className="mb-4 text-lg">{title}</H3>
         <p className="block text-neutral">{description}</p>
         <Link
