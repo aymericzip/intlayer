@@ -17,9 +17,9 @@
  */
 
 import { spawnSync } from 'node:child_process';
+import process from 'node:process';
 import chokidar from 'chokidar';
 import minimist from 'minimist';
-import process from 'process';
 import { packageBuildOrder } from './package-build-order.mjs';
 
 const args = minimist(process.argv.slice(2));

@@ -1,6 +1,6 @@
 import * as askDocQuestionUtil from '@utils/AI/askDocQuestion/askDocQuestion';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { Request, Response } from 'express';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 
 export type SearchDocUtilParams = {
   input: string;
@@ -8,10 +8,10 @@ export type SearchDocUtilParams = {
 export type SearchDocUtilResult = ResponseData<string[]>;
 
 export const searchDocUtil = async (
-  req: Request<unknown, unknown, unknown, SearchDocUtilParams>,
-  res: Response<SearchDocUtilResult>
+  request: FastifyRequest<{ Querystring: SearchDocUtilParams }>,
+  reply: FastifyReply
 ) => {
-  const { input } = req.query;
+  const { input } = request.query;
 
   const response = await askDocQuestionUtil.searchChunkReference(
     input,
@@ -26,5 +26,5 @@ export const searchDocUtil = async (
     data: uniqueDocFileList,
   });
 
-  res.json(responseData);
+  reply.send(responseData);
 };

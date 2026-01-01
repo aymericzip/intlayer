@@ -1,5 +1,4 @@
 import { logger } from '@logger';
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { SessionModel } from '@models/session.model';
 import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
@@ -18,8 +17,8 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
-import { t } from 'express-intlayer';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { t } from 'fastify-intlayer';
 import type { Types } from 'mongoose';
 import type {
   ProjectAPI,
@@ -36,21 +35,20 @@ export type GetProjectsResult = PaginatedResponse<ProjectAPI>;
  * Retrieves a list of projects based on filters and pagination.
  */
 export const getProjects = async (
-  req: Request<GetProjectsParams>,
-  res: ResponseWithSession<GetProjectsResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Querystring: GetProjectsParams }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, organization, roles } = res.locals;
+  const { user, organization, roles } = request.locals || {};
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
-    getProjectFiltersAndPagination(req, res);
+    getProjectFiltersAndPagination(request);
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
-  if (!organization && !roles.includes('admin')) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+  if (!organization && !roles?.includes('admin')) {
+    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
@@ -64,14 +62,14 @@ export const getProjects = async (
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'project:read'
       )({
-        ...res.locals,
+        ...request.locals,
         targetProjects: projects,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
@@ -87,10 +85,10 @@ export const getProjects = async (
       totalItems,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -102,37 +100,36 @@ export type AddProjectResult = ResponseData<ProjectAPI>;
  * Adds a new project to the database.
  */
 export const addProject = async (
-  req: Request<any, any, AddProjectBody>,
-  res: ResponseWithSession<AddProjectResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AddProjectBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { organization, user, roles } = res.locals;
-  const projectData = req.body;
+  const { organization, user, roles } = request.locals || {};
+  const projectData = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
   if (!projectData) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_DATA_NOT_FOUND');
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'organization:admin'
     )({
-      ...res.locals,
+      ...request.locals,
       targetOrganizations: [organization],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -147,7 +144,7 @@ export const addProject = async (
 
     if (projectCount >= planType.numberOfProjects) {
       ErrorHandler.handleGenericErrorResponse(
-        res,
+        reply,
         'PLAN_PROJECT_LIMIT_REACHED',
         {
           organizationId: organization.id,
@@ -184,10 +181,10 @@ export const addProject = async (
       data: formattedProject,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -199,43 +196,45 @@ export type UpdateProjectResult = ResponseData<ProjectAPI>;
  * Updates an existing project in the database.
  */
 export const updateProject = async (
-  req: Request<any, any, UpdateProjectBody>,
-  res: ResponseWithSession<UpdateProjectResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: UpdateProjectBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { organization, project, user, roles } = res.locals;
-  const projectData = req.body;
+  const { organization, project, user, roles } = request.locals || {};
+  const projectData = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_DATA_NOT_FOUND');
     return;
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
   if (String(project.organizationId) !== String(organization.id)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_IN_ORGANIZATION');
+    ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_IN_ORGANIZATION'
+    );
     return;
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'project:write'
     )({
-      ...res.locals,
+      ...request.locals,
       targetProjectIds: [String(project.id)],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -261,10 +260,10 @@ export const updateProject = async (
       data: formattedProject,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -284,48 +283,47 @@ export type UpdateProjectMembersResult = ResponseData<ProjectAPI>;
  * Update members to the dictionary in the database.
  */
 export const updateProjectMembers = async (
-  req: Request<any, any, UpdateProjectMembersBody>,
-  res: ResponseWithSession<UpdateProjectMembersResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: UpdateProjectMembersBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, organization, roles } = res.locals;
-  const { membersIds } = req.body;
+  const { user, project, organization, roles } = request.locals || {};
+  const { membersIds } = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
   if (membersIds?.length === 0) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_MUST_HAVE_MEMBER');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_MUST_HAVE_MEMBER');
     return;
   }
 
   if (membersIds?.map((el) => el.isAdmin)?.length === 0) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_MUST_HAVE_ADMIN');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_MUST_HAVE_ADMIN');
     return;
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'project:write'
     )({
-      ...res.locals,
+      ...request.locals,
       targetProjectIds: [String(project.id)],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -388,10 +386,10 @@ export const updateProjectMembers = async (
       data: formattedProject,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -401,38 +399,34 @@ export type PushProjectConfigurationResult = ResponseData<ProjectConfiguration>;
 
 /**
  * Pushes a project configuration to the database.
- * @param req - Express request object.
- * @param  res - Express response object.
- * @returns Response confirming the deletion.
  */
 export const pushProjectConfiguration = async (
-  req: Request<any, any, PushProjectConfigurationBody>,
-  res: ResponseWithSession<PushProjectConfigurationResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: PushProjectConfigurationBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, roles } = res.locals;
-  const projectConfiguration = req.body;
+  const { user, project, roles } = request.locals || {};
+  const projectConfiguration = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'project:write'
     )({
-      ...res.locals,
+      ...request.locals,
       targetProjectIds: [String(project.id)],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -443,7 +437,7 @@ export const pushProjectConfiguration = async (
     projectObject.save();
 
     if (!projectObject.configuration) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_UPDATE_FAILED', {
+      ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_UPDATE_FAILED', {
         projectId: project.id,
       });
       return;
@@ -463,10 +457,10 @@ export const pushProjectConfiguration = async (
       data: projectObject.configuration,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -475,47 +469,43 @@ export type DeleteProjectResult = ResponseData<ProjectAPI>;
 
 /**
  * Deletes a project from the database by its ID.
- * @param req - Express request object.
- * @param  res - Express response object.
- * @returns Response confirming the deletion.
  */
 export const deleteProject = async (
-  _req: Request,
-  res: ResponseWithSession<DeleteProjectResult>,
-  _next: NextFunction
+  _request: FastifyRequest,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, organization, project, session, roles } = res.locals;
+  const { user, organization, project, session, roles } = _request.locals || {};
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (typeof session === 'undefined') {
-    ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'SESSION_NOT_DEFINED');
     return;
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'project:admin'
     )({
-      ...res.locals,
+      ..._request.locals,
       targetProjectIds: [String(project.id)],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -524,7 +514,7 @@ export const deleteProject = async (
 
     if (String(projectToDelete.organizationId) !== String(organization.id)) {
       ErrorHandler.handleGenericErrorResponse(
-        res,
+        reply,
         'PROJECT_NOT_IN_ORGANIZATION'
       );
       return;
@@ -533,7 +523,7 @@ export const deleteProject = async (
     const deletedProject = await projectService.deleteProjectById(project.id);
 
     if (!deletedProject) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED', {
+      ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED', {
         projectId: project.id,
       });
 
@@ -561,10 +551,10 @@ export const deleteProject = async (
       { $set: { activeProjectId: null } }
     );
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -576,20 +566,19 @@ export type SelectProjectResult = ResponseData<ProjectAPI>;
  * Select a project.
  */
 export const selectProject = async (
-  req: Request<SelectProjectParam>,
-  res: ResponseWithSession<SelectProjectResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Params: SelectProjectParam }>,
+  reply: FastifyReply
 ) => {
-  const { projectId } = req.params;
-  const { session } = res.locals;
+  const { projectId } = request.params;
+  const { session } = request.locals || {};
 
   if (!projectId) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_ID_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_ID_NOT_FOUND');
     return;
   }
 
   if (typeof session === 'undefined') {
-    ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'SESSION_NOT_DEFINED');
     return;
   }
 
@@ -615,10 +604,10 @@ export const selectProject = async (
       data: mapProjectToAPI(project),
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -629,14 +618,13 @@ export type UnselectProjectResult = ResponseData<null>;
  * Unselect a project.
  */
 export const unselectProject = async (
-  _req: Request,
-  res: ResponseWithSession<UnselectProjectResult>,
-  _next: NextFunction
+  _request: FastifyRequest,
+  reply: FastifyReply
 ) => {
-  const { session } = res.locals;
+  const { session } = _request.locals || {};
 
   if (typeof session === 'undefined') {
-    ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'SESSION_NOT_DEFINED');
     return;
   }
 
@@ -660,10 +648,10 @@ export const unselectProject = async (
       data: null,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };

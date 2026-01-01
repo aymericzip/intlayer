@@ -8,10 +8,8 @@ import {
   pushDictionaries,
   updateDictionary,
 } from '@controllers/dictionary.controller';
-import { Router } from 'express';
+import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
-
-export const dictionaryRouter: Router = Router();
 
 export const dictionaryRoute = '/api/dictionary';
 
@@ -64,39 +62,28 @@ export const getDictionaryRoutes = () =>
     },
   }) satisfies Routes;
 
-dictionaryRouter.get(
-  getDictionaryRoutes().getDictionaries.urlModel,
-  getDictionaries
-);
-
-dictionaryRouter.get(
-  getDictionaryRoutes().getDictionariesKeys.urlModel,
-  getDictionariesKeys
-);
-
-dictionaryRouter.get(
-  getDictionaryRoutes().getDictionariesUpdateTimestamp.urlModel,
-  getDictionariesUpdateTimestamp
-);
-
-dictionaryRouter.get(
-  getDictionaryRoutes().getDictionary.urlModel,
-  getDictionaryByKey
-);
-
-dictionaryRouter.post(
-  getDictionaryRoutes().addDictionary.urlModel,
-  addDictionary
-);
-dictionaryRouter.patch(
-  getDictionaryRoutes().pushDictionaries.urlModel,
-  pushDictionaries
-);
-dictionaryRouter.put(
-  getDictionaryRoutes().updateDictionary.urlModel,
-  updateDictionary
-);
-dictionaryRouter.delete(
-  getDictionaryRoutes().deleteDictionary.urlModel,
-  deleteDictionary
-);
+export const dictionaryRouter = async (fastify: FastifyInstance) => {
+  fastify.get(getDictionaryRoutes().getDictionaries.urlModel, getDictionaries);
+  fastify.get(
+    getDictionaryRoutes().getDictionariesKeys.urlModel,
+    getDictionariesKeys
+  );
+  fastify.get(
+    getDictionaryRoutes().getDictionariesUpdateTimestamp.urlModel,
+    getDictionariesUpdateTimestamp
+  );
+  fastify.get(getDictionaryRoutes().getDictionary.urlModel, getDictionaryByKey);
+  fastify.post(getDictionaryRoutes().addDictionary.urlModel, addDictionary);
+  fastify.patch(
+    getDictionaryRoutes().pushDictionaries.urlModel,
+    pushDictionaries
+  );
+  fastify.put(
+    getDictionaryRoutes().updateDictionary.urlModel,
+    updateDictionary
+  );
+  fastify.delete(
+    getDictionaryRoutes().deleteDictionary.urlModel,
+    deleteDictionary
+  );
+};

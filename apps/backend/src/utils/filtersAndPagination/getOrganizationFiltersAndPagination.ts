@@ -1,6 +1,7 @@
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
+import type { FastifyRequest } from 'fastify';
 import type { RootFilterQuery } from 'mongoose';
 import type { Organization } from '@/types/organization.types';
 import {
@@ -32,16 +33,23 @@ export type OrganizationFilters = RootFilterQuery<Organization>;
 
 /**
  * Extracts filters and pagination information from the request body.
- * @param req - Express request object.
+ * @param req - Express or Fastify request object.
+ * @param res - Express or Fastify response object (optional, for Express compatibility).
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getOrganizationFiltersAndPagination = (
-  req: Request<FiltersAndPagination<OrganizationFiltersParams>>,
-  res: ResponseWithSession
+  req:
+    | Request<FiltersAndPagination<OrganizationFiltersParams>>
+    | FastifyRequest<{
+        Querystring: FiltersAndPagination<OrganizationFiltersParams>;
+      }>,
+  res?: ResponseWithSession
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<OrganizationFiltersParams>(req);
-  const { roles, user } = res.locals;
+    getFiltersAndPaginationFromBody<OrganizationFiltersParams>(req as any);
+  // Support both Express (res.locals) and Fastify (req.locals)
+  const locals = (res as any)?.locals || (req as FastifyRequest).locals || {};
+  const { roles, user } = locals;
 
   let filters: OrganizationFilters = {};
   let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };

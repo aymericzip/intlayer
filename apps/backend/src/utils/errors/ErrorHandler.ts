@@ -4,11 +4,14 @@ import { Locales, type StrictModeLocaleMap } from '@intlayer/types';
 import { logger } from '@logger';
 import { formatPaginatedResponse, formatResponse } from '@utils/responseData';
 import type { Response } from 'express';
-import { t } from 'express-intlayer';
+import type { FastifyReply } from 'fastify';
+import { t } from 'fastify-intlayer';
 import type { UserAPI } from '@/types/user.types';
 import { HttpStatusCodes } from '@/utils/httpStatusCodes';
 import type { AppError } from './ErrorsClass';
 import { type ErrorCodes, errorData } from './errorCodes';
+
+type ResponseLike = Response | FastifyReply;
 
 // Define a class named 'ErrorHandler' to encapsulate error handling logic.
 export class ErrorHandler {
@@ -20,7 +23,7 @@ export class ErrorHandler {
    * @param isPaginatedResponse - Flag to determine if the response should be paginated.
    */
   static handleGenericErrorResponse(
-    res: Response,
+    res: ResponseLike,
     errorKey: ErrorCodes,
     errorDetails?: object,
     statusCode?: HttpStatusCodes,
@@ -49,7 +52,7 @@ export class ErrorHandler {
    * @param isPaginatedResponse - (Optional) Flag to determine if the response should be paginated.
    */
   static handleAppErrorResponse(
-    res: Response,
+    res: ResponseLike,
     error: AppError,
     messageDetails?: object,
     isPaginatedResponse: boolean = false
@@ -89,7 +92,7 @@ export class ErrorHandler {
    * @param isPaginatedResponse - Determines if the error should be part of a paginated response.
    */
   static handleCustomErrorResponse<T>(
-    res: Response,
+    res: ResponseLike,
     errorKey: ErrorCodes | string,
     title: StrictModeLocaleMap<string> | string,
     message: StrictModeLocaleMap<string> | string,
@@ -115,7 +118,12 @@ export class ErrorHandler {
         },
         status,
       });
-      res.status(status).json(responseData);
+      // Support both Express and Fastify
+      if ('status' in res && 'json' in res) {
+        (res as Response).status(status).json(responseData);
+      } else {
+        (res as FastifyReply).code(status).send(responseData);
+      }
       return;
     }
 
@@ -130,6 +138,40 @@ export class ErrorHandler {
       status,
     });
 
-    res.status(status).json(responseData);
+    // Support both Express and Fastify
+    if ('status' in res && 'json' in res) {
+      (res as Response).status(status).json(responseData);
+    } else {
+      (res as FastifyReply).code(status).send(responseData);
+    }
+  }
+
+  /**
+   * Formats a generic error response without sending it (useful for Fastify plugins).
+   * @param errorKey - A key representing the specific error.
+   * @param errorDetails - Optional error details to include.
+   * @param statusCode - Optional HTTP status code.
+   * @returns Formatted error response object.
+   */
+  static formatGenericErrorResponse(
+    errorKey: ErrorCodes,
+    errorDetails?: object,
+    statusCode?: HttpStatusCodes
+  ) {
+    const error = errorData[errorKey];
+    const status = statusCode ?? error.statusCode;
+    const errorTitle = t(error.title, Locales.ENGLISH);
+    const errorMessage = t(error.message, Locales.ENGLISH);
+    logger.error(errorMessage, errorDetails);
+
+    return formatResponse<UserAPI>({
+      error: {
+        code: errorKey,
+        title: errorTitle,
+        message: errorMessage,
+        ...errorDetails,
+      },
+      status,
+    });
   }
 }

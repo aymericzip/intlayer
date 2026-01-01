@@ -1,10 +1,15 @@
+'use client';
+
 import { Link } from '@components/Link/Link';
 import type { ProjectConfiguration } from '@intlayer/backend';
-import { H3, H4, H5, Tag } from '@intlayer/design-system';
+import { Button, H3, H4, H5, Tag } from '@intlayer/design-system';
+import { useSession } from '@intlayer/design-system/hooks';
 import { getLocaleName, type Locale } from 'intlayer';
+import { Pencil } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 import { PagesRoutes } from '@/Routes';
+import { ConfigEditionForm } from './ConfigEditionForm';
 
 type ConfigDetailsProps = {
   projectConfig?: ProjectConfiguration;
@@ -12,6 +17,9 @@ type ConfigDetailsProps = {
 
 export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
   const { locale } = useLocale();
+  const { session } = useSession();
+  const isProjectAdmin = session?.roles?.includes('project_admin');
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const {
     noConfig,
     updateConfig,
@@ -20,6 +28,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
     i18nSection,
     editorSection,
   } = useIntlayer('project-config-detail');
+  const { editButton } = useIntlayer('config-edition-form');
 
   if (!projectConfig) {
     return (
@@ -42,7 +51,28 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <H3>{title}</H3>
+      <div className="flex items-center justify-between">
+        <H3>{title}</H3>
+        {isProjectAdmin && (
+          <Button
+            variant="outline"
+            size="sm"
+            color="text"
+            Icon={Pencil}
+            label={editButton.ariaLabel.value}
+            onClick={() => setIsEditModalOpen(true)}
+          >
+            {editButton.text}
+          </Button>
+        )}
+      </div>
+
+      <ConfigEditionForm
+        projectConfig={projectConfig}
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+      />
+
       <div className="flex flex-col gap-4">
         <H4>{i18nSection.title}</H4>
         <div className="flex flex-col gap-4">

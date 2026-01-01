@@ -9,8 +9,8 @@ import {
   type UnmergedDictionaries,
 } from '@intlayer/unmerged-dictionaries-entry';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { NextFunction, Request, Response } from 'express';
-import { t } from 'express-intlayer';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { t } from 'fastify-intlayer';
 
 type GetDictionariesResult = ResponseData<UnmergedDictionaries>;
 
@@ -18,17 +18,15 @@ type GetDictionariesResult = ResponseData<UnmergedDictionaries>;
  * Get the Intlayer configuration
  */
 export const getDictionaries = async (
-  _req: Request,
-  res: Response<GetDictionariesResult>,
-  _next: NextFunction
+  _req: FastifyRequest,
+  res: FastifyReply
 ): Promise<void> => {
   try {
     const formattedResponse = formatResponse<UnmergedDictionaries>({
       data: getUnmergedDictionaries(),
     });
 
-    res.json(formattedResponse);
-    return;
+    return res.send(formattedResponse);
   } catch (err) {
     const errorMessage = (err as { message?: string; status?: number }) ?? {
       message: 'Internal Server Error',
@@ -44,8 +42,7 @@ export const getDictionaries = async (
       status: errorMessage.status ?? 500,
     });
 
-    res.json(formattedErrorResponse);
-    return;
+    return res.send(formattedErrorResponse);
   }
 };
 
@@ -61,9 +58,8 @@ export type WriteContentDeclarationResult =
  * Adds a new dictionary to the database.
  */
 export const writeContentDeclaration = async (
-  req: Request<any, any, WriteContentDeclarationBody>,
-  res: Response<WriteContentDeclarationResult>,
-  _next: NextFunction
+  req: FastifyRequest<{ Body: WriteContentDeclarationBody }>,
+  res: FastifyReply
 ): Promise<void> => {
   try {
     const dictionaryData = req.body.dictionary;
@@ -130,8 +126,7 @@ export const writeContentDeclaration = async (
       }
     );
 
-    res.json(formattedResponse);
-    return;
+    return res.send(formattedResponse);
   } catch (err) {
     const errorMessage = (err as { message?: string; status?: number }) ?? {
       message: 'Internal Server Error',
@@ -150,7 +145,6 @@ export const writeContentDeclaration = async (
         status: errorMessage.status ?? 500,
       });
 
-    res.json(formattedErrorResponse);
-    return;
+    return res.send(formattedErrorResponse);
   }
 };

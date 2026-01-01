@@ -51,7 +51,7 @@ import {
 } from '@emails/Welcome';
 import type { Locale } from '@intlayer/types';
 import { logger } from '@logger';
-import { t } from 'express-intlayer';
+import { t } from 'fastify-intlayer';
 import type { ComponentProps, JSX } from 'react';
 import { Resend } from 'resend';
 

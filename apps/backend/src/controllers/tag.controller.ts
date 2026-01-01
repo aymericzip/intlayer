@@ -1,5 +1,4 @@
 import { logger } from '@logger';
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as tagService from '@services/tag.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
@@ -15,8 +14,8 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
-import { t } from 'express-intlayer';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { t } from 'fastify-intlayer';
 import type {
   Tag,
   TagAPI,
@@ -32,21 +31,20 @@ export type GetTagsResult = PaginatedResponse<TagAPI>;
  * Retrieves a list of tags based on filters and pagination.
  */
 export const getTags = async (
-  req: Request<GetTagsParams>,
-  res: ResponseWithSession<GetTagsResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Querystring: GetTagsParams }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, organization, roles } = res.locals;
+  const { user, organization, roles } = request.locals || {};
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
-    getTagFiltersAndPagination(req, res);
+    getTagFiltersAndPagination(request);
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
@@ -60,14 +58,14 @@ export const getTags = async (
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'tag:read'
       )({
-        ...res.locals,
+        ...request.locals,
         targetTags: tags,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
@@ -83,10 +81,10 @@ export const getTags = async (
       totalItems,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -98,30 +96,30 @@ export type AddTagResult = ResponseData<TagAPI>;
  * Adds a new tag to the database.
  */
 export const addTag = async (
-  req: Request<any, any, AddTagBody>,
-  res: ResponseWithSession<AddTagResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AddTagBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { organization, project, user, roles } = res.locals;
-  const tagData = req.body;
+  const { organization, project, user, roles } = request.locals || {};
+  const tagData = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (!tagData) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_DATA_NOT_FOUND');
+    return;
   }
 
   const tag: TagData = {
@@ -133,14 +131,14 @@ export const addTag = async (
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'tag:admin'
     )({
-      ...res.locals,
+      ...request.locals,
       targetTags: [tag as Tag],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -163,10 +161,10 @@ export const addTag = async (
       data: formattedTag,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -179,49 +177,48 @@ export type UpdateTagResult = ResponseData<TagAPI>;
  * Updates an existing tag in the database.
  */
 export const updateTag = async (
-  req: Request<UpdateTagParams, any, UpdateTagBody>,
-  res: ResponseWithSession<UpdateTagResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Params: UpdateTagParams; Body: UpdateTagBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { tagId } = req.params;
-  const { organization, user, roles } = res.locals;
+  const { tagId } = request.params;
+  const { organization, user, roles } = request.locals || {};
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
   try {
     const tag = {
       _id: tagId,
-      name: req.body.name,
-      key: req.body.key,
-      description: req.body.description,
-      instructions: req.body.instructions,
+      name: request.body.name,
+      key: request.body.key,
+      description: request.body.description,
+      instructions: request.body.instructions,
     } as Partial<TagSchema> & { _id: Tag['id'] };
 
     const tagToDelete = await tagService.getTagById(tagId);
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'tag:write'
       )({
-        ...res.locals,
+        ...request.locals,
         targetTags: [tagToDelete],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
     if (String(tagToDelete.organizationId) !== String(organization.id)) {
-      ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_IN_ORGANIZATION');
+      ErrorHandler.handleGenericErrorResponse(reply, 'TAG_NOT_IN_ORGANIZATION');
       return;
     }
 
@@ -243,10 +240,10 @@ export const updateTag = async (
       data: formattedTag,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -256,30 +253,26 @@ export type DeleteTagResult = ResponseData<TagAPI>;
 
 /**
  * Deletes a tag from the database by its ID.
- * @param req - Express request object.
- * @param  res - Express response object.
- * @returns Response confirming the deletion.
  */
 export const deleteTag = async (
-  req: Request<DeleteTagParams>,
-  res: ResponseWithSession<DeleteTagResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Params: DeleteTagParams }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, organization, roles } = res.locals;
-  const { tagId } = req.params;
+  const { user, organization, roles } = request.locals || {};
+  const { tagId } = request.params;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
   if (!tagId) {
-    ErrorHandler.handleGenericErrorResponse(res, 'TAG_ID_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'TAG_ID_NOT_FOUND');
     return;
   }
 
@@ -288,26 +281,26 @@ export const deleteTag = async (
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'tag:admin'
       )({
-        ...res.locals,
+        ...request.locals,
         targetTags: [tagToDelete],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
     if (String(tagToDelete.organizationId) !== String(organization.id)) {
-      ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_IN_ORGANIZATION');
+      ErrorHandler.handleGenericErrorResponse(reply, 'TAG_NOT_IN_ORGANIZATION');
       return;
     }
 
     const deletedTag = await tagService.deleteTagById(tagId);
 
     if (!deletedTag) {
-      ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_FOUND', {
+      ErrorHandler.handleGenericErrorResponse(reply, 'TAG_NOT_FOUND', {
         tagId,
       });
 
@@ -332,10 +325,10 @@ export const deleteTag = async (
       data: formattedTag,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };

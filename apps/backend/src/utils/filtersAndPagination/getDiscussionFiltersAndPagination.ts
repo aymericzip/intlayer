@@ -1,6 +1,7 @@
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
+import type { FastifyRequest } from 'fastify';
 import type { RootFilterQuery } from 'mongoose';
 import type { Discussion } from '@/types/discussion.types';
 import {
@@ -29,12 +30,18 @@ export type DiscussionFilters = RootFilterQuery<Discussion>;
  * Enforces that non-admin users can only see their own discussions.
  */
 export const getDiscussionFiltersAndPagination = (
-  req: Request<FiltersAndPagination<DiscussionFiltersParams>>,
-  res: ResponseWithSession
+  req:
+    | Request<FiltersAndPagination<DiscussionFiltersParams>>
+    | FastifyRequest<{
+        Querystring: FiltersAndPagination<DiscussionFiltersParams>;
+      }>,
+  res?: ResponseWithSession
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<DiscussionFiltersParams>(req);
-  const { roles, user } = res.locals;
+    getFiltersAndPaginationFromBody<DiscussionFiltersParams>(req as any);
+  // Support both Express (res.locals) and Fastify (req.locals)
+  const locals = (res as any)?.locals || (req as FastifyRequest).locals || {};
+  const { roles, user } = locals;
 
   let filters: DiscussionFilters = {};
   let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };

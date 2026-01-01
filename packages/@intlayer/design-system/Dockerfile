@@ -30,6 +30,7 @@ COPY \
   --exclude=packages/react-native-intlayer \
   --exclude=packages/lynx-intlayer \
   --exclude=packages/intlayer-editor \
+  --exclude=packages/express-intlayer \
   --exclude=plugins \
   --exclude=docs/assets \
   --exclude=docs/docs \

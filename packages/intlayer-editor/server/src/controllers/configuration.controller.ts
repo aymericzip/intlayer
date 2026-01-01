@@ -1,7 +1,7 @@
 import { getConfiguration as getApplicationConfiguration } from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { NextFunction, Request, Response } from 'express';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 
 export type GetConfigurationResult = ResponseData<IntlayerConfig>;
 
@@ -9,9 +9,8 @@ export type GetConfigurationResult = ResponseData<IntlayerConfig>;
  * Get the Intlayer configuration
  */
 export const getConfiguration = async (
-  _req: Request,
-  res: Response<GetConfigurationResult>,
-  _next: NextFunction
+  _req: FastifyRequest,
+  res: FastifyReply
 ): Promise<void> => {
   try {
     const config = getApplicationConfiguration();
@@ -20,8 +19,7 @@ export const getConfiguration = async (
       data: config,
     });
 
-    res.json(formattedResponse);
-    return;
+    return res.send(formattedResponse);
   } catch (err) {
     const errorMessage = (err as { message?: string; status?: number }) ?? {
       message: 'Internal Server Error',
@@ -37,7 +35,6 @@ export const getConfiguration = async (
       status: errorMessage.status ?? 500,
     });
 
-    res.json(formattedErrorResponse);
-    return;
+    return res.send(formattedErrorResponse);
   }
 };

@@ -1,11 +1,10 @@
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { sendEmail } from '@services/email.service';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { hasPermission, intersectPermissions } from '@utils/permissions';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
-import { t } from 'express-intlayer';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { t } from 'fastify-intlayer';
 import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
 
 export type AddNewAccessKeyBody = AccessKeyData;
@@ -15,37 +14,36 @@ export type AddNewAccessKeyResponse = ResponseData<OAuth2Access>;
  * Adds a new access key to a project.
  */
 export const addNewAccessKey = async (
-  req: Request<AddNewAccessKeyBody>,
-  res: ResponseWithSession<AddNewAccessKeyResponse>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AddNewAccessKeyBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, roles, permissions } = res.locals;
-  const { grants, name, expiresAt } = req.body;
+  const { user, project, roles, permissions } = request.locals || {};
+  const { grants, name, expiresAt } = request.body;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'project:write'
     )({
-      ...res.locals,
+      ...request.locals,
       targetProjectIds: [project.id],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
-  const filteredPermisions = intersectPermissions(permissions, grants);
+  const filteredPermisions = intersectPermissions(permissions || [], grants);
 
   try {
     const newAccessKey = await projectAccessKeyService.addNewAccessKey(
@@ -72,7 +70,7 @@ export const addNewAccessKey = async (
       data: newAccessKey,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
 
     sendEmail({
       type: 'oAuthTokenCreated',
@@ -87,7 +85,7 @@ export const addNewAccessKey = async (
 
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -99,38 +97,37 @@ export type DeleteAccessKeyResponse = ResponseData<null>;
  * Deletes an access key from a project.
  */
 export const deleteAccessKey = async (
-  req: Request,
-  res: ResponseWithSession<AddNewAccessKeyResponse>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: DeleteAccessKeyBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, roles } = res.locals;
-  const { clientId } = req.body;
+  const { user, project, roles } = request.locals || {};
+  const { clientId } = request.body;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!clientId) {
-    ErrorHandler.handleGenericErrorResponse(res, 'CLIENT_ID_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'CLIENT_ID_NOT_FOUND');
     return;
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'project:write'
     )({
-      ...res.locals,
+      ...request.locals,
       targetProjectIds: [project.id],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -142,7 +139,7 @@ export const deleteAccessKey = async (
     );
 
     if (!deletedAccessKey) {
-      ErrorHandler.handleGenericErrorResponse(res, 'ACCESS_KEY_NOT_FOUND', {
+      ErrorHandler.handleGenericErrorResponse(reply, 'ACCESS_KEY_NOT_FOUND', {
         clientId,
       });
       return;
@@ -162,10 +159,10 @@ export const deleteAccessKey = async (
       data: null,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -177,35 +174,37 @@ export type RefreshAccessKeyResponse = ResponseData<OAuth2Access>;
  * Refreshes an access key from a project.
  */
 export const refreshAccessKey = async (
-  req: Request<RefreshAccessKeyBody>,
-  res: ResponseWithSession<RefreshAccessKeyResponse>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: RefreshAccessKeyBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, roles } = res.locals;
-  const { clientId } = req.body;
+  const { user, project, roles } = request.locals || {};
+  const { clientId } = request.body;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
+    return;
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+    return;
   }
 
   if (!clientId) {
-    ErrorHandler.handleGenericErrorResponse(res, 'CLIENT_ID_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'CLIENT_ID_NOT_FOUND');
+    return;
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'project:write'
     )({
-      ...res.locals,
+      ...request.locals,
       targetProjectIds: [project?.id],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -230,10 +229,10 @@ export const refreshAccessKey = async (
       data: newAccessKey,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };

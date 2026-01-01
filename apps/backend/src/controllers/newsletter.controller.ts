@@ -1,12 +1,11 @@
 import { logger } from '@logger';
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { hasPermission } from '@utils/permissions';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
-import { t } from 'express-intlayer';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { t } from 'fastify-intlayer';
 import type { EmailsList, UserAPI } from '@/types/user.types';
 
 export type NewsletterSubscriptionBody = {
@@ -21,15 +20,14 @@ export type NewsletterSubscriptionResult = ResponseData<UserAPI>;
  * If the user exists, updates their newsletter subscription to true.
  */
 export const subscribeToNewsletter = async (
-  req: Request<any, any, NewsletterSubscriptionBody>,
-  res: ResponseWithSession<NewsletterSubscriptionResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: NewsletterSubscriptionBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { roles } = res.locals;
-  const { email, emailList } = req.body;
+  const { roles } = request.locals || {};
+  const { email, emailList } = request.body;
 
   if (!email) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_DATA_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_DATA_NOT_FOUND');
     return;
   }
 
@@ -54,14 +52,14 @@ export const subscribeToNewsletter = async (
     } else {
       if (
         !hasPermission(
-          roles,
+          roles || [],
           'user:write'
         )({
-          ...res.locals,
+          ...request.locals,
           targetUsers: [user],
         })
       ) {
-        ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+        ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
         return;
       }
 
@@ -89,10 +87,10 @@ export const subscribeToNewsletter = async (
       data: formattedUser,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -107,15 +105,14 @@ export type NewsletterUnsubscriptionBody = {
  * Only works if the user exists.
  */
 export const unsubscribeFromNewsletter = async (
-  req: Request<any, any, NewsletterUnsubscriptionBody>,
-  res: ResponseWithSession<NewsletterSubscriptionResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: NewsletterUnsubscriptionBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { userId, emailList } = req.body;
-  const { roles } = res.locals;
+  const { userId, emailList } = request.body;
+  const { roles } = request.locals || {};
 
   if (!userId) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_DATA_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_DATA_NOT_FOUND');
     return;
   }
 
@@ -124,20 +121,20 @@ export const unsubscribeFromNewsletter = async (
     const user = await userService.getUserById(userId);
 
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
       return;
     }
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'user:write'
       )({
-        ...res.locals,
+        ...request.locals,
         targetUsers: [user],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
@@ -171,10 +168,10 @@ export const unsubscribeFromNewsletter = async (
       data: formattedUser,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -183,15 +180,14 @@ export const unsubscribeFromNewsletter = async (
  * Gets the newsletter subscription status for a user.
  */
 export const getNewsletterStatus = async (
-  _req: Request<{ email: string }>,
-  res: ResponseWithSession<NewsletterSubscriptionResult>,
-  _next: NextFunction
+  _request: FastifyRequest,
+  reply: FastifyReply
 ): Promise<void> => {
-  const email = res.locals.user?.email;
-  const { roles } = res.locals;
+  const email = _request.locals?.user?.email;
+  const { roles } = _request.locals || {};
 
   if (!email) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_DATA_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_DATA_NOT_FOUND');
     return;
   }
 
@@ -199,20 +195,20 @@ export const getNewsletterStatus = async (
     const user = await userService.getUserByEmail(email);
 
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
       return;
     }
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'user:read'
       )({
-        ...res.locals,
+        ..._request.locals,
         targetUsers: [user],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
@@ -227,10 +223,10 @@ export const getNewsletterStatus = async (
       data: formattedUser,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };

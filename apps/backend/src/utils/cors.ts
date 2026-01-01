@@ -1,16 +1,20 @@
+import type { FastifyCorsOptions } from '@fastify/cors';
 import { logger } from '@logger';
-import type { CorsOptions } from 'cors';
 
 const whitelist = [process.env.CLIENT_URL!];
 
-export const corsOptions: CorsOptions = {
+export const corsOptions: FastifyCorsOptions = {
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
 
     if (whitelist.includes(origin)) {
       logger.info('whitelisted origin', origin);
-      return callback(null, true);
+      callback(null, true);
+      return;
     }
 
     logger.info('non whitelisted origin', origin);
@@ -28,7 +32,6 @@ export const corsOptions: CorsOptions = {
     'browsing-topics',
   ],
   exposedHeaders: [''],
-  preflightContinue: false,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   credentials: true,
 };

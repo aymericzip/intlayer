@@ -1,5 +1,4 @@
 import { logger } from '@logger';
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { sendEmail } from '@services/email.service';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -16,8 +15,8 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
-import { t } from 'express-intlayer';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { t } from 'fastify-intlayer';
 import type { User, UserAPI } from '@/types/user.types';
 
 export type CreateUserBody = { email: string; password?: string };
@@ -27,14 +26,13 @@ export type CreateUserResult = ResponseData<UserAPI>;
  * Creates a new user.
  */
 export const createUser = async (
-  req: Request<any, any, User>,
-  res: ResponseWithSession<CreateUserResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: User }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const user: User | undefined = req.body;
+  const user: User | undefined = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -64,10 +62,10 @@ export const createUser = async (
       data: formattedUser,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -79,19 +77,18 @@ export type GetUsersResult = PaginatedResponse<UserAPI>;
  * Retrieves a list of users based on filters and pagination.
  */
 export const getUsers = async (
-  req: Request<GetUsersParams>,
-  res: ResponseWithSession<GetUsersResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Querystring: GetUsersParams }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, roles } = res.locals;
+  const { user, roles } = request.locals || {};
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
-    getUserFiltersAndPagination(req, res);
+    getUserFiltersAndPagination(request);
 
   try {
     const users = await userService.findUsers(
@@ -103,14 +100,14 @@ export const getUsers = async (
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'user:read'
       )({
-        ...res.locals,
+        ...request.locals,
         targetUsers: users,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
@@ -126,10 +123,10 @@ export const getUsers = async (
       totalItems,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -138,27 +135,26 @@ export type GetUserByIdParams = { userId: UserAPI['id'] };
 export type GetUserByIdResult = ResponseData<UserAPI>;
 
 export const getUserById = async (
-  req: Request<GetUserByIdParams>,
-  res: ResponseWithSession<GetUserByIdResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Params: GetUserByIdParams }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { userId } = req.params;
+  const { userId } = request.params;
 
   try {
     const user = await userService.getUserById(userId);
 
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
       return;
     }
 
     const formattedUser = mapUserToAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -167,40 +163,39 @@ export type GetUserByEmailParams = { email: string };
 export type GetUserByEmailResult = ResponseData<UserAPI>;
 
 export const getUserByEmail = async (
-  req: Request<GetUserByEmailParams>,
-  res: ResponseWithSession<GetUserByEmailResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Params: GetUserByEmailParams }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { email } = req.params;
-  const { roles } = res.locals;
+  const { email } = request.params;
+  const { roles } = request.locals || {};
 
   try {
     const user = await userService.getUserByEmail(email);
 
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
       return;
     }
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'user:read'
       )({
-        ...res.locals,
+        ...request.locals,
         targetUsers: [user],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
     const formattedUser = mapUserToAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
-    res.json(responseData);
+    reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -212,45 +207,44 @@ export type UpdateUserResult = ResponseData<UserAPI>;
  * Updates user information (phone number, date of birth).
  */
 export const updateUser = async (
-  req: Request<any, any, UpdateUserBody | undefined>,
-  res: ResponseWithSession<UpdateUserResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: UpdateUserBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const userData = req.body;
-  const { user, roles } = res.locals;
+  const userData = request.body;
+  const { user, roles } = request.locals || {};
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (typeof userData !== 'object') {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_DATA_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_DATA_NOT_FOUND');
     return;
   }
 
   if (!userData.id) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_INVALID_FIELDS');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_INVALID_FIELDS');
     return;
   }
 
   const userDB = await userService.getUserById(userData.id);
 
   if (!userDB) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     return;
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'user:write'
     )({
-      ...res.locals,
+      ...request.locals,
       targetUsers: [userDB],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -276,10 +270,10 @@ export const updateUser = async (
       data: formattedUser,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -291,31 +285,30 @@ export type DeleteUserResult = ResponseData<UserAPI>;
  * Deletes a user based on the provided ID.
  */
 export const deleteUser = async (
-  req: Request<DeleteUserParams>,
-  res: ResponseWithSession<DeleteUserResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Params: DeleteUserParams }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { userId } = req.params;
-  const { roles } = res.locals;
+  const { userId } = request.params;
+  const { roles } = request.locals || {};
 
   try {
     const user = await userService.getUserById(userId);
 
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
       return;
     }
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'user:admin'
       )({
-        ...res.locals,
+        ...request.locals,
         targetUsers: [user],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
@@ -336,15 +329,18 @@ export const deleteUser = async (
       data: formattedUser,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
 
-let clients: Array<{ id: number; userId: string; res: ResponseWithSession }> =
-  [];
+let clients: Array<{
+  id: number;
+  userId: string;
+  res: { raw: FastifyReply['raw'] };
+}> = [];
 
 export const sendVerificationUpdate = (user: User) => {
   const filteredClients = clients.filter(
@@ -353,7 +349,7 @@ export const sendVerificationUpdate = (user: User) => {
 
   for (const client of filteredClients) {
     if (user.emailVerified) {
-      client.res.write(
+      client.res.raw.write(
         `data: ${JSON.stringify({ userId: user.id, status: 'verified' })}\n\n`
       );
     }
@@ -366,39 +362,39 @@ export type VerifyEmailStatusSSEParams = { userId: string };
  * SSE to check the email verification status
  */
 export const verifyEmailStatusSSE = async (
-  req: Request<VerifyEmailStatusSSEParams, any, any>,
-  res: ResponseWithSession
+  request: FastifyRequest<{ Params: VerifyEmailStatusSSEParams }>,
+  reply: FastifyReply
 ) => {
   // Set headers for SSE
-  res.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
-  res.setHeader('Cache-Control', 'no-cache, no-transform');
-  res.setHeader('Connection', 'keep-alive');
-  res.setHeader('X-Accel-Buffering', 'no'); // For Nginx buffering
+  reply.raw.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
+  reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');
+  reply.raw.setHeader('Connection', 'keep-alive');
+  reply.raw.setHeader('X-Accel-Buffering', 'no'); // For Nginx buffering
 
   // Send initial data to ensure the connection is open
-  res.write(':\n\n'); // Comment to keep connection alive
-  res.flushHeaders();
+  reply.raw.write(':\n\n'); // Comment to keep connection alive
+  reply.raw.flushHeaders?.();
 
-  const { userId } = req.params; // Get user ID from query parameters
+  const { userId } = request.params; // Get user ID from params
   const clientId = Date.now();
 
   const user = await userService.getUserById(userId);
 
   if (!user) {
     logger.error(`User not found - User ID: ${userId}`);
-    res.write(`data: ${JSON.stringify({ userId, status: 'error' })}\n\n`);
-    res.end();
+    reply.raw.write(`data: ${JSON.stringify({ userId, status: 'error' })}\n\n`);
+    reply.raw.end();
     return;
   }
 
   // Add client to the list
-  const newClient = { id: clientId, userId, res };
+  const newClient = { id: clientId, userId, res: { raw: reply.raw } };
   clients.push(newClient);
 
   sendVerificationUpdate(user);
 
   // Remove client on connection close
-  req.on('close', () => {
+  request.raw.on('close', () => {
     clients = clients.filter((client) => client.id !== clientId);
   });
 };

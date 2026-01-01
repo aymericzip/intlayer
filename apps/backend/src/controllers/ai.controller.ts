@@ -5,7 +5,6 @@ import {
   getAIConfig,
 } from '@intlayer/ai';
 import type { KeyPath, Locale } from '@intlayer/types';
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';
 import { getTagsByKeys } from '@services/tag.service';
@@ -28,7 +27,7 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import { DiscussionModel } from '@/models/discussion.model';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { DiscussionAPI } from '@/types/discussion.types';
@@ -47,12 +46,12 @@ export type CustomQueryResult =
   ResponseData<customQueryUtil.CustomQueryResultData>;
 
 export const customQuery = async (
-  req: Request<CustomQueryBody>,
-  res: ResponseWithSession<CustomQueryResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: CustomQueryBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
   // biome-ignore lint/correctness/noUnusedVariables: Just filter out tagsKeys
-  const { aiOptions, tagsKeys, ...rest } = req.body;
+  const { aiOptions, tagsKeys, ...rest } = request.body;
+  const { user } = request.locals || {};
 
   let aiConfig: AIConfig;
   try {
@@ -62,10 +61,10 @@ export const customQuery = async (
         defaultOptions: customQueryUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
     return;
   }
 
@@ -77,7 +76,7 @@ export const customQuery = async (
     });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(res, 'QUERY_FAILED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'QUERY_FAILED');
       return;
     }
 
@@ -85,10 +84,10 @@ export const customQuery = async (
       data: auditResponse,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -104,12 +103,11 @@ export type TranslateJSONResult = ResponseData<
 >;
 
 export const translateJSON = async (
-  req: Request<TranslateJSONBody>,
-  res: ResponseWithSession<TranslateJSONResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: TranslateJSONBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { project } = res.locals;
-  const { aiOptions, tagsKeys, ...rest } = req.body;
+  const { project, user } = request.locals || {};
+  const { aiOptions, tagsKeys, ...rest } = request.body;
 
   let aiConfig: AIConfig;
   try {
@@ -119,10 +117,10 @@ export const translateJSON = async (
         defaultOptions: translateJSONUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
     return;
   }
 
@@ -141,7 +139,7 @@ export const translateJSON = async (
     });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
       return;
     }
 
@@ -151,10 +149,10 @@ export const translateJSON = async (
       data: auditResponse,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -174,13 +172,12 @@ export type AuditContentDeclarationResult =
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditContentDeclaration = async (
-  req: Request<AuditContentDeclarationBody>,
-  res: ResponseWithSession<AuditContentDeclarationResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AuditContentDeclarationBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { project } = res.locals;
+  const { project, user } = request.locals || {};
   const { fileContent, filePath, aiOptions, locales, defaultLocale, tagsKeys } =
-    req.body;
+    request.body;
 
   let aiConfig: AIConfig;
   try {
@@ -190,10 +187,10 @@ export const auditContentDeclaration = async (
         defaultOptions: auditContentDeclarationUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
     return;
   }
 
@@ -215,7 +212,7 @@ export const auditContentDeclaration = async (
     });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
       return;
     }
 
@@ -224,10 +221,10 @@ export const auditContentDeclaration = async (
         data: auditResponse,
       });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -247,12 +244,11 @@ export type AuditContentDeclarationFieldResult =
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditContentDeclarationField = async (
-  req: Request<AuditContentDeclarationFieldBody>,
-  res: ResponseWithSession<AuditContentDeclarationFieldResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AuditContentDeclarationFieldBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { project } = res.locals;
-  const { fileContent, aiOptions, locales, tagsKeys, keyPath } = req.body;
+  const { project, user } = request.locals || {};
+  const { fileContent, aiOptions, locales, tagsKeys, keyPath } = request.body;
 
   let aiConfig: AIConfig;
   try {
@@ -262,10 +258,10 @@ export const auditContentDeclarationField = async (
         defaultOptions: auditContentDeclarationFieldUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
     return;
   }
 
@@ -287,7 +283,7 @@ export const auditContentDeclarationField = async (
       });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
       return;
     }
 
@@ -298,10 +294,10 @@ export const auditContentDeclarationField = async (
         }
       );
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -318,12 +314,11 @@ export type AuditContentDeclarationMetadataResult =
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditContentDeclarationMetadata = async (
-  req: Request<AuditContentDeclarationMetadataBody>,
-  res: ResponseWithSession<AuditContentDeclarationMetadataResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AuditContentDeclarationMetadataBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { organization } = res.locals;
-  const { fileContent, aiOptions } = req.body;
+  const { organization, user } = request.locals || {};
+  const { fileContent, aiOptions } = request.body;
 
   let aiConfig: AIConfig;
   try {
@@ -333,10 +328,10 @@ export const auditContentDeclarationMetadata = async (
         defaultOptions: auditContentDeclarationMetadataUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
     return;
   }
 
@@ -358,7 +353,7 @@ export const auditContentDeclarationMetadata = async (
       });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
       return;
     }
 
@@ -367,10 +362,10 @@ export const auditContentDeclarationMetadata = async (
         data: auditResponse,
       });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -385,12 +380,11 @@ export type AuditTagResult = ResponseData<auditTagUtil.TranslateJSONResultData>;
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditTag = async (
-  req: Request<undefined, undefined, AuditTagBody>,
-  res: ResponseWithSession<AuditTagResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AuditTagBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { project } = res.locals;
-  const { aiOptions, tag } = req.body;
+  const { project, user } = request.locals || {};
+  const { aiOptions, tag } = request.body;
 
   let aiConfig: AIConfig;
   try {
@@ -400,10 +394,10 @@ export const auditTag = async (
         defaultOptions: auditTagUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
     return;
   }
 
@@ -421,7 +415,7 @@ export const auditTag = async (
     });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
       return;
     }
 
@@ -429,10 +423,10 @@ export const auditTag = async (
       data: auditResponse,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -445,12 +439,11 @@ export type AskDocQuestionResult =
   ResponseData<askDocQuestionUtil.AskDocQuestionResult>;
 
 export const askDocQuestion = async (
-  req: Request<undefined, undefined, AskDocQuestionBody>,
-  res: ResponseWithSession<AskDocQuestionResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AskDocQuestionBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { messages = [], discussionId } = req.body;
-  const { user, project, organization } = res.locals;
+  const { messages = [], discussionId } = request.body;
+  const { user, project, organization } = request.locals || {};
 
   let aiConfig: AIConfig;
   try {
@@ -459,28 +452,26 @@ export const askDocQuestion = async (
         userOptions: {},
         accessType: ['public'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
     return;
   }
 
   // 1. Prepare SSE headers and flush them NOW
-  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
-  res.setHeader('Cache-Control', 'no-cache, no-transform');
-  res.setHeader('Connection', 'keep-alive');
-  res.setHeader('X-Accel-Buffering', 'no'); // disable nginx buffering
-  res.flushHeaders?.();
-  res.write(': connected\n\n'); // initial comment keeps some browsers happy
-  res.flush?.();
+  reply.raw.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+  reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');
+  reply.raw.setHeader('Connection', 'keep-alive');
+  reply.raw.setHeader('X-Accel-Buffering', 'no'); // disable nginx buffering
+  reply.raw.flushHeaders?.();
+  reply.raw.write(': connected\n\n'); // initial comment keeps some browsers happy
 
   // 2. Kick off the upstream stream WITHOUT awaiting it
   askDocQuestionUtil
     .askDocQuestion(messages, aiConfig, {
       onMessage: (chunk) => {
-        res.write(`data: ${JSON.stringify({ chunk })}\n\n`);
-        res.flush?.();
+        reply.raw.write(`data: ${JSON.stringify({ chunk })}\n\n`);
       },
     })
     .then(async (fullResponse) => {
@@ -523,17 +514,17 @@ export const askDocQuestion = async (
       }
 
       // 4. Tell the client we're done and close the stream
-      res.write(
+      reply.raw.write(
         `data: ${JSON.stringify({ done: true, response: fullResponse })}\n\n`
       );
-      res.end();
+      reply.raw.end();
     })
     .catch((err) => {
       // propagate error as an SSE event so the client knows why it closed
-      res.write(
+      reply.raw.write(
         `event: error\ndata: ${JSON.stringify({ message: err.message })}\n\n`
       );
-      res.end();
+      reply.raw.end();
     });
 };
 
@@ -550,13 +541,14 @@ export type AutocompleteResponse = ResponseData<{
 }>;
 
 export const autocomplete = async (
-  req: Request<AutocompleteBody>,
-  res: ResponseWithSession<AutocompleteResponse>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AutocompleteBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
+  const { user } = request.locals || {};
+
   try {
     const { text, aiOptions, contextBefore, currentLine, contextAfter } =
-      req.body;
+      request.body;
 
     let aiConfig: AIConfig;
     try {
@@ -566,10 +558,10 @@ export const autocomplete = async (
           defaultOptions: autocompleteUtil.aiDefaultOptions,
           accessType: ['public'],
         },
-        !!res.locals.user
+        !!user
       );
     } catch (_error) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
       return;
     }
 
@@ -590,9 +582,9 @@ export const autocomplete = async (
         data: response,
       });
 
-    res.json(responseData);
+    reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -612,21 +604,20 @@ export type GetDiscussionsResult = PaginatedResponse<DiscussionAPI>;
  * Only the owner or admins can access. By default, users only see their own.
  */
 export const getDiscussions = async (
-  req: Request<GetDiscussionsParams>,
-  res: ResponseWithSession<GetDiscussionsResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Querystring: GetDiscussionsParams }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, roles } = res.locals;
+  const { user, roles } = request.locals || {};
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
-    getDiscussionFiltersAndPagination(req, res);
-  const includeMessagesParam = (req.query as any)?.includeMessages as
+    getDiscussionFiltersAndPagination(request);
+  const includeMessagesParam = (request.query as any)?.includeMessages as
     | 'true'
     | 'false'
     | undefined;
   const includeMessages = includeMessagesParam !== 'false';
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -659,10 +650,10 @@ export const getDiscussions = async (
     const allOwnedByUser = discussions.every(
       (d) => String(d.userId) === String(user.id)
     );
-    const isAllowed = roles.includes('admin') || allOwnedByUser;
+    const isAllowed = roles?.includes('admin') || allOwnedByUser;
 
     if (!isAllowed) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
@@ -684,10 +675,10 @@ export const getDiscussions = async (
       totalItems,
     });
 
-    res.json(responseData as any);
+    reply.send(responseData as any);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };

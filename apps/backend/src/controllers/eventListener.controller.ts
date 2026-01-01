@@ -1,6 +1,6 @@
 import { logger } from '@logger';
 import { ErrorHandler } from '@utils/errors';
-import type { Request, Response } from 'express';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import type { DictionaryAPI } from '@/types/dictionary.types';
 
 export type Object = 'DICTIONARY';
@@ -12,7 +12,11 @@ export type MessageEventData = {
   data: any;
 };
 
-let clients: Array<{ id: number; projectId: string; res: Response }> = [];
+let clients: Array<{
+  id: number;
+  projectId: string;
+  res: { raw: FastifyReply['raw'] };
+}> = [];
 const MAX_SSE_CONNECTIONS = 10;
 
 export type SendDictionaryUpdateArg = {
@@ -35,8 +39,7 @@ export const sendDictionaryUpdate = (args: SendDictionaryUpdateArg[]) => {
 
   process.nextTick(() => {
     for (const client of filteredClients) {
-      client.res.write(`data: ${JSON.stringify(data)}\n\n`);
-      client.res.flush?.(); // Ensure the data is sent immediately
+      client.res.raw.write(`data: ${JSON.stringify(data)}\n\n`);
     }
   });
 };
@@ -47,33 +50,33 @@ export type CheckDictionaryChangeSSEParams = { accessToken: string };
  * SSE to check the email verification status
  */
 export const listenChangeSSE = async (
-  req: Request<CheckDictionaryChangeSSEParams, any, any>,
-  res: Response
+  request: FastifyRequest<{ Params: CheckDictionaryChangeSSEParams }>,
+  reply: FastifyReply
 ) => {
-  const { project } = res.locals;
+  const { project } = request.locals || {};
 
   if (clients.length >= MAX_SSE_CONNECTIONS) {
-    ErrorHandler.handleGenericErrorResponse(res, 'TOO_MANY_CONNECTIONS');
+    ErrorHandler.handleGenericErrorResponse(reply, 'TOO_MANY_CONNECTIONS');
     return;
   }
 
   // Set headers for SSE
-  res.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
-  res.setHeader('Cache-Control', 'no-cache, no-transform');
-  res.setHeader('Connection', 'keep-alive');
-  res.setHeader('X-Accel-Buffering', 'no'); // For Nginx buffering
+  reply.raw.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
+  reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');
+  reply.raw.setHeader('Connection', 'keep-alive');
+  reply.raw.setHeader('X-Accel-Buffering', 'no'); // For Nginx buffering
 
   // Send initial data to ensure the connection is open
-  res.write(':\n\n'); // Comment to keep connection alive
-  res.flushHeaders?.();
+  reply.raw.write(':\n\n'); // Comment to keep connection alive
+  reply.raw.flushHeaders?.();
 
   const clientId = Date.now();
 
   // Add client to the list
   const newClient = {
     id: clientId,
-    projectId: String(project.id),
-    res,
+    projectId: String(project?.id),
+    res: { raw: reply.raw },
   };
   clients.push(newClient);
 
@@ -82,7 +85,7 @@ export const listenChangeSSE = async (
   );
 
   // Remove client on connection close
-  req.on('close', () => {
+  request.raw.on('close', () => {
     clients = clients.filter((client) => client.id !== clientId);
   });
 };

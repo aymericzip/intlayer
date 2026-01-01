@@ -1,6 +1,7 @@
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
+import type { FastifyRequest } from 'fastify';
 import type { RootFilterQuery } from 'mongoose';
 import type { Dictionary } from '@/types/dictionary.types';
 import {
@@ -36,16 +37,23 @@ export type DictionaryFilters = RootFilterQuery<Dictionary>;
 
 /**
  * Extracts filters and pagination information from the request body.
- * @param req - Express request object.
+ * @param req - Express or Fastify request object.
+ * @param res - Express or Fastify response object (optional, for Express compatibility).
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getDictionaryFiltersAndPagination = (
-  req: Request<FiltersAndPagination<DictionaryFiltersParams>>,
-  res: ResponseWithSession
+  req:
+    | Request<FiltersAndPagination<DictionaryFiltersParams>>
+    | FastifyRequest<{
+        Querystring: FiltersAndPagination<DictionaryFiltersParams>;
+      }>,
+  res?: ResponseWithSession
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<DictionaryFiltersParams>(req);
-  const { roles, project } = res.locals;
+    getFiltersAndPaginationFromBody<DictionaryFiltersParams>(req as any);
+  // Support both Express (res.locals) and Fastify (req.locals)
+  const locals = (res as any)?.locals || (req as FastifyRequest).locals || {};
+  const { roles, project } = locals;
 
   let filters: DictionaryFilters = {};
   let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };

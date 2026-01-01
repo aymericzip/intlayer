@@ -23,7 +23,9 @@ export const isExternal = (id) => {
   // Externalize all builtin modules like fs, path, etc.
   if (id in builtinModules || id.startsWith('node:')) return true;
 
-  if (['fsevents'].includes(id)) return true;
+  if (['fsevents', 'os'].includes(id)) return true;
+
+  if (id.includes('node_modules')) return true;
 
   // Example: if 'next' is a dependency, 'next/link' should also be external
   const isDep = Object.keys(allDependencies).some(

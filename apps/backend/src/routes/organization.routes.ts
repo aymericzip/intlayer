@@ -9,10 +9,8 @@ import {
   updateOrganizationMembers,
   updateOrganizationMembersById,
 } from '@controllers/organization.controller';
-import { Router } from 'express';
+import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
-
-export const organizationRouter: Router = Router();
 
 export const organizationRoute = '/api/organization';
 
@@ -70,41 +68,41 @@ export const getOrganizationRoutes = () =>
     },
   }) satisfies Routes;
 
-organizationRouter.get(
-  getOrganizationRoutes().getOrganizations.urlModel,
-  getOrganizations
-);
-
-organizationRouter.post(
-  getOrganizationRoutes().addOrganization.urlModel,
-  addOrganization
-);
-organizationRouter.put(
-  getOrganizationRoutes().updateOrganization.urlModel,
-  updateOrganization
-);
-organizationRouter.put(
-  getOrganizationRoutes().updateOrganizationMembers.urlModel,
-  updateOrganizationMembers
-);
-organizationRouter.put(
-  getOrganizationRoutes().updateOrganizationMembersById.urlModel,
-  updateOrganizationMembersById
-);
-organizationRouter.post(
-  getOrganizationRoutes().addOrganizationMember.urlModel,
-  addOrganizationMember
-);
-organizationRouter.delete(
-  getOrganizationRoutes().deleteOrganization.urlModel,
-  deleteOrganization
-);
-organizationRouter.put(
-  getOrganizationRoutes().selectOrganization.urlModel,
-  selectOrganization
-);
-
-organizationRouter.post(
-  getOrganizationRoutes().unselectOrganization.urlModel,
-  unselectOrganization
-);
+export const organizationRouter = async (fastify: FastifyInstance) => {
+  fastify.get(
+    getOrganizationRoutes().getOrganizations.urlModel,
+    getOrganizations
+  );
+  fastify.post(
+    getOrganizationRoutes().addOrganization.urlModel,
+    addOrganization
+  );
+  fastify.put(
+    getOrganizationRoutes().updateOrganization.urlModel,
+    updateOrganization
+  );
+  fastify.put(
+    getOrganizationRoutes().updateOrganizationMembers.urlModel,
+    updateOrganizationMembers
+  );
+  fastify.put(
+    getOrganizationRoutes().updateOrganizationMembersById.urlModel,
+    updateOrganizationMembersById
+  );
+  fastify.post(
+    getOrganizationRoutes().addOrganizationMember.urlModel,
+    addOrganizationMember
+  );
+  fastify.delete(
+    getOrganizationRoutes().deleteOrganization.urlModel,
+    deleteOrganization
+  );
+  fastify.put(
+    getOrganizationRoutes().selectOrganization.urlModel,
+    selectOrganization
+  );
+  fastify.post(
+    getOrganizationRoutes().unselectOrganization.urlModel,
+    unselectOrganization
+  );
+};

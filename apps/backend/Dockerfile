@@ -37,6 +37,7 @@ COPY \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/@intlayer/design-system \
     --exclude=packages/intlayer-editor \
+    --exclude=packages/express-intlayer \
     --exclude=plugins \
     --exclude=docs/assets \
     --exclude=docs/blog \

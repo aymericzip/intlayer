@@ -7,7 +7,6 @@ import type {
   LocalDictionaryId,
 } from '@intlayer/types';
 import { logger } from '@logger';
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as dictionaryService from '@services/dictionary.service';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -24,8 +23,8 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
-import { t } from 'express-intlayer';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { t } from 'fastify-intlayer';
 import type {
   Dictionary,
   DictionaryAPI,
@@ -60,21 +59,20 @@ const removeMetadata = <T extends Record<string, any>>(obj: T): T => {
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const getDictionaries = async (
-  req: Request<GetDictionariesParams>,
-  res: ResponseWithSession<GetDictionariesResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Querystring: GetDictionariesParams }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, roles } = res.locals;
+  const { user, project, roles } = request.locals || {};
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
-    getDictionaryFiltersAndPagination(req, res);
+    getDictionaryFiltersAndPagination(request);
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -91,14 +89,14 @@ export const getDictionaries = async (
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'dictionary:read'
       )({
-        ...res.locals,
+        ...request.locals,
         targetDictionaries: dictionaries,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
@@ -114,10 +112,10 @@ export const getDictionaries = async (
       totalItems,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -128,14 +126,13 @@ export type GetDictionariesKeysResult = ResponseData<string[]>;
  * Retrieves a list of dictionaries keys based on filters and pagination.
  */
 export const getDictionariesKeys = async (
-  _req: Request,
-  res: ResponseWithSession<GetDictionariesKeysResult>,
-  _next: NextFunction
+  _request: FastifyRequest,
+  reply: FastifyReply
 ) => {
-  const { project, roles } = res.locals;
+  const { project, roles } = _request.locals || {};
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
@@ -146,14 +143,14 @@ export const getDictionariesKeys = async (
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'dictionary:read'
       )({
-        ...res.locals,
+        ..._request.locals,
         targetDictionaries: dictionaries,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
@@ -163,10 +160,10 @@ export const getDictionariesKeys = async (
       data: dictionariesKeys,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -179,14 +176,13 @@ export type GetDictionariesUpdateTimestampResult = ResponseData<
  * Retrieves a list of dictionaries keys based on filters and pagination.
  */
 export const getDictionariesUpdateTimestamp = async (
-  _req: Request,
-  res: ResponseWithSession<GetDictionariesUpdateTimestampResult>,
-  _next: NextFunction
+  _request: FastifyRequest,
+  reply: FastifyReply
 ) => {
-  const { project, roles } = res.locals;
+  const { project, roles } = _request.locals || {};
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
@@ -197,14 +193,14 @@ export const getDictionariesUpdateTimestamp = async (
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'dictionary:read'
       )({
-        ...res.locals,
+        ..._request.locals,
         targetDictionaries: dictionaries,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
@@ -225,10 +221,10 @@ export const getDictionariesUpdateTimestamp = async (
       data: dictionariesUpdateTimestamp,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -241,20 +237,22 @@ export type GetDictionaryResult = ResponseData<DictionaryAPI>;
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const getDictionaryByKey = async (
-  req: Request<GetDictionaryParams, any, any, GetDictionaryQuery>,
-  res: ResponseWithSession<GetDictionaryResult>,
-  _next: NextFunction
+  request: FastifyRequest<{
+    Params: GetDictionaryParams;
+    Querystring: GetDictionaryQuery;
+  }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { project, user, roles } = res.locals;
-  const { dictionaryKey } = req.params;
-  const version = req.query.version;
+  const { project, user, roles } = request.locals || {};
+  const { dictionaryKey } = request.params;
+  const version = request.query.version;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -266,20 +264,20 @@ export const getDictionaryByKey = async (
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'dictionary:read'
       )({
-        ...res.locals,
+        ...request.locals,
         targetDictionaries: [dictionary],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
       return;
     }
 
     if (!dictionary.projectIds.map(String).includes(String(project.id))) {
       ErrorHandler.handleGenericErrorResponse(
-        res,
+        reply,
         'DICTIONARY_PROJECT_MISMATCH'
       );
       return;
@@ -291,10 +289,10 @@ export const getDictionaryByKey = async (
       data: apiResult,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -306,30 +304,32 @@ export type AddDictionaryResult = ResponseData<DictionaryAPI>;
  * Adds a new dictionary to the database.
  */
 export const addDictionary = async (
-  req: Request<any, any, AddDictionaryBody>,
-  res: ResponseWithSession<AddDictionaryResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AddDictionaryBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { project, user, roles } = res.locals;
-  const dictionaryData = req.body.dictionary;
+  const { project, user, roles } = request.locals || {};
+  const dictionaryData = request.body.dictionary;
 
   if (!dictionaryData) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_DATA_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARY_DATA_NOT_FOUND');
     return;
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!dictionaryData.projectIds?.includes(String(project.id))) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_PROJECT_MISMATCH');
+    ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'DICTIONARY_PROJECT_MISMATCH'
+    );
     return;
   }
 
@@ -350,8 +350,8 @@ export const addDictionary = async (
     projectIds: dictionaryData.projectIds ?? [String(project.id)],
   };
 
-  if (!hasPermission(roles, 'dictionary:write')(res.locals)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+  if (!hasPermission(roles || [], 'dictionary:write')(request.locals)) {
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -374,7 +374,7 @@ export const addDictionary = async (
       data: apiResult,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
 
     eventListener.sendDictionaryUpdate([
       {
@@ -384,7 +384,7 @@ export const addDictionary = async (
     ]);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -414,20 +414,16 @@ export type PushDictionariesResult = ResponseData<PushDictionariesResultData>;
 
 /**
  * Check each dictionaries, add the new ones and update the existing ones.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the created dictionary.
  */
 export const pushDictionaries = async (
-  req: Request<any, any, PushDictionariesBody>,
-  res: ResponseWithSession<PushDictionariesResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: PushDictionariesBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { project, user, roles } = res.locals;
+  const { project, user, roles } = request.locals || {};
 
   // Normalize the input: handle both { dictionaries: [...] } and { dictionaries: { dictionaries: [...] } }
   // The latter can happen due to client-side double-wrapping issues
-  let dictionaryData = req.body.dictionaries;
+  let dictionaryData = request.body.dictionaries;
   if (
     dictionaryData &&
     !Array.isArray(dictionaryData) &&
@@ -446,25 +442,25 @@ export const pushDictionaries = async (
     Array.isArray(dictionaryData) &&
     dictionaryData.length === 0
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARIES_NOT_PROVIDED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARIES_NOT_PROVIDED');
     return;
   } else if (!dictionaryData) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_DATA_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARY_DATA_NOT_FOUND');
     return;
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     return;
   }
 
-  if (!hasPermission(roles, 'dictionary:write')(res.locals)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+  if (!hasPermission(roles || [], 'dictionary:write')(request.locals)) {
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -616,10 +612,10 @@ export const pushDictionaries = async (
       ),
     ]);
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -632,36 +628,41 @@ export type UpdateDictionaryResult = ResponseData<DictionaryAPI>;
  * Updates an existing dictionary in the database.
  */
 export const updateDictionary = async (
-  req: Request<UpdateDictionaryParam, any, UpdateDictionaryBody>,
-  res: ResponseWithSession<UpdateDictionaryResult>,
-  _next: NextFunction
+  request: FastifyRequest<{
+    Params: UpdateDictionaryParam;
+    Body: UpdateDictionaryBody;
+  }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { dictionaryId } = req.params;
-  const { project, roles } = res.locals;
-  const dictionaryData = req.body;
+  const { dictionaryId } = request.params;
+  const { project, roles } = request.locals || {};
+  const dictionaryData = request.body;
 
   if (!dictionaryData) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_DATA_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARY_DATA_NOT_FOUND');
     return;
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (!dictionaryData.projectIds?.includes(String(project.id))) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_PROJECT_MISMATCH');
+    ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'DICTIONARY_PROJECT_MISMATCH'
+    );
     return;
   }
 
   if (typeof dictionaryId === 'undefined') {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_ID_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARY_ID_NOT_FOUND');
     return;
   }
 
-  if (!hasPermission(roles, 'dictionary:write')(res.locals)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+  if (!hasPermission(roles || [], 'dictionary:write')(request.locals)) {
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -694,10 +695,10 @@ export const updateDictionary = async (
       },
     ]);
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };
@@ -709,25 +710,24 @@ export type DeleteDictionaryResult = ResponseData<DictionaryAPI>;
  * Deletes a dictionary from the database by its ID.
  */
 export const deleteDictionary = async (
-  req: Request<DeleteDictionaryParam>,
-  res: ResponseWithSession<DeleteDictionaryResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Params: DeleteDictionaryParam }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { project, roles } = res.locals;
-  const { dictionaryId } = req.params as Partial<DeleteDictionaryParam>;
+  const { project, roles } = request.locals || {};
+  const { dictionaryId } = request.params;
 
   if (!dictionaryId) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_ID_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARY_ID_NOT_FOUND');
     return;
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
     return;
   }
 
-  if (!hasPermission(roles, 'dictionary:admin')(res.locals)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+  if (!hasPermission(roles || [], 'dictionary:admin')(request.locals)) {
+    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
     return;
   }
 
@@ -737,7 +737,7 @@ export const deleteDictionary = async (
 
     if (!dictionaryToDelete.projectIds.includes(project.id)) {
       ErrorHandler.handleGenericErrorResponse(
-        res,
+        reply,
         'DICTIONARY_PROJECT_MISMATCH'
       );
       return;
@@ -747,7 +747,7 @@ export const deleteDictionary = async (
       await dictionaryService.deleteDictionaryById(dictionaryId);
 
     if (!deletedDictionary) {
-      ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_NOT_FOUND', {
+      ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARY_NOT_FOUND', {
         dictionaryId,
       });
       return;
@@ -771,7 +771,7 @@ export const deleteDictionary = async (
       data: apiResult,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
 
     eventListener.sendDictionaryUpdate([
       {
@@ -782,7 +782,7 @@ export const deleteDictionary = async (
 
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };

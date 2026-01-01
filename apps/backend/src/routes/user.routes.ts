@@ -7,10 +7,8 @@ import {
   updateUser,
   verifyEmailStatusSSE,
 } from '@controllers/user.controller';
-import { Router } from 'express';
+import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
-
-export const userRouter: Router = Router();
 
 export const userRoute = '/api/user';
 
@@ -56,13 +54,15 @@ export const getUserRoutes = () =>
     },
   }) satisfies Routes;
 
-userRouter.get(getUserRoutes().getUsers.urlModel, getUsers);
-userRouter.put(getUserRoutes().updateUser.urlModel, updateUser);
-userRouter.post(getUserRoutes().createUser.urlModel, createUser);
-userRouter.get(getUserRoutes().getUserById.urlModel, getUserById);
-userRouter.get(getUserRoutes().getUserByEmail.urlModel, getUserByEmail);
-userRouter.delete(getUserRoutes().deleteUser.urlModel, deleteUser);
-userRouter.get(
-  getUserRoutes().verifyEmailStatusSSE.urlModel,
-  verifyEmailStatusSSE
-);
+export const userRouter = async (fastify: FastifyInstance) => {
+  fastify.get(getUserRoutes().getUsers.urlModel, getUsers);
+  fastify.put(getUserRoutes().updateUser.urlModel, updateUser);
+  fastify.post(getUserRoutes().createUser.urlModel, createUser);
+  fastify.get(getUserRoutes().getUserById.urlModel, getUserById);
+  fastify.get(getUserRoutes().getUserByEmail.urlModel, getUserByEmail);
+  fastify.delete(getUserRoutes().deleteUser.urlModel, deleteUser);
+  fastify.get(
+    getUserRoutes().verifyEmailStatusSSE.urlModel,
+    verifyEmailStatusSSE
+  );
+};

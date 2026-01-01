@@ -3,10 +3,8 @@ import {
   getPricing,
   getSubscription,
 } from '@controllers/stripe.controller';
-import { Router } from 'express';
+import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
-
-export const stripeRouter: Router = Router();
 
 export const stripeRoute = '/api/stripe';
 
@@ -31,14 +29,11 @@ export const getStripeRoutes = () =>
     },
   }) satisfies Routes;
 
-stripeRouter.post(getStripeRoutes().getPricing.urlModel, getPricing);
-
-stripeRouter.post(
-  getStripeRoutes().createSubscription.urlModel,
-  getSubscription
-);
-
-stripeRouter.post(
-  getStripeRoutes().cancelSubscription.urlModel,
-  cancelSubscription
-);
+export const stripeRouter = async (fastify: FastifyInstance) => {
+  fastify.post(getStripeRoutes().getPricing.urlModel, getPricing);
+  fastify.post(getStripeRoutes().createSubscription.urlModel, getSubscription);
+  fastify.post(
+    getStripeRoutes().cancelSubscription.urlModel,
+    cancelSubscription
+  );
+};

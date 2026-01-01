@@ -2,7 +2,6 @@ import { passkey } from '@better-auth/passkey';
 import { sso } from '@better-auth/sso';
 import { sendVerificationUpdate } from '@controllers/user.controller';
 import { logger } from '@logger';
-import { OrganizationModel } from '@models/organization.model';
 import { sendEmail } from '@services/email.service';
 import { getOrganizationById } from '@services/organization.service';
 import { getProjectById } from '@services/project.service';

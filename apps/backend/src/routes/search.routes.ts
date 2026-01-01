@@ -1,8 +1,6 @@
 import { searchDocUtil } from '@controllers/search.controller';
-import { Router } from 'express';
+import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
-
-export const searchRouter: Router = Router();
 
 export const searchRoute = '/api/search';
 
@@ -17,4 +15,6 @@ export const getSearchRoutes = () =>
     },
   }) satisfies Routes;
 
-searchRouter.get(getSearchRoutes().doc.urlModel, searchDocUtil);
+export const searchRouter = async (fastify: FastifyInstance) => {
+  fastify.get(getSearchRoutes().doc.urlModel, searchDocUtil);
+};

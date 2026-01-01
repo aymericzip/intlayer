@@ -1,9 +1,7 @@
 import * as configurationController from '@controllers/configuration.controller';
 import { getConfiguration } from '@intlayer/config';
-import { Router } from 'express';
+import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
-
-export const configurationRouter: Router = Router();
 
 const { editor } = getConfiguration();
 
@@ -18,7 +16,9 @@ export const getConfigurationRoutes = () =>
     },
   }) satisfies Routes;
 
-configurationRouter.get(
-  getConfigurationRoutes().getConfiguration.urlModel,
-  configurationController.getConfiguration
-);
+export const configurationRouter = async (fastify: FastifyInstance) => {
+  fastify.get(
+    getConfigurationRoutes().getConfiguration.urlModel,
+    configurationController.getConfiguration
+  );
+};

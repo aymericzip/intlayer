@@ -3,10 +3,8 @@ import {
   subscribeToNewsletter,
   unsubscribeFromNewsletter,
 } from '@controllers/newsletter.controller';
-import { Router } from 'express';
+import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
-
-export const newsletterRouter: Router = Router();
 
 export const newsletterRoute = '/api/newsletter';
 
@@ -31,15 +29,17 @@ export const getNewsletterRoutes = () =>
     },
   }) satisfies Routes;
 
-newsletterRouter.post(
-  getNewsletterRoutes().subscribeToNewsletter.urlModel,
-  subscribeToNewsletter
-);
-newsletterRouter.post(
-  getNewsletterRoutes().unsubscribeFromNewsletter.urlModel,
-  unsubscribeFromNewsletter
-);
-newsletterRouter.get(
-  getNewsletterRoutes().getNewsletterStatus.urlModel,
-  getNewsletterStatus
-);
+export const newsletterRouter = async (fastify: FastifyInstance) => {
+  fastify.post(
+    getNewsletterRoutes().subscribeToNewsletter.urlModel,
+    subscribeToNewsletter
+  );
+  fastify.post(
+    getNewsletterRoutes().unsubscribeFromNewsletter.urlModel,
+    unsubscribeFromNewsletter
+  );
+  fastify.get(
+    getNewsletterRoutes().getNewsletterStatus.urlModel,
+    getNewsletterStatus
+  );
+};

@@ -1,7 +1,7 @@
 import type { RequestWithOAuth2Information } from '@middlewares/oAuth2.middleware';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { NextFunction, Request, Response } from 'express';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import {
   Request as OAuthRequest,
   Response as OAuthResponse,
@@ -17,30 +17,30 @@ export type GetOAuth2TokenResult = ResponseData<OAuth2Token>;
 
 // Method to get the token
 export const getOAuth2AccessToken = async (
-  req: Request,
-  res: Response<GetOAuth2TokenResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: GetOAuth2TokenBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const oauthRequest = new OAuthRequest(req);
-  const oauthResponse = new OAuthResponse(res);
+  const oauthRequest = new OAuthRequest({
+    headers: request.headers,
+    method: request.method,
+    query: request.query as any,
+    body: request.body as any,
+  });
+  const oauthResponse = new OAuthResponse(reply.raw);
 
   try {
     const token: OAuth2Token = (await (
-      req as unknown as RequestWithOAuth2Information<
-        undefined,
-        undefined,
-        GetOAuth2TokenBody
-      >
+      request as unknown as RequestWithOAuth2Information
     ).oauth.token(oauthRequest, oauthResponse)) as OAuth2Token;
 
     const responseData = formatResponse<OAuth2Token>({
       data: token,
     });
 
-    res.json(responseData);
+    reply.send(responseData);
     return;
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
     return;
   }
 };

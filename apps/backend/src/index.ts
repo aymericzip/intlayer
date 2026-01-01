@@ -1,11 +1,16 @@
 /// Controllers
 import { getOAuth2AccessToken } from '@controllers/oAuth2.controller';
+import fastifyCompress from '@fastify/compress';
+import fastifyCookie from '@fastify/cookie';
+import fastifyCors from '@fastify/cors';
+import fastifyFormbody from '@fastify/formbody';
+import fastifyHelmet from '@fastify/helmet';
+import fastifyRateLimit from '@fastify/rate-limit';
 // Middlewares
 import {
   attachOAuthInstance,
   oAuth2Middleware,
 } from '@middlewares/oAuth2.middleware';
-import { logAPIRequestURL } from '@middlewares/request.middleware';
 import { authMiddleware } from '@middlewares/sessionAuth.middleware';
 // Routes
 import { aiRoute, aiRouter } from '@routes/ai.routes';
@@ -32,27 +37,20 @@ import { ipLimiter } from '@utils/rateLimiter';
 // Webhooks
 import { stripeWebhook } from '@webhooks/stripe.webhook';
 // Libraries
-import { toNodeHandler } from 'better-auth/node';
-import compression from 'compression';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
 import dotenv from 'dotenv';
-import express, { type Express } from 'express';
-import { intlayer, t } from 'express-intlayer';
-import helmet from 'helmet';
+import Fastify, { type FastifyInstance } from 'fastify';
+import { intlayer, t } from 'fastify-intlayer';
 /// Logger
 import { logger } from './logger/index';
 
 const startServer = async () => {
-  const app: Express = express();
-
-  // Headers security
-  app.disable('x-powered-by'); // Disabled to prevent attackers from knowing that the app is running Express
-  app.use(helmet());
-  app.set('trust proxy', 1);
+  const app: FastifyInstance = Fastify({
+    disableRequestLogging: true,
+    trustProxy: true,
+  });
 
   // Environment variables
-  const env = app.get('env');
+  const env = process.env.NODE_ENV || 'development';
 
   logger.info(`run as ${env}`);
 
@@ -60,37 +58,61 @@ const startServer = async () => {
     path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
   });
 
-  // Parse incoming requests with cookies
-  app.use(cookieParser());
+  // Security Headers
+  await app.register(fastifyHelmet, {
+    contentSecurityPolicy: false,
+    global: true,
+  });
+
+  // CORS
+  await app.register(fastifyCors, corsOptions);
+
+  // Compression
+  await app.register(fastifyCompress);
+
+  // Cookie Parser
+  await app.register(fastifyCookie);
+
+  // Parse application/x-www-form-urlencoded
+  await app.register(fastifyFormbody);
 
   // Load internationalization request handler
-  app.use(intlayer());
+  await app.register(intlayer);
 
   // Rate limiter
-  app.use(/(.*)/, ipLimiter);
+  await app.register(fastifyRateLimit, ipLimiter);
 
   // Connect to MongoDB
   const dbClient = await connectDB();
 
-  // Stripe
-  app.post(
-    '/webhook/stripe',
-    express.raw({ type: 'application/json' }),
-    stripeWebhook
-  );
+  // Stripe webhook (needs raw body)
+  // Register a content type parser for raw body
+  await app.register(async (stripeScope) => {
+    stripeScope.addContentTypeParser(
+      'application/json',
+      { parseAs: 'buffer' },
+      (_req, body, done) => {
+        done(null, body);
+      }
+    );
 
-  // Compress all HTTP responses
-  app.use(compression());
-
-  // Parse incoming requests with urlencoded payloads
-  app.use(express.urlencoded({ extended: true }));
-
-  // CORS
-  app.use(cors(corsOptions));
+    stripeScope.post('/webhook/stripe', async (request, reply) => {
+      // For Stripe webhooks, we need the raw body as a Buffer
+      // Fastify will parse it as buffer when content-type parser is set
+      const rawBody = request.body as Buffer;
+      // Create a mock request object for the webhook handler
+      const mockReq = {
+        ...request.raw,
+        body: rawBody,
+        headers: request.headers,
+      } as any;
+      await stripeWebhook(mockReq, reply as any);
+    });
+  });
 
   // Liveness check
-  app.get('/', (_req, res) => {
-    res.send(
+  app.get('/', async (_request, reply) => {
+    return reply.send(
       t({
         en: 'Ok - locale: en',
         fr: 'Ok - locale: fr',
@@ -102,39 +124,97 @@ const startServer = async () => {
   // Session Auth
   const auth = getAuth(dbClient as any);
 
-  app.all('/api/auth/{*rest}', toNodeHandler(auth));
-  app.use(/(.*)/, authMiddleware(auth));
+  // Better Auth handler - Using Fetch API approach for Fastify compatibility
+  app.route({
+    method: ['GET', 'POST'],
+    url: '/api/auth/*',
+    async handler(request, reply) {
+      try {
+        // Construct request URL
+        const url = new URL(request.url, `http://${request.headers.host}`);
 
-  // oAuth2 Auth
-  app.use(/(.*)/, attachOAuthInstance);
+        // Convert Fastify headers to standard Headers object
+        const headers = new Headers();
+        Object.entries(request.headers).forEach(([key, value]) => {
+          if (value) headers.append(key, String(value));
+        });
+
+        // Create Fetch API-compatible request
+        const req = new Request(url.toString(), {
+          method: request.method,
+          headers,
+          ...(request.body ? { body: JSON.stringify(request.body) } : {}),
+        });
+
+        // Process authentication request
+        const response = await auth.handler(req);
+
+        // Forward response to client
+        reply.status(response.status);
+        response.headers.forEach((value, key) => {
+          reply.header(key, value);
+        });
+
+        const responseBody = response.body ? await response.text() : null;
+        return reply.send(responseBody);
+      } catch (error) {
+        logger.error('Authentication Error:', error);
+        return reply.status(500).send({
+          error: 'Internal authentication error',
+          code: 'AUTH_FAILURE',
+        });
+      }
+    },
+  });
+
+  // Register auth middleware as a hook
+  app.addHook('onRequest', authMiddleware(auth));
+
+  // // oAuth2 Auth
+  app.addHook('onRequest', attachOAuthInstance);
   app.post('/oauth2/token', getOAuth2AccessToken); // Route to get the token
-  app.use(/(.*)/, oAuth2Middleware);
+  app.addHook('preHandler', oAuth2Middleware);
 
-  // Body parser
-  app.use(express.json()); // Should be placed after auth. Attach body to next routes
-
-  // debug
+  // // debug
   const isDev = env === 'development';
   if (isDev) {
-    app.use(logAPIRequestURL);
+    app.addHook('onRequest', async (request) => {
+      const queryDetails = {
+        params: request.params,
+        query: request.query,
+        body: request.body,
+        locals: request.locals,
+      };
+
+      logger.info(
+        `API Request - ${request.method} - ${request.url} - ${JSON.stringify(queryDetails, null, 2)}`
+      );
+    });
   }
 
   // Routes
-  app.use(userRoute, userRouter);
-  app.use(organizationRoute, organizationRouter);
-  app.use(projectRoute, projectRouter);
-  app.use(tagRoute, tagRouter);
-  app.use(dictionaryRoute, dictionaryRouter);
-  app.use(stripeRoute, stripeRouter);
-  app.use(aiRoute, aiRouter);
-  app.use(eventListenerRoute, eventListenerRouter);
-  app.use(searchRoute, searchRouter);
-  app.use(newsletterRoute, newsletterRouter);
+  await app.register(userRouter, { prefix: userRoute });
+  await app.register(organizationRouter, { prefix: organizationRoute });
+  await app.register(projectRouter, { prefix: projectRoute });
+  await app.register(tagRouter, { prefix: tagRoute });
+  await app.register(dictionaryRouter, { prefix: dictionaryRoute });
+  await app.register(stripeRouter, { prefix: stripeRoute });
+  await app.register(aiRouter, { prefix: aiRoute });
+  await app.register(eventListenerRouter, { prefix: eventListenerRoute });
+  await app.register(searchRouter, { prefix: searchRoute });
+  await app.register(newsletterRouter, { prefix: newsletterRoute });
 
   // Server
-  app.listen(process.env.PORT, () => {
-    logger.info(`Listening on port ${process.env.PORT}`);
-  });
+  try {
+    await app.listen({
+      port: Number(process.env.PORT) || 3100,
+      host: '0.0.0.0',
+    });
+    logger.info(`Listening on port ${process.env.PORT || 3100}`);
+  } catch (err) {
+    app.log.error(err);
+    process.exit(1);
+  }
 };
 
 startServer();

@@ -3,10 +3,8 @@ import {
   writeContentDeclaration,
 } from '@controllers/dictionary.controller';
 import { getConfiguration } from '@intlayer/config';
-import { Router } from 'express';
+import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
-
-export const dictionaryRouter: Router = Router();
 
 const { editor } = getConfiguration();
 
@@ -26,11 +24,10 @@ export const getDictionaryRoutes = () =>
     },
   }) satisfies Routes;
 
-dictionaryRouter.get(
-  getDictionaryRoutes().getDictionaries.urlModel,
-  getDictionaries
-);
-dictionaryRouter.post(
-  getDictionaryRoutes().writeContentDeclaration.urlModel,
-  writeContentDeclaration
-);
+export const dictionaryRouter = async (fastify: FastifyInstance) => {
+  fastify.get(getDictionaryRoutes().getDictionaries.urlModel, getDictionaries);
+  fastify.post(
+    getDictionaryRoutes().writeContentDeclaration.urlModel,
+    writeContentDeclaration
+  );
+};

@@ -856,13 +856,22 @@ const docDataContent: Dictionary = {
           }),
           default: getDocMetadata('./docs/en/intlayer_with_lynx+react.md'),
         },
-        express: {
-          title: 'Express.js',
-          default: getDocMetadata('./docs/en/intlayer_with_express.md'),
-        },
-        nest: {
-          title: 'NestJS',
-          default: getDocMetadata('./docs/en/intlayer_with_nestjs.md'),
+        backend: {
+          title: 'Backend',
+          subSections: {
+            express: {
+              title: 'Express.js',
+              default: getDocMetadata('./docs/en/intlayer_with_express.md'),
+            },
+            nest: {
+              title: 'NestJS',
+              default: getDocMetadata('./docs/en/intlayer_with_nestjs.md'),
+            },
+            fastify: {
+              title: 'Fastify',
+              default: getDocMetadata('./docs/en/intlayer_with_fastify.md'),
+            },
+          },
         },
       },
     },

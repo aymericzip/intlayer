@@ -85,15 +85,17 @@
     "typecheck": "tsc --project ./server/tsconfig.types.json --noEmit"
   },
   "dependencies": {
+    "@fastify/compress": "^8.0.0",
+    "@fastify/cookie": "^10.0.0",
+    "@fastify/cors": "^10.0.0",
+    "@fastify/formbody": "^8.0.0",
+    "@fastify/helmet": "^12.0.0",
+    "@fastify/static": "^8.0.0",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "compression": "1.8.1",
-    "cookie-parser": "1.4.7",
-    "cors": "2.8.5",
-    "express": "5.2.1",
-    "express-intlayer": "workspace:*",
-    "helmet": "8.1.0",
+    "fastify": "5.6.2",
+    "fastify-intlayer": "workspace:*",
     "mime": "4.1.0"
   },
   "devDependencies": {
@@ -102,10 +104,6 @@
     "@intlayer/types": "workspace:*",
     "@tailwindcss/vite": "4.1.18",
     "@tanstack/react-query": "5.90.12",
-    "@types/compression": "1.8.1",
-    "@types/cookie-parser": "1.4.10",
-    "@types/cors": "2.8.19",
-    "@types/express": "5.0.6",
     "@types/node": "25.0.3",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
@@ -132,7 +130,7 @@
     "vitest": "4.0.16"
   },
   "engines": {
-    "node": ">=14.18"
+    "node": ">=18.0.0"
   },
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"

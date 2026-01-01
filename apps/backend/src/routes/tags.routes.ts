@@ -4,10 +4,8 @@ import {
   getTags,
   updateTag,
 } from '@controllers/tag.controller';
-import { Router } from 'express';
+import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
-
-export const tagRouter: Router = Router();
 
 export const tagRoute = '/api/tag';
 
@@ -37,7 +35,9 @@ export const getTagRoutes = () =>
     },
   }) satisfies Routes;
 
-tagRouter.get(getTagRoutes().getTags.urlModel, getTags);
-tagRouter.post(getTagRoutes().addTag.urlModel, addTag);
-tagRouter.put(getTagRoutes().updateTag.urlModel, updateTag);
-tagRouter.delete(getTagRoutes().deleteTag.urlModel, deleteTag);
+export const tagRouter = async (fastify: FastifyInstance) => {
+  fastify.get(getTagRoutes().getTags.urlModel, getTags);
+  fastify.post(getTagRoutes().addTag.urlModel, addTag);
+  fastify.put(getTagRoutes().updateTag.urlModel, updateTag);
+  fastify.delete(getTagRoutes().deleteTag.urlModel, deleteTag);
+};

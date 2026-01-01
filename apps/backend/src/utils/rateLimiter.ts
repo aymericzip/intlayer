@@ -1,73 +1,82 @@
-import type { Response } from 'express';
-import rateLimit, {
-  ipKeyGenerator,
-  type Options,
-  type RateLimitRequestHandler,
-} from 'express-rate-limit';
+import type { RateLimitOptions } from '@fastify/rate-limit';
+import type { FastifyRequest } from 'fastify';
 import { ErrorHandler } from './errors';
+
+// Helper function to normalize IP addresses (similar to express-rate-limit's ipKeyGenerator)
+const normalizeIP = (ip: string | undefined): string => {
+  if (!ip) return 'unknown';
+  // Normalize IPv6 mapped IPv4 addresses
+  if (ip.startsWith('::ffff:')) {
+    return ip.substring(7);
+  }
+  return ip;
+};
 
 // -------------------------------------------------------------
 // Create the rate-limiter instances once at module load-time so
 // that the hit counters are shared across every incoming request.
 // -------------------------------------------------------------
 
-const ipLimiterOptions: Partial<Options> = {
-  windowMs: 60 * 1000, // 1-minute window
-  limit: 500, // 500 requests / IP / window
-  standardHeaders: 'draft-8',
-  legacyHeaders: false,
+export const ipLimiter: RateLimitOptions = {
+  max: 500, // 500 requests
+  timeWindow: 60 * 1000, // 1-minute window
+  enableDraftSpec: true,
   // Use a custom key generator that handles proxy headers securely
-  keyGenerator: (req) => {
-    // Normalize IPv6 to subnet using helper to avoid bypasses
-    return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
+  keyGenerator: (request: FastifyRequest) => {
+    const ip =
+      request.ip ??
+      request.socket?.remoteAddress ??
+      request.headers['x-forwarded-for'] ??
+      'unknown';
+    return normalizeIP(typeof ip === 'string' ? ip : ip[0]);
   },
-  handler: (req, res) => {
-    const { limit, remaining, resetTime } = (req as any).rateLimit;
-
-    ErrorHandler.handleGenericErrorResponse(
-      res as unknown as Response,
+  errorResponseBuilder: (_request: FastifyRequest, context) => {
+    // context.ttl is already the remaining time in milliseconds
+    const retryAfter = Math.ceil(context.ttl / 1000);
+    const errorResponse = ErrorHandler.formatGenericErrorResponse(
       'RATE_LIMIT_EXCEEDED',
       {
-        limit: `${limit} per minute`,
-        retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
-        remaining,
+        limit: `${context.max} per minute`,
+        retryAfter,
       }
     );
+    return {
+      statusCode: errorResponse.status,
+      ...errorResponse,
+    };
   },
 };
 
-// Fix type error of express-rate-limit
-export const ipLimiter: any = rateLimit(
-  ipLimiterOptions
-) satisfies RateLimitRequestHandler;
-
-const unauthenticatedChatBotLimiterOptions: Partial<Options> = {
-  windowMs: 60 * 60 * 1000, // 1-hour window
-  limit: 3, // 3 requests / IP / window
-  standardHeaders: 'draft-8',
-  skip: (_req, res) => Boolean(res.locals.user), // authenticated? then skip
-  legacyHeaders: false,
-  // Use a custom key generator that handles proxy headers securely
-  keyGenerator: (req) => {
-    // Normalize IPv6 to subnet using helper to avoid bypasses
-    return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
+export const unauthenticatedChatBotLimiter: RateLimitOptions = {
+  max: 3, // 3 requests
+  timeWindow: 60 * 60 * 1000, // 1-hour window
+  enableDraftSpec: true,
+  // Skip rate limiting if user is authenticated (allowList returns true to skip)
+  allowList: (request: FastifyRequest) => {
+    return Boolean((request as any).locals?.user);
   },
-  handler: (req, res) => {
-    const { limit, remaining, resetTime } = (req as any).rateLimit;
-
-    ErrorHandler.handleGenericErrorResponse(
-      res as unknown as Response,
+  // Use a custom key generator that handles proxy headers securely
+  keyGenerator: (request: FastifyRequest) => {
+    const ip =
+      request.ip ??
+      request.socket?.remoteAddress ??
+      request.headers['x-forwarded-for'] ??
+      'unknown';
+    return normalizeIP(typeof ip === 'string' ? ip : ip[0]);
+  },
+  errorResponseBuilder: (_request: FastifyRequest, context) => {
+    // context.ttl is already the remaining time in milliseconds
+    const retryAfter = Math.ceil(context.ttl / 1000);
+    const errorResponse = ErrorHandler.formatGenericErrorResponse(
       'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED',
       {
-        limit: `${limit} per hour`,
-        retryAfter: Math.ceil((resetTime?.getTime() - Date.now()) / 1000),
-        remaining,
+        limit: `${context.max} per hour`,
+        retryAfter,
       }
     );
+    return {
+      statusCode: errorResponse.status,
+      ...errorResponse,
+    };
   },
 };
-
-// Fix type error of express-rate-limit
-export const unauthenticatedChatBotLimiter: any = rateLimit(
-  unauthenticatedChatBotLimiterOptions
-) satisfies RateLimitRequestHandler;

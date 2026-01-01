@@ -73,6 +73,7 @@ COPY \
     --exclude=packages/astro-intlayer \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
+    --exclude=packages/express-intlayer \
     --exclude=plugins \
     --exclude=docs/assets \
     --exclude=examples \
