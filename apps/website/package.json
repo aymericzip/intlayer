@@ -50,7 +50,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@better-auth/sso": "1.4.7",
+    "@better-auth/sso": "1.4.10",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -101,7 +101,7 @@
     "pwa-asset-generator": "8.1.2",
     "raw-loader": "4.0.2",
     "tailwindcss": "4.1.18",
-    "tsdown": "0.18.2",
+    "tsdown": "0.18.4",
     "typescript": "5.9.3",
     "workbox-build": "^7.4.0"
   },

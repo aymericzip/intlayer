@@ -87,7 +87,7 @@
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
     "rimraf": "6.1.2",
-    "tsdown": "0.18.2",
+    "tsdown": "0.18.4",
     "typescript": "5.9.3",
     "vitest": "4.0.16"
   },

@@ -123,7 +123,7 @@
     "react-router-dom": "7.9.6",
     "tailwind-merge": "3.4.0",
     "tailwindcss": "4.1.18",
-    "tsdown": "0.18.2",
+    "tsdown": "0.18.4",
     "typescript": "5.9.3",
     "vite": "7.3.0",
     "vite-intlayer": "workspace:*",
