@@ -14,6 +14,7 @@ slugs:
   - doc
   - environment
   - express
+applicationTemplate: https://github.com/aymericzip/intlayer-express-template
 history:
   - version: 7.5.9
     date: 2025-12-30
