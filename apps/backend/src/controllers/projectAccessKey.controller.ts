@@ -21,13 +21,14 @@ export const addNewAccessKey = async (
   const { grants, name, expiresAt } = request.body;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (
@@ -39,8 +40,7 @@ export const addNewAccessKey = async (
       targetProjectIds: [project.id],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   const filteredPermisions = intersectPermissions(permissions || [], grants);
@@ -70,8 +70,6 @@ export const addNewAccessKey = async (
       data: newAccessKey,
     });
 
-    reply.send(responseData);
-
     sendEmail({
       type: 'oAuthTokenCreated',
       to: user.email,
@@ -83,10 +81,9 @@ export const addNewAccessKey = async (
       supportUrl: `${process.env.CLIENT_URL}/support`,
     });
 
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -104,18 +101,21 @@ export const deleteAccessKey = async (
   const { clientId } = request.body;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!clientId) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'CLIENT_ID_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'CLIENT_ID_NOT_FOUND'
+    );
   }
 
   if (
@@ -127,8 +127,7 @@ export const deleteAccessKey = async (
       targetProjectIds: [project.id],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -139,10 +138,13 @@ export const deleteAccessKey = async (
     );
 
     if (!deletedAccessKey) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'ACCESS_KEY_NOT_FOUND', {
-        clientId,
-      });
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ACCESS_KEY_NOT_FOUND',
+        {
+          clientId,
+        }
+      );
     }
 
     const responseData = formatResponse<null>({
@@ -159,11 +161,9 @@ export const deleteAccessKey = async (
       data: null,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -181,18 +181,21 @@ export const refreshAccessKey = async (
   const { clientId } = request.body;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!clientId) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'CLIENT_ID_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'CLIENT_ID_NOT_FOUND'
+    );
   }
 
   if (
@@ -204,8 +207,7 @@ export const refreshAccessKey = async (
       targetProjectIds: [project?.id],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -229,10 +231,8 @@ export const refreshAccessKey = async (
       data: newAccessKey,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

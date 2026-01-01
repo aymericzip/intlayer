@@ -43,13 +43,14 @@ export const getProjects = async (
     getProjectFiltersAndPagination(request);
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!organization && !roles?.includes('admin')) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   try {
@@ -69,8 +70,10 @@ export const getProjects = async (
         targetProjects: projects,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const totalItems = await projectService.countProjects(filters);
@@ -85,11 +88,9 @@ export const getProjects = async (
       totalItems,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -107,17 +108,21 @@ export const addProject = async (
   const projectData = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (!projectData) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_DATA_NOT_FOUND');
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_DATA_NOT_FOUND'
+    );
   }
 
   if (
@@ -129,8 +134,7 @@ export const addProject = async (
       targetOrganizations: [organization],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   const { plan } = organization;
@@ -143,14 +147,13 @@ export const addProject = async (
     });
 
     if (projectCount >= planType.numberOfProjects) {
-      ErrorHandler.handleGenericErrorResponse(
+      return ErrorHandler.handleGenericErrorResponse(
         reply,
         'PLAN_PROJECT_LIMIT_REACHED',
         {
           organizationId: organization.id,
         }
       );
-      return;
     }
   }
 
@@ -181,11 +184,9 @@ export const addProject = async (
       data: formattedProject,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -203,26 +204,28 @@ export const updateProject = async (
   const projectData = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_DATA_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_DATA_NOT_FOUND'
+    );
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (String(project.organizationId) !== String(organization.id)) {
-    ErrorHandler.handleGenericErrorResponse(
+    return ErrorHandler.handleGenericErrorResponse(
       reply,
       'PROJECT_NOT_IN_ORGANIZATION'
     );
-    return;
   }
 
   if (
@@ -234,8 +237,7 @@ export const updateProject = async (
       targetProjectIds: [String(project.id)],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -260,11 +262,9 @@ export const updateProject = async (
       data: formattedProject,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -290,28 +290,35 @@ export const updateProjectMembers = async (
   const { membersIds } = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (membersIds?.length === 0) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_MUST_HAVE_MEMBER');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_MUST_HAVE_MEMBER'
+    );
   }
 
   if (membersIds?.map((el) => el.isAdmin)?.length === 0) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_MUST_HAVE_ADMIN');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_MUST_HAVE_ADMIN'
+    );
   }
 
   if (
@@ -323,8 +330,7 @@ export const updateProjectMembers = async (
       targetProjectIds: [String(project.id)],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -386,11 +392,9 @@ export const updateProjectMembers = async (
       data: formattedProject,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -408,13 +412,14 @@ export const pushProjectConfiguration = async (
   const projectConfiguration = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (
@@ -426,8 +431,7 @@ export const pushProjectConfiguration = async (
       targetProjectIds: [String(project.id)],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -437,10 +441,13 @@ export const pushProjectConfiguration = async (
     projectObject.save();
 
     if (!projectObject.configuration) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_UPDATE_FAILED', {
-        projectId: project.id,
-      });
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PROJECT_UPDATE_FAILED',
+        {
+          projectId: project.id,
+        }
+      );
     }
 
     const responseData = formatResponse<ProjectConfiguration>({
@@ -457,11 +464,9 @@ export const pushProjectConfiguration = async (
       data: projectObject.configuration,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -477,23 +482,28 @@ export const deleteProject = async (
   const { user, organization, project, session, roles } = _request.locals || {};
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (typeof session === 'undefined') {
-    ErrorHandler.handleGenericErrorResponse(reply, 'SESSION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'SESSION_NOT_DEFINED'
+    );
   }
 
   if (
@@ -505,29 +515,29 @@ export const deleteProject = async (
       targetProjectIds: [String(project.id)],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
     const projectToDelete = await projectService.getProjectById(project.id);
 
     if (String(projectToDelete.organizationId) !== String(organization.id)) {
-      ErrorHandler.handleGenericErrorResponse(
+      return ErrorHandler.handleGenericErrorResponse(
         reply,
         'PROJECT_NOT_IN_ORGANIZATION'
       );
-      return;
     }
 
     const deletedProject = await projectService.deleteProjectById(project.id);
 
     if (!deletedProject) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED', {
-        projectId: project.id,
-      });
-
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PROJECT_NOT_DEFINED',
+        {
+          projectId: project.id,
+        }
+      );
     }
 
     logger.info(`Project deleted: ${String(deletedProject.id)}`);
@@ -551,11 +561,9 @@ export const deleteProject = async (
       { $set: { activeProjectId: null } }
     );
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -573,13 +581,17 @@ export const selectProject = async (
   const { session } = request.locals || {};
 
   if (!projectId) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_ID_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_ID_NOT_FOUND'
+    );
   }
 
   if (typeof session === 'undefined') {
-    ErrorHandler.handleGenericErrorResponse(reply, 'SESSION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'SESSION_NOT_DEFINED'
+    );
   }
 
   try {
@@ -604,11 +616,9 @@ export const selectProject = async (
       data: mapProjectToAPI(project),
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -624,8 +634,10 @@ export const unselectProject = async (
   const { session } = _request.locals || {};
 
   if (typeof session === 'undefined') {
-    ErrorHandler.handleGenericErrorResponse(reply, 'SESSION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'SESSION_NOT_DEFINED'
+    );
   }
 
   try {
@@ -648,10 +660,8 @@ export const unselectProject = async (
       data: null,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

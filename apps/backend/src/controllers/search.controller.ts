@@ -26,5 +26,5 @@ export const searchDocUtil = async (
     data: uniqueDocFileList,
   });
 
-  reply.send(responseData);
+  return reply.send(responseData);
 };

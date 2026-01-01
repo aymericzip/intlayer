@@ -68,14 +68,15 @@ export const getSubscription = async (
 
     // Validate that the organization exists
     if (!organization) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_NOT_FOUND'
+      );
     }
 
     // Validate that the user exists
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
     const { period, type } = retrievePlanInformation(priceId);
@@ -86,10 +87,13 @@ export const getSubscription = async (
       organization.plan?.period === period &&
       organization.plan?.status === 'active'
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'ALREADY_SUBSCRIBED', {
-        organizationId: organization.id,
-      });
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ALREADY_SUBSCRIBED',
+        {
+          organizationId: organization.id,
+        }
+      );
     }
 
     // Attempt to retrieve the Stripe customer ID from the organization's plan
@@ -130,7 +134,7 @@ export const getSubscription = async (
 
     // Handle subscription creation failure
     if (!subscription) {
-      ErrorHandler.handleGenericErrorResponse(
+      return ErrorHandler.handleGenericErrorResponse(
         reply,
         'SUBSCRIPTION_CREATION_FAILED',
         {
@@ -139,7 +143,6 @@ export const getSubscription = async (
           priceId,
         }
       );
-      return;
     }
 
     const clientSecret = (
@@ -150,7 +153,7 @@ export const getSubscription = async (
 
     // Handle subscription creation failure
     if (!clientSecret) {
-      ErrorHandler.handleGenericErrorResponse(
+      return ErrorHandler.handleGenericErrorResponse(
         reply,
         'SUBSCRIPTION_CREATION_FAILED',
         {
@@ -159,7 +162,6 @@ export const getSubscription = async (
           priceId,
         }
       );
-      return;
     }
 
     // Prepare the response data with subscription details
@@ -168,14 +170,11 @@ export const getSubscription = async (
     });
 
     // Send the response back to the client
-    reply.send(responseData);
-
-    return;
+    return reply.send(responseData);
   } catch (error) {
     // Handle any errors that occur during the process
 
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -198,23 +197,23 @@ export const cancelSubscription = async (
 
     // Validate that the organization exists
     if (!organization) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_NOT_FOUND'
+      );
     }
 
     // Validate that the user exists
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
     // Check if the organization has an active subscription to cancel
     if (!organization.plan?.subscriptionId) {
-      ErrorHandler.handleGenericErrorResponse(
+      return ErrorHandler.handleGenericErrorResponse(
         reply,
         'ORGANIZATION_PLAN_NOT_FOUND'
       );
-      return;
     }
 
     // Cancel the subscription on Stripe immediately using the subscription ID
@@ -228,11 +227,10 @@ export const cancelSubscription = async (
 
     // If the plan could not be updated in the database, handle the error
     if (!plan) {
-      ErrorHandler.handleGenericErrorResponse(
+      return ErrorHandler.handleGenericErrorResponse(
         reply,
         'ORGANIZATION_PLAN_NOT_FOUND'
       );
-      return;
     }
 
     // Prepare a formatted response with a success message and the updated plan data
@@ -265,6 +263,6 @@ export const cancelSubscription = async (
     });
   } catch (error) {
     // Handle any errors that occur during the cancellation process
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

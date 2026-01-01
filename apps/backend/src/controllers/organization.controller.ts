@@ -49,8 +49,7 @@ export const getOrganizations = async (
     getOrganizationFiltersAndPagination(request);
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   try {
@@ -70,8 +69,10 @@ export const getOrganizations = async (
         targetOrganizations: organizations,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const totalItems = await organizationService.countOrganizations(filters);
@@ -84,11 +85,9 @@ export const getOrganizations = async (
       totalItems,
     });
 
-    reply.code(200).send(responseData);
-    return;
+    return reply.code(200).send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -106,8 +105,10 @@ export const getOrganization = async (
   const { organizationId } = request.params;
 
   if (!organizationId) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_ID_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_ID_NOT_FOUND'
+    );
   }
 
   try {
@@ -123,19 +124,19 @@ export const getOrganization = async (
         targetOrganizations: [organization],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const responseData = formatResponse<OrganizationAPI>({
       data: mapOrganizationToAPI(organization),
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -153,16 +154,14 @@ export const addOrganization = async (
   const organization = request.body;
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(
+    return ErrorHandler.handleGenericErrorResponse(
       reply,
       'ORGANIZATION_DATA_NOT_FOUND'
     );
-    return;
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   try {
@@ -185,11 +184,9 @@ export const addOrganization = async (
       data: mapOrganizationToAPI(newOrganization),
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -207,16 +204,17 @@ export const updateOrganization = async (
   const organizationFields = request.body;
 
   if (!organizationFields) {
-    ErrorHandler.handleGenericErrorResponse(
+    return ErrorHandler.handleGenericErrorResponse(
       reply,
       'ORGANIZATION_DATA_NOT_FOUND'
     );
-    return;
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (
@@ -228,8 +226,7 @@ export const updateOrganization = async (
       targetOrganizations: [organization],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -253,11 +250,9 @@ export const updateOrganization = async (
       data: mapOrganizationToAPI(updatedOrganization),
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -277,13 +272,14 @@ export const addOrganizationMember = async (
   const { userEmail } = request.body;
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (
@@ -295,8 +291,7 @@ export const addOrganizationMember = async (
       targetOrganizations: [organization],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   const planType = getPlanDetails(organization.plan);
@@ -305,10 +300,13 @@ export const addOrganizationMember = async (
     planType.numberOfOrganizationUsers &&
     organization.membersIds.length >= planType.numberOfOrganizationUsers
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PLAN_USER_LIMIT_REACHED', {
-      organizationId: organization.id,
-    });
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PLAN_USER_LIMIT_REACHED',
+      {
+        organizationId: organization.id,
+      }
+    );
   }
 
   try {
@@ -318,10 +316,13 @@ export const addOrganizationMember = async (
       // Create user if not found
       const newUser = await userService.createUser({ email: userEmail });
       if (!newUser) {
-        ErrorHandler.handleGenericErrorResponse(reply, 'USER_CREATION_FAILED', {
-          email: userEmail,
-        });
-        return;
+        return ErrorHandler.handleGenericErrorResponse(
+          reply,
+          'USER_CREATION_FAILED',
+          {
+            email: userEmail,
+          }
+        );
       }
 
       newMember = newUser;
@@ -347,8 +348,6 @@ export const addOrganizationMember = async (
       data: mapOrganizationToAPI(updatedOrganization),
     });
 
-    reply.send(responseData);
-
     await sendEmail({
       type: 'invite',
       to: userEmail,
@@ -361,10 +360,9 @@ export const addOrganizationMember = async (
       inviteFromLocation: request.hostname,
     });
 
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -385,8 +383,10 @@ export const updateOrganizationMembers = async (
   const { membersIds, adminsIds } = request.body;
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (
@@ -398,44 +398,41 @@ export const updateOrganizationMembers = async (
       targetOrganizations: [organization],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   if (!membersIds) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'INVALID_REQUEST_BODY');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'INVALID_REQUEST_BODY'
+    );
   }
 
   if (membersIds?.length === 0) {
-    ErrorHandler.handleGenericErrorResponse(
+    return ErrorHandler.handleGenericErrorResponse(
       reply,
       'ORGANIZATION_MUST_HAVE_MEMBER'
     );
-    return;
   }
 
   if (adminsIds?.filter((id) => membersIds?.includes(id)).length === 0) {
-    ErrorHandler.handleGenericErrorResponse(
+    return ErrorHandler.handleGenericErrorResponse(
       reply,
       'ORGANIZATION_MUST_HAVE_ADMIN'
     );
-    return;
   }
 
   try {
     const existingUsers = await userService.getUsersByIds(membersIds);
 
     if (!existingUsers) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
     const existingAdmins = await userService.getUsersByIds(adminsIds!);
 
     if (!existingAdmins) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
     const updatedOrganization =
@@ -458,11 +455,9 @@ export const updateOrganizationMembers = async (
       data: mapOrganizationToAPI(updatedOrganization),
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -488,26 +483,25 @@ export const updateOrganizationMembersById = async (
   const { membersIds, adminsIds } = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (user.role !== 'admin') {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   if (!membersIds) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'INVALID_REQUEST_BODY');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'INVALID_REQUEST_BODY'
+    );
   }
 
   if (membersIds?.length === 0) {
-    ErrorHandler.handleGenericErrorResponse(
+    return ErrorHandler.handleGenericErrorResponse(
       reply,
       'ORGANIZATION_MUST_HAVE_MEMBER'
     );
-    return;
   }
 
   try {
@@ -515,15 +509,16 @@ export const updateOrganizationMembersById = async (
       await organizationService.getOrganizationById(organizationId);
 
     if (!targetOrganization) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_NOT_FOUND'
+      );
     }
 
     const existingUsers = await userService.getUsersByIds(membersIds);
 
     if (!existingUsers) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
     const finalAdminsIds =
@@ -535,11 +530,10 @@ export const updateOrganizationMembersById = async (
       : [];
 
     if (!existingAdmins || existingAdmins.length === 0) {
-      ErrorHandler.handleGenericErrorResponse(
+      return ErrorHandler.handleGenericErrorResponse(
         reply,
         'ORGANIZATION_MUST_HAVE_ADMIN'
       );
-      return;
     }
 
     const updatedOrganization =
@@ -562,11 +556,9 @@ export const updateOrganizationMembersById = async (
       data: mapOrganizationToAPI(updatedOrganization),
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -583,8 +575,10 @@ export const deleteOrganization = async (
   const { organization, roles } = _request.locals || {};
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   const projects = await projectService.findProjects({
@@ -592,10 +586,9 @@ export const deleteOrganization = async (
   });
 
   if (projects.length > 0) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECTS_EXIST', {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECTS_EXIST', {
       organizationId: organization.id,
     });
-    return;
   }
 
   if (
@@ -607,8 +600,7 @@ export const deleteOrganization = async (
       targetOrganizations: [organization],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -621,10 +613,13 @@ export const deleteOrganization = async (
       await organizationService.deleteOrganizationById(organization.id);
 
     if (!deletedOrganization) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_FOUND', {
-        organizationId: organization.id,
-      });
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_NOT_FOUND',
+        {
+          organizationId: organization.id,
+        }
+      );
     }
 
     logger.info(`Organization deleted: ${String(deletedOrganization.id)}`);
@@ -644,11 +639,9 @@ export const deleteOrganization = async (
     });
 
     // No need to update session here, as it's a delete operation
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -668,13 +661,17 @@ export const selectOrganization = async (
   const { session } = request.locals || {};
 
   if (!organizationId) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_ID_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_ID_NOT_FOUND'
+    );
   }
 
   if (typeof session === 'undefined') {
-    ErrorHandler.handleGenericErrorResponse(reply, 'SESSION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'SESSION_NOT_DEFINED'
+    );
   }
 
   try {
@@ -707,11 +704,9 @@ export const selectOrganization = async (
       data: mapOrganizationToAPI(organization),
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -729,8 +724,10 @@ export const unselectOrganization = async (
     // Update session to clear activeOrganizationId and activeProjectId
 
     if (typeof session === 'undefined') {
-      ErrorHandler.handleGenericErrorResponse(reply, 'SESSION_NOT_DEFINED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'SESSION_NOT_DEFINED'
+      );
     }
 
     await SessionModel.updateOne(
@@ -757,10 +754,8 @@ export const unselectOrganization = async (
       data: null,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

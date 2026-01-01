@@ -47,6 +47,7 @@ const startServer = async () => {
   const app: FastifyInstance = Fastify({
     disableRequestLogging: true,
     trustProxy: true,
+    ignoreTrailingSlash: true,
   });
 
   // Environment variables
@@ -205,16 +206,11 @@ const startServer = async () => {
   await app.register(newsletterRouter, { prefix: newsletterRoute });
 
   // Server
-  try {
-    await app.listen({
-      port: Number(process.env.PORT) || 3100,
-      host: '0.0.0.0',
-    });
-    logger.info(`Listening on port ${process.env.PORT || 3100}`);
-  } catch (err) {
-    app.log.error(err);
-    process.exit(1);
-  }
+  await app.listen({
+    port: Number(process.env.PORT) || 3100,
+    host: '0.0.0.0',
+  });
+  logger.info(`Listening on port ${process.env.PORT || 3100}`);
 };
 
 startServer();

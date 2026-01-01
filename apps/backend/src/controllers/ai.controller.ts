@@ -49,7 +49,6 @@ export const customQuery = async (
   request: FastifyRequest<{ Body: CustomQueryBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  // biome-ignore lint/correctness/noUnusedVariables: Just filter out tagsKeys
   const { aiOptions, tagsKeys, ...rest } = request.body;
   const { user } = request.locals || {};
 
@@ -64,8 +63,7 @@ export const customQuery = async (
       !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   try {
@@ -76,19 +74,16 @@ export const customQuery = async (
     });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'QUERY_FAILED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'QUERY_FAILED');
     }
 
     const responseData = formatResponse<customQueryUtil.CustomQueryResultData>({
       data: auditResponse,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -120,8 +115,7 @@ export const translateJSON = async (
       !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   try {
@@ -139,8 +133,7 @@ export const translateJSON = async (
     });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
     }
 
     const responseData = formatResponse<
@@ -149,11 +142,9 @@ export const translateJSON = async (
       data: auditResponse,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -190,15 +181,14 @@ export const auditContentDeclaration = async (
       !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   try {
     let tags: Tag[] = [];
 
     if (project?.organizationId) {
-      tags = await getTagsByKeys(tagsKeys, project.organizationId);
+      tags = await getTagsByKeys(tagsKeys ?? [], project.organizationId);
     }
 
     const auditResponse = await auditContentDeclarationUtil.auditDictionary({
@@ -212,8 +202,7 @@ export const auditContentDeclaration = async (
     });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
     }
 
     const responseData =
@@ -221,11 +210,9 @@ export const auditContentDeclaration = async (
         data: auditResponse,
       });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -261,15 +248,14 @@ export const auditContentDeclarationField = async (
       !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   try {
     let tags: Tag[] = [];
 
     if (project?.organizationId) {
-      tags = await getTagsByKeys(tagsKeys, project.organizationId);
+      tags = await getTagsByKeys(tagsKeys ?? [], project.organizationId);
     }
 
     const auditResponse =
@@ -283,8 +269,7 @@ export const auditContentDeclarationField = async (
       });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
     }
 
     const responseData =
@@ -294,11 +279,9 @@ export const auditContentDeclarationField = async (
         }
       );
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -331,8 +314,7 @@ export const auditContentDeclarationMetadata = async (
       !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   try {
@@ -353,8 +335,7 @@ export const auditContentDeclarationMetadata = async (
       });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
     }
 
     const responseData =
@@ -362,11 +343,9 @@ export const auditContentDeclarationMetadata = async (
         data: auditResponse,
       });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -397,8 +376,7 @@ export const auditTag = async (
       !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   try {
@@ -415,19 +393,16 @@ export const auditTag = async (
     });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
     }
 
     const responseData = formatResponse<auditTagUtil.TranslateJSONResultData>({
       data: auditResponse,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -455,8 +430,7 @@ export const askDocQuestion = async (
       !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   // 1. Prepare SSE headers and flush them NOW
@@ -561,8 +535,7 @@ export const autocomplete = async (
         !!user
       );
     } catch (_error) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
     }
 
     const response = (await autocompleteUtil.autocomplete({
@@ -582,10 +555,9 @@ export const autocomplete = async (
         data: response,
       });
 
-    reply.send(responseData);
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -617,8 +589,7 @@ export const getDiscussions = async (
   const includeMessages = includeMessagesParam !== 'false';
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   try {
@@ -653,8 +624,10 @@ export const getDiscussions = async (
     const isAllowed = roles?.includes('admin') || allOwnedByUser;
 
     if (!isAllowed) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const totalItems = await DiscussionModel.countDocuments(filters);
@@ -675,10 +648,8 @@ export const getDiscussions = async (
       totalItems,
     });
 
-    reply.send(responseData as any);
-    return;
+    return reply.send(responseData as any);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

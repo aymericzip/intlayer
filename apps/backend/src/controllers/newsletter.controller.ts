@@ -27,8 +27,10 @@ export const subscribeToNewsletter = async (
   const { email, emailList } = request.body;
 
   if (!email) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_DATA_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'USER_DATA_NOT_FOUND'
+    );
   }
 
   const emailLists = Array.isArray(emailList) ? emailList : [emailList];
@@ -59,8 +61,10 @@ export const subscribeToNewsletter = async (
           targetUsers: [user],
         })
       ) {
-        ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-        return;
+        return ErrorHandler.handleGenericErrorResponse(
+          reply,
+          'PERMISSION_DENIED'
+        );
       }
 
       // Update existing user's newsletter subscription
@@ -87,11 +91,9 @@ export const subscribeToNewsletter = async (
       data: formattedUser,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -112,8 +114,10 @@ export const unsubscribeFromNewsletter = async (
   const { roles } = request.locals || {};
 
   if (!userId) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_DATA_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'USER_DATA_NOT_FOUND'
+    );
   }
 
   try {
@@ -121,8 +125,7 @@ export const unsubscribeFromNewsletter = async (
     const user = await userService.getUserById(userId);
 
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
     if (
@@ -134,8 +137,10 @@ export const unsubscribeFromNewsletter = async (
         targetUsers: [user],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const emailLists = Array.isArray(emailList) ? emailList : [emailList];
@@ -168,11 +173,9 @@ export const unsubscribeFromNewsletter = async (
       data: formattedUser,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -187,16 +190,17 @@ export const getNewsletterStatus = async (
   const { roles } = _request.locals || {};
 
   if (!email) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_DATA_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'USER_DATA_NOT_FOUND'
+    );
   }
 
   try {
     const user = await userService.getUserByEmail(email);
 
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
     if (
@@ -208,8 +212,10 @@ export const getNewsletterStatus = async (
         targetUsers: [user],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const formattedUser = mapUserToAPI(user);
@@ -223,10 +229,8 @@ export const getNewsletterStatus = async (
       data: formattedUser,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

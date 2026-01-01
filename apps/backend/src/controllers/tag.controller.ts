@@ -39,13 +39,14 @@ export const getTags = async (
     getTagFiltersAndPagination(request);
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   try {
@@ -65,8 +66,10 @@ export const getTags = async (
         targetTags: tags,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const totalItems = await tagService.countTags(filters);
@@ -81,11 +84,9 @@ export const getTags = async (
       totalItems,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -103,23 +104,28 @@ export const addTag = async (
   const tagData = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (!tagData) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_DATA_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_DATA_NOT_FOUND'
+    );
   }
 
   const tag: TagData = {
@@ -138,8 +144,7 @@ export const addTag = async (
       targetTags: [tag as Tag],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -161,11 +166,9 @@ export const addTag = async (
       data: formattedTag,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -184,13 +187,14 @@ export const updateTag = async (
   const { organization, user, roles } = request.locals || {};
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   try {
@@ -213,13 +217,17 @@ export const updateTag = async (
         targetTags: [tagToDelete],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     if (String(tagToDelete.organizationId) !== String(organization.id)) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'TAG_NOT_IN_ORGANIZATION');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'TAG_NOT_IN_ORGANIZATION'
+      );
     }
 
     const updatedTag = await tagService.updateTagById(tag._id, tag);
@@ -240,11 +248,9 @@ export const updateTag = async (
       data: formattedTag,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -262,18 +268,18 @@ export const deleteTag = async (
   const { tagId } = request.params;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (!tagId) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'TAG_ID_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'TAG_ID_NOT_FOUND');
   }
 
   try {
@@ -288,23 +294,25 @@ export const deleteTag = async (
         targetTags: [tagToDelete],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     if (String(tagToDelete.organizationId) !== String(organization.id)) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'TAG_NOT_IN_ORGANIZATION');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'TAG_NOT_IN_ORGANIZATION'
+      );
     }
 
     const deletedTag = await tagService.deleteTagById(tagId);
 
     if (!deletedTag) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'TAG_NOT_FOUND', {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'TAG_NOT_FOUND', {
         tagId,
       });
-
-      return;
     }
 
     logger.info(`Tag deleted: ${String(deletedTag.id)}`);
@@ -325,10 +333,8 @@ export const deleteTag = async (
       data: formattedTag,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

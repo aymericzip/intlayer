@@ -67,6 +67,7 @@ export class ErrorHandler {
         error.httpStatusCode ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
         isPaginatedResponse
       );
+      return;
     }
 
     const isMultilingual = error.isMultilingual ?? false;

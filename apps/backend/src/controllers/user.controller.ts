@@ -32,8 +32,7 @@ export const createUser = async (
   const user: User | undefined = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   try {
@@ -62,11 +61,9 @@ export const createUser = async (
       data: formattedUser,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -83,8 +80,7 @@ export const getUsers = async (
   const { user, roles } = request.locals || {};
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
@@ -107,8 +103,10 @@ export const getUsers = async (
         targetUsers: users,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const totalItems = await userService.countUsers(filters);
@@ -123,11 +121,9 @@ export const getUsers = async (
       totalItems,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -144,18 +140,15 @@ export const getUserById = async (
     const user = await userService.getUserById(userId);
 
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     }
 
     const formattedUser = mapUserToAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -173,8 +166,7 @@ export const getUserByEmail = async (
     const user = await userService.getUserByEmail(email);
 
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
     }
 
     if (
@@ -186,17 +178,18 @@ export const getUserByEmail = async (
         targetUsers: [user],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const formattedUser = mapUserToAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
-    reply.send(responseData);
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -214,25 +207,27 @@ export const updateUser = async (
   const { user, roles } = request.locals || {};
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (typeof userData !== 'object') {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_DATA_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'USER_DATA_NOT_FOUND'
+    );
   }
 
   if (!userData.id) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_INVALID_FIELDS');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'USER_INVALID_FIELDS'
+    );
   }
 
   const userDB = await userService.getUserById(userData.id);
 
   if (!userDB) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
   }
 
   if (
@@ -244,8 +239,7 @@ export const updateUser = async (
       targetUsers: [userDB],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -270,11 +264,9 @@ export const updateUser = async (
       data: formattedUser,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -295,8 +287,7 @@ export const deleteUser = async (
     const user = await userService.getUserById(userId);
 
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
     if (
@@ -308,8 +299,10 @@ export const deleteUser = async (
         targetUsers: [user],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     await userService.deleteUser(userId);
@@ -329,10 +322,9 @@ export const deleteUser = async (
       data: formattedUser,
     });
 
-    reply.send(responseData);
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 

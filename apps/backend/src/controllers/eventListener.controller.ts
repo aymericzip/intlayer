@@ -56,8 +56,10 @@ export const listenChangeSSE = async (
   const { project } = request.locals || {};
 
   if (clients.length >= MAX_SSE_CONNECTIONS) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'TOO_MANY_CONNECTIONS');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'TOO_MANY_CONNECTIONS'
+    );
   }
 
   // Set headers for SSE

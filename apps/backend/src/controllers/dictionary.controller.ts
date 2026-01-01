@@ -67,13 +67,14 @@ export const getDictionaries = async (
     getDictionaryFiltersAndPagination(request);
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   try {
@@ -96,8 +97,10 @@ export const getDictionaries = async (
         targetDictionaries: dictionaries,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const totalItems = await dictionaryService.countDictionaries(filters);
@@ -112,11 +115,9 @@ export const getDictionaries = async (
       totalItems,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -132,8 +133,10 @@ export const getDictionariesKeys = async (
   const { project, roles } = _request.locals || {};
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   try {
@@ -150,8 +153,10 @@ export const getDictionariesKeys = async (
         targetDictionaries: dictionaries,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const dictionariesKeys = dictionaries.map((dictionary) => dictionary.key);
@@ -160,11 +165,9 @@ export const getDictionariesKeys = async (
       data: dictionariesKeys,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -182,8 +185,10 @@ export const getDictionariesUpdateTimestamp = async (
   const { project, roles } = _request.locals || {};
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   try {
@@ -200,20 +205,22 @@ export const getDictionariesUpdateTimestamp = async (
         targetDictionaries: dictionaries,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
-    const dictionariesUpdateTimestamp = dictionaries.reduce(
-      (acc, dictionary) => ({
-        ...acc,
-        [dictionary.id]: {
-          key: dictionary.key,
-          updatedAt: new Date(dictionary.updatedAt).getTime(),
-        },
-      }),
-      {}
-    );
+    const dictionariesUpdateTimestamp: Record<
+      string,
+      { key: string; updatedAt: number }
+    > = {};
+    for (const dictionary of dictionaries) {
+      dictionariesUpdateTimestamp[dictionary.id] = {
+        key: dictionary.key,
+        updatedAt: new Date(dictionary.updatedAt).getTime(),
+      };
+    }
 
     const responseData = formatResponse<
       Record<string, { key: string; updatedAt: number }>
@@ -221,11 +228,9 @@ export const getDictionariesUpdateTimestamp = async (
       data: dictionariesUpdateTimestamp,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -248,12 +253,13 @@ export const getDictionaryByKey = async (
   const version = request.query.version;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   try {
@@ -271,16 +277,17 @@ export const getDictionaryByKey = async (
         targetDictionaries: [dictionary],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     if (!dictionary.projectIds.map(String).includes(String(project.id))) {
-      ErrorHandler.handleGenericErrorResponse(
+      return ErrorHandler.handleGenericErrorResponse(
         reply,
         'DICTIONARY_PROJECT_MISMATCH'
       );
-      return;
     }
 
     const apiResult = mapDictionaryToAPI(dictionary, version);
@@ -289,11 +296,9 @@ export const getDictionaryByKey = async (
       data: apiResult,
     });
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -311,26 +316,28 @@ export const addDictionary = async (
   const dictionaryData = request.body.dictionary;
 
   if (!dictionaryData) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARY_DATA_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'DICTIONARY_DATA_NOT_FOUND'
+    );
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!dictionaryData.projectIds?.includes(String(project.id))) {
-    ErrorHandler.handleGenericErrorResponse(
+    return ErrorHandler.handleGenericErrorResponse(
       reply,
       'DICTIONARY_PROJECT_MISMATCH'
     );
-    return;
   }
 
   const dictionary: DictionaryData = {
@@ -351,8 +358,7 @@ export const addDictionary = async (
   };
 
   if (!hasPermission(roles || [], 'dictionary:write')(request.locals)) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -374,18 +380,16 @@ export const addDictionary = async (
       data: apiResult,
     });
 
-    reply.send(responseData);
-
     eventListener.sendDictionaryUpdate([
       {
         dictionary: mapDictionaryToAPI(newDictionary),
         status: 'ADDED',
       },
     ]);
-    return;
+
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -442,26 +446,30 @@ export const pushDictionaries = async (
     Array.isArray(dictionaryData) &&
     dictionaryData.length === 0
   ) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARIES_NOT_PROVIDED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'DICTIONARIES_NOT_PROVIDED'
+    );
   } else if (!dictionaryData) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARY_DATA_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'DICTIONARY_DATA_NOT_FOUND'
+    );
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!hasPermission(roles || [], 'dictionary:write')(request.locals)) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -612,11 +620,9 @@ export const pushDictionaries = async (
       ),
     ]);
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -639,31 +645,35 @@ export const updateDictionary = async (
   const dictionaryData = request.body;
 
   if (!dictionaryData) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARY_DATA_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'DICTIONARY_DATA_NOT_FOUND'
+    );
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (!dictionaryData.projectIds?.includes(String(project.id))) {
-    ErrorHandler.handleGenericErrorResponse(
+    return ErrorHandler.handleGenericErrorResponse(
       reply,
       'DICTIONARY_PROJECT_MISMATCH'
     );
-    return;
   }
 
   if (typeof dictionaryId === 'undefined') {
-    ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARY_ID_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'DICTIONARY_ID_NOT_FOUND'
+    );
   }
 
   if (!hasPermission(roles || [], 'dictionary:write')(request.locals)) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -695,11 +705,9 @@ export const updateDictionary = async (
       },
     ]);
 
-    reply.send(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -717,18 +725,21 @@ export const deleteDictionary = async (
   const { dictionaryId } = request.params;
 
   if (!dictionaryId) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARY_ID_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'DICTIONARY_ID_NOT_FOUND'
+    );
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (!hasPermission(roles || [], 'dictionary:admin')(request.locals)) {
-    ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -736,21 +747,23 @@ export const deleteDictionary = async (
       await dictionaryService.getDictionaryById(dictionaryId);
 
     if (!dictionaryToDelete.projectIds.includes(project.id)) {
-      ErrorHandler.handleGenericErrorResponse(
+      return ErrorHandler.handleGenericErrorResponse(
         reply,
         'DICTIONARY_PROJECT_MISMATCH'
       );
-      return;
     }
 
     const deletedDictionary =
       await dictionaryService.deleteDictionaryById(dictionaryId);
 
     if (!deletedDictionary) {
-      ErrorHandler.handleGenericErrorResponse(reply, 'DICTIONARY_NOT_FOUND', {
-        dictionaryId,
-      });
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'DICTIONARY_NOT_FOUND',
+        {
+          dictionaryId,
+        }
+      );
     }
 
     logger.info(`Dictionary deleted: ${String(deletedDictionary.id)}`);
@@ -771,8 +784,6 @@ export const deleteDictionary = async (
       data: apiResult,
     });
 
-    reply.send(responseData);
-
     eventListener.sendDictionaryUpdate([
       {
         dictionary: apiResult,
@@ -780,9 +791,8 @@ export const deleteDictionary = async (
       },
     ]);
 
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(reply, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
