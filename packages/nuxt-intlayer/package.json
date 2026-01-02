@@ -91,7 +91,7 @@
     "@utils/tsdown-config": "workspace:*",
     "fast-glob": "3.3.3",
     "rimraf": "6.1.2",
-    "tsdown": "0.18.4",
+    "tsdown": "0.18.2",
     "typescript": "5.9.3",
     "vitest": "4.0.16"
   },
