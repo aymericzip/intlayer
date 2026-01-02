@@ -6,7 +6,7 @@ import {
   getConfiguration,
 } from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
-/** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions'. */
+/** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 import { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
@@ -58,7 +58,7 @@ export const watch = (options?: WatchOptions) => {
       const fileName = basename(filePath);
       let isMove = false;
 
-      // 1. Check if this Add corresponds to a pending Unlink (Move/Rename detection)
+      // Check if this Add corresponds to a pending Unlink (Move/Rename detection)
       // Heuristic:
       // - Priority A: Exact basename match (Moved to different folder)
       // - Priority B: Single entry in pendingUnlinks (Renamed file)
@@ -95,7 +95,7 @@ export const watch = (options?: WatchOptions) => {
         );
       }
 
-      // 2. If it's NOT a move, perform standard "New File" logic
+      // If it's NOT a move, perform standard "New File" logic
       if (!isMove) {
         const fileContent = await readFile(filePath, 'utf-8');
         const isEmpty = fileContent === '';
@@ -121,7 +121,7 @@ export const watch = (options?: WatchOptions) => {
         }
       }
 
-      // 3. Always ensure the file is processed (both for moves and adds)
+      // Always ensure the file is processed (both for moves and adds)
       await handleAdditionalContentDeclarationFile(filePath, configuration);
     })
     .on(

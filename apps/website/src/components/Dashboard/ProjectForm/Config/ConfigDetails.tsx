@@ -53,25 +53,25 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <H3>{title}</H3>
-        {isProjectAdmin && (
+        {isProjectAdmin && projectConfig && (
           <Button
-            variant="outline"
-            size="sm"
+            variant="hoverable"
+            size="icon-md"
             color="text"
             Icon={Pencil}
             label={editButton.ariaLabel.value}
             onClick={() => setIsEditModalOpen(true)}
-          >
-            {editButton.text}
-          </Button>
+          />
         )}
       </div>
 
-      <ConfigEditionForm
-        projectConfig={projectConfig}
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-      />
+      {isProjectAdmin && projectConfig && (
+        <ConfigEditionForm
+          projectConfig={projectConfig}
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+        />
+      )}
 
       <div className="flex flex-col gap-4">
         <H4>{i18nSection.title}</H4>

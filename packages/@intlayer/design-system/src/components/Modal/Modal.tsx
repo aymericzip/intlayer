@@ -224,7 +224,7 @@ export const Modal: FC<ModalProps> = ({
         })}
         role="dialog"
         aria-modal
-        roundedSize="2xl"
+        roundedSize="4xl"
         {...props}
       >
         <div

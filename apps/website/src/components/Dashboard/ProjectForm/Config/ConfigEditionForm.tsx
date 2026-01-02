@@ -11,20 +11,21 @@ import {
 } from '@intlayer/design-system';
 import { useSession, useUpdateProject } from '@intlayer/design-system/hooks';
 import { getLocaleName, type Locale, Locales } from 'intlayer';
+import { Save } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { type FC, useEffect, useMemo } from 'react';
+import { type FC, useEffect } from 'react';
 import {
   type ConfigFormData,
   useConfigFormSchema,
 } from './useConfigFormSchema';
 
 type ConfigEditionFormProps = {
-  projectConfig?: ProjectConfiguration;
+  projectConfig: ProjectConfiguration;
   isOpen: boolean;
   onClose: () => void;
 };
 
-const allLocales = Object.values(Locales) as Locale[];
+const allLocales = Object.values(Locales.ALL_LOCALES) as Locale[];
 
 export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
   projectConfig,
@@ -39,19 +40,12 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
   const { title, i18nSection, editorSection, saveButton, cancelButton } =
     useIntlayer('config-edition-form');
 
-  const defaultValues: ConfigFormData = useMemo(
-    () => ({
-      locales: (projectConfig?.internationalization?.locales as Locale[]) ?? [
-        Locales.ENGLISH,
-      ],
-      defaultLocale:
-        (projectConfig?.internationalization?.defaultLocale as Locale) ??
-        Locales.ENGLISH,
-      applicationURL: projectConfig?.editor?.applicationURL ?? '',
-      cmsURL: projectConfig?.editor?.cmsURL ?? '',
-    }),
-    [projectConfig]
-  );
+  const defaultValues: ConfigFormData = {
+    locales: (projectConfig?.internationalization?.locales as Locale[]) ?? [],
+    defaultLocale: projectConfig?.internationalization?.defaultLocale as Locale,
+    applicationURL: projectConfig?.editor?.applicationURL,
+    cmsURL: projectConfig?.editor?.cmsURL,
+  };
 
   const { form, isSubmitting } = useForm(ConfigSchema, {
     defaultValues,
@@ -88,7 +82,14 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={title.value} size="lg">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={title.value}
+      size="xl"
+      padding="lg"
+      className="w-2xl overflow-y-auto"
+    >
       <Form
         schema={ConfigSchema}
         onSubmitSuccess={onSubmitSuccess}
@@ -196,6 +197,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
               color="text"
               type="submit"
               isLoading={isSubmitting || isPending}
+              Icon={Save}
             >
               {saveButton.text}
             </Form.Button>
