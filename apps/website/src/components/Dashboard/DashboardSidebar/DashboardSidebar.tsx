@@ -164,7 +164,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   collapseButtonLabel,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const { isMobile } = useDevice('sm');
+  const { isMobile } = useDevice();
   const { pathWithoutLocale } = useLocale();
   const { session } = useSession();
 
