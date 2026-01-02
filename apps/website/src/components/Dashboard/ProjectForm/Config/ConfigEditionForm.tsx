@@ -106,6 +106,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
+      hasCloseButton
       title={title.value}
       size="xl"
       padding="lg"
