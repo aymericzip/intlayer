@@ -9,19 +9,18 @@ export type ProjectCreationData = {
   name: Project['name'];
 };
 
-type ProjectConfigInternationalization = Pick<
-  IntlayerConfig['internationalization'],
-  'locales' | 'defaultLocale'
+type ProjectConfigInternationalization = Partial<
+  Pick<IntlayerConfig['internationalization'], 'locales' | 'defaultLocale'>
 >;
 
-type ProjectConfigEditor = Pick<
-  IntlayerConfig['editor'],
-  'applicationURL' | 'cmsURL'
+type ProjectConfigEditor = Partial<
+  Pick<IntlayerConfig['editor'], 'applicationURL' | 'cmsURL'>
 >;
 
 export type ProjectConfiguration = {
-  internationalization: ProjectConfigInternationalization;
-  editor: ProjectConfigEditor;
+  internationalization?: ProjectConfigInternationalization;
+  editor?: ProjectConfigEditor;
+  ai?: Partial<IntlayerConfig['ai']>;
 };
 
 export type ProjectData = {

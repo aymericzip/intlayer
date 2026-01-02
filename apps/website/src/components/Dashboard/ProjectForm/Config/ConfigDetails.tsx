@@ -27,6 +27,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
     title,
     i18nSection,
     editorSection,
+    aiSection,
   } = useIntlayer('project-config-detail');
   const { editButton } = useIntlayer('config-edition-form');
 
@@ -127,6 +128,38 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
             '-'
           )}
         </div>
+
+        {projectConfig.ai && (
+          <>
+            <H4>{aiSection.title}</H4>
+            <div className="flex flex-col gap-4">
+              <H5>{aiSection.provider.title}</H5>
+              <Tag size="sm">{projectConfig.ai.provider ?? '-'}</Tag>
+
+              <H5>{aiSection.model.title}</H5>
+              <Tag size="sm">{projectConfig.ai.model ?? '-'}</Tag>
+
+              <H5>{aiSection.temperature.title}</H5>
+              <Tag size="sm">
+                {projectConfig.ai.temperature !== undefined
+                  ? projectConfig.ai.temperature
+                  : '-'}
+              </Tag>
+
+              <H5>{aiSection.apiKey.title}</H5>
+              <Tag size="sm">
+                {projectConfig.ai.apiKey
+                  ? aiSection.apiKey.configured
+                  : aiSection.apiKey.notConfigured}
+              </Tag>
+
+              <H5>{aiSection.applicationContext.title}</H5>
+              <p className="text-neutral-dark text-sm dark:text-neutral">
+                {projectConfig.ai.applicationContext ?? '-'}
+              </p>
+            </div>
+          </>
+        )}
       </div>
       <div className="flex flex-col gap-2 rounded-lg bg-card p-4 text-sm">
         <strong className="block text-neutral">{updateConfig.message}</strong>

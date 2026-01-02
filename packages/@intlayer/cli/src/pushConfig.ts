@@ -18,7 +18,7 @@ export const pushConfig = async (options?: PushOptions) => {
     },
   });
 
-  const hasCMSAuth = await checkCMSAuth(config);
+  const hasCMSAuth = await checkCMSAuth(config, false);
 
   if (!hasCMSAuth) return;
 

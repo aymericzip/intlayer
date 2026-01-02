@@ -331,6 +331,15 @@ export type EditorConfig = {
   liveSyncURL: string;
 };
 
+export enum AiProviders {
+  OPENAI = 'openai',
+  ANTHROPIC = 'anthropic',
+  MISTRAL = 'mistral',
+  DEEPSEEK = 'deepseek',
+  GEMINI = 'gemini',
+  OLLAMA = 'ollama',
+}
+
 export type AiConfig = {
   /**
    * Provider
@@ -347,13 +356,7 @@ export type AiConfig = {
    *
    * Default: 'openai'
    */
-  provider?:
-    | 'openai'
-    | 'anthropic'
-    | 'mistral'
-    | 'deepseek'
-    | 'gemini'
-    | 'ollama';
+  provider?: AiProviders | `${AiProviders}`;
 
   /**
    * API model

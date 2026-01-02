@@ -10,6 +10,7 @@ import {
   useForm,
 } from '@intlayer/design-system';
 import { useSession, useUpdateProject } from '@intlayer/design-system/hooks';
+import { AiProviders } from '@intlayer/types';
 import { getLocaleName, type Locale, Locales } from 'intlayer';
 import { Save } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
@@ -26,6 +27,7 @@ type ConfigEditionFormProps = {
 };
 
 const allLocales = Object.values(Locales.ALL_LOCALES) as Locale[];
+const allAiProviders = Object.values(AiProviders);
 
 export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
   projectConfig,
@@ -37,14 +39,26 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
   const isProjectAdmin = session?.roles?.includes('project_admin');
   const ConfigSchema = useConfigFormSchema();
   const { mutate: updateProject, isPending } = useUpdateProject();
-  const { title, i18nSection, editorSection, saveButton, cancelButton } =
-    useIntlayer('config-edition-form');
+  const {
+    title,
+    i18nSection,
+    editorSection,
+    aiSection,
+    saveButton,
+    cancelButton,
+  } = useIntlayer('config-edition-form');
 
   const defaultValues: ConfigFormData = {
     locales: (projectConfig?.internationalization?.locales as Locale[]) ?? [],
     defaultLocale: projectConfig?.internationalization?.defaultLocale as Locale,
     applicationURL: projectConfig?.editor?.applicationURL,
     cmsURL: projectConfig?.editor?.cmsURL,
+    // AI Configuration
+    aiProvider: projectConfig?.ai?.provider,
+    aiModel: projectConfig?.ai?.model,
+    aiTemperature: projectConfig?.ai?.temperature,
+    aiApiKey: projectConfig?.ai?.apiKey,
+    aiApplicationContext: projectConfig?.ai?.applicationContext,
   };
 
   const { form, isSubmitting } = useForm(ConfigSchema, {
@@ -68,6 +82,13 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
       editor: {
         applicationURL: data.applicationURL!,
         cmsURL: data.cmsURL!,
+      },
+      ai: {
+        provider: data.aiProvider,
+        model: data.aiModel,
+        temperature: data.aiTemperature,
+        apiKey: data.aiApiKey,
+        applicationContext: data.aiApplicationContext,
       },
     };
 
@@ -176,6 +197,68 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
             label={editorSection.cmsURLInput.label.value}
             placeholder={editorSection.cmsURLInput.placeholder.value}
             description={editorSection.cmsURLInput.description.value}
+            disabled={!isProjectAdmin}
+          />
+        </div>
+
+        {/* AI Section */}
+        <div className="flex flex-col gap-4">
+          <H4>{aiSection.title}</H4>
+
+          <Form.Select
+            name="aiProvider"
+            label={aiSection.providerInput.label.value}
+            description={aiSection.providerInput.description.value}
+            disabled={!isProjectAdmin}
+          >
+            <Select.Trigger>
+              <Select.Value
+                placeholder={aiSection.providerInput.placeholder.value}
+              />
+            </Select.Trigger>
+            <Select.Content>
+              {allAiProviders.map((provider) => (
+                <Select.Item key={provider} value={provider}>
+                  {provider}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Form.Select>
+
+          <Form.Input
+            name="aiModel"
+            label={aiSection.modelInput.label.value}
+            placeholder={aiSection.modelInput.placeholder.value}
+            description={aiSection.modelInput.description.value}
+            disabled={!isProjectAdmin}
+          />
+
+          <Form.Input
+            name="aiTemperature"
+            type="number"
+            step={0.1}
+            min={0}
+            max={2}
+            label={aiSection.temperatureInput.label.value}
+            placeholder={aiSection.temperatureInput.placeholder.value}
+            description={aiSection.temperatureInput.description.value}
+            disabled={!isProjectAdmin}
+          />
+
+          <Form.Input
+            name="aiApiKey"
+            type="password"
+            label={aiSection.apiKeyInput.label.value}
+            placeholder={aiSection.apiKeyInput.placeholder.value}
+            description={aiSection.apiKeyInput.description.value}
+            disabled={!isProjectAdmin}
+          />
+
+          <Form.AutoSizedTextArea
+            name="aiApplicationContext"
+            label={aiSection.applicationContextInput.label.value}
+            placeholder={aiSection.applicationContextInput.placeholder.value}
+            description={aiSection.applicationContextInput.description.value}
             disabled={!isProjectAdmin}
           />
         </div>

@@ -1,8 +1,10 @@
+import { AiProviders } from '@intlayer/types';
 import { Locales } from 'intlayer';
 import { useIntlayer } from 'next-intlayer';
 import { z } from 'zod/v4';
 
 const localeValues = Object.values(Locales) as [string, ...string[]];
+const aiProviderValues = Object.values(AiProviders) as [string, ...string[]];
 
 export const useConfigFormSchema = () => {
   const {
@@ -10,6 +12,7 @@ export const useConfigFormSchema = () => {
     defaultLocaleRequired,
     invalidUrl,
     defaultLocaleNotInLocales,
+    invalidTemperature,
   } = useIntlayer('config-form-schema');
 
   return z
@@ -21,15 +24,20 @@ export const useConfigFormSchema = () => {
         error: () => defaultLocaleRequired.value,
       }),
       applicationURL: z
-        .string()
         .url({ error: invalidUrl.value })
         .optional()
         .or(z.literal('')),
-      cmsURL: z
-        .string()
-        .url({ error: invalidUrl.value })
-        .optional()
-        .or(z.literal('')),
+      cmsURL: z.url({ error: invalidUrl.value }).optional().or(z.literal('')),
+      // AI Configuration
+      aiProvider: z.enum(aiProviderValues).optional(),
+      aiModel: z.string().optional().or(z.literal('')),
+      aiTemperature: z
+        .number()
+        .min(0, { error: invalidTemperature.value })
+        .max(2, { error: invalidTemperature.value })
+        .optional(),
+      aiApiKey: z.string().optional().or(z.literal('')),
+      aiApplicationContext: z.string().optional().or(z.literal('')),
     })
     .refine((data) => data.locales.includes(data.defaultLocale), {
       message: defaultLocaleNotInLocales.value,

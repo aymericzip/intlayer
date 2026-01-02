@@ -59,8 +59,8 @@ const config: CustomIntlayerConfig = {
     importMode: 'dynamic',
   },
   ai: {
-    // provider: 'anthropic',
-    // model: 'claude-5-5-opus',
+    provider: 'anthropic',
+    model: 'claude-5-5-opus',
     applicationContext: [
       'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',
       'This application contains a landing page, documentation, and the CMS within the dashboard.',

@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/types';
+import { AiProviders, Locales } from '@intlayer/types';
 import type { RenameId } from '@utils/mongoDB/types';
 import {
   MEMBERS_MIN_LENGTH,
@@ -46,6 +46,27 @@ const projectConfigSchema = new Schema<Project['configuration']>(
         type: String,
       },
       cmsURL: {
+        type: String,
+      },
+    },
+    ai: {
+      provider: {
+        type: String,
+        enum: Object.values(AiProviders),
+      },
+      model: {
+        type: String,
+      },
+      temperature: {
+        type: Number,
+      },
+      apiKey: {
+        type: String,
+      },
+      applicationContext: {
+        type: String,
+      },
+      baseURL: {
         type: String,
       },
     },

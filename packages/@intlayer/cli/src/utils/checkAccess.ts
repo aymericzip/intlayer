@@ -7,9 +7,11 @@ import {
   getAppLogger,
 } from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/types';
+import { checkConfigConsistency } from './checkConfigConsistency';
 
 export const checkCMSAuth = async (
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  shouldCheckConfigConsistency: boolean = true
 ): Promise<boolean> => {
   const appLogger = getAppLogger(configuration, {
     config: {
@@ -20,16 +22,59 @@ export const checkCMSAuth = async (
   const hasCMSAuth =
     configuration.editor.clientId && configuration.editor.clientSecret;
   if (!hasCMSAuth) {
-    appLogger('CMS auth not provided.', {
-      level: 'error',
-    });
+    appLogger(
+      [
+        'CMS auth not provided. You can either retreive the CMS access key on',
+        colorize('https://intlayer.org/dahboard', ANSIColors.GREY),
+        colorize('(see doc:', ANSIColors.GREY_DARK),
+        colorize('https://intlayer.org/doc/concept/cms', ANSIColors.GREY),
+        colorize(')', ANSIColors.GREY_DARK),
+        '.',
+      ],
+      {
+        level: 'error',
+      }
+    );
 
     return false;
   }
   const intlayerAPI = getIntlayerAPIProxy(undefined, configuration);
 
   try {
-    await intlayerAPI.oAuth.getOAuth2AccessToken();
+    const result = await intlayerAPI.oAuth.getOAuth2AccessToken();
+
+    const project = result.data?.project;
+
+    if (!project) {
+      appLogger('Project not found');
+
+      return true;
+    }
+
+    if (project.configuration && shouldCheckConfigConsistency) {
+      try {
+        // Recursively check if project.configuration (subset) matches configuration (superset)
+        checkConfigConsistency(project.configuration, configuration);
+      } catch {
+        appLogger(
+          [
+            'Remote configuration is not up to date. The project configuration does not match the local configuration.',
+            'You can push the configuration by running',
+            colorize('npx intlayer push', ANSIColors.CYAN),
+            colorize('(see doc:', ANSIColors.GREY_DARK),
+            colorize(
+              'https://intlayer.org/doc/concept/cli/push',
+              ANSIColors.GREY
+            ),
+            colorize(')', ANSIColors.GREY_DARK),
+            '.',
+          ],
+          {
+            level: 'warn',
+          }
+        );
+      }
+    }
   } catch (error) {
     const message = extractErrorMessage(error);
 
@@ -44,7 +89,8 @@ export const checkCMSAuth = async (
 
 export const checkAIAccess = async (
   configuration: IntlayerConfig,
-  aiOptions?: AIOptions
+  aiOptions?: AIOptions,
+  shouldCheckConfigConsistency: boolean = true
 ): Promise<boolean> => {
   const appLogger = getAppLogger(configuration);
 
@@ -86,5 +132,5 @@ export const checkAIAccess = async (
   }
 
   // If the user do not have his own AI API key, we need to check the CMS auth
-  return await checkCMSAuth(configuration);
+  return await checkCMSAuth(configuration, shouldCheckConfigConsistency);
 };
