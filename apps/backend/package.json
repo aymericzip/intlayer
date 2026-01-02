@@ -84,6 +84,7 @@
     "@fastify/helmet": "^12.0.0",
     "@fastify/rate-limit": "^10.1.1",
     "@intlayer/ai": "workspace:*",
+    "@octokit/rest": "^22.0.1",
     "@react-email/components": "1.0.1",
     "better-auth": "1.4.10",
     "cross-env": "10.1.0",

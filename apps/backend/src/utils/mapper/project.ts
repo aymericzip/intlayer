@@ -2,6 +2,41 @@ import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject'
 import type { Project, ProjectAPI } from '@/types/project.types';
 
 /**
+ * Sanitizes the AI configuration by removing the API key and adding a flag.
+ * @param aiConfig - The AI configuration to sanitize.
+ * @returns The sanitized AI configuration.
+ */
+const sanitizeAIConfig = (aiConfig?: any) => {
+  if (!aiConfig) {
+    return aiConfig;
+  }
+
+  const { apiKey, ...rest } = aiConfig;
+  return {
+    ...rest,
+    apiKeyConfigured: !!apiKey,
+  };
+};
+
+/**
+ * Sanitizes the project configuration by removing sensitive data.
+ * @param configuration - The project configuration to sanitize.
+ * @returns The sanitized project configuration.
+ */
+const sanitizeProjectConfiguration = (
+  configuration?: Project['configuration']
+) => {
+  if (!configuration) {
+    return configuration;
+  }
+
+  return {
+    ...configuration,
+    ai: sanitizeAIConfig(configuration.ai),
+  };
+};
+
+/**
  * Maps a project to an API response.
  * @param project - The project to map.
  * @param  - Whether the user is an admin of the project.
@@ -15,6 +50,13 @@ export const mapProjectToAPI = <T extends Project | ProjectAPI | null>(
   }
 
   const projectObject = ensureMongoDocumentToObject(project);
+
+  // Sanitize configuration to remove sensitive API key
+  if (projectObject.configuration) {
+    projectObject.configuration = sanitizeProjectConfiguration(
+      projectObject.configuration
+    ) as any;
+  }
 
   return projectObject as any;
 };

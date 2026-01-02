@@ -1390,6 +1390,84 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
+  GITHUB_CODE_MISSING: {
+    title: {
+      en: 'GitHub Code Missing',
+      fr: 'Code GitHub manquant',
+      es: 'Código GitHub faltante',
+    },
+    message: {
+      en: 'The GitHub code is missing.',
+      fr: 'Le code GitHub est manquant.',
+      es: 'El código GitHub es faltante.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  GITHUB_TOKEN_MISSING: {
+    title: {
+      en: 'GitHub Token Missing',
+      fr: 'Token GitHub manquant',
+      es: 'Token GitHub faltante',
+    },
+    message: {
+      en: 'The GitHub token is missing.',
+      fr: 'Le token GitHub est manquant.',
+      es: 'El token GitHub es faltante.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  GITHUB_CHECK_CONFIG_MISSING_PARAMS: {
+    title: {
+      en: 'GitHub Check Config Missing Params',
+      fr: 'GitHub Check Config Manquant Params',
+      es: 'GitHub Check Config Faltante Params',
+    },
+    message: {
+      en: 'The GitHub check config is missing params.',
+      fr: 'Le GitHub check config est manquant params.',
+      es: 'El GitHub check config está faltando params.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  GITHUB_REDIRECT_URI_MISSING: {
+    title: {
+      en: 'GitHub Redirect URI Missing',
+      fr: 'GitHub Redirect URI Manquant',
+      es: 'GitHub Redirect URI Faltante',
+    },
+    message: {
+      en: 'The GitHub redirect URI is missing.',
+      fr: 'Le GitHub redirect URI est manquant.',
+      es: 'El GitHub redirect URI está faltando.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  GITHUB_GET_CONFIG_FILE_MISSING_PARAMS: {
+    title: {
+      en: 'GitHub Get Config File Missing Params',
+      fr: 'GitHub Get Config File Manquant Params',
+      es: 'GitHub Get Config File Faltante Params',
+    },
+    message: {
+      en: 'The GitHub get config file is missing params.',
+      fr: 'Le GitHub get config file est manquant params.',
+      es: 'El GitHub get config file está faltando params.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  GITHUB_CONFIG_FILE_NOT_FOUND: {
+    title: {
+      en: 'GitHub Config File Not Found',
+      fr: 'GitHub Config File Non Trouvé',
+      es: 'GitHub Config File No Encontrado',
+    },
+    message: {
+      en: 'The GitHub config file was not found.',
+      fr: "Le fichier de configuration GitHub n'a pas été trouvé.",
+      es: 'El archivo de configuración de GitHub no se encontró.',
+    },
+    statusCode: HttpStatusCodes.NOT_FOUND_404,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

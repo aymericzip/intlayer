@@ -320,6 +320,7 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
                 'min-w-4 px-0.5',
                 isKeyPressed(key) && 'scale-120 font-bold text-text'
               )}
+              suppressHydrationWarning
             >
               {displayKey}
             </span>

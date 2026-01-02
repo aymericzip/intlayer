@@ -626,7 +626,7 @@ export const useUpdateProject = () => {
     mutationFn: (args: UpdateProjectBody) =>
       intlayerOAuth.project.updateProject(args),
     meta: {
-      invalidateQueries: [['projects']],
+      invalidateQueries: [['projects'], ['session']],
     },
   });
 };
@@ -1150,6 +1150,79 @@ export const useGetNewsletterStatus = () => {
   return useMutation({
     mutationKey: ['newsletter'],
     mutationFn: () => intlayerOAuth.newsletter.getNewsletterStatus(),
+  });
+};
+
+/**
+ * GitHub
+ */
+
+export const useGithubGetAuthUrl = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['github', 'auth-url'],
+    mutationFn: (redirectUri: string) =>
+      intlayerOAuth.github.getAuthUrl(redirectUri),
+  });
+};
+
+export const useGithubAuth = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['github', 'auth'],
+    mutationFn: (code: string) => intlayerOAuth.github.authenticate(code),
+  });
+};
+
+export const useGithubRepos = (enabled: boolean = true) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useQuery({
+    queryKey: ['github', 'repos'],
+    queryFn: () => intlayerOAuth.github.getRepositories(),
+    enabled,
+  });
+};
+
+export const useGithubCheckConfig = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['github', 'check-config'],
+    mutationFn: (args: {
+      owner: string;
+      repository: string;
+      branch?: string;
+    }) =>
+      intlayerOAuth.github.checkIntlayerConfig(
+        undefined,
+        args.owner,
+        args.repository,
+        args.branch
+      ),
+  });
+};
+
+export const useGithubGetConfigFile = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['github', 'get-config-file'],
+    mutationFn: (args: {
+      owner: string;
+      repository: string;
+      branch?: string;
+      path?: string;
+    }) =>
+      intlayerOAuth.github.getConfigFile(
+        undefined,
+        args.owner,
+        args.repository,
+        args.branch,
+        args.path
+      ),
   });
 };
 

@@ -50,13 +50,18 @@ export const customQuery = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { aiOptions, tagsKeys, ...rest } = request.body;
-  const { user } = request.locals || {};
+  const { user, project } = request.locals || {};
+
+  const projectAIOptions = project?.configuration?.ai
+    ? (project.configuration.ai as AIOptions)
+    : undefined;
 
   let aiConfig: AIConfig;
   try {
     aiConfig = await getAIConfig(
       {
         userOptions: aiOptions,
+        projectOptions: projectAIOptions,
         defaultOptions: customQueryUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
@@ -104,11 +109,16 @@ export const translateJSON = async (
   const { project, user } = request.locals || {};
   const { aiOptions, tagsKeys, ...rest } = request.body;
 
+  const projectAIOptions = project?.configuration?.ai
+    ? (project.configuration.ai as AIOptions)
+    : undefined;
+
   let aiConfig: AIConfig;
   try {
     aiConfig = await getAIConfig(
       {
         userOptions: aiOptions,
+        projectOptions: projectAIOptions,
         defaultOptions: translateJSONUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
@@ -170,11 +180,16 @@ export const auditContentDeclaration = async (
   const { fileContent, filePath, aiOptions, locales, defaultLocale, tagsKeys } =
     request.body;
 
+  const projectAIOptions = project?.configuration?.ai
+    ? (project.configuration.ai as AIOptions)
+    : undefined;
+
   let aiConfig: AIConfig;
   try {
     aiConfig = await getAIConfig(
       {
         userOptions: aiOptions,
+        projectOptions: projectAIOptions,
         defaultOptions: auditContentDeclarationUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
@@ -237,11 +252,16 @@ export const auditContentDeclarationField = async (
   const { project, user } = request.locals || {};
   const { fileContent, aiOptions, locales, tagsKeys, keyPath } = request.body;
 
+  const projectAIOptions = project?.configuration?.ai
+    ? (project.configuration.ai as AIOptions)
+    : undefined;
+
   let aiConfig: AIConfig;
   try {
     aiConfig = await getAIConfig(
       {
         userOptions: aiOptions,
+        projectOptions: projectAIOptions,
         defaultOptions: auditContentDeclarationFieldUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
@@ -365,11 +385,16 @@ export const auditTag = async (
   const { project, user } = request.locals || {};
   const { aiOptions, tag } = request.body;
 
+  const projectAIOptions = project?.configuration?.ai
+    ? (project.configuration.ai as AIOptions)
+    : undefined;
+
   let aiConfig: AIConfig;
   try {
     aiConfig = await getAIConfig(
       {
         userOptions: aiOptions,
+        projectOptions: projectAIOptions,
         defaultOptions: auditTagUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
@@ -420,11 +445,16 @@ export const askDocQuestion = async (
   const { messages = [], discussionId } = request.body;
   const { user, project, organization } = request.locals || {};
 
+  const projectAIOptions = project?.configuration?.ai
+    ? (project.configuration.ai as AIOptions)
+    : undefined;
+
   let aiConfig: AIConfig;
   try {
     aiConfig = await getAIConfig(
       {
         userOptions: {},
+        projectOptions: projectAIOptions,
         accessType: ['public'],
       },
       !!user
@@ -518,7 +548,11 @@ export const autocomplete = async (
   request: FastifyRequest<{ Body: AutocompleteBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user } = request.locals || {};
+  const { user, project } = request.locals || {};
+
+  const projectAIOptions = project?.configuration?.ai
+    ? (project.configuration.ai as AIOptions)
+    : undefined;
 
   try {
     const { text, aiOptions, contextBefore, currentLine, contextAfter } =
@@ -529,6 +563,7 @@ export const autocomplete = async (
       aiConfig = await getAIConfig(
         {
           userOptions: aiOptions,
+          projectOptions: projectAIOptions,
           defaultOptions: autocompleteUtil.aiDefaultOptions,
           accessType: ['public'],
         },

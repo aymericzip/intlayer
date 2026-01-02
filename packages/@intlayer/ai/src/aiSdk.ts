@@ -215,6 +215,7 @@ const DEFAULT_TEMPERATURE: number = 1; // ChatGPT 5 accept only temperature 1
 
 export type AIConfigOptions = {
   userOptions?: AIOptions;
+  projectOptions?: AIOptions;
   defaultOptions?: AIOptions;
   accessType?: AccessType[];
 };
@@ -232,6 +233,7 @@ export const getAIConfig = async (
 ): Promise<AIConfig> => {
   const {
     userOptions,
+    projectOptions,
     defaultOptions,
     accessType = ['registered_user'],
   } = options;
@@ -240,6 +242,7 @@ export const getAIConfig = async (
     provider: DEFAULT_PROVIDER,
     temperature: DEFAULT_TEMPERATURE,
     ...defaultOptions,
+    ...projectOptions,
     ...userOptions,
   } satisfies AIOptions;
 

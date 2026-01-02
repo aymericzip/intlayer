@@ -19,6 +19,7 @@ import {
   eventListenerRoute,
   eventListenerRouter,
 } from '@routes/eventListener.routes';
+import { githubRoute, githubRouter } from '@routes/github.routes';
 import { newsletterRoute, newsletterRouter } from '@routes/newsletter.routes';
 import {
   organizationRoute,
@@ -204,6 +205,7 @@ const startServer = async () => {
   await app.register(eventListenerRouter, { prefix: eventListenerRoute });
   await app.register(searchRouter, { prefix: searchRoute });
   await app.register(newsletterRouter, { prefix: newsletterRoute });
+  await app.register(githubRouter, { prefix: githubRoute });
 
   // Server
   await app.listen({

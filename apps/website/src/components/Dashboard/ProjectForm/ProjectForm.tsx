@@ -8,6 +8,7 @@ import { type FC, Suspense, useState } from 'react';
 import { AccessKeyForm } from './AccessKey/AccessKeyForm';
 import { ConfigDetails } from './Config/ConfigDetails';
 import { DeleteProjectModal } from './DeleteProjectModal';
+import { GithubRepositoryLink } from './GithubRepository';
 import { MembersForm } from './Members/MembersKeyForm';
 import { ProjectEditionForm } from './ProjectEditionForm';
 import { ProjectList } from './ProjectList';
@@ -50,6 +51,13 @@ export const ProjectFormContent: FC = () => {
               className="flex size-full justify-center"
             >
               <AccessKeyForm />
+            </Container>
+            <Container
+              roundedSize="xl"
+              padding="md"
+              className="z-10 flex size-full justify-center"
+            >
+              <GithubRepositoryLink />
             </Container>
             <Container
               roundedSize="xl"

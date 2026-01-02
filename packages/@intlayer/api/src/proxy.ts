@@ -147,6 +147,7 @@ export const getIntlayerAPIProxy = (
     search: wrapSection(baseApi.search),
     editor: wrapSection(baseApi.editor),
     newsletter: wrapSection(baseApi.newsletter),
+    github: wrapSection(baseApi.github),
     audit: wrapSection(baseApi.audit),
   } as IntlayerAPI;
 };

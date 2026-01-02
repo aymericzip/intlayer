@@ -436,9 +436,20 @@ export const pushProjectConfiguration = async (
 
   try {
     const projectObject = await projectService.getProjectById(project.id);
+
+    // Preserve existing API key if not provided in the update
+    if (
+      projectConfiguration.ai &&
+      projectObject.configuration?.ai?.apiKey &&
+      (!projectConfiguration.ai.apiKey ||
+        projectConfiguration.ai.apiKey.trim() === '')
+    ) {
+      projectConfiguration.ai.apiKey = projectObject.configuration.ai.apiKey;
+    }
+
     projectObject.configuration = projectConfiguration;
 
-    projectObject.save();
+    await projectObject.save();
 
     if (!projectObject.configuration) {
       return ErrorHandler.handleGenericErrorResponse(
@@ -461,7 +472,7 @@ export const pushProjectConfiguration = async (
         fr: 'La configuration du projet a été mise à jour avec succès',
         es: 'Su configuración del proyecto ha sido actualizada con éxito',
       }),
-      data: projectObject.configuration,
+      data: mapProjectToAPI(projectObject) as ProjectConfiguration,
     });
 
     return reply.send(responseData);

@@ -17,10 +17,26 @@ type ProjectConfigEditor = Partial<
   Pick<IntlayerConfig['editor'], 'applicationURL' | 'cmsURL'>
 >;
 
+type ProjectConfigAI = Partial<
+  Pick<
+    IntlayerConfig['ai'],
+    'provider' | 'model' | 'apiKey' | 'applicationContext' | 'baseURL'
+  >
+> & { apiKeyConfigured?: boolean };
+
 export type ProjectConfiguration = {
   internationalization?: ProjectConfigInternationalization;
   editor?: ProjectConfigEditor;
-  ai?: Partial<IntlayerConfig['ai']>;
+  ai?: ProjectConfigAI;
+};
+
+export type GitHubRepository = {
+  owner: string;
+  repository: string;
+  branch: string;
+  installationId?: number;
+  url: string;
+  configFilePath: string;
 };
 
 export type ProjectData = {
@@ -30,6 +46,7 @@ export type ProjectData = {
   adminsIds: User['id'][];
   creatorId: User['id'];
   configuration?: ProjectConfiguration;
+  github?: GitHubRepository;
 };
 
 export type AccessKeyData = {

@@ -57,9 +57,6 @@ const projectConfigSchema = new Schema<Project['configuration']>(
       model: {
         type: String,
       },
-      temperature: {
-        type: Number,
-      },
       apiKey: {
         type: String,
       },
@@ -73,6 +70,20 @@ const projectConfigSchema = new Schema<Project['configuration']>(
   },
   {
     _id: false, // Prevents the generation of an _id field for this subdocument
+  }
+);
+
+const githubSchema = new Schema<Project['github']>(
+  {
+    owner: { type: String, required: true },
+    repository: { type: String, required: true },
+    branch: { type: String, default: 'main' },
+    installationId: { type: Number },
+    url: { type: String, required: true },
+    configFilePath: { type: String, required: true },
+  },
+  {
+    _id: false,
   }
 );
 
@@ -91,6 +102,7 @@ export const projectSchema = new Schema<ProjectSchema>(
     },
     configuration: projectConfigSchema,
     oAuth2Access: [oAuth2AccessSchema],
+    github: githubSchema,
     membersIds: {
       type: [Schema.Types.ObjectId],
       ref: 'User',

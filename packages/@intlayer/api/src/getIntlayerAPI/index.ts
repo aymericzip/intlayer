@@ -4,6 +4,7 @@ import { getAiAPI } from './ai';
 import { getAuditAPI } from './audit';
 import { getDictionaryAPI } from './dictionary';
 import { getEditorAPI } from './editor';
+import { getGithubAPI } from './github';
 import { getNewsletterAPI } from './newsletter';
 import { getOAuthAPI } from './oAuth';
 import { getOrganizationAPI } from './organization';
@@ -25,6 +26,7 @@ interface IntlayerAPIReturn {
   search: ReturnType<typeof getSearchAPI>;
   editor: ReturnType<typeof getEditorAPI>;
   newsletter: ReturnType<typeof getNewsletterAPI>;
+  github: ReturnType<typeof getGithubAPI>;
   audit: ReturnType<typeof getAuditAPI>;
 }
 
@@ -43,6 +45,7 @@ export const getIntlayerAPI = (
   search: getSearchAPI(authAPIOptions, intlayerConfig),
   editor: getEditorAPI(authAPIOptions, intlayerConfig),
   newsletter: getNewsletterAPI(authAPIOptions, intlayerConfig),
+  github: getGithubAPI(authAPIOptions, intlayerConfig),
   audit: getAuditAPI(authAPIOptions, intlayerConfig),
 });
 
