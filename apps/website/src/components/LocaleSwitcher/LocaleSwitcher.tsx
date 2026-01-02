@@ -65,7 +65,12 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           onClick={handleFocusInput}
         >
           <div className="flex w-full items-center justify-between">
-            <div className="text-nowrap px-2 text-base">{localeName}</div>
+            <div
+              className="text-nowrap px-2 text-base"
+              suppressHydrationWarning
+            >
+              {localeName}
+            </div>
             <MoveVertical className="w-5 self-center" />
           </div>
         </DropDown.Trigger>
@@ -114,10 +119,14 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                           <span
                             dir={getHTMLTextDir(localeItem)}
                             lang={localeItem}
+                            suppressHydrationWarning
                           >
                             {ownLocaleName}
                           </span>
-                          <span className="text-neutral text-xs">
+                          <span
+                            className="text-neutral text-xs"
+                            suppressHydrationWarning
+                          >
                             {currentLocaleName}
                           </span>
                         </div>

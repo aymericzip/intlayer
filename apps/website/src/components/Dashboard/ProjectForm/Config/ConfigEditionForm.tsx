@@ -54,11 +54,15 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
     applicationURL: projectConfig?.editor?.applicationURL,
     cmsURL: projectConfig?.editor?.cmsURL,
     // AI Configuration
-    aiProvider: projectConfig?.ai?.provider,
-    aiModel: projectConfig?.ai?.model,
-    aiTemperature: projectConfig?.ai?.temperature,
-    aiApiKey: projectConfig?.ai?.apiKey,
-    aiApplicationContext: projectConfig?.ai?.applicationContext,
+    aiProvider:
+      (projectConfig?.ai?.provider as string | undefined) ?? undefined,
+    aiModel: (projectConfig?.ai?.model as string | undefined) ?? undefined,
+    // Don't set apiKey default value - it should be empty so user can enter a new one
+    // If apiKeyConfigured is true, the field will be empty but user knows it's set
+    aiApiKey: '',
+    aiApplicationContext:
+      (projectConfig?.ai?.applicationContext as string | undefined) ??
+      undefined,
   };
 
   const { form, isSubmitting } = useForm(ConfigSchema, {
@@ -74,6 +78,18 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
   }, [form, projectConfig, defaultValues]);
 
   const onSubmitSuccess = (data: ConfigFormData) => {
+    const aiConfig: Partial<ProjectConfiguration['ai']> = {
+      provider: data.aiProvider as any,
+      model: data.aiModel as any,
+      applicationContext: data.aiApplicationContext as any,
+    };
+
+    // Only include apiKey if user provided a new value
+    // Empty string means user didn't change it, so backend will preserve existing value
+    if (data.aiApiKey && data.aiApiKey.trim() !== '') {
+      aiConfig.apiKey = data.aiApiKey;
+    }
+
     const configuration: ProjectConfiguration = {
       internationalization: {
         locales: data.locales as Locale[],
@@ -83,13 +99,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
         applicationURL: data.applicationURL!,
         cmsURL: data.cmsURL!,
       },
-      ai: {
-        provider: data.aiProvider,
-        model: data.aiModel,
-        temperature: data.aiTemperature,
-        apiKey: data.aiApiKey,
-        applicationContext: data.aiApplicationContext,
-      },
+      ai: Object.keys(aiConfig).length > 0 ? aiConfig : undefined,
     };
 
     updateProject(
@@ -140,6 +150,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
             }}
           >
             <MultiSelect.Trigger
+              suppressHydrationWarning
               getBadgeValue={(value) =>
                 getLocaleName(value as Locale, locale) ?? value
               }
@@ -151,7 +162,11 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
             <MultiSelect.Content>
               <MultiSelect.List>
                 {allLocales.map((localeItem) => (
-                  <MultiSelect.Item key={localeItem} value={localeItem}>
+                  <MultiSelect.Item
+                    key={localeItem}
+                    value={localeItem}
+                    suppressHydrationWarning
+                  >
                     {getLocaleName(localeItem, locale)}
                   </MultiSelect.Item>
                 ))}
@@ -173,7 +188,11 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
             </Select.Trigger>
             <Select.Content>
               {selectedLocales.map((localeItem) => (
-                <Select.Item key={localeItem} value={localeItem}>
+                <Select.Item
+                  key={localeItem}
+                  value={localeItem}
+                  suppressHydrationWarning
+                >
                   {getLocaleName(localeItem as Locale, locale)}
                 </Select.Item>
               ))}
@@ -231,18 +250,6 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
             label={aiSection.modelInput.label.value}
             placeholder={aiSection.modelInput.placeholder.value}
             description={aiSection.modelInput.description.value}
-            disabled={!isProjectAdmin}
-          />
-
-          <Form.Input
-            name="aiTemperature"
-            type="number"
-            step={0.1}
-            min={0}
-            max={2}
-            label={aiSection.temperatureInput.label.value}
-            placeholder={aiSection.temperatureInput.placeholder.value}
-            description={aiSection.temperatureInput.description.value}
             disabled={!isProjectAdmin}
           />
 

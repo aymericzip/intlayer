@@ -152,10 +152,14 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                           <span
                             dir={getHTMLTextDir(localeItem)}
                             lang={localeItem}
+                            suppressHydrationWarning
                           >
                             {ownLocaleName}
                           </span>
-                          <span className="text-neutral text-xs">
+                          <span
+                            className="text-neutral text-xs"
+                            suppressHydrationWarning
+                          >
                             {currentLocaleName}
                           </span>
                         </div>

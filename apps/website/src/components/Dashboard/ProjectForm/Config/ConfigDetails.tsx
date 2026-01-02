@@ -80,7 +80,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           <H5>{i18nSection.localeListTitle}</H5>
 
           <div className="flex flex-row flex-wrap gap-2">
-            {projectConfig.internationalization.locales.map((localeEl) => (
+            {projectConfig.internationalization?.locales?.map((localeEl) => (
               <Tag key={localeEl} size="sm">
                 {getLocaleName(localeEl as Locale, locale)}
               </Tag>
@@ -88,25 +88,27 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           </div>
           <H5>{i18nSection.defaultLocaleTitle}</H5>
 
-          <Tag size="sm">
-            {getLocaleName(
-              projectConfig.internationalization?.defaultLocale,
-              locale
-            )}
-          </Tag>
+          {projectConfig.internationalization?.defaultLocale && (
+            <Tag size="sm">
+              {getLocaleName(
+                projectConfig.internationalization.defaultLocale,
+                locale
+              )}
+            </Tag>
+          )}
         </div>
 
         <H4>{editorSection.title}</H4>
         <div className="flex flex-col gap-4">
           <H5>{editorSection.applicationURL.title}</H5>
           <Tag size="sm">
-            {projectConfig.editor.applicationURL ? (
+            {projectConfig.editor?.applicationURL ? (
               <Link
-                href={projectConfig.editor.applicationURL}
+                href={projectConfig.editor?.applicationURL}
                 label={editorSection.applicationURL.label.value}
                 color="text"
               >
-                {projectConfig.editor.applicationURL}
+                {projectConfig.editor?.applicationURL}
               </Link>
             ) : (
               '-'
@@ -114,14 +116,14 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           </Tag>
 
           <H5>{editorSection.cmsURL.title}</H5>
-          {projectConfig.editor.cmsURL ? (
+          {projectConfig.editor?.cmsURL ? (
             <Tag size="sm">
               <Link
-                href={projectConfig.editor.cmsURL}
+                href={projectConfig.editor?.cmsURL}
                 label={editorSection.cmsURL.label.value}
                 color="text"
               >
-                {projectConfig.editor.cmsURL}
+                {projectConfig.editor?.cmsURL}
               </Link>
             </Tag>
           ) : (
@@ -134,28 +136,21 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
             <H4>{aiSection.title}</H4>
             <div className="flex flex-col gap-4">
               <H5>{aiSection.provider.title}</H5>
-              <Tag size="sm">{projectConfig.ai.provider ?? '-'}</Tag>
+              <Tag size="sm">{String(projectConfig.ai.provider ?? '-')}</Tag>
 
               <H5>{aiSection.model.title}</H5>
-              <Tag size="sm">{projectConfig.ai.model ?? '-'}</Tag>
-
-              <H5>{aiSection.temperature.title}</H5>
-              <Tag size="sm">
-                {projectConfig.ai.temperature !== undefined
-                  ? projectConfig.ai.temperature
-                  : '-'}
-              </Tag>
+              <Tag size="sm">{String(projectConfig.ai.model ?? '-')}</Tag>
 
               <H5>{aiSection.apiKey.title}</H5>
               <Tag size="sm">
-                {projectConfig.ai.apiKey
+                {(projectConfig.ai as any).apiKeyConfigured
                   ? aiSection.apiKey.configured
                   : aiSection.apiKey.notConfigured}
               </Tag>
 
               <H5>{aiSection.applicationContext.title}</H5>
               <p className="text-neutral-dark text-sm dark:text-neutral">
-                {projectConfig.ai.applicationContext ?? '-'}
+                {String(projectConfig.ai.applicationContext ?? '-')}
               </p>
             </div>
           </>

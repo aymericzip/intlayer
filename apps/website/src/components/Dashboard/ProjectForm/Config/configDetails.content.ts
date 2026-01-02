@@ -246,27 +246,6 @@ const projectConfigDetailsContent = {
           vi: 'Mô hình AI',
         }),
       },
-      temperature: {
-        title: t({
-          en: 'Temperature',
-          'en-GB': 'Temperature',
-          fr: 'Température',
-          es: 'Temperatura',
-          de: 'Temperatur',
-          ja: '温度',
-          ko: '온도',
-          zh: '温度',
-          it: 'Temperatura',
-          pt: 'Temperatura',
-          hi: 'तापमान',
-          ar: 'درجة الحرارة',
-          ru: 'Температура',
-          tr: 'Sıcaklık',
-          pl: 'Temperatura',
-          id: 'Temperatur',
-          vi: 'Nhiệt độ',
-        }),
-      },
       apiKey: {
         title: t({
           en: 'API Key',
