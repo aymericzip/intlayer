@@ -55,7 +55,7 @@ export const ProfileForm: FC = () => {
     <div className="flex w-full max-w-5xl flex-col items-center justify-center gap-4">
       <div
         className={cn(
-          'grid w-full grid-cols-1 justify-evenly gap-x-5 gap-y-4 lg:gap-x-16',
+          'grid w-full grid-cols-1 justify-evenly gap-x-5 gap-y-10 lg:gap-x-16',
           hasPasswordColumn && 'max-md:grid-cols-1 md:grid-cols-2'
         )}
       >
@@ -107,15 +107,27 @@ export const ProfileForm: FC = () => {
         </div>
         {hasPasswordColumn && (
           <div className="flex w-full flex-col gap-10">
-            <Container roundedSize="xl" padding="md">
+            <Container
+              roundedSize="xl"
+              padding="md"
+              className="m-auto w-full max-w-xl"
+            >
               <H3 className="mb-8">{changePasswordTitle}</H3>
               <ChangePasswordForm />
             </Container>
-            <Container roundedSize="xl" padding="md">
+            <Container
+              roundedSize="xl"
+              padding="md"
+              className="m-auto w-full max-w-xl"
+            >
               <H3 className="mb-8">{twoFactorTitle}</H3>
               <TwoFactorAuth />
             </Container>
-            <Container roundedSize="xl" padding="md">
+            <Container
+              roundedSize="xl"
+              padding="md"
+              className="m-auto w-full max-w-xl"
+            >
               <H3 className="mb-8">{passkeyTitle}</H3>
               <PasskeyManagement
                 passkeys={passkeys}
