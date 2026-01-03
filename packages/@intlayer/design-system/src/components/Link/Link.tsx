@@ -128,18 +128,20 @@ export const linkVariants = cva(
     // Compound variants handle height and padding
     compoundVariants: [
       // ---------------------------------------------------------
-      // FIX START: Handle Contrast for TEXT_INVERSE
+      // FIX START: Correctly Handle Contrast for TEXT_INVERSE
       // ---------------------------------------------------------
       {
-        // For Filled Buttons using Inverse Color (e.g. White button):
-        // The background is 'text-opposite', so the text inside must be 'text-text' (Dark)
+        // Filled Button + Inverse Color (e.g., White Button):
+        // 1. We DO NOT override parent text color (it must remain 'text-opposite' so bg-current is white).
+        // 2. We ONLY override children to be 'text-text' (Dark) so they show up on white.
         variant: LinkVariant.BUTTON,
         color: LinkColor.TEXT_INVERSE,
-        class: 'text-text *:text-text',
+        class: '*:text-text',
       },
       {
-        // For Outlined Buttons using Inverse Color (e.g. White border on Dark BG):
-        // The border is 'text-opposite', so the text inside must also be 'text-opposite' (White)
+        // Outlined Button + Inverse Color (e.g., White Border):
+        // 1. Parent is 'text-opposite' (Border is white).
+        // 2. Children must also be 'text-opposite' (White text) to show on dark background.
         variant: LinkVariant.BUTTON_OUTLINED,
         color: LinkColor.TEXT_INVERSE,
         class: 'text-text-opposite *:text-text-opposite',

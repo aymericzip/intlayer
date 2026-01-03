@@ -1,6 +1,7 @@
 export enum PagesRoutes {
   Home = '/',
   CMS = '/cms',
+  TMS = '/tms',
   Demo = '/demo',
   Playground = '/playground',
   NotFound = '/404',
