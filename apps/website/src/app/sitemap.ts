@@ -112,6 +112,20 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       },
     },
     {
+      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.TMS}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+      alternates: {
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.TMS}`
+          ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.TMS}`,
+        },
+      },
+    },
+    {
       url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
