@@ -13,53 +13,32 @@ import { cn } from '../../utils/cn';
 
 /**
  * Visual style variants for Link component
- *
- * @enum {string}
  */
 export enum LinkVariant {
-  /** Default underlined link with hover effects */
   DEFAULT = 'default',
-  /** Link without visible underline or hover effects */
   INVISIBLE_LINK = 'invisible-link',
-  /** Button-styled link with solid background */
   BUTTON = 'button',
-  /** Button-styled link with outlined border */
   BUTTON_OUTLINED = 'button-outlined',
-  /** Link with subtle hover background effect */
   HOVERABLE = 'hoverable',
 }
 
 /**
  * Color theme variants for Link component
- *
- * @enum {string}
  */
 export enum LinkColor {
-  /** Primary brand color */
   PRIMARY = 'primary',
-  /** Secondary brand color */
   SECONDARY = 'secondary',
-  /** Destructive/danger color for critical actions */
   DESTRUCTIVE = 'destructive',
-  /** Neutral/muted color for less prominent links */
   NEUTRAL = 'neutral',
-  /** Light color for dark backgrounds */
   LIGHT = 'light',
-  /** Dark color for light backgrounds */
   DARK = 'dark',
-  /** Default text color */
   TEXT = 'text',
-  /** Inverse text color for opposite backgrounds */
   TEXT_INVERSE = 'text-inverse',
-  /** Error/red color for error states */
   ERROR = 'error',
-  /** Success/green color for positive actions */
   SUCCESS = 'success',
-  /** Custom color - no default styling applied */
   CUSTOM = 'custom',
 }
 
-/** Available rounded corner sizes for the container */
 export enum LinkRoundedSize {
   NONE = 'none',
   SM = 'sm',
@@ -79,24 +58,12 @@ export enum LinkSize {
   CUSTOM = 'custom',
 }
 
-/**
- * Underline style options for Link component
- *
- * @enum {string}
- */
 export enum LinkUnderlined {
-  /** Default underline behavior based on variant */
   DEFAULT = 'default',
-  /** Always show underline */
   TRUE = 'true',
-  /** Never show underline */
   FALSE = 'false',
 }
 
-/**
- * Class variance authority configuration for Link component styling
- * Defines the visual appearance based on variant, color, and underline options
- */
 export const linkVariants = cva(
   'gap-3 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
@@ -160,6 +127,27 @@ export const linkVariants = cva(
     },
     // Compound variants handle height and padding
     compoundVariants: [
+      // ---------------------------------------------------------
+      // FIX START: Handle Contrast for TEXT_INVERSE
+      // ---------------------------------------------------------
+      {
+        // For Filled Buttons using Inverse Color (e.g. White button):
+        // The background is 'text-opposite', so the text inside must be 'text-text' (Dark)
+        variant: LinkVariant.BUTTON,
+        color: LinkColor.TEXT_INVERSE,
+        class: 'text-text *:text-text',
+      },
+      {
+        // For Outlined Buttons using Inverse Color (e.g. White border on Dark BG):
+        // The border is 'text-opposite', so the text inside must also be 'text-opposite' (White)
+        variant: LinkVariant.BUTTON_OUTLINED,
+        color: LinkColor.TEXT_INVERSE,
+        class: 'text-text-opposite *:text-text-opposite',
+      },
+      // ---------------------------------------------------------
+      // FIX END
+      // ---------------------------------------------------------
+
       // Min height and padding for button variants
       {
         variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
@@ -181,7 +169,7 @@ export const linkVariants = cva(
         size: LinkSize.XL,
         class: 'min-h-11 px-10 max-md:py-4',
       },
-      // Ring color variants for button (Chrome bug fix: ring-current/20 doesn't work properly)
+      // Ring color variants
       {
         variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
         color: LinkColor.PRIMARY,
@@ -244,67 +232,18 @@ export const linkVariants = cva(
   }
 );
 
-/**
- * Props interface for the Link component
- *
- * @interface LinkProps
- * @extends {DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>}
- * @extends {VariantProps<typeof linkVariants>}
- */
 export type LinkProps = DetailedHTMLProps<
   AnchorHTMLAttributes<HTMLAnchorElement>,
   HTMLAnchorElement
 > &
   VariantProps<typeof linkVariants> & {
-    /**
-     * Accessible label for screen readers (required)
-     * Provides context about what the link does or where it leads
-     * @example "Navigate to home page"
-     */
     label: string;
-
-    /**
-     * Whether this link opens in a new tab/window
-     * When true, adds target="_blank" and security attributes
-     * Auto-detected for URLs starting with http/https when undefined
-     * @default undefined (auto-detect based on href)
-     */
     isExternalLink?: boolean;
-
-    /**
-     * If a link is a page section as '#id'
-     * @default false
-     */
     isPageSection?: boolean;
-
-    /**
-     * Whether this link represents the current page/active state
-     * Adds aria-current="page" for accessibility
-     * @default false
-     */
     isActive?: boolean;
-
-    /**
-     * Locale for internationalized URLs
-     * When provided, URLs are automatically localized using Intlayer
-     * @example 'fr', 'es', 'en'
-     */
     locale?: LocalesValues;
   };
 
-/**
- * Utility function to determine if a link should be treated as external
- *
- * @param props - Link component props containing href and isExternalLink
- * @returns {boolean} True if the link should open externally
- *
- * @example
- * ```tsx
- * checkIsExternalLink({ href: '[https://example.com](https://example.com)' }) // true
- * checkIsExternalLink({ href: '/internal-page' }) // false
- * checkIsExternalLink({ href: '/page', isExternalLink: true }) // true
- * ```
- */
 export const checkIsExternalLink = ({
   href,
   isExternalLink: isExternalLinkProp,
@@ -320,33 +259,20 @@ export const checkIsExternalLink = ({
 };
 
 export const isTextChildren = (children: ReactNode): boolean => {
-  // Direct string or number
   if (typeof children === 'string' || typeof children === 'number') {
     return true;
   }
-
-  // Array (e.g., {'A'} {'B'}) - check if every item is text
   if (Array.isArray(children)) {
     return children.every(isTextChildren);
   }
-
-  // Fragment - check its children recursively
   if (isValidElement(children)) {
     return isTextChildren(
       (children.props as { children?: ReactNode }).children
     );
   }
-
   return false;
 };
 
-/**
- * Link Component
- *
- * A versatile link component that handles both internal and external navigation
- * with comprehensive internationalization support and multiple visual variants.
- * ...
- */
 export const Link: FC<LinkProps> = (props) => {
   const {
     variant = LinkVariant.DEFAULT,

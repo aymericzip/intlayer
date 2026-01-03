@@ -1,5 +1,6 @@
 'use client';
 
+import type { Contributor } from '@components/Contributors/ContributorsList';
 import { Link } from '@components/Link/Link';
 import { Avatar, DiscordLogo, H2 } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
@@ -14,14 +15,6 @@ import {
   useState,
 } from 'react';
 import { ExternalLinks, PagesRoutes } from '@/Routes';
-
-type Contributor = {
-  login: string;
-  avatar_url: string;
-  html_url: string;
-  contributions?: number;
-  type?: string;
-};
 
 type ContributorCloudProps = {
   contributors: Contributor[];
