@@ -156,8 +156,6 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       customSession(async ({ session }) => {
         const typedSession = session as unknown as SessionDataApi;
 
-        await auth.api.callbackSSOSAML;
-
         let userAPI: UserAPI | null = null;
         let organizationAPI: OrganizationAPI | null = null;
         let projectAPI: ProjectAPI | null = null;

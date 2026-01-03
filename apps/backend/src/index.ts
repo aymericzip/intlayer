@@ -60,8 +60,6 @@ const startServer = async () => {
     path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
   });
 
-  console.log(process.env.GITHUB_CLIENT_ID);
-
   // Security Headers
   await app.register(fastifyHelmet, {
     contentSecurityPolicy: false,
@@ -134,10 +132,13 @@ const startServer = async () => {
     url: '/api/auth/*',
     async handler(request, reply) {
       try {
-        // Construct request URL
-        const url = new URL(request.url, `http://${request.headers.host}`);
+        // This respects the X-Forwarded-Proto header from Coolify
+        const protocol = request.protocol;
+        const host = request.headers.host;
 
-        // Convert Fastify headers to standard Headers object
+        // Construct request URL using the detected protocol
+        const url = new URL(request.url, `${protocol}://${host}`);
+
         const headers = new Headers();
         Object.entries(request.headers).forEach(([key, value]) => {
           if (value) headers.append(key, String(value));

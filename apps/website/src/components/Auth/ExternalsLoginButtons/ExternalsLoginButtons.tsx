@@ -15,6 +15,7 @@ export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
 }) => {
   const { user } = useUser();
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
+
   const loginWithGitHub = async () => {
     const origin = window.location.href;
 
@@ -46,6 +47,7 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
 }) => {
   const { user } = useUser();
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
+
   const loginWithGoogle = async () => {
     const origin = window.location.href;
 
