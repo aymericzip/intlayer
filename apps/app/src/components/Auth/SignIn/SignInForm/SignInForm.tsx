@@ -4,10 +4,7 @@ import { Form, useForm } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, RefObject } from 'react';
 import { useEffect, useState } from 'react';
-import { ExternalsLoginButtons } from '../../ExternalsLoginButtons';
-import { MagicLinkButton } from '../../MagicLinkButton';
-import { PasskeyButton } from '../../PassKeyButton';
-import { SSOButton } from '../../SSOButton';
+import { AlternativeLoginMethods } from '../../AlternativeLoginMethods';
 import { type SignIn, useSignInSchema } from './useSignInSchema';
 
 type SignInFormProps = {
@@ -49,6 +46,7 @@ export const SignInForm: FC<SignInFormProps> = ({
     },
   });
   const [email, setEmail] = useState<string | undefined>(defaultEmail);
+  const [showAll, setShowAll] = useState(false);
   const {
     emailInput,
     passwordInput,
@@ -138,14 +136,11 @@ export const SignInForm: FC<SignInFormProps> = ({
         </span>
       </Form>
       <Separator />
-      <div className="space-y-6">
-        <div className="relative flex flex-col justify-center gap-y-3">
-          <SSOButton email={email} />
-          <PasskeyButton />
-          <MagicLinkButton />
-        </div>
-        <ExternalsLoginButtons />
-      </div>
+      <AlternativeLoginMethods
+        showAll={showAll}
+        setShowAll={setShowAll}
+        email={email}
+      />
     </>
   );
 };

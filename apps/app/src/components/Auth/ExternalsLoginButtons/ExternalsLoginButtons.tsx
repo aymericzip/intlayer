@@ -6,7 +6,9 @@ import { getAuthAPI } from '@intlayer/design-system/libs';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import { AppleLogo } from './assets/AppleLogo';
+import { BitbucketLogo } from './assets/BitbucketLogo';
 import { GithubLogo } from './assets/GithubLogo';
+import { GitLabLogo } from './assets/GitLabLogo';
 import { GoogleLogo } from './assets/GoogleLogo';
 import { LinkedInLogo } from './assets/LinkedInLogo';
 
@@ -65,7 +67,7 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
 
   return (
     <Button
-      className="bg-red-400 ring-red-400/20 hover:bg-red-500"
+      className="bg-red-400 text-white ring-red-400/20 hover:bg-red-500"
       label={externalsLoginButtons.google.label.value}
       Icon={GoogleLogo}
       onClick={loginWithGoogle}
@@ -81,6 +83,7 @@ export const LinkedInLoginButton: FC<ExternalsLoginButtonsProps> = ({
 }) => {
   const { user } = useUser();
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
+
   const loginWithLinkedIn = async () => {
     const origin = window.location.href;
 
@@ -114,6 +117,7 @@ export const AppleLoginButton: FC<ExternalsLoginButtonsProps> = ({
 }) => {
   const { user } = useUser();
   const externalsLoginButtons = useIntlayer('externals-login-buttons');
+
   const loginWithApple = async () => {
     const origin = window.location.href;
 
@@ -142,13 +146,83 @@ export const AppleLoginButton: FC<ExternalsLoginButtonsProps> = ({
   );
 };
 
-type ExternalsLoginButtonsProps = {
-  onLogin?: () => void;
+export const BitbucketLoginButton: FC<ExternalsLoginButtonsProps> = ({
+  onLogin,
+}) => {
+  const { user } = useUser();
+  const externalsLoginButtons = useIntlayer('externals-login-buttons');
+
+  const loginWithBitbucket = async () => {
+    const origin = window.location.href;
+
+    await getAuthAPI().signInSocial({
+      provider: 'bitbucket',
+      callbackURL: origin,
+    });
+  };
+
+  useEffect(() => {
+    if (user?.email) {
+      onLogin?.();
+    }
+  }, [user]);
+
+  return (
+    <Button
+      className="bg-blue-800/80! text-white ring-blue-600/20 hover:bg-blue-800! dark:bg-blue-400/80! [&_path]:fill-white/60!"
+      label={externalsLoginButtons.bitbucket.label.value}
+      Icon={BitbucketLogo}
+      onClick={loginWithBitbucket}
+      color="custom"
+    >
+      {externalsLoginButtons.bitbucket.label}
+    </Button>
+  );
 };
 
-export const ExternalsLoginButtons: FC<ExternalsLoginButtonsProps> = (
-  props
-) => {
+export const GitLabLoginButton: FC<ExternalsLoginButtonsProps> = ({
+  onLogin,
+}) => {
+  const { user } = useUser();
+  const externalsLoginButtons = useIntlayer('externals-login-buttons');
+
+  const loginWithGitLab = async () => {
+    const origin = window.location.href;
+
+    await getAuthAPI().signInSocial({
+      provider: 'gitlab',
+      callbackURL: origin,
+    });
+  };
+
+  useEffect(() => {
+    if (user?.email) {
+      onLogin?.();
+    }
+  }, [user]);
+
+  return (
+    <Button
+      className="bg-orange-600/80! text-white ring-orange-600/20 hover:bg-orange-700! dark:bg-orange-400/80! dark:hover:bg-orange-500/80! [&_path]:fill-white/80!"
+      label={externalsLoginButtons.gitlab.label.value}
+      Icon={GitLabLogo}
+      onClick={loginWithGitLab}
+      color="custom"
+    >
+      {externalsLoginButtons.gitlab.label}
+    </Button>
+  );
+};
+
+type ExternalsLoginButtonsProps = {
+  onLogin?: () => void;
+  showAll?: boolean;
+};
+
+export const ExternalsLoginButtons: FC<ExternalsLoginButtonsProps> = ({
+  showAll = false,
+  ...props
+}) => {
   // const { isIOS, isMac } = useDevice();
 
   return (
@@ -156,7 +230,13 @@ export const ExternalsLoginButtons: FC<ExternalsLoginButtonsProps> = (
       <GitHubLoginButton {...props} />
       <GoogleLoginButton {...props} />
       <LinkedInLoginButton {...props} />
-      {/* {(isIOS || isMac) && <AppleLoginButton {...props} />} */}
+      {showAll && (
+        <>
+          <BitbucketLoginButton {...props} />
+          <GitLabLoginButton {...props} />
+          {/* {(isIOS || isMac) && <AppleLoginButton {...props} />} */}
+        </>
+      )}
     </div>
   );
 };

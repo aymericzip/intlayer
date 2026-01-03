@@ -303,6 +303,14 @@ export const getAuth = (dbClient: MongoClient): Auth => {
         clientId: process.env.GITHUB_CLIENT_ID as string,
         clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
       },
+      atlassian: {
+        clientId: process.env.ATLASSIAN_CLIENT_ID as string,
+        clientSecret: process.env.ATLASSIAN_CLIENT_SECRET as string,
+      },
+      gitlab: {
+        clientId: process.env.GITLAB_CLIENT_ID as string,
+        clientSecret: process.env.GITLAB_CLIENT_SECRET as string,
+      },
       linkedin: {
         clientId: process.env.LINKEDIN_CLIENT_ID as string,
         clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
