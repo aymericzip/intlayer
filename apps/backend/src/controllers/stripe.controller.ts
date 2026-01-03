@@ -256,7 +256,7 @@ export const cancelSubscription = async (
       to: user.email,
       email: user.email,
       cancellationDate: new Date().toLocaleDateString(),
-      reactivateLink: `${process.env.CLIENT_URL}/pricing`,
+      reactivateLink: `${process.env.APP_URL}/pricing`,
       username: user.name,
       organizationName: organization.name,
       planName: plan.type,

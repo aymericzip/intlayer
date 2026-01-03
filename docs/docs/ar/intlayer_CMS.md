@@ -92,7 +92,7 @@ const config: IntlayerConfig = {
      *
      * معرف العميل والسر السري للعميل مطلوبان لتمكين المحرر.
      * يسمحان بتحديد هوية المستخدم الذي يقوم بتحرير المحتوى.
-     * يمكن الحصول عليهما بإنشاء عميل جديد في لوحة تحكم Intlayer - المشاريع (https://intlayer.org/dashboard/projects).
+     * يمكن الحصول عليهما بإنشاء عميل جديد في لوحة تحكم Intlayer - المشاريع (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -142,7 +142,7 @@ const config = {
      *
      * معرف العميل والسر السري للعميل مطلوبان لتمكين المحرر.
      * يسمحان بتحديد هوية المستخدم الذي يقوم بتحرير المحتوى.
-     * يمكن الحصول عليهما عن طريق إنشاء عميل جديد في لوحة تحكم Intlayer - المشاريع (https://intlayer.org/dashboard/projects).
+     * يمكن الحصول عليهما عن طريق إنشاء عميل جديد في لوحة تحكم Intlayer - المشاريع (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -192,7 +192,7 @@ const config = {
      *
      * معرف العميل والسر السري للعميل مطلوبان لتمكين المحرر.
      * يسمحان بتحديد هوية المستخدم الذي يقوم بتحرير المحتوى.
-     * يمكن الحصول عليهما عن طريق إنشاء عميل جديد في لوحة تحكم Intlayer - المشاريع (https://intlayer.org/dashboard/projects).
+     * يمكن الحصول عليهما عن طريق إنشاء عميل جديد في لوحة تحكم Intlayer - المشاريع (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -224,7 +224,7 @@ const config = {
 module.exports = config;
 ```
 
-> إذا لم يكن لديك معرف عميل وسر عميل، يمكنك الحصول عليهما بإنشاء عميل جديد في [لوحة تحكم Intlayer - المشاريع](https://intlayer.org/dashboard/projects).
+> إذا لم يكن لديك معرف عميل وسر عميل، يمكنك الحصول عليهما بإنشاء عميل جديد في [لوحة تحكم Intlayer - المشاريع](https://app.intlayer.org/projects).
 
 > لرؤية جميع المعلمات المتاحة، راجع [توثيق التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
@@ -264,7 +264,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 
 ### تحرير القاموس
 
-بعد ذلك، ستتمكن من رؤية وإدارة قاموسك في [نظام إدارة محتوى Intlayer](https://intlayer.org/dashboard/content).
+بعد ذلك، ستتمكن من رؤية وإدارة قاموسك في [نظام إدارة محتوى Intlayer](https://app.intlayer.org/content).
 
 ## التزامن الحي
 

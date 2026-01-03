@@ -23,7 +23,7 @@ slugs:
 npx intlayer dictionary push
 ```
 
-Jika [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) sudah terpasang, Anda juga dapat mendorong kamus ke editor. Perintah ini akan memungkinkan kamus tersedia di [editor](https://intlayer.org/dashboard). Dengan cara ini, Anda dapat membagikan kamus Anda dengan tim dan mengedit konten tanpa harus mengubah kode aplikasi Anda.
+Jika [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) sudah terpasang, Anda juga dapat mendorong kamus ke editor. Perintah ini akan memungkinkan kamus tersedia di [editor](https://app.intlayer.org/). Dengan cara ini, Anda dapat membagikan kamus Anda dengan tim dan mengedit konten tanpa harus mengubah kode aplikasi Anda.
 
 ## Alias:
 

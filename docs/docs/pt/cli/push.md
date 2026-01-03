@@ -23,7 +23,7 @@ slugs:
 npx intlayer dictionary push
 ```
 
-Se o [editor Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) estiver instalado, você também pode enviar dicionários para o editor. Este comando permitirá tornar os dicionários disponíveis para [o editor](https://intlayer.org/dashboard). Dessa forma, você pode compartilhar seus dicionários com sua equipe e editar seu conteúdo sem precisar alterar o código da sua aplicação.
+Se o [editor Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) estiver instalado, você também pode enviar dicionários para o editor. Este comando permitirá tornar os dicionários disponíveis para [o editor](https://app.intlayer.org/). Dessa forma, você pode compartilhar seus dicionários com sua equipe e editar seu conteúdo sem precisar alterar o código da sua aplicação.
 
 ## Apelidos:
 

@@ -246,14 +246,14 @@ Définit les paramètres liés à l'éditeur intégré, y compris le port du ser
 - **clientId** :
   - _Type_ : `string` | `undefined`
   - _Par défaut_ : `undefined`
-  - _Description_ : clientId et clientSecret permettent aux packages intlayer de s'authentifier auprès du backend en utilisant l'authentification oAuth2. Un jeton d'accès est utilisé pour authentifier l'utilisateur lié au projet. Pour obtenir un jeton d'accès, rendez-vous sur https://intlayer.org/dashboard/project et créez un compte.
+  - _Description_ : clientId et clientSecret permettent aux packages intlayer de s'authentifier auprès du backend en utilisant l'authentification oAuth2. Un jeton d'accès est utilisé pour authentifier l'utilisateur lié au projet. Pour obtenir un jeton d'accès, rendez-vous sur https://app.intlayer.org/project et créez un compte.
   - _Exemple_ : `true`
   - _Note_ : Important : Le clientId et le clientSecret doivent rester secrets et ne pas être partagés publiquement. Veuillez vous assurer de les conserver dans un endroit sécurisé, comme des variables d'environnement.
 
 - **clientSecret** :
   - _Type_ : `string` | `undefined`
   - _Défaut_ : `undefined`
-  - _Description_ : clientId et clientSecret permettent aux packages intlayer de s'authentifier auprès du backend en utilisant l'authentification oAuth2. Un jeton d'accès est utilisé pour authentifier l'utilisateur lié au projet. Pour obtenir un jeton d'accès, rendez-vous sur https://intlayer.org/dashboard/project et créez un compte.
+  - _Description_ : clientId et clientSecret permettent aux packages intlayer de s'authentifier auprès du backend en utilisant l'authentification oAuth2. Un jeton d'accès est utilisé pour authentifier l'utilisateur lié au projet. Pour obtenir un jeton d'accès, rendez-vous sur https://app.intlayer.org/project et créez un compte.
   - _Exemple_ : `true`
   - _Note_ : Important : Le clientId et le clientSecret doivent rester secrets et ne pas être partagés publiquement. Veuillez vous assurer de les conserver dans un endroit sécurisé, comme des variables d'environnement.
 
@@ -469,7 +469,7 @@ Paramètres qui contrôlent le logger, y compris le préfixe à utiliser.
 
 Paramètres qui contrôlent les fonctionnalités d'IA d'Intlayer, y compris le fournisseur, le modèle et la clé API.
 
-Cette configuration est optionnelle si vous êtes inscrit sur le [Tableau de bord Intlayer](https://intlayer.org/dashboard/project) en utilisant une clé d'accès. Intlayer gérera automatiquement la solution d'IA la plus efficace et la plus rentable pour vos besoins. Utiliser les options par défaut garantit une meilleure maintenabilité à long terme, car Intlayer met continuellement à jour pour utiliser les modèles les plus pertinents.
+Cette configuration est optionnelle si vous êtes inscrit sur le [Tableau de bord Intlayer](https://app.intlayer.org/project) en utilisant une clé d'accès. Intlayer gérera automatiquement la solution d'IA la plus efficace et la plus rentable pour vos besoins. Utiliser les options par défaut garantit une meilleure maintenabilité à long terme, car Intlayer met continuellement à jour pour utiliser les modèles les plus pertinents.
 
 Si vous préférez utiliser votre propre clé API ou un modèle spécifique, vous pouvez définir votre configuration IA personnalisée.
 Cette configuration IA sera utilisée globalement dans votre environnement Intlayer. Les commandes CLI utiliseront ces paramètres par défaut pour les commandes (par exemple `fill`), ainsi que le SDK, l'éditeur visuel et le CMS. Vous pouvez remplacer ces valeurs par défaut pour des cas d'utilisation spécifiques en utilisant des paramètres de commande.

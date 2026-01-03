@@ -246,14 +246,14 @@ module.exports = config;
 - **clientId**:
   - _类型_：`string` | `undefined`
   - _默认值_：`undefined`
-  - _描述_: clientId 和 clientSecret 允许 intlayer 包使用 oAuth2 认证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://intlayer.org/dashboard/project 并创建一个账户。
+  - _描述_: clientId 和 clientSecret 允许 intlayer 包使用 oAuth2 认证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://app.intlayer.org/project 并创建一个账户。
   - _示例_: `true`
   - _注意_: 重要提示：clientId 和 clientSecret 应保持机密，不得公开共享。请确保将它们保存在安全的位置，例如环境变量中。
 
 - **clientSecret**:
   - _类型_: `string` | `undefined`
   - _默认值_: `undefined`
-  - _描述_: clientId 和 clientSecret 允许 intlayer 包使用 oAuth2 认证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://intlayer.org/dashboard/project 并创建一个账户。
+  - _描述_: clientId 和 clientSecret 允许 intlayer 包使用 oAuth2 认证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://app.intlayer.org/project 并创建一个账户。
   - _示例_: `true`
   - _注意_: 重要提示：clientId 和 clientSecret 应保持机密，不得公开共享。请确保将它们保存在安全的位置，例如环境变量中。
 
@@ -469,7 +469,7 @@ module.exports = config;
 
 控制 Intlayer AI 功能的设置，包括提供商、模型和 API 密钥。
 
-如果您已使用访问密钥在[Intlayer 控制面板](https://intlayer.org/dashboard/project)注册，则此配置是可选的。Intlayer 会自动管理最有效且具有成本效益的 AI 解决方案以满足您的需求。使用默认选项可确保更好的长期可维护性，因为 Intlayer 会持续更新以使用最相关的模型。
+如果您已使用访问密钥在[Intlayer 控制面板](https://app.intlayer.org/project)注册，则此配置是可选的。Intlayer 会自动管理最有效且具有成本效益的 AI 解决方案以满足您的需求。使用默认选项可确保更好的长期可维护性，因为 Intlayer 会持续更新以使用最相关的模型。
 
 如果您希望使用自己的 API 密钥或特定模型，可以定义自定义的 AI 配置。
 此 AI 配置将在整个 Intlayer 环境中全局使用。CLI 命令将使用这些设置作为命令的默认值（例如 `fill`），同时 SDK、可视化编辑器和 CMS 也会使用这些默认值。您可以通过命令参数覆盖这些默认值以满足特定用例。

@@ -23,7 +23,7 @@ slugs:
 npx intlayer dictionary push
 ```
 
-Nếu [trình chỉnh sửa intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) đã được cài đặt, bạn cũng có thể đẩy từ điển lên trình chỉnh sửa. Lệnh này sẽ cho phép làm cho các từ điển có sẵn trên [trình chỉnh sửa](https://intlayer.org/dashboard). Bằng cách này, bạn có thể chia sẻ từ điển với nhóm của mình và chỉnh sửa nội dung mà không cần chỉnh sửa mã nguồn của ứng dụng.
+Nếu [trình chỉnh sửa intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) đã được cài đặt, bạn cũng có thể đẩy từ điển lên trình chỉnh sửa. Lệnh này sẽ cho phép làm cho các từ điển có sẵn trên [trình chỉnh sửa](https://app.intlayer.org/). Bằng cách này, bạn có thể chia sẻ từ điển với nhóm của mình và chỉnh sửa nội dung mà không cần chỉnh sửa mã nguồn của ứng dụng.
 
 ## Bí danh:
 

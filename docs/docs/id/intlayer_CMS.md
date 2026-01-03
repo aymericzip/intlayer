@@ -98,7 +98,7 @@ const config: IntlayerConfig = {
      *
      * Client ID dan client secret diperlukan untuk mengaktifkan editor.
      * Mereka memungkinkan identifikasi pengguna yang sedang mengedit konten.
-     * Mereka dapat diperoleh dengan membuat client baru di Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+     * Mereka dapat diperoleh dengan membuat client baru di Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -148,7 +148,7 @@ const config = {
      *
      * Client ID dan client secret diperlukan untuk mengaktifkan editor.
      * Mereka memungkinkan identifikasi pengguna yang sedang mengedit konten.
-     * Mereka dapat diperoleh dengan membuat client baru di Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+     * Mereka dapat diperoleh dengan membuat client baru di Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -198,7 +198,7 @@ const config = {
      *
      * Client ID dan client secret diperlukan untuk mengaktifkan editor.
      * Mereka memungkinkan identifikasi pengguna yang sedang mengedit konten.
-     * Mereka dapat diperoleh dengan membuat client baru di Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+     * Mereka dapat diperoleh dengan membuat client baru di Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -230,7 +230,7 @@ const config = {
 module.exports = config;
 ```
 
-> Jika Anda belum memiliki client ID dan client secret, Anda dapat memperolehnya dengan membuat client baru di [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
+> Jika Anda belum memiliki client ID dan client secret, Anda dapat memperolehnya dengan membuat client baru di [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
 
 > Untuk melihat semua parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
@@ -270,7 +270,7 @@ Perintah ini mengunggah kamus konten awal Anda, sehingga tersedia untuk pengambi
 
 ### Edit kamus
 
-Kemudian Anda akan dapat melihat dan mengelola kamus Anda di [Intlayer CMS](https://intlayer.org/dashboard/content).
+Kemudian Anda akan dapat melihat dan mengelola kamus Anda di [Intlayer CMS](https://app.intlayer.org/content).
 
 ## Sinkronisasi langsung
 

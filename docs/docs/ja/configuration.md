@@ -245,14 +245,14 @@ module.exports = config;
 - **clientId**:
   - _タイプ_: `string` | `undefined`
   - _デフォルト_: `undefined`
-  - _説明_: clientId と clientSecret は、intlayer パッケージが oAuth2 認証を使用してバックエンドと認証するために使用されます。アクセストークンは、プロジェクトに関連するユーザーを認証するために使用されます。アクセストークンを取得するには、https://intlayer.org/dashboard/project にアクセスしてアカウントを作成してください。
+  - _説明_: clientId と clientSecret は、intlayer パッケージが oAuth2 認証を使用してバックエンドと認証するために使用されます。アクセストークンは、プロジェクトに関連するユーザーを認証するために使用されます。アクセストークンを取得するには、https://app.intlayer.org/project にアクセスしてアカウントを作成してください。
   - _例_: `true`
   - _注意_: 重要: clientId と clientSecret は秘密にしておく必要があり、公開しないでください。環境変数などの安全な場所に保管することをお勧めします。
 
 - **clientSecret**:
   - _タイプ_: `string` | `undefined`
   - _デフォルト_: `undefined`
-  - _説明_: clientId と clientSecret は、intlayer パッケージが oAuth2 認証を使用してバックエンドと認証するために使用されます。アクセストークンは、プロジェクトに関連するユーザーを認証するために使用されます。アクセストークンを取得するには、https://intlayer.org/dashboard/project にアクセスしてアカウントを作成してください。
+  - _説明_: clientId と clientSecret は、intlayer パッケージが oAuth2 認証を使用してバックエンドと認証するために使用されます。アクセストークンは、プロジェクトに関連するユーザーを認証するために使用されます。アクセストークンを取得するには、https://app.intlayer.org/project にアクセスしてアカウントを作成してください。
   - _例_: `true`
   - _注意_: 重要: clientId と clientSecret は秘密にしておく必要があり、公開しないでください。環境変数などの安全な場所に保管することを推奨します。
 
@@ -466,7 +466,7 @@ module.exports = config;
 
 IntlayerのAI機能を制御する設定で、プロバイダー、モデル、APIキーを含みます。
 
-この設定は、アクセスキーを使用して[Intlayerダッシュボード](https://intlayer.org/dashboard/project)に登録している場合はオプションです。Intlayerは、最も効率的でコスト効果の高いAIソリューションを自動的に管理します。デフォルトのオプションを使用することで、Intlayerが継続的に最適なモデルを使用するように更新されるため、長期的な保守性が向上します。
+この設定は、アクセスキーを使用して[Intlayerダッシュボード](https://app.intlayer.org/project)に登録している場合はオプションです。Intlayerは、最も効率的でコスト効果の高いAIソリューションを自動的に管理します。デフォルトのオプションを使用することで、Intlayerが継続的に最適なモデルを使用するように更新されるため、長期的な保守性が向上します。
 
 独自のAPIキーや特定のモデルを使用したい場合は、カスタムAI構成を定義できます。
 このAI構成は、Intlayer環境全体でグローバルに使用されます。CLIコマンドはこれらの設定をコマンド（例：`fill`）のデフォルトとして使用し、SDK、ビジュアルエディター、CMSでも同様です。特定のユースケースに対しては、コマンドパラメータを使ってこれらのデフォルト値を上書きすることができます。

@@ -7,7 +7,7 @@ export const ProductHeader: FC = () => {
   const product = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    url: 'https://intlayer.org/dashboard',
+    url: 'https://app.intlayer.org/',
     name: 'Intlayer CMS',
     description: description.value,
     image:
@@ -37,7 +37,7 @@ export const ProductHeader: FC = () => {
       // Monthly Pricing Offer
       {
         '@type': 'Offer',
-        url: 'https://intlayer.org/dashboard',
+        url: 'https://app.intlayer.org/',
         priceCurrency: 'USD',
         price: '18.99', // Monthly price for premium
         // priceValidUntil: '2024-12-31',
@@ -56,7 +56,7 @@ export const ProductHeader: FC = () => {
       },
       {
         '@type': 'Offer',
-        url: 'https://intlayer.org/dashboard',
+        url: 'https://app.intlayer.org/',
         priceCurrency: 'USD',
         price: '34.99', // Monthly price for enterprise
         // priceValidUntil: '2024-12-31',
@@ -76,7 +76,7 @@ export const ProductHeader: FC = () => {
       // Yearly Pricing Offer
       {
         '@type': 'Offer',
-        url: 'https://intlayer.org/dashboard',
+        url: 'https://app.intlayer.org/',
         priceCurrency: 'USD',
         price: '178.88', // Yearly price for premium (7.99 * 12)
         // priceValidUntil: '2024-12-31',
@@ -95,7 +95,7 @@ export const ProductHeader: FC = () => {
       },
       {
         '@type': 'Offer',
-        url: 'https://intlayer.org/dashboard',
+        url: 'https://app.intlayer.org/',
         priceCurrency: 'USD',
         price: '359.88', // Yearly price for enterprise (16.99 * 12)
         // priceValidUntil: '2024-12-31',

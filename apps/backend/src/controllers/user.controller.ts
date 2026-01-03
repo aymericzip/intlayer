@@ -42,7 +42,7 @@ export const createUser = async (
       type: 'welcome',
       to: newUser.email,
       username: newUser.name,
-      loginLink: `${process.env.CLIENT_URL}/auth/login`,
+      loginLink: `${process.env.APP_URL}/auth/login`,
     });
 
     const formattedUser = mapUserToAPI(newUser);

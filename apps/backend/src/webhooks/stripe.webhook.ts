@@ -99,7 +99,7 @@ export const stripeWebhook = async (req: Request, res: Response) => {
         to: user.email,
         email: user.email,
         subscriptionStartDate: new Date().toLocaleDateString(),
-        manageSubscriptionLink: `${process.env.CLIENT_URL}/dashboard/organization`,
+        manageSubscriptionLink: `${process.env.APP_URL}/organization`,
         username: user.name,
         organizationName: organization.name,
         planName: organization.plan?.type ?? 'Unknown',
@@ -113,7 +113,7 @@ export const stripeWebhook = async (req: Request, res: Response) => {
         cancellationDate: new Date(
           (subscription as any).current_period_end * 1000
         ).toLocaleDateString(),
-        reactivateLink: `${process.env.CLIENT_URL}/pricing`,
+        reactivateLink: `${process.env.APP_URL}/pricing`,
         username: user.name,
         organizationName: organization.name,
         planName: organization.plan?.type ?? 'Unknown',

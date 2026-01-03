@@ -23,7 +23,7 @@ slugs:
 npx intlayer dictionary push
 ```
 
-यदि [intlayer संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) स्थापित है, तो आप शब्दकोशों को संपादक में भी पुश कर सकते हैं। यह कमांड शब्दकोशों को [संपादक](https://intlayer.org/dashboard) के लिए उपलब्ध कराएगा। इस तरह, आप अपने शब्दकोशों को अपनी टीम के साथ साझा कर सकते हैं और अपने एप्लिकेशन के कोड को संपादित किए बिना अपनी सामग्री को संपादित कर सकते हैं।
+यदि [intlayer संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) स्थापित है, तो आप शब्दकोशों को संपादक में भी पुश कर सकते हैं। यह कमांड शब्दकोशों को [संपादक](https://app.intlayer.org/) के लिए उपलब्ध कराएगा। इस तरह, आप अपने शब्दकोशों को अपनी टीम के साथ साझा कर सकते हैं और अपने एप्लिकेशन के कोड को संपादित किए बिना अपनी सामग्री को संपादित कर सकते हैं।
 
 ## उपनाम:
 

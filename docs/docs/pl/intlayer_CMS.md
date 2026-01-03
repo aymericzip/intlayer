@@ -98,7 +98,7 @@ const config: IntlayerConfig = {
      *
      * Client ID oraz client secret są wymagane do włączenia edytora.
      * Pozwalają one zidentyfikować użytkownika, który edytuje zawartość.
-     * Można je uzyskać tworząc nowego klienta w Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+     * Można je uzyskać tworząc nowego klienta w Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -148,7 +148,7 @@ const config = {
      *
      * Client ID oraz client secret są wymagane do włączenia edytora.
      * Pozwalają one na identyfikację użytkownika edytującego zawartość.
-     * Można je uzyskać tworząc nowego klienta w Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+     * Można je uzyskać tworząc nowego klienta w Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -198,7 +198,7 @@ const config = {
      *
      * Client ID oraz client secret są wymagane do włączenia edytora.
      * Pozwalają one na identyfikację użytkownika, który edytuje zawartość.
-     * Można je uzyskać, tworząc nowego klienta w Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+     * Można je uzyskać, tworząc nowego klienta w Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -230,7 +230,7 @@ const config = {
 module.exports = config;
 ```
 
-> Jeśli nie masz client ID i client secret, możesz je uzyskać, tworząc nowego klienta w [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
+> Jeśli nie masz client ID i client secret, możesz je uzyskać, tworząc nowego klienta w [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
 
 > Aby zobaczyć wszystkie dostępne parametry, zapoznaj się z [dokumentacją konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
@@ -270,7 +270,7 @@ To polecenie przesyła Twoje początkowe słowniki treści, udostępniając je d
 
 ### Edytuj słownik
 
-Następnie będziesz mógł zobaczyć i zarządzać swoim słownikiem w [Intlayer CMS](https://intlayer.org/dashboard/content).
+Następnie będziesz mógł zobaczyć i zarządzać swoim słownikiem w [Intlayer CMS](https://app.intlayer.org/content).
 
 ## Synchronizacja na żywo
 

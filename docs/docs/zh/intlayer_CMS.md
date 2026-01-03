@@ -92,7 +92,7 @@ const config: IntlayerConfig = {
      *
      * 启用编辑器需要客户端 ID 和客户端密钥。
      * 它们用于识别正在编辑内容的用户。
-     * 可以通过在 Intlayer 控制面板 - 项目 (https://intlayer.org/dashboard/projects) 中创建新客户端来获取。
+     * 可以通过在 Intlayer 控制面板 - 项目 (https://app.intlayer.org/projects) 中创建新客户端来获取。
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -142,7 +142,7 @@ const config = {
      *
      * 启用编辑器需要客户端 ID 和客户端密钥。
      * 它们用于识别正在编辑内容的用户。
-     * 可以通过在 Intlayer 仪表板 - 项目 (https://intlayer.org/dashboard/projects) 中创建新客户端来获取。
+     * 可以通过在 Intlayer 仪表板 - 项目 (https://app.intlayer.org/projects) 中创建新客户端来获取。
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -192,7 +192,7 @@ const config = {
      *
      * 启用编辑器需要客户端ID和客户端密钥。
      * 它们用于识别正在编辑内容的用户。
-     * 可以通过在 Intlayer 控制面板 - 项目 (https://intlayer.org/dashboard/projects) 中创建新客户端来获取。
+     * 可以通过在 Intlayer 控制面板 - 项目 (https://app.intlayer.org/projects) 中创建新客户端来获取。
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -224,7 +224,7 @@ const config = {
 module.exports = config;
 ```
 
-> 如果您没有客户端 ID 和客户端密钥，可以通过在[Intlayer 控制面板 - 项目](https://intlayer.org/dashboard/projects)中创建新客户端来获取。
+> 如果您没有客户端 ID 和客户端密钥，可以通过在[Intlayer 控制面板 - 项目](https://app.intlayer.org/projects)中创建新客户端来获取。
 
 > 要查看所有可用参数，请参考[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
@@ -264,7 +264,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 
 ### 编辑字典
 
-然后，您将能够在 [Intlayer CMS](https://intlayer.org/dashboard/content) 中查看和管理您的字典。
+然后，您将能够在 [Intlayer CMS](https://app.intlayer.org/content) 中查看和管理您的字典。
 
 ## 实时同步
 

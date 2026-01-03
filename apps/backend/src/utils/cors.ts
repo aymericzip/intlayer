@@ -1,7 +1,7 @@
 import type { FastifyCorsOptions } from '@fastify/cors';
 import { logger } from '@logger';
 
-const whitelist = [process.env.CLIENT_URL!];
+const whitelist = [process.env.APP_URL!];
 
 export const corsOptions: FastifyCorsOptions = {
   origin: (origin, callback) => {

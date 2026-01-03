@@ -92,7 +92,7 @@ const config: IntlayerConfig = {
      *
      * 편집기를 활성화하려면 클라이언트 ID와 클라이언트 시크릿이 필요합니다.
      * 이를 통해 콘텐츠를 편집하는 사용자를 식별할 수 있습니다.
-     * Intlayer 대시보드 - 프로젝트(https://intlayer.org/dashboard/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
+     * Intlayer 대시보드 - 프로젝트(https://app.intlayer.org/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -142,7 +142,7 @@ const config = {
      *
      * 편집기를 활성화하려면 클라이언트 ID와 클라이언트 시크릿이 필요합니다.
      * 이를 통해 콘텐츠를 편집하는 사용자를 식별할 수 있습니다.
-     * Intlayer 대시보드 - 프로젝트(https://intlayer.org/dashboard/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
+     * Intlayer 대시보드 - 프로젝트(https://app.intlayer.org/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -192,7 +192,7 @@ const config = {
      *
      * 에디터를 활성화하려면 클라이언트 ID와 클라이언트 시크릿이 필요합니다.
      * 이를 통해 콘텐츠를 편집하는 사용자를 식별할 수 있습니다.
-     * Intlayer 대시보드 - 프로젝트(https://intlayer.org/dashboard/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
+     * Intlayer 대시보드 - 프로젝트(https://app.intlayer.org/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -224,7 +224,7 @@ const config = {
 module.exports = config;
 ```
 
-> 클라이언트 ID와 클라이언트 시크릿이 없는 경우, [Intlayer 대시보드 - 프로젝트](https://intlayer.org/dashboard/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
+> 클라이언트 ID와 클라이언트 시크릿이 없는 경우, [Intlayer 대시보드 - 프로젝트](https://app.intlayer.org/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
 
 > 사용 가능한 모든 매개변수를 확인하려면 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
@@ -264,7 +264,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 
 ### 사전 편집
 
-그런 다음 [Intlayer CMS](https://intlayer.org/dashboard/content)에서 사전을 보고 관리할 수 있습니다.
+그런 다음 [Intlayer CMS](https://app.intlayer.org/content)에서 사전을 보고 관리할 수 있습니다.
 
 ## 라이브 동기화
 

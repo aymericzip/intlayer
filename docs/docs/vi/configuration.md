@@ -268,14 +268,14 @@ Các phần sau mô tả các thiết lập cấu hình khác nhau có sẵn cho
 - **clientId**:
   - _Kiểu_: `string` | `undefined`
   - _Mặc định_: `undefined`
-  - _Mô tả_: clientId và clientSecret cho phép các package của intlayer xác thực với backend sử dụng xác thực oAuth2. Một access token được sử dụng để xác thực người dùng liên quan đến dự án. Để lấy access token, truy cập https://intlayer.org/dashboard/project và tạo một tài khoản.
+  - _Mô tả_: clientId và clientSecret cho phép các package của intlayer xác thực với backend sử dụng xác thực oAuth2. Một access token được sử dụng để xác thực người dùng liên quan đến dự án. Để lấy access token, truy cập https://app.intlayer.org/project và tạo một tài khoản.
   - _Ví dụ_: `true`
   - _Lưu ý_: Quan trọng: clientId và clientSecret cần được giữ bí mật và không được chia sẻ công khai. Vui lòng đảm bảo giữ chúng ở nơi an toàn, chẳng hạn như biến môi trường.
 
 - **clientSecret**:
   - _Kiểu_: `string` | `undefined`
   - _Mặc định_: `undefined`
-  - _Mô tả_: clientId và clientSecret cho phép các package của intlayer xác thực với backend sử dụng xác thực oAuth2. Một access token được sử dụng để xác thực người dùng liên quan đến dự án. Để lấy access token, truy cập https://intlayer.org/dashboard/project và tạo một tài khoản.
+  - _Mô tả_: clientId và clientSecret cho phép các package của intlayer xác thực với backend sử dụng xác thực oAuth2. Một access token được sử dụng để xác thực người dùng liên quan đến dự án. Để lấy access token, truy cập https://app.intlayer.org/project và tạo một tài khoản.
   - _Ví dụ_: `true`
   - _Lưu ý_: Quan trọng: clientId và clientSecret cần được giữ bí mật và không được chia sẻ công khai. Vui lòng đảm bảo giữ chúng ở nơi an toàn, chẳng hạn như biến môi trường.
 
@@ -607,7 +607,7 @@ Các cài đặt kiểm soát logger, bao gồm tiền tố sử dụng.
 
 Các cài đặt kiểm soát các tính năng AI của Intlayer, bao gồm nhà cung cấp, mô hình và khóa API.
 
-Cấu hình này là tùy chọn nếu bạn đã đăng ký trên [Bảng điều khiển Intlayer](https://intlayer.org/dashboard/project) bằng khóa truy cập. Intlayer sẽ tự động quản lý giải pháp AI hiệu quả và tiết kiệm chi phí nhất cho nhu cầu của bạn. Sử dụng các tùy chọn mặc định đảm bảo khả năng bảo trì lâu dài tốt hơn khi Intlayer liên tục cập nhật để sử dụng các mô hình phù hợp nhất.
+Cấu hình này là tùy chọn nếu bạn đã đăng ký trên [Bảng điều khiển Intlayer](https://app.intlayer.org/project) bằng khóa truy cập. Intlayer sẽ tự động quản lý giải pháp AI hiệu quả và tiết kiệm chi phí nhất cho nhu cầu của bạn. Sử dụng các tùy chọn mặc định đảm bảo khả năng bảo trì lâu dài tốt hơn khi Intlayer liên tục cập nhật để sử dụng các mô hình phù hợp nhất.
 
 Nếu bạn muốn sử dụng khóa API riêng hoặc mô hình cụ thể, bạn có thể định nghĩa cấu hình AI tùy chỉnh của mình.
 Cấu hình AI này sẽ được sử dụng toàn cục trong môi trường Intlayer của bạn. Các lệnh CLI sẽ sử dụng các cài đặt này làm mặc định cho các lệnh (ví dụ: `fill`), cũng như SDK, Visual Editor và CMS. Bạn có thể ghi đè các giá trị mặc định này cho các trường hợp sử dụng cụ thể bằng cách sử dụng các tham số lệnh.

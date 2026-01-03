@@ -14,7 +14,7 @@ export const fetchDistantDictionary = async (
 
     if (!clientId || !clientSecret) {
       throw new Error(
-        'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project.'
+        'Missing OAuth2 client ID or client secret. To get access token go to https://app.intlayer.org/project.'
       );
     }
 

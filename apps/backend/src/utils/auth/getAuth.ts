@@ -82,7 +82,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
               type: 'welcome',
               to: user.email,
               username: user.name ?? user.email.split('@')[0],
-              loginLink: `${process.env.CLIENT_URL}/auth/login`,
+              loginLink: `${process.env.APP_URL}/auth/login`,
               locale: (user as any).lang,
             });
             logger.info('Welcome e‑mail delivered', {
@@ -114,7 +114,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
             type: 'welcome',
             to: user.email,
             username: user.name ?? user.email.split('@')[0],
-            loginLink: `${process.env.CLIENT_URL}/auth/login`,
+            loginLink: `${process.env.APP_URL}/auth/login`,
             locale: (user as any).lang,
           });
           logger.info('Welcome e‑mail delivered', {
@@ -250,7 +250,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           type: 'resetPassword',
           to: user.email,
           username: user.name ?? user.email.split('@')[0],
-          resetLink: `${process.env.CLIENT_URL}/auth/password/reset?token=${token}`,
+          resetLink: `${process.env.APP_URL}/auth/password/reset?token=${token}`,
         });
       },
       resetPasswordTokenExpiresIn: 3600,
@@ -276,7 +276,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     crossSubDomainCookies: {
       enabled: true,
       additionalCookies: ['session_token'],
-      domain: process.env.CLIENT_URL as string,
+      domain: process.env.APP_URL as string,
     },
     cookiePrefix: 'intlayer',
     cookies: {
@@ -289,7 +289,10 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       },
     },
 
-    trustedOrigins: [process.env.CLIENT_URL as string],
+    trustedOrigins: [
+      process.env.WEBSITE_URL as string,
+      process.env.APP_URL as string,
+    ],
 
     socialProviders: {
       google: {

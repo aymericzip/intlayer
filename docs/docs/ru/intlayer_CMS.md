@@ -92,7 +92,7 @@ const config: IntlayerConfig = {
      *
      * Для включения редактора требуются client ID и client secret.
      * Они позволяют идентифицировать пользователя, который редактирует контент.
-     * Их можно получить, создав нового клиента в Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+     * Их можно получить, создав нового клиента в Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -142,7 +142,7 @@ const config = {
      *
      * Для включения редактора требуются client ID и client secret.
      * Они позволяют идентифицировать пользователя, который редактирует контент.
-     * Их можно получить, создав нового клиента в Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+     * Их можно получить, создав нового клиента в Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -192,7 +192,7 @@ const config = {
      *
      * Для включения редактора требуются client ID и client secret.
      * Они позволяют идентифицировать пользователя, который редактирует контент.
-     * Их можно получить, создав нового клиента в Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+     * Их можно получить, создав нового клиента в Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -224,7 +224,7 @@ const config = {
 module.exports = config;
 ```
 
-> Если у вас нет client ID и client secret, вы можете получить их, создав нового клиента в [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
+> Если у вас нет client ID и client secret, вы можете получить их, создав нового клиента в [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
 
 > Чтобы увидеть все доступные параметры, обратитесь к [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
@@ -264,7 +264,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 
 ### Редактирование словаря
 
-После этого вы сможете просматривать и управлять вашим словарём в [Intlayer CMS](https://intlayer.org/dashboard/content).
+После этого вы сможете просматривать и управлять вашим словарём в [Intlayer CMS](https://app.intlayer.org/content).
 
 ## Живая синхронизация
 

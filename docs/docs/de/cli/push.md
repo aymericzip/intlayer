@@ -23,7 +23,7 @@ slugs:
 npx intlayer dictionary push
 ```
 
-Wenn der [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) installiert ist, können Sie Wörterbücher auch in den Editor pushen. Dieser Befehl ermöglicht es, die Wörterbücher im [Editor](https://intlayer.org/dashboard) verfügbar zu machen. So können Sie Ihre Wörterbücher mit Ihrem Team teilen und Ihre Inhalte bearbeiten, ohne den Code Ihrer Anwendung zu ändern.
+Wenn der [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) installiert ist, können Sie Wörterbücher auch in den Editor pushen. Dieser Befehl ermöglicht es, die Wörterbücher im [Editor](https://app.intlayer.org/) verfügbar zu machen. So können Sie Ihre Wörterbücher mit Ihrem Team teilen und Ihre Inhalte bearbeiten, ohne den Code Ihrer Anwendung zu ändern.
 
 ## Aliase:
 

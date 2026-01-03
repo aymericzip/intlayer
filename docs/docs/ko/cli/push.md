@@ -23,7 +23,7 @@ slugs:
 npx intlayer dictionary push
 ```
 
-[intlayer 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)가 설치되어 있다면, 사전을 에디터로도 푸시할 수 있습니다. 이 명령어는 사전을 [에디터](https://intlayer.org/dashboard)에서 사용할 수 있도록 합니다. 이를 통해 팀과 사전을 공유하고 애플리케이션 코드를 수정하지 않고도 콘텐츠를 편집할 수 있습니다.
+[intlayer 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)가 설치되어 있다면, 사전을 에디터로도 푸시할 수 있습니다. 이 명령어는 사전을 [에디터](https://app.intlayer.org/)에서 사용할 수 있도록 합니다. 이를 통해 팀과 사전을 공유하고 애플리케이션 코드를 수정하지 않고도 콘텐츠를 편집할 수 있습니다.
 
 ## 별칭:
 

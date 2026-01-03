@@ -92,7 +92,7 @@ const config: IntlayerConfig = {
      *
      * El ID de cliente y el secreto de cliente son necesarios para habilitar el editor.
      * Permiten identificar al usuario que está editando el contenido.
-     * Se pueden obtener creando un nuevo cliente en el Panel de Intlayer - Proyectos (https://intlayer.org/dashboard/projects).
+     * Se pueden obtener creando un nuevo cliente en el Panel de Intlayer - Proyectos (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -142,7 +142,7 @@ const config = {
      *
      * El ID de cliente y el secreto de cliente son necesarios para habilitar el editor.
      * Permiten identificar al usuario que está editando el contenido.
-     * Se pueden obtener creando un nuevo cliente en el Panel de Intlayer - Proyectos (https://intlayer.org/dashboard/projects).
+     * Se pueden obtener creando un nuevo cliente en el Panel de Intlayer - Proyectos (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -192,7 +192,7 @@ const config = {
      *
      * El ID de cliente y el secreto de cliente son necesarios para habilitar el editor.
      * Permiten identificar al usuario que está editando el contenido.
-     * Se pueden obtener creando un nuevo cliente en el Panel de Intlayer - Proyectos (https://intlayer.org/dashboard/projects).
+     * Se pueden obtener creando un nuevo cliente en el Panel de Intlayer - Proyectos (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -224,7 +224,7 @@ const config = {
 module.exports = config;
 ```
 
-> Si no tienes un ID de cliente y un secreto de cliente, puedes obtenerlos creando un nuevo cliente en el [Panel de Intlayer - Proyectos](https://intlayer.org/dashboard/projects).
+> Si no tienes un ID de cliente y un secreto de cliente, puedes obtenerlos creando un nuevo cliente en el [Panel de Intlayer - Proyectos](https://app.intlayer.org/projects).
 
 > Para ver todos los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
@@ -264,7 +264,7 @@ Este comando sube tus diccionarios de contenido inicial, haciéndolos disponible
 
 ### Editar el diccionario
 
-Luego podrás ver y gestionar tu diccionario en el [Intlayer CMS](https://intlayer.org/dashboard/content).
+Luego podrás ver y gestionar tu diccionario en el [Intlayer CMS](https://app.intlayer.org/content).
 
 ## Sincronización en vivo
 

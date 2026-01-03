@@ -92,7 +92,7 @@ const config: IntlayerConfig = {
      *
      * エディターを有効にするためにクライアントIDとクライアントシークレットが必要です。
      * これらはコンテンツを編集しているユーザーを識別するために使用されます。
-     * Intlayerダッシュボードのプロジェクト（https://intlayer.org/dashboard/projects）で新しいクライアントを作成することで取得できます。
+     * Intlayerダッシュボードのプロジェクト（https://app.intlayer.org/projects）で新しいクライアントを作成することで取得できます。
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -142,7 +142,7 @@ const config = {
      *
      * エディタを有効にするには、クライアントIDとクライアントシークレットが必要です。
      * これらはコンテンツを編集しているユーザーを識別するために使用されます。
-     * Intlayerダッシュボードのプロジェクト（https://intlayer.org/dashboard/projects）で新しいクライアントを作成することで取得できます。
+     * Intlayerダッシュボードのプロジェクト（https://app.intlayer.org/projects）で新しいクライアントを作成することで取得できます。
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -192,7 +192,7 @@ const config = {
      *
      * エディターを有効にするには、クライアントIDとクライアントシークレットが必要です。
      * これらはコンテンツを編集しているユーザーを識別するために使用されます。
-     * Intlayerダッシュボードのプロジェクトページ（https://intlayer.org/dashboard/projects）で新しいクライアントを作成することで取得できます。
+     * Intlayerダッシュボードのプロジェクトページ（https://app.intlayer.org/projects）で新しいクライアントを作成することで取得できます。
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -224,7 +224,7 @@ const config = {
 module.exports = config;
 ```
 
-> クライアントIDとクライアントシークレットをお持ちでない場合は、[Intlayerダッシュボード - プロジェクト](https://intlayer.org/dashboard/projects)で新しいクライアントを作成して取得できます。
+> クライアントIDとクライアントシークレットをお持ちでない場合は、[Intlayerダッシュボード - プロジェクト](https://app.intlayer.org/projects)で新しいクライアントを作成して取得できます。
 
 > 利用可能なすべてのパラメータについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
@@ -264,7 +264,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 
 ### 辞書の編集
 
-その後、[Intlayer CMS](https://intlayer.org/dashboard/content) で辞書を確認および管理できるようになります。
+その後、[Intlayer CMS](https://app.intlayer.org/content) で辞書を確認および管理できるようになります。
 
 ## ライブ同期
 

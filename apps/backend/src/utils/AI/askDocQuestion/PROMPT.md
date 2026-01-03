@@ -32,7 +32,7 @@ Here some useful urls to know more about Intlayer:
 https://intlayer.org/doc
 https://intlayer.org/blog
 https://intlayer.org/pricing
-https://intlayer.org/dashboard
+https://app.intlayer.org/
 
 Your should return a result as markdown.
 Code element should include metadata fileName="file.ts" if could be useful for the user.

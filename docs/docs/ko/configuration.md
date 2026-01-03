@@ -245,14 +245,14 @@ module.exports = config;
 - **clientId**:
   - _유형_: `string` | `undefined`
   - _기본값_: `undefined`
-  - _설명_: clientId와 clientSecret은 intlayer 패키지가 oAuth2 인증을 사용하여 백엔드와 인증할 수 있도록 합니다. 액세스 토큰은 프로젝트와 관련된 사용자를 인증하는 데 사용됩니다. 액세스 토큰을 얻으려면 https://intlayer.org/dashboard/project 에서 계정을 생성하세요.
+  - _설명_: clientId와 clientSecret은 intlayer 패키지가 oAuth2 인증을 사용하여 백엔드와 인증할 수 있도록 합니다. 액세스 토큰은 프로젝트와 관련된 사용자를 인증하는 데 사용됩니다. 액세스 토큰을 얻으려면 https://app.intlayer.org/project 에서 계정을 생성하세요.
   - _예시_: `true`
   - _참고_: 중요: clientId와 clientSecret은 비밀로 유지되어야 하며 공개적으로 공유되어서는 안 됩니다. 환경 변수와 같은 안전한 위치에 보관하시기 바랍니다.
 
 - **clientSecret**:
   - _유형_: `string` | `undefined`
   - _기본값_: `undefined`
-  - _설명_: clientId와 clientSecret은 intlayer 패키지가 oAuth2 인증을 사용하여 백엔드와 인증할 수 있도록 합니다. 액세스 토큰은 프로젝트와 관련된 사용자를 인증하는 데 사용됩니다. 액세스 토큰을 얻으려면 https://intlayer.org/dashboard/project 에서 계정을 생성하세요.
+  - _설명_: clientId와 clientSecret은 intlayer 패키지가 oAuth2 인증을 사용하여 백엔드와 인증할 수 있도록 합니다. 액세스 토큰은 프로젝트와 관련된 사용자를 인증하는 데 사용됩니다. 액세스 토큰을 얻으려면 https://app.intlayer.org/project 에서 계정을 생성하세요.
   - _예시_: `true`
   - _참고_: 중요: clientId와 clientSecret은 비밀로 유지되어야 하며 공개적으로 공유해서는 안 됩니다. 환경 변수와 같은 안전한 위치에 보관하시기 바랍니다.
 
@@ -468,7 +468,7 @@ module.exports = config;
 
 Intlayer의 AI 기능을 제어하는 설정으로, 제공자(provider), 모델(model), API 키를 포함합니다.
 
-이 구성은 [Intlayer 대시보드](https://intlayer.org/dashboard/project)에 액세스 키로 등록된 경우 선택 사항입니다. Intlayer는 귀하의 요구에 가장 효율적이고 비용 효과적인 AI 솔루션을 자동으로 관리합니다. 기본 옵션을 사용하면 Intlayer가 가장 적합한 모델을 지속적으로 업데이트하므로 장기적인 유지 관리가 더 용이합니다.
+이 구성은 [Intlayer 대시보드](https://app.intlayer.org/project)에 액세스 키로 등록된 경우 선택 사항입니다. Intlayer는 귀하의 요구에 가장 효율적이고 비용 효과적인 AI 솔루션을 자동으로 관리합니다. 기본 옵션을 사용하면 Intlayer가 가장 적합한 모델을 지속적으로 업데이트하므로 장기적인 유지 관리가 더 용이합니다.
 
 자신의 API 키나 특정 모델을 사용하려는 경우, 사용자 정의 AI 구성을 정의할 수 있습니다.
 이 AI 구성은 Intlayer 환경 전반에 걸쳐 전역적으로 사용됩니다. CLI 명령어는 이 설정을 기본값으로 사용하며(예: `fill`), SDK, 비주얼 에디터, CMS에서도 동일하게 적용됩니다. 특정 사용 사례에 대해서는 명령어 매개변수를 사용하여 이러한 기본값을 재정의할 수 있습니다.

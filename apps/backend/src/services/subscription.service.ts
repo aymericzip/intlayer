@@ -165,7 +165,7 @@ export const changeSubscriptionStatus = async (
     email: user.email,
     planName: organization.plan.type,
     date: new Date().toLocaleDateString(),
-    link: `${process.env.CLIENT_URL}/dashboard`,
+    link: `${process.env.APP_URL}/dashboard`,
   };
 
   switch (status) {

@@ -92,7 +92,7 @@ const config: IntlayerConfig = {
      *
      * L'ID client et le secret client sont nécessaires pour activer l'éditeur.
      * Ils permettent d'identifier l'utilisateur qui édite le contenu.
-     * Ils peuvent être obtenus en créant un nouveau client dans le tableau de bord Intlayer - Projets (https://intlayer.org/dashboard/projects).
+     * Ils peuvent être obtenus en créant un nouveau client dans le tableau de bord Intlayer - Projets (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -142,7 +142,7 @@ const config = {
      *
      * L'ID client et le secret client sont nécessaires pour activer l'éditeur.
      * Ils permettent d'identifier l'utilisateur qui édite le contenu.
-     * Ils peuvent être obtenus en créant un nouveau client dans le tableau de bord Intlayer - Projets (https://intlayer.org/dashboard/projects).
+     * Ils peuvent être obtenus en créant un nouveau client dans le tableau de bord Intlayer - Projets (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -192,7 +192,7 @@ const config = {
      *
      * L'ID client et le secret client sont nécessaires pour activer l'éditeur.
      * Ils permettent d'identifier l'utilisateur qui édite le contenu.
-     * Ils peuvent être obtenus en créant un nouveau client dans le Tableau de bord Intlayer - Projets (https://intlayer.org/dashboard/projects).
+     * Ils peuvent être obtenus en créant un nouveau client dans le Tableau de bord Intlayer - Projets (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -224,7 +224,7 @@ const config = {
 module.exports = config;
 ```
 
-> Si vous ne disposez pas d'un ID client et d'un secret client, vous pouvez les obtenir en créant un nouveau client dans le [Tableau de bord Intlayer - Projets](https://intlayer.org/dashboard/projects).
+> Si vous ne disposez pas d'un ID client et d'un secret client, vous pouvez les obtenir en créant un nouveau client dans le [Tableau de bord Intlayer - Projets](https://app.intlayer.org/projects).
 
 > Pour voir tous les paramètres disponibles, référez-vous à la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
@@ -264,7 +264,7 @@ Cette commande télécharge vos dictionnaires de contenu initiaux, les rendant d
 
 ### Modifier le dictionnaire
 
-Vous pourrez alors voir et gérer votre dictionnaire dans le [CMS Intlayer](https://intlayer.org/dashboard/content).
+Vous pourrez alors voir et gérer votre dictionnaire dans le [CMS Intlayer](https://app.intlayer.org/content).
 
 ## Synchronisation en direct
 

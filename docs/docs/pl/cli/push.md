@@ -23,7 +23,7 @@ slugs:
 npx intlayer dictionary push
 ```
 
-Jeśli [edytor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) jest zainstalowany, możesz również wysyłać słowniki do edytora. To polecenie pozwoli udostępnić słowniki w [edytorze](https://intlayer.org/dashboard). W ten sposób możesz dzielić się swoimi słownikami z zespołem i edytować treści bez konieczności modyfikowania kodu aplikacji.
+Jeśli [edytor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) jest zainstalowany, możesz również wysyłać słowniki do edytora. To polecenie pozwoli udostępnić słowniki w [edytorze](https://app.intlayer.org/). W ten sposób możesz dzielić się swoimi słownikami z zespołem i edytować treści bez konieczności modyfikowania kodu aplikacji.
 
 ## Alias:
 

@@ -277,7 +277,7 @@ export type EditorConfig = {
   /**
    * clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication.
    * An access token is use to authenticate the user related to the project.
-   * To get an access token, go to https://intlayer.org/dashboard/project and create an account.
+   * To get an access token, go to https://app.intlayer.org/project and create an account.
    *
    * Default: undefined
    *
@@ -288,7 +288,7 @@ export type EditorConfig = {
   /**
    * clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication.
    * An access token is use to authenticate the user related to the project.
-   * To get an access token, go to https://intlayer.org/dashboard/project and create an account.
+   * To get an access token, go to https://app.intlayer.org/project and create an account.
    *
    * Default: undefined
    *

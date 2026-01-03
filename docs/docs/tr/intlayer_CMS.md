@@ -92,7 +92,7 @@ const config: IntlayerConfig = {
      *
      * Editörü etkinleştirmek için Client ID ve client secret gereklidir.
      * Bunlar, içeriği düzenleyen kullanıcıyı tanımlamaya olanak sağlar.
-     * Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects) üzerinden yeni bir client oluşturarak elde edilebilir.
+     * Intlayer Dashboard - Projects (https://app.intlayer.org/projects) üzerinden yeni bir client oluşturarak elde edilebilir.
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -142,7 +142,7 @@ const config = {
      *
      * Editörü etkinleştirmek için Client ID ve client secret gereklidir.
      * Bunlar, içeriği düzenleyen kullanıcıyı tanımlamaya olanak sağlar.
-     * Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects) üzerinde yeni bir client oluşturarak elde edilebilir.
+     * Intlayer Dashboard - Projects (https://app.intlayer.org/projects) üzerinde yeni bir client oluşturarak elde edilebilir.
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -192,7 +192,7 @@ const config = {
      *
      * Editörü etkinleştirmek için Client ID ve client secret gereklidir.
      * Bunlar, içeriği düzenleyen kullanıcıyı tanımlamaya olanak sağlar.
-     * Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects) üzerinden yeni bir client oluşturarak elde edilebilirler.
+     * Intlayer Dashboard - Projects (https://app.intlayer.org/projects) üzerinden yeni bir client oluşturarak elde edilebilirler.
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -224,7 +224,7 @@ const config = {
 module.exports = config;
 ```
 
-> Eğer bir client ID ve client secret'ınız yoksa, bunları [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects) üzerinden yeni bir client oluşturarak edinebilirsiniz.
+> Eğer bir client ID ve client secret'ınız yoksa, bunları [Intlayer Dashboard - Projects](https://app.intlayer.org/projects) üzerinden yeni bir client oluşturarak edinebilirsiniz.
 
 > Mevcut tüm parametreleri görmek için [konfigürasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakınız.
 
@@ -264,7 +264,7 @@ Bu komut, başlangıç içerik sözlüklerinizi yükler ve Intlayer platformu ü
 
 ### Sözlüğü düzenleme
 
-Daha sonra sözlüğünüzü [Intlayer CMS](https://intlayer.org/dashboard/content) üzerinde görüntüleyip yönetebileceksiniz.
+Daha sonra sözlüğünüzü [Intlayer CMS](https://app.intlayer.org/content) üzerinde görüntüleyip yönetebileceksiniz.
 
 ## Canlı senkronizasyon
 

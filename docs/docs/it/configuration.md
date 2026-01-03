@@ -242,14 +242,14 @@ Definisce le impostazioni relative all'editor integrato, incluso il porto del se
 - **clientId**:
   - _Tipo_: `string` | `undefined`
   - _Predefinito_: `undefined`
-  - _Descrizione_: clientId e clientSecret permettono ai pacchetti intlayer di autenticarsi con il backend utilizzando l'autenticazione oAuth2. Un token di accesso viene utilizzato per autenticare l'utente relativo al progetto. Per ottenere un token di accesso, vai su https://intlayer.org/dashboard/project e crea un account.
+  - _Descrizione_: clientId e clientSecret permettono ai pacchetti intlayer di autenticarsi con il backend utilizzando l'autenticazione oAuth2. Un token di accesso viene utilizzato per autenticare l'utente relativo al progetto. Per ottenere un token di accesso, vai su https://app.intlayer.org/project e crea un account.
   - _Esempio_: `true`
   - _Nota_: Importante: clientId e clientSecret devono essere mantenuti segreti e non condivisi pubblicamente. Assicurati di conservarli in un luogo sicuro, come le variabili d'ambiente.
 
 - **clientSecret**:
   - _Tipo_: `string` | `undefined`
   - _Predefinito_: `undefined`
-  - _Descrizione_: clientId e clientSecret permettono ai pacchetti intlayer di autenticarsi con il backend utilizzando l'autenticazione oAuth2. Un token di accesso viene utilizzato per autenticare l'utente relativo al progetto. Per ottenere un token di accesso, vai su https://intlayer.org/dashboard/project e crea un account.
+  - _Descrizione_: clientId e clientSecret permettono ai pacchetti intlayer di autenticarsi con il backend utilizzando l'autenticazione oAuth2. Un token di accesso viene utilizzato per autenticare l'utente relativo al progetto. Per ottenere un token di accesso, vai su https://app.intlayer.org/project e crea un account.
   - _Esempio_: `true`
   - _Nota_: Importante: clientId e clientSecret devono essere mantenuti segreti e non condivisi pubblicamente. Assicurati di conservarli in un luogo sicuro, come variabili d'ambiente.
 
@@ -465,7 +465,7 @@ Impostazioni che controllano il logger, incluso il prefisso da utilizzare.
 
 Impostazioni che controllano le funzionalità AI di Intlayer, inclusi provider, modello e chiave API.
 
-Questa configurazione è opzionale se sei registrato sul [Cruscotto Intlayer](https://intlayer.org/dashboard/project) utilizzando una chiave di accesso. Intlayer gestirà automaticamente la soluzione AI più efficiente e conveniente per le tue esigenze. Utilizzare le opzioni predefinite garantisce una migliore manutenzione a lungo termine poiché Intlayer aggiorna continuamente per utilizzare i modelli più rilevanti.
+Questa configurazione è opzionale se sei registrato sul [Cruscotto Intlayer](https://app.intlayer.org/project) utilizzando una chiave di accesso. Intlayer gestirà automaticamente la soluzione AI più efficiente e conveniente per le tue esigenze. Utilizzare le opzioni predefinite garantisce una migliore manutenzione a lungo termine poiché Intlayer aggiorna continuamente per utilizzare i modelli più rilevanti.
 
 Se preferisci utilizzare la tua chiave API o un modello specifico, puoi definire la tua configurazione AI personalizzata.
 Questa configurazione AI sarà utilizzata globalmente in tutto il tuo ambiente Intlayer. I comandi CLI utilizzeranno queste impostazioni come valori predefiniti per i comandi (ad esempio `fill`), così come l’SDK, l’Editor Visivo e il CMS. Puoi sovrascrivere questi valori predefiniti per casi d’uso specifici utilizzando i parametri dei comandi.

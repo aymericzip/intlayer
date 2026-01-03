@@ -92,7 +92,7 @@ const config: IntlayerConfig = {
      *
      * एडिटर को सक्षम करने के लिए क्लाइंट ID और क्लाइंट सीक्रेट आवश्यक हैं।
      * ये उपयोगकर्ता की पहचान करने की अनुमति देते हैं जो सामग्री संपादित कर रहा है।
-     * इन्हें Intlayer डैशबोर्ड - प्रोजेक्ट्स (https://intlayer.org/dashboard/projects) में नया क्लाइंट बनाकर प्राप्त किया जा सकता है।
+     * इन्हें Intlayer डैशबोर्ड - प्रोजेक्ट्स (https://app.intlayer.org/projects) में नया क्लाइंट बनाकर प्राप्त किया जा सकता है।
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -142,7 +142,7 @@ const config = {
      *
      * एडिटर को सक्षम करने के लिए क्लाइंट ID और क्लाइंट सीक्रेट आवश्यक हैं।
      * ये उपयोगकर्ता की पहचान करने की अनुमति देते हैं जो सामग्री संपादित कर रहा है।
-     * इन्हें Intlayer डैशबोर्ड - प्रोजेक्ट्स (https://intlayer.org/dashboard/projects) में नया क्लाइंट बनाकर प्राप्त किया जा सकता है।
+     * इन्हें Intlayer डैशबोर्ड - प्रोजेक्ट्स (https://app.intlayer.org/projects) में नया क्लाइंट बनाकर प्राप्त किया जा सकता है।
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -192,7 +192,7 @@ const config = {
      *
      * एडिटर को सक्षम करने के लिए क्लाइंट ID और क्लाइंट सीक्रेट आवश्यक हैं।
      * ये उपयोगकर्ता की पहचान करने की अनुमति देते हैं जो सामग्री संपादित कर रहा है।
-     * इन्हें Intlayer डैशबोर्ड - प्रोजेक्ट्स (https://intlayer.org/dashboard/projects) में नया क्लाइंट बनाकर प्राप्त किया जा सकता है।
+     * इन्हें Intlayer डैशबोर्ड - प्रोजेक्ट्स (https://app.intlayer.org/projects) में नया क्लाइंट बनाकर प्राप्त किया जा सकता है।
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -224,7 +224,7 @@ const config = {
 module.exports = config;
 ```
 
-> यदि आपके पास क्लाइंट ID और क्लाइंट सीक्रेट नहीं है, तो आप इन्हें [Intlayer डैशबोर्ड - प्रोजेक्ट्स](https://intlayer.org/dashboard/projects) में नया क्लाइंट बनाकर प्राप्त कर सकते हैं।
+> यदि आपके पास क्लाइंट ID और क्लाइंट सीक्रेट नहीं है, तो आप इन्हें [Intlayer डैशबोर्ड - प्रोजेक्ट्स](https://app.intlayer.org/projects) में नया क्लाइंट बनाकर प्राप्त कर सकते हैं।
 
 > सभी उपलब्ध पैरामीटर देखने के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
@@ -264,7 +264,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 
 ### शब्दकोश संपादित करें
 
-फिर आप अपने शब्दकोश को [Intlayer CMS](https://intlayer.org/dashboard/content) में देख और प्रबंधित कर सकेंगे।
+फिर आप अपने शब्दकोश को [Intlayer CMS](https://app.intlayer.org/content) में देख और प्रबंधित कर सकेंगे।
 
 ## लाइव सिंक
 

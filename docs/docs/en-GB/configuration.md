@@ -246,14 +246,14 @@ Defines settings related to the integrated editor, including server port and act
 - **clientId**:
   - _Type_: `string` | `undefined`
   - _Default_: `undefined`
-  - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is used to authenticate the user related to the project. To obtain an access token, visit https://intlayer.org/dashboard/project and create an account.
+  - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is used to authenticate the user related to the project. To obtain an access token, visit https://app.intlayer.org/project and create an account.
   - _Example_: `true`
   - _Note_: Important: The clientId and clientSecret should be kept confidential and not shared publicly. Please ensure they are stored securely, such as in environment variables.
 
 - **clientSecret**:
   - _Type_: `string` | `undefined`
   - _Default_: `undefined`
-  - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is used to authenticate the user related to the project. To obtain an access token, visit https://intlayer.org/dashboard/project and create an account.
+  - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is used to authenticate the user related to the project. To obtain an access token, visit https://app.intlayer.org/project and create an account.
   - _Example_: `true`
   - _Note_: Important: The clientId and clientSecret should be kept confidential and not shared publicly. Please ensure they are stored securely, such as in environment variables.
 
@@ -469,7 +469,7 @@ Settings that control the logger, including the prefix to use.
 
 Settings that control the AI features of Intlayer, including the provider, model, and API key.
 
-This configuration is optional if you are registered on the [Intlayer Dashboard](https://intlayer.org/dashboard/project) using an access key. Intlayer will automatically manage the most efficient and cost-effective AI solution for your needs. Using the default options ensures better long-term maintainability as Intlayer continuously updates to use the most relevant models.
+This configuration is optional if you are registered on the [Intlayer Dashboard](https://app.intlayer.org/project) using an access key. Intlayer will automatically manage the most efficient and cost-effective AI solution for your needs. Using the default options ensures better long-term maintainability as Intlayer continuously updates to use the most relevant models.
 
 If you prefer to use your own API key or specific model, you can define your custom AI configuration.
 This AI configuration will be used globally across your Intlayer environment. CLI commands will use these settings as defaults for the commands (e.g. `fill`), as well as the SDK, Visual Editor, and CMS. You can override these default values for specific use cases using command parameters.

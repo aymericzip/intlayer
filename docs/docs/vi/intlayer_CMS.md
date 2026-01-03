@@ -98,7 +98,7 @@ const config: IntlayerConfig = {
      *
      * Client ID và client secret là bắt buộc để kích hoạt trình chỉnh sửa.
      * Chúng cho phép xác định người dùng đang chỉnh sửa nội dung.
-     * Có thể lấy được bằng cách tạo một client mới trong Bảng điều khiển Intlayer - Projects (https://intlayer.org/dashboard/projects).
+     * Có thể lấy được bằng cách tạo một client mới trong Bảng điều khiển Intlayer - Projects (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -148,7 +148,7 @@ const config = {
      *
      * Client ID và client secret là bắt buộc để kích hoạt trình chỉnh sửa.
      * Chúng cho phép xác định người dùng đang chỉnh sửa nội dung.
-     * Chúng có thể được lấy bằng cách tạo một client mới trong Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+     * Chúng có thể được lấy bằng cách tạo một client mới trong Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -198,7 +198,7 @@ const config = {
      *
      * Client ID và client secret là bắt buộc để kích hoạt trình chỉnh sửa.
      * Chúng cho phép xác định người dùng đang chỉnh sửa nội dung.
-     * Bạn có thể lấy chúng bằng cách tạo một client mới trong Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+     * Bạn có thể lấy chúng bằng cách tạo một client mới trong Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -230,7 +230,7 @@ const config = {
 module.exports = config;
 ```
 
-> Nếu bạn chưa có client ID và client secret, bạn có thể lấy chúng bằng cách tạo một client mới trong [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
+> Nếu bạn chưa có client ID và client secret, bạn có thể lấy chúng bằng cách tạo một client mới trong [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
 
 > Để xem tất cả các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
@@ -270,7 +270,7 @@ Lệnh này sẽ tải các từ điển nội dung ban đầu của bạn lên,
 
 ### Chỉnh sửa từ điển
 
-Sau đó, bạn sẽ có thể xem và quản lý từ điển của mình trong [Intlayer CMS](https://intlayer.org/dashboard/content).
+Sau đó, bạn sẽ có thể xem và quản lý từ điển của mình trong [Intlayer CMS](https://app.intlayer.org/content).
 
 ## Đồng bộ trực tiếp (Live sync)
 

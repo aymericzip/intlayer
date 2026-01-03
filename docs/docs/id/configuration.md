@@ -268,14 +268,14 @@ Mendefinisikan pengaturan terkait editor terintegrasi, termasuk port server dan 
 - **clientId**:
   - _Tipe_: `string` | `undefined`
   - _Default_: `undefined`
-  - _Deskripsi_: clientId dan clientSecret memungkinkan paket intlayer untuk melakukan autentikasi dengan backend menggunakan autentikasi oAuth2. Token akses digunakan untuk mengautentikasi pengguna yang terkait dengan proyek. Untuk mendapatkan token akses, kunjungi https://intlayer.org/dashboard/project dan buat akun.
+  - _Deskripsi_: clientId dan clientSecret memungkinkan paket intlayer untuk melakukan autentikasi dengan backend menggunakan autentikasi oAuth2. Token akses digunakan untuk mengautentikasi pengguna yang terkait dengan proyek. Untuk mendapatkan token akses, kunjungi https://app.intlayer.org/project dan buat akun.
   - _Contoh_: `true`
   - _Catatan_: Penting: clientId dan clientSecret harus dijaga kerahasiaannya dan tidak dibagikan secara publik. Pastikan untuk menyimpannya di lokasi yang aman, seperti variabel lingkungan.
 
 - **clientSecret**:
   - _Tipe_: `string` | `undefined`
   - _Default_: `undefined`
-  - _Deskripsi_: clientId dan clientSecret memungkinkan paket intlayer untuk melakukan autentikasi dengan backend menggunakan autentikasi oAuth2. Token akses digunakan untuk mengautentikasi pengguna yang terkait dengan proyek. Untuk mendapatkan token akses, kunjungi https://intlayer.org/dashboard/project dan buat akun.
+  - _Deskripsi_: clientId dan clientSecret memungkinkan paket intlayer untuk melakukan autentikasi dengan backend menggunakan autentikasi oAuth2. Token akses digunakan untuk mengautentikasi pengguna yang terkait dengan proyek. Untuk mendapatkan token akses, kunjungi https://app.intlayer.org/project dan buat akun.
   - _Contoh_: `true`
   - _Catatan_: Penting: clientId dan clientSecret harus dijaga kerahasiaannya dan tidak dibagikan secara publik. Pastikan untuk menyimpannya di lokasi yang aman, seperti variabel lingkungan.
 
@@ -607,7 +607,7 @@ Pengaturan yang mengontrol logger, termasuk prefix yang digunakan.
 
 Pengaturan yang mengontrol fitur AI dari Intlayer, termasuk provider, model, dan API key.
 
-Konfigurasi ini bersifat opsional jika Anda terdaftar di [Intlayer Dashboard](https://intlayer.org/dashboard/project) menggunakan access key. Intlayer akan secara otomatis mengelola solusi AI yang paling efisien dan hemat biaya untuk kebutuhan Anda. Menggunakan opsi default memastikan pemeliharaan jangka panjang yang lebih baik karena Intlayer terus diperbarui untuk menggunakan model yang paling relevan.
+Konfigurasi ini bersifat opsional jika Anda terdaftar di [Intlayer Dashboard](https://app.intlayer.org/project) menggunakan access key. Intlayer akan secara otomatis mengelola solusi AI yang paling efisien dan hemat biaya untuk kebutuhan Anda. Menggunakan opsi default memastikan pemeliharaan jangka panjang yang lebih baik karena Intlayer terus diperbarui untuk menggunakan model yang paling relevan.
 
 Jika Anda lebih memilih menggunakan API key sendiri atau model tertentu, Anda dapat mendefinisikan konfigurasi AI kustom Anda.
 Konfigurasi AI ini akan digunakan secara global di seluruh lingkungan Intlayer Anda. Perintah CLI akan menggunakan pengaturan ini sebagai default untuk perintah (misalnya `fill`), serta SDK, Visual Editor, dan CMS. Anda dapat menimpa nilai default ini untuk kasus penggunaan tertentu dengan menggunakan parameter perintah.

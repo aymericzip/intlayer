@@ -76,9 +76,9 @@ export const addNewAccessKey = async (
       username: user.name,
       applicationName: newAccessKey.name ?? newAccessKey.clientId,
       scopes: newAccessKey.grants,
-      tokenDetailsUrl: `${process.env.CLIENT_URL}/oauth2/token`,
-      securityLogUrl: `${process.env.CLIENT_URL}/security-log`,
-      supportUrl: `${process.env.CLIENT_URL}/support`,
+      tokenDetailsUrl: `${process.env.APP_URL}/oauth2/token`,
+      securityLogUrl: `${process.env.APP_URL}/security-log`,
+      supportUrl: `${process.env.APP_URL}/support`,
     });
 
     return reply.send(responseData);

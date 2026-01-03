@@ -245,14 +245,14 @@ Entegre editörle ilgili ayarları, sunucu portu ve aktiflik durumu dahil olmak 
 - **clientId**:
   - _Tür_: `string` | `undefined`
   - _Varsayılan_: `undefined`
-  - _Açıklama_: clientId ve clientSecret, intlayer paketlerinin backend ile oAuth2 kimlik doğrulaması kullanarak kimlik doğrulaması yapmasını sağlar. Bir erişim belirteci, projeyle ilişkili kullanıcıyı doğrulamak için kullanılır. Bir erişim belirteci almak için https://intlayer.org/dashboard/project adresine gidip bir hesap oluşturun.
+  - _Açıklama_: clientId ve clientSecret, intlayer paketlerinin backend ile oAuth2 kimlik doğrulaması kullanarak kimlik doğrulaması yapmasını sağlar. Bir erişim belirteci, projeyle ilişkili kullanıcıyı doğrulamak için kullanılır. Bir erişim belirteci almak için https://app.intlayer.org/project adresine gidip bir hesap oluşturun.
   - _Örnek_: `true`
   - _Not_: Önemli: clientId ve clientSecret gizli tutulmalı ve kamuya açık şekilde paylaşılmamalıdır. Lütfen bunları ortam değişkenleri gibi güvenli bir yerde sakladığınızdan emin olun.
 
 - **clientSecret**:
   - _Tür_: `string` | `undefined`
   - _Varsayılan_: `undefined`
-  - _Açıklama_: clientId ve clientSecret, intlayer paketlerinin backend ile oAuth2 kimlik doğrulaması kullanarak doğrulanmasını sağlar. Bir erişim belirteci, projeyle ilişkili kullanıcıyı doğrulamak için kullanılır. Bir erişim belirteci almak için https://intlayer.org/dashboard/project adresine gidip bir hesap oluşturun.
+  - _Açıklama_: clientId ve clientSecret, intlayer paketlerinin backend ile oAuth2 kimlik doğrulaması kullanarak doğrulanmasını sağlar. Bir erişim belirteci, projeyle ilişkili kullanıcıyı doğrulamak için kullanılır. Bir erişim belirteci almak için https://app.intlayer.org/project adresine gidip bir hesap oluşturun.
   - _Örnek_: `true`
   - _Not_: Önemli: clientId ve clientSecret gizli tutulmalı ve kamuya açık şekilde paylaşılmamalıdır. Lütfen bunları ortam değişkenleri gibi güvenli bir yerde sakladığınızdan emin olun.
 
@@ -468,7 +468,7 @@ Logger'ı kontrol eden ayarlar, kullanılacak önek dahil.
 
 Intlayer'ın AI özelliklerini kontrol eden ayarlar, sağlayıcı, model ve API anahtarı dahil.
 
-Bu yapılandırma, bir erişim anahtarı kullanarak [Intlayer Kontrol Paneli](https://intlayer.org/dashboard/project) üzerinden kayıtlıysanız isteğe bağlıdır. Intlayer, ihtiyaçlarınız için en verimli ve maliyet-etkin AI çözümünü otomatik olarak yönetecektir. Varsayılan seçenekleri kullanmak, Intlayer'ın en uygun modelleri kullanmak için sürekli güncellenmesi nedeniyle uzun vadeli bakım kolaylığı sağlar.
+Bu yapılandırma, bir erişim anahtarı kullanarak [Intlayer Kontrol Paneli](https://app.intlayer.org/project) üzerinden kayıtlıysanız isteğe bağlıdır. Intlayer, ihtiyaçlarınız için en verimli ve maliyet-etkin AI çözümünü otomatik olarak yönetecektir. Varsayılan seçenekleri kullanmak, Intlayer'ın en uygun modelleri kullanmak için sürekli güncellenmesi nedeniyle uzun vadeli bakım kolaylığı sağlar.
 
 Kendi API anahtarınızı veya belirli bir modeli kullanmayı tercih ediyorsanız, özel AI yapılandırmanızı tanımlayabilirsiniz.
 Bu AI yapılandırması, Intlayer ortamınız genelinde kullanılacaktır. CLI komutları, bu ayarları komutlar için varsayılan olarak kullanacaktır (örneğin `fill`), ayrıca SDK, Görsel Editör ve CMS de bu ayarları kullanır. Belirli kullanım durumları için bu varsayılan değerleri komut parametreleriyle geçersiz kılabilirsiniz.
