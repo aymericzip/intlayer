@@ -48,7 +48,7 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
         depth === 6 && 'ml-24'
       )}
     >
-      {headings.map((heading) => {
+      {headings.map((heading, index) => {
         const { id } = heading;
         const subChildren = childrenMap.get(heading);
         const hasChildren = subChildren && subChildren.length > 0;
@@ -56,7 +56,7 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
         if ((heading.innerText ?? '').length === 0) return <></>;
 
         return (
-          <li key={id} className={cn('list-none')}>
+          <li key={`${id}-${index}`} className={cn('list-none')}>
             <Link
               href={`#${id}`}
               label={`${linkLabel.value}: ${heading.innerText}`}

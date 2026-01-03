@@ -16,7 +16,7 @@ const DynamicAvailableTechnoSection = dynamic(
 );
 
 const DynamicLanguageSection = dynamic(
-  () => import('./LanguageSection').then((mod) => mod.LanguageSection),
+  () => import('@intlayer/design-system').then((mod) => mod.LanguageSection),
   {
     loading: () => <Loader />,
   }

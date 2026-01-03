@@ -38,19 +38,18 @@
     "build": "bun run --bun next build",
     "postbuild": "bun scripts/generate-sw.ts",
     "build:webpack": "bun run --bun next build --webpack",
-    "dev": "intlayer watch --with 'bun run --bun next dev'",
-    "dev:webpack": "bun run --bun next dev --webpack",
+    "dev": "intlayer watch --with 'bun run --bun next dev -p 3200'",
+    "dev:webpack": "bun run --bun next dev --webpack -p 3200",
     "editor": "intlayer-editor start --bun",
     "generate-pwa-assets": "pwa-asset-generator --preset minimal ../../packages/@intlayer/design-system/src/components/Logo/logo_circle_wite.svg ./public/assets/",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "serve": "npx intlayer serve --bun",
-    "start": "bun run --bun next start",
+    "start": "bun run --bun next start -p 3200",
     "start:editor": "npx intlayer-editor start --with 'bun run --bun next dev'",
     "test": "vitest run"
   },
   "dependencies": {
-    "@better-auth/sso": "1.4.10",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -60,15 +59,10 @@
     "@intlayer/editor-react": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "@monaco-editor/react": "4.7.0",
     "@next/third-parties": "16.1.1",
-    "@stripe/react-stripe-js": "5.3.0",
-    "@stripe/stripe-js": "8.4.0",
     "@tanstack/react-query": "5.90.12",
-    "@tanstack/react-table": "8.21.3",
     "babel-plugin-react-compiler": "1.0.0",
     "clsx": "2.1.1",
-    "cobe": "0.6.5",
     "defu": "6.1.4",
     "framer-motion": "12.23.26",
     "fuse.js": "7.1.0",
@@ -80,10 +74,6 @@
     "next-themes": "0.4.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-hook-form": "7.69.0",
-    "react-qr-code": "^2.0.18",
-    "react-spring": "10.0.3",
-    "react-virtuoso": "^4.17.0",
     "sharp": "0.34.5",
     "tailwind-merge": "3.4.0",
     "zod": "4.2.1"
@@ -101,7 +91,6 @@
     "pwa-asset-generator": "8.1.2",
     "raw-loader": "4.0.2",
     "tailwindcss": "4.1.18",
-    "tsdown": "0.18.2",
     "typescript": "5.9.3",
     "workbox-build": "^7.4.0"
   },
@@ -114,6 +103,8 @@
     }
   },
   "optionalDependencies": {
-    "intlayer-editor": "workspace:*"
+    "cobe": "0.6.5",
+    "intlayer-editor": "workspace:*",
+    "react-spring": "10.0.3"
   }
 }

@@ -50,6 +50,8 @@
     "docker:mcp:start": "docker run --rm -p 3000:3000 --name intlayer-mcp-app intlayer-mcp",
     "docker:website:build": "./scripts/docker-build-website.sh",
     "docker:website:start": "docker run --rm -p 3000:3000 --name intlayer-website-app intlayer-website",
+    "docker:app:build": "./scripts/docker-build-app.sh",
+    "docker:app:start": "docker run --rm -p 3000:3000 --name intlayer-app-app intlayer-app",
     "format": "biome format . --check",
     "format:fix": "biome format --write .",
     "format:package": "prettier --write '**/package.json'",
@@ -105,7 +107,7 @@
   },
   "packageManager": "bun@1.3.5",
   "engines": {
-    "bun": ">=1.3.2",
+    "bun": ">=1.3.5",
     "node": ">=16.0.0"
   },
   "bug": {

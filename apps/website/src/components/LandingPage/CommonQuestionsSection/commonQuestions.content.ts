@@ -1,5 +1,5 @@
 import { type Dictionary, t } from 'intlayer';
-import { PagesRoutes } from '@/Routes';
+import { AppRoutes, PagesRoutes } from '@/Routes';
 
 const docNavTitlesContent = {
   key: 'common-questions',
@@ -598,7 +598,7 @@ const docNavTitlesContent = {
             id: 'Klik di sini untuk membaca lebih lanjut tentang paket Intlayer',
             vi: 'Nhấp vào đây để đọc thêm về các gói Intlayer',
           }),
-          url: PagesRoutes.Pricing,
+          url: AppRoutes.Pricing,
         },
       },
       {

@@ -8,15 +8,8 @@ const getAllUrls = (urls: string[]) =>
 const robots = (): MetadataRoute.Robots => ({
   rules: {
     userAgent: '*',
-    allow: ['/', ...getAllUrls([PagesRoutes.Dashboard])],
-    disallow: getAllUrls([
-      PagesRoutes.NotFound,
-      PagesRoutes.Auth_ResetPassword,
-      PagesRoutes.Auth_ChangePassword,
-      `${PagesRoutes.Dashboard}/`,
-      PagesRoutes.Admin,
-      `${PagesRoutes.Admin}/`,
-    ]),
+    allow: ['/'],
+    disallow: getAllUrls([PagesRoutes.NotFound]),
   },
   host: process.env.NEXT_PUBLIC_URL,
   sitemap: `${process.env.NEXT_PUBLIC_URL}/sitemap.xml`,

@@ -2,25 +2,15 @@
 
 import { Link } from '@components/Link/Link';
 import {
-  Button,
   Container,
   TabSelector,
   TabSelectorColor,
 } from '@intlayer/design-system';
-import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
-import {
-  ArrowLeftToLine,
-  ArrowRightFromLine,
-  Building2,
-  FolderOpen,
-  MessageCircle,
-  Users,
-} from 'lucide-react';
+import { Building2, FolderOpen, MessageCircle, Users } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 type AdminTabBarProps = {
   className?: string;
@@ -33,28 +23,28 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
   const navigationItems = [
     {
       key: 'organizations',
-      href: PagesRoutes.Admin_Organizations,
+      href: AppRoutes.Admin_Organizations,
       icon: Building2,
       label: navigation.management.organizations.label.value,
       title: navigation.management.organizations.title,
     },
     {
       key: 'projects',
-      href: PagesRoutes.Admin_Projects,
+      href: AppRoutes.Admin_Projects,
       icon: FolderOpen,
       label: navigation.management.projects.label.value,
       title: navigation.management.projects.title,
     },
     {
       key: 'users',
-      href: PagesRoutes.Admin_Users,
+      href: AppRoutes.Admin_Users,
       icon: Users,
       label: navigation.management.users.label.value,
       title: navigation.management.users.title,
     },
     {
       key: 'discussions',
-      href: PagesRoutes.Admin_Discussions,
+      href: AppRoutes.Admin_Discussions,
       icon: MessageCircle,
       label: navigation.management.discussions.label.value,
       title: navigation.management.discussions.title,

@@ -28,6 +28,7 @@ export * from './Input';
 export * from './KeyboardScreenAdapter';
 export * from './KeyboardShortcut';
 export * from './Label';
+export * from './LanguageBackground';
 export * from './Link';
 export * from './Loader';
 export * from './LocaleSwitcherContentDropDown';

@@ -3,7 +3,6 @@
 import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
-import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
 import {
   Avatar,
   Button,
@@ -73,6 +72,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             key={getCleanChoice(url.value)}
             href={url.value}
             label={label.value}
+            isExternalLink={false}
             aria-current={
               selectedChoice === getCleanChoice(url.value) ? 'page' : undefined
             }
@@ -90,6 +90,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             id={id?.value}
             key={getCleanChoice(url.value)}
             href={url.value}
+            isExternalLink={false}
             aria-current={
               selectedChoice === getCleanChoice(url.value) ? 'page' : undefined
             }
@@ -185,9 +186,6 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
               className="mr-1 group-hover/github:fill-text-opposite"
             />
           </Link>
-          <div className="-m-1.5">
-            <ProfileDropDown />
-          </div>
         </>
       }
     />

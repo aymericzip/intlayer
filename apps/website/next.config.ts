@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
 import { withIntlayer } from 'next-intlayer/server';
 import { createSecureHeaders } from 'next-secure-headers';
+import { AppRoutes } from './src/Routes';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -276,6 +277,107 @@ const nextConfig: NextConfig = {
       {
         source: '/:locale/doc/environment/vite-and-react/tanstack-start',
         destination: '/:locale/doc/environment/tanstack-start',
+        permanent: true,
+      },
+      // AppRoutes redirects
+      {
+        source: '/pricing',
+        destination: AppRoutes.Pricing,
+        permanent: true,
+      },
+      {
+        source: '/:locale/pricing',
+        destination: AppRoutes.Pricing,
+        permanent: true,
+      },
+      {
+        source: '/onboarding',
+        destination: AppRoutes.Onboarding,
+        permanent: true,
+      },
+      {
+        source: '/:locale/onboarding',
+        destination: AppRoutes.Onboarding,
+        permanent: true,
+      },
+      {
+        source: '/dashboard',
+        destination: AppRoutes.Dashboard,
+        permanent: true,
+      },
+      {
+        source: '/:locale/dashboard',
+        destination: AppRoutes.Dashboard,
+        permanent: true,
+      },
+      {
+        source: '/dashboard/:path*',
+        destination: `${AppRoutes.Dashboard}/dashboard/:path*`,
+        permanent: true,
+      },
+      {
+        source: '/:locale/dashboard/:path*',
+        destination: `${AppRoutes.Dashboard}/dashboard/:path*`,
+        permanent: true,
+      },
+      {
+        source: '/admin',
+        destination: AppRoutes.Admin,
+        permanent: true,
+      },
+      {
+        source: '/:locale/admin',
+        destination: AppRoutes.Admin,
+        permanent: true,
+      },
+      {
+        source: '/admin/:path*',
+        destination: `${AppRoutes.Admin}/:path*`,
+        permanent: true,
+      },
+      {
+        source: '/:locale/admin/:path*',
+        destination: `${AppRoutes.Admin}/:path*`,
+        permanent: true,
+      },
+      {
+        source: '/auth/login',
+        destination: AppRoutes.Auth_SignIn,
+        permanent: true,
+      },
+      {
+        source: '/:locale/auth/login',
+        destination: AppRoutes.Auth_SignIn,
+        permanent: true,
+      },
+      {
+        source: '/auth/register',
+        destination: AppRoutes.Auth_SignUp,
+        permanent: true,
+      },
+      {
+        source: '/:locale/auth/register',
+        destination: AppRoutes.Auth_SignUp,
+        permanent: true,
+      },
+      {
+        source: '/auth/password/reset',
+        destination: AppRoutes.Auth_ResetPassword,
+        permanent: true,
+      },
+      {
+        source: '/:locale/auth/password/reset',
+        destination: AppRoutes.Auth_ResetPassword,
+        permanent: true,
+      },
+      {
+        source: '/auth/password/change',
+        destination: AppRoutes.Auth_ChangePassword,
+        permanent: true,
+      },
+      {
+        source: '/:locale/auth/password/change',
+        destination: AppRoutes.Auth_ChangePassword,
         permanent: true,
       },
     ];

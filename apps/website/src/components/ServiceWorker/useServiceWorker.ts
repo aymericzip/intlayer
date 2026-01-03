@@ -8,9 +8,9 @@ export const useServiceWorker = () => {
       return;
     }
 
-    // 1. IN DEVELOPMENT: Aggressively unregister any existing Service Workers
+    // Aggressively unregister any existing Service Workers
     // This solves the issue of caching being applied in dev.
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.ENABLE_SERVICE_WORKER !== 'true') {
       navigator.serviceWorker.getRegistrations().then((registrations) => {
         for (const registration of registrations) {
           console.log('🚧 Unregistering Dev Service Worker:', registration);
@@ -20,7 +20,7 @@ export const useServiceWorker = () => {
       return;
     }
 
-    // 2. IN PRODUCTION: Register the Service Worker
+    // Register the Service Worker
     navigator.serviceWorker
       .register('/sw.js')
       .then((registration) => {

@@ -4,17 +4,7 @@ export enum PagesRoutes {
   Playground = '/playground',
   NotFound = '/404',
   Changelog = '/changelog',
-  Dashboard = '/dashboard',
-
   Scanner = '/i18n-seo-scanner',
-
-  Dashboard_Editor = '/dashboard/editor',
-  Dashboard_Translate = '/dashboard/translate',
-  Dashboard_Dictionaries = '/dashboard/dictionary',
-  Dashboard_Projects = '/dashboard/projects',
-  Dashboard_Tags = '/dashboard/tags',
-  Dashboard_Organization = '/dashboard/organization',
-  Dashboard_Profile = '/dashboard/profile',
 
   Doc_Root = '/doc',
   Doc = '/doc/get-started',
@@ -57,29 +47,40 @@ export enum PagesRoutes {
   TermsOfService = '/terms-of-service',
 
   Contributors = '/contributors',
+}
 
-  Pricing = '/pricing',
+export enum AppRoutes {
+  Dashboard = 'https://app.intlayer.org',
+  Dashboard_Editor = 'https://app.intlayer.org/editor',
+  Dashboard_Translate = 'https://app.intlayer.org/translate',
+  Dashboard_Dictionaries = 'https://app.intlayer.org/dictionary',
+  Dashboard_Projects = 'https://app.intlayer.org/projects',
+  Dashboard_Tags = 'https://app.intlayer.org/tags',
+  Dashboard_Organization = 'https://app.intlayer.org/organization',
+  Dashboard_Profile = 'https://app.intlayer.org/profile',
 
-  Onboarding = '/onboarding',
-  Onboarding_Flow = '/onboarding/{{step}}/{{plan}}/{{period}}',
+  Pricing = 'https://app.intlayer.org/pricing',
 
-  Auth_SignIn = '/auth/login',
-  Auth_SignUp = '/auth/register',
-  Auth_TwoFactor = '/auth/2fa',
-  Auth_AskResetPassword = '/auth/password/ask-reset',
-  Auth_ResetPassword = '/auth/password/reset',
-  Auth_ChangePassword = '/auth/password/change',
+  Onboarding = 'https://app.intlayer.org/onboarding',
+  Onboarding_Flow = 'https://app.intlayer.org/onboarding/{{step}}/{{plan}}/{{period}}',
 
-  Admin = '/admin',
-  Admin_Users = '/admin/users',
-  Admin_Users_Id = '/admin/users/:id',
-  Admin_Organizations = '/admin/organizations',
-  Admin_Organizations_Id = '/admin/organizations/:id',
-  Admin_Projects = '/admin/projects',
-  Admin_Projects_Id = '/admin/projects/:id',
-  Admin_Dashboard = '/admin/dashboard',
-  Admin_Management = '/admin/management',
-  Admin_Discussions = '/admin/discussions',
+  Auth_SignIn = 'https://app.intlayer.org/auth/login',
+  Auth_SignUp = 'https://app.intlayer.org/auth/register',
+  Auth_TwoFactor = 'https://app.intlayer.org/auth/2fa',
+  Auth_AskResetPassword = 'https://app.intlayer.org/auth/password/ask-reset',
+  Auth_ResetPassword = 'https://app.intlayer.org/auth/password/reset',
+  Auth_ChangePassword = 'https://app.intlayer.org/auth/password/change',
+
+  Admin = 'https://app.intlayer.org/admin',
+  Admin_Users = 'https://app.intlayer.org/admin/users',
+  Admin_Users_Id = 'https://app.intlayer.org/admin/users/:id',
+  Admin_Organizations = 'https://app.intlayer.org/admin/organizations',
+  Admin_Organizations_Id = 'https://app.intlayer.org/admin/organizations/:id',
+  Admin_Projects = 'https://app.intlayer.org/admin/projects',
+  Admin_Projects_Id = 'https://app.intlayer.org/admin/projects/:id',
+  Admin_Dashboard = 'https://app.intlayer.org/admin/dashboard',
+  Admin_Management = 'https://app.intlayer.org/admin/management',
+  Admin_Discussions = 'https://app.intlayer.org/admin/discussions',
 }
 
 export enum ExternalLinks {

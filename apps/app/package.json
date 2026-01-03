@@ -1,0 +1,116 @@
+{
+  "name": "app",
+  "version": "7.5.9",
+  "private": true,
+  "description": "Intlayer Website include the landing page and the documentation of the intlayer project.",
+  "keywords": [
+    "intlayer",
+    "website",
+    "application",
+    "editor",
+    "typescript",
+    "javascript",
+    "json",
+    "file"
+  ],
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aymericzip"
+    }
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "bun run --bun next build",
+    "build:webpack": "bun run --bun next build --webpack",
+    "dev": "intlayer watch --with 'bun run --bun next dev'",
+    "dev:webpack": "bun run --bun next dev --webpack",
+    "editor": "intlayer-editor start --bun",
+    "generate-pwa-assets": "pwa-asset-generator --preset minimal ../../packages/@intlayer/design-system/src/components/Logo/logo_circle_wite.svg ./public/assets/",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
+    "serve": "npx intlayer serve --bun",
+    "start": "bun run --bun next start",
+    "start:editor": "npx intlayer-editor start --with 'bun run --bun next dev'",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@better-auth/sso": "1.4.10",
+    "@intlayer/api": "workspace:*",
+    "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
+    "@intlayer/design-system": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/editor-react": "workspace:*",
+    "@intlayer/types": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
+    "@monaco-editor/react": "4.7.0",
+    "@next/third-parties": "16.1.1",
+    "@stripe/react-stripe-js": "5.3.0",
+    "@stripe/stripe-js": "8.4.0",
+    "@tanstack/react-query": "5.90.12",
+    "@tanstack/react-table": "8.21.3",
+    "babel-plugin-react-compiler": "1.0.0",
+    "clsx": "2.1.1",
+    "cobe": "0.6.5",
+    "defu": "6.1.4",
+    "framer-motion": "12.23.26",
+    "fuse.js": "7.1.0",
+    "intlayer": "workspace:*",
+    "lucide-react": "0.562.0",
+    "next": "16.1.1",
+    "next-intlayer": "workspace:*",
+    "next-secure-headers": "2.2.0",
+    "next-themes": "0.4.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-hook-form": "7.69.0",
+    "react-qr-code": "^2.0.18",
+    "react-spring": "10.0.3",
+    "react-virtuoso": "^4.17.0",
+    "sharp": "0.34.5",
+    "tailwind-merge": "3.4.0",
+    "zod": "4.2.1"
+  },
+  "devDependencies": {
+    "@intlayer/swc": "workspace:*",
+    "@tailwindcss/postcss": "4.1.18",
+    "@types/node": "25.0.3",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsdown-config": "workspace:*",
+    "postcss": "8.5.6",
+    "pwa-asset-generator": "8.1.2",
+    "raw-loader": "4.0.2",
+    "tailwindcss": "4.1.18",
+    "typescript": "5.9.3",
+    "workbox-build": "^7.4.0"
+  },
+  "peerDependencies": {
+    "@intlayer/backend": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@intlayer/backend": {
+      "optional": true
+    }
+  },
+  "optionalDependencies": {
+    "intlayer-editor": "workspace:*"
+  }
+}
