@@ -60,6 +60,8 @@ const startServer = async () => {
     path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
   });
 
+  console.log(process.env.GITHUB_CLIENT_ID);
+
   // Security Headers
   await app.register(fastifyHelmet, {
     contentSecurityPolicy: false,
