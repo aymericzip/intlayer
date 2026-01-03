@@ -45,6 +45,7 @@ COPY \
     --exclude=docs/legal \
     --exclude=examples \
     --exclude=apps/website \
+    --exclude=apps/app \
     --exclude=**/*.stories.* \
     . .
 
