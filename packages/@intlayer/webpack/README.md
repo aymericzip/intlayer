@@ -5,8 +5,11 @@
 </p>
 
 <h1 align="center">
-  <strong> Intlayer : an Open-source, per-component i18n toolkit with AI-powered translation & CMS.</strong>
+  <strong>Per-component i18n</strong>
 </h1>
+<h2 align="center">
+  <strong>AI-powered translation. Visual Editor. Multilingual CMS.</strong>
+</h2>
 
 <br />
 
