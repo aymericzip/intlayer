@@ -1,7 +1,6 @@
 'use client';
 
 import { Container, Flag } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
 import { getHTMLTextDir, getLocaleName, type Locale, Locales } from 'intlayer';
 import {
   type FC,
@@ -10,6 +9,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { cn } from '../../utils/cn';
 
 const shuffleArray = (array: string[], limit?: number) => {
   const shuffled = [...array];
