@@ -12,7 +12,10 @@ const robots = (): MetadataRoute.Robots => ({
     disallow: getAllUrls([PagesRoutes.NotFound]),
   },
   host: process.env.NEXT_PUBLIC_URL,
-  sitemap: `${process.env.NEXT_PUBLIC_URL}/sitemap.xml`,
+  sitemap: [
+    `${process.env.NEXT_PUBLIC_URL}/sitemap.xml`,
+    `${process.env.NEXT_PUBLIC_CMS_URL}/sitemap.xml`,
+  ],
 });
 
 export default robots;
