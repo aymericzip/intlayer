@@ -1,2 +1,10 @@
-# Force LF (Unix-style) line endings for all text files
-* text eol=lf
+# Default to auto-detecting text vs binary (safer than "* text")
+* text=auto eol=lf
+
+# Explicitly treat image files as binary (do NOT touch line endings)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
