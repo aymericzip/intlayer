@@ -40,7 +40,7 @@ export const ProductsSection: FC = () => {
       ref={sectionRef}
       className="flex min-h-[75vh] items-center justify-center"
     >
-      <Carousel>
+      <Carousel initialIndex={1}>
         <Carousel.Item>
           <Container
             roundedSize="3xl"
