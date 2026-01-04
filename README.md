@@ -280,6 +280,8 @@ You can also follow us on :
 
 For more detailed guidelines on contributing to this project, please refer to the [`CONTRIBUTING.md`](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md) file. It contains essential information on our development process, commit message conventions, and release procedures. Your contributions are valuable to us, and we appreciate your efforts in making this project better!
 
+Contribute on [GitHub](https://github.com/aymericzip/intlayer), [GitLab](https://gitlab.com/ay.pineau/intlayer), or [Bitbucket](https://bitbucket.org/intlayer/intlayer/).
+
 ### Thank You for the Support
 
 If you like Intlayer, give us a ⭐ on GitHub. It helps others discover the project! [See why GitHub Stars matter](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md#why-github-stars-matter-).
