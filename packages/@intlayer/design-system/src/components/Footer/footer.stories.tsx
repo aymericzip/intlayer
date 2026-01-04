@@ -417,7 +417,7 @@ export const AccessibilityTest: Story = {
     });
 
     // Test copyright text
-    expect(canvas.getByText('© 2025 Intlayer, Inc.')).toBeInTheDocument();
+    expect(canvas.getByText('© 2026 Intlayer, Inc.')).toBeInTheDocument();
 
     // Test keyboard navigation on first link
     if (links.length > 0) {
