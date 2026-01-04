@@ -1,5 +1,7 @@
 'use client';
 
+import { useHorizontalSwipe } from '@hooks/useHorizontalSwipe';
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
   Children,
@@ -10,8 +12,6 @@ import {
   type ReactNode,
   useState,
 } from 'react';
-import { useHorizontalSwipe } from '../../hooks';
-import { cn } from '../../utils/cn';
 import { TabSelector, TabSelectorColor } from '../TabSelector';
 import { useTabContext } from './TabContext';
 

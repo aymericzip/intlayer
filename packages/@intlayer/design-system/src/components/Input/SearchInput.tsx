@@ -1,5 +1,5 @@
+import { cn } from '@utils/cn';
 import { Search } from 'lucide-react';
-import { cn } from '../../utils/cn';
 import { Input, type InputProps } from './Input';
 
 export const SearchInput = ({ className, ...props }: InputProps) => (

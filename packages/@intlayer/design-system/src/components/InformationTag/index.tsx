@@ -1,5 +1,5 @@
+import { cn } from '@utils/cn';
 import type { DetailedHTMLProps, FC } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Props for the InformationTag component.

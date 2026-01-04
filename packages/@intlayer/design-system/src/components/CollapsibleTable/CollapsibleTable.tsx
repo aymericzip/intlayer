@@ -1,9 +1,9 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ChevronRight } from 'lucide-react';
 import { type FC, type HTMLAttributes, type ReactNode, useState } from 'react';
-import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 // Container variants using CVA

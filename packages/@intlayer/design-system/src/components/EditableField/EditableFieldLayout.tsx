@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { Check, Pencil, X } from 'lucide-react';
 import {
   type FC,
@@ -10,7 +11,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from '../../utils/cn';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 
 type EditableFieldLayoutProps = {

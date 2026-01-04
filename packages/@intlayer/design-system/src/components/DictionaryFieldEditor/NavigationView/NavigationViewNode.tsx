@@ -1,3 +1,10 @@
+import { Accordion } from '@components/Accordion';
+import {
+  Button,
+  ButtonColor,
+  ButtonTextAlign,
+  ButtonVariant,
+} from '@components/Button';
 import configuration from '@intlayer/config/built';
 import { camelCaseToSentence } from '@intlayer/config/client';
 import {
@@ -20,13 +27,6 @@ import type { ContentNode, Dictionary } from 'intlayer';
 import { ChevronRight, Plus } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Accordion } from '../../Accordion';
-import {
-  Button,
-  ButtonColor,
-  ButtonTextAlign,
-  ButtonVariant,
-} from '../../Button';
 import { getIsEditableSection } from '../getIsEditableSection';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];

@@ -1,6 +1,6 @@
+import { InformationTag } from '@components/InformationTag';
 import { clsx } from 'clsx';
 import type { FC, ReactNode } from 'react';
-import { InformationTag } from '../../InformationTag';
 import { FormLabel } from '../FormLabel';
 import { RequiredStar } from './RequiredStar';
 

@@ -1,6 +1,6 @@
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { HTMLAttributes } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Badge color variants enum

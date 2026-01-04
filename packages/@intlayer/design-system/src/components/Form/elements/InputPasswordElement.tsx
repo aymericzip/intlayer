@@ -1,5 +1,5 @@
+import { InputPassword } from '@components/Input/InputPassword';
 import type { ComponentProps, FC } from 'react';
-import { InputPassword } from '../../Input';
 import { FormElement, type FormElementProps } from './FormElement';
 
 type InputPasswordElementProps = Omit<

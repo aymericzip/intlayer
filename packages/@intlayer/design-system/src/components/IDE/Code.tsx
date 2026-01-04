@@ -1,6 +1,6 @@
+import { cn } from '@utils/cn';
 import type { FC, HTMLAttributes } from 'react';
 import type { BundledLanguage } from 'shiki/bundle/web';
-import { cn } from '../../utils/cn';
 import { Container } from '../Container';
 import { ExpandCollapse } from '../ExpandCollapse';
 import { CodeBlock } from './CodeBlockClient';

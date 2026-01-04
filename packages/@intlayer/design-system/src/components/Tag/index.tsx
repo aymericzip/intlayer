@@ -99,6 +99,7 @@ export enum TagRoundedSize {
  * ```
  */
 export enum TagColor {
+  PRIMARY = 'primary',
   SUCCESS = 'success',
   ERROR = 'error',
   WARNING = 'warning',
@@ -201,6 +202,7 @@ const containerVariants = cva('w-fit backdrop-blur', {
       [`${TagRoundedSize.FULL}`]: 'rounded-full',
     },
     color: {
+      [`${TagColor.PRIMARY}`]: 'border-primary bg-primary/10 text-primary',
       [`${TagColor.SUCCESS}`]: 'border-success bg-success/10 text-success',
       [`${TagColor.ERROR}`]: 'border-error bg-error/10 text-error',
       [`${TagColor.WARNING}`]: 'border-warning bg-warning/10 text-warning',

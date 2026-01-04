@@ -1,9 +1,9 @@
 'use client';
 
+import { useAutocomplete } from '@hooks/reactQuery';
 import type { AutocompleteResponse } from '@intlayer/backend';
 import { useConfiguration } from '@intlayer/editor-react';
 import { type FC, useEffect, useRef, useState } from 'react';
-import { useAutocomplete } from '../../hooks/reactQuery';
 import {
   AutoSizedTextArea,
   type AutoSizedTextAreaProps,

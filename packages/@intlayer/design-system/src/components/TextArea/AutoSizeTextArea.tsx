@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import {
   type ChangeEventHandler,
   type FC,
@@ -7,7 +8,6 @@ import {
   useImperativeHandle,
   useRef,
 } from 'react';
-import { cn } from '../../utils/cn';
 import { TextArea, type TextAreaProps } from './TextArea';
 
 /**

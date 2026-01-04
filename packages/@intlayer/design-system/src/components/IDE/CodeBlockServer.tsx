@@ -6,6 +6,7 @@ import {
   transformerNotationHighlight,
   transformerNotationWordHighlight,
 } from '@shikijs/transformers';
+import { cn } from '@utils/cn';
 import { type FC, type HTMLAttributes, Suspense } from 'react';
 import {
   type BundledLanguage,
@@ -13,7 +14,6 @@ import {
   type CodeToHastOptions,
   codeToHtml,
 } from 'shiki/bundle/web';
-import { cn } from '../../utils/cn';
 
 export const CodeBlockShiki = (async ({
   children,

@@ -1,5 +1,8 @@
 'use client';
 
+import { Container } from '@components/Container';
+import { Input } from '@components/Input';
+import { cn } from '@utils/cn';
 import {
   type FC,
   type HTMLAttributes,
@@ -8,9 +11,6 @@ import {
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { cn } from '../../utils/cn';
-import { Container } from '../Container';
-import { Input } from '../Input';
 
 // ANSI color code mappings to CSS colors
 const ANSI_COLORS: Record<string, { light: string; dark: string }> = {

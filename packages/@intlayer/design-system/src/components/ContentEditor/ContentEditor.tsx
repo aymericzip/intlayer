@@ -1,8 +1,8 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { Check, X } from 'lucide-react';
 import { type ChangeEventHandler, type FC, useState } from 'react';
-import { cn } from '../../utils/cn';
 import { InputVariant } from '../Input';
 import {
   AutoSizedTextArea,

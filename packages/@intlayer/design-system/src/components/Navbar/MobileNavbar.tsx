@@ -1,9 +1,10 @@
 'use client';
 
+import { useScrollBlockage } from '@hooks/useScrollBlockage';
+import { useScrollDetection } from '@hooks/useScrollDetection';
+import { cn } from '@utils/cn';
 import { m, type Variants } from 'framer-motion';
 import { type ReactElement, type ReactNode, useRef, useState } from 'react';
-import { useScrollBlockage, useScrollDetection } from '../../hooks';
-import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 import type { TabSelectorItemProps } from '../TabSelector';
 import { Burger } from './Burger';

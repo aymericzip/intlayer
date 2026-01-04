@@ -1,6 +1,34 @@
 'use client';
 
 import {
+  Button,
+  ButtonColor,
+  ButtonSize,
+  ButtonTextAlign,
+  ButtonVariant,
+} from '@components/Button';
+import { Container } from '@components/Container';
+import {
+  ContentEditorInput as ContentEditorInputBase,
+  type ContentEditorInputProps as ContentEditorInputPropsBase,
+} from '@components/ContentEditor/ContentEditorInput';
+import {
+  ContentEditorTextArea as ContentEditorTextAreaBase,
+  type ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
+} from '@components/ContentEditor/ContentEditorTextArea';
+import { InputVariant } from '@components/Input';
+import { Label } from '@components/Label';
+import { useLocaleSwitcherContent } from '@components/LocaleSwitcherContentDropDown';
+import { MarkdownRenderer } from '@components/MarkDownRender';
+import {
+  SwitchSelector,
+  type SwitchSelectorChoices,
+  SwitchSelectorColor,
+  type SwitchSelectorProps,
+  SwitchSelectorSize,
+} from '@components/SwitchSelector';
+import { useAuditContentDeclarationField } from '@hooks/reactQuery';
+import {
   type ConditionContent,
   type EnumerationContent,
   type FileContent,
@@ -21,38 +49,10 @@ import {
   type LocalesValues,
   NodeType,
 } from '@intlayer/types';
+import { renameKey } from '@utils/object';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
 import { type FC, Fragment, type ReactNode, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { useAuditContentDeclarationField } from '../../../hooks';
-import { renameKey } from '../../../utils/object';
-import {
-  Button,
-  ButtonColor,
-  ButtonSize,
-  ButtonTextAlign,
-  ButtonVariant,
-} from '../../Button';
-import { Container } from '../../Container';
-import {
-  ContentEditorInput as ContentEditorInputBase,
-  type ContentEditorInputProps as ContentEditorInputPropsBase,
-} from '../../ContentEditor/ContentEditorInput';
-import {
-  ContentEditorTextArea as ContentEditorTextAreaBase,
-  type ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
-} from '../../ContentEditor/ContentEditorTextArea';
-import { InputVariant } from '../../Input';
-import { Label } from '../../Label';
-import { useLocaleSwitcherContent } from '../../LocaleSwitcherContentDropDown';
-import { MarkdownRenderer } from '../../MarkDownRender';
-import {
-  SwitchSelector,
-  type SwitchSelectorChoices,
-  SwitchSelectorColor,
-  type SwitchSelectorProps,
-  SwitchSelectorSize,
-} from '../../SwitchSelector';
 import { EnumKeyInput } from '../EnumKeyInput';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];

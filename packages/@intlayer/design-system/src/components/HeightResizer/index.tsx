@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import type React from 'react';
 import {
   type DetailedHTMLProps,
@@ -11,7 +12,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Props for the HeightResizer component
@@ -205,7 +205,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
     <div
       className={cn(
         'relative h-full max-h-[80%] w-full cursor-ns-resize border-neutral-200 border-t-[2px] transition dark:border-neutral-950',
-        'before:-translate-y-1/2 before:-translate-x-1/2 before:absolute before:top-0 before:left-1/2 before:z-10 before:block before:h-2 before:w-10 before:transform before:cursor-ns-resize before:rounded-full before:bg-neutral-200 before:transition before:content-[""] dark:before:bg-neutral-950',
+        'before:absolute before:top-0 before:left-1/2 before:z-10 before:block before:h-2 before:w-10 before:-translate-x-1/2 before:-translate-y-1/2 before:transform before:cursor-ns-resize before:rounded-full before:bg-neutral-200 before:transition before:content-[""] dark:before:bg-neutral-950',
         'active:border-neutral-400 active:before:bg-neutral-400 dark:active:border-neutral-600 active:dark:before:bg-neutral-600',
         className
       )}

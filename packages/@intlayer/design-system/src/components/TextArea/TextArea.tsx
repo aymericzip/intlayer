@@ -1,6 +1,6 @@
+import { cn } from '@utils/cn';
 import type { VariantProps } from 'class-variance-authority';
 import type { DetailedHTMLProps, FC, TextareaHTMLAttributes } from 'react';
-import { cn } from '../../utils/cn';
 import { type InputVariant, inputVariants } from '../Input';
 
 /**

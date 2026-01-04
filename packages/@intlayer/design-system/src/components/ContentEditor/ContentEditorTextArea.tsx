@@ -1,5 +1,6 @@
 'use client';
 
+import { useUser } from '@hooks/useUser';
 import { Check, X } from 'lucide-react';
 import {
   type ChangeEventHandler,
@@ -8,7 +9,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { useUser } from '../../hooks/useUser';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 import { AutoCompleteTextarea, type AutoSizedTextAreaProps } from '../TextArea';
 

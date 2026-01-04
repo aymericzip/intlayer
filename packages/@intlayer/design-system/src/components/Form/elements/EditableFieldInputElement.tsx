@@ -1,5 +1,5 @@
+import { EditableFieldInput } from '@components/EditableField/EditableFieldInput';
 import type { ComponentProps, ReactNode } from 'react';
-import { EditableFieldInput } from '../../EditableField/EditableFieldInput';
 import { FormElement, type FormElementProps } from './FormElement';
 
 type EditableFieldInputElementProps = Omit<

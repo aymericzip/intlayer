@@ -1,5 +1,6 @@
 'use client';
 
+import { usePersistedStore } from '@hooks/usePersistedStore';
 import type { LocalesValues } from 'intlayer';
 import {
   createContext,
@@ -10,7 +11,6 @@ import {
   useContext,
 } from 'react';
 import { useLocale } from 'react-intlayer';
-import { usePersistedStore } from '../../hooks';
 
 type LocaleSwitcherContentContextProps = {
   availableLocales: LocalesValues[];

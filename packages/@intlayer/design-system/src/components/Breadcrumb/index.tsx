@@ -2,11 +2,11 @@
 
 import { getIntlayer } from '@intlayer/core';
 import type { LocalesValues } from '@intlayer/types';
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ChevronRightIcon } from 'lucide-react';
 import { type FC, Fragment, type HTMLAttributes, type ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { cn } from '../../utils/cn';
 import { Button, type ButtonProps, ButtonVariant } from '../Button';
 import { Link, LinkColor } from '../Link';
 

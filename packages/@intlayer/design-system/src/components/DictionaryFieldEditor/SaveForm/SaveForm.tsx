@@ -1,11 +1,21 @@
 'use client';
 
+import { ButtonColor, ButtonVariant } from '@components/Button';
+import { Form } from '@components/Form';
+import { Modal, ModalSize } from '@components/Modal';
+import {
+  useAuth,
+  useDeleteDictionary,
+  usePushDictionaries,
+  useWriteDictionary,
+} from '@hooks/index';
 import type { Dictionary as DistantDictionary } from '@intlayer/backend';
 import {
   useDictionariesRecordActions,
   useEditedContent,
 } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types';
+import { cn } from '@utils/cn';
 import {
   ArrowUpFromLine,
   Download,
@@ -20,16 +30,6 @@ import {
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Modal, ModalSize } from '../../../components/Modal';
-import {
-  useAuth,
-  useDeleteDictionary,
-  usePushDictionaries,
-  useWriteDictionary,
-} from '../../../hooks';
-import { cn } from '../../../utils/cn';
-import { ButtonColor, ButtonVariant } from '../../Button';
-import { Form } from '../../Form';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;

@@ -1,5 +1,5 @@
+import { cn } from '@utils/cn';
 import type { FC, HTMLAttributes, JSX, MouseEvent } from 'react';
-import { cn } from '../../utils/cn';
 
 const styledHeading = `relative scroll-mb-8 scroll-mt-[30vh] scroll-p-8`;
 const styledAfter = `after:content-['#'] after:scale-75 after:px-6 after:text-neutral after:absolute after:top-0 after:h-full after:-left-12 after:absolute after:to-neutral after:md:opacity-0 after:transition-opacity hover:after:opacity-80 after:duration-200 after:delay-100`;

@@ -1,5 +1,5 @@
+import { cn } from '@utils/cn';
 import type { FC, HTMLAttributes, ReactNode } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Props for the MaxHeightSmoother component

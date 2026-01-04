@@ -1,21 +1,21 @@
 'use client';
 
+import { ButtonColor, ButtonSize, ButtonVariant } from '@components/Button';
+import { Container } from '@components/Container';
+import { Form, useForm } from '@components/Form';
+import { Loader } from '@components/Loader';
+import { MultiSelect } from '@components/Select';
+import {
+  useAuditContentDeclarationMetadata,
+  useGetProjects,
+  useGetTags,
+} from '@hooks/reactQuery';
+import { useSession } from '@hooks/useAuth';
 import { useEditedContent } from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
 import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import {
-  useAuditContentDeclarationMetadata,
-  useGetProjects,
-  useGetTags,
-} from '../../../hooks';
-import { useSession } from '../../../hooks/useAuth';
-import { ButtonColor, ButtonSize, ButtonVariant } from '../../Button';
-import { Container } from '../../Container';
-import { Form, useForm } from '../../Form';
-import { Loader } from '../../Loader';
-import { MultiSelect } from '../../Select';
 import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
 
 type DictionaryDetailsProps = {

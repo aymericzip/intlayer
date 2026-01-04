@@ -1,5 +1,14 @@
 'use client';
 
+import {
+  Button,
+  ButtonColor,
+  ButtonSize,
+  ButtonVariant,
+} from '@components/Button';
+import { Container } from '@components/Container';
+import { EditableFieldInput } from '@components/EditableField';
+import { InputVariant } from '@components/Input';
 import { camelCaseToSentence } from '@intlayer/config/client';
 import {
   getDefaultNode,
@@ -22,10 +31,6 @@ import type { ContentNode } from 'intlayer';
 import { Plus, Trash } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../../Button';
-import { Container } from '../../Container';
-import { EditableFieldInput } from '../../EditableField';
-import { InputVariant } from '../../Input';
 import { NodeTypeSelector } from '../NodeTypeSelector';
 
 type NodeTypeViewProps = {

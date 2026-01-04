@@ -1,5 +1,5 @@
+import { SearchInput } from '@components/Input';
 import type { ComponentProps, FC } from 'react';
-import { SearchInput } from '../../../components/Input';
 import { FormElement, type FormElementProps } from './FormElement';
 
 type SearchInputElementProps = Omit<

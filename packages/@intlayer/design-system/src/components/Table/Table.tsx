@@ -1,8 +1,8 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { MoveDiagonal } from 'lucide-react';
 import { type FC, type HTMLAttributes, useState } from 'react';
-import { cn } from '../../utils/cn';
 import { Button } from '../Button';
 import { ExpandCollapse } from '../ExpandCollapse';
 import { Modal, ModalSize } from '../Modal';

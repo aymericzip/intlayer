@@ -1,0 +1,68 @@
+import { type Dictionary, insert, t } from 'intlayer';
+
+const carouselContent = {
+  key: 'carousel',
+  content: {
+    goToSlide: insert(
+      t({
+        en: 'Go to slide {{index}}',
+        'en-GB': 'Go to slide {{index}}',
+        ru: 'Перейти к слайду {{index}}',
+        ja: '{{index}}枚目のスライドへ',
+        fr: 'Aller à la diapositive {{index}}',
+        ko: '{{index}}번 슬라이드로 이동',
+        zh: '跳转到第{{index}}张幻灯片',
+        es: 'Ir a la diapositiva {{index}}',
+        de: 'Zu Folie {{index}} wechseln',
+        ar: 'انتقل إلى الشريحة رقم {{index}}',
+        it: 'Vai alla diapositiva {{index}}',
+        pt: 'Ir para o slide {{index}}',
+        hi: '{{index}} स्लाइड पर जाएँ',
+        tr: '{{index}}. slayta git',
+        pl: 'Idź do slajdu {{index}}',
+        id: 'Ke slide {{index}}',
+        vi: 'Đi tới slide {{index}}',
+      })
+    ),
+    previousSlide: t({
+      en: 'Previous slide',
+      'en-GB': 'Previous slide',
+      ru: 'Предыдущий слайд',
+      ja: '前のスライド',
+      fr: 'Diapositive précédente',
+      ko: '이전 슬라이드',
+      zh: '上一张幻灯片',
+      es: 'Diapositiva anterior',
+      de: 'Vorherige Folie',
+      ar: 'الشريحة السابقة',
+      it: 'Diapositiva precedente',
+      pt: 'Diapositiva anterior',
+      hi: 'पिछली स्लाइड',
+      tr: 'Önceki slayt',
+      pl: 'Poprzedni slajd',
+      id: 'Slide sebelumnya',
+      vi: 'Slide trước',
+    }),
+    nextSlide: t({
+      en: 'Next slide',
+      'en-GB': 'Next slide',
+      ru: 'Следующий слайд',
+      ja: '次のスライド',
+      fr: 'Diapositive suivante',
+      ko: '다음 슬라이드',
+      zh: '下一张幻灯片',
+      es: 'Diapositiva siguiente',
+      de: 'Nächste Folie',
+      ar: 'الشريحة التالية',
+      it: 'Diapositiva successiva',
+      pt: 'Diapositiva seguinte',
+      hi: 'अगली स्लाइड',
+      tr: 'Sonraki slayt',
+      pl: 'Następny slajd',
+      id: 'Slide berikutnya',
+      vi: 'Slide tiếp theo',
+    }),
+  },
+} satisfies Dictionary;
+
+export default carouselContent;

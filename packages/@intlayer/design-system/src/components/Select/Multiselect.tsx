@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { Check, X as RemoveIcon } from 'lucide-react';
 import {
   type ComponentProps,
@@ -20,7 +21,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from '../../utils/cn';
 import { Badge, BadgeColor } from '../Badge';
 import { Command, CommandRoot } from '../Command';
 

@@ -1,12 +1,12 @@
 'use client';
 
+import { ButtonColor } from '@components/Button';
+import { Form, useForm } from '@components/Form';
+import { MultiSelect } from '@components/Select';
+import { useAddDictionary, useGetProjects } from '@hooks/reactQuery';
+import { useSession } from '@hooks/useAuth';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useAddDictionary, useGetProjects } from '../../../hooks/reactQuery';
-import { useSession } from '../../../hooks/useAuth';
-import { ButtonColor } from '../../Button';
-import { Form, useForm } from '../../Form';
-import { MultiSelect } from '../../Select';
 import {
   type DictionaryFormData,
   useDictionarySchema,

@@ -1,5 +1,7 @@
 'use client';
 
+import { useDevice } from '@hooks/useDevice';
+import { useScrollBlockage } from '@hooks/useScrollBlockage';
 import { ChevronLeft, X } from 'lucide-react';
 import {
   type FC,
@@ -10,8 +12,6 @@ import {
   useRef,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useDevice } from '../../hooks/useDevice';
-import { useScrollBlockage } from '../../hooks/useScrollBlockage';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 import { Container } from '../Container';
 import { KeyboardShortcut } from '../KeyboardShortcut';

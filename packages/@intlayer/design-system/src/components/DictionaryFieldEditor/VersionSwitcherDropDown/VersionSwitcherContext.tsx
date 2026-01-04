@@ -1,5 +1,6 @@
 'use client';
 
+import { usePersistedStore } from '@hooks/usePersistedStore';
 import {
   createContext,
   type Dispatch,
@@ -8,7 +9,6 @@ import {
   type SetStateAction,
   useContext,
 } from 'react';
-import { usePersistedStore } from '../../../hooks';
 
 type VersionSwitcherContextProps = {
   versions: string[];

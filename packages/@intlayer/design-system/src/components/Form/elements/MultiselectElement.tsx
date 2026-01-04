@@ -1,8 +1,8 @@
 'use client';
 
+import { MultiSelect } from '@components/Select/Multiselect';
 import type { ComponentProps, ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { MultiSelect } from '../../Select/Multiselect';
 import { Form } from '../Form';
 import { useFormField } from '../FormField';
 import { FormItemLayout } from '../layout/FormItemLayout';

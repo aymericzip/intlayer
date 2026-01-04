@@ -1,5 +1,6 @@
 import { getLocalizedUrl } from '@intlayer/core';
 import type { LocalesValues } from '@intlayer/types';
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ExternalLink, MoveRight } from 'lucide-react';
 import {
@@ -9,7 +10,6 @@ import {
   isValidElement,
   type ReactNode,
 } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Visual style variants for Link component

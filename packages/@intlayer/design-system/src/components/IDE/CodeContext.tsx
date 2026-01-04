@@ -1,12 +1,12 @@
 'use client';
 
+import { usePersistedStore } from '@hooks/usePersistedStore';
 import {
   createContext,
   type FC,
   type PropsWithChildren,
   useContext,
 } from 'react';
-import { usePersistedStore } from '../../hooks';
 
 export type PackageManager = 'npm' | 'pnpm' | 'yarn' | 'bun';
 export type CodeFormat = 'typescript' | 'commonjs' | 'esm';

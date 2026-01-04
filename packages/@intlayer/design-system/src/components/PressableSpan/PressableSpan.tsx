@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import {
   type FC,
   type HTMLAttributes,
@@ -9,7 +10,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from '../../utils/cn';
 
 const DEFAULT_PRESS_DETECT_DURATION = 400;
 

@@ -1,5 +1,5 @@
+import { cn } from '@utils/cn';
 import type { FC, HTMLAttributes } from 'react';
-import { cn } from '../../utils/cn';
 import { Spinner } from './spinner';
 
 /**

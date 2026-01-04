@@ -1,3 +1,4 @@
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type {
   DetailedHTMLProps,
@@ -5,7 +6,6 @@ import type {
   InputHTMLAttributes,
   ReactNode,
 } from 'react';
-import { cn } from '../../utils/cn';
 
 export const checkboxVariants = cva(
   [

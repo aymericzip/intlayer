@@ -1,17 +1,16 @@
 'use client';
 
+import { useItemSelector } from '@hooks/useItemSelector';
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import {
   type ComponentProps,
   type FC,
   type HTMLAttributes,
-  type RefObject,
   useEffect,
   useRef,
 } from 'react';
-import { useItemSelector } from '../../hooks';
-import { cn } from '../../utils/cn';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 
 export const paginationVariants = cva(

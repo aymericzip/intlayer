@@ -4,6 +4,7 @@ export * from './Badge';
 export * from './Breadcrumb';
 export * from './Browser';
 export * from './Button';
+export * from './Carousel';
 export * from './ClickOutsideDiv';
 export * from './CollapsibleTable';
 export * from './Command';

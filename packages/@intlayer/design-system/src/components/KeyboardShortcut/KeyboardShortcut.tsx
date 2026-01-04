@@ -1,8 +1,8 @@
 'use client';
 
+import { useDevice } from '@hooks/useDevice';
+import { cn } from '@utils/cn';
 import { type FC, useEffect, useState } from 'react';
-import { useDevice } from '../../hooks/useDevice';
-import { cn } from '../../utils/cn';
 
 /**
  * Enum for available keyboard keys
@@ -69,6 +69,8 @@ export type KeyboardShortcutProps = {
   onTriggered?: () => void;
   /** Whether to display the shortcut visually (default: true) */
   display?: boolean;
+  /** Whether to disable the shortcut trigger (default: false) */
+  disabled?: boolean;
   /** Additional CSS classes */
   className?: string;
   /** Size of the keyboard shortcut display */
@@ -207,6 +209,7 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
   shortcut,
   onTriggered,
   display = true,
+  disabled = false,
   className,
   size = 'md',
 }) => {
@@ -242,7 +245,7 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
       setPressedKeys(normalizedEventKeys);
 
       // 2. Trigger callback if shortcut matches
-      if (onTriggered && matchesShortcut(event, keys)) {
+      if (!disabled && onTriggered && matchesShortcut(event, keys)) {
         // FIX: Check if the required shortcut is "Escape"
         const isEscapeShortcut = keys.includes('Escape');
 
@@ -269,7 +272,7 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
       window.removeEventListener('keyup', handleKeyUp);
       window.removeEventListener('blur', handleKeyUp);
     };
-  }, [keys, onTriggered, isMac]);
+  }, [keys, onTriggered, isMac, disabled]);
   if (!display) return null;
 
   /**

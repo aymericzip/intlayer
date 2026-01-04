@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import React, {
   type FC,
   type PropsWithChildren,
@@ -8,7 +9,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Props for the WithResizer component.
@@ -274,11 +274,11 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         handlePosition === 'right'
           ? [
               'border-r-[2px]',
-              'after:-translate-y-1/2 after:absolute after:top-1/2 after:right-0 after:block after:h-10 after:w-2 after:translate-x-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
+              'after:absolute after:top-1/2 after:right-0 after:block after:h-10 after:w-2 after:translate-x-1/2 after:-translate-y-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
             ]
           : [
               'border-l-[2px]',
-              'after:-translate-y-1/2 after:-translate-x-1/2 after:absolute after:top-1/2 after:left-0 after:block after:h-10 after:w-2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
+              'after:absolute after:top-1/2 after:left-0 after:block after:h-10 after:w-2 after:-translate-x-1/2 after:-translate-y-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
             ],
         'active:border-neutral-400 active:after:bg-neutral-400 dark:active:border-neutral-600 active:dark:after:bg-neutral-600',
         minWidth && `min-w-[${minWidth}px]`,

@@ -1,8 +1,8 @@
 'use client';
 
+import { Select } from '@components/Select/Select';
 import type { ComponentProps, ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Select } from '../../Select/Select';
 import { Form } from '../Form';
 import { useFormField } from '../FormField';
 import { FormItemLayout } from '../layout/FormItemLayout';

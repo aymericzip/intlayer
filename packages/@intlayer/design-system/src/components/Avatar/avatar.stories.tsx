@@ -1,6 +1,6 @@
+import { getAvatarImageUrl } from '@components/utils/image';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
-import { getAvatarImageUrl } from '../../utils/image';
 import { Avatar } from './index';
 
 /**

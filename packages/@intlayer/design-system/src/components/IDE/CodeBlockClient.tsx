@@ -1,6 +1,6 @@
+import { cn } from '@utils/cn';
 import { type FC, type HTMLAttributes, lazy, Suspense } from 'react';
 import type { BundledLanguage } from 'shiki/bundle/web';
-import { cn } from '../../utils/cn';
 
 export const CodeDefault: FC<{ children: string }> = ({ children }) => (
   <div className="min-w-0 max-w-full overflow-x-auto">

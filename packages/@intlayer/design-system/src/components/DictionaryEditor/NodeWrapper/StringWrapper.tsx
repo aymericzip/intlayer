@@ -1,8 +1,8 @@
+import { EditableFieldTextArea } from '@components/EditableField';
 import { getContentNodeByKeyPath } from '@intlayer/core';
 import { useEditorLocale } from '@intlayer/editor-react';
+import { cn } from '@utils/cn';
 import type { FC } from 'react';
-import { cn } from '../../../utils/cn';
-import { EditableFieldTextArea } from '../../EditableField';
 import type { NodeWrapperProps } from './index';
 
 export type StringWrapperProps = Omit<NodeWrapperProps, 'section'> & {

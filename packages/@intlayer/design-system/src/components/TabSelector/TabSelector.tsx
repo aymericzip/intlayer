@@ -1,5 +1,10 @@
 'use client';
 
+import {
+  type ItemSelectorOrientation,
+  useItemSelector,
+} from '@hooks/useItemSelector';
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
   cloneElement,
@@ -9,11 +14,6 @@ import {
   useEffect,
   useRef,
 } from 'react';
-import {
-  type ItemSelectorOrientation,
-  useItemSelector,
-} from '../../hooks/useItemSelector';
-import { cn } from '../../utils/cn';
 
 export enum TabSelectorColor {
   PRIMARY = 'primary',
@@ -46,7 +46,7 @@ const tabSelectorVariant = cva(
 );
 
 const indicatorVariant = cva(
-  '-z-1 absolute rounded-lg duration-300 ease-in-out motion-reduce:transition-none',
+  'absolute -z-1 rounded-lg duration-300 ease-in-out motion-reduce:transition-none',
   {
     variants: {
       color: {

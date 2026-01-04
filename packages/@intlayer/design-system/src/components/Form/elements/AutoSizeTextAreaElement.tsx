@@ -1,5 +1,5 @@
+import { AutoSizedTextArea } from '@components/TextArea/AutoSizeTextArea';
 import type { ComponentProps, FC } from 'react';
-import { AutoSizedTextArea } from '../../TextArea/AutoSizeTextArea';
 import { FormElement, type FormElementProps } from './FormElement';
 
 type AutoSizedTextAreaElementsProps = Omit<

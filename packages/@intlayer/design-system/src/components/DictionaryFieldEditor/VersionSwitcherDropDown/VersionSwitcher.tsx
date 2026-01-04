@@ -1,17 +1,17 @@
 'use client';
 
-import { MoveVertical } from 'lucide-react';
-import type { FC } from 'react';
-import { useIntlayer } from 'react-intlayer';
 import {
   Button,
   ButtonColor,
   ButtonSize,
   ButtonTextAlign,
   ButtonVariant,
-} from '../../Button';
-import { Container } from '../../Container';
-import { DropDown, type PanelProps } from '../../DropDown';
+} from '@components/Button';
+import { Container } from '@components/Container';
+import { DropDown, type PanelProps } from '@components/DropDown';
+import { MoveVertical } from 'lucide-react';
+import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { useVersionSwitcher } from './VersionSwitcherContext';
 
 export type VersionSwitcherProps = {

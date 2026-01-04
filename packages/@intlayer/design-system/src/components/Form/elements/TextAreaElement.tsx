@@ -1,5 +1,5 @@
+import { TextArea } from '@components/TextArea/TextArea';
 import type { ComponentProps, FC } from 'react';
-import { TextArea } from '../../TextArea/TextArea';
 import { FormElement, type FormElementProps } from './FormElement';
 
 type TextAreaElementsProps = Omit<

@@ -1,5 +1,5 @@
+import { EditableFieldTextArea } from '@components/EditableField/EditableFieldTextArea';
 import type { ComponentProps, ReactNode } from 'react';
-import { EditableFieldTextArea } from '../../EditableField/EditableFieldTextArea';
 import { FormElement, type FormElementProps } from './FormElement';
 
 type EditableFieldTextAreaElementProps = Omit<

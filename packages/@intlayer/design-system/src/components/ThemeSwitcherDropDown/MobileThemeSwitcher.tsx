@@ -1,8 +1,8 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { CircleDashed, Moon, Sun } from 'lucide-react';
 import { type FC, useState } from 'react';
-import { cn } from '../../utils/cn';
 import { Modes } from './types';
 
 type MobileThemeSwitcherProps = {

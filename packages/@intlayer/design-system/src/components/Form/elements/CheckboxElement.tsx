@@ -1,5 +1,5 @@
+import { Checkbox } from '@components/Input';
 import type { ChangeEvent, ComponentProps, FC, ReactNode } from 'react';
-import { Checkbox } from '../../Input';
 import { FormElement, type FormElementProps } from './FormElement';
 
 type CheckboxElementProps = Omit<FormElementProps<typeof Checkbox>, 'Element'> &

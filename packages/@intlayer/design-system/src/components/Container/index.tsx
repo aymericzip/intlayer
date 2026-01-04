@@ -1,3 +1,4 @@
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type {
   DetailedHTMLProps,
@@ -5,7 +6,6 @@ import type {
   HTMLAttributes,
   PropsWithChildren,
 } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Container component variants using class-variance-authority
@@ -29,7 +29,7 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     },
     transparency: {
       none: 'bg-card',
-      sm: 'bg-card/95',
+      sm: 'bg-card/90',
       md: 'bg-card/70',
       lg: 'bg-card/40',
       xl: 'bg-card/20',

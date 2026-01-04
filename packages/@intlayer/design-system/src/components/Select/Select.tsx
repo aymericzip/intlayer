@@ -1,6 +1,7 @@
 'use client';
 
 import * as SelectPrimitive from '@radix-ui/react-select';
+import { cn } from '@utils/cn';
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -8,7 +9,6 @@ import {
   ChevronUpIcon,
 } from 'lucide-react';
 import type { ComponentProps, FC } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Enum for Select content positioning strategies
@@ -201,7 +201,7 @@ export const SelectContent: FC<
 
         // Positioning adjustments
         position === 'popper' &&
-          'data-[side=left]:-translate-x-1 data-[side=top]:-translate-y-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1',
+          'data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1',
 
         className
       )}

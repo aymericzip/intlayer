@@ -1,5 +1,7 @@
 'use client';
 
+import { useItemSelector } from '@hooks/useItemSelector';
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
   type HTMLAttributes,
@@ -8,8 +10,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useItemSelector } from '../../hooks';
-import { cn } from '../../utils/cn';
 
 export type SwitchSelectorChoice<T = boolean> = {
   content: ReactNode;

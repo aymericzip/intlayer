@@ -1,7 +1,7 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { type FC, type HTMLAttributes, useEffect, useState } from 'react';
-import { cn } from '../../utils/cn';
 import { Container } from '../Container';
 import { WithResizer } from '../WithResizer';
 import { FileTree } from './FileTree';

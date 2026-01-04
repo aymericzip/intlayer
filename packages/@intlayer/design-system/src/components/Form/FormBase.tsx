@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { cn } from '@utils/cn';
 import type { HTMLAttributes } from 'react';
 import {
   FormProvider,
@@ -10,7 +11,6 @@ import {
   useFormState,
 } from 'react-hook-form';
 import type { ZodObject, z } from 'zod/v4';
-import { cn } from '../../utils/cn';
 
 type FormProps<T extends ZodObject> = HTMLAttributes<HTMLFormElement> &
   FormProviderProps<z.infer<T>> & {

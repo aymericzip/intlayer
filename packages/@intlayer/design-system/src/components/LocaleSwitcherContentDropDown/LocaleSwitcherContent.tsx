@@ -1,12 +1,12 @@
 'use client';
 
+import { usePersistedStore } from '@hooks/usePersistedStore';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
 import { Locales, type LocalesValues } from '@intlayer/types';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { Check, Globe, MoveVertical } from 'lucide-react';
 import { type FC, useMemo, useRef, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { usePersistedStore } from '../../hooks';
 import {
   Button,
   ButtonColor,

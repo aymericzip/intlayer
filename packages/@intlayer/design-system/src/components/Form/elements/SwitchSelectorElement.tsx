@@ -1,8 +1,8 @@
 'use client';
 
+import { SwitchSelector } from '@components/SwitchSelector';
 import type { ComponentProps, ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { SwitchSelector } from '../../SwitchSelector';
 import { Form } from '../Form';
 import { useFormField } from '../FormField';
 import { FormItemLayout } from '../layout/FormItemLayout';

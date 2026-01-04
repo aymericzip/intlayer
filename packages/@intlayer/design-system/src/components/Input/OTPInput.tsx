@@ -4,6 +4,7 @@
  * This component is a fork of https://github.com/guilhermerodz/input-otp
  */
 
+import { cn } from '@utils/cn';
 import { cva } from 'class-variance-authority';
 import { MinusIcon } from 'lucide-react';
 import {
@@ -23,7 +24,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from '../../utils/cn';
 import { Button, type ButtonProps } from '../Button';
 
 // ---------------- Utilities ----------------

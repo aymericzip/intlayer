@@ -1,7 +1,7 @@
+import { cn } from '@utils/cn';
 import { User } from 'lucide-react';
 import type { ComponentProps, FC, HTMLAttributes } from 'react';
 import { useMemo } from 'react';
-import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
 
 /**

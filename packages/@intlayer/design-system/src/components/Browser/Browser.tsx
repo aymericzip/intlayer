@@ -1,6 +1,6 @@
 'use client';
 
-import { cva } from 'class-variance-authority';
+import { cn } from '@utils/cn';
 import { ArrowLeft, ArrowRight, RotateCw } from 'lucide-react';
 import {
   type CSSProperties,
@@ -13,7 +13,6 @@ import {
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { cn } from '../../utils/cn';
 import { Button } from '../Button';
 import { Input, inputVariants } from '../Input';
 

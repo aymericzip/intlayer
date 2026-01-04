@@ -1,12 +1,12 @@
 'use client';
 
+import { useGetElementOrWindow, useScrollBlockage } from '@hooks/index';
+import { cn } from '@utils/cn';
 import { cva } from 'class-variance-authority';
 import { motion as m } from 'framer-motion';
 import { X } from 'lucide-react';
 import { type FC, type ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { useGetElementOrWindow, useScrollBlockage } from '../../hooks/index';
-import { cn } from '../../utils/cn';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 import { Container, type ContainerProps } from '../Container';
 import { H3 } from '../Headers';
