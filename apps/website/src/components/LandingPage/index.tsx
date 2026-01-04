@@ -60,15 +60,15 @@ const DynamicChatBotModal = dynamic(
   }
 );
 
-const DynamicAIABTestingSection = dynamic(
-  () => import('./AIABTestingSection').then((mod) => mod.AIABTestingSection),
+const DynamicContributorSection = dynamic(
+  () => import('./ContributorSection').then((mod) => mod.ContributorSection),
   {
     loading: () => <Loader />,
   }
 );
 
-const DynamicContributorSection = dynamic(
-  () => import('./ContributorSection').then((mod) => mod.ContributorSection),
+const DynamicFeatureFlagsSection = dynamic(
+  () => import('./ProductsSection/index').then((mod) => mod.ProductsSection),
   {
     loading: () => <Loader />,
   }
@@ -88,7 +88,8 @@ export const LandingPage: FC = () => (
         <div className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-background [clip-path:polygon(0_0,100%_0,0_100%)]" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-background [clip-path:polygon(100%_0,100%_100%,0_100%)]" />
       </div>
-      <DynamicAIABTestingSection />
+
+      <DynamicFeatureFlagsSection />
       <DynamicAvailableTechnoSection />
       <DynamicDemoSection />
       <DynamicContributorSection />

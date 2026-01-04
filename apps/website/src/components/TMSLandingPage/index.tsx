@@ -1,7 +1,6 @@
 'use client';
 
 import { BackgroundLayout } from '@components/BackgroundLayout';
-import { ContributorSection } from '@components/LandingPage/ContributorSection';
 import type { FC } from 'react';
 import { lazy, Suspense } from 'react';
 
@@ -26,6 +25,16 @@ const FeaturesSection = lazy(() =>
 const FinalCTASection = lazy(() =>
   import('./FinalCTASection').then((module) => ({
     default: module.FinalCTASection,
+  }))
+);
+const ProductsSection = lazy(() =>
+  import('@components/LandingPage/ProductsSection').then((module) => ({
+    default: module.ProductsSection,
+  }))
+);
+const ContributorSection = lazy(() =>
+  import('@components/LandingPage/ContributorSection').then((module) => ({
+    default: module.ContributorSection,
   }))
 );
 
@@ -54,9 +63,16 @@ export const TMSLandingPage: FC = () => {
         <FeaturesSection />
       </Suspense>
 
+      {/* Products Section */}
+      <Suspense fallback={<div className="py-24" />}>
+        <ProductsSection />
+      </Suspense>
+
       {/* Community Section */}
-      <section className="py-24">
-        <ContributorSection />
+      <section>
+        <Suspense fallback={<div className="py-24" />}>
+          <ContributorSection />
+        </Suspense>
       </section>
 
       {/* Final CTA */}

@@ -24,7 +24,7 @@ export const AuditSection: FC = () => {
       <h2 className="mx-auto max-w-3xl text-center font-bold text-3xl text-text leading-tight sm:text-5xl md:text-5xl lg:text-5xl">
         {title}
       </h2>
-      <p className="m-auto max-w-2xl text-center text-lg text-neutral leading-relaxed sm:text-xl md:text-xl">
+      <p className="m-auto max-w-2xl text-center text-lg text-neutral leading-relaxed">
         {description}
       </p>
       <div className="m-auto flex w-full max-w-lg flex-col justify-end gap-2">
