@@ -90,15 +90,7 @@ const secureHeaders = {
         'data:',
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
       ],
-      frameSrc: [
-        "'self'",
-        '*.youtube.com',
-        'github.dev',
-        'github.com',
-        '*.github.com',
-        '*.stripe.com',
-        'stackblitz.com',
-      ],
+      frameSrc: ['*'],
       frameAncestors: ["'self'", 'intlayer.org', 'localhost:*'],
       manifestSrc: ["'self'"],
       childSrc: ["'self'", '*.googletagmanager.com'],
@@ -148,6 +140,7 @@ const dashboardHeaders = [
       directives: {
         ...secureHeaders.contentSecurityPolicy.directives,
         connectSrc: ['*'],
+        // This override is redundant now that secureHeaders allows *, but keeping it is harmless
         frameSrc: ['*'],
         frameAncestors: ['*'],
       },
