@@ -67,7 +67,7 @@ export const getIntlayer = <
   const dictionary = dictionaries[key as T] as DictionaryRegistryElement<T>;
 
   if (!dictionary) {
-    // 1. Log a warning instead of throwing (so developers know it's missing)
+    // Log a warning instead of throwing (so developers know it's missing)
     const logger = getAppLogger(configuration);
     logger(
       `Dictionary "${key as string}" was not found. Using fallback proxy.`,
@@ -77,9 +77,11 @@ export const getIntlayer = <
       }
     );
 
-    // 2. Return the Safe Proxy
-    // We initialize it with the dictionary key name so the UI shows "my-dictionary.someKey"
-    return createSafeFallback(key as string);
+    if (process.env.NODE_ENV === 'development') {
+      // Return the Safe Proxy
+      // We initialize it with the dictionary key name so the UI shows "my-dictionary.someKey"
+      return createSafeFallback(key as string);
+    }
   }
 
   return getDictionary<DictionaryRegistryElement<T>, L>(
