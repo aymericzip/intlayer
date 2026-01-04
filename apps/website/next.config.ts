@@ -144,6 +144,18 @@ const globalHeaders = [
     key: 'Permissions-Policy',
     value: 'fullscreen=(self)',
   },
+  {
+    key: 'Access-Control-Allow-Origin',
+    value: '*', // Allows fetch from app.intlayer.org (and others)
+  },
+  {
+    key: 'Access-Control-Allow-Methods',
+    value: 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+  },
+  {
+    key: 'Access-Control-Allow-Headers',
+    value: 'X-Requested-With, Content-Type, Authorization',
+  },
 ];
 
 const defaultHeaders = [
