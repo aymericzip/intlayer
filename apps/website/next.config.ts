@@ -100,7 +100,12 @@ const secureHeaders = {
         '*.stripe.com',
         'stackblitz.com',
       ],
-      frameAncestors: ["'self'", 'intlayer.org', 'localhost:*'],
+      frameAncestors: [
+        "'self'",
+        'intlayer.org',
+        'app.intlayer.org',
+        'localhost:*',
+      ],
       manifestSrc: ["'self'"],
       childSrc: ["'self'", '*.googletagmanager.com'],
     },
