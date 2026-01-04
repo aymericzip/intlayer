@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/dictionaries-entry",
-  "version": "7.5.9",
+  "version": "7.5.10",
   "private": false,
   "description": "Provides the entry path for Intlayer dictionaries, solving filesystem retrieval issues for bundlers like Webpack and Rollup.",
   "keywords": [
