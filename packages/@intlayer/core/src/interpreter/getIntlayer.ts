@@ -1,7 +1,7 @@
 // packages/@intlayer/core/src/interpreter/getIntlayer.ts
 
 import configuration from '@intlayer/config/built';
-import { getAppLogger } from '@intlayer/config/client';
+import { colorizeKey, getAppLogger } from '@intlayer/config/client';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type {
   DeclaredLocales,
@@ -70,7 +70,7 @@ export const getIntlayer = <
     // Log a warning instead of throwing (so developers know it's missing)
     const logger = getAppLogger(configuration);
     logger(
-      `Dictionary "${key as string}" was not found. Using fallback proxy.`,
+      `Dictionary ${colorizeKey(key as string)} was not found. Using fallback proxy.`,
       {
         level: 'warn',
         isVerbose: true,
