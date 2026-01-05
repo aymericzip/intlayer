@@ -60,7 +60,6 @@ const secureHeaders = {
         'raw.githubusercontent.com',
         '*.openai.com',
         '*.stripe.com',
-        '*.producthunt.com',
         'cdn.jsdelivr.net',
         '*.ahrefs.com',
         '*.star-history.com',
