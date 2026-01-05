@@ -8,6 +8,7 @@ const heroContent = {
     heroTag: 'Intlayer CMS',
     heroTitle: t({
       en: 'Your Code. Your Content. Unified.',
+      'en-GB': 'Your Code. Your Content. Unified.',
       fr: 'Votre Code. Votre Contenu. Unifié.',
       es: 'Tu Código. Tu Contenido. Unificado.',
       de: 'Ihr Code. Ihr Inhalt. Vereint.',
@@ -26,6 +27,7 @@ const heroContent = {
     }),
     heroSubtitle: t({
       en: 'The headless CMS that lives inside your codebase',
+      'en-GB': 'The headless CMS that lives inside your codebase',
       fr: 'Le CMS headless qui vit dans votre codebase',
       es: 'El CMS headless que vive en tu código',
       de: 'Das Headless-CMS, das in Ihrer Codebasis lebt',
@@ -44,6 +46,8 @@ const heroContent = {
     }),
     heroDescription: t({
       en: 'Bridge local content declarations with remote editing. Ship multilingual updates instantly. Let your whole team contribute, without breaking production.',
+      'en-GB':
+        'Bridge local content declarations with remote editing. Ship multilingual updates instantly. Let your whole team contribute, without breaking production.',
       fr: "Reliez les déclarations de contenu locales à l'édition distante. Publiez des mises à jour multilingues instantanément. Permettez à toute votre équipe de contribuer, sans casser la production.",
       es: 'Conecta las declaraciones de contenido locales con la edición remota. Publica actualizaciones multilingües al instante. Deja que todo tu equipo contribuya, sin romper producción.',
       de: 'Verbinden Sie lokale Content-Deklarationen mit Remote-Bearbeitung. Veröffentlichen Sie mehrsprachige Updates sofort. Lassen Sie Ihr gesamtes Team beitragen, ohne die Produktion zu stören.',
@@ -62,6 +66,7 @@ const heroContent = {
     }),
     primaryCta: t({
       en: 'Start editing now',
+      'en-GB': 'Start editing now',
       fr: 'Commencer à éditer',
       es: 'Empezar a editar',
       de: 'Jetzt bearbeiten',
@@ -80,6 +85,7 @@ const heroContent = {
     }),
     secondaryCta: t({
       en: 'Read the docs',
+      'en-GB': 'Read the docs',
       fr: 'Lire la documentation',
       es: 'Leer la documentación',
       de: 'Dokumentation lesen',

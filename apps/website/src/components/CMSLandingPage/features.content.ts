@@ -8,6 +8,7 @@ const featuresContent = {
   content: {
     featuresTitle: t({
       en: 'Everything you need to manage content at scale',
+      'en-GB': 'Everything you need to manage content at scale',
       fr: 'Tout ce dont vous avez besoin pour gérer le contenu à grande échelle',
       es: 'Todo lo que necesitas para gestionar contenido a escala',
       de: 'Alles, was Sie brauchen, um Content im großen Maßstab zu verwalten',
@@ -30,6 +31,7 @@ const featuresContent = {
         icon: 'git-merge',
         title: t({
           en: 'Local ↔ Remote sync',
+          'en-GB': 'Local ↔ Remote sync',
           fr: 'Synchronisation Local ↔ Distant',
           es: 'Sincronización Local ↔ Remoto',
           de: 'Lokal ↔ Remote Sync',
@@ -48,6 +50,8 @@ const featuresContent = {
         }),
         description: t({
           en: 'Push and pull content between your codebase and the CMS. Git remains your source of truth.',
+          'en-GB':
+            'Push and pull content between your codebase and the CMS. Git remains your source of truth.',
           fr: 'Poussez et tirez le contenu entre votre codebase et le CMS. Git reste votre source de vérité.',
           es: 'Empuja y extrae contenido entre tu código y el CMS. Git sigue siendo tu fuente de verdad.',
           de: 'Content zwischen Codebase und CMS pushen und pullen. Git bleibt Ihre Single Source of Truth.',
@@ -71,6 +75,7 @@ const featuresContent = {
         icon: 'globe',
         title: t({
           en: 'Native multilingual',
+          'en-GB': 'Native multilingual',
           fr: 'Multilingue natif',
           es: 'Multilingüe nativo',
           de: 'Nativ mehrsprachig',
@@ -89,6 +94,8 @@ const featuresContent = {
         }),
         description: t({
           en: 'Every field supports multiple locales out of the box. No plugins, no per-locale pricing.',
+          'en-GB':
+            'Every field supports multiple locales out of the box. No plugins, no per-locale pricing.',
           fr: 'Chaque champ supporte plusieurs locales nativement. Pas de plugins, pas de tarification par locale.',
           es: 'Cada campo soporta múltiples idiomas de serie. Sin plugins, sin precios por idioma.',
           de: 'Jedes Feld unterstützt mehrere Sprachen out-of-the-box. Keine Plugins, keine Preise pro Sprache.',
@@ -112,6 +119,7 @@ const featuresContent = {
         icon: 'toggle',
         title: t({
           en: 'Feature flags',
+          'en-GB': 'Feature flags',
           fr: 'Feature flags',
           es: 'Feature flags',
           de: 'Feature Flags',
@@ -130,6 +138,8 @@ const featuresContent = {
         }),
         description: t({
           en: 'Gate content variations per locale, audience, or experiment. Roll out progressively.',
+          'en-GB':
+            'Gate content variations per locale, audience, or experiment. Roll out progressively.',
           fr: 'Contrôlez les variations de contenu par locale, audience ou expérience. Déployez progressivement.',
           es: 'Controla variaciones de contenido por idioma, audiencia o experimento. Despliega progresivamente.',
           de: 'Content-Variationen pro Sprache, Zielgruppe oder Experiment steuern. Progressiv ausrollen.',
@@ -153,6 +163,7 @@ const featuresContent = {
         icon: 'users',
         title: t({
           en: 'Dev & non-dev collaboration',
+          'en-GB': 'Dev & non-dev collaboration',
           fr: 'Collaboration dev & non-dev',
           es: 'Colaboración dev & no-dev',
           de: 'Dev & Non-Dev Zusammenarbeit',
@@ -171,6 +182,8 @@ const featuresContent = {
         }),
         description: t({
           en: 'Developers own the schema. Editors update content safely. Approval workflows keep everyone aligned.',
+          'en-GB':
+            'Developers own the schema. Editors update content safely. Approval workflows keep everyone aligned.',
           fr: "Les développeurs possèdent le schéma. Les éditeurs mettent à jour le contenu en toute sécurité. Les workflows d'approbation maintiennent tout le monde aligné.",
           es: 'Los desarrolladores controlan el schema. Los editores actualizan contenido de forma segura. Los flujos de aprobación mantienen a todos alineados.',
           de: 'Entwickler besitzen das Schema. Redakteure aktualisieren Content sicher. Approval-Workflows halten alle synchron.',

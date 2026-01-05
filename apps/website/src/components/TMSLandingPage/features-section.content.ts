@@ -1,7 +1,7 @@
 import { type Dictionary, t } from 'intlayer';
 
 const featuresSectionContent = {
-  key: 'features-section',
+  key: 'tms-landing-features',
   title: 'TMS Landing Features Section',
   description: 'Features section content for TMS landing page',
   content: {

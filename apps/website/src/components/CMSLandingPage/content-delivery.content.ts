@@ -8,6 +8,7 @@ const contentDeliveryContent = {
   content: {
     deliveryTitle: t({
       en: 'Deliver content your way',
+      'en-GB': 'Deliver content your way',
       fr: 'Livrez le contenu à votre façon',
       es: 'Entrega el contenido a tu manera',
       de: 'Inhalte nach Ihren Wünschen bereitstellen',
@@ -26,6 +27,8 @@ const contentDeliveryContent = {
     }),
     deliveryDescription: t({
       en: 'Choose the delivery mode that fits your architecture, or mix them.',
+      'en-GB':
+        'Choose the delivery mode that fits your architecture, or mix them.',
       fr: 'Choisissez le mode de livraison qui correspond à votre architecture, ou mélangez-les.',
       es: 'Elige el modo de entrega que se adapte a tu arquitectura, o mézclalos.',
       de: 'Wählen Sie den Bereitstellungsmodus, der zu Ihrer Architektur passt, oder kombinieren Sie sie.',
@@ -48,6 +51,7 @@ const contentDeliveryContent = {
         icon: 'archive',
         title: t({
           en: 'Bundled (Static)',
+          'en-GB': 'Bundled (Static)',
           fr: 'Empaqueté (Statique)',
           es: 'Empaquetado (Estático)',
           de: 'Gebündelt (Statisch)',
@@ -66,6 +70,8 @@ const contentDeliveryContent = {
         }),
         description: t({
           en: 'Import content directly into your application bundle. High speed and zero latency, perfect for design systems.',
+          'en-GB':
+            'Import content directly into your application bundle. High speed and zero latency, perfect for design systems.',
           fr: 'Importez le contenu directement dans votre bundle. Grande vitesse et latence nulle, parfait pour les design systems.',
           es: 'Importa contenido directamente en el bundle. Alta velocidad y latencia cero, perfecto para sistemas de diseño.',
           de: 'Inhalt direkt in das App-Bundle importieren. Hohe Geschwindigkeit, keine Latenz, perfekt für Design-Systeme.',
@@ -84,6 +90,7 @@ const contentDeliveryContent = {
         }),
         badge: t({
           en: 'Maximum Speed',
+          'en-GB': 'Maximum Speed',
           fr: 'Vitesse maximale',
           es: 'Velocidad máxima',
           de: 'Maximale Geschwindigkeit',
@@ -106,6 +113,7 @@ const contentDeliveryContent = {
         icon: 'code',
         title: t({
           en: 'Lazy Loaded (Dynamic)',
+          'en-GB': 'Lazy Loaded (Dynamic)',
           fr: 'Chargement Différé (Dynamique)',
           es: 'Carga Diferida (Dinámico)',
           de: 'Lazy Loaded (Dynamisch)',
@@ -124,6 +132,8 @@ const contentDeliveryContent = {
         }),
         description: t({
           en: 'Fetch only the necessary content via asynchronous imports. Reduces initial bundle size at the cost of a network request.',
+          'en-GB':
+            'Fetch only the necessary content via asynchronous imports. Reduces initial bundle size at the cost of a network request.',
           fr: "Ne récupérez que le contenu nécessaire via des imports asynchrones. Réduit la taille initiale du bundle au prix d'une requête réseau.",
           es: 'Obtén solo el contenido necesario vía imports asíncronos. Reduce el tamaño inicial del bundle a costa de una petición de red.',
           de: 'Nur notwendige Inhalte asynchron laden. Reduziert die anfängliche Bundle-Größe auf Kosten einer Netzwerkabfrage.',
@@ -142,6 +152,7 @@ const contentDeliveryContent = {
         }),
         badge: t({
           en: 'Optimized Bundle',
+          'en-GB': 'Optimized Bundle',
           fr: 'Bundle optimisé',
           es: 'Bundle optimizado',
           de: 'Optimiertes Bundle',
@@ -164,6 +175,7 @@ const contentDeliveryContent = {
         icon: 'server',
         title: t({
           en: 'Live Sync',
+          'en-GB': 'Live Sync',
           fr: 'Sync en Direct',
           es: 'Sincronización en Vivo',
           de: 'Live-Sync',
@@ -182,6 +194,8 @@ const contentDeliveryContent = {
         }),
         description: t({
           en: 'Fetch content via a local proxy acting as a CDN. Apply content updates in production instantly without rebuilding.',
+          'en-GB':
+            'Fetch content via a local proxy acting as a CDN. Apply content updates in production instantly without rebuilding.',
           fr: 'Récupérez le contenu via un proxy local agissant comme un CDN. Appliquez les mises à jour en production instantanément sans reconstruire.',
           es: 'Obtén contenido vía un proxy local que actúa como CDN. Aplica actualizaciones en producción al instante sin reconstruir.',
           de: 'Inhalte über lokalen Proxy (als CDN) abrufen. Updates sofort in Produktion anwenden, ohne Rebuild.',
@@ -200,6 +214,7 @@ const contentDeliveryContent = {
         }),
         badge: t({
           en: 'No Rebuild',
+          'en-GB': 'No Rebuild',
           fr: 'Pas de reconstruction',
           es: 'Sin reconstrucción',
           de: 'Kein Rebuild',

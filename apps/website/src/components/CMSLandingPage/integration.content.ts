@@ -8,6 +8,7 @@ const integrationContent = {
   content: {
     integrationTitle: t({
       en: 'Seamlessly connected to Intlayer i18n',
+      'en-GB': 'Seamlessly connected to Intlayer i18n',
       fr: 'Connecté de manière transparente à Intlayer i18n',
       es: 'Conectado perfectamente con Intlayer i18n',
       de: 'Nahtlos verbunden mit Intlayer i18n',
@@ -26,6 +27,8 @@ const integrationContent = {
     }),
     integrationDescription: t({
       en: 'Already using the Intlayer i18n library? Your dictionaries, routing, and type-safe hooks work exactly the same with the CMS, zero migration, zero friction.',
+      'en-GB':
+        'Already using the Intlayer i18n library? Your dictionaries, routing, and type-safe hooks work exactly the same with the CMS, zero migration, zero friction.',
       fr: 'Vous utilisez déjà la bibliothèque Intlayer i18n ? Vos dictionnaires, routing et hooks type-safe fonctionnent exactement de la même manière avec le CMS, zéro migration, zéro friction.',
       es: '¿Ya usas la biblioteca Intlayer i18n? Tus diccionarios, enrutamiento y hooks type-safe funcionan exactamente igual con el CMS, cero migración, cero fricción.',
       de: 'Nutzen Sie bereits die Intlayer i18n Library? Ihre Dictionaries, Routing und type-safe Hooks funktionieren mit dem CMS genauso, keine Migration, keine Reibung.',
@@ -44,6 +47,7 @@ const integrationContent = {
     }),
     integrationCta: t({
       en: 'Explore the i18n library',
+      'en-GB': 'Explore the i18n library',
       fr: 'Explorer la bibliothèque i18n',
       es: 'Explorar la biblioteca i18n',
       de: 'Die i18n Library erkunden',

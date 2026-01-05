@@ -8,6 +8,7 @@ const comingSoonContent = {
   content: {
     comingSoonTitle: t({
       en: 'Coming soon',
+      'en-GB': 'Coming soon',
       fr: 'Bientôt disponible',
       es: 'Próximamente',
       de: 'Demnächst verfügbar',
@@ -30,6 +31,7 @@ const comingSoonContent = {
         icon: 'sparkles',
         title: t({
           en: 'AI auto-translation',
+          'en-GB': 'AI auto-translation',
           fr: 'Traduction automatique IA',
           es: 'Traducción automática con IA',
           de: 'KI-Auto-Übersetzung',
@@ -48,6 +50,8 @@ const comingSoonContent = {
         }),
         description: t({
           en: 'Push content in one language, get AI-powered translations instantly, like Reddit does with posts.',
+          'en-GB':
+            'Push content in one language, get AI-powered translations instantly, like Reddit does with posts.',
           fr: "Poussez du contenu dans une langue, obtenez des traductions alimentées par l'IA instantanément, comme Reddit le fait avec ses posts.",
           es: 'Sube contenido en un idioma, obtén traducciones con IA al instante, como Reddit hace con sus publicaciones.',
           de: 'Content in einer Sprache pushen, sofort KI-gestützte Übersetzungen erhalten, wie Reddit es mit Posts macht.',
@@ -66,6 +70,7 @@ const comingSoonContent = {
         }),
         badge: t({
           en: 'WIP',
+          'en-GB': 'WIP',
           fr: 'En cours',
           es: 'En desarrollo',
           de: 'In Arbeit',
@@ -88,6 +93,7 @@ const comingSoonContent = {
         icon: 'building',
         title: t({
           en: 'Self-hosted option',
+          'en-GB': 'Self-hosted option',
           fr: 'Option auto-hébergée',
           es: 'Opción auto-hospedada',
           de: 'Self-hosted Option',
@@ -106,6 +112,8 @@ const comingSoonContent = {
         }),
         description: t({
           en: 'Run Intlayer CMS on your own infrastructure when compliance or control requires it.',
+          'en-GB':
+            'Run Intlayer CMS on your own infrastructure when compliance or control requires it.',
           fr: "Exécutez Intlayer CMS sur votre propre infrastructure lorsque la conformité ou le contrôle l'exigent.",
           es: 'Ejecuta Intlayer CMS en tu propia infraestructura cuando la conformidad o el control lo requieran.',
           de: 'Intlayer CMS auf eigener Infrastruktur betreiben, wenn Compliance oder Kontrolle es erfordern.',
@@ -124,6 +132,7 @@ const comingSoonContent = {
         }),
         badge: t({
           en: 'WIP',
+          'en-GB': 'WIP',
           fr: 'En cours',
           es: 'En desarrollo',
           de: 'In Arbeit',
@@ -146,6 +155,7 @@ const comingSoonContent = {
         icon: 'webhook',
         title: t({
           en: 'CI/CD webhooks',
+          'en-GB': 'CI/CD webhooks',
           fr: 'Webhooks CI/CD',
           es: 'Webhooks CI/CD',
           de: 'CI/CD Webhooks',
@@ -164,6 +174,8 @@ const comingSoonContent = {
         }),
         description: t({
           en: 'Trigger rebuilds automatically when content changes. Integrate with Vercel, Netlify, GitHub Actions, and more.',
+          'en-GB':
+            'Trigger rebuilds automatically when content changes. Integrate with Vercel, Netlify, GitHub Actions, and more.',
           fr: 'Déclenchez des reconstructions automatiquement lorsque le contenu change. Intégrez avec Vercel, Netlify, GitHub Actions, et plus.',
           es: 'Activa reconstrucciones automáticamente cuando el contenido cambia. Integra con Vercel, Netlify, GitHub Actions, y más.',
           de: 'Rebuilds automatisch auslösen, wenn sich Content ändert. Integration mit Vercel, Netlify, GitHub Actions und mehr.',
@@ -182,6 +194,7 @@ const comingSoonContent = {
         }),
         badge: t({
           en: 'WIP',
+          'en-GB': 'WIP',
           fr: 'En cours',
           es: 'En desarrollo',
           de: 'In Arbeit',

@@ -100,6 +100,8 @@ const landingSectionContent = {
     }),
     description: t({
       en: 'Define translations next to components to speed up your development. Keep your bundle as light as it should be. Invite editors through the CMS. Every contribution is genuinely appreciated.',
+      'en-GB':
+        'Define translations next to components to speed up your development. Keep your bundle as light as it should be. Invite editors through the CMS. Every contribution is genuinely appreciated.',
       fr: "Définissez les traductions à côté des composants pour accélérer votre développement. Gardez votre bundle aussi léger qu'il devrait l'être. Invitez des éditeurs via le CMS. Chaque contribution est véritablement appréciée.",
       es: 'Define traducciones junto a los componentes para acelerar tu desarrollo. Mantén tu paquete tan ligero como debe ser. Invita a editores a través del CMS. Cada contribución es realmente apreciada.',
       de: 'Definieren Sie Übersetzungen neben den Komponenten, um Ihre Entwicklung zu beschleunigen. Halten Sie Ihr Bundle so schlank wie es sein sollte. Laden Sie Redakteure über das CMS ein. Jeder Beitrag wird wirklich geschätzt.',

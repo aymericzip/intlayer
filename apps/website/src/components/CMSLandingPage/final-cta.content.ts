@@ -8,6 +8,7 @@ const finalCtaContent = {
   content: {
     finalCtaTitle: t({
       en: 'Ready to unify your content workflow?',
+      'en-GB': 'Ready to unify your content workflow?',
       fr: 'Prêt à unifier votre workflow de contenu ?',
       es: '¿Listo para unificar tu flujo de contenido?',
       de: 'Bereit, Ihren Content-Workflow zu vereinheitlichen?',
@@ -26,6 +27,7 @@ const finalCtaContent = {
     }),
     finalCtaDescription: t({
       en: 'Start for free. Scale as you grow. No credit card required.',
+      'en-GB': 'Start for free. Scale as you grow. No credit card required.',
       fr: 'Commencez gratuitement. Évoluez selon vos besoins. Aucune carte de crédit requise.',
       es: 'Empieza gratis. Escala según crezcas. Sin tarjeta de crédito.',
       de: 'Kostenlos starten. Skalieren Sie mit Ihrem Wachstum. Keine Kreditkarte erforderlich.',
@@ -44,6 +46,7 @@ const finalCtaContent = {
     }),
     finalCtaPrimary: t({
       en: 'Get started free',
+      'en-GB': 'Get started free',
       fr: 'Commencer gratuitement',
       es: 'Empezar gratis',
       de: 'Kostenlos starten',
@@ -62,6 +65,7 @@ const finalCtaContent = {
     }),
     finalCtaSecondary: t({
       en: 'View pricing',
+      'en-GB': 'View pricing',
       fr: 'Voir les tarifs',
       es: 'Ver precios',
       de: 'Preise ansehen',

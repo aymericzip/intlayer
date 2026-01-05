@@ -8,6 +8,7 @@ const valuePropsContent = {
   content: {
     valuePropsTitle: t({
       en: 'Why teams choose Intlayer CMS',
+      'en-GB': 'Why teams choose Intlayer CMS',
       fr: 'Pourquoi les équipes choisissent Intlayer CMS',
       es: 'Por qué los equipos eligen Intlayer CMS',
       de: 'Warum Teams Intlayer CMS wählen',
@@ -30,6 +31,7 @@ const valuePropsContent = {
         icon: 'code',
         title: t({
           en: 'Code-first, not code-only',
+          'en-GB': 'Code-first, not code-only',
           fr: 'Code-first, pas code-only',
           es: 'Code-first, no solo código',
           de: 'Code-first, nicht nur Code',
@@ -48,6 +50,8 @@ const valuePropsContent = {
         }),
         description: t({
           en: 'Content lives in your repo as source of truth. The CMS syncs and extends, never replaces.',
+          'en-GB':
+            'Content lives in your repo as source of truth. The CMS syncs and extends, never replaces.',
           fr: 'Le contenu vit dans votre repo comme source de vérité. Le CMS synchronise et étend, ne remplace jamais.',
           es: 'El contenido vive en tu repo como fuente de verdad. El CMS sincroniza y extiende, nunca reemplaza.',
           de: 'Inhalte leben in Ihrem Repo als Single Source of Truth. Das CMS synchronisiert und erweitert, ersetzt nie.',
@@ -70,6 +74,7 @@ const valuePropsContent = {
         icon: 'puzzle',
         title: t({
           en: 'Zero plugins, zero surprise costs',
+          'en-GB': 'Zero plugins, zero surprise costs',
           fr: 'Zéro plugins, zéro coûts surprises',
           es: 'Cero plugins, cero costos sorpresa',
           de: 'Keine Plugins, keine versteckten Kosten',
@@ -88,6 +93,8 @@ const valuePropsContent = {
         }),
         description: t({
           en: 'Multilingual content management is built-in. No add-ons needed for localization, versioning, or collaboration.',
+          'en-GB':
+            'Multilingual content management is built-in. No add-ons needed for localization, versioning, or collaboration.',
           fr: 'La gestion de contenu multilingue est intégrée. Pas de modules complémentaires nécessaires pour la localisation, le versioning ou la collaboration.',
           es: 'La gestión de contenido multilingüe está integrada. Sin complementos necesarios para localización, versionado o colaboración.',
           de: 'Mehrsprachiges Content-Management ist integriert. Keine Add-ons für Lokalisierung, Versionierung oder Zusammenarbeit nötig.',
@@ -110,6 +117,7 @@ const valuePropsContent = {
         icon: 'rocket',
         title: t({
           en: 'Ship content 10× faster',
+          'en-GB': 'Ship content 10× faster',
           fr: 'Publiez du contenu 10× plus vite',
           es: 'Publica contenido 10× más rápido',
           de: 'Content 10× schneller veröffentlichen',
@@ -128,6 +136,8 @@ const valuePropsContent = {
         }),
         description: t({
           en: 'Live sync pushes changes instantly. No rebuild required. Update copy in production while users browse.',
+          'en-GB':
+            'Live sync pushes changes instantly. No rebuild required. Update copy in production while users browse.',
           fr: 'La synchronisation en direct pousse les changements instantanément. Aucune reconstruction requise. Mettez à jour le contenu en production pendant que les utilisateurs naviguent.',
           es: 'La sincronización en vivo envía cambios al instante. Sin reconstrucción necesaria. Actualiza el contenido en producción mientras los usuarios navegan.',
           de: 'Live-Sync pusht Änderungen sofort. Kein Rebuild erforderlich. Aktualisieren Sie Inhalte in der Produktion, während Benutzer browsen.',

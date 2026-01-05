@@ -59,7 +59,7 @@ const iconMap: Record<string, ReactNode> = {
 const MotionContainer = m.create(Container);
 
 export const FeaturesSection: FC = () => {
-  const { featuresTitle, features } = useIntlayer('features-section');
+  const { featuresTitle, features } = useIntlayer('tms-landing-features');
 
   return (
     <section className="py-24">
