@@ -61,6 +61,7 @@ export const AddPasskeyModal: FC<AddPasskeyModalProps> = ({
         >
           <Form.Input
             name="name"
+            id="add-passkey-name-input"
             label={nameInput.label.value}
             placeholder={nameInput.placeholder.value}
             isRequired

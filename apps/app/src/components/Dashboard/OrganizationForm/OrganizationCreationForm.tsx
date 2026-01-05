@@ -49,7 +49,8 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
     >
       <Form.Input
         name="name"
-        label={nameInput.label}
+        id="organization-name-input"
+        label={nameInput.label.value}
         placeholder={nameInput.placeholder.value}
         isRequired
       />

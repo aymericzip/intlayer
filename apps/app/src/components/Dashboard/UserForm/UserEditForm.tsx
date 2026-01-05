@@ -230,7 +230,8 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <Form.Input
                     name="name"
-                    label={formLabels.name}
+                    id="user-edit-name-input"
+                    label={formLabels.name.value}
                     placeholder={formLabels.namePlaceholder.value}
                     isRequired
                   />
@@ -238,13 +239,15 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
                   <Form.Input
                     name="email"
                     type="email"
-                    label={formLabels.email}
+                    id="user-edit-email-input"
+                    label={formLabels.email.value}
                     placeholder={formLabels.emailPlaceholder.value}
                     isRequired
                   />
 
                   <Form.MultiSelect
                     name="organizationIds"
+                    id="user-edit-organizations-input"
                     label={formLabels.organizations.value}
                     placeholder={formLabels.organizationsPlaceholder.value}
                     className=""

@@ -86,7 +86,8 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
         <div className="flex size-full flex-1 gap-8 max-md:flex-col">
           <Form.EditableFieldInput
             name="key"
-            label={keyInput.label}
+            id="tag-key-input"
+            label={keyInput.label.value}
             placeholder={keyInput.placeholder.value}
             description={keyInput.description}
             isRequired
@@ -94,6 +95,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
 
           <Form.EditableFieldInput
             name="name"
+            id="tag-name-input"
             label={nameInput.label}
             placeholder={nameInput.placeholder.value}
             description={nameInput.description}

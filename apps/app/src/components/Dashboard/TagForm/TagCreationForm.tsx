@@ -34,7 +34,8 @@ export const TagCreationForm: FC<TagCreationFormProps> = ({ onTagCreated }) => {
     >
       <Form.Input
         name="key"
-        label={nameInput.label}
+        id="tag-key-input"
+        label={nameInput.label.value}
         description={nameInput.description}
         placeholder={nameInput.placeholder.value}
         isRequired

@@ -80,12 +80,14 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
     >
       <Form.Input
         name="name"
+        id="access-key-name-input"
         label={nameInput.label.value}
         placeholder={nameInput.placeholder.value}
         required
       />
       <Form.Input
         name="expiresAt"
+        id="access-key-expires-at-input"
         label={expiresAtInput.label.value}
         placeholder={expiresAtInput.placeholder.value}
         type="datetime-local"

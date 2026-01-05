@@ -76,6 +76,7 @@ export const ProfileForm: FC = () => {
             >
               <Form.Input
                 name="name"
+                id="profile-name-input"
                 label={nameInput.label}
                 placeholder={nameInput.placeholder.value}
                 isRequired
@@ -84,6 +85,7 @@ export const ProfileForm: FC = () => {
               <Form.Input
                 name="email"
                 type="email"
+                id="profile-email-input"
                 label={emailInput.label}
                 placeholder={emailInput.placeholder.value}
                 disabled

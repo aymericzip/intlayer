@@ -37,7 +37,8 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
     <Form schema={ProjectSchema} onSubmitSuccess={onSubmitSuccess} {...form}>
       <Form.Input
         name="name"
-        label={nameInput.label}
+        id="project-name-input"
+        label={nameInput.label.value}
         placeholder={nameInput.placeholder.value}
         isRequired
       />

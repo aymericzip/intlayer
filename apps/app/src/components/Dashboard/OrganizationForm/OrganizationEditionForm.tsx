@@ -43,7 +43,8 @@ export const OrganizationEditionForm: FC = () => {
       >
         <Form.Input
           name="name"
-          label={nameInput.label}
+          id="organization-edit-name"
+          label={nameInput.label.value}
           placeholder={nameInput.placeholder.value}
           isRequired
           defaultValue={organization?.name}

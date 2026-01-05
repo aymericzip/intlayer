@@ -41,6 +41,7 @@ export const ProjectEditionForm: FC = () => {
       >
         <Form.Input
           name="name"
+          id="project-edit-name"
           label={nameInput.label}
           placeholder={nameInput.placeholder.value}
           isRequired
