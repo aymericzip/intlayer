@@ -256,6 +256,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
           <Form.Input
             name="aiApiKey"
             type="password"
+            autoComplete="off"
             label={aiSection.apiKeyInput.label.value}
             placeholder={aiSection.apiKeyInput.placeholder.value}
             description={aiSection.apiKeyInput.description.value}
