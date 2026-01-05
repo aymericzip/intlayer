@@ -55,7 +55,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
         size="lg"
         title={modal.deleteTitle.value}
         hasCloseButton
-        className="p-3"
+        isScrollable="y"
       >
         <p className="text-neutral text-sm">{modal.deleteMessage}</p>
         <Form.Button
@@ -75,9 +75,10 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
         isOpen={isUpdateModalOpen}
         onClose={() => setIsUpdateModalOpen(false)}
         size="lg"
-        title="Are you sure you want to update this access key?"
+        title={modal.updateTitle.value}
         className="p-3"
         hasCloseButton
+        isScrollable="y"
       >
         <p className="text-neutral text-sm">{modal.updateMessage}</p>
         <Form.Button
@@ -259,27 +260,27 @@ export const AccessKeyForm: FC = () => {
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
         hasCloseButton
+        isScrollable="y"
+        padding="md"
       >
-        <div className="p-3">
-          <AccessKeyCreationForm
-            onAccessKeyCreated={(response) => {
-              if (!response.data) {
-                return;
-              }
-              setIsCreationModalOpen(false);
-            }}
-          />
-        </div>
+        <AccessKeyCreationForm
+          onAccessKeyCreated={(response) => {
+            if (!response.data) {
+              return;
+            }
+            setIsCreationModalOpen(false);
+          }}
+        />
       </Modal>
 
       <Form
-        className="w-full"
+        className="w-full flex-1 overflow-auto"
         schema={AccessKeyFormSchema}
         onSubmitSuccess={() => Promise.resolve()}
         onSubmitError={() => Promise.resolve()}
         {...form}
       >
-        <H3> {title}</H3>
+        <H3>{title}</H3>
         <span className="text-neutral text-sm">{description}</span>
         {project?.oAuth2Access.map((accessKey) => (
           <AccessKeyItem key={String(accessKey.id)} value={accessKey} />
@@ -292,7 +293,7 @@ export const AccessKeyForm: FC = () => {
           <>
             <blockquote className="mb-6 flex flex-col gap-3 border-card border-l-4 pl-5 text-neutral">
               <ul className="">
-                {tuto.map((el) => (
+                {tuto.map((el: (typeof tuto)[number]) => (
                   <li key={el.value}>
                     <span className="text-center text-neutral text-sm">
                       {el}

@@ -120,7 +120,8 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
       title={title.value}
       size="xl"
       padding="lg"
-      className="w-2xl overflow-y-auto"
+      className="w-2xl"
+      isScrollable="y"
     >
       <Form
         schema={ConfigSchema}
