@@ -1,4 +1,5 @@
-import { isAbsolute, join } from 'node:path';
+import { statSync } from 'node:fs';
+import { dirname, isAbsolute, join } from 'node:path';
 import type {
   AiConfig,
   BaseContentConfig,
@@ -239,10 +240,42 @@ const buildContentFields = (
     formatCommand: customConfiguration?.formatCommand,
   };
 
-  const optionalJoinBaseDir = (path: string) => {
-    if (isAbsolute(path)) return path;
+  const optionalJoinBaseDir = (pathInput: string) => {
+    let absolutePath: string;
 
-    return join(notDerivedContentConfig.baseDir, path);
+    try {
+      // Try resolving as a Node module first (e.g. '@intlayer/design-system')
+      // Passing { paths: [...] } ensures we look starting from your project baseDir
+      absolutePath = require.resolve(pathInput, {
+        paths: [notDerivedContentConfig.baseDir],
+      });
+    } catch {
+      // If resolution fails (it's not a module or it's a relative path like './src'),
+      // fall back to standard path joining.
+      absolutePath = isAbsolute(pathInput)
+        ? pathInput
+        : join(notDerivedContentConfig.baseDir, pathInput);
+    }
+
+    try {
+      // Smart Detection: File vs Directory
+      const stats = statSync(absolutePath);
+
+      // If it resolved to a file (like package.json "main" or index.js),
+      // we want the FOLDER containing that file.
+      if (stats.isFile()) {
+        return dirname(absolutePath);
+      }
+    } catch {
+      // Safety Fallback:
+      // If statSync fails but it looks like a file (has an extension), strip it.
+      if (/\.[a-z0-9]+$/i.test(absolutePath)) {
+        return dirname(absolutePath);
+      }
+    }
+
+    // Return the calculated path (usually a directory)
+    return absolutePath;
   };
 
   const baseDirDerivedConfiguration: BaseDerivedConfig = {

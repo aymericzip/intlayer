@@ -38,7 +38,7 @@ const config: CustomIntlayerConfig = {
     mode: 'prefix-no-default',
   },
   content: {
-    contentDir: ['./src', dirname(require.resolve('@intlayer/design-system'))],
+    contentDir: ['./src', '@intlayer/design-system'],
     formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
   editor: {
