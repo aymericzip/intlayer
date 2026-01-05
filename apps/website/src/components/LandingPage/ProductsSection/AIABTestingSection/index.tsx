@@ -1,6 +1,6 @@
 'use client';
 
-import { TagColor } from '@intlayer/design-system';
+import { TestTubeIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { ExternalLinks } from '@/Routes';
@@ -13,8 +13,12 @@ export const AIABTestingSection: FC = () => {
 
   return (
     <ProductSectionLayout
-      tag={betaTag}
-      tagColor={TagColor.NEUTRAL}
+      tag={
+        <span className="flex items-center gap-2">
+          <TestTubeIcon className="size-3" />
+          {betaTag}
+        </span>
+      }
       title={title}
       description={<p>{description}</p>}
       cta={{

@@ -7,11 +7,7 @@ import { lazy, Suspense } from 'react';
 const HeroSection = lazy(() =>
   import('./HeroSection').then((module) => ({ default: module.HeroSection }))
 );
-const ValuePropsSection = lazy(() =>
-  import('./ValuePropsSection').then((module) => ({
-    default: module.ValuePropsSection,
-  }))
-);
+
 const ContentDeliverySection = lazy(() =>
   import('./ContentDeliverySection').then((module) => ({
     default: module.ContentDeliverySection,
@@ -25,11 +21,6 @@ const FeaturesSection = lazy(() =>
 const ComingSoonSection = lazy(() =>
   import('./ComingSoonSection').then((module) => ({
     default: module.ComingSoonSection,
-  }))
-);
-const IntegrationSection = lazy(() =>
-  import('./IntegrationSection').then((module) => ({
-    default: module.IntegrationSection,
   }))
 );
 const FinalCTASection = lazy(() =>
@@ -53,50 +44,40 @@ export const CMSLandingPage: FC = () => {
     <div className="flex flex-col">
       {/* Hero Section */}
       <BackgroundLayout>
-        <Suspense fallback={<div className="min-h-[calc(100vh-64px)]" />}>
+        <Suspense>
           <HeroSection />
         </Suspense>
       </BackgroundLayout>
 
-      {/* Value Props Section */}
-      <Suspense fallback={<div className="py-24" />}>
-        <ValuePropsSection />
-      </Suspense>
-
       {/* Content Delivery Section */}
-      <Suspense fallback={<div className="py-24" />}>
+      <Suspense>
         <ContentDeliverySection />
       </Suspense>
 
       {/* Features Grid Section */}
-      <Suspense fallback={<div className="py-24" />}>
+      <Suspense>
         <FeaturesSection />
       </Suspense>
 
       {/* Coming Soon Section */}
-      <Suspense fallback={<div className="py-24" />}>
+      <Suspense>
         <ComingSoonSection />
       </Suspense>
 
-      {/* Integration Section */}
-      <Suspense fallback={<div className="py-24" />}>
-        <IntegrationSection />
-      </Suspense>
-
       {/* Products Section */}
-      <Suspense fallback={<div className="py-24" />}>
+      <Suspense>
         <ProductsSection />
       </Suspense>
 
       {/* Community Section */}
       <section>
-        <Suspense fallback={<div className="py-24" />}>
+        <Suspense>
           <ContributorSection />
         </Suspense>
       </section>
 
       {/* Final CTA Section */}
-      <Suspense fallback={<div className="py-24" />}>
+      <Suspense>
         <FinalCTASection />
       </Suspense>
     </div>

@@ -21,7 +21,7 @@ export const FinalCTASection: FC = () => {
     finalCtaDescription,
     finalCtaPrimary,
     finalCtaSecondary,
-  } = useIntlayer('cms-landing');
+  } = useIntlayer('cms-landing-final-cta');
 
   return (
     <section className="relative overflow-hidden py-24">
@@ -32,7 +32,7 @@ export const FinalCTASection: FC = () => {
           <h2 className="mb-6 font-bold text-3xl text-text-opposite sm:text-4xl md:text-5xl">
             {finalCtaTitle}
           </h2>
-          <p className="mx-auto mb-10 max-w-xl text-lg text-neutral-300">
+          <p className="mx-auto mb-10 max-w-xl text-lg text-neutral">
             {finalCtaDescription}
           </p>
           <motion.div

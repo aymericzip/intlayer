@@ -2,8 +2,8 @@
 
 import { Link } from '@components/Link/Link';
 import { LinkColor, LinkVariant } from '@intlayer/design-system';
-import { motion } from 'framer-motion';
-import { ArrowRight, Globe } from 'lucide-react';
+import { m } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { AppRoutes } from '@/Routes';
@@ -17,23 +17,23 @@ const fadeUp = {
 
 export const FinalCTASection: FC = () => {
   const { finalCtaTitle, finalCtaDescription, finalCtaButton } =
-    useIntlayer('tms-landing');
+    useIntlayer('final-cta-section');
 
   return (
     <section className="relative overflow-hidden py-24">
+      {/* Background fill similar to CMS CTA */}
       <div className="absolute inset-0 bg-text" />
+
       <div className="relative mx-auto max-w-4xl px-4 text-center md:px-8 lg:px-12">
-        <motion.div {...fadeUp}>
-          <div className="mb-6 flex justify-center">
-            <Globe className="size-16 text-neutral-400/50" />
-          </div>
+        <m.div {...fadeUp}>
           <h2 className="mb-6 font-bold text-3xl text-text-opposite sm:text-4xl md:text-5xl">
             {finalCtaTitle}
           </h2>
           <p className="mx-auto mb-10 max-w-xl text-lg text-neutral-300">
             {finalCtaDescription}
           </p>
-          <motion.div
+
+          <m.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -53,8 +53,8 @@ export const FinalCTASection: FC = () => {
                 <ArrowRight className="size-5 transition-transform" />
               </span>
             </Link>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
   );

@@ -24,6 +24,7 @@ export const FormLabelLayout: FC<FormLabelLayoutProps> = ({
       <FormLabel
         htmlFor={htmlFor}
         id={`${htmlFor}-label`}
+        suppressHydrationWarning
         className={clsx('font-bold', className)}
       >
         {children}

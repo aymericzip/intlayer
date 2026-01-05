@@ -1,74 +1,55 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Building, Sparkles } from 'lucide-react';
+import { Building, Sparkles, Webhook } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
-
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.3 },
-  transition: { duration: 0.6, ease: 'easeOut' as const },
-};
-
-const staggerContainer = {
-  initial: {},
-  whileInView: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-  viewport: { once: true, amount: 0.2 },
-};
-
-const staggerItem = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, ease: 'easeOut' as const },
-};
+import { AnimatedDiv } from './AnimatedDiv';
 
 const iconMap: Record<string, ReactNode> = {
   sparkles: <Sparkles className="size-6" />,
   building: <Building className="size-6" />,
+  webhook: <Webhook className="size-6" />,
 };
 
 export const ComingSoonSection: FC = () => {
-  const { comingSoonTitle, comingSoonFeatures } = useIntlayer('cms-landing');
+  const { comingSoonTitle, comingSoonFeatures } = useIntlayer(
+    'cms-landing-coming-soon'
+  );
 
   return (
     <section className="py-24">
-      <div className="mx-auto max-w-5xl px-4 md:px-8 lg:px-12">
-        <motion.div {...fadeUp} className="mb-12 text-center">
-          <span className="mb-4 inline-block rounded-full bg-secondary/20 px-4 py-1.5 font-medium text-sm text-text">
-            {comingSoonTitle}
-          </span>
-        </motion.div>
+      <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
+        <h2 className="mb-16 text-center font-bold text-3xl text-text sm:text-4xl">
+          {comingSoonTitle}
+        </h2>
 
-        <motion.div {...staggerContainer} className="grid gap-6 md:grid-cols-2">
+        <div className="m-auto mt-3 flex w-full flex-wrap justify-evenly gap-x-6 gap-y-16 px-3 py-2">
           {comingSoonFeatures.map(
             (feature: (typeof comingSoonFeatures)[number]) => (
-              <motion.div
-                key={feature.id}
-                {...staggerItem}
-                className="relative overflow-hidden rounded-2xl border border-neutral-300 border-dashed bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900/50"
+              <AnimatedDiv
+                key={feature.id.value}
+                className="flex max-w-[280px] flex-col items-center gap-4 text-center"
               >
-                <div className="absolute top-4 right-4 rounded-full bg-secondary/20 px-2.5 py-1 font-medium text-text text-xs">
-                  {feature.badge}
-                </div>
-                <div className="mb-4 flex size-11 items-center justify-center rounded-xl bg-secondary/20 text-text">
+                <span className="flex size-12 items-center justify-center rounded-full border-4 border-lime-300 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
                   {iconMap[feature.icon.value]}
+                </span>
+                <div>
+                  <h3 className="mb-2 flex items-center justify-center gap-2 font-semibold text-lg text-text">
+                    {feature.title}
+                    {feature.badge && (
+                      <span className="inline-flex items-center rounded-full bg-secondary/10 px-2 py-0.5 font-medium text-secondary text-xs">
+                        {feature.badge}
+                      </span>
+                    )}
+                  </h3>
+                  <p className="text-neutral text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="mb-2 font-semibold text-lg text-text">
-                  {feature.title}
-                </h3>
-                <p className="text-neutral text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
+              </AnimatedDiv>
             )
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

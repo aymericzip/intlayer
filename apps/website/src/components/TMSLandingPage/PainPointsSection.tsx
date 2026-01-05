@@ -1,29 +1,28 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { Container } from '@intlayer/design-system';
+import { m, type Variants } from 'framer-motion';
 import { Banknote, EyeOff, RefreshCcw } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
 
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.3 },
-  transition: { duration: 0.6, ease: 'easeOut' as const },
-};
-
-const staggerContainer = {
-  initial: {},
-  whileInView: {
-    transition: { staggerChildren: 0.1 },
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
   },
-  viewport: { once: true, amount: 0.2 },
 };
 
-const staggerItem = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, ease: 'easeOut' as const },
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: 'easeOut' },
+  },
 };
 
 const iconMap: Record<string, ReactNode> = {
@@ -32,27 +31,42 @@ const iconMap: Record<string, ReactNode> = {
   'eye-off': <EyeOff className="size-6" />,
 };
 
+const MotionContainer = m.create(Container);
+
 export const PainPointsSection: FC = () => {
-  const { painPointsTitle, painPoints } = useIntlayer('tms-landing');
+  const { painPointsTitle, painPoints } = useIntlayer('pain-points-section');
 
   return (
-    <section className="bg-neutral-50 py-24 dark:bg-neutral-900/30">
+    <section className="py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-        <motion.h2
-          {...fadeUp}
+        <m.h2
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="mb-16 text-center font-bold text-3xl text-text sm:text-4xl"
         >
           {painPointsTitle}
-        </motion.h2>
+        </m.h2>
 
-        <motion.div {...staggerContainer} className="grid gap-8 md:grid-cols-3">
+        <m.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          variants={containerVariants}
+          className="grid gap-6 md:grid-cols-3"
+        >
           {painPoints.map((point) => (
-            <motion.div
-              key={point.id}
-              {...staggerItem}
-              className="relative overflow-hidden rounded-3xl border border-neutral-200 bg-background p-8 transition-all dark:border-neutral-800"
+            <MotionContainer
+              key={point.id.value}
+              variants={cardVariants}
+              roundedSize="3xl"
+              padding="lg"
+              background="with"
+              border={true}
+              className="relative"
             >
-              <div className="mb-5 flex size-14 items-center justify-center rounded-2xl bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400">
+              <div className="mb-5 flex size-12 items-center justify-center rounded-xl bg-neutral/10 text-text">
                 {iconMap[point.icon.value]}
               </div>
               <h3 className="mb-3 font-semibold text-text text-xl">
@@ -61,9 +75,9 @@ export const PainPointsSection: FC = () => {
               <p className="text-neutral leading-relaxed">
                 {point.description}
               </p>
-            </motion.div>
+            </MotionContainer>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

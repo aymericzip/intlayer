@@ -1,7 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { CheckCircle, XCircle } from 'lucide-react';
+import { Container } from '@intlayer/design-system';
+import { m } from 'framer-motion';
+import { Check, Minus } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 
@@ -12,55 +13,69 @@ const fadeUp = {
   transition: { duration: 0.6, ease: 'easeOut' as const },
 };
 
+const MotionContainer = m.create(Container);
+
 export const ComparisonSection: FC = () => {
   const { comparisonTitle, comparisonHeaders, comparisonRows } =
-    useIntlayer('tms-landing');
+    useIntlayer('comparison-section');
 
   return (
     <section className="py-24">
       <div className="mx-auto max-w-5xl px-4 md:px-8 lg:px-12">
-        <motion.div {...fadeUp} className="mb-12 text-center">
-          <h2 className="mb-4 font-bold text-3xl text-text sm:text-4xl">
+        <m.div {...fadeUp} className="mb-16 text-center">
+          <h2 className="font-bold text-3xl text-text sm:text-4xl">
             {comparisonTitle}
           </h2>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <MotionContainer
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="overflow-hidden rounded-3xl border border-neutral-200 bg-background shadow-sm dark:border-neutral-800"
+          roundedSize="3xl"
+          border={true}
+          background="with"
+          className="overflow-hidden p-0"
         >
-          <div className="grid grid-cols-3 bg-neutral-50 p-6 font-semibold text-neutral-500 dark:bg-neutral-900">
+          {/* Header */}
+          <div className="grid grid-cols-3 bg-neutral/5 p-6 font-semibold text-neutral">
             <div className="col-span-1">{comparisonHeaders.feature}</div>
             <div className="col-span-1 font-bold text-text">
               {comparisonHeaders.intlayer}
             </div>
-            <div className="col-span-1 text-neutral">
+            <div className="col-span-1 text-neutral/60">
               {comparisonHeaders.others}
             </div>
           </div>
-          <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
+
+          {/* Rows */}
+          <div className="divide-y divide-neutral/10">
             {comparisonRows.map((row, index) => (
               <div
                 key={index}
-                className="grid grid-cols-3 items-center p-6 text-sm sm:text-base"
+                className="grid grid-cols-3 items-center p-6 text-sm hover:bg-neutral/5 sm:text-base"
               >
                 <div className="col-span-1 font-medium text-text">
                   {row.feature}
                 </div>
+
+                {/* Intlayer Column */}
                 <div className="col-span-1 flex items-center gap-2 font-semibold text-text">
-                  <CheckCircle className="size-5 text-green-500" />
+                  <span className="flex size-6 items-center justify-center rounded-full bg-text text-text-opposite">
+                    <Check className="size-3.5" strokeWidth={3} />
+                  </span>
                   {row.intlayer}
                 </div>
+
+                {/* Others Column */}
                 <div className="col-span-1 flex items-center gap-2 text-neutral">
-                  <XCircle className="size-5 text-neutral-400" />
+                  <Minus className="size-4 text-neutral/40" />
                   {row.others}
                 </div>
               </div>
             ))}
           </div>
-        </motion.div>
+        </MotionContainer>
       </div>
     </section>
   );

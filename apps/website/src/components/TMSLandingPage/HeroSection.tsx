@@ -24,7 +24,7 @@ export const HeroSection: FC = () => {
     heroDescription,
     primaryCta,
     secondaryCta,
-  } = useIntlayer('tms-landing');
+  } = useIntlayer('hero-section');
 
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -53,7 +53,7 @@ export const HeroSection: FC = () => {
             <Tag
               size={TagSize.MD}
               border={TagBorder.WITH}
-              color={TagColor.PRIMARY}
+              color={TagColor.TEXT}
               className="rounded-full border px-4 py-1.5 font-semibold text-sm backdrop-blur-sm"
             >
               {heroTag}
