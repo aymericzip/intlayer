@@ -40,35 +40,35 @@ static INTLAYER_KEYS: LazyLock<Mutex<HashSet<String>>> =
 // ─────────────────────────────────────────────────────────────────────────────
 #[derive(Debug, Deserialize)]
 struct PluginConfig {
-    /// Directory that contains `<key>.json` files for static imports
+    // Directory that contains `<key>.json` files for static imports
     #[serde(rename = "dictionariesDir")]
     dictionaries_dir: String,
 
-    /// Path to the dictionaries entry file
+    // Path to the dictionaries entry file
     #[serde(rename = "dictionariesEntryPath")]
     dictionaries_entry_path: String,
 
-    /// Directory that contains `<key>.mjs` files for dynamic imports
+    // Directory that contains `<key>.mjs` files for dynamic imports
     #[serde(rename = "dynamicDictionariesDir")]
     dynamic_dictionaries_dir: String,
 
-    /// Directory that contains `<key>.mjs` files for live/fetch imports
+    // Directory that contains `<key>.mjs` files for live/fetch imports
     #[serde(rename = "fetchDictionariesDir")]
     fetch_dictionaries_dir: String,
 
-    /// Import mode for the plugin: "static", "dynamic", or "live"
+    // Import mode for the plugin: "static", "dynamic", or "live"
     #[serde(rename = "importMode")]
     import_mode: Option<String>,
 
-    /// If true, the plugin will replace the dictionary entry file with `export default {}`.
+    // If true, the plugin will replace the dictionary entry file with `export default {}`.
     #[serde(rename = "replaceDictionaryEntry")]
     replace_dictionary_entry: Option<bool>,
 
-    /// Files list to traverse
+    // Files list to traverse
     #[serde(rename = "filesList")]
     files_list: Vec<String>,
 
-    /// Keys that should use live sync (per-key) when importMode is "live"
+    // Keys that should use live sync (per-key) when importMode is "live"
     #[serde(rename = "liveSyncKeys")]
     live_sync_keys: Vec<String>,
 }
@@ -81,11 +81,11 @@ struct TransformVisitor<'a> {
     dynamic_dictionaries_dir: &'a str,
     import_mode: String,
     live_sync_keys: &'a HashSet<String>,
-    /// Per-file cache: key → imported ident for static imports
+    // Per-file cache: key → imported ident for static imports
     new_static_imports: BTreeMap<String, Ident>,
-    /// Per-file cache: key → imported ident for dynamic imports
+    // Per-file cache: key → imported ident for dynamic imports
     new_dynamic_imports: BTreeMap<String, Ident>,
-    /// Track if current file imports from packages supporting dynamic imports
+    // Track if current file imports from packages supporting dynamic imports
     use_dynamic_helpers: bool,
 }
 
@@ -102,18 +102,18 @@ impl<'a> TransformVisitor<'a> {
         }
     }
 
-    /// Turn an i18n key into a short, opaque identifier, e.g.
-    ///    "locale-switcher" ➜ "_eEmT39vss4n4"
+    // Turn an i18n key into a short, opaque identifier, e.g.
+    //    "locale-switcher" ➜ "_eEmT39vss4n4"
     fn make_ident(&self, key: &str) -> Ident {
-        // 1) hash the key
+        // Hash the key
         let mut hasher = BuildHasherDefault::<XxHash64>::default().build_hasher();
         hasher.write(key.as_bytes());
         let hash = hasher.finish();          // u64
 
-        // 2) base-62-encode the 64-bit number ⇒ up to 11 chars
+        // Base-62-encode the 64-bit number ⇒ up to 11 chars
         let mut encoded = base62_encode(hash);
 
-        // 3) prepend "_" so the ident never begins with a digit
+        // Prepend "_" so the ident never begins with a digit
         encoded.insert(0, '_');
 
         Ident::new(
@@ -123,17 +123,17 @@ impl<'a> TransformVisitor<'a> {
         )
     }
 
-    /// Create a dynamic import identifier (with _dyn suffix)
+    // Create a dynamic import identifier (with _dyn suffix)
     fn make_dynamic_ident(&self, key: &str) -> Ident {
-        // 1) hash the key
+        // Hash the key
         let mut hasher = BuildHasherDefault::<XxHash64>::default().build_hasher();
         hasher.write(key.as_bytes());
         let hash = hasher.finish();          // u64
 
-        // 2) base-62-encode the 64-bit number ⇒ up to 11 chars
+        // Base-62-encode the 64-bit number ⇒ up to 11 chars
         let mut encoded = base62_encode(hash);
 
-        // 3) prepend "_" and append "_dyn" for dynamic imports
+        // Prepend "_" and append "_dyn" for dynamic imports
         encoded.insert(0, '_');
         encoded.push_str("_dyn");
 
@@ -144,7 +144,7 @@ impl<'a> TransformVisitor<'a> {
         )
     }
 
-    /// Create a live/fetch import identifier (with _fetch suffix)
+    // Create a live/fetch import identifier (with _fetch suffix)
     fn make_fetch_ident(&self, key: &str) -> Ident {
         let mut hasher = BuildHasherDefault::<XxHash64>::default().build_hasher();
         hasher.write(key.as_bytes());
@@ -203,7 +203,7 @@ static PACKAGE_LIST_DYNAMIC: LazyLock<Vec<Atom>> = LazyLock::new(|| {
 });
 
 impl<'a> VisitMut for TransformVisitor<'a> {
-    // ── 0.  handle expression-level transformations  ──
+    // Handle expression-level transformations
     fn visit_mut_expr(&mut self, expr: &mut Expr) {
         // First visit children
         expr.visit_mut_children_with(self);
@@ -286,7 +286,7 @@ impl<'a> VisitMut for TransformVisitor<'a> {
         }
     }
 
-    // ── 1.  patch  import { useIntlayer }  ──────────────────────────────────
+    // Patch  import { useIntlayer }
     fn visit_mut_import_decl(&mut self, import: &mut ImportDecl) {
         import.visit_mut_children_with(self);
 
@@ -348,20 +348,20 @@ impl<'a> VisitMut for TransformVisitor<'a> {
 pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata) -> Program {
 
  
-    // read and parse plugin options
+    // Read and parse plugin options
     let cfg: PluginConfig = match metadata
         .get_transform_plugin_config()
         .and_then(|raw| serde_json::from_str::<PluginConfig>(&raw).ok())
     {
         Some(c) => {
             if DEBUG_LOG {
-                println!("[swc-intlayer] Config parsed successfully. (files_list count: {})", c.files_list.len());
+                println!("[swc-intlayer] Config parsed successfull(files_list count: {})", c.files_list.len());
             }
             c
         },
         None => {
             if DEBUG_LOG {
-                println!("[swc-intlayer] Warning: No config found or failed to parse. Noop.");
+                println!("[swc-intlayer] Warning: No config found or failed to parsNoop.");
             }
             return program;
         },
@@ -403,7 +403,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
     // Determine the working file path to use for relative calc
     let working_filename = absolute_filename_opt.unwrap_or(filename_raw.clone());
 
-    // short-circuit the dictionaries entry file  ─────────────────────
+    // Short-circuit the dictionaries entry file  ─────────────────────
     if cfg.replace_dictionary_entry.unwrap_or(false) {
         let is_main_entry = working_filename == cfg.dictionaries_entry_path || filename_raw == cfg.dictionaries_entry_path;
 
@@ -411,7 +411,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
             
             let func_name = "getDictionaries";
 
-            // 2. Create: export default {}
+            // Create: export default {}
             let default_export = ModuleItem::ModuleDecl(ModuleDecl::ExportDefaultExpr(
                 ExportDefaultExpr {
                     span: DUMMY_SP,
@@ -422,7 +422,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                 },
             ));
 
-            // 3. Create: export const getDictionaries = () => ({});
+            // Create: export const getDictionaries = () => ({});
             let named_export = ModuleItem::ModuleDecl(ModuleDecl::ExportDecl(ExportDecl {
                 span: DUMMY_SP,
                 decl: Decl::Var(Box::new(VarDecl {
@@ -464,7 +464,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
         }
     }
 
-    // 3) run visitor
+    // Run visitor
     if DEBUG_LOG {
         println!("[swc-intlayer] [{}] step 3: running visitor...", working_filename);
     }
@@ -477,13 +477,13 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
             working_filename, visitor.new_static_imports.len(), visitor.new_dynamic_imports.len());
     }
 
-    // ── 4) inject JSON/MJS imports (if any) ───────────────────────────────────
+    // Inject JSON/MJS imports (if any)
     if let Program::Module(Module { body, .. }) = &mut program {
         if DEBUG_LOG {
             println!("[swc-intlayer] [{}] step 4: injecting imports...", working_filename);
         }
 
-        // save the strings so we don't need `visitor` inside the loop
+        // Save the strings so we don't need `visitor` inside the loop
         let dictionaries_dir = visitor.dictionaries_dir.to_owned();
         let dynamic_dictionaries_dir = visitor.dynamic_dictionaries_dir.to_owned();
         let fetch_dictionaries_dir = cfg.fetch_dictionaries_dir.to_owned();
@@ -492,8 +492,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
         let file_path_abs = Path::new(&working_filename);
         let file_dir_abs = file_path_abs.parent().unwrap_or_else(|| Path::new("/"));
 
-        // 4.a  where should we inject?  ─────────────────────────────────────
-        //      keep all leading `'use …'` strings at the top
+        // Keep all leading `'use …'` strings at the top
         let mut insert_pos = 0;
         for item in body.iter() {
             match item {
@@ -515,7 +514,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
             println!("[swc-intlayer] [{}] step 4a: insert_pos={}", working_filename, insert_pos);
         }
 
-        // 4.b  inject static imports after the directives  ─────────────────────
+        // Inject static imports after the directives  ─────────────────────
         if DEBUG_LOG {
             println!("[swc-intlayer] [{}] step 4b: injecting {} static imports...", working_filename, visitor.new_static_imports.len());
         }
@@ -575,7 +574,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
             println!("[swc-intlayer] [{}] step 4b: done", working_filename);
         }
 
-        // 4.c  inject dynamic/fetch imports after the static imports  ──────────
+        // Inject dynamic/fetch imports after the static imports  ──────────
         if DEBUG_LOG {
             println!("[swc-intlayer] [{}] step 4c: injecting {} dynamic imports...", working_filename, visitor.new_dynamic_imports.len());
         }
@@ -619,7 +618,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
         if DEBUG_LOG {
             println!("[swc-intlayer] [{}] step 4c: done", working_filename);
             println!("[swc-intlayer] [{}] step 5: emitting code for debug...", working_filename);
-            // ── 5) print entire transformed file as JS ──────────────────────────
+            // Print entire transformed file as JS
             {
                 // Create a fresh SourceMap just for codegen (no real sourcemaps needed here)
                 let cm: Lrc<SourceMap> = Default::default();
