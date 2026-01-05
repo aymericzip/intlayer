@@ -125,20 +125,15 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     },
 
     advanced: {
-      // 1️⃣  Change or drop the global prefix
-      // cookiePrefix: "intlayer",          // =>  intlayer.session_token
       cookiePrefix: 'intlayer', // =>  session_token  (no prefix)
 
-      // 2️⃣  Override just the session‑token cookie
+      // Override just the session‑token cookie
       cookies: {
         session_token: {
           // name: 'intlayer_session_token', // final name depends on the prefix above
           // attributes: { sameSite: "lax", maxAge: 60 * 60 * 24 } // optional
         },
       },
-
-      // 3️⃣  (optional) turn off the automatic __Secure‑ prefix in non‑prod
-      // useSecureCookies: false,
     },
 
     secret: process.env.BETTER_AUTH_SECRET as string,
@@ -276,7 +271,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     crossSubDomainCookies: {
       enabled: true,
       additionalCookies: ['session_token'],
-      domain: process.env.APP_URL as string,
+      domain: process.env.DOMAIN as string,
     },
     cookiePrefix: 'intlayer',
     cookies: {
