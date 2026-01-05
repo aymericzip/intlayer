@@ -1,3 +1,4 @@
+import { dirname } from 'node:path';
 import {
   type CustomIntlayerConfig,
   type Locale,
@@ -37,7 +38,7 @@ const config: CustomIntlayerConfig = {
     mode: 'prefix-no-default',
   },
   content: {
-    contentDir: ['./src', '../../packages/@intlayer/design-system/src'],
+    contentDir: ['./src', dirname(require.resolve('@intlayer/design-system'))],
     formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
   editor: {
