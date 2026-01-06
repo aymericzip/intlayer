@@ -171,7 +171,7 @@ export const RepositoryLink: FC = () => {
                 id="gitlabInstanceUrl"
                 type="url"
                 placeholder="https://gitlab.company.com"
-                value={gitlabInstanceUrl ?? 'https://gitlab.com'}
+                value={gitlabInstanceUrl}
                 onChange={(e) => setGitlabInstanceUrl(e.target.value)}
               />
             </div>

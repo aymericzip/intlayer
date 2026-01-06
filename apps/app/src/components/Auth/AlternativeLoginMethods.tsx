@@ -27,12 +27,12 @@ export const AlternativeLoginMethods: FC<AlternativeLoginMethodsProps> = ({
     <div className="flex flex-col gap-3">
       <div className="relative flex flex-col justify-center gap-y-3">
         <PasskeyButton />
-        {showAll && (
-          <>
-            <SSOButton domain={email?.split('@')[1]} />
-            <MagicLinkButton email={email} />
-          </>
-        )}
+
+        <SSOButton
+          domain={email?.split('@')[1]}
+          className={showAll ? '' : 'hidden!'}
+        />
+        <MagicLinkButton email={email} className={showAll ? '' : 'hidden!'} />
       </div>
 
       <ExternalsLoginButtons showAll={showAll} onLogin={onLogin} />

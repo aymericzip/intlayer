@@ -76,7 +76,8 @@ export const useRepositoryLink = (content: any): UseRepositoryLinkReturn => {
   );
   const [isLinking, setIsLinking] = useState(false);
   const [isCheckingProvider, setIsCheckingProvider] = useState(false);
-  const [gitlabInstanceUrl, setGitlabInstanceUrl] = useState('');
+  const [gitlabInstanceUrl, setGitlabInstanceUrl] =
+    useState('https://gitlab.com');
 
   // Modal states
   const [isRepoListOpen, setIsRepoListOpen] = useState(false);
@@ -512,7 +513,6 @@ export const useRepositoryLink = (content: any): UseRepositoryLinkReturn => {
       updateProject({
         id: project.id,
         repository: null,
-        github: null,
       });
     }
   };

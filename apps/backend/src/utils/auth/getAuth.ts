@@ -250,10 +250,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       },
       resetPasswordTokenExpiresIn: 3600,
     },
-    accountLinking: {
-      enabled: true, // allow linking in general
-      trustedProviders: ['google', 'github', 'linkedin'], // optional: auto‑link when Google verifies the e‑mail
-    },
+
     emailVerification: {
       autoSignInAfterVerification: true,
       sendOnSignIn: true,
@@ -289,6 +286,20 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       process.env.APP_URL as string,
     ],
 
+    accountLinking: {
+      enabled: true, // allow linking in general
+      trustedProviders: [
+        'google',
+        'github',
+        'linkedin',
+        'gitlab',
+        'atlassian',
+        'microsoft',
+        'email-password',
+        'magic-link',
+        'passkey',
+      ],
+    },
     socialProviders: {
       google: {
         clientId: process.env.GOOGLE_CLIENT_ID as string,

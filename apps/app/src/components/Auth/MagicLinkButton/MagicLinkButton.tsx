@@ -2,6 +2,7 @@
 
 import { Button, Form, Modal, useForm } from '@intlayer/design-system';
 import { useSignInMagicLink } from '@intlayer/design-system/hooks';
+import { cn } from '@utils/cn';
 import { Mail } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
@@ -9,9 +10,13 @@ import { type MagicLinkForm, useMagicLinkSchema } from './useMagicLinkSchema';
 
 type MagicLinkButtonProps = {
   email?: string;
+  className?: string;
 };
 
-export const MagicLinkButton: FC<MagicLinkButtonProps> = ({ email }) => {
+export const MagicLinkButton: FC<MagicLinkButtonProps> = ({
+  email,
+  className,
+}) => {
   const { text, ariaLabel, successMessage, errorMessage, modal } =
     useIntlayer('magic-link-button');
   const { mutate: signInMagicLink, isPending } = useSignInMagicLink();
@@ -63,7 +68,7 @@ export const MagicLinkButton: FC<MagicLinkButtonProps> = ({ email }) => {
         <Button
           variant="outline"
           color="text"
-          className="w-full"
+          className={cn('w-full', className)}
           Icon={Mail}
           label={ariaLabel.value}
           onClick={handleOpenModal}

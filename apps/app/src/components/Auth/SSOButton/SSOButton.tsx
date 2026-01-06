@@ -2,6 +2,7 @@
 
 import { Button, Input, Loader, Modal } from '@intlayer/design-system';
 import { usePersistedStore, useSignInSSO } from '@intlayer/design-system/hooks';
+import { cn } from '@utils/cn';
 import { Building2 } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
@@ -9,6 +10,7 @@ import { useSearchParamState } from '@/hooks/useSearchParamState';
 
 type SSOButtonProps = {
   domain?: string;
+  className?: string;
 };
 
 /**
@@ -34,7 +36,10 @@ const STORAGE_KEY = 'sso-button-domain';
  *
  * @param domain - Optional domain to determine organization
  */
-export const SSOButton: FC<SSOButtonProps> = ({ domain: domainProp }) => {
+export const SSOButton: FC<SSOButtonProps> = ({
+  domain: domainProp,
+  className,
+}) => {
   const { params, setParam } = useSearchParamState({
     domain: { type: 'string' },
   });
@@ -123,7 +128,7 @@ export const SSOButton: FC<SSOButtonProps> = ({ domain: domainProp }) => {
       <Button
         variant="outline"
         color="text"
-        className="w-full"
+        className={cn('w-full', className)}
         Icon={Building2}
         label={ariaLabel.value}
         onClick={handleOpenModal}

@@ -168,8 +168,6 @@ export const checkConfig = async (
   }
 };
 
-// ... [getConfigFile remains unchanged] ...
-
 export type GitHubGetConfigFileBody = {
   token?: string;
   owner: string;
