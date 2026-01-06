@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-01-06
 title: Elencare i file di dichiarazione del contenuto
 description: Scopri come elencare tutti i file di dichiarazione del contenuto nel tuo progetto.
 keywords:
@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - list
+history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: Aggiunta opzione di output JSON al comando list
 ---
 
 # Elencare i file di dichiarazione del contenuto
@@ -27,13 +31,29 @@ npx intlayer content list
 
 Questo comando mostra tutti i file di dichiarazione del contenuto nel tuo progetto, visualizzando le loro chiavi nel dizionario e i percorsi dei file. È utile per avere una panoramica di tutti i tuoi file di contenuto e verificare che siano correttamente rilevati da Intlayer.
 
-## Esempio:
+## Argomenti:
+
+- **`--json`**: Mostra i risultati come JSON invece di testo formattato. Utile per scripting e accesso programmatico.
+
+  > Esempio: `npx intlayer content list --json`
+
+## Esempi:
+
+### Elencare i file di dichiarazione del contenuto:
 
 ```bash
 npx intlayer content list
 ```
 
+### Output come JSON:
+
+```bash
+npx intlayer content list --json
+```
+
 ## Output di esempio:
+
+### Output formattato:
 
 ```bash
 npx intlayer content list
@@ -43,6 +63,14 @@ Content declaration files:
  - client-component - src/components/ClientComponent/clientComponent.content.ts
 
 Totale file di dichiarazione del contenuto: 3
+```
+
+### Output JSON:
+
+```bash
+$ npx intlayer content list --json
+
+[{"key":"home-page","path":"src/components/HomePage/homePage.content.ts"},{"key":"server-component","path":"src/components/ServerComponent/serverComponent.content.ts"},{"key":"client-component","path":"src/components/ClientComponent/clientComponent.content.ts"}]
 ```
 
 Questo comando mostrerà:

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: اكتشف كيفية استخدام واجهة الأوامر Intlayer CLI لإدارة موقعك متعدد اللغات. اتبع الخطوات في هذه الوثائق الإلكترونية لإعداد مشروعك في دقائق قليلة.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: إضافة أمر projects list
   - version: 7.5.9
     date: 2025-12-30
     changes: إضافة أمر init
@@ -119,6 +122,7 @@ bun add intlayer-cli -g
 - **[بناء القواميس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/build.md)** - بناء قواميسك من ملفات إعلان المحتوى
 - **[مراقبة القواميس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/watch.md)** - مراقبة التغييرات وبناء القواميس تلقائيًا
 - **[التحقق من إصدار CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/version.md)** - التحقق من إصدار Intlayer CLI المثبت
+- **[قائمة المشاريع](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/list_projects.md)** - قائمة بجميع مشاريع Intlayer في دليل أو مستودع git
 
 ### إدارة القواميس
 
@@ -166,6 +170,7 @@ bun add intlayer-cli -g
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -175,3 +180,4 @@ bun add intlayer-cli -g
 >
 > - `npx intlayer list` بدلاً من `npx intlayer content list`
 > - `npx intlayer test` بدلاً من `npx intlayer content test`
+> - `npx intlayer projects-list` أو `npx intlayer pl` بدلاً من `npx intlayer projects list`

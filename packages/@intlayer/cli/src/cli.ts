@@ -15,6 +15,7 @@ import { startEditor } from './editor';
 import { type FillOptions, fill } from './fill/fill';
 import { init } from './init';
 import { listContentDeclaration } from './listContentDeclaration';
+import { listProjectsCommand } from './listProjects';
 import { liveSync } from './liveSync';
 import { pull } from './pull';
 import { push } from './push/push';
@@ -546,6 +547,53 @@ export const setAPI = (): Command => {
   });
 
   /**
+   * PROJECTS
+   */
+
+  const projectsProgram = program
+    .command('projects')
+    .alias('project')
+    .description('List Intlayer projects');
+
+  const projectsListCmd = projectsProgram
+    .command('list')
+    .description('List all Intlayer projects in the directory')
+    .option('--base-dir [baseDir]', 'Base directory to search from')
+    .option(
+      '--git-root',
+      'Search from the git root directory instead of the base directory'
+    )
+    .option('--json', 'Output the results as JSON');
+
+  projectsListCmd.action((options) => {
+    listProjectsCommand({
+      baseDir: options.baseDir,
+      gitRoot: options.gitRoot,
+      json: options.json,
+    });
+  });
+
+  // Add alias for projects list command at root level
+  const rootProjectsListCmd = program
+    .command('projects-list')
+    .alias('pl')
+    .description('List all Intlayer projects in the directory')
+    .option('--base-dir [baseDir]', 'Base directory to search from')
+    .option(
+      '--git-root',
+      'Search from the git root directory instead of the base directory'
+    )
+    .option('--json', 'Output the results as JSON');
+
+  rootProjectsListCmd.action((options) => {
+    listProjectsCommand({
+      baseDir: options.baseDir,
+      gitRoot: options.gitRoot,
+      json: options.json,
+    });
+  });
+
+  /**
    * CONTENT DECLARATION
    */
 
@@ -556,13 +604,19 @@ export const setAPI = (): Command => {
   contentProgram
     .command('list')
     .description('List the content declaration files')
-    .action(listContentDeclaration);
+    .option('--json', 'Output the results as JSON')
+    .action((options) => {
+      listContentDeclaration({ json: options.json });
+    });
 
   // Add alias for content list command
   program
     .command('list')
     .description('List the content declaration files')
-    .action(listContentDeclaration);
+    .option('--json', 'Output the results as JSON')
+    .action((options) => {
+      listContentDeclaration({ json: options.json });
+    });
 
   const testProgram = contentProgram
     .command('test')

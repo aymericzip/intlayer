@@ -35,6 +35,7 @@ export {
   listGitFiles,
   listGitLines,
 } from './listGitFiles';
+export { type ListProjectsOptions, listProjects } from './listProjects';
 export {
   loadContentDeclarations,
   loadDictionaries,

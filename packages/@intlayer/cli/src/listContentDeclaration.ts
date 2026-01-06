@@ -12,6 +12,7 @@ import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 type ListContentDeclarationOptions = {
   configOptions?: GetConfigurationOptions;
+  json?: boolean;
 };
 
 export const listContentDeclarationRows = (
@@ -33,14 +34,19 @@ export const listContentDeclarationRows = (
 export const listContentDeclaration = (
   options?: ListContentDeclarationOptions
 ) => {
+  const rows = listContentDeclarationRows(options);
+
+  if (options?.json) {
+    console.log(JSON.stringify(rows));
+    return;
+  }
+
   const config = getConfiguration(options?.configOptions);
   const appLogger = getAppLogger(config, {
     config: {
       prefix: '',
     },
   });
-
-  const rows = listContentDeclarationRows(options);
 
   const lines = rows.map((row) =>
     [

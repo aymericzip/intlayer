@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: Scopri come utilizzare la CLI di Intlayer per gestire il tuo sito web multilingue. Segui i passaggi in questa documentazione online per configurare il tuo progetto in pochi minuti.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: Aggiunto comando projects list
   - version: 7.5.9
     date: 2025-12-30
     changes: Aggiunto comando init
@@ -119,6 +122,7 @@ Per vedere come configurare le localizzazioni disponibili o altri parametri, con
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/build.md)** - Costruisci i tuoi dizionari dai file di dichiarazione dei contenuti
 - **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/watch.md)** - Monitora le modifiche e costruisci automaticamente i dizionari
 - **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/version.md)** - Controlla la versione installata della CLI di Intlayer
+- **[Elenca Progetti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/list_projects.md)** - Elenca tutti i progetti Intlayer in una directory o repository git
 
 ### Gestione dei Dizionari
 
@@ -161,6 +165,7 @@ Per vedere come configurare le localizzazioni disponibili o altri parametri, con
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -170,3 +175,4 @@ Per vedere come configurare le localizzazioni disponibili o altri parametri, con
 >
 > - `npx intlayer list` invece di `npx intlayer content list`
 > - `npx intlayer test` invece di `npx intlayer content test`
+> - `npx intlayer projects-list` o `npx intlayer pl` invece di `npx intlayer projects list`

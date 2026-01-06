@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-01-06
 title: コンテンツ宣言ファイルの一覧表示
 description: プロジェクト内のすべてのコンテンツ宣言ファイルを一覧表示する方法を学びます。
 keywords:
@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - list
+history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: listコマンドにJSON出力オプションを追加
 ---
 
 # コンテンツ宣言ファイルの一覧表示
@@ -27,13 +31,29 @@ npx intlayer content list
 
 このコマンドは、プロジェクト内のすべてのコンテンツ宣言ファイルを表示し、それらの辞書キーとファイルパスを示します。すべてのコンテンツファイルの概要を把握し、Intlayerによって正しく検出されているかを確認するのに役立ちます。
 
+## 引数:
+
+- **`--json`**: 結果をフォーマットされたテキストではなくJSONとして出力します。スクリプト作成やプログラムからのアクセスに便利です。
+
+  > 例: `npx intlayer content list --json`
+
 ## 例:
+
+### コンテンツ宣言ファイルの一覧表示:
 
 ```bash
 npx intlayer content list
 ```
 
+### JSONとして出力:
+
+```bash
+npx intlayer content list --json
+```
+
 ## 出力例:
+
+### フォーマットされた出力:
 
 ```bash
 npx intlayer content list
@@ -43,6 +63,14 @@ Content declaration files:
  - client-component - src/components/ClientComponent/clientComponent.content.ts
 
 合計コンテンツ宣言ファイル数: 3
+```
+
+### JSON出力:
+
+```bash
+$ npx intlayer content list --json
+
+[{"key":"home-page","path":"src/components/HomePage/homePage.content.ts"},{"key":"server-component","path":"src/components/ServerComponent/serverComponent.content.ts"},{"key":"client-component","path":"src/components/ClientComponent/clientComponent.content.ts"}]
 ```
 
 このコマンドは以下を出力します:

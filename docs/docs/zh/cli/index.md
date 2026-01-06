@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: 了解如何使用 Intlayer CLI 来管理您的多语言网站。按照本在线文档中的步骤，几分钟内即可设置您的项目。
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: 添加 projects list 命令
   - version: 7.5.9
     date: 2025-12-30
     changes: 添加 init 命令
@@ -119,6 +122,7 @@ Intlayer 支持多种配置文件格式：
 - **[构建字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/build.md)** - 从内容声明文件构建字典
 - **[监视字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/watch.md)** - 监视更改并自动构建字典
 - **[检查 CLI 版本](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/version.md)** - 检查已安装的 Intlayer CLI 版本
+- **[列出项目](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/list_projects.md)** - 列出目录或 git 存储库中的所有 Intlayer 项目
 
 ### 字典管理
 
@@ -171,6 +175,7 @@ Intlayer 支持多种配置文件格式：
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -180,3 +185,4 @@ Intlayer 支持多种配置文件格式：
 >
 > - 使用 `npx intlayer list` 替代 `npx intlayer content list`
 > - 使用 `npx intlayer test` 替代 `npx intlayer content test`
+> - 使用 `npx intlayer projects-list` 或 `npx intlayer pl` 替代 `npx intlayer projects list`

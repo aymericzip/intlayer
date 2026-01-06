@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-01-06
 title: Inhaltsdeklarationsdateien auflisten
 description: Erfahren Sie, wie Sie alle Inhaltsdeklarationsdateien in Ihrem Projekt auflisten können.
 keywords:
@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - list
+history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: JSON-Ausgabeoption zum Listen-Befehl hinzugefügt
 ---
 
 # Inhaltsdeklarationsdateien auflisten
@@ -27,13 +31,29 @@ npx intlayer content list
 
 Dieser Befehl zeigt alle Inhaltsdeklarationsdateien in Ihrem Projekt an, einschließlich ihrer Wörterbuchschlüssel und Dateipfade. Er ist nützlich, um einen Überblick über alle Ihre Inhaltsdateien zu erhalten und zu überprüfen, ob sie von Intlayer korrekt erkannt werden.
 
-## Beispiel:
+## Argumente:
+
+- **`--json`**: Gibt die Ergebnisse als JSON statt als formatierten Text aus. Nützlich für Skripte und programmatischen Zugriff.
+
+  > Beispiel: `npx intlayer content list --json`
+
+## Beispiele:
+
+### Inhaltsdeklarationsdateien auflisten:
 
 ```bash
 npx intlayer content list
 ```
 
+### Ausgabe als JSON:
+
+```bash
+npx intlayer content list --json
+```
+
 ## Beispielausgabe:
+
+### Formatierte Ausgabe:
 
 ```bash
 npx intlayer content list
@@ -43,6 +63,14 @@ Inhaltsdeklarationsdateien:
  - client-component - src/components/ClientComponent/clientComponent.content.ts
 
 Gesamtanzahl der Inhaltsdeklarationsdateien: 3
+```
+
+### JSON-Ausgabe:
+
+```bash
+$ npx intlayer content list --json
+
+[{"key":"home-page","path":"src/components/HomePage/homePage.content.ts"},{"key":"server-component","path":"src/components/ServerComponent/serverComponent.content.ts"},{"key":"client-component","path":"src/components/ClientComponent/clientComponent.content.ts"}]
 ```
 
 Dieser Befehl gibt aus:

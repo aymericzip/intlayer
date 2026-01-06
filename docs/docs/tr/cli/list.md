@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-01-06
 title: İçerik Beyan Dosyalarını Listele
 description: Projenizdeki tüm içerik beyan dosyalarını nasıl listeleyeceğinizi öğrenin.
 keywords:
@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - list
+history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: list komutuna JSON çıktı seçeneği eklendi
 ---
 
 # İçerik beyan dosyalarını listele
@@ -27,13 +31,29 @@ npx intlayer content list
 
 Bu komut, projenizdeki tüm içerik beyan dosyalarını, sözlük anahtarları ve dosya yolları ile birlikte gösterir. Tüm içerik dosyalarınızın genel bir görünümünü elde etmek ve Intlayer tarafından doğru şekilde keşfedildiklerini doğrulamak için faydalıdır.
 
-## Örnek:
+## Argümanlar:
+
+- **`--json`**: Sonuçları biçimlendirilmiş metin yerine JSON olarak çıktılar. Betik oluşturma ve programatik erişim için yararlıdır.
+
+  > Örnek: `npx intlayer content list --json`
+
+## Örnekler:
+
+### İçerik beyan dosyalarını listele:
 
 ```bash
 npx intlayer content list
 ```
 
+### JSON olarak çıktı:
+
+```bash
+npx intlayer content list --json
+```
+
 ## Örnek çıktı:
+
+### Biçimlendirilmiş çıktı:
 
 ```bash
 npx intlayer content list
@@ -43,6 +63,14 @@ npx intlayer content list
  - client-component - src/components/ClientComponent/clientComponent.content.ts
 
 Toplam içerik beyan dosyası: 3
+```
+
+### JSON çıktı:
+
+```bash
+$ npx intlayer content list --json
+
+[{"key":"home-page","path":"src/components/HomePage/homePage.content.ts"},{"key":"server-component","path":"src/components/ServerComponent/serverComponent.content.ts"},{"key":"client-component","path":"src/components/ClientComponent/clientComponent.content.ts"}]
 ```
 
 Bu komut aşağıdakileri çıktı olarak verir:

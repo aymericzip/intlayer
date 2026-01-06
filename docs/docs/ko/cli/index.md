@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: Intlayer CLI를 사용하여 다국어 웹사이트를 관리하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 만에 프로젝트를 설정할 수 있습니다.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: projects list 명령어 추가
   - version: 7.5.9
     date: 2025-12-30
     changes: init 명령어 추가
@@ -119,6 +122,7 @@ Intlayer는 여러 구성 파일 형식을 지원합니다:
 - **[사전 빌드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/build.md)** - 콘텐츠 선언 파일에서 사전을 빌드합니다.
 - **[사전 감시](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/watch.md)** - 변경 사항을 감시하고 자동으로 사전을 빌드합니다.
 - **[CLI 버전 확인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/version.md)** - 설치된 Intlayer CLI 버전을 확인합니다.
+- **[프로젝트 목록](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/list_projects.md)** - 디렉토리 또는 git 저장소의 모든 Intlayer 프로젝트를 나열합니다
 
 ### 사전 관리
 
@@ -166,6 +170,7 @@ Intlayer는 여러 구성 파일 형식을 지원합니다:
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -175,3 +180,4 @@ Intlayer는 여러 구성 파일 형식을 지원합니다:
 >
 > - `npx intlayer list` 는 `npx intlayer content list` 대신 사용
 > - `npx intlayer test` 는 `npx intlayer content test` 대신 사용
+> - `npx intlayer projects-list` 또는 `npx intlayer pl` 는 `npx intlayer projects list` 대신 사용

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: Découvrez comment utiliser le CLI Intlayer pour gérer votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: Ajout de la commande projects list
   - version: 7.5.9
     date: 2025-12-30
     changes: Ajout de la commande init
@@ -119,6 +122,7 @@ Pour voir comment configurer les locales disponibles, ou d'autres paramètres, r
 - **[Construire les dictionnaires](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/build.md)** - Construisez vos dictionnaires à partir des fichiers de déclaration de contenu
 - **[Surveiller les dictionnaires](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/watch.md)** - Surveillez les changements et construisez automatiquement les dictionnaires
 - **[Vérifier la version CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/version.md)** - Vérifiez la version installée de la CLI Intlayer
+- **[Lister les projets](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/list_projects.md)** - Listez tous les projets Intlayer dans un répertoire ou un dépôt git
 
 ### Gestion des dictionnaires
 
@@ -166,6 +170,7 @@ Pour voir comment configurer les locales disponibles, ou d'autres paramètres, r
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -175,3 +180,4 @@ Pour voir comment configurer les locales disponibles, ou d'autres paramètres, r
 >
 > - `npx intlayer list` au lieu de `npx intlayer content list`
 > - `npx intlayer test` au lieu de `npx intlayer content test`
+> - `npx intlayer projects-list` ou `npx intlayer pl` au lieu de `npx intlayer projects list`

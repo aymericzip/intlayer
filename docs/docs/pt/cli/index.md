@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: Descubra como usar o Intlayer CLI para gerenciar seu site multilíngue. Siga os passos nesta documentação online para configurar seu projeto em poucos minutos.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: Adicionado comando projects list
   - version: 7.5.9
     date: 2025-12-30
     changes: Adicionado comando init
@@ -119,6 +122,7 @@ Para ver como configurar os locais disponíveis ou outros parâmetros, consulte 
 - **[Construir Dicionários](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/build.md)** - Construa seus dicionários a partir dos arquivos de declaração de conteúdo
 - **[Observar Dicionários](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/watch.md)** - Observe alterações e construa automaticamente os dicionários
 - **[Verificar Versão do CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/version.md)** - Verifique a versão instalada do Intlayer CLI
+- **[Listar Projetos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/list_projects.md)** - Liste todos os projetos Intlayer em um diretório ou repositório git
 
 ### Gerenciamento de Dicionários
 
@@ -166,6 +170,7 @@ Para ver como configurar os locais disponíveis ou outros parâmetros, consulte 
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -175,3 +180,4 @@ Para ver como configurar os locais disponíveis ou outros parâmetros, consulte 
 >
 > - `npx intlayer list` ao invés de `npx intlayer content list`
 > - `npx intlayer test` ao invés de `npx intlayer content test`
+> - `npx intlayer projects-list` ou `npx intlayer pl` ao invés de `npx intlayer projects list`

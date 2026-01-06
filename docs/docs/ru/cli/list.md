@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-01-06
 title: Список файлов декларации контента
 description: Узнайте, как вывести список всех файлов декларации контента в вашем проекте.
 keywords:
@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - list
+history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: Добавлена опция вывода JSON для команды list
 ---
 
 # Список файлов декларации контента
@@ -27,13 +31,29 @@ npx intlayer content list
 
 Эта команда отображает все файлы декларации контента в вашем проекте, показывая их ключи словаря и пути к файлам. Это полезно для получения обзора всех ваших файлов контента и проверки того, что они корректно обнаружены Intlayer.
 
-## Пример:
+## Аргументы:
+
+- **`--json`**: Выводит результаты в формате JSON вместо форматированного текста. Полезно для скриптов и программного доступа.
+
+  > Пример: `npx intlayer content list --json`
+
+## Примеры:
+
+### Список файлов декларации контента:
 
 ```bash
 npx intlayer content list
 ```
 
+### Вывод в формате JSON:
+
+```bash
+npx intlayer content list --json
+```
+
 ## Пример вывода:
+
+### Форматированный вывод:
 
 ```bash
 npx intlayer content list
@@ -43,6 +63,14 @@ Content declaration files:
  - client-component - src/components/ClientComponent/clientComponent.content.ts
 
 Всего файлов декларации контента: 3
+```
+
+### Вывод JSON:
+
+```bash
+$ npx intlayer content list --json
+
+[{"key":"home-page","path":"src/components/HomePage/homePage.content.ts"},{"key":"server-component","path":"src/components/ServerComponent/serverComponent.content.ts"},{"key":"client-component","path":"src/components/ClientComponent/clientComponent.content.ts"}]
 ```
 
 Эта команда выведет:

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-01-06
 title: List Content Declaration Files
 description: Learn how to list all content declaration files in your project.
 keywords:
@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - list
+history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: Add JSON output option to list command
 ---
 
 # List content declaration files
@@ -27,13 +31,29 @@ npx intlayer content list
 
 This command displays all content declaration files in your project, showing their dictionary keys and file paths. It is useful for obtaining an overview of all your content files and verifying that they are properly discovered by Intlayer.
 
-## Example:
+## Arguments:
+
+- **`--json`**: Output the results as JSON instead of formatted text. Useful for scripting and programmatic access.
+
+  > Example: `npx intlayer content list --json`
+
+## Examples:
+
+### List content declaration files:
 
 ```bash
 npx intlayer content list
 ```
 
+### Output as JSON:
+
+```bash
+npx intlayer content list --json
+```
+
 ## Example output:
+
+### Formatted output:
 
 ```bash
 npx intlayer content list
@@ -43,6 +63,14 @@ Content declaration files:
  - client-component - src/components/ClientComponent/clientComponent.content.ts
 
 Total content declaration files: 3
+```
+
+### JSON output:
+
+```bash
+$ npx intlayer content list --json
+
+[{"key":"home-page","path":"src/components/HomePage/homePage.content.ts"},{"key":"server-component","path":"src/components/ServerComponent/serverComponent.content.ts"},{"key":"client-component","path":"src/components/ClientComponent/clientComponent.content.ts"}]
 ```
 
 This command will output:

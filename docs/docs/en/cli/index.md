@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI - All Intlayer CLI commands for your multilingual website
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: Add projects list command
   - version: 7.5.9
     date: 2025-12-30
     changes: Add init command
@@ -119,6 +122,7 @@ To see how to configure available locales, or other parameters, refer to the [co
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/build.md)** - Build your dictionaries from content declaration files
 - **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/watch.md)** - Watch for changes and automatically build dictionaries
 - **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/version.md)** - Check the installed Intlayer CLI version
+- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/list_projects.md)** - List all Intlayer projects in a directory or git repository
 
 ### Dictionary Management
 
@@ -166,6 +170,7 @@ To see how to configure available locales, or other parameters, refer to the [co
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -175,3 +180,4 @@ To see how to configure available locales, or other parameters, refer to the [co
 >
 > - `npx intlayer list` instead of `npx intlayer content list`
 > - `npx intlayer test` instead of `npx intlayer content test`
+> - `npx intlayer projects-list` or `npx intlayer pl` instead of `npx intlayer projects list`

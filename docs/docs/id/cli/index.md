@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: Temukan cara menggunakan Intlayer CLI untuk mengelola situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi daring ini untuk mengatur proyek Anda dalam beberapa menit.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: Menambahkan perintah projects list
   - version: 7.5.9
     date: 2025-12-30
     changes: Menambahkan perintah init
@@ -119,6 +122,7 @@ Untuk melihat cara mengonfigurasi locale yang tersedia, atau parameter lainnya, 
 - **[Bangun Kamus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/build.md)** - Bangun kamus Anda dari file deklarasi konten
 - **[Pantau Kamus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/watch.md)** - Pantau perubahan dan bangun kamus secara otomatis
 - **[Periksa Versi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/version.md)** - Periksa versi Intlayer CLI yang terpasang
+- **[Daftar Proyek](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/list_projects.md)** - Daftar semua proyek Intlayer dalam direktori atau repositori git
 
 ### Manajemen Kamus
 
@@ -166,6 +170,7 @@ Untuk melihat cara mengonfigurasi locale yang tersedia, atau parameter lainnya, 
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -175,3 +180,4 @@ Untuk melihat cara mengonfigurasi locale yang tersedia, atau parameter lainnya, 
 >
 > - `npx intlayer list` sebagai pengganti `npx intlayer content list`
 > - `npx intlayer test` sebagai pengganti `npx intlayer content test`
+> - `npx intlayer projects-list` atau `npx intlayer pl` sebagai pengganti `npx intlayer projects list`

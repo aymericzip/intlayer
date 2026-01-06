@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-01-06
 title: 列出内容声明文件
 description: 了解如何列出项目中的所有内容声明文件。
 keywords:
@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - list
+history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: 为 list 命令添加 JSON 输出选项
 ---
 
 # 列出内容声明文件
@@ -27,13 +31,29 @@ npx intlayer content list
 
 此命令显示项目中所有内容声明文件，展示它们的字典键和文件路径。它有助于概览所有内容文件，并验证它们是否被 Intlayer 正确发现。
 
+## 参数：
+
+- **`--json`**: 以 JSON 格式输出结果，而不是格式化文本。对脚本编写和程序化访问很有用。
+
+  > 示例: `npx intlayer content list --json`
+
 ## 示例：
+
+### 列出内容声明文件：
 
 ```bash
 npx intlayer content list
 ```
 
+### 以 JSON 格式输出：
+
+```bash
+npx intlayer content list --json
+```
+
 ## 示例输出：
+
+### 格式化输出：
 
 ```bash
 npx intlayer content list
@@ -43,6 +63,14 @@ Content declaration files:
  - client-component - src/components/ClientComponent/clientComponent.content.ts
 
 内容声明文件总数：3
+```
+
+### JSON 输出：
+
+```bash
+$ npx intlayer content list --json
+
+[{"key":"home-page","path":"src/components/HomePage/homePage.content.ts"},{"key":"server-component","path":"src/components/ServerComponent/serverComponent.content.ts"},{"key":"client-component","path":"src/components/ClientComponent/clientComponent.content.ts"}]
 ```
 
 此命令将输出：

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: Entdecken Sie, wie Sie die Intlayer CLI verwenden, um Ihre mehrsprachige Website zu verwalten. Folgen Sie den Schritten in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: Projekte-Listen-Befehl hinzugefügt
   - version: 7.5.9
     date: 2025-12-30
     changes: Init-Befehl hinzugefügt
@@ -119,6 +122,7 @@ Um zu sehen, wie verfügbare Sprachen oder andere Parameter konfiguriert werden,
 - **[Dictionaries erstellen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/build.md)** – Erstellen Sie Ihre Wörterbücher aus Inhaltsdeklarationsdateien
 - **[Dictionaries überwachen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/watch.md)** – Überwachen Sie Änderungen und erstellen Sie Wörterbücher automatisch
 - **[CLI-Version prüfen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/version.md)** – Prüfen Sie die installierte Intlayer CLI-Version
+- **[Projekte auflisten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/list_projects.md)** – Listen Sie alle Intlayer-Projekte in einem Verzeichnis oder Git-Repository auf
 
 ### Wörterbuchverwaltung
 
@@ -166,6 +170,7 @@ Um zu sehen, wie verfügbare Sprachen oder andere Parameter konfiguriert werden,
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -175,3 +180,4 @@ Um zu sehen, wie verfügbare Sprachen oder andere Parameter konfiguriert werden,
 >
 > - `npx intlayer list` anstelle von `npx intlayer content list`
 > - `npx intlayer test` anstelle von `npx intlayer content test`
+> - `npx intlayer projects-list` oder `npx intlayer pl` anstelle von `npx intlayer projects list`

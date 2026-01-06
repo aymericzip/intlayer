@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: Odkryj, jak używać Intlayer CLI do zarządzania Twoją wielojęzyczną stroną internetową. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: Dodano polecenie projects list
   - version: 7.5.9
     date: 2025-12-30
     changes: Dodano polecenie init
@@ -119,6 +122,7 @@ Aby zobaczyć, jak skonfigurować dostępne lokalizacje lub inne parametry, zapo
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/build.md)** - Buduj swoje słowniki z plików deklaracji treści
 - **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/watch.md)** - Obserwuj zmiany i automatycznie buduj słowniki
 - **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/version.md)** - Sprawdź zainstalowaną wersję CLI Intlayer
+- **[Lista projektów](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/list_projects.md)** - Wyświetl listę wszystkich projektów Intlayer w katalogu lub repozytorium git
 
 ### Zarządzanie słownikami
 
@@ -166,6 +170,7 @@ Aby zobaczyć, jak skonfigurować dostępne lokalizacje lub inne parametry, zapo
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -175,3 +180,4 @@ Aby zobaczyć, jak skonfigurować dostępne lokalizacje lub inne parametry, zapo
 >
 > - `npx intlayer list` zamiast `npx intlayer content list`
 > - `npx intlayer test` zamiast `npx intlayer content test`
+> - `npx intlayer projects-list` lub `npx intlayer pl` zamiast `npx intlayer projects list`

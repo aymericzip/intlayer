@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: Intlayer CLI का उपयोग करके अपनी बहुभाषी वेबसाइट का प्रबंधन कैसे करें, यह जानें। इस ऑनलाइन दस्तावेज़ में दिए गए चरणों का पालन करके कुछ ही मिनटों में अपना प्रोजेक्ट सेटअप करें।
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: projects list कमांड जोड़ें
   - version: 7.5.9
     date: 2025-12-30
     changes: init कमांड जोड़ें
@@ -119,6 +122,7 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
 - **[शब्दकोश बनाएं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/build.md)** - कंटेंट घोषणा फ़ाइलों से अपने शब्दकोश बनाएं
 - **[शब्दकोश देखें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/watch.md)** - परिवर्तनों पर नजर रखें और स्वचालित रूप से शब्दकोश बनाएं
 - **[CLI संस्करण जांचें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/version.md)** - इंस्टॉल किए गए Intlayer CLI संस्करण की जांच करें
+- **[प्रोजेक्ट सूची](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/list_projects.md)** - एक निर्देशिका या git रिपॉजिटरी में सभी Intlayer प्रोजेक्ट सूचीबद्ध करें
 
 ### शब्दकोश प्रबंधन
 
@@ -166,6 +170,7 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -175,3 +180,4 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
 >
 > - `npx intlayer list` का उपयोग `npx intlayer content list` के बजाय करें
 > - `npx intlayer test` का उपयोग `npx intlayer content test` के बजाय करें
+> - `npx intlayer projects-list` या `npx intlayer pl` का उपयोग `npx intlayer projects list` के बजाय करें

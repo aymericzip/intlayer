@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: Узнайте, как использовать Intlayer CLI для управления вашим многоязычным сайтом. Следуйте шагам в этой онлайн-документации, чтобы настроить ваш проект за несколько минут.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: Добавлена команда projects list
   - version: 7.5.9
     date: 2025-12-30
     changes: Добавлена команда init
@@ -119,6 +122,7 @@ Intlayer поддерживает несколько форматов конфи
 - **[Сборка словарей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/build.md)** - Сборка ваших словарей из файлов декларации контента
 - **[Отслеживание словарей](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/watch.md)** - Отслеживание изменений и автоматическая сборка словарей
 - **[Проверка версии CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/version.md)** - Проверка установленной версии Intlayer CLI
+- **[Список проектов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/list_projects.md)** - Список всех проектов Intlayer в директории или git-репозитории
 
 ### Управление словарями
 
@@ -166,6 +170,7 @@ Intlayer поддерживает несколько форматов конфи
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -175,3 +180,4 @@ Intlayer поддерживает несколько форматов конфи
 >
 > - `npx intlayer list` вместо `npx intlayer content list`
 > - `npx intlayer test` вместо `npx intlayer content test`
+> - `npx intlayer projects-list` или `npx intlayer pl` вместо `npx intlayer projects list`

@@ -1,3 +1,4 @@
+import { listProjects } from '@intlayer/chokidar';
 import {
   build,
   fill,
@@ -523,6 +524,57 @@ export const loadCLITools: LoadCLITools = async (server) => {
             {
               type: 'text',
               text: `Transform failed: ${errorMessage}`,
+            },
+          ],
+        };
+      }
+    }
+  );
+
+  server.registerTool(
+    'intlayer-projects-list',
+    {
+      title: 'List Projects',
+      description:
+        'List all Intlayer projects in the directory. Search for configuration files to find all Intlayer projects.',
+      inputSchema: {
+        baseDir: z
+          .string()
+          .optional()
+          .describe('Base directory to search from'),
+        gitRoot: z
+          .boolean()
+          .optional()
+          .describe(
+            'Search from the git root directory instead of the base directory'
+          ),
+      },
+      annotations: {
+        readOnlyHint: true,
+      },
+    },
+    async (props) => {
+      try {
+        const projects = await listProjects({
+          baseDir: props.baseDir,
+          gitRoot: props.gitRoot,
+        });
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(projects, null, 2),
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Projects list failed: ${errorMessage}`,
             },
           ],
         };

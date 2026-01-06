@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: Khám phá cách sử dụng Intlayer CLI để quản lý trang web đa ngôn ngữ của bạn. Làm theo các bước trong tài liệu trực tuyến này để thiết lập dự án của bạn trong vài phút.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: Thêm lệnh projects list
   - version: 7.5.9
     date: 2025-12-30
     changes: Thêm lệnh init
@@ -120,6 +123,7 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình:
 - **[Xây dựng Từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/build.md)** - Xây dựng từ điển của bạn từ các tệp khai báo nội dung
 - **[Theo dõi Từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/watch.md)** - Theo dõi các thay đổi và tự động xây dựng từ điển
 - **[Kiểm tra Phiên bản CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/version.md)** - Kiểm tra phiên bản Intlayer CLI đã cài đặt
+- **[Liệt kê Dự án](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/list_projects.md)** - Liệt kê tất cả các dự án Intlayer trong thư mục hoặc kho lưu trữ git
 
 ### Quản lý Từ điển
 
@@ -167,6 +171,7 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình:
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -176,3 +181,4 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình:
 >
 > - `npx intlayer list` thay vì `npx intlayer content list`
 > - `npx intlayer test` thay vì `npx intlayer content test`
+> - `npx intlayer projects-list` hoặc `npx intlayer pl` thay vì `npx intlayer projects list`

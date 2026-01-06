@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: Çok dilli web sitenizi yönetmek için Intlayer CLI'nın nasıl kullanılacağını keşfedin. Projenizi birkaç dakika içinde kurmak için bu çevrimiçi dokümantördeki adımları izleyin.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: projects list komutu eklendi
   - version: 7.5.9
     date: 2025-12-30
     changes: init komutu eklendi
@@ -119,6 +122,7 @@ Mevcut yerellerin veya diğer parametrelerin nasıl yapılandırılacağını g�
 - **[Sözlükleri Derle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/build.md)** - İçerik beyan dosyalarından sözlüklerinizi derleyin
 - **[Sözlükleri İzle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/watch.md)** - Değişiklikleri izleyin ve sözlükleri otomatik olarak derleyin
 - **[CLI Sürümünü Kontrol Et](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/version.md)** - Yüklü Intlayer CLI sürümünü kontrol edin
+- **[Projeleri Listele](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/list_projects.md)** - Bir dizindeki veya git deposundaki tüm Intlayer projelerini listeleyin
 
 ### Sözlük Yönetimi
 
@@ -166,6 +170,7 @@ Mevcut yerellerin veya diğer parametrelerin nasıl yapılandırılacağını g�
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -175,3 +180,4 @@ Mevcut yerellerin veya diğer parametrelerin nasıl yapılandırılacağını g�
 >
 > - `npx intlayer list` yerine `npx intlayer content list`
 > - `npx intlayer test` yerine `npx intlayer content test`
+> - `npx intlayer projects-list` veya `npx intlayer pl` yerine `npx intlayer projects list`

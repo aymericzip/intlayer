@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-01-06
 title: CLI
 description: Intlayer CLIを使用して多言語ウェブサイトを管理する方法を紹介します。このオンラインドキュメントの手順に従って、数分でプロジェクトをセットアップしましょう。
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: projects listコマンドを追加
   - version: 7.5.9
     date: 2025-12-30
     changes: initコマンドを追加
@@ -119,6 +122,7 @@ Intlayer は複数の設定ファイル形式をサポートしています：
 - **[辞書のビルド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/build.md)** - コンテンツ宣言ファイルから辞書をビルドします
 - **[辞書の監視](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/watch.md)** - 変更を監視し、自動的に辞書をビルドします
 - **[CLI バージョンの確認](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/version.md)** - インストールされている Intlayer CLI のバージョンを確認します
+- **[プロジェクトの一覧表示](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list_projects.md)** - ディレクトリまたはgitリポジトリ内のすべてのIntlayerプロジェクトを一覧表示します
 
 ### 辞書管理
 
@@ -166,6 +170,7 @@ Intlayer は複数の設定ファイル形式をサポートしています：
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
   "intlayer:transform": "npx intlayer transform",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -175,3 +180,4 @@ Intlayer は複数の設定ファイル形式をサポートしています：
 >
 > - `npx intlayer list` は `npx intlayer content list` の代わりに使用可能
 > - `npx intlayer test` は `npx intlayer content test` の代わりに使用可能
+> - `npx intlayer projects-list` または `npx intlayer pl` は `npx intlayer projects list` の代わりに使用可能
