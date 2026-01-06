@@ -3,7 +3,7 @@
 import type { GetUsersResult, ProjectAPI } from '@intlayer/backend';
 import { Avatar, Button, Container } from '@intlayer/design-system';
 import { useGetUsers } from '@intlayer/design-system/hooks';
-import { GitBranch, GitCommit } from 'lucide-react';
+import { GitBranch } from 'lucide-react';
 import type { FC } from 'react';
 
 export interface ProjectCardProps {
@@ -43,26 +43,26 @@ export const ProjectCard: FC<ProjectCardProps> = ({
     >
       <h3 className="font-bold text-xl">{project.name}</h3>
 
-      {project.github && (
+      {project.repository && (
         <div className="flex items-center gap-4">
           <div className="flex aspect-square size-12 items-center justify-center rounded-full">
             <GitBranch className="size-5" />
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <a
-              href={project.github.url}
+              href={project.repository.url}
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full font-medium text-xs underline"
             >
-              {project.github.owner}/{project.github.repository}
+              {project.repository.owner}/{project.repository.repository}
             </a>
             <span className="flex items-center gap-1 text-neutral text-xs">
               <GitBranch className="size-3" />
-              {project.github.branch}
+              {project.repository.branch}
             </span>
             <span className="rounded bg-text/10 px-2 py-0.5 text-xs">
-              {project.github.configFilePath}
+              {project.repository.configFilePath}
             </span>
           </div>
         </div>
