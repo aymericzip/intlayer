@@ -25,10 +25,9 @@ export const useGithubRepository = (content: any) => {
   const [isConfigPreviewOpen, setIsConfigPreviewOpen] = useState(false);
 
   const [processingRepoId, setProcessingRepoId] = useState<number | null>(null);
-  // NEW: Track the specific config file being processed
   const [processingConfigPath, setProcessingConfigPath] = useState<
     string | null
-  >(null);
+  >(null); // Track the specific config file being processed
 
   const [selectedRepo, setSelectedRepo] = useState<RepoData | null>(null);
   const [detectedConfigs, setDetectedConfigs] = useState<string[]>([]);
@@ -53,13 +52,16 @@ export const useGithubRepository = (content: any) => {
 
   const checkGitHubLinked = useCallback(async () => {
     if (!session?.user) return;
+
     try {
       const response = await getAuthAPI().listAccounts();
       const accounts = response?.data ?? [];
       const hasGitHub = accounts.some(
         (account: { providerId: string }) => account.providerId === 'github'
       );
+
       setIsGitHubLinked(hasGitHub);
+
       if (hasGitHub) refetchRepos();
     } catch (error) {
       toast({
@@ -67,17 +69,20 @@ export const useGithubRepository = (content: any) => {
         description: (error as Error).message,
         variant: 'error',
       });
+
       setIsGitHubLinked(false);
     }
-  }, [session?.user, refetchRepos, content.authentication.failed.value, toast]);
+  }, [session?.user, refetchRepos, toast]);
 
   useEffect(() => {
-    void checkGitHubLinked();
-  }, [checkGitHubLinked]);
+    checkGitHubLinked();
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
     const params = new URLSearchParams(window.location.search);
+
     if (params.has('github_linked')) {
       params.delete('github_linked');
       const newUrl =
@@ -90,16 +95,20 @@ export const useGithubRepository = (content: any) => {
 
   const handleConnectClick = async () => {
     if (typeof window === 'undefined') return;
+
     const callbackURL = `${window.location.origin}${window.location.pathname}?github_linked=true`;
+
     try {
       setIsLinking(true);
+
       await getAuthAPI().linkSocial({
         provider: 'github',
-        scopes: ['repo'],
+        scopes: ['repo', 'workflow'],
         callbackURL,
       });
     } catch {
       setIsLinking(false);
+
       toast({
         title: content.authentication.failed.value,
         variant: 'error',
@@ -232,6 +241,7 @@ export const useGithubRepository = (content: any) => {
 
   const handleViewCurrentConfig = async () => {
     if (!project?.github) return;
+
     setIsConfigPreviewOpen(true);
     setViewOnlyConfigContent(null);
     setConfigPreview(null);
@@ -246,6 +256,7 @@ export const useGithubRepository = (content: any) => {
         branch: project.github.branch,
         path: configPath,
       });
+
       setViewOnlyConfigContent(result.data.content);
     } catch (error) {
       toast({

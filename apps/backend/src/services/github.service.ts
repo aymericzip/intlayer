@@ -181,7 +181,6 @@ export const getRepositoryFileContents = async (
   }
 };
 
-// ... [Keep getGitHubTokenFromUser unchanged] ...
 export const getGitHubTokenFromUser = async (
   userId: string
 ): Promise<string | null> => {

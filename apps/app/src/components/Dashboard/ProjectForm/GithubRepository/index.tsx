@@ -100,15 +100,13 @@ export const GithubRepositoryLink: FC = () => {
 
       {/* Connected to a Repo */}
       {isConnectedToRepo && project?.github && (
-        <div className="flex flex-col gap-4 rounded-xl border border-success/20 bg-success/5 p-6">
+        <div className="flex flex-col gap-4 rounded-xl border p-6">
           <div className="flex items-center gap-4">
-            <div className="flex aspect-square size-12 items-center justify-center rounded-full bg-success/20 text-success">
+            <div className="flex aspect-square size-12 items-center justify-center rounded-full">
               <CheckCircle2 className="size-6" />
             </div>
             <div className="flex-1 space-y-1">
-              <h5 className="font-semibold text-success">
-                {content.status.connectedTo}
-              </h5>
+              <h5 className="font-semibold">{content.status.connectedTo}</h5>
               <div className="flex flex-wrap items-center gap-2">
                 <a
                   href={project.github.url}
