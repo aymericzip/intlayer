@@ -37,7 +37,7 @@ const getGitRootDir = async (cwd?: string): Promise<string | null> => {
  */
 export const listProjects = async (
   options?: ListProjectsOptions
-): Promise<string[]> => {
+): Promise<{ searchDir: string; projectsPath: string[] }> => {
   let searchDir = options?.baseDir ?? process.cwd();
 
   // If gitRoot option is enabled, try to get the git root directory
@@ -65,5 +65,5 @@ export const listProjects = async (
   const projectDirs = [...new Set(configFiles.map((file) => dirname(file)))];
 
   // Sort alphabetically for consistent output
-  return projectDirs.sort();
+  return { searchDir, projectsPath: projectDirs.sort() };
 };

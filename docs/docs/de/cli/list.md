@@ -14,6 +14,9 @@ slugs:
   - cli
   - list
 history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Absolute Ausgabeoption zum Listen-Befehl hinzugefügt
   - version: 7.5.11
     date: 2026-01-06
     changes: JSON-Ausgabeoption zum Listen-Befehl hinzugefügt
@@ -49,6 +52,12 @@ npx intlayer content list
 
 ```bash
 npx intlayer content list --json
+```
+
+### Ausgabe als absolute Pfade:
+
+```bash
+npx intlayer content list --absolute
 ```
 
 ## Beispielausgabe:

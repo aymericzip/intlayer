@@ -10,6 +10,7 @@ import type {
 } from '../../chokidar/dist/types/listGitFiles';
 import { login } from './auth/login';
 import { build } from './build';
+import { runCI } from './ci';
 import { getConfig } from './config';
 import { startEditor } from './editor';
 import { type FillOptions, fill } from './fill/fill';
@@ -583,6 +584,7 @@ export const setAPI = (): Command => {
       '--git-root',
       'Search from the git root directory instead of the base directory'
     )
+    .option('--absolute', 'Output the results as absolute paths')
     .option('--json', 'Output the results as JSON');
 
   rootProjectsListCmd.action((options) => {
@@ -590,6 +592,7 @@ export const setAPI = (): Command => {
       baseDir: options.baseDir,
       gitRoot: options.gitRoot,
       json: options.json,
+      absolute: options.absolute,
     });
   });
 
@@ -605,8 +608,12 @@ export const setAPI = (): Command => {
     .command('list')
     .description('List the content declaration files')
     .option('--json', 'Output the results as JSON')
+    .option('--absolute', 'Output the results as absolute paths')
     .action((options) => {
-      listContentDeclaration({ json: options.json });
+      listContentDeclaration({
+        json: options.json,
+        absolute: options.absolute,
+      });
     });
 
   // Add alias for content list command
@@ -614,8 +621,12 @@ export const setAPI = (): Command => {
     .command('list')
     .description('List the content declaration files')
     .option('--json', 'Output the results as JSON')
+    .option('--absolute', 'Output the results as absolute paths')
     .action((options) => {
-      listContentDeclaration({ json: options.json });
+      listContentDeclaration({
+        json: options.json,
+        absolute: options.absolute,
+      });
     });
 
   const testProgram = contentProgram
@@ -875,6 +886,25 @@ export const setAPI = (): Command => {
   applyConfigOptions(transformProgram);
 
   program.parse(process.argv);
+
+  /**
+   * CI / AUTOMATION
+   *
+   * Used to iterate over all projects in a monorepo, and help to parse secrets
+   */
+  program
+    .command('ci')
+    .description(
+      'Run Intlayer commands with auto-injected credentials from INTLAYER_PROJECT_CREDENTIALS. Detects current project or iterates over all projects.'
+    )
+    .argument(
+      '<command...>',
+      'The intlayer command to execute (e.g., "fill", "push")'
+    )
+    .allowUnknownOption() // Allows passing flags like --verbose to the subcommand
+    .action((args) => {
+      runCI(args);
+    });
 
   return program;
 };

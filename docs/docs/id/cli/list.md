@@ -14,6 +14,9 @@ slugs:
   - cli
   - list
 history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Menambahkan opsi output absolut ke perintah list
   - version: 7.5.11
     date: 2026-01-06
     changes: Menambahkan opsi output JSON ke perintah list
@@ -49,6 +52,12 @@ npx intlayer content list
 
 ```bash
 npx intlayer content list --json
+```
+
+### Output sebagai jalur absolut:
+
+```bash
+npx intlayer content list --absolute
 ```
 
 ## Contoh output:

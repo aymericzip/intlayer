@@ -14,6 +14,9 @@ slugs:
   - cli
   - list
 history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Ajouter l'option de sortie absolue à la commande list
   - version: 7.5.11
     date: 2026-01-06
     changes: Ajouter l'option de sortie JSON à la commande list
@@ -49,6 +52,12 @@ npx intlayer content list
 
 ```bash
 npx intlayer content list --json
+```
+
+### Sortie en tant que chemins absolus :
+
+```bash
+npx intlayer content list --absolute
 ```
 
 ## Exemple de sortie :

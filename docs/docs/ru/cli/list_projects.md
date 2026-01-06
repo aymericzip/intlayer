@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Добавить опцию вывода абсолютных путей к команде list projects
 ---
 
 # Список проектов Intlayer
@@ -44,6 +48,10 @@ npx intlayer projects list
 - **`--json`**: Выводит результаты в формате JSON вместо форматированного текста. Полезно для скриптов и программного доступа.
 
   > Пример: `npx intlayer projects list --json`
+
+- **`--absolute`**: Выводит результаты в виде абсолютных путей вместо относительных путей.
+
+  > Пример: `npx intlayer projects list --absolute`
 
 ## Как это работает:
 

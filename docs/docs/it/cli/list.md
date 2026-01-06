@@ -14,6 +14,9 @@ slugs:
   - cli
   - list
 history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Aggiunta opzione di output assoluto al comando list
   - version: 7.5.11
     date: 2026-01-06
     changes: Aggiunta opzione di output JSON al comando list
@@ -49,6 +52,12 @@ npx intlayer content list
 
 ```bash
 npx intlayer content list --json
+```
+
+### Output come percorsi assoluti:
+
+```bash
+npx intlayer content list --absolute
 ```
 
 ## Output di esempio:

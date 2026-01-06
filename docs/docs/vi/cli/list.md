@@ -14,6 +14,9 @@ slugs:
   - cli
   - list
 history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Thêm tùy chọn đầu ra tuyệt đối cho lệnh list
   - version: 7.5.11
     date: 2026-01-06
     changes: Thêm tùy chọn đầu ra JSON cho lệnh list
@@ -49,6 +52,12 @@ npx intlayer content list
 
 ```bash
 npx intlayer content list --json
+```
+
+### Đầu ra dưới dạng đường dẫn tuyệt đối:
+
+```bash
+npx intlayer content list --absolute
 ```
 
 ## Ví dụ đầu ra:

@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Tambahkan opsi output absolut ke perintah list projects
 ---
 
 # Daftar Proyek Intlayer
@@ -42,6 +46,10 @@ Perintah ini mencari dan menampilkan semua proyek Intlayer dengan menemukan dire
 - **`--json`**: Menampilkan hasil sebagai JSON alih-alih teks yang diformat. Berguna untuk scripting dan akses programatik.
 
   > Contoh: `npx intlayer projects list --json`
+
+- **`--absolute`**: Menampilkan hasil sebagai jalur absolut alih-alih jalur relatif.
+
+  > Contoh: `npx intlayer projects list --absolute`
 
 ## Cara kerjanya:
 

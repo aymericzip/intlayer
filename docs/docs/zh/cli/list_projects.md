@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: 向 list projects 命令添加绝对路径输出选项
 ---
 
 # 列出 Intlayer 项目
@@ -44,6 +48,10 @@ npx intlayer projects list
 - **`--json`**：以 JSON 格式输出结果，而不是格式化文本。对脚本编写和程序化访问很有用。
 
   > 示例：`npx intlayer projects list --json`
+
+- **`--absolute`**：以绝对路径输出结果，而不是相对路径。
+
+  > 示例：`npx intlayer projects list --absolute`
 
 ## 工作原理：
 

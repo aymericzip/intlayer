@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Dodaj opcję wyjścia bezwzględnego do polecenia list projects
 ---
 
 # Lista projektów Intlayer
@@ -44,6 +48,10 @@ To polecenie przeszukuje i wypisuje wszystkie projekty Intlayer, znajdując kata
 - **`--json`**: Wyświetla wyniki jako JSON zamiast sformatowanego tekstu. Przydatne do skryptów i dostępu programowego.
 
   > Przykład: `npx intlayer projects list --json`
+
+- **`--absolute`**: Wyświetla wyniki jako ścieżki bezwzględne zamiast ścieżek względnych.
+
+  > Przykład: `npx intlayer projects list --absolute`
 
 ## Jak to działa:
 

@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Absolute Ausgabeoption zum Befehl list projects hinzufügen
 ---
 
 # Intlayer-Projekte auflisten
@@ -44,6 +48,10 @@ Dieser Befehl sucht nach und listet alle Intlayer-Projekte, indem er Verzeichnis
 - **`--json`**: Gibt die Ergebnisse als JSON statt als formatierten Text aus. Nützlich für Skripte und programmatischen Zugriff.
 
   > Beispiel: `npx intlayer projects list --json`
+
+- **`--absolute`**: Gibt die Ergebnisse als absolute Pfade statt als relative Pfade aus.
+
+  > Beispiel: `npx intlayer projects list --absolute`
 
 ## Funktionsweise:
 

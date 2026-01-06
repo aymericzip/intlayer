@@ -14,6 +14,9 @@ slugs:
   - cli
   - list
 history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Adicionar opção de saída absoluta ao comando list
   - version: 7.5.11
     date: 2026-01-06
     changes: Adicionar opção de saída JSON ao comando list
@@ -49,6 +52,12 @@ npx intlayer content list
 
 ```bash
 npx intlayer content list --json
+```
+
+### Saída como caminhos absolutos:
+
+```bash
+npx intlayer content list --absolute
 ```
 
 ## Exemplo de saída:

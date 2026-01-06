@@ -14,6 +14,9 @@ slugs:
   - cli
   - list
 history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: إضافة خيار الإخراج المطلق لأمر القائمة
   - version: 7.5.11
     date: 2026-01-06
     changes: إضافة خيار إخراج JSON لأمر القائمة
@@ -49,6 +52,12 @@ npx intlayer content list
 
 ```bash
 npx intlayer content list --json
+```
+
+### الإخراج كمسارات مطلقة:
+
+```bash
+npx intlayer content list --absolute
 ```
 
 ## مثال على الإخراج:

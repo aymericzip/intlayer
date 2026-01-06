@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Ajouter l'option de sortie absolue à la commande list projects
 ---
 
 # Lister les projets Intlayer
@@ -44,6 +48,10 @@ Cette commande recherche et liste tous les projets Intlayer en trouvant les rép
 - **`--json`** : Affiche les résultats au format JSON au lieu de texte formaté. Utile pour le scripting et l'accès programmatique.
 
   > Exemple : `npx intlayer projects list --json`
+
+- **`--absolute`** : Affiche les résultats en tant que chemins absolus au lieu de chemins relatifs.
+
+  > Exemple : `npx intlayer projects list --absolute`
 
 ## Comment ça fonctionne :
 

@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Thêm tùy chọn đầu ra tuyệt đối vào lệnh list projects
 ---
 
 # Liệt kê các dự án Intlayer
@@ -44,6 +48,10 @@ Lệnh này tìm kiếm và liệt kê tất cả các dự án Intlayer bằng 
 - **`--json`**: Xuất kết quả dưới dạng JSON thay vì văn bản được định dạng. Hữu ích cho việc viết script và truy cập lập trình.
 
   > Ví dụ: `npx intlayer projects list --json`
+
+- **`--absolute`**: Xuất kết quả dưới dạng đường dẫn tuyệt đối thay vì đường dẫn tương đối.
+
+  > Ví dụ: `npx intlayer projects list --absolute`
 
 ## Cách hoạt động:
 

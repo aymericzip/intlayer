@@ -19,6 +19,9 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
+    changes: Add CI command
+  - version: 7.5.11
+    date: 2026-01-06
     changes: Add projects list command
   - version: 7.5.9
     date: 2025-12-30
@@ -150,6 +153,10 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 - **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/editor.md)** - Use the Intlayer editor commands
 - **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md)** - Use Live Sync to reflect CMS content changes at runtime
+
+### CI/CD & Automation
+
+- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/ci.md)** - Run Intlayer commands with auto-injected credentials for CI/CD pipelines
 
 ### Development Tools
 

@@ -1,3 +1,4 @@
+import { relative } from 'node:path';
 import { listProjects } from '@intlayer/chokidar';
 import {
   build,
@@ -369,6 +370,16 @@ export const loadCLITools: LoadCLITools = async (server) => {
           })
           .optional()
           .describe('Configuration options'),
+        absolute: z
+          .boolean()
+          .optional()
+          .describe(
+            'Output the results as absolute paths instead of relative paths'
+          ),
+        json: z
+          .boolean()
+          .optional()
+          .describe('Output the results as JSON instead of formatted text'),
       },
       annotations: {
         readOnlyHint: true,
@@ -381,7 +392,9 @@ export const loadCLITools: LoadCLITools = async (server) => {
           content: [
             {
               type: 'text',
-              text: JSON.stringify(rows, null, 2),
+              text: props.json
+                ? JSON.stringify(rows)
+                : JSON.stringify(rows, null, 2),
             },
           ],
         };
@@ -548,6 +561,16 @@ export const loadCLITools: LoadCLITools = async (server) => {
           .describe(
             'Search from the git root directory instead of the base directory'
           ),
+        absolute: z
+          .boolean()
+          .optional()
+          .describe(
+            'Output the results as absolute paths instead of relative paths'
+          ),
+        json: z
+          .boolean()
+          .optional()
+          .describe('Output the results as JSON instead of formatted text'),
       },
       annotations: {
         readOnlyHint: true,
@@ -555,15 +578,33 @@ export const loadCLITools: LoadCLITools = async (server) => {
     },
     async (props) => {
       try {
-        const projects = await listProjects({
+        const { searchDir, projectsPath } = await listProjects({
           baseDir: props.baseDir,
           gitRoot: props.gitRoot,
         });
+
+        // Handle absolute option similar to CLI command
+        const projectsRelativePath = projectsPath
+          .map((projectPath) =>
+            props.absolute ? projectPath : relative(searchDir, projectPath)
+          )
+          .map((projectPath) => (projectPath === '' ? '.' : projectPath));
+
+        const outputPaths = props.absolute
+          ? projectsPath
+          : projectsRelativePath;
+
         return {
           content: [
             {
               type: 'text',
-              text: JSON.stringify(projects, null, 2),
+              text: props.json
+                ? JSON.stringify(outputPaths)
+                : JSON.stringify(
+                    { searchDir, projectsPath: outputPaths },
+                    null,
+                    2
+                  ),
             },
           ],
         };

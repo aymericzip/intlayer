@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: list projects 명령에 절대 경로 출력 옵션 추가
 ---
 
 # Intlayer 프로젝트 목록
@@ -42,6 +46,10 @@ npx intlayer projects list
 - **`--json`**: 결과를 포맷된 텍스트 대신 JSON으로 출력합니다. 스크립팅 및 프로그래밍 방식 접근에 유용합니다.
 
   > 예: `npx intlayer projects list --json`
+
+- **`--absolute`**: 결과를 상대 경로 대신 절대 경로로 출력합니다.
+
+  > 예: `npx intlayer projects list --absolute`
 
 ## 작동 방식:
 

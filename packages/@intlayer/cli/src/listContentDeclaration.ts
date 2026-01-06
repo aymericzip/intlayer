@@ -13,6 +13,7 @@ import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 type ListContentDeclarationOptions = {
   configOptions?: GetConfigurationOptions;
   json?: boolean;
+  absolute?: boolean;
 };
 
 export const listContentDeclarationRows = (
@@ -26,7 +27,9 @@ export const listContentDeclarationRows = (
     .flat()
     .map((dictionary) => ({
       key: dictionary.key ?? '',
-      path: relative(config.content.baseDir, dictionary.filePath ?? 'Remote'),
+      path: options?.absolute
+        ? (dictionary.filePath ?? 'Remote')
+        : relative(config.content.baseDir, dictionary.filePath ?? 'Remote'),
     }));
   return rows;
 };

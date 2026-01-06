@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: list projects komutuna mutlak çıktı seçeneği ekle
 ---
 
 # Intlayer Projelerini Listele
@@ -44,6 +48,10 @@ Bu komut, Intlayer yapılandırma dosyalarını içeren dizinleri bularak tüm I
 - **`--json`**: Sonuçları biçimlendirilmiş metin yerine JSON olarak çıktılar. Betik oluşturma ve programatik erişim için yararlıdır.
 
   > Örnek: `npx intlayer projects list --json`
+
+- **`--absolute`**: Sonuçları göreli yollar yerine mutlak yollar olarak çıktılar.
+
+  > Örnek: `npx intlayer projects list --absolute`
 
 ## Nasıl çalışır:
 

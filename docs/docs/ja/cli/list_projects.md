@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: list projects コマンドに絶対パス出力オプションを追加
 ---
 
 # Intlayer プロジェクトを一覧表示
@@ -44,6 +48,10 @@ npx intlayer projects list
 - **`--json`**: 結果をフォーマットされたテキストではなくJSONとして出力します。スクリプト作成やプログラムからのアクセスに便利です。
 
   > 例: `npx intlayer projects list --json`
+
+- **`--absolute`**: 結果を相対パスではなく絶対パスとして出力します。
+
+  > 例: `npx intlayer projects list --absolute`
 
 ## 動作方法:
 

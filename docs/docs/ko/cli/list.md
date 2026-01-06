@@ -14,6 +14,9 @@ slugs:
   - cli
   - list
 history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: list 명령에 절대 경로 출력 옵션 추가
   - version: 7.5.11
     date: 2026-01-06
     changes: list 명령에 JSON 출력 옵션 추가
@@ -49,6 +52,12 @@ npx intlayer content list
 
 ```bash
 npx intlayer content list --json
+```
+
+### 절대 경로로 출력:
+
+```bash
+npx intlayer content list --absolute
 ```
 
 ## 예시 출력:

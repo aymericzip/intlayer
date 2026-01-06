@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: Aggiungere opzione di output assoluto al comando list projects
 ---
 
 # Elencare i progetti Intlayer
@@ -44,6 +48,10 @@ Questo comando cerca ed elenca tutti i progetti Intlayer trovando le directory c
 - **`--json`**: Mostra i risultati come JSON invece di testo formattato. Utile per scripting e accesso programmatico.
 
   > Esempio: `npx intlayer projects list --json`
+
+- **`--absolute`**: Mostra i risultati come percorsi assoluti invece di percorsi relativi.
+
+  > Esempio: `npx intlayer projects list --absolute`
 
 ## Come funziona:
 

@@ -14,6 +14,9 @@ slugs:
   - cli
   - list
 history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: 为 list 命令添加绝对路径输出选项
   - version: 7.5.11
     date: 2026-01-06
     changes: 为 list 命令添加 JSON 输出选项
@@ -49,6 +52,12 @@ npx intlayer content list
 
 ```bash
 npx intlayer content list --json
+```
+
+### 以绝对路径输出：
+
+```bash
+npx intlayer content list --absolute
 ```
 
 ## 示例输出：

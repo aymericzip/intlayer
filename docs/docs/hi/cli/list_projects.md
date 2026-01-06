@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: list projects कमांड में पूर्ण आउटपुट विकल्प जोड़ें
 ---
 
 # Intlayer प्रोजेक्ट्स की सूची
@@ -44,6 +48,10 @@ npx intlayer projects list
 - **`--json`**: परिणामों को स्वरूपित पाठ के बजाय JSON के रूप में आउटपुट करें। स्क्रिप्टिंग और प्रोग्रामेटिक पहुंच के लिए उपयोगी।
 
   > उदाहरण: `npx intlayer projects list --json`
+
+- **`--absolute`**: परिणामों को सापेक्ष पथों के बजाय पूर्ण पथों के रूप में आउटपुट करें।
+
+  > उदाहरण: `npx intlayer projects list --absolute`
 
 ## यह कैसे काम करता है:
 

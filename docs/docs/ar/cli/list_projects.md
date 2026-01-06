@@ -14,6 +14,10 @@ slugs:
   - concept
   - cli
   - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: إضافة خيار الإخراج المطلق إلى أمر list projects
 ---
 
 # قائمة مشاريع Intlayer
@@ -44,6 +48,10 @@ npx intlayer projects list
 - **`--json`**: إخراج النتائج بتنسيق JSON بدلاً من النص المنسق. مفيد للبرمجة النصية والوصول البرمجي.
 
   > مثال: `npx intlayer projects list --json`
+
+- **`--absolute`**: إخراج النتائج كمسارات مطلقة بدلاً من المسارات النسبية.
+
+  > مثال: `npx intlayer projects list --absolute`
 
 ## كيف يعمل:
 
