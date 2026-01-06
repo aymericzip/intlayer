@@ -1468,6 +1468,162 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
+  BITBUCKET_REDIRECT_URI_MISSING: {
+    title: {
+      en: 'Bitbucket Redirect URI Missing',
+      fr: 'Bitbucket Redirect URI Manquant',
+      es: 'Bitbucket Redirect URI Faltante',
+    },
+    message: {
+      en: 'The Bitbucket redirect URI is missing.',
+      fr: 'Le Bitbucket redirect URI est manquant.',
+      es: 'El Bitbucket redirect URI está faltando.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  BITBUCKET_CODE_MISSING: {
+    title: {
+      en: 'Bitbucket Code Missing',
+      fr: 'Code Bitbucket manquant',
+      es: 'Código Bitbucket faltante',
+    },
+    message: {
+      en: 'The Bitbucket code is missing.',
+      fr: 'Le code Bitbucket est manquant.',
+      es: 'El código Bitbucket es faltante.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  BITBUCKET_TOKEN_MISSING: {
+    title: {
+      en: 'Bitbucket Token Missing',
+      fr: 'Token Bitbucket manquant',
+      es: 'Token Bitbucket faltante',
+    },
+    message: {
+      en: 'The Bitbucket token is missing.',
+      fr: 'Le token Bitbucket est manquant.',
+      es: 'El token Bitbucket es faltante.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  BITBUCKET_CHECK_CONFIG_MISSING_PARAMS: {
+    title: {
+      en: 'Bitbucket Check Config Missing Params',
+      fr: 'Bitbucket Check Config Manquant Params',
+      es: 'Bitbucket Check Config Faltante Params',
+    },
+    message: {
+      en: 'The Bitbucket check config is missing params.',
+      fr: 'Le Bitbucket check config est manquant params.',
+      es: 'El Bitbucket check config está faltando params.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  BITBUCKET_GET_CONFIG_FILE_MISSING_PARAMS: {
+    title: {
+      en: 'Bitbucket Get Config File Missing Params',
+      fr: 'Bitbucket Get Config File Manquant Params',
+      es: 'Bitbucket Get Config File Faltante Params',
+    },
+    message: {
+      en: 'The Bitbucket get config file is missing params.',
+      fr: 'Le Bitbucket get config file est manquant params.',
+      es: 'El Bitbucket get config file está faltando params.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  BITBUCKET_CONFIG_FILE_NOT_FOUND: {
+    title: {
+      en: 'Bitbucket Config File Not Found',
+      fr: 'Bitbucket Config File Non Trouvé',
+      es: 'Bitbucket Config File No Encontrado',
+    },
+    message: {
+      en: 'The Bitbucket config file was not found.',
+      fr: "Le fichier de configuration Bitbucket n'a pas été trouvé.",
+      es: 'El archivo de configuración de Bitbucket no se encontró.',
+    },
+    statusCode: HttpStatusCodes.NOT_FOUND_404,
+  },
+  GITLAB_REDIRECT_URI_MISSING: {
+    title: {
+      en: 'GitLab Redirect URI Missing',
+      fr: 'GitLab Redirect URI Manquant',
+      es: 'GitLab Redirect URI Faltante',
+    },
+    message: {
+      en: 'The GitLab redirect URI is missing.',
+      fr: 'Le GitLab redirect URI est manquant.',
+      es: 'El GitLab redirect URI está faltando.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  GITLAB_CODE_MISSING: {
+    title: {
+      en: 'GitLab Code Missing',
+      fr: 'Code GitLab manquant',
+      es: 'Código GitLab faltante',
+    },
+    message: {
+      en: 'The GitLab code is missing.',
+      fr: 'Le code GitLab est manquant.',
+      es: 'El código GitLab es faltante.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  GITLAB_TOKEN_MISSING: {
+    title: {
+      en: 'GitLab Token Missing',
+      fr: 'Token GitLab manquant',
+      es: 'Token GitLab faltante',
+    },
+    message: {
+      en: 'The GitLab token is missing.',
+      fr: 'Le token GitLab est manquant.',
+      es: 'El token GitLab es faltante.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  GITLAB_CHECK_CONFIG_MISSING_PARAMS: {
+    title: {
+      en: 'GitLab Check Config Missing Params',
+      fr: 'GitLab Check Config Manquant Params',
+      es: 'GitLab Check Config Faltante Params',
+    },
+    message: {
+      en: 'The GitLab check config is missing params.',
+      fr: 'Le GitLab check config est manquant params.',
+      es: 'El GitLab check config está faltando params.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  GITLAB_GET_CONFIG_FILE_MISSING_PARAMS: {
+    title: {
+      en: 'GitLab Get Config File Missing Params',
+      fr: 'GitLab Get Config File Manquant Params',
+      es: 'GitLab Get Config File Faltante Params',
+    },
+    message: {
+      en: 'The GitLab get config file is missing params.',
+      fr: 'Le GitLab get config file est manquant params.',
+      es: 'El GitLab get config file está faltando params.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  GITLAB_CONFIG_FILE_NOT_FOUND: {
+    title: {
+      en: 'GitLab Config File Not Found',
+      fr: 'GitLab Config File Non Trouvé',
+      es: 'GitLab Config File No Encontrado',
+    },
+    message: {
+      en: 'The GitLab config file was not found.',
+      fr: "Le fichier de configuration GitLab n'a pas été trouvé.",
+      es: 'El archivo de configuración de GitLab no se encontró.',
+    },
+    statusCode: HttpStatusCodes.NOT_FOUND_404,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

@@ -1,7 +1,7 @@
 'use client';
 
-import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
+import { GithubLogo } from '@components/logos/GithubLogo';
 import { Logo } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import type { LocalesValues } from 'intlayer';

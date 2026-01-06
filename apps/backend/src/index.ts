@@ -14,12 +14,14 @@ import {
 import { authMiddleware } from '@middlewares/sessionAuth.middleware';
 // Routes
 import { aiRoute, aiRouter } from '@routes/ai.routes';
+import { bitbucketRoute, bitbucketRouter } from '@routes/bitbucket.routes';
 import { dictionaryRoute, dictionaryRouter } from '@routes/dictionary.routes';
 import {
   eventListenerRoute,
   eventListenerRouter,
 } from '@routes/eventListener.routes';
 import { githubRoute, githubRouter } from '@routes/github.routes';
+import { gitlabRoute, gitlabRouter } from '@routes/gitlab.routes';
 import { newsletterRoute, newsletterRouter } from '@routes/newsletter.routes';
 import {
   organizationRoute,
@@ -209,6 +211,8 @@ const startServer = async () => {
   await app.register(searchRouter, { prefix: searchRoute });
   await app.register(newsletterRouter, { prefix: newsletterRoute });
   await app.register(githubRouter, { prefix: githubRoute });
+  await app.register(gitlabRouter, { prefix: gitlabRoute });
+  await app.register(bitbucketRouter, { prefix: bitbucketRoute });
 
   // Server
   await app.listen({

@@ -30,14 +30,38 @@ export type ProjectConfiguration = {
   ai?: ProjectConfigAI;
 };
 
-export type GitHubRepository = {
+export type RepositoryProvider = 'github' | 'gitlab' | 'bitbucket';
+
+export type BaseRepository = {
+  provider: RepositoryProvider;
   owner: string;
   repository: string;
   branch: string;
-  installationId?: number;
   url: string;
   configFilePath: string;
 };
+
+export type GitHubRepository = BaseRepository & {
+  provider: 'github';
+  installationId?: number;
+};
+
+export type GitLabRepository = BaseRepository & {
+  provider: 'gitlab';
+  projectId?: number;
+  /** Custom GitLab instance URL (e.g., https://gitlab.company.com) */
+  instanceUrl?: string;
+};
+
+export type BitbucketRepository = BaseRepository & {
+  provider: 'bitbucket';
+  workspace: string;
+};
+
+export type RepositoryConnection =
+  | GitHubRepository
+  | GitLabRepository
+  | BitbucketRepository;
 
 export type ProjectData = {
   organizationId: Organization['id'];
@@ -46,7 +70,7 @@ export type ProjectData = {
   adminsIds: User['id'][];
   creatorId: User['id'];
   configuration?: ProjectConfiguration;
-  github?: GitHubRepository;
+  repository?: RepositoryConnection;
 };
 
 export type AccessKeyData = {

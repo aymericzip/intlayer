@@ -1,8 +1,8 @@
 'use client';
 
-import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
+import { GithubLogo } from '@components/logos/GithubLogo';
 import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
 import {
   Avatar,

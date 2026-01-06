@@ -73,14 +73,25 @@ const projectConfigSchema = new Schema<Project['configuration']>(
   }
 );
 
-const githubSchema = new Schema<Project['github']>(
+const repositorySchema = new Schema<Project['repository']>(
   {
+    provider: {
+      type: String,
+      enum: ['github', 'gitlab', 'bitbucket'],
+      required: true,
+    },
     owner: { type: String, required: true },
     repository: { type: String, required: true },
     branch: { type: String, default: 'main' },
-    installationId: { type: Number },
     url: { type: String, required: true },
     configFilePath: { type: String, required: true },
+    // GitHub specific
+    installationId: { type: Number },
+    // GitLab specific
+    projectId: { type: Number },
+    instanceUrl: { type: String },
+    // Bitbucket specific
+    workspace: { type: String },
   },
   {
     _id: false,
@@ -102,7 +113,7 @@ export const projectSchema = new Schema<ProjectSchema>(
     },
     configuration: projectConfigSchema,
     oAuth2Access: [oAuth2AccessSchema],
-    github: githubSchema,
+    repository: repositorySchema,
     membersIds: {
       type: [Schema.Types.ObjectId],
       ref: 'User',

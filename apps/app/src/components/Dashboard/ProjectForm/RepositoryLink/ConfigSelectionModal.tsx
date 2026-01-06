@@ -25,7 +25,7 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
   onSelectConfig,
   onBack,
 }) => {
-  const content = useIntlayer('github-repository-link');
+  const content = useIntlayer('repository-link');
 
   const formatPath = (fullPath: string) => {
     const parts = fullPath.split('/');
@@ -33,6 +33,15 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
     const directory = parts.join('/');
     return { fileName, directory: directory || 'Root' };
   };
+
+  const displayName =
+    selectedRepo?.provider === 'github'
+      ? `${selectedRepo?.owner?.login}/${selectedRepo?.name}`
+      : selectedRepo?.provider === 'gitlab'
+        ? selectedRepo?.fullName
+        : selectedRepo?.provider === 'bitbucket'
+          ? `${selectedRepo?.workspace?.slug}/${selectedRepo?.name}`
+          : selectedRepo?.name;
 
   return (
     <Modal
@@ -46,9 +55,7 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
       <div className="flex max-h-96 w-full flex-col gap-4">
         <p className="text-neutral text-sm">
           {content.modal?.selectConfigDescription}{' '}
-          <span className="font-semibold">
-            {selectedRepo?.owner?.login}/{selectedRepo?.name}
-          </span>
+          <span className="font-semibold">{displayName}</span>
           {content.modal?.selectConfigDescriptionEnd}
         </p>
 
@@ -91,7 +98,7 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
             onClick={onBack}
             label={content.modal?.back?.value}
           >
-            {content.modal.back}
+            {content.modal?.back}
           </Button>
         </div>
       </div>

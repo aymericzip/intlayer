@@ -1227,6 +1227,144 @@ export const useGithubGetConfigFile = () => {
 };
 
 /**
+ * GitLab
+ */
+
+export const useGitlabAuth = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['gitlab', 'auth'],
+    mutationFn: (args: {
+      code: string;
+      redirectUri: string;
+      instanceUrl?: string;
+    }) =>
+      intlayerOAuth.gitlab.authenticate(
+        args.code,
+        args.redirectUri,
+        args.instanceUrl
+      ),
+  });
+};
+
+export const useGitlabProjects = (
+  enabled: boolean = true,
+  instanceUrl?: string
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useQuery({
+    queryKey: ['gitlab', 'projects', instanceUrl],
+    queryFn: () => intlayerOAuth.gitlab.getProjects(undefined, instanceUrl),
+    enabled,
+  });
+};
+
+export const useGitlabCheckConfig = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['gitlab', 'check-config'],
+    mutationFn: (args: {
+      projectId: number;
+      branch?: string;
+      instanceUrl?: string;
+    }) =>
+      intlayerOAuth.gitlab.checkIntlayerConfig(
+        undefined,
+        args.projectId,
+        args.branch,
+        args.instanceUrl
+      ),
+  });
+};
+
+export const useGitlabGetConfigFile = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['gitlab', 'get-config-file'],
+    mutationFn: (args: {
+      projectId: number;
+      branch?: string;
+      path?: string;
+      instanceUrl?: string;
+    }) =>
+      intlayerOAuth.gitlab.getConfigFile(
+        undefined,
+        args.projectId,
+        args.branch,
+        args.path,
+        args.instanceUrl
+      ),
+  });
+};
+
+/**
+ * Bitbucket
+ */
+
+export const useBitbucketAuth = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['bitbucket', 'auth'],
+    mutationFn: (code: string) => intlayerOAuth.bitbucket.authenticate(code),
+  });
+};
+
+export const useBitbucketRepos = (enabled: boolean = true) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useQuery({
+    queryKey: ['bitbucket', 'repos'],
+    queryFn: () => intlayerOAuth.bitbucket.getRepositories(),
+    enabled,
+  });
+};
+
+export const useBitbucketCheckConfig = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['bitbucket', 'check-config'],
+    mutationFn: (args: {
+      workspace: string;
+      repoSlug: string;
+      branch?: string;
+    }) =>
+      intlayerOAuth.bitbucket.checkIntlayerConfig(
+        undefined,
+        args.workspace,
+        args.repoSlug,
+        args.branch
+      ),
+  });
+};
+
+export const useBitbucketGetConfigFile = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['bitbucket', 'get-config-file'],
+    mutationFn: (args: {
+      workspace: string;
+      repoSlug: string;
+      branch?: string;
+      path?: string;
+    }) =>
+      intlayerOAuth.bitbucket.getConfigFile(
+        undefined,
+        args.workspace,
+        args.repoSlug,
+        args.branch,
+        args.path
+      ),
+  });
+};
+
+/**
  * Editor
  */
 

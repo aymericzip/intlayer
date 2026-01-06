@@ -8,10 +8,10 @@ import { type FC, Suspense, useState } from 'react';
 import { AccessKeyForm } from './AccessKey/AccessKeyForm';
 import { ConfigDetails } from './Config/ConfigDetails';
 import { DeleteProjectModal } from './DeleteProjectModal';
-import { GithubRepositoryLink } from './GithubRepository';
 import { MembersForm } from './Members/MembersKeyForm';
 import { ProjectEditionForm } from './ProjectEditionForm';
 import { ProjectList } from './ProjectList';
+import { RepositoryLink } from './RepositoryLink';
 
 export const ProjectFormContent: FC = () => {
   const { session } = useSession();
@@ -57,7 +57,7 @@ export const ProjectFormContent: FC = () => {
               padding="md"
               className="z-10 flex size-full justify-center"
             >
-              <GithubRepositoryLink />
+              <RepositoryLink />
             </Container>
             <Container
               roundedSize="xl"

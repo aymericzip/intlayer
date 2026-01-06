@@ -1,16 +1,16 @@
 'use client';
 
+import { AppleLogo } from '@components/logos/AppleLogo';
+import { BitbucketLogo } from '@components/logos/BitbucketLogo';
+import { GithubLogo } from '@components/logos/GithubLogo';
+import { GitLabLogo } from '@components/logos/GitLabLogo';
+import { GoogleLogo } from '@components/logos/GoogleLogo';
+import { LinkedInLogo } from '@components/logos/LinkedInLogo';
 import { Button } from '@intlayer/design-system';
 import { useUser } from '@intlayer/design-system/hooks';
 import { getAuthAPI } from '@intlayer/design-system/libs';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
-import { AppleLogo } from './assets/AppleLogo';
-import { BitbucketLogo } from './assets/BitbucketLogo';
-import { GithubLogo } from './assets/GithubLogo';
-import { GitLabLogo } from './assets/GitLabLogo';
-import { GoogleLogo } from './assets/GoogleLogo';
-import { LinkedInLogo } from './assets/LinkedInLogo';
 
 export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
   onLogin,

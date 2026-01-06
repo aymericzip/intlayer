@@ -32,7 +32,7 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
   onBackToSelection,
   onBackToList,
 }) => {
-  const content = useIntlayer('github-repository-link');
+  const content = useIntlayer('repository-link');
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === 'dark';
 
@@ -40,7 +40,7 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
   const hasContent = !!configPreview?.content || !!viewOnlyConfigContent;
 
   const title = isImportMode
-    ? content.modal?.confirmTitle.value
+    ? content.modal?.confirmTitle?.value
     : content.modal?.viewConfigTitle?.value;
 
   return (
@@ -85,17 +85,17 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
                   onBackToList();
                 }
               }}
-              label={content.actions.cancel?.value}
+              label={content.actions?.cancel?.value}
             >
-              {content.actions.cancel}
+              {content.actions?.cancel}
             </Button>
             <Button
               onClick={onConfirm}
               color="text"
               isLoading={isUpdatingProject}
-              label={content.actions.useThisFile.value}
+              label={content.actions?.useThisFile?.value}
             >
-              {content.actions.useThisFile}
+              {content.actions?.useThisFile}
             </Button>
           </div>
         )}
@@ -107,7 +107,7 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
               variant="outline"
               color="text"
               onClick={onClose}
-              label={content.modal?.close.value}
+              label={content.modal?.close?.value}
             >
               {content.modal?.close}
             </Button>

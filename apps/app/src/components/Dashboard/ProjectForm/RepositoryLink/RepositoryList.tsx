@@ -10,7 +10,7 @@ import type { RepoData } from './types';
 type RepositoryListProps = {
   repos: RepoData[];
   onSelectRepo: (repo: RepoData) => void;
-  processingRepoId: number | null;
+  processingRepoId: string | number | null;
 };
 
 export const RepositoryList: FC<RepositoryListProps> = ({
@@ -24,7 +24,7 @@ export const RepositoryList: FC<RepositoryListProps> = ({
 
   // Setup Fuse.js for fuzzy searching
   const fuse = new Fuse(repos, {
-    keys: ['name', 'full_name', 'owner.login'],
+    keys: ['name', 'fullName', 'owner.login', 'workspace.slug'],
     threshold: 0.3,
   });
 
@@ -51,23 +51,17 @@ export const RepositoryList: FC<RepositoryListProps> = ({
           </div>
         ) : (
           filteredRepos.map((repo) => {
-            // Strict check: Ensure IDs exist and match
             const isCurrentRepoProcessing =
               processingRepoId !== null &&
               repo.id !== undefined &&
               processingRepoId === repo.id;
 
-            // Disable this item if ANY repo is processing, but it's not this one
             const isDisabled = isAnyProcessing && !isCurrentRepoProcessing;
 
             return (
               <RepositoryItem
-                key={repo.id}
-                name={repo.name}
-                owner={repo.owner.login}
-                url={repo.html_url}
-                branch={repo.default_branch}
-                lastUpdated={repo.updated_at}
+                key={String(repo.id)}
+                repo={repo}
                 isProcessing={isCurrentRepoProcessing}
                 disabled={isDisabled}
                 onImport={() => onSelectRepo(repo)}
