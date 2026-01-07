@@ -18,11 +18,14 @@ export enum PagesRoutes {
 
   ReleasesV6 = '/doc/releases/v6',
   ReleasesV7 = '/doc/releases/v7',
-  Doc_Environment_NextJS_15 = '/doc/environment/nextjs',
+  Doc_Environment_NextJS_16 = '/doc/environment/nextjs/16',
+  Doc_Environment_NextJS_15 = '/doc/environment/nextjs/15',
   Doc_Environment_NextJS_14 = '/doc/environment/nextjs/14',
   Doc_Environment_CRA = '/doc/environment/create-react-app',
   Doc_Environment_Astro = '/doc/environment/astro',
   Doc_Environment_ViteAndReact = '/doc/environment/vite-and-react',
+  Doc_Environment_ViteAndReact_ReactRouterV7 = '/doc/environment/vite-and-react/react-router-v7',
+  Doc_Environment_ViteAndReact_ReactRouterV7_FSRoutes = '/doc/environment/vite-and-react/react-router-v7-fs-routes',
   Doc_Environment_Tanstack = '/doc/environment/tanstack',
   Doc_Environment_ViteAndVue = '/doc/environment/vite-and-vue',
   Doc_Environment_ViteAndSolid = '/doc/environment/vite-and-solid',
@@ -35,6 +38,7 @@ export enum PagesRoutes {
   Doc_Environment_Lynx = '/doc/environment/lynx-and-react',
   Doc_Environment_Express = '/doc/environment/express',
   Doc_Environment_NestJS = '/doc/environment/nestjs',
+  Doc_Environment_Fastify = '/doc/environment/fastify',
 
   Doc_MCP = '/doc/mcp-server',
 

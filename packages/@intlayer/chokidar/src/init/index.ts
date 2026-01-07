@@ -16,14 +16,150 @@ import {
 } from './utils';
 
 /**
+ * Documentation URL Constants
+ */
+const DocumentationRouter = {
+  NextJS: 'https://intlayer.org/doc/environment/nextjs.md',
+  NextJS_15: 'https://intlayer.org/doc/environment/nextjs/15.md',
+  NextJS_14: 'https://intlayer.org/doc/environment/nextjs/14.md',
+  CRA: 'https://intlayer.org/doc/environment/create-react-app.md',
+  Astro: 'https://intlayer.org/doc/environment/astro.md',
+  ViteAndReact: 'https://intlayer.org/doc/environment/vite-and-react.md',
+  ViteAndReact_ReactRouterV7:
+    'https://intlayer.org/doc/environment/vite-and-react/react-router-v7.md',
+  ViteAndReact_ReactRouterV7_FSRoutes:
+    'https://intlayer.org/doc/environment/vite-and-react/react-router-v7-fs-routes.md',
+  ViteAndVue: 'https://intlayer.org/doc/environment/vite-and-vue.md',
+  ViteAndSolid: 'https://intlayer.org/doc/environment/vite-and-solid.md',
+  ViteAndSvelte: 'https://intlayer.org/doc/environment/vite-and-svelte.md',
+  ViteAndPreact: 'https://intlayer.org/doc/environment/vite-and-preact.md',
+  TanStackRouter: 'https://intlayer.org/doc/environment/tanstack.md',
+  NuxtAndVue: 'https://intlayer.org/doc/environment/nuxt-and-vue.md',
+  Angular: 'https://intlayer.org/doc/environment/angular.md',
+  SvelteKit: 'https://intlayer.org/doc/environment/sveltekit.md',
+  ReactNativeAndExpo:
+    'https://intlayer.org/doc/environment/react-native-and-expo.md',
+  Lynx: 'https://intlayer.org/doc/environment/lynx-and-react.md',
+  Express: 'https://intlayer.org/doc/environment/express.md',
+  NestJS: 'https://intlayer.org/doc/environment/nestjs.md',
+  Fastify: 'https://intlayer.org/doc/environment/fastify.md',
+  Default: 'https://intlayer.org/doc/get-started',
+
+  // Check for competitors libs
+  NextIntl: 'https://intlayer.org/blog/intlayer-with-next-intl.md',
+  ReactI18Next: 'https://intlayer.org/blog/intlayer-with-react-i18next.md',
+  ReactIntl: 'https://intlayer.org/blog/intlayer-with-react-intl.md',
+  NextI18Next: 'https://intlayer.org/blog/intlayer-with-next-i18next.md',
+  VueI18n: 'https://intlayer.org/blog/intlayer-with-vue-i18n.md',
+};
+
+/**
+ * Helper: Detects the environment and returns the doc URL
+ */
+const getDocumentationUrl = (packageJson: any): string => {
+  const deps = {
+    ...packageJson.dependencies,
+    ...packageJson.devDependencies,
+  };
+
+  /**
+   * Helper to check if a version string matches a specific major version
+   * Matches: "15", "^15.0.0", "~15.2", "15.0.0-beta"
+   */
+  const isVersion = (versionString: string, major: number): boolean => {
+    if (!versionString || typeof versionString !== 'string') return false;
+    const regex = new RegExp(`^[\\^~]?${major}(?:\\.|$)`);
+    return regex.test(versionString);
+  };
+
+  // Mobile / Cross-platform
+  if (deps['@lynx-js/react'] || deps['@lynx-js/core']) {
+    return DocumentationRouter.Lynx;
+  }
+  if (deps['react-native'] || deps['expo']) {
+    return DocumentationRouter.ReactNativeAndExpo;
+  }
+
+  // Meta-frameworks (Next, Nuxt, Astro, SvelteKit)
+  if (deps['next']) {
+    const version = deps['next'];
+
+    if (isVersion(version, 14)) {
+      return DocumentationRouter.NextJS_14;
+    }
+
+    if (isVersion(version, 15)) {
+      return DocumentationRouter.NextJS_15;
+    }
+
+    return DocumentationRouter.NextJS;
+  }
+
+  if (deps['nuxt']) return DocumentationRouter.NuxtAndVue;
+  if (deps['astro']) return DocumentationRouter.Astro;
+  if (deps['@sveltejs/kit']) return DocumentationRouter.SvelteKit;
+
+  // Routers (TanStack & React Router v7)
+  if (deps['@tanstack/react-router']) {
+    return DocumentationRouter.TanStackRouter;
+  }
+
+  // Check for React Router v7
+  const reactRouterVersion = deps['react-router'];
+  if (reactRouterVersion && typeof reactRouterVersion === 'string') {
+    // Distinguish between standard v7 and v7 with FS routes
+    if (deps['@react-router/fs-routes']) {
+      return DocumentationRouter.ViteAndReact_ReactRouterV7_FSRoutes;
+    }
+
+    // Use Regex to ensure it is v7
+    if (isVersion(reactRouterVersion, 7)) {
+      return DocumentationRouter.ViteAndReact_ReactRouterV7;
+    }
+  }
+
+  // Vite Ecosystem (General)
+  if (deps['vite']) {
+    if (deps['vue']) return DocumentationRouter.ViteAndVue;
+    if (deps['solid-js']) return DocumentationRouter.ViteAndSolid;
+    if (deps['svelte']) return DocumentationRouter.ViteAndSvelte;
+    if (deps['preact']) return DocumentationRouter.ViteAndPreact;
+
+    // Default to React if Vite is present but specific other frameworks aren't found
+    return DocumentationRouter.ViteAndReact;
+  }
+
+  // Other Web Frameworks
+  if (deps['react-scripts']) return DocumentationRouter.CRA;
+  if (deps['@angular/core']) return DocumentationRouter.Angular;
+
+  // Backend
+  if (deps['@nestjs/core']) return DocumentationRouter.NestJS;
+  if (deps['express']) return DocumentationRouter.Express;
+  if (deps['fastify']) return DocumentationRouter.Fastify;
+
+  // Competitor Libs (Migration Guides)
+  // We check these last as specific environment setup is usually higher priority,
+  // but if no specific framework logic matched (or as a fallback), we guide to migration.
+  if (deps['next-intl']) return DocumentationRouter.NextIntl;
+  if (deps['react-i18next'] || deps['i18next'])
+    return DocumentationRouter.ReactI18Next;
+  if (deps['react-intl']) return DocumentationRouter.ReactIntl;
+  if (deps['next-i18next']) return DocumentationRouter.NextI18Next;
+  if (deps['vue-i18n']) return DocumentationRouter.VueI18n;
+
+  return DocumentationRouter.Default;
+};
+
+/**
  * MAIN LOGIC
  */
-
 export const initIntlayer = async (rootDir: string) => {
   logger(colorize('Checking Intlayer configuration...', ANSIColors.CYAN));
 
-  // Check for package.json to ensure we are in a project root
-  if (!(await exists(rootDir, 'package.json'))) {
+  // READ PACKAGE.JSON
+  const packageJsonPath = 'package.json';
+  if (!(await exists(rootDir, packageJsonPath))) {
     logger(
       `${x} No ${colorizePath('package.json')} found. Please run this script from the project root.`,
       { level: 'error' }
@@ -31,7 +167,21 @@ export const initIntlayer = async (rootDir: string) => {
     process.exit(1);
   }
 
-  // Check .gitignore
+  const packageJsonContent = await readFileFromRoot(rootDir, packageJsonPath);
+  let packageJson: Record<string, any>;
+  try {
+    packageJson = JSON.parse(packageJsonContent);
+  } catch {
+    logger(`${x} Could not parse ${colorizePath('package.json')}.`, {
+      level: 'error',
+    });
+    process.exit(1);
+  }
+
+  // Determine the correct documentation URL based on dependencies
+  const guideUrl = getDocumentationUrl(packageJson);
+
+  // 2. CHECK .GITIGNORE
   const gitignorePath = '.gitignore';
   if (await exists(rootDir, gitignorePath)) {
     const gitignoreContent = await readFileFromRoot(rootDir, gitignorePath);
@@ -47,10 +197,8 @@ export const initIntlayer = async (rootDir: string) => {
     }
   }
 
-  // Check TSConfigs
-  // Find all tsconfig files (tsconfig.json, tsconfig.*.json)
+  // CHECK TSCONFIGS
   const tsConfigFiles = await findTsConfigFiles(rootDir);
-
   let hasTsConfig = false;
 
   for (const fileName of tsConfigFiles) {
@@ -61,14 +209,14 @@ export const initIntlayer = async (rootDir: string) => {
         const config = parseJSONWithComments(fileContent);
         const typeDefinition = '.intlayer/**/*.ts';
 
-        // Check if include array exists - if not, skip (likely a solution-style tsconfig with references)
         let updated = false;
+
         if (!config.include) {
-          // Skip tsconfig files without include array (e.g. solution-style configs with references)
+          // Skip if no include array (solution-style)
         } else if (
           Array.isArray(config.include) &&
-          !(config.include as string[]).some((patten: string) =>
-            patten.includes('.intlayer')
+          !(config.include as string[]).some((pattern: string) =>
+            pattern.includes('.intlayer')
           )
         ) {
           config.include.push(typeDefinition);
@@ -80,8 +228,6 @@ export const initIntlayer = async (rootDir: string) => {
         }
 
         if (updated) {
-          // We write back using standard JSON stringify (comments will be lost, sadly)
-          // If preserving comments is critical, a more complex parser/printer is needed.
           await writeFileToRoot(
             rootDir,
             fileName,
@@ -100,13 +246,12 @@ export const initIntlayer = async (rootDir: string) => {
     }
   }
 
-  // Initialize Intlayer configuration file
+  // INITIALIZE CONFIG FILE
   const format = hasTsConfig ? 'intlayer.config.ts' : 'intlayer.config.mjs';
   await initConfig(format, rootDir);
 
-  // Check Vite Config
+  // CHECK VITE CONFIG
   const viteConfigs = ['vite.config.ts', 'vite.config.js', 'vite.config.mjs'];
-
   for (const file of viteConfigs) {
     if (await exists(rootDir, file)) {
       let content = await readFileFromRoot(rootDir, file);
@@ -115,18 +260,16 @@ export const initIntlayer = async (rootDir: string) => {
         const viteImport =
           "import { intlayer } from 'vite-intlayer'; // Add the plugin to the Vite plugin list";
 
-        // Prepend the import
         content = `${viteImport}\n${content}`;
         await writeFileToRoot(rootDir, file, content);
         logger(`${v} Injected import into ${colorizePath(file)}`);
       }
-      break; // Stop after finding one vite config
+      break;
     }
   }
 
-  // Check Next Config
+  // CHECK NEXT CONFIG
   const nextConfigs = ['next.config.js', 'next.config.mjs', 'next.config.ts'];
-
   for (const file of nextConfigs) {
     if (await exists(rootDir, file)) {
       let content = await readFileFromRoot(rootDir, file);
@@ -135,14 +278,22 @@ export const initIntlayer = async (rootDir: string) => {
         const nextImport =
           "import { withIntlayer } from 'next-intlayer'; // Add the plugin to the Next.js configuration";
 
-        // Prepend the import
         content = `${nextImport}\n${content}`;
         await writeFileToRoot(rootDir, file, content);
         logger(`${v} Injected import into ${colorizePath(file)}`);
       }
-      break; // Stop after finding one next config
+      break;
     }
   }
 
+  // FINAL SUCCESS MESSAGE
   logger(`${v} ${colorize('Intlayer init setup complete.', ANSIColors.GREEN)}`);
+  logger([
+    colorize('Next →', ANSIColors.MAGENTA),
+    colorize(
+      `Follow the instructions in the documentation to complete the setup:`,
+      ANSIColors.GREY_LIGHT
+    ),
+    colorizePath(guideUrl),
+  ]);
 };
