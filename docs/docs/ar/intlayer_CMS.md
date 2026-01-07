@@ -71,6 +71,26 @@ history:
 
 ## التهيئة
 
+قم بتشغيل الأمر التالي لتسجيل الدخول إلى Intlayer CMS:
+
+```bash packageManager="npm"
+npx intlayer login
+```
+
+```bash packageManager="yarn"
+yarn intlayer login
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login
+```
+
+```bash packageManager="bun"
+bunx intlayer login
+```
+
+سيؤدي هذا إلى فتح المتصفح الافتراضي الخاص بك لإكمال عملية المصادقة والحصول على بيانات الاعتماد اللازمة (معرف العميل وسر العميل) لاستخدام خدمات Intlayer.
+
 في ملف تهيئة Intlayer الخاص بك، يمكنك تخصيص إعدادات نظام إدارة المحتوى:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"

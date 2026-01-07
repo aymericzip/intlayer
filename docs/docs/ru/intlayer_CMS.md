@@ -71,6 +71,26 @@ Intlayer различает «локальные» и «удалённые» с�
 
 ## Конфигурация
 
+Выполните следующую команду для входа в Intlayer CMS:
+
+```bash packageManager="npm"
+npx intlayer login
+```
+
+```bash packageManager="yarn"
+yarn intlayer login
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login
+```
+
+```bash packageManager="bun"
+bunx intlayer login
+```
+
+Это откроет ваш браузер по умолчанию для завершения процесса аутентификации и получения необходимых учетных данных (Client ID и Client Secret) для использования сервисов Intlayer.
+
 В вашем конфигурационном файле Intlayer вы можете настроить параметры CMS:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"

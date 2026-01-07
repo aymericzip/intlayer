@@ -71,6 +71,26 @@ Para la integración con Vite + React, consulta la [guía de configuración](htt
 
 ## Configuración
 
+Ejecuta el siguiente comando para iniciar sesión en el Intlayer CMS:
+
+```bash packageManager="npm"
+npx intlayer login
+```
+
+```bash packageManager="yarn"
+yarn intlayer login
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login
+```
+
+```bash packageManager="bun"
+bunx intlayer login
+```
+
+Esto abrirá tu navegador predeterminado para completar el proceso de autenticación y recibir las credenciales necesarias (Client ID y Client Secret) para usar los servicios de Intlayer.
+
 En tu archivo de configuración de Intlayer, puedes personalizar los ajustes del CMS:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"

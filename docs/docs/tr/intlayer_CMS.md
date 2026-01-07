@@ -71,6 +71,26 @@ Vite + React ile entegrasyon için, [kurulum kılavuzuna](https://github.com/aym
 
 ## Konfigürasyon
 
+Intlayer CMS'ye giriş yapmak için aşağıdaki komutu çalıştırın:
+
+```bash packageManager="npm"
+npx intlayer login
+```
+
+```bash packageManager="yarn"
+yarn intlayer login
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login
+```
+
+```bash packageManager="bun"
+bunx intlayer login
+```
+
+Bu, kimlik doğrulama işlemini tamamlamak ve Intlayer hizmetlerini kullanmak için gerekli kimlik bilgilerini (Client ID ve Client Secret) almak için varsayılan tarayıcınızı açacaktır.
+
 Intlayer konfigürasyon dosyanızda, CMS ayarlarını özelleştirebilirsiniz:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"

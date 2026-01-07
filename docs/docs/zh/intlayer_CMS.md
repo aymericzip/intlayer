@@ -71,6 +71,26 @@ Intlayer 区分“本地”字典和“远程”字典。
 
 ## 配置
 
+运行以下命令登录 Intlayer CMS：
+
+```bash packageManager="npm"
+npx intlayer login
+```
+
+```bash packageManager="yarn"
+yarn intlayer login
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login
+```
+
+```bash packageManager="bun"
+bunx intlayer login
+```
+
+这将打开您的默认浏览器以完成身份验证过程并接收使用 Intlayer 服务所需的凭据（客户端 ID 和客户端密钥）。
+
 在您的 Intlayer 配置文件中，您可以自定义 CMS 设置：
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"

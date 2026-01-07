@@ -77,6 +77,26 @@ Ngược lại, Intlayer CMS là một công cụ cho phép bạn quản lý n�
 
 ## Cấu hình
 
+Chạy lệnh sau để đăng nhập vào Intlayer CMS:
+
+```bash packageManager="npm"
+npx intlayer login
+```
+
+```bash packageManager="yarn"
+yarn intlayer login
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login
+```
+
+```bash packageManager="bun"
+bunx intlayer login
+```
+
+Điều này sẽ mở trình duyệt mặc định của bạn để hoàn tất quá trình xác thực và nhận thông tin đăng nhập cần thiết (Client ID và Client Secret) để sử dụng các dịch vụ Intlayer.
+
 Trong file cấu hình Intlayer của bạn, bạn có thể tùy chỉnh các thiết lập CMS:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
