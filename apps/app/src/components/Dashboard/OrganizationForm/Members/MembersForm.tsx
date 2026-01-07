@@ -2,6 +2,7 @@
 
 import type { AddOrganizationMemberBody, UserAPI } from '@intlayer/backend';
 import {
+  Container,
   Form,
   H3,
   Loader,
@@ -131,7 +132,12 @@ export const MembersForm: FC = () => {
                   {noMembers}
                 </span>
               )}
-              <div className="flex max-h-48 flex-col gap-2 overflow-auto rounded-xl border-2 border-text p-2">
+              <Container
+                roundedSize="2xl"
+                border={true}
+                borderColor="text"
+                className="max-h-48 flex-col gap-2 overflow-auto p-2"
+              >
                 {organization?.membersIds.map((memberId) => (
                   <div
                     key={String(memberId)}
@@ -151,7 +157,7 @@ export const MembersForm: FC = () => {
                     )}
                   </div>
                 ))}
-              </div>
+              </Container>
             </div>
 
             <Form.MultiSelect

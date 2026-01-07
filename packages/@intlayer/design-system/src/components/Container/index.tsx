@@ -57,13 +57,14 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
       primary: 'border-primary',
       secondary: 'border-secondary',
       neutral: 'border-neutral',
+      card: 'border-card',
       text: 'border-text',
       error: 'border-error',
       warning: 'border-warning',
       success: 'border-success',
     },
     background: {
-      none: 'bg-inherit',
+      none: '',
       hoverable:
         'bg-opacity-5! backdrop-blur-0 hover:bg-opacity-10! hover:backdrop-blur focus:bg-opacity-10! focus:backdrop-blur aria-selected:bg-opacity-15! aria-selected:backdrop-blur',
       with: '',
@@ -86,6 +87,12 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     separator: 'without',
     gap: 'none',
   },
+  compoundVariants: [
+    {
+      background: 'none',
+      class: 'bg-transparent',
+    },
+  ],
 });
 
 /** Available rounded corner sizes for the container */

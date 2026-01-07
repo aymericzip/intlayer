@@ -2,6 +2,7 @@
 
 import type { OAuth2AccessAPI } from '@intlayer/backend';
 import {
+  Container,
   CopyToClipboard,
   Form,
   H3,
@@ -94,9 +95,12 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
           {modal.updateConfirmText}
         </Form.Button>
       </Modal>
-      <div
+      <Container
         key={String(accessKey.id)}
-        className="flex flex-col gap-3 divide-y divide-dashed divide-neutral rounded-lg border-2 p-3"
+        roundedSize="2xl"
+        border={true}
+        borderColor="text"
+        className="flex flex-col gap-3 px-6 py-4"
       >
         <div className="flex items-center justify-center px-3 pb-3">
           <KeyRound className="size-5" size={16} />
@@ -232,7 +236,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
             {labels.deleteButtonText}
           </Form.Button>
         </div>
-      </div>
+      </Container>
     </>
   );
 };

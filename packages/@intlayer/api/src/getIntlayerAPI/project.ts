@@ -9,14 +9,19 @@ import type {
   DeleteAccessKeyBody,
   DeleteAccessKeyResponse,
   DeleteProjectResult,
+  GetCIConfigResult,
   GetProjectsParams,
   GetProjectsResult,
+  PushCIConfigResult,
   PushProjectConfigurationBody,
   PushProjectConfigurationResult,
   RefreshAccessKeyBody,
   RefreshAccessKeyResponse,
   SelectProjectParam,
   SelectProjectResult,
+  TriggerBuildResult,
+  TriggerWebhookBody,
+  TriggerWebhookResult,
   UnselectProjectResult,
   UpdateProjectBody,
   UpdateProjectMembersBody,
@@ -234,6 +239,71 @@ export const getProjectAPI = (
       }
     );
 
+  /**
+   * Triggers CI builds for a project (Git provider pipelines and webhooks).
+   * @param otherOptions - Fetcher options.
+   * @returns The trigger results.
+   */
+  const triggerBuild = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<TriggerBuildResult>(
+      `${PROJECT_API_ROUTE}/build`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+      }
+    );
+
+  /**
+   * Triggers a single webhook by index.
+   * @param webhookIndex - The index of the webhook to trigger.
+   * @param otherOptions - Fetcher options.
+   * @returns The trigger result.
+   */
+  const triggerWebhook = async (
+    webhookIndex: TriggerWebhookBody['webhookIndex'],
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<TriggerWebhookResult>(
+      `${PROJECT_API_ROUTE}/webhook`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body: { webhookIndex },
+      }
+    );
+
+  /**
+   * Get CI configuration status for the current project.
+   * @param otherOptions - Fetcher options.
+   * @returns The CI configuration status.
+   */
+  const getCIConfig = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetCIConfigResult>(
+      `${PROJECT_API_ROUTE}/ci`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'GET',
+      }
+    );
+
+  /**
+   * Push CI configuration file to the repository.
+   * @param otherOptions - Fetcher options.
+   * @returns Success status.
+   */
+  const pushCIConfig = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<PushCIConfigResult>(
+      `${PROJECT_API_ROUTE}/ci`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+      }
+    );
+
   return {
     getProjects,
     addProject,
@@ -246,5 +316,9 @@ export const getProjectAPI = (
     addNewAccessKey,
     deleteAccessKey,
     refreshAccessKey,
+    triggerBuild,
+    triggerWebhook,
+    getCIConfig,
+    pushCIConfig,
   };
 };

@@ -1,9 +1,13 @@
 import {
   addProject,
   deleteProject,
+  getCIConfiguration,
   getProjects,
+  pushCIConfiguration,
   pushProjectConfiguration,
   selectProject,
+  triggerBuild,
+  triggerWebhook,
   unselectProject,
   updateProject,
   updateProjectMembers,
@@ -78,6 +82,26 @@ export const getProjectRoutes = () =>
       url: `${baseURL()}/access_key`,
       method: 'DELETE',
     },
+    triggerBuild: {
+      urlModel: '/build',
+      url: `${baseURL()}/build`,
+      method: 'POST',
+    },
+    triggerWebhook: {
+      urlModel: '/webhook',
+      url: `${baseURL()}/webhook`,
+      method: 'POST',
+    },
+    getCIConfiguration: {
+      urlModel: '/ci',
+      url: `${baseURL()}/ci`,
+      method: 'GET',
+    },
+    pushCIConfiguration: {
+      urlModel: '/ci',
+      url: `${baseURL()}/ci`,
+      method: 'POST',
+    },
   }) satisfies Routes;
 
 export const projectRouter = async (fastify: FastifyInstance) => {
@@ -98,4 +122,14 @@ export const projectRouter = async (fastify: FastifyInstance) => {
   fastify.delete(getProjectRoutes().deleteAccessKey.urlModel, deleteAccessKey);
   fastify.post(getProjectRoutes().unselectProject.urlModel, unselectProject);
   fastify.put(getProjectRoutes().selectProject.urlModel, selectProject);
+  fastify.post(getProjectRoutes().triggerBuild.urlModel, triggerBuild);
+  fastify.post(getProjectRoutes().triggerWebhook.urlModel, triggerWebhook);
+  fastify.get(
+    getProjectRoutes().getCIConfiguration.urlModel,
+    getCIConfiguration
+  );
+  fastify.post(
+    getProjectRoutes().pushCIConfiguration.urlModel,
+    pushCIConfiguration
+  );
 };

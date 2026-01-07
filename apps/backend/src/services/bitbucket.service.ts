@@ -286,3 +286,59 @@ export const getBitbucketTokenFromUser = async (
     return null;
   }
 };
+
+/**
+ * Check if a Bitbucket pipeline file exists
+ */
+export const checkPipelineFileExists = async (
+  accessToken: string,
+  workspace: string,
+  repoSlug: string,
+  filename: string = 'bitbucket-pipelines.yml',
+  branch: string = 'main'
+): Promise<boolean> => {
+  try {
+    const response = await fetch(
+      `${BITBUCKET_API_URL}/repositories/${workspace}/${repoSlug}/src/${encodeURIComponent(branch)}/${encodeURIComponent(filename)}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/json',
+        },
+      }
+    );
+
+    if (response.status === 404) return false;
+    if (!response.ok) {
+      throw new Error(`Failed to check file existence: ${response.statusText}`);
+    }
+
+    return true;
+  } catch (error: any) {
+    if (error.status === 404) return false;
+    logger.error('Error checking pipeline file existence:', error);
+    throw error;
+  }
+};
+
+/**
+ * Create or update a Bitbucket pipeline file
+ * Note: Bitbucket API doesn't support direct file creation via API v2.0
+ * This function returns false for allowAutoPush, requiring manual installation
+ */
+export const createPipelineFile = async (
+  accessToken: string,
+  workspace: string,
+  repoSlug: string,
+  filename: string = 'bitbucket-pipelines.yml',
+  content: string,
+  branch: string = 'main',
+  message: string = 'Add Intlayer CI pipeline'
+): Promise<void> => {
+  // Bitbucket API v2.0 doesn't support direct file creation/update
+  // Users need to manually add the file or use the web interface
+  // We'll throw an error indicating manual installation is required
+  throw new Error(
+    'Bitbucket API does not support automatic file creation. Please manually add the pipeline file to your repository.'
+  );
+};

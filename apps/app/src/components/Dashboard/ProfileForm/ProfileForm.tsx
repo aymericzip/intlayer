@@ -65,7 +65,7 @@ export const ProfileForm: FC = () => {
             hasPasswordColumn && 'm-auto max-w-xl'
           )}
         >
-          <Container roundedSize="xl" padding="md">
+          <Container roundedSize="3xl" padding="md">
             <H3 className="mb-8"> {title}</H3>
             <Form
               schema={ProfileFormSchema}
@@ -103,14 +103,14 @@ export const ProfileForm: FC = () => {
               </Form.Button>
             </Form>
           </Container>
-          <Container roundedSize="xl" padding="md">
+          <Container roundedSize="3xl" padding="md">
             <DeleteUser />
           </Container>
         </div>
         {hasPasswordColumn && (
           <div className="flex w-full flex-col gap-10">
             <Container
-              roundedSize="xl"
+              roundedSize="3xl"
               padding="md"
               className="m-auto w-full max-w-xl"
             >
@@ -118,7 +118,7 @@ export const ProfileForm: FC = () => {
               <ChangePasswordForm />
             </Container>
             <Container
-              roundedSize="xl"
+              roundedSize="3xl"
               padding="md"
               className="m-auto w-full max-w-xl"
             >
@@ -126,7 +126,7 @@ export const ProfileForm: FC = () => {
               <TwoFactorAuth />
             </Container>
             <Container
-              roundedSize="xl"
+              roundedSize="3xl"
               padding="md"
               className="m-auto w-full max-w-xl"
             >

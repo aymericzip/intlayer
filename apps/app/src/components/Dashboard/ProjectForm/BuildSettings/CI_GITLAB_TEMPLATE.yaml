@@ -1,0 +1,11 @@
+# .gitlab-ci.yml
+stages:
+  - build
+
+intlayer_cms_update:
+  stage: build
+  only:
+    - triggers
+  script:
+    - npm ci
+    - npm run build

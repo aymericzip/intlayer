@@ -8,6 +8,8 @@ import type {
 } from '@intlayer/types';
 import { logger } from '@logger';
 import * as dictionaryService from '@services/dictionary.service';
+import * as projectService from '@services/project.service';
+import * as webhooksService from '@services/webhook.service';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import {
@@ -387,6 +389,20 @@ export const addDictionary = async (
       },
     ]);
 
+    // Trigger CI builds if configured
+    if (project) {
+      try {
+        const fullProject = await projectService.getProjectById(project.id);
+        await webhooksService.triggerAll(fullProject);
+      } catch (error) {
+        // Log error but don't fail the dictionary creation
+        logger.error(
+          'Failed to trigger CI builds after dictionary creation',
+          error
+        );
+      }
+    }
+
     return reply.send(responseData);
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
@@ -620,6 +636,23 @@ export const pushDictionaries = async (
       ),
     ]);
 
+    // Trigger CI builds if configured (only if there were actual changes)
+    if (
+      project &&
+      (newDictionariesResult.length > 0 || updatedDictionariesResult.length > 0)
+    ) {
+      try {
+        const fullProject = await projectService.getProjectById(project.id);
+        await webhooksService.triggerAll(fullProject);
+      } catch (error) {
+        // Log error but don't fail the dictionary push
+        logger.error(
+          'Failed to trigger CI builds after dictionary push',
+          error
+        );
+      }
+    }
+
     return reply.send(responseData);
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
@@ -704,6 +737,20 @@ export const updateDictionary = async (
         status: 'UPDATED',
       },
     ]);
+
+    // Trigger CI builds if configured
+    if (project) {
+      try {
+        const fullProject = await projectService.getProjectById(project.id);
+        await webhooksService.triggerAll(fullProject);
+      } catch (error) {
+        // Log error but don't fail the dictionary update
+        logger.error(
+          'Failed to trigger CI builds after dictionary update',
+          error
+        );
+      }
+    }
 
     return reply.send(responseData);
   } catch (error) {

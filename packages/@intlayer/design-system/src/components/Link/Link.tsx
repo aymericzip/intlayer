@@ -132,23 +132,20 @@ export const linkVariants = cva(
       // ---------------------------------------------------------
       {
         // Filled Button + Inverse Color (e.g., White Button):
-        // 1. We DO NOT override parent text color (it must remain 'text-opposite' so bg-current is white).
-        // 2. We ONLY override children to be 'text-text' (Dark) so they show up on white.
+        // We DO NOT override parent text color (it must remain 'text-opposite' so bg-current is white).
+        // We ONLY override children to be 'text-text' (Dark) so they show up on white.
         variant: LinkVariant.BUTTON,
         color: LinkColor.TEXT_INVERSE,
         class: '*:text-text',
       },
       {
         // Outlined Button + Inverse Color (e.g., White Border):
-        // 1. Parent is 'text-opposite' (Border is white).
-        // 2. Children must also be 'text-opposite' (White text) to show on dark background.
+        // Parent is 'text-opposite' (Border is white).
+        // Children must also be 'text-opposite' (White text) to show on dark background.
         variant: LinkVariant.BUTTON_OUTLINED,
         color: LinkColor.TEXT_INVERSE,
         class: 'text-text-opposite *:text-text-opposite',
       },
-      // ---------------------------------------------------------
-      // FIX END
-      // ---------------------------------------------------------
 
       // Min height and padding for button variants
       {

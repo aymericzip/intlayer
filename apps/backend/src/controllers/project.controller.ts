@@ -1,7 +1,9 @@
 import { logger } from '@logger';
 import { SessionModel } from '@models/session.model';
+import * as ciService from '@services/ci.service';
 import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
+import * as webhooksService from '@services/webhook.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
@@ -438,12 +440,7 @@ export const pushProjectConfiguration = async (
     const projectObject = await projectService.getProjectById(project.id);
 
     // Preserve existing API key if not provided in the update
-    if (
-      projectConfiguration.ai &&
-      projectObject.configuration?.ai?.apiKey &&
-      (!projectConfiguration.ai.apiKey ||
-        projectConfiguration.ai.apiKey.trim() === '')
-    ) {
+    if (projectConfiguration.ai && projectObject.configuration?.ai?.apiKey) {
       projectConfiguration.ai.apiKey = projectObject.configuration.ai.apiKey;
     }
 
@@ -473,6 +470,152 @@ export const pushProjectConfiguration = async (
         es: 'Su configuración del proyecto ha sido actualizada con éxito',
       }),
       data: mapProjectToAPI(projectObject) as ProjectConfiguration,
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type TriggerBuildResult = ResponseData<{
+  results: Array<{
+    target: string;
+    success: boolean;
+    message?: string;
+  }>;
+}>;
+
+export type TriggerWebhookBody = {
+  webhookIndex: number;
+};
+
+export type TriggerWebhookResult = ResponseData<{
+  target: string;
+  success: boolean;
+  message?: string;
+}>;
+
+/**
+ * Triggers CI builds for a project (Git provider pipelines and webhooks)
+ */
+export const triggerBuild = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project, roles } = request.locals || {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
+  }
+
+  if (
+    !hasPermission(
+      roles || [],
+      'project:write'
+    )({
+      ...request.locals,
+      targetProjectIds: [String(project.id)],
+    })
+  ) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  try {
+    // Get full project with all relations
+    const fullProject = await projectService.getProjectById(project.id);
+    const results = await webhooksService.triggerAll(fullProject);
+
+    const responseData = formatResponse<{
+      results: Array<{
+        target: string;
+        success: boolean;
+        message?: string;
+      }>;
+    }>({
+      message: t({
+        en: 'Build triggers initiated',
+        fr: 'Déclenchement des builds initié',
+        es: 'Inicio de los triggers de build',
+      }),
+      description: t({
+        en: 'CI pipelines and webhooks have been triggered',
+        fr: 'Les pipelines CI et webhooks ont été déclenchés',
+        es: 'Los pipelines CI y webhooks han sido activados',
+      }),
+      data: { results },
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+/**
+ * Triggers a single webhook by index
+ */
+export const triggerWebhook = async (
+  request: FastifyRequest<{ Body: TriggerWebhookBody }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project, roles } = request.locals || {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
+  }
+
+  if (
+    !hasPermission(
+      roles || [],
+      'project:write'
+    )({
+      ...request.locals,
+      targetProjectIds: [String(project.id)],
+    })
+  ) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  try {
+    const { webhookIndex } = request.body;
+
+    if (typeof webhookIndex !== 'number' || webhookIndex < 0) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'INVALID_REQUEST_BODY'
+      );
+    }
+
+    // Get full project with all relations
+    const fullProject = await projectService.getProjectById(project.id);
+    const result = await webhooksService.triggerSingleWebhook(
+      fullProject,
+      webhookIndex
+    );
+
+    const responseData = formatResponse<{
+      target: string;
+      success: boolean;
+      message?: string;
+    }>({
+      message: t({
+        en: 'Webhook triggered',
+        fr: 'Webhook déclenché',
+        es: 'Webhook activado',
+      }),
+      description: t({
+        en: `Webhook "${result.target}" has been triggered`,
+        fr: `Le webhook "${result.target}" a été déclenché`,
+        es: `El webhook "${result.target}" ha sido activado`,
+      }),
+      data: result,
     });
 
     return reply.send(responseData);
@@ -669,6 +812,86 @@ export const unselectProject = async (
         es: 'Su proyecto ha sido deseleccionado con éxito',
       }),
       data: null,
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetCIConfigurationResult = ResponseData<ciService.CIStatus>;
+
+/**
+ * Get CI configuration status for the current project
+ */
+export const getCIConfiguration = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project, user } = request.locals || {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
+  }
+
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+
+  try {
+    const ciStatus = await ciService.getCIStatus(project);
+
+    const responseData = formatResponse<ciService.CIStatus>({
+      data: ciStatus,
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type PushCIConfigurationResult = ResponseData<{ success: boolean }>;
+
+/**
+ * Push CI configuration file to the repository
+ */
+export const pushCIConfiguration = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project, user } = request.locals || {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
+  }
+
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+
+  try {
+    await ciService.installCI(project);
+
+    const responseData = formatResponse<{ success: boolean }>({
+      message: t({
+        en: 'CI configuration installed successfully',
+        fr: 'Configuration CI installée avec succès',
+        es: 'Configuración CI instalada con éxito',
+      }),
+      description: t({
+        en: 'The CI workflow file has been added to your repository',
+        fr: 'Le fichier de workflow CI a été ajouté à votre dépôt',
+        es: 'El archivo de flujo de trabajo CI se ha agregado a su repositorio',
+      }),
+      data: { success: true },
     });
 
     return reply.send(responseData);

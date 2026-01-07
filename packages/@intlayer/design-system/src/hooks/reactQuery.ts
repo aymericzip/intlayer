@@ -715,6 +715,54 @@ export const useUnselectProject = () => {
   });
 };
 
+export const useGetCIConfig = (options?: Partial<UseQueryOptions>) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['ci-config'],
+    queryFn: ({ signal }) => intlayerOAuth.project.getCIConfig({ signal }),
+    requireProject: true,
+    ...options,
+  });
+};
+
+export const usePushCIConfig = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['ci-config'],
+    mutationFn: () => intlayerOAuth.project.pushCIConfig(),
+    meta: {
+      invalidateQueries: [['ci-config']],
+    },
+  });
+};
+
+export const useTriggerBuild = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['projects', 'build'],
+    mutationFn: () => intlayerOAuth.project.triggerBuild(),
+    meta: {
+      invalidateQueries: [['projects']],
+    },
+  });
+};
+
+export const useTriggerWebhook = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['projects', 'webhook'],
+    mutationFn: (webhookIndex: number) =>
+      intlayerOAuth.project.triggerWebhook(webhookIndex),
+    meta: {
+      invalidateQueries: [['projects']],
+    },
+  });
+};
+
 export const useAddNewAccessKey = () => {
   const intlayerOAuth = useIntlayerOAuth();
 

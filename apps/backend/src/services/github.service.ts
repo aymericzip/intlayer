@@ -4,6 +4,7 @@ import type { RestEndpointMethodTypes } from '@octokit/rest';
 import { Octokit } from '@octokit/rest';
 import { getDBClient } from '@utils/mongoDB/connectDB';
 import { ObjectId } from 'mongodb';
+import type { Project } from '@/types/project.types';
 
 export type GitHubRepository =
   RestEndpointMethodTypes['repos']['listForAuthenticatedUser']['response']['data'][0];
@@ -224,5 +225,153 @@ export const getGitHubTokenFromUser = async (
   } catch (error) {
     logger.error('Error retrieving GitHub token from DB:', error);
     return null;
+  }
+};
+
+type DispatchEventOptions = {
+  project: Project;
+  eventType?: string;
+  payload?: Record<string, any>;
+};
+
+export const triggerGithubDispatch = async ({
+  project,
+  eventType = 'intlayer_cms_update',
+  payload = {},
+}: DispatchEventOptions) => {
+  const { repository, oAuth2Access } = project;
+
+  if (!repository || repository.provider !== 'github') {
+    throw new Error('Project is not connected to a GitHub repository.');
+  }
+
+  // Get the valid Access Token
+  // Assuming the first token is the active one, or implement logic to find the specific user's token
+  const tokenData = oAuth2Access?.[0];
+  const accessToken = tokenData?.accessToken?.[0]; // Assuming array of tokens
+
+  if (!accessToken) {
+    throw new Error('No valid OAuth2 access token found for GitHub.');
+  }
+
+  const { owner, repository: repoName } = repository;
+  const url = `https://api.github.com/repos/${owner}/${repoName}/dispatches`;
+
+  try {
+    // 2. Send the Dispatch Event
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/vnd.github+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        event_type: eventType,
+        client_payload: {
+          ...payload,
+          projectId: project.id,
+          timestamp: Date.now(),
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`GitHub API Error: ${response.status} - ${errorText}`);
+    }
+
+    logger.info(
+      `Successfully triggered GitHub Action '${eventType}' for ${owner}/${repoName}`
+    );
+    return true;
+  } catch (error) {
+    logger.error(error);
+    throw error;
+  }
+};
+
+/**
+ * Check if a GitHub workflow file exists
+ */
+export const checkWorkflowFileExists = async (
+  accessToken: string,
+  owner: string,
+  repo: string,
+  filename: string,
+  branch: string = 'main'
+): Promise<boolean> => {
+  try {
+    const octokit = new Octokit({ auth: accessToken });
+    await octokit.rest.repos.getContent({
+      owner,
+      repo,
+      path: filename,
+      ref: branch,
+    });
+    return true;
+  } catch (error: any) {
+    if (error.status === 404) return false;
+    logger.error('Error checking workflow file existence:', error);
+    throw error;
+  }
+};
+
+/**
+ * Create or update a GitHub workflow file
+ */
+export const createWorkflowFile = async (
+  accessToken: string,
+  owner: string,
+  repo: string,
+  filename: string,
+  content: string,
+  branch: string = 'main',
+  message: string = 'Add Intlayer CI workflow'
+): Promise<void> => {
+  try {
+    const octokit = new Octokit({ auth: accessToken });
+
+    // Check if file exists to get SHA for update
+    let sha: string | undefined;
+    try {
+      const { data } = await octokit.rest.repos.getContent({
+        owner,
+        repo,
+        path: filename,
+        ref: branch,
+      });
+
+      if (Array.isArray(data) || !('sha' in data)) {
+        throw new Error('Path points to a directory, not a file');
+      }
+
+      sha = data.sha;
+    } catch (error: any) {
+      if (error.status !== 404) {
+        throw error;
+      }
+      // File doesn't exist, will create new one
+    }
+
+    // Encode content to base64
+    const encodedContent = Buffer.from(content, 'utf-8').toString('base64');
+
+    await octokit.rest.repos.createOrUpdateFileContents({
+      owner,
+      repo,
+      path: filename,
+      message,
+      content: encodedContent,
+      branch,
+      ...(sha && { sha }), // Include SHA if updating existing file
+    });
+
+    logger.info(
+      `Successfully ${sha ? 'updated' : 'created'} workflow file ${filename} for ${owner}/${repo}`
+    );
+  } catch (error) {
+    logger.error('Error creating/updating workflow file:', error);
+    throw error;
   }
 };

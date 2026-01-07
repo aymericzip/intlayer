@@ -278,3 +278,120 @@ export const getGitLabTokenFromUser = async (
     return null;
   }
 };
+
+/**
+ * Check if a GitLab CI pipeline file exists
+ */
+export const checkPipelineFileExists = async (
+  accessToken: string,
+  projectId: number,
+  filename: string = '.gitlab-ci.yml',
+  branch: string = 'main',
+  instanceUrl?: string
+): Promise<boolean> => {
+  const baseUrl = instanceUrl || GITLAB_DEFAULT_URL;
+
+  try {
+    const encodedPath = encodeURIComponent(filename);
+    const response = await fetch(
+      `${baseUrl}/api/v4/projects/${projectId}/repository/files/${encodedPath}?ref=${encodeURIComponent(branch)}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/json',
+        },
+      }
+    );
+
+    if (response.status === 404) return false;
+    if (!response.ok) {
+      throw new Error(`Failed to check file existence: ${response.statusText}`);
+    }
+
+    return true;
+  } catch (error: any) {
+    if (error.status === 404) return false;
+    logger.error('Error checking pipeline file existence:', error);
+    throw error;
+  }
+};
+
+/**
+ * Create or update a GitLab CI pipeline file
+ */
+export const createPipelineFile = async (
+  accessToken: string,
+  projectId: number,
+  filename: string = '.gitlab-ci.yml',
+  content: string,
+  branch: string = 'main',
+  instanceUrl?: string,
+  message: string = 'Add Intlayer CI pipeline'
+): Promise<void> => {
+  const baseUrl = instanceUrl || GITLAB_DEFAULT_URL;
+
+  try {
+    const encodedPath = encodeURIComponent(filename);
+    const encodedContent = Buffer.from(content, 'utf-8').toString('base64');
+
+    // Check if file exists to get content_sha256 for update
+    let existingContentSha: string | undefined;
+    try {
+      const checkResponse = await fetch(
+        `${baseUrl}/api/v4/projects/${projectId}/repository/files/${encodedPath}?ref=${encodeURIComponent(branch)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            Accept: 'application/json',
+          },
+        }
+      );
+
+      if (checkResponse.ok) {
+        const fileData = await checkResponse.json();
+        existingContentSha = fileData.content_sha256;
+      }
+    } catch (error: any) {
+      if (error.status !== 404) {
+        throw error;
+      }
+      // File doesn't exist, will create new one
+    }
+
+    const body: any = {
+      branch,
+      content: encodedContent,
+      commit_message: message,
+      encoding: 'base64',
+    };
+
+    if (existingContentSha) {
+      body.last_commit_id = existingContentSha;
+    }
+
+    const response = await fetch(
+      `${baseUrl}/api/v4/projects/${projectId}/repository/files/${encodedPath}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(body),
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to create/update pipeline file: ${errorText}`);
+    }
+
+    logger.info(
+      `Successfully ${existingContentSha ? 'updated' : 'created'} pipeline file ${filename} for project ${projectId}`
+    );
+  } catch (error) {
+    logger.error('Error creating/updating pipeline file:', error);
+    throw error;
+  }
+};

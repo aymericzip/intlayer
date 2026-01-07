@@ -24,6 +24,19 @@ type ProjectConfigAI = Partial<
   >
 > & { apiKeyConfigured?: boolean };
 
+export type Webhook = {
+  id?: string;
+  name: string;
+  url: string;
+  enabled: boolean;
+  secret?: string;
+};
+
+export type ProjectConfigCI = {
+  autoTriggerBuilds?: boolean;
+  webhooks?: Webhook[];
+};
+
 export type ProjectConfiguration = {
   internationalization?: ProjectConfigInternationalization;
   editor?: ProjectConfigEditor;
@@ -71,6 +84,7 @@ export type ProjectData = {
   creatorId: User['id'];
   configuration?: ProjectConfiguration;
   repository?: RepositoryConnection;
+  webhooks?: ProjectConfigCI;
 };
 
 export type AccessKeyData = {

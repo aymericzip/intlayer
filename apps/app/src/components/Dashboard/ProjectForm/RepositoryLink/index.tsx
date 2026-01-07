@@ -3,7 +3,7 @@
 import { BitbucketLogo } from '@components/logos/BitbucketLogo';
 import { GithubLogo } from '@components/logos/GithubLogo';
 import { GitLabLogo } from '@components/logos/GitLabLogo';
-import { Button, H4, Input, Modal } from '@intlayer/design-system';
+import { Button, Container, H3, Input, Modal } from '@intlayer/design-system';
 import { CheckCircle2, FileCode, FolderSearch, Globe } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -79,11 +79,16 @@ export const RepositoryLink: FC = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <H4>{content.title}</H4>
+      <H3>{content.title}</H3>
 
       {/* Already Connected to a Repository */}
       {isConnectedToRepo && connectedRepository && (
-        <div className="flex flex-col gap-4 rounded-xl border p-6">
+        <Container
+          roundedSize="2xl"
+          border={true}
+          borderColor="text"
+          className="flex flex-col gap-4 px-6 py-4"
+        >
           <div className="flex items-center gap-4">
             <div className="flex aspect-square size-12 items-center justify-center rounded-full">
               <CheckCircle2 className="size-6" />
@@ -142,7 +147,7 @@ export const RepositoryLink: FC = () => {
               {content.actions?.loadConfig}
             </Button>
           </div>
-        </div>
+        </Container>
       )}
 
       {/* Not Connected - Show Provider Selection */}
@@ -179,7 +184,13 @@ export const RepositoryLink: FC = () => {
 
           {/* Provider Not Linked - Show Connect Button */}
           {selectedProvider && isProviderLinked === false && (
-            <div className="flex flex-col gap-4 rounded-xl bg-neutral/5 p-6 text-center">
+            <Container
+              roundedSize="2xl"
+              border={true}
+              background="none"
+              borderColor="card"
+              className="flex flex-col gap-4 px-6 py-4 text-center"
+            >
               <ProviderIcon
                 provider={selectedProvider}
                 className="mx-auto size-12 text-text [&_path]:fill-text/60!"
@@ -207,12 +218,18 @@ export const RepositoryLink: FC = () => {
                   provider: PROVIDER_NAMES[selectedProvider],
                 })}
               </Button>
-            </div>
+            </Container>
           )}
 
           {/* Provider Linked - Show Browse Repos Button */}
           {selectedProvider && isProviderLinked === true && (
-            <div className="flex flex-col items-center justify-between gap-4 rounded-xl border border-neutral/20 p-6">
+            <Container
+              roundedSize="2xl"
+              border={true}
+              background="none"
+              borderColor="card"
+              className="flex flex-col items-center justify-between gap-4 px-6 py-4"
+            >
               <div className="flex w-full items-center gap-4">
                 <div className="flex size-12 items-center justify-center rounded-full bg-text/5">
                   <FolderSearch className="size-6 text-text" />
@@ -233,7 +250,7 @@ export const RepositoryLink: FC = () => {
               >
                 {content.actions?.browseRepos}
               </Button>
-            </div>
+            </Container>
           )}
         </>
       )}

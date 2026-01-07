@@ -28,6 +28,17 @@ const oAuth2AccessSchema = new Schema<RenameId<OAuth2Access>>(
   }
 );
 
+// Schema for generic webhooks (Vercel, Netlify, Custom, etc.)
+const webhookSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    url: { type: String, required: true },
+    enabled: { type: Boolean, default: true },
+    secret: { type: String }, // Optional signature secret
+  },
+  { _id: true }
+);
+
 const projectConfigSchema = new Schema<Project['configuration']>(
   {
     internationalization: {
@@ -73,6 +84,17 @@ const projectConfigSchema = new Schema<Project['configuration']>(
   }
 );
 
+// Schema for webhooks/CI configuration (top-level project property, not part of configuration)
+const webhooksConfigSchema = new Schema<Project['webhooks']>(
+  {
+    autoTriggerBuilds: { type: Boolean, default: false }, // Master toggle
+    webhooks: [webhookSchema], // Generic hooks (Vercel, Netlify, Custom)
+  },
+  {
+    _id: false,
+  }
+);
+
 const repositorySchema = new Schema<Project['repository']>(
   {
     provider: {
@@ -114,6 +136,7 @@ export const projectSchema = new Schema<ProjectSchema>(
     configuration: projectConfigSchema,
     oAuth2Access: [oAuth2AccessSchema],
     repository: repositorySchema,
+    webhooks: webhooksConfigSchema,
     membersIds: {
       type: [Schema.Types.ObjectId],
       ref: 'User',

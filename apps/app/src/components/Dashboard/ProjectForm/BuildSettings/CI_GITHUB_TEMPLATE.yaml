@@ -1,0 +1,12 @@
+# .github/workflows/intlayer-cms.yml
+name: Intlayer CMS Update
+on:
+  repository_dispatch:
+    types: [intlayer_cms_update]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npm run build
