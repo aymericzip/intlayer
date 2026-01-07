@@ -9,19 +9,39 @@ const robots = (): MetadataRoute.Robots => ({
   rules: {
     userAgent: '*',
     allow: getAllUrls([
+      PagesRoutes.Home,
+      PagesRoutes.Pricing,
+      PagesRoutes.Onboarding,
       PagesRoutes.Auth_SignIn,
       PagesRoutes.Auth_SignUp,
-      PagesRoutes.Auth_TwoFactor,
       PagesRoutes.Auth_AskResetPassword,
-      PagesRoutes.Auth_ResetPassword,
-      PagesRoutes.Auth_ChangePassword,
     ]),
     disallow: getAllUrls([
-      PagesRoutes.Home,
-      PagesRoutes.NotFound,
+      // Dashboards
+      PagesRoutes.Dashboard_Editor,
+      PagesRoutes.Dashboard_Translate,
+      PagesRoutes.Dashboard_Dictionaries,
+      PagesRoutes.Dashboard_Projects,
+      PagesRoutes.Dashboard_Tags,
+      PagesRoutes.Dashboard_Organization,
+      PagesRoutes.Dashboard_Profile,
+
+      // Admin Area
+      PagesRoutes.Admin,
+      PagesRoutes.Admin_Users,
+      PagesRoutes.Admin_Organizations,
+      PagesRoutes.Admin_Projects,
+      PagesRoutes.Admin_Dashboard,
+      PagesRoutes.Admin_Management,
+      PagesRoutes.Admin_Discussions,
+
+      // Internal Auth Flows (Non-public entry points)
+      PagesRoutes.Auth_TwoFactor,
       PagesRoutes.Auth_ResetPassword,
       PagesRoutes.Auth_ChangePassword,
-      PagesRoutes.Admin,
+
+      // Utilities
+      PagesRoutes.NotFound,
     ]),
   },
   host: process.env.NEXT_PUBLIC_URL,
