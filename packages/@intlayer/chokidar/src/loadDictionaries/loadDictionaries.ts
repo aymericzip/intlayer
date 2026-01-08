@@ -177,26 +177,17 @@ export const loadDictionaries = async (
     (plugin) => plugin.loadDictionaries
   );
 
-  logger.setPluginTotal(pluginsWithLoadDictionaries.length);
-
-  const completedPluginIndices = new Set<number>();
-  const updatePluginProgress = () => {
-    logger.setPluginDone(completedPluginIndices.size);
-  };
-
   const loadPluginDictionariesPromise = pluginsWithLoadDictionaries.map(
     async (plugin, index) => {
       try {
         const res = await plugin.loadDictionaries?.({
           configuration,
         });
-        completedPluginIndices.add(index);
-        updatePluginProgress();
+
         return (res as Dictionary[] | undefined) ?? [];
       } catch (error) {
         logger.setPluginError(error as Error);
-        completedPluginIndices.add(index);
-        updatePluginProgress();
+
         return [];
       }
     }
@@ -210,6 +201,9 @@ export const loadDictionaries = async (
       filterInvalidDictionaries(dictionaries, configuration)
     )
     .then((dictionaries) => formatDictionaries(dictionaries));
+
+  logger.setPluginTotal(pluginDictionaries.length);
+  logger.setPluginDone(pluginDictionaries.length);
 
   const pluginDictionariesTime = Date.now();
 

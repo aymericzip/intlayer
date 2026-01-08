@@ -32,7 +32,7 @@ export const extractKeyAndLocaleFromPath = (
   maskPattern: string,
   locales: Locale[],
   defaultLocale: Locale
-) => {
+): { key: string; locale: Locale } | null => {
   const keyPlaceholder = '{{__KEY__}}';
   const localePlaceholder = '{{__LOCALE__}}';
 
@@ -48,20 +48,21 @@ export const extractKeyAndLocaleFromPath = (
   );
 
   if (maskPattern.includes(keyPlaceholder)) {
+    // Ensure key does not contain slashes to prevent matching across directories
     regexStr = regexStr.replace(escapeRegex(keyPlaceholder), '(?<key>[^/]+)');
   }
 
   const maskRegex = new RegExp(regexStr);
-
   const match = maskRegex.exec(filePath);
 
-  let locale: Locale | undefined;
-  let key: string | undefined;
-
-  if (match?.groups) {
-    locale = match.groups.locale as Locale | undefined;
-    key = (match.groups.key as string | undefined) ?? 'index';
+  // FIX: If the path doesn't strictly match the pattern, return null
+  // Do not fall back to 'index' or defaultLocale for unmatched files.
+  if (!match || !match.groups) {
+    return null;
   }
+
+  let locale = match.groups.locale as Locale | undefined;
+  let key = (match.groups.key as string | undefined) ?? 'index';
 
   if (typeof key === 'undefined') {
     key = 'index';
@@ -99,24 +100,43 @@ const listMessages = (
   const result: MessagesRecord = {} as MessagesRecord;
 
   for (const file of files) {
-    const { key, locale } = extractKeyAndLocaleFromPath(
+    const extraction = extractKeyAndLocaleFromPath(
       file,
       maskPattern,
       locales,
       defaultLocale
     );
 
-    const absolutePath = isAbsolute(file) ? file : resolve(baseDir, file);
+    // FIX: If extraction failed (regex mismatch), skip this file
+    if (!extraction) {
+      continue;
+    }
+
+    const { key, locale } = extraction;
+
+    // FIX: Round Trip Check
+    // 1. Generate what the path SHOULD be for this key/locale using the current builder
+    const expectedPath = builder({ key, locale });
+
+    // 2. Resolve both to absolute paths to ensure safe comparison
+    const absoluteFoundPath = isAbsolute(file) ? file : resolve(baseDir, file);
+    const absoluteExpectedPath = isAbsolute(expectedPath)
+      ? expectedPath
+      : resolve(baseDir, expectedPath);
+
+    // 3. If the file found doesn't exactly match the file expected, it belongs to another plugin/structure
+    if (absoluteFoundPath !== absoluteExpectedPath) {
+      continue;
+    }
 
     if (!result[locale as Locale]) {
       result[locale as Locale] = {};
     }
 
-    result[locale as Locale][key as Dictionary['key']] = absolutePath;
+    result[locale as Locale][key as Dictionary['key']] = absoluteFoundPath;
   }
 
   // Ensure all declared locales are present even if the file doesn't exist yet
-  // Derive the list of keys from discovered files; if no key placeholder in mask, default to 'index'
   const hasKeyInMask = maskPattern.includes('{{__KEY__}}');
   const discoveredKeys = new Set<string>();
 
@@ -130,8 +150,6 @@ const listMessages = (
     discoveredKeys.add('index');
   }
 
-  // If no keys were discovered and mask expects a key, we cannot infer keys.
-  // In that case, do not fabricate unknown keys.
   const keysToEnsure =
     discoveredKeys.size > 0 ? Array.from(discoveredKeys) : [];
 
@@ -243,8 +261,16 @@ type SyncJSONPluginOptions = {
 };
 
 export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
+  // Generate a unique default location based on the source pattern.
+  // This ensures that if you have multiple plugins, they don't share the same 'plugin' ID.
+  const patternMarker = options.source({
+    key: '{{key}}',
+    locale: '{{locale}}',
+  });
+  const defaultLocation = `sync-json::${patternMarker}`;
+
   const { location, priority, format } = {
-    location: 'plugin',
+    location: defaultLocation,
     priority: 0,
     ...options,
   };
@@ -276,7 +302,6 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
         try {
           json = requireFunction(path as string);
         } catch {
-          // File does not exist yet; default to empty content so it can be filled later
           json = {};
         }
 
@@ -312,15 +337,15 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
         locale: dictionary.locale,
       });
 
-      // It's not one of the JSON that we synchronize, don't modify it
+      // Verification to ensure we are formatting the correct file
       if (resolve(builderPath) !== resolve(dictionary.filePath)) {
         return dictionary;
       }
 
       return dictionary.content;
     },
+
     afterBuild: async ({ dictionaries, configuration }) => {
-      // Dynamic import to avoid circular dependency as core package import config, that load esbuild, that load the config file, that load the plugin
       const { getPerLocaleDictionary } = await import('@intlayer/core');
       const { parallelize } = await import('@intlayer/chokidar');
 
@@ -332,6 +357,7 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
         locale: Locale;
       };
 
+      // We get all dictionaries, but we need to filter them
       const recordList: RecordList[] = Object.entries(
         dictionaries.mergedDictionaries
       ).flatMap(([key, dictionary]) =>
@@ -343,6 +369,11 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
       );
 
       await parallelize(recordList, async ({ key, dictionary, locale }) => {
+        // Only process dictionaries that belong to THIS plugin instance.
+        if (dictionary.location !== location) {
+          return;
+        }
+
         const builderPath = options.source({
           key,
           locale,
@@ -350,15 +381,12 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
 
         const localizedDictionary = getPerLocaleDictionary(dictionary, locale);
 
-        // Restore the original format from plugin options for output formatting
         const dictionaryWithFormat = {
           ...localizedDictionary,
           format,
         };
 
         const formattedOutput = formatDictionaryOutput(dictionaryWithFormat);
-
-        // Remove function, Symbol, etc. as it can be written as JSON
         const content = JSON.parse(JSON.stringify(formattedOutput.content));
 
         if (
@@ -369,16 +397,11 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
           return;
         }
 
-        // Ensure directory exists before writing the file
         await mkdir(dirname(builderPath), { recursive: true });
 
         const stringContent = JSON.stringify(content, null, 2);
 
-        await writeFile(
-          builderPath,
-          `${stringContent}\n`, // Add a new line at the end of the file to avoid formatting issues with VSCode
-          'utf-8'
-        );
+        await writeFile(builderPath, `${stringContent}\n`, 'utf-8');
       });
     },
   };
