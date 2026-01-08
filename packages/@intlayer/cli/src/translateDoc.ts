@@ -31,7 +31,17 @@ import { getOutputFilePath } from './utils/getOutputFilePath';
 import { type AIClient, setupAI } from './utils/setupAI';
 
 /**
+ * Shared error state for circuit breaker pattern
+ */
+type ErrorState = {
+  count: number;
+  maxErrors: number;
+  shouldStop: boolean;
+};
+
+/**
  * Translate a single file for a given locale
+ * Returns TRUE if successful, FALSE if failed/skipped
  */
 export const translateFile = async (
   baseFilePath: string,
@@ -39,30 +49,30 @@ export const translateFile = async (
   locale: Locale,
   baseLocale: Locale,
   configuration: IntlayerConfig,
+  errorState: ErrorState,
   aiOptions?: AIOptions,
   customInstructions?: string,
   aiClient?: AIClient,
   aiConfig?: AIConfig
-) => {
-  try {
-    const appLogger = getAppLogger(configuration, {
-      config: {
-        prefix: '',
-      },
-    });
+): Promise<boolean> => {
+  // Circuit Breaker Check
+  if (errorState.shouldStop) {
+    return false;
+  }
 
-    // Determine the target locale file path
+  const appLogger = getAppLogger(configuration, {
+    config: {
+      prefix: '',
+    },
+  });
+
+  try {
+    // Read File
     const fileContent = await readFile(baseFilePath, 'utf-8');
 
     let fileResultContent = fileContent;
 
-    // Prepare the base prompt for ChatGPT
-    const basePrompt = readAsset('./prompts/TRANSLATE_PROMPT.md', 'utf-8')
-      .replaceAll('{{localeName}}', `${formatLocale(locale, false)}`)
-      .replaceAll('{{baseLocaleName}}', `${formatLocale(baseLocale, false)}`)
-      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '-')
-      .replace('{{customInstructions}}', customInstructions ?? '-');
-
+    // Prepare formatting
     const filePrefixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}] `;
     const filePrefix = [
       colon(filePrefixText, { colSize: 40 }),
@@ -75,20 +85,35 @@ export const translateFile = async (
       `→ ${ANSIColors.RESET}`,
     ].join('');
 
-    // 1. Chunk the file by number of lines instead of characters
+    // Chunking
     const chunks = chunkText(fileContent);
     appLogger(
       `${filePrefix}Base file splitted into ${colorizeNumber(chunks.length)} chunks`
     );
 
+    // Instead of replacing content in a string, we push to an array
+    const translatedParts: string[] = [];
+
+    // Prepare Base Prompt
+    const basePrompt = readAsset('./prompts/TRANSLATE_PROMPT.md', 'utf-8')
+      .replaceAll('{{localeName}}', `${formatLocale(locale, false)}`)
+      .replaceAll('{{baseLocaleName}}', `${formatLocale(baseLocale, false)}`)
+      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '-')
+      .replace('{{customInstructions}}', customInstructions ?? '-');
+
+    // Iterate and Translate
     for await (const [i, chunk] of chunks.entries()) {
+      // Circuit Breaker Check inside the loop (in case error happened elsewhere while processing)
+      if (errorState.shouldStop) return false;
+
       const isFirstChunk = i === 0;
+      const fileToTranslateCurrentChunk = chunk.content;
 
       // Build the chunk-specific prompt
       const getPrevChunkPrompt = () =>
         `**CHUNK ${i} of ${chunks.length}** that has been translated in ${formatLocale(locale)}:\n` +
         `///chunkStart///` +
-        getChunk(fileResultContent, chunks[i - 1]) +
+        getChunk(translatedParts.join(''), chunks[i - 1]) +
         `///chunkEnd///`;
 
       const getBaseChunkContextPrompt = () =>
@@ -99,21 +124,23 @@ export const translateFile = async (
         (chunks[i + 1]?.content ?? '') +
         `///chunksEnd///`;
 
-      const fileToTranslateCurrentChunk = chunk.content;
-
       // Make the actual translation call
       const chunkTranslation = await retryManager(async () => {
         const result = await chunkInference(
           [
             { role: 'system', content: basePrompt },
-
             { role: 'system', content: getBaseChunkContextPrompt() },
             ...(isFirstChunk
               ? []
               : [{ role: 'system', content: getPrevChunkPrompt() } as const]),
             {
               role: 'system',
-              content: `The next user message will be the **CHUNK ${colorizeNumber(i + 1)} of ${colorizeNumber(chunks.length)}** in ${formatLocale(baseLocale, false)} to translate in ${formatLocale(locale, false)}:`,
+              content: `The next user message will be the **CHUNK ${colorizeNumber(i + 1)} of ${colorizeNumber(chunks.length)}** in ${formatLocale(baseLocale, false)} to translate in ${formatLocale(locale, false)}.\n
+                STRICT INSTRUCTIONS:
+                1. Translate ONLY the content of this specific chunk. 
+                2. Do NOT repeat the content from the previous chunk.
+                3. Start the translation exactly where the previous chunk ended.
+                4. Preserve all code blocks and formatting exactly.`,
             },
             { role: 'user', content: fileToTranslateCurrentChunk },
           ],
@@ -150,9 +177,11 @@ export const translateFile = async (
       );
     }
 
-    // 4. Write the final translation to the appropriate file path
+    // Write final file by joining parts
+    const finalContent = translatedParts.join('');
+
     mkdirSync(dirname(outputFilePath), { recursive: true });
-    writeFileSync(outputFilePath, fileResultContent);
+    writeFileSync(outputFilePath, finalContent);
 
     const relativePath = relative(
       configuration.content.baseDir,
@@ -162,8 +191,36 @@ export const translateFile = async (
     appLogger(
       `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(relativePath)} created/updated successfully.`
     );
-  } catch (error) {
-    console.error(error);
+
+    return true; // Success
+  } catch (error: any) {
+    // Handle Errors and Update State
+
+    errorState.count++;
+
+    // If it's an Access Denied error, stop immediately (set count to max)
+    const errorString = JSON.stringify(error);
+    const errorMessage = error?.message ?? '';
+    if (
+      errorString.includes('AI_ACCESS_DENIED') ||
+      errorMessage.includes('Access keys') ||
+      errorMessage.includes('Access denied') ||
+      errorMessage.includes('Invalid Access keys')
+    ) {
+      errorState.count = errorState.maxErrors + 1;
+      appLogger(
+        `${colorize('✖', ANSIColors.RED)} Critical Authentication Error. Aborting all tasks.`
+      );
+    }
+
+    if (errorState.count >= errorState.maxErrors && !errorState.shouldStop) {
+      errorState.shouldStop = true;
+      appLogger(
+        `${colorize('✖', ANSIColors.RED)} Too many errors (${errorState.count}). Stopping process.`
+      );
+    }
+
+    return false; // Failed
   }
 };
 
@@ -241,11 +298,24 @@ export const translateDoc = async ({
   );
 
   appLogger(`Translating ${colorizeNumber(docList.length)} files:`);
-  appLogger(docList.map((path) => ` - ${formatPath(path)}\n`));
+  docList.forEach((path) => {
+    appLogger(` - ${formatPath(path)}`);
+  });
+
+  // Initialize Error State
+  const MAX_ALLOWED_ERRORS = 5;
+  const errorState: ErrorState = {
+    count: 0,
+    maxErrors: MAX_ALLOWED_ERRORS,
+    shouldStop: false,
+  };
 
   // Create all tasks to be processed
   const allTasks = docList.flatMap((docPath) =>
     locales.map((locale) => async () => {
+      // Early exit if too many errors
+      if (errorState.shouldStop) return;
+
       appLogger(
         `Translating file: ${formatPath(docPath)} to ${formatLocale(locale)}`
       );
@@ -292,12 +362,14 @@ export const translateDoc = async ({
         return;
       }
 
+      // Call translateFile with errorState
       await translateFile(
         absoluteBaseFilePath,
         outputFilePath,
         locale as Locale,
         baseLocale,
         configuration,
+        errorState,
         aiOptions,
         customInstructions,
         aiClient,
@@ -311,4 +383,10 @@ export const translateDoc = async ({
     (task) => task(),
     nbSimultaneousFileProcessed ?? 3
   );
+
+  if (errorState.count > 0) {
+    appLogger(
+      `Process finished with ${colorizeNumber(errorState.count)} error${errorState.count === 1 ? '' : 's'}.`
+    );
+  }
 };

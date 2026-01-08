@@ -97,11 +97,13 @@ export const checkAIAccess = async (
   const hasCMSAuth = Boolean(
     configuration.editor.clientId && configuration.editor.clientSecret
   );
+  const isOllama =
+    configuration.ai?.provider === 'ollama' || aiOptions?.provider === 'ollama';
   const hasHisOwnAIAPIKey = Boolean(
     configuration.ai?.apiKey || aiOptions?.apiKey
   );
 
-  if (hasHisOwnAIAPIKey) {
+  if (hasHisOwnAIAPIKey || isOllama) {
     return true;
   }
 

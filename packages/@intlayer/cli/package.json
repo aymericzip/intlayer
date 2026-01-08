@@ -68,6 +68,7 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",
+    "@intlayer/ai": "workspace:*",
     "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",

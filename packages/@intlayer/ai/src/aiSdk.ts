@@ -249,7 +249,7 @@ export const getAIConfig = async (
   const apiKey = getAPIKey(accessType, aiOptions, isAuthenticated);
 
   // Check if API key is provided
-  if (!apiKey) {
+  if (!apiKey && aiOptions.provider !== AIProvider.OLLAMA) {
     throw new Error(`API key for ${aiOptions.provider} is missing`);
   }
 
