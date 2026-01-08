@@ -80,8 +80,7 @@
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
-    "@intlayer/cli": "workspace:*",
-    "webpack": "5.98.0"
+    "@intlayer/cli": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "25.0.3",
