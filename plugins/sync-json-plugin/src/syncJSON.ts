@@ -342,7 +342,16 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
         return dictionary;
       }
 
-      return dictionary.content;
+      const dictionaryWithFormat = {
+        ...dictionary,
+        format,
+      };
+
+      const formattedOutput = formatDictionaryOutput(
+        dictionaryWithFormat as Dictionary
+      );
+
+      return formattedOutput.content;
     },
 
     afterBuild: async ({ dictionaries, configuration }) => {
@@ -387,6 +396,7 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
         };
 
         const formattedOutput = formatDictionaryOutput(dictionaryWithFormat);
+
         const content = JSON.parse(JSON.stringify(formattedOutput.content));
 
         if (
