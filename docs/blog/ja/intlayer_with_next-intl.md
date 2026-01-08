@@ -119,48 +119,6 @@ CLIを使用してJSONの翻訳を行った場合やCMSを使用した場合、I
 
 `syncJSON`プラグインの詳細については、[syncJSONプラグインのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)をご参照ください。
 
-### （オプション）ステップ3：コンポーネントごとのJSON翻訳の実装
-
-デフォルトでは、IntlayerはJSONファイルとコンテンツ宣言ファイルの両方を読み込み、マージし、同期します。詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。しかし、必要に応じてIntlayerのプラグインを使用して、コードベースの任意の場所でローカライズされたJSONのコンポーネント単位の管理を実装することも可能です。
-
-そのためには、`loadJSON`プラグインを使用できます。
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // 現在のJSONファイルをIntlayerの辞書と同期させる
-  plugins: [
-    /**
-     * src内の{key}.i18n.jsonというパターンに一致するすべてのJSONファイルを読み込みます
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // これらのJSONファイルが`./locales/en/${key}.json`のファイルより優先されることを保証します
-    }),
-    /**
-     * ローカルディレクトリ内のJSONファイルに出力と翻訳を書き戻しながら読み込みます
-     */
-    syncJSON({
-      format: "icu",
-      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-これは、`src`ディレクトリ内のパターン `{key}.i18n.json` に一致するすべてのJSONファイルを読み込み、Intlayerの辞書としてロードします。
-
 ## Git設定
 
 自動生成されたIntlayerファイルは無視することを推奨します：

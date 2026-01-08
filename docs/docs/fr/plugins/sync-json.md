@@ -108,17 +108,21 @@ syncJSON({
   source: ({ key, locale }) => string, // requis
   location?: string, // étiquette optionnelle, par défaut : "plugin"
   priority?: number, // priorité optionnelle pour la résolution des conflits, par défaut : 0
-  format?: 'intlayer' | 'icu' | 'i18next', // formateur optionnel, par défaut : 'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // formateur optionnel, utilisé pour la compatibilité avec le runtime Intlayer
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-Spécifie le formateur à utiliser pour le contenu du dictionnaire lors de la synchronisation des fichiers JSON. Cela permet d'utiliser différentes syntaxes de formatage de messages compatibles avec diverses bibliothèques i18n.
+Spécifie le formateur à utiliser pour le contenu du dictionnaire lors de la synchronisation des fichiers JSON. Cela permet d'utiliser différentes syntaxes de formatage de messages compatibles avec le runtime Intlayer.
 
-- `'intlayer'`: Le formateur Intlayer par défaut (par défaut).
-- `'icu'`: Utilise le formatage de messages ICU (compatible avec des bibliothèques comme react-intl, vue-i18n).
-- `'i18next'`: Utilise le formatage de messages i18next (compatible avec i18next, next-i18next, Solid-i18next).
+- `undefined` : Aucun formateur ne sera utilisé, le contenu JSON sera utilisé tel quel.
+- `'intlayer'` : Le formateur Intlayer par défaut (par défaut).
+- `'icu'` : Utilise le formatage de messages ICU (compatible avec des bibliothèques comme react-intl, vue-i18n).
+- `'i18next'` : Utilise le formatage de messages i18next (compatible avec i18next, next-i18next, Solid-i18next).
+
+> Notez que l'utilisation d'un formateur transformera votre contenu JSON en entrée et en sortie. Pour des règles JSON complexes comme les pluriels ICU, le parsing peut ne pas garantir une correspondance 1 à 1 entre l'entrée et la sortie.
+> Si vous n'utilisez pas le runtime Intlayer, vous pourriez préférer ne pas définir de formateur.
 
 **Exemple :**
 

@@ -108,17 +108,21 @@ syncJSON({
   source: ({ key, locale }) => string, // zorunlu
   location?: string, // isteğe bağlı etiket, varsayılan: "plugin"
   priority?: number, // isteğe bağlı öncelik, çakışma çözümü için, varsayılan: 0
-  format?: 'intlayer' | 'icu' | 'i18next', // isteğe bağlı formatlayıcı, varsayılan: 'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // isteğe bağlı formatlayıcı, Intlayer runtime uyumluluğu için kullanılır
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-JSON dosyalarını senkronize ederken sözlük içeriği için kullanılacak formatlayıcıyı belirtir. Bu, çeşitli i18n kütüphaneleriyle uyumlu farklı mesaj formatlama sözdizimlerini kullanmanıza olanak tanır.
+JSON dosyalarını senkronize ederken sözlük içeriği için kullanılacak formatlayıcıyı belirtir. Bu, Intlayer runtime ile uyumlu farklı mesaj formatlama sözdizimlerini kullanmanıza olanak tanır.
 
+- `undefined`: Hiçbir formatlayıcı kullanılmayacak, JSON içeriği olduğu gibi kullanılacak.
 - `'intlayer'`: Varsayılan Intlayer formatlayıcısı (varsayılan).
 - `'icu'`: ICU mesaj formatlamasını kullanır (react-intl, vue-i18n gibi kütüphanelerle uyumlu).
 - `'i18next'`: i18next mesaj formatlamasını kullanır (i18next, next-i18next, Solid-i18next ile uyumlu).
+
+> Bir formatlayıcı kullanmanın JSON içeriğinizi girdi ve çıktıda dönüştüreceğini unutmayın. ICU çoğulları gibi karmaşık JSON kuralları için, ayrıştırma girdi ve çıktı arasında 1'e 1 eşleme garanti edemeyebilir.
+> Intlayer runtime kullanmıyorsanız, bir formatlayıcı ayarlamamayı tercih edebilirsiniz.
 
 **Örnek:**
 

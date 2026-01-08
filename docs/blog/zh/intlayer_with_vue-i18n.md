@@ -122,52 +122,6 @@ export default config;
 
 要查看更多关于 `syncJSON` 插件的详细信息，请参阅 [syncJSON 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)。
 
----
-
-### （可选）步骤3：实现按组件的 JSON 翻译
-
-默认情况下，Intlayer 会加载、合并并同步 JSON 和内容声明文件。更多详情请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。但如果你愿意，也可以使用 Intlayer 插件，在代码库中的任意位置实现按组件管理本地化的 JSON。
-
-为此，你可以使用 `loadJSON` 插件。
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // 保持您当前的 JSON 文件与 Intlayer 词典同步
-  plugins: [
-    /**
-     * 将加载 src 目录中所有匹配模式 {key}.i18n.json 的 JSON 文件
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // 确保这些 JSON 文件优先于 `./locales/en/${key}.json` 中的文件
-    }),
-    /**
-     * 将加载并将输出和翻译写回到 locales 目录中的 JSON 文件
-     */
-    syncJSON({
-      format: "vue-i18n",
-      source: ({ key, locale }) => `./src/locales/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-这将加载 `src` 目录中所有匹配 `{key}.i18n.json` 模式的 JSON 文件，并将它们作为 Intlayer 字典加载。
-
----
-
 ## Git 配置
 
 将生成的文件排除在版本控制之外：

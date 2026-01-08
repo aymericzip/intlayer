@@ -108,17 +108,21 @@ syncJSON({
   source: ({ key, locale }) => string, // 필수
   location?: string, // 선택적 레이블, 기본값: "plugin"
   priority?: number, // 충돌 해결을 위한 선택적 우선순위, 기본값: 0
-  format?: 'intlayer' | 'icu' | 'i18next', // 선택적 포맷터, 기본값: 'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // 선택적 포맷터, Intlayer 런타임 호환성에 사용
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-JSON 파일을 동기화할 때 사전 콘텐츠에 사용할 포맷터를 지정합니다. 이를 통해 다양한 i18n 라이브러리와 호환되는 다양한 메시지 포맷팅 구문을 사용할 수 있습니다.
+JSON 파일을 동기화할 때 사전 콘텐츠에 사용할 포맷터를 지정합니다. 이를 통해 Intlayer 런타임과 호환되는 다양한 메시지 포맷팅 구문을 사용할 수 있습니다.
 
+- `undefined`: 포맷터가 사용되지 않으며, JSON 콘텐츠가 그대로 사용됩니다.
 - `'intlayer'`: 기본 Intlayer 포맷터 (기본값).
 - `'icu'`: ICU 메시지 포맷팅을 사용합니다 (react-intl, vue-i18n과 같은 라이브러리와 호환).
 - `'i18next'`: i18next 메시지 포맷팅을 사용합니다 (i18next, next-i18next, Solid-i18next와 호환).
+
+> 포맷터를 사용하면 JSON 콘텐츠가 입력과 출력에서 변환된다는 점에 유의하세요. ICU 복수형과 같은 복잡한 JSON 규칙의 경우, 파싱이 입력과 출력 간의 1대1 매핑을 보장하지 못할 수 있습니다.
+> Intlayer 런타임을 사용하지 않는 경우, 포맷터를 설정하지 않는 것이 더 나을 수 있습니다.
 
 **예시:**
 

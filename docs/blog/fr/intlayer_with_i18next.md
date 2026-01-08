@@ -112,7 +112,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
@@ -131,50 +130,6 @@ Si vous souhaitez faire coexister ce JSON avec les fichiers de déclaration de c
 Si des modifications sont effectuées via la CLI pour traduire le JSON, ou en utilisant le CMS, Intlayer mettra à jour le fichier JSON avec les nouvelles traductions.
 
 Pour plus de détails sur le plugin `syncJSON`, veuillez consulter la [documentation du plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md).
-
-### (Optionnel) Étape 3 : Implémenter les traductions JSON par composant
-
-Par défaut, Intlayer chargera, fusionnera et synchronisera à la fois les fichiers JSON et les fichiers de déclaration de contenu. Voir [la documentation sur la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md) pour plus de détails. Mais si vous préférez, en utilisant un plugin Intlayer, vous pouvez également implémenter une gestion par composant des JSON localisés n'importe où dans votre base de code.
-
-Pour cela, vous pouvez utiliser le plugin `loadJSON`.
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // Gardez vos fichiers JSON actuels synchronisés avec les dictionnaires Intlayer
-  plugins: [
-    /**
-     * Chargera tous les fichiers JSON dans src qui correspondent au modèle {key}.i18n.json
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // Assure que ces fichiers JSON ont la priorité sur les fichiers dans `./locales/en/${key}.json`
-    }),
-    /**
-     * Chargera, puis écrira la sortie et les traductions dans les fichiers JSON du répertoire locales
-     */
-    syncJSON({
-      format: "i18next",
-      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-Cela chargera tous les fichiers JSON dans le répertoire `src` qui correspondent au modèle `{key}.i18n.json` et les chargera en tant que dictionnaires Intlayer.
-
----
 
 ## Configuration Git
 

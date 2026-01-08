@@ -119,48 +119,6 @@ export default config;
 
 Для получения дополнительной информации о плагине `syncJSON` обратитесь к [документации плагина syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md).
 
-### (Необязательно) Шаг 3: Реализация переводов JSON для каждого компонента
-
-По умолчанию Intlayer загружает, объединяет и синхронизирует как JSON, так и файлы декларации контента. Подробнее смотрите в [документации по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md). Но если вы предпочитаете, используя плагин Intlayer, вы также можете реализовать управление JSON-переводами на уровне компонентов, расположенных в любом месте вашего кода.
-
-Для этого вы можете использовать плагин `loadJSON`.
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // Синхронизируйте ваши текущие JSON-файлы с словарями Intlayer
-  plugins: [
-    /**
-     * Загрузит все JSON-файлы в папке src, которые соответствуют шаблону {key}.i18n.json
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // Обеспечивает приоритет этих JSON-файлов над файлами в `./locales/en/${key}.json`
-    }),
-    /**
-     * Загрузит и запишет результаты и переводы обратно в JSON-файлы в директории locales
-     */
-    syncJSON({
-      format: "icu",
-      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-Это загрузит все JSON-файлы в директории `src`, которые соответствуют шаблону `{key}.i18n.json`, и загрузит их как словари Intlayer.
-
 ## Конфигурация Git
 
 Рекомендуется игнорировать автоматически сгенерированные файлы Intlayer:

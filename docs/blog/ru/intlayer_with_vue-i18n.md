@@ -122,52 +122,6 @@ export default config;
 
 Чтобы узнать больше подробностей о плагине `syncJSON`, пожалуйста, обратитесь к [документации плагина syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md).
 
----
-
-### (Необязательно) Шаг 3: Реализация переводов JSON по компонентам
-
-По умолчанию Intlayer загружает, объединяет и синхронизирует как JSON, так и файлы деклараций контента. Подробнее смотрите в [документации по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md). Но если вы предпочитаете, используя плагин Intlayer, вы также можете реализовать управление локализованным JSON по компонентам в любом месте вашего кода.
-
-Для этого вы можете использовать плагин `loadJSON`.
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // Синхронизируйте ваши текущие JSON-файлы с словарями Intlayer
-  plugins: [
-    /**
-     * Загрузит все JSON-файлы в src, которые соответствуют шаблону {key}.i18n.json
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // Обеспечивает приоритет этих JSON-файлов над файлами в `./locales/en/${key}.json`
-    }),
-    /**
-     * Загрузит, а также запишет результат и переводы обратно в JSON-файлы в директории locales
-     */
-    syncJSON({
-      format: "vue-i18n",
-      source: ({ key, locale }) => `./src/locales/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-Это загрузит все JSON-файлы в каталоге `src`, которые соответствуют шаблону `{key}.i18n.json`, и загрузит их как словари Intlayer.
-
----
-
 ## Конфигурация Git
 
 Исключите сгенерированные файлы из системы контроля версий:

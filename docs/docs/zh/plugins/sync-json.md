@@ -108,17 +108,21 @@ syncJSON({
   source: ({ key, locale }) => string, // 必填
   location?: string, // 可选标签，默认值："plugin"
   priority?: number, // 可选优先级，用于冲突解决，默认值：0
-  format?: 'intlayer' | 'icu' | 'i18next', // 可选格式化器，默认值：'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // 可选格式化器，用于 Intlayer 运行时兼容性
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-指定在同步 JSON 文件时用于字典内容的格式化器。这允许使用与各种 i18n 库兼容的不同消息格式化语法。
+指定在同步 JSON 文件时用于字典内容的格式化器。这允许使用与 Intlayer 运行时兼容的不同消息格式化语法。
 
-- `'intlayer'`: 默认的 Intlayer 格式化器（默认值）。
-- `'icu'`: 使用 ICU 消息格式化（与 react-intl、vue-i18n 等库兼容）。
-- `'i18next'`: 使用 i18next 消息格式化（与 i18next、next-i18next、Solid-i18next 兼容）。
+- `undefined`：不使用格式化器，JSON 内容将按原样使用。
+- `'intlayer'`：默认的 Intlayer 格式化器（默认值）。
+- `'icu'`：使用 ICU 消息格式化（与 react-intl、vue-i18n 等库兼容）。
+- `'i18next'`：使用 i18next 消息格式化（与 i18next、next-i18next、Solid-i18next 兼容）。
+
+> 请注意，使用格式化器会转换您的 JSON 内容的输入和输出。对于复杂的 JSON 规则（如 ICU 复数），解析可能无法确保输入和输出之间的 1 对 1 映射。
+> 如果您不使用 Intlayer 运行时，您可能更倾向于不设置格式化器。
 
 **示例：**
 

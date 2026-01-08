@@ -108,17 +108,21 @@ syncJSON({
   source: ({ key, locale }) => string, // wajib
   location?: string, // label opsional, default: "plugin"
   priority?: number, // prioritas opsional untuk resolusi konflik, default: 0
-  format?: 'intlayer' | 'icu' | 'i18next', // formatter opsional, default: 'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // formatter opsional, digunakan untuk kompatibilitas runtime Intlayer
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-Menentukan formatter yang akan digunakan untuk konten kamus saat menyinkronkan file JSON. Ini memungkinkan penggunaan berbagai sintaks pemformatan pesan yang kompatibel dengan berbagai pustaka i18n.
+Menentukan formatter yang akan digunakan untuk konten kamus saat menyinkronkan file JSON. Ini memungkinkan penggunaan berbagai sintaks pemformatan pesan yang kompatibel dengan runtime Intlayer.
 
+- `undefined`: Tidak ada formatter yang akan digunakan, konten JSON akan digunakan apa adanya.
 - `'intlayer'`: Formatter Intlayer default (default).
 - `'icu'`: Menggunakan pemformatan pesan ICU (kompatibel dengan pustaka seperti react-intl, vue-i18n).
 - `'i18next'`: Menggunakan pemformatan pesan i18next (kompatibel dengan i18next, next-i18next, Solid-i18next).
+
+> Perhatikan bahwa menggunakan formatter akan mengubah konten JSON Anda pada input dan output. Untuk aturan JSON yang kompleks seperti pluralisasi ICU, parsing mungkin tidak menjamin pemetaan 1 ke 1 antara input dan output.
+> Jika Anda tidak menggunakan runtime Intlayer, Anda mungkin lebih memilih untuk tidak mengatur formatter.
 
 **Contoh:**
 

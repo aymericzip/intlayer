@@ -108,17 +108,21 @@ syncJSON({
   source: ({ key, locale }) => string, // bắt buộc
   location?: string, // nhãn tùy chọn, mặc định: "plugin"
   priority?: number, // ưu tiên tùy chọn để giải quyết xung đột, mặc định: 0
-  format?: 'intlayer' | 'icu' | 'i18next', // bộ định dạng tùy chọn, mặc định: 'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // bộ định dạng tùy chọn, được sử dụng cho tương thích runtime Intlayer
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-Chỉ định bộ định dạng sẽ được sử dụng cho nội dung từ điển khi đồng bộ hóa các tệp JSON. Điều này cho phép sử dụng các cú pháp định dạng thông báo khác nhau tương thích với các thư viện i18n khác nhau.
+Chỉ định bộ định dạng sẽ được sử dụng cho nội dung từ điển khi đồng bộ hóa các tệp JSON. Điều này cho phép sử dụng các cú pháp định dạng thông báo khác nhau tương thích với runtime Intlayer.
 
+- `undefined`: Không sử dụng bộ định dạng nào, nội dung JSON sẽ được sử dụng nguyên trạng.
 - `'intlayer'`: Bộ định dạng Intlayer mặc định (mặc định).
 - `'icu'`: Sử dụng định dạng thông báo ICU (tương thích với các thư viện như react-intl, vue-i18n).
 - `'i18next'`: Sử dụng định dạng thông báo i18next (tương thích với i18next, next-i18next, Solid-i18next).
+
+> Lưu ý rằng việc sử dụng bộ định dạng sẽ chuyển đổi nội dung JSON của bạn ở đầu vào và đầu ra. Đối với các quy tắc JSON phức tạp như số nhiều ICU, việc phân tích có thể không đảm bảo ánh xạ 1 đối 1 giữa đầu vào và đầu ra.
+> Nếu bạn không sử dụng runtime Intlayer, bạn có thể muốn không thiết lập bộ định dạng.
 
 **Ví dụ:**
 

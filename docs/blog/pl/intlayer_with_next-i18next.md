@@ -143,52 +143,6 @@ Jeśli zmiany zostaną wprowadzone za pomocą CLI do tłumaczenia JSON lub przy 
 
 Aby zobaczyć więcej szczegółów na temat wtyczki `syncJSON`, prosimy zapoznać się z [dokumentacją wtyczki syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md).
 
----
-
-### (Opcjonalny) Krok 3: Implementacja tłumaczeń JSON na poziomie komponentu
-
-Domyślnie Intlayer załaduje, połączy i zsynchronizuje zarówno pliki JSON, jak i pliki deklaracji zawartości. Zobacz [dokumentację deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md) po więcej szczegółów. Jednak jeśli wolisz, używając wtyczki Intlayer, możesz również zaimplementować zarządzanie tłumaczeniami JSON na poziomie poszczególnych komponentów, zlokalizowanych w dowolnym miejscu w Twojej bazie kodu.
-
-Do tego możesz użyć wtyczki `loadJSON`.
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // Synchronizuj swoje obecne pliki JSON ze słownikami Intlayer
-  plugins: [
-    /**
-     * Załaduje wszystkie pliki JSON w katalogu src, które pasują do wzorca {key}.i18n.json
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // Zapewnia, że te pliki JSON mają pierwszeństwo przed plikami w `./public/locales/en/${key}.json`
-    }),
-    /**
-     * Załaduje i zapisze wynik oraz tłumaczenia z powrotem do plików JSON w katalogu locales
-     */
-    syncJSON({
-      format: "i18next",
-      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-To spowoduje załadowanie wszystkich plików JSON w katalogu `src`, które pasują do wzorca `{key}.i18n.json` i załaduje je jako słowniki Intlayer.
-
----
-
 ## Konfiguracja Git
 
 Wyklucz generowane pliki z kontroli wersji:
