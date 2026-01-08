@@ -120,7 +120,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-intlayer": "workspace:*",
-    "react-router-dom": "7.9.6",
+    "react-router-dom": "7.12.0",
     "tailwind-merge": "3.4.0",
     "tailwindcss": "4.1.18",
     "tsdown": "0.18.2",
