@@ -41,6 +41,7 @@ COPY \
     --exclude=examples \
     --exclude=plugins \
     --exclude=apps/website \
+    --exclude=apps/app \
     --exclude=**/*.stories.* \
     . .
 

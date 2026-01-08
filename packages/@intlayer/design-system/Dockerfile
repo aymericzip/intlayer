@@ -38,6 +38,7 @@ COPY \
   --exclude=docs/frequent_questions \
   --exclude=docs/legal \
   --exclude=apps/website \
+  --exclude=apps/app \
   --exclude=plugins \
   --exclude=examples \
   . .
