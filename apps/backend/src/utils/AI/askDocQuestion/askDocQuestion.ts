@@ -1,14 +1,22 @@
-import { readAsset } from 'utils:asset';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { AIConfig, ChatCompletionRequestMessage } from '@intlayer/ai';
 import { streamText } from '@intlayer/ai';
 import { getMarkdownMetadata } from '@intlayer/core';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import { OpenAI } from 'openai';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const readEmbeddingsForFile = (fileKey: string): Record<string, number[]> => {
   try {
     return JSON.parse(
-      readAsset(`./embeddings/${fileKey.replace('.md', '.json')}`, 'utf-8')
+      readFileSync(
+        join(__dirname, `./embeddings/${fileKey.replace('.md', '.json')}`),
+        'utf-8'
+      )
     ) as Record<string, number[]>;
   } catch {
     return {};
@@ -259,7 +267,7 @@ export const searchChunkReference = async (
   return results;
 };
 
-const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
+const CHAT_GPT_PROMPT = readFileSync(join(__dirname, './PROMPT.md'), 'utf-8');
 
 // Initial prompt configuration for the chatbot
 export const initPrompt: ChatCompletionRequestMessage = {

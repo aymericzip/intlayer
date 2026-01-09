@@ -1,4 +1,6 @@
-import { readAsset } from 'utils:asset';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
   type AIConfig,
   type AIOptions,
@@ -21,8 +23,11 @@ export type AutocompleteFileResultData = {
   tokenUsed: number;
 };
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // The prompt template to send to the AI model
-const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
+const CHAT_GPT_PROMPT = readFileSync(join(__dirname, './PROMPT.md'), 'utf-8');
 
 export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,

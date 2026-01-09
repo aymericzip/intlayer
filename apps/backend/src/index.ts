@@ -50,7 +50,9 @@ const startServer = async () => {
   const app: FastifyInstance = Fastify({
     disableRequestLogging: true,
     trustProxy: true,
-    ignoreTrailingSlash: true,
+    routerOptions: {
+      ignoreTrailingSlash: true,
+    },
   });
 
   // Environment variables

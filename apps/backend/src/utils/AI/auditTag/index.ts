@@ -1,4 +1,6 @@
-import { readAsset } from 'utils:asset';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { AIConfig, AIOptions } from '@intlayer/ai';
 import { generateText } from '@intlayer/ai';
 import { logger } from '@logger';
@@ -18,8 +20,11 @@ export type TranslateJSONResultData = {
   tokenUsed: number;
 };
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // The prompt template to send to AI models
-const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
+const CHAT_GPT_PROMPT = readFileSync(join(__dirname, './PROMPT.md'), 'utf-8');
 
 export const aiDefaultOptions: AIOptions = {
   // Keep default options
