@@ -130,7 +130,7 @@ Here is the final structure that we will make:
 └── tsconfig.json
 ```
 
-> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://intlayer.org/frequent-questions/ssr-next-no-[locale]) for more details.
+> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://intlayer.org/frequent-questions/next-no-locale-path) for more details.
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
