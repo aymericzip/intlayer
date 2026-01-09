@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import type { AIOptions } from '@intlayer/api'; // OAuth handled by API proxy
+import type { AIOptions } from '@intlayer/api';
 import {
   formatLocale,
   formatPath,
@@ -19,10 +19,10 @@ import {
 } from '@intlayer/config';
 import type { Locale } from '@intlayer/types';
 import fg from 'fast-glob';
+import { checkFileModifiedRange } from '../utils/checkFileModifiedRange';
+import { getOutputFilePath } from '../utils/getOutputFilePath';
+import { setupAI } from '../utils/setupAI';
 import { reviewFileBlockAware } from './reviewDocBlockAware';
-import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
-import { getOutputFilePath } from './utils/getOutputFilePath';
-import { setupAI } from './utils/setupAI';
 
 type ReviewDocOptions = {
   docPattern: string[];
@@ -126,14 +126,22 @@ export const reviewDoc = async ({
         return;
       }
 
-      const fileModificationData = checkFileModifiedRange(outputFilePath, {
-        skipIfModifiedBefore,
-        skipIfModifiedAfter,
-      });
+      // Check modification range only if the file exists
+      if (existsSync(outputFilePath)) {
+        const fileModificationData = checkFileModifiedRange(outputFilePath, {
+          skipIfModifiedBefore,
+          skipIfModifiedAfter,
+        });
 
-      if (fileModificationData.isSkipped) {
-        appLogger(fileModificationData.message);
-        return;
+        if (fileModificationData.isSkipped) {
+          appLogger(fileModificationData.message);
+          return;
+        }
+      } else if (skipIfModifiedBefore || skipIfModifiedAfter) {
+        // Log if we intended to check modification time but couldn't because the file doesn't exist
+        appLogger(
+          `${colorize('!', ANSIColors.YELLOW)} File ${formatPath(outputFilePath)} does not exist, skipping modification date check.`
+        );
       }
 
       let changedLines: number[] | undefined;

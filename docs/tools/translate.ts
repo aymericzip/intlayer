@@ -9,10 +9,10 @@ import { defaultLocale, locales } from '../intlayer.config';
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
 const DOC_PATTERN: string[] = [
-  './docs/en/**',
-  './blog/en/**/*.md',
-  './frequent_questions/en/**/*.md',
-  './legal/en/**/*.md',
+  './docs/en/vs_code_extension.md',
+  // './blog/en/**/*.md',
+  // './frequent_questions/en/**/*.md',
+  // './legal/en/**/*.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/_*',
@@ -22,7 +22,7 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
 ];
 
 // Number of files to process simultaneously
-const NB_SIMULTANEOUS_FILE_PROCESSED: number = 3;
+const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
 
 const LOCALE_LIST_TO_TRANSLATE: Locale[] = locales.filter(
   // Include all locales except English

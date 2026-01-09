@@ -21,10 +21,10 @@ import { liveSync } from './liveSync';
 import { pull } from './pull';
 import { push } from './push/push';
 import { pushConfig } from './pushConfig';
-import { reviewDoc } from './reviewDoc';
+import { reviewDoc } from './reviewDoc/reviewDoc';
 import { testMissingTranslations } from './test';
 import { transform } from './transform';
-import { translateDoc } from './translateDoc';
+import { translateDoc } from './translateDoc/translateDoc';
 import { getParentPackageJSON } from './utils/getParentPackageJSON';
 import { watchContentDeclaration } from './watch';
 

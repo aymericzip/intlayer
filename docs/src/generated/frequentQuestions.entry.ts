@@ -77,6 +77,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('SSR_Next_no_[locale].md', 'pl'),
     id: readLocale('SSR_Next_no_[locale].md', 'id'),
     vi: readLocale('SSR_Next_no_[locale].md', 'vi'),
+    uk: readLocale('SSR_Next_no_[locale].md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/array_as_content_declaration.md': {
     en: readLocale('array_as_content_declaration.md', 'en'),
@@ -96,6 +97,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('array_as_content_declaration.md', 'pl'),
     id: readLocale('array_as_content_declaration.md', 'id'),
     vi: readLocale('array_as_content_declaration.md', 'vi'),
+    uk: readLocale('array_as_content_declaration.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/build_dictionaries.md': {
     en: readLocale('build_dictionaries.md', 'en'),
@@ -115,6 +117,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('build_dictionaries.md', 'pl'),
     id: readLocale('build_dictionaries.md', 'id'),
     vi: readLocale('build_dictionaries.md', 'vi'),
+    uk: readLocale('build_dictionaries.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/build_error_CI_CD.md': {
     en: readLocale('build_error_CI_CD.md', 'en'),
@@ -134,6 +137,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('build_error_CI_CD.md', 'pl'),
     id: readLocale('build_error_CI_CD.md', 'id'),
     vi: readLocale('build_error_CI_CD.md', 'vi'),
+    uk: readLocale('build_error_CI_CD.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/bun_set_up.md': {
     en: readLocale('bun_set_up.md', 'en'),
@@ -153,6 +157,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('bun_set_up.md', 'pl'),
     id: readLocale('bun_set_up.md', 'id'),
     vi: readLocale('bun_set_up.md', 'vi'),
+    uk: readLocale('bun_set_up.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/customized_locale_list.md': {
     en: readLocale('customized_locale_list.md', 'en'),
@@ -172,6 +177,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('customized_locale_list.md', 'pl'),
     id: readLocale('customized_locale_list.md', 'id'),
     vi: readLocale('customized_locale_list.md', 'vi'),
+    uk: readLocale('customized_locale_list.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/domain_routing.md': {
     en: readLocale('domain_routing.md', 'en'),
@@ -191,6 +197,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('domain_routing.md', 'pl'),
     id: readLocale('domain_routing.md', 'id'),
     vi: readLocale('domain_routing.md', 'vi'),
+    uk: readLocale('domain_routing.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/esbuild_error.md': {
     en: readLocale('esbuild_error.md', 'en'),
@@ -210,6 +217,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('esbuild_error.md', 'pl'),
     id: readLocale('esbuild_error.md', 'id'),
     vi: readLocale('esbuild_error.md', 'vi'),
+    uk: readLocale('esbuild_error.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/get_locale_cookie.md': {
     en: readLocale('get_locale_cookie.md', 'en'),
@@ -229,6 +237,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('get_locale_cookie.md', 'pl'),
     id: readLocale('get_locale_cookie.md', 'id'),
     vi: readLocale('get_locale_cookie.md', 'vi'),
+    uk: readLocale('get_locale_cookie.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/intlayer_command_undefined.md': {
     en: readLocale('intlayer_command_undefined.md', 'en'),
@@ -248,6 +257,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('intlayer_command_undefined.md', 'pl'),
     id: readLocale('intlayer_command_undefined.md', 'id'),
     vi: readLocale('intlayer_command_undefined.md', 'vi'),
+    uk: readLocale('intlayer_command_undefined.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/locale_incorect_in_url.md': {
     en: readLocale('locale_incorect_in_url.md', 'en'),
@@ -267,6 +277,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('locale_incorect_in_url.md', 'pl'),
     id: readLocale('locale_incorect_in_url.md', 'id'),
     vi: readLocale('locale_incorect_in_url.md', 'vi'),
+    uk: readLocale('locale_incorect_in_url.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/package_version_error.md': {
     en: readLocale('package_version_error.md', 'en'),
@@ -286,6 +297,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('package_version_error.md', 'pl'),
     id: readLocale('package_version_error.md', 'id'),
     vi: readLocale('package_version_error.md', 'vi'),
+    uk: readLocale('package_version_error.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/static_rendering.md': {
     en: readLocale('static_rendering.md', 'en'),
@@ -305,6 +317,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('static_rendering.md', 'pl'),
     id: readLocale('static_rendering.md', 'id'),
     vi: readLocale('static_rendering.md', 'vi'),
+    uk: readLocale('static_rendering.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/translated_path_url.md': {
     en: readLocale('translated_path_url.md', 'en'),
@@ -324,6 +337,7 @@ export const frequentQuestionsEntry = {
     pl: readLocale('translated_path_url.md', 'pl'),
     id: readLocale('translated_path_url.md', 'id'),
     vi: readLocale('translated_path_url.md', 'vi'),
+    uk: readLocale('translated_path_url.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/unknown_command.md': {
     en: readLocale('unknown_command.md', 'en'),
@@ -343,5 +357,6 @@ export const frequentQuestionsEntry = {
     pl: readLocale('unknown_command.md', 'pl'),
     id: readLocale('unknown_command.md', 'id'),
     vi: readLocale('unknown_command.md', 'vi'),
+    uk: readLocale('unknown_command.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
 } as const;

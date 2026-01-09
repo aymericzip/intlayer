@@ -1,11 +1,3 @@
-/**
- * Translation Alignment System
- *
- * A sophisticated block-aware system for maintaining translations of markdown documents.
- *
- * @module translation-alignment
- */
-
 // Block alignment
 export { alignEnglishAndFrenchBlocks } from './alignBlocks';
 // Similarity computation

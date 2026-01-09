@@ -71,6 +71,7 @@ export const blogEntry = {
     pl: readLocale('compiler_vs_declarative_i18n.md', 'pl'),
     id: readLocale('compiler_vs_declarative_i18n.md', 'id'),
     vi: readLocale('compiler_vs_declarative_i18n.md', 'vi'),
+    uk: readLocale('compiler_vs_declarative_i18n.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/i18n_using_next-i18next.md': {
     en: readLocale('i18n_using_next-i18next.md', 'en'),
@@ -90,6 +91,7 @@ export const blogEntry = {
     pl: readLocale('i18n_using_next-i18next.md', 'pl'),
     id: readLocale('i18n_using_next-i18next.md', 'id'),
     vi: readLocale('i18n_using_next-i18next.md', 'vi'),
+    uk: readLocale('i18n_using_next-i18next.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/i18n_using_next-intl.md': {
     en: readLocale('i18n_using_next-intl.md', 'en'),
@@ -109,6 +111,7 @@ export const blogEntry = {
     pl: readLocale('i18n_using_next-intl.md', 'pl'),
     id: readLocale('i18n_using_next-intl.md', 'id'),
     vi: readLocale('i18n_using_next-intl.md', 'vi'),
+    uk: readLocale('i18n_using_next-intl.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/index.md': {
     en: readLocale('index.md', 'en'),
@@ -128,6 +131,7 @@ export const blogEntry = {
     pl: readLocale('index.md', 'pl'),
     id: readLocale('index.md', 'id'),
     vi: readLocale('index.md', 'vi'),
+    uk: readLocale('index.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/internationalization_and_SEO.md': {
     en: readLocale('internationalization_and_SEO.md', 'en'),
@@ -147,6 +151,7 @@ export const blogEntry = {
     pl: readLocale('internationalization_and_SEO.md', 'pl'),
     id: readLocale('internationalization_and_SEO.md', 'id'),
     vi: readLocale('internationalization_and_SEO.md', 'vi'),
+    uk: readLocale('internationalization_and_SEO.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/intlayer_with_i18next.md': {
     en: readLocale('intlayer_with_i18next.md', 'en'),
@@ -166,6 +171,7 @@ export const blogEntry = {
     pl: readLocale('intlayer_with_i18next.md', 'pl'),
     id: readLocale('intlayer_with_i18next.md', 'id'),
     vi: readLocale('intlayer_with_i18next.md', 'vi'),
+    uk: readLocale('intlayer_with_i18next.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/intlayer_with_next-i18next.md': {
     en: readLocale('intlayer_with_next-i18next.md', 'en'),
@@ -185,6 +191,7 @@ export const blogEntry = {
     pl: readLocale('intlayer_with_next-i18next.md', 'pl'),
     id: readLocale('intlayer_with_next-i18next.md', 'id'),
     vi: readLocale('intlayer_with_next-i18next.md', 'vi'),
+    uk: readLocale('intlayer_with_next-i18next.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/intlayer_with_next-intl.md': {
     en: readLocale('intlayer_with_next-intl.md', 'en'),
@@ -204,6 +211,7 @@ export const blogEntry = {
     pl: readLocale('intlayer_with_next-intl.md', 'pl'),
     id: readLocale('intlayer_with_next-intl.md', 'id'),
     vi: readLocale('intlayer_with_next-intl.md', 'vi'),
+    uk: readLocale('intlayer_with_next-intl.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/intlayer_with_react-i18next.md': {
     en: readLocale('intlayer_with_react-i18next.md', 'en'),
@@ -223,6 +231,7 @@ export const blogEntry = {
     pl: readLocale('intlayer_with_react-i18next.md', 'pl'),
     id: readLocale('intlayer_with_react-i18next.md', 'id'),
     vi: readLocale('intlayer_with_react-i18next.md', 'vi'),
+    uk: readLocale('intlayer_with_react-i18next.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/intlayer_with_react-intl.md': {
     en: readLocale('intlayer_with_react-intl.md', 'en'),
@@ -242,6 +251,7 @@ export const blogEntry = {
     pl: readLocale('intlayer_with_react-intl.md', 'pl'),
     id: readLocale('intlayer_with_react-intl.md', 'id'),
     vi: readLocale('intlayer_with_react-intl.md', 'vi'),
+    uk: readLocale('intlayer_with_react-intl.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/intlayer_with_vue-i18n.md': {
     en: readLocale('intlayer_with_vue-i18n.md', 'en'),
@@ -261,6 +271,7 @@ export const blogEntry = {
     pl: readLocale('intlayer_with_vue-i18n.md', 'pl'),
     id: readLocale('intlayer_with_vue-i18n.md', 'id'),
     vi: readLocale('intlayer_with_vue-i18n.md', 'vi'),
+    uk: readLocale('intlayer_with_vue-i18n.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/l10n_platform_alternative/Lokalise.md': {
     en: readLocale('l10n_platform_alternative/Lokalise.md', 'en'),
@@ -280,6 +291,7 @@ export const blogEntry = {
     pl: readLocale('l10n_platform_alternative/Lokalise.md', 'pl'),
     id: readLocale('l10n_platform_alternative/Lokalise.md', 'id'),
     vi: readLocale('l10n_platform_alternative/Lokalise.md', 'vi'),
+    uk: readLocale('l10n_platform_alternative/Lokalise.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/l10n_platform_alternative/crowdin.md': {
     en: readLocale('l10n_platform_alternative/crowdin.md', 'en'),
@@ -299,6 +311,7 @@ export const blogEntry = {
     pl: readLocale('l10n_platform_alternative/crowdin.md', 'pl'),
     id: readLocale('l10n_platform_alternative/crowdin.md', 'id'),
     vi: readLocale('l10n_platform_alternative/crowdin.md', 'vi'),
+    uk: readLocale('l10n_platform_alternative/crowdin.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/l10n_platform_alternative/phrase.md': {
     en: readLocale('l10n_platform_alternative/phrase.md', 'en'),
@@ -318,6 +331,7 @@ export const blogEntry = {
     pl: readLocale('l10n_platform_alternative/phrase.md', 'pl'),
     id: readLocale('l10n_platform_alternative/phrase.md', 'id'),
     vi: readLocale('l10n_platform_alternative/phrase.md', 'vi'),
+    uk: readLocale('l10n_platform_alternative/phrase.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/CMS/drupal.md': {
     en: readLocale('list_i18n_technologies/CMS/drupal.md', 'en'),
@@ -337,6 +351,7 @@ export const blogEntry = {
     pl: readLocale('list_i18n_technologies/CMS/drupal.md', 'pl'),
     id: readLocale('list_i18n_technologies/CMS/drupal.md', 'id'),
     vi: readLocale('list_i18n_technologies/CMS/drupal.md', 'vi'),
+    uk: readLocale('list_i18n_technologies/CMS/drupal.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/CMS/wix.md': {
     en: readLocale('list_i18n_technologies/CMS/wix.md', 'en'),
@@ -356,6 +371,7 @@ export const blogEntry = {
     pl: readLocale('list_i18n_technologies/CMS/wix.md', 'pl'),
     id: readLocale('list_i18n_technologies/CMS/wix.md', 'id'),
     vi: readLocale('list_i18n_technologies/CMS/wix.md', 'vi'),
+    uk: readLocale('list_i18n_technologies/CMS/wix.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/CMS/wordpress.md': {
     en: readLocale('list_i18n_technologies/CMS/wordpress.md', 'en'),
@@ -375,6 +391,7 @@ export const blogEntry = {
     pl: readLocale('list_i18n_technologies/CMS/wordpress.md', 'pl'),
     id: readLocale('list_i18n_technologies/CMS/wordpress.md', 'id'),
     vi: readLocale('list_i18n_technologies/CMS/wordpress.md', 'vi'),
+    uk: readLocale('list_i18n_technologies/CMS/wordpress.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/frameworks/angular.md': {
     en: readLocale('list_i18n_technologies/frameworks/angular.md', 'en'),
@@ -397,6 +414,7 @@ export const blogEntry = {
     pl: readLocale('list_i18n_technologies/frameworks/angular.md', 'pl'),
     id: readLocale('list_i18n_technologies/frameworks/angular.md', 'id'),
     vi: readLocale('list_i18n_technologies/frameworks/angular.md', 'vi'),
+    uk: readLocale('list_i18n_technologies/frameworks/angular.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/frameworks/flutter.md': {
     en: readLocale('list_i18n_technologies/frameworks/flutter.md', 'en'),
@@ -419,6 +437,7 @@ export const blogEntry = {
     pl: readLocale('list_i18n_technologies/frameworks/flutter.md', 'pl'),
     id: readLocale('list_i18n_technologies/frameworks/flutter.md', 'id'),
     vi: readLocale('list_i18n_technologies/frameworks/flutter.md', 'vi'),
+    uk: readLocale('list_i18n_technologies/frameworks/flutter.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/frameworks/react-native.md': {
     en: readLocale('list_i18n_technologies/frameworks/react-native.md', 'en'),
@@ -441,6 +460,7 @@ export const blogEntry = {
     pl: readLocale('list_i18n_technologies/frameworks/react-native.md', 'pl'),
     id: readLocale('list_i18n_technologies/frameworks/react-native.md', 'id'),
     vi: readLocale('list_i18n_technologies/frameworks/react-native.md', 'vi'),
+    uk: readLocale('list_i18n_technologies/frameworks/react-native.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/frameworks/react.md': {
     en: readLocale('list_i18n_technologies/frameworks/react.md', 'en'),
@@ -460,6 +480,7 @@ export const blogEntry = {
     pl: readLocale('list_i18n_technologies/frameworks/react.md', 'pl'),
     id: readLocale('list_i18n_technologies/frameworks/react.md', 'id'),
     vi: readLocale('list_i18n_technologies/frameworks/react.md', 'vi'),
+    uk: readLocale('list_i18n_technologies/frameworks/react.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/frameworks/svelte.md': {
     en: readLocale('list_i18n_technologies/frameworks/svelte.md', 'en'),
@@ -479,6 +500,7 @@ export const blogEntry = {
     pl: readLocale('list_i18n_technologies/frameworks/svelte.md', 'pl'),
     id: readLocale('list_i18n_technologies/frameworks/svelte.md', 'id'),
     vi: readLocale('list_i18n_technologies/frameworks/svelte.md', 'vi'),
+    uk: readLocale('list_i18n_technologies/frameworks/svelte.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/frameworks/vue.md': {
     en: readLocale('list_i18n_technologies/frameworks/vue.md', 'en'),
@@ -498,6 +520,7 @@ export const blogEntry = {
     pl: readLocale('list_i18n_technologies/frameworks/vue.md', 'pl'),
     id: readLocale('list_i18n_technologies/frameworks/vue.md', 'id'),
     vi: readLocale('list_i18n_technologies/frameworks/vue.md', 'vi'),
+    uk: readLocale('list_i18n_technologies/frameworks/vue.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/next-i18next_vs_next-intl_vs_intlayer.md': {
     en: readLocale('next-i18next_vs_next-intl_vs_intlayer.md', 'en'),
@@ -517,6 +540,7 @@ export const blogEntry = {
     pl: readLocale('next-i18next_vs_next-intl_vs_intlayer.md', 'pl'),
     id: readLocale('next-i18next_vs_next-intl_vs_intlayer.md', 'id'),
     vi: readLocale('next-i18next_vs_next-intl_vs_intlayer.md', 'vi'),
+    uk: readLocale('next-i18next_vs_next-intl_vs_intlayer.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/nextjs-multilingual-seo-comparison.md': {
     en: readLocale('nextjs-multilingual-seo-comparison.md', 'en'),
@@ -536,6 +560,7 @@ export const blogEntry = {
     pl: readLocale('nextjs-multilingual-seo-comparison.md', 'pl'),
     id: readLocale('nextjs-multilingual-seo-comparison.md', 'id'),
     vi: readLocale('nextjs-multilingual-seo-comparison.md', 'vi'),
+    uk: readLocale('nextjs-multilingual-seo-comparison.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/rag_powered_documentation_assistant.md': {
     en: readLocale('rag_powered_documentation_assistant.md', 'en'),
@@ -555,6 +580,7 @@ export const blogEntry = {
     pl: readLocale('rag_powered_documentation_assistant.md', 'pl'),
     id: readLocale('rag_powered_documentation_assistant.md', 'id'),
     vi: readLocale('rag_powered_documentation_assistant.md', 'vi'),
+    uk: readLocale('rag_powered_documentation_assistant.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/react-i18next_vs_react-intl_vs_intlayer.md': {
     en: readLocale('react-i18next_vs_react-intl_vs_intlayer.md', 'en'),
@@ -574,6 +600,7 @@ export const blogEntry = {
     pl: readLocale('react-i18next_vs_react-intl_vs_intlayer.md', 'pl'),
     id: readLocale('react-i18next_vs_react-intl_vs_intlayer.md', 'id'),
     vi: readLocale('react-i18next_vs_react-intl_vs_intlayer.md', 'vi'),
+    uk: readLocale('react-i18next_vs_react-intl_vs_intlayer.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/vue-i18n_vs_intlayer.md': {
     en: readLocale('vue-i18n_vs_intlayer.md', 'en'),
@@ -593,6 +620,7 @@ export const blogEntry = {
     pl: readLocale('vue-i18n_vs_intlayer.md', 'pl'),
     id: readLocale('vue-i18n_vs_intlayer.md', 'id'),
     vi: readLocale('vue-i18n_vs_intlayer.md', 'vi'),
+    uk: readLocale('vue-i18n_vs_intlayer.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/what_is_internationalization.md': {
     en: readLocale('what_is_internationalization.md', 'en'),
@@ -612,5 +640,6 @@ export const blogEntry = {
     pl: readLocale('what_is_internationalization.md', 'pl'),
     id: readLocale('what_is_internationalization.md', 'id'),
     vi: readLocale('what_is_internationalization.md', 'vi'),
+    uk: readLocale('what_is_internationalization.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
 } as const;

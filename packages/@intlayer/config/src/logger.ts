@@ -126,7 +126,7 @@ export const colorizePath = (
  *   colorizeNumber(2, [{ pluralRule: 'one' , color: ANSIColors.GREEN}, { pluralRule: 'other' , color: ANSIColors.RED}]) // "'\x1b[31m2\x1b[0m"
  */
 export const colorizeNumber = (
-  number: number,
+  number: number | string,
   options: Partial<Record<Intl.LDMLPluralRule, ANSIColors>> = {
     zero: ANSIColors.BLUE,
     one: ANSIColors.BLUE,
@@ -141,7 +141,7 @@ export const colorizeNumber = (
     return colorize(number.toString(), color);
   }
 
-  const rule = new Intl.PluralRules('en').select(number);
+  const rule = new Intl.PluralRules('en').select(Number(number));
   const color = options[rule];
   return colorize(number.toString(), color);
 };

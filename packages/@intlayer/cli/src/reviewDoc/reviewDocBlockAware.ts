@@ -17,13 +17,14 @@ import {
 } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
 import { type Locale, Locales } from '@intlayer/types';
+import { sanitizeChunk, validateTranslation } from '../translateDoc/validation';
 import {
   buildAlignmentPlan,
   mergeReviewedSegments,
-} from './translation-alignment/pipeline';
-import { chunkInference } from './utils/chunkInference';
-import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
-import type { AIClient } from './utils/setupAI';
+} from '../translation-alignment/pipeline';
+import { chunkInference } from '../utils/chunkInference';
+import { fixChunkStartEndChars } from '../utils/fixChunkStartEndChars';
+import type { AIClient } from '../utils/setupAI';
 
 /**
  * Review a file using block-aware alignment.
@@ -144,11 +145,32 @@ export const reviewFileBlockAware = async (
         `${prefix}${colorizeNumber(result.tokenUsed)} tokens used - Block ${colorizeNumber(segmentNumber)} of ${colorizeNumber(segmentsToReview.length)}`
       );
 
-      const fixed = fixChunkStartEndChars(
+      // 1. Sanitize artifacts (e.g. Markdown code block wrappers)
+      let processedChunk = sanitizeChunk(
         result?.fileContent,
         englishBlock.content
       );
-      return fixed;
+
+      // 2. Fix start/end characters
+      processedChunk = fixChunkStartEndChars(
+        processedChunk,
+        englishBlock.content
+      );
+
+      // 3. Validate Translation (YAML, Code fences, Length ratio)
+      const isValid = validateTranslation(
+        englishBlock.content,
+        processedChunk,
+        applicationLogger
+      );
+
+      if (!isValid) {
+        throw new Error(
+          'Validation failed for chunk (structure or length mismatch). Retrying...'
+        );
+      }
+
+      return processedChunk;
     })();
 
     reviewedSegmentsMap.set(segment.actionIndex, reviewedChunkResult);
