@@ -99,7 +99,7 @@ const getAPIKey = (
 
 const getModelName = (
   provider: AIProvider,
-  userApiKey: string,
+  userApiKey: string | undefined,
   userModel?: Model,
   defaultModel: Model = 'gpt-5-mini'
 ): Model => {
@@ -141,7 +141,7 @@ const getModelName = (
 
 const getLanguageModel = (
   aiOptions: AIOptions,
-  apiKey: string,
+  apiKey: string | undefined,
   defaultModel?: Model
 ) => {
   const selectedModel = getModelName(
@@ -211,7 +211,6 @@ export type AIConfig = Omit<Parameters<typeof generateText>[0], 'prompt'> & {
 };
 
 const DEFAULT_PROVIDER: AIProvider = AIProvider.OPENAI as AIProvider;
-const DEFAULT_TEMPERATURE: number = 1; // ChatGPT 5 accept only temperature 1
 
 export type AIConfigOptions = {
   userOptions?: AIOptions;
@@ -240,7 +239,6 @@ export const getAIConfig = async (
 
   const aiOptions = {
     provider: DEFAULT_PROVIDER,
-    temperature: DEFAULT_TEMPERATURE,
     ...defaultOptions,
     ...projectOptions,
     ...userOptions,
