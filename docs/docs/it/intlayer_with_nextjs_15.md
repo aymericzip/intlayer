@@ -84,6 +84,34 @@ Il pacchetto che integra Intlayer con Next.js. Fornisce provider di contesto e h
 
 ### Passo 2: Configura il tuo progetto
 
+Here is the final structure that we will make:
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── [locale]
+│   │   │   ├── layout.tsx            # Locale layout for the Intlayer provider
+│   │   │   ├── page.content.ts
+│   │   │   └── page.tsx
+│   │   └── layout.tsx                # Root layout for style and global providers
+│   ├── components
+│   │   ├── client-component-example.content.ts
+│   │   ├── ClientComponentExample.tsx
+│   │   ├── LocaleSwitcher
+│   │   │   ├── localeSwitcher.content.ts
+│   │   │   └── LocaleSwitcher.tsx
+│   │   ├── server-component-example.content.ts
+│   │   └── ServerComponentExample.tsx
+│   └── middleware.ts
+├── intlayer.config.ts
+├── next.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://intlayer.org/frequent-questions/ssr-next-no-[locale]) for more details.
+
 Crea un file di configurazione per configurare le lingue della tua applicazione:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"

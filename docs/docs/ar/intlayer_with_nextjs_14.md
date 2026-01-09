@@ -74,6 +74,34 @@ bunx intlayer init
 
 ### الخطوة 2: تكوين مشروعك
 
+Here is the final structure that we will make:
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── [locale]
+│   │   │   ├── layout.tsx            # Locale layout for the Intlayer provider
+│   │   │   ├── page.content.ts
+│   │   │   └── page.tsx
+│   │   └── layout.tsx                # Root layout for style and global providers
+│   ├── components
+│   │   ├── client-component-example.content.ts
+│   │   ├── ClientComponentExample.tsx
+│   │   ├── LocaleSwitcher
+│   │   │   ├── localeSwitcher.content.ts
+│   │   │   └── LocaleSwitcher.tsx
+│   │   ├── server-component-example.content.ts
+│   │   └── ServerComponentExample.tsx
+│   └── middleware.ts
+├── intlayer.config.ts
+├── next.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://intlayer.org/frequent-questions/ssr-next-no-[locale]) for more details.
+
 قم بإنشاء ملف تكوين لتحديد لغات تطبيقك:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"

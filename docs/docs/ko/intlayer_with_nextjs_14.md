@@ -78,6 +78,34 @@ Intlayer를 Next.js와 통합하는 패키지입니다. Next.js 국제화를 위
 
 ### 2단계: 프로젝트 구성
 
+Here is the final structure that we will make:
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── [locale]
+│   │   │   ├── layout.tsx            # Locale layout for the Intlayer provider
+│   │   │   ├── page.content.ts
+│   │   │   └── page.tsx
+│   │   └── layout.tsx                # Root layout for style and global providers
+│   ├── components
+│   │   ├── client-component-example.content.ts
+│   │   ├── ClientComponentExample.tsx
+│   │   ├── LocaleSwitcher
+│   │   │   ├── localeSwitcher.content.ts
+│   │   │   └── LocaleSwitcher.tsx
+│   │   ├── server-component-example.content.ts
+│   │   └── ServerComponentExample.tsx
+│   └── middleware.ts
+├── intlayer.config.ts
+├── next.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://intlayer.org/frequent-questions/ssr-next-no-[locale]) for more details.
+
 애플리케이션의 언어를 구성하기 위한 설정 파일을 만드세요:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
