@@ -48,7 +48,7 @@ export const useLocale = ({
       );
       onLocaleChange?.(locale);
     },
-    [availableLocales, onLocaleChange, setLocaleState]
+    [availableLocales, onLocaleChange, setLocaleState, isCookieEnabled]
   );
 
   return {

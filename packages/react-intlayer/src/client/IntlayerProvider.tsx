@@ -9,6 +9,7 @@ import {
   type FC,
   type PropsWithChildren,
   useContext,
+  useEffect,
 } from 'react';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
 import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
@@ -55,16 +56,23 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   isCookieEnabled,
 }) => {
   const { internationalization } = configuration ?? {};
-  const { defaultLocale: defaultLocaleConfig, locales: availableLocales } =
+  const { locales: availableLocales, defaultLocale: defaultLocaleConfig } =
     internationalization ?? {};
 
-  const defaultLocale =
+  const initialLocale =
     localeProp ?? localeInStorage ?? defaultLocaleProp ?? defaultLocaleConfig;
 
   const [currentLocale, setCurrentLocale] = useCrossFrameState(
     MessageKey.INTLAYER_CURRENT_LOCALE,
-    defaultLocale
+    initialLocale
   );
+
+  // Sync the prop to state if the prop changes from the parent
+  useEffect(() => {
+    if (localeProp && localeProp !== currentLocale) {
+      setCurrentLocale(localeProp);
+    }
+  }, [localeProp]);
 
   const setLocaleBase = (newLocale: LocalesValues) => {
     if (currentLocale.toString() === newLocale.toString()) return;
@@ -74,13 +82,14 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
       return;
     }
 
-    setCurrentLocale(newLocale); // Update state
-    setLocaleInStorage(newLocale, isCookieEnabled); // Optionally set cookie for persistence
+    setCurrentLocale(newLocale);
+    setLocaleInStorage(newLocale, isCookieEnabled);
   };
 
   const setLocale = setLocaleProp ?? setLocaleBase;
 
-  const resolvedLocale = localeResolver(localeProp ?? currentLocale);
+  // Resolve based on currentLocale (the state), not the prop directly
+  const resolvedLocale = localeResolver(currentLocale);
 
   return (
     <IntlayerClientContext.Provider
