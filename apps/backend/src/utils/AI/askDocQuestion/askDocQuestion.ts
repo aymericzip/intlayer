@@ -1,8 +1,11 @@
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { AIConfig, ChatCompletionRequestMessage } from '@intlayer/ai';
-import { streamText } from '@intlayer/ai';
+import {
+  type AIConfig,
+  type ChatCompletionRequestMessage,
+  streamText,
+} from '@intlayer/ai';
 import { getMarkdownMetadata } from '@intlayer/core';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import { OpenAI } from 'openai';
@@ -97,25 +100,20 @@ const chunkText = (text: string): string[] => {
 
 /**
  * Generates an embedding for a given text using OpenAI's embedding API.
- * Trims the text if it exceeds the maximum allowed characters.
  *
  * @param text - The input text to generate an embedding for
  * @returns The embedding vector as a number array
  */
 const generateEmbedding = async (text: string): Promise<number[]> => {
-  try {
-    const openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  // No try/catch here. If this fails, the controller should handle it.
+  const openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-    const response = await openaiClient.embeddings.create({
-      model: EMBEDDING_MODEL,
-      input: text,
-    });
+  const response = await openaiClient.embeddings.create({
+    model: EMBEDDING_MODEL,
+    input: text,
+  });
 
-    return response.data[0].embedding;
-  } catch (error) {
-    console.error('Error generating embedding:', error);
-    return [];
-  }
+  return response.data[0].embedding;
 };
 
 /**
@@ -302,10 +300,10 @@ export const askDocQuestion = async (
     .map((message) => `- ${message.content}`)
     .join('\n');
 
-  // 1) Find relevant documents based on the user's question
+  // Find relevant documents based on the user's question
   const relevantFilesReferences = await searchChunkReference(query);
 
-  // 2) Integrate the relevant documents into the initial system prompt
+  // Integrate the relevant documents into the initial system prompt
   const systemPrompt = initPrompt.content.replace(
     '{{relevantFilesReferences}}',
     relevantFilesReferences.length === 0
@@ -340,7 +338,7 @@ export const askDocQuestion = async (
     throw new Error('Failed to initialize AI configuration');
   }
 
-  // 3) Use the AI SDK to stream the response
+  // Use the AI SDK to stream the response
   let fullResponse = '';
   const stream = streamText({
     ...aiConfig,
@@ -353,12 +351,12 @@ export const askDocQuestion = async (
     options?.onMessage?.(chunk);
   }
 
-  // 4) Extract unique related files
+  // Extract unique related files
   const relatedFiles = [
     ...new Set(relevantFilesReferences.map((doc) => doc.fileKey)),
   ];
 
-  // 5) Return the assistant's response to the user
+  // Return the assistant's response to the user
   return {
     response: fullResponse ?? 'Error: No result found',
     relatedFiles,

@@ -5,6 +5,7 @@ import {
   getAIConfig,
 } from '@intlayer/ai';
 import type { KeyPath, Locale } from '@intlayer/types';
+import { logger } from '@logger';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';
 import { getTagsByKeys } from '@services/tag.service';
@@ -75,7 +76,6 @@ export const customQuery = async (
     const auditResponse = await customQueryUtil.customQuery({
       ...rest,
       aiConfig,
-      applicationContext: aiOptions?.applicationContext,
     });
 
     if (!auditResponse) {
@@ -445,91 +445,151 @@ export const askDocQuestion = async (
   const { messages = [], discussionId } = request.body;
   const { user, project, organization } = request.locals || {};
 
+  // Hijack response
+  reply.hijack();
+
   const projectAIOptions = project?.configuration?.ai
     ? (project.configuration.ai as AIOptions)
     : undefined;
 
   let aiConfig: AIConfig;
+
+  // Wrap EVERYTHING in a main try/catch block
   try {
-    aiConfig = await getAIConfig(
-      {
-        userOptions: {},
-        projectOptions: projectAIOptions,
-        accessType: ['public'],
-      },
-      !!user
-    );
-  } catch (_error) {
-    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
-  }
+    // Auth Check
+    try {
+      aiConfig = await getAIConfig(
+        {
+          userOptions: {},
+          projectOptions: projectAIOptions,
+          accessType: ['public'],
+        },
+        !!user
+      );
+    } catch (_error) {
+      // Manually handle this specific error case
+      const errorPayload = {
+        code: 'AI_ACCESS_DENIED',
+        title: 'Access Denied',
+        message: 'Unable to configure AI access.',
+      };
+      reply.raw.write(
+        `event: error\ndata: ${JSON.stringify(errorPayload)}\n\n`
+      );
+      reply.raw.end();
+      return;
+    }
 
-  // 1. Prepare SSE headers and flush them NOW
-  reply.raw.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
-  reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');
-  reply.raw.setHeader('Connection', 'keep-alive');
-  reply.raw.setHeader('X-Accel-Buffering', 'no'); // disable nginx buffering
-  reply.raw.flushHeaders?.();
-  reply.raw.write(': connected\n\n'); // initial comment keeps some browsers happy
-
-  // 2. Kick off the upstream stream WITHOUT awaiting it
-  askDocQuestionUtil
-    .askDocQuestion(messages, aiConfig, {
-      onMessage: (chunk) => {
-        reply.raw.write(`data: ${JSON.stringify({ chunk })}\n\n`);
-      },
-    })
-    .then(async (fullResponse) => {
-      const lastUserMessageContent = messages.findLast(
-        (message) => message.role === 'user'
-      )?.content;
-      const lastUserMessageNbWords = lastUserMessageContent
-        ? lastUserMessageContent.split(' ').length
-        : 0;
-      if (lastUserMessageNbWords > 2) {
-        // If the last user message is less than 3 words, don't persist the discussion
-        // Example: "Hello", "Hi", "Hey", "test", etc.
-
-        // 3. Persist discussion while the client already has all chunks
-        await DiscussionModel.findOneAndUpdate(
-          { discussionId },
-          {
-            $set: {
-              discussionId,
-              userId: user?.id,
-              projectId: project?.id,
-              organizationId: organization?.id,
-              messages: [
-                ...messages.map((msg) => ({
-                  role: msg.role,
-                  content: msg.content,
-                  timestamp: msg.timestamp,
-                })),
-                {
-                  role: 'assistant',
-                  content: fullResponse.response,
-                  relatedFiles: fullResponse.relatedFiles,
-                  timestamp: new Date(),
-                },
-              ],
-            },
-          },
-          { upsert: true, new: true }
-        );
+    // Copy Headers
+    const headers = reply.getHeaders();
+    for (const [key, value] of Object.entries(headers)) {
+      if (value !== undefined) {
+        reply.raw.setHeader(key, value);
       }
+    }
 
-      // 4. Tell the client we're done and close the stream
+    // Set Stream Headers & Flush
+    reply.raw.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+    reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');
+    reply.raw.setHeader('Connection', 'keep-alive');
+    reply.raw.setHeader('X-Accel-Buffering', 'no');
+
+    if (reply.raw.flushHeaders) {
+      reply.raw.flushHeaders();
+    }
+
+    reply.raw.write(': connected\n\n');
+
+    // Execute AI Logic (Awaited properly)
+    // This is where 'generateEmbedding' or 'streamText' will throw
+    const fullResponse = await askDocQuestionUtil.askDocQuestion(
+      messages,
+      aiConfig,
+      {
+        onMessage: (chunk) => {
+          if (!reply.raw.writableEnded) {
+            reply.raw.write(`data: ${JSON.stringify({ chunk })}\n\n`);
+          }
+        },
+      }
+    );
+
+    // Persist Discussion (Only on success)
+    const lastUserMessageContent = messages.findLast(
+      (m) => m.role === 'user'
+    )?.content;
+    const lastUserMessageNbWords = lastUserMessageContent
+      ? lastUserMessageContent.split(' ').length
+      : 0;
+
+    if (lastUserMessageNbWords > 2) {
+      await DiscussionModel.findOneAndUpdate(
+        { discussionId },
+        {
+          $set: {
+            discussionId,
+            userId: user?.id,
+            projectId: project?.id,
+            organizationId: organization?.id,
+            messages: [
+              ...messages.map((msg) => ({
+                role: msg.role,
+                content: msg.content,
+                timestamp: msg.timestamp,
+              })),
+              {
+                role: 'assistant',
+                content: fullResponse.response,
+                relatedFiles: fullResponse.relatedFiles,
+                timestamp: new Date(),
+              },
+            ],
+          },
+        },
+        { upsert: true, new: true }
+      );
+    }
+
+    // Send Completion Event
+    if (!reply.raw.writableEnded) {
       reply.raw.write(
         `data: ${JSON.stringify({ done: true, response: fullResponse })}\n\n`
       );
       reply.raw.end();
-    })
-    .catch((err) => {
-      // propagate error as an SSE event so the client knows why it closed
+    }
+  } catch (err: any) {
+    // -------------------------------------------------------------------------
+    // CENTRALIZED ERROR CATCHER
+    // -------------------------------------------------------------------------
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    const errorStack = err instanceof Error ? err.stack : undefined;
+
+    // Log the full error to your backend console
+    logger.error('AI Stream Error Caught:', {
+      message: errorMessage,
+      stack: errorStack,
+    });
+
+    // Determine if it's an Auth error (common with OpenAI 401)
+    const isAuthError =
+      errorMessage.includes('401') ||
+      errorMessage.includes('Incorrect API key');
+
+    // Format error for Frontend
+    const errorPayload = {
+      code: isAuthError ? 'AI_AUTH_ERROR' : 'AI_STREAM_ERROR',
+      title: isAuthError ? 'AI Configuration Error' : 'Generation Failed',
+      message: errorMessage,
+    };
+
+    // Send error event to client
+    if (!reply.raw.writableEnded) {
       reply.raw.write(
-        `event: error\ndata: ${JSON.stringify({ message: err.message })}\n\n`
+        `event: error\ndata: ${JSON.stringify(errorPayload)}\n\n`
       );
       reply.raw.end();
-    });
+    }
+  }
 };
 
 export type AutocompleteBody = {

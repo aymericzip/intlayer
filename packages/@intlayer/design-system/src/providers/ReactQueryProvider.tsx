@@ -42,7 +42,7 @@ declare module '@tanstack/react-query' {
 const formatErrorCode = (errorCode: string) => errorCode.split('_').join(' ');
 
 /**
- *  Hook to handle error logging and toast notifications
+ * Hook to handle error logging and toast notifications
  */
 const useToastEvents = () => {
   const { toast } = useToast();
@@ -56,12 +56,19 @@ const useToastEvents = () => {
     })();
 
     [parsed].flat().forEach((err: any) => {
+      // Check for nested error object (standard in your API responses: { statusCode, error: { ... } })
+      const apiError = err?.error ?? err;
+
       toast({
         title: formatErrorCode(
-          (process.env.NODE_ENV === 'production' ? err?.title : err?.code) ??
-            'Error'
+          (process.env.NODE_ENV === 'production'
+            ? (apiError?.title ?? err?.title)
+            : (apiError?.code ?? err?.code)) ?? 'Error'
         ),
-        description: err?.message ?? String(err ?? 'An error occurred'),
+        description:
+          apiError?.message ??
+          err?.message ??
+          String(apiError ?? 'An error occurred'),
         variant: 'error',
       });
     });
