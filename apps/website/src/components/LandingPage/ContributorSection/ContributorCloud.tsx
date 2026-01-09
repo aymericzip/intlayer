@@ -112,6 +112,7 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
     <motion.div
       ref={elementRef} // Attach local ref to measure self
       drag
+      suppressHydrationWarning
       dragConstraints={constraints} // Use calculated pixel object instead of Ref
       dragMomentum
       dragElastic={0.1}
