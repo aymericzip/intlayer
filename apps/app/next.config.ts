@@ -76,6 +76,7 @@ const secureHeaders = {
         'avatars.githubusercontent.com',
         '*.googleusercontent.com',
         '*.githubusercontent.com',
+        process.env.NEXT_PUBLIC_BACKEND_URL!,
       ],
       workerSrc: [
         `${process.env.NEXT_PUBLIC_URL}`,
