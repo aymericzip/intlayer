@@ -329,30 +329,6 @@
         "typescript": "5.9.3",
       },
     },
-    "examples/intlayer-next-no-lolale-path": {
-      "name": "intlayer-next-no-lolale-path",
-      "version": "0.1.0",
-      "dependencies": {
-        "fuse.js": "7.1.0",
-        "intlayer": "workspace",
-        "next": "^16.1.1",
-        "next-intlayer": "workspace",
-        "react": "19.2.3",
-        "react-dom": "19.2.3",
-      },
-      "devDependencies": {
-        "@intlayer/swc": "workspace",
-        "@tailwindcss/postcss": "^4.1.18.1.18",
-        "@types/node": "^25.0.5",
-        "@types/react": "^19.2.8",
-        "@types/react-dom": "^19.2.3",
-        "eslint": "^9.39.2",
-        "eslint-config-next": "16.1.1",
-        "intlayer-editor": "workspace",
-        "tailwindcss": "^4.1.18",
-        "typescript": "^5.9.3",
-      },
-    },
     "examples/json-sync": {
       "name": "next-intl-template",
       "version": "0.1.0",
@@ -415,6 +391,30 @@
         "@types/react": "19.2.7",
         "intlayer": "workspace:*",
         "typescript": "5.9.3",
+      },
+    },
+    "examples/next-no-lolale-path": {
+      "name": "intlayer-next-no-lolale-path",
+      "version": "0.1.0",
+      "dependencies": {
+        "fuse.js": "7.1.0",
+        "intlayer": "workspace",
+        "next": "^16.1.1",
+        "next-intlayer": "workspace",
+        "react": "19.2.3",
+        "react-dom": "19.2.3",
+      },
+      "devDependencies": {
+        "@intlayer/swc": "workspace",
+        "@tailwindcss/postcss": "^4.1.18.1.18",
+        "@types/node": "^25.0.5",
+        "@types/react": "^19.2.8",
+        "@types/react-dom": "^19.2.3",
+        "eslint": "^9.39.2",
+        "eslint-config-next": "16.1.1",
+        "intlayer-editor": "workspace",
+        "tailwindcss": "^4.1.18",
+        "typescript": "^5.9.3",
       },
     },
     "examples/nextjs-14-app": {
@@ -5863,7 +5863,7 @@
 
     "intlayer-next-16": ["intlayer-next-16@workspace:examples/nextjs-16-app"],
 
-    "intlayer-next-no-lolale-path": ["intlayer-next-no-lolale-path@workspace:examples/intlayer-next-no-lolale-path"],
+    "intlayer-next-no-lolale-path": ["intlayer-next-no-lolale-path@workspace:examples/next-no-lolale-path"],
 
     "intlayer-nuxt-4": ["intlayer-nuxt-4@workspace:examples/nuxt-4-app"],
 
