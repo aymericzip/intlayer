@@ -8,7 +8,7 @@ export const getLocale = async (): Promise<Locale> => {
   const defaultLocale =
     configuration?.internationalization?.defaultLocale ?? Locales.ENGLISH;
 
-  // 1 - Try locale from header
+  // Try locale from header
   const headersList = await headers();
   const cookiesList = await cookies();
 
@@ -19,7 +19,7 @@ export const getLocale = async (): Promise<Locale> => {
 
   if (storedLocale) return storedLocale as Locale;
 
-  // 3 - Fallback to Accept-Language negotiation
+  // Fallback to Accept-Language negotiation
   const negotiatorHeaders: Record<string, string> = {};
   headersList.forEach((value, key) => {
     negotiatorHeaders[key] = value;
@@ -28,6 +28,6 @@ export const getLocale = async (): Promise<Locale> => {
   const userFallbackLocale = localeDetector(negotiatorHeaders);
   if (userFallbackLocale) return userFallbackLocale as Locale;
 
-  // 4 - Default locale
+  // Default locale
   return defaultLocale;
 };
