@@ -1,14 +1,16 @@
 'use client';
 
-import { Container, Loader } from '@intlayer/design-system';
+import { Button, Container, Loader } from '@intlayer/design-system';
 import {
   useConfiguration,
   useCrossURLPathState,
+  useEditorEnabled,
   useGetEditorEnabledState,
   useIframeClickMerger,
   usePostEditorEnabledState,
 } from '@intlayer/editor-react';
 import { type FC, type RefObject, useEffect, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { useEditedContentPersistence } from '../../hooks/useEditedContentPersistence';
 import { cn } from '../../utils/cn';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
@@ -17,11 +19,20 @@ export const IframeController: FC<{
   iframeRef: RefObject<HTMLIFrameElement | null>;
   applicationPath: string;
 }> = ({ iframeRef, applicationPath }) => {
+  const content = useIntlayer('iframe-controller');
   const { editor } = useConfiguration();
 
+  // Post - Allow to set the editor enabled state on the client side
+  const postEditorEnabled = usePostEditorEnabledState();
+
+  // Enable the editor depending of the configuration
   const enableEditor = () => postEditorEnabled(editor.enabled);
-  const postEditorEnabled = usePostEditorEnabledState(); // Allow to set the editor enabled state on the client side
-  useGetEditorEnabledState(enableEditor); // Listen if the client ask if the editor is connected and send enable state
+
+  // State received from the client
+  const { enabled } = useEditorEnabled();
+
+  // Listen if the client ask if the editor is connected and send enable state
+  useGetEditorEnabledState(enableEditor);
 
   useEditedContentPersistence();
   useIframeClickMerger();
@@ -31,7 +42,6 @@ export const IframeController: FC<{
   /**
    * We need to enable the editor to receive messages from the iframe
    */
-
   const [iframePath] = useCrossURLPathState(undefined, {
     receive: true,
     emit: false,
@@ -56,11 +66,11 @@ export const IframeController: FC<{
   }
 
   return (
-    <div className="size-full overflow-hidden rounded-lg">
+    <div className="relative size-full overflow-hidden rounded-lg">
       <Loader isLoading={loading} />
       <iframe
         src={`${editor.applicationURL}${applicationPath}`}
-        title="Intlayer Application"
+        title={content.intlayerApplication.value}
         sandbox="allow-scripts allow-same-origin"
         className={cn('size-full', loading && 'hidden')}
         ref={iframeRef}
@@ -69,6 +79,17 @@ export const IframeController: FC<{
           enableEditor();
         }}
       />
+      {!enabled && (
+        <div className="fixed right-4 bottom-4">
+          <Button
+            label={content.enableEditor.value}
+            onClick={enableEditor}
+            color="text"
+          >
+            {content.enableEditor}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

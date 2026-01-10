@@ -1,14 +1,16 @@
 'use client';
 
-import { Browser, Container, Loader } from '@intlayer/design-system';
+import { Browser, Button, Container, Loader } from '@intlayer/design-system';
 import {
   useConfiguration,
   useCrossURLPathState,
+  useEditorEnabled,
   useGetEditorEnabledState,
   useIframeClickMerger,
   usePostEditorEnabledState,
 } from '@intlayer/editor-react';
 import { cn } from '@utils/cn';
+import { useIntlayer } from 'next-intlayer';
 import { type FC, type RefObject, useState } from 'react';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 import { useEditedContentPersistence } from './useEditedContentPersistence';
@@ -16,12 +18,22 @@ import { useEditedContentPersistence } from './useEditedContentPersistence';
 export const IframeController: FC<{
   iframeRef: RefObject<HTMLIFrameElement | null>;
 }> = ({ iframeRef }) => {
+  const content = useIntlayer('iframe-controller');
+
   const { editor } = useConfiguration();
 
-  const enableEditor = () => postEditorEnabled(true);
-  const postEditorEnabled = usePostEditorEnabledState(); // Allow to set the editor enabled state on the client side
+  // Post - Allow to set the editor enabled state on the client side
+  const postEditorEnabled = usePostEditorEnabledState();
 
-  useGetEditorEnabledState(enableEditor); // Listen if the client ask if the editor is connected and send enable state
+  // Enable the editor depending of the configuration
+  const enableEditor = () => postEditorEnabled(editor.enabled);
+
+  // State received from the client
+  const { enabled } = useEditorEnabled();
+
+  // Listen if the client ask if the editor is connected and send enable state
+  useGetEditorEnabledState(enableEditor);
+
   useEditedContentPersistence();
   useIframeClickMerger();
 
@@ -58,6 +70,17 @@ export const IframeController: FC<{
           enableEditor();
         }}
       />
+      {!enabled && (
+        <div className="fixed right-4 bottom-4">
+          <Button
+            label={content.enableEditor.value}
+            onClick={enableEditor}
+            color="text"
+          >
+            {content.enableEditor}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
