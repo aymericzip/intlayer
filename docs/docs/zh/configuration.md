@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-16
+updatedAt: 2026-01-10
 title: 配置
 description: 了解如何为您的应用程序配置 Intlayer。了解各种设置和选项，以根据您的需求自定义 Intlayer。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.1
+    date: 2026-01-10
+    changes: 添加对 JSON5 和 JSONC 文件格式的支持
   - version: 7.5.0
     date: 2025-12-17
     changes: 添加 `buildMode` 选项
@@ -58,6 +61,8 @@ Intlayer 支持 JSON、JS、MJS 和 TS 配置文件格式：
 - `intlayer.config.ts`
 - `intlayer.config.js`
 - `intlayer.config.json`
+- `intlayer.config.json5`
+- `intlayer.config.jsonc`
 - `intlayer.config.cjs`
 - `intlayer.config.mjs`
 - `.intlayerrc`

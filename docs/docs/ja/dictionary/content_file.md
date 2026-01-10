@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-12-13
+updatedAt: 2026-01-10
 title: コンテンツファイル
 description: コンテンツ宣言ファイルの拡張機能をカスタマイズする方法を学びます。このドキュメントに従って、プロジェクトで効率的に条件を実装しましょう。
 keywords:
@@ -791,6 +791,8 @@ Intlayerでは、コンテンツ宣言ファイルの拡張子をカスタマイ
 デフォルトでは、Intlayerは以下の拡張子を持つすべてのファイルをコンテンツ宣言用に監視します：
 
 - `.content.json`
+- `.content.json5`
+- `.content.jsonc`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`

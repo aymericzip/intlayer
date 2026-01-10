@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-10-25
+updatedAt: 2026-01-10
 title: Konfigurasi
 description: Pelajari cara mengonfigurasi Intlayer untuk aplikasi Anda. Pahami berbagai pengaturan dan opsi yang tersedia untuk menyesuaikan Intlayer sesuai kebutuhan Anda.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.1
+    date: 2026-01-10
+    changes: Menambahkan dukungan untuk format file JSON5 dan JSONC
   - version: 7.5.0
     date: 2025-12-17
     changes: Menambahkan opsi `buildMode`
@@ -73,6 +76,8 @@ Intlayer menerima format file konfigurasi JSON, JS, MJS, dan TS:
 - `intlayer.config.ts`
 - `intlayer.config.js`
 - `intlayer.config.json`
+- `intlayer.config.json5`
+- `intlayer.config.jsonc`
 - `intlayer.config.cjs`
 - `intlayer.config.mjs`
 - `.intlayerrc`

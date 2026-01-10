@@ -3,8 +3,8 @@ import { readFile } from 'node:fs/promises';
 import { extname } from 'node:path';
 import type { IntlayerConfig } from '@intlayer/types';
 import type { BuildOptions, Plugin } from 'esbuild';
+import JSON5 from 'json5';
 import { colorizePath, logger } from '../logger';
-import { getProjectRequire } from '../utils/ESMxCJSHelpers';
 import {
   parseFileContent,
   type SandBoxContextOptions,
@@ -27,15 +27,16 @@ export const loadExternalFileSync = (
   filePath: string,
   options?: LoadExternalFileOptions
 ): any | undefined => {
-  const fileExtension = extname(filePath);
-  const safeProjectRequire = options?.projectRequire ?? getProjectRequire();
+  const fileExtension = extname(filePath) || '.json';
 
   try {
-    if (fileExtension === 'json') {
-      // Remove cache to force getting fresh content
-      delete safeProjectRequire.cache[safeProjectRequire.resolve(filePath)];
+    if (
+      fileExtension === '.json' ||
+      fileExtension === '.json5' ||
+      fileExtension === '.jsonc'
+    ) {
       // Assume JSON
-      return safeProjectRequire(filePath);
+      return JSON5.parse(readFileSync(filePath, 'utf-8'));
     }
 
     // Rest is JS, MJS or TS
@@ -88,15 +89,16 @@ export const loadExternalFile = async (
   options?: LoadExternalFileOptions
 ): Promise<any | undefined> => {
   const fileExtension = extname(filePath);
-  const safeProjectRequire = options?.projectRequire ?? getProjectRequire();
 
   try {
-    if (fileExtension === '.json') {
+    if (
+      fileExtension === '.json' ||
+      fileExtension === '.json5' ||
+      fileExtension === '.jsonc'
+    ) {
       // Remove cache to force getting fresh content
-      delete safeProjectRequire.cache[safeProjectRequire.resolve(filePath)];
-      // Assume JSON
-      const result = safeProjectRequire(filePath);
-      return result;
+      const fileContent = await readFile(filePath, 'utf-8');
+      return JSON5.parse(fileContent);
     }
 
     // Rest is JS, MJS or TS

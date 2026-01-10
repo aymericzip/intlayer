@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-12-13
+updatedAt: 2026-01-10
 title: Content File
 description: Learn how to customize the extensions for your content declaration files. Follow this documentation to implement conditions efficiently in your project.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.13
+    date: 2026-01-10
+    changes: Add support for JSON5 and JSONC file formats
   - version: 7.5.0
     date: 2025-12-13
     changes: Add ICU and i18next format support
@@ -794,6 +797,8 @@ Intlayer allows you to customize the extensions for your content declaration fil
 By default, Intlayer watches all files with the following extensions for content declarations:
 
 - `.content.json`
+- `.content.json5`
+- `.content.jsonc`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`

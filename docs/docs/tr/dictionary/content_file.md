@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-12-13
+updatedAt: 2026-01-10
 title: İçerik Dosyası
 description: İçerik bildirim dosyalarınız için uzantıları nasıl özelleştireceğinizi öğrenin. Projenizde koşulları verimli bir şekilde uygulamak için bu dokümantasyonu takip edin.
 keywords:
@@ -807,6 +807,8 @@ Intlayer, içerik bildirim dosyalarınız için uzantıları özelleştirmenize 
 Varsayılan olarak, Intlayer içerik bildirimleri için aşağıdaki uzantılara sahip tüm dosyaları izler:
 
 - `.content.json`
+- `.content.json5`
+- `.content.jsonc`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`

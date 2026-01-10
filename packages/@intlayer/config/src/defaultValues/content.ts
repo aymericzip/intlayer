@@ -6,6 +6,8 @@ export const FILE_EXTENSIONS = [
   '.content.mjs',
   '.content.mjx',
   '.content.json',
+  '.content.json5',
+  '.content.jsonc',
   '.content.tsx',
   '.content.jsx',
 ];

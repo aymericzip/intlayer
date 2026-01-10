@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-16
+updatedAt: 2026-01-10
 title: Configuración
 description: Aprende cómo configurar Intlayer para tu aplicación. Entiende las diversas configuraciones y opciones disponibles para personalizar Intlayer según tus necesidades.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.1
+    date: 2026-01-10
+    changes: Añadir soporte para formatos de archivo JSON5 y JSONC
   - version: 7.5.0
     date: 2025-12-17
     changes: Añadir opción `buildMode`
@@ -55,6 +58,8 @@ Intlayer acepta formatos de archivo de configuración JSON, JS, MJS y TS:
 - `intlayer.config.ts`
 - `intlayer.config.js`
 - `intlayer.config.json`
+- `intlayer.config.json5`
+- `intlayer.config.jsonc`
 - `intlayer.config.cjs`
 - `intlayer.config.mjs`
 - `.intlayerrc`

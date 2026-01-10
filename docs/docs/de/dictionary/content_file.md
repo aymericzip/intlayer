@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-12-13
+updatedAt: 2026-01-10
 title: Inhaltsdatei
 description: Erfahren Sie, wie Sie die Erweiterungen für Ihre Inhaltsdeklarationsdateien anpassen können. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihrem Projekt umzusetzen.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.13
+    date: 2026-01-10
+    changes: Unterstützung für JSON5- und JSONC-Dateiformate hinzugefügt
   - version: 7.5.0
     date: 2025-12-13
     changes: Unterstützung für ICU- und i18next-Formate hinzugefügt
@@ -788,6 +791,8 @@ Intlayer ermöglicht es Ihnen, die Erweiterungen für Ihre Inhaltsdeklarationsda
 Standardmäßig überwacht Intlayer alle Dateien mit den folgenden Erweiterungen für Inhaltsdeklarationen:
 
 - `.content.json`
+- `.content.json5`
+- `.content.jsonc`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`

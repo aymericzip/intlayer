@@ -898,6 +898,7 @@
         "defu": "6.1.4",
         "dotenv": "16.6.1",
         "esbuild": "0.27.2",
+        "json5": "^2.2.3",
       },
       "devDependencies": {
         "@types/node": "25.0.3",

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-16
+updatedAt: 2026-01-10
 title: 구성
 description: 애플리케이션에 맞게 Intlayer를 구성하는 방법을 배우세요. Intlayer를 사용자 요구에 맞게 맞춤 설정할 수 있는 다양한 설정과 옵션을 이해하세요.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.1
+    date: 2026-01-10
+    changes: JSON5 및 JSONC 파일 형식 지원 추가
   - version: 7.5.0
     date: 2025-12-17
     changes: `buildMode` 옵션 추가
@@ -58,6 +61,8 @@ Intlayer는 JSON, JS, MJS, TS 구성 파일 형식을 지원합니다:
 - `intlayer.config.ts`
 - `intlayer.config.js`
 - `intlayer.config.json`
+- `intlayer.config.json5`
+- `intlayer.config.jsonc`
 - `intlayer.config.cjs`
 - `intlayer.config.mjs`
 - `.intlayerrc`

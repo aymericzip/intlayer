@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-16
+updatedAt: 2026-01-10
 title: Yapılandırma
 description: Uygulamanız için Intlayer'ı nasıl yapılandıracağınızı öğrenin. Intlayer'ı ihtiyaçlarınıza göre özelleştirmek için mevcut çeşitli ayarları ve seçenekleri anlayın.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.1
+    date: 2026-01-10
+    changes: JSON5 ve JSONC dosya formatları için destek eklendi
   - version: 7.5.0
     date: 2025-12-17
     changes: `buildMode` seçeneği eklendi
@@ -58,6 +61,8 @@ Intlayer, JSON, JS, MJS ve TS yapılandırma dosyası formatlarını kabul eder:
 - `intlayer.config.ts`
 - `intlayer.config.js`
 - `intlayer.config.json`
+- `intlayer.config.json5`
+- `intlayer.config.jsonc`
 - `intlayer.config.cjs`
 - `intlayer.config.mjs`
 - `.intlayerrc`

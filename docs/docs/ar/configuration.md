@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-16
+updatedAt: 2026-01-10
 title: التهيئة
 description: تعلّم كيفية تهيئة Intlayer لتطبيقك. فهم الإعدادات والخيارات المختلفة المتاحة لتخصيص Intlayer حسب احتياجاتك.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.1
+    date: 2026-01-10
+    changes: إضافة دعم لتنسيقات ملفات JSON5 و JSONC
   - version: 7.5.0
     date: 2025-12-17
     changes: إضافة خيار `buildMode`
@@ -55,6 +58,8 @@ history:
 - `intlayer.config.ts`
 - `intlayer.config.js`
 - `intlayer.config.json`
+- `intlayer.config.json5`
+- `intlayer.config.jsonc`
 - `intlayer.config.cjs`
 - `intlayer.config.mjs`
 - `.intlayerrc`

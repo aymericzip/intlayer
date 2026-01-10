@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-16
+updatedAt: 2026-01-10
 title: 設定
 description: Intlayerをアプリケーション向けに設定する方法を学びます。Intlayerをニーズに合わせてカスタマイズするためのさまざまな設定やオプションについて理解しましょう。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.1
+    date: 2026-01-10
+    changes: JSON5 および JSONC ファイル形式のサポートを追加
   - version: 7.5.0
     date: 2025-12-17
     changes: `buildMode` オプションを追加
@@ -58,6 +61,8 @@ IntlayerはJSON、JS、MJS、TSの設定ファイル形式をサポートして�
 - `intlayer.config.ts`
 - `intlayer.config.js`
 - `intlayer.config.json`
+- `intlayer.config.json5`
+- `intlayer.config.jsonc`
 - `intlayer.config.cjs`
 - `intlayer.config.mjs`
 - `.intlayerrc`

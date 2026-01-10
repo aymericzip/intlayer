@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-12-13
+updatedAt: 2026-01-10
 title: Archivo de Contenido
 description: Aprende a personalizar las extensiones para tus archivos de declaración de contenido. Sigue esta documentación para implementar condiciones de manera eficiente en tu proyecto.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.13
+    date: 2026-01-10
+    changes: Añadir soporte para formatos de archivo JSON5 y JSONC
   - version: 7.5.0
     date: 2025-12-13
     changes: Añadido soporte para formatos ICU e i18next
@@ -787,6 +790,8 @@ Intlayer te permite personalizar las extensiones para tus archivos de declaraci�
 Por defecto, Intlayer vigila todos los archivos con las siguientes extensiones para declaraciones de contenido:
 
 - `.content.json`
+- `.content.json5`
+- `.content.jsonc`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`

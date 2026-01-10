@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-12-13
+updatedAt: 2026-01-10
 title: ملف المحتوى
 description: تعلّم كيفية تخصيص الامتدادات لملفات إعلان المحتوى الخاصة بك. اتبع هذا التوثيق لتنفيذ الشروط بكفاءة في مشروعك.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.13
+    date: 2026-01-10
+    changes: إضافة دعم لتنسيقات ملفات JSON5 و JSONC
   - version: 7.5.0
     date: 2025-12-13
     changes: إضافة دعم تنسيقات ICU و i18next
@@ -788,6 +791,8 @@ export default {
 بشكل افتراضي، تراقب Intlayer جميع الملفات التي تحمل الامتدادات التالية لإعلانات المحتوى:
 
 - `.content.json`
+- `.content.json5`
+- `.content.jsonc`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`

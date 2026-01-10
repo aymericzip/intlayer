@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-10-25
+updatedAt: 2026-01-10
 title: Cấu hình
 description: Tìm hiểu cách cấu hình Intlayer cho ứng dụng của bạn. Hiểu các thiết lập và tùy chọn khác nhau để tùy chỉnh Intlayer theo nhu cầu của bạn.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.1
+    date: 2026-01-10
+    changes: Thêm hỗ trợ cho các định dạng tệp JSON5 và JSONC
   - version: 7.5.0
     date: 2025-12-17
     changes: Thêm tùy chọn `buildMode`
@@ -73,6 +76,8 @@ Intlayer chấp nhận các định dạng tệp cấu hình JSON, JS, MJS và T
 - `intlayer.config.ts`
 - `intlayer.config.js`
 - `intlayer.config.json`
+- `intlayer.config.json5`
+- `intlayer.config.jsonc`
 - `intlayer.config.cjs`
 - `intlayer.config.mjs`
 - `.intlayerrc`

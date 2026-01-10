@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-16
+updatedAt: 2026-01-10
 title: कॉन्फ़िगरेशन
 description: अपने एप्लिकेशन के लिए Intlayer को कॉन्फ़िगर करना सीखें। Intlayer को अपनी आवश्यकताओं के अनुसार अनुकूलित करने के लिए विभिन्न सेटिंग्स और विकल्पों को समझें।
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.5.1
+    date: 2026-01-10
+    changes: JSON5 और JSONC फ़ाइल प्रारूपों के लिए समर्थन जोड़ा
   - version: 7.5.0
     date: 2025-12-17
     changes: `buildMode` विकल्प जोड़ा
@@ -55,6 +58,8 @@ Intlayer JSON, JS, MJS, और TS कॉन्फ़िगरेशन फ़ा
 - `intlayer.config.ts`
 - `intlayer.config.js`
 - `intlayer.config.json`
+- `intlayer.config.json5`
+- `intlayer.config.jsonc`
 - `intlayer.config.cjs`
 - `intlayer.config.mjs`
 - `.intlayerrc`

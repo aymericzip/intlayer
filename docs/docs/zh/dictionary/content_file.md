@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-12-13
+updatedAt: 2026-01-10
 title: 内容文件
 description: 学习如何自定义内容声明文件的扩展。按照本指南高效地在项目中实现条件。
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.13
+    date: 2026-01-10
+    changes: 添加对 JSON5 和 JSONC 文件格式的支持
   - version: 7.5.0
     date: 2025-12-13
     changes: 添加 ICU 和 i18next 格式支持
@@ -813,6 +816,8 @@ Intlayer 允许您自定义内容声明文件的扩展名。此自定义功能�
 默认情况下，Intlayer 会监视所有具有以下扩展名的文件作为内容声明：
 
 - `.content.json`
+- `.content.json5`
+- `.content.jsonc`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`

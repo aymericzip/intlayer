@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-12-13
+updatedAt: 2026-01-10
 title: Tệp Nội Dung
 description: Tìm hiểu cách tùy chỉnh các phần mở rộng cho các tệp khai báo nội dung của bạn. Theo dõi tài liệu này để triển khai các điều kiện một cách hiệu quả trong dự án của bạn.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.5.13
+    date: 2026-01-10
+    changes: Thêm hỗ trợ cho các định dạng tệp JSON5 và JSONC
   - version: 7.5.0
     date: 2025-12-13
     changes: Thêm hỗ trợ định dạng ICU và i18next
@@ -795,6 +798,8 @@ Intlayer cho phép bạn tùy chỉnh phần mở rộng cho các tệp khai bá
 Theo mặc định, Intlayer theo dõi tất cả các tệp có phần mở rộng sau để khai báo nội dung:
 
 - `.content.json`
+- `.content.json5`
+- `.content.jsonc`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`

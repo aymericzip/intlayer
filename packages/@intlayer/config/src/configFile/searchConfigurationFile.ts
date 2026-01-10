@@ -7,6 +7,8 @@ export const configurationFilesCandidates = [
   'intlayer.config.ts',
   'intlayer.config.js',
   'intlayer.config.json',
+  'intlayer.config.json5',
+  'intlayer.config.jsonc',
   'intlayer.config.cjs',
   'intlayer.config.mjs',
   '.intlayerrc',
