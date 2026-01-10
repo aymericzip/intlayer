@@ -1,0 +1,36 @@
+{
+  "name": "intlayer-next-no-lolale-path",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "build:webpack": "next build --webpack",
+    "dev": "intlayer watch --with 'next dev'",
+    "dev:webpack": "next dev --webpack",
+    "editor": "intlayer-editor start",
+    "lint": "eslint",
+    "start": "next start",
+    "start:all": "concurrently \"npm run start\" \"npm run start:editor\"",
+    "start:editor": "intlayer-editor start --with 'next dev'"
+  },
+  "dependencies": {
+    "fuse.js": "7.1.0",
+    "intlayer": "workspace",
+    "next": "^16.1.1",
+    "next-intlayer": "workspace",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@intlayer/swc": "workspace",
+    "@tailwindcss/postcss": "^4.1.18.1.18",
+    "@types/node": "^25.0.5",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "16.1.1",
+    "intlayer-editor": "workspace",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
+  }
+}
