@@ -43,6 +43,7 @@ const DEFAULT_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX = false;
 const { internationalization, routing } = configuration ?? {};
 const { locales, defaultLocale } = internationalization ?? {};
 const { basePath, mode } = routing ?? {};
+
 // Note: cookie names are resolved inside LocaleStorage based on configuration
 
 // Derived flags from routing.mode
@@ -461,8 +462,6 @@ const rewriteUrl = (
   setLocaleInStorage(locale, {
     setHeader: (name: string, value: string) => {
       response.headers.set(name, value);
-      // Also set a standard header for easier debugging
-      response.headers.set('x-intlayer-locale', value);
     },
   });
 

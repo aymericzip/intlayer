@@ -4,8 +4,6 @@ import type * as BabelTypes from '@babel/types';
 import { getFileHash } from '@intlayer/chokidar';
 import { normalizePath } from '@intlayer/config';
 
-/* ────────────────────────────────────────── constants ───────────────────── */
-
 const PACKAGE_LIST = [
   'intlayer',
   '@intlayer/core',
@@ -49,8 +47,6 @@ const STATIC_IMPORT_FUNCTION = {
 const DYNAMIC_IMPORT_FUNCTION = {
   useIntlayer: 'useDictionaryDynamic',
 } as const;
-
-/* ────────────────────────────────────────── types ───────────────────────── */
 
 /**
  * Options for the optimization Babel plugin
@@ -127,8 +123,6 @@ type State = PluginPass & {
   _isIncluded?: boolean;
 };
 
-/* ────────────────────────────────────────── helpers ─────────────────────── */
-
 /**
  * Replicates the xxHash64 → Base-62 algorithm used by the SWC version
  * and prefixes an underscore so the generated identifiers never collide
@@ -172,8 +166,6 @@ const computeImport = (
 
   return rel;
 };
-
-/* ────────────────────────────────────────── plugin ──────────────────────── */
 
 /**
  * Babel plugin that transforms Intlayer function calls and auto-imports dictionaries.

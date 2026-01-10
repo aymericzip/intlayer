@@ -140,7 +140,7 @@ export const getLocaleFromStorage = (
     return getCookie(name);
   };
 
-  // 1) Check cookies first
+  // Check cookies first
   for (let i = 0; i < storageAttributes.cookies.length; i++) {
     const { name } = storageAttributes.cookies[i];
 
@@ -149,7 +149,7 @@ export const getLocaleFromStorage = (
     if (isValidLocale(value)) return value;
   }
 
-  // 2) Then check localStorage candidates (browser only)
+  // Then check localStorage candidates (browser only)
   for (let i = 0; i < storageAttributes.localStorage.length; i++) {
     const { name } = storageAttributes.localStorage[i];
 
@@ -160,7 +160,7 @@ export const getLocaleFromStorage = (
     } catch {}
   }
 
-  // 3) Check sessionStorage candidates (browser only)
+  // Check sessionStorage candidates (browser only)
   for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
     const { name } = storageAttributes.sessionStorage[i];
 
@@ -171,7 +171,7 @@ export const getLocaleFromStorage = (
     } catch {}
   }
 
-  // 4) Finally check header candidates (server only)
+  // Finally check header candidates (server only)
   for (let i = 0; i < storageAttributes.headers.length; i++) {
     const { name } = storageAttributes.headers[i];
 

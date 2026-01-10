@@ -20,40 +20,6 @@ export type BuildFilesListOptions = {
 };
 
 /**
- * Adds framework-specific patterns to the existing patterns.
- * If a pattern already includes the framework extension or has a brace expression,
- * it's kept as-is. Otherwise, the extension is added to any existing brace expression.
- *
- * @example
- * addFrameworkPatterns(['src/**\/*.{ts,tsx}'], 'vue')
- * // Returns: ['src/**\/*.{ts,tsx,vue}']
- *
- * @example
- * addFrameworkPatterns(['src/**\/*.vue'], 'vue')
- * // Returns: ['src/**\/*.vue'] (unchanged, already has .vue)
- */
-const addFrameworkPatterns = (
-  patterns: string[],
-  frameworkExtension: string
-): string[] => {
-  return patterns.map((pattern) => {
-    // If already includes the framework extension, keep as-is
-    if (pattern.includes(`.${frameworkExtension}`)) {
-      return pattern;
-    }
-    // If has brace expression, add the extension to it
-    if (pattern.includes('{')) {
-      return pattern.replace(
-        /\{([^}]+)\}/,
-        (_, exts) => `{${exts},${frameworkExtension}}`
-      );
-    }
-    // No modification needed for patterns without brace expressions
-    return pattern;
-  });
-};
-
-/**
  * Normalizes a pattern value to an array
  */
 const normalizeToArray = <T>(value: T | T[]): T[] => {

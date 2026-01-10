@@ -6,10 +6,10 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [
+    intlayerProxy(), // Should be placed before the reactRouter plugin
     tailwindcss(),
     reactRouter(),
     tsconfigPaths(),
     intlayer(),
-    intlayerProxy(),
   ],
 });

@@ -1,10 +1,10 @@
-import { isAbsolute, join } from 'node:path';
+import { join } from 'node:path';
+import { getComponentTransformPatternSync } from '@intlayer/chokidar';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
-import fg from 'fast-glob';
 import type { OptimizePluginOptions } from './babel-plugin-intlayer-optimize';
 
 type GetOptimizePluginOptionsParams = {
@@ -58,25 +58,15 @@ export const getOptimizePluginOptions = (
   const config = getConfiguration(configOptions);
   const {
     mainDir,
-    baseDir,
     dictionariesDir,
     unmergedDictionariesDir,
     dynamicDictionariesDir,
     fetchDictionariesDir,
   } = config.content;
-  const { importMode, traversePattern, optimize } = config.build;
+  const { importMode, optimize } = config.build;
 
   // Build files list from traverse pattern
-  const filesListPattern = fg
-    .sync(traversePattern, {
-      cwd: baseDir,
-    })
-    .map((file) => {
-      if (isAbsolute(file)) {
-        return file;
-      }
-      return join(baseDir, file);
-    });
+  const filesListPattern = getComponentTransformPatternSync(config);
 
   const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
   const unmergedDictionariesEntryPath = join(

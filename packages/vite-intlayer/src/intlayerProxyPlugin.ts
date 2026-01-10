@@ -135,7 +135,10 @@ export const intlayerProxy = (
     // If you want to mimic Next.js's behavior of setting a header for the locale:
     if (locale) {
       setLocaleInStorage(locale, {
-        setHeader: (name: string, value: string) => res.setHeader(name, value),
+        setHeader: (name: string, value: string) => {
+          res.setHeader(name, value);
+          req.headers[name] = value;
+        },
       });
     }
   };

@@ -45,6 +45,7 @@ export const getComponentTransformPattern = async (
     fg(traversePattern, {
       cwd,
       absolute: true,
+      dot: true,
     })
   );
 
@@ -67,6 +68,7 @@ export const getComponentTransformPatternSync = (
     fg.sync(traversePattern, {
       cwd,
       absolute: true,
+      dot: true,
     })
   );
 
