@@ -9,7 +9,7 @@ import {
   parseFileContent,
   type SandBoxContextOptions,
 } from './parseFileContent';
-import { transpileTSToMJS, transpileTSToMJSSync } from './transpileTSToMJS';
+import { transpileTSToCJS, transpileTSToCJSSync } from './transpileTSToCJS';
 
 export type ESBuildPlugin = Plugin;
 
@@ -41,7 +41,7 @@ export const loadExternalFileSync = (
     // Rest is JS, MJS or TS
     const code = readFileSync(filePath, 'utf-8');
 
-    const moduleResultString: string | undefined = transpileTSToMJSSync(
+    const moduleResultString: string | undefined = transpileTSToCJSSync(
       code,
       filePath
     );
@@ -102,7 +102,7 @@ export const loadExternalFile = async (
     // Rest is JS, MJS or TS
     const code = await readFile(filePath, 'utf-8');
 
-    const moduleResultString: string | undefined = await transpileTSToMJS(
+    const moduleResultString: string | undefined = await transpileTSToCJS(
       code,
       filePath,
       options?.buildOptions

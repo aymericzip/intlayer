@@ -47,7 +47,7 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
   },
 });
 
-export const transpileTSToMJSSync = (
+export const transpileTSToCJSSync = (
   code: string,
   filePath: string,
   options?: BuildOptions
@@ -71,7 +71,7 @@ export const transpileTSToMJSSync = (
   return moduleResultString;
 };
 
-export const transpileTSToMJS = async (
+export const transpileTSToCJS = async (
   code: string,
   filePath: string,
   options?: BuildOptions
