@@ -613,6 +613,31 @@ const docDataContent: Dictionary = {
               }),
               default: getDocMetadata('./docs/en/intlayer_with_nextjs_14.md'),
             },
+            'no-locale-path': {
+              title: t({
+                en: 'Next.js no locale path',
+                'en-GB': 'Next.js no locale path',
+                fr: 'Next.js sans locale URL',
+                es: 'Next.js sin locale URL',
+                de: 'Next.js ohne Locale URL',
+                it: 'Next.js senza locale URL',
+                pt: 'Next.js sem locale URL',
+                ru: 'Next.js без locale URL',
+                pl: 'Next.js bez locale URL',
+                tr: 'Next.js locale’siz URL',
+                id: 'Next.js tanpa locale URL',
+                vi: 'Next.js không locale URL',
+
+                ja: 'Next.js ロケールなし URL',
+                ko: 'Next.js 로케일 없는 URL',
+                zh: 'Next.js 无 locale URL',
+                hi: 'Next.js बिना लोकेल URL',
+                ar: 'Next.js بدون locale URL',
+              }),
+              default: getDocMetadata(
+                './docs/en/intlayer_with_nextjs_no_locale_path.md'
+              ),
+            },
             'next-with-Page-Router': {
               title: t({
                 en: 'Next.js and Page Router',
