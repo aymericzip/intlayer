@@ -93,12 +93,12 @@ pnpm intlayer init
 
 - **next-intlayer**
 
-````
+Пакет, який інтегрує Intlayer з Next.js. Він надає провайдери контексту та хуки для інтернаціоналізації в Next.js. Крім того, він містить плагін для Next.js для інтеграції Intlayer з [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), а також проксі для визначення преференційної локалі користувача, керування cookie та обробки перенаправлень URL.
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
 yarn intlayer init
-````
+```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
