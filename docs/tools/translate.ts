@@ -22,7 +22,7 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
 ];
 
 // Number of files to process simultaneously
-const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
+const NB_SIMULTANEOUS_FILE_PROCESSED: number = 10;
 
 const LOCALE_LIST_TO_TRANSLATE: Locale[] = locales.filter(
   // Include all locales except English

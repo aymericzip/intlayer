@@ -145,19 +145,19 @@ export const reviewFileBlockAware = async (
         `${prefix}${colorizeNumber(result.tokenUsed)} tokens used - Block ${colorizeNumber(segmentNumber)} of ${colorizeNumber(segmentsToReview.length)}`
       );
 
-      // 1. Sanitize artifacts (e.g. Markdown code block wrappers)
+      // Sanitize artifacts (e.g. Markdown code block wrappers)
       let processedChunk = sanitizeChunk(
         result?.fileContent,
         englishBlock.content
       );
 
-      // 2. Fix start/end characters
+      // Fix start/end characters
       processedChunk = fixChunkStartEndChars(
         processedChunk,
         englishBlock.content
       );
 
-      // 3. Validate Translation (YAML, Code fences, Length ratio)
+      // Validate Translation (YAML, Code fences, Length ratio)
       const isValid = validateTranslation(
         englishBlock.content,
         processedChunk,

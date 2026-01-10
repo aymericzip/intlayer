@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { performance } from 'node:perf_hooks';
-import { listGitFiles, parallelize } from '@intlayer/chokidar';
+import { listGitFiles, parallelize, pLimit } from '@intlayer/chokidar';
 import {
   ANSIColors,
   colorize,
@@ -23,7 +23,7 @@ export const translateDoc = async ({
   excludedGlobPattern,
   baseLocale,
   aiOptions,
-  nbSimultaneousFileProcessed,
+  nbSimultaneousFileProcessed = 20, // Default to a higher concurrency for chunks
   configOptions,
   customInstructions,
   skipIfModifiedBefore,
@@ -35,9 +35,11 @@ export const translateDoc = async ({
   const configuration = getConfiguration(configOptions);
   const appLogger = getAppLogger(configuration);
 
-  if (nbSimultaneousFileProcessed && nbSimultaneousFileProcessed > 10) {
-    nbSimultaneousFileProcessed = 10;
-  }
+  // 1. GLOBAL QUEUE SETUP
+  // We use pLimit to create a single bottleneck for AI requests.
+  // This queue is shared across all files and locales.
+  const maxConcurrentChunks = nbSimultaneousFileProcessed;
+  const globalChunkLimiter = pLimit(maxConcurrentChunks);
 
   let docList: string[] = await fg(docPattern, {
     ignore: excludedGlobPattern,
@@ -59,7 +61,8 @@ export const translateDoc = async ({
   const batchStartTime = performance.now();
 
   appLogger(
-    `Translating ${colorizeNumber(docList.length)} files to ${colorizeNumber(locales.length)} locales.`
+    `Translating ${colorizeNumber(docList.length)} files to ${colorizeNumber(locales.length)} locales. \n` +
+      `Global Concurrency: ${colorizeNumber(maxConcurrentChunks)} chunks in parallel.`
   );
 
   const errorState: ErrorState = {
@@ -68,6 +71,8 @@ export const translateDoc = async ({
     shouldStop: false,
   };
 
+  // 2. FLATTENED TASK LIST
+  // We create a task for every File x Locale combination.
   const allTasks = docList.flatMap((docPath) =>
     locales.map((locale) => async () => {
       if (errorState.shouldStop) return;
@@ -79,9 +84,9 @@ export const translateDoc = async ({
         baseLocale
       );
 
+      // Skip logic
       if (skipIfExists && existsSync(outputFilePath)) return;
 
-      // Ensure file exists for incremental write if using 'incremental'
       if (flushStrategy === 'incremental' && !existsSync(outputFilePath)) {
         mkdirSync(dirname(outputFilePath), { recursive: true });
         writeFileSync(outputFilePath, '');
@@ -97,6 +102,7 @@ export const translateDoc = async ({
         return;
       }
 
+      // Execute translation using the SHARED limiter
       await translateFile({
         baseFilePath: absoluteBaseFilePath,
         outputFilePath,
@@ -109,15 +115,18 @@ export const translateDoc = async ({
         aiClient,
         aiConfig,
         flushStrategy,
+        limit: globalChunkLimiter, // Pass the global queue
       });
     })
   );
 
-  await parallelize(
-    allTasks,
-    (task) => task(),
-    nbSimultaneousFileProcessed ?? 3
-  );
+  // 3. HIGH-THROUGHPUT FILE OPENER
+  // We open many files simultaneously (e.g., 50) to ensure the global chunk queue
+  // is always saturated with work.
+  // If we open too few files, the chunk queue might drain faster than we can read new files.
+  const FILE_OPEN_LIMIT = 50;
+
+  await parallelize(allTasks, (task) => task(), FILE_OPEN_LIMIT);
 
   const batchEndTime = performance.now();
   const batchDuration = ((batchEndTime - batchStartTime) / 1000).toFixed(2);

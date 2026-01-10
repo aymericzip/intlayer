@@ -4,9 +4,6 @@ import type { GetConfigurationOptions } from '@intlayer/config';
 import type { IntlayerConfig, Locale } from '@intlayer/types';
 import type { AIClient } from '../utils/setupAI';
 
-/**
- * Shared error state for circuit breaker pattern
- */
 export type ErrorState = {
   count: number;
   maxErrors: number;
@@ -14,6 +11,12 @@ export type ErrorState = {
 };
 
 export type FlushStrategy = 'incremental' | 'end' | 'none';
+
+// Define the Limit Function type (compatible with p-limit)
+export type LimitFunction = (
+  fn: () => Promise<any>,
+  ...args: any[]
+) => Promise<any>;
 
 export type TranslateFileOptions = {
   baseFilePath: string;
@@ -28,6 +31,7 @@ export type TranslateFileOptions = {
   aiConfig?: AIConfig;
   flushStrategy?: FlushStrategy;
   onChunkReceive?: (chunk: string, index: number, total: number) => void;
+  limit?: LimitFunction;
 };
 
 export type TranslateDocOptions = {

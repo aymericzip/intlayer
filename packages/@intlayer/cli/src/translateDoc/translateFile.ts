@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { dirname, relative } from 'node:path';
 import { performance } from 'node:perf_hooks';
 import { readAsset } from 'utils:asset';
-import { formatLocale, formatPath, getChunk } from '@intlayer/chokidar';
+import { formatLocale, formatPath } from '@intlayer/chokidar';
 import {
   ANSIColors,
   colon,
@@ -31,6 +31,7 @@ export const translateFile = async ({
   aiConfig,
   flushStrategy = 'incremental',
   onChunkReceive,
+  limit, // The Global Limiter
 }: TranslateFileOptions): Promise<string | null> => {
   if (errorState.shouldStop) return null;
 
@@ -42,17 +43,14 @@ export const translateFile = async ({
     const chunks = chunkText(fileContent);
     const totalChunks = chunks.length;
 
-    // Logging setup
     const filePrefixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}] `;
-    const filePrefix = `${colon(filePrefixText, { colSize: 40 })} → ${ANSIColors.RESET}`;
+    const filePrefix = `${colon(filePrefixText, { colSize: 40 })}${ANSIColors.RESET}`;
     const prefixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}][${formatLocale(locale)}${ANSIColors.GREY_DARK}] `;
-    const prefix = `${colon(prefixText, { colSize: 40 })} → ${ANSIColors.RESET}`;
+    const prefix = `${colon(prefixText, { colSize: 40 })}${ANSIColors.RESET}`;
 
     appLogger(
-      `${filePrefix}Splitted into ${colorizeNumber(totalChunks)} chunks`
+      `${filePrefix}Split into ${colorizeNumber(totalChunks)} chunks. Queuing...`
     );
-
-    const translatedParts: string[] = [];
 
     const basePrompt = readAsset('./prompts/TRANSLATE_PROMPT.md', 'utf-8')
       .replaceAll('{{localeName}}', `${formatLocale(locale, false)}`)
@@ -60,103 +58,147 @@ export const translateFile = async ({
       .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '-')
       .replace('{{customInstructions}}', customInstructions ?? '-');
 
-    for await (const [i, chunk] of chunks.entries()) {
-      if (errorState.shouldStop) return null;
+    const translatedParts: string[] = new Array(totalChunks).fill('');
 
-      const chunkStartTime = performance.now();
-      const isFirstChunk = i === 0;
-      const fileToTranslateCurrentChunk = chunk.content;
+    // Fallback if no limiter is provided (runs immediately)
+    const runTask = limit ?? ((fn) => fn());
 
-      const getPrevChunkPrompt = () =>
-        `>>> CONTEXT: PREVIOUSLY TRANSLATED <<<\n\`\`\`\n` +
-        getChunk(translatedParts.join(''), chunks[i - 1]) +
-        `\n\`\`\`\n>>> END PREVIOUS CONTEXT <<<`;
+    // MAP CHUNKS TO GLOBAL TASKS
+    // This pushes ALL chunks for this file into the Global Queue immediately.
+    // They will execute whenever the global concurrency slots open up.
+    const tasks = chunks.map((chunk, i) =>
+      runTask(async () => {
+        if (errorState.shouldStop) return null;
 
-      const getBaseChunkContextPrompt = () =>
-        `>>> CONTEXT: NEXT CONTENT <<<\n\`\`\`\n` +
-        (chunks[i + 1]?.content ?? '') +
-        `\n\`\`\`\n>>> END NEXT CONTEXT <<<`;
+        const chunkLogger = getAppLogger(configuration, {
+          config: {
+            prefix: `${prefix}  ${ANSIColors.GREY_DARK}[${i + 1}/${totalChunks}] ${ANSIColors.RESET}`,
+          },
+        });
 
-      const chunkTranslation = retryManager(async () => {
-        const result = await chunkInference(
+        const chunkStartTime = performance.now();
+        const isFirstChunk = i === 0;
+        const fileToTranslateCurrentChunk = chunk.content;
+
+        // Context Preparation
+        const getPrevChunkPrompt = () =>
+          `>>> CONTEXT: PREVIOUS SOURCE CONTENT <<<\n\`\`\`\n` +
+          (chunks[i - 1]?.content ?? '') +
+          `\n\`\`\`\n>>> END PREVIOUS CONTEXT <<<`;
+
+        const getBaseChunkContextPrompt = () =>
+          `>>> CONTEXT: NEXT CONTENT <<<\n\`\`\`\n` +
+          (chunks[i + 1]?.content ?? '') +
+          `\n\`\`\`\n>>> END NEXT CONTEXT <<<`;
+
+        chunkLogger('Process started');
+
+        const chunkTranslation = retryManager(async () => {
+          const result = await chunkInference(
+            [
+              { role: 'system', content: basePrompt },
+              ...(chunks[i + 1]
+                ? [
+                    {
+                      role: 'system',
+                      content: getBaseChunkContextPrompt(),
+                    } as const,
+                  ]
+                : []),
+              ...(isFirstChunk
+                ? []
+                : [{ role: 'system', content: getPrevChunkPrompt() } as const]),
+              {
+                role: 'system',
+                content: [
+                  `You are translating TARGET CHUNK (${i + 1}/${totalChunks}).`,
+                  `Translate ONLY the target chunk. Preserve frontmatter/code exactly.`,
+                ].join('\n'),
+              },
+              {
+                role: 'user',
+                content: `>>> TARGET CHUNK START <<<\n${fileToTranslateCurrentChunk}\n>>> TARGET CHUNK END <<<`,
+              },
+            ],
+            aiOptions,
+            configuration,
+            aiClient,
+            aiConfig
+          );
+
+          let processedChunk = sanitizeChunk(
+            result?.fileContent,
+            fileToTranslateCurrentChunk
+          );
+          processedChunk = fixChunkStartEndChars(
+            processedChunk,
+            fileToTranslateCurrentChunk
+          );
+
+          const isValid = validateTranslation(
+            fileToTranslateCurrentChunk,
+            processedChunk,
+            chunkLogger
+          );
+
+          if (!isValid) {
+            // Throwing an error here signals retryManager to try again
+            throw new Error(
+              `Validation failed for chunk ${i + 1}/${totalChunks}`
+            );
+          }
+
+          return { content: processedChunk, tokens: result.tokenUsed };
+        });
+
+        const { content: translatedChunk, tokens } = await chunkTranslation();
+        const chunkEndTime = performance.now();
+        const chunkDuration = (chunkEndTime - chunkStartTime).toFixed(0);
+
+        // Store Result
+        translatedParts[i] = translatedChunk;
+
+        if (onChunkReceive) {
+          onChunkReceive(translatedChunk, i, totalChunks);
+        }
+
+        // Incremental Flush Strategy
+        if (flushStrategy === 'incremental') {
+          const isContiguous = translatedParts
+            .slice(0, i + 1)
+            .every((p) => p && p !== '');
+
+          if (isContiguous) {
+            let endIdx = 0;
+            while (
+              endIdx < totalChunks &&
+              translatedParts[endIdx] &&
+              translatedParts[endIdx] !== ''
+            ) {
+              endIdx++;
+            }
+            const currentContent = translatedParts.slice(0, endIdx).join('');
+            // Write asynchronously/sync is fine here as node handles file locks reasonably well for single process
+            mkdirSync(dirname(outputFilePath), { recursive: true });
+            writeFileSync(outputFilePath, currentContent);
+          }
+        }
+
+        chunkLogger(
           [
-            { role: 'system', content: basePrompt },
-            ...(chunks[i + 1]
-              ? [
-                  {
-                    role: 'system',
-                    content: getBaseChunkContextPrompt(),
-                  } as const,
-                ]
-              : []),
-            ...(isFirstChunk
-              ? []
-              : [{ role: 'system', content: getPrevChunkPrompt() } as const]),
-            {
-              role: 'system',
-              content: [
-                `You are translating TARGET CHUNK (${i + 1}/${totalChunks}).`,
-                `Translate ONLY the target chunk. Preserve frontmatter/code exactly.`,
-              ].join('\n'),
-            },
-            {
-              role: 'user',
-              content: `>>> TARGET CHUNK START <<<\n${fileToTranslateCurrentChunk}\n>>> TARGET CHUNK END <<<`,
-            },
-          ],
-          aiOptions,
-          configuration,
-          aiClient,
-          aiConfig
+            `${colorizeNumber(tokens)} tokens used `,
+            `${ANSIColors.GREY_DARK}in ${colorizeNumber(chunkDuration)}ms${ANSIColors.RESET}`,
+          ].join('')
         );
+      })
+    );
 
-        let processedChunk = sanitizeChunk(
-          result?.fileContent,
-          fileToTranslateCurrentChunk
-        );
-        processedChunk = fixChunkStartEndChars(
-          processedChunk,
-          fileToTranslateCurrentChunk
-        );
-        validateTranslation(
-          fileToTranslateCurrentChunk,
-          processedChunk,
-          appLogger
-        );
+    // Wait for all chunks for this specific file/locale to finish
+    await Promise.all(tasks);
 
-        return { content: processedChunk, tokens: result.tokenUsed };
-      });
-
-      const { content: translatedChunk, tokens } = await chunkTranslation();
-      const chunkEndTime = performance.now();
-      const chunkDuration = (chunkEndTime - chunkStartTime).toFixed(0);
-
-      translatedParts.push(translatedChunk);
-
-      // 1. Streaming Callback
-      if (onChunkReceive) {
-        onChunkReceive(translatedChunk, i, totalChunks);
-      }
-
-      // 2. File System Flush
-      if (flushStrategy === 'incremental') {
-        const currentContent = translatedParts.join('');
-        mkdirSync(dirname(outputFilePath), { recursive: true });
-        writeFileSync(outputFilePath, currentContent);
-      }
-
-      appLogger(
-        [
-          `${prefix}`,
-          `${ANSIColors.GREY_DARK}[${i + 1}/${totalChunks}] `,
-          `${colorizeNumber(tokens)} tokens used `,
-          `${ANSIColors.GREY_DARK}in ${colorizeNumber(chunkDuration)}ms${ANSIColors.RESET}`,
-        ].join('')
-      );
-    }
-
-    if (flushStrategy === 'end') {
-      const fullContent = translatedParts.join('');
+    // Final Flush
+    const fullContent = translatedParts.join('');
+    if (flushStrategy === 'end' || flushStrategy === 'incremental') {
       mkdirSync(dirname(outputFilePath), { recursive: true });
       writeFileSync(outputFilePath, fullContent);
     }
@@ -172,7 +214,7 @@ export const translateFile = async ({
       `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(relativePath)} completed in ${colorizeNumber(totalDuration)}s.`
     );
 
-    return translatedParts.join('');
+    return fullContent;
   } catch (error: any) {
     errorState.count++;
     const errorMessage = error?.message ?? JSON.stringify(error);

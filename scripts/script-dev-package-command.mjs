@@ -116,23 +116,20 @@ const startWatcher = () => {
     watcher.close(); // Close existing watcher before starting a new one
   }
 
-  watcher = chokidar.watch(
-    '**/*.{js,cjs,mjs,ts,jsx,tsx,vue,json,md,yml,yaml,svelte}',
-    {
-      ignoreInitial: true,
-      ignored: [
-        'examples/**',
-        '**/node_modules/**',
-        '**/dist/**',
-        '**/build/**',
-        '**/.next/**',
-        '**/*.svelte-kit/**',
-        '**/.intlayer/**',
-        '**/tsup.config.bundled_*.mjs',
-        '**/*.test.*',
-      ],
-    }
-  );
+  watcher = chokidar.watch('**/*.{js,cjs,mjs,ts,jsx,tsx,vue,json,svelte}', {
+    ignoreInitial: true,
+    ignored: [
+      'examples/**',
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/build/**',
+      '**/.next/**',
+      '**/*.svelte-kit/**',
+      '**/.intlayer/**',
+      '**/tsup.config.bundled_*.mjs',
+      '**/*.test.*',
+    ],
+  });
 
   watcher.on('change', (path) => {
     console.info(`[File changed] ${path}`);
