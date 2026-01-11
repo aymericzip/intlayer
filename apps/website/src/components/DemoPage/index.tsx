@@ -26,7 +26,7 @@ export const DemoPage: FC = () => {
     <div className="m-auto flex w-full max-w-3xl flex-col p-8 sm:p-12 md:size-full md:p-10">
       <h1 className="mt-14 mb-3 font-bold text-4xl">{title}</h1>
       <div className="py-10 text-md text-neutral">{landingParagraph}</div>
-      <div className="relative mx-auto my-10 flex max-w-[700px] flex-col gap-28">
+      <div className="relative mx-auto my-10 flex max-w-175 flex-col gap-28">
         <Item
           index={0}
           title={tutoParagraphs.selection.title}
