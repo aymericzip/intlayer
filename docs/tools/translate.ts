@@ -9,10 +9,10 @@ import { defaultLocale, locales } from '../intlayer.config';
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
 const DOC_PATTERN: string[] = [
-  './docs/en/intlayer_with_nextjs_no_locale_path.md',
-  // './blog/en/**/*.md',
-  // './frequent_questions/en/**/*.md',
-  // './legal/en/**/*.md',
+  './docs/en/**/*.md',
+  './blog/en/**/*.md',
+  './frequent_questions/en/**/*.md',
+  './legal/en/**/*.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/_*',
