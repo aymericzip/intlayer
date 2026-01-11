@@ -143,8 +143,9 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         title={confirmation.title.value}
         size={ModalSize.MD}
         onClose={() => setIsFormatAlertModalOpen(false)}
+        padding="md"
       >
-        <form className="size-full px-3">
+        <form className="size-full">
           <p className="py-4 text-neutral text-sm">{confirmation.message}</p>
 
           <div className="mt-12 flex justify-end gap-2 max-md:flex-col">

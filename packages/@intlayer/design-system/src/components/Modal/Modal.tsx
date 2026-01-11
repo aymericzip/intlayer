@@ -29,7 +29,7 @@ type ModalProps = {
   container?: HTMLElement;
   disableScroll?: boolean;
   hasCloseButton?: boolean;
-  title?: string;
+  title?: ReactNode;
   size?: ModalSize | `${ModalSize}`;
   /**
    * Defines if the modal content area is scrollable.
@@ -177,7 +177,7 @@ export const Modal: FC<ModalProps> = ({
 
   if (!containerElement) return <></>;
 
-  const hasTitle = typeof title === 'string';
+  const hasTitle = Boolean(title);
 
   // Determine the class for the inner content based on the padding prop
   const contentPaddingClass =

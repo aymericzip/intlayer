@@ -37,11 +37,11 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     },
     padding: {
       none: 'p-0',
-      sm: 'px-2 py-4',
-      md: 'px-4 py-6',
-      lg: 'px-6 py-8',
-      xl: 'px-8 py-10',
-      '2xl': 'px-10 py-12',
+      sm: 'px-3 py-2',
+      md: 'px-4 py-3',
+      lg: 'px-6 py-4',
+      xl: 'px-8 py-6',
+      '2xl': 'px-10 py-8',
     },
     separator: {
       without: '',
