@@ -1,4 +1,4 @@
-export type Format = 'ts' | 'cjs' | 'esm' | 'json';
+export type Format = 'ts' | 'cjs' | 'esm' | 'json' | 'jsonc' | 'json5';
 export type Extension =
   | '.ts'
   | '.tsx'
@@ -9,6 +9,7 @@ export type Extension =
   | '.mjs'
   | '.mjsx'
   | '.json'
+  | '.jsonc'
   | '.json5';
 
 export const getFormatFromExtension = (extension: Extension): Format => {
@@ -22,6 +23,7 @@ export const getFormatFromExtension = (extension: Extension): Format => {
     case '.mjs':
       return 'esm';
     case '.json':
+    case '.jsonc':
     case '.json5':
       return 'json';
   }
@@ -37,6 +39,10 @@ export const getExtensionFromFormat = (format: Format): Extension => {
       return '.cjs';
     case 'json':
       return '.json';
+    case 'jsonc':
+      return '.jsonc';
+    case 'json5':
+      return '.json5';
     case 'esm':
       return '.mjs';
   }

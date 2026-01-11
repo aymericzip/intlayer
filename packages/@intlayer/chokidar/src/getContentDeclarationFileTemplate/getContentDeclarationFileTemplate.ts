@@ -17,6 +17,8 @@ export const getContentDeclarationFileTemplate = async (
       fileTemplate = './cjsTemplate.txt';
       break;
     case 'json':
+    case 'jsonc':
+    case 'json5':
       fileTemplate = './jsonTemplate.txt';
       break;
     default:
