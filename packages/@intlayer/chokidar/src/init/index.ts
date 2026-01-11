@@ -276,7 +276,7 @@ export const initIntlayer = async (rootDir: string) => {
 
       if (!content.includes('next-intlayer')) {
         const nextImport =
-          "import { withIntlayer } from 'next-intlayer'; // Add the plugin to the Next.js configuration";
+          "import { withIntlayer } from 'next-intlayer/server'; // Add the plugin to the Next.js configuration";
 
         content = `${nextImport}\n${content}`;
         await writeFileToRoot(rootDir, file, content);
