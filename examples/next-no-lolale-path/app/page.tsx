@@ -1,8 +1,9 @@
-import { getLocale } from 'intlayer';
-import { cookies, headers } from 'next/headers';
 import Image from 'next/image';
-import { IntlayerClientProvider } from 'next-intlayer';
-import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import {
+  getLocale,
+  IntlayerServerProvider,
+  useIntlayer,
+} from 'next-intlayer/server';
 import type { FC } from 'react';
 import { ClientComponentExample } from '@/components/clientComponentExample/ClientComponentExample';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher/LocaleSwitcher';
@@ -80,18 +81,7 @@ const PageContent: FC = () => {
 };
 
 const Page = async () => {
-  // Await headers and cookies in Next.js 15+
-  const headerList = await headers();
-  const cookieList = await cookies();
-
-  const locale = await getLocale({
-    // First check for intlayer cookie (default: 'INTLAYER_LOCALE')
-    getCookie: (name) => cookieList.get(name)?.value,
-
-    // Then check for intlayer header (default: 'x-intlayer-locale')
-    // And finally check for accept-language header ('accept-language')
-    getHeader: (name) => headerList.get(name),
-  });
+  const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
