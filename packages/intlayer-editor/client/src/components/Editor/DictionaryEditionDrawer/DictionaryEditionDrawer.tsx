@@ -115,7 +115,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
               />
               <Popover.Detail identifier="open-dictionary-editor">
                 <span className="whitespace-nowrap p-2 text-neutral text-xs">
-                  Open Dictionary in Editor
+                  {openDictionaryEditor.popoverContent}
                 </span>
               </Popover.Detail>
             </Popover>
@@ -153,7 +153,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
             isOpen={editionModalOpen}
             onClose={() => setEditionModalOpen(false)}
             hasCloseButton
-            title={modalTitle.value}
+            title={modalTitle}
             size="xl"
             transparency="lg"
           >
