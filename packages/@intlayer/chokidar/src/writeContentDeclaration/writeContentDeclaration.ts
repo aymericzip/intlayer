@@ -1,4 +1,5 @@
-import { mkdir, rm, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, join, resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
 import {
@@ -18,6 +19,7 @@ import {
 } from '../utils/getFormatFromExtension';
 import type { DictionaryStatus } from './dictionaryStatus';
 import { processContentDeclarationContent } from './processContentDeclarationContent';
+import { transformJSONFile } from './transformJSONFile';
 import { writeJSFile } from './writeJSFile';
 
 const formatContentDeclaration = async (
@@ -239,6 +241,25 @@ const writeFileWithDirectories = async (
     // Write the file
     await writeFile(absoluteFilePath, `${jsonDictionary}\n`); // Add a new line at the end of the file to avoid formatting issues with VSCode
 
+    return;
+  }
+
+  // Handle JSONC, and JSON5 via the AST transformer
+  if (['.jsonc', '.json5'].includes(extension)) {
+    let fileContent = '{}';
+
+    if (existsSync(absoluteFilePath)) {
+      try {
+        fileContent = await readFile(absoluteFilePath, 'utf-8');
+      } catch {
+        // ignore read errors, start with empty object
+      }
+    }
+
+    const transformedContent = transformJSONFile(fileContent, dictionary);
+
+    // We use standard writeFile because transformedContent is already a string
+    await writeFile(absoluteFilePath, transformedContent, 'utf-8');
     return;
   }
 
