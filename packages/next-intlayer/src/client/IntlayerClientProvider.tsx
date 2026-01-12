@@ -6,6 +6,6 @@ import { IntlayerProvider, type IntlayerProviderProps } from 'react-intlayer';
 
 export type IntlayerClientProviderProps = IntlayerProviderProps;
 
-export const IntlayerClientProvider: FC<IntlayerProviderProps> = (props) => {
-  return <IntlayerProvider {...props} />;
-};
+export const IntlayerClientProvider: FC<IntlayerProviderProps> = (props) => (
+  <IntlayerProvider {...props} />
+);
