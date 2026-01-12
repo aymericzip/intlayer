@@ -22,6 +22,7 @@ export default {
       pl: 'Intlayer CMS to elastyczny system zarządzania treścią dla deweloperów i menedżerów treści.',
       id: 'Intlayer CMS adalah sistem manajemen konten yang fleksibel untuk developers dan content managers.',
       vi: 'Intlayer CMS là một hệ thống quản lý nội dung linh hoạt dành cho developers và content managers.',
+      uk: 'Intlayer CMS — гнучка система керування контентом для розробників і менеджерів контенту.',
     }),
   },
   title: 'Product header structured data',

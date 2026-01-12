@@ -21,6 +21,7 @@ const organizationsAdminPageContent = {
       pl: 'Zarządzanie organizacjami',
       id: 'Manajemen organisasi',
       vi: 'Quản lý tổ chức',
+      uk: 'Управління організаціями',
     }),
     tableHeaders: {
       name: t({
@@ -41,6 +42,7 @@ const organizationsAdminPageContent = {
         pl: 'Nazwa',
         id: 'Nama',
         vi: 'Tên',
+        uk: 'Назва',
       }),
       id: 'ID',
       createdAt: t({
@@ -61,6 +63,7 @@ const organizationsAdminPageContent = {
         pl: 'Data utworzenia',
         id: 'Dibuat pada',
         vi: 'Ngày tạo',
+        uk: 'Дата створення',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -80,6 +83,7 @@ const organizationsAdminPageContent = {
         pl: 'Data aktualizacji',
         id: 'Diperbarui pada',
         vi: 'Ngày cập nhật',
+        uk: 'Дата оновлення',
       }),
     },
     noData: t({
@@ -100,6 +104,7 @@ const organizationsAdminPageContent = {
       pl: 'Brak danych',
       id: 'Tidak tersedia',
       vi: 'Không có dữ liệu',
+      uk: 'Немає даних',
     }),
     errorMessages: {
       loadingError: t({
@@ -120,6 +125,7 @@ const organizationsAdminPageContent = {
         pl: 'Błąd podczas ładowania organizacji',
         id: 'Gagal memuat organisasi',
         vi: 'Lỗi khi tải tổ chức',
+        uk: 'Помилка завантаження організацій',
       }),
     },
     searchPlaceholder: t({
@@ -140,6 +146,7 @@ const organizationsAdminPageContent = {
       pl: 'Szukaj organizacji...',
       id: 'Cari organisasi...',
       vi: 'Tìm kiếm tổ chức...',
+      uk: 'Пошук організацій...',
     }),
     noOrganizationFound: t({
       en: 'Organization not found',
@@ -159,6 +166,7 @@ const organizationsAdminPageContent = {
       pl: 'Nie znaleziono organizacji',
       id: 'Organisasi tidak ditemukan',
       vi: 'Không tìm thấy tổ chức',
+      uk: 'Організацію не знайдено',
     }),
   },
   title: 'Organization admin page',

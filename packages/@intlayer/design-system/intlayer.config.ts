@@ -32,6 +32,9 @@ const config: CustomIntlayerConfig = {
     defaultLocale,
     strictMode: 'strict',
   },
+  content: {
+    contentDir: ['./src'],
+  },
   build: {
     optimize: false,
     importMode: 'static',

@@ -21,6 +21,7 @@ const tagDashboardContent = {
       pl: 'Edytuj tag',
       id: 'Sunting tag',
       vi: 'Chỉnh sửa tag',
+      uk: 'Редагувати тег',
     }),
   },
   title: 'Tag editor dashboard page',

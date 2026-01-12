@@ -22,6 +22,7 @@ const signInContent = {
         pl: 'Zapomniałeś hasła?',
         id: 'Lupa kata sandi Anda?',
         vi: 'Bạn quên mật khẩu?',
+        uk: 'Забули свій пароль?',
       }),
       text: t({
         en: 'Forgot password?',
@@ -41,6 +42,7 @@ const signInContent = {
         pl: 'Zapomniałeś hasła?',
         id: 'Lupa kata sandi?',
         vi: 'Quên mật khẩu?',
+        uk: 'Забули пароль?',
       }),
     },
     emailInput: {
@@ -62,6 +64,7 @@ const signInContent = {
         pl: 'Adres e-mail',
         id: 'Alamat email',
         vi: 'Địa chỉ email',
+        uk: 'Електронна адреса',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -81,6 +84,7 @@ const signInContent = {
         pl: 'Wpisz adres e-mail',
         id: 'Masukkan alamat email',
         vi: 'Nhập địa chỉ email',
+        uk: 'Введіть електронну адресу',
       }),
     },
     passwordInput: {
@@ -102,6 +106,7 @@ const signInContent = {
         pl: 'Hasło',
         id: 'Kata sandi',
         vi: 'Mật khẩu',
+        uk: 'Пароль',
       }),
       placeholder: t({
         en: 'Enter password',
@@ -121,6 +126,7 @@ const signInContent = {
         pl: 'Wpisz hasło',
         id: 'Masukkan kata sandi',
         vi: 'Nhập mật khẩu',
+        uk: 'Введіть пароль',
       }),
     },
     rememberMeCheckbox: {
@@ -142,6 +148,7 @@ const signInContent = {
         pl: 'Zapamiętaj mnie na tym urządzeniu',
         id: 'Ingat saya di perangkat ini',
         vi: 'Ghi nhớ tôi trên thiết bị này',
+        uk: "Запам'ятати мене на цьому пристрої",
       }),
     },
 
@@ -164,6 +171,7 @@ const signInContent = {
         pl: 'Zaloguj się',
         id: 'Masuk',
         vi: 'Đăng nhập',
+        uk: 'Увійти',
       }),
       ariaLabel: t({
         en: 'Click to log in',
@@ -183,6 +191,7 @@ const signInContent = {
         pl: 'Kliknij, aby się zalogować',
         id: 'Klik untuk masuk',
         vi: 'Nhấn để đăng nhập',
+        uk: 'Натисніть, щоб увійти',
       }),
     },
     signInButton: {
@@ -204,6 +213,7 @@ const signInContent = {
         pl: 'Zaloguj się',
         id: 'Masuk',
         vi: 'Đăng nhập',
+        uk: 'Увійти',
       }),
       ariaLabel: t({
         en: 'Click to log in',
@@ -223,6 +233,7 @@ const signInContent = {
         pl: 'Kliknij, aby się zalogować',
         id: 'Klik untuk masuk',
         vi: 'Nhấn để đăng nhập',
+        uk: 'Натисніть, щоб увійти',
       }),
     },
     or: t({
@@ -243,6 +254,7 @@ const signInContent = {
       pl: 'lub',
       id: 'atau',
       vi: 'hoặc',
+      uk: 'або',
     }),
     signUpLink: {
       message: t({
@@ -263,6 +275,7 @@ const signInContent = {
         pl: 'Nie masz konta?',
         id: 'Belum punya akun?',
         vi: 'Bạn chưa có tài khoản?',
+        uk: 'Немає облікового запису?',
       }),
       ariaLabel: t({
         en: 'Click to go to create an account page',
@@ -282,6 +295,7 @@ const signInContent = {
         pl: 'Kliknij, aby przejść do strony tworzenia konta',
         id: 'Klik untuk menuju halaman pembuatan akun',
         vi: 'Nhấn để tới trang tạo tài khoản',
+        uk: 'Натисніть, щоб перейти на сторінку реєстрації',
       }),
       text: t({
         en: 'Create an account',
@@ -301,6 +315,7 @@ const signInContent = {
         pl: 'Utwórz konto',
         id: 'Buat akun',
         vi: 'Tạo tài khoản',
+        uk: 'Створити обліковий запис',
       }),
     },
   },

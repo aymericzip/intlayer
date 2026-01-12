@@ -22,6 +22,7 @@ const accessKeyFormContent = {
       pl: 'Klucze dostępu',
       id: 'Access keys',
       vi: 'Khóa truy cập',
+      uk: 'Ключі доступу',
     }),
     description: t({
       ar: 'مفاتيح الوصول تستخدم للمصادقة على مشروعك.',
@@ -41,6 +42,7 @@ const accessKeyFormContent = {
       pl: 'Klucze dostępu służą do uwierzytelniania Twojego projektu.',
       id: 'Access keys digunakan untuk mengautentikasi proyek Anda.',
       vi: 'Các khóa truy cập được sử dụng để xác thực dự án của bạn.',
+      uk: 'Ключі доступу використовуються для автентифікації вашого проєкту.',
     }),
     noAccessKeys: t({
       ar: 'لا توجد مفاتيح الوصول',
@@ -60,6 +62,7 @@ const accessKeyFormContent = {
       pl: 'Brak kluczy dostępu',
       id: 'Belum ada access key',
       vi: 'Không có khóa truy cập',
+      uk: 'Немає ключів доступу',
     }),
     createAccessKey: {
       text: t({
@@ -80,6 +83,7 @@ const accessKeyFormContent = {
         pl: 'Utwórz klucz dostępu',
         id: 'Buat access key',
         vi: 'Tạo khóa truy cập',
+        uk: 'Створити ключ доступу',
       }),
       label: t({
         en: 'Click to create access key',
@@ -99,6 +103,7 @@ const accessKeyFormContent = {
         pl: 'Kliknij, aby utworzyć klucz dostępu',
         id: 'Klik untuk membuat access key',
         vi: 'Nhấp để tạo khóa truy cập',
+        uk: 'Натисніть, щоб створити ключ доступу',
       }),
     },
     rights: {
@@ -120,6 +125,7 @@ const accessKeyFormContent = {
         pl: 'Uprawnienia',
         id: 'Grants',
         vi: 'Quyền',
+        uk: 'Права',
       }),
       read: t({
         en: 'Read ',
@@ -139,6 +145,7 @@ const accessKeyFormContent = {
         pl: 'Odczyt ',
         id: 'Baca ',
         vi: 'Đọc ',
+        uk: 'Читання ',
       }),
       write: t({
         en: 'Write ',
@@ -158,6 +165,7 @@ const accessKeyFormContent = {
         pl: 'Zapis ',
         id: 'Tulis ',
         vi: 'Ghi ',
+        uk: 'Запис ',
       }),
       admin: 'Admin',
       organization: t({
@@ -178,6 +186,7 @@ const accessKeyFormContent = {
         pl: 'Organizacja: ',
         id: 'Organisasi: ',
         vi: 'Tổ chức: ',
+        uk: 'Організація: ',
       }),
       project: t({
         en: 'Project: ',
@@ -197,6 +206,7 @@ const accessKeyFormContent = {
         pl: 'Projekt: ',
         id: 'Proyek: ',
         vi: 'Dự án: ',
+        uk: 'Проєкт: ',
       }),
       dictionary: t({
         en: 'Dictionary: ',
@@ -216,6 +226,7 @@ const accessKeyFormContent = {
         pl: 'Słownik: ',
         id: 'Dictionary: ',
         vi: 'Từ điển: ',
+        uk: 'Словник: ',
       }),
     },
     labels: {
@@ -239,6 +250,7 @@ const accessKeyFormContent = {
         pl: 'Dodano',
         id: 'Ditambahkan pada',
         vi: 'Đã thêm vào',
+        uk: 'Додано',
       }),
       expireOn: t({
         en: 'Expire on',
@@ -258,6 +270,7 @@ const accessKeyFormContent = {
         pl: 'Wygasa',
         id: 'Berakhir pada',
         vi: 'Hết hạn vào',
+        uk: 'Термін дії закінчується',
       }),
       deleteButtonText: t({
         en: 'Delete',
@@ -277,6 +290,7 @@ const accessKeyFormContent = {
         pl: 'Usuń',
         id: 'Hapus',
         vi: 'Xóa',
+        uk: 'Видалити',
       }),
       deleteButtonLabel: t({
         en: 'Delete the access key',
@@ -296,6 +310,7 @@ const accessKeyFormContent = {
         pl: 'Usuń klucz dostępu',
         id: 'Hapus the access key',
         vi: 'Xóa khóa truy cập',
+        uk: 'Видалити ключ доступу',
       }),
       refreshButtonText: t({
         en: 'Refresh',
@@ -315,6 +330,7 @@ const accessKeyFormContent = {
         pl: 'Odśwież',
         id: 'Segarkan',
         vi: 'Làm mới',
+        uk: 'Оновити',
       }),
       refreshButtonLabel: t({
         en: 'Refresh the access key secret key',
@@ -334,6 +350,7 @@ const accessKeyFormContent = {
         pl: 'Odśwież sekret klucza dostępu',
         id: 'Segarkan secret key dari access key',
         vi: 'Làm mới khóa bí mật của khóa truy cập',
+        uk: 'Оновити секретний ключ доступу',
       }),
     },
     modal: {
@@ -355,6 +372,7 @@ const accessKeyFormContent = {
         pl: 'Czy na pewno chcesz usunąć ten klucz dostępu?',
         id: 'Anda yakin ingin menghapus access key ini?',
         vi: 'Bạn có chắc chắn muốn xóa khóa truy cập này không?',
+        uk: 'Ви впевнені, що хочете видалити цей ключ доступу?',
       }),
       updateTitle: t({
         en: 'Are you sure you want to update this access key?',
@@ -374,6 +392,7 @@ const accessKeyFormContent = {
         pl: 'Czy na pewno chcesz zaktualizować ten klucz dostępu?',
         id: 'Anda yakin ingin memperbarui access key ini?',
         vi: 'Bạn có chắc chắn muốn cập nhật khóa truy cập này không?',
+        uk: 'Ви впевнені, що хочете оновити цей ключ доступу?',
       }),
       deleteMessage: t({
         en: 'This action CANNOT be undone. This will permanently delete the access key and if you’d like to use it in the future, you will need to create it again.',
@@ -394,6 +413,7 @@ const accessKeyFormContent = {
         pl: 'Ta operacja NIE MOŻE zostać cofnięta. Spowoduje trwałe usunięcie klucza dostępu, a jeśli będziesz chciał go użyć w przyszłości, będziesz musiał utworzyć go ponownie.',
         id: 'Tindakan ini TIDAK dapat dibatalkan. Ini akan menghapus access key secara permanen dan jika Anda ingin menggunakannya di masa mendatang, Anda perlu membuatnya kembali.',
         vi: 'Hành động này KHÔNG THỂ hoàn tác. Hành động này sẽ xóa vĩnh viễn khóa truy cập và nếu bạn muốn sử dụng lại trong tương lai, bạn sẽ cần tạo lại.',
+        uk: 'Цю дію НЕМОЖЛИВО скасувати. Це назавжди видалить ключ доступу, і якщо ви захочете використовувати його в майбутньому, вам доведеться створити його заново.',
       }),
       updateMessage: t({
         en: 'This action will generate a new client secret. The old secret will no longer be valid. Please make sure to update your configurations accordingly.',
@@ -414,6 +434,7 @@ const accessKeyFormContent = {
         pl: 'Ta operacja wygeneruje nowy sekret klienta. Stary sekret przestanie być ważny. Upewnij się, że odpowiednio zaktualizujesz swoje konfiguracje.',
         id: 'Tindakan ini akan menghasilkan client secret baru. Secret lama tidak akan lagi berlaku. Pastikan untuk memperbarui konfigurasi Anda sesuai.',
         vi: 'Hành động này sẽ tạo một client secret mới. Secret cũ sẽ không còn hợp lệ. Vui lòng cập nhật cấu hình của bạn tương ứng.',
+        uk: 'Ця дія згенерує новий секрет клієнта. Старий секрет більше не буде дійсним. Будь ласка, переконайтеся, що відповідно оновили свої налаштування.',
       }),
       deleteButtonLabel: t({
         en: 'Delete the access key',
@@ -433,6 +454,7 @@ const accessKeyFormContent = {
         pl: 'Usuń klucz dostępu',
         id: 'Hapus the access key',
         vi: 'Xóa khóa truy cập',
+        uk: 'Видалити ключ доступу',
       }),
       updateButtonLabel: t({
         en: 'Update the access key',
@@ -452,6 +474,7 @@ const accessKeyFormContent = {
         pl: 'Aktualizuj klucz dostępu',
         id: 'Perbarui the access key',
         vi: 'Cập nhật khóa truy cập',
+        uk: 'Оновити ключ доступу',
       }),
       deleteConfirmText: t({
         en: 'I understand, delete the access key',
@@ -471,6 +494,7 @@ const accessKeyFormContent = {
         pl: 'Rozumiem, usuń klucz dostępu',
         id: 'Saya mengerti, hapus the access key',
         vi: 'Tôi đã hiểu, xóa khóa truy cập',
+        uk: 'Я розумію, видаліть ключ доступу',
       }),
       updateConfirmText: t({
         en: 'I understand, update the access key',
@@ -490,6 +514,7 @@ const accessKeyFormContent = {
         pl: 'Rozumiem, zaktualizuj klucz dostępu',
         id: 'Saya mengerti, perbarui the access key',
         vi: 'Tôi đã hiểu, cập nhật khóa truy cập',
+        uk: 'Я розумію, оновіть ключ доступу',
       }),
     },
 
@@ -510,6 +535,7 @@ const accessKeyFormContent = {
         pt: '1 - Crie uma chave de acesso',
         ru: '1 - Создайте ключ доступа',
         tr: '1 - Bir erişim anahtarı oluşturun',
+        uk: '1 - Створіть ключ доступу',
         vi: '1 - Tạo một khóa truy cập',
         zh: '1 - 创建访问密钥',
       }),
@@ -529,6 +555,7 @@ const accessKeyFormContent = {
         pt: '2 - Copie a chave de acesso para o arquivo de configuração do Intlayer',
         ru: '2 - Скопируйте ключ доступа в файл конфигурации Intlayer',
         tr: '2 - Erişim anahtarını intlayer yapılandırma dosyanıza kopyalayın',
+        uk: '2 - Скопіюйте ключ доступу у файл конфігурації intlayer',
         vi: '2 - Sao chép khóa truy cập vào tệp cấu hình intlayer của bạn',
         zh: '2 - 将访问密钥复制到Intlayer配置文件中',
       }),
@@ -553,6 +580,7 @@ const accessKeyFormContent = {
       pl: 'Klucze dostępu są osobiste i nie należy ich udostępniać innym. Przechowuj je bezpiecznie, np. w zmiennych środowiskowych.',
       id: 'Access key bersifat pribadi dan tidak boleh dibagikan kepada orang lain. Pastikan menyimpan access key ini dengan aman, misalnya di environment variables.',
       vi: 'Khóa truy cập là thông tin cá nhân và không nên chia sẻ với người khác. Hãy lưu trữ các khóa truy cập này một cách an toàn, ví dụ bằng biến môi trường.',
+      uk: 'Ключі доступу є особистими і не повинні передаватися іншим. Зберігайте їх у безпечному місці, наприклад у змінних середовища.',
     }),
   },
   title: 'Access key form',

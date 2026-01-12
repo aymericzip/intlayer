@@ -21,6 +21,7 @@ const applicationTemplateMessageContent = {
       pl: 'Zobacz szablon aplikacji na GitHubie',
       id: 'Lihat template aplikasi di GitHub',
       vi: 'Xem mẫu ứng dụng trên GitHub',
+      uk: 'Переглянути шаблон додатку на GitHub',
     }),
     description: t({
       ar: 'هذه الصفحة لديها قالب تطبيق متاح.',
@@ -40,6 +41,7 @@ const applicationTemplateMessageContent = {
       pl: 'Na tej stronie dostępny jest szablon aplikacji.',
       id: 'Halaman ini memiliki template aplikasi yang tersedia.',
       vi: 'Trang này có một mẫu ứng dụng có sẵn.',
+      uk: 'На цій сторінці доступний шаблон додатку.',
     }),
     label: t({
       ar: 'عرض قالب التطبيق',
@@ -59,6 +61,7 @@ const applicationTemplateMessageContent = {
       pl: 'Zobacz szablon aplikacji',
       id: 'Lihat template aplikasi',
       vi: 'Xem mẫu ứng dụng',
+      uk: 'Переглянути шаблон додатку',
     }),
   },
   title: 'Application template message',

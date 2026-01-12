@@ -22,6 +22,7 @@ const verifyEmailFormContent = {
         pl: 'Potwierdź swój adres e-mail',
         id: 'Verifikasi email Anda',
         vi: 'Xác minh email của bạn',
+        uk: 'Підтвердіть свою електронну адресу',
       }),
       description: t({
         en: 'We sent you an email to verify your email address. Please check your inbox and click on the link to verify your email.',
@@ -42,6 +43,7 @@ const verifyEmailFormContent = {
         pl: 'Wysłaliśmy wiadomość e-mail z prośbą o potwierdzenie adresu. Sprawdź swoją skrzynkę odbiorczą i kliknij w link, aby potwierdzić adres e-mail.',
         id: 'Kami telah mengirimkan email untuk memverifikasi alamat email Anda. Silakan periksa kotak masuk Anda dan klik tautan untuk memverifikasi email.',
         vi: 'Chúng tôi đã gửi cho bạn một email để xác minh địa chỉ email. Vui lòng kiểm tra hộp thư đến và nhấp vào liên kết để xác minh email của bạn.',
+        uk: 'Ми надіслали вам листа з посиланням для підтвердження адреси електронної пошти. Перевірте поштову скриньку та натисніть посилання в листі, щоб підтвердити адресу.',
       }),
     },
     doneButton: {
@@ -63,6 +65,7 @@ const verifyEmailFormContent = {
         pl: 'Gotowe',
         id: 'Selesai',
         vi: 'Xong',
+        uk: 'Готово',
       }),
       ariaLabel: t({
         en: 'Click to return to the previous page',
@@ -82,6 +85,7 @@ const verifyEmailFormContent = {
         pl: 'Kliknij, aby wrócić do poprzedniej strony',
         id: 'Klik untuk kembali ke halaman sebelumnya',
         vi: 'Nhấp để quay về trang trước',
+        uk: 'Натисніть, щоб повернутися на попередню сторінку',
       }),
     },
   },

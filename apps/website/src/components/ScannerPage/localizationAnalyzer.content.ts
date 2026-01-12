@@ -21,6 +21,7 @@ const localizationAnalyzerContent = {
       vi: 'Phân tích điểm số bản địa hóa toàn cầu của trang web của bạn',
       ar: 'حلل درجة التوطين العالمية لموقعك',
       'en-GB': "Analyse Your Website's Global Localisation Score",
+      uk: 'Проаналізуйте глобальний показник локалізації вашого сайту',
     }),
     description: t({
       en: 'Quickly and for free, evaluate the localization quality of your website. Analyze principal multilingual elements to get a comprehensive score and actionable insights for improving your reach.',
@@ -41,6 +42,7 @@ const localizationAnalyzerContent = {
       ar: 'قيّم بسرعة وبالمجان جودة التوطين لموقعك الإلكتروني. حلّل العناصر الرئيسية متعددة اللغات للحصول على درجة شاملة ورؤى قابلة للتنفيذ لتحسين وصولك.',
       'en-GB':
         'Quickly and free of charge, evaluate the localisation quality of your website. Analyse key multilingual elements to get a comprehensive score and actionable insights to improve your reach.',
+      uk: 'Швидко та безкоштовно оцініть якість локалізації вашого сайту. Проаналізуйте основні багатомовні елементи, щоб отримати загальний показник та практичні рекомендації для розширення охоплення.',
     }),
     error: t({
       en: 'Unable to analyze site.',
@@ -60,6 +62,7 @@ const localizationAnalyzerContent = {
       vi: 'Không thể phân tích trang web.',
       ar: 'يتعذر تحليل الموقع.',
       'en-GB': 'Unable to analyse site.',
+      uk: 'Не вдалося проаналізувати сайт.',
     }),
     globalError: t({
       en: 'An error occurred while analyzing the site. Please check if the website is scrollable by a bot. The scanner may be blocked by CORS policies, firewalls, or other blockers that restrict traffic.',
@@ -80,6 +83,7 @@ const localizationAnalyzerContent = {
       ar: 'حدث خطأ أثناء تحليل الموقع. يرجى التحقق مما إذا كان الموقع قابلاً للتمرير بواسطة روبوت. قد يكون الماسح الضوئي محظورًا بسبب سياسات CORS أو جدران الحماية أو أدوات الحظر الأخرى التي تقيد حركة المرور.',
       'en-GB':
         'An error occurred while analysing the site. Please check if the website is scrollable by a bot. The scanner may be blocked by CORS policies, firewalls, or other blockers that restrict traffic.',
+      uk: 'Під час аналізу сайту сталася помилка. Перевірте, чи сайт можна прокрутити ботом. Сканер може блокуватися політиками CORS, брандмауерами або іншими блокувальниками, які обмежують трафік.',
     }),
   },
   title: 'Localization Analyzer texts',

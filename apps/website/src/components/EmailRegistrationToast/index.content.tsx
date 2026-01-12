@@ -22,6 +22,7 @@ const productHuntContent = {
       pl: 'Otrzymuj powiadomienia o nadchodzących wydaniach Intlayera',
       id: 'Terima notifikasi tentang rilis Intlayer yang akan datang',
       vi: 'Nhận thông báo về các bản phát hành sắp tới của Intlayer',
+      uk: 'Отримуйте сповіщення про майбутні випуски Intlayer',
     }),
     closeLabel: t({
       ar: 'إغلاق',
@@ -41,6 +42,7 @@ const productHuntContent = {
       pl: 'Zamknij',
       id: 'Tutup',
       vi: 'Đóng',
+      uk: 'Закрити',
     }),
     registerLabel: t({
       ar: 'أبقني على اطلاع',
@@ -60,6 +62,7 @@ const productHuntContent = {
       pl: 'Informuj mnie',
       id: 'Tetap beri tahu saya',
       vi: 'Thông báo cho tôi',
+      uk: 'Повідомляйте мене',
     }),
     emailInput: {
       placeholder: t({
@@ -80,6 +83,7 @@ const productHuntContent = {
         pl: 'Wprowadź adres e-mail',
         id: 'Masukkan alamat e-mail',
         vi: 'Nhập địa chỉ email',
+        uk: 'Введіть електронну адресу',
       }),
     },
     requiredErrorEmail: t({
@@ -100,6 +104,7 @@ const productHuntContent = {
       pl: 'Proszę podać nazwę użytkownika',
       id: 'Harap masukkan username Anda',
       vi: 'Vui lòng nhập tên người dùng của bạn',
+      uk: "Будь ласка, введіть ім'я користувача",
     }),
 
     invalidTypeErrorEmail: t({
@@ -120,6 +125,7 @@ const productHuntContent = {
       pl: 'Proszę podać poprawną nazwę użytkownika',
       id: 'Harap masukkan username yang valid',
       vi: 'Vui lòng nhập tên người dùng hợp lệ',
+      uk: "Будь ласка, введіть дійсне ім'я користувача",
     }),
   },
   title: 'Email registration toast',

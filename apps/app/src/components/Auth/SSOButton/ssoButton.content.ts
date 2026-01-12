@@ -23,6 +23,7 @@ const ssoButtonContent = {
       nl: 'Inloggen met Single Sign-On',
       id: 'Masuk dengan Single Sign-On',
       vi: 'Đăng nhập bằng Single Sign-On',
+      uk: 'Увійти через єдиний вхід (SSO)',
     }),
     modalTitle: t({
       en: 'Sign in with SSO',
@@ -43,6 +44,7 @@ const ssoButtonContent = {
       nl: 'Inloggen met SSO',
       id: 'Masuk dengan SSO',
       vi: 'Đăng nhập bằng SSO',
+      uk: 'Увійти через SSO',
     }),
     domainInputLabel: t({
       en: 'Enter your organization domain',
@@ -63,6 +65,7 @@ const ssoButtonContent = {
       nl: 'Voer uw organisatiedomein in',
       id: 'Masukkan domain organisasi Anda',
       vi: 'Nhập tên miền tổ chức của bạn',
+      uk: 'Введіть домен вашої організації',
     }),
     domainInputPlaceholder: 'example.com',
     cancelButton: t({
@@ -84,6 +87,7 @@ const ssoButtonContent = {
       nl: 'Annuleren',
       id: 'Batal',
       vi: 'Hủy',
+      uk: 'Скасувати',
     }),
     submitButton: t({
       en: 'Continue',
@@ -104,6 +108,7 @@ const ssoButtonContent = {
       nl: 'Doorgaan',
       id: 'Lanjutkan',
       vi: 'Tiếp tục',
+      uk: 'Продовжити',
     }),
     fetchingConfig: t({
       en: 'Looking up SSO configuration...',
@@ -124,6 +129,7 @@ const ssoButtonContent = {
       nl: 'SSO-configuratie opzoeken...',
       id: 'Mencari konfigurasi SSO...',
       vi: 'Đang tìm kiếm cấu hình SSO...',
+      uk: 'Перевіряється конфігурація SSO...',
     }),
     noSSOConfigured: t({
       en: 'No SSO configured for this domain',
@@ -144,6 +150,7 @@ const ssoButtonContent = {
       nl: 'Geen SSO geconfigureerd voor dit domein',
       id: 'Tidak ada SSO yang dikonfigurasi untuk domain ini',
       vi: 'Chưa cấu hình SSO cho tên miền này',
+      uk: 'SSO не налаштовано для цього домену',
     }),
   },
   title: 'SSO Button',

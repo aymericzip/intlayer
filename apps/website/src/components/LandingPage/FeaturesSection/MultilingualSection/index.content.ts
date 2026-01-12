@@ -21,6 +21,7 @@ const multilingualSectionContent = {
       pl: 'Autogenerowana zawartość w ',
       id: 'Konten yang dibuat secara otomatis di ',
       vi: 'Nội dung được tạo tự động bằng ',
+      uk: 'Автоматично згенерований вміст у ',
     }),
   },
   title: 'Multilingual section',

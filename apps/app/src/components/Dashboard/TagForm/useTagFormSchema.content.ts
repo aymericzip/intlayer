@@ -21,6 +21,7 @@ const content = {
       pl: 'Proszę podać klucz tagu.',
       id: 'Silakan masukkan key untuk tag Anda',
       vi: 'Vui lòng nhập key cho tag của bạn',
+      uk: 'Будь ласка, введіть ключ для вашого тегу',
     }),
 
     invalidTypeErrorKey: t({
@@ -41,6 +42,7 @@ const content = {
       pl: 'Proszę podać prawidłowy klucz tagu.',
       id: 'Silakan masukkan key yang valid untuk tag Anda',
       vi: 'Vui lòng nhập một tag hợp lệ cho tag của bạn',
+      uk: 'Будь ласка, введіть коректний тег для вашого тегу',
     }),
 
     requiredErrorName: t({
@@ -61,6 +63,7 @@ const content = {
       pl: 'Proszę podać klucz tagu.',
       id: 'Silakan masukkan key untuk tag Anda',
       vi: 'Vui lòng nhập key cho tag của bạn',
+      uk: 'Будь ласка, введіть ключ для вашого тегу',
     }),
 
     invalidTypeErrorName: t({
@@ -81,6 +84,7 @@ const content = {
       pl: 'Proszę podać prawidłowy klucz tagu.',
       id: 'Silakan masukkan key yang valid untuk tag Anda',
       vi: 'Vui lòng nhập một tag hợp lệ cho tag của bạn',
+      uk: 'Будь ласка, введіть коректний тег для вашого тегу',
     }),
 
     invalidTypeErrorDescription: t({
@@ -101,6 +105,7 @@ const content = {
       pl: 'Proszę podać prawidłowy opis tagu.',
       id: 'Silakan masukkan deskripsi yang valid untuk tag Anda',
       vi: 'Vui lòng nhập một description hợp lệ cho tag của bạn',
+      uk: 'Будь ласка, введіть коректний опис для вашого тегу',
     }),
 
     requiredErrorDescription: t({
@@ -121,6 +126,7 @@ const content = {
       pl: 'Proszę podać opis tagu.',
       id: 'Silakan masukkan deskripsi untuk tag Anda',
       vi: 'Vui lòng nhập description cho tag của bạn',
+      uk: 'Будь ласка, введіть опис для вашого тегу',
     }),
 
     requiredErrorInstructions: t({
@@ -141,6 +147,7 @@ const content = {
       pl: 'Proszę podać instrukcje dla tagu.',
       id: 'Silakan masukkan instruksi untuk tag Anda',
       vi: 'Vui lòng nhập instructions cho tag của bạn',
+      uk: 'Будь ласка, введіть інструкції для вашого тегу',
     }),
 
     invalidTypeErrorInstructions: t({
@@ -161,6 +168,7 @@ const content = {
       pl: 'Proszę podać prawidłowe instrukcje dla tagu.',
       id: 'Silakan masukkan instruksi yang valid untuk tag Anda',
       vi: 'Vui lòng nhập instructions hợp lệ cho tag của bạn',
+      uk: 'Будь ласка, введіть коректні інструкції для вашого тегу',
     }),
   },
   title: 'Tag form schema',

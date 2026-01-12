@@ -21,6 +21,7 @@ const twoFactorAuthContent = {
       pl: 'Uwierzytelnianie dwuskładnikowe',
       id: 'Otentikasi Dua Faktor',
       vi: 'Xác thực hai yếu tố',
+      uk: 'Двофакторна автентифікація',
     }),
     title2: t({
       en: 'Verify Your Identity',
@@ -40,6 +41,7 @@ const twoFactorAuthContent = {
       pl: 'Zweryfikuj swoją tożsamość',
       id: 'Verifikasi Identitas Anda',
       vi: 'Xác minh danh tính của bạn',
+      uk: 'Підтвердіть свою особу',
     }),
     description: t({
       en: 'Enter the verification code from your authenticator app or use a backup code to complete your login.',
@@ -60,6 +62,7 @@ const twoFactorAuthContent = {
       pl: 'Wprowadź kod weryfikacyjny z aplikacji uwierzytelniającej lub użyj kodu zapasowego, aby dokończyć logowanie.',
       id: 'Masukkan kode verifikasi dari aplikasi autentikator Anda atau gunakan kode cadangan untuk menyelesaikan login Anda.',
       vi: 'Nhập mã xác minh từ ứng dụng xác thực của bạn hoặc sử dụng mã dự phòng để hoàn tất đăng nhập.',
+      uk: 'Введіть код підтвердження з вашого додатка для автентифікації або скористайтеся резервним кодом, щоб завершити вхід.',
     }),
   },
   title: '2FA page content',

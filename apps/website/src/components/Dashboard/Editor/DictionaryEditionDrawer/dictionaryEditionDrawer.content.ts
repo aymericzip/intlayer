@@ -18,6 +18,11 @@ const dictionaryEditionDrawerContent = {
         ar: 'انقر لفتح قاموس في المحرر',
         ru: 'Нажмите, чтобы открыть словарь в редакторе',
         'en-GB': 'Click to open the dictionary in the editor',
+        tr: 'Sözlüğü düzenleyicide aç',
+        pl: 'Otwórz słownik w edytorze',
+        id: 'Buka Kamus di Editor',
+        vi: 'Mở từ điển trong trình chỉnh sửa',
+        uk: 'Відкрити словник у редакторі',
       }),
       label: t({
         en: 'Click to open the dictionary in the editor',
@@ -37,6 +42,7 @@ const dictionaryEditionDrawerContent = {
         pl: 'Kliknij, aby otworzyć słownik w edytorze',
         id: 'Klik untuk membuka dictionary di editor',
         vi: 'Nhấp để mở từ điển trong trình chỉnh sửa',
+        uk: 'Натисніть, щоб відкрити словник у редакторі',
       }),
     },
     backButtonText: t({
@@ -57,6 +63,7 @@ const dictionaryEditionDrawerContent = {
       pl: 'Lista słowników',
       id: 'Daftar dictionary',
       vi: 'Danh sách từ điển',
+      uk: 'Список словників',
     }),
     modalTitle: t({
       ar: 'تحرير قاموس',
@@ -76,6 +83,7 @@ const dictionaryEditionDrawerContent = {
       pl: 'Edytuj słownik',
       id: 'Edit dictionary',
       vi: 'Chỉnh sửa từ điển',
+      uk: 'Редагувати словник',
     }),
     noDictionaryFocused: t({
       ar: 'لا يوجد قاموس مرتبط',
@@ -95,6 +103,7 @@ const dictionaryEditionDrawerContent = {
       pl: 'Nie wybrano słownika',
       id: 'Tidak ada dictionary yang dipilih',
       vi: 'Không có từ điển nào được chọn',
+      uk: 'Жоден словник не вибрано',
     }),
     focusedDictionaryNotFound: t({
       ar: 'لا يوجد قاموس مرتبط',
@@ -114,6 +123,7 @@ const dictionaryEditionDrawerContent = {
       pl: 'Nie znaleziono zaznaczonego słownika',
       id: 'Dictionary yang dipilih tidak ditemukan',
       vi: 'Không tìm thấy từ điển được chọn',
+      uk: 'Обраний словник не знайдено',
     }),
   },
   title: 'Dictionary edition drawer',

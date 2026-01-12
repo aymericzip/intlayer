@@ -21,6 +21,7 @@ const profileFormContent = {
       pl: 'Szczegóły profilu',
       id: 'Detail profil',
       vi: 'Chi tiết hồ sơ',
+      uk: 'Деталі профілю',
     }),
     nameInput: {
       label: t({
@@ -41,6 +42,7 @@ const profileFormContent = {
         pl: 'Imię',
         id: 'Nama',
         vi: 'Tên',
+        uk: "Ім'я",
       }),
       placeholder: t({
         en: 'Enter your name',
@@ -60,6 +62,7 @@ const profileFormContent = {
         pl: 'Wpisz swoje imię',
         id: 'Masukkan nama Anda',
         vi: 'Nhập tên của bạn',
+        uk: "Введіть своє ім'я",
       }),
     },
 
@@ -82,6 +85,7 @@ const profileFormContent = {
         pl: 'E-mail',
         id: 'Email',
         vi: 'Email',
+        uk: 'Електронна адреса',
       }),
       placeholder: t({
         en: 'Enter your email address',
@@ -101,6 +105,7 @@ const profileFormContent = {
         pl: 'Wpisz swój adres e-mail',
         id: 'Masukkan alamat email Anda',
         vi: 'Nhập địa chỉ email của bạn',
+        uk: 'Введіть свою електронну адресу',
       }),
     },
 
@@ -123,6 +128,7 @@ const profileFormContent = {
         pl: 'Edytuj profil',
         id: 'Sunting profil',
         vi: 'Chỉnh sửa hồ sơ',
+        uk: 'Редагувати профіль',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -142,6 +148,7 @@ const profileFormContent = {
         pl: 'Kliknij, aby edytować',
         id: 'Klik untuk mengedit',
         vi: 'Nhấn để chỉnh sửa',
+        uk: 'Натисніть, щоб редагувати',
       }),
     },
 
@@ -163,6 +170,7 @@ const profileFormContent = {
       pl: 'Zmień hasło',
       id: 'Ubah kata sandi',
       vi: 'Đổi mật khẩu',
+      uk: 'Змінити пароль',
     }),
 
     twoFactorTitle: t({
@@ -183,6 +191,7 @@ const profileFormContent = {
       pl: 'Uwierzytelnianie dwuskładnikowe',
       id: 'Autentikasi Dua Faktor',
       vi: 'Xác thực hai yếu tố',
+      uk: 'Двофакторна автентифікація',
     }),
 
     passkeyTitle: t({
@@ -203,6 +212,7 @@ const profileFormContent = {
       pl: 'Klucze dostępu',
       id: 'Kunci Sandi',
       vi: 'Khóa truy cập',
+      uk: 'Ключі доступу',
     }),
   },
   title: 'Profile form',

@@ -21,6 +21,7 @@ const checkingApplicationStatusViewContent = {
       pl: 'Sprawdzanie stanu aplikacji',
       id: 'Memeriksa status aplikasi',
       vi: 'Đang kiểm tra trạng thái ứng dụng',
+      uk: 'Перевірка стану застосунку',
     }),
   },
   title: 'Checking application status view',

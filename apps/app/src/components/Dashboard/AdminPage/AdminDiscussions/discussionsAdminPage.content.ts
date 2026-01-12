@@ -21,6 +21,7 @@ const discussionsAdminPageContent = {
       pl: 'Zarządzanie dyskusjami',
       id: 'Manajemen Diskusi',
       vi: 'Quản lý thảo luận',
+      uk: 'Керування обговореннями',
     }),
 
     tableHeaders: {
@@ -43,6 +44,7 @@ const discussionsAdminPageContent = {
         pl: 'Użytkownik',
         id: 'Pengguna',
         vi: 'Người dùng',
+        uk: 'Користувач',
       }),
       numberOfMessages: t({
         en: 'Messages',
@@ -62,6 +64,7 @@ const discussionsAdminPageContent = {
         pl: 'Wiadomości',
         id: 'Pesan',
         vi: 'Số tin nhắn',
+        uk: 'Повідомлення',
       }),
       createdAt: t({
         en: 'Created At',
@@ -81,6 +84,7 @@ const discussionsAdminPageContent = {
         pl: 'Utworzono',
         id: 'Dibuat pada',
         vi: 'Ngày tạo',
+        uk: 'Дата створення',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -100,6 +104,7 @@ const discussionsAdminPageContent = {
         pl: 'Zaktualizowano',
         id: 'Diperbarui pada',
         vi: 'Ngày cập nhật',
+        uk: 'Дата оновлення',
       }),
     },
     noData: t({
@@ -120,6 +125,7 @@ const discussionsAdminPageContent = {
       pl: 'Brak danych',
       id: 'N/A',
       vi: 'Không có dữ liệu',
+      uk: 'Немає даних',
     }),
     errorMessages: {
       loadingError: t({
@@ -140,6 +146,7 @@ const discussionsAdminPageContent = {
         pl: 'Błąd podczas ładowania dyskusji',
         id: 'Gagal memuat diskusi',
         vi: 'Lỗi khi tải thảo luận',
+        uk: 'Помилка під час завантаження обговорень',
       }),
     },
     searchPlaceholder: t({
@@ -160,6 +167,7 @@ const discussionsAdminPageContent = {
       pl: 'Szukaj dyskusji...',
       id: 'Cari diskusi...',
       vi: 'Tìm kiếm thảo luận...',
+      uk: 'Пошук обговорень...',
     }),
     noDiscussionFound: t({
       en: 'Discussion not found',
@@ -179,6 +187,7 @@ const discussionsAdminPageContent = {
       pl: 'Nie znaleziono dyskusji',
       id: 'Diskusi tidak ditemukan',
       vi: 'Không tìm thấy thảo luận',
+      uk: 'Обговорення не знайдено',
     }),
     modalTitle: insert(
       t({
@@ -197,6 +206,7 @@ const discussionsAdminPageContent = {
         pt: 'Detalhes da discussão - ID: {{discussionId}}',
         ru: 'Подробности обсуждения - ID: {{discussionId}}',
         tr: 'Tartışma ayrıntıları - ID: {{discussionId}}',
+        uk: 'Деталі обговорення — ID: {{discussionId}}',
         vi: 'Chi tiết thảo luận - ID: {{discussionId}}',
         zh: '讨论详细信息 - ID: {{discussionId}}',
       })

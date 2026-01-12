@@ -4,7 +4,7 @@ const tmsSectionContent = {
   key: 'tms-section',
   title: 'TMS Alternative Section',
   description:
-    'Section focusing on Intlayer as an alternative to Crowdin, Lokalise, and Locize.',
+    'Section highlighting Intlayer as an open-source TMS alternative to Crowdin, Lokalise, and Locize. Describes AI-assisted translation, code and visual-editor workflows, and collaboration without seat limits.',
   content: {
     heroTag: 'Intlayer TMS',
     heroTitle: t({
@@ -25,6 +25,7 @@ const tmsSectionContent = {
       pl: 'Przestań płacić za słowo. Automatyzuj za pomocą AI.',
       id: 'Berhenti membayar per kata. Otomatiskan dengan AI.',
       vi: 'Ngừng trả tiền theo từ. Tự động hóa bằng AI.',
+      uk: 'Не платіть за кожне слово. Автоматизуйте за допомогою ШІ.',
     }),
     heroSubtitle: t({
       en: 'The open-source alternative to Crowdin & Lokalise. Built for modern developer workflows.',
@@ -45,6 +46,7 @@ const tmsSectionContent = {
       pl: 'Alternatywa open-source dla Crowdin i Lokalise. Zbudowana dla nowoczesnych przepływów pracy deweloperów.',
       id: 'Alternatif open-source untuk Crowdin & Lokalise. Dibangun untuk alur kerja pengembang modern.',
       vi: 'Giải pháp mã nguồn mở thay thế cho Crowdin & Lokalise. Được xây dựng cho quy trình làm việc của nhà phát triển hiện đại.',
+      uk: 'Альтернатива з відкритим кодом для Crowdin і Lokalise. Створено для сучасних робочих процесів розробників.',
     }),
     heroDescription: t({
       en: 'Manage translations directly in your code or via the visual editor. Leverage AI to translate instantly. Collaborate with your team without seat limits.',
@@ -65,6 +67,7 @@ const tmsSectionContent = {
       pl: 'Zarządzaj tłumaczeniami bezpośrednio w kodzie lub za pomocą edytora wizualnego. Wykorzystaj AI do natychmiastowego tłumaczenia. Współpracuj z zespołem bez limitów miejsc.',
       id: 'Kelola terjemahan langsung di kode Anda atau melalui editor visual. Manfaatkan AI untuk menerjemahkan secara instan. Berkolaborasi dengan tim Anda tanpa batas kursi.',
       vi: 'Quản lý bản dịch trực tiếp trong mã của bạn hoặc qua trình chỉnh sửa trực quan. Tận dụng AI để dịch ngay lập tức. Cộng tác với nhóm của bạn mà không giới hạn chỗ ngồi.',
+      uk: 'Керуйте перекладами безпосередньо в коді або через візуальний редактор. Використовуйте ШІ для миттєвого перекладу. Співпрацюйте з командою без обмежень щодо кількості користувачів.',
     }),
     primaryCta: t({
       en: 'See TMS',
@@ -84,8 +87,16 @@ const tmsSectionContent = {
       pl: 'Zobacz TMS',
       id: 'Lihat TMS',
       vi: 'Xem TMS',
+      uk: 'Переглянути TMS',
     }),
   },
+  tags: [
+    'tms',
+    'localization',
+    'translations',
+    'landing page',
+    'product section',
+  ],
 } satisfies Dictionary;
 
 export default tmsSectionContent;

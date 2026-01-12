@@ -30,6 +30,7 @@ const whyToChoseIntlayerContent = {
       pl: 'Dlaczego warto wybrać Intlayer?',
       id: 'Mengapa memilih Intlayer?',
       vi: 'Tại sao chọn Intlayer?',
+      uk: 'Чому обрати Intlayer?',
     }),
     content: [
       {
@@ -51,6 +52,7 @@ const whyToChoseIntlayerContent = {
           pl: 'Darmowy i otwartoźródłowy',
           id: 'Gratis dan Sumber Terbuka',
           vi: 'Miễn phí và mã nguồn mở',
+          uk: 'Безкоштовний та з відкритим вихідним кодом',
         }),
         description: t({
           en: 'Intlayer is free and open source, allowing you to use it for free and contribute to suit your needs.',
@@ -71,6 +73,7 @@ const whyToChoseIntlayerContent = {
           pl: 'Intlayer jest darmowy i otwartoźródłowy, co pozwala na jego bezpłatne używanie oraz współtworzenie i dostosowywanie do własnych potrzeb.',
           id: 'Intlayer gratis dan sumber terbuka, memungkinkan Anda menggunakannya tanpa biaya dan berkontribusi sesuai kebutuhan Anda.',
           vi: 'Intlayer là miễn phí và mã nguồn mở, cho phép bạn sử dụng miễn phí và đóng góp để phù hợp với nhu cầu của mình.',
+          uk: 'Intlayer — безкоштовне програмне забезпечення з відкритим вихідним кодом, яке можна використовувати безкоштовно й доопрацьовувати відповідно до ваших потреб.',
         }),
         iconKey: 'free',
       },
@@ -93,6 +96,7 @@ const whyToChoseIntlayerContent = {
           pl: 'Zarządzanie treścią oparte na JavaScript',
           id: 'Manajemen Konten Berbasis JavaScript',
           vi: 'Quản lý nội dung bằng JavaScript',
+          uk: 'Керування контентом на основі JavaScript',
         }),
         description: t({
           en: 'Harness the flexibility of JavaScript to define and manage your content efficiently.',
@@ -113,6 +117,7 @@ const whyToChoseIntlayerContent = {
           pl: 'Wykorzystaj elastyczność JavaScriptu, aby definiować i zarządzać treścią w wydajny sposób.',
           id: 'Manfaatkan fleksibilitas JavaScript untuk mendefinisikan dan mengelola konten Anda secara efisien.',
           vi: 'Tận dụng tính linh hoạt của JavaScript để định nghĩa và quản lý nội dung một cách hiệu quả.',
+          uk: 'Використовуйте гнучкість JavaScript, щоб ефективно визначати та керувати своїм контентом.',
         }),
         iconKey: 'code',
       },
@@ -135,6 +140,7 @@ const whyToChoseIntlayerContent = {
           pl: 'Środowisko z bezpieczeństwem typów',
           id: 'Lingkungan Type-Safe',
           vi: 'Môi trường an toàn về kiểu',
+          uk: 'Типобезпечне середовище',
         }),
         description: t({
           en: 'Leverage TypeScript to ensure all your content definitions are precise and error-free.',
@@ -155,6 +161,7 @@ const whyToChoseIntlayerContent = {
           pl: 'Wykorzystaj TypeScript, aby zapewnić, że wszystkie twoje definicje treści są precyzyjne i wolne od błędów.',
           id: 'Manfaatkan TypeScript untuk memastikan semua definisi konten Anda tepat dan bebas kesalahan.',
           vi: 'Tận dụng TypeScript để đảm bảo mọi định nghĩa nội dung chính xác và không lỗi.',
+          uk: 'Використовуйте TypeScript, щоб гарантувати точність визначень контенту та уникати помилок.',
         }),
         iconKey: 'type',
       },
@@ -177,6 +184,7 @@ const whyToChoseIntlayerContent = {
           pl: 'Deklaracja na poziomie komponentu',
           id: 'Deklarasi di level komponen',
           vi: 'Khai báo ở cấp component',
+          uk: 'Оголошення на рівні компонентів',
         }),
         description: t({
           en: 'Keep your translations close to their respective components, enhancing maintainability and clarity.',
@@ -197,6 +205,7 @@ const whyToChoseIntlayerContent = {
           pl: 'Umieszczaj tłumaczenia bezpośrednio przy odpowiednich komponentach, co ułatwia utrzymanie i zwiększa czytelność.',
           id: 'Simpan terjemahan Anda dekat dengan komponen terkait, meningkatkan keterpeliharaan dan kejelasan.',
           vi: 'Giữ các bản dịch gần với component tương ứng, nâng cao khả năng bảo trì và tính rõ ràng.',
+          uk: 'Розміщуйте переклади поруч із відповідними компонентами, що підвищує зручність підтримки та зрозумілість.',
         }),
         iconKey: 'file-tree',
       },
@@ -219,6 +228,7 @@ const whyToChoseIntlayerContent = {
           pl: 'Uproszczona konfiguracja',
           id: 'Pengaturan Sederhana',
           vi: 'Cấu hình đơn giản',
+          uk: 'Спрощене налаштування',
         }),
         description: t({
           en: 'Get up and running quickly with minimal configuration, especially optimized for Next.js projects.',
@@ -239,6 +249,7 @@ const whyToChoseIntlayerContent = {
           pl: 'Szybko rozpocznij pracę przy minimalnej konfiguracji, szczególnie zoptymalizowanej pod projekty Next.js.',
           id: 'Mulai dengan cepat menggunakan konfigurasi minimal, khususnya dioptimalkan untuk proyek Next.js.',
           vi: 'Khởi động nhanh chóng với cấu hình tối thiểu, đặc biệt được tối ưu cho các dự án Next.js.',
+          uk: 'Починайте швидко з мінімальною конфігурацією, особливо оптимізовано для проєктів на Next.js.',
         }),
         iconKey: 'timer',
       },
@@ -261,6 +272,7 @@ const whyToChoseIntlayerContent = {
           pl: 'Zintegrowany CMS',
           id: 'CMS Terintegrasi',
           vi: 'CMS tích hợp',
+          uk: 'Інтегрована CMS',
         }),
         description: t({
           en: 'Edit your content on your website with an integrated CMS directly on your website. Boost content generation thanks to AI.',
@@ -281,6 +293,7 @@ const whyToChoseIntlayerContent = {
           pl: 'Edytuj treści bezpośrednio na swojej stronie dzięki zintegrowanemu CMS. Wspomagaj generowanie treści dzięki AI.',
           id: 'Sunting konten Anda langsung di situs dengan CMS terintegrasi. Tingkatkan pembuatan konten berkat AI.',
           vi: 'Chỉnh sửa nội dung trực tiếp trên trang web của bạn bằng CMS tích hợp. Tăng cường việc tạo nội dung nhờ AI.',
+          uk: 'Редагуйте контент безпосередньо на сайті за допомогою інтегрованої CMS. Прискорюйте створення контенту завдяки штучному інтелекту.',
         }),
         iconKey: 'cms',
       },

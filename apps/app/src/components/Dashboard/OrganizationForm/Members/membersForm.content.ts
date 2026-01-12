@@ -22,6 +22,7 @@ const organizationMembersFormContent = {
       pl: 'Członkowie',
       id: 'Anggota',
       vi: 'Thành viên',
+      uk: 'Учасники',
     }),
     description: t({
       en: 'Manage the members that have access and can edit your organization.',
@@ -42,6 +43,7 @@ const organizationMembersFormContent = {
       pl: 'Zarządzaj członkami, którzy mają dostęp i mogą edytować Twoją organizację.',
       id: 'Kelola anggota yang memiliki akses dan dapat mengedit organisasi Anda.',
       vi: 'Quản lý các thành viên có quyền truy cập và có thể chỉnh sửa organization của bạn.',
+      uk: 'Керуйте учасниками, які мають доступ і можуть редагувати вашу організацію.',
     }),
     deleteMemberButton: {
       label: t({
@@ -62,6 +64,7 @@ const organizationMembersFormContent = {
         pl: 'Usuń',
         id: 'Hapus',
         vi: 'Xóa',
+        uk: 'Видалити',
       }),
     },
     noMembers: t({
@@ -82,6 +85,7 @@ const organizationMembersFormContent = {
       pl: 'Brak członków',
       id: 'Tidak ada anggota',
       vi: 'Không có thành viên',
+      uk: 'Немає учасників',
     }),
 
     newMemberEmailInput: {
@@ -103,6 +107,7 @@ const organizationMembersFormContent = {
         pl: 'Dodaj członka',
         id: 'Tambahkan anggota',
         vi: 'Thêm thành viên',
+        uk: 'Додати учасника',
       }),
       placeholder: t({
         en: 'Enter an email address',
@@ -122,6 +127,7 @@ const organizationMembersFormContent = {
         pl: 'Wprowadź adres e-mail',
         id: 'Masukkan alamat email',
         vi: 'Nhập địa chỉ email',
+        uk: 'Введіть електронну адресу',
       }),
 
       description: t({
@@ -143,6 +149,7 @@ const organizationMembersFormContent = {
         pl: 'Dodaj członków do swojej organizacji, wpisując ich adresy e-mail.',
         id: 'Tambahkan anggota ke organisasi Anda dengan memasukkan alamat email mereka.',
         vi: 'Thêm thành viên vào organization của bạn bằng cách nhập địa chỉ email của họ.',
+        uk: 'Додавайте учасників до організації, вводячи їх електронні адреси.',
       }),
     },
 
@@ -165,6 +172,7 @@ const organizationMembersFormContent = {
         pl: 'Dodaj członka',
         id: 'Tambahkan anggota',
         vi: 'Thêm thành viên',
+        uk: 'Додати учасника',
       }),
       text: t({
         en: 'Add',
@@ -184,6 +192,7 @@ const organizationMembersFormContent = {
         pl: 'Dodaj',
         id: 'Tambah',
         vi: 'Thêm',
+        uk: 'Додати',
       }),
       placeholder: t({
         en: 'Add member',
@@ -203,6 +212,7 @@ const organizationMembersFormContent = {
         pl: 'Dodaj członka',
         id: 'Tambahkan anggota',
         vi: 'Thêm thành viên',
+        uk: 'Додати учасника',
       }),
     },
 
@@ -225,6 +235,7 @@ const organizationMembersFormContent = {
         pl: 'Wybierz administratorów',
         id: 'Pilih admin',
         vi: 'Chọn Admins',
+        uk: 'Вибрати адміністраторів',
       }),
       placeholder: t({
         en: 'Select admins',
@@ -244,6 +255,7 @@ const organizationMembersFormContent = {
         pl: 'Wybierz administratorów',
         id: 'Pilih admin',
         vi: 'Chọn Admins',
+        uk: 'Вибрати адміністраторів',
       }),
       description: t({
         en: 'Admins can edit members and organization settings.',
@@ -263,6 +275,7 @@ const organizationMembersFormContent = {
         pl: 'Administratorzy mogą edytować członków i ustawienia organizacji.',
         id: 'Admin dapat mengedit anggota dan pengaturan organisasi.',
         vi: 'Admins có thể chỉnh sửa các thành viên và cài đặt của organization.',
+        uk: 'Адміністратори можуть редагувати учасників та налаштування організації.',
       }),
     },
     addMembersButton: {
@@ -284,6 +297,7 @@ const organizationMembersFormContent = {
         pl: 'Zaktualizuj członków',
         id: 'Perbarui anggota',
         vi: 'Cập nhật thành viên',
+        uk: 'Оновити учасників',
       }),
       label: t({
         en: 'Update Members',
@@ -303,6 +317,7 @@ const organizationMembersFormContent = {
         pl: 'Zaktualizuj członków',
         id: 'Perbarui anggota',
         vi: 'Cập nhật thành viên',
+        uk: 'Оновити учасників',
       }),
     },
   },

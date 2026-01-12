@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Panel administracyjny | Intlayer',
       id: 'Panel Admin | Intlayer',
       vi: 'Bảng quản trị | Intlayer',
+      uk: 'Панель адміністратора | Intlayer',
     }),
     description: t({
       ar: 'لوحة تحكم إدارية لـ Intlayer. إدارة إعدادات النظام وأذونات المستخدمين ومراجعة المحتوى وخيارات التكوين المتقدمة لمشاريع Intlayer الخاصة بك.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Panel administracyjny Intlayer. Zarządzaj ustawieniami systemu, uprawnieniami użytkowników, moderacją treści oraz zaawansowanymi opcjami konfiguracji dla swoich projektów Intlayer.',
       id: 'Panel kontrol administratif untuk Intlayer. Kelola pengaturan sistem, izin pengguna, moderasi konten, dan opsi konfigurasi lanjutan untuk proyek Intlayer Anda.',
       vi: 'Bảng điều khiển quản trị cho Intlayer. Quản lý cài đặt hệ thống, phân quyền người dùng, kiểm duyệt nội dung và các tùy chọn cấu hình nâng cao cho các dự án Intlayer của bạn.',
+      uk: 'Адміністративна панель управління Intlayer. Керуйте системними налаштуваннями, правами користувачів, модерацією контенту та розширеними параметрами конфігурації для ваших проєктів Intlayer.',
     }),
 
     keywords: t({
@@ -166,6 +168,14 @@ const metadataContent = {
         'Quản lý người dùng',
         'Phân quyền',
         'Cấu hình',
+      ],
+      uk: [
+        'Панель адміністратора',
+        'Адміністрація',
+        'Системні налаштування',
+        'Керування користувачами',
+        'Права доступу',
+        'Конфігурація',
       ],
     }),
   },

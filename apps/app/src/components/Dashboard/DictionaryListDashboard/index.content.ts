@@ -21,6 +21,7 @@ const dictionaryFormContent = {
       pl: 'Wyszukaj słownik',
       id: 'Cari kamus',
       vi: 'Tìm kiếm từ điển',
+      uk: 'Пошук словника',
     }),
 
     selectDictionaryButton: {
@@ -42,6 +43,7 @@ const dictionaryFormContent = {
         pl: 'Kliknij, aby wybrać słownik',
         id: 'Klik untuk memilih kamus',
         vi: 'Nhấp để chọn một từ điển',
+        uk: 'Натисніть, щоб вибрати словник',
       }),
     },
   },

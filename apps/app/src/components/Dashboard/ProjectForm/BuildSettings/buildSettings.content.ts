@@ -7,23 +7,24 @@ const buildSettingsContent = {
     gitProviderSection: {
       title: insert(
         t({
+          ar: 'متصل بـ{{provider}}',
+          de: 'Verbunden mit {{provider}}',
           en: 'Connected to {{provider}}',
           'en-GB': 'Connected to {{provider}}',
-          fr: 'Connecté à {{provider}}',
           es: 'Conectado a {{provider}}',
-          ru: 'Подключено к {{provider}}',
+          fr: 'Connecté à {{provider}}',
+          hi: 'इससे जुड़ा हुआ {{provider}}',
+          id: 'Terhubung ke {{provider}}',
+          it: 'Collegato a {{provider}}',
           ja: '接続先 {{provider}}',
           ko: '연결됨 {{provider}}',
-          zh: '已连接到 {{provider}}',
-          de: 'Verbunden mit {{provider}}',
-          ar: 'متصل بـ{{provider}}',
-          it: 'Collegato a {{provider}}',
-          pt: 'Conectado a {{provider}}',
-          hi: 'इससे जुड़ा हुआ {{provider}}',
-          tr: 'Şuna bağlandı {{provider}}',
           pl: 'Połączono z {{provider}}',
-          id: 'Terhubung ke {{provider}}',
+          pt: 'Conectado a {{provider}}',
+          ru: 'Подключено к {{provider}}',
+          tr: 'Şuna bağlandı {{provider}}',
+          uk: 'Підключено до {{provider}}',
           vi: 'Đã kết nối với {{provider}}',
+          zh: '已连接到 {{provider}}',
         })
       ),
       noProvider: t({
@@ -44,6 +45,7 @@ const buildSettingsContent = {
         pl: 'Brak dostawcy Git',
         id: 'Tidak Ada Penyedia Git',
         vi: 'Không có nhà cung cấp Git',
+        uk: 'Немає провайдера Git',
       }),
       description: t({
         en: 'Automatically trigger a pipeline when dictionary content changes.',
@@ -64,6 +66,7 @@ const buildSettingsContent = {
         pl: 'Automatycznie uruchom potok, gdy zmieni się zawartość słownika.',
         id: 'Secara otomatis memicu pipeline saat konten kamus berubah.',
         vi: 'Tự động kích hoạt quy trình khi nội dung từ điển thay đổi.',
+        uk: 'Автоматично запускати pipeline, коли змінюється вміст словника.',
       }),
       configureCIButton: {
         text: t({
@@ -84,6 +87,7 @@ const buildSettingsContent = {
           pl: 'Skonfiguruj CI',
           id: 'Konfigurasi CI',
           vi: 'Cấu hình CI',
+          uk: 'Налаштувати CI',
         }),
         ariaLabel: t({
           en: 'Check CI Configuration',
@@ -103,6 +107,7 @@ const buildSettingsContent = {
           pl: 'Sprawdź konfigurację CI',
           id: 'Periksa Konfigurasi CI',
           vi: 'Kiểm tra cấu hình CI',
+          uk: 'Перевірити конфігурацію CI',
         }),
       },
     },
@@ -125,6 +130,7 @@ const buildSettingsContent = {
         pl: 'Dodatkowe webhooki',
         id: 'Webhook Tambahan',
         vi: 'Webhook bổ sung',
+        uk: 'Додаткові вебхуки',
       }),
       description: t({
         en: 'Add webhooks for external services like Vercel, Netlify, or custom CI/CD pipelines.',
@@ -145,6 +151,7 @@ const buildSettingsContent = {
         pl: 'Dodaj webhooki dla usług zewnętrznych, takich jak Vercel, Netlify lub niestandardowe potoki CI/CD.',
         id: 'Tambahkan webhook untuk layanan eksternal seperti Vercel, Netlify, atau pipeline CI/CD kustom.',
         vi: 'Thêm webhook cho các dịch vụ bên ngoài như Vercel, Netlify hoặc các quy trình CI/CD tùy chỉnh.',
+        uk: 'Додайте вебхуки для зовнішніх сервісів, таких як Vercel, Netlify, або для власних CI/CD-процесів.',
       }),
       noWebhooks: t({
         en: 'No webhooks configured',
@@ -164,6 +171,7 @@ const buildSettingsContent = {
         pl: 'Brak skonfigurowanych webhooków',
         id: 'Tidak ada webhook yang dikonfigurasi',
         vi: 'Không có webhook nào được định cấu hình',
+        uk: 'Немає налаштованих вебхуків',
       }),
       namePlaceholder: t({
         en: 'Name (e.g. Vercel)',
@@ -183,6 +191,7 @@ const buildSettingsContent = {
         pl: 'Nazwa (np. Vercel)',
         id: 'Nama (mis. Vercel)',
         vi: 'Tên (ví dụ: Vercel)',
+        uk: 'Назва (наприклад, Vercel)',
       }),
       urlPlaceholder: t({
         en: 'https://api.vercel.com/...',
@@ -202,6 +211,7 @@ const buildSettingsContent = {
         pl: 'https://api.vercel.com/...',
         id: 'https://api.vercel.com/...',
         vi: 'https://api.vercel.com/...',
+        uk: 'https://api.vercel.com/...',
       }),
       secretPlaceholder: t({
         en: 'Optional: Webhook secret for verification',
@@ -221,6 +231,7 @@ const buildSettingsContent = {
         pl: 'Opcjonalnie: Sekret webhooka do weryfikacji',
         id: 'Opsional: Rahasia webhook untuk verifikasi',
         vi: 'Tùy chọn: Bí mật webhook để xác minh',
+        uk: "Необов'язково: секрет вебхука для перевірки",
       }),
       addButton: {
         text: t({
@@ -241,6 +252,7 @@ const buildSettingsContent = {
           pl: 'Dodaj webhook',
           id: 'Tambah Webhook',
           vi: 'Thêm Webhook',
+          uk: 'Додати вебхук',
         }),
         ariaLabel: t({
           en: 'Add a new webhook',
@@ -260,6 +272,7 @@ const buildSettingsContent = {
           pl: 'Dodaj nowy webhook',
           id: 'Tambahkan webhook baru',
           vi: 'Thêm webhook mới',
+          uk: 'Додати новий вебхук',
         }),
       },
       deleteButton: {
@@ -281,6 +294,7 @@ const buildSettingsContent = {
           pl: 'Usuń',
           id: 'Hapus',
           vi: 'Xóa',
+          uk: 'Видалити',
         }),
         ariaLabel: t({
           en: 'Delete webhook',
@@ -300,6 +314,7 @@ const buildSettingsContent = {
           pl: 'Usuń webhook',
           id: 'Hapus webhook',
           vi: 'Xóa webhook',
+          uk: 'Видалити вебхук',
         }),
       },
       validationErrors: {
@@ -321,6 +336,7 @@ const buildSettingsContent = {
           pl: 'Nazwa jest wymagana',
           id: 'Nama wajib diisi',
           vi: 'Tên là bắt buộc',
+          uk: "Назва є обов'язковою",
         }),
         invalidUrl: t({
           en: 'Invalid URL',
@@ -340,6 +356,7 @@ const buildSettingsContent = {
           pl: 'Nieprawidłowy URL',
           id: 'URL tidak valid',
           vi: 'URL không hợp lệ',
+          uk: 'Невірний URL',
         }),
       },
       modal: {
@@ -361,6 +378,7 @@ const buildSettingsContent = {
           pl: 'Utwórz nowy webhook',
           id: 'Buat webhook baru',
           vi: 'Tạo webhook mới',
+          uk: 'Створити новий вебхук',
         }),
         titleEdit: t({
           en: 'Edit webhook',
@@ -380,6 +398,7 @@ const buildSettingsContent = {
           pl: 'Edytuj webhook',
           id: 'Edit webhook',
           vi: 'Chỉnh sửa webhook',
+          uk: 'Редагувати вебхук',
         }),
         nameLabel: t({
           en: 'Name',
@@ -399,6 +418,7 @@ const buildSettingsContent = {
           pl: 'Nazwa',
           id: 'Nama',
           vi: 'Tên',
+          uk: 'Назва',
         }),
         nameDescription: t({
           en: 'Identifying label for this webhook (e.g. Production Build)',
@@ -418,6 +438,7 @@ const buildSettingsContent = {
           pl: 'Etykieta identyfikacyjna dla tego webhooka (np. Build produkcyjny)',
           id: 'Label identifikasi untuk webhook ini (mis. Production Build)',
           vi: 'Nhãn nhận dạng cho webhook này (ví dụ: Production Build)',
+          uk: 'Ідентифікатор для цього вебхука (наприклад, Production Build)',
         }),
         urlLabel: t({
           en: 'URL',
@@ -437,6 +458,7 @@ const buildSettingsContent = {
           pl: 'URL',
           id: 'URL',
           vi: 'URL',
+          uk: 'URL',
         }),
         urlDescription: t({
           en: 'The POST URL that should receive the event payload.',
@@ -456,6 +478,7 @@ const buildSettingsContent = {
           pl: 'URL POST, który powinien otrzymać ładunek zdarzenia.',
           id: 'URL POST yang harus menerima payload acara.',
           vi: 'URL POST sẽ nhận tải trọng sự kiện.',
+          uk: 'POST-URL, який повинен отримувати дані події.',
         }),
         secretLabel: t({
           en: 'Secret',
@@ -475,6 +498,7 @@ const buildSettingsContent = {
           pl: 'Sekret',
           id: 'Rahasia',
           vi: 'Bí mật',
+          uk: 'Секрет',
         }),
         secretDescription: t({
           en: 'Optional: Token used to sign the request for security verification.',
@@ -495,6 +519,7 @@ const buildSettingsContent = {
           pl: 'Opcjonalnie: Token używany do podpisywania żądania w celu weryfikacji bezpieczeństwa.',
           id: 'Opsional: Token yang digunakan untuk menandatangani permintaan untuk verifikasi keamanan.',
           vi: 'Tùy chọn: Token được sử dụng để ký yêu cầu để xác minh bảo mật.',
+          uk: "Необов'язково: токен, який використовується для підпису запиту для перевірки безпеки.",
         }),
         cancel: t({
           en: 'Cancel',
@@ -514,6 +539,7 @@ const buildSettingsContent = {
           pl: 'Anuluj',
           id: 'Batal',
           vi: 'Hủy',
+          uk: 'Скасувати',
         }),
         confirm: t({
           en: 'Confirm',
@@ -533,6 +559,7 @@ const buildSettingsContent = {
           pl: 'Potwierdź',
           id: 'Konfirmasi',
           vi: 'Xác nhận',
+          uk: 'Підтвердити',
         }),
       },
       list: {
@@ -554,6 +581,7 @@ const buildSettingsContent = {
           pl: 'Edytuj',
           id: 'Edit',
           vi: 'Chỉnh sửa',
+          uk: 'Редагувати',
         }),
         delete: t({
           en: 'Delete',
@@ -573,6 +601,7 @@ const buildSettingsContent = {
           pl: 'Usuń',
           id: 'Hapus',
           vi: 'Xóa',
+          uk: 'Видалити',
         }),
         enabled: t({
           en: 'Enabled',
@@ -592,6 +621,7 @@ const buildSettingsContent = {
           pl: 'Włączone',
           id: 'Diaktifkan',
           vi: 'Đã bật',
+          uk: 'Увімкнено',
         }),
         disabled: t({
           en: 'Disabled',
@@ -611,6 +641,7 @@ const buildSettingsContent = {
           pl: 'Wyłączone',
           id: 'Dinonaktifkan',
           vi: 'Đã tắt',
+          uk: 'Вимкнено',
         }),
       },
     },
@@ -633,6 +664,7 @@ const buildSettingsContent = {
         pl: 'Zapisz konfigurację',
         id: 'Simpan Konfigurasi',
         vi: 'Lưu cấu hình',
+        uk: 'Зберегти конфігурацію',
       }),
       ariaLabel: t({
         en: 'Save build settings',
@@ -652,6 +684,7 @@ const buildSettingsContent = {
         pl: 'Zapisz ustawienia kompilacji',
         id: 'Simpan pengaturan build',
         vi: 'Lưu cài đặt build',
+        uk: 'Зберегти налаштування збірки',
       }),
     },
     testTriggerButton: {
@@ -673,6 +706,7 @@ const buildSettingsContent = {
         pl: 'Przetestuj wyzwalacz teraz',
         id: 'Uji Pemicu Sekarang',
         vi: 'Kiểm tra kích hoạt ngay',
+        uk: 'Протестувати тригер зараз',
       }),
       ariaLabel: t({
         en: 'Test trigger CI build',
@@ -692,6 +726,7 @@ const buildSettingsContent = {
         pl: 'Przetestuj wyzwalacz kompilacji CI',
         id: 'Uji pemicu build CI',
         vi: 'Kiểm tra kích hoạt build CI',
+        uk: 'Протестувати тригер CI-збірки',
       }),
     },
     ciModal: {
@@ -713,6 +748,7 @@ const buildSettingsContent = {
         pl: 'Wykryto konfigurację CI',
         id: 'Konfigurasi CI Terdeteksi',
         vi: 'Đã phát hiện cấu hình CI',
+        uk: 'Знайдено конфігурацію CI',
       }),
       titleMissing: t({
         en: 'CI Configuration Missing',
@@ -732,6 +768,7 @@ const buildSettingsContent = {
         pl: 'Brak konfiguracji CI',
         id: 'Konfigurasi CI Hilang',
         vi: 'Thiếu cấu hình CI',
+        uk: 'Немає конфігурації CI',
       }),
       descriptionExisting: t({
         en: 'Your repository already has a CI workflow configured. You can view the configuration below.',
@@ -752,6 +789,7 @@ const buildSettingsContent = {
         pl: 'Twoje repozytorium ma już skonfigurowany przepływ pracy CI. Możesz zobaczyć konfigurację poniżej.',
         id: 'Repositori Anda sudah memiliki alur kerja CI yang dikonfigurasi. Anda dapat melihat konfigurasi di bawah ini.',
         vi: 'Kho lưu trữ của bạn đã có quy trình CI được cấu hình. Bạn có thể xem cấu hình bên dưới.',
+        uk: 'У вашому репозиторії вже налаштовано CI-воркфлоу. Ви можете переглянути конфігурацію нижче.',
       }),
       descriptionMissing: t({
         en: 'Your repository does not have a CI workflow configured. Add the configuration below to enable automatic builds when dictionary content changes.',
@@ -772,6 +810,7 @@ const buildSettingsContent = {
         pl: 'Twoje repozytorium nie ma skonfigurowanego przepływu pracy CI. Dodaj konfigurację poniżej, aby włączyć automatyczne kompilacje po zmianie zawartości słownika.',
         id: 'Repositori Anda tidak memiliki alur kerja CI yang dikonfigurasi. Tambahkan konfigurasi di bawah ini untuk mengaktifkan build otomatis saat konten kamus berubah.',
         vi: 'Kho lưu trữ của bạn chưa có quy trình CI được cấu hình. Thêm cấu hình bên dưới để bật bản dựng tự động khi nội dung từ điển thay đổi.',
+        uk: 'У вашому репозиторії немає налаштованого CI-воркфлоу. Додайте конфігурацію нижче, щоб увімкнути автоматичні збірки при зміні вмісту словника.',
       }),
       buttons: {
         copy: t({
@@ -792,6 +831,7 @@ const buildSettingsContent = {
           pl: 'Kopiuj',
           id: 'Salin',
           vi: 'Sao chép',
+          uk: 'Копіювати',
         }),
         push: t({
           en: 'Push to Repository',
@@ -811,6 +851,7 @@ const buildSettingsContent = {
           pl: 'Wypchnij do repozytorium',
           id: 'Kirim ke Repositori',
           vi: 'Đẩy vào kho lưu trữ',
+          uk: 'Запушити в репозиторій',
         }),
       },
       messages: {
@@ -832,6 +873,7 @@ const buildSettingsContent = {
           pl: 'Konfiguracja skopiowana do schowka',
           id: 'Konfigurasi disalin ke clipboard',
           vi: 'Đã sao chép cấu hình vào clipboard',
+          uk: 'Конфігурацію скопійовано в буфер обміну',
         }),
       },
       viewFileLink: t({
@@ -852,6 +894,7 @@ const buildSettingsContent = {
         pl: 'Zobacz plik w repozytorium',
         id: 'Lihat file di repositori',
         vi: 'Xem tệp trong kho lưu trữ',
+        uk: 'Переглянути файл у репозиторії',
       }),
       copyButtonLabel: t({
         en: 'Copy configuration',
@@ -871,6 +914,7 @@ const buildSettingsContent = {
         pl: 'Kopiuj konfigurację',
         id: 'Salin konfigurasi',
         vi: 'Sao chép cấu hình',
+        uk: 'Копіювати конфігурацію',
       }),
       pushButtonLabel: t({
         en: 'Push to repository',
@@ -890,6 +934,7 @@ const buildSettingsContent = {
         pl: 'Wypchnij do repozytorium',
         id: 'Kirim ke repositori',
         vi: 'Đẩy vào kho lưu trữ',
+        uk: 'Запушити в репозиторій',
       }),
       manualInstallMessage: t({
         en: 'Manual installation required. Copy the configuration above and add it to your repository.',
@@ -910,6 +955,7 @@ const buildSettingsContent = {
         pl: 'Wymagana instalacja ręczna. Skopiuj powyższą konfigurację i dodaj ją do swojego repozytorium.',
         id: 'Instalasi manual diperlukan. Salin konfigurasi di atas dan tambahkan ke repositori Anda.',
         vi: 'Cần cài đặt thủ công. Sao chép cấu hình ở trên và thêm vào kho lưu trữ của bạn.',
+        uk: 'Потрібна ручна установка. Скопіюйте конфігурацію вище та додайте її до свого репозиторію.',
       }),
       failedToLoad: t({
         en: 'Failed to load configuration',
@@ -929,6 +975,7 @@ const buildSettingsContent = {
         pl: 'Nie udało się załadować konfiguracji',
         id: 'Gagal memuat konfigurasi',
         vi: 'Không thể tải cấu hình',
+        uk: 'Не вдалося завантажити конфігурацію',
       }),
     },
     ciTemplates: {
@@ -937,6 +984,10 @@ const buildSettingsContent = {
       bitbucket: file('./CI_BITBUCKET_TEMPLATE.yaml'),
     },
   },
+  title: 'Build settings',
+  description:
+    'Configuration for project build settings: manage connected git provider, add and edit webhooks, test triggers, save build configuration, and view CI configuration. Includes CI templates for GitHub, GitLab, and Bitbucket and modals for creating/editing webhooks and CI setup.',
+  tags: ['build settings', 'webhooks', 'ci', 'deployments', 'integrations'],
 };
 
 export default buildSettingsContent;

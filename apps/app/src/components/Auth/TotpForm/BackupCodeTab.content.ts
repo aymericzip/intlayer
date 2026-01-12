@@ -21,6 +21,7 @@ const backupCodeTabContent = {
       pl: 'Kod zapasowy',
       id: 'Kode Cadangan',
       vi: 'Mã dự phòng',
+      uk: 'Резервний код',
     }),
     codePlaceholder: t({
       en: 'Enter your backup code',
@@ -40,6 +41,7 @@ const backupCodeTabContent = {
       pl: 'Wprowadź kod zapasowy',
       id: 'Masukkan kode cadangan Anda',
       vi: 'Nhập mã dự phòng của bạn',
+      uk: 'Введіть резервний код',
     }),
     verifyButton: t({
       en: 'Verify',
@@ -59,8 +61,13 @@ const backupCodeTabContent = {
       pl: 'Zweryfikuj',
       id: 'Verifikasi',
       vi: 'Xác minh',
+      uk: 'Перевірити',
     }),
   },
+  title: 'Backup Code Tab',
+  description:
+    'Localized UI strings for the Backup Code tab of the TOTP authentication form, including the backup code label, input placeholder and verify button text.',
+  tags: ['auth', 'backup-code', 'totp', 'form'],
 } satisfies Dictionary;
 
 export default backupCodeTabContent;

@@ -23,8 +23,13 @@ const passkeyButtonContent = {
       nl: 'Inloggen met Passkey',
       id: 'Masuk dengan Passkey',
       vi: 'Đăng nhập bằng Passkey',
+      uk: 'Увійти за допомогою ключа доступу',
     }),
   },
+  title: 'Passkey button',
+  description:
+    'Content for the Passkey sign-in button component, including visible text and an accessible aria label for signing in with a passkey.',
+  tags: ['auth', 'button', 'component', 'passkey', 'accessibility'],
 } satisfies Dictionary;
 
 export default passkeyButtonContent;

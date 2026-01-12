@@ -21,6 +21,7 @@ export const browserContent = {
       pl: 'Osadzona przeglądarka',
       id: 'Peramban tertanam',
       vi: 'Trình duyệt nhúng',
+      uk: 'Вбудований браузер',
     }),
     urlLabel: t({
       en: 'URL address bar',
@@ -40,6 +41,7 @@ export const browserContent = {
       pl: 'Pasek adresu URL',
       id: 'Bilah alamat URL',
       vi: 'Thanh địa chỉ URL',
+      uk: 'Рядок адреси URL',
     }),
     urlPlaceholder: 'https://example.com',
     errorMessage: t({
@@ -60,6 +62,7 @@ export const browserContent = {
       pl: 'Nieprawidłowy adres URL. Wypróbuj ścieżkę jak "/page" lub pełny URL.',
       id: 'URL tidak valid. Coba jalur seperti "/page" atau URL lengkap.',
       vi: 'URL không hợp lệ. Thử đường dẫn như "/page" hoặc URL đầy đủ.',
+      uk: 'Недійсний URL. Спробуйте шлях на кшталт "/page" або повну URL-адресу.',
     }),
     domainRestrictionError: t({
       en: 'URL must match the application domain.',
@@ -79,6 +82,7 @@ export const browserContent = {
       pl: 'Adres URL musi pasować do domeny aplikacji.',
       id: 'URL harus cocok dengan domain aplikasi.',
       vi: 'URL phải khớp với tên miền ứng dụng.',
+      uk: 'URL має відповідати домену застосунку.',
     }),
     backButtonLabel: t({
       en: 'Go back',
@@ -98,6 +102,7 @@ export const browserContent = {
       pl: 'Wstecz',
       id: 'Kembali',
       vi: 'Quay lại',
+      uk: 'Назад',
     }),
     forwardButtonLabel: t({
       en: 'Go forward',
@@ -117,6 +122,7 @@ export const browserContent = {
       pl: 'Naprzód',
       id: 'Maju',
       vi: 'Tiến tới',
+      uk: 'Вперед',
     }),
     reloadButtonTitle: t({
       en: 'Reload page',
@@ -136,6 +142,7 @@ export const browserContent = {
       pl: 'Przeładuj stronę',
       id: 'Muat ulang halaman',
       vi: 'Tải lại trang',
+      uk: 'Оновити сторінку',
     }),
     iframeTitle: t({
       en: 'Embedded web page',
@@ -155,6 +162,7 @@ export const browserContent = {
       pl: 'Osadzona strona internetowa',
       id: 'Halaman web tertanam',
       vi: 'Trang web được nhúng',
+      uk: 'Вбудована веб-сторінка',
     }),
   },
   title: 'Embedded browser component',

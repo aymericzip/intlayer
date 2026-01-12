@@ -21,6 +21,7 @@ const organizationFormContent = {
       pl: 'Szczegóły organizacji',
       id: 'Detail organisasi',
       vi: 'Chi tiết tổ chức',
+      uk: 'Деталі організації',
     }),
     nameInput: {
       label: t({
@@ -41,6 +42,7 @@ const organizationFormContent = {
         pl: 'Nazwa',
         id: 'Nama',
         vi: 'Tên',
+        uk: 'Назва',
       }),
       placeholder: t({
         en: 'Enter the name of your organization',
@@ -60,6 +62,7 @@ const organizationFormContent = {
         pl: 'Wprowadź nazwę swojej organizacji',
         id: 'Masukkan nama organisasi Anda',
         vi: 'Nhập tên tổ chức của bạn',
+        uk: 'Введіть назву вашої організації',
       }),
     },
 
@@ -81,6 +84,7 @@ const organizationFormContent = {
       pl: 'Brak organizacji',
       id: 'Belum ada organisasi',
       vi: 'Chưa có tổ chức',
+      uk: 'Немає організації',
     }),
 
     createOrganizationDescription: t({
@@ -101,6 +105,7 @@ const organizationFormContent = {
       pl: 'Utwórz swoją pierwszą organizację, aby zacząć korzystać z Intlayer',
       id: 'Buat organisasi pertama Anda untuk mulai menggunakan Intlayer',
       vi: 'Tạo tổ chức đầu tiên để bắt đầu sử dụng Intlayer',
+      uk: 'Створіть свою першу організацію, щоб почати користуватися Intlayer',
     }),
 
     createOrganizationButton: {
@@ -122,6 +127,7 @@ const organizationFormContent = {
         pl: 'Utwórz organizację',
         id: 'Buat organisasi',
         vi: 'Tạo tổ chức',
+        uk: 'Створити організацію',
       }),
       ariaLabel: t({
         en: 'Click to create organization',
@@ -141,6 +147,7 @@ const organizationFormContent = {
         pl: 'Kliknij, aby utworzyć organizację',
         id: 'Klik untuk membuat organisasi',
         vi: 'Nhấp để tạo tổ chức',
+        uk: 'Натисніть, щоб створити організацію',
       }),
     },
 
@@ -163,6 +170,7 @@ const organizationFormContent = {
         pl: 'Edytuj organizację',
         id: 'Edit organisasi',
         vi: 'Chỉnh sửa tổ chức',
+        uk: 'Редагувати організацію',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -182,6 +190,7 @@ const organizationFormContent = {
         pl: 'Kliknij, aby edytować organizację',
         id: 'Klik untuk mengedit',
         vi: 'Nhấp để chỉnh sửa',
+        uk: 'Натисніть, щоб редагувати',
       }),
     },
 
@@ -204,6 +213,7 @@ const organizationFormContent = {
         pl: 'Wybierz',
         id: 'Pilih',
         vi: 'Chọn',
+        uk: 'Вибрати',
       }),
       ariaLabel: t({
         en: 'Click to select',
@@ -223,6 +233,7 @@ const organizationFormContent = {
         pl: 'Kliknij, aby wybrać',
         id: 'Klik untuk memilih',
         vi: 'Nhấp để chọn',
+        uk: 'Натисніть, щоб вибрати',
       }),
       selected: t({
         en: 'Selected',
@@ -242,6 +253,7 @@ const organizationFormContent = {
         pl: 'Wybrano',
         id: 'Terpilih',
         vi: 'Đã chọn',
+        uk: 'Вибрано',
       }),
       unselected: t({
         en: 'Select',
@@ -261,6 +273,7 @@ const organizationFormContent = {
         pl: 'Wybierz',
         id: 'Pilih',
         vi: 'Chọn',
+        uk: 'Вибрати',
       }),
     },
     addOrganizationButton: {
@@ -282,6 +295,7 @@ const organizationFormContent = {
         pl: 'Dodaj organizację',
         id: 'Tambahkan organisasi',
         vi: 'Thêm tổ chức',
+        uk: 'Додати організацію',
       }),
       ariaLabel: t({
         en: 'Click to add organization',
@@ -301,6 +315,7 @@ const organizationFormContent = {
         pl: 'Kliknij, aby dodać organizację',
         id: 'Klik untuk menambahkan organisasi',
         vi: 'Nhấp để thêm tổ chức',
+        uk: 'Натисніть, щоб додати організацію',
       }),
     },
     deleteOrganizationButton: {
@@ -322,6 +337,7 @@ const organizationFormContent = {
         pl: 'Usuń organizację',
         id: 'Hapus organisasi',
         vi: 'Xóa tổ chức',
+        uk: 'Видалити організацію',
       }),
       ariaLabel: t({
         en: 'Click to delete organization',
@@ -341,6 +357,7 @@ const organizationFormContent = {
         pl: 'Kliknij, aby usunąć organizację',
         id: 'Klik untuk menghapus organisasi',
         vi: 'Nhấp để xóa tổ chức',
+        uk: 'Натисніть, щоб видалити організацію',
       }),
     },
   },

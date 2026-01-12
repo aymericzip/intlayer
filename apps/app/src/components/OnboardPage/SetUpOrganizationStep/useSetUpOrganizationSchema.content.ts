@@ -21,6 +21,7 @@ const content = {
       pl: 'Proszę wybrać organizację',
       id: 'Silakan pilih organisasi',
       vi: 'Vui lòng chọn một tổ chức',
+      uk: 'Будь ласка, виберіть організацію',
     }),
   },
   title: 'Set up organization schema',

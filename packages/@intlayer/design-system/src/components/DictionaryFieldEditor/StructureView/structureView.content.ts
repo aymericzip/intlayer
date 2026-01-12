@@ -22,6 +22,7 @@ export const structureViewContent = {
         pl: 'Wprowadź klucz węzła',
         id: 'Masukkan kunci node Anda',
         vi: 'Nhập key của node của bạn',
+        uk: 'Введіть ключ вашого вузла',
       }),
     },
     deleteButton: {
@@ -43,6 +44,7 @@ export const structureViewContent = {
         pl: 'Usuń węzeł z sekcji',
         id: 'Hapus node dari bagian',
         vi: 'Xóa node khỏi section',
+        uk: 'Видалити вузол з розділу',
       }),
     },
     addNodeButton: {
@@ -64,6 +66,7 @@ export const structureViewContent = {
         pl: 'Kliknij, aby dodać nowy węzeł',
         id: 'Klik untuk menambahkan node baru',
         vi: 'Nhấp để thêm node mới',
+        uk: 'Натисніть, щоб додати новий вузол',
       }),
       text: t({
         en: 'Add a new node',
@@ -83,6 +86,7 @@ export const structureViewContent = {
         pl: 'Dodaj nowy węzeł',
         id: 'Tambahkan node baru',
         vi: 'Thêm node mới',
+        uk: 'Додати новий вузол',
       }),
     },
   },

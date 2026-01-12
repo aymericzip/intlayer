@@ -22,6 +22,7 @@ const dashboardNavbarContent = {
         pl: 'Kliknij, aby wybrać organizację',
         id: 'Klik untuk memilih organisasi',
         vi: 'Nhấp để chọn tổ chức',
+        uk: 'Натисніть, щоб вибрати організацію',
       }),
     },
     selectOrganizationInstruction: t({
@@ -42,6 +43,7 @@ const dashboardNavbarContent = {
       pl: 'Wybierz organizację',
       id: 'Pilih organisasi',
       vi: 'Chọn tổ chức',
+      uk: 'Виберіть організацію',
     }),
 
     noOtherOrganizations: t({
@@ -62,6 +64,7 @@ const dashboardNavbarContent = {
       pl: 'Brak innych organizacji',
       id: 'Tidak ada organisasi lain',
       vi: 'Không có tổ chức nào khác',
+      uk: 'Немає інших організацій',
     }),
     organizationLogout: {
       text: t({
@@ -82,6 +85,7 @@ const dashboardNavbarContent = {
         pl: 'Wyjdź z kontekstu organizacji',
         id: 'Keluar dari konteks organisasi',
         vi: 'Thoát khỏi ngữ cảnh tổ chức',
+        uk: 'Вийти з контексту організації',
       }),
       label: t({
         en: 'Click to exit organization context',
@@ -101,6 +105,7 @@ const dashboardNavbarContent = {
         pl: 'Kliknij, aby wyjść z kontekstu organizacji',
         id: 'Klik untuk keluar dari konteks organisasi',
         vi: 'Nhấp để thoát khỏi ngữ cảnh tổ chức',
+        uk: 'Натисніть, щоб вийти з контексту організації',
       }),
     },
     createNewOrganization: {
@@ -122,6 +127,7 @@ const dashboardNavbarContent = {
         pl: 'Utwórz nową organizację',
         id: 'Buat organisasi baru',
         vi: 'Tạo tổ chức mới',
+        uk: 'Створити нову організацію',
       }),
       label: t({
         en: 'Click to create a new organization',
@@ -141,6 +147,7 @@ const dashboardNavbarContent = {
         pl: 'Kliknij, aby utworzyć nową organizację',
         id: 'Klik untuk membuat organisasi baru',
         vi: 'Nhấp để tạo tổ chức mới',
+        uk: 'Натисніть, щоб створити нову організацію',
       }),
     },
 
@@ -163,6 +170,7 @@ const dashboardNavbarContent = {
         pl: 'Kliknij, aby wybrać projekt',
         id: 'Klik untuk memilih proyek',
         vi: 'Nhấp để chọn dự án',
+        uk: 'Натисніть, щоб вибрати проєкт',
       }),
     },
     selectProjectInstruction: t({
@@ -183,6 +191,7 @@ const dashboardNavbarContent = {
       pl: 'Wybierz projekt',
       id: 'Pilih proyek',
       vi: 'Chọn dự án',
+      uk: 'Виберіть проєкт',
     }),
 
     noOtherProjects: t({
@@ -203,6 +212,7 @@ const dashboardNavbarContent = {
       pl: 'Brak innych projektów',
       id: 'Tidak ada proyek lain',
       vi: 'Không có dự án nào khác',
+      uk: 'Немає інших проєктів',
     }),
     projectLogout: {
       text: t({
@@ -223,6 +233,7 @@ const dashboardNavbarContent = {
         pl: 'Opuść kontekst projektu',
         id: 'Keluar dari konteks proyek',
         vi: 'Thoát khỏi ngữ cảnh dự án',
+        uk: 'Вийти з контексту проєкту',
       }),
       label: t({
         en: 'Click to log out from project',
@@ -242,6 +253,7 @@ const dashboardNavbarContent = {
         pl: 'Kliknij, aby wylogować się z projektu',
         id: 'Klik untuk keluar dari proyek',
         vi: 'Nhấp để đăng xuất khỏi dự án',
+        uk: 'Натисніть, щоб вийти з проєкту',
       }),
     },
     createNewProject: {
@@ -263,6 +275,7 @@ const dashboardNavbarContent = {
         pl: 'Utwórz nowy projekt',
         id: 'Buat proyek baru',
         vi: 'Tạo dự án mới',
+        uk: 'Створити новий проєкт',
       }),
       label: t({
         en: 'Click to create a new project',
@@ -282,6 +295,7 @@ const dashboardNavbarContent = {
         pl: 'Kliknij, aby utworzyć nowy projekt',
         id: 'Klik untuk membuat proyek baru',
         vi: 'Nhấp để tạo dự án mới',
+        uk: 'Натисніть, щоб створити новий проєкт',
       }),
     },
   },

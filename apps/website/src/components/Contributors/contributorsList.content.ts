@@ -22,6 +22,7 @@ const contributorsListContent = {
       pl: 'wkłady',
       id: 'kontribusi',
       vi: 'Đóng góp',
+      uk: 'внески',
     }),
   },
   title: 'Contributors list',

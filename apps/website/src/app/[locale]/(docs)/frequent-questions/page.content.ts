@@ -21,6 +21,7 @@ const frequentQuestionsPageContent = {
       pl: 'Najczęściej zadawane pytania | Intlayer',
       id: 'Pertanyaan Umum | Intlayer',
       vi: 'Câu hỏi thường gặp | Intlayer',
+      uk: 'Поширені запитання | Intlayer',
     }),
     h1: t({
       ar: 'الأسئلة الشائعة',
@@ -40,6 +41,7 @@ const frequentQuestionsPageContent = {
       pl: 'Najczęściej zadawane pytania',
       id: 'Pertanyaan Umum',
       vi: 'Câu hỏi thường gặp',
+      uk: 'Поширені запитання',
     }),
 
     description: t({
@@ -61,6 +63,7 @@ const frequentQuestionsPageContent = {
       pl: 'Znajdź odpowiedzi na najczęstsze pytania dotyczące Intlayer, w tym internacjonalizacji (i18n), zarządzania treścią i integracji technicznej.',
       id: 'Temukan jawaban atas pertanyaan umum tentang Intlayer, termasuk internasionalisasi (i18n), manajemen konten, dan integrasi teknologi.',
       vi: 'Tìm câu trả lời cho những câu hỏi thường gặp về Intlayer, bao gồm i18n, quản lý nội dung và tích hợp kỹ thuật.',
+      uk: 'Знайдіть відповіді на поширені запитання про Intlayer, включаючи інтернаціоналізацію (i18n), управління контентом та технічну інтеграцію. Дізнайтеся, як Intlayer може допомогти вашим проєктам.',
     }),
 
     keywords: t({
@@ -267,6 +270,18 @@ const frequentQuestionsPageContent = {
         'Vue',
         'CMS',
       ],
+      uk: [
+        'поширені запитання',
+        'часті запитання',
+        'підтримка',
+        'документація',
+        'інтернаціоналізація (i18n)',
+        'управління контентом',
+        'Next.js',
+        'React',
+        'Vue',
+        'система керування контентом (CMS)',
+      ],
     }),
     openGraph: {
       title: t({
@@ -287,6 +302,7 @@ const frequentQuestionsPageContent = {
         pl: 'Najczęściej zadawane pytania | Intlayer',
         id: 'Pertanyaan Umum | Intlayer',
         vi: 'Câu hỏi thường gặp | Intlayer',
+        uk: 'Поширені запитання | Intlayer',
       }),
     },
   },

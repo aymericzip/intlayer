@@ -22,8 +22,13 @@ const demoYoutubeContent = {
       pl: 'Demo YouTube - Jak zmiędzynarodowić aplikację za pomocą Intlayer',
       id: 'Demo YouTube - Cara Internasionalisasi aplikasi Anda menggunakan Intlayer',
       vi: 'Demo YouTube - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer',
+      uk: 'Демонстрація на YouTube — як інтернаціоналізувати ваш застосунок за допомогою Intlayer',
     }),
   },
+  title: 'Demo YouTube',
+  description:
+    'Demo showing how to internationalize your application using Intlayer.',
+  tags: ['demo', 'youtube', 'internationalization', 'intlayer'],
 } satisfies Dictionary;
 
 export default demoYoutubeContent;

@@ -21,6 +21,7 @@ const demoContent = {
       pl: 'Kompilator Intlayer',
       id: 'Kompiler Intlayer',
       vi: 'Trình biên dịch Intlayer',
+      uk: 'Компілятор Intlayer',
     }),
     paragraph: t({
       en: 'The Intlayer Compiler extract automatically the content from the components and generate the dictionary files.',
@@ -41,6 +42,7 @@ const demoContent = {
       pl: 'Kompilator Intlayer automatycznie wyodrębnia zawartość z komponentów i generuje pliki słownika.',
       id: 'Intlayer Compiler secara otomatis mengekstrak konten dari komponen dan menghasilkan file kamus.',
       vi: 'Trình biên dịch Intlayer tự động trích xuất nội dung từ các thành phần và tạo các tệp từ điển.',
+      uk: 'Компілятор Intlayer автоматично витягує вміст із компонентів і генерує файли словників.',
     }),
     localeSelectorTrigger: t({
       en: 'Click to select a locale',
@@ -60,6 +62,7 @@ const demoContent = {
       pl: 'Kliknij, aby wybrać język',
       id: 'Klik untuk memilih bahasa',
       vi: 'Nhấn để chọn ngôn ngữ',
+      uk: 'Натисніть, щоб вибрати локаль',
     }),
     selectPlaceholder: t({
       en: 'Choose locale...',
@@ -79,8 +82,13 @@ const demoContent = {
       pl: 'Wybierz język...',
       id: 'Pilih bahasa...',
       vi: 'Chọn ngôn ngữ...',
+      uk: 'Виберіть локаль...',
     }),
   },
+  title: 'Intlayer Compiler section',
+  description:
+    'Section describing the Intlayer Compiler that automatically extracts content from components and generates dictionary files. Includes UI strings such as locale selector and placeholders.',
+  tags: ['compiler', 'localization', 'content-extraction'],
 } as const satisfies Dictionary;
 
 export default demoContent;

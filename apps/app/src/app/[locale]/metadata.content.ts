@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Rozwiązanie i18n i CMS dla React, Next.js, Vue, Svelte | Intlayer',
       id: 'Solusi i18n & CMS untuk React, Next.js, Vue, Svelte | Intlayer',
       vi: 'Giải pháp i18n & CMS cho React, Next.js, Vue, Svelte | Intlayer',
+      uk: 'Рішення i18n та CMS для React, Next.js, Vue, Svelte | Intlayer',
     }),
 
     description: t({
@@ -43,6 +44,7 @@ const metadataContent = {
       pl: 'Zwiększ skalowalność swojej aplikacji dzięki Intlayer — rozwiązaniu do internacjonalizacji (i18n) i zarządzania treścią opartemu na AI. Zaprojektowane dla React, Next.js, Vue, Svelte i nie tylko.',
       id: 'Tingkatkan skalabilitas aplikasi Anda dengan Intlayer: solusi internasionalisasi (i18n) dan manajemen konten yang didukung oleh AI. Dirancang untuk React, Next.js, Vue, Svelte dan lainnya.',
       vi: 'Tăng khả năng mở rộng ứng dụng của bạn với Intlayer: một internationalization (i18n) và content management solution được hỗ trợ bởi AI. Thiết kế cho React, Next.js, Vue, Svelte và các framework khác.',
+      uk: 'Підвищте масштабованість вашого застосунку з Intlayer: рішення для інтернаціоналізації (i18n) та керування контентом на базі штучного інтелекту. Розроблено для React, Next.js, Vue, Svelte та інших.',
     }),
 
     keywords: t({
@@ -296,6 +298,20 @@ const metadataContent = {
         'CMS',
         'Content Management System',
       ],
+      uk: [
+        'переклад',
+        'локалізація',
+        'багатомовність',
+        'інтернаціоналізація',
+        'i18n',
+        'веб-розробка',
+        'Next.js',
+        'JavaScript',
+        'Vite',
+        'React',
+        'CMS',
+        'система управління контентом',
+      ],
     }),
     openGraph: {
       title: t({
@@ -316,6 +332,7 @@ const metadataContent = {
         pl: 'Internacjonalizacja (i18n) w Next.js | Intlayer',
         id: 'Internasionalisasi (i18n) Next.js | Intlayer',
         vi: 'Internationalization (i18n) cho Next.js | Intlayer',
+        uk: 'Інтернаціоналізація (i18n) для Next.js | Intlayer',
       }),
     },
   },

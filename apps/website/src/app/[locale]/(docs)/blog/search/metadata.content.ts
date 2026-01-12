@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Szukaj w blogu | Intlayer',
       id: 'Cari di blog | Intlayer',
       vi: 'Tìm kiếm trong blog | Intlayer',
+      uk: 'Пошук у блозі | Intlayer',
     }),
     description: t({
       ar: 'البحث في الوثائق',
@@ -41,6 +42,7 @@ const metadataContent = {
       pl: 'Szukaj w blogu',
       id: 'Cari di blog',
       vi: 'Tìm kiếm blog',
+      uk: 'Пошук у блозі',
     }),
 
     keywords: t({
@@ -61,6 +63,7 @@ const metadataContent = {
       pl: ['wyszukiwanie', 'blog', 'intlayer'],
       id: ['pencarian', 'blog', 'intlayer'],
       vi: ['tìm kiếm', 'blog', 'intlayer'],
+      uk: ['пошук', 'блог', 'intlayer'],
     }),
   },
   title: 'Blog search metadata',

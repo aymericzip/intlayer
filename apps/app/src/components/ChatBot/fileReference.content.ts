@@ -21,6 +21,7 @@ const chatFormSectionContent = {
       pl: 'Powiązane pliki:',
       id: 'File terkait:',
       vi: 'Các tệp liên quan:',
+      uk: "Пов'язані файли:",
     }),
   },
   title: 'Chat form related files',

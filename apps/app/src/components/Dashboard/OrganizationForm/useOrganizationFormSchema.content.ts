@@ -21,6 +21,7 @@ const content = {
       pl: 'Proszę podać nazwę swojej organizacji',
       id: 'Silakan masukkan nama organisasi Anda',
       vi: 'Vui lòng nhập tên cho tổ chức của bạn',
+      uk: 'Будь ласка, введіть назву вашої організації',
     }),
 
     invalidTypeErrorName: t({
@@ -41,6 +42,7 @@ const content = {
       pl: 'Proszę podać prawidłową nazwę swojej organizacji',
       id: 'Silakan masukkan nama organisasi yang valid',
       vi: 'Vui lòng nhập tên hợp lệ cho tổ chức của bạn',
+      uk: 'Будь ласка, введіть коректну назву вашої організації',
     }),
   },
   title: 'Organization form schema',

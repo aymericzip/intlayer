@@ -22,6 +22,7 @@ const content = {
         pl: 'Adres e-mail',
         id: 'Alamat email',
         vi: 'Địa chỉ email',
+        uk: 'Електронна адреса',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -41,6 +42,7 @@ const content = {
         pl: 'Wprowadź adres e-mail',
         id: 'Masukkan alamat e-mail',
         vi: 'Nhập địa chỉ e-mail',
+        uk: 'Введіть електронну адресу',
       }),
     },
     passwordInput: {
@@ -62,6 +64,7 @@ const content = {
         pl: 'Hasło',
         id: 'Kata sandi',
         vi: 'Mật khẩu',
+        uk: 'Пароль',
       }),
       placeholder: t({
         en: 'Enter password',
@@ -81,6 +84,7 @@ const content = {
         pl: 'Wprowadź hasło',
         id: 'Masukkan kata sandi',
         vi: 'Nhập mật khẩu',
+        uk: 'Введіть пароль',
       }),
     },
     passwordConfirmationInput: {
@@ -102,6 +106,7 @@ const content = {
         pl: 'Potwierdzenie hasła',
         id: 'Konfirmasi kata sandi',
         vi: 'Xác nhận mật khẩu',
+        uk: 'Підтвердження пароля',
       }),
       placeholder: t({
         en: 'Enter password again',
@@ -121,6 +126,7 @@ const content = {
         pl: 'Wprowadź hasło ponownie',
         id: 'Masukkan kata sandi lagi',
         vi: 'Nhập lại mật khẩu',
+        uk: 'Повторно введіть пароль',
       }),
     },
     termsAndConditionsCheckbox: {
@@ -142,6 +148,7 @@ const content = {
         pl: 'Zgadzam się z warunkami i regulaminem',
         id: 'Saya setuju dengan syarat dan ketentuan',
         vi: 'Tôi đồng ý với các điều khoản và điều kiện',
+        uk: 'Я погоджуюся з умовами та положеннями',
       }),
     },
 
@@ -164,6 +171,7 @@ const content = {
         pl: 'Utwórz konto',
         id: 'Buat akun',
         vi: 'Tạo tài khoản',
+        uk: 'Створити обліковий запис',
       }),
       ariaLabel: t({
         en: 'Submit form to create account',
@@ -183,6 +191,7 @@ const content = {
         pl: 'Wyślij formularz, aby utworzyć konto',
         id: 'Kirim formulir untuk membuat akun',
         vi: 'Gửi biểu mẫu để tạo tài khoản',
+        uk: 'Надіслати форму для створення облікового запису',
       }),
     },
     loginLink: {
@@ -204,6 +213,7 @@ const content = {
         pl: 'Masz już konto?',
         id: 'Sudah punya akun?',
         vi: 'Bạn đã có tài khoản?',
+        uk: 'Ви вже маєте обліковий запис?',
       }),
       text: t({
         en: 'Log in',
@@ -223,6 +233,7 @@ const content = {
         pl: 'Zaloguj się',
         id: 'Masuk',
         vi: 'Đăng nhập',
+        uk: 'Увійти',
       }),
       ariaLabel: t({
         en: 'Click to go to login page',
@@ -242,6 +253,7 @@ const content = {
         pl: 'Kliknij, aby przejść do strony logowania',
         id: 'Klik untuk menuju halaman masuk',
         vi: 'Nhấn để đến trang đăng nhập',
+        uk: 'Натисніть, щоб перейти на сторінку входу',
       }),
     },
   },

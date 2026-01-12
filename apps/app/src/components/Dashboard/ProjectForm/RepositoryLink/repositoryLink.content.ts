@@ -21,6 +21,7 @@ const repositoryLinkContent = {
       pl: 'Połączenie z repozytorium',
       id: 'Koneksi Repositori',
       vi: 'Kết nối kho lưu trữ',
+      uk: 'Підключення репозиторію',
     }),
 
     selectProvider: t({
@@ -41,27 +42,29 @@ const repositoryLinkContent = {
       pl: 'Wybierz dostawcę repozytorium',
       id: 'Pilih penyedia repositori',
       vi: 'Chọn nhà cung cấp kho lưu trữ',
+      uk: 'Виберіть постачальника репозиторію',
     }),
 
     connectTitle: insert(
       t({
+        ar: '{{provider}} ربط',
+        de: '{{provider}} verbinden',
         en: 'Connect {{provider}}',
-        fr: 'Connecter {{provider}}',
+        'en-GB': 'Connect {{provider}}',
         es: 'Conectar {{provider}}',
-        ru: 'Подключить {{provider}}',
+        fr: 'Connecter {{provider}}',
+        hi: '{{provider}} कनेक्ट करें',
+        id: 'Hubungkan {{provider}}',
+        it: 'Connetti {{provider}}',
         ja: '{{provider}} に接続',
         ko: '{{provider}} 연결',
-        zh: '连接 {{provider}}',
-        de: '{{provider}} verbinden',
-        ar: '{{provider}} ربط',
-        it: 'Connetti {{provider}}',
-        'en-GB': 'Connect {{provider}}',
-        pt: 'Conectar {{provider}}',
-        hi: '{{provider}} कनेक्ट करें',
-        tr: '{{provider}} Bağlayın',
         pl: 'Połącz {{provider}}',
-        id: 'Hubungkan {{provider}}',
+        pt: 'Conectar {{provider}}',
+        ru: 'Подключить {{provider}}',
+        tr: '{{provider}} Bağlayın',
+        uk: 'Підключити {{provider}}',
         vi: 'Kết nối {{provider}}',
+        zh: '连接 {{provider}}',
       })
     ),
 
@@ -83,6 +86,7 @@ const repositoryLinkContent = {
       pl: 'Połącz swoje konto, aby przeglądać i importować repozytoria.',
       id: 'Tautkan akun Anda untuk menelusuri dan mengimpor repositori.',
       vi: 'Liên kết tài khoản của bạn để duyệt và nhập kho lưu trữ.',
+      uk: 'Пов’яжіть свій обліковий запис, щоб переглядати та імортувати репозиторії.',
     }),
 
     selectRepository: t({
@@ -103,6 +107,7 @@ const repositoryLinkContent = {
       pl: 'Wybierz repozytorium do połączenia',
       id: 'Pilih repositori untuk dihubungkan',
       vi: 'Chọn kho lưu trữ để kết nối',
+      uk: 'Виберіть репозиторій для підключення',
     }),
 
     gitlab: {
@@ -124,6 +129,7 @@ const repositoryLinkContent = {
         pl: 'URL instancji GitLab',
         id: 'URL Instansi GitLab',
         vi: 'URL phiên bản GitLab',
+        uk: 'URL-адреса інстансу GitLab',
       }),
       instanceUrlHint: t({
         en: '(leave empty for gitlab.com)',
@@ -143,6 +149,7 @@ const repositoryLinkContent = {
         pl: '(zostaw puste dla gitlab.com)',
         id: '(kosongkan untuk gitlab.com)',
         vi: '(để trống cho gitlab.com)',
+        uk: '(залиште пустим для gitlab.com)',
       }),
     },
 
@@ -165,6 +172,7 @@ const repositoryLinkContent = {
         pl: 'Połączono z',
         id: 'Terhubung ke',
         vi: 'Đã kết nối với',
+        uk: 'Підключено до',
       }),
       configNotFound: t({
         en: 'Configuration Not Found',
@@ -184,6 +192,7 @@ const repositoryLinkContent = {
         pl: 'Nie znaleziono konfiguracji',
         id: 'Konfigurasi Tidak Ditemukan',
         vi: 'Không tìm thấy cấu hình',
+        uk: 'Конфігурація не знайдена',
       }),
     },
 
@@ -206,6 +215,7 @@ const repositoryLinkContent = {
         pl: 'Uwierzytelnianie nie powiodło się',
         id: 'Autentikasi Gagal',
         vi: 'Xác thực thất bại',
+        uk: 'Не вдалося автентифікуватися',
       }),
     },
 
@@ -228,26 +238,28 @@ const repositoryLinkContent = {
         pl: 'Połącz',
         id: 'Hubungkan',
         vi: 'Kết nối',
+        uk: 'Підключити',
       }),
       connectWithProvider: insert(
         t({
+          ar: '{{provider}} ربط',
+          de: '{{provider}} verbinden',
           en: 'Connect {{provider}}',
-          fr: 'Connecter {{provider}}',
+          'en-GB': 'Connect {{provider}}',
           es: 'Conectar {{provider}}',
-          ru: 'Подключить {{provider}}',
+          fr: 'Connecter {{provider}}',
+          hi: '{{provider}} कनेक्ट करें',
+          id: 'Hubungkan {{provider}}',
+          it: 'Connetti {{provider}}',
           ja: '{{provider}} に接続',
           ko: '{{provider}} 연결',
-          zh: '连接 {{provider}}',
-          de: '{{provider}} verbinden',
-          ar: '{{provider}} ربط',
-          it: 'Connetti {{provider}}',
-          'en-GB': 'Connect {{provider}}',
-          pt: 'Conectar {{provider}}',
-          hi: '{{provider}} कनेक्ट करें',
-          tr: '{{provider}} Bağlayın',
           pl: 'Połącz {{provider}}',
-          id: 'Hubungkan {{provider}}',
+          pt: 'Conectar {{provider}}',
+          ru: 'Подключить {{provider}}',
+          tr: '{{provider}} Bağlayın',
+          uk: 'Підключити {{provider}}',
           vi: 'Kết nối {{provider}}',
+          zh: '连接 {{provider}}',
         })
       ),
       disconnect: t({
@@ -268,6 +280,7 @@ const repositoryLinkContent = {
         pl: 'Rozłącz',
         id: 'Putuskan',
         vi: 'Ngắt kết nối',
+        uk: 'Відключити',
       }),
       browseRepos: t({
         en: 'Browse Repositories',
@@ -287,6 +300,7 @@ const repositoryLinkContent = {
         pl: 'Przeglądaj repozytoria',
         id: 'Telusuri Repositori',
         vi: 'Duyệt kho lưu trữ',
+        uk: 'Переглянути репозиторії',
       }),
       import: t({
         en: 'Import',
@@ -306,6 +320,7 @@ const repositoryLinkContent = {
         pl: 'Importuj',
         id: 'Impor',
         vi: 'Nhập',
+        uk: 'Імпортувати',
       }),
       loadConfig: t({
         en: 'View Config',
@@ -325,6 +340,7 @@ const repositoryLinkContent = {
         pl: 'Zobacz konfigurację',
         id: 'Lihat Konfigurasi',
         vi: 'Xem cấu hình',
+        uk: 'Переглянути конфігурацію',
       }),
       cancel: t({
         en: 'Cancel',
@@ -344,6 +360,7 @@ const repositoryLinkContent = {
         pl: 'Anuluj',
         id: 'Batal',
         vi: 'Hủy',
+        uk: 'Скасувати',
       }),
       useThisFile: t({
         en: 'Use This File',
@@ -363,6 +380,7 @@ const repositoryLinkContent = {
         pl: 'Użyj tego pliku',
         id: 'Gunakan File Ini',
         vi: 'Sử dụng tệp này',
+        uk: 'Використати цей файл',
       }),
     },
 
@@ -385,26 +403,28 @@ const repositoryLinkContent = {
         pl: 'Wybierz repozytorium',
         id: 'Pilih Repositori',
         vi: 'Chọn kho lưu trữ',
+        uk: 'Виберіть репозиторій',
       }),
       selectRepositoryWithProvider: insert(
         t({
+          ar: 'اختر مستودع {{provider}}',
+          de: '{{provider}} Repository auswählen',
           en: 'Select {{provider}} Repository',
-          fr: 'Sélectionner un dépôt {{provider}}',
+          'en-GB': 'Select {{provider}} Repository',
           es: 'Seleccionar repositorio {{provider}}',
-          ru: 'Выбрать репозиторий {{provider}}',
+          fr: 'Sélectionner un dépôt {{provider}}',
+          hi: '{{provider}} रिपॉजिटरी चुनें',
+          id: 'Pilih Repositori {{provider}}',
+          it: 'Seleziona repository {{provider}}',
           ja: '{{provider}} リポジトリを選択',
           ko: '{{provider}} 저장소 선택',
-          zh: '选择 {{provider}} 仓库',
-          de: '{{provider}} Repository auswählen',
-          ar: 'اختر مستودع {{provider}}',
-          it: 'Seleziona repository {{provider}}',
-          'en-GB': 'Select {{provider}} Repository',
-          pt: 'Selecionar repositório {{provider}}',
-          hi: '{{provider}} रिपॉजिटरी चुनें',
-          tr: '{{provider}} Depo Seç',
           pl: 'Wybierz repozytorium {{provider}}',
-          id: 'Pilih Repositori {{provider}}',
+          pt: 'Selecionar repositório {{provider}}',
+          ru: 'Выбрать репозиторий {{provider}}',
+          tr: '{{provider}} Depo Seç',
+          uk: 'Виберіть репозиторій {{provider}}',
           vi: 'Chọn kho lưu trữ {{provider}}',
+          zh: '选择 {{provider}} 仓库',
         })
       ),
       selectConfigTitle: t({
@@ -425,6 +445,7 @@ const repositoryLinkContent = {
         pl: 'Wybierz plik konfiguracyjny',
         id: 'Pilih File Konfigurasi',
         vi: 'Chọn tệp cấu hình',
+        uk: 'Виберіть файл конфігурації',
       }),
       selectConfigDescription: t({
         en: 'Multiple configuration files found in',
@@ -444,6 +465,7 @@ const repositoryLinkContent = {
         pl: 'Znaleziono wiele plików konfiguracyjnych w',
         id: 'Beberapa file konfigurasi ditemukan di',
         vi: 'Tìm thấy nhiều tệp cấu hình trong',
+        uk: 'Знайдено кілька файлів конфігурації в',
       }),
       selectConfigDescriptionEnd: t({
         en: '. Select the one to use.',
@@ -463,6 +485,7 @@ const repositoryLinkContent = {
         pl: '. Wybierz ten, którego chcesz użyć.',
         id: '. Pilih yang akan digunakan.',
         vi: '. Chọn tệp để sử dụng.',
+        uk: '. Оберіть той, який потрібно використовувати.',
       }),
       confirmTitle: t({
         en: 'Confirm Import',
@@ -482,6 +505,7 @@ const repositoryLinkContent = {
         pl: 'Potwierdź import',
         id: 'Konfirmasi Impor',
         vi: 'Xác nhận nhập',
+        uk: 'Підтвердити імпорт',
       }),
       viewConfigTitle: t({
         en: 'View Configuration',
@@ -501,6 +525,7 @@ const repositoryLinkContent = {
         pl: 'Zobacz konfigurację',
         id: 'Lihat Konfigurasi',
         vi: 'Xem cấu hình',
+        uk: 'Переглянути конфігурацію',
       }),
       failedToLoad: t({
         en: 'Failed to load configuration',
@@ -520,6 +545,7 @@ const repositoryLinkContent = {
         pl: 'Nie udało się załadować konfiguracji',
         id: 'Gagal memuat konfigurasi',
         vi: 'Không thể tải cấu hình',
+        uk: 'Не вдалося завантажити конфігурацію',
       }),
       back: t({
         en: 'Back',
@@ -539,6 +565,7 @@ const repositoryLinkContent = {
         pl: 'Wstecz',
         id: 'Kembali',
         vi: 'Quay lại',
+        uk: 'Назад',
       }),
       close: t({
         en: 'Close',
@@ -558,6 +585,7 @@ const repositoryLinkContent = {
         pl: 'Zamknij',
         id: 'Tutup',
         vi: 'Đóng',
+        uk: 'Закрити',
       }),
     },
 
@@ -581,6 +609,7 @@ const repositoryLinkContent = {
           pl: 'GitHub',
           id: 'GitHub',
           vi: 'GitHub',
+          uk: 'GitHub',
         }),
         description: t({
           en: 'Connect with GitHub repositories',
@@ -600,6 +629,7 @@ const repositoryLinkContent = {
           pl: 'Połącz z repozytoriami GitHub',
           id: 'Hubungkan dengan repositori GitHub',
           vi: 'Kết nối với kho lưu trữ GitHub',
+          uk: 'Підключіться до репозиторіїв GitHub',
         }),
       },
       gitlab: {
@@ -621,6 +651,7 @@ const repositoryLinkContent = {
           pl: 'GitLab',
           id: 'GitLab',
           vi: 'GitLab',
+          uk: 'GitLab',
         }),
         description: t({
           en: 'Connect with GitLab projects (supports self-hosted)',
@@ -640,6 +671,7 @@ const repositoryLinkContent = {
           pl: 'Połącz z projektami GitLab (obsługuje self-hosted)',
           id: 'Hubungkan dengan proyek GitLab (mendukung self-hosted)',
           vi: 'Kết nối với dự án GitLab (hỗ trợ tự lưu trữ)',
+          uk: 'Підключіться до проєктів GitLab (підтримує самохостинг)',
         }),
       },
       bitbucket: {
@@ -661,6 +693,7 @@ const repositoryLinkContent = {
           pl: 'Bitbucket',
           id: 'Bitbucket',
           vi: 'Bitbucket',
+          uk: 'Bitbucket',
         }),
         description: t({
           en: 'Connect with Bitbucket repositories',
@@ -680,10 +713,15 @@ const repositoryLinkContent = {
           pl: 'Połącz z repozytoriami Bitbucket',
           id: 'Hubungkan dengan repositori Bitbucket',
           vi: 'Kết nối với kho lưu trữ Bitbucket',
+          uk: 'Підключіться до репозиторіїв Bitbucket',
         }),
       },
     },
   },
+  title: 'Repository link',
+  description:
+    'UI strings for connecting a source-code repository to a project, including provider selection, authentication, browsing and importing repositories, provider-specific settings, and related modal dialogs.',
+  tags: ['repository', 'integration', 'providers', 'import'],
 } satisfies Dictionary;
 
 export default repositoryLinkContent;

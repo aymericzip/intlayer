@@ -21,6 +21,7 @@ const deleteProjectModalContent = {
       pl: 'Usuń projekt',
       id: 'Hapus Project',
       vi: 'Xóa Project',
+      uk: 'Видалити проєкт',
     }),
 
     description: t({
@@ -41,6 +42,7 @@ const deleteProjectModalContent = {
       pl: 'Czy na pewno chcesz usunąć ten projekt?',
       id: 'Apakah Anda yakin ingin menghapus Project ini?',
       vi: 'Bạn có chắc muốn xóa Project này không?',
+      uk: 'Ви впевнені, що хочете видалити цей проєкт?',
     }),
 
     confirmButton: {
@@ -62,6 +64,7 @@ const deleteProjectModalContent = {
         pl: 'Usuń',
         id: 'Hapus',
         vi: 'Xóa',
+        uk: 'Видалити',
       }),
       label: t({
         en: 'Click to delete Project',
@@ -81,6 +84,7 @@ const deleteProjectModalContent = {
         pl: 'Kliknij, aby usunąć projekt',
         id: 'Klik untuk menghapus Project',
         vi: 'Nhấn để xóa Project',
+        uk: 'Натисніть, щоб видалити проєкт',
       }),
     },
 
@@ -103,6 +107,7 @@ const deleteProjectModalContent = {
         pl: 'Anuluj',
         id: 'Batal',
         vi: 'Hủy',
+        uk: 'Скасувати',
       }),
       label: t({
         en: 'Click to cancel',
@@ -122,6 +127,7 @@ const deleteProjectModalContent = {
         pl: 'Kliknij, aby anulować',
         id: 'Klik untuk membatalkan',
         vi: 'Nhấn để hủy',
+        uk: 'Натисніть, щоб скасувати',
       }),
     },
   },

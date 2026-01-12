@@ -21,6 +21,7 @@ export const paymentStepContent = {
       pl: 'Płatność',
       id: 'Pembayaran',
       vi: 'Thanh toán',
+      uk: 'Оплата',
     }),
     paymentDetails: {
       title: t({
@@ -41,6 +42,7 @@ export const paymentStepContent = {
         pl: 'Szczegóły płatności',
         id: 'Rincian Pembayaran',
         vi: 'Chi tiết thanh toán',
+        uk: 'Деталі оплати',
       }),
     },
     youReOrganizationIsAlreadySubscribed: {
@@ -62,6 +64,7 @@ export const paymentStepContent = {
         pl: 'Twoja organizacja ma już aktywną subskrypcję',
         id: 'Organisasi Anda sudah berlangganan',
         vi: 'Tổ chức của bạn đã đăng ký',
+        uk: 'Ваша організація вже має підписку',
       }),
     },
     incorrectProductMessage: t({
@@ -83,6 +86,7 @@ export const paymentStepContent = {
       pl: 'Wybrany produkt jest nieprawidłowy. Wybierz prawidłowy produkt.',
       id: 'Produk yang dipilih saat ini tidak valid. Silakan pilih produk yang valid.',
       vi: 'Sản phẩm hiện được chọn không hợp lệ. Vui lòng chọn một sản phẩm hợp lệ.',
+      uk: 'Вибраний продукт недійсний. Будь ласка, оберіть дійсний продукт.',
     }),
     pickANewProductButton: {
       text: t({
@@ -103,6 +107,7 @@ export const paymentStepContent = {
         pl: 'Wybierz nowy produkt',
         id: 'Pilih produk baru',
         vi: 'Chọn sản phẩm mới',
+        uk: 'Вибрати новий продукт',
       }),
       label: t({
         en: 'Pick a new product',
@@ -122,6 +127,7 @@ export const paymentStepContent = {
         pl: 'Wybierz nowy produkt',
         id: 'Pilih produk baru',
         vi: 'Chọn sản phẩm mới',
+        uk: 'Вибрати новий продукт',
       }),
     },
 
@@ -144,6 +150,7 @@ export const paymentStepContent = {
       pl: 'Nieprawidłowe żądanie płatności. Możliwe, że już subskrybujesz ten plan. Spróbuj ponownie.',
       id: 'Permintaan pembayaran tidak valid. Mungkin Anda sudah berlangganan paket ini. Silakan coba lagi.',
       vi: 'Yêu cầu thanh toán không hợp lệ. Có thể bạn đã đăng ký gói này rồi. Vui lòng thử lại.',
+      uk: 'Недійсний запит на оплату. Можливо, ви вже підписані на цей план. Будь ласка, спробуйте ще раз.',
     }),
   },
   title: 'Payment step',

@@ -21,6 +21,7 @@ const localeSwitcherContent = {
       pl: 'Wybierz język',
       id: 'Pilih bahasa',
       vi: 'Chọn ngôn ngữ',
+      uk: 'Оберіть мову',
     }),
     localeSwitcherLabel: t({
       ar: 'مبدل اللغة',
@@ -40,6 +41,7 @@ const localeSwitcherContent = {
       pl: 'Wybór języka',
       id: 'Pengalih bahasa',
       vi: 'Trình chuyển ngôn ngữ',
+      uk: 'Перемикач мови',
     }),
     languageListLabel: t({
       ar: 'قائمة اللغات',
@@ -59,26 +61,28 @@ const localeSwitcherContent = {
       pl: 'Lista języków',
       id: 'Daftar bahasa',
       vi: 'Danh sách ngôn ngữ',
+      uk: 'Список мов',
     }),
     switchTo: insert(
       t({
-        en: 'Switch to {{locale}}',
-        'en-GB': 'Switch to {{locale}}',
         ar: 'التبديل إلى {{locale}}',
         de: 'Zu {{locale}} wechseln',
+        en: 'Switch to {{locale}}',
+        'en-GB': 'Switch to {{locale}}',
         es: 'Cambiar a {{locale}}',
         fr: 'Passer à {{locale}}',
         hi: '{{locale}} पर स्विच करें',
+        id: 'Beralih ke {{locale}}',
         it: 'Passa a {{locale}}',
         ja: '{{locale}} に切り替える',
         ko: '{{locale}}로 전환',
+        pl: 'Przełącz na {{locale}}',
         pt: 'Mudar para {{locale}}',
         ru: 'Переключиться на {{locale}}',
         tr: "{{locale}}'ye geç",
-        zh: '切换到 {{locale}}',
-        pl: 'Przełącz na {{locale}}',
-        id: 'Beralih ke {{locale}}',
+        uk: 'Переключитися на {{locale}}',
         vi: 'Chuyển sang {{locale}}',
+        zh: '切换到 {{locale}}',
       })
     ),
     searchInput: {
@@ -100,6 +104,7 @@ const localeSwitcherContent = {
         pl: 'Szukaj języka',
         id: 'Cari locale',
         vi: 'Tìm ngôn ngữ',
+        uk: 'Пошук мови',
       }),
       placeholder: t({
         en: 'Search a locale',
@@ -119,6 +124,7 @@ const localeSwitcherContent = {
         pl: 'Szukaj języka',
         id: 'Cari locale',
         vi: 'Tìm một ngôn ngữ',
+        uk: 'Шукати мову',
       }),
       ariaLabel: t({
         en: 'Language search',
@@ -138,6 +144,7 @@ const localeSwitcherContent = {
         pl: 'Wyszukiwanie języka',
         id: 'Pencarian bahasa',
         vi: 'Tìm kiếm ngôn ngữ',
+        uk: 'Пошук мови',
       }),
     },
   },

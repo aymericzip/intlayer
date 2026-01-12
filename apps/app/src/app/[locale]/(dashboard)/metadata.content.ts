@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Panel | Intlayer',
       id: 'Dashboard | Intlayer',
       vi: 'Bảng điều khiển | Intlayer',
+      uk: 'Панель керування | Intlayer',
     }),
     description: t({
       ar: 'إدارة محتوى موقعك على الويب باستخدام لوحة تحكم Intlayer. تحرير أو إضافة أو حذف المشاريع والقواميس والمحتويات الأخرى. التحكم في وصول المستخدمين إلى عناصر مختلفة.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Zarządzaj zawartością swojej strony za pomocą panelu Intlayer. Edytuj, dodawaj lub usuwaj projekty, słowniki i inne treści. Kontroluj dostęp użytkowników do różnych elementów.',
       id: 'Kelola konten situs web Anda dengan dashboard Intlayer. Edit, tambahkan, atau hapus proyek, kamus, dan konten lainnya. Kontrol akses pengguna ke berbagai item.',
       vi: 'Quản lý nội dung trang web của bạn bằng bảng điều khiển Intlayer. Chỉnh sửa, thêm hoặc xóa các dự án, từ điển và các nội dung khác. Kiểm soát quyền truy cập người dùng đối với từng mục.',
+      uk: 'Керуйте вмістом свого вебсайту за допомогою панелі керування Intlayer. Редагуйте, додавайте або видаляйте проєкти, словники та інший вміст. Контролюйте доступ користувачів до різних елементів.',
     }),
 
     keywords: t({
@@ -173,6 +175,14 @@ const metadataContent = {
         'Từ điển',
         'Quyền truy cập người dùng',
         'Chỉnh sửa nội dung',
+      ],
+      uk: [
+        'Панель керування',
+        'Керування вмістом',
+        'Проєкти',
+        'Словники',
+        'Доступ користувачів',
+        'Редагування вмісту',
       ],
     }),
   },

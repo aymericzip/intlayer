@@ -21,6 +21,7 @@ const content = {
       pl: 'Proszę wprowadzić nazwę projektu',
       id: 'Harap masukkan nama untuk proyek Anda',
       vi: 'Vui lòng nhập tên cho dự án của bạn',
+      uk: 'Будь ласка, введіть назву вашого проєкту',
     }),
 
     invalidTypeErrorName: t({
@@ -41,6 +42,7 @@ const content = {
       pl: 'Proszę wprowadzić prawidłową nazwę projektu',
       id: 'Harap masukkan nama yang valid untuk proyek Anda',
       vi: 'Vui lòng nhập tên hợp lệ cho dự án của bạn',
+      uk: 'Будь ласка, введіть коректну назву вашого проєкту',
     }),
   },
   title: 'Project form validation schema',

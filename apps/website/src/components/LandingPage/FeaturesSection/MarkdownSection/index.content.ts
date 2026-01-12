@@ -23,6 +23,7 @@ const markdownSectionContent = {
       pl: '# Mój nagłówek\n\nTo jest przykładowy tekst. Oto **pogrubiony tekst** i oto *pochylony tekst*.\n\n- Pierwszy element\n- Drugi element\n\nMożesz także umieścić [link do czegoś](https://example.com).  \n',
       id: '# Judul Saya\n\nIni adalah teks contoh. Di sini ada **teks tebal** dan *teks miring*.\n\n- Item pertama\n- Item kedua\n\nAnda juga dapat menyertakan sebuah [tautan ke sesuatu](https://example.com).  \n',
       vi: '# Tiêu đề của tôi\n\nĐây là một đoạn văn mẫu. Đây là **chữ in đậm** và đây là *chữ in nghiêng*.\n\n- Mục đầu tiên\n- Mục thứ hai\n\nBạn cũng có thể bao gồm một [liên kết tới cái gì đó](https://example.com).  \n',
+      uk: '# Мій заголовок\n\nЦе приклад тексту. Тут **жирний текст**, а тут *курсивний текст*.\n\n- Перший пункт\n- Другий пункт\n\nВи також можете додати [посилання на щось](https://example.com).  \n',
     }),
     ariaLabel: t({
       ar: 'محرر Markdown',
@@ -42,6 +43,7 @@ const markdownSectionContent = {
       pl: 'Edytor Markdown',
       id: 'Editor Markdown',
       vi: 'Trình soạn thảo Markdown',
+      uk: 'Редактор Markdown',
     }),
   },
   description:

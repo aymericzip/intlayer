@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Tagi | Panel | Intlayer',
       id: 'Tags | Dashboard | Intlayer',
       vi: 'Tags | Dashboard | Intlayer',
+      uk: 'Теги | Панель керування | Intlayer',
     }),
     description: t({
       en: 'Manage and organize your tags in the Intlayer dashboard. Create, edit, and delete tags to better categorize your content.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Zarządzaj i organizuj swoje tagi w panelu Intlayer. Twórz, edytuj i usuwaj tagi, aby lepiej kategoryzować swoje treści.',
       id: 'Kelola dan atur tag Anda di dashboard Intlayer. Buat, sunting, dan hapus tag untuk mengkategorikan konten Anda dengan lebih baik.',
       vi: 'Quản lý và tổ chức các tags của bạn trong Dashboard Intlayer. Tạo, chỉnh sửa và xóa tags để phân loại nội dung của bạn tốt hơn.',
+      uk: 'Керуйте та організовуйте теги в панелі керування Intlayer. Створюйте, редагуйте та видаляйте теги, щоб краще категоризувати ваш вміст.',
     }),
     keywords: t({
       en: [
@@ -143,6 +145,14 @@ const metadataContent = {
         'Quản lý (Management)',
         'Tổ chức nội dung (Content Organization)',
         'Metadata',
+      ],
+      uk: [
+        'Теги',
+        'Мітки',
+        'Категоризація',
+        'Управління',
+        'Організація вмісту',
+        'Метадані',
       ],
     }),
   },

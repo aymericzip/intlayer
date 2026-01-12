@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Profil | Panel | Intlayer',
       id: 'Profil | Dashboard | Intlayer',
       vi: 'Hồ sơ | Dashboard | Intlayer',
+      uk: 'Профіль | Панель керування | Intlayer',
     }),
     description: t({
       en: 'Manage your profile settings in the Intlayer dashboard. Update your personal information, change your password, and configure preferences.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Zarządzaj ustawieniami swojego profilu w panelu Intlayer. Zaktualizuj dane osobowe, zmień hasło i skonfiguruj preferencje.',
       id: 'Kelola pengaturan profil Anda di dashboard Intlayer. Perbarui informasi pribadi Anda, ubah kata sandi, dan atur preferensi.',
       vi: 'Quản lý cài đặt hồ sơ của bạn trên Dashboard Intlayer. Cập nhật thông tin cá nhân, đổi mật khẩu và cấu hình các tùy chọn.',
+      uk: 'Керуйте налаштуваннями свого профілю на панелі керування Intlayer. Оновлюйте особисту інформацію, змінюйте пароль і налаштовуйте уподобання.',
     }),
     keywords: t({
       en: [
@@ -172,6 +174,14 @@ const metadataContent = {
         'Mật khẩu',
         'Tùy chọn',
         'Quản lý tài khoản',
+      ],
+      uk: [
+        'Профіль',
+        'Налаштування',
+        'Інформація користувача',
+        'Пароль',
+        'Уподобання',
+        'Керування обліковим записом',
       ],
     }),
   },

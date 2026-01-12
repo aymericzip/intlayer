@@ -21,6 +21,7 @@ const changePasswordContent = {
       pl: 'Zmień hasło',
       id: 'Ubah kata sandi',
       vi: 'Thay đổi mật khẩu',
+      uk: 'Змінити пароль',
     }),
     title2: t({
       ar: 'غير كلمة المرور الخاصة بك',
@@ -40,6 +41,7 @@ const changePasswordContent = {
       pl: 'Zmień swoje hasło',
       id: 'Ubah kata sandi Anda',
       vi: 'Thay đổi mật khẩu của bạn',
+      uk: 'Змініть свій пароль',
     }),
     description: t({
       ar: 'غيّر كلمة المرور الخاصة بك للوصول إلى حسابك.',
@@ -59,6 +61,7 @@ const changePasswordContent = {
       pl: 'Zmień hasło, aby uzyskać dostęp do swojego konta.',
       id: 'Ubah kata sandi Anda untuk mengakses akun Anda.',
       vi: 'Thay đổi mật khẩu của bạn để truy cập vào tài khoản.',
+      uk: 'Змініть пароль, щоб отримати доступ до свого облікового запису.',
     }),
   },
   title: 'Change password page content',

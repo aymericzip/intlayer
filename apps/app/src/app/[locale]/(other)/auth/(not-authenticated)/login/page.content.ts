@@ -21,6 +21,7 @@ const signInContent = {
       pl: 'Zaloguj się',
       id: 'Masuk',
       vi: 'Đăng nhập',
+      uk: 'Увійти',
     }),
     title2: t({
       en: 'Sign in',
@@ -40,6 +41,7 @@ const signInContent = {
       pl: 'Zaloguj się',
       id: 'Masuk',
       vi: 'Đăng nhập',
+      uk: 'Увійти',
     }),
     description: t({
       en: 'Enter your email and password to log in.',
@@ -59,6 +61,7 @@ const signInContent = {
       pl: 'Wprowadź swój adres e-mail i hasło, aby się zalogować.',
       id: 'Masukkan email dan kata sandi Anda untuk masuk.',
       vi: 'Nhập email và mật khẩu của bạn để đăng nhập.',
+      uk: 'Введіть свою електронну адресу та пароль, щоб увійти.',
     }),
   },
   title: 'Sign in page content',

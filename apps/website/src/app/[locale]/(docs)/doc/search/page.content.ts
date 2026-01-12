@@ -22,6 +22,7 @@ const pageContent = {
       pl: 'Szukaj w dokumentacji',
       id: 'Cari di dokumentasi',
       vi: 'Tìm kiếm trong tài liệu',
+      uk: 'Пошук у документації',
     }),
   },
   title: 'Documentation search page',

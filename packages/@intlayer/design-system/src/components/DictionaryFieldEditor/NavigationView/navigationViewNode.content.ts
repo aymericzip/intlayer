@@ -21,6 +21,7 @@ export const navigationViewContent = {
       pl: 'Węzeł React nie jest edytowalny',
       id: 'React node tidak dapat diedit',
       vi: 'React node không thể chỉnh sửa',
+      uk: 'Елемент React не редагується',
     }),
     goToField: {
       label: t({
@@ -41,6 +42,7 @@ export const navigationViewContent = {
         pl: 'Przejdź do pola',
         id: 'Buka field',
         vi: 'Đi tới trường',
+        uk: 'Перейти до поля',
       }),
     },
     addNewElement: {
@@ -62,6 +64,7 @@ export const navigationViewContent = {
         pl: 'Kliknij, aby dodać element',
         id: 'Klik untuk menambah elemen',
         vi: 'Nhấp để thêm phần tử',
+        uk: 'Натисніть, щоб додати елемент',
       }),
       text: t({
         en: 'Add new element',
@@ -81,6 +84,7 @@ export const navigationViewContent = {
         pl: 'Dodaj nowy element',
         id: 'Tambahkan elemen baru',
         vi: 'Thêm phần tử mới',
+        uk: 'Додати новий елемент',
       }),
     },
     removeElement: {
@@ -102,6 +106,7 @@ export const navigationViewContent = {
         pl: 'Kliknij, aby usunąć element',
         id: 'Klik untuk menghapus elemen',
         vi: 'Nhấp để xóa phần tử',
+        uk: 'Натисніть, щоб видалити елемент',
       }),
       text: t({
         en: 'Remove element',
@@ -121,6 +126,7 @@ export const navigationViewContent = {
         pl: 'Usuń element',
         id: 'Hapus elemen',
         vi: 'Xóa phần tử',
+        uk: 'Видалити елемент',
       }),
     },
     addNewEnumeration: {
@@ -142,6 +148,7 @@ export const navigationViewContent = {
         pl: 'Kliknij, aby dodać enumerację',
         id: 'Klik untuk menambah enumerasi',
         vi: 'Nhấp để thêm enumeration',
+        uk: 'Натисніть, щоб додати перелік',
       }),
       text: t({
         en: 'Add new enumeration',
@@ -161,6 +168,7 @@ export const navigationViewContent = {
         pl: 'Dodaj nową enumerację',
         id: 'Tambahkan enumerasi baru',
         vi: 'Thêm enumeration mới',
+        uk: 'Додати новий перелік',
       }),
     },
     removeEnumeration: {
@@ -182,6 +190,7 @@ export const navigationViewContent = {
         pl: 'Kliknij, aby usunąć enumerację',
         id: 'Klik untuk menghapus enumerasi',
         vi: 'Nhấp để xóa enumeration',
+        uk: 'Натисніть, щоб видалити перелік',
       }),
       text: t({
         en: 'Remove enumeration',
@@ -201,6 +210,7 @@ export const navigationViewContent = {
         pl: 'Usuń enumerację',
         id: 'Hapus enumerasi',
         vi: 'Xóa enumeration',
+        uk: 'Видалити перелік',
       }),
     },
     addNewCondition: {
@@ -222,6 +232,7 @@ export const navigationViewContent = {
         pl: 'Kliknij, aby dodać warunek',
         id: 'Klik untuk menambah kondisi',
         vi: 'Nhấp để thêm điều kiện',
+        uk: 'Натисніть, щоб додати умову',
       }),
       text: t({
         en: 'Add new condition',
@@ -241,6 +252,7 @@ export const navigationViewContent = {
         pl: 'Dodaj nowy warunek',
         id: 'Tambahkan kondisi baru',
         vi: 'Thêm điều kiện mới',
+        uk: 'Додати нову умову',
       }),
     },
   },

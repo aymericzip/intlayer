@@ -21,6 +21,7 @@ export const twoFactorAuthSchemaContent = {
       pl: 'Proszę podać hasło',
       id: 'Silakan masukkan password Anda',
       vi: 'Vui lòng nhập password',
+      uk: 'Будь ласка, введіть свій пароль',
     }),
 
     invalidTypeErrorPassword: t({
@@ -41,6 +42,7 @@ export const twoFactorAuthSchemaContent = {
       pl: 'Proszę podać poprawne hasło',
       id: 'Silakan masukkan password yang valid',
       vi: 'Vui lòng nhập một password hợp lệ',
+      uk: 'Будь ласка, введіть дійсний пароль',
     }),
 
     invalidTypeErrorOTP: t({
@@ -61,6 +63,7 @@ export const twoFactorAuthSchemaContent = {
       pl: 'Proszę podać poprawne OTP',
       id: 'Silakan masukkan OTP yang valid',
       vi: 'Vui lòng nhập một OTP hợp lệ',
+      uk: 'Будь ласка, введіть дійсний одноразовий пароль (OTP)',
     }),
   },
   title: 'Two-factor authentication form validation schema',

@@ -21,6 +21,7 @@ const profileDashboardContent = {
       pl: 'Ustawienia profilu',
       id: 'Pengaturan Profil',
       vi: 'Cài đặt hồ sơ',
+      uk: 'Налаштування профілю',
     }),
   },
   title: 'Profile settings page',

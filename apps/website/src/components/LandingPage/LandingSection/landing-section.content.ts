@@ -21,6 +21,7 @@ const landingSectionContent = {
       pl: 'Co nowego',
       id: 'Apa yang baru',
       vi: 'Có gì mới',
+      uk: 'Що нового',
     }),
     whatsNewLabel: t({
       ar: 'اذهب إلى صفحة التحديثات',
@@ -40,6 +41,7 @@ const landingSectionContent = {
       pl: 'Przejdź do strony z aktualizacjami',
       id: 'Buka halaman pembaruan',
       vi: 'Đi tới trang cập nhật',
+      uk: 'Перейти на сторінку оновлень',
     }),
     version: t({
       ar: 'تم شحن   للتو',
@@ -59,6 +61,7 @@ const landingSectionContent = {
       pl: 'Właśnie wydano',
       id: 'Baru saja dirilis',
       vi: 'Vừa phát hành',
+      uk: 'Щойно випущено  ',
     }),
     title: t({
       en: 'Per-Component i18n',
@@ -78,6 +81,7 @@ const landingSectionContent = {
       id: 'i18n per komponen',
       vi: 'i18n theo component',
       ar: 'دوال التدويل لكل مكون',
+      uk: 'Локалізація на рівні компонентів',
     }),
     subheading: t({
       ar: 'آمن الأنواع. ترجم بالذكاء الاصطناعي. حرر بصريًا.',
@@ -97,6 +101,7 @@ const landingSectionContent = {
       pl: 'Bezpieczne typowanie. Tłumacz przy pomocy AI. Edytuj wizualnie.',
       id: 'Type-Safe. Terjemahkan dengan AI. Sunting secara visual.',
       vi: 'Type-Safe. Translate with AI. Edit Visually.',
+      uk: 'Типобезпечність. Перекладайте за допомогою ШІ. Редагуйте візуально.',
     }),
     description: t({
       en: 'Define translations next to components to speed up your development. Keep your bundle as light as it should be. Invite editors through the CMS. Every contribution is genuinely appreciated.',
@@ -117,6 +122,7 @@ const landingSectionContent = {
       id: 'Definisikan terjemahan di samping komponen untuk mempercepat pengembangan Anda. Jaga bundle Anda tetap ringan sebagaimana mestinya. Undang editor melalui CMS. Setiap kontribusi sangat dihargai.',
       vi: 'Định nghĩa bản dịch cạnh các component để tăng tốc phát triển của bạn. Giữ bundle nhẹ như vốn có. Mời biên tập viên qua CMS. Mọi đóng góp đều được trân trọng.',
       ar: 'عرِّف الترجمات بجوار المكونات لتسريع تطويرك. حافظ على كون الحزمة خفيفة كما ينبغي. ادعُ المحررين عبر نظام إدارة المحتوى. كل مساهمة محل تقدير حقيقي.',
+      uk: 'Визначайте переклади поруч із компонентами, щоб прискорити розробку. Залишайте свій пакет таким легким, яким він має бути. Запрошуйте редакторів через CMS. Кожен внесок щиро цінується.',
     }),
 
     availableFor: t({
@@ -137,6 +143,7 @@ const landingSectionContent = {
       pl: 'Dostępne dla',
       id: 'Tersedia untuk',
       vi: 'Có sẵn cho',
+      uk: 'Доступно для',
     }),
     supportButton: t({
       ar: 'دعم المشروع',
@@ -156,6 +163,7 @@ const landingSectionContent = {
       pl: 'Wesprzyj projekt',
       id: 'Dukung proyek ini',
       vi: 'Hỗ trợ dự án',
+      uk: 'Підтримати проєкт',
     }),
     getStartedButton: t({
       ar: 'البدء',
@@ -175,6 +183,7 @@ const landingSectionContent = {
       pl: 'Rozpocznij',
       id: 'Mulai',
       vi: 'Bắt đầu',
+      uk: 'Почати',
     }),
 
     copyButton: t({
@@ -195,6 +204,7 @@ const landingSectionContent = {
       pl: 'Kopiuj',
       id: 'Salin',
       vi: 'Sao chép',
+      uk: 'Копіювати',
     }),
   },
   title: 'Landing section content',

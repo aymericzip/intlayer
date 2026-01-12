@@ -21,6 +21,7 @@ export const breadCrumbContent = {
       pl: 'Przejdź do',
       id: 'Pergi ke',
       vi: 'Đi tới',
+      uk: 'Перейти до',
     }),
   },
   title: 'Breadcrumb navigation',

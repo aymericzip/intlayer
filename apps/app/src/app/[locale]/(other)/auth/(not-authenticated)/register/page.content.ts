@@ -21,6 +21,7 @@ const signUpContent = {
       pl: 'Zarejestruj się',
       id: 'Daftar',
       vi: 'Đăng ký',
+      uk: 'Зареєструватися',
     }),
     title2: t({
       en: 'Create an account',
@@ -40,6 +41,7 @@ const signUpContent = {
       pl: 'Utwórz konto',
       id: 'Buat akun',
       vi: 'Tạo tài khoản',
+      uk: 'Створити обліковий запис',
     }),
     description: t({
       en: 'Enter your email and password to create an account.',
@@ -59,6 +61,7 @@ const signUpContent = {
       pl: 'Wprowadź swój adres e-mail i hasło, aby utworzyć konto.',
       id: 'Masukkan email dan kata sandi Anda untuk membuat akun.',
       vi: 'Nhập email và mật khẩu để tạo tài khoản.',
+      uk: 'Введіть електронну пошту та пароль, щоб створити обліковий запис.',
     }),
   },
   title: 'Sign up page content',

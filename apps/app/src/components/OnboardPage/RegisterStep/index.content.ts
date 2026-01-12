@@ -21,6 +21,7 @@ export const registerStepContent = {
       pl: 'Utwórz konto',
       id: 'Buat akun Anda',
       vi: 'Tạo tài khoản của bạn',
+      uk: 'Створіть обліковий запис',
     }),
 
     emailInput: {
@@ -42,6 +43,7 @@ export const registerStepContent = {
         pl: 'Adres e-mail',
         id: 'Alamat email',
         vi: 'Địa chỉ email',
+        uk: 'Електронна адреса',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -61,6 +63,7 @@ export const registerStepContent = {
         pl: 'Wprowadź adres e-mail',
         id: 'Masukkan alamat email',
         vi: 'Nhập địa chỉ email',
+        uk: 'Введіть електронну адресу',
       }),
     },
 
@@ -83,6 +86,7 @@ export const registerStepContent = {
         pl: 'Masz już konto?',
         id: 'Sudah punya akun?',
         vi: 'Bạn đã có tài khoản?',
+        uk: 'Вже маєте обліковий запис?',
       }),
       text: t({
         en: 'Log in',
@@ -102,6 +106,7 @@ export const registerStepContent = {
         pl: 'Zaloguj się',
         id: 'Log in',
         vi: 'Đăng nhập',
+        uk: 'Увійти',
       }),
       ariaLabel: t({
         en: 'Click to go to login page',
@@ -121,6 +126,7 @@ export const registerStepContent = {
         pl: 'Kliknij, aby przejść do strony logowania',
         id: 'Klik untuk menuju halaman login',
         vi: 'Nhấp để đến trang đăng nhập',
+        uk: 'Натисніть, щоб перейти на сторінку входу',
       }),
     },
   },

@@ -23,6 +23,7 @@ const addPasskeyModalContent = {
       'en-GB': 'Add New Passkey',
       id: 'Tambahkan Passkey Baru',
       vi: 'Thêm Passkey mới',
+      uk: 'Додати новий ключ доступу',
     }),
     modalDescription: t({
       en: 'Create a new passkey for secure, passwordless authentication.',
@@ -44,6 +45,7 @@ const addPasskeyModalContent = {
       'en-GB': 'Create a new passkey for secure, passwordless authentication.',
       id: 'Buat passkey baru untuk autentikasi aman tanpa kata sandi.',
       vi: 'Tạo passkey mới cho xác thực an toàn không cần mật khẩu.',
+      uk: 'Створіть новий ключ доступу для безпечної безпарольної автентифікації.',
     }),
     nameInput: {
       label: t({
@@ -66,6 +68,7 @@ const addPasskeyModalContent = {
         'en-GB': 'Name',
         id: 'Nama',
         vi: 'Tên',
+        uk: 'Назва',
       }),
       placeholder: t({
         en: 'Enter passkey name',
@@ -87,6 +90,7 @@ const addPasskeyModalContent = {
         'en-GB': 'Enter passkey name',
         id: 'Masukkan nama passkey',
         vi: 'Nhập tên passkey',
+        uk: 'Введіть назву ключа доступу',
       }),
     },
     submitButton: {
@@ -110,6 +114,7 @@ const addPasskeyModalContent = {
         'en-GB': 'Add Passkey',
         id: 'Tambahkan',
         vi: 'Thêm',
+        uk: 'Додати ключ доступу',
       }),
       ariaLabel: t({
         en: 'Add new passkey',
@@ -131,6 +136,7 @@ const addPasskeyModalContent = {
         'en-GB': 'Add New Passkey',
         id: 'Tambahkan Passkey Baru',
         vi: 'Thêm Passkey mới',
+        uk: 'Додати новий ключ доступу',
       }),
     },
     cancelButton: {
@@ -154,6 +160,7 @@ const addPasskeyModalContent = {
         'en-GB': 'Cancel',
         id: 'Batal',
         vi: 'Hủy',
+        uk: 'Скасувати',
       }),
       ariaLabel: t({
         en: 'Cancel adding passkey',
@@ -175,9 +182,14 @@ const addPasskeyModalContent = {
         'en-GB': 'Cancel adding passkey',
         id: 'Batal menambah passkey',
         vi: 'Hủy thêm passkey',
+        uk: 'Скасувати додавання ключа доступу',
       }),
     },
   },
+  title: 'Add Passkey Modal',
+  description:
+    'Modal content for adding a new passkey for secure, passwordless authentication. Includes modal title and description, input label and placeholder, and button texts with aria labels.',
+  tags: ['modal', 'auth', 'passkey', 'passwordless'],
 } satisfies Dictionary;
 
 export default addPasskeyModalContent;

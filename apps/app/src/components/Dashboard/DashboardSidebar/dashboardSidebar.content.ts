@@ -22,6 +22,7 @@ const dashboardSidebarContent = {
         pl: 'Zwiń pasek boczny',
         id: 'Sembunyikan sidebar',
         vi: 'Thu gọn thanh bên',
+        uk: 'Згорнути бічну панель',
       }),
     },
 
@@ -45,6 +46,7 @@ const dashboardSidebarContent = {
           pl: 'Przejdź do wizualnego edytora Intlayer',
           id: 'Buka Intlayer visual editor',
           vi: 'Mở trình chỉnh sửa trực quan Intlayer',
+          uk: 'Перейти до візуального редактора Intlayer',
         }),
         title: t({
           en: 'Editor',
@@ -64,6 +66,7 @@ const dashboardSidebarContent = {
           pl: 'Edytor',
           id: 'Editor',
           vi: 'Trình chỉnh sửa',
+          uk: 'Редактор',
         }),
       },
       translate: {
@@ -85,6 +88,7 @@ const dashboardSidebarContent = {
           pl: 'Przejdź do panelu tłumaczeń',
           id: 'Buka dashboard Translate',
           vi: 'Đi tới bảng điều khiển dịch thuật',
+          uk: 'Перейти до панелі перекладів',
         }),
         title: t({
           en: 'Translate',
@@ -104,6 +108,7 @@ const dashboardSidebarContent = {
           pl: 'Tłumacz',
           id: 'Translate',
           vi: 'Dịch',
+          uk: 'Переклад',
         }),
       },
       dictionaries: {
@@ -125,6 +130,7 @@ const dashboardSidebarContent = {
           pl: 'Przejdź do panelu słowników',
           id: 'Buka dashboard Dictionaries',
           vi: 'Đi tới bảng điều khiển từ điển',
+          uk: 'Перейти до панелі словників',
         }),
         title: t({
           en: 'Dictionaries',
@@ -144,6 +150,7 @@ const dashboardSidebarContent = {
           pl: 'Słowniki',
           id: 'Dictionaries',
           vi: 'Từ điển',
+          uk: 'Словники',
         }),
       },
       content: {
@@ -165,6 +172,7 @@ const dashboardSidebarContent = {
           pl: 'Przejdź do panelu zawartości',
           id: 'Buka dashboard Content',
           vi: 'Đi tới bảng điều khiển nội dung',
+          uk: 'Перейти до панелі вмісту',
         }),
         title: t({
           en: 'Content',
@@ -184,6 +192,7 @@ const dashboardSidebarContent = {
           pl: 'Zawartość',
           id: 'Content',
           vi: 'Nội dung',
+          uk: 'Вміст',
         }),
       },
       tags: {
@@ -205,6 +214,7 @@ const dashboardSidebarContent = {
           pl: 'Przejdź do panelu tagów',
           id: 'Buka dashboard Tags',
           vi: 'Đi tới bảng điều khiển thẻ',
+          uk: 'Перейти до панелі тегів',
         }),
         title: t({
           en: 'Tags',
@@ -224,6 +234,7 @@ const dashboardSidebarContent = {
           pl: 'Tagi',
           id: 'Tags',
           vi: 'Thẻ',
+          uk: 'Теги',
         }),
       },
       projects: {
@@ -245,6 +256,7 @@ const dashboardSidebarContent = {
           pl: 'Przejdź do panelu projektów',
           id: 'Buka dashboard Projects',
           vi: 'Đi tới bảng điều khiển dự án',
+          uk: 'Перейти до панелі проєктів',
         }),
         title: t({
           en: 'Projects',
@@ -264,6 +276,7 @@ const dashboardSidebarContent = {
           pl: 'Projekty',
           id: 'Projects',
           vi: 'Dự án',
+          uk: 'Проєкти',
         }),
       },
       organization: {
@@ -285,6 +298,7 @@ const dashboardSidebarContent = {
           pl: 'Przejdź do panelu organizacji',
           id: 'Buka dashboard Organization',
           vi: 'Đi tới bảng điều khiển tổ chức',
+          uk: 'Перейти до панелі організації',
         }),
         title: t({
           en: 'Organization',
@@ -304,6 +318,7 @@ const dashboardSidebarContent = {
           pl: 'Organizacja',
           id: 'Organization',
           vi: 'Tổ chức',
+          uk: 'Організація',
         }),
       },
       profile: {
@@ -325,6 +340,7 @@ const dashboardSidebarContent = {
           pl: 'Przejdź do panelu profilu',
           id: 'Buka dashboard Profile',
           vi: 'Đi tới bảng điều khiển hồ sơ',
+          uk: 'Перейти до панелі профілю',
         }),
         title: t({
           en: 'Profile',
@@ -344,6 +360,7 @@ const dashboardSidebarContent = {
           pl: 'Profil',
           id: 'Profile',
           vi: 'Hồ sơ',
+          uk: 'Профіль',
         }),
       },
       admin: {
@@ -365,6 +382,7 @@ const dashboardSidebarContent = {
           pl: 'Przejdź do panelu administracyjnego',
           id: 'Buka dashboard Admin',
           vi: 'Đi tới bảng điều khiển quản trị',
+          uk: 'Перейти до панелі адміністратора',
         }),
         title: t({
           en: 'Admin',
@@ -384,6 +402,7 @@ const dashboardSidebarContent = {
           pl: 'Administracja',
           id: 'Admin',
           vi: 'Quản trị',
+          uk: 'Адмін',
         }),
       },
     },

@@ -26,6 +26,7 @@ const featuresSectionContent = {
         id: 'Codebase',
         pl: 'Baza kodu',
         vi: 'Codebase',
+        uk: 'Codebase',
       }),
       description: t({
         en: 'Improve code maintainability by keeping your content definitions close to your components. Reduce redundancy, enhance clarity, and simplify updates with a structured approach that makes your code easier to manage and scale over time.',
@@ -46,6 +47,7 @@ const featuresSectionContent = {
         id: 'Tingkatkan keterpeliharaan kode dengan menempatkan definisi konten dekat dengan komponen Anda. Kurangi redundansi, tingkatkan kejelasan, dan permudah pembaruan dengan pendekatan terstruktur yang membuat kode Anda lebih mudah dikelola dan diskalakan seiring waktu.',
         pl: 'Popraw utrzymanie kodu, umieszczając definicje treści blisko komponentów. Zmniejsz redundancję, zwiększ przejrzystość i uprość aktualizacje dzięki uporządkowanemu podejściu, które sprawia, że kod jest łatwiejszy do zarządzania i skalowania w czasie.',
         vi: 'Cải thiện khả năng bảo trì mã bằng cách giữ các định nghĩa nội dung gần với components của bạn. Giảm sự trùng lặp, tăng tính rõ ràng và đơn giản hóa việc cập nhật thông qua một cách tiếp cận có cấu trúc, giúp mã của bạn dễ quản lý và mở rộng theo thời gian.',
+        uk: 'Покращуйте підтримку коду, зберігаючи ваші визначення контенту поруч з вашими компонентами. Зменшуйте надлишковість, підвищуйте ясність і спрощуйте оновлення за допомогою структурованого підходу, який робить ваш код простішим для керування та масштабування з часом.',
       }),
     },
     {
@@ -68,6 +70,7 @@ const featuresSectionContent = {
         id: 'Compiler',
         pl: 'Kompilator',
         vi: 'Compiler',
+        uk: 'Compiler',
       }),
       description: t({
         en: 'Extract your content instantly with the Intlayer Compiler. It will automatically generate the necessary dictionary files for your content to internationalize your application in a second.',
@@ -88,6 +91,7 @@ const featuresSectionContent = {
         id: 'Ekstrak konten Anda seketika dengan Intlayer Compiler. Secara otomatis menghasilkan file kamus yang diperlukan agar konten Anda dapat membuat aplikasi Anda menjadi multibahasa dalam sekejap.',
         pl: 'Wydobądź swoje treści natychmiast za pomocą Kompilatora Intlayer. Automatycznie wygeneruje niezbędne pliki słownika dla Twoich treści, aby umiędzynarodowić Twoją aplikację w sekundę.',
         vi: 'Trích xuất nội dung của bạn ngay lập tức với Intlayer Compiler. Nó sẽ tự động tạo ra các tệp từ điển cần thiết để nội dung của bạn quốc tế hóa ứng dụng chỉ trong chớp mắt.',
+        uk: 'Витягніть вміст миттєво за допомогою Intlayer Compiler. Він автоматично генерує необхідні файли словника для вашого вмісту, щоб інтернаціоналізувати ваше застосування за секунду.',
       }),
     },
     {
@@ -110,6 +114,7 @@ const featuresSectionContent = {
         id: 'Visual Editor',
         pl: 'Edytor wizualny',
         vi: 'Visual Editor',
+        uk: 'Візуальний редактор',
       }),
       description: t({
         en: 'Leverage the free visual editor to build and manage your site effortlessly. Create, edit, and organize components and pages without touching code, making it easier for content managers and developers to collaborate efficiently.',
@@ -130,6 +135,7 @@ const featuresSectionContent = {
         id: 'Manfaatkan Visual Editor gratis untuk membangun dan mengelola situs Anda dengan mudah. Buat, sunting, dan atur komponen serta halaman tanpa harus menyentuh kode, sehingga memudahkan content manager dan developer untuk berkolaborasi secara efisien.',
         pl: 'Wykorzystaj darmowy edytor wizualny do łatwego tworzenia i zarządzania stroną. Twórz, edytuj i organizuj komponenty oraz strony bez konieczności ingerencji w kod, co ułatwia efektywną współpracę menedżerów treści i deweloperów.',
         vi: 'Tận dụng Visual Editor miễn phí để xây dựng và quản lý trang web một cách dễ dàng. Tạo, chỉnh sửa và tổ chức components và trang mà không cần chạm vào mã, giúp content managers và developers cộng tác hiệu quả hơn.',
+        uk: 'Використовуйте безкоштовний візуальний редактор для легкого створення і керування сайтом. Створюйте, редагуйте і організуйте компоненти і сторінки без необхідності писати код, що спрощує співпрацю між менеджерами контенту і розробниками.',
       }),
     },
     {
@@ -152,6 +158,7 @@ const featuresSectionContent = {
         id: 'Terjemahkan',
         pl: 'Przetłumacz',
         vi: 'Dịch',
+        uk: 'Перекласти',
       }),
       description: t({
         en: 'Expand your reach with built-in translation support. Easily translate your content using an intuitive interface, ensuring seamless multilingual experiences for your users without the hassle of managing multiple content versions manually.',
@@ -172,44 +179,9 @@ const featuresSectionContent = {
         id: 'Perluas jangkauan Anda dengan dukungan terjemahan bawaan. Terjemahkan konten Anda dengan mudah menggunakan antarmuka yang intuitif, memastikan pengalaman multibahasa yang mulus bagi pengguna tanpa kerepotan mengelola beberapa versi konten secara manual.',
         pl: 'Poszerzaj zasięg dzięki wbudowanemu wsparciu dla tłumaczeń. Łatwo tłumacz treści za pomocą intuicyjnego interfejsu, zapewniając bezproblemowe wielojęzyczne doświadczenia dla użytkowników bez konieczności ręcznego zarządzania wieloma wersjami treści.',
         vi: 'Mở rộng phạm vi tiếp cận với hỗ trợ dịch tích hợp sẵn. Dễ dàng dịch nội dung bằng giao diện trực quan, đảm bảo trải nghiệm đa ngôn ngữ liền mạch cho người dùng mà không phải tốn công quản lý nhiều phiên bản nội dung thủ công.',
+        uk: 'Розширте свою сферу впливу завдяки вбудованому підтримці перекладу. Легко перекладайте свою вміст за допомогою інтуїтивно зрозумілого інтерфейсу, забезпечуючи безперебійну багатомовну досвід для ваших користувачів без зайвих зусиль у керуванні кількома версіями вмісту вручну.',
       }),
     },
-    // {
-    //   id: 'autocomplete',
-    //   title: t({
-    //     en: 'Autocomplete',
-    //     'en-GB': 'Autocomplete',
-    //     fr: 'Auto-complétion',
-    //     es: 'Autocompletar',
-    //     de: 'Autovervollständigung',
-    //     it: 'Completamento automatico',
-    //     pt: 'Autocompletar',
-    //     ru: 'Автозаполнение',
-    //     zh: '自动完成',
-    //     ja: 'オートコンプリート',
-    //     ar: 'الإكمال التلقائي',
-    //     hi: 'स्वतः पूर्ण',
-    //     ko: '자동 완성',
-    //     tr: 'Otomatik Tamamlama',
-    //   }),
-    //   description: t({
-    //     en: 'Boost your productivity with AI-powered content suggestions. As you type, get instant recommendations for text, headings, and key phrases, helping you maintain consistency, improve readability, and speed up content creation across your project.',
-    //     'en-GB':
-    //       'Boost your productivity with AI-powered content suggestions. As you type, get instant recommendations for text, headings, and key phrases, helping you maintain consistency, improve readability, and speed up content creation across your project.',
-    //     fr: 'Bénéficiez d’une productivité accrue grâce aux suggestions de contenu alimentées par l’IA. Au fur et à mesure de votre saisie, obtenez des recommandations instantanées pour le texte, les titres et les expressions clés, vous aidant à maintenir la cohérence, à améliorer la lisibilité et à accélérer la création de contenu dans l’ensemble de votre projet.',
-    //     es: 'Aumente su productividad con sugerencias de contenido impulsadas por IA. A medida que escribe, obtenga recomendaciones instantáneas para texto, encabezados y frases clave, ayudándole a mantener la coherencia, mejorar la legibilidad y acelerar la creación de contenido en todo su proyecto.',
-    //     de: 'Steigern Sie Ihre Produktivität mit KI-gestützten Inhaltsempfehlungen. Während Sie tippen, erhalten Sie sofortige Vorschläge für Text, Überschriften und Schlüsselbegriffe, was Ihnen hilft, Konsistenz zu wahren, die Lesbarkeit zu verbessern und die Inhaltserstellung in Ihrem gesamten Projekt zu beschleunigen.',
-    //     it: 'Aumenta la tua produttività con suggerimenti di contenuto basati sull’IA. Mentre digiti, ricevi raccomandazioni istantanee per testo, titoli e frasi chiave, aiutandoti a mantenere la coerenza, migliorare la leggibilità e velocizzare la creazione di contenuti in tutto il tuo progetto.',
-    //     pt: 'Aumente sua produtividade com sugestões de conteúdo baseadas em IA. À medida que você digita, receba recomendações instantâneas para texto, títulos e frases-chave, ajudando-o a manter a consistência, melhorar a legibilidade e agilizar a criação de conteúdo em todo o seu projeto.',
-    //     ru: 'Повышайте свою продуктивность с помощью предложений контента на основе ИИ. По мере ввода вы получаете мгновенные рекомендации по тексту, заголовкам и ключевым фразам, что помогает сохранять согласованность, улучшать читаемость и ускорять создание контента во всём проекте.',
-    //     zh: '借助 AI 驱动的内容建议，提高您的工作效率。输入文字时，可即时获得关于文本、标题和关键词的推荐，帮助您保持一致性、提高清晰度并加快整个项目的内容创建。',
-    //     ja: 'AIによるコンテンツ提案を活用して生産性を高めましょう。入力する際にテキスト、見出し、キーフレーズの即時推奨が表示され、一貫性を維持し、可読性を向上させ、プロジェクト全体でのコンテンツ作成を迅速化するのに役立ちます。',
-    //     ar: 'عزز إنتاجيتك باستخدام اقتراحات المحتوى المدعومة بالذكاء الاصطناعي. أثناء الكتابة، احصل على توصيات فورية للنصوص والعناوين والعبارات الرئيسية لمساعدتك على الحفاظ على الاتساق، وتحسين قابلية القراءة، وتسريع إنشاء المحتوى في مشروعك.',
-    //     hi: 'AI-संचालित सामग्री सुझावों के साथ अपनी उत्पादकता बढ़ाएँ। टाइप करते समय, आपको पाठ, शीर्षक और मुख्य वाक्यांशों के लिए त्वरित अनुशंसाएँ मिलती हैं, जो आपको निरंतरता बनाए रखने, पठनीयता में सुधार करने और अपने प्रोजेक्ट में सामग्री निर्माण को तेज करने में मदद करती हैं।',
-    //     ko: 'AI 기반 콘텐츠 제안을 통해 생산성을 높이세요. 입력하는 동안 텍스트, 제목 및 주요 구문에 대한 즉각적인 추천을 받아 일관성을 유지하고 가독성을 개선하며 프로젝트 전반의 콘텐츠 작성 속도를 높일 수 있습니다.',
-    //     tr: 'Yapay zeka destekli içerik önerileriyle üretkenliğinizi artırın. Yazarken, metin, başlıklar ve anahtar ifadeler için anında öneriler alın; bu da tutarlılığı korumanıza, okunabilirliği artırmanıza ve projeniz genelinde içerik oluşturmayı hızlandırmanıza yardımcı olur.',
-    //   }),
-    // },
     {
       id: 'test',
       title: t({
@@ -230,6 +202,7 @@ const featuresSectionContent = {
         id: 'Tes',
         pl: 'Test',
         vi: 'Kiểm thử',
+        uk: 'Тест',
       }),
       description: t({
         en: 'Use the Intlayer CLI to test and fill your content using AI to ensure all translations are complete and accurate.',
@@ -250,6 +223,7 @@ const featuresSectionContent = {
         id: 'Gunakan Intlayer CLI untuk menguji dan mengisi konten Anda dengan AI agar semua terjemahan lengkap dan akurat.',
         pl: 'Użyj Intlayer CLI do przetestowania i uzupełnienia treści za pomocą AI, aby mieć pewność, że wszystkie tłumaczenia są kompletne i poprawne.',
         vi: 'Sử dụng Intlayer CLI để kiểm tra và bổ sung nội dung bằng AI, đảm bảo tất cả các bản dịch đều đầy đủ và chính xác.',
+        uk: 'Використовуйте Intlayer CLI для тестування та заповнення вмісту за допомогою AI, щоб переконатися, що всі переклади є повними та точними.',
       }),
     },
     {
@@ -274,6 +248,7 @@ const featuresSectionContent = {
         id: 'Tulis konten dalam Markdown untuk pendekatan yang mulus dan terstruktur dalam pemformatan teks. Buat dan kelola halaman situs Anda dengan mudah, memanfaatkan kesederhanaan Markdown untuk menjaga konsistensi dan meningkatkan keterbacaan di seluruh platform Anda.',
         pl: 'Pisz treści w Markdown, aby uzyskać spójne i uporządkowane formatowanie tekstu. Twórz i zarządzaj stronami serwisu z łatwością, wykorzystując prostotę Markdown do utrzymania konsekwencji i poprawy czytelności na całej platformie.',
         vi: 'Viết nội dung bằng Markdown để có một cách tiếp cận mạch lạc và có cấu trúc cho việc định dạng văn bản. Tạo và quản lý các trang trên trang web của bạn một cách dễ dàng, tận dụng sự đơn giản của Markdown để duy trì tính nhất quán và nâng cao khả năng đọc trên toàn bộ nền tảng.',
+        uk: 'Записуйте вміст у Markdown для плавного і структурованого підходу до форматування тексту. Створюйте і керуйте сторінками вашого сайту легко, використовуючи простоту Markdown для підтримки однорідності і підвищення читабельності на всій платформі.',
       }),
     },
   ],

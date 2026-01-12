@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Logowanie | Intlayer',
       id: 'Login | Intlayer',
       vi: 'Đăng nhập | Intlayer',
+      uk: 'Вхід | Intlayer',
     }),
     description: t({
       ar: 'قم بتسجيل الدخول إلى حساب Intlayer الخاص بك للوصول إلى المحتوى الحصري وإدارة تفضيلاتك.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Zaloguj się na swoje konto Intlayer, aby uzyskać dostęp do ekskluzywnych treści i zarządzać swoimi preferencjami.',
       id: 'Masuk ke akun Intlayer Anda untuk mengakses konten eksklusif dan mengelola preferensi Anda.',
       vi: 'Đăng nhập vào tài khoản Intlayer của bạn để truy cập nội dung độc quyền và quản lý các tùy chọn.',
+      uk: 'Увійдіть у свій обліковий запис Intlayer, щоб отримати доступ до ексклюзивного контенту та керувати своїми налаштуваннями.',
     }),
 
     keywords: t({
@@ -145,6 +147,14 @@ const metadataContent = {
         'Truy cập',
         'Xác thực',
         'Đăng nhập',
+      ],
+      uk: [
+        'Вхід',
+        'Обліковий запис',
+        'Intlayer',
+        'Доступ',
+        'Аутентифікація',
+        'Увійти',
       ],
     }),
   },

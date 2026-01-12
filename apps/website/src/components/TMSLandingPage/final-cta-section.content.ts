@@ -2,8 +2,9 @@ import { type Dictionary, t } from 'intlayer';
 
 const finalCtaSectionContent = {
   key: 'final-cta-section',
-  title: 'TMS Landing Final CTA Section',
-  description: 'Final CTA section content for TMS landing page',
+  title: 'Final CTA Section — TMS Landing',
+  description:
+    'Final call-to-action section for the TMS landing page. Contains the CTA title, supporting description and button label.',
   content: {
     finalCtaTitle: t({
       en: 'Switch today. Keep your money.',
@@ -23,6 +24,7 @@ const finalCtaSectionContent = {
       pl: 'Przełącz się dziś. Zachowaj swoje pieniądze.',
       id: 'Beralih hari ini. Simpan uang Anda.',
       vi: 'Chuyển đổi ngay hôm nay. Giữ tiền của bạn.',
+      uk: 'Перейдіть сьогодні. Збережіть свої гроші.',
     }),
     finalCtaDescription: t({
       en: 'Import your existing JSON files in minutes. Join the developers building the future of i18n.',
@@ -43,6 +45,7 @@ const finalCtaSectionContent = {
       pl: 'Zaimportuj istniejące pliki JSON w kilka minut. Dołącz do deweloperów budujących przyszłość i18n.',
       id: 'Impor file JSON yang ada dalam hitungan menit. Bergabunglah dengan pengembang yang membangun masa depan i18n.',
       vi: 'Nhập các tệp JSON hiện có của bạn trong vài phút. Tham gia cùng các nhà phát triển đang xây dựng tương lai của i18n.',
+      uk: 'Імпортуйте наявні JSON-файли за лічені хвилини. Приєднуйтесь до розробників, які будують майбутнє i18n.',
     }),
     finalCtaButton: t({
       en: 'Get Started for Free',
@@ -62,8 +65,10 @@ const finalCtaSectionContent = {
       pl: 'Zacznij za darmo',
       id: 'Mulai gratis',
       vi: 'Bắt đầu miễn phí',
+      uk: 'Почати безкоштовно',
     }),
   },
+  tags: ['final-cta', 'cta', 'tms-landing'],
 } satisfies Dictionary;
 
 export default finalCtaSectionContent;

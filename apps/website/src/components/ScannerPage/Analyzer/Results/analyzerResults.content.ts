@@ -22,6 +22,7 @@ const analyzerResultsContent = {
         id: 'Pergi ke URL',
         vi: 'Đi đến URL',
         ar: 'اذهب إلى الرابط',
+        uk: 'Перейти до URL',
       }),
     },
     score: {
@@ -43,6 +44,7 @@ const analyzerResultsContent = {
         id: 'Skor',
         vi: 'Điểm số',
         ar: 'النتيجة',
+        uk: 'Оцінка',
       }),
     },
     status: enu({
@@ -65,6 +67,7 @@ const analyzerResultsContent = {
           id: 'Sempurna',
           vi: 'Hoàn hảo',
           ar: 'مثالي',
+          uk: 'Ідеально',
         }),
         color: 'success',
       },
@@ -87,6 +90,7 @@ const analyzerResultsContent = {
           id: 'Baik',
           vi: 'Tốt',
           ar: 'جيد',
+          uk: 'Добре',
         }),
         color: 'success',
       },
@@ -109,6 +113,7 @@ const analyzerResultsContent = {
           id: 'Rata-rata',
           vi: 'Trung bình',
           ar: 'متوسط',
+          uk: 'Середній',
         }),
         color: 'warning',
       },
@@ -131,6 +136,7 @@ const analyzerResultsContent = {
           id: 'Buruk',
           vi: 'Kém',
           ar: 'ضعيف',
+          uk: 'Погано',
         }),
         color: 'error',
       },
@@ -154,6 +160,7 @@ const analyzerResultsContent = {
         id: 'Tidak ada judul',
         vi: 'Không có tiêu đề',
         ar: 'لا يوجد عنوان',
+        uk: 'Без заголовка',
       }),
       noDescription: t({
         en: 'No meta description available.',
@@ -173,6 +180,7 @@ const analyzerResultsContent = {
         id: 'Tidak ada meta deskripsi tersedia.',
         vi: 'Không có mô tả meta.',
         ar: 'لا يوجد وصف ميتا متاح.',
+        uk: 'Мета-опис відсутній.',
       }),
       websitePreview: t({
         en: 'Website preview',
@@ -192,6 +200,7 @@ const analyzerResultsContent = {
         id: 'Pratinjau situs web',
         vi: 'Xem trước trang web',
         ar: 'معاينة الموقع',
+        uk: 'Попередній перегляд сайту',
       }),
       noUrlFound: t({
         en: 'No URLs found',
@@ -211,6 +220,7 @@ const analyzerResultsContent = {
         id: 'URL tidak ditemukan',
         vi: 'Không tìm thấy URL',
         ar: 'لم يتم العثور على عناوين URL',
+        uk: 'URL не знайдено',
       }),
     },
     fields: {
@@ -232,6 +242,7 @@ const analyzerResultsContent = {
         id: 'Tag bahasa',
         vi: 'Nhãn ngôn ngữ',
         ar: 'وسم اللغة',
+        uk: 'Мовний тег',
       }),
       hreflangs: 'Hreflangs',
       currentLocale: t({
@@ -252,6 +263,7 @@ const analyzerResultsContent = {
         id: 'Bahasa saat ini',
         vi: 'Ngôn ngữ hiện tại',
         ar: 'اللغة الحالية',
+        uk: 'Поточна мова',
       }),
       htmlLang: 'HTML lang',
       htmlDir: 'HTML dir',
@@ -275,6 +287,7 @@ const analyzerResultsContent = {
         id: 'Semua anchor terlokalisasi',
         vi: 'Tất cả các anchor đã được bản địa hóa',
         ar: 'جميع الروابط محلية',
+        uk: 'Всі якорі локалізовано',
       }),
       localeCount: t({
         en: 'Locale count',
@@ -294,6 +307,7 @@ const analyzerResultsContent = {
         id: 'Jumlah bahasa',
         vi: 'Số lượng ngôn ngữ',
         ar: 'عدد اللغات',
+        uk: 'Кількість мов',
       }),
       // langSelector: t({
       //   en: 'Lang selector',
@@ -351,6 +365,7 @@ const analyzerResultsContent = {
         id: 'Kanonik',
         vi: 'Chuẩn hóa',
         ar: 'القياسي',
+        uk: 'Канонічний',
       }),
       localizedUrls: t({
         en: 'Localized URLs',
@@ -370,6 +385,7 @@ const analyzerResultsContent = {
         id: 'URL terlokalisasi',
         vi: 'URL đã bản địa hóa',
         ar: 'عناوين URL المحلية',
+        uk: 'Локалізовані URL',
       }),
       localizedLinks: t({
         en: 'Localized links',
@@ -389,6 +405,7 @@ const analyzerResultsContent = {
         id: 'Tautan terlokalisasi',
         vi: 'Liên kết đã bản địa hóa',
         ar: 'روابط محلية',
+        uk: 'Локалізовані посилання',
       }),
     },
     fieldsDescription: {
@@ -546,6 +563,15 @@ const analyzerResultsContent = {
             '```',
             '',
             '**لماذا هو مهم:** ضروري لتحسين محركات البحث وإمكانية الوصول. تستخدمه برامج قراءة الشاشة لنطق المحتوى بشكل صحيح.',
+          ].join('\n'),
+          uk: [
+            'Атрибут `lang` у тезі `<html>` оголошує основну мову сторінки. Це допомагає пошуковим системам та браузерам зрозуміти мову контенту.',
+            '',
+            '```html',
+            '<html lang="uk">',
+            '```',
+            '',
+            '**Чому це важливо:** Необхідно для SEO та доступності. Програми читання з екрану використовують його для правильного вимови контенту.',
           ].join('\n'),
         })
       ),
@@ -736,6 +762,17 @@ const analyzerResultsContent = {
             '',
             '**أفضل ممارسة:** قم بتضمين `x-default` للمستخدمين الذين لا تدعم لغتهم.',
           ].join('\n'),
+          uk: [
+            'Посилання hreflang повідомляють пошуковим системам про альтернативні мовні версії вашої сторінки. Вони запобігають проблемам дубльованого контенту та допомагають надати користувачам правильну мову.',
+            '',
+            '```html',
+            '<link rel="alternate" hreflang="en" href="https://example.com/en" />',
+            '<link rel="alternate" hreflang="fr" href="https://example.com/fr" />',
+            '<link rel="alternate" hreflang="x-default" href="https://example.com/" />',
+            '```',
+            '',
+            '**Рекомендація:** Включіть `x-default` для користувачів, чию мову ви не підтримуєте.',
+          ].join('\n'),
         })
       ),
       currentLocale: md(
@@ -859,6 +896,13 @@ const analyzerResultsContent = {
             '',
             '**ملاحظة:** يجب أن يتطابق مع إحدى قيم hreflang وأن يكون رمز لغة ISO 639-1 صالحًا.',
           ].join('\n'),
+          uk: [
+            'Виявлена локаль поточної сторінки на основі HTML-атрибута `lang`. Це мовний код, який представляє вміст сторінки.',
+            '',
+            '**Приклади:** `en`, `fr`, `de`, `es-MX`, `pt-BR`',
+            '',
+            '**Примітка:** Має відповідати одному зі значень hreflang та бути дійсним кодом мови ISO 639-1.',
+          ].join('\n'),
         })
       ),
       htmlLang: md(
@@ -947,6 +991,11 @@ const analyzerResultsContent = {
             'ما إذا كان مستند HTML يحتوي على سمة `lang` صالحة. يشير هذا إلى ما إذا كانت الصفحة تعلن صراحةً عن لغتها.',
             '',
             '**التأثير:** غياب سمة lang يؤثر سلبًا على تحسين محركات البحث وإمكانية الوصول. تعتمد المتصفحات والتقنيات المساعدة عليها.',
+          ].join('\n'),
+          uk: [
+            'Чи має HTML-документ дійсний атрибут `lang`. Це показує, чи явно сторінка оголошує свою мову.',
+            '',
+            '**Вплив:** Відсутність атрибута lang негативно впливає на SEO та доступність. Браузери та допоміжні технології залежать від нього.',
           ].join('\n'),
         })
       ),
@@ -1138,6 +1187,17 @@ const analyzerResultsContent = {
             '',
             '**لماذا هو مهم:** حرج للعرض الصحيح للغات RTL مثل العربية والعبرية والفارسية والأردية. يحسن القراءة وتجربة المستخدم.',
             '**القيم:** `ltr` (من اليسار إلى اليمين)، `rtl` (من اليمين إلى اليسار)، أو `auto`.',
+          ].join('\n'),
+          uk: [
+            'Атрибут `dir` у тезі `<html>` визначає напрямок тексту вмісту. Це необхідно для мов, написаних справа наліво (RTL).',
+            '',
+            '```html',
+            '<html lang="ar" dir="rtl">',
+            '<html lang="uk" dir="ltr">',
+            '```',
+            '',
+            '**Чому це важливо:** Критично для правильного відображення мов RTL, таких як арабська, іврит, перська та урду. Покращує читабельність та користувацький досвід.',
+            '**Значення:** `ltr` (зліва направо), `rtl` (справа наліво) або `auto`.',
           ].join('\n'),
         })
       ),
@@ -1343,6 +1403,18 @@ const analyzerResultsContent = {
             '',
             '**أفضل ممارسة:** قم دائمًا بتضمين `x-default` في المواقع متعددة اللغات. يجب أن يشير إلى صفحة منتقي اللغة أو إصدار اللغة الأساسي الخاص بك.',
             '**لماذا هو مهم:** يضمن توجيه المستخدمين الدوليين إلى صفحة مناسبة حتى لو لم تكن لغتهم مدعومة بشكل خاص.',
+          ].join('\n'),
+          uk: [
+            'Вказує, чи містить сторінка тег hreflang `x-default`. Цей тег вказує сторінку за замовчуванням/резервну для користувачів, чиї мовні налаштування не відповідають жодному конкретному hreflang.',
+            '',
+            '```html',
+            '<link rel="alternate" hreflang="x-default" href="https://example.com/" />',
+            '<link rel="alternate" hreflang="en" href="https://example.com/en/" />',
+            '<link rel="alternate" hreflang="uk" href="https://example.com/uk/" />',
+            '```',
+            '',
+            '**Рекомендація:** Завжди включайте `x-default` на багатомовних сайтах. Він має вказувати на сторінку вибору мови або вашу основну мовну версію.',
+            '**Чому це важливо:** Гарантує, що міжнародні користувачі будуть перенаправлені на відповідну сторінку, навіть якщо їхня мова не підтримується спеціально.',
           ].join('\n'),
         })
       ),
@@ -1587,6 +1659,20 @@ const analyzerResultsContent = {
             '',
             '**لماذا هو مهم:** يضمن تجربة لغة متسقة وهيكل URL مناسب للمواقع متعددة اللغات.',
           ].join('\n'),
+          uk: [
+            'Перевіряє, чи всі внутрішні посилання на сторінці містять префікс мови в їхньому шляху (наприклад, `/en/`, `/fr/`). Це критично важливо для правильного мовного маршрутизації.',
+            '',
+            '```html',
+            '<!-- Добре -->',
+            '<a href="/en/about">About</a>',
+            '<a href="/fr/about">À propos</a>',
+            '',
+            '<!-- Погано -->',
+            '<a href="/about">About</a>',
+            '```',
+            '',
+            '**Чому це важливо:** Забезпечує послідовний мовний досвід та правильну структуру URL для багатомовних сайтів.',
+          ].join('\n'),
         })
       ),
       localeCount: md(
@@ -1726,6 +1812,14 @@ const analyzerResultsContent = {
             '**لغة واحدة:** قد يشير إلى أن الموقع متاح بلغة واحدة فقط.',
             '',
             '**التأثير على النتيجة:** عدد أكبر من اللغات عمومًا يحسن استعدادك للتدويل.',
+          ].join('\n'),
+          uk: [
+            'Загальна кількість різних мов/локалей, які підтримує ваш сайт. Це визначається з тегів hreflang та альтернативних посилань.',
+            '',
+            '**Ідеально:** Кілька локалей (2+) вказують на справді інтернаціоналізований сайт.',
+            '**Одна локаль:** Може вказувати на те, що сайт доступний лише однією мовою.',
+            '',
+            '**Вплив на оцінку:** Більша кількість локалей зазвичай покращує вашу готовність до інтернаціоналізації.',
           ].join('\n'),
         })
       ),
@@ -2113,6 +2207,15 @@ const analyzerResultsContent = {
             '',
             '**أفضل ممارسة:** يجب أن يكون لكل إصدار لغة canonical خاص به يشير إلى نفسه، وليس إلى لغة أخرى.',
           ].join('\n'),
+          uk: [
+            'Тег canonical повідомляє пошуковим системам, яка версія URL є "основною" копією. Критично важливо для уникнення штрафів за дубльований контент на багатомовних сайтах.',
+            '',
+            '```html',
+            '<link rel="canonical" href="https://example.com/uk/page" />',
+            '```',
+            '',
+            '**Найкраща практика:** Кожна мовна версія повинна мати свій власний canonical, який вказує на себе, а не на іншу мову.',
+          ].join('\n'),
         })
       ),
       localizedUrls: md(
@@ -2287,6 +2390,16 @@ const analyzerResultsContent = {
             '',
             '**فائدة SEO:** الهيكل الواضح يساعد محركات البحث على فهم استهداف اللغة.',
           ].join('\n'),
+          uk: [
+            'Чи вміє сайт використовувати локалізовані URL-структури з префіксами мови/локалей. Типові шаблони включають підкаталоги (`/en/`, `/uk/`) або піддомени (`uk.site.com`).',
+            '',
+            '**Стратегії структур URL:**',
+            '- Підкаталоги: `example.com/uk/page` (рекомендовано)',
+            '- Піддомени: `uk.example.com/page`',
+            '- ccTLD: `example.ua` (специфічний для країни)',
+            '',
+            '**Перевага SEO:** Ясна структура допомагає пошуковим системам зрозуміти мовне таргетування.',
+          ].join('\n'),
         })
       ),
 
@@ -2394,6 +2507,12 @@ const analyzerResultsContent = {
             '**ممارسة جيدة:** الربط المتبادل بين إصدارات اللغة باستخدام بدائل hreflang ومبدلات اللغة.',
             '**يساعد في:** تنقل المستخدم بين اللغات واكتشاف محرك البحث لجميع الإصدارات.',
           ].join('\n'),
+          uk: [
+            'Перевіряє, чи сайт містить посилання на локалізований контент. Це вказує на відповідне внутрішнє посилання між версіями мови.',
+            '',
+            '**Хороша практика:** Посилання між версіями мови за допомогою alternate hreflang і перемикачів мови.',
+            '**Допомагає:** Навігація користувачів між мовами і виявлення пошуковими системами всіх версій.',
+          ].join('\n'),
         })
       ),
     },
@@ -2418,6 +2537,7 @@ const analyzerResultsContent = {
         id: 'Halaman yang dipilih',
         vi: 'Các trang đã chọn',
         ar: 'الصفحات المحددة',
+        uk: 'Вибрані сторінки',
       }),
     },
     robotsLabels: {
@@ -2439,6 +2559,7 @@ const analyzerResultsContent = {
         id: 'Dapat diakses',
         vi: 'Có thể truy cập',
         ar: 'يمكن الوصول إليه',
+        uk: 'Доступний',
       }),
       disallowWithoutLocaleAlternates: t({
         en: 'Disallow w/o locale alternates',
@@ -2458,6 +2579,7 @@ const analyzerResultsContent = {
         id: 'Dilarang tanpa alternatif bahasa',
         vi: 'Cấm không có thay thế ngôn ngữ',
         ar: 'حظر بدون بدائل اللغة',
+        uk: 'Заборона без альтернатив локалів',
       }),
       accessibleDescription: md(
         t({
@@ -2648,6 +2770,15 @@ const analyzerResultsContent = {
             '',
             '**لماذا هو مهم:** ضروري للتحكم في وصول الزاحف وحماية المناطق الحساسة مع السماح بفهرسة المحتوى المهم.',
           ].join('\n'),
+          uk: [
+            'Файл `robots.txt` - це текстовий файл, який повідомляє пошуковим роботам, до яких сторінок або розділів вашого веб-сайту вони можуть або не можуть отримати доступ.',
+            '',
+            '```txt',
+            'User-agent: *',
+            'Disallow: /admin/',
+            'Allow: /',
+            '```',
+          ].join('\n'),
         })
       ),
       disallowWithoutLocaleAlternatesDescription: md(
@@ -2771,6 +2902,13 @@ const analyzerResultsContent = {
             '',
             '**أفضل ممارسة:** تأكد من أن جميع المسارات المحظورة لها مكافئات لغة إذا كان موقعك يستخدم التوطين القائم على URL.',
           ].join('\n'),
+          uk: [
+            'Шляхи, які заборонені в `robots.txt`, але не мають еквівалентних локальних версій. Це може вказувати на неповну інтернаціоналізацію.',
+            '',
+            '**Приклад проблеми:** Якщо `/admin/` заборонено, але немає `/en/admin/`, `/it/admin/`, то це може вказувати на те, що структура сайту не використовує постійно префікси мов.',
+            '',
+            '**Найкраща практика:** Переконайтеся, що всі заборонені шляхи мають локальні еквіваленти, якщо ваш сайт використовує локалізацію на основі URL.',
+          ].join('\n'),
         })
       ),
     },
@@ -2793,6 +2931,7 @@ const analyzerResultsContent = {
         id: 'URL yang ditemukan',
         vi: 'URL đã phát hiện',
         ar: 'العناوين المكتشفة',
+        uk: 'Виявлені URL',
       }),
       alternatesPresent: t({
         en: 'Alternates present',
@@ -2812,6 +2951,7 @@ const analyzerResultsContent = {
         id: 'Alternatif hadir',
         vi: 'Có thay thế',
         ar: 'البدائل موجودة',
+        uk: 'Альтернативи присутні',
       }),
       xDefaultPresent: t({
         en: 'x-default present',
@@ -2831,6 +2971,7 @@ const analyzerResultsContent = {
         id: 'x-default hadir',
         vi: 'x-default có',
         ar: 'x-default موجود',
+        uk: 'x-default присутній',
       }),
       urlsDiscoveredDescription: md(
         t({
@@ -2935,6 +3076,12 @@ const analyzerResultsContent = {
             '',
             '**ممارسة جيدة:** احتفظ بخرائط المواقع محدثة ومنظمة. بالنسبة للمواقع الكبيرة، استخدم ملفات فهرس خريطة الموقع التي تشير إلى خرائط مواقع متعددة.',
             '**التأثير:** المزيد من عناوين URL المكتشفة يعني تغطية أفضل لفهرسة محرك البحث.',
+          ].join('\n'),
+          uk: [
+            'Загальна кількість URL, знайдених у файлі(ах) `sitemap.xml` вашого сайту. Sitemap допомагають пошуковим системам виявляти і індексувати всі сторінки вашого веб-сайту.',
+            '',
+            '**Хороша практика:** Зберігайте sitemap актуальними і організованими. Для великих сайтів використовуйте файли індексу sitemap, які посилаються на кілька sitemap.',
+            '**Вплив:** Більше виявлених URL означає кращу покривість для індексації пошуковими системами.',
           ].join('\n'),
         })
       ),
@@ -3161,6 +3308,19 @@ const analyzerResultsContent = {
             '',
             '**أفضل ممارسة:** قم بتضمين البدائل في خريطة الموقع لمساعدة محركات البحث على فهم العلاقة بين إصدارات اللغة.',
           ].join('\n'),
+          uk: [
+            'Вказує, чи ваш sitemap містить елементи `<xhtml:link>` з альтернативними мовними версіями. Це повідомляє пошуковим системам про всі мовні варіації кожної сторінки.',
+            '',
+            '```xml',
+            '<url>',
+            '  <loc>https://example.com/uk/page</loc>',
+            '  <xhtml:link rel="alternate" hreflang="en" href="https://example.com/en/page"/>',
+            '  <xhtml:link rel="alternate" hreflang="uk" href="https://example.com/uk/page"/>',
+            '</url>',
+            '```',
+            '',
+            "**Найкраща практика:** Включіть alternate в sitemap, щоб допомогти пошуковим системам зрозуміти зв'язок між мовними версіями.",
+          ].join('\n'),
         })
       ),
       xDefaultPresentDescription: md(
@@ -3335,6 +3495,15 @@ const analyzerResultsContent = {
             '**أفضل ممارسة:** وجه `x-default` إلى صفحة منتقي اللغة أو إصدار اللغة الأكثر عالمية (غالبًا الإنجليزية).',
             '**مهم:** يجب أن تتضمن كل مجموعة من alternate hreflang `x-default`.',
           ].join('\n'),
+          uk: [
+            'Тег hreflang `x-default` визначає сторінку за замовчуванням для користувачів, чия мова не відповідає жодному конкретному hreflang. Це запасний варіант для користувачів, чия мова не відповідає жодному конкретному hreflang.',
+            '',
+            '```xml',
+            '<xhtml:link rel="alternate" hreflang="x-default" href="https://example.com/" />',
+            '```',
+            '',
+            '**Найкраща практика:** Направте `x-default` на сторінку вибору мови або вашу найбільш універсальну мовну версію (часто англійську).',
+          ].join('\n'),
         })
       ),
     },
@@ -3357,6 +3526,7 @@ const analyzerResultsContent = {
         id: 'Analisis halaman yang dipilih',
         vi: 'Phân tích các trang đã chọn',
         ar: 'تحليل الصفحات المحددة',
+        uk: 'Аналіз вибраних сторінок',
       }),
       cancel: t({
         en: 'Cancel',
@@ -3376,6 +3546,7 @@ const analyzerResultsContent = {
         id: 'Batal',
         vi: 'Hủy',
         ar: 'إلغاء',
+        uk: 'Скасувати',
       }),
       analyzing: t({
         en: 'Analyzing...',
@@ -3395,6 +3566,7 @@ const analyzerResultsContent = {
         id: 'Menganalisis...',
         vi: 'Đang phân tích...',
         ar: 'جارٍ التحليل...',
+        uk: 'Аналізується...',
       }),
     },
     otherPagesDetected: t({
@@ -3415,6 +3587,7 @@ const analyzerResultsContent = {
       id: 'halaman lain terdeteksi',
       vi: 'trang khác được phát hiện',
       ar: 'صفحات أخرى تم اكتشافها',
+      uk: 'інші сторінки виявлені',
     }),
     searchUrlPlaceholder: t({
       en: 'Search URL...',
@@ -3434,6 +3607,7 @@ const analyzerResultsContent = {
       id: 'Cari URL...',
       vi: 'Tìm URL...',
       ar: 'بحث URL...',
+      uk: 'Пошук URL...',
     }),
   },
   title: 'Analyzer results display texts',

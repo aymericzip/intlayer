@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Inteligentna dokumentacja | Czatbot oparty na sztucznej inteligencji | Intlayer',
       id: 'Dokumentasi Cerdas | Chatbot Bertenaga AI | Intlayer',
       vi: 'Tài liệu Thông minh | ChatBot hỗ trợ AI | Intlayer',
+      uk: 'Розумна документація | Чат-бот на базі ШІ | Intlayer',
     }),
     description: t({
       ar: 'احصل على إجابات فورية مع دردشة الوثائق الخاصة بنا AI. استكشف دليلات تفاعلية، حل المشاكل والعثور على حلول بسهولة,  سواء تسأل!',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Uzyskaj natychmiastowe odpowiedzi dzięki naszemu czatbotowi dokumentacyjnemu opartemu na sztucznej inteligencji. Przeglądaj interaktywne przewodniki, rozwiązuj problemy i znajdź rozwiązania bez wysiłku — wystarczy zapytać!',
       id: 'Dapatkan jawaban instan dengan chatbot dokumentasi bertenaga AI kami. Jelajahi panduan interaktif, atasi masalah, dan temukan solusi dengan mudah — cukup tanyakan!',
       vi: 'Nhận câu trả lời ngay lập tức với chatbot tài liệu được hỗ trợ bởi AI của chúng tôi. Khám phá hướng dẫn tương tác, khắc phục sự cố và tìm giải pháp một cách dễ dàng, chỉ cần hỏi!',
+      uk: 'Отримуйте миттєві відповіді за допомогою нашого чат-бота документації на базі ШІ. Переглядайте інтерактивні посібники, усувайте неполадки та знаходьте рішення без зусиль — просто запитайте!',
     }),
 
     keywords: t({
@@ -68,6 +70,13 @@ const metadataContent = {
       ],
       id: ['chatbot', 'AI', 'cerdas', 'dokumentasi', 'intlayer'],
       vi: ['chatbot', 'AI', 'thông minh', 'tài liệu', 'intlayer'],
+      uk: [
+        'чат-бот',
+        'штучний інтелект',
+        'інтелектуальний',
+        'документація',
+        'intlayer',
+      ],
     }),
   },
   title: 'Documentation chatbot metadata',

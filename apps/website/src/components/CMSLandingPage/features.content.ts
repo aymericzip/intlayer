@@ -2,9 +2,9 @@ import { type Dictionary, t } from 'intlayer';
 
 const featuresContent = {
   key: 'cms-landing-features',
-  title: 'CMS landing page features section content',
+  title: 'CMS Landing Page — Features Section',
   description:
-    'Content declarations for the CMS landing page features section.',
+    'Features section content for the CMS landing page, including section title and feature items (icon, title, description, badge).',
   content: {
     featuresTitle: t({
       en: 'Everything you need to manage content at scale',
@@ -24,6 +24,7 @@ const featuresContent = {
       pl: 'Wszystko, czego potrzebujesz do zarządzania treścią na dużą skalę',
       id: 'Semua yang Anda butuhkan untuk mengelola konten dalam skala besar',
       vi: 'Mọi thứ bạn cần để quản lý nội dung ở quy mô lớn',
+      uk: 'Усе необхідне для масштабного керування контентом',
     }),
     features: [
       {
@@ -47,6 +48,7 @@ const featuresContent = {
           pl: 'Synchronizacja lokalna ↔ zdalna',
           id: 'Sinkronisasi lokal ↔ jarak jauh',
           vi: 'Đồng bộ cục bộ ↔ từ xa',
+          uk: 'Локальна ↔ віддалена синхронізація',
         }),
         description: t({
           en: 'Push and pull content between your codebase and the CMS. Git remains your source of truth.',
@@ -67,6 +69,7 @@ const featuresContent = {
           pl: 'Wysyłaj i pobieraj treść między bazą kodu a CMS. Git pozostaje Twoim źródłem prawdy.',
           id: 'Dorong dan tarik konten antara codebase dan CMS Anda. Git tetap menjadi sumber kebenaran Anda.',
           vi: 'Đẩy và kéo nội dung giữa codebase và CMS của bạn. Git vẫn là nguồn sự thật của bạn.',
+          uk: 'Відправляйте й отримуйте контент між кодовою базою та CMS. Git залишається джерелом істини.',
         }),
         badge: null,
       },
@@ -91,6 +94,7 @@ const featuresContent = {
           pl: 'Natywne wielojęzyczne',
           id: 'Multibahasa asli',
           vi: 'Đa ngôn ngữ gốc',
+          uk: 'Вбудована мультимовність',
         }),
         description: t({
           en: 'Every field supports multiple locales out of the box. No plugins, no per-locale pricing.',
@@ -111,6 +115,7 @@ const featuresContent = {
           pl: 'Każde pole obsługuje wiele języków od razu. Bez wtyczek, bez wyceny na język.',
           id: 'Setiap bidang mendukung beberapa bahasa secara default. Tanpa plugin, tanpa harga per bahasa.',
           vi: 'Mỗi trường hỗ trợ nhiều ngôn ngữ ngay từ đầu. Không cần plugin, không có giá theo ngôn ngữ.',
+          uk: 'Кожне поле з коробки підтримує кілька локалей. Без плагінів і без додаткової оплати за кожну локаль.',
         }),
         badge: null,
       },
@@ -135,6 +140,7 @@ const featuresContent = {
           pl: 'Flagi funkcji',
           id: 'Bendera fitur',
           vi: 'Cờ tính năng',
+          uk: 'Перемикачі функцій',
         }),
         description: t({
           en: 'Gate content variations per locale, audience, or experiment. Roll out progressively.',
@@ -155,6 +161,7 @@ const featuresContent = {
           pl: 'Kontroluj warianty treści według języka, odbiorców lub eksperymentu. Wdrażaj stopniowo.',
           id: 'Kontrol variasi konten per bahasa, audiens, atau eksperimen. Luncurkan secara bertahap.',
           vi: 'Kiểm soát các biến thể nội dung theo ngôn ngữ, đối tượng hoặc thử nghiệm. Triển khai dần dần.',
+          uk: 'Керуйте варіаціями контенту за локаллю, аудиторією або експериментом. Впроваджуйте поступово.',
         }),
         badge: null,
       },
@@ -179,6 +186,7 @@ const featuresContent = {
           pl: 'Współpraca dev i non-dev',
           id: 'Kolaborasi dev & non-dev',
           vi: 'Hợp tác dev & non-dev',
+          uk: 'Співпраця розробників і не-розробників',
         }),
         description: t({
           en: 'Developers own the schema. Editors update content safely. Approval workflows keep everyone aligned.',
@@ -199,11 +207,13 @@ const featuresContent = {
           pl: 'Deweloperzy posiadają schemat. Redaktorzy bezpiecznie aktualizują treść. Przepływy pracy zatwierdzania utrzymują wszystkich zsynchronizowanych.',
           id: 'Pengembang memiliki skema. Editor memperbarui konten dengan aman. Alur kerja persetujuan menjaga semua orang selaras.',
           vi: 'Nhà phát triển sở hữu lược đồ. Biên tập viên cập nhật nội dung một cách an toàn. Quy trình phê duyệt giữ mọi người đồng bộ.',
+          uk: 'Розробники відповідають за схему. Редактори безпечно оновлюють контент. Процеси погодження забезпечують узгодженість між усіма.',
         }),
         badge: null,
       },
     ],
   },
+  tags: ['cms', 'landing page', 'features', 'content'],
 } satisfies Dictionary;
 
 export default featuresContent;

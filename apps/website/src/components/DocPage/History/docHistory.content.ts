@@ -23,6 +23,7 @@ const docHistory: Dictionary = {
         pl: 'Ta dokumentacja jest nieaktualna, wersja bazowa została zaktualizowana w',
         id: 'Dokumen ini sudah usang, versi dasar telah diperbarui pada',
         vi: 'Tài liệu này đã lỗi thời, phiên bản gốc đã được cập nhật vào',
+        uk: 'Ця документація застаріла, базову версію оновлено станом на',
       }),
       after: '.',
     },
@@ -45,6 +46,7 @@ const docHistory: Dictionary = {
         pl: 'Przejdź do angielskiej wersji dokumentu',
         id: 'Buka dokumen bahasa Inggris',
         vi: 'Xem tài liệu tiếng Anh',
+        uk: 'Перейти до англійської версії документа',
       }),
       content: t({
         en: 'Go to English doc',
@@ -64,6 +66,7 @@ const docHistory: Dictionary = {
         pl: 'Przejdź do angielskiej wersji dokumentu',
         id: 'Buka dokumen bahasa Inggris',
         vi: 'Xem tài liệu tiếng Anh',
+        uk: 'Перейти до англійської версії документа',
       }),
     },
     versionHistory: {
@@ -85,6 +88,7 @@ const docHistory: Dictionary = {
         pl: 'Historia wersji',
         id: 'Riwayat Versi',
         vi: 'Lịch sử phiên bản',
+        uk: 'Історія версій',
       }),
     },
   },

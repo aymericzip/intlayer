@@ -21,6 +21,7 @@ const deleteOrganizationModalContent = {
       pl: 'Usuń organizację',
       id: 'Hapus Organisasi',
       vi: 'Xóa Organization',
+      uk: 'Видалити організацію',
     }),
 
     description: t({
@@ -41,6 +42,7 @@ const deleteOrganizationModalContent = {
       pl: 'Czy na pewno chcesz usunąć tę organizację?',
       id: 'Apakah Anda yakin ingin menghapus Organisasi ini?',
       vi: 'Bạn có chắc chắn muốn xóa Organization này?',
+      uk: 'Ви впевнені, що хочете видалити цю організацію?',
     }),
 
     confirmButton: {
@@ -62,6 +64,7 @@ const deleteOrganizationModalContent = {
         pl: 'Usuń',
         id: 'Hapus',
         vi: 'Xóa',
+        uk: 'Видалити',
       }),
       label: t({
         en: 'Click to delete Organization',
@@ -81,6 +84,7 @@ const deleteOrganizationModalContent = {
         pl: 'Kliknij, aby usunąć organizację',
         id: 'Klik untuk menghapus Organisasi',
         vi: 'Nhấp để xóa Organization',
+        uk: 'Натисніть, щоб видалити організацію',
       }),
     },
 
@@ -103,6 +107,7 @@ const deleteOrganizationModalContent = {
         pl: 'Anuluj',
         id: 'Batal',
         vi: 'Hủy',
+        uk: 'Скасувати',
       }),
       label: t({
         en: 'Click to cancel',
@@ -122,6 +127,7 @@ const deleteOrganizationModalContent = {
         pl: 'Kliknij, aby anulować',
         id: 'Klik untuk membatalkan',
         vi: 'Nhấp để hủy',
+        uk: 'Натисніть, щоб скасувати',
       }),
     },
   },

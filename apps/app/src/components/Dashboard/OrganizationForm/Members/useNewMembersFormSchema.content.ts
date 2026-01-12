@@ -21,6 +21,7 @@ const content = {
       pl: 'Proszę podać prawidłowy adres e-mail.',
       id: 'Silakan masukkan alamat email yang valid',
       vi: 'Vui lòng nhập địa chỉ email hợp lệ',
+      uk: 'Будь ласка, введіть дійсну адресу електронної пошти.',
     }),
   },
   title: 'New members form validation schema',

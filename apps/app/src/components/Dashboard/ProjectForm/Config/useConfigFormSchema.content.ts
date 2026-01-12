@@ -21,6 +21,7 @@ const configFormSchemaContent = {
       pl: 'Wymagana jest co najmniej jedna lokalizacja',
       id: 'Diperlukan setidaknya satu locale',
       vi: 'Yêu cầu ít nhất một locale',
+      uk: 'Потрібна щонайменше одна локаль',
     }),
     defaultLocaleRequired: t({
       en: 'Default locale is required',
@@ -40,6 +41,7 @@ const configFormSchemaContent = {
       pl: 'Wymagana jest domyślna lokalizacja',
       id: 'Locale default diperlukan',
       vi: 'Locale mặc định là bắt buộc',
+      uk: 'Потрібно вказати локаль за замовчуванням',
     }),
     invalidUrl: t({
       en: 'Please enter a valid URL',
@@ -59,6 +61,7 @@ const configFormSchemaContent = {
       pl: 'Proszę wpisać poprawny adres URL',
       id: 'Silakan masukkan URL yang valid',
       vi: 'Vui lòng nhập URL hợp lệ',
+      uk: 'Введіть дійсну URL-адресу',
     }),
     defaultLocaleNotInLocales: t({
       en: 'Default locale must be one of the selected locales',
@@ -78,6 +81,7 @@ const configFormSchemaContent = {
       pl: 'Domyślna lokalizacja musi być jedną z wybranych lokalizacji',
       id: 'Locale default harus menjadi salah satu locale yang dipilih',
       vi: 'Locale mặc định phải là một trong các locale đã chọn',
+      uk: 'Локаль за замовчуванням має бути однією з вибраних локалей',
     }),
     invalidTemperature: t({
       en: 'Temperature must be between 0 and 2',
@@ -97,6 +101,7 @@ const configFormSchemaContent = {
       pl: 'Temperatura musi być między 0 a 2',
       id: 'Temperatur harus antara 0 dan 2',
       vi: 'Nhiệt độ phải từ 0 đến 2',
+      uk: 'Температура має бути в діапазоні від 0 до 2',
     }),
   },
   title: 'Config form schema validation messages',

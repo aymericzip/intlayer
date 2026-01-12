@@ -23,6 +23,7 @@ const blogContent = {
         pl: 'Jeśli masz pomysł na ulepszenie tego bloga, możesz wnieść wkład, przesyłając pull request na GitHub.',
         id: 'Jika Anda memiliki ide untuk meningkatkan blog ini, silakan berkontribusi dengan mengajukan pull request di GitHub.',
         vi: 'Nếu bạn có ý tưởng để cải thiện blog này, xin vui lòng đóng góp bằng cách gửi pull request trên GitHub.',
+        uk: 'Якщо у вас є ідея щодо покращення цього блогу, будь ласка, долучіться, подавши pull request на GitHub.',
       }),
       button: t({
         en: 'GitHub link to the blog',
@@ -42,6 +43,7 @@ const blogContent = {
         pl: 'Link do bloga na GitHubie',
         id: 'Tautan GitHub ke blog',
         vi: 'Liên kết GitHub tới blog',
+        uk: 'Посилання на GitHub-репозиторій блогу',
       }),
       buttonLabel: t({
         en: 'Click here to contribute',
@@ -61,6 +63,7 @@ const blogContent = {
         pl: 'Kliknij tutaj, aby wnieść wkład',
         id: 'Klik di sini untuk berkontribusi',
         vi: 'Nhấp vào đây để đóng góp',
+        uk: 'Натисніть, щоб долучитися',
       }),
     },
     goToNextSection: {
@@ -82,6 +85,7 @@ const blogContent = {
         pl: 'Przejdź do następnej sekcji',
         id: 'Lanjut ke bagian berikutnya',
         vi: 'Đi tới phần tiếp theo',
+        uk: 'Перейти до наступного розділу',
       }),
     },
     goToPreviousSection: {
@@ -103,6 +107,7 @@ const blogContent = {
         pl: 'Przejdź do poprzedniej sekcji',
         id: 'Kembali ke bagian sebelumnya',
         vi: 'Quay lại phần trước',
+        uk: 'Перейти до попереднього розділу',
       }),
     },
   },

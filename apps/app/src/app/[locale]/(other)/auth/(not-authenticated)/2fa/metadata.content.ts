@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Uwierzytelnianie dwuskładnikowe | Intlayer',
       id: 'Otentikasi Dua Faktor | Intlayer',
       vi: 'Xác thực hai yếu tố | Intlayer',
+      uk: 'Двофакторна автентифікація | Intlayer',
     }),
     description: t({
       ar: 'أكمل تسجيل الدخول بإدخال رمز التحقق من تطبيق المصادقة أو استخدم رمز النسخ الاحتياطي.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Dokończ logowanie, wprowadzając kod weryfikacyjny z aplikacji uwierzytelniającej lub użyj kodu zapasowego.',
       id: 'Selesaikan login Anda dengan memasukkan kode verifikasi dari aplikasi autentikator atau gunakan kode cadangan.',
       vi: 'Hoàn tất đăng nhập của bạn bằng cách nhập mã xác minh từ ứng dụng xác thực hoặc sử dụng mã dự phòng.',
+      uk: 'Завершіть вхід, ввівши код підтвердження з вашого додатка-автентифікатора або скористайтеся резервним кодом.',
     }),
 
     keywords: t({
@@ -144,6 +146,14 @@ const metadataContent = {
         'Intlayer',
         'Xác minh',
         'Bảo mật',
+        'TOTP',
+      ],
+      uk: [
+        'Двофакторна автентифікація',
+        '2FA',
+        'Intlayer',
+        'Підтвердження',
+        'Безпека',
         'TOTP',
       ],
     }),

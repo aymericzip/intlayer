@@ -21,6 +21,7 @@ const codeContent = {
       pl: 'Kopiuj kod',
       id: 'Salin kode',
       vi: 'Sao chép mã',
+      uk: 'Копіювати код',
     }),
     description: t({
       en: 'Copy the code to the clipboard',
@@ -40,6 +41,7 @@ const codeContent = {
       pl: 'Skopiuj kod do schowka',
       id: 'Salin kode ke clipboard',
       vi: 'Sao chép đoạn mã vào khay nhớ tạm (clipboard)',
+      uk: 'Скопіюйте код у буфер обміну',
     }),
   },
   title: 'Code block actions',

@@ -21,6 +21,7 @@ const terminalContent = {
       pl: 'Zamknij kartę',
       id: 'Tutup tab',
       vi: 'Đóng tab',
+      uk: 'Закрити вкладку',
     }),
     terminalInput: t({
       en: 'Terminal input',
@@ -40,8 +41,13 @@ const terminalContent = {
       pl: 'Wejście terminala',
       id: 'Masukan terminal',
       vi: 'Đầu vào terminal',
+      uk: 'Ввід терміналу',
     }),
   },
+  title: 'Terminal component content',
+  description:
+    "Localized content for the Terminal component, providing labels such as 'Close tab' and 'Terminal input'.",
+  tags: ['component', 'terminal', 'ui', 'localization', 'labels'],
 } satisfies Dictionary;
 
 export default terminalContent;

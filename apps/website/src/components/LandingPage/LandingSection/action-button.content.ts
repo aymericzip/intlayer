@@ -21,6 +21,7 @@ const actionButtonContent = {
       pl: 'Wesprzyj projekt',
       id: 'Dukung proyek ini',
       vi: 'Ủng hộ dự án',
+      uk: 'Підтримати проєкт',
     }),
     getStartedButton: t({
       ar: 'البدء',
@@ -40,6 +41,7 @@ const actionButtonContent = {
       pl: 'Rozpocznij',
       id: 'Mulai',
       vi: 'Bắt đầu',
+      uk: 'Почати',
     }),
   },
   title: 'Landing section action buttons',

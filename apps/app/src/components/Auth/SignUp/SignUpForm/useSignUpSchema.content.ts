@@ -21,6 +21,7 @@ export const signUpSchemaContent = {
       pl: 'Proszę podać adres e-mail',
       id: 'Silakan masukkan alamat email Anda',
       vi: 'Vui lòng nhập địa chỉ email của bạn',
+      uk: 'Будь ласка, введіть свою електронну адресу',
     }),
 
     invalidTypeErrorEmail: t({
@@ -41,6 +42,7 @@ export const signUpSchemaContent = {
       pl: 'Proszę podać prawidłowy adres e-mail',
       id: 'Silakan masukkan alamat email yang valid',
       vi: 'Vui lòng nhập địa chỉ email hợp lệ',
+      uk: 'Будь ласка, введіть дійсну адресу електронної пошти',
     }),
 
     requiredErrorPassword: t({
@@ -61,6 +63,7 @@ export const signUpSchemaContent = {
       pl: 'Proszę podać hasło',
       id: 'Silakan masukkan kata sandi Anda',
       vi: 'Vui lòng nhập mật khẩu của bạn',
+      uk: 'Будь ласка, введіть свій пароль',
     }),
 
     invalidTypeErrorPassword: t({
@@ -81,6 +84,7 @@ export const signUpSchemaContent = {
       pl: 'Proszę podać prawidłowe hasło',
       id: 'Silakan masukkan kata sandi yang valid',
       vi: 'Vui lòng nhập mật khẩu hợp lệ',
+      uk: 'Будь ласка, введіть коректний пароль',
     }),
 
     requiredErrorPasswordConfirmation: t({
@@ -101,6 +105,7 @@ export const signUpSchemaContent = {
       pl: 'Proszę powtórzyć hasło',
       id: 'Silakan masukkan kembali kata sandi Anda',
       vi: 'Vui lòng nhập lại mật khẩu của bạn',
+      uk: 'Будь ласка, введіть пароль ще раз',
     }),
 
     invalidTypeErrorPasswordConfirmation: t({
@@ -121,6 +126,7 @@ export const signUpSchemaContent = {
       pl: 'Proszę podać prawidłowe hasło',
       id: 'Silakan masukkan konfirmasi kata sandi yang valid',
       vi: 'Vui lòng nhập mật khẩu hợp lệ',
+      uk: 'Будь ласка, введіть коректний пароль',
     }),
 
     passwordNotMatchError: t({
@@ -141,6 +147,7 @@ export const signUpSchemaContent = {
       pl: 'Hasło i potwierdzenie hasła muszą się zgadzać',
       id: 'Kata sandi dan konfirmasi kata sandi harus cocok',
       vi: 'Mật khẩu và xác nhận mật khẩu phải khớp',
+      uk: 'Пароль і підтвердження паролю мають збігатися',
     }),
     termsAndConditionsError: t({
       en: 'You must agree to the terms and conditions',
@@ -160,6 +167,7 @@ export const signUpSchemaContent = {
       pl: 'Musisz zaakceptować regulamin',
       id: 'Anda harus menyetujui syarat dan ketentuan',
       vi: 'Bạn phải đồng ý với các điều khoản và điều kiện',
+      uk: 'Ви повинні погодитися з умовами та положеннями',
     }),
   },
   title: 'Sign up schema validation',

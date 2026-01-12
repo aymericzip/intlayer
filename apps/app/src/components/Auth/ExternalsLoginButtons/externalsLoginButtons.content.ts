@@ -22,6 +22,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Zaloguj się przez GitHub',
         id: 'Masuk dengan GitHub',
         vi: 'Đăng nhập bằng GitHub',
+        uk: 'Увійти через GitHub',
       }),
       ariaLabel: t({
         en: 'Sign in with GitHub',
@@ -41,6 +42,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Zaloguj się przez GitHub',
         id: 'Masuk dengan GitHub',
         vi: 'Đăng nhập bằng GitHub',
+        uk: 'Увійти через GitHub',
       }),
     },
     google: {
@@ -62,6 +64,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Zaloguj się przez Google',
         id: 'Masuk dengan Google',
         vi: 'Đăng nhập bằng Google',
+        uk: 'Увійти через Google',
       }),
       ariaLabel: t({
         en: 'Sign in with Google',
@@ -81,6 +84,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Zaloguj się przez Google',
         id: 'Masuk dengan Google',
         vi: 'Đăng nhập bằng Google',
+        uk: 'Увійти через Google',
       }),
     },
     linkedin: {
@@ -102,6 +106,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Zaloguj się przez LinkedIn',
         id: 'Masuk dengan LinkedIn',
         vi: 'Đăng nhập bằng LinkedIn',
+        uk: 'Увійти через LinkedIn',
       }),
       ariaLabel: t({
         en: 'Sign in with LinkedIn',
@@ -121,6 +126,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Zaloguj się przez LinkedIn',
         id: 'Masuk dengan LinkedIn',
         vi: 'Đăng nhập bằng LinkedIn',
+        uk: 'Увійти через LinkedIn',
       }),
     },
     apple: {
@@ -142,6 +148,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Zaloguj się przez Apple',
         id: 'Masuk dengan Apple',
         vi: 'Đăng nhập bằng Apple',
+        uk: 'Увійти через Apple',
       }),
       ariaLabel: t({
         en: 'Sign in with Apple',
@@ -161,6 +168,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Zaloguj się przez Apple',
         id: 'Masuk dengan Apple',
         vi: 'Đăng nhập bằng Apple',
+        uk: 'Увійти через Apple',
       }),
     },
     bitbucket: {
@@ -182,6 +190,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Zaloguj się przez Bitbucket',
         id: 'Masuk dengan Bitbucket',
         vi: 'Đăng nhập bằng Bitbucket',
+        uk: 'Увійти через Bitbucket',
       }),
       ariaLabel: t({
         en: 'Sign in with Bitbucket',
@@ -201,6 +210,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Zaloguj się przez Bitbucket',
         id: 'Masuk dengan Bitbucket',
         vi: 'Đăng nhập bằng Bitbucket',
+        uk: 'Увійти через Bitbucket',
       }),
     },
     gitlab: {
@@ -222,6 +232,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Zaloguj się przez GitLab',
         id: 'Masuk dengan GitLab',
         vi: 'Đăng nhập bằng GitLab',
+        uk: 'Увійти через GitLab',
       }),
       ariaLabel: t({
         en: 'Sign in with GitLab',
@@ -241,6 +252,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Zaloguj się przez GitLab',
         id: 'Masuk dengan GitLab',
         vi: 'Đăng nhập bằng GitLab',
+        uk: 'Увійти через GitLab',
       }),
     },
     showMore: cond({
@@ -262,6 +274,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Pokaż więcej opcji logowania',
         id: 'Tampilkan lebih banyak opsi login',
         vi: 'Hiển thị thêm tùy chọn đăng nhập',
+        uk: 'Показати більше варіантів входу',
       }),
       false: t({
         en: 'Show less',
@@ -281,6 +294,7 @@ export const externalsLoginButtonsContent = {
         pl: 'Pokaż mniej',
         id: 'Tampilkan lebih sedikit',
         vi: 'Thu gọn',
+        uk: 'Показати менше варіантів входу',
       }),
     }),
   },

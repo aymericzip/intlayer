@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Projekt | Panel | Intlayer',
       id: 'Proyek | Dashboard | Intlayer',
       vi: 'Dự án | Dashboard | Intlayer',
+      uk: 'Проєкт | Панель керування | Intlayer',
     }),
     description: t({
       en: 'Manage your project settings in the Intlayer dashboard. Update project details, adjust configurations, and collaborate with your team.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Zarządzaj ustawieniami projektu w panelu Intlayer. Aktualizuj szczegóły projektu, dostosowuj konfiguracje i współpracuj ze swoim zespołem.',
       id: 'Kelola pengaturan proyek Anda di dashboard Intlayer. Perbarui detail proyek, sesuaikan konfigurasi, dan berkolaborasilah dengan tim Anda.',
       vi: 'Quản lý cài đặt dự án của bạn trên dashboard Intlayer. Cập nhật thông tin dự án, điều chỉnh cấu hình và hợp tác cùng nhóm của bạn.',
+      uk: 'Керуйте налаштуваннями свого проєкту в панелі керування Intlayer. Оновлюйте відомості про проєкт, коригуйте конфігурації та співпрацюйте зі своєю командою.',
     }),
     keywords: t<string[]>({
       en: [
@@ -151,6 +153,14 @@ const metadataContent = {
         'Manajemen Proyek',
       ],
       vi: ['Dự án', 'Cài đặt', 'Cấu hình', 'Nhóm', 'Hợp tác', 'Quản lý dự án'],
+      uk: [
+        'Проєкт',
+        'Налаштування',
+        'Конфігурація',
+        'Команда',
+        'Співпраця',
+        'Керування проєктом',
+      ],
     }),
   },
   title: 'Project dashboard metadata',

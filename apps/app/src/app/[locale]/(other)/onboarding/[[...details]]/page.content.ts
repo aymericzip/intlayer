@@ -21,6 +21,7 @@ const resetPasswordContent = {
       pl: 'Wprowadzenie',
       id: 'Onboarding',
       vi: 'Hướng dẫn bắt đầu',
+      uk: 'Початок роботи',
     }),
 
     description: t({
@@ -41,6 +42,7 @@ const resetPasswordContent = {
       pl: 'Skonfiguruj swoje konto Intlayer, postępując zgodnie z instrukcjami.',
       id: 'Siapkan akun Intlayer Anda dengan mengikuti instruksi.',
       vi: 'Thiết lập tài khoản Intlayer của bạn theo hướng dẫn.',
+      uk: 'Налаштуйте свій обліковий запис Intlayer, дотримуючись інструкцій.',
     }),
   },
   title: 'Onboarding page content',

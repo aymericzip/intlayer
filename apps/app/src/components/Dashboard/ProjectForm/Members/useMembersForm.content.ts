@@ -22,6 +22,7 @@ const projectMembersFormContent = {
       pl: 'Członkowie',
       id: 'Anggota',
       vi: 'Thành viên',
+      uk: 'Учасники',
     }),
     description: t({
       en: 'Manage the members that have access and can edit your project.',
@@ -41,6 +42,7 @@ const projectMembersFormContent = {
       pl: 'Zarządzaj członkami, którzy mają dostęp i mogą edytować Twój projekt.',
       id: 'Kelola anggota yang memiliki akses dan dapat mengedit proyek Anda.',
       vi: 'Quản lý các thành viên có quyền truy cập và có thể chỉnh sửa dự án của bạn.',
+      uk: 'Керуйте учасниками, які мають доступ і можуть редагувати ваш проєкт.',
     }),
 
     noMembers: t({
@@ -61,6 +63,7 @@ const projectMembersFormContent = {
       pl: 'Brak członków',
       id: 'Tidak ada anggota',
       vi: 'Không có thành viên',
+      uk: 'Немає учасників',
     }),
 
     membersSelect: {
@@ -82,6 +85,7 @@ const projectMembersFormContent = {
         pl: 'Wybierz członków',
         id: 'Pilih anggota',
         vi: 'Chọn thành viên',
+        uk: 'Виберіть учасників',
       }),
       placeholder: t({
         en: 'Select members',
@@ -101,6 +105,7 @@ const projectMembersFormContent = {
         pl: 'Wybierz członków',
         id: 'Pilih anggota',
         vi: 'Chọn thành viên',
+        uk: 'Виберіть учасників',
       }),
       description: t({
         en: 'Members can view the project.',
@@ -120,6 +125,7 @@ const projectMembersFormContent = {
         pl: 'Członkowie mogą przeglądać projekt.',
         id: 'Anggota dapat melihat proyek.',
         vi: 'Các thành viên có thể xem dự án.',
+        uk: 'Учасники можуть переглядати проєкт.',
       }),
     },
     adminsSelect: {
@@ -141,6 +147,7 @@ const projectMembersFormContent = {
         pl: 'Wybierz administratorów',
         id: 'Pilih admin',
         vi: 'Chọn quản trị viên',
+        uk: 'Виберіть адміністраторів',
       }),
       placeholder: t({
         en: 'Select admins',
@@ -160,6 +167,7 @@ const projectMembersFormContent = {
         pl: 'Wybierz administratorów',
         id: 'Pilih admin',
         vi: 'Chọn quản trị viên',
+        uk: 'Виберіть адміністраторів',
       }),
       description: t({
         en: 'Admins can edit members and project settings.',
@@ -179,6 +187,7 @@ const projectMembersFormContent = {
         pl: 'Administratorzy mogą edytować członków i ustawienia projektu.',
         id: 'Admin dapat mengedit anggota dan pengaturan proyek.',
         vi: 'Quản trị viên có thể chỉnh sửa thành viên và cài đặt dự án.',
+        uk: 'Адміністратори можуть редагувати учасників та налаштування проєкту.',
       }),
     },
     addMembersButton: {
@@ -200,6 +209,7 @@ const projectMembersFormContent = {
         pl: 'Aktualizuj członków',
         id: 'Perbarui Anggota',
         vi: 'Cập nhật thành viên',
+        uk: 'Оновити учасників',
       }),
       label: t({
         en: 'Update Members',
@@ -219,6 +229,7 @@ const projectMembersFormContent = {
         pl: 'Aktualizuj członków',
         id: 'Perbarui Anggota',
         vi: 'Cập nhật thành viên',
+        uk: 'Оновити учасників',
       }),
     },
     schema: {
@@ -240,6 +251,7 @@ const projectMembersFormContent = {
         pl: 'Dodaj przynajmniej jednego członka do projektu',
         id: 'Harap tambahkan setidaknya satu anggota ke proyek',
         vi: 'Vui lòng thêm ít nhất một thành viên vào dự án',
+        uk: 'Будь ласка, додайте принаймні одного учасника до проєкту',
       }),
 
       requiredErrorAdmin: t({
@@ -260,6 +272,7 @@ const projectMembersFormContent = {
         pl: 'Dodaj przynajmniej jednego administratora do projektu',
         id: 'Harap tambahkan setidaknya satu admin ke proyek',
         vi: 'Vui lòng thêm ít nhất một quản trị viên vào dự án',
+        uk: 'Будь ласка, додайте принаймні одного адміністратора до проєкту',
       }),
     },
   },

@@ -17,6 +17,11 @@ const iframeControllerContent = {
       'en-GB': 'Intlayer Application',
       ar: 'تطبيق Intlayer',
       hi: 'इंटलेयर एप्लिकेशन',
+      tr: 'Intlayer Uygulaması',
+      pl: 'Aplikacja Intlayer',
+      id: 'Aplikasi Intlayer',
+      vi: 'Ứng dụng Intlayer',
+      uk: 'Додаток Intlayer',
     }),
     enableEditor: t({
       en: 'Enable Editor',
@@ -32,8 +37,17 @@ const iframeControllerContent = {
       'en-GB': 'Enable Editor',
       ar: 'تفعيل المحرر',
       hi: 'संपादक सक्षम करें',
+      tr: 'Düzenleyiciyi Etkinleştir',
+      pl: 'Włącz edytor',
+      id: 'Aktifkan Editor',
+      vi: 'Bật trình chỉnh sửa',
+      uk: 'Увімкнути редактор',
     }),
   },
+  title: 'Iframe Controller',
+  description:
+    "Localization content for the iframe controller component in the Dashboard Editor. Provides labels such as 'Intlayer Application' and 'Enable Editor'.",
+  tags: ['dashboard', 'editor', 'iframe', 'component', 'localization'],
 } satisfies Dictionary;
 
 export default iframeControllerContent;

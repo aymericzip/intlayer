@@ -2,8 +2,9 @@ import { type Dictionary, t } from 'intlayer';
 
 const comparisonSectionContent = {
   key: 'comparison-section',
-  title: 'TMS Landing Comparison Section',
-  description: 'Comparison section content for TMS landing page',
+  title: 'Comparison section (TMS Landing)',
+  description:
+    'Comparison section content for the TMS landing page comparing Intlayer with Crowdin/Lokalise across integration, AI translation, pricing model, and developer experience.',
   content: {
     comparisonTitle: t({
       en: 'Why developers switch to Intlayer',
@@ -23,6 +24,7 @@ const comparisonSectionContent = {
       pl: 'Dlaczego deweloperzy przechodzą na Intlayer',
       id: 'Mengapa pengembang beralih ke Intlayer',
       vi: 'Tại sao nhà phát triển chuyển sang Intlayer',
+      uk: 'Чому розробники переходять на Intlayer',
     }),
     comparisonHeaders: {
       feature: t({
@@ -43,6 +45,7 @@ const comparisonSectionContent = {
         pl: 'Funkcja',
         id: 'Fitur',
         vi: 'Tính năng',
+        uk: 'Функція',
       }),
       intlayer: 'Intlayer',
       others: 'Crowdin / Lokalise',
@@ -67,6 +70,7 @@ const comparisonSectionContent = {
           pl: 'Integracja',
           id: 'Integrasi',
           vi: 'Tích hợp',
+          uk: 'Інтеграція',
         }),
         intlayer: t({
           en: 'Native (Code-first)',
@@ -86,6 +90,7 @@ const comparisonSectionContent = {
           pl: 'Natywny (Code-first)',
           id: 'Native (Code-first)',
           vi: 'Gốc (Code-first)',
+          uk: 'Нативна (орієнтована на код)',
         }),
         others: t({
           en: 'File-based (JSON/XML)',
@@ -105,6 +110,7 @@ const comparisonSectionContent = {
           pl: 'Oparte na plikach (JSON/XML)',
           id: 'Berbasis file (JSON/XML)',
           vi: 'Dựa trên tệp (JSON/XML)',
+          uk: 'Файлова (JSON/XML)',
         }),
       },
       {
@@ -126,6 +132,7 @@ const comparisonSectionContent = {
           pl: 'Tłumaczenie AI',
           id: 'Terjemahan AI',
           vi: 'Dịch bằng AI',
+          uk: 'Переклад на базі ШІ',
         }),
         intlayer: t({
           en: 'Native & Context-aware',
@@ -145,6 +152,7 @@ const comparisonSectionContent = {
           pl: 'Natywny i świadomy kontekstu',
           id: 'Native & Context-aware',
           vi: 'Gốc và nhận biết ngữ cảnh',
+          uk: 'Нативний і чутливий до контексту',
         }),
         others: t({
           en: 'Paid add-on / Generic',
@@ -164,6 +172,7 @@ const comparisonSectionContent = {
           pl: 'Płatny dodatek / Ogólny',
           id: 'Add-on berbayar / Generik',
           vi: 'Tiện ích trả phí / Chung',
+          uk: 'Платне доповнення / Універсальний',
         }),
       },
       {
@@ -185,6 +194,7 @@ const comparisonSectionContent = {
           pl: 'Model cenowy',
           id: 'Model Harga',
           vi: 'Mô hình định giá',
+          uk: 'Модель ціноутворення',
         }),
         intlayer: t({
           en: 'Free / Flat rate',
@@ -204,6 +214,7 @@ const comparisonSectionContent = {
           pl: 'Darmowe / Stawka ryczałtowa',
           id: 'Gratis / Tarif tetap',
           vi: 'Miễn phí / Giá cố định',
+          uk: 'Безкоштовно / Фіксована ціна',
         }),
         others: t({
           en: 'Per word / Per seat',
@@ -223,6 +234,7 @@ const comparisonSectionContent = {
           pl: 'Za słowo / Za miejsce',
           id: 'Per kata / Per kursi',
           vi: 'Theo từ / Theo chỗ ngồi',
+          uk: 'За слово / За користувача',
         }),
       },
       {
@@ -244,6 +256,7 @@ const comparisonSectionContent = {
           pl: 'DX',
           id: 'DX',
           vi: 'DX',
+          uk: 'DX (досвід розробника)',
         }),
         intlayer: t({
           en: 'Type-safe Dictionaries',
@@ -263,6 +276,7 @@ const comparisonSectionContent = {
           pl: 'Słowniki Type-safe',
           id: 'Kamus Type-safe',
           vi: 'Từ điển Type-safe',
+          uk: 'Типобезпечні словники',
         }),
         others: t({
           en: 'String keys (Error prone)',
@@ -282,10 +296,12 @@ const comparisonSectionContent = {
           pl: 'Klucze stringowe (Podatne na błędy)',
           id: 'Kunci string (Rentan kesalahan)',
           vi: 'Khóa chuỗi (Dễ lỗi)',
+          uk: 'Рядкові ключі (схильні до помилок)',
         }),
       },
     ],
   },
+  tags: ['comparison', 'tms-landing', 'landing-section'],
 } satisfies Dictionary;
 
 export default comparisonSectionContent;

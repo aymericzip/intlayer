@@ -21,6 +21,7 @@ const cliLoginFlowContent = {
       pl: 'Zaloguj się do CLI',
       id: 'Masuk ke CLI',
       vi: 'Đăng nhập vào CLI',
+      uk: 'Увійти в CLI',
     }),
     selectOrganization: t({
       en: 'Select Organization',
@@ -40,6 +41,7 @@ const cliLoginFlowContent = {
       pl: 'Wybierz organizację',
       id: 'Pilih Organisasi',
       vi: 'Chọn tổ chức',
+      uk: 'Оберіть організацію',
     }),
     selectProject: t({
       en: 'Select Project',
@@ -59,6 +61,7 @@ const cliLoginFlowContent = {
       pl: 'Wybierz projekt',
       id: 'Pilih Proyek',
       vi: 'Chọn dự án',
+      uk: 'Оберіть проєкт',
     }),
     selectAccessKey: t({
       en: 'Select Access Key',
@@ -78,8 +81,13 @@ const cliLoginFlowContent = {
       pl: 'Wybierz klucz dostępu',
       id: 'Pilih Kunci Akses',
       vi: 'Chọn khóa truy cập',
+      uk: 'Оберіть ключ доступу',
     }),
   },
+  title: 'CLI Login Flow',
+  description:
+    'Content declaration for the CLI login flow used by the Auth/CliLogin component. Provides labels and selections for logging in, choosing organization, project, and access key.',
+  tags: ['cli', 'authentication', 'login', 'auth-flow'],
 } satisfies DeclarationContent;
 
 export default cliLoginFlowContent;

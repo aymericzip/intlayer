@@ -21,6 +21,7 @@ const ssoSettingsContent = {
       pl: 'Konfiguracja SSO',
       id: 'Konfigurasi SSO',
       vi: 'Cấu hình SSO',
+      uk: 'Налаштування SSO',
     }),
     description: t({
       en: 'Configure Single Sign-On for your organization to allow members to sign in with their corporate identity provider.',
@@ -41,6 +42,7 @@ const ssoSettingsContent = {
       pl: 'Skonfiguruj Single Sign-On dla swojej organizacji, aby umożliwić członkom logowanie się za pomocą ich korporacyjnego dostawcy tożsamości.',
       id: 'Konfigurasikan Single Sign-On untuk organisasi Anda agar anggota dapat masuk dengan penyedia identitas perusahaan mereka.',
       vi: 'Cấu hình Single Sign-On cho tổ chức của bạn để cho phép thành viên đăng nhập bằng nhà cung cấp danh tính doanh nghiệp của họ.',
+      uk: 'Налаштуйте єдиний вхід (SSO) для вашої організації, щоб учасники могли входити за допомогою корпоративного провайдера автентифікації.',
     }),
     enabledLabel: t({
       en: 'Enable SSO',
@@ -60,6 +62,7 @@ const ssoSettingsContent = {
       pl: 'Włącz SSO',
       id: 'Aktifkan SSO',
       vi: 'Bật SSO',
+      uk: 'Увімкнути SSO',
     }),
     providerTypeLabel: t({
       en: 'Provider Type',
@@ -79,6 +82,7 @@ const ssoSettingsContent = {
       pl: 'Typ dostawcy',
       id: 'Jenis Penyedia',
       vi: 'Loại nhà cung cấp',
+      uk: 'Тип провайдера',
     }),
     providerTypeOptions: {
       saml: 'SAML 2.0',
@@ -102,6 +106,7 @@ const ssoSettingsContent = {
       pl: 'Domeny e-mail',
       id: 'Domain Email',
       vi: 'Miền email',
+      uk: 'Домени електронної пошти',
     }),
     domainsPlaceholder: t({
       en: 'e.g., company.com (comma separated)',
@@ -121,6 +126,7 @@ const ssoSettingsContent = {
       pl: 'np. company.com (oddzielone przecinkami)',
       id: 'misalnya: company.com (dipisahkan dengan koma)',
       vi: 'ví dụ: company.com (phân cách bằng dấu phẩy)',
+      uk: 'наприклад company.com (через кому)',
     }),
     domainsDescription: t({
       en: 'Users with email addresses from these domains will be required to use SSO.',
@@ -141,6 +147,7 @@ const ssoSettingsContent = {
       pl: 'Użytkownicy z adresami e-mail z tych domen będą musieli używać SSO.',
       id: 'Pengguna dengan alamat email dari domain ini akan diwajibkan menggunakan SSO.',
       vi: 'Người dùng có địa chỉ email từ các miền này sẽ được yêu cầu sử dụng SSO.',
+      uk: 'Користувачі з адресами електронної пошти в цих доменах повинні будуть використовувати SSO.',
     }),
     samlConfig: {
       title: t({
@@ -161,6 +168,7 @@ const ssoSettingsContent = {
         pl: 'Konfiguracja SAML',
         id: 'Konfigurasi SAML',
         vi: 'Cấu hình SAML',
+        uk: 'Налаштування SAML',
       }),
       idpEntityIdLabel: t({
         en: 'IdP Entity ID',
@@ -180,6 +188,7 @@ const ssoSettingsContent = {
         pl: 'Identyfikator jednostki IdP',
         id: 'ID Entitas IdP',
         vi: 'ID thực thể IdP',
+        uk: 'Ідентифікатор сутності IdP',
       }),
       idpEntityIdPlaceholder: 'https://idp.example.com/entity-id',
       idpSSOUrlLabel: t({
@@ -200,6 +209,7 @@ const ssoSettingsContent = {
         pl: 'URL SSO IdP',
         id: 'URL SSO IdP',
         vi: 'URL SSO IdP',
+        uk: 'URL SSO IdP',
       }),
       idpSSOUrlPlaceholder: 'https://idp.example.com/sso',
       idpCertificateLabel: t({
@@ -220,6 +230,7 @@ const ssoSettingsContent = {
         pl: 'Certyfikat IdP (PEM)',
         id: 'Sertifikat IdP (PEM)',
         vi: 'Chứng chỉ IdP (PEM)',
+        uk: 'Сертифікат IdP (PEM)',
       }),
       idpCertificatePlaceholder: t({
         en: 'Paste your IdP certificate here...',
@@ -239,6 +250,7 @@ const ssoSettingsContent = {
         pl: 'Wklej tutaj swój certyfikat IdP...',
         id: 'Tempelkan sertifikat IdP Anda di sini...',
         vi: 'Dán chứng chỉ IdP của bạn vào đây...',
+        uk: 'Вставте сертифікат IdP тут...',
       }),
     },
     oidcConfig: {
@@ -260,6 +272,7 @@ const ssoSettingsContent = {
         pl: 'Konfiguracja OIDC',
         id: 'Konfigurasi OIDC',
         vi: 'Cấu hình OIDC',
+        uk: 'Налаштування OIDC',
       }),
       issuerLabel: t({
         en: 'Issuer URL',
@@ -279,6 +292,7 @@ const ssoSettingsContent = {
         pl: 'URL wystawcy',
         id: 'URL Penerbit',
         vi: 'URL nhà phát hành',
+        uk: 'URL видавця',
       }),
       issuerPlaceholder: 'https://idp.example.com/sso',
       clientIdLabel: t({
@@ -299,6 +313,7 @@ const ssoSettingsContent = {
         pl: 'Identyfikator klienta',
         id: 'ID Klien',
         vi: 'ID khách hàng',
+        uk: 'ID клієнта',
       }),
       clientIdPlaceholder: t({
         en: 'Your OAuth2 client ID',
@@ -318,6 +333,7 @@ const ssoSettingsContent = {
         pl: 'Twój identyfikator klienta OAuth2',
         id: 'ID Klien OAuth2 Anda',
         vi: 'ID khách hàng OAuth2 của bạn',
+        uk: 'Ваш ID клієнта OAuth2',
       }),
       clientSecretLabel: t({
         en: 'Client Secret',
@@ -337,6 +353,7 @@ const ssoSettingsContent = {
         pl: 'Klucz tajny klienta',
         id: 'Rahasia Klien',
         vi: 'Bí mật khách hàng',
+        uk: 'Секрет клієнта',
       }),
       clientSecretPlaceholder: t({
         en: 'Your OAuth2 client secret',
@@ -356,6 +373,7 @@ const ssoSettingsContent = {
         pl: 'Twój klucz tajny klienta OAuth2',
         id: 'Rahasia Klien OAuth2 Anda',
         vi: 'Bí mật khách hàng OAuth2 của bạn',
+        uk: 'Ваш секрет клієнта OAuth2',
       }),
     },
     advancedSettings: {
@@ -377,6 +395,7 @@ const ssoSettingsContent = {
         pl: 'Zaawansowane ustawienia',
         id: 'Pengaturan Lanjutan',
         vi: 'Cài đặt nâng cao',
+        uk: 'Додаткові налаштування',
       }),
       enforceSSOLabel: t({
         en: 'Enforce SSO',
@@ -396,6 +415,7 @@ const ssoSettingsContent = {
         pl: 'Wymuś SSO',
         id: 'Paksa SSO',
         vi: 'Bắt buộc SSO',
+        uk: 'Примусове використання SSO',
       }),
       enforceSSODescription: t({
         en: 'Require all users in this organization to use SSO',
@@ -415,6 +435,7 @@ const ssoSettingsContent = {
         pl: 'Wymagaj, aby wszyscy użytkownicy w tej organizacji używali SSO',
         id: 'Wajibkan semua pengguna di organisasi ini untuk menggunakan SSO',
         vi: 'Yêu cầu tất cả người dùng trong tổ chức này sử dụng SSO',
+        uk: 'Вимагати від усіх користувачів цієї організації використання SSO',
       }),
       allowPasswordLoginLabel: t({
         en: 'Allow Password Login',
@@ -434,6 +455,7 @@ const ssoSettingsContent = {
         pl: 'Zezwól na logowanie hasłem',
         id: 'Izinkan Login dengan Kata Sandi',
         vi: 'Cho phép đăng nhập bằng mật khẩu',
+        uk: 'Дозволити вхід за паролем',
       }),
       allowPasswordLoginDescription: t({
         en: 'Allow users to bypass SSO and log in with email/password',
@@ -453,6 +475,7 @@ const ssoSettingsContent = {
         pl: 'Zezwól użytkownikom na pominięcie SSO i logowanie się za pomocą e-maila/hasła',
         id: 'Izinkan pengguna untuk melewati SSO dan masuk dengan email/kata sandi',
         vi: 'Cho phép người dùng bỏ qua SSO và đăng nhập bằng email/mật khẩu',
+        uk: 'Дозволити користувачам обійти SSO і входити за допомогою електронної пошти та пароля',
       }),
     },
     saveButton: {
@@ -474,6 +497,7 @@ const ssoSettingsContent = {
         pl: 'Zapisz konfigurację SSO',
         id: 'Simpan Konfigurasi SSO',
         vi: 'Lưu cấu hình SSO',
+        uk: 'Зберегти налаштування SSO',
       }),
       ariaLabel: t({
         en: 'Click to save SSO configuration',
@@ -493,6 +517,7 @@ const ssoSettingsContent = {
         pl: 'Kliknij, aby zapisać konfigurację SSO',
         id: 'Klik untuk menyimpan konfigurasi SSO',
         vi: 'Nhấp để lưu cấu hình SSO',
+        uk: 'Натисніть, щоб зберегти налаштування SSO',
       }),
     },
   },

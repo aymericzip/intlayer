@@ -21,6 +21,7 @@ export const definePasswordSchemaContent = {
       pl: 'Twoje hasło musi mieć co najmniej 8 znaków',
       id: 'Password Anda harus memiliki minimal 8 karakter',
       vi: 'Mật khẩu của bạn phải có ít nhất 8 ký tự',
+      uk: 'Ваш пароль має містити щонайменше 8 символів',
     }),
 
     requiredErrorNewPassword: t({
@@ -41,6 +42,7 @@ export const definePasswordSchemaContent = {
       pl: 'Proszę wprowadzić nowe hasło',
       id: 'Silakan masukkan password baru Anda',
       vi: 'Vui lòng nhập mật khẩu mới',
+      uk: 'Будь ласка, введіть ваш новий пароль',
     }),
 
     invalidTypeErrorNewPassword: t({
@@ -61,6 +63,7 @@ export const definePasswordSchemaContent = {
       pl: 'Proszę wprowadzić prawidłowe nowe hasło',
       id: 'Silakan masukkan password baru yang valid',
       vi: 'Vui lòng nhập mật khẩu mới hợp lệ',
+      uk: 'Будь ласка, введіть дійсний новий пароль',
     }),
 
     requiredErrorNewPasswordConfirmation: t({
@@ -81,6 +84,7 @@ export const definePasswordSchemaContent = {
       pl: 'Proszę wprowadzić ponownie nowe hasło',
       id: 'Silakan masukkan kembali password baru Anda',
       vi: 'Vui lòng nhập lại mật khẩu mới',
+      uk: 'Будь ласка, введіть ваш новий пароль ще раз',
     }),
 
     invalidTypeErrorNewPasswordConfirmation: t({
@@ -101,6 +105,7 @@ export const definePasswordSchemaContent = {
       pl: 'Proszę wprowadzić ponownie prawidłowe nowe hasło',
       id: 'Silakan masukkan kembali password baru yang valid',
       vi: 'Vui lòng nhập lại mật khẩu mới hợp lệ',
+      uk: 'Будь ласка, ще раз введіть дійсний новий пароль',
     }),
 
     passwordNotMatchError: t({
@@ -121,6 +126,7 @@ export const definePasswordSchemaContent = {
       pl: 'Nowe hasło i potwierdzenie hasła muszą się zgadzać',
       id: 'Password baru dan konfirmasi password harus cocok',
       vi: 'Mật khẩu mới và xác nhận mật khẩu phải khớp',
+      uk: 'Новий пароль і підтвердження пароля мають збігатися',
     }),
   },
   title: 'Define password form schema',

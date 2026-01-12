@@ -21,6 +21,7 @@ export default {
       pl: 'Programiści, Menedżerowie treści',
       id: 'Pengembang, Manajer Konten',
       vi: 'Nhà phát triển (Developers), Quản trị nội dung (Content Managers)',
+      uk: 'Розробники, контент-менеджери',
     }),
   },
   title: 'Creative work structured data',

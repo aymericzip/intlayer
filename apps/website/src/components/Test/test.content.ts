@@ -24,6 +24,7 @@ const content = {
       pl: 'Witamy w naszej aplikacji',
       id: 'Selamat datang di aplikasi kami',
       vi: 'Chào mừng bạn đến với ứng dụng của chúng tôi',
+      uk: 'Ласкаво просимо в наш додаток',
     }),
     numberOfCar: enu({
       '<-1': 'Less than minus one car',
@@ -64,6 +65,7 @@ const content = {
         pt: 'Olá, meu nome é {{name}} e eu tenho {{age}} anos!',
         ru: 'Привет, моё имя {{name}} и мне {{age}} лет!',
         tr: 'Merhaba, benim adım {{name}} ve ben {{age}} yaşındayım!',
+        uk: 'Привіт, мене звати {{name}} і мені {{age}} років!',
         vi: 'Xin chào, tôi là {{name}} và tôi {{age}} tuổi!',
         zh: '你好，我的名字是 {{name}} ，我 {{age}} 岁了！',
       })
@@ -98,6 +100,7 @@ const content = {
       ar: md('## test ar'),
       text: 'This is the content rendered by a function',
       vi: md('## kiểm tra'),
+      uk: md('## тест'),
     }),
     arrayContent: ['string', 'string2', 'string3', 'string4', 'string5'],
     arrayNestedContent: [

@@ -22,6 +22,7 @@ const chatbotContent = {
         pl: 'Kliknij, aby otworzyć chatbota',
         id: 'Klik untuk membuka chatbot',
         vi: 'Nhấn để mở chatbot',
+        uk: 'Натисніть, щоб відкрити чат-бота',
       }),
     },
     title: t({
@@ -42,6 +43,7 @@ const chatbotContent = {
       pl: 'Zapytaj o cokolwiek',
       id: 'Tanyakan apa saja',
       vi: 'Hỏi bất cứ điều gì',
+      uk: 'Задавайте будь-які питання',
     }),
   },
   title: 'Chatbot modal content',

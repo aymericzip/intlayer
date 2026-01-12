@@ -21,6 +21,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Typ węzła',
       id: 'Tipe Node',
       vi: 'Kiểu node',
+      uk: 'Тип вузла',
     }),
     multilingual: t({
       en: 'Multilingual content',
@@ -40,6 +41,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Treść wielojęzyczna',
       id: 'Konten multibahasa',
       vi: 'Nội dung đa ngôn ngữ',
+      uk: 'Багатомовний вміст',
     }),
     text: t({
       en: 'Text',
@@ -59,6 +61,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Tekst',
       id: 'Teks',
       vi: 'Văn bản',
+      uk: 'Текст',
     }),
     number: t({
       en: 'Number',
@@ -78,6 +81,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Liczba',
       id: 'Angka',
       vi: 'Số',
+      uk: 'Число',
     }),
     boolean: t({
       en: 'Boolean',
@@ -97,6 +101,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Wartość logiczna',
       id: 'Boolean',
       vi: 'Boolean',
+      uk: 'Булеве',
     }),
     node: t({
       en: 'Object',
@@ -116,6 +121,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Obiekt',
       id: 'Object',
       vi: 'Đối tượng',
+      uk: "Об'єкт",
     }),
     array: t({
       en: 'Array',
@@ -135,6 +141,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Tablica',
       id: 'Array',
       vi: 'Mảng',
+      uk: 'Масив',
     }),
     enumeration: t({
       en: 'Enumeration',
@@ -154,6 +161,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Wyliczenie',
       id: 'Enumeration',
       vi: 'Kiểu liệt kê',
+      uk: 'Перерахування',
     }),
     gender: t({
       en: 'Gender',
@@ -173,6 +181,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Płeć',
       id: 'Gender',
       vi: 'Giới tính',
+      uk: 'Стать',
     }),
     nest: t({
       en: 'Nesting',
@@ -192,6 +201,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Zagnieżdżanie',
       id: 'Nesting',
       vi: 'Lồng nhau',
+      uk: 'Вкладеність',
     }),
     insertion: t({
       en: 'Insertion',
@@ -211,6 +221,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Wstawianie',
       id: 'Insertion',
       vi: 'Chèn',
+      uk: 'Вставка',
     }),
     condition: t({
       en: 'Condition',
@@ -230,6 +241,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Warunek',
       id: 'Condition',
       vi: 'Điều kiện',
+      uk: 'Умова',
     }),
     file: t({
       en: 'File',
@@ -249,6 +261,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Plik',
       id: 'File',
       vi: 'Tệp',
+      uk: 'Файл',
     }),
     markdown: t({
       en: 'Markdown',
@@ -268,6 +281,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Markdown',
       id: 'Markdown',
       vi: 'Markdown',
+      uk: 'Markdown',
     }),
     reactNode: t({
       en: 'React Node',
@@ -287,6 +301,7 @@ export const nodeTypeSelectorContent = {
       pl: 'Węzeł React',
       id: 'React Node',
       vi: 'React Node',
+      uk: 'React-вузол',
     }),
   },
   title: 'Node type selector',

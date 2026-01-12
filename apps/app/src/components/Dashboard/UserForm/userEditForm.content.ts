@@ -21,6 +21,7 @@ const userEditFormContent = {
       pl: 'Szczegóły użytkownika',
       id: 'Detail Pengguna',
       vi: 'Chi tiết người dùng',
+      uk: 'Деталі користувача',
     }),
     statusLabels: {
       verified: t({
@@ -41,6 +42,7 @@ const userEditFormContent = {
         pl: 'Zweryfikowany',
         id: 'Terverifikasi',
         vi: 'Đã xác minh',
+        uk: 'Підтверджено',
       }),
       pending: t({
         en: 'Pending',
@@ -60,6 +62,7 @@ const userEditFormContent = {
         pl: 'Oczekujący',
         id: 'Menunggu',
         vi: 'Đang chờ',
+        uk: 'В очікуванні',
       }),
     },
     userDetails: {
@@ -81,6 +84,7 @@ const userEditFormContent = {
         pl: 'Podstawowe informacje',
         id: 'Informasi Dasar',
         vi: 'Thông tin cơ bản',
+        uk: 'Основна інформація',
       }),
       accountInfo: t({
         en: 'Account Information',
@@ -100,6 +104,7 @@ const userEditFormContent = {
         pl: 'Informacje o koncie',
         id: 'Informasi Akun',
         vi: 'Thông tin tài khoản',
+        uk: 'Інформація облікового запису',
       }),
       name: t({
         en: 'Name',
@@ -119,6 +124,7 @@ const userEditFormContent = {
         pl: 'Imię i nazwisko',
         id: 'Nama',
         vi: 'Tên',
+        uk: "Ім'я",
       }),
       email: t({
         en: 'Email',
@@ -138,6 +144,7 @@ const userEditFormContent = {
         pl: 'E-mail',
         id: 'Email',
         vi: 'Email',
+        uk: 'Електронна пошта',
       }),
       role: t({
         en: 'Role',
@@ -157,6 +164,7 @@ const userEditFormContent = {
         pl: 'Rola',
         id: 'Peran',
         vi: 'Vai trò',
+        uk: 'Роль',
       }),
       language: t({
         en: 'Language',
@@ -176,6 +184,7 @@ const userEditFormContent = {
         pl: 'Język',
         id: 'Bahasa',
         vi: 'Ngôn ngữ',
+        uk: 'Мова',
       }),
       emailVerified: t({
         en: 'Email Verified',
@@ -195,6 +204,7 @@ const userEditFormContent = {
         pl: 'E-mail zweryfikowany',
         id: 'Email Terverifikasi',
         vi: 'Email đã xác minh',
+        uk: 'Електронна пошта підтверджена',
       }),
       createdAt: t({
         en: 'Created At',
@@ -214,6 +224,7 @@ const userEditFormContent = {
         pl: 'Data utworzenia',
         id: 'Dibuat Pada',
         vi: 'Ngày tạo',
+        uk: 'Створено',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -233,6 +244,7 @@ const userEditFormContent = {
         pl: 'Data aktualizacji',
         id: 'Diperbarui Pada',
         vi: 'Cập nhật lần cuối',
+        uk: 'Оновлено',
       }),
     },
     errorMessages: {
@@ -254,6 +266,7 @@ const userEditFormContent = {
         pl: 'Błąd podczas ładowania szczegółów użytkownika',
         id: 'Terjadi kesalahan saat memuat detail pengguna',
         vi: 'Lỗi khi tải thông tin người dùng',
+        uk: 'Помилка завантаження даних користувача',
       }),
       deleteError: t({
         en: 'Error deleting user',
@@ -273,6 +286,7 @@ const userEditFormContent = {
         pl: 'Błąd usuwania użytkownika',
         id: 'Terjadi kesalahan saat menghapus pengguna',
         vi: 'Lỗi khi xóa người dùng',
+        uk: 'Помилка видалення користувача',
       }),
       updateError: t({
         en: 'Error updating user',
@@ -292,6 +306,7 @@ const userEditFormContent = {
         pl: 'Błąd aktualizacji użytkownika',
         id: 'Terjadi kesalahan saat memperbarui pengguna',
         vi: 'Lỗi khi cập nhật người dùng',
+        uk: 'Помилка оновлення користувача',
       }),
       cannotRemoveLastMember: t({
         en: 'Cannot remove last member',
@@ -311,6 +326,7 @@ const userEditFormContent = {
         pl: 'Nie można usunąć ostatniego członka',
         id: 'Tidak dapat menghapus anggota terakhir',
         vi: 'Không thể xóa thành viên cuối cùng',
+        uk: 'Неможливо видалити останнього учасника',
       }),
       organizationsWithOneUser: t({
         en: 'The following organizations have only this user',
@@ -330,6 +346,7 @@ const userEditFormContent = {
         pl: 'Następujące organizacje mają tylko tego użytkownika',
         id: 'Organisasi berikut hanya memiliki pengguna ini',
         vi: 'Các tổ chức sau chỉ có người dùng này',
+        uk: 'Наступні організації мають лише цього користувача',
       }),
     },
     successMessages: {
@@ -351,6 +368,7 @@ const userEditFormContent = {
         pl: 'Użytkownik został pomyślnie usunięty',
         id: 'Pengguna berhasil dihapus',
         vi: 'Xóa người dùng thành công',
+        uk: 'Користувача успішно видалено',
       }),
       userUpdated: t({
         en: 'User updated successfully',
@@ -370,6 +388,7 @@ const userEditFormContent = {
         pl: 'Użytkownik został pomyślnie zaktualizowany',
         id: 'Pengguna berhasil diperbarui',
         vi: 'Cập nhật người dùng thành công',
+        uk: 'Користувача успішно оновлено',
       }),
     },
     formLabels: {
@@ -391,6 +410,7 @@ const userEditFormContent = {
         pl: 'Edytuj informacje o użytkowniku',
         id: 'Sunting Informasi Pengguna',
         vi: 'Chỉnh sửa thông tin người dùng',
+        uk: 'Редагувати інформацію користувача',
       }),
       name: t({
         en: 'Name',
@@ -410,6 +430,7 @@ const userEditFormContent = {
         pl: 'Imię i nazwisko',
         id: 'Nama',
         vi: 'Tên',
+        uk: "Ім'я",
       }),
       namePlaceholder: t({
         en: 'Enter name',
@@ -429,6 +450,7 @@ const userEditFormContent = {
         pl: 'Wprowadź imię i nazwisko',
         id: 'Masukkan nama',
         vi: 'Nhập tên',
+        uk: "Введіть ім'я",
       }),
       email: t({
         en: 'Email',
@@ -448,6 +470,7 @@ const userEditFormContent = {
         pl: 'E-mail',
         id: 'Email',
         vi: 'Email',
+        uk: 'Електронна пошта',
       }),
       emailPlaceholder: t({
         en: 'Enter email',
@@ -467,6 +490,7 @@ const userEditFormContent = {
         pl: 'Wprowadź adres e-mail',
         id: 'Masukkan email',
         vi: 'Nhập địa chỉ email',
+        uk: 'Введіть електронну пошту',
       }),
       role: t({
         en: 'Role',
@@ -486,6 +510,7 @@ const userEditFormContent = {
         pl: 'Rola',
         id: 'Peran',
         vi: 'Vai trò',
+        uk: 'Роль',
       }),
       rolePlaceholder: t({
         en: 'Select role',
@@ -505,6 +530,7 @@ const userEditFormContent = {
         pl: 'Wybierz rolę',
         id: 'Pilih peran',
         vi: 'Chọn vai trò',
+        uk: 'Виберіть роль',
       }),
       roleUser: t({
         en: 'User',
@@ -524,6 +550,7 @@ const userEditFormContent = {
         pl: 'Użytkownik',
         id: 'Pengguna',
         vi: 'User',
+        uk: 'Користувач',
       }),
       roleAdmin: t({
         en: 'Admin',
@@ -543,6 +570,7 @@ const userEditFormContent = {
         pl: 'Administrator',
         id: 'Admin',
         vi: 'Admin',
+        uk: 'Адміністратор',
       }),
       language: t({
         en: 'Language',
@@ -562,6 +590,7 @@ const userEditFormContent = {
         pl: 'Język',
         id: 'Bahasa',
         vi: 'Ngôn ngữ',
+        uk: 'Мова',
       }),
       languagePlaceholder: t({
         en: 'Select language',
@@ -581,6 +610,7 @@ const userEditFormContent = {
         pl: 'Wybierz język',
         id: 'Pilih bahasa',
         vi: 'Chọn ngôn ngữ',
+        uk: 'Виберіть мову',
       }),
       organizations: t({
         en: 'Organizations',
@@ -600,6 +630,7 @@ const userEditFormContent = {
         pl: 'Organizacje',
         id: 'Organisasi',
         vi: 'Tổ chức',
+        uk: 'Організації',
       }),
       organizationsPlaceholder: t({
         en: 'Select organizations...',
@@ -619,6 +650,7 @@ const userEditFormContent = {
         pl: 'Wybierz organizacje...',
         id: 'Pilih organisasi...',
         vi: 'Chọn tổ chức...',
+        uk: 'Виберіть організації...',
       }),
       createdAt: t({
         en: 'Created At',
@@ -638,6 +670,7 @@ const userEditFormContent = {
         pl: 'Data utworzenia',
         id: 'Dibuat Pada',
         vi: 'Ngày tạo',
+        uk: 'Створено',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -657,6 +690,7 @@ const userEditFormContent = {
         pl: 'Data aktualizacji',
         id: 'Diperbarui Pada',
         vi: 'Cập nhật lần cuối',
+        uk: 'Оновлено',
       }),
       updateButton: t({
         en: 'Update User',
@@ -676,6 +710,7 @@ const userEditFormContent = {
         pl: 'Aktualizuj użytkownika',
         id: 'Perbarui Pengguna',
         vi: 'Cập nhật người dùng',
+        uk: 'Оновити користувача',
       }),
       lastMember: t({
         en: 'Last member',
@@ -695,6 +730,7 @@ const userEditFormContent = {
         pl: 'Ostatni członek',
         id: 'Anggota terakhir',
         vi: 'Thành viên cuối cùng',
+        uk: 'Останній учасник',
       }),
       organization: t({
         en: 'Organization',
@@ -714,6 +750,7 @@ const userEditFormContent = {
         pl: 'Organizacja',
         id: 'Organisasi',
         vi: 'Tổ chức',
+        uk: 'Організація',
       }),
       organizationPlaceholder: t({
         en: 'Select organization',
@@ -733,6 +770,7 @@ const userEditFormContent = {
         pl: 'Wybierz organizację',
         id: 'Pilih organisasi',
         vi: 'Chọn tổ chức',
+        uk: 'Виберіть організацію',
       }),
       noOrganization: t({
         en: 'No organization',
@@ -752,6 +790,7 @@ const userEditFormContent = {
         pl: 'Brak organizacji',
         id: 'Tidak ada organisasi',
         vi: 'Không có tổ chức',
+        uk: 'Немає організації',
       }),
     },
     formValidation: {
@@ -773,6 +812,7 @@ const userEditFormContent = {
         pl: 'Imię i nazwisko jest wymagane',
         id: 'Nama wajib diisi',
         vi: 'Tên là bắt buộc',
+        uk: "Ім'я є обов'язковим",
       }),
       nameTooLong: t({
         en: 'Name is too long',
@@ -792,6 +832,7 @@ const userEditFormContent = {
         pl: 'Imię i nazwisko jest za długie',
         id: 'Nama terlalu panjang',
         vi: 'Tên quá dài',
+        uk: "Ім'я занадто довге",
       }),
       emailRequired: t({
         en: 'Email is required',
@@ -811,6 +852,7 @@ const userEditFormContent = {
         pl: 'E-mail jest wymagany',
         id: 'Email wajib diisi',
         vi: 'Email là bắt buộc',
+        uk: "Електронна пошта є обов'язковою",
       }),
       emailInvalid: t({
         en: 'Invalid email address',
@@ -830,6 +872,7 @@ const userEditFormContent = {
         pl: 'Nieprawidłowy adres e-mail',
         id: 'Alamat email tidak valid',
         vi: 'Địa chỉ email không hợp lệ',
+        uk: 'Недійсна адреса електронної пошти',
       }),
       roleRequired: t({
         en: 'Role is required',
@@ -849,6 +892,7 @@ const userEditFormContent = {
         pl: 'Rola jest wymagana',
         id: 'Peran wajib diisi',
         vi: 'Vai trò là bắt buộc',
+        uk: "Роль є обов'язковою",
       }),
       langRequired: t({
         en: 'Language is required',
@@ -868,6 +912,7 @@ const userEditFormContent = {
         pl: 'Język jest wymagany',
         id: 'Bahasa wajib diisi',
         vi: 'Ngôn ngữ là bắt buộc',
+        uk: "Мова є обов'язковою",
       }),
     },
   },

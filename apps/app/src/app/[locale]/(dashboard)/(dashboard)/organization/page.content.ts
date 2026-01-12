@@ -21,6 +21,7 @@ const profileDashboardContent = {
       pl: 'Ustawienia organizacji',
       id: 'Pengaturan organisasi',
       vi: 'Cài đặt tổ chức',
+      uk: 'Налаштування організації',
     }),
   },
   title: 'Organization dashboard page',

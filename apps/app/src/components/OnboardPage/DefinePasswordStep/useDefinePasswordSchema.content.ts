@@ -21,6 +21,7 @@ const content = {
       pl: 'Proszę wprowadzić aktualne hasło',
       id: 'Silakan masukkan password Anda saat ini',
       vi: 'Vui lòng nhập mật khẩu hiện tại của bạn',
+      uk: 'Будь ласка, введіть поточний пароль',
     }),
 
     invalidTypeErrorPassword: t({
@@ -41,6 +42,7 @@ const content = {
       pl: 'Proszę podać prawidłowe hasło',
       id: 'Silakan masukkan password yang valid',
       vi: 'Vui lòng nhập mật khẩu hợp lệ',
+      uk: 'Будь ласка, введіть дійсний пароль',
     }),
 
     invalidPasswordLengthError: t({
@@ -61,6 +63,7 @@ const content = {
       pl: 'Twoje hasło musi mieć co najmniej 8 znaków',
       id: 'Password Anda harus memiliki minimal 8 karakter',
       vi: 'Mật khẩu của bạn phải có ít nhất 8 ký tự',
+      uk: 'Ваш пароль має містити щонайменше 8 символів',
     }),
 
     requiredErrorNewPassword: t({
@@ -81,6 +84,7 @@ const content = {
       pl: 'Proszę wprowadzić nowe hasło',
       id: 'Silakan masukkan password baru Anda',
       vi: 'Vui lòng nhập mật khẩu mới của bạn',
+      uk: 'Будь ласка, введіть новий пароль',
     }),
 
     invalidTypeErrorNewPassword: t({
@@ -101,6 +105,7 @@ const content = {
       pl: 'Proszę podać prawidłowe nowe hasło',
       id: 'Silakan masukkan password baru yang valid',
       vi: 'Vui lòng nhập mật khẩu mới hợp lệ',
+      uk: 'Будь ласка, введіть дійсний новий пароль',
     }),
 
     requiredErrorNewPasswordConfirmation: t({
@@ -121,6 +126,7 @@ const content = {
       pl: 'Proszę ponownie wprowadzić nowe hasło',
       id: 'Silakan masukkan kembali password baru Anda',
       vi: 'Vui lòng nhập lại mật khẩu mới của bạn',
+      uk: 'Будь ласка, введіть новий пароль ще раз',
     }),
 
     invalidTypeErrorNewPasswordConfirmation: t({
@@ -141,6 +147,7 @@ const content = {
       pl: 'Proszę ponownie podać prawidłowe nowe hasło',
       id: 'Silakan masukkan kembali password baru yang valid',
       vi: 'Vui lòng nhập lại mật khẩu mới hợp lệ',
+      uk: 'Будь ласка, введіть дійсний новий пароль ще раз',
     }),
 
     passwordNotMatchError: t({
@@ -161,6 +168,7 @@ const content = {
       pl: 'Nowe hasło i potwierdzenie hasła muszą się zgadzać',
       id: 'Password baru dan konfirmasi password harus cocok',
       vi: 'Mật khẩu mới và xác nhận mật khẩu phải khớp',
+      uk: 'Новий пароль і підтвердження пароля повинні співпадати',
     }),
   },
   title: 'Define password schema validation',

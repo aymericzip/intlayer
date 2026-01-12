@@ -21,6 +21,7 @@ const accessKeyFormContent = {
       pl: 'Klucz dostępu',
       id: 'Kunci akses',
       vi: 'Khóa truy cập',
+      uk: 'Ключ доступу',
     }),
     nameInput: {
       label: t({
@@ -41,6 +42,7 @@ const accessKeyFormContent = {
         pl: 'Nazwa klucza dostępu',
         id: 'Nama kunci akses Anda',
         vi: 'Tên khóa truy cập của bạn',
+        uk: 'Назва вашого ключа доступу',
       }),
       placeholder: t({
         en: 'Enter the name of your access key',
@@ -60,6 +62,7 @@ const accessKeyFormContent = {
         pl: 'Wprowadź nazwę klucza dostępu',
         id: 'Masukkan nama kunci akses Anda',
         vi: 'Nhập tên khóa truy cập của bạn',
+        uk: 'Введіть назву вашого ключа доступу',
       }),
     },
 
@@ -82,6 +85,7 @@ const accessKeyFormContent = {
         pl: 'Uprawnienia',
         id: 'Hak akses',
         vi: 'Quyền',
+        uk: 'Права',
       }),
       dictionary: t({
         en: 'Dictionary',
@@ -101,6 +105,7 @@ const accessKeyFormContent = {
         pl: 'Słownik',
         id: 'Dictionary',
         vi: 'Từ điển',
+        uk: 'Словник',
       }),
       project: t({
         en: 'Project',
@@ -120,6 +125,7 @@ const accessKeyFormContent = {
         pl: 'Projekt',
         id: 'Project',
         vi: 'Dự án',
+        uk: 'Проєкт',
       }),
       organization: t({
         en: 'Organization',
@@ -139,6 +145,7 @@ const accessKeyFormContent = {
         pl: 'Organizacja',
         id: 'Organization',
         vi: 'Tổ chức',
+        uk: 'Організація',
       }),
       read: t({
         en: 'Read ',
@@ -158,6 +165,7 @@ const accessKeyFormContent = {
         pl: 'Odczyt ',
         id: 'Read',
         vi: 'Đọc',
+        uk: 'Читання',
       }),
       write: t({
         en: 'Write ',
@@ -177,6 +185,7 @@ const accessKeyFormContent = {
         pl: 'Zapis ',
         id: 'Write',
         vi: 'Ghi',
+        uk: 'Запис',
       }),
       admin: t({
         en: 'Admin',
@@ -196,6 +205,7 @@ const accessKeyFormContent = {
         pl: 'Administrator',
         id: 'Admin',
         vi: 'Quản trị',
+        uk: 'Адміністратор',
       }),
     },
 
@@ -218,6 +228,7 @@ const accessKeyFormContent = {
         pl: 'Wygasa',
         id: 'Berakhir pada',
         vi: 'Ngày hết hạn',
+        uk: 'Діє до',
       }),
       placeholder: t({
         en: 'Select the expiration date',
@@ -237,6 +248,7 @@ const accessKeyFormContent = {
         pl: 'Wybierz datę wygaśnięcia',
         id: 'Pilih tanggal kedaluwarsa',
         vi: 'Chọn ngày hết hạn',
+        uk: 'Виберіть дату закінчення терміну дії',
       }),
     },
 
@@ -259,6 +271,7 @@ const accessKeyFormContent = {
         pl: 'Utwórz klucz dostępu',
         id: 'Buat kunci akses',
         vi: 'Tạo khóa truy cập',
+        uk: 'Створити ключ доступу',
       }),
       label: t({
         en: 'Click to create access key',
@@ -278,6 +291,7 @@ const accessKeyFormContent = {
         pl: 'Kliknij, aby utworzyć klucz dostępu',
         id: 'Klik untuk membuat kunci akses',
         vi: 'Nhấp để tạo khóa truy cập',
+        uk: 'Натисніть, щоб створити ключ доступу',
       }),
     },
   },

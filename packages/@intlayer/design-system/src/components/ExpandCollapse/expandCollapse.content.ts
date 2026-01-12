@@ -22,6 +22,7 @@ const expandCollapseContent = {
         pl: 'Pokaż wszystko',
         id: 'Tampilkan semua',
         vi: 'Hiển thị tất cả',
+        uk: 'Показати все',
       }),
       false: t({
         en: 'Show less',
@@ -41,6 +42,7 @@ const expandCollapseContent = {
         pl: 'Pokaż mniej',
         id: 'Tampilkan lebih sedikit',
         vi: 'Thu gọn',
+        uk: 'Показати менше',
       }),
     }),
   },

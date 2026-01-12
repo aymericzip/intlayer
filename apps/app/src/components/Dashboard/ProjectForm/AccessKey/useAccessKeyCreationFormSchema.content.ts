@@ -21,6 +21,7 @@ const content = {
       pl: 'Wprowadź nazwę klucza dostępu',
       id: 'Silakan masukkan nama untuk access key Anda',
       vi: 'Vui lòng nhập tên cho access key của bạn',
+      uk: 'Будь ласка, введіть назву для вашого ключа доступу',
     }),
 
     invalidTypeErrorName: t({
@@ -41,6 +42,7 @@ const content = {
       pl: 'Wprowadź prawidłową nazwę klucza dostępu',
       id: 'Silakan masukkan nama yang valid untuk access key Anda',
       vi: 'Vui lòng nhập tên hợp lệ cho access key của bạn',
+      uk: 'Будь ласка, введіть дійсну назву для вашого ключа доступу',
     }),
 
     invalidDateErrorName: t({
@@ -61,6 +63,7 @@ const content = {
       pl: 'Wprowadź prawidłową datę wygaśnięcia klucza dostępu',
       id: 'Silakan masukkan tanggal kedaluwarsa yang valid untuk access key Anda',
       vi: 'Vui lòng nhập ngày hết hạn hợp lệ cho access key của bạn',
+      uk: 'Будь ласка, введіть дійсну дату закінчення терміну дії вашого ключа доступу',
     }),
   },
   title: 'Access key creation form schema',

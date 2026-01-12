@@ -22,6 +22,7 @@ export default {
         pl: 'Dalej',
         id: 'Berikutnya',
         vi: 'Tiếp theo',
+        uk: 'Далі',
       }),
       text: t({
         en: 'Next',
@@ -41,6 +42,7 @@ export default {
         pl: 'Dalej',
         id: 'Berikutnya',
         vi: 'Tiếp theo',
+        uk: 'Далі',
       }),
     },
     previousStepButton: {
@@ -62,6 +64,7 @@ export default {
         pl: 'Wstecz',
         id: 'Sebelumnya',
         vi: 'Quay lại',
+        uk: 'Назад',
       }),
       text: t({
         en: 'Previous',
@@ -81,6 +84,7 @@ export default {
         pl: 'Wstecz',
         id: 'Sebelumnya',
         vi: 'Quay lại',
+        uk: 'Назад',
       }),
     },
     skipButton: {
@@ -102,6 +106,7 @@ export default {
         pl: 'Pomiń',
         id: 'Lewati',
         vi: 'Bỏ qua',
+        uk: 'Пропустити',
       }),
       text: t({
         en: 'Skip',
@@ -121,6 +126,7 @@ export default {
         pl: 'Pomiń',
         id: 'Lewati',
         vi: 'Bỏ qua',
+        uk: 'Пропустити',
       }),
     },
   },

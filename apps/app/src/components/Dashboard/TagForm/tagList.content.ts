@@ -22,6 +22,7 @@ const tagListContent = {
         pl: 'Brak tagów',
         id: 'Belum ada tag',
         vi: 'Chưa có tag nào',
+        uk: 'Немає тегів',
       }),
       description: t({
         en: 'Create your first tag to indicate how AI can structure your content',
@@ -42,6 +43,7 @@ const tagListContent = {
         pl: 'Utwórz pierwszy tag, aby wskazać, jak AI może strukturyzować twoje treści',
         id: 'Buat tag pertama Anda untuk menunjukkan bagaimana AI dapat menyusun konten Anda',
         vi: 'Tạo tag đầu tiên để chỉ ra cách AI có thể cấu trúc nội dung của bạn',
+        uk: 'Створіть перший тег, щоб вказати, як ШІ може структурувати ваш вміст',
       }),
     },
 
@@ -64,6 +66,7 @@ const tagListContent = {
         pl: 'Utwórz tag',
         id: 'Buat tag',
         vi: 'Tạo tag',
+        uk: 'Створити тег',
       }),
       ariaLabel: t({
         en: 'Click to create tag',
@@ -83,6 +86,7 @@ const tagListContent = {
         pl: 'Kliknij, aby utworzyć tag',
         id: 'Klik untuk membuat tag',
         vi: 'Nhấp để tạo tag',
+        uk: 'Натисніть, щоб створити тег',
       }),
     },
   },

@@ -2,8 +2,9 @@ import { type Dictionary, t } from 'intlayer';
 
 const heroContent = {
   key: 'cms-landing-hero',
-  title: 'CMS landing page hero section content',
-  description: 'Content declarations for the CMS landing page hero section.',
+  title: 'CMS Landing Page Hero Section',
+  description:
+    'Hero section content for the CMS landing page, including tag, title, subtitle, description and primary/secondary CTAs for local editing.',
   content: {
     heroTag: 'Intlayer CMS',
     heroTitle: t({
@@ -24,6 +25,7 @@ const heroContent = {
       pl: 'Twój kod. Twoja treść. Zunifikowane.',
       id: 'Kode Anda. Konten Anda. Terpadu.',
       vi: 'Mã của bạn. Nội dung của bạn. Thống nhất.',
+      uk: 'Ваш код. Ваш вміст. Єдине ціле.',
     }),
     heroSubtitle: t({
       en: 'The headless CMS that lives inside your codebase',
@@ -43,6 +45,7 @@ const heroContent = {
       pl: 'Headless CMS, który żyje w Twojej bazie kodu',
       id: 'CMS headless yang hidup di dalam codebase Anda',
       vi: 'CMS headless sống bên trong codebase của bạn',
+      uk: 'Безголовий CMS, який живе у вашій кодовій базі',
     }),
     heroDescription: t({
       en: 'Bridge local content declarations with remote editing. Ship multilingual updates instantly. Let your whole team contribute, without breaking production.',
@@ -63,6 +66,7 @@ const heroContent = {
       pl: 'Połącz lokalne deklaracje treści z edycją zdalną. Wysyłaj wielojęzyczne aktualizacje natychmiast. Pozwól całej swojej drużynie wnosić wkład bez przerywania produkcji.',
       id: 'Jembatani deklarasi konten lokal dengan pengeditan jarak jauh. Kirim pembaruan multibahasa secara instan. Biarkan seluruh tim Anda berkontribusi tanpa merusak produksi.',
       vi: 'Kết nối các khai báo nội dung cục bộ với chỉnh sửa từ xa. Gửi cập nhật đa ngôn ngữ ngay lập tức. Để toàn bộ nhóm của bạn đóng góp mà không làm gián đoạn sản xuất.',
+      uk: 'Поєднуйте локальні декларації вмісту з віддаленим редагуванням. Миттєво публікуйте багатомовні оновлення. Дозвольте всій команді робити внесок, не порушуючи роботу у виробничому середовищі.',
     }),
     primaryCta: t({
       en: 'Start editing now',
@@ -82,6 +86,7 @@ const heroContent = {
       pl: 'Zacznij edytować teraz',
       id: 'Mulai edit sekarang',
       vi: 'Bắt đầu chỉnh sửa ngay',
+      uk: 'Почніть редагувати зараз',
     }),
     secondaryCta: t({
       en: 'Read the docs',
@@ -101,8 +106,10 @@ const heroContent = {
       pl: 'Przeczytaj dokumentację',
       id: 'Baca dokumentasi',
       vi: 'Đọc tài liệu',
+      uk: 'Прочитати документацію',
     }),
   },
+  tags: ['cms', 'landing', 'hero', 'page content', 'local'],
 } satisfies Dictionary;
 
 export default heroContent;

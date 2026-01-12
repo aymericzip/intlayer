@@ -23,6 +23,7 @@ const adminSidebarContent = {
           pl: 'Przejdź do pulpitu',
           id: 'Buka dashboard',
           vi: 'Đi tới bảng điều khiển',
+          uk: 'Перейти до панелі керування',
         }),
         title: t({
           en: 'Dashboard',
@@ -42,6 +43,7 @@ const adminSidebarContent = {
           pl: 'Pulpit',
           id: 'Dashboard',
           vi: 'Bảng điều khiển',
+          uk: 'Панель керування',
         }),
       },
       management: {
@@ -63,6 +65,7 @@ const adminSidebarContent = {
           pl: 'Sekcja zarządzania',
           id: 'Bagian manajemen',
           vi: 'Mục quản lý',
+          uk: 'Розділ керування',
         }),
         title: t({
           en: 'Management',
@@ -82,6 +85,7 @@ const adminSidebarContent = {
           pl: 'Zarządzanie',
           id: 'Manajemen',
           vi: 'Quản lý',
+          uk: 'Керування',
         }),
         organizations: {
           label: t({
@@ -102,6 +106,7 @@ const adminSidebarContent = {
             pl: 'Zarządzaj organizacjami',
             id: 'Kelola organisasi',
             vi: 'Quản lý tổ chức',
+            uk: 'Керувати організаціями',
           }),
           title: t({
             en: 'Organizations',
@@ -121,6 +126,7 @@ const adminSidebarContent = {
             pl: 'Organizacje',
             id: 'Organisasi',
             vi: 'Tổ chức',
+            uk: 'Організації',
           }),
         },
         projects: {
@@ -142,6 +148,7 @@ const adminSidebarContent = {
             pl: 'Zarządzaj projektami',
             id: 'Kelola proyek',
             vi: 'Quản lý dự án',
+            uk: 'Керувати проєктами',
           }),
           title: t({
             en: 'Projects',
@@ -161,6 +168,7 @@ const adminSidebarContent = {
             pl: 'Projekty',
             id: 'Proyek',
             vi: 'Dự án',
+            uk: 'Проєкти',
           }),
         },
         users: {
@@ -182,6 +190,7 @@ const adminSidebarContent = {
             pl: 'Zarządzaj użytkownikami',
             id: 'Kelola pengguna',
             vi: 'Quản lý người dùng',
+            uk: 'Керувати користувачами',
           }),
           title: t({
             en: 'Users',
@@ -201,6 +210,7 @@ const adminSidebarContent = {
             pl: 'Użytkownicy',
             id: 'Pengguna',
             vi: 'Người dùng',
+            uk: 'Користувачі',
           }),
         },
         discussions: {
@@ -222,6 +232,7 @@ const adminSidebarContent = {
             pl: 'Zarządzaj dyskusjami',
             id: 'Kelola diskusi',
             vi: 'Quản lý thảo luận',
+            uk: 'Керувати обговореннями',
           }),
           title: t({
             en: 'Discussions',
@@ -241,6 +252,7 @@ const adminSidebarContent = {
             pl: 'Dyskusje',
             id: 'Diskusi',
             vi: 'Thảo luận',
+            uk: 'Обговорення',
           }),
         },
       },

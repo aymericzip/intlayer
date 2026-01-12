@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Zawartość | Panel | Intlayer',
       id: 'Konten | Dashboard | Intlayer',
       vi: 'Nội dung | Dashboard | Intlayer',
+      uk: 'Контент | Панель керування | Intlayer',
     }),
     description: t({
       ar: 'قم بإدارة إعدادات المحتوى الخاص بك في لوحة تحكم Intlayer. حرر وقم بتحديث وتكوين المحتوى الخاص بك لضمان مطابقته لمعاييرك.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Zarządzaj ustawieniami zawartości w panelu Intlayer. Edytuj, aktualizuj i konfiguruj treści, aby spełniały twoje standardy.',
       id: 'Kelola pengaturan konten Anda di dashboard Intlayer. Sunting, perbarui, dan konfigurasikan konten Anda untuk memastikan konten memenuhi standar Anda.',
       vi: 'Quản lý cài đặt nội dung của bạn trên Dashboard Intlayer. Chỉnh sửa, cập nhật và cấu hình nội dung để đảm bảo đáp ứng tiêu chuẩn của bạn.',
+      uk: 'Керуйте налаштуваннями контенту в панелі керування Intlayer. Редагуйте, оновлюйте та налаштовуйте свій контент, щоб він відповідав вашим стандартам.',
     }),
     keywords: t({
       ar: ['المحتوى', 'الإعدادات', 'المحرر', 'الإدارة', 'التحديثات', 'النشر'],
@@ -144,6 +146,14 @@ const metadataContent = {
         'Quản lý',
         'Cập nhật',
         'Publishing',
+      ],
+      uk: [
+        'Контент',
+        'Налаштування',
+        'Редактор',
+        'Управління',
+        'Оновлення',
+        'Публікація',
       ],
     }),
   },

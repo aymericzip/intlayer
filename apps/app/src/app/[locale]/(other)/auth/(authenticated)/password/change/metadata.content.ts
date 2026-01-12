@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Zmień hasło | Intlayer',
       id: 'Ubah Kata Sandi | Intlayer',
       vi: 'Đổi mật khẩu | Intlayer',
+      uk: 'Зміна пароля | Intlayer',
     }),
     description: t({
       ar: 'قم بتأمين حسابك عن طريق تغيير كلمة المرور الحالية. حافظ على أمان حسابك في Intlayer مع كلمة مرور جديدة.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Zabezpiecz swoje konto, zmieniając aktualne hasło. Chroń konto Intlayer, ustawiając nowe hasło.',
       id: 'Amankan akun Anda dengan mengganti kata sandi saat ini. Jaga keamanan akun Intlayer Anda dengan kata sandi baru.',
       vi: 'Bảo mật tài khoản của bạn bằng cách thay đổi mật khẩu hiện tại. Giữ tài khoản Intlayer của bạn an toàn với một mật khẩu mới.',
+      uk: 'Захистіть свій обліковий запис, змінивши поточний пароль. Підвищте безпеку облікового запису Intlayer за допомогою нового пароля.',
     }),
 
     keywords: t({
@@ -142,6 +144,13 @@ const metadataContent = {
       vi: [
         'Đổi mật khẩu',
         'Bảo mật tài khoản',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      uk: [
+        'зміна пароля',
+        'безпека облікового запису',
         'Intlayer',
         'React',
         'JavaScript',

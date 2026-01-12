@@ -22,6 +22,7 @@ const changePasswordContent = {
         pl: 'Obecne hasło',
         id: 'Kata sandi saat ini',
         vi: 'Mật khẩu hiện tại',
+        uk: 'Поточний пароль',
       }),
       placeholder: t({
         en: 'Enter actual password',
@@ -41,6 +42,7 @@ const changePasswordContent = {
         pl: 'Wprowadź aktualne hasło',
         id: 'Masukkan kata sandi saat ini',
         vi: 'Nhập mật khẩu hiện tại',
+        uk: 'Введіть поточний пароль',
       }),
     },
     newPasswordInput: {
@@ -62,6 +64,7 @@ const changePasswordContent = {
         pl: 'Nowe hasło',
         id: 'Kata sandi baru',
         vi: 'Mật khẩu mới',
+        uk: 'Новий пароль',
       }),
       placeholder: t({
         en: 'Enter new password',
@@ -81,6 +84,7 @@ const changePasswordContent = {
         pl: 'Wprowadź nowe hasło',
         id: 'Masukkan kata sandi baru',
         vi: 'Nhập mật khẩu mới',
+        uk: 'Введіть новий пароль',
       }),
     },
     confirmPasswordInput: {
@@ -102,6 +106,7 @@ const changePasswordContent = {
         pl: 'Potwierdź nowe hasło',
         id: 'Konfirmasi kata sandi baru',
         vi: 'Xác nhận mật khẩu mới',
+        uk: 'Підтвердіть новий пароль',
       }),
       placeholder: t({
         en: 'Confirm new password',
@@ -121,6 +126,7 @@ const changePasswordContent = {
         pl: 'Potwierdź nowe hasło',
         id: 'Konfirmasi kata sandi baru',
         vi: 'Nhập lại mật khẩu mới',
+        uk: 'Підтвердіть новий пароль',
       }),
     },
     changePasswordButton: {
@@ -142,6 +148,7 @@ const changePasswordContent = {
         pl: 'Zmień hasło',
         id: 'Ubah kata sandi',
         vi: 'Đổi mật khẩu',
+        uk: 'Змінити пароль',
       }),
       ariaLabel: t({
         en: 'Click to change password',
@@ -161,6 +168,7 @@ const changePasswordContent = {
         pl: 'Kliknij, aby zmienić hasło',
         id: 'Klik untuk mengubah kata sandi',
         vi: 'Nhấp để đổi mật khẩu',
+        uk: 'Натисніть, щоб змінити пароль',
       }),
     },
   },

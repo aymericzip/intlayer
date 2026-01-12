@@ -2,9 +2,9 @@ import { type Dictionary, t } from 'intlayer';
 
 const comingSoonContent = {
   key: 'cms-landing-coming-soon',
-  title: 'CMS landing page coming soon section content',
+  title: 'CMS Landing — Coming Soon section',
   description:
-    'Content declarations for the CMS landing page coming soon section.',
+    'Content for the Coming Soon section of the CMS landing page, including feature items, badges, titles and descriptions used on the page.',
   content: {
     comingSoonTitle: t({
       en: 'Coming soon',
@@ -24,6 +24,7 @@ const comingSoonContent = {
       pl: 'Wkrótce',
       id: 'Segera hadir',
       vi: 'Sắp ra mắt',
+      uk: 'Незабаром',
     }),
     comingSoonFeatures: [
       {
@@ -47,6 +48,7 @@ const comingSoonContent = {
           pl: 'Automatyczne tłumaczenie AI',
           id: 'Terjemahan otomatis AI',
           vi: 'Dịch tự động bằng AI',
+          uk: 'Автоматичний переклад на базі ШІ',
         }),
         description: t({
           en: 'Push content in one language, get AI-powered translations instantly, like Reddit does with posts.',
@@ -67,6 +69,7 @@ const comingSoonContent = {
           pl: 'Wyślij treść w jednym języku, natychmiast otrzymaj tłumaczenia wspierane przez AI, tak jak Reddit robi to z postami.',
           id: 'Dorong konten dalam satu bahasa, dapatkan terjemahan bertenaga AI secara instan, seperti yang dilakukan Reddit dengan postingan.',
           vi: 'Đẩy nội dung bằng một ngôn ngữ, nhận bản dịch do AI hỗ trợ ngay lập tức, giống như Reddit làm với bài đăng.',
+          uk: 'Розміщуйте контент однією мовою та миттєво отримуйте переклади, створені ШІ, як це робить Reddit із дописами.',
         }),
         badge: t({
           en: 'WIP',
@@ -86,6 +89,7 @@ const comingSoonContent = {
           pl: 'W trakcie',
           id: 'Sedang dikerjakan',
           vi: 'Đang phát triển',
+          uk: 'У розробці',
         }),
       },
       {
@@ -109,6 +113,7 @@ const comingSoonContent = {
           pl: 'Opcja self-hosted',
           id: 'Opsi self-hosted',
           vi: 'Tùy chọn tự lưu trữ',
+          uk: 'Можливість розгортання на власній інфраструктурі',
         }),
         description: t({
           en: 'Run Intlayer CMS on your own infrastructure when compliance or control requires it.',
@@ -129,6 +134,7 @@ const comingSoonContent = {
           pl: 'Uruchom Intlayer CMS na własnej infrastrukturze, gdy wymaga tego zgodność lub kontrola.',
           id: 'Jalankan Intlayer CMS di infrastruktur Anda sendiri ketika kepatuhan atau kontrol memerlukannya.',
           vi: 'Chạy Intlayer CMS trên cơ sở hạ tầng của riêng bạn khi tuân thủ hoặc kiểm soát yêu cầu.',
+          uk: 'Запускайте Intlayer CMS на власній інфраструктурі, коли цього вимагають вимоги відповідності або необхідний додатковий контроль.',
         }),
         badge: t({
           en: 'WIP',
@@ -148,6 +154,7 @@ const comingSoonContent = {
           pl: 'W trakcie',
           id: 'Sedang dikerjakan',
           vi: 'Đang phát triển',
+          uk: 'У розробці',
         }),
       },
       {
@@ -171,6 +178,7 @@ const comingSoonContent = {
           pl: 'Webhooki CI/CD',
           id: 'Webhook CI/CD',
           vi: 'Webhook CI/CD',
+          uk: 'Вебхуки CI/CD',
         }),
         description: t({
           en: 'Trigger rebuilds automatically when content changes. Integrate with Vercel, Netlify, GitHub Actions, and more.',
@@ -191,6 +199,7 @@ const comingSoonContent = {
           pl: 'Automatycznie wyzwalaj przebudowy, gdy treść się zmienia. Integruj z Vercel, Netlify, GitHub Actions i więcej.',
           id: 'Picu pembangunan ulang secara otomatis saat konten berubah. Integrasikan dengan Vercel, Netlify, GitHub Actions, dan lainnya.',
           vi: 'Tự động kích hoạt rebuild khi nội dung thay đổi. Tích hợp với Vercel, Netlify, GitHub Actions và hơn thế nữa.',
+          uk: 'Автоматично запускайте перебудову при зміні контенту. Інтеграція з Vercel, Netlify, GitHub Actions та іншими.',
         }),
         badge: t({
           en: 'WIP',
@@ -210,10 +219,12 @@ const comingSoonContent = {
           pl: 'W trakcie',
           id: 'Sedang dikerjakan',
           vi: 'Đang phát triển',
+          uk: 'У розробці',
         }),
       },
     ],
   },
+  tags: ['cms', 'landing-page', 'coming-soon', 'features', 'components'],
 } satisfies Dictionary;
 
 export default comingSoonContent;

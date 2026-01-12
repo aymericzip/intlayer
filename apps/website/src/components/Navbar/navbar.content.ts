@@ -57,7 +57,8 @@ export const navbarContent = {
         tr: 'Şirket logosu - Ana sayfaya git',
         pl: 'Logo firmy - przejdź do strony głównej',
         id: 'Logo perusahaan - Buka beranda',
-        vi: 'Logo công ty - Đến trang chủ', // Previously "Về trang chủ", but "Đến trang chủ" is more standard for "Go to home page"
+        vi: 'Logo công ty - Đến trang chủ',
+        uk: 'Логотип компанії — перейти на головну сторінку',
       }),
       url: PagesRoutes.Home,
     },
@@ -82,6 +83,7 @@ export const navbarContent = {
           pl: 'Strona główna',
           id: 'Beranda',
           vi: 'Trang chủ',
+          uk: 'Головна',
         }),
         url: PagesRoutes.Home,
         label: t({
@@ -102,6 +104,7 @@ export const navbarContent = {
           pl: 'Przejdź do strony głównej',
           id: 'Buka beranda',
           vi: 'Đến trang chủ',
+          uk: 'Перейти на головну сторінку',
         }),
       },
       {
@@ -124,6 +127,7 @@ export const navbarContent = {
           pl: 'Piaskownica',
           id: 'Sandbox',
           vi: 'Sandbox',
+          uk: 'Пісочниця',
         }),
         url: PagesRoutes.Playground,
         label: t({
@@ -144,6 +148,7 @@ export const navbarContent = {
           pl: 'Przejdź do piaskownicy',
           id: 'Buka Playground',
           vi: 'Đến Playground',
+          uk: 'Перейти до пісочниці',
         }),
       },
 
@@ -167,6 +172,7 @@ export const navbarContent = {
           pl: 'Aplikacja',
           id: 'Aplikasi',
           vi: 'Ứng dụng',
+          uk: 'Додаток',
         }),
         url: AppRoutes.Dashboard,
         label: t({
@@ -187,6 +193,7 @@ export const navbarContent = {
           pl: 'Przejdź do panelu',
           id: 'Buka Dashboard',
           vi: 'Đi đến bảng điều khiển',
+          uk: 'Перейти до панелі керування',
         }),
       },
       {
@@ -209,6 +216,7 @@ export const navbarContent = {
           pl: 'Dokumentacja',
           id: 'Dokumentasi',
           vi: 'Tài liệu',
+          uk: 'Документація',
         }),
         url: PagesRoutes.Doc,
         label: t({
@@ -229,6 +237,7 @@ export const navbarContent = {
           pl: 'Przejdź do dokumentacji',
           id: 'Buka halaman dokumentasi',
           vi: 'Đi đến trang tài liệu',
+          uk: 'Перейти до сторінки документації',
         }),
       },
       {
@@ -252,6 +261,7 @@ export const navbarContent = {
           pl: 'Blog',
           id: 'Blog',
           vi: 'Blog',
+          uk: 'Блог',
         }),
         label: t({
           en: 'Go to the blog',
@@ -271,6 +281,7 @@ export const navbarContent = {
           pl: 'Przejdź do bloga',
           id: 'Buka blog',
           vi: 'Đến trang blog',
+          uk: 'Перейти до блогу',
         }),
       },
     ],
@@ -296,6 +307,7 @@ export const navbarContent = {
         pl: 'Przejdź do repozytorium na GitHubie',
         id: 'Buka repositori GitHub',
         vi: 'Đi đến kho GitHub',
+        uk: 'Перейти до репозиторію на GitHub',
       }),
       gitHubLogoAlt: t({
         en: 'Github logo',
@@ -315,6 +327,7 @@ export const navbarContent = {
         pl: 'Logo GitHuba',
         id: 'Logo GitHub',
         vi: 'Biểu tượng GitHub',
+        uk: 'Логотип GitHub',
       }),
     },
     discord: {
@@ -339,6 +352,7 @@ export const navbarContent = {
         pl: 'Przejdź do serwera Discord',
         id: 'Buka server Discord',
         vi: 'Tham gia máy chủ Discord',
+        uk: 'Перейти на сервер Discord',
       }),
     },
 
@@ -361,6 +375,7 @@ export const navbarContent = {
         pl: 'Wyloguj',
         id: 'Keluar',
         vi: 'Đăng xuất',
+        uk: 'Вийти',
       }),
       label: t({
         en: 'Logout',
@@ -380,6 +395,7 @@ export const navbarContent = {
         pl: 'Wyloguj się',
         id: 'Keluar',
         vi: 'Đăng xuất',
+        uk: 'Вийти',
       }),
     },
     login: {
@@ -402,6 +418,7 @@ export const navbarContent = {
         pl: 'Zaloguj',
         id: 'Masuk',
         vi: 'Đăng nhập',
+        uk: 'Увійти',
       }),
       label: t({
         en: 'Go to login page',
@@ -421,6 +438,7 @@ export const navbarContent = {
         pl: 'Przejdź do strony logowania',
         id: 'Buka halaman masuk',
         vi: 'Đi đến trang đăng nhập',
+        uk: 'Перейти на сторінку входу',
       }),
     },
   },

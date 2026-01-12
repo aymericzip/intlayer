@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Organizacja | Panel | Intlayer',
       id: 'Organisasi | Dashboard | Intlayer',
       vi: 'Tổ chức | Bảng điều khiển | Intlayer',
+      uk: 'Організація | Панель керування | Intlayer',
     }),
     description: t({
       en: 'Manage your organization settings in the Intlayer dashboard. Update organization details, manage team members, and configure access controls.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Zarządzaj ustawieniami organizacji w panelu Intlayer. Aktualizuj dane organizacji, zarządzaj członkami zespołu i konfiguruj kontrolę dostępu.',
       id: 'Kelola pengaturan organisasi Anda di dashboard Intlayer. Perbarui informasi organisasi, kelola anggota tim, dan konfigurasikan kontrol akses.',
       vi: 'Quản lý cài đặt tổ chức của bạn trong bảng điều khiển Intlayer. Cập nhật thông tin tổ chức, quản lý thành viên nhóm và cấu hình quyền truy cập.',
+      uk: 'Керуйте налаштуваннями організації в панелі керування Intlayer. Оновлюйте відомості про організацію, керуйте членами команди та налаштовуйте параметри доступу.',
     }),
     keywords: t<string[]>({
       en: [
@@ -158,6 +160,14 @@ const metadataContent = {
         'Kiểm soát truy cập',
         'Quyền',
         'Cài đặt công ty',
+      ],
+      uk: [
+        'Організація',
+        'Налаштування',
+        'Управління командою',
+        'Контроль доступу',
+        'Дозволи',
+        'Налаштування компанії',
       ],
     }),
   },

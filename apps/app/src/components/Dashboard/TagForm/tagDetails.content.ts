@@ -22,6 +22,7 @@ const tagFormContent = {
         pl: 'Powrót do listy tagów',
         id: 'Kembali ke daftar tag',
         vi: 'Quay lại danh sách tags',
+        uk: 'Повернутися до списку тегів',
       }),
       label: t({
         en: 'Click to return to tags list',
@@ -41,6 +42,7 @@ const tagFormContent = {
         pl: 'Kliknij, aby wrócić do listy tagów',
         id: 'Klik untuk kembali ke daftar tag',
         vi: 'Nhấp để quay lại danh sách tags',
+        uk: 'Натисніть, щоб повернутися до списку тегів',
       }),
     },
 
@@ -62,6 +64,7 @@ const tagFormContent = {
       pl: 'Szczegóły tagu',
       id: 'Detail tag',
       vi: 'Chi tiết tag',
+      uk: 'Деталі тегу',
     }),
 
     dictionariesListTitle: t({
@@ -82,6 +85,7 @@ const tagFormContent = {
       pl: 'Słowniki powiązane z tym tagiem',
       id: 'Dictionaries yang terkait dengan tag ini',
       vi: 'Các từ điển liên quan đến tag này',
+      uk: "Словники, пов'язані з цим тегом",
     }),
   },
   title: 'Tag details section',

@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Środowisko testowe | Intlayer',
       id: 'Playground | Intlayer',
       vi: 'Playground | Intlayer',
+      uk: 'Пісочниця | Intlayer',
     }),
     description: t({
       en: 'Test the Intlayer visual editor by interacting with the website.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Przetestuj wizualny edytor Intlayer, wchodząc w interakcję z witryną.',
       id: 'Uji visual editor Intlayer dengan berinteraksi langsung dengan situs web.',
       vi: 'Thử nghiệm trình soạn thảo trực quan của Intlayer bằng cách tương tác với trang web.',
+      uk: 'Випробуйте візуальний редактор Intlayer, взаємодіючи з вебсайтом.',
     }),
     keywords: t<string[]>({
       en: [
@@ -138,6 +140,13 @@ const metadataContent = {
         'Trình soạn thảo trực quan',
         'Trình soạn thảo',
         'Bảng điều khiển',
+      ],
+      uk: [
+        'Система керування вмістом',
+        'Система управління контентом',
+        'Візуальний редактор',
+        'Редактор',
+        'Панель керування',
       ],
     }),
   },

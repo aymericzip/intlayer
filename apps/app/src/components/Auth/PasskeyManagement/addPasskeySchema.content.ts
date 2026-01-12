@@ -24,9 +24,14 @@ const addPasskeySchemaContent = {
         vi: 'Tên là bắt buộc',
         mi: 'Me hiahiatia te ingoa',
         'en-GB': 'Name is required',
+        uk: "Назва обов'язкова",
       }),
     },
   },
+  title: 'Add passkey schema',
+  description:
+    'Validation messages for the add passkey form. Contains error text for the name input when it is missing.',
+  tags: ['auth', 'form', 'validation', 'passkey', 'component'],
 } satisfies Dictionary;
 
 export default addPasskeySchemaContent;

@@ -21,6 +21,7 @@ const navTitlesContent = {
       pl: 'Przejdź do sekcji',
       id: 'Ke bagian',
       vi: 'Đi tới phần',
+      uk: 'Перейти до розділу',
     }),
   },
   title: 'Navigation titles',

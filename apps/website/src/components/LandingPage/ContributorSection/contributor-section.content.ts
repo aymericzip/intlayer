@@ -21,6 +21,7 @@ const contributorSectionContent = {
       pl: 'Zbudowane przez społeczność',
       id: 'Dibangun oleh Komunitas',
       vi: 'Được xây dựng bởi Cộng đồng',
+      uk: 'Створено спільнотою',
     }),
     subtitle: t({
       en: 'Meet the amazing contributors who make Intlayer possible.',
@@ -40,6 +41,7 @@ const contributorSectionContent = {
       pl: 'Poznaj niesamowitych współtwórców, którzy umożliwiają Intlayer',
       id: 'Temui kontributor luar biasa yang membuat Intlayer mungkin',
       vi: 'Gặp gỡ những người đóng góp tuyệt vời làm cho Intlayer trở nên khả thi',
+      uk: 'Познайомтеся з неймовірними учасниками, які роблять можливим Intlayer.',
     }),
     seeAllLink: t({
       en: 'See all contributors',
@@ -59,6 +61,7 @@ const contributorSectionContent = {
       pl: 'Zobacz wszystkich współtwórców',
       id: 'Lihat semua kontributor',
       vi: 'Xem tất cả người đóng góp',
+      uk: 'Переглянути всіх учасників',
     }),
     discordLinkLabel: t({
       en: 'Join us',
@@ -78,6 +81,7 @@ const contributorSectionContent = {
       pl: 'Dołącz do nas',
       id: 'Bergabunglah dengan kami',
       vi: 'Tham gia với chúng tôi',
+      uk: 'Приєднуйтесь до нас',
     }),
   },
   title: 'Contributor section content',

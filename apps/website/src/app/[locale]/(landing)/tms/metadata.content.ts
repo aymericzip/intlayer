@@ -23,6 +23,7 @@ const metadataContent = {
       id: 'Sistem Manajemen Terjemahan AI & Alternatif Open Source | Intlayer',
       pl: 'System zarządzania tłumaczeniami AI i alternatywa Open Source | Intlayer',
       vi: 'Hệ thống Quản lý Dịch thuật AI & Giải pháp Thay thế Mã nguồn mở | Intlayer',
+      uk: 'Система керування перекладами на основі ШІ та відкрите ПЗ | Intlayer',
     }),
     description: t({
       en: 'Stop paying per word. The open-source alternative to Crowdin & Lokalise. Automate translations with AI, manage content via visual editor or Git, and ensure type-safety.',
@@ -43,6 +44,7 @@ const metadataContent = {
       id: 'Berhenti membayar per kata. Alternatif open-source untuk Crowdin & Lokalise. Otomatisasi terjemahan dengan AI, kelola konten via editor visual atau Git.',
       pl: 'Przestań płacić za słowo. Alternatywa open-source dla Crowdin i Lokalise. Automatyzuj tłumaczenia z AI, zarządzaj treścią przez edytor wizualny lub Git.',
       vi: 'Ngừng trả tiền theo từ. Giải pháp thay thế mã nguồn mở cho Crowdin & Lokalise. Tự động hóa dịch thuật với AI, quản lý nội dung qua trình chỉnh sửa trực quan hoặc Git.',
+      uk: 'Припиніть платити за слово. Відкрите програмне забезпечення — альтернатива Crowdin та Lokalise. Автоматизуйте переклади за допомогою штучного інтелекту, керуйте контентом через візуальний редактор або Git і забезпечуйте типобезпеку.',
     }),
     keywords: t({
       en: [
@@ -210,8 +212,22 @@ const metadataContent = {
         'Bản địa hóa dựa trên Git',
         'Intlayer',
       ],
+      uk: [
+        'Система керування перекладами',
+        'TMS з відкритим кодом',
+        'Альтернатива Crowdin',
+        'Альтернатива Lokalise',
+        'Переклади з використанням ШІ',
+        'Локалізація на основі Git',
+        'Типобезпечна інтернаціоналізація',
+        'Intlayer',
+      ],
     }),
   },
+  title: 'TMS page metadata',
+  description:
+    'Metadata for the Translation Management System (TMS) landing page. Includes SEO title, description and keywords highlighting Intlayer as an open-source, AI-powered alternative to Crowdin and Lokalise.',
+  tags: ['page metadata', 'tms', 'translation', 'seo', 'landing page'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

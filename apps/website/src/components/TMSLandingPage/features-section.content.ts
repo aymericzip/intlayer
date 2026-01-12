@@ -2,8 +2,9 @@ import { type Dictionary, t } from 'intlayer';
 
 const featuresSectionContent = {
   key: 'tms-landing-features',
-  title: 'TMS Landing Features Section',
-  description: 'Features section content for TMS landing page',
+  title: 'TMS landing features',
+  description:
+    'Content for the features section of the TMS landing page, listing key platform capabilities and descriptions for display on the landing page.',
   content: {
     featuresTitle: t({
       en: 'Better collaboration, zero friction',
@@ -23,6 +24,7 @@ const featuresSectionContent = {
       pl: 'Lepsza współpraca, zero tarcia',
       id: 'Kolaborasi yang lebih baik, tanpa gesekan',
       vi: 'Hợp tác tốt hơn, không ma sát',
+      uk: 'Краща співпраця без перешкод',
     }),
     features: [
       {
@@ -46,6 +48,7 @@ const featuresSectionContent = {
           pl: 'Współpraca Dev i Non-Dev',
           id: 'Kolaborasi Dev & Non-Dev',
           vi: 'Hợp tác Dev & Non-Dev',
+          uk: 'Співпраця розробників і нетехнічних команд',
         }),
         description: t({
           en: 'Developers define the structure. Marketers and translators polish the text via the dashboard. Everyone stays in sync.',
@@ -66,6 +69,7 @@ const featuresSectionContent = {
           pl: 'Deweloperzy definiują strukturę. Marketerzy i tłumacze dopracowują tekst przez panel. Wszyscy pozostają zsynchronizowani.',
           id: 'Pengembang mendefinisikan struktur. Marketer dan penerjemah memoles teks melalui dashboard. Semua tetap sinkron.',
           vi: 'Nhà phát triển xác định cấu trúc. Nhà tiếp thị và dịch giả hoàn thiện văn bản qua bảng điều khiển. Mọi người luôn đồng bộ.',
+          uk: 'Розробники визначають структуру. Маркетологи й перекладачі відточують тексти через панель керування. Усі залишаються синхронізованими.',
         }),
       },
       {
@@ -89,6 +93,7 @@ const featuresSectionContent = {
           pl: 'Kontekstowa AI',
           id: 'AI Kontekstual',
           vi: 'AI theo ngữ cảnh',
+          uk: 'Контекстний ШІ',
         }),
         description: t({
           en: 'Intlayer understands your code context (props, comments) to generate accurate translations, not just literal ones.',
@@ -109,6 +114,7 @@ const featuresSectionContent = {
           pl: 'Intlayer rozumie kontekstowi Twojego kodu (props, komentarze), aby generować dokładne tłumaczenia, nie tylko dosłowne.',
           id: 'Intlayer memahami konteks kode Anda (props, komentar) untuk menghasilkan terjemahan yang akurat, bukan hanya literal.',
           vi: 'Intlayer hiểu ngữ cảnh mã của bạn (props, nhận xét) để tạo bản dịch chính xác, không chỉ theo nghĩa đen.',
+          uk: 'Intlayer розуміє контекст вашого коду (props, коментарі) та генерує точні переклади, а не лише буквальні.',
         }),
       },
       {
@@ -132,6 +138,7 @@ const featuresSectionContent = {
           pl: 'Git jako źródło prawdy',
           id: 'Git sebagai Sumber Kebenaran',
           vi: 'Git như nguồn sự thật',
+          uk: 'Git як єдине джерело правди',
         }),
         description: t({
           en: 'Translations are committed back to your repo. No hidden databases or vendor lock-in.',
@@ -152,6 +159,7 @@ const featuresSectionContent = {
           pl: 'Tłumaczenia są commitowane z powrotem do Twojego repozytorium. Brak ukrytych baz danych lub uzależnienia od dostawcy.',
           id: 'Terjemahan di-commit kembali ke repo Anda. Tidak ada database tersembunyi atau vendor lock-in.',
           vi: 'Bản dịch được commit lại vào kho của bạn. Không có cơ sở dữ liệu ẩn hoặc ràng buộc nhà cung cấp.',
+          uk: "Переклади повертаються в ваш репозиторій як коміти. Без прихованих баз даних або прив'язки до постачальника.",
         }),
       },
       {
@@ -175,6 +183,7 @@ const featuresSectionContent = {
           pl: 'Automatyzacja CI/CD',
           id: 'Otomasi CI/CD',
           vi: 'Tự động hóa CI/CD',
+          uk: 'Автоматизація CI/CD',
         }),
         description: t({
           en: 'Trigger audits and translations automatically when you push code.',
@@ -195,10 +204,12 @@ const featuresSectionContent = {
           pl: 'Automatycznie wyzwalaj audyty i tłumaczenia podczas pushowania kodu.',
           id: 'Picu audit dan terjemahan secara otomatis saat Anda push kode.',
           vi: 'Tự động kích hoạt kiểm tra và dịch thuật khi bạn đẩy mã.',
+          uk: 'Запускайте перевірки та переклади автоматично щоразу, коли ви відправляєте код.',
         }),
       },
     ],
   },
+  tags: ['tms', 'landing', 'features', 'content', 'translations'],
 } satisfies Dictionary;
 
 export default featuresSectionContent;

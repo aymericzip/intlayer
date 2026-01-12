@@ -21,6 +21,7 @@ export const useAskResetPasswordSchemaContent = {
       pl: 'Proszę podać adres e-mail',
       id: 'Silakan masukkan alamat email Anda',
       vi: 'Vui lòng nhập địa chỉ email của bạn',
+      uk: 'Будь ласка, введіть адресу електронної пошти',
     }),
 
     invalidTypeErrorEmail: t({
@@ -41,6 +42,7 @@ export const useAskResetPasswordSchemaContent = {
       pl: 'Proszę podać prawidłowy adres e-mail',
       id: 'Silakan masukkan alamat email yang valid',
       vi: 'Vui lòng nhập một địa chỉ email hợp lệ',
+      uk: 'Будь ласка, введіть дійсну адресу електронної пошти',
     }),
 
     invalidLengthErrorEmail: t({
@@ -61,6 +63,7 @@ export const useAskResetPasswordSchemaContent = {
       pl: 'Proszę podać prawidłowy adres e-mail',
       id: 'Silakan masukkan alamat email yang valid',
       vi: 'Vui lòng nhập một địa chỉ email hợp lệ',
+      uk: 'Будь ласка, введіть дійсну адресу електронної пошти',
     }),
   },
   title: 'Ask reset password form schema',

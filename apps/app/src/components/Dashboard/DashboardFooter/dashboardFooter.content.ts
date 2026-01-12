@@ -38,6 +38,7 @@ const dashboardFooterContent = {
         pl: 'Strona główna',
         id: 'Beranda',
         vi: 'Trang chủ',
+        uk: 'Головна',
       }),
       label: t({
         en: 'Go to the Intlayer home page',
@@ -57,6 +58,7 @@ const dashboardFooterContent = {
         pl: 'Przejdź do strony głównej Intlayera',
         id: 'Buka halaman utama Intlayer',
         vi: 'Đi tới trang chủ của Intlayer',
+        uk: 'Перейти на головну сторінку Intlayer',
       }),
     },
     github: {
@@ -80,6 +82,7 @@ const dashboardFooterContent = {
         pl: 'Przejdź do repozytorium na GitHubie',
         id: 'Buka repositori GitHub',
         vi: 'Truy cập repo trên GitHub',
+        uk: 'Перейти до репозиторію GitHub',
       }),
       alt: t({
         en: 'Github logo',
@@ -99,6 +102,7 @@ const dashboardFooterContent = {
         pl: 'Logo GitHub',
         id: 'Logo GitHub',
         vi: 'Logo GitHub',
+        uk: 'Логотип GitHub',
       }),
     },
   },

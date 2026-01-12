@@ -21,6 +21,7 @@ const translatedContentMessageContent = {
       pl: 'Treść tej strony została przetłumaczona przy użyciu sztucznej inteligencji.',
       id: 'Konten halaman ini diterjemahkan menggunakan AI.',
       vi: 'Nội dung của trang này đã được dịch bằng AI.',
+      uk: 'Вміст цієї сторінки перекладено за допомогою штучного інтелекту.',
     }),
     link: {
       content: t({
@@ -41,6 +42,7 @@ const translatedContentMessageContent = {
         pl: 'Zobacz ostatnią wersję oryginalnej treści w języku angielskim',
         id: 'Lihat versi terakhir dari konten aslinya dalam bahasa Inggris',
         vi: 'Xem phiên bản mới nhất của nội dung gốc bằng tiếng Anh',
+        uk: 'Переглянути останню версію оригінального вмісту англійською',
       }),
       label: t({
         en: 'Click to change the language to English',
@@ -60,6 +62,7 @@ const translatedContentMessageContent = {
         pl: 'Kliknij, aby zmienić język na angielski',
         id: 'Klik untuk mengubah bahasa ke bahasa Inggris',
         vi: 'Nhấp để chuyển ngôn ngữ sang tiếng Anh',
+        uk: 'Натисніть, щоб змінити мову на англійську',
       }),
     },
   },

@@ -21,6 +21,7 @@ const tableContent = {
       pl: 'Pokaż całą zawartość tabeli',
       id: 'Tampilkan semua isi tabel',
       vi: 'Hiển thị tất cả nội dung bảng',
+      uk: 'Показати весь вміст таблиці',
     }),
   },
   title: 'Table component content',

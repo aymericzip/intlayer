@@ -21,6 +21,7 @@ const tagListContent = {
       pl: 'Zarządzaj słownikiem',
       id: 'Kelola kamus',
       vi: 'Quản lý từ điển',
+      uk: 'Керувати словником',
     }),
 
     noDictionaryView: {
@@ -42,6 +43,7 @@ const tagListContent = {
         pl: 'Brak słownika',
         id: 'Tidak ada kamus',
         vi: 'Không có từ điển',
+        uk: 'Немає словників',
       }),
       description: t({
         en: 'There are no dictionaries associated with this tag',
@@ -61,6 +63,7 @@ const tagListContent = {
         pl: 'Do tego tagu nie są przypisane żadne słowniki',
         id: 'Tidak ada kamus yang terkait dengan tag ini',
         vi: 'Không có từ điển nào được liên kết với thẻ này',
+        uk: "З цим тегом не пов'язані жодні словники.",
       }),
     },
   },

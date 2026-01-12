@@ -3,7 +3,8 @@ import { type Dictionary, t } from 'intlayer';
 const heroSectionContent = {
   key: 'hero-section',
   title: 'TMS Landing Hero Section',
-  description: 'Hero section content for TMS landing page',
+  description:
+    'Hero section content for the TMS landing page, including the tagline, headline, subheadline, description, primary and secondary CTAs, and screenshot alt text.',
   content: {
     heroTag: 'Intlayer TMS',
     heroTitle: t({
@@ -24,6 +25,7 @@ const heroSectionContent = {
       pl: 'Przestań płacić za słowo. Automatyzuj za pomocą AI.',
       id: 'Berhenti membayar per kata. Otomatiskan dengan AI.',
       vi: 'Ngừng trả tiền theo từ. Tự động hóa bằng AI.',
+      uk: 'Припиніть платити за слово. Автоматизуйте за допомогою ШІ.',
     }),
     heroSubtitle: t({
       en: 'The open-source alternative to Crowdin & Lokalise. Built for modern developer workflows.',
@@ -44,6 +46,7 @@ const heroSectionContent = {
       pl: 'Alternatywa open-source dla Crowdin i Lokalise. Zbudowana dla nowoczesnych przepływów pracy deweloperów.',
       id: 'Alternatif open-source untuk Crowdin & Lokalise. Dibangun untuk alur kerja pengembang modern.',
       vi: 'Giải pháp mã nguồn mở thay thế cho Crowdin & Lokalise. Được xây dựng cho quy trình làm việc của nhà phát triển hiện đại.',
+      uk: 'Відкрите програмне забезпечення — альтернатива Crowdin і Lokalise. Створено для сучасних робочих процесів розробників.',
     }),
     heroDescription: t({
       en: 'Manage translations directly in your code or via the visual editor. Leverage AI to translate instantly. collaborate with your team without seat limits.',
@@ -64,6 +67,7 @@ const heroSectionContent = {
       pl: 'Zarządzaj tłumaczeniami bezpośrednio w kodzie lub za pomocą edytora wizualnego. Wykorzystaj AI do natychmiastowego tłumaczenia. Współpracuj z zespołem bez limitów miejsc.',
       id: 'Kelola terjemahan langsung di kode Anda atau melalui editor visual. Manfaatkan AI untuk menerjemahkan secara instan. Berkolaborasi dengan tim Anda tanpa batas kursi.',
       vi: 'Quản lý bản dịch trực tiếp trong mã của bạn hoặc qua trình chỉnh sửa trực quan. Tận dụng AI để dịch ngay lập tức. Cộng tác với nhóm của bạn mà không giới hạn chỗ ngồi.',
+      uk: 'Керуйте перекладами прямо в коді або через візуальний редактор. Використовуйте ШІ для миттєвого перекладу. Співпрацюйте з командою без обмежень на кількість користувачів.',
     }),
     primaryCta: t({
       en: 'Start for free',
@@ -83,6 +87,7 @@ const heroSectionContent = {
       pl: 'Zacznij za darmo',
       id: 'Mulai gratis',
       vi: 'Bắt đầu miễn phí',
+      uk: 'Почати безкоштовно',
     }),
     secondaryCta: t({
       en: 'Compare features',
@@ -102,6 +107,7 @@ const heroSectionContent = {
       pl: 'Porównaj funkcje',
       id: 'Bandingkan fitur',
       vi: 'So sánh tính năng',
+      uk: 'Порівняти функції',
     }),
     screenshotAlt: t({
       en: 'Intlayer TMS - Translation management interface',
@@ -121,8 +127,10 @@ const heroSectionContent = {
       pl: 'Intlayer TMS - Interfejs zarządzania tłumaczeniami',
       id: 'Intlayer TMS - Antarmuka manajemen terjemahan',
       vi: 'Intlayer TMS - Giao diện quản lý bản dịch',
+      uk: 'Intlayer TMS — інтерфейс управління перекладами',
     }),
   },
+  tags: ['hero section', 'landing page', 'tms', 'component', 'marketing'],
 } satisfies Dictionary;
 
 export default heroSectionContent;

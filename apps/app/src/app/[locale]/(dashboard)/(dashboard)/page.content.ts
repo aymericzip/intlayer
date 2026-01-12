@@ -21,6 +21,7 @@ const dashboardContent = {
       pl: 'Panel',
       id: 'Dasbor',
       vi: 'Bảng điều khiển',
+      uk: 'Панель керування',
     }),
   },
   title: 'Dashboard page',

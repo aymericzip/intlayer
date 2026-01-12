@@ -22,6 +22,7 @@ const analyzerFormContent = {
         pl: 'https://twojastrona.pl',
         id: 'https://websiteanda.id',
         vi: 'https://trangwebcuaban.vn',
+        uk: 'https://yourwebsite.com',
       }),
       label: t({
         en: 'Website URL',
@@ -41,6 +42,7 @@ const analyzerFormContent = {
         pl: 'Adres URL strony',
         id: 'URL situs web',
         vi: 'URL trang web',
+        uk: 'URL сайту',
       }),
     },
     button: {
@@ -62,6 +64,7 @@ const analyzerFormContent = {
         pl: 'Analizuj',
         id: 'Analisis',
         vi: 'Phân tích',
+        uk: 'Аналізувати',
       }),
       analyze: t({
         en: 'Analyze',
@@ -81,6 +84,7 @@ const analyzerFormContent = {
         pl: 'Analizuj',
         id: 'Analisis',
         vi: 'Phân tích',
+        uk: 'Аналізувати',
       }),
       analyzing: t({
         en: 'Analyzing...',
@@ -100,6 +104,7 @@ const analyzerFormContent = {
         pl: 'Analizuję...',
         id: 'Sedang menganalisis...',
         vi: 'Đang phân tích...',
+        uk: 'Аналізується...',
       }),
     },
     invalidUrlError: t({
@@ -120,6 +125,7 @@ const analyzerFormContent = {
       pl: 'Proszę podać poprawny adres URL',
       id: 'Silakan masukkan URL yang valid',
       vi: 'Vui lòng nhập một URL hợp lệ',
+      uk: 'Будь ласка, введіть дійсну URL-адресу',
     }),
   },
   title: 'Analyzer form texts',

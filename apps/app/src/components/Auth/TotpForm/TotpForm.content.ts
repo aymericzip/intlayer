@@ -21,6 +21,7 @@ const totpFormContent = {
       pl: 'Kod',
       id: 'Kode',
       vi: 'Mã',
+      uk: 'Код',
     }),
     codePlaceholder: t({
       en: 'Enter 6-digit code',
@@ -40,6 +41,7 @@ const totpFormContent = {
       pl: 'Wprowadź 6-cyfrowy kod',
       id: 'Masukkan kode 6 digit',
       vi: 'Nhập mã 6 chữ số',
+      uk: 'Введіть 6-значний код',
     }),
     verifyButton: t({
       en: 'Verify',
@@ -59,8 +61,13 @@ const totpFormContent = {
       pl: 'Zweryfikuj',
       id: 'Verifikasi',
       vi: 'Xác minh',
+      uk: 'Підтвердити',
     }),
   },
+  title: 'TOTP form',
+  description:
+    'Strings for the Time-based One-Time Password (TOTP) verification form, including code label, code input placeholder, and verify button text.',
+  tags: ['auth', 'totp', 'form', 'two-factor'],
 } satisfies Dictionary;
 
 export default totpFormContent;

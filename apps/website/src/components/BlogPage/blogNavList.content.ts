@@ -22,6 +22,7 @@ const blogNavTitlesContent = {
         pl: 'Zwiń',
         id: 'Sembunyikan',
         vi: 'Thu gọn',
+        uk: 'Згорнути',
       }),
     },
     docButton: {
@@ -43,6 +44,7 @@ const blogNavTitlesContent = {
         pl: 'Przejdź do dokumentacji',
         id: 'Buka dokumentasi',
         vi: 'Đi tới Documentation',
+        uk: 'Перейти до документації',
       }),
       text: t({
         en: 'Documentation',
@@ -62,6 +64,7 @@ const blogNavTitlesContent = {
         pl: 'Dokumentacja',
         id: 'Dokumentasi',
         vi: 'Documentation',
+        uk: 'Документація',
       }),
     },
   },

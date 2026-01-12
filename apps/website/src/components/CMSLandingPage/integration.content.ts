@@ -2,9 +2,9 @@ import { type Dictionary, t } from 'intlayer';
 
 const integrationContent = {
   key: 'cms-landing-integration',
-  title: 'CMS landing page integration section content',
+  title: 'CMS Landing Integration',
   description:
-    'Content declarations for the CMS landing page integration section.',
+    "Content declarations for the CMS landing page's integration section, including the integration title, description, and call-to-action.",
   content: {
     integrationTitle: t({
       en: 'Seamlessly connected to Intlayer i18n',
@@ -24,6 +24,7 @@ const integrationContent = {
       pl: 'Bezproblemowo połączony z Intlayer i18n',
       id: 'Terhubung mulus dengan Intlayer i18n',
       vi: 'Kết nối liền mạch với Intlayer i18n',
+      uk: 'Безшовна інтеграція з Intlayer i18n',
     }),
     integrationDescription: t({
       en: 'Already using the Intlayer i18n library? Your dictionaries, routing, and type-safe hooks work exactly the same with the CMS, zero migration, zero friction.',
@@ -44,6 +45,7 @@ const integrationContent = {
       pl: 'Już używasz biblioteki Intlayer i18n? Twoje słowniki, routing i type-safe hooki działają dokładnie tak samo z CMS, zero migracji, zero tarcia.',
       id: 'Sudah menggunakan library Intlayer i18n? Kamus, routing, dan hook type-safe Anda bekerja persis sama dengan CMS, nol migrasi, nol gesekan.',
       vi: 'Đã sử dụng thư viện Intlayer i18n? Từ điển, định tuyến và hook type-safe của bạn hoạt động chính xác như vậy với CMS, không cần di chuyển, không ma sát.',
+      uk: 'Вже використовуєте бібліотеку Intlayer i18n? Ваші словники, маршрутизація та типобезпечні хуки працюють так само з CMS — без міграцій та зайвих складнощів.',
     }),
     integrationCta: t({
       en: 'Explore the i18n library',
@@ -63,8 +65,10 @@ const integrationContent = {
       pl: 'Poznaj bibliotekę i18n',
       id: 'Jelajahi library i18n',
       vi: 'Khám phá thư viện i18n',
+      uk: 'Переглянути бібліотеку i18n',
     }),
   },
+  tags: ['cms', 'landing page', 'integration', 'i18n'],
 } satisfies Dictionary;
 
 export default integrationContent;

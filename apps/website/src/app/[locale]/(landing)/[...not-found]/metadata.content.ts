@@ -22,6 +22,7 @@ const metadataContent = {
       pl: '404 - Strona nie znaleziona | Intlayer',
       id: '404 - Halaman Tidak Ditemukan | Intlayer',
       vi: '404 - Trang không tìm thấy | Intlayer',
+      uk: '404 — Сторінка не знайдена | Intlayer',
     }),
     description: t({
       en: 'Oops! The page you are looking for might have been removed, had its name changed, or is temporarily unavailable. Navigate back to our homepage or use the search function to find what you need.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Ups! Strona, której szukasz, mogła zostać usunięta, zmieniono jej nazwę lub jest tymczasowo niedostępna. Wróć na naszą stronę główną lub użyj funkcji wyszukiwania, aby znaleźć to, czego potrzebujesz.',
       id: 'Ups! Halaman yang Anda cari mungkin telah dihapus, namanya diubah, atau sedang tidak tersedia. Kembali ke beranda kami atau gunakan fungsi pencarian untuk menemukan apa yang Anda butuhkan.',
       vi: 'Rất tiếc! Trang bạn đang tìm có thể đã bị xóa, đã đổi tên hoặc tạm thời không khả dụng. Quay lại trang chủ của chúng tôi hoặc sử dụng chức năng tìm kiếm để tìm nội dung bạn cần.',
+      uk: 'Упс! Сторінку, яку ви шукаєте, могли видалити, перейменувати або вона тимчасово недоступна. Поверніться на нашу головну сторінку або скористайтеся пошуком, щоб знайти потрібне.',
     }),
     keywords: t<string[]>({
       en: [
@@ -212,6 +214,16 @@ const metadataContent = {
         'JavaScript',
         'React',
         'phát triển web',
+        'i18n',
+      ],
+      uk: [
+        'помилка 404',
+        'сторінка не знайдена',
+        'помилка',
+        'Intlayer',
+        'JavaScript',
+        'React',
+        'веб-розробка',
         'i18n',
       ],
     }),

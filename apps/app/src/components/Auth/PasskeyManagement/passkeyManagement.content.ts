@@ -21,6 +21,7 @@ const passkeyManagementContent = {
       pl: 'Zarządzaj kluczami dostępu dla bezpiecznego, bezhasłowego uwierzytelniania.',
       id: 'Kelola kunci sandi Anda untuk otentikasi yang aman dan tanpa kata sandi.',
       vi: 'Quản lý khóa truy cập của bạn cho xác thực an toàn, không mật khẩu.',
+      uk: 'Керуйте своїми ключами доступу (passkeys) для безпечної автентифікації без паролів.',
     }),
     noPasskeysTitle: t({
       en: 'No passkeys yet',
@@ -40,6 +41,7 @@ const passkeyManagementContent = {
       pl: 'Brak kluczy dostępu',
       id: 'Belum ada kunci sandi',
       vi: 'Chưa có khóa truy cập',
+      uk: 'Поки що немає ключів доступу',
     }),
     noPasskeysDescription: t({
       en: 'Add your first passkey for secure, passwordless authentication.',
@@ -60,6 +62,7 @@ const passkeyManagementContent = {
       pl: 'Dodaj swój pierwszy klucz dostępu dla bezpiecznego, bezhasłowego uwierzytelniania.',
       id: 'Tambahkan kunci sandi pertama Anda untuk otentikasi yang aman dan tanpa kata sandi.',
       vi: 'Thêm khóa truy cập đầu tiên để xác thực an toàn, không mật khẩu.',
+      uk: 'Додайте свій перший ключ доступу для безпечної автентифікації без паролів.',
     }),
     addPasskeyButton: t({
       en: 'New Passkey',
@@ -79,6 +82,7 @@ const passkeyManagementContent = {
       pl: 'Nowy klucz dostępu',
       id: 'Kunci Sandi Baru',
       vi: 'Khóa truy cập mới',
+      uk: 'Новий ключ доступу',
     }),
     deletePasskeyButton: {
       text: t({
@@ -99,6 +103,7 @@ const passkeyManagementContent = {
         pl: 'Usuń',
         id: 'Hapus',
         vi: 'Xóa',
+        uk: 'Видалити',
       }),
       ariaLabel: t({
         en: 'Click to delete the passkey',
@@ -118,9 +123,20 @@ const passkeyManagementContent = {
         pl: 'Kliknij, aby usunąć klucz dostępu',
         id: 'Klik untuk menghapus kunci sandi',
         vi: 'Nhấp để xóa khóa truy cập',
+        uk: 'Натисніть, щоб видалити ключ доступу',
       }),
     },
   },
+  title: 'Passkey management',
+  description:
+    'Content for managing user passkeys: UI labels and messages for adding, viewing and deleting passkeys to enable secure, passwordless authentication.',
+  tags: [
+    'authentication',
+    'security',
+    'passkeys',
+    'passwordless',
+    'account-settings',
+  ],
 } satisfies Dictionary;
 
 export default passkeyManagementContent;

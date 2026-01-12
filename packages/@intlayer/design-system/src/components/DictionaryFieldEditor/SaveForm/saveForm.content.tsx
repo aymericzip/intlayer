@@ -22,6 +22,7 @@ export const saveDictionaryContent = {
         pl: 'Usuń słownik',
         id: 'Hapus dictionary',
         vi: 'Xóa dictionary',
+        uk: 'Видалити словник',
       }),
       label: t({
         en: 'Click to delete dictionary',
@@ -41,6 +42,7 @@ export const saveDictionaryContent = {
         pl: 'Kliknij, aby usunąć słownik',
         id: 'Klik untuk menghapus dictionary',
         vi: 'Nhấp để xóa dictionary',
+        uk: 'Натисніть, щоб видалити словник',
       }),
     },
     resetButton: {
@@ -62,6 +64,7 @@ export const saveDictionaryContent = {
         pl: 'Resetuj wszystkie zmiany',
         id: 'Reset semua perubahan',
         vi: 'Đặt lại tất cả các thay đổi',
+        uk: 'Скинути всі зміни',
       }),
       label: t({
         en: 'Click to reset all the changes',
@@ -81,6 +84,7 @@ export const saveDictionaryContent = {
         pl: 'Kliknij, aby zresetować wszystkie zmiany',
         id: 'Klik untuk mereset semua perubahan',
         vi: 'Nhấp để đặt lại tất cả các thay đổi',
+        uk: 'Натисніть, щоб скинути всі зміни',
       }),
     },
     saveButton: {
@@ -102,6 +106,7 @@ export const saveDictionaryContent = {
         pl: 'Zapisz zmiany',
         id: 'Simpan perubahan',
         vi: 'Lưu thay đổi',
+        uk: 'Зберегти зміни',
       }),
       label: t({
         en: 'Click to save changes',
@@ -121,6 +126,7 @@ export const saveDictionaryContent = {
         pl: 'Kliknij, aby zapisać zmiany',
         id: 'Klik untuk menyimpan perubahan',
         vi: 'Nhấp để lưu các thay đổi',
+        uk: 'Натисніть, щоб зберегти зміни',
       }),
     },
     publishButton: {
@@ -142,6 +148,7 @@ export const saveDictionaryContent = {
         pl: 'Opublikuj słownik',
         id: 'Publikasikan dictionary',
         vi: 'Xuất bản dictionary',
+        uk: 'Опублікувати словник',
       }),
       label: t({
         en: 'Click to publish dictionary',
@@ -161,6 +168,7 @@ export const saveDictionaryContent = {
         pl: 'Kliknij, aby opublikować słownik',
         id: 'Klik untuk mempublikasikan dictionary',
         vi: 'Nhấp để xuất bản dictionary',
+        uk: 'Натисніть, щоб опублікувати словник',
       }),
     },
     downloadButton: {
@@ -182,6 +190,7 @@ export const saveDictionaryContent = {
         pl: 'Pobierz',
         id: 'Unduh',
         vi: 'Tải xuống',
+        uk: 'Завантажити',
       }),
       label: t({
         en: 'Click to download',
@@ -201,6 +210,7 @@ export const saveDictionaryContent = {
         pl: 'Kliknij, aby pobrać',
         id: 'Klik untuk mengunduh',
         vi: 'Nhấp để tải xuống',
+        uk: 'Натисніть, щоб завантажити',
       }),
     },
 
@@ -223,6 +233,7 @@ export const saveDictionaryContent = {
         pl: 'Potwierdzenie',
         id: 'Konfirmasi',
         vi: 'Xác nhận',
+        uk: 'Підтвердження',
       }),
       message: t({
         en: 'This will overwrite the existing dictionary. Are you sure you want to continue?',
@@ -243,6 +254,7 @@ export const saveDictionaryContent = {
         pl: 'To spowoduje nadpisanie istniejącego słownika. Czy na pewno chcesz kontynuować?',
         id: 'Tindakan ini akan menimpa dictionary yang ada. Apakah Anda yakin ingin melanjutkan?',
         vi: 'Hành động này sẽ ghi đè lên dictionary hiện có. Bạn có chắc muốn tiếp tục không?',
+        uk: 'Це перезапише існуючий словник. Ви впевнені, що хочете продовжити?',
       }),
       confirmButton: {
         text: t({
@@ -263,6 +275,7 @@ export const saveDictionaryContent = {
           pl: 'Potwierdź',
           id: 'Konfirmasi',
           vi: 'Xác nhận',
+          uk: 'Підтвердити',
         }),
         label: t({
           en: 'Click to confirm',
@@ -282,6 +295,7 @@ export const saveDictionaryContent = {
           pl: 'Kliknij, aby potwierdzić',
           id: 'Klik untuk mengonfirmasi',
           vi: 'Nhấp để xác nhận',
+          uk: 'Натисніть, щоб підтвердити',
         }),
       },
       cancelButton: {
@@ -303,6 +317,7 @@ export const saveDictionaryContent = {
           pl: 'Anuluj',
           id: 'Batal',
           vi: 'Hủy',
+          uk: 'Скасувати',
         }),
         label: t({
           en: 'Click to cancel',
@@ -322,6 +337,7 @@ export const saveDictionaryContent = {
           pl: 'Kliknij, aby anulować',
           id: 'Klik untuk membatalkan',
           vi: 'Nhấp để hủy',
+          uk: 'Натисніть, щоб скасувати',
         }),
       },
     },

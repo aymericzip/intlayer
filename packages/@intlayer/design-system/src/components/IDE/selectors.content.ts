@@ -22,6 +22,7 @@ const selectorsContent = {
         pl: 'Menedżer pakietów',
         id: 'Pengelola paket',
         vi: 'Trình quản lý gói',
+        uk: 'Менеджер пакетів',
       }),
       label: t({
         en: 'Select package manager',
@@ -41,6 +42,7 @@ const selectorsContent = {
         pl: 'Wybierz menedżera pakietów',
         id: 'Pilih pengelola paket',
         vi: 'Chọn trình quản lý gói',
+        uk: 'Виберіть менеджер пакетів',
       }),
     },
     codeFormat: {
@@ -62,6 +64,7 @@ const selectorsContent = {
         pl: 'Format kodu',
         id: 'Format kode',
         vi: 'Định dạng mã',
+        uk: 'Формат коду',
       }),
       label: t({
         en: 'Select code format',
@@ -81,6 +84,7 @@ const selectorsContent = {
         pl: 'Wybierz format kodu',
         id: 'Pilih format kode',
         vi: 'Chọn định dạng mã',
+        uk: 'Виберіть формат коду',
       }),
     },
     contentDeclarationFormat: {
@@ -102,6 +106,7 @@ const selectorsContent = {
         pl: 'Format słownika',
         id: 'Format kamus',
         vi: 'Định dạng từ điển',
+        uk: 'Формат словника',
       }),
       label: t({
         en: 'Select dictionary format',
@@ -121,6 +126,7 @@ const selectorsContent = {
         pl: 'Wybierz format słownika',
         id: 'Pilih format kamus',
         vi: 'Chọn định dạng từ điển',
+        uk: 'Виберіть формат словника',
       }),
     },
   },

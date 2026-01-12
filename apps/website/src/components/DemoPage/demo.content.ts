@@ -21,6 +21,7 @@ const demoContent = {
       pl: 'Wypróbuj nowy wizualny edytor Intlayer',
       id: 'Coba editor visual Intlayer yang baru',
       vi: 'Dùng thử trình chỉnh sửa trực quan mới của Intlayer',
+      uk: 'Спробуйте новий візуальний редактор Intlayer',
     }),
 
     landingParagraph: t({
@@ -41,6 +42,7 @@ const demoContent = {
       pl: md(file('./landingParagraph.pl.md')),
       id: md(file('./landingParagraph.id.md')),
       vi: md(file('./landingParagraph.vi.md')),
+      uk: md(file('./landingParagraph.uk.md')),
     }),
     tutoParagraphs: {
       selection: {
@@ -62,6 +64,7 @@ const demoContent = {
           pl: 'Najedź kursorem i przytrzymaj zawartość, którą chcesz zmodyfikować',
           id: 'Arahkan kursor dan tekan lama pada konten yang akan dimodifikasi',
           vi: 'Di chuột và nhấn giữ nội dung để chỉnh sửa',
+          uk: 'Наведіть курсор та натисніть і утримуйте на вмісті, який потрібно змінити',
         }),
         description: t({
           fr: "Exercez un clic prolongé pour faire apparaître l'éditeur visuel. Le panneau d'édition s'étend de la droite et met en évidence le contenu sélectionné pour édition.",
@@ -82,6 +85,7 @@ const demoContent = {
           pl: 'Naciśnij i przytrzymaj, aby pojawił się wizualny edytor. Panel edycji wysuwa się z prawej strony, podświetlając wybraną zawartość do edycji.',
           id: 'Tekan dan tahan untuk memunculkan visual editor. Panel penyuntingan terbuka dari sisi kanan, menyorot konten yang dipilih untuk diedit.',
           vi: 'Nhấn và giữ để trình chỉnh sửa trực quan xuất hiện. Bảng chỉnh sửa mở rộng từ bên phải, làm nổi bật nội dung được chọn để chỉnh sửa.',
+          uk: "Натисніть і утримуйте, щоб з'явився візуальний редактор. Панель редагування висувається з правого боку, підсвічуючи вибраний для редагування контент.",
         }),
       },
       edition: {
@@ -103,6 +107,7 @@ const demoContent = {
           pl: 'Wprowadź zmiany, zastępując odpowiedni tekst',
           id: 'Lakukan modifikasi dengan mengganti teks yang relevan',
           vi: 'Thực hiện chỉnh sửa bằng cách thay thế đoạn văn bản tương ứng',
+          uk: 'Внесіть зміни, замінивши відповідний текст',
         }),
         description: t({
           fr: "Le texte mis en évidence dans le panneau d'édition peut être modifié ou remplacé à guise. Les modifications apparaîtront instantanément sur la page principale, facilitant la révision du contenu. Pour annuler les changements apportés, cliquez sur la croix.",
@@ -123,6 +128,7 @@ const demoContent = {
           pl: 'Podświetlony tekst w panelu edycji można dowolnie modyfikować lub zastępować. Zmiany pojawią się natychmiast na stronie głównej, co ułatwia ich przeglądanie. Aby cofnąć wprowadzone zmiany, kliknij krzyżyk.',
           id: 'Teks yang disorot di panel penyuntingan dapat dimodifikasi atau diganti sesuka hati. Perubahan akan muncul secara instan di halaman utama, memudahkan peninjauan konten. Untuk membatalkan perubahan, klik tanda silang.',
           vi: 'Văn bản được làm nổi bật trong bảng chỉnh sửa có thể được sửa hoặc thay thế tùy ý. Các thay đổi sẽ xuất hiện ngay lập tức trên trang chính, giúp dễ dàng xem lại nội dung. Để hoàn tác các thay đổi, nhấp vào biểu tượng dấu x.',
+          uk: "Підсвічений текст у панелі редагування можна змінювати або замінювати на свій розсуд. Зміни з'являються миттєво на основній сторінці, що спрощує перевірку контенту. Щоб скасувати внесені зміни, натисніть на хрестик.",
         }),
       },
       validation: {
@@ -144,6 +150,7 @@ const demoContent = {
           pl: 'Potwierdź zmiany',
           id: 'Konfirmasi perubahan Anda',
           vi: 'Xác nhận các thay đổi',
+          uk: 'Підтвердіть свої зміни',
         }),
         description: t({
           fr: 'Une fois vos changements effectués, validez les modifications apportées au champ concerné, puis validez les changements apportés au dictionnaire. Lorsque les changements apportés au dictionnaire sont validés, Intlayer écrira les modifications dans le fichier concerné.',
@@ -164,6 +171,7 @@ const demoContent = {
           pl: 'Po wprowadzeniu zmian zatwierdź modyfikacje danego pola, a następnie potwierdź zmiany w słowniku. Po zatwierdzeniu zmian w słowniku Intlayer zapisze modyfikacje w odpowiednim pliku.',
           id: 'Setelah Anda melakukan perubahan, validasi modifikasi pada field terkait, lalu konfirmasi perubahan pada dictionary. Saat perubahan pada dictionary divalidasi, Intlayer akan menuliskan modifikasi ke file terkait.',
           vi: 'Khi bạn đã thực hiện thay đổi, xác nhận các chỉnh sửa cho trường tương ứng, sau đó xác nhận các thay đổi trong từ điển. Khi các thay đổi trong từ điển được xác nhận, Intlayer sẽ ghi các sửa đổi vào tệp tương ứng.',
+          uk: 'Після внесення змін підтвердіть редагування відповідного поля, а потім затвердіть зміни в словнику. Коли зміни в словнику будуть підтверджені, Intlayer запише ці модифікації у відповідний файл.',
         }),
       },
     },

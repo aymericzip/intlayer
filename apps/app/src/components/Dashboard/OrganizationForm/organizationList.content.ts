@@ -21,6 +21,7 @@ const organizationListContent = {
       pl: 'Szukaj organizacji',
       id: 'Cari organisasi',
       vi: 'Tìm kiếm tổ chức',
+      uk: 'Шукати організацію',
     }),
     noOrganizationFound: t({
       en: 'No organization found. Try clearing your filters.',
@@ -40,6 +41,7 @@ const organizationListContent = {
       pl: 'Nie znaleziono żadnej organizacji. Spróbuj wyczyścić filtry.',
       id: 'Tidak ada organisasi yang ditemukan. Coba kosongkan filter Anda.',
       vi: 'Không tìm thấy tổ chức nào. Hãy thử xóa bộ lọc.',
+      uk: 'Не знайдено жодної організації. Спробуйте очистити фільтри.',
     }),
   },
   title: 'Organization list',

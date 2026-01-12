@@ -21,6 +21,7 @@ const adminBreadcrumbContent = {
       pl: 'Pulpit',
       id: 'Dasbor',
       vi: 'Bảng điều khiển',
+      uk: 'Панель керування',
     }),
     users: t({
       ar: 'المستخدمون',
@@ -40,6 +41,7 @@ const adminBreadcrumbContent = {
       pl: 'Użytkownicy',
       id: 'Pengguna',
       vi: 'Người dùng',
+      uk: 'Користувачі',
     }),
     organizations: t({
       ar: 'المنظمات',
@@ -59,6 +61,7 @@ const adminBreadcrumbContent = {
       pl: 'Organizacje',
       id: 'Organisasi',
       vi: 'Tổ chức',
+      uk: 'Організації',
     }),
     projects: t({
       ar: 'المشاريع',
@@ -78,6 +81,7 @@ const adminBreadcrumbContent = {
       pl: 'Projekty',
       id: 'Proyek',
       vi: 'Dự án',
+      uk: 'Проєкти',
     }),
     dashboard: t({
       ar: 'لوحة التحكم',
@@ -97,6 +101,7 @@ const adminBreadcrumbContent = {
       pl: 'Pulpit',
       id: 'Dasbor',
       vi: 'Bảng điều khiển',
+      uk: 'Панель керування',
     }),
     userDetail: t({
       ar: 'تفاصيل المستخدم',
@@ -116,6 +121,7 @@ const adminBreadcrumbContent = {
       pl: 'Szczegóły użytkownika',
       id: 'Detail Pengguna',
       vi: 'Chi tiết người dùng',
+      uk: 'Деталі користувача',
     }),
   },
   title: 'Admin dashboard breadcrumb',

@@ -21,6 +21,7 @@ const useFormSectionSchemaContent = {
       pl: 'Proszę wprowadzić pytanie.',
       id: 'Silakan masukkan sebuah pertanyaan.',
       vi: 'Vui lòng nhập câu hỏi.',
+      uk: 'Будь ласка, введіть запитання.',
     }),
 
     questionInvalidTypeError: t({
@@ -41,6 +42,7 @@ const useFormSectionSchemaContent = {
       pl: 'Nazwa pytania musi być poprawnym ciągiem znaków.',
       id: 'Nama pertanyaan harus berupa string yang valid.',
       vi: 'Tên câu hỏi phải là một chuỗi hợp lệ.',
+      uk: 'Назва питання має бути дійсним рядком.',
     }),
   },
   title: 'Undefined content declaration',

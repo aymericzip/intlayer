@@ -21,6 +21,7 @@ const rightDrawerContent = {
       pl: 'Wstecz',
       id: 'Kembali',
       vi: 'Quay lại',
+      uk: 'Назад',
     }),
     closeDrawer: t({
       en: 'Close Drawer',
@@ -40,8 +41,13 @@ const rightDrawerContent = {
       pl: 'Zamknij szufladę',
       id: 'Tutup laci',
       vi: 'Đóng ngăn kéo',
+      uk: 'Закрити бічну панель',
     }),
   },
+  title: 'Right Drawer',
+  description:
+    'Localized UI strings for the Right Drawer component (labels: "Go back" and "Close Drawer").',
+  tags: ['component', 'right-drawer', 'ui', 'localization'],
 } satisfies Dictionary;
 
 export default rightDrawerContent;

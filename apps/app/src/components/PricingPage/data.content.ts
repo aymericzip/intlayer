@@ -42,6 +42,7 @@ export const planDetails = {
       pl: 'Darmowy',
       id: 'Gratis',
       vi: 'Miễn phí',
+      uk: 'Безкоштовний',
     }),
     description: t({
       en: 'Ideal for individuals looking to activate the visual editor on their application. Edit content directly with the AI interface and get a feel for Intlayer’s capabilities.',
@@ -62,6 +63,7 @@ export const planDetails = {
       pl: 'Idealny dla osób, które chcą aktywować edytor wizualny w swojej aplikacji. Edytuj treści bezpośrednio za pomocą interfejsu AI i poznaj możliwości Intlayera.',
       id: 'Ideal untuk individu yang ingin mengaktifkan editor visual di aplikasi mereka. Sunting konten langsung melalui antarmuka AI dan rasakan kemampuan Intlayer.',
       vi: 'Lý tưởng cho cá nhân muốn kích hoạt trình chỉnh sửa trực quan trên ứng dụng của họ. Chỉnh sửa nội dung trực tiếp bằng giao diện AI và trải nghiệm khả năng của Intlayer.',
+      uk: 'Ідеально підходить для окремих користувачів, які хочуть активувати візуальний редактор у своєму застосунку. Редагуйте контент безпосередньо через інтерфейс ШІ та оцініть можливості Intlayer.',
     }),
     checkPoint: t({
       en: [
@@ -200,6 +202,14 @@ export const planDetails = {
         '1 dự án',
         '1 người dùng tổ chức',
       ],
+      uk: [
+        'Доступ до всіх пакетів Intlayer',
+        'Необмежене використання візуального редактора',
+        'Необмежені віддалені словники',
+        '100 МБ сховища',
+        '1 проект',
+        '1 користувач організації',
+      ],
     }),
     callToAction: {
       label: t({
@@ -220,6 +230,7 @@ export const planDetails = {
         pl: 'Wypróbuj za darmo',
         id: 'Coba gratis',
         vi: 'Dùng thử miễn phí',
+        uk: 'Спробувати безкоштовно',
       }),
       text: t({
         en: 'Try it for free',
@@ -239,6 +250,7 @@ export const planDetails = {
         pl: 'Wypróbuj za darmo',
         id: 'Coba gratis',
         vi: 'Dùng thử miễn phí',
+        uk: 'Спробувати безкоштовно',
       }),
     },
   },
@@ -261,6 +273,7 @@ export const planDetails = {
       pl: 'Premium',
       id: 'Premium',
       vi: 'Premium',
+      uk: 'Преміум',
     }),
     description: t({
       en: 'Designed for small to medium teams needing more flexibility. Includes AI content generation, up to 10 projects, and 20 organization users.',
@@ -281,6 +294,7 @@ export const planDetails = {
       pl: 'Przeznaczony dla małych i średnich zespołów potrzebujących większej elastyczności. Zawiera generowanie treści wspomagane przez AI, do 10 projektów i 20 użytkowników organizacji.',
       id: 'Dirancang untuk tim kecil hingga menengah yang membutuhkan fleksibilitas lebih. Termasuk pembuatan konten berbasis AI, hingga 10 proyek, dan 20 pengguna organisasi.',
       vi: 'Được thiết kế cho các đội nhỏ tới vừa cần nhiều tính linh hoạt hơn. Bao gồm tạo nội dung bằng AI, tối đa 10 dự án và 20 người dùng tổ chức.',
+      uk: 'Призначений для малих та середніх команд, яким потрібна більша гнучкість. Включає генерацію контенту на базі ШІ, до 10 проектів та 20 користувачів організації.',
     }),
     checkPoint: t({
       en: [
@@ -453,6 +467,16 @@ export const planDetails = {
         'Tạo nội dung bằng AI',
         'Hỗ trợ Premium',
       ],
+      uk: [
+        'Доступ до всіх пакетів Intlayer',
+        'Необмежене використання візуального редактора',
+        'Необмежені віддалені словники',
+        '500 МБ сховища',
+        '10 проектів',
+        '20 користувачів організації',
+        'Генерація контенту на базі ШІ',
+        'Преміальна підтримка',
+      ],
     }),
   },
   enterprise: {
@@ -474,6 +498,7 @@ export const planDetails = {
       pl: 'Enterprise',
       id: 'Enterprise',
       vi: 'Enterprise',
+      uk: 'Корпоративний',
     }),
     description: t({
       en: 'Built for larger teams requiring advanced tools. Get unlimited projects, AI-powered SEO, and content generation with unlimited users.',
@@ -494,6 +519,7 @@ export const planDetails = {
       pl: 'Stworzony dla większych zespołów wymagających zaawansowanych narzędzi. Oferuje nieograniczone projekty, optymalizację SEO wspomaganą przez AI oraz generowanie treści dla nieograniczonej liczby użytkowników.',
       id: 'Dirancang untuk tim besar yang membutuhkan alat lanjutan. Dapatkan proyek tanpa batas, SEO bertenaga AI, dan pembuatan konten dengan pengguna tanpa batas.',
       vi: 'Dành cho các nhóm lớn cần công cụ nâng cao. Có dự án không giới hạn, AI powered SEO và AI powered content generation với số lượng người dùng không giới hạn.',
+      uk: 'Створено для більших команд, які потребують розширених інструментів. Отримайте необмежену кількість проєктів, SEO на основі ШІ та генерацію контенту з необмеженою кількістю користувачів.',
     }),
     checkPoint: t({
       en: [
@@ -700,6 +726,18 @@ export const planDetails = {
         'Hot reloading cho nội dung phía client và server',
         'Hỗ trợ Premium',
       ],
+      uk: [
+        'Доступ до всіх пакетів Intlayer',
+        'Необмежене використання візуального редактора',
+        'Необмежені віддалені словники',
+        'Понад 2 ГБ сховища',
+        'Необмежена кількість проєктів',
+        'Необмежена кількість користувачів організації',
+        'Генерація контенту на основі ШІ',
+        'SEO-оптимізація на основі ШІ',
+        'Гаряче перезавантаження контенту на стороні клієнта й сервера',
+        'Преміум-підтримка',
+      ],
     }),
   },
 } satisfies Dictionary<Record<Plans, Partial<PricingInfo>>>['content'];
@@ -729,6 +767,7 @@ const pricing = {
           pl: 'Rozpocznij',
           id: 'Mulai sekarang',
           vi: 'Bắt đầu',
+          uk: 'Почати',
         }),
         text: t({
           en: 'Get started',
@@ -748,6 +787,7 @@ const pricing = {
           pl: 'Rozpocznij',
           id: 'Mulai sekarang',
           vi: 'Bắt đầu',
+          uk: 'Почати',
         }),
       },
     },
@@ -773,6 +813,7 @@ const pricing = {
           pl: 'Rozpocznij',
           id: 'Mulai sekarang',
           vi: 'Bắt đầu',
+          uk: 'Почати',
         }),
         text: t({
           en: 'Get started',
@@ -792,6 +833,7 @@ const pricing = {
           pl: 'Rozpocznij',
           id: 'Mulai sekarang',
           vi: 'Bắt đầu',
+          uk: 'Почати',
         }),
       },
     },
@@ -821,6 +863,7 @@ const pricing = {
           pl: 'Rozpocznij',
           id: 'Mulai sekarang',
           vi: 'Bắt đầu',
+          uk: 'Почати',
         }),
         text: t({
           en: 'Get started',
@@ -840,6 +883,7 @@ const pricing = {
           pl: 'Rozpocznij',
           id: 'Mulai sekarang',
           vi: 'Bắt đầu',
+          uk: 'Почати',
         }),
       },
     },
@@ -865,6 +909,7 @@ const pricing = {
           pl: 'Rozpocznij',
           id: 'Mulai',
           vi: 'Bắt đầu',
+          uk: 'Розпочати',
         }),
         text: t({
           en: 'Get started',
@@ -884,6 +929,7 @@ const pricing = {
           pl: 'Rozpocznij',
           id: 'Mulai',
           vi: 'Bắt đầu',
+          uk: 'Розпочати',
         }),
       },
     },
@@ -911,6 +957,7 @@ const pricingContent = {
       pl: 'Cennik CMS',
       id: 'Harga CMS',
       vi: 'Bảng giá CMS',
+      uk: 'Ціни для CMS',
     }),
     description: t({
       fr: "Intlayer est avant tout une suite d'outil gratuit et open source. Le pricing associée s'applique uniquement à l'utilisation du CMS, de l'éditeur visuel et des outils d'IA associés. (Note: Il est aussi possible de self hoster le CMS en clonant le dépôt GitHub.)",
@@ -931,6 +978,7 @@ const pricingContent = {
       pl: 'Intlayer to przede wszystkim darmowy i otwartoźródłowy zestaw narzędzi. Powiązane opłaty dotyczą wyłącznie korzystania z CMS, edytora wizualnego oraz powiązanych narzędzi AI. (Uwaga: możliwe jest również samodzielne hostowanie CMS przez sklonowanie repozytorium na GitHubie.)',
       id: 'Intlayer terutama merupakan rangkaian alat yang bersifat gratis dan sumber terbuka. Harga yang terkait hanya berlaku untuk penggunaan CMS, editor visual, dan alat AI terkait. (Catatan: Anda juga dapat meng-host sendiri CMS dengan mengkloning repositori GitHub.)',
       vi: 'Intlayer chủ yếu là một bộ công cụ mã nguồn mở và miễn phí. Bảng giá này chỉ áp dụng cho việc sử dụng CMS, trình chỉnh sửa trực quan và các công cụ AI liên quan. (Lưu ý: Bạn cũng có thể tự lưu trữ CMS bằng cách sao chép kho lưu trữ GitHub.)',
+      uk: "Intlayer насамперед є безкоштовним та відкритим набором інструментів. Пов'язана плата стосується лише використання CMS, візуального редактора та пов'язаних інструментів ШІ. (Примітка: також можливо самостійно розгорнути CMS, склонивши репозиторій на GitHub.)",
     }),
     pricing,
     period: {
@@ -952,6 +1000,7 @@ const pricingContent = {
         pl: 'Miesięcznie',
         id: 'Bulanan',
         vi: 'Hàng tháng',
+        uk: 'Щомісячно',
       }),
 
       yearly: t({
@@ -972,6 +1021,7 @@ const pricingContent = {
         pl: 'Rocznie',
         id: 'Tahunan',
         vi: 'Hàng năm',
+        uk: 'Щорічно',
       }),
     },
   },

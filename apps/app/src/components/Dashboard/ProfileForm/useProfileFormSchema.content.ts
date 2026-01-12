@@ -21,6 +21,7 @@ const content = {
       pl: 'Proszę podać swoje imię',
       id: 'Silakan masukkan nama Anda',
       vi: 'Vui lòng nhập tên của bạn',
+      uk: "Будь ласка, введіть ваше ім'я",
     }),
 
     invalidTypeErrorName: t({
@@ -41,6 +42,7 @@ const content = {
       pl: 'Proszę podać poprawną nazwę użytkownika',
       id: 'Silakan masukkan nama pengguna yang valid',
       vi: 'Vui lòng nhập một tên người dùng hợp lệ',
+      uk: "Будь ласка, введіть дійсне ім'я користувача",
     }),
   },
   title: 'Profile form schema',

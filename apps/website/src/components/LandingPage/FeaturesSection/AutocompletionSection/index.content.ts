@@ -22,6 +22,7 @@ const markdownSectionContent = {
       pl: 'Szanowny Kliencie,\n\nPiszę do Państwa ',
       id: 'Pelanggan yang terhormat,\n\nSaya menulis kepada Anda ',
       vi: 'Kính gửi Quý khách,\n\nTôi viết thư này ',
+      uk: 'Шановний(-а) клієнте,\n\nПишу вам ',
     }),
     suggestion: t({
       ar: 'لتأكيد طلبك',
@@ -41,6 +42,7 @@ const markdownSectionContent = {
       pl: 'aby potwierdzić Państwa zamówienie',
       id: 'untuk mengonfirmasi pesanan Anda',
       vi: 'để xác nhận đơn hàng của Quý khách',
+      uk: 'щоб підтвердити ваше замовлення',
     }),
     ariaLabel: t({
       ar: 'محرر الإكمال التلقائي',
@@ -60,6 +62,7 @@ const markdownSectionContent = {
       pl: 'Edytor autouzupełniania',
       id: 'Editor autocompletion',
       vi: 'Trình soạn thảo tự hoàn thành',
+      uk: 'Редактор автозаповнення',
     }),
   },
   description:

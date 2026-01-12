@@ -21,6 +21,7 @@ const profileDashboardContent = {
       pl: 'Edytor Intlayera',
       id: 'Intlayer Editor',
       vi: 'Trình chỉnh sửa Intlayer',
+      uk: 'Редактор Intlayer',
     }),
     tabItems: {
       editor: t({
@@ -41,6 +42,7 @@ const profileDashboardContent = {
         pl: 'Edytor',
         id: 'Editor',
         vi: 'Trình chỉnh sửa',
+        uk: 'Редактор',
       }),
       translate: t({
         en: 'Translate',
@@ -60,6 +62,7 @@ const profileDashboardContent = {
         pl: 'Tłumacz',
         id: 'Translate',
         vi: 'Dịch',
+        uk: 'Переклад',
       }),
       dictionaries: t({
         en: 'Dictionaries',
@@ -79,6 +82,7 @@ const profileDashboardContent = {
         pl: 'Słowniki',
         id: 'Kamus',
         vi: 'Từ điển',
+        uk: 'Словники',
       }),
     },
   },

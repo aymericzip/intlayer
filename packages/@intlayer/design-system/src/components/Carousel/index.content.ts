@@ -5,23 +5,24 @@ const carouselContent = {
   content: {
     goToSlide: insert(
       t({
+        ar: 'انتقل إلى الشريحة رقم {{index}}',
+        de: 'Zu Folie {{index}} wechseln',
         en: 'Go to slide {{index}}',
         'en-GB': 'Go to slide {{index}}',
-        ru: 'Перейти к слайду {{index}}',
-        ja: '{{index}}枚目のスライドへ',
-        fr: 'Aller à la diapositive {{index}}',
-        ko: '{{index}}번 슬라이드로 이동',
-        zh: '跳转到第{{index}}张幻灯片',
         es: 'Ir a la diapositiva {{index}}',
-        de: 'Zu Folie {{index}} wechseln',
-        ar: 'انتقل إلى الشريحة رقم {{index}}',
-        it: 'Vai alla diapositiva {{index}}',
-        pt: 'Ir para o slide {{index}}',
+        fr: 'Aller à la diapositive {{index}}',
         hi: '{{index}} स्लाइड पर जाएँ',
-        tr: '{{index}}. slayta git',
-        pl: 'Idź do slajdu {{index}}',
         id: 'Ke slide {{index}}',
+        it: 'Vai alla diapositiva {{index}}',
+        ja: '{{index}}枚目のスライドへ',
+        ko: '{{index}}번 슬라이드로 이동',
+        pl: 'Idź do slajdu {{index}}',
+        pt: 'Ir para o slide {{index}}',
+        ru: 'Перейти к слайду {{index}}',
+        tr: '{{index}}. slayta git',
+        uk: 'Перейти до слайду {{index}}',
         vi: 'Đi tới slide {{index}}',
+        zh: '跳转到第{{index}}张幻灯片',
       })
     ),
     previousSlide: t({
@@ -42,6 +43,7 @@ const carouselContent = {
       pl: 'Poprzedni slajd',
       id: 'Slide sebelumnya',
       vi: 'Slide trước',
+      uk: 'Попередній слайд',
     }),
     nextSlide: t({
       en: 'Next slide',
@@ -61,8 +63,13 @@ const carouselContent = {
       pl: 'Następny slajd',
       id: 'Slide berikutnya',
       vi: 'Slide tiếp theo',
+      uk: 'Наступний слайд',
     }),
   },
+  title: 'Carousel component',
+  description:
+    "Localization strings for the Carousel component controls, including labels for 'Go to slide', 'Previous slide', and 'Next slide'.",
+  tags: ['component', 'carousel', 'ui', 'i18n'],
 } satisfies Dictionary;
 
 export default carouselContent;

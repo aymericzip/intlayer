@@ -23,6 +23,7 @@ const metadataContent = {
       id: 'Headless CMS Multibahasa - Hubungkan Konten Lokal & Jarak Jauh | Intlayer',
       pl: 'Wielojęzyczny Headless CMS - Połącz treści lokalne i zdalne | Intlayer',
       vi: 'Headless CMS Đa Ngôn Ngữ - Kết Nối Nội Dung Cục Bộ & Từ Xa | Intlayer',
+      uk: 'Багатомовна headless CMS — поєднуйте локальний та віддалений контент | Intlayer',
     }),
     description: t({
       en: 'Intlayer connects local and remote content in one Multilingual Headless CMS. Manage translations natively without plugins. Features live sync, CI/CD integration, feature flags, and AI auto-translation.',
@@ -43,6 +44,7 @@ const metadataContent = {
       id: 'Intlayer menghubungkan konten lokal dan jarak jauh dalam satu Headless CMS Multibahasa. Kelola terjemahan secara native tanpa plugin. Fitur sinkronisasi langsung, integrasi CI/CD, feature flags, dan terjemahan otomatis AI.',
       pl: 'Intlayer łączy treści lokalne i zdalne w jednym wielojęzycznym Headless CMS. Zarządzaj tłumaczeniami natywnie bez wtyczek. Funkcje: synchronizacja na żywo, integracja CI/CD, feature flags i automatyczne tłumaczenie AI.',
       vi: 'Intlayer kết nối nội dung cục bộ và từ xa trong một Headless CMS đa ngôn ngữ. Quản lý bản dịch nguyên bản mà không cần plugin. Tính năng đồng bộ trực tiếp, tích hợp CI/CD, cờ tính năng và dịch tự động bằng AI.',
+      uk: 'Intlayer поєднує локальний і віддалений контент в одній багатомовній headless CMS. Керуйте перекладами вбудовано, без плагінів. Підтримує синхронізацію в реальному часі, інтеграцію з CI/CD, керування прапорцями функцій та автоматичний переклад за допомогою ШІ.',
     }),
     keywords: t({
       en: [
@@ -201,8 +203,23 @@ const metadataContent = {
         'Quản lý Feature Flags',
         'Dịch thuật AI',
       ],
+      uk: [
+        'Багатомовна headless CMS',
+        'Intlayer',
+        'Поєднання локального й віддаленого контенту',
+        'Синхронізація контенту в реальному часі',
+        'CMS для інтернаціоналізації',
+        'Керування прапорцями функцій',
+        'Переклад за допомогою ШІ',
+        'Next.js CMS',
+        'React CMS',
+      ],
     }),
   },
+  title: 'CMS metadata',
+  description:
+    'Metadata for the Multilingual Headless CMS landing page, including SEO title, description, and keywords for Intlayer.',
+  tags: ['cms metadata', 'multilingual', 'headless cms', 'i18n', 'seo'],
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;

@@ -21,6 +21,7 @@ const projectsAdminPageContentContent = {
       pl: 'Zarządzanie projektami',
       id: 'Manajemen Proyek',
       vi: 'Quản lý dự án',
+      uk: 'Управління проєктами',
     }),
     tableHeaders: {
       name: t({
@@ -41,6 +42,7 @@ const projectsAdminPageContentContent = {
         pl: 'Nazwa',
         id: 'Nama',
         vi: 'Tên',
+        uk: 'Назва',
       }),
       id: 'ID',
       createdAt: t({
@@ -61,6 +63,7 @@ const projectsAdminPageContentContent = {
         pl: 'Utworzono',
         id: 'Dibuat Pada',
         vi: 'Ngày tạo',
+        uk: 'Дата створення',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -80,6 +83,7 @@ const projectsAdminPageContentContent = {
         pl: 'Zaktualizowano',
         id: 'Diperbarui Pada',
         vi: 'Ngày cập nhật',
+        uk: 'Дата оновлення',
       }),
     },
     noData: t({
@@ -100,6 +104,7 @@ const projectsAdminPageContentContent = {
       pl: 'Brak danych',
       id: 'N/A',
       vi: 'Không có dữ liệu',
+      uk: 'Н/Д',
     }),
     errorMessages: {
       loadingError: t({
@@ -120,6 +125,7 @@ const projectsAdminPageContentContent = {
         pl: 'Błąd podczas ładowania projektów',
         id: 'Terjadi kesalahan saat memuat proyek',
         vi: 'Lỗi khi tải danh sách dự án',
+        uk: 'Помилка завантаження проєктів',
       }),
     },
     searchPlaceholder: t({
@@ -140,6 +146,7 @@ const projectsAdminPageContentContent = {
       pl: 'Szukaj projektów...',
       id: 'Cari proyek...',
       vi: 'Tìm kiếm dự án...',
+      uk: 'Пошук проєктів...',
     }),
     noProjectFound: t({
       en: 'No project found',
@@ -159,6 +166,7 @@ const projectsAdminPageContentContent = {
       pl: 'Nie znaleziono projektu',
       id: 'Tidak ada proyek yang ditemukan',
       vi: 'Không tìm thấy dự án nào',
+      uk: 'Проєкт не знайдено',
     }),
   },
   title: 'Project admin page',

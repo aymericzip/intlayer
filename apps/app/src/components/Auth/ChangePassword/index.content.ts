@@ -22,6 +22,7 @@ const content = {
         pl: 'Przejdź na stronę główną',
         id: 'Ke beranda',
         vi: 'Về trang chủ',
+        uk: 'Перейти на головну сторінку',
       }),
       ariaLabel: t({
         hi: 'होम पृष्ठ पर जाएँ को क्लिक करें',
@@ -41,6 +42,7 @@ const content = {
         pl: 'Kliknij, aby przejść na stronę główną',
         id: 'Klik untuk pergi ke beranda',
         vi: 'Nhấp để về trang chủ',
+        uk: 'Натисніть, щоб перейти на головну сторінку',
       }),
     },
   },

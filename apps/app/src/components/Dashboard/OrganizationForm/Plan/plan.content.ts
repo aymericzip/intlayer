@@ -21,6 +21,7 @@ const planContent = {
       pl: 'Plan',
       id: 'Paket',
       vi: 'Gói',
+      uk: 'План',
     }),
 
     upgradeButton: {
@@ -42,6 +43,7 @@ const planContent = {
         pl: 'Uaktualnij',
         id: 'Tingkatkan',
         vi: 'Nâng cấp',
+        uk: 'Оновити',
       }),
       label: t({
         en: 'Click to upgrade',
@@ -61,6 +63,7 @@ const planContent = {
         pl: 'Kliknij, aby uaktualnić plan',
         id: 'Klik untuk meningkatkan',
         vi: 'Nhấn để nâng cấp',
+        uk: 'Натисніть, щоб оновити',
       }),
     },
 
@@ -83,6 +86,7 @@ const planContent = {
         pl: 'Odnów plan',
         id: 'Perpanjang paket',
         vi: 'Gia hạn gói',
+        uk: 'Продовжити підписку',
       }),
       label: t({
         en: 'Click to renew plan',
@@ -102,6 +106,7 @@ const planContent = {
         pl: 'Kliknij, aby odnowić plan',
         id: 'Klik untuk memperpanjang paket',
         vi: 'Nhấn để gia hạn gói',
+        uk: 'Натисніть, щоб продовжити підписку',
       }),
     },
 
@@ -124,6 +129,7 @@ const planContent = {
         pl: 'Anuluj plan',
         id: 'Batalkan langganan',
         vi: 'Hủy gói',
+        uk: 'Скасувати підписку',
       }),
       label: t({
         en: 'Click to cancel plan',
@@ -143,6 +149,7 @@ const planContent = {
         pl: 'Kliknij, aby anulować plan',
         id: 'Klik untuk membatalkan langganan',
         vi: 'Nhấn để hủy gói',
+        uk: 'Натисніть, щоб скасувати підписку',
       }),
     },
 
@@ -165,6 +172,7 @@ const planContent = {
         pl: 'Czy na pewno chcesz anulować subskrypcję?',
         id: 'Apakah Anda yakin ingin membatalkan langganan Anda?',
         vi: 'Bạn có chắc chắn muốn hủy đăng ký của mình không?',
+        uk: 'Ви впевнені, що хочете скасувати свою підписку?',
       }),
 
       message: t({
@@ -186,6 +194,7 @@ const planContent = {
         pl: 'Ta akcja NIE MOŻE zostać cofnięta. To spowoduje trwałe anulowanie Twojej subskrypcji. Pozostali członkowie organizacji również stracą dostęp do organizacji, a dostęp do funkcji premium zostanie wyłączony. Jeśli w przyszłości będziesz chciał(a) z niej skorzystać, będziesz musiał(a) utworzyć ją ponownie.',
         id: 'Tindakan ini TIDAK DAPAT dibatalkan. Ini akan secara permanen membatalkan langganan Anda. Anggota organisasi lainnya juga akan kehilangan akses ke organisasi dan akses ke fitur premium akan dinonaktifkan. Jika Anda ingin menggunakannya di masa depan, Anda harus membuatnya lagi.',
         vi: 'Hành động này KHÔNG THỂ hoàn tác. Thao tác này sẽ hủy vĩnh viễn đăng ký của bạn. Các thành viên khác trong tổ chức của bạn cũng sẽ mất quyền truy cập vào tổ chức và quyền truy cập các tính năng cao cấp sẽ bị vô hiệu hóa. Nếu bạn muốn sử dụng lại trong tương lai, bạn sẽ cần phải tạo lại tổ chức.',
+        uk: 'Цю дію НЕ МОЖНА скасувати. Це назавжди скасує вашу підписку. Інші учасники організації також втратять доступ до неї, а доступ до преміум-функцій буде відключено. Якщо ви захочете користуватися нею в майбутньому, вам доведеться оформити підписку знову.',
       }),
 
       buttonLabel: t({
@@ -206,6 +215,7 @@ const planContent = {
         pl: 'Anuluj moją subskrypcję',
         id: 'Batalkan langganan saya',
         vi: 'Hủy đăng ký của tôi',
+        uk: 'Скасувати мою підписку',
       }),
 
       confirmText: t({
@@ -226,6 +236,7 @@ const planContent = {
         pl: 'Rozumiem, anuluj moją subskrypcję',
         id: 'Saya mengerti, batalkan langganan saya',
         vi: 'Tôi hiểu, hủy đăng ký của tôi',
+        uk: 'Я розумію, скасуйте мою підписку',
       }),
     },
   },

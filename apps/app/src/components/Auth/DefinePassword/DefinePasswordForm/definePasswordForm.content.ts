@@ -22,6 +22,7 @@ const definePasswordContent = {
         pl: 'Nowe hasło',
         id: 'Kata sandi baru',
         vi: 'Mật khẩu mới',
+        uk: 'Новий пароль',
       }),
       placeholder: t({
         en: 'Enter new password',
@@ -41,6 +42,7 @@ const definePasswordContent = {
         pl: 'Wprowadź nowe hasło',
         id: 'Masukkan kata sandi baru',
         vi: 'Nhập mật khẩu mới',
+        uk: 'Введіть новий пароль',
       }),
     },
     confirmPasswordInput: {
@@ -62,6 +64,7 @@ const definePasswordContent = {
         pl: 'Potwierdź nowe hasło',
         id: 'Konfirmasi kata sandi baru',
         vi: 'Xác nhận mật khẩu mới',
+        uk: 'Підтвердіть новий пароль',
       }),
       placeholder: t({
         en: 'Confirm new password',
@@ -81,6 +84,7 @@ const definePasswordContent = {
         pl: 'Potwierdź nowe hasło',
         id: 'Konfirmasi kata sandi baru',
         vi: 'Nhập lại mật khẩu mới',
+        uk: 'Підтвердіть новий пароль',
       }),
     },
     definePasswordButton: {
@@ -102,6 +106,7 @@ const definePasswordContent = {
         pl: 'Ustaw hasło',
         id: 'Tetapkan kata sandi',
         vi: 'Đặt mật khẩu',
+        uk: 'Задати пароль',
       }),
       ariaLabel: t({
         en: 'Click to change password',
@@ -121,6 +126,7 @@ const definePasswordContent = {
         pl: 'Kliknij, aby zmienić hasło',
         id: 'Klik untuk mengubah kata sandi',
         vi: 'Nhấp để thay đổi mật khẩu',
+        uk: 'Натисніть, щоб задати пароль',
       }),
     },
   },

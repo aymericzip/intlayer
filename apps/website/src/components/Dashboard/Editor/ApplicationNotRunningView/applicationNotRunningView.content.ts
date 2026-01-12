@@ -21,6 +21,7 @@ const applicationNotRunningViewContent = {
       pl: 'Twoja aplikacja jest niedostępna',
       id: 'Aplikasi Anda tidak dapat diakses',
       vi: 'Ứng dụng của bạn không thể truy cập được',
+      uk: 'Ваш додаток недоступний',
     }),
     description: t({
       ar: 'لاستخدام محرك المحتوى، يجب عليك التأكد من أن التطبيق يعمل.',
@@ -41,6 +42,7 @@ const applicationNotRunningViewContent = {
       pl: 'Aby korzystać z CMS, upewnij się, że aplikacja jest uruchomiona.',
       id: 'Untuk menggunakan CMS, pastikan aplikasi sedang berjalan.',
       vi: 'Để sử dụng CMS, bạn cần đảm bảo ứng dụng đang chạy.',
+      uk: 'Щоб використовувати CMS, переконайтеся, що додаток працює.',
     }),
     tips: t({
       ar: [
@@ -128,6 +130,11 @@ const applicationNotRunningViewContent = {
         'Nếu ứng dụng của bạn đang chạy trên máy chủ từ xa (ví dụ: https://my-app.com), đảm bảo trường cấu hình `editor.cmsUrl` được đặt thành `https://app.intlayer.org`.',
         "Trong mọi trường hợp, đảm bảo header CSP ('Content-Security-Policy') không chặn iframe của editor.",
       ],
+      uk: [
+        'Якщо ваш додаток працює локально (наприклад: http://localhost:3000), запустіть його та переконайтеся, що поле конфігурації `editor.cmsUrl` встановлено на `https://app.intlayer.org`.',
+        'Якщо ваш додаток працює на віддаленому сервері (наприклад: https://my-app.com), переконайтеся, що поле конфігурації `editor.cmsUrl` встановлено на `https://app.intlayer.org`.',
+        "У всіх випадках переконайтеся, що заголовок CSP ('Content-Security-Policy') не блокує iframe редактора.",
+      ],
     }),
     documentationLink: {
       label: t({
@@ -148,6 +155,7 @@ const applicationNotRunningViewContent = {
         pl: 'Kliknij, aby przejść do dokumentacji CMS',
         id: 'Klik untuk membuka dokumentasi CMS',
         vi: 'Nhấp để xem tài liệu CMS',
+        uk: 'Перейти до документації CMS',
       }),
       text: t({
         en: 'See how to configure the CMS',
@@ -167,6 +175,7 @@ const applicationNotRunningViewContent = {
         pl: 'Zobacz, jak skonfigurować CMS',
         id: 'Lihat cara mengonfigurasi CMS',
         vi: 'Xem cách cấu hình CMS',
+        uk: 'Дізнайтеся, як налаштувати CMS',
       }),
     },
   },

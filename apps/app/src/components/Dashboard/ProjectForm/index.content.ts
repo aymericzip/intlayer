@@ -21,6 +21,7 @@ const projectFormContent = {
       pl: 'Szczegóły projektu',
       id: 'Detail proyek',
       vi: 'Chi tiết dự án',
+      uk: 'Деталі проєкту',
     }),
     noAdminMessage: t({
       en: 'You are not an admin of this project. Contact your administrator if you want to edit the project.',
@@ -41,6 +42,7 @@ const projectFormContent = {
       pl: 'Nie jesteś administratorem tego projektu. Skontaktuj się z administratorem, jeśli chcesz edytować projekt.',
       id: 'Anda bukan admin proyek ini. Hubungi administrator Anda jika ingin mengedit proyek.',
       vi: 'Bạn không phải quản trị viên của dự án này. Liên hệ với quản trị viên nếu bạn muốn chỉnh sửa dự án.',
+      uk: 'Ви не є адміністратором цього проєкту. Зверніться до свого адміністратора, якщо хочете редагувати проєкт.',
     }),
     nameInput: {
       label: t({
@@ -61,6 +63,7 @@ const projectFormContent = {
         pl: 'Nazwa projektu',
         id: 'Nama proyek',
         vi: 'Tên dự án',
+        uk: 'Назва проєкту',
       }),
       placeholder: t({
         en: 'Enter the name of the project',
@@ -80,6 +83,7 @@ const projectFormContent = {
         pl: 'Wprowadź nazwę projektu',
         id: 'Masukkan nama proyek',
         vi: 'Nhập tên dự án',
+        uk: 'Введіть назву проєкту',
       }),
     },
 
@@ -101,6 +105,7 @@ const projectFormContent = {
       pl: 'Brak projektu',
       id: 'Belum ada proyek',
       vi: 'Chưa có dự án',
+      uk: 'Немає проєкту',
     }),
 
     createProjectDescription: t({
@@ -121,6 +126,7 @@ const projectFormContent = {
       pl: 'Utwórz swój pierwszy projekt, aby rozpocząć korzystanie z Intlayer',
       id: 'Buat proyek pertama Anda untuk mulai menggunakan Intlayer',
       vi: 'Tạo dự án đầu tiên để bắt đầu sử dụng Intlayer',
+      uk: 'Створіть свій перший проєкт, щоб почати користуватися Intlayer',
     }),
 
     createProjectButton: {
@@ -142,6 +148,7 @@ const projectFormContent = {
         pl: 'Utwórz projekt',
         id: 'Buat proyek',
         vi: 'Tạo dự án',
+        uk: 'Створити проєкт',
       }),
       ariaLabel: t({
         en: 'Click to create project',
@@ -161,6 +168,7 @@ const projectFormContent = {
         pl: 'Kliknij, aby utworzyć projekt',
         id: 'Klik untuk membuat proyek',
         vi: 'Nhấp để tạo dự án',
+        uk: 'Натисніть, щоб створити проєкт',
       }),
     },
 
@@ -183,6 +191,7 @@ const projectFormContent = {
         pl: 'Edytuj projekt',
         id: 'Edit proyek',
         vi: 'Chỉnh sửa dự án',
+        uk: 'Редагувати проєкт',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -202,6 +211,7 @@ const projectFormContent = {
         pl: 'Kliknij, aby edytować',
         id: 'Klik untuk mengedit',
         vi: 'Nhấp để chỉnh sửa',
+        uk: 'Натисніть, щоб редагувати',
       }),
     },
 
@@ -224,6 +234,7 @@ const projectFormContent = {
         pl: 'Klucze dostępu',
         id: 'Kunci akses',
         vi: 'Access keys',
+        uk: 'Ключі доступу',
       }),
       description: t({
         en: 'Access keys are used to authenticate your project.',
@@ -243,6 +254,7 @@ const projectFormContent = {
         pl: 'Klucze dostępu służą do uwierzytelniania projektu.',
         id: 'Kunci akses digunakan untuk mengautentikasi proyek Anda.',
         vi: 'Access keys được sử dụng để xác thực dự án của bạn.',
+        uk: 'Ключі доступу використовуються для автентифікації вашого проєкту.',
       }),
       noAccessKeys: t({
         en: 'No access keys',
@@ -262,6 +274,7 @@ const projectFormContent = {
         pl: 'Brak kluczy dostępu',
         id: 'Tidak ada kunci akses',
         vi: 'Không có Access keys',
+        uk: 'Немає ключів доступу',
       }),
       createAccessKey: {
         text: t({
@@ -282,6 +295,7 @@ const projectFormContent = {
           pl: 'Utwórz klucz dostępu',
           id: 'Buat kunci akses',
           vi: 'Tạo access key',
+          uk: 'Створити ключ доступу',
         }),
         label: t({
           en: 'Click to create access key',
@@ -301,6 +315,7 @@ const projectFormContent = {
           pl: 'Kliknij, aby utworzyć klucz dostępu',
           id: 'Klik untuk membuat kunci akses',
           vi: 'Nhấp để tạo access key',
+          uk: 'Натисніть, щоб створити ключ доступу',
         }),
       },
     },
@@ -324,6 +339,7 @@ const projectFormContent = {
         pl: 'Usuń projekt',
         id: 'Hapus proyek',
         vi: 'Xóa dự án',
+        uk: 'Видалити проєкт',
       }),
       ariaLabel: t({
         en: 'Click to delete project',
@@ -343,6 +359,7 @@ const projectFormContent = {
         pl: 'Kliknij, aby usunąć projekt',
         id: 'Klik untuk menghapus proyek',
         vi: 'Nhấp để xóa dự án',
+        uk: 'Натисніть, щоб видалити проєкт',
       }),
     },
   },

@@ -21,6 +21,7 @@ const passkeyItemContent = {
       pl: 'Utworzono',
       id: 'Dibuat',
       vi: 'Được tạo',
+      uk: 'Створено',
     }),
     deletePasskeyButton: {
       text: t({
@@ -41,6 +42,7 @@ const passkeyItemContent = {
         pl: 'Usuń',
         id: 'Hapus',
         vi: 'Xóa',
+        uk: 'Видалити',
       }),
       ariaLabel: t({
         en: 'Click to delete the passkey',
@@ -60,6 +62,7 @@ const passkeyItemContent = {
         pl: 'Kliknij, aby usunąć klucz dostępu',
         id: 'Klik untuk menghapus kunci sandi',
         vi: 'Nhấp để xóa khóa truy cập',
+        uk: 'Натисніть, щоб видалити ключ доступу',
       }),
     },
     confirmDelete: t({
@@ -80,6 +83,7 @@ const passkeyItemContent = {
       pl: 'Potwierdź',
       id: 'Konfirmasi',
       vi: 'Xác nhận',
+      uk: 'Підтвердити',
     }),
     cancelButton: t({
       en: 'Cancel',
@@ -99,8 +103,13 @@ const passkeyItemContent = {
       pl: 'Anuluj',
       id: 'Batal',
       vi: 'Hủy',
+      uk: 'Скасувати',
     }),
   },
+  title: 'Passkey item',
+  description:
+    'Multilingual content for the Passkey item component, including the createdAt label, delete passkey button text and aria label, confirm delete text, and cancel button text.',
+  tags: ['auth', 'passkey', 'component', 'ui'],
 } satisfies Dictionary;
 
 export default passkeyItemContent;

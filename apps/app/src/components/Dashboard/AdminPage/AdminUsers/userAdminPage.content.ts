@@ -21,6 +21,7 @@ const userAdminPageContent = {
       pl: 'Zarządzanie użytkownikami',
       id: 'Manajemen Pengguna',
       vi: 'Quản lý người dùng',
+      uk: 'Управління користувачами',
     }),
     tableHeaders: {
       name: t({
@@ -41,6 +42,7 @@ const userAdminPageContent = {
         pl: 'Imię i nazwisko',
         id: 'Nama',
         vi: 'Tên',
+        uk: "Ім'я",
       }),
       id: 'ID',
       email: t({
@@ -61,6 +63,7 @@ const userAdminPageContent = {
         pl: 'E-mail',
         id: 'Email',
         vi: 'Email',
+        uk: 'Електронна пошта',
       }),
       role: t({
         en: 'Role',
@@ -80,6 +83,7 @@ const userAdminPageContent = {
         pl: 'Rola',
         id: 'Peran',
         vi: 'Vai trò',
+        uk: 'Роль',
       }),
       status: t({
         en: 'Status',
@@ -99,6 +103,7 @@ const userAdminPageContent = {
         pl: 'Status',
         id: 'Status',
         vi: 'Trạng thái',
+        uk: 'Статус',
       }),
       createdAt: t({
         en: 'Created At',
@@ -118,6 +123,7 @@ const userAdminPageContent = {
         pl: 'Utworzono',
         id: 'Dibuat pada',
         vi: 'Ngày tạo',
+        uk: 'Створено',
       }),
       updatedAt: t({
         en: 'Updated At',
@@ -137,6 +143,7 @@ const userAdminPageContent = {
         pl: 'Zaktualizowano',
         id: 'Diperbarui pada',
         vi: 'Cập nhật lần cuối',
+        uk: 'Оновлено',
       }),
       actions: t({
         en: 'Actions',
@@ -156,6 +163,7 @@ const userAdminPageContent = {
         pl: 'Akcje',
         id: 'Aksi',
         vi: 'Hành động',
+        uk: 'Дії',
       }),
     },
     statusLabels: {
@@ -177,6 +185,7 @@ const userAdminPageContent = {
         pl: 'Zweryfikowany',
         id: 'Terverifikasi',
         vi: 'Đã xác minh',
+        uk: 'Підтверджено',
       }),
       pending: t({
         en: 'Pending',
@@ -196,6 +205,7 @@ const userAdminPageContent = {
         pl: 'Oczekujący',
         id: 'Menunggu',
         vi: 'Đang chờ',
+        uk: 'В очікуванні',
       }),
     },
     actions: {
@@ -217,6 +227,7 @@ const userAdminPageContent = {
         pl: 'Edytuj',
         id: 'Ubah',
         vi: 'Chỉnh sửa',
+        uk: 'Редагувати',
       }),
       delete: t({
         en: 'Delete',
@@ -236,6 +247,7 @@ const userAdminPageContent = {
         pl: 'Usuń',
         id: 'Hapus',
         vi: 'Xóa',
+        uk: 'Видалити',
       }),
       copyId: t({
         en: 'Copy id',
@@ -255,6 +267,7 @@ const userAdminPageContent = {
         pl: 'Kopiuj ID',
         id: 'Salin ID',
         vi: 'Sao chép id',
+        uk: 'Копіювати ID',
       }),
     },
     noUsersMessage: t({
@@ -275,6 +288,7 @@ const userAdminPageContent = {
       pl: 'Nie znaleziono użytkowników',
       id: 'Tidak ada pengguna',
       vi: 'Không tìm thấy người dùng nào',
+      uk: 'Користувачів не знайдено',
     }),
     errorMessages: {
       loadingError: t({
@@ -295,6 +309,7 @@ const userAdminPageContent = {
         pl: 'Błąd ładowania użytkowników',
         id: 'Gagal memuat pengguna',
         vi: 'Lỗi tải người dùng',
+        uk: 'Помилка завантаження користувачів',
       }),
     },
     showingResults: t({
@@ -315,6 +330,7 @@ const userAdminPageContent = {
       pl: 'Wyświetlanie {start} do {end} z {total} wyników',
       id: 'Menampilkan {start} hingga {end} dari {total} hasil',
       vi: 'Hiển thị {start} đến {end} trong tổng số {total} kết quả',
+      uk: 'Показано {start} до {end} з {total} результатів',
     }),
     searchPlaceholder: t({
       en: 'Search users...',
@@ -334,6 +350,7 @@ const userAdminPageContent = {
       pl: 'Szukaj użytkowników...',
       id: 'Cari pengguna...',
       vi: 'Tìm kiếm người dùng...',
+      uk: 'Шукати користувачів...',
     }),
     filterPlaceholder: t({
       en: 'Filter by organization',
@@ -353,6 +370,7 @@ const userAdminPageContent = {
       pl: 'Filtruj po organizacji',
       id: 'Saring berdasarkan organisasi',
       vi: 'Lọc theo tổ chức',
+      uk: 'Фільтрувати за організацією',
     }),
     allStatuses: t({
       en: 'All organizations',
@@ -372,6 +390,7 @@ const userAdminPageContent = {
       pl: 'Wszystkie organizacje',
       id: 'Semua organisasi',
       vi: 'Tất cả tổ chức',
+      uk: 'Всі організації',
     }),
     noData: t({
       en: 'N/A',
@@ -391,6 +410,7 @@ const userAdminPageContent = {
       pl: 'Brak danych',
       id: 'N/A',
       vi: 'Không có dữ liệu',
+      uk: 'Н/Д',
     }),
   },
   title: 'User administration page',

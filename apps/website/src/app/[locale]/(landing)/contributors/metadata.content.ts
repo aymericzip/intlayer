@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Współtwórcy | Intlayer',
       id: 'Kontributor | Intlayer',
       vi: 'Người đóng góp | Intlayer',
+      uk: "Контриб'ютори | Intlayer",
     }),
     description: t({
       ar: 'تعرف على الأشخاص المذهلين الذين يساهمون في Intlayer. شاهد جميع المساهمين الذين يساعدون في بناء هذا المشروع مفتوح المصدر.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Poznaj niesamowitych ludzi, którzy przyczyniają się do rozwoju Intlayer. Zobacz wszystkich współtwórców pomagających w budowie tego projektu open-source.',
       id: 'Temui orang-orang luar biasa yang berkontribusi pada Intlayer. Lihat semua kontributor yang membantu membangun proyek open-source ini.',
       vi: 'Gặp gỡ những người tuyệt vời đang đóng góp cho Intlayer. Xem tất cả những người đóng góp giúp xây dựng dự án nguồn mở này.',
+      uk: "Познайомтеся з чудовими людьми, які роблять внесок у Intlayer. Перегляньте всіх контриб'юторів, які допомагають розвивати цей проєкт з відкритим вихідним кодом.",
     }),
 
     keywords: t({
@@ -210,6 +212,16 @@ const metadataContent = {
         'Mã nguồn mở',
         'Nhà phát triển',
         'Cộng đồng',
+        'GitHub',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      uk: [
+        "Контриб'ютори",
+        'Відкритий вихідний код',
+        'Розробники',
+        'Спільнота',
         'GitHub',
         'Intlayer',
         'React',

@@ -21,6 +21,7 @@ const availableTechnoContent = {
       pl: 'Dostępne na',
       id: 'Tersedia di',
       vi: 'Có sẵn trên',
+      uk: 'Доступно на',
     }),
     comingSoon: t({
       ar: 'قريبا متاح على',
@@ -40,6 +41,7 @@ const availableTechnoContent = {
       pl: 'Wkrótce',
       id: 'Segera hadir',
       vi: 'Sắp ra mắt',
+      uk: 'Незабаром',
     }),
     icons: {
       react: {
@@ -61,6 +63,7 @@ const availableTechnoContent = {
           pl: 'Przejdź do oficjalnej strony ReactJS',
           id: 'Buka situs resmi ReactJS',
           vi: 'Truy cập trang web chính thức của ReactJS',
+          uk: 'Перейти на офіційний вебсайт ReactJS',
         }),
       },
       nextjs: {
@@ -82,6 +85,7 @@ const availableTechnoContent = {
           pl: 'Przejdź do oficjalnej strony NextJS',
           id: 'Buka situs resmi NextJS',
           vi: 'Truy cập trang web chính thức của NextJS',
+          uk: 'Перейти на офіційний вебсайт NextJS',
         }),
       },
       vite: {
@@ -103,6 +107,7 @@ const availableTechnoContent = {
           pl: 'Przejdź do oficjalnej strony ViteJS',
           id: 'Buka situs resmi ViteJS',
           vi: 'Truy cập trang web chính thức của ViteJS',
+          uk: 'Перейти на офіційний вебсайт ViteJS',
         }),
       },
       vue: {
@@ -124,6 +129,7 @@ const availableTechnoContent = {
           pl: 'Przejdź do oficjalnej strony VueJS',
           id: 'Buka situs resmi VueJS',
           vi: 'Truy cập trang web chính thức của VueJS',
+          uk: 'Перейти на офіційний вебсайт VueJS',
         }),
       },
       nuxt: {
@@ -145,6 +151,7 @@ const availableTechnoContent = {
           pl: 'Przejdź do oficjalnej strony NuxtJS',
           id: 'Buka situs resmi NuxtJS',
           vi: 'Truy cập trang web chính thức của NuxtJS',
+          uk: 'Перейти на офіційний вебсайт NuxtJS',
         }),
       },
       angular: {
@@ -166,6 +173,7 @@ const availableTechnoContent = {
           pl: 'Przejdź do oficjalnej strony AngularJS',
           id: 'Buka situs resmi AngularJS',
           vi: 'Truy cập trang web chính thức của AngularJS',
+          uk: 'Перейти на офіційний вебсайт AngularJS',
         }),
       },
       preact: {
@@ -187,6 +195,7 @@ const availableTechnoContent = {
           pl: 'Przejdź do oficjalnej strony Preact',
           id: 'Buka situs resmi Preact',
           vi: 'Truy cập trang web chính thức của Preact',
+          uk: 'Перейти на офіційний вебсайт Preact',
         }),
       },
       solid: {
@@ -208,6 +217,7 @@ const availableTechnoContent = {
           pl: 'Przejdź do oficjalnej strony SolidJS',
           id: 'Buka situs resmi SolidJS',
           vi: 'Truy cập trang web chính thức của SolidJS',
+          uk: 'Перейти на офіційний вебсайт SolidJS',
         }),
       },
       svelte: {
@@ -229,6 +239,7 @@ const availableTechnoContent = {
           pl: 'Przejdź do oficjalnej strony Svelte',
           id: 'Buka situs resmi Svelte',
           vi: 'Truy cập trang web chính thức của Svelte',
+          uk: 'Перейти на офіційний вебсайт Svelte',
         }),
       },
       astro: {
@@ -250,6 +261,7 @@ const availableTechnoContent = {
           pl: 'Przejdź do oficjalnej strony Astro',
           id: 'Buka situs resmi Astro',
           vi: 'Truy cập trang web chính thức của Astro',
+          uk: 'Перейти на офіційний вебсайт Astro',
         }),
       },
       lynx: {
@@ -271,6 +283,7 @@ const availableTechnoContent = {
           pl: 'Przejdź do oficjalnej strony Lynx',
           id: 'Buka situs resmi Lynx',
           vi: 'Truy cập trang web chính thức của Lynx',
+          uk: 'Перейти на офіційний вебсайт Lynx',
         }),
       },
     },

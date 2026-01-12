@@ -22,6 +22,7 @@ const contributionMessageContent = {
         pl: 'Edytuj tę dokumentację',
         id: 'Sunting dokumen ini',
         vi: 'Chỉnh sửa tài liệu này',
+        uk: 'Редагувати цей документ',
       }),
       text: t({
         en: 'If you have an idea for improving this documentation, please feel free to contribute by submitting a pull request on GitHub.',
@@ -42,6 +43,7 @@ const contributionMessageContent = {
         pl: 'Jeśli masz pomysł na ulepszenie tej dokumentacji, zachęcamy do przesłania pull requesta na GitHubie.',
         id: 'Jika Anda memiliki ide untuk meningkatkan dokumentasi ini, silakan berkontribusi dengan mengajukan pull request di GitHub.',
         vi: 'Nếu bạn có ý tưởng để cải thiện tài liệu này, vui lòng đóng góp bằng cách gửi pull request trên GitHub.',
+        uk: 'Якщо у вас є ідея щодо покращення цієї документації, будь ласка, долучіться, надіславши pull request на GitHub.',
       }),
       button: t({
         en: 'GitHub link to the documentation',
@@ -61,6 +63,7 @@ const contributionMessageContent = {
         pl: 'Link do dokumentacji na GitHubie',
         id: 'Tautan GitHub ke dokumentasi',
         vi: 'Liên kết GitHub tới tài liệu',
+        uk: 'Посилання на документацію на GitHub',
       }),
       buttonLabel: t({
         en: 'Click here to contribute',
@@ -80,6 +83,7 @@ const contributionMessageContent = {
         pl: 'Kliknij tutaj, aby wnieść wkład',
         id: 'Klik di sini untuk berkontribusi',
         vi: 'Nhấp vào đây để đóng góp',
+        uk: 'Натисніть тут, щоб зробити внесок',
       }),
     },
   },

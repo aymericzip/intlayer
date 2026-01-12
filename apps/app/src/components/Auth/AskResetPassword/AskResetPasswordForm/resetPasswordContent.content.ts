@@ -22,6 +22,7 @@ const askResetPasswordContent = {
         pl: 'Adres e-mail',
         id: 'Alamat email',
         vi: 'Địa chỉ email',
+        uk: 'Електронна адреса',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -41,6 +42,7 @@ const askResetPasswordContent = {
         pl: 'Wprowadź adres e-mail',
         id: 'Masukkan alamat email',
         vi: 'Nhập địa chỉ email',
+        uk: 'Введіть електронну адресу',
       }),
     },
     sendRecoveryEmailButton: {
@@ -62,6 +64,7 @@ const askResetPasswordContent = {
         pl: 'Wyślij e-mail odzyskiwania',
         id: 'Kirim email pemulihan',
         vi: 'Gửi email khôi phục mật khẩu',
+        uk: 'Надіслати лист для відновлення пароля',
       }),
       ariaLabel: t({
         en: 'Click to send recovery email',
@@ -81,6 +84,7 @@ const askResetPasswordContent = {
         pl: 'Kliknij, aby wysłać e-mail odzyskiwania',
         id: 'Klik untuk mengirim email pemulihan',
         vi: 'Nhấp để gửi email khôi phục mật khẩu',
+        uk: 'Натисніть, щоб надіслати лист для відновлення пароля',
       }),
     },
     resendRecoveryEmailButton: {
@@ -102,6 +106,7 @@ const askResetPasswordContent = {
         pl: 'Wyślij ponownie e-mail odzyskiwania',
         id: 'Kirim ulang email pemulihan',
         vi: 'Gửi lại email khôi phục mật khẩu',
+        uk: 'Надіслати лист для відновлення повторно',
       }),
     },
     resendInText: t({
@@ -122,6 +127,7 @@ const askResetPasswordContent = {
       pl: 'Wyślij ponownie za',
       id: 'Kirim ulang dalam',
       vi: 'Gửi lại trong',
+      uk: 'Надіслати повторно через',
     }),
     backToLoginButton: {
       text: t({
@@ -142,6 +148,7 @@ const askResetPasswordContent = {
         pl: 'Powrót do logowania',
         id: 'Kembali ke login',
         vi: 'Quay lại đăng nhập',
+        uk: 'Повернутися до входу',
       }),
     },
   },

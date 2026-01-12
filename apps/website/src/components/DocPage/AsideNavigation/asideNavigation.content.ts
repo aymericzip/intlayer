@@ -21,6 +21,7 @@ const asideNavigationContent = {
       pl: 'Na tej stronie',
       id: 'Di halaman ini',
       vi: 'Trong trang này',
+      uk: 'На цій сторінці',
     }),
     linkLabel: t({
       ar: 'اذهب إلى القسم',
@@ -40,6 +41,7 @@ const asideNavigationContent = {
       pl: 'Przejdź do sekcji',
       id: 'Pergi ke bagian',
       vi: 'Đi tới phần',
+      uk: 'Перейти до розділу',
     }),
     collapseButton: {
       label: t({
@@ -60,6 +62,7 @@ const asideNavigationContent = {
         pl: 'Zwiń',
         id: 'Sembunyikan',
         vi: 'Thu gọn',
+        uk: 'Згорнути',
       }),
     },
   },

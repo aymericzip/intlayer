@@ -22,6 +22,7 @@ export const confirmationStepContent = {
         pl: 'Potwierdzenie',
         id: 'Konfirmasi',
         vi: 'Xác nhận',
+        uk: 'Підтвердження',
       }),
       hiText: t({
         en: 'Hi {name}!',
@@ -41,6 +42,7 @@ export const confirmationStepContent = {
         pl: 'Cześć {name}!',
         id: 'Hai {name}!',
         vi: 'Chào {name}!',
+        uk: 'Привіт, {name}!',
       }),
       description: t({
         en: 'You are now ready to start using Intlayer.',
@@ -60,6 +62,7 @@ export const confirmationStepContent = {
         pl: 'Teraz możesz zacząć korzystać z Intlayer.',
         id: 'Anda sekarang siap untuk mulai menggunakan Intlayer.',
         vi: 'Bạn đã sẵn sàng bắt đầu sử dụng Intlayer.',
+        uk: 'Тепер ви готові почати користуватися Intlayer.',
       }),
     },
     goToDashboardButton: {
@@ -81,6 +84,7 @@ export const confirmationStepContent = {
         pl: 'Przejdź do pulpitu',
         id: 'Buka dashboard',
         vi: 'Đi đến dashboard',
+        uk: 'Перейти до панелі керування',
       }),
       text: t({
         en: 'Go to dashboard',
@@ -100,6 +104,7 @@ export const confirmationStepContent = {
         pl: 'Przejdź do pulpitu',
         id: 'Buka dashboard',
         vi: 'Đi đến dashboard',
+        uk: 'Перейти до панелі керування',
       }),
     },
   },

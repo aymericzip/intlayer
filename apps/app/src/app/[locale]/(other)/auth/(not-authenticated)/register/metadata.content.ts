@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Zarejestruj się | Intlayer',
       id: 'Daftar | Intlayer',
       vi: 'Đăng ký | Intlayer',
+      uk: 'Реєстрація | Intlayer',
     }),
     description: t({
       en: 'Create a new account on Intlayer to start exploring personalized content and features.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Utwórz nowe konto w Intlayer, aby rozpocząć odkrywanie spersonalizowanych treści i funkcji.',
       id: 'Buat akun baru di Intlayer untuk mulai menjelajahi konten dan fitur yang dipersonalisasi.',
       vi: 'Tạo tài khoản mới trên Intlayer để bắt đầu khám phá nội dung và các tính năng được cá nhân hóa.',
+      uk: 'Створіть новий обліковий запис на Intlayer, щоб почати досліджувати персоналізований контент та функції.',
     }),
 
     keywords: t<string[]>({
@@ -136,6 +138,14 @@ const metadataContent = {
         'Đăng ký tài khoản',
         'Intlayer',
         'Tài khoản',
+        'React',
+        'JavaScript',
+      ],
+      uk: [
+        'Реєстрація',
+        'Зареєструватися',
+        'Intlayer',
+        'Обліковий запис',
         'React',
         'JavaScript',
       ],

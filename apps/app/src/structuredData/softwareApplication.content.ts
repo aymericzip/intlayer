@@ -21,6 +21,7 @@ export default {
       pl: 'Programiści, menedżerowie treści',
       id: 'Pengembang, Manajer Konten',
       vi: 'Nhà phát triển, Người quản lý nội dung',
+      uk: 'Розробники, менеджери контенту',
     }),
     description: t({
       en: 'i18n for Next.js & React. Easily build multilingual sites with AI-powered visual editor for your translations. TypeScript internationalization.',
@@ -41,6 +42,7 @@ export default {
       pl: 'i18n dla Next.js i React. Łatwo twórz wielojęzyczne strony przy użyciu wizualnego edytora zasilanego przez AI do obsługi tłumaczeń. Internacjonalizacja w TypeScript.',
       id: 'i18n untuk Next.js & React. Bangun situs multibahasa dengan mudah menggunakan editor visual bertenaga AI untuk terjemahan Anda. Internasionalisasi TypeScript.',
       vi: 'i18n cho Next.js & React. Dễ dàng xây dựng các trang đa ngôn ngữ với trình soạn thảo trực quan hỗ trợ AI cho bản dịch của bạn. Hỗ trợ quốc tế hóa cho TypeScript.',
+      uk: 'i18n для Next.js і React. Легко створюйте багатомовні сайти за допомогою візуального редактора на базі ШІ для ваших перекладів. Інтернаціоналізація для TypeScript.',
     }),
     keywords: t<string[]>({
       en: [
@@ -291,6 +293,20 @@ export default {
         'React',
         'CMS',
         'Hệ thống quản lý nội dung',
+      ],
+      uk: [
+        'переклад',
+        'локалізація',
+        'багатомовність',
+        'інтернаціоналізація',
+        'i18n',
+        'веб-розробка',
+        'Next.js',
+        'JavaScript',
+        'Vite',
+        'React',
+        'CMS',
+        'система керування контентом',
       ],
     }),
   },

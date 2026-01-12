@@ -21,6 +21,7 @@ const deleteProjectModalContent = {
       pl: 'Usuń {{memberName}} z organizacji',
       id: 'Hapus {{memberName}} dari Organisasi',
       vi: 'Xóa {{memberName}} khỏi tổ chức',
+      uk: 'Видалити {{memberName}} з організації',
     }),
 
     description: t({
@@ -42,6 +43,7 @@ const deleteProjectModalContent = {
       pl: 'Czy na pewno chcesz usunąć tego członka z organizacji?',
       id: 'Apakah Anda yakin ingin menghapus anggota ini dari organisasi?',
       vi: 'Bạn có chắc chắn muốn xóa thành viên này khỏi tổ chức không?',
+      uk: 'Ви впевнені, що хочете видалити цього члена з організації?',
     }),
 
     confirmButton: {
@@ -63,6 +65,7 @@ const deleteProjectModalContent = {
         pl: 'Usuń',
         id: 'Hapus',
         vi: 'Xóa',
+        uk: 'Видалити',
       }),
       label: t({
         en: 'Click to remove member from organization',
@@ -82,6 +85,7 @@ const deleteProjectModalContent = {
         pl: 'Kliknij, aby usunąć członka z organizacji',
         id: 'Klik untuk menghapus anggota dari organisasi',
         vi: 'Nhấn để xóa thành viên khỏi tổ chức',
+        uk: 'Натисніть, щоб видалити члена з організації',
       }),
     },
 
@@ -104,6 +108,7 @@ const deleteProjectModalContent = {
         pl: 'Anuluj',
         id: 'Batal',
         vi: 'Hủy',
+        uk: 'Скасувати',
       }),
       label: t({
         en: 'Click to cancel',
@@ -123,6 +128,7 @@ const deleteProjectModalContent = {
         pl: 'Kliknij, aby anulować',
         id: 'Klik untuk membatalkan',
         vi: 'Nhấn để hủy',
+        uk: 'Натисніть, щоб скасувати',
       }),
     },
   },

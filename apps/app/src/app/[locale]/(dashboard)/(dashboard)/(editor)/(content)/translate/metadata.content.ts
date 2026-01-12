@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Edytor | Panel | Intlayer',
       id: 'Editor | Dasbor | Intlayer',
       vi: 'Editor | Bảng điều khiển | Intlayer',
+      uk: 'Редактор | Панель керування | Intlayer',
     }),
     description: t({
       ar: 'إدارة محتوى موقعك باستخدام محرر الفيديو لـ Intlayer.',
@@ -41,6 +42,7 @@ const metadataContent = {
       pl: 'Zarządzaj zawartością swojej strony internetowej za pomocą wizualnego edytora Intlayer.',
       id: 'Kelola konten situs web Anda menggunakan editor visual Intlayer.',
       vi: 'Quản lý nội dung trang web của bạn bằng Visual Editor của Intlayer.',
+      uk: 'Керуйте вмістом свого сайту за допомогою візуального редактора Intlayer.',
     }),
     keywords: t({
       ar: ['CMS', 'نظام إدارة المحتوى', 'محرر الفيديو', 'محرر', 'لوحة القيادة'],
@@ -137,6 +139,13 @@ const metadataContent = {
         'Visual Editor',
         'Editor',
         'Bảng điều khiển',
+      ],
+      uk: [
+        'Система керування контентом',
+        'Система керування контентом',
+        'Візуальний редактор',
+        'Редактор',
+        'Панель керування',
       ],
     }),
   },

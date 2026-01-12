@@ -2,9 +2,9 @@ import { type Dictionary, t } from 'intlayer';
 
 const finalCtaContent = {
   key: 'cms-landing-final-cta',
-  title: 'CMS landing page final CTA section content',
+  title: 'CMS landing page final CTA',
   description:
-    'Content declarations for the CMS landing page final CTA section.',
+    'Final call-to-action section content for the CMS landing page, including title, description and primary/secondary button labels.',
   content: {
     finalCtaTitle: t({
       en: 'Ready to unify your content workflow?',
@@ -24,6 +24,7 @@ const finalCtaContent = {
       pl: 'Gotowy do ujednolicenia przepływu pracy z treścią?',
       id: 'Siap menyatukan alur kerja konten Anda?',
       vi: 'Sẵn sàng thống nhất quy trình làm việc nội dung của bạn?',
+      uk: 'Готові уніфікувати свій робочий процес із контентом?',
     }),
     finalCtaDescription: t({
       en: 'Start for free. Scale as you grow. No credit card required.',
@@ -43,6 +44,7 @@ const finalCtaContent = {
       pl: 'Zacznij za darmo. Skaluj się wraz ze wzrostem. Karta kredytowa nie jest wymagana.',
       id: 'Mulai gratis. Skala saat Anda tumbuh. Tidak perlu kartu kredit.',
       vi: 'Bắt đầu miễn phí. Mở rộng khi bạn phát triển. Không cần thẻ tín dụng.',
+      uk: 'Почніть безкоштовно. Масштабуйте в міру зростання. Кредитна картка не потрібна.',
     }),
     finalCtaPrimary: t({
       en: 'Get started free',
@@ -62,6 +64,7 @@ const finalCtaContent = {
       pl: 'Zacznij za darmo',
       id: 'Mulai gratis',
       vi: 'Bắt đầu miễn phí',
+      uk: 'Почати безкоштовно',
     }),
     finalCtaSecondary: t({
       en: 'View pricing',
@@ -81,8 +84,10 @@ const finalCtaContent = {
       pl: 'Zobacz ceny',
       id: 'Lihat harga',
       vi: 'Xem giá',
+      uk: 'Переглянути тарифи',
     }),
   },
+  tags: ['cms', 'landing-page', 'cta'],
 } satisfies Dictionary;
 
 export default finalCtaContent;

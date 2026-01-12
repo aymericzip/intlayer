@@ -22,6 +22,7 @@ export const dictionaryFormContent = {
         pl: 'Klucz',
         id: 'Key',
         vi: 'Key',
+        uk: 'Ключ',
       }),
       placeholder: t({
         en: 'Enter the key of your dictionary',
@@ -41,6 +42,7 @@ export const dictionaryFormContent = {
         pl: 'Wprowadź klucz słownika',
         id: 'Masukkan key dictionary Anda',
         vi: 'Nhập key của từ điển của bạn',
+        uk: 'Введіть ключ вашого словника',
       }),
     },
 
@@ -63,6 +65,7 @@ export const dictionaryFormContent = {
         pl: 'Projekty',
         id: 'Projects',
         vi: 'Dự án',
+        uk: 'Проєкти',
       }),
       placeholder: t({
         en: 'Select one or more projects to associate with your dictionary',
@@ -83,6 +86,7 @@ export const dictionaryFormContent = {
         pl: 'Wybierz jeden lub więcej projektów do powiązania z tym słownikiem',
         id: 'Pilih satu atau lebih Projects untuk dikaitkan dengan dictionary Anda',
         vi: 'Chọn một hoặc nhiều dự án để liên kết với từ điển của bạn',
+        uk: "Виберіть один або кілька проєктів, щоб пов'язати їх із вашим словником",
       }),
     },
 
@@ -105,6 +109,7 @@ export const dictionaryFormContent = {
         pl: 'Brak słownika',
         id: 'Tidak ada dictionary',
         vi: 'Chưa có từ điển',
+        uk: 'Немає словника',
       }),
       description: t({
         en: 'Create your first dictionary to start using Intlayer',
@@ -124,6 +129,7 @@ export const dictionaryFormContent = {
         pl: 'Utwórz swój pierwszy słownik, aby zacząć korzystać z Intlayer',
         id: 'Buat dictionary pertama Anda untuk mulai menggunakan Intlayer',
         vi: 'Tạo từ điển đầu tiên của bạn để bắt đầu sử dụng Intlayer',
+        uk: 'Створіть свій перший словник, щоб почати користуватися Intlayer',
       }),
     },
 
@@ -145,6 +151,7 @@ export const dictionaryFormContent = {
       pl: 'Brak słownika',
       id: 'Tidak ada dictionary',
       vi: 'Chưa có từ điển',
+      uk: 'Немає словника',
     }),
 
     createDictionaryDescription: t({
@@ -165,6 +172,7 @@ export const dictionaryFormContent = {
       pl: 'Utwórz swój pierwszy słownik, aby zacząć korzystać z Intlayer',
       id: 'Buat dictionary pertama Anda untuk mulai menggunakan Intlayer',
       vi: 'Tạo từ điển đầu tiên của bạn để bắt đầu sử dụng Intlayer',
+      uk: 'Створіть свій перший словник, щоб почати користуватися Intlayer',
     }),
 
     createDictionaryButton: {
@@ -186,6 +194,7 @@ export const dictionaryFormContent = {
         pl: 'Utwórz słownik',
         id: 'Buat dictionary',
         vi: 'Tạo từ điển',
+        uk: 'Створити словник',
       }),
       ariaLabel: t({
         en: 'Click to create dictionary',
@@ -205,6 +214,7 @@ export const dictionaryFormContent = {
         pl: 'Kliknij, aby utworzyć słownik',
         id: 'Klik untuk membuat dictionary',
         vi: 'Nhấn để tạo từ điển',
+        uk: 'Натисніть, щоб створити словник',
       }),
     },
 
@@ -227,6 +237,7 @@ export const dictionaryFormContent = {
         pl: 'Edytuj słownik',
         id: 'Edit dictionary',
         vi: 'Chỉnh sửa từ điển',
+        uk: 'Редагувати словник',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -246,6 +257,7 @@ export const dictionaryFormContent = {
         pl: 'Kliknij, aby edytować',
         id: 'Klik untuk mengedit',
         vi: 'Nhấn để chỉnh sửa',
+        uk: 'Натисніть, щоб редагувати словник',
       }),
     },
   },

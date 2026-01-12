@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Zadaj swoje pytanie naszej inteligentnej dokumentacji zasilanej sztuczną inteligencją',
       id: 'Ajukan pertanyaan Anda ke Smart Documentation bertenaga AI kami',
       vi: 'Hãy đặt câu hỏi cho tài liệu thông minh được hỗ trợ bởi AI của chúng tôi.',
+      uk: 'Задайте своє питання нашій розумній документації з підтримкою ШІ',
     }),
   },
   title: 'Documentation chat page',

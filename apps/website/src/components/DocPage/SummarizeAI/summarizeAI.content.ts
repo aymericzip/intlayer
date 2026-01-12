@@ -21,6 +21,7 @@ const summarizeAIContent = {
       pl: 'Prześlij ten dokument do swojego ulubionego asystenta AI',
       id: 'Referensikan dokumen ini ke asisten AI favorit Anda',
       vi: 'Tham chiếu tài liệu này tới trợ lý AI yêu thích của bạn',
+      uk: 'Надішліть цей документ вашому улюбленому AI-асистенту',
     }),
     description: t({
       en: 'Ask your question and get a summary of the document by referencing this page and the AI provider of your choice',
@@ -41,6 +42,7 @@ const summarizeAIContent = {
       pl: 'Zadaj pytanie i otrzymaj streszczenie dokumentu, odwołując się do tej strony i wybranego dostawcy AI',
       id: 'Ajukan pertanyaan Anda dan dapatkan ringkasan dokumen dengan merujuk halaman ini dan penyedia AI pilihan Anda',
       vi: 'Đặt câu hỏi và nhận tóm tắt tài liệu bằng cách tham chiếu trang này và nhà cung cấp AI bạn chọn',
+      uk: 'Задайте питання та отримайте підсумок документа, вказавши цю сторінку та обраного вами постачальника штучного інтелекту',
     }),
     summarizeLabel: insert(
       t({
@@ -59,6 +61,7 @@ const summarizeAIContent = {
         pt: 'Resumir com {{provider}}',
         ru: 'Суммируйте документ, используя {{provider}}',
         tr: '{{provider}} kullanarak özetle',
+        uk: 'Підсумувати за допомогою {{provider}}',
         vi: 'Tóm tắt bằng {{provider}}',
         zh: '使用{{provider}}总结',
       })
@@ -80,6 +83,7 @@ const summarizeAIContent = {
         pt: 'Resumir o documento seguinte : {{url}}',
         ru: 'Суммируйте документ, используя {{url}}',
         tr: 'Aşağıdaki dokümanı özetle : {{url}}',
+        uk: 'Підсумуйте наступний документ: {{url}}',
         vi: 'Tóm tắt tài liệu sau: {{url}}',
         zh: '总结以下文档 : {{url}}',
       })

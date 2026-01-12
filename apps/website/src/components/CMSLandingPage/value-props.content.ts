@@ -2,9 +2,9 @@ import { type Dictionary, t } from 'intlayer';
 
 const valuePropsContent = {
   key: 'cms-landing-value-props',
-  title: 'CMS landing page value propositions section content',
+  title: 'CMS Landing Page — Value Propositions',
   description:
-    'Content declarations for the CMS landing page value propositions section.',
+    'Content declaration for the CMS landing page value propositions section, including the section title and a list of value propositions (id, icon, title, description).',
   content: {
     valuePropsTitle: t({
       en: 'Why teams choose Intlayer CMS',
@@ -24,6 +24,7 @@ const valuePropsContent = {
       pl: 'Dlaczego zespoły wybierają Intlayer CMS',
       id: 'Mengapa tim memilih Intlayer CMS',
       vi: 'Tại sao các nhóm chọn Intlayer CMS',
+      uk: 'Чому команди обирають Intlayer CMS',
     }),
     valueProps: [
       {
@@ -47,6 +48,7 @@ const valuePropsContent = {
           pl: 'Code-first, nie tylko kod',
           id: 'Code-first, bukan hanya kode',
           vi: 'Code-first, không chỉ là code',
+          uk: 'Код перш за все — не лише код',
         }),
         description: t({
           en: 'Content lives in your repo as source of truth. The CMS syncs and extends, never replaces.',
@@ -67,6 +69,7 @@ const valuePropsContent = {
           pl: 'Treść żyje w Twoim repozytorium jako źródło prawdy. CMS synchronizuje i rozszerza, nigdy nie zastępuje.',
           id: 'Konten hidup di repo Anda sebagai sumber kebenaran. CMS menyinkronkan dan memperluas, tidak pernah mengganti.',
           vi: 'Nội dung sống trong repo của bạn như nguồn sự thật. CMS đồng bộ và mở rộng, không bao giờ thay thế.',
+          uk: 'Контент зберігається у вашому репозиторії як єдине джерело правди. CMS синхронізує та розширює його, але ніколи не замінює.',
         }),
       },
       {
@@ -90,6 +93,7 @@ const valuePropsContent = {
           pl: 'Zero wtyczek, zero niespodziewanych kosztów',
           id: 'Nol plugin, nol biaya mengejutkan',
           vi: 'Không plugin, không chi phí bất ngờ',
+          uk: 'Жодних плагінів, жодних несподіваних витрат',
         }),
         description: t({
           en: 'Multilingual content management is built-in. No add-ons needed for localization, versioning, or collaboration.',
@@ -110,6 +114,7 @@ const valuePropsContent = {
           pl: 'Wielojęzyczne zarządzanie treścią jest wbudowane. Nie są potrzebne dodatki do lokalizacji, wersjonowania lub współpracy.',
           id: 'Manajemen konten multibahasa sudah terpasang. Tidak perlu add-on untuk lokalisasi, versioning, atau kolaborasi.',
           vi: 'Quản lý nội dung đa ngôn ngữ được tích hợp sẵn. Không cần tiện ích bổ sung cho bản địa hóa, phiên bản hoặc cộng tác.',
+          uk: 'Підтримка багатомовного управління контентом вбудована. Немає потреби в додаткових модулях для локалізації, версіювання чи спільної роботи.',
         }),
       },
       {
@@ -133,6 +138,7 @@ const valuePropsContent = {
           pl: 'Publikuj treść 10× szybciej',
           id: 'Kirim konten 10× lebih cepat',
           vi: 'Gửi nội dung nhanh hơn 10 lần',
+          uk: 'Публікуйте контент у 10 разів швидше',
         }),
         description: t({
           en: 'Live sync pushes changes instantly. No rebuild required. Update copy in production while users browse.',
@@ -153,10 +159,12 @@ const valuePropsContent = {
           pl: 'Synchronizacja na żywo natychmiast wysyła zmiany. Nie jest wymagana przebudowa. Aktualizuj treść w produkcji, gdy użytkownicy przeglądają.',
           id: 'Sinkronisasi langsung mendorong perubahan secara instan. Tidak perlu rebuild. Perbarui konten di produksi saat pengguna menjelajah.',
           vi: 'Đồng bộ trực tiếp đẩy thay đổi ngay lập tức. Không cần rebuild. Cập nhật nội dung trong sản xuất khi người dùng duyệt.',
+          uk: 'Жива синхронізація миттєво застосовує зміни. Перебудова не потрібна. Оновлюйте тексти у робочому середовищі, поки користувачі переглядають сайт.',
         }),
       },
     ],
   },
+  tags: ['cms', 'landing-page', 'value-propositions'],
 } satisfies Dictionary;
 
 export default valuePropsContent;

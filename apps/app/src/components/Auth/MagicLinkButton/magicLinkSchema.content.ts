@@ -21,6 +21,7 @@ const magicLinkSchemaContent = {
       pl: 'E-mail jest wymagany',
       id: 'Email wajib diisi',
       vi: 'Email là bắt buộc',
+      uk: 'Електронну адресу потрібно вказати',
     }),
     invalidTypeErrorEmail: t({
       en: 'Invalid email address',
@@ -40,8 +41,13 @@ const magicLinkSchemaContent = {
       pl: 'Nieprawidłowy adres e-mail',
       id: 'Alamat email tidak valid',
       vi: 'Địa chỉ email không hợp lệ',
+      uk: 'Некоректна електронна адреса',
     }),
   },
+  title: 'Magic link schema',
+  description:
+    'Validation messages for the Magic Link authentication form, including required email and invalid email error messages.',
+  tags: ['auth', 'magic link', 'validation', 'email'],
 } satisfies Dictionary;
 
 export default magicLinkSchemaContent;

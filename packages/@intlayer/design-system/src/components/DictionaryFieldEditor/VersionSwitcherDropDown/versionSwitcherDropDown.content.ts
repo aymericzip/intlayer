@@ -21,6 +21,7 @@ const versionSwitcherContent = {
       pl: 'Wybór wersji',
       id: 'Pemilih versi',
       vi: 'Trình chọn phiên bản',
+      uk: 'Перемикач версій',
     }),
     versionListLabel: t({
       en: 'Version list',
@@ -40,6 +41,7 @@ const versionSwitcherContent = {
       pl: 'Lista wersji',
       id: 'Daftar versi',
       vi: 'Danh sách phiên bản',
+      uk: 'Список версій',
     }),
     switchTo: t({
       en: 'Switch to',
@@ -59,6 +61,7 @@ const versionSwitcherContent = {
       pl: 'Przełącz na',
       id: 'Beralih ke',
       vi: 'Chuyển sang',
+      uk: 'Перейти на',
     }),
   },
   title: 'Version switcher',

@@ -21,6 +21,7 @@ const definePasswordStepContent = {
       pl: 'Zdefiniuj hasło',
       id: 'Tentukan kata sandi',
       vi: 'Đặt mật khẩu',
+      uk: 'Встановіть пароль',
     }),
 
     newPasswordInput: {
@@ -42,6 +43,7 @@ const definePasswordStepContent = {
         pl: 'Hasło',
         id: 'Kata sandi',
         vi: 'Mật khẩu',
+        uk: 'Пароль',
       }),
       placeholder: t({
         en: 'Enter password',
@@ -61,6 +63,7 @@ const definePasswordStepContent = {
         pl: 'Wprowadź hasło',
         id: 'Masukkan kata sandi',
         vi: 'Nhập mật khẩu',
+        uk: 'Введіть пароль',
       }),
     },
     confirmPasswordInput: {
@@ -82,6 +85,7 @@ const definePasswordStepContent = {
         pl: 'Potwierdź hasło',
         id: 'Konfirmasi kata sandi',
         vi: 'Xác nhận mật khẩu',
+        uk: 'Підтвердьте пароль',
       }),
       placeholder: t({
         en: 'Confirm password',
@@ -101,6 +105,7 @@ const definePasswordStepContent = {
         pl: 'Potwierdź hasło',
         id: 'Konfirmasi kata sandi',
         vi: 'Nhập lại mật khẩu',
+        uk: 'Підтвердьте пароль',
       }),
     },
   },

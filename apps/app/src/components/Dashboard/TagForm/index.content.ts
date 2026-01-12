@@ -22,6 +22,7 @@ const tagFormContent = {
       pl: 'Nie jesteś administratorem tego tagu. Skontaktuj się z administratorem, jeśli chcesz go edytować.',
       id: 'Anda bukan admin tag ini. Hubungi administrator jika ingin mengedit tag ini.',
       vi: 'Bạn không phải là admin của tag này. Liên hệ admin của bạn nếu bạn muốn chỉnh sửa tag.',
+      uk: 'Ви не є адміністратором цього тегу. Зверніться до адміністратора, якщо хочете редагувати тег.',
     }),
 
     keyInput: {
@@ -43,6 +44,7 @@ const tagFormContent = {
         pl: 'Klucz',
         id: 'Key',
         vi: 'Key',
+        uk: 'Ключ',
       }),
       description: t({
         en: 'Identify your tag with a unique key',
@@ -62,6 +64,7 @@ const tagFormContent = {
         pl: 'Zidentyfikuj swój tag za pomocą unikalnego klucza',
         id: 'Identifikasi tag Anda dengan key yang unik',
         vi: 'Xác định tag của bạn bằng một key duy nhất',
+        uk: 'Визначте тег за допомогою унікального ключа',
       }),
       placeholder: t({
         en: 'Enter the key of your tag',
@@ -81,6 +84,7 @@ const tagFormContent = {
         pl: 'Wprowadź klucz tagu',
         id: 'Masukkan key tag Anda',
         vi: 'Nhập key cho tag của bạn',
+        uk: 'Введіть ключ тегу',
       }),
     },
 
@@ -103,6 +107,7 @@ const tagFormContent = {
         pl: 'Nazwa',
         id: 'Nama',
         vi: 'Name',
+        uk: 'Назва',
       }),
       description: t({
         en: 'Title of your tag to help you identify it',
@@ -122,6 +127,7 @@ const tagFormContent = {
         pl: 'Nazwa tagu, która pomoże Ci go zidentyfikować',
         id: 'Judul tag Anda untuk membantu mengidentifikasinya',
         vi: 'Tên của tag giúp bạn nhận diện nó',
+        uk: 'Назва тегу, що допоможе вам його ідентифікувати',
       }),
       placeholder: t({
         en: 'Enter the name of the tag',
@@ -141,6 +147,7 @@ const tagFormContent = {
         pl: 'Wprowadź nazwę tagu',
         id: 'Masukkan nama tag',
         vi: 'Nhập tên của tag',
+        uk: 'Введіть назву тегу',
       }),
     },
 
@@ -163,6 +170,7 @@ const tagFormContent = {
         pl: 'Opis',
         id: 'Deskripsi',
         vi: 'Description',
+        uk: 'Опис',
       }),
       description: t({
         en: 'Description of your tag to help you udnerstand its purpose. This will also be used to search for your tag',
@@ -183,6 +191,7 @@ const tagFormContent = {
         pl: 'Opis tagu, który pomoże Ci zrozumieć jego przeznaczenie. Będzie on również używany do wyszukiwania tagu',
         id: 'Deskripsi tag Anda untuk membantu memahami tujuannya. Ini juga akan digunakan untuk mencari tag Anda',
         vi: 'Mô tả tag của bạn để giúp bạn hiểu mục đích của nó. Mục này cũng sẽ được dùng để tìm kiếm tag của bạn',
+        uk: 'Опис тегу, що допоможе зрозуміти його призначення. Також використовується для пошуку тегу',
       }),
 
       placeholder: t({
@@ -203,6 +212,7 @@ const tagFormContent = {
         pl: 'Wprowadź opis tagu',
         id: 'Masukkan deskripsi tag Anda',
         vi: 'Nhập mô tả cho tag của bạn',
+        uk: 'Введіть опис тегу',
       }),
     },
 
@@ -225,6 +235,7 @@ const tagFormContent = {
         pl: 'Instrukcje',
         id: 'Instruksi',
         vi: 'Instructions',
+        uk: 'Інструкції',
       }),
       description: t({
         en: 'Instructions are provided to AI to better understand your tag, and what rules to apply to a dictionary containing your tag',
@@ -245,6 +256,7 @@ const tagFormContent = {
         pl: 'Instrukcje przekazywane są do AI, aby lepiej zrozumiało tag i zasady, które należy stosować w słowniku zawierającym ten tag',
         id: 'Instruksi diberikan kepada AI untuk lebih memahami tag Anda dan aturan yang harus diterapkan pada kamus yang berisi tag ini',
         vi: 'Các hướng dẫn được cung cấp cho AI để hiểu rõ hơn về tag của bạn và những quy tắc áp dụng cho một dictionary chứa tag này',
+        uk: 'Інструкції надаються ШІ, щоб краще зрозуміти ваш тег і які правила застосовувати до словника, що містить цей тег',
       }),
       placeholder: t({
         en: 'Enter the instructions of your tag',
@@ -264,6 +276,7 @@ const tagFormContent = {
         pl: 'Wprowadź instrukcje dla tagu',
         id: 'Masukkan instruksi tag Anda',
         vi: 'Nhập hướng dẫn cho tag của bạn',
+        uk: 'Введіть інструкції для тегу',
       }),
     },
 
@@ -285,6 +298,7 @@ const tagFormContent = {
       pl: 'Brak tagu',
       id: 'Belum ada tag',
       vi: 'Chưa có tag',
+      uk: 'Немає тегів',
     }),
 
     createTagDescription: t({
@@ -306,6 +320,7 @@ const tagFormContent = {
       pl: 'Utwórz pierwszy tag, aby określić, jak AI może strukturyzować Twoje treści',
       id: 'Buat tag pertama Anda untuk menunjukkan bagaimana AI dapat mengatur konten Anda',
       vi: 'Tạo tag đầu tiên để chỉ cách AI có thể cấu trúc nội dung của bạn',
+      uk: 'Створіть перший тег, щоб вказати, як ШІ може структурувати ваш контент',
     }),
 
     createTagButton: {
@@ -327,6 +342,7 @@ const tagFormContent = {
         pl: 'Utwórz tag',
         id: 'Buat tag',
         vi: 'Tạo tag',
+        uk: 'Створити тег',
       }),
       ariaLabel: t({
         en: 'Click to create tag',
@@ -346,6 +362,7 @@ const tagFormContent = {
         pl: 'Kliknij, aby utworzyć tag',
         id: 'Klik untuk membuat tag',
         vi: 'Nhấp để tạo tag',
+        uk: 'Натисніть, щоб створити тег',
       }),
     },
 
@@ -368,6 +385,7 @@ const tagFormContent = {
         pl: 'Edytuj tag',
         id: 'Edit tag',
         vi: 'Chỉnh sửa tag',
+        uk: 'Редагувати тег',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -387,6 +405,7 @@ const tagFormContent = {
         pl: 'Kliknij, aby edytować',
         id: 'Klik untuk mengedit tag',
         vi: 'Nhấp để chỉnh sửa',
+        uk: 'Натисніть, щоб редагувати тег',
       }),
     },
     deleteButton: {
@@ -408,6 +427,7 @@ const tagFormContent = {
         pl: 'Usuń tag',
         id: 'Hapus tag',
         vi: 'Xóa tag',
+        uk: 'Видалити тег',
       }),
       ariaLabel: t({
         en: 'Click to delete tag',
@@ -427,6 +447,7 @@ const tagFormContent = {
         pl: 'Kliknij, aby usunąć tag',
         id: 'Klik untuk menghapus tag',
         vi: 'Nhấp để xóa tag',
+        uk: 'Натисніть, щоб видалити тег',
       }),
     },
     auditButton: {
@@ -448,6 +469,7 @@ const tagFormContent = {
         pl: 'Audyt',
         id: 'Audit',
         vi: 'Audit',
+        uk: 'Аудит',
       }),
     },
   },

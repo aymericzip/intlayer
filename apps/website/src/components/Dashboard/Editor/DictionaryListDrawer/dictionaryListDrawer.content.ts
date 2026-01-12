@@ -22,6 +22,7 @@ const dictionaryListDrawerContent = {
         pl: 'Lista słowników',
         id: 'Daftar kamus',
         vi: 'Danh sách từ điển',
+        uk: 'Список словників',
       }),
     },
     buttonLabel: {
@@ -42,6 +43,7 @@ const dictionaryListDrawerContent = {
           pt: 'Abrir editor de dicionário {{dictionaryLocalId}}',
           ru: 'Открыть редактор словаря {{dictionaryLocalId}}',
           tr: 'Sözlük düzenleyiciyi aç {{dictionaryLocalId}}',
+          uk: 'Відкрити редактор словника {{dictionaryLocalId}}',
           vi: 'Mở trình chỉnh sửa từ điển {{dictionaryLocalId}}',
           zh: '打开字典编辑器 {{dictionaryLocalId}}',
         })

@@ -21,6 +21,7 @@ const projectConfigDetailsContent = {
       pl: 'Konfiguracja projektu',
       id: 'Konfigurasi proyek',
       vi: 'Cấu hình dự án',
+      uk: 'Конфігурація проєкту',
     }),
     i18nSection: {
       title: t({
@@ -41,6 +42,7 @@ const projectConfigDetailsContent = {
         pl: 'Internacjonalizacja',
         id: 'Internasionalisasi',
         vi: 'Quốc tế hóa (i18n)',
+        uk: 'Інтернаціоналізація',
       }),
       localeListTitle: t({
         en: 'Available locales',
@@ -60,6 +62,7 @@ const projectConfigDetailsContent = {
         pl: 'Dostępne lokalizacje',
         id: 'Daftar locale yang tersedia',
         vi: 'Các locale khả dụng',
+        uk: 'Доступні локалі',
       }),
       defaultLocaleTitle: t({
         en: 'Default locale',
@@ -79,6 +82,7 @@ const projectConfigDetailsContent = {
         pl: 'Domyślna lokalizacja',
         id: 'Locale default',
         vi: 'Locale mặc định',
+        uk: 'Локаль за замовчуванням',
       }),
     },
 
@@ -101,6 +105,7 @@ const projectConfigDetailsContent = {
         pl: 'Edytor',
         id: 'Editor',
         vi: 'Editor',
+        uk: 'Редактор',
       }),
       applicationURL: {
         title: t({
@@ -121,6 +126,7 @@ const projectConfigDetailsContent = {
           pl: 'URL aplikacji',
           id: 'URL Aplikasi',
           vi: 'URL ứng dụng',
+          uk: 'URL застосунку',
         }),
         label: t({
           en: "Click to navigate to the application's URL",
@@ -140,6 +146,7 @@ const projectConfigDetailsContent = {
           pl: 'Kliknij, aby przejść do adresu URL aplikacji',
           id: 'Klik untuk membuka URL aplikasi',
           vi: 'Nhấp để điều hướng đến URL của ứng dụng',
+          uk: 'Натисніть, щоб перейти за URL застосунку',
         }),
       },
       cmsURL: {
@@ -161,6 +168,7 @@ const projectConfigDetailsContent = {
           pl: 'URL CMS',
           id: 'URL CMS',
           vi: 'URL CMS',
+          uk: 'URL CMS',
         }),
         label: t({
           en: 'Click to navigate to the CMS URL',
@@ -180,6 +188,7 @@ const projectConfigDetailsContent = {
           pl: 'Kliknij, aby przejść do adresu URL CMS',
           id: 'Klik untuk membuka URL CMS',
           vi: 'Nhấp để điều hướng đến URL của CMS',
+          uk: 'Натисніть, щоб перейти за URL CMS',
         }),
       },
     },
@@ -203,6 +212,7 @@ const projectConfigDetailsContent = {
         pl: 'Konfiguracja AI',
         id: 'Konfigurasi AI',
         vi: 'Cấu hình AI',
+        uk: 'Налаштування ШІ',
       }),
       provider: {
         title: t({
@@ -223,6 +233,7 @@ const projectConfigDetailsContent = {
           pl: 'Dostawca AI',
           id: 'Penyedia AI',
           vi: 'Nhà cung cấp AI',
+          uk: 'Провайдер ШІ',
         }),
       },
       model: {
@@ -244,6 +255,7 @@ const projectConfigDetailsContent = {
           pl: 'Model AI',
           id: 'Model AI',
           vi: 'Mô hình AI',
+          uk: 'Модель ШІ',
         }),
       },
       apiKey: {
@@ -265,6 +277,7 @@ const projectConfigDetailsContent = {
           pl: 'Klucz API',
           id: 'Kunci API',
           vi: 'Khóa API',
+          uk: 'API-ключ',
         }),
         configured: t({
           en: 'Configured',
@@ -284,6 +297,7 @@ const projectConfigDetailsContent = {
           pl: 'Skonfigurowano',
           id: 'Dikonfigurasi',
           vi: 'Đã cấu hình',
+          uk: 'Налаштовано',
         }),
         notConfigured: t({
           en: 'Not configured',
@@ -303,6 +317,7 @@ const projectConfigDetailsContent = {
           pl: 'Nie skonfigurowano',
           id: 'Tidak dikonfigurasi',
           vi: 'Chưa cấu hình',
+          uk: 'Не налаштовано',
         }),
       },
       applicationContext: {
@@ -324,6 +339,7 @@ const projectConfigDetailsContent = {
           pl: 'Kontekst aplikacji',
           id: 'Konteks Aplikasi',
           vi: 'Ngữ cảnh ứng dụng',
+          uk: 'Контекст застосунку',
         }),
       },
     },
@@ -348,6 +364,7 @@ const projectConfigDetailsContent = {
         pl: 'Nie przesłano konfiguracji. Najpierw wyślij konfigurację za pomocą CLI.',
         id: 'Belum ada konfigurasi yang dipush. Silakan push konfigurasi Anda terlebih dahulu menggunakan CLI.',
         vi: 'Chưa có cấu hình được đẩy. Vui lòng đẩy cấu hình của bạn trước bằng CLI.',
+        uk: 'Конфігурацію не надіслано. Будь ласка, спочатку надішліть конфігурацію за допомогою CLI.',
       }),
     },
     updateConfig: {
@@ -369,6 +386,7 @@ const projectConfigDetailsContent = {
         pl: 'Możesz zaktualizować konfigurację za pomocą CLI.',
         id: 'Anda dapat memperbarui konfigurasi Anda menggunakan CLI.',
         vi: 'Bạn có thể cập nhật cấu hình bằng CLI.',
+        uk: 'Ви можете оновити конфігурацію за допомогою CLI.',
       }),
     },
     pushConfigDocLink: {
@@ -390,6 +408,7 @@ const projectConfigDetailsContent = {
         pl: 'Zobacz, jak przesłać konfigurację',
         id: 'Lihat cara mempush konfigurasi Anda',
         vi: 'Xem cách đẩy cấu hình',
+        uk: 'Дізнайтеся, як надіслати конфігурацію',
       }),
       label: t({
         en: 'Click to go to the related documentation',
@@ -409,6 +428,7 @@ const projectConfigDetailsContent = {
         pl: 'Kliknij, aby przejść do powiązanej dokumentacji',
         id: 'Klik untuk membuka dokumentasi terkait',
         vi: 'Nhấp để đến tài liệu liên quan',
+        uk: 'Натисніть, щоб перейти до відповідної документації',
       }),
     },
   },

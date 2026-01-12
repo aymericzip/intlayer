@@ -21,6 +21,7 @@ export const signInSchemaContent = {
       pl: 'Proszę podać nazwę użytkownika',
       id: 'Silakan masukkan username Anda',
       vi: 'Vui lòng nhập username',
+      uk: "Будь ласка, введіть ім'я користувача",
     }),
 
     invalidTypeErrorEmail: t({
@@ -41,6 +42,7 @@ export const signInSchemaContent = {
       pl: 'Proszę podać poprawną nazwę użytkownika',
       id: 'Silakan masukkan username yang valid',
       vi: 'Vui lòng nhập một username hợp lệ',
+      uk: "Будь ласка, введіть коректне ім'я користувача",
     }),
 
     requiredErrorPassword: t({
@@ -61,6 +63,7 @@ export const signInSchemaContent = {
       pl: 'Proszę podać hasło',
       id: 'Silakan masukkan password Anda',
       vi: 'Vui lòng nhập password',
+      uk: 'Будь ласка, введіть свій пароль',
     }),
 
     invalidTypeErrorPassword: t({
@@ -81,6 +84,7 @@ export const signInSchemaContent = {
       pl: 'Proszę podać poprawne hasło',
       id: 'Silakan masukkan password yang valid',
       vi: 'Vui lòng nhập một password hợp lệ',
+      uk: 'Будь ласка, введіть коректний пароль',
     }),
   },
   title: 'Sign in form validation schema',

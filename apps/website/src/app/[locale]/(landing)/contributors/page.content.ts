@@ -26,6 +26,7 @@ const contributorsPageContent = {
       id: 'Kontributor',
       it: 'Collaboratori',
       vi: 'Người đóng góp',
+      uk: "Контриб'ютори",
     }),
     subtitle: t({
       en: 'Meet our amazing',
@@ -45,6 +46,7 @@ const contributorsPageContent = {
       id: 'Temui yang luar biasa',
       it: 'Incontra i nostri incredibili',
       vi: 'Gặp gỡ',
+      uk: 'Познайомтеся з нашими дивовижними',
     }),
   },
   title: 'Contributors page',

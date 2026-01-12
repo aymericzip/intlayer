@@ -51,7 +51,8 @@ export const navbarContent = {
         tr: 'Şirket logosu - Ana sayfaya git',
         pl: 'Logo firmy - przejdź do strony głównej',
         id: 'Logo perusahaan - Buka beranda',
-        vi: 'Logo công ty - Đến trang chủ', // Previously "Về trang chủ", but "Đến trang chủ" is more standard for "Go to home page"
+        vi: 'Logo công ty - Đến trang chủ',
+        uk: 'Логотип компанії — перейти на головну сторінку',
       }),
       url: PagesRoutes.Home,
     },
@@ -77,6 +78,7 @@ export const navbarContent = {
         pl: 'Przejdź do repozytorium na GitHubie',
         id: 'Buka repositori GitHub',
         vi: 'Đi đến kho GitHub',
+        uk: 'Перейти до репозиторію GitHub',
       }),
       gitHubLogoAlt: t({
         en: 'Github logo',
@@ -96,6 +98,7 @@ export const navbarContent = {
         pl: 'Logo GitHuba',
         id: 'Logo GitHub',
         vi: 'Biểu tượng GitHub',
+        uk: 'Логотип GitHub',
       }),
     },
     discord: {
@@ -120,6 +123,7 @@ export const navbarContent = {
         pl: 'Przejdź do serwera Discord',
         id: 'Buka server Discord',
         vi: 'Tham gia máy chủ Discord',
+        uk: 'Перейти на сервер Discord',
       }),
     },
 
@@ -142,6 +146,7 @@ export const navbarContent = {
         pl: 'Wyloguj',
         id: 'Keluar',
         vi: 'Đăng xuất',
+        uk: 'Вихід',
       }),
       label: t({
         en: 'Logout',
@@ -161,6 +166,7 @@ export const navbarContent = {
         pl: 'Wyloguj się',
         id: 'Keluar',
         vi: 'Đăng xuất',
+        uk: 'Вийти',
       }),
     },
     login: {
@@ -183,6 +189,7 @@ export const navbarContent = {
         pl: 'Zaloguj',
         id: 'Masuk',
         vi: 'Đăng nhập',
+        uk: 'Вхід',
       }),
       label: t({
         en: 'Go to login page',
@@ -202,6 +209,7 @@ export const navbarContent = {
         pl: 'Przejdź do strony logowania',
         id: 'Buka halaman masuk',
         vi: 'Đi đến trang đăng nhập',
+        uk: 'Перейти на сторінку входу',
       }),
     },
   },

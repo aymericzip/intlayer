@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Zapomniane hasło | Intlayer',
       id: 'Lupa Kata Sandi | Intlayer',
       vi: 'Quên mật khẩu | Intlayer',
+      uk: 'Відновлення пароля | Intlayer',
     }),
     description: t({
       en: 'Recover your Intlayer account by resetting your forgotten password. Follow the instructions to restore access.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Odzyskaj swoje konto Intlayer, resetując zapomniane hasło. Postępuj zgodnie z instrukcjami, aby przywrócić dostęp.',
       id: 'Pulihkan akun Intlayer Anda dengan mereset kata sandi yang terlupa. Ikuti petunjuk untuk memulihkan akses.',
       vi: 'Khôi phục tài khoản Intlayer của bạn bằng cách đặt lại mật khẩu đã quên. Làm theo hướng dẫn để lấy lại quyền truy cập.',
+      uk: 'Відновіть свій обліковий запис Intlayer, скинувши забутий пароль. Дотримуйтесь інструкцій, щоб відновити доступ.',
     }),
 
     keywords: t<string[]>({
@@ -154,6 +156,13 @@ const metadataContent = {
       vi: [
         'Quên mật khẩu',
         'Khôi phục mật khẩu',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      uk: [
+        'Забутий пароль',
+        'Відновлення пароля',
         'Intlayer',
         'React',
         'JavaScript',

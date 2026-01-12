@@ -22,6 +22,7 @@ const docNavTitlesContent = {
         pl: 'Zwiń',
         id: 'Ciutkan',
         vi: 'Thu gọn',
+        uk: 'Згорнути',
       }),
     },
     blogButton: {
@@ -43,6 +44,7 @@ const docNavTitlesContent = {
         pl: 'Przejdź do bloga',
         id: 'Kunjungi blog',
         vi: 'Đi tới blog',
+        uk: 'Перейти до блогу',
       }),
       text: t({
         en: 'Blog',
@@ -62,6 +64,7 @@ const docNavTitlesContent = {
         pl: 'Blog',
         id: 'Blog',
         vi: 'Blog',
+        uk: 'Блог',
       }),
     },
     chatBotButton: {
@@ -83,6 +86,7 @@ const docNavTitlesContent = {
         pl: 'Zadaj pytanie',
         id: 'Ajukan pertanyaan',
         vi: 'Đặt câu hỏi',
+        uk: 'Задати питання',
       }),
       label: t({
         en: 'Click to go to the AI powered smart documentation chatbot',
@@ -102,6 +106,7 @@ const docNavTitlesContent = {
         pl: 'Kliknij, aby przejść do inteligentnego chatbota dokumentacji napędzanego sztuczną inteligencją',
         id: 'Klik untuk membuka chatbot dokumentasi cerdas bertenaga AI',
         vi: 'Nhấp để truy cập chatbot thông minh hỗ trợ tài liệu, hoạt động bằng trí tuệ nhân tạo',
+        uk: 'Натисніть, щоб перейти до інтелектуального чат-бота документації на базі штучного інтелекту.',
       }),
     },
   },

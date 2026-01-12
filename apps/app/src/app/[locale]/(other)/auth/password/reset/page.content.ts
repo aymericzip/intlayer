@@ -21,6 +21,7 @@ const resetPasswordContent = {
       pl: 'Resetowanie hasła',
       id: 'Setel ulang password',
       vi: 'Đặt lại mật khẩu',
+      uk: 'Скидання пароля',
     }),
     title2: t({
       en: 'Reset your password',
@@ -40,6 +41,7 @@ const resetPasswordContent = {
       pl: 'Zresetuj swoje hasło',
       id: 'Setel ulang password Anda',
       vi: 'Đặt lại mật khẩu của bạn',
+      uk: 'Відновіть свій пароль',
     }),
     description: t({
       en: 'Enter your email to reset your password.',
@@ -59,6 +61,7 @@ const resetPasswordContent = {
       pl: 'Wprowadź swój adres e-mail, aby zresetować hasło.',
       id: 'Masukkan alamat email Anda untuk menyetel ulang password Anda.',
       vi: 'Nhập email của bạn để đặt lại mật khẩu.',
+      uk: 'Введіть адресу електронної пошти, щоб скинути пароль.',
     }),
   },
   title: 'Reset password page',

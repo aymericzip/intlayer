@@ -2,8 +2,9 @@ import { type Dictionary, t } from 'intlayer';
 
 const painPointsSectionContent = {
   key: 'pain-points-section',
-  title: 'TMS Landing Pain Points Section',
-  description: 'Pain points section content for TMS landing page',
+  title: 'TMS Landing — Pain Points Section',
+  description:
+    'Content for the Pain Points section of the TMS landing page, including the section heading and a list of common translation management pain points (unpredictable costs, sync conflicts, missing context).',
   content: {
     painPointsTitle: t({
       en: 'Tired of legacy translation platforms?',
@@ -23,6 +24,7 @@ const painPointsSectionContent = {
       pl: 'Zmęczony przestarzałymi platformami tłumaczeń?',
       id: 'Lelah dengan platform terjemahan lama?',
       vi: 'Mệt mỏi với các nền tảng dịch thuật cũ?',
+      uk: 'Втомилися від застарілих платформ перекладу?',
     }),
     painPoints: [
       {
@@ -46,6 +48,7 @@ const painPointsSectionContent = {
           pl: 'Nieprzewidywalne koszty',
           id: 'Biaya yang tidak dapat diprediksi',
           vi: 'Chi phí không thể dự đoán',
+          uk: 'Непередбачувані витрати',
         }),
         description: t({
           en: 'Paying per word, key, or seat makes scaling expensive. Intlayer offers flat, transparent pricing.',
@@ -66,6 +69,7 @@ const painPointsSectionContent = {
           pl: 'Płacenie za słowo, klucz lub miejsce sprawia, że skalowanie jest drogie. Intlayer oferuje stałe, przejrzyste ceny.',
           id: 'Membayar per kata, kunci, atau kursi membuat penskalaan menjadi mahal. Intlayer menawarkan harga tetap dan transparan.',
           vi: 'Trả tiền theo từ, khóa hoặc chỗ ngồi làm cho việc mở rộng trở nên đắt đỏ. Intlayer cung cấp giá cố định, minh bạch.',
+          uk: 'Оплата за слово, ключ або місце робить масштабування дорогим. Intlayer пропонує фіксовані, прозорі тарифи.',
         }),
       },
       {
@@ -89,6 +93,7 @@ const painPointsSectionContent = {
           pl: 'Konflikty synchronizacji',
           id: 'Konflik sinkronisasi',
           vi: 'Xung đột đồng bộ',
+          uk: 'Конфлікти синхронізації',
         }),
         description: t({
           en: 'Manually uploading JSON files leads to merge conflicts and outdated content. Intlayer syncs with your Git repo.',
@@ -109,6 +114,7 @@ const painPointsSectionContent = {
           pl: 'Ręczne przesyłanie plików JSON prowadzi do konfliktów scalania i nieaktualnej treści. Intlayer synchronizuje się z Twoim repozytorium Git.',
           id: 'Mengunggah file JSON secara manual menyebabkan konflik penggabungan dan konten yang kedaluwarsa. Intlayer menyinkronkan dengan repo Git Anda.',
           vi: 'Tải lên tệp JSON thủ công dẫn đến xung đột hợp nhất và nội dung lỗi thời. Intlayer đồng bộ với kho Git của bạn.',
+          uk: 'Ручне завантаження JSON‑файлів призводить до конфліктів злиття та застарілого контенту. Intlayer синхронізується з вашим Git‑репозиторієм.',
         }),
       },
       {
@@ -132,6 +138,7 @@ const painPointsSectionContent = {
           pl: 'Brakujący kontekst',
           id: 'Konteks yang hilang',
           vi: 'Thiếu ngữ cảnh',
+          uk: 'Брак контексту',
         }),
         description: t({
           en: 'Translators work on spreadsheets without seeing the app. Intlayer provides a visual editor with live preview.',
@@ -152,10 +159,12 @@ const painPointsSectionContent = {
           pl: 'Tłumacze pracują na arkuszach kalkulacyjnych bez widzenia aplikacji. Intlayer zapewnia edytor wizualny z podglądem na żywo.',
           id: 'Penerjemah bekerja di spreadsheet tanpa melihat aplikasi. Intlayer menyediakan editor visual dengan pratinjau langsung.',
           vi: 'Người dịch làm việc trên bảng tính mà không thấy ứng dụng. Intlayer cung cấp trình chỉnh sửa trực quan với bản xem trước trực tiếp.',
+          uk: 'Перекладачі працюють у таблицях, не бачачи застосунку. Intlayer надає візуальний редактор із живим попереднім переглядом.',
         }),
       },
     ],
   },
+  tags: ['tms', 'landing page', 'pain points', 'section'],
 } satisfies Dictionary;
 
 export default painPointsSectionContent;

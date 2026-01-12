@@ -20,6 +20,7 @@ const longPressMessageContent = {
         pt: 'Pressione longa para editar o dicionário "{{dictionaryKey}}"',
         ru: 'Длительное нажатие для редактирования словаря "{{dictionaryKey}}"',
         tr: '"{{dictionaryKey}}" sözlüğünü düzenlemek için uzun basın',
+        uk: 'Натисніть і утримуйте, щоб редагувати словник «{{dictionaryKey}}»',
         vi: 'Nhấn và giữ để chỉnh sửa từ điển "{{dictionaryKey}}"',
         zh: '长按编辑 "{{dictionaryKey}}" 字典',
       })

@@ -21,6 +21,7 @@ const tagDashboardContent = {
       pl: 'Ustawienia tagów',
       id: 'Pengaturan tag',
       vi: 'Cài đặt thẻ',
+      uk: 'Налаштування тегів',
     }),
   },
   title: 'Tags dashboard page',

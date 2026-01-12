@@ -21,6 +21,7 @@ const deleteTagModalContent = {
       pl: 'Usuń tag',
       id: 'Hapus tag',
       vi: 'Xóa tag',
+      uk: 'Видалити тег',
     }),
 
     description: t({
@@ -41,6 +42,7 @@ const deleteTagModalContent = {
       pl: 'Czy na pewno chcesz usunąć ten tag?',
       id: 'Apakah Anda yakin ingin menghapus tag ini?',
       vi: 'Bạn có chắc chắn muốn xóa tag này không?',
+      uk: 'Ви впевнені, що хочете видалити цей тег?',
     }),
 
     confirmButton: {
@@ -62,6 +64,7 @@ const deleteTagModalContent = {
         pl: 'Usuń',
         id: 'Hapus',
         vi: 'Xóa',
+        uk: 'Видалити',
       }),
       label: t({
         en: 'Click to delete tag',
@@ -81,6 +84,7 @@ const deleteTagModalContent = {
         pl: 'Kliknij, aby usunąć tag',
         id: 'Klik untuk menghapus tag',
         vi: 'Nhấp để xóa tag',
+        uk: 'Натисніть, щоб видалити тег',
       }),
     },
 
@@ -103,6 +107,7 @@ const deleteTagModalContent = {
         pl: 'Anuluj',
         id: 'Batal',
         vi: 'Hủy',
+        uk: 'Скасувати',
       }),
       label: t({
         en: 'Click to cancel',
@@ -122,6 +127,7 @@ const deleteTagModalContent = {
         pl: 'Kliknij, aby anulować',
         id: 'Klik untuk membatalkan',
         vi: 'Nhấp để hủy',
+        uk: 'Натисніть, щоб скасувати',
       }),
     },
   },

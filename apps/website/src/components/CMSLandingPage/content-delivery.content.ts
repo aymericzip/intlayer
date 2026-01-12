@@ -2,9 +2,9 @@ import { type Dictionary, t } from 'intlayer';
 
 const contentDeliveryContent = {
   key: 'cms-landing-content-delivery',
-  title: 'CMS landing page content delivery section content',
+  title: 'CMS landing page — Content delivery',
   description:
-    'Content declarations for the CMS landing page content delivery section.',
+    "Content declarations for the CMS landing page's content delivery section, including delivery modes and descriptions for static, dynamic, and live-sync options.",
   content: {
     deliveryTitle: t({
       en: 'Deliver content your way',
@@ -24,6 +24,7 @@ const contentDeliveryContent = {
       pl: 'Dostarczaj treść po swojemu',
       id: 'Kirim konten dengan cara Anda',
       vi: 'Giao nội dung theo cách của bạn',
+      uk: 'Доставляйте контент у зручний для вас спосіб',
     }),
     deliveryDescription: t({
       en: 'Choose the delivery mode that fits your architecture, or mix them.',
@@ -44,6 +45,7 @@ const contentDeliveryContent = {
       pl: 'Wybierz tryb dostarczania, który pasuje do Twojej architektury, lub je zmieszaj.',
       id: 'Pilih mode pengiriman yang sesuai dengan arsitektur Anda, atau campurkan.',
       vi: 'Chọn chế độ giao hàng phù hợp với kiến trúc của bạn, hoặc kết hợp chúng.',
+      uk: 'Виберіть режим доставки, що підходить вашій архітектурі, або комбінуйте їх.',
     }),
     deliveryModes: [
       {
@@ -67,6 +69,7 @@ const contentDeliveryContent = {
           pl: 'Wbudowany (Statyczny)',
           id: 'Dibundel (Statis)',
           vi: 'Đóng gói (Tĩnh)',
+          uk: 'Упакована (статична)',
         }),
         description: t({
           en: 'Import content directly into your application bundle. High speed and zero latency, perfect for design systems.',
@@ -87,6 +90,7 @@ const contentDeliveryContent = {
           pl: 'Importuj treść bezpośrednio do paczki aplikacji. Wysoka prędkość i zerowe opóźnienie, idealne dla systemów designu.',
           id: 'Impor konten langsung ke dalam bundel aplikasi Anda. Kecepatan tinggi dan latensi nol, sempurna untuk sistem desain.',
           vi: 'Nhập nội dung trực tiếp vào gói ứng dụng của bạn. Tốc độ cao và độ trễ bằng không, hoàn hảo cho các hệ thống thiết kế.',
+          uk: 'Імпортуйте контент безпосередньо в бандл вашого застосунку. Висока швидкість і нульова затримка, ідеально підходить для систем дизайну.',
         }),
         badge: t({
           en: 'Maximum Speed',
@@ -106,6 +110,7 @@ const contentDeliveryContent = {
           pl: 'Maksymalna prędkość',
           id: 'Kecepatan Maksimum',
           vi: 'Tốc độ tối đa',
+          uk: 'Максимальна швидкість',
         }),
       },
       {
@@ -129,6 +134,7 @@ const contentDeliveryContent = {
           pl: 'Leniwe ładowanie (Dynamiczny)',
           id: 'Lazy Loaded (Dinamis)',
           vi: 'Tải chậm (Động)',
+          uk: 'Завантаження за потреби (динамічне)',
         }),
         description: t({
           en: 'Fetch only the necessary content via asynchronous imports. Reduces initial bundle size at the cost of a network request.',
@@ -149,6 +155,7 @@ const contentDeliveryContent = {
           pl: 'Pobieraj tylko niezbędną treść poprzez asynchroniczne importy. Zmniejsza początkowy rozmiar paczki kosztem zapytania sieciowego.',
           id: 'Ambil hanya konten yang diperlukan melalui impor asinkron. Mengurangi ukuran bundel awal dengan biaya permintaan jaringan.',
           vi: 'Chỉ lấy nội dung cần thiết thông qua nhập không đồng bộ. Giảm kích thước gói ban đầu với chi phí là một yêu cầu mạng.',
+          uk: 'Підвантажуйте лише необхідний контент через асинхронні імпорти. Зменшує початковий розмір бандлу за рахунок мережевого запиту.',
         }),
         badge: t({
           en: 'Optimized Bundle',
@@ -168,6 +175,7 @@ const contentDeliveryContent = {
           pl: 'Zoptymalizowana paczka',
           id: 'Bundel Teroptimasi',
           vi: 'Gói được tối ưu hóa',
+          uk: 'Оптимізований бандл',
         }),
       },
       {
@@ -191,6 +199,7 @@ const contentDeliveryContent = {
           pl: 'Synchronizacja na żywo',
           id: 'Sinkronisasi Langsung',
           vi: 'Đồng bộ trực tiếp',
+          uk: 'Жива синхронізація',
         }),
         description: t({
           en: 'Fetch content via a local proxy acting as a CDN. Apply content updates in production instantly without rebuilding.',
@@ -211,6 +220,7 @@ const contentDeliveryContent = {
           pl: 'Pobieraj treść przez lokalne proxy działające jako CDN. Wdrażaj aktualizacje na produkcji natychmiast bez przebudowy.',
           id: 'Ambil konten melalui proksi lokal yang bertindak sebagai CDN. Terapkan pembaruan konten di produksi secara instan tanpa membangun ulang.',
           vi: 'Lấy nội dung qua proxy cục bộ hoạt động như CDN. Áp dụng cập nhật nội dung trong sản xuất ngay lập tức mà không cần xây dựng lại.',
+          uk: 'Отримуйте контент через локальний проксі, що працює як CDN. Застосовуйте оновлення контенту в продуктивному середовищі миттєво, без перескладання.',
         }),
         badge: t({
           en: 'No Rebuild',
@@ -230,10 +240,12 @@ const contentDeliveryContent = {
           pl: 'Bez przebudowy',
           id: 'Tanpa Bangun Ulang',
           vi: 'Không cần xây dựng lại',
+          uk: 'Без перескладання',
         }),
       },
     ],
   },
+  tags: ['cms', 'landing page', 'content delivery', 'page section'],
 } satisfies Dictionary;
 
 export default contentDeliveryContent;

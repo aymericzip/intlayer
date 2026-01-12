@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Cennik CMS | Intlayer',
       id: 'Harga CMS | Intlayer',
       vi: 'Bảng giá CMS | Intlayer',
+      uk: 'Ціни CMS | Intlayer',
     }),
     description: t({
       en: 'Discover our pricing plans and get access to premium features with Intlayer. Choose the plan that suits you best.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Poznaj nasze plany cenowe i uzyskaj dostęp do funkcji premium w Intlayer. Wybierz plan, który najlepiej Ci odpowiada.',
       id: 'Temukan paket harga kami dan dapatkan akses ke fitur premium dengan Intlayer. Pilih paket yang paling sesuai untuk Anda.',
       vi: 'Khám phá các gói giá của chúng tôi và truy cập các tính năng cao cấp với Intlayer. Chọn gói phù hợp nhất với bạn.',
+      uk: 'Дізнайтеся про наші тарифні плани та отримайте доступ до преміальних функцій Intlayer. Виберіть план, який найкраще підходить саме вам.',
     }),
 
     keywords: t<string[]>({
@@ -228,6 +230,17 @@ const metadataContent = {
         'Gói',
         'Intlayer',
         'Internationalization',
+        'Next.js',
+        'React',
+        'JavaScript',
+      ],
+      uk: [
+        'Ціни',
+        'Підписка',
+        'Преміум',
+        'Плани',
+        'Intlayer',
+        'Інтернаціоналізація',
         'Next.js',
         'React',
         'JavaScript',

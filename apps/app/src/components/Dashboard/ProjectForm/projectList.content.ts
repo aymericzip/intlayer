@@ -21,6 +21,7 @@ const projectListContent = {
       pl: 'Wyszukaj projekt',
       id: 'Cari proyek',
       vi: 'Tìm kiếm project',
+      uk: 'Шукати проєкт',
     }),
 
     createProjectButton: {
@@ -42,6 +43,7 @@ const projectListContent = {
         pl: 'Utwórz projekt',
         id: 'Buat proyek',
         vi: 'Tạo project',
+        uk: 'Створити проєкт',
       }),
       ariaLabel: t({
         en: 'Click to create project',
@@ -61,6 +63,7 @@ const projectListContent = {
         pl: 'Kliknij, aby utworzyć projekt',
         id: 'Klik untuk membuat proyek',
         vi: 'Nhấp để tạo project',
+        uk: 'Натисніть, щоб створити проєкт',
       }),
     },
 
@@ -83,6 +86,7 @@ const projectListContent = {
         pl: 'Wybierz projekt',
         id: 'Pilih proyek',
         vi: 'Chọn project',
+        uk: 'Вибрати проєкт',
       }),
       label: t({
         en: 'Click to select project',
@@ -102,6 +106,7 @@ const projectListContent = {
         pl: 'Kliknij, aby wybrać projekt',
         id: 'Klik untuk memilih proyek',
         vi: 'Nhấp để chọn project',
+        uk: 'Натисніть, щоб вибрати проєкт',
       }),
     },
     noProjectFound: t({
@@ -122,6 +127,7 @@ const projectListContent = {
       pl: 'Nie znaleziono żadnego projektu. Spróbuj wyczyścić filtry.',
       id: 'Tidak ada proyek yang ditemukan. Coba bersihkan filter Anda.',
       vi: 'Không tìm thấy project. Hãy thử xóa bộ lọc của bạn.',
+      uk: 'Жодного проєкту не знайдено. Спробуйте очистити фільтри.',
     }),
   },
   title: 'Project list',

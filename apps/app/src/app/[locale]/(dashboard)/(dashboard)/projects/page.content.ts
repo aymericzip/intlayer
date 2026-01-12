@@ -21,6 +21,7 @@ const projectDashboardContent = {
       pl: 'Ustawienia projektów',
       id: 'Pengaturan Proyek',
       vi: 'Cài đặt dự án',
+      uk: 'Налаштування проєктів',
     }),
   },
   title: 'Projects dashboard page',

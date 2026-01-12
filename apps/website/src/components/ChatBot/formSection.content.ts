@@ -22,6 +22,7 @@ const chatFormSectionContent = {
         pl: 'Zadaj pytanie naszej inteligentnej dokumentacji wspieranej przez AI',
         id: 'Ajukan pertanyaan Anda kepada Dokumentasi Cerdas bertenaga AI kami',
         vi: 'Đặt câu hỏi cho Tài liệu Thông minh do AI hỗ trợ',
+        uk: 'Задайте своє запитання нашій інтелектуальній документації на базі ШІ',
       }),
       placeholder: t({
         de: 'Stellen Sie mir irgendwas...',
@@ -41,6 +42,7 @@ const chatFormSectionContent = {
         pl: 'Zapytaj mnie o cokolwiek...',
         id: 'Tanyakan apa saja...',
         vi: 'Hãy hỏi tôi bất cứ điều gì...',
+        uk: 'Запитайте мене про що завгодно...',
       }),
     },
     sendQuestionButton: {
@@ -62,6 +64,7 @@ const chatFormSectionContent = {
         pl: 'Kliknij, aby wysłać pytanie',
         id: 'Klik untuk mengirim pertanyaan',
         vi: 'Nhấn để gửi câu hỏi',
+        uk: 'Натисніть, щоб надіслати запит',
       }),
     },
     clearButton: {
@@ -83,6 +86,7 @@ const chatFormSectionContent = {
         pl: 'Kliknij, aby wyczyścić',
         id: 'Klik untuk mengosongkan',
         vi: 'Nhấn để xóa',
+        uk: 'Натисніть, щоб очистити',
       }),
     },
   },

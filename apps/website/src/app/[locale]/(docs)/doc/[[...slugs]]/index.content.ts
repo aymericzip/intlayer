@@ -22,6 +22,7 @@ const docContent = {
         pl: 'Przejdź do następnej sekcji',
         id: 'Lanjut ke bagian berikutnya',
         vi: 'Đi tới phần tiếp theo',
+        uk: 'Перейти до наступного розділу',
       }),
     },
     goToPreviousSection: {
@@ -43,6 +44,7 @@ const docContent = {
         pl: 'Przejdź do poprzedniej sekcji',
         id: 'Kembali ke bagian sebelumnya',
         vi: 'Đi tới phần trước',
+        uk: 'Перейти до попереднього розділу',
       }),
     },
   },

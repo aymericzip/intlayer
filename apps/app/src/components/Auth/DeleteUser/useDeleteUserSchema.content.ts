@@ -21,6 +21,7 @@ export const deleteUserSchemaContent = {
       pl: 'Proszę podać swój adres e-mail',
       id: 'Silakan masukkan alamat email Anda',
       vi: 'Vui lòng nhập địa chỉ email của bạn',
+      uk: 'Будь ласка, введіть адресу електронної пошти',
     }),
 
     invalidTypeErrorEmail: t({
@@ -41,6 +42,7 @@ export const deleteUserSchemaContent = {
       pl: 'Proszę podać poprawny adres e-mail',
       id: 'Silakan masukkan alamat email yang valid',
       vi: 'Vui lòng nhập một địa chỉ email hợp lệ',
+      uk: 'Будь ласка, введіть дійсну адресу електронної пошти',
     }),
 
     emailMismatchError: t({
@@ -61,6 +63,7 @@ export const deleteUserSchemaContent = {
       pl: 'Adres e-mail nie pasuje do Twojego konta',
       id: 'Alamat email tidak sesuai dengan akun Anda',
       vi: 'Địa chỉ email không khớp với tài khoản của bạn',
+      uk: 'Адреса електронної пошти не відповідає вашому обліковому запису',
     }),
   },
   title: 'Delete user form validation schema',

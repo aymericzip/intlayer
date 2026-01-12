@@ -21,6 +21,7 @@ const configEditionFormContent = {
       pl: 'Edytuj konfigurację',
       id: 'Edit Konfigurasi',
       vi: 'Chỉnh sửa cấu hình',
+      uk: 'Редагувати конфігурацію',
     }),
     i18nSection: {
       title: t({
@@ -41,6 +42,7 @@ const configEditionFormContent = {
         pl: 'Internacjonalizacja',
         id: 'Internasionalisasi',
         vi: 'Quốc tế hóa (i18n)',
+        uk: 'Інтернаціоналізація',
       }),
       localesInput: {
         label: t({
@@ -61,6 +63,7 @@ const configEditionFormContent = {
           pl: 'Lokalizacje',
           id: 'Locale',
           vi: 'Locale',
+          uk: 'Локалі',
         }),
         placeholder: t({
           en: 'Select locales...',
@@ -80,6 +83,7 @@ const configEditionFormContent = {
           pl: 'Wybierz lokalizacje...',
           id: 'Pilih locale...',
           vi: 'Chọn locale...',
+          uk: 'Виберіть локалі...',
         }),
         description: t({
           en: 'Select the locales available for your application',
@@ -99,6 +103,7 @@ const configEditionFormContent = {
           pl: 'Wybierz lokalizacje dostępne dla aplikacji',
           id: 'Pilih locale yang tersedia untuk aplikasi Anda',
           vi: 'Chọn các locale có sẵn cho ứng dụng của bạn',
+          uk: 'Виберіть локалі, доступні у вашому застосунку',
         }),
       },
       defaultLocaleInput: {
@@ -120,6 +125,7 @@ const configEditionFormContent = {
           pl: 'Domyślna lokalizacja',
           id: 'Locale Default',
           vi: 'Locale mặc định',
+          uk: 'Локаль за замовчуванням',
         }),
         placeholder: t({
           en: 'Select default locale...',
@@ -139,6 +145,7 @@ const configEditionFormContent = {
           pl: 'Wybierz domyślną lokalizację...',
           id: 'Pilih locale default...',
           vi: 'Chọn locale mặc định...',
+          uk: 'Виберіть локаль за замовчуванням...',
         }),
         description: t({
           en: 'The default locale used when no locale is specified',
@@ -158,6 +165,7 @@ const configEditionFormContent = {
           pl: 'Domyślna lokalizacja używana gdy nie określono lokalizacji',
           id: 'Locale default yang digunakan saat tidak ada locale yang ditentukan',
           vi: 'Locale mặc định được sử dụng khi không có locale nào được chỉ định',
+          uk: 'Локаль, яка використовується за замовчуванням, якщо не вказано іншу',
         }),
       },
     },
@@ -180,6 +188,7 @@ const configEditionFormContent = {
         pl: 'Edytor',
         id: 'Editor',
         vi: 'Editor',
+        uk: 'Редактор',
       }),
       applicationURLInput: {
         label: t({
@@ -200,6 +209,7 @@ const configEditionFormContent = {
           pl: 'URL aplikacji',
           id: 'URL Aplikasi',
           vi: 'URL ứng dụng',
+          uk: 'URL додатку',
         }),
         placeholder: t({
           en: 'https://your-app.com',
@@ -219,6 +229,7 @@ const configEditionFormContent = {
           pl: 'https://twoja-aplikacja.com',
           id: 'https://aplikasi-anda.com',
           vi: 'https://ung-dung-cua-ban.com',
+          uk: 'https://your-app.com',
         }),
         description: t({
           en: 'The URL where your application is hosted',
@@ -238,6 +249,7 @@ const configEditionFormContent = {
           pl: 'Adres URL, pod którym hostowana jest aplikacja',
           id: 'URL tempat aplikasi Anda dihosting',
           vi: 'URL nơi ứng dụng của bạn được lưu trữ',
+          uk: 'URL, за яким розміщено ваш додаток',
         }),
       },
       cmsURLInput: {
@@ -259,6 +271,7 @@ const configEditionFormContent = {
           pl: 'URL CMS',
           id: 'URL CMS',
           vi: 'URL CMS',
+          uk: 'URL CMS',
         }),
         placeholder: t({
           en: 'https://intlayer.org',
@@ -278,6 +291,7 @@ const configEditionFormContent = {
           pl: 'https://intlayer.org',
           id: 'https://intlayer.org',
           vi: 'https://intlayer.org',
+          uk: 'https://intlayer.org',
         }),
         description: t({
           en: 'The URL of the Intlayer CMS',
@@ -297,6 +311,7 @@ const configEditionFormContent = {
           pl: 'Adres URL Intlayer CMS',
           id: 'URL Intlayer CMS',
           vi: 'URL của Intlayer CMS',
+          uk: 'URL CMS Intlayer',
         }),
       },
     },
@@ -319,6 +334,7 @@ const configEditionFormContent = {
         pl: 'Konfiguracja AI',
         id: 'Konfigurasi AI',
         vi: 'Cấu hình AI',
+        uk: 'Налаштування ШІ',
       }),
       providerInput: {
         label: t({
@@ -339,6 +355,7 @@ const configEditionFormContent = {
           pl: 'Dostawca AI',
           id: 'Penyedia AI',
           vi: 'Nhà cung cấp AI',
+          uk: 'Провайдер ШІ',
         }),
         placeholder: t({
           en: 'Select AI provider...',
@@ -358,6 +375,7 @@ const configEditionFormContent = {
           pl: 'Wybierz dostawcę AI...',
           id: 'Pilih penyedia AI...',
           vi: 'Chọn nhà cung cấp AI...',
+          uk: 'Виберіть провайдера ШІ...',
         }),
         description: t({
           en: 'The AI provider to use for translations and content generation',
@@ -378,6 +396,7 @@ const configEditionFormContent = {
           pl: 'Dostawca AI do tłumaczeń i generowania treści',
           id: 'Penyedia AI untuk terjemahan dan pembuatan konten',
           vi: 'Nhà cung cấp AI cho dịch thuật và tạo nội dung',
+          uk: 'Провайдер ШІ для перекладів та генерації контенту',
         }),
       },
       modelInput: {
@@ -399,6 +418,7 @@ const configEditionFormContent = {
           pl: 'Model AI',
           id: 'Model AI',
           vi: 'Mô hình AI',
+          uk: 'Модель ШІ',
         }),
         placeholder: t({
           en: 'gpt-4o-2024-11-20',
@@ -418,6 +438,7 @@ const configEditionFormContent = {
           pl: 'gpt-4o-2024-11-20',
           id: 'gpt-4o-2024-11-20',
           vi: 'gpt-4o-2024-11-20',
+          uk: 'gpt-4o-2024-11-20',
         }),
         description: t({
           en: 'The specific AI model to use',
@@ -437,6 +458,7 @@ const configEditionFormContent = {
           pl: 'Konkretny model AI do użycia',
           id: 'Model AI spesifik yang akan digunakan',
           vi: 'Mô hình AI cụ thể để sử dụng',
+          uk: 'Конкретна модель ШІ для використання',
         }),
       },
       temperatureInput: {
@@ -458,6 +480,7 @@ const configEditionFormContent = {
           pl: 'Temperatura',
           id: 'Temperatur',
           vi: 'Nhiệt độ',
+          uk: 'Температура',
         }),
         placeholder: t({
           en: '0.1',
@@ -477,6 +500,7 @@ const configEditionFormContent = {
           pl: '0.1',
           id: '0.1',
           vi: '0.1',
+          uk: '0.1',
         }),
         description: t({
           en: 'Controls randomness (0-2). Lower = more focused, higher = more creative',
@@ -497,6 +521,7 @@ const configEditionFormContent = {
           pl: 'Kontroluje losowość (0-2). Niższy = bardziej skupiony, wyższy = bardziej kreatywny',
           id: 'Mengontrol keacakan (0-2). Lebih rendah = lebih fokus, lebih tinggi = lebih kreatif',
           vi: 'Kiểm soát độ ngẫu nhiên (0-2). Thấp hơn = tập trung hơn, cao hơn = sáng tạo hơn',
+          uk: 'Керує випадковістю (0–2). Нижчі значення = більш сфокусовано, вищі = більш креативно',
         }),
       },
       apiKeyInput: {
@@ -518,6 +543,7 @@ const configEditionFormContent = {
           pl: 'Klucz API',
           id: 'Kunci API',
           vi: 'Khóa API',
+          uk: 'API ключ',
         }),
         placeholder: t({
           en: 'sk-...',
@@ -537,6 +563,7 @@ const configEditionFormContent = {
           pl: 'sk-...',
           id: 'sk-...',
           vi: 'sk-...',
+          uk: 'sk-...',
         }),
         description: t({
           en: 'Your AI provider API key for authentication',
@@ -556,6 +583,7 @@ const configEditionFormContent = {
           pl: 'Twój klucz API dostawcy AI do uwierzytelniania',
           id: 'Kunci API penyedia AI Anda untuk autentikasi',
           vi: 'Khóa API nhà cung cấp AI của bạn để xác thực',
+          uk: 'API-ключ вашого провайдера ШІ для автентифікації',
         }),
       },
       applicationContextInput: {
@@ -577,6 +605,7 @@ const configEditionFormContent = {
           pl: 'Kontekst aplikacji',
           id: 'Konteks Aplikasi',
           vi: 'Ngữ cảnh ứng dụng',
+          uk: 'Контекст застосунку',
         }),
         placeholder: t({
           en: 'This is a website for a company that sells products online.',
@@ -597,6 +626,7 @@ const configEditionFormContent = {
           pl: 'To jest strona internetowa dla firmy sprzedającej produkty online.',
           id: 'Ini adalah situs web untuk perusahaan yang menjual produk secara online.',
           vi: 'Đây là trang web cho một công ty bán sản phẩm trực tuyến.',
+          uk: 'Це вебсайт компанії, яка продає товари онлайн.',
         }),
         description: t({
           en: 'Describe your application to help AI generate better translations',
@@ -617,6 +647,7 @@ const configEditionFormContent = {
           pl: 'Opisz swoją aplikację, aby pomóc AI generować lepsze tłumaczenia',
           id: 'Jelaskan aplikasi Anda untuk membantu AI menghasilkan terjemahan yang lebih baik',
           vi: 'Mô tả ứng dụng của bạn để giúp AI tạo bản dịch tốt hơn',
+          uk: 'Опишіть ваш застосунок, щоб ШІ міг генерувати точніші переклади',
         }),
       },
     },
@@ -639,6 +670,7 @@ const configEditionFormContent = {
         pl: 'Zapisz konfigurację',
         id: 'Simpan Konfigurasi',
         vi: 'Lưu cấu hình',
+        uk: 'Зберегти конфігурацію',
       }),
       ariaLabel: t({
         en: 'Click to save the configuration',
@@ -658,6 +690,7 @@ const configEditionFormContent = {
         pl: 'Kliknij, aby zapisać konfigurację',
         id: 'Klik untuk menyimpan konfigurasi',
         vi: 'Nhấp để lưu cấu hình',
+        uk: 'Натисніть, щоб зберегти конфігурацію',
       }),
     },
     cancelButton: {
@@ -679,6 +712,7 @@ const configEditionFormContent = {
         pl: 'Anuluj',
         id: 'Batal',
         vi: 'Hủy',
+        uk: 'Скасувати',
       }),
       ariaLabel: t({
         en: 'Click to cancel and close the modal',
@@ -698,6 +732,7 @@ const configEditionFormContent = {
         pl: 'Kliknij, aby anulować i zamknąć okno modalne',
         id: 'Klik untuk membatalkan dan menutup modal',
         vi: 'Nhấp để hủy và đóng modal',
+        uk: 'Натисніть, щоб скасувати та закрити модальне вікно',
       }),
     },
     editButton: {
@@ -719,6 +754,7 @@ const configEditionFormContent = {
         pl: 'Kliknij, aby edytować konfigurację',
         id: 'Klik untuk mengedit konfigurasi',
         vi: 'Nhấp để chỉnh sửa cấu hình',
+        uk: 'Натисніть, щоб редагувати конфігурацію',
       }),
     },
   },

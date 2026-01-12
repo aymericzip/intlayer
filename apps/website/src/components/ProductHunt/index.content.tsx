@@ -77,6 +77,12 @@ const productHuntContent = {
           <strong className="underline">Product Hunt</strong>
         </>
       ),
+      uk: (
+        <>
+          Intlayer запускається <strong>в неділю, 11 травня</strong> на{' '}
+          <strong className="underline">Product Hunt</strong>
+        </>
+      ),
       ru: (
         <>
           Intlayer запускается<strong>в воскресенье, 11 мая</strong> на{' '}
@@ -123,6 +129,7 @@ const productHuntContent = {
       pt: 'Visite-nos no Product Hunt e mostre seu apoio com um upvote. Seu feedback é inestimável!',
       hi: 'Product Hunt पर हमें देखें और एक अपvote के साथ अपना समर्थन दिखाएं। आपकी फीडबैक अनमोल है!',
       ar: 'قم بزيارتنا على Product Hunt وأظهر دعمك من خلال التصويت. ملاحظاتك لا تقدر بثمن!',
+      uk: 'Відвідайте нас на Product Hunt та підтримайте нас голосуванням. Ваш відгук безцінний!',
       ru: 'Посетите нас на Product Hunt и поддержите нас голосованием. Ваш отзыв бесценен!',
       tr: "Product Hunt'da bizi ziyaret edin ve bir upvote ile desteğinizi gösterin. Yorumunuz değerlidir!",
       pl: 'Odwiedź nas na Product Hunt i wesprzyj nas upvotem. Twoja opinia jest dla nas nieoceniona!',
@@ -142,6 +149,7 @@ const productHuntContent = {
       pt: 'Vá para ver no Product Hunt',
       hi: 'प्रोडक्शन हिंदु में जाएं',
       ar: 'اذهب لرؤيةه على Product Hunt',
+      uk: 'Перейти на Product Hunt',
       ru: 'Посетите на Product Hunt',
       tr: "Product Hunt'da görüntüle",
       pl: 'Zobacz to na Product Hunt',
@@ -161,6 +169,7 @@ const productHuntContent = {
       pt: 'Fechar',
       hi: 'बंद करें',
       ar: 'إغلاق',
+      uk: 'Закрити',
       ru: 'Закрыть',
       tr: 'Kapat',
       pl: 'Zamknij',

@@ -21,6 +21,7 @@ const magicLinkButtonContent = {
       pl: 'Wyślij Magiczny Link',
       id: 'Kirim Tautan Ajaib',
       vi: 'Gửi liên kết ma thuật',
+      uk: 'Надіслати магічне посилання',
     }),
     ariaLabel: t({
       en: 'Sign in with magic link',
@@ -40,6 +41,7 @@ const magicLinkButtonContent = {
       pl: 'Zaloguj się przy użyciu Magic Link',
       id: 'Masuk dengan Tautan Ajaib',
       vi: 'Đăng nhập bằng liên kết ma thuật',
+      uk: 'Увійти за допомогою магічного посилання',
     }),
     successMessage: t({
       en: 'Magic link sent! Check your email.',
@@ -59,6 +61,7 @@ const magicLinkButtonContent = {
       pl: 'Magiczny link został wysłany! Sprawdź swoją pocztę.',
       id: 'Tautan ajaib telah dikirim! Periksa email Anda.',
       vi: 'Liên kết ma thuật đã được gửi! Kiểm tra email của bạn.',
+      uk: 'Магічне посилання надіслано! Перевірте свою електронну пошту.',
     }),
     errorMessage: t({
       en: 'Failed to send magic link',
@@ -78,6 +81,7 @@ const magicLinkButtonContent = {
       pl: 'Nie udało się wysłać magicznego linku',
       id: 'Gagal mengirim tautan ajaib',
       vi: 'Không thể gửi liên kết ma thuật',
+      uk: 'Не вдалося надіслати магічне посилання',
     }),
     modal: {
       title: t({
@@ -98,6 +102,7 @@ const magicLinkButtonContent = {
         pl: 'Zaloguj się przy użyciu Magic Link',
         id: 'Masuk dengan Tautan Ajaib',
         vi: 'Đăng nhập bằng liên kết ma thuật',
+        uk: 'Увійти за допомогою магічного посилання',
       }),
       description: t({
         en: "Enter your email address and we'll send you a magic link to sign in instantly.",
@@ -118,6 +123,7 @@ const magicLinkButtonContent = {
         pl: 'Wprowadź swój adres e-mail, a my wyślemy Ci magiczny link do natychmiastowego zalogowania.',
         id: 'Masukkan alamat email Anda dan kami akan mengirimkan tautan ajaib untuk masuk secara instan.',
         vi: 'Nhập địa chỉ email của bạn và chúng tôi sẽ gửi cho bạn liên kết ma thuật để đăng nhập ngay lập tức.',
+        uk: 'Введіть свою електронну адресу, і ми надішлемо вам магічне посилання для миттєвого входу.',
       }),
       emailPlaceholder: t({
         en: 'Enter your email',
@@ -137,6 +143,7 @@ const magicLinkButtonContent = {
         pl: 'Wprowadź swój e-mail',
         id: 'Masukkan email Anda',
         vi: 'Nhập email của bạn',
+        uk: 'Введіть електронну адресу',
       }),
       cancelButton: t({
         en: 'Cancel',
@@ -156,6 +163,7 @@ const magicLinkButtonContent = {
         pl: 'Anuluj',
         id: 'Batal',
         vi: 'Hủy',
+        uk: 'Скасувати',
       }),
       sendButton: t({
         en: 'Send Magic Link',
@@ -175,9 +183,14 @@ const magicLinkButtonContent = {
         pl: 'Wyślij Magiczny Link',
         id: 'Kirim Tautan Ajaib',
         vi: 'Gửi liên kết ma thuật',
+        uk: 'Надіслати магічне посилання',
       }),
     },
   },
+  title: 'Magic link button',
+  description:
+    'Content for the Magic Link sign-in button and its modal: button text, ARIA label, success and error messages, modal title and description, email placeholder and action buttons.',
+  tags: ['auth', 'button', 'component', 'modal', 'localization'],
 } satisfies Dictionary;
 
 export default magicLinkButtonContent;

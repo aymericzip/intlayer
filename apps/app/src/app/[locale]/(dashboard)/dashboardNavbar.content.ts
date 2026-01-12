@@ -25,6 +25,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź do wizualnego edytora Intlayer',
           id: 'Buka Intlayer visual editor',
           vi: 'Mở trình chỉnh sửa trực quan Intlayer',
+          uk: 'Перейти до візуального редактора Intlayer',
         }),
         title: t({
           en: 'Editor',
@@ -44,6 +45,7 @@ const dashboardNavbarContent = {
           pl: 'Edytor',
           id: 'Editor',
           vi: 'Trình chỉnh sửa',
+          uk: 'Редактор',
         }),
       },
       {
@@ -66,6 +68,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź do panelu tłumaczeń',
           id: 'Buka dashboard Translate',
           vi: 'Đi tới bảng điều khiển dịch thuật',
+          uk: 'Перейти до панелі перекладів',
         }),
         title: t({
           en: 'Translate',
@@ -85,6 +88,7 @@ const dashboardNavbarContent = {
           pl: 'Tłumacz',
           id: 'Translate',
           vi: 'Dịch',
+          uk: 'Переклад',
         }),
       },
       {
@@ -107,6 +111,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź do panelu zawartości',
           id: 'Buka dashboard Content',
           vi: 'Đi tới bảng điều khiển nội dung',
+          uk: 'Перейти до панелі вмісту',
         }),
         title: t({
           en: 'Content',
@@ -126,6 +131,7 @@ const dashboardNavbarContent = {
           pl: 'Zawartość',
           id: 'Content',
           vi: 'Nội dung',
+          uk: 'Вміст',
         }),
       },
       {
@@ -148,6 +154,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź do panelu tagów',
           id: 'Buka dashboard Tags',
           vi: 'Đi tới bảng điều khiển thẻ',
+          uk: 'Перейти до панелі тегів',
         }),
         title: t({
           en: 'Tags',
@@ -167,6 +174,7 @@ const dashboardNavbarContent = {
           pl: 'Tagi',
           id: 'Tags',
           vi: 'Thẻ',
+          uk: 'Теги',
         }),
       },
       {
@@ -189,6 +197,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź do panelu projektów',
           id: 'Buka dashboard Projects',
           vi: 'Đi tới bảng điều khiển dự án',
+          uk: 'Перейти до панелі проєктів',
         }),
         title: t({
           en: 'Projects',
@@ -208,6 +217,7 @@ const dashboardNavbarContent = {
           pl: 'Projekty',
           id: 'Projects',
           vi: 'Dự án',
+          uk: 'Проєкти',
         }),
       },
 
@@ -231,6 +241,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź do panelu organizacji',
           id: 'Buka dashboard Organization',
           vi: 'Đi tới bảng điều khiển tổ chức',
+          uk: 'Перейти до панелі організації',
         }),
         title: t({
           en: 'Organization',
@@ -250,6 +261,7 @@ const dashboardNavbarContent = {
           pl: 'Organizacja',
           id: 'Organization',
           vi: 'Tổ chức',
+          uk: 'Організація',
         }),
       },
       {
@@ -272,6 +284,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź do panelu profilu',
           id: 'Buka dashboard Profile',
           vi: 'Đi tới bảng điều khiển hồ sơ',
+          uk: 'Перейти до панелі профілю',
         }),
         title: t({
           en: 'Profile',
@@ -291,6 +304,7 @@ const dashboardNavbarContent = {
           pl: 'Profil',
           id: 'Profile',
           vi: 'Hồ sơ',
+          uk: 'Профіль',
         }),
       },
       {
@@ -313,6 +327,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź do panelu administracyjnego',
           id: 'Buka dashboard Admin',
           vi: 'Đi tới bảng điều khiển quản trị',
+          uk: 'Перейти до панелі адміністратора',
         }),
         title: t({
           en: 'Admin',
@@ -332,6 +347,7 @@ const dashboardNavbarContent = {
           pl: 'Administracja',
           id: 'Admin',
           vi: 'Quản trị',
+          uk: 'Адміністрування',
         }),
       },
     ],
@@ -356,6 +372,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź na stronę główną',
           id: 'Buka beranda',
           vi: 'Đi tới trang chủ',
+          uk: 'Перейти на головну сторінку',
         }),
         text: t({
           en: 'Home',
@@ -375,6 +392,7 @@ const dashboardNavbarContent = {
           pl: 'Strona główna',
           id: 'Beranda',
           vi: 'Trang chủ',
+          uk: 'Головна',
         }),
       },
       {
@@ -397,6 +415,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź do strony dokumentacji',
           id: 'Buka dokumentasi',
           vi: 'Đi tới trang tài liệu',
+          uk: 'Перейти на сторінку документації',
         }),
         text: t({
           en: 'Documentation',
@@ -416,6 +435,7 @@ const dashboardNavbarContent = {
           pl: 'Dokumentacja',
           id: 'Dokumentasi',
           vi: 'Tài liệu',
+          uk: 'Документація',
         }),
       },
       {
@@ -438,6 +458,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź do strony polityki prywatności',
           id: 'Buka halaman pemberitahuan privasi',
           vi: 'Đi tới trang thông báo quyền riêng tư',
+          uk: 'Перейти на сторінку повідомлення про конфіденційність',
         }),
         text: t({
           en: 'Privacy Notice',
@@ -457,6 +478,7 @@ const dashboardNavbarContent = {
           pl: 'Polityka prywatności',
           id: 'Pemberitahuan Privasi',
           vi: 'Thông báo quyền riêng tư',
+          uk: 'Повідомлення про конфіденційність',
         }),
       },
       {
@@ -479,6 +501,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź do strony regulaminu',
           id: 'Buka halaman ketentuan layanan',
           vi: 'Đi tới trang điều khoản dịch vụ',
+          uk: 'Перейти на сторінку умов надання послуг',
         }),
         text: t({
           en: 'Terms of Service',
@@ -498,6 +521,7 @@ const dashboardNavbarContent = {
           pl: 'Regulamin',
           id: 'Ketentuan Layanan',
           vi: 'Điều khoản dịch vụ',
+          uk: 'Умови надання послуг',
         }),
       },
       {
@@ -520,6 +544,7 @@ const dashboardNavbarContent = {
           pl: 'Przejdź do strony współtwórców',
           id: 'Buka halaman kontributor',
           vi: 'Đi tới trang cộng tác viên',
+          uk: 'Перейти на сторінку авторів',
         }),
         text: t({
           en: 'Contributors',
@@ -539,6 +564,7 @@ const dashboardNavbarContent = {
           pl: 'Współtwórcy',
           id: 'Kontributor',
           vi: 'Cộng tác viên',
+          uk: 'Автори',
         }),
       },
     ],

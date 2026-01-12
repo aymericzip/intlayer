@@ -21,6 +21,7 @@ const paginationContent = {
       pl: 'Elementów na stronę',
       id: 'Item per halaman',
       vi: 'Số mục trên mỗi trang',
+      uk: 'Записів на сторінку',
     }),
     showingResults: insert(
       t({
@@ -39,6 +40,7 @@ const paginationContent = {
         pt: 'Mostrando {{start}} a {{end}} de {{total}} resultados',
         ru: 'Показано {{start}}-{{end}} из {{total}} результатов',
         tr: '{{start}} から {{end}} までの {{total}} 件の結果を表示',
+        uk: 'Показано від {{start}} до {{end}} з {{total}} результатів',
         vi: 'Hiển thị {{start}} đến {{end}} trong tổng số {{total}} kết quả',
         zh: '显示第 {{start}} 到 {{end}} 项，共 {{total}} 个结果',
       })
@@ -61,6 +63,7 @@ const paginationContent = {
       pl: 'Wybierz liczbę elementów na stronę',
       id: 'Pilih jumlah item per halaman',
       vi: 'Chọn số mục trên mỗi trang',
+      uk: 'Оберіть кількість елементів на сторінку',
     }),
     goToNextPage: t({
       en: 'Go to next page',
@@ -80,6 +83,7 @@ const paginationContent = {
       pl: 'Przejdź do następnej strony',
       id: 'Pergi ke halaman berikutnya',
       vi: 'Chuyển sang trang tiếp theo',
+      uk: 'Перейти на наступну сторінку',
     }),
     goToPreviousPage: t({
       en: 'Go to previous page',
@@ -99,6 +103,7 @@ const paginationContent = {
       pl: 'Przejdź do poprzedniej strony',
       id: 'Pergi ke halaman sebelumnya',
       vi: 'Chuyển sang trang trước',
+      uk: 'Перейти на попередню сторінку',
     }),
   },
   title: 'Pagination',
