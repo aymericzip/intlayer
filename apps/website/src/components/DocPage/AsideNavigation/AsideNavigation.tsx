@@ -13,13 +13,16 @@ import {
 } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { ArrowRightToLine, MoveDiagonal } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
 import { NavTitles } from '../NavTitles/NavTitles';
 
 export const AsideNavigation: FC = (props) => {
   const { title, collapseButton } = useIntlayer('aside-navigation');
-  const [isHidden, setIsHidden] = useState(false);
+  const isFocus = useSearchParams().get('focus') === 'true';
+
+  const [isHidden, setIsHidden] = useState(isFocus);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { button } = useIntlayer('chatbot-modal');
 

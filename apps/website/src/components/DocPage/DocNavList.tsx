@@ -14,6 +14,7 @@ import {
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { ArrowLeftToLine, Bot } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type ComponentProps, type FC, useState } from 'react';
 import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
@@ -250,7 +251,8 @@ export const DocNavListContent: FC<DocNavListProps> = ({
 
 export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
   const { isMobile } = useDevice();
-  const [isHidden, setIsHidden] = useState(isMobile);
+  const isFocus = useSearchParams().get('focus') === 'true';
+  const [isHidden, setIsHidden] = useState(isMobile || isFocus);
   const { collapseButton } = useIntlayer('doc-nav-list');
 
   return (

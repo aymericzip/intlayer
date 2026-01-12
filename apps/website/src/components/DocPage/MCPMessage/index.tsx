@@ -1,12 +1,18 @@
+'use client';
+
 import { Link } from '@components/Link/Link';
 import { PopoverStatic } from '@intlayer/design-system';
-import { useIntlayer } from 'next-intlayer/server';
+import { usePathname } from 'next/navigation';
+import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 import { McpLogo } from './McpLogo';
 
 export const MCPMessage: FC = () => {
   const { title, description, link } = useIntlayer('mcp-message');
+  const pathname = usePathname();
+
+  if (pathname !== PagesRoutes.Doc) return <></>;
 
   return (
     <PopoverStatic identifier="mcp">
