@@ -1,6 +1,6 @@
 {
   "name": "react-scripts-intlayer",
-  "version": "7.5.13",
+  "version": "7.5.14",
   "private": false,
   "description": "Integrate Intlayer with Create React App using custom React scripts for internationalization i18n and advanced Webpack configurations",
   "keywords": [

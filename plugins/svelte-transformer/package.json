@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/svelte-transformer",
-  "version": "7.5.13",
+  "version": "7.5.14",
   "private": false,
   "description": "A transformer for Intlayer that extract strings from Svelte components.",
   "keywords": [
