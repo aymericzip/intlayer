@@ -94,16 +94,16 @@
   },
   "devDependencies": {
     "@rsbuild/core": "1.6.15",
-    "@types/node": "25.0.3",
+    "@types/node": "25.0.6",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "expo": "54.0.30",
     "metro-resolver": "0.83.3",
     "rimraf": "6.1.2",
-    "tsdown": "0.18.2",
+    "tsdown": "0.19.0",
     "typescript": "5.9.3",
-    "vitest": "4.0.16"
+    "vitest": "4.0.17"
   },
   "peerDependencies": {
     "@lynx-js/rspeedy": ">=0.5.0",
