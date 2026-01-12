@@ -207,8 +207,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
   activeSlugs,
 }) => {
   const { isMobile } = useDevice();
-  const isFocus = useSearchParams().get('focus') === 'true';
-  const [isHidden, setIsHidden] = useState(isMobile || isFocus);
+  const [isHidden, setIsHidden] = useState(true);
   const { collapseButton } = useIntlayer('blog-nav-list');
 
   return (
