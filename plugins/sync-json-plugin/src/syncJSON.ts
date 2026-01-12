@@ -1,6 +1,5 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
-import { formatDictionaryOutput } from '@intlayer/chokidar';
 import { getProjectRequire } from '@intlayer/config';
 import type {
   Dictionary,
@@ -329,7 +328,10 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
       return dictionaries;
     },
 
-    formatOutput: ({ dictionary }) => {
+    formatOutput: async ({ dictionary }) => {
+      // Lazy import intlayer modules to avoid circular dependencies
+      const { formatDictionaryOutput } = await import('@intlayer/chokidar');
+
       if (!dictionary.filePath || !dictionary.locale) return dictionary;
 
       const builderPath = options.source({
@@ -355,8 +357,11 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
     },
 
     afterBuild: async ({ dictionaries, configuration }) => {
+      // Lazy import intlayer modules to avoid circular dependencies
       const { getPerLocaleDictionary } = await import('@intlayer/core');
-      const { parallelize } = await import('@intlayer/chokidar');
+      const { parallelize, formatDictionaryOutput } = await import(
+        '@intlayer/chokidar'
+      );
 
       const locales = configuration.internationalization.locales;
 
