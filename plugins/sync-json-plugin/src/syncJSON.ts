@@ -47,15 +47,14 @@ export const extractKeyAndLocaleFromPath = (
   );
 
   if (maskPattern.includes(keyPlaceholder)) {
-    // Ensure key does not contain slashes to prevent matching across directories
-    regexStr = regexStr.replace(escapeRegex(keyPlaceholder), '(?<key>[^/]+)');
+    // FIX: Allow key to match multiple directory levels (e.g. "nested/file" or "folder/index")
+    // Previous value: '(?<key>[^/]+)'
+    regexStr = regexStr.replace(escapeRegex(keyPlaceholder), '(?<key>.+)');
   }
 
   const maskRegex = new RegExp(regexStr);
   const match = maskRegex.exec(filePath);
 
-  // FIX: If the path doesn't strictly match the pattern, return null
-  // Do not fall back to 'index' or defaultLocale for unmatched files.
   if (!match || !match.groups) {
     return null;
   }
@@ -89,7 +88,8 @@ const listMessages = (
 
   const localePattern = `{${locales.map((locale) => locale).join(',')}}`;
 
-  const globPattern = builder({ key: '*', locale: localePattern });
+  // FIX: Use '**' instead of '*' to allow recursive globbing for the key
+  const globPattern = builder({ key: '**', locale: localePattern });
   const maskPattern = builder({ key: '{{__KEY__}}', locale: '{{__LOCALE__}}' });
 
   const files = fg.sync(globPattern, {
@@ -106,24 +106,23 @@ const listMessages = (
       defaultLocale
     );
 
-    // FIX: If extraction failed (regex mismatch), skip this file
+    // If extraction failed (regex mismatch), skip this file
     if (!extraction) {
       continue;
     }
 
     const { key, locale } = extraction;
 
-    // FIX: Round Trip Check
-    // 1. Generate what the path SHOULD be for this key/locale using the current builder
+    // Generate what the path SHOULD be for this key/locale using the current builder
     const expectedPath = builder({ key, locale });
 
-    // 2. Resolve both to absolute paths to ensure safe comparison
+    // Resolve both to absolute paths to ensure safe comparison
     const absoluteFoundPath = isAbsolute(file) ? file : resolve(baseDir, file);
     const absoluteExpectedPath = isAbsolute(expectedPath)
       ? expectedPath
       : resolve(baseDir, expectedPath);
 
-    // 3. If the file found doesn't exactly match the file expected, it belongs to another plugin/structure
+    // If the file found doesn't exactly match the file expected, it belongs to another plugin/structure
     if (absoluteFoundPath !== absoluteExpectedPath) {
       continue;
     }
@@ -210,7 +209,7 @@ type SyncJSONPluginOptions = {
    *
    * ```ts
    * syncJSON({
-   *   source: ({ key, locale }) => `./messages/${locale}/${key}.json`
+   * source: ({ key, locale }) => `./messages/${locale}/${key}.json`
    * })
    * ```
    */
@@ -224,16 +223,16 @@ type SyncJSONPluginOptions = {
    *
    * ```ts
    * const config ={
-   *   plugins: [
-   *     syncJSON({
-   *       source: ({ key, locale }) => `./resources/${locale}/${key}.json`
-   *       location: 'plugin-i18next',
-   *     }),
-   *     syncJSON({
-   *       source: ({ key, locale }) => `./messages/${locale}/${key}.json`
-   *       location: 'plugin-next-intl',
-   *     }),
-   *   ]
+   * plugins: [
+   * syncJSON({
+   * source: ({ key, locale }) => `./resources/${locale}/${key}.json`
+   * location: 'plugin-i18next',
+   * }),
+   * syncJSON({
+   * source: ({ key, locale }) => `./messages/${locale}/${key}.json`
+   * location: 'plugin-next-intl',
+   * }),
+   * ]
    * }
    * ```
    */
