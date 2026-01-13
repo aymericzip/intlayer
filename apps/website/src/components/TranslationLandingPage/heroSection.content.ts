@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, md, t } from 'intlayer';
 
 const heroSectionContent = {
   key: 'hero-section',
@@ -125,27 +125,29 @@ const heroSectionContent = {
       vi: 'Trình dịch AI Miễn phí cho JSON & Tài liệu.',
       uk: 'Безкоштовний ШІ-перекладач для JSON та Документації.',
     }),
-    description: t({
-      en: 'Translate your application content and markdown documentation instantly. <strong>No subscription required.</strong> Use your own API keys (OpenAI, Anthropic) or run locally for free with Ollama.',
-      fr: 'Traduisez instantanément le contenu de votre application et la documentation markdown. <strong>Aucun abonnement requis.</strong> Utilisez vos propres clés API (OpenAI, Anthropic) ou exécutez localement gratuitement avec Ollama.',
-      es: 'Traduce el contenido de tu aplicación y la documentación markdown instantáneamente. <strong>Sin suscripción requerida.</strong> Usa tus propias claves API (OpenAI, Anthropic) o ejecuta localmente gratis con Ollama.',
-      de: 'Übersetzen Sie Ihre Anwendungsinhalte und Markdown-Dokumentation sofort. <strong>Kein Abonnement erforderlich.</strong> Verwenden Sie Ihre eigenen API-Schlüssel (OpenAI, Anthropic) oder führen Sie lokal kostenlos mit Ollama aus.',
-      ja: 'アプリケーションのコンテンツとマークダウンドキュメントを即座に翻訳。<strong>サブスクリプション不要。</strong>独自のAPIキー（OpenAI、Anthropic）を使用するか、Ollamaで無料でローカル実行。',
-      ko: '애플리케이션 콘텐츠와 마크다운 문서를 즉시 번역하세요. <strong>구독이 필요 없습니다.</strong> 자체 API 키(OpenAI, Anthropic)를 사용하거나 Ollama로 무료로 로컬 실행하세요.',
-      zh: '即时翻译您的应用程序内容和markdown文档。<strong>无需订阅。</strong>使用您自己的API密钥（OpenAI、Anthropic）或使用Ollama免费本地运行。',
-      it: 'Traduci istantaneamente il contenuto della tua applicazione e la documentazione markdown. <strong>Nessun abbonamento richiesto.</strong> Usa le tue chiavi API (OpenAI, Anthropic) o esegui localmente gratuitamente con Ollama.',
-      pt: 'Traduza o conteúdo do seu aplicativo e a documentação markdown instantaneamente. <strong>Sem assinatura necessária.</strong> Use suas próprias chaves API (OpenAI, Anthropic) ou execute localmente gratuitamente com Ollama.',
-      hi: 'अपने एप्लिकेशन कंटेंट और मार्कडाउन दस्तावेज़ों का तुरंत अनुवाद करें। <strong>कोई सदस्यता आवश्यक नहीं।</strong> अपनी खुद की API कुंजियाँ (OpenAI, Anthropic) का उपयोग करें या Ollama के साथ मुफ्त में स्थानीय रूप से चलाएं।',
-      ar: 'ترجم محتوى تطبيقك ووثائق markdown على الفور. <strong>لا حاجة لاشتراك.</strong> استخدم مفاتيح API الخاصة بك (OpenAI، Anthropic) أو قم بالتشغيل محليًا مجانًا مع Ollama.',
-      ru: 'Мгновенно переводите контент вашего приложения и документацию markdown. <strong>Подписка не требуется.</strong> Используйте собственные API-ключи (OpenAI, Anthropic) или запускайте локально бесплатно с Ollama.',
-      'en-GB':
-        'Translate your application content and markdown documentation instantly. <strong>No subscription required.</strong> Use your own API keys (OpenAI, Anthropic) or run locally for free with Ollama.',
-      tr: 'Uygulama içeriğinizi ve markdown belgelerinizi anında çevirin. <strong>Abonelik gerekmez.</strong> Kendi API anahtarlarınızı (OpenAI, Anthropic) kullanın veya Ollama ile yerel olarak ücretsiz çalıştırın.',
-      pl: 'Natychmiast tłumacz zawartość aplikacji i dokumentację markdown. <strong>Subskrypcja nie jest wymagana.</strong> Użyj własnych kluczy API (OpenAI, Anthropic) lub uruchom lokalnie za darmo z Ollama.',
-      id: 'Terjemahkan konten aplikasi dan dokumentasi markdown Anda secara instan. <strong>Tidak perlu langganan.</strong> Gunakan kunci API Anda sendiri (OpenAI, Anthropic) atau jalankan secara lokal gratis dengan Ollama.',
-      vi: 'Dịch nội dung ứng dụng và tài liệu markdown của bạn ngay lập tức. <strong>Không cần đăng ký.</strong> Sử dụng khóa API của riêng bạn (OpenAI, Anthropic) hoặc chạy cục bộ miễn phí với Ollama.',
-      uk: 'Миттєво перекладайте контент вашого додатка та документацію markdown. <strong>Підписка не потрібна.</strong> Використовуйте власні API-ключі (OpenAI, Anthropic) або запускайте локально безкоштовно з Ollama.',
-    }),
+    description: md(
+      t({
+        en: 'Translate your application content and markdown documentation instantly. **No subscription required.** Use your own API keys (OpenAI, Anthropic) or run locally for free with Ollama.',
+        fr: 'Traduisez instantanément le contenu de votre application et la documentation markdown. **Aucun abonnement requis.** Utilisez vos propres clés API (OpenAI, Anthropic) ou exécutez localement gratuitement avec Ollama.',
+        es: 'Traduce el contenido de tu aplicación y la documentación markdown instantáneamente. **Sin suscripción requerida.** Usa tus propias claves API (OpenAI, Anthropic) o ejecuta localmente gratis con Ollama.',
+        de: 'Übersetzen Sie Ihre Anwendungsinhalte und Markdown-Dokumentation sofort. **Kein Abonnement erforderlich.** Verwenden Sie Ihre eigenen API-Schlüssel (OpenAI, Anthropic) oder führen Sie lokal kostenlos mit Ollama aus.',
+        ja: 'アプリケーションのコンテンツとマークダウンドキュメントを即座に翻訳。**サブスクリプション不要。**独自のAPIキー（OpenAI、Anthropic）を使用するか、Ollamaで無料でローカル実行。',
+        ko: '애플리케이션 콘텐츠와 마크다운 문서를 즉시 번역하세요. **구독이 필요 없습니다.** 자체 API 키(OpenAI, Anthropic)를 사용하거나 Ollama로 무료로 로컬 실행하세요.',
+        zh: '即时翻译您的应用程序内容和markdown文档。**无需订阅。**使用您自己的API密钥（OpenAI、Anthropic）或使用Ollama免费本地运行。',
+        it: 'Traduci istantaneamente il contenuto della tua applicazione e la documentazione markdown. **Nessun abbonamento richiesto.** Usa le tue chiavi API (OpenAI, Anthropic) o esegui localmente gratuitamente con Ollama.',
+        pt: 'Traduza o conteúdo do seu aplicativo e a documentação markdown instantaneamente. **Sem assinatura necessária.** Use suas próprias chaves API (OpenAI, Anthropic) ou execute localmente gratuitamente com Ollama.',
+        hi: 'अपने एप्लिकेशन कंटेंट और मार्कडाउन दस्तावेज़ों का तुरंत अनुवाद करें। **कोई सदस्यता आवश्यक नहीं।** अपनी खुद की API कुंजियाँ (OpenAI, Anthropic) का उपयोग करें या Ollama के साथ मुफ्त में स्थानीय रूप से चलाएं।',
+        ar: 'ترجم محتوى تطبيقك ووثائق markdown على الفور. **لا حاجة لاشتراك.** استخدم مفاتيح API الخاصة بك (OpenAI، Anthropic) أو قم بالتشغيل محليًا مجانًا مع Ollama.',
+        ru: 'Мгновенно переводите контент вашего приложения и документацию markdown. **Подписка не требуется.** Используйте собственные API-ключи (OpenAI, Anthropic) или запускайте локально бесплатно с Ollama.',
+        'en-GB':
+          'Translate your application content and markdown documentation instantly. **No subscription required.** Use your own API keys (OpenAI, Anthropic) or run locally for free with Ollama.',
+        tr: 'Uygulama içeriğinizi ve markdown belgelerinizi anında çevirin. **Abonelik gerekmez.** Kendi API anahtarlarınızı (OpenAI, Anthropic) kullanın veya Ollama ile yerel olarak ücretsiz çalıştırın.',
+        pl: 'Natychmiast tłumacz zawartość aplikacji i dokumentację markdown. **Subskrypcja nie jest wymagana.** Użyj własnych kluczy API (OpenAI, Anthropic) lub uruchom lokalnie za darmo z Ollama.',
+        id: 'Terjemahkan konten aplikasi dan dokumentasi markdown Anda secara instan. **Tidak perlu langganan.** Gunakan kunci API Anda sendiri (OpenAI, Anthropic) atau jalankan secara lokal gratis dengan Ollama.',
+        vi: 'Dịch nội dung ứng dụng và tài liệu markdown của bạn ngay lập tức. **Không cần đăng ký.** Sử dụng khóa API của riêng bạn (OpenAI, Anthropic) hoặc chạy cục bộ miễn phí với Ollama.',
+        uk: 'Миттєво перекладайте контент вашого додатка та документацію markdown. **Підписка не потрібна.** Використовуйте власні API-ключі (OpenAI, Anthropic) або запускайте локально безкоштовно з Ollama.',
+      })
+    ),
     seeCLICommands: t({
       en: 'See CLI commands',
       fr: 'Voir les commandes CLI',
