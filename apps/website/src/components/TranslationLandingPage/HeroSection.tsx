@@ -124,7 +124,7 @@ export const HeroSection: FC = () => {
       </div>
 
       {/* Content */}
-      <section className="relative mx-auto max-w-6xl px-8 pt-10 pb-10 md:pt-16 md:pb-14">
+      <section className="relative mx-auto flex h-screen max-w-6xl items-center px-8">
         <motion.div
           variants={sectionFade}
           initial="hidden"
@@ -207,16 +207,7 @@ export const HeroSection: FC = () => {
               <div className="mt-4">
                 <CodeBlockWrapper title={card.codeBlockTitle}>
                   <CodeBlock lang="bash" isDarkMode className="text-sm">
-                    {[
-                      card.codeComments.installCLI.value,
-                      'npm install -g intlayer-cli',
-                      '',
-                      card.codeComments.translateJSON.value,
-                      'npx intlayer fill',
-                      '',
-                      card.codeComments.translateMarkdown.value,
-                      'npx intlayer doc translate',
-                    ].join('\n')}
+                    {card.code.value}
                   </CodeBlock>
                 </CodeBlockWrapper>
               </div>

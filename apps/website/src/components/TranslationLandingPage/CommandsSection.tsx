@@ -44,10 +44,7 @@ export const CommandsSection: FC = () => {
   );
 
   return (
-    <section
-      id="commands"
-      className="mx-auto mt-6 max-w-6xl px-8 py-10 md:py-14"
-    >
+    <section id="commands" className="mx-auto max-w-6xl px-8 py-20 md:py-28">
       <motion.div
         variants={sectionFade}
         initial="hidden"
@@ -103,7 +100,13 @@ export const CommandsSection: FC = () => {
                   </div>
 
                   <div className="mt-4">
-                    <div className="relative overflow-hidden rounded-2xl border-[1.3px] border-text/15 bg-neutral-950/90 p-4 text-text-dark supports-[corner-shape:squircle]:rounded-3xl">
+                    <Container
+                      roundedSize="2xl"
+                      border
+                      transparency="none"
+                      padding="md"
+                      className="relative overflow-hidden text-text-dark"
+                    >
                       <div className="mb-2 flex items-center justify-between">
                         <span className="text-text-dark/70 text-xs">
                           {cmd.title}
@@ -111,9 +114,9 @@ export const CommandsSection: FC = () => {
                         <span className="text-text-dark/40 text-xs">CLI</span>
                       </div>
                       <CodeBlock lang="bash" isDarkMode className="text-sm">
-                        {cmd.code}
+                        {cmd.code.value}
                       </CodeBlock>
-                    </div>
+                    </Container>
                   </div>
                 </Container>
               </motion.div>

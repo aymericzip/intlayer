@@ -59,7 +59,7 @@ export const HowItWorksSection: FC = () => {
   const { title, description, steps } = useIntlayer('how-it-works-section');
 
   return (
-    <section className="mx-auto max-w-6xl px-8 py-10 md:py-14">
+    <section className="mx-auto max-w-6xl px-8 py-20 md:py-28">
       <motion.div
         variants={sectionFade}
         initial="hidden"

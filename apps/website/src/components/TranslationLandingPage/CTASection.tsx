@@ -53,7 +53,7 @@ export const CTASection: FC = () => {
     exploreCLICommands,
     readDocumentation,
     quickStartTitle,
-    codeBlockComment,
+    code,
   } = useIntlayer('cta-section');
 
   return (
@@ -108,15 +108,7 @@ export const CTASection: FC = () => {
           <div className="md:col-span-5">
             <CodeBlockWrapper title={quickStartTitle}>
               <CodeBlock lang="bash" isDarkMode className="text-sm">
-                {[
-                  'npm install -g intlayer-cli',
-                  '',
-                  codeBlockComment.translateDocs.value,
-                  'npx intlayer doc translate --base-locale en --locales fr es',
-                  '',
-                  codeBlockComment.translateJson.value,
-                  'npx intlayer fill',
-                ].join('\n')}
+                {code.value}
               </CodeBlock>
             </CodeBlockWrapper>
           </div>

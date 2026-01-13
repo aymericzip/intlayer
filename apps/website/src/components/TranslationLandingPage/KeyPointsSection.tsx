@@ -51,7 +51,7 @@ export const KeyPointsSection: FC = () => {
   const { title, description, keyPoints } = useIntlayer('key-points-section');
 
   return (
-    <section className="mx-auto max-w-6xl px-8 py-10 md:py-14">
+    <section className="mx-auto max-w-6xl px-8 py-20 md:py-28">
       <motion.div
         variants={sectionFade}
         initial="hidden"
