@@ -51,16 +51,13 @@ export const LocalVsServerSection: FC = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
-        className="mt-6 grid grid-cols-1 justify-evenly gap-4 md:grid-cols-2"
+        className="mt-20 grid grid-cols-1 justify-evenly gap-4 md:grid-cols-2"
       >
         <motion.div variants={sectionFade}>
           <Container
             roundedSize={ContainerRoundedSize['3xl']}
             transparency={ContainerTransparency.MD}
             padding={ContainerPadding.LG}
-            border
-            borderColor={ContainerBorderColor.TEXT}
-            background={ContainerBackground.HOVERABLE}
             className="h-full max-w-lg"
           >
             <div className="flex items-start gap-3">
@@ -92,9 +89,6 @@ export const LocalVsServerSection: FC = () => {
             roundedSize={ContainerRoundedSize['3xl']}
             transparency={ContainerTransparency.MD}
             padding={ContainerPadding.LG}
-            border
-            borderColor={ContainerBorderColor.TEXT}
-            background={ContainerBackground.HOVERABLE}
             className="h-full"
           >
             <div className="flex items-start gap-3">

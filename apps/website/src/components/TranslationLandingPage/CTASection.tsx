@@ -59,7 +59,7 @@ export const CTASection: FC = () => {
   return (
     <section
       id="get-started"
-      className="mx-auto max-w-6xl px-8 pt-10 pb-14 md:pt-14 md:pb-20"
+      className="mx-auto max-w-5xl px-8 pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <Container
         roundedSize={ContainerRoundedSize['4xl']}
@@ -96,7 +96,7 @@ export const CTASection: FC = () => {
               <Link
                 href={PagesRoutes.Doc_CLI_Fill}
                 variant={LinkVariant.BUTTON}
-                color={LinkColor.PRIMARY}
+                color={LinkColor.TEXT}
                 className="w-full sm:w-auto"
                 label={readDocumentation}
               >

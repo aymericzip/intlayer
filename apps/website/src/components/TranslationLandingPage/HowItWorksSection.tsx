@@ -19,10 +19,10 @@ type IconMap = {
 };
 
 const iconMap: IconMap = {
-  '01': CheckCircle2,
-  '02': Layers,
-  '03': Sparkles,
-  '04': GitBranch,
+  '1': CheckCircle2,
+  '2': Layers,
+  '3': Sparkles,
+  '4': GitBranch,
 };
 
 const sectionFade: Variants = {
@@ -92,21 +92,20 @@ export const HowItWorksSection: FC = () => {
                   roundedSize={ContainerRoundedSize['3xl']}
                   transparency={ContainerTransparency.MD}
                   padding={ContainerPadding.LG}
-                  border
-                  borderColor={ContainerBorderColor.TEXT}
-                  background={ContainerBackground.HOVERABLE}
-                  className="h-full"
+                  className="flex h-full flex-col items-center gap-3 text-center"
                 >
-                  <div className="flex items-center justify-between">
-                    <Pill className="bg-card/10">{s.step}</Pill>
-                    <IconComponent className="size-5 text-text/80" />
+                  <div className="flex w-full items-center justify-between">
+                    <span className="flex size-12 items-center justify-center rounded-full border-4 border-lime-300 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
+                      {s.step}
+                    </span>
+                    <IconComponent className="size-6 text-neutral" />
                   </div>
-                  <div className="mt-3 font-semibold text-base text-text">
+                  <h3 className="font-semibold text-sm md:text-lg">
                     {s.title}
-                  </div>
-                  <div className="mt-1 text-sm text-text/70">
+                  </h3>
+                  <p className="text-neutral text-xs leading-5">
                     {s.description}
-                  </div>
+                  </p>
                 </Container>
               </motion.div>
             );

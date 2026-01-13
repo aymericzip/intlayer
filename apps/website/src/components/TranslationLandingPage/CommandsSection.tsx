@@ -62,67 +62,55 @@ export const CommandsSection: FC = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
-        className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3"
+        className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-3"
       >
-        {commands.map(
-          (cmd: {
-            id: IntlayerNode;
-            title: IntlayerNode;
-            description: IntlayerNode;
-            code: string;
-          }) => {
-            const IconComponent = iconMap[cmd.id.value] || Braces;
-            return (
-              <motion.div key={cmd.id.value} variants={sectionFade}>
-                <Container
-                  roundedSize={ContainerRoundedSize['3xl']}
-                  transparency={ContainerTransparency.MD}
-                  padding={ContainerPadding.LG}
-                  border
-                  borderColor={ContainerBorderColor.TEXT}
-                  background={ContainerBackground.HOVERABLE}
-                  className="h-full"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <div className="rounded-2xl bg-card/40 p-2">
-                        <IconComponent className="size-5 text-text" />
+        {commands.map((cmd) => {
+          const IconComponent = iconMap[cmd.id.value] || Braces;
+          return (
+            <motion.div key={cmd.id.value} variants={sectionFade}>
+              <Container
+                roundedSize={ContainerRoundedSize['3xl']}
+                transparency={ContainerTransparency.MD}
+                padding={ContainerPadding.LG}
+                className="h-full"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <div className="rounded-2xl bg-card/40 p-2">
+                      <IconComponent className="size-5 text-text" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-base text-text">
+                        {cmd.title}
                       </div>
-                      <div>
-                        <div className="font-semibold text-base text-text">
-                          {cmd.title}
-                        </div>
-                        <div className="mt-1 text-sm text-text/70">
-                          {cmd.description}
-                        </div>
+                      <div className="mt-1 text-sm text-text/70">
+                        {cmd.description}
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  <div className="mt-4">
-                    <Container
-                      roundedSize="2xl"
-                      border
-                      transparency="none"
-                      padding="md"
-                      className="relative overflow-hidden text-text-dark"
-                    >
-                      <div className="mb-2 flex items-center justify-between">
-                        <span className="text-text-dark/70 text-xs">
-                          {cmd.title}
-                        </span>
-                        <span className="text-text-dark/40 text-xs">CLI</span>
-                      </div>
-                      <CodeBlock lang="bash" isDarkMode className="text-sm">
-                        {cmd.code.value}
-                      </CodeBlock>
-                    </Container>
-                  </div>
-                </Container>
-              </motion.div>
-            );
-          }
-        )}
+                <div className="mt-4">
+                  <Container
+                    roundedSize="2xl"
+                    padding="md"
+                    className="relative overflow-hidden text-text-dark"
+                  >
+                    <div className="mb-2 flex items-center justify-between">
+                      <span className="text-text-dark/70 text-xs">
+                        {cmd.title}
+                      </span>
+                      <span className="text-text-dark/40 text-xs">CLI</span>
+                    </div>
+                    <CodeBlock lang="bash" isDarkMode className="text-sm">
+                      {cmd.code.value}
+                    </CodeBlock>
+                  </Container>
+                </div>
+              </Container>
+            </motion.div>
+          );
+        })}
       </motion.div>
     </section>
   );

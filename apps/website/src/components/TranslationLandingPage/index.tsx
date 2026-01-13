@@ -1,6 +1,5 @@
 'use client';
 
-import { LanguageSection } from '@intlayer/design-system';
 import type { FC } from 'react';
 import { lazy, Suspense } from 'react';
 
@@ -46,17 +45,22 @@ const ContributorSection = lazy(() =>
   }))
 );
 
+const LanguageSection = lazy(() =>
+  import('@intlayer/design-system').then((module) => ({
+    default: module.LanguageSection,
+  }))
+);
+
 export const AiTranslationLandingCore: FC = () => {
   return (
     <div>
       {/* Hero Section with ambient effects */}
-      <Suspense fallback={<div className="min-h-[calc(100vh-64px)]" />}>
+      <Suspense fallback={<div className="min-h-screen" />}>
         <HeroSection />
-      </Suspense>
-
-      {/* Providers Carousel */}
-      <Suspense fallback={<div className="py-8" />}>
-        <ProvidersCarousel />
+        {/* Providers Carousel */}
+        <Suspense fallback={<div className="py-8" />}>
+          <ProvidersCarousel />
+        </Suspense>
       </Suspense>
 
       {/* Commands Section */}
@@ -75,7 +79,9 @@ export const AiTranslationLandingCore: FC = () => {
       </Suspense>
 
       {/* Language Section (from design-system, not lazy) */}
-      <LanguageSection />
+      <Suspense fallback={<div className="py-24" />}>
+        <LanguageSection />
+      </Suspense>
 
       {/* How It Works Section */}
       <Suspense fallback={<div className="py-24" />}>

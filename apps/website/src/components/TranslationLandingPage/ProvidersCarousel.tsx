@@ -17,7 +17,11 @@ const providers: Array<{ name: string; logo?: FC<{ className?: string }> }> = [
 export const ProvidersCarousel: FC = () => {
   return (
     <div className="mask-[linear-gradient(to_right,transparent_0,black_128px,black_calc(100%-128px),transparent_100%)] relative mt-8 flex w-full overflow-hidden">
-      <div className="horizontal-loop-4 inline-flex shrink-0 gap-10 will-change-transform">
+      {/* Fix: Removed 'gap-10' from the container. 
+        Infinite loops work best when spacing is handled by the items' margins 
+        to ensure the width calculation for the loop reset is precise.
+      */}
+      <div className="horizontal-loop-4 inline-flex shrink-0 will-change-transform">
         {/* First set of provider cards */}
         {providers.map((provider, index) => {
           const LogoComponent = provider.logo;
@@ -25,7 +29,8 @@ export const ProvidersCarousel: FC = () => {
           return (
             <div
               key={`${provider.name}-first-${index}`}
-              className="group z-10 mx-4 inline-flex shrink-0 transition-transform duration-300 hover:scale-105"
+              /* Fix: Increased mx-4 to mx-8 to replace the removed gap and ensure consistent spacing */
+              className="group z-10 mx-8 inline-flex shrink-0 transition-transform duration-300 hover:scale-105"
             >
               <Container
                 roundedSize="3xl"
@@ -50,7 +55,8 @@ export const ProvidersCarousel: FC = () => {
           return (
             <div
               key={`${provider.name}-second-${index}`}
-              className="group z-10 mx-4 inline-flex shrink-0 transition-transform duration-300 hover:scale-105"
+              /* Fix: Increased mx-4 to mx-8 to match the first set */
+              className="group z-10 mx-8 inline-flex shrink-0 transition-transform duration-300 hover:scale-105"
             >
               <Container
                 roundedSize="3xl"

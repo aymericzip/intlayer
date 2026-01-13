@@ -4,8 +4,6 @@ import { Link } from '@components/Link/Link';
 import {
   CodeBlock,
   Container,
-  ContainerBackground,
-  ContainerBorderColor,
   ContainerPadding,
   ContainerRoundedSize,
   ContainerTransparency,
@@ -43,10 +41,7 @@ export const CodeBlockWrapper: FC<CodeBlockWrapperProps> = ({
     <Container
       roundedSize={ContainerRoundedSize['2xl']}
       padding={ContainerPadding.MD}
-      border
-      borderColor={ContainerBorderColor.NEUTRAL}
-      background={ContainerBackground.NONE}
-      className={cn('relative overflow-hidden text-text-dark', className)}
+      className={cn('relative text-text-dark', className)}
     >
       <div className="mb-2 flex items-center justify-between">
         <span className="text-text-dark/70 text-xs">{title}</span>
@@ -124,33 +119,32 @@ export const HeroSection: FC = () => {
       </div>
 
       {/* Content */}
-      <section className="relative mx-auto flex h-screen max-w-6xl items-center px-8">
+      <section className="items-evenly relative mx-auto flex h-[75vh] max-w-6xl flex-col justify-center gap-12 px-8">
+        <div className="mb-4 flex flex-wrap gap-2">
+          <Pill>
+            <CreditCard className="size-3 text-text" />
+            {pills.freeOpenSource}
+          </Pill>
+          <Pill>
+            <FileJson className="size-3 text-text" />
+            {pills.jsonTranslation}
+          </Pill>
+          <Pill>
+            <FileText className="size-3 text-text" />
+            {pills.docsTranslation}
+          </Pill>
+          <Pill>
+            <Server className="size-3 text-text" />
+            {pills.localLLM}
+          </Pill>
+        </div>
         <motion.div
           variants={sectionFade}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 items-start gap-8 md:grid-cols-12"
+          className="grid grid-cols-1 items-start gap-x-8 gap-y-20 md:grid-cols-12"
         >
           <div className="md:col-span-7">
-            <div className="mb-4 flex flex-wrap gap-2">
-              <Pill>
-                <CreditCard className="size-3 text-text" />
-                {pills.freeOpenSource}
-              </Pill>
-              <Pill>
-                <FileJson className="size-3 text-text" />
-                {pills.jsonTranslation}
-              </Pill>
-              <Pill>
-                <FileText className="size-3 text-text" />
-                {pills.docsTranslation}
-              </Pill>
-              <Pill>
-                <Server className="size-3 text-text" />
-                {pills.localLLM}
-              </Pill>
-            </div>
-
             <h1 className="text-balance font-semibold text-4xl text-text leading-tight md:text-5xl">
               {title}
             </h1>
@@ -159,7 +153,7 @@ export const HeroSection: FC = () => {
               {description}
             </p>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-20 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 href="#commands"
                 variant={LinkVariant.BUTTON_OUTLINED}
@@ -173,7 +167,7 @@ export const HeroSection: FC = () => {
               <Link
                 href={PagesRoutes.Doc_CLI_Fill}
                 variant={LinkVariant.BUTTON}
-                color={LinkColor.PRIMARY}
+                color={LinkColor.TEXT}
                 className="w-full sm:w-auto"
                 label={getStartedForFree}
               >
@@ -181,59 +175,51 @@ export const HeroSection: FC = () => {
               </Link>
             </div>
           </div>
-
-          <div className="md:col-span-5">
-            <Container
-              roundedSize={ContainerRoundedSize['3xl']}
-              transparency={ContainerTransparency.MD}
-              padding={ContainerPadding.LG}
-              border
-              borderColor={ContainerBorderColor.TEXT}
-              background={ContainerBackground.WITH}
-              className="relative overflow-hidden"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="rounded-xl bg-text/10 p-2">
-                    <Globe className="size-5 text-text" />
-                  </div>
-                  <div className="font-medium text-sm text-text">
-                    {card.title}
-                  </div>
+          <Container
+            roundedSize={ContainerRoundedSize['3xl']}
+            transparency={ContainerTransparency.MD}
+            padding={ContainerPadding.LG}
+            className="relative overflow-hidden md:col-span-5"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="rounded-xl bg-text/10 p-2">
+                  <Globe className="size-5 text-text" />
                 </div>
-                <Pill className="bg-card/10">{pills.freeCLI}</Pill>
-              </div>
-
-              <div className="mt-4">
-                <CodeBlockWrapper title={card.codeBlockTitle}>
-                  <CodeBlock lang="bash" isDarkMode className="text-sm">
-                    {card.code.value}
-                  </CodeBlock>
-                </CodeBlockWrapper>
-              </div>
-
-              <div className="mt-4 grid grid-cols-2 gap-3 text-text/70 text-xs">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="size-4 text-text" />
-                  {card.features.noMonthlyFees}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Languages className="size-4 text-text" />
-                  {card.features.multiLanguage}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Server className="size-4 text-text" />
-                  {card.features.runsLocally}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Sparkles className="size-4 text-text" />
-                  {card.features.byoKeysLLM}
+                <div className="font-medium text-sm text-text">
+                  {card.title}
                 </div>
               </div>
+              <Pill className="bg-card/10">{pills.freeCLI}</Pill>
+            </div>
 
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(600px_circle_at_30%_0%,rgba(203,235,64,0.10),transparent_45%)]" />
-            </Container>
-          </div>
+            <CodeBlockWrapper title={card.codeBlockTitle} className="mt-4">
+              <CodeBlock lang="bash" isDarkMode className="text-sm">
+                {card.code.value}
+              </CodeBlock>
+            </CodeBlockWrapper>
+
+            <div className="mt-4 grid grid-cols-2 gap-3 text-text/70 text-xs">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="size-4 text-text" />
+                {card.features.noMonthlyFees}
+              </div>
+              <div className="flex items-center gap-2">
+                <Languages className="size-4 text-text" />
+                {card.features.multiLanguage}
+              </div>
+              <div className="flex items-center gap-2">
+                <Server className="size-4 text-text" />
+                {card.features.runsLocally}
+              </div>
+              <div className="flex items-center gap-2">
+                <Sparkles className="size-4 text-text" />
+                {card.features.byoKeysLLM}
+              </div>
+            </div>
+
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(600px_circle_at_30%_0%,rgba(203,235,64,0.10),transparent_45%)]" />
+          </Container>
         </motion.div>
       </section>
     </>

@@ -46,7 +46,7 @@ const howItWorksSectionContent = {
     }),
     steps: [
       {
-        step: '01',
+        step: '1',
         title: t({
           en: 'Detect',
           fr: 'Détecter',
@@ -90,7 +90,7 @@ const howItWorksSectionContent = {
         }),
       },
       {
-        step: '02',
+        step: '2',
         title: t({
           en: 'Chunk',
           fr: 'Découper',
@@ -133,7 +133,7 @@ const howItWorksSectionContent = {
         }),
       },
       {
-        step: '03',
+        step: '3',
         title: t({
           en: 'Translate / Review',
           fr: 'Traduire / Réviser',
@@ -177,7 +177,7 @@ const howItWorksSectionContent = {
         }),
       },
       {
-        step: '04',
+        step: '4',
         title: t({
           en: 'Write back',
           fr: 'Réécrire',
