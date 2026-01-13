@@ -8,9 +8,11 @@ import { CMSSection } from './CMSSection';
 import { FeatureFlagsSection } from './FeatureFlagsSection';
 import { I18nCodebaseSection } from './I18nCodebaseSection';
 import { TMSSection } from './TMSSection';
+import { TranslateSection } from './TranslateSection';
 
 const PRODUCTS = [
   { Component: I18nCodebaseSection, key: 'i18n' },
+  { Component: TranslateSection, key: 'translate' },
   { Component: CMSSection, key: 'cms' },
   { Component: TMSSection, key: 'tms' },
   { Component: FeatureFlagsSection, key: 'feature-flags' },

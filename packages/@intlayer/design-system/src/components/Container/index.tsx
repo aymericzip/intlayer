@@ -141,6 +141,7 @@ export enum ContainerBorderColor {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
   NEUTRAL = 'neutral',
+  CARD = 'card',
   TEXT = 'text',
   ERROR = 'error',
   WARNING = 'warning',

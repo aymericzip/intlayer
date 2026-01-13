@@ -2,6 +2,7 @@ export enum PagesRoutes {
   Home = '/',
   CMS = '/cms',
   TMS = '/tms',
+  Translate = '/translate',
   Demo = '/demo',
   Playground = '/playground',
   NotFound = '/404',
@@ -39,6 +40,10 @@ export enum PagesRoutes {
   Doc_Environment_Express = '/doc/environment/express',
   Doc_Environment_NestJS = '/doc/environment/nestjs',
   Doc_Environment_Fastify = '/doc/environment/fastify',
+
+  Doc_CLI_Fill = '/doc/concept/cli/fill',
+  Doc_CLI_Translate = '/doc/concept/cli/doc-translate',
+  Doc_CLI_Review = '/doc/concept/cli/doc-review',
 
   Doc_MCP = '/doc/mcp-server',
 
