@@ -186,7 +186,7 @@ Ahora puedes usar la función `useIntlayer` en cualquier componente Svelte. Esta
 > **Nota:** `useIntlayer` devuelve una tienda de Svelte, por lo que necesitas usar el prefijo `---
 > createdAt: 2025-11-20
 > updatedAt: 2025-11-20
-> title: Cómo traducir tu aplicación SvelteKit – Guía i18n 2025
+> title: Cómo traducir tu aplicación SvelteKit – Guía i18n 2026
 > description: Descubre cómo hacer que tu sitio web SvelteKit sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducir usando Server-Side Rendering (SSR).
 > keywords:
 

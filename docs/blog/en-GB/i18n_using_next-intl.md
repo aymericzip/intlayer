@@ -20,7 +20,7 @@ history:
     changes: Initial version
 ---
 
-# How to internationalise your Next.js application using next-intl in 2025
+# How to internationalise your Next.js application using next-intl in 2026
 
 ## Table of Contents
 

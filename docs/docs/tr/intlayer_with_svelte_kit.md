@@ -186,7 +186,7 @@ Artık `useIntlayer` fonksiyonunu herhangi bir Svelte bileşeninde kullanabilirs
 > **Not:** `useIntlayer` bir Svelte store döner, bu yüzden reaktif değerine erişmek için `---
 > createdAt: 2025-11-20
 > updatedAt: 2025-11-20
-> title: SvelteKit uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
+> title: SvelteKit uygulamanızı nasıl çevirirsiniz – i18n rehberi 2026
 > description: SvelteKit web sitenizi çok dilli hale nasıl getireceğinizi keşfedin. Server-Side Rendering (SSR) kullanarak uluslararasılaştırma (i18n) ve çeviri yapmak için dokümantasyonu takip edin.
 > keywords:
 

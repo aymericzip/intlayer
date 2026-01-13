@@ -186,7 +186,7 @@ export default heroContent;
 > **नोट:** `useIntlayer` एक Svelte store लौटाता है, इसलिए इसके reactive मान तक पहुँचने के लिए आपको `---
 > createdAt: 2025-11-20
 > updatedAt: 2025-11-20
-> title: अपने SvelteKit ऐप का अनुवाद कैसे करें – i18n गाइड 2025
+> title: अपने SvelteKit ऐप का अनुवाद कैसे करें – i18n गाइड 2026
 > description: जानें कि अपनी SvelteKit वेबसाइट को बहुभाषी कैसे बनाएं। Server-Side Rendering (SSR) का उपयोग करके इसे अंतरराष्ट्रीयकृत (i18n) और अनुवादित करने के लिए दस्तावेज़ का पालन करें।
 > keywords:
 

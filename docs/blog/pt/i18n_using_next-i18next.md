@@ -21,7 +21,7 @@ history:
     changes: Versão inicial
 ---
 
-# Como internacionalizar sua aplicação Next.js usando next-i18next em 2025
+# Como internacionalizar sua aplicação Next.js usando next-i18next em 2026
 
 ## Índice
 

@@ -186,7 +186,7 @@ Jetzt können Sie die Funktion `useIntlayer` in jeder Svelte-Komponente verwende
 > **Hinweis:** `useIntlayer` gibt einen Svelte-Store zurück, daher müssen Sie das `---
 > createdAt: 2025-11-20
 > updatedAt: 2025-11-20
-> title: So übersetzen Sie Ihre SvelteKit-App – i18n-Anleitung 2025
+> title: So übersetzen Sie Ihre SvelteKit-App – i18n-Anleitung 2026
 > description: Entdecken Sie, wie Sie Ihre SvelteKit-Website mehrsprachig gestalten. Folgen Sie der Dokumentation, um sie mit Server-Side Rendering (SSR) zu internationalisieren (i18n) und zu übersetzen.
 > keywords:
 

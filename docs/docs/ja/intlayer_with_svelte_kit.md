@@ -186,7 +186,7 @@ export default heroContent;
 > **注意:** `useIntlayer`はSvelteのストアを返すため、そのリアクティブな値にアクセスするには`---
 > createdAt: 2025-11-20
 > updatedAt: 2025-11-20
-> title: SvelteKitアプリを翻訳する方法 – i18nガイド 2025
+> title: SvelteKitアプリを翻訳する方法 – i18nガイド 2026
 > description: SvelteKitのウェブサイトを多言語対応にする方法を紹介します。Server-Side Rendering（SSR）を使って国際化（i18n）および翻訳を行うためのドキュメントに従ってください。
 > keywords:
 

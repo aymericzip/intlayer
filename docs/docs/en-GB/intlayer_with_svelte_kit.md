@@ -186,7 +186,7 @@ Now you can use the `useIntlayer` function in any Svelte component. It returns a
 > **Note:** `useIntlayer` returns a Svelte store, so you need to use the `---
 > createdAt: 2025-11-20
 > updatedAt: 2025-11-20
-> title: How to translate your SvelteKit app – i18n guide 2025
+> title: How to translate your SvelteKit app – i18n guide 2026
 > description: Discover how to make your SvelteKit website multilingual. Follow the documentation to internationalise (i18n) and translate it using Server-Side Rendering (SSR).
 > keywords:
 

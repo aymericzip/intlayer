@@ -21,7 +21,7 @@ history:
     changes: Versi awal
 ---
 
-# Cara menginternasionalisasi aplikasi Next.js Anda menggunakan next-i18next pada tahun 2025
+# Cara menginternasionalisasi aplikasi Next.js Anda menggunakan next-i18next pada tahun 2026
 
 ## Daftar Isi
 

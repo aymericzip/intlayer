@@ -21,7 +21,7 @@ history:
     changes: Phiên bản đầu tiên
 ---
 
-# Cách quốc tế hóa ứng dụng Next.js của bạn bằng next-i18next trong năm 2025
+# Cách quốc tế hóa ứng dụng Next.js của bạn bằng next-i18next trong năm 2026
 
 ## Mục lục
 

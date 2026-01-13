@@ -186,7 +186,7 @@ export default heroContent;
 > **ملاحظة:** تُرجع `useIntlayer` مخزن Svelte، لذا تحتاج إلى استخدام بادئة `---
 > createdAt: 2025-11-20
 > updatedAt: 2025-11-20
-> title: كيفية ترجمة تطبيق SvelteKit الخاص بك – دليل i18n 2025
+> title: كيفية ترجمة تطبيق SvelteKit الخاص بك – دليل i18n 2026
 > description: اكتشف كيفية جعل موقع SvelteKit الخاص بك متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته باستخدام العرض من جانب الخادم (SSR).
 > keywords:
 

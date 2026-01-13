@@ -20,7 +20,7 @@ history:
     changes: Versi awal
 ---
 
-# Cara menginternasionalisasi aplikasi Next.js Anda menggunakan next-intl pada tahun 2025
+# Cara menginternasionalisasi aplikasi Next.js Anda menggunakan next-intl pada tahun 2026
 
 ## Daftar Isi
 

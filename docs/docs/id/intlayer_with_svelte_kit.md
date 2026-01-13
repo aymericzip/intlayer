@@ -186,7 +186,7 @@ Sekarang Anda dapat menggunakan fungsi `useIntlayer` di komponen Svelte mana pun
 > **Catatan:** `useIntlayer` mengembalikan store Svelte, jadi Anda perlu menggunakan prefix `---
 > createdAt: 2025-11-20
 > updatedAt: 2025-11-20
-> title: Cara menerjemahkan aplikasi SvelteKit Anda – panduan i18n 2025
+> title: Cara menerjemahkan aplikasi SvelteKit Anda – panduan i18n 2026
 > description: Temukan cara membuat situs web SvelteKit Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya menggunakan Server-Side Rendering (SSR).
 > keywords:
 
