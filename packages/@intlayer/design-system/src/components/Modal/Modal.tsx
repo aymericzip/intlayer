@@ -149,13 +149,13 @@ export const Modal: FC<ModalProps> = ({
   children,
   isOpen,
   container,
-  disableScroll = true,
   onClose,
   hasCloseButton = false,
   title,
   size = ModalSize.MD,
   className,
-  isScrollable = false,
+  isScrollable = false, // Enable the scroll of the content
+  disableScroll = true, // Disable the scroll of the background
   padding = 'none', // Extract padding here
   ...props
 }) => {
