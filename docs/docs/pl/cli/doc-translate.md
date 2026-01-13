@@ -21,6 +21,14 @@ slugs:
 
 Polecenie `doc translate` automatycznie tłumaczy pliki dokumentacji z bazowego języka na docelowe lokalizacje, wykorzystując usługi tłumaczenia AI.
 
+## Kluczowe punkty:
+
+- Dzieli duże pliki markdown na fragmenty, aby pozostać w granicach okna kontekstowego modelu AI.
+- Ponawia tłumaczenie, jeśli format wyjściowy jest nieprawidłowy.
+- Włącza kontekst specyficzny dla aplikacji i pliku, aby poprawić dokładność tłumaczenia.
+- Zachowuje istniejące tłumaczenia, nie nadpisując ich.
+- Przetwarza pliki, fragmenty i lokalizacje równolegle przy użyciu systemu kolejkowego, aby zwiększyć prędkość.
+
 ```bash
 npx intlayer doc translate
 ```

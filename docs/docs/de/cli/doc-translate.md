@@ -21,6 +21,14 @@ slugs:
 
 Der Befehl `doc translate` übersetzt Dokumentationsdateien automatisch von einer Basissprache in Zielsprachen mithilfe von KI-Übersetzungsdiensten.
 
+## Wichtige Punkte:
+
+- Teilt große Markdown-Dateien in Chunks auf, um innerhalb der Kontextfenster-Grenzen des KI-Modells zu bleiben.
+- Wiederholt die Übersetzung, wenn das Ausgabeformat falsch ist.
+- Integriert anwendungs- und dateispezifischen Kontext für verbesserte Übersetzungsgenauigkeit.
+- Erhält bestehende Übersetzungen, indem sie nicht überschrieben werden.
+- Verarbeitet Dateien, Chunks und Locales parallel mithilfe eines Warteschlangensystems, um die Geschwindigkeit zu erhöhen.
+
 ```bash
 npx intlayer doc translate
 ```

@@ -26,11 +26,48 @@ npx intlayer fill
 
 यह कमांड आपकी सामग्री घोषणा फ़ाइलों का विश्लेषण संभावित समस्याओं के लिए करता है जैसे कि गायब अनुवाद, संरचनात्मक असंगतियां, या प्रकार असंगतताएं। यदि यह कोई समस्या पाता है, तो **intlayer fill** आपके शब्दकोशों को सुसंगत और पूर्ण बनाए रखने के लिए अपडेट प्रस्तावित या लागू करेगा।
 
+मुख्य बिंदु:
+
+- AI मॉडल की संदर्भ विंडो सीमा के भीतर रहने के लिए बड़ी JSON फ़ाइलों को चंक्स में विभाजित करता है।
+- यदि आउटपुट प्रारूप गलत है तो अनुवाद को पुनः प्रयास करता है।
+- अनुवाद सटीकता में सुधार के लिए एप्लिकेशन और फ़ाइल-विशिष्ट संदर्भ को शामिल करता है।
+- मौजूदा अनुवादों को अधिलेखित न करके उन्हें संरक्षित करता है।
+- गति बढ़ाने के लिए कतार प्रणाली का उपयोग करके फ़ाइलों, चंक्स और लोकेल्स को समानांतर में संसाधित करता है।
+
 ## उपनाम:
 
 - `npx intlayer dictionaries fill`
 - `npx intlayer dictionary fill`
 - `npx intlayer dic fill`
+
+## आउटपुट के उदाहरण:
+
+```bash
+npx intlayer fill
+
+Preparing Intlayer (v7.5.14)
+Done 76ms
+@intlayer/ai found - Run process locally
+Provider: (default) - Model: (default) - API Key: ✓
+Affected dictionary keys for processing: app, comp-test, hello-world, lang-switcher
+ - [comp-test]      No locales to fill, Skipping comp-test.content.json
+ - [app]            Processing app.content.tsx
+ - [app]            Filling missing metadata for app.content.tsx
+ - [hello-world]    Processing test.content.ts
+ - [hello-world]   [French (fr)]      Preparing test.content.ts
+ - [hello-world]   [Spanish (es)]     Preparing test.content.ts
+ - [lang-switcher]  Processing langSwitcher.content.ts
+ - [lang-switcher]  Filling missing metadata for langSwitcher.content.ts
+ - [hello-world]    Translation completed successfully for test.content.ts
+ - [lang-switcher] [Spanish (es)]     Preparing langSwitcher.content.ts
+ - [app]           [French (fr)]      Preparing app.content.tsx
+ - [app]           [Spanish (es)]     Preparing app.content.tsx
+ - [hello-world]    Content declaration written to test.content.ts
+ - [app]            Translation completed successfully for app.content.tsx
+ - [app]            Content declaration written to app.content.tsx
+ - [lang-switcher]  Translation completed successfully for langSwitcher.content.ts
+ - [lang-switcher]  Content declaration written to langSwitcher.content.ts
+```
 
 ## तर्क:
 

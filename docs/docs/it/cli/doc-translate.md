@@ -21,6 +21,14 @@ slugs:
 
 Il comando `doc translate` traduce automaticamente i file di documentazione da una locale base a locali target utilizzando servizi di traduzione AI.
 
+## Punti chiave:
+
+- Divide i file markdown grandi in parti per rimanere entro i limiti della finestra di contesto del modello AI.
+- Riprova la traduzione se il formato di output è errato.
+- Incorpora il contesto specifico dell'applicazione e del file per migliorare l'accuratezza della traduzione.
+- Preserva le traduzioni esistenti non sovrascrivendole.
+- Elabora file, parti e locali in parallelo utilizzando un sistema di code per aumentare la velocità.
+
 ```bash
 npx intlayer doc translate
 ```

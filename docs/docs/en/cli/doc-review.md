@@ -21,6 +21,12 @@ slugs:
 
 The `doc review` command analyzes documentation files for quality, consistency, and completeness across different locales.
 
+## Key Points:
+
+- Split large markdown files into chunks to stay within the AI model's context window limits.
+- Optimize the chunks to review, and skip the parts that are already translated, and not changed.
+- Process files, chunks, and locales in parallel using a queue system to increase speed.
+
 ```bash
 npx intlayer doc review
 ```

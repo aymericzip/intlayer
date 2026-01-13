@@ -26,11 +26,48 @@ npx intlayer fill
 
 このコマンドは、翻訳の欠落、構造の不整合、型の不一致などの潜在的な問題を検出するために、コンテンツ宣言ファイルを解析します。問題が見つかった場合、**intlayer fill** は辞書を一貫性があり完全な状態に保つために、更新を提案または適用します。
 
+重要なポイント：
+
+- AIモデルのコンテキストウィンドウの制限内に収まるように、大きなJSONファイルをチャンクに分割します。
+- 出力形式が正しくない場合、翻訳を再試行します。
+- 翻訳の精度を向上させるために、アプリケーション固有およびファイル固有のコンテキストを組み込みます。
+- 既存の翻訳を上書きしないことで、既存の翻訳を保持します。
+- キューシステムを使用してファイル、チャンク、ロケールを並列処理し、速度を向上させます。
+
 ## エイリアス:
 
 - `npx intlayer dictionaries fill`
 - `npx intlayer dictionary fill`
 - `npx intlayer dic fill`
+
+## 出力例:
+
+```bash
+npx intlayer fill
+
+Preparing Intlayer (v7.5.14)
+Done 76ms
+@intlayer/ai found - Run process locally
+Provider: (default) - Model: (default) - API Key: ✓
+Affected dictionary keys for processing: app, comp-test, hello-world, lang-switcher
+ - [comp-test]      No locales to fill, Skipping comp-test.content.json
+ - [app]            Processing app.content.tsx
+ - [app]            Filling missing metadata for app.content.tsx
+ - [hello-world]    Processing test.content.ts
+ - [hello-world]   [French (fr)]      Preparing test.content.ts
+ - [hello-world]   [Spanish (es)]     Preparing test.content.ts
+ - [lang-switcher]  Processing langSwitcher.content.ts
+ - [lang-switcher]  Filling missing metadata for langSwitcher.content.ts
+ - [hello-world]    Translation completed successfully for test.content.ts
+ - [lang-switcher] [Spanish (es)]     Preparing langSwitcher.content.ts
+ - [app]           [French (fr)]      Preparing app.content.tsx
+ - [app]           [Spanish (es)]     Preparing app.content.tsx
+ - [hello-world]    Content declaration written to test.content.ts
+ - [app]            Translation completed successfully for app.content.tsx
+ - [app]            Content declaration written to app.content.tsx
+ - [lang-switcher]  Translation completed successfully for langSwitcher.content.ts
+ - [lang-switcher]  Content declaration written to langSwitcher.content.ts
+```
 
 ## 引数:
 

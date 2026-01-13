@@ -18,19 +18,20 @@ slugs:
 # Test missing translations
 
 ```bash
-npx intlayer content test
+npx intlayer test
 ```
 
 ## Aliases:
 
-- `npx intlayer test`
+- `npx intlayer content test`
 
 This command analyzes your content declaration files to identify missing translations across all configured locales. It provides a comprehensive report showing which translation keys are missing for which locales, helping you maintain consistency across your multilingual content.
 
 ## Example output:
 
 ```bash
-pnpm intlayer content test
+npx intlayer content test
+
 Missing translations:
  - home-page                      - tr         - src/components/HomePage/homePage.content.ts
  - server-component               - es, tr     - src/components/ServerComponent/serverComponent.content.ts

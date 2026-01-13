@@ -21,6 +21,14 @@ slugs:
 
 Lệnh `doc translate` tự động dịch các tệp tài liệu từ ngôn ngữ cơ sở sang các ngôn ngữ đích sử dụng dịch vụ dịch thuật AI.
 
+## Điểm chính:
+
+- Chia các tệp markdown lớn thành các phần nhỏ để nằm trong giới hạn cửa sổ ngữ cảnh của mô hình AI.
+- Thử lại bản dịch nếu định dạng đầu ra không đúng.
+- Tích hợp ngữ cảnh cụ thể cho ứng dụng và tệp để cải thiện độ chính xác của bản dịch.
+- Bảo tồn các bản dịch hiện có bằng cách không ghi đè chúng.
+- Xử lý tệp, phần và ngôn ngữ song song bằng hệ thống hàng đợi để tăng tốc độ.
+
 ```bash
 npx intlayer doc translate
 ```

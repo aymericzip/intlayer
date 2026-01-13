@@ -21,6 +21,14 @@ slugs:
 
 Perintah `doc translate` secara otomatis menerjemahkan file dokumentasi dari locale dasar ke locale target menggunakan layanan terjemahan AI.
 
+## Poin-poin penting:
+
+- Membagi file markdown besar menjadi potongan-potongan untuk tetap berada dalam batas jendela konteks model AI.
+- Mencoba ulang terjemahan jika format output tidak benar.
+- Menggabungkan konteks spesifik aplikasi dan file untuk meningkatkan akurasi terjemahan.
+- Mempertahankan terjemahan yang ada dengan tidak menimpa mereka.
+- Memproses file, potongan, dan locale secara paralel menggunakan sistem antrian untuk meningkatkan kecepatan.
+
 ```bash
 npx intlayer doc translate
 ```

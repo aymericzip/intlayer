@@ -21,6 +21,12 @@ slugs:
 
 El comando `doc review` analiza archivos de documentación para calidad, consistencia y completitud en diferentes locales.
 
+## Puntos clave:
+
+- Divide archivos markdown grandes en fragmentos para mantenerse dentro de los límites de la ventana de contexto del modelo de IA.
+- Optimiza los fragmentos a revisar y omite las partes que ya están traducidas y no han cambiado.
+- Procesa archivos, fragmentos y locales en paralelo usando un sistema de cola para aumentar la velocidad.
+
 ```bash
 npx intlayer doc review
 ```

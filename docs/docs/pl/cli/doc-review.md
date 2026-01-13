@@ -21,6 +21,12 @@ slugs:
 
 Polecenie `doc review` analizuje pliki dokumentacji pod kątem jakości, spójności i kompletności w różnych lokalizacjach.
 
+## Kluczowe punkty:
+
+- Dzieli duże pliki markdown na fragmenty, aby pozostać w granicach okna kontekstowego modelu AI.
+- Optymalizuje fragmenty do przeglądu i pomija części, które są już przetłumaczone i nie zostały zmienione.
+- Przetwarza pliki, fragmenty i lokalizacje równolegle przy użyciu systemu kolejkowego, aby zwiększyć prędkość.
+
 ```bash
 npx intlayer doc review
 ```

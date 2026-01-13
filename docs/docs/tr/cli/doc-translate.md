@@ -21,6 +21,14 @@ slugs:
 
 `doc translate` komutu, dokümantasyon dosyalarını temel bir yerelden hedef yerellere AI çeviri servislerini kullanarak otomatik olarak çevirir.
 
+## Önemli noktalar:
+
+- Büyük markdown dosyalarını AI modelinin bağlam penceresi sınırları içinde kalmak için parçalara böler.
+- Çıktı formatı yanlışsa çeviriyi yeniden dener.
+- Çeviri doğruluğunu artırmak için uygulama ve dosya özel bağlamını dahil eder.
+- Mevcut çevirileri üzerine yazmayarak korur.
+- Hızı artırmak için bir kuyruk sistemi kullanarak dosyaları, parçaları ve yerel ayarları paralel olarak işler.
+
 ```bash
 npx intlayer doc translate
 ```
