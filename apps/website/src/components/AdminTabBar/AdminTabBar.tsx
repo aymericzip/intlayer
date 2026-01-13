@@ -11,6 +11,7 @@ import { Building2, FolderOpen, MessageCircle, Users } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { AppRoutes } from '@/Routes';
 
 type AdminTabBarProps = {
   className?: string;
