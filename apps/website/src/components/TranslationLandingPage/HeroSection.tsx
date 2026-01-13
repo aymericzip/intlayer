@@ -24,11 +24,12 @@ import {
   Server,
   Sparkles,
 } from 'lucide-react';
+import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 type CodeBlockWrapperProps = {
-  title: string;
+  title: ReactNode;
   children: ReactNode;
   className?: string;
 };
@@ -83,6 +84,8 @@ export const Pill: FC<{ children: ReactNode; className?: string }> = ({
 
 export const HeroSection: FC = () => {
   const reduced = useReducedMotion();
+  const { pills, title, description, seeCLICommands, getStartedForFree, card } =
+    useIntlayer('hero-section');
 
   return (
     <>
@@ -132,30 +135,28 @@ export const HeroSection: FC = () => {
             <div className="mb-4 flex flex-wrap gap-2">
               <Pill>
                 <CreditCard className="size-3 text-text" />
-                100% Free & Open Source
+                {pills.freeOpenSource}
               </Pill>
               <Pill>
                 <FileJson className="size-3 text-text" />
-                JSON Translation
+                {pills.jsonTranslation}
               </Pill>
               <Pill>
                 <FileText className="size-3 text-text" />
-                Docs Translation
+                {pills.docsTranslation}
               </Pill>
               <Pill>
                 <Server className="size-3 text-text" />
-                Local LLM
+                {pills.localLLM}
               </Pill>
             </div>
 
             <h1 className="text-balance font-semibold text-4xl text-text leading-tight md:text-5xl">
-              Free AI Translator for JSON & Documentation.
+              {title}
             </h1>
 
             <p className="mt-4 max-w-xl text-pretty text-base text-text/70 md:text-lg">
-              Translate your application content and markdown documentation
-              instantly. <strong>No subscription required.</strong> Use your own
-              API keys (OpenAI, Anthropic) or run locally for free with Ollama.
+              {description}
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -164,9 +165,9 @@ export const HeroSection: FC = () => {
                 variant={LinkVariant.BUTTON_OUTLINED}
                 color={LinkColor.TEXT}
                 className="w-full sm:w-auto"
-                label="See CLI commands"
+                label={seeCLICommands}
               >
-                See CLI commands
+                {seeCLICommands}
               </Link>
 
               <Link
@@ -174,9 +175,9 @@ export const HeroSection: FC = () => {
                 variant={LinkVariant.BUTTON}
                 color={LinkColor.PRIMARY}
                 className="w-full sm:w-auto"
-                label="Get started for free"
+                label={getStartedForFree}
               >
-                Get started for free
+                {getStartedForFree}
               </Link>
             </div>
           </div>
@@ -197,23 +198,23 @@ export const HeroSection: FC = () => {
                     <Globe className="size-5 text-text" />
                   </div>
                   <div className="font-medium text-sm text-text">
-                    Translate JSON & Docs
+                    {card.title}
                   </div>
                 </div>
-                <Pill className="bg-card/10">Free CLI</Pill>
+                <Pill className="bg-card/10">{pills.freeCLI}</Pill>
               </div>
 
               <div className="mt-4">
-                <CodeBlockWrapper title="Translate JSON files & Docs">
+                <CodeBlockWrapper title={card.codeBlockTitle}>
                   <CodeBlock lang="bash" isDarkMode className="text-sm">
                     {[
-                      '# Install CLI',
+                      card.codeComments.installCLI.value,
                       'npm install -g intlayer-cli',
                       '',
-                      '# Translate JSON / JS / TS',
+                      card.codeComments.translateJSON.value,
                       'npx intlayer fill',
                       '',
-                      '# Translate Markdown Docs',
+                      card.codeComments.translateMarkdown.value,
                       'npx intlayer doc translate',
                     ].join('\n')}
                   </CodeBlock>
@@ -223,19 +224,19 @@ export const HeroSection: FC = () => {
               <div className="mt-4 grid grid-cols-2 gap-3 text-text/70 text-xs">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="size-4 text-text" />
-                  No monthly fees
+                  {card.features.noMonthlyFees}
                 </div>
                 <div className="flex items-center gap-2">
                   <Languages className="size-4 text-text" />
-                  Multi-language
+                  {card.features.multiLanguage}
                 </div>
                 <div className="flex items-center gap-2">
                   <Server className="size-4 text-text" />
-                  Runs Locally
+                  {card.features.runsLocally}
                 </div>
                 <div className="flex items-center gap-2">
                   <Sparkles className="size-4 text-text" />
-                  BYO Keys / LLM
+                  {card.features.byoKeysLLM}
                 </div>
               </div>
 

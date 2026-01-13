@@ -13,11 +13,12 @@ import {
   LinkVariant,
 } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
+import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 type CodeBlockWrapperProps = {
-  title: string;
+  title: ReactNode;
   children: ReactNode;
   className?: string;
 };
@@ -46,6 +47,15 @@ const CodeBlockWrapper: FC<CodeBlockWrapperProps> = ({
 };
 
 export const CTASection: FC = () => {
+  const {
+    title,
+    description,
+    exploreCLICommands,
+    readDocumentation,
+    quickStartTitle,
+    codeBlockComment,
+  } = useIntlayer('cta-section');
+
   return (
     <section
       id="get-started"
@@ -62,12 +72,10 @@ export const CTASection: FC = () => {
         <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-12">
           <div className="md:col-span-7">
             <h3 className="font-semibold text-2xl text-text md:text-3xl">
-              Start translating your content for free.
+              {title}
             </h3>
             <p className="mt-2 max-w-2xl text-base text-text/70">
-              Open source. No credit card required. No recurring subscriptions.
-              Install the CLI and start translating JSON and Markdown in
-              minutes.
+              {description}
             </p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -75,14 +83,14 @@ export const CTASection: FC = () => {
                 variant={LinkVariant.BUTTON_OUTLINED}
                 color={LinkColor.TEXT}
                 className="w-full sm:w-auto"
-                label="Explore CLI commands"
+                label={exploreCLICommands}
                 onClick={(e) => {
                   e.preventDefault();
                   const el = document.getElementById('commands');
                   el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }}
               >
-                Explore CLI commands
+                {exploreCLICommands}
               </Link>
 
               <Link
@@ -90,23 +98,23 @@ export const CTASection: FC = () => {
                 variant={LinkVariant.BUTTON}
                 color={LinkColor.PRIMARY}
                 className="w-full sm:w-auto"
-                label="Read the documentation"
+                label={readDocumentation}
               >
-                Read the documentation
+                {readDocumentation}
               </Link>
             </div>
           </div>
 
           <div className="md:col-span-5">
-            <CodeBlockWrapper title="Quick start">
+            <CodeBlockWrapper title={quickStartTitle}>
               <CodeBlock lang="bash" isDarkMode className="text-sm">
                 {[
                   'npm install -g intlayer-cli',
                   '',
-                  '# translate docs',
+                  codeBlockComment.translateDocs.value,
                   'npx intlayer doc translate --base-locale en --locales fr es',
                   '',
-                  '# translate json',
+                  codeBlockComment.translateJson.value,
                   'npx intlayer fill',
                 ].join('\n')}
               </CodeBlock>

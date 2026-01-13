@@ -10,6 +10,7 @@ import {
 } from '@intlayer/design-system';
 import { motion, type Variants } from 'framer-motion';
 import { CheckCircle2, Laptop, Server } from 'lucide-react';
+import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 
 const sectionFade: Variants = {
@@ -27,6 +28,10 @@ const stagger: Variants = {
 };
 
 export const LocalVsServerSection: FC = () => {
+  const { title, description, local, server } = useIntlayer(
+    'local-vs-server-section'
+  );
+
   return (
     <section className="mx-auto max-w-6xl px-8 py-10 md:py-14">
       <motion.div
@@ -36,13 +41,9 @@ export const LocalVsServerSection: FC = () => {
         viewport={{ once: true, amount: 0.25 }}
       >
         <h2 className="font-semibold text-2xl text-text md:text-3xl">
-          Run locally for free, or scale with Intlayer Cloud.
+          {title}
         </h2>
-        <p className="mt-2 max-w-2xl text-base text-text/70">
-          We provide a flexible architecture. Run the translation pipeline on
-          your own machine for zero cost, or use our server for team
-          collaboration.
-        </p>
+        <p className="mt-2 max-w-2xl text-base text-text/70">{description}</p>
       </motion.div>
 
       <motion.div
@@ -68,27 +69,20 @@ export const LocalVsServerSection: FC = () => {
               </div>
               <div>
                 <div className="font-semibold text-base text-text">
-                  Local Execution (Free)
+                  {local.title}
                 </div>
                 <div className="mt-1 text-sm text-text/70">
-                  Run the CLI on your machine. Bring your own keys (OpenAI,
-                  etc.) or use Ollama for free offline translation.
+                  {local.description}
                 </div>
               </div>
             </div>
 
             <div className="mt-4 grid gap-2 text-sm text-text/70">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-text" /> No subscription
-                fees
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-text" /> 100% Privacy &
-                Control
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-text" /> Unlimited usage
-              </div>
+              {local.features.map((feature: IntlayerNode) => (
+                <div key={feature.value} className="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-text" /> {feature}
+                </div>
+              ))}
             </div>
           </Container>
         </motion.div>
@@ -109,26 +103,20 @@ export const LocalVsServerSection: FC = () => {
               </div>
               <div>
                 <div className="font-semibold text-base text-text">
-                  Intlayer Server (Optional)
+                  {server.title}
                 </div>
                 <div className="mt-1 text-sm text-text/70">
-                  Centralize provider configuration and run translations from a
-                  shared environment/CMS.
+                  {server.description}
                 </div>
               </div>
             </div>
 
             <div className="mt-4 grid gap-2 text-sm text-text/70">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-text" /> Shared API
-                configuration
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-text" /> Visual Editor
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-text" /> CMS features
-              </div>
+              {server.features.map((feature: IntlayerNode) => (
+                <div key={feature.value} className="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-text" /> {feature}
+                </div>
+              ))}
             </div>
           </Container>
         </motion.div>

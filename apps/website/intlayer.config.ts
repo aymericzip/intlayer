@@ -1,4 +1,3 @@
-import { dirname } from 'node:path';
 import {
   type CustomIntlayerConfig,
   type Locale,

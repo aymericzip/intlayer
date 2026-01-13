@@ -11,13 +11,17 @@ import {
 } from '@intlayer/design-system';
 import { motion, type Variants } from 'framer-motion';
 import { Braces, FileText, Languages } from 'lucide-react';
+import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 
-type Command = {
-  title: string;
-  description: string;
-  code: string;
-  icon: FC<{ className?: string }>;
+type IconMap = {
+  [key: string]: FC<{ className?: string }>;
+};
+
+const iconMap: IconMap = {
+  'translate-json': Braces,
+  'translate-markdown': FileText,
+  'review-translations': Languages,
 };
 
 const sectionFade: Variants = {
@@ -34,29 +38,11 @@ const stagger: Variants = {
   show: { transition: { staggerChildren: 0.08 } },
 };
 
-const commands: Command[] = [
-  {
-    title: 'Translate JSON / JS',
-    description:
-      'Find missing keys in your locale files and fill them using AI.',
-    code: `npx intlayer fill`,
-    icon: Braces,
-  },
-  {
-    title: 'Translate Markdown',
-    description: 'Generate localized documentation files automatically.',
-    code: `npx intlayer doc translate`,
-    icon: FileText,
-  },
-  {
-    title: 'Review Translations',
-    description: 'Interactive CLI to approve or reject AI-generated content.',
-    code: `npx intlayer doc review`,
-    icon: Languages,
-  },
-];
-
 export const CommandsSection: FC = () => {
+  const { title, description, commands } = useIntlayer(
+    'translation-commands-section'
+  );
+
   return (
     <section
       id="commands"
@@ -69,13 +55,9 @@ export const CommandsSection: FC = () => {
         viewport={{ once: true, amount: 0.25 }}
       >
         <h2 className="font-semibold text-2xl text-text md:text-3xl">
-          Automate translation for JSON & Docs.
+          {title}
         </h2>
-        <p className="mt-2 max-w-2xl text-base text-text/70">
-          Keep your UI consistent and your documentation accessible. Run these
-          commands locally or in your CI pipeline, completely free with local
-          models or your own API key.
-        </p>
+        <p className="mt-2 max-w-2xl text-base text-text/70">{description}</p>
       </motion.div>
 
       <motion.div
@@ -85,49 +67,59 @@ export const CommandsSection: FC = () => {
         viewport={{ once: true, amount: 0.2 }}
         className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3"
       >
-        {commands.map((cmd) => (
-          <motion.div key={cmd.title} variants={sectionFade}>
-            <Container
-              roundedSize={ContainerRoundedSize['3xl']}
-              transparency={ContainerTransparency.MD}
-              padding={ContainerPadding.LG}
-              border
-              borderColor={ContainerBorderColor.TEXT}
-              background={ContainerBackground.HOVERABLE}
-              className="h-full"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-2">
-                  <div className="rounded-2xl bg-card/40 p-2">
-                    <cmd.icon className="size-5 text-text" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-base text-text">
-                      {cmd.title}
+        {commands.map(
+          (cmd: {
+            id: IntlayerNode;
+            title: IntlayerNode;
+            description: IntlayerNode;
+            code: string;
+          }) => {
+            const IconComponent = iconMap[cmd.id.value] || Braces;
+            return (
+              <motion.div key={cmd.id.value} variants={sectionFade}>
+                <Container
+                  roundedSize={ContainerRoundedSize['3xl']}
+                  transparency={ContainerTransparency.MD}
+                  padding={ContainerPadding.LG}
+                  border
+                  borderColor={ContainerBorderColor.TEXT}
+                  background={ContainerBackground.HOVERABLE}
+                  className="h-full"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-2">
+                      <div className="rounded-2xl bg-card/40 p-2">
+                        <IconComponent className="size-5 text-text" />
+                      </div>
+                      <div>
+                        <div className="font-semibold text-base text-text">
+                          {cmd.title}
+                        </div>
+                        <div className="mt-1 text-sm text-text/70">
+                          {cmd.description}
+                        </div>
+                      </div>
                     </div>
-                    <div className="mt-1 text-sm text-text/70">
-                      {cmd.description}
-                    </div>
                   </div>
-                </div>
-              </div>
 
-              <div className="mt-4">
-                <div className="relative overflow-hidden rounded-2xl border-[1.3px] border-text/15 bg-neutral-950/90 p-4 text-text-dark supports-[corner-shape:squircle]:rounded-3xl">
-                  <div className="mb-2 flex items-center justify-between">
-                    <span className="text-text-dark/70 text-xs">
-                      {cmd.title}
-                    </span>
-                    <span className="text-text-dark/40 text-xs">CLI</span>
+                  <div className="mt-4">
+                    <div className="relative overflow-hidden rounded-2xl border-[1.3px] border-text/15 bg-neutral-950/90 p-4 text-text-dark supports-[corner-shape:squircle]:rounded-3xl">
+                      <div className="mb-2 flex items-center justify-between">
+                        <span className="text-text-dark/70 text-xs">
+                          {cmd.title}
+                        </span>
+                        <span className="text-text-dark/40 text-xs">CLI</span>
+                      </div>
+                      <CodeBlock lang="bash" isDarkMode className="text-sm">
+                        {cmd.code}
+                      </CodeBlock>
+                    </div>
                   </div>
-                  <CodeBlock lang="bash" isDarkMode className="text-sm">
-                    {cmd.code}
-                  </CodeBlock>
-                </div>
-              </div>
-            </Container>
-          </motion.div>
-        ))}
+                </Container>
+              </motion.div>
+            );
+          }
+        )}
       </motion.div>
     </section>
   );

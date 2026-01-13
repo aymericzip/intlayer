@@ -11,7 +11,19 @@ import {
 import { cn } from '@utils/cn';
 import { motion, type Variants } from 'framer-motion';
 import { CheckCircle2, GitBranch, Layers, Sparkles } from 'lucide-react';
+import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
+
+type IconMap = {
+  [key: string]: FC<{ className?: string }>;
+};
+
+const iconMap: IconMap = {
+  '01': CheckCircle2,
+  '02': Layers,
+  '03': Sparkles,
+  '04': GitBranch,
+};
 
 const sectionFade: Variants = {
   hidden: { opacity: 0, y: 18 },
@@ -43,34 +55,9 @@ const Pill: FC<{ children: ReactNode; className?: string }> = ({
   );
 };
 
-const steps = [
-  {
-    step: '01',
-    title: 'Detect',
-    desc: 'Find missing locales, structural mismatches, and type issues.',
-    icon: CheckCircle2,
-  },
-  {
-    step: '02',
-    title: 'Chunk',
-    desc: 'Split content safely for the model context window.',
-    icon: Layers,
-  },
-  {
-    step: '03',
-    title: 'Translate / Review',
-    desc: 'Apply context, retry on format mismatch, keep existing keys.',
-    icon: Sparkles,
-  },
-  {
-    step: '04',
-    title: 'Write back',
-    desc: 'Update files deterministically and keep diffs clean.',
-    icon: GitBranch,
-  },
-];
-
 export const HowItWorksSection: FC = () => {
+  const { title, description, steps } = useIntlayer('how-it-works-section');
+
   return (
     <section className="mx-auto max-w-6xl px-8 py-10 md:py-14">
       <motion.div
@@ -80,12 +67,9 @@ export const HowItWorksSection: FC = () => {
         viewport={{ once: true, amount: 0.25 }}
       >
         <h2 className="font-semibold text-2xl text-text md:text-3xl">
-          How it works under the hood
+          {title}
         </h2>
-        <p className="mt-2 max-w-2xl text-base text-text/70">
-          A provider-agnostic pipeline designed for structured content and
-          predictable results.
-        </p>
+        <p className="mt-2 max-w-2xl text-base text-text/70">{description}</p>
       </motion.div>
 
       <motion.div
@@ -95,28 +79,39 @@ export const HowItWorksSection: FC = () => {
         viewport={{ once: true, amount: 0.2 }}
         className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4"
       >
-        {steps.map((s) => (
-          <motion.div key={s.step} variants={sectionFade}>
-            <Container
-              roundedSize={ContainerRoundedSize['3xl']}
-              transparency={ContainerTransparency.MD}
-              padding={ContainerPadding.LG}
-              border
-              borderColor={ContainerBorderColor.TEXT}
-              background={ContainerBackground.HOVERABLE}
-              className="h-full"
-            >
-              <div className="flex items-center justify-between">
-                <Pill className="bg-card/10">{s.step}</Pill>
-                <s.icon className="size-5 text-text/80" />
-              </div>
-              <div className="mt-3 font-semibold text-base text-text">
-                {s.title}
-              </div>
-              <div className="mt-1 text-sm text-text/70">{s.desc}</div>
-            </Container>
-          </motion.div>
-        ))}
+        {steps.map(
+          (s: {
+            step: IntlayerNode;
+            title: IntlayerNode;
+            description: IntlayerNode;
+          }) => {
+            const IconComponent = iconMap[s.step.value] || CheckCircle2;
+            return (
+              <motion.div key={s.step.value} variants={sectionFade}>
+                <Container
+                  roundedSize={ContainerRoundedSize['3xl']}
+                  transparency={ContainerTransparency.MD}
+                  padding={ContainerPadding.LG}
+                  border
+                  borderColor={ContainerBorderColor.TEXT}
+                  background={ContainerBackground.HOVERABLE}
+                  className="h-full"
+                >
+                  <div className="flex items-center justify-between">
+                    <Pill className="bg-card/10">{s.step}</Pill>
+                    <IconComponent className="size-5 text-text/80" />
+                  </div>
+                  <div className="mt-3 font-semibold text-base text-text">
+                    {s.title}
+                  </div>
+                  <div className="mt-1 text-sm text-text/70">
+                    {s.description}
+                  </div>
+                </Container>
+              </motion.div>
+            );
+          }
+        )}
       </motion.div>
     </section>
   );
