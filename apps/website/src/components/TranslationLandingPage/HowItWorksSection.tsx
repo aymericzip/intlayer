@@ -95,7 +95,7 @@ export const HowItWorksSection: FC = () => {
                   className="flex h-full flex-col items-center gap-3 text-center"
                 >
                   <div className="flex w-full items-center justify-between">
-                    <span className="flex size-12 items-center justify-center rounded-full border-4 border-lime-300 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
+                    <span className="flex size-8 items-center justify-center rounded-full border-4 border-lime-300 text-lg text-lime-800 dark:border-lime-900 dark:text-lime-600">
                       {s.step}
                     </span>
                     <IconComponent className="size-6 text-neutral" />

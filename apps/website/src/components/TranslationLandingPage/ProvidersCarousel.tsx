@@ -1,10 +1,10 @@
 import { Container } from '@intlayer/design-system';
 import type { FC } from 'react';
-import { ClaudeAI } from './Claude';
-import { DeepSeek } from './DeepSeek';
-import { MistralAI } from './Mistral';
-import { Ollama } from './Ollama';
-import { OpenAI } from './OpenAI';
+import { ClaudeAI } from './AIProvidersLogo/Claude';
+import { DeepSeek } from './AIProvidersLogo/DeepSeek';
+import { MistralAI } from './AIProvidersLogo/Mistral';
+import { Ollama } from './AIProvidersLogo/Ollama';
+import { OpenAI } from './AIProvidersLogo/OpenAI';
 
 const providers: Array<{ name: string; logo?: FC<{ className?: string }> }> = [
   { name: 'OpenAI', logo: OpenAI },
