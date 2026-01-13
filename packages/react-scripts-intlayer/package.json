@@ -91,7 +91,7 @@
   "devDependencies": {
     "@craco/types": "7.1.0",
     "@types/cross-spawn": "6.0.6",
-    "@types/node": "25.0.6",
+    "@types/node": "25.0.7",
     "@types/webpack": "5.28.5",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

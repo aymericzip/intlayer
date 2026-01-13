@@ -147,7 +147,7 @@
     "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
     "@types/espree": "10.1.0",
-    "@types/node": "25.0.6",
+    "@types/node": "25.0.7",
     "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",
     "@utils/ts-config": "workspace:*",
