@@ -47,7 +47,7 @@ import {
   UNMERGED_DICTIONARIES_DIR,
   WATCH,
 } from '../defaultValues/content';
-import { FILL } from '../defaultValues/dictionary';
+import { FILL, LOCATION } from '../defaultValues/dictionary';
 import {
   APPLICATION_URL,
   BACKEND_URL,
@@ -815,6 +815,13 @@ const buildDictionaryFields = (
    * Default: true
    */
   fill: customConfiguration?.fill ?? FILL,
+
+  /**
+   * The location of the dictionary.
+   *
+   * Default: 'local'
+   */
+  location: customConfiguration?.location ?? LOCATION,
 
   /**
    * Transform the dictionary in a per-locale dictionary.

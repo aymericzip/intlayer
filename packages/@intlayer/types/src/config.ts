@@ -623,6 +623,7 @@ export type DictionaryConfig = Pick<
   | 'title'
   | 'tags'
   | 'version'
+  | 'location'
 >;
 
 /**

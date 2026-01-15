@@ -77,9 +77,28 @@ export const push = async (options?: PushOptions): Promise<void> => {
     const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 
     const unmergedDictionariesRecord = getUnmergedDictionaries(config);
-    let dictionaries: Dictionary[] = Object.values(
-      unmergedDictionariesRecord
-    ).flat();
+    let dictionaries: Dictionary[] = Object.values(unmergedDictionariesRecord)
+      .flat()
+      .filter((dictionary) => {
+        const location =
+          dictionary.location ?? config.dictionary?.location ?? 'local';
+
+        return location === 'remote' || location === 'local&remote';
+      });
+
+    // Check if the dictionaries list is empty after filtering by location
+    if (dictionaries.length === 0) {
+      appLogger(
+        `No dictionaries found to push. Only dictionaries with location 'remote' or 'local&remote' are pushed.`,
+        { level: 'warn' }
+      );
+      appLogger(
+        `You can set the location in your dictionary file (e.g. { key: 'my-key', location: 'local&remote', ... }) or globally in your intlayer.config.ts file (e.g. { dictionary: { location: 'local&remote' } }).`,
+        { level: 'info' }
+      );
+      return;
+    }
+
     const existingDictionariesKeys: string[] = Object.keys(
       unmergedDictionariesRecord
     );

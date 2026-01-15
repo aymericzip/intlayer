@@ -55,7 +55,7 @@ export type Fill =
 
 export type DictionaryId = string;
 export type DictionaryKey = string;
-export type DictionaryLocation = 'remote' | 'local' | 'plugin';
+export type DictionaryLocation = 'remote' | 'local' | 'local&remote' | 'plugin';
 
 export type LocalDictionaryId =
   `${DictionaryKey}::${Dictionary['location']}::${Dictionary['filePath'] | DictionaryId}`;

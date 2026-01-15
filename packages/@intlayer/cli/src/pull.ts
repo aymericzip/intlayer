@@ -14,6 +14,7 @@ import {
   getProjectRequire,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/types';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PullLogger, type PullStatus } from './push/pullLog';
 import { checkCMSAuth } from './utils/checkAccess';
 
@@ -46,6 +47,8 @@ export const pull = async (options?: PullOptions): Promise<void> => {
 
     const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 
+    const unmergedDictionariesRecord = getUnmergedDictionaries(config);
+
     // Get remote update timestamps map
     const getDictionariesUpdateTimestampResult =
       await intlayerAPI.dictionary.getDictionariesUpdateTimestamp();
@@ -54,7 +57,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
       throw new Error('No distant dictionaries found');
     }
 
-    let distantDictionariesUpdateTimeStamp: Record<string, number> =
+    let distantDictionariesUpdateTimeStamp: Record<string, any> =
       getDictionariesUpdateTimestampResult.data;
 
     // Optional filtering by requested dictionaries
@@ -65,6 +68,19 @@ export const pull = async (options?: PullOptions): Promise<void> => {
         )
       );
     }
+
+    // Filter by location
+    distantDictionariesUpdateTimeStamp = Object.fromEntries(
+      Object.entries(distantDictionariesUpdateTimeStamp).filter(([key]) => {
+        const localDictionaries = unmergedDictionariesRecord[key];
+        const location =
+          localDictionaries?.[0]?.location ??
+          config.dictionary?.location ??
+          'remote';
+
+        return location === 'remote' || location === 'local&remote';
+      })
+    );
 
     // Load local cached remote dictionaries (if any)
     const remoteDictionariesPath = join(
@@ -81,8 +97,14 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     // Determine which keys need fetching by comparing updatedAt with local cache
     const entries = Object.entries(distantDictionariesUpdateTimeStamp);
     const keysToFetch = entries
-      .filter(([key, remoteUpdatedAt]) => {
-        if (!remoteUpdatedAt) return true;
+      .filter(([key, remoteUpdatedAtValue]) => {
+        if (!remoteUpdatedAtValue) return true;
+
+        const remoteUpdatedAt =
+          typeof remoteUpdatedAtValue === 'object'
+            ? (remoteUpdatedAtValue as any).updatedAt
+            : remoteUpdatedAtValue;
+
         const local = (remoteDictionariesRecord as any)[key];
         if (!local) return true;
         const localUpdatedAtRaw = (local as any)?.updatedAt as
@@ -101,7 +123,12 @@ export const pull = async (options?: PullOptions): Promise<void> => {
       .map(([key]) => key);
 
     const cachedKeys = entries
-      .filter(([key, remoteUpdatedAt]) => {
+      .filter(([key, remoteUpdatedAtValue]) => {
+        const remoteUpdatedAt =
+          typeof remoteUpdatedAtValue === 'object'
+            ? (remoteUpdatedAtValue as any).updatedAt
+            : remoteUpdatedAtValue;
+
         const local = (remoteDictionariesRecord as any)[key];
         const localUpdatedAtRaw = (local as any)?.updatedAt as
           | number
