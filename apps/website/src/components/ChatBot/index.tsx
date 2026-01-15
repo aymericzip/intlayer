@@ -71,8 +71,12 @@ export const ChatBot: FC<ChatBotProps> = ({
 }) => {
   const [hasReachedRateLimit, setHasReachedRateLimit] = useState(false);
   const { mutate: askDocQuestion, isPending } = useAskDocQuestion();
-  const { firstMessageContent, rateLimitExceededMessage, signInButton } =
-    useIntlayer('chat');
+  const {
+    firstMessageContent,
+    rateLimitExceededMessage,
+    signInButton,
+    disclaimerNote,
+  } = useIntlayer('chat');
   const isFirstRender = useRef(true);
   const [currentResponse, setCurrentResponse] = useState('');
 
@@ -260,6 +264,10 @@ export const ChatBot: FC<ChatBotProps> = ({
           additionalButtons={additionalButtons}
           isActive={isActive}
         />
+
+        <p className="mx-auto mt-3 max-w-lg px-4 text-center text-neutral-500 text-xs dark:text-neutral-400">
+          {disclaimerNote}
+        </p>
       </div>
     </div>
   );
