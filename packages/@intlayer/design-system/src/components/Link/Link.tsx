@@ -70,7 +70,7 @@ export const linkVariants = cva(
     variants: {
       variant: {
         [`${LinkVariant.DEFAULT}`]:
-          'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0 hover:underline',
+          'h-auto justify-start border-inherit bg-current/0 px-1 decoration-1 underline-offset-4 hover:bg-current/0 hover:underline',
         [`${LinkVariant.INVISIBLE_LINK}`]:
           'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0',
 
