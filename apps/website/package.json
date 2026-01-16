@@ -59,7 +59,7 @@
     "@intlayer/editor-react": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "@next/third-parties": "16.1.1",
+    "@next/third-parties": "16.1.2",
     "@tanstack/react-query": "5.90.16",
     "babel-plugin-react-compiler": "1.0.0",
     "clsx": "2.1.1",
