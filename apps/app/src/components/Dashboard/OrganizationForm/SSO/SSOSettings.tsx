@@ -100,6 +100,7 @@ export const SSOSettings: FC = () => {
     samlConfig: samlConfigContent,
     oidcConfig: oidcConfigContent,
     saveButton,
+    removeSSOProvider,
   } = useIntlayer('sso-settings');
 
   // Get existing SSO provider for this organization
@@ -298,9 +299,9 @@ export const SSOSettings: FC = () => {
                     onClick={handleDeleteProvider}
                     isLoading={isPendingDelete}
                     disabled={!isOrganizationAdmin}
-                    label="Remove SSO provider"
+                    label={removeSSOProvider.label.value}
                   >
-                    Remove
+                    {removeSSOProvider.text}
                   </Button>
                 </div>
               </Container>
