@@ -549,4 +549,4 @@ Se riscontri problemi con il CMS, verifica quanto segue:
 
 - Assicurati che la configurazione del progetto sia stata inviata al CMS di Intlayer.
 
-- L'editor visivo utilizza un iframe per visualizzare il tuo sito web. Assicurati che la Content Security Policy (CSP) del tuo sito consenta l'URL del CMS come `frame-ancestors` ('https://intlayer.org' per impostazione predefinita). Controlla la console dell'editor per eventuali errori.
+- L'editor visivo utilizza un iframe per visualizzare il tuo sito web. Assicurati che la Content Security Policy (CSP) del tuo sito consenta l'URL del CMS come `frame-ancestors` ('https://app.intlayer.org' per impostazione predefinita). Controlla la console dell'editor per eventuali errori.

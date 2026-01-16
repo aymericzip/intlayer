@@ -566,4 +566,4 @@ Jika Anda mengalami masalah dengan CMS, periksa hal-hal berikut:
 
 - Pastikan konfigurasi proyek telah dipush ke Intlayer CMS.
 
-- Visual editor menggunakan iframe untuk menampilkan situs web Anda. Pastikan Content Security Policy (CSP) situs web Anda mengizinkan URL CMS sebagai `frame-ancestors` ('https://intlayer.org' secara default). Periksa konsol editor untuk setiap kesalahan.
+- Visual editor menggunakan iframe untuk menampilkan situs web Anda. Pastikan Content Security Policy (CSP) situs web Anda mengizinkan URL CMS sebagai `frame-ancestors` ('https://app.intlayer.org' secara default). Periksa konsol editor untuk setiap kesalahan.

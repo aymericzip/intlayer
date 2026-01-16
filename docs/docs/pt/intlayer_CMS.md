@@ -549,4 +549,4 @@ Notas e restrições:
 
 - Certifique-se de que a configuração do projeto foi enviada para o Intlayer CMS.
 
-- O editor visual usa um iframe para exibir seu site. Certifique-se de que a Política de Segurança de Conteúdo (CSP) do seu site permita a URL do CMS como `frame-ancestors` ('https://intlayer.org' por padrão). Verifique o console do editor para qualquer erro.
+- O editor visual usa um iframe para exibir seu site. Certifique-se de que a Política de Segurança de Conteúdo (CSP) do seu site permita a URL do CMS como `frame-ancestors` ('https://app.intlayer.org' por padrão). Verifique o console do editor para qualquer erro.
