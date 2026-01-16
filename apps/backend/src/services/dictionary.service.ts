@@ -20,13 +20,16 @@ import type { Project } from '@/types/project.types';
  * @param filters - MongoDB filter query.
  * @param skip - Number of documents to skip.
  * @param limit - Number of documents to limit.
+ * @param sortOptions - Sorting options.
+ * @param includeContent - Whether to include the dictionary content.
  * @returns List of dictionaries matching the filters.
  */
 export const findDictionaries = async (
   filters: DictionaryFilters,
   skip = 0,
   limit = 100,
-  sortOptions?: Record<string, 1 | -1>
+  sortOptions?: Record<string, 1 | -1>,
+  includeContent = true
 ): Promise<DictionaryDocument[]> => {
   try {
     const dictionaries = await DictionaryModel.aggregate<DictionaryDocument>([
@@ -43,6 +46,9 @@ export const findDictionaries = async (
 
       // Stage 4: Limit the number of documents
       { $limit: limit },
+
+      // Stage 5: Project to include/exclude content
+      ...(!includeContent ? [{ $project: { content: 0 } }] : []),
     ]);
 
     const formattedResults = dictionaries.map(

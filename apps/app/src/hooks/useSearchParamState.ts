@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 type ParamType = 'string' | 'number' | 'boolean';
 
@@ -88,6 +88,11 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
 ) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const searchParamsRef = useRef(searchParams);
+
+  useEffect(() => {
+    searchParamsRef.current = searchParams;
+  }, [searchParams]);
 
   const computeInitialState = useCallback((): StateFromConfig<TConfig> => {
     const nextState: Record<string, unknown> = {};
@@ -118,7 +123,7 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
 
   const updateUrl = useCallback(
     (updates: Partial<Record<keyof TConfig, string | null>>) => {
-      const params = new URLSearchParams(searchParams.toString());
+      const params = new URLSearchParams(searchParamsRef.current.toString());
       for (const [key, value] of Object.entries(updates)) {
         if (value === null || typeof value !== 'string') params.delete(key);
         else params.set(key, value);
@@ -127,7 +132,7 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
       const url = qs ? `?${qs}` : '?';
       router.push(url);
     },
-    [router, searchParams]
+    [router]
   );
 
   const setParam = useCallback(
@@ -154,7 +159,11 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
   );
 
   const setParams = useCallback(
-    (updates: Partial<StateFromConfig<TConfig>>) => {
+    (
+      updates: Partial<{
+        [K in keyof TConfig]: StateFromConfig<TConfig>[K] | null;
+      }>
+    ) => {
       const urlUpdates: Partial<Record<keyof TConfig, string | null>> = {};
       const nextState: Partial<StateFromConfig<TConfig>> = {};
 

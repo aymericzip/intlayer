@@ -3,6 +3,7 @@
 import { ButtonColor, ButtonSize, ButtonVariant } from '@components/Button';
 import { Container } from '@components/Container';
 import { Form, useForm } from '@components/Form';
+import { Checkbox } from '@components/Input';
 import { Loader } from '@components/Loader';
 import { MultiSelect } from '@components/Select';
 import {
@@ -20,10 +21,12 @@ import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
+  mode: ('local' | 'remote')[];
 };
 
 export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   dictionary,
+  mode,
 }) => {
   const { session } = useSession();
   const { project } = session ?? {};
@@ -43,6 +46,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     descriptionInput,
     projectInput,
     tagsSelect,
+    locationSelect,
+    filePathInput,
     auditButton,
   } = useIntlayer('dictionary-details');
   const { mutate: auditContentDeclaration, isPending: isAuditing } =
@@ -161,10 +166,102 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           }}
         />
         <div className="flex size-full flex-1 gap-8 max-md:flex-col">
+          <div className="flex flex-col gap-2">
+            <Form.Label info={locationSelect.description.value}>
+              {locationSelect.label}
+            </Form.Label>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  id="location-local"
+                  name="location-local"
+                  checked={
+                    form.watch('location') === 'local' ||
+                    form.watch('location') === 'local&remote'
+                  }
+                  disabled={!mode.includes('local')}
+                  onChange={(e) => {
+                    const isChecked = e.target.checked;
+                    const isRemote =
+                      form.getValues('location') === 'remote' ||
+                      form.getValues('location') === 'local&remote';
+                    let newLocation: Dictionary['location'];
+                    if (isChecked) {
+                      newLocation = isRemote ? 'local&remote' : 'local';
+                    } else {
+                      newLocation = isRemote ? 'remote' : 'local';
+                    }
+                    form.setValue('location', newLocation);
+                    setEditedDictionary((prev) => ({
+                      ...dictionary,
+                      ...(prev ?? {}),
+                      location: newLocation,
+                    }));
+                  }}
+                />
+                <label htmlFor="location-local" className="text-sm">
+                  {locationSelect.local.value}
+                </label>
+              </div>
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  id="location-remote"
+                  name="location-remote"
+                  checked={
+                    form.watch('location') === 'remote' ||
+                    form.watch('location') === 'local&remote'
+                  }
+                  disabled={!mode.includes('remote')}
+                  onChange={(e) => {
+                    const isChecked = e.target.checked;
+                    const isLocal =
+                      form.getValues('location') === 'local' ||
+                      form.getValues('location') === 'local&remote';
+                    let newLocation: Dictionary['location'];
+                    if (isChecked) {
+                      newLocation = isLocal ? 'local&remote' : 'remote';
+                    } else {
+                      newLocation = isLocal ? 'local' : 'remote';
+                    }
+                    form.setValue('location', newLocation);
+                    setEditedDictionary((prev) => ({
+                      ...dictionary,
+                      ...(prev ?? {}),
+                      location: newLocation,
+                    }));
+                  }}
+                />
+                <label htmlFor="location-remote" className="text-sm">
+                  {locationSelect.remote}
+                </label>
+              </div>
+            </div>
+          </div>
+
+          {(form.watch('location') === 'local' ||
+            form.watch('location') === 'local&remote') && (
+            <Form.EditableFieldInput
+              name="filePath"
+              label={filePathInput.label}
+              placeholder={filePathInput.placeholder.value}
+              description={filePathInput.description}
+              disabled={isSubmitting}
+              onSave={(value) => {
+                form.setValue('filePath', value);
+                setEditedDictionary((prev) => ({
+                  ...dictionary,
+                  ...(prev ?? {}),
+                  filePath: value,
+                }));
+              }}
+            />
+          )}
+        </div>
+        <div className="flex size-full flex-1 gap-8 max-md:flex-col">
           <Form.MultiSelect
             name="projectIds"
             label={projectInput.label.value}
-            description={projectInput.description.value}
+            description={projectInput.description}
             onValueChange={(value) => {
               const valueArray = [value].flat();
               form.setValue('projectIds', valueArray);
@@ -202,7 +299,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           <Form.MultiSelect
             name="tags"
             label={tagsSelect.label.value}
-            description={tagsSelect.description.value}
+            description={tagsSelect.description}
             onValueChange={(value) => {
               form.setValue('tags', [value].flat());
               setEditedDictionary((prev) => ({

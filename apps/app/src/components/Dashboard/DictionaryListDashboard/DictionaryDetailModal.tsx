@@ -25,23 +25,19 @@ export const DictionaryDetailModal: FC<DictionaryDetailModalProps> = ({
   const dictionary = dictionaryResult?.data;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl">
-      <div className="flex h-[80vh] w-full flex-col overflow-hidden p-4">
-        <Suspense fallback={<Loader />}>
-          <Loader isLoading={!dictionary || isPending}>
-            <EditorConfigurationProvider>
-              {dictionary && (
-                <DictionaryFieldEditor
-                  dictionary={dictionary}
-                  isDarkMode={resolvedTheme === 'dark'}
-                  mode={['remote']}
-                  onDelete={onClose}
-                />
-              )}
-            </EditorConfigurationProvider>
-          </Loader>
-        </Suspense>
-      </div>
+    <Modal isOpen={isOpen} onClose={onClose} padding="md">
+      <Loader isLoading={!dictionary || isPending}>
+        <EditorConfigurationProvider>
+          {dictionary && (
+            <DictionaryFieldEditor
+              dictionary={dictionary}
+              isDarkMode={resolvedTheme === 'dark'}
+              mode={['remote']}
+              onDelete={onClose}
+            />
+          )}
+        </EditorConfigurationProvider>
+      </Loader>
     </Modal>
   );
 };

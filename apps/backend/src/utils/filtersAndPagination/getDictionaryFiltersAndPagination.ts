@@ -24,6 +24,9 @@ export type DictionaryFiltersParams = {
   key?: string;
   keys?: string[];
   tags?: string | string[];
+  location?: 'remote' | 'local' | 'both' | 'none';
+  priority?: string;
+  live?: 'true' | 'false';
   version?: string;
   search?: string;
   sortBy?: string;
@@ -63,6 +66,9 @@ export const getDictionaryFiltersAndPagination = (
     search,
     keys,
     tags,
+    location,
+    priority,
+    live,
     ids,
     projectId,
     projectIds,
@@ -139,7 +145,7 @@ export const getDictionaryFiltersAndPagination = (
         { key: searchRegex },
         { title: searchRegex },
         { description: searchRegex },
-        { tags: { $in: [searchRegex] } },
+        { tags: searchRegex },
       ],
     };
   }
@@ -152,8 +158,20 @@ export const getDictionaryFiltersAndPagination = (
     filters = { ...filters, tags: { $in: ensureArrayQueryFilter(tags) } };
   }
 
+  if (location === 'local') {
+    filters = { ...filters, _id: null };
+  }
+
+  if (priority) {
+    filters = { ...filters, priority: Number(priority) };
+  }
+
+  if (typeof live !== 'undefined') {
+    filters = { ...filters, live: live === 'true' };
+  }
+
   if (version) {
-    filters = { ...filters, content: { [version]: `$content.${version}` } };
+    filters = { ...filters, [`content.${version}`]: { $exists: true } };
   }
 
   if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {

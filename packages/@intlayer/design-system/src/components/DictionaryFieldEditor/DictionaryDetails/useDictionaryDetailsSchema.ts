@@ -15,6 +15,10 @@ export const useDictionaryDetailsSchema = (projectId: string) => {
     requiredErrorProjectId,
     invalidTypeErrorProjectId,
     invalidTypeErrorTags,
+    locationRequiredError,
+    locationInvalidTypeError,
+    filePathRequiredError,
+    filePathInvalidTypeError,
   } = useIntlayer('dictionary-detail-schema');
 
   return z.object({
@@ -74,6 +78,22 @@ export const useDictionaryDetailsSchema = (projectId: string) => {
         })
       )
       .default([]),
+    location: z
+      .enum(['local', 'remote', 'local&remote', 'plugin'], {
+        error: (issue) =>
+          issue.input === undefined
+            ? locationRequiredError.value
+            : locationInvalidTypeError.value,
+      })
+      .optional(),
+    filePath: z
+      .string({
+        error: (issue) =>
+          issue.input === undefined
+            ? filePathRequiredError.value
+            : filePathInvalidTypeError.value,
+      })
+      .optional(),
   });
 };
 

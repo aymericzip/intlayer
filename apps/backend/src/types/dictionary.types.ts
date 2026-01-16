@@ -49,6 +49,7 @@ export type DictionaryAPI = ObjectIdToString<
   DictionaryCore & {
     projectIds: (Project['id'] | string)[];
     updatedAt: number;
+    createdAt: number;
   }
 >;
 
