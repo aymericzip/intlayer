@@ -5,6 +5,7 @@ export * from './getStorageAttributes';
 export * from './interpreter/index';
 export * from './localization/getLocale';
 export * from './localization/index';
+export * from './markdown/index';
 export * from './transpiler/index';
 export * from './utils/checkIsURLAbsolute';
 export * from './utils/getCookie';

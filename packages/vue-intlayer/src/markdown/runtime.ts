@@ -25,10 +25,27 @@ import {
 } from 'vue';
 
 /**
- * Checks if a type is a Vue component (vs a native HTML tag string).
+ * Checks if a type is a user-defined Vue component that needs slot-based children.
+ *
+ * IMPORTANT: This must NOT return true for:
+ * - Strings (native HTML tags like 'div', 'span')
+ * - Vue's Fragment symbol (expects children directly, not slots)
+ * - Vue's Teleport, Suspense, etc. (internal components)
+ *
+ * Only user-defined components (objects with render/setup, or functional components)
+ * need children passed as slot functions.
  */
-const isComponent = (type: unknown): type is Component => {
-  return typeof type !== 'string';
+const isUserComponent = (type: unknown): boolean => {
+  // Strings are native HTML tags
+  if (typeof type === 'string') return false;
+
+  // Symbols are Vue internal types (Fragment, Teleport, Suspense, etc.)
+  // These expect children directly, not as slots
+  if (typeof type === 'symbol') return false;
+
+  // Functions and objects are user-defined components
+  // These need children as slot functions per Vue docs
+  return typeof type === 'function' || typeof type === 'object';
 };
 
 /**
@@ -43,6 +60,9 @@ export const vueRuntime: MarkdownRuntime = {
    * Per Vue docs: "When creating component vnodes, children must be passed
    * as slot functions." This is critical for component overrides to work.
    *
+   * HOWEVER: Vue's internal types (Fragment, Teleport, Suspense) are symbols
+   * and expect children directly as arrays, NOT as slot functions.
+   *
    * @see https://vuejs.org/guide/extras/render-function.html#passing-slots
    */
   createElement: (
@@ -50,21 +70,23 @@ export const vueRuntime: MarkdownRuntime = {
     props: Record<string, any> | null,
     ...children: any[]
   ): VNodeChild => {
-    // No children case - simple for both tags and components
+    // No children case - simple for all types
     if (children.length === 0) {
       return h(type as any, props);
     }
 
-    // For components, children MUST be passed as slot functions
+    // For user-defined components, children MUST be passed as slot functions
     // This is required by Vue's render function API
-    if (isComponent(type)) {
+    // BUT NOT for Fragment/Teleport/Suspense (which are symbols)
+    if (isUserComponent(type)) {
       const slots = {
         default: () => children,
       };
       return h(type as any, props, slots);
     }
 
-    // For native HTML tags, pass children directly
+    // For native HTML tags AND Vue internal types (Fragment, etc.),
+    // pass children directly
     if (children.length === 1) {
       return h(type as any, props, children[0]);
     }

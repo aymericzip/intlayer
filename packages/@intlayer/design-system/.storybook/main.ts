@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-vite';
+import { resolve } from 'path';
 import { defineConfig, mergeConfig } from 'vite';
 import { intlayer } from 'vite-intlayer';
 
@@ -44,6 +45,16 @@ const config: StorybookConfig = {
         },
       },
       plugins: [intlayer(), tailwindcss()],
+      resolve: {
+        alias: {
+          '@components': resolve(__dirname, '../src/components'),
+          '@utils': resolve(__dirname, '../src/utils'),
+          '@libs': resolve(__dirname, '../src/libs'),
+          '@hooks': resolve(__dirname, '../src/hooks'),
+          '@providers': resolve(__dirname, '../src/providers'),
+          '@': resolve(__dirname, '../src'),
+        },
+      },
       build: {
         // Optional: avoid the sourcemap location spam
         sourcemap: false,

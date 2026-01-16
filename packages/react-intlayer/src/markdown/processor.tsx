@@ -131,8 +131,9 @@ const createReactRuntime = (
 
 /**
  * Compile markdown to React elements.
+ * This is the primary export - use this for new code.
  */
-export const compiler = (
+export const compileMarkdown = (
   markdown: string = '',
   options: MarkdownProcessorOptions = {}
 ): JSX.Element => {
@@ -176,7 +177,9 @@ export const compiler = (
   return coreCompile(markdown, ctx, compilerOptions) as JSX.Element;
 };
 
-export const compile = compiler;
+// Backward compatibility aliases
+export const compiler = compileMarkdown;
+export const compile = compileMarkdown;
 
 /**
  * React component that renders markdown to JSX.

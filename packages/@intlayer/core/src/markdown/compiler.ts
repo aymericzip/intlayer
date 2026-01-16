@@ -409,6 +409,73 @@ const createRules = (
   };
 
   // ============================================================================
+  // BLOCK SYNTAX PATTERNS (needed for paragraph matching)
+  // ============================================================================
+
+  // Build syntax patterns for block detection
+  const NON_PARAGRAPH_BLOCK_SYNTAXES = [
+    BLOCKQUOTE_R,
+    CODE_BLOCK_FENCED_R,
+    CODE_BLOCK_R,
+    options.enforceAtxHeadings ? HEADING_ATX_COMPLIANT_R : HEADING_R,
+    HEADING_SETEXT_R,
+    NP_TABLE_R,
+    ORDERED_LIST_R,
+    UNORDERED_LIST_R,
+  ];
+
+  /**
+   * Custom paragraph matcher that returns content at index 2 for parseCaptureInline.
+   * parseCaptureInline expects the inner content to be at index 2
+   * because index 1 is the delimiter for text formatting syntaxes.
+   */
+  const matchParagraph = (
+    source: string,
+    state: ParseState
+  ): RegExpMatchArray | null => {
+    if (
+      state.inline ||
+      state.simple ||
+      (state.inHTML &&
+        source.indexOf('\n\n') === -1 &&
+        state.prevCapture?.indexOf('\n\n') === -1)
+    ) {
+      return null;
+    }
+
+    let start = 0;
+
+    while (true) {
+      const newlineIndex = source.indexOf('\n', start);
+
+      // Extract the line including the newline
+      const line = source.slice(
+        start,
+        newlineIndex === -1 ? undefined : newlineIndex + 1
+      );
+      if (some(NON_PARAGRAPH_BLOCK_SYNTAXES, line)) {
+        break;
+      }
+      // Stop if line has no content (empty line)
+      if (newlineIndex === -1 || !line.trim()) {
+        break;
+      }
+
+      start = newlineIndex + 1;
+    }
+
+    // Capture everything we advanced over
+    const match = source.slice(0, start);
+    const captured = trimEnd(match);
+    if (captured === '') {
+      return null;
+    }
+
+    // parseCaptureInline expects the inner content to be at index 2
+    return [match, undefined, captured] as unknown as RegExpMatchArray;
+  };
+
+  // ============================================================================
   // RULES DEFINITION
   // ============================================================================
 
@@ -915,7 +982,7 @@ const createRules = (
     [RuleType.unorderedList]: generateListRule(UNORDERED),
 
     [RuleType.paragraph]: {
-      _match: blockRegex(PARAGRAPH_R),
+      _match: allowInline(matchParagraph),
       _order: Priority.LOW,
       _parse: parseCaptureInline,
       _render(
@@ -1241,37 +1308,6 @@ export const compile = (
   // Footnotes storage
   const footnotes: FootnoteDef[] = [];
 
-  // Build syntax patterns for block detection
-  const NON_PARAGRAPH_BLOCK_SYNTAXES = [
-    BLOCKQUOTE_R,
-    CODE_BLOCK_FENCED_R,
-    CODE_BLOCK_R,
-    options.enforceAtxHeadings ? HEADING_ATX_COMPLIANT_R : HEADING_R,
-    HEADING_SETEXT_R,
-    NP_TABLE_R,
-    ORDERED_LIST_R,
-    UNORDERED_LIST_R,
-  ];
-
-  const BLOCK_SYNTAXES = [
-    ...NON_PARAGRAPH_BLOCK_SYNTAXES,
-    PARAGRAPH_R,
-    HTML_BLOCK_ELEMENT_R,
-    HTML_COMMENT_R,
-    HTML_SELF_CLOSING_ELEMENT_R,
-    CUSTOM_COMPONENT_R,
-  ];
-
-  const containsBlockSyntax = (input: string): boolean => {
-    const cleaned = input.replace(TRIM_STARTING_NEWLINES, '');
-    const slice = cleaned.length > 2048 ? cleaned.slice(0, 2048) : cleaned;
-    const syntaxes = options.disableParsingRawHTML
-      ? [...NON_PARAGRAPH_BLOCK_SYNTAXES, PARAGRAPH_R, CUSTOM_COMPONENT_R]
-      : BLOCK_SYNTAXES;
-
-    return some(syntaxes, slice);
-  };
-
   // Attribute string to map function
   const attrStringToMap = (
     tag: HTMLTag,
@@ -1328,6 +1364,37 @@ export const compile = (
     }
 
     return result;
+  };
+
+  // Build syntax patterns for block detection
+  const NON_PARAGRAPH_BLOCK_SYNTAXES = [
+    BLOCKQUOTE_R,
+    CODE_BLOCK_FENCED_R,
+    CODE_BLOCK_R,
+    options.enforceAtxHeadings ? HEADING_ATX_COMPLIANT_R : HEADING_R,
+    HEADING_SETEXT_R,
+    NP_TABLE_R,
+    ORDERED_LIST_R,
+    UNORDERED_LIST_R,
+  ];
+
+  const BLOCK_SYNTAXES = [
+    ...NON_PARAGRAPH_BLOCK_SYNTAXES,
+    PARAGRAPH_R,
+    HTML_BLOCK_ELEMENT_R,
+    HTML_COMMENT_R,
+    HTML_SELF_CLOSING_ELEMENT_R,
+    CUSTOM_COMPONENT_R,
+  ];
+
+  const containsBlockSyntax = (input: string): boolean => {
+    const cleaned = input.replace(TRIM_STARTING_NEWLINES, '');
+    const slice = cleaned.length > 2048 ? cleaned.slice(0, 2048) : cleaned;
+    const syntaxes = options.disableParsingRawHTML
+      ? [...NON_PARAGRAPH_BLOCK_SYNTAXES, PARAGRAPH_R, CUSTOM_COMPONENT_R]
+      : BLOCK_SYNTAXES;
+
+    return some(syntaxes, slice);
   };
 
   // Create rules
