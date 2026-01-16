@@ -1,8 +1,20 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, md, t } from 'intlayer';
 
 const homeContent = {
   key: 'home',
   content: {
+    // Markdown demo using the new vue-intlayer/markdown adapter
+    markdown: md(`## Hello from Vue Markdown!
+
+This is **bold** and this is *italic*.
+
+- List item 1
+- List item 2
+- List item 3
+
+\`inline code\` and a [link](https://intlayer.org)
+`),
+
     welcome: t({
       en: 'Welcome to Our App',
       fr: 'Bienvenue dans Notre Application',

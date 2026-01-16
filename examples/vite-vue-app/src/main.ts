@@ -1,6 +1,6 @@
-import MarkdownIt from 'markdown-it';
-import { createApp, h } from 'vue';
+import { createApp } from 'vue';
 import { installIntlayer, installIntlayerMarkdown } from 'vue-intlayer';
+import { compileMarkdown } from 'vue-intlayer/markdown';
 import App from './App.vue';
 import { router } from './routes';
 import './style.css';
@@ -13,17 +13,9 @@ app.use(router);
 // Inject the provider at the top level
 installIntlayer(app); // provide the singleton instance
 
-const md = new MarkdownIt({
-  html: true, // allow HTML tags
-  linkify: true, // auto-link URLs
-  typographer: true, // enable smart quotes, dashes, etc.
-});
-
-// Tell Intlayer to use md.render() whenever it needs to turn markdown into HTML
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h('div', { innerHTML: html });
-});
+// Use the new framework-agnostic markdown compiler from vue-intlayer/markdown
+// This uses the core @intlayer/core markdown processor with Vue-specific runtime
+installIntlayerMarkdown(app, (markdown) => compileMarkdown(markdown));
 
 // Mount the app
 app.mount('#app');

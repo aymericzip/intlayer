@@ -1,6 +1,7 @@
 import { localeMap } from 'intlayer'; // Utility functions and types from 'intlayer'
 import type { FC, PropsWithChildren } from 'react'; // React types for functional components and props
 import { IntlayerProvider } from 'react-intlayer'; // Provider for internationalization context
+import { compileMarkdown, MarkdownProvider } from 'react-intlayer/markdown'; // Markdown rendering
 import { BrowserRouter, Route, Routes } from 'react-router-dom'; // Router components for managing navigation
 
 /**
@@ -16,8 +17,12 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           path={`${urlPrefix}/*`}
           key={locale}
           element={
-            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
-          } // Wraps children with locale management
+            <IntlayerProvider locale={locale}>
+              <MarkdownProvider renderMarkdown={(md) => compileMarkdown(md)}>
+                {children}
+              </MarkdownProvider>
+            </IntlayerProvider>
+          } // Wraps children with locale management and markdown rendering
         />
       ))}
     </Routes>
